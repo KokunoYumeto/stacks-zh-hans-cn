@@ -1,0 +1,3604 @@
+% Generated mechanically from the frozen stacks-cohomology.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{102}
+\chapter{代数叠的上同调}
+
+
+\phantomsection
+\label{stacks-cohomology-section-phantom}
+
+
+
+
+
+\section{引言}
+\label{stacks-cohomology-section-introduction}
+
+\noindent
+本章讨论代数叠的上同调，尤其包括拟凝聚层的上同调；
+也就是说，我们将证明与《概形的上同调》和《代数空间的上同调》
+两章结果相对应的结论。本章的结果与 \cite{LM-B} 中结果的主要区别是，
+我们始终使用“大 site”。阅读本章之前，请先快速浏览《代数叠上的层》一章，
+以熟悉其中引入的术语；参见《叠上的层》第
+\ref{stacks-sheaves-section-introduction} 节。
+
+
+
+\section{约定与语言滥用}
+\label{stacks-cohomology-section-conventions}
+
+\noindent
+我们继续采用《叠的性质》第
+\ref{stacks-properties-section-conventions} 节中引入的约定和语言滥用。
+
+
+
+
+
+
+
+
+\section{记号}
+\label{stacks-cohomology-section-notation}
+
+\noindent
+不同的拓扑。若用花体字母表示代数叠，例如
+$\mathcal{X}, \mathcal{Y}, \mathcal{Z}$，则记号
+$\mathcal{X}_{Zar}, \mathcal{X}_\etale, \mathcal{X}_{smooth},
+\mathcal{X}_{syntomic}, \mathcal{X}_{fppf}$ 表示《叠上的层》定义
+\ref{stacks-sheaves-definition-inherited-topologies} 中引入的 site
+（可将其理解为“大 site”）。相应地，$\mathcal{X}$ 的结构层是
+$\mathcal{X}_{fppf}$ 上的层。另一方面，代数空间和概形通常以正体大写字母
+表示，例如 $X, Y, Z$；在这种情形下，$X_\etale$ 表示 $X$ 的小 \'etale site
+（定义见《拓扑》定义
+\ref{topologies-definition-big-small-etale} 或《空间的性质》定义
+\ref{spaces-properties-definition-etale-site}）。二者的区别应当足够清楚。
+
+\medskip\noindent
+默认拓扑为 fppf 拓扑。因此，当我们所指的是 $\mathcal{X}_{fppf}$ 上的层
+或 $\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$ 的对象时，
+有时会简称“$\mathcal{X}$ 上的层”或“$\mathcal{O}_\mathcal{X}$-模层”。
+
+\medskip\noindent
+若 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射，
+则对上述任一拓扑，预层上的函子 $f_*$ 和 $f^{-1}$ 都保持层。
+因此，讨论层的直像或逆像时无需说明所采用的拓扑；但在计算上同调群和（或）
+高阶直像时并非如此，此时我们总会明确所采用的拓扑。
+
+\medskip\noindent
+设 $f : X \to \mathcal{Y}$ 是从代数空间 $X$ 到代数叠
+$\mathcal{Y}$ 的态射，并设 $\mathcal{G}$ 是某个拓扑 $\tau$ 下
+$\mathcal{Y}_\tau$ 上的层。此时 $f^{-1}\mathcal{G}$ 是
+$\mathcal{S}_X$（与 $X$ 相伴的代数叠）上 $\tau$ 拓扑的层，
+因为按照我们的约定，$f$ 实际上是一个 $1$-态射
+$f : \mathcal{S}_X \to \mathcal{Y}$。若 $\tau = \etale$ 或更强，
+则以 $f^{-1}\mathcal{G}|_{X_\etale}$ 表示它在 $X$ 的 \'etale site 上的限制；
+参见《叠上的层》第 \ref{stacks-sheaves-section-compare} 节。
+若 $\mathcal{G}$ 是 $\mathcal{O}_\mathcal{X}$-模层，
+我们有时改写为 $f^*\mathcal{G}$ 和 $f^*\mathcal{G}|_{X_\etale}$。
+
+
+
+
+\section{拟凝聚模的拉回}
+\label{stacks-cohomology-section-pullback}
+
+\noindent
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射。
+赋环拓扑斯上的拟凝聚模与拉回相容，这是一个非常一般的事实。
+特别地，拉回 $f^*$ 保持拟凝聚模，从而得到函子
+$$
+f^* :
+\QCoh(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X}),
+$$
+参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-quasi-coherent}。
+一般而言，该函子并不正合；但当 $f$ 平坦时，它是正合的。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-flat-pullback-quasi-coherent}
+若 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的平坦态射，
+则 $f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$ 是正合函子。
+\end{lemma}
+
+\begin{proof}
+选择概形 $V$ 以及满的光滑态射 $V \to \mathcal{Y}$。
+再选择概形 $U$ 以及满的光滑态射
+$U \to V \times_\mathcal{Y} \mathcal{X}$。
+由于 $U \to \mathcal{X}$ 是两个此类态射的复合，它仍然光滑且满。
+由交换图
+$$
+\xymatrix{
+U \ar[d] \ar[r]_{f'} & V \ar[d] \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+得到阿贝尔范畴的交换图
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_U) & \QCoh(\mathcal{O}_V) \ar[l] \\
+\QCoh(\mathcal{O}_\mathcal{X}) \ar[u] &
+\QCoh(\mathcal{O}_\mathcal{Y}) \ar[l] \ar[u]
+}
+$$
+我们关于该图下方两个范畴为阿贝尔范畴的证明表明，竖直函子都是忠实正合函子
+（参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack} 的证明）。
+按照代数叠平坦态射的定义，$f'$ 是概形之间的平坦态射，
+故 $(f')^*$ 在 $V$ 上的拟凝聚层范畴中是正合函子，结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-quasi-coherent-check-exact}
+设 $\mathcal{X}$ 为代数叠，$I$ 为集合；对每个 $i \in I$，
+设 $x_i : U_i \to \mathcal{X}$ 是 $\mathcal{X}$ 的一个对象。
+假设 $x_i$ 平坦，且
+$\coprod x_i : \coprod U_i \to \mathcal{X}$ 为满射。
+设 $\varphi : \mathcal{F} \to \mathcal{G}$ 是
+$\QCoh(\mathcal{O}_\mathcal{X})$ 中的箭头，并以 $\varphi_i$
+表示 $\varphi$ 在 $(U_i)_\etale$ 上的限制。
+则 $\varphi$ 为单射、满射或同构，当且仅当每个 $\varphi_i$ 分别具有相应性质。
+\end{lemma}
+
+\begin{proof}
+选择概形 $U$ 以及满的光滑态射 $x : U \to \mathcal{X}$，
+并将 $x$ 视为 $\mathcal{X}$ 的一个对象。由此得到某个空间群胚
+$(U, R, s, t, c)$ 给出的表示 $\mathcal{X} = [U/R]$，以及相应的等价
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) = \QCoh(U, R, s, t, c)
+$$
+参见《叠上的层》第
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks} 节中的讨论。
+右端的阿贝尔范畴结构满足：$\varphi$ 为单射、满射或同构，当且仅当
+$\varphi|_{U_\etale}$ 分别具有相应性质；参见《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-abelian}。
+
+\medskip\noindent
+% P12-ERR-0010: see ../control/ERRATA_CANDIDATES.jsonl
+对每个 $i$，选择由概形组成的 \'etale 覆盖
+$\{W_{i, j} \to V \times_\mathcal{X} U_i\}_{j \in J_i}$。
+以 $g_{i, j} : W_{i, j} \to V$ 和
+$h_{i, j} : W_{i, j} \to U_i$ 表示显然的箭头。
+每个概形态射 $g_{i, j} : W_{i, j} \to U$ 都是平坦的，且它们联合满射。
+类似地，对每个固定的 $i$，概形态射
+$h_{i, j} : W_{i, j} \to U_i$ 都是平坦的，且联合满射。
+由《叠上的层》引理 \ref{stacks-sheaves-lemma-quasi-coherent}，
+$\varphi|_{U_\etale}$ 沿 $(g_{i, j})_{small}$ 的拉回是
+$\varphi|_{(W_{i, j})_\etale}$，而
+$\varphi|_{(U_i)_\etale}$ 沿 $(h_{i, j})_{small}$ 的拉回也是
+$\varphi|_{(W_{i, j})_\etale}$。
+概形之间的平坦态射对拟凝聚模的拉回是正合的；
+沿一族联合满射的概形平坦态射拉回，会反映拟凝聚模的单射、满射和双射
+（事实上，这对所有模都成立，因为可在茎上检验正合性）。因此
+$$
+\varphi|_{U_\etale} \text{ 单射}
+\Leftrightarrow
+\varphi|_{(W_{i, j})_\etale} \text{ 对所有 }i,j\text{ 均为单射}
+\Leftrightarrow
+\varphi|_{(U_i)_\etale} \text{ 对所有 }i\text{ 均为单射}
+$$
+证明完毕。
+\end{proof}
+
+
+\section{各类模的高阶直像}
+\label{stacks-cohomology-section-key}
+
+\noindent
+下述引理是理解若干类模层之高阶直像的基础。
+它有两个版本：一个用于 \'etale 拓扑，另一个用于 fppf 拓扑。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-general-pushforward}
+设 $\mathcal{M}$ 是一条规则，它为每个代数叠 $\mathcal{X}$ 指定
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+的一个子范畴 $\mathcal{M}_\mathcal{X}$，并满足：
+\begin{enumerate}
+\item 对每个代数叠 $\mathcal{X}$，$\mathcal{M}_\mathcal{X}$ 是
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 的弱 Serre 子范畴
+（参见《同调》定义 \ref{homology-definition-serre-subcategory}）；
+\item 对代数叠之间的光滑态射
+$f : \mathcal{Y} \to \mathcal{X}$，函子 $f^*$ 将
+$\mathcal{M}_\mathcal{X}$ 映入 $\mathcal{M}_\mathcal{Y}$；
+\item 若 $f_i : \mathcal{X}_i \to \mathcal{X}$ 是一族代数叠之间的
+光滑态射，且
+$|\mathcal{X}| = \bigcup |f_i|(|\mathcal{X}_i|)$，则
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 的对象
+$\mathcal{F}$ 属于 $\mathcal{M}_\mathcal{X}$，当且仅当对每个 $i$，
+$f_i^*\mathcal{F}$ 属于 $\mathcal{M}_{\mathcal{X}_i}$；
+\item 若 $f : \mathcal{Y} \to \mathcal{X}$ 是代数叠之间的态射，
+且 $\mathcal{X}$ 和 $\mathcal{Y}$ 均可由仿射概形表示，则 $R^if_*$
+将 $\mathcal{M}_\mathcal{Y}$ 映入 $\mathcal{M}_\mathcal{X}$。
+\end{enumerate}
+于是，对代数叠之间任意拟紧且拟分离的态射
+$f : \mathcal{Y} \to \mathcal{X}$，$R^if_*$ 将
+$\mathcal{M}_\mathcal{Y}$ 映入 $\mathcal{M}_\mathcal{X}$。
+（高阶直像在 \'etale 拓扑中计算。）
+\end{lemma}
+
+\begin{proof}
+设 $f : \mathcal{Y} \to \mathcal{X}$ 是代数叠之间拟紧且拟分离的态射，
+并设 $\mathcal{F}$ 是 $\mathcal{M}_\mathcal{Y}$ 的对象。
+选择满的光滑态射 $\mathcal{U} \to \mathcal{X}$，其中
+$\mathcal{U}$ 可由概形表示。由《叠上的层》引理
+\ref{stacks-sheaves-lemma-base-change-higher-direct-images}，
+取高阶直像与基变换可交换。假设 (2) 表明 $\mathcal{F}$ 在
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y}$ 上的拉回属于
+$\mathcal{M}_{\mathcal{U} \times_\mathcal{X} \mathcal{Y}}$，
+因为投影
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y} \to \mathcal{Y}$
+是光滑态射的基变换，因而光滑。于是由 (3)，可将
+$\mathcal{Y} \to \mathcal{X}$ 替换为投影
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y} \to \mathcal{U}$。
+换言之，可假设 $\mathcal{X}$ 可由概形表示。
+再用一次 (3)，可见该问题关于 $\mathcal{X}$ 是 Zariski 局部的，
+故可假设 $\mathcal{X}$ 可由仿射概形表示。由于 $f$ 拟紧，
+$\mathcal{Y}$ 也拟紧。因此可选择满的光滑态射
+$g : \mathcal{V} \to \mathcal{Y}$，其中 $\mathcal{V}$ 可由仿射概形表示。
+
+\medskip\noindent
+在这种情形下，有《叠上的层》命题
+\ref{stacks-sheaves-proposition-smooth-covering-compute-direct-image}
+给出的谱序列
+$$
+E_2^{p, q} = R^q(f \circ g_p)_*g_p^*\mathcal{F}
+\Rightarrow
+R^{p + q}f_*\mathcal{F}
+$$
+回顾这是第一象限谱序列，因此可使用《同调》引理
+\ref{homology-lemma-first-quadrant-ss} 的最后一部分。注意态射
+$$
+g_p : \mathcal{V}_p =
+\mathcal{V} \times_\mathcal{Y} \ldots \times_\mathcal{Y} \mathcal{V}
+\longrightarrow
+\mathcal{Y}
+$$
+是光滑的，因为它们是光滑态射 $g$ 的若干基变换的复合。
+因此由 (2)，层 $g_p^*\mathcal{F}$ 属于
+$\mathcal{M}_{\mathcal{V}_p}$。所以只需证明：
+$\mathcal{M}_{\mathcal{V}_p}$ 中对象沿态射
+$$
+\mathcal{V}_p =
+\mathcal{V} \times_\mathcal{Y} \ldots \times_\mathcal{Y} \mathcal{V}
+\longrightarrow
+\mathcal{X}
+$$
+的高阶直像属于 $\mathcal{M}_\mathcal{X}$。
+由《叠的态射》引理
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}，
+代数叠 $\mathcal{V}_p$ 拟紧且拟分离。当然，每个 $\mathcal{V}_p$
+都可由代数空间表示（因为代数叠 $\mathcal{Y}$ 的对角可由代数空间表示）。
+这把问题约化为如下情形：$\mathcal{Y}$ 可由代数空间表示，
+而 $\mathcal{X}$ 可由仿射概形表示。
+
+\medskip\noindent
+在 $\mathcal{Y}$ 可由代数空间表示且 $\mathcal{X}$ 可由仿射概形表示的情形，
+重新选择满的光滑态射 $\mathcal{V} \to \mathcal{Y}$，
+其中 $\mathcal{V}$ 可由仿射概形表示。再次沿用上述论证，
+又将问题约化到态射 $\mathcal{V}_p \to \mathcal{X}$。
+但在当前情形下，代数叠 $\mathcal{V}_p$ 可由拟紧且拟分离的概形表示
+（因为代数空间的对角可由概形表示）。
+
+\medskip\noindent
+因此，可假设 $\mathcal{Y}$ 可由概形表示，而 $\mathcal{X}$
+可由仿射概形表示。再次选择满的光滑态射
+$\mathcal{V} \to \mathcal{Y}$，其中 $\mathcal{V}$ 可由仿射概形表示。
+此时，所有代数叠 $\mathcal{V}_p$ 都可由分离概形表示
+（因为概形的对角是分离的）。
+
+\medskip\noindent
+因此，可假设 $\mathcal{Y}$ 可由分离概形表示，而 $\mathcal{X}$
+可由仿射概形表示。又一次选择满的光滑态射
+$\mathcal{V} \to \mathcal{Y}$，其中 $\mathcal{V}$ 可由仿射概形表示。
+此时所有代数叠 $\mathcal{V}_p$ 都可由仿射概形表示
+（因为分离概形的对角是闭浸入，因而是仿射的），
+故该情形由假设 (4) 处理。证明完毕。
+\end{proof}
+
+\noindent
+下面给出 fppf 拓扑的版本。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-general-pushforward-fppf}
+设 $\mathcal{M}$ 是一条规则，它为每个代数叠 $\mathcal{X}$ 指定
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ 的一个子范畴
+$\mathcal{M}_\mathcal{X}$，并满足：
+\begin{enumerate}
+% P12-ERR-0011: see ../control/ERRATA_CANDIDATES.jsonl
+\item $\mathcal{O}_\mathcal{X}$ 是
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ 的弱 Serre 子范畴，
+对所有代数叠 $\mathcal{X}$ 均如此；
+\item 对代数叠之间的光滑态射
+$f : \mathcal{Y} \to \mathcal{X}$，函子 $f^*$ 将
+$\mathcal{M}_\mathcal{X}$ 映入 $\mathcal{M}_\mathcal{Y}$；
+\item 若 $f_i : \mathcal{X}_i \to \mathcal{X}$ 是一族代数叠之间的
+光滑态射，且
+$|\mathcal{X}| = \bigcup |f_i|(|\mathcal{X}_i|)$，则
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ 的对象 $\mathcal{F}$
+属于 $\mathcal{M}_\mathcal{X}$，当且仅当对每个 $i$，
+$f_i^*\mathcal{F}$ 属于 $\mathcal{M}_{\mathcal{X}_i}$；
+\item 若 $f : \mathcal{Y} \to \mathcal{X}$ 是代数叠之间的态射，
+且 $\mathcal{X}$ 和 $\mathcal{Y}$ 均可由仿射概形表示，
+则 $R^if_*$ 将 $\mathcal{M}_\mathcal{Y}$ 映入
+$\mathcal{M}_\mathcal{X}$。
+\end{enumerate}
+于是，对代数叠之间任意拟紧且拟分离的态射
+$f : \mathcal{Y} \to \mathcal{X}$，$R^if_*$ 将
+$\mathcal{M}_\mathcal{Y}$ 映入 $\mathcal{M}_\mathcal{X}$。
+（高阶直像在 fppf 拓扑中计算。）
+\end{lemma}
+
+\begin{proof}
+与引理 \ref{stacks-cohomology-lemma-general-pushforward} 的证明相同。
+\end{proof}
+
+\section{局部拟凝聚模}
+\label{stacks-cohomology-section-locally-quasi-coherent}
+
+\noindent
+设 $\mathcal{X}$ 为代数叠，$\mathcal{F}$ 为
+$\mathcal{O}_\mathcal{X}$-模预层。可以问 $\mathcal{F}$ 是否
+{\it 局部拟凝聚}；参见《叠上的层》定义
+\ref{stacks-sheaves-definition-locally-quasi-coherent}。
+简言之，这表示 $\mathcal{F}$ 是 \'etale 拓扑下的
+$\mathcal{O}_\mathcal{X}$-模层，并且对任意态射
+$f : U \to \mathcal{X}$，限制 $f^*\mathcal{F}|_{U_\etale}$
+在 $U_\etale$ 上拟凝聚。（实际定义略有不同，但与此等价。）
+一个有用的事实是
+$$
+\textit{LQCoh}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+为弱 Serre 子范畴；参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-lqc-colimits}。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-check-lqc-on-etale-covering}
+设 $\mathcal{X}$ 为代数叠，且
+$f_j : \mathcal{X}_j \to \mathcal{X}$ 是一族代数叠之间的
+光滑态射，满足
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$。
+设 $\mathcal{F}$ 是 $\mathcal{X}_\etale$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。若每个 $f_j^{-1}\mathcal{F}$
+都局部拟凝聚，则 $\mathcal{F}$ 也局部拟凝聚。
+\end{lemma}
+
+\begin{proof}
+可以把每个代数叠 $\mathcal{X}_j$ 换成概形 $U_j$
+（这里用到任意代数叠都有概形给出的光滑覆盖，且光滑态射的复合仍光滑；
+参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-smooth}）。
+$\mathcal{F}$ 在 $(\Sch/U_j)_\etale$ 上的拉回仍然局部拟凝聚；
+参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-lqc}。
+于是 $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$
+是满的光滑态射。设 $x$ 为 $\mathcal{X}$ 的一个对象。
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}，
+存在 \'etale 覆盖 $\{x_i \to x\}_{i \in I}$，使每个 $x_i$
+都可提升为 $(\Sch/U)_\etale$ 的一个对象 $u_i$。
+这只是说，$x$ 和 $x_i$ 分别位于概形 $V$ 和 $V_i$ 上，
+$\{V_i \to V\}$ 是 \'etale 覆盖，并且 $x_i$ 来自态射
+$u_i : V_i \to U$。限制 $x_i^*\mathcal{F}|_{V_{i, \etale}}$
+等于 $f^*\mathcal{F}$ 在 $V_{i, \etale}$ 上的限制；
+参见《叠上的层》引理 \ref{stacks-sheaves-lemma-comparison}。
+因此，$x^*\mathcal{F}|_{V_\etale}$ 是 $V$ 的小 \'etale site 上的层，
+且对每个 $i$，其在 $V_{i, \etale}$ 上的限制都拟凝聚。
+这蕴含它本身拟凝聚，正合所需；例如可用《空间的性质》引理
+\ref{spaces-properties-lemma-characterize-quasi-coherent}。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-pushforward-locally-quasi-coherent}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射，
+并设 $\mathcal{F}$ 是 $\mathcal{X}_\etale$ 上局部拟凝聚的
+$\mathcal{O}_\mathcal{X}$-模层。则 $R^if_*\mathcal{F}$
+（在 \'etale 拓扑中计算）在 $\mathcal{Y}_\etale$ 上局部拟凝聚。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{stacks-cohomology-lemma-general-pushforward} 证明该结论，
+并检验其中的假设 (1)--(4)。第 (1)、(2) 项由《叠上的层》引理
+\ref{stacks-sheaves-lemma-lqc-colimits} 得出；第 (3) 项由引理
+\ref{stacks-cohomology-lemma-check-lqc-on-etale-covering} 得出。因此只需证明 (4)。
+
+\medskip\noindent
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射，
+且 $\mathcal{X}$ 和 $\mathcal{Y}$ 分别可由仿射概形 $X$ 和 $Y$ 表示。
+任取位于概形 $V$ 上的 $\mathcal{Y}$ 的对象 $y$。
+为清楚起见，以 $\mathcal{V} = (\Sch/V)_{fppf}$ 表示与 $V$ 相应的代数叠。
+考察笛卡儿图
+% P12-ERR-0012: see ../control/ERRATA_CANDIDATES.jsonl
+$$
+\xymatrix{
+\mathcal{Z} \ar[d] \ar[r]_g \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{V} \ar[r]^y & \mathcal{Y}
+}
+$$
+于是 $\mathcal{Z}$ 可由概形 $Z = V \times_Y X$ 表示，
+且 $f'$ 拟紧并分离（甚至仿射）。由《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-representable-morphism-cohomology}，有
+$$
+R^if_*\mathcal{F}|_{V_\etale} =
+R^if'_{small, *}\big(g^*\mathcal{F}|_{Z_\etale}\big)
+$$
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-higher-direct-image}，右端是
+$V_\etale$ 上的拟凝聚层。这就说明左端拟凝聚，正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-check-lqc-on-flat-covering}
+设 $\mathcal{X}$ 为代数叠，且
+$f_j : \mathcal{X}_j \to \mathcal{X}$ 是一族代数叠之间平坦且
+局部有限表示的态射，满足
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$。
+设 $\mathcal{F}$ 是 $\mathcal{X}_{fppf}$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。若每个 $f_j^{-1}\mathcal{F}$
+都局部拟凝聚，则 $\mathcal{F}$ 也局部拟凝聚。
+\end{lemma}
+
+\begin{proof}
+先假设存在态射 $a : \mathcal{U} \to \mathcal{X}$，它满、平坦、
+局部有限表示、拟紧且拟分离，并且 $a^*\mathcal{F}$ 局部拟凝聚。
+此时有正合列
+$$
+0 \to \mathcal{F} \to a_*a^*\mathcal{F} \to b_*b^*\mathcal{F}
+$$
+其中 $b$ 为态射
+$b : \mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{X}$；
+参见《叠上的层》命题
+\ref{stacks-sheaves-proposition-exactness-cech-complex} 和引理
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}。
+此外，$b^*\mathcal{F}$ 是 $a^*\mathcal{F}$ 沿某个投影态射的拉回，
+因而局部拟凝聚（《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-lqc}）。
+由引理 \ref{stacks-cohomology-lemma-pushforward-locally-quasi-coherent}，
+模 $a_*a^*\mathcal{F}$ 和 $b_*b^*\mathcal{F}$ 均局部拟凝聚。
+（注意 $a_*$ 和 $b_*$ 与计算时所用的拓扑无关。）
+于是由《叠上的层》引理
+\ref{stacks-sheaves-lemma-lqc-colimits}，$\mathcal{F}$ 局部拟凝聚。
+
+\medskip\noindent
+下面把一般情形约化到第一段的情形。设 $x$ 是 $\mathcal{X}$
+的一个对象，位于概形 $U$ 上。需证明 $\mathcal{F}|_{U_\etale}$
+是拟凝聚的 $\mathcal{O}_U$-模层。在 $U$ 上 Zariski 局部地证明即可，
+故可假设 $U$ 仿射。由《叠的态射》引理
+\ref{stacks-morphisms-lemma-surjective-family-flat-locally-finite-presentation}，
+存在 fppf 覆盖 $\{a_i : U_i \to U\}$，使每个 $x \circ a_i$
+都经由某个 $f_j$ 分解。因此 $a_i^*\mathcal{F}$ 在
+$(\Sch/U_i)_{fppf}$ 上局部拟凝聚。细化该覆盖后，
+可假设 $\{U_i \to U\}_{i = 1, \ldots, n}$ 是标准 fppf 覆盖。
+于是 $x^*\mathcal{F}$ 是 $(\Sch/U)_{fppf}$ 上的 fppf 模，
+其沿态射 $a : U_1 \amalg \ldots \amalg U_n \to U$ 的拉回局部拟凝聚。
+由第一段可知 $x^*\mathcal{F}$ 局部拟凝聚；
+这当然蕴含 $\mathcal{F}|_{U_\etale}$ 拟凝聚。
+\end{proof}
+
+
+\section{平坦比较映射}
+\label{stacks-cohomology-section-flat-comparison}
+
+\noindent
+设 $\mathcal{X}$ 为代数叠，且 $\mathcal{F}$ 是
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 的对象。
+给定 $\mathcal{X}$ 的一个对象 $x$，它位于概形 $U$ 上，则限制
+$\mathcal{F}|_{U_\etale}$ 是 $x^{-1}\mathcal{F}$ 在 $U$ 的小
+\'etale site 上的限制；参见《叠上的层》定义
+\ref{stacks-sheaves-definition-pullback}。
+再设 $\varphi : x \to x'$ 是 $\mathcal{X}$ 的一个态射，
+位于概形态射 $f : U \to U'$ 上。于是有 $2$-交换图
+$$
+\xymatrix{
+U \ar[rd]_x \ar[rr]_f & & U' \ar[ld]^{x'} \\
+& \mathcal{X}
+}
+$$
+与 $\varphi$ 相伴，我们得到限制之间的比较映射
+\begin{equation}
+\label{stacks-cohomology-equation-comparison-modules}
+c_\varphi :
+f_{small}^*(\mathcal{F}|_{U'_\etale})
+\longrightarrow
+\mathcal{F}|_{U_\etale}
+\end{equation}
+参见《叠上的层》公式
+(\ref{stacks-sheaves-equation-comparison-modules})。
+在这种情形下，可考察 $\mathcal{F}$ 的如下性质。
+
+\begin{definition}
+\label{stacks-cohomology-definition-flat-base-change}
+设 $\mathcal{X}$ 为代数叠，并设 $\mathcal{F}$ 属于
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$。
+若且唯若每当 $f$ 平坦时 $c_\varphi$ 都是同构，
+我们称 $\mathcal{F}$ 具有{\it 平坦基变换性质}\footnote{这可能不是标准记号。}
+\end{definition}
+
+\noindent
+下面的引理给出这一概念的若干性质。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering}
+设 $\mathcal{X}$ 为代数叠，且 $\mathcal{F}$ 是
+$\mathcal{X}_\etale$ 上的 $\mathcal{O}_\mathcal{X}$-模层。
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 具有平坦基变换性质，则对代数叠的任意态射
+$g : \mathcal{Y} \to \mathcal{X}$，拉回 $g^*\mathcal{F}$ 也具有该性质。
+\item $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中由具有平坦基变换性质的模组成的充满子范畴，是弱 Serre 子范畴。
+\item 设 $f_i : \mathcal{X}_i \to \mathcal{X}$ 是一族代数叠之间的
+光滑态射，满足
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$。
+若每个 $f_i^*\mathcal{F}$ 都具有平坦基变换性质，
+则 $\mathcal{F}$ 也具有该性质。
+\item $\mathcal{X}_\etale$ 上具有平坦基变换性质的
+$\mathcal{O}_\mathcal{X}$-模范畴有余极限，且这些余极限与
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中的余极限一致。
+\item 给定 $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中具有平坦基变换性质的 $\mathcal{F}$ 和 $\mathcal{G}$，
+则张量积 $\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+具有平坦基变换性质。
+\item 给定 $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中的 $\mathcal{F}$ 和 $\mathcal{G}$，若 $\mathcal{F}$ 有限表示，
+且 $\mathcal{G}$ 具有平坦基变换性质，则层
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+具有平坦基变换性质。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $g : \mathcal{Y} \to \mathcal{X}$ 如 (1) 所述，
+并设 $y$ 是 $\mathcal{Y}$ 的一个对象，位于概形 $V$ 上。
+由《叠上的层》引理 \ref{stacks-sheaves-lemma-comparison}，有
+$(g^*\mathcal{F})|_{V_\etale} = \mathcal{F}|_{V_\etale}$。
+此外，$\mathcal{Y}$ 上层 $g^*\mathcal{F}$ 的比较映射，
+是 $\mathcal{X}$ 上层 $\mathcal{F}$ 的比较映射的特例；
+参见《叠上的层》引理 \ref{stacks-sheaves-lemma-comparison}。
+由此 (1) 显然成立。
+
+\medskip\noindent
+证明 (2)。使用《同调》引理
+\ref{homology-lemma-characterize-weak-serre-subcategory}
+对弱 Serre 子范畴的刻画。具有平坦基变换性质的层之间的映射，
+其核与余核也具有该性质。这是显然的，因为对概形的平坦态射，
+$f_{small}^*$ 正合；而限制函子 $(-)|_{U_\etale}$ 也正合
+（因为我们在 \'etale 拓扑中工作）。最后，若
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+是 $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中的短正合列，且外侧两个层具有平坦基变换性质，
+则中间的层也具有该性质；这仍由 $f_{small}^*$ 与限制函子的正合性
+以及五引理得出。
+
+\medskip\noindent
+证明 (3)。设 $f_i : \mathcal{X}_i \to \mathcal{X}$
+是一族联合满射的代数叠光滑态射，并假设每个
+$f_i^*\mathcal{F}$ 都具有平坦基变换性质。
+由 (1)、代数叠的定义以及光滑态射的复合仍光滑这一事实
+（参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-smooth}），
+可假设每个 $\mathcal{X}_i$ 都可由概形表示。
+设 $\varphi : x \to x'$ 是 $\mathcal{X}$ 的一个态射，
+位于概形的平坦态射 $a : U \to U'$ 上。
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}，
+存在一族联合满射的 \'etale 态射 $U'_i \to U'$，使
+$U'_i \to U' \to \mathcal{X}$ 经由 $\mathcal{X}_i$ 分解。
+于是得到交换图
+$$
+\xymatrix{
+U_i = U \times_{U'} U_i' \ar[r]_-{a_i} \ar[d] &
+U_i' \ar[r]_{x_i'} \ar[d] & \mathcal{X}_i \ar[d]^{f_i} \\
+U \ar[r]^a & U' \ar[r]^{x'} & \mathcal{X}
+}
+$$
+注意，每个 $a_i$ 都是 $a$ 的基变换，因而是概形的平坦态射。
+以 $\psi_i : x_i \to x'_i$ 表示 $\mathcal{X}_i$ 的态射，
+它位于 $a_i$ 上且目标为 $x_i'$。由假设，比较映射
+$c_{\psi_i} :
+(a_i)_{small}^*\big(f_i^*\mathcal{F}|_{(U'_i)_\etale}\big)
+\to f_i^*\mathcal{F}|_{(U_i)_\etale}$ 是同构。
+因为竖直箭头 $U_i' \to U'$ 和 $U_i \to U$ 是 \'etale 的，
+层 $f_i^*\mathcal{F}|_{(U_i')_\etale}$ 和
+$f_i^*\mathcal{F}|_{(U_i)_\etale}$ 分别是
+$\mathcal{F}|_{U'_\etale}$ 和 $\mathcal{F}|_{U_\etale}$ 的限制，
+而映射 $c_{\psi_i}$ 是 $c_\varphi$ 在 $(U_i)_\etale$ 上的限制；
+参见《叠上的层》引理 \ref{stacks-sheaves-lemma-comparison}。
+由于 $\{U_i \to U\}$ 是 \'etale 覆盖，这说明比较映射
+$c_\varphi$ 是同构，正合所需。
+
+\medskip\noindent
+证明 (4)。设 $\mathcal{I} \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$，
+$i \mapsto \mathcal{F}_i$ 是一个图，并假设每个 $\mathcal{F}_i$
+都具有平坦基变换性质。设 $\varphi : x \to x'$ 是
+$\mathcal{X}$ 的一个态射，位于概形的平坦态射 $f : U \to U'$ 上。
+回顾 $\colim_i \mathcal{F}_i$ 是预层余极限的层化。
+由于采用 \'etale 拓扑，显然有
+$$
+(\colim_i \mathcal{F}_i)|_{U_\etale} =
+\colim_i {\mathcal{F}_i}|_{U_\etale}
+$$
+在 $U'_\etale$ 上的限制也同样如此。因而
+\begin{align*}
+f_{small}^*((\colim_i \mathcal{F}_i)|_{U'_\etale})
+& =
+f_{small}^*(\colim_i {\mathcal{F}_i}|_{U'_\etale}) \\
+& =
+\colim_i f_{small}^*({\mathcal{F}_i}|_{U'_\etale}) \\
+& \xrightarrow{\colim c_\varphi}
+\colim_i \mathcal{F}_i|_{U_\etale} \\
+& =
+(\colim_i \mathcal{F}_i)|_{U_\etale}
+\end{align*}
+第二个等号使用了 $f_{small}^*$ 与余极限可交换这一事实
+（因为它是左伴随）。箭头为同构，因为每个 $\mathcal{F}_i$
+都具有平坦基变换性质。因此余极限具有平坦基变换性质，(4) 成立。
+
+\medskip\noindent
+(5) 成立，因为张量积与拉回可交换；参见《site 上的模》引理
+\ref{sites-modules-lemma-tensor-product-pullback}。略去细节。
+
+\medskip\noindent
+设 $\mathcal{F}$ 和 $\mathcal{G}$ 如 (6) 所述。
+由于 $\mathcal{F}$ 拟凝聚，由《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent}，它具有平坦基变换性质。
+设 $\varphi : x \to x'$ 是 $\mathcal{X}$ 的一个态射，
+位于概形的平坦态射 $f : U \to U'$ 上。
+由于采用 \'etale 拓扑，有
+$$
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U_\etale} =
+\SheafHom_{\mathcal{O}_U}(\mathcal{F}|_{U_\etale}, \mathcal{G}|_{U_\etale})
+$$
+在 $U'_\etale$ 上的限制也同样如此（略去细节）。因此
+% P12-ERR-0013: see ../control/ERRATA_CANDIDATES.jsonl
+\begin{align*}
+f_{small}^*(
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U'_\etale})
+& =
+f_{small}^*(
+\SheafHom_{\mathcal{O}_{U'}}(
+\mathcal{F}|_{U'_\etale}, \mathcal{G}|_{U'_\etale})) \\
+& =
+\SheafHom_{\mathcal{O}_{U'}}(
+f_{small}^*(\mathcal{F}|_{U'_\etale}),
+f_{small}^*(\mathcal{G}|_{U'_\etale})) \\
+& \xrightarrow{c_\varphi}
+\SheafHom_{\mathcal{O}_U}(\mathcal{F}|_{U_\etale}, \mathcal{G}|_{U_\etale}) \\
+& =
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U_\etale}
+\end{align*}
+这里第二个等号是《site 上的模》引理
+\ref{sites-modules-lemma-pullback-internal-hom}；该引理用到
+$f : U \to U'$ 平坦，因而赋环 site 的态射 $f_{small}$ 也平坦。
+箭头为同构，因为 $\mathcal{F}$ 和 $\mathcal{G}$ 都具有
+平坦基变换性质。因此所述 $\SheafHom$ 也具有平坦基变换性质，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-flat-comparison}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射。
+设 $\mathcal{F}$ 是
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 的对象，
+它局部拟凝聚并具有平坦基变换性质。则每个 $R^if_*\mathcal{F}$
+（在 \'etale 拓扑中计算）都具有平坦基变换性质。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{stacks-cohomology-lemma-general-pushforward} 证明该结论。
+对每个代数叠 $\mathcal{X}$，以
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 表示
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中由局部拟凝聚且具有平坦基变换性质的层组成的充满子范畴。
+一旦验证引理 \ref{stacks-cohomology-lemma-general-pushforward} 的条件 (1)--(4)，
+结论即得。性质 (1)、(2)、(3) 由《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-lqc}、
+\ref{stacks-sheaves-lemma-lqc-colimits}，以及引理
+\ref{stacks-cohomology-lemma-check-lqc-on-etale-covering}、
+\ref{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering} 得出。
+因此只需证明 (4)。
+
+\medskip\noindent
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射，
+且 $\mathcal{X}$ 和 $\mathcal{Y}$ 分别可由仿射概形 $X$ 和 $Y$ 表示。
+在这种情形下，设 $\psi : y \to y'$ 是 $\mathcal{Y}$ 的一个态射，
+位于概形的平坦态射 $b : V \to V'$ 上。为清楚起见，记
+$\mathcal{V} = (\Sch/V)_{fppf}$ 和
+$\mathcal{V}' = (\Sch/V')_{fppf}$ 为相应的代数叠。
+考察代数叠的图
+$$
+\xymatrix{
+\mathcal{Z} \ar[d]_{f''} \ar[r]_a &
+\mathcal{Z}' \ar[r]_{x'} \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{V} \ar[r]^b & \mathcal{V}' \ar[r]^{y'} & \mathcal{Y}
+}
+$$
+其中两个方块都是笛卡儿的。由于 $f$ 可由概形表示
+（且拟紧、分离，甚至仿射），$\mathcal{Z}$ 和 $\mathcal{Z}'$
+分别可由概形 $Z$ 和 $Z'$ 表示，而且
+$Z = V \times_{V'} Z'$。因为 $\mathcal{F}$ 具有平坦基变换性质，
+映射
+$$
+a_{small}^*\big(\mathcal{F}|_{Z'_\etale}\big)
+\longrightarrow
+\mathcal{F}|_{Z_\etale}
+$$
+是同构。此外，由《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-representable-morphism-cohomology}，有
+$$
+R^if_*\mathcal{F}|_{V'_\etale} =
+R^i(f')_{small, *}\big(\mathcal{F}|_{Z'_\etale}\big)
+$$
+以及
+$$
+R^if_*\mathcal{F}|_{V_\etale} =
+R^i(f'')_{small, *}\big(\mathcal{F}|_{Z_\etale}\big)
+$$
+因此，由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}，比较映射
+$$
+c_\psi :
+b_{small}^*(R^if_*\mathcal{F}|_{V'_\etale})
+\longrightarrow
+R^if_*\mathcal{F}|_{V_\etale}
+$$
+是同构。故 $R^if_*\mathcal{F}$ 具有平坦基变换性质。
+又由引理 \ref{stacks-cohomology-lemma-pushforward-locally-quasi-coherent}，
+$R^if_*\mathcal{F}$ 局部拟凝聚，证明完毕。
+\end{proof}
+
+
+\section{具有平坦基变换性质的局部拟凝聚模}
+\label{stacks-cohomology-section-loc-qcoh-flat-base-change}
+
+\noindent
+设 $\mathcal{X}$ 为代数叠。我们\footnote{抱歉使用了这样繁复的记号。}记
+$$
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+为如下充满子范畴：其对象是 \'etale
+$\mathcal{O}_\mathcal{X}$-模 $\mathcal{F}$，它既局部拟凝聚
+（第 \ref{stacks-cohomology-section-locally-quasi-coherent} 节），
+又具有平坦基变换性质（第 \ref{stacks-cohomology-section-flat-comparison} 节）。
+由《叠上的层》引理 \ref{stacks-sheaves-lemma-quasi-coherent}，有
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \subset
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+$$
+
+\begin{proposition}
+\label{stacks-cohomology-proposition-loc-qcoh-flat-base-change}
+关于具有平坦基变换性质的局部拟凝聚模，有如下结果汇总。
+\begin{enumerate}
+\item 设 $\mathcal{X}$ 为代数叠。若 $\mathcal{F}$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，
+则 $\mathcal{F}$ 是 fppf 拓扑的层；也就是说，它是
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ 的对象。
+\item 范畴 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+既是 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 的弱 Serre 子范畴，
+也是 $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+的弱 Serre 子范畴。
+\item 沿代数叠的任意态射 $f : \mathcal{X} \to \mathcal{Y}$ 的拉回 $f^*$，
+会诱导函子
+$f^* : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+\item 若 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且
+拟分离的态射，且 $\mathcal{F}$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象，则
+\begin{enumerate}
+\item 总直像 $Rf_*\mathcal{F}$ 和高阶直像 $R^if_*\mathcal{F}$
+既可在 \'etale 拓扑中计算，也可在 fppf 拓扑中计算，结果相同；
+\item 每个 $R^if_*\mathcal{F}$ 都是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$ 的对象。
+\end{enumerate}
+\item 范畴 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+有余极限，且这些余极限既与
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+中的余极限一致，也与
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中的余极限一致。
+\item 给定 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 中的
+$\mathcal{F}$ 和 $\mathcal{G}$，则张量积
+$\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+\item 给定有限表示的 $\mathcal{F}$ 以及
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 中的 $\mathcal{G}$，
+则 $\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) 是《叠上的层》引理
+\ref{stacks-sheaves-lemma-lqc-flat-base-change-fppf-sheaf}。
+
+\medskip\noindent
+对于嵌入
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$，
+我们已经在引理 \ref{stacks-cohomology-lemma-flat-comparison} 的证明中看到 (2)。
+现在证明嵌入
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+的 (2)。设 $\varphi : \mathcal{F} \to \mathcal{G}$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 中对象之间的态射。
+由于无论在 \'etale 还是 fppf 拓扑中计算，$\Ker(\varphi)$ 都相同，
+由 \'etale 情形可知 $\Ker(\varphi)$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+另一方面，在 fppf 拓扑中计算的余核，是在 \'etale 拓扑中计算所得余核的
+fppf 层化。但由 \'etale 情形，该 \'etale 余核属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，
+故由 (1) 它已经是 fppf 层。因此该余核属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+最后，假设
+% P12-ERR-0014: see ../control/ERRATA_CANDIDATES.jsonl
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+是 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中的正合列
+（即使用 fppf 拓扑），其中 $\mathcal{F}_1$、$\mathcal{F}_2$
+属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+为证明 $\mathcal{F}_2$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象，
+只需证明该序列在 \'etale 拓扑中也正合。为此，只需证明
+$H^1_{fppf}(x, \mathcal{F}_1)$ 的任意元素，在 $x$ 的某个 \'etale
+覆盖的各成员上都变为零（这里 $x$ 是 $\mathcal{X}$ 的任意对象）。
+这是真的，因为由《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-fppf-etale}，有
+$H^1_{fppf}(x, \mathcal{F}_1) = H^1_\etale(x, \mathcal{F}_1)$；
+并且上同调是局部的，参见《site 上的上同调》引理
+\ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}。
+这证明了 (2)。
+
+\medskip\noindent
+(3) 由引理 \ref{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering}
+和《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-lqc} 得出。
+
+\medskip\noindent
+对于在 \'etale 上同调中计算的 $R^if_*\mathcal{F}$，
+(4)(b) 由引理 \ref{stacks-cohomology-lemma-flat-comparison} 得出。
+继而，将《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-fppf-etale} 与上面的 (1) 结合，
+便得到 (4)(a)。
+
+\medskip\noindent
+\'etale 拓扑的 (5) 由《叠上的层》引理
+\ref{stacks-sheaves-lemma-lqc-colimits} 和引理
+\ref{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering} 得出。
+于是 fppf 版本也成立，因为 \'etale 拓扑中的余极限由 (1)
+已经是 fppf 层。
+
+\medskip\noindent
+(6)、(7) 由引理
+\ref{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering} 的相应部分和
+《叠上的层》引理 \ref{stacks-sheaves-lemma-lqc-colimits} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-check-lqc-fbc-on-covering}
+设 $\mathcal{X}$ 为代数叠。
+\begin{enumerate}
+\item 设 $f_j : \mathcal{X}_j \to \mathcal{X}$ 是一族代数叠之间的
+光滑态射，满足
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$。
+设 $\mathcal{F}$ 是 $\mathcal{X}_\etale$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。若每个 $f_j^{-1}\mathcal{F}$
+% P12-ERR-0015: see ../control/ERRATA_CANDIDATES.jsonl
+都属于 $\textit{LQCoh}^{fpc}(\mathcal{O}_{\mathcal{X}_i})$，
+则 $\mathcal{F}$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+\item 设 $f_j : \mathcal{X}_j \to \mathcal{X}$ 是一族代数叠之间
+平坦且局部有限表示的态射，满足
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$。
+设 $\mathcal{F}$ 是 $\mathcal{X}_{fppf}$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。若每个 $f_j^{-1}\mathcal{F}$
+都属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_{\mathcal{X}_i})$，
+则 $\mathcal{F}$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由引理 \ref{stacks-cohomology-lemma-check-lqc-on-etale-covering} 和
+\ref{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering} 结合得出。
+(2) 的证明与引理 \ref{stacks-cohomology-lemma-check-lqc-on-flat-covering} 的证明类似。
+设 $\mathcal{F}$ 为 $\mathcal{X}_{fppf}$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。
+
+\medskip\noindent
+先假设存在态射 $a : \mathcal{U} \to \mathcal{X}$，它满、平坦、
+局部有限表示、拟紧且拟分离，并且 $a^*\mathcal{F}$ 局部拟凝聚且
+具有平坦基变换性质。此时有正合列
+$$
+0 \to \mathcal{F} \to a_*a^*\mathcal{F} \to b_*b^*\mathcal{F}
+$$
+其中 $b$ 为态射
+$b : \mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{X}$；
+参见《叠上的层》命题
+\ref{stacks-sheaves-proposition-exactness-cech-complex} 和引理
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}。
+此外，$b^*\mathcal{F}$ 是 $a^*\mathcal{F}$ 沿某个投影态射的拉回，
+因而局部拟凝聚并具有平坦基变换性质；参见命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}。
+由命题 \ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}，
+模 $a_*a^*\mathcal{F}$ 和 $b_*b^*\mathcal{F}$ 均局部拟凝聚且
+具有平坦基变换性质。再由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}，$\mathcal{F}$ 局部拟凝聚且
+具有平坦基变换性质。
+
+\medskip\noindent
+选择概形 $U$ 和满的光滑态射 $x : U \to \mathcal{X}$。
+由 (1)，只需证明 $x^*\mathcal{F}$ 局部拟凝聚并具有平坦基变换性质。
+再由 (1)，在 $U$ 上 Zariski 局部地证明即可，故可假设 $U$ 仿射。
+由《叠的态射》引理
+\ref{stacks-morphisms-lemma-surjective-family-flat-locally-finite-presentation}，
+存在 fppf 覆盖 $\{a_i : U_i \to U\}$，使每个 $x \circ a_i$
+都经由某个 $f_j$ 分解。因此，$(\Sch/U_i)_{fppf}$ 上的模
+$a_i^*\mathcal{F}$ 局部拟凝聚并具有平坦基变换性质。
+细化该覆盖后，可假设
+$\{U_i \to U\}_{i = 1, \ldots, n}$ 是标准 fppf 覆盖。
+于是 $x^*\mathcal{F}$ 是 $(\Sch/U)_{fppf}$ 上的 fppf 模，
+其沿态射 $a : U_1 \amalg \ldots \amalg U_n \to U$ 的拉回
+局部拟凝聚并具有平坦基变换性质。因此由上一段，
+$x^*\mathcal{F}$ 局部拟凝聚并具有平坦基变换性质，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-loc-qcoh-fbc-compute-higher-direct-image}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧、拟分离且
+可由代数空间表示的态射，并设 $\mathcal{F}$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+则对 $\mathcal{Y}$ 的一个对象 $y : V \to \mathcal{Y}$，有
+$$
+(R^if_*\mathcal{F})|_{V_\etale} = R^if'_{small, *}(\mathcal{F}|_{U_\etale})
+$$
+其中 $f' : U = V \times_\mathcal{Y} \mathcal{X} \to V$
+是 $f$ 的基变换。
+\end{lemma}
+
+\begin{proof}
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-base-change-higher-direct-images}，
+可约化到 $\mathcal{X}$ 由 $U$ 表示、$\mathcal{Y}$ 由 $V$ 表示的情形。
+这里当然还用到：由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}，$\mathcal{F}$ 在 $U$
+上的拉回属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_U)$。
+随后，结论由《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-morphism-cohomology} 以及命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}（它说明可在 \'etale
+拓扑中计算 $R^if_*$）得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-loc-qcoh-fbc-affine-direct-image}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠的仿射态射。
+函子 $f_* : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$ 正合且与直和可交换。
+对 $i > 0$，函子 $R^if_*$ 在
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 上为零。
+\end{lemma}
+
+\begin{proof}
+这些函子由命题 \ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change} 存在。
+由引理 \ref{stacks-cohomology-lemma-loc-qcoh-fbc-compute-higher-direct-image}，
+问题约化到代数空间的仿射态射，并在代数空间上的拟凝聚模语境中取高阶直像。
+由《空间的上同调》第
+\ref{spaces-cohomology-section-higher-direct-image} 节的讨论，
+再约化到概形的仿射态射。对概形的仿射态射，
+《概形的上同调》引理
+\ref{coherent-lemma-relative-affine-vanishing} 给出拟凝聚模的高阶直像消失。
+$R^1f_*$ 的消失蕴含 $f_*$ 正合。与直和可交换例如可由《态射》引理
+\ref{morphisms-lemma-affine-equivalence-modules} 得出。
+\end{proof}
+
+
+\section{寄生模}
+\label{stacks-cohomology-section-parasitic}
+
+\noindent
+下述定义与《下降》定义 \ref{descent-definition-parasitic} 相容。
+
+\begin{definition}
+\label{stacks-cohomology-definition-parasitic}
+设 $\mathcal{X}$ 为代数叠。若对 $\mathcal{X}$ 的任意对象 $x$，
+只要该对象位于概形 $U$ 上且相应态射
+$x : U \to \mathcal{X}$ 平坦，就有 $\mathcal{F}(x) = 0$，
+则称 $\mathcal{O}_\mathcal{X}$-模预层 $\mathcal{F}$ 是{\it 寄生的}。
+\end{definition}
+
+\noindent
+下面的引理给出这一概念的若干性质。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-parasitic}
+设 $\mathcal{X}$ 为代数叠，$\mathcal{F}$ 为
+$\mathcal{O}_\mathcal{X}$-模预层。
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 寄生，且
+$g : \mathcal{Y} \to \mathcal{X}$ 是代数叠之间的平坦态射，
+则 $g^*\mathcal{F}$ 寄生。
+\item 对 $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$，有：
+\begin{enumerate}
+\item 寄生模预层的 $\tau$-层化仍寄生；
+\item $\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+中由寄生模组成的充满子范畴，是 Serre 子范畴。
+\end{enumerate}
+\item 假设 $\mathcal{F}$ 是 \'etale 拓扑的层。
+设 $f_i : \mathcal{X}_i \to \mathcal{X}$ 是一族代数叠之间的
+光滑态射，满足
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$。
+若每个 $f_i^*\mathcal{F}$ 都寄生，则 $\mathcal{F}$ 也寄生。
+\item 假设 $\mathcal{F}$ 是 fppf 拓扑的层。
+设 $f_i : \mathcal{X}_i \to \mathcal{X}$ 是一族代数叠之间
+平坦且局部有限表示的态射，满足
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$。
+若每个 $f_i^*\mathcal{F}$ 都寄生，则 $\mathcal{F}$ 也寄生。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明 (1)，设 $y$ 是 $\mathcal{Y}$ 的一个对象，位于概形 $V$ 上，
+且相应态射 $y : V \to \mathcal{Y}$ 平坦。于是
+$g(y) : V \to \mathcal{Y} \to \mathcal{X}$ 是平坦态射的复合，
+因而平坦（参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-flat}）。所以由假设，
+$\mathcal{F}(g(y))$ 为零。由于
+$g^*\mathcal{F} = g^{-1}\mathcal{F}(y) = \mathcal{F}(g(y))$，
+可知 $g^*\mathcal{F}$ 寄生。
+
+\medskip\noindent
+为证明 (2)(a)，注意若 $\{x_i \to x\}$ 是 $\mathcal{X}$ 的
+$\tau$-覆盖，则每个态射 $x_i \to x$ 都位于概形的平坦态射上。
+因此，若 $x$ 位于概形 $U$ 上且 $x : U \to \mathcal{X}$ 平坦，
+则所有对象 $x_i$ 也如此。故若预层 $\mathcal{F}$ 寄生，
+则预层 $\mathcal{F}^+$（参见《site》第
+\ref{sites-section-sheafification} 节）也寄生。
+$\mathcal{F}$ 的层化是 $(\mathcal{F}^+)^+$，因而 (2)(a) 得证。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为寄生 $\tau$-模。由定义立刻可知，
+$\mathcal{F}$ 的任意子模都寄生。另一方面，若
+$\mathcal{F}' \subset \mathcal{F}$ 是子模，则预层
+$x \mapsto \mathcal{F}(x)/\mathcal{F}'(x)$
+显然也寄生。因此由 (2)(a)，商 $\mathcal{F}/\mathcal{F}'$
+是寄生模。最后，需证明：若有短正合列
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$，
+且 $\mathcal{F}_1$、$\mathcal{F}_3$ 寄生，则 $\mathcal{F}_2$ 寄生。
+在位于对 $\mathcal{X}$ 平坦的概形上的 $x$ 处取值，结论立即得出。
+这证明了 (2)(b)；参见《同调》引理
+\ref{homology-lemma-characterize-serre-subcategory}。
+
+\medskip\noindent
+设 $f_i : \mathcal{X}_i \to \mathcal{X}$ 是一族联合满射的
+代数叠光滑态射，并假设每个 $f_i^*\mathcal{F}$ 都寄生。
+设 $x$ 是 $\mathcal{X}$ 的一个对象，位于概形 $U$ 上，且
+$x : U \to \mathcal{X}$ 平坦。考察满的光滑覆盖
+$W_i \to U \times_{x, \mathcal{X}} \mathcal{X}_i$，
+并以 $y_i : W_i \to \mathcal{X}_i$ 表示投影。
+于是 $\{f_i(y_i) \to x\}$ 是 $\mathcal{X}$ 的光滑拓扑覆盖。
+由于平坦态射的复合仍平坦，有 $f_i^*\mathcal{F}(y_i) = 0$。
+另一方面，如 (1) 的证明所见，
+$f_i^*\mathcal{F}(y_i) = \mathcal{F}(f_i(y_i))$。
+所以在 $\mathcal{X}$ 中存在某个光滑覆盖
+$\{x_i \to x\}_{i \in I}$，使 $\mathcal{F}(x_i) = 0$。
+由于光滑拓扑与 \'etale 拓扑相同，这蕴含
+$\mathcal{F}(x) = 0$；参见《态射进阶》引理
+\ref{more-morphisms-lemma-etale-dominates-smooth}。
+具体地说，$\{x_i \to x\}_{i \in I}$ 位于概形的光滑覆盖
+$\{U_i \to U\}_{i \in I}$ 上。由刚引用的引理，存在 \'etale 覆盖
+$\{V_j \to U\}_{j \in J}$ 细化 $\{U_i \to U\}_{i \in I}$。
+记 $x'_j = x|_{V_j}$。则 $\{x'_j \to x\}$ 是 $\mathcal{X}$
+中的 \'etale 覆盖，并细化 $\{x_i \to x\}_{i \in I}$。
+这说明映射
+$\mathcal{F}(x) \to \prod_{j \in J} \mathcal{F}(x'_j)$
+经由 $\mathcal{F}(x) \to \prod_{i \in I} \mathcal{F}(x_i)$ 分解；
+前者因 $\mathcal{F}$ 是 \'etale 拓扑的层而单射，后者为零。
+因此 $\mathcal{F}(x) = 0$，正合所需。
+
+\medskip\noindent
+(4) 的证明略去。提示：与 (3) 的证明类似，但更简单。
+\end{proof}
+
+\noindent
+任意直像都保持寄生模。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-pushforward-parasitic}
+设 $\tau \in \{\etale, fppf\}$，$\mathcal{X}$ 为代数叠，
+且 $\mathcal{F}$ 是
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+的寄生对象。
+\begin{enumerate}
+\item 对所有 $i$，$H^i_\tau(\mathcal{X}, \mathcal{F}) = 0$。
+\item 设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射。
+则 $R^if_*\mathcal{F}$（在 $\tau$-拓扑中计算）是
+$\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$
+的寄生对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先将 (2) 约化到 (1)。由《叠上的层》引理
+\ref{stacks-sheaves-lemma-pushforward-restriction} 可知，
+$R^if_*\mathcal{F}$ 是与预层
+$$
+y \longmapsto
+H^i_\tau\Big(V \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{F}\Big)
+$$
+相伴的层。这里 $y$ 是 $\mathcal{Y}$ 的典型对象，位于概形 $V$ 上。
+由引理 \ref{stacks-cohomology-lemma-parasitic}，只需证明当
+$y : V \to \mathcal{Y}$ 平坦时，这些上同调群为零。
+注意 $\text{pr} : V \times_{y, \mathcal{Y}} \mathcal{X} \to \mathcal{X}$
+是 $y$ 的基变换，因而平坦。故由引理 \ref{stacks-cohomology-lemma-parasitic}，
+$\text{pr}^{-1}\mathcal{F}$ 寄生。因此只需证明 (1)。
+
+\medskip\noindent
+为证明 (1)，可以使用《叠上的层》命题
+\ref{stacks-sheaves-proposition-smooth-covering-compute-cohomology}
+的谱序列，把问题约化到 $\mathcal{X}$ 可由代数空间表示的情形。
+注意，在该谱序列中，由引理 \ref{stacks-cohomology-lemma-parasitic}，
+每个 $f_p^{-1}\mathcal{F} = f_p^*\mathcal{F}$ 都是寄生模，
+因为态射
+$f_p : \mathcal{U}_p =
+\mathcal{U} \times_\mathcal{X} \ldots
+\times_\mathcal{X} \mathcal{U} \to \mathcal{X}$ 平坦。
+再次使用这一谱序列（如引理
+\ref{stacks-cohomology-lemma-general-pushforward} 的证明那样），
+可约化到代数叠 $\mathcal{X}$ 可由概形 $X$ 表示的情形。
+此时 $H^i_\tau(\mathcal{X}, \mathcal{F}) = H^i((\Sch/X)_\tau, \mathcal{F})$。
+在这种情形下，消失性容易由 {\v C}ech 覆盖的论证得出；
+参见《下降》引理 \ref{descent-lemma-cohomology-parasitic}。
+\end{proof}
+
+\noindent
+下述引理是我们关注寄生模的主要原因之一。为理解其陈述，回顾函子
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+以及
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+一般并不正合。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-exact-sequence-quasi-coherent-parasitic-cohomology}
+设 $\mathcal{X}$ 为代数叠，并设
+$\alpha : \mathcal{F} \to \mathcal{G}$ 和
+$\beta : \mathcal{G} \to \mathcal{H}$
+是 $\QCoh(\mathcal{O}_\mathcal{X})$ 中的映射，满足
+$\beta \circ \alpha = 0$。下列条件等价：
+\begin{enumerate}
+\item 在阿贝尔范畴 $\QCoh(\mathcal{O}_\mathcal{X})$ 中，
+复形 $\mathcal{F} \to \mathcal{G} \to \mathcal{H}$
+在 $\mathcal{G}$ 处正合；
+\item 无论在
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 还是
+$\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$
+中计算，$\Ker(\beta)/\Im(\alpha)$ 都寄生。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+有 $\QCoh(\mathcal{O}_\mathcal{X}) \subset
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$；参见第
+\ref{stacks-cohomology-section-loc-qcoh-flat-base-change} 节。
+因此，在
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 或
+$\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$
+中计算的 $\Ker(\beta)/\Im(\alpha)$ 一致；参见命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}。
+以下在 $\mathcal{X}$ 上采用 \'etale 拓扑。
+
+\medskip\noindent
+设 $\mathcal{E}$ 是复形
+$\mathcal{F} \to \mathcal{G} \to \mathcal{H}$
+在阿贝尔范畴 $\QCoh(\mathcal{O}_\mathcal{X})$ 中计算所得的上同调。
+设 $x : U \to \mathcal{X}$ 是平坦态射，其中 $U$ 为概形。
+由于采用 \'etale 拓扑，限制函子
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\to \textit{Mod}(U_\etale, \mathcal{O}_U)$ 正合。
+另一方面，由引理 \ref{stacks-cohomology-lemma-flat-pullback-quasi-coherent} 和
+《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-quasi-coherent}，限制函子
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \xrightarrow{x^*}
+\QCoh((\Sch/U)_\etale, \mathcal{O}) \xrightarrow{{-}|_{U_\etale}}
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+也正合。因此
+$\mathcal{E}|_{U_\etale} = (\Ker(\beta)/\Im(\alpha))|_{U_\etale}$。
+
+\medskip\noindent
+若 (1) 成立，则 $\mathcal{E} = 0$；所以对所有在
+$\mathcal{X}$ 上平坦的 $U$，$\Ker(\beta)/\Im(\alpha)$
+在 $U_\etale$ 上的限制为零，这正是寄生模的定义。
+若 (2) 成立，则对所有在 $\mathcal{X}$ 上平坦的 $U$，
+$\Ker(\beta)/\Im(\alpha)$ 在 $U_\etale$ 上的限制为零，
+从而对所有在 $\mathcal{X}$ 上平坦的 $U$，
+$\mathcal{E}$ 在 $U_\etale$ 上的限制为零。
+这当然蕴含拟凝聚模 $\mathcal{E}$ 为零；例如，可对映射
+$0 \to \mathcal{E}$ 应用引理 \ref{stacks-cohomology-lemma-quasi-coherent-check-exact}。
+\end{proof}
+
+
+\section{拟凝聚模}
+\label{stacks-cohomology-section-quasi-coherent}
+
+\noindent
+我们已经看到，代数叠上的拟凝聚模范畴与其一个表示上的拟凝聚模范畴等价；
+参见《叠上的层》第
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks} 节。
+这一事实是下述结果的基础。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-adjoint}
+设 $\mathcal{X}$ 为代数叠，并设
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+为具有平坦基变换性质的局部拟凝聚模范畴；参见第
+\ref{stacks-cohomology-section-loc-qcoh-flat-base-change} 节。包含函子
+$i : \QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+有右伴随
+$$
+Q : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+并且 $Q \circ i$ 是恒等函子。
+\end{lemma}
+
+\begin{proof}
+选择概形 $U$ 和满的光滑态射 $f : U \to \mathcal{X}$。
+令 $R = U \times_\mathcal{X} U$，从而得到代数空间中的光滑群胚
+$(U, R, s, t, c)$，满足 $\mathcal{X} = [U/R]$；
+参见《代数叠》引理 \ref{algebraic-lemma-stack-presentation}。
+我们用 $[U/R]$ 替换 $\mathcal{X}$。由《叠上的层》命题
+\ref{stacks-sheaves-proposition-quasi-coherent}，存在等价
+$$
+q_1 :
+\QCoh(U, R, s, t, c)
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+下面按如下规则构造函子
+$$
+q_2 :
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U, R, s, t, c)
+$$
+若 $\mathcal{F}$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象，则令
+$$
+q_2(\mathcal{F}) = (f^*\mathcal{F}|_{U_\etale}, \alpha)
+$$
+其中 $\alpha$ 为同构
+$$
+t_{small}^*(f^*\mathcal{F}|_{U_\etale})
+\to
+t^*f^*\mathcal{F}|_{R_\etale} \to
+s^*f^*\mathcal{F}|_{R_\etale} \to
+s_{small}^*(f^*\mathcal{F}|_{U_\etale})
+$$
+外侧两个态射是比较映射。注意，$q_2(\mathcal{F})$ 拟凝聚，
+恰是因为 $\mathcal{F}$ 局部拟凝聚；而构造下降数据 $\alpha$ 时，
+我们使用了（并且需要）平坦基变换性质。略去余圈条件成立的验证
+（参见《空间中的群胚》定义
+\ref{spaces-groupoids-definition-groupoid-module}）。
+查看《叠上的层》命题
+\ref{stacks-sheaves-proposition-quasi-coherent} 的证明可见，
+$q_2 \circ i$ 是 $q_1$ 的拟逆。定义 $Q = q_1 \circ q_2$。
+设 $\mathcal{F}$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象，
+$\mathcal{G}$ 是 $\QCoh(\mathcal{O}_\mathcal{X})$ 的对象。则
+\begin{align*}
+\Mor_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})}
+(i(\mathcal{G}), \mathcal{F})
+& =
+\Mor_{\QCoh(U, R, s, t, c)}(q_2(i(\mathcal{G})), q_2(\mathcal{F})) \\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{X})}(\mathcal{G}, Q(\mathcal{F}))
+\end{align*}
+第一个等号是《叠上的层》引理
+\ref{stacks-sheaves-lemma-map-from-quasi-coherent}；
+% P12-ERR-0016: see ../control/ERRATA_CANDIDATES.jsonl
+第二个等号成立，是因为 $q_1 \circ i$ 与 $q_2$ 是范畴的互拟逆等价。
+断言 $Q \circ i \cong \text{id}$ 是 $i$ 充满忠实这一事实的形式推论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-adjoint-kernel-parasitic}
+设 $\mathcal{X}$ 为代数叠，并设
+$Q : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+为引理 \ref{stacks-cohomology-lemma-adjoint} 中构造的函子。
+\begin{enumerate}
+\item $Q$ 的核恰好是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的寄生对象全体。
+\item 对 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的任意对象
+$\mathcal{F}$，伴随映射 $Q(\mathcal{F}) \to \mathcal{F}$
+的核和余核都寄生。
+\item 函子 $Q$ 正合，并与所有极限和余极限可交换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+如引理 \ref{stacks-cohomology-lemma-adjoint} 的证明那样，写
+$\mathcal{X} = [U/R]$。设 $\mathcal{F}$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象。
+由引理 \ref{stacks-cohomology-lemma-adjoint} 的证明显然可知，$\mathcal{F}$
+属于 $Q$ 的核，当且仅当 $\mathcal{F}|_{U_\etale} = 0$。
+特别地，若 $\mathcal{F}$ 寄生，则 $\mathcal{F}$ 属于该核。
+接着，设 $x : V \to \mathcal{X}$ 是平坦态射，其中 $V$ 为概形。
+令 $W = V \times_\mathcal{X} U$，并考察图
+$$
+\xymatrix{
+W \ar[d]_p \ar[r]_q & V \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+注意，投影 $p : W \to U$ 平坦，而投影 $q : W \to V$ 光滑且满。
+这蕴含 $q_{small}^*$ 在拟凝聚模上是忠实函子。
+由假设，$\mathcal{F}$ 具有平坦基变换性质，故有
+$p_{small}^*\mathcal{F}|_{U_\etale} \cong
+q_{small}^*\mathcal{F}|_{V_\etale}$。
+因此，若 $\mathcal{F}$ 属于 $Q$ 的核，则
+$\mathcal{F}|_{V_\etale} = 0$，这就完成了 (1) 的证明。
+
+\medskip\noindent
+(2) 由上述讨论以及如下事实得出：映射
+$Q(\mathcal{F}) \to \mathcal{F}$ 在限制到 $U_\etale$ 后成为同构。
+
+\medskip\noindent
+为证明 (3)，注意 $Q$ 作为右伴随是左正合的。设
+$0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$
+是 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 中的短正合列。
+考察交换图
+$$
+\xymatrix{
+0 \ar[r] &
+Q(\mathcal{F}) \ar[r] \ar[d]_a &
+Q(\mathcal{G}) \ar[r] \ar[d]_b &
+Q(\mathcal{H}) \ar[r] \ar[d]_c & 0 \\
+0 \ar[r] &
+\mathcal{F} \ar[r] &
+\mathcal{G} \ar[r] &
+\mathcal{H} \ar[r] & 0
+}
+$$
+由 (2)，$a$、$b$、$c$ 的核与余核都寄生；又因下行是短正合列，
+可知上行作为 $\mathcal{O}_\mathcal{X}$-模复形，其上同调层寄生
+（略去细节；这里用到寄生模范畴是全体模范畴的 Serre 子范畴）。
+由 $Q$ 左正合，只需考察在 $Q(\mathcal{H})$ 处的正合性。
+% P12-ERR-0017: see ../control/ERRATA_CANDIDATES.jsonl
+然而，$Q(\mathcal{G}) \to Q(\mathcal{H}))$ 的余核
+$\mathcal{Q}$，无论在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+还是在 $\QCoh(\mathcal{O}_\mathcal{X})$ 中计算，结果都相同，
+因为包含函子
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$
+是左伴随，因而右正合。因此 $\mathcal{Q} = Q(\mathcal{Q})$
+既拟凝聚又寄生，由 (1) 即为 $0$，正合所需。
+
+\medskip\noindent
+$Q$ 作为右伴随与所有极限可交换。由于 $Q$ 正合，
+要证明 $Q$ 与所有余极限可交换，只需证明 $Q$ 与直和可交换；
+参见《范畴》引理
+\ref{categories-lemma-colimits-coproducts-coequalizers}。
+设 $\mathcal{F}_i$（$i \in I$）是一族
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象。
+为说明 $Q(\bigoplus \mathcal{F}_i)$ 等于
+$\bigoplus Q(\mathcal{F}_i)$，考察引理 \ref{stacks-cohomology-lemma-adjoint}
+的证明中对 $Q$ 的构造。该构造使用表示
+$\mathcal{X} = [U/R]$，其中 $U$ 是概形。此时，计算
+$Q(\mathcal{F})$ 时先取 $\QCoh(U, R, s, t, c)$ 中的偶
+$(\mathcal{F}|_{U_\etale}, \alpha)$，再使用等价
+$\QCoh(U, R, s, t, c) \cong \QCoh(\mathcal{O}_\mathcal{X})$。
+由于限制函子
+$\textit{Mod}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_{U_\etale})$，
+$\mathcal{F} \mapsto \mathcal{F}|_{U_\etale}$ 与直和可交换，
+所需等式显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-flat-morphism-and-Q}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的平坦态射。
+则 $Q_\mathcal{X} \circ f^* = f^* \circ Q_\mathcal{Y}$，
+其中 $Q_\mathcal{X}$ 和 $Q_\mathcal{Y}$ 如引理
+\ref{stacks-cohomology-lemma-adjoint} 所述。
+\end{lemma}
+
+\begin{proof}
+注意 $f^*$ 同时保持 $\QCoh$ 和 $\textit{LQCoh}^{fbc}$；
+参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-quasi-coherent} 和命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}。
+若 $\mathcal{F}$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$，
+则由引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}，
+$Q_\mathcal{Y}(\mathcal{F}) \to \mathcal{F}$ 的核和余核都寄生。
+由于 $f$ 平坦，由引理 \ref{stacks-cohomology-lemma-parasitic}，
+$f^*Q_\mathcal{Y}(\mathcal{F}) \to f^*\mathcal{F}$ 的核和余核都寄生。
+因而诱导映射
+$f^*Q_\mathcal{Y}(\mathcal{F}) \to Q_\mathcal{X}(f^*\mathcal{F})$
+的核和余核寄生，所以它是同构；例如可用引理
+\ref{stacks-cohomology-lemma-exact-sequence-quasi-coherent-parasitic-cohomology}。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-flat-object-and-Q}
+设 $\mathcal{X}$ 为代数叠，并设 $x$ 是 $\mathcal{X}$ 的一个对象，
+位于概形 $U$ 上，使得 $x : U \to \mathcal{X}$ 平坦。
+% P12-ERR-0018: see ../control/ERRATA_CANDIDATES.jsonl
+则对 $\QCoh^{fbc}(\mathcal{O}_\mathcal{X})$ 中的 $\mathcal{F}$，有
+$Q(\mathcal{F})|_{U_\etale} = \mathcal{F}|_{U_\etale}$。
+\end{lemma}
+
+\begin{proof}
+这是因为 $Q(\mathcal{F}) \to \mathcal{F}$ 的核和余核都寄生；
+参见引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}。
+\end{proof}
+
+\begin{remark}
+\label{stacks-cohomology-remark-QCoh-abelian}
+设 $\mathcal{X}$ 为代数叠。范畴 $\QCoh(\mathcal{O}_\mathcal{X})$
+是阿贝尔范畴；包含函子
+$\QCoh(\mathcal{O}_\mathcal{X}) \to \textit{Mod}(\mathcal{O}_\mathcal{X})$
+右正合，但一般并不正合；参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}。
+可以用引理 \ref{stacks-cohomology-lemma-adjoint} 和
+\ref{stacks-cohomology-lemma-adjoint-kernel-parasitic} 中的函子 $Q$ 来理解这一点。
+具体地，设 $\varphi : \mathcal{F} \to \mathcal{G}$
+是拟凝聚 $\mathcal{O}_\mathcal{X}$-模之间的映射。则
+\begin{enumerate}
+\item 在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的余核
+$\Coker(\varphi)$ 拟凝聚，并且是 $\QCoh(\mathcal{O}_\mathcal{X})$
+中 $\varphi$ 的余核；
+\item 在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的像
+$\Im(\varphi)$ 拟凝聚，并且是 $\QCoh(\mathcal{O}_\mathcal{X})$
+中 $\varphi$ 的像；
+\item 在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的核
+$\Ker(\varphi)$，由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change} 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$；而
+$Q(\Ker(\varphi))$ 是 $\QCoh(\mathcal{O}_\mathcal{X})$ 中的核。
+\end{enumerate}
+这些结论由所给引文得出。
+\end{remark}
+
+\begin{remark}
+\label{stacks-cohomology-remark-QCoh-tensor}
+设 $\mathcal{X}$ 为代数叠。给定两个拟凝聚
+$\mathcal{O}_\mathcal{X}$-模 $\mathcal{F}$ 和 $\mathcal{G}$，
+张量积模 $\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+拟凝聚；参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack} 的 (5)。
+类似地，给定两个具有平坦基变换性质的局部拟凝聚模，
+其张量积也具有同样性质；参见命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}。因此包含函子
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+$$
+都是对称幺半范畴之间的函子。更值得注意的是，函子
+$$
+Q :
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+也是对称幺半范畴之间的函子。具体地，给定
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 中的
+$\mathcal{F}$ 和 $\mathcal{G}$，得到
+$$
+\xymatrix{
+Q(\mathcal{F})
+\otimes_{\mathcal{O}_\mathcal{X}}
+Q(\mathcal{G}) \ar[rr] \ar[rd] & &
+\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{X}}
+\mathcal{G} \\
+&
+Q(\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}) \ar[ru]
+}
+$$
+其中西南方向的箭头来自西北方向箭头的泛性质
+（以及左上角对象拟凝聚这一已经提及的事实）。
+若把该图限制到 $U_\etale$，其中 $U \to \mathcal{X}$ 平坦，
+则三个箭头都成为同构（参见引理 \ref{stacks-cohomology-lemma-adjoint}、
+\ref{stacks-cohomology-lemma-adjoint-kernel-parasitic} 和定义
+\ref{stacks-cohomology-definition-parasitic}）。因此
+$Q(\mathcal{F}) \otimes_{\mathcal{O}_\mathcal{X}}
+Q(\mathcal{G}) \to
+Q(\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G})$
+是同构；例如参见引理
+\ref{stacks-cohomology-lemma-quasi-coherent-check-exact}。
+\end{remark}
+
+\begin{remark}
+\label{stacks-cohomology-remark-bousfield-colocalization}
+设 $\mathcal{X}$ 为代数叠，并以
+$\textit{Parasitic}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+表示由寄生模组成的充满子范畴。引理
+\ref{stacks-cohomology-lemma-adjoint} 和 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic} 的结果蕴含
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) =
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) /
+\textit{Parasitic}(\mathcal{O}_\mathcal{X})
+\cap \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+$$
+换言之，拟凝聚模范畴是具有平坦基变换性质的局部拟凝聚模范畴，
+除以由寄生对象组成的 Serre 子范畴所得的商范畴。
+参见《同调》引理
+\ref{homology-lemma-serre-subcategory-is-kernel}。
+该情形的一个关键特征是存在包含函子
+$i : \QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，
+它是商函子的左伴随。在《叠的导出范畴》第
+\ref{stacks-perfect-section-derived} 节，尤其是引理
+\ref{stacks-perfect-lemma-bousfield-colocalization} 中，
+我们证明在导出范畴层次上也有类似结果。
+\end{remark}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-internal-hom-fp-into-qcoh}
+设 $\mathcal{X}$ 为代数叠，$\mathcal{F}$ 是有限表示的
+$\mathcal{O}_\mathcal{X}$-模，$\mathcal{G}$ 是拟凝聚
+$\mathcal{O}_\mathcal{X}$-模。在
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 或
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的内部 Hom
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+彼此一致，其共同值是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象。
+拟凝聚模
+$
+hom(\mathcal{F}, \mathcal{G}) =
+Q(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))
+$
+具有如下泛性质：
+$$
+\Hom_\mathcal{X}(\mathcal{H}, hom(\mathcal{F}, \mathcal{G})) =
+\Hom_\mathcal{X}(\mathcal{H} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{F},
+\mathcal{G})
+$$
+其中 $\mathcal{H}$ 属于 $\QCoh(\mathcal{O}_\mathcal{X})$。
+\end{lemma}
+
+\begin{proof}
+《site 上的模》第 \ref{sites-modules-section-internal-hom} 节中
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+的构造，只依赖于作为模预层的 $\mathcal{F}$ 和 $\mathcal{G}$；
+输出的 $\SheafHom$ 是 fppf 拓扑的层，因为假设
+$\mathcal{F}$ 和 $\mathcal{G}$ 是 fppf 拓扑的层；
+参见《site 上的模》引理 \ref{sites-modules-lemma-internal-hom}。
+由《叠上的层》引理 \ref{stacks-sheaves-lemma-lqc-colimits}，
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+局部拟凝聚。由引理
+\ref{stacks-cohomology-lemma-check-flat-comparison-on-etale-covering}，
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+具有平坦基变换性质。因此
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象，
+可以对其应用引理 \ref{stacks-cohomology-lemma-adjoint} 的函子 $Q$。
+由 $Q$ 的泛性质，对拟凝聚的 $\mathcal{H}$ 有
+$$
+\Hom_\mathcal{X}(\mathcal{H},
+Q(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))) =
+\Hom_\mathcal{X}(\mathcal{H},
+\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))
+$$
+所以引理中的显示公式由《site 上的模》引理
+\ref{sites-modules-lemma-internal-hom-adjoint-tensor} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-flat-morphism-and-hom}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的平坦态射。
+设 $\mathcal{F}$ 是有限表示的 $\mathcal{O}_\mathcal{Y}$-模，
+$\mathcal{G}$ 是拟凝聚 $\mathcal{O}_\mathcal{Y}$-模。
+则 $f^*hom(\mathcal{F}, \mathcal{G}) = hom(f^*\mathcal{F}, f^*\mathcal{G})$，
+记号如引理 \ref{stacks-cohomology-lemma-internal-hom-fp-into-qcoh}。
+\end{lemma}
+
+\begin{proof}
+由《site 上的模》引理
+\ref{sites-modules-lemma-pullback-internal-hom}，有
+$f^*\SheafHom_{\mathcal{O}_\mathcal{Y}}(\mathcal{F}, \mathcal{G}) =
+\SheafHom_{\mathcal{O}_\mathcal{X}}(f^*\mathcal{F}, f^*\mathcal{G})$。
+（注意，这一步没有用到 $f$ 的平坦性，因为与 $f$ 相伴的赋环拓扑斯态射
+总是平坦的；参见《叠上的层》注
+\ref{stacks-sheaves-remark-flat}。）
+然后应用引理 \ref{stacks-cohomology-lemma-flat-morphism-and-Q}
+（而在这里确实用到了 $f$ 的平坦性）。
+\end{proof}
+
+
+
+
+
+
+
+\section{拟凝聚模的直像}
+\label{stacks-cohomology-section-pushforward-quasi-coherent}
+
+\noindent
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射。
+考虑直像
+$$
+f_* :
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\textit{Mod}(\mathcal{O}_\mathcal{Y})
+$$
+事实表明，该函子几乎从不保持拟凝聚层的子范畴。
+例如，考虑概形态射
+$$
+j : X = \mathbf{A}^2_k \setminus \{0\} \longrightarrow \mathbf{A}^2_k = Y.
+$$
+与之相伴的代数叠态射为
+$$
+f = j_{big} : \mathcal{X} = (\Sch/X)_{fppf} \to
+(\Sch/Y)_{fppf} = \mathcal{Y}
+$$
+结构层的直像 $f_*\mathcal{O}_\mathcal{X}$ 的全局截面为
+$k[x, y]$。因此，若 $f_*\mathcal{O}_\mathcal{X}$ 在
+$\mathcal{Y}$ 上拟凝聚，则必有
+$f_*\mathcal{O}_\mathcal{X} = \mathcal{O}_\mathcal{Y}$。然而，
+考虑映到 $0$ 的 $T = \Spec(k) \to \mathbf{A}^2_k = Y$。
+因为 $X \times_Y T = \emptyset$，有
+$\Gamma(T, f_*\mathcal{O}_\mathcal{X}) = 0$；而
+$\Gamma(T, \mathcal{O}_\mathcal{Y}) = k$。
+积极的一面是，对任意平坦态射 $T \to Y$，有等式
+$\Gamma(T, f_*\mathcal{O}_\mathcal{X}) = \Gamma(T, \mathcal{O}_\mathcal{Y})$；
+这由《概形上的上同调》引理
+\ref{coherent-lemma-flat-base-change-cohomology} 得出，
+其中用到 $j$ 是拟紧且拟分离的。
+
+\medskip\noindent
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且
+拟分离的态射。我们利用以下三点来规避上述问题：
+\begin{enumerate}
+\item $f_*$ 确实保持局部拟凝聚模
+（引理 \ref{stacks-cohomology-lemma-pushforward-locally-quasi-coherent}）；
+\item $f_*$ 把拟凝聚层变为局部拟凝聚层，
+且其平坦比较态射均为同构
+（引理 \ref{stacks-cohomology-lemma-flat-comparison}）；
+\item 具有平坦基变换性质的局部拟凝聚
+$\mathcal{O}_\mathcal{Y}$-模，在 $\mathcal{Y}$ 的一个展示上给出
+拟凝聚模，从而在 $\mathcal{Y}$ 上给出拟凝聚模；
+参见《叠上的层》第
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks} 节。
+\end{enumerate}
+因此得到函子
+$$
+f_{\QCoh, *} :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+它是
+$f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+的右伴随，并且还满足
+$$
+\Gamma(y, f_*\mathcal{F}) = \Gamma(y, f_{\QCoh, *}\mathcal{F})
+$$
+其中 $y \in \Ob(\mathcal{Y})$ 且相应的
+$1$-态射 $y : V \to \mathcal{Y}$ 平坦；参见引理
+\ref{stacks-cohomology-lemma-direct-image-quasi-coherent-over-flat}。
+此外，类似的构造将给出函子
+$R^if_{\QCoh, *}$。
+但这些结果还不足以构造总直像函子
+（作用于具有拟凝聚上同调层的复形）。
+
+\begin{proposition}
+\label{stacks-cohomology-proposition-direct-image-quasi-coherent}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射。
+函子
+$f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+具有右伴随
+$$
+f_{\QCoh, *} :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+它可定义为复合
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\xrightarrow{f_*} \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})
+\xrightarrow{Q} \QCoh(\mathcal{O}_\mathcal{Y})
+$$
+其中函子 $f_*$ 和 $Q$ 分别如命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change} 与引理
+\ref{stacks-cohomology-lemma-adjoint} 所述。
+此外，若把 $R^if_{\QCoh, *}$ 定义为复合
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\xrightarrow{R^if_*} \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})
+\xrightarrow{Q} \QCoh(\mathcal{O}_\mathcal{Y})
+$$
+则函子序列 $\{R^if_{\QCoh, *}\}_{i \geq 0}$
+构成一个上同调 $\delta$-函子。
+\end{proposition}
+
+\begin{proof}
+这是命题中所述结果的组合。
+伴随性可如下证明：设 $\mathcal{F}$ 是拟凝聚
+$\mathcal{O}_\mathcal{X}$-模，$\mathcal{G}$ 是拟凝聚
+$\mathcal{O}_\mathcal{Y}$-模。则有
+\begin{align*}
+\Mor_{\QCoh(\mathcal{O}_\mathcal{X})}(f^*\mathcal{G}, \mathcal{F})
+& =
+\Mor_{\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})}
+(\mathcal{G}, f_*\mathcal{F}) \\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{Y})}(\mathcal{G}, Q(f_*\mathcal{F}))
+\\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{Y})}(\mathcal{G},
+f_{\QCoh, *}\mathcal{F})
+\end{align*}
+第一个等号由 $f_*$ 与 $f^*$ 的伴随性得到
+（对任意模层而言）。由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}，
+$f_*\mathcal{F}$ 是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$
+的对象（且可以在 fppf 拓扑或 \'etale 拓扑中计算）；
+第二个等号由引理 \ref{stacks-cohomology-lemma-adjoint} 得到。
+第三个等号是 $f_{\QCoh, *}$ 的定义。
+
+\medskip\noindent
+要说明 $\{R^if_{\QCoh, *}\}_{i \geq 0}$ 是《同调》定义
+\ref{homology-definition-cohomological-delta-functor}
+中的上同调 $\delta$-函子，设
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+是 $\QCoh(\mathcal{O}_\mathcal{X})$ 中的短正合列。
+它在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中可能不是正合列，
+但我们知道，它在忽略寄生模的意义下是正合的；
+参见引理 \ref{stacks-cohomology-lemma-exact-sequence-quasi-coherent-parasitic-cohomology}。
+因此可将该序列分解为
+$$
+\begin{matrix}
+0 \to \mathcal{P}_1 \to \mathcal{F}_1 \to \mathcal{I}_2 \to 0 \\
+0 \to \mathcal{I}_2 \to \mathcal{F}_2 \to \mathcal{Q}_2 \to 0 \\
+0 \to \mathcal{P}_2 \to \mathcal{Q}_2 \to \mathcal{I}_3 \to 0 \\
+0 \to \mathcal{I}_3 \to \mathcal{F}_3 \to \mathcal{P}_3 \to 0
+\end{matrix}
+$$
+这些是 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中的短正合列，
+且 $\mathcal{P}_i$ 是寄生的。注意，每个层
+$\mathcal{P}_j$、$\mathcal{I}_j$、$\mathcal{Q}_j$ 都是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象；
+参见命题 \ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}。
+应用 $R^if_*$ 得到长正合列
+$$
+\begin{matrix}
+0 \to f_*\mathcal{P}_1 \to f_*\mathcal{F}_1 \to f_*\mathcal{I}_2 \to
+R^1f_*\mathcal{P}_1 \to \ldots \\
+0 \to f_*\mathcal{I}_2 \to f_*\mathcal{F}_2 \to f_*\mathcal{Q}_2 \to
+R^1f_*\mathcal{I}_2 \to \ldots \\
+0 \to f_*\mathcal{P}_2 \to f_*\mathcal{Q}_2 \to f_*\mathcal{I}_3 \to
+R^1f_*\mathcal{P}_2 \to \ldots \\
+0 \to f_*\mathcal{I}_3 \to f_*\mathcal{F}_3 \to f_*\mathcal{P}_3 \to
+R^1f_*\mathcal{I}_3 \to \ldots
+\end{matrix}
+$$
+% P12-ERR-0022: see ../control/ERRATA_CANDIDATES.jsonl
+其中各项由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}
+都是 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y})$ 的对象。
+由引理 \ref{stacks-cohomology-lemma-pushforward-parasitic}，
+层 $R^if_*\mathcal{P}_j$ 是寄生的，因而在应用函子
+$Q$ 后消失；参见引理
+\ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}。
+由于 $Q$ 正合，态射
+$$
+Q(R^if_*\mathcal{F}_3)
+\cong
+Q(R^if_*\mathcal{I}_3)
+\cong
+Q(R^if_*\mathcal{Q}_2)
+\rightarrow
+Q(R^{i + 1}f_*\mathcal{I}_2)
+\cong
+Q(R^{i + 1}f_*\mathcal{F}_1)
+$$
+可作为连接态射，从而使函子族
+$\{R^if_{\QCoh, *}\}_{i \geq 0}$
+成为上同调 $\delta$-函子。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-direct-image-quasi-coherent-over-flat}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射。
+设 $y : V \to \mathcal{Y}$ 属于 $\Ob(\mathcal{Y})$，且 $y$ 为平坦态射。
+设 $\mathcal{F}$ 属于 $\QCoh(\mathcal{O}_\mathcal{X})$。
+则对所有 $i \in \mathbf{Z}$，有
+$(f_*\mathcal{F})(y) = (f_{\QCoh, *}\mathcal{F})(y)$
+以及 $(R^if_*\mathcal{F})(y) = (R^if_{\QCoh, *}\mathcal{F})(y)$。
+\end{lemma}
+
+\begin{proof}
+这由命题 \ref{stacks-cohomology-proposition-direct-image-quasi-coherent}
+中函子 $R^if_{\QCoh, *}$ 的构造、
+定义 \ref{stacks-cohomology-definition-parasitic} 中寄生模的定义，
+以及引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic} 的第 (2) 部分得出。
+\end{proof}
+
+\begin{remark}
+\label{stacks-cohomology-remark-direct-image-quasi-coherent-tensor}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射。
+设 $\mathcal{F}$ 和 $\mathcal{G}$ 属于
+$\QCoh(\mathcal{O}_\mathcal{X})$。则有典范交换图
+$$
+\xymatrix{
+f_{\QCoh, *}\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{Y}}
+f_{\QCoh, *}\mathcal{G} \ar[r] \ar[d] &
+f_*\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{Y}}
+f_*\mathcal{G} \ar[d]^c \\
+f_{\QCoh, *}(\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{X}}
+\mathcal{G}) \ar[r] &
+f_*(\mathcal{F}
+\otimes_{\mathcal{O}_\mathcal{X}}
+\mathcal{G})
+}
+$$
+右边的竖直箭头 $c$ 是（次数 $0$ 的）朴素相对杯积；
+参见《site 上的上同调》第
+\ref{sites-cohomology-section-cup-product} 节。
+% P12-ERR-0019: see ../control/ERRATA_CANDIDATES.jsonl
+$c$ 的源与目标都属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$；参见命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}。
+对 $c$ 应用 $Q$，便得到左边的竖直箭头，
+因为 $Q$ 与张量积可交换；参见注
+\ref{stacks-cohomology-remark-QCoh-tensor}。
+该构造对 $\mathcal{F}$ 和 $\mathcal{G}$ 具有函子性。
+\end{remark}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-leray}
+设 $f : \mathcal{X} \to \mathcal{Y}$
+是代数叠之间拟紧且拟分离的态射。
+设 $\mathcal{F}$ 是 $\mathcal{X}$ 上的拟凝聚层。
+则存在一个谱序列，其 $E_2$-页为
+$$
+E_2^{p, q} = H^p(\mathcal{Y}, R^qf_{\QCoh, *}\mathcal{F})
+$$
+并收敛到 $H^{p + q}(\mathcal{X}, \mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+由《site 上的上同调》引理
+\ref{sites-cohomology-lemma-Leray}，具有
+$$
+E_2^{p, q} = H^p(\mathcal{Y}, R^qf_*\mathcal{F})
+$$
+的 Leray 谱序列收敛到
+$H^{p + q}(\mathcal{X}, \mathcal{F})$。伴随态射
+$$
+R^qf_{\QCoh, *}\mathcal{F} \longrightarrow R^qf_*\mathcal{F}
+$$
+的核与余核是 $\mathcal{Y}$ 上的寄生模
+（引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}），
+因而其上同调为零
+（引理 \ref{stacks-cohomology-lemma-pushforward-parasitic}）。
+形式地可得
+$H^p(\mathcal{Y}, R^qf_{\QCoh, *}\mathcal{F}) =
+H^p(\mathcal{Y}, R^qf_*\mathcal{F})$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-relative-leray}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 和 $g : \mathcal{Y} \to \mathcal{Z}$
+是代数叠之间拟紧且拟分离的态射。
+设 $\mathcal{F}$ 是 $\mathcal{X}$ 上的拟凝聚层。
+则存在一个谱序列，其 $E_2$-页为
+$$
+E_2^{p, q} = R^pg_{\QCoh, *}(R^qf_{\QCoh, *}\mathcal{F})
+$$
+并收敛到 $R^{p + q}(g \circ f)_{\QCoh, *}\mathcal{F}$。
+\end{lemma}
+
+\begin{proof}
+由《site 上的上同调》引理
+\ref{sites-cohomology-lemma-relative-Leray}，具有
+$$
+E_2^{p, q} = R^pg_*(R^qf_*\mathcal{F})
+$$
+的 Leray 谱序列收敛到
+$R^{p + q}(g \circ f)_*\mathcal{F}$。由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change} 的结果，
+该谱序列的所有项都是
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Z})$ 的对象。
+应用正合函子
+$Q_\mathcal{Z} : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Z}) \to
+\QCoh(\mathcal{O}_\mathcal{Z})$，得到
+% P12-ERR-0023: see ../control/ERRATA_CANDIDATES.jsonl
+$\QCoh(\mathcal{O}_\mathcal{Z})$ 中一个收敛到
+$R^{p + q}(g \circ f)_{\QCoh, *}\mathcal{F}$ 的谱序列。
+因此，只要证明
+% P12-ERR-0020: see ../control/ERRATA_CANDIDATES.jsonl
+% P12-ERR-0021: see ../control/ERRATA_CANDIDATES.jsonl
+$$
+Q_\mathcal{Z}(R^pg_*(R^qf_*\mathcal{F})) =
+Q_\mathcal{Z}(R^pg_*(Q_\mathcal{X}(R^qf_*\mathcal{F}))
+$$
+即可。这又由以下事实得出：态射
+$$
+Q_\mathcal{X}(R^qf_*\mathcal{F}) \longrightarrow R^qf_*\mathcal{F}
+$$
+的核与余核是寄生的
+（引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}），而
+$R^pg_*$ 把寄生模变为寄生模
+（引理 \ref{stacks-cohomology-lemma-pushforward-parasitic}）。
+\end{proof}
+
+\noindent
+在本节最后，我们把与概形给出的光滑覆盖相联系的谱序列明确写出。
+请与《叠上的层》第
+\ref{stacks-sheaves-section-cohomology} 节和第
+\ref{stacks-sheaves-section-higher-direct-images} 节比较。
+
+\begin{proposition}
+\label{stacks-cohomology-proposition-smooth-covering-compute-cohomology}
+设 $f : \mathcal{U} \to \mathcal{X}$ 是代数叠之间的态射。
+假设 $f$ 可由代数空间表示，满射、平坦且局部有限表示。
+设 $\mathcal{F}$ 是拟凝聚 $\mathcal{O}_\mathcal{X}$-模。
+则有谱序列
+$$
+E_2^{p, q} = H^q(\mathcal{U}_p, f_p^*\mathcal{F})
+\Rightarrow
+H^{p + q}(\mathcal{X}, \mathcal{F})
+$$
+其中 $f_p$ 是态射
+$\mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U} \to
+\mathcal{X}$（含 $p + 1$ 个因子）。
+\end{proposition}
+
+\begin{proof}
+这是《叠上的层》命题
+\ref{stacks-sheaves-proposition-smooth-covering-compute-cohomology}
+的一个特例。
+\end{proof}
+
+\begin{proposition}
+\label{stacks-cohomology-proposition-smooth-covering-compute-direct-image}
+设 $f : \mathcal{U} \to \mathcal{X}$ 和 $g : \mathcal{X} \to \mathcal{Y}$
+是可复合的代数叠态射。假设
+\begin{enumerate}
+\item $f$ 可由代数空间表示，满射、平坦、局部有限表示、
+拟紧且拟分离；
+\item $g$ 拟紧且拟分离。
+\end{enumerate}
+若 $\mathcal{F}$ 属于 $\QCoh(\mathcal{O}_\mathcal{X})$，
+则 $\QCoh(\mathcal{O}_\mathcal{Y})$ 中有谱序列
+$$
+E_2^{p, q} = R^q(g \circ f_p)_{\QCoh, *}f_p^*\mathcal{F}
+\Rightarrow
+R^{p + q}g_{\QCoh, *}\mathcal{F}
+$$
+。
+\end{proposition}
+
+\begin{proof}
+注意，每个态射
+$f_p : \mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U} \to
+\mathcal{X}$ 都拟紧且拟分离，因而 $g \circ f_p$
+也拟紧且拟分离。故命题中的表述有意义
+（即函子 $R^q(g \circ f_p)_{\QCoh, *}$ 已定义）。
+由《叠上的层》命题
+\ref{stacks-sheaves-proposition-smooth-covering-compute-direct-image}，
+有谱序列
+$$
+E_2^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+。应用正合函子
+$Q_\mathcal{Y} : \textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{Y})$，便得到
+$\QCoh(\mathcal{O}_\mathcal{Y})$ 中所需的谱序列。
+\end{proof}
+
+\section{关于拟凝聚模的进一步说明}
+\label{stacks-cohomology-section-further-remarks}
+
+\noindent
+% P12-ERR-0024: see ../control/ERRATA_CANDIDATES.jsonl
+本节汇集一些结果，以帮助理解如何使用代数叠上的拟凝聚模。
+
+\medskip\noindent
+设 $f : \mathcal{U} \to \mathcal{X}$ 是代数叠之间的态射。
+假设 $\mathcal{U}$ 由代数空间 $U$ 表示。
+考虑由拉回（《叠上的层》第
+\ref{stacks-sheaves-section-modules} 节）之后再限制
+（《叠上的层》第
+\ref{stacks-sheaves-section-restriction-algebraic-spaces} 节）给出的函子
+$$
+a :
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\longrightarrow
+\textit{Mod}(U_\etale, \mathcal{O}_U),\quad
+\mathcal{F}
+\longmapsto
+f^*\mathcal{F}|_{U_\etale}
+$$
+。把该函子应用于局部拟凝聚模，得到函子
+$$
+b : \textit{LQCoh}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-pullback-lqc} 和
+\ref{stacks-sheaves-lemma-compare-locally-quasi-coherent}。
+进一步将函子限制到更小的子范畴，可得
+$$
+c :
+\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+以及
+$$
+d :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(U_\etale, \mathcal{O}_U)
+$$
+关于这些函子，我们有以下结论：\footnote{我们建议在纸巾上
+推导为何这些陈述成立，而不是追随所给的参照。}
+\begin{enumerate}
+\item 函子 $a$ 正合。事实上，拉回 $f^* = f^{-1}$ 正合
+（《叠上的层》第 \ref{stacks-sheaves-section-modules} 节），
+而到 $U_\etale$ 的限制也正合；参见《叠上的层》等式
+(\ref{stacks-sheaves-equation-restrict})。
+\item 函子 $b$ 正合。事实上，由《叠上的层》引理
+\ref{stacks-sheaves-lemma-lqc-colimits}，包含
+$\textit{LQCoh}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 正合。
+\item 函子 $c$ 正合。事实上，由命题
+\ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}，包含函子
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 正合。
+\item 函子 $d$ 右正合，但一般不正合。事实上，
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-qc-colimits}，包含函子
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ 右正合。
+我们略去说明非正合性的例子。
+\item 若 $f$ 平坦，则 $d$ 正合。这由结合引理
+\ref{stacks-cohomology-lemma-flat-pullback-quasi-coherent} 和《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-quasi-coherent} 得出。
+\item 若 $f$ 平坦，则 $c$ 消去寄生对象。
+% P12-ERR-0025: see ../control/ERRATA_CANDIDATES.jsonl
+事实上，由引理 \ref{stacks-cohomology-lemma-parasitic}，$f^*$ 保持寄生对象。
+因此，对任意在 $U$ 上 \'etale、从而在 $\mathcal{X}$ 上平坦的概形
+$V$，由限制与 \'etale 局部化的相容性，有
+$0 = f^*\mathcal{F}|_{V_\etale} = c(\mathcal{F})|_{V_\etale}$；
+参见《叠上的层》注
+\ref{stacks-sheaves-remark-compare}。故显然 $c(\mathcal{F}) = 0$。
+\item 若 $f$ 平坦，则 $c = d \circ Q$。事实上，
+由引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}，
+$Q(\mathcal{F}) \to \mathcal{F}$ 的核与余核是寄生的。
+因此，由于 $c$ 正合（(3)）并消去寄生对象（(6)），
+对 $Q(\mathcal{F}) \to \mathcal{F}$ 应用 $c$ 得到同构。
+\item 函子 $a, b, c, d$ 与余极限和任意直和可交换。
+对 $f^*$ 和限制而言，这由它们是左伴随得出，
+因而对 $a$ 成立。由上述参照，结论也对 $b$、$c$、$d$ 成立。
+\item 函子 $a, b, c, d$ 与张量积可交换。
+\item 若 $f$ 平坦且满射，$\mathcal{F}$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，且 $c(\mathcal{F}) = 0$，
+则 $\mathcal{F}$ 是寄生的。事实上，由 (7) 得
+$d(Q(\mathcal{F})) = 0$。由限制与 \'etale 局部化的相容性
+（参见上述参照），可假设 $U$ 是概形。将引理
+\ref{stacks-cohomology-lemma-quasi-coherent-check-exact} 应用于 $0 \to Q(\mathcal{F})$
+和态射 $f : U \to \mathcal{X}$，可得 $Q(\mathcal{F}) = 0$。
+因此，由引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}，
+$\mathcal{F}$ 是寄生的。
+\item 若 $f$ 平坦且满射，则函子 $d$ 反映正合性。
+更确切地，设 $\mathcal{F}^\bullet$ 是
+$\QCoh(\mathcal{O}_\mathcal{X})$ 中的复形。
+则 $\mathcal{F}^\bullet$ 在 $\QCoh(\mathcal{O}_\mathcal{X})$ 中正合，
+当且仅当 $d(\mathcal{F}^\bullet)$ 正合。我们已在 (5) 中看到一个方向。
+对另一方向，假设 $H^i(d(\mathcal{F}^\bullet)) = 0$。
+则 $\mathcal{G} = H^i(\mathcal{F}^\bullet)$ 是
+$\QCoh(\mathcal{O}_\mathcal{X})$ 中满足 $d(\mathcal{G}) = 0$ 的对象。
+因此，由 (10)，$\mathcal{G}$ 同时拟凝聚且寄生，
+从而为 $0$；例如参见注 \ref{stacks-cohomology-remark-bousfield-colocalization}。
+\item
+\label{stacks-cohomology-item-hom-restriction}
+若 $f$ 平坦，
+$\mathcal{F}, \mathcal{G} \in \Ob(\QCoh(\mathcal{O}_\mathcal{X}))$，
+% P12-ERR-0026: see ../control/ERRATA_CANDIDATES.jsonl
+且 $\mathcal{F}$ 有限表示，则有
+$$
+d(hom(\mathcal{F}, \mathcal{G})) =
+\SheafHom_{\mathcal{O}_U}(d(\mathcal{F}), d(\mathcal{G}))
+$$
+记号如引理 \ref{stacks-cohomology-lemma-internal-hom-fp-into-qcoh}。
+也许最容易的证法如下：
+\begin{align*}
+d(hom(\mathcal{F}, \mathcal{G}))
+& =
+d(Q(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G}))) \\
+& =
+c(\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})) \\
+& =
+f^*\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})|_{U_\etale} \\
+& =
+\SheafHom_{\mathcal{O}_\mathcal{U}}(f^*\mathcal{F},
+f^*\mathcal{G})|_{U_\etale} \\
+& =
+\SheafHom_{\mathcal{O}_U}(f^*\mathcal{F}|_{U_\etale},
+f^*\mathcal{G}|_{U_\etale})
+\end{align*}
+第一个等号由 $hom$ 的构造得出，第二个等号由 (7) 得出，
+第三个等号由 $c$ 的定义得出，第四个等号由《site 上的模》引理
+\ref{sites-modules-lemma-pullback-internal-hom} 得出。
+最后一个等号是对《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare} 中赋环拓扑斯的平坦态射
+$i_U (U_\etale, \mathcal{O}_U) \to
+(\mathcal{U}_\etale, \mathcal{O}_\mathcal{U})$
+应用同一参照得出的。
+\item 在此处添加更多内容。
+\end{enumerate}
+
+\section{余极限与上同调}
+\label{stacks-cohomology-section-colimits}
+
+\noindent
+下述引理特别可用于拟凝聚层的图表。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-colimits}
+设 $\mathcal{X}$ 是拟紧且拟分离的代数叠。
+则对 $\mathcal{X}$ 上阿贝层的每个滤过图表，
+$$
+\colim_i H^p(\mathcal{X}, \mathcal{F}_i)
+\longrightarrow
+H^p(\mathcal{X}, \colim_i \mathcal{F}_i)
+$$
+都是同构。对 $\mathcal{X}_\etale$ 上的阿贝层，
+在 \'etale 拓扑中取上同调，同样结论也成立。
+\end{lemma}
+
+\begin{proof}
+令 $\tau = fppf$，或相应地令 $\tau = \etale$。
+对 site $\mathcal{X}_\tau$ 应用《site 上的上同调》引理
+\ref{sites-cohomology-lemma-colim-global}，便得到结论。
+为检验其假设，我们使用《site 上的上同调》注
+\ref{sites-cohomology-remark-colim-global}。
+具体地，以 $\mathcal{B} \subset \Ob(\mathcal{X}_\tau)$ 表示
+位于仿射概形上的对象集合。换言之，$\mathcal{B}$ 的一个元素是态射
+$x : U \to \mathcal{X}$，其中 $U$ 仿射。
+我们依次检验该注的条件 (1) -- (4)：
+\begin{enumerate}
+\item 由于 $\mathcal{X}$ 拟紧，存在满的光滑态射
+$x : U \to \mathcal{X}$，且 $U$ 仿射
+（《叠的性质》引理
+\ref{stacks-properties-lemma-quasi-compact-stack}）。
+因而 $h_x^\# \to *$ 是 $\mathcal{X}_\tau$ 上层的满态射。
+\item 由于 $\mathcal{X}_\tau$ 中的覆盖分别是 fppf 覆盖或
+\'etale 覆盖，$U \in \mathcal{B}$ 的每个覆盖都可由一个有限仿射
+fppf 覆盖加细；分别参见《拓扑》引理
+\ref{topologies-lemma-fppf-affine} 和引理
+\ref{topologies-lemma-etale-affine}。
+\item 设 $x : U \to \mathcal{X}$ 和 $x' : U' \to \mathcal{X}$
+属于 $\mathcal{B}$。在 $\Sh(\mathcal{X}_\tau)$ 中的积
+$h_x^\# \times h_{x'}^\#$ 等于 $\mathcal{X}_\tau$ 上由
+$\mathcal{X}$ 上的代数空间
+$W = U \times_{x, \mathcal{X}, x'} U'$ 确定的层：
+对 $\mathcal{X}_\tau$ 的对象 $y : V \to \mathcal{X}$，有
+$(h_x^\# \times h_{x'}^\#)(y) = \{f : V \to W \mid y =
+x \circ \text{pr}_1 \circ f = x' \circ \text{pr}_2 \circ f\}$。
+由于 $\mathcal{X}$ 拟分离，代数空间 $W$ 拟紧；
+例如参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}。
+因而可选取仿射概形 $U''$ 和满的 \'etale 态射
+$U'' \to W$。以 $x'' : U'' \to \mathcal{X}$ 表示
+$U'' \to W$ 与 $W \to \mathcal{X}$ 的复合。则
+$h_{x''}^\# \to h_x^\# \times h_{x'}^\#$ 如需为满态射。
+\item 设 $x : U \to \mathcal{X}$ 和 $x' : U' \to \mathcal{X}$
+属于 $\mathcal{B}$。设 $a, b : U \to U'$ 是 $\mathcal{X}$ 上的态射，
+即 $a, b  : x \to x'$ 是 $\mathcal{X}_\tau$ 中的态射。
+则 $h_a$ 和 $h_b$ 的等化子由 $a, b : U \to U'$ 的等化子表示；
+后者是 $\mathcal{X}$ 上的仿射概形，因而属于 $\mathcal{B}$。
+\end{enumerate}
+% P12-ERR-0027: see ../control/ERRATA_CANDIDATES.jsonl
+证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-colimit-cohomology}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射。
+设 $\mathcal{F} = \colim \mathcal{F}_i$ 是 $\mathcal{X}$ 上阿贝层的滤过余极限。
+则对任意 $p \geq 0$，有
+$$
+R^pf_*\mathcal{F} = \colim R^pf_*\mathcal{F}_i.
+$$
+对 $\mathcal{X}_\etale$ 上的阿贝层，
+在 \'etale 拓扑中取高阶直像，同样结论也成立。
+\end{lemma}
+
+\begin{proof}
+我们对 fppf 拓扑证明此结论；\'etale 拓扑的证明相同。
+回忆 $R^if_*\mathcal{F}$ 是 $\mathcal{Y}_{fppf}$ 上与预层
+$$
+(y : V \to \mathcal{Y})
+\longmapsto
+H^i(V \times_{y, \mathcal{Y}} \mathcal{X}, \text{pr}^{-1}\mathcal{F})
+$$
+相联系的层。参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-pushforward-restriction}。
+回忆，余极限是与预层余极限相联系的层。
+当 $V$ 仿射时，纤维积 $V \times_\mathcal{Y} \mathcal{X}$
+拟紧且拟分离。因而对仿射的 $V$，可将引理
+\ref{stacks-cohomology-lemma-colimits} 应用于 $H^p(V \times_\mathcal{Y} \mathcal{X}, -)$。
+由于每个 $V$ 都有由仿射对象组成的 fppf 覆盖，引理得证。
+略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-quasi-coherent-pushforward-direct-sums}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间拟紧且拟分离的态射。
+函子 $f_{\QCoh, *}$ 与函子 $R^if_{\QCoh, *}$
+均与直和和滤过余极限可交换。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{stacks-cohomology-lemma-colimit-cohomology}，在全体模上，函子
+$f_*$ 和 $R^if_*$ 与直和和滤过余极限可交换。
+又因为 $f_{\QCoh, *} = Q \circ f_*$、
+$R^if_{\QCoh, *} = Q \circ R^if_*$，且 $Q$ 与所有余极限可交换，
+由引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic} 得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-quasi-coherent-pushforward-affine}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的仿射态射。
+对 $i > 0$，函子 $R^if_{\QCoh, *}$ 为零；函子
+$f_{\QCoh, *}$ 正合，并与直和和所有余极限可交换。
+\end{lemma}
+
+\begin{proof}
+由于 $R^if_{\QCoh, *} = Q \circ R^if_*$，引理
+\ref{stacks-cohomology-lemma-loc-qcoh-fbc-affine-direct-image} 给出所述消失。
+该消失与函子族 $\{R^if_{\QCoh, *}\}_{i \geq 0}$
+构成 $\delta$-函子这一事实一起，表明 $f_{\QCoh, *}$ 正合；
+参见命题 \ref{stacks-cohomology-proposition-direct-image-quasi-coherent}。
+例如由引理 \ref{stacks-cohomology-lemma-quasi-coherent-pushforward-direct-sums}，
+$f_{\QCoh, *}$ 与直和可交换。
+与直和可交换的正合函子与所有余极限可交换。
+\end{proof}
+
+\noindent
+下述引理告诉我们，在拟紧且拟分离的代数叠中，
+有限表示模如预期般表现。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-finite-presentation-quasi-compact-colimit}
+设 $\mathcal{X}$ 是拟紧且拟分离的代数叠。
+设 $I$ 是有向集，$(\mathcal{F}_i, \varphi_{ii'})$ 是
+$I$ 上的 $\mathcal{O}_\mathcal{X}$-模系。设 $\mathcal{G}$ 是有限表示的
+$\mathcal{O}_\mathcal{X}$-模。则
+$$
+\colim_i \Hom_\mathcal{X}(\mathcal{G}, \mathcal{F}_i)
+=
+\Hom_\mathcal{X}(\mathcal{G}, \colim_i \mathcal{F}_i).
+$$
+特别地，$\Hom_\mathcal{X}(\mathcal{G}, -)$ 与
+$\QCoh(\mathcal{O}_\mathcal{X})$ 中的滤过余极限可交换。
+\end{lemma}
+
+\begin{proof}
+所显示的等式是《site 上的模》引理
+\ref{sites-modules-lemma-finite-presentation-quasi-compact-colimit}
+的一个特例。为应用它，我们需对 site $\mathcal{X}_{fppf}$
+检验《Site》引理
+\ref{sites-lemma-directed-colimits-global-sections} 第 (4) 部分的假设。
+为此，我们将检验《Site》注
+\ref{sites-remark-stronger-conditions} 的假设 (2)(a)、(2)(b)、(2)(c)。
+具体地，以 $\mathcal{B} \subset \Ob(\mathcal{X}_{fppf})$ 表示
+位于仿射概形上的对象集合。换言之，$\mathcal{B}$ 的一个元素是态射
+$x : U \to \mathcal{X}$，其中 $U$ 仿射。
+我们依次检验该注的条件 (2)(a)、(2)(b)、(2)(c)：
+\begin{enumerate}
+\item 由于 $\mathcal{X}$ 拟紧，存在满的光滑态射
+$x : U \to \mathcal{X}$，且 $U$ 仿射
+（《叠的性质》引理
+\ref{stacks-properties-lemma-quasi-compact-stack}）。
+因而 $h_x^\# \to *$ 是 $\mathcal{X}_{fppf}$ 上层的满态射。
+\item 由于 $\mathcal{X}_{fppf}$ 中的覆盖是 fppf 覆盖，
+$U \in \mathcal{B}$ 的每个覆盖都可由一个有限仿射 fppf 覆盖加细；
+参见《拓扑》引理 \ref{topologies-lemma-fppf-affine}。
+\item 设 $x : U \to \mathcal{X}$ 和 $x' : U' \to \mathcal{X}$
+属于 $\mathcal{B}$。在 $\Sh(\mathcal{X}_{fppf})$ 中的积
+$h_x^\# \times h_{x'}^\#$ 等于 $\mathcal{X}_{fppf}$ 上由
+$\mathcal{X}$ 上的代数空间
+$W = U \times_{x, \mathcal{X}, x'} U'$ 确定的层：
+对 $\mathcal{X}_{fppf}$ 的对象 $y : V \to \mathcal{X}$，有
+$(h_x^\# \times h_{x'}^\#)(y) = \{f : V \to W \mid y =
+x \circ \text{pr}_1 \circ f = x' \circ \text{pr}_2 \circ f\}$。
+由于 $\mathcal{X}$ 拟分离，代数空间 $W$ 拟紧；
+例如参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}。
+因而可选取仿射概形 $U''$ 和满的 \'etale 态射
+$U'' \to W$。以 $x'' : U'' \to \mathcal{X}$ 表示
+$U'' \to W$ 与 $W \to \mathcal{X}$ 的复合。则
+$h_{x''}^\# \to h_x^\# \times h_{x'}^\#$ 如需为满态射。
+\end{enumerate}
+对最后一个陈述，注意包含函子
+% P12-ERR-0028: see ../control/ERRATA_CANDIDATES.jsonl
+$\QCoh(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$
+与余极限可交换，且有限表示模拟凝聚。
+参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}。
+\end{proof}
+
+\section{光滑-\'etale site 与平坦-fppf site}
+\label{stacks-cohomology-section-lisse-etale}
+
+\noindent
+在著作 \cite{LM-B} 中，上述许多结果都是利用代数叠的
+光滑-\'etale site 证明的。我们在此定义这个 site。
+在《例》第 \ref{examples-section-lisse-etale-not-functorial} 节中，
+我们说明光滑-\'etale site 不具函子性。
+我们还定义它的类比物，即平坦-fppf site；
+它更适合 Stacks Project 中对代数叠的发展
+（因为我们以 fppf 拓扑为基础拓扑）。
+当然，平坦-fppf site 也不具函子性。
+
+\begin{definition}
+\label{stacks-cohomology-definition-lisse-etale}
+设 $\mathcal{X}$ 是代数叠。
+\begin{enumerate}
+\item $\mathcal{X}$ 的 {\it 光滑-\'etale site} 记为
+$\mathcal{X}_{lisse,\etale}$\footnote{文献中，该 site 记为
+$\text{Lis-\'et}(\mathcal{X})$ 或
+$\text{Lis-Et}(\mathcal{X})$，相联系的拓扑斯记为
+$\mathcal{X}_{\text{lis-\'e}t}$ 或 $\mathcal{X}_{\text{lis-et}}$。
+在 Stacks Project 中，我们约定命名 site，并以
+$\Sh(\mathcal{C})$ 表示相应的拓扑斯。}；它是 $\mathcal{X}$ 的充满子范畴，
+其对象是那些位于概形 $U$ 上且态射
+$x : U \to \mathcal{X}$ 光滑的 $x \in \Ob(\mathcal{X})$。
+$\mathcal{X}_{lisse,\etale}$ 的一个覆盖是态射族
+$\{x_i \to x\}_{i \in I}$，这是 $\mathcal{X}_{lisse,\etale}$ 中的态射族，它作为
+$\mathcal{X}_\etale$ 中的态射族构成覆盖。
+\item $\mathcal{X}$ 的 {\it 平坦-fppf site} 记为
+$\mathcal{X}_{flat,fppf}$；它是 $\mathcal{X}$ 的充满子范畴，其对象是那些位于概形 $U$ 上且态射
+$x : U \to \mathcal{X}$ 平坦的 $x \in \Ob(\mathcal{X})$。
+$\mathcal{X}_{flat,fppf}$ 的一个覆盖是态射族
+$\{x_i \to x\}_{i \in I}$，这是 $\mathcal{X}_{flat,fppf}$ 中的态射族，它作为
+$\mathcal{X}_{fppf}$ 中的态射族构成覆盖。
+\end{enumerate}
+\end{definition}
+
+\noindent
+以 $\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$ 表示
+$\mathcal{O}_\mathcal{X}$ 到光滑-\'etale site 的限制；
+$\mathcal{O}_{\mathcal{X}_{flat,fppf}}$ 类似。
+光滑-\'etale site 与 \'etale site 之间的关系如下
+（在下述引理中，我们主要关注“拓扑”性质）。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale}
+设 $\mathcal{X}$ 是代数叠。
+\begin{enumerate}
+\item 包含函子
+$\mathcal{X}_{lisse,\etale} \to \mathcal{X}_\etale$
+充满忠实、连续且余连续。因此：
+\begin{enumerate}
+\item 有拓扑斯态射
+$$
+g :
+\Sh(\mathcal{X}_{lisse,\etale})
+\longrightarrow
+\Sh(\mathcal{X}_\etale)
+$$
+且 $g^{-1}$ 由限制给出；
+\item 在集合层上，函子 $g^{-1}$ 有左伴随 $g_!^{Sh}$；
+\item 伴随态射 $g^{-1}g_* \to \text{id}$ 和
+$\text{id} \to g^{-1}g_!^{Sh}$ 都是同构；
+\item 在阿贝层上，函子 $g^{-1}$ 有左伴随 $g_!$；
+\item 伴随态射 $\text{id} \to g^{-1}g_!$ 是同构；
+\item 有 $g^{-1}\mathcal{O}_\mathcal{X} =
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$，因而 $g$ 诱导一个平坦赋环拓扑斯态射，
+并且 $g^{-1} = g^*$。
+\end{enumerate}
+\item 包含函子
+$\mathcal{X}_{flat,fppf} \to \mathcal{X}_{fppf}$
+充满忠实、连续且余连续。因此：
+\begin{enumerate}
+\item 有拓扑斯态射
+$$
+g :
+\Sh(\mathcal{X}_{flat,fppf})
+\longrightarrow
+\Sh(\mathcal{X}_{fppf})
+$$
+且 $g^{-1}$ 由限制给出；
+\item 在集合层上，函子 $g^{-1}$ 有左伴随 $g_!^{Sh}$；
+\item 伴随态射 $g^{-1}g_* \to \text{id}$ 和
+$\text{id} \to g^{-1}g_!^{Sh}$ 都是同构；
+\item 在阿贝层上，函子 $g^{-1}$ 有左伴随 $g_!$；
+\item 伴随态射 $\text{id} \to g^{-1}g_!$ 是同构；
+\item 有 $g^{-1}\mathcal{O}_\mathcal{X} =
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}$，因而 $g$ 诱导一个平坦赋环拓扑斯态射，
+并且 $g^{-1} = g^*$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在两种情形中，该函子显然充满忠实、连续且余连续
+（参见《Site》定义 \ref{sites-definition-continuous} 和
+\ref{sites-definition-cocontinuous}）。
+因此，性质 (a)、(b)、(c) 由《Site》引理
+\ref{sites-lemma-when-shriek} 和
+\ref{sites-lemma-back-and-forth} 得出。
+第 (d)、(e) 部分由《site 上的模》引理
+\ref{sites-modules-lemma-g-shriek-adjoint} 和
+\ref{sites-modules-lemma-back-and-forth} 得出。
+第 (f) 部分显然。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale-cohomology}
+设 $\mathcal{X}$ 是代数叠。记号如引理
+\ref{stacks-cohomology-lemma-lisse-etale}。
+\begin{enumerate}
+\item 对 $\mathcal{X}_\etale$ 上的阿贝层 $\mathcal{F}$，有
+\begin{enumerate}
+\item $H^p(\mathcal{X}_\etale, \mathcal{F}) =
+H^p(\mathcal{X}_{lisse,\etale}, g^{-1}\mathcal{F})$；
+\item 对 $\mathcal{X}_{lisse,\etale}$ 的任意对象 $x$，有
+$H^p(x, \mathcal{F}) =
+H^p(\mathcal{X}_{lisse,\etale}/x, g^{-1}\mathcal{F})$。
+\end{enumerate}
+对模层，同样结论也成立。
+\item 对 $\mathcal{X}_{fppf}$ 上的阿贝层 $\mathcal{F}$，有
+\begin{enumerate}
+\item $H^p(\mathcal{X}_{fppf}, \mathcal{F}) =
+H^p(\mathcal{X}_{flat,fppf}, g^{-1}\mathcal{F})$；
+\item 对 $\mathcal{X}_{flat,fppf}$ 的任意对象 $x$，有
+$H^p(x, \mathcal{F}) =
+H^p(\mathcal{X}_{flat,fppf}/x, g^{-1}\mathcal{F})$。
+\end{enumerate}
+对模层，同样结论也成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1)(a) 部分由对包含函子
+$\mathcal{X}_{lisse,\etale} \to \mathcal{X}_\etale$
+应用《叠上的层》引理
+\ref{stacks-sheaves-lemma-cohomology-on-subcategory} 得出。
+第 (1)(b) 部分由第 (1)(a) 部分得出。事实上，若 $x$ 位于概形
+$U$ 上，则 site $\mathcal{X}_\etale/x$ 等价于
+$(\Sch/U)_\etale$，且
+% P12-ERR-0029: see ../control/ERRATA_CANDIDATES.jsonl
+$\mathcal{X}_{lisse,\etale}$ 等价于 $U_{lisse,\etale}$。
+第 (2) 部分的证明相同。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale-modules}
+设 $\mathcal{X}$ 是代数叠。记号如引理
+\ref{stacks-cohomology-lemma-lisse-etale}。
+\begin{enumerate}
+\item 存在函子
+$$
+g_! :
+\textit{Mod}(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+\longrightarrow
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_{\mathcal{X}})
+$$
+它是 $g^*$ 的左伴随。此外，它与阿贝层上的函子 $g_!$ 一致，
+且 $g^*g_! = \text{id}$。
+\item 存在函子
+$$
+g_! :
+\textit{Mod}(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}})
+\longrightarrow
+\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_{\mathcal{X}})
+$$
+它是 $g^*$ 的左伴随。此外，它与阿贝层上的函子 $g_!$ 一致，
+且 $g^*g_! = \text{id}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在两种情形中，函子 $g_!$ 的存在性都由《site 上的模》引理
+\ref{sites-modules-lemma-lower-shriek-modules} 得出。
+要说明 $g_!$ 与阿贝层上的函子一致，我们将证明
+《site 上的模》等式
+(\ref{sites-modules-equation-compare-on-localizations})
+中的态射是同构。
+
+\medskip\noindent
+光滑-\'etale 情形。设 $x \in \Ob(\mathcal{X}_{lisse,\etale})$
+位于概形 $U$ 上，且 $x : U \to \mathcal{X}$ 光滑。
+考虑诱导的充满忠实函子
+$$
+g' :
+\mathcal{X}_{lisse,\etale}/x
+\longrightarrow
+\mathcal{X}_\etale/x
+$$
+右边与 $(\Sch/U)_\etale$ 识别，
+左边与如下 $U'/U$ 概形组成的充满子范畴识别：
+复合 $U' \to U \to \mathcal{X}$ 光滑。因此，《\'Etale 上同调》引理
+\ref{etale-cohomology-lemma-compare-structure-sheaves}
+可用。
+
+\medskip\noindent
+平坦-fppf 情形。设 $x \in \Ob(\mathcal{X}_{flat,fppf})$
+位于概形 $U$ 上，且 $x : U \to \mathcal{X}$ 平坦。
+考虑诱导的充满忠实函子
+$$
+g' :
+\mathcal{X}_{flat,fppf}/x
+\longrightarrow
+\mathcal{X}_{fppf}/x
+$$
+右边与 $(\Sch/U)_{fppf}$ 识别，
+左边与如下 $U'/U$ 概形组成的充满子范畴识别：
+复合 $U' \to U \to \mathcal{X}$ 平坦。因此，《\'Etale 上同调》引理
+\ref{etale-cohomology-lemma-compare-structure-sheaves}
+可用。
+
+\medskip\noindent
+在两种情形中，等式 $g^*g_! = \text{id}$ 都由
+$g^* = g^{-1}$ 以及引理 \ref{stacks-cohomology-lemma-lisse-etale}
+中对阿贝层的等式得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale-structure-sheaf}
+设 $\mathcal{X}$ 是代数叠。记号如引理
+\ref{stacks-cohomology-lemma-lisse-etale} 和 \ref{stacks-cohomology-lemma-lisse-etale-modules}。
+\begin{enumerate}
+\item 有 $g_!\mathcal{O}_{\mathcal{X}_{lisse,\etale}} =
+\mathcal{O}_\mathcal{X}$。
+\item 有 $g_!\mathcal{O}_{\mathcal{X}_{flat, fppf}} =
+\mathcal{O}_\mathcal{X}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在本证明中，我们记
+$\mathcal{C} = \mathcal{X}_\etale$
+（相应地，$\mathcal{C} = \mathcal{X}_{fppf}$），并记
+$\mathcal{C}' = \mathcal{X}_{lisse,\etale}$
+（相应地，$\mathcal{C}' = \mathcal{X}_{flat, fppf}$）。
+则 $\mathcal{C}'$ 是 $\mathcal{C}$ 的充满子范畴。
+我们把 $\mathcal{C}$ 的对象 $V$ 视为 $\mathcal{X}$ 上的概形，
+把 $\mathcal{C}'$ 的对象 $U$ 视为在 $\mathcal{X}$ 上光滑
+（相应地，平坦）的概形。
+最后，记 $\mathcal{O} = \mathcal{O}_\mathcal{X}$，并记
+$\mathcal{O}' = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+（相应地，$\mathcal{O}' = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$）。
+按上述记号，有 $\mathcal{O}(V) = \Gamma(V, \mathcal{O}_V)$
+和 $\mathcal{O}'(U) = \Gamma(U, \mathcal{O}_U)$。
+考虑 $\mathcal{O}$-模同态
+$g_!\mathcal{O}' \to \mathcal{O}$，它与识别
+$\mathcal{O}' = g^{-1}\mathcal{O}$ 伴随。
+
+\medskip\noindent
+回忆 $g_!\mathcal{O}'$ 是与下列规则给出的预层
+$g_{p!}\mathcal{O}'$ 相联系的层：
+$$
+V \longmapsto \colim_{V \to U} \mathcal{O}'(U)
+$$
+其中余极限在阿贝群范畴中取
+（《site 上的模》定义 \ref{sites-modules-definition-g-shriek}）。
+下文将频繁使用以下事实：若
+$$
+V \to U \to U'
+$$
+是态射，且 $f' \in \mathcal{O}'(U')$ 限制为
+$f \in \mathcal{O}'(U)$，则 $(V \to U, f)$ 和
+$(V \to U', f')$ 定义余极限中的同一元素。
+此外，$g_!\mathcal{O}' \to \mathcal{O}$ 把元素
+$(V \to U, f)$ 映到 $f$ 在 $V$ 上的拉回。
+
+\medskip\noindent
+我们证明 $g_!\mathcal{O}' \to \mathcal{O}$ 为满态射。
+对 $\mathcal{C}$ 的某个对象 $V$，设 $h \in \mathcal{O}(V)$。
+只需证明 $h$ 局部地属于像。选取 $\mathcal{C}'$ 的一个对象
+$U$，它对应于满的光滑态射 $U \to \mathcal{X}$。
+由于 $U \times_\mathcal{X} V \to V$ 满且光滑，用 $V$ 的一个
+\'etale 覆盖的各成员取代 $V$ 后，可假设存在态射 $V \to U$；
+参见《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-etale-dominates-smooth}。
+利用 $h$，得到态射 $V \to U \times \mathbf{A}^1$，
+使得写 $\mathbf{A}^1 = \Spec(\mathbf{Z}[t])$ 时，元素
+$t \in \mathcal{O}(U \times \mathbf{A}^1)$ 拉回为 $h$。
+由于 $U \times \mathbf{A}^1$ 是 $\mathcal{C}'$ 的对象，
+$(V \to U \times \mathbf{A}^1, t)$ 是上述余极限的一个元素，
+并如需映到 $h \in \mathcal{O}(V)$。
+
+\medskip\noindent
+假设 $s \in g_!\mathcal{O}'(V)$ 是一个在 $\mathcal{O}(V)$ 中映到零的截面。
+要完成证明，需说明 $s$ 为零。用一个覆盖的各成员取代 $V$ 后，
+可假设 $s$ 是余极限
+$$
+\colim_{V \to U} \mathcal{O}'(U)
+$$
+的元素。写 $s = \sum (\varphi_i, s_i)$ 为有限和，其中
+$\varphi_i : V \to U_i$，$U_i$ 在 $\mathcal{X}$ 上光滑
+（相应地，平坦），且
+$s_i \in \Gamma(U_i, \mathcal{O}_{U_i})$。
+选取一个概形 $W$，它到代数空间
+$U = U_1 \times_\mathcal{X} \ldots \times_\mathcal{X} U_n$ 的态射满且 \'etale。
+注意，$W$ 仍在 $\mathcal{X}$ 上光滑
+（相应地，平坦），即它定义 $\mathcal{C}'$ 的一个对象。
+纤维积
+$$
+V' = V \times_{(\varphi_1, \ldots, \varphi_n), U} W
+$$
+到 $V$ 满且 \'etale，因而只需证明 $s$ 在
+$g_!\mathcal{O}'(V')$ 中映到零。注意，限制
+$\sum (\varphi_i, s_i)|_{V'}$ 对应于函数 $s_i$ 到 $W$ 的拉回之和。
+换言之，我们已归约到 $(\varphi, s)$ 的情形，其中
+$\varphi : V \to U$ 是态射，$U$ 属于 $\mathcal{C}'$，且
+$s \in \mathcal{O}'(U)$ 在 $\mathcal{O}(V)$ 中限制为零。
+由交换图
+$$
+\xymatrix{
+V \ar[rr]_-{(\varphi, 0)} \ar[rrd]_\varphi & & U \times \mathbf{A}^1 \\
+& & U \ar[u]_{(\text{id}, 0)}
+}
+$$
+可知
+% P12-ERR-0030: see ../control/ERRATA_CANDIDATES.jsonl
+$((\varphi, 0) : V \to U \times \mathbf{A}^1, \text{pr}_2^*x)$
+在上述余极限中表示零。因而可以用
+$U \times \mathbf{A}^1$ 取代 $U$，用 $(\varphi, 0)$ 取代 $\varphi$，
+用 $\text{pr}_1^*s + \text{pr}_2^*x$ 取代 $s$。
+因此可假设 $U$ 中 $s$ 的零点轨迹 $Z : s = 0$
+在 $\mathcal{X}$ 上光滑（相应地，平坦）。
+于是 $(V \to Z, 0)$ 与 $(\varphi, s)$ 在余极限中取同一值，
+即元素 $s$ 如需为零。
+\end{proof}
+
+\noindent
+可用光滑-\'etale site 和平坦-fppf site 如下刻画寄生模。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-parasitic-in-terms-flat-fppf}
+设 $\mathcal{X}$ 是代数叠。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 是 $\mathcal{X}_\etale$ 上具有平坦基变换性质的
+$\mathcal{O}_\mathcal{X}$-模。以下条件等价：
+\begin{enumerate}
+\item $\mathcal{F}$ 是寄生的；
+\item $g^*\mathcal{F} = 0$，其中
+$g : \Sh(\mathcal{X}_{lisse,\etale}) \to
+\Sh(\mathcal{X}_\etale)$ 如引理 \ref{stacks-cohomology-lemma-lisse-etale} 所述。
+\end{enumerate}
+\item 设 $\mathcal{F}$ 是 $\mathcal{X}_{fppf}$ 上的
+$\mathcal{O}_\mathcal{X}$-模。以下条件等价：
+\begin{enumerate}
+\item $\mathcal{F}$ 是寄生的；
+\item $g^*\mathcal{F} = 0$，其中
+$g :  \Sh(\mathcal{X}_{flat,fppf}) \to \Sh(\mathcal{X}_{fppf})$
+如引理 \ref{stacks-cohomology-lemma-lisse-etale} 所述。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (2) 部分直接由定义得出
+（这是平坦-fppf site 相比光滑-\'etale site 的一个优点）。
+含意 (1)(a) $\Rightarrow$ (1)(b) 也很明显。
+为证明 (1)(b) $\Rightarrow$ (1)(a)，设 $U$ 是概形，
+$x : U \to \mathcal{X}$ 是满的光滑态射。
+则 $x$ 是 $\mathcal{X}$ 的光滑-\'etale site 的对象。
+因此 (1)(b) 意味着 $\mathcal{F}|_{U_\etale} = 0$。
+% P12-ERR-0031: see ../control/ERRATA_CANDIDATES.jsonl
+设 $V \to \mathcal{X}$ 是平坦态射，其中 $V$ 是概形。
+置 $W = U \times_\mathcal{X} V$，并考虑图
+$$
+\xymatrix{
+W \ar[d]_p \ar[r]_q & V \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+注意，投影 $p : W \to U$ 平坦，投影
+$q : W \to V$ 光滑且满。这意味着 $q_{small}^*$
+在拟凝聚模上是忠实函子。按假设，$\mathcal{F}$
+具有平坦基变换性质，因而得到
+$p_{small}^*\mathcal{F}|_{U_\etale} \cong
+q_{small}^*\mathcal{F}|_{V_\etale}$。故若 $\mathcal{F}$
+属于 $g^*$ 的核，则如需有 $\mathcal{F}|_{V_\etale} = 0$。
+\end{proof}
+
+\section{光滑-\'etale site 与平坦-fppf site 的函子性}
+\label{stacks-cohomology-section-lisse-etale-functorial}
+
+\noindent
+光滑-\'etale site 对代数叠的光滑态射具有函子性，
+平坦-fppf site 对代数叠的平坦态射具有函子性。
+我们提醒读者，光滑-\'etale 拓扑斯和平坦-fppf 拓扑斯
+对代数叠的全体态射并不具有函子性；参见《例》第
+\ref{examples-section-lisse-etale-not-functorial} 节。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale-functorial}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是代数叠之间的态射。
+\begin{enumerate}
+\item 若 $f$ 光滑，则 $f$ 限制为连续且余连续的函子
+$\mathcal{X}_{lisse,\etale} \to \mathcal{Y}_{lisse,\etale}$，
+它给出一个赋环拓扑斯态射，使下图交换：
+$$
+\xymatrix{
+\Sh(\mathcal{X}_{lisse,\etale}) \ar[r]_{g'} \ar[d]_{f'} &
+\Sh(\mathcal{X}_\etale) \ar[d]^f \\
+\Sh(\mathcal{Y}_{lisse,\etale}) \ar[r]^g &
+\Sh(\mathcal{Y}_\etale)
+}
+$$
+有 $f'_*(g')^{-1} = g^{-1}f_*$ 和 $g'_!(f')^{-1} = f^{-1}g_!$。
+\item 若 $f$ 平坦，则 $f$ 限制为连续且余连续的函子
+$\mathcal{X}_{flat,fppf} \to \mathcal{Y}_{flat,fppf}$，
+它给出一个赋环拓扑斯态射，使下图交换：
+$$
+\xymatrix{
+\Sh(\mathcal{X}_{flat,fppf}) \ar[r]_{g'} \ar[d]_{f'} &
+\Sh(\mathcal{X}_{fppf}) \ar[d]^f \\
+\Sh(\mathcal{Y}_{flat,fppf}) \ar[r]^g &
+\Sh(\mathcal{Y}_{fppf})
+}
+$$
+有 $f'_*(g')^{-1} = g^{-1}f_*$ 和 $g'_!(f')^{-1} = f^{-1}g_!$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+最初的陈述由以下事实得出：若 $x \in \Ob(\mathcal{X})$
+位于概形 $U$ 上，且 $x : U \to \mathcal{X}$ 光滑
+（相应地，平坦），而 $f$ 光滑
+（相应地，平坦），则
+$f(x) : U \to \mathcal{Y}$ 光滑（相应地，平坦）；
+参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-smooth} 和
+\ref{stacks-morphisms-lemma-composition-flat}。
+由我们对这些范畴中覆盖的定义，诱导函子
+$\mathcal{X}_{lisse,\etale} \to \mathcal{Y}_{lisse,\etale}$
+（相应地，$\mathcal{X}_{flat,fppf} \to \mathcal{Y}_{flat,fppf}$）
+连续且余连续。最后，该图的交换性由水平态射由包含函子给出
+（参见引理 \ref{stacks-cohomology-lemma-lisse-etale}）以及《Site》引理
+\ref{sites-lemma-composition-cocontinuous} 得出。
+
+\medskip\noindent
+为证明 $f'_*(g')^{-1} = g^{-1}f_*$，设 $\mathcal{F}$ 是
+$\mathcal{X}_\etale$ 上（相应地，$\mathcal{X}_{fppf}$ 上）的层。
+有典范拉回态射
+$$
+g^{-1}f_*\mathcal{F} \longrightarrow f'_*(g')^{-1}\mathcal{F}
+$$
+参见《Site》第 \ref{sites-section-pullback} 节。
+我们断言该态射是同构。为证明此点，选取
+$\mathcal{Y}_{lisse,\etale}$ 的一个对象 $y$
+（相应地，$\mathcal{Y}_{flat,fppf}$ 的一个对象）。
+设 $y$ 位于概形 $V$ 上，且 $y : V \to \mathcal{Y}$
+光滑（相应地，平坦）。由于 $g^{-1}$ 是限制，有
+$$
+\left(g^{-1}f_*\mathcal{F}\right)(y) =
+\Gamma(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+这由《叠上的层》等式
+(\ref{stacks-sheaves-equation-pushforward}) 得出。
+以
+$(V \times_{y, \mathcal{Y}} \mathcal{X})' \subset
+V \times_{y, \mathcal{Y}} \mathcal{X}$
+表示由下列对象组成的充满子范畴：
+$z : W \to V \times_{y, \mathcal{Y}} \mathcal{X}$，且诱导态射
+$W \to \mathcal{X}$ 光滑（相应地，平坦）。
+以
+$$
+\text{pr}' :
+(V \times_{y, \mathcal{Y}} \mathcal{X})'
+\longrightarrow
+\mathcal{X}_{lisse,\etale}
+\ (\text{分别 }\mathcal{X}_{flat,fppf})
+$$
+表示上述公式中函子 $\text{pr}$ 的限制。
+与《叠上的层》等式
+(\ref{stacks-sheaves-equation-pushforward}) 的证明完全相同的论证表明，
+对 $\mathcal{X}_{lisse,\etale}$ 上
+（相应地，$\mathcal{X}_{flat,fppf}$ 上）的任意层 $\mathcal{H}$，有
+\begin{equation}
+\label{stacks-cohomology-equation-pushforward-lisse-etale}
+f'_*\mathcal{H}(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ (\text{pr}')^{-1}\mathcal{H})
+\end{equation}
+由于 $(g')^{-1}$ 是限制，可知
+$$
+\left(f'_*(g')^{-1}\mathcal{F}\right)(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+$$
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-cohomology-on-subcategory}，有
+$$
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+=
+\Gamma(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+如需相等。虽然我们略去了对该引理各假设的检验，
+但指出，验证第二个条件时用到了 $V \to \mathcal{Y}$ 光滑
+（相应地，平坦）这一事实。
+
+\medskip\noindent
+最后，等式 $g'_!(f')^{-1} = f^{-1}g_!$ 形式地由等式
+$f'_*(g')^{-1} = g^{-1}f_*$、$f^{-1}$ 与 $f_*$ 的伴随性、
+$g_!$ 与 $g^{-1}$ 的伴随性，以及它们的“带撇”版本得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale-functorial-pushforward}
+假设与记号如引理 \ref{stacks-cohomology-lemma-lisse-etale-functorial}。
+设 $\mathcal{H}$ 是 $\mathcal{X}_{lisse,\etale}$ 上
+（相应地，$\mathcal{X}_{flat,fppf}$ 上）的阿贝层。则
+\begin{equation}
+\label{stacks-cohomology-equation-higher-direct-image-lisse-etale}
+R^pf'_*\mathcal{H} =
+\text{下列对象的伴随层： }y \longmapsto
+H^p((V \times_{y, \mathcal{Y}} \mathcal{X})', (\text{pr}')^{-1}\mathcal{H})
+\end{equation}
+这里 $y$ 是 $\mathcal{Y}_{lisse,\etale}$ 的对象
+（相应地，$\mathcal{Y}_{flat,fppf}$ 的对象），它位于概形 $V$ 上；
+记号 $(V \times_{y, \mathcal{Y}} \mathcal{X})'$ 和 $\text{pr}'$
+在证明中解释。
+\end{lemma}
+
+\begin{proof}
+与引理 \ref{stacks-cohomology-lemma-lisse-etale-functorial} 的证明一样，以
+$(V \times_{y, \mathcal{Y}} \mathcal{X})' \subset
+V \times_{y, \mathcal{Y}} \mathcal{X}$ 表示由对象
+$(x, \varphi)$ 组成的充满子范畴，其中 $x$ 是
+$\mathcal{X}_{lisse,\etale}$ 的对象
+（相应地，$\mathcal{X}_{flat,fppf}$ 的对象），且
+$\varphi : f(x) \to y$ 是 $\mathcal{Y}$ 中的态射。
+由等式 (\ref{stacks-cohomology-equation-pushforward-lisse-etale})，有
+$$
+f'_*\mathcal{H}(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ (\text{pr}')^{-1}\mathcal{H})
+$$
+其中 $\text{pr}'$ 是投影。对
+$(V \times_{y, \mathcal{Y}} \mathcal{X})'$ 的对象 $(x, \varphi)$，
+可将 $\varphi$ 视为 $x$ 上 $(f')^{-1}h_y$ 的一个截面。
+因此 $(V \times_\mathcal{Y} \mathcal{X})'$ 是 site
+$\mathcal{X}_{lisse,\etale}$
+（相应地，$\mathcal{X}_{flat,fppf}$）
+对集合层 $(f')^{-1}h_y$ 的局部化；参见《Site》引理
+\ref{sites-lemma-localize-topos-site}。态射
+$$
+\text{pr}' : (V \times_{y, \mathcal{Y}} \mathcal{X})'
+\to \mathcal{X}_{lisse,\etale}
+\ (\text{分别 }
+\text{pr}' : (V \times_{y, \mathcal{Y}} \mathcal{X})'
+\to \mathcal{X}_{flat,fppf})
+$$
+是局部化态射。特别地，拉回 $(\text{pr}')^{-1}$ 保持内射阿贝层；
+参见《site 上的上同调》引理
+\ref{sites-cohomology-lemma-cohomology-on-sheaf-sets}。
+
+\medskip\noindent
+在 $\mathcal{X}_{lisse,\etale}$ 上
+（相应地，$\mathcal{X}_{flat,fppf}$ 上）选取内射分解
+$\mathcal{H} \to \mathcal{I}^\bullet$。
+由直像公式，$R^if'_*\mathcal{H}$ 是与下列预层相联系的层：
+该预层把 $y$ 映到复形
+$$
+\begin{matrix}
+\Gamma\Big((V \times_{y, \mathcal{Y}} \mathcal{X})',
+(\text{pr}')^{-1}\mathcal{I}^{i - 1}\Big) \\
+\downarrow \\
+\Gamma\Big((V \times_{y, \mathcal{Y}} \mathcal{X})',
+(\text{pr}')^{-1}\mathcal{I}^i\Big) \\
+\downarrow \\
+\Gamma\Big((V \times_{y, \mathcal{Y}} \mathcal{X})',
+(\text{pr}')^{-1}\mathcal{I}^{i + 1}\Big)
+\end{matrix}
+$$
+的上同调。由于 $(\text{pr}')^{-1}$ 正合且保持内射对象，
+复形 $(\text{pr}')^{-1}\mathcal{I}^\bullet$ 是
+$(\text{pr}')^{-1}\mathcal{H}$ 的内射分解，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-lisse-etale-functorial-cohomology}
+假设与记号如引理 \ref{stacks-cohomology-lemma-lisse-etale-functorial}。
+对 $\mathcal{X}_\etale$ 上（相应地，$\mathcal{X}_{fppf}$ 上）的
+任意阿贝层 $\mathcal{F}$，典范（基变换）态射
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+是同构。
+\end{lemma}
+
+\begin{proof}
+比较《叠上的层》引理
+\ref{stacks-sheaves-lemma-pushforward-restriction} 和引理
+\ref{stacks-cohomology-lemma-lisse-etale-functorial-pushforward}
+中给出的 $g^{-1}R^pf_*\mathcal{F}$ 与
+$R^pf'_*(g')^{-1}\mathcal{F}$ 的公式，可知只需证明
+$$
+H^p((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+=
+H^p_\tau(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+其中 $\tau = \etale$（相应地，$\tau = fppf$）。
+这里 $y$ 是 $\mathcal{Y}$ 的一个对象，位于概形 $V$ 上，
+且态射 $y : V \to \mathcal{Y}$ 光滑（相应地，平坦）。
+该等式由《叠上的层》引理
+\ref{stacks-sheaves-lemma-cohomology-on-subcategory} 得出。
+虽然我们略去了对该引理各假设的检验，
+但指出，验证第二个条件时用到了
+$V \to \mathcal{Y}$ 光滑（相应地，平坦）这一事实。
+\end{proof}
+
+\section{拟凝聚模与光滑-\'etale site、平坦-fppf site}
+\label{stacks-cohomology-section-quasi-coherent-modules-II}
+
+\noindent
+本节说明如何利用代数叠的光滑-\'etale site 或平坦-fppf site
+来理解其上的拟凝聚模。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-check-qc-on-etale-covering}
+设 $\mathcal{X}$ 是代数叠。
+\begin{enumerate}
+\item 设 $f_j : \mathcal{X}_j \to \mathcal{X}$ 是代数叠的一族光滑态射，且
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$。
+设 $\mathcal{F}$ 是 $\mathcal{X}_\etale$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。若每个 $f_j^{-1}\mathcal{F}$ 都拟凝聚，
+则 $\mathcal{F}$ 也拟凝聚。
+\item 设 $f_j : \mathcal{X}_j \to \mathcal{X}$ 是代数叠的一族平坦且
+局部有限表示的态射，且
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$。
+设 $\mathcal{F}$ 是 $\mathcal{X}_{fppf}$ 上的
+$\mathcal{O}_\mathcal{X}$-模层。若每个 $f_j^{-1}\mathcal{F}$ 都拟凝聚，
+则 $\mathcal{F}$ 也拟凝聚。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。可以用概形 $U_j$ 取代每个代数叠 $\mathcal{X}_j$
+（这里用到任意代数叠都有概形给出的光滑覆盖，
+以及光滑态射的复合光滑；参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-smooth}）。
+$\mathcal{F}$ 到 $(\Sch/U_j)_\etale$ 的拉回仍拟凝聚；参见
+《site 上的模》引理 \ref{sites-modules-lemma-local-pullback}。
+因而 $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$
+是光滑满态射。设 $x : V \to \mathcal{X}$ 是 $\mathcal{X}$ 的一个对象。
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}，
+存在 \'etale 覆盖 $\{x_i \to x\}_{i \in I}$，使得每个
+$x_i$ 都提升为 $(\Sch/U)_\etale$ 的对象 $u_i$。
+这只是说：$x_i$ 位于概形 $V_i$ 上，
+$\{V_i \to V\}$ 是 \'etale 覆盖，且 $x_i$ 来自态射
+$u_i : V_i \to U$。于是
+$x_i^*\mathcal{F} = u_i^*f^*\mathcal{F}$ 拟凝聚。
+这意味着 $(\Sch/V)_\etale$ 上的 $x^*\mathcal{F}$ 拟凝聚；
+例如由《site 上的模》引理
+\ref{sites-modules-lemma-local-final-object} 可得。
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent-bis}，
+$x^*\mathcal{F}$ 是 fppf 层。由于 $x$ 任意，可知
+$\mathcal{F}$ 在 fppf 拓扑中是层。应用《叠上的层》引理
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent}，
+可知 $\mathcal{F}$ 拟凝聚。
+
+\medskip\noindent
+证明 (2)。使用完全相同的论证；我们在此完整写出。
+可以用概形 $U_j$ 取代每个代数叠 $\mathcal{X}_j$
+（这里用到任意代数叠都有概形给出的光滑覆盖，
+% P12-ERR-0032: see ../control/ERRATA_CANDIDATES.jsonl
+以及平坦且局部有限表示的态射在复合下保持；参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-flat} 和
+\ref{stacks-morphisms-lemma-composition-finite-presentation}）。
+$\mathcal{F}$ 到 $(\Sch/U_j)_\etale$ 的拉回仍局部拟凝聚；参见
+《叠上的层》引理 \ref{stacks-sheaves-lemma-pullback-quasi-coherent}。
+因而 $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$
+是满的、平坦且局部有限表示的态射。
+设 $x : V \to \mathcal{X}$ 是 $\mathcal{X}$ 的一个对象。
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}，
+存在 fppf 覆盖 $\{x_i \to x\}_{i \in I}$，使得每个
+$x_i$ 都提升为 $(\Sch/U)_\etale$ 的对象 $u_i$。
+这只是说：$x_i$ 位于概形 $V_i$ 上，
+$\{V_i \to V\}$ 是 fppf 覆盖，且 $x_i$ 来自态射
+$u_i : V_i \to U$。于是
+$x_i^*\mathcal{F} = u_i^*f^*\mathcal{F}$ 拟凝聚。
+这意味着 $(\Sch/V)_\etale$ 上的 $x^*\mathcal{F}$ 拟凝聚；
+例如由《site 上的模》引理
+\ref{sites-modules-lemma-local-final-object} 可得。
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent}，
+可知 $\mathcal{F}$ 拟凝聚。
+\end{proof}
+
+\noindent
+我们回忆，在《site 上的模》第
+\ref{sites-modules-section-local} 节中，已对任意赋环拓扑斯定义了拟凝聚模的概念。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-shriek-quasi-coherent}
+设 $\mathcal{X}$ 是代数叠。记号如引理
+\ref{stacks-cohomology-lemma-lisse-etale}。
+\begin{enumerate}
+\item 设 $\mathcal{H}$ 是 $\mathcal{X}$ 的光滑-\'etale site 上的拟凝聚
+$\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-模。则 $g_!\mathcal{H}$
+是 $\mathcal{X}$ 上的拟凝聚模。
+\item 设 $\mathcal{H}$ 是 $\mathcal{X}$ 的平坦-fppf site 上的拟凝聚
+$\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-模。则 $g_!\mathcal{H}$
+是 $\mathcal{X}$ 上的拟凝聚模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 和满的光滑态射 $x : U \to \mathcal{X}$。
+由《site 上的模》定义
+\ref{sites-modules-definition-site-local}，存在 \'etale
+（相应地，fppf）覆盖
+$\{U_i \to U\}_{i \in I}$，使得每个拉回 $f_i^{-1}\mathcal{H}$
+都有全局表示（参见《site 上的模》定义
+\ref{sites-modules-definition-global}）。
+这里 $f_i : U_i \to \mathcal{X}$ 是代数叠态射
+$U_i \to U \to \mathcal{X}$ 的复合。
+（回忆，拉回“就是”到 $\mathcal{X}/f_i$ 的限制；参见《叠上的层》定义
+\ref{stacks-sheaves-definition-pullback} 及其后的讨论。）
+由引理 \ref{stacks-cohomology-lemma-lisse-etale-functorial}，每个 $f_i$
+光滑（相应地，平坦），因而
+$f_i^{-1}g_!\mathcal{H} = g_{i, !}(f'_i)^{-1}\mathcal{H}$。
+利用引理 \ref{stacks-cohomology-lemma-check-qc-on-etale-covering}，
+可将引理的陈述归约到 $\mathcal{H}$ 有全局表示的情形。
+设有 $\mathcal{O}$-模的正合列
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{H} \longrightarrow 0
+$$
+其中 $\mathcal{O} = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+（相应地，$\mathcal{O} = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$）。
+由于 $g_!$ 与任意余极限可交换
+（因为它是左伴随函子；参见引理
+\ref{stacks-cohomology-lemma-lisse-etale-modules} 和《范畴》引理
+\ref{categories-lemma-adjoint-exact}），得到正合列
+$$
+\bigoplus\nolimits_{j \in J} g_!\mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} g_!\mathcal{O} \longrightarrow
+g_!\mathcal{H} \longrightarrow 0
+$$
+引理 \ref{stacks-cohomology-lemma-lisse-etale-structure-sheaf} 表明
+$g_!\mathcal{O} = \mathcal{O}_\mathcal{X}$。
+在情形 (2) 中已得结论。在情形 (1) 中，应用《叠上的层》引理
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent-bis} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-quasi-coherent}
+设 $\mathcal{X}$ 是代数叠。
+\begin{enumerate}
+\item 对光滑-\'etale site，以 $g$ 表示引理
+\ref{stacks-cohomology-lemma-lisse-etale} 中的态射。则：
+\begin{enumerate}
+\item 函子 $g^{-1}$ 和 $g_!$ 定义互逆函子
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^{-1}} &
+\QCoh(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}) \ar@<1ex>[l]^-{g_!}
+}
+$$
+\item 若 $\mathcal{F}$ 属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，
+则 $g^{-1}\mathcal{F}$ 属于
+$\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$；
+\item $Q(\mathcal{F}) = g_!g^{-1}\mathcal{F}$，其中 $Q$ 如引理
+\ref{stacks-cohomology-lemma-adjoint} 所述。
+\end{enumerate}
+\item 对平坦-fppf site，以 $g$ 表示引理
+\ref{stacks-cohomology-lemma-lisse-etale} 中的态射。则：
+\begin{enumerate}
+\item 函子 $g^{-1}$ 和 $g_!$ 定义互逆函子
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^{-1}} &
+\QCoh(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}) \ar@<1ex>[l]^-{g_!}
+}
+$$
+\item 若 $\mathcal{F}$ 属于 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，
+则 $g^{-1}\mathcal{F}$ 属于
+$\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$；
+\item $Q(\mathcal{F}) = g_!g^{-1}\mathcal{F}$，其中 $Q$ 如引理
+\ref{stacks-cohomology-lemma-adjoint} 所述。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+沿任意赋环拓扑斯态射的拉回都保持拟凝聚模范畴；
+参见《site 上的模》引理 \ref{sites-modules-lemma-local-pullback}。
+因而 $g^{-1}$ 保持拟凝聚模范畴；这里我们用到
+$
+\QCoh(\mathcal{O}_\mathcal{X}) =
+\QCoh(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$
+这由《叠上的层》引理
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent-bis} 得出。
+由引理 \ref{stacks-cohomology-lemma-shriek-quasi-coherent}，$g_!$ 也有同样的性质。
+由引理 \ref{stacks-cohomology-lemma-lisse-etale}，我们知道
+$\mathcal{H} \to g^{-1}g_!\mathcal{H}$ 是同构。
+反之，若 $\mathcal{F}$ 属于 $\QCoh(\mathcal{O}_\mathcal{X})$，
+则态射 $g_!g^{-1}\mathcal{F} \to \mathcal{F}$ 是 $\mathcal{X}$ 上拟凝聚模之间的态射，
+其到任意在 $\mathcal{X}$ 上光滑的概形的限制都是同构。
+因而《叠上的层》第
+\ref{stacks-sheaves-section-quasi-coherent-presentation} 节和第
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks} 节的讨论
+（与展示上的拟凝聚模比较）表明它是同构。
+这证明了 (1)(a) 和 (2)(a)。
+
+\medskip\noindent
+设 $\mathcal{F}$ 是 $\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象。
+由引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic}，态射
+$Q(\mathcal{F}) \to \mathcal{F}$ 的核与余核是寄生的。
+因此，由引理 \ref{stacks-cohomology-lemma-parasitic-in-terms-flat-fppf}，并利用
+$g^* = g^{-1}$ 正合，可知
+$g^*Q(\mathcal{F}) \to g^*\mathcal{F}$ 是同构。
+于是 $g^*\mathcal{F}$ 拟凝聚。这证明了 (1)(b) 和 (2)(b)。
+最后，(1)(c) 和 (2)(c) 成立，因为由上述论证，
+$g_!g^*Q(\mathcal{F}) \to Q(\mathcal{F})$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-quasi-coherent-weak-serre}
+设 $\mathcal{X}$ 是代数叠。
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$
+是 $\textit{Mod}(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$
+的弱 Serre 子范畴。
+\item $\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+是 $\textit{Mod}(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+的弱 Serre 子范畴。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们将验证《同调》引理
+\ref{homology-lemma-characterize-weak-serre-subcategory} 的条件 (1)、(2)、(3)、(4)。
+
+\medskip\noindent
+由于 $0$ 是任意赋环 site 上的拟凝聚模，条件 (1) 成立。
+
+\medskip\noindent
+% P12-ERR-0033: see ../control/ERRATA_CANDIDATES.jsonl
+按定义，$\QCoh(\mathcal{O})$ 是 $\textit{Mod}(\mathcal{O})$ 的严格充满子范畴，
+故条件 (2) 成立。
+
+\medskip\noindent
+设 $\varphi : \mathcal{G} \to \mathcal{F}$ 是
+$\mathcal{X}_{lisse,\etale}$ 或 $\mathcal{X}_{flat,fppf}$ 上拟凝聚模之间的态射。
+有 $g^*g_!\mathcal{F} = \mathcal{F}$；对 $\mathcal{G}$ 和 $\varphi$ 也类似，
+参见引理 \ref{stacks-cohomology-lemma-lisse-etale-modules}。
+由引理 \ref{stacks-cohomology-lemma-shriek-quasi-coherent}，
+$g_!\mathcal{F}$ 和 $g_!\mathcal{G}$ 是拟凝聚
+$\mathcal{O}_\mathcal{X}$-模。由《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}，
+$\Coker(g_!\varphi)$ 是 $\mathcal{X}$ 上的拟凝聚模
+（并且是 $\mathcal{X}$ 上拟凝聚模范畴中的余核）。
+由于 $g^*$ 正合（参见引理 \ref{stacks-cohomology-lemma-lisse-etale}），
+$g^*\Coker(g_!\varphi) = \Coker(g^*g_!\varphi) = \Coker(\varphi)$
+也拟凝聚（参见引理 \ref{stacks-cohomology-lemma-quasi-coherent}）。
+由命题 \ref{stacks-cohomology-proposition-loc-qcoh-flat-base-change}，核
+$\Ker(g_!\varphi)$ 属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$。
+由于 $g^*$ 正合，有
+$g^*\Ker(g_!\varphi) = \Ker(g^*g_!\varphi) = \Ker(\varphi)$。
+由引理 \ref{stacks-cohomology-lemma-quasi-coherent}，$g^*$ 把
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$ 的对象映为拟凝聚模，
+因而 $\Ker(\varphi)$ 也拟凝聚。这证明了 (3)。
+
+\medskip\noindent
+最后，假设
+$$
+0 \to \mathcal{F} \to \mathcal{E} \to \mathcal{G} \to 0
+$$
+是 $\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-模的扩张
+（相应地，$\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-模的扩张），
+且 $\mathcal{F}$ 和 $\mathcal{G}$ 拟凝聚。为证明 (4) 并完成证明，
+需说明 $\mathcal{E}$ 在 $\mathcal{X}_{lisse,\etale}$ 上
+（相应地，在 $\mathcal{X}_{flat,fppf}$ 上）拟凝聚。
+% P12-ERR-0034: see ../control/ERRATA_CANDIDATES.jsonl
+设 $U$ 是 $\mathcal{X}_{lisse,\etale}$ 的对象
+（相应地，$\mathcal{X}_{flat,fppf}$ 的对象）；我们把 $U$ 视为在
+$\mathcal{X}$ 上光滑（相应地，平坦）的概形。
+需证明 $\mathcal{E}$ 到 $U_{lisse,\etale}$ 的限制
+% P12-ERR-0035: see ../control/ERRATA_CANDIDATES.jsonl
+（相应地，$=U_{flat,fppf}$）拟凝聚。
+因此可假设 $\mathcal{X} = U$ 是概形。
+由于 $\mathcal{G}$ 在 $U_{lisse,\etale}$ 上
+（相应地，在 $U_{flat,fppf}$ 上）拟凝聚，
+用一个 \'etale（相应地，fppf）覆盖的各成员取代 $U$ 后，
+可假设 $\mathcal{G}$ 有表示
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{G} \longrightarrow 0
+$$
+该表示位于 $U_{lisse,\etale}$ 上
+（相应地，$U_{flat,fppf}$ 上），其中 $\mathcal{O}$
+是该 site 上的结构层。还可假设 $U$ 仿射。
+由于 $\mathcal{F}$ 拟凝聚，有
+$$
+H^1(U_{lisse,\etale}, \mathcal{F}) = 0,
+\quad\text{分别}\quad
+H^1(U_{flat,fppf}, \mathcal{F}) = 0
+$$
+事实上，$\mathcal{F}$ 是 $U$ 的大 site 上某个拟凝聚模
+$\mathcal{F}'$ 的拉回（由引理 \ref{stacks-cohomology-lemma-quasi-coherent}）；
+$\mathcal{F}$ 与 $\mathcal{F}'$ 的上同调一致
+（由引理 \ref{stacks-cohomology-lemma-lisse-etale-cohomology}）；
+而我们知道，仿射概形 $U$ 的大 site 上 $\mathcal{F}'$ 的上同调为零
+（要在当前情形中得到这一点，需将《下降》命题
+\ref{descent-proposition-equivalence-quasi-coherent} 和
+\ref{descent-proposition-same-cohomology-quasi-coherent}
+与《概形上的上同调》引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero} 结合起来）。
+因此，可将态射
+$\bigoplus_{i \in I} \mathcal{O} \to \mathcal{G}$
+提升到 $\mathcal{E}$。图追踪表明，得到正合列
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \to
+\mathcal{F} \oplus \bigoplus\nolimits_{i \in I} \mathcal{O}
+\to
+\mathcal{E} \to 0
+$$
+由上面已证明的 (3)，可知 $\mathcal{E}$ 如需拟凝聚。
+\end{proof}
+
+\section{局部 Noether 叠上的凝聚层}
+\label{stacks-cohomology-section-coherent-sheaves}
+
+\noindent
+本节对应于《空间的上同调》第
+\ref{spaces-cohomology-section-coherent} 节。
+在《site 上的模》第 \ref{sites-modules-section-local} 节中，
+我们已对任意赋环拓扑斯定义凝聚模的概念。
+然而，对任意代数叠 $\mathcal{X}$，凝聚
+$\mathcal{O}_\mathcal{X}$-模范畴为零；本质上是因为 site $\mathcal{X}$
+包含太多非 Noether 对象（即使 $\mathcal{X}$ 本身局部 Noether）。
+我们改用下述引理定义凝聚模。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-coherent-Noetherian}
+设 $\mathcal{X}$ 是局部 Noether 代数叠，
+$\mathcal{F}$ 是 $\mathcal{O}_\mathcal{X}$-模。以下条件等价：
+\begin{enumerate}
+\item $\mathcal{F}$ 是拟凝聚的有限型
+$\mathcal{O}_\mathcal{X}$-模；
+\item $\mathcal{F}$ 是有限表示的
+$\mathcal{O}_\mathcal{X}$-模；
+\item $\mathcal{F}$ 拟凝聚，且对任意态射
+$f : U \to \mathcal{X}$，若 $U$ 是局部 Noether 代数空间，
+则拉回 $f^*\mathcal{F}|_{U_\etale}$ 凝聚；
+\item $\mathcal{F}$ 拟凝聚，且存在代数空间 $U$ 和态射
+$f : U \to \mathcal{X}$，其局部有限型、平坦且满，
+并且拉回 $f^*\mathcal{F}|_{U_\etale}$ 凝聚。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $f : U \to \mathcal{X}$ 如 (4) 所述。
+则 $U$ 局部 Noether（《叠的态射》引理
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}），
+因而引理的陈述有意义。此外，由《叠的态射》引理
+\ref{stacks-morphisms-lemma-noetherian-finite-type-finite-presentation}，
+$f$ 局部有限表示。
+设 $x$ 是 $\mathcal{X}$ 的一个对象，位于概形 $V$ 上。
+为证明 (2)，需说明：用 $V$ 的某个 fppf 覆盖的各成员取代
+$V$ 后，限制 $x^*\mathcal{F}$ 在
+$\mathcal{X}/x \cong (\Sch/V)_{fppf}$ 上有全局有限表示。
+投影 $W = U \times_\mathcal{X} V \to V$
+局部有限表示、平坦且满。
+因而，可以用 $W$ 的一个由概形组成的 \'etale 覆盖的各成员
+取代 $V$，并假设有态射 $h : V \to U$ 满足 $f \circ h = x$。
+由于 $\mathcal{F}$ 拟凝聚，限制 $x^*\mathcal{F}$ 是
+$h_{small}^*(f^*\mathcal{F})|_{U_\etale}$ 沿 $\pi_V$ 的拉回；
+参见《叠上的层》引理
+\ref{stacks-sheaves-lemma-compare-quasi-coherent}。
+% P12-ERR-0036: see ../control/ERRATA_CANDIDATES.jsonl
+按假设，$f^*\mathcal{F}|_{U_\etale}$ 在 \'etale 拓扑中局部地有有限表示，
+因而得到 (4) $\Rightarrow$ (2)。
+
+\medskip\noindent
+对任意赋环拓扑斯，(2) 都意味着 (1)（由定义立即得出）。
+性质“有限型”和“拟凝聚”在任意赋环拓扑斯态射的拉回下保持；
+参见《site 上的模》引理 \ref{sites-modules-lemma-local-pullback}。
+因而 (1) 意味着 (3)；参见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}。
+最后，(3) 显然意味着 (4)。
+\end{proof}
+
+\begin{definition}
+\label{stacks-cohomology-definition-coherent}
+设 $\mathcal{X}$ 是局部 Noether 代数叠。
+设 $\mathcal{O}_\mathcal{X}$-模为 $\mathcal{F}$。若 $\mathcal{F}$ 满足引理
+\ref{stacks-cohomology-lemma-coherent-Noetherian} 的一个（从而全部）等价条件，
+则称其为 {\it 凝聚的}。
+% P12-ERR-0037: see ../control/ERRATA_CANDIDATES.jsonl
+凝聚 $\mathcal{O}_\mathcal{X}$-模范畴记为
+$\textit{Coh}(\mathcal{O}_\mathcal{X})$。
+\end{definition}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-elementary-coherent}
+设 $\mathcal{X}$ 是局部 Noether 代数叠。
+模 $\mathcal{O}_\mathcal{X}$ 是凝聚的；任意可逆
+$\mathcal{O}_\mathcal{X}$-模是凝聚的；更一般地，任意有限局部自由
+$\mathcal{O}_\mathcal{X}$-模是凝聚的。
+\end{lemma}
+
+\begin{proof}
+由定义和《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-pullback-coherent}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 是局部 Noether 代数叠之间的态射。
+则 $f^*$ 把 $\mathcal{Y}$ 上的凝聚模映为 $\mathcal{X}$ 上的凝聚模。
+\end{lemma}
+
+\begin{proof}
+这直接由定义以及任意赋环拓扑斯态射的拉回保持有限表示模这一事实得出；
+参见《site 上的模》引理 \ref{sites-modules-lemma-local-pullback}。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-coherent-abelian-Noetherian}
+设 $\mathcal{X}$ 是局部 Noether 代数叠。
+凝聚 $\mathcal{O}_\mathcal{X}$-模范畴是阿贝范畴。
+若 $\varphi : \mathcal{F} \to \mathcal{G}$ 是凝聚
+$\mathcal{O}_\mathcal{X}$-模之间的态射，则：
+\begin{enumerate}
+\item 在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的余核
+$\Coker(\varphi)$ 是凝聚 $\mathcal{O}_\mathcal{X}$-模；
+\item 在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的像
+$\Im(\varphi)$ 是凝聚 $\mathcal{O}_\mathcal{X}$-模；
+\item 在 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中计算的核
+$\Ker(\varphi)$ 可能不凝聚，但它属于
+$\textit{LQCoh}^{fbc}(\mathcal{O}_\mathcal{X})$，而 $Q(\Ker(\varphi))$
+凝聚，并且是 $\textit{Coh}(\mathcal{O}_\mathcal{X})$ 中 $\varphi$ 的核。
+\end{enumerate}
+包含函子 $\textit{Coh}(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$ 正合。
+\end{lemma}
+
+\begin{proof}
+在 $\textit{Coh}(\mathcal{O}_\mathcal{X})$ 中取核、像和余核的规则，
+与注 \ref{stacks-cohomology-remark-QCoh-abelian} 中对拟凝聚模的规定一致。
+因而，只需证明拟凝聚模
+$\Coker(\varphi)$、$\Im(\varphi)$ 和 $Q(\Ker(\varphi))$ 凝聚。
+由引理 \ref{stacks-cohomology-lemma-coherent-Noetherian}，只需在到 $U_\etale$ 的限制上证明，
+其中 $f : U \to \mathcal{X}$ 是某个满的光滑态射。
+函子 $\mathcal{F} \mapsto f^*\mathcal{F}|_{U_\etale}$ 正合。
+因此 $f^*\Coker(\varphi)$ 和 $f^*\Im(\varphi)$ 是凝聚
+$\mathcal{O}_U$-模之间某个态射的余核和像，从而如需凝聚。
+由引理 \ref{stacks-cohomology-lemma-parasitic}，函子
+$\mathcal{F} \mapsto f^*\mathcal{F}|_{U_\etale}$ 消去寄生模。
+因而，由引理 \ref{stacks-cohomology-lemma-adjoint-kernel-parasitic} 的第 (2) 部分，
+$f^*Q(\Ker(\varphi))|_{U_\etale} = f^*\Ker(\varphi)|_{U_\etale}$。
+以同样方式可得 $Q(\Ker(\varphi))$ 凝聚。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-extension-coherent}
+设 $\mathcal{X}$ 是局部 Noether 代数叠。
+给定 $\textit{Mod}(\mathcal{O}_\mathcal{X})$ 中的短正合列
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$，
+若 $\mathcal{F}_1$ 和 $\mathcal{F}_3$ 凝聚，则 $\mathcal{F}_2$ 凝聚。
+\end{lemma}
+
+\begin{proof}
+由《叠上的层》引理
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack} 的第 (7) 部分，
+$\mathcal{F}_2$ 拟凝聚。于是，可以通过限制到 $U_\etale$
+来检验 $\mathcal{F}_2$ 凝聚，其中 $U \to \mathcal{X}$ 满且光滑。
+这由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-abelian-Noetherian} 得出。
+略去一些细节。
+\end{proof}
+
+\noindent
+凝聚模构成拟凝聚 $\mathcal{O}_\mathcal{X}$-模范畴的 Serre 子范畴。
+对一般赋环拓扑斯上的模，这并不成立。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}
+设 $\mathcal{X}$ 是局部 Noether 代数叠。则
+$\textit{Coh}(\mathcal{O}_\mathcal{X})$ 是
+$\QCoh(\mathcal{O}_\mathcal{X})$ 的 Serre 子范畴。
+设 $\varphi : \mathcal{F} \to \mathcal{G}$ 是拟凝聚
+$\mathcal{O}_\mathcal{X}$-模之间的态射。则：
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 凝聚且 $\varphi$ 满，则 $\mathcal{G}$ 凝聚；
+\item 若 $\mathcal{F}$ 凝聚，则 $\Im(\varphi)$ 凝聚；
+% P12-ERR-0038: see ../control/ERRATA_CANDIDATES.jsonl
+\item 若 $\mathcal{G}$ 凝聚且 $\Ker(\varphi)$ 寄生，则
+$\mathcal{F}$ 凝聚。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 和满的光滑态射 $f : U \to \mathcal{X}$。
+则函子
+$f^* : \QCoh(\mathcal{O}_\mathcal{X}) \to \QCoh(\mathcal{O}_U)$
+正合（引理 \ref{stacks-cohomology-lemma-flat-pullback-quasi-coherent}）。
+此外，按定义，$\textit{Coh}(\mathcal{O}_\mathcal{X})$
+是 $\QCoh(\mathcal{O}_\mathcal{X})$ 的充满子范畴，
+由这些满足 $f^*\mathcal{F}$ 属于
+$\textit{Coh}(\mathcal{O}_U)$ 的对象 $\mathcal{F}$ 组成。
+由此以及 $U$ 的相应事实，立即得到
+$\textit{Coh}(\mathcal{O}_\mathcal{X})$ 是
+$\QCoh(\mathcal{O}_\mathcal{X})$ 的 Serre 子范畴；
+参见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-abelian-Noetherian} 和
+\ref{spaces-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}。
+我们略去 (1)、(2)、(3) 的证明。提示：与引理
+\ref{stacks-cohomology-lemma-coherent-abelian-Noetherian} 的证明比较。
+\end{proof}
+
+\noindent
+设 $\mathcal{X}$ 是局部 Noether 代数叠。
+设 $U$ 是代数空间，$f : U \to \mathcal{X}$
+满、局部有限表示且平坦。
+注意 $U$ 局部 Noether
+（《叠的态射》引理
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}）。
+设 $(U, R, s, t, c)$ 是代数空间群胚，
+$f_{can} : [U/R] \to \mathcal{X}$ 是《代数叠》引理
+\ref{algebraic-lemma-map-space-into-stack} 和注
+\ref{algebraic-remark-flat-fp-presentation} 中构造的同构。
+与《叠上的层》第
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks} 节一样，得到等价
+$$
+\QCoh(\mathcal{O}_\mathcal{X})
+\cong
+\QCoh(\mathcal{O}_{[U/R]})
+\cong
+\QCoh(U, R, s, t, c)
+$$
+其中第二个等价是《叠上的层》命题
+\ref{stacks-sheaves-proposition-quasi-coherent}。
+回忆，在《空间中的群胚》第
+\ref{spaces-groupoids-section-colimits} 节中，我们已定义充满子范畴
+$$
+\textit{Coh}(U, R, s, t, c) \subset \QCoh(U, R, s, t, c)
+$$
+其 {\it 凝聚模} 是那些满足下列条件的
+$(\mathcal{G}, \alpha)$：$\mathcal{G}$ 是凝聚 $\mathcal{O}_U$-模。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-coherent-presentation}
+在上述情形中，等价
+$\QCoh(\mathcal{O}_\mathcal{X}) \cong \QCoh(U, R, s, t, c)$
+把凝聚层映为凝聚层，反之亦然；即它诱导等价
+$\textit{Coh}(\mathcal{O}_\mathcal{X}) \cong \textit{Coh}(U, R, s, t, c)$。
+\end{lemma}
+
+\begin{proof}
+这直接由凝聚 $\mathcal{O}_\mathcal{X}$-模的定义得出。
+为便于记录：上述材料用到《叠的态射》引理
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}、
+《代数叠》引理 \ref{algebraic-lemma-map-space-into-stack} 和注
+\ref{algebraic-remark-flat-fp-presentation}、
+《叠上的层》第
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks} 节、
+《叠上的层》命题 \ref{stacks-sheaves-proposition-quasi-coherent}，
+以及《空间中的群胚》第
+\ref{spaces-groupoids-section-colimits} 节。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-coherent-hom}
+设 $\mathcal{X}$ 是局部 Noether 代数叠。
+% P12-ERR-0039: see ../control/ERRATA_CANDIDATES.jsonl
+设 $\mathcal{F}$ 和 $\mathcal{G}$ 是凝聚 $\mathcal{O}_\mathcal{X}$-模。
+则引理 \ref{stacks-cohomology-lemma-internal-hom-fp-into-qcoh}
+中构造的内部 Hom $hom(\mathcal{F}, \mathcal{G})$
+是凝聚 $\mathcal{O}_\mathcal{X}$-模。
+\end{lemma}
+
+\begin{proof}
+设 $U \to \mathcal{X}$ 是由概形给出的光滑满态射。
+由条目 (\ref{stacks-cohomology-item-hom-restriction})（位于第
+\ref{stacks-cohomology-section-further-remarks} 节），$hom(\mathcal{F}, \mathcal{G})$
+到 $U$ 的限制是各限制的 Hom 层。
+因而引理由代数空间的情形得出；参见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-tensor-hom-coherent}。
+\end{proof}
+
+\section{Noether 叠上的凝聚层}
+\label{stacks-cohomology-section-coherent-on-noetherian}
+
+\noindent
+本节对应于《空间的上同调》第
+\ref{spaces-cohomology-section-coherent-quasi-compact} 节。
+
+\begin{lemma}
+\label{stacks-cohomology-lemma-directed-colimit-coherent}
+设 $\mathcal{X}$ 是 Noether 代数叠。每个拟凝聚
+$\mathcal{O}_\mathcal{X}$-模都是其凝聚子模的滤过余极限。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}$ 是拟凝聚 $\mathcal{O}_\mathcal{X}$-模。
+若 $\mathcal{G}, \mathcal{H} \subset \mathcal{F}$ 是凝聚
+$\mathcal{O}_\mathcal{X}$-子模，则态射
+$\mathcal{G} \oplus \mathcal{H} \to \mathcal{F}$ 的像是另一个同时包含二者的凝聚
+$\mathcal{O}_\mathcal{X}$-子模；参见引理
+\ref{stacks-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}。
+由此可知该系统有向。因而，现在只需证明
+$\mathcal{F}$ 可写为凝聚模的滤过余极限，
+因为随后可在 $\mathcal{F}$ 中取这些模的像，得到足够多的凝聚子模。
+
+\medskip\noindent
+设 $U$ 是仿射概形，$U \to \mathcal{X}$ 是满的光滑态射
+（《叠的性质》引理
+\ref{stacks-properties-lemma-quasi-compact-stack}）。
+置 $R = U \times_\mathcal{X} U$，于是如《代数叠》引理
+\ref{algebraic-lemma-stack-presentation} 中那样，有 $\mathcal{X} = [U/R]$。
+由引理 \ref{stacks-cohomology-lemma-coherent-presentation}，
+% P12-ERR-0040: see ../control/ERRATA_CANDIDATES.jsonl
+有 $\QCoh(\mathcal{O}_X) = \QCoh(U, R, s, t, c)$ 和
+$\textit{Coh}(\mathcal{O}_X) = \textit{Coh}(U, R, s, t, c)$。
+这样便归约到对 $\QCoh(U, R, s, t, c)$ 证明相应陈述的问题。
+这就是《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-colimit-coherent}；我们在下一段检验它的假设。
+
+\medskip\noindent
+我们敦促读者跳过证明的余下部分。
+仿射概形 $U$ 是 Noether 的；这由我们对 $\mathcal{X}$
+局部 Noether 的定义得出，参见《叠的性质》定义
+\ref{stacks-properties-definition-type-property} 和注
+\ref{stacks-properties-remark-list-properties-local-smooth-topology}。
+投影态射 $s, t : R \to U$ 光滑（参见上述参照），
+并且拟分离且拟紧（《叠的态射》引理
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}）。
+特别地，$R$ 是在 $U$ 上光滑的拟紧且拟分离代数空间，
+因而是 Noether 的（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}）。
+\end{proof}

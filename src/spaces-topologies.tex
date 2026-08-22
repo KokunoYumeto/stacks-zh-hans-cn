@@ -1,0 +1,1300 @@
+% Generated mechanically from the frozen spaces-topologies.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{72}
+\chapter{代数空间上的拓扑}
+
+
+\phantomsection
+\label{spaces-topologies-section-phantom}
+
+
+
+
+
+\section{引言}
+\label{spaces-topologies-section-introduction}
+
+\noindent
+本章介绍代数空间范畴上的若干拓扑。可与 \cite{SGA1}、
+\cite{Ner}、\cite{LM-B} 及 \cite{Kn} 中的材料比较。
+在此之前需要指出，可以选取许多不同的位点（定义见《位点》定义
+\ref{sites-definition-site}），而它们在所依范畴上给出相同的层概念。
+因此，我们的选择可能与参考文献中的选择略有不同，但最终得到相同的上同调群等。
+
+
+
+
+\section{一般构造过程}
+\label{spaces-topologies-section-procedure}
+
+\noindent
+本节说明构造下文所用位点的一般过程。读者若未读过《拓扑》第
+\ref{topologies-section-procedure} 节，则这段讨论几乎无法理解。
+
+\medskip\noindent
+设 $S$ 为基概形。从 $S$ 以及任意一个希望包含的 $S$-概形集合出发，
+按《集合》引理 \ref{sets-lemma-construct-category} 构造任一范畴
+$\Sch_\alpha$。再从范畴 $\Sch_\alpha$ 与 fppf 覆盖类出发，
+按《集合》引理 \ref{sets-lemma-coverings-site} 选取
+$\Sch_\alpha$ 上任一覆盖集合 $\text{Cov}_{fppf}$。
+以 $\Sch_{fppf}$ 表示所得大 fppf 位点，以
+$(\Sch/S)_{fppf}$ 表示相应的 $S$ 的大 fppf 位点。
+（以上完全依照《拓扑》第 \ref{topologies-section-fppf} 节的规定。）
+
+\medskip\noindent
+作出上述选择后，$S$ 上代数空间的范畴具有一个同构类集合。
+这是因为任一 $S$ 上代数空间都可写成 $U/R$，其中
+$j : R \to U \times_S U$ 是某个平展等价关系，且
+$U, R \in \Ob((\Sch/S)_{fppf})$，见《空间》引理
+\ref{spaces-lemma-space-presentation}。
+因此，可在 $S$ 上代数空间的范畴中找出一个满子范畴
+$\textit{Spaces}/S$；它的对象构成集合，并且每个代数空间都同构于
+$\textit{Spaces}/S$ 的某个对象。固定这样一个范畴。
+
+\medskip\noindent
+在以下各节中，给定拓扑 $\tau$ 后，大位点
+$(\textit{Spaces}/S)_\tau$（相应地，$S$ 上代数空间 $X$ 的大位点
+$(\textit{Spaces}/X)_\tau$）的所依范畴是
+$\textit{Spaces}/S$（相应地，是 $\textit{Spaces}/S$ 的子范畴
+$\textit{Spaces}/X$，见《范畴》例
+\ref{categories-example-category-over-X}）。
+按通常方式把它变成位点：定义一类 $\tau$-覆盖，并应用《集合》引理
+\ref{sets-lemma-coverings-site} 选取一个足够大的覆盖集合来定义该拓扑。
+
+\medskip\noindent
+需要指出，{\it 代数空间 $X$ 的小平展位点 $X_\etale$} 已在
+《空间的性质》定义
+\ref{spaces-properties-definition-etale-site} 中定义。
+它的对象是在 $X$ 上平展的概形；由代数空间的定义，这样的对象很多。
+% P09-ERR-0312
+不过，从本章的视角看（比较《拓扑》定义
+\ref{topologies-definition-big-small-etale}），更自然的是
+《空间的性质》定义
+\ref{spaces-properties-definition-spaces-etale-site} 中的位点
+$X_{spaces, \etale}$。这两个位点定义同一拓扑斯，见《空间的性质》引理
+\ref{spaces-properties-lemma-compare-etale-sites}。
+本章不再重新定义它们，而直接使用。
+
+
+
+
+
+
+\section{Zariski 拓扑}
+\label{spaces-topologies-section-zariski}
+
+\noindent
+在《空间》第 \ref{spaces-section-Zariski} 节中，我们介绍了用开子空间
+覆盖代数空间的 Zariski 覆盖概念。将开子空间替换为开浸入，得到如下相应概念。
+
+\begin{definition}
+\label{spaces-topologies-definition-zariski-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的 Zariski 覆盖}是 $S$ 上代数空间的一个态射族
+$\{f_i : X_i \to X\}_{i \in I}$，其中每个 $f_i$ 都是开浸入，并且
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+即这些态射联合满。
+\end{definition}
+
+\noindent
+尽管 Zariski 覆盖偶尔有用，但代数空间范畴上相应的拓扑确实太粗，
+因而并不特别有用。尽管如此，它仍定义一个位点。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的 Zariski 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 Zariski 覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是 Zariski 覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 Zariski 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 Zariski 覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是 Zariski 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{平展拓扑}
+\label{spaces-topologies-section-etale}
+
+\noindent
+本节讨论代数空间的平展覆盖概念，并定义代数空间的大平展位点。
+请与《拓扑》第 \ref{topologies-section-etale} 节比较。
+
+\begin{definition}
+\label{spaces-topologies-definition-etale-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的平展覆盖}是 $S$ 上代数空间的一个态射族
+$\{f_i : X_i \to X\}_{i \in I}$，其中每个 $f_i$ 都平展，并且
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+即这些态射联合满。
+\end{definition}
+
+\noindent
+这恰好就是《拓扑》定义 \ref{topologies-definition-etale-covering}。
+特别地，若 $X$ 及所有 $X_i$ 都是概形，便得到通常的概形平展覆盖概念。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski-etale}
+任一 Zariski 覆盖都是平展覆盖。
+\end{lemma}
+
+\begin{proof}
+由定义以及开浸入是平展态射这一事实即可得出（由于浸入可表，
+该事实由《态射》引理 \ref{morphisms-lemma-open-immersion-etale}
+经《空间》引理
+\ref{spaces-lemma-representable-transformations-property-implication} 得到）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-etale}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的平展覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是平展覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是平展覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是平展覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是平展覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是平展覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+下一个引理说明位点
+$(\textit{Spaces}/X)_\etale$ 与 $(\textit{Spaces}/X)_{smooth}$
+具有相同的层范畴。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-etale-dominates-smooth}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $\{X_i \to X\}_{i \in I}$ 是 $X$ 的光滑覆盖。
+则存在 $X$ 的平展覆盖 $\{U_j \to X\}_{j \in J}$，
+它加细 $\{X_i \to X\}_{i \in I}$。
+\end{lemma}
+
+\begin{proof}
+先取概形 $U$ 及满平展态射 $U \to X$。
+对每个 $i$，取概形 $W_i$ 及满平展态射 $W_i \to X_i$。
+于是 $\{W_i \to X\}_{i \in I}$ 是加细
+$\{X_i \to X\}_{i \in I}$ 的光滑覆盖。因此
+$\{W_i \times_X U \to U\}_{i \in I}$ 是概形的光滑覆盖。
+由《态射续论》引理 \ref{more-morphisms-lemma-etale-dominates-smooth}，
+可取加细 $\{W_i \times_X U \to U\}$ 的平展覆盖
+$\{U_j \to U\}$。于是 $\{U_j \to X\}_{j \in J}$ 是加细
+$\{X_i \to X\}_{i \in I}$ 的平展覆盖。
+\end{proof}
+
+\begin{definition}
+\label{spaces-topologies-definition-big-etale-site}
+设 $S$ 为概形。大平展位点 {\it $(\textit{Spaces}/S)_\etale$}
+是按如下方式构造的任一位点：
+\begin{enumerate}
+\item 按《拓扑》第 \ref{topologies-section-etale} 节选取一个
+大平展位点 $(\Sch/S)_\etale$。
+\item 取 $S$ 上代数空间的范畴 $\textit{Spaces}/S$ 为所依范畴
+（关于它为何是集合，见第 \ref{spaces-topologies-section-procedure} 节的讨论）。
+\item 按《集合》引理 \ref{sets-lemma-coverings-site}，
+从范畴 $\textit{Spaces}/S$ 及定义
+\ref{spaces-topologies-definition-etale-covering} 的平展覆盖类出发，选取任一覆盖集合。
+\end{enumerate}
+\end{definition}
+
+\noindent
+定义完毕后，可通过局部化得到代数空间的平展位点。
+
+\begin{definition}
+\label{spaces-topologies-definition-big-small-etale}
+设 $S$ 为概形，$(\textit{Spaces}/S)_\etale$ 如定义
+\ref{spaces-topologies-definition-big-etale-site}。
+设 $X$ 为 $S$ 上的代数空间，即 $(\textit{Spaces}/S)_\etale$
+的对象。则 $X$ 的大平展位点
+{\it $(\textit{Spaces}/X)_\etale$} 是《位点》第
+\ref{sites-section-localize} 节所引入的位点
+$(\textit{Spaces}/S)_\etale$ 在 $X$ 处的局部化。
+\end{definition}
+
+\noindent
+回顾定义中的 $S$ 上代数空间 $X$，我们已经定义了小平展位点
+$X_{spaces, \etale}$ 与 $X_\etale$，见《空间的性质》第
+\ref{spaces-properties-section-etale-site} 节。
+我们借助包含函子 $X_\etale \subset X_{spaces, \etale}$
+（《空间的性质》引理
+\ref{spaces-properties-lemma-compare-etale-sites}）
+默认识别相应的拓扑斯，并称之为 $X$ 的小平展拓扑斯。
+下面建立这些位点所关联的拓扑斯之间的一些关系。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-put-in-T-etale}
+设 $S$ 为概形，$f : Y \to X$ 为
+$(\textit{Spaces}/S)_\etale$ 中的态射。包含函子
+$Y_{spaces, \etale} \to (\textit{Spaces}/X)_\etale$
+是余连续的，并诱导拓扑斯态射
+$$
+i_f :
+\Sh(Y_\etale)
+\longrightarrow
+\Sh((\textit{Spaces}/X)_\etale)
+$$
+对 $(\textit{Spaces}/X)_\etale$ 上的层 $\mathcal{G}$，有公式
+$(i_f^{-1}\mathcal{G})(U/Y) = \mathcal{G}(U/X)$。
+函子 $i_f^{-1}$ 还具有左伴随 $i_{f, !}$，后者与纤维积和等化子可交换。
+\end{lemma}
+
+\begin{proof}
+以 $u : Y_{spaces, \etale} \to (\textit{Spaces}/X)_\etale$ 表示该函子。
+换言之，给定对应于 $Y_{spaces, \etale}$ 中一个对象的平展态射
+$j : U \to Y$，置
+% P09-ERR-0313
+$u(U \to T) = (f \circ j : U \to S)$.
+范畴 $Y_{spaces, \etale}$ 有纤维积和等化子，且 $u$ 与它们可交换。
+% P09-ERR-0314
+显然 $u$ 余连续。函子 $u$ 也连续，因为 $u$ 将覆盖变为覆盖并与
+纤维积可交换。因此引理由《位点》引理
+\ref{sites-lemma-when-shriek} 和
+\ref{sites-lemma-preserve-equalizers} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-at-the-bottom-etale}
+设 $S$ 为概形，$X$ 为 $(\textit{Spaces}/S)_\etale$ 的对象。
+包含函子 $X_{spaces, \etale} \to (\textit{Spaces}/X)_\etale$
+满足《位点》引理 \ref{sites-lemma-bigger-site} 的假设，因而诱导位点态射
+$$
+\pi_X :
+(\textit{Spaces}/X)_\etale
+\longrightarrow
+X_{spaces, \etale}
+$$
+以及拓扑斯态射
+$$
+i_X :
+\Sh(X_\etale)
+\longrightarrow
+\Sh((\textit{Spaces}/X)_\etale)
+$$
+使得 $\pi_X \circ i_X = \text{id}$。此外，
+$i_X = i_{\text{id}_X}$，其中 $i_{\text{id}_X}$ 如引理
+\ref{spaces-topologies-lemma-put-in-T-etale} 所述。特别地，函子
+$i_X^{-1} = \pi_{X, *}$ 由规则
+$i_X^{-1}(\mathcal{G})(U/X) = \mathcal{G}(U/X)$.
+描述。
+\end{lemma}
+
+\begin{proof}
+在此情形，函子
+$u : X_{spaces, \etale} \to (\textit{Spaces}/X)_\etale$
+除具有上面引理 \ref{spaces-topologies-lemma-put-in-T-etale} 的证明中所见性质外，
+还是全忠实的，并将终对象变为终对象。
+本引理由《位点》引理 \ref{sites-lemma-bigger-site} 得出。
+\end{proof}
+
+\begin{definition}
+\label{spaces-topologies-definition-restriction-small-etale}
+在引理 \ref{spaces-topologies-lemma-at-the-bottom-etale} 的情形中，函子
+$i_X^{-1} = \pi_{X, *}$ 常称为{\it 限制到小平展位点}。
+% P09-ERR-0315
+对大平展位点上的层 $\mathcal{F}$，常以
+$\mathcal{F}|_{X_\etale}$ 表示这一限制。
+\end{definition}
+
+\noindent
+采用这一记号，对大位点上的层 $\mathcal{F}$ 及小位点上的层
+$\mathcal{G}$，有
+\begin{align*}
+\Mor_{\Sh(X_\etale)}(
+\mathcal{F}|_{X_\etale},
+\mathcal{G})
+& =
+\Mor_{\Sh((\textit{Spaces}/X)_\etale)}(
+\mathcal{F},
+i_{X, *}\mathcal{G}) \\
+\Mor_{\Sh(X_\etale)}(
+\mathcal{G},
+\mathcal{F}|_{X_\etale})
+& =
+\Mor_{\Sh((\textit{Spaces}/X)_\etale)}(
+\pi_X^{-1}\mathcal{G},
+\mathcal{F})
+\end{align*}
+此外，有 $(i_{X, *}\mathcal{G})|_{X_\etale} = \mathcal{G}$，
+也有 $(\pi_X^{-1}\mathcal{G})|_{X_\etale} = \mathcal{G}$。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-morphism-big-etale}
+设 $S$ 为概形，$f : Y \to X$ 为
+$(\textit{Spaces}/S)_\etale$ 中的态射。函子
+$$
+u :
+(\textit{Spaces}/Y)_\etale
+\longrightarrow
+(\textit{Spaces}/X)_\etale,
+\quad
+V/Y \longmapsto V/X
+$$
+是余连续的，并有连续右伴随
+$$
+v :
+(\textit{Spaces}/X)_\etale
+\longrightarrow
+(\textit{Spaces}/Y)_\etale,
+\quad
+(U \to X) \longmapsto (U \times_X Y \to Y).
+$$
+它们诱导同一拓扑斯态射
+$$
+f_{big} :
+\Sh((\textit{Spaces}/Y)_\etale)
+\longrightarrow
+\Sh((\textit{Spaces}/X)_\etale)
+$$
+且有 $f_{big}^{-1}(\mathcal{G})(U/Y) = \mathcal{G}(U/X)$，
+$f_{big, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$。
+此外，$f_{big}^{-1}$ 有左伴随 $f_{big!}$，后者与纤维积和等化子可交换。
+\end{lemma}
+
+\begin{proof}
+函子 $u$ 余连续、连续，并与纤维积及等化子可交换
+（细节略去；比较引理 \ref{spaces-topologies-lemma-put-in-T-etale} 的证明）。
+因此可应用《位点》引理 \ref{sites-lemma-when-shriek} 和
+\ref{sites-lemma-preserve-equalizers}，得到 $f_{big}^{-1}$
+的公式以及 $f_{big!}$ 的存在性。此外，函子 $v$ 是右伴随，
+因为给定 $U/Y$ 与 $V/X$，有
+$\Mor_X(u(U), V) = \Mor_Y(U, V \times_X Y)$，正合所需。
+于是可应用《位点》引理
+\ref{sites-lemma-have-functor-other-way} 和
+\ref{sites-lemma-have-functor-other-way-morphism}，
+得到 $f_{big, *}$ 的公式。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-morphism-big-small-etale}
+设 $S$ 为概形，$f : Y \to X$ 为
+$(\textit{Spaces}/S)_\etale$ 中的态射。
+\begin{enumerate}
+\item % P09-ERR-0316
+有 $i_f = f_{big} \circ i_T$，其中 $i_f$ 如引理
+\ref{spaces-topologies-lemma-put-in-T-etale}，$i_T$ 如引理
+\ref{spaces-topologies-lemma-at-the-bottom-etale}。
+\item % P09-ERR-0317
+函子 $X_{spaces, \etale} \to T_{spaces, \etale}$，
+$(U \to X) \mapsto (U \times_X Y \to Y)$ 连续，并诱导位点态射
+$$
+f_{spaces, \etale} : Y_{spaces, \etale} \longrightarrow X_{spaces, \etale}
+$$
+相应的小平展拓扑斯态射记作
+$$
+f_{small} : \Sh(Y_\etale) \to \Sh(X_\etale)
+$$
+有 $f_{small, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$。
+\item 有如下位点态射的交换图
+$$
+\xymatrix{
+Y_{spaces, \etale} \ar[d]_{f_{spaces, \etale}} &
+(\textit{Spaces}/Y)_\etale \ar[d]^{f_{big}} \ar[l]^-{\pi_Y}\\
+X_{spaces, \etale} &
+(\textit{Spaces}/X)_\etale \ar[l]_-{\pi_X}
+}
+$$
+因而作为拓扑斯态射，
+$f_{small} \circ \pi_Y = \pi_X \circ f_{big}$。
+\item 有 $f_{small} = \pi_X \circ f_{big} \circ i_Y = \pi_X \circ i_f$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+% P09-ERR-0318
+等式 $i_f = f_{big} \circ i_Y$ 由等式
+$i_f^{-1} = i_T^{-1} \circ f_{big}^{-1}$ 得出；
+后者由上述函子描述即知。因此得到 (1)。
+
+\medskip\noindent
+% P09-ERR-0319
+在《空间的性质》引理
+\ref{spaces-properties-lemma-functoriality-etale-site} 中已经说明，
+函子 $u : X_{spaces, \etale} \to Y_{spaces, \etale}$，
+$u(U \to X) = (U \times_X Y \to Y)$，给出一个位点态射及相应的
+小平展拓扑斯态射。正像的描述是显然的。
+
+\medskip\noindent
+(3) 成立，因为 $\pi_X$ 和 $\pi_Y$ 由包含函子给出，而
+$f_{spaces, \etale}$ 和 $f_{big}$ 由基变换函子
+$U \mapsto U \times_X Y$ 给出。
+
+\medskip\noindent
+在 (3) 两端前复合 $i_Y$ 即得 (4)。
+\end{proof}
+
+\noindent
+在该引理的情形中，采用定义
+\ref{spaces-topologies-definition-restriction-small-etale} 的术语，
+对 $Y$ 的大平展位点上的层 $\mathcal{F}$，有
+$$
+(f_{big, *}\mathcal{F})|_{X_\etale} =
+f_{small, *}(\mathcal{F}|_{Y_\etale}),
+$$
+% P09-ERR-0320
+该等式由引理中的位点图交换即知，因为限制到 $Y$（相应地 $X$）
+的小平展位点由 $\pi_{Y, *}$（相应地 $\pi_{X, *}$）给出。
+涉及拉回与限制的类似公式不成立。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-composition-etale}
+设 $S$ 为概形。给定 $(\textit{Spaces}/S)_\etale$ 中的态射
+$f : X \to Y$、$g : Y \to Z$，有
+$g_{big} \circ f_{big} = (g \circ f)_{big}$，且
+$g_{small} \circ f_{small} = (g \circ f)_{small}$.
+\end{lemma}
+
+\begin{proof}
+对大位点上的函子，此结论由引理 \ref{spaces-topologies-lemma-morphism-big-etale}
+中正像与拉回的简单描述得出。对小位点上的函子，此结论由引理
+\ref{spaces-topologies-lemma-morphism-big-small-etale} 中正像函子的描述得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-morphism-big-small-cartesian-diagram-etale}
+设 $S$ 为概形。考虑 $(\textit{Spaces}/S)_\etale$ 中的笛卡尔图
+$$
+\xymatrix{
+Y' \ar[r]_{g'} \ar[d]_{f'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+则
+$i_g^{-1} \circ f_{big, *} = f'_{small, *} \circ (i_{g'})^{-1}$
+且 $g_{big}^{-1} \circ f_{big, *} = f'_{big, *} \circ (g'_{big})^{-1}$。
+\end{lemma}
+
+\begin{proof}
+由于该图是笛卡儿的，对 $U'/X'$ 有
+$U' \times_{X'} Y' = U' \times_X Y$。因此
+$i_g^{-1} \circ f_{big, *}$ 与
+$f'_{small, *} \circ (i_{g'})^{-1}$ 都把
+$(\textit{Spaces}/Y)_\etale$ 上的层 $\mathcal{F}$ 送到
+$X'_\etale$ 上的层
+$U' \mapsto \mathcal{F}(U' \times_{X'} Y')$
+（使用引理 \ref{spaces-topologies-lemma-put-in-T-etale} 和
+\ref{spaces-topologies-lemma-morphism-big-etale}）。
+第二个等式可用相同方法证明，也可由一般性的《位点》引理
+\ref{sites-lemma-localize-morphism} 推出。
+\end{proof}
+
+\begin{remark}
+\label{spaces-topologies-remark-change-topologies-ringed}
+位点 $(\textit{Spaces}/X)_\etale$ 与 $X_{spaces, \etale}$
+都带有结构层。对小平展位点，我们已在《空间的性质》第
+\ref{spaces-properties-section-structure-sheaf} 节看到这一点。
+大平展位点 $(\textit{Spaces}/X)_\etale$ 上的结构层
+$\mathcal{O}$ 定义为：给对象 $U$ 指派 $U$ 的结构层的整体截面。
+这是有意义的，因为 $U$ 本身毕竟是代数空间，因而具有结构层。
+由于 $\mathcal{O}_U$ 是 $U$ 的平展位点上的层，如此定义的预层
+$\mathcal{O}$ 满足 $U$ 的覆盖的层条件；也就是说，
+$\mathcal{O}$ 是层。
+可以把上面定义的态射 $i_f$、$\pi_X$、$i_X$、$f_{small}$ 及
+$f_{big}$ 分别提升为带环位点、带环拓扑斯的态射。下面逐一处理。
+\begin{enumerate}
+\item 在引理 \ref{spaces-topologies-lemma-put-in-T-etale} 中，以 $\mathcal{O}$
+表示 $(\textit{Spaces}/X)_\etale$ 上的结构层。
+按构造有
+$(i_f^{-1}\mathcal{O})(U/Y) = \mathcal{O}_U(U) = \mathcal{O}_Y(U)$。
+% P09-ERR-0321
+从而有同构 $i_f^\sharp : i_f^{-1}\mathcal{O} \to \mathcal{O}_Y$。
+\item 在引理 \ref{spaces-topologies-lemma-at-the-bottom-etale} 中已经指出，
+$i_X$ 是 $f = \text{id}_X$ 时 $i_f$ 的特例，故回到情形 (1)。
+\item 在引理 \ref{spaces-topologies-lemma-at-the-bottom-etale} 中，态射
+$\pi_X$ 满足 $(\pi_{X, *}\mathcal{O})(U) = \mathcal{O}(U) =
+\mathcal{O}_X(U)$。因此可用它定义
+$\pi_X^\sharp : \mathcal{O}_X \to \pi_{X, *}\mathcal{O}$。
+\item 在引理 \ref{spaces-topologies-lemma-morphism-big-small-etale} 中，
+《空间的性质》引理
+\ref{spaces-properties-lemma-morphism-ringed-topoi}
+讨论了把 $f_{small}$ 扩张为带环拓扑斯态射。
+\item 在引理 \ref{spaces-topologies-lemma-morphism-big-small-etale} 中，
+函子 $f_{big}^{-1}$ 只不过是通过包含函子
+$(\textit{Spaces}/Y)_\etale \to (\textit{Spaces}/X)_\etale$
+作限制。设 $\mathcal{O}_1$ 为 $(\textit{Spaces}/X)_\etale$
+上的结构层，$\mathcal{O}_2$ 为 $(\textit{Spaces}/Y)_\etale$
+上的结构层。得到典范同构
+$f_{big}^\sharp : f_{big}^{-1}\mathcal{O}_1 \to \mathcal{O}_2$。
+\end{enumerate}
+此外，在这些定义下，复合也正确相容。略去详细陈述与证明。
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{光滑拓扑}
+\label{spaces-topologies-section-smooth}
+
+\noindent
+本节讨论代数空间的光滑覆盖概念，并定义代数空间的大光滑位点。
+请与《拓扑》第 \ref{topologies-section-smooth} 节比较。
+
+\begin{definition}
+\label{spaces-topologies-definition-smooth-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的光滑覆盖}是 $S$ 上代数空间的一个态射族
+$\{f_i : X_i \to X\}_{i \in I}$，其中每个 $f_i$ 都光滑，并且
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+即这些态射联合满。
+\end{definition}
+
+\noindent
+这恰好就是《拓扑》定义 \ref{topologies-definition-smooth-covering}。
+特别地，若 $X$ 及所有 $X_i$ 都是概形，便得到通常的概形光滑覆盖概念。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski-etale-smooth}
+任一平展覆盖都是光滑覆盖；因此更进一步，任一 Zariski 覆盖都是光滑覆盖。
+\end{lemma}
+
+\begin{proof}
+这由定义、平展态射是光滑态射这一事实
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-etale-smooth}）
+及引理 \ref{spaces-topologies-lemma-zariski-etale} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-smooth}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的光滑覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是光滑覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是光滑覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是光滑覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是光滑覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是光滑覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+待续……
+
+
+
+
+
+
+
+
+
+\section{Syntomic 拓扑}
+\label{spaces-topologies-section-syntomic}
+
+\noindent
+本节讨论代数空间的 syntomic 覆盖概念，并定义代数空间的大
+syntomic 位点。请与《拓扑》第
+\ref{topologies-section-syntomic} 节比较。
+
+\begin{definition}
+\label{spaces-topologies-definition-syntomic-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的 syntomic 覆盖}是 $S$ 上代数空间的一个态射族
+$\{f_i : X_i \to X\}_{i \in I}$，其中每个 $f_i$ 都是 syntomic
+态射，并且
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+即这些态射联合满。
+\end{definition}
+
+\noindent
+这恰好就是《拓扑》定义 \ref{topologies-definition-syntomic-covering}。
+特别地，若 $X$ 及所有 $X_i$ 都是概形，便得到通常的概形
+syntomic 覆盖概念。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski-etale-smooth-syntomic}
+任一光滑覆盖都是 syntomic 覆盖；因此更进一步，任一平展覆盖或
+Zariski 覆盖都是 syntomic 覆盖。
+\end{lemma}
+
+\begin{proof}
+这由定义、光滑态射是 syntomic 态射这一事实
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-smooth-syntomic}）
+及引理 \ref{spaces-topologies-lemma-zariski-etale-smooth} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-syntomic}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的
+syntomic 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 syntomic 覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是 syntomic 覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 syntomic 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 syntomic 覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是 syntomic 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+待续……
+
+
+
+
+
+
+
+
+
+
+\section{Fppf 拓扑}
+\label{spaces-topologies-section-fppf}
+
+\noindent
+本节讨论代数空间的 fppf 覆盖概念，并定义代数空间的大 fppf 位点。
+请与《拓扑》第 \ref{topologies-section-fppf} 节比较。
+
+\begin{definition}
+\label{spaces-topologies-definition-fppf-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的 fppf 覆盖}是 $S$ 上代数空间的一个态射族
+$\{f_i : X_i \to X\}_{i \in I}$，其中每个 $f_i$ 都平坦且局部有限表示，
+并且
+$$
+|X| = \bigcup\nolimits_{i \in I} |f_i|(|X_i|),
+$$
+即这些态射联合满。
+\end{definition}
+
+\noindent
+这恰好就是《拓扑》定义 \ref{topologies-definition-fppf-covering}。
+特别地，若 $X$ 及所有 $X_i$ 都是概形，便得到通常的概形 fppf 覆盖概念。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf}
+任一 syntomic 覆盖都是 fppf 覆盖；因此更进一步，任一光滑、平展或
+Zariski 覆盖都是 fppf 覆盖。
+\end{lemma}
+
+\begin{proof}
+这由定义、syntomic 态射平坦且局部有限表示这一事实
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-syntomic-locally-finite-presentation} 和
+\ref{spaces-morphisms-lemma-syntomic-flat}）
+及引理 \ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-fppf}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的 fppf 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 fppf 覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是 fppf 覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 fppf 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 fppf 覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是 fppf 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-refine-fppf-schemes}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。假设
+$\mathcal{U} = \{f_i : X_i \to X\}_{i \in I}$ 是 $X$ 的 fppf 覆盖。
+则存在 $\mathcal{U}$ 的加细
+$\mathcal{V} = \{g_i : T_i \to X\}$，它是 fppf 覆盖且每个
+$T_i$ 都是概形。
+\end{lemma}
+
+\begin{proof}
+略。提示：对每个 $i$，取概形 $T_i$ 及满平展态射
+$T_i \to X_i$，再验证 $\{T_i \to X\}$ 是 fppf 覆盖。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-fppf-covering-surjective}
+设 $S$ 为概形。设 $\{f_i : X_i \to X\}_{i \in I}$
+为 $S$ 上代数空间的 fppf 覆盖。则层态射
+$$
+\coprod X_i \longrightarrow X
+$$
+是满的。
+\end{lemma}
+
+\begin{proof}
+这由《空间》引理
+\ref{spaces-lemma-surjective-flat-locally-finite-presentation} 得出。
+若对本引理的含义有疑问，另见《空间》注
+\ref{spaces-remark-warning}。
+\end{proof}
+
+\begin{definition}
+\label{spaces-topologies-definition-big-fppf-site}
+设 $S$ 为概形。大 fppf 位点 {\it $(\textit{Spaces}/S)_{fppf}$}
+是按如下方式构造的任一位点：
+\begin{enumerate}
+\item 按《拓扑》第 \ref{topologies-section-fppf} 节选取一个大
+fppf 位点 $(\Sch/S)_{fppf}$。
+\item 取 $S$ 上代数空间的范畴 $\textit{Spaces}/S$ 为所依范畴
+（关于它为何是集合，见第 \ref{spaces-topologies-section-procedure} 节的讨论）。
+\item 按《集合》引理 \ref{sets-lemma-coverings-site}，
+从范畴 $\textit{Spaces}/S$ 及定义
+\ref{spaces-topologies-definition-fppf-covering} 的 fppf 覆盖类出发，选取任一覆盖集合。
+\end{enumerate}
+\end{definition}
+
+\noindent
+定义完毕后，可通过局部化得到代数空间的 fppf 位点。
+
+\begin{definition}
+\label{spaces-topologies-definition-big-small-fppf}
+设 $S$ 为概形，$(\textit{Spaces}/S)_{fppf}$ 如定义
+\ref{spaces-topologies-definition-big-fppf-site}。
+设 $X$ 为 $S$ 上的代数空间，即 $(\textit{Spaces}/S)_{fppf}$
+的对象。则 $X$ 的大 fppf 位点
+{\it $(\textit{Spaces}/X)_{fppf}$} 是《位点》第
+\ref{sites-section-localize} 节所引入的位点
+$(\textit{Spaces}/S)_{fppf}$ 在 $X$ 处的局部化。
+\end{definition}
+
+\noindent
+下面建立这些位点所关联的拓扑斯之间的一些关系。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-morphism-big-fppf}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的态射。函子
+$$
+u : (\textit{Spaces}/Y)_{fppf} \longrightarrow (\textit{Spaces}/X)_{fppf},
+\quad
+V/Y \longmapsto V/X
+$$
+是余连续的，并有连续右伴随
+% P09-ERR-0322
+$$
+v : (\textit{Spaces}/X)_{fppf} \longrightarrow (\textit{Spaces}/Y)_{fppf},
+\quad
+(U \to Y) \longmapsto (U \times_X Y \to Y).
+$$
+它们诱导同一拓扑斯态射
+$$
+f_{big} :
+\Sh((\textit{Spaces}/Y)_{fppf})
+\longrightarrow
+\Sh((\textit{Spaces}/X)_{fppf})
+$$
+且有 $f_{big}^{-1}(\mathcal{G})(U/Y) = \mathcal{G}(U/X)$，
+$f_{big, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$。
+此外，$f_{big}^{-1}$ 有左伴随 $f_{big!}$，后者与纤维积和等化子可交换。
+\end{lemma}
+
+\begin{proof}
+函子 $u$ 余连续、连续，并与纤维积及等化子可交换。因此可应用
+《位点》引理 \ref{sites-lemma-when-shriek} 和
+\ref{sites-lemma-preserve-equalizers}，得到 $f_{big}^{-1}$
+的公式以及 $f_{big!}$ 的存在性。此外，函子 $v$ 是右伴随，
+因为给定
+% P09-ERR-0323
+$U/T$ 与 $V/X$，有
+$\Mor_X(u(U), V) = \Mor_Y(U, V \times_X Y)$，正合所需。
+于是可应用《位点》引理
+\ref{sites-lemma-have-functor-other-way} 和
+\ref{sites-lemma-have-functor-other-way-morphism}，
+得到 $f_{big, *}$ 的公式。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-composition-fppf}
+设 $S$ 为概形。给定 $S$ 上代数空间的态射
+$f : X \to Y$、$g : Y \to Z$，有
+$g_{big} \circ f_{big} = (g \circ f)_{big}$.
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-topologies-lemma-morphism-big-fppf} 中大位点上函子的
+正像与拉回的简单描述得出。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{ph 拓扑}
+\label{spaces-topologies-section-ph}
+
+\noindent
+本节定义 ph 拓扑。这是由平展覆盖和正常满态射生成的拓扑，见引理
+\ref{spaces-topologies-lemma-characterize-sheaf}。
+
+\begin{definition}
+\label{spaces-topologies-definition-ph-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的 ph 覆盖}是 $S$ 上代数空间的一个态射族
+$\{X_i \to X\}_{i \in I}$，
+% P09-ERR-0324
+使得 $f_i$ 局部有限型，并且对每个仿射 $U$ 及态射 $U \to X$，
+存在加细族 $\{X_i \times_X U \to U\}_{i \in I}$ 的标准 ph 覆盖
+$\{U_j \to U\}_{j = 1, \ldots, m}$。
+\end{definition}
+
+\noindent
+% P09-ERR-0325
+换言之，存在指标 $i_1, \ldots, i_m \in I$ 及态射
+$h_j : U_j \to X_{i_j}$，使得
+$f_{i_j} \circ h_j = h \circ g_j$。注意，若 $X$ 及所有 $X_i$ 均
+可表，则由《拓扑》定义 \ref{topologies-definition-ph-covering}，
+这与概形的 ph 覆盖相同。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph}
+任一 fppf 覆盖都是 ph 覆盖；因此更进一步，任一 syntomic、光滑、
+平展或 Zariski 覆盖都是 ph 覆盖。
+\end{lemma}
+
+\begin{proof}
+只需证明 fppf 覆盖是 ph 覆盖，其余结论便由引理
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf} 得出。
+设 $\{X_i \to X\}_{i \in I}$ 是基概形 $S$ 上代数空间的 fppf 覆盖。
+设 $U$ 为仿射概形并给定态射 $U \to X$。可以将 fppf 覆盖
+% P09-ERR-0326
+$\{X_i \times_U U \to U\}_{i \in I}$ 加细为 fppf 覆盖
+$\{T_i \to U\}_{i \in I}$，其中 $T_i$ 是概形
+（引理 \ref{spaces-topologies-lemma-refine-fppf-schemes}）。
+再由《态射续论》引理 \ref{more-morphisms-lemma-fppf-ph}
+（以及概形的 ph 覆盖定义），可找出加细
+$\{T_i \to U\}_{i \in I}$ 的标准 ph 覆盖
+$\{U_j \to U\}_{j = 1, \ldots, m}$。
+因此按定义，$\{X_i \to X\}_{i \in I}$ 是 ph 覆盖。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-surjective-proper-ph}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的固有满态射。
+则 $\{Y \to X\}$ 是 ph 覆盖。
+\end{lemma}
+
+\begin{proof}
+设 $U \to X$ 为态射，其中 $U$ 仿射。
+由 Chow 引理（其弱形式见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-weak-chow}），存在概形的固有满态射
+$V \to U$，它经 $Y \times_X U \to U$ 分解。
+取 $V$ 的任一有限仿射开覆盖，便得到 $U$ 的一个标准 ph 覆盖，
+它加细
+% P09-ERR-0327
+$\{X \times_Y U \to U\}$，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-ph}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的 ph 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 ph 覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是 ph 覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 ph 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 ph 覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是 ph 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 是显然的。考虑 (3) 中的 $g : X' \to X$ 及 ph 覆盖
+$\{X_i \to X\}_{i\in I}$。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-type}，态射
+$X' \times_X X_i \to X'$ 局部有限型。
+若 $h' : Z \to X'$ 是从仿射概形到 $X'$ 的态射，则置
+$h = g \circ h' : Z \to X$。关于 $\{X_i \to X\}_{i\in I}$
+的假设意味着，存在标准 ph 覆盖
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ 以及盖住 $h$ 的态射
+$Z_j \to X_{i(j)}$，其中某些 $i(j) \in I$。
+由纤维积的泛性质，还得到 $h'$ 上的态射
+$Z_j \to X' \times_X X_{i(j)}$。
+因此 $\{X' \times_X X_i \to X'\}_{i\in I}$ 是 ph 覆盖，
+这就证明了 (3)。
+
+\medskip\noindent
+设 $\{X_i \to X\}_{i\in I}$ 与
+$\{X_{ij} \to X_i\}_{j\in J_i}$ 如 (2) 所述。
+设 $h : Z \to X$ 为从仿射概形到 $X$ 的态射。
+由假设，存在标准 ph 覆盖
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ 及盖住 $h$ 的态射
+$h_j : Z_j \to X_{i(j)}$，其中某些 $i(j) \in I$。
+仍由假设，存在标准 ph 覆盖
+$\{Z_{j, l} \to Z_j\}_{l = 1, \ldots, n(j)}$
+以及盖住 $h_j$ 的态射 $Z_{j, l} \to X_{i(j)j(l)}$，
+其中某些 $j(l) \in J_{i(j)}$。
+由《拓扑》引理 \ref{topologies-lemma-refine-by-standard-ph}，
+族 $\{Z_{j, l} \to Z\}$ 可被某个标准 ph 覆盖加细。
+因此 $\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 ph 覆盖。
+\end{proof}
+
+\begin{definition}
+\label{spaces-topologies-definition-big-ph-site}
+设 $S$ 为概形。大 ph 位点 {\it $(\textit{Spaces}/S)_{ph}$}
+是按如下方式构造的任一位点：
+\begin{enumerate}
+\item 按《拓扑》第 \ref{topologies-section-ph} 节选取一个大 ph 位点
+$(\Sch/S)_{ph}$。
+\item 取 $S$ 上代数空间的范畴 $\textit{Spaces}/S$ 为所依范畴
+（关于它为何是集合，见第 \ref{spaces-topologies-section-procedure} 节的讨论）。
+\item 按《集合》引理 \ref{sets-lemma-coverings-site}，
+从范畴 $\textit{Spaces}/S$ 及定义
+\ref{spaces-topologies-definition-ph-covering} 的 ph 覆盖类出发，选取任一覆盖集合。
+\end{enumerate}
+\end{definition}
+
+\noindent
+定义完毕后，可通过局部化得到代数空间的 ph 位点。
+
+\begin{definition}
+\label{spaces-topologies-definition-big-small-ph}
+设 $S$ 为概形，$(\textit{Spaces}/S)_{ph}$ 如定义
+\ref{spaces-topologies-definition-big-ph-site}。
+设 $X$ 为 $S$ 上的代数空间，即 $(\textit{Spaces}/S)_{ph}$ 的对象。
+则 $X$ 的大 ph 位点 {\it $(\textit{Spaces}/X)_{ph}$} 是
+《位点》第 \ref{sites-section-localize} 节所引入的位点
+$(\textit{Spaces}/S)_{ph}$ 在 $X$ 处的局部化。
+\end{definition}
+
+\noindent
+下面给出先前所承诺的 ph 层刻画。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-characterize-sheaf}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为 $(\textit{Spaces}/X)_{ph}$ 上的预层。
+则 $\mathcal{F}$ 是层，当且仅当
+\begin{enumerate}
+\item $\mathcal{F}$ 对平展覆盖满足层条件；并且
+\item 若 $f : V \to U$ 是 $(\textit{Spaces}/X)_{ph}$ 中的固有满态射，
+则 $\mathcal{F}(U)$ 双射地映到两个映射
+$\mathcal{F}(V) \to \mathcal{F}(V \times_U V)$ 的等化子。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+只需证明若 (1) 与 (2) 成立，则 $\mathcal{F}$ 是层。
+设 $\{T_i \to T\}$ 为 ph 覆盖，即
+$(\textit{Spaces}/X)_{ph}$ 中的覆盖。我们验证此覆盖的层条件。
+设 $s_i \in \mathcal{F}(T_i)$ 为一些截面，它们限制到
+$T_i \times_T T_{i'}$ 后相同。我们将证明存在唯一截面
+% P09-ERR-0328
+$s \in \mathcal{F}$，它在 $T_i$ 上限制为 $s_i$。
+设 $\{U_j \to T\}$ 为平展覆盖，其中 $U_j$ 仿射。
+由性质 (1)，为构造 $s$，只需构造截面
+$s_j \in \mathcal{F}(U_j)$，使其在
+% P09-ERR-0329
+$U_j \cap U_{j'}$ 上相符。
+考虑 ph 覆盖 $\{T_i \times_T U_j \to U_j\}$。
+于是 $s_{ji} = s_i|_{T_i \times_T U_j}$ 是一些截面，它们在
+$(T_i \times_T U_j) \times_{U_j} (T_{i'} \times_T U_j)$ 上相符。
+取固有满态射 $V_j \to U_j$ 及有限仿射开覆盖
+$V_j = \bigcup V_{jk}$，使标准 ph 覆盖
+$\{V_{jk} \to U_j\}$ 加细
+$\{T_i \times_T U_j \to U_j\}$。
+若 $s_{jk} \in \mathcal{F}(V_{jk})$ 表示经隐含态射将
+$s_{ji}$ 拉回到 $V_{jk}$ 所得的截面，则 $s_{jk}$ 黏合为截面
+$s'_j \in \mathcal{F}(V_j)$。再次利用重叠处的一致性可知，
+$s'_j$ 属于两个映射
+$\mathcal{F}(V_j) \to \mathcal{F}(V_j \times_{U_j} V_j)$ 的等化子。
+因此由 (2)，$s'_j$ 来自唯一截面
+$s_j \in \mathcal{F}(U_j)$。略去验证这些截面
+$s_j$ 具有全部所需性质。
+\end{proof}
+
+\noindent
+下面建立这些位点所关联的拓扑斯之间的一些关系。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-morphism-big-ph}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的态射。函子
+$$
+u : (\textit{Spaces}/Y)_{ph} \longrightarrow (\textit{Spaces}/X)_{ph},
+\quad
+V/Y \longmapsto V/X
+$$
+是余连续的，并有连续右伴随
+% P09-ERR-0330
+$$
+v : (\textit{Spaces}/X)_{ph} \longrightarrow (\textit{Spaces}/Y)_{ph},
+\quad
+(U \to Y) \longmapsto (U \times_X Y \to Y).
+$$
+它们诱导同一拓扑斯态射
+$$
+f_{big} :
+\Sh((\textit{Spaces}/Y)_{ph})
+\longrightarrow
+\Sh((\textit{Spaces}/X)_{ph})
+$$
+且有 $f_{big}^{-1}(\mathcal{G})(U/Y) = \mathcal{G}(U/X)$，
+$f_{big, *}(\mathcal{F})(U/X) = \mathcal{F}(U \times_X Y/Y)$。
+此外，$f_{big}^{-1}$ 有左伴随 $f_{big!}$，后者与纤维积和等化子可交换。
+\end{lemma}
+
+\begin{proof}
+函子 $u$ 余连续、连续，并与纤维积及等化子可交换。因此可应用
+《位点》引理 \ref{sites-lemma-when-shriek} 和
+\ref{sites-lemma-preserve-equalizers}，得到 $f_{big}^{-1}$
+的公式以及 $f_{big!}$ 的存在性。此外，函子 $v$ 是右伴随，
+因为给定
+% P09-ERR-0331
+$U/T$ 与 $V/X$，有
+$\Mor_X(u(U), V) = \Mor_Y(U, V \times_X Y)$，正合所需。
+于是可应用《位点》引理
+\ref{sites-lemma-have-functor-other-way} 和
+\ref{sites-lemma-have-functor-other-way-morphism}，
+得到 $f_{big, *}$ 的公式。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-composition-ph}
+设 $S$ 为概形。给定 $S$ 上代数空间的态射
+$f : X \to Y$、$g : Y \to Z$，有
+$g_{big} \circ f_{big} = (g \circ f)_{big}$.
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-topologies-lemma-morphism-big-ph} 中大位点上函子的
+正像与拉回的简单描述得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-cech-enough}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $P$ 为 $(\textit{Spaces}/X)_{fppf}$ 中对象的一种性质，
+使得每当 $\{U_i \to U\}$ 是
+$(\textit{Spaces}/X)_{fppf}$ 中的覆盖时，都有
+$$
+P(U_{i_0} \times_U \ldots \times_U U_{i_p})
+\text{ 对所有 }
+p \geq 0,\ i_0, \ldots, i_p \in I
+\Rightarrow P(U)
+$$
+若对所有在 $X$ 上平坦、局部有限表示的仿射 $U$ 都有 $P(U)$，
+则 $P(X)$。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 为 $X$ 上局部有限表示的分离代数空间。可选择平展覆盖
+$\{U_i \to U\}_{i \in I}$，其中
+% P09-ERR-0332
+$V_i$ 仿射。由于 $U$ 分离，
+$U_{i_0} \times_U \ldots \times_U U_{i_p}$ 总是仿射，
+故总有 $P(U_{i_0} \times_U \ldots \times_U U_{i_p})$。
+于是 $P(U)$ 成立。选择一个由仿射概形不交并而成的概形 $U$
+以及满平展态射 $U \to X$。
+则 $U \times_X \ldots \times_X U$（共有 $p + 1$ 个因子）
+是 $X$ 上平展的分离代数空间。因此由上可知
+$P(U \times_X \ldots \times_X U)$，从而 $P(X)$ 成立。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Fpqc 拓扑}
+\label{spaces-topologies-section-fpqc}
+
+\noindent
+我们简要讨论代数空间的 fpqc 覆盖概念。请与《拓扑》第
+\ref{topologies-section-fpqc} 节比较。
+我们将在《空间的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent} 中证明，
+% P09-ERR-0333
+拟凝聚层可沿这些覆盖下降。
+
+\begin{definition}
+\label{spaces-topologies-definition-fpqc-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+{\it $X$ 的 fpqc 覆盖}是代数空间的一个态射族
+$\{f_i : X_i \to X\}_{i \in I}$，其中每个 $f_i$ 都平坦；
+并且对每个仿射概形 $Z$ 及态射 $h : Z \to X$，都存在加细族
+$\{X_i \times_X Z \to Z\}_{i \in I}$ 的标准 fpqc 覆盖
+$\{g_j : Z_j \to Z\}_{j = 1, \ldots, m}$。
+\end{definition}
+
+\noindent
+% P09-ERR-0334
+换言之，存在指标 $i_1, \ldots, i_m \in I$ 及态射
+$h_j : Z_j \to X_{i_j}$，使得
+$f_{i_j} \circ h_j = h \circ g_j$。注意，若 $X$ 及所有 $X_i$ 均
+可表，则由《拓扑》引理
+\ref{topologies-lemma-fpqc-covering-affines-mapping-in}，
+这与概形的 fpqc 覆盖相同。
+
+\begin{lemma}
+\label{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-fpqc}
+任一 fppf 覆盖都是 fpqc 覆盖；因此更进一步，任一 syntomic、光滑、
+平展或 Zariski 覆盖都是 fpqc 覆盖。
+\end{lemma}
+
+\begin{proof}
+只需证明 fppf 覆盖是 fpqc 覆盖，其余结论便由引理
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf} 得出。
+设 $\{f_i : U_i \to U\}_{i \in I}$ 是 $S$ 上代数空间的 fppf 覆盖。
+按定义，$f_i$ 平坦，这验证了定义
+\ref{spaces-topologies-definition-fpqc-covering} 的第一个条件。
+为验证第二个条件，设 $V \to U$ 为态射，其中 $V$ 仿射。
+可选择平展覆盖 $\{V_{ij} \to V \times_U U_i\}$，其中 $V_{ij}$ 仿射。
+于是复合
+$f_{ij} : V_{ij} \to V \times_U U_i \to V$ 平坦且局部有限表示，
+因为它们是具有这些性质的态射的复合
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-presentation},
+\ref{spaces-morphisms-lemma-composition-flat},
+\ref{spaces-morphisms-lemma-etale-flat} 及
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}).
+因此这些态射是开的
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-fppf-open}），并且
+$|V| = \bigcup_{i \in I} \bigcup_{j \in J_i} f_{ij}(|V_{ij}|)$
+是 $|V|$ 的开覆盖。由于 $|V|$ 拟紧，该覆盖有有限加细。
+设 $V_{i_1j_1}, \ldots, V_{i_Nj_N}$ 实现这一点。
+则 $\{V_{i_kj_k} \to V\}_{k = 1, \ldots, N}$ 是 $V$ 的标准
+fpqc 覆盖，并加细族
+% P09-ERR-0335
+$\{U_i \times_U V \to V\}$。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-fpqc}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $X' \to X$ 是同构，则 $\{X' \to X\}$ 是 $X$ 的 fpqc 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 fpqc 覆盖，并且对每个
+$i$，$\{X_{ij} \to X_i\}_{j\in J_i}$ 是 fpqc 覆盖，则
+$\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 fpqc 覆盖。
+\item 若 $\{X_i \to X\}_{i\in I}$ 是 fpqc 覆盖，而
+$X' \to X$ 是代数空间的态射，则
+$\{X' \times_X X_i \to X'\}_{i\in I}$ 是 fpqc 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 是显然的。考虑 (3) 中的 $g : X' \to X$ 及 fpqc 覆盖
+$\{X_i \to X\}_{i\in I}$。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-flat}，态射
+$X' \times_X X_i \to X'$ 平坦。
+若 $h' : Z \to X'$ 是从仿射概形到 $X'$ 的态射，则置
+$h = g \circ h' : Z \to X$。关于 $\{X_i \to X\}_{i\in I}$
+的假设意味着，存在标准 fpqc 覆盖
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ 以及盖住 $h$ 的态射
+$Z_j \to X_{i(j)}$，其中某些 $i(j) \in I$。
+由纤维积的泛性质，还得到 $h'$ 上的态射
+$Z_j \to X' \times_X X_{i(j)}$。
+因此 $\{X' \times_X X_i \to X'\}_{i\in I}$ 是 fpqc 覆盖，
+这就证明了 (3)。
+
+\medskip\noindent
+设 $\{X_i \to X\}_{i\in I}$ 与
+$\{X_{ij} \to X_i\}_{j\in J_i}$ 如 (2) 所述。
+设 $h : Z \to X$ 为从仿射概形到 $X$ 的态射。
+由假设，存在标准 fpqc 覆盖
+$\{Z_j \to Z\}_{j = 1, \ldots, n}$ 及盖住 $h$ 的态射
+$h_j : Z_j \to X_{i(j)}$，其中某些 $i(j) \in I$。
+仍由假设，存在标准 fpqc 覆盖
+$\{Z_{j, l} \to Z_j\}_{l = 1, \ldots, n(j)}$
+以及盖住 $h_j$ 的态射 $Z_{j, l} \to X_{i(j)j(l)}$，
+其中某些 $j(l) \in J_{i(j)}$。
+由《拓扑》引理 \ref{topologies-lemma-fpqc-affine-axioms}，
+族 $\{Z_{j, l} \to Z\}$ 是标准 fpqc 覆盖。
+因此 $\{X_{ij} \to X\}_{i \in I, j\in J_i}$ 是 fpqc 覆盖。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-recognize-fpqc-covering}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+假设 $\{f_i : X_i \to X\}_{i \in I}$ 是以 $X$ 为靶的代数空间态射族。
+设 $U \to X$ 为从概形到 $X$ 的满平展态射。
+则 $\{f_i : X_i \to X\}_{i \in I}$ 是 $X$ 的 fpqc 覆盖，
+当且仅当 $\{U \times_X X_i \to U\}_{i \in I}$ 是 $U$ 的 fpqc 覆盖。
+\end{lemma}
+
+\begin{proof}
+若 $\{X_i \to X\}_{i \in I}$ 是 fpqc 覆盖，则由引理
+\ref{spaces-topologies-lemma-fpqc}，$\{U \times_X X_i \to U\}_{i \in I}$ 也是。
+反之，假设 $\{U \times_X X_i \to U\}_{i \in I}$ 是 fpqc 覆盖。
+设 $h : Z \to X$ 为从仿射概形到 $X$ 的态射。
+则 $U \times_X Z \to Z$ 是概形的满平展态射，特别地是开态射。
+因此可找出 $U \times_X Z$ 的有限多个仿射开集
+$W_1, \ldots, W_t$，其像覆盖 $Z$。
+对每个 $j$，把 $\{U \times_X X_i \to U\}_{i \in I}$
+是 fpqc 覆盖这一条件应用于态射 $W_j \to U$，得到加细
+$\{W_j \times_X X_i \to W_j\}_{i \in I}$ 的标准 fpqc 覆盖
+$\{W_{jl} \to W_j\}$。
+于是 $\{W_{jl} \to Z\}$ 是 $Z$ 的标准 fpqc 覆盖
+（见《拓扑》引理 \ref{topologies-lemma-fpqc-affine-axioms}），
+并加细
+% P09-ERR-0336
+$\{Z \times_X X_i \to X\}$，即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-topologies-lemma-refine-fpqc-schemes}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。假设
+$\mathcal{U} = \{f_i : X_i \to X\}_{i \in I}$ 是 $X$ 的 fpqc 覆盖。
+则存在 $\mathcal{U}$ 的加细
+$\mathcal{V} = \{g_i : T_i \to X\}$，它是 fpqc 覆盖且每个
+$T_i$ 都是概形。
+\end{lemma}
+
+\begin{proof}
+略。提示：对每个 $i$，取概形 $T_i$ 及满平展态射
+$T_i \to X_i$，再验证 $\{T_i \to X\}$ 是 fpqc 覆盖。
+\end{proof}
+
+\noindent
+待续……

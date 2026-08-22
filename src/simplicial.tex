@@ -1,0 +1,6303 @@
+% Generated mechanically from the frozen simplicial.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{13}
+\chapter{单纯方法}
+
+
+
+\phantomsection
+\label{simplicial-section-phantom}
+
+
+\section{引言}
+\label{simplicial-section-introduction}
+
+\noindent
+这是对单纯方法的一份最低限度的介绍。我们只在后文需要某项内容时，才把它加入
+这里。关于这些材料，一份一般性的参考文献或许是 \cite{SimpHom}。这些方法能够
+完成何种工作的例子包括 Quillen 关于同伦代数的论文，见 \cite{Quillen}，以及
+Artin 与 Mazur 关于 'Etale 同伦的论文，见 \cite{ArtinMazur}。
+
+\section{有限全序集的范畴}
+\label{simplicial-section-Delta}
+
+\noindent
+范畴 $\Delta$ 定义如下：
+\begin{enumerate}
+\item 其对象为 $[0], [1], [2], \ldots$，其中
+$[n] = \{0, 1, 2, \ldots, n\}$；
+\item 态射 $[n] \to [m]$ 是相应集合之间的非减映射
+$\{0, 1, 2, \ldots, n\} \to \{0, 1, 2, \ldots, m\}$。
+\end{enumerate}
+这里，映射 $\varphi : [n] \to [m]$ 为{\it 非减的}，按定义是指：若
+$i \geq j$，则 $\varphi(i) \geq \varphi(j)$。换言之，$\Delta$ 等价于以非空有限
+全序集为对象、以非减映射为态射的“大”范畴。恰有 $n + 1$ 个态射
+$[0] \to [n]$，而恰有 $1$ 个态射 $[n] \to [0]$。恰有
+$(n + 1)(n + 2)/2$ 个态射 $[1] \to [n]$，而恰有 $n + 2$ 个态射
+$[n] \to [1]$。其余情形以此类推。
+
+\begin{definition}
+\label{simplicial-definition-face-degeneracy}
+对任意整数 $n\geq 1$ 及任意 $0\leq j \leq n$，以
+{\it $\delta^n_j : [n-1] \to [n]$}
+表示跳过 $j$ 的保序单射。对任意整数 $n\geq 0$ 及任意
+$0\leq j \leq n$，以
+{\it $\sigma^n_j : [n + 1]  \to [n]$}
+表示满足
+$(\sigma^n_j)^{-1}(\{j\}) = \{j, j + 1\}$
+的保序满射。
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-face-degeneracy}
+$\Delta$ 中的任一态射都可写成若干态射 $\delta^n_j$ 与 $\sigma^n_j$ 的复合。
+\end{lemma}
+
+\begin{proof}
+设 $\varphi : [n] \to [m]$ 为 $\Delta$ 的态射。若
+$j \not \in \Im(\varphi)$，则对某个态射
+$\psi : [n] \to [m - 1]$，可将 $\varphi$ 写成
+$\delta^m_j \circ \psi$。若 $\varphi(j) = \varphi(j + 1)$，则对某个态射
+$\psi : [n - 1] \to [m]$，可将 $\varphi$ 写成
+$\psi \circ \sigma^{n - 1}_j$。上述每次替换都会减小 $n + m$，故在某一步
+$\varphi$ 将同时为单射和满射，因而为恒等态射，结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-relations-face-degeneracy}
+态射 $\delta^n_j$ 与 $\sigma^n_j$ 满足下列关系。
+\begin{enumerate}
+\item 若 $0 \leq i < j \leq n + 1$，则
+$\delta^{n + 1}_j \circ \delta^n_i =
+\delta^{n + 1}_i \circ \delta^n_{j - 1}$。
+换言之，下图交换：
+$$
+\xymatrix{
+& [n] \ar[rd]^{\delta^{n + 1}_j} & \\
+[n - 1] \ar[ru]^{\delta^n_i} \ar[rd]_{\delta^n_{j - 1}} & &
+[n + 1] \\
+& [n] \ar[ru]_{\delta^{n + 1}_i} &
+}
+$$
+\item 若 $0 \leq i < j \leq n - 1$，则
+$\sigma^{n - 1}_j \circ \delta^n_i =
+\delta^{n - 1}_i \circ \sigma^{n - 2}_{j - 1}$。
+换言之，下图交换：
+$$
+\xymatrix{
+& [n] \ar[rd]^{\sigma^{n - 1}_j} & \\
+[n - 1] \ar[ru]^{\delta^n_i} \ar[rd]_{\sigma^{n - 2}_{j - 1}} & &
+[n - 1] \\
+& [n - 2] \ar[ru]_{\delta^{n - 1}_i} &
+}
+$$
+\item 若 $0 \leq j \leq n - 1$，则
+$\sigma^{n - 1}_j \circ \delta^n_j = \text{id}_{[n - 1]}$
+且
+$\sigma^{n - 1}_j \circ \delta^n_{j + 1} = \text{id}_{[n - 1]}$。
+换言之，下图交换：
+$$
+\xymatrix{
+& [n] \ar[rd]^{\sigma^{n - 1}_j} & \\
+[n - 1]
+\ar[ru]^{\delta^n_j}
+\ar[rd]_{\delta^n_{j + 1}}
+\ar[rr]^{\text{id}_{[n - 1]}} & & [n - 1] \\
+& [n] \ar[ru]_{\sigma^{n - 1}_j} &
+}
+$$
+\item 若 $0 < j + 1 < i \leq n$，则
+$\sigma^{n - 1}_j \circ \delta^n_i =
+\delta^{n - 1}_{i - 1} \circ \sigma^{n - 2}_j$。
+换言之，下图交换：
+$$
+\xymatrix{
+& [n] \ar[rd]^{\sigma^{n - 1}_j} & \\
+[n - 1] \ar[ru]^{\delta^n_i} \ar[rd]_{\sigma^{n - 2}_j} & &
+[n - 1] \\
+& [n - 2] \ar[ru]_{\delta^{n - 1}_{i - 1}} &
+}
+$$
+\item 若 $0 \leq i \leq j \leq n - 1$，则
+$\sigma^{n - 1}_j \circ \sigma^n_i =
+\sigma^{n - 1}_i \circ \sigma^n_{j + 1}$。
+换言之，下图交换：
+$$
+\xymatrix{
+& [n] \ar[rd]^{\sigma^{n - 1}_j} & \\
+[n + 1] \ar[ru]^{\sigma^n_i} \ar[rd]_{\sigma^n_{j + 1}} & &
+[n - 1] \\
+& [n] \ar[ru]_{\sigma^{n - 1}_i} &
+}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-face-degeneracy-category}
+范畴 $\Delta$ 是具有对象 $[n]$（$n \geq 0$）及态射
+$\delta^n_j$、$\sigma^n_j$ 的泛范畴，并满足：(a) 每个态射都是这些态射的
+复合；(b) 引理 \ref{simplicial-lemma-relations-face-degeneracy} 所列关系成立；
+(c) 这些态射之间的任一关系都是上述关系的推论。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+\section{单纯对象}
+\label{simplicial-section-simplicial-object}
+
+\begin{definition}
+\label{simplicial-definition-simplicial-object}
+设 $\mathcal{C}$ 为范畴。
+\begin{enumerate}
+\item $\mathcal{C}$ 的一个{\it 单纯对象 $U$} 是从 $\Delta$ 到
+$\mathcal{C}$ 的反变函子 $U$，即
+$$
+U : \Delta^{opp} \longrightarrow \mathcal{C}
+$$
+\item 若 $\mathcal{C}$ 为集合范畴，则称 $U$ 为{\it 单纯集}。
+\item 若 $\mathcal{C}$ 为阿贝尔群范畴，则称 $U$ 为{\it 单纯阿贝尔群}。
+\item 单纯对象之间的一个{\it 态射 $U \to U'$} 是函子之间的自然变换。
+\item $\mathcal{C}$ 的{\it 单纯对象范畴}记为 $\text{Simp}(\mathcal{C})$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这意味着存在对象 $U([0]), U([1]), U([2]), \ldots$，并且对任意非减映射
+$\varphi$，即 $\varphi : [m] \to [n]$，存在态射
+$U(\varphi) : U([n]) \to U([m])$，满足
+$U(\varphi \circ \psi) = U(\psi) \circ U(\varphi)$。
+
+\medskip\noindent
+特别地，存在唯一态射 $U([0]) \to U([n])$，并且与 $n + 1$ 个映射
+$[0] \to [n]$ 相对应，恰有 $n + 1$ 个态射 $U([n]) \to U([0])$。
+显然，为了清楚地讨论这些单纯对象，还需要更多记号。为此我们使用上面
+第 \ref{simplicial-section-Delta} 节中挑出的那些态射。
+
+\begin{lemma}
+\label{simplicial-lemma-characterize-simplicial-object}
+设 $\mathcal{C}$ 为范畴。
+\begin{enumerate}
+\item 给定 $\mathcal{C}$ 中的单纯对象 $U$，得到对象列
+$U_n = U([n])$，以及态射
+$d^n_j = U(\delta^n_j) : U_n \to U_{n-1}$ 和
+$s^n_j = U(\sigma^n_j) : U_n \to U_{n + 1}$。这些态射满足引理
+\ref{simplicial-lemma-relations-face-degeneracy} 所列关系的反向关系，即
+\begin{enumerate}
+\item 若 $0 \leq i < j \leq n + 1$，则
+$d^n_i \circ d^{n + 1}_j = d^n_{j - 1} \circ d^{n + 1}_i$。
+\item 若 $0 \leq i < j \leq n - 1$，则
+$d^n_i \circ s^{n - 1}_j = s^{n - 2}_{j - 1} \circ d^{n - 1}_i$。
+\item 若 $0 \leq j \leq n - 1$，则
+$\text{id} = d^n_j \circ s^{n - 1}_j = d^n_{j + 1} \circ s^{n - 1}_j$。
+\item 若 $0 < j + 1 < i \leq n$，则
+$d^n_i \circ s^{n - 1}_j = s^{n - 2}_j \circ d^{n - 1}_{i - 1}$。
+\item 若 $0 \leq i \leq j \leq n - 1$，则
+$s^n_i \circ s^{n - 1}_j = s^n_{j + 1} \circ s^{n - 1}_i$。
+\end{enumerate}
+\item 反过来，给定对象列 $U_n$ 及满足 (1)(a)--(e) 的态射
+$d^n_j$、$s^n_j$，则存在唯一的 $\mathcal{C}$ 中的单纯对象 $U$，使得
+$U_n = U([n])$、$d^n_j = U(\delta^n_j)$ 且
+$s^n_j = U(\sigma^n_j)$。
+\item 单纯对象 $U$ 与 $U'$ 之间的态射由一族与态射 $d^n_j$ 和
+$s^n_j$ 交换的态射 $U_n \to U'_n$ 给出。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{simplicial-lemma-face-degeneracy-category} 得出。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-relations}
+稍微滥用记号，我们有时以 $d_i : U_n \to U_{n - 1}$ 代替
+$d^n_i$，并对 $s_i : U_n \to U_{n + 1}$ 使用类似记法。
+态射 $d^n_i$ 与 $s^n_i$ 之间的关系可表为：
+\begin{enumerate}
+\item 若 $i < j$，则 $d_i \circ d_j = d_{j - 1} \circ d_i$。
+\item 若 $i < j$，则 $d_i \circ s_j = s_{j - 1} \circ d_i$。
+\item 有 $\text{id} = d_j \circ s_j = d_{j + 1} \circ s_j$。
+\item 若 $i > j + 1$，则 $d_i \circ s_j = s_j \circ d_{i - 1}$。
+\item 若 $i \leq j$，则 $s_i \circ s_j = s_{j + 1} \circ s_i$。
+\end{enumerate}
+这表示，只要等式左右两侧的复合都有定义，相应等式就成立。
+\end{remark}
+
+\noindent
+存在唯一态射 $s^0_0 = U(\sigma^0_0) : U_0 \to U_1$，以及两个态射
+$d^1_0 = U(\delta^1_0)$ 和 $d^1_1 = U(\delta^1_1)$，它们都是
+$U_1 \to U_0$ 的态射。存在两个态射
+$s^1_0 = U(\sigma^1_0)$、$s^1_1 = U(\sigma^1_1)$，它们都是
+$U_1 \to U_2$ 的态射。还存在三个态射
+$d^2_0 = U(\delta^2_0)$、$d^2_1 = U(\delta^2_1)$、$d^2_2 = U(\delta^2_2)$，
+它们都是 $U_3 \to U_2$ 的态射。依此类推。
+% SOURCE-ERRATUM-CANDIDATE P02-E0102: frozen source says d^2_i: U_3 -> U_2, but its own definition gives d^2_i: U_2 -> U_1.
+
+\medskip\noindent
+在图示上，我们把 $U$ 看作：
+$$
+\xymatrix{
+U_2
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+U_1
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+U_0
+\ar@<0ex>[l]
+}
+$$
+这里，指向右侧的箭头是 $d$-态射，指向左侧的箭头是 $s$-态射。
+
+\begin{example}
+\label{simplicial-example-constant-simplicial-object}
+最简单的例子是取值为 $X \in \Ob(\mathcal{C})$ 的{\it 常值}单纯对象。
+换言之，$U_n = X$，且所有映射均为 $\text{id}_X$。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-fibre-products-simplicial-object}
+设 $Y\to X$ 为 $\mathcal{C}$ 的态射，并且所有纤维积
+$Y \times_X Y \times_X \ldots \times_X Y$ 都存在。令 $U_n$ 等于
+$(n + 1)$ 重纤维积，并使 $\varphi : [n] \to [m]$ 对应于如下映射
+（用“坐标”表示）：
+$(y_0, \ldots, y_m) \mapsto (y_{\varphi(0)}, \ldots, y_{\varphi(n)})$。
+换言之，映射 $U_0 = Y \to U_1 = Y \times_X Y$ 是对角映射，而两个映射
+$U_1 = Y \times_X Y \to U_0 = Y$ 是投影映射。
+\end{example}
+
+\noindent
+从几何上说，上面的例 \ref{simplicial-example-fibre-products-simplicial-object}
+十分重要。它表明，最好把映射 $d^n_j : U_n \to U_{n - 1}$ 看成投影映射
+（忘掉第 $j$ 个分量），并把映射 $s^n_j : U_n \to U_{n + 1}$ 看成对角映射
+（重复第 $j$ 个坐标）。后面各节还会回到这一点。
+
+\begin{lemma}
+\label{simplicial-lemma-si-injective}
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的单纯对象。每个态射
+$s^n_i : U_n \to U_{n + 1}$ 都有左逆。特别地，$s^n_i$ 是单态射。
+\end{lemma}
+
+\begin{proof}
+这是因为 $d_i^{n + 1} \circ s^n_i = \text{id}_{U_n}$。
+\end{proof}
+
+\section{作为预层的单纯对象}
+\label{simplicial-section-simplicial-presheaves}
+
+\noindent
+另一个观察是，可以把 $\mathcal{C}$ 的单纯对象看作 $\Delta$ 上取值于
+$\mathcal{C}$ 的预层。见 Sites，定义 \ref{sites-definition-presheaf}。
+事实上，若 $U$、$U'$ 是 $\mathcal{C}$ 的单纯对象，则
+\begin{equation}
+\label{simplicial-equation-simplicial-set-presheaf}
+\Mor(U, U') = \Mor_{\textit{PSh}(\Delta)}(U, U').
+\end{equation}
+下面的一些材料可以用位点一章中更一般的构造来替代。不过，采用单纯对象所特有的
+论证似乎能给出更清楚的图景。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{余单纯对象}
+\label{simplicial-section-cosimplicial-object}
+
+\noindent
+范畴 $\mathcal{C}$ 的余单纯对象当然可以直接定义为对偶范畴
+$\mathcal{C}^{opp}$ 的单纯对象。不过，人的思维通常并不这样运作，
+因此我们在这里单独引入余单纯对象，并指出它们的一些简单性质。
+
+\begin{definition}
+\label{simplicial-definition-cosimplicial-object}
+设 $\mathcal{C}$ 为范畴。
+\begin{enumerate}
+\item $\mathcal{C}$ 的一个{\it 余单纯对象 $U$} 是从 $\Delta$ 到
+$\mathcal{C}$ 的协变函子 $U$，即
+$$
+U : \Delta \longrightarrow \mathcal{C}
+$$
+\item 若 $\mathcal{C}$ 是集合范畴，则称 $U$ 为{\it 余单纯集}。
+\item 若 $\mathcal{C}$ 是阿贝尔群范畴，则称 $U$ 为{\it 余单纯阿贝尔群}。
+\item {\it 余单纯对象之间的态射 $U \to U'$} 是函子之间的变换。
+\item $\mathcal{C}$ 的{\it 余单纯对象范畴}记作
+$\text{CoSimp}(\mathcal{C})$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这就是说，我们有对象 $U([0]), U([1]), U([2]), \ldots$；对于任意非降映射
+$\varphi$，即 $\varphi : [m] \to [n]$，都有一个态射
+$U(\varphi) : U([m]) \to U([n])$，并且满足
+$U(\varphi \circ \psi) = U(\varphi) \circ U(\psi)$。
+
+\medskip\noindent
+特别地，有唯一的态射 $U([n]) \to U([0])$，并且恰有 $n + 1$ 个态射
+$U([0]) \to U([n])$，它们对应于 $n + 1$ 个映射 $[0] \to [n]$。
+显然，要恰当地讨论这些单纯对象，还需要更多记号。
+% P02-E0103: frozen source says "these simplicial objects" in the cosimplicial section.
+为此，我们考察上面第 \ref{simplicial-section-Delta} 节中挑出的那些态射。
+
+\begin{lemma}
+\label{simplicial-lemma-characterize-cosimplicial-object}
+设 $\mathcal{C}$ 为范畴。
+\begin{enumerate}
+\item 给定 $\mathcal{C}$ 中的余单纯对象 $U$，我们得到一列对象
+$U_n = U([n])$，并带有态射
+$\delta^n_j = U(\delta^n_j) : U_{n - 1} \to U_n$ 和
+$\sigma^n_j = U(\sigma^n_j) : U_{n + 1} \to U_n$。这些态射满足
+引理 \ref{simplicial-lemma-relations-face-degeneracy} 中列出的关系。
+\item 反之，给定一列对象 $U_n$ 和满足这些关系的态射
+$\delta^n_j$、$\sigma^n_j$，存在唯一的 $\mathcal{C}$ 中的余单纯对象 $U$，
+使得 $U_n = U([n])$、$\delta^n_j = U(\delta^n_j)$ 且
+$\sigma^n_j = U(\sigma^n_j)$。
+\item 余单纯对象 $U$ 与 $U'$ 之间的态射由一族态射
+$U_n \to U'_n$ 给出，并且它们与态射 $\delta^n_j$ 和 $\sigma^n_j$ 可交换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{simplicial-lemma-face-degeneracy-category} 推出。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-relations-cosimplicial}
+我们有时滥用记号，以 $\delta_i : U_{n - 1} \to U_n$ 代替
+$\delta^n_i$，并对 $\sigma_i : U_{n + 1} \to U_n$ 使用类似记法。
+态射 $\delta^n_i$ 与 $\sigma^n_i$ 之间的关系可以表述如下：
+\begin{enumerate}
+\item 若 $i < j$，则
+$\delta_j \circ \delta_i = \delta_i \circ \delta_{j - 1}$。
+\item 若 $i < j$，则
+$\sigma_j \circ \delta_i = \delta_i \circ \sigma_{j - 1}$。
+\item 有
+$\text{id} = \sigma_j \circ \delta_j = \sigma_j \circ \delta_{j + 1}$。
+\item 若 $i > j + 1$，则
+$\sigma_j \circ \delta_i = \delta_{i - 1} \circ \sigma_j$。
+\item 若 $i \leq j$，则
+$\sigma_j \circ \sigma_i = \sigma_i \circ \sigma_{j + 1}$。
+\end{enumerate}
+这里的意思是，只要等式两边的复合都有定义，相应等式就应成立。
+\end{remark}
+
+\noindent
+我们得到唯一的态射 $\sigma^0_0 = U(\sigma^0_0) : U_1 \to U_0$，以及
+两个态射 $\delta^1_0 = U(\delta^1_0)$ 和
+$\delta^1_1 = U(\delta^1_1)$，它们都是态射 $U_0 \to U_1$。
+有两个态射 $\sigma^1_0 = U(\sigma^1_0)$、
+$\sigma^1_1 = U(\sigma^1_1)$，它们都是态射 $U_2 \to U_1$。
+还有三个态射 $\delta^2_0 = U(\delta^2_0)$、
+$\delta^2_1 = U(\delta^2_1)$、$\delta^2_2 = U(\delta^2_2)$，
+它们都是态射 $U_2 \to U_3$。依此类推。
+
+\medskip\noindent
+在图示上，我们把 $U$ 看作：
+$$
+\xymatrix{
+U_0
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+&
+U_1
+\ar@<0ex>[l]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+U_2
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+}
+$$
+这里，指向右侧的箭头是 $\delta$-态射，指向左侧的箭头是
+$\sigma$-态射。
+
+\begin{example}
+\label{simplicial-example-constant-cosimplicial-object}
+最简单的例子是取值为 $X \in \Ob(\mathcal{C})$ 的{\it 常值}余单纯对象。
+换言之，$U_n = X$，且所有映射均为 $\text{id}_X$。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-push-outs-simplicial-object}
+设 $X\to Y$ 为 $C$ 的态射，并且所有推出
+$Y\amalg_X Y \amalg_X \ldots \amalg_X Y$ 都存在。
+% P02-E0104: frozen source uses plain C although the ambient category is mathcal C.
+令 $U_n$ 等于 $(n + 1)$ 重推出，并使 $\varphi : [n] \to [m]$ 对应于
+“坐标”上的映射
+$$
+(y \text{ 于 }i\text{次分量})
+\mapsto
+(y \text{ 于 }\varphi(i)\text{次分量})
+$$
+换言之，映射 $U_1 = Y \amalg_X Y \to U_0 = Y$ 在每个分量上都是恒等映射。
+两个映射 $U_0 = Y \to U_1 = Y \amalg_X Y$ 是两个余投影。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-simplex-cosimplicial-set}
+对每个 $n \geq 0$，以 $C[n]$ 表示余单纯集
+$$
+\Delta \longrightarrow \textit{Sets},\quad
+[k] \longmapsto \Mor_{\Delta}([n], [k])
+$$
+这个例子与例 \ref{simplicial-example-simplex-simplicial-set} 对偶。
+\end{example}
+
+\begin{lemma}
+\label{simplicial-lemma-di-injective}
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的余单纯对象。每个态射
+$\delta^n_i : U_{n - 1} \to U_n$ 都有左逆。特别地，$\delta^n_i$ 是单态射。
+\end{lemma}
+
+\begin{proof}
+这是因为当 $j < n$ 时，
+$\sigma_i^{n - 1} \circ \delta^n_i = \text{id}_{U_n}$。
+% P02-E0105: frozen source has a type/index mismatch: id_{U_n} and j<n.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{单纯对象的积}
+\label{simplicial-section-products}
+
+\noindent
+当然，我们应当把单纯对象的积定义为单纯对象范畴中的积。
+这可能导致一种容易混淆的情形：积虽然存在，却不能按下面的方式描述。
+为避免这种情形，我们直接作如下定义。
+
+\begin{definition}
+\label{simplicial-definition-product}
+设 $\mathcal{C}$ 为范畴，$U$ 和 $V$ 为 $\mathcal{C}$ 的单纯对象。
+假设积 $U_n \times V_n$ 在 $\mathcal{C}$ 中存在。
+$U$ 与 $V$ 的{\it 积}是如下定义的单纯对象 $U \times V$：
+\begin{enumerate}
+\item $(U \times V)_n = U_n \times V_n$，
+\item $d^n_i = (d^n_i, d^n_i)$，且
+\item $s^n_i = (s^n_i, s^n_i)$。
+\end{enumerate}
+换言之，$U \times V$ 是 $\Delta$ 上预层 $U$ 与 $V$ 的积。
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-product}
+若 $U$ 和 $V$ 是范畴 $\mathcal{C}$ 中的单纯对象，且 $U \times V$ 存在，
+则对 $\mathcal{C}$ 的任意第三个单纯对象 $W$，都有
+$$
+\Mor(W, U \times V) =
+\Mor(W, U) \times
+\Mor(W, V)
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+\section{单纯对象的纤维积}
+\label{simplicial-section-fibre-products}
+
+\noindent
+当然，我们应当把单纯对象的纤维积定义为单纯对象范畴中的纤维积。
+这可能导致一种容易混淆的情形：纤维积虽然存在，却不能按下面的方式描述。
+为避免这种情形，我们直接作如下定义。
+
+\begin{definition}
+\label{simplicial-definition-fibre-product}
+设 $\mathcal{C}$ 为范畴，$U, V, W$ 为 $\mathcal{C}$ 的单纯对象，并设
+$a : V \to U$、$b : W \to U$ 为态射。假设纤维积
+$V_n \times_{U_n} W_n$ 在 $\mathcal{C}$ 中存在。
+$V$ 与 $W$ 在 $U$ 上的{\it 纤维积}是如下定义的单纯对象
+$V \times_U W$：
+\begin{enumerate}
+\item $(V \times_U W)_n = V_n \times_{U_n} W_n$，
+\item $d^n_i = (d^n_i, d^n_i)$，且
+\item $s^n_i = (s^n_i, s^n_i)$。
+\end{enumerate}
+换言之，$V \times_U W$ 是 $\Delta$ 上预层 $V$ 与 $W$
+在预层 $U$ 上的纤维积。
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-fibre-product}
+若 $U, V, W$ 是范畴 $\mathcal{C}$ 中的单纯对象，
+$a : V \to U$、$b : W \to U$ 是态射，并且 $V \times_U W$ 存在，
+则对 $\mathcal{C}$ 的任意第四个单纯对象 $T$，都有
+$$
+\Mor(T, V \times_U W) =
+\Mor(T, V) \times_{\Mor(T, U)}
+\Mor(T, W)
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\section{单纯对象的推出}
+\label{simplicial-section-push-outs}
+
+\noindent
+当然，我们应当把单纯对象的推出定义为单纯对象范畴中的推出。
+这可能导致一种容易混淆的情形：推出虽然存在，却不能按下面的方式描述。
+为避免这种情形，我们直接作如下定义。
+
+\begin{definition}
+\label{simplicial-definition-push-out}
+设 $\mathcal{C}$ 为范畴，$U, V, W$ 为 $\mathcal{C}$ 的单纯对象，并设
+$a : U \to V$、$b : U \to W$ 为态射。假设推出
+$V_n \amalg_{U_n} W_n$ 在 $\mathcal{C}$ 中存在。
+$V$ 与 $W$ 在 $U$ 上的{\it 推出}是如下定义的单纯对象
+$V\amalg_U W$：
+\begin{enumerate}
+\item $(V \amalg_U W)_n = V_n \amalg_{U_n} W_n$，
+\item $d^n_i = (d^n_i, d^n_i)$，且
+\item $s^n_i = (s^n_i, s^n_i)$。
+\end{enumerate}
+换言之，$V\amalg_U W$ 是 $\Delta$ 上预层 $V$ 与 $W$
+在预层 $U$ 上的推出。
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-push-out}
+若 $U, V, W$ 是范畴 $\mathcal{C}$ 中的单纯对象，
+$a : U \to V$、$b : U \to W$ 是态射，并且 $V\amalg_U W$ 存在，
+则对 $\mathcal{C}$ 的任意第四个单纯对象 $T$，都有
+$$
+\Mor(V\amalg_U W, T) =
+\Mor(V, T) \times_{\Mor(U, T)}
+\Mor(W, T)
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{余单纯对象的积}
+\label{simplicial-section-products-cosimplicial}
+
+\noindent
+当然，我们应当把余单纯对象的积定义为余单纯对象范畴中的积。
+这可能导致一种容易混淆的情形：积虽然存在，却不能按下面的方式描述。
+为避免这种情形，我们直接作如下定义。
+
+\begin{definition}
+\label{simplicial-definition-product-cosimplicial-objects}
+设 $\mathcal{C}$ 为范畴，$U$ 和 $V$ 为 $\mathcal{C}$ 的余单纯对象。
+假设积 $U_n \times V_n$ 在 $\mathcal{C}$ 中存在。
+$U$ 与 $V$ 的{\it 积}是如下定义的余单纯对象 $U \times V$：
+\begin{enumerate}
+\item $(U \times V)_n = U_n \times V_n$，
+\item 对任意 $\varphi : [n] \to [m]$，映射
+$(U \times V)(\varphi) : U_n \times V_n \to U_m \times V_m$
+是积 $U(\varphi) \times V(\varphi)$。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-product-cosimplicial-objects}
+若 $U$ 和 $V$ 是范畴 $\mathcal{C}$ 中的余单纯对象，且 $U \times V$ 存在，
+则对 $\mathcal{C}$ 的任意第三个余单纯对象 $W$，都有
+$$
+\Mor(W, U \times V) =
+\Mor(W, U) \times
+\Mor(W, V)
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\section{余单纯对象的纤维积}
+\label{simplicial-section-fibre-products-cosimplicial}
+
+\noindent
+当然，我们应当把余单纯对象的纤维积定义为余单纯对象范畴中的纤维积。
+这可能导致一种容易混淆的情形：积虽然存在，却不能按下面的方式描述。
+为避免这种情形，我们直接作如下定义。
+
+\begin{definition}
+\label{simplicial-definition-fibre-product-cosimplicial-objects}
+设 $\mathcal{C}$ 为范畴，$U, V, W$ 为 $\mathcal{C}$ 的余单纯对象，并设
+$a : V \to U$ 和 $b : W \to U$ 为态射。假设纤维积
+$V_n \times_{U_n} W_n$ 在 $\mathcal{C}$ 中存在。
+$V$ 与 $W$ 在 $U$ 上的{\it 纤维积}是如下定义的余单纯对象
+$V \times_U W$：
+\begin{enumerate}
+\item $(V \times_U W)_n = V_n \times_{U_n} W_n$，
+\item 对任意 $\varphi : [n] \to [m]$，映射
+$(V \times_U W)(\varphi) : V_n \times_{U_n} W_n \to V_m \times_{U_m} W_m$
+是积 $V(\varphi) \times_{U(\varphi)} W(\varphi)$。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-fibre-product-cosimplicial-objects}
+若 $U, V, W$ 是范畴 $\mathcal{C}$ 中的余单纯对象，
+$a : V \to U$、$b : W \to U$ 是态射，并且 $V \times_U W$ 存在，
+则对 $\mathcal{C}$ 的任意第四个余单纯对象 $T$，都有
+$$
+\Mor(T, V \times_U W) =
+\Mor(T, V) \times_{\Mor(T, U)}
+\Mor(T, W)
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{单纯集}
+\label{simplicial-section-simplicial-set}
+
+\noindent
+设 $U$ 为单纯集。可以把 $U_0$ 看作{\it $0$-单形}的集合，
+把 $U_1$ 看作{\it $1$-单形}的集合，把 $U_2$ 看作
+{\it $2$-单形}的集合，依此类推。
+
+\medskip\noindent
+我们把映射 $s^n_j : U_n \to U_{n + 1}$ 看作这样的映射：它把
+$n$-单形 $A$ 送到退化的 $(n + 1)$-单形 $B$，其中该单形的
+$(j, j + 1)$-边被收缩到 $A$ 的第 $j$ 个顶点。我们把映射
+$d^n_j : U_n \to U_{n - 1}$ 看作把 $n$-单形 $A$ 送到它的一个面，
+即略去第 $j$ 个顶点所得的面。这样一来，就可以从几何上理解
+映射 $s^n_j$ 与 $d^n_j$ 之间的关系。
+
+\begin{definition}
+\label{simplicial-definition-terminology-simplicial-sets}
+设 $U$ 为单纯集。称 $x$ 是 $U$ 的一个{\it $n$-单形}，是指
+$x$ 是 $U_n$ 的元素。称 $y$ 是 $x$ 的第 $j$ 个{\it 面}，是指
+$d^n_jx = y$。若 $z = s^n_jx$，则称 $z$ 是 $x$ 的第 $j$ 个
+{\it 退化}。若一个单形是另一单形的退化，则称它为{\it 退化的}。
+\end{definition}
+
+\noindent
+下面给出几个基本例子。
+
+\begin{example}
+\label{simplicial-example-simplex-simplicial-set}
+对每个 $n \geq 0$，以 $\Delta[n]$ 表示单纯集
+$$
+\Delta^{opp} \longrightarrow \textit{Sets},\quad
+[k] \longmapsto \Mor_{\Delta}([k], [n])
+$$
+下列断言留给读者验证。若 $m > n$，则 $\Delta[n]$ 的每个
+$m$-单形都是退化的。$\Delta[n]$ 有唯一的非退化 $n$-单形，
+即 $\text{id}_{[n]}$。
+\end{example}
+
+\begin{lemma}
+\label{simplicial-lemma-simplex-map}
+设 $U$ 为单纯集，$n \geq 0$ 为整数。存在典范双射
+$$
+\Mor(\Delta[n], U)
+\longrightarrow
+U_n
+$$
+它把态射 $\varphi$ 送到 $\varphi$ 在 $\Delta[n]$ 的唯一非退化
+$n$-单形上的取值。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{example}
+\label{simplicial-example-simplex-category}
+考虑 $\Delta$ 中 $[n]$ 上的对象所成的范畴 $\Delta/[n]$，见
+Categories，例 \ref{categories-example-category-over-X}。
+有一个函子 $p : \Delta/[n] \to \Delta$。$p$ 在 $[k]$ 上的纤维范畴
+（见 Categories，第 \ref{categories-section-fibred-groupoids} 节）
+以 $\Delta[n]$ 中 $k$-单形的集合 $\Delta[n]_k$ 为对象，并且只有恒等态射。
+对 $\Delta$ 的每个态射 $\varphi : [k] \to [l]$ 以及 $[l]$ 上纤维范畴中的
+每个对象 $\psi : [l] \to [n]$，在 $[k]$ 上恰有一个对象带有覆盖
+$\varphi$ 的态射，即 $\psi \circ \varphi : [k] \to [n]$。
+因此，$\Delta/[n]$ 是 $\Delta$ 上以集合为纤维的范畴。换言之，
+可把 $\Delta/[n]$ 看成 $\Delta$ 上的集合预层。另见 Categories，
+例 \ref{categories-example-fibred-category-from-functor-of-points}。
+这个集合预层与单纯集 $\Delta[n]$ 一致。特别地，由公式
+(\ref{simplicial-equation-simplicial-set-presheaf}) 和上面的引理
+\ref{simplicial-lemma-simplex-map}，对任意单纯集 $U$，得到公式
+$$
+\Mor_{\textit{PSh}(\Delta)}(\Delta/[n], U) = U_n
+$$
+\end{example}
+
+\begin{lemma}
+\label{simplicial-lemma-product-degenerate}
+设 $U$、$V$ 为单纯集，$a, b \geq 0$ 为整数。假设当 $n > a$ 时，
+$U$ 的每个 $n$-单形都是退化的；并假设当 $n > b$ 时，$V$ 的每个
+$n$-单形都是退化的。则当 $n > a + b$ 时，$U \times V$ 的每个
+$n$-单形都是退化的。
+\end{lemma}
+
+\begin{proof}
+设 $n > a + b$，并取
+$(u, v) \in (U \times V)_n = U_n \times V_n$。由假设，存在
+$\alpha : [n] \to [a]$、$u' \in U_a$、$\beta : [n] \to [b]$
+和 $v' \in V_b$，使得 $u = U(\alpha)(u')$ 且
+$v = V(\beta)(v')$。由于 $n > a + b$，存在
+$0 \leq i \leq a + b$，使得 $\alpha(i) = \alpha(i + 1)$ 且
+$\beta(i) = \beta(i + 1)$。立即可知，$(u, v)$ 属于
+$s^{n - 1}_i$ 的像。
+\end{proof}
+
+
+
+\section{截断单纯对象与骨架函子}
+\label{simplicial-section-skeleton}
+
+\noindent
+以 $\Delta_{\leq n}$ 表示 $\Delta$ 的全子范畴，其对象为
+$[0], [1], [2], \ldots, [n]$。设 $\mathcal{C}$ 为范畴。
+
+\begin{definition}
+\label{simplicial-definition-truncated-simplicial-object}
+$\mathcal{C}$ 的一个{\it $n$-截断单纯对象}是从
+$\Delta_{\leq n}$ 到 $\mathcal{C}$ 的反变函子。
+{\it $n$-截断单纯对象之间的态射}是函子之间的变换。
+$\mathcal{C}$ 的 $n$-截断单纯对象范畴记作
+$\text{Simp}_n(\mathcal{C})$。
+\end{definition}
+
+\noindent
+给定 $\mathcal{C}$ 的单纯对象 $U$，截断 $\text{sk}_n U$ 是
+$U$ 在子范畴 $\Delta_{\leq n}$ 上的限制。由此定义一个{\it 骨架函子}
+$$
+\text{sk}_n :
+\text{Simp}(\mathcal{C}) \longrightarrow \text{Simp}_n(\mathcal{C})
+$$
+它从 $\mathcal{C}$ 的单纯对象范畴到 $\mathcal{C}$ 的
+$n$-截断单纯对象范畴。为避免与文献中的其他函子混淆，见备注
+\ref{simplicial-remark-sk-literature}。
+
+
+
+
+\section{与单纯集的积}
+\label{simplicial-section-product-with-simplicial-sets}
+
+\noindent
+设 $\mathcal{C}$ 为范畴，$U$ 为单纯集，$V$ 为 $\mathcal{C}$ 的单纯对象。
+可以考虑如下协变函子：它把 $\mathcal{C}$ 的单纯对象 $W$ 送到集合
+\begin{equation}
+\label{simplicial-equation-functor-product-with-simplicial-set}
+\left\{
+(f_{n, u} : V_n \to W_n)_{n \geq 0, u \in U_n}
+\text{ 使得 }
+\begin{matrix}
+\forall \varphi : [m] \to [n] \\
+f_{m, U(\varphi)(u)} \circ V(\varphi) = W(\varphi) \circ f_{n, u}
+\end{matrix}
+\right\}
+\end{equation}
+若此函子具有形式 $\Mor_{\text{Simp}(\mathcal{C})}(Q, -)$，则可以把
+$Q$ 看作 $U$ 与 $V$ 的积。我们不作这种形式化，而是直接作如下定义。
+
+\begin{definition}
+\label{simplicial-definition-product-with-simplicial-set}
+设 $\mathcal{C}$ 为范畴，且 $\mathcal{C}$ 的任意两个对象的余积都存在。
+设 $U$ 为单纯集，
+$V$ 为 $\mathcal{C}$ 的单纯对象，并假设每个 $U_n$ 都是有限非空的。
+在这种情形下，定义 $U$ 与 $V$ 的{\it 积 $U \times V$}为
+$\mathcal{C}$ 的如下单纯对象，其第 $n$ 项为
+$$
+(U \times V)_n = \coprod\nolimits_{u\in U_n} V_n
+$$
+对 $\varphi : [m] \to [n]$，相应映射为
+$$
+\coprod\nolimits_{u\in U_n} V_n
+\longrightarrow
+\coprod\nolimits_{u'\in U_m} V_m
+$$
+它通过态射 $V(\varphi)$，把对应于 $u$ 的分量 $V_n$ 映到对应于
+$u' = U(\varphi)(u)$ 的分量 $V_m$。
+更宽泛地，若上面列出的所有余积都存在（不对 $\mathcal{C}$ 作任何假设），
+则称{\it 积 $U \times V$ 存在}。
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-check-product-with-simplicial-set}
+设 $\mathcal{C}$ 为范畴，且 $\mathcal{C}$ 的任意两个对象的余积都存在。
+设 $U$ 为单纯集，
+$V$ 为 $\mathcal{C}$ 的单纯对象，并假设每个 $U_n$ 都是有限非空的。
+函子 $W \mapsto \Mor_{\text{Simp}(\mathcal{C})}(U \times V, W)$
+与把 $W$ 送到公式
+(\ref{simplicial-equation-functor-product-with-simplicial-set}) 中集合的函子典范同构。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-back-to-U}
+设 $\mathcal{C}$ 为范畴，且 $\mathcal{C}$ 的任意两个对象的余积都存在。
+暂以
+$\textit{FSSets}$ 表示各分量均有限非空的单纯集所成的范畴。
+\begin{enumerate}
+\item 规则 $(U, V) \mapsto U \times V$ 定义了函子
+$\textit{FSSets} \times \text{Simp}(\mathcal{C})
+\to \text{Simp}(\mathcal{C})$。
+\item 对上面的每一对 $U$、$V$，都有单纯对象之间的典范映射
+$$
+U \times V \longrightarrow V
+$$
+它在 $(U \times V)_n = \coprod_u V_n$ 的每个分量上取恒等映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+我们简要考察上述构造的一种特殊情形。设 $\mathcal{C}$ 为范畴，
+$X$ 为 $\mathcal{C}$ 的对象，$k \geq 0$ 为整数。若所有余积
+$X \amalg \ldots \amalg X$ 都存在，则按上述定义，积
+$$
+X \times \Delta[k]
+$$
+存在；这里把 $X$ 看作相应的常值单纯对象。
+
+\begin{lemma}
+\label{simplicial-lemma-morphism-from-coproduct}
+沿用上面的 $X$ 和 $k$。对 $\mathcal{C}$ 的任意单纯对象 $V$，
+有如下典范双射
+$$
+\Mor_{\text{Simp}(\mathcal{C})}(X \times \Delta[k], V)
+\longrightarrow
+\Mor_\mathcal{C}(X, V_k).
+$$
+它把 $\gamma$ 送到态射 $\gamma_k$ 在对应于
+$\text{id}_{[k]}$ 的分量上的限制。类似地，对任意 $n \geq k$，
+若 $W$ 是 $\mathcal{C}$ 的 $n$-截断单纯对象，则有
+$$
+\Mor_{\text{Simp}_n(\mathcal{C})}(\text{sk}_n(X \times \Delta[k]), W)
+=
+\Mor_\mathcal{C}(X, W_k).
+$$
+\end{lemma}
+
+\begin{proof}
+态射 $\gamma : X \times \Delta[k] \to V$ 由一族态射
+$\gamma_\alpha : X \to V_n$ 给出，其中 $\alpha : [n] \to [k]$。
+这些态射必须满足：对所有 $\varphi : [m] \to [n]$，图表
+$$
+\xymatrix{
+X \ar[r]^{\gamma_\alpha} \ar[d]^{\text{id}_X} & V_n \ar[d]^{V(\varphi)} \\
+X \ar[r]^{\gamma_{\alpha \circ \varphi}} & V_m
+}
+$$
+可交换。取 $\alpha = \text{id}_{[k]}$，可见对任意
+$\varphi : [m] \to [k]$，都有
+$\gamma_\varphi = V(\varphi) \circ \gamma_{\text{id}_{[k]}}$。
+因此，态射 $\gamma$ 由 $\gamma$ 在对应于 $\text{id}_{[k]}$ 的分量上的取值决定。
+反之，给定这样的态射 $f : X \to V_k$，令
+$\gamma_\alpha = V(\alpha) \circ f$，即可构造态射 $\gamma$。
+
+\medskip\noindent
+截断情形类似，留给读者验证。
+\end{proof}
+
+\noindent
+一个特殊例子是 $k = 0$ 的情形。此时，引理中的公式只是在说
+$$
+\Mor_\mathcal{C}(X, V_0)
+=
+\Mor_{\text{Simp}(\mathcal{C})}(X, V)
+$$
+其中右边的 $X$ 表示取值为 $X$ 的常值单纯对象。下文将直接使用这个公式，
+不再另行说明。
+
+
+
+
+\section{从单纯集到余单纯对象的 Hom}
+\label{simplicial-section-hom-from-simplicial-sets-into-cosimplicial}
+
+\noindent
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的单纯对象，
+$V$ 为 $\mathcal{C}$ 的余单纯对象。于是得到如下余单纯集
+$\Hom_\mathcal{C}(U, V)$：
+\begin{enumerate}
+\item 令 $\Hom_\mathcal{C}(U, V)_n = \Mor_\mathcal{C}(U_n, V_n)$；
+\item 对 $\varphi : [m] \to [n]$，取映射
+$\Hom_\mathcal{C}(U, V)_m \to \Hom_\mathcal{C}(U, V)_n$，
+它由 $f \mapsto V(\varphi) \circ f \circ U(\varphi)$ 给出。
+\end{enumerate}
+这正是下述定义的动机。
+
+\begin{definition}
+\label{simplicial-definition-hom-deltak-cosimplicial}
+设 $\mathcal{C}$ 为有有限积的范畴，$V$ 为 $\mathcal{C}$ 的余单纯对象，
+$U$ 为单纯集，并且每个 $U_n$ 都是有限非空的。定义
+{\it $\Hom(U, V)$} 为 $\mathcal{C}$ 的如下余单纯对象：
+\begin{enumerate}
+\item 令 $\Hom(U, V)_n = \prod_{u \in U_n} V_n$；换言之，
+它是 $\mathcal{C}$ 中唯一满足下列 $X$-值点等式的对象：
+$$
+\Mor_\mathcal{C}(X, \Hom(U, V)_n)
+=
+\text{Map}(U_n, \Mor_\mathcal{C}(X, V_n))
+$$
+并且
+\item 对 $\varphi : [m] \to [n]$，取映射
+$\Hom(U, V)_m \to \Hom(U, V)_n$；在上述 $X$-值点上，
+它由 $f \mapsto V(\varphi) \circ f \circ U(\varphi)$ 给出。
+\end{enumerate}
+\end{definition}
+
+\noindent
+把这个定义用积之间的映射完整写出，留给读者。还要指出，该构造关于 $U$
+反变、关于 $V$ 协变，正如引理 \ref{simplicial-lemma-back-to-U} 中单纯集与单纯对象之积
+的情形一样。
+
+
+
+
+\section{从余单纯集到单纯对象的 Hom}
+\label{simplicial-section-hom-from-cosimplicial-sets-into-simplicial}
+
+\noindent
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的余单纯对象，
+$V$ 为 $\mathcal{C}$ 的单纯对象。于是得到如下单纯集
+$\Hom_\mathcal{C}(U, V)$：
+\begin{enumerate}
+\item 令 $\Hom_\mathcal{C}(U, V)_n = \Mor_\mathcal{C}(U_n, V_n)$；
+\item 对 $\varphi : [m] \to [n]$，取映射
+$\Hom_\mathcal{C}(U, V)_n \to \Hom_\mathcal{C}(U, V)_m$，
+它由 $f \mapsto V(\varphi) \circ f \circ U(\varphi)$ 给出。
+\end{enumerate}
+这正是下述定义的动机。
+
+\begin{definition}
+\label{simplicial-definition-hom-deltak-simplicial}
+设 $\mathcal{C}$ 为有有限积的范畴，$V$ 为 $\mathcal{C}$ 的单纯对象，
+$U$ 为余单纯集，并且每个 $U_n$ 都是有限非空的。定义
+{\it $\Hom(U, V)$} 为 $\mathcal{C}$ 的如下单纯对象：
+\begin{enumerate}
+\item 令 $\Hom(U, V)_n = \prod_{u \in U_n} V_n$；换言之，
+它是 $\mathcal{C}$ 中唯一满足下列 $X$-值点等式的对象：
+$$
+\Mor_\mathcal{C}(X, \Hom(U, V)_n)
+=
+\text{Map}(U_n, \Mor_\mathcal{C}(X, V_n))
+$$
+并且
+\item 对 $\varphi : [m] \to [n]$，取映射
+$\Hom(U, V)_n \to \Hom(U, V)_m$；在上述 $X$-值点上，
+它由 $f \mapsto V(\varphi) \circ f \circ U(\varphi)$ 给出。
+\end{enumerate}
+\end{definition}
+
+\noindent
+把这个定义用积之间的映射完整写出，留给读者。还要指出，该构造关于 $U$
+反变、关于 $V$ 协变，正如引理 \ref{simplicial-lemma-back-to-U} 中单纯集与单纯对象之积
+的情形一样。
+
+\medskip\noindent
+我们在一种特殊情形下把上述构造明确写出。设 $X$ 为范畴
+$\mathcal{C}$ 的对象，并假设自积 $X \times \ldots \times X$ 存在。
+设 $k$ 为整数。考虑各项为
+$$
+U_n = \prod\nolimits_{\alpha \in \Mor([k], [n])} X
+$$
+的单纯对象 $U$；对 $\varphi : [m] \to [n]$，映射为
+$$
+U(\varphi) :
+\prod\nolimits_{\alpha \in \Mor([k], [n])} X
+\longrightarrow
+\prod\nolimits_{\alpha' \in \Mor([k], [m])} X, \quad
+(f_{\alpha})_{\alpha} \longmapsto
+(f_{\varphi \circ \alpha'})_{\alpha'}
+$$
+用“坐标”表示，元素 $(x_\alpha)_\alpha$ 被映到元素
+$(x_{\varphi \circ \alpha'})_{\alpha'}$。我们断言，这个对象等于
+$\Hom(C[k], X)$；这里把 $X$ 看作取值为 $X$ 的常值单纯对象，而 $C[k]$ 是例
+\ref{simplicial-example-simplex-cosimplicial-set} 中的余单纯集。
+
+\begin{lemma}
+\label{simplicial-lemma-morphism-into-product}
+沿用上面的 $X$、$k$ 和 $U$。
+\begin{enumerate}
+\item 对 $\mathcal{C}$ 的任意单纯对象 $V$，有如下典范双射
+$$
+\Mor_{\text{Simp}(\mathcal{C})}(V, U)
+\longrightarrow
+\Mor_\mathcal{C}(V_k, X).
+$$
+它把 $\gamma$ 送到态射 $\gamma_k$ 与投影到对应于
+$\text{id}_{[k]}$ 的因子的复合。
+\item 类似地，若 $W$ 是 $\mathcal{C}$ 的 $k$-截断单纯对象，则有
+$$
+\Mor_{\text{Simp}_k(\mathcal{C})}(W, \text{sk}_k U)
+=
+\Mor_\mathcal{C}(W_k, X).
+$$
+\item 上面构造的对象 $U$ 是 $\Hom(C[k], X)$ 的一种实现；其中 $C[k]$
+是例 \ref{simplicial-example-simplex-cosimplicial-set} 中的余单纯集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证明 (1)。设 $\gamma : V \to U$ 为态射。它由一族态射
+$\gamma_{\alpha} : V_n \to X$ 给出，其中 $\alpha : [k] \to [n]$。
+这些态射必须满足：对所有 $\varphi : [m] \to [n]$，图表
+$$
+\xymatrix{
+X \ar[d]^{\text{id}_X} &
+V_n \ar[d]^{V(\varphi)}
+\ar[l]^{\gamma_{\varphi \circ \alpha'}} \\
+X &
+V_m \ar[l]_{\gamma_{\alpha'}}
+}
+$$
+对所有 $\alpha' : [k] \to [m]$ 都可交换。取
+$\alpha' = \text{id}_{[k]}$，可见对任意 $\varphi : [k] \to [n]$，
+都有 $\gamma_\varphi = \gamma_{\text{id}_{[k]}} \circ V(\varphi)$。
+因此，态射 $\gamma$ 由 $\gamma_k$ 对应于 $\text{id}_{[k]}$ 的分量决定。
+反之，给定这样的态射 $f : V_k \to X$，令
+$\gamma_\alpha = f \circ V(\alpha)$，即可构造态射 $\gamma$。
+
+\medskip\noindent
+截断情形类似，留给读者验证。
+
+\medskip\noindent
+(3) 由 $U$ 的构造以及等式
+$C[k]_n = \Mor([k], [n])$ 立即推出；后者正是构造 $U_n$ 时使用的指标集。
+\end{proof}
+
+
+
+
+\section{内部 Hom}
+\label{simplicial-section-internal-hom}
+
+\noindent
+设 $\mathcal{C}$ 为有有限非空积的范畴，$U$、$V$ 为单纯对象
+$\mathcal{C}$。
+% P02-E0106: frozen source omits “of” before the ambient category.
+在某些情形下，函子
+$$
+\text{Simp}(\mathcal{C})^{opp} \longrightarrow \textit{Sets}, \quad
+W \longmapsto \Mor_{\text{Simp}(\mathcal{C})}(W \times V, U)
+$$
+是可表示的。在这种情形下，把所得的 $\mathcal{C}$ 的单纯对象记作
+$\SheafHom(V, U)$，并称从 $V$ 到 $U$ 的{\it 内部 Hom 存在}。
+此外，在这种情形下，给定 $\mathcal{C}$ 中的 $X$，有
+\begin{align*}
+\Mor_\mathcal{C}(X, \SheafHom(V, U)_n)
+& =
+\Mor_{\text{Simp}(\mathcal{C})}(X \times \Delta[n], \SheafHom(V, U)) \\
+& =
+\Mor_{\text{Simp}(\mathcal{C})}(X \times \Delta[n]\times V, U) \\
+& =
+\Mor_{\text{Simp}(\mathcal{C})}(X, \SheafHom(\Delta[n] \times V, U)) \\
+& =
+\Mor_\mathcal{C}(X, \SheafHom(\Delta[n] \times V, U)_0)
+\end{align*}
+只要 $\SheafHom(\Delta[n] \times V, U)$ 也存在即可。第一个和最后一个等式
+由引理 \ref{simplicial-lemma-morphism-from-coproduct} 推出。
+
+\medskip\noindent
+由此得到的要点是：给定 $U$ 和 $V$，若要构造内部 Hom，就应尝试构造对象
+$$
+\SheafHom(\Delta[n] \times V, U)_0
+$$
+因为它们应当是 $\SheafHom(V, U)$ 的第 $n$ 项。下一节将研究单纯对象
+“$\Hom(\Delta[n], U)$”的一种构造。
+
+
+\section{从单纯集到单纯对象的 Hom}
+\label{simplicial-section-hom-from-simplicial-sets}
+
+\noindent
+受上述内部 Hom 讨论的启发，我们定义一个单纯对象，它应当分类从单纯集到
+范畴 $\mathcal{C}$ 的某个给定单纯对象的态射。
+
+\begin{definition}
+\label{simplicial-definition-hom-from-simplicial-set}
+设 $\mathcal{C}$ 为任意两个对象的余积都存在的范畴。设 $U$ 为单纯集，
+并且对所有 $n \geq 0$，$U_n$ 都有限非空。设 $V$ 为
+$\mathcal{C}$ 的单纯对象。以 {\it $\Hom(U, V)$} 表示任意满足下式的
+$\mathcal{C}$ 的单纯对象：
+$$
+\Mor_{\text{Simp}(\mathcal{C})}(W, \Hom(U, V))
+=
+\Mor_{\text{Simp}(\mathcal{C})}(W \times U, V)
+$$
+其中等式关于 $\mathcal{C}$ 的单纯对象 $W$ 函子性地成立。
+\end{definition}
+
+\noindent
+当然，$\Hom(U, V)$ 未必存在。此外，由第 \ref{simplicial-section-internal-hom} 节
+的讨论可预期，若它存在，则
+$\Hom(U, V)_n = \Hom(U \times \Delta[n], V)_0$。
+这里不对这些 Hom 对象使用斜体记号，因为 $\Hom(U, V)$ 不是内部 Hom。
+
+\begin{lemma}
+\label{simplicial-lemma-exists-hom-0-from-simplicial-set}
+假设范畴 $\mathcal{C}$ 有任意两个对象的余积和可数极限。
+设 $U$ 为单纯集，并且对所有 $n \geq 0$，$U_n$ 都有限非空。
+设 $V$ 为 $\mathcal{C}$ 的单纯对象。则函子
+\begin{eqnarray*}
+\mathcal{C}^{opp} & \longrightarrow & \textit{Sets} \\
+X
+& \longmapsto &
+\Mor_{\text{Simp}(\mathcal{C})}(X \times U, V)
+\end{eqnarray*}
+是可表示的。
+\end{lemma}
+
+\begin{proof}
+从 $X \times U$ 到 $V$ 的态射由一族态射
+$f_u : X \to V_n$ 给出，其中 $n \geq 0$ 且 $u \in U_n$。
+而这样的一族态射恰好在下述条件下定义一个态射：对所有
+$\varphi : [m] \to [n]$，图表
+$$
+\xymatrix{
+X \ar[r]^{f_u} \ar[d]_{\text{id}_X} & V_n \ar[d]^{V(\varphi)} \\
+X \ar[r]^{f_{U(\varphi)(u)}} & V_m
+}
+$$
+都可交换。因此自然要引入范畴 $\mathcal{U}$ 和函子
+$\mathcal{V} : \mathcal{U}^{opp} \to \mathcal{C}$，定义如下：
+\begin{enumerate}
+\item $\mathcal{U}$ 的对象集是 $\coprod_{n \geq 0} U_n$；
+\item 从 $u' \in U_m$ 到 $u \in U_n$ 的态射，是满足
+$U(\varphi)(u) = u'$ 的 $\varphi : [m] \to [n]$；
+\item 对 $u \in U_n$，令 $\mathcal{V}(u) = V_n$；且
+\item 对满足 $U(\varphi)(u) = u'$ 的 $\varphi : [m] \to [n]$，令
+$\mathcal{V}(\varphi) = V(\varphi) : V_n \to V_m$。
+\end{enumerate}
+此时很清楚，我们的函子正是定义
+$$
+\lim_{\mathcal{U}^{opp}} \mathcal{V}
+$$
+的函子。因此，若 $\mathcal{C}$ 有可数极限，则此极限存在，从而表示引理中
+函子的对象也存在。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-exists-hom-0-from-simplicial-set-finite}
+假设范畴 $\mathcal{C}$ 有任意两个对象的余积和有限极限。
+设 $U$ 为单纯集，并且对所有 $n \geq 0$，$U_n$ 都有限非空。
+假设对所有 $n \gg 0$，$U$ 的每个 $n$-单形都是退化的。
+设 $V$ 为 $\mathcal{C}$ 的单纯对象。则函子
+\begin{eqnarray*}
+\mathcal{C}^{opp} & \longrightarrow & \textit{Sets} \\
+X
+& \longmapsto &
+\Mor_{\text{Simp}(\mathcal{C})}(X \times U, V)
+\end{eqnarray*}
+是可表示的。
+\end{lemma}
+
+\begin{proof}
+我们必须证明，引理 \ref{simplicial-lemma-exists-hom-0-from-simplicial-set} 的证明中
+所述范畴 $\mathcal{U}$ 有一个有限子范畴 $\mathcal{U}'$，使得
+$\mathcal{V}$ 在 $\mathcal{U}'$ 上的极限与 $\mathcal{V}$ 在
+$\mathcal{U}$ 上的极限相同。我们将使用 Categories，引理
+\ref{categories-lemma-initial}。对 $m > 0$，以
+$\mathcal{U}_{\leq m}$ 表示对象为
+$\coprod_{0 \leq n \leq m} U_m$ 的全子范畴。
+% P02-E0107: frozen source uses U_m under an index n; likely U_n.
+取整数 $m_0$，使得当 $n > m_0$ 时，单纯集 $U$ 的每个 $n$-单形都退化。
+对任意充分大的 $m \geq m_0$，子范畴 $\mathcal{U}_{\leq m}$ 满足
+Categories，定义 \ref{categories-definition-initial} 的性质 (1)。
+
+\medskip\noindent
+设 $u \in U_n$、$u' \in U_{n'}$，其中 $n, n' \leq m_0$；并设
+$\varphi : [k] \to [n]$、$\varphi' : [k] \to [n']$ 为满足
+$U(\varphi)(u) = U(\varphi')(u')$ 的态射。一个简单的组合论论证表明，
+若 $k > 2m_0$，则存在指标 $0 \leq i \leq 2m_0$，使得
+$\varphi(i) =\varphi(i + 1)$ 且
+$\varphi'(i) = \varphi'(i + 1)$。（鸽巢原理会告诉你，当
+$k > m_0^2$ 时这也成立；对下面的论证而言已经足够。）因此，若
+$k > 2m_0$，则可写成
+$\varphi = \psi \circ \sigma^{k - 1}_i$ 和
+$\varphi' = \psi' \circ \sigma^{k - 1}_i$，其中
+$\psi : [k - 1] \to [n]$、$\psi' : [k - 1] \to [n']$。
+由于 $s^{k - 1}_i : U_{k - 1} \to U_k$ 是单射（见引理
+\ref{simplicial-lemma-si-injective}），也可得
+$U(\psi)(u) = U(\psi')(u')$。继续这一过程可知：给定
+$\mathcal{U}$ 的态射 $u \to z$ 和 $u' \to z$，其中
+$u, u' \in \mathcal{U}_{\leq m_0}$，存在可交换图表
+$$
+\xymatrix{
+u \ar[rd] \ar[rrd] & & \\
+& a \ar[r] & z \\
+u' \ar[ru] \ar[rru]
+}
+$$
+其中 $a \in \mathcal{U}_{\leq 2m_0}$。
+
+\medskip\noindent
+容易由此推出，有限子范畴 $\mathcal{U}_{\leq 2m_0}$ 符合要求。
+事实上，设给定 $x' \in U_n$ 和 $x'' \in U_{n'}$，其中
+$n, n' \leq 2m_0$；并给定 $\mathcal{U}$ 中具有同一目标的态射
+$x' \to x$ 和 $x'' \to x$。由 $m_0$ 的选取，可以找到
+$\mathcal{U}_{\leq m_0}$ 的对象 $u, u'$ 以及态射
+$u \to x'$、$u' \to x''$。由上述结论，可以找到
+$a \in \mathcal{U}_{\leq 2m_0}$ 以及态射 $u \to a$、$u' \to a$，
+使得
+$$
+\xymatrix{
+u \ar[rd] \ar[rrd] \ar[r] & x' \ar[rd] & \\
+& a \ar[r] & x \\
+u' \ar[ru] \ar[rru] \ar[r] & x'' \ar[ru] &
+}
+$$
+可交换。把这个图顺时针旋转 90 度，就得到 Categories，定义
+\ref{categories-definition-initial} 中 (2) 所要求的图表。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-exists-hom-from-simplicial-set-finite}
+假设范畴 $\mathcal{C}$ 有任意两个对象的余积和有限极限。
+设 $U$ 为单纯集，并且对所有 $n \geq 0$，$U_n$ 都有限非空。
+假设对所有 $n \gg 0$，$U$ 的每个 $n$-单形都是退化的。
+设 $V$ 为 $\mathcal{C}$ 的单纯对象。则 $\Hom(U, V)$ 存在，而且有预期的等式
+$$
+\Hom(U, V)_n = \Hom(U \times \Delta[n], V)_0.
+$$
+\end{lemma}
+
+\begin{proof}
+如下构造这个单纯对象。对 $n \geq 0$，以 $\Hom(U, V)_n$ 表示
+$\mathcal{C}$ 中表示函子
+$$
+X
+\longmapsto
+\Mor_{\text{Simp}(\mathcal{C})}(X \times U \times \Delta[n], V)
+$$
+的对象。由引理 \ref{simplicial-lemma-exists-hom-0-from-simplicial-set-finite}，
+它存在，因为 $U \times \Delta[n]$ 是一个各单形集有限、且在足够高次数
+没有非退化单形的单纯集；见引理 \ref{simplicial-lemma-product-degenerate}。
+对 $\varphi : [m] \to [n]$，得到诱导的单纯集映射
+$\varphi : \Delta[m] \to \Delta[n]$。因而得到关于 $X$ 函子性的态射
+$X \times U \times \Delta[m] \to X \times U \times \Delta[n]$，
+进而得到函子之间的变换，再进而给出
+$$
+\Hom(U, V)(\varphi) :
+\Hom(U, V)_n
+\longrightarrow
+\Hom(U, V)_m.
+$$
+显然，这定义了从 $\Delta$ 到范畴 $\mathcal{C}$ 的反变函子
+$\Hom(U, V)$。换言之，我们得到 $\mathcal{C}$ 的一个单纯对象。
+
+\medskip\noindent
+还需证明 $\Hom(U, V)$ 满足所需的泛性质
+$$
+\Mor_{\text{Simp}(\mathcal{C})}(W, \Hom(U, V))
+=
+\Mor_{\text{Simp}(\mathcal{C})}(W \times U, V)
+$$
+为此，给定 $f : W \to \Hom(U, V)$。我们要构造右端的元素
+$f' : W \times U \to V$。由构造，每个
+$f_n : W_n \to \Hom(U, V)_n$ 对应于态射
+$f_n : W_n \times U \times \Delta[n] \to V$。此外，
+对每个态射 $\varphi : [m] \to [n]$，图表
+$$
+\xymatrix{
+W_n \times U \times \Delta[m]
+\ar[rr]_{W(\varphi)\times \text{id} \times \text{id}}
+\ar[d]_{\text{id} \times \text{id} \times \varphi} & &
+W_m \times U \times \Delta[m] \ar[d]^{f_m} \\
+W_n \times U \times \Delta[n] \ar[rr]^{f_n} & & V
+}
+$$
+可交换。对 $(\Delta[n])_k$ 中的 $\psi : [n] \to [k]$，以
+$(f_n)_{k, \psi} : W_n \times U_k \to V_k$ 表示 $(f_n)_k$
+对应于元素 $\psi$ 的分量。定义
+$f'_n : W_n \times U_n \to V_n$ 为
+$f'_n = (f_n)_{n, \text{id}}$；换言之，它是
+$(f_n)_n : W_n \times U_n \times (\Delta[n])_n \to V_n$
+在 $W_n \times U_n \times \text{id}_{[n]}$ 上的限制。
+为证明族 $(f'_n)$ 定义了单纯对象之间的态射，必须证明对任意
+$\varphi : [m] \to [n]$，都有
+$V(\varphi) \circ f'_n =
+f'_m \circ W(\varphi) \times U(\varphi)$。
+上面的可交换图表说明，
+$(f_n)_{m, \varphi} : W_n \times U_m \to V_m$ 等于
+$(f_m)_{m, \text{id}} \circ W(\varphi) :
+W_n \times U_m \to V_m$。
+另一方面，$f_n$ 是单纯对象之间的态射这一事实蕴含图表
+$$
+\xymatrix{
+W_n \times U_n \times (\Delta[n])_n
+\ar[r]_-{(f_n)_n}
+\ar[d]_{\text{id} \times U(\varphi) \times \varphi}
+& V_n \ar[d]^{V(\varphi)} \\
+W_n \times U_m \times (\Delta[n])_m \ar[r]^-{(f_n)_m} & V_m
+}
+$$
+可交换。这又蕴含 $(f_n)_{m, \varphi} \circ U(\varphi)$ 等于
+$V(\varphi) \circ (f_n)_{n, \text{id}}$。综上，得到
+$
+V(\varphi) \circ (f_n)_{n, \text{id}}
+=
+(f_n)_{m, \varphi} \circ U(\varphi)
+=
+(f_m)_{m, \text{id}} \circ W(\varphi)\circ U(\varphi)
+=
+(f_m)_{m, \text{id}} \circ W(\varphi)\times U(\varphi)
+$
+如所欲证。
+
+\medskip\noindent
+反过来，给定态射 $f' : W \times U \to V$，我们如下定义态射
+$f : W \to \Hom(U, V)$。由引理 \ref{simplicial-lemma-morphism-from-coproduct}，
+态射 $\text{id} : W_n \to W_n$ 对应于唯一态射
+$c_n : W_n \times \Delta[n] \to W$。因此可以考虑复合
+$$
+W_n \times \Delta[n] \times U
+\xrightarrow{c_n}
+W \times U
+\xrightarrow{f'}
+V.
+$$
+由构造，这对应于唯一态射 $f_n : W_n \to \Hom(U, V)_n$。
+所需的这些态射定义了单纯集之间的态射这一点，留给读者验证。
+% P02-E0108: frozen source uses plural “morphisms” with singular id.
+% P02-E0109: frozen source says simplicial sets although these are C-valued simplicial objects.
+
+\medskip\noindent
+同样留给读者验证，$f \mapsto f'$ 和 $f' \mapsto f$ 是互逆操作。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-hom-from-coprod}
+假设范畴 $\mathcal{C}$ 有任意两个对象的余积和有限极限。
+设 $a : U \to V$、$b : U \to W$ 为单纯集之间的态射。
+假设对所有 $n \geq 0$，$U_n, V_n, W_n$ 都有限非空。
+假设对所有 $n \gg 0$，$U, V, W$ 的每个 $n$-单形都是退化的。
+设 $T$ 为 $\mathcal{C}$ 的单纯对象。则
+$$
+\Hom(V, T) \times_{\Hom(U, T)} \Hom(W, T)
+=
+\Hom(V \amalg_U W, T)
+$$
+换言之，左边的纤维积由右边的 Hom 对象表示。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}，所需的所有
+$\Hom$ 对象都存在并满足正确的函子性。现在可以把左边的第 $n$ 项识别为
+表示把 $X$ 送到如下函子性等式链中第一个集合的对象：
+\begin{align*}
+&
+\Mor(X \times \Delta[n],
+\Hom(V, T) \times_{\Hom(U, T)} \Hom(W, T)) \\
+& =
+\Mor(X \times \Delta[n], \Hom(V, T))
+\times_{\Mor(X \times \Delta[n], \Hom(U, T))}
+\Mor(X \times \Delta[n], \Hom(W, T)) \\
+& =
+\Mor(X \times \Delta[n] \times V, T)
+\times_{\Mor(X \times \Delta[n] \times U, T)}
+\Mor(X \times \Delta[n] \times W, T) \\
+& =
+\Mor(X \times \Delta[n] \times (V \amalg_U W), T))
+\end{align*}
+% P02-E0110: frozen source has an unmatched extra closing parenthesis in the final Hom term.
+这里使用了等式
+$$
+(X \times \Delta[n] \times V)
+\times_{X \times \Delta[n] \times U}
+(X \times \Delta[n] \times W)
+=
+X \times \Delta[n] \times (V \amalg_U W)
+$$
+% P02-E0111: frozen source uses a fibre product on maps induced by U -> V and U -> W; the typed construction is a pushout.
+逐项验证此等式很容易。引理的结论随即由上列等式的最后一项对应于
+$\Hom(V \amalg_U W, T)_n$ 得出。
+\end{proof}
+
+\section{单纯对象的分裂}
+\label{simplicial-section-splitting}
+
+\noindent
+范畴 $\mathcal{C}$ 的对象 $X$ 的子对象 $N$，是 $\mathcal{C}$ 的一个对象
+$N$ 连同一个单态射 $N \to X$。当然，如果存在与到 $X$ 的态射相容的
+同构 $N \to N'$，我们就（滥用记号地）称子对象 $N$、$N'$ 相等。
+子对象全体构成偏序集。（这是由于我们对范畴的约定；例如，对差一个同伦
+意义下的空间范畴并不成立。）
+
+\begin{definition}
+\label{simplicial-definition-split}
+设 $\mathcal{C}$ 为有有限非空余积的范畴。称 $\mathcal{C}$ 的单纯对象
+$U$ 是{\it 分裂的}，如果存在 $U_m$ 的子对象 $N(U_m)$（$m \geq 0$），
+使得对所有 $n \geq 0$，映射
+\begin{equation}
+\label{simplicial-equation-splitting}
+\coprod\nolimits_{\varphi : [n] \to [m]\text{ 满射}}
+N(U_m)
+\longrightarrow
+U_n
+\end{equation}
+都是同构。若 $U$ 是 $\mathcal{C}$ 的 $r$-截断单纯对象，则称 $U$
+是{\it 分裂的}，如果存在 $U_m$ 的子对象 $N(U_m)$（$r \geq m \geq 0$），
+使得对 $r \geq n \geq 0$，映射 (\ref{simplicial-equation-splitting}) 是同构。
+\end{definition}
+
+\noindent
+在这种情形下，$N(U_0) = U_0$。其次有
+$U_1 = U_0 \amalg N(U_1)$。再者有
+$$
+U_2 = U_0 \amalg N(U_1) \amalg N(U_1) \amalg N(U_2).
+$$
+事实表明，在许多范畴 $\mathcal{C}$ 中，每个单纯对象都是分裂的。
+
+\begin{lemma}
+\label{simplicial-lemma-splitting-simplicial-sets}
+设 $U$ 为单纯集。则 $U$ 有唯一的分裂，其中 $N(U_m)$ 等于非退化
+$m$-单形的集合。
+\end{lemma}
+
+\begin{proof}
+由定义立即可知，若存在分裂，则 $N(U_m)$ 必须是非退化单形的集合。
+设 $x \in U_n$。假设存在满射 $\varphi : [n] \to [k]$ 和
+$\psi : [n] \to [l]$，以及非退化单形 $y \in U_k$、$z \in U_l$，
+使得 $x = U(\varphi)(y)$ 且 $x = U(\psi)(z)$。取 $\psi$ 的右逆
+$\xi : [l] \to [n]$，即 $\psi \circ \xi = \text{id}_{[l]}$。
+于是 $z = U(\xi)(x)$，从而
+$z = U(\xi)(x) = U(\varphi \circ \xi)(y)$。由于 $z$ 非退化，
+可知 $\varphi \circ \xi : [l] \to [k]$ 是满射，故 $l \geq k$。
+类似地，$k \geq l$。因此，对 $\psi$ 的右逆 $\xi$ 的任意选取，
+$\varphi \circ \xi : [l] \to [k]$ 都必须是恒等映射。
+这很容易推出 $\psi = \varphi$。
+\end{proof}
+
+\noindent
+当然，单纯集之间的映射可能把非退化 $n$-单形映到退化 $n$-单形。
+因此，引理 \ref{simplicial-lemma-splitting-simplicial-sets} 的分裂不是函子性的。
+下面给出一种它具有函子性的情形。
+
+\begin{lemma}
+\label{simplicial-lemma-injective-map-simplicial-sets}
+设 $f : U \to V$ 为单纯集之间的态射。假设 (a) $U$ 的每个非退化单形
+的像都是 $V$ 的非退化单形，并且 (b) $f$ 从 $U$ 的非退化单形集合
+到 $V$ 的非退化单形集合的限制是单射。则对所有 $n$，$f_n$ 都是单射。
+把“单射”替换成“满射”或“双射”时，结论同样成立。
+\end{lemma}
+
+\begin{proof}
+在假设 (a) 下，映射 $f$ 保持引理
+\ref{simplicial-lemma-splitting-simplicial-sets} 的分裂给出的不交并分解；
+换言之，得到可交换图表
+$$
+\xymatrix{
+\coprod\nolimits_{\varphi : [n] \to [m]\text{ 满射}}
+N(U_m)
+\ar[r] \ar[d] &
+U_n \ar[d] \\
+\coprod\nolimits_{\varphi : [n] \to [m]\text{ 满射}}
+N(V_m)
+\ar[r] &
+V_n.
+}
+$$
+于是 (b) 清楚地表明，左侧竖直箭头是单射（相应地，满射或双射）。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-simplicial-set-n-skel-sub}
+设 $U$ 为单纯集，$n \geq 0$ 为整数。规则
+$$
+U'_m = \bigcup\nolimits_{\varphi : [m] \to [i], \ i\leq n} \Im(U(\varphi))
+$$
+定义了子单纯集 $U' \subset U$，并且当 $i \leq n$ 时
+$U'_i = U_i$。此外，对所有 $m > n$，$U'$ 的每个 $m$-单形都是退化的。
+\end{lemma}
+
+\begin{proof}
+若 $x \in U_m$，且对某个 $y \in U_i$、$i \leq n$ 和某个
+$\varphi : [m] \to [i]$ 有 $x = U(\varphi)(y)$，则对任意
+$\psi : [m'] \to [m]$，像 $U(\psi)(x)$ 等于
+$U(\varphi \circ \psi)(y)$，而且
+$\varphi \circ \psi : [m'] \to [i]$。因此 $U'$ 是单纯集。
+由构造，所有次数为 $n + 1$ 或更高的单形都是退化的。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-splitting-simplicial-groups}
+设 $U$ 为单纯阿贝尔群。则 $U$ 有如下分裂：取
+$N(U_0) = U_0$，并对 $m \geq 1$ 取
+$$
+N(U_m) = \bigcap\nolimits_{i = 0}^{m - 1} \Ker(d^m_i).
+$$
+此外，这个分裂在单纯阿贝尔群范畴上是函子性的。
+\end{lemma}
+
+\begin{proof}
+对 $n$ 归纳，我们将证明，引理中对 $N(U_m)$ 的选取保证
+(\ref{simplicial-equation-splitting}) 对 $m \leq n$ 是同构。$n = 0$ 时显然。
+在本证明的其余部分，为提高可读性，我们将省略映射 $d_i$ 和 $s_i$
+的上标。还将反复使用备注 \ref{simplicial-remark-relations} 中的关系。
+
+\medskip\noindent
+先作一般性观察。对 $0 \leq i \leq m$ 和 $z \in U_m$，有
+$d_i(s_i(z)) = z$。因此，通过取
+$x' = (x - s_i(d_i(x)))$ 和 $x'' = s_i(d_i(x))$，可以把任意
+$x \in U_{m + 1}$ 唯一写成 $x = x' + x''$，其中
+$d_i(x') = 0$ 且 $x'' \in \Im(s_i)$。此外，满足
+$x'' = s_i(z)$ 的元素 $z \in U_m$ 是唯一的，因为 $s_i$ 是单射。
+
+\medskip\noindent
+下面给出分解任意 $x \in U_{n + 1}$ 的步骤。先写成
+$x = x_0 + s_0(z_0)$，其中 $d_0(x_0) = 0$。
+再写成 $x_0 = x_1 + s_1(z_1)$，其中
+$d_1(x_1) = 0$。如此继续，得到
+\begin{eqnarray*}
+x & = & x_0 + s_0(z_0), \\
+x_0 & = & x_1 + s_1(z_1), \\
+x_1 & = & x_2 + s_2(z_2), \\
+\ldots & \ldots & \ldots \\
+x_{n - 1} & = & x_n + s_n(z_n)
+\end{eqnarray*}
+其中对所有 $i = n, \ldots, 0$，都有 $d_i(x_i) = 0$。
+由上面的一般性观察，所有 $x_i$ 和 $z_i$ 都由 $x$ 唯一确定。
+我们断言
+$x_i \in
+\Ker(d_0) \cap
+\Ker(d_1) \cap
+\ldots \cap
+\Ker(d_i)$
+且
+$z_i \in
+\Ker(d_0) \cap
+\ldots \cap
+\Ker(d_{i - 1})$
+对 $i = n, \ldots, 0$ 成立。在这里以及下文，核的空交表示整个空间；
+也就是说，当 $i = 0$ 时，记号
+$z_0 \in \Ker(d_0) \cap
+\ldots \cap
+\Ker(d_{i - 1})$
+表示 $z_0 \in U_n$，没有任何限制。
+
+\medskip\noindent
+我们对 $i$ 作递增归纳来证明此断言。由 $x_0$ 和 $z_0$ 的构造，
+$i = 0$ 时显然。假设对 $i - 1$ 结论成立，来证明
+$0 < i \leq n$ 的情形。首先，由构造有 $d_i(x_i) = 0$。
+取满足 $0 \leq j < i$ 的 $j$。由归纳假设，$d_j(x_{i - 1}) = 0$。
+因此
+$$
+0 = d_j(x_{i - 1})
+= d_j(x_i) + d_j(s_i(z_i))
+= d_j(x_i) + s_{i - 1}(d_j(z_i)).
+$$
+最后一个等式由备注 \ref{simplicial-remark-relations} 的关系得到。
+这些关系还蕴含
+$d_{i - 1}(d_j(x_i)) = d_j(d_i(x_i)) = 0$，
+因为由构造 $d_i(x_i)= 0$。于是，上面一般性观察中的唯一性表明，等式
+$0 = x' + x'' = d_j(x_i) + s_{i - 1}(d_j(z_i))$
+只能在两项都为零时成立。我们得到 $d_j(x_i) = 0$；又由
+$s_{i - 1}$ 的单射性，得到 $d_j(z_i) = 0$。断言得证。
+
+\medskip\noindent
+该断言蕴含，可唯一写成
+$$
+x = s_0(z_0) + s_1(z_1) + \ldots + s_n(z_n) + x_n
+$$
+其中 $x_n \in N(U_{n + 1})$，且
+$z_i \in \Ker(d_0) \cap \ldots \cap \Ker(d_{i - 1})$。
+这也可以表述为我们找到了直和分解
+$$
+U_{n + 1}
+=
+N(U_{n + 1})
+\oplus
+\bigoplus\nolimits_{i = 0}^{i = n}
+s_i\Big(\Ker(d_0) \cap \ldots \cap \Ker(d_{i - 1})\Big)
+$$
+并且它满足：对 $j = 0, \ldots, n$，有
+$$
+\Ker(d_0) \cap \ldots \cap \Ker(d_j)
+=
+N(U_{n + 1}) \oplus
+\bigoplus\nolimits_{i = j + 1}^{i = n}
+s_i\Big(\Ker(d_0) \cap \ldots \cap \Ker(d_{i - 1})\Big)
+$$
+结论可由此得到。$x$ 的表达式中的每个 $z_i$ 都可以唯一写成
+$$
+z_i = s_i(z'_{i, i}) + \ldots + s_{n - 1}(z'_{i, n - 1}) + z_{i, 0}
+$$
+其中 $z_{i, 0} \in N(U_n)$，且
+$z'_{i, j} \in \Ker(d_0) \cap \ldots \cap \Ker(d_{j - 1})$。
+因为 $z_i$ 已经属于 $d_0, \ldots, d_i$ 的核，分解 $z_i$ 时最初的几步
+为零。这又唯一给出
+$$
+x = x_n + s_0(z_{0, 0}) + s_1(z_{1, 0}) + \ldots + s_n(z_{n, 0}) +
+\sum\nolimits_{0 \leq i \leq j \leq n - 1} s_i(s_j(z'_{i, j})).
+$$
+继续这一过程，最终可见，$x$ 被分解成如下形式的项之和：
+$$
+s_{i_1} s_{i_2} \ldots s_{i_k} (z)
+$$
+其中 $0 \leq i_1 \leq i_2 \leq \ldots \leq i_k \leq n - k + 1$，
+且 $z \in N(U_{n + 1 - k})$。这正是所需的分解，因为任意满射
+$[n + 1] \to [n + 1 - k]$ 都可以唯一表示为
+$$
+\sigma^{n - k}_{i_k} \ldots \sigma^{n - 1}_{i_2} \sigma^n_{i_1}
+$$
+其中 $0 \leq i_1 \leq i_2 \leq \ldots \leq i_k \leq n - k + 1$。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-splitting-abelian-category}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$ 为 $\mathcal{A}$ 中的单纯对象。
+则 $U$ 有如下分裂：取 $N(U_0) = U_0$，并对 $m \geq 1$ 取
+$$
+N(U_m) = \bigcap\nolimits_{i = 0}^{m - 1} \Ker(d^m_i).
+$$
+此外，这个分裂在 $\mathcal{A}$ 的单纯对象范畴上是函子性的。
+\end{lemma}
+
+\begin{proof}
+对 $\mathcal{A}$ 的任意对象 $A$，得到单纯阿贝尔群
+$\Mor_\mathcal{A}(A, U)$。其中每一个都由引理
+\ref{simplicial-lemma-splitting-simplicial-groups} 典范地分裂。此外，
+% P02-E0112: frozen source says “Each of these are” instead of “Each ... is”.
+$$
+N(\Mor_\mathcal{A}(A, U_m)) =
+\bigcap\nolimits_{i = 0}^{m - 1} \Ker(d^m_i) =
+\Mor_\mathcal{A}(A, N(U_m)).
+$$
+因此，对 $\mathcal{A}$ 的任意对象应用函子 $\Mor_\mathcal{A}(A, -)$ 后，
+态射 (\ref{simplicial-equation-splitting}) 都成为同构。故由 Yoneda 引理，它本身是同构。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-injective-map-simplicial-abelian}
+\begin{slogan}
+Dold--Kan 正规化函子反映单射性、满射性和同构性。
+\end{slogan}
+设 $\mathcal{A}$ 为阿贝尔范畴，$f : U \to V$ 为
+$\mathcal{A}$ 的单纯对象之间的态射。若对所有 $i$，诱导态射
+$N(f)_i : N(U)_i \to N(V)_i$ 都是单射，则对所有 $i$，$f_i$
+都是单射。把“单射”替换成“满射”或“同构”时，结论同样成立。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{simplicial-lemma-splitting-abelian-category} 和分裂的定义立即推出。
+\end{proof}
+
+
+\begin{lemma}
+\label{simplicial-lemma-N-d-in-N}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$ 为 $\mathcal{A}$ 中的单纯对象。
+令 $N(U_m)$ 如上面的引理 \ref{simplicial-lemma-splitting-abelian-category} 所述。
+% P02-E0113: frozen source has “Let N(U_m) as in ...” without a finite verb.
+则 $d^m_m(N(U_m)) \subset N(U_{m - 1})$。
+\end{lemma}
+
+\begin{proof}
+对 $j = 0, \ldots, m - 2$，由备注 \ref{simplicial-remark-relations} 中的关系，有
+$d^{m - 1}_j d^m_m = d^{m - 1}_{m - 1} d^m_j$。结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-simplicial-abelian-n-skel-sub}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$ 为 $\mathcal{A}$ 的单纯对象，
+$n \geq 0$ 为整数。规则
+$$
+U'_m = \sum\nolimits_{\varphi : [m] \to [i], \ i\leq n} \Im(U(\varphi))
+$$
+定义了子单纯对象 $U' \subset U$，并且当 $i \leq n$ 时
+$U'_i = U_i$。此外，对所有 $m > n$，都有 $N(U'_m) = 0$。
+\end{lemma}
+
+\begin{proof}
+取 $m$、$i \leq n$ 和某个 $\varphi : [m] \to [i]$。
+对任意 $\psi : [m'] \to [m]$，$\Im(U(\varphi))$ 在 $U(\psi)$
+下的像等于 $U(\varphi \circ \psi)$ 的像，并且
+$\varphi \circ \psi : [m'] \to [i]$。因此 $U'$ 是单纯对象。
+取 $m > n$。必须证明 $N(U'_m) = 0$。由 $N(U_m)$ 和 $N(U'_m)$
+的定义，有 $N(U'_m) = U'_m \cap N(U_m)$（子对象的交）。
+由于引理 \ref{simplicial-lemma-splitting-abelian-category} 表明 $U$ 是分裂的，
+只需证明 $U'_m$ 包含于和
+$$
+\sum\nolimits_{\varphi : [m] \to [m']\text{ 满射}, \ m' < m}
+\Im(U(\varphi)|_{N(U_{m'})}).
+$$
+由分裂，每个 $U_{m'}$ 都是 $N(U_{m''})$ 在满射
+$\psi : [m'] \to [m'']$ 所诱导的 $U(\psi)$ 下的像之和。
+因此，上面显示的和等于
+$$
+\sum\nolimits_{\varphi : [m] \to [m']\text{ 满射}, \ m' < m}
+\Im(U(\varphi)).
+$$
+显然，$U'_m$ 包含于其中：在 $U'_m$ 定义中出现的任意
+$\varphi : [m] \to [i]$（$i \leq n$）都可分解为
+$[m] \to [m'] \to [i]$，其中 $[m] \to [m']$ 是满射，且
+$m' < m$，正如上面最后一个显示的和中那样。
+\end{proof}
+
+\section{余骨架函子}
+\label{simplicial-section-coskeleton}
+
+\noindent
+设 $\mathcal{C}$ 为范畴。{\it 余骨架函子}（若存在）是函子
+$$
+\text{cosk}_n :
+\text{Simp}_n(\mathcal{C}) \longrightarrow \text{Simp}(\mathcal{C})
+$$
+它是骨架函子的右伴随。用公式表示为
+\begin{equation}
+\label{simplicial-equation-cosk}
+\Mor_{\text{Simp}(\mathcal{C})}(U, \text{cosk}_n V)
+=
+\Mor_{\text{Simp}_n(\mathcal{C})}(\text{sk}_n U, V)
+\end{equation}
+给定 $n$-截断单纯对象 $V$，如果存在
+$\text{cosk}_nV \in \Ob(\text{Simp}(\mathcal{C}))$ 以及态射
+$\text{sk}_n \text{cosk}_n V \to V$，使得上述公式成立，则称
+{\it $\text{cosk}_nV$ 存在}；换言之，函子
+$U \mapsto \Mor_{\text{Simp}_n(\mathcal{C})}(\text{sk}_n U, V)$
+是可表示的。若它存在，则由 Yoneda 引理，它在唯一同构的意义下唯一。
+见 Categories，第 \ref{categories-section-opposite} 节。
+
+\begin{example}
+\label{simplicial-example-cosk0}
+假设范畴 $\mathcal{C}$ 有有限非空自积。$\mathcal{C}$ 的
+$0$-截断单纯对象与 $\mathcal{C}$ 的对象 $X$ 是同一回事。
+在这种情形下，我们断言 $\text{cosk}_0(X)$ 是单纯对象 $U$，其中
+$U_n = X^{n + 1}$ 是 $X$ 的 $(n + 1)$ 重自积，而其单纯对象结构如例
+\ref{simplicial-example-fibre-products-simplicial-object} 所述。事实上，态射
+$V \to U$（其中 $V$ 是单纯对象）由态射 $V_n \to X^{n + 1}$ 给出，
+并且所有图表
+$$
+\xymatrix{
+V_n \ar[r] \ar[d]_{V([0] \to [n], 0 \mapsto i)} &
+X^{n + 1} \ar[d]^{\text{pr}_i} \\
+V_0 \ar[r] &
+X
+}
+$$
+都可交换。显然，这意味着该映射确定并且由唯一态射 $V_0 \to X$ 确定。
+这就证明了公式 (\ref{simplicial-equation-cosk})。
+\end{example}
+
+\noindent
+回忆范畴 $\Delta/[n]$，见例 \ref{simplicial-example-simplex-category}。
+以 $(\Delta/[n])_{\leq m}$ 表示 $\Delta/[n]$ 的全子范畴，
+其对象为 $\Delta/[n]$ 中满足 $k \leq m$ 的 $[k] \to [n]$。
+换言之，有如下范畴与函子的可交换图表：
+$$
+\xymatrix{
+(\Delta/[n])_{\leq m} \ar[r] \ar[d] &
+\Delta/[n] \ar[d] \\
+\Delta_{\leq m} \ar[r] &
+\Delta
+}
+$$
+给定 $\mathcal{C}$ 的 $m$-截断单纯对象 $U$，按下列规则定义函子
+$$
+U(n) : (\Delta/[n])_{\leq m}^{opp} \longrightarrow \mathcal{C}
+$$
+：
+\begin{eqnarray*}
+([k] \to [n]) & \longmapsto & U_k \\
+\psi : ([k'] \to [n]) \to ([k] \to [n]) &
+\longmapsto &
+U(\psi) : U_k \to U_{k'}
+\end{eqnarray*}
+对 $\Delta$ 的给定态射 $\varphi : [n] \to [n']$，有相应函子
+$$
+\overline{\varphi} :
+(\Delta/[n])_{\leq m}
+\longrightarrow
+(\Delta/[n'])_{\leq m}
+$$
+它把 $\alpha : [k] \to [n]$ 送到
+$\varphi \circ \alpha : [k] \to [n']$。复合
+$U(n') \circ \overline{\varphi}$ 等于函子 $U(n)$。
+
+\begin{lemma}
+\label{simplicial-lemma-existence-cosk}
+若范畴 $\mathcal{C}$ 有有限极限，则对所有 $m$，函子
+$\text{cosk}_m$ 都存在。此外，对任意 $m$-截断单纯对象 $U$，
+单纯对象 $\text{cosk}_mU$ 由公式
+$$
+(\text{cosk}_mU)_n = \lim_{(\Delta/[n])_{\leq m}^{opp}} U(n)
+$$
+描述；而对 $\varphi : [n] \to [n']$，映射
+$\text{cosk}_mU(\varphi)$ 由上面的等同
+$U(n') \circ \overline{\varphi} = U(n)$，通过 Categories，引理
+\ref{categories-lemma-functorial-limit} 得到。
+\end{lemma}
+
+\begin{proof}
+在本引理的证明中，以 $\text{cosk}_mU$ 表示单纯对象，其中
+$(\text{cosk}_mU)_n$ 等于
+$\lim_{(\Delta/[n])_{\leq m}^{opp}} U(n)$。
+证明最后将说明，它确实满足所需的映射性质。
+
+\medskip\noindent
+设 $V$ 为单纯对象。态射 $\gamma : V \to \text{cosk}_mU$
+由一列态射 $\gamma_n : V_n \to (\text{cosk}_mU)_n$ 给出。
+由极限的定义，这等价于给出一族态射
+$\gamma(\alpha) : V_n \to U_k$，其中 $\alpha$ 取遍所有满足
+$k \leq m$ 的 $\alpha : [k] \to [n]$。对任意
+$0 \leq k, k' \leq m$、$0 \leq n, n'$ 以及 $\Delta$ 中满足
+$\varphi \circ \alpha = \alpha' \circ \psi$ 的
+$\psi : [k] \to [k']$、$\varphi : [n] \to [n']$、
+$\alpha : [k] \to [n]$ 和 $\alpha' : [k'] \to [n']$，
+这些态射还满足图表
+$$
+\xymatrix{
+V_n \ar[r]_{\gamma(\alpha)} &  U_k \\
+V_{n'} \ar[r]^{\gamma(\alpha')} \ar[u]^{V(\varphi)} & U_{k'} \ar[u]_{U(\psi)}
+}
+$$
+可交换。取 $n = k = k'$、$\varphi = \alpha'$，以及
+$\alpha = \psi = \text{id}_{[k]}$，得到
+$\gamma(\alpha') = \gamma(\text{id}_{[k]}) \circ V(\alpha')$。
+换言之，态射 $\gamma(\text{id}_{[k]})$（$k \leq m$）确定态射
+$\gamma$。容易看出，这些态射组成一个态射
+$\text{sk}_m V \to U$。
+
+\medskip\noindent
+反过来，给定态射 $\gamma : \text{sk}_m V \to U$，令
+$\gamma(\alpha) = \gamma(\text{id}_{[k]}) \circ V(\alpha)$，
+便得到一族态射 $\gamma(\alpha)$，其中 $\alpha$ 取遍所有满足
+$k \leq m$ 的 $\alpha : [k] \to [n]$。这些态射满足上图所示的全部
+可交换条件，因而给出态射 $V \to \text{cosk}_m U$。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-trivial-cosk}
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的 $m$-截断单纯对象。
+对 $n \leq m$，极限
+$\lim_{(\Delta/[n])_{\leq m}^{opp}} U(n)$ 存在，并典范同构于 $U_n$。
+\end{lemma}
+
+\begin{proof}
+这是因为在这种情形下，范畴 $(\Delta/[n])_{\leq m}$ 有一个终对象，
+即恒等映射 $[n] \to [n]$。
+% P02-E0114: frozen source says “an final object”.
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-recover-cosk}
+设 $\mathcal{C}$ 为有有限极限的范畴，$U$ 为 $\mathcal{C}$ 的
+$n$-截断单纯对象。态射 $\text{sk}_n \text{cosk}_n U \to U$ 是同构。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{simplicial-lemma-existence-cosk} 与引理 \ref{simplicial-lemma-trivial-cosk}。
+\end{proof}
+
+\noindent
+下面更详细地描述余骨架函子的一个特例。滥用记号，对任意
+$n' \geq n$，也以 $\text{sk}_n$ 表示限制函子
+$\text{Simp}_{n'}(\mathcal{C}) \to \text{Simp}_n(\mathcal{C})$。
+我们将描述函子
+$\text{sk}_n : \text{Simp}_{n + 1}(\mathcal{C})
+\to \text{Simp}_n(\mathcal{C})$ 的一个右伴随。
+对 $n \geq 1$、$0 \leq i < j \leq n + 1$，定义
+$\delta^{n + 1}_{i, j} : [n - 1] \to [n + 1]$
+为略去 $i$ 和 $j$ 的递增映射。注意
+$\delta^{n + 1}_{i, j} =
+\delta^{n + 1}_j \circ \delta^n_i =
+\delta^{n + 1}_i \circ \delta^n_{j - 1}$；见引理
+\ref{simplicial-lemma-relations-face-degeneracy}。这引出下述引理。
+
+\begin{lemma}
+\label{simplicial-lemma-formula-limit}
+设整数 $n$，并要求其值 $\geq 1$。设 $U$ 为 $\mathcal{C}$ 的
+$n$-截断单纯对象。考虑从 $\mathcal{C}$ 到 $\textit{Sets}$ 的反变函子，
+它把对象 $T$ 送到集合
+$$
+\{ (f_0, \ldots, f_{n + 1}) \in \Mor_\mathcal{C}(T, U_n)
+\mid
+d^n_{j - 1} \circ f_i = d^n_i \circ f_j
+\ \forall\ 0\leq i < j\leq n + 1\}
+$$
+若此函子由 $\mathcal{C}$ 的某个对象 $U_{n + 1}$ 表示，则
+$$
+U_{n + 1} = \lim_{(\Delta/[n + 1])_{\leq n}^{opp}} U(n)
+$$
+\end{lemma}
+
+\begin{proof}
+该极限若存在，就表示把对象 $T$ 送到集合
+$$
+\{
+(f_\alpha)_{\alpha : [k] \to [n + 1], k \leq n}
+\mid
+f_{\alpha \circ \psi} = U(\psi) \circ f_\alpha\ \forall
+\ \psi : [k'] \to [k], \alpha : [k] \to [n + 1]
+\}.
+$$
+事实上，我们将证明此函子同构于引理中显示的函子。一个方向的映射由规则
+$$
+(f_\alpha)_{\alpha}
+\longmapsto
+(f_{\delta^{n + 1}_0}, \ldots, f_{\delta^{n + 1}_{n + 1}}).
+$$
+给出。由引理前回忆的关系，它满足引理中的条件，因为
+$$
+d^n_{j - 1} \circ f_{\delta^{n + 1}_i} =
+f_{\delta^{n + 1}_i \circ \delta^n_{j - 1}} =
+f_{\delta^{n + 1}_j \circ \delta^n_i} =
+d^n_i \circ f_{\delta^{n + 1}_j}
+$$
+为构造反方向的映射，必须把引理中显示公式里的系统
+$(f_0, \ldots, f_{n + 1})$ 送到映射系统 $f_\alpha$。
+给定 $\alpha : [k] \to [n + 1]$。由于 $k \leq n$，映射 $\alpha$
+不是满射。因此，可以写成
+$\alpha = \delta^{n + 1}_i \circ \psi$，其中
+$0 \leq i \leq n + 1$，且 $\psi : [k] \to [n]$。
+我们只能定义
+$$
+f_\alpha = U(\psi) \circ f_i.
+$$
+当然，必须检查它与对偶 $(i, \psi)$ 的选择无关。首先注意，给定 $i$，
+符合条件的 $\psi$ 唯一。其次，设 $(j, \phi)$ 为另一对。
+则 $i \not = j$，并可假设 $i < j$。由于 $i, j$ 都不在
+$\alpha$ 的像中，实际上可写
+$\alpha = \delta^{n + 1}_{i, j} \circ \xi$；于是
+$\psi = \delta^n_{j - 1} \circ \xi$，且
+$\phi = \delta^n_i \circ \xi$。因此
+\begin{eqnarray*}
+U(\psi) \circ f_i & = & U(\delta^n_{j - 1} \circ \xi) \circ f_i \\
+& = & U(\xi) \circ d^n_{j - 1} \circ f_i \\
+& = & U(\xi) \circ d^n_i \circ f_j \\
+& = & U(\delta^n_i \circ \xi) \circ f_j \\
+& = & U(\phi) \circ f_j
+\end{eqnarray*}
+如所欲证。还需验证，如此定义的映射 $f_\alpha$ 满足映射系统
+$(f_\alpha)_\alpha$ 的规则。为此，设
+$\psi : [k'] \to [k]$、$\alpha : [k] \to [n + 1]$，其中
+$k, k' \leq n$。令 $\alpha' = \alpha \circ \psi$。
+取不在 $\alpha$ 的像中的 $i$，则 $i$ 显然也不在 $\alpha'$ 的像中。
+写 $\alpha = \delta^{n + 1}_i \circ \phi$（这里不能使用字母 $\psi$，
+因为它已经用过）。则显然
+$\alpha' = \delta^{n + 1}_i \circ \phi \circ \psi$。
+由上述构造，有
+$$
+U(\psi) \circ f_\alpha = U(\psi) \circ U(\phi) \circ f_i
+= U(\phi \circ \psi) \circ f_i = f_{\alpha \circ \psi} = f_{\alpha'}
+$$
+如所欲证。留给读者一项愉快的工作：验证这些构造给出互逆双射，并且关于
+$T$ 函子性地成立。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-work-out}
+设整数 $n$，并要求其值 $\geq 1$。设 $U$ 为 $\mathcal{C}$ 的
+$n$-截断单纯对象。考虑从 $\mathcal{C}$ 到 $\textit{Sets}$ 的反变函子，
+它把对象 $T$ 送到集合
+$$
+\{ (f_0, \ldots, f_{n + 1}) \in \Mor_\mathcal{C}(T, U_n)
+\mid
+d^n_{j - 1} \circ f_i = d^n_i \circ f_j
+\ \forall\ 0\leq i < j\leq n + 1\}
+$$
+若此函子由 $\mathcal{C}$ 的某个对象 $U_{n + 1}$ 表示，则存在
+$(n + 1)$-截断单纯对象 $\tilde U$，满足
+$\text{sk}_n \tilde U = U$ 和 $\tilde U_{n + 1} = U_{n + 1}$，
+并且有如下伴随关系：
+$$
+\Mor_{\text{Simp}_{n + 1}(\mathcal{C})}(V, \tilde U)
+=
+\Mor_{\text{Simp}_n(\mathcal{C})}(\text{sk}_nV, U)
+$$
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-trivial-cosk}，对 $0 \leq i \leq n$ 有等同
+$$
+U_i = \lim_{(\Delta/[i])_{\leq n}^{opp}} U(i)
+$$
+由引理 \ref{simplicial-lemma-formula-limit}，有
+$$
+U_{n + 1} = \lim_{(\Delta/[n + 1])_{\leq n}^{opp}} U(n).
+$$
+因此，对任意满足 $i, j \leq n + 1$ 的 $\varphi : [i] \to [j]$，
+可以完全按照引理 \ref{simplicial-lemma-existence-cosk} 定义相应映射
+$\tilde U(\varphi) : \tilde U_j \to \tilde U_i$。
+这定义了满足 $\text{sk}_n \tilde U = U$ 的
+$(n + 1)$-截断单纯对象 $\tilde U$。
+
+\medskip\noindent
+为证明伴随关系，论证如下。给定公式右端的任意元素
+$\gamma : \text{sk}_n V \to U$，考虑态射
+$f_i = \gamma_n \circ d^{n + 1}_i : V_{n + 1} \to V_n \to U_n$。
+它们显然满足关系
+$d^n_{j - 1} \circ f_i = d^n_i \circ f_j$，因而由 $U_{n + 1}$
+的选取，定义唯一态射 $V_{n + 1} \to U_{n + 1}$。
+反之，给定左端的态射 $\gamma' : V \to \tilde U$，只需限制到
+$\Delta_{\leq n}$，便得到右端的一个元素。留给读者证明这两个构造互逆。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-explicit-face-degeneracy}
+设 $U$ 和 $U_{n + 1}$ 如引理 \ref{simplicial-lemma-work-out} 中所述。
+在 $T$-值点上，可以容易地描述 $\tilde U$ 的面映射和退化映射。
+具体地，映射 $d^{n + 1}_i : U_{n + 1} \to U_n$ 由
+$$
+(f_0, \ldots, f_{n + 1}) \longmapsto f_i.
+$$
+给出，而映射 $s^n_j : U_n \to U_{n + 1}$ 由
+\begin{eqnarray*}
+f & \longmapsto & (
+s^{n - 1}_{j - 1} \circ d^{n - 1}_0 \circ f, \\
+& &
+s^{n - 1}_{j - 1} \circ d^{n - 1}_1 \circ f, \\
+& &
+\ldots\\
+& &
+s^{n - 1}_{j - 1} \circ d^{n - 1}_{j - 1} \circ f, \\
+& &
+f, \\
+& &
+f, \\
+& &
+s^{n - 1}_j \circ d^{n - 1}_{j + 1} \circ f, \\
+& &
+s^{n - 1}_j \circ d^{n - 1}_{j + 2} \circ f, \\
+& &
+\ldots\\
+& &
+s^{n - 1}_j \circ d^{n - 1}_n \circ f
+)
+\end{eqnarray*}
+给出；留给读者验证，右端是引理 \ref{simplicial-lemma-work-out} 中显示集合的元素。
+当 $n = 0$ 时，有一个映射，即 $f \mapsto (f, f)$。
+当 $n = 1$ 时，有两个映射，即
+$f \mapsto (f, f, s_0d_1f)$ 和
+$f \mapsto (s_0d_0f, f, f)$。
+当 $n = 2$ 时，有三个映射，即
+$f \mapsto (f, f, s_0d_1f, s_0d_2f)$、
+$f \mapsto (s_0d_0f, f, f, s_1d_2f)$ 和
+$f \mapsto (s_1d_0f, s_1d_1f, f, f)$。依此类推。
+\end{remark}
+
+
+\begin{remark}
+\label{simplicial-remark-cosk-simplicial-sets}
+上面的引理 \ref{simplicial-lemma-work-out} 在单纯集情形下的构造如下。
+给定 $n$-截断单纯集 $U$，如下作出典范的 $(n + 1)$-截断单纯集
+$\tilde U$。利用引理中的公式添加一个 $(n + 1)$-单形集
+$U_{n + 1}$。也就是说，$U_{n + 1}$ 的一个元素是一列编号的
+$n$-单形 $(f_0, \ldots, f_{n + 1})$，它们具有与一个
+$(n + 1)$-单形的各面相同的粘合性质。换言之，当 $i < j$ 时，
+$f_j$ 的第 $i$ 个面是 $f_i$ 的第 $(j-1)$ 个面。
+从几何上看，如何定义 $\tilde U$ 的面映射和退化映射是显然的。
+若 $V$ 是 $(n + 1)$-截断单纯集，则它的 $(n + 1)$-单形给出相容的
+$n$-单形族 $(f_0, \ldots, f_{n + 1})$，其中 $f_i \in V_n$。
+因此有自然映射
+$\Mor(\text{sk}_nV, U) \to \Mor(V, \tilde U)$，
+它与反方向的典范限制映射互逆。
+
+\medskip\noindent
+此外，只需在截断单纯集的情形下完成该构造的组合论部分。
+事实上，对范畴 $\mathcal{C}$ 的任意对象 $T$ 和 $\mathcal{C}$ 的任意
+$n$-截断单纯对象 $U$，可以考虑 $n$-截断单纯集 $\Mor(T, U)$。
+可以对此应用上述构造，取其 $(n + 1)$-单形集，并要求它可表示。
+这是理解引理 \ref{simplicial-lemma-work-out} 结论的一种好方法。
+\end{remark}
+
+\begin{remark}
+\label{simplicial-remark-inductive-coskeleton}
+{\it 余骨架的归纳构造。}
+假设 $\mathcal{C}$ 是有有限极限的范畴，$U$ 是 $\mathcal{C}$ 中的
+$m$-截断单纯对象。可以如下归纳构造 $n$-截断对象 $U^n$：
+\begin{enumerate}
+\item 从 $U^m = U$ 开始。
+\item 给定 $n \geq m$ 时的 $U^n$，令 $U^{n + 1} = \tilde U^n$，
+其中 $\tilde U^n$ 按引理 \ref{simplicial-lemma-work-out} 由 $U^n$ 构造。
+\end{enumerate}
+由于引理 \ref{simplicial-lemma-work-out} 的构造保持 $U^n$ 的 $n$-骨架不变，
+可以把 $\text{cosk}_m U$ 定义为满足
+$(\text{cosk}_m U)_n = U^n_n = U^{n + 1}_n = \ldots$ 的单纯对象。
+而且由引理 \ref{simplicial-lemma-work-out} 形式地推出，对所有 $n \geq m$，
+$U^n$ 满足公式
+$$
+\Mor_{\text{Simp}_n(\mathcal{C})}(V, U^n)
+=
+\Mor_{\text{Simp}_m(\mathcal{C})}(\text{sk}_mV, U)
+$$
+进而又形式地推出
+$$
+\Mor_{\text{Simp}(\mathcal{C})}(V, \text{cosk}_mU)
+=
+\Mor_{\text{Simp}_m(\mathcal{C})}(\text{sk}_mV, U)
+$$
+其中 $\text{cosk}_mU$ 按上述方式选取。
+\end{remark}
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-up}
+设 $\mathcal{C}$ 为有有限极限的范畴。
+\begin{enumerate}
+\item 对每个 $n$，函子 $\text{sk}_n : \text{Simp}(\mathcal{C})
+\to \text{Simp}_n(\mathcal{C})$ 有右伴随 $\text{cosk}_n$。
+\item 对每个 $n' \geq n$，函子
+$\text{sk}_n : \text{Simp}_{n'}(\mathcal{C}) \to \text{Simp}_n(\mathcal{C})$
+有右伴随，即 $\text{sk}_{n'}\text{cosk}_n$。
+\item 对每个 $m \geq n \geq 0$ 以及 $\mathcal{C}$ 的每个
+$n$-截断单纯对象 $U$，有
+$\text{cosk}_m \text{sk}_m \text{cosk}_n U = \text{cosk}_n U$。
+\item 若 $U$ 是 $\mathcal{C}$ 的单纯对象，并且对某个 $n \geq 0$，
+典范映射 $U \to \text{cosk}_n \text{sk}_nU$ 是同构，则对所有
+$m \geq n$，典范映射 $U \to \text{cosk}_m \text{sk}_mU$ 都是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 中的存在性由上面的引理 \ref{simplicial-lemma-existence-cosk} 推出。
+(2) 和 (3) 由备注 \ref{simplicial-remark-inductive-coskeleton} 中的讨论推出。
+于是 (4) 显然。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-existence-cosk}
+定义余骨架函子并不需要所有有限极限。说明如下：
+\begin{enumerate}
+\item 在例 \ref{simplicial-example-cosk0} 中已经看到，若 $\mathcal{C}$ 有对象对的积，
+则 $\text{cosk}_0$ 存在。
+\item 对 $k > 0$，若 $\mathcal{C}$ 有有限连通极限，则函子
+$\text{cosk}_k$ 存在。
+\end{enumerate}
+这由余骨架的归纳构造步骤（备注 \ref{simplicial-remark-cosk-simplicial-sets} 和
+\ref{simplicial-remark-inductive-coskeleton}）清楚可见；也可以由下述事实推出：
+引理 \ref{simplicial-lemma-existence-cosk} 中使用的范畴
+$(\Delta/[n])_{\leq k}$ 在 $k \geq 1$ 且 $n \geq k + 1$ 时是连通的。
+注意，由引理 \ref{simplicial-lemma-trivial-cosk} 或引理 \ref{simplicial-lemma-recover-cosk}，
+我们不需要 $n \leq k$ 时的那些范畴。（随着 $k$ 增大，
+在 $k \geq 1$ 且 $n \geq k + 1$ 时，范畴
+$(\Delta/[n])_{\leq k}$ 在拓扑意义下越来越连通。）
+\end{remark}
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-product}
+设 $U$、$V$ 为范畴 $\mathcal{C}$ 的 $n$-截断单纯对象。只要等式两端
+都存在，就有
+$$
+\text{cosk}_n (U \times V) = \text{cosk}_nU \times \text{cosk}_nV
+$$
+\end{lemma}
+
+\begin{proof}
+设 $W$ 为单纯对象。有
+\begin{eqnarray*}
+\Mor(W, \text{cosk}_n (U \times V))
+& = &
+\Mor(\text{sk}_n W, U \times V) \\
+& = &
+\Mor(\text{sk}_n W, U)
+\times
+\Mor(\text{sk}_nW, V) \\
+& = &
+\Mor(W, \text{cosk}_n U)
+\times
+\Mor(W, \text{cosk}_n V) \\
+& = &
+\Mor(W, \text{cosk}_n U \times \text{cosk}_n V)
+\end{eqnarray*}
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-fibre-product}
+假设 $\mathcal{C}$ 有纤维积。设 $U \to V$ 和 $W \to V$ 为
+范畴 $\mathcal{C}$ 的 $n$-截断单纯对象之间的态射。只要等式两端存在，
+就有
+$$
+\text{cosk}_n (U \times_V W)
+=
+\text{cosk}_nU \times_{\text{cosk}_n V} \text{cosk}_nW
+$$
+\end{lemma}
+
+\begin{proof}
+略；证明与上面的引理 \ref{simplicial-lemma-cosk-product} 的证明非常相似。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-above-object}
+设 $\mathcal{C}$ 为有有限极限的范畴，并设
+$X \in \Ob(\mathcal{C})$。对 $k \geq 1$，函子
+$\mathcal{C}/X \to \mathcal{C}$ 与余骨架函子 $\text{cosk}_k$ 交换。
+\end{lemma}
+
+\begin{proof}
+该断言的意思是：若 $U$ 是 $\mathcal{C}/X$ 的单纯对象，
+可把它看成 $\mathcal{C}$ 的一个单纯对象，连同一个指向常值单纯对象
+$X$ 的态射；那么在 $\mathcal{C}/X$ 中计算的 $\text{cosk}_k U$
+与在 $\mathcal{C}$ 中计算的相同。例如，这由 Categories，引理
+\ref{categories-lemma-connected-limit-over-X} 推出，因为引理
+\ref{simplicial-lemma-existence-cosk} 中使用的范畴 $(\Delta/[n])_{\leq k}$
+在 $k \geq 1$ 且 $n \geq k + 1$ 时是连通的。
+注意，由引理 \ref{simplicial-lemma-trivial-cosk} 或引理 \ref{simplicial-lemma-recover-cosk}，
+我们不需要 $n \leq k$ 时的那些范畴。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-simplex-cosk}
+典范映射 $\Delta[n] \to \text{cosk}_1 \text{sk}_1 \Delta[n]$ 是同构。
+\end{lemma}
+
+\begin{proof}
+考虑单纯集 $U$ 和态射 $f : U \to \Delta[n]$。这是一条规则：
+它把每个 $u \in U_i$ 关联到 $\Delta$ 中的映射
+$f_u : [i] \to [n]$。此外，这些映射应满足：对任意
+$\varphi : [j] \to [i]$，有
+$f_u \circ \varphi = f_{U(\varphi)(u)}$。
+以 $\epsilon^i_j : [0] \to [i]$ 表示把 $0$ 映到 $j$ 的映射。
+以 $F : U_0 \to [n]$ 表示映射 $u \mapsto f_u(0)$。于是可见
+$$
+f_u(j) = F(\epsilon^i_j(u))
+$$
+对所有 $0 \leq j \leq i$ 和 $u \in U_i$ 成立。特别地，若知道函数
+$F$，则对所有 $u\in U_i$ 和所有 $i$，都知道映射 $f_u$。
+反之，给定映射 $F : U_0 \to [n]$，可以对任意 $i$、
+任意 $u \in U_i$ 和任意 $0 \leq j \leq i$ 令
+$$
+f_u(j) = F(\epsilon^i_j(u))
+$$
+一般而言，这并不定义上面的单纯集态射 $f$。条件是所有映射
+$f_u$ 都非降。这显然等价于：当 $0 \leq j \leq j' \leq i$
+且 $u \in U_i$ 时，
+$F(\epsilon^i_j(u)) \leq F(\epsilon^i_{j'}(u))$。
+但在这种情形下，态射
+$$
+\epsilon^i_j, \epsilon^i_{j'} : [0] \to [i]
+$$
+都通过映射 $\epsilon^i_{j, j'} : [1] \to [i]$ 分解；后者由规则
+$0 \mapsto j$、$1 \mapsto j'$ 定义。换言之，只需对 $i = 1$
+和 $u \in X_1$ 检查这些不等式。
+% P02-E0115: frozen source switches from the simplicial set U to undefined X_1.
+也就是说，有
+$$
+\Mor(U, \Delta[n])
+=
+\Mor(\text{sk}_1 U, \text{sk}_1 \Delta[n])
+$$
+如所欲证。
+\end{proof}
+
+
+
+\section{增广}
+\label{simplicial-section-augmentation}
+
+\begin{definition}
+\label{simplicial-definition-augmentation}
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的单纯对象。
+$U$ 向 $\mathcal{C}$ 的对象 $X$ 的一个{\it 增广
+$\epsilon : U \to X$}，是从 $U$ 到常值单纯对象 $X$ 的态射。
+\end{definition}
+
+\begin{lemma}
+\label{simplicial-lemma-augmentation-howto}
+设 $\mathcal{C}$ 为范畴，$X \in \Ob(\mathcal{C})$，并设 $U$ 为
+$\mathcal{C}$ 的单纯对象。给出 $U$ 向 $X$ 的一个增广，等价于给出
+态射 $\epsilon_0 : U_0 \to X$，使得
+$\epsilon_0 \circ d^1_0 = \epsilon_0 \circ d^1_1$。
+\end{lemma}
+
+\begin{proof}
+给定态射 $\epsilon : U \to X$，当然得到引理中所述的
+$\epsilon_0$。反之，给定引理中所述的 $\epsilon_0$，任选态射
+$\alpha : [0] \to [n]$，并令
+$\epsilon_n = \epsilon_0 \circ U(\alpha)$，从而定义
+$\epsilon_n : U_n \to X$。事实上，若
+$\beta : [0] \to [n]$ 是另一种选择，则存在态射
+$\gamma : [1] \to [n]$，使得 $\alpha$ 和 $\beta$ 都分解为
+$[0] \to [1] \to [n]$。因此，对 $\epsilon_0$ 的条件说明
+$\epsilon_n$ 是良定义的。容易证明，
+$(\epsilon_n) : U \to X$ 是单纯对象之间的态射。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-minus-one}
+设 $\mathcal{C}$ 为有纤维积的范畴。设 $f : Y\to X$ 为
+$\mathcal{C}$ 的态射，并设 $U$ 为 $\mathcal{C}$ 的单纯对象，
+其第 $n$ 项是 $(n + 1)$ 重纤维积
+$Y \times_X Y \times_X \ldots \times_X Y$。
+% P02-E0116: frozen source has “(n + 1)fold” without a hyphen.
+见例 \ref{simplicial-example-fibre-products-simplicial-object}。
+对 $\mathcal{C}$ 的任意单纯对象 $V$，有
+\begin{align*}
+\Mor_{\text{Simp}(\mathcal{C})}(V, U)
+& =
+\Mor_{\text{Simp}_1(\mathcal{C})}(\text{sk}_1 V, \text{sk}_1 U) \\
+& =
+\{g_0 : V_0 \to Y \mid f \circ g_0 \circ d^1_0 = f \circ g_0 \circ d^1_1\}
+\end{align*}
+特别地，有 $U = \text{cosk}_1 \text{sk}_1 U$。
+\end{lemma}
+
+\begin{proof}
+设 $g : \text{sk}_1V \to \text{sk}_1U$ 为 $1$-截断单纯对象之间的态射。
+则图表
+$$
+\xymatrix{
+V_1 \ar@<1ex>[r]^{d^1_0} \ar@<-1ex>[r]_{d^1_1} \ar[d]_{g_1} &
+V_0 \ar[d]^{g_0} \\
+Y \times_X Y \ar@<1ex>[r]^{pr_1} \ar@<-1ex>[r]_{pr_0} &
+Y \ar[r] & X
+}
+$$
+可交换，这证明了引理中显示的关系。反过来，必须证明：给定满足关系
+$f \circ g_0 \circ d^1_0 = f \circ g_0 \circ d^1_1$ 的态射
+$g_0$，可得到唯一的单纯对象态射 $g : V \to U$。
+作法如下。对任意 $n \geq 1$，令
+$g_{n, i} = g_0 \circ V([0] \to [n], 0 \mapsto i) :
+V_n \to Y$。由可交换图表
+$$
+\xymatrix{
+[0] \ar[rd]_{0 \mapsto 0} \ar[rrrrrd]^{0 \mapsto i} \\
+& [1] \ar[rrrr]^{0 \mapsto i, 1\mapsto i + 1} & & & & [n] \\
+[0] \ar[ru]^{0 \mapsto 1} \ar[rrrrru]_{0 \mapsto i + 1}
+}
+$$
+上述等式蕴含 $f \circ g_{n, i} = f \circ g_{n, i + 1}$。
+因此得到
+$(g_{n, 0}, \ldots, g_{n, n}) : V_n \to Y \times_X\ldots \times_X Y = U_n$。
+留给读者验证，这是单纯对象之间的态射。引理最后一个断言等价于引理中
+显示公式的第一个等式。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-augmentation}
+设 $\mathcal{C}$ 为有纤维积的范畴，$V$ 为单纯对象，
+$\epsilon : V \to X$ 为增广。设 $U$ 为如下单纯对象：其第 $n$ 项
+是 $V_0$ 在 $X$ 上的第 $(n + 1)$ 个纤维积。
+% P02-E0117: frozen source says “(n + 1)st fibred product”; the construction is the (n + 1)-fold fibre product.
+简单地结合引理 \ref{simplicial-lemma-augmentation-howto} 与引理
+\ref{simplicial-lemma-cosk-minus-one}，得到典范态射 $V \to U$。
+\end{remark}
+
+
+
+
+
+\section{骨架函子的左伴随}
+\label{simplicial-section-adjoint-left}
+
+\noindent
+本节在某些情形下构造骨架函子 $\text{sk}_m$ 的左伴随 $i_{m!}$。
+伴随公式为
+$$
+\Mor_{\text{Simp}_m(\mathcal{C})}(U, \text{sk}_mV)
+=
+\Mor_{\text{Simp}(\mathcal{C})}(i_{m!}U, V).
+$$
+事实表明，当范畴 $\mathcal{C}$ 有有限余极限时，这个左伴随存在。
+
+\medskip\noindent
+我们使用与第 \ref{simplicial-section-skeleton} 节相似的构造。回忆 $[n]$ 下对象
+所成的范畴 $[n]/\Delta$，见 Categories，例
+\ref{categories-example-category-under-X}。其对象是态射
+$\alpha : [n] \to [k]$，其态射是可交换三角形。
+以 $([n]/\Delta)_{\leq m}$ 表示 $[n]/\Delta$ 的全子范畴，
+由满足 $k \leq m$ 的对象 $[n] \to [k]$ 组成。
+给定 $\mathcal{C}$ 的 $m$-截断单纯对象 $U$，按下列规则定义函子
+$$
+U(n) : ([n]/\Delta)_{\leq m}^{opp} \longrightarrow \mathcal{C}
+$$
+：
+\begin{eqnarray*}
+([n] \to [k]) & \longmapsto & U_k \\
+\psi : ([n] \to [k']) \to ([n] \to [k])
+& \longmapsto &
+U(\psi) : U_k \to U_{k'}
+\end{eqnarray*}
+对 $\Delta$ 的给定态射 $\varphi : [n] \to [n']$，有相应函子
+$$
+\underline{\varphi} :
+([n']/\Delta)_{\leq m}
+\longrightarrow
+([n]/\Delta)_{\leq m}
+$$
+它把 $\alpha : [n'] \to [k]$ 送到
+$\varphi \circ \alpha : [n] \to [k]$。复合
+$U(n) \circ \underline{\varphi}$ 等于函子 $U(n')$。
+
+\begin{lemma}
+\label{simplicial-lemma-left-adjoint-exists}
+设 $\mathcal{C}$ 为有有限余极限的范畴。对所有 $m$，函子 $i_{m!}$
+都存在。设 $U$ 为 $\mathcal{C}$ 的 $m$-截断单纯对象。
+单纯对象 $i_{m!}U$ 由公式
+$$
+(i_{m!}U)_n = \colim_{([n]/\Delta)_{\leq m}^{opp}} U(n)
+$$
+描述；而对 $\varphi : [n] \to [n']$，映射 $i_{m!}U(\varphi)$
+由上面的等同 $U(n) \circ \underline{\varphi} = U(n')$，通过
+Categories，引理 \ref{categories-lemma-functorial-colimit} 得到。
+\end{lemma}
+
+\begin{proof}
+在本证明中，以 $i_{m!}U$ 表示其第 $n$ 项由引理中显示公式给出的
+单纯对象。我们将证明它满足伴随性质。
+
+\medskip\noindent
+设 $V$ 为 $\mathcal{C}$ 的单纯对象，并给定
+$\gamma : U \to \text{sk}_mV$。态射
+$$
+\colim_{([n]/\Delta)_{\leq m}^{opp}} U(n) \to T
+$$
+由一个相容的态射系统 $f_\alpha : U_k \to T$ 给出，其中
+$\alpha : [n] \to [k]$ 且 $k \leq m$。当然，取复合
+$$
+U_k \xrightarrow{\gamma_k} V_k \xrightarrow{V(\alpha)} V_n.
+$$
+便得到这样的态射系统。因此得到诱导态射
+$(i_{m!}U)_n \to V_n$。留给读者验证，它们组成单纯对象之间的态射
+$\gamma' : i_{m!}U \to V$。
+
+\medskip\noindent
+反过来，给定态射 $\gamma' : i_{m!}U \to V$，对
+$0 \leq i \leq n$，令 $\gamma_i : U_i \to V_i$ 等于复合
+$$
+U_i
+\xrightarrow{\text{id}_{[i]}}
+\colim_{([i]/\Delta)_{\leq m}^{opp}} U(i)
+\xrightarrow{\gamma'_i}
+V_i
+$$
+% P02-E0118: frozen source bounds i by n here, but the reconstructed morphism has one component for every i <= m.
+从而得到态射 $\gamma : U \to \text{sk}_m V$。留给读者验证，
+这是上述构造的逆。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-recovering-U}
+设 $\mathcal{C}$ 为范畴，$U$ 为 $\mathcal{C}$ 的 $m$-截断单纯对象。
+对任意 $n \leq m$，余极限
+$$
+\colim_{([n]/\Delta)_{\leq m}^{opp}} U(n)
+$$
+存在，并等于 $U_n$。
+\end{lemma}
+
+\begin{proof}
+这是因为范畴 $([n]/\Delta)_{\leq m}$ 有初对象，即
+$\text{id} : [n] \to [n]$。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-recovering-U-for-real}
+设 $\mathcal{C}$ 为有有限余极限的范畴，$U$ 为 $\mathcal{C}$ 的
+$m$-截断单纯对象。映射 $U \to \text{sk}_m i_{m!}U$ 是同构。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{simplicial-lemma-left-adjoint-exists} 与引理 \ref{simplicial-lemma-recovering-U}。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-imshriek-sets}
+若 $U$ 是 $m$-截断单纯集且 $n > m$，则 $i_{m!}U$ 的所有
+$n$-单形都是退化的。
+\end{lemma}
+
+\begin{proof}
+这可以从引理 \ref{simplicial-lemma-left-adjoint-exists} 中 $i_{m!}U$ 的构造看出，
+也可如下直接论证。令 $V = i_{m!}U$。设 $V' \subset V$ 为如下
+单纯子集：当 $i \leq m$ 时 $V'_i = V_i$，而当 $i > m$ 时所有
+$i$-单形都退化；见引理 \ref{simplicial-lemma-simplicial-set-n-skel-sub}。
+由伴随公式，又因为 $\text{sk}_m V' = U$，单射 $V' \to V$ 有逆。
+因此 $V' = V$。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-n-skeleton-sets}
+设 $U$ 为单纯集，$n \geq 0$ 为整数。态射
+$i_{n!} \text{sk}_n U \to U$ 把 $i_{n!} \text{sk}_n U$ 与引理
+\ref{simplicial-lemma-simplicial-set-n-skel-sub} 中定义的单纯集
+$U' \subset U$ 等同起来。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-imshriek-sets}，$i_{n!} \text{sk}_n U$ 的非退化单形
+只出现在次数 $\leq n$。映射 $i_{n!} \text{sk}_n U \to U$
+在次数 $\leq n$ 上是同构。综合这两点，得到映射
+$i_{n!} \text{sk}_n U \to U$ 把非退化单形映到非退化单形，
+并且任意两个非退化单形的像都不相同。因此可应用引理
+\ref{simplicial-lemma-injective-map-simplicial-sets}。于是
+$i_{n!} \text{sk}_n U \to U$ 是单射。结论容易由此推出。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-sk-literature}
+在一些文献中，复合函子
+$$
+\text{Simp}(\mathcal{C})
+\xrightarrow{\text{sk}_m}
+\text{Simp}_m(\mathcal{C})
+\xrightarrow{i_{m!}}
+\text{Simp}(\mathcal{C})
+$$
+记作 $\text{sk}_m$。对单纯集而言这是合理的，因为此时引理
+\ref{simplicial-lemma-n-skeleton-sets} 表明，$i_{m!} \text{sk}_m V$ 正是
+$V$ 的如下子单纯集：它由 $V$ 的所有 $i$-单形（$i \leq m$）
+及其退化组成。在这些文献中，通常还把复合
+$$
+\text{Simp}(\mathcal{C})
+\xrightarrow{\text{sk}_m}
+\text{Simp}_m(\mathcal{C})
+\xrightarrow{\text{cosk}_m}
+\text{Simp}(\mathcal{C})
+$$
+记作 $\text{cosk}_m$。
+\end{remark}
+
+\begin{lemma}
+\label{simplicial-lemma-glue-simplex}
+设 $U \subset V$ 为单纯集。假设 $n \geq 0$，且
+$x \in V_n$、$x \not \in U_n$ 满足：
+\begin{enumerate}
+\item 当 $i < n$ 时，$V_i = U_i$；
+\item $V_n = U_n \cup \{x\}$；
+\item 当 $j > n$ 时，任意 $z \in V_j$、$z \not \in U_j$ 都退化。
+\end{enumerate}
+设 $\Delta[n] \to V$ 为把 $\Delta[n]$ 的非退化 $n$-单形映到
+$x$ 的唯一态射。此时图表
+$$
+\xymatrix{
+\Delta[n] \ar[r] & V \\
+i_{(n - 1)!} \text{sk}_{n - 1} \Delta[n] \ar[r] \ar[u] & U \ar[u]
+}
+$$
+是推出图表。
+\end{lemma}
+
+\begin{proof}
+为方便起见，记
+$\partial \Delta[n] = i_{(n - 1)!} \text{sk}_{n - 1} \Delta[n]$。
+有自然映射 $U \amalg_{\partial \Delta[n]} \Delta[n] \to V$。
+必须证明它在每个次数 $j$ 上都是双射，并且这对所有 $j$ 都成立。当 $j \leq n$ 时显然。
+设 $j > n$。第三个条件意味着，任意 $z \in V_j$、
+$z \not \in U_j$ 都是退化单形，例如
+$z = s^{j - 1}_i(z')$。当然，$z' \not \in U_{j - 1}$。
+由归纳可知，$z'$ 是 $x$ 的一个退化。因此，$V$ 的所有 $j$-单形
+或者属于 $U$，或者是 $x$ 的退化。这蕴含映射
+$U \amalg_{\partial \Delta[n]} \Delta[n] \to V$ 是满射。
+注意，$U \amalg_{\partial \Delta[n]} \Delta[n]$ 的非退化单形，
+或者是 $U$ 的某个非退化单形的像，或者是 $\Delta[n]$ 的（唯一）
+非退化 $n$-单形的像。由于 $x$ 显然非退化，可推出
+$U \amalg_{\partial \Delta[n]} \Delta[n] \to V$ 把非退化单形映到
+非退化单形，并在非退化单形上是单射。因此，由引理
+\ref{simplicial-lemma-injective-map-simplicial-sets}，它是单射。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-add-simplices}
+设 $U \subset V$ 为单纯集，并且对所有 $n$，$U_n, V_n$ 都有限非空。
+假设 $U$ 和 $V$ 只有有限多个非退化单形。则存在子单纯集序列
+$$
+U = W^0 \subset W^1 \subset W^2 \subset \ldots W^r = V
+$$
+% P02-E0119: frozen source omits a subset relation between the ellipsis and W^r.
+使得引理 \ref{simplicial-lemma-glue-simplex} 可应用于每个包含
+$W^i \subset W^{i + 1}$。
+\end{lemma}
+
+\begin{proof}
+设 $n$ 为使 $V$ 有一个不属于 $U$ 的非退化单形的最小整数。
+取这样的非退化单形 $x \in V_n$、$x\not \in U_n$。
+设 $W \subset V$ 为如下元素的集合：这些元素或者属于 $U$，
+或者是 $x$ 的（反复）退化（换言之，具有形式 $V(\varphi)(x)$，
+其中 $\varphi : [m] \to [n]$ 是满射）。容易看出，$W$ 是单纯集。
+包含 $U \subset W$ 满足引理 \ref{simplicial-lemma-glue-simplex} 的条件。
+此外，$V$ 中不属于 $W$ 的非退化单形数，恰比 $V$ 中不属于 $U$
+的非退化单形数少一。因此，对这个数归纳即可。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-imshriek-abelian}
+设 $\mathcal{A}$ 为阿贝尔范畴
+% P02-E0120: frozen source lacks sentence punctuation after “abelian category”.
+设 $U$ 为 $\mathcal{A}$ 的 $m$-截断单纯对象。对 $n > m$，有
+$N(i_{m!}U)_n = 0$。
+\end{lemma}
+
+\begin{proof}
+令 $V = i_{m!}U$。设 $V' \subset V$ 为 $V$ 的如下单纯子对象：
+当 $i \leq m$ 时 $V'_i = V_i$，而当 $i > m$ 时
+$N(V'_i) = 0$；见引理 \ref{simplicial-lemma-simplicial-abelian-n-skel-sub}。
+由伴随公式，又因为 $\text{sk}_m V' = U$，单射 $V' \to V$ 有逆。
+因此 $V' = V$。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-n-skeleton-abelian}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$ 为 $\mathcal{A}$ 的单纯对象，
+$n \geq 0$ 为整数。态射 $i_{n!} \text{sk}_n U \to U$
+把 $i_{n!} \text{sk}_n U$ 与引理
+\ref{simplicial-lemma-simplicial-abelian-n-skel-sub} 中定义的单纯子对象
+$U' \subset U$ 等同起来。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-imshriek-abelian}，当 $i > n$ 时，有
+$N(i_{n!} \text{sk}_n U)_i = 0$。映射
+$i_{n!} \text{sk}_n U \to U$ 在次数 $\leq n$ 上是同构，
+见引理 \ref{simplicial-lemma-recovering-U-for-real}。综合这两点，得到映射
+$i_{n!} \text{sk}_n U \to U$ 对所有 $i$ 都诱导单射
+$N(i_{n!} \text{sk}_n U)_i \to N(U)_i$。
+因此可应用引理 \ref{simplicial-lemma-injective-map-simplicial-abelian}。
+于是 $i_{n!} \text{sk}_n U \to U$ 是单射。结论容易由此推出。
+\end{proof}
+
+\noindent
+下面利用上述材料给出理解余骨架函子的另一种方式。
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-shriek}
+设 $\mathcal{C}$ 为有有限余积和有限极限的范畴，$V$ 为
+$\mathcal{C}$ 的单纯对象。此时
+$$
+(\text{cosk}_n \text{sk}_n V)_{n + 1}
+=
+\Hom(i_{n !}\text{sk}_n \Delta[n + 1], V)_0.
+$$
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-morphism-from-coproduct}，左边的对象表示把 $X$
+送到下列等式中第一个集合的函子：
+\begin{eqnarray*}
+\Mor(X \times \Delta[n + 1], \text{cosk}_n \text{sk}_n V)
+& = &
+\Mor(X \times \text{sk}_n \Delta[n + 1], \text{sk}_n V) \\
+& = &
+\Mor(X \times i_{n !} \text{sk}_n \Delta[n + 1], V).
+\end{eqnarray*}
+引理公式右边的对象由把 $X$ 送到该等式链中最后一个集合的函子表示。
+这证明了结论。
+
+\medskip\noindent
+在该等式链中，我们使用了
+$\text{sk}_n (X \times \Delta[n + 1]) = X \times \text{sk}_n \Delta[n + 1]$
+以及
+$i_{n!}(X \times \text{sk}_n \Delta[n + 1]) =
+X \times i_{n !} \text{sk}_n \Delta[n + 1]$。
+第一个等式显然。对 $\mathcal{C}$ 的任意（可能截断的）单纯对象 $W$
+和 $\mathcal{C}$ 的任意对象 $X$，暂以 $\Mor_\mathcal{C}(X, W)$ 表示（可能截断的）
+单纯集 $[n] \mapsto \Mor_\mathcal{C}(X, W_n)$。
+由定义，对任意（可能截断的）单纯集 $U$，有
+$\Mor(U \times X, W) =
+\Mor(U, \Mor_\mathcal{C}(X, W))$。因此
+\begin{eqnarray*}
+\Mor(X \times i_{n !} \text{sk}_n \Delta[n + 1], W)
+& = &
+\Mor(i_{n !} \text{sk}_n \Delta[n + 1], \Mor_\mathcal{C}(X, W)) \\
+& = &
+\Mor(\text{sk}_n \Delta[n + 1],
+\text{sk}_n\Mor_\mathcal{C}(X, W)) \\
+& = &
+\Mor(X \times \text{sk}_n \Delta[n + 1], \text{sk}_nW) \\
+& = &
+\Mor(i_{n!}(X \times \text{sk}_n \Delta[n + 1]), W).
+\end{eqnarray*}
+这证明了所用的第二个等式，也结束了引理的证明。
+\end{proof}
+
+\section{阿贝尔范畴中的单纯对象}
+\label{simplicial-section-abelian}
+
+\noindent
+回顾阿贝尔范畴的定义见《同调代数》第
+\ref{homology-section-abelian-categories} 节。
+
+\begin{lemma}
+\label{simplicial-lemma-abelian}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 范畴 $\text{Simp}(\mathcal{A})$ 和
+$\text{CoSimp}(\mathcal{A})$ 都是阿贝尔范畴。
+\item （余）单纯对象的态射 $f : A \to B$ 为单射，当且仅当每个
+$f_n : A_n \to B_n$ 都为单射。
+\item （余）单纯对象的态射 $f : A \to B$ 为满射，当且仅当每个
+$f_n : A_n \to B_n$ 都为满射。
+\item （余）单纯对象的序列
+$$
+A \xrightarrow{f} B \xrightarrow{g} C
+$$
+在 $B$ 处正合，当且仅当每个序列
+$$
+A_i \xrightarrow{f_i} B_i \xrightarrow{g_i} C_i
+$$
+都在 $B_i$ 处正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+预加性很容易验证。终对象由所有次数中的 $U_n = 0$ 给出。
+直积的存在性已见引理 \ref{simplicial-lemma-product} 和
+\ref{simplicial-lemma-product-cosimplicial-objects}。
+核与余核可逐项取核与余核得到。
+\end{proof}
+
+\noindent
+对 $\mathcal{A}$ 的对象 $A$ 和整数 $k$，考虑满足下列条件的
+$k$-截断单纯对象 $U$：
+\begin{enumerate}
+\item 当 $i < k$ 时，$U_i = 0$；
+\item $U_k = A$；
+\item 所有态射 $U(\varphi)$ 都等于零，唯有
+$U(\text{id}_{[k]}) = \text{id}_A$。
+\end{enumerate}
+由于 $\mathcal{A}$ 既有有限极限也有有限余极限，
+$\text{cosk}_k U$ 和 $i_{k!}U$ 都存在。
+我们将描述二者以及典范映射 $i_{k!}U \to \text{cosk}_kU$。
+
+\begin{lemma}
+\label{simplicial-lemma-eilenberg-maclane-object}
+设 $A$、$k$ 和 $U$ 如上，即当 $i < k$ 时 $U_i = 0$，且 $U_k = A$。
+\begin{enumerate}
+\item 给定 $k$-截断单纯对象 $V$，有
+$$
+\Mor(U, V)
+=
+\{ f : A \to V_k \mid d^k_i \circ f = 0, \ i = 0, \ldots, k \}
+$$
+以及
+$$
+\Mor(V, U)
+=
+\{ f : V_k \to A \mid f \circ s^{k - 1}_i = 0, \ i = 0, \ldots, k - 1 \}.
+$$
+\item 对象 $i_{k!} U$ 的第 $n$ 项等于
+$\bigoplus_\alpha A$，其中 $\alpha$ 遍历所有满射
+$\alpha : [n] \to [k]$。
+\item 对任意 $\varphi : [m] \to [n]$，映射
+$i_{k!} U(\varphi)$ 可描述为映射
+$\bigoplus_\alpha A \to \bigoplus_{\alpha'} A$：
+若 $\alpha \circ \varphi$ 不是满射，则它把与
+$\alpha : [n] \to [k]$ 对应的分量映为零；若其为满射，
+则以恒等映射把该分量映到与 $\alpha \circ \varphi$ 对应的分量。
+\item 对象 $\text{cosk}_k U$ 的第 $n$ 项等于
+$\bigoplus_\beta A$，其中 $\beta$ 遍历所有单射
+$\beta : [k] \to [n]$。
+\item 对任意 $\varphi : [m] \to [n]$，映射
+$\text{cosk}_k U(\varphi)$ 可描述为映射
+$\bigoplus_\beta A \to \bigoplus_{\beta'} A$：
+若 $\beta$ 不经由 $\varphi$ 分解，则它把与
+$\beta : [k] \to [n]$ 对应的分量映为零；若能够分解，
+则以恒等映射把该分量映到每个满足
+$\beta = \varphi \circ \beta'$ 的 $\beta'$ 所对应的分量。
+\item 典范映射
+$
+c : i_{k !} U \to \text{cosk}_k U
+$
+在次数 $n$ 上的 $(\alpha, \beta)$ 系数 $A \to A$：
+若 $\alpha \circ \beta$ 不是恒等映射，则等于零；
+若其为恒等映射，则等于 $\text{id}_A$。
+\item 典范映射
+$
+c : i_{k !} U \to \text{cosk}_k U
+$
+为单射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明留给读者。
+
+\medskip\noindent
+我们把 (2) 和 (3) 的规则作为一个单纯对象的定义，记为
+$\tilde U$。下面证明它是 $i_{k!}U$ 的一种实现。
+这将同时证明 (2) 和 (3)。必须证明：给定态射
+$f : U \to \text{sk}_kV$，存在唯一态射
+$\tilde f : \tilde U \to V$，使其取 $k$-骨架后恢复为 $f$。
+由 (1)，$f$ 对应于态射 $f_k : A \to V_k$，且它对所有 $i$
+都落在 $d^k_i$ 的核中。对任意满射
+$\alpha : [n] \to [k]$，令
+$\tilde f_\alpha : A \to V_n$ 等于复合
+$\tilde f_\alpha = V(\alpha) \circ f_k : A \to V_n$。
+定义 $\tilde f_n : \tilde U_n \to V_n$ 为所有满射
+$\alpha : [n] \to [k]$ 所对应的 $\tilde f_\alpha$ 之和。
+这样的一族 $\tilde f_\alpha$ 定义单纯对象的态射，当且仅当
+对任意 $\varphi : [m] \to [n]$，图
+$$
+\xymatrix{
+\bigoplus_{\alpha : [n] \to [k]\text{ 满射}} A
+\ar[r]_-{\tilde f_n}
+\ar[d]_{(3)} &
+V_n \ar[d]^{V(\varphi)} \\
+\bigoplus_{\alpha' : [m] \to [k]\text{ 满射}} A
+\ar[r]^-{\tilde f_m} &
+V_m
+}
+$$
+交换。取 $\varphi = \alpha$ 可知，对 $\tilde f_\alpha$ 的选择由
+$f_k$ 唯一决定。一般情形的交换性可以分别在左上角的每个直和分量上
+检验。对于满足 $\alpha \circ \varphi$ 为满射的 $\alpha$ 所对应的
+分量，这是显然的，因为这些分量通过 $\text{id}_A$ 映到
+$\alpha' = \alpha \circ \varphi$ 所对应的分量，并且
+$\tilde f_{\alpha'} = V(\alpha') \circ f_k =
+V(\alpha \circ \varphi) \circ f_k = V(\varphi) \circ \tilde f_\alpha$。
+对于 $\alpha \circ \varphi$ 不是满射的情形，必须证明
+$V(\varphi) \circ \tilde f_\alpha = 0$。按定义，它等于
+$V(\varphi) \circ V(\alpha) \circ f_k =
+V(\alpha \circ \varphi) \circ f_k$。
+由于 $\alpha \circ \varphi$ 不是满射，可以将其写成
+$\delta^k_i \circ \psi$，于是由上可得
+$V(\varphi) \circ V(\alpha) \circ f_k =
+V(\psi) \circ d^k_i \circ f_k = 0$。
+
+\medskip\noindent
+我们把 (4) 和 (5) 的规则作为一个单纯对象的定义，也记为
+$\tilde U$。下面证明它是 $\text{cosk}_k U$ 的一种实现。
+这将同时证明 (4) 和 (5)。论证与上面 (2)、(3) 的证明完全对偶，
+但我们仍将其写出。必须证明：给定态射
+$f : \text{sk}_kV \to U$，存在唯一态射
+$\tilde f : V \to \tilde U$，使其取 $k$-骨架后恢复为 $f$。
+由 (1)，$f$ 对应于态射 $f_k : V_k \to A$，且对所有 $i$
+都在 $s^{k - 1}_i$ 的像上为零。对任意单射 $\beta : [k] \to [n]$，
+令 $\tilde f_\beta : V_n \to A$ 等于复合
+$\tilde f_\beta = f_k \circ V(\beta) : V_n \to A$。
+定义 $\tilde f_n : V_n \to \tilde U_n$ 为所有单射
+$\beta : [k] \to [n]$ 所对应的 $\tilde f_\beta$ 之和。
+这样的一族 $\tilde f_\beta$ 定义单纯对象的态射，当且仅当
+对任意 $\varphi : [m] \to [n]$，图
+$$
+\xymatrix{
+V_n
+\ar[d]_{V(\varphi)}
+\ar[r]_-{\tilde f_n}
+&
+\bigoplus_{\beta : [k] \to [n]\text{ 单射}} A
+\ar[d]^{(5)}
+\\
+V_m
+\ar[r]^-{\tilde f_m}
+&
+\bigoplus_{\beta' : [k] \to [m]\text{ 单射}} A
+}
+$$
+交换。取 $\varphi = \beta$ 可知，对 $\tilde f_\beta$ 的选择由
+$f_k$ 唯一决定。一般情形的交换性可以分别在右下角的每个直和分量上
+检验。对于满足 $\varphi \circ \beta'$ 为单射的 $\beta'$ 所对应的
+分量，这是显然的，因为恰有 $\beta = \varphi \circ \beta'$ 所对应的
+分量映入其中，并且在这种情形下
+$\tilde f_{\beta'} \circ V(\varphi) =
+f_k \circ V(\beta') \circ V(\varphi) =
+f_k \circ V(\beta) = \tilde f_\beta$。
+对于 $\varphi \circ \beta'$ 不是单射的情形，必须证明
+$\tilde f_{\beta'} \circ V(\varphi) = 0$。按定义，它等于
+$f_k \circ V(\beta') \circ V(\varphi) =
+f_k \circ V(\varphi \circ \beta')$。
+由于 $\varphi \circ \beta'$ 不是单射，可以将其写成
+$\psi \circ \sigma^{k - 1}_i$，于是由上可得
+$f_k \circ V(\beta') \circ V(\varphi) =
+f_k \circ s^{k - 1}_i \circ V(\psi) = 0$。
+
+\medskip\noindent
+复合 $i_{k!}U \to \text{cosk}_kU$ 是唯一的单纯对象态射，
+并且在 $A = U_k = (i_{k!}U)_k = (\text{cosk}_kU)_k$ 上为恒等映射。
+因此，只需检验所给规则定义了单纯对象的态射。为此，必须证明
+对任意 $\varphi : [m] \to [n]$，图
+$$
+\xymatrix{
+\bigoplus_{\alpha : [n] \to [k]\text{ 满射}} A
+\ar[d]_{(3)}
+\ar[r]_{(6)}
+&
+\bigoplus_{\beta : [k] \to [n]\text{ 单射}} A
+\ar[d]^{(5)}
+\\
+\bigoplus_{\alpha' : [m] \to [k]\text{ 满射}} A
+\ar[r]^{(6)}
+&
+\bigoplus_{\beta' : [k] \to [m]\text{ 单射}} A
+}
+$$
+交换。现在可按如下方式把它理解为仅以 $0$ 和 $1$ 填充的矩阵：
+(3) 的矩阵具有非零的 $(\alpha', \alpha)$ 项，当且仅当
+$\alpha' = \alpha \circ \varphi$。同样，(5) 的矩阵具有非零的
+$(\beta', \beta)$ 项，当且仅当
+$\beta = \varphi \circ \beta'$。(6) 的上方矩阵具有非零的
+$(\alpha, \beta)$ 项，当且仅当
+$\alpha \circ \beta = \text{id}_{[k]}$；(6) 的下方矩阵也一样。
+于是，该图的交换性归结为分别计算两个复合的
+$(\alpha, \beta')$ 项并看出它们相等。这又归结为等式
+$$
+\# \left\{
+\beta
+\mid
+\beta = \varphi \circ \beta'
+\text{ 且 }
+\alpha \circ \beta = \text{id}_{[k]}
+\right\}
+=
+\# \left\{
+\alpha'
+\mid
+\alpha' = \alpha \circ \varphi
+\text{ 且 }
+\alpha' \circ \beta' = \text{id}_{[k]}
+\right\}
+$$
+其证明可以放心地留给读者。
+
+\medskip\noindent
+最后证明 (7)。它直接由引理
+\ref{simplicial-lemma-injective-map-simplicial-abelian}、
+\ref{simplicial-lemma-recover-cosk}、\ref{simplicial-lemma-recovering-U-for-real}
+和 \ref{simplicial-lemma-imshriek-abelian} 得出。
+\end{proof}
+
+\begin{definition}
+\label{simplicial-definition-eilenberg-maclane}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象，
+且 $k$ 为整数并满足 $\geq 0$。{\it Eilenberg--Mac Lane 对象 $K(A, k)$}
+是对象 $K(A, k) = i_{k!}U$，它已在上面的引理
+\ref{simplicial-lemma-eilenberg-maclane-object} 中描述。
+\end{definition}
+
+
+\begin{lemma}
+\label{simplicial-lemma-extension}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象，
+且 $k$ 为整数并满足 $\geq 0$。考虑由下列规则定义的单纯对象 $E$：
+\begin{enumerate}
+\item $E_n = \bigoplus_\alpha A$，其中直和遍历所有
+$\alpha : [n] \to [k + 1]$，其像为 $[k]$ 或 $[k + 1]$；
+\item 给定 $\varphi : [m] \to [n]$，若
+$\Im(\alpha \circ \varphi)$ 等于 $[k]$ 或 $[k + 1]$，
+则映射 $E_n \to E_m$ 通过 $\text{id}_A$ 把
+$\alpha$ 所对应的直和分量映到
+$\alpha \circ \varphi$ 所对应的直和分量。
+\end{enumerate}
+则存在逐项分裂正合的短正合序列
+$$
+0 \to K(A, k) \to E \to K(A, k + 1) \to 0
+$$
+\end{lemma}
+
+\begin{proof}
+映射 $K(A, k)_n \to E_n$ 以及 $E_n \to K(A, k + 1)_n$
+分别由直和的嵌入与投影给出，这从指标集的包含关系是显然的。
+显然，它们是单纯对象的态射。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-abelian-limit-skeleta}
+设 $\mathcal{A}$ 为阿贝尔范畴。对 $\mathcal{A}$ 的任意单纯对象
+$V$，有
+$$
+V = \colim_n i_{n!}\text{sk}_n V
+$$
+且所有转移映射都是单射。
+\end{lemma}
+
+\begin{proof}
+这是因为一旦 $n \geq m$，每个 $V_m$ 就等于
+$(i_{n!}\text{sk}_n V)_m$。关于转移映射，另见引理
+\ref{simplicial-lemma-n-skeleton-abelian}。
+\end{proof}
+
+\section{单纯对象与链复形}
+\label{simplicial-section-complexes}
+
+\noindent
+设 $\mathcal{A}$ 为阿贝尔范畴。关于链复形的约定和记号，
+见《同调代数》第 \ref{homology-section-complexes} 节。
+设 $U$ 为 $\mathcal{A}$ 的单纯对象。$U$ 的
+{\it 伴随链复形 $s(U)$}，有时称为 {\it Moore 复形}，是链复形
+$$
+\ldots \to U_2 \to U_1 \to U_0 \to 0 \to 0 \to \ldots
+$$
+其边界映射 $d_n : U_n \to U_{n - 1}$ 由公式
+$$
+d_n = \sum\nolimits_{i = 0}^n (-1)^i d^n_i.
+$$
+给出。它确为复形，因为根据备注 \ref{simplicial-remark-relations} 中列出的关系，
+有
+\begin{eqnarray*}
+d_n \circ d_{n + 1}
+& = &
+(\sum\nolimits_{i = 0}^n (-1)^i d^n_i) \circ
+(\sum\nolimits_{j = 0}^{n + 1} (-1)^j d^{n + 1}_j) \\
+& = &
+\sum\nolimits_{0 \leq i < j \leq n + 1}
+(-1)^{i + j} d^n_{j - 1} \circ d^{n + 1}_i
++
+\sum\nolimits_{n \geq i \geq j \geq 0}
+(-1)^{i + j} d^n_i \circ d^{n + 1}_j \\
+& = & 0.
+\end{eqnarray*}
+各符号相互抵消！我们用 $s(U)$ 表示这个伴随链复形。
+显然，该构造具有函子性，因此定义函子
+$$
+s : \text{Simp}(\mathcal{A}) \longrightarrow \text{Ch}_{\geq 0}(\mathcal{A}).
+$$
+于是得到这个看似令人困惑但正确的公式 $s(U)_n = U_n$。
+
+\begin{lemma}
+\label{simplicial-lemma-s-exact}
+函子 $s$ 是正合的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-abelian} 立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-homology-extension}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象，
+$k$ 为整数。设 $E$ 为引理 \ref{simplicial-lemma-extension} 中描述的对象。
+则复形 $s(E)$ 是零调的。
+\end{lemma}
+
+\begin{proof}
+对态射 $\alpha : [n] \to [k + 1]$，定义
+$\alpha' : [n + 1] \to [k + 1]$ 为满足
+$\alpha'|_{[n]} = \alpha$ 及 $\alpha'(n + 1) = k + 1$ 的映射。
+注意，如果 $\alpha$ 的像为 $[k]$ 或 $[k + 1]$，
+那么 $\alpha'$ 的像为 $[k + 1]$。考虑一族映射
+$h_n : E_n \to E_{n + 1}$，它通过 $A$ 上的恒等映射，
+把 $\alpha$ 所对应的分量映到 $\alpha'$ 所对应的分量。
+我们来计算 $d_{n + 1} \circ h_n - h_{n - 1} \circ d_n$。
+先在 $\mathcal{A}$ 为阿贝尔群范畴的情形下计算。
+用记号 $x_\alpha$ 表示 $E_n$ 中由指标集内的映射 $\alpha$
+所对应的直和分量里的元素 $x \in A$。我们还约定：
+只要 $\Im(\alpha)$ 不是 $[k]$ 或 $[k + 1]$，
+$x_\alpha$ 就表示 $E_n$ 的零元。由这些约定可见
+$$
+d_{n + 1}(h_n(x_\alpha)) =
+\sum\nolimits_{i = 0}^{n + 1} (-1)^i x_{\alpha' \circ \delta^{n + 1}_i}
+$$
+以及
+$$
+h_{n - 1}(d_n(x_\alpha)) =
+\sum\nolimits_{i = 0}^n (-1)^i x_{(\alpha \circ \delta_i^n)'}
+$$
+容易看出，当 $i = 0, \ldots, n$ 时，
+$\alpha' \circ \delta^{n + 1}_i = (\alpha \circ \delta_i^n)'$；
+也容易看出 $\alpha' \circ \delta^{n + 1}_{n + 1} = \alpha$。
+因此
+$$
+(d_{n + 1} \circ h_n - h_{n - 1} \circ d_n)(x_\alpha)
+=
+(-1)^{n + 1} x_\alpha
+$$
+若 $\mathcal{A}$ 为任意阿贝尔范畴，这些恒等式仍然成立，
+因为它们在单纯阿贝尔群 $[n] \mapsto \Hom(A, E_n)$ 中成立；
+细节留给读者。由此，$E$ 上的恒等映射同伦于零，
+同伦由一族映射
+$h'_n = (-1)^{n + 1}h_n : E_n \to E_{n + 1}$ 给出。
+因而 $E$ 是零调的；例如可由《同调代数》引理
+\ref{homology-lemma-map-homology-homotopy} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-homology-eilenberg-maclane}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象，
+$k$ 为整数。当 $i = k$ 时 $H_i(s(K(A, k))) = A$，
+其他情形为 $0$。
+\end{lemma}
+
+\begin{proof}
+先证明 $k = 0$ 的情形。此时，对所有 $n$ 都有
+$K(A, 0)_n = A$。此外，这个单纯阿贝尔群中的所有映射都是
+$\text{id}_A$；换言之，$K(A, 0)$ 是取值为 $A$ 的常值单纯对象。
+边界映射
+$d_n = \sum_{i = 0}^n (-1)^i \text{id}_A = 0$
+（当 $n$ 为奇数），而当 $n$ 为偶数时，则 $= \text{id}_A$。
+因此 $s(K(A, 0))$ 形如
+$$
+\ldots \to A \xrightarrow{0} A \xrightarrow{1} A \xrightarrow{0} A \to 0
+$$
+结论显然。
+
+\medskip\noindent
+下面对 $k$ 归纳证明一般结论。假设 $k$ 的结论成立，考虑引理
+\ref{simplicial-lemma-extension} 中的短正合序列
+$$
+0 \to K(A, k) \to E \to K(A, k + 1) \to 0
+$$
+由引理 \ref{simplicial-lemma-abelian}，相应的链复形序列正合。
+由引理 \ref{simplicial-lemma-homology-extension}，$s(E)$ 是零调的。
+于是 $k + 1$ 的结论由同调长正合序列得出；见《同调代数》引理
+\ref{homology-lemma-long-exact-sequence-chain}。
+\end{proof}
+
+\noindent
+还可以把第二个链复形关联给 $\mathcal{A}$ 的单纯对象。
+回顾引理 \ref{simplicial-lemma-splitting-abelian-category}：
+$\mathcal{A}$ 的任意单纯对象 $U$ 都典范分裂，并且
+$N(U_m) = \bigcap_{i = 0}^{m - 1} \Ker(d^m_i)$。
+定义 {\it 规范化链复形 $N(U)$} 为链复形
+$$
+\ldots \to N(U_2) \to N(U_1) \to N(U_0) \to 0 \to 0 \to \ldots
+$$
+其边界映射 $d_n : N(U_n) \to N(U_{n - 1})$
+是 $(-1)^nd^n_n$ 在 $U_n$ 的直和分量 $N(U_n)$ 上的限制。
+注意，引理 \ref{simplicial-lemma-N-d-in-N} 蕴含
+$d^n_n(N(U_n)) \subset N(U_{n - 1})$。
+它确为复形，因为
+$d^n_n \circ d^{n + 1}_{n + 1} = d^n_n \circ d^{n + 1}_n$，
+而按定义，$d^{n + 1}_n$ 在 $N(U_{n + 1})$ 上为零。
+这样得到第二个函子
+$$
+N : \text{Simp}(\mathcal{A}) \longrightarrow \text{Ch}_{\geq 0}(\mathcal{A}).
+$$
+以下说明微分中符号的由来。
+
+\begin{lemma}
+\label{simplicial-lemma-map-associated-complexes}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$ 为 $\mathcal{A}$ 的单纯对象。
+典范映射 $N(U_n) \to U_n$ 给出复形态射 $N(U) \to s(U)$。
+\end{lemma}
+
+\begin{proof}
+这是显然的，因为 $s(U)_n = U_n$ 上的微分是
+$\sum (-1)^i d^n_i$，且当 $i < n$ 时，映射 $d^n_i$
+在 $N(U_n)$ 上为零；而按定义，$(-1)^nd^n_n$ 的限制正是
+$N(U)$ 的边界映射。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-N-K}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象，
+$k$ 为整数。当 $i = k$ 时，$N(K(A, k))_i = A$；
+其他情形为 $0$。
+\end{lemma}
+
+\begin{proof}
+当 $i < k$ 时，$N(K(A, k))_i = 0$ 是显然的，因为此时
+$K(A, k)_i = 0$。又因 $K(A, k)_{k - 1} = 0$ 且
+$K(A, k)_k = A$，显然有 $N(K(A, k))_k = A$。
+当 $i > k$ 时，由引理 \ref{simplicial-lemma-imshriek-abelian} 及
+$K(A, k)$ 的定义可得 $N(K(A, k))_i = 0$；见定义
+\ref{simplicial-definition-eilenberg-maclane}。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-decompose-associated-complexes}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$ 为 $\mathcal{A}$ 的单纯对象。
+链复形的典范态射 $N(U) \to s(U)$ 是分裂的。事实上，对某个复形
+$D(U)$，有
+$$
+s(U) = N(U) \oplus D(U)
+$$
+构造 $U \mapsto D(U)$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+定义 $D(U)_n$ 为映射
+$$
+\bigoplus\nolimits_{\varphi : [n] \to [m]\text{ 满射}, \ m < n} N(U_m)
+\xrightarrow{\bigoplus U(\varphi)}
+U_n
+$$
+的像。根据引理 \ref{simplicial-lemma-splitting-abelian-category} 和定义
+\ref{simplicial-definition-split}，它是 $U_n$ 中与 $N(U_n)$ 互补的子对象。
+下面证明 $D(U)$ 是子复形。取满射
+$\varphi : [n] \to [m]$，其中 $m < n$，并考虑复合
+$$
+N(U_m) \xrightarrow{U(\varphi)} U_n \xrightarrow{d_n} U_{n - 1}.
+$$
+这个复合是映射
+$$
+N(U_m) \xrightarrow{U(\varphi \circ \delta^n_i)} U_{n - 1}
+$$
+之和，其符号为 $(-1)^i$，其中 $i = 0, \ldots, n$。
+
+\medskip\noindent
+先对 $m$ 作升序归纳，证明当 $0 \leq m < n - 1$ 时，
+所有映射 $U(\varphi \circ \delta^n_i)$ 都把 $N(U_m)$ 映入
+$D(U)_{n - 1}$。（情形 $m = n - 1$ 在下面处理。）
+只要映射 $\varphi \circ \delta^n_i : [n - 1] \to [m]$
+为满射，根据定义，$N(U_m)$ 在
+$U(\varphi \circ \delta^n_i)$ 下的像就包含于 $D(U)_{n - 1}$。
+若 $\varphi \circ \delta^n_i : [n - 1] \to [m]$ 不是满射，
+令 $j = \varphi(i)$，并注意 $i$ 是在 $\varphi$ 下映为 $j$
+的唯一指标。对某个 $\psi : [n - 1] \to [m - 1]$，可写成
+$\varphi \circ \delta^n_i = \delta^m_j \circ \psi \circ \delta^n_i$。
+% P02-E0121: the frozen factorization and its induced U-map contain an extra delta_i^n and are not type-correct.
+因此
+$U(\varphi \circ \delta^n_i) = U(\psi \circ \delta^n_i) \circ d^m_j$，
+它在 $N(U_m)$ 上为零，除非 $j = m$。若 $j = m$，则
+$d^m_m(N(U_m)) \subset N(U_{m - 1})$，从而
+$U(\varphi \circ \delta^n_i)(N(U_m)) \subset
+U(\psi \circ \delta^n_i)(N(U_{m - 1}))$，由归纳假设即得结论。
+
+\medskip\noindent
+为了完成 $D(U)$ 是子复形的证明，还须在 $m = n - 1$ 的情形下
+处理复合
+$$
+N(U_m) \xrightarrow{U(\varphi)} U_n \xrightarrow{d_n} U_{n - 1}.
+$$
+。
+% P02-E0122: frozen prose places a full stop between the displayed composition and the following “in case” clause.
+此时，对某个 $0 \leq j \leq n - 1$，有
+$\varphi = \sigma^{n - 1}_j$，且 $U(\varphi) = s^{n - 1}_j$。
+因此，该复合由下列和给出：
+$$
+\sum (-1)^i d^n_i \circ s^{n - 1}_j
+$$
+回顾备注 \ref{simplicial-remark-relations}，
+$d^n_j \circ s^{n - 1}_j = d^n_{j + 1} \circ s^{n - 1}_j = \text{id}$，
+而相应两项符号相反，故相互抵消。若 $j < n - 1$，则映射
+$d^n_n \circ s^{n - 1}_j$ 等于
+$s^{n - 2}_j \circ d^{n - 1}_{n - 1}$。由于
+$d^{n - 1}_{n - 1}$ 把 $N(U_{n - 1})$ 映入 $N(U_{n - 2})$，
+可见像 $d^n_n ( s^{n - 1}_j (N(U_{n - 1}))$
+% P02-E0123: frozen source leaves the outer parenthesis in this image expression unclosed.
+包含于 $s^{n - 2}_j(N(U_{n - 2}))$，而根据定义，后者包含于
+$D(U_{n - 1})$。
+% P02-E0124: frozen source applies D to the component U_{n-1}; the established subcomplex term is D(U)_{n-1}.
+对于所有其他的 $(i, j)$ 组合，或者
+$d^n_i \circ s^{n - 1}_j = s^{n - 2}_{j - 1} \circ d^{n - 1}_i$
+（若 $i < j$），或者
+$d^n_i \circ s^{n - 1}_j = s^{n - 2}_j \circ d^{n - 1}_{i - 1}$
+（若 $n > i > j + 1$）；在这些情形下，由 $N(U_{n - 1})$
+的定义，该映射为零。
+\end{proof}
+
+\begin{remark}
+\label{simplicial-remark-degenerate-subcomplex}
+在引理 \ref{simplicial-lemma-decompose-associated-complexes} 的情形下，
+子复形 $D(U) \subset s(U)$ 也可以定义为项
+$$
+D(U)_n = \Im\left(
+\bigoplus\nolimits_{\varphi : [n] \to [m]\text{ 满射}, \ m < n} U_m
+\xrightarrow{\bigoplus U(\varphi)}
+U_n\right)
+$$
+所组成的子复形。事实上，$U_m$ 是子对象 $N(U_m)$
+与所有满射 $[m] \to [k]$（其中 $k < m$）所给出的
+$N(U_k)$ 之像的直和；因此这显然等同于引理
+\ref{simplicial-lemma-decompose-associated-complexes} 的证明中给出的
+$D(U)_n$ 的定义。由此可见，若 $U$ 是单纯阿贝尔群，
+则 $D(U)_n$ 的元素恰为退化 $n$-单形之和。
+\end{remark}
+
+\begin{lemma}
+\label{simplicial-lemma-N-exact}
+函子 $N$ 是正合的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-s-exact} 及引理
+\ref{simplicial-lemma-decompose-associated-complexes} 的函子性分解即得。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-quasi-isomorphism}
+设 $\mathcal{A}$ 为阿贝尔范畴，$V$ 为 $\mathcal{A}$ 的单纯对象。
+链复形的典范态射 $N(V) \to s(V)$ 是拟同构。换言之，引理
+\ref{simplicial-lemma-decompose-associated-complexes} 中的复形 $D(V)$ 是零调的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-homology-eilenberg-maclane} 和
+\ref{simplicial-lemma-N-K}，对任意对象 $A$ 和任意 $k \geq 0$，
+结论对 $K(A, k)$ 成立。考虑假设 $IH_{n, m}$：
+对所有满足 $j \leq m$ 时 $V_j = 0$ 的 $V$，并对所有
+$i \leq n$，映射 $N(V) \to s(V)$ 诱导同构
+$H_i(N(V)) \to H_i(s(V))$。
+
+\medskip\noindent
+作为归纳的起点，$IH_{n, n}$ 显然成立，因为在这种情形下
+$N(V)_n = 0$ 且 $s(V)_n = 0$。
+% P02-E0125: frozen English says “To start of the induction”.
+
+\medskip\noindent
+假设 $IH_{n, m}$，其中 $m \leq n$。取满足当 $j < m$
+时 $V_j = 0$ 的单纯对象 $V$。由引理
+\ref{simplicial-lemma-eilenberg-maclane-object} 和定义
+\ref{simplicial-definition-eilenberg-maclane}，有
+$K(V_m, m) = i_{m!} \text{sk}_mV$。由引理
+\ref{simplicial-lemma-n-skeleton-abelian}，自然态射
+$$
+K(V_m, m) = i_{m!} \text{sk}_mV \to V
+$$
+为单射。因此，对某个满足当 $i = 0, \ldots, m$ 时
+$W_i = 0$ 的 $W$，得到短正合序列
+$$
+0 \to K(V_m, m) \to V \to W \to 0
+$$
+这个短正合序列诱导伴随复形的短正合序列之间的态射
+% P02-E0126: frozen English has singular “a morphism of short exact sequence”.
+$$
+\xymatrix{
+0 \ar[r] &
+N(K(V_m, m)) \ar[r] \ar[d] &
+N(V) \ar[r] \ar[d] &
+N(W) \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+s(K(V_m, m)) \ar[r] &
+s(V) \ar[r] &
+s(W) \ar[r] &
+0
+}
+$$
+；见引理 \ref{simplicial-lemma-s-exact} 和 \ref{simplicial-lemma-N-exact}。
+因此，由两端的结论可推出 $V$ 的结论。
+\end{proof}
+
+
+
+
+
+
+\section{Dold--Kan}
+\label{simplicial-section-dold-kan}
+
+\noindent
+本节证明 Dold--Kan 定理，它把阿贝尔范畴中的单纯对象与链复形联系起来。
+
+\begin{lemma}
+\label{simplicial-lemma-N-faithful}
+设 $\mathcal{A}$ 为阿贝尔范畴。函子 $N$ 是忠实的，并且反映同构、
+单射和满射。
+\end{lemma}
+
+\begin{proof}
+忠实性立即由引理 \ref{simplicial-lemma-splitting-abelian-category} 的典范分裂
+得出。反映单射、满射和同构的断言由引理
+\ref{simplicial-lemma-injective-map-simplicial-abelian} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-S-N}
+设 $\mathcal{A}$ 和 $\mathcal{B}$ 为阿贝尔范畴，并设
+$N : \mathcal{A} \to \mathcal{B}$ 与
+$S : \mathcal{B} \to \mathcal{A}$ 为函子。假设：
+\begin{enumerate}
+\item 函子 $S$ 和 $N$ 都正合；
+\item 存在到 $\mathcal{B}$ 上恒等函子的同构
+$g : N \circ S \to \text{id}_\mathcal{B}$；
+\item $N$ 忠实；
+\item $S$ 本质满。
+\end{enumerate}
+则 $S$ 和 $N$ 是互为拟逆的范畴等价。
+\end{lemma}
+
+\begin{proof}
+只需构造函子性同构 $S(N(A)) \cong A$。为此，选取 $B$
+和同构 $f : A  \to S(B)$。考虑映射
+$$
+f^{-1} \circ g_{S(B)} \circ S(N(f)) :
+S(N(A)) \to S(N(S(B))) \to S(B) \to A.
+$$
+容易证明它不依赖于对 $f, B$ 的选择，并给出所需同构
+$S \circ N \to \text{id}_\mathcal{A}$。
+\end{proof}
+
+\begin{theorem}
+\label{simplicial-theorem-dold-kan}
+设 $\mathcal{A}$ 为阿贝尔范畴。函子 $N$ 诱导范畴等价
+$$
+N :
+\text{Simp}(\mathcal{A})
+\longrightarrow
+\text{Ch}_{\geq 0}(\mathcal{A})
+$$
+\end{theorem}
+
+\begin{proof}
+我们将描述一个反方向的函子，它受引理 \ref{simplicial-lemma-extension}
+中的构造启发（但为了得到正确的边界映射，要加入一个符号）。
+设 $A_\bullet$ 为边界映射
+$d_{A, n} : A_n \to A_{n - 1}$ 的链复形。对每个 $n \geq 0$，记
+$$
+I_n =
+\Big\{
+\alpha : [n] \to \{0, 1, 2, \ldots\}
+\mid
+\Im(\alpha) = [k]\text{ 对某个 }k
+\Big\}.
+$$
+对 $\alpha \in I_n$，以 $k(\alpha)$ 表示满足
+$\Im(\alpha) = [k]$ 的唯一整数。如下定义单纯对象
+$S(A_\bullet)$：
+\begin{enumerate}
+\item $S(A_\bullet)_n = \bigoplus_{\alpha \in I_n} A_{k(\alpha)}$，
+并将其写成
+$\bigoplus_{\alpha \in I_n} A_{k(\alpha)} \cdot \alpha$，
+以提示把“$\alpha$”看作相应直和分量的基向量；
+\item 给定 $\varphi : [m] \to [n]$，按如下规则，在
+$S(A_\bullet)_n$ 的直和分量
+$A_{k(\alpha)} \cdot \alpha$ 上定义 $S(A_\bullet)(\varphi)$：
+\begin{enumerate}
+\item 若 $\alpha \circ \varphi \not \in I_m$，则令它等于零；
+% P02-E0127: frozen English omits “If” at the start of this case.
+\item 若 $\alpha \circ \varphi \in I_m$，但
+$k(\alpha \circ \varphi)$ 既不等于 $k(\alpha)$，也不等于
+$k(\alpha) - 1$，则也令它等于零；
+\item 若 $\alpha \circ \varphi \in I_m$ 且
+$k(\alpha \circ \varphi) = k(\alpha)$，则通过恒等映射映到
+$S(A_\bullet)_m$ 的分量
+$A_{k(\alpha \circ \varphi)} \cdot (\alpha \circ \varphi)$；
+\item 若 $\alpha \circ \varphi \in I_m$ 且
+$k(\alpha \circ \varphi) = k(\alpha) - 1$，则使用
+$(-1)^{k(\alpha)} d_{A, k(\alpha)}$ 映到
+$S(A_\bullet)_m$ 的分量
+$A_{k(\alpha \circ \varphi)}\cdot (\alpha \circ \varphi)$。
+\end{enumerate}
+\end{enumerate}
+下面证明 $S(A_\bullet)$ 是 $\mathcal{A}$ 的单纯对象。
+为此，设有映射 $\varphi : [m] \to [n]$ 和
+$\psi : [n] \to [p]$。我们将证明
+$S(A_\bullet)(\varphi) \circ S(A_\bullet)(\psi) =
+S(A_\bullet)(\psi \circ \varphi)$。选取 $\beta \in I_p$，并令
+$\alpha = \beta \circ \psi$ 和 $\gamma = \alpha \circ \varphi$，
+将它们分别视为映射
+$\alpha : [n] \to \{0, 1, 2, \ldots\}$ 和
+$\gamma : [m] \to \{0, 1, 2, \ldots\}$。图示为
+$$
+\xymatrix{
+[m] \ar[r]_\varphi \ar[d]_\gamma &
+[n] \ar[r]_\psi \ar[d]_\alpha &
+[p] \ar[d]^\beta \\
+\Im(\gamma) \ar[r] &
+\Im(\alpha) \ar[r] &
+[k(\beta)]
+}
+$$
+我们将证明映射
+$S(A_\bullet)(\varphi) \circ S(A_\bullet)(\psi)$ 和
+$S(A_\bullet)(\psi \circ \varphi)$
+在分量 $A_{k(\beta)} \cdot \beta$ 上的限制相同。
+% P02-E0128: frozen source breaks this sentence with a full stop before “to the summand”.
+需要考虑若干情形：
+\begin{enumerate}
+\item 设 $\alpha \not \in I_n$，因而 $S(A_\bullet)(\psi)$
+在 $A_{k(\beta)} \cdot \beta$ 上的限制为零。
+此时，或者 $\gamma \not \in I_m$；或者
+$[k(\gamma)] = \Im(\gamma) \subset \Im(\alpha) \subset [k(\beta)]$，
+且 $[k(\beta)]$ 的子集 $\Im(\alpha)$ 有缺口，故
+$k(\gamma) < k(\beta) - 1$。在两种情形下，
+$S(A_\bullet)(\psi \circ \varphi)$ 在
+$A_{k(\beta)} \cdot \beta$ 上的限制也为零。
+\item 设 $\alpha \in I_n$ 且 $k(\alpha) < k(\beta) - 1$，
+因而 $S(A_\bullet)(\psi)$ 在 $A_{k(\beta)} \cdot \beta$
+上的限制为零。此时，或者 $\gamma \not \in I_m$；或者
+$[k(\gamma)] \subset [k(\alpha)] \subset [k(\beta)]$，
+从而 $k(\gamma) < k(\beta) - 1$。在两种情形下，
+$S(A_\bullet)(\psi \circ \varphi)$ 在
+$A_{k(\beta)} \cdot \beta$ 上的限制也为零。
+\item 设 $\alpha \in I_n$ 且 $k(\alpha) = k(\beta)$，
+因而 $S(A_\bullet)(\psi)$ 在 $A_{k(\beta)} \cdot \beta$
+上的限制是从 $A_{k(\beta)} \cdot \beta$ 到
+$A_{k(\alpha)} \cdot \alpha$ 的恒等映射。在这种情形下，
+由于 $\Im(\alpha) =[k(\beta)]$，
+$S(A_\bullet)(\psi \circ \varphi)$ 在分量
+$A_{k(\beta)} \cdot \beta$ 上的限制规则，恰与
+$S(A_\bullet)(\varphi)$ 在分量
+$A_{k(\alpha)} \cdot \alpha$ 上的限制规则相同，故二者相合。
+\item 设 $\alpha \in I_n$ 且 $k(\alpha) = k(\beta) - 1$，
+因而 $S(A_\bullet)(\psi)$ 在 $A_{k(\beta)} \cdot \beta$
+上的限制由到 $A_{k(\alpha)} \cdot \alpha$ 的
+$(-1)^{k(\beta)}d_{A, k(\beta)}$ 给出。分以下子情形：
+\begin{enumerate}
+\item 若 $\gamma \not \in I_m$，则
+$S(A_\bullet)(\psi \circ \varphi)$ 在分量
+$A_{k(\beta)} \cdot \beta$ 上的限制，以及
+$S(A_\bullet)(\varphi)$ 在分量
+$A_{k(\alpha)} \cdot \alpha$ 上的限制都为零，故二者相合。
+\item 若 $\gamma \in I_m$ 但 $k(\gamma) < k(\alpha) - 1$，
+则两个限制同样都为零，故二者相合。
+\item 若 $\gamma \in I_m$ 且 $k(\gamma) = k(\alpha)$，
+则 $\Im(\gamma) = \Im(\alpha)$。此时，
+$S(A_\bullet)(\psi \circ \varphi)$ 在分量
+$A_{k(\beta)} \cdot \beta$ 上的限制由到
+$A_{k(\gamma)} \cdot \gamma$ 的
+$(-1)^{k(\beta)}d_{A, k(\beta)}$ 给出，而
+$S(A_\bullet)(\varphi)$ 在分量
+$A_{k(\alpha)} \cdot \alpha$ 上的限制是恒等映射
+$A_{k(\alpha)} \cdot \alpha \to A_{k(\gamma)} \cdot \gamma$。
+故二者相合。
+\item 最后，若 $\gamma \in I_m$ 且
+$k(\gamma) = k(\alpha) - 1$，则
+$S(A_\bullet)(\varphi)$ 在分量
+$A_{k(\alpha)} \cdot \alpha$ 上的限制由
+$(-1)^{k(\alpha)} d_{A, k(\alpha)}$ 给出，作为映射
+$A_{k(\alpha)} \cdot \alpha \to A_{k(\beta)} \cdot \beta$。
+% P02-E0129: the frozen codomain here is the beta summand, but S(phi) should land in the gamma summand.
+由于 $A_\bullet$ 是复形，可见复合
+$A_{k(\beta)} \cdot \beta \to
+A_{k(\alpha)} \cdot \alpha \to A_{k(\gamma)} \cdot \gamma$
+为零；这与 $S(A_\bullet)(\psi \circ \varphi)$ 在分量
+$A_{k(\beta)} \cdot \beta$ 上的限制所得结果相合，因为
+$k(\gamma) = k(\beta) - 2 < k(\beta) - 1$。
+\end{enumerate}
+\end{enumerate}
+所以 $S(A_\bullet)$ 是 $\mathcal{A}$ 的单纯对象。
+
+\medskip\noindent
+下面构造关于 $A_\bullet$ 具有函子性的同构
+$A_\bullet \to N(S(A_\bullet))$。回顾引理
+\ref{simplicial-lemma-decompose-associated-complexes} 给出的链复形分解
+$$
+S(A_\bullet) =  N(S(A_\bullet)) \oplus D(S(A_\bullet))
+$$
+另一方面，由备注 \ref{simplicial-remark-degenerate-subcomplex} 和
+$S(A_\bullet)$ 的构造可得
+$$
+D(S(A_\bullet))_n =
+\bigoplus\nolimits_{\alpha \in I_n,\ k(\alpha) < n} A_{k(\alpha)} \cdot \alpha
+\subset
+\bigoplus\nolimits_{\alpha \in I_n} A_{k(\alpha)} \cdot \alpha
+$$
+然而，若 $\alpha \in I_n$，则
+$k(\alpha) \geq n \Leftrightarrow \alpha = \text{id}_{[n]} : [n] \to [n]$。
+因此，$S(A_\bullet)_n$ 的分量
+$A_n \cdot \text{id}_{[n]}$ 是分量 $D(S(A_\bullet))_n$ 的补。
+所有映射 $d^n_i : S(A_\bullet)_n \to S(A_\bullet)_n$
+% P02-E0130: frozen source gives the face maps codomain degree n instead of n-1.
+在分量 $A_n \cdot \text{id}_{[n]}$ 上的限制都为零，
+唯有 $d^n_n$ 从 $A_n \cdot \text{id}_{[n]}$ 到
+$A_{n - 1} \cdot \text{id}_{[n - 1]}$ 给出
+$(-1)^n d_{A, n}$。由此断定，$A_n \cdot \text{id}_{[n]}$
+必定等于分量 $N(S(A_\bullet))_n$；而且微分
+$d_n = \sum (-1)^id^n_i : S(A_\bullet)_n \to S(A_\bullet)_{n - 1}$
+在分量 $A_n \cdot \text{id}_{[n]}$ 上的限制正给出所需映射！
+
+\medskip\noindent
+最后，必须证明 $S \circ N$ 同构于恒等函子。设 $U$ 为
+$\mathcal{A}$ 的单纯对象。则可定义显然的映射
+$$
+S(N(U))_n = \bigoplus\nolimits_{\alpha \in I_n} N(U)_{k(\alpha)} \cdot \alpha
+\longrightarrow
+U_n
+$$
+：在 $\alpha$ 所对应的分量上使用
+$U(\alpha) : N(U)_{k(\alpha)} \to U_n$。由定义
+\ref{simplicial-definition-split}，这是同构。为了完成证明，还须证明它与单纯对象
+中的映射相容。为此，设 $\varphi : [m] \to [n]$ 且
+$\alpha \in I_n$，并令 $\beta = \alpha \circ \varphi$。图示为
+$$
+\xymatrix{
+[m] \ar[r]_\varphi \ar[d]_\beta &
+[n] \ar[d]_\alpha \\
+\Im(\beta) \ar[r] &
+[k(\alpha)]
+}
+$$
+需要考虑若干情形：
+\begin{enumerate}
+\item 设 $\beta \not \in I_m$。则存在指标
+$0 \leq j < k(\alpha)$，满足
+$j \not \in \Im(\alpha \circ \varphi)$，从而可以选取分解
+$\alpha \circ \varphi = \delta^{k(\alpha)}_j \circ \psi$，
+其中 $\psi : [m] \to [k(\alpha) - 1]$。由此可知，
+$U(\varphi)$ 在分量 $N(U)_{k(\alpha)} \cdot \alpha$ 的像上为零，
+因为 $U(\varphi) \circ U(\alpha) =
+U(\alpha \circ \varphi) = U(\psi) \circ d^{k(\alpha)}_j$
+根据 $N$ 的构造在 $N(U)_{k(\alpha)}$ 上为零。这与上面对
+$S(N(U))$ 所定的规则一致。
+\item 设 $\beta \in I_m$ 且 $k(\beta) < k(\alpha) - 1$。
+此时完全按情形 (1) 论证，取 $j = k(\alpha) - 1$。
+\item 设 $\beta \in I_m$ 且 $k(\beta) = k(\alpha)$。
+此时，分量 $N(U)_{k(\alpha)} \cdot \alpha$ 通过恒等映射
+映到分量 $N(U)_{k(\beta)} \cdot \beta$。这与
+$U(\varphi)$ 的作用相同，因为在这种情形下
+$U(\varphi) \circ U(\alpha) = U(\beta)$。
+\item 设 $\beta \in I_m$ 且 $k(\beta) = k(\alpha) - 1$。
+此时，使用微分 $(-1)^{k(\alpha)} d_{N(U), k(\alpha)}$
+把分量 $N(U)_{k(\alpha)} \cdot \alpha$ 映到分量
+$N(U)_{k(\beta)} \cdot \beta$。另一方面，因为此时
+$\Im(\beta) = [k(\beta)]$，有
+$\alpha \circ \varphi = \delta^{k(\alpha)}_{k(\alpha)} \circ \beta$。
+因此，$U(\varphi)$ 与 $U(\alpha)$ 在 $N(U)_{k(\alpha)}$
+上的限制之复合，等于 $U(\beta)$ 前复合
+$d^{k(\alpha)}_{k(\alpha)}$ 在 $N(U)_{k(\alpha)}$ 上的限制。
+由于 $d_{N(U), k(\alpha)} = \sum (-1)^i d^{k(\alpha)}_i$，
+并且当 $i < k(\alpha)$ 时，$d^{k(\alpha)}_i$ 在
+$N(U)_{k(\alpha)}$ 上的限制为零，可见二者相等。
+\end{enumerate}
+定理得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{余单纯对象的 Dold--Kan 对应}
+\label{simplicial-section-dold-kan-cosimplicial}
+
+\noindent
+设 $\mathcal{A}$ 为阿贝尔范畴。根据《同调代数》引理
+\ref{homology-lemma-abelian-opposite}，$\mathcal{A}^{opp}$
+也是阿贝尔范畴。由定义形式地推出
+$$
+\text{CoSimp}(\mathcal{A}) = \text{Simp}(\mathcal{A}^{opp})^{opp}.
+$$
+于是 Dold--Kan 对应（定理 \ref{simplicial-theorem-dold-kan}）蕴含
+$\text{CoSimp}(\mathcal{A})$ 等价于范畴
+$\text{Ch}_{\geq 0}(\mathcal{A}^{opp})^{opp}$。
+由定义还形式地推出
+$$
+\text{CoCh}_{\geq 0}(\mathcal{A}) =
+\text{Ch}_{\geq 0}(\mathcal{A}^{opp})^{opp}.
+$$
+将这些箭头合在一起，得到等价
+$$
+Q :
+\text{CoSimp}(\mathcal{A})
+\longrightarrow
+\text{CoCh}_{\geq 0}(\mathcal{A}).
+$$
+本节描述 $Q$。
+
+\medskip\noindent
+先定义余单纯对象 $U$ 的
+{\it 伴随上链复形 $s(U)$}。它是在负次数中为零，并且当
+$n \geq 0$ 时满足 $s(U)^n = U_n$ 的上链复形。
+作为微分，使用映射
+$d^n : s(U)^n \to s(U)^{n + 1}$，其定义为
+$d^n = \sum_{i = 0}^{n + 1} (-1)^i \delta^{n + 1}_i$。
+换言之，复形 $s(U)$ 形如
+$$
+\xymatrix{
+0 \ar[r] &
+U_0 \ar[rr]^{\delta^1_0 - \delta^1_1} & &
+U_1 \ar[rr]^{\delta^2_0 - \delta^2_1 + \delta^2_2} & &
+U_2 \ar[r] &
+\ldots
+}
+$$
+它有时也称为 $U$ 的 {\it Moore 复形}。
+
+\medskip\noindent
+另一方面，给定 $\mathcal{A}$ 的余单纯对象 $U$，令
+$Q(U)^0 = U_0$，并令
+$$
+Q(U)^n = \Coker(
+\xymatrix{
+\bigoplus_{i = 0}^{n - 1} U_{n - 1} \ar[r]^-{\delta^n_i} &
+U_n
+}).
+$$
+微分 $d^n : Q(U)^n \to Q(U)^{n + 1}$ 由
+$(-1)^{n + 1}\delta^{n + 1}_{n + 1}$ 诱导；也就是说，把态射
+$(-1)^{n + 1}\delta^{n + 1}_{n + 1}$ 放入交换图
+$$
+\xymatrix{
+U_n \ar[rr]_{(-1)^{n + 1}\delta^{n + 1}_{n + 1}} \ar[d] & &
+U_{n + 1} \ar[d] \\
+Q(U)^n \ar[rr]^{d_n} & &
+Q(U)^{n + 1}.
+}
+$$
+% P02-E0131: the frozen diagram labels the induced cochain differential d_n although the surrounding definition calls it d^n.
+留给读者证明这个图是有意义的；即当
+$i = 0, \ldots, n - 1$ 时，$\delta^n_i$ 的像映入右侧竖直箭头的核。
+（这与引理 \ref{simplicial-lemma-N-d-in-N} 对偶。）
+因此，上链复形 $Q(U)$ 形如
+$$
+0 \to Q(U)^0 \to Q(U)^1 \to Q(U)^2 \to \ldots
+$$
+它称为 $U$ 的 {\it 伴随规范化上链复形}。
+Dold--Kan 定理 \ref{simplicial-theorem-dold-kan} 的对偶如下。
+
+\begin{lemma}
+\label{simplicial-lemma-dual-dold-kan}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 函子
+$s : \text{CoSimp}(\mathcal{A}) \to \text{CoCh}_{\geq 0}(\mathcal{A})$
+是正合的。
+\item 映射 $s(U)^n \to Q(U)^n$ 定义上链复形的态射。
+\item 在 $\text{CoCh}_{\geq 0}(\mathcal{A})$ 中存在函子性直和分解
+$s(U) = D(U) \oplus Q(U)$。
+\item 函子 $Q$ 是正合的。
+\item 复形态射 $s(U) \to Q(U)$ 是拟同构。
+\item 函子 $U \mapsto Q(U)^\bullet$ 定义范畴等价
+$\text{CoSimp}(\mathcal{A}) \to \text{CoCh}_{\geq 0}(\mathcal{A})$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。但这些结果正好分别是引理
+\ref{simplicial-lemma-s-exact}、\ref{simplicial-lemma-map-associated-complexes}、
+\ref{simplicial-lemma-decompose-associated-complexes}、
+\ref{simplicial-lemma-N-exact}、\ref{simplicial-lemma-quasi-isomorphism}
+以及定理 \ref{simplicial-theorem-dold-kan} 的对偶陈述。
+\end{proof}
+
+\section{同伦}
+\label{simplicial-section-homotopy}
+
+\noindent
+考虑单纯集 $\Delta[0]$ 和 $\Delta[1]$。回顾有两个态射
+$$
+e_0, e_1 : \Delta[0] \longrightarrow \Delta[1],
+$$
+它们来自把 $0$ 映到 $[1] = \{0, 1\}$ 的一个元素的态射
+$[0] \to [1]$。还回顾每个集合 $\Delta[1]_k$ 都是有限的。
+因此，若范畴 $\mathcal{C}$ 有有限余积，则对 $\mathcal{C}$
+的任意单纯对象 $U$，都可以构成积
+$$
+U \times \Delta[1]
+$$
+；见定义 \ref{simplicial-definition-product-with-simplicial-set}。
+注意，$\Delta[0]$ 的性质是：对所有 $k \geq 0$，
+$\Delta[0]_k = \{*\}$ 都是单点集。因此
+$U \times \Delta[0] = U$。于是，上面的 $e_0, e_1$ 给出态射
+% P02-E0132: frozen English uses singular “gives rise” with the compound subject e_0, e_1.
+$$
+e_0, e_1 : U \to U \times \Delta[1].
+$$
+
+\begin{definition}
+\label{simplicial-definition-homotopy}
+设 $\mathcal{C}$ 为有有限余积的范畴，$U$ 和 $V$ 为
+$\mathcal{C}$ 的两个单纯对象，并设 $a, b : U \to V$ 为两个态射。
+\begin{enumerate}
+\item 如果态射
+$$
+h : U \times \Delta[1] \longrightarrow V
+$$
+满足 $a = h \circ e_0$ 且 $b = h \circ e_1$，则称它为
+{\it 从 $a$ 到 $b$ 的同伦}。
+\item 如果存在一列从 $U$ 到 $V$ 的态射
+$a = a_0, a_1, \ldots, a_n = b$，使得对每个
+$i = 1, \ldots, n$，或者存在从 $a_{i - 1}$ 到 $a_i$ 的同伦，
+或者存在从 $a_i$ 到 $a_{i - 1}$ 的同伦，则称态射 $a$ 和 $b$
+{\it 同伦}，或者称它们 {\it 属于同一个同伦类}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+一般而言，“存在从 $a$ 到 $b$ 的同伦”这一关系既不传递也不对称；
+例 \ref{simplicial-example-trivial-homotopy} 将说明它是自反的。当然，“同伦”
+是集合 $\Mor(U, V)$ 上的等价关系，并且是由“存在从 $a$ 到 $b$
+的同伦”这一关系生成的等价关系。事实上，可以在任意范畴中定义
+单纯对象态射对之间的同伦。在详细分析存在态射
+$h : U \times \Delta[1] \to V$ 的含义之后，我们将在备注
+\ref{simplicial-remark-homotopy-better} 中完成这一点。
+
+\medskip\noindent
+设 $\mathcal{C}$ 为有有限余积的范畴，$U$、$V$ 为
+$\mathcal{C}$ 的单纯对象，$a, b : U \to V$ 为态射。
+进一步假设 $h : U \times \Delta[1] \to V$ 是从 $a$ 到 $b$
+的同伦。对每个 $n \geq 0$，记
+$$
+\Delta[1]_n = \{\alpha^n_0, \ldots, \alpha^n_{n + 1}\}
+$$
+其中 $\alpha^n_i : [n] \to [1]$ 是满足
+$$
+\alpha^n_i(j)
+=
+\left\{
+\begin{matrix}
+0 & \text{若} & j < i\\
+1 & \text{若} & j \geq i
+\end{matrix}
+\right.
+$$
+的映射。因此
+$$
+h_n : (U \times \Delta[1])_n = \coprod U_n \cdot \alpha^n_i
+\longrightarrow
+V_n
+$$
+具有分量 $h_{n, i} : U_n \to V_n$；对每个
+$i = 0, \ldots, n + 1$，它是在 $\alpha^n_i$ 所对应的分量上的限制。
+
+\begin{lemma}
+\label{simplicial-lemma-relations-homotopy}
+在上述情形下，有如下关系：
+\begin{enumerate}
+\item $h_{n, 0} = b_n$ 且 $h_{n, n + 1} = a_n$。
+\item 当 $i > j$ 时，
+$d^n_j \circ h_{n, i} = h_{n - 1, i - 1} \circ d^n_j$。
+\item 当 $i \leq j$ 时，
+$d^n_j \circ h_{n, i} = h_{n - 1, i} \circ d^n_j$。
+\item 当 $i > j$ 时，
+$s^n_j \circ h_{n, i} = h_{n + 1, i + 1} \circ s^n_j$。
+\item 当 $i \leq j$ 时，
+$s^n_j \circ h_{n, i} = h_{n + 1, i} \circ s^n_j$。
+\end{enumerate}
+反之，给定满足上述性质的一族映射 $h_{n, i}$，它们定义态射
+$h$，并且这是从 $a$ 到 $b$ 的同伦。
+\end{lemma}
+
+\begin{proof}
+略。最后一个断言可利用如下事实证明：根据引理
+\ref{simplicial-lemma-face-degeneracy-category}，给出单纯对象的态射，
+等价于给出与所有 $d^n_j$ 和 $s^n_j$ 交换的一列态射 $h_n$。
+\end{proof}
+
+\begin{example}
+\label{simplicial-example-trivial-homotopy}
+在上述情形下，假设 $a = b$。则存在从 $a$ 到 $b$ 的
+{\it 平凡}同伦，即满足 $h_{n, i} = a_n = b_n$ 的同伦。
+\end{example}
+
+\begin{remark}
+\label{simplicial-remark-homotopy-better}
+设 $\mathcal{C}$ 为任意范畴（不作任何假设），$U$ 和 $V$
+为 $\mathcal{C}$ 的单纯对象，$a, b : U \to V$ 为
+$\mathcal{C}$ 中单纯对象的态射。一个 {\it 从 $a$ 到 $b$ 的同伦}
+由态射\footnote{文献中经常使用映射
+$h_{n + 1, i} \circ s_i : U_n \to V_{n + 1}$，而不是映射
+$h_{n, i}$。当然，这些映射所满足的关系不同于引理
+\ref{simplicial-lemma-relations-homotopy} 中的关系。}
+$h_{n, i} : U_n \to V_n$ 给出，其中 $n \geq 0$ 且
+$i = 0, \ldots, n + 1$，并要求它们满足引理
+\ref{simplicial-lemma-relations-homotopy} 中的关系。与定义
+\ref{simplicial-definition-homotopy} 一样，如果存在一列从 $U$ 到 $V$ 的态射
+$a = a_0, a_1, \ldots, a_n = b$，使得对每个
+$i = 1, \ldots, n$，或者存在从 $a_{i - 1}$ 到 $a_i$ 的同伦，
+或者存在从 $a_i$ 到 $a_{i - 1}$ 的同伦，则称态射 $a$ 和 $b$
+{\it 同伦}。显然，若 $F : \mathcal{C} \to \mathcal{C}'$
+为任意函子，且 $\{h_{n, i}\}$ 是从 $a$ 到 $b$ 的同伦，
+则 $\{F(h_{n, i})\}$ 是从 $F(a)$ 到 $F(b)$ 的同伦。
+同样，若 $a$ 和 $b$ 同伦，则 $F(a)$ 和 $F(b)$ 同伦。
+由于该引理表明，当有限余积存在时，新概念与旧概念相同，
+% P02-E0133: frozen English says singular “finite coproduct exist”.
+特别可知，只要两个范畴都有有限余积，函子就保持原来的同伦概念。
+\end{remark}
+
+\begin{remark}
+\label{simplicial-remark-homotopy-pre-post-compose}
+设 $\mathcal{C}$ 为任意范畴。假设单纯对象的两个态射
+$a, a' : U \to V$ 同伦。则对任意态射 $b : V \to W$，
+两个映射 $b \circ a, b \circ a' : U \to W$ 同伦。
+同样，对任意态射 $c : X \to U$，两个映射
+$a \circ c, a' \circ c : X \to V$ 同伦。事实上，映射
+$b \circ a \circ c, b \circ a' \circ c : X \to W$ 同伦。
+确切地说，如果映射 $h_{n, i} : U_n \to V_n$ 定义从
+$a$ 到 $a'$ 的同伦，那么映射 $b \circ h_{n, i} \circ c$
+定义从 $b \circ a \circ c$ 到 $b \circ a' \circ c$ 的同伦。
+由此得到一个新范畴 $\text{hSimp}(\mathcal{C})$：它与
+$\text{Simp}(\mathcal{C})$ 有相同的对象，而其态射是
+$\text{Simp}(\mathcal{C})$ 中态射的同伦类。因此有典范函子
+$$
+\text{Simp}(\mathcal{C})
+\longrightarrow
+\text{hSimp}(\mathcal{C})
+$$
+它本质满，并且在态射集上满射。
+\end{remark}
+
+\begin{definition}
+\label{simplicial-definition-homotopy-equivalent}
+设 $U$ 和 $V$ 为范畴 $\mathcal{C}$ 的两个单纯对象。
+如果存在态射 $b : V \to U$，使得 $a \circ b$ 同伦于
+$\text{id}_V$，且 $b \circ a$ 同伦于 $\text{id}_U$，
+则称态射 $a : U \to V$ 为 {\it 同伦等价}。
+如果存在同伦等价 $a : U \to V$，则称 $U$ 和 $V$
+{\it 同伦等价}。
+\end{definition}
+
+\begin{example}
+\label{simplicial-example-simplex-contractible}
+单纯集 $\Delta[m]$ 同伦等价于 $\Delta[0]$。事实上，考虑唯一态射
+$f : \Delta[m] \to \Delta[0]$，以及由 $\Delta[m]$ 的最后一个
+$0$-单形的包含给出的态射 $g : \Delta[0] \to \Delta[m]$。
+有 $f \circ g = \text{id}$。下面给出从
+$\text{id}_{\Delta[m]}$ 到 $g \circ f$ 的同伦
+$h : \Delta[m] \times \Delta[1] \to \Delta[m]$。确切地说，
+$h$ 由映射
+$$
+\Mor_\Delta([n], [m]) \times \Mor_\Delta([n], [1]) \to \Mor_\Delta([n], [m])
+$$
+给出，它们把 $(\varphi, \alpha)$ 映到
+$$
+k \mapsto
+\left\{
+\begin{matrix}
+\varphi(k) & \text{若} & \alpha(k) = 0 \\
+m & \text{若} & \alpha(k) = 1
+\end{matrix}
+\right.
+$$
+。注意，这只因我们取 $g$ 为最后一个 $0$-单形的包含而成立。
+若取 $g$ 为第一个 $0$-单形的包含，则可找到从
+$g \circ f$ 到 $\text{id}_{\Delta[m]}$ 的同伦。
+这说明了单纯集范畴中同伦所固有的不对称性。
+\end{example}
+
+\noindent
+下面的引理说明 $U \times \Delta[1]$ 同伦等价于 $U$。
+
+\begin{lemma}
+\label{simplicial-lemma-contractible}
+设 $\mathcal{C}$ 为有有限余积的范畴，$U$ 为 $\mathcal{C}$
+的单纯对象。考虑映射
+$e_1, e_0 : U \to U \times \Delta[1]$ 和
+$\pi : U \times \Delta[1] \to U$；见引理
+\ref{simplicial-lemma-back-to-U}。
+\begin{enumerate}
+\item $\pi \circ e_1 = \pi \circ e_0 = \text{id}_U$；
+\item 态射 $\text{id}_{U \times \Delta[1]}$ 与
+$e_0 \circ \pi$ 同伦；
+\item 态射 $\text{id}_{U \times \Delta[1]}$ 与
+$e_1 \circ \pi$ 同伦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第一个断言平凡。考虑单纯集映射
+$\Delta[1] \times \Delta[1] \longrightarrow \Delta[1]$，
+它在次数 $n$ 上把一对 $(\beta_1, \beta_2)$，
+其中 $\beta_i : [n] \to [1]$，映到由规则
+$$
+\beta(i) = \max\{\beta_1(i), \beta_2(i)\}.
+$$
+定义的态射 $\beta : [n] \to [1]$。
+这是单纯集的态射，因为作用
+$\Delta[1](\varphi) : \Delta[1]_n \to \Delta[1]_m$
+（其中 $\varphi : [m] \to [n]$）是前复合。使用上面引入的记号
+$\Delta[1]_n = \{\alpha^n_0, \ldots, \alpha^n_{n + 1}\}$，
+若 $\beta_2 = \alpha^n_0$，则 $\beta = \alpha^n_0$；
+若 $\beta_2 = \alpha^n_{n + 1}$，则 $\beta = \beta_1$。
+由于 $\alpha^n_0$ 与 $\alpha^n_{n + 1}$ 分别是取值为
+$1$ 与 $0$ 的常值映射，这意味着引理
+\ref{simplicial-lemma-back-to-U} 的诱导态射
+$$
+U \times \Delta[1] \times \Delta[1]
+\longrightarrow
+U \times \Delta[1]
+$$
+是从 $\text{id}_{U \times \Delta[1]}$ 到
+$e_1 \circ \pi$ 的同伦。$e_0 \circ \pi$ 的情形类似
+（使用最小值而不是最大值）。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-fibre-products-simplicial-object-w-section}
+设 $f : Y \to X$ 为有纤维积的范畴 $\mathcal{C}$ 中的态射，
+并假设 $f$ 有截面 $s$。考虑例
+\ref{simplicial-example-fibre-products-simplicial-object} 中从 $f$
+构造的单纯对象 $U$。态射 $U \to U$ 在每个次数上都是
+$Y \times_X \ldots \times_X Y$ 的自映射
+$(s \circ f)^{n + 1}$，即在每个因子上由 $s \circ f$ 给出；
+这个态射同伦于 $U$ 上的恒等映射。特别地，$U$ 同伦等价于
+常值单纯对象 $X$。
+\end{lemma}
+
+\begin{proof}
+令 $g^0 = \text{id}_Y$ 且 $g^1 = s \circ f$。使用态射
+\begin{eqnarray*}
+Y \times_X \ldots \times_X Y \times \Mor([n], [1])
+& \to &
+Y \times_X \ldots \times_X Y \\
+(y_0, \ldots, y_n) \times \alpha
+& \mapsto &
+(g^{\alpha(0)}(y_0), \ldots, g^{\alpha(n)}(y_n))
+\end{eqnarray*}
+这里采用函子点观点来定义这些映射。
+% P02-E0134: frozen English repeats “point” in “functor of points point of view”.
+换言之，
+$h_{n, 0} = \text{id}$、
+$h_{n, n + 1} = (s \circ f)^{n + 1}$，且
+$h_{n, i} = \text{id}_Y^{i + 1} \times (s \circ f)^{n + 1 - i}$。
+留给读者证明它们满足引理 \ref{simplicial-lemma-relations-homotopy} 的关系，
+因而定义所需同伦。另见备注 \ref{simplicial-remark-homotopy-better}；
+它说明不必对范畴 $\mathcal{C}$ 作任何其他假设。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-products-homotopy}
+设 $\mathcal{C}$ 为范畴，$T$ 为集合。对 $t \in T$，设
+$X_t$、$Y_t$ 为 $\mathcal{C}$ 的单纯对象，并假设
+$X = \prod_{t \in T} X_t$ 和 $Y = \prod_{t \in T} Y_t$ 存在。
+\begin{enumerate}
+\item 若对所有 $t \in T$，$X_t$ 与 $Y_t$ 同伦等价，且 $T$
+有限，则 $X$ 与 $Y$ 同伦等价。
+\end{enumerate}
+对 $t \in T$，设 $a_t, b_t : X_t \to Y_t$ 为态射，并令
+$a = \prod a_t : X \to Y$ 及 $b = \prod b_t : X \to Y$。
+\begin{enumerate}
+\item[(2)] 若对所有 $t \in T$ 都存在从 $a_t$ 到 $b_t$ 的同伦，
+则存在从 $a$ 到 $b$ 的同伦。
+\item[(3)] 若 $T$ 有限，且对 $t \in T$，
+$a_t, b_t : X_t \to Y_t$ 同伦，则 $a$ 与 $b$ 同伦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $h_t = (h_{t, n , i})$ 是从 $a_t$ 到 $b_t$ 的同伦
+（见备注 \ref{simplicial-remark-homotopy-better}），则
+$h = (\prod_t h_{t, n, i})$ 是从 $\prod a_t$ 到
+$\prod b_t$ 的同伦。这证明 (2)。
+
+\medskip\noindent
+证明 (3)。选取 $t \in T$。存在整数 $n \geq 0$ 和链
+$a_t = a_{t, 0}, a_{t, 1}, \ldots, a_{t, n} = b_t$，
+使得对每个 $1 \leq i \leq n$，或者存在从
+$a_{t, i - 1}$ 到 $a_{t, i}$ 的同伦，或者存在从
+$a_{t, i}$ 到 $a_{t, i - 1}$ 的同伦。若 $n = 0$，
+就另取一个 $t$。（若对所有 $t \in T$ 都有 $a_t = b_t$，
+则已经完成。）所以假设 $n > 0$。由例
+\ref{simplicial-example-trivial-homotopy}，对所有
+$t' \in T \setminus \{t\}$，存在从 $b_{t'}$ 到 $b_{t'}$
+的同伦。
+% P02-E0135: frozen English says “there are is a homotopy”.
+因此由 (2)，或者存在从
+$a_{t, n - 1} \times \prod_{t'} b_{t'}$ 到 $b$ 的同伦，
+或者存在从 $b$ 到
+$a_{t, n - 1} \times \prod_{t'} b_{t'}$ 的同伦。
+如此可将 $n$ 减少 $1$。这证明 (3)。
+
+\medskip\noindent
+(1) 由 (3) 和定义得出。
+\end{proof}
+
+
+
+
+\section{阿贝尔范畴中的同伦}
+\label{simplicial-section-homotopy-abelian}
+
+\noindent
+设 $\mathcal{A}$ 为加性范畴，$U$、$V$ 为 $\mathcal{A}$
+的单纯对象，$a, b : U \to V$ 为态射。进一步假设
+$h : U \times \Delta[1] \to V$ 是从 $a$ 到 $b$ 的同伦。
+下面证明链复形的两个态射
+$s(a), s(b) : s(U) \longrightarrow s(V)$
+在《同调代数》第 \ref{homology-section-complexes} 节的意义下同伦。
+使用第 \ref{simplicial-section-homotopy} 节引入的记号，按公式
+\begin{equation}
+\label{simplicial-equation-homotopy-to-homotopy}
+s(h)_n = \sum\nolimits_{i = 0}^n (-1)^{i + 1} h_{n + 1, i + 1} \circ s^n_i.
+\end{equation}
+定义
+$$
+s(h)_n : U_n \longrightarrow V_{n + 1}
+$$
+。计算 $d_{n + 1} \circ s(h)_n + s(h)_{n - 1} \circ d_n$。
+首先，
+\begin{eqnarray*}
+d_{n + 1} \circ s(h)_n & = &
+\sum\nolimits_{j = 0}^{n + 1}
+\sum\nolimits_{i = 0}^n
+(-1)^{j + i + 1}
+d^{n + 1}_j \circ h_{n + 1, i + 1} \circ s^n_i \\
+& = &
+\sum\nolimits_{1 \leq i + 1 \leq j \leq n + 1}
+(-1)^{j + i + 1}
+h_{n, i + 1} \circ d^{n + 1}_j \circ s^n_i \\
+& &
++
+\sum\nolimits_{n \geq i \geq j \geq 0}
+(-1)^{i + j + 1}
+h_{n, i} \circ d^{n + 1}_j \circ s^n_i \\
+& = &
+\sum\nolimits_{1 \leq i + 1 < j \leq n + 1}
+(-1)^{j + i + 1}
+h_{n, i + 1} \circ s^{n - 1}_i \circ d^n_{j - 1} \\
+& &
++
+\sum\nolimits_{1 \leq i + 1 = j \leq n + 1}
+(-1)^{j + i + 1}
+h_{n, i + 1} \\
+& &
++
+\sum\nolimits_{n \geq i = j \geq 0}
+(-1)^{i + j + 1}
+h_{n, i} \\
+& &
++
+\sum\nolimits_{n \geq i > j \geq 0}
+(-1)^{i + j + 1}
+h_{n, i} \circ s^{n - 1}_{i - 1} \circ d^n_j
+\end{eqnarray*}
+留给读者验证：四个和式中的第一个与最后一个，恰好同
+$$
+s(h)_{n - 1} \circ d_n
+=
+\sum_{i = 0}^{n - 1} \sum_{j = 0}^n
+(-1)^{i + 1 + j} h_{n, i + 1} \circ s^{n - 1}_i \circ d^n_j.
+$$
+的所有项相消。因此得到
+\begin{eqnarray*}
+d_{n + 1} \circ s(h)_n + s(h)_{n - 1} \circ d_n
+& = &
+\sum_{j = 1}^{n + 1} (-1)^{2j} h_{n, j}
++
+\sum_{i = 0}^n (-1)^{2i + 1} h_{n, i} \\
+& = &
+h_{n, n + 1} - h_{n , 0} \\
+& = &
+a_n - b_n
+\end{eqnarray*}
+，正是所需结论。
+
+\begin{lemma}
+\label{simplicial-lemma-homotopy-s-N}
+设 $\mathcal{A}$ 为加性范畴，$a, b : U \to V$ 为
+$\mathcal{A}$ 中单纯对象的态射。若 $a$、$b$ 同伦，则
+$s(a), s(b) : s(U) \to s(V)$ 是链复形的同伦态射。
+若 $\mathcal{A}$ 为阿贝尔范畴，则
+$N(a), N(b) : N(U) \to N(V)$ 也是链复形的同伦态射。
+\end{lemma}
+
+\begin{proof}
+可以选取一列从 $U$ 到 $V$ 的态射
+$a = a_0, a_1, \ldots, a_n = b$，使得对每个
+$i = 1, \ldots, n$，或者存在从 $a_i$ 到 $a_{i - 1}$
+的同伦，或者存在从 $a_{i - 1}$ 到 $a_i$ 的同伦。
+上面的计算说明，在此情形下，或者 $s(a_i)$ 作为链复形映射
+同伦于 $s(a_{i - 1})$，或者 $s(a_{i - 1})$ 作为链复形映射
+同伦于 $s(a_i)$。当然，这两个断言等价；而且同伦是链复形映射集
+上的等价关系，见《同调代数》第 \ref{homology-section-complexes} 节。
+这证明 $s(a)$ 和 $s(b)$ 作为链复形映射同伦。
+
+\medskip\noindent
+下面处理 $N(a)$ 和 $N(b)$。由引理
+\ref{simplicial-lemma-decompose-associated-complexes}，
+$N(a)$、$N(b)$ 是复合
+$$
+N(U) \to s(U) \to s(V) \to N(V)
+$$
+，其中中间使用 $s(a)$、$s(b)$。因此，断言由《同调代数》引理
+\ref{homology-lemma-compose-homotopy} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-homotopy-equivalence-s-N}
+设 $\mathcal{A}$ 为加性范畴，$a : U \to V$ 为
+$\mathcal{A}$ 中单纯对象的态射。若 $a$ 是同伦等价，则
+$s(a) : s(U) \to s(V)$ 是链复形的同伦等价。
+若进一步 $\mathcal{A}$ 为阿贝尔范畴，则
+$N(a) : N(U) \to N(V)$ 也是链复形的同伦等价。
+\end{lemma}
+
+\begin{proof}
+略。见上面的引理 \ref{simplicial-lemma-homotopy-s-N}。
+\end{proof}
+
+
+
+
+\section{同伦与余单纯对象}
+\label{simplicial-section-homotopy-cosimplicial}
+
+\noindent
+设 $\mathcal{C}$ 为有有限积的范畴，$V$ 为余单纯对象，并考虑
+$\Hom(\Delta[1], V)$；见第
+\ref{simplicial-section-hom-from-simplicial-sets-into-cosimplicial} 节。
+态射 $e_0, e_1 : \Delta[0] \to \Delta[1]$ 给出两个态射
+$e_0, e_1 : \Hom(\Delta[1], V) \to V$。
+
+\begin{definition}
+\label{simplicial-definition-homotopy-cosimplicial}
+设 $\mathcal{C}$ 为有有限积的范畴，$U$ 和 $V$ 为
+$\mathcal{C}$ 的两个余单纯对象，$a, b : U \to V$ 为
+$\mathcal{C}$ 中余单纯对象的两个态射。
+\begin{enumerate}
+\item 若态射
+$$
+h : U \longrightarrow \Hom(\Delta[1], V)
+$$
+满足 $a = e_0 \circ h$ 且 $b = e_1 \circ h$，则称它为
+{\it 从 $a$ 到 $b$ 的同伦}。
+\item 如果存在一列从 $U$ 到 $V$ 的态射
+$a = a_0, a_1, \ldots, a_n = b$，使得对每个
+$i = 1, \ldots, n$，或者存在从 $a_i$ 到 $a_{i - 1}$ 的同伦，
+或者存在从 $a_{i - 1}$ 到 $a_i$ 的同伦，则称 $a$ 和 $b$
+{\it 同伦}，或者称它们 {\it 属于同一个同伦类}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这与第 \ref{simplicial-section-homotopy} 节为单纯对象引入的概念对偶。
+为作说明，考虑定义中的从 $a$ 到 $b$ 的同伦
+$h : U \to \Hom(\Delta[1], V)$。回顾 $\Delta[1]_n$
+是有限集。$h$ 的次数 $n$ 分量是态射
+$$
+h_n = (h_{n, \alpha}) :
+U
+\longrightarrow
+\Hom(\Delta[1], V)_n =
+\prod\nolimits_{\alpha \in \Delta[1]_n} V_n
+$$
+% P02-E0136: frozen degree-n component has source U rather than U_n, contradicted immediately by h_{n,alpha}: U_n -> V_n.
+$\mathcal{C}$ 的态射 $h_{n, \alpha} : U_n \to V_n$ 具有如下性质：
+对 $\Delta$ 的每个态射 $f : [n] \to [m]$，有
+\begin{equation}
+\label{simplicial-equation-property-homotopy-cosimplicial}
+h_{m, \alpha} \circ U(f) = V(f) \circ h_{n, \alpha \circ f}
+\end{equation}
+此外，条件 $a = e_0 \circ h$ 意味着
+$a_n = h_{n, 0 : [n] \to [1]}$，其中
+$0 : [n] \to [1]$ 是取值为 $0$ 的常值映射。
+同样，条件 $b = e_1 \circ h$ 意味着
+$b_n = h_{n, 1 : [n] \to [1]}$，其中
+$1 : [n] \to [1]$ 是取值为 $1$ 的常值映射。
+反之，给定一族态射 $\{h_{n, \alpha}\}$，使得
+(\ref{simplicial-equation-property-homotopy-cosimplicial})
+对 $\Delta$ 的所有态射 $f$ 都成立，并且对所有 $n \geq 0$ 都有
+$a_n = h_{n, 0 : [n] \to [1]}$ 和
+$b_n = h_{n, 1 : [n] \to [1]}$，那么令
+$h = \prod_{\alpha \in \Delta[1]_n} h_{n, \alpha}$，
+便得到从 $a$ 到 $b$ 的同伦 $h$。
+
+\begin{remark}
+\label{simplicial-remark-homotopy-cosimplicial-better}
+设 $\mathcal{C}$ 为任意范畴（不作任何假设），$U$ 和 $V$
+为 $\mathcal{C}$ 的余单纯对象，$a, b : U \to V$ 为
+$\mathcal{C}$ 中余单纯对象的态射。一个 {\it 从 $a$ 到 $b$ 的同伦}
+由态射 $h_{n, \alpha} : U_n \to V_n$ 给出，其中
+$n \geq 0$ 且 $\alpha \in \Delta[1]_n$；要求它们对
+$\Delta$ 的所有态射 $f$ 都满足
+(\ref{simplicial-equation-property-homotopy-cosimplicial})，
+并且对所有 $n \geq 0$ 都有
+$a_n = h_{n, 0 : [n] \to [1]}$ 与
+$b_n = h_{n, 1 : [n] \to [1]}$。
+与定义 \ref{simplicial-definition-homotopy-cosimplicial} 一样，
+如果存在一列从 $U$ 到 $V$ 的态射
+$a = a_0, a_1, \ldots, a_n = b$，使得对每个
+$i = 1, \ldots, n$，或者存在从 $a_{i - 1}$ 到 $a_i$ 的同伦，
+或者存在从 $a_i$ 到 $a_{i - 1}$ 的同伦，则称态射 $a$ 和 $b$
+{\it 同伦}。显然，若 $F : \mathcal{C} \to \mathcal{C}'$
+为任意函子，且 $\{h_{n, i}\}$ 是从 $a$ 到 $b$ 的同伦，
+% P02-E0137: frozen cosimplicial remark switches the family index from alpha to i.
+则 $\{F(h_{n, i})\}$ 是从 $F(a)$ 到 $F(b)$ 的同伦。
+同样，若 $a$ 和 $b$ 同伦，则 $F(a)$ 和 $F(b)$ 同伦。
+当有限积存在时，这个新概念与旧概念相同。因此特别可知，
+只要两个范畴都有有限积，函子就保持原来的概念。
+\end{remark}
+
+\begin{lemma}
+\label{simplicial-lemma-compare-homotopies}
+设 $\mathcal{C}$ 为范畴，$U$ 和 $V$ 为 $\mathcal{C}$
+的两个余单纯对象，$a, b : U \to V$ 为余单纯对象的态射。
+回顾 $U$、$V$ 分别对应于 $\mathcal{C}^{opp}$ 的单纯对象
+$U'$、$V'$，而 $a, b$ 分别对应于态射
+$a', b' : V' \to U'$。下列条件等价：
+\begin{enumerate}
+\item 存在备注 \ref{simplicial-remark-homotopy-cosimplicial-better} 意义下，
+从 $a$ 到 $b$ 的同伦 $h = \{h_{n, \alpha}\}$。
+\item 存在备注 \ref{simplicial-remark-homotopy-better} 意义下，
+从 $a'$ 到 $b'$ 的同伦 $h = \{h_{n, i}\}$。
+\end{enumerate}
+因此，$a$ 与 $b$ 在备注
+\ref{simplicial-remark-homotopy-cosimplicial-better} 的意义下同伦，
+当且仅当 $a'$ 与 $b'$ 在备注 \ref{simplicial-remark-homotopy-better}
+的意义下同伦。
+\end{lemma}
+
+\begin{proof}
+若 $\mathcal{C}$ 有有限积，则 $\mathcal{C}^{opp}$ 有有限余积，
+并且可以用定义 \ref{simplicial-definition-homotopy-cosimplicial}
+和 \ref{simplicial-definition-homotopy} 代替备注
+\ref{simplicial-remark-homotopy-cosimplicial-better}
+和 \ref{simplicial-remark-homotopy-better}。
+此时，$h : U \to \Hom(\Delta[1], V)$ 等同于态射
+$h' : \Hom(\Delta[1], V)' \to U'$。由于积与余积也相互交换，
+立即有 $(\Hom(\Delta[1], V))' = V' \times \Delta[1]$。
+此外，态射 $e_0, e_1 : \Hom(\Delta[1], V) \to V$
+的“加撇”版本是态射
+$e_0, e_1 : V' \to \Delta[1] \times V$。
+因此，$e_0 \circ h = a$ 转化为 $h' \circ e_0 = a'$，
+同样地，$e_1 \circ h = b$ 转化为 $h' \circ e_1 = b'$。
+这证明了这种情形的引理。
+
+\medskip\noindent
+一般情形下，需要把
+(\ref{simplicial-equation-property-homotopy-cosimplicial})
+给出的关系转化为引理 \ref{simplicial-lemma-relations-homotopy} 中的关系。
+细节从略。
+
+\medskip\noindent
+最后一个断言形式地由 (1) 与 (2) 的等价性得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-functorial-homotopy}
+\begin{slogan}
+函子保持（余）单纯对象的同伦态射。
+\end{slogan}
+设 $\mathcal{C}, \mathcal{C}', \mathcal{D}, \mathcal{D}'$ 为范畴。
+术语如备注 \ref{simplicial-remark-homotopy-cosimplicial-better} 和
+\ref{simplicial-remark-homotopy-better} 所述。
+% P02-E0138: frozen source presents “With terminology as in ...” as a sentence fragment.
+\begin{enumerate}
+\item 设 $a, b : U \to V$ 为 $\mathcal{D}$ 中单纯对象的态射，
+$F : \mathcal{D} \to \mathcal{D}'$ 为协变函子。若 $a$ 与 $b$
+同伦，则 $F(a)$、$F(b)$ 是单纯对象之间同伦的态射
+$F(U) \to F(V)$。
+\item 设 $a, b : U \to V$ 为 $\mathcal{C}$ 中余单纯对象的态射，
+$F : \mathcal{C} \to \mathcal{C}'$ 为协变函子。若 $a$ 与 $b$
+同伦，则 $F(a)$、$F(b)$ 是余单纯对象之间同伦的态射
+$F(U) \to F(V)$。
+\item 设 $a, b : U \to V$ 为 $\mathcal{D}$ 中单纯对象的态射，
+$F : \mathcal{D} \to \mathcal{C}$ 为反变函子。若 $a$ 与 $b$
+同伦，则 $F(a)$、$F(b)$ 是余单纯对象之间同伦的态射
+$F(V) \to F(U)$。
+\item 设 $a, b : U \to V$ 为 $\mathcal{C}$ 中余单纯对象的态射，
+$F : \mathcal{C} \to \mathcal{D}$ 为反变函子。若 $a$ 与 $b$
+同伦，则 $F(a)$、$F(b)$ 是单纯对象之间同伦的态射
+$F(V) \to F(U)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由上面的引理 \ref{simplicial-lemma-compare-homotopies}，可以把 $F$
+变为一对范畴之间的协变函子，而只须证明函子保持同伦的映射对。
+这已在备注 \ref{simplicial-remark-homotopy-better} 中说明。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-push-outs-simplicial-object-w-section}
+设 $f : X \to Y$ 为有推出的范畴 $\mathcal{C}$ 中的态射，
+并假设存在态射 $s : Y \to X$，满足
+$s \circ f = \text{id}_X$。考虑例
+\ref{simplicial-example-push-outs-simplicial-object} 中从 $f$ 构造的
+余单纯对象 $U$。态射 $U \to U$ 在每个次数上都是
+$Y \amalg_X \ldots \amalg_X Y$ 的自映射，并且在每个因子上
+由 $f \circ s$ 给出；它同伦于 $U$ 上的恒等映射。
+特别地，$U$ 同伦等价于常值余单纯对象 $X$。
+\end{lemma}
+
+\begin{proof}
+本引理与引理
+\ref{simplicial-lemma-fibre-products-simplicial-object-w-section} 对偶。
+因此，它由引理 \ref{simplicial-lemma-compare-homotopies} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-homotopy-s-Q}
+\begin{slogan}
+（余单纯）Dold--Kan 函子把同伦映射映为同伦映射。
+\end{slogan}
+设 $\mathcal{A}$ 为加性范畴，$a, b : U \to V$ 为
+$\mathcal{A}$ 中余单纯对象的态射。若 $a$、$b$ 同伦，则
+$s(a), s(b) : s(U) \to s(V)$ 是上链复形的同伦映射。
+若进一步 $\mathcal{A}$ 为阿贝尔范畴，则
+$Q(a), Q(b) : Q(U) \to Q(V)$ 是上链复形的同伦映射。
+\end{lemma}
+
+\begin{proof}
+设 $(-)' : \mathcal{A} \to \mathcal{A}^{opp}$ 为反变函子
+$A \mapsto A$。根据引理
+\ref{simplicial-lemma-push-outs-simplicial-object-w-section}，
+映射 $a'$ 和 $b'$ 同伦。
+% P02-E0139: frozen proof cites the pushout-with-section lemma here, but homotopy transfer to opposite categories is established by lemma-compare-homotopies.
+由引理 \ref{simplicial-lemma-homotopy-s-N}，$s(a')$ 和 $s(b')$
+是链复形的同伦映射。由于 $s(a') = (s(a))'$ 且
+$s(b') = (s(b))'$，应用加性反变函子
+$(-)'' : \mathcal{A}^{opp} \to \mathcal{A}$ 可知
+$s(a)$ 和 $s(b)$ 也同伦。对 $Q$-复形的结论以相同方式得出，
+这里使用 $Q(U)' = N(U')$。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-homotopy-equivalence-s-Q}
+设 $\mathcal{A}$ 为加性范畴，$a : U \to V$ 为
+$\mathcal{A}$ 中余单纯对象的态射。若 $a$ 是同伦等价，则
+$s(a) : s(U) \to s(V)$ 是链复形的同伦等价。
+若进一步 $\mathcal{A}$ 为阿贝尔范畴，则
+$Q(a) : Q(U) \to Q(V)$ 也是链复形的同伦等价。
+% P02-E0140: frozen source calls both targets chain complexes although s(U) and Q(U) were defined here as cochain complexes.
+\end{lemma}
+
+\begin{proof}
+略。见上面的引理 \ref{simplicial-lemma-homotopy-s-Q}。
+\end{proof}
+
+
+
+
+\section{阿贝尔范畴中的更多同伦}
+\label{simplicial-section-backwards-homotopy}
+
+\noindent
+设 $\mathcal{A}$ 为阿贝尔范畴。本节将证明：
+$\text{Ch}_{\geq 0}(\mathcal{A})$ 中态射之间的同伦，
+总是来自单纯对象范畴中的态射 $U \times \Delta[1] \to V$。
+在某种意义下，这将给出引理 \ref{simplicial-lemma-homotopy-s-N} 的逆命题。
+先发展一些关于链复形态射之间同伦的材料。
+
+\begin{lemma}
+\label{simplicial-lemma-represent-homotopy}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为链复形。考虑协变函子
+$$
+B \longmapsto
+\{
+(a, b, h)
+\mid
+a, b : A \to B\text{ 且 }h\text{ 下列二者之间的同伦： }a, b
+\}
+$$
+存在链复形 $\diamond A$，使得
+$\Mor_{\text{Ch}(\mathcal{A})}(\diamond A, -)$
+同构于所显示的函子。构造 $A \mapsto \diamond A$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+令 $\diamond A_n = A_n \oplus A_n \oplus A_{n - 1}$，
+并以矩阵
+$$
+d_{\diamond A, n}
+=
+\left(
+\begin{matrix}
+d_{A, n} & 0 & \text{id}_{A_{n - 1}} \\
+0 & d_{A, n} & -\text{id}_{A_{n - 1}} \\
+0 & 0 & -d_{A, n - 1}
+\end{matrix}
+\right) :
+A_n \oplus A_n \oplus A_{n - 1} \to
+A_{n - 1} \oplus A_{n - 1} \oplus A_{n - 2}
+$$
+定义 $d_{\diamond A, n}$。若 $\mathcal{A}$ 是阿贝尔群范畴，
+且 $(x, y, z) \in A_n \oplus A_n \oplus A_{n - 1}$，则
+$d_{\diamond A, n}(x, y, z) =
+(d_n(x) + z, d_n(y) - z, -d_{n - 1}(z))$。
+容易验证 $d^2 = 0$。显然有两个映射
+$\diamond a, \diamond b : A \to \diamond A$
+（第一与第二直和分量），以及映射
+$\diamond A \to A[-1]$，它们给出逐项分裂的短正合序列
+$$
+0 \to
+A \oplus A \to
+\diamond A \to
+A[-1] \to
+0
+$$
+。此外，有一列映射
+$\diamond h_n : A_n \to \diamond A_{n + 1}$，
+即从 $A_n$ 到 $\diamond A_{n + 1}$ 的分量 $A_n$ 的恒等映射，
+使得 $\diamond h$ 是 $\diamond a$ 与 $\diamond b$ 之间的同伦。
+
+\medskip\noindent
+由此，任意态射 $f : \diamond A \to B$ 都通过令
+$a = f \circ \diamond a$、$b = f \circ \diamond b$ 以及
+$h_n = f_{n + 1} \circ \diamond h_n$ 给出三元组 $(a, b, h)$。
+反之，给定三元组 $(a, b, h)$，取
+$$
+f_n = (a_n, b_n, h_{n - 1}).
+$$
+即可得到态射 $f : \diamond A \to B$。
+要看出这是链复形的态射，需要作一次计算。这里只在
+$\mathcal{A}$ 为阿贝尔群范畴的情形下计算：
+设 $(x, y, z) \in \diamond A_n = A_n \oplus A_n \oplus A_{n - 1}$。
+则
+\begin{eqnarray*}
+f_{n - 1}(d_n(x, y, z)) & = &
+f_{n - 1}(d_n(x) + z, d_n(y) - z, -d_{n - 1}(z)) \\
+& = &
+a_n(d_n(x)) + a_n(z) + b_n(d_n(y)) - b_n(z) - h_{n - 2}(d_{n - 1}(z))
+\end{eqnarray*}
+% P02-E0141: frozen calculation uses degree-n components a_n and b_n on degree-(n-1) inputs.
+以及
+\begin{eqnarray*}
+d_n(f_n(x, y, z) & = &
+% P02-E0142: frozen display leaves the parenthesis in d_n(f_n(x,y,z) unclosed.
+d_n(a_n(x) + b_n(y) + h_{n - 1}(z)) \\
+& = &
+d_n(a_n(x)) + d_n(b_n(y)) + d_n(h_{n - 1}(z))
+\end{eqnarray*}
+根据同伦的定义，二者相同。
+\end{proof}
+
+\noindent
+注意，扩张
+$$
+0 \to
+A \oplus A \to
+\diamond A \to
+A[-1] \to
+0
+$$
+配有态射 $\diamond A_n \to A[-1]_n$ 的截面，并且相应的态射
+$\delta : A[-1] \to (A \oplus A)[-1]$（见《同调代数》引理
+\ref{homology-lemma-ses-termwise-split}）等于态射
+$(1, -1) : A[-1] \to A[-1] \oplus A[-1]$。
+
+\begin{lemma}
+\label{simplicial-lemma-map-into-diamond}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$$
+0 \to A \oplus A \to B \to C \to 0
+$$
+为 $\mathcal{A}$ 中链复形的短正合序列。进一步假设给定态射
+$s_n : C_n \to B_n$，它们在次数 $n$ 上分裂相应的短正合序列。
+设 $\delta(s) : C \to (A \oplus A)[-1] = A[-1] \oplus A[-1]$
+为相应的复形态射；见《同调代数》引理
+\ref{homology-lemma-ses-termwise-split}。若 $\delta(s)$ 经态射
+$(1, -1) : A[-1] \to A[-1] \oplus A[-1]$ 分解，则存在唯一态射
+$B \to \diamond A$，使其嵌入交换图
+$$
+\xymatrix{
+0 \ar[r] &
+A \oplus A \ar[d] \ar[r] &
+B \ar[r] \ar[d] &
+C \ar[d] \ar[r] &
+0 \\
+0 \ar[r] &
+A \oplus A \ar[r] &
+\diamond A \ar[r] &
+A[-1] \ar[r] &
+0
+}
+$$
+，其中竖直映射也分别与截面 $s_n$ 及
+$\diamond A_n \to A[-1]_n$ 的截面相容。
+\end{lemma}
+
+\begin{proof}
+以 $(p_n, q_n) : B_n \to A_n \oplus A_n$ 表示《同调代数》引理
+\ref{homology-lemma-ses-termwise-split} 中的态射 $\pi_n$。
+又将短正合序列中的映射写成
+$(a, b) : A \oplus A \to B$ 和 $r : B \to C$。
+把 $\delta(s)$ 的分解写成
+$\delta(s) = (1, -1) \circ f$。这意味着
+$p_{n - 1} \circ d_{B, n} \circ s_n = f_n$，并且
+$q_{n - 1} \circ d_{B, n} \circ s_n = - f_n$，并且
+% P02-E0143: frozen source leaves a dangling “and” before the imperative “Set”.
+令 $B_n \to \diamond A_n = A_n \oplus A_n \oplus A_{n - 1}$
+等于 $(p_n, q_n, f_n \circ r_n)$。
+
+\medskip\noindent
+现在必须检验这确实定义了复形态射。这里只在阿贝尔群情形下验证。
+取 $x \in B_n$。则
+$x = a_n(x_1) + b_n(x_2) + s_n(x_3)$，并且只须分别对每一项证明
+我们的定义与微分交换。对于项 $a_n(x_1)$，有
+$(p_n, q_n, f_n \circ r_n)(a_n(x_1)) = (x_1, 0, 0)$，
+结论显然。项 $b_n(x_2)$ 的情形类似。对于项 $s_n(x_3)$，有
+\begin{eqnarray*}
+(p_n, q_n, f_n \circ r_n)(d_n(s_n(x_3))) & = &
+(p_n, q_n, f_n \circ r_n)( \\
+& & \ \ \ \ \ a_n(f_n(x_3)) - b_n(f_n(x_3)) + s_n(d_n(x_3))) \\
+& = &
+(f_n(x_3), -f_n(x_3), f_n(d_n(x_3)))
+\end{eqnarray*}
+% P02-E0144: frozen first calculation applies degree-n projections to d_n(s_n(x_3)), which lies in degree n-1.
+，这是由 $f_n$ 的定义得到的。另一方面，
+\begin{eqnarray*}
+d_n(p_n, q_n, f_n \circ r_n)(s_n(x_3)) & = & d_n(0, 0, f_n(x_3)) \\
+& = &
+(f_n(x_3), - f_n(x_3), d_{A[-1], n}(f_n(x_3)))
+\end{eqnarray*}
+由于 $f$ 是复形态射，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-backwards-homotopy}
+设 $\mathcal{A}$ 为阿贝尔范畴，$U$、$V$ 为 $\mathcal{A}$
+的单纯对象，$a, b : U \to V$ 为一对态射。假设相应的链复形映射
+$N(a), N(b) : N(U) \to N(V)$ 通过同伦
+$\{N_n : N(U)_n \to N(V)_{n + 1}\}$ 同伦。
+则存在定义 \ref{simplicial-definition-homotopy} 意义下从 $a$ 到 $b$
+的同伦。此外，可以选取同伦
+$h : U \times \Delta[1] \to V$，使得
+$N_n = N(h)_n$，其中 $N(h)$ 是按第
+\ref{simplicial-section-homotopy-abelian} 节从 $h$ 得到的同伦。
+\end{lemma}
+
+\begin{proof}
+设 $(\diamond N(U), \diamond a, \diamond b, \diamond h)$
+如引理 \ref{simplicial-lemma-represent-homotopy} 及其证明中所述。
+由该引理，存在表示三元组 $(N(a), N(b), \{N_n\})$ 的态射
+$\diamond N(U) \to N(V)$。下面证明存在态射
+$\psi : N(U \times \Delta[1]) \to \diamond{N(U)}$，
+使得 $\diamond a = \psi \circ N(e_0)$ 且
+$\diamond b = \psi \circ N(e_1)$。还将证明：
+由 (\ref{simplicial-equation-homotopy-to-homotopy}) 及引理
+\ref{simplicial-lemma-homotopy-s-N}，取
+$h = \text{id}_{U \times \Delta[1]}$ 得到的
+$N(e_0), N(e_1) :
+N(U) \to N(U \times \Delta[1])$ 之间的同伦，经 $\psi$
+映到映射
+$\diamond a, \diamond b : N(U) \to \diamond{N(U)}$
+之间的典范同伦 $\diamond h$。这当然蕴含引理。
+
+\medskip\noindent
+注意，作为函子，
+$N : \text{Simp}(\mathcal{A}) \to \text{Ch}_{\geq 0}(\mathcal{A})$
+是函子
+$s : \text{Simp}(\mathcal{A}) \to \text{Ch}_{\geq 0}(\mathcal{A})$
+的直和分量。并且函子 $\diamond$ 与直和相容。
+因此，只须改为构造具有相应性质的态射
+$\Psi : s(U \times \Delta[1]) \to \diamond{s(U)}$。
+下面正是这一构造。
+
+\medskip\noindent
+由定义 \ref{simplicial-definition-homotopy}，态射
+$e_0 : U \to U \times \Delta[1]$ 与
+$e_1 : U \to U \times \Delta[1]$
+通过同伦 $\text{id}_{U \times \Delta[1]}$ 同伦。
+由引理 \ref{simplicial-lemma-homotopy-s-N}，得到链复形态射
+$s(e_0) : s(U) \to s(U \times \Delta[1])$ 与
+$s(e_1) : s(U) \to s(U \times \Delta[1])$ 之间的显式同伦
+$\{h_n : s(U)_n \to s(U \times \Delta[1])_{n + 1}\}$。
+由上面的引理 \ref{simplicial-lemma-map-into-diamond}，得到相应态射
+$$
+\Phi : \diamond{s(U)} \to s(U \times \Delta[1])
+$$
+根据构造，$\Phi_n$ 在 $\diamond{s(U)}_n$ 的分量
+$s(U)[-1]_n = s(U)_{n - 1}$ 上的限制等于 $h_{n - 1}$。并且
+$$
+h_{n - 1} = \sum\nolimits_{i = 0}^{n - 1}
+(-1)^{i + 1} s^n_i \cdot \alpha^n_{i + 1} :
+U_{n - 1} \to \bigoplus\nolimits_j U_n \cdot \alpha^n_j.
+$$
+% P02-E0145: frozen formula uses s_i^n on U_{n-1}; the degeneracy with this source degree is s_i^{n-1}.
+这里采用显然的记号。
+
+\medskip\noindent
+另一方面，态射 $e_i : U \to U \times \Delta[1]$ 诱导态射
+$(e_0, e_1) : U \oplus U \to U \times \Delta[1]$。
+以 $W$ 表示余核。注意，若写成
+$(U \times \Delta[1])_n =
+\bigoplus_{\alpha : [n] \to [1]} U_n \cdot \alpha$，
+则可以把
+$W_n = \bigoplus_{i = 1}^n U_n \cdot \alpha^n_i$
+作如第 \ref{simplicial-section-homotopy} 节中的 $\alpha^n_i$ 那样的识别。
+有交换图
+$$
+\xymatrix{
+0 \ar[r] &
+U \oplus U \ar[rd]_{(1, 1)} \ar[r] &
+U \times \Delta[1] \ar[d]^\pi \ar[r] &
+W \ar[r] &
+0 \\
+& & U & &
+}
+$$
+这意味着应用函子 $s$ 后有类似的交换图。然后选取分裂
+$\sigma_n : s(W)_n \to s(U \times \Delta[1])_n$：
+通过 $(-1, 1)$，把分量 $U_n \cdot \alpha^n_i \subset W_n$
+映到分量
+$U_n \cdot \alpha^n_0 \oplus U_n \cdot \alpha^n_i
+\subset (U \times \Delta[1])_n$。
+注意 $s(\pi)_n \circ \sigma_n = 0$，从而
+$(1, 1) \circ \delta(\sigma)_n = 0$。因此
+$\delta(\sigma)$ 如引理 \ref{simplicial-lemma-map-into-diamond} 中那样分解。
+由该引理，得到典范态射
+$\Psi : s(U \times \Delta[1]) \to \diamond{s(U)}$。
+
+\medskip\noindent
+为了计算 $\Psi$，先计算态射
+$\delta(\sigma) : s(W) \to s(U)[-1] \oplus s(U)[-1]$。
+根据《同调代数》引理
+\ref{homology-lemma-ses-termwise-split} 及其证明，
+为此必须计算
+% P02-E0146: frozen source has “we have compute”, omitting “to”.
+$$
+d_{s(U \times \delta[1]), n} \circ \sigma_n
+-
+\sigma_{n - 1} \circ d_{s(W), n}
+$$
+% P02-E0147: frozen source writes lowercase \delta[1] in three places where the simplicial interval is \Delta[1].
+并把它写成到
+$U_{n - 1} \cdot \alpha^{n - 1}_0
+\oplus U_{n - 1} \cdot \alpha^{n - 1}_n$ 的态射。
+这里只在 $\mathcal{A}$ 是阿贝尔群范畴的情形下计算。
+采用简写 $x_{\alpha}$：对 $x \in U_n$，以它表示
+$(U \times \Delta[1])_n$ 的分量
+$U_n \cdot \alpha$ 中的元素 $x$。回顾
+$$
+d_{s(U \times \delta[1]), n}
+=
+\sum\nolimits_{i = 0}^n (-1)^i d^n_i
+$$
+其中 $d^n_i$ 通过单纯对象 $U$ 的态射 $d^n_i$，
+把分量 $U_n \cdot \alpha$ 映到分量
+$U_{n - 1} \cdot (\alpha \circ \delta^n_i)$。
+用上述记号，这意味着
+$$
+d_{s(U \times \delta[1]), n}(x_\alpha) =
+\sum\nolimits_{i = 0}^n (-1)^i (d^n_i(x))_{\alpha \circ \delta^n_i}
+$$
+从 $x_\alpha \in W_n$ 出发，换言之，对某个
+$j \in \{1, \ldots, n\}$ 有 $\alpha = \alpha^n_j$，
+可见 $\sigma_n(x_\alpha) = x_\alpha - x_{\alpha^n_0}$，因而
+$$
+(d_{s(U \times \delta[1]), n} \circ \sigma_n)(x_\alpha)
+=
+\sum\nolimits_{i = 0}^n (-1)^i (d^n_i(x))_{\alpha \circ \delta^n_i}
+-
+\sum\nolimits_{i = 0}^n (-1)^i (d^n_i(x))_{\alpha^n_0 \circ \delta^n_i}
+$$
+为了计算 $d_{s(W), n}(x_\alpha)$，必须删去所有满足
+$\alpha \circ \delta^n_i = \alpha^{n - 1}_0, \alpha^{n - 1}_n$
+的项。因此得到
+$$
+\begin{matrix}
+(\sigma_{n - 1} \circ d_{s(W), n})(x_\alpha) = \\
+\sum\nolimits_{i = 0, \ldots, n\text{ 且 }
+\alpha \circ \delta^n_i \not = \alpha^{n - 1}_0\text{ 或 }\alpha^{n - 1}_n}
+\Big((-1)^i (d^n_i(x))_{\alpha \circ \delta^n_i}
+-
+(-1)^i (d^n_i(x))_{\alpha^{n - 1}_0}
+\Big)
+\end{matrix}
+$$
+% P02-E0148: frozen exclusion predicate uses “not equal A or B”, which is logically nonrestrictive; excluding both boundary values requires conjunction.
+显然，两项之差是和
+$$
+\sum\nolimits_{i = 0, \ldots, n\text{ 且 }
+\alpha \circ \delta^n_i = \alpha^{n - 1}_0\text{ 或 }\alpha^{n - 1}_n}
+\Big((-1)^i (d^n_i(x))_{\alpha \circ \delta^n_i}
+-
+(-1)^i (d^n_i(x))_{\alpha^{n - 1}_0}
+\Big)
+$$
+当然，若 $\alpha \circ \delta^n_i = \alpha^{n - 1}_0$，
+则该项消失。回顾对某个 $j \in \{1, \ldots, n\}$，
+有 $\alpha = \alpha^n_j$。等式
+$\alpha^n_j \circ \delta^n_i = \alpha^{n - 1}_n$
+成立的唯一可能是 $j = n$ 且 $i = n$。因此，除非
+$j = n$，实际所得为 $0$；在该情形下得到
+$(-1)^n(d^n_n(x))_{\alpha^{n - 1}_n}
+- (-1)^n(d^n_n(x))_{\alpha^{n - 1}_0}$。
+换言之，态射
+$$
+\delta(\sigma)_n :
+W_n
+\to
+(s(U)[-1] \oplus s(U)[-1])_n = U_{n - 1} \oplus U_{n - 1}
+$$
+在除 $U_n \cdot \alpha^n_n$ 以外的所有分量上为零，
+而在该分量上等于
+$((-1)^nd^n_n, -(-1)^nd^n_n)$。
+（也就是说，两个分量中的第一个对应于
+$\alpha^{n - 1}_n$ 所在的因子，因为这是把所有元素映到 $0$
+的映射 $[n - 1] \to [1]$，因而对应于 $e_0$。）
+
+\medskip\noindent
+得到典范图
+$$
+\xymatrix{
+0 \ar[r] &
+s(U) \oplus s(U) \ar[r] \ar[d] &
+\diamond{s(U)} \ar[r] \ar[d]^{\Phi}&
+s(U)[-1] \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+s(U) \oplus s(U) \ar[r] \ar[d] &
+s(U \times \Delta[1]) \ar[r] \ar[d]^\Psi &
+s(W) \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+s(U) \oplus s(U) \ar[r] &
+\diamond{s(U)} \ar[r] &
+s(U)[-1] \ar[r] &
+0
+}
+$$
+断言 $\Phi \circ \Psi$ 是恒等映射。为此，只须证明
+$\Phi$ 与 $\delta(\sigma)$ 的复合，作为映射
+$s(U)[-1] \to s(W) \to s(U)[-1] \oplus s(U)[-1]$，
+在第一个因子上是恒等映射，在第二个因子上是负恒等映射。
+根据上面的计算，它是
+$((-1)^nd^n_0, -(-1)^nd^n_0) \circ (-1)^n s^n_n = (1, -1)$，
+% P02-E0149: frozen final composition uses d_0^n after the preceding computation produced d_n^n; its displayed degrees are also not composable with s_n^n.
+正如所需。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{平凡 Kan 纤维化}
+\label{simplicial-section-trivial-kan}
+
+\noindent
+回顾当 $n \geq 0$ 时，单纯集 $\Delta[n]$ 由规则
+$[k] \mapsto \Mor_\Delta([k], [n])$ 给出；见例
+\ref{simplicial-example-simplex-simplicial-set}。回顾 $\Delta[n]$ 有唯一的
+非退化 $n$-单形，并且所有非退化单形都是这个 $n$-单形的面。
+事实上，$\Delta[n]$ 的非退化单形恰好对应于单射
+$[k] \to [n]$，可以把它们与 $[n]$ 的子集等同起来。
+此外，回顾对任意单纯集 $X$，有
+$\Mor(\Delta[n], X) = X_n$（引理 \ref{simplicial-lemma-simplex-map}）。
+令
+$$
+\partial \Delta[n] = i_{(n - 1)!}\text{sk}_{n - 1}\Delta[n]
+$$
+并称它为 $\Delta[n]$ 的 {\it 边界}。
+由引理 \ref{simplicial-lemma-n-skeleton-sets} 可知，
+$\partial \Delta[n] \subset \Delta[n]$ 是这样的单纯子集：
+它在次数 $\leq n - 1$ 中具有相同的非退化单形，
+但不含那个非退化 $n$-单形。
+
+\begin{definition}
+\label{simplicial-definition-trivial-kan}
+若单纯集映射 $X \to Y$ 满足 $X_0 \to Y_0$ 为满射，并且对所有
+$n \geq 1$ 及任意交换实线图
+$$
+\xymatrix{
+\partial \Delta[n] \ar[r] \ar[d] & X \ar[d] \\
+\Delta[n] \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+都存在使图交换的虚线箭头，则称它为 {\it 平凡 Kan 纤维化}。
+\end{definition}
+
+\noindent
+平凡 Kan 纤维化满足一种非常一般的提升性质。
+
+\begin{lemma}
+\label{simplicial-lemma-trivial-kan}
+设 $f : X \to Y$ 为单纯集的平凡 Kan 纤维化。
+对任意单纯集交换实线图
+$$
+\xymatrix{
+Z \ar[r]_b \ar[d] & X \ar[d] \\
+W \ar[r]^a \ar@{-->}[ru] & Y
+}
+$$
+，若 $Z \to W$（逐项）为单射，则存在使图交换的虚线箭头。
+\end{lemma}
+
+\begin{proof}
+假设 $Z \not = W$。设 $n$ 为满足 $Z_n \not = W_n$
+的最小整数。取 $x \in W_n$，且 $x \not \in Z_n$。
+以 $Z' \subset W$ 表示包含 $Z$、$x$ 以及 $x$ 的所有退化的
+单纯子集。设 $\varphi : \Delta[n] \to Z'$ 为与 $x$
+对应的态射（引理 \ref{simplicial-lemma-simplex-map}）。
+由于 $\partial \Delta[n]$ 的所有非退化单形都映入 $Z$，
+$\varphi|_{\partial \Delta[n]}$ 映入 $Z$。
+由假设，可将 $b \circ \varphi|_{\partial \Delta[n]}$
+延拓为 $\beta : \Delta[n] \to X$。
+由引理 \ref{simplicial-lemma-glue-simplex}，单纯集 $Z'$ 是
+$\Delta[n]$ 与 $Z$ 沿 $\partial \Delta[n]$ 的推出。
+因此 $b$ 和 $\beta$ 定义态射 $b' : Z' \to X$。
+换言之，我们已把态射 $b$ 延拓到 $Z$ 的一个更大单纯子集。
+% P02-E0150: frozen source says the larger simplicial subset is “of Z”, although Z' strictly contains Z and is a subset of W.
+
+\medskip\noindent
+应用 Zorn 引理即可完成证明（从略）。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-trivial-kan-base-change}
+设 $f : X \to Y$ 为单纯集的平凡 Kan 纤维化，并设
+$Y' \to Y$ 为单纯集态射。则
+$X \times_Y Y' \to Y'$ 是平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+这立即由纤维积的函子性（引理 \ref{simplicial-lemma-fibre-product}）和定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-trivial-kan-composition}
+两个平凡 Kan 纤维化的复合仍是平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-limit-trivial-kan}
+设 $\ldots \to U^2 \to U^1 \to U^0$ 为一列平凡 Kan 纤维化。
+令 $U = \lim U^t$，其定义为逐项取 $U_n = \lim U_n^t$。
+则 $U \to U^0$ 是平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。提示：使用集合的可数满射序列之逆极限非空这一事实。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-product-trivial-kan}
+\begin{slogan}
+平凡 Kan 纤维化的积仍是平凡 Kan 纤维化。
+\end{slogan}
+设 $X_i \to Y_i$ 为一族平凡 Kan 纤维化。则
+$\prod X_i \to \prod Y_i$ 是平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-filtered-colimit-trivial-kan}
+平凡 Kan 纤维化的滤过余极限仍是平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。提示：见《范畴论》第
+\ref{categories-section-directed-colimits} 节中集合的滤过余极限之描述。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-trivial-kan-homotopy}
+设 $f : X \to Y$ 为单纯集的平凡 Kan 纤维化。
+则 $f$ 是同伦等价。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{simplicial-lemma-trivial-kan}，可以选取 $f$ 的右逆
+$g : Y \to X$。
+% P02-E0151: frozen source says “an right inverse”.
+考虑图
+$$
+\xymatrix{
+\partial \Delta[1] \times X \ar[d] \ar[r] & X \ar[d] \\
+\Delta[1] \times X \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+这里，上方水平箭头由 $\text{id}_X$ 和 $g \circ f$ 给出；
+使用了对所有 $n \geq 0$ 都有
+$(\partial \Delta[1] \times X)_n = X_n \amalg X_n$。
+下方水平箭头由映射 $\Delta[1] \to \Delta[0]$ 和
+$f : X \to Y$ 给出。由于 $f \circ g \circ f = f$，该图交换。
+由引理 \ref{simplicial-lemma-trivial-kan} 可以填入虚线箭头，结论即得。
+\end{proof}
+
+
+
+
+
+\section{Kan 纤维化}
+\label{simplicial-section-kan}
+
+\noindent
+设 $n$、$k$ 为满足 $0 \leq k \leq n$ 且 $1 \leq n$ 的整数。
+令 $\sigma_0, \ldots, \sigma_n$ 为 $\Delta[n]$ 的唯一非退化
+$n$-单形 $\sigma$ 的 $n + 1$ 个面，即
+$\sigma_i = d_i\sigma$。令
+$$
+\Lambda_k[n] \subset \Delta[n]
+$$
+为 $n$-单形 $\Delta[n]$ 的 {\it 第 $k$ 个角}。
+它是由 $\sigma_0, \ldots, \hat \sigma_k, \ldots, \sigma_n$
+生成的 $\Delta[n]$ 的单纯子集。换言之，所显示包含的像含有
+$\Delta[n]$ 的所有非退化单形，唯独不含 $\sigma$ 和 $\sigma_k$。
+
+\begin{definition}
+\label{simplicial-definition-kan}
+若单纯集映射 $X \to Y$ 满足：对所有整数 $k, n$，其中
+$1 \leq n$、$0 \leq k \leq n$，以及任意交换实线图
+$$
+\xymatrix{
+\Lambda_k[n] \ar[r] \ar[d] & X \ar[d] \\
+\Delta[n] \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+都存在使图交换的虚线箭头，则称它为 {\it Kan 纤维化}。
+若单纯集 $X$ 到单点集上的常值单纯集 $*$ 的映射
+$X \to *$ 为 Kan 纤维化，则称它为 {\it Kan 复形}。
+\end{definition}
+
+\noindent
+注意，$\Lambda_k[n]$ 总是非空的。因此，从空单纯集到任意单纯集
+的态射总是 Kan 纤维化。由引理 \ref{simplicial-lemma-trivial-kan} 可知，
+平凡 Kan 纤维化是 Kan 纤维化。
+
+\begin{lemma}
+\label{simplicial-lemma-kan-base-change}
+设 $f : X \to Y$ 为单纯集的 Kan 纤维化，并设
+$Y' \to Y$ 为单纯集态射。则
+$X \times_Y Y' \to Y'$ 是 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+这立即由纤维积的函子性（引理 \ref{simplicial-lemma-fibre-product}）和定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-kan-composition}
+两个 Kan 纤维化的复合仍是 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-limit-kan}
+设 $\ldots \to U^2 \to U^1 \to U^0$ 为一列 Kan 纤维化。
+令 $U = \lim U^t$，其定义为逐项取 $U_n = \lim U_n^t$。
+则 $U \to U^0$ 是 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。提示：使用集合的可数满射序列之逆极限非空这一事实。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-product-kan}
+设 $X_i \to Y_i$ 为一族 Kan 纤维化。则
+$\prod X_i \to \prod Y_i$ 是 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+下面的引理由 J.C.\ Moore 给出，见 \cite{Moore-Cartan}。
+
+\begin{lemma}
+\label{simplicial-lemma-simplicial-group-kan}
+设 $X$ 为单纯群。则 $X$ 是 Kan 复形。
+\end{lemma}
+
+\begin{proof}
+下面的证明基本上只是把上述参考文献中的证明译成英语。
+% The frozen English source explicitly characterizes this proof as an English translation.
+使用本节引言中说明的术语，设
+$f : \Lambda_k[n] \to X$ 为从一个角出发的态射。
+对 $i = 0, \ldots, \hat k, \ldots, n$，令
+$x_i = f(\sigma_i) \in X_{n - 1}$。这意味着，当 $i < j$
+且 $i, j \not = k$ 时，有 $d_i x_j = d_{j - 1} x_i$。
+必须找到 $x \in X_n$，使得对
+$i = 0, \ldots, \hat k, \ldots, n$，有 $x_i = d_ix$。
+
+\medskip\noindent
+先证明存在 $u \in X_n$，使得对 $i < k$ 有 $d_i u = x_i$。
+当 $k = 0$ 时这是平凡的。若 $k > 0$，则归纳定义
+$u^r \in X_n$，使得对 $0 \leq i \leq r$ 有
+$d_i u^r = x_i$。从 $u^0 = s_0x_0$ 开始。若 $r < k - 1$，令
+$$
+y^r = s_{r + 1}((d_{r + 1}u^r)^{-1}x_{r + 1}),\quad
+u^{r + 1} = u^r y^r.
+$$
+简单计算表明，当 $i \leq r$ 时，$d_iy^r = 1$
+（群 $X_{n - 1}$ 的单位元），且
+$d_{r + 1}y^r = (d_{r + 1}u^r)^{-1}x_{r + 1}$。
+因此，当 $i \leq r + 1$ 时，$d_iu^{r + 1} = x_i$。
+最后取 $u = u^{k - 1}$，得到所需的 $u$。
+
+\medskip\noindent
+接着对整数 $r$ 归纳证明：当 $0 \leq r \leq n - k$ 时，
+存在 $x^r \in X_n$，使得
+% P02-E0152: frozen source says “there exists a x^r”.
+$$
+d_i x^r = x_i\quad\text{对 }i < k\text{ 且 }i > n - r.
+$$
+当 $r = 0$ 时，从 $x^0 = u$ 开始。若已对
+$r \leq n - k - 1$ 定义了 $x^r$，令
+$$
+z^r = s_{n - r - 1}((d_{n - r}x^r)^{-1}x_{n - r}),\quad x^{r + 1} = x^rz^r
+$$
+利用给定关系作简单计算，可知当 $i < k$ 及 $i > n - r$
+时 $d_iz^r = 1$，并且
+$d_{n - r}(z^r) = (d_{n - r}x^r)^{-1}x_{n - r}$。
+从而当 $i < k$ 及 $i > n - r - 1$ 时，
+$d_ix^{r + 1} = x_i$。最后取 $x = x^{n - k}$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-surjection-simplicial-abelian-groups-kan}
+设 $f : X \to Y$ 为逐项满射的单纯阿贝尔群同态。
+则 $f$ 是单纯集的 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+考虑定义 \ref{simplicial-definition-kan} 中的交换实线图
+$$
+\xymatrix{
+\Lambda_k[n] \ar[r]_a \ar[d] & X \ar[d] \\
+\Delta[n] \ar[r]^b \ar@{-->}[ru] & Y
+}
+$$
+映射 $a$ 对应于满足
+$d_i x_j = d_{j - 1} x_i$（当 $i < j$ 且 $i, j \not = k$）
+的元素
+$x_0, \ldots, \hat x_k, \ldots, x_n \in X_{n - 1}$。
+映射 $b$ 对应于元素 $y \in Y_n$，使得当 $i \not = k$
+时 $d_iy = f(x_i)$。任务是构造 $x \in X_n$，
+使得当 $i \not = k$ 时 $d_ix = x_i$，且 $f(x) = y$。
+
+\medskip\noindent
+由于 $f$ 逐项满射，可取 $x \in X_n$ 使得 $f(x) = y$。
+以 $0 = y - f(x)$ 代替 $y$，并对 $i \not = k$，
+以 $x_i - d_ix$ 代替 $x_i$。于是可以假设 $y = 0$。
+特别地，$f(x_i) = 0$。换言之，可以把 $X$ 替换为
+$\Ker(f) \subset X$，并把 $Y$ 替换为 $0$。
+在这种情形下，该陈述化为引理
+\ref{simplicial-lemma-simplicial-group-kan}。
+% P02-E0153: frozen source says “the statement become”.
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-qis-simplicial-abelian-groups}
+设 $f : X \to Y$ 为逐项满射的单纯阿贝尔群同态，并且在伴随链复形上
+诱导拟同构。则 $f$ 是单纯集的平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+考虑定义 \ref{simplicial-definition-trivial-kan} 中的交换实线图
+$$
+\xymatrix{
+\partial \Delta[n] \ar[r]_a \ar[d] & X \ar[d] \\
+\Delta[n] \ar[r]^b \ar@{-->}[ru] & Y
+}
+$$
+映射 $a$ 对应于满足当 $i < j$ 时
+$d_i x_j = d_{j - 1} x_i$ 的元素
+$x_0, \ldots, x_n \in X_{n - 1}$。
+映射 $b$ 对应于元素 $y \in Y_n$，使得 $d_iy = f(x_i)$。
+任务是构造 $x \in X_n$，使得 $d_ix = x_i$ 且 $f(x) = y$。
+
+\medskip\noindent
+由于 $f$ 逐项满射，可取 $x \in X_n$ 使得 $f(x) = y$。
+以 $0 = y - f(x)$ 代替 $y$，并以 $x_i - d_ix$ 代替 $x_i$。
+于是可以假设 $y = 0$。特别地，$f(x_i) = 0$。
+换言之，可以把 $X$ 替换为 $\Ker(f) \subset X$，
+并把 $Y$ 替换为 $0$。这是可行的，因为由《同调代数》引理
+\ref{homology-lemma-long-exact-sequence-chain}，
+$\Ker(f)$ 的伴随链复形之同调为零，因此
+$\Ker(f) \to 0$ 在伴随链复形上诱导拟同构。
+
+\medskip\noindent
+由于 $X$ 是 Kan 复形（引理 \ref{simplicial-lemma-simplicial-group-kan}），
+可取 $x \in X_n$，使得对 $i = 0, \ldots, n - 1$ 有
+$d_i x = x_i$。对 $i = 0, \ldots, n$，以
+$x_i - d_ix$ 代替 $x_i$ 后，可以假设
+$x_0 = x_1 = \ldots = x_{n - 1} = 0$。
+此时可见，当 $i = 0, \ldots, n - 1$ 时，$d_i x_n = 0$。
+因此 $x_n \in N(X)_{n - 1}$，并属于微分
+$N(X)_{n - 1} \to N(X)_{n - 2}$ 的核。
+这里 $N(X)$ 是与 $X$ 伴随的规范化链复形，见第
+\ref{simplicial-section-complexes} 节。由于 $N(X)$ 拟同构于 $s(X)$
+（引理 \ref{simplicial-lemma-quasi-isomorphism}），因而是零调的，
+可取 $x \in N(X_n)$，其微分为 $x_n$。
+% P02-E0154: frozen source writes N(X_n) although the normalized complex term is N(X)_n (equivalently N(X_n) is not defined by this notation).
+这个 $x$ 回答了引理提出的问题，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-homotopy-equivalence}
+设 $f : X \to Y$ 为单纯阿贝尔群的映射。若 $f$ 是单纯集的同伦等价，
+则 $f$ 在伴随链复形上诱导拟同构。
+\end{lemma}
+
+\begin{proof}
+在本证明中，当 $Z$ 是单纯阿贝尔群时，记
+$H_n(Z) = H_n(s(Z)) = H_n(N(Z))$，其中 $s$ 与 $N$
+如第 \ref{simplicial-section-complexes} 节所述。
+以 $\mathbf{Z}[X]$ 表示把 $X$ 视为单纯集后生成的自由阿贝尔群，
+$\mathbf{Z}[Y]$ 亦然。考虑单纯阿贝尔群的交换图
+$$
+\xymatrix{
+\mathbf{Z}[X] \ar[r]_g \ar[d] &
+\mathbf{Z}[Y] \ar[d] \\
+X \ar[r]^f & Y
+}
+$$
+由于在集合上取自由阿贝尔群是函子，水平箭头是单纯阿贝尔群的
+同伦等价；见引理 \ref{simplicial-lemma-functorial-homotopy}。
+由引理 \ref{simplicial-lemma-homotopy-equivalence-s-N}，对所有
+$n \geq 0$，映射
+$H_n(g) : H_n(\mathbf{Z}[X]) \to H_n(\mathbf{Z}[Y])$ 都是双射。
+
+\medskip\noindent
+设 $\xi \in H_n(Y)$。根据 $N(Y)$ 的定义，可以用边界为零的元素
+$y \in N(Y_n)$ 表示 $\xi$。这意味着 $y \in Y_n$，并且
+$d^n_0(y) = \ldots = d^n_{n - 1}(y) = 0$，因为
+$y \in N(Y_n)$；并且 $d^n_n(y) = 0$，因为 $y$ 的边界为零。
+以 $0_n \in Y_n$ 表示零元。则
+$$
+\tilde y = [y] - [0_n] \in (\mathbf{Z}[Y])_n
+$$
+满足 $d^n_0(\tilde y) = \ldots = d^n_{n - 1}(\tilde y) = 0$
+以及 $d^n_n(\tilde y) = 0$。因此，$\tilde y$ 属于
+$N(\mathbf{Z}[Y])_n$，其边界为 $0$；也就是说，
+$\tilde y$ 决定一个映到 $\xi$ 的类
+$\tilde \xi \in H_n(\mathbf{Z}[Y])$。
+% P02-E0155: frozen source joins “is in ... has boundary 0” without “and”.
+因为 $H_n(\mathbf{Z}[X]) \to H_n(\mathbf{Z}[Y])$ 是双射，
+可以把 $\tilde \xi$ 提升为 $H_n(\mathbf{Z}[X])$ 中的一个类。
+由上面的交换图可知，$\xi$ 属于 $H_n(X) \to H_n(Y)$ 的像。
+
+\medskip\noindent
+设 $\xi \in H_n(X)$ 映为 $H_n(Y)$ 中的零。
+与上一段完全一样，可以用边界为零的元素
+$x \in N(X_n)$ 表示 $\xi$，即
+$d^n_0(x) = \ldots = d^n_{n - 1}(x) = d^n_n(x) = 0$。
+% P02-E0156: frozen source misspells “paragraph” as “parapgraph”.
+特别地，$[x] - [0_n]$ 是 $N(\mathbf{Z}[X])_n$ 中边界为零的元素，
+从而定义 $\xi$ 的提升
+$\tilde \xi \in H_n(\mathbf{Z}[x])$。
+% P02-E0157: frozen source uses lowercase x in \mathbf{Z}[x] instead of the simplicial set X.
+$\xi$ 映为 $H_n(Y)$ 中的零意味着存在
+$y \in N(Y_{n + 1})$，其边界为 $f_n(x)$。
+这意味着 $d^{n + 1}_0(y) = \ldots = d^{n + 1}_n(y) = 0$ 且
+$d^{n + 1}_{n + 1}(y) = f(x)$。
+然而，这恰好意味着
+$z = [y] - [0_{n + 1}]$ 属于
+$N(\mathbf{Z}[y])_{n + 1}$，并且
+% P02-E0158: frozen source uses \mathbf{Z}[y] where the ambient free simplicial abelian group is \mathbf{Z}[Y].
+$$
+g([x] - [0_n]) = [f(x)] - [0_n] = \text{下列对象的边界： }z
+$$
+这证明 $\tilde \xi$ 映为 $H_n(\mathbf{Z}[y])$ 中的零。
+% P02-E0159: frozen source again uses \mathbf{Z}[y] instead of \mathbf{Z}[Y].
+因为 $H_n(\mathbf{Z}[X]) \to H_n(\mathbf{Z}[Y])$ 是双射，
+可得 $\tilde \xi = 0$，从而 $\xi = 0$。
+\end{proof}
+
+
+
+
+
+
+\section{一个同伦等价}
+\label{simplicial-section-homotopy-equivalence}
+
+\noindent
+设 $A$、$B$ 为集合，$f : A \to B$ 为映射。考虑相应的单纯集映射
+$$
+\xymatrix{
+\text{cosk}_0(A) \ar@{=}[r] &
+\Big(\ldots A \times A \times A
+\ar[d] \ar@<2ex>[r] \ar@<0ex>[r] \ar@<-2ex>[r] &
+A \times A \ar[d] \ar@<1ex>[r] \ar@<-1ex>[r] \ar@<1ex>[l] \ar@<-1ex>[l] &
+A \Big) \ar[d] \ar@<0ex>[l] \\
+\text{cosk}_0(B) \ar@{=}[r] &
+\Big( \ldots B \times B \times B \ar@<2ex>[r] \ar@<0ex>[r] \ar@<-2ex>[r] &
+B \times B \ar@<1ex>[r] \ar@<-1ex>[r] \ar@<1ex>[l] \ar@<-1ex>[l] &
+B \Big) \ar@<0ex>[l]
+}
+$$
+见例 \ref{simplicial-example-cosk0}。下面引理在 $n = 0$ 的情形说明：
+若 $f$ 为满射，则这个单纯集映射是平凡 Kan 纤维化。
+
+\begin{lemma}
+\label{simplicial-lemma-section}
+设 $f : V \to U$ 为单纯集态射，$n \geq 0$ 为整数。假设：
+\begin{enumerate}
+\item 当 $i < n$ 时，映射 $f_i : V_i \to U_i$ 是双射；
+\item 映射 $f_n : V_n \to U_n$ 是满射；
+\item 典范态射 $U \to \text{cosk}_n \text{sk}_n U$ 是同构；
+\item 典范态射 $V \to \text{cosk}_n \text{sk}_n V$ 是同构。
+\end{enumerate}
+则 $f$ 是平凡 Kan 纤维化。
+\end{lemma}
+
+\begin{proof}
+考虑定义 \ref{simplicial-definition-trivial-kan} 中的实线图
+$$
+\xymatrix{
+\partial \Delta[k] \ar[r] \ar[d] & V \ar[d] \\
+\Delta[k] \ar[r] \ar@{-->}[ru] & U
+}
+$$
+。设 $x \in U_k$ 为与下方水平箭头对应的 $k$-单形。
+若 $k \leq n$，则虚线箭头与 $x$ 的提升
+$y \in V_k$ 对应；该图交换，因为 $\Delta[k]$ 的其他非退化单形
+都在次数 $< k$ 中，而 $f$ 在这些次数中为同构。
+若 $k > n$，则由条件 (3) 和 (4)，利用骨架函子与余骨架函子的伴随性，
+有
+$$
+\Mor(\Delta[k], U) =
+\Mor(\text{sk}_n\Delta[k], \text{sk}_nU) =
+\Mor(\text{sk}_n\partial\Delta[k], \text{sk}_nU) =
+\Mor(\partial \Delta[k], U)
+$$
+，$V$ 也同样，因为当 $k > n$ 时，
+$\text{sk}_n\Delta[k] = \text{sk}_n\partial\Delta[k]$。
+因此，在这种情形下也得到唯一的虚线箭头嵌入该图。
+\end{proof}
+
+\noindent
+设 $A, B$ 为集合，$f^0, f^1 : A \to B$ 为集合映射。
+考虑同样记号所表示的诱导映射
+$f^0, f^1 : \text{cosk}_0(A) \to \text{cosk}_0(B)$。
+下面引理在 $n = 0$ 的情形说明 $f^0$ 同伦于 $f^1$。
+事实上，存在从 $f^0$ 到 $f^1$ 的同伦
+$h : \text{cosk}_0(A) \times \Delta[1] \to \text{cosk}_0(A)$，
+% P02-E0160: frozen source gives the homotopy codomain cosk_0(A), but f^0 and f^1 land in cosk_0(B).
+其分量为
+\begin{eqnarray*}
+h_m : A \times \ldots \times A \times \Mor_{\Delta}([m], [1])
+& \longrightarrow &
+B \times \ldots \times B, \\
+(a_0, \ldots, a_m, \alpha) & \longmapsto &
+(f^{\alpha(0)}(a_0), \ldots, f^{\alpha(m)}(a_m))
+\end{eqnarray*}
+为了检验其成立，注意对映射 $\varphi : [k] \to [m]$，
+诱导映射为
+$(a_0, \ldots, a_m) \mapsto
+(a_{\varphi(0)}, \ldots, a_{\varphi(k)})$
+以及 $\alpha \mapsto \alpha \circ \varphi$。
+因此 $h = (h_m)_{m \geq 0}$ 显然是所需的单纯集映射。
+
+\begin{lemma}
+\label{simplicial-lemma-homotopy}
+设 $f^0, f^1 : V \to U$ 为单纯集映射，$n \geq 0$ 为整数。假设：
+\begin{enumerate}
+\item 当 $i < n$ 时，映射
+$f^j_i : V_i \to U_i$（$j = 0, 1$）相等；
+\item 典范态射 $U \to \text{cosk}_n \text{sk}_n U$ 是同构；
+\item 典范态射 $V \to \text{cosk}_n \text{sk}_n V$ 是同构。
+\end{enumerate}
+则 $f^0$ 同伦于 $f^1$。
+\end{lemma}
+
+\begin{proof}[第一个证明]
+设 $W$ 为 $n$-截断单纯集，其中当 $i < n$ 时
+$W_i = U_i$，而 $W_n = U_n / \sim$；这里 $\sim$
+是由对 $y \in V_n$ 的关系 $f^0(y) \sim f^1(y)$ 生成的等价关系。
+这是有意义的，因为与 $\varphi : [i] \to [n]$（$i < n$）
+对应的态射 $U(\varphi) : U_n \to U_i$ 经商映射
+$U_n \to W_n$ 分解：这是由于 $f^0$ 和 $f^1$
+为单纯集态射，并且在次数 $< n$ 中相等。
+接着，取 $\text{cosk}_n W$，把 $W$ 提升为单纯集。
+由引理 \ref{simplicial-lemma-section}，态射 $g : U \to W$
+是平凡 Kan 纤维化。根据构造，
+$g \circ f^0 = g \circ f^1$；以 $f : V \to W$ 表示该态射。
+考虑图
+$$
+\xymatrix{
+\partial \Delta[1] \times V \ar[rr]_{f^0, f^1} \ar[d] & & U \ar[d] \\
+\Delta[1] \times V \ar[rr]^f \ar@{-->}[rru] & & W
+}
+$$
+由引理 \ref{simplicial-lemma-trivial-kan}，虚线箭头存在，证明完成。
+\end{proof}
+
+\begin{proof}[第二个证明]
+必须构造单纯集态射
+$h : V \times \Delta[1] \to U$，它与 $e_i$ 复合后恢复 $f^i$。
+$n = 0$ 的情形已在引理之前处理。因此可假设 $n \geq 1$。
+映射
+$\Delta[1] \to \text{cosk}_1 \text{sk}_1 \Delta[1]$
+是同构；见引理 \ref{simplicial-lemma-simplex-cosk}。
+由引理 \ref{simplicial-lemma-cosk-up}，因 $n \geq 1$，
+$\Delta[1] \to \text{cosk}_n \text{sk}_n \Delta[1]$
+也是同构。因此，由引理 \ref{simplicial-lemma-cosk-product}，
+$V \times \Delta[1] \to
+\text{cosk}_n \text{sk}_n (V \times \Delta[1])$
+也是同构。换言之，为了构造同伦，只须构造合适的
+$n$-截断单纯集态射
+$h : \text{sk}_n V \times \text{sk}_n \Delta[1] \to \text{sk}_n U$。
+
+\medskip\noindent
+对 $k = 0, \ldots, n - 1$，以公式
+$h_k(v, \alpha) = f^0(v) = f^1(v)$ 定义 $h_k$。
+映射 $h_n : V_n \times \Mor_{\Delta}([n], [1]) \to U_n$
+如下定义。取 $v \in V_n$ 与 $\alpha : [n] \to [1]$：
+\begin{enumerate}
+\item 若 $\Im(\alpha) = \{0\}$，令 $h_n(v, \alpha) = f^0(v)$；
+\item 若 $\Im(\alpha) = \{0, 1\}$，令 $h_n(v, \alpha) = f^0(v)$；
+\item 若 $\Im(\alpha) = \{1\}$，令 $h_n(v, \alpha) = f^1(v)$。
+\end{enumerate}
+设 $\varphi : [k] \to [l]$ 为 $\Delta_{\leq n}$ 的态射。
+我们将证明图
+$$
+\xymatrix{
+V_{l} \times \Mor([l], [1]) \ar[r] \ar[d] & U_{l} \ar[d] \\
+V_{k} \times \Mor([k], [1]) \ar[r] & U_{k}
+}
+$$
+交换。取 $v \in V_{l}$ 和 $\alpha : [l] \to [1]$。
+交换性意味着
+$$
+h_k(V(\varphi)(v), \alpha \circ \varphi)
+=
+U(\varphi)(h_l(v, \alpha)).
+$$
+几乎在所有情形下，这都由
+$h_k(V(\varphi)(v), \alpha \circ \varphi) =
+f^0(V(\varphi)(v))$ 和
+$U(\varphi)(h_l(v, \alpha)) = U(\varphi)(f^0(v))$，
+结合 $f^0$ 为单纯集态射这一事实得出。
+唯一不满足这一描述的情形是：
+或者 (A) $\Im(\alpha) = \{1\}$ 且 $l = n$，
+或者 (B) $\Im(\alpha \circ \varphi) = \{1\}$ 且 $k = n$。
+还注意，对 $V$ 的任意退化 $n$-单形，必有
+$f^0(v) = f^1(v)$。因此，可把上述情形进一步缩小为：
+(A) $\Im(\alpha) = \{1\}$、$l = n$ 且 $v$ 非退化；
+以及 (B) $\Im(\alpha \circ \varphi) = \{1\}$、
+$k = n$ 且 $V(\varphi)(v)$ 非退化。
+
+\medskip\noindent
+在情形 (A) 中，也有
+$\Im(\alpha \circ \varphi) = \{1\}$。
+因此，不仅 $h_l(v, \alpha) = f^1(v)$，而且
+$h_k(V(\varphi)(v), \alpha \circ \varphi) =
+f^1(V(\varphi)(v))$。由于 $f^1$ 是单纯集态射，该关系成立。
+
+\medskip\noindent
+在情形 (B) 中，断定 $l = k = n$ 且 $\varphi$ 为双射，
+否则 $V(\varphi)(v)$ 是退化的。因此
+$\varphi = \text{id}_{[n]}$，这是平凡情形。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-cosk-minus-one-equivalence}
+设 $A$、$B$ 为集合，并设 $f : A \to B$ 为映射。
+% P02-E0161: frozen source says “Let A, B be sets, and that f ...”.
+考虑第 $n$ 个单形为
+$$
+A \times_B A \times_B \ldots \times_B A\ (n + 1 \text{ 可分解）}.
+$$
+的单纯集 $U$；见例 \ref{simplicial-example-fibre-products-simplicial-object}。
+若 $f$ 满射，则态射 $U \to B$ 是平凡 Kan 纤维化；
+这里 $B$ 表示取值为 $B$ 的常值单纯集。
+\end{lemma}
+
+\begin{proof}
+注意，$U$ 嵌入笛卡尔方块
+$$
+\xymatrix{
+U \ar[d] \ar[r] & \text{cosk}_0(A) \ar[d] \\
+B \ar[r] & \text{cosk}_0(B)
+}
+$$
+由引理 \ref{simplicial-lemma-section}，右侧竖直箭头是平凡 Kan 纤维化；
+再由引理 \ref{simplicial-lemma-trivial-kan-base-change}，左侧也如此。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{标准预解式的准备}
+\label{simplicial-section-standard-pre}
+
+\noindent
+本节材料可见 \cite[Appendix 1]{Godement}
+% P02-E0162: frozen introductory sentence lacks terminal punctuation.
+
+\begin{example}
+\label{simplicial-example-godement}
+设 $Y : \mathcal{C} \to \mathcal{C}$ 为一个范畴到自身的函子，并设给定
+函子变换
+$$
+d : Y \longrightarrow \text{id}_\mathcal{C}
+\quad\text{且}\quad
+s : Y \longrightarrow Y \circ Y
+$$
+利用这些变换，我们可以构造一个形似单纯对象的东西。具体地，对
+$n \geq 0$，定义
+$$
+X_n = Y \circ \ldots \circ Y \quad (n + 1\text{ 复合})
+$$
+注意，对 $n, m \geq 0$，有 $X_{n + m + 1} = X_n \circ X_m$。
+接着，对 $n \geq 0$ 和 $0 \leq j \leq n$，采用《范畴论》第
+\ref{categories-section-formal-cat-cat} 节中的记号，定义
+$$
+d^n_j = 1_{X_{j - 1}} \star d \star 1_{X_{n - j - 1}} :
+X_n
+\to
+X_{n - 1}
+\quad\text{且}\quad
+s^n_j = 1_{X_{j - 1}} \star s \star 1_{X_{n - j - 1}} :
+X_n
+\to
+X_{n + 1}
+$$
+因此，$d^n_j$（相应地，$s^n_j$）是在定义 $X_n$ 的复合中，
+对从左数第 $j$ 个 $Y$ 使用 $d$（相应地，$s$）所得的自然变换。
+\end{example}
+
+\begin{lemma}
+\label{simplicial-lemma-godement}
+在例 \ref{simplicial-example-godement} 中，若
+$$
+1_Y = (d \star 1_Y) \circ s = (1_Y \star d) \circ s
+\quad\text{且}\quad
+(s \star 1) \circ s = (1 \star s) \circ s
+$$
+则 $X = (X_n, d^n_j, s^n_j)$ 是 $\mathcal{C}$ 的自函子范畴中的
+单纯对象，且 $d : X_0 = Y \to \text{id}_\mathcal{C}$ 定义一个增广。
+\end{lemma}
+
+\begin{proof}
+为证明所得对象是单纯对象，须验证引理
+\ref{simplicial-lemma-characterize-simplicial-object} 的关系 (1)(a)--(e)。
+我们将使用简写
+$$
+1_a = 1_{X_{a - 1}} = 1_Y \star \ldots \star 1_Y \quad (a\text{ 可分解})
+$$
+，其中 $a \geq 0$。采用此记号，有
+$$
+d^n_j = 1_j \star d \star 1_{n - j}
+\quad\text{且}\quad
+s^n_j = 1_j \star s \star 1_{n - j}
+$$
+% P02-E0163: frozen source misspells “functors” as “funtors”.
+下文反复使用如下规则：对函子变换 $a, a', b, b'$，只要公式中的
+$\star$ 与 $\circ$ 复合有定义，就有
+$(a' \circ a) \star (b' \circ b) = (a' \star b') \circ (a \star b)$；
+见《范畴论》引理 \ref{categories-lemma-properties-2-cat-cats}。
+
+\medskip\noindent
+条件 (1)(a) 总是成立（不需要对 $d$ 和 $s$ 作任何假设）。
+事实上，设 $0 \leq i < j \leq n + 1$。我们须证明
+$d^n_i \circ d^{n + 1}_j = d^n_{j - 1} \circ d^{n + 1}_i$，即
+$$
+(1_i \star d \star 1_{n - i}) \circ
+(1_j \star d \star 1_{n + 1 - j}) =
+(1_{j - 1} \star d \star 1_{n + 1 - j}) \circ
+(1_i \star d \star 1_{n + 1 - i})
+$$
+左端可改写为
+\begin{align*}
+& (1_i \star d \star 1_{j - i - 1} \star 1_{n + 1 - j}) \circ
+(1_i \star 1_1 \star 1_{j - i - 1} \star d \star 1_{n + 1 - j}) \\
+& =
+1_i \star
+\left((d \star 1_{j - i - 1}) \circ
+(1_1 \star 1_{j - i - 1} \star d)\right) \star 1_{n + 1 - j} \\
+& =
+1_i \star d \star 1_{j - i - 1} \star d \star 1_{n + 1 - j}
+\end{align*}
+第二个等号成立，是因为 $d \circ 1_1 = d$，且
+$1_{j - i} \circ (1_{j - i - 1} \star d) = 1_{j - i - 1} \star d$。
+对右端作相同计算也得到同一结果。
+
+\medskip\noindent
+验证条件 (1)(b)。设 $0 \leq i < j \leq n - 1$。须证明
+$d^n_i \circ s^{n - 1}_j = s^{n - 2}_{j - 1} \circ d^{n - 1}_i$，即
+$$
+(1_i \star d \star 1_{n - i}) \circ
+(1_j \star s \star 1_{n - 1 - j}) =
+(1_{j - 1} \star s \star 1_{n - 1 - j}) \circ
+(1_i \star d \star 1_{n - 1 - i})
+$$
+通过与情形 (1)(a) 相同的计算，两端都化为
+$1_i \star d \star 1_{j - i - 1} \star s \star 1_{n - j - 1}$。
+
+\medskip\noindent
+验证条件 (1)(c)。设 $0 \leq j \leq n - 1$。须证明
+$\text{id} = d^n_j \circ s^{n - 1}_j = d^n_{j + 1} \circ s^{n - 1}_j$，即
+$$
+1_n =
+(1_j \star d \star 1_{n - j}) \circ
+(1_j \star s \star 1_{n - 1 - j}) =
+(1_{j + 1} \star d \star 1_{n - j - 1}) \circ
+(1_j \star s \star 1_{n - 1 - j})
+$$
+容易看出，这由引理的第一个假设推出。
+
+\medskip\noindent
+验证条件 (1)(d)。设 $0 < j + 1 < i \leq n$。须证明
+$d^n_i \circ s^{n - 1}_j = s^{n - 2}_j \circ d^{n - 1}_{i - 1}$，即
+$$
+(1_i \star d \star 1_{n - i}) \circ
+(1_j \star s \star 1_{n - 1 - j}) =
+(1_j \star s \star 1_{n - 2 - j}) \circ
+(1_{i - 1} \star d \star 1_{n - i})
+$$
+通过与情形 (1)(a) 相同的计算，两端都化为
+$1_j \star s \star 1_{i - j - 2} \star d \star 1_{n - i}$。
+
+\medskip\noindent
+验证条件 (1)(e)。设 $0 \leq i \leq j \leq n - 1$。须证明
+$s^n_i \circ s^{n - 1}_j = s^n_{j + 1} \circ s^{n - 1}_i$，即
+$$
+(1_i \star s \star 1_{n - i}) \circ
+(1_j \star s \star 1_{n - 1 - j}) =
+(1_{j + 1} \star s \star 1_{n - 1 - j}) \circ
+(1_i \star s \star 1_{n - 1 - i})
+$$
+通过与情形 (1)(a) 相同的计算，这化为
+$$
+(s \star 1_{j - i + 1}) \circ (1_{j - i} \star s) =
+(1_{j - i + 1} \star s) \circ (s \star 1_{j - i})
+$$
+若 $j = i$，这恰为引理的两个假设之一。若 $j > i$，通过与
+情形 (1)(a) 相似的计算，左端和右端都化为等式
+$s \star 1_{j - i - 1} \star s$。
+
+\medskip\noindent
+最后，为证明 $d$ 定义一个增广，须证明
+$d \circ (1_1 \star d) = d \circ (d \star 1_1)$；这是成立的，
+因为两端都等于 $d \star d$。
+\end{proof}
+
+\begin{example}
+\label{simplicial-example-godement-functorial}
+设 $\mathcal{C}$、$Y$、$d$、$s$ 如例 \ref{simplicial-example-godement}，
+并满足引理 \ref{simplicial-lemma-godement} 的等式。给定函子
+$F : \mathcal{A} \to \mathcal{C}$ 和
+$G : \mathcal{C} \to \mathcal{B}$，我们在从 $\mathcal{A}$
+到 $\mathcal{B}$ 的函子范畴中得到单纯对象 $G \circ X \circ F$，
+它带有到 $G \circ F$ 的增广。
+\end{example}
+
+\begin{lemma}
+\label{simplicial-lemma-godement-section}
+设 $\mathcal{A}$、$\mathcal{B}$、$\mathcal{C}$、$Y$、$d$、$s$、$F$、
+$G$ 如例 \ref{simplicial-example-godement-functorial}。给定函子变换
+$h_0 : G \circ F \to G \circ Y \circ F$，使得
+$$
+1_{G \circ F} = (1_G \star d \star 1_F) \circ h_0
+$$
+则存在单纯对象态射 $h : G \circ F \to G \circ X \circ F$，
+满足 $\epsilon \circ h = \text{id}$；这里
+$\epsilon : G \circ X \circ F \to G \circ F$ 是增广。
+\end{lemma}
+
+\begin{proof}
+以 $u_n : Y = X_0 \to X_n$ 表示单纯对象 $X$ 中与
+$\Delta$ 的唯一态射 $[n] \to [0]$ 对应的映射。令
+$h_n : G \circ F \to G \circ X_n \circ F$ 等于
+$(1_G \star u_n \star 1_F) \circ h_0$。
+
+\medskip\noindent
+对任意范畴中的任意单纯对象 $X = (X_n)$，
+$u =(u_n) : X_0 \to X$ 是从取值为 $X_0$ 的常值单纯对象到 $X$
+的态射。因此，$h$ 是单纯对象态射，因为它是
+$1_G \star u \star 1_F$ 与 $h_0$ 的复合。
+
+\medskip\noindent
+验证 $\epsilon \circ h = \text{id}$。计算得
+$$
+\epsilon_n \circ (1_G \star u_n \star 1_F) \circ h_0 =
+\epsilon_0 \circ h_0 = \text{id}
+$$
+第一个等号成立是因为 $\epsilon$ 是单纯对象态射；第二个等号成立是因为
+$\epsilon_0 = (1_G \star d \star 1_F)$，故可应用引理陈述中的假设。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-godement-two-maps}
+设 $\mathcal{A}$、$\mathcal{B}$、$\mathcal{C}$、$Y$、$d$、$s$、$F$、
+$G$ 如例 \ref{simplicial-example-godement-functorial}。设
+$F' : \mathcal{A} \to \mathcal{C}$ 和
+$G' : \mathcal{C} \to \mathcal{B}$ 为两个函子。
+设 $(a_n) : G \circ X \to G' \circ X$ 为单纯对象态射，
+且经增广与 $a : G \to G'$ 相容。设
+$(b_n) : X \circ F \to X \circ F'$ 为单纯对象态射，
+且经增广与 $b : F \to F'$ 相容。则两个映射
+$$
+a \star (b_n), (a_n) \star b : G \circ X \circ F \to G' \circ X \circ F'
+$$
+同伦。
+\end{lemma}
+
+\begin{proof}
+为证明这些态射同伦，我们构造态射
+$$
+h_{n, i} : G \circ X_n \circ F \to G' \circ X_n \circ F'
+$$
+，其中 $n \geq 0$ 且 $0 \leq i \leq n + 1$，并使其满足引理
+\ref{simplicial-lemma-relations-homotopy} 中所述关系；另见注
+\ref{simplicial-remark-homotopy-better}。为满足引理
+\ref{simplicial-lemma-relations-homotopy} 的条件 (1)，必须令
+$h_{n, 0} = a \star b_n$ 和 $h_{n , n + 1} = a_n \star b$。
+因此合理的选择是
+$$
+h_{n , i} = a_{i - 1} \star b_{n - i}
+$$
+，其中 $1 \leq i \leq n$。令 $a = a_{-1}$、$b = b_{-1}$，可见
+% P02-E0164: frozen source misspells “formula” as “formular”.
+上述公式对 $0 \leq i \leq n + 1$ 都成立。
+
+\medskip\noindent
+回顾
+$$
+d^n_j = 1_G \star 1_j \star d \star 1_{n - j} \star 1_F
+$$
+在 $G \circ X \circ F$ 上成立；这里采用引理
+\ref{simplicial-lemma-godement} 证明中引入的记号
+$1_a = 1_{Y \circ \ldots \circ Y}$。下文将使用其改写
+\begin{align*}
+d^n_j
+& =
+d^j_j \star 1_{n - j} =
+d^{j + 1}_j \star 1_{n - j} = \ldots = d^{n - 1}_j \star 1_1 \\
+& =
+1_j \star d^{n - j}_0 = 1_{j - 1} \star d^{n - j + 1}_1 = \ldots =
+1_1 \star d^{n - 1}_{j - 1}
+\end{align*}
+当然，在 $G' \circ X \circ F'$ 上的 $d^n_j$ 也有类似公式。
+
+\medskip\noindent
+验证引理 \ref{simplicial-lemma-relations-homotopy} 的条件 (2)。
+设 $i > j$。须证明
+$$
+d^n_j \circ (a_{i - 1} \star b_{n - i}) =
+(a_{i - 2} \star b_{n - i}) \circ d^n_j
+$$
+因 $i - 1 \geq j$，可用 $d^n_j$ 的一种描述把左端改写为
+$$
+(d^{i - 1}_j \star 1_{n - i + 1}) \circ (a_{i - 1} \star b_{n - i}) =
+(d^{i - 1}_j \circ a_{i - 1}) \star b_{n - i} =
+(a_{i - 2} \circ d^{i - 1}_j) \star b_{n - i}
+$$
+同样，右端变为
+$$
+(a_{i - 2} \star b_{n - i}) \circ (d^{i - 1}_j \star 1_{n - i + 1}) =
+(a_{i - 2} \circ d^{i - 1}_j) \star b_{n - i}
+$$
+故两端结果相同，条件 (2) 得证。
+
+\medskip\noindent
+验证引理 \ref{simplicial-lemma-relations-homotopy} 的条件 (3)。
+设 $i \leq j$。须证明
+$$
+d^n_j \circ (a_{i - 1} \star b_{n - i}) =
+(a_{i - 1} \star b_{n - 1 - i}) \circ d^n_j
+$$
+因 $j \geq i$，可把左端改写为
+$$
+(1_i \star d^{n - i}_{j - i}) \circ (a_{i - 1} \star b_{n - i}) =
+a_{i - 1} \star (b_{n - 1 - i} \circ d^{n - i}_{j - i})
+$$
+相同的变形表明它与右端相等。
+
+\medskip\noindent
+回顾
+$$
+s^n_j = 1_G \star 1_j \star s \star 1_{n - j} \star 1_F
+$$
+在 $G \circ X \circ F$ 上成立。下文将使用其改写
+\begin{align*}
+s^n_j
+& =
+s^j_j \star 1_{n - j} = s^{j + 1}_j \star 1_{n - j - 1} = \ldots =
+s^{n - 1}_j \star 1_1 \\
+& =
+1_j \star s^{n - j}_0 = 1_{j - 1} \star s^{n - j + 1}_1 = \ldots =
+1_1 \star s^{n - 1}_{j - 1}
+\end{align*}
+当然，在 $G' \circ X \circ F'$ 上的 $s^n_j$ 也有类似公式。
+
+\medskip\noindent
+验证引理 \ref{simplicial-lemma-relations-homotopy} 的条件 (4)。
+设 $i > j$。须证明
+$$
+s^n_j \circ (a_{i - 1} \star b_{n - i}) =
+(a_i \star b_{n - i}) \circ s^n_j
+$$
+因 $i - 1 \geq j$，可把左端改写为
+$$
+(s^{i - 1}_j \star 1_{n - i + 1}) \circ (a_{i - 1} \star b_{n - i}) =
+(s^{i - 1}_j \circ a_{i - 1}) \star b_{n - i} =
+(a_i \circ s^{i - 1}_j) \star b_{n - i}
+$$
+同样，右端变为
+$$
+(a_i \star b_{n - i}) \circ (s^{i - 1}_j \star 1_{n - i + 1}) =
+(a_i \circ s^{i - 1}_j) \star b_{n - i}
+$$
+，正是所需等式。
+
+\medskip\noindent
+验证引理 \ref{simplicial-lemma-relations-homotopy} 的条件 (5)。
+设 $i \leq j$。须证明
+$$
+s^n_j \circ (a_{i - 1} \star b_{n - i}) =
+(a_{i - 1} \star b_{n + 1 - i}) \circ s^n_j
+$$
+与上面的论证完全相同，两端都化为
+$a_{i - 1} \star (s^{n - i}_{j - i} \circ b_{n - i}) =
+a_{i - 1} \star (b_{n + 1 - i} \circ s^{n - i}_{j - i})$，
+故等式成立。
+\end{proof}
+
+\begin{lemma}
+\label{simplicial-lemma-godement-before-after}
+设 $\mathcal{C}$、$Y$、$d$、$s$ 如例 \ref{simplicial-example-godement}，
+并满足引理 \ref{simplicial-lemma-godement} 的等式。设
+$f : \text{id}_\mathcal{C} \to \text{id}_\mathcal{C}$ 为恒等函子的
+自同态。则 $f \star 1_X, 1_X \star f : X \to X$ 是单纯对象映射，
+且经增广 $\epsilon : X \to \text{id}_\mathcal{C}$ 与 $f$ 相容。
+此外，$f \star 1_X$ 与 $1_X \star f$ 同伦。
+\end{lemma}
+
+\begin{proof}
+映射 $f \star 1_X$ 的分量为
+$$
+X_n = \text{id}_\mathcal{C} \circ X_n
+\xrightarrow{f \star 1_{X_n}}
+\text{id}_\mathcal{C} \circ X_n = X_n
+$$
+。对 $\mathcal{C}$ 的自函子之间的变换 $a : F \to G$，有
+$a \circ (f \star 1_F) = f \star a = (f \star 1_G) \circ a$。
+因此 $f \star 1_X$ 确为单纯对象态射；$1_X \star f$ 的情形相同。
+
+\medskip\noindent
+为证明这些态射同伦，我们对 $n \geq 0$ 和
+$0 \leq i \leq n + 1$ 构造态射 $h_{n, i} : X_n \to X_n$，
+使其满足引理 \ref{simplicial-lemma-relations-homotopy} 中所述关系；另见注
+\ref{simplicial-remark-homotopy-better}。可以取
+$$
+h_{n, i} = 1_i \star f \star 1_{n + 1 - i}
+$$
+，其中 $1_i$ 是引理 \ref{simplicial-lemma-godement} 证明中
+$Y \circ \ldots \circ Y$ 上的恒等变换。我们有
+$h_{n, 0} = f \star 1_{X_n}$ 和 $h_{n, n + 1} = 1_{X_n} \star f$，
+这验证了第一个条件。验证其余条件时，我们使用引理
+\ref{simplicial-lemma-godement-two-maps} 证明中关于映射 $d^n_j$ 与 $s^n_j$ 的说明。
+
+\medskip\noindent
+验证引理 \ref{simplicial-lemma-relations-homotopy} 的条件 (2)。
+设 $i > j$。须证明
+$$
+d^n_j \circ (1_i \star f \star 1_{n + 1 - i}) =
+(1_{i - 1} \star f \star 1_{n + 1 - i}) \circ d^n_j
+$$
+因 $i - 1 \geq j$，可用 $d^n_j$ 的一种描述把左端改写为
+$$
+(d^{i - 1}_j \star 1_{n - i + 1}) \circ (1_i \star f \star 1_{n + 1 - i}) =
+d^{i - 1}_j \star f \star 1_{n + 1 - i}
+$$
+同样，右端变为
+$$
+(1_{i - 1} \star f \star 1_{n + 1 - i}) \circ
+(d^{i - 1}_j \star 1_{n - i + 1}) =
+d^{i - 1}_j \star f \star 1_{n + 1 - i}
+$$
+故两端结果相同，条件 (2) 得证。
+
+\medskip\noindent
+引理 \ref{simplicial-lemma-relations-homotopy} 的条件 (3)、(4)、(5)
+可完全同样地验证，采用引理 \ref{simplicial-lemma-godement-two-maps}
+证明中的策略即可。细节从略\footnote{当
+$f$ 可逆时，只须证明 $(a_n) = 1_X$ 与
+$(b_n) = f^{-1} \star 1_X \star f$ 同伦。
+但这由引理 \ref{simplicial-lemma-godement-two-maps} 得出，
+因为此时 $a = b = 1_{\text{id}_\mathcal{C}}$。}。
+\end{proof}
+
+
+
+
+
+
+\section{标准预解式}
+\label{simplicial-section-standard}
+
+\noindent
+本节部分材料可见 \cite[Appendix 1]{Godement} 和
+\cite[I 1.5]{cotangent}。
+
+\begin{situation}
+\label{simplicial-situation-adjoint-functors}
+设 $\mathcal{A}$、$\mathcal{S}$ 为范畴，且
+$V : \mathcal{A} \to \mathcal{S}$ 是具有左伴随
+$U : \mathcal{S} \to \mathcal{A}$ 的函子。
+\end{situation}
+
+\noindent
+在这一极一般的情形下，我们将在从 $\mathcal{A}$ 到
+$\mathcal{A}$ 的函子范畴中构造一个单纯对象 $X$。
+建议在阅读本节正文之前，先看后面给出的例子。
+
+\medskip\noindent
+构造中将使用《范畴论》第 \ref{categories-section-formal-cat-cat}
+节所定义的水平复合。《范畴论》第
+\ref{categories-section-adjoint} 节中伴随态射\footnote{不能以
+$\epsilon$ 表示伴随的余单位，因为我们要用
+$\epsilon$ 表示单纯对象的增广。}的定义为
+$$
+d : U \circ V \to \text{id}_\mathcal{A} \quad (\text{余单位})
+\quad\text{且}\quad
+\eta : \text{id}_\mathcal{S} \to V \circ U \quad (\text{单位})
+$$
+，并说明复合
+\begin{equation}
+\label{simplicial-equation-composition}
+V \xrightarrow{\eta \star 1_V} V \circ U \circ V \xrightarrow{1_V \star d} V
+\quad\text{且}\quad
+U \xrightarrow{1_U \star \eta} U \circ V \circ U \xrightarrow{d \star 1_U} U
+\end{equation}
+都是恒等态射。这里，为定义态射 $\eta \star 1_V$，我们默认把
+$V$ 与 $\text{id}_\mathcal{S} \circ V$ 识别，而
+$1_V$ 表示 $\text{id}_V : V \to V$。下文将反复使用这些记号和关系。
+对 $n \geq 0$，令
+$$
+X_n = (U \circ V)^{\circ (n + 1)} =
+U \circ V \circ U \circ \ldots \circ U \circ V
+$$
+。换言之，$X_n$ 是 $U \circ V$ 与自身的 $(n + 1)$ 重复合。
+还令 $X_{-1} = \text{id}_\mathcal{A}$。对所有 $n, m \geq -1$，
+有 $X_{n + m + 1} = X_n \circ X_m$。我们将通过构造函子态射
+$$
+d^n_j : X_n \to X_{n - 1},\quad s^n_j : X_n \to X_{n + 1}
+$$
+，使其满足引理 \ref{simplicial-lemma-relations-face-degeneracy} 中所列关系，
+从而赋予这个函子序列以 $\text{Fun}(\mathcal{A}, \mathcal{A})$
+中单纯对象的结构。具体地，令
+$$
+d^n_j = 1_{X_{j - 1}} \star d \star 1_{X_{n - j - 1}}
+\quad\text{且}\quad
+s^n_j = 1_{X_{j - 1} \circ U} \star \eta \star 1_{V \circ X_{n - j - 1}}
+$$
+最后，记 $\epsilon_0 = d : X_0 \to X_{-1}$。
+
+\begin{lemma}
+\label{simplicial-lemma-standard-simplicial}
+在情形 \ref{simplicial-situation-adjoint-functors} 中，
+系统 $X = (X_n, d^n_j, s^n_j)$ 是
+$\text{Fun}(\mathcal{A}, \mathcal{A})$ 中的单纯对象，
+且 $\epsilon_0$ 定义从 $X$ 到取值为
+$X_{-1} = \text{id}_\mathcal{A}$ 的常值单纯对象的增广 $\epsilon$。
+\end{lemma}
+
+\begin{proof}
+考虑 $Y = U \circ V : \mathcal{A} \to \mathcal{A}$。
+我们已有变换 $d : Y = U \circ V \to \text{id}_\mathcal{A}$。记
+$$
+s = 1_U \star \eta \star 1_V :
+Y = U \circ \text{id}_\mathcal{S} \circ V
+\longrightarrow
+U \circ V \circ U \circ V = Y \circ Y
+$$
+这使我们处于例 \ref{simplicial-example-godement} 的情形。由公式立即可见，
+上面构造的 $X, d^n_i, s^n_i$ 与从 $Y, d, s$ 按例
+\ref{simplicial-example-godement} 构造的
+% P02-E0165: frozen source repeats “X, s^n_i, s^n_i” where the first s-family should be d.
+$X, s^n_i, s^n_i$ 一致。因此，由引理 \ref{simplicial-lemma-godement}，
+只须证明
+$$
+1_Y = (d \star 1_Y) \circ s = (1_Y \star d) \circ s
+\quad\text{且}\quad
+(s \star 1) \circ s = (1 \star s) \circ s
+$$
+第一个等号转化为
+$$
+1_U \star 1_V = (d \star 1_U \star 1_V) \circ (1_U \star \eta \star 1_V)
+$$
+；只要有 $1_U = (d \star 1_U) \circ (1_U \star \eta)$，它便成立，
+而后者由 (\ref{simplicial-equation-composition}) 成立。第二个等号同理。
+对最后一个等式，须证明
+$$
+(1_U \star \eta \star 1_V \star 1_U \star 1_V) \circ
+(1_U \star \eta \star 1_V) =
+(1_U \star 1_V \star 1_U \star \eta \star 1_V) \circ
+(1_U \star \eta \star 1_V)
+$$
+为此，只须证明
+$(\eta \star 1_V \star 1_U) \circ \eta = (1_V \star 1_U \star \eta) \circ \eta$；
+这是成立的，因为两端都与 $\eta \star \eta$ 相同。
+\end{proof}
+
+\noindent
+阅读下一个引理的证明之前，建议先看例
+\ref{simplicial-example-polynomial-algebra-homotopy} 中讨论的例子，以理解该引理的目的。
+
+\begin{lemma}
+\label{simplicial-lemma-standard-simplicial-homotopy}
+在情形 \ref{simplicial-situation-adjoint-functors} 中，映射
+$$
+1_V \star \epsilon : V \circ X \to V,
+\quad\text{且}\quad
+\epsilon \star 1_U : X \circ U \to U
+$$
+都是同伦等价。
+\end{lemma}
+
+\begin{proof}
+如引理 \ref{simplicial-lemma-standard-simplicial} 的证明，令
+$Y = U \circ V$，于是处于例 \ref{simplicial-example-godement} 的情形。
+
+\medskip\noindent
+证明第一个同伦等价。由引理 \ref{simplicial-lemma-godement-section}，
+为构造映射 $h : V \to V \circ X$，使它成为
+$1_V \star \epsilon$ 的右逆，只须构造映射
+$h_0 : V \to V \circ Y = V \circ U \circ V$，使
+$1_V = (1_V \star d) \circ h_0$。当然，取
+$h_0 = \eta \star 1_V$，等式由 (\ref{simplicial-equation-composition}) 成立。
+为完成证明，须说明两个映射
+$$
+(1_V \star \epsilon) \circ h, 1_V \star \text{id}_X :
+V \circ X \longrightarrow V \circ X
+$$
+同伦。这立即由引理 \ref{simplicial-lemma-godement-two-maps} 得出（取
+$G = G' = V$ 且 $F = F' = \text{id}_\mathcal{S}$）。
+
+\medskip\noindent
+证明第二个同伦等价。由引理 \ref{simplicial-lemma-godement-section}，
+为构造映射 $h : U \to X \circ U$，使它成为
+$\epsilon \star 1_U$ 的右逆，只须构造映射
+$h_0 : U \to Y \circ U = U \circ V \circ U$，使
+$1_U = (d \star 1_U) \circ h_0$。当然，取
+$h_0 = 1_U \star \eta$，等式由 (\ref{simplicial-equation-composition}) 成立。
+为完成证明，须说明两个映射
+$$
+(\epsilon \star 1_U) \circ h, \text{id}_X \star 1_U :
+X \circ U \longrightarrow X \circ U
+$$
+同伦。这立即由引理 \ref{simplicial-lemma-godement-two-maps} 得出（取
+$G = G' = \text{id}_\mathcal{A}$ 且 $F = F' = U$）。
+\end{proof}
+
+
+\begin{example}
+\label{simplicial-example-module}
+设 $R$ 为环。作为上述构造的一个例子，可取遗忘函子
+$i : \text{Mod}_R \to \textit{Sets}$，以及把集合 $E$ 送到
+由 $E$ 生成的自由 $R$-模 $R[E]$ 的函子
+$F : \textit{Sets} \to \text{Mod}_R$。对 $R$-模 $M$，
+单纯 $R$-模 $X(M)$ 具有如下形状：
+$$
+X(M) =
+\left( \ldots
+\xymatrix{
+R[R[R[M]]]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+R[R[M]]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+R[M]
+\ar@<0ex>[l]
+}
+\right)
+$$
+，并带有到 $M$ 的增广。我们还将证明该增广在集合层面为同伦等价。
+由引理 \ref{simplicial-lemma-trivial-kan-homotopy}、
+\ref{simplicial-lemma-homotopy-equivalence} 和
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}，这等价于要求
+% P02-E0166: frozen source says “cohomology group” for the homologically indexed chain complex here and again in Example polynomial-algebra.
+$M$ 是与单纯模 $X(M)$ 伴随的链复形唯一的非零上同调群。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-polynomial-algebra}
+设 $A$ 为环，$\textit{Alg}_A$ 为交换 $A$-代数的范畴。
+作为上述构造的一个例子，可取遗忘函子
+$i : \textit{Alg}_A \to \textit{Sets}$，以及把集合 $E$ 送到
+$A$ 上由 $E$ 生成的多项式代数 $A[E]$ 的函子
+$F : \textit{Sets} \to \textit{Alg}_A$。
+（对于本例与例 \ref{simplicial-example-module} 之间的记号重叠，我们深表歉意。）
+对 $A$-代数 $B$，单纯 $A$-代数 $X(B)$ 具有如下形状：
+$$
+X(B) = \left( \ldots
+\xymatrix{
+A[A[A[B]]]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[B]]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[B]
+\ar@<0ex>[l]
+}
+\right)
+$$
+，并带有到 $B$ 的增广。我们还将证明该增广在集合层面为同伦等价。
+由引理 \ref{simplicial-lemma-trivial-kan-homotopy}、
+\ref{simplicial-lemma-homotopy-equivalence} 和
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}，这等价于要求
+$B$ 是把 $X(B)$ 视为单纯 $A$-模后与之伴随的
+$A$-模链复形唯一的非零上同调群。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-module-maps}
+在例 \ref{simplicial-example-module} 中，
+$X_n(M) = R[R[\ldots [M]\ldots]]$ 有 $n + 1$ 层方括号。
+我们用 $X_1(M)$ 的一个典型元素
+$$
+\xi = \sum\nolimits_i r_i\left[\sum\nolimits_j r_{ij}[m_{ij}]\right]
+$$
+描述上面构造的映射。映射
+$d_0, d_1 : R[R[M]] \to R[M]$ 由
+$$
+d_0(\xi) = \sum\nolimits_{i, j} r_ir_{ij}[m_{ij}]
+\quad\text{且}\quad
+d_1(\xi) = \sum\nolimits_i r_i\left[\sum\nolimits_j r_{ij}m_{ij}\right].
+$$
+给出。映射 $s_0, s_1 : R[R[M]] \to R[R[R[M]]]$ 由
+$$
+s_0(\xi) =
+\sum\nolimits_i r_i\left[\left[\sum\nolimits_j r_{ij}[m_{ij}]\right]\right]
+\quad\text{且}\quad
+s_1(\xi) = \sum\nolimits_i r_i\left[\sum\nolimits_j r_{ij}[[m_{ij}]]\right].
+$$
+给出。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-polynomial-algebra-maps}
+在例 \ref{simplicial-example-polynomial-algebra} 中，
+$X_n(B) = A[A[\ldots [B]\ldots]]$ 有 $n + 1$ 层方括号。
+我们用一个典型元素
+$$
+\xi = \sum\nolimits_i a_i [x_{i, 1}] \ldots [x_{i, m_i}] \in A[A[B]] = X_1(B)
+$$
+描述上面构造的映射，其中对每个 $i, j$，可写
+$$
+x_{i, j} = \sum a_{i, j, k} [b_{i, j, k, 1}] \ldots [b_{i, j, k, n_{i, j, k}}]
+\in A[B]
+$$
+显然，这个记号极其可怕！为简化记号，也为了看清 $A$-代数映射
+$d_0, d_1 : A[A[B]] \to A[B]$ 的作用，只须考察变量 $[x]$；
+这里
+$$
+x = \sum a_k [b_{k, 1}] \ldots [b_{k, n_k}] \in A[B]
+$$
+是一般元素。对这些变量，有
+$$
+d_0([x]) = x = \sum a_k [b_{k, 1}] \ldots [b_{k, n_k}]
+\quad\text{且}\quad
+d_1([x]) = \left[\sum a_k b_{k, 1} \ldots b_{k, n_k}\right]
+$$
+映射 $s_0, s_1 : A[A[B]] \to A[A[A[B]]]$ 由
+$$
+s_0([x]) = \left[\left[\sum a_k [b_{k, 1}] \ldots [b_{k, n_k}]\right]\right]
+\quad\text{且}\quad
+s_1([x]) = \left[\sum a_k [[b_{k, 1}]] \ldots [[b_{k, n_k}]]\right]
+$$
+给出。
+\end{example}
+
+\begin{example}
+\label{simplicial-example-polynomial-algebra-homotopy}
+回到例 \ref{simplicial-example-polynomial-algebra} 中讨论的例子。
+引理 \ref{simplicial-lemma-standard-simplicial-homotopy} 表明，对任意环映射
+$A \to B$，单纯环映射
+$$
+\xymatrix{
+A[A[A[B]]] \ar[d]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[B]] \ar[d]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[B] \ar[d]
+\ar@<0ex>[l] \\
+B
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+B
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+B
+\ar@<0ex>[l]
+}
+$$
+在底层单纯集上为同伦等价。此外，引理
+\ref{simplicial-lemma-standard-simplicial-homotopy} 中构造的逆映射在次数
+$n$ 上由
+$$
+b \longmapsto [\ldots[b]\ldots]
+$$
+给出，记号含义显然。反过来，该引理还说明，对每个集合 $E$，
+存在环的同伦等价
+$$
+\xymatrix{
+A[A[A[A[E]]]] \ar[d]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[A[E]]] \ar[d]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[A[E]] \ar[d]
+\ar@<0ex>[l] \\
+A[E]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[E]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[E]
+\ar@<0ex>[l]
+}
+$$
+。引理中构造的逆映射在次数 $n$ 上由环映射
+$$
+\sum a_{e_1,\ldots,e_p}[e_1][e_2] \ldots [e_p]
+\longmapsto
+\sum a_{e_1,\ldots,e_p}[\ldots[e_1]\ldots][\ldots[e_2]\ldots]
+\ldots [\ldots[e_p]\ldots]
+$$
+给出（记号含义显然）。
+\end{example}

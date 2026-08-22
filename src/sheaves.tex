@@ -1,0 +1,4458 @@
+% Generated mechanically from the frozen sheaves.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{5}
+\chapter{空间上的层}
+
+
+
+\phantomsection
+\label{sheaves-section-phantom}
+
+
+\section{引言}
+\label{sheaves-section-introduction}
+
+\noindent
+本文将说明拓扑空间上层的基本性质。可参见 \cite{Godement}。
+
+\medskip\noindent
+后续文档中关于站点上层的讨论将取代这里的内容。不过，在此简要定义其中一些
+概念或许仍有意义。
+
+
+
+
+
+
+
+
+\section{基本概念}
+\label{sheaves-section-sheaves-basic}
+
+\noindent
+下面列出拓扑学中的若干基本概念。
+
+\begin{enumerate}
+\item 设 $X$ 为拓扑空间。“设 $U = \bigcup_{i \in I} U_i$ 为一个开覆盖”
+是指：$I$ 是集合，并且对每个 $i \in I$，给定开子集 $U_i \subset X$，
+使得 $U$ 是诸 $U_i$ 之并。允许 $I = \emptyset$；此时不存在 $U_i$，并且
+$U = \emptyset$。当 $I \not = \emptyset$ 时，也允许任意一些乃至所有
+$U_i$ 为空。
+% P01-ERRATA: P01-E0035 -- the frozen reader-facing list contains an editorial placeholder.
+\item 等等，等等。
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\section{预层}
+\label{sheaves-section-presheaves}
+
+
+\begin{definition}
+\label{sheaves-definition-presheaf}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item $X$ 上的一个{\it 集合预层 $\mathcal{F}$}，是这样一条规则：对每个开集
+$U \subset X$ 指定一个集合 $\mathcal{F}(U)$，并对每个包含关系
+$V \subset U$ 指定一个映射
+$\rho^U_V : \mathcal{F}(U) \to \mathcal{F}(V)$，使得
+$\rho^U_U = \text{id}_{\mathcal{F}(U)}$，且每当
+$W \subset V \subset U$ 时，都有
+$\rho^U_W = \rho^V_W \circ \rho ^U_V$。
+\item $X$ 上集合预层的一个{\it 态射
+$\varphi : \mathcal{F} \to \mathcal{G}$}，是这样一条规则：对每个开集
+$U \subset X$ 指定一个与限制映射相容的集合映射
+$\varphi : \mathcal{F}(U) \to \mathcal{G}(U)$；也就是说，每当
+$V \subset U \subset X$ 为开集时，图表
+$$
+\xymatrix{
+\mathcal{F}(U) \ar[r]^\varphi \ar[d]^{\rho^U_V} &
+\mathcal{G}(U) \ar[d]^{\rho^U_V} \\
+\mathcal{F}(V) \ar[r]^\varphi & \mathcal{G}(V)
+}
+$$
+交换。
+\item $X$ 上集合预层的范畴记作 $\textit{PSh}(X)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+集合 $\mathcal{F}(U)$ 的元素称为 $\mathcal{F}$ 在 $U$ 上的{\it 截面}。
+对每个 $V \subset U$，映射
+$\rho^U_V : \mathcal{F}(U) \to \mathcal{F}(V)$ 称为{\it 限制映射}。
+若 $s\in \mathcal{F}(U)$，我们采用记号 $s|_V := \rho^U_V(s)$。这一记号
+与拓扑学中函数限制的概念相容，因为若 $W \subset V \subset U$，且 $s$
+是 $\mathcal{F}$ 在 $U$ 上的截面，则由上述定义中限制映射的性质，有
+$s|_W = (s|_V)|_W$。
+
+\medskip\noindent
+另一种常用记号是用符号 $\Gamma(U, -)$ 或 $H^0(U, -)$ 表示开集 $U$
+上的截面。换言之，下列等式是恒真的：
+$$
+\Gamma(U, \mathcal{F}) = \mathcal{F}(U) = H^0(U, \mathcal{F}).
+$$
+本章不使用这一记号，但其他章节会使用。
+
+\begin{definition}
+\label{sheaves-definition-constant-presheaf}
+设 $X$ 为拓扑空间，$A$ 为集合。{\it 取值为 $A$ 的常值预层}，是把集合
+$A$ 指派给每个开集 $U \subset X$，并且所有限制映射均为
+$\text{id}_A$ 的预层。
+\end{definition}
+
+\section{阿贝尔预层}
+\label{sheaves-section-abelian-presheaves}
+
+\noindent
+本节简要指出预层范畴的一些特征，它们使我们能够定义阿贝尔群预层。
+
+\begin{example}
+\label{sheaves-example-singleton-presheaf}
+设 $X$ 为拓扑空间。考虑一条规则 $\mathcal{F}$，它把一个单元素集与 $X$
+的每个开子集相联系。由于从任意集合到单元素集存在唯一映射，故存在唯一的
+限制映射 $\rho^U_V$。所得结构是 $X$ 上的集合预层。由刚才所述的单元素集
+性质，它是 $X$ 上集合预层范畴的终对象。因此，它在唯一同构的意义下也是
+唯一的。我们有时用 $*$ 表示该预层。
+\end{example}
+
+\begin{lemma}
+\label{sheaves-lemma-product-presheaves}
+设 $X$ 为拓扑空间。$X$ 上集合预层的范畴有积（见 Categories，定义
+\ref{categories-definition-product}）。此外，积
+$\mathcal{F} \times \mathcal{G}$ 在开集 $U$ 上的截面集，等于
+$\mathcal{F}$ 和 $\mathcal{G}$ 在 $U$ 上的截面集之积。
+\end{lemma}
+
+\begin{proof}
+具体地，设 $\mathcal{F}$ 和 $\mathcal{G}$ 是拓扑空间 $X$ 上的集合预层。
+考虑规则 $U \mapsto \mathcal{F}(U) \times \mathcal{G}(U)$，并将它记作
+$\mathcal{F} \times \mathcal{G}$。若 $V \subset U \subset X$ 为开集，
+则定义限制映射
+$$
+(\mathcal{F} \times \mathcal{G})(U)
+\longrightarrow
+(\mathcal{F} \times \mathcal{G})(V)
+$$
+为 $(s, t) \mapsto (s|_V, t|_V)$。于是立即可见，
+$\mathcal{F} \times \mathcal{G}$ 是一个预层。此外，还有投影映射
+$p : \mathcal{F} \times \mathcal{G} \to \mathcal{F}$ 和
+$q : \mathcal{F} \times \mathcal{G} \to \mathcal{G}$。留给读者证明：
+对任意第三个预层 $\mathcal{H}$，都有
+$\Mor(\mathcal{H}, \mathcal{F} \times \mathcal{G})
+= \Mor(\mathcal{H}, \mathcal{F}) \times
+\Mor(\mathcal{H}, \mathcal{G})$。
+\end{proof}
+
+\noindent
+回忆一下，若 $(A, + : A \times A \to A, - : A \to A, 0\in A)$ 是阿贝尔群，
+则零元映射和取负映射由加法律唯一确定。换言之，说“设 $(A, +)$ 为阿贝尔群”
+是有意义的。
+
+\begin{lemma}
+\label{sheaves-lemma-abelian-presheaves}
+设 $X$ 为拓扑空间，$\mathcal{F}$ 为集合预层。考虑 $\mathcal{F}$ 上的以下
+几类结构：
+\begin{enumerate}
+\item 对每个开集 $U$，在 $\mathcal{F}(U)$ 上给定阿贝尔群结构，使所有限制
+映射均为阿贝尔群同态。
+\item 给定预层映射 $+ : \mathcal{F} \times \mathcal{F} \to \mathcal{F}$、
+预层映射 $- : \mathcal{F} \to \mathcal{F}$ 以及映射
+$0 : * \to \mathcal{F}$（见例 \ref{sheaves-example-singleton-presheaf}），并使它们
+满足通常阿贝尔群中 $+, -, 0$ 的所有公理。
+\item 给定预层映射 $+ : \mathcal{F} \times \mathcal{F} \to \mathcal{F}$、
+预层映射 $- : \mathcal{F} \to \mathcal{F}$ 以及映射
+$0 : * \to \mathcal{F}$，使得对每个开集 $U \subset X$，四元组
+$(\mathcal{F}(U), +, -, 0)$ 是阿贝尔群，
+\item 给定预层映射 $+ : \mathcal{F} \times \mathcal{F}
+\to \mathcal{F}$，使得对每个开集 $U \subset X$，映射
+$+ : \mathcal{F}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)$
+定义一个阿贝尔群结构。
+\end{enumerate}
+上述 (1)--(4) 各类数据的集合之间存在自然双射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+该引理说明，在预层范畴中给定一个阿贝尔群对象 $\mathcal{F}$，等价于给定
+一个集合预层 $\mathcal{F}$，使所有集合 $\mathcal{F}(U)$ 都被赋予阿贝尔群
+结构，并使所有限制映射均为群同态。对于大多数代数结构，我们都将用这一
+方式处理此类对象的（预）层；也就是说，我们把此类对象的一个（预）层定义为
+集合（预）层 $\mathcal{F}$，其所有截面集 $\mathcal{F}(U)$ 均以与限制映射
+相容的方式被赋予这一结构。
+
+\begin{definition}
+\label{sheaves-definition-abelian-presheaves}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item $X$ 上的一个{\it 阿贝尔群预层}，或称 $X$ 上的一个
+{\it 阿贝尔预层}，是集合预层 $\mathcal{F}$，使得对每个开集
+$U \subset X$，集合 $\mathcal{F}(U)$ 被赋予阿贝尔群结构，并且所有限制
+映射 $\rho^U_V$ 都是阿贝尔群同态；见上面的引理
+\ref{sheaves-lemma-abelian-presheaves}。
+\item $X$ 上阿贝尔预层的一个{\it 态射}
+$\varphi : \mathcal{F} \to \mathcal{G}$，是集合预层的一个态射，并且对每个
+开集 $U \subset X$，它诱导阿贝尔群同态
+$\mathcal{F}(U) \to \mathcal{G}(U)$。
+\item $X$ 上阿贝尔群预层的范畴记作 $\textit{PAb}(X)$。
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{sheaves-example-direct-sum-points}
+设 $X$ 为拓扑空间。假设对每个 $x \in X$ 给定阿贝尔群 $M_x$。对开集
+$U \subset X$，令
+$$
+\mathcal{F}(U) = \bigoplus\nolimits_{x \in U} M_x.
+$$
+我们把该阿贝尔群的典型元素记作 $\sum_{i = 1}^n m_{x_i}$，其中
+$x_i \in U$ 且 $m_{x_i} \in M_{x_i}$。（当然，总可以选择一种表示，使
+$x_1, \ldots, x_n$ 两两不同。）对开集 $V \subset U \subset X$，定义限制
+映射 $\mathcal{F}(U) \to \mathcal{F}(V)$，把元素
+$s = \sum_{i = 1}^n m_{x_i}$ 映到元素
+$s|_V = \sum_{x_i \in V} m_{x_i}$。留给读者验证，这是一个阿贝尔群预层。
+\end{example}
+
+
+
+\section{代数结构预层}
+\label{sheaves-section-presheaves-structures}
+
+\noindent
+我们来澄清代数结构预层的定义。假设 $\mathcal{C}$ 是一个范畴，且
+$F : \mathcal{C} \to \textit{Sets}$ 是忠实函子。通常，$F$ 是一个“遗忘”
+函子。对对象 $M \in \Ob(\mathcal{C})$，我们常把 $F(M)$ 称为对象 $M$
+的{\it 底层集合}。若 $M \to M'$ 是 $\mathcal{C}$ 中的态射，则称
+$F(M) \to F(M')$ 为{\it 底层集合映射}。事实上，我们常常不区分一个对象
+与其底层集合，对态射也同样如此。因此，若集合映射 $F(M) \to F(M')$
+等于 $\mathcal{C}$ 中某个态射 $f : M \to M'$ 的 $F(f)$，则称它为一个
+{\it 代数结构态射}。
+
+\medskip\noindent
+仿照上面的定义 \ref{sheaves-definition-abelian-presheaves}，一个“$\mathcal{C}$ 中对象
+的预层”可以由以下数据定义：
+\begin{enumerate}
+\item 一个集合预层 $\mathcal{F}$，以及
+\item 对每个开集 $U \subset X$，选择一个对象
+$A(U) \in \Ob(\mathcal{C})$。
+\end{enumerate}
+这些数据须满足以下条件（采用上面的说法）：
+\begin{enumerate}
+\item 对每个开集 $U \subset X$，集合 $\mathcal{F}(U)$ 是 $A(U)$ 的底层
+集合，并且
+\item 对每个开集 $V \subset U \subset X$，集合映射
+$\rho_V^U: \mathcal{F}(U) \to \mathcal{F}(V)$ 是代数结构态射。
+\end{enumerate}
+换言之，对 $X$ 中每个开集 $V \subset U$，限制映射 $\rho^U_V$ 是范畴
+$\mathcal{C}$ 中某个唯一态射 $\alpha^U_V : A(U) \to A(V)$ 的像
+$F(\alpha^U_V)$。唯一性由 $F$ 忠实这一条件所保证；它还蕴含：每当
+$W \subset V \subset U$ 为 $X$ 中的开集时，有
+$\alpha^U_W = \alpha^V_W \circ \alpha^U_V$。系统
+$(A(-), \alpha^U_V)$ 就是我们将定义的 $X$ 上取值于 $\mathcal{C}$ 的预层；
+比较 Sites，定义 \ref{sites-definition-presheaf}。通过规则
+$\mathcal{F}(U) = F(A(U))$ 和 $\rho_V^U = F(\alpha_V^U)$，可以恢复我们的
+集合预层 $(\mathcal{F}, \rho_V^U)$。
+
+\begin{definition}
+\label{sheaves-definition-presheaf-values-in-category}
+设 $X$ 为拓扑空间，$\mathcal{C}$ 为范畴。
+\begin{enumerate}
+% P01-ERRATA: P01-E0036 -- unlike the set-valued definition, the frozen definition omits the identity restriction axiom.
+\item $X$ 上一个{\it 取值于 $\mathcal{C}$ 的预层 $\mathcal{F}$}，由这样一条
+规则给出：对每个开集 $U \subset X$ 指定 $\mathcal{C}$ 的一个对象
+$\mathcal{F}(U)$，并对每个包含关系 $V \subset U$ 指定 $\mathcal{C}$ 中的
+一个态射 $\rho_V^U : \mathcal{F}(U) \to \mathcal{F}(V)$，使得每当
+$W \subset V \subset U$ 时，都有
+$\rho_W^U = \rho_W^V \circ \rho_V^U$。
+\item 取值于 $\mathcal{C}$ 的预层的一个{\it 态射
+$\varphi : \mathcal{F} \to \mathcal{G}$}，由与限制态射相容的
+$\mathcal{C}$ 中的态射 $\varphi : \mathcal{F}(U) \to \mathcal{G}(U)$ 给出。
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{sheaves-definition-underlying-presheaf-sets}
+设 $X$ 为拓扑空间，$\mathcal{C}$ 为范畴，并设
+$F : \mathcal{C} \to \textit{Sets}$ 为忠实函子。设 $\mathcal{F}$ 是 $X$
+上取值于 $\mathcal{C}$ 的预层。集合预层 $U \mapsto F(\mathcal{F}(U))$
+称为 $\mathcal{F}$ 的{\it 底层集合预层}。
+\end{definition}
+
+\noindent
+依照定义 \ref{sheaves-definition-presheaf-values-in-category} 前的讨论，通常仍用同一字母
+$\mathcal{F}$ 表示其底层集合预层。特别地，“设 $s \in \mathcal{F}(U)$”或
+“设 $s$ 是 $\mathcal{F}$ 在 $U$ 上的一个截面”是指
+$s \in F(\mathcal{F}(U))$。
+
+\medskip\noindent
+这些记号和定义尤其适用于：{\it （不一定阿贝尔的）群、环、固定环上的模、
+固定域上的向量空间等的预层}，以及{\it 它们之间的态射}。
+
+\section{模预层}
+\label{sheaves-section-presheaves-modules}
+
+\noindent
+假设 $\mathcal{O}$ 是 $X$ 上的环预层。我们想定义 $X$ 上
+$\mathcal{O}$-模预层的概念。仿照定义 \ref{sheaves-definition-abelian-presheaves}，
+很自然地会把它定义为集合预层 $\mathcal{F}$，使得对每个开集
+$U \subset X$，集合 $\mathcal{F}(U)$ 被赋予与（$\mathcal{F}$ 和
+$\mathcal{O}$ 的）限制映射相容的 $\mathcal{O}(U)$-模结构。不过，习惯上
+采用下面这个等价的定义。
+
+\begin{definition}
+\label{sheaves-definition-presheaf-modules}
+设 $X$ 为拓扑空间，$\mathcal{O}$ 为 $X$ 上的环预层。
+\begin{enumerate}
+\item 一个{\it $\mathcal{O}$-模预层}，由一个阿贝尔预层 $\mathcal{F}$ 和一个
+集合预层映射
+$$
+\mathcal{O} \times \mathcal{F} \longrightarrow \mathcal{F}
+$$
+给出，使得对每个开集 $U \subset X$，映射
+$\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)$
+在阿贝尔群 $\mathcal{F}(U)$ 上定义一个 $\mathcal{O}(U)$-模结构。
+\item $\mathcal{O}$-模预层的一个{\it 态射
+$\varphi : \mathcal{F} \to \mathcal{G}$}，是阿贝尔预层的一个态射
+$\varphi : \mathcal{F} \to \mathcal{G}$，使图表
+$$
+\xymatrix{
+\mathcal{O} \times \mathcal{F} \ar[r] \ar[d]_{\text{id} \times \varphi} &
+\mathcal{F} \ar[d]^{\varphi} \\
+\mathcal{O} \times \mathcal{G} \ar[r] &
+\mathcal{G}
+}
+$$
+交换。
+\item 上述 $\mathcal{O}$-模态射的集合记作
+$\Hom_\mathcal{O}(\mathcal{F}, \mathcal{G})$。
+\item $\mathcal{O}$-模预层的范畴记作 $\textit{PMod}(\mathcal{O})$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+假设 $\mathcal{O}_1 \to \mathcal{O}_2$ 是 $X$ 上环预层的一个态射。在此
+情形下，若 $\mathcal{F}$ 是 $\mathcal{O}_2$-模预层，则可以借助复合映射
+$$
+\mathcal{O}_1 \times \mathcal{F}
+\to
+\mathcal{O}_2 \times \mathcal{F}
+\to
+\mathcal{F}.
+$$
+把 $\mathcal{F}$ 看作 $\mathcal{O}_1$-模预层。为表明环的限制，有时把它记作
+$\mathcal{F}_{\mathcal{O}_1}$。我们称之为 $\mathcal{F}$ 的{\it 限制}。
+由此得到限制函子
+$$
+\textit{PMod}(\mathcal{O}_2)
+\longrightarrow
+\textit{PMod}(\mathcal{O}_1)
+$$
+
+\medskip\noindent
+另一方面，给定 $\mathcal{O}_1$-模预层 $\mathcal{G}$，可以按规则
+$$
+\left(\mathcal{O}_2 \otimes_{p, \mathcal{O}_1} \mathcal{G}\right)(U)
+=
+\mathcal{O}_2(U) \otimes_{\mathcal{O}_1(U)} \mathcal{G}(U)
+$$
+构造 $\mathcal{O}_2$-模预层
+$\mathcal{O}_2 \otimes_{p, \mathcal{O}_1} \mathcal{G}$。下标 $p$ 表示
+“预层”而不是“点”。该预层称为{\it 张量积预层}。由此得到{\it 变环}函子
+$$
+\textit{PMod}(\mathcal{O}_1)
+\longrightarrow
+\textit{PMod}(\mathcal{O}_2)
+$$
+
+\begin{lemma}
+\label{sheaves-lemma-adjointness-tensor-restrict-presheaves}
+在上述 $X$、$\mathcal{O}_1$、$\mathcal{O}_2$、$\mathcal{F}$ 和
+$\mathcal{G}$ 的条件下，存在典范双射
+$$
+\Hom_{\mathcal{O}_1}(\mathcal{G}, \mathcal{F}_{\mathcal{O}_1})
+=
+\Hom_{\mathcal{O}_2}(
+\mathcal{O}_2 \otimes_{p, \mathcal{O}_1} \mathcal{G},
+\mathcal{F}
+)
+$$
+换言之，限制函子与变环函子互为伴随。
+\end{lemma}
+
+\begin{proof}
+这由以下事实得出：对环同态 $A \to B$，限制函子与变环函子互为伴随。
+\end{proof}
+
+
+
+
+
+\section{层}
+\label{sheaves-section-sheaves}
+
+\noindent
+本节说明层条件。
+
+\begin{definition}
+\label{sheaves-definition-sheaf}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item $X$ 上的一个{\it 集合层 $\mathcal{F}$}，是满足以下附加性质的集合
+预层：给定任意开覆盖 $U = \bigcup_{i \in I} U_i$，以及任意一族截面
+$s_i \in \mathcal{F}(U_i)$，$i \in I$，使得 $\forall i, j\in I$ 都有
+$$
+s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}
+$$
+则存在唯一截面 $s \in \mathcal{F}(U)$，使得对所有 $i \in I$ 都有
+$s_i = s|_{U_i}$。
+\item 一个{\it 集合层态射}就是一个集合预层态射。
+\item $X$ 上集合层的范畴记作 $\Sh(X)$。
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{sheaves-remark-confusion}
+关于是否有必要说明层在空集 $\emptyset \subset X$ 上的截面集，总会有一点
+混淆。确有必要；如果正确理解定义，我们其实已经作了说明。事实上，空集由
+空开覆盖覆盖，因此上述定义中的“截面族 $s_i$”实际构成空积的一个元素，而
+空积是层所取值范畴的终对象。换言之，正确理解定义便会自动推出
+$\mathcal{F}(\emptyset) = \textit{终对象}$；对集合层而言，这就是一个
+单元素集。如果不喜欢这一论证，也可以直接要求
+$\mathcal{F}(\emptyset) = \{*\}$。
+
+\medskip\noindent
+特别地，该条件于是保证：若 $U, V \subset X$ 为开集且{\it 不交}，则
+$$
+\mathcal{F}(U \cup V) = \mathcal{F}(U) \times \mathcal{F}(V).
+$$
+（因为终对象上的纤维积就是积。）
+\end{remark}
+
+\begin{example}
+\label{sheaves-example-basic-continuous-maps}
+设 $X$、$Y$ 为拓扑空间。考虑规则 $\mathcal{F}$，它把集合
+$$
+\mathcal{F}(U) = \{ f : U \to Y \mid f \text{ 连续}\}
+$$
+以及显然的限制映射与开集 $U \subset X$ 相联系。我们断言
+$\mathcal{F}$ 是一个层。为此，假设 $U = \bigcup_{i\in I} U_i$ 是开覆盖，
+并且 $f_i \in \mathcal{F}(U_i)$，$i\in I$，满足对所有 $i, j \in I$ 都有
+$f_i |_{U_i \cap U_j} = f_j|_{U_i \cap U_j}$。在此情形下，定义
+$f : U \to Y$ 如下：对任意满足 $u \in U_i$ 的 $i \in I$，令 $f(u)$ 等于
+$f_i(u)$ 的值。由假设，这是良定义的。此外，映射 $f : U \to Y$ 在
+$U_i$ 上的限制与连续映射 $f_i$ 相同。因此 $f$ 显然连续！
+\end{example}
+
+\noindent
+可以利用该例的结果定义常值层。具体地，设 $A$ 为集合，并在 $A$ 上赋予
+离散拓扑。设 $U \subset X$ 为开子集。于是
+$$
+\{ f : U \to A \mid f\text{ 连续}\}
+=
+\{ f : U \to A \mid f\text{ 局部常值}\}.
+$$
+因此，把所有到 $A$ 的局部常值映射指派给一个开集的规则是一个层。
+
+\begin{definition}
+\label{sheaves-definition-constant-sheaf}
+设 $X$ 为拓扑空间，$A$ 为集合。取值为 $A$ 的{\it 常值层}记作
+$\underline{A}$ 或 $\underline{A}_X$；它把所有局部常值映射 $U \to A$
+组成的集合指派给开集 $U \subset X$，其限制映射由函数的限制给出。
+\end{definition}
+
+\begin{example}
+\label{sheaves-example-sheaf-product-pointwise}
+设 $X$ 为拓扑空间，并设 $(A_x)_{x \in X}$ 是由点 $x \in X$ 标号的一族
+集合 $A_x$。我们将由这些数据构造一个集合层 $\Pi$。对开集
+$U \subset X$，令
+$$
+\Pi(U) = \prod\nolimits_{x \in U} A_x.
+$$
+对开集 $V \subset U \subset X$，按下列规则定义限制映射：元素
+$s = (a_x)_{x\in U} \in \Pi(U)$ 限制为
+$s|_V = (a_x)_{x \in V}$。这显然定义了一个集合预层。我们断言它是一个层。
+事实上，设 $U = \bigcup U_i$ 为开覆盖。假设 $s_i \in \Pi(U_i)$，并且
+$s_i$ 与 $s_j$ 在 $U_i \cap U_j$ 上相同。写
+$s_i = (a_{i, x})_{x\in U_i}$。相容性条件蕴含：每当
+$x \in U_i \cap U_j$ 时，集合 $A_x$ 中有 $a_{i, x} = a_{j, x}$。因此，
+存在唯一元素 $s = (a_x)_{x\in U}$ 属于
+$\Pi(U) = \prod_{x\in U} A_x$，使得只要对某个 $i$ 有 $x \in U_i$，就有
+$a_x = a_{i, x}$。当然，对所有 $i$，该元素 $s$ 都满足
+$s|_{U_i} = s_i$。
+\end{example}
+
+\begin{example}
+\label{sheaves-example-direct-sum-points-not-sheaf}
+设 $X$ 为拓扑空间。假设对每个 $x\in X$ 给定阿贝尔群 $M_x$。考虑例
+\ref{sheaves-example-direct-sum-points} 中定义的预层
+$\mathcal{F} : U \mapsto \bigoplus_{x \in U} M_x$。一般而言，它不是一个层。
+例如，若 $X$ 是赋予离散拓扑的无限集合，则层条件将蕴含
+$\mathcal{F}(X) = \prod_{x\in X} \mathcal{F}(\{x\})$，但按照定义，
+$\mathcal{F}(X) = \bigoplus_{x \in X} M_x
+= \bigoplus_{x \in X} \mathcal{F}(\{x\})$。一般而言，无限直和不同于
+无限直积。
+
+\medskip\noindent
+不过，若 $X$ 是一个拓扑空间，且 $X$ 的每个开集都拟紧，则
+$\mathcal{F}$ {\it 的确}是一个层。留给读者作为练习。
+\end{example}
+
+
+
+\section{阿贝尔层}
+\label{sheaves-section-abelian-sheaves}
+
+\begin{definition}
+\label{sheaves-definition-abelian-sheaf}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item $X$ 上的一个{\it 阿贝尔层}，或称 $X$ 上的一个{\it 阿贝尔群层}，
+是 $X$ 上的阿贝尔预层，并且其底层集合预层是一个层。
+\item 阿贝尔群层的范畴记作 $\textit{Ab}(X)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+设 $X$ 为拓扑空间。对阿贝尔预层 $\mathcal{F}$，关于开覆盖
+$U = \bigcup U_i$ 的层条件常表述为：阿贝尔群复形
+$$
+0 \to \mathcal{F}(U)
+\to \prod\nolimits_i \mathcal{F}(U_i)
+\to \prod\nolimits_{(i_0, i_1)} \mathcal{F}(U_{i_0} \cap U_{i_1})
+$$
+正合。第一个映射是通常的映射，而第二个映射把元素 $(s_i)_{i \in I}$
+映到元素
+$$
+(
+s_{i_0}|_{U_{i_0} \cap U_{i_1}} -
+s_{i_1}|_{U_{i_0} \cap U_{i_1}}
+)_{(i_0, i_1)}
+\in \prod\nolimits_{(i_0, i_1)} \mathcal{F}(U_{i_0} \cap U_{i_1})
+$$
+
+\section{代数结构层}
+\label{sheaves-section-sheaves-structures}
+
+\noindent
+我们来澄清某些类型结构之层的定义。首先重新表述层条件。设
+$\mathcal{F}$ 是拓扑空间 $X$ 上的集合预层。层条件可以表述如下。设
+$U = \bigcup_{i\in I} U_i$ 为开覆盖。考虑图表
+$$
+\xymatrix{
+\mathcal{F}(U) \ar[r]
+&
+\prod\nolimits_{i\in I}
+\mathcal{F}(U_i)
+\ar@<1ex>[r] \ar@<-1ex>[r]
+&
+\prod\nolimits_{(i_0, i_1) \in I \times I}
+\mathcal{F}(U_{i_0} \cap U_{i_1})
+}
+$$
+这里，左侧映射由规则 $s \mapsto \prod_{i \in I} s|_{U_i}$ 定义。右侧的
+两个映射分别是
+$$
+\prod\nolimits_i s_i
+\mapsto
+\prod\nolimits_{(i_0, i_1)} s_{i_0}|_{U_{i_0} \cap U_{i_1}}
+\text{ 分别 }
+\prod\nolimits_i s_i
+\mapsto
+\prod\nolimits_{(i_0, i_1)} s_{i_1}|_{U_{i_0} \cap U_{i_1}}.
+$$
+层条件恰好说明，左侧箭头是右侧两个箭头的等化子。只要一个范畴有积，这一
+表述就立即推广到取值于该范畴的预层。
+
+\begin{definition}
+\label{sheaves-definition-sheaf-values-in-category}
+设 $X$ 为拓扑空间，$\mathcal{C}$ 为有积的范畴。若 $X$ 上取值于
+$\mathcal{C}$ 的预层 $\mathcal{F}$ 对每个开覆盖都有图表
+$$
+\xymatrix{
+\mathcal{F}(U) \ar[r]
+&
+\prod\nolimits_{i\in I}
+\mathcal{F}(U_i)
+\ar@<1ex>[r] \ar@<-1ex>[r]
+&
+\prod\nolimits_{(i_0, i_1) \in I \times I}
+\mathcal{F}(U_{i_0} \cap U_{i_1})
+}
+$$
+在范畴 $\mathcal{C}$ 中是等化子图表，则称它为一个{\it 层}。
+\end{definition}
+
+\noindent
+假设 $\mathcal{C}$ 是范畴，且 $F : \mathcal{C} \to \textit{Sets}$ 是忠实
+函子。一个值得牢记的例子是：$\mathcal{C}$ 是阿贝尔群范畴，而 $F$ 是遗忘
+函子。考虑 $X$ 上取值于 $\mathcal{C}$ 的预层 $\mathcal{F}$。我们希望用其
+底层集合预层（定义 \ref{sheaves-definition-underlying-presheaf-sets}）重新表述上述
+条件。注意，底层集合预层是集合层，当且仅当施加遗忘函子 $F$ 后，所有集合
+图表
+$$
+\xymatrix{
+F(\mathcal{F}(U)) \ar[r]
+&
+\prod\nolimits_{i\in I}
+F(\mathcal{F}(U_i))
+\ar@<1ex>[r] \ar@<-1ex>[r]
+&
+\prod\nolimits_{(i_0, i_1) \in I \times I}
+F(\mathcal{F}(U_{i_0} \cap U_{i_1}))
+}
+$$
+都是等化子图表！因此，我们希望 $\mathcal{C}$ 有积和等化子，并希望 $F$
+与它们可交换。这等价于 $\mathcal{C}$ 有极限且 $F$ 与极限可交换；见
+Categories，引理 \ref{categories-lemma-limits-products-equalizers}。但这仍不
+充分（见例 \ref{sheaves-example-sheaves-topological-spaces}）；还需要 $F$
+{\it 反映同构}。这一性质是指：给定 $\mathcal{C}$ 中的态射
+$f : A \to A'$，若（且仅若）$F(f)$ 是双射，则 $f$ 是同构。
+
+\begin{lemma}
+\label{sheaves-lemma-sheaves-structure}
+假设范畴 $\mathcal{C}$ 和函子 $F : \mathcal{C} \to \textit{Sets}$ 满足：
+\begin{enumerate}
+\item $F$ 忠实，
+\item $\mathcal{C}$ 有极限，并且 $F$ 与极限可交换，以及
+\item 函子 $F$ 反映同构。
+\end{enumerate}
+设 $X$ 为拓扑空间，并设 $\mathcal{F}$ 是取值于 $\mathcal{C}$ 的预层。
+则 $\mathcal{F}$ 是层，当且仅当其底层集合预层是层。
+\end{lemma}
+
+\begin{proof}
+假设 $\mathcal{F}$ 是层。则 $\mathcal{F}(U)$ 是上述图表的等化子；由假设，
+$F(\mathcal{F}(U))$ 是相应集合图表的等化子。因此 $F(\mathcal{F})$ 是集合层。
+
+\medskip\noindent
+反之，假设 $F(\mathcal{F})$ 是层。令 $E \in \Ob(\mathcal{C})$ 为定义
+\ref{sheaves-definition-sheaf-values-in-category} 中两个平行箭头的等化子。仅由
+$\mathcal{F}$ 是预层，就得到典范态射 $\mathcal{F}(U) \to E$。由假设，
+诱导映射 $F(\mathcal{F}(U)) \to F(E)$ 是同构，因为 $F(E)$ 是相应集合图表
+的等化子。因此，由引理的条件 (3)，可知 $\mathcal{F}(U) \to E$ 是同构。
+\end{proof}
+
+\noindent
+该引理特别适用于{\it 群、环、固定环上的代数、固定环上的模、固定域上的
+向量空间等的层}。换言之，它们是群、环、固定环上的模、固定域上的向量
+空间等的预层，并且其底层集合预层是层。
+
+\begin{example}
+\label{sheaves-example-C0-sheaf-rings}
+设 $X$ 为拓扑空间。对每个开集 $U \subset X$，考虑
+$\mathbf{R}$-代数
+$\mathcal{C}^{0}(U) = \{ f : U \to \mathbf{R} \mid f\text{ 连续}\}$。
+存在显然的限制映射，使其成为 $X$ 上的 $\mathbf{R}$-代数预层。由例
+\ref{sheaves-example-basic-continuous-maps}，它是集合层。因此，由引理
+\ref{sheaves-lemma-sheaves-structure}，它是 $X$ 上的 $\mathbf{R}$-代数层。
+\end{example}
+
+\begin{example}
+\label{sheaves-example-sheaves-topological-spaces}
+考虑拓扑空间范畴 $\textit{Top}$。存在自然的忠实函子
+$\textit{Top} \to \textit{Sets}$，它与积和等化子可交换，但不反映同构。
+事实上，结果表明引理 \ref{sheaves-lemma-sheaves-structure} 的类似命题是错误的。
+具体地，设 $X = \mathbf{N}$ 并赋予离散拓扑。设 $A_i$，
+$i \in \mathbf{N}$，为离散拓扑空间。对任意子集
+$U \subset \mathbf{N}$，定义 $\mathcal{F}(U) = \prod_{i\in U} A_i$，
+并赋予离散拓扑。于是这是一个拓扑空间预层，其底层集合预层是层，见例
+\ref{sheaves-example-sheaf-product-pointwise}。然而，如果每个 $A_i$ 至少有两个元素，
+那么按照定义 \ref{sheaves-definition-sheaf-values-in-category}，它并不是拓扑空间层。
+读者可以验证，若在每个 $\mathcal{F}(U) = \prod_{i\in U} A_i$ 上赋予
+{\it 积拓扑}，则确实得到 $X$ 上的拓扑空间层。
+\end{example}
+
+
+\section{模层}
+\label{sheaves-section-sheaves-modules}
+
+\begin{definition}
+\label{sheaves-definition-sheaf-modules}
+设 $X$ 为拓扑空间，$\mathcal{O}$ 为 $X$ 上的环层。
+\begin{enumerate}
+\item 一个{\it $\mathcal{O}$-模层}，是一个 $\mathcal{O}$-模预层
+$\mathcal{F}$（见定义 \ref{sheaves-definition-presheaf-modules}），并且其底层阿贝尔群
+预层 $\mathcal{F}$ 是层。
+\item 一个{\it $\mathcal{O}$-模层态射}，是一个 $\mathcal{O}$-模预层态射。
+% P01-ERRATA: P01-E0037 -- frozen English has singular "set of morphism".
+\item 给定 $\mathcal{O}$-模层 $\mathcal{F}$ 和 $\mathcal{G}$，用
+$\Hom_\mathcal{O}(\mathcal{F}, \mathcal{G})$ 表示 $\mathcal{O}$-模层态射
+的集合。
+\item $\mathcal{O}$-模层的范畴记作 $\textit{Mod}(\mathcal{O})$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+即使 $\mathcal{O}$ 只是一个环预层，这一定义也有某种意义；不过，我们不知
+它有什么有用的例子，并且当 $\mathcal{O}$ 不是环层时，将避免使用
+“$\mathcal{O}$-模层”这一术语。
+
+
+
+
+
+
+
+\section{茎}
+\label{sheaves-section-stalks}
+
+\noindent
+设 $X$ 为拓扑空间，$x \in X$ 为一点，并设 $\mathcal{F}$ 是 $X$ 上的集合
+预层。$\mathcal{F}$ 在 $x$ 处的{\it 茎}是集合
+$$
+\mathcal{F}_x
+=
+\colim_{x\in U} \mathcal{F}(U)
+$$
+其中余极限遍历 $X$ 中 $x$ 的开邻域 $U$ 所成集合。开邻域集合按（反向）
+包含关系偏序：规定 $U \geq U' \Leftrightarrow U \subset U'$。系统中的转移
+映射由 $\mathcal{F}$ 的限制映射给出。关于系统上（余）极限的记号和术语，
+见 Categories，第 \ref{categories-section-posets-limits} 节。注意，这一余极限
+是有向余极限。因此，很容易描述 $\mathcal{F}_x$。具体地，
+$$
+\mathcal{F}_x
+=
+\{
+(U, s)
+\mid
+x\in U, s\in \mathcal{F}(U)
+\}/\sim
+$$
+其中等价关系定义为：$(U, s) \sim (U', s')$，当且仅当存在开集
+$U'' \subset U \cap U'$，满足 $x \in U''$ 且
+$s|_{U''} = s'|_{U''}$。给定一对 $(U, s)$，有时用 $s_x$ 表示
+$\mathcal{F}_x$ 中与 $(U, s)$ 的等价类相应的元素。有时也说“$s$ 在
+$\mathcal{F}_x$ 中的像”来指 $s_x$。例如，给定两对 $(U, s)$ 和
+$(U', s')$，有时说“$s$ 与 $s'$ 在 $\mathcal{F}_x$ 中相等”，表示
+$s_x = s'_x$。其他作者使用“$s$ 在 $x$ 处的芽”这一术语。
+
+\medskip\noindent
+该定义的一个显然推论是：对任意开集 $U \subset X$，存在典范映射
+$$
+\mathcal{F}(U)
+\longrightarrow
+\prod\nolimits_{x \in U} \mathcal{F}_x
+$$
+由 $s \mapsto \prod_{x \in U} (U, s)$ 定义。请想一想！
+
+\begin{lemma}
+\label{sheaves-lemma-sheaf-subset-stalks}
+设 $\mathcal{F}$ 是拓扑空间 $X$ 上的集合层。对每个开集 $U \subset X$，
+映射
+$$
+\mathcal{F}(U)
+\longrightarrow
+\prod\nolimits_{x \in U} \mathcal{F}_x
+$$
+是单射。
+\end{lemma}
+
+\begin{proof}
+假设 $s, s' \in \mathcal{F}(U)$ 对所有 $x \in U$ 都映到每个茎
+$\mathcal{F}_x$ 中的同一元素。这意味着，对每个 $x \in U$，存在开集
+$V^x \subset U$，$x \in V^x$，使得 $s|_{V^x} = s'|_{V^x}$。但
+$U = \bigcup_{x \in U} V^x$ 是一个开覆盖。因此，由层条件中的唯一性，
+可知 $s = s'$。
+\end{proof}
+
+\begin{definition}
+\label{sheaves-definition-separated}
+设 $X$ 为拓扑空间。若对每个开集 $U \subset X$，映射
+$\mathcal{F}(U) \to \prod_{x \in U} \mathcal{F}_x$ 都是单射，则称 $X$
+上的集合预层 $\mathcal{F}$ 是{\it 分离的}。
+\end{definition}
+
+\noindent
+另一个观察是，茎 $\mathcal{F}_x$ 的构造关于预层 $\mathcal{F}$ 是函子性的。
+换言之，它给出函子
+$$
+\textit{PSh}(X) \longrightarrow \textit{Sets},
+\ \mathcal{F} \longmapsto \mathcal{F}_x.
+$$
+该函子称为{\it 茎函子}。具体地，若
+$\varphi : \mathcal{F} \to \mathcal{G}$ 是预层态射，则按规则
+$(U, s) \mapsto (U, \varphi(s))$ 定义
+$\varphi_x : \mathcal{F}_x \to \mathcal{G}_x$。为验证这确实可行，需要检查：
+若 $(U, s) = (U', s')$ 在 $\mathcal{F}_x$ 中成立，则
+$(U, \varphi(s)) = (U', \varphi(s'))$ 在 $\mathcal{G}_x$ 中也成立。
+这由 $\varphi$ 与限制映射相容显然可得。
+
+\begin{example}
+\label{sheaves-example-stalk-constant-presheaf}
+设 $X$ 为拓扑空间，$A$ 为集合。暂用 $A_p$ 表示取值为 $A$ 的常值预层
+（$p$ 表示预层，而不是点）。存在到取值为 $A$ 的常值层的典范预层映射
+$A_p \to \underline{A}$。对每个点，都有典范双射
+$A = (A_p)_x = \underline{A}_x$；其中第二个映射由函子性从映射
+$A_p \to \underline{A}$ 诱导。
+\end{example}
+
+
+
+\begin{example}
+\label{sheaves-example-germs-functions}
+假设 $X = \mathbf{R}^n$ 并赋予 Euclid 拓扑。考虑 $X$ 上的
+$\mathcal{C}^\infty$ 函数预层，记作
+$\mathcal{C}^\infty_{\mathbf{R}^n}$。换言之，
+$\mathcal{C}^\infty_{\mathbf{R}^n}(U)$ 是 $\mathcal{C}^\infty$ 函数
+$f : U \to \mathbf{R}$ 所成集合。与例
+\ref{sheaves-example-basic-continuous-maps} 一样，容易证明这是一个层。事实上，它是
+$\mathbf{R}$-向量空间层。
+
+\medskip\noindent
+接着，设 $x \in X = \mathbf{R}^n$ 为一点。应如何理解茎
+$\mathcal{C}^\infty_{\mathbf{R}^n, x}$ 中的元素？这样的元素由定义域包含
+$x$ 的一个 $\mathcal{C}^\infty$ 函数 $f$ 给出。两个这样的函数 $f$、$g$
+确定同一个茎元素，当且仅当它们在 $x$ 的某个邻域上一致。换言之，
+$\mathcal{C}^\infty_{\mathbf{R}^n, x}$ 的一个元素，就是有时所谓的
+{\it $\mathcal{C}^\infty$ 函数在 $x$ 处的芽}。
+\end{example}
+
+\begin{example}
+\label{sheaves-example-sheaf-product-pointwise-stalk}
+设 $X$ 为拓扑空间，并对每个 $x \in X$ 设 $A_x$ 为一个集合。考虑例
+\ref{sheaves-example-sheaf-product-pointwise} 中的层
+$\mathcal{F} : U \mapsto \prod_{x\in U} A_x$。这里只想指出，
+$\mathcal{F}$ 在 $x$ 处的茎 $\mathcal{F}_x$ 一般{\it 不}等于集合 $A_x$。
+当然，存在映射 $\mathcal{F}_x \to A_x$，但一般能说的仅此而已。例如，假设
+$x = \lim x_n$，且对所有 $n \not = m$ 都有 $x_n \not = x_m$，并假设对所有
+$y \in X$ 都有 $A_y = \{0, 1\}$。则 $\mathcal{F}_x$ 映满由 $0$ 和 $1$
+组成的序列尾所成的（无限）集合。事实上，$x$ 的每个开邻域都包含几乎所有
+$x_n$。另一方面，若 $x$ 的每个邻域都包含一点 $y$，使得
+$A_y = \emptyset$，则 $\mathcal{F}_x = \emptyset$。
+\end{example}
+
+
+
+\section{阿贝尔预层的茎}
+\label{sheaves-section-stalks-abelian-presheaves}
+
+\noindent
+我们先处理阿贝尔群的情形，以此作为一般情形的模型。
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-abelian-presheaf}
+设 $X$ 为拓扑空间，$\mathcal{F}$ 为 $X$ 上的阿贝尔群预层。在
+$\mathcal{F}_x$ 上存在唯一的阿贝尔群结构，使得对每个开集
+$U \subset X$，$x\in U$，映射
+$\mathcal{F}(U) \to \mathcal{F}_x$ 是群同态。此外，
+$$
+\mathcal{F}_x
+=
+\colim_{x\in U} \mathcal{F}(U)
+$$
+在阿贝尔群范畴中成立。
+\end{lemma}
+
+\begin{proof}
+把两个元素 $(U, s)$ 和 $(V, t)$ 之和定义为
+$(U \cap V, s|_{U\cap V} + t|_{U \cap V})$。其余性质容易验证。
+\end{proof}
+
+\noindent
+上述证明的关键在于，开邻域的偏序集是有向集（Categories，定义
+\ref{categories-definition-directed-set}）。事实上，两个阿贝尔群 $A, B$
+的余积是直和 $A \oplus B$，而集合范畴中的余积是不交并
+$A \amalg B$；这表明一般而言，阿贝尔群范畴中的余极限不同于集合范畴中的
+余极限。
+
+
+\section{代数结构预层的茎}
+\label{sheaves-section-stalks-presheaves-structures}
+
+\noindent
+对任何一种使得有向余极限与遗忘函子可交换的代数结构，引理
+\ref{sheaves-lemma-stalk-abelian-presheaf} 的证明都同样适用。
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-presheaf-values-in-category}
+设 $\mathcal{C}$ 为范畴，$F : \mathcal{C} \to \textit{Sets}$ 为函子。
+假设：
+\begin{enumerate}
+\item $F$ 忠实，并且
+\item $\mathcal{C}$ 中存在有向余极限，且 $F$ 与它们可交换。
+\end{enumerate}
+设 $X$ 为拓扑空间，$x \in X$，并设 $\mathcal{F}$ 是取值于
+$\mathcal{C}$ 的预层。则
+$$
+\mathcal{F}_x = \colim_{x\in U} \mathcal{F}(U)
+$$
+在 $\mathcal{C}$ 中存在。它的底层集合等于 $\mathcal{F}$ 的底层集合预层的
+茎。此外，构造 $\mathcal{F} \mapsto \mathcal{F}_x$ 是从取值于
+$\mathcal{C}$ 的预层范畴到 $\mathcal{C}$ 的函子。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+按照定义，所有态射 $\mathcal{F}(U) \to \mathcal{F}_x$ 都是范畴
+$\mathcal{C}$ 中的态射；施加遗忘函子 $F$ 后，它们成为底层集合层的相应
+% P01-ERRATA: P01-E0038 -- the frozen text says underlying sheaf, but only an underlying presheaf is assumed.
+映射。与往常一样，我们不区分 $\mathcal{C}$ 中的态射与其底层集合映射；
+由于 $F$ 忠实，这是允许的。
+
+\medskip\noindent
+该引理特别适用于：{\it （不一定阿贝尔的）群、环、固定环上的模、固定域上的
+向量空间的预层}。
+
+\section{模预层的茎}
+\label{sheaves-section-stalk-presheaves-modules}
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-module}
+设 $X$ 为拓扑空间，$\mathcal{O}$ 为 $X$ 上的环预层，$\mathcal{F}$ 为
+$\mathcal{O}$-模预层，并设 $x \in X$。由乘法映射
+$\mathcal{O} \times \mathcal{F} \to \mathcal{F}$ 得到的典范映射
+$\mathcal{O}_x \times \mathcal{F}_x \to \mathcal{F}_x$，在阿贝尔群
+$\mathcal{F}_x$ 上定义一个 $\mathcal{O}_x$-模结构。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-tensor-presheaf-modules}
+设 $X$ 为拓扑空间，$\mathcal{O} \to \mathcal{O}'$ 是 $X$ 上环预层的一个
+态射，$\mathcal{F}$ 是 $\mathcal{O}$-模预层，并设 $x \in X$。作为
+$\mathcal{O}'_x$-模，有
+$$
+\mathcal{F}_x \otimes_{\mathcal{O}_x} \mathcal{O}'_x
+=
+(\mathcal{F} \otimes_{p, \mathcal{O}} \mathcal{O}')_x
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+\section{代数结构}
+\label{sheaves-section-algebraic-structures}
+
+\noindent
+本节对上述各节中遇到的概念作轻度形式化。
+
+\begin{definition}
+\label{sheaves-definition-algebraic-structure}
+一种{\it 代数结构类型}由一个范畴 $\mathcal{C}$ 和一个函子
+$F : \mathcal{C} \to \textit{Sets}$ 给出，并满足以下性质：
+\begin{enumerate}
+\item $F$ 忠实，
+\item $\mathcal{C}$ 有极限，且 $F$ 与极限可交换，
+\item $\mathcal{C}$ 有滤过余极限，且 $F$ 与它们可交换，以及
+\item $F$ 反映同构。
+\end{enumerate}
+\end{definition}
+
+\noindent
+我们作此定义，是为了明确指出下文若干论证中将用到的性质。不过，我们实际
+上不会深入研究这一概念，因为按照约定，除 Categories，评注
+\ref{categories-remark-big-categories} 所列者外，我们不得研究“大”范畴。
+其中，以下范畴具有所需性质。
+
+\begin{lemma}
+\label{sheaves-lemma-list-algebraic-structures}
+下列范畴在配备显然的遗忘函子后，定义代数结构类型：
+\begin{enumerate}
+\item 带基点集合的范畴。
+\item 阿贝尔群范畴。
+\item 群范畴。
+\item 幺半群范畴。
+\item 环范畴。
+\item 固定环 $R$ 上的 $R$-模范畴。
+\item 固定域上的 Lie 代数范畴。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+从现在起，我们将借助底层集合（预）层来理解代数结构的（预）层及其茎。
+由引理 \ref{sheaves-lemma-sheaves-structure} 和
+\ref{sheaves-lemma-stalk-presheaf-values-in-category}，这是允许的。
+
+\medskip\noindent
+本节余下部分指出一些以后会用到的代数结构结果。
+
+\begin{lemma}
+\label{sheaves-lemma-properties-algebraic-structures}
+设 $(\mathcal{C}, F)$ 为一种代数结构类型。
+\begin{enumerate}
+\item $\mathcal{C}$ 有终对象 $0$，且 $F(0) = \{ * \}$。
+\item $\mathcal{C}$ 有积，且 $F(\prod A_i) = \prod F(A_i)$。
+\item $\mathcal{C}$ 有纤维积，且
+$F(A \times_B C) = F(A)\times_{F(B)}F(C)$。
+\item $\mathcal{C}$ 有等化子；若 $E \to A$ 是
+$a, b : A \to B$ 的等化子，则 $F(E) \to F(A)$ 是
+$F(a), F(b) : F(A) \to F(B)$ 的等化子。
+\item $A \to B$ 是单态射，当且仅当 $F(A) \to F(B)$ 是单射。
+\item 若 $F(a) : F(A) \to F(B)$ 是满射，则 $a$ 是满态射。
+\item 给定 $A_1 \to A_2 \to A_3 \to \ldots$，则
+$\colim A_i$ 存在，且 $F(\colim A_i) = \colim F(A_i)$；对任意滤过余极限
+更一般地也成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。唯一值得说明的是 (5)：$A \to B$ 是单态射，当且仅当
+$A \to A \times_B A$ 是同构；再利用 $F$ 反映同构即可。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-image-contained-in}
+设 $(\mathcal{C}, F)$ 为一种代数结构类型。假设
+$A, B, C \in \Ob(\mathcal{C})$，并设 $f : A \to B$ 和
+$g : C \to B$ 是 $\mathcal{C}$ 的态射。若 $F(g)$ 是单射，且
+$\Im(F(f)) \subset \Im(F(g))$，则 $f$ 可作如下分解：存在态射
+$t : A \to C$，使得
+$f = g \circ t$。
+\end{lemma}
+
+\begin{proof}
+考虑 $A \times_B C$。假设蕴含
+$F(A \times_B C) = F(A) \times_{F(B)} F(C) = F(A)$。由于 $F$ 反映同构，
+所以 $A = A \times_B C$。结论随即得出。
+\end{proof}
+
+\begin{example}
+\label{sheaves-example-application-lemma-image-contained-in}
+该引理将经常应用于以下情形。假设在 $\mathcal{C}$ 中有图表
+$$
+\xymatrix{
+A \ar[r] & B \ar[d] \\
+C \ar[r] & D
+}
+$$
+假设 $C \to D$ 在底层集合上为单射，并且复合映射 $A \to B \to D$ 在
+底层集合上的像包含于 $C \to D$ 的像中。于是，在 $\mathcal{C}$ 中得到
+交换图表
+$$
+\xymatrix{
+A \ar[r] \ar[d] & B \ar[d] \\
+C \ar[r] & D
+}
+$$
+\end{example}
+
+\begin{example}
+\label{sheaves-example-sheaf-product-pointwise-algebraic-structure}
+% P01-ERRATA: P01-E0039 -- the frozen sentence calls the functor F itself a type, whereas Definition 14.1 makes the pair (C,F) the type.
+设 $F : \mathcal{C} \to \textit{Sets}$ 为一种代数结构。设 $X$ 为拓扑空间。
+假设对每个 $x \in X$ 给定对象 $A_x \in \Ob(\mathcal{C})$。考虑 $X$ 上
+取值于 $\mathcal{C}$ 的预层 $\Pi$，它由规则
+$\Pi(U) = \prod_{x \in U} A_x$ 定义（限制映射是显然的）。注意，相应的
+集合预层 $U \mapsto F(\Pi(U)) = \prod_{x \in U} F(A_x)$ 由例
+\ref{sheaves-example-sheaf-product-pointwise} 是一个层。因此，$\Pi$ 是类型
+$(\mathcal{C} , F)$ 的代数结构层。这给出了许多阿贝尔群层、群层、环层等
+例子。
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{正合性与点}
+\label{sheaves-section-exactness-points}
+
+\noindent
+在任意范畴中，都有满态射、单态射、同构等概念。
+
+\begin{lemma}
+\label{sheaves-lemma-points-exactness}
+设 $X$ 为拓扑空间，并设 $\varphi : \mathcal{F} \to \mathcal{G}$
+为 $X$ 上集合层的态射。
+\begin{enumerate}
+\item 映射 $\varphi$ 是层范畴中的单态射，当且仅当对所有 $x \in X$，
+映射 $\varphi_x : \mathcal{F}_x \to \mathcal{G}_x$ 都是单射。
+\item 映射 $\varphi$ 是层范畴中的满态射，当且仅当对所有 $x \in X$，
+映射 $\varphi_x : \mathcal{F}_x \to \mathcal{G}_x$ 都是满射。
+\item 映射 $\varphi$ 是层范畴中的同构，当且仅当对所有 $x \in X$，
+映射 $\varphi_x : \mathcal{F}_x \to \mathcal{G}_x$ 都是双射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+由此可见，在集合层范畴中，满态射与单态射可描述如下。
+
+\begin{definition}
+\label{sheaves-definition-injective-surjective}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 若对每个开集 $U \subset X$ 都有
+$\mathcal{F}(U) \subset \mathcal{G}(U)$，且 $\mathcal{G}$ 的限制映射
+诱导出 $\mathcal{F}$ 的限制映射，则称预层 $\mathcal{F}$ 是预层
+$\mathcal{G}$ 的一个{\it 子预层}。若 $\mathcal{F}$ 和 $\mathcal{G}$
+都是层，则称 $\mathcal{F}$ 为 $\mathcal{G}$ 的一个{\it 子层}。
+有时用记号 $\mathcal{F} \subset \mathcal{G}$ 表示这一关系。
+\item $X$ 上集合预层的态射
+$\varphi : \mathcal{F} \to \mathcal{G}$ 称为{\it 单射的}，当且仅当
+对 $X$ 中每个开集 $U$，映射
+$\mathcal{F}(U) \to \mathcal{G}(U)$ 都是单射。
+\item $X$ 上集合预层的态射
+$\varphi : \mathcal{F} \to \mathcal{G}$ 称为{\it 满射的}，当且仅当
+对 $X$ 中每个开集 $U$，映射
+$\mathcal{F}(U) \to \mathcal{G}(U)$ 都是满射。
+\item $X$ 上集合层的态射
+$\varphi : \mathcal{F} \to \mathcal{G}$ 称为{\it 单射的}，当且仅当
+对 $X$ 中每个开集 $U$，映射
+$\mathcal{F}(U) \to \mathcal{G}(U)$ 都是单射。
+\item $X$ 上集合层的态射
+$\varphi : \mathcal{F} \to \mathcal{G}$ 称为{\it 满射的}，当且仅当
+对 $X$ 的每个开集 $U$ 及 $\mathcal{G}(U)$ 的每个截面 $s$，都存在开覆盖
+$U = \bigcup U_i$，使得对所有 $i$，$s|_{U_i}$ 都属于
+$\mathcal{F}(U_i) \to \mathcal{G}(U_i)$ 的像。
+\end{enumerate}
+\end{definition}
+
+
+\begin{lemma}
+\label{sheaves-lemma-characterize-epi-mono}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 预层范畴中的满态射（相应地，单态射）恰为预层的满射映射
+（相应地，单射映射）。
+\item 层范畴中的满态射（相应地，单态射）恰为层的满射映射
+（相应地，单射映射），也恰为在所有茎上均满射（相应地，单射）的映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+\begin{lemma}
+\label{sheaves-lemma-check-homomorphism-stalks}
+% P01-ERRATA: P01-E0040 -- the frozen sentence begins with lowercase "let" after the lemma label.
+设 $X$ 为拓扑空间。设 $(\mathcal{C}, F)$ 为一种代数结构类型。
+假设 $\mathcal{F}$、$\mathcal{G}$ 是 $X$ 上取值于 $\mathcal{C}$ 的层。
+设 $\varphi : \mathcal{F} \to \mathcal{G}$ 为底层集合层之间的映射。
+若对所有点 $x \in X$，映射
+$\mathcal{F}_x \to \mathcal{G}_x$ 都是代数结构的态射，则 $\varphi$
+是代数结构层的态射。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 为 $X$ 的开子集。考虑下列（底层）集合图表
+$$
+\xymatrix{
+\mathcal{F}(U) \ar[r] \ar[d] &
+\prod_{x \in U} \mathcal{F}_x \ar[d] \\
+\mathcal{G}(U) \ar[r] &
+\prod_{x \in U} \mathcal{G}_x
+}
+$$
+由假设及前面的结果，除左侧竖直箭头外，其余箭头都是代数结构的态射。
+此外，底部水平箭头是单射；见引理
+\ref{sheaves-lemma-sheaf-subset-stalks}。因此，由引理
+\ref{sheaves-lemma-image-contained-in} 可得结论；另见例
+\ref{sheaves-example-application-lemma-image-contained-in}。
+\end{proof}
+
+\noindent
+阿贝尔层的短正合列等内容将在模层一章中讨论。见 Modules，第
+\ref{modules-section-kernels} 节。
+
+
+
+
+\section{层化}
+\label{sheaves-section-sheafification}
+
+\noindent
+本节说明如何对拓扑空间上的预层作层化。在这种情形下，我们将用茎来描述
+层化。这不同于 Sites，第 \ref{sites-section-sheafification} 节所述的一般
+过程，并且或许更易理解。
+
+\medskip\noindent
+基本构造如下。设 $\mathcal{F}$ 为拓扑空间 $X$ 上的集合预层。
+对每个开集 $U \subset X$，定义
+$$
+\mathcal{F}^{\#}(U)
+=
+\{
+(s_u) \in \prod\nolimits_{u \in U} \mathcal{F}_u
+\text{ 使得 }(*)
+\}
+$$
+其中 $(*)$ 是如下性质：
+\begin{itemize}
+\item[(*)] 对每个 $u \in U$，存在开邻域 $u \in V \subset U$ 以及截面
+$\sigma \in \mathcal{F}(V)$，使得对所有 $v \in V$，在
+$\mathcal{F}_v$ 中都有 $s_v = (V, \sigma)$。
+\end{itemize}
+注意，$(*)$ 是对每个 $u \in U$ 的条件；给定 $u \in U$ 后，该条件是否
+成立，只依赖于各值 $s_v$，其中 $v$ 位于 $u$ 的任一开邻域中。因此显然，若
+$V \subset U \subset X$ 为开集，则投影映射
+$$
+\prod\nolimits_{u \in U} \mathcal{F}_u
+\longrightarrow
+\prod\nolimits_{v \in V} \mathcal{F}_v
+$$
+把 $\mathcal{F}^{\#}(U)$ 的元素映入 $\mathcal{F}^{\#}(V)$。
+以这些映射作为限制映射，就使 $\mathcal{F}^\#$ 成为 $X$ 上的集合预层。
+
+\medskip\noindent
+此外，第 \ref{sheaves-section-stalks} 节中描述的映射
+$\mathcal{F}(U) \to \prod_{u \in U} \mathcal{F}_u$ 显然以
+$\mathcal{F}^{\#}(U)$ 为其像的容纳集合。又若
+$V \subset U \subset X$ 为开集，则有交换图表
+$$
+\xymatrix{
+\mathcal{F}(U) \ar[r] \ar[d] &
+\mathcal{F}^{\#}(U) \ar[r] \ar[d] &
+\prod_{u\in U} \mathcal{F}_u \ar[d] \\
+\mathcal{F}(V) \ar[r] &
+\mathcal{F}^{\#}(V) \ar[r] &
+\prod_{v\in V} \mathcal{F}_v
+}
+$$
+其中竖直映射均由限制映射诱导。因此得到一个典范预层态射
+$\mathcal{F} \to \mathcal{F}^{\#}$。
+
+\medskip\noindent
+在例 \ref{sheaves-example-sheaf-product-pointwise} 中，我们已经看到，规则
+$\Pi(\mathcal{F}) : U \mapsto \prod_{u\in U} \mathcal{F}_u$
+配备显然的限制映射后是一个层。按构造，$\mathcal{F}^{\#}$ 是它的一个
+子预层。换言之，有预层态射
+$$
+\mathcal{F} \to \mathcal{F}^\# \to \Pi(\mathcal{F}).
+$$
+此外，把上述序列赋给 $\mathcal{F}$ 的规则显然对预层 $\mathcal{F}$
+具有函子性。下面各引理的证明中将使用这一记号。
+
+\begin{lemma}
+\label{sheaves-lemma-sheafification-sheaf}
+预层 $\mathcal{F}^{\#}$ 是一个层。
+\end{lemma}
+
+\begin{proof}
+与其阅读这里的证明，读者或许更适合自己找出解释。事实上，该引理成立的
+理由与连续函数预层是层的理由相同；见例
+\ref{sheaves-example-basic-continuous-maps}（利用“espace étalé”可将这一类比精确化）。
+
+\medskip\noindent
+无论如何，设 $U = \bigcup U_i$ 为开覆盖。假设
+$s_i = (s_{i, u})_{u \in U_i} \in \mathcal{F}^{\#}(U_i)$，且
+$s_i$ 与 $s_j$ 在 $U_i \cap U_j$ 上一致。由于 $\Pi(\mathcal{F})$ 是层，
+可在 $\prod_{u\in U} \mathcal{F}_u$ 中找到元素
+$s = (s_u)_{u\in U}$，其在 $U_i$ 上的限制为 $s_i$。还需验证性质 $(*)$。
+取 $u \in U$。则对某个 $i$ 有 $u \in U_i$。由 $s_i$ 的性质 $(*)$，
+存在开集 $V$、$u \in V \subset U_i$ 以及
+$\sigma \in \mathcal{F}(V)$，使得对所有 $v \in V$，在
+$\mathcal{F}_v$ 中有 $s_{i, v} = (V, \sigma)$。由于
+$s_{i, v} = s_v$，便得到 $s$ 的性质 $(*)$。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-sheafification}
+设 $X$ 为拓扑空间，$\mathcal{F}$ 为 $X$ 上的集合预层，并设
+$x \in X$。则 $\mathcal{F}_x = \mathcal{F}^\#_x$。
+\end{lemma}
+
+\begin{proof}
+映射 $\mathcal{F}_x \to \mathcal{F}^\#_x$ 是单射，因为映射
+$\mathcal{F}_x \to \Pi(\mathcal{F})_x$ 已经是单射。事实上，有典范映射
+$\Pi(\mathcal{F})_x \to \mathcal{F}_x$，它是映射
+$\mathcal{F}_x \to \Pi(\mathcal{F})_x$ 的左逆；见例
+\ref{sheaves-example-sheaf-product-pointwise-stalk}。
+为证明满射性，设 $\overline{s} \in \mathcal{F}^\#_x$。
+可找到 $x$ 的开邻域 $U$，使得 $\overline{s}$ 是 $(U, s)$ 的等价类，
+其中 $s \in \mathcal{F}^\#(U)$。按定义，这意味着存在 $x$ 的开邻域
+$V \subset U$ 以及截面 $\sigma \in \mathcal{F}(V)$，使得 $s|_V$
+是 $\sigma$ 在 $\Pi(\mathcal{F})(V)$ 中的像。显然，$(V, \sigma)$ 的类
+给出 $\mathcal{F}_x$ 的一个元素，并映到 $\overline{s}$。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-sheafify-universal}
+设 $\mathcal{F}$ 为 $X$ 上的集合预层。任何映入集合层的映射
+$\mathcal{F} \to \mathcal{G}$ 都唯一分解为
+$\mathcal{F} \to \mathcal{F}^\# \to \mathcal{G}$。
+\end{lemma}
+
+\begin{proof}
+显然有交换图表
+$$
+\xymatrix{
+\mathcal{F} \ar[r] \ar[d] &
+\mathcal{F}^\# \ar[r] \ar[d] &
+\Pi(\mathcal{F}) \ar[d] \\
+\mathcal{G} \ar[r] &
+\mathcal{G}^\# \ar[r] &
+\Pi(\mathcal{G}) \\
+}
+$$
+因此，只需证明 $\mathcal{G} = \mathcal{G}^\#$。由引理
+\ref{sheaves-lemma-points-exactness}，只需证明对每个点 $x \in X$，映射
+$\mathcal{G}_x \to \mathcal{G}^\#_x$ 都是双射。这正是上面的引理
+\ref{sheaves-lemma-stalk-sheafification}。
+\end{proof}
+
+\noindent
+这个引理实际上说明有一对伴随函子：
+$i : \Sh(X) \to \textit{PSh}(X)$（包含）和
+$\# : \textit{PSh}(X) \to \Sh(X)$（层化）。公式为
+$$
+\Mor_{\textit{PSh}(X)}(\mathcal{F}, i(\mathcal{G}))
+=
+\Mor_{\Sh(X)}(\mathcal{F}^\#, \mathcal{G})
+$$
+这说明层化是包含函子的左伴随。见 Categories，第
+\ref{categories-section-adjoint} 节。
+
+\begin{example}
+\label{sheaves-example-sheafify-constant}
+记号见例 \ref{sheaves-example-stalk-constant-presheaf}。映射
+$A_p \to \underline{A}$ 诱导出映射
+$A_p^\# \to \underline{A}$。容易看出后者是同构。换言之：取值为 $A$
+的常值预层的层化，就是取值为 $A$ 的常值层。
+\end{example}
+
+\begin{lemma}
+\label{sheaves-lemma-separated-presheaf-into-sheaf}
+设 $X$ 为拓扑空间。预层 $\mathcal{F}$ 是分离的（见定义
+\ref{sheaves-definition-separated}），
+当且仅当典范映射 $\mathcal{F} \to \mathcal{F}^\#$ 是单射。
+\end{lemma}
+
+\begin{proof}
+这由本节中 $\mathcal{F}^\#$ 的构造立即可见。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-sheafify-epi-mono}
+设 $X$ 为拓扑空间。集合预层的满射（相应地，单射）态射经层化后仍为
+满射（相应地，单射）。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+\section{阿贝尔预层的层化}
+\label{sheaves-section-sheafify-abelian-presheaves}
+
+\noindent
+下面这个看似奇怪的引理很可能并非必需，但在处理代数结构预层的层化时
+非常方便。
+
+\begin{lemma}
+\label{sheaves-lemma-diagram-fibre-product}
+设 $X$ 为拓扑空间，$\mathcal{F}$ 为 $X$ 上的集合预层，并设
+$U \subset X$ 为开集。存在典范纤维积图表
+$$
+\xymatrix{
+\mathcal{F}^\#(U) \ar[d] \ar[r] &
+\Pi(\mathcal{F})(U) \ar[d] \\
+\prod_{x \in U} \mathcal{F}_x
+\ar[r] &
+\prod_{x \in U} \Pi(\mathcal{F})_x
+}
+$$
+其中各映射如下：
+\begin{enumerate}
+\item 左侧竖直映射的各分量为
+$\mathcal{F}^\#(U) \to \mathcal{F}^\#_x = \mathcal{F}_x$，
+其中等式来自引理 \ref{sheaves-lemma-stalk-sheafification}。
+\item 顶部水平映射来自第 \ref{sheaves-section-sheafification} 节所述的预层映射
+$\mathcal{F} \to \Pi(\mathcal{F})$。
+\item 右侧竖直映射有显然的分量映射
+$\Pi(\mathcal{F})(U) \to \Pi(\mathcal{F})_x$。
+\item 底部水平映射的各分量为
+$\mathcal{F}_x \to \Pi(\mathcal{F})_x$；它们来自第
+\ref{sheaves-section-sheafification} 节所述的预层映射
+$\mathcal{F} \to \Pi(\mathcal{F})$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+该图表显然交换。需要证明它是纤维积图表。底部水平箭头是单射，因为所有
+映射 $\mathcal{F}_x \to \Pi(\mathcal{F})_x$ 都是单射（见引理
+\ref{sheaves-lemma-stalk-sheafification} 的证明开头）。截面
+$s \in \Pi(\mathcal{F})(U)$ 属于 $\mathcal{F}^\#$，当且仅当 $(*)$
+成立。而 $(*)$ 表示，在每一点附近，截面 $s$ 都来自 $\mathcal{F}$ 的一个
+截面。按茎函子的定义，这等价于：$s$ 在每个茎
+$\Pi(\mathcal{F})_x$ 中的值都来自茎 $\mathcal{F}_x$ 的某个元素。
+引理得证。
+\end{proof}
+
+
+\begin{lemma}
+\label{sheaves-lemma-sheafify-abelian-presheaf}
+设 $X$ 为拓扑空间，$\mathcal{F}$ 为 $X$ 上的阿贝尔预层。
+则 $\mathcal{F}^\#$ 上存在唯一的阿贝尔层结构，使得
+$\mathcal{F} \to \mathcal{F}^\#$ 是阿贝尔预层的态射。此外，有如下
+伴随性：
+$$
+\Mor_{\textit{PAb}(X)}(\mathcal{F}, i(\mathcal{G}))
+=
+\Mor_{\textit{Ab}(X)}(\mathcal{F}^\#, \mathcal{G}).
+$$
+\end{lemma}
+
+\begin{proof}
+回忆第 \ref{sheaves-section-sheafification} 节定义的集合层
+$\Pi(\mathcal{F})$。所有茎 $\mathcal{F}_x$ 都是阿贝尔群；见引理
+\ref{sheaves-lemma-stalk-abelian-presheaf}。因此，由例
+\ref{sheaves-example-sheaf-product-pointwise-algebraic-structure}，
+$\Pi(\mathcal{F})$ 是阿贝尔群层。映射
+$\mathcal{F} \to \Pi(\mathcal{F})$ 显然也是阿贝尔预层的态射。
+若能证明第 \ref{sheaves-section-sheafification} 节中的条件 $(*)$ 对每个开子集
+$U \subset X$ 都定义 $\Pi(\mathcal{F})(U)$ 的一个子群，则
+$\mathcal{F}^\#$ 便典范地继承阿贝尔层结构。直接证明这一点相当容易，
+我们把寻找一个简洁论证留给读者。这里采用的论证可推广到代数结构预层，
+如下所述：
+% P01-ERRATA: P01-E0041 -- the frozen source has subject-verb disagreement: "Lemma ... show".
+引理 \ref{sheaves-lemma-diagram-fibre-product} 表明 $\mathcal{F}^\#(U)$ 是一个
+阿贝尔群图表的纤维积。因此，$\mathcal{F}^\#$ 如所需地成为阿贝尔子群。
+
+\medskip\noindent
+注意，此时由引理 \ref{sheaves-lemma-stalk-abelian-presheaf}，
+$\mathcal{F}^\#_x$ 是阿贝尔群；而
+$\mathcal{F}_x \to \mathcal{F}^\#_x$ 是双射（引理
+\ref{sheaves-lemma-stalk-sheafification}），也是阿贝尔群同态。因此
+$\mathcal{F}_x \to \mathcal{F}^\#_x$ 是阿贝尔群同构。下文将直接使用
+这一点，不再另行说明。
+
+\medskip\noindent
+为证明伴随性，使用集合预层层化的伴随性。例如，若
+$\psi : \mathcal{F} \to i(\mathcal{G})$ 是预层态射，则得到层态射
+$\psi' : \mathcal{F}^\# \to \mathcal{G}$。需要验证它是阿贝尔层的态射。
+例如，可以先由引理 \ref{sheaves-lemma-stalk-sheafification} 注意到这在各茎上
+成立，再使用上面的引理 \ref{sheaves-lemma-check-homomorphism-stalks}。
+\end{proof}
+
+
+
+\section{代数结构预层的层化}
+\label{sheaves-section-sheafification-presheaves-structures}
+
+
+\begin{lemma}
+\label{sheaves-lemma-sheafify-presheaf-structures}
+设 $X$ 为拓扑空间，$(\mathcal{C}, F)$ 为一种代数结构类型，并设
+$\mathcal{F}$ 为 $X$ 上取值于 $\mathcal{C}$ 的预层。则存在取值于
+$\mathcal{C}$ 的层 $\mathcal{F}^\#$ 以及取值于 $\mathcal{C}$ 的预层态射
+$\mathcal{F} \to \mathcal{F}^\#$，并具有以下性质：
+\begin{enumerate}
+\item 映射 $\mathcal{F} \to \mathcal{F}^\#$ 将 $\mathcal{F}^\#$ 的底层
+集合层等同于 $\mathcal{F}$ 的底层集合预层的层化。
+\item 对任意态射 $\mathcal{F} \to \mathcal{G}$，其中 $\mathcal{G}$
+为取值于 $\mathcal{C}$ 的层，都存在唯一分解
+$\mathcal{F} \to \mathcal{F}^\# \to \mathcal{G}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明与引理 \ref{sheaves-lemma-sheafify-abelian-presheaf} 的证明相同，只需反复应用
+引理 \ref{sheaves-lemma-image-contained-in}（另见例
+\ref{sheaves-example-application-lemma-image-contained-in}）。不过，主要思想是把
+$\mathcal{F}^\#(U)$ 定义为 $\mathcal{C}$ 中下列图表的纤维积
+$$
+\xymatrix{
+ &
+\Pi(\mathcal{F})(U) \ar[d] \\
+\prod_{x \in U} \mathcal{F}_x
+\ar[r] &
+\prod_{x \in U} \Pi(\mathcal{F})_x
+}
+$$
+对照引理 \ref{sheaves-lemma-diagram-fibre-product}。
+\end{proof}
+
+\section{模预层的层化}
+\label{sheaves-section-sheafification-presheaves-modules}
+
+\begin{lemma}
+\label{sheaves-lemma-sheafification-presheaf-modules}
+设 $X$ 为拓扑空间，$\mathcal{O}$ 为 $X$ 上的环预层，$\mathcal{F}$ 为
+$\mathcal{O}$-模预层。设 $\mathcal{O}^\#$ 为 $\mathcal{O}$ 的层化，
+并设 $\mathcal{F}^\#$ 为 $\mathcal{F}$ 作为阿贝尔群预层的层化。
+存在集合层的映射
+$$
+\mathcal{O}^\# \times \mathcal{F}^\#
+\longrightarrow
+\mathcal{F}^\#
+$$
+使得图表
+$$
+\xymatrix{
+\mathcal{O} \times \mathcal{F} \ar[r] \ar[d] &
+\mathcal{F} \ar[d] \\
+\mathcal{O}^\# \times \mathcal{F}^\# \ar[r] &
+\mathcal{F}^\#
+}
+$$
+交换，并使 $\mathcal{F}^\#$ 成为 $\mathcal{O}^\#$-模层。此外，若
+$\mathcal{G}$ 是 $\mathcal{O}^\#$-模层，则任何 $\mathcal{O}$-模预层态射
+$\mathcal{F} \to \mathcal{G}$（其靶是限制为 $\mathcal{O}$-模的
+$\mathcal{G}$）都唯一分解为
+$\mathcal{F} \to \mathcal{F}^\# \to \mathcal{G}$，其中
+$\mathcal{F}^\# \to \mathcal{G}$ 是 $\mathcal{O}^\#$-模态射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+这实际上意味着函子
+$i : \textit{Mod}(\mathcal{O}^\#) \to \textit{PMod}(\mathcal{O})$
+（它把限制与将层包含进预层结合起来）和引理中的层化函子
+${}^\# : \textit{PMod}(\mathcal{O}) \to \textit{Mod}(\mathcal{O}^\#)$
+互为伴随。公式为
+$$
+\Mor_{\textit{PMod}(\mathcal{O})}(\mathcal{F}, i\mathcal{G})
+=
+\Mor_{\textit{Mod}(\mathcal{O}^\#)}(\mathcal{F}^\#, \mathcal{G})
+$$
+
+\medskip\noindent
+设 $X$ 为拓扑空间，并设
+$\mathcal{O}_1 \to \mathcal{O}_2$ 为 $X$ 上环层的态射。在第
+\ref{sheaves-section-presheaves-modules} 节中，我们已经定义了与此情形相伴的
+模预层限制函子和变环函子。
+
+\medskip\noindent
+若 $\mathcal{F}$ 是 $\mathcal{O}_2$-模层，则 $\mathcal{F}$ 的限制
+$\mathcal{F}_{\mathcal{O}_1}$ 显然是 $\mathcal{O}_1$-模层。由此得到
+限制函子
+$$
+\textit{Mod}(\mathcal{O}_2)
+\longrightarrow
+\textit{Mod}(\mathcal{O}_1)
+$$
+
+\medskip\noindent
+另一方面，给定 $\mathcal{O}_1$-模层 $\mathcal{G}$，
+$\mathcal{O}_2$-模预层
+$\mathcal{O}_2 \otimes_{p, \mathcal{O}_1} \mathcal{G}$ 一般并不是层。
+因此，定义{\it 张量积层}
+$\mathcal{O}_2 \otimes_{\mathcal{O}_1} \mathcal{G}$ 为
+$$
+\mathcal{O}_2 \otimes_{\mathcal{O}_1} \mathcal{G}
+=
+(\mathcal{O}_2 \otimes_{p, \mathcal{O}_1} \mathcal{G})^\#
+$$
+即预层构造的层化。由此得到{\it 变环}函子
+$$
+\textit{Mod}(\mathcal{O}_1)
+\longrightarrow
+\textit{Mod}(\mathcal{O}_2)
+$$
+
+\begin{lemma}
+\label{sheaves-lemma-adjointness-tensor-restrict}
+在上述 $X$、$\mathcal{O}_1$、$\mathcal{O}_2$、$\mathcal{F}$ 和
+$\mathcal{G}$ 下，存在典范双射
+$$
+\Hom_{\mathcal{O}_1}(\mathcal{G}, \mathcal{F}_{\mathcal{O}_1})
+=
+\Hom_{\mathcal{O}_2}(
+\mathcal{O}_2 \otimes_{\mathcal{O}_1} \mathcal{G},
+\mathcal{F}
+)
+$$
+换言之，限制函子与变环函子互为伴随。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{sheaves-lemma-adjointness-tensor-restrict-presheaves} 以及如下事实得出：
+$\Hom_{\mathcal{O}_2}(
+\mathcal{O}_2 \otimes_{\mathcal{O}_1} \mathcal{G},
+\mathcal{F}
+)
+=
+\Hom_{\mathcal{O}_2}(
+\mathcal{O}_2 \otimes_{p, \mathcal{O}_1} \mathcal{G},
+\mathcal{F}
+)$，因为 $\mathcal{F}$ 是层。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-tensor-sheaf-modules}
+% P01-ERRATA: P01-E0042 -- the frozen source omits "of" in "a sheaf O-modules".
+设 $X$ 为拓扑空间。设 $\mathcal{O} \to \mathcal{O}'$ 为 $X$ 上环层的
+态射，$\mathcal{F}$ 为 $\mathcal{O}$-模层，并设 $x \in X$。则作为
+$\mathcal{O}'_x$-模，有
+$$
+\mathcal{F}_x \otimes_{\mathcal{O}_x} \mathcal{O}'_x
+=
+(\mathcal{F} \otimes_\mathcal{O} \mathcal{O}')_x
+$$
+\end{lemma}
+
+\begin{proof}
+这直接由引理 \ref{sheaves-lemma-stalk-tensor-presheaf-modules} 以及取茎与层化可交换
+这一事实得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{连续映射与层}
+\label{sheaves-section-presheaves-functorial}
+
+\noindent
+设 $f : X \to Y$ 为拓扑空间的连续映射。我们将定义预层与层的直像函子和
+逆像函子。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为 $X$ 上的集合预层。定义 $\mathcal{F}$ 的{\it 直像}
+为如下规则
+$$
+f_*\mathcal{F}(V) = \mathcal{F}(f^{-1}(V))
+$$
+其中 $V \subset Y$ 为任意开集。给定开集
+$V_1 \subset V_2 \subset Y$，限制映射由下图的交换性给出
+$$
+\xymatrix{
+f_*\mathcal{F}(V_2) \ar[d] \ar@{=}[r] &
+\mathcal{F}(f^{-1}(V_2)) \ar[d]^{\text{下列对象的限制： }\mathcal{F}} \\
+f_*\mathcal{F}(V_1) \ar@{=}[r] &
+\mathcal{F}(f^{-1}(V_1))
+}
+$$
+显然，这定义了一个集合预层。该构造显然对预层 $\mathcal{F}$ 具有
+函子性，因而得到函子
+$$
+f_* : \textit{PSh}(X) \longrightarrow \textit{PSh}(Y).
+$$
+
+\begin{lemma}
+\label{sheaves-lemma-pushforward-sheaf}
+设 $f : X \to Y$ 为连续映射，$\mathcal{F}$ 为 $X$ 上的集合层。
+则 $f_*\mathcal{F}$ 是 $Y$ 上的层。
+\end{lemma}
+
+\begin{proof}
+这立即来自如下事实：若 $V = \bigcup V_j$ 是 $Y$ 中的开覆盖，则
+$f^{-1}(V) = \bigcup f^{-1}(V_j)$ 是 $X$ 中的开覆盖。
+\end{proof}
+
+\noindent
+因此得到函子
+$$
+f_* : \Sh(X) \longrightarrow \Sh(Y).
+$$
+它与复合以如下强意义相容。
+
+\begin{lemma}
+\label{sheaves-lemma-pushforward-composition}
+设 $f : X \to Y$ 和 $g : Y \to Z$ 为拓扑空间的连续映射。
+函子 $(g \circ f)_*$ 与 $g_* \circ f_*$ 相等（对集合预层和集合层均如此）。
+\end{lemma}
+
+\begin{proof}
+这是因为 $(g \circ f)_*\mathcal{F}(W) =
+\mathcal{F}((g \circ f)^{-1}W)$，
+$(g_* \circ f_*)\mathcal{F}(W) = \mathcal{F}(f^{-1} g^{-1} W)$，并且
+$(g \circ f)^{-1}W = f^{-1} g^{-1} W$。
+\end{proof}
+
+\noindent
+设 $\mathcal{G}$ 为 $Y$ 上的集合预层。给定预层 $\mathcal{G}$ 的
+{\it 逆像预层} $f_p\mathcal{G}$，定义为预层上直像 $f_*$ 的左伴随。
+换言之，它应当是 $X$ 上的预层 $f_p \mathcal{G}$，满足
+$$
+\Mor_{\textit{PSh}(X)}(f_p\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PSh}(Y)}(\mathcal{G}, f_*\mathcal{F}).
+$$
+由米田引理，这唯一确定了逆像。事实上，它确实存在。
+
+\begin{lemma}
+\label{sheaves-lemma-pullback-presheaves}
+设 $f : X \to Y$ 为连续映射。存在函子
+$f_p : \textit{PSh}(Y) \to \textit{PSh}(X)$，它是 $f_*$ 的左伴随。
+对预层 $\mathcal{G}$，该函子由规则
+$$
+f_p\mathcal{G}(U) = \colim_{f(U) \subset V} \mathcal{G}(V)
+$$
+确定，其中余极限取遍 $Y$ 中 $f(U)$ 的所有开邻域 $V$。
+这些余极限取遍有向偏序集。（$f_p\mathcal{G}$ 的限制映射将在证明中说明。）
+\end{lemma}
+
+\begin{proof}
+余极限取遍所有包含 $f(U)$ 的开子集 $V \subset Y$ 所成的偏序集，
+次序取反向包含。这是有向偏序集，因为若 $V, V'$ 属于其中，则
+$V \cap V'$ 也属于其中。此外，若 $U_1 \subset U_2$，则 $f(U_2)$ 的
+每个开邻域也是 $f(U_1)$ 的开邻域。因此，定义
+$f_p\mathcal{G}(U_2)$ 的系统是定义 $f_p\mathcal{G}(U_1)$ 的系统的
+子系统，从而得到限制映射（例如应用 Categories，引理
+\ref{categories-lemma-functorial-colimit} 中的一般结论）。
+
+\medskip\noindent
+注意，余极限的构造显然对 $\mathcal{G}$ 具有函子性，限制映射亦然。
+因此，我们已经把 $f_p$ 定义为函子。
+
+\medskip\noindent
+一个有用的小观察是，存在典范映射
+$\mathcal{G}(U) \to f_p\mathcal{G}(f^{-1}(U))$，因为
+$f(f^{-1}(U))$ 的开邻域系统包含元素 $U$。它与限制映射相容。
+换言之，存在典范映射
+$i_\mathcal{G} : \mathcal{G} \to f_* f_p \mathcal{G}$。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为 $X$ 上的集合预层。假设
+$\psi : f_p\mathcal{G} \to \mathcal{F}$ 是集合预层的映射。
+相应的映射 $\mathcal{G} \to f_*\mathcal{F}$ 为
+$f_*\psi \circ i_\mathcal{G} :
+\mathcal{G} \to f_* f_p \mathcal{G} \to f_* \mathcal{F}$。
+
+\medskip\noindent
+另一个有用的小观察是，存在典范映射
+$c_\mathcal{F} : f_p f_* \mathcal{F} \to \mathcal{F}$。
+事实上，设 $U \subset X$ 为开集。对 $Y$ 中每个开邻域
+$V \supset f(U)$，都存在映射
+$f_*\mathcal{F}(V) = \mathcal{F}(f^{-1}(V))\to \mathcal{F}(U)$，
+即 $\mathcal{F}$ 上的限制映射。并且，这与 $\mathcal{F}$ 在包含
+$f(U)$ 的各个开集之 $f^{-1}$ 上取值之间的限制映射相容。因此得到典范映射
+$f_p f_* \mathcal{F}(U) \to \mathcal{F}(U)$。另一个平凡的验证表明，
+这些映射与限制映射相容，并定义了集合预层的映射 $c_\mathcal{F}$。
+
+\medskip\noindent
+假设 $\varphi : \mathcal{G} \to f_*\mathcal{F}$ 是集合预层的映射。
+考虑 $f_p\varphi :
+f_p \mathcal{G} \to f_p f_* \mathcal{F}$。再与 $c_\mathcal{F}$ 后复合，
+便得到所需映射
+$c_\mathcal{F} \circ f_p\varphi : f_p\mathcal{G} \to \mathcal{F}$。
+我们略去验证此构造与上面给出的反向构造互为逆过程。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-pullback-presheaf}
+设 $f : X \to Y$ 为连续映射，$x \in X$，并设 $\mathcal{G}$ 为 $Y$
+上的集合预层。存在茎的典范双射
+$(f_p\mathcal{G})_x = \mathcal{G}_{f(x)}$。
+\end{lemma}
+
+\begin{proof}
+可如下看出这一点
+\begin{eqnarray*}
+(f_p\mathcal{G})_x
+& = &
+\colim_{x \in U} f_p\mathcal{G}(U) \\
+& = &
+\colim_{x \in U} \colim_{f(U) \subset V} \mathcal{G}(V) \\
+& = &
+\colim_{f(x) \in V} \mathcal{G}(V) \\
+& = &
+\mathcal{G}_{f(x)}
+\end{eqnarray*}
+这里使用了 Categories，引理 \ref{categories-lemma-colimits-commute}，
+以及如下事实：$Y$ 中任意包含 $f(x)$ 的开集 $V$ 都出现在上面的第三种
+描述中。细节略去。
+\end{proof}
+
+\noindent
+设 $\mathcal{G}$ 为 $Y$ 上的集合层。定义{\it 逆像层}
+$f^{-1}\mathcal{G}$ 为
+$$
+f^{-1}\mathcal{G} = (f_p\mathcal{G})^\# .
+$$
+逆像 $f^{-1}$ 是层上直像的左伴随。换言之，
+$$
+\Mor_{\Sh(X)}(f^{-1}\mathcal{G}, \mathcal{F})
+=
+\Mor_{\Sh(Y)}(\mathcal{G}, f_*\mathcal{F}).
+$$
+事实上，有
+\begin{eqnarray*}
+\Mor_{\Sh(X)}(f^{-1}\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{PSh}(X)}(f_p\mathcal{G}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{PSh}(Y)}(\mathcal{G}, f_*\mathcal{F}) \\
+& = &
+\Mor_{\Sh(Y)}(\mathcal{G}, f_*\mathcal{F})
+\end{eqnarray*}
+第一个等式使用了层化是层到预层之包含的左伴随；第二个等式使用了在预层
+上 $f_p$ 是 $f_*$ 的左伴随。我们将在引理
+\ref{sheaves-lemma-f-map} 的证明中回到这一陈述。
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-pullback}
+设 $x \in X$，并设 $\mathcal{G}$ 为 $Y$ 上的集合层。存在茎的典范双射
+$(f^{-1}\mathcal{G})_x = \mathcal{G}_{f(x)}$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{sheaves-lemma-stalk-sheafification} 与
+\ref{sheaves-lemma-stalk-pullback-presheaf} 的结合。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-pullback-composition}
+设 $f : X \to Y$ 和 $g : Y \to Z$ 为拓扑空间的连续映射。函子
+$(g \circ f)^{-1}$ 与 $f^{-1} \circ g^{-1}$ 典范同构。类似地，在预层上
+有 $(g \circ f)_p \cong f_p \circ g_p$。
+\end{lemma}
+
+\begin{proof}
+使用伴随函子在唯一同构意义下唯一这一事实，以及引理
+\ref{sheaves-lemma-pushforward-composition} 即可看出。
+\end{proof}
+
+\begin{definition}
+\label{sheaves-definition-f-map}
+设 $f : X \to Y$ 为连续映射，$\mathcal{F}$ 为 $X$ 上的集合层，并设
+$\mathcal{G}$ 为 $Y$ 上的集合层。一个{\it $f$-映射
+$\xi : \mathcal{G} \to \mathcal{F}$}，是由开子集 $V \subset Y$
+索引的一族映射
+$\xi_V : \mathcal{G}(V) \to \mathcal{F}(f^{-1}(V))$，使得
+$$
+\xymatrix{
+\mathcal{G}(V) \ar[r]_{\xi_V} \ar[d]_{\text{下列对象的限制： }\mathcal{G}} &
+\mathcal{F}(f^{-1}V) \ar[d]^{\text{下列对象的限制： }\mathcal{F}} \\
+\mathcal{G}(V') \ar[r]^{\xi_{V'}} &
+\mathcal{F}(f^{-1}V')
+}
+$$
+对所有开集 $V' \subset V \subset Y$ 均交换。
+\end{definition}
+
+\noindent
+文献中有时采用引理 \ref{sheaves-lemma-f-map} 第 (4) 项那样的另一种定义，
+但该引理表明二者实际上没有区别。
+
+\begin{lemma}
+\label{sheaves-lemma-f-map}
+设 $f : X \to Y$ 为连续映射。以下四个集合之间存在双射：
+\begin{enumerate}
+\item 映射 $\mathcal{G} \to f_*\mathcal{F}$ 的集合；
+\item 映射 $f^{-1}\mathcal{G} \to \mathcal{F}$ 的集合；
+\item $f$-映射 $\xi : \mathcal{G} \to \mathcal{F}$ 的集合；以及
+\item 对所有满足 $f(U) \subset V$ 的开集 $U \subset X$ 和
+$V \subset Y$，映射
+$\xi_{U, V} : \mathcal{G}(V) \to \mathcal{F}(U)$ 的所有与各限制映射
+相容的族所成的集合。
+\end{enumerate}
+这些双射对 $\mathcal{F} \in \Sh(X)$ 和 $\mathcal{G} \in \Sh(Y)$
+具有函子性。
+\end{lemma}
+
+\begin{proof}
+按定义，层映射 $a : \mathcal{G} \to f_*\mathcal{F}$ 是如下规则：
+对 $Y$ 的每个开集 $V$，指定映射
+$a_V : \mathcal{G}(V) \to f_*\mathcal{F}(V)$，而且有
+$f_*\mathcal{F}(V) = \mathcal{F}(f^{-1}(V))$。因此，至少其“数据”恰好
+对应于从 $\mathcal{G}$ 到 $\mathcal{F}$ 的 $f$-映射 $\xi$ 所需的数据。
+为证明 (1) 与 (3) 中的集合双射，只需观察：$a$ 是层映射，当且仅当相应的
+映射族 $a_V$ 满足定义 \ref{sheaves-definition-f-map} 中的条件。
+
+\medskip\noindent
+回忆 $f^{-1}\mathcal{G}$ 是 $f_p\mathcal{G}$ 的层化。由层化的泛性质，
+层映射 $b : f^{-1}\mathcal{G} \to \mathcal{F}$ 等价于预层映射
+$b_p : f_p\mathcal{G} \to \mathcal{F}$，其中 $f_p$ 是本节前面定义的
+函子。给出这样的映射 $b_p$，就需要对 $X$ 的每个开集 $U$ 指定映射
+$$
+b_{p, U} :
+\colim_{f(U) \subset V} \mathcal{G}(V)
+\longrightarrow
+\mathcal{F}(U)
+$$
+并使其与限制映射相容。我们可以并且将把 $b_{p, U}$ 看成映射族
+$b_{p, U, V} : \mathcal{G}(V) \to \mathcal{F}(U)$，其中 $V$ 取遍 $Y$
+中满足 $f(U) \subset V$ 的开集。这些映射必须与所有可能的限制映射
+相容。换言之，$b_p$ 对应于 (4) 中的一个映射族。当然，反过来，这样的
+映射族定义映射 $b_p$，继而定义映射
+$b : f^{-1}\mathcal{G} \to \mathcal{F}$。
+
+\medskip\noindent
+为完成引理的证明，必须说明如下“遗忘结构”规则是双射：它把 (4) 中的族
+$\xi_{U, V}$ 送到满足 $\xi_V = \xi_{f^{-1}(V), V}$ 的 $f$-映射 $\xi$。
+为此，若 $\xi$ 是通常意义下的 $f$-映射，只需把
+$\tilde \xi_{U, V}$ 定义为 $\xi_V : \mathcal{G}(V) \to
+\mathcal{F}(f^{-1}(V))$ 与限制映射
+% P01-ERRATA: P01-E0043 -- the frozen source misspells "restriction" as "restruction".
+$\mathcal{F}(f^{-1}(V)) \to \mathcal{F}(U)$ 的复合。它恰因
+$f(U) \subset V$，亦即 $U \subset f^{-1}(V)$，而有定义。证明完成。
+\end{proof}
+
+\noindent
+有时，考虑 $f$-映射比考虑 $X$ 或 $Y$ 上各层之间的映射更为方便。
+如下定义 $f$-映射的复合。
+
+\begin{definition}
+\label{sheaves-definition-composition-f-maps}
+假设 $f : X \to Y$ 和 $g : Y \to Z$ 是拓扑空间的连续映射。假设
+$\mathcal{F}$ 是 $X$ 上的层，$\mathcal{G}$ 是 $Y$ 上的层，且
+$\mathcal{H}$ 是 $Z$ 上的层。设
+$\varphi : \mathcal{G} \to \mathcal{F}$ 为 $f$-映射。
+% P01-ERRATA: P01-E0044 -- two frozen loci use the article "an" before "$g$-map".
+设 $\psi : \mathcal{H} \to \mathcal{G}$ 为 $g$-映射。
+{\it $\varphi$ 与 $\psi$ 的复合}是 $(g \circ f)$-映射
+$\varphi \circ \psi$，由下列图表的交换性定义
+$$
+\xymatrix{
+\mathcal{H}(W) \ar[rr]_{(\varphi \circ \psi)_W}
+\ar[rd]_{\psi_W} & &
+\mathcal{F}(f^{-1}g^{-1}W) \\
+&
+\mathcal{G}(g^{-1}W)
+\ar[ru]_{\varphi_{g^{-1}W}}
+}
+$$
+\end{definition}
+
+\noindent
+我们把验证此定义确实可行留给读者。另一种理解方式是把
+$\varphi \circ \psi$ 看成复合
+$$
+\mathcal{H}
+\xrightarrow{\psi}
+g_*\mathcal{G}
+\xrightarrow{g_*\varphi}
+g_* f_* \mathcal{F} = (g \circ f)_* \mathcal{F}
+$$
+现在，是否觉得使用 $f$-映射思考多少会更容易一些？
+
+\medskip\noindent
+最后，给定连续映射 $f : X \to Y$ 和 $f$-映射
+$\varphi : \mathcal{G} \to \mathcal{F}$，对所有 $x \in X$ 都有自然的
+茎映射
+$$
+\varphi_x : \mathcal{G}_{f(x)} \longrightarrow \mathcal{F}_x
+$$
+$\mathcal{G}_{f(x)}$ 中元素的代表 $(V, s)$ 被映到 $\mathcal{F}_x$
+中以 $(f^{-1}V, \varphi_V(s))$ 为代表的元素。我们把验证它良定义留给
+读者。另一种说法是：它是使所有图表
+$$
+\xymatrix{
+\mathcal{F}(f^{-1}V) \ar[r] &
+\mathcal{F}_x \\
+\mathcal{G}(V) \ar[r] \ar[u]^{\varphi_V} &
+\mathcal{G}_{f(x)} \ar[u]^{\varphi_x}
+}
+$$
+（其中 $f(x) \in V \subset Y$ 为开集）交换的唯一映射。
+
+\begin{lemma}
+\label{sheaves-lemma-compose-f-maps-stalks}
+假设 $f : X \to Y$ 和 $g : Y \to Z$ 是拓扑空间的连续映射。假设
+$\mathcal{F}$ 是 $X$ 上的层，$\mathcal{G}$ 是 $Y$ 上的层，且
+$\mathcal{H}$ 是 $Z$ 上的层。设
+$\varphi : \mathcal{G} \to \mathcal{F}$ 为 $f$-映射。
+% P01-ERRATA: P01-E0044 -- second locus of the same article error.
+设 $\psi : \mathcal{H} \to \mathcal{G}$ 为 $g$-映射。设 $x \in X$ 为一点。
+茎映射
+$(\varphi \circ \psi)_x : \mathcal{H}_{g(f(x))}
+\to \mathcal{F}_x$ 是如下复合
+$$
+\mathcal{H}_{g(f(x))}
+\xrightarrow{\psi_{f(x)}}
+\mathcal{G}_{f(x)}
+\xrightarrow{\varphi_x}
+\mathcal{F}_x
+$$
+\end{lemma}
+
+\begin{proof}
+这立即来自定义 \ref{sheaves-definition-composition-f-maps} 及上面对茎映射的定义。
+\end{proof}
+
+
+
+\section{连续映射与阿贝尔层}
+\label{sheaves-section-abelian-presheaves-functorial}
+
+\noindent
+设 $f : X \to Y$ 为连续映射。我们断言存在函子
+\begin{eqnarray*}
+f_* : \textit{PAb}(X) & \longrightarrow & \textit{PAb}(Y) \\
+f_* : \textit{Ab}(X) & \longrightarrow & \textit{Ab}(Y) \\
+f_p : \textit{PAb}(Y) & \longrightarrow & \textit{PAb}(X) \\
+f^{-1} : \textit{Ab}(Y) & \longrightarrow & \textit{Ab}(X)
+\end{eqnarray*}
+它们具有与第 \ref{sheaves-section-presheaves-functorial} 节中相应函子类似的性质。
+为说明这一点，作如下论证。
+
+\medskip\noindent
+每个函子的构造方式都与第 \ref{sheaves-section-presheaves-functorial} 节中相应
+函子的构造方式相同。之所以可行，是因为该节中的所有余极限都是有向余极限
+（不过下面仍会详细说明）。
+
+\medskip\noindent
+首先，给定 $X$ 上的阿贝尔预层 $\mathcal{F}$ 和 $Y$ 上的阿贝尔预层
+$\mathcal{G}$，将
+\begin{eqnarray*}
+f_*\mathcal{F}(V) & = & \mathcal{F}(f^{-1}(V)) \\
+f_p\mathcal{G}(U) & = & \colim_{f(U) \subset V} \mathcal{G}(V)
+\end{eqnarray*}
+定义为阿贝尔群。限制映射与集合预层的限制映射相同（而且它们全是阿贝尔群
+同态）。
+
+\medskip\noindent
+赋值 $\mathcal{F} \mapsto f_*\mathcal{F}$ 和
+% P01-ERRATA: P01-E0046 -- the frozen source uses \to rather than \mapsto for its second assignment.
+$\mathcal{G} \to f_p\mathcal{G}$ 是阿贝尔群预层范畴上的函子。
+这是显然的：例如，阿贝尔预层的映射
+$\mathcal{G}_1 \to \mathcal{G}_2$ 给出有向系统之间的映射
+$\{\mathcal{G}_1(V)\}_{f(U) \subset V} \to
+\{\mathcal{G}_2(V)\}_{f(U) \subset V}$，其中所有映射都是同态，因而又
+给出阿贝尔群同态
+$f_p\mathcal{G}_1(U) \to f_p\mathcal{G}_2(U)$。
+
+\medskip\noindent
+函子 $f_*$ 与 $f_p$ 在阿贝尔群预层范畴上互为伴随，即
+$$
+\Mor_{\textit{PAb}(X)}(f_p\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PAb}(Y)}(\mathcal{G}, f_*\mathcal{F}).
+$$
+为证明这一点，注意引理 \ref{sheaves-lemma-pullback-presheaves} 的证明中的映射
+$i_\mathcal{G} : \mathcal{G} \to f_* f_p\mathcal{G}$ 是阿贝尔预层的映射。
+因此，若 $\psi : f_p\mathcal{G} \to \mathcal{F}$ 是阿贝尔预层的映射，
+则相应的映射 $\mathcal{G} \to f_*\mathcal{F}$，即映射
+$f_*\psi \circ i_\mathcal{G} :
+\mathcal{G} \to f_* f_p \mathcal{G} \to f_* \mathcal{F}$，
+也是阿贝尔预层的映射。反过来，指出引理
+\ref{sheaves-lemma-pullback-presheaves} 的证明中的映射
+$c_\mathcal{F} : f_p f_* \mathcal{F} \to \mathcal{F}$ 也是阿贝尔预层的
+映射（因为它由 $\mathcal{F}$ 的限制映射构成，而这些限制映射全是同态）。
+因此，给定阿贝尔预层的映射
+$\varphi : \mathcal{G} \to f_*\mathcal{F}$，映射
+$c_\mathcal{F} \circ f_p\varphi : f_p\mathcal{G} \to \mathcal{F}$
+同样是阿贝尔预层的映射。由于作为集合预层映射上的构造，
+$\psi \mapsto f_*\psi$ 与
+$\varphi \mapsto c_\mathcal{F} \circ f_p\varphi$ 互为逆构造，
+它们在阿贝尔预层的映射上也互为逆构造。
+
+\medskip\noindent
+% P01-ERRATA: P01-E0045 -- the frozen source reverses X and Y here; it places F on Y and f_*F on X despite f:X->Y.
+若 $\mathcal{F}$ 是 $Y$ 上的阿贝尔层，则 $f_*\mathcal{F}$ 是 $X$ 上的
+阿贝尔层。这由阿贝尔层的定义以及集合层情形下的相应事实得出；见引理
+\ref{sheaves-lemma-pushforward-sheaf}。这定义了阿贝尔层范畴上的函子 $f_*$。
+
+\medskip\noindent
+仍像以前一样，定义 $f^{-1}\mathcal{G} = (f_p\mathcal{G})^\#$。
+$f_*$ 与 $f^{-1}$ 的伴随性如集合预层情形一样形式地得出。论证如下：
+\begin{eqnarray*}
+\Mor_{\textit{Ab}(X)}(f^{-1}\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{PAb}(X)}(f_p\mathcal{G}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{PAb}(Y)}(\mathcal{G}, f_*\mathcal{F}) \\
+& = &
+\Mor_{\textit{Ab}(Y)}(\mathcal{G}, f_*\mathcal{F})
+\end{eqnarray*}
+
+\begin{lemma}
+\label{sheaves-lemma-pullback-abelian-stalk}
+设 $f : X \to Y$ 为连续映射。
+\begin{enumerate}
+\item 设 $\mathcal{G}$ 为 $Y$ 上的阿贝尔预层，并设 $x \in X$。
+引理 \ref{sheaves-lemma-stalk-pullback-presheaf} 的双射
+$\mathcal{G}_{f(x)} \to (f_p\mathcal{G})_x$ 是阿贝尔群同构。
+\item 设 $\mathcal{G}$ 为 $Y$ 上的阿贝尔层，并设 $x \in X$。
+引理 \ref{sheaves-lemma-stalk-pullback} 的双射
+$\mathcal{G}_{f(x)} \to (f^{-1}\mathcal{G})_x$ 是阿贝尔群同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+给定连续映射 $f : X \to Y$，以及 $X$ 上的阿贝尔群层
+$\mathcal{F}$ 和 $Y$ 上的阿贝尔群层 $\mathcal{G}$，阿贝尔群层的
+{\it $f$-映射 $\mathcal{G} \to \mathcal{F}$}这一概念有意义。
+可以完全仿照定义 \ref{sheaves-definition-f-map} 来定义（把集合映射换为阿贝尔群
+同态），也可以直接说它等同于阿贝尔层的映射
+$\mathcal{G} \to f_*\mathcal{F}$。下文将自由使用这一概念。
+$\mathcal{G}$ 与 $\mathcal{F}$ 之间的 $f$-映射所成的群，与群
+$\Mor_{\textit{Ab}(X)}(f^{-1}\mathcal{G}, \mathcal{F})$ 及
+$\Mor_{\textit{Ab}(Y)}(\mathcal{G}, f_*\mathcal{F})$ 典范双射。
+
+\medskip\noindent
+$f$-映射的复合完全仿照集合层的 $f$-映射情形定义。此外，给定如上的
+$f$-映射 $\mathcal{G} \to \mathcal{F}$，其诱导的茎映射
+$$
+\varphi_x : \mathcal{G}_{f(x)} \longrightarrow \mathcal{F}_x
+$$
+是阿贝尔群同态。
+
+
+\section{连续映射与代数结构层}
+\label{sheaves-section-presheaves-structures-functorial}
+
+\noindent
+设 $(\mathcal{C}, F)$ 为一种代数结构类型。对拓扑空间 $X$，引入记号：
+\begin{enumerate}
+\item $\textit{PSh}(X, \mathcal{C})$ 表示取值于 $\mathcal{C}$ 的预层范畴。
+\item $\Sh(X, \mathcal{C})$ 表示取值于 $\mathcal{C}$ 的层范畴。
+\end{enumerate}
+设 $f : X \to Y$ 为拓扑空间的连续映射。与上一节相同的论证表明，
+存在函子
+\begin{eqnarray*}
+f_* : \textit{PSh}(X, \mathcal{C}) &
+\longrightarrow &
+\textit{PSh}(Y, \mathcal{C}) \\
+f_* : \Sh(X, \mathcal{C}) &
+\longrightarrow &
+\Sh(Y, \mathcal{C}) \\
+f_p : \textit{PSh}(Y, \mathcal{C}) &
+\longrightarrow &
+\textit{PSh}(X, \mathcal{C}) \\
+f^{-1} : \Sh(Y, \mathcal{C}) &
+\longrightarrow &
+\Sh(X, \mathcal{C})
+\end{eqnarray*}
+其构造方式及性质均与为阿贝尔（预）层构造的函子相同。特别地，有交换图表
+$$
+\xymatrix{
+\textit{PSh}(X, \mathcal{C}) \ar[r]^{f_*} \ar[d]^F &
+\textit{PSh}(Y, \mathcal{C}) \ar[d]^F &
+\Sh(X, \mathcal{C}) \ar[r]^{f_*} \ar[d]^F &
+\Sh(Y, \mathcal{C}) \ar[d]^F
+\\
+\textit{PSh}(X) \ar[r]^{f_*} &
+\textit{PSh}(Y) &
+\Sh(X) \ar[r]^{f_*} &
+\Sh(Y)
+\\
+\textit{PSh}(Y, \mathcal{C}) \ar[r]^{f_p} \ar[d]^F &
+\textit{PSh}(X, \mathcal{C}) \ar[d]^F &
+\Sh(Y, \mathcal{C}) \ar[r]^{f^{-1}} \ar[d]^F &
+\Sh(X, \mathcal{C}) \ar[d]^F
+\\
+\textit{PSh}(Y) \ar[r]^{f_p} &
+\textit{PSh}(X) &
+\Sh(Y) \ar[r]^{f^{-1}} &
+\Sh(X)
+}
+$$
+
+\medskip\noindent
+应当牢记的主要公式如下
+\begin{eqnarray*}
+f_*\mathcal{F}(V) & = & \mathcal{F}(f^{-1}(V)) \\
+f_p\mathcal{G}(U) & = & \colim_{f(U) \subset V} \mathcal{G}(V) \\
+f^{-1}\mathcal{G} & = & (f_p\mathcal{G})^\# \\
+(f_p\mathcal{G})_x & = & \mathcal{G}_{f(x)} \\
+(f^{-1}\mathcal{G})_x & = & \mathcal{G}_{f(x)}
+\end{eqnarray*}
+每个公式都在范畴 $\mathcal{C}$ 中成立；取底层集合后，便得到集合预层的
+相应公式。此外，还有伴随性
+\begin{eqnarray*}
+\Mor_{\textit{PSh}(X, \mathcal{C})}(f_p\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{PSh}(Y, \mathcal{C})}(\mathcal{G}, f_*\mathcal{F}) \\
+\Mor_{\Sh(X, \mathcal{C})}(f^{-1}\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\Sh(Y, \mathcal{C})}(\mathcal{G}, f_*\mathcal{F}).
+\end{eqnarray*}
+为证明这些性质，主要步骤是把引理 \ref{sheaves-lemma-pullback-presheaves}
+的证明中出现的映射
+$$
+i_\mathcal{G} : \mathcal{G} \longrightarrow f_*f_p\mathcal{G}
+$$
+和
+$$
+c_\mathcal{F} : f_p f_* \mathcal{F} \longrightarrow \mathcal{F}
+$$
+构造为取值于 $\mathcal{C}$ 的预层态射。由于这些构造与集合预层情形完全
+相同，可放心地留给读者。
+
+\medskip\noindent
+给定连续映射 $f : X \to Y$，以及 $X$ 上的代数结构层
+$\mathcal{F}$ 和 $Y$ 上的代数结构层 $\mathcal{G}$，代数结构层的
+{\it $f$-映射 $\mathcal{G} \to \mathcal{F}$}这一概念有意义。
+可以完全仿照定义 \ref{sheaves-definition-f-map} 来定义（把集合映射换为
+$\mathcal{C}$ 中的态射），也可以直接说它等同于代数结构层的映射
+$\mathcal{G} \to f_*\mathcal{F}$。下文将自由使用这一概念。
+$\mathcal{G}$ 与 $\mathcal{F}$ 之间的 $f$-映射所成的集合，与集合
+$\Mor_{\Sh(X, \mathcal{C})}(f^{-1}\mathcal{G}, \mathcal{F})$ 及
+$\Mor_{\Sh(Y, \mathcal{C})}(\mathcal{G}, f_*\mathcal{F})$ 典范双射。
+
+\medskip\noindent
+$f$-映射的复合完全仿照集合层的 $f$-映射情形定义。此外，给定如上的
+$f$-映射 $\mathcal{G} \to \mathcal{F}$，其诱导的茎映射
+$$
+\varphi_x : \mathcal{G}_{f(x)} \longrightarrow \mathcal{F}_x
+$$
+是代数结构的同态。
+
+
+\begin{lemma}
+\label{sheaves-lemma-f-map-sets-algebraic-structures}
+设 $f : X \to Y$ 为拓扑空间的连续映射。假设给定 $X$ 上的代数结构层
+$\mathcal{F}$ 和 $Y$ 上的代数结构层 $\mathcal{G}$。设
+$\varphi : \mathcal{G} \to \mathcal{F}$ 为底层集合层的 $f$-映射。
+若对每个开集 $V \subset Y$，集合映射
+$\varphi_V : \mathcal{G}(V) \to \mathcal{F}(f^{-1}V)$ 都是
+$\mathcal{C}$ 中某个态射在底层集合上的作用，则 $\varphi$ 来自代数结构层
+之间唯一的 $f$-态射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+\section{连续映射与模层}
+\label{sheaves-section-presheaves-modules-functorial}
+
+\noindent
+模层的情形更为复杂。原因在于，定义逆像函子与直像函子的自然背景是
+赋环空间，我们将在下面定义它。先陈述几个显然的引理。
+
+\begin{lemma}
+\label{sheaves-lemma-pushforward-presheaf-module}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $X$ 上的
+环预层，$\mathcal{F}$ 为 $\mathcal{O}$-模预层。存在底层集合预层的
+自然映射
+$$
+f_*\mathcal{O} \times f_*\mathcal{F}
+\longrightarrow
+f_*\mathcal{F}
+$$
+使 $f_*\mathcal{F}$ 成为 $f_*\mathcal{O}$-模预层。该构造对
+$\mathcal{F}$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+% P01-ERRATA: P01-E0047 -- two frozen proofs use "Let ... is open" instead of "be open".
+设 $V \subset Y$ 为开集。将引理中的映射定义为
+$$
+f_*\mathcal{O}(V) \times f_*\mathcal{F}(V)
+=
+\mathcal{O}(f^{-1}V) \times \mathcal{F}(f^{-1}V)
+\to
+\mathcal{F}(f^{-1}V)
+=
+f_*\mathcal{F}(V).
+$$
+其中间的箭头是 $X$ 上的乘法映射。我们把验证它与限制映射相容并在
+$f_*\mathcal{F}$ 上定义 $f_*\mathcal{O}$-模结构留给读者。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-pullback-presheaf-module}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $Y$ 上的
+环预层，$\mathcal{G}$ 为 $\mathcal{O}$-模预层。存在底层集合预层的
+自然映射
+$$
+f_p\mathcal{O} \times f_p\mathcal{G}
+\longrightarrow
+f_p\mathcal{G}
+$$
+使 $f_p\mathcal{G}$ 成为 $f_p\mathcal{O}$-模预层。该构造对
+$\mathcal{G}$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+% P01-ERRATA: P01-E0047 -- second locus of the same finite-verb error.
+设 $U \subset X$ 为开集。将引理中的映射定义为
+\begin{eqnarray*}
+f_p\mathcal{O}(U) \times f_p\mathcal{G}(U)
+& = &
+\colim_{f(U) \subset V} \mathcal{O}(V)
+\times
+\colim_{f(U) \subset V} \mathcal{G}(V) \\
+& = &
+\colim_{f(U) \subset V} (\mathcal{O}(V)\times \mathcal{G}(V)) \\
+& \to &
+\colim_{f(U) \subset V} \mathcal{G}(V) \\
+& = &
+f_p\mathcal{G}(U).
+\end{eqnarray*}
+其中间的箭头是 $Y$ 上的乘法映射。第二个等式成立，是因为有向余极限与
+有限极限可交换；见 Categories，引理
+\ref{categories-lemma-directed-commutes}。我们把验证它与限制映射相容并在
+$f_p\mathcal{G}$ 上定义 $f_p\mathcal{O}$-模结构留给读者。
+\end{proof}
+
+\noindent
+设 $f : X \to Y$ 为连续映射。设 $\mathcal{O}_X$ 为 $X$ 上的环预层，
+$\mathcal{O}_Y$ 为 $Y$ 上的环预层。于是目前已经定义了函子
+\begin{eqnarray*}
+f_* : \textit{PMod}(\mathcal{O}_X) &
+\longrightarrow &
+\textit{PMod}(f_*\mathcal{O}_X) \\
+f_p : \textit{PMod}(\mathcal{O}_Y) &
+\longrightarrow &
+\textit{PMod}(f_p\mathcal{O}_Y)
+\end{eqnarray*}
+它们满足如下相容性。
+
+\begin{lemma}
+\label{sheaves-lemma-adjoint-push-pull-presheaves-modules}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $Y$ 上的
+环预层，$\mathcal{G}$ 为 $\mathcal{O}$-模预层，并设 $\mathcal{F}$ 为
+$f_p\mathcal{O}$-模预层。则
+$$
+\Mor_{\textit{PMod}(f_p\mathcal{O})}(f_p\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PMod}(\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+$$
+这里使用引理 \ref{sheaves-lemma-pullback-presheaf-module} 和
+\ref{sheaves-lemma-pushforward-presheaf-module}，并通过映射
+$i_\mathcal{O} : \mathcal{O} \to f_*f_p\mathcal{O}$ 把
+$f_*\mathcal{F}$ 看作 $\mathcal{O}$-模（该映射最初在引理
+\ref{sheaves-lemma-pullback-presheaves} 的证明中定义）。
+\end{lemma}
+
+\begin{proof}
+注意，由第 \ref{sheaves-section-abelian-presheaves-functorial} 节，有
+$$
+\Mor_{\textit{PAb}(X)}(f_p\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PAb}(Y)}(\mathcal{G}, f_*\mathcal{F}).
+$$
+因此，需要证明在此对应下，模映射所成的子集彼此对应。此外，该对应由规则
+$$
+(\psi : f_p\mathcal{G} \to \mathcal{F})
+\longmapsto
+(f_*\psi \circ i_\mathcal{G} :
+\mathcal{G} \to f_* \mathcal{F})
+$$
+确定，反方向则由规则
+$$
+(\varphi : \mathcal{G} \to f_* \mathcal{F})
+\longmapsto
+(c_\mathcal{F} \circ f_p\varphi : f_p\mathcal{G} \to \mathcal{F})
+$$
+确定，其中 $i_\mathcal{G}$ 和 $c_\mathcal{F}$ 如第
+\ref{sheaves-section-abelian-presheaves-functorial} 节所述。因此，利用 $f_*$ 与
+$f_p$ 的函子性，只需验证映射
+$i_\mathcal{G} : \mathcal{G} \to f_* f_p \mathcal{G}$ 和
+$c_\mathcal{F} : f_p f_* \mathcal{F} \to \mathcal{F}$ 与模结构相容；
+这留给读者。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-adjoint-pull-push-presheaves-modules}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $X$ 上的
+环预层，$\mathcal{F}$ 为 $\mathcal{O}$-模预层，并设 $\mathcal{G}$ 为
+$f_*\mathcal{O}$-模预层。则
+$$
+\Mor_{\textit{PMod}(\mathcal{O})}(
+\mathcal{O} \otimes_{p, f_pf_*\mathcal{O}} f_p\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PMod}(f_*\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+$$
+这里使用引理 \ref{sheaves-lemma-pullback-presheaf-module} 和
+\ref{sheaves-lemma-pushforward-presheaf-module}，并在张量积的定义中使用映射
+$c_\mathcal{O} : f_pf_*\mathcal{O} \to \mathcal{O}$。
+\end{lemma}
+
+\begin{proof}
+这由下列等式得到
+\begin{eqnarray*}
+\Mor_{\textit{PMod}(\mathcal{O})}(
+\mathcal{O} \otimes_{p, f_pf_*\mathcal{O}} f_p\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{PMod}(f_pf_*\mathcal{O})}(
+f_p\mathcal{G}, \mathcal{F}_{f_pf_*\mathcal{O}}) \\
+& = &
+\Mor_{\textit{PMod}(f_*\mathcal{O})}(\mathcal{G},
+f_*(\mathcal{F}_{f_pf_*\mathcal{O}})) \\
+& = &
+\Mor_{\textit{PMod}(f_*\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+\end{eqnarray*}
+第一个等式是引理 \ref{sheaves-lemma-adjointness-tensor-restrict-presheaves}。
+第二个等式是引理 \ref{sheaves-lemma-adjoint-push-pull-presheaves-modules}。
+第三个等式由阿贝尔层的等式
+$f_*(\mathcal{F}_{f_pf_*\mathcal{O}}) = f_*\mathcal{F}$ 给出，且该等式是
+$f_*\mathcal{O}$-线性的。事实上，在引理
+\ref{sheaves-lemma-pullback-presheaves} 的证明所述伴随下，
+$\text{id}_{f_*\mathcal{O}}$ 对应于 $c_\mathcal{O}$，因而
+$\text{id}_{f_*\mathcal{O}} = f_*c_\mathcal{O} \circ i_{f_*\mathcal{O}}$。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-pushforward-module}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $X$ 上的
+环层，$\mathcal{F}$ 为 $\mathcal{O}$-模层。引理
+\ref{sheaves-lemma-pushforward-presheaf-module} 中定义的直像
+$f_*\mathcal{F}$ 是 $f_*\mathcal{O}$-模层。
+\end{lemma}
+
+\begin{proof}
+由定义和引理 \ref{sheaves-lemma-pushforward-sheaf} 显然可得。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-pullback-module}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $Y$ 上的
+环层，$\mathcal{G}$ 为 $\mathcal{O}$-模层。存在底层集合预层的自然映射
+$$
+f^{-1}\mathcal{O} \times f^{-1}\mathcal{G}
+\longrightarrow
+f^{-1}\mathcal{G}
+$$
+使 $f^{-1}\mathcal{G}$ 成为 $f^{-1}\mathcal{O}$-模层。
+\end{lemma}
+
+\begin{proof}
+回忆 $f^{-1}$ 定义为函子 $f_p$ 与层化的复合。因此，该引理是引理
+\ref{sheaves-lemma-pullback-presheaf-module} 和引理
+\ref{sheaves-lemma-sheafification-presheaf-modules} 的结合。
+\end{proof}
+
+\noindent
+设 $f : X \to Y$ 为连续映射。设 $\mathcal{O}_X$ 为 $X$ 上的环层，
+$\mathcal{O}_Y$ 为 $Y$ 上的环层。于是现在已经定义了函子
+\begin{eqnarray*}
+f_* : \textit{Mod}(\mathcal{O}_X) &
+\longrightarrow &
+\textit{Mod}(f_*\mathcal{O}_X) \\
+f^{-1} : \textit{Mod}(\mathcal{O}_Y) &
+\longrightarrow &
+\textit{Mod}(f^{-1}\mathcal{O}_Y)
+\end{eqnarray*}
+它们满足如下相容性。
+
+\begin{lemma}
+\label{sheaves-lemma-adjoint-push-pull-modules}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $Y$ 上的
+环层，$\mathcal{G}$ 为 $\mathcal{O}$-模层，并设 $\mathcal{F}$ 为
+$f^{-1}\mathcal{O}$-模层。则
+$$
+\Mor_{\textit{Mod}(f^{-1}\mathcal{O})}(f^{-1}\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{Mod}(\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+$$
+这里使用引理 \ref{sheaves-lemma-pullback-module} 和
+\ref{sheaves-lemma-pushforward-module}，并通过
+$\mathcal{O} \to f_*f^{-1}\mathcal{O}$ 限制标量，把
+$f_*\mathcal{F}$ 看作 $\mathcal{O}$-模。
+\end{lemma}
+
+\begin{proof}
+使用下列等式论证
+\begin{eqnarray*}
+\Mor_{\textit{Mod}(f^{-1}\mathcal{O})}(f^{-1}\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{Mod}(f_p\mathcal{O})}(f_p\mathcal{G}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{Mod}(\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+\end{eqnarray*}
+其中第二个等式来自引理
+\ref{sheaves-lemma-adjoint-push-pull-presheaves-modules}，第一个等式来自引理
+\ref{sheaves-lemma-sheafification-presheaf-modules}。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-adjoint-pull-push-modules}
+设 $f : X \to Y$ 为拓扑空间的连续映射。设 $\mathcal{O}$ 为 $X$ 上的
+环层，$\mathcal{F}$ 为 $\mathcal{O}$-模层，并设 $\mathcal{G}$ 为
+$f_*\mathcal{O}$-模层。则
+$$
+\Mor_{\textit{Mod}(\mathcal{O})}(
+\mathcal{O} \otimes_{f^{-1}f_*\mathcal{O}} f^{-1}\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{Mod}(f_*\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+$$
+这里使用引理 \ref{sheaves-lemma-pullback-module} 和
+\ref{sheaves-lemma-pushforward-module}，并在张量积的定义中使用典范映射
+$f^{-1}f_*\mathcal{O} \to \mathcal{O}$。
+\end{lemma}
+
+\begin{proof}
+这由下列等式得到
+\begin{eqnarray*}
+\Mor_{\textit{Mod}(\mathcal{O})}(
+\mathcal{O} \otimes_{f^{-1}f_*\mathcal{O}} f^{-1}\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{Mod}(f^{-1}f_*\mathcal{O})}(
+f^{-1}\mathcal{G}, \mathcal{F}_{f^{-1}f_*\mathcal{O}}) \\
+& = &
+\Mor_{\textit{Mod}(f_*\mathcal{O})}(\mathcal{G}, f_*\mathcal{F}).
+\end{eqnarray*}
+它们是引理 \ref{sheaves-lemma-adjointness-tensor-restrict} 与
+\ref{sheaves-lemma-adjoint-push-pull-modules} 的结合。
+\end{proof}
+
+\noindent
+设 $f : X \to Y$ 为连续映射。设 $\mathcal{O}_X$ 为 $X$ 上的环（预）层，
+$\mathcal{O}_Y$ 为 $Y$ 上的环（预）层。于是目前已经定义了函子
+\begin{eqnarray*}
+f_* : \textit{PMod}(\mathcal{O}_X) &
+\longrightarrow &
+\textit{PMod}(f_*\mathcal{O}_X) \\
+f_* : \textit{Mod}(\mathcal{O}_X) &
+\longrightarrow &
+\textit{Mod}(f_*\mathcal{O}_X) \\
+f_p : \textit{PMod}(\mathcal{O}_Y) &
+\longrightarrow &
+\textit{PMod}(f_p\mathcal{O}_Y) \\
+f^{-1} : \textit{Mod}(\mathcal{O}_Y) &
+\longrightarrow &
+\textit{Mod}(f^{-1}\mathcal{O}_Y)
+\end{eqnarray*}
+显然，模层上的函子对 $(f_*, f^{-1})$ 通常并不伴随，因为它们的靶范畴
+不相同。确切地说，如上所见，只有在环层 $\mathcal{O}_X,
+\mathcal{O}_Y$ 奇迹般地满足关系
+$\mathcal{O}_X = f^{-1}\mathcal{O}_Y$ 和
+$\mathcal{O}_Y = f_*\mathcal{O}_X$ 时才成立，而实践中几乎从不如此。
+我们暂时中断讨论，定义恰当的态射概念；对于这种态射，模层上存在适当的
+伴随函子对。
+
+\section{赋环空间}
+\label{sheaves-section-ringed-spaces}
+
+\noindent
+设 $X$ 为拓扑空间，$\mathcal{O}_X$ 为 $X$ 上的环层。应当把环层
+$\mathcal{O}_X$ 看作 $X$ 上的函数层。若 $f : X \to Y$ 是“适当的”
+映射，则通过复合，$Y$ 上的函数变成 $X$ 上的函数。因此，应当存在从
+$\mathcal{O}_Y$ 到 $\mathcal{O}_X$ 的自然 $f$-映射；见定义
+\ref{sheaves-definition-f-map} 和引理 \ref{sheaves-lemma-f-map}。一个具体例子见下面的
+例 \ref{sheaves-example-continuous-map-ringed}。相关的抽象定义如下。
+
+\begin{definition}
+\label{sheaves-definition-ringed-space}
+一个{\it 赋环空间}是一个二元组 $(X, \mathcal{O}_X)$，其中 $X$ 为
+拓扑空间，$\mathcal{O}_X$ 为 $X$ 上的环层。一个{\it 赋环空间态射}
+$(X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 是一个二元组，由连续映射
+$f : X \to Y$ 和环层的 $f$-映射
+$f^\sharp : \mathcal{O}_Y \to \mathcal{O}_X$ 组成。
+\end{definition}
+
+\begin{example}
+\label{sheaves-example-continuous-map-ringed}
+设 $f : X \to Y$ 为拓扑空间的连续映射。考虑 $X$ 上的连续实值函数层
+$\mathcal{C}^0_X$ 和 $Y$ 上的连续实值函数层 $\mathcal{C}^0_Y$；见例
+\ref{sheaves-example-C0-sheaf-rings}。我们断言，存在与 $f$ 相伴的自然 $f$-映射
+$f^\sharp : \mathcal{C}^0_Y \to \mathcal{C}^0_X$。事实上，只需用规则
+\begin{eqnarray*}
+\mathcal{C}^0_Y(V) & \longrightarrow & \mathcal{C}^0_X(f^{-1}V) \\
+h & \longmapsto & h \circ f
+\end{eqnarray*}
+来定义。严格说来，应写作
+$f^\sharp(h) = h \circ f|_{f^{-1}(V)}$。显然，这是定义
+\ref{sheaves-definition-f-map} 中那样的映射族，并与 $\mathbf{R}$-代数结构相容。
+因此，它是 $\mathbf{R}$-代数层的 $f$-映射；见引理
+\ref{sheaves-lemma-f-map-sets-algebraic-structures}。
+
+\medskip\noindent
+当然，在许多其他情形下，某种几何态射也有典范的赋环空间态射与之相伴。
+例如，若 $M$、$N$ 是 $\mathcal{C}^\infty$-流形，且
+$f : M \to N$ 是无穷次可微映射，则 $f$ 诱导典范赋环空间态射
+$(M, \mathcal{C}_M^\infty) \to (N, \mathcal{C}^\infty_N)$。
+其构造（与上述构造完全相同）留给读者。
+\end{example}
+
+\noindent
+赋环空间态射如何复合也许并非完全显然，因此在此明确写出。
+
+\begin{definition}
+\label{sheaves-definition-composition-maps-ringed-spaces}
+设
+$(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 和
+$(g, g^\sharp) : (Y, \mathcal{O}_Y) \to (Z, \mathcal{O}_Z)$
+为赋环空间态射。用规则
+$$
+(g, g^\sharp) \circ (f, f^\sharp) = (g \circ f, f^\sharp \circ g^\sharp).
+$$
+定义{\it 赋环空间态射的复合}。这里使用定义
+\ref{sheaves-definition-composition-f-maps} 中定义的 $f$-映射复合。
+\end{definition}
+
+
+\section{赋环空间态射与模}
+\label{sheaves-section-ringed-spaces-functoriality-modules}
+
+\noindent
+现在已经引入足够的记号，可以定义沿赋环空间态射的模之逆像与直像。
+
+\begin{definition}
+\label{sheaves-definition-pushforward}
+设 $(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+为赋环空间态射。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模层。将 $\mathcal{F}$ 的
+{\it 直像}定义为如下 $\mathcal{O}_Y$-模层：作为阿贝尔群层，它等于
+$f_*\mathcal{F}$；其模结构是把引理 \ref{sheaves-lemma-pushforward-module}
+给出的模结构沿
+$f^\sharp : \mathcal{O}_Y \to f_*\mathcal{O}_X$ 限制所得的结构。
+\item 设 $\mathcal{G}$ 为 $\mathcal{O}_Y$-模层。将{\it 逆像}
+$f^*\mathcal{G}$ 定义为由公式
+$$
+f^*\mathcal{G}
+=
+\mathcal{O}_X \otimes_{f^{-1}\mathcal{O}_Y} f^{-1}\mathcal{G}
+$$
+给出的 $\mathcal{O}_X$-模层，其中环映射
+$f^{-1}\mathcal{O}_Y \to \mathcal{O}_X$ 是对应于 $f^\sharp$ 的映射，
+模结构则由引理 \ref{sheaves-lemma-pullback-module} 给出。
+\end{enumerate}
+\end{definition}
+
+\noindent
+于是已经定义函子
+\begin{eqnarray*}
+f_* : \textit{Mod}(\mathcal{O}_X)
+& \longrightarrow &
+\textit{Mod}(\mathcal{O}_Y) \\
+f^* : \textit{Mod}(\mathcal{O}_Y)
+& \longrightarrow &
+\textit{Mod}(\mathcal{O}_X)
+\end{eqnarray*}
+关于这些函子的最后一个结果是：它们确如预期那样互为伴随。
+
+\begin{lemma}
+\label{sheaves-lemma-adjoint-pullback-pushforward-modules}
+设 $(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+为赋环空间态射。设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+$\mathcal{G}$ 为 $\mathcal{O}_Y$-模层。存在典范双射
+$$
+\Hom_{\mathcal{O}_X}(f^*\mathcal{G}, \mathcal{F})
+=
+\Hom_{\mathcal{O}_Y}(\mathcal{G}, f_*\mathcal{F}).
+$$
+换言之，函子 $f^*$ 是 $f_*$ 的左伴随。
+\end{lemma}
+
+\begin{proof}
+这由前面的工作得到：
+\begin{eqnarray*}
+\Hom_{\mathcal{O}_X}(f^*\mathcal{G}, \mathcal{F})
+& = &
+\Mor_{\textit{Mod}(\mathcal{O}_X)}(
+\mathcal{O}_X \otimes_{f^{-1}\mathcal{O}_Y} f^{-1}\mathcal{G}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{Mod}(f^{-1}\mathcal{O}_Y)}(
+f^{-1}\mathcal{G}, \mathcal{F}_{f^{-1}\mathcal{O}_Y}) \\
+& = &
+\Hom_{\mathcal{O}_Y}(\mathcal{G}, f_*\mathcal{F}).
+\end{eqnarray*}
+这里使用引理 \ref{sheaves-lemma-adjointness-tensor-restrict} 和
+\ref{sheaves-lemma-adjoint-push-pull-modules}。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-push-pull-composition-modules}
+设 $f : X \to Y$ 和 $g : Y \to Z$ 为赋环空间态射。函子
+$(g \circ f)_*$ 与 $g_* \circ f_*$ 相等，并有函子的典范同构
+$(g \circ f)^* \cong f^* \circ g^*$。
+\end{lemma}
+
+\begin{proof}
+关于直像的结论来自引理 \ref{sheaves-lemma-pushforward-composition} 及我们的定义。
+关于逆像的结论则由与引理 \ref{sheaves-lemma-pullback-composition} 的证明相同的
+论证得到。
+\end{proof}
+
+
+\noindent
+给定赋环空间态射
+$(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$，
+$\mathcal{O}_X$-模层 $\mathcal{F}$，以及 $Y$ 上的
+$\mathcal{O}_Y$-模层 $\mathcal{G}$，模层的
+{\it $f$-映射 $\varphi : \mathcal{G} \to \mathcal{F}$}这一概念有意义。
+可以把它定义为阿贝尔层的 $f$-映射
+$\varphi : \mathcal{G} \to \mathcal{F}$（见定义
+\ref{sheaves-definition-f-map} 和引理 \ref{sheaves-lemma-f-map}），并要求对所有开集
+$V \subset Y$，映射
+$$
+\mathcal{G}(V) \longrightarrow \mathcal{F}(f^{-1}V)
+$$
+都是 $\mathcal{O}_Y(V)$-模映射。这里通过映射
+$f^\sharp_V : \mathcal{O}_Y(V) \to \mathcal{O}_X(f^{-1}V)$，把
+$\mathcal{F}(f^{-1}V)$ 看作 $\mathcal{O}_Y(V)$-模。
+$\mathcal{G}$ 与 $\mathcal{F}$ 之间的 $f$-映射所成的集合，与集合
+$\Mor_{\textit{Mod}(\mathcal{O}_X)}(f^*\mathcal{G}, \mathcal{F})$ 及
+$\Mor_{\textit{Mod}(\mathcal{O}_Y)}(\mathcal{G}, f_*\mathcal{F})$
+典范双射。见上文。
+
+\medskip\noindent
+$f$-映射的复合完全仿照集合层的 $f$-映射情形定义。此外，给定如上的
+$f$-映射 $\mathcal{G} \to \mathcal{F}$ 和 $x \in X$，诱导的茎映射
+$$
+\varphi_x : \mathcal{G}_{f(x)} \longrightarrow \mathcal{F}_x
+$$
+是 $\mathcal{O}_{Y, f(x)}$-模映射，其中 $\mathcal{F}_x$ 上的
+$\mathcal{O}_{Y, f(x)}$-模结构来自 $\mathcal{O}_{X, x}$-模结构以及映射
+$f^\sharp_x : \mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$。
+下面是一个相关引理。
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-pullback-modules}
+设 $(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+为赋环空间态射。设 $\mathcal{G}$ 为 $\mathcal{O}_Y$-模层，并设
+$x \in X$。则作为 $\mathcal{O}_{X, x}$-模，有
+$$
+(f^*\mathcal{G})_x =
+\mathcal{G}_{f(x)}
+\otimes_{\mathcal{O}_{Y, f(x)}}
+\mathcal{O}_{X, x}
+$$
+其中右侧的张量积使用
+$f^\sharp_x : \mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{sheaves-lemma-stalk-tensor-sheaf-modules} 以及 $x$ 处逆像层的茎与
+$f(x)$ 处相应茎的等同得到。例如，见第
+\ref{sheaves-section-presheaves-structures-functorial} 节中的公式。
+\end{proof}
+
+
+
+\section{摩天楼层与茎}
+\label{sheaves-section-skyscraper-sheaves}
+
+\begin{definition}
+\label{sheaves-definition-skyscraper-sheaf}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 设 $x \in X$ 为一点。记 $i_x : \{x\} \to X$ 为包含映射。
+设 $A$ 为集合，并把 $A$ 看作单点空间 $\{x\}$ 上的层。称
+$i_{x, *}A$ 为{\it 在 $x$ 处取值为 $A$ 的摩天楼层}。
+\item 若上述 (1) 中的 $A$ 是阿贝尔群，则把 $i_{x, *}A$ 看作 $X$
+上的阿贝尔群层。
+\item 若上述 (1) 中的 $A$ 是代数结构，则把 $i_{x, *}A$ 看作代数结构层。
+\item 若 $(X, \mathcal{O}_X)$ 是赋环空间，则把
+$i_x : \{x\} \to X$ 看作赋环空间态射
+$(\{x\}, \mathcal{O}_{X, x}) \to (X, \mathcal{O}_X)$；若 $A$ 是
+$\mathcal{O}_{X, x}$-模，则把 $i_{x, *}A$ 看作
+$\mathcal{O}_X$-模层。
+\item 若存在 $X$ 的一点 $x$ 和集合 $A$，使得
+$\mathcal{F} \cong i_{x, *}A$，则称集合层 $\mathcal{F}$ 为
+{\it 摩天楼层}。
+\item 若存在 $X$ 的一点 $x$ 和阿贝尔群 $A$，使得
+$\mathcal{F} \cong i_{x, *}A$ 在阿贝尔群层意义下成立，则称阿贝尔群层
+$\mathcal{F}$ 为{\it 摩天楼层}。
+\item 若存在 $X$ 的一点 $x$ 和代数结构 $A$，使得
+$\mathcal{F} \cong i_{x, *}A$ 在代数结构层意义下成立，则称代数结构层
+$\mathcal{F}$ 为{\it 摩天楼层}。
+\item 若 $(X, \mathcal{O}_X)$ 是赋环空间，$\mathcal{F}$ 是
+$\mathcal{O}_X$-模层，并且存在一点 $x \in X$ 和
+$\mathcal{O}_{X, x}$-模 $A$，使得
+$\mathcal{F} \cong i_{x, *}A$ 在 $\mathcal{O}_X$-模层意义下成立，
+则称 $\mathcal{F}$ 为{\it 摩天楼层}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{sheaves-lemma-skyscraper-stalks}
+设 $X$ 为拓扑空间，$x \in X$ 为一点，$A$ 为集合。对任意点
+$x' \in X$，在 $x$ 处取值为 $A$ 的摩天楼层在 $x'$ 处的茎为
+$$
+(i_{x, *}A)_{x'} =
+\left\{
+\begin{matrix}
+A & \text{若} & x' \in \overline{\{x\}} \\
+\{*\} & \text{若} & x' \not\in \overline{\{x\}}
+\end{matrix}
+\right.
+$$
+阿贝尔群、代数结构及模层情形下有类似描述。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-stalk-skyscraper-adjoint}
+设 $X$ 为拓扑空间，$x \in X$ 为一点。函子
+$\mathcal{F} \mapsto \mathcal{F}_x$ 与 $A \mapsto i_{x, *}A$ 互为伴随。
+公式为
+$$
+\Mor_{\textit{Sets}}(\mathcal{F}_x, A)
+=
+\Mor_{\Sh(X)}(\mathcal{F}, i_{x, *}A).
+$$
+阿贝尔群和代数结构情形下也有类似陈述。对模层则有
+$$
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, A)
+=
+\Hom_{\mathcal{O}_X}(\mathcal{F}, i_{x, *}A).
+$$
+\end{lemma}
+
+\begin{proof}
+略。提示：茎函子可视为态射 $i_x : \{x\} \to X$ 的逆像函子。
+于是，伴随性来自 $i_x^{-1}$ 与 $i_{x, *}$ 的伴随性（对模层则来自
+$i_x^*$ 与 $i_{x, *}$ 的伴随性）。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{预层的极限与余极限}
+\label{sheaves-section-limits-presheaves}
+
+\noindent
+设 $X$ 为拓扑空间，并设
+$\mathcal{I} \to \textit{PSh}(X)$，$i \mapsto \mathcal{F}_i$ 为图表。
+\begin{enumerate}
+\item $\lim_i \mathcal{F}_i$ 与 $\colim_i \mathcal{F}_i$ 都存在。
+\item 对任意开集 $U \subset X$，有
+$$
+(\lim_i \mathcal{F}_i)(U) =
+\lim_i \mathcal{F}_i(U)
+$$
+以及
+$$
+(\colim_i \mathcal{F}_i)(U) =
+\colim_i \mathcal{F}_i(U).
+$$
+\item 设 $x \in X$ 为一点。一般而言，$\lim_i \mathcal{F}_i$ 在 $x$
+处的茎不等于各茎的极限。但若指标范畴有限，则二者相等。换言之，茎函子
+是左正合的（见 Categories，定义 \ref{categories-definition-exact}）。
+\item 设 $x \in X$。总有
+$$
+(\colim_i \mathcal{F}_i)_x =
+\colim_i \mathcal{F}_{i, x}.
+$$
+\end{enumerate}
+所有证明都很容易。
+
+\section{层的极限与余极限}
+\label{sheaves-section-limits-sheaves}
+
+\noindent
+设 $X$ 为拓扑空间，并设
+$\mathcal{I} \to \Sh(X)$，$i \mapsto \mathcal{F}_i$ 为图表。
+\begin{enumerate}
+\item $\lim_i \mathcal{F}_i$ 与 $\colim_i \mathcal{F}_i$ 都存在。
+\item 包含函子 $i : \Sh(X) \to \textit{PSh}(X)$ 与极限可交换。
+换言之，可以把层范畴中的极限作为预层范畴中的极限来计算。特别地，对任意
+开集 $U \subset X$，有
+$$
+(\lim_i \mathcal{F}_i)(U) = \lim_i \mathcal{F}_i(U).
+$$
+\item 包含函子 $i : \Sh(X) \to \textit{PSh}(X)$ 一般不与余极限
+可交换（甚至不与有限余极限可交换——想想满射）。余极限的计算方法是：
+先在预层范畴中取余极限，再层化，即
+$$
+\colim_i \mathcal{F}_i =
+\Big(U \mapsto \colim_i \mathcal{F}_i(U)\Big)^\#.
+$$
+\item 设 $x \in X$ 为一点。一般而言，$\lim_i \mathcal{F}_i$ 在 $x$
+处的茎不等于各茎的极限。但若指标范畴有限，则二者相等。换言之，茎函子
+是左正合的。
+\item 设 $x \in X$。总有
+$$
+(\colim_i \mathcal{F}_i)_x = \colim_i \mathcal{F}_{i, x}.
+$$
+\item 层化函子 ${}^\# : \textit{PSh}(X) \to \Sh(X)$ 与所有余极限
+及有限极限可交换，但不与所有极限可交换。
+\end{enumerate}
+所有证明都很容易。下面给出一个关于层的有向余极限的结论。
+
+\begin{lemma}
+\label{sheaves-lemma-directed-colimits-sections}
+设 $X$ 为拓扑空间，$I$ 为有向集。设
+$(\mathcal{F}_i, \varphi_{ii'})$ 为 $I$ 上的集合层系统；见 Categories，
+第 \ref{categories-section-posets-limits} 节。设 $U \subset X$ 为开子集。
+考虑典范映射
+$$
+\Psi :
+\colim_i \mathcal{F}_i(U)
+\longrightarrow
+\left(\colim_i \mathcal{F}_i\right)(U)
+$$
+\begin{enumerate}
+\item 若所有转移映射都是单射，则对任意开集 $U$，$\Psi$ 都是单射。
+\item 若 $U$ 拟紧，则 $\Psi$ 是单射。
+\item 若 $U$ 拟紧且所有转移映射都是单射，则 $\Psi$ 是同构。
+\item 若 $U$ 有一个开覆盖的共尾系
+$\mathcal{U} : U = \bigcup_{j\in J} U_j$，其中 $J$ 有限，且对所有
+$j, j' \in J$，$U_j \cap U_{j'}$ 均拟紧，则 $\Psi$ 是双射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设所有转移映射都是单射。此时，预层
+$\mathcal{F}' : V \mapsto \colim_i \mathcal{F}_i(V)$ 是分离的（见定义
+\ref{sheaves-definition-separated}）。由上述讨论，有
+$(\mathcal{F}')^\# = \colim_i \mathcal{F}_i$。由引理
+\ref{sheaves-lemma-separated-presheaf-into-sheaf}，映射
+$\mathcal{F}' \to (\mathcal{F}')^\#$ 是单射。这证明了 (1)。
+
+\medskip\noindent
+假设 $U$ 拟紧。设 $s \in \mathcal{F}_i(U)$ 和
+$s' \in \mathcal{F}_{i'}(U)$ 在左侧给出的元素经 $\Psi$ 后有相同的像。
+由于 $U$ 拟紧，这意味着存在有限开覆盖
+$U = \bigcup_{j = 1, \ldots, m} U_j$，并且对每个 $j$，存在指标
+$i_j \in I$，$i_j \geq i$，$i_j \geq i'$，使得
+$\varphi_{ii_j}(s)$ 与 $\varphi_{i'i_j}(s')$ 在 $U_j$ 上的限制相同。
+取 $i''\in I$，使其相对于所有 $i_j$ 均为 $\geq$。于是，对所有 $j$，
+$\varphi_{ii''}(s)$ 与 $\varphi_{i'i''}(s')$ 在开集 $U_j$ 上一致，
+从而 $\varphi_{ii''}(s) = \varphi_{i'i''}(s')$。这证明了 (2)。
+
+\medskip\noindent
+假设 $U$ 拟紧且所有转移映射都是单射。设 $s$ 为 $\Psi$ 的靶中的元素。
+由于 $U$ 拟紧，存在有限开覆盖
+$U = \bigcup_{j = 1, \ldots, m} U_j$；对每个 $j$，存在指标
+$i_j \in I$ 及 $s_j \in \mathcal{F}_{i_j}(U_j)$，使得对所有 $j$，
+$s|_{U_j}$ 都来自 $s_j$。取 $i \in I$，使其相对于所有 $i_j$ 均为
+$\geq$。由 (1)，
+各截面 $\varphi_{i_ji}(s_j)$ 在交集 $U_j \cap U_{j'}$ 上一致。
+因此，它们粘合成截面 $s' \in \mathcal{F}_i(U)$，且该截面经 $\Psi$
+映到 $s$。这证明了 (3)。
+
+\medskip\noindent
+假设 (4) 的条件成立。特别地，$U$ 拟紧，因而由 (2)，$\Psi$ 是单射。
+设 $s$ 为 $\Psi$ 的靶中的元素。由假设，存在有限开覆盖
+$U = \bigcup_{j = 1, \ldots, m} U_j$，其中对所有 $j, j' \in J$，
+$U_j \cap U_{j'}$ 均拟紧；并且对每个 $j$，存在指标 $i_j \in I$ 及
+$s_j \in \mathcal{F}_{i_j}(U_j)$，使得对所有 $j$，$s|_{U_j}$ 是
+$s_j$ 的像。由于 $U_j \cap U_{j'}$ 拟紧，可以应用 (2)，从而存在
+$i_{jj'} \in I$，满足 $i_{jj'} \geq i_j$、$i_{jj'} \geq i_{j'}$，
+并使 $\varphi_{i_ji_{jj'}}(s_j)$ 与
+$\varphi_{i_{j'}i_{jj'}}(s_{j'})$ 在 $U_j \cap U_{j'}$ 上一致。
+选择指标 $i \in I$ 大于等于所有 $i_{jj'}$。于是，
+$\mathcal{F}_i$ 的各截面 $\varphi_{i_ji}(s_j)$ 粘合成 $U$ 上的一个
+$\mathcal{F}_i$ 截面。该截面如所需地映到元素 $s$。
+\end{proof}
+
+\begin{example}
+\label{sheaves-example-conditions-needed-colimit}
+令 $X = \{s_1, s_2, \xi_1, \xi_2, \xi_3, \ldots\}$ 为集合。规定子集
+$U \subset X$ 为开集，当且仅当 $s_1 \in U$ 或 $s_2 \in U$ 蕴含
+$U$ 包含所有 $\xi_i$。令 $U_n = \{\xi_n, \xi_{n + 1}, \ldots\}$，
+并令 $j_n : U_n \to X$ 为包含映射。置
+$\mathcal{F}_n = j_{n, *}\underline{\mathbf{Z}}$。存在转移映射
+$\mathcal{F}_n \to \mathcal{F}_{n + 1}$。令
+$\mathcal{F} = \colim \mathcal{F}_n$。注意，若 $m < n$，则
+$\mathcal{F}_{n, \xi_m} = 0$，因为 $\{\xi_m\}$ 是 $X$ 的开子集，且与
+$U_n$ 不相交。因此，对所有 $n$，都有 $\mathcal{F}_{\xi_n} = 0$。
+另一方面，茎 $\mathcal{F}_{s_i}$，$i = 1, 2$，是余极限
+$$
+M = \colim_n \prod\nolimits_{m \geq n} \mathbf{Z}
+$$
+它并不为零。由此得出，层 $\mathcal{F}$ 是在闭点 $s_1$ 与 $s_2$ 处
+取值为 $M$ 的摩天楼层之直和。因此
+$\Gamma(X, \mathcal{F}) = M \oplus M$。另一方面，读者可以验证
+$\colim_n \Gamma(X, \mathcal{F}_n) = M$。所以，上面的引理
+\ref{sheaves-lemma-directed-colimits-sections} 第 (4) 项确实需要某种条件。
+\end{example}
+
+\noindent
+前一引理还有一个处理谱空间图表上各层的版本。为陈述它，引入一些记号。
+设 $\mathcal{I}$ 为余滤过指标范畴。设
+$i \mapsto X_i$ 为 $\mathcal{I}$ 上的谱空间图表，使得对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射
+$f_a : X_j \to X_i$ 是谱映射。置 $X = \lim X_i$，并记
+$p_i : X \to X_i$ 为投影。
+
+\begin{lemma}
+\label{sheaves-lemma-compute-pullback-to-limit}
+在上述情形下，设 $i \in \Ob(\mathcal{I})$，$\mathcal{G}$ 为 $X_i$
+上的层。对拟紧开集 $U_i \subset X_i$，有
+$$
+p_i^{-1}\mathcal{G}(p_i^{-1}(U_i)) =
+\colim_{a : j \to i} f_a^{-1}\mathcal{G}(f_a^{-1}(U_i))
+$$
+\end{lemma}
+
+\begin{proof}
+先证明典范映射
+$\colim_{a : j \to i} f_a^{-1}\mathcal{G}(f_a^{-1}(U_i)) \to
+p_i^{-1}\mathcal{G}(p_i^{-1}(U_i))$ 是单射。设 $s, s'$ 是某个
+$a : j \to i$ 下 $f_a^{-1}(U_i)$ 上 $f_a^{-1}\mathcal{G}$ 的截面。
+对 $b : k \to j$，令 $Z_k \subset f_{a \circ b}^{-1}(U_i)$ 为如下点
+$x$ 所成的闭子集：$s$ 与 $s'$ 在茎
+$(f_{a \circ b}^{-1}\mathcal{G})_x$ 中的像不同。若对所有
+$b : k \to j$，$Z_k$ 都非空，则由 Topology，引理
+\ref{topology-lemma-inverse-limit-spectral-spaces-nonempty}，
+$\lim_{b : k \to j} Z_k$ 也非空。于是，对
+$x \in \lim_{b : k \to j} Z_k \subset X$（注意
+$\mathcal{I}/j \to \mathcal{I}$ 是始函子），$s$ 与 $s'$ 在
+$p_i^{-1}\mathcal{G}$ 的 $x$ 处茎中的像也不同，因为对上述所有
+$b : k \to j$，都有
+% P01-ERRATA: P01-E0048 -- the frozen source reverses the composable arrows here as b\circ a; surrounding loci use a\circ b.
+$(p_i^{-1}\mathcal{G})_x = (f_{b \circ a}^{-1}\mathcal{G})_{p_k(x)}$。
+因此，若 $s$ 与 $s'$ 在
+$p_i^{-1}\mathcal{G}(p_i^{-1}(U_i))$ 中的像相同，则对某个
+$b : k \to j$，$Z_k$ 为空。这证明了单射性。
+
+\medskip\noindent
+再证满射性。设 $s$ 为 $p_i^{-1}(U_i)$ 上 $p_i^{-1}\mathcal{G}$ 的截面。
+由 Topology，引理
+\ref{topology-lemma-directed-inverse-limit-spectral-spaces}，集合
+$p_i^{-1}(U_i)$ 是谱空间 $X$ 的拟紧开集。按逆像层的构造，可以找到开覆盖
+$p_i^{-1}(U_i) = \bigcup_{l \in L} W_l$、开集
+$V_{l, i} \subset X_i$ 以及截面
+$s_{l, i} \in \mathcal{G}(V_{l, i})$，使得
+$p_i(W_l) \subset V_{l, i}$ 且
+$p_i^{-1}s_{l, i}|_{W_l} = s|_{W_l}$。由于 $X$ 和 $X_i$ 都是谱空间，
+且 $p_i^{-1}(U_i)$ 是拟紧开集，可以假设 $L$ 有限，并且对所有 $l$，
+$W_l$ 与 $V_{l, i}$ 都是拟紧开集。于是可应用 Topology，引理
+\ref{topology-lemma-descend-opens}，找到 $a : j \to i$ 和由拟紧开集组成的
+开覆盖 $f_a^{-1}(U_i) = \bigcup_{l \in L} W_{l, j}$；它拉回到 $X$
+后是开覆盖 $p_i^{-1}(U_i) = \bigcup_{l \in L} W_l$，并且还有
+$W_{l, j} \subset f_a^{-1}(V_{l, i})$。把 $s_{l, i}$ 经 $f_a$ 拉回后
+限制到 $W_{l, j}$，记为 $s_{l, j}$。于是，$s_{l, j}$ 与
+$s_{l', j}$ 在 $(f_a^{-1}\mathcal{G})(W_{l, j} \cap W_{l', j})$
+中限制所得的元素，拉回后成为
+$(p_i^{-1}\mathcal{G})(W_l \cap W_{l'})$ 中同一个元素，即 $s$ 的限制。
+因此，由单射性，可找到 $b : k \to j$，使各截面
+$f_b^{-1}s_{l, j}$ 如所需地粘合成 $f_{a \circ b}^{-1}(U_i)$ 上的截面。
+\end{proof}
+
+\noindent
+接下来，除谱空间的余滤过系统 $X_i$ 外，再假设给定
+\begin{enumerate}
+\item 对每个 $i \in \Ob(\mathcal{I})$，给定 $X_i$ 上的层
+$\mathcal{F}_i$；
+\item 对 $a : j \to i$，给定 $f_a$-映射
+$\varphi_a : \mathcal{F}_i \to \mathcal{F}_j$。
+\end{enumerate}
+并且每当 $c = a \circ b$ 时，满足
+$\varphi_c = \varphi_b \circ \varphi_a$。在 $X$ 上置
+$\mathcal{F} = \colim p_i^{-1}\mathcal{F}_i$。
+
+\begin{lemma}
+\label{sheaves-lemma-descend-opens}
+在上述情形下，设 $i \in \Ob(\mathcal{I})$，并设
+$U_i \subset X_i$ 为拟紧开集。则
+$$
+\colim_{a : j \to i} \mathcal{F}_j(f_a^{-1}(U_i)) = \mathcal{F}(p_i^{-1}(U_i))
+$$
+\end{lemma}
+
+\begin{proof}
+回忆 $p_i^{-1}(U_i)$ 是谱空间 $X$ 的拟紧开集；见 Topology，引理
+\ref{topology-lemma-directed-inverse-limit-spectral-spaces}。因此，引理
+\ref{sheaves-lemma-directed-colimits-sections} 适用，并有
+$$
+\mathcal{F}(p_i^{-1}(U_i)) =
+\colim_{a : j \to i} p_j^{-1}\mathcal{F}_j(p_i^{-1}(U_i)).
+$$
+形式论证表明
+$$
+\colim_{a : j \to i} \mathcal{F}_j(f_a^{-1}(U_i)) =
+\colim_{a : j \to i} \colim_{b : k \to j}
+f_b^{-1}\mathcal{F}_j(f_{a \circ b}^{-1}(U_i))
+$$
+因此，只需证明
+$$
+p_j^{-1}\mathcal{F}_j(p_i^{-1}(U_i)) =
+\colim_{b : k \to j} f_b^{-1}\mathcal{F}_j(f_{a \circ b}^{-1}(U_i))
+$$
+这正是把引理 \ref{sheaves-lemma-compute-pullback-to-limit} 应用于
+$\mathcal{F}_j$ 及拟紧开集 $f_a^{-1}(U_i)$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{基与层}
+\label{sheaves-section-bases}
+
+\noindent
+有时，拓扑存在一个由比一般开集更易处理的开集组成的基。为便于在这种
+情形下处理（预）层，这里给出一些定义和简单引理。
+
+\begin{definition}
+\label{sheaves-definition-presheaf-basis}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基。
+\begin{enumerate}
+\item {\it $\mathcal{B}$ 上的集合预层 $\mathcal{F}$}是如下规则：
+对每个 $U \in \mathcal{B}$ 指定集合 $\mathcal{F}(U)$；对
+$\mathcal{B}$ 中元素的每个包含关系 $V \subset U$ 指定映射
+$\rho^U_V : \mathcal{F}(U) \to \mathcal{F}(V)$；并且对所有
+$U \in \mathcal{B}$ 都有
+$\rho^U_U = \text{id}_{\mathcal{F}(U)}$，每当
+$\mathcal{B}$ 中有 $W \subset V \subset U$ 时，都有
+$\rho^U_W = \rho^V_W \circ \rho ^U_V$。
+\item {\it $\mathcal{B}$ 上集合预层的态射
+$\varphi : \mathcal{F} \to \mathcal{G}$}是如下规则：对每个元素
+$U \in \mathcal{B}$ 指定与限制映射相容的集合映射
+% P01-ERRATA: P01-E0049 -- two basis-presheaf definitions write the component as phi rather than phi_U.
+$\varphi : \mathcal{F}(U) \to \mathcal{G}(U)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+与通常的预层情形一样，我们使用截面、截面的限制等术语。特别地，可把
+$\mathcal{F}$ 在一点 $x \in X$ 处的{\it 茎}定义为余极限
+$$
+\mathcal{F}_x = \colim_{U\in \mathcal{B}, x\in U} \mathcal{F}(U).
+$$
+与 $X$ 上预层的茎一样，这个极限是有向的。原因在于，所有满足
+$U\in \mathcal{B}$、$x \in U$ 的元素构成 $x$ 的开邻域基本系。
+
+\medskip\noindent
+很容易构造例子，说明 $X$ 上预层的概念与 $X$ 的拓扑基上预层的概念
+相差很大。层的情形则不会发生这种现象。因此，下述概念更为有用。
+
+\begin{definition}
+\label{sheaves-definition-sheaf-basis}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基。
+\begin{enumerate}
+\item {\it $\mathcal{B}$ 上的集合层 $\mathcal{F}$}是
+$\mathcal{B}$ 上满足下述附加性质的集合预层：给定任意
+$U \in \mathcal{B}$、任意覆盖
+$U = \bigcup_{i \in I} U_i$（其中 $U_i \in \mathcal{B}$），以及任意覆盖
+$U_i \cap U_j = \bigcup_{k \in I_{ij}} U_{ijk}$（其中
+$U_{ijk} \in \mathcal{B}$），层条件成立：
+\begin{itemize}
+\item[(**)] 对任意截面族 $s_i \in \mathcal{F}(U_i)$，$i \in I$，
+若对 $\forall i, j\in I$、$\forall k\in I_{ij}$ 均有
+$$
+s_i|_{U_{ijk}} = s_j|_{U_{ijk}}
+$$
+则存在唯一截面 $s \in \mathcal{F}(U)$，使得对所有 $i \in I$ 都有
+$s_i = s|_{U_i}$。
+\end{itemize}
+\item {\it $\mathcal{B}$ 上集合层的态射}就是集合预层的态射。
+\end{enumerate}
+\end{definition}
+
+\noindent
+首先说明，只需在一个覆盖的共尾系上验证层条件 $(**)$。在上述定义的
+情形下，设 $U \in \mathcal{B}$。暂记
+$\text{Cov}_\mathcal{B}(U)$ 为所有由 $\mathcal{B}$ 中元素组成的 $U$
+之覆盖所成的集合。注意，$\text{Cov}_\mathcal{B}(U)$ 按加细关系成为
+预序集。若对每个 $\mathcal{U} \in \text{Cov}_\mathcal{B}(U)$，都存在
+一个加细 $\mathcal{U}$ 的覆盖 $\mathcal{V} \in C$，则称子集
+$C \subset \text{Cov}_\mathcal{B}(U)$ 为共尾系。
+
+\begin{lemma}
+\label{sheaves-lemma-cofinal-systems-coverings}
+沿用上述记号。对每个 $U \in \mathcal{B}$，设
+$C(U) \subset \text{Cov}_\mathcal{B}(U)$ 为共尾系。对每个
+$U \in \mathcal{B}$ 以及 $C(U)$ 中的每个覆盖
+$\mathcal{U} : U = \bigcup U_i$，给定覆盖
+$\mathcal{U}_{ij} : U_i \cap U_j = \bigcup U_{ijk}$，其中
+$U_{ijk} \in \mathcal{B}$。设 $\mathcal{F}$ 为 $\mathcal{B}$ 上的
+集合预层。则以下条件等价：
+\begin{enumerate}
+\item 预层 $\mathcal{F}$ 是 $\mathcal{B}$ 上的层。
+\item 对每个 $U \in \mathcal{B}$ 以及 $C(U)$ 中的每个覆盖
+$\mathcal{U} : U = \bigcup U_i$，层条件 $(**)$ 都成立（相对于给定的
+覆盖 $\mathcal{U}_{ij}$）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+需要证明 (2) 蕴含 (1)。假设 $U \in \mathcal{B}$，且
+$\mathcal{U} : U = \bigcup_{i\in I} U_i$ 是由 $\mathcal{B}$ 中元素
+组成的任意覆盖。由于系统 $C(U)$ 共尾，可找到 $C(U)$ 中加细
+$\mathcal{U}$ 的元素
+$\mathcal{V} : U = \bigcup_{j \in J} V_j$。这表示存在映射
+$\alpha : J \to I$，使得 $V_j \subset U_{\alpha(j)}$。
+
+\medskip\noindent
+注意，若截面 $s, s' \in \mathcal{F}(U)$ 满足
+$s|_{U_i} = s'|_{U_i}$，则
+$$
+s|_{V_j}
+= (s|_{U_{\alpha(j)}})|_{V_j}
+= (s'|_{U_{\alpha(j)}})|_{V_j}
+= s'|_{V_j}
+$$
+对所有 $j$ 成立。因此，由覆盖 $\mathcal{V}$ 的 $(**)$ 中的唯一性，
+得到 $s = s'$。这样便证明了任意覆盖 $\mathcal{U}$ 的 $(**)$ 中的
+唯一性部分。
+
+\medskip\noindent
+再假设
+$U_i \cap U_{i'} = \bigcup_{k \in I_{ii'}} U_{ii'k}$ 是由
+$U_{ii'k} \in \mathcal{B}$ 组成的任意覆盖。尝试证明系统
+$(\mathcal{U}, \mathcal{U}_{ij})$ 的 $(**)$ 中的存在性部分。为此，设
+$s_i \in \mathcal{F}(U_i)$，并假设对所有 $i, i', k$ 均有
+$$
+s_i|_{U_{ii'k}} = s_{i'}|_{U_{ii'k}}
+$$
+置 $t_j = s_{\alpha(j)}|_{V_j}$，其中 $\mathcal{V}$ 和 $\alpha$ 如上。
+
+\medskip\noindent
+此处论证有一个小障碍。设
+$\mathcal{V}_{jj'} : V_j \cap V_{j'} = \bigcup_{l \in J_{jj'}} V_{jj'l}$
+为引理陈述中给定的覆盖。事先并不清楚对所有 $j, j', l$ 是否有
+$$
+t_j|_{V_{jj'l}} = t_{j'}|_{V_{jj'l}}
+$$
+为说明这一点，注意，由对元素族 $s_i$ 的假设，对所有
+$k \in I_{\alpha(j)\alpha(j')}$，确有
+$$
+t_j|_W = t_{j'}|_W \text{ 对所有 } W \in \mathcal{B},
+W \subset V_{jj'l} \cap U_{\alpha(j)\alpha(j')k}
+$$
+又因为
+$V_j \cap V_{j'} \subset U_{\alpha(j)} \cap U_{\alpha(j')}$，可见
+$t_j|_{V_{jj'l}}$ 与 $t_{j'}|_{V_{jj'l}}$ 在由 $\mathcal{B}$ 中元素组成的
+$V_{jj'l}$ 的某个覆盖的各成员上相同。因此，由上面已经证明的唯一性部分，
+最终得到所需的 $t_j|_{V_{jj'l}}$ 与 $t_{j'}|_{V_{jj'l}}$ 的等式。
+随后，由 $(\mathcal{V}, \mathcal{V}_{jj'})$ 的性质 $(**)$，得到元素
+$t \in \mathcal{F}(U)$ 的存在性。
+
+\medskip\noindent
+这里又有一个小问题。已知 $t$ 在 $V_j$ 上限制为 $t_j$，但尚不知道
+$t$ 在 $U_i$ 上限制为 $s_i$。为得出结论，注意各集合
+$U_i \cap V_j$，$j \in J$，覆盖 $U_i$。因而，各集合
+$U_{i \alpha(j) k} \cap V_j$，$j\in J$，$k \in I_{i\alpha(j)}$，
+也覆盖 $U_i$。我们把如下验证留给读者：在包含于某个开集
+$U_{i \alpha(j) k} \cap V_j$（其中 $j\in J$、
+$k \in I_{i\alpha(j)}$）的任意 $W \in \mathcal{B}$ 上，$t$ 与 $s_i$
+限制为 $\mathcal{F}$ 的同一个截面。因此，由上述唯一性部分即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-cofinal-systems-coverings-standard-case}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基。假设对每个三元组
+$U, U', U'' \in \mathcal{B}$，只要 $U' \subset U$ 且
+$U'' \subset U$，便有 $U' \cap U'' \in \mathcal{B}$。对每个
+$U \in \mathcal{B}$，设
+$C(U) \subset \text{Cov}_\mathcal{B}(U)$ 为共尾系。设 $\mathcal{F}$
+为 $\mathcal{B}$ 上的集合预层。则以下条件等价：
+\begin{enumerate}
+\item 预层 $\mathcal{F}$ 是 $\mathcal{B}$ 上的层。
+\item 对每个 $U \in \mathcal{B}$、$C(U)$ 中的每个覆盖
+$\mathcal{U} : U = \bigcup U_i$，以及每个满足
+$s_i|_{U_i \cap U_j} = s_j|_{U_i \cap U_j}$ 的截面族
+$s_i \in \mathcal{F}(U_i)$，都存在唯一截面
+$s \in \mathcal{F}(U)$，其在 $U_i$ 上限制为 $s_i$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这是上面引理 \ref{sheaves-lemma-cofinal-systems-coverings} 在每个覆盖
+$\mathcal{U}_{ij}$ 只含一个元素这一特殊情形下的改述。不过，这一情形
+也简单得多，直接证明是一个容易的练习。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-condition-star-sections}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，
+$U \in \mathcal{B}$，并设 $\mathcal{F}$ 为 $\mathcal{B}$ 上的集合层。
+映射
+$$
+\mathcal{F}(U) \to \prod\nolimits_{x \in U} \mathcal{F}_x
+$$
+将 $\mathcal{F}(U)$ 与满足下述性质的元素 $(s_x)_{x\in U}$ 等同：
+\begin{itemize}
+\item[(*)] 对任意 $x \in U$，存在 $V \in \mathcal{B}$，满足
+$x \in V \subset U$，以及截面 $\sigma \in \mathcal{F}(V)$，使得对所有
+$y \in V$，在 $\mathcal{F}_y$ 中都有 $s_y = (V, \sigma)$。
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+首先，由定义 \ref{sheaves-definition-sheaf-basis} 的层条件中的唯一性，映射
+$\mathcal{F}(U) \to \prod\nolimits_{x \in U} \mathcal{F}_x$ 是单射。
+设 $(s_x)$ 为右侧满足 $(*)$ 的任意元素。显然，这意味着可以找到覆盖
+$U = \bigcup U_i$，$U_i \in \mathcal{B}$，使得
+$(s_x)_{x \in U_i}$ 来自某个 $\sigma_i \in \mathcal{F}(U_i)$。
+对每个 $y \in U_i \cap U_j$，截面 $\sigma_i$ 与 $\sigma_j$ 在茎
+$\mathcal{F}_y$ 中一致。因此，存在元素
+$V_{ijy} \in \mathcal{B}$，$y \in V_{ijy}$，使得
+$\sigma_i|_{V_{ijy}} = \sigma_j|_{V_{ijy}}$。于是，定义
+\ref{sheaves-definition-sheaf-basis} 的层条件 $(**)$ 可应用于系统
+$\sigma_i$，从而得到具有所需性质的截面 $s \in \mathcal{F}(U)$。
+\end{proof}
+
+\noindent
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基。从 $X$ 上的集合层
+范畴到 $\mathcal{B}$ 上的集合层范畴，有自然的限制函子。事实上，它是
+范畴等价。用具体的语言来说，这意味着如下结果。
+
+\begin{lemma}
+\label{sheaves-lemma-extend-off-basis}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，并设
+$\mathcal{F}$ 为 $\mathcal{B}$ 上的集合层。存在唯一的 $X$ 上集合层
+$\mathcal{F}^{ext}$，使得对所有 $U \in \mathcal{B}$，有
+$\mathcal{F}^{ext}(U) = \mathcal{F}(U)$，且与限制映射相容。
+\end{lemma}
+
+\begin{proof}
+先构造具有所需性质的预层 $\mathcal{F}^{ext}$。具体地，对任意开集
+$U \subset X$，把 $\mathcal{F}^{ext}(U)$ 定义为满足引理
+\ref{sheaves-lemma-condition-star-sections} 的 $(*)$ 的元素
+$(s_x)_{x \in U}$ 所成的集合。显然，存在限制映射使
+$\mathcal{F}^{ext}$ 成为集合预层。又由引理
+\ref{sheaves-lemma-condition-star-sections}，每当 $U$ 是基 $\mathcal{B}$ 的元素时，
+都有 $\mathcal{F}(U) = \mathcal{F}^{ext}(U)$。要说明
+$\mathcal{F}^{ext}$ 是层，可仿照引理
+\ref{sheaves-lemma-sheafification-sheaf} 的证明论证。
+\end{proof}
+
+\noindent
+注意，在该引理的情形下有
+$$
+\mathcal{F}_x = \mathcal{F}_x^{ext}
+$$
+这是因为 $\mathcal{B}$ 中包含 $x$ 的元素构成 $x$ 的开邻域基本系。
+
+\begin{lemma}
+\label{sheaves-lemma-restrict-basis-equivalence}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基。记
+$\Sh(\mathcal{B})$ 为 $\mathcal{B}$ 上的层范畴。存在范畴等价
+$$
+\Sh(X) \longrightarrow \Sh(\mathcal{B})
+$$
+它把 $X$ 上的层送到其在 $\mathcal{B}$ 各成员上的限制。
+\end{lemma}
+
+\begin{proof}
+逆函子由上面的引理 \ref{sheaves-lemma-extend-off-basis} 给出。验证显然的函子性
+留给读者。
+\end{proof}
+
+\noindent
+至此结束对基 $\mathcal{B}$ 上集合层的讨论。设 $(\mathcal{C}, F)$
+为一种代数结构类型。本节末尾将指出，上述构造对取值于 $\mathcal{C}$
+的层也成立。先简要定义相关概念。
+
+\begin{definition}
+\label{sheaves-definition-sheaf-structures-basis}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，并设
+$(\mathcal{C}, F)$ 为一种代数结构类型。
+\begin{enumerate}
+\item {\it $\mathcal{B}$ 上取值于 $\mathcal{C}$ 的预层
+$\mathcal{F}$}是如下规则：对每个 $U \in \mathcal{B}$ 指定
+$\mathcal{C}$ 的对象 $\mathcal{F}(U)$；对 $\mathcal{B}$ 中元素的每个
+包含关系 $V \subset U$，指定 $\mathcal{C}$ 中的态射
+$\rho^U_V : \mathcal{F}(U) \to \mathcal{F}(V)$；并且对所有
+$U \in \mathcal{B}$ 都有
+$\rho^U_U = \text{id}_{\mathcal{F}(U)}$，每当 $\mathcal{B}$ 中有
+$W \subset V \subset U$ 时，都有
+$\rho^U_W = \rho^V_W \circ \rho ^U_V$。
+\item {\it $\mathcal{B}$ 上取值于 $\mathcal{C}$ 的预层态射
+$\varphi : \mathcal{F} \to \mathcal{G}$}是如下规则：对每个元素
+$U \in \mathcal{B}$ 指定一个与限制映射相容的代数结构态射
+% P01-ERRATA: P01-E0049 -- second locus of the component-subscript omission.
+$\varphi : \mathcal{F}(U) \to \mathcal{G}(U)$。
+\item 给定 $\mathcal{B}$ 上取值于 $\mathcal{C}$ 的预层
+$\mathcal{F}$，称 $U \mapsto F(\mathcal{F}(U))$ 为底层集合预层。
+\item {\it $\mathcal{B}$ 上取值于 $\mathcal{C}$ 的层
+$\mathcal{F}$}是 $\mathcal{B}$ 上取值于 $\mathcal{C}$、且其底层
+集合预层为层的预层。
+\end{enumerate}
+\end{definition}
+
+\noindent
+此时，可把 $\mathcal{B}$ 上取值于 $\mathcal{C}$ 的预层在
+$x \in X$ 处的{\it 茎}定义为有向余极限
+$$
+\mathcal{F}_x = \colim_{U\in \mathcal{B}, x\in U} \mathcal{F}(U).
+$$
+由对 $\mathcal{C}$ 的假设，它作为 $\mathcal{C}$ 的对象存在。
+此外，$\mathcal{F}_x$ 的底层集合正是 $\mathcal{B}$ 上底层集合预层的茎。
+
+\medskip\noindent
+注意，引理 \ref{sheaves-lemma-cofinal-systems-coverings}、
+\ref{sheaves-lemma-cofinal-systems-coverings-standard-case} 和
+\ref{sheaves-lemma-condition-star-sections} 涉及的层性质，是用相伴集合预层定义的。
+因此，它们原封不动地推广到取值于 $\mathcal{C}$ 的预层。引理
+% P01-ERRATA: P01-E0050 -- the frozen source has subject-verb disagreement: "analogue ... need".
+\ref{sheaves-lemma-extend-off-basis} 的类似结果需要稍加谨慎。陈述如下。
+
+\begin{lemma}
+\label{sheaves-lemma-extend-off-basis-structures}
+设 $X$ 为拓扑空间，$(\mathcal{C}, F)$ 为一种代数结构类型，
+$\mathcal{B}$ 为 $X$ 的拓扑基，并设 $\mathcal{F}$ 为
+$\mathcal{B}$ 上取值于 $\mathcal{C}$ 的层。存在唯一的 $X$ 上取值于
+$\mathcal{C}$ 的层 $\mathcal{F}^{ext}$，使得对所有
+$U \in \mathcal{B}$，有 $\mathcal{F}^{ext}(U) = \mathcal{F}(U)$，
+且与限制映射相容。
+\end{lemma}
+
+\begin{proof}
+由对二元组 $(\mathcal{C}, F)$ 施加的条件，只需找出一个预层
+$\mathcal{F}^{ext}$，它在底层集合预层的层面上完成正确的构造。因此，
+首要任务是对每个开集 $U \subset X$ 构造合适的对象
+$\mathcal{F}^{ext}(U)$。可以在 $\mathcal{B}$ 上预层的背景下仿照引理
+\ref{sheaves-lemma-diagram-fibre-product} 来做。不过，下面这种略有不同
+（但基本等价）的方法也可以：把它定义为有向余极限
+$$
+\mathcal{F}^{ext}(U)
+:=
+\colim_\mathcal{U} FIB(\mathcal{U})
+$$
+其中余极限取遍所有由 $U_i \in \mathcal{B}$ 组成的覆盖
+$\mathcal{U} : U = \bigcup_{i\in I} U_i$，相应对象由下列纤维积图表定义
+$$
+\xymatrix{
+FIB(\mathcal{U}) \ar[r] \ar[d] &
+\prod\nolimits_{x\in U} \mathcal{F}_x \ar[d] \\
+\prod\nolimits_{i\in I} \mathcal{F}(U_i) \ar[r] &
+\prod\nolimits_{i \in I} \prod\nolimits_{x\in U_i} \mathcal{F}_x
+}
+$$
+由通常的论证，见引理 \ref{sheaves-lemma-image-contained-in} 和例
+\ref{sheaves-example-application-lemma-image-contained-in}，只需说明此构造在底层
+集合上的结果与上面用 $(**)$ 所作的定义相同。细节留给读者。
+\end{proof}
+
+\noindent
+注意，在该引理的情形下，作为 $\mathcal{C}$ 中的对象，有
+$$
+\mathcal{F}_x = \mathcal{F}_x^{ext}
+$$
+这是因为 $\mathcal{B}$ 中包含 $x$ 的元素构成 $x$ 的开邻域基本系。
+
+\begin{lemma}
+\label{sheaves-lemma-restrict-basis-equivalence-structures}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，并设
+$(\mathcal{C}, F)$ 为一种代数结构类型。记
+$\Sh(\mathcal{B}, \mathcal{C})$ 为 $\mathcal{B}$ 上取值于
+$\mathcal{C}$ 的层范畴。存在范畴等价
+$$
+\Sh(X, \mathcal{C})
+\longrightarrow
+\Sh(\mathcal{B}, \mathcal{C})
+$$
+它把 $X$ 上的层送到其在 $\mathcal{B}$ 各成员上的限制。
+\end{lemma}
+
+\begin{proof}
+% P01-ERRATA: P01-E0051 -- three frozen inverse-functor proofs say "in given" instead of "is given".
+逆函子由上面的引理 \ref{sheaves-lemma-extend-off-basis-structures} 给出。
+验证显然的函子性留给读者。
+\end{proof}
+
+\noindent
+最后讨论基上的模（预）层。我们将使用如下容易的事实：基上的集合预层
+范畴有积，而且积通过在基的各元素上逐项取值之积来描述。
+
+\begin{definition}
+\label{sheaves-definition-sheaf-modules-basis}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，并设
+$\mathcal{O}$ 为 $\mathcal{B}$ 上的环预层。
+\begin{enumerate}
+\item {\it $\mathcal{B}$ 上的 $\mathcal{O}$-模预层
+$\mathcal{F}$}是 $\mathcal{B}$ 上的阿贝尔群预层，连同一个集合预层态射
+$\mathcal{O} \times \mathcal{F} \to \mathcal{F}$，使得对所有
+$U \in \mathcal{B}$，映射
+$\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)$ 都把群
+$\mathcal{F}(U)$ 变成 $\mathcal{O}(U)$-模。
+\item {\it $\mathcal{B}$ 上 $\mathcal{O}$-模预层的态射
+$\varphi : \mathcal{F} \to \mathcal{G}$}是 $\mathcal{B}$ 上的阿贝尔
+预层态射，它对每个 $U \in \mathcal{B}$ 都诱导
+$\mathcal{O}(U)$-模同态
+$\mathcal{F}(U) \to \mathcal{G}(U)$。
+\item 假设 $\mathcal{O}$ 是 $\mathcal{B}$ 上的环层。
+{\it $\mathcal{B}$ 上的 $\mathcal{O}$-模层 $\mathcal{F}$}是
+$\mathcal{B}$ 上的 $\mathcal{O}$-模预层，且其底层阿贝尔群预层是层。
+\end{enumerate}
+\end{definition}
+
+\noindent
+可把 $\mathcal{B}$ 上的 $\mathcal{O}$-模预层在 $x \in X$ 处的
+{\it 茎}定义为有向余极限
+$$
+\mathcal{F}_x = \colim_{U\in \mathcal{B}, x\in U} \mathcal{F}(U).
+$$
+它是 $\mathcal{O}_x$-模。
+
+\medskip\noindent
+注意，引理 \ref{sheaves-lemma-cofinal-systems-coverings}、
+\ref{sheaves-lemma-cofinal-systems-coverings-standard-case} 和
+\ref{sheaves-lemma-condition-star-sections} 涉及的层性质，是用相伴集合预层定义的。
+因此，它们原封不动地推广到 $\mathcal{O}$-模预层。引理
+\ref{sheaves-lemma-extend-off-basis} 的类似结果如下。
+
+\begin{lemma}
+\label{sheaves-lemma-extend-off-basis-module}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，
+$\mathcal{O}$ 为 $\mathcal{B}$ 上的环层，并设 $\mathcal{F}$ 为
+$\mathcal{B}$ 上的 $\mathcal{O}$-模层。设 $\mathcal{O}^{ext}$ 为
+扩张 $\mathcal{O}$ 的 $X$ 上环层，并设 $\mathcal{F}^{ext}$ 为扩张
+$\mathcal{F}$ 的 $X$ 上阿贝尔层；见引理
+\ref{sheaves-lemma-extend-off-basis-structures}。存在典范映射
+$$
+\mathcal{O}^{ext} \times \mathcal{F}^{ext}
+\longrightarrow
+\mathcal{F}^{ext}
+$$
+它在 $\mathcal{B}$ 的各元素上与给定映射相同，并赋予
+$\mathcal{F}^{ext}$ 一个 $\mathcal{O}^{ext}$-模结构。
+\end{lemma}
+
+\begin{proof}
+只需在集合预层层面构造乘法映射。看出这一点也许最容易的方式，是直接证明：
+若 $(f_x)_{x \in U}$、$f_x \in \mathcal{O}_x$ 与
+$(m_x)_{x \in U}$、$m_x \in \mathcal{F}_x$ 都满足 $(*)$，则元素
+$(f_xm_x)_{x \in U}$ 也满足 $(*)$。于是得到所需结论，因为在引理
+\ref{sheaves-lemma-extend-off-basis} 的证明中，我们用满足 $(*)$ 的茎元素族来
+构造扩张。
+\end{proof}
+
+\noindent
+注意，在该引理的情形下，作为 $\mathcal{O}_x$-模，有
+$$
+\mathcal{F}_x = \mathcal{F}_x^{ext}
+$$
+这是因为 $\mathcal{B}$ 中包含 $x$ 的元素构成 $x$ 的开邻域基本系；
+也可以简单地说，这是因为底层集合上的结论成立。
+
+\begin{lemma}
+\label{sheaves-lemma-restrict-basis-equivalence-modules}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的拓扑基，并设
+$\mathcal{O}$ 为 $X$ 上的环层。记
+$\textit{Mod}(\mathcal{O}|_\mathcal{B})$ 为 $\mathcal{B}$ 上
+$\mathcal{O}|_\mathcal{B}$-模层的范畴。存在范畴等价
+$$
+\textit{Mod}(\mathcal{O})
+\longrightarrow
+\textit{Mod}(\mathcal{O}|_\mathcal{B})
+$$
+它把 $X$ 上的 $\mathcal{O}$-模层送到其在 $\mathcal{B}$ 各成员上的限制。
+\end{lemma}
+
+\begin{proof}
+% P01-ERRATA: P01-E0051 -- another locus of "in given".
+逆函子由上面的引理 \ref{sheaves-lemma-extend-off-basis-module} 给出。
+验证显然的函子性留给读者。
+\end{proof}
+
+\noindent
+最后讨论这一理论与连续映射的关系。由于上面的工作，这现在很容易。
+先处理在靶上给定一个基的情形。
+
+\begin{lemma}
+\label{sheaves-lemma-f-map-basis-below-structures}
+设 $f : X \to Y$ 为拓扑空间的连续映射，$(\mathcal{C}, F)$ 为一种
+代数结构类型，$\mathcal{F}$ 为 $X$ 上取值于 $\mathcal{C}$ 的层，
+$\mathcal{G}$ 为 $Y$ 上取值于 $\mathcal{C}$ 的层，并设
+$\mathcal{B}$ 为 $Y$ 的拓扑基。假设对每个 $V \in \mathcal{B}$ 给定
+$\mathcal{C}$ 中的态射
+$$
+\varphi_V :
+\mathcal{G}(V)
+\longrightarrow
+\mathcal{F}(f^{-1}V)
+$$
+并且它们与限制映射相容。则存在唯一的 $f$-映射（见定义
+\ref{sheaves-definition-f-map} 及第
+\ref{sheaves-section-presheaves-structures-functorial} 节中对 $f$-映射的讨论）
+$\varphi : \mathcal{G} \to \mathcal{F}$，它对
+$V \in \mathcal{B}$ 恢复 $\varphi_V$。
+\end{lemma}
+
+\begin{proof}
+这是平凡的，因为这族映射等同于 $\mathcal{G}$ 与
+$f_*\mathcal{F}$ 在 $\mathcal{B}$ 上的限制之间的态射。由引理
+\ref{sheaves-lemma-restrict-basis-equivalence-structures}，这等同于给定从
+$\mathcal{G}$ 到 $f_*\mathcal{F}$ 的态射；由引理 \ref{sheaves-lemma-f-map}，
+又等同于 $f$-映射。关于如何处理代数结构层的情形，另见引理
+\ref{sheaves-lemma-f-map-sets-algebraic-structures} 及其前面的讨论。
+\end{proof}
+
+\noindent
+下面是赋环空间的类似结果。
+
+\begin{lemma}
+\label{sheaves-lemma-f-map-basis-below-modules}
+设 $(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+为赋环空间态射，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+$\mathcal{G}$ 为 $\mathcal{O}_Y$-模层，并设 $\mathcal{B}$ 为 $Y$
+的拓扑基。假设对每个 $V \in \mathcal{B}$ 给定
+$\mathcal{O}_Y(V)$-模映射
+$$
+\varphi_V :
+\mathcal{G}(V)
+\longrightarrow
+\mathcal{F}(f^{-1}V)
+$$
+（其中 $\mathcal{F}(f^{-1}V)$ 通过
+$f^\sharp_V : \mathcal{O}_Y(V) \to \mathcal{O}_X(f^{-1}V)$ 获得模结构），
+并且它们与限制映射相容。则存在唯一的 $f$-映射（见第
+\ref{sheaves-section-ringed-spaces-functoriality-modules} 节中对 $f$-映射的讨论）
+$\varphi : \mathcal{G} \to \mathcal{F}$，它对
+$V \in \mathcal{B}$ 恢复 $\varphi_V$。
+\end{lemma}
+
+\begin{proof}
+与上面代数结构层相应引理的证明相同。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-f-map-basis-above-and-below-structures}
+设 $f : X \to Y$ 为拓扑空间的连续映射，$(\mathcal{C}, F)$ 为一种
+代数结构类型，$\mathcal{F}$ 为 $X$ 上取值于 $\mathcal{C}$ 的层，
+$\mathcal{G}$ 为 $Y$ 上取值于 $\mathcal{C}$ 的层。设
+$\mathcal{B}_Y$ 为 $Y$ 的拓扑基，$\mathcal{B}_X$ 为 $X$ 的拓扑基。
+假设对每个 $V \in \mathcal{B}_Y$ 和每个满足
+$f(U) \subset V$ 的 $U \in \mathcal{B}_X$，给定 $\mathcal{C}$ 中的态射
+$$
+\varphi_V^U :
+\mathcal{G}(V)
+\longrightarrow
+\mathcal{F}(U)
+$$
+并且它们与限制映射相容。则存在唯一的 $f$-映射（见定义
+\ref{sheaves-definition-f-map} 及第
+\ref{sheaves-section-presheaves-structures-functorial} 节中对 $f$-映射的讨论）
+$\varphi : \mathcal{G} \to \mathcal{F}$，使得对上述每一对 $(U, V)$，
+$\varphi_V^U$ 恢复为复合
+$$
+\mathcal{G}(V) \xrightarrow{\varphi_V}
+\mathcal{F}(f^{-1}(V)) \xrightarrow{\text{restr.}}
+\mathcal{F}(U)
+$$
+\end{lemma}
+
+\begin{proof}
+% P01-ERRATA: P01-E0052 -- the frozen proof begins "Let us first proves" and later says "the maps on stalks is".
+先对集合层证明这一点。固定开集 $V \subset Y$，并取
+$s \in \mathcal{G}(V)$。我们将构造元素
+$\varphi_V(s) \in \mathcal{F}(f^{-1}V)$。对每个
+$x \in f^{-1}V$，可在茎 $\mathcal{F}_x$ 中定义一个值
+$\varphi(s)_x$：选取满足 $x \in U \subset f^{-1}V$ 的
+$U \in \mathcal{B}_X$，并令 $\varphi(s)_x$ 等于茎中
+$(U, \varphi_V^U(s))$ 的等价类。显然，族
+$(\varphi(s)_x)_{x \in f^{-1}V}$ 满足条件 $(*)$，因为当 $U$ 变化时，
+各映射 $\varphi_V^U$ 与层 $\mathcal{F}$ 中的限制相容。因此，由引理
+\ref{sheaves-lemma-extend-off-basis} 的证明，
+$(\varphi(s)_x)_{x \in f^{-1}V}$ 对应于
+$\mathcal{F}(f^{-1}V)$ 的唯一元素 $\varphi_V(s)$。这样便定义了集合映射
+$\varphi_V : \mathcal{G}(V) \to \mathcal{F}(f^{-1}V)$。
+$\varphi_V$ 与 $\varphi_V^U$ 之间的相容性由引理
+\ref{sheaves-lemma-condition-star-sections} 得出。
+
+\medskip\noindent
+我们把如下验证留给读者：当 $V \in \mathcal{B}_Y$ 变化时，
+$\varphi_V$ 的构造与限制映射相容。因此，可应用上面的引理
+\ref{sheaves-lemma-f-map-basis-below-structures}，将它们“粘合”为所需的
+$f$-映射。
+
+\medskip\noindent
+最后，注意这样构造的集合层映射具有如下性质：茎映射
+$$
+\mathcal{G}_{f(x)} \longrightarrow \mathcal{F}_x
+$$
+是如下映射系统的余极限：$V \in \mathcal{B}_Y$ 取遍包含 $f(x)$ 的
+元素，$U \in \mathcal{B}_X$ 取遍包含 $x$ 的元素，而映射为
+$\varphi_V^U$。特别地，若 $\mathcal{G}$ 与 $\mathcal{F}$ 是代数结构层
+的底层集合层，则可见各茎上的映射是代数结构的态射。因此，相伴的底层
+集合层映射 $f^{-1}\mathcal{G} \to \mathcal{F}$ 满足引理
+\ref{sheaves-lemma-f-map-sets-algebraic-structures} 的假设。由此得出
+$f^{-1}\mathcal{G} \to \mathcal{F}$ 是取值于 $\mathcal{C}$ 的层态射。
+而由伴随性，这意味着 $\varphi$ 是代数结构层的 $f$-映射。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-f-map-basis-above-and-below-modules}
+设 $(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+为赋环空间态射，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+$\mathcal{G}$ 为 $\mathcal{O}_Y$-模层。设 $\mathcal{B}_Y$ 为 $Y$
+的拓扑基，$\mathcal{B}_X$ 为 $X$ 的拓扑基。假设对每个
+$V \in \mathcal{B}_Y$ 和每个满足 $f(U) \subset V$ 的
+$U \in \mathcal{B}_X$，给定 $\mathcal{O}_Y(V)$-模映射
+$$
+\varphi_V^U :
+\mathcal{G}(V)
+\longrightarrow
+\mathcal{F}(U)
+$$
+并且它们与限制映射相容。这里，$\mathcal{F}(U)$ 上的
+$\mathcal{O}_Y(V)$-模结构来自 $\mathcal{O}_X(U)$-模结构以及映射
+$f^\sharp_V : \mathcal{O}_Y(V)
+\to \mathcal{O}_X(f^{-1}V) \to \mathcal{O}_X(U)$。
+则存在唯一的模层 $f$-映射（见定义 \ref{sheaves-definition-f-map} 及第
+\ref{sheaves-section-ringed-spaces-functoriality-modules} 节中对 $f$-映射的讨论）
+$\varphi : \mathcal{G} \to \mathcal{F}$，使得对上述每一对 $(U, V)$，
+$\varphi_V^U$ 恢复为复合
+$$
+\mathcal{G}(V) \xrightarrow{\varphi_V}
+\mathcal{F}(f^{-1}(V)) \xrightarrow{\text{restr.}}
+\mathcal{F}(U)
+$$
+\end{lemma}
+
+\begin{proof}
+与上面的证明类似，略去。
+\end{proof}
+
+\section{开浸入与（预）层}
+\label{sheaves-section-open-immersions}
+
+\noindent
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集 $U$ 到 $X$ 的包含。
+在第 \ref{sheaves-section-presheaves-functorial} 节中，我们已经定义函子
+$j_*$ 与 $j^{-1}$，使得 $j_*$ 是 $j^{-1}$ 的右伴随。对开浸入，
+$j^{-1}$ 还有一个左伴随，记作 $j_!$。先指出，在开浸入情形下，
+$j^{-1}$ 有特别简单的描述。
+
+\begin{lemma}
+\label{sheaves-lemma-j-pullback}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集 $U$ 到 $X$ 的包含。
+\begin{enumerate}
+\item 设 $\mathcal{G}$ 为 $X$ 上的集合预层。预层
+$j_p\mathcal{G}$（见第 \ref{sheaves-section-presheaves-functorial} 节）由规则
+$V \mapsto \mathcal{G}(V)$ 给出，其中 $V \subset U$ 为开集。
+\item 设 $\mathcal{G}$ 为 $X$ 上的集合层。层 $j^{-1}\mathcal{G}$
+由规则 $V \mapsto \mathcal{G}(V)$ 给出，其中 $V \subset U$ 为开集。
+\item 对任意点 $u \in U$ 及 $X$ 上的任意层 $\mathcal{G}$，有茎的
+典范等同
+$$
+j^{-1}\mathcal{G}_u = (\mathcal{G}|_U)_u = \mathcal{G}_u.
+$$
+\item 在 $U$ 的预层范畴上，有 $j_pj_* = \text{id}$。
+\item 在 $U$ 的层范畴上，有 $j^{-1}j_* = \text{id}$。
+\end{enumerate}
+同样的描述对阿贝尔群（预）层、代数结构（预）层及模（预）层均成立。
+\end{lemma}
+
+\begin{proof}
+$j_p\mathcal{G}(V)$ 定义中的余极限取遍所有满足 $V \subset W$ 的
+$X$ 中开集 $W \subset X$，次序取反向包含。因此，它有最大元，即 $V$。
+这证明了 (1)。而 (2) 成立，是因为若 $\mathcal{G}$ 是层，则对
+$V \subset U$ 为开集的赋值 $V \mapsto \mathcal{G}(V)$ 显然也是层。
+断言 (3) 由 (2) 得出，因为包含于 $U$ 的 $u$ 的开邻域在 $X$ 中
+$u$ 的所有开邻域中共尾。(4) 与 (5) 由计算
+$j^{-1}j_*\mathcal{F}(V) = j_*\mathcal{F}(V) = \mathcal{F}(V)$ 得出。
+
+\medskip\noindent
+完全相同的论证适用于阿贝尔群（预）层和代数结构（预）层。
+\end{proof}
+
+\begin{definition}
+\label{sheaves-definition-restriction}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。
+\begin{enumerate}
+\item 设 $\mathcal{G}$ 为 $X$ 上的集合、阿贝尔群或代数结构预层。
+引理 \ref{sheaves-lemma-j-pullback} 中描述的预层 $j_p\mathcal{G}$ 称为
+{$\mathcal{G}$ 在 $U$ 上的\it 限制}，记作 $\mathcal{G}|_U$。
+\item 设 $\mathcal{G}$ 为 $X$ 上的集合层、阿贝尔群层或代数结构层。
+层 $j^{-1}\mathcal{G}$ 称为{$\mathcal{G}$ 在 $U$ 上的\it 限制}，
+记作 $\mathcal{G}|_U$。
+\item 若 $(X, \mathcal{O})$ 是赋环空间，则二元组
+$(U, \mathcal{O}|_U)$ 称为{\it 与 $U$ 相伴的
+$(X, \mathcal{O})$ 的开子空间}。
+\item 若 $\mathcal{G}$ 是 $\mathcal{O}$-模预层，则
+$\mathcal{G}|_U$ 连同乘法映射
+$\mathcal{O}|_U \times \mathcal{G}|_U \to \mathcal{G}|_U$
+（见引理 \ref{sheaves-lemma-pullback-module}）称为
+{$\mathcal{G}$ 在 $U$ 上的\it 限制}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+% P01-ERRATA: P01-E0053 -- item (4) defines restriction for module presheaves, then the next sentence says that definition is left to the reader.
+我们把模预层的限制之定义留给读者。好了，本节将讨论限制函子的一个左伴随。
+先给出集合（预）层情形下的定义。
+
+\begin{definition}
+\label{sheaves-definition-j-shriek}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 为 $U$ 上的集合预层。定义
+{\it $\mathcal{F}$ 的以空集延拓 $j_{p!}\mathcal{F}$}为 $X$ 上由规则
+$$
+j_{p!}\mathcal{F}(V) =
+\left\{
+\begin{matrix}
+\emptyset & \text{若} & V \not \subset U \\
+\mathcal{F}(V) & \text{若} & V \subset U
+\end{matrix}
+\right.
+$$
+定义的集合预层，其限制映射是显然的。
+\item 设 $\mathcal{F}$ 为 $U$ 上的集合层。定义
+{\it $\mathcal{F}$ 的以空集延拓 $j_!\mathcal{F}$}为预层
+$j_{p!}\mathcal{F}$ 的层化。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{sheaves-lemma-j-shriek}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。
+\begin{enumerate}
+\item 函子 $j_{p!}$ 是限制函子 $j_p$ 的左伴随（见引理
+\ref{sheaves-lemma-j-pullback}）。
+\item 函子 $j_!$ 是限制的左伴随；公式为
+$$
+\Mor_{\Sh(X)}(j_!\mathcal{F}, \mathcal{G})
+=
+\Mor_{\Sh(U)}(\mathcal{F}, j^{-1}\mathcal{G})
+=
+\Mor_{\Sh(U)}(\mathcal{F}, \mathcal{G}|_U)
+$$
+它对 $\mathcal{F}$ 和 $\mathcal{G}$ 双函子地成立。
+\item 设 $\mathcal{F}$ 为 $U$ 上的集合层。层 $j_!\mathcal{F}$ 的茎
+描述如下
+$$
+j_{!}\mathcal{F}_x =
+\left\{
+\begin{matrix}
+\emptyset & \text{若} & x \not \in U \\
+\mathcal{F}_x & \text{若} & x \in U
+\end{matrix}
+\right.
+$$
+\item 在 $U$ 的预层范畴上，有 $j_pj_{p!} = \text{id}$。
+\item 在 $U$ 的层范畴上，有 $j^{-1}j_! = \text{id}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+要把 $j_{p!}\mathcal{F}$ 映入 $\mathcal{G}$，只需在每当
+$V \subset U$ 时给出与限制映射相容的映射
+$\mathcal{F}(V) \to \mathcal{G}(V)$。而由引理
+\ref{sheaves-lemma-j-pullback}，映射 $\mathcal{F} \to \mathcal{G}|_U$
+也有同样的描述。$j_!$ 与限制的伴随性由此及层化的性质得出。
+茎的等同由以空集延拓的定义和茎的定义显然可得。(4) 与 (5) 由计算层在
+$U$ 的任意开集上的取值得出。
+\end{proof}
+
+\noindent
+注意，若 $\mathcal{F}$ 是 $U$ 上的阿贝尔群层，则一般而言，按上述定义的
+$j_!\mathcal{F}$ 不是阿贝尔群层，例如因为它的一些茎为空（因而当然不是
+阿贝尔群）。所以，需要依据所考虑层的类型修改 $j_!$ 的定义。在以空集
+延拓的定义中选择空集，是因为它是集合范畴的始对象。因此，在阿贝尔群
+情形下使用 $0$（更一般地，对取值于任意阿贝尔范畴的层也如此）。
+
+\begin{definition}
+\label{sheaves-definition-j-shriek-structures}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 为 $U$ 上的阿贝尔预层。定义
+{\it $\mathcal{F}$ 的以 $0$ 延拓 $j_{p!}\mathcal{F}$}为 $X$ 上由规则
+$$
+j_{p!}\mathcal{F}(V) =
+\left\{
+\begin{matrix}
+0 & \text{若} & V \not \subset U \\
+\mathcal{F}(V) & \text{若} & V \subset U
+\end{matrix}
+\right.
+$$
+定义的阿贝尔预层，其限制映射是显然的。
+\item 设 $\mathcal{F}$ 为 $U$ 上的阿贝尔层。定义
+{\it $\mathcal{F}$ 的以 $0$ 延拓 $j_!\mathcal{F}$}为阿贝尔预层
+$j_{p!}\mathcal{F}$ 的层化。
+\item 设 $\mathcal{C}$ 为具有始对象 $e$ 的范畴，$\mathcal{F}$ 为
+$U$ 上取值于 $\mathcal{C}$ 的预层。定义
+{\it $\mathcal{F}$ 的以 $e$ 延拓 $j_{p!}\mathcal{F}$}为 $X$ 上取值于
+$\mathcal{C}$、且由规则
+$$
+j_{p!}\mathcal{F}(V) =
+\left\{
+\begin{matrix}
+e & \text{若} & V \not \subset U \\
+\mathcal{F}(V) & \text{若} & V \subset U
+\end{matrix}
+\right.
+$$
+定义的预层，其限制映射是显然的。
+\item 设 $(\mathcal{C}, F)$ 为一种代数结构类型，且 $\mathcal{C}$
+有始对象 $e$。设 $\mathcal{F}$ 为 $U$ 上（给定类型的）代数结构层。
+定义{\it $\mathcal{F}$ 的以 $e$ 延拓 $j_!\mathcal{F}$}为上述预层
+$j_{p!}\mathcal{F}$ 的层化。
+\item 设 $\mathcal{O}$ 为 $X$ 上的环预层，$\mathcal{F}$ 为
+$\mathcal{O}|_U$-模预层。在这种情形下，把{\it 以 $0$ 延拓}定义为如下
+$\mathcal{O}$-模预层：作为阿贝尔预层，它等于 $j_{p!}\mathcal{F}$，
+并配备乘法映射
+$\mathcal{O} \times j_{p!}\mathcal{F} \to j_{p!}\mathcal{F}$。
+\item 设 $\mathcal{O}$ 为 $X$ 上的环层，$\mathcal{F}$ 为
+$\mathcal{O}|_U$-模层。在这种情形下，把{\it 以 $0$ 延拓}定义为如下
+$\mathcal{O}$-模：作为阿贝尔层，它等于 $j_!\mathcal{F}$，并配备乘法
+映射 $\mathcal{O} \times j_!\mathcal{F} \to j_!\mathcal{F}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+确实可以在代数结构层的背景下定义 $j_!$（见下文）。不过，所得对象取决于
+所涉及的代数结构类型。例如，若 $\mathcal{O}$ 是 $U$ 上的环层，则
+$j_{!, rings}\mathcal{O} \not = j_{!, abelian}\mathcal{O}$，因为环范畴的
+始对象是 $\mathbf{Z}$，而阿贝尔群范畴的始对象是 $0$。特别地，与迄今
+所见的情形不同，函子 $j_!$ {\it 不与取底层集合层可交换}！像往常一样，
+分别处理阿贝尔群（预）层、代数结构（预）层和模（预）层的情形。
+
+\begin{lemma}
+\label{sheaves-lemma-j-shriek-abelian}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。考虑阿贝尔
+（预）层的限制函子与以 $0$ 延拓函子。
+\begin{enumerate}
+\item 函子 $j_{p!}$ 是限制函子 $j_p$ 的左伴随（见引理
+\ref{sheaves-lemma-j-pullback}）。
+\item 函子 $j_!$ 是限制的左伴随；公式为
+$$
+\Mor_{\textit{Ab}(X)}(j_!\mathcal{F}, \mathcal{G})
+=
+\Mor_{\textit{Ab}(U)}(\mathcal{F}, j^{-1}\mathcal{G})
+=
+\Mor_{\textit{Ab}(U)}(\mathcal{F}, \mathcal{G}|_U)
+$$
+它对 $\mathcal{F}$ 和 $\mathcal{G}$ 双函子地成立。
+\item 设 $\mathcal{F}$ 为 $U$ 上的阿贝尔层。层 $j_!\mathcal{F}$ 的茎
+描述如下
+$$
+j_{!}\mathcal{F}_x =
+\left\{
+\begin{matrix}
+0 & \text{若} & x \not \in U \\
+\mathcal{F}_x & \text{若} & x \in U
+\end{matrix}
+\right.
+$$
+\item 在 $U$ 的阿贝尔预层范畴上，有 $j_pj_{p!} = \text{id}$。
+\item 在 $U$ 的阿贝尔层范畴上，有 $j^{-1}j_! = \text{id}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-j-shriek-structures}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。设
+$(\mathcal{C}, F)$ 为一种代数结构类型，且 $\mathcal{C}$ 有始对象 $e$。
+考虑上面定义的代数结构（预）层的限制函子与以 $e$ 延拓函子。
+\begin{enumerate}
+\item 函子 $j_{p!}$ 是限制函子 $j_p$ 的左伴随（见引理
+\ref{sheaves-lemma-j-pullback}）。
+\item 函子 $j_!$ 是限制的左伴随；公式为
+$$
+\Mor_{\Sh(X, \mathcal{C})}(j_!\mathcal{F}, \mathcal{G})
+=
+\Mor_{\Sh(U, \mathcal{C})}(\mathcal{F}, j^{-1}\mathcal{G})
+=
+\Mor_{\Sh(U, \mathcal{C})}(\mathcal{F}, \mathcal{G}|_U)
+$$
+它对 $\mathcal{F}$ 和 $\mathcal{G}$ 双函子地成立。
+\item 设 $\mathcal{F}$ 为 $U$ 上的层。层 $j_!\mathcal{F}$ 的茎描述如下
+$$
+j_{!}\mathcal{F}_x =
+\left\{
+\begin{matrix}
+e & \text{若} & x \not \in U \\
+\mathcal{F}_x & \text{若} & x \in U
+\end{matrix}
+\right.
+$$
+\item 在 $U$ 上的代数结构预层范畴中，有
+$j_pj_{p!} = \text{id}$。
+\item 在 $U$ 上的代数结构层范畴中，有 $j^{-1}j_! = \text{id}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-j-shriek-modules}
+设 $(X, \mathcal{O})$ 为赋环空间，并设
+$j : (U, \mathcal{O}|_U) \to (X, \mathcal{O})$ 为开子空间。
+考虑上面定义的模（预）层的限制函子与以 $0$ 延拓函子。
+\begin{enumerate}
+\item 函子 $j_{p!}$ 是限制的左伴随；公式为
+$$
+\Mor_{\textit{PMod}(\mathcal{O})}(j_{p!}\mathcal{F}, \mathcal{G})
+=
+\Mor_{\textit{PMod}(\mathcal{O}|_U)}(\mathcal{F}, \mathcal{G}|_U)
+$$
+它对 $\mathcal{F}$ 和 $\mathcal{G}$ 双函子地成立。
+\item 函子 $j_!$ 是限制的左伴随；公式为
+$$
+\Mor_{\textit{Mod}(\mathcal{O})}(j_!\mathcal{F}, \mathcal{G})
+=
+\Mor_{\textit{Mod}(\mathcal{O}|_U)}(\mathcal{F}, \mathcal{G}|_U)
+$$
+它对 $\mathcal{F}$ 和 $\mathcal{G}$ 双函子地成立。
+\item
+% P01-ERRATA: P01-E0054 -- the frozen source calls F an O-module sheaf on U rather than an O|_U-module sheaf.
+设 $\mathcal{F}$ 为 $U$ 上的 $\mathcal{O}$-模层。层
+$j_!\mathcal{F}$ 的茎描述如下
+$$
+j_{!}\mathcal{F}_x =
+\left\{
+\begin{matrix}
+0 & \text{若} & x \not \in U \\
+\mathcal{F}_x & \text{若} & x \in U
+\end{matrix}
+\right.
+$$
+\item 在 $U$ 上的 $\mathcal{O}|_U$-模层范畴中，有
+$j^{-1}j_! = \text{id}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+注意，由上述各引理，函子 $j_*$ 和 $j_!$ 都是从 $U$ 上的层范畴到
+$X$ 上的层范畴的全忠实嵌入。只有对函子 $j_!$，才能容易地描述其本质像。
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-open}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。函子
+$$
+j_! : \Sh(U) \longrightarrow \Sh(X)
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus U$，都有 $\mathcal{G}_x = \emptyset$。
+\end{lemma}
+
+\begin{proof}
+全忠实性由 $j^{-1} j_! = \text{id}$ 形式地得出。已经看到，函子像中的
+任意层都具有引理所述的茎性质。反过来，假设 $\mathcal{G}$ 具有指定性质。
+那么很容易验证
+$$
+j_! j^{-1} \mathcal{G} \to \mathcal{G}
+$$
+在所有茎上都是同构，因而是同构。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-open-abelian}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。函子
+$$
+j_! : \textit{Ab}(U) \longrightarrow \textit{Ab}(X)
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus U$，都有 $\mathcal{G}_x = 0$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-open-structures}
+设 $X$ 为拓扑空间，并设 $j : U \to X$ 为开子集的包含。设
+$(\mathcal{C}, F)$ 为一种代数结构类型，且 $\mathcal{C}$ 有始对象 $e$。
+函子
+$$
+j_! : \Sh(U, \mathcal{C}) \longrightarrow \Sh(X, \mathcal{C})
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus U$，都有 $\mathcal{G}_x = e$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-open-modules}
+设 $(X, \mathcal{O})$ 为赋环空间，并设
+$j : (U, \mathcal{O}|_U) \to (X, \mathcal{O})$ 为开子空间。函子
+$$
+j_! : \textit{Mod}(\mathcal{O}|_U) \longrightarrow \textit{Mod}(\mathcal{O})
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus U$，都有 $\mathcal{G}_x = 0$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{remark}
+\label{sheaves-remark-j-shriek-not-exact}
+设 $j : U \to X$ 如上为拓扑空间的开浸入。设 $x \in X$、
+$x \not \in U$，并设 $\mathcal{F}$ 为 $U$ 上的集合层。由引理
+\ref{sheaves-lemma-j-shriek}，有 $j_!\mathcal{F}_x = \emptyset$。因此，除非
+$U = X$，$j_!$ 不会把 $\Sh(U)$ 的终对象变为 $\Sh(X)$ 的终对象。
+按照 Categories，第 \ref{categories-section-exact-functor} 节中的约定，
+这意味着作为集合层范畴之间的函子，$j_!$ 不是左正合的。稍后将证明
+阿贝尔层上的 $j_!$ 是正合的；见 Modules，引理
+\ref{modules-lemma-j-shriek-exact}。
+\end{remark}
+
+
+
+
+
+
+
+\section{闭浸入与（预）层}
+\label{sheaves-section-closed-immersions}
+
+\noindent
+设 $X$ 为拓扑空间，并设 $i : Z \to X$ 为闭子集 $Z$ 到 $X$ 的包含。
+在第 \ref{sheaves-section-presheaves-functorial} 节中，我们已经定义函子
+$i_*$ 与 $i^{-1}$，使得 $i_*$ 是 $i^{-1}$ 的右伴随。
+
+\begin{lemma}
+\label{sheaves-lemma-stalks-closed-pushforward}
+设 $X$ 为拓扑空间，$i : Z \to X$ 为闭子集 $Z$ 到 $X$ 的包含，并设
+$\mathcal{F}$ 为 $Z$ 上的集合层。$i_*\mathcal{F}$ 的茎描述如下
+$$
+i_*\mathcal{F}_x =
+\left\{
+\begin{matrix}
+\{*\} & \text{若} & x \not \in Z \\
+\mathcal{F}_x & \text{若} & x \in Z
+\end{matrix}
+\right.
+$$
+其中 $\{*\}$ 表示单元素集合。此外，在 $Z$ 上的集合层范畴中，
+$i^{-1}i_* = \text{id}$。对 $Z$ 上的阿贝尔层、相应地对 $Z$ 上的
+代数结构层，同一结论也成立；此时必须把 $\{*\}$ 分别换为 $0$、
+相应地换为代数结构范畴的终对象。
+\end{lemma}
+
+\begin{proof}
+若 $x \not \in Z$，则存在任意小且与 $Z$ 不相交的 $x$ 的开邻域 $U$。
+由于 $\mathcal{F}$ 是层，对任意这样的 $U$，都有
+$\mathcal{F}(i^{-1}(U)) = \{*\}$；见评注 \ref{sheaves-remark-confusion}。
+这证明了第一种情形。第二种情形来自如下事实：对 $z \in Z$，$z$ 的任意
+开邻域都形如 $Z \cap U$，其中 $U$ 是 $X$ 的某个开集。为证明
+$i^{-1}i_* = \text{id}$，考虑典范映射
+$i^{-1}i_*\mathcal{F} \to \mathcal{F}$。由上可知，它在各茎上是同构，
+因而是同构。
+
+\medskip\noindent
+对阿贝尔群层和代数结构层，作同样的论证。
+\end{proof}
+
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-closed}
+设 $X$ 为拓扑空间，并设 $i : Z \to X$ 为闭子集的包含。函子
+$$
+i_* : \Sh(Z) \longrightarrow \Sh(X)
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus Z$，都有 $\mathcal{G}_x = \{*\}$。
+\end{lemma}
+
+\begin{proof}
+全忠实性由 $i^{-1} i_* = \text{id}$ 形式地得出。已经看到，函子像中的
+任意层都具有引理所述的茎性质。反过来，假设 $\mathcal{G}$ 具有指定性质。
+那么很容易验证
+$$
+\mathcal{G} \to i_* i^{-1} \mathcal{G}
+$$
+在所有茎上都是同构，因而是同构。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-closed-abelian}
+设 $X$ 为拓扑空间，并设 $i : Z \to X$ 为闭子集的包含。函子
+$$
+i_* : \textit{Ab}(Z) \longrightarrow \textit{Ab}(X)
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus Z$，都有 $\mathcal{G}_x = 0$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-equivalence-categories-closed-structures}
+设 $X$ 为拓扑空间，并设 $i : Z \to X$ 为闭子集的包含。设
+$(\mathcal{C}, F)$ 为具有终对象 $0$ 的一种代数结构类型。函子
+$$
+i_* : \Sh(Z, \mathcal{C}) \longrightarrow \Sh(X, \mathcal{C})
+$$
+是全忠实的。其本质像恰由如下层 $\mathcal{G}$ 组成：对所有
+$x \in X \setminus Z$，都有 $\mathcal{G}_x = 0$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{remark}
+\label{sheaves-remark-i-star-not-exact}
+设 $i : Z \to X$ 如上为拓扑空间的闭浸入。设 $x \in X$、
+$x \not \in Z$，并设 $\mathcal{F}$ 为 $Z$ 上的集合层。由引理
+\ref{sheaves-lemma-stalks-closed-pushforward}，有
+$(i_*\mathcal{F})_x = \{ * \}$。因此，若
+$\mathcal{F} = * \amalg *$，其中 $*$ 是单元素层，则
+% P01-ERRATA: P01-E0055 -- the frozen formula drops parentheses around the stalk of i_*F, unlike the preceding formula.
+$i_*\mathcal{F}_x = \{*\} \not = i_*(*)_x \amalg i_*(*)_x$，
+因为后者是二元素集合。按照 Categories，第
+\ref{categories-section-exact-functor} 节中的约定，这意味着作为集合层
+范畴之间的函子，$i_*$ 不是右正合的。特别地，它不可能有右伴随；见
+Categories，引理 \ref{categories-lemma-exact-adjoint}。
+
+\medskip\noindent
+另一方面，稍后将看到（见 Modules，引理
+\ref{modules-lemma-i-star-right-adjoint}），阿贝尔层上的 $i_*$ 是正合的，
+而且确实有右伴随，即把 $X$ 上的阿贝尔层送到其支撑于 $Z$ 的截面层的函子。
+\end{remark}
+
+\begin{remark}
+\label{sheaves-remark-closed-immersion-spaces}
+我们尚未讨论闭浸入与赋环空间之间的关系。这是因为，赋环空间闭浸入的概念
+最好在拟凝聚层的背景下讨论；见 Modules，第
+\ref{modules-section-closed-immersion} 节。
+\end{remark}
+
+\section{层的粘合}
+\label{sheaves-section-glueing-sheaves}
+
+\noindent
+本节将粘合定义在 $X$ 的一个覆盖的各成员上的层。先处理映射。
+
+\begin{lemma}
+\label{sheaves-lemma-glue-maps}
+设 $X$ 为拓扑空间，$X = \bigcup U_i$ 为开覆盖，并设
+$\mathcal{F}$、$\mathcal{G}$ 为 $X$ 上的集合层。给定一族层映射
+$$
+\varphi_i :
+\mathcal{F}|_{U_i}
+\longrightarrow
+\mathcal{G}|_{U_i}
+$$
+使得对所有 $i, j \in I$，映射 $\varphi_i, \varphi_j$ 在
+$\mathcal{F}|_{U_i \cap U_j} \to \mathcal{G}|_{U_i \cap U_j}$ 上限制为
+同一个映射，则存在唯一的层映射
+$$
+\varphi :
+\mathcal{F}
+\longrightarrow
+\mathcal{G}
+$$
+其在每个 $U_i$ 上的限制与 $\varphi_i$ 相同。
+\end{lemma}
+
+\begin{proof}
+对每个开子集 $U \subset X$，定义
+$$
+\varphi_U : \mathcal{F}(U) \to \mathcal{G}(U), \quad
+s \mapsto \varphi_U(s)
+$$
+其中 $\varphi_U(s)$ 是满足
+$$
+(\varphi_U(s))|_{U \cap U_i}
+= (\varphi_i)_{U \cap U_i}(s|_{U \cap U_i}).
+$$
+的唯一截面。由层公理以及如下事实，这样的截面存在且唯一：
+\begin{align*}
+((\varphi_i)_{U \cap U_i}(s|_{U \cap U_i}))|_{U \cap U_i \cap U_j}
+&= (\varphi_i)_{U \cap U_i \cap U_j}(s|_{U \cap U_i \cap U_j})\\
+&= (\varphi_j)_{U \cap U_i \cap U_j}(s|_{U \cap U_i \cap U_j})\\
+&= ((\varphi_j)_{U \cap U_j}(s|_{U \cap U_j}))|_{U \cap U_i \cap U_j}.
+\end{align*}
+这族映射确实给出层映射：若 $V \subset U \subset X$ 为开子集，则
+$$
+(\varphi_U(s))|_V
+= \varphi_V(s|_V)
+$$
+因为对每个 $i \in I$ 都有
+\begin{align*}
+(\varphi_U(s))|_{V \cap U_i}
+&= ((\varphi_U(s))|_{U \cap U_i})|_{V \cap U_i}\\
+&= ((\varphi_i)_{U \cap U_i}(s|_{U \cap U_i}))|_{V \cap U_i}\\
+&= (\varphi_i)_{V \cap U_i}(s|_{V \cap U_i})\\
+% P01-ERRATA: P01-E0056 -- the frozen final line uses s_V instead of the restriction s|_V.
+&= \varphi_V(s_{V})|_{V \cap U_i}.
+\end{align*}
+此外，它在每个 $U_i$ 上的限制都与 $\varphi_i$ 相同，因为给定开子集
+$U \subset X$ 和 $s \in \mathcal{F}(U \cap U_i)$，有
+\begin{align*}
+\varphi_{U \cap U_i}(s)
+&= \varphi_{U \cap U_i}(s)|_{U \cap U_i}\\
+&= (\varphi_i)_{U \cap U_i}(s|_{U \cap U_i})\\
+&= (\varphi_i)_{U \cap U_i}(s).
+\end{align*}
+\end{proof}
+
+\noindent
+前一引理说明，给定拓扑空间 $X$ 上的两个层 $\mathcal{F}$、
+$\mathcal{G}$，规则
+$$
+U \longmapsto
+\Mor_{\Sh(U)}(
+\mathcal{F}|_U, \mathcal{G}|_U)
+$$
+定义一个层。这是一种{\it 内部 Hom 层}。它在集合层的背景下很少使用，
+在模层的背景下更常用；见 Modules，第
+\ref{modules-section-internal-hom} 节。
+
+\medskip\noindent
+设 $X$ 为拓扑空间，$X = \bigcup_{i\in I} U_i$ 为开覆盖。对每个
+$i \in I$，设 $\mathcal{F}_i$ 为 $U_i$ 上的集合层。对每一对
+$i, j \in I$，设
+$$
+\varphi_{ij} :
+\mathcal{F}_i|_{U_i \cap U_j}
+\longrightarrow
+\mathcal{F}_j|_{U_i \cap U_j}
+$$
+为集合层的同构。再假设对每个指标三元组 $i, j, k \in I$，下图交换
+$$
+\xymatrix{
+\mathcal{F}_i|_{U_i \cap U_j \cap U_k}
+\ar[rr]_{\varphi_{ik}}
+\ar[rd]_{\varphi_{ij}} & &
+\mathcal{F}_k|_{U_i \cap U_j \cap U_k} \\
+&
+\mathcal{F}_j|_{U_i \cap U_j \cap U_k}
+\ar[ru]_{\varphi_{jk}}
+}
+$$
+称这样的一族数据 $(\mathcal{F}_i, \varphi_{ij})$ 为
+{\it 关于覆盖 $X = \bigcup U_i$ 的集合层粘合数据}。
+
+\begin{lemma}
+\label{sheaves-lemma-glue-sheaves}
+设 $X$ 为拓扑空间，$X = \bigcup_{i\in I} U_i$ 为开覆盖。给定任意
+关于覆盖 $X = \bigcup U_i$ 的集合层粘合数据
+$(\mathcal{F}_i, \varphi_{ij})$，则存在 $X$ 上的集合层
+$\mathcal{F}$，连同同构
+$$
+\varphi_i : \mathcal{F}|_{U_i} \to \mathcal{F}_i
+$$
+使图表
+$$
+\xymatrix{
+\mathcal{F}|_{U_i \cap U_j} \ar[r]_{\varphi_i} \ar[d]_{\text{id}} &
+\mathcal{F}_i|_{U_i \cap U_j} \ar[d]^{\varphi_{ij}} \\
+\mathcal{F}|_{U_i \cap U_j} \ar[r]^{\varphi_j} &
+\mathcal{F}_j|_{U_i \cap U_j}
+}
+$$
+交换。
+\end{lemma}
+
+\begin{proof}
+第一种证明。在此证明中，给出 $\mathcal{F}$ 在开集 $W \subset X$ 上
+截面集合的公式。具体地，定义
+$$
+\mathcal{F}(W) =
+\{
+(s_i)_{i \in I} \mid
+s_i \in \mathcal{F}_i(W \cap U_i),
+\varphi_{ij}(s_i|_{W \cap U_i \cap U_j}) = s_j|_{W \cap U_i \cap U_j}
+\}.
+$$
+对 $W' \subset W$，限制映射通过把每个 $s_i$ 限制到
+$W' \cap U_i$ 来定义。$\mathcal{F}$ 的层条件立即由每个
+$\mathcal{F}_i$ 的层条件得出。
+
+\medskip\noindent
+还需证明 $\mathcal{F}|_{U_i}$ 同构地映到 $\mathcal{F}_i$。设
+$W \subset U_i$。此时，$\mathcal{F}(W)$ 定义中的条件蕴含
+$s_j = \varphi_{ij}(s_i|_{W \cap U_j})$。而粘合数据定义中的各图表交换，
+保证可以从{\it 任意}截面 $s \in \mathcal{F}_i(W)$ 出发，通过令
+$s_i = s$ 和 $s_j = \varphi_{ij}(s_i|_{W \cap U_j})$ 得到相容族。
+
+\medskip\noindent
+第二种证明（概述）。设 $\mathcal{B}$ 为所有满足如下条件的开集
+$U \subset X$ 所成的集合：对某个 $i \in I$，有 $U \subset U_i$。
+则 $\mathcal{B}$ 是 $X$ 的拓扑基。对 $U \in \mathcal{B}$，选取满足
+$U \subset U_i$ 的 $i \in I$，并置
+$\mathcal{F}(U) = \mathcal{F}_i(U)$。利用同构 $\varphi_{ij}$，可见这一
+规定“不依赖于 $i$ 的选择”。利用 $\mathcal{F}_i$ 的限制映射，可知
+$\mathcal{F}$ 是 $\mathcal{B}$ 上的层。最后，使用引理
+\ref{sheaves-lemma-extend-off-basis}，把 $\mathcal{F}$ 扩张为 $X$ 上的唯一层
+$\mathcal{F}$。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-glue-sheaves-structures}
+设 $X$ 为拓扑空间，$X = \bigcup U_i$ 为开覆盖。设
+$(\mathcal{F}_i, \varphi_{ij})$ 为阿贝尔群层、相应地代数结构层、
+相应地某个 $X$ 上环层 $\mathcal{O}$ 的 $\mathcal{O}$-模层的粘合数据。
+则上面引理 \ref{sheaves-lemma-glue-sheaves} 的证明中的构造，分别给出阿贝尔群层、
+代数结构层、$\mathcal{O}$-模层。
+\end{lemma}
+
+\begin{proof}
+这是因为在该构造中，开集 $W$ 上的截面集合 $\mathcal{F}(W)$ 是下列映射的
+等化子
+$$
+\xymatrix{
+\prod_{i \in I} \mathcal{F}_i(W \cap U_i)
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+&
+\prod_{i, j\in I} \mathcal{F}_i(W \cap U_i \cap U_j)
+}
+$$
+在所考虑的每种情形下，该等化子都给出相关范畴中的对象，其底层集合就是
+所引用引理中考虑的对象。
+\end{proof}
+
+\begin{lemma}
+\label{sheaves-lemma-mapping-property-glue}
+设 $X$ 为拓扑空间，$X = \bigcup_{i\in I} U_i$ 为开覆盖。把集合层
+$\mathcal{F}$ 送到关于覆盖 $X = \bigcup U_i$ 的如下粘合数据的函子
+$$
+(\mathcal{F}|_{U_i},
+(\mathcal{F}|_{U_i})|_{U_i \cap U_j}
+\to
+(\mathcal{F}|_{U_j})|_{U_i \cap U_j}
+)
+$$
+定义了 $\Sh(X)$ 与粘合数据范畴之间的范畴等价。对阿贝尔层、相应地
+代数结构层、相应地 $\mathcal{O}$-模层，也有类似陈述。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{sheaves-lemma-glue-maps}，该函子全忠实；由引理
+\ref{sheaves-lemma-glue-sheaves}，它本质满（通过一个显式给出的拟逆函子）。
+\end{proof}
+
+\noindent
+这个引理意味着：若层 $\mathcal{F}$ 由粘合数据
+$(\mathcal{F}_i, \varphi_{ij})$ 构造，且 $\mathcal{G}$ 是 $X$ 上的层，
+则态射 $f : \mathcal{F} \to \mathcal{G}$ 由一族与粘合映射
+$\varphi_{ij}$ 相容的层态射
+$$
+f_i : \mathcal{F}_i \longrightarrow \mathcal{G}|_{U_i}
+$$
+给出。类似地，给定层态射 $g : \mathcal{G} \to \mathcal{F}$，等价于
+给定一族与粘合映射 $\varphi_{ij}$ 相容的层态射
+$$
+g_i : \mathcal{G}|_{U_i} \longrightarrow \mathcal{F}_i
+$$

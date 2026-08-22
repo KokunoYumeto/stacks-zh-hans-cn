@@ -1,0 +1,1774 @@
+% Generated mechanically from the frozen spaces-more-cohomology.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{83}
+\chapter{空间上同调续论}
+
+
+\phantomsection
+\label{spaces-more-cohomology-section-phantom}
+
+
+
+
+
+\section{引言}
+\label{spaces-more-cohomology-section-introduction}
+
+\noindent
+% P10-E0147
+本章继续《空间的上同调》第
+\ref{spaces-cohomology-section-introduction} 节中开始的讨论。
+也可以把本章视为概形平展上同调一章在代数空间情形下的对应版本，
+参见《平展上同调》第
+\ref{etale-cohomology-section-introduction} 节。
+
+\medskip\noindent
+事实上，本章主要旨在把已经为概形证明的结果转述为代数空间的语言。
+其中一些结果可见 \cite{Kn}。
+
+
+
+
+
+\section{约定}
+\label{spaces-more-cohomology-section-conventions}
+
+\noindent
+始终假设所有概形都包含在一个大 fppf 站点 $\Sch_{fppf}$ 中。
+并且所考虑的每个环 $A$ 都满足：$\Spec(A)$（同构于）该大站点的一个对象。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+在本章及后续各章中，我们用 $X \times_S X$ 表示 $X$ 与自身的积
+（在 $S$ 上代数空间的范畴中），而不用 $X \times X$。
+
+
+
+
+
+
+
+\section{从概形迁移结果}
+\label{spaces-more-cohomology-section-api}
+
+\noindent
+本节简要说明，概形的结果如何推出（可表）代数空间以及代数空间的
+（可表）态射的相应结果。
+对拟凝聚模还可得到更强的结论
+（因为概形上拟凝聚模的平展上同调与扎里斯基上同调相同）；
+《空间的上同调》第
+\ref{spaces-cohomology-section-higher-direct-image} 节已经讨论过这一点。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+现假设 $X$ 可由概形 $X_0$ 表示
+（这是一个略显笨拙但只是临时采用的记号；通常我们直接说“$X$
+是概形”）。在这种情形下，$X$ 与 $X_0$ 具有相同的小平展站点：
+$$
+X_\etale = (X_0)_\etale
+$$
+这在《空间的性质》第 \ref{spaces-properties-section-etale-site} 节中已有说明。
+此外，若 $f : X \to Y$ 是 $S$ 上可表代数空间之间的态射，
+而 $f_0 : X_0 \to Y_0$ 是表示 $f$ 的概形态射，
+则所诱导的小平展拓扑斯态射彼此相同：
+$$
+\xymatrix{
+\Sh(X_\etale) \ar[rr]_{f_{small}} \ar@{=}[d] & &
+\Sh(Y_\etale) \ar@{=}[d] \\
+\Sh((X_0)_\etale) \ar[rr]^{(f_0)_{small}} & &
+\Sh((Y_0)_\etale)
+}
+$$
+参见《空间的性质》引理
+\ref{spaces-properties-lemma-functoriality-etale-site} 和
+《拓扑》引理 \ref{topologies-lemma-morphism-big-small-etale}。
+
+\medskip\noindent
+因此，概形的平展上同调与相应代数空间的平展上同调完全没有区别。
+沿概形态射的高阶正像也是如此。
+事实上，若 $f : X \to Y$ 是 $S$ 上代数空间的一个（由概形）可表态射，
+则 $X_\etale$ 上层 $\mathcal{F}$ 的高阶正像 $R^if_*\mathcal{F}$
+可以在 $Y$ 上平展局部地计算
+（《站点上的上同调》引理 \ref{sites-cohomology-lemma-higher-direct-images}），
+故计算与证明常可化归到 $Y$ 和 $X$ 都是概形的情形。
+
+\medskip\noindent
+本章将直接使用上述事实而不再特别说明。
+对其他拓扑同样成立；这里把关于上同调的结论明确表述为一个引理。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-cohomology-other-topologies}
+设 $S$ 为概形。设 $\tau \in \{\etale, fppf, ph\}$（此处再添加更多）。
+% P10-E0148
+包含函子
+$$
+(\Sch/S)_\tau \longrightarrow (\textit{Spaces}/S)_\tau
+$$
+是特殊余连续函子
+（《站点》定义 \ref{sites-definition-special-cocontinuous-functor}），
+因而给出拓扑斯的等同。
+\end{lemma}
+
+\begin{proof}
+《站点》引理 \ref{sites-lemma-equivalence} 的条件立即得到验证，
+因为该函子是全忠实的，并且每个代数空间都有由概形组成的平展覆盖。
+\end{proof}
+
+
+
+
+
+
+
+\section{真基变换}
+\label{spaces-more-cohomology-section-proper-base-change}
+
+\noindent
+稍加论证，即可由概形的真基变换定理和 Chow 引理推出代数空间的真基变换定理。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-surjective-proper}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的满真态射。
+设 $\mathcal{F}$ 为 $X_\etale$ 上的层。则
+$\mathcal{F} \to f_*f^{-1}\mathcal{F}$ 是单射，其像是两个映射
+$f_*f^{-1}\mathcal{F} \to g_*g^{-1}\mathcal{F}$ 的等化子，
+其中 $g$ 是结构态射 $g : Y \times_X Y \to X$。
+\end{lemma}
+
+\begin{proof}
+对 $S$ 上代数空间的任意满态射 $f : Y \to X$，映射
+$\mathcal{F} \to f_*f^{-1}\mathcal{F}$ 都是单射。
+事实上，若 $\overline{x}$ 是 $X$ 的几何点，则选择 $Y$ 中位于
+$\overline{x}$ 上方的几何点 $\overline{y}$，并考虑
+$$
+\mathcal{F}_{\overline{x}} \to
+(f_*f^{-1}\mathcal{F})_{\overline{x}} \to
+(f^{-1}\mathcal{F})_{\overline{y}} = \mathcal{F}_{\overline{x}}
+$$
+最后一个等式参见《空间的性质》引理
+\ref{spaces-properties-lemma-stalk-pullback}。
+
+\medskip\noindent
+第二个陈述在 $X$ 上对平展拓扑是局部的，故可以并且确实假设
+$Y$ 是仿射概形。
+
+\medskip\noindent
+选择满真态射 $Z \to Y$，其中 $Z$ 是概形；参见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-weak-chow}。
+$Z \to X$ 的结论蕴含 $Y \to X$ 的结论。
+由于 $Z \to X$ 是概形的满真态射，因而是 ph 覆盖
+（《拓扑》引理 \ref{topologies-lemma-surjective-proper-ph}），
+$Z \to X$ 的结论可由《平展上同调》引理
+\ref{etale-cohomology-lemma-describe-pullback-pi-ph} 推出
+（事实上，它在某种意义下与该引理等价）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-h0-proper-over-henselian-pair}
+设 $(A, I)$ 为亨泽尔对。设 $X$ 为 $A$ 上的代数空间，且结构态射
+$f : X \to \Spec(A)$ 为真态射。令 $i : X_0 \to X$ 为
+$X \times_{\Spec(A)} \Spec(A/I)$ 的包含映射。
+则对 $X_\etale$ 上的任意层 $\mathcal{F}$，有
+$\Gamma(X, \mathcal{F}) = \Gamma(X_0, i^{-1}\mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+选择满真态射 $Y \to X$，其中 $Y$ 是概形；参见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-weak-chow}。考虑图表
+$$
+\xymatrix{
+\Gamma(X_0, \mathcal{F}_0) \ar[r] &
+\Gamma(Y_0, \mathcal{G}_0) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\Gamma((Y \times_X Y)_0, \mathcal{H}_0) \\
+\Gamma(X, \mathcal{F}) \ar[r] \ar[u] &
+\Gamma(Y, \mathcal{G}) \ar@<1ex>[r] \ar@<-1ex>[r] \ar[u] &
+\Gamma(Y \times_X Y, \mathcal{H}) \ar[u]
+}
+$$
+% P10-E0149
+这里 $\mathcal{G}$ 和 $\mathcal{H}$ 分别是 $\mathcal{F}$ 在 $Y$ 和
+$Y \times_X Y$ 上的拉回，下标 $0$ 表示基变换到 $\Spec(A/I)$。
+由概形的情形（《平展上同调》引理
+\ref{etale-cohomology-lemma-h0-proper-over-henselian-pair}），
+中间和右侧的竖直箭头均为双射。
+再由引理 \ref{spaces-more-cohomology-lemma-surjective-proper}，左侧箭头也是双射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-h0-proper-over-henselian-local}
+设 $A$ 为亨泽尔局部环。设 $X$ 为 $A$ 上的代数空间，且
+$f : X \to \Spec(A)$ 是真态射。令 $X_0 \subset X$ 为 $f$ 在闭点上方的纤维。
+则对 $X_\etale$ 上的任意层 $\mathcal{F}$，有
+$\Gamma(X, \mathcal{F}) = \Gamma(X_0, \mathcal{F}|_{X_0})$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-more-cohomology-lemma-h0-proper-over-henselian-pair} 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-proper-base-change-f-star}
+% P10-E0150
+设 $S$ 为概形。设 $f : X \to Y$ 和 $g : Y' \to Y$ 为
+$S$ 上代数空间的态射，并假设 $f$ 为真态射。
+令 $X' = Y' \times_Y X$，投影为 $f' : X' \to Y'$ 和 $g' : X' \to X$。
+设 $\mathcal{F}$ 为 $X_\etale$ 上的任意层。则
+$g^{-1}f_*\mathcal{F} = f'_*(g')^{-1}\mathcal{F}$。
+\end{lemma}
+
+\begin{proof}
+该问题在 $Y'$ 上对平展拓扑是局部的。选择概形 $V$ 和满平展态射
+$V \to Y$。再选择概形 $V'$ 和满平展态射
+$V' \to V \times_Y Y'$。于是可分别用 $V'$ 和 $V$ 替换 $Y'$ 和 $Y$，
+故可假设 $Y$ 和 $Y'$ 都是概形。随后可在 $Y$ 和 $Y'$ 上扎里斯基局部地工作，
+因而还可假设 $Y$ 和 $Y'$ 都是仿射概形。
+
+\medskip\noindent
+假设 $Y$ 和 $Y'$ 是仿射概形。选择满真态射
+$h_1 : X_1 \to X$，其中 $X_1$ 是概形；参见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-weak-chow}。
+令 $X_2 = X_1 \times_X X_1$，并将结构态射记为
+$h_2 : X_2 \to X$。注意它是概形。
+由概形的情形（《平展上同调》引理
+\ref{etale-cohomology-lemma-proper-base-change-f-star}），
+可知对下列笛卡尔图表该引理成立：
+$$
+\vcenter{
+\xymatrix{
+X'_1 \ar[r] \ar[d] & X_1 \ar[d] \\
+Y' \ar[r] & Y
+}
+}
+\quad\text{和}\quad
+\vcenter{
+\xymatrix{
+X'_2 \ar[r] \ar[d] & X_2 \ar[d] \\
+Y' \ar[r] & Y
+}
+}
+$$
+以及层 $\mathcal{F}_i = (X_i \to X)^{-1}\mathcal{F}$。
+由引理 \ref{spaces-more-cohomology-lemma-surjective-proper}，有正合序列
+$0 \to \mathcal{F} \to h_{1, *}\mathcal{F}_1 \to h_{2, *}\mathcal{F}_2$。
+由于 $X'_2 = X'_1 \times_{X'} X'_1$，对 $(g')^{-1}\mathcal{F}$ 也同样成立。
+% P10-E0151
+故可断定该引理成立（略去一些细节）。
+\end{proof}
+
+\noindent
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的态射。
+% P10-E0152
+设 $\overline{x} : \Spec(k) \to S$ 为几何点。
+$f$ 在 $\overline{x}$ 处的纤维是 $\Spec(k)$ 上的代数空间
+$Y_{\overline{x}} = \Spec(k) \times_{\overline{x}, X} Y$。
+若 $\mathcal{F}$ 是 $Y_\etale$ 上的层，则用
+$\mathcal{F}_{\overline{x}} = p^{-1}\mathcal{F}$
+表示 $\mathcal{F}$ 在 $(Y_{\overline{x}})_\etale$ 上的拉回，
+其中 $p : Y_{\overline{x}} \to Y$ 是投影。
+下文将考察集合 $\Gamma(Y_{\overline{x}}, \mathcal{F}_{\overline{x}})$。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-proper-pushforward-stalk}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的真态射，
+并设 $\overline{x} \to X$ 为几何点。
+对 $Y_\etale$ 上的任意层 $\mathcal{F}$，典范映射
+$$
+(f_*\mathcal{F})_{\overline{x}} \longrightarrow
+\Gamma(Y_{\overline{x}}, \mathcal{F}_{\overline{x}})
+$$
+是双射。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-more-cohomology-lemma-proper-base-change-f-star} 的特例。
+\end{proof}
+
+\begin{theorem}
+\label{spaces-more-cohomology-theorem-proper-base-change}
+设 $S$ 为概形。设
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+为 $S$ 上代数空间的笛卡尔方块。假设 $f$ 为真态射。
+设 $\mathcal{F}$ 为 $X_\etale$ 上的阿贝尔挠层。则基变换映射
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+是同构。
+\end{theorem}
+
+\begin{proof}
+本证明重复概形真基变换定理证明中的若干论证。
+更多细节参见《平展上同调》第
+\ref{etale-cohomology-section-proper-base-change} 节。
+
+\medskip\noindent
+该陈述在 $Y'$ 和 $Y$ 上对平展拓扑是局部的，故可假设
+$Y$ 和 $Y'$ 都是仿射概形。特别地，这证明了 $f$ 可表时的定理
+（下文将使用这一点）。
+
+\medskip\noindent
+对每个 $n \geq 1$，令 $\mathcal{F}[n]$ 为 $\mathcal{F}$ 中被 $n$
+零化的截面所成的子层。则 $\mathcal{F} = \colim \mathcal{F}[n]$。
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-colimit-cohomology}，函子
+$g^{-1}R^pf_*$ 和 $R^pf'_*(g')^{-1}$ 与滤过余极限可交换。
+因此只需在 $\mathcal{F}$ 被某个 $n$ 零化时证明该定理。
+
+\medskip\noindent
+取由 $\mathbf{Z}/n\mathbf{Z}$-模的内射层组成的解消
+$\mathcal{F} \to \mathcal{I}^\bullet$。注意，由引理
+$g^{-1}f_*\mathcal{I}^\bullet = f'_*(g')^{-1}\mathcal{I}^\bullet$
+\ref{spaces-more-cohomology-lemma-proper-base-change-f-star} 有上述等式。
+应用 Leray 无环性引理（《导出范畴》引理
+\ref{derived-lemma-leray-acyclicity}），可知只需证明：
+对 $p > 0$ 和 $m \in \mathbf{Z}$，有
+$R^pf'_*(g')^{-1}\mathcal{I}^m = 0$。
+
+\medskip\noindent
+选择满真态射 $h : Z \to X$，其中 $Z$ 是概形；
+参见《空间的上同调》引理 \ref{spaces-cohomology-lemma-weak-chow}。
+选择单射 $h^{-1}\mathcal{I}^m \to \mathcal{J}$，其中 $\mathcal{J}$
+是 $Z_\etale$ 上 $\mathbf{Z}/n\mathbf{Z}$-模的内射层。
+由于 $h$ 是满射，映射 $\mathcal{I}^m \to h_*\mathcal{J}$ 是单射
+（参见引理 \ref{spaces-more-cohomology-lemma-surjective-proper}）。
+又因 $\mathcal{I}^m$ 内射，$\mathcal{I}^m$ 是 $h_*\mathcal{J}$ 的直和项。
+所以只需对 $h_*\mathcal{J}$ 证明所需的消失性。
+
+\medskip\noindent
+% P10-E0153
+用 $h'$ 表示 h 沿 $g$ 的基变换，并用 $g'' : Z' \to Z$ 表示投影。
+存在谱序列
+$$
+E_2^{p, q} = R^pf'_* R^qh'_* (g'')^{-1}\mathcal{J}
+$$
+收敛到 $R^{p + q}(f' \circ h')_*(g'')^{-1}\mathcal{J}$。
+由于 $h$ 和 $f \circ h$ 都（由概形）可表，我们知道所需结果对它们成立。
+因此在该谱序列中，当 $q > 0$ 时 $E_2^{p, q} = 0$，并且当
+$p + q > 0$ 时
+$R^{p + q}(f' \circ h')_*(g'')^{-1}\mathcal{J} = 0$。
+由此当 $p > 0$ 时 $E_2^{p, 0} = 0$。现在
+$$
+E_2^{p, 0} = R^pf'_* h'_* (g'')^{-1}\mathcal{J} =
+R^pf'_* (g')^{-1}h_*\mathcal{J}
+$$
+其中等式由引理 \ref{spaces-more-cohomology-lemma-proper-base-change-f-star} 得到。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-proper-base-change}
+设 $S$ 为概形。设
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+为 $S$ 上代数空间的笛卡尔方块。假设 $f$ 为真态射。
+设 $E \in D^+(X_\etale)$ 的上同调层均为挠层。
+则基变换映射 $g^{-1}Rf_*E \to Rf'_*(g')^{-1}E$ 是同构。
+\end{lemma}
+
+\begin{proof}
+利用谱序列
+$$
+E_2^{p, q} = R^pf_*H^q(E)
+\quad\text{和}\quad
+{E'}_2^{p, q} = R^pf'_*(g')^{-1}H^q(E)
+$$
+它们分别收敛到 $R^nf_*E$ 和 $R^nf'_*(g')^{-1}E$，
+即可由真基变换定理（定理 \ref{spaces-more-cohomology-theorem-proper-base-change}）简单推出结论。
+这些谱序列构造于《导出范畴》引理
+\ref{derived-lemma-two-ss-complex-functor}。略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-proper-base-change-stalk}
+设 $S$ 为概形。设 $f : X \to Y$ 为代数空间的真态射，
+并设 $\overline{y} \to Y$ 为几何点。
+\begin{enumerate}
+\item 对 $X_\etale$ 上的挠阿贝尔层 $\mathcal{F}$，有
+$(R^nf_*\mathcal{F})_{\overline{y}} =
+H^n_\etale(X_{\overline{y}}, \mathcal{F}_{\overline{y}})$.
+\item 对上同调层均为挠层的 $E \in D^+(X_\etale)$，有
+$(R^nf_*E)_{\overline{y}} = H^n_\etale(X_{\overline{y}}, E_{\overline{y}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在陈述中，$\mathcal{F}_{\overline{y}}$ 表示 $\mathcal{F}$ 在
+$X_{\overline{y}} = \overline{y} \times_Y X$ 上的拉回。
+由于沿 $\overline{y} \to Y$ 拉回会给出 $\mathcal{F}$ 的茎，
+引理的第一个陈述是定理 \ref{spaces-more-cohomology-theorem-proper-base-change} 的特例，
+第二个陈述是引理 \ref{spaces-more-cohomology-lemma-proper-base-change} 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-base-change-separably-closed}
+设 $k'/k$ 为可分闭域的扩张。设 $X$ 为 $k$ 上的真代数空间，
+$\mathcal{F}$ 为 $X$ 上的挠阿贝尔层。则对 $q \geq 0$，映射
+$H^q_\etale(X, \mathcal{F}) \to
+H^q_\etale(X_{k'}, \mathcal{F}|_{X_{k'}})$ 是同构。
+\end{lemma}
+
+\begin{proof}
+这是定理 \ref{spaces-more-cohomology-theorem-proper-base-change} 的特例。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{比较大拓扑斯与小拓扑斯}
+\label{spaces-more-cohomology-section-compare}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+在《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-at-the-bottom-etale} 中，我们引入了比较态射
+$\pi_X : (\textit{Spaces}/X)_\etale \to X_{spaces, \etale}$ 以及
+$i_X : \Sh(X_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$
+作为拓扑斯态射，有 $\pi_X \circ i_X = \text{id}$，并且
+$\pi_{X, *} = i_X^{-1}$。
+更一般地，若 $f : Y \to X$ 是 $(\textit{Spaces}/X)_\etale$ 的对象，
+则存在态射
+$i_f : \Sh(Y_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$
+使得 $f_{small} = \pi_X \circ i_f$；参见《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-put-in-T-etale} 和
+\ref{spaces-topologies-lemma-morphism-big-small-etale}。
+在《空间上的拓扑》评注
+\ref{spaces-topologies-remark-change-topologies-ringed} 中，
+我们把它们扩张为赋环站点的态射
+$$
+\pi_X :
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+\to
+(X_{spaces, \etale}, \mathcal{O}_X)
+$$
+以及赋环拓扑斯的态射
+$$
+i_X :
+(\Sh(X_\etale), \mathcal{O}_X)
+\to
+(\Sh((\textit{Spaces}/X)_\etale), \mathcal{O})
+$$
+和
+$$
+i_f :
+(\Sh(Y_\etale), \mathcal{O}_Y)
+\to
+(\Sh((\textit{Spaces}/X)_\etale, \mathcal{O}))
+$$
+注意，限制 $i_X^{-1} = \pi_{X, *}$（参见《拓扑》定义
+\ref{topologies-definition-restriction-small-etale}）把 $\mathcal{O}$
+变为 $\mathcal{O}_X$。类似地，$i_f^{-1}$ 把 $\mathcal{O}$ 变为
+$\mathcal{O}_Y$。参见《空间上的拓扑》评注
+\ref{spaces-topologies-remark-change-topologies-ringed}。
+因此，对 $(\textit{Spaces}/X)_\etale$ 上的任意 $\mathcal{O}$-模
+$\mathcal{F}$，有 $i_X^*\mathcal{F} = i_X^{-1}\mathcal{F}$ 和
+$i_f^*\mathcal{F} = i_f^{-1}\mathcal{F}$。特别地，$i_X^*$ 和 $i_f^*$
+都是正合函子。函子 $i_X^*$ 常记作
+$\mathcal{F} \mapsto \mathcal{F}|_{X_\etale}$
+（这与《空间上的拓扑》定义
+\ref{spaces-topologies-definition-restriction-small-etale} 中的记号不冲突）。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-describe-pullback}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为 $X_\etale$ 上的层。则 $\pi_X^{-1}\mathcal{F}$
+由下列规则给出：
+$$
+(\pi_X^{-1}\mathcal{F})(Y) = \Gamma(Y_\etale, f_{small}^{-1}\mathcal{F})
+$$
+其中 $f : Y \to X$ 是 $(\textit{Spaces}/X)_\etale$ 的对象。
+% P10-E0154
+此外，$\pi_Y^{-1}\mathcal{F}$ 对光滑、syntomic、fppf、fpqc 和 ph 覆盖
+满足层条件。
+\end{lemma}
+
+\begin{proof}
+由于拉回具有传递性且 $f_{small} = \pi_X \circ i_f$（见上文），有
+$i_f^{-1} \pi_X^{-1}\mathcal{F} = f_{small}^{-1}\mathcal{F}$。
+这说明 $\pi_X^{-1}$ 具有引理中给出的描述。
+
+\medskip\noindent
+为证明 $\pi_X^{-1}\mathcal{F}$ 对 ph 拓扑是层，
+由《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-characterize-sheaf}，只需证明：
+对 $X$ 上代数空间的满真态射 $V \to U$，
+$(\pi_X^{-1}\mathcal{F})(U)$ 是两个映射
+$(\pi_X^{-1}\mathcal{F})(V) \to
+(\pi_X^{-1}\mathcal{F})(V \times_U V)$ 的等化子。
+这已由引理 \ref{spaces-more-cohomology-lemma-surjective-proper} 得到。
+
+\medskip\noindent
+光滑、syntomic 和 fppf 覆盖的情形，由 ph 覆盖的情形和
+《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph} 推出。
+
+\medskip\noindent
+设 $\mathcal{U} = \{U_i \to U\}_{i \in I}$ 为 $X$ 上代数空间的 fpqc 覆盖。
+设截面 $s_i \in (\pi_X^{-1}\mathcal{F})(U_i)$ 在
+$U_i \times_U U_j$ 上彼此相同。需要证明存在唯一的
+$s \in (\pi_X^{-1}\mathcal{F})(U)$，其在 $U_i$ 上限制为 $s_i$。
+情形 I：$U$ 和 $U_i$ 都是概形。此时结论由《平展上同调》引理
+\ref{etale-cohomology-lemma-describe-pullback} 得到。
+情形 II：$U$ 是概形。选择满平展态射 $T_i \to U_i$，其中 $T_i$ 是概形。
+则 $\mathcal{T} = \{T_i \to U\}$ 是由概形组成的 fpqc 覆盖，
+由情形 I，结论对 $\mathcal{T}$ 成立。略去由此推出
+$\mathcal{U}$ 的结论的验证。
+情形 III：一般情形。取满平展态射 $W \to U$，其中 $W$ 是概形。
+则 $\mathcal{W} = \{U_i \times_U W \to W\}$ 是概形 $W$ 的
+fpqc 覆盖（覆盖对象为代数空间）。
+% P10-E0155
+由情形 II，结论对 $\mathcal{W}$ 成立。略去由此推出
+$\mathcal{U}$ 的结论的验证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-injectives}
+设 $S$ 为概形。设 $Y \to X$ 为 $(\textit{Spaces}/S)_\etale$ 中的态射。
+\begin{enumerate}
+\item 若 $\mathcal{I}$ 在
+$\textit{Ab}((\textit{Spaces}/X)_\etale)$ 中内射，则
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}$ 在 $\textit{Ab}(Y_\etale)$ 中内射；
+\item $\mathcal{I}|_{X_\etale}$ 在 $\textit{Ab}(X_\etale)$ 中内射。
+\end{enumerate}
+\item 若 $\mathcal{I}^\bullet$ 是 $\textit{Ab}((\textit{Spaces}/X)_\etale)$
+中的 K-内射复形，则
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}^\bullet$ 是 $\textit{Ab}(Y_\etale)$ 中的
+K-内射复形；
+\item $\mathcal{I}^\bullet|_{X_\etale}$ 是 $\textit{Ab}(X_\etale)$ 中的
+K-内射复形。
+\end{enumerate}
+\end{enumerate}
+相应的模版本不成立。
+\end{lemma}
+
+\begin{proof}
+由限制函子 $\pi_{X, *} = i_X^{-1}$ 是正合函子 $\pi_X^{-1}$ 的右伴随，
+形式地推出 (1)(b) 和 (2)(b)。参见《同调代数》引理
+\ref{homology-lemma-adjoint-preserve-injectives} 和《导出范畴》引理
+\ref{derived-lemma-adjoint-preserve-K-injectives}。
+
+\medskip\noindent
+可用两种方法证明 (1)(a) 和 (2)(a)。第一种证明：利用
+$i_f^{-1}$ 是正合函子 $i_{f, !}$ 的右伴随。
+对集合层，该函子构造于《拓扑》引理
+\ref{topologies-lemma-put-in-T-etale}；对阿贝尔层，则构造于
+《站点上的模》引理 \ref{sites-modules-lemma-g-shriek-adjoint}。
+《站点上的模》引理
+\ref{sites-modules-lemma-exactness-lower-shriek} 证明了它是正合的。
+第二种证明：利用《拓扑》引理
+\ref{topologies-lemma-morphism-big-small-etale} 所证明的
+$i_f = i_Y \circ f_{big}$。由于 $f_{big}$ 是局部化，沿它的拉回保持内射对象和
+K-内射对象；参见《站点上的上同调》引理
+\ref{sites-cohomology-lemma-cohomology-of-open} 和
+\ref{sites-cohomology-lemma-restrict-K-injective-to-open}。
+然后把已经证明的 (1)(b) 和 (2)(b) 应用于函子 $i_Y^{-1}$ 即得结论。
+
+\medskip\noindent
+模情形的反例参见《平展上同调》引理
+\ref{etale-cohomology-lemma-compare-injectives}。
+\end{proof}
+
+\noindent
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的态射。
+《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-morphism-big-small-etale} (3) 的交换图
+诱导出赋环站点的交换图
+$$
+\xymatrix{
+(Y_{spaces, \etale}, \mathcal{O}_Y) \ar[d]_{f_{spaces, \etale}} &
+((\textit{Spaces}/Y)_\etale, \mathcal{O}) \ar[d]^{f_{big}} \ar[l]^{\pi_Y} \\
+(X_{spaces, \etale}, \mathcal{O}_X) &
+((\textit{Spaces}/X)_\etale, \mathcal{O}) \ar[l]_{\pi_X}
+}
+$$
+将 $f_{small}^\sharp$、$f_{big}^\sharp$、$\pi_X^\sharp$ 和
+$\pi_Y^\sharp$ 的定义展开即可容易看出这一点。特别地，这意味着
+\begin{equation}
+\label{spaces-more-cohomology-equation-compare-big-small}
+(f_{big, *}\mathcal{F})|_{X_\etale} =
+f_{small, *}(\mathcal{F}|_{Y_\etale})
+\end{equation}
+对 $(\textit{Spaces}/Y)_\etale$ 上的任意层 $\mathcal{F}$ 都成立；
+若 $\mathcal{F}$ 是 $\mathcal{O}$-模层，则
+(\ref{spaces-more-cohomology-equation-compare-big-small}) 是 $X_\etale$ 上
+$\mathcal{O}_X$-模的同构。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-higher-direct-image}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的态射。
+\begin{enumerate}
+\item 对 $D((\textit{Spaces}/Y)_\etale)$ 中的 $K$，有
+$
+(Rf_{big, *}K)|_{X_\etale} = Rf_{small, *}(K|_{Y_\etale})
+$
+在 $D(X_\etale)$ 中成立。
+\item 对 $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$ 中的 $K$，有
+$
+(Rf_{big, *}K)|_{X_\etale} = Rf_{small, *}(K|_{Y_\etale})
+$
+在 $D(\textit{Mod}(X_\etale, \mathcal{O}_X))$ 中成立。
+\end{enumerate}
+更一般地，设 $g : X' \to X$ 为 $(\textit{Spaces}/X)_\etale$ 的对象。
+考虑纤维积
+$$
+\xymatrix{
+Y' \ar[r]_{g'} \ar[d]_{f'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+则
+\begin{enumerate}
+\item[(3)] 对 $D((\textit{Spaces}/Y)_\etale)$ 中的 $K$，有
+$i_g^{-1}(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^{-1}K)$
+在 $D(X'_\etale)$ 中成立。
+\item[(4)] 对 $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$ 中的 $K$，有
+$i_g^*(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^*K)$
+在 $D(\textit{Mod}(X'_\etale, \mathcal{O}_{X'}))$ 中成立。
+\item[(5)] 对 $D((\textit{Spaces}/Y)_\etale)$ 中的 $K$，有
+$g_{big}^{-1}(Rf_{big, *}K) = Rf'_{big, *}((g'_{big})^{-1}K)$
+在 $D((\textit{Spaces}/X')_\etale)$ 中成立。
+\item[(6)] 对 $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$ 中的 $K$，有
+$g_{big}^*(Rf_{big, *}K) = Rf'_{big, *}((g'_{big})^*K)$
+在 $D(\textit{Mod}(X'_\etale, \mathcal{O}_{X'}))$ 中成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选择表示 $K$ 的阿贝尔层 K-内射复形后，(1) 由引理
+\ref{spaces-more-cohomology-lemma-compare-injectives} 和
+(\ref{spaces-more-cohomology-equation-compare-big-small}) 推出。
+
+\medskip\noindent
+选择表示 $K$ 的阿贝尔层 K-内射复形后，(3) 由引理
+\ref{spaces-more-cohomology-lemma-compare-injectives} 和《拓扑》引理
+\ref{topologies-lemma-morphism-big-small-cartesian-diagram-etale} 推出。
+
+\medskip\noindent
+(5) 即《站点上的上同调》引理
+\ref{sites-cohomology-lemma-localize-cartesian-square}。
+
+\medskip\noindent
+(6) 即《站点上的上同调》引理
+\ref{sites-cohomology-lemma-localize-cartesian-square-modules}。
+
+\medskip\noindent
+(2) 可作如下证明。上文已看到，作为赋环站点的态射，有
+$\pi_X \circ f_{big} = f_{small} \circ \pi_Y$。因此由
+$R\pi_{X, *} \circ Rf_{big, *} = Rf_{small, *} \circ R\pi_{Y, *}$
+《站点上的上同调》引理
+\ref{sites-cohomology-lemma-derived-pushforward-composition} 得到上述等式。
+由于限制函子 $\pi_{X, *}$ 和 $\pi_{Y, *}$ 都正合，结论成立。
+
+\medskip\noindent
+(4) 由 (6) 以及把 (2) 应用于 $f' : Y' \to X'$ 得到。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $\mathcal{H}$ 为 $(\textit{Spaces}/X)_\etale$ 上的阿贝尔层。
+回忆，$H^n_\etale(U, \mathcal{H})$ 表示 $\mathcal{H}$ 在
+$(\textit{Spaces}/X)_\etale$ 的对象 $U$ 上的上同调。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-cohomology}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的态射。则
+\begin{enumerate}
+\item 对 $D(X_\etale)$ 中的 $K$，有
+$H^n_\etale(X, \pi_X^{-1}K) = H^n(X_\etale, K)$.
+\item 对 $D(X_\etale, \mathcal{O}_X)$ 中的 $K$，有
+$H^n_\etale(X, L\pi_X^*K) = H^n(X_\etale, K)$.
+\item 对 $D(X_\etale)$ 中的 $K$，有
+$H^n_\etale(Y, \pi_X^{-1}K) = H^n(Y_\etale, f_{small}^{-1}K)$.
+\item 对 $D(X_\etale, \mathcal{O}_X)$ 中的 $K$，有
+$H^n_\etale(Y, L\pi_X^*K) = H^n(Y_\etale, Lf_{small}^*K)$.
+\item 对 $D((\textit{Spaces}/X)_\etale)$ 中的 $M$，有
+$H^n_\etale(Y, M) = H^n(Y_\etale, i_f^{-1}M)$.
+\item 对 $D((\textit{Spaces}/X)_\etale, \mathcal{O})$ 中的 $M$，有
+$H^n_\etale(Y, M) = H^n(Y_\etale, i_f^*M)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明 (5)，用阿贝尔层的 K-内射复形表示 $M$，
+应用引理 \ref{spaces-more-cohomology-lemma-compare-injectives} 并展开定义即可。
+由于 $i_f^{-1}\pi_X^{-1} = f_{small}^{-1}$，(3) 由此推出；
+(1) 是 (3) 的特例。
+
+\medskip\noindent
+(6) 由十分一般的《站点上的上同调》引理
+\ref{sites-cohomology-lemma-pullback-same-cohomology} 推出。
+又因 $Lf_{small}^* = i_f^* \circ L\pi_X^*$，(4) 随之成立；
+(2) 是 (4) 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-cohomological-descent-etale}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+对 $K \in D(X_\etale)$，映射
+$$
+K \longrightarrow R\pi_{X, *}\pi_X^{-1}K
+$$
+是同构，其中 $\pi_X : \Sh((\textit{Spaces}/X)_\etale) \to
+\Sh(X_\etale)$ 如上所述。
+\end{lemma}
+
+\begin{proof}
+这是因为 $\pi_X^{-1}$ 和 $\pi_{X, *} = i_X^{-1}$ 都是正合函子，
+且复合 $\pi_{X, *} \circ \pi_X^{-1}$ 是恒等函子。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-higher-direct-image-proper}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的真态射。则有
+\begin{enumerate}
+\item $\pi_X^{-1} \circ f_{small, *} = f_{big, *} \circ \pi_Y^{-1}$
+作为函子 $\Sh(Y_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$ 的等式；
+\item $\pi_X^{-1}Rf_{small, *}K = Rf_{big, *}\pi_Y^{-1}K$
+对上同调层均为挠层的 $D^+(Y_\etale)$ 中对象 $K$ 成立；以及
+\item $\pi_X^{-1}Rf_{small, *}K = Rf_{big, *}\pi_Y^{-1}K$
+若 $f$ 有限，则对 $D(Y_\etale)$ 中所有 $K$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。设 $\mathcal{F}$ 为 $Y_\etale$ 上的层。
+设 $g : X' \to X$ 为 $(\textit{Spaces}/X)_\etale$ 的对象。
+考虑纤维积
+$$
+\xymatrix{
+Y' \ar[r]_{f'} \ar[d]_{g'} & X' \ar[d]^g \\
+Y \ar[r]^f & X
+}
+$$
+则有
+$$
+(f_{big, *}\pi_Y^{-1}\mathcal{F})(X') =
+(\pi_Y^{-1}\mathcal{F})(Y') =
+((g'_{small})^{-1}\mathcal{F})(Y')  =
+(f'_{small, *}(g'_{small})^{-1}\mathcal{F})(X')
+$$
+其中第二个等式由引理 \ref{spaces-more-cohomology-lemma-describe-pullback} 得到。另一方面，
+$$
+(\pi_X^{-1}f_{small, *}\mathcal{F})(X') =
+(g_{small}^{-1}f_{small, *}\mathcal{F})(X')
+$$
+这同样由引理 \ref{spaces-more-cohomology-lemma-describe-pullback} 得到。
+因此，由集合层的真基变换（引理
+\ref{spaces-more-cohomology-lemma-proper-base-change-f-star}），这两个集合典范同构。
+该同构与限制映射相容，并给出同构
+$\pi_X^{-1}f_{small, *}\mathcal{F} = f_{big, *}\pi_Y^{-1}\mathcal{F}$，
+从而给出函子同构
+$\pi_X^{-1} \circ f_{small, *} = f_{big, *} \circ \pi_Y^{-1}$。
+
+\medskip\noindent
+(2) 的证明。对 $D(Y_\etale)$ 中任意 $K$，存在典范基变换映射
+$\pi_X^{-1}Rf_{small, *}K \to Rf_{big, *}\pi_Y^{-1}K$
+参见《站点上的上同调》评注
+\ref{sites-cohomology-remark-base-change}。
+% P10-E0157
+为证明它是同构，只需证明：对 $(\Sch/X)_\etale$ 中任意对象
+$g : X' \to X$，沿
+$i_g : \Sh(X'_\etale) \to \Sh((\Sch/X)_\etale)$ 拉回该基变换映射后所得映射
+是同构。
+% P10-E0156
+令 $T', g', f'$ 如上一段所述。该基变换映射的拉回为
+\begin{align*}
+g_{small}^{-1}Rf_{small, *}K
+& =
+i_g^{-1}\pi_X^{-1}Rf_{small, *}K \\
+& \to
+i_g^{-1}Rf_{big, *}\pi_Y^{-1}K \\
+& =
+Rf'_{small, *}(i_{g'}^{-1}\pi_Y^{-1}K) \\
+& =
+Rf'_{small, *}((g'_{small})^{-1}K)
+\end{align*}
+这里使用了 $\pi_X \circ i_g = g_{small}$、
+$\pi_Y \circ i_{g'} = g'_{small}$ 以及引理
+\ref{spaces-more-cohomology-lemma-compare-higher-direct-image}。
+若 $K$ 下有界且 $K$ 的上同调层均为挠层，则由真基变换定理
+（引理 \ref{spaces-more-cohomology-lemma-proper-base-change}），该映射是同构。
+
+\medskip\noindent
+(3) 的证明。若 $f$ 有限，则函子 $f_{small, *}$ 和 $f_{big, *}$ 都正合。
+对 $f_{small}$，这由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero} 得到。
+由于 $f$ 的任意基变换 $f'$ 也有限，引理
+\ref{spaces-more-cohomology-lemma-compare-higher-direct-image} 的 (3) 表明 $f_{big, *}$ 也正合
+（因为高阶导出函子为零）。故此情形由 (1) 推出。
+\end{proof}
+
+
+
+
+
+
+
+\section{比较 fppf 拓扑与平展拓扑}
+\label{spaces-more-cohomology-section-fppf-etale}
+
+\noindent
+本节是《平展上同调》第
+\ref{etale-cohomology-section-fppf-etale} 节的对应版本。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+在范畴 $\textit{Spaces}/X$ 上考虑 fppf 拓扑和平展拓扑。恒等函子
+$(\textit{Spaces}/X)_\etale \to (\textit{Spaces}/X)_{fppf}$
+是连续的，并由《站点》命题
+\ref{sites-proposition-get-morphism} 定义站点态射
+$$
+\epsilon_X :
+(\textit{Spaces}/X)_{fppf} \longrightarrow (\textit{Spaces}/X)_\etale
+$$
+注意，$\epsilon_{X, *}$ 在底层预层上是恒等函子，而
+$\epsilon_X^{-1}$ 把一个平展层送到其 fppf 层化。
+考虑比较大、小平展站点的站点态射
+$$
+\pi_X : (\textit{Spaces}/X)_\etale \longrightarrow X_{spaces, \etale}
+$$
+参见第 \ref{spaces-more-cohomology-section-compare} 节。复合给出站点态射
+$$
+a_X = \pi_X \circ \epsilon_X :
+(\textit{Spaces}/X)_{fppf}
+\longrightarrow
+X_{spaces, \etale}
+$$
+若 $\mathcal{H}$ 是 $(\textit{Spaces}/X)_{fppf}$ 上的阿贝尔层，
+则用 $H^n_{fppf}(U, \mathcal{H})$ 表示 $\mathcal{H}$ 在
+$(\textit{Spaces}/X)_{fppf}$ 的对象 $U$ 上的上同调。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-comparison-fppf-etale}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 对 $\mathcal{F} \in \Sh(X_\etale)$，有
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+以及 $a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$。
+\item 对 $\mathcal{F} \in \textit{Ab}(X_\etale)$，当 $i > 0$ 时有
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+有 $a_X^{-1}\mathcal{F} = \epsilon_X^{-1} \pi_X^{-1}\mathcal{F}$。
+由引理 \ref{spaces-more-cohomology-lemma-describe-pullback}，平展层
+$\pi_X^{-1}\mathcal{F}$ 对 fppf 拓扑也是层，因此等于
+$a_X^{-1}\mathcal{F}$（因为沿 $\epsilon_X$ 拉回就是 fppf 层化）。
+还要回忆，$\epsilon_{X, *}$ 在底层预层上是恒等函子。
+现在由引理 \ref{spaces-more-cohomology-lemma-describe-pullback} 中 $\pi_X^{-1}$ 的显式描述，
+(1) 立即成立。
+
+\medskip\noindent
+我们将把 (2) 化归到概形情形来证明；参见《平展上同调》引理
+\ref{etale-cohomology-lemma-V-C-all-n-etale-fppf} 的 (1)。
+由于每个代数空间在平展局部都是概形，这“显然可行”。
+下文给出细节，不过建议读者跳过本证明。
+
+\medskip\noindent
+对 $(\textit{Spaces}/X)_{fppf}$ 上的阿贝尔层 $\mathcal{H}$，
+高阶正像 $R^p\epsilon_{X, *}\mathcal{H}$ 是
+$(\textit{Spaces}/X)_\etale$ 上预层
+$U \mapsto H^p_{fppf}(U, \mathcal{H})$ 的伴随层。
+参见《站点上的上同调》引理
+\ref{sites-cohomology-lemma-higher-direct-images}。
+由于 $(\textit{Spaces}/X)_\etale$ 的每个对象都有由概形组成的覆盖，
+只需证明：给定一个概形 $U/X$ 和
+$\xi \in H^p_{fppf}(U, a_X^{-1}\mathcal{F})$，可找到平展覆盖
+$\{U_i \to U\}$，使得 $\xi$ 在 $U_i$ 上的限制为零。我们有
+\begin{align*}
+H^p_{fppf}(U, a_X^{-1}\mathcal{F})
+& =
+H^p((\textit{Spaces}/U)_{fppf}, (a_X^{-1}\mathcal{F})|_{\textit{Spaces}/U}) \\
+& =
+H^p((\Sch/U)_{fppf}, (a_X^{-1}\mathcal{F})|_{\Sch/U})
+\end{align*}
+其中第二个等同由引理
+\ref{spaces-more-cohomology-lemma-compare-cohomology-other-topologies} 得到，第一个则是关于限制的一般事实
+（《站点上的上同调》引理
+\ref{sites-cohomology-lemma-cohomology-of-open}）。
+考察第一段以及概形情形的对应结果（《平展上同调》引理
+\ref{etale-cohomology-lemma-describe-pullback-pi-fppf}），可知层
+$(a_X^{-1}\mathcal{F})|_{\Sch/U}$ 与沿“概形版本的 $a_U$”拉回所得的层相同。
+因此可找到平展覆盖 $\{U_i \to U\}$，使得对每个 $i$，该类在
+$H^p((\Sch/U_i)_{fppf}, (a_X^{-1}\mathcal{F})|_{\Sch/U_i})$ 中消失；
+参见《平展上同调》引理
+\ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}
+（这里应使用的准确陈述是：$V_n$ 对所有 $n$ 成立，
+这正是概形情形下 (2) 的陈述）。
+再反向迁移（对 $U_i$ 使用与上文相同的公式），即可断定
+$\xi$ 在 $U_i$ 上的限制为零，如所需。
+\end{proof}
+
+\noindent
+概形情形中已经完成的艰苦工作现在告诉我们：
+对于来自小平展站点的层，平展上同调与 fppf 上同调相同。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-cohomological-descent-etale-fppf}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+对 $K \in D^+(X_\etale)$，映射
+$$
+\pi_X^{-1}K \longrightarrow R\epsilon_{X, *}a_X^{-1}K
+\quad\text{和}\quad
+K \longrightarrow Ra_{X, *}a_X^{-1}K
+$$
+均为同构，其中
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ 如上所述。
+\end{lemma}
+
+\begin{proof}
+只证明第二个陈述；第一个更容易，并可用完全相同的方法证明。
+立即可化归到 $K$ 由单个阿贝尔层给出的情形。事实上，用下有界复形
+$\mathcal{F}^\bullet$ 表示 $K$。由层的情形可知
+$\mathcal{F}^n = a_{X, *} a_X^{-1} \mathcal{F}^n$，
+且层 $R^qa_{X, *}a_X^{-1}\mathcal{F}^n$ 在 $q > 0$ 时为零。
+把 Leray 无环性引理（《导出范畴》引理
+\ref{derived-lemma-leray-acyclicity}）应用于
+$a_X^{-1}\mathcal{F}^\bullet$ 和函子 $a_{X, *}$，即得结论。
+以下假设 $K = \mathcal{F}$。
+
+\medskip\noindent
+由引理 \ref{spaces-more-cohomology-lemma-comparison-fppf-etale}，有
+$a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$。因此只需证明：当 $q > 0$ 时
+$R^qa_{X, *}a_X^{-1}\mathcal{F} = 0$。
+为此可使用
+% P10-E0159
+$a_X = \epsilon_X \circ \pi_X$ 以及 Leray 谱序列
+（《站点上的上同调》引理
+\ref{sites-cohomology-lemma-relative-Leray}）。
+由引理 \ref{spaces-more-cohomology-lemma-comparison-fppf-etale}，当 $i > 0$ 时有
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$。还有
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+并且由引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale}，当 $j > 0$ 时有
+$R^j\pi_{X, *}(\pi_X^{-1}\mathcal{F}) = 0$。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-cohomology-etale-fppf}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并令
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ 如上。则：
+\begin{enumerate}
+\item $H^q(X_\etale, \mathcal{F}) = H^q_{fppf}(X, a_X^{-1}\mathcal{F})$
+其中 $\mathcal{F}$ 是 $X_\etale$ 上的阿贝尔层；
+\item 对 $K \in D^+(X_\etale)$，有
+$H^q(X_\etale, K) = H^q_{fppf}(X, a_X^{-1}K)$。
+\end{enumerate}
+例如，若 $A$ 是阿贝尔群，则
+$H^q_\etale(X, \underline{A}) = H^q_{fppf}(X, \underline{A})$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale-fppf} 和
+《站点上的上同调》评注 \ref{sites-cohomology-remark-before-Leray} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-push-pull-fppf-etale}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+则有拓扑斯的交换图
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{fppf}) \ar[rr]_{f_{big, fppf}} \ar[d]_{\epsilon_X} & &
+\Sh((\textit{Spaces}/Y)_{fppf}) \ar[d]^{\epsilon_Y} \\
+\Sh((\textit{Spaces}/X)_\etale) \ar[rr]^{f_{big, \etale}} & &
+\Sh((\textit{Spaces}/Y)_\etale)
+}
+$$
+以及
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{fppf}) \ar[rr]_{f_{big, fppf}} \ar[d]_{a_X} & &
+\Sh((\textit{Spaces}/Y)_{fppf}) \ar[d]^{a_Y} \\
+\Sh(X_\etale) \ar[rr]^{f_{small}} & &
+\Sh(Y_\etale)
+}
+$$
+其中 $a_X = \pi_X \circ \epsilon_X$，并且
+% P10-E0160
+$a_Y = \pi_X \circ \epsilon_X$。
+\end{lemma}
+
+\begin{proof}
+展开所涉及态射的定义即可立即得到结论；参见《空间上的拓扑》第
+\ref{spaces-topologies-section-fppf} 节以及本章第 \ref{spaces-more-cohomology-section-compare} 节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-proper-push-pull-fppf-etale}
+在引理 \ref{spaces-more-cohomology-lemma-push-pull-fppf-etale} 中，若 $f$ 为真态射，则有
+\begin{enumerate}
+\item $a_Y^{-1} \circ f_{small, *} = f_{big, fppf, *} \circ a_X^{-1}$；以及
+\item
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, fppf, *}(a_X^{-1}K)$
+对任意上同调层均为挠层的 $K$ 属于 $D^+(X_\etale)$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。重复引理 \ref{spaces-more-cohomology-lemma-compare-higher-direct-image-proper}
+第 (1) 部分的证明即可；这里我们改为由该结果推出本结论。
+由于 $\epsilon_{Y, *}$ 在底层预层上是恒等函子，
+它反映同构。引理 \ref{spaces-more-cohomology-lemma-comparison-fppf-etale} 表明
+$\epsilon_{Y, *} \circ a_Y^{-1} = \pi_Y^{-1}$，
+对 $X$ 亦然。为了证明典范映射
+$a_Y^{-1}f_{small, *}\mathcal{F} \to f_{big, fppf, *}a_X^{-1}\mathcal{F}$
+是同构，只须证明
+\begin{align*}
+\pi_Y^{-1}f_{small, *}\mathcal{F}
+& =
+\epsilon_{Y, *}a_Y^{-1}f_{small, *}\mathcal{F} \\
+& \to 
+\epsilon_{Y, *}f_{big, fppf, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *} \epsilon_{X, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *}\pi_X^{-1}\mathcal{F}
+\end{align*}
+是同构。这正是引理 \ref{spaces-more-cohomology-lemma-compare-higher-direct-image-proper}
+第 (1) 部分。
+
+\medskip\noindent
+为证明 (2)，我们使用
+\begin{align*}
+R\epsilon_{Y, *}Rf_{big, fppf, *}a_X^{-1}K
+& =
+Rf_{big, \etale, *}R\epsilon_{X, *}a_X^{-1}K \\
+& =
+Rf_{big, \etale, *}\pi_X^{-1}K \\
+& =
+\pi_Y^{-1}Rf_{small, *}K \\
+& =
+R\epsilon_{Y, *} a_Y^{-1}Rf_{small, *}K
+\end{align*}
+% P10-E0158
+第一个等式来自引理 \ref{spaces-more-cohomology-lemma-push-pull-fppf-etale} 中的交换图以及
+《站点上的上同调》引理
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+% P10-E0161
+第二个等式是引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale-fppf}。
+第三个等式是引理 \ref{spaces-more-cohomology-lemma-compare-higher-direct-image-proper} 第 (2) 部分。
+第四个等式再次使用引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale-fppf}。
+因此，基变换映射
+$a_Y^{-1}(Rf_{small, *}K) \to Rf_{big, fppf, *}(a_X^{-1}K)$
+诱导同构
+$$
+R\epsilon_{Y, *}a_Y^{-1}Rf_{small, *}K \to
+R\epsilon_{Y, *}Rf_{big, fppf, *}a_X^{-1}K
+$$
+最后用以下观察完成证明：设 $L$ 属于 $D^+(Y_\etale)$、
+$M$ 属于 $D^+((\textit{Spaces}/Y)_{fppf})$，且映射
+$\alpha : a_Y^{-1}L \to M$ 使得 $R\epsilon_{Y, *}\alpha$ 为同构，
+则该映射本身也是同构。事实上，我们对 $i$ 归纳证明
+$H^i(\alpha)$ 为同构。对所有充分小的 $i$，这显然成立。
+若对 $i \leq i_0$ 成立，则由引理
+\ref{spaces-more-cohomology-lemma-comparison-fppf-etale} 以及在此范围内
+$H^i(M) = a_Y^{-1}H^i(L)$，可知
+对 $j > 0$ 且 $i \leq i_0$，有
+$R^j\epsilon_{Y, *}H^i(M) = 0$。于是谱序列论证给出
+$\epsilon_{Y, *}H^{i_0 + 1}(M) = H^{i_0 + 1}(R\epsilon_{Y, *}M)$。
+从而
+$\epsilon_{Y, *}H^{i_0 + 1}(M) = \pi_Y^{-1}H^{i_0 + 1}(L) =
+\epsilon_{Y, *}a_Y^{-1}H^{i_0 + 1}(L)$.
+这蕴含 $H^{i_0 + 1}(\alpha)$ 是同构，因为 $\epsilon_{Y, *}$
+在底层预层上恒等，因而反映同构。证毕。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-finite-push-pull-fppf-etale}
+在引理 \ref{spaces-more-cohomology-lemma-push-pull-fppf-etale} 中，若 $f$ 为有限态射，则
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, fppf, *}(a_X^{-1}K)$
+对任意属于 $D^+(X_\etale)$ 的 $K$ 成立。
+\end{lemma}
+
+\begin{proof}
+取满平展态射 $V \to Y$，其中 $V$ 为概形。
+只须证明限制到 $V$ 后基变换映射为同构，故可设 $Y$ 为概形。
+由于该态射有限，因而可表，我们进一步可设 $X$ 和 $Y$ 均为概形。
+此时，结论由概形的情形（《平展上同调》引理
+\ref{etale-cohomology-lemma-V-C-all-n-etale-fppf} 第 (2) 部分）得出；
+这里使用第 \ref{spaces-more-cohomology-section-api} 节所讨论的拓扑斯比较，
+尤其是引理 \ref{spaces-more-cohomology-lemma-compare-cohomology-other-topologies}。
+略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-descent-sheaf-fppf-etale}
+在引理 \ref{spaces-more-cohomology-lemma-push-pull-fppf-etale} 中，设
+$f$ 平坦、局部有限表示且满。则函子
+$$
+\Sh(Y_\etale) \longrightarrow
+\left\{
+(\mathcal{G}, \mathcal{H}, \alpha)
+\middle|
+\begin{matrix}
+\mathcal{G} \in \Sh(X_\etale),\ \mathcal{H} \in \Sh((\Sch/Y)_{fppf}), \\
+\alpha : a_X^{-1}\mathcal{G} \to f_{big, fppf}^{-1}\mathcal{H}
+\text{ 为同构}
+\end{matrix}
+\right\}
+$$
+把 $\mathcal{F}$ 映到
+$(f_{small}^{-1}\mathcal{F}, a_Y^{-1}\mathcal{F}, can)$，它是范畴等价。
+\end{lemma}
+
+\begin{proof}
+函子 $a_X^{-1}$ 全忠实（由引理 \ref{spaces-more-cohomology-lemma-comparison-fppf-etale}，
+$a_{X, *}a_X^{-1} = \text{id}$）。因此，遗忘函子
+$(\mathcal{G}, \mathcal{H}, \alpha) \mapsto \mathcal{H}$
+把三元组范畴认同为 $\Sh((\Sch/Y)_{fppf})$ 的一个全子范畴。
+此外，函子 $a_Y^{-1}$ 全忠实，故引理中的函子也全忠实。
+
+\medskip\noindent
+设有平展覆盖 $\{Y_i \to Y\}$。令 $f_i : X_i \to Y_i$ 为 $f$ 的基变换，
+并记
+$f_{ij} = f_i \times f_j : X_i \times_X X_j  \to Y_i \times_Y Y_j$。
+断言：若对所有 $i,j$，引理对 $f_i$ 和 $f_{ij}$ 均成立，则它对 $f$ 也成立。
+为此注意，给定平展覆盖在四个站点
+$Y_\etale, X_\etale, (\Sch/Y)_{fppf}, (\Sch/X)_{fppf}$
+中的每一个上都给出终对象的平展覆盖。因此在四种情形中，层范畴都等价于
+该覆盖的粘合数据范畴（《站点论》引理
+\ref{sites-lemma-mapping-property-glue}）。随后，一个巨大的范畴交换图即完成
+该断言的证明；细节从略。该断言表明可以在 $Y$ 上平展局部地工作，
+特别地可设 $Y$ 为概形。
+
+\medskip\noindent
+设 $Y$ 为概形。取概形 $X'$ 及满平展态射 $s : X' \to X$。
+令 $f' = f \circ s : X' \to Y$；注意 $f'$ 满、局部有限表示且平坦。
+断言：若引理对 $f'$ 成立，则对 $f$ 也成立。
+事实上，给定 $f$ 的三元组 $(\mathcal{G}, \mathcal{H}, \alpha)$，
+沿 $s$ 拉回便得到 $f'$ 的三元组
+$(s_{small}^{-1}\mathcal{G}, \mathcal{H}, s_{big, fppf}^{-1}\alpha)$。
+该三元组的一个解给出 $Y_\etale$ 上的层 $\mathcal{F}$，满足
+$a_Y^{-1}\mathcal{F} = \mathcal{H}$。由证明第一段，这意味着原三元组位于
+本质像中。于是问题化归为 $X$、$Y$ 均为概形的情形。
+此情形由《平展上同调》引理
+\ref{etale-cohomology-lemma-descent-sheaf-fppf-etale} 得出；
+这里利用第 \ref{spaces-more-cohomology-section-api} 节的讨论，尤其是引理
+\ref{spaces-more-cohomology-lemma-compare-cohomology-other-topologies}。
+\end{proof}
+
+
+
+\section{比较 fppf 拓扑与平展拓扑：模}
+\label{spaces-more-cohomology-section-fppf-etale-modules}
+
+\noindent
+我们继续第 \ref{spaces-more-cohomology-section-fppf-etale} 节的讨论，
+但本节简要考察模层的情形。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+第 \ref{spaces-more-cohomology-section-fppf-etale} 节引入的站点态射
+$\epsilon_X$、$\pi_X$ 及其复合 $a_X$
+都自然提升为赋环站点的态射。第一个写作
+$$
+\epsilon_X :
+((\textit{Spaces}/X)_{fppf}, \mathcal{O})
+\longrightarrow
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+$$
+注意，我们确实可以对结构层使用同一符号，因为这些层有相同的底层预层。
+第二个是
+$$
+\pi_X :
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+\longrightarrow
+(X_\etale, \mathcal{O}_X)
+$$
+第三个态射是
+$$
+a_X :
+((\textit{Spaces}/X)_{fppf}, \mathcal{O})
+\longrightarrow
+(X_\etale, \mathcal{O}_X)
+$$
+下面回顾关于这些站点上拟凝聚模的已有结论。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-review-quasi-coherent}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，
+$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+\begin{enumerate}
+\item 规则
+$$
+\mathcal{F}^a : (\textit{Spaces}/X)_\etale \longrightarrow \textit{Ab},\quad
+(f : Y \to X) \longmapsto \Gamma(Y, f^*\mathcal{F})
+$$
+对 fpqc 覆盖满足层条件，因而尤其对 fppf 覆盖和平展覆盖满足层条件；
+\item 在 $(\textit{Spaces}/X)_\etale$ 上，
+$\mathcal{F}^a = \pi_X^*\mathcal{F}$；
+\item 在 $(\textit{Spaces}/X)_{fppf}$ 上，
+$\mathcal{F}^a = a_X^*\mathcal{F}$；
+\item 规则 $\mathcal{F} \mapsto \mathcal{F}^a$ 给出拟凝聚
+$\mathcal{O}_X$-模与
+$((\textit{Spaces}/X)_\etale, \mathcal{O})$ 上拟凝聚模之间的等价；
+\item 规则 $\mathcal{F} \mapsto \mathcal{F}^a$ 给出拟凝聚
+$\mathcal{O}_X$-模与
+$((\textit{Spaces}/X)_{fppf}, \mathcal{O})$ 上拟凝聚模之间的等价；
+\item 有 $\epsilon_{X, *}a_X^*\mathcal{F} = \pi_X^*\mathcal{F}$
+及 $a_{X, *}a_X^*\mathcal{F} = \mathcal{F}$；
+\item 对 $i > 0$，有 $R^i\epsilon_{X, *}(a_X^*\mathcal{F}) = 0$
+及 $R^ia_{X, *}(a_X^*\mathcal{F}) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 部分是拟凝聚模 fppf 下降的推论。
+具体地，设 $\{f_i : U_i \to U\}$ 是
+$(\textit{Spaces}/X)_\etale$ 中的 fpqc 覆盖，
+记 $g : U \to X$ 为结构态射。设有一族截面
+$s_i \in \Gamma(U_i , f_i^*g^*\mathcal{F})$，满足
+$s_i|_{U_i \times_U U_j} = s_j|_{U_i \times_U U_j}$。
+% P10-E0163
+我们要找相应截面 $s \in \Gamma(U, g^*\mathcal{F})$。
+可以把 $s_i$ 重新解释为一族映射
+$\varphi_i : f_i^*\mathcal{O}_U = \mathcal{O}_{U_i} \to f_i^*g^*\mathcal{F}$
+并且它们与 $U$ 上拟凝聚层 $\mathcal{O}_U$ 和 $g^*\mathcal{F}$
+所带的典范下降数据相容。因此由《代数空间的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}，
+可将它们唯一地下降为映射 $\mathcal{O}_U \to g^*\mathcal{F}$，
+它给出所求截面 $s$。
+
+\medskip\noindent
+我们将由概形的相应结论推出 (2)--(7)。
+取平展覆盖 $\{X_i \to X\}_{i \in I}$，其中每个 $X_i$ 都是概形；
+注意 $X_i \times_X X_j$ 也是概形。此覆盖在三个站点
+$(\textit{Spaces}/X)_{fppf}$、$(\textit{Spaces}/X)_\etale$ 和 $X_\etale$
+的每一个上都诱导终对象的覆盖。因此，这些站点上的层范畴等价于相应覆盖的
+下降数据范畴；参见《站点论》引理 \ref{sites-lemma-mapping-property-glue}。
+第 (2)、(3) 部分是局部的，因为已有粘合结论；拟凝聚性是局部性质，
+故第 (4)、(5) 部分也是局部的。显然，第 (6)、(7) 部分也是局部的。
+所以只须在 $X$ 为概形时证明引理的第 (2)--(7) 部分。
+
+\medskip\noindent
+设 $X$ 为概形。嵌入
+$(\Sch/X)_\etale \subset (\textit{Spaces}/X)_\etale$ 和
+$(\Sch/X)_{fppf} \subset (\textit{Spaces}/X)_{fppf}$
+由引理 \ref{spaces-more-cohomology-lemma-compare-cohomology-other-topologies} 给出赋环拓扑斯的等价。
+于是 (2)--(7) 由概形情形即《平展上同调》引理
+\ref{etale-cohomology-lemma-review-quasi-coherent} 得出。
+为经由此等价迁移拟凝聚性，使用拟凝聚性是模的内蕴性质这一事实；
+参见《站点上的模》第 \ref{sites-modules-section-local} 节。
+略去若干次要细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-cohomological-descent-etale-fppf-modules}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+对拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，映射
+$$
+\pi_X^*\mathcal{F} \longrightarrow R\epsilon_{X, *}(a_X^*\mathcal{F})
+\quad\text{和}\quad
+\mathcal{F} \longrightarrow Ra_{X, *}(a_X^*\mathcal{F})
+$$
+均为同构。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-more-cohomology-lemma-review-quasi-coherent} 第 (6)、(7) 部分的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-vanishing-adequate}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $\mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3$
+为拟凝聚 $\mathcal{O}_X$-模的复形。令
+$$
+\mathcal{H}_\etale =
+\Ker(\pi_X^*\mathcal{F}_2 \to \pi_X^*\mathcal{F}_3)/
+\Im(\pi_X^*\mathcal{F}_1 \to \pi_X^*\mathcal{F}_2)
+$$
+于 $(\textit{Spaces}/X)_\etale$ 上，并令
+$$
+\mathcal{H}_{fppf} =
+\Ker(a_X^*\mathcal{F}_2 \to a_X^*\mathcal{F}_3)/
+\Im(a_X^*\mathcal{F}_1 \to a_X^*\mathcal{F}_2)
+$$
+于 $(\textit{Spaces}/X)_{fppf}$ 上。则
+$\mathcal{H}_\etale = \epsilon_{X, *}\mathcal{H}_{fppf}$，并且
+$$
+H^p_\etale(U, \mathcal{H}_\etale) = H^p_{fppf}(U, \mathcal{H}_{fppf}) = 0
+$$
+对 $p > 0$ 以及 $(\textit{Spaces}/X)_\etale$ 的任意仿射对象 $U$ 成立。
+\end{lemma}
+
+\noindent
+事实上还有更强的结论：$(\textit{Spaces}/X)_{fppf}$ 上那些在 fppf 局部
+具有引理中形式的模称为适足模。
+% P10-E0164
+它们构成全体 $\mathcal{O}$-模范畴的一个弱 Serre 子范畴；
+其上同调见《适足模》第 \ref{adequate-section-adequate} 节。
+
+\begin{proof}
+对 $(\textit{Spaces}/X)_\etale$ 的任意对象 $f : U \to X$，
+考虑经由第 \ref{spaces-more-cohomology-section-compare} 节讨论的函子 $i_f^* = i_f^{-1}$
+把 $\mathcal{H}_\etale$ 限制到 $U_\etale$ 所得的
+$\mathcal{H}_\etale|_{U_\etale}$。层 $\mathcal{H}_\etale|_{U_\etale}$
+等于复形 $f^*\mathcal{F}_\bullet$ 的第 $1$ 次同调。
+这是因为作为赋环站点 $U_\etale \to X_\etale$ 的态射有
+$i_f \circ \pi_X = f$。特别地，
+$\mathcal{H}_\etale|_{U_\etale}$ 是拟凝聚 $\mathcal{O}_U$-模。
+其次，设 $g : V \to U$ 是 $(\textit{Spaces}/X)_\etale$ 中的平坦态射。
+由于
+$$
+i_{f \circ g}^* \circ \pi_X^* = (f \circ g)^* = g^* \circ f^*
+$$
+作为站点 $V_\etale \to X_\etale$ 的态射成立，且 $g$ 平坦，
+所以 $g^*$ 正合，从而得到
+$$
+\mathcal{H}_\etale|_{V_\etale} =
+g^*\left(\mathcal{H}_\etale|_{U_\etale}\right)
+$$
+有了这些准备，即可证明引理。
+
+\medskip\noindent
+设 $\mathcal{U} = \{g_i : U_i \to U\}_{i \in I}$ 为 fppf 覆盖，
+其中 $f : U \to X$ 如上。把引理 \ref{spaces-more-cohomology-lemma-review-quasi-coherent}
+第 (1) 部分应用于 $\mathcal{H}_\etale|_{U_\etale}$，再结合上述结论，
+可知 $\mathcal{H}_\etale$ 对覆盖 $\mathcal{U}$ 满足层条件。
+因此 $\mathcal{H}_\etale$ 已经是 fppf 层，这意味着作为预层，
+$\mathcal{H}_{fppf}$ 等于 $\mathcal{H}_\etale$。特别地，
+$\mathcal{H}_\etale = \epsilon_{X, *}\mathcal{H}_{fppf}$。
+
+\medskip\noindent
+最后，为证明消没性，我们使用《站点上的上同调》引理
+\ref{sites-cohomology-lemma-cech-vanish-collection}。
+令 $\mathcal{B}$ 为 $(\textit{Spaces}/X)_{fppf}$ 中的仿射对象，
+令 $\text{Cov}$ 为有限 fppf 覆盖
+$\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$ 的集合，
+其中 $U$ 和 $U_i$ 均仿射。我们有
+$$
+{\check H}^p(\mathcal{U}, \mathcal{H}_\etale) =
+{\check H}^p(\mathcal{U}, \left(\mathcal{H}_\etale|_{U_\etale}\right)^a)
+$$
+这是因为由第一段，$\mathcal{H}_\etale$ 在那些平坦于 $U$ 的仿射概形
+$U_{i_0} \times_U \ldots \times_U U_{i_p}$ 上的取值，
+与拟凝聚模 $\mathcal{H}_\etale|_{U_\etale}$ 的拉回取值相同。
+于是由《下降》引理 \ref{descent-lemma-standard-covering-Cech-quasi-coherent}
+得到消没性。这就完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-cohomological-descent-etale-fppf-modules-unbounded}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+对 $K \in D_\QCoh(\mathcal{O}_X)$，映射
+$$
+L\pi_X^*K \longrightarrow R\epsilon_{X, *}(La_X^*K)
+\quad\text{和}\quad
+K \longrightarrow Ra_{X, *}(La_X^*K)
+$$
+均为同构。这里
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ 如上所述。
+\end{lemma}
+
+\begin{proof}
+该问题在 $X$ 上是平展局部的，故可设 $X$ 仿射。
+设 $X = \Spec(A)$。由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+及《概形的导出范畴》引理 \ref{perfect-lemma-affine-compare-bounded}，
+有 $D_\QCoh(\mathcal{O}_X) = D(A)$。
+% P10-E0165
+因此可选取一个 $A$-模的 K-平坦复形 $K^\bullet$，
+使其对应的拟凝聚 $\mathcal{O}_X$-模复形 $\mathcal{K}^\bullet$ 表示 $K$。
+我们断言 $\mathcal{K}^\bullet$ 是 $\mathcal{O}_X$-模的 K-平坦复形。
+
+\medskip\noindent
+证明该断言。由《概形的导出范畴》引理
+\ref{perfect-lemma-affine-K-flat}
+可知 $\widetilde{K}^\bullet$ 在概形
+$(\Spec(A), \mathcal{O}_{\Spec(A)})$ 上 K-平坦。
+其次注意 $\mathcal{K}^\bullet = \epsilon^*\widetilde{K}^\bullet$，
+其中 $\epsilon$ 如《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site} 所述。
+再由《站点上的上同调》引理
+\ref{sites-cohomology-lemma-pullback-K-flat-points}，以及概形的平展站点有足够多点
+这一事实（《平展上同调》评注 \ref{etale-cohomology-remarks-enough-points}），
+可知 $\mathcal{K}^\bullet$ K-平坦。
+
+\medskip\noindent
+由该断言可知
+$La_X^*K = a_X^*\mathcal{K}^\bullet$ 和
+$L\pi_X^*K = \pi_X^*\mathcal{K}^\bullet$。
+证明第一部分表明，拟凝聚模的拉回 $a_X^*\mathcal{K}^n$
+分别对 $\epsilon_{X, *}$ 和 $a_{X, *}$ 无上同调；
+那么证明必然由 Leray 无上同调性引理完成了吧？其实并非如此，
+因为 Leray 无上同调性引理只适用于下有界复形。
+不过下一段将说明，本结论确实可由下有界情形推出，
+因为我们的复形是拟凝聚模下有界复形的导出逆极限。
+
+\medskip\noindent
+由引理 \ref{spaces-more-cohomology-lemma-vanishing-adequate}，
+$\pi_X^*\mathcal{K}^\bullet$ 和 $a_X^*\mathcal{K}^\bullet$ 的上同调层
+在 $(\textit{Spaces}/X)_\etale$ 的仿射对象上有消没的高阶上同调群。
+因此有
+$$
+L\pi_X^*K = R\lim \tau_{\geq -n}(L\pi_X^*K)
+\quad\text{和}\quad
+La_X^*K = R\lim \tau_{\geq -n}(La_X^*K)
+$$
+这是《站点上的上同调》引理
+\ref{sites-cohomology-lemma-is-limit-dimension} 的结论。
+
+\medskip\noindent
+% P10-E0166
+证明 $L\pi_X^*K = R\epsilon_{X, *}(La_X^*\mathcal{F})$。
+由上可得
+$$
+R\epsilon_{X, *}La_X^*K =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(La_X^*K))
+$$
+这是《站点上的上同调》引理
+\ref{sites-cohomology-lemma-Rf-commutes-with-Rlim}。
+注意 $\tau_{\geq -n}(La_X^*K)$ 由
+$\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)$ 表示，
+它未必等同于 $a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)$。
+但以下两个系统显然
+$$
+\{\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)\}_{n \geq 1}
+\quad\text{和}\quad
+\{a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)\}_{n \geq 1}
+$$
+作为 pro-系统同构。由 Leray 无上同调性引理
+（《导出范畴》引理 \ref{derived-lemma-leray-acyclicity}）
+以及本引理第一部分，可知
+$$
+R\epsilon_{X, *}(a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)) =
+\pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)
+$$
+然后使用以下两个系统
+$$
+\{\tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet)\}_{n \geq 1}
+\quad\text{和}\quad
+\{\pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)\}_{n \geq 1}
+$$
+作为 pro-系统同构这一事实。最后汇总如下：
+\begin{align*}
+R\epsilon_{X, *}La_X^*K
+& =
+R\epsilon_{X, *} (R\lim \tau_{\geq -n}(La_X^*K)) \\
+& =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(La_X^*K)) \\
+& =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)) \\
+& =
+R\lim R\epsilon_{X, *}(a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)) \\
+& =
+R\lim \pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet) \\
+& =
+R\lim \tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet) \\
+& =
+R\lim \tau_{\geq -n}(L\pi_X^*K) \\
+& =
+L\pi_X^*K
+\end{align*}
+在第四个和第六个等式中，我们使用了同构的 pro-系统具有相同的
+$R\lim$（略去一个小细节）。也可以利用引理
+\ref{spaces-more-cohomology-lemma-vanishing-adequate} 所证明的、关于复形
+$\tau_{\geq -n}a_X^*\mathcal{K}^\bullet$ 各项上同调的更多信息来避开这一步；
+这会直接证明
+$R\epsilon_{X, *}(\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)) =
+\tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet)$。
+
+\medskip\noindent
+% P10-E0167
+等式 $K = Ra_{X, *}(La_X^*\mathcal{F})$ 的证明完全相同；
+最后一步使用《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-nice-K-injective} 给出的
+$K = R\lim \tau_{\geq -n}K$。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{比较 ph 拓扑与平展拓扑}
+\label{spaces-more-cohomology-section-ph-etale}
+
+\noindent
+本节对应于《平展上同调》第
+\ref{etale-cohomology-section-ph-etale} 节。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+在范畴 $\textit{Spaces}/X$ 上考虑 ph 拓扑和平展拓扑。
+恒等函子
+$(\textit{Spaces}/X)_\etale \to (\textit{Spaces}/X)_{ph}$
+连续，因为由《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph}，
+每个平展覆盖都是 ph 覆盖。因此它定义站点态射
+$$
+\epsilon_X :
+(\textit{Spaces}/X)_{ph} \longrightarrow (\textit{Spaces}/X)_\etale
+$$
+这里使用了《站点论》命题 \ref{sites-proposition-get-morphism}。
+注意 $\epsilon_{X, *}$ 在底层预层上是恒等函子，而
+$\epsilon_X^{-1}$ 把一个平展层映到其 ph 层化。
+再考虑比较大、小平展站点的站点态射
+$$
+\pi_X : (\textit{Spaces}/X)_\etale \longrightarrow X_{spaces, \etale}
+$$
+参见第 \ref{spaces-more-cohomology-section-compare} 节。其复合给出站点态射
+$$
+a_X = \pi_X \circ \epsilon_X :
+(\textit{Spaces}/X)_{ph}
+\longrightarrow
+X_{spaces, \etale}
+$$
+若 $\mathcal{H}$ 是 $(\textit{Spaces}/X)_{ph}$ 上的阿贝尔层，
+则以 $H^n_{ph}(U, \mathcal{H})$ 表示 $\mathcal{H}$ 在
+$(\textit{Spaces}/X)_{ph}$ 的对象 $U$ 上的上同调。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-comparison-ph-etale}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 对 $\mathcal{F} \in \Sh(X_\etale)$，有
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+及 $a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$。
+\item 对挠层 $\mathcal{F} \in \textit{Ab}(X_\etale)$，
+当 $i > 0$ 时有 $R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+有 $a_X^{-1}\mathcal{F} = \epsilon_X^{-1} \pi_X^{-1}\mathcal{F}$。
+由引理 \ref{spaces-more-cohomology-lemma-describe-pullback}，平展层
+$\pi_X^{-1}\mathcal{F}$ 对 ph 拓扑也是层，故等于
+$a_X^{-1}\mathcal{F}$，因为沿 $\epsilon_X$ 拉回就是进行 ph 层化。
+还要回忆，$\epsilon_{X, *}$ 在底层预层上是恒等函子。
+现在，第 (1) 部分立即由引理 \ref{spaces-more-cohomology-lemma-describe-pullback}
+中对 $\pi_X^{-1}$ 的显式描述得出。
+
+\medskip\noindent
+我们把第 (2) 部分化归为概形情形来证明；参见《平展上同调》引理
+\ref{etale-cohomology-lemma-V-C-all-n-etale-ph} 第 (1) 部分。
+由于每个代数空间平展局部都是概形，这一方法“显然可行”。
+下面给出细节，不过我们建议读者跳过此证明。
+
+\medskip\noindent
+对 $(\textit{Spaces}/X)_{ph}$ 上的阿贝尔层 $\mathcal{H}$，
+高阶直像 $R^p\epsilon_{X, *}\mathcal{H}$ 是
+$(\textit{Spaces}/X)_\etale$ 上预层
+$U \mapsto H^p_{ph}(U, \mathcal{H})$ 所关联的层；
+参见《站点上的上同调》引理
+\ref{sites-cohomology-lemma-higher-direct-images}。
+由于 $(\textit{Spaces}/X)_\etale$ 的每个对象都有由概形组成的覆盖，
+只须证明：给定概形 $U/X$ 及
+$\xi \in H^p_{ph}(U, a_X^{-1}\mathcal{F})$，可以找到平展覆盖
+$\{U_i \to U\}$，使 $\xi$ 在每个 $U_i$ 上的限制均为零。我们有
+\begin{align*}
+H^p_{ph}(U, a_X^{-1}\mathcal{F})
+& =
+H^p((\textit{Spaces}/U)_{ph}, (a_X^{-1}\mathcal{F})|_{\textit{Spaces}/U}) \\
+& =
+H^p((\Sch/U)_{ph}, (a_X^{-1}\mathcal{F})|_{\Sch/U})
+\end{align*}
+其中第二个认同来自引理 \ref{spaces-more-cohomology-lemma-compare-cohomology-other-topologies}，
+第一个则是关于限制的一般事实（《站点上的上同调》引理
+\ref{sites-cohomology-lemma-cohomology-of-open}）。
+考察第一段以及概形情形的对应结果（《平展上同调》引理
+\ref{etale-cohomology-lemma-describe-pullback-pi-ph}），可知层
+$(a_X^{-1}\mathcal{F})|_{\Sch/U}$ 与沿“概形版 $a_U$”的拉回一致。
+因此可以找到平展覆盖 $\{U_i \to U\}$，使得对每个 $i$，我们的类在
+$H^p((\Sch/U_i)_{ph}, (a_X^{-1}\mathcal{F})|_{\Sch/U_i})$ 中消失；
+参见《平展上同调》引理
+\ref{etale-cohomology-lemma-V-C-all-n-etale-ph}。
+这里应当使用的精确陈述是：$V_n$ 对所有 $n$ 成立，
+这就是概形情形的第 (2) 部分。再按上述相同公式对 $U_i$ 迁移回来，
+便得到 $\xi$ 在 $U_i$ 上的限制为零，如所需。
+\end{proof}
+
+\noindent
+概形情形中完成的艰苦工作现在告诉我们：
+对于来自小平展站点的挠阿贝尔层，平展上同调与 ph 上同调一致。
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-cohomological-descent-etale-ph}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+对上同调层均为挠层的 $K \in D^+(X_\etale)$，映射
+$$
+\pi_X^{-1}K \longrightarrow R\epsilon_{X, *}a_X^{-1}K
+\quad\text{和}\quad
+K \longrightarrow Ra_{X, *}a_X^{-1}K
+$$
+均为同构，其中
+$a_X : \Sh((\textit{Spaces}/X)_{ph}) \to \Sh(X_\etale)$ 如上所述。
+\end{lemma}
+
+\begin{proof}
+只证明第二个陈述；第一个更容易，且证明方法完全相同。
+可以化归到 $K$ 由单个挠阿贝尔层给出的情形。
+具体地，用挠阿贝尔层的下有界复形 $\mathcal{F}^\bullet$ 表示 $K$；
+《站点上的上同调》引理 \ref{sites-cohomology-lemma-torsion}
+保证可以如此选择。由单个层的情形可知
+$\mathcal{F}^n = a_{X, *} a_X^{-1} \mathcal{F}^n$
+且当 $q > 0$ 时，层 $R^qa_{X, *}a_X^{-1}\mathcal{F}^n$ 为零。
+把 Leray 无上同调性引理（《导出范畴》引理
+\ref{derived-lemma-leray-acyclicity}）应用于
+$a_X^{-1}\mathcal{F}^\bullet$ 和函子 $a_{X, *}$，即得结论。
+以下设 $K = \mathcal{F}$，其中 $\mathcal{F}$ 为挠阿贝尔层。
+
+\medskip\noindent
+由引理 \ref{spaces-more-cohomology-lemma-comparison-ph-etale}，
+$a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$，故只须证明当 $q > 0$ 时
+$R^qa_{X, *}a_X^{-1}\mathcal{F} = 0$。
+% P10-E0168
+为此可使用 $a_X = \epsilon_X \circ \pi_X$ 以及 Leray 谱序列
+（《站点上的上同调》引理 \ref{sites-cohomology-lemma-relative-Leray}）。
+由引理 \ref{spaces-more-cohomology-lemma-comparison-ph-etale}，当 $i > 0$ 时有
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$。又有
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+且由引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale}，当 $j > 0$ 时有
+$R^j\pi_{X, *}(\pi_X^{-1}\mathcal{F}) = 0$。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-compare-cohomology-etale-ph}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+沿用上述 $a_X : \Sh((\textit{Spaces}/X)_{ph}) \to \Sh(X_\etale)$，则：
+\begin{enumerate}
+\item $H^q(X_\etale, \mathcal{F}) = H^q_{ph}(X, a_X^{-1}\mathcal{F})$
+对 $X_\etale$ 上的挠阿贝尔层 $\mathcal{F}$ 成立；
+\item 对上同调层均为挠层的 $K \in D^+(X_\etale)$，有
+$H^q(X_\etale, K) = H^q_{ph}(X, a_X^{-1}K)$。
+\end{enumerate}
+例如，若 $A$ 为挠阿贝尔群，则
+$H^q_\etale(X, \underline{A}) = H^q_{ph}(X, \underline{A})$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale-ph} 以及
+《站点上的上同调》评注 \ref{sites-cohomology-remark-before-Leray} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-push-pull-ph-etale}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。
+则有拓扑斯交换图
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{ph}) \ar[rr]_{f_{big, ph}} \ar[d]_{\epsilon_X} & &
+\Sh((\textit{Spaces}/Y)_{ph}) \ar[d]^{\epsilon_Y} \\
+\Sh((\textit{Spaces}/X)_\etale) \ar[rr]^{f_{big, \etale}} & &
+\Sh((\textit{Spaces}/Y)_\etale)
+}
+$$
+以及
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{ph}) \ar[rr]_{f_{big, ph}} \ar[d]_{a_X} & &
+\Sh((\textit{Spaces}/Y)_{ph}) \ar[d]^{a_Y} \\
+\Sh(X_\etale) \ar[rr]^{f_{small}} & &
+\Sh(Y_\etale)
+}
+$$
+% P10-E0169
+其中 $a_X = \pi_X \circ \epsilon_X$ 且 $a_Y = \pi_X \circ \epsilon_X$。
+\end{lemma}
+
+\begin{proof}
+展开所涉及态射的定义即可立即得到结论；参见《空间上的拓扑》第
+\ref{spaces-topologies-section-ph} 节以及本章第 \ref{spaces-more-cohomology-section-compare} 节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-more-cohomology-lemma-proper-push-pull-ph-etale}
+在引理 \ref{spaces-more-cohomology-lemma-push-pull-ph-etale} 中，若 $f$ 为真态射，则有
+\begin{enumerate}
+\item $a_Y^{-1} \circ f_{small, *} = f_{big, ph, *} \circ a_X^{-1}$；以及
+\item
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, ph, *}(a_X^{-1}K)$
+对任意上同调层均为挠层的 $K$ 属于 $D^+(X_\etale)$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。重复引理 \ref{spaces-more-cohomology-lemma-compare-higher-direct-image-proper}
+第 (1) 部分的证明即可；这里我们改为由该结果推出本结论。
+由于 $\epsilon_{Y, *}$ 在底层预层上是恒等函子，它反映同构。
+引理 \ref{spaces-more-cohomology-lemma-comparison-ph-etale} 表明
+$\epsilon_{Y, *} \circ a_Y^{-1} = \pi_Y^{-1}$，对 $X$ 亦然。
+为了证明典范映射
+$a_Y^{-1}f_{small, *}\mathcal{F} \to f_{big, ph, *}a_X^{-1}\mathcal{F}$
+是同构，只须证明
+\begin{align*}
+\pi_Y^{-1}f_{small, *}\mathcal{F}
+& =
+\epsilon_{Y, *}a_Y^{-1}f_{small, *}\mathcal{F} \\
+& \to 
+\epsilon_{Y, *}f_{big, ph, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *} \epsilon_{X, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *}\pi_X^{-1}\mathcal{F}
+\end{align*}
+是同构。这正是引理 \ref{spaces-more-cohomology-lemma-compare-higher-direct-image-proper}
+第 (1) 部分。
+
+\medskip\noindent
+为证明 (2)，我们使用
+\begin{align*}
+R\epsilon_{Y, *}Rf_{big, ph, *}a_X^{-1}K
+& =
+Rf_{big, \etale, *}R\epsilon_{X, *}a_X^{-1}K \\
+& =
+Rf_{big, \etale, *}\pi_X^{-1}K \\
+& =
+\pi_Y^{-1}Rf_{small, *}K \\
+& =
+R\epsilon_{Y, *} a_Y^{-1}Rf_{small, *}K
+\end{align*}
+% P10-E0170
+第一个等式来自引理 \ref{spaces-more-cohomology-lemma-push-pull-ph-etale} 中的交换图以及
+《站点上的上同调》引理
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+% P10-E0171
+第二个等式是引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale-ph}。
+第三个等式是引理 \ref{spaces-more-cohomology-lemma-compare-higher-direct-image-proper} 第 (2) 部分。
+第四个等式再次使用引理 \ref{spaces-more-cohomology-lemma-cohomological-descent-etale-ph}。
+因此，基变换映射
+$a_Y^{-1}(Rf_{small, *}K) \to Rf_{big, ph, *}(a_X^{-1}K)$
+诱导同构
+$$
+R\epsilon_{Y, *}a_Y^{-1}Rf_{small, *}K \to
+R\epsilon_{Y, *}Rf_{big, ph, *}a_X^{-1}K
+$$
+最后用以下观察完成证明：考虑映射
+$\alpha : a_Y^{-1}L \to M$，其中 $L$ 属于 $D^+(Y_\etale)$，
+其上同调层均为挠层，且 $M$ 属于 $D^+((\textit{Spaces}/Y)_{ph})$。
+若 $R\epsilon_{Y, *}\alpha$ 是同构，则 $\alpha$ 也是同构。
+事实上，我们对 $i$ 归纳证明 $H^i(\alpha)$ 是同构。
+对所有充分小的 $i$，这显然成立。若对 $i \leq i_0$ 成立，
+则由引理 \ref{spaces-more-cohomology-lemma-comparison-ph-etale} 以及在此范围内
+$H^i(M) = a_Y^{-1}H^i(L)$，可知
+对 $j > 0$ 且 $i \leq i_0$，有
+$R^j\epsilon_{Y, *}H^i(M) = 0$。于是谱序列论证给出
+$\epsilon_{Y, *}H^{i_0 + 1}(M) = H^{i_0 + 1}(R\epsilon_{Y, *}M)$。
+从而
+$\epsilon_{Y, *}H^{i_0 + 1}(M) = \pi_Y^{-1}H^{i_0 + 1}(L) =
+\epsilon_{Y, *}a_Y^{-1}H^{i_0 + 1}(L)$.
+这蕴含 $H^{i_0 + 1}(\alpha)$ 是同构，因为 $\epsilon_{Y, *}$
+在底层预层上恒等，因而反映同构。证毕。
+\end{proof}

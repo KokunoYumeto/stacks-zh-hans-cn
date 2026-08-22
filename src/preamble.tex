@@ -1,0 +1,139 @@
+\documentclass[11pt,a4paper,oneside,openany]{stacks-project-book}
+
+% Non-rendering source-note environments retained from the Stacks sources.
+\usepackage{verbatim}
+\newenvironment{reference}{\comment}{\endcomment}
+\newenvironment{slogan}{\comment}{\endcomment}
+\newenvironment{history}{\comment}{\endcomment}
+
+% Diagrams and chapter-support packages.
+\usepackage[all]{xy}
+\xyoption{2cell}
+\UseAllTwocells
+\usepackage{multicol}
+\usepackage{graphicx}
+
+% Mainland Simplified-Chinese scientific typography.
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+\setCJKmainfont[AutoFakeSlant=0.2]{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans CJK SC}
+\newfontfamily\stackszhgreek{Noto Serif CJK SC}
+\DeclareRobustCommand{\zhdelta}{{\stackszhgreek δ}}
+\xeCJKsetup{PunctStyle=kaiming}
+\XeTeXlinebreaklocale "zh"
+\usepackage[a4paper,left=22mm,right=22mm,top=24mm,bottom=26mm,headheight=14pt,headsep=7mm,footskip=14mm]{geometry}
+\linespread{1.18}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1em}
+
+% Localized structural names.
+\renewcommand{\contentsname}{目录}
+\renewcommand{\bibname}{参考文献}
+\renewcommand{\proofname}{证明}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\renewcommand{\appendixname}{附录}
+
+% Chinese numbered chapter heads while keeping numerical identifiers stable.
+\makeatletter
+\def\@makechapterhead#1{\global\topskip 7.5pc\relax
+  \begingroup
+  \fontsize{17}{22}\bfseries\centering
+    \ifnum\c@secnumdepth>\m@ne
+      \leavevmode \hskip-\leftskip
+      \rlap{\vbox to\z@{\vss
+          \ifx\chaptername\appendixname
+            \centerline{\normalsize\mdseries 附录\enspace\thechapter}
+          \else
+            \centerline{\normalsize\mdseries 第\thechapter 章}
+          \fi
+          \vskip 3pc}}\hskip\leftskip\fi
+     #1\par \endgroup
+  \skip@34\p@ \advance\skip@-\normalbaselineskip
+  \vskip\skip@ }
+\makeatother
+
+% Hyperlinks: current-volume labels resolve locally; absent chapters use tags.
+\usepackage{hyperref}
+\hypersetup{
+  unicode=true,
+  hidelinks,
+  pdfborder={0 0 0},
+  pdftitle={Stacks Project 简体中文版 - 阶段性累积版},
+  pdfauthor={The Stacks Project contributors; zh-Hans-CN translation production},
+  pdfsubject={Mainland Simplified Chinese cumulative edition of selected Stacks Project chapters}
+}
+\urlstyle{same}
+\input{tagrefs}
+
+% Theorem environments.
+%
+\theoremstyle{plain}
+\newtheorem{theorem}[subsection]{定理}
+\newtheorem{proposition}[subsection]{命题}
+\newtheorem{lemma}[subsection]{引理}
+
+\theoremstyle{definition}
+\newtheorem{definition}[subsection]{定义}
+\newtheorem{example}[subsection]{例}
+\newtheorem{exercise}[subsection]{习题}
+\newtheorem{situation}[subsection]{情形}
+
+\theoremstyle{remark}
+\newtheorem{remark}[subsection]{注}
+\newtheorem{remarks}[subsection]{诸注}
+
+\numberwithin{equation}{subsection}
+
+% Macros
+%
+\def\lim{\mathop{\mathrm{lim}}\nolimits}
+\def\colim{\mathop{\mathrm{colim}}\nolimits}
+\def\Spec{\mathop{\mathrm{Spec}}}
+\def\Hom{\mathop{\mathrm{Hom}}\nolimits}
+\def\Ext{\mathop{\mathrm{Ext}}\nolimits}
+\def\SheafHom{\mathop{\mathcal{H}\!\mathit{om}}\nolimits}
+\def\SheafExt{\mathop{\mathcal{E}\!\mathit{xt}}\nolimits}
+\def\Sch{\mathit{Sch}}
+\def\Mor{\mathop{\mathrm{Mor}}\nolimits}
+\def\Ob{\mathop{\mathrm{Ob}}\nolimits}
+\def\Sh{\mathop{\mathit{Sh}}\nolimits}
+\def\NL{\mathop{N\!L}\nolimits}
+\def\CH{\mathop{\mathrm{CH}}\nolimits}
+\def\proetale{{pro\text{-}\acute{e}tale}}
+\def\etale{{\acute{e}tale}}
+\def\QCoh{\mathit{QCoh}}
+\def\Ker{\mathop{\mathrm{Ker}}}
+\def\Im{\mathop{\mathrm{Im}}}
+\def\Coker{\mathop{\mathrm{Coker}}}
+\def\Coim{\mathop{\mathrm{Coim}}}
+
+% Boxtimes
+%
+\DeclareMathSymbol{\boxtimes}{\mathbin}{AMSa}{"02}
+
+%
+% Macros for moduli stacks/spaces
+%
+\def\QCohstack{\mathcal{QC}\!\mathit{oh}}
+\def\Cohstack{\mathcal{C}\!\mathit{oh}}
+\def\Spacesstack{\mathcal{S}\!\mathit{paces}}
+\def\Quotfunctor{\mathrm{Quot}}
+\def\Hilbfunctor{\mathrm{Hilb}}
+\def\Curvesstack{\mathcal{C}\!\mathit{urves}}
+\def\Polarizedstack{\mathcal{P}\!\mathit{olarized}}
+\def\Complexesstack{\mathcal{C}\!\mathit{omplexes}}
+% \Pic is the operator that assigns to X its picard group, usage \Pic(X)
+% \Picardstack_{X/B} denotes the Picard stack of X over B
+% \Picardfunctor_{X/B} denotes the Picard functor of X over B
+\def\Pic{\mathop{\mathrm{Pic}}\nolimits}
+\def\Picardstack{\mathcal{P}\!\mathit{ic}}
+\def\Picardfunctor{\mathrm{Pic}}
+\def\Deformationcategory{\mathcal{D}\!\mathit{ef}}

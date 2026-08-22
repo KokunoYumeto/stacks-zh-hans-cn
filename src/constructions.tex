@@ -1,0 +1,4584 @@
+% Generated mechanically from the frozen constructions.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{26}
+\chapter{概形的构造}
+
+
+
+\phantomsection
+\label{constructions-section-phantom}
+
+
+\section{引言}
+\label{constructions-section-introduction}
+
+\noindent
+本章介绍由已知概形构造新概形的一些方法。
+一部基本参考文献是 \cite{EGA}。
+
+
+
+
+
+\section{相对粘合}
+\label{constructions-section-relative-glueing}
+
+\noindent
+当我们试图构造概形 $X$（它位于 $S$ 上），并且已经知道如何构造 $X$ 在 $S$ 的
+各仿射开集上的限制时，下面的引理正好适用。事实上，这个结果完全一般，
+在（局部）环层空间的框架下也成立；不过我们的证明采用概形的语言。
+
+\begin{lemma}
+\label{constructions-lemma-relative-glueing}
+设 $S$ 为概形，$\mathcal{B}$ 为 $S$ 的拓扑的一组基。
+假设给定以下数据：
+\begin{enumerate}
+\item 对每个 $U \in \mathcal{B}$，给定概形 $f_U : X_U \to U$，
+它位于 $U$ 上；
+\item 对 $U, V \in \mathcal{B}$，若 $V \subset U$，给定态射
+$\rho^U_V : X_V \to X_U$，它位于 $U$ 上。
+\end{enumerate}
+假设：
+\begin{enumerate}
+\item[(a)] 每个 $\rho^U_V$ 都诱导概形同构
+$X_V \to f_U^{-1}(V)$，它位于 $V$ 上；
+\item[(b)] 每当 $W, V, U \in \mathcal{B}$ 且
+$W \subset V \subset U$ 时，都有 $\rho^U_W = \rho^U_V \circ \rho ^V_W$。
+\end{enumerate}
+则存在概形态射 $f : X \to S$ 以及同构
+$i_U : f^{-1}(U) \to X_U$（$U \in \mathcal{B}$），使得对
+$V, U \in \mathcal{B}$ 且 $V \subset U$，复合
+$$
+\xymatrix{
+X_V \ar[r]^{i_V^{-1}} &
+f^{-1}(V) \ar[rr]^{inclusion} & &
+f^{-1}(U) \ar[r]^{i_U} &
+X_U
+}
+$$
+就是态射 $\rho^U_V$。此外，$X$ 在 $S$ 上唯一同构的意义下唯一。
+\end{lemma}
+
+\begin{proof}
+证明将使用《概形》引理 \ref{schemes-lemma-glue-functors}。
+首先定义从概形范畴到集合范畴的反变函子 $F$。具体地，对概形 $T$，令
+$$
+F(T) =
+\left\{
+\begin{matrix}
+(g, \{h_U\}_{U \in \mathcal{B}}),
+\ g : T \to S, \ h_U : g^{-1}(U) \to X_U, \\
+f_U \circ h_U = g|_{g^{-1}(U)},
+\ h_U|_{g^{-1}(V)} = \rho^U_V \circ h_V
+\ \forall\ V, U \in \mathcal{B}, V \subset U
+\end{matrix}
+\right\}.
+$$
+限制映射 $F(T) \to F(T')$ 由态射 $T' \to T$ 给出，并且仅由复合得到。
+对任意 $W \in \mathcal{B}$，考虑子函子 $F_W \subset F$；它由满足
+条件的那些系统 $(g, \{h_U\})$ 组成；此条件是 $g(T) \subset W$。
+
+\medskip\noindent
+先证明 $F$ 满足 Zariski 拓扑的层性质。设 $T$ 为概形，
+$T = \bigcup V_i$ 为开覆盖，并且元素 $\xi_i \in F(V_i)$ 满足
+$\xi_i|_{V_i \cap V_j} = \xi_j|_{V_i \cap V_j}$。
+记 $\xi_i = (g_i, \{h_{i, U}\})$。立即可见，态射 $g_i$ 粘合成唯一的
+整体态射 $g : T \to S$。此外，显然有
+$g^{-1}(U) = \bigcup g_i^{-1}(U)$。因此态射
+$h_{i, U} : g_i^{-1}(U) \to X_U$ 粘合成唯一态射
+$h_U : g^{-1}(U) \to X_U$。容易验证，系统 $(g, \{h_U\})$ 是 $F(T)$
+的元素。因此 $F$ 满足 Zariski 拓扑的层性质。
+
+\medskip\noindent
+接着验证每个 $F_W$（$W \in \mathcal{B}$）都可表。也就是说，断言函子变换
+$$
+F_W \longrightarrow \Mor(-, X_W), \ (g, \{h_U\}) \longmapsto h_W
+$$
+是同构。为此，设 $T$ 为概形，$\alpha : T \to X_W$ 为态射，并令
+$g = f_W \circ \alpha$。对任意 $U \in \mathcal{B}$，若 $U \subset W$，
+可以把 $h_U : g^{-1}(U) \to X_U$ 定义为复合
+$(\rho^W_U)^{-1} \circ \alpha|_{g^{-1}(U)}$。这是可行的，因为像
+$\alpha(g^{-1}(U))$ 包含于 $f_W^{-1}(U)$，并且引理的条件 (a) 成立。
+显然，有 $f_U \circ h_U = g|_{g^{-1}(U)}$；这里的 $U$ 如上。
+此外，若还有 $V \in \mathcal{B}$ 且 $V \subset U \subset W$，
+则由引理的性质 (b)，有
+$\rho^U_V \circ h_V = h_U|_{g^{-1}(V)}$。还需要定义 $h_U$（对任意元素
+$U \in \mathcal{B}$）。由于 $\mathcal{B}$ 是 $S$ 的拓扑的一组基，
+可以找到开覆盖 $U \cap W = \bigcup U_i$，其中 $U_i \in \mathcal{B}$。
+因为 $g$ 的像位于 $W$ 中，所以
+$g^{-1}(U) = g^{-1}(U \cap W) = \bigcup g^{-1}(U_i)$.
+考虑态射
+$h_i = \rho^U_{U_i} \circ h_{U_i} : g^{-1}(U_i) \to X_U$。
+利用引理的条件 (b)，不难证明
+$h_i|_{g^{-1}(U_i) \cap g^{-1}(U_j)} = h_j|_{g^{-1}(U_i) \cap g^{-1}(U_j)}$.
+因此这些态射粘合成所需的态射 $h_U : g^{-1}(U) \to X_U$。
+系统 $(g, \{h_U\})$ 是 $F_W(T)$ 的元素，并且在上面显示的箭头下映到
+$\alpha$；略去这一点的简单验证。
+
+\medskip\noindent
+接着验证每个 $F_W \subset F$ 都由开浸入可表。这由定义立即可见。
+
+\medskip\noindent
+最后需要验证族 $(F_W)_{W \in \mathcal{B}}$ 覆盖 $F$。
+这由构造以及 $\mathcal{B}$ 是 $S$ 的拓扑的一组基立即可见。
+
+\medskip\noindent
+设 $X$ 为表示函子 $F$ 的概形，并设
+$(f, \{i_U\}) \in F(X)$ 为一个“泛族”。由于每个 $F_W$ 都由 $X_W$
+表示（通过上面显示的函子态射），可见 $i_W : f^{-1}(W) \to X_W$
+正是所需的同构。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-relative-glueing-sheaves}
+设 $S$ 为概形，$\mathcal{B}$ 为 $S$ 的拓扑的一组基。
+假设给定以下数据：
+\begin{enumerate}
+\item 对每个 $U \in \mathcal{B}$，给定概形 $f_U : X_U \to U$，
+它位于 $U$ 上；
+\item 对每个 $U \in \mathcal{B}$，给定拟凝聚层 $\mathcal{F}_U$，
+它定义在 $X_U$ 上；
+\item 对每一对 $U, V \in \mathcal{B}$，若 $V \subset U$，给定态射
+$\rho^U_V : X_V \to X_U$；
+\item 对每一对 $U, V \in \mathcal{B}$，若 $V \subset U$，给定态射
+$\theta^U_V : (\rho^U_V)^*\mathcal{F}_U \to \mathcal{F}_V$。
+\end{enumerate}
+假设：
+\begin{enumerate}
+\item[(a)] 每个 $\rho^U_V$ 都诱导概形同构
+$X_V \to f_U^{-1}(V)$，它位于 $V$ 上；
+\item[(b)] 每个 $\theta^U_V$ 都是同构；
+\item[(c)] 每当 $W, V, U \in \mathcal{B}$ 且
+$W \subset V \subset U$ 时，都有 $\rho^U_W = \rho^U_V \circ \rho ^V_W$；
+\item[(d)] 每当 $W, V, U \in \mathcal{B}$ 且
+$W \subset V \subset U$ 时，都有
+$\theta^U_W = \theta^V_W \circ (\rho^V_W)^*\theta^U_V$。
+\end{enumerate}
+则存在概形态射 $f : X \to S$、拟凝聚层 $\mathcal{F}$（定义在 $X$ 上），
+以及同构 $i_U : f^{-1}(U) \to X_U$ 与
+$\theta_U : i_U^*\mathcal{F}_U \to \mathcal{F}|_{f^{-1}(U)}$
+（$U \in \mathcal{B}$），使得对 $V, U \in \mathcal{B}$ 且
+$V \subset U$，复合
+$$
+\xymatrix{
+X_V \ar[r]^{i_V^{-1}} &
+f^{-1}(V) \ar[rr]^{inclusion} & &
+f^{-1}(U) \ar[r]^{i_U} &
+X_U
+}
+$$
+就是态射 $\rho^U_V$，而复合
+\begin{equation}
+\label{constructions-equation-glue}
+(\rho^U_V)^*\mathcal{F}_U
+=
+(i_V^{-1})^*((i_U^*\mathcal{F}_U)|_{f^{-1}(V)})
+\xrightarrow{\theta_U|_{f^{-1}(V)}}
+(i_V^{-1})^*(\mathcal{F}|_{f^{-1}(V)})
+\xrightarrow{\theta_V^{-1}}
+\mathcal{F}_V
+\end{equation}
+等于 $\theta^U_V$。此外，$(X, \mathcal{F})$ 在 $S$ 上唯一同构的意义下唯一。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-relative-glueing}，得到概形 $X$（它位于 $S$ 上）以及同构 $i_U$。
+令 $\mathcal{F}'_U = i_U^*\mathcal{F}_U$，其中 $U \in \mathcal{B}$。
+这是拟凝聚 $\mathcal{O}_{f^{-1}(U)}$-模。映射
+$$
+\mathcal{F}'_U|_{f^{-1}(V)} =
+i_U^*\mathcal{F}_U|_{f^{-1}(V)} =
+i_V^*(\rho^U_V)^*\mathcal{F}_U \xrightarrow{i_V^*\theta^U_V}
+i_V^*\mathcal{F}_V = \mathcal{F}'_V
+$$
+定义了同构
+$(\theta')^U_V : \mathcal{F}'_U|_{f^{-1}(V)} \to \mathcal{F}'_V$
+（其中 $V \subset U$ 是 $\mathcal{B}$ 的元素）。条件 (d) 恰好说明，
+当 $W \subset V \subset U$ 是 $\mathcal{B}$ 的三个元素时，这些同构彼此相容。
+由此可以得到良定义的同构
+$$
+\varphi_{12} :
+\mathcal{F}'_{U_1}|_{f^{-1}(U_1 \cap U_2)}
+\longrightarrow
+\mathcal{F}'_{U_2}|_{f^{-1}(U_1 \cap U_2)}
+$$
+（其中 $U_1, U_2 \in \mathcal{B}$）：覆盖交集
+$U_1 \cap U_2 = \bigcup V_j$，其中各 $V_j$ 都属于 $\mathcal{B}$，并取
+$$
+\varphi_{12}|_{V_j} =
+\left((\theta')^{U_2}_{V_j}\right)^{-1}
+\circ
+(\theta')^{U_1}_{V_j}.
+$$
+略去这些映射确实粘合成 $\varphi_{12}$ 的验证，也略去层的粘合数据所需的
+余循环条件的验证（见《层》第 \ref{sheaves-section-glueing-sheaves} 节）。
+由《层》引理 \ref{sheaves-lemma-glue-sheaves}，得到 $\mathcal{F}$（定义在
+$X$ 上）。等式 (\ref{constructions-equation-glue}) 的验证从略。
+\end{proof}
+
+\begin{remark}
+\label{constructions-remark-relative-glueing-functorial}
+引理 \ref{constructions-lemma-relative-glueing} 与
+\ref{constructions-lemma-relative-glueing-sheaves} 中说明的构造具有函子性。
+具体地，设给定引理 \ref{constructions-lemma-relative-glueing} 中的两组数据
+$(f_U : X_U \to U, \rho^U_V)$ 与
+$(g_U : Y_U \to U, \sigma^U_V)$。假设对每个 $U \in \mathcal{B}$，
+给定态射 $h_U : X_U \to Y_U$，它位于 $U$ 上，且与限制态射
+$\rho^U_V$ 和 $\sigma^U_V$ 相容。函子性意味着，这会产生概形态射
+$h : X \to Y$（它位于 $S$ 上），它在各片上的限制就是态射 $h_U$；其中
+$f : X \to S$ 由数据 $(f_U : X_U \to U, \rho^U_V)$ 得到，而
+$g : Y \to S$ 由数据 $(g_U : Y_U \to U, \sigma^U_V)$ 得到。
+
+\medskip\noindent
+类似地，设给定两组数据
+$(f_U : X_U \to U, \mathcal{F}_U, \rho^U_V, \theta^U_V)$ 与
+$(g_U : Y_U \to U, \mathcal{G}_U, \sigma^U_V, \eta^U_V)$
+，如引理 \ref{constructions-lemma-relative-glueing-sheaves} 所述。
+假设对每个 $U \in \mathcal{B}$，给定态射
+$h_U : X_U \to Y_U$，它位于 $U$ 上，且与限制态射 $\rho^U_V$ 和 $\sigma^U_V$ 相容；
+还给定态射 $\tau_U : h_U^*\mathcal{G}_U \to \mathcal{F}_U$，它与映射
+$\theta^U_V$ 和 $\eta^U_V$ 相容。函子性意味着，这些数据会产生
+概形态射 $h : X \to Y$（它位于 $S$ 上），它在各片上的限制就是态射 $h_U$；
+还产生一个态射 $h^*\mathcal{G} \to \mathcal{F}$，它在各片上的限制就是映射
+$h_U$。这里，$(f : X \to S, \mathcal{F})$ 由数据
+$(f_U : X_U \to U, \mathcal{F}_U, \rho^U_V, \theta^U_V)$ 得到，而
+$(g : Y \to S, \mathcal{G})$ 由数据
+$(g_U : Y_U \to U, \mathcal{G}_U, \sigma^U_V, \eta^U_V)$ 得到。
+
+\medskip\noindent
+略去这些验证，也不再给出相对粘合数据与相对对象之间“范畴等价”的适当表述。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{通过粘合构造相对谱}
+\label{constructions-section-spec-via-glueing}
+
+\begin{situation}
+\label{constructions-situation-relative-spec}
+这里 $S$ 是概形，$\mathcal{A}$ 是拟凝聚 $\mathcal{O}_S$-代数。
+这意味着 $\mathcal{A}$ 是一层 $\mathcal{O}_S$-代数，并且作为
+$\mathcal{O}_S$-模是拟凝聚的。
+\end{situation}
+
+\noindent
+本节概述如何构造概形态射
+$$
+\underline{\Spec}_S(\mathcal{A}) \longrightarrow S
+$$
+其方法是粘合各谱 $\Spec(\Gamma(U, \mathcal{A}))$，其中 $U$ 遍历 $S$ 的
+仿射开集。先证明 $\mathcal{A}$ 在各仿射开集上的取值之谱组成一族适当的概形，
+如引理 \ref{constructions-lemma-relative-glueing} 所需。
+
+\begin{lemma}
+\label{constructions-lemma-spec-inclusion}
+在情形 \ref{constructions-situation-relative-spec} 中，设
+$U \subset U' \subset S$ 为仿射开集。令 $A = \mathcal{A}(U)$，并令
+$A' = \mathcal{A}(U')$。环映射 $A' \to A$ 诱导态射
+$\Spec(A) \to \Spec(A')$，且图
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] &
+\Spec(A') \ar[d] \\
+U \ar[r] &
+U'
+}
+$$
+是笛卡尔图。
+\end{lemma}
+
+\begin{proof}
+令 $R = \mathcal{O}_S(U)$，并令 $R' = \mathcal{O}_S(U')$。
+注意，映射 $R \otimes_{R'} A' \to A$ 是同构，因为 $\mathcal{A}$ 拟凝聚
+（例如见《概形》引理 \ref{schemes-lemma-widetilde-pullback}）。
+结论来自《概形》引理 \ref{schemes-lemma-fibre-product-affine-schemes}
+中对仿射概形纤维积的描述。
+\end{proof}
+
+\noindent
+特别地，引理中的态射 $\Spec(A) \to \Spec(A')$ 是开浸入。
+
+\begin{lemma}
+\label{constructions-lemma-transitive-spec}
+在情形 \ref{constructions-situation-relative-spec} 中，设
+$U \subset U' \subset U'' \subset S$ 为仿射开集。令
+$A = \mathcal{A}(U)$、$A' = \mathcal{A}(U')$ 以及
+$A'' = \mathcal{A}(U'')$。引理 \ref{constructions-lemma-spec-inclusion} 中的态射
+$\Spec(A) \to \Spec(A')$ 与
+$\Spec(A') \to \Spec(A'')$ 的复合，正是引理
+\ref{constructions-lemma-spec-inclusion} 中的态射 $\Spec(A) \to \Spec(A'')$。
+\end{lemma}
+
+\begin{proof}
+这是因为映射 $A'' \to A$ 是 $A'' \to A'$ 与
+$A' \to A$ 的复合（因为 $\mathcal{A}$ 是层）。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-glue-relative-spec}
+在情形 \ref{constructions-situation-relative-spec} 中，存在概形态射
+$$
+\pi : \underline{\Spec}_S(\mathcal{A}) \longrightarrow S
+$$
+，它具有以下性质：
+\begin{enumerate}
+\item 对每个仿射开集 $U \subset S$，存在同构
+$i_U : \pi^{-1}(U) \to \Spec(\mathcal{A}(U))$，它位于 $U$ 上；
+\item 对仿射开集 $U \subset U' \subset S$，复合
+$$
+\xymatrix{
+\Spec(\mathcal{A}(U)) \ar[r]^{i_U^{-1}} &
+\pi^{-1}(U) \ar[rr]^{inclusion} & &
+\pi^{-1}(U') \ar[r]^{i_{U'}} &
+\Spec(\mathcal{A}(U'))
+}
+$$
+就是上面引理 \ref{constructions-lemma-spec-inclusion} 中的开浸入。
+\end{enumerate}
+此外，$\underline{\Spec}_S(\mathcal{A})$ 在 $S$ 上唯一同构的意义下唯一。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{constructions-lemma-relative-glueing}、
+\ref{constructions-lemma-spec-inclusion} 和
+\ref{constructions-lemma-transitive-spec} 得出。
+唯一性正是引理 \ref{constructions-lemma-relative-glueing} 最后一句的内容。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{作为函子的相对谱}
+\label{constructions-section-spec}
+
+\noindent
+沿用情形 \ref{constructions-situation-relative-spec} 的设定，即 $S$ 是概形，
+$\mathcal{A}$ 是一层拟凝聚 $\mathcal{O}_S$-代数。
+
+\medskip\noindent
+对任意 $f : T \to S$，拉回 $f^*\mathcal{A}$ 是一层拟凝聚
+$\mathcal{O}_T$-代数。我们要考虑二元组 $(f : T \to S, \varphi)$，其中
+$f$ 是概形态射，而 $\varphi : f^*\mathcal{A} \to \mathcal{O}_T$ 是
+$\mathcal{O}_T$-代数态射。注意，这等价于给定 $f^{-1}\mathcal{O}_S$-代数同态
+$\varphi : f^{-1}\mathcal{A} \to \mathcal{O}_T$；见《层》引理
+\ref{sheaves-lemma-adjointness-tensor-restrict}。这也等价于给定
+$\mathcal{O}_S$-代数映射 $\varphi : \mathcal{A} \to f_*\mathcal{O}_T$；
+见《层》引理 \ref{sheaves-lemma-adjoint-push-pull-modules}。
+下文将不加说明地使用对 $\varphi$ 的这三种理解方式。
+
+\medskip\noindent
+给定这样的二元组 $(f : T \to S, \varphi)$ 以及态射 $a : T' \to T$，
+得到另一个二元组 $(f' = f \circ a, \varphi' = a^*\varphi)$；称它为
+$(f, \varphi)$ 的拉回。描述 $\varphi' = a^*\varphi$ 的一种方式，是把它写成复合
+$\mathcal{A} \to f_*\mathcal{O}_T \to f'_*\mathcal{O}_{T'}$
+；其中第二个映射是 $f_*a^\sharp$，这里
+$a^\sharp : \mathcal{O}_T \to a_*\mathcal{O}_{T'}$。
+由此定义了函子
+\begin{eqnarray}
+\label{constructions-equation-spec}
+F : \Sch^{opp} & \longrightarrow & \textit{Sets} \\
+T & \longmapsto & F(T) = \{\text{对 }(f, \varphi) \text{ 如上}\}
+\nonumber
+\end{eqnarray}
+
+\begin{lemma}
+\label{constructions-lemma-spec-base-change}
+在情形 \ref{constructions-situation-relative-spec} 中，令 $F$ 为上面与
+$(S, \mathcal{A})$ 对应的函子。设 $g : S' \to S$ 为概形态射。
+令 $\mathcal{A}' = g^*\mathcal{A}$，并令 $F'$ 为上面与
+$(S', \mathcal{A}')$ 对应的函子。则存在函子的典范同构
+$$
+F' \cong h_{S'} \times_{h_S} F
+$$
+。
+\end{lemma}
+
+\begin{proof}
+二元组 $(f' : T \to S', \varphi' : (f')^*\mathcal{A}' \to \mathcal{O}_T)$
+等价于二元组 $(f, \varphi : f^*\mathcal{A} \to \mathcal{O}_T)$ 连同 $f$ 的分解
+$f = g \circ f'$。事实上，在这些记号下有
+$(f')^* \mathcal{A}' = (f')^*g^*\mathcal{A} = f^*\mathcal{A}$.
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-spec-affine}
+在情形 \ref{constructions-situation-relative-spec} 中，令 $F$ 为上面与
+$(S, \mathcal{A})$ 对应的函子。若 $S$ 仿射，则 $F$ 由仿射概形
+$\Spec(\Gamma(S, \mathcal{A}))$ 表示。
+\end{lemma}
+
+\begin{proof}
+写成 $S = \Spec(R)$，并令 $A = \Gamma(S, \mathcal{A})$。
+于是 $A$ 是 $R$-代数，并且 $\mathcal{A} = \widetilde A$。
+环映射 $R \to A$ 给出典范映射
+$$
+f_{univ} : \Spec(A)
+\longrightarrow
+S = \Spec(R).
+$$
+有
+$f_{univ}^*\mathcal{A} =  \widetilde{A \otimes_R A}$
+；见《概形》引理 \ref{schemes-lemma-widetilde-pullback}。因此存在典范映射
+$$
+\varphi_{univ} :
+f_{univ}^*\mathcal{A} = \widetilde{A \otimes_R A}
+\longrightarrow
+\widetilde A = \mathcal{O}_{\Spec(A)}
+$$
+，它来自 $A$-模映射 $A \otimes_R A \to A$，
+$a \otimes a' \mapsto aa'$。断言在此情形下，二元组
+$(f_{univ}, \varphi_{univ})$ 表示 $F$。换言之，断言对任意概形 $T$，映射
+$$
+\Mor(T, \Spec(A)) \longrightarrow \{\text{对 } (f, \varphi)\},\quad
+a \longmapsto (f_{univ} \circ a, a^*\varphi_{univ})
+$$
+是双射。
+
+\medskip\noindent
+下面构造逆映射。对任意二元组 $(f : T \to S, \varphi)$，得到诱导的环映射
+$$
+\xymatrix{
+A = \Gamma(S, \mathcal{A}) \ar[r]^{f^*} &
+\Gamma(T, f^*\mathcal{A}) \ar[r]^{\varphi} &
+\Gamma(T, \mathcal{O}_T)
+}
+$$
+它诱导概形态射 $T \to \Spec(A)$；见《概形》引理
+\ref{schemes-lemma-morphism-into-affine}。
+
+\medskip\noindent
+略去这个映射是上面所显示映射之逆的验证。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-spec}
+在情形 \ref{constructions-situation-relative-spec} 中，函子 $F$ 由某个概形表示。
+\end{lemma}
+
+\begin{proof}
+将使用《概形》引理 \ref{schemes-lemma-glue-functors}。
+
+\medskip\noindent
+先验证 $F$ 满足 Zariski 拓扑的层性质。具体地，设 $T$ 为概形，
+$T = \bigcup_{i \in I} U_i$ 为开覆盖，并且
+$(f_i, \varphi_i) \in F(U_i)$ 满足
+$(f_i, \varphi_i)|_{U_i \cap U_j} = (f_j, \varphi_j)|_{U_i \cap U_j}$。
+这蕴含态射 $f_i : U_i \to S$ 粘合成概形态射 $f : T \to S$，且满足
+$f|_{U_i} = f_i$；见《概形》第 \ref{schemes-section-glueing-schemes} 节。
+因此 $f_i^*\mathcal{A} = f^*\mathcal{A}|_{U_i}$，而由假设，态射
+$\varphi_i$ 在 $U_i \cap U_j$ 上相同。于是由《层》第
+\ref{sheaves-section-glueing-sheaves} 节，它们粘合成
+$\mathcal{O}_T$-代数态射 $f^*\mathcal{A} \to \mathcal{O}_T$。
+这证明 $F$ 满足 Zariski 拓扑的层条件。
+
+\medskip\noindent
+设 $S = \bigcup_{i \in I} U_i$ 为仿射开覆盖。令 $F_i \subset F$ 为子函子，
+它由那些二元组 $(f : T \to S, \varphi)$ 组成；这些二元组满足
+$f(T) \subset U_i$。
+
+\medskip\noindent
+需要证明每个 $F_i$ 都可表。由引理 \ref{constructions-lemma-spec-base-change}，
+$F_i$ 与以下函子等同：它对应于 $U_i$ 以及其上的拟凝聚
+$\mathcal{O}_{U_i}$-代数 $\mathcal{A}|_{U_i}$。
+因此结论由引理 \ref{constructions-lemma-spec-affine} 得出。
+
+\medskip\noindent
+接着证明 $F_i \subset F$ 由开浸入可表。设
+$(f : T \to S, \varphi) \in F(T)$，并考虑 $V_i = f^{-1}(U_i)$。
+由 $F_i$ 的定义，对给定的 $a : T' \to T$，有
+$a^*(f, \varphi) \in F_i(T')$ 当且仅当 $a(T') \subset V_i$。
+这正是所需的结论。
+
+\medskip\noindent
+最后需要证明族 $(F_i)_{i \in I}$ 覆盖 $F$。设
+$(f : T \to S, \varphi) \in F(T)$，并考虑 $V_i = f^{-1}(U_i)$。
+由于 $S = \bigcup_{i \in I} U_i$ 是 $S$ 的开覆盖，可见
+$T = \bigcup_{i \in I} V_i$ 是 $T$ 的开覆盖。此外，
+$(f, \varphi)|_{V_i} \in F_i(V_i)$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-glueing-gives-functor-spec}
+在情形 \ref{constructions-situation-relative-spec} 中，引理
+\ref{constructions-lemma-glue-relative-spec} 构造的概形
+$\pi : \underline{\Spec}_S(\mathcal{A}) \to S$
+与表示函子 $F$ 的概形，作为 $S$ 上的概形典范同构。
+\end{lemma}
+
+\begin{proof}
+设 $X \to S$ 为表示函子 $F$ 的概形。考虑 $\mathcal{O}_S$-代数层
+$\mathcal{R} = \pi_*\mathcal{O}_{\underline{\Spec}_S(\mathcal{A})}$.
+按照 $\underline{\Spec}_S(\mathcal{A})$ 的构造，有同构
+$\mathcal{A}(U) \to \mathcal{R}(U)$（对每个仿射开集 $U \subset S$）；
+这由引理 \ref{constructions-lemma-glue-relative-spec} 的第 (1) 部分得出。
+对开集 $U \subset U' \subset S$，这些同构与限制映射相容；
+这由引理 \ref{constructions-lemma-glue-relative-spec} 的第 (2) 部分得出。
+因此由《层》引理 \ref{sheaves-lemma-restrict-basis-equivalence-modules}，
+这些同构来自一个 $\mathcal{O}_S$-代数同构
+$\varphi : \mathcal{A} \to \mathcal{R}$。于是得到元素
+$(\pi, \varphi) \in F(\underline{\Spec}_S(\mathcal{A}))$。
+由于 $X$ 表示函子 $F$，得到相应的概形态射
+$can : \underline{\Spec}_S(\mathcal{A}) \to X$，它位于 $S$ 上。
+
+\medskip\noindent
+任取仿射开集 $U \subset S$。令 $F_U \subset F$ 为 $F$ 的子函子，
+它对应于二元组 $(f, \varphi)$；这些二元组定义在概形 $T$ 上，并满足
+$f(T) \subset U$。显然，基变换 $X_U$ 表示 $F_U$。此外，由引理
+\ref{constructions-lemma-spec-affine}，$F_U$ 由
+$\Spec(\mathcal{A}(U)) = \pi^{-1}(U)$ 表示。换言之，
+$X_U \cong \pi^{-1}(U)$。略去以下验证：这个等同确实由态射 $can$
+到 $U$ 的基变换给出。
+\end{proof}
+
+\begin{definition}
+\label{constructions-definition-relative-spec}
+设 $S$ 为概形。设 $\mathcal{A}$ 为一层拟凝聚 $\mathcal{O}_S$-代数。
+把 $\mathcal{A}$ 在 $S$ 上的{\it 相对谱}，或简称把 $\mathcal{A}$ 在
+$S$ 上的{\it 谱}，定义为引理 \ref{constructions-lemma-glue-relative-spec} 中构造并表示
+函子 $F$（\ref{constructions-equation-spec}）的概形；见引理
+\ref{constructions-lemma-glueing-gives-functor-spec}。
+把它记作 $\pi : \underline{\Spec}_S(\mathcal{A}) \to S$。
+“泛族”是 $\mathcal{O}_S$-代数态射
+$$
+\mathcal{A}
+\longrightarrow
+\pi_*\mathcal{O}_{\underline{\Spec}_S(\mathcal{A})}
+$$
+\end{definition}
+
+\noindent
+下面的引理尤其说明，相对谱的构造与基变换可交换。
+
+\begin{lemma}
+\label{constructions-lemma-spec-properties}
+设 $S$ 为概形。设 $\mathcal{A}$ 为一层拟凝聚
+$\mathcal{O}_S$-代数。令
+$\pi : \underline{\Spec}_S(\mathcal{A}) \to S$
+为 $\mathcal{A}$ 在 $S$ 上的相对谱。
+\begin{enumerate}
+\item 对每个仿射开集 $U \subset S$，逆像 $\pi^{-1}(U)$ 是仿射的。
+\item 对每个态射 $g : S' \to S$，都有
+$S' \times_S \underline{\Spec}_S(\mathcal{A}) =
+\underline{\Spec}_{S'}(g^*\mathcal{A})$.
+\item
+泛映射
+$$
+\mathcal{A}
+\longrightarrow
+\pi_*\mathcal{O}_{\underline{\Spec}_S(\mathcal{A})}
+$$
+是 $\mathcal{O}_S$-代数同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 部分来自相对谱的粘合描述；见引理 \ref{constructions-lemma-glue-relative-spec}。
+第 (2) 部分立即由引理 \ref{constructions-lemma-spec-base-change} 得出。
+第 (3) 部分在 $S$ 上是局部的，而当 $S$ 仿射时，例如由引理
+\ref{constructions-lemma-spec-affine} 可知它显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-canonical-morphism}
+设 $f : X \to S$ 为拟紧且拟分离的概形态射。由《概形》引理
+\ref{schemes-lemma-push-forward-quasi-coherent}，层
+$f_*\mathcal{O}_X$ 是一层拟凝聚 $\mathcal{O}_S$-代数。存在典范态射
+$$
+can : X \longrightarrow \underline{\Spec}_S(f_*\mathcal{O}_X)
+$$
+，它是 $S$ 上的概形态射。对任意仿射开集 $U \subset S$，限制
+$can|_{f^{-1}(U)}$ 与典范态射
+$$
+f^{-1}(U) \longrightarrow \Spec(\Gamma(f^{-1}(U), \mathcal{O}_X))
+$$
+等同；后者来自《概形》引理 \ref{schemes-lemma-morphism-into-affine}。
+\end{lemma}
+
+\begin{proof}
+按照把 $\underline{\Spec}$ 定义为表示函子 $F$ 的概形的方式，该态射来自典范映射
+$\varphi : f^*f_*\mathcal{O}_X \to \mathcal{O}_X$（由推前与拉回的伴随性，
+它对应于 $\text{id} : f_*\mathcal{O}_X \to f_*\mathcal{O}_X$）。
+关于在 $f^{-1}(U)$ 上限制的断言，由仿射概形上相对谱的描述得出；
+见引理 \ref{constructions-lemma-spec-affine}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{仿射 n 维空间}
+\label{constructions-section-affine-n-space}
+
+\noindent
+作为相对谱的一项应用，我们如下定义基概形上的仿射 $n$ 维空间。
+设基概形为 $S$。对任意整数 $n \geq 0$，可以考虑拟凝聚
+$\mathcal{O}_S$-代数层 $\mathcal{O}_S[T_1, \ldots, T_n]$。
+它是拟凝聚的，因为把它看作 $\mathcal{O}_S$-模层时，它就是由多重指标标号的
+$\mathcal{O}_S$ 的诸副本之直和。
+
+\begin{definition}
+\label{constructions-definition-affine-n-space}
+设 $S$ 为概形且 $n \geq 0$。概形
+$$
+\mathbf{A}^n_S =
+\underline{\Spec}_S(\mathcal{O}_S[T_1, \ldots, T_n])
+$$
+把它看作 $S$ 上的概形，称为{\it 仿射 $n$ 维空间（在 $S$ 上）}。
+若 $S = \Spec(R)$ 是仿射的，则也称它为{\it 仿射 $n$ 维空间（在 $R$ 上）}，
+并记作 $\mathbf{A}^n_R$。
+\end{definition}
+
+\noindent
+注意：
+\par\noindent
+$\mathbf{A}^n_R = \Spec(R[T_1, \ldots, T_n])$。
+对概形的任意态射 $g : S' \to S$，有
+\par\noindent
+$g^*\mathcal{O}_S[T_1, \ldots, T_n] = \mathcal{O}_{S'}[T_1, \ldots, T_n]$
+。
+\par\noindent
+因而 $\mathbf{A}^n_{S'} = S' \times_S \mathbf{A}^n_S$ 是相应的基变换。
+所以也可用下式定义仿射 $n$ 维空间：
+$$
+\mathbf{A}^n_S = S \times_{\Spec(\mathbf{Z})} \mathbf{A}^n_{\mathbf{Z}}.
+$$
+此外，从 $S$-概形 $f : X \to S$ 到 $\mathbf{A}^n_S$ 的一个态射，
+由一个 $\mathcal{O}_S$-代数同态给出：
+\par\noindent
+$\mathcal{O}_S[T_1, \ldots, T_n] \to f_*\mathcal{O}_X$。
+这显然等价于给出各 $T_i$ 的像。换言之，从 $X$ 到 $\mathbf{A}^n_S$
+的 $S$ 上态射，等价于给出 $n$ 个元素：
+\par\noindent
+$h_1, \ldots, h_n \in \Gamma(X, \mathcal{O}_X)$。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{向量丛}
+\label{constructions-section-vector-bundle}
+
+\noindent
+设 $S$ 为概形。
+设 $\mathcal{E}$ 为一层拟凝聚 $\mathcal{O}_S$-模。
+由《模》引理 \ref{modules-lemma-whole-tensor-algebra-permanence}，
+对称代数 $\text{Sym}(\mathcal{E})$（即 $\mathcal{E}$ 在 $\mathcal{O}_S$
+上的对称代数）是一层拟凝聚 $\mathcal{O}_S$-代数。
+因此可以对它取相对谱。
+
+\begin{definition}
+\label{constructions-definition-vector-bundle}
+设 $S$ 为概形。设 $\mathcal{E}$ 为拟凝聚
+$\mathcal{O}_S$-模\footnote{读者或许会预期这里要求
+$\mathcal{E}$ 是有限局部自由的。为了与 \cite[II, Definition 1.7.8]{EGA}
+保持一致，我们不作此要求。}。
+{\it 与 $\mathcal{E}$ 关联的向量丛}定义为
+$$
+\mathbf{V}(\mathcal{E}) = \underline{\Spec}_S(\text{Sym}(\mathcal{E})).
+$$
+\end{definition}
+
+\noindent
+与 $\mathcal{E}$ 关联的向量丛带有一些附加结构。具体而言，有分次
+$$
+\pi_*\mathcal{O}_{\mathbf{V}(\mathcal{E})} =
+\bigoplus\nolimits_{n \geq 0} \text{Sym}^n(\mathcal{E}).
+$$
+它使 $\pi_*\mathcal{O}_{\mathbf{V}(\mathcal{E})}$ 成为分次
+$\mathcal{O}_S$-代数。反过来，可以恢复 $\mathcal{E}$，方法是取它的次数
+$1$ 部分。因此如下定义抽象向量丛。
+
+\begin{definition}
+\label{constructions-definition-abstract-vector-bundle}
+设 $S$ 为概形。{\it 向量丛 $\pi : V \to S$（在 $S$ 上）}是一个
+仿射概形态射，使得 $\pi_*\mathcal{O}_V$ 带有分次
+$\mathcal{O}_S$-代数结构
+$\pi_*\mathcal{O}_V = \bigoplus\nolimits_{n \geq 0} \mathcal{E}_n$
+，满足 $\mathcal{E}_0 = \mathcal{O}_S$，并且映射
+$$
+\text{Sym}^n(\mathcal{E}_1) \longrightarrow \mathcal{E}_n
+$$
+对所有 $n \geq 0$ 都是同构。{\it $S$ 上向量丛的态射}是态射
+$f : V \to V'$，使得诱导映射
+$$
+f^* : \pi'_*\mathcal{O}_{V'} \longrightarrow \pi_*\mathcal{O}_V
+$$
+与给定的分次相容。
+\end{definition}
+
+\noindent
+概形 $S$ 上的向量丛有如下例子：仿射 $n$ 维空间
+$\mathbf{A}^n_S$（在 $S$ 上）；见定义 \ref{constructions-definition-affine-n-space}。这是因为
+$\mathcal{O}_S[T_1, \ldots, T_n] = \text{Sym}(\mathcal{O}_S^{\oplus n})$.
+
+\begin{lemma}
+\label{constructions-lemma-category-vector-bundles}
+概形 $S$ 上的向量丛范畴与拟凝聚 $\mathcal{O}_S$-模范畴反等价。
+\end{lemma}
+
+\begin{proof}
+略。提示：一个方向使用函子
+$\underline{\Spec}_S(\text{Sym}^*_{\mathcal{O}_S}(-))$
+，另一个方向使用函子
+$(\pi : V \to S) \leadsto (\pi_*\mathcal{O}_V)_1$；这里下标表示取次数
+$1$ 部分。
+\end{proof}
+
+
+
+
+\section{锥}
+\label{constructions-section-cone}
+
+\noindent
+在代数几何中，锥对应于分次代数。按照我们的约定，分次环或分次代数
+$A$ 带有由非负整数给出的分次
+$A = \bigoplus_{d \geq 0} A_d$；见《代数》章节
+\ref{algebra-section-graded}。
+
+\begin{definition}
+\label{constructions-definition-cone}
+设 $S$ 为概形。设 $\mathcal{A}$ 为拟凝聚分次
+$\mathcal{O}_S$-代数。假设 $\mathcal{O}_S \to \mathcal{A}_0$
+是同构\footnote{通常还会假设 $\mathcal{A}$ 由 $\mathcal{A}_1$ 在
+$\mathcal{O}_S$ 上生成。为了与 \cite[II, (8.3.1)]{EGA} 保持一致，
+我们不作此假设。}。{\it 与 $\mathcal{A}$ 关联的锥}，也称
+{\it 与 $\mathcal{A}$ 关联的仿射锥}，定义为
+$$
+C(\mathcal{A}) = \underline{\Spec}_S(\mathcal{A}).
+$$
+\end{definition}
+
+\noindent
+与一层分次 $\mathcal{O}_S$-代数关联的锥带有一些附加结构。具体而言，
+得到分次
+$$
+\pi_*\mathcal{O}_{C(\mathcal{A})} =
+\bigoplus\nolimits_{n \geq 0} \mathcal{A}_n
+$$
+因此可以如下定义抽象锥。
+
+\begin{definition}
+\label{constructions-definition-abstract-cone}
+设 $S$ 为概形。{\it 锥 $\pi : C \to S$（在 $S$ 上）}是一个
+仿射概形态射，使得 $\pi_*\mathcal{O}_C$ 带有分次 $\mathcal{O}_S$-代数结构
+$\pi_*\mathcal{O}_C = \bigoplus\nolimits_{n \geq 0} \mathcal{A}_n$
+，满足 $\mathcal{A}_0 = \mathcal{O}_S$。从 $\pi : C \to S$ 到
+$\pi' : C' \to S$ 的{\it 锥态射}，是态射 $f : C \to C'$，
+使得诱导映射
+$$
+f^* : \pi'_*\mathcal{O}_{C'} \longrightarrow \pi_*\mathcal{O}_C
+$$
+与给定的分次相容。
+\end{definition}
+
+\noindent
+任意向量丛都是锥的一个例子。事实上，$S$ 上的向量丛范畴是
+$S$ 上锥范畴的满子范畴。
+
+
+
+
+
+
+
+
+
+
+\section{分次环的 Proj}
+\label{constructions-section-proj}
+
+\noindent
+本节依照 \cite[II, Section 2]{EGA} 构造分次环的 Proj。
+
+\medskip\noindent
+设 $S$ 为分次环。考虑拓扑空间 $\text{Proj}(S)$，它与 $S$ 关联；
+见《代数》章节 \ref{algebra-section-proj}。我们将在这个空间上赋予一层环
+$\mathcal{O}_{\text{Proj}(S)}$，使所得二元组
+$(\text{Proj}(S), \mathcal{O}_{\text{Proj}(S)})$ 成为概形。
+
+\medskip\noindent
+回顾 $\text{Proj}(S)$ 有一个由开集 $D_{+}(f)$ 构成的基，其中
+$f \in S_d$ 且 $d \geq 1$；我们称这些开集为{\it 标准开集}，
+见《代数》章节 \ref{algebra-section-proj}。即使不再明说，这一术语也总是蕴含
+$f$ 是正次数齐次元。此外，两个标准开集之交仍是标准开集：
+$D_{+}(f) \cap D_{+}(g) = D_{+}(fg)$，其中 $f, g \in S$ 是正次数齐次元。
+
+\begin{lemma}
+\label{constructions-lemma-standard-open}
+设 $S$ 为分次环。设 $f \in S$ 为正次数齐次元。
+\begin{enumerate}
+\item 若 $g\in S$ 是正次数齐次元且
+$D_{+}(g) \subset D_{+}(f)$，则
+\begin{enumerate}
+\item $f$ 在 $S_g$ 中可逆，且
+$f^{\deg(g)}/g^{\deg(f)}$ 在 $S_{(g)}$ 中可逆；
+\item 有 $g^e = af$，其中 $e \geq 1$，且 $a \in S$ 是齐次元；
+\item 存在典范 $S$-代数映射 $S_f \to S_g$；
+\item 存在典范 $S_0$-代数映射 $S_{(f)} \to S_{(g)}$，
+它与映射 $S_f \to S_g$ 相容；
+\item 映射 $S_{(f)} \to S_{(g)}$ 诱导同构
+$$
+(S_{(f)})_{g^{\deg(f)}/f^{\deg(g)}} \cong S_{(g)},
+$$
+\item 这些映射诱导拓扑空间的交换图
+$$
+\xymatrix{
+D_{+}(g) \ar[d] &
+\{\mathbf{Z}\text{-分次素理想，位于 }S_g\} \ar[l] \ar[r] \ar[d] &
+\Spec(S_{(g)}) \ar[d] \\
+D_{+}(f) &
+\{\mathbf{Z}\text{-分次素理想，位于 }S_f\} \ar[l] \ar[r] &
+\Spec(S_{(f)})
+}
+$$
+，其中水平映射是同胚，竖直映射是开浸入；
+\item 存在相互相容的典范 $S_f$-模映射和 $S_{(f)}$-模映射
+$M_f \to M_g$ 与 $M_{(f)} \to M_{(g)}$，它们对任意分次 $S$-模
+$M$ 都有定义；并且
+\item 映射 $M_{(f)} \to M_{(g)}$ 诱导同构
+$$
+(M_{(f)})_{g^{\deg(f)}/f^{\deg(g)}} \cong M_{(g)}.
+$$
+\end{enumerate}
+\item $D_{+}(f)$ 的任意开覆盖都可细化为形如
+$D_{+}(f) = \bigcup_{i = 1}^n D_{+}(g_i)$ 的有限开覆盖。
+\item 设 $g_1, \ldots, g_n \in S$ 为正次数齐次元。则
+$D_{+}(f) \subset \bigcup D_{+}(g_i)$ 当且仅当
+$g_1^{\deg(f)}/f^{\deg(g_1)}, \ldots, g_n^{\deg(f)}/f^{\deg(g_n)}$
+在 $S_{(f)}$ 中生成单位理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回顾 $D_{+}(g) = \Spec(S_{(g)})$，其等同由环映射
+$S \to S_g \leftarrow S_{(g)}$ 给出；见《代数》引理
+\ref{algebra-lemma-topology-proj}。因此
+$f^{\deg(g)}/g^{\deg(f)}$ 是 $S_{(g)}$ 中不属于任何素理想的元素，
+从而可逆；见《代数》引理 \ref{algebra-lemma-Zariski-topology}。
+这证明了 (a)。把 $f$ 在 $S_g$ 中的逆元写成 $a/g^d$。
+可将 $a$ 替换为它的次数 $d\deg(g) - \deg(f)$ 齐次部分。
+这意味着 $g^d - af$ 被 $g$ 的某个幂零化，因而有 $g^e = af$，
+其中某个 $a \in S$ 是次数为 $e\deg(g) - \deg(f)$ 的齐次元。
+这证明了 (b)。关于 (c)，由局部化的泛性质以及 (a)，映射
+$S_f \to S_g$ 存在；也可把 $b/f^n$ 映为 $a^nb/g^{ne}$ 来定义它。
+这显然也诱导次数零元素子环之间的映射 $S_{(f)} \to S_{(g)}$。
+类似地，可定义 $M_f \to M_g$ 和 $M_{(f)} \to M_{(g)}$，其定义是
+把 $x/f^n$ 映为 $a^nx/g^{ne}$。由上述公式立刻可见，
+$S_{(g)}$（相应地 $M_{(g)}$）是 $S_{(f)}$（相应地 $M_{(f)}$）
+的主局部化。拓扑空间交换图中的映射对应于上述环映射。
+由《代数》引理 \ref{algebra-lemma-topology-proj}，水平箭头是同胚。
+竖直箭头是开浸入，因为左侧箭头是开子集的包含映射。
+
+\medskip\noindent
+开集 $D_{+}(f)$ 是拟紧的，因为它同胚于 $\Spec(S_{(f)})$；
+见《代数》引理 \ref{algebra-lemma-quasi-compact}。
+因此第二个断言直接由标准开集构成拓扑基这一事实得出。
+
+\medskip\noindent
+第三个断言直接由《代数》引理 \ref{algebra-lemma-Zariski-topology} 得出。
+\end{proof}
+
+\noindent
+在《层》章节 \ref{sheaves-section-bases} 中，我们定义了基上的层，
+并证明它与空间上的层本质上等价；见《层》引理
+\ref{sheaves-lemma-extend-off-basis} 和
+\ref{sheaves-lemma-extend-off-basis-structures}。此外，《层》引理
+\ref{sheaves-lemma-cofinal-systems-coverings-standard-case} 证明，
+对每个标准开集，只须在开覆盖的一个共尾系统上检验层条件。
+由上面的引理，只须对由标准开集给出的有限覆盖作检验。
+
+\begin{definition}
+\label{constructions-definition-standard-covering}
+设 $S$ 为分次环。假设 $D_{+}(f) \subset \text{Proj}(S)$ 是标准开集。
+$D_{+}(f)$ 的{\it 标准开覆盖}是形如
+$D_{+}(f) = \bigcup_{i = 1}^n D_{+}(g_i)$ 的覆盖，其中
+$g_1, \ldots, g_n \in S$ 是正次数齐次元。
+\end{definition}
+
+\noindent
+设 $S$ 为分次环。设 $M$ 为分次 $S$-模。我们将在标准开集构成的基上定义
+预层 $\widetilde M$。假设 $U \subset \text{Proj}(S)$ 是标准开集。
+若 $f, g \in S$ 是正次数齐次元且 $D_{+}(f) = D_{+}(g)$，
+则由上面的引理 \ref{constructions-lemma-standard-open}，存在互为逆映射的典范映射
+$M_{(f)} \to M_{(g)}$ 和 $M_{(g)} \to M_{(f)}$。因此可任选一个
+$f$，使 $U = D_{+}(f)$，并定义
+$$
+\widetilde M(U) = M_{(f)}.
+$$
+注意，若 $D_{+}(g) \subset D_{+}(f)$，则由上面的引理
+\ref{constructions-lemma-standard-open} 有典范映射
+$$
+\widetilde M(D_{+}(f)) = M_{(f)} \longrightarrow
+M_{(g)} = \widetilde M(D_{+}(g)).
+$$
+显然，这在标准开集构成的基上定义了阿贝尔群预层。若 $M = S$，则
+$\widetilde S$ 是该基上的环预层。对一般的 $M$，可见 $\widetilde M$
+是该基上的 $\widetilde S$-模预层。
+
+\medskip\noindent
+来计算 $\widetilde M$ 在一点 $x \in \text{Proj}(S)$ 处的茎。
+假设 $x$ 对应于齐次素理想 $\mathfrak p \subset S$。
+由茎的定义可见
+$$
+\widetilde M_x
+=
+\colim_{f\in S_d, d > 0, f\not\in \mathfrak p} M_{(f)}
+$$
+。这里集合 $\{f \in S_d, d > 0, f \not \in \mathfrak p\}$ 按如下规则预序：
+$f \geq f' \Leftrightarrow D_{+}(f) \subset D_{+}(f')$。
+若 $f_1, f_2 \in S \setminus \mathfrak p$ 是正次数齐次元，则在此序中
+$f_1f_2 \geq f_1$。在《代数》章节 \ref{algebra-section-proj} 中，
+我们把 $M_{(\mathfrak p)}$ 定义为由分式 $x/f$ 构成的模，其中
+$x, f$ 齐次，$\deg(x) = \deg(f)$，且 $f \not \in \mathfrak p$。
+由于 $\mathfrak p \in \text{Proj}(S)$，至少存在一个正次数齐次元
+$f_0 \in S$ 满足 $f_0 \not\in \mathfrak p$。于是
+$x/f = f_0x/ff_0$，可见总能假设 $M_{(\mathfrak p)}$ 中元素的分母
+具有正次数。由这些说明容易得出
+$$
+\widetilde M_x = M_{(\mathfrak p)}.
+$$
+
+\medskip\noindent
+接下来检验标准开覆盖的层条件。若
+$D_{+}(f) = \bigcup_{i = 1}^n D_{+}(g_i)$，则这个覆盖的层条件等价于
+序列
+$$
+0 \to M_{(f)} \to \bigoplus M_{(g_i)} \to \bigoplus M_{(g_ig_j)}.
+$$
+的正合性。注意 $D_{+}(g_i) = D_{+}(fg_i)$，因此可将这个序列改写为
+$$
+0 \to M_{(f)} \to \bigoplus M_{(fg_i)} \to \bigoplus M_{(fg_ig_j)}.
+$$
+由引理 \ref{constructions-lemma-standard-open} 可见，
+\par\noindent
+$g_1^{\deg(f)}/f^{\deg(g_1)}, \ldots, g_n^{\deg(f)}/f^{\deg(g_n)}$
+\par\noindent
+在 $S_{(f)}$ 中生成单位理想，而模 $M_{(fg_i)}$、$M_{(fg_ig_j)}$
+是 $S_{(f)}$-模 $M_{(f)}$ 关于这些元素及其乘积的主局部化。
+因此可将《代数》引理 \ref{algebra-lemma-cover-module} 应用于模
+$M_{(f)}$（它在 $S_{(f)}$ 上）以及元素
+\par\noindent
+$g_1^{\deg(f)}/f^{\deg(g_1)}, \ldots, g_n^{\deg(f)}/f^{\deg(g_n)}$.
+\par\noindent
+从而该序列正合。由上述说明可见，$\widetilde M$ 是标准开集构成的基上的层。
+
+\medskip\noindent
+于是由《层》章节 \ref{sheaves-section-bases} 的内容可知，存在唯一的环层
+$\mathcal{O}_{\text{Proj}(S)}$，它在标准开集上与 $\widetilde S$ 一致。
+注意，由上面对茎的计算以及《代数》引理
+\ref{algebra-lemma-proj-prime}，这个环层的各个茎都是局部环。
+
+\medskip\noindent
+类似地，对任意分次 $S$-模 $M$，存在唯一的
+$\mathcal{O}_{\text{Proj}(S)}$-模层 $\mathcal{F}$，它在标准开集上与
+$\widetilde M$ 一致；见《层》引理
+\ref{sheaves-lemma-extend-off-basis-module}。
+
+\begin{definition}
+\label{constructions-definition-structure-sheaf}
+设 $S$ 为分次环。
+\begin{enumerate}
+\item 齐次谱的{\it 结构层 $\mathcal{O}_{\text{Proj}(S)}$（关于
+$S$）}是唯一的环层
+$\mathcal{O}_{\text{Proj}(S)}$
+，它在标准开集构成的基上与 $\widetilde S$ 一致。
+\item 局部环层空间
+$(\text{Proj}(S), \mathcal{O}_{\text{Proj}(S)})$
+称为 $S$ 的{\it 齐次谱}，记作 $\text{Proj}(S)$。
+\item 设有一个 $\mathcal{O}_{\text{Proj}(S)}$-模层，它把
+$\widetilde M$ 延拓到 $\text{Proj}(S)$ 的所有开集；称此层为一个
+$\mathcal{O}_{\text{Proj}(S)}$-模层，即与 $M$ 关联的模层。
+这个层也记作 $\widetilde M$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+总结目前所得的结果。
+
+\begin{lemma}
+\label{constructions-lemma-proj-sheaves}
+设 $S$ 为分次环。设 $M$ 为分次 $S$-模。设 $\widetilde M$ 为一个
+$\mathcal{O}_{\text{Proj}(S)}$-模层，即与 $M$ 关联的层。
+\begin{enumerate}
+\item 对每个正次数齐次元 $f \in S$，有
+$$
+\Gamma(D_{+}(f), \mathcal{O}_{\text{Proj}(S)}) = S_{(f)}.
+$$
+\item 对每个正次数齐次元 $f\in S$，有
+$\Gamma(D_{+}(f), \widetilde M) = M_{(f)}$，这是 $S_{(f)}$-模的等式。
+\item 每当 $D_{+}(g) \subset D_{+}(f)$ 时，
+$\mathcal{O}_{\text{Proj}(S)}$ 和 $\widetilde M$ 上的限制映射，
+就是引理 \ref{constructions-lemma-standard-open} 中的映射
+$S_{(f)} \to S_{(g)}$ 和 $M_{(f)} \to M_{(g)}$。
+\item 设 $\mathfrak p$ 为 $S$ 的、不包含 $S_{+}$ 的齐次素理想，
+并设 $x \in \text{Proj}(S)$ 为相应的点。则有
+$\mathcal{O}_{\text{Proj}(S), x} = S_{(\mathfrak p)}$.
+\item 设 $\mathfrak p$ 为 $S$ 的、不包含 $S_{+}$ 的齐次素理想，
+并设 $x \in \text{Proj}(S)$ 为相应的点。则有
+$(\widetilde M)_x = M_{(\mathfrak p)}$，这是 $S_{(\mathfrak p)}$-模的等式。
+\item
+\label{constructions-item-map}
+存在典范环映射
+\par\noindent
+$
+S_0 \longrightarrow \Gamma(\text{Proj}(S), \widetilde S)
+$
+\par\noindent
+以及典范 $S_0$-模映射
+\par\noindent
+$
+M_0 \longrightarrow \Gamma(\text{Proj}(S), \widetilde M)
+$
+\par\noindent
+，它们与上面对标准开集上截面及茎的描述相容。
+\end{enumerate}
+此外，所有这些等同都关于分次 $S$-模 $M$ 具有函子性。特别地，函子
+$M \mapsto \widetilde M$ 是从分次 $S$-模范畴到
+$\mathcal{O}_{\text{Proj}(S)}$-模范畴的正合函子。
+\end{lemma}
+
+\begin{proof}
+断言 (1)--(5) 由上述讨论即得。断言 (6) 成立，是因为存在与 (3) 中限制映射
+相容的典范映射 $M_0 \to M_{(f)}$、$x \mapsto x/1$。
+函子 $M \mapsto \widetilde M$ 的正合性来自如下事实：函子
+$M \mapsto M_{(\mathfrak p)}$ 是正合的（见《代数》引理
+\ref{algebra-lemma-proj-prime}），而短正合序列的正合性可在茎上检验；
+见《模》引理 \ref{modules-lemma-abelian}。
+\end{proof}
+
+\begin{remark}
+\label{constructions-remark-global-sections-not-isomorphism}
+从 $M_0$ 到 $\widetilde M$ 的整体截面的映射一般远非同构。一个平凡例子是
+取 $S = k[x, y, z]$，其中 $1 = \deg(x) = \deg(y) = \deg(z)$
+（也可取任意多个变量），再取 $M = S/(x^{100}, y^{100}, z^{100})$。
+容易看出 $\widetilde M = 0$，但 $M_0 = k$。
+\end{remark}
+
+\begin{lemma}
+\label{constructions-lemma-standard-open-proj}
+设 $S$ 为分次环。设 $f \in S$ 为正次数齐次元。假设
+$D(g) \subset \Spec(S_{(f)})$ 是标准开集。则存在正次数齐次元
+$h \in S$，使得在《代数》引理 \ref{algebra-lemma-topology-proj}
+的同胚下，$D(g)$ 对应于 $D_{+}(h) \subset D_{+}(f)$。事实上，
+可取 $h$ 使得 $g = h/f^n$，其中 $n$ 为某个整数。
+\end{lemma}
+
+\begin{proof}
+写成 $g = h/f^n$，其中 $h$ 是某个正次数齐次元，且 $n \geq 1$。
+若 $D_{+}(h)$ 不包含于 $D_{+}(f)$，则把 $h$ 替换为 $hf$，并把
+$n$ 替换为 $n + 1$。此时 $h$ 具有所需形式，并且
+$D_{+}(h) \subset D_{+}(f)$ 对应于 $D(g) \subset \Spec(S_{(f)})$。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-proj-scheme}
+设 $S$ 为分次环。局部环层空间 $\text{Proj}(S)$ 是概形。
+标准开集 $D_{+}(f)$ 是仿射开集。对任意分次 $S$-模 $M$，层
+$\widetilde M$ 是拟凝聚 $\mathcal{O}_{\text{Proj}(S)}$-模层。
+\end{lemma}
+
+\begin{proof}
+考虑标准开集 $D_{+}(f) \subset \text{Proj}(S)$。由引理
+\ref{constructions-lemma-standard-open} 和 \ref{constructions-lemma-proj-sheaves}，有
+$\Gamma(D_{+}(f), \mathcal{O}_{\text{Proj}(S)}) = S_{(f)}$，并有同胚
+$\varphi : D_{+}(f) \to \Spec(S_{(f)})$。对任意标准开集
+$D(g) \subset \Spec(S_{(f)})$，可按引理
+\ref{constructions-lemma-standard-open-proj} 选取 $h \in S_{+}$。于是
+$\varphi^{-1}(D(g)) = D_{+}(h)$，并由引理
+\ref{constructions-lemma-proj-sheaves} 和 \ref{constructions-lemma-standard-open} 可得
+$$
+\Gamma(D_{+}(h), \mathcal{O}_{\text{Proj}(S)})
+=
+S_{(h)}
+=
+(S_{(f)})_{h^{\deg(f)}/f^{\deg(h)}}
+=
+(S_{(f)})_g
+=
+\Gamma(D(g), \mathcal{O}_{\Spec(S_{(f)})}).
+$$
+因此 $\mathcal{O}_{\text{Proj}(S)}$ 在 $D_{+}(f)$ 上的限制，在同胚
+$\varphi$ 下恰好对应于层 $\mathcal{O}_{\Spec(S_{(f)})}$；
+后者按《概形》章节 \ref{schemes-section-affine-schemes} 定义。
+从而 $D_{+}(f)$ 是仿射概形，并同构于 $\Spec(S_{(f)})$，
+同构由 $\varphi$ 给出；因此 $\text{Proj}(S)$ 是概形。
+
+\medskip\noindent
+完全相同的论证表明，$\widetilde M$ 是拟凝聚
+$\mathcal{O}_{\text{Proj}(S)}$-模层。具体而言，上述论证给出
+$$
+\widetilde M|_{D_{+}(f)} \cong \varphi^*\left(\widetilde{M_{(f)}}\right)
+$$
+，这表明 $\widetilde M$ 是拟凝聚的。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-proj-separated}
+设 $S$ 为分次环。概形 $\text{Proj}(S)$ 是分离的。
+\end{lemma}
+
+\begin{proof}
+需要证明典范态射 $\text{Proj}(S) \to \Spec(\mathbf{Z})$ 是分离的。
+使用《概形》引理 \ref{schemes-lemma-characterize-separated}。
+因此只须对任意一对标准开集 $D_{+}(f)$ 和 $D_{+}(g)$ 证明：
+$D_{+}(f) \cap D_{+}(g) = D_{+}(fg)$ 是仿射的（这是显然的），
+并且环映射
+$$
+S_{(f)} \otimes_{\mathbf{Z}} S_{(g)} \longrightarrow S_{(fg)}
+$$
+是满射。任意元素 $s$（在 $S_{(fg)}$ 中）都形如 $s = h/(f^ng^m)$，
+其中 $h \in S$ 是次数为 $n\deg(f) + m\deg(g)$ 的齐次元。
+可以把 $h$ 乘以适当的单项式 $f^ig^j$，并假设
+$n = n' \deg(g)$ 且 $m = m' \deg(f)$。于是可将 $s$ 改写为
+$s = h/f^{(n' + m')\deg(g)} \cdot f^{m'\deg(g)}/g^{m'\deg(f)}$。
+所以 $s$ 的确位于所示箭头的像中。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-proj-quasi-compact}
+设 $S$ 为分次环。概形 $\text{Proj}(S)$ 拟紧，当且仅当存在有限多个齐次元
+$f_1, \ldots, f_n \in S_{+}$，使得
+$S_{+} \subset \sqrt{(f_1, \ldots, f_n)}$。在这种情形下，
+$\text{Proj}(S) = D_+(f_1) \cup \ldots \cup D_+(f_n)$。
+\end{lemma}
+
+\begin{proof}
+给定这样一族元素，由《代数》引理 \ref{algebra-lemma-topology-proj}，
+标准仿射开集 $D_{+}(f_i)$ 覆盖 $\text{Proj}(S)$。反过来，若
+$\text{Proj}(S)$ 拟紧，则可用有限多个标准开集 $D_{+}(f_i)$，
+$i = 1, \ldots, n$ 覆盖它；由上述引理可见
+$S_{+} \subset \sqrt{(f_1, \ldots, f_n)}$。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-structure-morphism-proj}
+设 $S$ 为分次环。概形 $\text{Proj}(S)$ 有一个到仿射概形
+$\Spec(S_0)$ 的典范态射，它与《代数》定义
+\ref{algebra-definition-proj} 给出的拓扑空间映射一致。
+\end{lemma}
+
+\begin{proof}
+上文已经看到，我们对 $\widetilde S$（相应地 $\widetilde M$）的构造给出
+一层 $S_0$-代数（相应地 $S_0$-模）。因此由《概形》引理
+\ref{schemes-lemma-morphism-into-affine} 得到一个态射。这个态射限制到
+$D_{+}(f)$ 时，来自典范环映射 $S_0 \to S_{(f)}$。映射
+$S \to S_f$、$S_{(f)} \to S_f$ 都是 $S_0$-代数映射；
+见引理 \ref{constructions-lemma-standard-open}。因此，若齐次素理想
+$\mathfrak p \subset S$ 对应于 $\mathbf{Z}$-分次素理想
+$\mathfrak p' \subset S_f$ 以及（通常意义下的）素理想
+$\mathfrak p'' \subset S_{(f)}$，则它们在 $S_0$ 中的逆像相同。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-proj-valuative-criterion}
+设 $S$ 为分次环。若 $S$ 作为 $S_0$ 上的代数有限生成，则态射
+$\text{Proj}(S) \to \Spec(S_0)$ 满足赋值判据的存在性部分与唯一性部分；
+见《概形》定义 \ref{schemes-definition-valuative-criterion}。
+\end{lemma}
+
+\begin{proof}
+唯一性部分来自 $\text{Proj}(S)$ 是分离的这一事实（引理
+\ref{constructions-lemma-proj-separated} 以及《概形》引理
+\ref{schemes-lemma-separated-implies-valuative}）。选取齐次元
+$x_i \in S_{+}$，$i = 1, \ldots, n$；它们生成 $S$，作为 $S_0$-代数。
+令 $d_i = \deg(x_i)$，并置 $d = \text{lcm}\{d_i\}$。假设给定交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & \text{Proj}(S) \ar[d] \\
+\Spec(A) \ar[r] & \Spec(S_0)
+}
+$$
+，如《概形》定义 \ref{schemes-definition-valuative-criterion} 所述。
+记 $v : K^* \to \Gamma$ 为 $A$ 的赋值；见《代数》定义
+\ref{algebra-definition-value-group}。可以选取齐次元 $f \in S_{+}$，
+使 $\Spec(K)$ 映入 $D_{+}(f)$。于是得到环映射的交换图
+$$
+\xymatrix{
+K & S_{(f)} \ar[l]^{\varphi} \\
+A \ar[u] & S_0 \ar[l] \ar[u]
+}
+$$
+重新编号后，可以假设 $\varphi(x_i^{\deg(f)}/f^{d_i})$ 对
+$i = 1, \ldots, r$ 非零，而对 $i = r + 1, \ldots, n$ 为零。
+由于开集 $D_{+}(x_i)$ 覆盖 $\text{Proj}(S)$，可见 $r \geq 1$。
+取指标 $i_0 \in \{1, \ldots, r\}$，使
+$\gamma_i = (d/d_i)v(\varphi(x_i^{\deg(f)}/f^{d_i}))$ 在 $\Gamma$ 中最小。
+为方便起见，置 $x_0 = x_{i_0}$ 与 $d_0 = d_{i_0}$。环映射
+$\varphi$ 分解经过映射 $\varphi' : S_{(fx_0)} \to K$，后者给出环映射
+$S_{(x_0)} \to S_{(fx_0)} \to K$。代数 $S_{(x_0)}$ 在 $S_0$ 上由元素
+$x_1^{e_1} \ldots x_n^{e_n}/x_0^{e_0}$ 生成，其中
+$\sum e_i d_i = e_0 d_0$。若 $e_i > 0$ 对某个 $i > r$ 成立，则
+$\varphi'(x_1^{e_1} \ldots x_n^{e_n}/x_0^{e_0}) = 0$。
+若 $e_i = 0$ 对 $i > r$ 成立，则
+\begin{align*}
+d \deg(f) v(\varphi'(x_1^{e_1} \ldots x_r^{e_r}/x_0^{e_0}))
+& =
+d v(\varphi'(x_1^{e_1 \deg(f)} \ldots x_r^{e_r \deg(f)}/x_0^{e_0 \deg(f)})) \\
+& =
+d \sum e_i v(\varphi'(x_i^{\deg(f)}/f^{d_i}))
+- e_0 v(\varphi'(x_0^{\deg(f)}/f^{d_0})) \\
+& =
+\sum e_i d_i \gamma_i - e_0 d_0 \gamma_0 \\
+& \geq
+\sum e_i d_i \gamma_0 - e_0 d_0 \gamma_0 = 0
+\end{align*}
+，因为 $\gamma_0$ 在诸 $\gamma_i$ 中最小。这说明 $S_{(x_0)}$ 映入
+$A$，映射由 $\varphi'$ 给出。相应的概形态射
+$\Spec(A) \to \Spec(S_{(x_0)}) = D_{+}(x_0)
+\subset \text{Proj}(S)$ 给出嵌入本证明第一个交换图中的所需态射。
+\end{proof}
+
+\noindent
+在引理 \ref{constructions-lemma-proj-valuative-criterion} 的证明中已经看到，在该引理的
+假设下，态射 $\text{Proj}(S) \to \Spec(S_0)$ 也是拟紧的。因此由
+《概形》命题 \ref{schemes-proposition-characterize-universally-closed}，
+在该引理的情形中 $\text{Proj}(S) \to \Spec(S_0)$ 是泛闭的。
+下面给出若干例子，说明若不对分次环 $S$ 作某种假设，这些结果不成立。
+
+\begin{example}
+\label{constructions-example-not-existence-valuative-big-proj}
+设 $\mathbf{C}[X_1, X_2, X_3, \ldots]$ 为分次 $\mathbf{C}$-代数，
+其中每个 $X_i$ 的次数都是 $1$。考虑环映射
+$$
+\mathbf{C}[X_1, X_2, X_3, \ldots]
+\longrightarrow
+\mathbf{C}[t^\alpha ; \alpha \in \mathbf{Q}_{\geq 0}]
+$$
+，它把 $X_i$ 映为 $t^{1/i}$。右端成为赋值环 $A$，这是在理想
+$\mathfrak m = (t^\alpha ; \alpha > 0)$ 处局部化后得到的。
+设 $K$ 为 $A$ 的分式域。上述映射给出态射
+$\Spec(K) \to \text{Proj}(\mathbf{C}[X_1, X_2, X_3, \ldots])$，
+它不能延拓为定义在整个 $\Spec(A)$ 上的态射。理由是，$\Spec(A)$ 的像
+将包含于某个 $D_{+}(X_i)$ 中，但此时 $X_{i + 1}/X_i$ 应映为 $A$ 中的元素；
+事实上并非如此，因为它映为 $t^{1/(i + 1) - 1/i}$。
+\end{example}
+
+\begin{example}
+\label{constructions-example-not-existence-valuative-small-proj}
+设 $R = \mathbf{C}[t]$，并令
+$$
+S = R[X_1, X_2, X_3, \ldots]/(X_i^2 - tX_{i + 1}).
+$$
+分次满足 $R = S_0$ 且 $\deg(X_i) = 2^{i - 1}$。注意，若
+$\mathfrak p \in \text{Proj}(S)$，则 $t \not \in \mathfrak p$；
+否则 $\mathfrak p$ 必须包含所有 $X_i$，这对齐次谱的元素是不允许的。
+因此有 $D_{+}(X_i) = D_{+}(X_{i + 1})$，对所有 $i$ 均成立。所以
+$\text{Proj}(S)$ 是拟紧的；事实上它是仿射的，因为它等于
+$D_{+}(X_1)$。容易看出，$\text{Proj}(S) \to \Spec(R)$ 的像是
+$D(t)$。因此态射 $\text{Proj}(S) \to \Spec(R)$ 不是闭态射。
+所以赋值判据不能适用，因为它会蕴含该态射是闭的（见《概形》命题
+\ref{schemes-proposition-characterize-universally-closed}）。
+\end{example}
+
+\begin{example}
+\label{constructions-example-trivial-proj}
+设 $A$ 为环。令 $S = A[T]$ 为分次 $A$-代数，其中 $T$ 的次数为 $1$。
+则典范态射 $\text{Proj}(S) \to \Spec(A)$（见引理
+\ref{constructions-lemma-structure-morphism-proj}）是同构。
+\end{example}
+
+\begin{example}
+\label{constructions-example-open-subset-proj}
+设 $X = \Spec(A)$ 为仿射概形，并设 $U \subset X$ 为开子概形。
+给 $A[T]$ 分次，规定 $\deg T = 1$。定义 $S$ 为 $A[T]$ 的如下子环：
+它由 $A$ 和所有 $fT^i$ 生成，其中 $i \ge 0$，而 $f \in A$ 满足
+$D(f) \subset U$。我们断言 $S$ 是满足 $S_0 = A$ 的分次环，并且
+$\text{Proj}(S) \cong U$；此同构把引理
+\ref{constructions-lemma-structure-morphism-proj} 的典范态射
+$\text{Proj}(S) \to \Spec(A)$ 与包含映射 $U \subset X$ 等同起来。
+
+\medskip\noindent
+假设 $\mathfrak p \in \text{Proj}(S)$ 满足每个 $fT \in S_1$ 都属于
+$\mathfrak p$。则每个生成元 $fT^i$（其中 $i \ge 1$）都属于
+$\mathfrak p$，因为 $(fT^i)^2 = (fT)(fT^{2i-1}) \in \mathfrak p$，
+且 $\mathfrak p$ 是根理想。但这会给出 $\mathfrak p \supset S_+$，
+不可能。因此 $\text{Proj}(S)$ 由标准仿射开子集
+$\{D_+(fT)\}_{fT \in S_1}$ 覆盖。
+
+\medskip\noindent
+注意，若 $fT \in S_1$，则包含映射 $S \subset A[T]$ 诱导
+$S[(fT)^{-1}]$ 与 $A[T, T^{-1}, f^{-1}]$ 的分次同构。因此标准开子集
+$D_+(fT) \cong \Spec(S_{(fT)})$ 同构于
+$\Spec(A[T, T^{-1}, f^{-1}]_0) = \Spec(A[f^{-1}])$。显然，此同构是
+典范态射 $\text{Proj}(S) \to \Spec(A)$ 的限制。若还有 $gT \in S_1$，则
+$S[(fT)^{-1}, (gT)^{-1}] \cong A[T, T^{-1}, f^{-1}, g^{-1}]$
+是分次环同构，故
+$D_+(fT) \cap D_+(gT) \cong \Spec(A[f^{-1}, g^{-1}])$。因此
+$\text{Proj}(S)$ 是诸开子概形 $D_+(fT)$ 的并；在典范态射下，
+它们同构于开子概形 $D(f) \subset X$，并且这些开子概形在
+$\text{Proj}(S)$ 中的相交方式与它们在 $X$ 中的相交方式相同。
+由此可知，典范态射给出 $\text{Proj}(S)$ 与所有
+$D(f) \subset U$ 之并的同构，而这个并就是 $U$。
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Proj 上的拟凝聚层}
+\label{constructions-section-quasi-coherent-proj}
+
+\noindent
+设 $S$ 为分次环。设 $M$ 为分次 $S$-模。在引理
+\ref{constructions-lemma-proj-sheaves} 中，我们已经构造了拟凝聚模层
+$\widetilde{M}$（它位于 $\text{Proj}(S)$ 上）以及映射
+\begin{equation}
+\label{constructions-equation-map-global-sections}
+M_0 \longrightarrow \Gamma(\text{Proj}(S), \widetilde{M})
+\end{equation}
+，它把次数 $0$ 部分（属于 $M$）映到 $\widetilde{M}$ 的整体截面。
+考虑次数 $0$ 部分：它在第 $n$ 次扭转 $M(n)$ 中（原分次模为
+$M$；见《代数》章节 \ref{algebra-section-graded}）等于 $M_n$。
+因此得到映射
+\begin{equation}
+\label{constructions-equation-map-global-sections-degree-n}
+M_n \longrightarrow \Gamma(\text{Proj}(S), \widetilde{M(n)}).
+\end{equation}
+我们希望对任意拟凝聚层 $\mathcal{F}$（在 $\text{Proj}(S)$ 上）都能执行此操作。
+为此，将与结构层的第 $n$ 次扭转作张量积；见定义
+\ref{constructions-definition-twist}。为联系这两个概念，将使用下面的引理。
+
+\begin{lemma}
+\label{constructions-lemma-widetilde-tensor}
+设 $S$ 为分次环。设
+$(X, \mathcal{O}_X) = (\text{Proj}(S), \mathcal{O}_{\text{Proj}(S)})$
+为引理 \ref{constructions-lemma-proj-scheme} 中的概形。设 $f \in S_{+}$ 为齐次元。
+设 $x \in X$ 为对应于齐次素理想 $\mathfrak p \subset S$ 的点。
+设 $M$、$N$ 为分次 $S$-模。存在典范的
+$\mathcal{O}_{\text{Proj}(S)}$-模映射
+$$
+\widetilde M \otimes_{\mathcal{O}_X} \widetilde N
+\longrightarrow
+\widetilde{M \otimes_S N}
+$$
+，它诱导典范映射
+$
+M_{(f)} \otimes_{S_{(f)}} N_{(f)}
+\to
+(M \otimes_S N)_{(f)}
+$
+（在 $D_{+}(f)$ 上的截面上），并诱导典范映射
+$
+M_{(\mathfrak p)} \otimes_{S_{(\mathfrak p)}} N_{(\mathfrak p)}
+\to
+(M \otimes_S N)_{(\mathfrak p)}
+$
+（在点 $x$ 的茎上）。此外，下图交换：
+$$
+\xymatrix{
+M_0 \otimes_{S_0} N_0 \ar[r] \ar[d] &
+(M \otimes_S N)_0 \ar[d] \\
+\Gamma(X, \widetilde M \otimes_{\mathcal{O}_X} \widetilde N) \ar[r] &
+\Gamma(X, \widetilde{M \otimes_S N})
+}
+$$
+其中竖直映射由（\ref{constructions-equation-map-global-sections}）给出。
+\end{lemma}
+
+\begin{proof}
+构造所示态射等价于构造 $\mathcal{O}_X$-双线性映射
+$$
+\widetilde M \times \widetilde N
+\longrightarrow
+\widetilde{M \otimes_S N}
+$$
+；见《模》章节 \ref{modules-section-tensor-product}。只须在开集
+$D_{+}(f)$ 上的截面上定义它，并使之与限制映射相容。在 $D_{+}(f)$ 上，
+使用 $S_{(f)}$-双线性映射
+$M_{(f)} \times N_{(f)} \to (M \otimes_S N)_{(f)}$,
+$(x/f^n, y/f^m) \mapsto (x \otimes y)/f^{n + m}$。细节从略。
+\end{proof}
+
+\begin{remark}
+\label{constructions-remark-not-isomorphism}
+一般而言，上面引理 \ref{constructions-lemma-widetilde-tensor} 中构造的映射不是同构。
+下面给出一个例子。设 $k$ 为域。设 $S = k[x, y, z]$，其中 $k$ 的次数为
+$0$，而 $\deg(x) = 1$、$\deg(y) = 2$、$\deg(z) = 3$。
+设 $M = S(1)$ 且 $N = S(2)$；记号见《代数》章节
+\ref{algebra-section-graded}。于是 $M \otimes_S N = S(3)$。注意
+\begin{eqnarray*}
+S_z
+& = &
+k[x, y, z, 1/z] \\
+S_{(z)}
+& = &
+k[x^3/z, xy/z, y^3/z^2]
+\cong
+k[u, v, w]/(uw - v^3) \\
+M_{(z)} & = & S_{(z)} \cdot x + S_{(z)} \cdot y^2/z \subset S_z \\
+N_{(z)} & = & S_{(z)} \cdot y + S_{(z)} \cdot x^2 \subset S_z \\
+S(3)_{(z)} & = & S_{(z)} \cdot z \subset S_z
+\end{eqnarray*}
+考虑极大理想 $\mathfrak m = (u, v, w) \subset S_{(z)}$。不难看出，
+$M_{(z)}/\mathfrak mM_{(z)}$ 和 $N_{(z)}/\mathfrak mN_{(z)}$
+的维数都是 $2$（在 $\kappa(\mathfrak m)$ 上）。但
+$S(3)_{(z)}/\mathfrak mS(3)_{(z)}$ 的维数是 $1$。因此映射
+$M_{(z)} \otimes N_{(z)} \to S(3)_{(z)}$ 不是同构。
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{Proj 上的可逆层}
+\label{constructions-section-invertible-on-proj}
+
+\noindent
+回顾《代数》章节 \ref{algebra-section-graded} 中，对分次环上的分次模所关联的
+扭转模 $M(n)$ 之构造。
+
+\begin{definition}
+\label{constructions-definition-twist}
+设 $S$ 为分次环。设 $X = \text{Proj}(S)$。
+\begin{enumerate}
+\item 定义 $\mathcal{O}_X(n) = \widetilde{S(n)}$。它称为第 $n$ 个
+{\it $\text{Proj}(S)$ 的结构层扭转}。
+\item 对任意 $\mathcal{O}_X$-模层 $\mathcal{F}$，置
+$\mathcal{F}(n) = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_X(n)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+将使用引理 \ref{constructions-lemma-widetilde-tensor} 构造一些典范映射。
+由于 $S(n) \otimes_S S(m) = S(n + m)$，可见存在典范映射
+\begin{equation}
+\label{constructions-equation-multiply}
+\mathcal{O}_X(n) \otimes_{\mathcal{O}_X} \mathcal{O}_X(m)
+\longrightarrow
+\mathcal{O}_X(n + m).
+\end{equation}
+这些映射一般不是同构；见注记 \ref{constructions-remark-not-isomorphism} 中的例子。
+同一个例子表明，$\mathcal{O}_X(n)$ 一般{\it 不是} $X$ 上的可逆层。
+与任意 $\mathcal{O}_X$-模 $\mathcal{F}$ 作张量积，得到映射
+\begin{equation}
+\label{constructions-equation-multiply-on-sheaf}
+\mathcal{O}_X(n) \otimes_{\mathcal{O}_X} \mathcal{F}(m)
+\longrightarrow
+\mathcal{F}(n + m).
+\end{equation}
+整体截面上的映射（\ref{constructions-equation-map-global-sections-degree-n}）给出分次环映射
+\begin{equation}
+\label{constructions-equation-global-sections}
+S \longrightarrow \bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{O}_X(n)).
+\end{equation}
+而对任意 $\mathcal{O}_X$-模 $\mathcal{F}$，映射
+（\ref{constructions-equation-multiply-on-sheaf}）给出分次模结构
+\begin{equation}
+\label{constructions-equation-global-sections-module}
+\bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{O}_X(n))
+\times
+\bigoplus\nolimits_{m \in \mathbf{Z}} \Gamma(X, \mathcal{F}(m))
+\longrightarrow
+\bigoplus\nolimits_{m \in \mathbf{Z}} \Gamma(X, \mathcal{F}(m))
+\end{equation}
+，并且通过（\ref{constructions-equation-global-sections}）也得到 $S$-模结构。
+更一般地，给定任意分次 $S$-模 $M$，有
+$M(n) = M \otimes_S S(n)$。因此得到映射
+\begin{equation}
+\label{constructions-equation-multiply-more-generally}
+\widetilde M(n)
+=
+\widetilde M
+\otimes_{\mathcal{O}_X}
+\mathcal{O}_X(n)
+\longrightarrow
+\widetilde{M(n)}.
+\end{equation}
+在整体截面上，（\ref{constructions-equation-map-global-sections-degree-n}）定义分次
+$S$-模映射
+\begin{equation}
+\label{constructions-equation-global-sections-more-generally}
+M \longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X, \widetilde{M(n)}).
+\end{equation}
+下面是一个基本上直接由定义得出的重要事实。
+
+\begin{lemma}
+\label{constructions-lemma-when-invertible}
+设 $S$ 为分次环。置 $X = \text{Proj}(S)$。设 $f \in S$ 为次数
+$d > 0$ 的齐次元。层 $\mathcal{O}_X(nd)|_{D_{+}(f)}$ 是可逆的；事实上，
+对所有 $n \in \mathbf{Z}$ 它们都是平凡的（见《模》定义
+\ref{modules-definition-invertible}）。映射（\ref{constructions-equation-multiply}）
+限制到 $D_{+}(f)$ 后为
+$$
+\mathcal{O}_X(nd)|_{D_{+}(f)} \otimes_{\mathcal{O}_{D_{+}(f)}}
+\mathcal{O}_X(m)|_{D_{+}(f)}
+\longrightarrow
+\mathcal{O}_X(nd + m)|_{D_{+}(f)},
+$$
+映射（\ref{constructions-equation-multiply-on-sheaf}）限制到 $D_+(f)$ 后为
+$$
+\mathcal{O}_X(nd)|_{D_{+}(f)} \otimes_{\mathcal{O}_{D_{+}(f)}}
+\mathcal{F}(m)|_{D_{+}(f)}
+\longrightarrow
+\mathcal{F}(nd + m)|_{D_{+}(f)},
+$$
+而映射（\ref{constructions-equation-multiply-more-generally}）限制到 $D_{+}(f)$ 后为
+$$
+\widetilde M(nd)|_{D_{+}(f)}
+=
+\widetilde M|_{D_{+}(f)}
+\otimes_{\mathcal{O}_{D_{+}(f)}}
+\mathcal{O}_X(nd)|_{D_{+}(f)}
+\longrightarrow
+\widetilde{M(nd)}|_{D_{+}(f)}
+$$
+；对所有 $n, m \in \mathbf{Z}$，这些映射都是同构。
+\end{lemma}
+
+\begin{proof}
+分次 $S$-模映射 $S \to S(nd)$ 与 $M \to M(nd)$ 由
+$x \mapsto f^n x$ 给出；在使 $f$ 可逆后，它们成为同构。第一个映射表明
+$S_{(f)} \cong S(nd)_{(f)}$，从而给出同构
+$\mathcal{O}_{D_{+}(f)} \cong \mathcal{O}_X(nd)|_{D_{+}(f)}$。
+第二个映射表明
+$S(nd)_{(f)} \otimes_{S_{(f)}} M_{(f)} \to M(nd)_{(f)}$
+是同构。映射（\ref{constructions-equation-multiply-on-sheaf}）的情形由映射
+（\ref{constructions-equation-multiply}）的情形得出。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-apply-modules}
+设 $S$ 为分次环。设 $M$ 为分次 $S$-模。置 $X = \text{Proj}(S)$。
+假设 $X$ 由标准开集 $D_+(f)$ 覆盖，其中 $f \in S_1$；例如，当 $S$
+由 $S_1$ 在 $S_0$ 上生成时即如此。则层 $\mathcal{O}_X(n)$ 是可逆的，
+而映射（\ref{constructions-equation-multiply}）、（\ref{constructions-equation-multiply-on-sheaf}）与
+（\ref{constructions-equation-multiply-more-generally}）都是同构。特别地，它们诱导同构
+$$
+\mathcal{O}_X(1)^{\otimes n} \cong
+\mathcal{O}_X(n)
+\quad
+\text{且}
+\quad
+\widetilde{M} \otimes_{\mathcal{O}_X} \mathcal{O}_X(n) =
+\widetilde{M}(n) \cong \widetilde{M(n)}
+$$
+因此（\ref{constructions-equation-map-global-sections-degree-n}）成为映射
+\begin{equation}
+\label{constructions-equation-map-global-sections-degree-n-simplified}
+M_n \longrightarrow \Gamma(X, \widetilde{M}(n))
+\end{equation}
+，而（\ref{constructions-equation-global-sections-more-generally}）成为映射
+\begin{equation}
+\label{constructions-equation-global-sections-more-generally-simplified}
+M \longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X, \widetilde{M}(n)).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+在本引理的假设下，$X$ 由开子集 $D_{+}(f)$ 覆盖，其中 $f \in S_1$；
+于是本引理由上面的引理 \ref{constructions-lemma-when-invertible} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-where-invertible}
+设 $S$ 为分次环。置 $X = \text{Proj}(S)$。固定整数 $d \geq 1$。
+$X$ 的下列开子集相等：
+\begin{enumerate}
+\item 最大开子集 $W = W_d \subset X$，满足每个
+$\mathcal{O}_X(dn)|_W$ 都可逆，且所有乘法映射
+$\mathcal{O}_X(nd)|_W \otimes_{\mathcal{O}_W} \mathcal{O}_X(md)|_W
+\to \mathcal{O}_X(nd + md)|_W$
+（见 \ref{constructions-equation-multiply}）都是同构。
+\item 开子集 $D_{+}(fg)$ 的并，其中 $f, g \in S$ 齐次且
+$\deg(f) = \deg(g) + d$。
+\end{enumerate}
+此外，所有映射
+$\widetilde M(nd)|_W = \widetilde M|_W \otimes_{\mathcal{O}_W}
+\mathcal{O}_X(nd)|_W \to \widetilde{M(nd)}|_W$
+（见 \ref{constructions-equation-multiply-more-generally}）都是同构。
+\end{lemma}
+
+\begin{proof}
+若 $x \in D_{+}(fg)$ 且 $\deg(f) = \deg(g) + d$，则在 $D_{+}(fg)$ 上，
+层 $\mathcal{O}_X(dn)$ 由元素 $(f/g)^n = f^{2n}/(fg)^n$ 生成。
+像引理 \ref{constructions-lemma-when-invertible} 的证明那样论证，可知 $x$ 属于 (1) 中
+定义的开子集 $W$。
+
+\medskip\noindent
+反过来，假设 $\mathcal{O}_X(dn)$ 对所有 $n$ 都在一个开邻域 $V$
+（它是点 $x \in X$ 的邻域）上秩一自由，并且所有乘法映射
+$\mathcal{O}_X(nd)|_V \otimes_{\mathcal{O}_V} \mathcal{O}_X(md)|_V
+\to \mathcal{O}_X(nd + md)|_V$ 都是同构。可选取齐次元 $h \in S_{+}$，使得
+$x \in D_{+}(h) \subset V$。由结构层扭转的定义可知，存在元素
+$s$（属于 $(S_h)_d$），使 $s^n$ 是 $(S_h)_{nd}$ 作为
+$S_{(h)}$-模的一组基；此事对所有 $n \in \mathbf{Z}$ 成立。可以写成
+$s = f/h^m$，其中 $m \geq 1$ 且 $f \in S_{d + m \deg(h)}$。
+置 $g = h^m$，于是 $s = f/g$。由构造可知 $x \in D_{+}(g)$。
+注意 $g^d \in (S_h)_{d\deg(g)}$。由假设，可把它写成
+$s^{\deg(g)} = f^{\deg(g)}/g^{\deg(g)}$ 的倍数，即
+$g^d = a/g^e \cdot f^{\deg(g)}/g^{\deg(g)}$。于是得到
+$g^{d + e + \deg(g)} = a f^{\deg(g)}$，从而还有
+$x \in D_{+}(f)$。所以 $x$ 属于 (2) 中定义的集合。
+
+\medskip\noindent
+生成截面 $s = f/g$ 的存在性（它位于仿射开集 $D_{+}(fg)$ 上），
+连同其各次幂自由生成模层
+$\mathcal{O}_X(nd)$；这容易蕴含乘法映射
+$\widetilde M(nd)|_W = \widetilde M|_W \otimes_{\mathcal{O}_W}
+\mathcal{O}_X(nd)|_W \to \widetilde{M(nd)}|_W$
+（见 \ref{constructions-equation-multiply-more-generally}）是同构。可与引理
+\ref{constructions-lemma-when-invertible} 的证明比较。
+\end{proof}
+
+\noindent
+回顾《模》引理 \ref{modules-lemma-s-open}：给定可逆层 $\mathcal{L}$
+（在局部环层空间 $X$ 上），并给定整体截面 $s$（属于 $\mathcal{L}$），则集合
+$X_s = \{x \in X \mid s \not \in \mathfrak m_x\mathcal{L}_x\}$ 是开的。
+
+\begin{lemma}
+\label{constructions-lemma-principal-open}
+设 $S$ 为分次环。置 $X = \text{Proj}(S)$。固定整数 $d \geq 1$。
+设 $W = W_d \subset X$ 为引理 \ref{constructions-lemma-where-invertible} 中定义的
+开子概形。设 $n \geq 1$ 且 $f \in S_{nd}$。用
+$s \in \Gamma(W, \mathcal{O}_W(nd))$ 表示如下截面：它是 $f$ 经由
+（\ref{constructions-equation-global-sections}）在 $W$ 上的限制所得的像。则
+$$
+W_s = D_{+}(f) \cap W.
+$$
+\end{lemma}
+
+\begin{proof}
+设 $D_{+}(ab) \subset W$ 为标准仿射开集，其中 $a, b \in S$ 齐次且
+$\deg(a) = \deg(b) + d$。注意
+$D_{+}(ab) \cap D_{+}(f) = D_{+}(abf)$。另一方面，$s$ 在
+$D_{+}(ab)$ 上的限制对应于元素
+$f/1 = b^nf/a^n (a/b)^n \in (S_{ab})_{nd}$。在引理
+\ref{constructions-lemma-where-invertible} 的证明中已经看到，$(a/b)^n$ 是
+$\mathcal{O}_W(nd)$ 在 $D_{+}(ab)$ 上的生成元。因此
+$W_s \cap D_{+}(ab)$ 是与
+$b^nf/a^n \in \mathcal{O}_X(D_{+}(ab))$ 关联的主开集。
+本引理的结论由此显然。
+\end{proof}
+
+\noindent
+下面的引理陈述若干性质；以后将用它们刻画带有丰沛可逆层的概形。
+
+\begin{lemma}
+\label{constructions-lemma-ample-on-proj}
+设 $S$ 为分次环。设 $X = \text{Proj}(S)$。设 $Y \subset X$ 为拟紧开子概形。
+用 $\mathcal{O}_Y(n)$ 表示 $\mathcal{O}_X(n)$ 在 $Y$ 上的限制。
+存在整数 $d \geq 1$，使得
+\begin{enumerate}
+\item 子概形 $Y$ 包含于引理 \ref{constructions-lemma-where-invertible} 中定义的开集
+$W_d$；
+\item 层 $\mathcal{O}_Y(dn)$ 对所有 $n \in \mathbf{Z}$ 都可逆；
+\item 所有映射
+$\mathcal{O}_Y(nd) \otimes_{\mathcal{O}_Y} \mathcal{O}_Y(m)
+\longrightarrow
+\mathcal{O}_Y(nd + m)$
+（来自等式（\ref{constructions-equation-multiply}））都是同构；
+\item 所有映射
+$\widetilde M(nd)|_Y = \widetilde M|_Y \otimes_{\mathcal{O}_Y}
+\mathcal{O}_X(nd)|_Y \to \widetilde{M(nd)}|_Y$
+（见 \ref{constructions-equation-multiply-more-generally}）都是同构；
+\item 给定 $f \in S_{nd}$，用 $s \in \Gamma(Y, \mathcal{O}_Y(nd))$
+表示 $f$ 经由（\ref{constructions-equation-global-sections}）在 $Y$ 上限制所得的像，
+则 $D_{+}(f) \cap Y = Y_s$；
+\item $Y$ 的拓扑有一个基，它由开集 $Y_s$ 构成，其中
+$s \in \Gamma(Y, \mathcal{O}_Y(nd))$ 且 $n \geq 1$；并且
+\item $Y$ 的拓扑有一个基，它由那些仿射开集 $Y_s \subset Y$ 构成，其中
+$s \in \Gamma(Y, \mathcal{O}_Y(nd))$ 且 $n \geq 1$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $Y$ 拟紧，存在有限多个齐次元 $f_i \in S_{+}$，
+$i = 1, \ldots, n$，使标准开集 $D_{+}(f_i)$ 给出 $Y$ 的开覆盖。
+令 $d_i = \deg(f_i)$，并置 $d = d_1 \ldots d_n$。注意
+$D_{+}(f_i) = D_{+}(f_i^{d/d_i})$，因此由引理
+\ref{constructions-lemma-where-invertible} 的刻画 (2)，或使用引理
+\ref{constructions-lemma-when-invertible} 的 (1)，立刻可见 $Y \subset W_d$。
+注意，由引理 \ref{constructions-lemma-where-invertible}，(1) 蕴含 (2)、(3) 与 (4)。
+（注意 (3) 是 (4) 的特殊情形。）断言 (5) 来自引理
+\ref{constructions-lemma-principal-open}。断言 (6) 和 (7) 成立，是因为开子集
+$D_{+}(f)$ 构成 $X$ 的拓扑基，并且都是仿射的。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-comparison-proj-quasi-coherent}
+设 $S$ 为分次环。置 $X = \text{Proj}(S)$。设 $\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。利用（\ref{constructions-equation-global-sections-module}）和
+（\ref{constructions-equation-global-sections}），把
+$M = \bigoplus_{n \in \mathbf{Z}} \Gamma(X, \mathcal{F}(n))$ 视为分次
+$S$-模。则存在典范 $\mathcal{O}_X$-模映射
+$$
+\widetilde{M} \longrightarrow \mathcal{F}
+$$
+，它关于 $\mathcal{F}$ 具有函子性，并且诱导映射
+$M_0 \to \Gamma(X, \mathcal{F})$ 是恒等映射。
+\end{lemma}
+
+\begin{proof}
+设 $f \in S$ 为次数 $d > 0$ 的齐次元。回顾由引理
+\ref{constructions-lemma-proj-sheaves}，$\widetilde{M}|_{D_{+}(f)}$ 对应于
+$S_{(f)}$-模 $M_{(f)}$。因此可以定义典范映射
+$$
+M_{(f)} \longrightarrow \Gamma(D_+(f), \mathcal{F}),\quad
+m/f^n \longmapsto m|_{D_+(f)} \otimes f|_{D_+(f)}^{-n}
+$$
+；它有意义，因为 $f|_{D_+(f)}$ 是可逆层
+$\mathcal{O}_X(d)|_{D_+(f)}$ 的平凡化截面；见引理
+\ref{constructions-lemma-when-invertible} 及其证明。由于 $\widetilde{M}$ 拟凝聚，
+这给出典范映射
+$$
+\widetilde{M}|_{D_+(f)} \longrightarrow \mathcal{F}|_{D_+(f)}
+$$
+；这里使用《概形》引理 \ref{schemes-lemma-compare-constructions}。
+若证明所示映射可在交叠处粘合，就得到整体映射。这一点的证明从略。
+最后一个断言的证明也从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Proj 的函子性}
+\label{constructions-section-functoriality-proj}
+
+\noindent
+分次环映射 $\psi : A \to B$ 不总能给出相应射影齐次谱之间的态射。
+原因是，逆像 $\psi^{-1}(\mathfrak q)$（其中
+$\mathfrak q \subset B$ 是齐次素理想）可能包含无关素理想 $A_{+}$，即使
+$\mathfrak q$ 不包含 $B_{+}$。正确的结果如下。
+
+\begin{lemma}
+\label{constructions-lemma-morphism-proj}
+设 $A$、$B$ 为两个分次环。置 $X = \text{Proj}(A)$ 且
+$Y = \text{Proj}(B)$。设 $\psi : A \to B$ 为分次环映射。置
+$$
+U(\psi)
+=
+\bigcup\nolimits_{f \in A_{+}\ \text{齐次}} D_{+}(\psi(f))
+\subset Y.
+$$
+则存在典范概形态射
+$$
+r_\psi :
+U(\psi)
+\longrightarrow
+X
+$$
+以及 $\mathbf{Z}$-分次 $\mathcal{O}_{U(\psi)}$-代数映射
+$$
+\theta = \theta_\psi :
+r_\psi^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_X(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_{U(\psi)}(d).
+$$
+三元组 $(U(\psi), r_\psi, \theta)$ 由下列性质刻画：
+\begin{enumerate}
+\item 对每个 $d \geq 0$，图
+$$
+\xymatrix{
+A_d \ar[d] \ar[rr]_{\psi} & &
+B_d \ar[d] \\
+\Gamma(X, \mathcal{O}_X(d)) \ar[r]^-\theta &
+\Gamma(U(\psi), \mathcal{O}_Y(d)) &
+\Gamma(Y, \mathcal{O}_Y(d)) \ar[l]
+}
+$$
+交换。
+\item 对任意齐次元 $f \in A_{+}$，有
+$r_\psi^{-1}(D_{+}(f)) = D_{+}(\psi(f))$，并且 $r_\psi$ 在
+$D_{+}(\psi(f))$ 上的限制，对应于环映射
+$A_{(f)} \to B_{(\psi(f))}$；此映射由 $\psi$ 诱导。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然，条件 (2) 唯一确定概形态射与开子集 $U(\psi)$。选取
+$f \in A_d$，其中 $d \geq 1$。注意，$\mathcal{O}_X(n)|_{D_{+}(f)}$
+对应于 $A_{(f)}$-模 $(A_f)_n$，而
+$\mathcal{O}_Y(n)|_{D_{+}(\psi(f))}$ 对应于 $B_{(\psi(f))}$-模
+$(B_{\psi(f)})_n$。换言之，$\theta$ 限制到 $D_{+}(\psi(f))$ 时，
+对应于 $\mathbf{Z}$-分次 $B_{(\psi(f))}$-代数映射
+$$
+A_f \otimes_{A_{(f)}} B_{(\psi(f))}
+\longrightarrow
+B_{\psi(f)}
+$$
+条件 (1) 确定 $A$ 的所有元素之像。由于 $f$ 是可逆元且映为
+$\psi(f)$，可见 $1/f^m$ 映为 $1/\psi(f)^m$。由此容易看出，
+$\theta$ 被唯一确定；具体由规则
+$$
+a/f^m \otimes b/\psi(f)^e \longmapsto \psi(a)b/\psi(f)^{m + e}.
+$$
+给出。为证明存在性，注意上述唯一性证明给出如下良定义规则：把态射 $r$
+和映射 $\theta$ 限制到每个形如 $D_{+}(\psi(f)) \subset U(\psi)$ 的
+标准开集，并映入 $D_{+}(f)$。称它们为 $r_f$ 与 $\theta_f$。
+因此只须验证：若 $D_{+}(f) \subset D_{+}(g)$ 对某些齐次元
+$f, g \in A_{+}$ 成立，则 $r_g$ 在 $D_{+}(\psi(f))$ 上的限制
+与 $r_f$ 一致。这由上面对 $r$ 与 $\theta$ 给出的公式显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-morphism-proj-transitive}
+设 $A$、$B$ 与 $C$ 为分次环。置 $X = \text{Proj}(A)$、
+$Y = \text{Proj}(B)$ 与 $Z = \text{Proj}(C)$。设
+$\varphi : A \to B$、$\psi : B \to C$ 为分次环映射。则有
+$$
+U(\psi \circ \varphi) = r_\psi^{-1}(U(\varphi))
+\quad
+\text{且}
+\quad
+r_{\psi \circ \varphi}
+=
+r_\varphi \circ r_\psi|_{U(\psi \circ \varphi)}.
+$$
+此外有
+$$
+\theta_\psi \circ r_\psi^*\theta_\varphi
+=
+\theta_{\psi \circ \varphi}
+$$
+，其中记号含义显然。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-surjective-graded-rings-map-proj}
+沿用上面引理 \ref{constructions-lemma-morphism-proj} 的假设与记号。假设
+$A_d \to B_d$ 对所有 $d \gg 0$ 都是满射。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ 是闭浸入；并且
+\item 映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+都是满射，但一般不是同构（即使 $A \to B$ 是满射）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 部分来自 $U(\psi)$ 的定义以及如下事实：
+$D_{+}(f) = D_{+}(f^n)$ 对任意 $n > 0$ 成立。对齐次元
+$f \in A_{+}$，可见
+$A_{(f)} \to B_{(\psi(f))}$ 是满射，因为 $B_{(\psi(f))}$ 的任意元素
+都可表示为分式 $b/\psi(f)^n$，其中 $n$ 可任意大（这迫使
+$b \in B$ 的次数很大）。这证明了 (2)。同一论证表明映射
+$$
+A_f \to B_{\psi(f)}
+$$
+是满射，从而证明 $\theta$ 的满射性。作为这个映射不是同构的例子，
+考虑分次环 $A = k[x, y]$，其中 $k$ 为域，且 $\deg(x) = 1$、
+$\deg(y) = 2$。置 $I = (x)$，从而 $B = k[y]$。注意在此情形下
+$\mathcal{O}_Y(1) = 0$。但容易看出 $r_\psi^*\mathcal{O}_X(1)$ 非零。
+（也有不那么愚蠢的例子。）
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-eventual-iso-graded-rings-map-proj}
+沿用上面引理 \ref{constructions-lemma-morphism-proj} 的假设与记号。假设
+$A_d \to B_d$ 对所有 $d \gg 0$ 都是同构。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ 是同构；并且
+\item 映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+都是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-surjective-graded-rings-map-proj} 得到 (1)。设
+$f \in A_{+}$ 为齐次元。关于 $\psi$ 的假设蕴含
+$A_f \to B_f$ 是同构（细节从略）。因此显然 $r_\psi$ 与 $\theta$
+限制到 $D_{+}(f)$ 上都是同构。本引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-surjective-graded-rings-generated-degree-1-map-proj}
+沿用上面引理 \ref{constructions-lemma-morphism-proj} 的假设与记号。
+假设 $A_d \to B_d$ 对于 $d \gg 0$ 是满射，并且 $A$ 由 $A_1$
+在 $A_0$ 上生成。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ 是闭浸入；并且
+\item 各映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+均为同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-eventual-iso-graded-rings-map-proj} 与
+\ref{constructions-lemma-morphism-proj-transitive}
+可知，我们可将 $B$ 替换为 $A \to B$ 的像，
+而不改变 $X$ 或各层 $\mathcal{O}_X(n)$。
+因此可假设 $A \to B$ 是满射。由引理
+\ref{constructions-lemma-surjective-graded-rings-map-proj} 得到 (1)、(2)
+以及 (3) 中映射的满射性。
+由引理 \ref{constructions-lemma-apply-modules} 可知，
+$\mathcal{O}_X(n)$ 与 $\mathcal{O}_Y(n)$
+都是可逆层。因此 $\theta$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-base-change-map-proj}
+\begin{reference}
+\cite[II, Proposition 2.8.10]{EGA}
+\end{reference}
+沿用上面引理 \ref{constructions-lemma-morphism-proj} 的假设与记号。
+假设存在环同态 $R \to A_0$ 与环同态
+$R \to R'$，使得 $B = R' \otimes_R A$。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item 图表
+$$
+\xymatrix{
+Y = \text{Proj}(B) \ar[r]_{r_\psi} \ar[d] &
+\text{Proj}(A) = X \ar[d] \\
+\Spec(R') \ar[r] &
+\Spec(R)
+}
+$$
+是纤维积方块；并且
+\item 各映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+均为同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+只需考察标准开集 $D_{+}(f)$（其中 $f \in A_{+}$）上的情形，
+即刻可得结论。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-localization-map-proj}
+沿用上面引理 \ref{constructions-lemma-morphism-proj} 的假设与记号。
+假设存在 $g \in A_0$，使得 $\psi$ 诱导同构
+$A_g \to B$。则
+$U(\psi) = Y$，$r_\psi : Y \to X$ 是开浸入，
+并诱导 $Y$ 与
+$D(g) \subset \Spec(A_0)$ 的逆像之间的同构。此外，映射 $\theta$
+是同构。
+\end{lemma}
+
+\begin{proof}
+这是上面引理 \ref{constructions-lemma-base-change-map-proj} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-d-uple}
+设 $S$ 为分次环。设 $d \geq 1$。采用代数章第
+\ref{algebra-section-graded} 节的记号，置 $S' = S^{(d)}$。置
+$X = \text{Proj}(S)$ 与 $X' = \text{Proj}(S')$。存在概形的典范
+同构 $i : X \to X'$，使得
+\begin{enumerate}
+\item 对任一分次 $S$-模 $M$，置 $M' = M^{(d)}$，
+都有典范同构 $\widetilde{M} \to i^*\widetilde{M'}$；
+\item 有典范同构
+$\mathcal{O}_{X}(nd) \to i^*\mathcal{O}_{X'}(n)$
+\end{enumerate}
+且这些同构与引理 \ref{constructions-lemma-widetilde-tensor} 的乘法映射相容，
+从而与下列映射相容：
+(\ref{constructions-equation-multiply}),
+(\ref{constructions-equation-multiply-on-sheaf}),
+(\ref{constructions-equation-global-sections}),
+(\ref{constructions-equation-global-sections-module}),
+(\ref{constructions-equation-multiply-more-generally})，以及
+(\ref{constructions-equation-global-sections-more-generally})（精确表述见证明。
+\end{lemma}
+
+\begin{proof}
+单射环同态 $S' \to S$（按我们的约定，它不是分次环同态）
+诱导映射 $j : \Spec(S) \to \Spec(S')$。
+给定分次素理想 $\mathfrak p \subset S$，可见
+$\mathfrak p' = j(\mathfrak p) = S' \cap \mathfrak p$
+是 $S'$ 的分次素理想。
+此外，若 $f \in S_+$ 齐次且 $f \not \in \mathfrak p$，则
+$f^d \in S'_+$ 且 $f^d \not \in \mathfrak p'$。反之，若
+$\mathfrak p' \subset S'$ 是不含某个齐次元
+$f \in S'_+$ 的分次素理想，则
+$\mathfrak p = \{g \in S \mid g^d \in \mathfrak p'\}$ 是
+$S$ 的一个不含 $f$ 的分次素理想，并且它在 $j$ 下的像
+是 $\mathfrak p'$。为说明 $\mathfrak p$ 是理想，注意若
+$g, h \in \mathfrak p$，则由二项式公式有
+$(g + h)^{2d} \in \mathfrak p'$，
+进而 $g + h \in \mathfrak p'$，因为 $\mathfrak p'$ 是素理想。
+由此可见，$j$ 诱导同胚 $i : X \to X'$。
+此外，给定齐次元 $f \in S_+$，有
+$S_{(f)} \cong S'_{(f^d)}$。由于这些同构与
+引理 \ref{constructions-lemma-standard-open} 的限制映射相容，可知存在结构层的
+同构 $i^\sharp : i^{-1}\mathcal{O}_{X'} \to \mathcal{O}_X$，
+它位于 $X$ 与 $X'$ 上，因而 $i$ 是概形的同构。
+
+\medskip\noindent
+设 $M$ 为分次 $S$-模。给定齐次元 $f \in S_+$，有
+$M_{(f)} \cong M'_{(f^d)}$，故以与上面完全相同的方式
+得到 (1) 中的同构。(2) 中的同构是 (1) 在
+$M = S(nd)$ 时的特殊情形，此时 $M' = S'(n)$。设 $M$ 与 $N$
+为分次 $S$-模。于是有
+$$
+M' \otimes_{S'} N' =
+(M \otimes_S N)^{(d)} =
+(M \otimes_S N)'
+$$
+这可由定义直接验证。于是，与引理
+\ref{constructions-lemma-widetilde-tensor} 的乘法映射相容，正是指下图交换：
+$$
+\xymatrix{
+\widetilde M \otimes_{\mathcal{O}_X} \widetilde N
+\ar[d]_{(1) \otimes (1)} \ar[r] &
+\widetilde{M \otimes_S N} \ar[d]^{(1)} \\
+i^*(\widetilde{M'} \otimes_{\mathcal{O}_{X'}} \widetilde{N'}) \ar[r] &
+i^*(\widetilde{M' \otimes_{S'} N'})
+}
+$$
+考察开集 $D_+(f) = D_+(f^d)$ 上这些映射的构造即可看出这一点：
+上方水平箭头由映射
+$M_{(f)} \times N_{(f)} \to (M \otimes_S N)_{(f)}$
+给出，而下方水平箭头由映射
+$M'_{(f^d)} \times N'_{(f^d)} \to (M' \otimes_{S'} N')_{(f^d)}$
+给出。由于这些映射经由诸如
+$M_{(f)} = M'_{(f^d)}$ 等识别彼此相同，便得到所需的相容性。
+其余相容性的证明从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{到 Proj 的态射}
+\label{constructions-section-morphisms-proj}
+
+\noindent
+设 $S$ 为分次环。
+设 $X = \text{Proj}(S)$ 为 $S$ 的齐次谱。
+设 $d \geq 1$ 为整数。
+考虑开子概形
+\begin{equation}
+\label{constructions-equation-Ud}
+U_d = \bigcup\nolimits_{f  \in S_d} D_{+}(f)
+\quad\subset\quad
+X = \text{Proj}(S)
+\end{equation}
+注意 $d | d' \Rightarrow U_d \subset U_{d'}$，且
+$X = \bigcup_d U_d$。$X$ 与 $U_d$ 都不必拟紧，见代数章引理
+\ref{algebra-lemma-topology-proj}。
+记 $\mathcal{O}_{U_d}(n) = \mathcal{O}_X(n)|_{U_d}$。
+由引理 \ref{constructions-lemma-when-invertible} 可知，
+$\mathcal{O}_{U_d}(nd)$（$n \in \mathbf{Z}$）
+是可逆 $\mathcal{O}_{U_d}$-模，并且所有乘法映射
+$\mathcal{O}_{U_d}(nd) \otimes_{\mathcal{O}_{U_d}} \mathcal{O}_{U_d}(m)
+\to \mathcal{O}_{U_d}(nd + m)$，即
+(\ref{constructions-equation-multiply}) 中的映射，都是同构。特别地，有
+$\mathcal{O}_{U_d}(nd) \cong \mathcal{O}_{U_d}(d)^{\otimes n}$.
+整体截面上的分次环映射 (\ref{constructions-equation-global-sections}) 与到 $U_d$ 的限制
+合在一起给出分次环同态
+\begin{equation}
+\label{constructions-equation-psi-d}
+\psi^d : S^{(d)} \longrightarrow \Gamma_*(U_d, \mathcal{O}_{U_d}(d)).
+\end{equation}
+关于记号 $S^{(d)}$，见代数章第 \ref{algebra-section-graded} 节。
+关于记号 $\Gamma_*$，见模章定义 \ref{modules-definition-gamma-star}。
+此外，由于 $U_d$ 被诸开集 $D_{+}(f)$（$f \in S_d$）覆盖，
+可知 $\mathcal{O}_{U_d}(d)$ 由下列映射像中的截面整体生成：
+$\psi^d_1 : S^{(d)}_1 = S_d \to \Gamma(U_d, \mathcal{O}_{U_d}(d))$，
+见模章定义 \ref{modules-definition-globally-generated}。
+
+\medskip\noindent
+设 $Y$ 为概形，并设 $\varphi : Y \to X$ 为概形态射。
+假设像 $\varphi(Y)$ 包含于开子概形 $U_d$ 中，
+后者是 $X$ 的开子概形。
+由模章定义 \ref{modules-definition-gamma-star} 后的讨论，
+得到分次环同态
+$$
+\Gamma_*(U_d, \mathcal{O}_{U_d}(d))
+\longrightarrow
+\Gamma_*(Y, \varphi^*\mathcal{O}_X(d)).
+$$
+它与 $\psi^d$ 的复合给出分次环同态
+\begin{equation}
+\label{constructions-equation-psi-phi-d}
+\psi_\varphi^d :
+S^{(d)}
+\longrightarrow
+\Gamma_*(Y, \varphi^*\mathcal{O}_X(d))
+\end{equation}
+并且可逆层 $\varphi^*\mathcal{O}_X(d)$ 由下列映射像中的截面整体生成：
+\par\noindent
+$(S^{(d)})_1 = S_d \to \Gamma(Y, \varphi^*\mathcal{O}_X(d))$.
+
+\begin{lemma}
+\label{constructions-lemma-converse-construction}
+设 $S$ 为分次环，并置 $X = \text{Proj}(S)$。
+设 $d \geq 1$，且 $U_d \subset X$ 如上。
+设 $Y$ 为概形。
+设 $\mathcal{L}$ 为 $Y$ 上的可逆层。
+设 $\psi : S^{(d)} \to \Gamma_*(Y, \mathcal{L})$ 为分次环同态，
+并且 $\mathcal{L}$ 由下列映射像中的截面生成：
+$\psi|_{S_d} : S_d \to \Gamma(Y, \mathcal{L})$.
+则存在态射 $\varphi : Y \to X$，满足 $\varphi(Y) \subset U_d$，
+并存在同构 $\alpha : \varphi^*\mathcal{O}_{U_d}(d) \to \mathcal{L}$，
+使得 $\psi_\varphi^d$ 与 $\psi$ 经由 $\alpha$ 一致：
+$$
+\xymatrix{
+\Gamma_*(Y, \mathcal{L}) &
+\Gamma_*(Y, \varphi^*\mathcal{O}_{U_d}(d)) \ar[l]^-\alpha &
+\Gamma_*(U_d, \mathcal{O}_{U_d}(d)) \ar[l]^-{\varphi^*} \\
+S^{(d)} \ar[u]^\psi & &
+S^{(d)} \ar[u]^{\psi^d} \ar[ul]^{\psi^d_\varphi} \ar[ll]_{\text{id}}
+}
+$$
+该图交换。此外，二元组 $(\varphi, \alpha)$ 是唯一的。
+\end{lemma}
+
+\begin{proof}
+取 $f \in S_d$。记 $s = \psi(f) \in \Gamma(Y, \mathcal{L})$。
+在开集 $Y_s$ 上，$s$ 不消失；乘以 $s$ 诱导同构
+$\mathcal{O}_{Y_s} \to \mathcal{L}|_{Y_s}$，
+见模章引理 \ref{modules-lemma-s-open}。我们将此映射的逆记为
+$x \mapsto x/s$，对 $\mathcal{L}$ 的幂也采用类似记号。利用这一点，
+定义环同态 $\psi_{(f)} : S_{(f)} \to \Gamma(Y_s, \mathcal{O}_Y)$，
+它将分式 $a/f^n$ 映到 $\psi(a)/s^n$。
+由概形章引理 \ref{schemes-lemma-morphism-into-affine}，
+这对应于态射
+$\varphi_f : Y_s \to \Spec(S_{(f)}) = D_{+}(f)$。
+再引入同构
+$\alpha_f : \varphi_f^*\mathcal{O}_{D_{+}(f)}(d) \to \mathcal{L}|_{Y_s}$，
+它将平凡化截面 $f$ 在 $D_{+}(f)$ 上的拉回映到
+平凡化截面 $s$ 在 $Y_s$ 上的限制。
+按此选择，引理中的图在将 $Y$ 替换为 $Y_s$、
+将 $\varphi$ 替换为 $\varphi_f$、将 $\alpha$ 替换为 $\alpha_f$ 后交换；
+验证从略。
+
+\medskip\noindent
+设 $f' \in S_d$ 是第二个元素，并记
+$s' = \psi(f') \in \Gamma(Y, \mathcal{L})$。于是
+$Y_s \cap Y_{s'} = Y_{ss'}$，且类似地，
+$D_{+}(f) \cap D_{+}(f') = D_{+}(ff')$。
+在引理 \ref{constructions-lemma-ample-on-proj} 中已经看到，
+$D_{+}(f') \cap D_{+}(f)$ 正是 $D_{+}(f)$ 中
+$\mathcal{O}_X(d)$ 的由 $f'$ 所定义的截面不消失的点集。因此
+$\varphi_f^{-1}(D_{+}(f') \cap D_{+}(f)) = Y_s \cap Y_{s'}
+= \varphi_{f'}^{-1}(D_{+}(f') \cap D_{+}(f))$.
+在 $D_{+}(f) \cap D_{+}(f')$ 上，分式 $f/f'$ 是结构层的可逆截面，
+其逆为 $f'/f$。注意
+$\psi_{(f')}(f/f') = \psi(f)/s' = s/s'$，且
+$\psi_{(f)}(f'/f) = \psi(f')/s = s'/s$。我们断言，存在唯一的环同态
+$S_{(ff')} \to \Gamma(Y_{ss'}, \mathcal{O}_Y)$，
+它使下图交换：
+$$
+\xymatrix{
+\Gamma(Y_s, \mathcal{O}_Y) \ar[r] &
+\Gamma(Y_{ss'}, \mathcal{O}_Y) &
+\Gamma(Y_{s, '} \mathcal{O}_Y) \ar[l]\\
+S_{(f)} \ar[r] \ar[u]^{\psi_{(f)}} &
+S_{(ff')} \ar[u] &
+S_{(f')} \ar[l] \ar[u]^{\psi_{(f')}}
+}
+$$
+该同态存在，因为可以使用规则
+$x/(ff')^n \mapsto \psi(x)/(ss')^n$；由上面的公式可知这一规则“成立”。
+由于 $\text{Proj}(S)$ 是分离的，唯一性由引理
+\ref{constructions-lemma-proj-separated} 及其证明得出。这表明态射
+$\varphi_f$ 与 $\varphi_{f'}$ 在 $Y_s \cap Y_{s'}$ 上一致。
+$\alpha_f$ 与 $\alpha_{f'}$ 的限制在 $Y_s \cap Y_{s'}$ 上一致，
+因为正则函数 $s/s'$ 与 $\psi_{(f')}(f/f')$ 一致。这证明态射
+$\psi_f$ 可黏合为从 $Y$ 到 $U_d \subset X$ 的整体态射，且
+各映射 $\alpha_f$ 黏合为满足引理条件的同构。
+
+\medskip\noindent
+还需证明二元组 $(\varphi, \alpha)$ 唯一。
+设 $(\varphi', \alpha')$ 是第二个这样的二元组。
+设 $f \in S_d$。由引理中的图交换可知，$D_{+}(f)$ 在 $\varphi$ 与
+$\varphi'$ 下的逆像都等于 $Y_{\psi(f)}$。由于诸开集 $D_{+}(f)$ 构成
+$X$ 的拓扑的一组基，而 $X$ 是清醒拓扑空间
+（见概形章引理 \ref{schemes-lemma-scheme-sober}），
+这意味着映射 $\varphi$ 与 $\varphi'$ 在底拓扑空间上相同。用
+$s = \psi(f)$ 将可逆层 $\mathcal{L}$ 在 $Y_{\psi(f)}$ 上平凡化。
+由这些图的交换性，有
+$\alpha^{\otimes n}(\psi^d_{\varphi}(x)) =
+\psi(x) = (\alpha')^{\otimes n}(\psi^d_{\varphi'}(x))$
+对所有 $x \in S_{nd}$ 成立。由 $\psi^d_{\varphi}$ 与
+$\psi^d_{\varphi'}$ 的构造，有
+$\psi^d_{\varphi}(x) = \varphi^\sharp(x/f^n) \psi^d_{\varphi}(f^n)$
+在 $Y_{\psi(f)}$ 上成立，对 $\psi^d_{\varphi'}$ 也类似。由引理中的图交换可得
+$\varphi^\sharp(x/f^n) = (\varphi')^\sharp(x/f^n)$.
+这证明 $\varphi$ 与 $\varphi'$ 诱导从 $Y_{\psi(f)}$ 到仿射概形
+$D_{+}(f) = \Spec(S_{(f)})$ 的同一个态射。
+因此 $\varphi$ 与 $\varphi'$ 作为态射相同。
+最后，还需证明，在给定 $\varphi$ 后，引理中图的交换性唯一确定
+$\alpha$。验证从略。
+\end{proof}
+
+\noindent
+我们继续引理前的讨论。
+设 $S$ 为分次环。
+设 $Y$ 为概形。我们考虑{\it 三元组}
+$(d, \mathcal{L}, \psi)$，其中
+\begin{enumerate}
+\item $d \geq 1$ 是整数；
+\item $\mathcal{L}$ 是可逆 $\mathcal{O}_Y$-模；并且
+\item $\psi : S^{(d)} \to \Gamma_*(Y, \mathcal{L})$ 是分次环同态，
+且 $\mathcal{L}$ 由整体截面 $\psi(f)$（其中 $f \in S_d$）生成。
+\end{enumerate}
+给定态射 $h : Y' \to Y$ 与三元组
+$(d, \mathcal{L}, \psi)$（它位于 $Y$ 上），可将它拉回为三元组
+$(d, h^*\mathcal{L}, h^* \circ \psi)$。
+给定两个三元组 $(d, \mathcal{L}, \psi)$ 与
+$(d, \mathcal{L}', \psi')$，它们具有相同的整数 $d$；若存在同构
+$\beta : \mathcal{L} \to \mathcal{L}'$，使得作为分次环同态有
+$\beta \circ \psi = \psi'$，其中这些同态为
+$S^{(d)} \to \Gamma_*(Y, \mathcal{L}')$，则称它们{\it 严格等价}。
+
+\medskip\noindent
+对每个整数 $d \geq 1$，定义
+\begin{eqnarray*}
+F_d : \Sch^{opp} & \longrightarrow & \textit{Sets}, \\
+Y & \longmapsto &
+\{\text{三元组的严格等价类： }
+(d, \mathcal{L}, \psi)
+\text{ 如上}\}
+\end{eqnarray*}
+其拉回按上面所述定义。
+
+\begin{lemma}
+\label{constructions-lemma-proj-functor-strict}
+设 $S$ 为分次环。
+设 $X = \text{Proj}(S)$。
+开子概形 $U_d \subset X$（\ref{constructions-equation-Ud}）表示函子
+$F_d$，且上面定义的三元组 $(d, \mathcal{O}_{U_d}(d), \psi^d)$
+是泛族（见概形章第 \ref{schemes-section-representable} 节）。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{constructions-lemma-converse-construction} 的重新表述。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-apply}
+设 $S$ 为分次环，它作为 $S_0$-代数由 $S_1$ 中的元素生成。
+在这种情形下，概形 $X = \text{Proj}(S)$ 表示如下函子：它将概形
+$Y$ 映到二元组 $(\mathcal{L}, \psi)$ 的集合，其中
+\begin{enumerate}
+\item $\mathcal{L}$ 是可逆 $\mathcal{O}_Y$-模；并且
+\item $\psi : S \to \Gamma_*(Y, \mathcal{L})$ 是分次环同态，
+且 $\mathcal{L}$ 由整体截面 $\psi(f)$（其中 $f \in S_1$）生成，
+\end{enumerate}
+并按上述严格等价关系取等价类。
+\end{lemma}
+
+\begin{proof}
+在本引理的假设下有 $X = U_1$，而本引理正是上面引理
+\ref{constructions-lemma-proj-functor-strict} 的重新表述。
+\end{proof}
+
+\noindent
+本节最后讨论一般分次环的 $\text{Proj}(S)$ 所对应的函子，其中该环记为 $S$。
+建议读者跳过本节余下部分。
+
+\medskip\noindent
+固定任意分次环 $S$。设 $T$ 为概形。
+称两个三元组 $(d, \mathcal{L}, \psi)$ 与
+$(d', \mathcal{L}', \psi')$（它们在 $T$ 上，并允许整数
+$d$、$d'$ 不同）{\it 等价}，如果存在同构
+$\beta : \mathcal{L}^{\otimes d'} \to (\mathcal{L}')^{\otimes d}$，
+它是 $T$ 上可逆层的同构，
+使得 $\beta \circ \psi|_{S^{(dd')}}$ 与 $\psi'|_{S^{(dd')}}$ 作为分次环同态
+$S^{(dd')} \to \Gamma_*(Y, (\mathcal{L}')^{\otimes dd'})$ 一致。
+
+\begin{lemma}
+\label{constructions-lemma-equivalent}
+设 $S$ 为分次环。置 $X = \text{Proj}(S)$。设 $T$ 为概形。
+设 $(d, \mathcal{L}, \psi)$ 与 $(d', \mathcal{L}', \psi')$
+为 $T$ 上的两个三元组。下列条件等价：
+\begin{enumerate}
+\item 设 $n = \text{lcm}(d, d')$。写成 $n = ad = a'd'$。存在同构
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+使得 $\beta \circ \psi|_{S^{(n)}}$ 与 $\psi'|_{S^{(n)}}$ 作为分次环同态
+$S^{(n)} \to \Gamma_*(Y, (\mathcal{L}')^{\otimes n})$ 一致。
+\item 三元组 $(d, \mathcal{L}, \psi)$ 与 $(d', \mathcal{L}', \psi')$
+等价。
+\item 对某个正整数 $n = ad = a'd'$，存在同构
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+使得 $\beta \circ \psi|_{S^{(n)}}$ 与 $\psi'|_{S^{(n)}}$ 作为分次环同态
+$S^{(n)} \to \Gamma_*(Y, (\mathcal{L}')^{\otimes n})$ 一致。
+\item 态射 $\varphi : T \to X$ 与 $\varphi' : T \to X$
+（它们分别与 $(d, \mathcal{L}, \psi)$ 及 $(d', \mathcal{L}', \psi')$ 相伴）相等。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然，限制到可被更多整数整除的次数并取可逆层的幂，可得
+(1) 蕴含 (2)，且 (2) 蕴含 (3)。
+由引理 \ref{constructions-lemma-converse-construction} 中的唯一性陈述，
+(3) 也蕴含 (4)。
+因此只需证明 (4) 蕴含 (1)。假设 (4)，即 $\varphi = \varphi'$。
+注意，这意味着可写成
+$\mathcal{L} = \varphi^*\mathcal{O}_X(d)$，且
+$\mathcal{L}' = \varphi^*\mathcal{O}_X(d')$.
+此外，经由这些识别，分次环同态 $\psi$ 与 $\psi'$ 对应于典范分次环同态
+$$
+S \longrightarrow \bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{O}_X(n))
+$$
+到 $S^{(d)}$ 与 $S^{(d')}$ 的限制，再与 $\varphi$ 的拉回复合
+（再次使用引理 \ref{constructions-lemma-converse-construction}）。因此取 $\beta$ 为同构
+$$
+(\varphi^*\mathcal{O}_X(d))^{\otimes a} =
+\varphi^*\mathcal{O}_X(n) =
+(\varphi^*\mathcal{O}_X(d'))^{\otimes a'}
+$$
+即可。
+\end{proof}
+
+\noindent
+设 $S$ 为分次环。
+设 $X = \text{Proj}(S)$。
+在开子概形 $U_d \subset X = \text{Proj}(S)$
+（\ref{constructions-equation-Ud}）上，有三元组
+$(d, \mathcal{O}_{U_d}(d), \psi^d)$。显然，若 $d | d'$，则三元组
+$(d, \mathcal{O}_{U_d}(d), \psi^d)$ 与
+$(d', \mathcal{O}_{U_{d'}}(d'), \psi^{d'})$ 限制到开集 $U_d$
+（它是 $U_{d'}$ 的子集）后等价。
+结合引理 \ref{constructions-lemma-converse-construction}，这表明态射 $Y \to X$
+大致对应于 $Y$ 上三元组的等价类。这并不完全正确，因为若 $Y$
+不是拟紧的，可能不存在一个处处适用的单一三元组。
+因此，定义相应函子时必须稍加谨慎。
+
+\medskip\noindent
+以下是一种可行的处理方式。假设 $d' = ad$。
+考虑函子变换 $F_d \to F_{d'}$，它将三元组
+$(d, \mathcal{L}, \psi)$（位于 $T$ 上）映为三元组
+$(d', \mathcal{L}^{\otimes a}, \psi|_{S^{(d')}})$。
+引理 \ref{constructions-lemma-equivalent} 的一个推论是：变换 $F_d \to F_{d'}$ 是单射！
+对拟紧概形 $T$，定义
+$$
+F(T) = \bigcup\nolimits_{d \in \mathbf{N}} F_d(T)
+$$
+其中转移映射如上所述。显然，这在拟紧概形范畴上定义了一个取值于集合的
+反变函子。对一般概形 $T$，定义
+$$
+F(T)
+=
+\lim_{V \subset T\text{ 拟紧开}} F(V).
+$$
+换言之，一个元素 $\xi$（属于 $F(T)$）对应于一族相容的选择
+$\xi_V \in F(V)$，其中 $V$ 遍历 $T$ 的拟紧开集。
+拉回映射 $F(T) \to F(T')$（对应于概形态射 $T' \to T$）的定义从略。
+由此定义了函子
+\begin{eqnarray*}
+F : \Sch^{opp} & \longrightarrow & \textit{Sets}
+\end{eqnarray*}
+
+\begin{lemma}
+\label{constructions-lemma-proj-functor}
+设 $S$ 为分次环。
+设 $X = \text{Proj}(S)$。
+上面定义的函子 $F$ 由概形 $X$ 表示。
+\end{lemma}
+
+\begin{proof}
+上面已看到，函子 $F_d$ 对应于开子概形 $U_d \subset X$。此外，
+上面定义的函子变换 $F_d \to F_{d'}$（若 $d | d'$）
+对应于包含态射 $U_d \to U_{d'}$（见上面的讨论）。
+因此，要证明 $F$ 由 $X$ 表示，只需证明：态射 $T \to X$ 在概形
+$T$ 拟紧时其像落在某个 $U_d$ 中；并且对一般概形 $T$ 有
+$$
+\Mor(T, X)
+=
+\lim_{V \subset T\text{ 拟紧开}} \Mor(V, X).
+$$
+这些验证从略。
+\end{proof}
+
+
+
+
+
+
+
+\section{射影空间}
+\label{constructions-section-projective-space}
+
+\noindent
+射影空间是代数几何所研究的基本对象之一。本节只给出它作为多项式环之
+$\text{Proj}$ 的构造。稍后我们将发现它的许多优美性质。
+
+\begin{lemma}
+\label{constructions-lemma-projective-space}
+设 $S = \mathbf{Z}[T_0, \ldots, T_n]$，其中 $\deg(T_i) = 1$。
+概形
+$$
+\mathbf{P}^n_{\mathbf{Z}} = \text{Proj}(S)
+$$
+表示如下函子：它将概形 $Y$ 映到二元组
+$(\mathcal{L}, (s_0, \ldots, s_n))$ 的集合，其中
+\begin{enumerate}
+\item $\mathcal{L}$ 是可逆 $\mathcal{O}_Y$-模；并且
+\item $s_0, \ldots, s_n$ 是 $\mathcal{L}$ 的整体截面，且生成
+$\mathcal{L}$，
+\end{enumerate}
+并按下列等价关系取等价类：
+$(\mathcal{L}, (s_0, \ldots, s_n)) \sim
+(\mathcal{N}, (t_0, \ldots, t_n))$ $\Leftrightarrow$ 存在同构
+$\beta : \mathcal{L} \to \mathcal{N}$，使得
+$\beta(s_i) = t_i$ 对 $i = 0, \ldots, n$ 成立。
+\end{lemma}
+
+\begin{proof}
+这是上面引理 \ref{constructions-lemma-apply} 的特殊情形。
+事实上，对任意分次环 $A$ 有
+\begin{eqnarray*}
+\Mor_{\text{分次环}}(\mathbf{Z}[T_0, \ldots, T_n], A)
+& = &
+A_1 \times \ldots \times A_1 \\
+\psi & \mapsto & (\psi(T_0), \ldots, \psi(T_n))
+\end{eqnarray*}
+且次数 $1$ 部分在 $\Gamma_*(Y, \mathcal{L})$ 中正是
+$\Gamma(Y, \mathcal{L})$。
+\end{proof}
+
+\begin{definition}
+\label{constructions-definition-projective-space}
+概形
+$\mathbf{P}^n_{\mathbf{Z}} = \text{Proj}(\mathbf{Z}[T_0, \ldots, T_n])$
+称为{\it 射影 $n$ 维空间（在 $\mathbf{Z}$ 上）}。
+它的基变换 $\mathbf{P}^n_S$（到概形 $S$）称为
+{\it 射影 $n$ 维空间（在 $S$ 上）}。若 $R$ 为环，则到
+$\Spec(R)$ 的基变换记为 $\mathbf{P}^n_R$，并称为
+{\it 射影 $n$ 维空间（在 $R$ 上）}。
+\end{definition}
+
+\noindent
+给定概形 $Y$（它在 $S$ 上）以及引理 \ref{constructions-lemma-projective-space} 中的二元组
+$(\mathcal{L}, (s_0, \ldots, s_n))$，其诱导的到 $\mathbf{P}^n_S$ 的态射记为
+$$
+\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))} :
+Y \longrightarrow \mathbf{P}^n_S
+$$
+这是有意义的，因为该二元组定义了到 $\mathbf{P}^n_{\mathbf{Z}}$ 的态射，
+而我们已有到 $S$ 的结构态射；二者合在一起给出到
+$\mathbf{P}^n_S = \mathbf{P}^n_{\mathbf{Z}} \times S$ 的态射。
+借助引理 \ref{constructions-lemma-relative-proj-base-change}，
+可将 $\mathbf{P}^n_S$ 识别为分次 $\mathcal{O}_S$-代数
+$\mathcal{O}_S[T_0, \ldots, T_n]$ 的相对 Proj，并可将
+$\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}$ 刻画为唯一的 $S$-态射，满足
+$$
+\mathcal{L} =
+\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}^*\mathcal{O}_{\mathbf{P}^n_S}(1)
+\quad
+\text{且}
+\quad
+s_i = \varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}^*T_i
+$$
+这里把 $T_i$ 看作 $\mathcal{O}_{\mathbf{P}^n_S}(1)$ 的整体截面；
+所用映射为 $\psi$，见引理 \ref{constructions-lemma-glue-relative-proj-twists}；细节从略。
+
+\begin{lemma}
+\label{constructions-lemma-standard-covering-projective-space}
+射影 $n$ 维空间（在 $\mathbf{Z}$ 上）由 $n + 1$ 个标准开集覆盖：
+$$
+\mathbf{P}^n_{\mathbf{Z}} =
+\bigcup\nolimits_{i = 0, \ldots, n} D_{+}(T_i)
+$$
+其中每个 $D_{+}(T_i)$ 都同构于 $\mathbf{A}^n_{\mathbf{Z}}$，即
+仿射 $n$ 维空间（在 $\mathbf{Z}$ 上）。
+\end{lemma}
+
+\begin{proof}
+这是因为
+$\mathbf{Z}[T_0, \ldots, T_n]_{+} = (T_0, \ldots, T_n)$，并且
+并且
+$$
+\Spec
+\left(
+\mathbf{Z}
+\left[\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i}
+\right]
+\right)
+\cong
+\mathbf{A}^n_{\mathbf{Z}}
+$$
+以显然的方式成立。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-projective-space-separated}
+设 $S$ 为概形。结构态射 $\mathbf{P}^n_S \to S$ 具有下列性质：
+\begin{enumerate}
+\item 分离；
+\item 拟紧；
+\item 满足赋值判据的存在性部分与唯一性部分；并且
+\item 泛闭。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这些性质在基变换下都稳定（对后两个性质这是显然的；对前两个性质，见概形章引理
+\ref{schemes-lemma-separated-permanence} 与
+\ref{schemes-lemma-quasi-compact-preserved-base-change}).
+因此只需对态射
+$\mathbf{P}^n_{\mathbf{Z}} \to \Spec(\mathbf{Z})$.
+证明这些性质。分离性是引理 \ref{constructions-lemma-proj-separated}。拟紧性由引理
+\ref{constructions-lemma-standard-covering-projective-space} 得出。
+赋值判据的存在性与唯一性由引理 \ref{constructions-lemma-proj-valuative-criterion} 得出。
+泛闭性由以上结果与概形章命题
+\ref{schemes-proposition-characterize-universally-closed} 得出。
+\end{proof}
+
+\begin{remark}
+\label{constructions-remark-missing-finite-type}
+上述性质列表中还缺少什么？当然还缺少有限型性质。这里不列出它，
+是因为到目前为止我们还没有定义有限型的概念。（另一个缺少的性质是
+“光滑性”。相信读者还能想到许多其他性质。）
+\end{remark}
+
+\begin{lemma}[Segre 嵌入]
+\label{constructions-lemma-segre-embedding}
+设 $S$ 为概形。存在闭浸入
+$$
+\mathbf{P}^n_S \times_S \mathbf{P}^m_S
+\longrightarrow
+\mathbf{P}^{nm + n + m}_S
+$$
+称为{\it Segre 嵌入}。
+\end{lemma}
+
+\begin{proof}
+只需在 $S = \Spec(\mathbf{Z})$ 时证明。于是略去下标 $S$，
+在绝对情形下工作。写成
+$\mathbf{P}^n = \text{Proj}(\mathbf{Z}[X_0, \ldots, X_n])$，
+$\mathbf{P}^m = \text{Proj}(\mathbf{Z}[Y_0, \ldots, Y_m])$,
+以及
+$\mathbf{P}^{nm + n + m} =
+\text{Proj}(\mathbf{Z}[Z_0, \ldots, Z_{nm + n + m}])$.
+为了映到 $\mathbf{P}^{nm + n + m}$，必须在左边写下一个可逆层
+$\mathcal{L}$，以及生成它的 $(n + 1)(m + 1)$ 个截面 $s_i$。
+见引理 \ref{constructions-lemma-projective-space}。
+所取的可逆层为
+$$
+\mathcal{L} =
+\text{pr}_1^*\mathcal{O}_{\mathbf{P}^n}(1)
+\otimes
+\text{pr}_2^*\mathcal{O}_{\mathbf{P}^m}(1)
+$$
+所取的截面为
+$$
+s_0 = X_0Y_0, \ s_1 = X_1Y_0, \ldots, \ s_n = X_nY_0,
+\ s_{n + 1} = X_0Y_1, \ldots, \ s_{nm + n + m} = X_nY_m.
+$$
+这些截面生成 $\mathcal{L}$，因为截面 $X_i$ 生成
+$\mathcal{O}_{\mathbf{P}^n}(1)$，而截面 $Y_j$ 生成
+$\mathcal{O}_{\mathbf{P}^m}(1)$。诱导态射 $\varphi$ 满足
+$$
+\varphi^{-1}(D_{+}(Z_{i + (n + 1)j})) = D_{+}(X_i) \times D_{+}(Y_j).
+$$
+因此它是仿射态射。在情形 $(i, j) = (0, 0)$ 下，相应的环同态为
+$$
+\mathbf{Z}[Z_1/Z_0, \ldots, Z_{nm + n + m}/Z_0]
+\longrightarrow
+\mathbf{Z}[X_1/X_0, \ldots, X_n/X_0, Y_1/Y_0, \ldots, Y_n/Y_0]
+$$
+它将 $Z_i/Z_0$ 映到元素 $X_i/X_0$（对 $i \leq n$），并将元素
+$Z_{(n + 1)j}/Z_0$ 映到元素 $Y_j/Y_0$。因此它是满射。
+对其他仿射开子集也可作类似论证。因此态射 $\varphi$ 是闭浸入
+（见概形章引理 \ref{schemes-lemma-closed-local-target} 与例
+\ref{schemes-example-closed-immersion-affines}）。
+\end{proof}
+
+\noindent
+下面两个引理是稍后更一般结果的特殊情形，但现在在这里直接证明它们或许更为合适。
+第一个是除子章引理 \ref{divisors-lemma-closed-subscheme-proj} 的特殊情形。
+
+\begin{lemma}
+\label{constructions-lemma-closed-in-projective-space}
+设 $R$ 为环。设 $Z \subset \mathbf{P}^n_R$ 为闭子概形。令
+$$
+I_d = \Ker\left(
+R[T_0, \ldots, T_n]_d
+\longrightarrow
+\Gamma(Z, \mathcal{O}_{\mathbf{P}^n_R}(d)|_Z)\right)
+$$
+则 $I = \bigoplus I_d \subset R[T_0, \ldots, T_n]$ 是分次理想，并且
+$Z = \text{Proj}(R[T_0, \ldots, T_n]/I)$。
+\end{lemma}
+
+\begin{proof}
+显然 $I$ 是分次理想。
+置 $Z' = \text{Proj}(R[T_0, \ldots, T_n]/I)$。
+由引理 \ref{constructions-lemma-surjective-graded-rings-generated-degree-1-map-proj} 可知，
+$Z'$ 是 $\mathbf{P}^n_R$ 的闭子概形。
+要验证等式 $Z = Z'$，只需在标准仿射开集 $D_{+}(T_i)$ 上验证。
+通过重编号齐次坐标，可假设 $i = 0$。设 $Z \cap D_{+}(T_0)$ 与
+$Z' \cap D_{+}(T_0)$ 分别由理想 $J$ 与 $J'$ 截出；这些理想位于
+$R[T_1/T_0, \ldots, T_n/T_0]$ 中。则 $J'$ 是由元素 $F/T_0^{\deg(F)}$ 生成的理想，
+其中 $F \in I$ 为齐次元。
+假设 $F \in I$ 的次数为 $d$。由于 $F$ 作为
+$\mathcal{O}_{\mathbf{P}^n_R}(d)$ 限制到 $Z$ 上的截面消失，可知
+$F/T_0^d$ 是 $J$ 的元素。因此 $J' \subset J$。
+
+\medskip\noindent
+反之，假设 $f \in J$。若 $f$ 的总次数为
+$d$（视为 $T_1/T_0, \ldots, T_n/T_0$ 的多项式），则可写成
+$f = F/T_0^d$，其中 $F \in R[T_0, \ldots, T_n]_d$。
+取 $i \in \{1, \ldots, n\}$。则 $Z \cap D_{+}(T_i)$ 由某个理想
+$J_i \subset R[T_0/T_i, \ldots, T_n/T_i]$ 截出。此外，
+$$
+J \cdot
+R\left[
+\frac{T_1}{T_0}, \ldots, \frac{T_n}{T_0},
+\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i}
+\right]
+=
+J_i \cdot
+R\left[
+\frac{T_1}{T_0}, \ldots, \frac{T_n}{T_0},
+\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i}
+\right]
+$$
+左边是 $J$ 关于元素 $T_i/T_0$ 的局部化，右边是 $J_i$ 关于元素
+$T_0/T_i$ 的局部化。因此，
+$T_0^{d_i}F/T_i^{d + d_i}$ 是 $J_i$ 的元素，其中 $d_i$ 充分大。这证明
+$T_0^{\max(d_i)}F$ 是 $I$ 的元素，因为它在每个标准仿射开集
+$D_{+}(T_i)$ 上的限制都在闭子概形 $Z \cap D_{+}(T_i)$ 上消失。
+因此 $f \in J'$，从而得到所需的 $J \subset J'$。
+\end{proof}
+
+\noindent
+下面的引理是性质章引理 \ref{properties-lemma-ample-quasi-coherent} 或
+\ref{properties-lemma-proj-quasi-coherent} 这一更一般结果的特殊情形。
+
+\begin{lemma}
+\label{constructions-lemma-quasi-coherent-projective-space}
+设 $R$ 为环。
+设 $\mathcal{F}$ 为 $\mathbf{P}^n_R$ 上的拟凝聚层。
+对 $d \geq 0$，置
+$$
+M_d
+=
+\Gamma(\mathbf{P}^n_R,
+\mathcal{F} \otimes_{\mathcal{O}_{\mathbf{P}^n_R}}
+\mathcal{O}_{\mathbf{P}^n_R}(d))
+=
+\Gamma(\mathbf{P}^n_R, \mathcal{F}(d))
+$$
+则 $M = \bigoplus_{d \geq 0} M_d$ 是分次 $R[T_0, \ldots, R_n]$-模，
+并且存在典范同构 $\mathcal{F} = \widetilde{M}$。
+\end{lemma}
+
+\begin{proof}
+乘法映射
+$$
+R[T_0, \ldots, R_n]_e \times M_d \longrightarrow M_{d + e}
+$$
+来自自然同构
+$$
+\mathcal{O}_{\mathbf{P}^n_R}(e)
+\otimes_{\mathcal{O}_{\mathbf{P}^n_R}}
+\mathcal{F}(d)
+\longrightarrow
+\mathcal{F}(e + d)
+$$
+见方程 (\ref{constructions-equation-global-sections-module})。来构造映射
+$c : \widetilde{M} \to \mathcal{F}$。在每个标准仿射开集
+$U_i = D_{+}(T_i)$ 上，可见 $\Gamma(U_i, \widetilde{M}) = (M[1/T_i])_0$，
+其中下标 ${}_0$ 表示次数 $0$ 部分。其中的元素可写成
+$m/T_i^d$，其中 $m \in M_d$。由于 $T_i$ 是
+$\mathcal{O}(1)$ 的一个生成元（在 $U_i$ 上），总可以写成
+$m|_{U_i} = m_i \otimes T_i^d$，其中
+$m_i \in \Gamma(U_i, \mathcal{F})$ 是唯一截面。因此自然的猜测是
+$c(m/T_i^d) = m_i$。一个略去的小论证表明，这会给出良定义映射
+$c : \widetilde{M} \to \mathcal{F}$，只要能证明
+$$
+(T_i/T_j)^d m_i|_{U_i \cap U_j} = m_j|_{U_i \cap U_j}
+$$
+在 $M[1/T_iT_j]$ 中成立。
+而这是显然的，因为在交叠上，生成元 $T_i$ 与 $T_j$
+（它们属于 $\mathcal{O}(1)$）相差可逆函数 $T_i/T_j$。
+
+\medskip\noindent
+$c$ 的单射性。可在仿射开集 $U_i$ 上检验单射性。设
+$i \in \{0, \ldots, n\}$，并设 $s$ 为元素
+$s = m/T_i^d \in \Gamma(U_i, \widetilde{M})$，满足
+$c(m/T_i^d) = 0$。由上面对 $c$ 的描述，这意味着
+$m_i = 0$，故 $m|_{U_i} = 0$。因此 $T_i^em = 0$ 在 $M$ 中成立，
+其中 $e$ 为某个整数。于是如所需，$s = m/T_i^d = T_i^e/T_i^{e + d} = 0$。
+
+\medskip\noindent
+$c$ 的满射性。可在仿射开集 $U_i$ 上检验满射性。通过重编号，
+只需在 $U_0$ 上检验。设 $s \in \mathcal{F}(U_0)$。
+写成 $\mathcal{F}|_{U_i} = \widetilde{N_i}$；这里所用的是某个
+$R[T_0/T_i, \ldots, T_0/T_i]$-模 $N_i$。这是可能的，因为
+$\mathcal{F}$ 拟凝聚。于是 $s$ 对应于元素 $x \in N_0$。此时有
+$$
+(N_i)_{T_j/T_i} \cong (N_j)_{T_i/T_j}
+$$
+（下标表示“关于该元的主局部化”），它们是下列环上的模：
+$$
+R\left[
+\frac{T_0}{T_i}, \ldots, \frac{T_n}{T_i},
+\frac{T_0}{T_j}, \ldots, \frac{T_n}{T_j}
+\right].
+$$
+这意味着，对某个充分大的整数 $d$，存在元素
+$s_i \in N_i$（$i = 1, \ldots, n$），使得
+$$
+s = (T_i/T_0)^d s_i
+$$
+在 $U_0 \cap U_i$ 上成立。接下来考察差
+$$
+t_{ij} = s_i - (T_j/T_i)^d s_j
+$$
+在 $U_i \cap U_j$ 上（$0 < i < j$）。由对 $s_i$ 的选择可知
+$t_{ij}|_{U_0 \cap U_i \cap U_j} = 0$。因此存在充分大的整数
+$e$，使得 $(T_0/T_i)^et_{ij} = 0$。置 $s_i' = (T_0/T_i)^es_i$，
+并置 $s_0' = s$。于是有
+$$
+s_a' = (T_b/T_a)^{e + d} s_b'
+$$
+在 $U_a \cap U_b$ 上对所有 $a, b$ 成立。这恰好是诸元素 $s'_a$
+黏合为整体截面 $m \in \Gamma(\mathbf{P}^n_R, \mathcal{F}(e + d))$ 的条件。
+此外，由构造有 $c(m/T_0^{e + d}) = s$。因此 $c$ 是满射，证毕。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-globally-generated-omega-twist-1}
+设 $X$ 为概形。设 $\mathcal{L}$ 为可逆层，并设
+$s_0, \ldots, s_n$ 为生成 $\mathcal{L}$ 的整体截面。设
+$\mathcal{F}$ 为诱导映射 $\mathcal{O}_X^{\oplus n + 1} \to \mathcal{L}$ 的核。
+则 $\mathcal{F} \otimes \mathcal{L}$ 整体生成。
+\end{lemma}
+
+\begin{proof}
+事实上，当 $X$ 是任意局部环层空间时，结论仍成立。
+层 $\mathcal{F}$ 是有限局部自由 $\mathcal{O}_X$-模，秩为 $n$。诸元素
+$$
+s_{ij} = (0, \ldots, 0, s_j, 0, \ldots, 0, -s_i, 0, \ldots, 0)
+\in \Gamma(X, \mathcal{L}^{\oplus n + 1})
+$$
+中，$s_j$ 位于第 $i$ 个位置，$-s_i$ 位于第 $j$ 个位置；它们在
+$\mathcal{L}^{\otimes 2}$ 中映为零。因此
+$s_{ij} \in \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L})$.
+局部计算表明，这些截面生成 $\mathcal{F} \otimes \mathcal{L}$。
+
+\medskip\noindent
+另一证明。考虑态射 $\varphi : X \to \mathbf{P}^n_\mathbf{Z}$，它与二元组
+$(\mathcal{L}, (s_0, \ldots, s_n))$ 相伴。由于 $\mathcal{O}(1)$ 的拉回是
+$\mathcal{L}$，且 $T_i$ 的拉回是 $s_i$，只需在
+$\mathbf{P}^n_\mathbf{Z}$ 的情形证明本引理。在这种情形下，层
+$\mathcal{F}$ 对应于分次 $S = \mathbf{Z}[T_0, \ldots, T_n]$-模
+$M$，它适合短正合列
+$$
+0 \to M \to S^{\oplus n + 1} \to S(1) \to 0
+$$
+其中第二个映射由 $T_0, \ldots, T_n$ 给出。在这种情形下，
+上述陈述转化为：诸元素
+$$
+T_{ij} = (0, \ldots, 0, T_j, 0, \ldots, 0, -T_i, 0, \ldots, 0)
+\in M(1)_0
+$$
+生成分次模 $M(1)$（作为 $S$-模）。细节从略。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{可逆层与到 Proj 的态射}
+\label{constructions-section-invertible-proj}
+
+\noindent
+设 $T$ 为概形，并设 $\mathcal{L}$ 为 $T$ 上的可逆层。对截面
+$s \in \Gamma(T, \mathcal{L})$，用 $T_s$ 表示 $s$ 不消失的点所成开子集。
+见模章引理 \ref{modules-lemma-s-open}。可将下面的引理看作引理
+\ref{constructions-lemma-apply} 的轻微推广。它也是引理 \ref{constructions-lemma-morphism-proj} 的推广。
+
+\begin{lemma}
+\label{constructions-lemma-invertible-map-into-proj}
+设 $A$ 为分次环。
+置 $X = \text{Proj}(A)$。
+设 $T$ 为概形。
+设 $\mathcal{L}$ 为可逆 $\mathcal{O}_T$-模。
+设 $\psi : A \to \Gamma_*(T, \mathcal{L})$ 为分次环同态。置
+$$
+U(\psi) = \bigcup\nolimits_{f \in A_{+}\text{ 齐次}} T_{\psi(f)}
+$$
+态射 $\psi$ 诱导概形的典范态射
+$$
+r_{\mathcal{L}, \psi} :
+U(\psi) \longrightarrow X
+$$
+以及 $\mathbf{Z}$-分次 $\mathcal{O}_T$-代数的映射
+$$
+\theta :
+r_{\mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_X(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{L}^{\otimes d}|_{U(\psi)}.
+$$
+三元组 $(U(\psi), r_{\mathcal{L}, \psi}, \theta)$ 由下列性质刻画：
+\begin{enumerate}
+\item 对齐次元 $f \in A_{+}$，有
+$r_{\mathcal{L}, \psi}^{-1}(D_{+}(f)) = T_{\psi(f)}$.
+\item 对每个 $d \geq 0$，图
+$$
+\xymatrix{
+A_d \ar[d]_{(\ref{constructions-equation-global-sections})} \ar[r]_{\psi} &
+\Gamma(T, \mathcal{L}^{\otimes d}) \ar[d]^{restrict} \\
+\Gamma(X, \mathcal{O}_X(d)) \ar[r]^{\theta} &
+\Gamma(U(\psi), \mathcal{L}^{\otimes d})
+}
+$$
+交换。
+\end{enumerate}
+此外，对任意 $d \geq 1$ 与任意开子概形 $V \subset T$，若
+$\psi(A_d)$ 中的截面生成 $\mathcal{L}^{\otimes d}|_V$，则态射
+$r_{\mathcal{L}, \psi}|_V$ 与态射 $\varphi : V \to \text{Proj}(A)$ 一致，
+且映射 $\theta|_V$ 与映射
+$\alpha : \varphi^*\mathcal{O}_X(d) \to \mathcal{L}^{\otimes d}|_V$ 一致；
+这里 $(\varphi, \alpha)$ 是引理 \ref{constructions-lemma-converse-construction} 中与
+$\psi|_{A^{(d)}} : A^{(d)} \to \Gamma_*(V, \mathcal{L}^{\otimes d})$.
+相伴的二元组。
+\end{lemma}
+
+\begin{proof}
+假设有两个满足 (1) 与 (2) 的三元组 $(U, r : U \to X, \theta)$
+和 $(U', r' : U' \to X, \theta')$。性质 (1) 蕴含
+$U = U' = U(\psi)$，并且 $r = r'$ 作为底拓扑空间的映射相等，
+因为诸开集 $D_{+}(f)$ 构成 $X$ 的拓扑的一组基，而且 $X$ 是清醒拓扑空间
+（见代数章第 \ref{algebra-section-proj} 节与概形章引理
+\ref{schemes-lemma-scheme-sober}）。
+设 $f \in A_{+}$ 为齐次元。注意
+$\Gamma(D_{+}(f), \bigoplus_{n \in \mathbf{Z}} \mathcal{O}_X(n)) = A_f$
+作为 $\mathbf{Z}$-分次代数成立。考虑两个 $\mathbf{Z}$-分次环同态
+$$
+\theta, \theta' :
+A_f
+\longrightarrow
+\Gamma(T_{\psi(f)}, \bigoplus \mathcal{L}^{\otimes n}).
+$$
+已知乘以 $f$（相应地，乘以 $\psi(f)$）在左边（相应地，右边）
+是同构。还由 (2) 知道，
+$\theta(x/1) = \theta'(x/1) = \psi(x)|_{T_{\psi(f)}}$
+对所有 $x \in A$ 都成立。
+因此容易推出所需的 $\theta = \theta'$。考察次数 $0$ 部分可得
+$r^\sharp = (r')^\sharp$，即 $r = r'$ 作为概形态射相等。
+这证明了唯一性。
+
+\medskip\noindent
+现在证明存在性。由刚证明的唯一性，只需局部构造二元组
+$(r, \theta)$，其所在概形为 $T$。因此可假设 $T = \Spec(R)$ 仿射，
+$\mathcal{L} = \mathcal{O}_T$，并且对某个齐次元 $f \in A_{+}$，
+$\psi(f)$ 生成 $\mathcal{O}_T = \mathcal{O}_T^{\otimes \deg(f)}$。
+换言之，$\psi(f) = u \in R^*$ 是单位。在这种情形下，映射
+$\psi$ 是分次环同态
+$$
+A \longrightarrow R[x] = \Gamma_*(T, \mathcal{O}_T)
+$$
+它将 $f$ 映到 $ux^{\deg(f)}$。显然，这唯一地延拓为
+$\mathbf{Z}$-分次环同态 $\theta : A_f \to R[x, x^{-1}]$，
+方式是将 $1/f$ 映到 $u^{-1}x^{-\deg(f)}$。此映射的次数零部分给出
+环同态 $A_{(f)} \to R$，后者给出态射
+$r : T = \Spec(R) \to \Spec(A_{(f)}) = D_{+}(f) \subset X$。
+因此在这一特殊情形中构造出了 $(r, \theta)$。
+
+\medskip\noindent
+最后证明引理的最后一个陈述。根据引理 \ref{constructions-lemma-converse-construction}，
+那里构造的态射是使其陈述中所示图交换的唯一态射。
+本引理中图的交换性蕴含其限制到 $V$ 与 $A^{(d)}$ 后仍交换。
+结论随即得出。
+\end{proof}
+
+\begin{remark}
+\label{constructions-remark-not-in-invertible-locus}
+假设与上面引理 \ref{constructions-lemma-invertible-map-into-proj} 相同。
+态射 $r_{\mathcal{L}, \psi}$ 的像不必包含于层
+$\mathcal{O}_X(1)$ 可逆的轨迹中。
+下面给出一个例子。
+设 $k$ 为域。
+设 $S = k[A, B, C]$ 按 $\deg(A) = 1$、$\deg(B) = 2$、$\deg(C) = 3$ 分次。
+置 $X = \text{Proj}(S)$。
+设 $T = \mathbf{P}^2_k = \text{Proj}(k[X_0, X_1, X_2])$。
+回忆 $\mathcal{L} = \mathcal{O}_T(1)$ 可逆，且
+$\mathcal{O}_T(n) = \mathcal{L}^{\otimes n}$。
+考虑这些映射的复合 $\psi$：
+$$
+S \to k[X_0, X_1, X_2] \to \Gamma_*(T, \mathcal{L}).
+$$
+这里第一个映射为 $A \mapsto X_0$、$B \mapsto X_1^2$、
+$C \mapsto X_2^3$，第二个映射为 (\ref{constructions-equation-global-sections})。
+由本引理，这对应于态射
+$r_{\mathcal{L}, \psi} : T \to X = \text{Proj}(S)$
+并且容易看出它是满射。另一方面，在注记 \ref{constructions-remark-not-isomorphism} 中，
+我们已经说明层 $\mathcal{O}_X(1)$ 并非在 $X$ 的所有点处都可逆。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+\section{通过黏合构造相对 Proj}
+\label{constructions-section-relative-proj-via-glueing}
+
+\begin{situation}
+\label{constructions-situation-relative-proj}
+这里 $S$ 为概形，$\mathcal{A}$ 为拟凝聚分次 $\mathcal{O}_S$-代数。
+\end{situation}
+
+\noindent
+本节概述如何构造概形态射
+$$
+\underline{\text{Proj}}_S(\mathcal{A}) \longrightarrow S
+$$
+其方法是黏合齐次谱 $\text{Proj}(\Gamma(U, \mathcal{A}))$，其中
+$U$ 遍历 $S$ 的仿射开集。首先说明，$\mathcal{A}$ 在诸仿射开集上的取值之
+齐次谱构成一族合适的概形，如引理 \ref{constructions-lemma-relative-glueing} 所述。
+
+\begin{lemma}
+\label{constructions-lemma-proj-inclusion}
+在情形 \ref{constructions-situation-relative-proj} 中。
+假设 $U \subset U' \subset S$ 为仿射开集。
+设 $A = \mathcal{A}(U)$ 且 $A' = \mathcal{A}(U')$。
+分次环同态 $A' \to A$ 诱导态射
+$r : \text{Proj}(A) \to \text{Proj}(A')$，且图
+$$
+\xymatrix{
+\text{Proj}(A) \ar[r] \ar[d] &
+\text{Proj}(A') \ar[d] \\
+U \ar[r] &
+U'
+}
+$$
+是笛卡尔的。此外，存在与乘法映射相容的典范同构
+\par\noindent
+$\theta : r^*\mathcal{O}_{\text{Proj}(A')}(n) \to
+\mathcal{O}_{\text{Proj}(A)}(n)$。
+\end{lemma}
+
+\begin{proof}
+设 $R = \mathcal{O}_S(U)$ 且 $R' = \mathcal{O}_S(U')$。
+注意，映射 $R \otimes_{R'} A' \to A$ 是同构，因为 $\mathcal{A}$ 拟凝聚
+（例如见概形章引理 \ref{schemes-lemma-widetilde-pullback}）。
+因此本引理由引理 \ref{constructions-lemma-base-change-map-proj} 得出。
+\end{proof}
+
+\noindent
+特别地，引理中的态射 $\text{Proj}(A) \to \text{Proj}(A')$ 是开浸入。
+
+\begin{lemma}
+\label{constructions-lemma-transitive-proj}
+在情形 \ref{constructions-situation-relative-proj} 中。
+假设 $U \subset U' \subset U'' \subset S$ 为仿射开集。
+设 $A = \mathcal{A}(U)$、$A' = \mathcal{A}(U')$ 且 $A'' = \mathcal{A}(U'')$。
+引理 \ref{constructions-lemma-proj-inclusion} 中态射
+$r : \text{Proj}(A) \to \text{Proj}(A')$ 与
+$r' : \text{Proj}(A') \to \text{Proj}(A'')$ 的复合，等于同一引理中的态射
+$r'' : \text{Proj}(A) \to \text{Proj}(A'')$，即引理
+\ref{constructions-lemma-proj-inclusion} 的相应态射。对同构 $\theta$ 也有类似陈述。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{constructions-lemma-morphism-proj-transitive} 得出，因为映射
+$A'' \to A$ 是 $A'' \to A'$ 与 $A' \to A$ 的复合。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-glue-relative-proj}
+在情形 \ref{constructions-situation-relative-proj} 中。存在概形态射
+$$
+\pi : \underline{\text{Proj}}_S(\mathcal{A}) \longrightarrow S
+$$
+具有下列性质：
+\begin{enumerate}
+\item 对每个仿射开集 $U \subset S$，存在同构
+$i_U : \pi^{-1}(U) \to \text{Proj}(A)$，其中 $A = \mathcal{A}(U)$；并且
+\item 对仿射开集 $U \subset U' \subset S$，复合
+$$
+\xymatrix{
+\text{Proj}(A) \ar[r]^{i_U^{-1}} &
+\pi^{-1}(U) \ar[rr]^{inclusion} & &
+\pi^{-1}(U') \ar[r]^{i_{U'}} &
+\text{Proj}(A')
+}
+$$
+（其中 $A = \mathcal{A}(U)$、$A' = \mathcal{A}(U')$）
+是上面引理 \ref{constructions-lemma-proj-inclusion} 的开浸入。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{constructions-lemma-relative-glueing}、
+\ref{constructions-lemma-proj-inclusion} 与
+\ref{constructions-lemma-transitive-proj}.
+得出。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-glue-relative-proj-twists}
+在情形 \ref{constructions-situation-relative-proj} 中。
+引理 \ref{constructions-lemma-glue-relative-proj} 的态射
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$ 带有下列附加结构。
+存在拟凝聚 $\mathbf{Z}$-分次
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$-代数层
+$\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$,
+以及分次 $\mathcal{O}_S$-代数的态射
+$$
+\psi :
+\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0}
+\pi_*\left(\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)\right)
+$$
+它们由下列性质唯一确定：对每个仿射开集 $U \subset S$，若
+$A = \mathcal{A}(U)$，则存在同构
+$$
+\theta_U :
+i_U^*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{O}_{\text{Proj}(A)}(n)
+\right)
+\longrightarrow
+\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)
+\right)|_{\pi^{-1}(U)}
+$$
+（它是 $\mathbf{Z}$-分次 $\mathcal{O}_{\pi^{-1}(U)}$-代数的同构），使得图
+$$
+\xymatrix{
+A_n
+\ar[rr]_\psi
+\ar[dr]_-{(\ref{constructions-equation-global-sections})}
+& &
+\Gamma(\pi^{-1}(U),
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)) \\
+&
+\Gamma(\text{Proj}(A),
+\mathcal{O}_{\text{Proj}(A)}(n))
+\ar[ru]_-{\theta_U}
+&
+}
+$$
+交换。
+\end{lemma}
+
+\begin{proof}
+我们将使用引理 \ref{constructions-lemma-relative-glueing-sheaves}，把各 $\mathbf{Z}$-分次代数层
+$\bigoplus_{n \in \mathbf{Z}} \mathcal{O}_{\text{Proj}(A)}(n)$
+黏合起来；这里 $A = \mathcal{A}(U)$，$U \subset S$ 为仿射开集，
+黏合所得概形为 $\underline{\text{Proj}}_S(\mathcal{A})$。
+所需数据已在引理 \ref{constructions-lemma-proj-inclusion} 中构造，并且引理
+\ref{constructions-lemma-relative-glueing-sheaves} 的条件 (d) 已在引理
+\ref{constructions-lemma-transitive-proj} 中检验。因此得到 $\mathbf{Z}$-分次
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$-代数层
+$\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$
+以及同构 $\theta_U$，它们对所有仿射开集 $U \subset S$ 与所有
+$n \in \mathbf{Z}$ 都存在。对每个仿射开集 $U \subset S$，若
+$A = \mathcal{A}(U)$，则有映射
+$A \to \Gamma(\text{Proj}(A),
+\bigoplus_{n \geq 0} \mathcal{O}_{\text{Proj}(A)}(n))$.
+因此由相对黏合的函子性，映射 $\psi$ 存在，见注记
+\ref{constructions-remark-relative-glueing-functorial}。引理中的图由构造可知交换。
+这刻画了 $\mathbf{Z}$-分次 $\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$-代数层
+$\bigoplus \mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$
+因为引理 \ref{constructions-lemma-morphism-proj} 的证明表明，要求这些图交换会唯一确定
+各映射 $\theta_U$。略去一些细节。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{作为函子的相对 Proj}
+\label{constructions-section-relative-proj}
+
+\noindent
+我们处于情形 \ref{constructions-situation-relative-proj}。因此 $S$ 为概形，且
+$\mathcal{A} = \bigoplus_{d \geq 0} \mathcal{A}_d$ 为拟凝聚分次
+$\mathcal{O}_S$-代数。本节通过构造一个由相对齐次谱表示的函子，
+将 $\text{Proj}$ 的构造相对化。由此将构造概形态射
+$$
+\underline{\text{Proj}}_S(\mathcal{A}) \longrightarrow S
+$$
+它在 $S$ 的仿射开集上看起来像分次环的齐次谱。讨论仿照第
+\ref{constructions-section-spec} 节对相对谱的讨论。较容易的方法是黏合形如
+$\text{Proj}(A)$ 的概形，其中 $A = \Gamma(U, \mathcal{A})$，
+$U \subset S$ 为仿射开集；该方法见第
+\ref{constructions-section-relative-proj-via-glueing} 节，并将证明本节结果与之同构。
+
+\medskip\noindent
+暂时固定整数 $d \geq 1$。
+仿照代数章第 \ref{algebra-section-graded} 节的记号，记
+$\mathcal{A}^{(d)} = \bigoplus_{n \geq 0} \mathcal{A}_{nd}$。
+设 $T$ 为概形。考虑{\it 四元组 $(d, f : T \to S, \mathcal{L}, \psi)$
+（在 $T$ 上）}，其中
+\begin{enumerate}
+\item $d$ 是上面固定的整数；
+\item $f : T \to S$ 是概形态射；
+\item $\mathcal{L}$ 是可逆 $\mathcal{O}_T$-模；并且
+\item
+$\psi : f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0}\mathcal{L}^{\otimes n}$
+是分次 $\mathcal{O}_T$-代数同态，且
+$f^*\mathcal{A}_d \to \mathcal{L}$ 是满射。
+\end{enumerate}
+给定态射 $h : T' \to T$ 与四元组 $(d, f, \mathcal{L}, \psi)$（在 $T$ 上），
+可将它拉回为四元组 $(d, f \circ h, h^*\mathcal{L}, h^*\psi)$（在 $T'$ 上）。
+给定两个四元组 $(d, f, \mathcal{L}, \psi)$ 与
+$(d, f', \mathcal{L}', \psi')$（在 $T$ 上且整数 $d$ 相同），若
+$f = f'$，并存在同构 $\beta : \mathcal{L} \to \mathcal{L}'$，使得
+$\beta \circ \psi = \psi'$ 作为分次 $\mathcal{O}_T$-代数同态
+$f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes n}$ 成立，
+则称它们{\it 严格等价}。
+
+\medskip\noindent
+对每个整数 $d \geq 1$，定义
+\begin{eqnarray*}
+F_d : \Sch^{opp} & \longrightarrow & \textit{Sets}, \\
+T & \longmapsto &
+\{\text{下列对象的严格等价类： }
+(d, f : T \to S, \mathcal{L}, \psi)
+\text{ 如上}\}
+\end{eqnarray*}
+其拉回按上面所述定义。
+
+\begin{lemma}
+\label{constructions-lemma-proj-base-change}
+在情形 \ref{constructions-situation-relative-proj} 中。设 $d \geq 1$。
+设 $F_d$ 为上面与 $(S, \mathcal{A})$ 相伴的函子。
+设 $g : S' \to S$ 为概形态射。置 $\mathcal{A}' = g^*\mathcal{A}$。
+设 $F_d'$ 为上面与 $(S', \mathcal{A}')$ 相伴的函子。
+则存在函子的典范同构
+$$
+F'_d \cong h_{S'} \times_{h_S} F_d
+$$
+\end{lemma}
+
+\begin{proof}
+四元组
+$(d, f' : T \to S', \mathcal{L}',
+\psi' : (f')^*(\mathcal{A}')^{(d)} \to
+\bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes n})$
+等同于一个四元组
+$(d, f, \mathcal{L},
+\psi : f^*\mathcal{A}^{(d)} \to
+\bigoplus_{n \geq 0} \mathcal{L}^{\otimes n})$
+连同 $f$ 的分解 $f = g \circ f'$。具体而言，该对应由
+$f = g \circ f'$、$\mathcal{L} = \mathcal{L}'$ 与 $\psi = \psi'$ 给出，
+其中使用识别
+$(f')^*(\mathcal{A}')^{(d)} = (f')^*g^*(\mathcal{A}^{(d)}) =
+f^*\mathcal{A}^{(d)}$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-relative-proj-affine}
+在情形 \ref{constructions-situation-relative-proj} 中。设 $F_d$ 为上面与
+$(d, S, \mathcal{A})$ 相伴的函子。若 $S$ 仿射，则 $F_d$ 由开子概形
+$U_d$（\ref{constructions-equation-Ud}）表示；该开子概形位于概形
+$\text{Proj}(\Gamma(S, \mathcal{A}))$ 中。
+\end{lemma}
+
+\begin{proof}
+写成 $S = \Spec(R)$ 且 $A = \Gamma(S, \mathcal{A})$。
+则 $A$ 是分次 $R$-代数，且 $\mathcal{A} = \widetilde A$。
+为证明本引理，必须把函子 $F_d$ 与第 \ref{constructions-section-morphisms-proj} 节定义的
+三元组函子 $F_d^{triples}$ 识别起来。
+
+\medskip\noindent
+设 $(d, f : T \to S, \mathcal{L}, \psi)$ 为四元组。
+可将 $\psi$ 看作 $\mathcal{O}_S$-模同态
+$\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n}$.
+由于 $\mathcal{A}^{(d)}$ 拟凝聚，这等同于 $R$-线性的分次环同态
+$A^{(d)} \to \Gamma(S, \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n})$.
+显然，$\Gamma(S, \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n}) =
+\Gamma_*(T, \mathcal{L})$。因此可将三元组 $(d, \mathcal{L}, \psi)$
+与该四元组相伴。
+
+\medskip\noindent
+反之，设 $(d, \mathcal{L}, \psi)$ 为三元组。
+复合 $R \to A_0 \to \Gamma(T, \mathcal{O}_T)$ 确定态射
+$f : T \to S = \Spec(R)$，见概形章引理
+\ref{schemes-lemma-morphism-into-affine}。按此选择 $f$，映射
+$A^{(d)} \to \Gamma(S, \bigoplus_{n \geq 0} f_*\mathcal{L}^{\otimes n})$
+是 $R$-线性的，因而对应于 $\psi$；它可用于四元组
+$(d, f : T \to S, \mathcal{L}, \psi)$。
+由此建立函子同构 $F_d = F_d^{triples}$ 的验证从略。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-relative-proj-d}
+在情形 \ref{constructions-situation-relative-proj} 中。函子 $F_d$ 可由概形表示。
+\end{lemma}
+
+\begin{proof}
+我们将使用概形章引理 \ref{schemes-lemma-glue-functors}。
+
+\medskip\noindent
+首先检验 $F_d$ 对 Zariski 拓扑满足层性质。设 $T$ 为概形，
+$T = \bigcup_{i \in I} U_i$ 为开覆盖，并且
+$(d, f_i, \mathcal{L}_i, \psi_i) \in F_d(U_i)$，使得
+$(d, f_i, \mathcal{L}_i, \psi_i)|_{U_i \cap U_j}$ 与
+$(d, f_j, \mathcal{L}_j, \psi_j)|_{U_i \cap U_j}$ 严格等价。
+这蕴含态射 $f_i : U_i \to S$ 黏合为概形态射
+$f : T \to S$，满足 $f|_{I_i} = f_i$，见概形章第
+\ref{schemes-section-glueing-schemes} 节。因此
+$f_i^*\mathcal{A}^{(d)} = f^*\mathcal{A}^{(d)}|_{U_i}$。
+它还蕴含存在同构
+$\beta_{ij} : \mathcal{L}_i|_{U_i \cap U_j} \to \mathcal{L}_j|_{U_i \cap U_j}$
+使得 $\beta_{ij} \circ \psi_i = \psi_j$ 在 $U_i \cap U_j$ 上成立。
+注意，同构 $\beta_{ij}$ 由这一要求唯一确定，因为映射
+$f_i^*\mathcal{A}_d \to \mathcal{L}_i$ 是满射。特别地，可见
+$\beta_{jk} \circ \beta_{ij} = \beta_{ik}$
+在 $U_i \cap U_j \cap U_k$ 上成立。因此由层章第
+\ref{sheaves-section-glueing-sheaves} 节，可逆层 $\mathcal{L}_i$
+黏合为可逆 $\mathcal{O}_T$-模 $\mathcal{L}$，而态射 $\psi_i$
+黏合为 $\mathcal{O}_T$-代数的态射
+$\psi : f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0} \mathcal{L}^{\otimes n}$.
+这证明 $F_d$ 对 Zariski 拓扑满足层条件。
+
+\medskip\noindent
+设 $S = \bigcup_{i \in I} U_i$ 为仿射开覆盖。
+设 $F_{d, i} \subset F_d$ 为由二元组
+$(f : T \to S, \varphi)$ 所组成的子函子，其中 $f(T) \subset U_i$。
+
+\medskip\noindent
+必须证明每个 $F_{d, i}$ 都可表示。由引理 \ref{constructions-lemma-proj-base-change}，
+$F_{d, i}$ 与下述函子识别：它与 $U_i$ 以及其上的拟凝聚分次
+$\mathcal{O}_{U_i}$-代数 $\mathcal{A}|_{U_i}$ 相伴。
+因此结论由引理 \ref{constructions-lemma-relative-proj-affine} 得出。
+
+\medskip\noindent
+接着证明 $F_{d, i} \subset F_d$ 可由开浸入表示。
+设 $(f : T \to S, \varphi) \in F_d(T)$。考虑 $V_i = f^{-1}(U_i)$。
+由 $F_{d, i}$ 的定义，对任意 $a : T' \to T$，有
+$a^*(f, \varphi) \in F_{d, i}(T')$ 当且仅当 $a(T') \subset V_i$。
+这正是所需结论。
+
+\medskip\noindent
+最后必须证明族 $(F_{d, i})_{i \in I}$ 覆盖 $F_d$。设
+$(f : T \to S, \varphi) \in F_d(T)$。考虑 $V_i = f^{-1}(U_i)$。
+由于 $S = \bigcup_{i \in I} U_i$ 是 $S$ 的开覆盖，可见
+$T = \bigcup_{i \in I} V_i$ 是 $T$ 的开覆盖。此外，
+$(f, \varphi)|_{V_i} \in F_{d, i}(V_i)$。引理证毕。
+\end{proof}
+
+\noindent
+现在可以在当前相对情形下重做第 \ref{constructions-section-morphisms-proj} 节末尾的内容，
+并定义一个由 $\underline{\text{Proj}}_S(\mathcal{A})$ 表示的函子。
+为此，引入两个四元组
+$(d, f : T \to S, \mathcal{L}, \psi)$ 与
+$(d', f' : T \to S, \mathcal{L}', \psi')$ 之间的等价概念，其中整数
+$d, d'$ 可以取不同值。具体而言，若 $f = f'$，并存在同构
+$\beta : \mathcal{L}^{\otimes d'} \to (\mathcal{L}')^{\otimes d}$，使得
+$\beta \circ \psi|_{f^*\mathcal{A}^{(dd')}} = \psi'|_{f^*\mathcal{A}^{(dd')}}$.
+则称它们{\it 等价}。下面的引理蕴含这确实定义了等价关系。
+（这并非完全平凡。）
+
+\begin{lemma}
+\label{constructions-lemma-equivalent-relative}
+在情形 \ref{constructions-situation-relative-proj} 中。设 $T$ 为概形。
+设 $(d, f, \mathcal{L}, \psi)$、$(d', f', \mathcal{L}', \psi')$
+为 $T$ 上的两个四元组。下列条件等价：
+\begin{enumerate}
+\item 设 $m = \text{lcm}(d, d')$。写成 $m = ad = a'd'$。
+有 $f = f'$，并且存在同构
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+使得 $\beta \circ \psi|_{f^*\mathcal{A}^{(m)}}$ 与
+$\psi'|_{f^*\mathcal{A}^{(m)}}$ 作为分次环同态
+$f^*\mathcal{A}^{(m)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes mn}$.
+一致。
+\item 四元组 $(d, f, \mathcal{L}, \psi)$ 与
+$(d', f', \mathcal{L}', \psi')$ 等价。
+\item 有 $f = f'$，并且对某个正整数 $m = ad = a'd'$，存在同构
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+使得 $\beta \circ \psi|_{f^*\mathcal{A}^{(m)}}$ 与
+$\psi'|_{f^*\mathcal{A}^{(m)}}$ 作为分次环同态
+$f^*\mathcal{A}^{(m)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes mn}$.
+一致。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然，通过限制到可被更多整数整除的次数并取可逆层的幂，
+(1) 蕴含 (2)，且 (2) 蕴含 (3)。假设 (3) 对某个整数
+$m = ad = a'd'$ 成立。置
+$m_0 = \text{lcm}(d, d')$，并写成 $m_0 = a_0d = a'_0d'$。
+给定同构
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+满足 (3) 所述性质。要寻找同构
+$\beta_0 : \mathcal{L}^{\otimes a_0} \to (\mathcal{L}')^{\otimes a'_0}$
+也满足该性质。由于按假设映射
+$\psi : f^*\mathcal{A}_d \to \mathcal{L}$ 与
+$\psi' : (f')^*\mathcal{A}_{d'} \to \mathcal{L}'$ 是满射，
+下列映射也同样是满射：
+$\psi : f^*\mathcal{A}_{m_0} \to \mathcal{L}^{\otimes a_0}$
+以及 $\psi' : (f')^*\mathcal{A}_{m_0} \to (\mathcal{L}')^{\otimes a_0}$。
+因此，若 $\beta_0$ 存在，则由条件 $\beta_0 \circ \psi = \psi'$ 唯一确定。
+这意味着可以在 $T$ 上局部工作。因此可假设
+$f = f' : T \to S$ 的像落在某个仿射开集中，换言之可假设 $S$ 仿射。
+此时结论由三元组的相应结果（见引理 \ref{constructions-lemma-equivalent}）以及仿射底情形下
+三元组与四元组之间的对应（见引理 \ref{constructions-lemma-relative-proj-affine} 的证明）得出。
+\end{proof}
+
+\noindent
+假设 $d' = ad$。考虑函子变换 $F_d \to F_{d'}$，它将四元组
+$(d, f, \mathcal{L}, \psi)$（在 $T$ 上）映为四元组
+$(d', f, \mathcal{L}^{\otimes a}, \psi|_{f^*\mathcal{A}^{(d')}})$.
+引理 \ref{constructions-lemma-equivalent-relative} 的一个推论是：变换
+$F_d \to F_{d'}$ 是单射！对拟紧概形 $T$，定义
+$$
+F(T) = \bigcup\nolimits_{d \in \mathbf{N}} F_d(T)
+$$
+其中转移映射如上所述。显然，这在拟紧概形范畴上定义了取值于集合的反变函子。
+对一般概形 $T$，定义
+$$
+F(T)
+=
+\lim_{V \subset T\text{ 拟紧开}} F(V).
+$$
+换言之，一个元素 $\xi$（属于 $F(T)$）对应于一族相容的选择
+$\xi_V \in F(V)$，其中 $V$ 遍历 $T$ 的拟紧开集。
+拉回映射 $F(T) \to F(T')$（对应概形态射 $T' \to T$）的定义从略。
+由此定义函子
+\begin{equation}
+\label{constructions-equation-proj}
+F : \Sch^{opp} \longrightarrow \textit{Sets}
+\end{equation}
+
+\begin{lemma}
+\label{constructions-lemma-relative-proj}
+在情形 \ref{constructions-situation-relative-proj} 中。上面的函子 $F$ 可由概形表示。
+\end{lemma}
+
+\begin{proof}
+设 $U_d \to S$ 为表示上面函子 $F_d$ 的概形。设 $\mathcal{L}_d$ 与
+$\psi^d : \pi_d^*\mathcal{A}^{(d)} \to
+\bigoplus_{n \geq 0} \mathcal{L}_d^{\otimes n}$ 为泛对象。
+若 $d | d'$，则可考虑四元组
+$(d', \pi_d, \mathcal{L}_d^{\otimes d'/d}, \psi^d|_{\mathcal{A}^{(d')}})$
+它确定典范态射 $U_d \to U_{d'}$（在 $S$ 上）。
+由构造，此态射对应于上面定义的函子变换 $F_d \to F_{d'}$。
+
+\medskip\noindent
+对每个仿射开集 $\Spec(R) = V \subset S$，置
+$A = \Gamma(V, \mathcal{A})$，则基变换 $U_{d, V}$ 与
+$\text{Proj}(A)$ 的相应开子概形有典范识别，见引理
+\ref{constructions-lemma-relative-proj-affine}。此外，上面构造的态射
+$U_{d, V} \to U_{d', V}$ 对应于 $\text{Proj}(A)$ 中开集的包含。
+因此 $U_d \to U_{d'}$ 是开浸入。
+
+\medskip\noindent
+于是可构造 $X$：将概形 $U_d$ 沿开浸入 $U_d \to U_{d'}$ 黏合。
+技术上，方便的做法是选取序列 $d_1 | d_2 | d_3 | \ldots$，
+使每个正整数整除某个 $d_i$，然后利用上述开浸入直接取
+$X = \bigcup U_{d_i}$。接着容易证明 $X$ 表示函子 $F$。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-glueing-gives-functor-proj}
+在情形 \ref{constructions-situation-relative-proj} 中。引理 \ref{constructions-lemma-glue-relative-proj}
+构造的概形 $\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$，
+与表示函子 $F$ 的概形，作为 $S$ 上的概形典范同构。
+\end{lemma}
+
+\begin{proof}
+设 $X$ 为表示函子 $F$ 的概形。注意，$X$ 是 $S$ 上的概形，
+因为函子 $F$ 带有自然变换 $F \to h_S$。
+写成 $Y = \underline{\text{Proj}}_S(\mathcal{A})$。
+必须证明 $X \cong Y$ 作为 $S$-概形成立。给出两个论证。
+
+\medskip\noindent
+第一个论证使用引理 \ref{constructions-lemma-relative-proj} 的证明中将 $X$ 构造为
+诸概形 $U_d$（它们表示 $F_d$）之并的做法。在 $S$ 的每个仿射开集上，
+可将 $X$ 与 $\mathcal{A}$ 在该开集上的截面之齐次谱识别，因为对开集
+$U_d$ 已经如此。此外，这些识别与进一步限制到更小的仿射开集相容。
+另一方面，$Y$ 正是通过黏合这些齐次谱构造的。
+因此可黏合这些同构，得到 $X$ 与
+$\underline{\text{Proj}}_S(\mathcal{A})$ 之间所需的同构。细节从略。
+
+\medskip\noindent
+下面是第二个论证。引理 \ref{constructions-lemma-glue-relative-proj-twists} 表明存在分次代数的态射
+$$
+\psi : \pi^*\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0} \mathcal{O}_Y(n)
+$$
+它位于 $Y$ 上，并且在 $S$ 的仿射开集上的截面层面与
+(\ref{constructions-equation-global-sections}) 一致。因此对每个 $y \in Y$，存在
+开邻域 $V \subset Y$（它是 $y$ 的邻域）与整数 $d \geq 1$，使得当 $d | n$ 时，层
+$\mathcal{O}_Y(n)|_V$ 可逆，且乘法映射
+$\mathcal{O}_Y(n)|_V \otimes_{\mathcal{O}_V} \mathcal{O}_Y(m)|_V
+\to \mathcal{O}_Y(n + m)|_V$ 都是同构。因此，将 $\psi$ 限制到层
+$\pi^*\mathcal{A}^{(d)}|_V$，得到 $F_d(V)$ 的一个元素。由于诸开集
+$V$ 覆盖 $Y$，可见“$\psi$”给出 $F(Y)$ 的一个元素，
+从而给出典范态射 $Y \to X$（在 $S$ 上）。由于此构造完全典范，
+为验证它是同构，可以在 $S$ 上局部工作。因此归约到 $S$ 仿射的情形，
+此时结论显然。
+\end{proof}
+
+\begin{definition}
+\label{constructions-definition-relative-proj}
+设 $S$ 为概形。设 $\mathcal{A}$ 为拟凝聚分次 $\mathcal{O}_S$-代数层。
+{\it $\mathcal{A}$ 在 $S$ 上的相对齐次谱}，或
+{\it $\mathcal{A}$ 在 $S$ 上的齐次谱}，或
+{\it $\mathcal{A}$ 在 $S$ 上的相对 Proj}，是引理
+\ref{constructions-lemma-glue-relative-proj} 中构造且表示函子 $F$
+（\ref{constructions-equation-proj}）的概形，见引理
+\ref{constructions-lemma-glueing-gives-functor-proj}。将它记为
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$。
+\end{definition}
+
+\noindent
+相对 Proj 带有拟凝聚 $\mathbf{Z}$-分次代数层
+$\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)$
+（结构层的扭转），以及分次代数的“泛”同态
+$$
+\psi_{univ} :
+\mathcal{A}
+\longrightarrow
+\pi_*\left(
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)
+\right)
+$$
+见引理 \ref{constructions-lemma-glue-relative-proj-twists}。也可将其视为同态
+$$
+\psi_{univ} :
+\pi^*\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n)
+$$
+。下面的引理表述了此对象的泛性质。
+
+\begin{lemma}
+\label{constructions-lemma-tie-up-psi}
+在情形 \ref{constructions-situation-relative-proj} 中。设
+$(f : T \to S, d, \mathcal{L}, \psi)$ 为四元组。设
+$r_{d, \mathcal{L}, \psi} : T \to \underline{\text{Proj}}_S(\mathcal{A})$
+为相伴的 $S$-态射。存在 $\mathbf{Z}$-分次 $\mathcal{O}_T$-代数的同构
+$$
+\theta :
+r_{d, \mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(nd)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}
+$$
+使得下图交换：
+$$
+\xymatrix{
+\mathcal{A}^{(d)} \ar[rr]_-{\psi}
+ \ar[rd]_-{\psi_{univ}} & &
+f_*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\mathcal{L}^{\otimes n}
+\right) \\
+ &
+\pi_*\left(
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(nd)
+\right) \ar[ru]_\theta
+}
+$$
+此图的交换性唯一确定 $\theta$。
+\end{lemma}
+
+\begin{proof}
+注意，四元组 $(f : T \to S, d, \mathcal{L}, \psi)$ 定义了
+$F_d(T)$ 的一个元素。设
+$U_d \subset \underline{\text{Proj}}_S(\mathcal{A})$
+为下述轨迹：层 $\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)$
+可逆，并由下列映射的像生成：
+$\psi_{univ} : \pi^*\mathcal{A}_d \to
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)$.
+回忆 $U_d$ 表示函子 $F_d$，见引理 \ref{constructions-lemma-relative-proj} 的证明。
+因此，只需证明四元组
+$(U_d \to S, d, \mathcal{O}_{U_d}(d), \psi_{univ}|_{\mathcal{A}^{(d)}})$
+是泛族，即 $F_d(U_d)$ 中的表示对象。可以在限制到 $S$ 的仿射开集后证明，
+因为 (a) 函子 $F_d$ 的形成与基变换交换（见引理
+\ref{constructions-lemma-proj-base-change}），且 (b) 二元组
+$(\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(n),
+\psi_{univ})$
+是在 $S$ 的仿射开集上黏合构造的（见引理
+\ref{constructions-lemma-glue-relative-proj-twists}）。因此可假设 $S$ 仿射。
+此时，四元组函子 $F_d$ 与三元组函子 $F_d$ 一致
+（见引理 \ref{constructions-lemma-relative-proj-affine} 的证明），而且引理
+\ref{constructions-lemma-proj-functor-strict} 表明
+$(d, \mathcal{O}_{U_d}(d), \psi^d)$ 是 $U_d$ 上的泛三元组。
+逆向追溯引理 \ref{constructions-lemma-relative-proj-affine} 证明中的各项识别，可知
+$(U_d \to S, d, \mathcal{O}_{U_d}(d), \psi_{univ}|_{\mathcal{A}^{(d)}})$
+正是所需的泛四元组。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-relative-proj-separated}
+设 $S$ 为概形，$\mathcal{A}$ 为拟凝聚分次 $\mathcal{O}_S$-代数层。态射
+$\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$
+是分离的。
+\end{lemma}
+
+\begin{proof}
+要证明态射分离，可以在底上局部工作，见概形章第
+\ref{schemes-section-separation-axioms} 节。由构造，
+$\underline{\text{Proj}}_S(\mathcal{A})$ 在任意仿射开集 $U \subset S$ 上
+都同构于 $\text{Proj}(A)$，其中 $A = \mathcal{A}(U)$。由引理
+\ref{constructions-lemma-proj-separated} 可见 $\text{Proj}(A)$ 分离。
+因此 $\text{Proj}(A) \to U$ 分离（见概形章引理
+\ref{schemes-lemma-compose-after-separated}），如所需。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-relative-proj-base-change}
+设 $S$ 为概形，$\mathcal{A}$ 为拟凝聚分次 $\mathcal{O}_S$-代数层。
+设 $g : S' \to S$ 为任意概形态射。则存在典范同构
+$$
+r :
+\underline{\text{Proj}}_{S'}(g^*\mathcal{A})
+\longrightarrow
+S' \times_S \underline{\text{Proj}}_S(\mathcal{A})
+$$
+以及相应的同构
+$$
+\theta :
+r^*\text{pr}_2^*\left(\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_{S'}(g^*\mathcal{A})}(d)
+$$
+，它是 $\mathbf{Z}$-分次
+$\mathcal{O}_{\underline{\text{Proj}}_{S'}(g^*\mathcal{A})}$-代数的同构。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{constructions-lemma-proj-base-change} 以及引理 \ref{constructions-lemma-relative-proj} 中
+将 $\underline{\text{Proj}}_S(\mathcal{A})$ 构造为诸概形 $U_d$
+（它们表示函子 $F_d$）之并的做法得出。用通过黏合构造相对 Proj 的语言，此同构由引理
+\ref{constructions-lemma-base-change-map-proj} 中构造的同构给出，后者也提供同构
+$\theta$。略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-apply-relative}
+设 $S$ 为概形。
+设 $\mathcal{A}$ 为拟凝聚分次 $\mathcal{O}_S$-代数层，它作为
+$\mathcal{A}_0$-代数由 $\mathcal{A}_1$ 生成。在这种情形下，概形
+$X = \underline{\text{Proj}}_S(\mathcal{A})$ 表示函子 $F_1$；该函子将
+概形 $f : T \to S$（在 $S$ 上）映到二元组 $(\mathcal{L}, \psi)$ 的集合，其中
+\begin{enumerate}
+\item $\mathcal{L}$ 是可逆 $\mathcal{O}_T$-模；并且
+\item $\psi : f^*\mathcal{A} \to \bigoplus_{n \geq 0} \mathcal{L}^{\otimes n}$
+是分次 $\mathcal{O}_T$-代数同态，且
+$f^*\mathcal{A}_1 \to \mathcal{L}$ 是满射，
+\end{enumerate}
+并按上述严格等价关系取等价类。此外，在这种情形下，所有拟凝聚层
+$\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n)$
+都是可逆 $\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}$-模，
+并且乘法映射诱导同构
+$
+\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n)
+\otimes_{\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}}
+\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(m) =
+\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n + m)$.
+\end{lemma}
+
+\begin{proof}
+在本引理的假设下，诸层
+$\mathcal{O}_{\underline{\text{Proj}}(\mathcal{A})}(n)$
+可逆，且乘法映射是同构；这在 $S$ 的仿射开集上由引理
+\ref{constructions-lemma-relative-proj} 与引理 \ref{constructions-lemma-apply} 得出。
+因此 $X$ 的确表示函子 $F_1$，见引理 \ref{constructions-lemma-relative-proj} 的证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{相对 Proj 上的拟凝聚层}
+\label{constructions-section-quasi-coherent-relative-proj}
+
+\noindent
+我们简要讨论如何在相对情形下处理分次模。
+
+\medskip\noindent
+我们置身于情形 \ref{constructions-situation-relative-proj}。因此 $S$ 是一个概形，而
+$\mathcal{A}$ 是一个拟凝聚分次 $\mathcal{O}_S$-代数。设
+$\mathcal{M} = \bigoplus_{n \in \mathbf{Z}} \mathcal{M}_n$
+是一个分次 $\mathcal{A}$-模，并且作为 $\mathcal{O}_S$-模是拟凝聚的。
+我们将描述 $\underline{\text{Proj}}_S(\mathcal{A})$ 上与之相伴的拟凝聚模层。
+首先描述这个层在映入相对 Proj 的概形 $T$ 上的值。
+
+\medskip\noindent
+设 $T$ 是一个概形，并设 $(d, f : T \to S, \mathcal{L}, \psi)$
+为第 \ref{constructions-section-relative-proj} 节所述的 $T$ 上四元组。我们如下定义一个拟凝聚层
+$\widetilde{\mathcal{M}}_T$，它是一个 $\mathcal{O}_T$-模层：
+\begin{equation}
+\label{constructions-equation-widetilde-M}
+\widetilde{\mathcal{M}}_T =
+\left(
+f^*\mathcal{M}^{(d)}
+\otimes_{f^*\mathcal{A}^{(d)}}
+\left(\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}\right)
+\right)_0
+\end{equation}
+因此 $\widetilde{\mathcal{M}}_T$ 是 $0$ 次部分；它取自两个分次
+$f^*\mathcal{A}^{(d)}$-模 $\mathcal{M}^{(d)}$ 与
+$\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}$
+的张量积。注意，尽管记号中略去了这种依赖，层
+$\widetilde{\mathcal{M}}_T$ 仍依赖于该四元组。这个构造具有如下良好性质：
+给定任意态射 $g : T' \to T$，都有
+$\widetilde{\mathcal{M}}_{T'} = g^*\widetilde{\mathcal{M}}_T$，
+其中 $\widetilde{\mathcal{M}}_{T'}$ 表示与拉回四元组
+$(d, f \circ g, g^*\mathcal{L}, g^*\psi)$ 相伴的拟凝聚层。
+
+\medskip\noindent
+由于 (\ref{constructions-equation-widetilde-M}) 中的所有层都是拟凝聚的，我们可以在仿射开集
+$\Spec(C) = V \subset T$ 上具体写出这个构造；该开集映入仿射开集
+$\Spec(R) = U \subset S$。具体而言，设 $\mathcal{A}|_U$ 对应于分次 $R$-代数 $A$，
+$\mathcal{M}|_U$ 对应于分次 $A$-模 $M$，而 $\mathcal{L}|_V$
+对应于可逆 $C$-模 $L$。映射 $\psi$ 诱导一个分次 $R$-代数映射
+$\gamma : A^{(d)} \to \bigoplus_{n \geq 0} L^{\otimes n}$。
+（这里 $L$ 的张量幂均取在 $C$ 上。）于是 $(\widetilde{\mathcal{M}}_T)|_V$
+就是与下列 $C$-模相伴的拟凝聚层：
+$$
+N_{R, C, A, M, \gamma} =
+\left(
+M^{(d)} \otimes_{A^{(d)}, \gamma}
+\left(\bigoplus\nolimits_{n \in \mathbf{Z}} L^{\otimes n}\right)
+\right)_0
+$$
+根据假设，我们甚至可以用若干仿射开集覆盖 $T$；这些开集记为 $V$，并且存在某个
+$a \in A_d$，使得 $\gamma(a) \in L$ 是一个 $C$-基，即模 $L$ 的一组基。
+在这种情况下，$N_{R, C, A, M, \gamma}$ 的任意元素都是纯张量之和
+$\sum m_i \otimes \gamma(a)^{-n_i}$，其中 $m_i \in M_{n_id}$。
+事实上，我们可以把每个 $m_i$ 乘以 $a$ 的某个适当正幂，然后合并各项，
+由此看出 $N_{R, C, A, M, \gamma}$ 的每个元素都可写成
+$m \otimes \gamma(a)^{-n}$，其中 $m \in M_{nd}$ 且 $n \gg 0$。
+换言之，在此情形下有
+$$
+N_{R, C, A, M, \gamma} = M_{(a)} \otimes_{A_{(a)}} C
+$$
+其中映射 $A_{(a)} \to C$ 是
+$x/a^n \mapsto \gamma(x)/\gamma(a)^n$。换言之，这是
+$\widetilde{M}$ 在 $D_{+}(a) \subset \text{Proj}(A)$ 上的值拉回到
+$\Spec(C)$ 后所得的模；这里使用的是态射
+$\Spec(C) \to D_{+}(a)$，它来自 $\gamma$。
+
+\begin{lemma}
+\label{constructions-lemma-relative-proj-modules}
+在情形 \ref{constructions-situation-relative-proj} 中，给定任意拟凝聚分次
+$\mathcal{A}$-模层 $\mathcal{M}$（它位于 $S$ 上），都存在一个典范相伴的
+$\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}$-模层
+$\widetilde{\mathcal{M}}$，它具有如下性质：
+\begin{enumerate}
+\item 给定概形 $T$ 以及四元组
+$(T \to S, d, \mathcal{L}, \psi)$（它位于 $T$ 上），若该四元组对应于态射
+$h : T \to \underline{\text{Proj}}_S(\mathcal{A})$，则存在典范同构
+$\widetilde{\mathcal{M}}_T = h^*\widetilde{\mathcal{M}}$，
+其中 $\widetilde{\mathcal{M}}_T$ 由 (\ref{constructions-equation-widetilde-M}) 定义。
+\item (1) 中的同构与拉回相容。
+\item 存在典范映射
+$$
+\pi^*\mathcal{M}_0 \longrightarrow \widetilde{\mathcal{M}}.
+$$
+\item 构造 $\mathcal{M} \mapsto \widetilde{\mathcal{M}}$ 关于 $\mathcal{M}$ 是函子性的。
+\item 构造 $\mathcal{M} \mapsto \widetilde{\mathcal{M}}$ 是正合的。
+\item 存在如下典范映射
+$$
+\widetilde{\mathcal{M}}
+\otimes_{\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}}
+\widetilde{\mathcal{N}}
+\longrightarrow
+\widetilde{\mathcal{M} \otimes_\mathcal{A} \mathcal{N}}
+$$
+它们与引理 \ref{constructions-lemma-widetilde-tensor} 中的映射相同。
+\item 存在典范映射
+$$
+\pi^*\mathcal{M}
+\longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\widetilde{\mathcal{M}(n)}
+$$
+它们推广了 (\ref{constructions-equation-global-sections-more-generally})。
+\item $\widetilde{\mathcal{M}}$ 的形成与基变换可交换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+从略。我们应当把这个引理拆成若干部分，并分别证明各部分。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{相对 Proj 的函子性}
+\label{constructions-section-functoriality-relative-proj}
+
+\noindent
+本节是相对 Proj 情形下第 \ref{constructions-section-functoriality-proj} 节的类比。
+设 $S$ 是一个概形。分次 $\mathcal{O}_S$-代数映射
+$\psi : \mathcal{A} \to \mathcal{B}$ 并不总能诱导相伴相对 Proj 之间的态射。
+正确的结果如下。
+
+\begin{lemma}
+\label{constructions-lemma-morphism-relative-proj}
+设 $S$ 是一个概形。设 $\mathcal{A}$、$\mathcal{B}$ 是两个分次拟凝聚
+$\mathcal{O}_S$-代数。置
+$p : X = \underline{\text{Proj}}_S(\mathcal{A}) \to S$ 及
+$q : Y = \underline{\text{Proj}}_S(\mathcal{B}) \to S$。设
+$\psi : \mathcal{A} \to \mathcal{B}$ 是分次 $\mathcal{O}_S$-代数同态。
+存在典范开集 $U(\psi) \subset Y$ 以及典范概形态射
+$$
+r_\psi :
+U(\psi)
+\longrightarrow
+X
+$$
+它在 $S$ 上；此外还存在一个 $\mathbf{Z}$-分次
+$\mathcal{O}_{U(\psi)}$-代数映射
+$$
+\theta = \theta_\psi :
+r_\psi^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_X(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_{U(\psi)}(d).
+$$
+三元组 $(U(\psi), r_\psi, \theta)$ 由如下性质刻画：对任意仿射开集
+$W \subset S$，三元组
+$$
+(U(\psi) \cap p^{-1}W,\quad
+r_\psi|_{U(\psi) \cap p^{-1}W} : U(\psi) \cap p^{-1}W \to q^{-1}W,\quad
+\theta|_{U(\psi) \cap p^{-1}W})
+$$
+等于与 $\psi : \mathcal{A}(W) \to \mathcal{B}(W)$ 相伴的三元组，
+即引理 \ref{constructions-lemma-morphism-proj} 中的三元组；这里采用恒等
+$p^{-1}W = \text{Proj}(\mathcal{A}(W))$ 与
+$q^{-1}W = \text{Proj}(\mathcal{B}(W))$，它们来自第
+\ref{constructions-section-relative-proj-via-glueing} 节。
+\end{lemma}
+
+\begin{proof}
+把这些局部三元组粘合起来，便立即得到本引理。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-morphism-relative-proj-transitive}
+设 $S$ 是一个概形。设 $\mathcal{A}$、$\mathcal{B}$ 和 $\mathcal{C}$ 是
+拟凝聚分次 $\mathcal{O}_S$-代数。置
+$X = \underline{\text{Proj}}_S(\mathcal{A})$、
+$Y = \underline{\text{Proj}}_S(\mathcal{B})$ 及
+$Z = \underline{\text{Proj}}_S(\mathcal{C})$。设
+$\varphi : \mathcal{A} \to \mathcal{B}$、
+$\psi : \mathcal{B} \to \mathcal{C}$ 是分次 $\mathcal{O}_S$-代数映射。
+则有
+$$
+U(\psi \circ \varphi) = r_\varphi^{-1}(U(\psi))
+\quad
+\text{且}
+\quad
+r_{\psi \circ \varphi}
+=
+r_\varphi \circ r_\psi|_{U(\psi \circ \varphi)}.
+$$
+此外还有
+$$
+\theta_\psi \circ r_\psi^*\theta_\varphi
+=
+\theta_{\psi \circ \varphi}
+$$
+其中记号含义显然。
+\end{lemma}
+
+\begin{proof}
+从略。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-surjective-graded-rings-map-relative-proj}
+沿用上述引理 \ref{constructions-lemma-morphism-relative-proj} 的假设与记号。假设
+$\mathcal{A}_d \to \mathcal{B}_d$ 对 $d \gg 0$ 是满射。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ 是闭浸入，并且
+\item 映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+是满射，但一般不是同构（即使 $\mathcal{A} \to \mathcal{B}$ 是满射）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-morphism-relative-proj} 与引理
+\ref{constructions-lemma-surjective-graded-rings-map-proj} 合并即得。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-eventual-iso-graded-rings-map-relative-proj}
+沿用上述引理 \ref{constructions-lemma-morphism-relative-proj} 的假设与记号。假设
+$\mathcal{A}_d \to \mathcal{B}_d$ 对所有 $d \gg 0$ 都是同构。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ 是同构，并且
+\item 映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-morphism-relative-proj} 与引理
+\ref{constructions-lemma-eventual-iso-graded-rings-map-proj} 合并即得。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-surjective-generated-degree-1-map-relative-proj}
+沿用上述引理 \ref{constructions-lemma-morphism-relative-proj} 的假设与记号。假设
+$\mathcal{A}_d \to \mathcal{B}_d$ 对 $d \gg 0$ 是满射，并且
+$\mathcal{A}$ 由 $\mathcal{A}_1$ 在 $\mathcal{A}_0$ 上生成。则
+\begin{enumerate}
+\item $U(\psi) = Y$,
+\item $r_\psi : Y \to X$ 是闭浸入，并且
+\item 映射 $\theta : r_\psi^*\mathcal{O}_X(n) \to \mathcal{O}_Y(n)$
+是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-morphism-relative-proj} 与引理
+\ref{constructions-lemma-surjective-graded-rings-generated-degree-1-map-proj} 合并即得。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{可逆层与映入相对 Proj 的态射}
+\label{constructions-section-invertible-relative-proj}
+
+\noindent
+下述引理似乎会在某处用到。情形如下：
+\begin{enumerate}
+\item 设 $S$ 是一个概形。
+\item 设 $\mathcal{A}$ 是一个拟凝聚分次 $\mathcal{O}_S$-代数。
+\item 记 $\pi : \underline{\text{Proj}}_S(\mathcal{A}) \to S$ 为 $S$ 上的相对齐次谱。
+\item 设 $f : X \to S$ 是一个概形态射。
+\item 设 $\mathcal{L}$ 是一个可逆 $\mathcal{O}_X$-模。
+\item 设 $\psi : f^*\mathcal{A} \to
+\bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$
+是一个分次 $\mathcal{O}_X$-代数同态。
+\end{enumerate}
+给定这些数据，置
+$$
+U(\psi) = \bigcup\nolimits_{(U, V, a)} U_{\psi(a)}
+$$
+其中 $(U, V, a)$ 满足：
+\begin{enumerate}
+\item $V \subset S$ 是仿射开集，
+\item $U = f^{-1}(V)$，并且
+\item $a \in \mathcal{A}(V)_{+}$ 是齐次的。
+\end{enumerate}
+此时 $\psi(a) \in \Gamma(U, \mathcal{L}^{\otimes \deg(a)})$，而
+$U_{\psi(a)}$ 是对应的开集（见《模》中的引理 \ref{modules-lemma-s-open}）。
+
+\begin{lemma}
+\label{constructions-lemma-invertible-map-into-relative-proj}
+沿用上述假设与记号。态射 $\psi$ 诱导如下 $S$ 上的典范概形态射：
+$$
+r_{\mathcal{L}, \psi} :
+U(\psi) \longrightarrow \underline{\text{Proj}}_S(\mathcal{A})
+$$
+并且还诱导如下分次 $\mathcal{O}_{U(\psi)}$-代数映射：
+$$
+\theta :
+r_{\mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{d \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \geq 0} \mathcal{L}^{\otimes d}|_{U(\psi)}
+$$
+它们由下列性质刻画：
+\begin{enumerate}
+\item 对每个开集 $V \subset S$ 以及每个 $d \geq 0$，图
+$$
+\xymatrix{
+\mathcal{A}_d(V) \ar[d]_{\psi} \ar[r]_{\psi} &
+\Gamma(f^{-1}(V), \mathcal{L}^{\otimes d}) \ar[d]^{restrict} \\
+\Gamma(\pi^{-1}(V),
+\mathcal{O}_{\underline{\text{Proj}}_S(\mathcal{A})}(d)) \ar[r]^{\theta} &
+\Gamma(f^{-1}(V) \cap U(\psi), \mathcal{L}^{\otimes d})
+}
+$$
+是交换的。
+\item 对任意 $d \geq 1$ 以及任意开子概形 $W \subset X$，若
+$\psi|_W : f^*\mathcal{A}_d|_W \to \mathcal{L}^{\otimes d}|_W$ 是满射，
+则态射 $r_{\mathcal{L}, \psi}$ 的限制与态射
+$W \to \underline{\text{Proj}}_S(\mathcal{A})$ 一致；后者由相对齐次谱的构造存在，
+见定义 \ref{constructions-definition-relative-proj}。
+\item 对任意仿射开集 $V \subset S$，限制
+$$
+(U(\psi) \cap f^{-1}(V), r_{\mathcal{L}, \psi}|_{U(\psi) \cap f^{-1}(V)},
+\theta|_{U(\psi) \cap f^{-1}(V)})
+$$
+经由 $i_V$（见引理 \ref{constructions-lemma-glue-relative-proj}）与三元组
+$(U(\psi'), r_{\mathcal{L}, \psi'}, \theta')$ 一致；这是引理
+\ref{constructions-lemma-invertible-map-into-proj} 中与映射
+$\psi' : A = \mathcal{A}(V) \to \Gamma_*(f^{-1}(V), \mathcal{L}|_{f^{-1}(V)})$
+相伴的三元组，而该映射由 $\psi$ 诱导。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+利用刻画 (3) 构造态射 $r_{\mathcal{L}, \psi}$ 与 $\theta$；这个构造是在
+$S$ 上局部进行的。利用引理 \ref{constructions-lemma-invertible-map-into-proj} 的唯一性说明这些构造能够粘合。
+细节从略。
+\end{proof}
+
+
+
+
+
+
+
+\section{可逆层扭曲与相对 Proj}
+\label{constructions-section-twisting-and-proj}
+
+\noindent
+设 $S$ 是一个概形。设
+$\mathcal{A} = \bigoplus_{d \geq 0} \mathcal{A}_d$ 是一个拟凝聚分次
+$\mathcal{O}_S$-代数。设 $\mathcal{L}$ 是 $S$ 上的一个可逆层。
+在这种情形下，我们得到另一个拟凝聚分次 $\mathcal{O}_S$-代数，即
+$$
+\mathcal{B}
+=
+\bigoplus\nolimits_{d \geq 0}
+\mathcal{A}_d \otimes_{\mathcal{O}_S} \mathcal{L}^{\otimes d}
+$$
+事实表明，$\mathcal{A}$ 与 $\mathcal{B}$ 具有同构的相对齐次谱。
+
+\begin{lemma}
+\label{constructions-lemma-twisting-and-proj}
+沿用上述记号 $S$、$\mathcal{A}$、$\mathcal{L}$ 和 $\mathcal{B}$。
+存在典范同构
+$$
+\xymatrix{
+P = \underline{\text{Proj}}_S(\mathcal{A})
+\ar[rr]_g \ar[rd]_\pi & &
+\underline{\text{Proj}}_S(\mathcal{B}) = P'
+\ar[ld]^{\pi'} \\
+& S &
+}
+$$
+它具有如下性质：
+\begin{enumerate}
+\item 存在同构
+$\theta_n : g^*\mathcal{O}_{P'}(n)
+\to
+\mathcal{O}_P(n) \otimes \pi^*\mathcal{L}^{\otimes n}$
+它们拼合为如下 $\mathbf{Z}$-分次代数同构：
+$$
+\theta :
+g^*\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{O}_{P'}(n)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{O}_P(n)
+\otimes \pi^*\mathcal{L}^{\otimes n}
+$$
+\item 对每个开集 $V \subset S$，图
+$$
+\xymatrix{
+\mathcal{A}_n(V) \otimes \mathcal{L}^{\otimes n}(V)
+\ar[r]_{multiply} \ar[d]^{\psi \otimes \pi^*}
+&
+\mathcal{B}_n(V) \ar[dd]^\psi \\
+\Gamma(\pi^{-1}V, \mathcal{O}_P(n)) \otimes
+\Gamma(\pi^{-1}V, \pi^*\mathcal{L}^{\otimes n})
+\ar[d]^{multiply} \\
+\Gamma(\pi^{-1}V, \mathcal{O}_P(n) \otimes \pi^*\mathcal{L}^{\otimes n})
+&
+\Gamma(\pi'^{-1}V, \mathcal{O}_{P'}(n)) \ar[l]_-{\theta_n}
+}
+$$
+都是交换的。
+\item 视需要在此补充更多内容。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+当 $\mathcal{L} \cong \mathcal{O}_S$ 时，这就是恒等映射。一般地，选取
+$S$ 的一个开覆盖，使得 $\mathcal{L}$ 在各片上平凡化，再粘合相应的映射。
+细节从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{射影丛}
+\label{constructions-section-projective-bundle}
+
+\noindent
+设 $S$ 是一个概形。设 $\mathcal{E}$ 是一个拟凝聚 $\mathcal{O}_S$-模层。
+由《模》中的引理 \ref{modules-lemma-whole-tensor-algebra-permanence}，
+对称代数 $\text{Sym}(\mathcal{E})$，即 $\mathcal{E}$ 在 $\mathcal{O}_S$
+上的对称代数，是一个拟凝聚 $\mathcal{O}_S$-代数层。注意，它由 $1$ 次部分在
+$\mathcal{O}_S$ 上生成。因此可以对它应用上一节的构造，特别是引理
+\ref{constructions-lemma-relative-proj} 和 \ref{constructions-lemma-apply-relative}。
+
+\begin{definition}
+\label{constructions-definition-projective-bundle}
+设 $S$ 是一个概形。设 $\mathcal{E}$ 是一个拟凝聚
+$\mathcal{O}_S$-模\footnote{读者或许预期这里要求 $\mathcal{E}$ 是有限局部自由的。
+为了与 \cite[II, Definition 4.1.1]{EGA} 保持一致，我们不作此要求。}。
+我们记
+$$
+\pi :
+\mathbf{P}(\mathcal{E}) = \underline{\text{Proj}}_S(\text{Sym}(\mathcal{E}))
+\longrightarrow
+S
+$$
+并称它为{\it 与 $\mathcal{E}$ 相伴的射影丛}。记号
+$\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n)$ 表示引理
+\ref{constructions-lemma-apply-relative} 中的可逆 $\mathcal{O}_{\mathbf{P}(\mathcal{E})}$-模，
+称为{\it 结构层的第 $n$ 次扭曲}。
+\end{definition}
+
+\noindent
+由引理 \ref{constructions-lemma-glue-relative-proj-twists}，存在典范 $\mathcal{O}_S$-模同态
+$$
+\text{Sym}^n(\mathcal{E})
+\longrightarrow
+\pi_*\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n)
+\quad\text{等价地}\quad
+\pi^*\text{Sym}^n(\mathcal{E})
+\longrightarrow
+\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n)
+$$
+对所有 $n \geq 0$ 都成立。特别地，当 $n = 1$ 时有
+$$
+\mathcal{E}
+\longrightarrow
+\pi_*\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)
+\quad\text{等价地}\quad
+\pi^*\mathcal{E}
+\longrightarrow
+\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)
+$$
+并且由引理 \ref{constructions-lemma-apply-relative}，映射
+$\pi^*\mathcal{E} \to \mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$ 是满射。
+这是记忆我们如何规范化 $\mathbf{P}(\mathcal{E})$ 的构造的一种好方法。
+
+\medskip\noindent
+警告：在有些文献中，概形 $\mathbf{P}(\mathcal{E})$ 仅当 $\mathcal{E}$
+在 $S$ 上有限局部自由时才有定义。此外，有时 $\mathbf{P}(\mathcal{E})$
+实际上被定义为我们记作 $\mathbf{P}(\mathcal{E}^\vee)$ 的概形，其中
+$\mathcal{E}^\vee$ 是 $\mathcal{E}$ 的对偶（并且这种定义也只在
+$\mathcal{E}$ 有限局部自由时采用）。
+
+\medskip\noindent
+设 $S$、$\mathcal{E}$、$\mathbf{P}(\mathcal{E}) \to S$ 如定义
+\ref{constructions-definition-projective-bundle} 所述。设 $f : T \to S$ 是 $S$ 上的一个概形。
+设 $\psi : f^*\mathcal{E} \to \mathcal{L}$ 是满射，其中 $\mathcal{L}$
+是一个可逆 $\mathcal{O}_T$-模。所诱导的分次 $\mathcal{O}_T$-代数映射
+$$
+f^*\text{Sym}(\mathcal{E}) = \text{Sym}(f^*\mathcal{E}) \to
+\text{Sym}(\mathcal{L}) = \bigoplus\nolimits_{n \geq 0} \mathcal{L}^{\otimes n}
+$$
+对应于态射
+$$
+\varphi_{\mathcal{L}, \psi} : T \longrightarrow \mathbf{P}(\mathcal{E})
+$$
+它位于 $S$ 上。这来自我们把相对 Proj 构造为表示第
+\ref{constructions-section-relative-proj} 节中函子 $F$ 的概形。另一方面，给定态射
+$\varphi : T \to \mathbf{P}(\mathcal{E})$（它位于 $S$ 上），可以置
+$\mathcal{L} = \varphi^*\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$，并令
+$\psi : f^*\mathcal{E} \to \mathcal{L}$ 等于沿 $\varphi$ 拉回典范满射
+$\pi^*\mathcal{E} \to \mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$ 所得的映射。
+由引理 \ref{constructions-lemma-apply-relative}，这些构造给出如下两个集合之间的互逆双射：
+偶对 $(\mathcal{L}, \psi)$ 的同构类集合，以及态射
+$\varphi : T \to \mathbf{P}(\mathcal{E})$（它位于 $S$ 上）的集合。因此
+$\mathbf{P}(\mathcal{E})$ 表示这样的函子：它给 $f : T \to S$ 配上所有
+$\mathcal{O}_T$-模商，其中被取商的模是 $f^*\mathcal{E}$，并且这些商局部自由秩为
+$1$。
+
+\begin{example}[向量空间的射影空间]
+\label{constructions-example-projective-space}
+设 $k$ 是一个域。设 $V$ 是一个 $k$-向量空间。相应的{\it 射影空间}是 $k$-概形
+$$
+\mathbf{P}(V) = \text{Proj}(\text{Sym}(V))
+$$
+其中 $\text{Sym}(V)$ 是 $V$ 在 $k$ 上的对称代数。显然有
+$\mathbf{P}(V) \cong \mathbf{P}^n_k$，只要 $\dim(V) = n + 1$，因为此时
+$V$ 的对称代数同构于一个含 $n + 1$ 个变量的多项式环。若把 $V$ 看作
+$\Spec(k)$ 上的拟凝聚模，则 $\mathbf{P}(V)$ 是 $\Spec(k)$ 上相应的射影空间丛。
+由上述讨论，一个 $k$-值点 $p$（属于 $\mathbf{P}(V)$）对应于一个 $k$-向量空间满射
+$V \to L_p$，其中 $\dim(L_p) = 1$。更一般地，设 $X$ 是 $k$ 上的概形，
+设 $\mathcal{L}$ 是一个可逆 $\mathcal{O}_X$-模，并设
+$\psi : V \to \Gamma(X, \mathcal{L})$ 是一个 $k$-线性映射，使得
+$\mathcal{L}$ 作为 $\mathcal{O}_X$-模由 $\psi$ 像中的截面生成。
+于是上述讨论给出典范态射
+$$
+\varphi_{\mathcal{L}, \psi} : X \longrightarrow \mathbf{P}(V)
+$$
+它是 $k$ 上的概形态射，并且存在同构
+$\theta : \varphi_{\mathcal{L}, \psi}^*\mathcal{O}_{\mathbf{P}(V)}(1)
+\to \mathcal{L}$，同时 $\psi$ 与下列复合一致：
+$$
+V \to
+\Gamma(\mathbf{P}(V), \mathcal{O}_{\mathbf{P}(V)}(1))
+\to
+\Gamma(X, \varphi_{\mathcal{L}, \psi}^*\mathcal{O}_{\mathbf{P}(V)}(1))
+\to
+\Gamma(X, \mathcal{L})
+$$
+见引理 \ref{constructions-lemma-invertible-map-into-proj}。若
+$V \subset \Gamma(X, \mathcal{L})$ 是一个子空间，则把上述构造的态射简记为
+$\varphi_{\mathcal{L}, V}$。若 $\dim(V) = n + 1$，并选定一组基
+$v_0, \ldots, v_n$（它是 $V$ 的基），则图
+$$
+\xymatrix{
+X \ar@{=}[d] \ar[rr]_{\varphi_{\mathcal{L}, \psi}} & &
+\mathbf{P}(V) \ar[d]^{\cong} \\
+X \ar[rr]^{\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}} & &
+\mathbf{P}^n_k
+}
+$$
+是交换的，其中 $s_i = \psi(v_i) \in \Gamma(X, \mathcal{L})$，
+$\varphi_{(\mathcal{L}, (s_0, \ldots, s_n))}$ 如第
+\ref{constructions-section-projective-space} 节所述，而右侧竖直箭头对应于同构
+$k[T_0, \ldots, T_n] \to \text{Sym}(V)$；该同构把 $T_i$ 映到 $v_i$。
+\end{example}
+
+\begin{example}
+\label{constructions-example-projective-bundle}
+映射 $\text{Sym}^n(\mathcal{E}) \to
+\pi_*(\mathcal{O}_{\mathbf{P}(\mathcal{E})}(n))$
+在 $\mathcal{E}$ 局部自由时是同构，但一般不必是同构。事实上，我们将给出一个该映射在 $n = 1$ 时
+不是单射的例子。置 $S = \Spec(A)$，其中
+$$
+A = k[u, v, s_1, s_2, t_1, t_2]/I
+$$
+这里 $k$ 是一个域，并且
+$$
+I = (-us_1 + vt_1 + ut_2, vs_1 + us_2 - vt_2, vs_2, ut_1).
+$$
+记 $\overline{u}$ 为 $u$ 在 $A$ 中的类；其他变量也采用类似记号。
+设 $M = (Ax \oplus Ay)/A(\overline{u}x + \overline{v}y)$，于是
+$$
+\text{Sym}(M) = A[x, y]/(\overline{u}x + \overline{v}y)
+= k[x, y, u, v, s_1, s_2, t_1, t_2]/J
+$$
+其中
+$$
+J = (-us_1 + vt_1 + ut_2, vs_1 + us_2 - vt_2, vs_2, ut_1, ux + vy).
+$$
+在这种情形下，与拟凝聚层 $\mathcal{E} = \widetilde{M}$（它位于
+$S = \Spec(A)$ 上）相伴的射影丛是概形
+$$
+P =
+\text{Proj}(\text{Sym}(M)).
+$$
+注意，这个概形具有仿射开覆盖
+$P = D_{+}(x) \cup D_{+}(y)$.
+考虑元素 $m \in M$，它是元素 $us_1x + vt_2y$ 的像。注意
+$$
+x(us_1x + vt_2y) = (s_1x + s_2y)(ux + vy) \bmod I
+$$
+并且
+$$
+y(us_1x + vt_2y) = (t_1x + t_2y)(ux + vy) \bmod I.
+$$
+第一个等式蕴含 $m$ 作为 $\mathcal{O}_P(1)$ 在 $D_{+}(x)$ 上的截面映到零，
+第二个等式则蕴含它作为 $\mathcal{O}_P(1)$ 在 $D_{+}(y)$ 上的截面映到零。
+这说明 $m$ 在 $\Gamma(P, \mathcal{O}_P(1))$ 中映到零。另一方面，我们断言
+$m \not = 0$；因此 $m$ 给出 $\mathcal{E}$ 的一个非零整体截面映到
+$\Gamma(P, \mathcal{O}_P(1))$ 中零的例子。反设 $m = 0$，以求矛盾。
+此时存在元素 $f \in k[u, v, s_1, s_2, t_1, t_2]$，使得
+$$
+us_1x + vt_2y = f(ux + vy) \bmod I
+$$
+由于 $I$ 由次数为 $2$ 的齐次多项式生成，我们可以把 $f$ 分解为各齐次分量，
+并取其次数为 1 的分量。换言之，可以假设
+$$
+f = au + bv + \alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2
+$$
+其中 $a, b, \alpha_1, \alpha_2, \beta_1, \beta_2 \in k$。所得条件为
+$$
+\begin{matrix}
+us_1 - u(au + bv + \alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I \\
+vt_2 - v(au + bv + \alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I
+\end{matrix}
+$$
+生成元中没有项 $u^2, uv, v^2$；这里说的是 $I$ 的生成元。因此可见 $a = b = 0$。
+于是得到关系
+$$
+\begin{matrix}
+us_1 - u(\alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I \\
+vt_2 - v(\alpha_1s_1 + \alpha_2s_2 + \beta_1t_1 + \beta_2t_2)
+\in I
+\end{matrix}
+$$
+可以用 $I$ 的第一个生成元把每次出现的 $us_1$ 替换为 $vt_1 + ut_2$，
+用 $I$ 的第二个生成元把每次出现的 $vs_1$ 替换为 $-us_2 + vt_2$，
+用第三个生成元消去 $vs_2$，再用第三个生成元消去 $ut_1$。
+于是得到关系
+$$
+\begin{matrix}
+(1 - \alpha_1)vt_1 + (1 - \alpha_1)ut_2 - \alpha_2us_2 - \beta_2ut_2 = 0 \\
+(1 - \alpha_1)vt_2 + \alpha_1us_2 - \beta_1vt_1 - \beta_2vt_2 = 0
+\end{matrix}
+$$
+这蕴含 $\alpha_1$ 必须同时等于 $0$ 和 $1$，这正是所需的矛盾。
+\end{example}
+
+
+\begin{lemma}
+\label{constructions-lemma-projective-bundle-separated}
+设 $S$ 是一个概形。结构态射 $\mathbf{P}(\mathcal{E}) \to S$
+（它来自 $S$ 上的一个射影丛）是分离的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-relative-proj-separated} 立即可得。
+\end{proof}
+
+\begin{lemma}
+\label{constructions-lemma-projective-space-bundle}
+设 $S$ 是一个概形。设 $n \geq 0$。则 $\mathbf{P}^n_S$ 是 $S$ 上的一个射影丛。
+\end{lemma}
+
+\begin{proof}
+注意
+$$
+\mathbf{P}^n_{\mathbf{Z}} =
+\text{Proj}(\mathbf{Z}[T_0, \ldots, T_n]) =
+\underline{\text{Proj}}_{\Spec(\mathbf{Z})}
+\left(\widetilde{\mathbf{Z}[T_0, \ldots, T_n]}\right)
+$$
+其中环 $\mathbf{Z}[T_0, \ldots, T_n]$ 的分次由 $\deg(T_i) = 1$ 给出，
+而 $\mathbf{Z}$ 的元素位于 $0$ 次。回忆 $\mathbf{P}^n_S$ 定义为
+$\mathbf{P}^n_{\mathbf{Z}} \times_{\Spec(\mathbf{Z})} S$。
+此外，相对齐次谱的形成与基变换可交换，见引理
+\ref{constructions-lemma-relative-proj-base-change}。对任意概形
+$g : S \to \Spec(\mathbf{Z})$，有
+$g^*\mathcal{O}_{\Spec(\mathbf{Z})}[T_0, \ldots, T_n]
+= \mathcal{O}_S[T_0, \ldots, T_n]$.
+综合以上结果可见
+$$
+\mathbf{P}^n_S = \underline{\text{Proj}}_S(\mathcal{O}_S[T_0, \ldots, T_n]).
+$$
+最后注意
+$\mathcal{O}_S[T_0, \ldots, T_n] = \text{Sym}(\mathcal{O}_S^{\oplus n + 1})$。
+因此 $\mathbf{P}^n_S$ 是 $S$ 上的一个射影丛。
+\end{proof}
+
+
+
+\section{格拉斯曼概形}
+\label{constructions-section-grassmannian}
+
+\noindent
+本节引入标准的格拉斯曼函子，并说明它们可由概形表示。选取整数 $k$、$n$，
+满足 $0 < k < n$。我们将构造函子
+\begin{equation}
+\label{constructions-equation-gkn}
+G(k, n) : \Sch \longrightarrow \textit{Sets}
+\end{equation}
+粗略地说，它参数化 $k$ 维子空间，这些子空间位于 $n$ 维空间中。
+不过，出于技术原因，参数化 $(n - k)$ 维商空间更为方便，我们将采用这种做法。
+
+\medskip\noindent
+更准确地说，$G(k, n)$ 给概形 $S$ 配上集合 $G(k, n)(S)$，其元素是如下满射的同构类：
+$$
+q : \mathcal{O}_S^{\oplus n} \longrightarrow \mathcal{Q}
+$$
+其中 $\mathcal{Q}$ 是一个有限局部自由 $\mathcal{O}_S$-模，其秩为 $n - k$。
+这确实是一个集合，例如可由《模》中的引理
+\ref{modules-lemma-set-isomorphism-classes-finite-type-modules} 得知；也可以注意到，
+满射 $q$ 的同构类由 $q$ 的核决定（而给定一个层，其子层构成一个集合）。
+给定概形态射 $f : T \to S$，令
+$G(k, n)(f) : G(k, n)(S) \to G(k, n)(T)$ 把
+$q : \mathcal{O}_S^{\oplus n} \longrightarrow \mathcal{Q}$ 的同构类映到
+$f^*q : \mathcal{O}_T^{\oplus n} \longrightarrow f^*\mathcal{Q}$ 的同构类。
+这是有意义的，因为 (1) $f^*\mathcal{O}_S = \mathcal{O}_T$；
+(2) $f^*$ 是可加的；(3) $f^*$ 保持局部自由模（《模》，引理
+\ref{modules-lemma-pullback-locally-free}）；(4) $f^*$ 是右正合的（《模》，引理
+\ref{modules-lemma-exactness-pushforward-pullback}）。
+
+\begin{lemma}
+\label{constructions-lemma-gkn-representable}
+设 $0 < k < n$。则 (\ref{constructions-equation-gkn}) 中的函子 $G(k, n)$ 可由概形表示。
+\end{lemma}
+
+\begin{proof}
+置 $F = G(k, n)$。为证明本引理，我们使用《概形》中的引理
+\ref{schemes-lemma-glue-functors} 所给判据。$F$ 对 Zariski 拓扑满足层性质，
+这是因为层可以粘合；见《层》第 \ref{sheaves-section-glueing-sheaves} 节
+（略去一些细节）。
+
+\medskip\noindent
+子函子族 $F_i$。设 $I$ 是 $\{1, \ldots, n\}$ 的所有基数为 $n - k$
+的子集所成的集合。给定概形 $S$ 以及 $j \in \{1, \ldots, n\}$，
+记 $e_j$ 为整体截面
+$$
+e_j = (0, \ldots, 0, 1, 0, \ldots, 0)\quad(1\text{ 于 }j\text{次位置})
+$$
+它属于 $\mathcal{O}_S^{\oplus n}$。显然，这些截面自由生成
+$\mathcal{O}_S^{\oplus n}$。类似地，对 $j \in \{1, \ldots, n - k\}$，
+记 $f_j$ 为 $\mathcal{O}_S^{\oplus n - k}$ 的整体截面；除第 $j$ 个分量取
+$1$ 外，其余分量均为零。对 $i \in I$，令
+$$
+s_i : \mathcal{O}_S^{\oplus n - k} \longrightarrow \mathcal{O}_S^{\oplus n}
+$$
+它是余投射 $\mathcal{O}_S \to \mathcal{O}_S^{\oplus n}$ 的直和；
+这些余投射对应于 $I$ 的元素。更准确地，若
+$i = \{i_1, \ldots, i_{n - k}\}$ 且 $i_1 < i_2 < \ldots < i_{n - k}$，
+则 $s_i$ 把 $f_j$ 映到 $e_{i_j}$，其中 $j \in \{1, \ldots, n - k\}$。
+用此记号，置
+$$
+F_i(S) = \{q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q} \in F(S) \mid
+q \circ s_i \text{ 为满射}\}
+\subset F(S)
+$$
+给定概形态射 $f : T \to S$，拉回 $f^*s_i$ 是 $T$ 上相应的映射。
+由于 $f^*$ 是右正合的（《模》，引理
+\ref{modules-lemma-exactness-pushforward-pullback}），可知 $F_i$ 是 $F$ 的子函子。
+
+\medskip\noindent
+$F_i$ 的可表示性。为证明这一点，重新编号后可以假设
+$i = \{1, \ldots, n - k\}$。这意味着 $s_i$ 是前 $n - k$ 个直和分量的嵌入。
+注意，若 $q \circ s_i$ 是满射，则 $q \circ s_i$ 是同秩有限局部自由模之间的满射，
+因而是同构（《模》，引理 \ref{modules-lemma-map-finite-locally-free}）。
+因此，若 $q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q}$ 是 $F_i(S)$ 的元素，
+则可以用 $q \circ s_i$ 把 $\mathcal{Q}$ 与 $\mathcal{O}_S^{\oplus n - k}$ 等同。
+这样便得到
+$$
+q : \mathcal{O}_S^{\oplus n} \longrightarrow \mathcal{O}_S^{\oplus n - k}
+$$
+它把 $e_j$ 映到 $f_j$（记号同上），其中 $j = 1, \ldots, n - k$。
+为了完全确定 $q$，必须指定
+$q(e_{n - k + 1}), \ldots, q(e_n)$ 在
+$\Gamma(S, \mathcal{O}_S^{\oplus n - k})$ 中的像。因此 $F_i$ 同构于函子
+$$
+S \longmapsto
+\prod\nolimits_{j = n - k + 1, \ldots, n}
+\Gamma(S,  \mathcal{O}_S^{\oplus n - k})
+$$
+这个函子同构于 $k(n - k)$ 重自积；该自积取自函子
+$S \mapsto \Gamma(S, \mathcal{O}_S)$。由《概形》中的例
+\ref{schemes-example-global-sections}，
+后一个函子由 $\mathbf{A}^1_\mathbf{Z}$ 表示。因此 $F_i$ 由
+$\mathbf{A}^{k(n - k)}_\mathbf{Z}$ 表示，因为在概形范畴中，积就是在
+$\Spec(\mathbf{Z})$ 上的纤维积。
+
+\medskip\noindent
+嵌入 $F_i \subset F$ 可由开浸入表示。设 $S$ 是一个概形，并设
+$q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q}$ 是 $F(S)$ 的元素。
+由《模》中的引理 \ref{modules-lemma-finite-type-surjective-on-stalk}，
+集合 $U_i = \{s \in S \mid (q \circ s_i)_s\text{ 满射}\}$
+在 $S$ 中是开的。由于 $\mathcal{O}_{S, s}$ 是局部环，而 $\mathcal{Q}_s$
+是有限 $\mathcal{O}_{S, s}$-模，由 Nakayama 引理（《代数》，引理
+\ref{algebra-lemma-NAK}）可得
+$$
+s \in U_i \Leftrightarrow
+\left(
+\text{映射 }
+\kappa(s)^{\oplus n - k} \to \mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s
+\text{ 由下列对象诱导： }
+(q \circ s_i)_s
+\text{ 为满射}
+\right)
+$$
+设 $f : T \to S$ 是一个概形态射，并设 $t \in T$ 是映到 $s \in S$ 的点。有
+$(f^*\mathcal{Q})_t =
+\mathcal{Q}_s \otimes_{\mathcal{O}_{S, s}} \mathcal{O}_{T, t}$
+（《层》，引理 \ref{sheaves-lemma-stalk-pullback-modules}），其余类似。因此映射
+$$
+\kappa(t)^{\oplus n - k} \to (f^*\mathcal{Q})_t/\mathfrak m_t(f^*\mathcal{Q})_t
+$$
+由 $(f^*q \circ f^*s_i)_t$ 诱导，它是上述映射
+$\kappa(s)^{\oplus n - k} \to \mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s$
+沿域扩张 $\kappa(t)/\kappa(s)$ 的基变换。因此 $s \in U_i$ 当且仅当 $t$
+属于 $f^*q$ 所对应的开集。特别地，$T \to S$ 通过 $U_i$ 分解，当且仅当
+$f^*q \in F_i(T)$，这正是所需的结论。
+
+\medskip\noindent
+族 $F_i$（$i \in I$）覆盖 $F$。设
+$q : \mathcal{O}_S^{\oplus n} \to \mathcal{Q}$ 是 $F(S)$ 的元素。
+我们必须说明，对每个点 $s$（它属于 $S$），都存在 $i \in I$，使得 $s_i$
+在 $s$ 的某个邻域上是满射。因此必须说明，下列复合之一
+$$
+\kappa(s)^{\oplus n - k} \xrightarrow{s_i}
+\kappa(s)^{\oplus n} \rightarrow
+\mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s
+$$
+是满射（见上一段）。由于 $\mathcal{Q}_s/\mathfrak m_s\mathcal{Q}_s$
+是维数为 $n - k$ 的向量空间，这由向量空间理论可得。
+\end{proof}
+
+\begin{definition}
+\label{constructions-definition-grassmannian}
+设 $0 < k < n$。概形 $\mathbf{G}(k, n)$ 表示函子 $G(k, n)$，它
+称为{\it $\mathbf{Z}$ 上的格拉斯曼概形}。其基变换
+$\mathbf{G}(k, n)_S$（取到概形 $S$）称为{\it $S$ 上的格拉斯曼概形}。若 $R$ 是一个环，
+则到 $\Spec(R)$ 的基变换记为 $\mathbf{G}(k, n)_R$，称为
+{\it $R$ 上的格拉斯曼概形}。
+\end{definition}
+
+\noindent
+这个定义是有意义的，因为我们已在引理 \ref{constructions-lemma-gkn-representable} 中说明这些函子确实可表示。
+
+\begin{lemma}
+\label{constructions-lemma-projective-space-grassmannian}
+设 $n \geq 1$。存在典范同构
+$\mathbf{G}(n, n + 1) = \mathbf{P}^n_\mathbf{Z}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{constructions-lemma-projective-space}，概形 $\mathbf{P}^n_\mathbf{Z}$ 表示如下函子：
+它给概形 $S$ 配上偶对 $(\mathcal{L}, (s_0, \ldots, s_n))$ 的同构类集合；
+这样的偶对由可逆模 $\mathcal{L}$ 以及一个 $(n + 1)$ 元整体截面组构成，
+该截面组生成 $\mathcal{L}$。给定这样的偶对，得到一个商
+$$
+\mathcal{O}_S^{\oplus n + 1} \longrightarrow \mathcal{L},\quad
+(h_0, \ldots, h_n) \longmapsto \sum h_i s_i.
+$$
+反过来，给定元素 $q : \mathcal{O}_S^{\oplus n + 1} \to \mathcal{Q}$，
+它属于 $G(n, n + 1)(S)$，便得到这样的偶对，即
+$(\mathcal{Q}, (q(e_1), \ldots, q(e_{n + 1})))$。这里 $e_i$（
+$i = 1, \ldots, n + 1$）是自由模 $\mathcal{O}_S^{\oplus n + 1}$ 的标准生成截面。
+这些构造定义函子之间互逆变换的验证从略。
+\end{proof}

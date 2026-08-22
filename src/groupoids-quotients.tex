@@ -1,0 +1,1344 @@
+% Generated mechanically from the frozen groupoids-quotients.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{82}
+\chapter{群胚的商}
+
+
+
+\phantomsection
+\label{groupoids-quotients-section-phantom}
+
+
+\section{引言}
+\label{groupoids-quotients-section-introduction}
+
+\noindent
+本章讨论群胚及其商（当商存在时）的一般理论。
+关于这个主题有大量文献，例如参见
+\cite{GIT}, \cite{seshadri_quotients}, \cite{KollarQuotients},
+\cite{K-M}, \cite{KollarFinite} 以及更多文献。
+
+
+
+
+
+\section{约定与记号}
+\label{groupoids-quotients-section-conventions-notation}
+
+\noindent
+本章采用《空间中的群胚》第
+\ref{spaces-groupoids-section-conventions} 节和第
+\ref{spaces-groupoids-section-notation} 节中引入的约定与记号。
+
+
+\section{不变态射}
+\label{groupoids-quotients-section-invariant}
+
+\begin{definition}
+\label{groupoids-quotients-definition-invariant}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+设 $j = (t, s) : R \to U \times_B U$ 为 $B$ 上代数空间的一个预关系。
+若下图交换，则称 $B$ 上代数空间的态射
+$\phi : U \to X$ 是{\it $R$-不变的}：
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d]^\phi \\
+U \ar[r]^\phi & X
+}
+$$
+若 $j : R \to U \times_B U$ 来自群代数空间 $G$ 在 $B$ 上对 $U$
+的作用，如《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-groupoid-from-action} 所述，
+则称 $\phi$ 是{\it $G$-不变的}。
+\end{definition}
+
+\noindent
+换言之，态射 $U \to X$ 是 $R$-不变的，当且仅当它使 $s$ 与 $t$
+相等。用相应的商层可将这一条件改述如下。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-invariant}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+设 $j = (t, s) : R \to U \times_B U$ 为 $B$ 上代数空间的一个预关系。
+代数空间的态射 $\phi : U \to X$ 是 $R$-不变的，当且仅当它分解为
+$U \to U/R \to X$.
+\end{lemma}
+
+\begin{proof}
+这由《空间中的群胚》第
+\ref{spaces-groupoids-section-quotient-sheaves} 节中商层的定义立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-base-change-on-invariant}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+设 $j = (t, s) : R \to U \times_B U$ 为 $B$ 上代数空间的一个预关系。
+设 $U \to X$ 为 $B$ 上代数空间的一个 $R$-不变态射，
+并设 $X' \to X$ 为代数空间的任意态射。
+\begin{enumerate}
+\item 令 $U' = X' \times_X U$、$R' = X' \times_X R$，则得到一个预关系
+$j' : R' \to U' \times_B U'$。
+\item 若 $j$ 是关系，则 $j'$ 是关系。
+\item 若 $j$ 是预等价关系，则 $j'$ 是预等价关系。
+\item 若 $j$ 是等价关系，则 $j'$ 是等价关系。
+\item 若 $j$ 来自 $B$ 上代数空间中的群胚
+$(U, R, s, t, c)$，则
+\begin{enumerate}
+\item $(U, R, s, t, c)$ 是 $X$ 上代数空间中的群胚；并且
+\item $j'$ 来自此群胚到 $X'$ 的基变换
+$(U', R', s', t', c')$，参见《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-base-change-groupoid}.
+\end{enumerate}
+\item 若 $j$ 来自群代数空间 $G/B$ 在 $U$ 上的作用，如《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-groupoid-from-action}
+所述，则 $j'$ 来自 $G$ 在 $U'$ 上的诱导作用。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：结合下图采用函子观点：
+$$
+\xymatrix{
+R' = X' \times_X R \ar[dd] \ar[rr] \ar[rd] & &
+X' \times_X U = U' \ar'[d][dd] \ar[rd] \\
+& R \ar[dd] \ar[rr] & & U \ar[dd] \\
+U' = X' \times_X U \ar'[r][rr] \ar[rd] & & X' \ar[rd] \\
+& U \ar[rr] & & X
+}
+$$
+\end{proof}
+
+\begin{definition}
+\label{groupoids-quotients-definition-base-change}
+在引理 \ref{groupoids-quotients-lemma-base-change-on-invariant} 的情形下，
+称 $j' : R' \to U' \times_B U'$ 为预关系 $j$ 到 $X'$ 的{\it 基变换}。
+若 $X' \to X$ 是代数空间的平坦态射，则称其为{\it 平坦基变换}。
+\end{definition}
+
+\noindent
+这种基变换与取商层和商叠相容良好。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-base-change-quotient-sheaf}
+在引理 \ref{groupoids-quotients-lemma-base-change-on-invariant} 的情形下，存在层的同构
+$$
+U'/R' = X' \times_X U/R
+$$
+关于商层的构造，参见《空间中的群胚》第
+\ref{spaces-groupoids-section-quotient-sheaves} 节。
+\end{lemma}
+
+\begin{proof}
+由于 $U \to X$ 是 $R$-不变的，显然映射 $U \to X$ 通过商层 $U/R$ 分解。
+回顾按定义，
+$$
+\xymatrix{
+R \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \ar[r] &
+U/R
+}
+$$
+是 $(\Sch/S)_{fppf}$ 上集合层范畴 $\Sh$ 中的余等化子图。
+事实上，它还是逗号范畴 $\Sh/X$ 中的余等化子图。
+由于基变换函子
+$X' \times_X - : \Sh/X \to \Sh/X'$ 是正合的（这在任意拓扑斯中都成立），
+结论随即得到。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-base-change-quotient-stack}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+设 $(U, R, s, t, c)$ 为 $B$ 上代数空间中的群胚。
+设 $U \to X$ 为 $B$ 上代数空间的一个 $R$-不变态射，
+$g : X' \to X$ 为 $B$ 上代数空间的态射，并令
+$(U', R', s', t', c')$ 为引理
+\ref{groupoids-quotients-lemma-base-change-on-invariant} 中的基变换。则
+$$
+\xymatrix{
+[U'/R'] \ar[r] \ar[d] & [U/R] \ar[d] \\
+\mathcal{S}_{X'} \ar[r] & \mathcal{S}_X
+}
+$$
+是 $(\Sch/S)_{fppf}$ 上群胚叠的一个 $2$-纤维积。
+关于商叠以及图中态射的构造，参见《空间中的群胚》第
+\ref{spaces-groupoids-section-stacks} 节。
+\end{lemma}
+
+\begin{proof}
+我们使用《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+给出的商叠之显式描述来证明这一点。
+不过，我们强烈建议读者自行找出证明。
+首先，可将 $(U, R, s, t, c)$ 视为 $X$ 上代数空间中的群胚，
+从而得到映射 $f : [U/R] \to \mathcal{S}_X$，参见《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-arrows}。
+类似地，有 $f' : [U'/R'] \to X'$。
+
+\medskip\noindent
+% P10-E0133
+$S$ 上概形 $T$ 上的 $2$-纤维积
+$\mathcal{S}_{X'} \times_{\mathcal{S}_X} [U/R]$ 的一个对象，
+等价于一个态射 $x' : T \to X'$ 和 $T$ 上 $[U/R]$ 的一个对象 $y$，
+满足复合 $g \circ x'$ 等于 $f(y)$。
+这是有意义的，因为 $T$ 上 $\mathcal{S}_X$ 的对象就是态射 $T \to X$。
+由《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+可设 $y$ 由相对于一个 fppf 覆盖 $\{T_i \to T\}$ 的
+$[U/R]$-下降数据 $(u_i, r_{ij})$ 给出。
+等式 $g \circ x' = f(y)$ 意味着下列图表
+$$
+\vcenter{
+\xymatrix{
+T_i \ar[rr]_{u_i} \ar[d] & & U \ar[d] \\
+T \ar[r]^{x'} & X' \ar[r]^g & X
+}
+}
+\quad\text{以及}\quad
+\vcenter{
+\xymatrix{
+T_i \times_T T_j \ar[rr]_{r_{ij}} \ar[d] & & R \ar[d] \\
+T \ar[r]^{x'} & X' \ar[r]^g & X
+}
+}
+$$
+均交换。
+
+\medskip\noindent
+另一方面，由《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+可知，$S$ 上概形 $T$ 上 $[U'/R']$ 的一个对象 $y'$，
+由相对于一个 fppf 覆盖 $\{T_i \to T\}$ 的
+$[U'/R']$-下降数据 $(u'_i, r'_{ij})$ 给出。
+令 $f'(y') = x' : T \to X'$，可见下列图表
+% P10-E0135
+$$
+\vcenter{
+\xymatrix{
+T_i \ar[r]_{u'_i} \ar[d] & U' \ar[d] \\
+T \ar[r]^{x'} & X'
+}
+}
+\quad\text{以及}\quad
+\vcenter{
+\xymatrix{
+T_i \times_T T_j \ar[r]_{r'_{ij}} \ar[d] & U' \ar[d] \\
+T \ar[r]^{x'} & X'
+}
+}
+$$
+均交换。
+
+\medskip\noindent
+有了这些记号，定义函子
+$$
+[U'/R'] \longrightarrow \mathcal{S}_{X'} \times_{\mathcal{S}_X} [U/R]
+$$
+如下：将上述 $y' = (u'_i, r'_{ij})$ 送到对象
+$(x', (u_i, r_{ij}))$，其中 $x' = f'(y')$，
+$u_i$ 是复合 $T_i \to U' \to U$，
+$r_{ij}$ 是复合 $T_i \times_T T_j \to R' \to R$。
+% P10-E0134
+反之，给定右侧的对象 $(x', (u_i, r_{ij})$，
+可将其送到左侧的对象 $((x', u_i), (x', r_{ij}))$。
+关于如何处理态射的讨论从略（其处理方式完全相同）。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{范畴商}
+\label{groupoids-quotients-section-categorical}
+
+\noindent
+这是所能考虑的最基本的一类商。
+
+\begin{definition}
+\label{groupoids-quotients-definition-categorical}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+设 $j = (t, s) : R \to U \times_B U$ 为 $B$ 上代数空间中的预关系。
+\begin{enumerate}
+% P10-E0132
+\item 若 $B$ 上代数空间的态射 $\phi : U \to X$ 是 $R$-不变的，
+且对 $B$ 上代数空间的每个 $R$-不变态射 $\psi : U \to Y$，
+都存在唯一态射 $\chi : X \to Y$，使得
+$\psi = \phi \circ \chi$.
+则称其为{\it 范畴商}。
+\item 设 $\mathcal{C}$ 为 $B$ 上代数空间范畴的一个全子范畴，
+并设 $U,R$ 为 $\mathcal{C}$ 的对象。在这种情形下，若
+$X \in \Ob(\mathcal{C})$、$\phi$ 是 $R$-不变的，且对每个满足
+$Y \in \Ob(\mathcal{C})$ 的 $R$-不变态射
+$\psi : U \to Y$，都存在唯一态射 $\chi : X \to Y$，使得
+% P10-E0132
+$\psi = \phi \circ \chi$，则称 $B$ 上代数空间的态射
+$\phi : U \to X$ 为{\it $\mathcal{C}$ 中的范畴商}。
+\item 若 $B=S$ 且 $\mathcal{C}$ 是 $S$ 上概形的范畴，
+则称 $U\to X$ 为{\it 概形范畴中的范畴商}，或简称为
+{\it 概形中的范畴商}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+我们常用某种分离性公理从 $B$ 上代数空间中选出一个范畴
+$\mathcal{C}$；若干标准情形见例 \ref{groupoids-quotients-example-categories}。
+注意，$\phi : U \to X$ 是范畴商，当且仅当 $U \to X$
+是该范畴中态射 $t,s:R\to U$ 的余等化子。
+因此立即得到下列引理。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-categorical-unique}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，并设
+$j : R \to U \times_B U$ 为 $B$ 上代数空间中的预关系。
+若 $B$ 上代数空间范畴中的范畴商存在，则它在唯一同构意义下唯一。
+$\textit{Spaces}/B$ 的全子范畴中的范畴商亦然。
+\end{lemma}
+
+\begin{proof}
+参见《范畴》第 \ref{categories-section-coequalizers} 节。
+\end{proof}
+
+\begin{example}
+\label{groupoids-quotients-example-categories}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+% P10-E0136
+应用定义 \ref{groupoids-quotients-definition-categorical} 时常遇到如下范畴
+$\mathcal{C}$ 的标准例子：
+\begin{enumerate}
+\item $\mathcal{C}$ 是所有 $B$ 上代数空间的范畴；
+\item $B$ 是分离的，且 $\mathcal{C}$ 是所有 $B$ 上分离代数空间的范畴；
+\item $B$ 是拟分离的，且 $\mathcal{C}$ 是所有 $B$ 上拟分离代数空间的范畴；
+\item $B$ 是局部分离的，且 $\mathcal{C}$ 是所有 $B$ 上局部分离代数空间的范畴；
+\item $B$ 是合宜的，且 $\mathcal{C}$ 是所有 $B$ 上合宜代数空间的范畴；以及
+\item $S=B$，且 $\mathcal{C}$ 是 $S$ 上概形的范畴。
+\end{enumerate}
+在这些情形中，若 $\phi : U \to X$ 是范畴商，则分别称
+$U \to X$ 为
+(1) {\it 范畴商}，
+(2) {\it 分离代数空间中的范畴商}，
+(3) {\it 拟分离代数空间中的范畴商}，
+(4) {\it 局部分离代数空间中的范畴商}，
+(5) {\it 合宜代数空间中的范畴商}，
+(6) {\it 概形中的范畴商}。
+\end{example}
+
+\begin{definition}
+\label{groupoids-quotients-definition-universal-categorical}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。
+设 $\mathcal{C}$ 为 $B$ 上代数空间范畴中对纤维积封闭的全子范畴。
+% P10-E0137
+设 $j = (t, s) : R \to U \times_B U$ 为 $\mathcal{C}$ 中的预关系，
+并设 $U \to X$ 为一个 $R$-不变态射，其中
+$X \in \Ob(\mathcal{C})$。
+\begin{enumerate}
+\item 若对 $\mathcal{C}$ 中每个态射 $X'\to X$，态射
+$U'=X'\times_XU\to X'$ 都是 $j$ 的基变换
+% P10-E0138
+$j':R'\to U'$ 在 $\mathcal{C}$ 中的范畴商，
+则称 $U\to X$ 为 $\mathcal{C}$ 中的{\it 泛范畴商}。
+\item 若对 $\mathcal{C}$ 中每个平坦态射 $X'\to X$，态射
+$U'=X'\times_XU\to X'$ 都是 $j$ 的基变换
+% P10-E0138
+$j':R'\to U'$ 在 $\mathcal{C}$ 中的范畴商，
+则称 $U\to X$ 为 $\mathcal{C}$ 中的{\it 一致范畴商}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-categorical-reduced}
+在定义 \ref{groupoids-quotients-definition-categorical} 的情形下，
+若 $\phi : U \to X$ 是范畴商且 $U$ 是既约的，则 $X$ 是既约的。
+对于例 \ref{groupoids-quotients-example-categories} 所列空间范畴 $\mathcal{C}$
+中的范畴商，同样成立。
+\end{lemma}
+
+\begin{proof}
+设 $X_{red}$ 为代数空间 $X$ 的既约化。
+由于 $U$ 既约，态射 $\phi : U \to X$ 通过
+$i : X_{red} \to X$ 分解（《空间的性质》引理
+\ref{spaces-properties-lemma-map-into-reduction}）。
+将所得态射记为 $\phi_{red} : U \to X_{red}$。
+由 $\phi \circ s = \phi \circ t$，又因
+$i : X_{red} \to X$ 是单态射，可知
+$\phi_{red} \circ s = \phi_{red} \circ t$。
+因此由 $\phi$ 的泛性质，存在态射 $\chi : X \to X_{red}$，使得
+% P10-E0132
+$\phi_{red} = \phi \circ \chi$。由唯一性，
+$i \circ \chi = \text{id}_X$ 且
+$\chi \circ i = \text{id}_{X_{red}}$。
+故 $i$ 是同构，$X$ 既约。
+
+\medskip\noindent
+要说明此论证在范畴 $\mathcal{C}$ 中成立，只需说明
+$\mathcal{C}$ 中对象的既约化仍是 $\mathcal{C}$ 的对象。
+对每个标准例子的验证从略。
+\end{proof}
+
+
+
+
+
+\section{作为轨道空间的商}
+\label{groupoids-quotients-section-orbits}
+
+\noindent
+设 $j = (t, s) : R \to U \times_B U$ 为预关系。
+若 $j$ 是预等价关系，则粗略地说，$R$ 在 $U$ 上的“轨道”
+就是 $U$ 的子集 $t(s^{-1}(\{u\}))$。
+然而，若 $j$ 只是预关系，就需要取由 $R$ 生成的等价关系。
+
+\begin{definition}
+\label{groupoids-quotients-definition-orbit}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，并设
+$j : R \to U \times_B U$ 为 $B$ 上的预关系。
+若 $u \in |U|$，则 $u$ 的{\it 轨道}，更确切地说其
+{\it $R$-轨道}，定义为
+$$
+O_u =
+\left\{
+u' \in |U|\ :
+\begin{matrix}
+ \exists n \geq 1, \ \exists u_0, \ldots, u_n \in |U|\text{，使得 }
+ u_0 = u \text{ 且 } u_n = u' \\
+ \text{并且对所有 }i \in \{0, \ldots, n - 1\}\text{，下列情形之一成立：}
+ u_i = u_{i + 1}\text{，或 } \\
+ \exists r \in |R|, \ s(r) = u_i, t(r) = u_{i + 1}
+ \text{，或 } \\
+\exists r \in |R|, \ t(r) = u_i, s(r) = u_{i + 1}
+\end{matrix}
+\right\}
+$$
+\end{definition}
+
+\noindent
+显然，这些集合是某个等价关系的等价类；也就是说，
+$u' \in O_u$ 当且仅当 $u \in O_{u'}$。
+下列引理是《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-pre-equivalence-equivalence-relation-points}
+的改述。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-pre-equivalence-equivalence-relation-points}
+设 $B\to S$ 如第 \ref{groupoids-quotients-section-conventions-notation} 节所述，
+并设 $j : R \to U \times_B U$ 为 $B$ 上代数空间的预等价关系。则
+$$
+O_u =
+\{u' \in |U| \text{，使得 } \exists r \in |R|, \ s(r) = u, \ t(r) = u'\}.
+$$
+\end{lemma}
+
+\begin{proof}
+由上述《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-pre-equivalence-equivalence-relation-points}
+可知，引理中定义的轨道 $O_u$ 给出 $|U|$ 的不交并分解。
+因此它们等于定义 \ref{groupoids-quotients-definition-orbit} 中定义的轨道。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-invariant-map-constant-on-orbit}
+在定义 \ref{groupoids-quotients-definition-orbit} 的情形下，
+设 $\phi : U \to X$ 为 $B$ 上代数空间的一个 $R$-不变态射。
+则 $|\phi| : |U| \to |X|$ 在每条轨道上为常值。
+\end{lemma}
+
+\begin{proof}
+只需对所有满足如下条件的 $u,u'\in|U|$ 证明
+$\phi(u)=\phi(u')$：存在 $r\in|R|$，使得
+$s(r)=u$ 且 $t(r)=u'$。由于 $\phi$ 使 $s$ 与 $t$ 相等，这是显然的。
+\end{proof}
+
+\noindent
+若试图用轨道 $O_u\subset|U|$ 刻画商映射的性质，会遇到若干问题。
+其中一个如下。设 $\Spec(k)\to B$ 为 $B$ 的几何点，考虑典范映射
+$$
+U(k) \longrightarrow |U|.
+$$
+通常，由 $j(R(k)) \subset U(k) \times U(k)$ 生成的等价关系之等价类，
+并不是轨道 $O_u\subset|U|$ 的逆像。
+一个简单得近乎可笑的例子是取
+$S=B=\Spec(\mathbf{Z})$、$U=R=\Spec(k)$，且
+$s=t=\text{id}_k$。此时 $|U|=|R|$ 只有一个点，
+但 $U(k)/R(k)$ 却极其庞大。
+一个更有意思的例子是取 $S=B=\Spec(\mathbf{Q})$，
+% P10-E0139
+选择数域 $K\subset L$，令 $U=\Spec(L)$、
+$R=\Spec(L\otimes_KL)$，并取显然的映射 $s,t:R\to U$。
+此时 $|U|$ 仍只有一个点，但商
+$$
+U(k)/R(k) = \Hom(K, k)
+$$
+含有不止一个元素。由这两个例子可见，若 $U\to X$ 是
+$R$-不变映射，而我们希望它“分离轨道”，那么考虑诱导映射
+$U(k)\to X(k)$ 并要求这些映射分离轨道，会得到强得多且更有意义的概念。
+% P10-E0140
+
+\medskip\noindent
+这也有一个问题。具体而言，设
+$S=B=\Spec(\mathbf{R})$、$U=\Spec(\mathbf{C})$，并设
+$R=\Spec(\mathbf{C})\amalg\Spec(K)$，
+其中 $\sigma:\mathbf{C}\to K$ 是某个域扩张。
+令映射 $s,t$ 在分支 $\Spec(\mathbf{C})$ 上均由恒等映射给出，
+而在第二个分支上分别由 $\sigma,\sigma\circ\tau$ 给出，
+其中 $\tau$ 是复共轭。若 $K$ 是 $\mathbf{C}$ 的非平凡扩张，
+则两点 $1,\tau\in U(\mathbf{C})$ 在
+$j(R(\mathbf{C}))$ 下并不等价。
+然而，选取基数足够大的扩张 $\mathbf{C}\subset\Omega$
+（例如其基数大于 $K$ 的基数）后，
+$1,\tau\in U(\mathbf{C})$ 在 $U(\Omega)$ 中的像却会变得等价！
+直观上很清楚，这要么是因为 $s,t:R\to U$ 不是局部有限型的，
+要么是因为域 $k$ 的基数不够大。
+
+\medskip\noindent
+基于这一点，作如下定义。
+
+\begin{definition}
+\label{groupoids-quotients-definition-geometric-orbits}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+$j:R\to U\times_BU$ 为 $B$ 上的预关系，并设
+$\Spec(k)\to B$ 为 $B$ 的几何点。
+\begin{enumerate}
+\item 若 $\overline{u},\overline{u}'\in U(k)$ 在由关系
+$j(R(k))\subset U(k)\times U(k)$ 生成的等价关系下属于同一等价类，
+则称二者{\it 弱 $R$-等价}。
+\item 若存在上域 $k\subset\Omega$，使二者在 $U(\Omega)$ 中的像
+弱 $R$-等价，则称 $\overline{u},\overline{u}'\in U(k)$
+{\it $R$-等价}。
+\item $\overline{u}\in U(k)$ 的{\it 弱轨道}，更确切地说其
+{\it 弱 $R$-轨道}，是 $U(k)$ 中所有与 $\overline{u}$
+弱 $R$-等价的元素所成的集合。
+\item $\overline{u}\in U(k)$ 的{\it 轨道}，更确切地说其
+{\it $R$-轨道}，是 $U(k)$ 中所有与 $\overline{u}$
+$R$-等价的元素所成的集合。
+\end{enumerate}
+% P10-E0141
+\end{definition}
+
+\noindent
+在良好情形下，轨道与弱轨道实际上相同，见引理
+\ref{groupoids-quotients-lemma-geometric-orbits}。下列引理在预等价关系这一特殊情形中
+说明二者的差异。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-weak-orbit-pre-equivalence}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+$\Spec(k)\to B$ 为 $B$ 的几何点，并设
+$j:R\to U\times_BU$ 为 $B$ 上的预等价关系。
+此时 $\overline{u}\in U(k)$ 的弱轨道就是
+$$
+\{
+\overline{u}' \in U(k)
+\text{，使得 }
+\exists \overline{r} \in R(k),
+\ s(\overline{r}) = \overline{u},
+\ t(\overline{r}) = \overline{u}'
+\}
+$$
+而 $\overline{u}\in U(k)$ 的轨道为
+$$
+\{
+\overline{u}' \in U(k) :
+\exists\text{ 域扩张 }K/k, \ \exists\ r \in R(K),
+\ s(r) = \overline{u}, \ t(r) = \overline{u}'\}
+$$
+\end{lemma}
+
+\begin{proof}
+这是因为按照预等价关系的定义，像
+$j(R(k))\subset U(k)\times U(k)$ 是等价关系。
+\end{proof}
+
+\noindent
+下面描述将任意预关系变成预等价关系的方法。我们将使用态射
+\begin{equation}
+\label{groupoids-quotients-equation-list}
+\begin{matrix}
+j_{diag} &
+: &
+U &
+\longrightarrow &
+U \times_B U, &
+u &
+\longmapsto &
+(u, u) \\
+j_{flip} &
+: &
+R &
+\longrightarrow &
+U \times_B U, &
+r &
+\longmapsto &
+(s(r), t(r)) \\
+j_{comp} &
+: &
+R \times_{s, U, t} R &
+\longrightarrow &
+U \times_B U, &
+(r, r') &
+\longmapsto &
+(t(r), s(r'))
+\end{matrix}
+\end{equation}
+定义 $j_1 = (t_1, s_1) : R_1 \to U \times_B U$ 为态射
+$$
+j \amalg j_{diag} \amalg j_{flip} :
+R \amalg U \amalg R
+\longrightarrow
+U \times_B U
+$$
+其中记号如方程 (\ref{groupoids-quotients-equation-list}) 所示。对 $n>1$，令
+$$
+j_n = (t_n, s_n) :
+R_n = R_1 \times_{s_1, U, t_{n - 1}} R_{n - 1} \longrightarrow U \times_B U
+$$
+其中 $t_n$ 是 $t_1$ 与到 $R_1$ 的投影之预复合，
+$s_n$ 是 $s_{n-1}$ 与到 $R_{n-1}$ 的投影之预复合。最后记
+$$
+j_\infty = (t_\infty, s_\infty) :
+R_\infty = \coprod\nolimits_{n \geq 1} R_n
+\longrightarrow
+U \times_B U.
+$$
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-make-pre-equivalence}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+并设 $j:R\to U\times_BU$ 为 $B$ 上的预关系。
+则 $j_\infty:R_\infty\to U\times_BU$ 是 $B$ 上的预等价关系。此外，
+\begin{enumerate}
+\item $\phi:U\to X$ 是 $R$-不变的，当且仅当它是
+$R_\infty$-不变的；
+\item 商层的典范映射 $U/R\to U/R_\infty$（见《空间中的群胚》第
+\ref{spaces-groupoids-section-quotient-sheaves} 节）是同构；
+\item 弱 $R$-轨道与弱 $R_\infty$-轨道相同；
+\item $R$-轨道与 $R_\infty$-轨道相同；
+\item 若 $s,t$ 是局部有限型的，则 $s_\infty,t_\infty$
+是局部有限型的；
+\item 按需在此增补。
+% P10-E0142
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。对 (5) 的提示：$s,t$ 的任何满足下列条件的性质都会由
+$s_\infty,t_\infty$ 继承：对复合稳定、对基变换稳定，
+且在源上是 Zariski 局部的。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-geometric-orbits}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+$j:R\to U\times_BU$ 为 $B$ 上的预关系，并设
+$\Spec(k)\to B$ 为 $B$ 的几何点。
+\begin{enumerate}
+\item 若 $s,t:R\to U$ 是局部有限型的，则 $U(k)$ 上的弱
+$R$-等价与 $R$-等价相同，且 $U(k)$ 上的弱 $R$-轨道与
+$R$-轨道相同。
+\item 若 $k$ 的基数足够大，则 $U(k)$ 上的弱 $R$-等价与
+$R$-等价相同，且 $U(k)$ 上的弱 $R$-轨道与 $R$-轨道相同。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证明 (1)。设 $s,t$ 局部有限型。由引理
+\ref{groupoids-quotients-lemma-make-pre-equivalence}，可设 $R$ 是预等价关系。
+设 $k$ 为 $B$ 上的代数闭域，并设
+$\overline{u},\overline{u}'\in U(k)$ 是 $R$-等价的。
+则对某个扩域 $\Omega/k$，存在一点
+$\overline{r}\in R(\Omega)$ 映到
+$(\overline{u},\overline{u}')\in(U\times_BU)(\Omega)$，
+见引理 \ref{groupoids-quotients-lemma-weak-orbit-pre-equivalence}。因此
+$$
+Z = R \times_{j, U \times_B U, (\overline{u}, \overline{u}')} \Spec(k)
+$$
+非空。由于 $s$ 局部有限型，$j$ 也局部有限型，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-permanence-finite-type}。
+这说明 $Z$ 是代数闭域 $k$ 上非空且局部有限型的代数空间
+（使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-type}）。
+于是 $Z$ 有一个 $k$-值点，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}。
+故存在 $\overline{r}\in R(k)$，使
+$j(\overline{r})=(\overline{u},\overline{u}')$，从而
+% P10-E0143
+$\overline{u},\overline{u}'$ 如所需地是 $R$-等价的。
+
+\medskip\noindent
+第 (2) 部分的证明相同，只需用《空间的态射》引理
+\ref{spaces-morphisms-lemma-large-enough}
+代替《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}。
+这说明，只要 $|k|>\lambda(R)$，断言即成立；其中
+$\lambda(R)$ 是在《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}
+之前引入的。
+\end{proof}
+
+\noindent
+在下述定义中，术语“$k$ 是 $B$ 上的域”是指
+$\Spec(k)$ 配备了一个态射 $\Spec(k)\to B$。
+
+\begin{definition}
+\label{groupoids-quotients-definition-set-theoretically-invariant}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，并设
+$j:R\to U\times_BU$ 为 $B$ 上的预关系。
+\begin{enumerate}
+\item 称 $\phi:U\to X$ {\it 在集合论意义下 $R$-不变}，
+当且仅当对 $B$ 上每个代数闭域 $k$，映射
+$U(k)\to X(k)$ 都使两个映射 $s,t:R(k)\to U(k)$ 相等。
+\item 若 $\phi:U\to X$ 在集合论意义下 $R$-不变，
+且对 $B$ 上每个代数闭域 $k$，等式
+$\phi(\overline{u})=\phi(\overline{u}')$ 在 $X(k)$ 中成立时，
+$\overline{u},\overline{u}'\in U(k)$ 均位于同一轨道，
+则称该态射{\it 分离轨道}，或{\it 分离 $R$-轨道}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+例 \ref{groupoids-quotients-example-not-invariant} 将说明，在代数空间范畴中，
+集合论意义下的不变性是一个“过弱”的概念。
+关于集合论意义下不变或分离轨道之含义的更几何化改述，见引理
+\ref{groupoids-quotients-lemma-separates-orbits}。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-set-theoretic-invariant}
+在定义 \ref{groupoids-quotients-definition-set-theoretically-invariant} 的情形下，
+态射 $\phi:U\to X$ 在集合论意义下 $R$-不变，当且仅当对
+$B$ 上任意代数闭域 $k$，映射 $U(k)\to X(k)$ 在每条轨道上为常值。
+\end{lemma}
+
+\begin{proof}
+这是因为该条件要求对 $B$ 上所有代数闭域成立。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-invariant-set-theoretically-invariant}
+在定义 \ref{groupoids-quotients-definition-set-theoretically-invariant} 的情形下，
+不变态射在集合论意义下不变。
+\end{lemma}
+
+\begin{proof}
+这由定义立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-set-theoretically-invariant-invariant-when-reduced}
+在定义 \ref{groupoids-quotients-definition-set-theoretically-invariant} 的情形下，
+设 $\phi:U\to X$ 为 $B$ 上代数空间的态射。假设
+\begin{enumerate}
+\item $\phi$ 在集合论意义下 $R$-不变；
+\item $R$ 既约；并且
+\item $X$ 在 $B$ 上局部分离。
+\end{enumerate}
+则 $\phi$ 是 $R$-不变的。
+\end{lemma}
+
+\begin{proof}
+考虑等化子代数空间
+$$
+Z = R \times_{(\phi, \phi) \circ j, X \times_B X, \Delta_{X/B}} X
+$$
+。由假设 (3)，$Z\to R$ 是浸入。由假设 (1)，
+$|Z|\to|R|$ 是满射。这说明 $Z\to R$ 是双射闭浸入
+（使用《概形》引理 \ref{schemes-lemma-immersion-when-closed}）；
+再由假设 (2) 得 $Z=R$。
+\end{proof}
+
+\begin{example}
+\label{groupoids-quotients-example-not-invariant}
+存在既约拟分离代数空间 $X,Y$ 以及一对态射
+$a,b:Y\to X$，它们在所有 $k$-值点上一致，但彼此不相等。
+为得到一个例子，取 $Y=\Spec(k[[x]])$ 以及
+$$
+X = \mathbf{A}^1_k \Big/ \big(\Delta \amalg \{(x, -x) \mid x \not = 0\}\big)
+$$
+即《空间》例 \ref{spaces-example-affine-line-involution}
+中的代数空间。两个态射 $a,b:Y\to X$ 来自
+$Y$ 到 $\mathbf{A}^1_k=\Spec(k[x])$ 的两个映射
+$x\mapsto x$ 和 $x\mapsto -x$。在一般点处，这两个映射相同，
+因为在空间 $X$ 的开部分 $x\not =0$ 上，函数 $x$ 与 $-x$ 相等。
+在闭点处，两个映射显然也相同。另一方面，$a\not =b$。
+这说明，若把引理
+\ref{groupoids-quotients-lemma-set-theoretically-invariant-invariant-when-reduced}
+中的假设 (3) 换成 $X$ 拟分离，该引理便不成立。具体地，考虑图表
+$$
+\xymatrix{
+Y \ar[d]_{-1} \ar[r]_1 & Y \ar[d]^a \\
+Y \ar[r]^a & X
+}
+$$
+则复合 $a\circ(-1)=b$。因此可令 $R=Y$、$U=Y$、
+$s=1$、$t=-1$、$\phi=a$，从而得到一个在集合论意义下不变、
+但并非不变的态射之例。
+\end{example}
+
+\noindent
+上述例子很有启发性，因为映射 $Y\to X$ 甚至分离轨道。
+它表明代数空间范畴中集合论意义下不变的态射实在太多。
+下面定义 $R$ 为集合论等价关系的含义；同时要记住，
+为使其正确成立，必须允许域扩张。
+
+\begin{definition}
+\label{groupoids-quotients-definition-set-theoretic-equivalence}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，并设
+$j:R\to U\times_BU$ 为 $B$ 上的预关系。
+\begin{enumerate}
+\item 若对 $B$ 上所有代数闭域 $k$，由下式定义的 $U(k)$ 上关系
+$\sim_R$
+$$
+\overline{u} \sim_R \overline{u}'
+\Leftrightarrow
+\begin{matrix}
+\exists\text{ 域扩张 }K/k, \ \exists\ r \in R(K), \\
+s(r) = \overline{u}, \ t(r) = \overline{u}'
+\end{matrix}
+$$
+都是等价关系，则称 $j$ 为{\it 集合论预等价关系}。
+\item 若 $j$ 是泛单射且是集合论预等价关系，
+则称 $j$ 为{\it 集合论等价关系}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面用更几何的语言改述这一点。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-set-theoretic-pre-equivalence-geometric}
+在定义 \ref{groupoids-quotients-definition-set-theoretic-equivalence} 的情形下，
+下列条件等价：
+\begin{enumerate}
+\item 态射 $j$ 是集合论预等价关系。
+\item 子集 $j(|R|)\subset|U\times_BU|$ 包含方程
+(\ref{groupoids-quotients-equation-list}) 中任一态射 $j'$ 的 $|j'|$ 之像。
+\item 对 $B$ 上每个基数足够大的代数闭域 $k$，子集
+$j(R(k))\subset U(k)\times U(k)$ 是等价关系。
+\end{enumerate}
+若 $s,t$ 局部有限型，则这些条件还等价于
+\begin{enumerate}
+\item[(4)] 对 $B$ 上每个代数闭域 $k$，子集
+$j(R(k))\subset U(k)\times U(k)$ 是等价关系。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (2)。设 $k$ 为 $B$ 上的代数闭域。我们将证明
+$\sim_R$ 是等价关系。设
+$\overline{u}_i:\Spec(k)\to U$（$i=1,2$）为 $U$ 的 $k$-值点，
+并设 $(\overline{u}_1,\overline{u}_2)$ 是某个
+$K$-值点 $r\in R(K)$ 的像。考虑实线部分交换的图表
+$$
+\xymatrix{
+\Spec(K') \ar@{..>}[r] \ar@{..>}[d]
+&
+\Spec(k) \ar[d]_{(\overline{u}_2, \overline{u}_1)} &
+\Spec(K) \ar[d] \ar[l] \\
+R \ar[r]^-j &
+U \times_B U &
+R \ar[l]_-{j_{flip}}
+}
+$$
+仍以 $r\in|R|$ 表示 $r$ 的像。依假设，
+$|j_{flip}|$ 的像包含于 $|j|$ 的像；换言之，存在
+$r'\in|R|$，使 $|j|(r')=|j_{flip}|(r)$。
+注意，由图表实线部分的交换性，
+$(\overline{u}_2,\overline{u}_1)$ 位于定义 $|j|(r')$ 的等价类中。
+这意味着存在域扩张 $K'/k$ 和态射
+% P10-E0144
+$r':\Spec(K)\to R$（也滥用记号写成 $r'$），满足
+$j\circ r'=(\overline{u}_2,\overline{u}_1)\circ i$，
+其中 $i:\Spec(K')\to\Spec(K)$ 是显然的映射。
+换言之，图表虚线部分交换。这证明 $\sim_R$ 是 $U(k)$ 上的对称关系。
+类似地，利用 $|j_{diag}|$ 的像包含于 $|j|$ 的像，
+可见 $\sim_R$ 是自反的（细节从略）。
+
+\medskip\noindent
+为证明 $\sim_R$ 的传递性，设给定
+$\overline{u}_i:\Spec(k)\to U$（$i=1,2,3$）、
+域扩张 $K_i/k$ 以及点
+$r_i:\Spec(K_i)\to R$（$i=1,2$），使得
+$j(r_1)=(\overline{u}_1,\overline{u}_2)$ 且
+% P10-E0145
+$j(r_1)=(\overline{u}_2,\overline{u}_3)$。于是可选择域的交换图表
+$$
+\xymatrix{
+K & K_2 \ar[l] \\
+K_1 \ar[u] & k \ar[l] \ar[u]
+}
+$$
+并可视为 $r_1,r_2\in R(K)$。考虑实线部分交换的图表
+$$
+\xymatrix{
+\Spec(K') \ar@{..>}[r] \ar@{..>}[d]
+&
+\Spec(k) \ar[d]_{(\overline{u}_1, \overline{u}_3)} &
+\Spec(K) \ar[d]^{(r_1, r_2)} \ar[l]
+\\
+R \ar[r]^-j &
+U \times_B U &
+R \times_{s, U, t} R \ar[l]_-{j_{comp}}
+}
+$$
+采用与证明第一部分完全相同的论证，但这次使用
+$|j_{comp}|((r_1,r_2))$ 位于 $|j|$ 的像中，可得存在域 $K'$
+和虚线箭头，使图表交换。这证明 $\sim_R$ 是传递的，
+也就完成了 (2) 推出 (1) 的证明。
+
+\medskip\noindent
+假设 (1)，并设 $k$ 为 $B$ 上基数大于 $\lambda(R)$ 的代数闭域，
+见《空间的态射》引理 \ref{spaces-morphisms-lemma-large-enough}。
+设 $\overline{u}\sim_R\overline{u}'$，其中
+$\overline{u},\overline{u}'\in U(k)$。依假设，存在 $|R|$ 中一点
+映到 $(\overline{u},\overline{u}')\in|U\times_BU|$。
+因此由《空间的态射》引理 \ref{spaces-morphisms-lemma-large-enough}，
+存在 $\overline{r}\in R(k)$，使
+$j(\overline{r})=(\overline{u},\overline{u}')$。
+由此可见 (1) 推出 (3)。
+
+\medskip\noindent
+假设 (3)。来证明
+$\Im(|j_{comp}|)\subset\Im(|j|)$。任取一点
+$c\in|R\times_{s,U,t}R|$。可用态射
+$\overline{c}:\Spec(k)\to R\times_{s,U,t}R$ 表示它，
+其中 $k$ 是 $B$ 上基数足够大的域。依假设，
+$j_{comp}(\overline{c})\in U(k)\times U(k)=(U\times_BU)(k)$
+也可写成某个 $\overline{r}\in R(k)$ 的像 $j(\overline{r})$。
+故如所需，$j_{comp}(c)=j(r)$ 在 $|U\times_BU|$ 中成立
+（其中 $r\in|R|$ 是 $\overline{r}$ 的等价类）。
+同一论证还说明
+$\Im(|j_{diag}|)\subset\Im(|j|)$ 以及
+$\Im(|j_{flip}|)\subset\Im(|j|)$（细节从略）。
+由此可见 (3) 推出 (2)。至此已证明 (1)、(2)、(3) 相互等价。
+
+\medskip\noindent
+显然 (4) 推出 (3)（无需对 $s,t$ 作任何假设）。
+为完成引理的证明，来说明当 $s,t$ 局部有限型时 (1) 推出 (4)。
+设 $k$ 为 $B$ 上的代数闭域，并设
+$\overline{u}\sim_R\overline{u}'$，其中
+$\overline{u},\overline{u}'\in U(k)$。依假设，代数空间
+$Z=R\times_{j,U\times_BU,(\overline{u},\overline{u}')}\Spec(k)$
+非空。另一方面，由于 $j=(t,s)$ 局部有限型，态射
+$Z\to\Spec(k)$ 也局部有限型（使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-permanence-finite-type}
+和 \ref{spaces-morphisms-lemma-base-change-finite-type}）。
+因此由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}，
+$Z$ 有一个 $k$-点，从而如所需地有
+$(\overline{u},\overline{u}')\in j(R(k))$。
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-set-theoretic-equivalence-geometric}
+在定义 \ref{groupoids-quotients-definition-set-theoretic-equivalence} 的情形下，
+下列条件等价：
+\begin{enumerate}
+\item 态射 $j$ 是集合论等价关系。
+\item 态射 $j$ 是泛单射，且
+$j(|R|)\subset|U\times_BU|$ 包含方程
+(\ref{groupoids-quotients-equation-list}) 中任一态射 $j'$ 的 $|j'|$ 之像。
+\item 对 $B$ 上每个基数足够大的代数闭域 $k$，映射
+$j:R(k)\to U(k)\times U(k)$ 是单射，且其像是等价关系。
+\end{enumerate}
+若 $j$ 合宜、局部分离或拟分离，则这些条件还等价于
+\begin{enumerate}
+\item[(4)] 对 $B$ 上每个代数闭域 $k$，映射
+$j:R(k)\to U(k)\times U(k)$ 是单射，且其像是等价关系。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) $\Rightarrow$ (2) 和 (2) $\Rightarrow$ (3) 由引理
+\ref{groupoids-quotients-lemma-set-theoretic-pre-equivalence-geometric} 及定义得到。
+同一引理说明 (3) 蕴含 $j$ 是集合论预等价关系。
+当然，条件 (3) 还蕴含 $j$ 泛单射，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-injective}，
+故 $j$ 的确是集合论等价关系。至此已知 (1)、(2)、(3) 相互等价。
+
+\medskip\noindent
+无需对 $j$ 作任何进一步假设，条件 (4) 就推出 (3)。
+设 $j$ 合宜、局部分离或拟分离，且等价条件 (1)、(2)、(3) 成立。
+由《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-when-universally-injective-radicial}
+可知 $j$ 是纯不可分态射。任取 $B$ 上代数闭域 $k$，并设
+$\overline{u},\overline{u}'\in U(k)$ 满足
+$\overline{u}\sim_R\overline{u}'$。可见
+$R \times_{U \times_B U, (\overline{u}, \overline{u}')} \Spec(k)$
+非空。由于 $j$ 是纯不可分态射，其既约化是 $k$ 的一个纯不可分扩域之谱。
+又因 $k=\overline{k}$，它就是 $k$ 的谱。因此如所需，存在一点
+$\overline{r}\in R(k)$，使
+$t(\overline{r})=\overline{u}$ 且
+$s(\overline{r})=\overline{u}'$。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-set-theoretic-equivalence}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，并设
+$j:R\to U\times_BU$ 为 $B$ 上的预关系。
+\begin{enumerate}
+\item 若 $j$ 是预等价关系，则 $j$ 是集合论预等价关系。
+特别地，当 $j$ 来自代数空间中的群胚，或来自群代数空间在 $U$
+上的作用时，此结论成立。
+\item 若 $j$ 是等价关系，则 $j$ 是集合论等价关系。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-separates-orbits}
+设 $B\to S$ 如第 \ref{groupoids-quotients-section-conventions-notation} 节所述，
+$j:R\to U\times_BU$ 为预关系，并设
+$\phi:U\to X$ 为 $B$ 上代数空间的态射。考虑图表
+$$
+\xymatrix{
+(U \times_X U) \times_{(U \times_B U)} R \ar[d]^q \ar[r]_-p & R \ar[d]^j \\
+U \times_X U \ar[r]^c & U \times_B U
+}
+$$
+则有：
+\begin{enumerate}
+\item 态射 $\phi$ 在集合论意义下不变，当且仅当 $p$ 满射。
+\item 若 $j$ 是集合论预等价关系，则 $\phi$ 分离轨道，
+当且仅当 $p$ 与 $q$ 都满射。
+\item 若 $p$ 与 $q$ 都满射，则 $j$ 是集合论预等价关系
+（且 $\phi$ 分离轨道）。
+\item 若 $\phi$ 是 $R$-不变的，且 $j$ 是集合论预等价关系，
+则 $\phi$ 分离轨道，当且仅当诱导态射
+$R\to U\times_XU$ 满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $\phi$ 在集合论意义下不变。这意味着对 $B$ 上任意代数闭域
+$k$ 及任意 $\overline{r}\in R(k)$，都有
+$\phi(s(\overline{r}))=\phi(t(\overline{r}))$。因此
+% P10-E0146
+$((\phi(t(\overline{r})),\phi(s(\overline{r}))),\overline{r})$
+定义了纤维积中的一点，并经 $p$ 映到 $\overline{r}$。
+这说明 $p$ 满射。反之，设 $p$ 满射。取
+$\overline{r}\in R(k)$。由 $p$ 满射，可找到域扩张 $K/k$
+以及纤维积的一个 $K$-值点 $\tilde r$，使
+$p(\tilde r)=\overline{r}$。于是
+$q(\tilde r)\in U\times_XU$ 在 $U\times_BU$ 中映到
+$(t(\overline{r}),s(\overline{r}))$，从而
+$\phi(s(\overline{r}))=\phi(t(\overline{r}))$。
+这证明 $\phi$ 在集合论意义下不变。
+
+\medskip\noindent
+(2)、(3)、(4) 的证明从略。提示：设 $k$ 是 $B$ 上基数很大的代数闭域。
+考虑相应的集合图表
+$$
+\xymatrix{
+(U(k) \times_{X(k)} U(k)) \times_{U(k) \times U(k)} R(k) \ar[d]^q \ar[r]_-p &
+R(k) \ar[d]^j \\
+U(k) \times_{X(k)} U(k) \ar[r]^c & U(k) \times U(k)
+}
+$$
+由上述引理，(2)、(3)、(4) 中的等价性都化为与刚才图表有关的
+集合论问题；这里使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-large-enough}，
+它将满射性转化为 $k$-值点上的满射性。
+\end{proof}
+
+\noindent
+上文已看到，在代数空间范畴中，集合论意义下不变态射的概念相当弱。
+因此如下定义预关系的轨道空间。
+
+\begin{definition}
+\label{groupoids-quotients-definition-orbit-space}
+设 $B\to S$ 如第 \ref{groupoids-quotients-section-conventions-notation} 节所述，
+并设 $j:R\to U\times_BU$ 为预关系。若
+\begin{enumerate}
+\item $\phi$ 是 $R$-不变的；
+\item $\phi$ 分离 $R$-轨道；并且
+\item $\phi$ 满射，
+\end{enumerate}
+则称 $\phi:U\to X$ 为{\it $R$ 的轨道空间}。
+\end{definition}
+
+\noindent
+分离 $R$-轨道的定义涉及取值于代数闭域的点。
+但如前所见，在许多情形中，这只对应于某些典范相伴的代数空间态射之满射性。
+下面用轨道空间的刻画概括上文的部分讨论。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-orbit-space}
+设 $B\to S$ 如第 \ref{groupoids-quotients-section-conventions-notation} 节所述，
+并设 $j:R\to U\times_BU$ 为集合论预等价关系。
+态射 $\phi:U\to X$ 是 $R$ 的轨道空间，当且仅当
+\begin{enumerate}
+\item $\phi\circ s=\phi\circ t$，即 $\phi$ 不变；
+\item 诱导态射 $(t,s):R\to U\times_XU$ 满射；并且
+\item 态射 $\phi:U\to X$ 满射。
+\end{enumerate}
+例如，当 $j$ 是预等价关系，或来自 $B$ 上代数空间中的群胚，
+或来自 $B$ 上群代数空间在 $U$ 上的作用时，此刻画均适用。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{groupoids-quotients-lemma-separates-orbits} 的第 (4) 部分立即得到。
+\end{proof}
+
+\noindent
+在下列引理中，仅假设态射 $s,t$ 局部有限型（大概）还不够。
+原因是某个映射 $\phi:U\to X$ 可能是轨道空间，却并非局部有限型。
+在这种情形下，对 $B$ 上所有代数闭域 $k$，映射
+$U(k)\to X(k)$ 未必都满射。
+
+\begin{lemma}
+\label{groupoids-quotients-lemma-orbit-space-locally-finite-type-over-base}
+设 $B\to S$ 如第 \ref{groupoids-quotients-section-conventions-notation} 节所述，
+$j=(t,s):R\to U\times_BU$ 为预关系，并假设 $R,U$
+在 $B$ 上局部有限型。设 $\phi:U\to X$ 为 $B$ 上代数空间的
+$R$-不变态射。则 $\phi$ 是 $R$ 的轨道空间，当且仅当自然映射
+$$
+U(k)/\big(\text{由 }j(R(k))\text{ 生成的等价关系}\big)
+\longrightarrow
+X(k)
+$$
+对 $B$ 上所有代数闭域 $k$ 都是双射。
+\end{lemma}
+
+\begin{proof}
+注意，由于 $U,R$ 在 $B$ 上局部有限型，所有态射
+$s,t,j,\phi$ 都局部有限型，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-permanence-finite-type}。
+下文还将默认使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}。
+假设 $\phi$ 是轨道空间。任取 $B$ 上代数闭域 $k$ 及
+$\overline{x}\in X(k)$。考虑
+$U \times_{\phi, X, \overline{x}} \Spec(k)$.
+这是 $k$ 上非空且局部有限型的代数空间，故它有一个 $k$-值点。
+这说明引理中的映射满射。设
+$\overline{u},\overline{u}'\in U(k)$ 映到 $X(k)$ 中同一元素。
+由定义 \ref{groupoids-quotients-definition-set-theoretically-invariant}，
+这意味着 $\overline{u},\overline{u}'$ 位于同一 $R$-轨道。
+由引理 \ref{groupoids-quotients-lemma-geometric-orbits}，这又意味着二者在由
+$j(R(k))$ 生成的等价关系下等价。因此所显示的态射是单射。
+
+\medskip\noindent
+反之，假设对 $B$ 上所有代数闭域 $k$，所显示的映射都是双射。
+该条件显然蕴含 $\phi$ 满射。我们已经假设 $\phi$ 是 $R$-不变的。
+最后，所有这些映射的单射性蕴含 $\phi$ 分离轨道。
+故 $\phi$ 是轨道空间。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{粗商}
+\label{groupoids-quotients-section-coarse}
+
+\noindent
+这里只是补入这一概念，以便以后说明粗商对应于粗模空间（或模概形）。
+
+\begin{definition}
+\label{groupoids-quotients-definition-coarse}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+并设 $j:R\to U\times_BU$ 为预关系。若 $B$ 上代数空间的态射
+$\phi:U\to X$ 满足
+\begin{enumerate}
+\item $\phi$ 是范畴商；并且
+\item $\phi$ 是轨道空间，
+\end{enumerate}
+则称其为{\it 粗商}。若 $S=B$ 且 $U,R$ 均为概形，
+那么若概形态射 $\phi:U\to X$ 满足
+\begin{enumerate}
+\item $\phi$ 是概形中的范畴商；并且
+\item $\phi$ 是轨道空间，
+\end{enumerate}
+则称其为{\it 概形中的粗商}。
+\end{definition}
+
+\noindent
+在许多情形下，代数空间 $R,U$ 在 $B$ 上局部有限型，
+而轨道空间条件仅意味着
+$$
+U(k)/\big(\text{由 }j(R(k))\text{ 生成的等价关系}\big)
+\cong
+X(k)
+$$
+对所有代数闭域 $k$ 成立。参见引理
+\ref{groupoids-quotients-lemma-orbit-space-locally-finite-type-over-base}。
+若 $j$ 还是（集合论）预等价关系，则此条件仅等价于：
+对所有代数闭域 $k$，$U(k)/j(R(k))\to X(k)$ 是双射。
+
+
+
+
+
+
+
+
+
+\section{拓扑性质}
+\label{groupoids-quotients-section-topological}
+
+\noindent
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，并设
+$j:R\to U\times_BU$ 为预关系。若作为 $|R|$ 的子集有
+$s^{-1}(T)=t^{-1}(T)$，则称子集 $T\subset|U|$ 为
+{\it $R$-不变的}。注意，若 $T$ 闭，则 $U$ 中相应的既约闭子空间
+未必是 $R$-不变的（如《空间中的群胚》定义
+\ref{spaces-groupoids-definition-invariant-open} 所述），
+因为拉回 $s^{-1}(T),t^{-1}(T)$ 未必既约。
+对不变态射 $\phi:U\to X$，可考虑如下条件。
+
+\begin{definition}
+\label{groupoids-quotients-definition-topological}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+$j:R\to U\times_BU$ 为预关系，并设
+$\phi:U\to X$ 为 $B$ 上代数空间的 $R$-不变态射。
+\begin{enumerate}
+\item
+\label{groupoids-quotients-item-submersive}
+态射 $\phi$ 是下沉的。
+\item
+\label{groupoids-quotients-item-invariant-closed}
+对任意 $R$-不变闭子集 $Z\subset|U|$，像 $\phi(Z)$ 在 $|X|$ 中闭。
+\item
+\label{groupoids-quotients-item-intersect-invariant-closed}
+条件 (\ref{groupoids-quotients-item-invariant-closed}) 成立，且对任意一对
+$R$-不变闭子集 $Z_1,Z_2\subset|U|$，有
+$$
+\phi(Z_1 \cap Z_2) = \phi(Z_1) \cap \phi(Z_2)
+$$
+\item 态射 $(t,s):R\to U\times_XU$ 是泛下沉的。
+\label{groupoids-quotients-item-strong}
+\end{enumerate}
+还可对这些性质逐一要求其在任意平坦基变换后成立，
+或在任意基变换后成立，见定义 \ref{groupoids-quotients-definition-base-change}。
+在这些情形下，分别称条件
+(\ref{groupoids-quotients-item-submersive}),
+(\ref{groupoids-quotients-item-invariant-closed}),
+(\ref{groupoids-quotients-item-intersect-invariant-closed})，或
+(\ref{groupoids-quotients-item-strong}) {\it 一致地}成立或{\it 泛地}成立。
+\end{definition}
+
+
+
+
+
+
+
+
+\section{不变函数}
+\label{groupoids-quotients-section-functions}
+
+\noindent
+在某些情形下，要求每个不变函数都是商之结构层的局部截面，
+可以方便地确定商的结构层。
+
+\begin{definition}
+\label{groupoids-quotients-definition-functions}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+$j:R\to U\times_BU$ 为预关系，并设
+$\phi:U\to X$ 为 $R$-不变态射。记
+$\phi'=\phi\circ s=\phi\circ t:R\to X$。
+\begin{enumerate}
+\item 以 $(\phi_*\mathcal{O}_U)^R$ 表示 $\phi_*\mathcal{O}_U$ 的
+$\mathcal{O}_X$-子代数，它是下列两个映射的等化子：
+$$
+\xymatrix{
+\phi_*\mathcal{O}_U
+\ar@<1ex>[rr]^{\phi_*s^\sharp}
+\ar@<-1ex>[rr]_{\phi_*t^\sharp}
+& &
+\phi'_*\mathcal{O}_R
+}
+$$
+这里的映射定义在 $X_\etale$ 上。有时称其为
+{\it $X$ 上的 $R$-不变函数层}。
+\item 若自然映射
+$\mathcal{O}_X\to(\phi_*\mathcal{O}_U)^R$ 是同构，
+则称{\it $X$ 上的函数就是 $U$ 上的 $R$-不变函数}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+当然，可以要求此性质在任意（平坦或一般）基变换后成立，
+从而得到（一致或）泛的概念。为得到（更为）唯一的商，
+常把此条件与其他条件一并加入。整个主题的很大一部分动机，
+当然来自如下特殊情形：$U=\Spec(A)$ 是域
+$S=B=\Spec(k)$ 上的仿射概形，$R=G\times U$，
+其中 $G$ 是 $k$ 上的仿射群概形。此时可取如下商：
+$$
+X = \Spec(A^G)
+$$
+这样至少满足上述定义中的条件。虽然这是一个不错的构造，
+但它往往不是正确的商；例如，若 $U=\text{GL}_{n,k}$ 且
+$G$ 为上三角矩阵群，则上述构造给出 $X=\Spec(k)$，
+而事实上存在好得多的商，即旗簇。
+
+
+
+
+
+
+
+
+\section{良商}
+\label{groupoids-quotients-section-good}
+
+\noindent
+特别是在取群作用的商时，下列定义很有用。
+
+\begin{definition}
+\label{groupoids-quotients-definition-good}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+并设 $j:R\to U\times_BU$ 为预关系。
+若 $B$ 上代数空间的态射 $\phi:U\to X$ 满足
+\begin{enumerate}
+\item $\phi$ 不变；
+\item $\phi$ 是仿射的；
+\item $\phi$ 满射；
+\item 条件 (\ref{groupoids-quotients-item-intersect-invariant-closed}) 泛地成立；并且
+\item $X$ 上的函数就是 $U$ 上的 $R$-不变函数，
+\end{enumerate}
+则称其为{\it 良商}。
+\end{definition}
+
+\noindent
+Seshadri 在 \cite{seshadri_quotients} 中给出几乎相同的定义；
+区别是他用“条件 (\ref{groupoids-quotients-item-intersect-invariant-closed}) 成立”
+代替 (4)，并不要求该条件泛地成立。
+
+
+
+
+
+
+
+\section{几何商}
+\label{groupoids-quotients-section-geometric}
+
+\noindent
+这是 Mumford 对几何商的定义（至少是 GIT 第一版中的定义；
+据我们所知，后来的版本把“泛下沉”改成了“下沉”）。
+
+\begin{definition}
+\label{groupoids-quotients-definition-geometric}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间，
+并设 $j:R\to U\times_BU$ 为预关系。
+若 $B$ 上代数空间的态射 $\phi:U\to X$ 满足
+\begin{enumerate}
+\item $\phi$ 是轨道空间；
+\item 条件 (\ref{groupoids-quotients-item-submersive}) 泛地成立，即 $\phi$ 泛下沉；并且
+\item $X$ 上的函数就是 $U$ 上的 $R$-不变函数，
+\end{enumerate}
+则称其为{\it 几何商}。
+\end{definition}

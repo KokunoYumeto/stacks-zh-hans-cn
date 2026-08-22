@@ -1,0 +1,3627 @@
+% Generated mechanically from the frozen fields.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{8}
+\chapter{域}
+
+
+
+\phantomsection
+\label{fields-section-phantom}
+
+
+
+\section{引言}
+\label{fields-section-introduction}
+
+\noindent
+在本章中，我们将讨论域论。回忆，一个{\it 域}是非零环，且其中
+每个非零元素均可逆。等价地，域仅有两个理想 $(0)$ 与 $(1)$，
+因为任意非零元素都是单位。因此，域将是后文所发展理论中许多问题的
+最简单情形。
+
+\medskip\noindent
+域扩张理论与标准交换代数的观感有所不同，例如，任意域态射都是单射。
+尽管如此，涉及环的问题往往可以归约为关于域的问题。例如，任意整环都可
+嵌入一个域（它的分式域）；任意{\it 局部环}（即具有唯一极大理想的环；
+我们尚未定义这个术语）都有与之相伴的剩余域（即模其极大理想所得的商）。
+因此，掌握域扩张将很有用。
+
+
+
+
+\section{基本定义}
+\label{fields-section-definitions}
+
+\noindent
+由于我们把本章置于讨论交换代数的章节之前，必须先在这里引入一些基本定义，
+然后再在代数各章中更详细地讨论它们。
+
+\begin{definition}
+\label{fields-definition-field}
+一个{\it 域}是每个非零元素都可逆的非零环。给定一个域，
+其{\it 子域}是本身亦为域的子环。
+\end{definition}
+
+\noindent
+对域 $k$，我们以 $k^*$ 表示子集 $k \setminus \{0\}$。
+这推广了通常的记号 $R^*$，后者表示环 $R$ 中可逆元素所成的群。
+
+\begin{definition}
+\label{fields-definition-domain}
+一个{\it 整环}是以 $0$ 为唯一零因子的非零环。
+\end{definition}
+
+
+
+\section{域的例}
+\label{fields-section-examples}
+
+\noindent
+首先给出若干域的例。读者应当回忆：若 $R$ 是环且 $I \subset R$ 是理想，
+则 $R/I$ 是域，当且仅当 $I$ 是极大理想。
+
+\begin{example}[有理数]
+\label{fields-example-rational-numbers}
+有理数构成一个域，称为{\it 有理数域}，记作 $\mathbf{Q}$。
+\end{example}
+
+\begin{example}[素域]
+\label{fields-example-prime-field}
+若 $p$ 是素数，则 $\mathbf{Z}/(p)$ 是域，记作
+$\mathbf{F}_p$。事实上，$(p)$ 是 $\mathbf{Z}$ 的
+极大理想。因此，域可以是有限的：$\mathbf{F}_p$ 含有 $p$ 个元素。
+\end{example}
+
+\begin{example}
+% P01-E0235: the frozen label misspells “polynomial” as “polymial”.
+\label{fields-example-quotient-polymial-ring}
+在主理想整环中，由不可约元生成的理想是极大理想。现在，若 $k$ 是域，
+则多项式环 $k[x]$ 是主理想整环。因此，若 $P \in k[x]$ 是不可约
+多项式（即不能分解为较低次数因子乘积的非常数多项式），则
+$k[x]/(P)$ 是域。它以自然方式包含 $k$ 的一个副本。
+这是构造域的一种非常一般的方法。例如，复数域 $\mathbf{C}$
+可构造为 $\mathbf{R}[x]/(x^2 + 1)$。
+\end{example}
+
+\begin{example}[分式域]
+\label{fields-example-quotient-field}
+回忆，给定整环 $A$，存在从 $A$ 到某个域 $F$ 的嵌入 $A \to F$；
+其构造方式与由 $\mathbf{Z}$ 构造 $\mathbf{Q}$ 完全相同。
+形式上，$F$ 的元素是分式 $a/b$ 的等价类，其中
+$a, b \in A$ 且 $b \not = 0$。照例，$a/b = a'/b'$ 当且仅当
+$ab' = ba'$。域 $F$ 称为 $A$ 的{\it 分式域}。
+分式域具有如下普遍性质：给定到域 $K$ 的单射环映射
+$\varphi : A \to K$，存在唯一映射 $\psi : F \to K$ 使图表
+$$
+\xymatrix{
+F \ar[r]_\psi & K \\
+A \ar[u] \ar[ru]_\varphi
+}
+$$
+交换。事实上，这一映射的定义很清楚：置
+$\psi(a/b) = \varphi(a)\varphi(b)^{-1}$；$\varphi$ 的单射性保证，
+若 $ b \not = 0$，则 $\varphi(b) \not = 0$。
+\end{example}
+
+\begin{example}[有理函数域]
+\label{fields-example-field-of-rational-functions}
+若 $k$ 是域，则可以考虑 $k$ 上的有理函数域 $k(x)$。
+它是多项式环 $k[x]$ 的分式域。换言之，它由商 $F/G$ 的等价类组成，
+其中 $F, G \in k[x]$ 且 $G \not = 0$。
+\end{example}
+
+\begin{example}
+\label{fields-example-field-of-meromorphic-functions}
+令 $X$ 为黎曼曲面。以 $\mathbf{C}(X)$ 表示 $X$ 上亚纯函数的集合。
+在函数的乘法与加法下，$\mathbf{C}(X)$ 是环。事实上，
+$\mathbf{C}(X)$ 是域：若非零函数 $f(z)$ 亚纯，则 $1/f(z)$ 亦亚纯。
+例如，令 $S^2$ 为黎曼球面；复分析告诉我们，亚纯函数环
+$\mathbf{C}(S^2)$ 就是有理函数域 $\mathbf{C}(z)$。
+\end{example}
+
+
+
+\section{向量空间}
+\label{fields-section-vector-spaces}
+
+\noindent
+域之所以性质良好，一个原因是域上的模（即向量空间）理论非常简单。
+
+\begin{lemma}
+\label{fields-lemma-vector-space-is-free}
+若 $k$ 是域，则每个 $k$-模都是自由模。
+\end{lemma}
+
+\begin{proof}
+事实上，线性代数告诉我们，$k$-模（即向量空间）$V$ 有一个
+{\it 基} $\mathcal{B} \subset V$；它给出以 $\mathcal{B}$
+为基的自由向量空间到 $V$ 的同构。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-field-semi-simple}
+域上的每个模正合列都分裂。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{fields-lemma-vector-space-is-free} 立即得到，因为每个向量空间
+都是投射模。
+\end{proof}
+
+\noindent
+这也是后续各章中的许多理论不会对域给出太多新内容的另一个原因：
+域上的模行为如此简单。注意，引理 \ref{fields-lemma-field-semi-simple}
+是关于 $k$-模的{\it 范畴}的陈述（这里 $k$ 是域），因为正合性的概念
+本质上是关于箭头的，即只使用范畴论概念；事实上，它可以在所谓的
+{\it 阿贝尔范畴}中表述。
+
+\medskip\noindent
+此后，由于域上的模理论就是线性代数，而域的理想理论并不十分有趣，
+我们将研究本章真正的主题：域的{\it 扩张}。
+
+
+\section{域的特征}
+\label{fields-section-more-fields}
+
+\noindent
+在环范畴中，$\mathbf{Z}$ 是一个{\it 始对象}：对任意环 $R$，
+恰有一个从 $\mathbf{Z}$ 到它的映射。域范畴中不存在这样的始对象。
+不过，存在一族对象，使每个域都恰好从其中一个对象接受唯一映射，
+而不从其余对象接受任何映射。
+% P01-E0236: the frozen English sentence at lines 196-197 has the malformed
+% phrase “every field can be mapped into ... by exactly one of them”.
+
+\medskip\noindent
+令 $F$ 为域。把 $F$ 看作环，得到环映射
+$f : \mathbf{Z} \to F$。该环映射的像是整环（因为它是域的子环），
+故 $f$ 的核是 $\mathbf{Z}$ 中的素理想。因此，$f$ 的核或者是
+$(0)$，或者是某个素数 $p$ 所生成的 $(p)$。
+
+\medskip\noindent
+在第一种情形下，$f$ 是单射；此时我们把 $\mathbf{Z}$ 看作
+$F$ 的子环。又因 $F$ 的每个非零元素都可逆，所以对
+$p, q \in \mathbf{Z}$ 且 $q \not = 0$，谈论 $p/q \in F$
+是有意义的。因此，在这种情形下，我们可以并且确实把
+$\mathbf{Q}$ 看作 $F$ 的子环。容易看出，此时它是 $F$ 的最小子域。
+
+\medskip\noindent
+在第二种情形下，即 $\Ker(f) = (p)$ 时，
+$\mathbf{Z}/(p) = \mathbf{F}_p$ 是 $F$ 的子环。显然，它是
+$F$ 的最小子域。
+
+\medskip\noindent
+由此可见，每个域都含有一个最小子域；它或者是 $\mathbf{Q}$，
+或者是对某个素数 $p$ 而言的有限域 $\mathbf{F}_p$。
+% P01-E0237: frozen lines 220-222 say “either Q or finite equal to F_p”.
+
+\begin{definition}
+\label{fields-definition-characteristic}
+域 $F$ 的{\it 特征}定义如下：若 $\mathbf{Z} \subset F$，则特征为
+$0$；若 $F$ 中 $p = 0$，则特征为素数 $p$。$F$ 的{\it 素子域}
+是 $F$ 的最小子域：特征为零时，它是
+$\mathbf{Q} \subset F$；特征为 $p > 0$ 时，它是
+$\mathbf{F}_p \subset F$。
+\end{definition}
+
+\noindent
+容易看出，若 $E \subset F$ 是子域，则 $E$ 与 $F$ 的特征相同。
+
+\begin{example}
+\label{fields-example-characteristic}
+$\mathbf{F}_p$ 的特征是 $p$，而 $\mathbf{Q}$ 的特征是 $0$。
+\end{example}
+
+
+\section{域扩张}
+\label{fields-section-extensions}
+
+\noindent
+一般而言，我们所关心的与其说是孤立的域，不如说是域的{\it 扩张}。
+这或许类似于不研究孤立的环，而研究固定环上的{\it 代数}。
+域的便利之处在于，下一个结果表明，“一个域上的另一个域”这一概念
+恰好就是域扩张。
+
+\begin{lemma}
+\label{fields-lemma-field-maps-injective}
+若 $F$ 是域而 $R$ 是非零环，则任意环同态
+$\varphi : F \to R$ 都是单射。
+\end{lemma}
+
+\begin{proof}
+事实上，令 $a \in \Ker(\varphi)$ 为非零元素。则
+$\varphi(1) = \varphi(a^{-1} a) = \varphi(a^{-1}) \varphi(a) = 0$。
+因此 $1 = \varphi(1) = 0$，从而 $R$ 是零环。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-extension}
+若域 $F$ 包含于域 $E$，则称 $E$ 是 $F$ 的一个{\it 域扩张}。
+我们写 $E/F$ 表示 $E$ 是 $F$ 的扩张。
+\end{definition}
+
+\noindent
+因此，若 $F, F'$ 是域，且 $F \to F'$ 是任意环同态，
+则由引理 \ref{fields-lemma-field-maps-injective} 可知它是单射；略微滥用术语，
+可把 $F'$ 看作 $F$ 的扩张。或者说，$F$ 的域扩张就是恰好为域的
+$F$-代数。这与一般环的情形完全不同，因为环同态未必是单射。
+
+\medskip\noindent
+令 $k$ 为域。存在一个由 $k$ 的域扩张组成的{\it 范畴}。
+该范畴的对象是扩张 $E/k$，即域之间的（必然单射的）态射
+$$
+k \to E,
+$$
+而扩张 $E/k$ 与 $E'/k$ 之间的态射是 $k$-代数态射
+$E \to E'$；等价地，它是交换图表
+$$
+\xymatrix{
+E \ar[rr] & & E' \\
+& k \ar[ru] \ar[lu] &
+}
+$$
+在 $k$ 的扩张范畴中，态射 $E \to E'$ 的集合记作 $\Mor_k(E, E')$。
+% P01-E0238: frozen line 295 says “morphisms from E \to E'”.
+
+\begin{definition}
+\label{fields-definition-tower}
+一个域塔 $E_n/E_{n - 1}/\ldots/E_0$ 由域扩张序列
+$E_n/E_{n - 1}$、$E_{n - 1}/E_{n - 2}$、$\ldots$、$E_1/E_0$
+组成。
+\end{definition}
+
+\noindent
+下面给出几个域扩张的例。
+
+\begin{example}
+\label{fields-example-monogenic-extension}
+令 $k$ 为域，$P \in k[x]$ 为不可约多项式。我们已经看到
+$k[x]/(P)$ 是域（例 \ref{fields-example-quotient-polymial-ring}）。
+它又以显然的方式成为 $k$-代数，故是 $k$ 的扩张。
+\end{example}
+
+\begin{example}
+\label{fields-example-field-of-meromorphic-functions-extension-C}
+若 $X$ 是黎曼曲面，则其亚纯函数域
+$\mathbf{C}(X)$（例 \ref{fields-example-field-of-meromorphic-functions}）
+是 $\mathbf{C}$ 的扩域，因为 $\mathbf{C}$ 的任意元素都在 $X$
+上给出一个亚纯的、事实上全纯的常值函数。
+\end{example}
+
+\noindent
+令 $F/k$ 为域扩张，$S \subset F$ 为任意子集。则 $F$ 中存在一个
+包含 $S$ 的{\it 最小}子扩张（即包含 $k$ 的 $F$ 的子域）。
+为此，考虑所有同时包含 $S$ 与 $k$ 的 $F$ 的子域，并取其交；
+容易验证该交仍是域。标准论证进一步表明，这恰是由 $k$ 与 $S$ 中的
+元素经有限次基本代数运算（加、乘、减、除）所得的 $F$ 中元素的集合。
+
+\begin{definition}
+\label{fields-definition-generated-by}
+令 $k$ 为域。若 $F/k$ 是域扩张且 $S \subset F$，则以
+$k(S)$ 表示 $F$ 中包含 $k$ 与 $S$ 的最小子域。我们称
+$S$ {\it 生成域扩张} $k(S)/k$。若 $S = \{\alpha\}$ 是单元素集，
+则写 $k(\alpha)$ 而不写 $k(\{\alpha\})$。若存在有限子集
+$S \subset F$ 使 $F = k(S)$，则称 $F/k$ 为{\it 有限生成域扩张}。
+\end{definition}
+
+\noindent
+例如，$\mathbf{C}$ 在 $\mathbf{R}$ 上由 $i$ 生成。
+
+\begin{exercise}
+\label{fields-exercise-C-not-countably-generated}
+证明 $\mathbf{C}$ 在 $\mathbf{Q}$ 上不存在可数生成集。
+\end{exercise}
+
+\noindent
+现在分类由一个元素生成的扩张。
+
+\begin{lemma}[单扩张的分类]
+\label{fields-lemma-field-extension-generated-by-one-element}
+若域扩张 $F/k$ 由一个元素生成，则它在 $k$ 上同构于有理函数域
+$k(t)/k$，或者同构于某个扩张 $k[t]/(P)$，其中
+$P \in k[t]$ 不可约。
+\end{lemma}
+
+\noindent
+我们将看到，许多最重要的域扩张都由一个元素生成，因而这个结果确实有用。
+
+\begin{proof}
+令 $\alpha \in F$ 满足 $F = k(\alpha)$；按假设，这样的 $\alpha$
+存在。存在环态射
+$$
+k[t] \to F
+$$
+把不定元 $t$ 送到 $\alpha$。其像是整环，故其核是素理想。
+因此，该核或者是 $(0)$，或者是由某个不可约 $P \in k[t]$
+生成的 $(P)$。
+
+\medskip\noindent
+若核为不可约多项式 $P \in k[t]$ 所生成的 $(P)$，则该映射经
+$k[t]/(P)$ 分解，并诱导域态射 $k[t]/(P) \to F$。
+由于其像包含 $\alpha$，容易看出该映射满射，因而是同构。
+在这种情形下，$k[t]/(P) \simeq F$。
+
+\medskip\noindent
+若核平凡，则有单射 $k[t] \to F$。于是可定义分式域 $k(t)$
+到 $F$ 的态射：给定 $R(t), Q(t) \in k[t]$ 的商
+$R(t)/Q(t)$，把它送到 $R(\alpha)/Q(\alpha)$。
+$k[t] \to F$ 的单射性意味着，除非 $Q$ 是零多项式，否则
+$Q(\alpha) \neq 0$。$k[t]$ 的分式域就是有理函数域 $k(t)$，
+故得到态射 $k(t) \to F$，其像包含 $\alpha$。
+于是它是满射，因而是同构。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-common-extension-field}
+令 $k$ 为域，$E/k$ 与 $F/k$ 为域扩张。则存在共同扩域 $M/k$；
+亦即，存在扩域以及 $k$-扩张态射 $E \to M$ 与 $F \to M$。
+\end{lemma}
+
+\begin{proof}
+我们只证明 $E$ 是 $k$ 的有限生成域扩张的情形；一般情形由此通过
+佐恩引理型论证得到（细节从略）。
+
+\medskip\noindent
+首先，设 $E$ 是 $k$ 的单扩张。由
+引理 \ref{fields-lemma-field-extension-generated-by-one-element}，
+这意味着或者 $E = k(t)$ 是有理函数域，或者
+$E = k[t]/(P)$，其中 $P \in k[t]$ 是某个不可约多项式。
+在第一种情形下，取 $M = F(t)$ 为有理函数域，并有显然的映射
+$E \to M$ 与 $F \to M$。在第二种情形下，在 $F[t]$ 中取
+$P$ 的像的一个不可约因子 $Q$，并令 $M = F[t]/(Q)$；
+同样有显然的映射 $E \to M$ 与 $F \to M$。
+
+\medskip\noindent
+若 $E = k(\alpha_1, \ldots, \alpha_n)$，则对 $n$ 归纳可找到
+扩张 $M/k$ 以及映射 $F \to M$ 与
+$k(\alpha_1, \ldots, \alpha_{n - 1}) \to M$。
+由上一段讨论的单扩张情形，可找到扩张
+$M'/k(\alpha_1, \ldots, \alpha_{n - 1})$ 以及映射
+$M \to M'$ 与 $k(\alpha_1, \ldots, \alpha_n) \to M'$。
+把 $M'$ 看作 $k$ 的扩张即可。
+\end{proof}
+
+
+
+\section{有限扩张}
+\label{fields-section-finite-extensions}
+
+\noindent
+若 $F/E$ 是域扩张，则显然 $F$ 也是 $E$ 上的向量空间
+（标量作用就是 $F$ 中的乘法）。
+
+\begin{definition}
+\label{fields-definition-degree}
+令 $F/E$ 为域扩张。把 $F$ 看作 $E$-向量空间时的维数称为该扩张的
+{\it 次数}，记作 $[F : E]$。若 $[F : E] < \infty$，则称 $F$
+是 $E$ 的{\it 有限}扩张。
+\end{definition}
+
+\begin{example}
+\label{fields-example-C-over-R}
+域 $\mathbf{C}$ 是 $\mathbf{R}$ 上以 $1, i$ 为基的二维向量空间。
+因此，$\mathbf{C}$ 是 $\mathbf{R}$ 的二次有限扩张。
+\end{example}
+
+\begin{lemma}
+\label{fields-lemma-finite-goes-up}
+令 $K/E/F$ 为代数域扩张塔。
+若 $K$ 在 $F$ 上有限，则 $K$ 在 $E$ 上有限。
+\end{lemma}
+
+\begin{proof}
+由定义直接得到。
+\end{proof}
+
+\noindent
+现在考虑最重要的特殊例，即引理
+\ref{fields-lemma-field-extension-generated-by-one-element} 所给出的情形；
+接下来的两个例将计算其次数。
+
+\begin{example}[有理函数域的次数]
+\label{fields-example-degree-rational-function-field}
+若 $k$ 是任意域，则有理函数域 $k(t)$ {\it 不是}有限扩张。
+例如，元素
+$\left\{t^n, n \in \mathbf{Z}\right\}$ 在 $k$ 上线性无关。
+
+\medskip\noindent
+事实上，若 $k$ 不可数，则 $k(t)$ 作为 $k$-向量空间具有
+{\it 不可数}维。为说明这一点，我们断言元素族
+$\{1/(t- \alpha), \alpha \in k\} \subset k(t)$ 在
+$k$ 上线性无关。它们之间的任意非平凡关系都会导致矛盾：
+例如，在 $\mathbf{C}$ 上考虑时，这是因为把
+$\frac{1}{t-\alpha}$ 看作 $\mathbf{C}$ 上的亚纯函数，
+它在 $\alpha$ 处有极点，而在别处没有极点。
+因此，对 $c_i \in k^*$ 以及互异的 $\alpha_i \in k$，
+任意和 $\sum c_i \frac{1}{t - \alpha_i}$ 都会在每个
+$\alpha_i$ 处有极点，因而不可能为零。
+
+\medskip\noindent
+有趣的是，这给出了复数域上希尔伯特零点定理的一个简短证明。
+稍一般的结果见代数，定理
+\ref{algebra-theorem-uncountable-nullstellensatz}。
+\end{example}
+
+\begin{lemma}
+\label{fields-lemma-finite-finitely-generated}
+有限域扩张是有限生成域扩张。逆命题不成立。
+\end{lemma}
+
+\begin{proof}
+令 $F/E$ 为有限域扩张，并令 $\alpha_1, \ldots, \alpha_n$
+为 $F$ 作为 $E$-向量空间的一组基。于是
+$F = E(\alpha_1, \ldots, \alpha_n)$，故 $F/E$ 是有限生成域扩张。
+例 \ref{fields-example-degree-rational-function-field} 表明逆命题不成立。
+\end{proof}
+
+\begin{example}[单代数扩张的次数]
+\label{fields-example-degree-simple-algebraic-extension}
+考虑例 \ref{fields-example-monogenic-extension} 中讨论的单生成域扩张
+$E/k$。换言之，$E = k[t]/(P)$，其中
+$P \in k[t]$ 是不可约多项式。则次数 $[E : k]$ 就是多项式
+$P$ 的次数 $d = \deg(P)$。事实上，设
+\begin{equation}
+\label{fields-equation-P}
+P = a_d t^d + a_{d - 1} t^{d - 1} + \ldots + a_0.
+\end{equation}
+其中 $a_d \not = 0$。于是 $1, t, \ldots, t^{d - 1}$ 在
+$k[t]/(P)$ 中的像在 $k$ 上线性无关，因为涉及这些像的任意关系
+次数都严格小于 $P$ 的次数，而 $P$ 是理想 $(P)$ 中次数最小的元素。
+
+\medskip\noindent
+反过来，集合 $S = \{1, t, \ldots, t^{d - 1}\}$（更准确地说，
+这些元素的像）张成向量空间 $k[t]/(P)$。事实上，由
+(\ref{fields-equation-P}) 可知 $a_d t^d$ 属于 $S$ 的张成空间。
+由于 $a_d$ 可逆，$t^d$ 也属于 $S$ 的张成空间。
+类似地，关系 $t P(t) = 0$ 表明 $t^{d + 1}$ 的像属于
+$\{1, t, \ldots, t^d\}$ 的张成空间；由刚才所证，它也属于
+$S$ 的张成空间。向上归纳可得，对 $n \geq d$，$t^n$ 的像
+属于 $S$ 的张成空间。
+\end{example}
+
+\noindent
+例如，这证实了 $[\mathbf{C}: \mathbf{R}] = 2$。
+更一般地，若 $k$ 是域且 $\alpha \in k$ 不是平方元，则不可约多项式
+$x^2 - \alpha \in k[x]$ 可用来构造二次扩张
+$k[x]/(x^2 - \alpha)$。我们把它写作 $k(\sqrt{\alpha})$。
+显然，这类扩张称为{\it 二次扩张}。
+
+\medskip\noindent
+次数的基本事实是它在{\it 域塔中具有乘法性}。
+
+\begin{lemma}[乘法性]
+\label{fields-lemma-multiplicativity-degrees}
+给定域塔 $F/E/k$，则
+$$
+[F:k] = [F:E][E:k]
+$$
+\end{lemma}
+
+\begin{proof}
+令 $\alpha_1, \ldots, \alpha_n \in F$ 为 $F$ 的一组 $E$-基，
+令 $\beta_1, \ldots, \beta_m \in E$ 为 $E$ 的一组 $k$-基。
+所要证明的是乘积集合
+$\{\alpha_i \beta_j, 1 \leq i \leq n, 1 \leq j \leq m\}$
+是 $F$ 的一组 $k$-基。先验证它们在 $k$ 上张成 $F$。
+
+\medskip\noindent
+按假设，$\{\alpha_i\}$ 在 $E$ 上张成 $F$。因此若
+$f \in F$，则存在 $a_i \in E$ 使
+$$
+f = \sum\nolimits_i a_i \alpha_i,
+$$
+并且对每个 $i$，可对某些 $b_{ij} \in k$ 写成
+$a_i = \sum b_{ij} \beta_j$。合并这些等式得到
+$$
+f = \sum\nolimits_{i,j} b_{ij} \alpha_i \beta_j,
+$$
+这证明 $\{\alpha_i \beta_j\}$ 在 $k$ 上张成 $F$。
+
+\medskip\noindent
+现在假设存在一个非平凡关系
+$$
+\sum\nolimits_{i,j} c_{ij} \alpha_i \beta_j = 0
+$$
+其中 $c_{ij} \in k$。于是
+$$
+\sum\nolimits_i \alpha_i \left( \sum\nolimits_j c_{ij} \beta_j \right) = 0,
+$$
+且括号内各项属于 $E$，因为 $\beta_j$ 也属于其中。
+$\{\alpha_i\}$ 在 $E$ 上线性无关，故各个内层和都为零；
+再由 $\{\beta_j\}$ 在 $k$ 上线性无关，所有 $c_{ij}$ 都为零。
+\end{proof}
+
+\noindent
+我们暂且岔开一步，引入一个略为旁支的定义。
+
+\begin{definition}
+\label{fields-definition-number-field}
+若域 $K$ 的特征为 $0$，且扩张 $K/\mathbf{Q}$ 有限，
+则称之为{\it 数域}。
+\end{definition}
+
+\noindent
+数域是代数数论中的基本对象。后文将看到，对数域中整数
+$\mathbf{Z}$ 的类似物，某种类似唯一分解的性质仍然成立
+（尽管严格的唯一分解通常不成立！）。
+
+
+\section{代数扩张}
+\label{fields-section-algebraic-extensions}
+
+\noindent
+一类重要的扩张是其中每个元素都生成有限扩张的扩张。
+% P01-E0239: source lines 605-606 have singular “class” with plural “are”.
+
+\begin{definition}
+\label{fields-definition-algebraic}
+考虑域扩张 $F/E$。若元素 $\alpha \in F$ 是某个系数在
+$E$ 中的非零多项式的根，则称 $\alpha$ 在 $E$ 上是
+{\it 代数的}。若 $F$ 的所有元素都如此，则称
+$F$ 是 $E$ 的{\it 代数扩张}。
+\end{definition}
+
+\noindent
+由引理 \ref{fields-lemma-field-extension-generated-by-one-element}，
+子扩张 $E(\alpha)$ 或者同构于有理函数域 $E(t)$，或者同构于
+商环 $E[t]/(P)$，其中 $P \in E[t]$ 是不可约多项式。
+在后一种情形中，$\alpha$ 在 $E$ 上代数（事实上，
+引理 \ref{fields-lemma-field-extension-generated-by-one-element} 的证明
+表明可取 $P$ 使 $\alpha$ 是 $P$ 的根）；在前一种情形中则不代数。
+
+\begin{example}
+\label{fields-example-C-algebraic-over-R}
+域 $\mathbf{C}$ 是 $\mathbf{R}$ 的代数扩张。具体而言，若
+$\alpha = a + ib$ 属于 $\mathbf{C}$，则
+$\alpha^2 - 2a\alpha + a^2 + b^2 = 0$ 是 $\alpha$ 在
+$\mathbf{R}$ 上满足的多项式方程。
+\end{example}
+
+\begin{example}
+\label{fields-example-compact-riemann-surface-is-finite-over-P1}
+令 $X$ 为紧黎曼曲面，并令
+$f \in \mathbf{C}(X) - \mathbf{C}$ 为 $X$ 上任意非常值亚纯函数
+（见例 \ref{fields-example-field-of-meromorphic-functions}）。
+已知 $\mathbf{C}(X)$ 在由 $f$ 生成的子扩张
+$\mathbf{C}(f)$ 上代数。这里不作证明。
+\end{example}
+
+\begin{lemma}
+\label{fields-lemma-algebraic-goes-up}
+令 $K/E/F$ 为域扩张塔。
+\begin{enumerate}
+\item 若 $\alpha \in K$ 在 $F$ 上代数，则 $\alpha$ 在
+$E$ 上代数。
+\item 若 $K$ 在 $F$ 上代数，则 $K$ 在 $E$ 上代数。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定义立即得到。
+\end{proof}
+
+\noindent
+现在说明有限性与代数性之间的深刻联系。
+
+\begin{lemma}
+\label{fields-lemma-finite-is-algebraic}
+有限扩张是代数扩张。事实上，扩张 $E/k$ 代数，当且仅当
+对每个 $\alpha \in E$，由它生成的子扩张 $k(\alpha)/k$ 都有限。
+\end{lemma}
+
+\noindent
+一般而言，代数扩张远不必有限。
+
+\begin{proof}
+设 $E/k$ 有限，次数为 $n$。取 $\alpha \in E$。则元素
+$1, \alpha, \ldots, \alpha^n$ 在 $k$ 上线性相关，否则必有
+$[E : k] > n$。一个线性相关关系就给出了 $\alpha$ 必须满足的
+所需多项式。
+
+\medskip\noindent
+对于最后一个断言，注意单生成扩张 $k(\alpha)/k$ 有限，
+当且仅当 $\alpha$ 在 $k$ 上代数；这是例
+\ref{fields-example-degree-rational-function-field} 与
+\ref{fields-example-degree-simple-algebraic-extension} 的结论。
+因此，若 $E/k$ 代数，则每个 $k(\alpha)/k$（$\alpha \in E$）
+都是有限扩张；反之亦然。
+\end{proof}
+
+\noindent
+可以从上一证明（实质上是从例
+\ref{fields-example-degree-rational-function-field} 与
+\ref{fields-example-degree-simple-algebraic-extension}）抽取出一个结论：
+单生成扩张有限，当且仅当它是代数扩张。下一结果将使用这一观察。
+
+\begin{lemma}
+\label{fields-lemma-algebraic-finitely-generated}
+\begin{slogan}
+有限生成代数扩张是有限扩张。
+\end{slogan}
+令 $k$ 为域，并令 $\alpha_1, \alpha_2, \ldots, \alpha_n$
+为某个扩域中的元素，且每个 $\alpha_i$ 都在 $k$ 上代数。
+则扩张 $k(\alpha_1, \ldots, \alpha_n)/k$ 有限。
+也就是说，有限生成代数扩张是有限扩张。
+\end{lemma}
+
+\begin{proof}
+事实上，每个扩张
+$k(\alpha_{1}, \ldots, \alpha_{i+1})/k(\alpha_1, \ldots, \alpha_{i})$
+都由一个元素生成且为代数扩张，因而有限。
+由次数的乘法性（引理 \ref{fields-lemma-multiplicativity-degrees}）即得结论。
+\end{proof}
+
+\noindent
+在 $\mathbf{Q}$ 上代数的复数统称为{\it 代数数}。
+例如，$\sqrt{2}$ 是代数数，$i$ 是代数数，而 $\pi$ 不是。
+代数数构成一个域，这是一个基本事实；然而，仅从“一个数恰在它满足
+一个有理系数非零多项式方程时是代数数”这一定义出发，
+如何证明这一点并不显然（例如，通过多项式方程来证明）。
+% P01-E0240: source line 712 has singular “set” with plural “are”.
+
+\begin{lemma}
+\label{fields-lemma-algebraic-elements}
+令 $E/k$ 为域扩张。$E$ 中在 $k$ 上代数的元素构成
+$E/k$ 的一个子扩张。
+\end{lemma}
+
+\begin{proof}
+令 $\alpha, \beta \in E$ 在 $k$ 上代数。由引理
+\ref{fields-lemma-algebraic-finitely-generated}，
+$k(\alpha, \beta)/k$ 是有限扩张。因此
+$k(\alpha + \beta) \subset k(\alpha, \beta)$ 是有限扩张，
+由引理 \ref{fields-lemma-finite-is-algebraic} 可知 $\alpha + \beta$
+代数。$\alpha$ 与 $\beta$ 的差、积和商也同理。
+\end{proof}
+
+\noindent
+域扩张的许多良好性质与环的情形一样，会沿域塔以及取复合域而保持。
+
+\begin{lemma}
+\label{fields-lemma-algebraic-permanence}
+令 $E/k$ 与 $F/E$ 为代数域扩张。则 $F/k$ 是代数域扩张。
+\end{lemma}
+
+\begin{proof}
+取 $\alpha \in F$。则 $\alpha$ 在 $E$ 上代数。
+关键观察是，$\alpha$ 在 $k$ 的某个有限生成子扩张上代数。
+% P01-E0241: source line 748 says “subextension of k”, although the
+% constructed field contains k and lies in E.
+也就是说，存在有限集 $S \subset E$，使得 $\alpha$ 在
+$k(S)$ 上代数：这是清楚的，因为代数性意味着存在某个由
+$\alpha$ 满足的多项式 $E[x]$，而可取 $S$ 为该多项式的系数集合。
+因此，$\alpha$ 在 $k(S)$ 上代数。特别地，扩张
+$k(S, \alpha)/ k(S)$ 有限。由于 $S$ 是有限集且 $k(S)/k$
+代数，引理 \ref{fields-lemma-algebraic-finitely-generated} 表明
+$k(S)/k$ 有限。利用乘法性（引理
+\ref{fields-lemma-multiplicativity-degrees}），可知
+$k(S,\alpha)/k$ 有限，所以 $\alpha$ 在 $k$ 上代数。
+\end{proof}
+
+\noindent
+上一论证中的证明方法——在 $E$ 上代数这一性质
+{\it 下降}到 $E$ 的一个有限生成子扩张——是一个在代数中反复出现的思想。
+例如，它常使我们能把一般的交换代数问题归约到诺特情形。
+
+\begin{lemma}
+\label{fields-lemma-size-algebraic-extension}
+令 $E/F$ 为代数域扩张。则 $E$ 的基数 $|E|$ 至多为
+$\max(\aleph_0, |F|)$。
+\end{lemma}
+
+\begin{proof}
+令 $S$ 为系数在 $F$ 中的非常数多项式集合。
+对每个 $P \in S$，根的集合
+$r(P, E) = \{\alpha \in E \mid P(\alpha) = 0\}$
+是有限的（细节从略）。此外，$E$ 在 $F$ 上代数这一事实意味着
+$E = \bigcup_{P \in S} r(P, E)$。显然，$S$ 的基数不超过
+$\max(\aleph_0, |F|)$，因为它是 $F$ 的有限乘积的可数并。
+因此，$E$ 的基数也有同样的上界。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-subalgebra-algebraic-extension-field}
+令 $E/F$ 为有限域扩张，或更一般地为代数域扩张。
+任意子环 $F \subset R \subset E$ 都是域。
+\end{lemma}
+
+\begin{proof}
+令 $\alpha \in R$ 非零。则 $1, \alpha, \alpha^2, \ldots$
+都属于 $R$。由引理 \ref{fields-lemma-finite-is-algebraic}，存在非平凡关系
+$a_0 + a_1 \alpha + \ldots + a_d \alpha^d = 0$，其中
+$a_i \in F$。可以假设 $a_0 \not = 0$，因为否则可用
+$\alpha$ 除该关系以降低 $d$。于是
+$$
+a_0 = \alpha (- a_1  - \ldots - a_d \alpha^{d - 1})
+$$
+这证明 $\alpha$ 的逆是 $R$ 中的元素
+$a_0^{-1} (- a_1  - \ldots - a_d \alpha^{d - 1})$。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-algebraic-extension-self-map}
+令 $E/F$ 为代数域扩张。任意 $F$-代数映射
+$f : E \to E$ 都是自同构。
+% P01-E0242: source line 808 omits “be” after “Let E/F”.
+\end{lemma}
+
+\begin{proof}
+若 $E/F$ 有限，则 $f : E \to E$ 是有限维向量空间之间的
+$F$-线性单射（引理 \ref{fields-lemma-field-maps-injective}），因而是双射。
+一般情形下仍可看出 $f$ 是单射。令 $\alpha \in E$，并令
+$P \in F[x]$ 为满足 $P(\alpha) = 0$ 的多项式。
+令 $E' \subset E$ 为由 $P$ 在 $E$ 中的各根
+$\alpha = \alpha_1, \ldots, \alpha_n$ 生成的 $E$ 的子域。
+由引理 \ref{fields-lemma-algebraic-finitely-generated}，$E'$ 在 $F$ 上有限。
+由于 $f$ 保持根的集合，得到 $f|_{E'} : E' \to E'$。
+由证明的第一部分，$f|_{E'}$ 是同构，所以 $\alpha$ 属于 $f$ 的像。
+\end{proof}
+
+
+
+
+
+
+\section{最小多项式}
+\label{fields-section-minimal-polynomials}
+
+\noindent
+令 $E/k$ 为域扩张，并令 $\alpha \in E$ 在 $k$ 上代数。
+则 $\alpha$ 满足 $k[x]$ 中的一个（非平凡）多项式方程。
+考虑满足 $P(\alpha) = 0$ 的多项式 $P \in k[x]$ 所成的集合；
+按假设，该集合不只含零多项式。容易看出它是一个{\it 理想}。
+事实上，它是映射
+$$
+k[x] \to E, \quad x \mapsto \alpha
+$$
+的核。由于 $k[x]$ 是主理想整环，该理想存在一个{\it 生成元}
+$P \in k[x]$。不失一般性地假设 $P$ 首一，则 $P$ 唯一确定。
+
+\begin{definition}
+\label{fields-definition-minimal-polynomial}
+上述多项式 $P$ 称为 $\alpha$ 在 $k$ 上的{\it 最小多项式}。
+\end{definition}
+
+\noindent
+最小多项式有如下刻画：它是使 $\alpha$ 为零的次数最小的首一多项式。
+$P$ 的任意非常数倍数都有更高次数，并且只有 $P$ 的倍数才能使
+$\alpha$ 为零。这解释了“{\it 最小}”这一名称。
+
+\medskip\noindent
+显然，最小多项式{\it 不可约}。这等价于断言，$k[x]$ 中由使
+$\alpha$ 为零的多项式组成的理想是素理想。这又来自如下事实：
+映射 $k[x] \to E, x \mapsto \alpha$ 的目标是整环
+（甚至是域），故其核是素理想。
+
+\begin{lemma}
+\label{fields-lemma-degree-minimal-polynomial}
+最小多项式的次数为 $[k(\alpha) : k]$。
+\end{lemma}
+
+\begin{proof}
+这只是引理 \ref{fields-lemma-field-extension-generated-by-one-element}
+中论证的重新表述：若 $P$ 是 $\alpha$ 的最小多项式，则映射
+$$
+k[x]/(P) \to k(\alpha), \quad x \mapsto \alpha
+$$
+如该证明所述是同构，而我们已经计算过这类扩张的次数
+（见例 \ref{fields-example-degree-simple-algebraic-extension}）。
+\end{proof}
+
+\noindent
+因此，上述证明的观察是：若 $\alpha \in E$ 代数，则
+$k(\alpha) \subset E$ 同构于 $k[x]/(P)$。
+
+
+\section{代数闭包}
+\label{fields-section-algebraic-closure}
+
+\noindent
+“代数学基本定理”断言 $\mathbf{C}$ 是代数闭域。
+这一结果有一个使用复分析中刘维尔定理的漂亮证明；我们将给出另一证明
+（见引理 \ref{fields-lemma-C-algebraically-closed}）。
+% P01-E0243: source lines 895-898 join two independent clauses with a comma.
+
+\begin{definition}
+\label{fields-definition-algebraically-closed}
+若域 $F$ 的每个代数扩张 $E/F$ 都平凡，即 $E = F$，
+则称该域为{\it 代数闭域}。
+\end{definition}
+
+\noindent
+这未必是每本教材采用的定义。下面的引理将它与另一常用定义比较。
+
+\begin{lemma}
+\label{fields-lemma-algebraically-closed}
+令 $F$ 为域。下列条件等价：
+\begin{enumerate}
+\item $F$ 是代数闭域；
+\item $F$ 上的每个不可约多项式都是一次多项式；
+\item $F$ 上的每个非常数多项式都有根；
+\item $F$ 上的每个非常数多项式都是一次因子的乘积。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $F$ 是代数闭域，则每个不可约多项式都是一次的。
+事实上，若存在次数 $> 1$ 的不可约多项式，它就生成一个非平凡的有限
+（因而代数）域扩张；见例
+\ref{fields-example-degree-simple-algebraic-extension}。
+所以 (1) 蕴含 (2)。若每个不可约多项式都是一次的，
+则每个不可约多项式都有根，从而每个非常数多项式都有根。
+故 (2) 蕴含 (3)。
+
+\medskip\noindent
+假设每个非常数多项式都有根。令 $P \in F[x]$ 非常数。
+若 $P(\alpha) = 0$ 且 $\alpha \in F$，则由带余除法可知，
+对某个 $Q \in F[x]$ 有 $P = (x - \alpha)Q$。
+因此，对次数归纳可知，任意非常数多项式都可写成
+$c \prod (x - \alpha_i)$。
+
+\medskip\noindent
+最后，假设 $F$ 上每个非常数多项式都是一次因子的乘积。
+令 $E/F$ 为代数扩张。则 $E$ 的所有单子扩张
+$F(\alpha)/F$ 必然平凡（因为按假设，唯一的不可约多项式是一次的）。
+因此 $E = F$。这表明 (4) 蕴含 (1)，证明完成。
+\end{proof}
+
+\noindent
+现在要定义域的一个“泛”代数扩张。实际上必须谨慎：
+代数闭包{\it 不是}泛对象。也就是说，代数闭包并不在
+{\it 唯一}同构意义下唯一；它只在同构意义下唯一。
+不过，即使它不具有函子性，仍会非常方便。
+
+\begin{definition}
+\label{fields-definition-algebraic-closure}
+令 $F$ 为域。$F$ 的一个{\it 代数闭包}是包含 $F$ 的域
+$\overline{F}$，并且满足：
+\begin{enumerate}
+\item $\overline{F}$ 在 $F$ 上代数。
+\item $\overline{F}$ 是代数闭域。
+\end{enumerate}
+\end{definition}
+
+\noindent
+若 $F$ 是代数闭域，则 $F$ 就是它自身的代数闭包。
+现在证明基本的存在性结果。
+
+\begin{theorem}
+\label{fields-theorem-existence-algebraic-closure}
+每个域都有代数闭包。
+\end{theorem}
+
+\noindent
+这个证明与本章其余内容大多没有直接关系。不过，我们需要知道，
+把一个域嵌入代数闭域是{\it 可能的}，并且以后常假定已经作了这种嵌入。
+
+\begin{proof}
+令 $F$ 为域。由引理 \ref{fields-lemma-size-algebraic-extension}，
+$F$ 的任意代数扩张的基数不超过 $\max(\aleph_0, |F|)$。
+选择一个包含 $F$ 的集合 $S$，使 $|S| > \max(\aleph_0, |F|)$。
+考虑三元组 $(E, \sigma_E, \mu_E)$，其中
+\begin{enumerate}
+\item $E$ 是满足 $F \subset E \subset S$ 的集合；
+\item $\sigma_E : E \times E \to E$ 与
+$\mu_E : E \times E \to E$ 是集合映射，使得
+$(E, \sigma_E, \mu_E)$ 定义 $F$ 的域扩张结构
+（特别地，对 $a, b \in F$ 有 $\sigma_E(a, b) = a +_F b$，
+$\mu_E$ 也类似）；
+\item $E/F$ 是代数域扩张。
+\end{enumerate}
+所有三元组 $(E, \sigma_E, \mu_E)$ 构成一个集合 $I$。
+对 $i \in I$，把相应的 $F$-域扩张记作
+$E_i = (E_i, \sigma_i, \mu_i)$。
+% P01-E0244: source lines 991-992 omit “by” in “denote ... the corresponding”.
+在 $I$ 上定义偏序：规定 $i \leq i'$，当且仅当
+$E_i \subset E_{i'}$（这是有意义的，因为 $E_i$ 与 $E_{i'}$
+都是同一集合 $S$ 的子集），并且
+$\sigma_i = \sigma_{i'}|_{E_i \times E_i}$ 与
+$\mu_i = \mu_{i'}|_{E_i \times E_i}$；换言之，$E_{i'}$
+是 $E_i$ 的域扩张。
+
+\medskip\noindent
+令 $T \subset I$ 为全序子集。显然，
+$E_T = \bigcup_{i \in T} E_i$ 连同诱导映射
+$\sigma_T = \bigcup \sigma_i$ 与 $\mu_T = \bigcup \mu_i$
+仍是 $I$ 的元素。换言之，$I$ 的每个全序子集都在 $I$ 中有上界。
+% P01-E0245: source line 1003 says “totally order” and “a upper bound”.
+由佐恩引理，$I$ 中存在极大元素 $(E, \sigma_E, \mu_E)$。
+我们断言 $E$ 是代数闭包。按 $I$ 的定义，扩张 $E/F$ 代数，
+故只需证明 $E$ 是代数闭域。
+
+\medskip\noindent
+反证。假设 $E$ 不是代数闭域。则存在 $E$ 上次数 $> 1$ 的
+不可约多项式 $P$；见引理 \ref{fields-lemma-algebraically-closed}。
+由引理 \ref{fields-lemma-finite-is-algebraic}，得到非平凡有限扩张
+$E' = E[x]/(P)$。注意，由引理 \ref{fields-lemma-algebraic-permanence}，
+$E'/F$ 代数。因此 $E'$ 的基数满足
+$\leq \max(\aleph_0, |F|)$。由初等集合论，可以把已有单射
+$E \subset S$ 扩张为单射 $E' \to S$。换言之，可把
+$E'$ 看作集合 $I$ 的元素，这与 $E$ 的极大性矛盾。
+矛盾完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-map-into-algebraic-closure}
+令 $F$ 为域，令 $\overline{F}$ 为 $F$ 的代数闭包，并令
+$M/F$ 为代数扩张。则存在 $F$-扩张态射
+$M \to \overline{F}$。
+\end{lemma}
+
+\begin{proof}
+考虑由偶对 $(E, \varphi)$ 构成的集合 $I$，其中
+$F \subset E \subset M$ 是子扩张，而
+$\varphi : E \to \overline{F}$ 是 $F$-扩张态射。
+在 $I$ 上定义偏序：$(E, \varphi) \leq (E', \varphi')$，
+当且仅当 $E \subset E'$ 且 $\varphi'|_E = \varphi$。
+若 $T = \{(E_t,  \varphi_t)\} \subset I$ 是全序子集，则
+$\bigcup \varphi_t : \bigcup E_t \to \overline{F}$ 是 $I$ 的元素。
+因此，$I$ 的每个全序子集都有上界。由佐恩引理，$I$ 中存在
+极大元素 $(E, \varphi)$。我们断言 $E = M$，这将完成证明。
+否则，取 $\alpha \in M$ 且 $\alpha \not \in E$。
+则 $\alpha$ 在 $E$ 上代数；见引理 \ref{fields-lemma-algebraic-goes-up}。
+% P01-E0246: source line 1040 says “The alpha is algebraic” rather than “Then”.
+令 $P$ 为 $\alpha$ 在 $E$ 上的最小多项式，令
+$P^\varphi$ 为 $P$ 经 $\varphi$ 在 $\overline{F}[x]$ 中的像。
+由于 $\overline{F}$ 是代数闭域，$P^\varphi$ 在
+$\overline{F}$ 中有根 $\beta$。于是可把 $\varphi$ 扩张为
+$\varphi' : E(\alpha) = E[x]/(P) \to \overline{F}$，
+方法是把 $x$ 送到 $\beta$。这与 $(E, \varphi)$ 的极大性矛盾，
+正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-algebraic-closures-isomorphic}
+一个域的任意两个代数闭包同构。
+\end{lemma}
+
+\begin{proof}
+令 $F$ 为域。若 $M$ 与 $\overline{F}$ 都是 $F$ 的代数闭包，
+则由引理 \ref{fields-lemma-map-into-algebraic-closure}，存在
+$F$-扩张态射 $\varphi : M \to \overline{F}$。
+其像 $\varphi(M)$ 是代数闭域。另一方面，由引理
+\ref{fields-lemma-algebraic-goes-up}，扩张
+$\varphi(M) \subset \overline{F}$ 代数。
+因此 $\varphi(M) = \overline{F}$。
+\end{proof}
+
+
+
+
+
+\section{互素多项式}
+\label{fields-section-relatively-prime}
+
+\noindent
+令 $K$ 为代数闭域。正如引理 \ref{fields-lemma-algebraically-closed}
+中所见，环 $K[x]$ 的理想结构非常简单。特别地，每个多项式
+$P \in K[x]$ 都可写成
+$$
+P = c(x - \alpha_1) \ldots (x - \alpha_n)
+$$
+其中 $c$ 是常数项，而 $\alpha_1, \ldots, \alpha_n \in k$
+是 $P$ 的根（按重数计）。显然，$K[x]$ 中唯一的不可约多项式是
+一次多项式 $c(x - \alpha)$，其中 $c, \alpha \in K$
+且 $c \neq 0$。
+% P01-E0247: in source line 1081, c is the leading coefficient, not the
+% constant term, in the displayed factorization.
+% P01-E0248: source line 1081 places the roots in lowercase k although the
+% entire paragraph fixes the algebraically closed field K.
+
+\begin{definition}
+\label{fields-definition-relatively-prime}
+若 $k$ 是任意域，则称 $k[x]$ 中两个多项式{\it 互素}，
+若它们在 $k[x]$ 中生成单位理想。
+\end{definition}
+
+\noindent
+继续上面的讨论：若 $K$ 是代数闭域，则 $K[x]$ 中两个多项式互素，
+当且仅当它们没有公共根。这是因为 $K[x]$ 的极大理想都形如
+$(x - \alpha)$，其中 $\alpha \in K$。因此，若
+$F, G \in K[x]$ 没有公共根，则 $(F, G)$ 不可能包含在任何
+$(x - \alpha)$ 中（否则它们会在 $\alpha$ 处有公共根）。
+
+\medskip\noindent
+若 $k$ {\it 不是}代数闭域，上述讨论仍可给出关于 $k[x]$
+中两个多项式何时生成单位理想的信息。
+
+\begin{lemma}
+\label{fields-lemma-relatively-prime-polynomials}
+$k[x]$ 中两个多项式互素，恰好当它们在 $k$ 的某个代数闭包
+$\overline{k}$ 中没有公共根。
+\end{lemma}
+
+\begin{proof}
+所要证明的是：任意两个多项式 $P, Q$ 在 $k[x]$ 中生成 $(1)$，
+当且仅当它们在 $\overline{k}[x]$ 中生成 $(1)$。
+这是线性代数的一个结论：系数在 $k$ 中的线性方程组有解，
+当且仅当它在 $k$ 的任意扩域中有解。
+因此，可以归约到代数闭域的情形；此时结论由已经证明的内容显然成立。
+\end{proof}
+
+
+
+
+
+\section{可分代数扩张}
+\label{fields-section-separable-extensions}
+
+\noindent
+在特征 $p$ 的域上，不可约多项式会出现一种特殊现象。
+下面的引理对此作出说明。
+
+\begin{lemma}
+\label{fields-lemma-irreducible-polynomials}
+令 $F$ 为域，令 $P \in F[x]$ 为 $F$ 上的不可约多项式。
+令 $P' = \text{d}P/\text{d}x$ 为 $P$ 关于 $x$ 的导数。
+则会出现下列两种情形之一：
+\begin{enumerate}
+\item $P$ 与 $P'$ 互素；或者
+\item $P'$ 是零多项式。
+\end{enumerate}
+第二种情形只可能在 $F$ 的特征 $p > 0$ 时发生。
+此时 $P(x) = Q(x^q)$，其中 $q = p^f$ 是 $p$ 的幂，
+而 $Q \in F[x]$ 是不可约多项式，且 $Q$ 与 $Q'$ 互素。
+\end{lemma}
+
+\begin{proof}
+注意 $P'$ 的次数 $< \deg(P)$。因此，若 $P$ 与 $P'$ 不互素，
+则 $(P, P') = (R)$，其中 $R$ 的次数 $< \deg(P)$，
+这与 $P$ 的不可约性矛盾。这证明了 (1) 与 (2) 的二分情形。
+
+\medskip\noindent
+假设处于情形 (2)，且 $P = a_d x^d + \ldots + a_0$。
+则 $P' = da_d x^{d - 1} + \ldots + a_1$。在特征 $0$ 时，
+这迫使 $a_d, \ldots, a_1 = 0$，从而 $P$ 为常数，矛盾。
+因此，特征 $p$ 必为正。此时，条件 $P' = 0$ 迫使
+凡 $p$ 不整除 $i$ 时都有 $a_i = 0$。
+换言之，对某个非常数多项式 $P_1$，有
+$P(x) = P_1(x^p)$。显然，$P_1$ 也不可约。
+对次数归纳可知，$P_1(x) = Q(x^q)$，如引理所述；
+因此 $P(x) = Q(x^{pq})$，引理得证。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-separable}
+令 $F$ 为域，令 $K/F$ 为域扩张。
+\begin{enumerate}
+\item 若 $F$ 上的不可约多项式 $P$ 与其导数互素，
+则称它{\it 可分}。
+\item 给定在 $F$ 上代数的 $\alpha \in K$，若它的最小多项式在
+$F$ 上可分，则称 $\alpha$ 在 $F$ 上{\it 可分}。
+\item 若 $K$ 是 $F$ 的代数扩张，并且 $K$ 的每个元素都在
+$F$ 上可分，则称 $K$ 在 $F$ 上
+{\it 可分}\footnote{对于非代数扩张，这一定义没有意义，
+也不是正确的定义。请参见代数，第
+\ref{algebra-section-separability} 节与第
+\ref{algebra-section-separability-continued} 节。}
+\end{enumerate}
+\end{definition}
+
+\noindent
+由引理 \ref{fields-lemma-irreducible-polynomials}，在特征 $0$ 时，
+每个不可约多项式都可分，扩域中的每个代数元素都可分，
+并且每个代数扩张都可分。
+
+\begin{lemma}
+\label{fields-lemma-separable-goes-up}
+令 $K/E/F$ 为代数域扩张塔。
+\begin{enumerate}
+\item 若 $\alpha \in K$ 在 $F$ 上可分，则 $\alpha$ 在
+$E$ 上可分。
+\item 若 $K$ 在 $F$ 上可分，则 $K$ 在 $E$ 上可分。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下不再特别说明地使用引理 \ref{fields-lemma-irreducible-polynomials}。
+令 $P$ 为 $\alpha$ 在 $F$ 上的最小多项式，令 $Q$ 为
+$\alpha$ 在 $E$ 上的最小多项式。则在多项式环 $E[x]$ 中
+$Q$ 整除 $P$；设 $P = QR$。于是 $P' = Q'R + QR'$。
+因此，若 $Q' = 0$，则 $Q$ 同时整除 $P$ 与 $P'$，
+故由该引理有 $P' = 0$。这证明了 (1)。
+(2) 立即由 (1) 和定义得到。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-recognize-separable}
+令 $F$ 为域。$F$ 上的不可约多项式 $P$ 可分，当且仅当
+$P$ 在 $F$ 的某个代数闭包中具有两两不同的根。
+\end{lemma}
+
+\begin{proof}
+假设 $\alpha \in \overline{F}$ 同时是 $P$ 与 $P'$ 的根。
+则对某个多项式 $Q$ 有 $P = (x - \alpha)Q$。
+求导得到 $P' = Q + (x - \alpha)Q'$。因此 $\alpha$ 是 $Q$ 的根。
+由此可见，若 $P$ 与 $P'$ 有公共根，则 $P$ 的根并非两两不同。
+反过来，若 $P$ 有重根，即 $(x - \alpha)^2$ 整除 $P$，
+则 $\alpha$ 同时是 $P$ 与 $P'$ 的根。结合引理
+\ref{fields-lemma-relatively-prime-polynomials} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-nr-roots-unchanged}
+令 $F$ 为域，令 $\overline{F}$ 为 $F$ 的代数闭包。
+令 $p > 0$ 为 $F$ 的特征，并令 $P$ 为 $F$ 上的多项式。
+则 $P$ 与 $P(x^p)$ 在 $\overline{F}$ 中的根集具有相同基数
+（不计重数）。
+% P01-E0249: source lines 1228-1229 use plural “have” with singular “set”.
+\end{lemma}
+
+\begin{proof}
+显然，$\alpha$ 是 $P(x^p)$ 的根，当且仅当 $\alpha^p$ 是
+$P$ 的根。换言之，$P(x^p)$ 的根就是各个 $x^p - \beta$
+的根，其中 $\beta$ 是 $P$ 的根。因此，只需证明映射
+$\overline{F} \to \overline{F}$，$\alpha \mapsto \alpha^p$
+是双射。它是满射，因为 $\overline{F}$ 是代数闭域，
+即每个元素都有 $p$ 次根。它也是单射，因为
+$\alpha^p = \beta^p$ 蕴含 $(\alpha - \beta)^p = 0$，
+这里使用了特征为 $p$。当然，在域中，$x^p = 0$ 蕴含 $x = 0$。
+\end{proof}
+
+\noindent
+令 $F$ 为域，令 $P$ 为 $F$ 上的不可约多项式。
+已知 $P = Q(x^q)$，其中 $Q$ 是某个可分不可约多项式
+（引理 \ref{fields-lemma-irreducible-polynomials}），而 $q$ 是特征
+$p$ 的一个幂（若特征为零，则
+$q = 1$\footnote{本章中一个方便的约定是置 $0^0 = 1$。}
+且 $Q = P$）。由引理 \ref{fields-lemma-nr-roots-unchanged}，
+$P$ 与 $Q$ 在 $F$ 的任意代数闭包中的根数相同。
+由引理 \ref{fields-lemma-recognize-separable}，这个数等于 $Q$ 的次数。
+
+\begin{definition}
+\label{fields-definition-separable-degree}
+令 $F$ 为域，令 $P$ 为 $F$ 上的不可约多项式。
+$P$ 的{\it 可分次数}是 $P$ 在 $F$ 的任意代数闭包中的根集基数
+（见上面的讨论），记作 $\deg_s(P)$。
+\end{definition}
+
+\noindent
+$P$ 的可分次数总是整除其次数，商是特征的一个幂。
+若特征为零，则 $\deg_s(P) = \deg(P)$。
+
+\begin{situation}
+\label{fields-situation-finitely-generated}
+这里 $F$ 为域，$K/F$ 是由元素
+$\alpha_1, \ldots, \alpha_n \in K$ 生成的有限扩张。
+% P01-E0250: source line 1270 says “Here F be a field”.
+置 $K_0 = F$，以及
+$$
+K_i = F(\alpha_1, \ldots, \alpha_i)
+$$
+从而得到有限扩张塔
+$K = K_n / K_{n - 1} / \ldots / K_0 = F$。
+以 $P_i$ 表示 $\alpha_i$ 在 $K_{i - 1}$ 上的最小多项式。
+最后，固定 $F$ 的一个代数闭包 $\overline{F}$。
+\end{situation}
+
+\noindent
+令 $F$、$K$、$\alpha_i$ 与 $\overline{F}$ 如情形
+\ref{fields-situation-finitely-generated} 所述。
+假设 $\varphi : K \to \overline{F}$ 是 $F$-扩张态射。
+于是得到映射 $\varphi_i : K_i \to \overline{F}$。
+$P_i \in K_{i - 1}[x]$ 经 $\varphi_{i - 1}$ 的像是多项式
+$P_i^{\varphi_{i - 1}} \in \overline{F}[x]$，并且
+$\varphi(\alpha_i)$ 是该多项式的根。
+
+\begin{lemma}
+\label{fields-lemma-count-embeddings}
+在情形 \ref{fields-situation-finitely-generated} 中，对应
+$$
+\Mor_F(K, \overline{F})
+\longrightarrow
+\{(\beta_1, \ldots, \beta_n)\text{ 如下}\},
+\quad
+\varphi \longmapsto (\varphi(\alpha_1), \ldots, \varphi(\alpha_n))
+$$
+是双射。这里右端是 $\overline{F}$ 中元素的 $n$-元组
+$(\beta_1, \ldots, \beta_n)$ 所成的集合，并满足：
+\begin{enumerate}
+\item $\beta_1 \in \overline{F}$ 是 $P_1$ 的根；
+令 $\varphi_1 : K_1 \to \overline{F}$ 为把 $\alpha_1$
+送到 $\beta_1$ 的 $F$-同态；
+\item $\beta_2 \in \overline{F}$ 是 $P_2^{\varphi_1}$ 的根；
+令 $\varphi_2 : K_2 \to \overline{F}$ 为把 $\alpha_2$
+送到 $\beta_2$ 且扩张 $\varphi_1$ 的同态；
+\item 如此继续，直到
+\item $\beta_n \in \overline{F}$ 是
+$P_n^{\varphi_{n - 1}}$ 的根。
+\end{enumerate}
+每一步中，同态 $\varphi_i$ 都存在且唯一，因为
+$K_i = K_{i - 1}[x]/(P_i)$，而 $\beta_i$ 是
+$P_i^{\varphi_{i - 1}}$ 的根。
+% P01-E0251: source lines 1313 and 1320 misspell “homomorphism” as
+% “homorphism”.
+\end{lemma}
+
+\begin{proof}
+上文已经讨论了从左到右的映射。
+令 $(\beta_1, \ldots, \beta_n)$ 为右端的元素。
+令 $\varphi : K = K_n \to \overline{F}$ 为把 $\alpha_n$
+送到 $\beta_n$ 且扩张 $\varphi_{n - 1}$ 的唯一同态。
+唯一性表明两个构造互为逆。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-count-embeddings-explicitly}
+在情形 \ref{fields-situation-finitely-generated} 中，有
+$|\Mor_F(K, \overline{F})| = \prod_{i = 1}^n \deg_s(P_i)$。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{fields-lemma-count-embeddings} 得到。
+注意，这里默默使用的一个关键事实是不可约多项式可分次数的良定义性；
+这一点已在定义 \ref{fields-definition-separable-degree} 之前说明。
+\end{proof}
+
+\noindent
+现在用上述结果刻画可分域扩张。
+
+\begin{lemma}
+\label{fields-lemma-separably-generated-separable}
+假设与记号如情形 \ref{fields-situation-finitely-generated}。
+若每个 $P_i$ 都可分，即每个 $\alpha_i$ 都在
+$K_{i - 1}$ 上可分，则
+$$
+|\Mor_F(K, \overline{F})| = [K : F]
+$$
+且域扩张 $K/F$ 可分。若某个 $\alpha_i$ 在 $K_{i - 1}$ 上
+不可分，则
+$|\Mor_F(K, \overline{F})| < [K : F]$。
+\end{lemma}
+
+\begin{proof}
+若 $\alpha_i$ 在 $K_{i - 1}$ 上可分，则
+$\deg_s(P_i) = \deg(P_i) = [K_i : K_{i - 1}]$
+（最后一个等式由引理 \ref{fields-lemma-degree-minimal-polynomial} 得到）。
+由乘法性（引理 \ref{fields-lemma-multiplicativity-degrees}），有
+$$
+[K : F] = \prod [K_i : K_{i - 1}] = \prod \deg(P_i) =
+\prod \deg_s(P_i) = |\Mor_F(K, \overline{F})|
+$$
+其中最后一个等式是引理
+\ref{fields-lemma-count-embeddings-explicitly}。完全相同的论证表明，
+若某个 $\alpha_i$ 在 $K_{i - 1}$ 上不可分，则有严格不等式
+$|\Mor_F(K, \overline{F})| < [K : F]$。
+
+\medskip\noindent
+最后，再次假设每个 $\alpha_i$ 都在 $K_{i - 1}$ 上可分。
+我们将证明 $K/F$ 可分。任取 $\gamma = \gamma_1 \in K$。
+可以找到另外一些元素 $\gamma_2, \ldots, \gamma_m$，使
+$K = F(\gamma_1, \ldots, \gamma_m)$（例如，可取
+$\gamma_2 = \alpha_1, \ldots, \gamma_{n + 1} = \alpha_n$）。
+由引理已经证明的后一部分可知，若 $\gamma$ 在 $F$ 上不可分，
+则有严格不等式 $|\Mor_F(K, \overline{F})| < [K : F]$，
+这与引理最先证明的部分矛盾。
+% P01-E0252: source lines 1379-1380 say “already prove above”.
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-separable-equality}
+令 $K/F$ 为有限域扩张，令 $\overline{F}$ 为 $F$ 的代数闭包。
+则
+$$
+|\Mor_F(K, \overline{F})| \leq [K : F]
+$$
+且等号成立，当且仅当 $K$ 在 $F$ 上可分。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{fields-lemma-separably-generated-separable} 的推论。
+事实上，由于 $K/F$ 有限，可找到有限多个元素
+$\alpha_1, \ldots, \alpha_n \in K$，它们在 $F$ 上生成 $K$
+（例如，可取 $\alpha_i$ 为 $K$ 在 $F$ 上的一组基）。
+若 $K/F$ 可分，则由引理 \ref{fields-lemma-separable-goes-up}，
+每个 $\alpha_i$ 都在 $F(\alpha_1, \ldots, \alpha_{i - 1})$
+上可分；再由引理 \ref{fields-lemma-separably-generated-separable} 得到等号。
+另一方面，若等号成立，则不论怎样选择
+$\alpha_1, \ldots, \alpha_n$，引理
+\ref{fields-lemma-separably-generated-separable} 都表明 $\alpha_1$
+在 $F$ 上可分。由于可用 $K$ 的任意元素开始这一序列，
+故 $K$ 在 $F$ 上可分。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-separable-permanence}
+令 $E/k$ 与 $F/E$ 为可分代数域扩张。则 $F/k$ 是可分域扩张。
+\end{lemma}
+
+\begin{proof}
+取 $\alpha \in F$。则 $\alpha$ 在 $E$ 上可分且代数。
+令 $P = x^d + \sum_{i < d} a_i x^i$ 为 $\alpha$ 在 $E$ 上的
+最小多项式。每个 $a_i$ 都在 $k$ 上可分且代数。考虑域塔
+$$
+k \subset k(a_0) \subset k(a_0, a_1) \subset \ldots \subset
+k(a_0, \ldots, a_{d - 1}) \subset k(a_0, \ldots, a_{d - 1}, \alpha)
+$$
+由于 $a_i$ 在 $k$ 上可分且代数，由引理
+\ref{fields-lemma-separable-goes-up}，它在
+$k(a_0, \ldots, a_{i - 1})$ 上也可分且代数。
+最后，$\alpha$ 在 $k(a_0, \ldots, a_{d - 1})$ 上可分且代数，
+因为它是 $P$ 的根，而该多项式不可约
+（因为它在可能更大的域 $E$ 上不可约）且可分
+（因为它在 $E$ 上可分）。因此，由引理
+\ref{fields-lemma-separably-generated-separable}，
+$k(a_0, \ldots, a_{d - 1}, \alpha)$ 在 $k$ 上可分，
+从而 $\alpha$ 在 $k$ 上可分，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-separable-elements}
+令 $E/k$ 为域扩张。则 $E$ 中在 $k$ 上可分的元素构成
+$E/k$ 的一个子扩张。
+\end{lemma}
+
+\begin{proof}
+令 $\alpha, \beta \in E$ 在 $k$ 上可分。由引理
+\ref{fields-lemma-separable-goes-up}，$\beta$ 在 $k(\alpha)$ 上可分。
+由引理 \ref{fields-lemma-separably-generated-separable}
+（取 $n = 2$、$\alpha_1 = \alpha$ 与 $\alpha_2 = \beta$），
+$k(\alpha, \beta)$ 在 $k$ 上可分。
+\end{proof}
+
+
+
+
+
+\section{特征标的线性无关性}
+\label{fields-section-independence-characters}
+
+\noindent
+以下是所需陈述。
+
+\begin{lemma}
+\label{fields-lemma-independence-characters}
+令 $L$ 为域，令 $G$ 为幺半群，例如群。设
+$\chi_1, \ldots, \chi_n : G \to L$ 是两两不同的幺半群同态，
+其中把 $L$ 视为乘法幺半群。则
+$\chi_1, \ldots, \chi_n$ 在 $L$ 上线性无关：若
+$\lambda_1, \ldots, \lambda_n \in L$ 不全为零，
+则对某个 $g \in G$ 有 $\sum \lambda_i\chi_i(g) \not = 0$。
+\end{lemma}
+
+\begin{proof}
+若 $n = 1$，结论成立，因为当 $e \in G$ 是单位元时，
+$\chi_1(e) = 1$。对 $n > 1$ 归纳证明。
+设 $\lambda_1, \ldots, \lambda_n \in L$ 不全为零。
+若某个 $\lambda_i = 0$，则由关于 $n$ 的归纳假设即得结论。
+我们要证明对某个 $g \in G$ 有
+$\sum \lambda_i\chi_i(g) \not = 0$，故除以 $-\lambda_n$ 后，
+可假设 $\lambda_n = -1$。唯一可能出问题的情形是
+$$
+\chi_n(g) = \sum\nolimits_{i = 1, \ldots, n - 1} \lambda_i\chi_i(g)
+$$
+对所有 $g \in G$ 都成立。固定 $h \in G$，于是还会有
+\begin{align*}
+\chi_n(h)\chi_n(g) & = \chi_n(hg) \\
+& = \sum\nolimits_{i = 1, \ldots, n - 1} \lambda_i\chi_i(hg) \\
+& = \sum\nolimits_{i = 1, \ldots, n - 1} \lambda_i\chi_i(h) \chi_i(g)
+\end{align*}
+把前一关系乘以 $\chi_n(h)$ 再相减，得到
+$$
+0 = \sum\nolimits_{i = 1, \ldots, n - 1}
+\lambda_i (\chi_n(h) - \chi_i(h)) \chi_i(g)
+$$
+对所有 $g \in G$ 成立。由于 $\lambda_i \not = 0$，
+归纳假设表明对所有 $i$ 都有 $\chi_n(h) = \chi_i(h)$。
+上面对 $h$ 的选择任意，所以对 $i \leq n - 1$ 有
+$\chi_i = \chi_n$，这与特征标 $\chi_i$ 两两不同的假设矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-sums-of-powers}
+令 $L$ 为域。设 $n \geq 1$，且
+$\alpha_1, \ldots, \alpha_n \in L$ 是 $L$ 中两两不同的元素。
+则存在 $e \geq 0$，使
+$\sum_{i = 1, \ldots, n} \alpha_i^e \not = 0$。
+\end{lemma}
+
+\begin{proof}
+把特征标的线性无关性（引理
+\ref{fields-lemma-independence-characters}）应用于幺半群同态
+$\mathbf{Z}_{\geq 0} \to L$，$e \mapsto \alpha_i^e$。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-independence-embeddings}
+令 $K/F$ 与 $L/F$ 为域扩张，令
+$\sigma_1, \ldots, \sigma_n : K \to L$ 为两两不同的
+$F$-扩张态射。则 $\sigma_1, \ldots, \sigma_n$
+在 $L$ 上线性无关：若 $\lambda_1, \ldots, \lambda_n \in L$
+不全为零，则对某个 $\alpha \in K$ 有
+$\sum \lambda_i\sigma_i(\alpha) \not = 0$。
+\end{lemma}
+
+\begin{proof}
+把引理 \ref{fields-lemma-independence-characters}
+应用于 $\sigma_i$ 在单位群上的限制。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-finite-separable-tensor-alg-closed}
+令 $K/F$ 与 $L/F$ 为域扩张，其中 $K/F$ 有限可分，
+而 $L$ 代数闭。则映射
+$$
+K \otimes_F L
+\longrightarrow
+\prod\nolimits_{\sigma \in \Hom_F(K, L)} L,\quad
+\alpha \otimes \beta \mapsto (\sigma(\alpha)\beta)_\sigma
+$$
+是 $L$-代数同构。
+\end{lemma}
+
+\begin{proof}
+选择 $K$ 作为 $F$-向量空间的一组基
+$\alpha_1, \ldots, \alpha_n$。由引理
+\ref{fields-lemma-separable-equality}（再加一个略去的小论证），集合
+$\Hom_F(K, L)$ 有 $n$ 个元素，记作
+$\sigma_1, \ldots, \sigma_n$。特别地，两端作为
+$L$-向量空间具有相同维数 $n$。因此，若该映射不是同构，
+它就有核。换言之，存在不全为零的
+$\mu_j \in L$，$j = 1, \ldots, n$，使
+$\sum \alpha_j \otimes \mu_j$ 属于核。也就是说，
+对所有 $i$ 都有 $\sum \sigma_i(\alpha_j)\mu_j = 0$。
+这意味着以 $\sigma_i(\alpha_j)$ 为元素的
+$n \times n$ 矩阵不可逆。因此，可找到不全为零的
+$\lambda_1, \ldots, \lambda_n \in L$，使
+对所有 $j$ 都有 $\sum \lambda_i\sigma_i(\alpha_j) = 0$。
+现在，任意元素 $\alpha \in K$ 都可写成
+$\alpha = \sum \beta_j \alpha_j$，其中 $\beta_j \in F$，
+于是得到
+$$
+\sum \lambda_i\sigma_i(\alpha) =
+\sum \lambda_i\sigma_i(\sum \beta_j \alpha_j) =
+\sum \beta_j \sum \lambda_i\sigma_i(\alpha_j) = 0
+$$
+这与引理 \ref{fields-lemma-independence-embeddings} 矛盾。
+\end{proof}
+
+
+
+
+
+
+
+\section{纯不可分扩张}
+\label{fields-section-purely-inseparable}
+
+\noindent
+纯不可分扩张与上一节定义的可分扩张相对。这类扩张只在正特征中出现。
+
+\begin{definition}
+\label{fields-definition-purely-inseparable}
+令 $F$ 为特征 $p > 0$ 的域，令 $K/F$ 为扩张。
+\begin{enumerate}
+\item 若存在 $p$ 的某个幂 $q$，使得 $\alpha^q \in F$，
+则称元素 $\alpha \in K$ 在 $F$ 上{\it 纯不可分}。
+\item 扩张 $K/F$ 称为{\it 纯不可分}，当且仅当 $K$ 的每个元素
+都在 $F$ 上纯不可分。
+\end{enumerate}
+若有域扩张 $L/M$（不对 $M$ 的特征作任何条件），则称该扩张
+{\it 纯不可分}，若 $L = M$，或者 $M$ 的特征是某个素数 $p$，
+且 $L/M$ 在上述意义下纯不可分。
+\end{definition}
+
+\noindent
+注意，纯不可分扩张必然是代数扩张。
+令 $F$ 为特征 $p > 0$ 的域。纯不可分扩张的一个例是：
+给元素 $t \in F$ 添加一个它原先没有的 $p$ 次根。
+具体而言，下面的引理表明 $P = x^p - t$ 不可约，因而
+$$
+K = F[x]/(P) = F[t^{1/p}]
+$$
+是域。而 $K$ 在 $F$ 上纯不可分，因为 $K$ 的每个元素
+$$
+a_0 + a_1t^{1/p} + \ldots + a_{p - 1}t^{(p - 1)/p},\quad a_i \in F
+$$
+的 $p$ 次幂等于
+$$
+(a_0 + a_1t^{1/p} + \ldots + a_{p - 1}t^{(p - 1)/p})^p =
+a_0^p + a_1^p t + \ldots + a_{p - 1}^pt^{p - 1} \in F
+$$
+这种情形出现在 $\mathbf{F}_p$ 上的有理函数域
+$\mathbf{F}_p(t)$ 中。
+
+\begin{lemma}
+\label{fields-lemma-take-pth-root}
+令 $p$ 为素数，令 $F$ 为特征 $p$ 的域。
+令 $t \in F$ 为在 $F$ 中没有 $p$ 次根的元素。
+则多项式 $x^p - t$ 在 $F$ 上不可约。
+\end{lemma}
+
+\begin{proof}
+假设存在分解 $x^p - t = f g$。求导得到
+$f' g + f g' = 0$。由于 $f$ 与 $g$ 的次数都小于 $p$，
+$f' = 0$ 与 $g' = 0$ 都不成立。此外，
+$\deg(f') < \deg(f)$ 且 $\deg(g') < \deg(g)$。
+由此可知 $f$ 与 $g$ 有公共因子。因此，若 $x^p - t$ 可约，
+则它形如 $x^p - t = c f^n$，其中 $f$ 不可约，
+$c \in F^*$ 且 $n > 1$。由于 $p$ 是素数，这迫使
+$n = p$ 且 $f$ 为一次多项式，进而意味着 $x^p - t$ 在
+$F$ 中有根，矛盾。
+\end{proof}
+
+\noindent
+我们将看到，在特征 $p$ 中取 $p$ 次根是一种非常重要的运算。
+
+\begin{lemma}
+\label{fields-lemma-purely-inseparable-permanence}
+令 $E/k$ 与 $F/E$ 为纯不可分域扩张。则 $F/k$ 是纯不可分域扩张。
+\end{lemma}
+
+\begin{proof}
+设 $k$ 的特征为 $p$。取 $\alpha \in F$。则对某个
+$p$ 的幂 $q$ 有 $\alpha^q \in E$。继而，对某个
+$p$ 的幂 $q'$ 有 $(\alpha^q)^{q'} \in k$。
+所以 $\alpha^{qq'} \in k$。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-purely-inseparable-elements}
+令 $E/k$ 为域扩张。则 $E$ 中在 $k$ 上纯不可分的元素构成
+$E/k$ 的一个子扩张。
+\end{lemma}
+
+\begin{proof}
+令 $p$ 为 $k$ 的特征。设 $\alpha, \beta \in E$ 在 $k$ 上
+纯不可分。对某些 $p$ 的幂 $q, q'$，有
+$\alpha^q \in k$ 且 $\beta^{q'} \in k$。
+若 $q''$ 是 $p$ 的幂，则
+$(\alpha + \beta)^{q''} = \alpha^{q''} + \beta^{q''}$。
+因此，若 $q'' \geq q, q'$，则 $\alpha + \beta$
+在 $k$ 上纯不可分。$\alpha$ 与 $\beta$ 的差、积与商也同理。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-finite-purely-inseparable}
+令 $E/F$ 为特征 $p > 0$ 的有限纯不可分域扩张。
+则存在元素序列 $\alpha_1, \ldots, \alpha_n \in E$，
+使我们得到域塔
+$$
+E = F(\alpha_1, \ldots, \alpha_n) \supset
+F(\alpha_1, \ldots, \alpha_{n - 1}) \supset
+\ldots
+\supset F(\alpha_1) \supset F
+$$
+其中每个中间扩张的次数都是 $p$，且由添加一个 $p$ 次根得到。
+具体而言，
+$\alpha_i^p \in F(\alpha_1, \ldots, \alpha_{i - 1})$
+是在 $F(\alpha_1, \ldots, \alpha_{i - 1})$ 中没有
+$p$ 次根的元素，这里 $i = 1, \ldots, n$。
+\end{lemma}
+
+\begin{proof}
+对 $E/F$ 的次数归纳。若扩张次数为 $1$，结论显然
+（取 $n = 0$）。否则，选择 $\alpha \in E$ 且
+$\alpha \not \in F$。设对某个 $r > 0$ 有
+$\alpha^{p^r} \in F$。取最小的 $r$，并以
+$\alpha^{p^{r - 1}}$ 替换 $\alpha$。于是
+$\alpha \not \in F$，但 $\alpha^p \in F$。
+此时 $t = \alpha^p$ 不是 $F$ 中的 $p$ 次幂
+（否则 $\alpha \in F$；见引理
+\ref{fields-lemma-nr-roots-unchanged} 或其证明）。
+因此，$F \subset F(\alpha)$ 是次数为 $p$ 的子扩张
+（引理 \ref{fields-lemma-take-pth-root}）。由归纳假设，可找到
+$\alpha_1, \ldots, \alpha_n \in E$，它们生成
+$E/F(\alpha)$ 并满足引理的结论。序列
+$\alpha, \alpha_1, \ldots, \alpha_n$ 对扩张 $E/F$ 合乎要求。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-separable-first}
+\begin{slogan}
+任意代数域扩张都唯一地分解为先可分扩张、后纯不可分扩张。
+\end{slogan}
+令 $E/F$ 为代数域扩张。存在唯一的子扩张 $E/E_{sep}/F$，
+使 $E_{sep}/F$ 可分，而 $E/E_{sep}$ 纯不可分。
+\end{lemma}
+
+\begin{proof}
+若特征为零，置 $E_{sep} = E$。假设特征为 $p > 0$。
+令 $E_{sep}$ 为 $E$ 中在 $F$ 上可分的元素集合。
+由引理 \ref{fields-lemma-separable-elements}，它是子扩张；
+当然，$E_{sep}$ 在 $F$ 上可分。
+给定 $E$ 中的 $\alpha$，存在 $p$ 的某个幂 $q$，
+使 $\alpha^q$ 在 $F$ 上可分。具体地，$q$ 就是使
+$\alpha$ 的最小多项式形如 $P(x^q)$ 的那个 $p$ 的幂，
+其中 $P$ 可分且代数；见引理
+\ref{fields-lemma-irreducible-polynomials}。所以 $E/E_{sep}$ 纯不可分。
+唯一性显然。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-insep-degree}
+令 $E/F$ 为代数域扩张，令 $E_{sep}$ 为引理
+\ref{fields-lemma-separable-first} 中得到的子扩张。
+\begin{enumerate}
+\item 整数 $[E_{sep} : F]$ 称为该扩张的{\it 可分次数}，
+记作 $[E : F]_s$。
+\item 整数 $[E : E_{sep}]$ 称为该扩张的{\it 不可分次数}，
+或{\it 不可分度}，记作 $[E : F]_i$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+当然，在特征 $0$ 时，有 $[E : F] = [E : F]_s$ 以及
+$[E : F]_i = 1$。由乘法性（引理
+\ref{fields-lemma-multiplicativity-degrees}），有
+$$
+[E : F] = [E : F]_s [E : F]_i
+$$
+即使这些次数中有些是无限的也成立。事实上，可分次数与不可分次数
+也分别具有乘法性（见引理
+\ref{fields-lemma-multiplicativity-all-degrees}）。
+
+\begin{lemma}
+\label{fields-lemma-separable-degree}
+令 $K/F$ 为有限扩张，令 $\overline{F}$ 为 $F$ 的代数闭包。
+则 $[K : F]_s = |\Mor_F(K, \overline{F})|$。
+\end{lemma}
+
+\begin{proof}
+先证明 $K/F$ 纯不可分的情形。我们断言，此时存在唯一映射
+$K \to \overline{F}$。可选择引理
+\ref{fields-lemma-finite-purely-inseparable} 中的元素序列
+$\alpha_1, \ldots, \alpha_n \in K$ 来看出这一点。
+$\alpha_i$ 在 $F(\alpha_1, \ldots, \alpha_{i - 1})$ 上的
+不可约多项式是 $x^p - \alpha_i^p$。应用引理
+\ref{fields-lemma-count-embeddings-explicitly}，得到
+$|\Mor_F(K, \overline{F})| = 1$。另一方面，此时
+$[K : F]_s = 1$，所以等式成立。
+
+\medskip\noindent
+回到一般有限扩张 $K/F$。依照引理
+\ref{fields-lemma-separable-first}，选择 $F \subset K_s \subset K$。
+由引理 \ref{fields-lemma-separable-equality}，有
+$|\Mor_F(K_s, \overline{F})| = [K_s : F] = [K : F]_s$。
+另一方面，根据上一段的结果，每个域映射
+$\sigma' : K_s \to \overline{F}$ 都唯一扩张为域映射
+$\sigma : K \to \overline{F}$。换言之，
+$|\Mor_F(K, \overline{F})| = |\Mor_F(K_s, \overline{F})|$，
+证明完成。
+\end{proof}
+
+\begin{lemma}[乘法性]
+\label{fields-lemma-multiplicativity-all-degrees}
+给定代数域扩张塔 $K/E/F$，则
+$$
+[K : F]_s = [K : E]_s [E : F]_s
+\quad\text{且}\quad
+[K : F]_i = [K : E]_i [E : F]_i
+$$
+\end{lemma}
+
+\begin{proof}
+先证明 $K$ 在 $F$ 上有限的情形。由于通常次数具有乘法性
+（引理 \ref{fields-lemma-multiplicativity-degrees}），
+只需证明两个公式中的一个。由引理
+\ref{fields-lemma-separable-degree}，有
+$[K : F]_s = |\Mor_F(K, \overline{F})|$。
+由同一引理，对任意
+$\sigma \in \Mor_F(E, \overline{F})$，$\sigma$
+扩张为映射 $\tau : K \to \overline{F}$ 的方式数为
+$[K : E]_s$。事实上，通过
+$E \cong \sigma(E) \subset \overline{F}$，
+可把 $\overline{F}$ 看作 $E$ 的代数闭包。
+再结合 $\sigma$ 有
+$[E : F]_s = |\Mor_F(E, \overline{F})|$ 种选择，即得结论。
+
+\medskip\noindent
+扩张为无限扩张时的证明从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{正规扩张}
+\label{fields-section-normal}
+
+\noindent
+令 $P \in F[x]$ 为域 $F$ 上的非常数多项式。若存在
+$c \in F^*$、$n \geq 1$、$\alpha_1, \ldots, \alpha_n \in F$，
+使得在 $F[x]$ 中有
+$$
+P = c(x - \alpha_1) \ldots (x - \alpha_n),
+$$
+则称 $P$ {\it 在 $F$ 上完全分解为一次因子}，或简称
+{\it 在 $F$ 上完全分解}。正规扩张定义如下。
+
+\begin{definition}
+\label{fields-definition-normal}
+令 $E/F$ 为代数域扩张。若对所有 $\alpha \in E$，
+$\alpha$ 在 $F$ 上的最小多项式 $P$ 都在 $E$ 上完全分解为
+一次因子，则称 $E$ 在 $F$ 上{\it 正规}。
+\end{definition}
+
+\noindent
+与可分扩张的情形一样，建立这一概念的基本性质需要一些工作。
+
+\begin{lemma}
+\label{fields-lemma-normal-goes-up}
+令 $K/E/F$ 为代数域扩张塔。若 $K$ 在 $F$ 上正规，
+则 $K$ 在 $E$ 上正规。
+\end{lemma}
+
+\begin{proof}
+取 $\alpha \in K$。令 $P$ 为 $\alpha$ 在 $F$ 上的最小多项式，
+令 $Q$ 为 $\alpha$ 在 $E$ 上的最小多项式。
+则在多项式环 $E[x]$ 中，$Q$ 整除 $P$；设 $P = QR$。
+所以，若 $P$ 在 $K$ 上完全分解，则 $Q$ 也如此。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-intersect-normal}
+令 $F$ 为域，令 $M/F$ 为代数扩张。设
+$M/E_i/F$（$i \in I$）为子扩张，且 $E_i/F$ 正规。
+则 $\bigcap E_i$ 在 $F$ 上正规。
+\end{lemma}
+
+\begin{proof}
+由定义直接得到。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-separable-first-normal}
+令 $E/F$ 为正规代数域扩张。则引理
+\ref{fields-lemma-separable-first} 的子扩张 $E/E_{sep}/F$ 正规。
+\end{lemma}
+
+\begin{proof}
+若特征为零，则 $E_{sep} = E$，结论显然。
+若特征为 $p > 0$，则 $E_{sep}$ 是 $E$ 中在 $F$ 上可分的
+元素集合。若 $\alpha \in E_{sep}$ 的最小多项式为 $P$，写成
+$P = c(x - \alpha)(x - \alpha_2) \ldots (x - \alpha_d)$，
+其中 $\alpha_2, \ldots, \alpha_d \in E$。
+由于 $P$ 是可分多项式，且 $\alpha_i$ 是 $P$ 的根，
+可知 $\alpha_i \in E_{sep}$，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-characterize-normal}
+令 $E/F$ 为代数域扩张，令 $\overline{F}$ 为 $F$ 的代数闭包。
+下列条件等价：
+\begin{enumerate}
+\item $E$ 在 $F$ 上正规；
+\item 对每一对 $\sigma, \sigma' \in \Mor_F(E, \overline{F})$，
+都有 $\sigma(E) = \sigma'(E)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{P}$ 为 $E$ 的所有元素在 $F$ 上的全部最小多项式所成的
+集合。置
+$$
+T =
+\{\beta \in \overline{F} \mid P(\beta) = 0\text{ 对某个 }P \in \mathcal{P}\}
+$$
+显然，若 $E$ 在 $F$ 上正规，则对所有
+$\sigma \in \Mor_F(E, \overline{F})$ 有 $\sigma(E) = T$。
+因此 (1) 蕴含 (2)。
+
+\medskip\noindent
+反过来，假设 (2)。取 $\beta \in T$。
+可找到相应的 $\alpha \in E$，其最小多项式
+$P \in \mathcal{P}$ 使 $\beta$ 为零。由于
+$F(\alpha) = F[x]/(P)$，可找到元素
+$\sigma_0 \in \Mor_F(F(\alpha), \overline{F})$，
+把 $\alpha$ 送到 $\beta$。由引理
+\ref{fields-lemma-map-into-algebraic-closure}，可把 $\sigma_0$
+扩张为某个 $\sigma \in \Mor_F(E, \overline{F})$。
+于是，$\beta$ 属于所有嵌入
+$\sigma : E \to \overline{F}$ 的共同像。
+这说明对任意 $\sigma$ 都有 $\sigma(E) = T$。
+固定一个 $\sigma$。现在令 $P \in \mathcal{P}$。
+由引理 \ref{fields-lemma-algebraically-closed}，对某个 $n$ 以及
+$\beta_i \in \overline{F}$，可写成
+$$
+P = (x - \beta_1) \ldots (x - \beta_n)
+$$
+注意 $\beta_i \in T$。因此，对某个 $\alpha_i \in E$，
+有 $\beta_i = \sigma(\alpha_i)$。于是
+$P = (x - \alpha_1) \ldots (x - \alpha_n)$ 在 $E$ 上完全分解。
+证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-normally-generated}
+令 $E/F$ 为代数域扩张。若 $E$ 在 $F$ 上由
+$\alpha_i \in E$（$i \in I$）生成，并且对每个 $i$，
+$\alpha_i$ 在 $F$ 上的最小多项式都在 $E$ 中完全分解，
+则 $E/F$ 正规。
+\end{lemma}
+
+\begin{proof}
+令 $P_i$ 为 $\alpha_i$ 在 $F$ 上的最小多项式。
+令 $\alpha_i = \alpha_{i, 1}, \alpha_{i, 2}, \ldots, \alpha_{i, d_i}$
+为 $P_i$ 在 $E$ 上的根。给定两个 $F$ 上的嵌入
+$\sigma, \sigma' : E \to \overline{F}$，有
+$$
+\{\sigma(\alpha_{i, 1}), \ldots, \sigma(\alpha_{i, d_i})\} =
+\{\sigma'(\alpha_{i, 1}), \ldots, \sigma'(\alpha_{i, d_i})\}
+$$
+因为两端都等于 $P_i$ 在 $\overline{F}$ 中的根集。
+元素 $\alpha_{i, j}$ 在 $F$ 上生成 $E$，故
+$\sigma(E) = \sigma'(E)$。由引理
+\ref{fields-lemma-characterize-normal}，$E/F$ 正规。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-lift-maps}
+令 $L/M/K$ 为代数扩张塔。
+\begin{enumerate}
+\item 若 $M/K$ 正规，则 $L/K$ 的任意自同构 $\tau$
+诱导自同构 $\tau|_M : M \to M$。
+\item 若 $L/K$ 正规，则任意 $K$-代数映射
+$\sigma : M \to L$ 都可扩张为 $L$ 的自同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选择 $L$ 的代数闭包 $\overline{L}$
+（定理 \ref{fields-theorem-existence-algebraic-closure}）。
+
+\medskip\noindent
+令 $\tau$ 如 (1) 所述。由引理 \ref{fields-lemma-characterize-normal}，
+作为 $\overline{L}$ 的子域有 $\tau(M) = M$，故
+$\tau|_M : M \to M$ 是自同构。
+
+\medskip\noindent
+令 $\sigma : M \to L$ 如 (2) 所述。
+由引理 \ref{fields-lemma-map-into-algebraic-closure}，可把 $\sigma$
+扩张为映射 $\tau : L \to \overline{L}$，即图表
+$$
+\xymatrix{
+L \ar[r]_\tau & \overline{L} \\
+M \ar[u] \ar[ru]_\sigma & K \ar[l] \ar[u]
+}
+$$
+交换。由引理 \ref{fields-lemma-characterize-normal}，
+$\tau(L) = L$。故 $\tau : L \to L$ 是扩张 $\sigma$ 的自同构。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-automorphisms}
+令 $E/F$ 为域扩张。以 $\text{Aut}(E/F)$ 或
+$\text{Aut}_F(E)$ 表示 $E$ 作为 $F$-扩张范畴中对象的自同构群。
+$\text{Aut}(E/F)$ 的元素称为{\it $E$ 在 $F$ 上的自同构}，
+或{\it $E/F$ 的自同构}。
+\end{definition}
+
+\noindent
+下面用自同构刻画正规扩张。
+
+\begin{lemma}
+\label{fields-lemma-normal-and-automorphisms}
+令 $E/F$ 为有限扩张。则
+$$
+|\text{Aut}(E/F)| \leq [E : F]_s
+$$
+且等号成立，当且仅当 $E$ 在 $F$ 上正规。
+\end{lemma}
+
+\begin{proof}
+选择 $F$ 的代数闭包 $\overline{F}$。回忆
+$[E : F]_s = |\Mor_F(E, \overline{F})|$。
+取元素 $\sigma_0 \in \Mor_F(E, \overline{F})$。则映射
+$$
+\text{Aut}(E/F) \longrightarrow \Mor_F(E, \overline{F}),\quad
+\tau \longmapsto \sigma_0 \circ \tau
+$$
+是单射，从而得到不等式。若等号成立，则每个
+$\sigma \in \Mor_F(E, \overline{F})$ 都由 $\sigma_0$
+预合成某个自同构得到。因此 $\sigma(E) = \sigma_0(E)$。
+由引理 \ref{fields-lemma-characterize-normal}，$E$ 在 $F$ 上正规。
+
+\medskip\noindent
+反过来，假设 $E/F$ 正规。由引理
+\ref{fields-lemma-characterize-normal}，对所有
+$\sigma \in \Mor_F(E, \overline{F})$ 都有
+$\sigma(E) = \sigma_0(E)$。于是置
+$\tau = \sigma_0^{-1} \circ \sigma$，得到 $E$ 在 $F$ 上的
+自同构。因此上面展示的映射是满射。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-normal-embeddings-differ-by-aut}
+令 $L/K$ 为代数正规域扩张，令 $E/K$ 为域扩张。
+则或者不存在从 $L$ 到 $E$ 的 $K$-嵌入，或者存在一个
+$\tau : L \to E$，且其他每一个都形如
+$\tau \circ \sigma$，其中 $\sigma \in \text{Aut}(L/K)$。
+\end{lemma}
+
+\begin{proof}
+给定 $\tau$，用 $\tau(L) \subset E$ 替换 $L$，
+再应用引理 \ref{fields-lemma-lift-maps}。
+\end{proof}
+
+
+
+
+
+\section{分裂域}
+% P01-E0253: frozen source label misspells "fields" as "fieds"; retained unchanged.
+\label{fields-section-splitting-fieds}
+
+\noindent
+下面的引理是构造正规域扩张的一个有用工具。
+
+\begin{lemma}
+\label{fields-lemma-splitting-field}
+令 $F$ 为域，令 $P \in F[x]$ 为非常数多项式。
+存在最小的域扩张 $E/F$，使得 $P$ 在 $E$ 上完全分解。
+此外，域扩张 $E/F$ 正规，并且在（不唯一的）同构意义下唯一。
+\end{lemma}
+
+\begin{proof}
+选择一个代数闭包 $\overline{F}$。于是可在 $\overline{F}[x]$ 中写成
+$P = c (x - \beta_1) \ldots (x - \beta_n)$，见
+引理 \ref{fields-lemma-algebraically-closed}。注意 $c \in F^*$。置
+$E = F(\beta_1, \ldots, \beta_n)$。显然，在要求
+$P$ 在 $E$ 上完全分解的条件下，$E$ 是最小的。
+
+\medskip\noindent
+接下来，令 $E'$ 是 $F$ 的另一个最小域扩张，使得
+$P$ 在 $E'$ 上完全分解。写成
+$P = c (x - \alpha_1) \ldots (x - \alpha_n)$，其中 $c \in F$ 且
+$\alpha_i \in E'$。由最小性再次得到
+$E' = F(\alpha_1, \ldots, \alpha_n)$。此外，若任取
+$\sigma : E' \to \overline{F}$
+（引理 \ref{fields-lemma-map-into-algebraic-closure}），
+便立刻看出，对某个置换
+$\tau : \{1, \ldots, n\} \to \{1, \ldots, n\}$，有
+$\sigma(\alpha_i) = \beta_{\tau(i)}$。
+因此 $\sigma(E') = E$。由引理 \ref{fields-lemma-characterize-normal}，
+这说明 $E'$ 是 $F$ 的正规扩张，并且
+$E \cong E'$ 作为 $F$ 的扩张同构，从而证明完毕。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-splitting-field}
+令 $F$ 为域，令 $P \in F[x]$ 为非常数多项式。
+引理 \ref{fields-lemma-splitting-field} 中构造的域扩张 $E/F$
+称为{\it $P$ 在 $F$ 上的分裂域}。
+\end{definition}
+
+\begin{lemma}
+\label{fields-lemma-normal-closure}
+\begin{slogan}
+有限域扩张的正规闭包存在。
+\end{slogan}
+令 $E/F$ 为有限域扩张。存在唯一的最小有限扩张 $K/E$，
+使得 $K$ 在 $F$ 上正规。
+\end{lemma}
+
+\begin{proof}
+选择 $E$ 在 $F$ 上的生成元 $\alpha_1, \ldots, \alpha_n$。
+令 $P_1, \ldots, P_n$ 分别为
+$\alpha_1, \ldots, \alpha_n$ 在 $F$ 上的最小多项式。
+置 $P = P_1 \ldots P_n$。注意
+$(x - \alpha_1) \ldots (x - \alpha_n)$ 整除 $P$，因为
+每个 $(x - \alpha_i)$ 都整除 $P_i$。设
+$P = (x - \alpha_1) \ldots (x - \alpha_n)Q$。
+令 $K/E$ 为 $P$ 在 $E$ 上的分裂域。
+我们声称 $K$ 也是 $P$ 在 $F$ 上的分裂域
+（这蕴含 $K$ 在 $F$ 上正规）。
+这一点是清楚的，因为 $K/E$ 由 $Q$ 在 $E$ 上的根生成，
+而 $E$ 由 $(x - \alpha_1) \ldots (x - \alpha_n)$
+在 $F$ 上的根生成；因此 $K$ 由 $P$ 在 $F$ 上的根生成。
+
+\medskip\noindent
+唯一性。设 $K'/E$ 是第二个最小扩张，使得
+$K'/F$ 正规。选择一个代数闭包 $\overline{F}$
+和一个嵌入 $\sigma_0 : E \to \overline{F}$。由
+引理 \ref{fields-lemma-map-into-algebraic-closure}，
+可将 $\sigma_0$ 扩张为 $\sigma : K \to \overline{F}$ 和
+$\sigma' : K' \to \overline{F}$。
+由引理 \ref{fields-lemma-intersect-normal}，
+$\sigma(K) \cap \sigma'(K')$ 在 $F$ 上正规。
+根据最小性得到 $\sigma(K) = \sigma'(K')$。
+于是 $\sigma^{-1} \circ \sigma' : K' \to K$
+给出 $E$ 的扩张之间的一个同构。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-normal-closure}
+令 $E/F$ 为有限域扩张。引理 \ref{fields-lemma-normal-closure}
+中构造的域扩张 $K/E$
+% P01-E0254: frozen English omits "of" in "normal closure E over F".
+称为{\it $E$ 在 $F$ 上的正规闭包}。
+\end{definition}
+
+\noindent
+可以在任意给定的正规扩张内部构造正规闭包。
+
+\begin{lemma}
+\label{fields-lemma-normal-closure-inside-normal}
+令 $L/K$ 为代数正规扩张。
+\begin{enumerate}
+\item 若 $L/M/K$ 是子扩张塔且 $M/K$ 有限，则存在扩张塔
+$L/M'/M/K$，其中 $M'/K$ 有限且正规。
+\item 若 $L/M'/M/K$ 是扩张塔，且 $M/K$ 正规、$M'/M$ 有限，
+则存在扩张塔 $L/M''/M'/M/K$，其中 $M''/M$
+有限且 $M''/K$ 正规。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。令 $M'$ 为 $L/K$ 的包含 $M$ 且在 $K$ 上正规的
+最小子扩张。由引理 \ref{fields-lemma-normal-closure}，
+这是 $M/K$ 的正规闭包，并且在 $K$ 上有限。
+
+\medskip\noindent
+(2) 的证明。令 $\alpha_1, \ldots, \alpha_n \in M'$
+在 $M$ 上生成 $M'$。令 $P_1, \ldots, P_n$ 分别为
+$\alpha_1, \ldots, \alpha_n$ 在 $K$ 上的最小多项式。
+令 $\alpha_{i, j}$ 为 $P_i$ 在 $L$ 中的根。令
+$M''  = M(\alpha_{i, j})$。由引理
+\ref{fields-lemma-normally-generated}
+（应用于生成元集合 $M \cup \{\alpha_{i, j}\}$），
+可得 $M''$ 在 $K$ 上正规。
+\end{proof}
+
+\noindent
+下面的引理有时可用于证明正规闭包的性质。
+
+\begin{lemma}
+\label{fields-lemma-normal-closure-tensor-product}
+令 $L/K$ 为有限扩张，令 $M/L$ 为 $L$ 在 $K$ 上的正规闭包。
+则存在 $K$-代数的满射
+$$
+L \otimes_K L \otimes_K \ldots \otimes_K L \longrightarrow M
+$$
+其中张量因子的数目可取为
+$[L : K]_s \leq [L : K]$。
+\end{lemma}
+
+\begin{proof}
+选择 $K$ 的一个代数闭包 $\overline{K}$。
+置 $n = [L : K]_s = |\Mor_K(L, \overline{K})|$；
+等号来自引理 \ref{fields-lemma-separable-degree}。
+设 $\Mor_K(L, \overline{K}) = \{\sigma_1, \ldots, \sigma_n\}$。
+令 $M' \subset \overline{K}$ 为由
+$\sigma_i(L)$（$i = 1, \ldots, n$）生成的 $K$-子代数。
+由于 $\overline{K}$ 的任意 $K$-子代数都是域，$M'$ 是域。
+从 $M'$ 到 $\overline{K}$ 的任意 $K$-代数映射都会置换
+$\sigma_i$，因而把 $M'$ 映入且映满 $M'$。按构造，域 $M'$
+由 $\sigma_1(L)$ 中元素的共轭元生成。由此再结合
+引理 \ref{fields-lemma-characterize-normal}，可得 $M'$ 在 $K$ 上正规，
+并且它是 $\overline{K}$ 中包含 $\sigma_1(L)$ 的最小正规子扩张。
+由正规闭包的唯一性，$M \cong M'$。
+最后，存在满射
+$$
+L \otimes_K L \otimes_K \ldots \otimes_K L \longrightarrow M',
+\quad
+\lambda_1 \otimes \ldots \otimes \lambda_n \longmapsto
+\sigma_1(\lambda_1) \ldots \sigma_n(\lambda_n)
+$$
+并注意按定义有 $n \leq [L : K]$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{单位根}
+\label{fields-section-roots-of-1}
+
+\noindent
+令 $F$ 为域。对整数 $n \geq 1$，置
+$$
+\mu_n(F) = \{\zeta \in F \mid \zeta^n = 1\}
+$$
+这称为{\it $n$ 次单位根群}，或称为{\it $n$ 次方根为 $1$ 的元素群}。
+它在乘法下是阿贝尔群，单位元为 $1$。
+注意，在域中，次数为 $d$ 的多项式至多有 $d$ 个根。
+因此，由于该群由一个次数为 $n$ 的多项式方程定义，
+可见 $|\mu_n(F)| \leq n$。
+当然，$\mu_n(F)$ 的每个元素的阶都整除 $n$。
+此外，各子群
+$$
+\mu_d(F) \subset \mu_n(F),\quad d | n
+$$
+至多有 $d$ 个元素。这蕴含 $\mu_n(F)$ 是循环群。
+
+\begin{lemma}
+\label{fields-lemma-cyclic}
+令 $A$ 为指数整除 $n$ 的阿贝尔群，并且对所有 $d | n$，
+$\{x \in A \mid dx = 0\}$ 的基数至多为 $d$。
+则 $A$ 是阶整除 $n$ 的循环群。
+\end{lemma}
+
+\begin{proof}
+这些条件蕴含 $|A| \leq n$，特别地，$A$ 是有限群。
+有限阿贝尔群的结构表明
+$A = \mathbf{Z}/e_1\mathbf{Z} \oplus \ldots \oplus \mathbf{Z}/e_r\mathbf{Z}$，
+其中某些整数满足 $1 < e_1 | e_2 | \ldots | e_r$。
+这将蕴含 $\{x \in A \mid e_1 x = 0\}$ 的基数为 $e_1^r$。
+因此 $r = 1$。
+\end{proof}
+
+\noindent
+将此应用于域 $\mathbf{F}_p$，便得到著名结论：
+群 $(\mathbf{Z}/p\mathbf{Z})^*$ 是循环群。
+有限域一节还会对此作更多说明。
+
+\medskip\noindent
+还有一个常用的观察：若 $F$ 的特征为 $p > 0$，则
+$\mu_{p^n}(F) = \{1\}$。这是因为，正如我们在
+引理 \ref{fields-lemma-nr-roots-unchanged} 的证明中看到的那样，
+在特征为 $p$ 的域上，取 $p$ 次幂是单射。
+（当然，这也直接由该引理的陈述得出。）
+
+
+
+
+
+
+\section{有限域}
+\label{fields-section-finite}
+
+\noindent
+令 $F$ 为有限域。显然 $F$ 具有正特征，因为不可能有单射
+$\mathbf{Q} \to F$。设 $F$ 的特征为 $p$。
+扩张 $\mathbf{F}_p \subset F$ 是有限的。
+因此可见，$F$ 有 $q = p^f$ 个元素，其中 $f \geq 1$。
+
+\medskip\noindent
+考察单位群 $F^*$。这是有限阿贝尔群，因而具有某个指数 $e$。
+于是 $F^* = \mu_e(F)$，由第 \ref{fields-section-roots-of-1} 节的讨论可知，
+$F^*$ 是阶为 $q - 1$ 的循环群。（事后也可得 $e = q - 1$。）
+特别地，若 $\alpha \in F^*$ 是生成元，则显然
+$$
+F = \mathbf{F}_p(\alpha)
+$$
+换言之，扩张 $F/\mathbf{F}_p$ 由单个元素生成。
+当然，对有限域的任意扩张 $E/F$ 也是如此
+（因为 $E$ 已经由单个元素在其素域上生成）。
+
+
+
+
+
+\section{本原元}
+\label{fields-section-primitive-element}
+
+\noindent
+令 $E/F$ 为有限域扩张。若 $\alpha \in E$ 且 $E = F(\alpha)$，
+则称该元素为{\it $E$ 在 $F$ 上的本原元}。
+
+\begin{lemma}[本原元]
+\label{fields-lemma-primitive-element}
+令 $E/F$ 为有限域扩张。下列条件等价：
+\begin{enumerate}
+\item $E$ 在 $F$ 上存在本原元；
+\item 只有有限多个子扩张 $E/K/F$。
+\end{enumerate}
+此外，若 $E/F$ 可分，则 (1) 和 (2) 成立。
+\end{lemma}
+
+\begin{proof}
+令 $\alpha \in E$ 为本原元。令 $P$ 为 $\alpha$ 在 $F$ 上的
+最小多项式。接下来，令 $E/K/F$ 为一个子扩张。
+令 $Q$ 为 $\alpha$ 在 $K$ 上的最小多项式。注意
+$\deg(Q) = [E : K]$。写成
+$Q = x^d + \sum_{i < d} a_i x^i$，我们声称
+$K$ 等于 $L = F(a_0, \ldots, a_{d - 1})$。
+确实，$\alpha$ 在 $L$ 上的次数为 $d$，且 $L \subset K$。
+因此 $[E : L] = [E : K]$，从而 $[K : L] = 1$，即 $K = L$。
+故只需证明多项式 $Q$ 的可能性至多有限。
+这是清楚的，因为在 $K[x]$ 中有分解 $P = QR$，因而尤其在
+$E[x]$ 中也有此分解。由于 $E[x]$ 中具有唯一分解，
+$P$ 在 $E[x]$ 中至多有有限多个首一因子。
+
+\medskip\noindent
+若 $F$ 是有限域（等价地，$E$ 是有限域），则由
+第 \ref{fields-section-finite} 节的讨论，$E/F$ 有本原元。
+接下来，假设 $F$ 无限，并且只有至多有限多个真子域
+$E/K/F$。将它们列为 $K_1, \ldots, K_N$。
+于是每个 $K_i \subset E$ 都是一个真 $F$-向量子空间。
+由于 $F$ 无限，可找到向量 $\alpha \in E$，使得对所有 $i$
+都有 $\alpha \not \in K_i$
+（一个向量空间绝不可能等于有限多个真向量子空间的并；
+细节从略）。于是 $\alpha$ 是 $E$ 在 $F$ 上的本原元。
+
+\medskip\noindent
+已证明 (1) 与 (2) 等价，现在来证明引理的最后一个陈述。
+选择 $F$ 的一个代数闭包 $\overline{F}$。
+枚举其中的元素
+$\sigma_1, \ldots, \sigma_n \in \Mor_F(E, \overline{F})$。
+由于 $E/F$ 可分，由引理 \ref{fields-lemma-separable-equality}，
+有 $n = [E : F]$。注意若 $i \not = j$，则
+$$
+V_{ij} = \Ker(\sigma_i - \sigma_j : E \longrightarrow \overline{F})
+$$
+不等于 $E$。因此，按上一段的论证，可找到
+$\alpha \in E$，使得对所有 $i \not = j$ 都有
+$\alpha \not \in V_{ij}$。从而
+$|\Mor_F(F(\alpha), \overline{F})| \geq n$。
+另一方面，$[F(\alpha) : F] \leq [E : F]$。
+故由引理 \ref{fields-lemma-separable-equality} 得到等号，
+进而得出 $E = F(\alpha)$。
+\end{proof}
+
+
+
+
+
+
+\section{迹与范数}
+\label{fields-section-trace-pairing}
+
+\noindent
+令 $L/K$ 为有限域扩张。由引理
+\ref{fields-lemma-vector-space-is-free}，
+可选择一个 $K$-模同构 $L \cong K^{\oplus n}$。
+当然，$n = [L : K]$ 就是该域扩张的次数。
+利用这一同构，可得到一个 $K$-代数映射
+$$
+L \longrightarrow \text{Mat}(n \times n, K),\quad
+\alpha \longmapsto \text{乘以 }\alpha\text{ 的线性变换矩阵}
+$$
+因此，给定 $\alpha \in L$，可取相应矩阵的迹与行列式。
+这些量当然与上面所选的基无关。更典范地说，只需把
+$L$ 看作有限维 $K$-向量空间，便有
+$\text{Trace}_K(\alpha : L \to L)$ 以及行列式
+$\det_K(\alpha : L \to L)$。
+
+\begin{definition}
+\label{fields-definition-trace-norm}
+令 $L/K$ 为有限域扩张。对 $\alpha \in L$，定义其{\it 迹}
+为 $\text{Trace}_{L/K}(\alpha) = \text{Trace}_K(\alpha : L \to L)$，
+定义其{\it 范数}
+为 $\text{Norm}_{L/K}(\alpha) = \det_K(\alpha : L \to L)$。
+\end{definition}
+
+\noindent
+由定义显然可知，$\text{Trace}_{L/K}$ 是 $K$-线性的，并且对
+$\alpha \in K$ 满足
+$\text{Trace}_{L/K}(\alpha) = [L : K]\alpha$。
+类似地，$\text{Norm}_{L/K}$ 是乘性的，并且对 $\alpha \in K$ 满足
+$\text{Norm}_{L/K}(\alpha) = \alpha^{[L : K]}$。
+这是练习 \ref{exercises-exercise-trace-det} 和
+\ref{exercises-exercise-trace-det-rings} 中所讨论的更一般构造的特例。
+
+\begin{lemma}
+\label{fields-lemma-characteristic-vs-minimal-polynomial}
+令 $L/K$ 为有限域扩张。令 $\alpha \in L$，并令 $P$
+为 $\alpha$ 在 $K$ 上的最小多项式。则 $K$-线性映射
+$\alpha : L \to L$ 的特征多项式等于 $P^e$，其中
+$e \deg(P) = [L : K]$。
+\end{lemma}
+
+\begin{proof}
+选择 $L$ 在 $K(\alpha)$ 上的一组基
+$\beta_1, \ldots, \beta_e$。由引理
+\ref{fields-lemma-degree-minimal-polynomial} 和
+\ref{fields-lemma-multiplicativity-degrees}，
+$e$ 满足 $e \deg(P) = [L : K]$。
+于是可见，$L = \bigoplus K(\alpha) \beta_i$ 是分解为
+$\alpha$-不变子空间的直和。因此，$\alpha : L \to L$
+的特征多项式等于 $\alpha : K(\alpha) \to K(\alpha)$
+的特征多项式的 $e$ 次幂。
+
+\medskip\noindent
+为完成证明，可假设 $L = K(\alpha)$。
+在这种情况下，由 Cayley--Hamilton 定理，$\alpha$
+是特征多项式的根。由于特征多项式与最小多项式次数相同，
+故二者相等。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-trace-and-norm-from-minimal-polynomial}
+令 $L/K$ 为有限域扩张。令 $\alpha \in L$，并令
+$P = x^d + a_1 x^{d - 1} + \ldots + a_d$
+为 $\alpha$ 在 $K$ 上的最小多项式。则
+$$
+\text{Norm}_{L/K}(\alpha) = (-1)^{[L : K]} a_d^e
+\quad\text{且}\quad
+\text{Trace}_{L/K}(\alpha) = - e a_1
+$$
+其中 $e d = [L : K]$。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{fields-lemma-characteristic-vs-minimal-polynomial}
+和定义得到。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-trace-and-norm-linear}
+令 $L/K$ 为有限域扩张。令 $V$ 为有限维 $L$-向量空间，
+令 $\varphi : V \to V$ 为 $L$-线性映射。则
+$$
+\text{Trace}_K(\varphi : V \to V) =
+\text{Trace}_{L/K}(\text{Trace}_L(\varphi : V \to V))
+$$
+并且
+$$
+\det\nolimits_K(\varphi : V \to V) =
+\text{Norm}_{L/K}(\det\nolimits_L(\varphi : V \to V))
+$$
+\end{lemma}
+
+\begin{proof}
+选择同构 $V = L^{\oplus n}$，使得 $\varphi$ 对应于一个
+$n \times n$ 矩阵。在迹的情形，公式两边关于 $\varphi$
+都是可加的。因此可假设 $\varphi$ 对应于仅在 $(i, j)$ 位置
+有一个非零元素的矩阵。此时直接计算表明两边相等。
+
+\medskip\noindent
+在范数的情形，若 $\varphi$ 有非零核，则两边都为零。
+因此可假设 $\varphi$ 对应于 $\text{GL}_n(L)$ 的一个元素。
+公式两边关于 $\varphi$ 都是乘性的。由于
+$\text{GL}_n(L)$ 的每个元素都是初等矩阵的乘积，
+可假设 $\varphi$ 具有下列两种形式之一：
+$$
+E_{12}(\lambda) =
+\left(
+\begin{matrix}
+1 & \lambda & \ldots \\
+0 & 1 & \ldots \\
+\ldots & \ldots & \ldots
+\end{matrix}
+\right)
+\quad\text{或}\quad
+E_1(a) =
+\left(
+\begin{matrix}
+a & 0 & \ldots \\
+0 & 1 & \ldots \\
+\ldots & \ldots & \ldots
+\end{matrix}
+\right)
+$$
+（因为如有需要，也可置换基元素）。
+在两种情形下，直接计算都容易验证该公式。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-trace-and-norm-tower}
+令 $M/L/K$ 为有限域扩张塔。则
+$$
+\text{Trace}_{M/K} = \text{Trace}_{L/K} \circ \text{Trace}_{M/L}
+\quad\text{且}\quad
+\text{Norm}_{M/K} = \text{Norm}_{L/K} \circ \text{Norm}_{M/L}
+$$
+\end{lemma}
+
+\begin{proof}
+把 $M$ 看作 $L$ 上的向量空间，并应用引理
+\ref{fields-lemma-trace-and-norm-linear}。
+\end{proof}
+
+\noindent
+迹配对利用迹来定义。
+
+\begin{definition}
+\label{fields-definition-trace-pairing}
+令 $L/K$ 为有限域扩张。$L/K$ 的{\it 迹配对}是对称
+$K$-双线性形式
+$$
+Q_{L/K} : L \times L \longrightarrow K,\quad
+(\alpha, \beta) \longmapsto \text{Trace}_{L/K}(\alpha\beta)
+$$
+\end{definition}
+
+\noindent
+事实表明，有限域扩张可分，当且仅当其迹配对非退化。
+
+\begin{lemma}
+\label{fields-lemma-separable-trace-pairing}
+令 $L/K$ 为有限域扩张。下列条件等价：
+\begin{enumerate}
+\item $L/K$ 可分；
+\item $\text{Trace}_{L/K}$ 不恒为零；
+\item 迹配对 $Q_{L/K}$ 非退化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然 (3) 蕴含 (2)。若 (2) 成立，则取 $\gamma \in L$，
+使得 $\text{Trace}_{L/K}(\gamma) \not = 0$。
+于是，对任意非零 $\alpha \in L$，有
+$Q_{L/K}(\alpha, \gamma/\alpha) \not = 0$。
+因此 $Q_{L/K}$ 非退化。这证明了 (2) 与 (3) 等价。
+
+\medskip\noindent
+假设 $K$ 的特征为 $p$，且 $L = K(\alpha)$，其中
+$\alpha \not \in K$ 且 $\alpha^p \in K$。则
+$\text{Trace}_{L/K}(1) = p = 0$。
+对 $i = 1, \ldots, p - 1$，可见
+$x^p - \alpha^{pi}$ 是 $\alpha^i$ 在 $K$ 上的最小多项式，
+并由引理 \ref{fields-lemma-trace-and-norm-from-minimal-polynomial} 得到
+$\text{Trace}_{L/K}(\alpha^i) = 0$。
+因此，对这种次数为 $p$ 的纯不可分扩张，
+$\text{Trace}_{L/K}$ 恒为零。
+
+\medskip\noindent
+假设 $L/K$ 不可分。则存在子域塔 $L/K'/K$，使得
+$L/K'$ 是上一段所述次数为 $p$ 的纯不可分扩张，见引理
+\ref{fields-lemma-separable-first} 和
+\ref{fields-lemma-finite-purely-inseparable}。
+因此，由引理 \ref{fields-lemma-trace-and-norm-tower}，
+$\text{Trace}_{L/K}$ 恒为零。
+
+\medskip\noindent
+反过来，假设 $L/K$ 可分。对次数作归纳，将证明
+$\text{Trace}_{L/K}$ 不恒为零。
+因此，由引理 \ref{fields-lemma-trace-and-norm-tower}，可假设
+$L/K$ 由单个元素 $\alpha$ 生成
+（利用迹非零即为满射这一事实）。
+我们必须证明，对某个 $e \geq 0$，
+$\text{Trace}_{L/K}(\alpha^e)$ 非零。
+令 $P = x^d + a_1 x^{d - 1} + \ldots + a_d$
+为 $\alpha$ 在 $K$ 上的最小多项式。
+于是 $P$ 也是线性映射 $\alpha : L \to L$ 的特征多项式，
+见引理 \ref{fields-lemma-characteristic-vs-minimal-polynomial}。
+% P01-E0255: frozen source uses undefined lowercase k in L/k; retained.
+由于 $L/k$ 可分，由引理 \ref{fields-lemma-recognize-separable}，
+可见 $P$ 在 $K$ 的一个代数闭包 $\overline{K}$ 中有
+$d$ 个两两不同的根 $\alpha_1, \ldots, \alpha_d$。
+因此，它们是 $\alpha : L \to L$ 的特征值。
+由线性代数，$\alpha^e$ 的迹等于
+$\alpha_1^e + \ldots + \alpha_d^e$。
+于是结论由引理 \ref{fields-lemma-sums-of-powers} 得出。
+\end{proof}
+
+\noindent
+令 $K$ 为域，令 $Q : V \times V \to K$ 为有限维
+$K$-向量空间上的双线性形式。设 $\dim_K(V) = n$。
+于是 $Q$ 定义线性映射 $Q : V \to V^*$，$v \mapsto Q(v, -)$，
+其中 $V^* = \Hom_K(V, K)$ 是对偶向量空间。因而得到线性映射
+$$
+\det(Q) : \wedge^n(V) \longrightarrow \wedge^n(V)^*
+$$
+若选择基元素 $\omega \in \wedge^n(V)$，则可写成
+$\det(Q)(\omega) = \lambda \omega^*$，其中 $\omega^*$
+是 $\wedge^n(V)^*$ 中的对偶基元素。若把所选的
+$\omega$ 改为 $c \omega$，其中 $c \in K^*$，则
+$\omega^*$ 改为 $c^{-1} \omega^*$，从而
+$\lambda$ 改为 $c^2 \lambda$。因此，$\lambda$ 在
+$K/(K^*)^2$ 中的类是良定义的，称为
+{\it $Q$ 的判别式}。展开定义可见，若
+$\{v_1, \ldots, v_n\}$ 是 $V$ 在 $K$ 上的一组基，则
+$$
+\lambda = \det(Q(v_i, v_j)_{1 \leq i, j \leq n})
+$$
+注意，判别式非零，当且仅当 $Q$ 非退化。
+
+\begin{definition}
+\label{fields-definition-discriminant}
+令 $L/K$ 为有限域扩张。{\it $L/K$ 的判别式}
+是迹配对 $Q_{L/K}$ 的判别式。
+\end{definition}
+
+\noindent
+由以上讨论和引理 \ref{fields-lemma-separable-trace-pairing}，
+可见判别式非零，当且仅当 $L/K$ 可分。
+对 $a \in K$，我们常说“判别式是 $a$”，
+尽管更准确的说法是判别式为 $a$ 在 $K/(K^*)^2$ 中的类。
+
+\begin{exercise}
+\label{fields-exercise-quadratic-discriminant}
+令 $L/K$ 为次数 $2$ 的扩张。证明恰有下列一种情形发生：
+\begin{enumerate}
+\item 判别式为 $0$，$K$ 的特征为 $2$，并且
+$L/K$ 是通过对 $K$ 的某个元素开平方得到的纯不可分扩张；
+\item 判别式为 $1$，$K$ 的特征为 $2$，并且
+$L/K$ 是次数为 $2$ 的可分扩张；
+\item 判别式不是平方，$K$ 的特征不为 $2$，并且
+$L$ 由 $K$ 添入判别式的平方根得到。
+\end{enumerate}
+\end{exercise}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Galois 理论}
+\label{fields-section-galois-theory}
+
+\noindent
+定义如下。
+
+\begin{definition}
+\label{fields-definition-galois}
+若域扩张 $E/F$ 是代数的、可分的并且正规的，
+则称它为{\it Galois 扩张}。
+\end{definition}
+
+\noindent
+事实表明，有限扩张是 Galois 扩张，当且仅当它具有“正确”数量的自同构。
+
+\begin{lemma}
+\label{fields-lemma-finite-Galois}
+令 $E/F$ 为有限域扩张。则 $E$ 在 $F$ 上为 Galois 扩张，
+当且仅当 $|\text{Aut}(E/F)| = [E : F]$。
+\end{lemma}
+
+\begin{proof}
+假设 $|\text{Aut}(E/F)| = [E : F]$。由引理
+\ref{fields-lemma-normal-and-automorphisms}，这蕴含
+$E/F$ 可分且正规，因而是 Galois 扩张。
+反过来，若 $E/F$ 可分，则 $[E : F] = [E : F]_s$；
+若 $E/F$ 还正规，则引理
+\ref{fields-lemma-normal-and-automorphisms} 蕴含
+$|\text{Aut}(E/F)| = [E : F]$。
+\end{proof}
+
+\noindent
+受上面引理的启发，按如下方式引入 Galois 群。
+
+\begin{definition}
+\label{fields-definition-galois-group}
+若 $E/F$ 是 Galois 扩张，则群 $\text{Aut}(E/F)$
+称为{\it Galois 群}，记为 $\text{Gal}(E/F)$。
+\end{definition}
+
+\noindent
+若 $L/K$ 是无限 Galois 扩张，则应把 Galois 群视为拓扑群。
+我们将在第 \ref{fields-section-infinite-galois} 节回到这一点。
+
+\begin{lemma}
+\label{fields-lemma-galois-goes-up}
+令 $K/E/F$ 为代数域扩张塔。
+若 $K$ 在 $F$ 上是 Galois 扩张，则 $K$ 在 $E$ 上也是 Galois 扩张。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{fields-lemma-normal-goes-up} 与
+\ref{fields-lemma-separable-goes-up} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-normal-closure-galois}
+令 $L/K$ 为有限可分域扩张。令 $M$ 为 $L$ 在 $K$ 上的正规闭包
+（定义 \ref{fields-definition-normal-closure}）。则 $M/K$ 是 Galois 扩张。
+\end{lemma}
+
+\begin{proof}
+引理 \ref{fields-lemma-separable-first} 的子扩张塔
+$M/M_{sep}/K$ 由引理 \ref{fields-lemma-separable-first-normal} 可知是正规的。
+由于 $L/K$ 可分，有 $L \subset M_{sep}$。
+由最小性，$M = M_{sep}$，证明完成。
+\end{proof}
+
+\noindent
+令 $G$ 为作用在域 $K$ 上的群（作用由域自同构给出）。
+我们常使用记号
+$$
+K^G = \{x \in K \mid \sigma(x) = x \ \forall \sigma \in G\}
+$$
+并称它为 $G$ 在 $K$ 上作用的{\it 不动域}。
+
+\begin{lemma}
+\label{fields-lemma-galois-over-fixed-field}
+令 $K$ 为域，令 $G$ 为忠实作用在 $K$ 上的有限群。
+则扩张 $K/K^G$ 是 Galois 扩张，且
+$[K : K^G] = |G|$，此扩张的 Galois 群为 $G$。
+\end{lemma}
+
+\begin{proof}
+给定 $\alpha \in K$，考察 $\alpha$ 在群作用下的轨道
+$G \cdot \alpha \subset K$。考察多项式
+$$
+P = \prod\nolimits_{\beta \in G \cdot \alpha} (x - \beta) \in K[x]
+$$
+整个引理的关键在于，此多项式在 $G$ 的作用下不变，
+因而系数属于 $K^G$。确切地说，对 $\tau \in G$，有
+$$
+P^\tau = \prod\nolimits_{\beta \in G \cdot \alpha} (x - \tau(\beta)) =
+\prod\nolimits_{\beta \in G \cdot \alpha} (x - \beta) = P
+$$
+因为映射 $\beta \mapsto \tau(\beta)$ 是轨道
+$G \cdot \alpha$ 的一个置换。因此 $P \in K^G[x]$。
+又因为 $\alpha$ 是其轨道中的元素，有 $P(\alpha) = 0$，
+所以扩张 $K/K^G$ 是代数的。此外，$\alpha$ 在 $K^G$ 上的
+最小多项式 $Q$ 整除刚构造的多项式 $P$。
+因此 $Q$ 可分（例如由引理 \ref{fields-lemma-recognize-separable}），
+从而 $K/K^G$ 可分。故 $K/K^G$ 是 Galois 扩张。
+为完成证明，只需证明 $[K : K^G] = |G|$，因为此时由引理
+\ref{fields-lemma-finite-Galois}，$G$ 就是 Galois 群。
+
+\medskip\noindent
+选择有限多个元素 $\alpha_i \in K$（$i = 1, \ldots, n$），
+使得对 $i = 1, \ldots, n$ 有
+$\sigma(\alpha_i) = \alpha_i$ 即蕴含
+$\sigma$ 是 $G$ 的单位元。置
+$$
+L = K^G(\{\sigma(\alpha_i); 1 \leq i \leq n, \sigma \in G\}) \subset K
+$$
+并注意，$G$ 在 $K$ 上的作用诱导 $G$ 在 $L$ 上的作用。
+我们将证明 $L$ 在 $K^G$ 上的次数为 $|G|$。
+这将完成证明，因为若 $L \subset K$ 是真包含，
+则可将一个元素 $\alpha \in K$（$\alpha \not \in L$）
+加入元素列表 $\alpha_1, \ldots, \alpha_n$，却不增大 $L$，
+这显然矛盾。于是问题归结为 $K/K^G$ 有限的情形，
+下一段将处理这一情形。
+
+\medskip\noindent
+假设 $K/K^G$ 有限。由引理 \ref{fields-lemma-primitive-element}，
+可找到 $\alpha \in K$，使得 $K = K^G(\alpha)$。
+由本证明第一段的构造可见，$\alpha$ 在 $K$ 上的次数至多为
+$|G|$。
+% P01-E0256: frozen source says "over K"; the intended base appears to be K^G.
+另一方面，该次数不可能小于 $|G|$，因为按构造，$G$
+忠实作用在 $K^G(\alpha) = L$ 上，再应用引理
+\ref{fields-lemma-normal-and-automorphisms} 的不等式即可。
+\end{proof}
+
+\begin{theorem}[Galois 理论基本定理]
+\label{fields-theorem-galois-theory}
+令 $L/K$ 为有限 Galois 扩张，其 Galois 群为 $G$。
+则 $K = L^G$，且映射
+$$
+\{G\text{ 的子群}\}
+\longrightarrow
+\{\text{中间扩张 }L/M/K\},\quad
+H \longmapsto L^H
+$$
+是双射，其逆映射把 $M$ 送到 $\text{Gal}(L/M)$。
+$G$ 的正规子群 $H$ 恰好对应于满足 $M/K$ 为 Galois 扩张的子扩张
+$M$。
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{fields-lemma-galois-goes-up}，给定子扩张 $L/M/K$，
+扩张 $L/M$ 是 Galois 的。当然，$L/M$ 也是有限的
+（引理 \ref{fields-lemma-finite-goes-up}）。因此，由引理
+\ref{fields-lemma-finite-Galois}，
+$|\text{Gal}(L/M)| = [L : M]$。
+反过来，若 $H \subset G$ 为有限子群，则由引理
+\ref{fields-lemma-galois-over-fixed-field}，
+$[L : L^H] = |H|$。由这两个观察即可形式地得到定理中的双射对应。
+
+\medskip\noindent
+若 $H \subset G$ 正规，则 $L^H$ 在 $G$ 的作用下不变，
+从而得到典范映射 $G/H \to \text{Aut}(L^H/K)$。
+由于 $\text{Gal}(L/L^H) = H$，此映射必为单射。
+因此 $|G/H| = [L^H : K]$，由引理
+\ref{fields-lemma-finite-Galois}，$L^H$ 是 Galois 扩张。
+
+\medskip\noindent
+反过来，假设 $K \subset M \subset L$ 且 $M/K$ 是 Galois 扩张。
+由引理 \ref{fields-lemma-lift-maps}，每个元素
+$\tau \in \text{Gal}(L/K)$ 都诱导元素
+$\tau|_M \in \text{Gal}(M/K)$。这诱导 Galois 群的同态
+$\text{Gal}(L/K) \to \text{Gal}(M/K)$，其核为 $H$。
+因此 $H$ 是正规子群。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-ses-galois}
+令 $L/M/K$ 为域塔。假设 $L/K$ 与 $M/K$ 都是有限 Galois 扩张。
+则得到有限群的短正合列
+$$
+1 \to \text{Gal}(L/M) \to \text{Gal}(L/K) \to \text{Gal}(M/K) \to 1
+$$
+\end{lemma}
+
+\begin{proof}
+确实，由引理 \ref{fields-lemma-lift-maps}，每个元素
+$\tau \in \text{Gal}(L/K)$ 都诱导元素
+$\tau|_M \in \text{Gal}(M/K)$，这给出右侧的同态。
+左侧映射把左边的群等同于右侧箭头的核。
+该序列正合，因为由有限扩张塔中次数的乘法性，
+各群的阶恰好相符（引理 \ref{fields-lemma-multiplicativity-degrees}）。
+也可直接使用引理 \ref{fields-lemma-lift-maps}
+看出右侧映射是满射。
+\end{proof}
+
+
+
+
+
+
+\section{无限 Galois 理论}
+\label{fields-section-infinite-galois}
+
+\noindent
+Galois 群带有典范拓扑。
+
+\begin{lemma}
+\label{fields-lemma-galois-profinite}
+令 $E/F$ 为 Galois 扩张。在 $\text{Gal}(E/F)$ 上赋予使得
+$$
+\text{Gal}(E/F) \times E \longrightarrow E
+$$
+连续的最粗拓扑，其中 $E$ 赋予离散拓扑。则：
+\begin{enumerate}
+\item 对任意拓扑空间 $X$ 以及映射 $X \to \text{Gal}(E/F)$，
+若作用 $X \times E \to E$ 连续，则诱导映射
+$X \to \text{Gal}(E/F)$ 连续；
+\item 此拓扑使 $\text{Gal}(E/F)$ 成为有限型拓扑群。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在整个证明中，把 $E$ 视为离散拓扑空间。
+回忆，自映射集合 $\text{Map}(E, E)$ 上的紧开拓扑是使作用
+$\text{Map}(E, E) \times E \to E$ 连续的泛性拓扑。
+精确陈述见拓扑学，例 \ref{topology-example-automorphisms-of-a-set}。
+引理中 $\text{Gal}(E/F)$ 上的拓扑，是由单射
+$\text{Gal}(E/F) \to \text{Map}(E, E)$ 诱导的拓扑。
+因此，泛性质 (1) 由紧开拓扑相应的泛性质得出。
+由于可逆自映射集合 $\text{Aut}(E)$ 在紧开拓扑下构成拓扑群，
+见拓扑学，例 \ref{topology-example-automorphisms-of-a-set}，
+并且 $\text{Gal}(E/F) = \text{Aut}(E/F) \to \text{Map}(E, E)$
+经由 $\text{Aut}(E)$ 分解，所以得到一个拓扑群。
+换言之，我们利用单射
+$$
+\text{Gal}(E/F) \subset \text{Aut}(E)
+$$
+在 $\text{Gal}(E/F)$ 上赋予诱导的拓扑群结构
+（见拓扑学，第 \ref{topology-section-topological-groups} 节）。
+按构造，这是使作用
+$\text{Gal}(E/F) \times E \to E$ 连续的最粗拓扑群结构。
+
+\medskip\noindent
+为证明 $\text{Gal}(E/F)$ 是有限型群，作如下论证
+（由于我们在证明 Galois 群是有限群逆极限之前就定义了其拓扑，
+这一论证必然不是通常的论证）。
+由拓扑学，引理 \ref{topology-lemma-profinite-group}，
+只需证明 $\text{Gal}(E/F)$ 的底拓扑空间是有限型空间。
+对任意子集 $S \subset E$，考虑集合
+$$
+G(S) = \{ f : S \to E \mid
+\begin{matrix}
+\text{对所有 }\alpha \in S,\ f(\alpha)\text{ 是}\\
+\alpha\text{ 在 }F\text{ 上的极小多项式的根}
+\end{matrix}
+\}
+$$
+由于多项式只有有限多个根，对每个有限的 $S \subset E$，
+$G(S)$ 都是有限集。若 $S \subset S'$，则限制给出映射
+$G(S') \to G(S)$。还要注意，若
+$\alpha \in S \cap F$ 且 $f \in G(S)$，则
+$f(\alpha) = \alpha$，因为此时最小多项式是线性的。
+考虑有限型拓扑空间
+$$
+G = \lim_{S \subset E\text{ 为有限集}} G(S)
+$$
+以及典范映射
+$$
+c : \text{Gal}(E/F) \longrightarrow G,\quad
+\sigma \longmapsto (\sigma|_S : S \to E)_S
+$$
+此映射是单射。展开定义可见，上面定义的
+$\text{Gal}(E/F)$ 上的拓扑正是从 $G$ 诱导的拓扑。
+元素 $(f_S) \in G$ 属于 $c$ 的像，当且仅当在有意义时满足
+(A) $f_S(\alpha) + f_S(\beta) = f_S(\alpha + \beta)$ 和
+(M) $f_S(\alpha)f_S(\beta) = f_S(\alpha\beta)$
+（即 $\alpha, \beta, \alpha + \beta, \alpha\beta \in S$）。
+确切地说，这意味着
+$\lim f_S : E \to E$ 是 $F$-代数映射，因而由引理
+\ref{fields-lemma-algebraic-extension-self-map} 可知是自同构。
+对给定三元组 $(S, \alpha, \beta)$，条件 (A) 与 (M)
+定义 $G$ 的闭子集。因此 $\text{Gal}(E/F)$ 同胚于一个有限型空间的
+闭子集，从而其本身也是有限型空间。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-galois-infinite}
+令 $L/M/K$ 为域塔。假设 $L/K$ 与 $M/K$ 都是 Galois 扩张。
+则存在典范的连续满同态
+$c : \text{Gal}(L/K) \to \text{Gal}(M/K)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{fields-lemma-lift-maps}，给定
+$\text{Gal}(L/K)$ 中的 $\tau : L \to L$，其限制
+$\tau|_M : M \to M$ 是 $\text{Gal}(M/K)$ 的元素。
+这定义同态 $c$。连续性来自该拓扑的泛性质：作用
+$$
+\text{Gal}(L/K) \times M \longrightarrow M,\quad
+(\tau, x) \longmapsto \tau(x) = c(\tau)(x)
+$$
+连续，因为 $M \subset L$，且作用
+$\text{Gal}(L/K) \times L \to L$ 连续。
+于是由引理 \ref{fields-lemma-galois-profinite} 的 (1) 得到
+$c$ 连续。引理 \ref{fields-lemma-lift-maps} 还说明此映射是满射。
+\end{proof}
+
+\noindent
+下面给出理解无限 Galois 扩张之 Galois 群的一种更标准方式。
+
+\begin{lemma}
+\label{fields-lemma-infinite-galois-limit}
+令 $L/K$ 为 Galois 扩张，其 Galois 群为 $G$。
+令 $\Lambda$ 为有限 Galois 子扩张的集合，即
+$\lambda \in \Lambda$ 对应于 $L/L_\lambda/K$，
+其中 $L_\lambda/K$ 是有限 Galois 扩张，Galois 群为
+$G_\lambda$。在 $\Lambda$ 上按如下规则定义偏序：
+$\lambda \geq \lambda'$ 当且仅当
+$L_\lambda \supset L_{\lambda'}$。则：
+\begin{enumerate}
+\item $\Lambda$ 是有向偏序集；
+\item $L_\lambda$ 是 $\Lambda$ 上的 $K$-扩张系统，并且
+$L = \colim L_\lambda$；
+\item $G_\lambda$ 是 $\Lambda$ 上有限群的逆系统，转移映射均为满射，
+并且
+$$
+G = \lim_{\lambda \in \Lambda} G_\lambda
+$$
+作为有限型群成立；
+\item 每个投影 $G \to G_\lambda$ 都连续且为满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$L$ 的每个包含 $K$ 的子域在 $K$ 上都可分
+（这直接由定义得出）。令 $S \subset L$ 为有限子集。
+则 $K(S)/K$ 有限，并且存在扩张塔
+$L/E/K(S)/K$，使得 $E/K$ 是有限 Galois 扩张，见引理
+\ref{fields-lemma-normal-closure-inside-normal}。
+因此，对某个 $\lambda \in \Lambda$，有 $E = L_\lambda$。
+这当然说明集合 $\Lambda$ 非空。
+此外，给定 $\lambda_1, \lambda_2 \in \Lambda$，由引理
+\ref{fields-lemma-finite-finitely-generated}，可对有限集
+$S_1, S_2 \subset L$ 写成
+$L_{\lambda_i} = K(S_i)$。
+于是存在 $\lambda \in \Lambda$，使得
+$K(S_1 \cup S_2) \subset L_\lambda$。因此
+$\lambda \geq \lambda_1, \lambda_2$，且
+$\Lambda$ 有向（范畴论，定义
+\ref{categories-definition-directed-system}）。
+最后，由于 $L$ 中每个元素都包含在某个
+$\lambda \in \Lambda$ 对应的 $L_\lambda$ 中，
+由范畴论，第 \ref{categories-section-directed-colimits} 节
+对滤过余极限的描述，得到 $\colim L_\lambda = L$。
+
+\medskip\noindent
+若 $\Lambda$ 中 $\lambda \geq \lambda'$，则由引理
+\ref{fields-lemma-ses-galois} 得到典范满射
+$G_\lambda \to G_{\lambda'}$，
+$\sigma \mapsto \sigma|_{L_{\lambda'}}$。
+因此得到有限群的逆系统，其转移映射均为满射。
+
+\medskip\noindent
+回忆 $G = \text{Aut}(L/K)$。由引理
+\ref{fields-lemma-galois-infinite}，对 $\sigma \in G$，
+其在 $L_\lambda$ 上的限制
+$\sigma|_{L_\lambda}$ 是 $G_\lambda$ 的元素。
+此外，此过程给出连续满射 $G \to G_\lambda$。
+由于 $G_\lambda$ 逆系统中的转移映射也由限制给出，
+显然得到典范连续映射
+$$
+G \longrightarrow \lim_{\lambda \in \Lambda} G_\lambda
+$$
+连续性来自拓扑群范畴中极限的定义；回忆，由拓扑学，引理
+\ref{topology-lemma-topological-group-limits}，
+这些极限与到集合范畴和拓扑空间范畴的遗忘函子交换。
+另一方面，由于 $L = \colim L_\lambda$，显然逆极限的任一元素
+（视作集合意义下的元素）都定义 $L$ 的一个自同构。
+因此该映射为双射。两边的拓扑都是有限型的，而有限型空间之间的
+连续双射是同胚（拓扑学，引理
+\ref{topology-lemma-bijective-map}），故证明完成。
+\end{proof}
+
+\begin{theorem}[无限 Galois 理论基本定理]
+% P01-E0257: frozen source label misspells "infinite" as "inifinite"; retained.
+\label{fields-theorem-inifinite-galois-theory}
+令 $L/K$ 为 Galois 扩张。令 $G = \text{Gal}(L/K)$
+为视作有限型拓扑群的 Galois 群
+（引理 \ref{fields-lemma-galois-profinite}）。则 $K = L^G$，且映射
+$$
+\{G\text{ 的闭子群}\}
+\longrightarrow
+\{\text{中间扩张 }L/M/K\},\quad
+H \longmapsto L^H
+$$
+是双射，其逆映射把 $M$ 送到 $\text{Gal}(L/M)$。
+有限子扩张 $M$ 恰好对应于开子群 $H \subset G$。
+$G$ 的正规闭子群 $H$ 恰好对应于在 $K$ 上为 Galois 扩张的子扩张
+$M$。
+\end{theorem}
+
+\begin{proof}
+以下将不再特别说明地使用有限 Galois 理论的结论
+（定理 \ref{fields-theorem-galois-theory}）。
+令 $S \subset L$ 为有限子集。存在扩张塔
+$L/E/K$，使得 $K(S) \subset E$ 且
+$E/K$ 是有限 Galois 扩张，见引理
+\ref{fields-lemma-normal-closure-inside-normal}。
+换言之，$L/K$ 是其有限 Galois 子扩张之并。
+对这样的 $E$，由引理 \ref{fields-lemma-galois-infinite}，
+映射 $\text{Gal}(L/K) \to \text{Gal}(E/K)$ 连续且为满射；
+即其核是开的，因为 $\text{Gal}(E/K)$ 上的拓扑是离散的。
+特别地，$L \setminus K$ 中没有元素被
+$\text{Gal}(L/K)$ 固定，因为
+$E^{\text{Gal}(E/K)} = K$。这证明 $L^G = K$。
+
+\medskip\noindent
+由引理 \ref{fields-lemma-galois-goes-up}，给定子扩张 $L/M/K$，
+扩张 $L/M$ 是 Galois 扩张。从 $G$ 上拓扑的定义立即可知，
+子群 $\text{Gal}(L/M)$ 是闭的。
+将以上结论应用于 $L/M$，得到
+$L^{\text{Gal}(L/M)} = M$。
+
+\medskip\noindent
+反过来，令 $H \subset G$ 为闭子群。我们声称
+$H = \text{Gal}(L/L^H)$。包含关系
+$H \subset \text{Gal}(L/L^H)$ 是显然的。
+假设 $g \in \text{Gal}(L/L^H)$。令 $S \subset L$ 为有限子集。
+我们将证明 $g$ 的开邻域
+$U_S(g) = \{g' \in G \mid g'(s) = g(s)\}$ 与 $H$ 相交。
+由于 $H$ 闭，这蕴含 $g \in H$。
+令 $L/E/K$ 为本证明第一段中那样的包含 $K(S)$ 的有限 Galois 子扩张，
+并考虑同态
+$c : \text{Gal}(L/K) \to \text{Gal}(E/K)$。
+则 $L^H \cap E = E^{c(H)}$。由于 $g$ 固定 $L^H$，
+它也固定 $E^{c(H)}$，故由有限 Galois 理论，
+$c(g) \in c(H)$。取 $h \in H$ 使得
+$c(h) = c(g)$。于是如所需，$h \in U_S(g)$。
+
+\medskip\noindent
+至此，我们已经建立闭子群与子扩张之间的对应。
+
+\medskip\noindent
+假设 $H \subset G$ 是开的。按上面的论证可知，对某个充分大的
+有限 Galois 子扩张 $E$，$H$ 包含
+$\text{Gal}(L/E)$，并且 $L^H$ 包含在 $E$ 中，
+因而在 $K$ 上有限。反过来，若 $M$ 是有限子扩张，
+则 $M$ 由某个有限子集 $S$ 生成，相应子群为开集
+$U_S(e)$，其中 $e \in G$ 是单位元。
+
+\medskip\noindent
+假设 $K \subset M \subset L$ 且 $M/K$ 是 Galois 扩张。
+由引理 \ref{fields-lemma-galois-infinite}，存在 Galois 群之间的连续满同态
+$\text{Gal}(L/K) \to \text{Gal}(M/K)$，
+其核为 $\text{Gal}(L/M)$。因此
+$\text{Gal}(L/M)$ 是正规闭子群。
+
+\medskip\noindent
+最后，假设 $N \subset G$ 正规且闭。对本证明第一段中的任意
+$L/E/K$，像 $c(N) \subset \text{Gal}(E/K)$ 是正规子群。
+因此 $L^N = \bigcup E^{c(N)}$ 是 $K$ 的 Galois 扩张之并
+（由有限 Galois 理论），从而在 $K$ 上为 Galois 扩张。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-ses-infinite-galois}
+令 $L/M/K$ 为域塔。假设 $L/K$ 与 $M/K$ 都是 Galois 扩张。
+则得到有限型拓扑群的短正合列
+$$
+1 \to \text{Gal}(L/M) \to \text{Gal}(L/K) \to \text{Gal}(M/K) \to 1
+$$
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{fields-lemma-galois-infinite} 的重新表述。
+\end{proof}
+
+
+
+
+
+
+\section{复数}
+\label{fields-section-complex-numbers}
+
+\noindent
+代数学基本定理断言，复数域是代数闭域。本节对此作简要讨论。
+
+\medskip\noindent
+首先要说明，证明这一点需要用到少量微积分知识。
+我们将使用如下直观事实：实数域上的每个奇数次多项式都有实根。
+具体地，对某个 $k \geq 0$ 和 $a_{2k + 1} \not = 0$，令
+$P(x) = a_{2k + 1} x^{2k + 1} + \ldots + a_0 \in \mathbf{R}[x]$。
+不妨假设 $a_{2k + 1} > 0$。当 $x \in \mathbf{R}$
+为充分大的正数时，由于项
+$a_{2k + 1} x^{2k + 1}$ 支配所有其他项，有 $P(x) > 0$。
+类似地，若 $x \ll 0$，则由于同一原因有 $P(x) < 0$
+（这里用到了次数为奇数）。因此，由介值定理，存在
+$x \in \mathbf{R}$ 使得 $P(x) = 0$。
+
+\medskip\noindent
+由上面可以推出，$\mathbf{R}$ 没有非平凡的奇数次域扩张，
+因为这种扩张中的元素将具有奇数次最小多项式。
+
+\medskip\noindent
+接下来，令 $K/\mathbf{R}$ 为有限 Galois 扩张，Galois 群为 $G$。
+令 $P \subset G$ 为一个 $2$-Sylow 子群。则
+$K^P/\mathbf{R}$ 是奇数次扩张，故由上面可知
+$K^P = \mathbf{R}$，这又蕴含 $G = P$。
+（这些论证当然都依赖于 Galois 理论。）
+因此 $G$ 是 $2$-群。若 $G$ 非平凡，则
+$\mathbf{C} \subset K$，因为 $\mathbf{C}$
+（在同构意义下）是 $\mathbf{R}$ 唯一的次数 $2$ 扩张。
+若 $G$ 有多于 $2$ 个元素，就会得到 $\mathbf{C}$ 的二次扩张。
+这是荒谬的，因为每个复数都有平方根。
+
+\medskip\noindent
+结论是：$\mathbf{C}$ 代数闭。事实上，若不然，就会得到
+一个非平凡有限扩张 $K/\mathbf{C}$；由引理
+\ref{fields-lemma-normal-closure}，可假设它在 $\mathbf{R}$ 上正规
+（因而是 Galois 的）。但上面已经说明，此时
+$K = \mathbf{C}$。
+
+\begin{lemma}[代数学基本定理]
+\label{fields-lemma-C-algebraically-closed}
+域 $\mathbf{C}$ 是代数闭域。
+\end{lemma}
+
+\begin{proof}
+见上面的讨论。
+\end{proof}
+
+
+
+
+
+\section{Kummer 扩张}
+\label{fields-section-Kummer}
+
+\noindent
+令 $K$ 为域。令 $n \geq 2$ 为整数，并假设 $K$ 包含一个本原
+$n$ 次方根为 $1$ 的元素。令 $a \in K$。令 $L$ 为通过添入方程
+$x^n = a$ 的一个根 $b$ 所得的 $K$ 的扩张。
+则 $L/K$ 是 Galois 扩张。若
+$G = \text{Gal}(L/K)$ 为 Galois 群，则映射
+$$
+G \longrightarrow \mu_n(K),\quad \sigma \longmapsto \sigma(b)/b
+$$
+是群的单同态。特别地，$G$ 作为循环群 $\mu_n(K)$ 的子群，
+是阶整除 $n$ 的循环群。Kummer 理论给出其逆命题。
+
+\begin{lemma}[Kummer 扩张]
+\label{fields-lemma-Kummer}
+令 $L/K$ 为域的 Galois 扩张，其 Galois 群为
+$\mathbf{Z}/n\mathbf{Z}$。进一步假设 $K$ 的特征与 $n$ 互素，
+并且 $K$ 包含一个本原 $n$ 次方根为 $1$ 的元素。
+则 $L = K[z]$，其中 $z^n \in K$。
+\end{lemma}
+
+\begin{proof}
+令 $\zeta \in K$ 为一个本原 $n$ 次方根为 $1$ 的元素。
+令 $\sigma$ 为 $\text{Gal}(L/K)$ 的一个生成元。
+把 $\sigma : L \to L$ 看作 $K$-线性算子。
+注意，作为线性算子，有 $\sigma^n - 1 = 0$。
+应用特征标的线性无关性
+（引理 \ref{fields-lemma-independence-characters}），可知不存在
+次数 $< n$ 的 $K$ 上多项式零化 $\sigma$。
+因此，$\sigma$ 作为线性算子的最小多项式为 $x^n - 1$。
+由于 $\zeta$ 是 $x^n - 1$ 的根，线性代数表明存在
+$0 \neq z \in L$，使得 $\sigma(z) = \zeta z$。
+此 $z$ 满足 $z^n \in K$，因为
+$\sigma(z^n) = (\zeta z)^n = z^n$。此外，
+$z, \sigma(z), \ldots, \sigma^{n - 1}(z) =
+z, \zeta z, \ldots \zeta^{n - 1} z$ 两两不同，
+这保证 $z$ 在 $K$ 上生成 $L$。
+因此如所需，$L = K[z]$。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-adjoint-pth-root-unity}
+令 $K$ 为域，代数闭包为 $\overline{K}$。
+令 $p$ 为不同于 $K$ 的特征的素数。
+令 $\zeta \in \overline{K}$ 为一个本原 $p$ 次方根为 $1$ 的元素。
+则 $K(\zeta)/K$ 是次数整除 $p - 1$ 的 Galois 扩张。
+\end{lemma}
+
+\begin{proof}
+多项式 $x^p - 1$ 在 $K(\zeta)$ 上完全分解，因为它的根为
+$1, \zeta, \zeta^2, \ldots, \zeta^{p - 1}$。
+因此 $K(\zeta)/K$ 是分裂域，从而正规。
+由于 $x^p - 1$ 是可分多项式，该扩张可分。
+所以该扩张是 Galois 扩张。$K(\zeta)$ 在 $K$ 上的任意自同构
+都把 $\zeta$ 送到某个 $\zeta^i$，其中
+$1 \leq i \leq p - 1$。因此 Galois 群是
+$(\mathbf{Z}/p\mathbf{Z})^*$ 的子群。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-subfields-kummer}
+\begin{reference}
+\cite[Theorem 5.2]{Radical}
+\end{reference}
+令 $K$ 为域。令 $L/K$ 为次数 $e$ 的有限扩张，并假设它由元素
+$\alpha$ 生成，其中 $a = \alpha^e \in K$。
+若 $L$ 中每个 $e$ 次单位根都包含在 $K$ 中，则任意子扩张
+% P01-E0258: frozen source writes "sub extension" as two words.
+$L/L'/K$ 都由某个 $\alpha^d$ 生成，其中 $d | e$。
+\end{lemma}
+
+\begin{proof}
+注意，对 $d | e$，子域 $K(\alpha^d)$ 满足
+$[K(\alpha^d) : K] = e/d$ 以及
+$[L : K(\alpha^d)] = d$。
+令 $L/L'/K$ 为子扩张。设 $d = [L : L']$。
+若 $\alpha^d \in L'$，则由次数可知
+$L' = K(\alpha^d)$。
+令 $P \in L'[x]$ 为 $\alpha$ 在 $L'$ 上的最小多项式。
+则 $P$ 整除 $x^e - a$，且 $P$ 的次数为 $d$。
+在 $x^e - a$ 在 $L$ 上的一个分裂域中写成
+$$
+x^e - a = \prod\nolimits_{i = 1, \ldots, e} (x - \zeta_i \alpha)
+$$
+$\zeta_i$ 是 $e$ 次单位根，重新编号后有
+$$
+P = \prod\nolimits_{i = 1, \ldots, d} (x - \zeta_i \alpha)
+$$
+$P$ 的常数项等于
+% P01-E0259: frozen formula omits the factor (-1)^d in the constant term.
+$$
+c = (\prod\nolimits_{i = 1, \ldots, d} \zeta_i) \alpha^d
+$$
+并且属于 $L' \subset L$。由于 $\alpha \in L$，这蕴含
+$\zeta = \prod_{i = 1, \ldots, d} \zeta_i$ 属于 $L$，
+从而由假设属于 $K$。因此
+$\alpha^d = \zeta^{-1}c \in L'$，结论得证。
+\end{proof}
+
+
+
+
+
+\section{Artin--Schreier 扩张}
+\label{fields-section-Artin-Schreier}
+
+\noindent
+令 $K$ 为特征 $p > 0$ 的域。令 $a \in K$。
+令 $L$ 为通过添入方程 $x^p - x = a$ 的一个根 $b$
+所得的 $K$ 的扩张。则 $L/K$ 是 Galois 扩张。
+若 $G = \text{Gal}(L/K)$ 为 Galois 群，则映射
+$$
+G \longrightarrow \mathbf{Z}/p\mathbf{Z},\quad
+\sigma \longmapsto \sigma(b) - b
+$$
+是群的单同态。特别地，$G$ 作为
+$\mathbf{Z}/p\mathbf{Z}$ 的子群，是阶整除 $p$ 的循环群。
+Artin--Schreier 扩张理论给出其逆命题。
+
+\begin{lemma}[Artin--Schreier 扩张]
+\label{fields-lemma-Artin-Schreier}
+令 $L/K$ 为特征 $p > 0$ 的域的 Galois 扩张，
+其 Galois 群为 $\mathbf{Z}/p\mathbf{Z}$。
+则 $L = K[z]$，其中 $z^p - z \in K$。
+\end{lemma}
+
+\begin{proof}
+令 $\sigma$ 为 $\text{Gal}(L/K)$ 的一个生成元。
+把 $\sigma : L \to L$ 看作 $K$-线性算子。
+注意，作为线性算子，有 $\sigma^p - 1 = 0$。
+应用特征标的线性无关性
+（引理 \ref{fields-lemma-independence-characters}），不存在次数
+$< p$ 的多项式零化 $\sigma$。
+因此，$\sigma$ 的最小多项式为
+$x^p - 1 = (x - 1)^p$。
+这蕴含存在 $w \in L$，使得
+$(\sigma - 1)^{p - 1}(w) = y$ 非零。
+于是 $\sigma(y) = y$，即 $y \in K$。因此
+$z = y^{-1}(\sigma - 1)^{p - 2}(w)$ 满足
+$\sigma(z) = z + 1$。由于 $z \not \in K$，有 $L = K[z]$。
+又因为
+$\sigma(z^p - z) = (z + 1)^p - (z + 1) = z^p - z$，
+可见 $z^p - z \in K$，证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{超越性}
+\label{fields-section-transcendence}
+
+\noindent
+回忆标准定义。
+
+\begin{definition}
+\label{fields-definition-transcendence}
+令 $K/k$ 为域扩张。
+\begin{enumerate}
+\item 若把 $X_i$ 送到 $x_i$ 的映射
+$$
+k[X_i; i\in I] \longrightarrow K
+$$
+是单射，则称 $K$ 中的元素族 $\{x_i\}_{i \in I}$
+在 $k$ 上{\it 代数无关}。
+\item 多项式环 $k[x_i; i \in I]$ 的分式域记为
+$k(x_i; i\in I)$。
+\item $k$ 的{\it 纯超越扩张}，是与 $k$ 上某个多项式环的
+分式域同构的任意域扩张 $K/k$。
+\item $K/k$ 的{\it 超越基}，是一个在 $k$ 上代数无关的元素族
+$\{x_i\}_{i \in I}$，并且扩张
+$K/k(x_i; i\in I)$ 是代数的。
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{fields-example-pi-transcendental}
+域 $\mathbf{Q}(\pi)$ 是纯超越的，因为 $\pi$
+不是任何有理系数非零多项式的根。特别地，
+$\mathbf{Q}(\pi) \cong \mathbf{Q}(x)$。
+\end{example}
+
+\begin{lemma}
+\label{fields-lemma-transcendence-degree}
+令 $E/F$ 为域扩张。$E$ 在 $F$ 上存在超越基。
+任意两个超越基具有相同基数。
+\end{lemma}
+
+\begin{proof}
+令 $A$ 为 $E$ 的代数无关子集。令 $G$ 为 $E$ 的一个包含
+$A$ 且生成 $E/F$ 的子集。我们声称，可以找到超越基 $B$，
+使得 $A \subset B \subset G$。
+为证明这一点，考虑代数无关子集组成的族 $\mathcal{B}$；
+其成员是 $G$ 中包含 $A$ 的子集。用包含关系在
+$\mathcal{B}$ 上定义偏序。于是 $\mathcal{B}$
+至少包含元素 $A$。$\mathcal{B}$ 的全序子集 $T$
+中各元素的并，在 $F$ 上是 $E$ 的代数无关子集，
+因为任何代数依赖关系都会已经出现在 $T$ 的某个元素中
+（多项式只涉及有限多个变量）。该并也包含 $A$ 且包含在 $G$ 中。
+由 Zorn 引理，存在极大元素 $B \in \mathcal{B}$。
+现在声称 $E$ 在 $F(B)$ 上是代数的。这是因为，若不然，
+由于 $F(G) = E$，就会存在元素
+$f \in G$ 在 $F(B)$ 上超越。于是 $B \cup\{f\}$
+将代数无关，与 $B$ 的极大性矛盾。因此 $B$ 是所需超越基。
+
+\medskip\noindent
+令 $B$ 与 $B'$ 为两个超越基。不失一般性，可假设
+$|B'| \leq |B|$。现在把证明分成两种情形。
+第一种情形是 $B$ 为无限集。对每个 $\alpha \in B'$，
+存在有限集 $B_{\alpha} \subset B$，使得 $\alpha$ 在
+$F(B_{\alpha})$ 上是代数的，因为任何代数依赖关系只使用
+有限多个不定元。定义
+$B^* = \bigcup_{\alpha\in B'} B_{\alpha}$。
+按构造，$B^* \subset B$，但我们声称这两个集合其实相等。
+若不相等，设存在元素 $\beta \in B \setminus B^*$。
+已知 $\beta$ 在 $F(B')$ 上是代数的，而后者在
+$F(B^*)$ 上是代数的。因此 $\beta$ 在 $F(B^*)$ 上是代数的，
+矛盾。所以
+$|B| \leq |\bigcup_{\alpha \in B'} B_{\alpha}|$。
+若 $B'$ 有限，则 $B$ 也有限，故可假设 $B'$ 无限；此时
+$$
+|B| \leq |\bigcup\nolimits_{\alpha \in B'} B_{\alpha}| = |B'|
+$$
+因为每个 $B_\alpha$ 有限而 $B'$ 无限。
+因此在无限情形，$|B| = |B'|$。
+
+\medskip\noindent
+现在考察 $B$ 有限的情形。此时 $B'$ 也有限，设
+$B = \{\alpha_1, \ldots, \alpha_n\}$ 且
+$B' = \{\beta_1, \ldots, \beta_m\}$，其中 $m \leq n$。
+对 $m$ 作归纳：若 $m = 0$，则 $E/F$ 是代数的，故
+$B = \emptyset$，从而 $n = 0$。若 $m > 0$，则存在不可约多项式
+$f \in F[x, y_1, \ldots, y_n]$，使得
+$f(\beta_1, \alpha_1, \ldots, \alpha_n) = 0$，并且 $x$
+在 $f$ 中出现。由于 $\beta_1$ 在 $F$ 上不是代数的，
+$f$ 必须涉及某个 $y_i$；不失一般性，假设 $f$ 使用 $y_1$。
+令 $B^* = \{\beta_1, \alpha_2, \ldots, \alpha_n\}$。
+我们声称 $B^*$ 是 $E/F$ 的一个基。为证明此断言，
+注意到有代数扩张塔
+$$
+E/ F(B^*, \alpha_1) / F(B^*)
+$$
+因为 $\alpha_1$ 在 $F(B^*)$ 上是代数的。
+现在声称 $B^*$（按元素的重数计）在 $F$ 上代数无关；
+否则，就会存在不可约多项式
+$g\in F[x, y_2, \ldots, y_n]$，使得
+$g(\beta_1, \alpha_2, \ldots, \alpha_n) = 0$。
+该多项式必然涉及 $x$，从而使 $\beta_1$ 在
+$F(\alpha_2, \ldots, \alpha_n)$ 上代数；
+这又会使 $\alpha_1$ 在
+$F(\alpha_2, \ldots, \alpha_n)$ 上代数，这是不可能的。
+因此，$\{\alpha_2, \ldots, \alpha_n\}$ 和
+$\{\beta_2, \ldots, \beta_m\}$ 是 $E$ 在
+$F(\beta_1)$ 上的基，由归纳假设得到 $m = n$。
+\end{proof}
+
+\begin{definition}
+\label{fields-definition-transcendence-degree}
+令 $K/k$ 为域扩张。$K$ 在 $k$ 上的{\it 超越次数}
+是 $K$ 在 $k$ 上任一超越基的基数，记为
+$\text{trdeg}_k(K)$。
+\end{definition}
+
+\begin{lemma}
+\label{fields-lemma-transcendence-degree-tower}
+令 $L/K/k$ 为域扩张。则
+$$
+\text{trdeg}_k(L) =
+\text{trdeg}_K(L) +
+\text{trdeg}_k(K).
+$$
+\end{lemma}
+
+\begin{proof}
+选择 $K$ 在 $k$ 上的超越基 $A \subset K$。
+选择 $L$ 在 $K$ 上的超越基 $B \subset L$。
+容易看出，$A \cup B$ 是 $L$ 在 $k$ 上的超越基。
+\end{proof}
+
+\begin{example}
+\label{fields-example-pi-e-transcendental}
+考虑由添入数 $e$ 和 $\pi$ 得到的域扩张
+$\mathbf{Q}(e, \pi)$。由于 $e$ 与 $\pi$ 在有理数域上都超越，
+此域扩张的超越次数至少为 $1$。然而，若 $e$ 与 $\pi$
+代数无关，则此域扩张的超越次数可能为 $2$。
+这是否成立尚不知晓，因而确定
+$\text{trdeg}(\mathbf{Q}(e, \pi))$ 的问题仍是开放的。
+\end{example}
+
+\begin{example}
+\label{fields-example-function-field-not-unique-transcendence-basis}
+令 $F$ 为域，且 $E = F(t)$。由于 $E = F(t)$，
+$\{t\}$ 是一个超越基。然而，$\{t^2\}$ 也是超越基，
+因为 $F(t)/F(t^2)$ 是代数扩张。这说明，虽然总可把扩张
+$E/F$ 分解为代数扩张 $E/F'$ 与纯超越扩张 $F'/F$，
+但这种分解不唯一，并且依赖于超越基的选择。
+\end{example}
+
+\begin{example}
+\label{fields-example-riemann-surface-transcendence}
+令 $X$ 为紧 Riemann 曲面。则其函数域
+$\mathbf{C}(X)$（见例 \ref{fields-example-field-of-meromorphic-functions}）
+在 $\mathbf{C}$ 上的超越次数为一。事实上，$\mathbf{C}$
+的{\it 任意}有限生成、超越次数为一的扩张都来自某个 Riemann 曲面。
+紧 Riemann 曲面与（非常值）全纯映射所成范畴，甚至和
+$\mathbf{C}$ 的超越次数为 $1$ 的有限生成扩张及
+$\mathbf{C}$-代数态射所成范畴的反范畴等价。见 \cite{Forster}。
+
+\medskip\noindent
+上述陈述也有代数版本。给定代数闭域 $k$（例如复数域）上的
+射影空间中的一条（不可约）代数曲线，可以考察其“有理函数域”：
+大致说来，就是形如多项式之商的函数，其中分母不在曲线上恒为零。
+光滑射影曲线与曲线的非常值态射所成范畴，和 $k$ 的超越次数为一的
+有限生成扩张所成范畴之间存在类似的反等价
+（代数曲线，定理 \ref{curves-theorem-curves-rational-maps}）。
+见 \cite{H}。
+\end{example}
+
+\begin{definition}
+\label{fields-definition-algebraically-closed-in}
+令 $K/k$ 为域扩张。
+\begin{enumerate}
+\item {\it $k$ 在 $K$ 中的代数闭包}是 $K$ 的子域
+$k'$，由 $K$ 中在 $k$ 上代数的元素组成。
+\item 若 $K$ 中每个在 $k$ 上代数的元素都包含在 $k$ 中，
+则称 $k$ 在{\it $K$ 中代数闭}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{fields-lemma-purely-transcendental-degree}
+令 $k'/k$ 为有限域扩张。令
+$k'(x_1, \ldots, x_r)/k(x_1, \ldots, x_r)$
+为所诱导的纯超越扩张之间的扩张。则
+$[k'(x_1, \ldots, x_r) : k(x_1, \ldots, x_r)] = [k' : k] < \infty$。
+\end{lemma}
+
+\begin{proof}
+由扩张次数的乘法性
+（引理 \ref{fields-lemma-multiplicativity-degrees}），
+只需证明 $k'$ 由单个元素 $\alpha \in k'$ 在 $k$ 上生成的情形。
+令 $f \in k[T]$ 为 $\alpha$ 在 $k$ 上的最小多项式。
+于是 $k'(x_1, \ldots, x_r)$ 由
+$\alpha, x_1, \ldots, x_r$ 在 $k$ 上生成，因而
+$k'(x_1, \ldots, x_r)$ 由 $\alpha$ 在
+$k(x_1, \ldots, x_r)$ 上生成。
+故只需证明 $f$ 作为 $k(x_1, \ldots, x_r)[T]$ 的元素仍不可约。
+我们只概述证明。显然，$f$ 作为
+$k[x_1, \ldots, x_r, T]$ 的元素不可约；例如，这是因为
+$f$ 作为 $T$ 的多项式是首一的，并且
+$k[x_1, \ldots, x_r, T]$ 中任何可能的分解，在令
+$x_i$ 等于 $0$ 后都会导出 $k[T]$ 中的分解。
+由 Gauss 引理得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{fields-lemma-algebraic-closure-in-finitely-generated}
+令 $K/k$ 为有限生成域扩张。$k$ 在 $K$ 中的代数闭包
+在 $k$ 上有限。
+\end{lemma}
+
+\begin{proof}
+令 $x_1, \ldots, x_r \in K$ 为 $K$ 在 $k$ 上的一个超越基。
+则 $n = [K : k(x_1, \ldots, x_r)] < \infty$。
+假设 $k \subset k' \subset K$，其中 $k'/k$ 有限。
+在这种情况下，
+$[k'(x_1, \ldots, x_r) : k(x_1, \ldots, x_r)] = [k' : k] < \infty$，
+见引理 \ref{fields-lemma-purely-transcendental-degree}。因此
+$$
+[k' : k] = [k'(x_1, \ldots, x_r) : k(x_1, \ldots, x_r)] \leq
+[K : k(x_1, \ldots, x_r)] = n.
+$$
+换言之，有限子扩张的次数有界，引理即得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{线性无交扩张}
+\label{fields-section-linearly-disjoint}
+
+\noindent
+令 $k$ 为域，$K$ 与 $L$ 为 $k$ 的域扩张。
+再假设 $K$ 与 $L$ 都嵌入某个更大的域 $\Omega$ 中。
+
+\begin{definition}
+\label{fields-definition-compositum}
+考虑域扩张图
+\begin{equation}
+\label{fields-equation-inside-omega}
+\vcenter{
+\xymatrix{
+L \ar[r] & \Omega \\
+k \ar[r] \ar[u] & K \ar[u]
+}
+}
+\end{equation}
+{\it $K$ 与 $L$ 在 $\Omega$ 中的合成域}，记为 $KL$，
+是 $\Omega$ 中同时包含 $L$ 与 $K$ 的最小子域。
+\end{definition}
+
+\noindent
+显然，$KL$ 由集合 $K \cup L$ 在 $k$ 上生成，
+由集合 $K$ 在 $L$ 上生成，也由集合 $L$ 在 $K$ 上生成。
+
+\medskip\noindent
+{\bf 警告：}合成域的（同构类）依赖于 $K$ 与 $L$
+嵌入 $\Omega$ 的选择。
+% P01-E0260: frozen source says "composition" where the defined term is "compositum".
+例如，考虑数域
+$K = \mathbf{Q}(2^{1/8}) \subset \mathbf{R}$ 与
+$L = \mathbf{Q}(2^{1/12}) \subset \mathbf{R}$。
+在 $\mathbf{R}$ 中的合成域是
+$\mathbf{Q}(2^{1/24})$，它在 $\mathbf{Q}$ 上的次数为 $24$。
+然而，若把 $K = \mathbf{Q}[x]/(x^8 - 2)$ 嵌入
+$\mathbf{C}$，其中把 $x$ 送到 $2^{1/8}e^{2\pi i/8}$，
+则合成域 $\mathbf{Q}(2^{1/12}, 2^{1/8}e^{2\pi i/8})$
+包含 $i = e^{2\pi i/4}$，并且在 $\mathbf{Q}$ 上的次数为 $48$
+（我们略去次数为 $48$ 的证明，但 $i$ 的存在已经证明
+两个合成域不同构）。
+
+\begin{definition}
+\label{fields-definition-linearly-disjoint}
+考虑如式 (\ref{fields-equation-inside-omega}) 的域图。
+若映射
+$$
+K \otimes_k L \longrightarrow KL,\quad
+\sum x_i \otimes y_i \longmapsto \sum x_i y_i
+$$
+是单射，则称 $K$ 与 $L$ {\it 在 $\Omega$ 中于 $k$ 上线性无交}。
+\end{definition}
+
+\noindent
+下面的引理似乎不适合放在其他地方。
+
+\begin{lemma}
+\label{fields-lemma-normal-case}
+令 $E/F$ 为正规代数域扩张。存在子扩张
+$E / E_{sep} /F$ 与 $E / E_{insep} / F$，使得：
+\begin{enumerate}
+\item $F \subset E_{sep}$ 是 Galois 扩张，且
+$E_{sep} \subset E$ 是纯不可分扩张；
+\item $F \subset E_{insep}$ 是纯不可分扩张，且
+$E_{insep} \subset E$ 是 Galois 扩张；
+\item $E = E_{sep} \otimes_F E_{insep}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们在引理 \ref{fields-lemma-separable-first} 中找到了子域 $E_{sep}$。
+置 $E_{insep} = E^{\text{Aut}(E/F)}$。细节从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{回顾}
+\label{fields-section-algebraic}
+
+\noindent
+本节快速回顾以上内容。
+
+\medskip\noindent
+令 $K/k$ 为域扩张，令 $\alpha \in K$。则有下列可能：
+\begin{enumerate}
+\item 元素 $\alpha$ 在 $k$ 上超越。
+\item 元素 $\alpha$ 在 $k$ 上代数。以
+$P(T) \in k[T]$ 表示它的{\it 最小多项式}。
+% P01-E0261: frozen English omits "by" after "Denote".
+这是系数属于 $k$ 的首一多项式
+$P(T) = T^d + a_1 T^{d - 1} + \ldots + a_d$。
+它不可约且满足 $P(\alpha) = 0$。这些性质唯一确定 $P$，
+整数 $d$ 称为{\it $\alpha$ 在 $k$ 上的次数}。
+又分两种情形：
+\begin{enumerate}
+\item 多项式 $\text{d}P/\text{d}T$ 不恒为零。
+这等价于如下条件：
+$P(T) = \prod_{i = 1, \ldots, d} (T - \alpha_i)$，
+其中 $\alpha_1, \ldots, \alpha_d$ 是 $k$ 的代数闭包中
+两两不同的元素。在这种情况下，称 $\alpha$ 在 $k$ 上{\it 可分}。
+\item $\text{d}P/\text{d}T$ 恒为零。在这种情况下，
+$k$ 的特征 $p$ 为
+% P01-E0262: frozen source has a malformed greater-than-zero math span without p.
+$ > 0$，并且 $P$ 实际上是 $T^p$ 的多项式。
+显然，存在最大的幂 $q = p^e$，使得 $P$ 是 $T^q$ 的多项式。
+于是元素 $\alpha^q$ 在 $k$ 上可分。
+\end{enumerate}
+\end{enumerate}
+
+\begin{definition}
+\label{fields-definition-separable-algebraic}
+代数域扩张。
+\begin{enumerate}
+\item 若 $K$ 的每个元素都在 $k$ 上代数，则称域扩张
+$K/k$ 为{\it 代数扩张}。
+\item 若每个 $\alpha \in k'$ 都在 $k$ 上可分，
+则称代数扩张 $k'/k$ 为{\it 可分扩张}。
+\item 若 $k$ 的特征为 $p > 0$，并且对每个元素
+$\alpha \in k'$，都存在 $p$ 的一个幂 $q$，使得
+$\alpha^q \in k$，则称代数扩张 $k'/k$ 为{\it 纯不可分扩张}。
+\item 若对每个 $\alpha \in k'$，$\alpha$ 在 $k$ 上的
+最小多项式 $P(T) \in k[T]$ 都在 $k'$ 上完全分解为线性因子，
+则称代数扩张 $k'/k$ 为{\it 正规扩张}。
+\item 若代数扩张 $k'/k$ 可分且正规，则称它为
+{\it Galois 扩张}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面的引理似乎不适合放在其他地方。
+
+\begin{lemma}
+\label{fields-lemma-pth-root}
+令 $K$ 为特征 $p > 0$ 的域。令 $L/K$ 为可分代数扩张。
+令 $\alpha \in L$。
+\begin{enumerate}
+\item 若 $\alpha$ 在 $K$ 上的最小多项式的系数都是
+$K$ 中的 $p$ 次幂，则 $\alpha$ 是 $L$ 中的 $p$ 次幂。
+\item 更一般地，若 $P \in K[T]$ 是满足下列条件的多项式：
+(a) $\alpha$ 是 $P$ 的根；(b) $P$ 在一个代数闭包中有两两不同的根；
+(c) $P$ 的所有系数都是 $p$ 次幂；则 $\alpha$
+是 $L$ 中的 $p$ 次幂。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定义，(2) 蕴含 (1)。假设 $P$ 如 (2) 所述。
+写成
+$P(T) = \sum\nolimits_{i = 0}^d a_i T^{d - i}$ 且 $a_i = b_i^p$。
+多项式
+$Q(T) = \sum\nolimits_{i = 0}^d b_i T^{d - i}$
+在代数闭包中也有两两不同的根，因为 $Q$ 的根是 $P$ 的根的
+$p$ 次根。若 $\alpha$ 不是 $p$ 次幂，则
+$T^p - \alpha$ 是 $L$ 上的不可约多项式
+（引理 \ref{fields-lemma-take-pth-root}）。
+此外，$Q$ 与 $T^p - \alpha$ 在代数闭包
+$\overline{L}$ 中有共同根。
+因此 $Q$ 与 $T^p - \alpha$ 不互素，这蕴含在 $L[T]$ 中
+$T^p - \alpha | Q$。这与 $Q$ 的根两两不同矛盾。
+\end{proof}

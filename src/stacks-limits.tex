@@ -1,0 +1,1005 @@
+% Generated mechanically from the frozen stacks-limits.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{101}
+\chapter{代数叠的极限}
+
+
+
+\phantomsection
+\label{stacks-limits-section-phantom}
+
+
+\section{引言}
+\label{stacks-limits-section-introduction}
+
+\noindent
+本章汇集与代数叠的极限有关的材料。
+关于代数叠和代数空间极限的许多结果由 David Rydh
+在 \cite{rydh_approx} 中得到。
+
+
+\section{约定}
+\label{stacks-limits-section-conventions}
+
+\noindent
+我们继续采用《叠的性质》第
+\ref{stacks-properties-section-conventions} 节中引入的约定和语言滥用。
+
+
+
+
+
+
+
+\section{有限表示态射}
+\label{stacks-limits-section-finite-presentation}
+
+\noindent
+本节是《空间的极限》第
+\ref{spaces-limits-section-finite-presentation} 节的对应版本。
+在那里，我们定义了 $\Sch$ 上函子之间的变换保持极限的含义
+（建议参看《空间的极限》引理
+\ref{spaces-limits-lemma-characterize-relative-limit-preserving}
+中的刻画）。在《可表示性判据》第
+\ref{criteria-section-limit-preserving} 节中，我们定义了
+“在对象上保持极限”的概念。回顾《Artin 公理》第
+\ref{artin-section-limits} 节，我们已经定义了 $\Sch$
+上的群胚纤维化范畴保持极限的含义。将这些定义结合起来，
+得到如下概念。
+
+\begin{definition}
+\label{stacks-limits-definition-limit-preserving}
+设 $S$ 为概形，并设 $f : \mathcal{X} \to \mathcal{Y}$ 是
+$(\Sch/S)_{fppf}$ 上群胚纤维化范畴之间的一个 $1$-态射。
+若对 $S$ 上仿射概形的每个有向极限 $U = \lim U_i$，纤维范畴图
+$$
+\xymatrix{
+\colim \mathcal{X}_{U_i} \ar[r] \ar[d]_f & \mathcal{X}_U \ar[d]^f \\
+\colim \mathcal{Y}_{U_i} \ar[r] & \mathcal{Y}_U
+}
+$$
+都是 $2$-笛卡儿的，则称 $f$ {\it 保持极限}。
+\end{definition}
+
+\begin{lemma}
+\label{stacks-limits-lemma-limit-preserving-objects}
+设 $S$ 为概形，并设 $f : \mathcal{X} \to \mathcal{Y}$ 是
+$(\Sch/S)_{fppf}$ 上群胚纤维化范畴之间的一个 $1$-态射。
+若 $f$ 保持极限（定义 \ref{stacks-limits-definition-limit-preserving}），
+则 $f$ 在对象上保持极限（《可表示性判据》第
+\ref{criteria-section-limit-preserving} 节）。
+\end{lemma}
+
+\begin{proof}
+% P12-ERR-0001: see ../control/ERRATA_CANDIDATES.jsonl
+若对 $U$ 上仿射概形的每个有向极限 $U = \lim U_i$，函子
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+(\colim \mathcal{Y}_{U_i}) \times_{\mathcal{Y}_U} \mathcal{X}_U
+$$
+都是本质满的，则 $f$ 在对象上保持极限。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-limits-lemma-base-change-limit-preserving}
+设 $p : \mathcal{X} \to \mathcal{Y}$ 和
+$q : \mathcal{Z} \to \mathcal{Y}$ 是 $(\Sch/S)_{fppf}$
+上群胚纤维化范畴之间的 $1$-态射。若
+$p : \mathcal{X} \to \mathcal{Y}$ 保持极限，则 $p$ 沿 $q$
+的基变换
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+也保持极限。
+\end{lemma}
+
+\begin{proof}
+这是形式推论。设 $U = \lim_{i \in I} U_i$ 是 $S$ 上仿射概形
+$U_i$ 的有向极限。对每个 $i$，有
+$$
+(\mathcal{X} \times_\mathcal{Y} \mathcal{Z})_{U_i} =
+\mathcal{X}_{U_i} \times_{\mathcal{Y}_{U_i}} \mathcal{Z}_{U_i}
+$$
+滤过余极限与范畴的 $2$-纤维积可交换（略去细节），
+因此若 $p$ 保持极限，就得到
+\begin{align*}
+\colim (\mathcal{X} \times_\mathcal{Y} \mathcal{Z})_{U_i}
+& =
+\colim \mathcal{X}_{U_i} \times_{\colim \mathcal{Y}_{U_i}}
+\colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+\times_{\colim \mathcal{Y}_{U_i}}
+\colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \mathcal{Z}_U \times_{\mathcal{Z}_U}
+\colim \mathcal{Z}_{U_i} \\
+& =
+(\mathcal{X} \times_\mathcal{Y} \mathcal{Z})_U \times_{\mathcal{Z}_U}
+\colim \mathcal{Z}_{U_i}
+\end{align*}
+这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-limits-lemma-composition-limit-preserving}
+设 $p : \mathcal{X} \to \mathcal{Y}$ 和
+$q : \mathcal{Y} \to \mathcal{Z}$ 是 $(\Sch/S)_{fppf}$
+上群胚纤维化范畴之间的 $1$-态射。若 $p$ 和 $q$ 都保持极限，
+则复合 $q \circ p$ 也保持极限。
+\end{lemma}
+
+\begin{proof}
+这是形式推论。设 $U = \lim_{i \in I} U_i$ 是 $S$ 上仿射概形
+$U_i$ 的有向极限。若 $p$ 和 $q$ 保持极限，则
+\begin{align*}
+\colim \mathcal{X}_{U_i}
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \mathcal{Y}_U
+\times_{\mathcal{Z}_U} \colim \mathcal{Z}_{U_i} \\
+& =
+\mathcal{X}_U \times_{\mathcal{Z}_U} \colim \mathcal{Z}_{U_i}
+\end{align*}
+这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-limits-lemma-representable-by-spaces-limit-preserving}
+设 $p : \mathcal{X} \to \mathcal{Y}$ 是 $(\Sch/S)_{fppf}$
+上群胚纤维化范畴之间的一个 $1$-态射。若 $p$ 可由代数空间表示，
+则下列条件等价：
+\begin{enumerate}
+\item $p$ 保持极限；
+\item $p$ 在对象上保持极限；
+\item $p$ 局部有限表示（参见《代数叠》定义
+\ref{algebraic-definition-relative-representable-property}）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《可表示性判据》引理
+\ref{criteria-lemma-representable-by-spaces-limit-preserving}，
+我们已经知道 (2) 与 (3) 等价。因此只需证明 (1) 与 (2) 等价。
+其中一个方向已见引理 \ref{stacks-limits-lemma-limit-preserving-objects}。
+为证另一方向，设 $U = \lim_{i \in I} U_i$ 是 $S$ 上仿射概形
+$U_i$ 的有向极限。我们必须证明
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+$$
+是等价。由假设 (2)，它是本质满的，故只需证明其全忠实性。
+由于 $p$ 在纤维范畴上忠实（《代数叠》引理
+\ref{algebraic-lemma-criterion-map-representable-spaces-fibred-in-groupoids})
+，可见该函子忠实。设 $x_i$ 和 $x'_i$ 是 $\mathcal{X}$ 在
+$U_i$ 上的纤维范畴中的对象。上述函子将 $x_i$ 映为
+$(x_i|_U, p(x_i), can)$，其中 $can$ 是典范同构
+$p(x_i|_U) \to p(x_i)|_U$。于是，设给定态射
+$$
+(\alpha, \beta_i) : (x_i|_U, p(x_i), can) \longrightarrow
+(x'_i|_U, p(x'_i), can)
+$$
+，它位于本证明第一个陈列箭头右端的范畴中。我们的任务是构造
+$i' \geq i$ 以及一个态射
+$x_i|_{U_{i'}} \to x'_i|_{U_{i'}}$，使其映到
+$(\alpha, \beta_i|_{U_{i'}})$。
+
+\medskip\noindent
+令 $y_i = p(x_i)$、$y'_i = p(x'_i)$。由《代数叠》引理
+\ref{algebraic-lemma-criterion-map-representable-spaces-fibred-in-groupoids})
+，函子
+$$ 
+X_{y_i} : (\Sch/U_i)^{opp} \to \textit{Sets},\quad
+V/U_i \mapsto
+% P12-ERR-0002: see ../control/ERRATA_CANDIDATES.jsonl
+\{(x, \phi) \mid x \in \Ob(\mathcal{X}_V), \phi : f(x) \to y_i|V\}/\cong
+$$
+是 $U_i$ 上的代数空间；类似定义的函子 $X_{y'_i}$ 亦然。
+由于 (2) 与 (3) 等价，$X_{y'_i}$ 在 $U_i$ 上局部有限表示。
+注意，$(x_i, \text{id})$ 和 $(x'_i, \text{id})$
+分别定义了 $X_{y_i}$ 和 $X_{y'_i}$ 的 $U_i$-值点。
+存在函子变换
+$$
+\beta_i : X_{y_i} \to X_{y'_i},\quad
+(x/V, \phi) \mapsto (x/V, \beta_i|_V \circ \phi)
+$$
+；换言之，这是 $U_i$ 上代数空间之间的一个态射。我们断言
+$$
+\xymatrix{
+U \ar[d] \ar[rr] & & U_i \ar[d]^{(x'_i, \text{id})} \\
+U_i \ar[r]^{(x_i, \text{id})} & X_{y_i} \ar[r]^{\beta_i} & X_{y'_i}
+}
+$$
+交换。事实上，这等价于函子 $X_{y'_i}$ 定义中的两对
+$(x_i|_U, \beta_i|_U)$ 与 $(x'_i|_U, \text{id})$ 同构；
+而态射 $\alpha : x_i|_U \to x'_i|_U$ 恰好给出这样的同构。
+反向推理可见，若能找到 $i' \geq i$，使得图
+$$
+\xymatrix{
+U_{i'} \ar[d] \ar[rr] & & U_i \ar[d]^{(x'_i, \text{id})} \\
+U_i \ar[r]^{(x_i, \text{id})} & X_{y_i} \ar[r]^{\beta_i} & X_{y'_i}
+}
+$$
+交换，那么就得到同构 $x_i|_{U_{i'}} \to x'_i|_{U_{i'}}$，
+它解决了上一段提出的问题。另一方面，对角态射
+$$
+\Delta : X_{y'_i} \to X_{y'_i} \times_{U_i} X_{y'_i}
+$$
+局部有限表示（《空间的态射》引理
+\ref{spaces-morphisms-lemma-diagonal-morphism-finite-type})
+。因此，$U \to U_i$ 使到 $X_{y'_i}$ 的两个态射相等这一事实，
+意味着对某个 $i' \geq i$，态射 $U_{i'} \to U_i$
+已使这两个态射相等；参见《空间的极限》命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-limits-lemma-limit-preserving-diagonal}
+设 $p : \mathcal{X} \to \mathcal{Y}$ 是 $(\Sch/S)_{fppf}$
+上群胚纤维化范畴之间的一个 $1$-态射。下列条件等价：
+\begin{enumerate}
+\item 对角态射
+$\Delta : \mathcal{X} \to \mathcal{X} \times_\mathcal{Y} \mathcal{X}$
+保持极限；
+\item 对 $S$ 上仿射概形的每个有向极限 $U = \lim U_i$，函子
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+$$
+是全忠实的。
+\end{enumerate}
+特别地，若 $p$ 保持极限，则 $\Delta$ 也保持极限。
+\end{lemma}
+
+\begin{proof}
+设 $U = \lim U_i$ 是 $S$ 上仿射概形的有向极限。我们断言函子
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{\mathcal{Y}_U} \colim \mathcal{Y}_{U_i}
+$$
+全忠实，当且仅当函子
+$$
+\colim \mathcal{X}_{U_i} \longrightarrow
+\mathcal{X}_U \times_{(\mathcal{X} \times_\mathcal{Y} \mathcal{X})_U}
+\colim (\mathcal{X} \times_\mathcal{Y} \mathcal{X})_{U_i}
+$$
+是等价。这将证明本引理。由于
+$(\mathcal{X} \times_\mathcal{Y} \mathcal{X})_U =
+\mathcal{X}_U \times_{\mathcal{Y}_U} \mathcal{X}_U$
+并且
+$(\mathcal{X} \times_\mathcal{Y} \mathcal{X})_{U_i} =
+\mathcal{X}_{U_i} \times_{\mathcal{Y}_{U_i}} \mathcal{X}_{U_i}$
+，这纯粹是一个范畴论断言；下一段将予讨论。
+
+\medskip\noindent
+设 $\mathcal{I}$ 为滤过指标范畴，并设
+$(\mathcal{C}_i)$ 和 $(\mathcal{D}_i)$ 是 $\mathcal{I}$
+上的群胚系统。设 $p : (\mathcal{C}_i) \to (\mathcal{D}_i)$
+为 $\mathcal{I}$ 上群胚系统之间的映射。再设有群胚函子
+$p : \mathcal{C} \to \mathcal{D}$ 以及函子
+$f : \colim \mathcal{C}_i \to \mathcal{C}$ 和
+$g : \colim \mathcal{D}_i \to \mathcal{D}$，它们构成交换图
+$$
+\xymatrix{
+\colim \mathcal{C}_i \ar[d]_p \ar[r]_f & \mathcal{C} \ar[d]^p \\
+\colim \mathcal{D}_i \ar[r]^g & \mathcal{D}
+}
+$$
+我们断言，
+$$
+A : \colim \mathcal{C}_i \longrightarrow
+\mathcal{C} \times_\mathcal{D} \colim \mathcal{D}_i
+$$
+全忠实，当且仅当函子
+$$
+B : \colim \mathcal{C}_i \longrightarrow
+\mathcal{C}
+\times_{\Delta, \mathcal{C} \times_\mathcal{D} \mathcal{C}, f \times_g f}
+\colim (\mathcal{C}_i \times_{\mathcal{D}_i} \mathcal{C}_i)
+$$
+是等价。令 $\mathcal{C}' = \colim \mathcal{C}_i$、
+$\mathcal{D}' = \colim \mathcal{D}_i$。由于 $2$-纤维积与滤过余极限
+可交换，$A$ 和 $B$ 分别成为函子
+$$
+A' : \mathcal{C}' \to \mathcal{C} \times_\mathcal{D} \mathcal{D}'
+\quad\text{且}\quad
+B' : \mathcal{C}' \longrightarrow
+\mathcal{C}
+\times_{\Delta, \mathcal{C} \times_\mathcal{D} \mathcal{C}, f \times_g f}
+(\mathcal{C}' \times_{\mathcal{D}'} \mathcal{C}')
+$$
+因此只需证明：若
+$$
+\xymatrix{
+\mathcal{C}' \ar[d]_p \ar[r]_f & \mathcal{C} \ar[d]^p \\
+\mathcal{D}' \ar[r]^g & \mathcal{D}
+}
+$$
+是群胚的交换图，则 $A'$ 全忠实，当且仅当 $B'$ 是等价。
+这可由《范畴》引理
+\ref{categories-lemma-fully-faithful-diagonal-equivalence}
+（取平凡的，即单点的基范畴）推出，因为
+$$
+\mathcal{C}
+\times_{\Delta, \mathcal{C} \times_\mathcal{D} \mathcal{C}, f \times_g f}
+(\mathcal{C}' \times_{\mathcal{D}'} \mathcal{C}') =
+\mathcal{C}'
+\times_{A', \mathcal{C} \times_\mathcal{D} \mathcal{D}', A'}
+\mathcal{C}'
+$$
+证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-limits-lemma-locally-finite-presentation-limit-preserving}
+设 $S$ 为概形，$\mathcal{X}$ 为 $S$ 上的代数叠。
+若 $\mathcal{X} \to S$ 局部有限表示，则 $\mathcal{X}$
+在《Artin 公理》定义 \ref{artin-definition-limit-preserving}
+的意义下保持极限（等价地，态射 $\mathcal{X} \to S$ 保持极限）。
+\end{lemma}
+
+\begin{proof}
+选取某个概形 $U$ 及一个光滑满射 $U \to \mathcal{X}$。
+则 $U \to S$ 局部有限表示，参见《叠的态射》第
+\ref{stacks-morphisms-section-finite-presentation} 节。
+由《代数叠》引理 \ref{algebraic-lemma-stack-presentation}，
+对代数空间中的某个光滑群胚 $(U, R, s, t, c)$，可写成
+$\mathcal{X} = [U/R]$。由于 $U$ 在 $S$ 上局部有限表示，
+代数空间 $R$ 在 $S$ 上也局部有限表示。
+回顾，$[U/R]$ 是将如下群胚纤维化范畴叠化而得到的
+$(\Sch/S)_{fppf}$ 上的群胚叠：它在 $T$ 上的纤维范畴是群胚
+$(U(T), R(T), s, t, c)$。由于作为函子，$U$ 和 $R$ 都保持极限
+（《空间的极限》命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation})
+，该群胚纤维化范畴保持极限。因此，只需证明 fppf 叠化保留
+保持极限这一性质。事实确实如此（提示：使用《拓扑》引理
+\ref{topologies-lemma-limit-fppf-topology}).
+不过，利用本情形中叠化的具体描述，我们在下面给出直接证明。
+
+\medskip\noindent
+设 $T = \lim T_\lambda$ 是 $S$ 上仿射概形的有向极限。
+我们必须证明函子
+$$
+\colim [U/R]_{T_\lambda} \longrightarrow [U/R]_T
+$$
+是范畴等价。先证明该函子本质满。设 $x \in \Ob([U/R]_T)$。
+《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+给出了范畴 $[U/R]_T$ 的描述。特别地，$x$ 对应于一个 fppf 覆盖
+$\{T_i \to T\}_{i \in I}$ 以及相对于该覆盖的一个
+$[U/R]$-下降数据 $(u_i, r_{ij})$。细化此覆盖后，可设它是仿射概形
+$T$ 的标准 fppf 覆盖。由《拓扑》引理
+\ref{topologies-lemma-limit-fppf-topology}
+，可选取某个 $\lambda$ 和标准 fppf 覆盖
+$\{T_{\lambda, i} \to T_\lambda\}_{i \in I}$，使其到 $T$
+的基变换等于 $\{T_i \to T\}_{i \in I}$。
+对每个 $i$，增大 $\lambda$ 后，可找到
+$u_{\lambda, i} : T_{\lambda, i} \to U$，使其与
+$T_i \to T_{\lambda, i}$ 的复合为给定态射 $u_i$
+（此处使用 $U$ 保持极限）。类似地，对每个 $i, j$，增大
+$\lambda$ 后，可找到
+$r_{\lambda, ij} : T_{\lambda, i} \times_{T_\lambda} T_{\lambda, j} \to R$，
+使其与 $T_{ij} \to T_{\lambda, ij}$ 的复合为给定态射 $r_{ij}$
+（此处使用 $R$ 保持极限）。进一步增大 $\lambda$ 后，可设
+$$
+s \circ r_{\lambda, ij} = u_{\lambda, i} \circ \text{pr}_0
+\quad\text{且}\quad
+t \circ r_{\lambda, ij} = u_{\lambda, j} \circ \text{pr}_1,
+$$
+并且
+$$
+c \circ (r_{\lambda, jk} \circ \text{pr}_{12}, r_{\lambda, ij}
+\circ \text{pr}_{01}) = r_{\lambda, ik} \circ \text{pr}_{02}.
+$$
+换言之，可设 $(u_{\lambda, i}, r_{\lambda, ij})$ 是相对于覆盖
+$\{T_{\lambda, i} \to T_\lambda\}_{i \in I}$ 的一个
+$[U/R]$-下降数据。于是得到 $T_\lambda$ 上 $[U/R]$ 的相应对象，
+其到 $T$ 的拉回与 $x$ 同构，正合所需。
+全忠实性的证明完全相同，只需使用《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+% P12-ERR-0003: see ../control/ERRATA_CANDIDATES.jsonl
+给出的 $[U/T]$ 的纤维范畴中态射的描述。
+\end{proof}
+
+\begin{proposition}
+\label{stacks-limits-proposition-characterize-locally-finite-presentation}
+\begin{reference}
+这是 \cite[Lemma 2.3.15]{Emerton-Gee} 的一个特例。
+\end{reference}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 为代数叠之间的态射。
+下列条件等价：
+\begin{enumerate}
+\item $f$ 保持极限；
+\item $f$ 在对象上保持极限；
+\item $f$ 局部有限表示。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+假设 (3) 成立。设 $T = \lim T_i$ 是仿射概形的有向极限。
+考虑函子
+$$
+\colim \mathcal{X}_{T_i} \longrightarrow
+\mathcal{X}_T \times_{\mathcal{Y}_T} \colim \mathcal{Y}_{T_i}
+$$
+设 $(x, y_i, \beta)$ 是右端的对象，即
+$x \in \Ob(\mathcal{X}_T)$、$y_i \in \Ob(\mathcal{Y}_{T_i})$，
+且 $\beta : f(x) \to y_i|_T$ 是 $\mathcal{Y}_T$ 中的态射。
+于是可将 $(x, y_i, \beta)$ 视为 $T$ 上代数叠
+$\mathcal{X}_{y_i} = \mathcal{X} \times_{\mathcal{Y}, y_i} T_i$
+的一个对象。由于 $\mathcal{X}_{y_i} \to T_i$ 是 $f$ 的基变换，
+故它局部有限表示；由引理
+\ref{stacks-limits-lemma-locally-finite-presentation-limit-preserving}，
+它保持极限。这意味着，对某个 $i' \geq i$，
+$(x, y_i, \beta)$ 来自 $T_{i'}$ 上的对象。展开定义即知，
+$(x, y_i, \beta)$ 属于所陈列函子的本质像。
+换言之，该函子本质满；也就是说，$f$ 在对象上保持极限。
+现在将此结论应用于 $f$ 的对角态射 $\Delta$。由《叠的态射》引理
+\ref{stacks-morphisms-lemma-diagonal-morphism-finite-type}
+，态射 $\Delta$ 局部有限表示。因此上述论证表明 $\Delta$
+在对象上保持极限。由引理
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}，
+$\Delta$ 保持极限。再由引理 \ref{stacks-limits-lemma-limit-preserving-diagonal}，
+上述陈列函子全忠实。它又已被证明本质满，故是等价，从而 (1) 成立。
+
+\medskip\noindent
+蕴含关系 (1) $\Rightarrow$ (2) 显然。现假设 (2)。
+选取概形 $V$ 及光滑满射 $V \to \mathcal{Y}$。
+由《可表示性判据》引理
+\ref{criteria-lemma-base-change-limit-preserving}
+，基变换 $\mathcal{X} \times_\mathcal{Y} V \to V$
+在对象上保持极限。选取概形 $U$ 及光滑满射
+$U \to \mathcal{X} \times_\mathcal{Y} V$。
+由于光滑态射局部有限表示，证明的第一部分说明
+$U \to \mathcal{X} \times_\mathcal{Y} V$ 保持极限。
+由《可表示性判据》引理
+\ref{criteria-lemma-composition-limit-preserving}
+，复合 $U \to V$ 在对象上保持极限。因此 $U \to V$
+局部有限表示，参见《可表示性判据》引理
+\ref{criteria-lemma-representable-by-spaces-limit-preserving}。
+这恰好是 $f$ 局部有限表示的条件，参见《叠的态射》定义
+\ref{stacks-morphisms-definition-locally-finite-presentation}。
+\end{proof}
+
+
+
+
+\section{性质的下降}
+\label{stacks-limits-section-descent}
+
+\noindent
+本节是《极限》第 \ref{limits-section-descent} 节的对应版本。
+
+\begin{situation}
+\label{stacks-limits-situation-descent}
+设 $Y = \lim_{i \in I} Y_i$ 是一个代数空间有向系统的极限，
+其转移态射均为仿射态射。假设对每个 $i \in I$，$X_i$
+% P12-ERR-0004: see ../control/ERRATA_CANDIDATES.jsonl
+都是拟紧且拟分离的。另选定一个元素 $0 \in I$。
+\end{situation}
+
+\begin{lemma}
+\label{stacks-limits-lemma-eventually-separated}
+在情形 \ref{stacks-limits-situation-descent} 中，设
+$\mathcal{X}_0 \to Y_0$ 是从代数叠到 $Y_0$ 的态射，
+并设 $\mathcal{X}_0$ 拟紧且拟分离。若
+$Y \times_{Y_0} \mathcal{X}_0 \to Y$ 是分离态射，则对所有充分大的
+$i \in I$，$Y_i \times_{Y_0} \mathcal{X}_0 \to Y_i$ 都是分离态射。
+\end{lemma}
+
+\begin{proof}
+记 $\mathcal{X} = Y \times_{Y_0} \mathcal{X}_0$、
+$\mathcal{X}_i = Y_i \times_{Y_0} \mathcal{X}_0$。
+选取仿射概形 $U_0$ 及光滑满射 $U_0 \to \mathcal{X}_0$。
+令 $U = Y \times_{Y_0} U_0$、$U_i = Y_i \times_{Y_0} U_0$。
+则 $U$ 和 $U_i$ 均仿射，且 $U \to \mathcal{X}$ 和
+$U_i \to \mathcal{X}_i$ 均为光滑满射。令
+$R_0 = U_0 \times_{\mathcal{X}_0} U_0$、
+$R = Y \times_{Y_0} R_0$、$R_i = Y_i \times_{Y_0} R_0$。
+于是 $R = U \times_\mathcal{X} U$ 且
+$R_i = U_i \times_{\mathcal{X}_i} U_i$。
+
+\medskip\noindent
+在此记号下，若 $\mathcal{X} \to Y$ 分离，则
+$R \to U \times_Y U$ 是对角态射
+$\mathcal{X} \to \mathcal{X} \times_Y \mathcal{X}$
+沿 $U \times_Y U \to \mathcal{X} \times_Y \mathcal{X}$ 的基变换，
+故为固有态射。反之，若 $R_i \to U_i \times_{Y_i} U_i$ 固有，
+则 $\mathcal{X}_i \to Y_i$ 分离，因为
+$U_i \times_{Y_i} U_i \to \mathcal{X}_i \times_{Y_i} \mathcal{X}_i$
+是光滑满射；参见《叠的性质》引理
+\ref{stacks-properties-lemma-check-property-covering}。
+注意，$R_0 \to U_0 \times_{Y_0} U_0$ 局部有限型，且 $R_0$
+拟紧、拟分离。由《空间的极限》引理
+\ref{spaces-limits-lemma-eventually-proper}，对充分大的 $i$，
+$R_i \to U_i \times_{Y_i} U_i$ 固有，证明完毕。
+\end{proof}
+
+
+
+
+
+
+
+\section{相对对象的下降}
+\label{stacks-limits-section-descending-relative}
+
+\noindent
+本节是《空间的极限》第
+\ref{spaces-limits-section-descending-relative} 节的对应版本。
+
+\begin{lemma}
+\label{stacks-limits-lemma-descend-a-stack-down}
+设 $I$ 为有向集，$(X_i, f_{ii'})$ 为以 $I$ 为指标的代数空间逆系统。
+假设
+\begin{enumerate}
+\item 态射 $f_{ii'} : X_i \to X_{i'}$ 均为仿射态射；
+\item 空间 $X_i$ 均拟紧且拟分离。
+\end{enumerate}
+令 $X = \lim X_i$。若 $\mathcal{X}$ 是 $X$ 上有限表示的代数叠，
+则存在 $i \in I$ 及 $X_i$ 上有限表示的代数叠 $\mathcal{X}_i$，
+使得作为 $X$ 上的代数叠有
+$\mathcal{X} \cong \mathcal{X}_i \times_{X_i} X$。
+\end{lemma}
+
+\begin{proof}
+由《叠的态射》定义
+\ref{stacks-morphisms-definition-locally-finite-presentation}
+，态射 $\mathcal{X} \to X$ 拟紧、局部有限表示且拟分离。
+由于 $X$ 拟紧且 $\mathcal{X} \to X$ 拟紧，$\mathcal{X}$ 也拟紧
+（《叠的态射》定义
+\ref{stacks-morphisms-definition-quasi-compact}）。
+因此，可找到仿射概形 $U$ 及光滑满射
+$U \to \mathcal{X}$（《叠的性质》引理
+\ref{stacks-properties-lemma-quasi-compact-stack}）。
+令 $R = U \times_\mathcal{X} U$。由《代数叠》引理
+\ref{algebraic-lemma-stack-presentation}，得到 $X$ 上代数空间中的
+光滑群胚 $(U, R, s, t, c)$，使得 $\mathcal{X} = [U/R]$。
+由于 $\mathcal{X} \to X$ 拟分离且 $X$ 拟分离，
+$\mathcal{X}$ 拟分离（《叠的态射》引理
+\ref{stacks-morphisms-lemma-composition-separated}）。
+故 $R \to U \times U$ 拟紧且拟分离（《叠的态射》引理
+\ref{stacks-morphisms-lemma-fibre-product-after-map}），
+从而 $R$ 是拟分离、拟紧的代数空间。另一方面，$U \to X$
+局部有限表示，因此 $R \to X$ 也局部有限表示
+（因为 $s : R \to U$ 光滑，故局部有限表示）。
+于是 $(U, R, s, t, c)$ 是 $X$ 上有限表示代数空间范畴中的群胚对象。
+由《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation}
+，存在某个 $i$ 及 $X_i$ 上代数空间中的群胚
+$(U_i, R_i, s_i, t_i, c_i)$，其到 $X$ 的拉回与
+$(U, R, s, t, c)$ 同构。增大 $i$ 后，可设 $s_i$ 和 $t_i$
+均光滑，参见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-smooth}。商叠
+$\mathcal{X}_i = [U_i/R_i]$ 是代数叠（《代数叠》定理
+\ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}）。
+
+\medskip\noindent
+由《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-functorial}，
+有态射 $[U/R] \to [U_i/R_i]$。我们断言，把它与态射
+$[U/R] \to X$ 和 $[U_i/R_i] \to X_i$
+（《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-arrows}）结合起来，
+得到同构（即等价）
+$$
+[U/R] \longrightarrow [U_i/R_i] \times_{X_i} X
+$$
+相应的映射
+$$
+[U/_{\!p}R] \longrightarrow [U_i/_{\!p}R_i] \times_{X_i} X
+$$
+在《空间中的群胚》公式
+(\ref{spaces-groupoids-equation-quotient-stack}) 所述的“群胚预层”
+层次上是同构。因此，该断言由叠化与纤维积可交换这一事实推出，
+参见《叠》引理
+\ref{stacks-lemma-stackification-fibre-product-fibred-categories}。
+\end{proof}
+
+
+
+
+\section{有限型对象嵌入有限表示对象}
+\label{stacks-limits-section-finite-type-closed-in-finite-presentation}
+
+\noindent
+本节是《空间的极限》第
+\ref{spaces-limits-section-finite-type-closed-in-finite-presentation}
+节的对应版本。
+
+\begin{lemma}
+\label{stacks-limits-lemma-finite-type-closed-in-finite-presentation}
+设 $f : \mathcal{X} \to Y$ 是从代数叠到代数空间的态射。假设：
+\begin{enumerate}
+\item $f$ 有限型且拟分离；
+\item $Y$ 拟紧且拟分离。
+\end{enumerate}
+则存在有限表示态射 $f' : \mathcal{X}' \to Y$，以及 $Y$
+上代数叠之间的闭浸入 $\mathcal{X} \to \mathcal{X}'$。
+\end{lemma}
+
+\begin{proof}
+将 $Y = \lim_{i \in I} Y_i$ 写成以有向集 $I$ 为指标的代数空间极限，
+其中转移态射为仿射态射，且 $Y_i$ 为诺特代数空间；参见
+《空间的极限》命题 \ref{spaces-limits-proposition-approximate}。
+我们将使用《空间的极限》第
+\ref{spaces-limits-section-finite-type-quasi-separated} 节的材料。
+
+\medskip\noindent
+选取一个表示 $\mathcal{X} = [U/R]$，并以
+$(U, R, s, t, c, e, i)$ 表示相应的 $Y$ 上代数空间群胚。
+可以并且确实设 $U$ 仿射。于是 $U$、$R$ 和
+$R \times_{s, U, t} R$ 都是 $Y$ 上有限型、拟分离的代数空间。
+% P12-ERR-0005: see ../control/ERRATA_CANDIDATES.jsonl
+有两个态射 $s, t : R \to U$，三个态射
+$c : R \times_{s, U, t} R \to R$,
+$\text{pr}_1 : R \times_{s, U, t} R \to R$,
+$\text{pr}_2 : R \times_{s, U, t} R \to R$,
+，一个态射 $e : U \to R$，以及最后一个态射 $i : R \to R$。
+这些态射满足一组公理；详见《群胚》第
+\ref{groupoids-section-groupoids} 节。
+
+\medskip\noindent
+根据《空间的极限》注
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system}
+，可找到 $i_0 \in I$ 以及逆系统
+\begin{enumerate}
+\item $(U_i)_{i \geq i_0}$,
+\item $(R_i)_{i \geq i_0}$,
+\item $(T_i)_{i \geq i_0}$
+\end{enumerate}
+，它们位于 $(Y_i)_{i \geq i_0}$ 上，并满足
+$U = \lim_{i \geq i_0} U_i$,
+$R = \lim_{i \geq i_0} R_i$, and
+$R \times_{s, U, t} R = \lim_{i \geq i_0} T_i$
+，而且存在系统态射
+\begin{enumerate}
+\item $(s_i)_{i \geq i_0} : (R_i)_{i \geq i_0} \to (U_i)_{i \geq i_0}$,
+\item $(t_i)_{i \geq i_0} : (R_i)_{i \geq i_0} \to (U_i)_{i \geq i_0}$,
+\item $(c_i)_{i \geq i_0} : (T_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(p_i)_{i \geq i_0} : (T_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(q_i)_{i \geq i_0} : (T_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(e_i)_{i \geq i_0} : (U_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$,
+\item $(i_i)_{i \geq i_0} : (R_i)_{i \geq i_0} \to (R_i)_{i \geq i_0}$
+\end{enumerate}
+使得
+$s = \lim_{i \geq i_0} s_i$,
+$t = \lim_{i \geq i_0} t_i$,
+$c = \lim_{i \geq i_0} c_i$,
+$\text{pr}_1 = \lim_{i \geq i_0} p_i$,
+$\text{pr}_2 = \lim_{i \geq i_0} q_i$,
+$e = \lim_{i \geq i_0} e_i$, and
+$i = \lim_{i \geq i_0} i_i$.
+由《空间的极限》引理
+\ref{spaces-limits-lemma-morphism-good-diagram-smooth}
+，可设 $s_i$ 和 $t_i$ 均光滑（这可能需要增大 $i_0$）。
+由《空间的极限》引理
+\ref{spaces-limits-lemma-morphism-good-diagram-flat}
+，可设对所有 $i \geq i_0$，由 $s$ 和 $R \to R_i$ 给出的映射
+$R \to U \times_{U_i, s_i} R_i$，以及由 $t$ 和 $R \to R_i$
+给出的映射 $R \to U \times_{U_i, t_i} R_i$，都是同构。
+由《空间的极限》引理
+\ref{spaces-limits-lemma-good-diagram-fibre-product}，可设各图
+$$
+\xymatrix{
+T_i \ar[r]_{q_i} \ar[d]_{p_i} & R_i \ar[d]^{t_i} \\
+R_i \ar[r]^{s_i} & U_i
+}
+$$
+均为笛卡儿图。《空间的极限》引理
+\ref{spaces-limits-lemma-morphism-good-diagram} 的唯一性于是保证：
+当 $i$ 充分大时，$s_i, t_i, c_i, e_i, i_i$
+满足上述态射 $s, t, c, e, i$ 之间的关系。固定这样的一个 $i$。
+
+\medskip\noindent
+于是 $(U_i, R_i, s_i, t_i, c_i, e_i, i_i)$ 是 $Y_i$
+上代数空间中的光滑群胚。因此 $\mathcal{X}_i = [U_i/R_i]$
+是代数叠（《代数叠》定理
+\ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}).
+群胚态射
+$$
+(U, R, s, t, c, e, i) \to (U_i, R_i, s_i, t_i, c_i, e_i, i_i)
+$$
+位于 $Y \to Y_i$ 上，并确定交换图
+$$
+\xymatrix{
+\mathcal{X} \ar[d] \ar[r] & \mathcal{X}_i \ar[d] \\
+Y \ar[r] & Y_i
+}
+$$
+（《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-functorial}).
+我们断言态射 $\mathcal{X} \to Y \times_{Y_i} \mathcal{X}_i$
+是闭浸入。该断言将完成证明，因为按构造，代数叠
+$\mathcal{X}_i \to Y_i$ 有限表示。为证此断言，注意左图
+$$
+\xymatrix{
+U \ar[d] \ar[r] & U_i \ar[d] \\
+\mathcal{X} \ar[r] & \mathcal{X}_i
+}
+\quad\quad
+\xymatrix{
+U \ar[d] \ar[r] & Y \times_{Y_i} U_i \ar[d] \\
+\mathcal{X} \ar[r] & Y \times_{Y_i} \mathcal{X}_i
+}
+$$
+由《空间中的群胚》引理
+\ref{spaces-groupoids-lemma-criterion-fibre-product}
+及上述结果可知是笛卡儿图，故右侧交换图也是笛卡儿图。
+根据《空间的极限》引理
+\ref{spaces-limits-lemma-limit-from-good-diagram} 中逆系统
+$(U_i)$ 的构造，$U \to Y \times_{Y_i} U_i$ 是闭浸入；
+而 $Y \times_{Y_i} U_i \to Y \times_{Y_i} \mathcal{X}_i$
+是光滑满射。结合《叠的性质》引理
+\ref{stacks-properties-lemma-check-immersion-covering}，
+即得所需结论。
+\end{proof}
+
+\noindent
+对于分离代数叠，也有如下版本。
+
+\begin{lemma}
+\label{stacks-limits-lemma-separated-closed-in-finite-presentation}
+设 $f : \mathcal{X} \to Y$ 是从代数叠到代数空间的态射。假设：
+\begin{enumerate}
+\item $f$ 有限型且分离；
+\item $Y$ 拟紧且拟分离。
+\end{enumerate}
+则存在分离的有限表示态射 $f' : \mathcal{X}' \to Y$，
+以及 $Y$ 上代数叠之间的闭浸入
+$\mathcal{X} \to \mathcal{X}'$。
+\end{lemma}
+
+\begin{proof}
+首先完全按照引理
+\ref{stacks-limits-lemma-finite-type-closed-in-finite-presentation}
+证明中的步骤（并沿用其中的记号），把嵌入
+$\mathcal{X} \to \mathcal{X}'$ 构造成态射
+$\mathcal{X} \to \mathcal{X}' = Y \times_{Y_i} \mathcal{X}_i$，
+其中 $\mathcal{X}_i = [U_i/R_i]$。因此只需证明当 $i$
+充分大时，$\mathcal{X}_i \to Y_i$ 分离。换言之，只需证明当 $i$
+充分大时，$\mathcal{X}_i \to \mathcal{X}_i \times_{Y_i} \mathcal{X}_i$
+固有。由于态射
+$U_i \times_{Y_i} U_i \to \mathcal{X}_i \times_{Y_i} \mathcal{X}_i$
+是光滑满射，且
+$R_i = \mathcal{X}_i
+\times_{\mathcal{X}_i \times_{Y_i} \mathcal{X}_i} U_i \times_{Y_i} U_i$
+，只需证明态射
+$(s_i, t_i) : R_i \to U_i \times_{Y_i} U_i$
+在 $i$ 充分大时固有；参见《叠的性质》引理
+\ref{stacks-properties-lemma-check-property-covering}。
+下一段证明这一点。
+
+\medskip\noindent
+注意，$U \times_Y U \to Y$ 拟分离且有限型。因此可使用
+《空间的极限》注
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system}
+的构造，找到 $i_1 \in I$ 以及逆系统 $(V_i)_{i \geq i_1}$，
+使 $U \times_Y U = \lim_{i \geq i_1} V_i$。
+由《空间的极限》引理
+\ref{spaces-limits-lemma-good-diagram-fibre-product}，
+当 $i$ 充分大时，将该构造的函子性用于投影
+$U \times_Y U \to U$，得到闭浸入
+$$
+V_i \to U_i \times_{Y_i} U_i
+$$
+（这里略有不符，因为严格说来应以 $Y \to Y_i$ 的概形论像替换
+$Y_i$，但显然这不改变该纤维积。）另一方面，由《空间的极限》引理
+\ref{spaces-limits-lemma-morphism-good-diagram-proper}
+，把函子性用于固有态射
+$(s, t) : R \to U \times_Y U$（此处使用 $\mathcal{X}$ 分离），
+便得到当 $i$ 充分大时为固有态射的 $R_i \to V_i$。
+复合这些态射可得：对所有充分大的 $i$，态射
+$R_i \to U_i \times_{Y_i} U_i$ 固有。《空间的极限》注
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system}
+% P12-ERR-0005: see ../control/ERRATA_CANDIDATES.jsonl
+中构造的函子性表明，当 $i$ 充分大时，此态射就是
+$(s_i, t_i)$，证明完毕。
+\end{proof}
+
+
+
+
+
+
+\section{泛闭态射}
+\label{stacks-limits-section-universally-closed}
+
+\noindent
+本节是《空间的极限》第
+\ref{spaces-limits-section-universally-closed} 节的对应版本。
+
+\begin{lemma}
+\label{stacks-limits-lemma-separate}
+设 $g : Z \to Y$ 为仿射概形之间的态射，并设
+$f : \mathcal{X} \to Y$ 为代数叠之间的拟紧态射。
+设 $z \in Z$，且 $T \subset |\mathcal{X} \times_Y Z|$
+是满足 $z \not \in \Im(T \to |Z|)$ 的闭子集。
+若 $\mathcal{X}$ 拟紧，则存在开邻域 $V \subset Z$（含 $z$）、交换图
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$ 
+% P12-ERR-0006: see ../control/ERRATA_CANDIDATES.jsonl
+以及闭子集 $T' \subset |X \times_Y Z'|$，使得
+\begin{enumerate}
+\item $Z'$ 是 $Y$ 上有限表示的仿射概形；
+\item 令 $z' = a(z)$，则 $z' \not \in \Im(T' \to |Z'|)$；
+\item $T$ 在 $|\mathcal{X} \times_Y V|$ 中的逆像经由
+$|\mathcal{X} \times_Y V| \to |\mathcal{X} \times_Y Z'|$
+映入 $T'$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们从概形态射的相应结果推出本结论。由于 $\mathcal{X}$ 拟紧，
+可选取仿射概形 $W$ 及光滑满射 $W \to \mathcal{X}$。
+令 $T_W \subset |W \times_Y Z|$ 为 $T$ 的逆像。
+则 $z$ 不属于 $T_W$ 的像。由概形情形（《极限》引理
+\ref{limits-lemma-separate}），可找到含 $z$ 的开邻域
+$V \subset Z$、概形的交换图
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+以及闭子集 $T' \subset |W \times_Y Z'|$，使得
+\begin{enumerate}
+\item $Z'$ 是 $Y$ 上有限表示的仿射概形；
+\item 令 $z' = a(z)$，则 $z' \not \in \Im(T' \to |Z'|)$；
+\item $T_1 = T_W \cap |W \times_Y V|$ 经由
+$|W \times_Y V| \to |W \times_Y Z'|$ 映入 $T'$。
+\end{enumerate}
+交换图
+$$
+\xymatrix{
+W \times_Y Z \ar[d] &
+W \times_Y V \ar[l] \ar[rr]_{a_1} \ar[d]_c & &
+W \times_Y Z' \ar[d]^q \\
+\mathcal{X} \times_Y Z &
+\mathcal{X} \times_Y V \ar[l] \ar[rr]^{a_2} & &
+\mathcal{X} \times_Y Z'
+}
+$$
+的两个方块均为笛卡儿方块，且竖直映射为光滑满射，因而尤其是开映射。
+考察左侧方块可见，
+$T_1 = T_W \cap |W \times_Y V|$ 是
+$T_2 = T \cap |\mathcal{X} \times_Y V|$ 在 $c$ 下的逆像。
+由《叠的性质》引理
+\ref{stacks-properties-lemma-points-cartesian}，得到
+$a_1(T_1) = q^{-1}(a_2(T_2))$。
+由《拓扑》引理 \ref{topology-lemma-open-morphism-quotient-topology}，
+得到
+$$
+q^{-1}\left(\overline{a_2(T_2)}\right) =
+\overline{q^{-1}(a_2(T_2))} =
+\overline{a_1(T_1)} \subset T'
+$$
+由于 $q$ 满射，$\overline{a_2(T_2)} \to |Z'|$ 的像不含 $z'$，
+因为对 $T'$ 亦然。
+因此，取上述含 $Z', V, a, b$ 的图以及闭子集
+$\overline{a_2(T_2)} \subset |\mathcal{X} \times_Y Z'|$，
+即得到本引理所述问题的解。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-limits-lemma-test-universally-closed}
+设 $f : \mathcal{X} \to \mathcal{Y}$ 为代数叠之间的拟紧态射。
+下列条件等价：
+\begin{enumerate}
+\item $f$ 泛闭；
+% P12-ERR-0007: see ../control/ERRATA_CANDIDATES.jsonl
+\item 对每个局部有限表示态射 $Z \to \mathcal{Y}$，其中 $Z$
+为仿射概形，映射 $|\mathcal{X} \times_Y Z| \to |Z|$ 是闭映射；
+\item 存在概形 $V$ 及光滑满射 $V \to \mathcal{Y}$，使得
+$|\mathbf{A}^n \times (\mathcal{X} \times_\mathcal{Y} V)|
+\to |\mathbf{A}^n \times V|$ 对所有 $n \geq 0$ 都是闭映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 蕴含 (2) 显然。
+
+\medskip\noindent
+假设 (2)。选取一个由仿射概形不交并而成的概形 $V$，以及光滑满射
+$V \to \mathcal{Y}$。为证明 $f$ 泛闭，只需证明 $f$ 的基变换
+$\mathcal{X} \times_\mathcal{Y} V \to V$ 泛闭；参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-universally-closed-local}。
+注意，对该基变换，条件 (2) 仍成立。因此在证明 (2) 蕴含 (1) 时，
+可设 $Y = \mathcal{Y}$ 是仿射概形。
+
+\medskip\noindent
+假设 (2)，并设 $\mathcal{Y} = Y$ 为仿射概形。若 $f$ 不泛闭，
+则存在 $Y$ 上仿射概形 $Z$，使
+$|\mathcal{X} \times_Y Z| \to |Z|$ 不是闭映射；参见《叠的态射》引理
+\ref{stacks-morphisms-lemma-universally-closed-local}。
+这意味着存在闭子集 $T \subset |\mathcal{X} \times_Y Z|$，
+使 $\Im(T \to |Z|)$ 不闭。选取 $z \in |Z|$，使其属于 $T$
+之像的闭包但不属于该像。应用引理 \ref{stacks-limits-lemma-separate}，
+得到开邻域 $V \subset Z$、交换图
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+以及闭子集 $T' \subset |\mathcal{X} \times_Y Z'|$，使得
+\begin{enumerate}
+\item $Z'$ 是 $Y$ 上有限表示的仿射概形；
+\item 令 $z' = a(z)$，则 $z' \not \in \Im(T' \to |Z'|)$；
+\item $T$ 在 $|\mathcal{X} \times_Y V|$ 中的逆像经由
+$|\mathcal{X} \times_Y V| \to |\mathcal{X} \times_Y Z'|$
+映入 $T'$。
+\end{enumerate}
+我们断言 $z'$ 属于 $\Im(T' \to |Z'|)$ 的闭包。这意味着
+$|\mathcal{X} \times_Y Z'| \to |Z'|$ 不是闭映射，
+与假设 (2) 矛盾。换言之，该断言证明了 (2) 蕴含 (1)。
+为证明此断言，考察交换图
+$$
+\xymatrix{
+\mathcal{X} \times_Y Z \ar[d] &
+\mathcal{X} \times_Y V \ar[l] \ar[d] \ar[r] &
+\mathcal{X} \times_Y Z' \ar[d] \\
+Z & V \ar[l] \ar[r]^a & Z'
+}
+$$
+令 $T_V \subset |\mathcal{X} \times_Y V|$ 为 $T$ 的逆像。
+由《叠的性质》引理 \ref{stacks-properties-lemma-points-cartesian}，
+$T_V$ 在 $|V|$ 中的像等于 $T$ 在 $|Z|$ 中之像的逆像。
+由于 $z$ 属于 $T \to |Z|$ 之像的闭包，且 $|V| \to |Z|$ 是开映射，
+$z$ 属于 $T_V \to |V|$ 之像的闭包。又因 $T_V$ 在
+$|\mathcal{X} \times_Y Z'|$ 中的像包含于 $|T'|$，
+立即得到 $z' = a(z)$ 属于 $T'$ 之像的闭包。
+
+\medskip\noindent
+(1) 蕴含 (3) 显然。设 $V \to \mathcal{Y}$ 如 (3) 所述。
+% P12-ERR-0008: see ../control/ERRATA_CANDIDATES.jsonl
+若能证明 $\mathcal{X} \times_Y V \to V$ 泛闭，则由《叠的态射》引理
+\ref{stacks-morphisms-lemma-universally-closed-local}，$f$ 泛闭。
+因此，只需证明：若 $f : \mathcal{X} \to \mathcal{Y}$
+是代数叠之间的拟紧态射，$\mathcal{Y} = Y$ 是概形，且对所有 $n$，
+$|\mathbf{A}^n \times \mathcal{X}| \to |\mathbf{A}^n \times Y|$
+均为闭映射，则 $f$ 满足 (2)。设 $Z \to Y$ 局部有限表示，
+其中 $Z$ 为仿射概形。我们必须证明映射
+$|\mathcal{X} \times_Y Z| \to |Z|$ 是闭映射。
+由于 $Y$ 是概形、$Z$ 仿射且 $Z \to Y$ 局部有限表示，
+可找到浸入 $Z \to \mathbf{A}^n \times Y$；参见《态射》引理
+\ref{morphisms-lemma-quasi-affine-finite-type-over-S}。考虑笛卡儿图
+$$
+\vcenter{
+\xymatrix{
+\mathcal{X} \times_Y Z \ar[d] \ar[r] &
+\mathbf{A}^n \times \mathcal{X} \ar[d] \\
+Z \ar[r] & \mathbf{A}^n \times Y
+}
+}
+\quad
+\begin{matrix}
+\text{诱导出} \\
+\text{Cartesian 方块}
+\end{matrix}
+\quad
+\vcenter{
+\xymatrix{
+|\mathcal{X} \times_Y Z| \ar[d] \ar[r] &
+|\mathbf{A}^n \times \mathcal{X}| \ar[d] \\
+|Z| \ar[r] & |\mathbf{A}^n \times Y|
+}
+}
+$$
+，其中水平箭头都是到局部闭子集的同胚（《叠的性质》引理
+\ref{stacks-properties-lemma-subspace-induced-topology}）。
+% P12-ERR-0009: see ../control/ERRATA_CANDIDATES.jsonl
+因此，$|X \times_Y Z|$ 的每个闭子集 $T$ 都是
+$|\mathbf{A}^n \times Y|$ 中某个闭子集 $T'$ 的拉回。
+假设说明 $T'$ 在 $|\mathbf{A}^n \times X|$ 中的像闭，
+故 $T$ 在 $|Z|$ 中的像闭，正合所需。
+\end{proof}

@@ -1,0 +1,6250 @@
+% Generated mechanically from the frozen homology.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{11}
+\chapter{同调代数}
+
+
+
+\phantomsection
+\label{homology-section-phantom}
+
+
+\section{引言}
+\label{homology-section-introduction}
+
+\noindent
+本文将讲解基础同调代数。我们会依其他各篇所需而继续补充，因为这方面的材料显然浩如烟海。可参见 \cite{Maclane}。
+
+\section{基本概念}
+\label{homology-section-topology-basic}
+
+\noindent
+下列概念视为基础概念，本文不再定义或证明。这并不意味着它们必然都很容易或广为人知。
+
+\begin{enumerate}
+\item 暂无。
+\end{enumerate}
+
+
+
+
+\section{预加性范畴与加性范畴}
+\label{homology-section-additive-categories}
+
+\noindent
+先给出预加性范畴的定义。
+
+\begin{definition}
+\label{homology-definition-preadditive}
+若范畴 $\mathcal{A}$ 的每个态射集 $\Mor_\mathcal{A}(x, y)$ 都带有阿贝尔群结构，并且复合映射
+$$
+\Mor(x, y) \times \Mor(y, z)
+\longrightarrow
+\Mor(x, z)
+$$
+是双线性的，则称该范畴为{\it 预加性范畴}。预加性范畴之间的函子 $F : \mathcal{A} \to \mathcal{B}$ 称为{\it 加性函子}，当且仅当对所有 $x, y \in \Ob(\mathcal{A})$，映射 $F : \Mor(x, y) \to \Mor(F(x), F(y))$ 都是阿贝尔群同态。
+\end{definition}
+
+\noindent
+特别地，对每一对 $x, y$，至少存在一个态射 $x \to y$，即零映射。
+
+\begin{lemma}
+\label{homology-lemma-preadditive-zero}
+设 $\mathcal{A}$ 为预加性范畴，$x$ 为 $\mathcal{A}$ 的对象。下列条件等价：
+\begin{enumerate}
+\item $x$ 是始对象；
+\item $x$ 是终对象；
+\item 在 $\Mor_\mathcal{A}(x, x)$ 中有 $\text{id}_x = 0$。
+\end{enumerate}
+此外，若这样的对象 $0$ 存在，则态射 $\alpha : y \to z$ 可通过 $0$ 分解，当且仅当 $\alpha = 0$。
+\end{lemma}
+
+\begin{proof}
+先假设 $x$ 是 (1) 始对象或 (2) 终对象。两种情形下，$\Mor(x,x)$ 都是包含 $\text{id}_x$ 的平凡阿贝尔群，故在 $\Mor(x, x)$ 中 $\text{id}_x = 0$。因此 (1) 与 (2) 均蕴含 (3)。
+
+\medskip\noindent
+现假设在 $\Mor(x,x)$ 中 $\text{id}_x = 0$。任取 $\mathcal{A}$ 的对象 $y$ 及 $f \in \Mor(x ,y)$。以 $C : \Mor(x,x) \times \Mor(x,y) \to \Mor(x,y)$ 表示复合映射。于是 $f = C(0, f)$；又因 $C$ 双线性，$C(0, f) = 0$。故 $f = 0$，从而 $x$ 是 $\mathcal{A}$ 的始对象。对 $f \in \Mor(y, x)$ 作同样论证，可知 $x$ 也是终对象。因此 (3) 蕴含 (1) 与 (2)。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-zero-object}
+在预加性范畴 $\mathcal{A}$ 中，同时为终对象与始对象（如引理 \ref{homology-lemma-preadditive-zero}）的对象称为{\it 零对象}，记作 $0$。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-preadditive-direct-sum}
+设 $\mathcal{A}$ 为预加性范畴，$x, y \in \Ob(\mathcal{A})$。若积 $x \times y$ 存在，则余积 $x \amalg y$ 也存在；若余积 $x \amalg y$ 存在，则积 $x \times y$ 也存在。在这种情形下还有 $x \amalg y \cong x \times y$。
+\end{lemma}
+
+\begin{proof}
+设 $z = x \times y$，投影为 $p : z \to x$ 与 $q : z \to y$。以 $i : x \to z$ 表示对应于 $(1, 0)$ 的态射，以 $j : y \to z$ 表示对应于 $(0, 1)$ 的态射。于是有交换图
+$$
+\xymatrix{
+x \ar[rr]^1 \ar[rd]^i & & x \\
+& z \ar[ru]^p \ar[rd]^q & \\
+y \ar[rr]^1 \ar[ru]^j & & y
+}
+$$
+其中两条对角线上的复合均为零。由此可知 $i \circ p + j \circ q : z \to z$ 是恒等态射，因为它与 $p$ 复合得到 $p$，与 $q$ 复合得到 $q$。
+给定态射 $a : x \to w$ 与 $b : y \to w$，可构造映射 $a \circ p + b \circ q : z \to w$。这样便得到双射 $\Mor(z, w) = \Mor(x, w) \times \Mor(y, w)$，从而说明 $z = x \amalg y$。
+
+\medskip\noindent
+若从余积 $x \amalg y$ 而非积出发，我们把态射 $p, q$ 的构造留给读者。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-direct-sum}
+给定预加性范畴 $\mathcal{A}$ 中的一对对象 $x, y$，$x$ 与 $y$ 的
+{\it 直和} $x \oplus y$ 是直积 $x \times y$，并配备引理
+\ref{homology-lemma-preadditive-direct-sum} 中的态射 $i, j, p, q$。
+\end{definition}
+
+\begin{remark}
+\label{homology-remark-direct-sum}
+注意，引理 \ref{homology-lemma-preadditive-direct-sum} 的证明表明：给定 $p$ 与 $q$ 后，态射 $i$, $j$ 由关系 $p \circ i = \text{id}_x$、$q \circ j = \text{id}_y$、$p \circ j = 0$、$q \circ i = 0$ 唯一确定。此外自动有 $i \circ p + j \circ q = \text{id}_{x \oplus y}$。类似地，给定 $i$, $j$ 后，态射 $p$ 与 $q$ 也唯一确定。
+
+最后，若给定对象 $x, y, z$ 以及态射 $i : x \to z$、$j : y \to z$、$p : z \to x$、$q : z \to y$，并满足 $p \circ i = \text{id}_x$、$q \circ j = \text{id}_y$、$p \circ j = 0$、$q \circ i = 0$ 及 $i \circ p + j \circ q = \text{id}_z$，则 $z$ 是 $x$ 与 $y$ 的直和，其四个结构态射分别为 $i, j, p, q$。
+\end{remark}
+
+\begin{lemma}
+\label{homology-lemma-additive-additive}
+设 $\mathcal{A}$、$\mathcal{B}$ 为预加性范畴，$F : \mathcal{A} \to \mathcal{B}$ 为加性函子。则 $F$ 将直和变为直和，并将零对象变为零对象。
+\end{lemma}
+
+\begin{proof}
+设 $F$ 为加性函子。依注记 \ref{homology-remark-direct-sum}，$x$ 与 $y$ 的直和 $z$ 可由态射 $i : x \to z$、$j : y \to z$、$p : z \to x$、$q : z \to y$ 及关系 $p \circ i = \text{id}_x$、$q \circ j = \text{id}_y$、$p \circ j = 0$、$q \circ i = 0$、$i \circ p + j \circ q = \text{id}_z$ 刻画。显然，$F(x), F(y), F(z)$ 与态射 $F(i), F(j), F(p), F(q)$ 满足完全相同的关系（由加性），故 $F(z)$ 是 $F(x)$ 与 $F(y)$ 的直和。因此，$F$ 将直和变为直和。
+
+\medskip\noindent
+要看出 $F$ 将零对象变为零对象，使用引理 \ref{homology-lemma-preadditive-zero} 中零对象的刻画 (3) 即可。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-additive-category}
+若范畴 $\mathcal{A}$ 是预加性的且有限积存在，换言之，它有零对象和直和，则称它为{\it 加性范畴}。
+\end{definition}
+
+\noindent
+事实上，空积是有限积；若其存在，它就是终对象。
+
+\begin{definition}
+\label{homology-definition-kernel}
+设 $\mathcal{A}$ 为预加性范畴，$f : x \to y$ 为态射。
+\begin{enumerate}
+\item $f$ 的一个{\it 核}是态射 $i : z \to x$，满足：(a) $f \circ i = 0$；(b) 对任何满足 $f \circ i' = 0$ 的 $i' : z' \to x$，存在唯一态射 $g : z' \to z$ 使得 $i' = i \circ g$。
+\item 若 $f$ 的核存在，则将其记作 $\Ker(f) \to x$。
+\item $f$ 的一个{\it 余核}是态射 $p : y \to z$，满足：(a) $p \circ f = 0$；(b) 对任何满足 $p' \circ f = 0$ 的 $p' : y \to z'$，存在唯一态射 $g : z \to z'$ 使得 $p' = g \circ p$。
+\item 若 $f$ 的余核存在，则将其记作 $y \to \Coker(f)$。
+\item 若 $f$ 的核存在，则 $f$ 的一个{\it 余像}是态射 $\Ker(f) \to x$ 的余核。
+\item 若核和余像均存在，则将其记作 $x \to \Coim(f)$。
+\item 若 $f$ 的余核存在，则 $f$ 的{\it 像}是态射 $y \to \Coker(f)$ 的核。
+\item 若 $f$ 的余核和像均存在，则将其记作 $\Im(f) \to y$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+在上述定义中，我们谈到“该核”和“该余核”时，默认使用了它们在唯一同构意义下的唯一性。这由 Yoneda 引理推出（《范畴》，第 \ref{categories-section-opposite} 节），因为 $f : x \to y$ 的核表示这样一个函子：它把对象 $z$ 送到集合 $\Ker(\Mor_\mathcal{A}(z, x) \to \Mor_\mathcal{A}(z, y))$。余核的情形与之对偶。
+
+\medskip\noindent
+首先如下说明直和与核之间的关系。
+
+\begin{lemma}
+\label{homology-lemma-additive-cat-biproduct-kernel}
+设 $\mathcal{C}$ 为预加性范畴。设 $x \oplus y$ 连同态射 $i, j, p, q$ 如引理 \ref{homology-lemma-preadditive-direct-sum} 所述，是 $\mathcal{C}$ 中的直和。则 $i : x \to x \oplus y$ 是 $q : x \oplus y \rightarrow y$ 的核。对偶地，$p$ 是 $j$ 的余核。
+\end{lemma}
+
+\begin{proof}
+设 $f : z' \to x \oplus y$ 满足 $q \circ f = 0$。须证明存在唯一态射 $g : z' \to x$ 使 $f = i \circ g$。由于 $i \circ p + j \circ q$ 是 $x \oplus y$ 上的恒等态射，故
+$$
+f = (i \circ p + j \circ q) \circ f = i \circ p \circ f
+$$
+所以取 $g = p \circ f$ 即可。唯一性来自 $p \circ i$ 是 $x$ 上的恒等态射。第二个断言的证明与此对偶。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-kernel-mono}
+设 $\mathcal{C}$ 为预加性范畴，$f : x \to y$ 为 $\mathcal{C}$ 中的态射。
+\begin{enumerate}
+\item 若 $f$ 的核存在，则该核是单态射。
+\item 若 $f$ 的余核存在，则该余核是满态射。
+\item 若 $f$ 的核和余像存在，则该余像是满态射。
+\item 若 $f$ 的余核和像存在，则该像是单态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 直接来自核定义中的唯一性。(2) 的证明与之对偶。(3) 由 (2) 推出，因为余像是一个余核；类似地，(4) 由 (1) 推出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-coim-im-map}
+设 $f : x \to y$ 是预加性范畴中的态射，并且其核、余核、像和余像均存在。则 $f$ 唯一分解为
+$x \to \Coim(f) \to \Im(f) \to y$。
+\end{lemma}
+
+\begin{proof}
+因为 $\Ker(f) \to x \to y$ 为零，所以有典范态射 $\Coim(f) \to y$。复合 $\Coim(f) \to y \to \Coker(f)$ 为零，因为它是唯一诱导出零态射 $x \to y \to \Coker(f)$ 的态射（唯一性由引理 \ref{homology-lemma-kernel-mono} (3) 得到）。因此，$\Coim(f) \to y$ 唯一地通过 $\Im(f) \to y$ 分解，从而得到所需映射。
+\end{proof}
+
+\begin{example}
+\label{homology-example-not-abelian}
+设 $k$ 为域。考虑 $k$ 上滤过向量空间所成的范畴（见定义 \ref{homology-definition-filtered}）。考虑滤过向量空间 $(V, F)$ 与 $(W, F)$，其中 $V = W = k$ 且
+$$
+F^iV
+=
+\left\{
+\begin{matrix}
+V & \text{若} & i < 0 \\
+0 & \text{若} & i \geq 0
+\end{matrix}
+\right.
+\text{ 且 }
+F^iW
+=
+\left\{
+\begin{matrix}
+W & \text{若} & i \leq 0 \\
+0 & \text{若} & i > 0
+\end{matrix}
+\right.
+$$
+底层向量空间上的 $\text{id}_k$ 所对应的映射 $f : V \to W$ 具有平凡的核与余核，却不是同构。还要注意，$\Coim(f) = V$ 且 $\Im(f) = W$。这说明 $k$ 上滤过向量空间所成的范畴不是阿贝尔范畴。
+\end{example}
+
+\noindent
+最后以若干关于分裂幂等自同态之像的引理结束本节。回顾：若自同态 $f$ 满足 $f \circ f = f$，则称其为幂等的。
+% P02-E0003: frozen source line 354 has “endormorphisms”.
+
+\begin{remark}
+\label{homology-remark-idempotent-symmetry}
+设 $\mathcal{A}$ 为预加性范畴，$x$ 为 $\mathcal{A}$ 的对象，$f : x \to x$ 为幂等态射。令 $g = \text{id} _ x - f$，则 $f \circ g = 0$、$g \circ f = 0$ 且 $g \circ g = g$。
+\end{remark}
+
+\begin{lemma}
+\label{homology-lemma-idempotent-kernel-cokernel}
+设 $\mathcal{A}$ 为预加性范畴，$x$ 为 $\mathcal{A}$ 的对象，$f : x \to x$ 为幂等态射。令 $g = \text{id} _ x - f$；由注记 \ref{homology-remark-idempotent-symmetry}，有 $f \circ g = g \circ f = 0$。
+\begin{enumerate}
+\item 若 $f$ 有核 $i : \Ker (f) \to x$，且 $p$ 是满足 $g = i \circ p$ 的唯一态射，则 $p \circ i = \text{id} _ {\Ker (f)}$，并且 $p$ 是 $f$ 的余核。
+\item 若 $f$ 有余核 $p : x \to \Coker (f)$，且 $i$ 是满足 $g = i \circ p$ 的唯一态射，则 $p \circ i = \text{id} _ {\Coker (f)}$，并且 $i$ 是 $f$ 的核。
+\item 若 $g$ 有核 $j : \Ker (g) \to x$，且 $q$ 是满足 $f = j \circ q$ 的唯一态射，则 $q \circ j = \text{id} _ {\Ker (g)}$，并且 $q$ 是 $g$ 的余核。
+\item 若 $g$ 有余核 $q : x \to \Coker (g)$，且 $j$ 是满足 $f = j \circ q$ 的唯一态射，则 $q \circ j = \text{id} _ {\Coker (g)}$，并且 $j$ 是 $g$ 的核。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证 (1)。首先计算 $i = (f + g) \circ i = g \circ i$。由 $p$ 的构造，这蕴含
+$i \circ p \circ i = g \circ i = i \circ \text{id} _ {\Ker (f)}$。
+由引理 \ref{homology-lemma-kernel-mono} 得 $p \circ i = \text{id} _ {\Ker (f)}$。
+
+\medskip\noindent
+尚须证明 $p : x \to \Ker (f)$ 满足 $f$ 的余核之泛性质：即给定满足 $a \circ f = 0$ 的态射 $a : x \to y$，存在唯一态射 $b : \Ker (f) \to y$ 使 $a = b \circ p$。先计算 $a = a \circ (f + g) = a \circ g$；再由 $p$ 的构造得到 $a = a \circ g = a \circ i \circ p$，故存在性可取 $b = a \circ i$。唯一性来自 $b = b \circ p \circ i = a \circ i$，即 $a$ 决定 $b$。
+
+\medskip\noindent
+分别借助对偶性、对称性（即 $g$ 本身幂等；参见注记 \ref{homology-remark-idempotent-symmetry}）以及二者兼用，(2)、(3)、(4) 可按 (1) 同样推出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-idempotent-splitting}
+设 $\mathcal{A}$ 为预加性范畴，$x$ 为 $\mathcal{A}$ 的对象，$f : x \to x$ 为幂等态射。令 $g = \text{id} _ x - f$。若 $f$ 与 $g$ 各自至少有核或余核之一，并依引理 \ref{homology-lemma-idempotent-kernel-cokernel} 的陈述构造态射 $i , j , p , q$，则四个（余）核全部存在，且
+\begin{align*}
+x
+& \simeq \Ker (f) \oplus \Ker (g) \\
+& \simeq \Coker (f) \oplus \Ker (g) \\
+& \simeq \Ker (f) \oplus \Coker (g) \\
+& \simeq \Coker (f) \oplus \Coker (g),
+\end{align*}
+其中每个直积的结构均由 $i , j , p , q$ 给出。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{homology-lemma-idempotent-kernel-cokernel}，
+$p \circ i = \text{id} _ {\Ker (f)} = \text{id} _ {\Coker (f)}$，且 $q \circ j = \text{id} _ {\Ker (g)} = \text{id} _ {\Coker (g)}$。由构造，$i \circ p + j \circ q = f + g = \text{id} _ x$。结论由注记 \ref{homology-remark-direct-sum} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-split-morphism-kernel-cokernel}
+设 $\mathcal{A}$ 为预加性范畴，$x$ 与 $y$ 为 $\mathcal{A}$ 的对象，态射 $j : y \to x$ 与 $q : x \to y$ 满足 $q \circ j = \text{id} _ y$。则
+\begin{enumerate}
+\item $\text{id} _ x - j \circ q$ 以 $j$ 为核；
+\item $\text{id} _ x - j \circ q$ 以 $q$ 为余核。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证 (1)。首先计算 $(\text{id} _ x - j \circ q) \circ j = 0$。须证明 $j$ 满足 $\text{id} _ {x} - j \circ q$ 的核之泛性质：即给定满足 $(\text{id} _ x - j \circ q) \circ a = 0$ 的态射 $a : z \to x$，存在唯一态射 $b : z \to y$ 使 $a = j \circ b$。由 $a = j \circ q \circ a$ 可知存在性成立，可取 $b = q \circ a$。由 $b = q \circ j \circ b = q \circ a$ 可知唯一性成立，即 $a$ 决定 $b$。
+
+\medskip\noindent
+(2) 由对偶性按 (1) 推出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-split-morphism-splitting}
+设 $\mathcal{A}$ 为预加性范畴，$x$ 与 $y$ 为 $\mathcal{A}$ 的对象，态射 $j : y \to x$ 与 $q : x \to y$ 满足 $q \circ j = \text{id} _ y$。若 $j \circ q$ 至少有核或余核之一，则两者均存在，且
+\begin{align*}
+x
+& \simeq \Ker (j \circ q) \oplus y \\
+& \simeq \Coker (j \circ q) \oplus y,
+\end{align*}
+其中任一直积的结构都包含 $j , q$ 与典范（余）核态射，而剩余映射则唯一确定。
+\end{lemma}
+
+\begin{proof}
+令 $f = j \circ q$，计算得 $f \circ f = f$，再应用引理 \ref{homology-lemma-idempotent-splitting} 与引理 \ref{homology-lemma-split-morphism-kernel-cokernel}。
+\end{proof}
+
+\section{Karoubian 范畴}
+\label{homology-section-karoubian}
+
+\noindent
+初次阅读时可略过本节。
+
+\begin{definition}
+\label{homology-definition-karoubian}
+设 $\mathcal{C}$ 为预加性范畴。若 $\mathcal{C}$ 中每个对象的每个幂等自同态都有核，则称 $\mathcal{C}$ 为 {\it Karoubian 范畴}。
+\end{definition}
+
+\noindent
+对偶概念应是每个对象的每个幂等自同态都有余核。然而，由下述引理（的对偶）可知，这给出等价的概念。
+
+\begin{lemma}
+\label{homology-lemma-karoubian}
+设 $\mathcal{C}$ 为预加性范畴。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{C}$ 是 Karoubian 范畴；
+\item $\mathcal{C}$ 中每个对象的每个幂等自同态都有余核；
+\item 给定 $\mathcal{C}$ 中的幂等自同态 $p : z \to z$，存在直和分解 $z = x \oplus y$，使 $p$ 对应于到 $y$ 上的投影。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{homology-lemma-idempotent-kernel-cokernel}、\ref{homology-lemma-idempotent-splitting} 和 \ref{homology-lemma-additive-cat-biproduct-kernel} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-projectors-have-images}
+设 $\mathcal{D}$ 为预加性范畴。
+\begin{enumerate}
+\item 若 $\mathcal{D}$ 有可数积，且有右逆的映射均有核，则 $\mathcal{D}$ 是 Karoubian 范畴。
+\item 若 $\mathcal{D}$ 有可数余积，且有左逆的映射均有余核，则 $\mathcal{D}$ 是 Karoubian 范畴。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $X$ 为 $\mathcal{D}$ 的对象，$e : X \to X$ 为幂等态射。函子
+$$
+W \longmapsto \Ker(
+\Mor_\mathcal{D}(W, X)
+\xrightarrow{e}
+\Mor_\mathcal{D}(W, X)
+)
+$$
+可表示，当且仅当 $e$ 有核。注意，对任意阿贝尔群 $A$ 与幂等自同态 $e : A \to A$，都有
+$$
+\Ker(e : A \to A)
+= \Ker(\Phi :
+\prod\nolimits_{n \in \mathbf{N}} A
+\to
+\prod\nolimits_{n \in \mathbf{N}} A
+)
+$$
+其中
+$$
+\Phi(a_1, a_2, a_3, \ldots) = (ea_1 + (1 - e)a_2, ea_2 + (1 - e)a_3, \ldots)
+$$
+此外，$\Phi$ 有右逆
+$$
+\Psi(a_1, a_2, a_3, \ldots) =
+(a_1, (1 - e)a_1 + ea_2, (1 - e)a_2 + ea_3, \ldots).
+$$
+故 (1) 成立。(2) 的证明与之对偶（使用 Karoubian 范畴的对偶定义，即引理 \ref{homology-lemma-karoubian} 的条件 (2)）。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{阿贝尔范畴}
+\label{homology-section-abelian-categories}
+
+\noindent
+阿贝尔范畴是满足恰好足以使蛇引理成立的一组公理的范畴。有一条公理有时会被忘记：引理 \ref{homology-lemma-coim-im-map} 中的典范映射 $\Coim(f) \to \Im(f)$ 总是同构。例 \ref{homology-example-not-abelian} 表明这条公理确有必要。
+
+\begin{definition}
+\label{homology-definition-abelian-category}
+若范畴 $\mathcal{A}$ 是加性范畴，所有核和余核均存在，并且对其中的每个态射 $f$，自然映射 $\Coim(f) \to \Im(f)$ 都是同构，则称 $\mathcal{A}$ 为{\it 阿贝尔范畴}。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-abelian-opposite}
+设 $\mathcal{A}$ 为预加性范畴。态射集上的加法使 $\mathcal{A}^{opp}$ 成为预加性范畴。此外，$\mathcal{A}$ 是加性范畴当且仅当 $\mathcal{A}^{opp}$ 是加性范畴；$\mathcal{A}$ 是阿贝尔范畴当且仅当 $\mathcal{A}^{opp}$ 是阿贝尔范畴。
+\end{lemma}
+
+\begin{proof}
+第一个断言直接可得。为说明 $\mathcal{A}$ 是加性范畴当且仅当 $\mathcal{A}^{opp}$ 是加性范畴，回顾加性可由零对象和直和的存在性刻画，而二者在取对偶范畴时均得以保留。最后，为说明 $\mathcal{A}$ 是阿贝尔范畴当且仅当 $\mathcal{A}^{opp}$ 是阿贝尔范畴，只需观察 $\mathcal{A}^{opp}$ 中的核、余核、像和余像分别对应于 $\mathcal{A}$ 中的余核、核、余像和像。
+% P02-E0004: frozen source line 634 has “observes that”.
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-injective-surjective}
+设 $f : x \to y$ 为阿贝尔范畴中的态射。
+\begin{enumerate}
+\item 若 $\Ker(f) = 0$，则称 $f$ 为{\it 单射态射}。
+\item 若 $\Coker(f) = 0$，则称 $f$ 为{\it 满射态射}。
+\end{enumerate}
+若 $x \to y$ 为单射态射，则称 $x$ 为 $y$ 的{\it 子对象}，并记作 $x \subset y$。若 $x \to y$ 为满射态射，则称 $y$ 为 $x$ 的一个{\it 商}。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-characterize-injective}
+设 $f : x \to y$ 为阿贝尔范畴 $\mathcal{A}$ 中的态射。则
+\begin{enumerate}
+\item $f$ 为单射态射，当且仅当 $f$ 为单态射；
+\item $f$ 为满射态射，当且仅当 $f$ 为满态射；
+\item $f$ 为同构，当且仅当 $f$ 既为单射态射又为满射态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。回顾 $\Ker(f)$ 表示把 $z$ 送到 $\Ker(\Mor_\mathcal{A}(z, x) \to \Mor_\mathcal{A}(z, y))$ 的函子，见定义 \ref{homology-definition-kernel}。因此，$\Ker(f)$ 为 $0$，当且仅当对所有 $z$，$\Mor_\mathcal{A}(z, x) \to \Mor_\mathcal{A}(z, y)$ 都是单射，也当且仅当 $f$ 是单态射。(2) 的证明类似。对 (3)，同构既是单态射又是满态射，由 (1)、(2) 可知 $f$ 既为单射态射又为满射态射。反之，若 $f$ 既为单射态射又为满射态射，则 $x = \Coim(f)$ 且 $y = \Im(f)$，所以 $f$ 是同构。
+\end{proof}
+
+\noindent
+在阿贝尔范畴中，若 $x \subset y$ 为子对象，则记
+$$
+y/x = \Coker(x \to y).
+$$
+
+\begin{lemma}
+\label{homology-lemma-colimit-abelian-category}
+设 $\mathcal{A}$ 为阿贝尔范畴。$\mathcal{A}$ 中所有有限极限与有限余极限都存在。
+\end{lemma}
+
+\begin{proof}
+要证明有限极限存在，只需证明有限积与等化子存在，见《范畴》，引理 \ref{categories-lemma-finite-limits-exist}。有限积由定义存在，而 $a, b : x \to y$ 的等化子是 $a - b$ 的核。有限余极限的论证与此类似且对偶。
+\end{proof}
+
+\begin{example}
+\label{homology-example-fibre-product-pushouts}
+设 $\mathcal{A}$ 为阿贝尔范畴。$\mathcal{A}$ 中推出与纤维积有如下简单描述：
+\begin{enumerate}
+\item 若 $a : x \to y$、$b : z \to y$ 是 $\mathcal{A}$ 中的态射，则纤维积为 $x \times_y z = \Ker((a, -b) : x \oplus z \to y)$。
+\item 若 $a : y \to x$、$b : y \to z$ 是 $\mathcal{A}$ 中的态射，则推出为 $x \amalg_y z = \Coker((a, -b) : y \to x \oplus z)$。
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\label{homology-definition-exact}
+设 $\mathcal{A}$ 为加性范畴。考虑 $\mathcal{A}$ 中的态射序列
+$$
+\ldots \to x \to y \to z \to \ldots
+\quad\text{或}\quad
+x_1 \to x_2 \to \ldots \to x_n
+$$
+若任意两个相邻（画出的）箭头之复合为零，则称这样的序列为{\it 复形}。若 $\mathcal{A}$ 为阿贝尔范畴，则称上面第一类复形在 $y$ 处{\it 正合}，若 $\Im(x \to y) = \Ker(y \to z)$；称第二类复形在 $x_i$ 处（其中 $1 < i < n$）{\it 正合}，若 $\Im(x_{i - 1} \to x_i) = \Ker(x_i \to x_{i + 1})$。若上述序列是复形并且在每个对象处（第一种情形）或在所有满足 $1 < i < n$ 的 $x_i$ 处（第二种情形）正合，则称其{\it 正合}，或称为{\it 正合序列}、{\it 正合复形}。
+% P02-E0005: frozen source lines 729-730 read “We a sequence as above is”.
+对如下形状的序列也有相应的概念：
+$$
+\ldots \to x_{-3} \to x_{-2} \to x_{-1}
+\quad\text{且}\quad
+x_1 \to x_2 \to x_3 \to \ldots
+$$
+形如
+$$
+0 \to A  \to B \to C \to 0.
+$$
+的正合复形称为{\it 短正合序列}。
+\end{definition}
+
+\noindent
+在下述引理中，我们假定读者知道阿贝尔群序列正合的含义。
+
+\begin{lemma}
+\label{homology-lemma-check-exactness}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $0 \to M_1 \to M_2 \to M_3 \to 0$ 为 $\mathcal{A}$ 中的复形。
+\begin{enumerate}
+\item $M_1 \to M_2 \to M_3 \to 0$ 正合，当且仅当对 $\mathcal{A}$ 的所有对象 $N$，阿贝尔群序列
+$$
+0 \to \Hom_\mathcal{A}(M_3, N) \to
+\Hom_\mathcal{A}(M_2, N) \to \Hom_\mathcal{A}(M_1, N)
+$$
+正合；
+\item $0 \to M_1 \to M_2 \to M_3$ 正合，当且仅当对 $\mathcal{A}$ 的所有对象 $N$，阿贝尔群序列
+$$
+0 \to \Hom_\mathcal{A}(N, M_1) \to \Hom_\mathcal{A}(N, M_2) \to
+\Hom_\mathcal{A}(N, M_3)
+$$
+正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：见《代数》，引理 \ref{algebra-lemma-hom-exact}。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-ses-split}
+设 $\mathcal{A}$ 为阿贝尔范畴，$i : A \to B$ 与 $q : B \to C$ 为 $\mathcal{A}$ 中的态射，使 $0 \to A \to B \to C \to 0$ 成为短正合序列。若存在态射 $j : C \to B$ 与 $p : B \to A$，使 $(B, i, j, p, q)$ 是 $A$ 与 $C$ 的直和，则称该短正合序列{\it 分裂}。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-ses-split}
+设 $\mathcal{A}$ 为阿贝尔范畴，$0 \to A \to B \to C \to 0$ 为短正合序列。
+\begin{enumerate}
+\item 给定 $B \to C$ 的右逆态射 $s : C \to B$，存在唯一 $\pi : B \to A$，使 $(s, \pi)$ 按定义 \ref{homology-definition-ses-split} 分裂该短正合序列。
+\item 给定 $A \to B$ 的左逆态射 $\pi : B \to A$，存在唯一 $s : C \to B$，使 $(s, \pi)$ 按定义 \ref{homology-definition-ses-split} 分裂该短正合序列。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{homology-lemma-split-morphism-splitting} 的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-characterize-cartesian}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+w\ar[r]^f\ar[d]_g
+& y\ar[d]^h\\
+x\ar[r]^k
+& z
+}
+$$
+为交换图。
+\begin{enumerate}
+\item 该图是笛卡尔图，当且仅当
+$$
+0 \to w \xrightarrow{(g, f)} x \oplus y \xrightarrow{(k, -h)} z
+$$
+正合。
+\item 该图是余笛卡尔图，当且仅当
+$$
+w \xrightarrow{(g, -f)} x \oplus y \xrightarrow{(k, h)} z \to 0
+$$
+正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $u = (g, f) : w \to x \oplus y$，$v = (k, -h) : x \oplus y \to z$。令 $p : x \oplus y \to x$ 与 $q : x \oplus y \to y$ 为典范投影，$i : \Ker(v) \to x \oplus y$ 为典范单射。由例 \ref{homology-example-fibre-product-pushouts}，该图为笛卡尔图，当且仅当存在同构 $r : \Ker(v) \to w$，满足 $f \circ r = q \circ i$ 且 $g \circ r = p \circ i$。序列 $0 \to w \overset{u} \to x \oplus y \overset{v} \to z$ 正合，当且仅当存在同构 $r : \Ker(v) \to w$ 使 $u \circ r = i$。但给定 $r : \Ker(v) \to w$，有 $f \circ r = q \circ i$ 且 $g \circ r = p \circ i$，当且仅当 $q \circ u \circ r= f \circ r = q \circ i$ 且 $p \circ u \circ r = g \circ r = p \circ i$，亦即当且仅当 $u \circ r = i$。这证明了 (1)，而 (2) 由对偶性得出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-cartesian-kernel}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+w\ar[r]^f\ar[d]_g
+& y\ar[d]^h\\
+x\ar[r]^k
+& z
+}
+$$
+为交换图。
+\begin{enumerate}
+\item 若该图为笛卡尔图，则由 $g$ 诱导的态射 $\Ker(f)\to\Ker(k)$ 是同构。
+\item 若该图为余笛卡尔图，则由 $h$ 诱导的态射 $\Coker(f)\to\Coker(k)$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设该图为笛卡尔图。令 $e:\Ker(f)\to\Ker(k)$ 为 $g$ 诱导的态射，$i:\Ker(f)\to w$ 与 $j:\Ker(k)\to x$ 为典范单射。存在 $t:\Ker(k)\to w$，满足 $f\circ t=0$ 且 $g\circ t=j$。因此存在 $u:\Ker(k)\to\Ker(f)$，使 $i\circ u=t$。于是
+$g\circ i\circ u\circ e=g\circ t\circ e=j\circ e=g\circ i$ 且 $f\circ i\circ u\circ e=0=f\circ i$，故 $i\circ u\circ e=i$。因 $i$ 为单态射，$u\circ e=\text{id}_{\Ker(f)}$。又有 $j\circ e\circ u=g\circ i\circ u=g\circ t=j$；因 $j$ 为单态射，$e\circ u=\text{id}_{\Ker(k)}$。这证明 (1)，(2) 由对偶性得出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-cartesian-cocartesian}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+w\ar[r]^f\ar[d]_g
+& y\ar[d]^h\\
+x\ar[r]^k
+& z
+}
+$$
+为交换图。
+\begin{enumerate}
+\item 若该图为笛卡尔图且 $k$ 为满态射，则该图为余笛卡尔图，且 $f$ 为满态射。
+\item 若该图为余笛卡尔图且 $g$ 为单态射，则该图为笛卡尔图，且 $h$ 为单态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设该图为笛卡尔图且 $k$ 为满态射。令 $u = (g, f) : w \to x \oplus y$，$v = (k, -h) : x \oplus y \to z$。因为 $k$ 为满态射，$v$ 也为满态射。因此结合引理 \ref{homology-lemma-characterize-cartesian}，序列 $0\to w\overset{u}\to x\oplus y\overset{v}\to z\to 0$ 正合。故由引理 \ref{homology-lemma-characterize-cartesian}，该图为余笛卡尔图。最后，由引理 \ref{homology-lemma-cartesian-kernel} 与引理 \ref{homology-lemma-characterize-injective}，$f$ 为满态射。这证明 (1)，(2) 由对偶性得出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-epimorphism-universal-abelian-category}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若 $x \to y$ 为满射态射，则对每个 $z \to y$，投影 $x \times_y z \to z$ 为满射态射。
+\item 若 $x \to y$ 为单射态射，则对每个 $x \to z$，态射 $z \to z \amalg_x y$ 为单射态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+立即由引理 \ref{homology-lemma-characterize-injective} 与引理 \ref{homology-lemma-cartesian-cocartesian} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-check-exactness-fibre-product}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $f:x\to y$ 与 $g:y\to z$ 满足 $g\circ f=0$。则下列陈述等价：
+\begin{enumerate}
+\item 序列 $x\overset{f}\to y\overset{g}\to z$ 正合。
+\item 对每个满足 $g\circ h=0$ 的 $h:w\to y$，存在对象 $v$、满态射 $k:v\to w$ 与态射 $l:v\to x$，使 $h\circ k=f\circ l$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $i:\Ker(g)\to y$ 为典范单射，$p:x\to\Coim(f)$ 为典范投影，$j:\Im(f)\to\Ker(g)$ 为典范单射。
+
+\medskip\noindent
+假设 (1) 成立。设 $h:w\to y$ 且 $g\circ h=0$。存在 $c:w\to\Ker(g)$ 使 $i\circ c=h$。令 $v=x\times_{\Ker(g)}w$，其典范投影为 $k:v\to w$ 与 $l:v\to x$，于是 $c\circ k=j\circ p\circ l$。故 $h\circ k=i\circ c\circ k=i\circ j\circ p\circ l=f\circ l$。由假设，$j\circ p$ 为满态射，故由引理 \ref{homology-lemma-cartesian-cocartesian}，$k$ 为满态射。这蕴含 (2)。
+
+\medskip\noindent
+假设 (2) 成立。则 $g\circ i=0$。故存在对象 $w$、满态射 $k:w\to\Ker(g)$ 与态射 $l:w\to x$，使 $f\circ l=i\circ k$。于是 $i\circ j\circ p\circ l=f\circ l=i\circ k$。由于 $i$ 为单态射，$j\circ p\circ l=k$ 为满态射。因此 $j$ 为满态射，从而是同构。这蕴含 (1)。
+% P02-E0006: frozen source line 965 has “an epimorphisms”.
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-exact-kernel-sequence}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+x \ar[r]^f \ar[d]^\alpha &
+y \ar[r]^g \ar[d]^\beta &
+z \ar[d]^\gamma\\
+u \ar[r]^k & v \ar[r]^l & w
+}
+$$
+为交换图。
+\begin{enumerate}
+\item 若第一行正合且 $k$ 为单态射，则诱导序列 $\Ker(\alpha) \to \Ker(\beta) \to \Ker(\gamma)$ 正合。
+\item 若第二行正合且 $g$ 为满态射，则诱导序列 $\Coker(\alpha) \to \Coker(\beta) \to \Coker(\gamma)$ 正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设第一行正合且 $k$ 为单态射。令 $a:\Ker(\alpha)\to\Ker(\beta)$ 与 $b:\Ker(\beta)\to\Ker(\gamma)$ 为诱导态射；令 $h:\Ker(\alpha)\to x$、$i:\Ker(\beta)\to y$、$j:\Ker(\gamma)\to z$ 为典范单射。因 $j$ 为单态射，有 $b\circ a=0$。设 $c:s\to\Ker(\beta)$ 且 $b\circ c=0$。则 $g\circ i\circ c=j\circ b\circ c=0$。由引理 \ref{homology-lemma-check-exactness-fibre-product}，存在对象 $t$、满态射 $d:t\to s$ 与态射 $e:t\to x$，使 $i\circ c\circ d=f\circ e$。于是
+$k\circ \alpha\circ e=\beta\circ f\circ e=\beta\circ i\circ c\circ d=0$。因 $k$ 为单态射，得 $\alpha\circ e=0$。故存在 $m:t\to\Ker(\alpha)$ 使 $h\circ m=e$。于是
+$i\circ a\circ m=f\circ h\circ m=f\circ e=i\circ c\circ d$。因 $i$ 为单态射，$a\circ m=c\circ d$。因此引理 \ref{homology-lemma-check-exactness-fibre-product} 蕴含 (1)，而 (2) 由对偶性得出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-snake}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+& x \ar[r]^f \ar[d]^\alpha &
+y \ar[r]^g \ar[d]^\beta &
+z \ar[r] \ar[d]^\gamma &
+0 \\
+0 \ar[r] & u \ar[r]^k & v \ar[r]^l & w
+}
+$$
+为两行均正合的交换图。
+\begin{enumerate}
+\item 存在唯一态射 $\delta : \Ker(\gamma) \to \Coker(\alpha)$，使图
+$$
+\xymatrix{
+y \ar[d]_\beta &
+y \times_z \Ker(\gamma) \ar[l]_{\pi'} \ar[r]^{\pi} &
+\Ker(\gamma) \ar[d]^\delta \\
+v \ar[r]^{\iota'} & \Coker(\alpha) \amalg_u v &
+\Coker(\alpha) \ar[l]_\iota
+}
+$$
+交换，其中 $\pi$、$\pi'$ 为典范投影，$\iota$、$\iota'$ 为典范余注入。
+\item 诱导序列
+$$
+\Ker(\alpha) \xrightarrow{f'} \Ker(\beta) \xrightarrow{g'}
+\Ker(\gamma) \xrightarrow{\delta} \Coker(\alpha) \xrightarrow{k'}
+\Coker(\beta) \xrightarrow{l'} \Coker(\gamma)
+$$
+正合。若 $f$ 为单射态射，则 $f'$ 亦然；若 $l$ 为满射态射，则 $l'$ 亦然。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{homology-lemma-cartesian-cocartesian}，$\pi$ 为满态射而 $\iota$ 为单态射，故 $\delta$ 的唯一性显然。令 $p = y \times_z \Ker(\gamma)$，$q = \Coker(\alpha) \amalg_u v$。令 $h : \Ker(\beta) \to y$、$i : \Ker(\gamma) \to z$ 与 $j : \Ker(\pi) \to p$ 为典范单射，并令 $\pi'' : u \to \Coker(\alpha)$ 为典范投影。结合引理 \ref{homology-lemma-cartesian-cocartesian}，得到如下各行正合的交换图：
+$$
+\xymatrix{
+0 \ar[r] &
+\Ker(\pi) \ar[r]^j &
+p \ar[r]^{\pi} \ar[d]_{\pi'} &
+\Ker(\gamma) \ar[d]_i \ar[r] & 0 \\
+& x \ar[r]^f \ar[d]_\alpha & y \ar[r]^g \ar[d]_\beta &
+z \ar[d]_\gamma \ar[r] & 0 \\
+0 \ar[r] & u \ar[r]^k \ar[d]_{\pi''} &
+v \ar[r]^l \ar[d]_{\iota'} & w & \\
+0 \ar[r] & \Coker(\alpha) \ar[r]^\iota & q & &
+}
+$$
+由于 $l \circ \beta \circ \pi' = \gamma \circ i \circ \pi = 0$ 且上图第三行正合，存在 $a : p \to u$ 使 $k \circ a = \beta \circ \pi'$。上图右上方框为笛卡尔图，故引理 \ref{homology-lemma-cartesian-kernel} 给出满态射 $b : x \to \Ker(\pi)$，满足 $\pi' \circ j \circ b = f$。于是
+$k \circ a \circ j \circ b = \beta \circ \pi' \circ j \circ b = \beta \circ f = k \circ \alpha$。因 $k$ 为单态射，得 $a \circ j \circ b = \alpha$，进而 $\pi'' \circ a \circ j \circ b = \pi'' \circ \alpha = 0$。因 $b$ 为满态射，这蕴含 $\pi'' \circ a \circ j = 0$。所以，由上图第一行的正合性，存在 $\delta : \Ker(\gamma) \to \Coker(\alpha)$，使 $\delta \circ \pi = \pi'' \circ a$。于是
+$\iota \circ \delta \circ \pi = \iota \circ \pi'' \circ a = \iota' \circ k \circ a = \iota' \circ \beta \circ \pi'$，正如所需。
+
+\medskip\noindent
+% Frozen source repeats \ref{homology-lemma-check-exactness-fibre-product} within this proof.
+由于上图右上方框为笛卡尔图，存在 $c : \Ker(\beta) \to p$，使 $\pi' \circ c = h$ 且 $\pi \circ c = g'$。于是
+$\iota \circ \delta \circ g' = \iota \circ \delta \circ \pi \circ c = \iota' \circ \beta \circ \pi' \circ c = \iota' \circ \beta \circ h = 0$。因 $\iota$ 为单态射，得 $\delta \circ g' = 0$。
+
+\medskip\noindent
+再设 $d : r \to \Ker(\gamma)$ 且 $\delta \circ d = 0$。把引理 \ref{homology-lemma-check-exactness-fibre-product} 应用于正合序列 $p \xrightarrow{\pi} \Ker(\gamma) \to 0$ 与 $d$，得到对象 $s$、满态射 $m : s \to r$ 和态射 $n : s \to p$，满足 $\pi \circ n = d \circ m$。由于 $\pi'' \circ a \circ n = \delta \circ d \circ m = 0$，把同一引理应用于正合序列 $x \xrightarrow{\alpha} u \xrightarrow{p} \Coker(\alpha)$ 与 $a \circ n$，得到对象 $t$、满态射 $\varepsilon : t \to s$ 与态射 $\zeta : t \to x$，满足 $a \circ n \circ \varepsilon = \alpha \circ \zeta$。有
+$\beta \circ \pi' \circ n \circ \varepsilon = k \circ \alpha \circ \zeta = \beta \circ f \circ \zeta$。令 $\eta = \pi' \circ n \circ \varepsilon - f \circ \zeta : t \to y$，则 $\beta \circ \eta = 0$。故存在 $\vartheta : t \to \Ker(\beta)$ 使 $\eta = h \circ \vartheta$。于是
+$i \circ g' \circ \vartheta = g \circ h \circ \vartheta = g \circ \pi' \circ n \circ \varepsilon - g \circ f \circ \zeta = i \circ \pi \circ n \circ \varepsilon = i \circ d \circ m \circ \varepsilon$。因 $i$ 为单态射，得 $g' \circ \vartheta = d \circ m \circ \varepsilon$。因此，由于 $m \circ \varepsilon$ 为满态射，引理 \ref{homology-lemma-check-exactness-fibre-product} 蕴含 $\Ker(\beta) \xrightarrow{g'} \Ker(\gamma) \xrightarrow{\delta} \Coker(\alpha)$ 正合。其余结论由引理 \ref{homology-lemma-exact-kernel-sequence} 与对偶性得到。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-snake-natural}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+& & & x\ar[ld]\ar[rr]\ar[dd]^(.4)\alpha
+& & y\ar[ld]\ar[rr]\ar[dd]^(.4)\beta
+& & z\ar[ld]\ar[rr]\ar[dd]^(.4)\gamma
+& & 0\\
+& & x'\ar[rr]\ar[dd]^(.4){\alpha'}
+& & y'\ar[rr]\ar[dd]^(.4){\beta'}
+& & z'\ar[rr]\ar[dd]^(.4){\gamma'}
+& & 0
+& \\
+& 0\ar[rr]
+& & u\ar[ld]\ar[rr]
+& & v\ar[ld]\ar[rr]
+& & w\ar[ld]
+& & \\
+0\ar[rr]
+& & u'\ar[rr]
+& & v'\ar[rr]
+& & w'
+& & &
+}
+$$
+为各行正合的交换图。则诱导图
+$$
+\xymatrix@C=15pt{
+\Ker(\alpha) \ar[r] \ar[d] &
+\Ker(\beta) \ar[r] \ar[d] &
+\Ker(\gamma) \ar[r]^(.45){\delta} \ar[d] &
+\Coker(\alpha) \ar[r] \ar[d] &
+\Coker(\beta) \ar[r] \ar[d] &
+\Coker(\gamma) \ar[d] \\
+\Ker(\alpha') \ar[r] &
+\Ker(\beta') \ar[r] &
+\Ker(\gamma') \ar[r]^(.45){\delta'} &
+\Coker(\alpha') \ar[r] &
+\Coker(\beta') \ar[r] &
+\Coker(\gamma')
+}
+$$
+交换。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-four-lemma}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+w \ar[r] \ar[d]^\alpha & x \ar[r] \ar[d]^\beta & y \ar[r] \ar[d]^\gamma &
+z \ar[d]^\delta \\
+w' \ar[r] & x' \ar[r] & y' \ar[r] & z'
+}
+$$
+为两行正合的交换图。
+\begin{enumerate}
+\item 若 $\alpha, \gamma$ 为满射态射且 $\delta$ 为单射态射，则 $\beta$ 为满射态射。
+\item 若 $\beta, \delta$ 为单射态射且 $\alpha$ 为满射态射，则 $\gamma$ 为单射态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $\alpha, \gamma$ 为满射态射且 $\delta$ 为单射态射。可将 $w'$ 替换为 $\Im(w' \to x')$，即可以假设 $w' \to x'$ 为单射态射。可将 $z$ 替换为 $\Im(y \to z)$，即可以假设 $y \to z$ 为满射态射。于是可将引理 \ref{homology-lemma-snake} 应用于
+$$
+\xymatrix{
+& \Ker(y \to z) \ar[r] \ar[d] & y \ar[r] \ar[d] & z \ar[r] \ar[d] & 0 \\
+0 \ar[r] & \Ker(y' \to z') \ar[r] & y' \ar[r] & z'
+}
+$$
+从而得出 $\Ker(y \to z) \to \Ker(y' \to z')$ 为满射态射。最后，把引理 \ref{homology-lemma-snake} 应用于
+$$
+\xymatrix{
+& w \ar[r] \ar[d] & x \ar[r] \ar[d] & \Ker(y \to z) \ar[r] \ar[d] & 0 \\
+0 \ar[r] & w' \ar[r] & x' \ar[r] & \Ker(y' \to z')
+}
+$$
+即可得出 $x \to x'$ 为满射态射。这证明 (1)；(2) 的证明与之对偶。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-five-lemma}
+\begin{reference}
+\cite[Lemma 4.5 page 16]{Eilenberg-Steenrod}
+\end{reference}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+\xymatrix{
+v \ar[r] \ar[d]^\alpha &
+w \ar[r] \ar[d]^\beta &
+x \ar[r] \ar[d]^\gamma &
+y \ar[r] \ar[d]^\delta &
+z \ar[d]^\epsilon \\
+v' \ar[r] & w' \ar[r] & x' \ar[r] & y' \ar[r] & z'
+}
+$$
+为两行正合的交换图。若 $\beta, \delta$ 是同构，$\epsilon$ 为单射态射且 $\alpha$ 为满射态射，则 $\gamma$ 是同构。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{homology-lemma-four-lemma} 的直接推论。
+\end{proof}
+
+\section{扩张}
+\label{homology-section-extensions}
+
+\begin{definition}
+\label{homology-definition-extension}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A, B \in \Ob(\mathcal{A})$。$B$ 被 $A$ 的一个{\it 扩张 $E$} 是短正合序列
+$$
+0 \to A \to E \to B \to 0.
+$$
+两个扩张 $0 \to A \to E \to B \to 0$ 与 $0 \to A \to F \to B \to 0$ 之间的一个{\it 扩张态射}，是 $\mathcal{A}$ 中使下图交换的态射 $f : E \to F$：
+$$
+\xymatrix{
+0 \ar[r] &
+A \ar[r] \ar[d]^{\text{id}} &
+E \ar[r] \ar[d]^f &
+B \ar[r] \ar[d]^{\text{id}} &
+0 \\
+0 \ar[r] &
+A \ar[r] &
+F \ar[r] &
+B \ar[r] &
+0
+}
+$$
+因此，$B$ 被 $A$ 的扩张构成一个范畴。
+\end{definition}
+
+\noindent
+作为一种语言上的简略，我们常省略对态射 $A \to E$ 与 $E \to B$ 的提及，尽管它们确实是扩张结构的一部分。
+
+\begin{definition}
+\label{homology-definition-ext-group}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A, B \in \Ob(\mathcal{A})$。$B$ 被 $A$ 的扩张之同构类所成的集合记作
+$$
+\Ext_\mathcal{A}(B, A).
+$$
+它称为 {\it $\Ext$ 群}。
+\end{definition}
+
+\noindent
+这个定义是可行的，因为按我们的约定，$\Ob(\mathcal{A})$ 是集合，从而 $\Ext_\mathcal{A}(B, A)$ 也是集合。对《范畴》，注记 \ref{categories-remark-big-categories} 中列出的各种“大”阿贝尔范畴，也可直接验证 $\Ext_\mathcal{A}(B, A)$ 是集合。稍后还将看到，当 $\mathcal{A}$ 有足够多投射对象或足够多内射对象时，总是如此。此处待补将来的引用。
+
+\medskip\noindent
+事实上，可如下把 $\Ext_\mathcal{A}(-, -)$ 变为函子
+$$
+\mathcal{A} \times \mathcal{A}^{opp} \longrightarrow \textit{Sets}, \quad
+(A, B) \longmapsto \Ext_\mathcal{A}(B, A)
+$$
+\begin{enumerate}
+\item 给定态射 $B' \to B$ 与 $B$ 被 $A$ 的扩张 $E$，定义 $E' = E \times_B B'$。由引理 \ref{homology-lemma-cartesian-kernel}，有如下短正合序列的交换图：
+$$
+\xymatrix{
+0 \ar[r] & A \ar[r] \ar[d] & E' \ar[r] \ar[d] & B' \ar[r] \ar[d] & 0 \\
+0 \ar[r] & A \ar[r] & E \ar[r] & B \ar[r] & 0
+}
+$$
+扩张 $E'$ 称为 $E$ 沿 $B' \to B$ 的{\it 拉回}。
+\item 给定态射 $A \to A'$ 与 $B$ 被 $A$ 的扩张 $E$，定义 $E' = A' \amalg_A E$。由引理 \ref{homology-lemma-cartesian-cocartesian}，有如下短正合序列的交换图：
+$$
+\xymatrix{
+0 \ar[r] & A \ar[r] \ar[d] & E \ar[r] \ar[d] & B \ar[r] \ar[d] & 0 \\
+0 \ar[r] & A' \ar[r] & E' \ar[r] & B \ar[r] & 0
+}
+$$
+扩张 $E'$ 称为 $E$ 沿 $A \to A'$ 的{\it 推出}。
+\end{enumerate}
+要说明这确实定义了上述函子，需要验证若干事项。首先，变量 $B$ 上的函子性要求
+$(E \times_B B') \times_{B'} B'' = E \times_B B''$，这是纤维积的一般性质。变量 $A$ 上的函子性由对偶方式处理。最后，给定 $A \to A'$ 与 $B' \to B$，须证明
+$$
+A' \amalg_A (E \times_B B')
+\cong
+(A' \amalg_A E)\times_B B'
+$$
+作为 $B'$ 被 $A'$ 的扩张成立。回顾 $A' \amalg_A E$ 是 $A' \oplus E$ 的一个商。因此右边是 $A' \oplus E \times_B B'$ 的一个商；容易看出其核恰好给出左边。
+
+\medskip\noindent
+注意，若 $E_1$ 与 $E_2$ 都是 $B$ 被 $A$ 的扩张，则 $E_1\oplus E_2$ 是 $B \oplus B$ 被 $A\oplus A$ 的扩张。沿求和映射 $A \oplus A \to A$ 推出，再沿对角映射 $B \to B \oplus B$ 拉回，便得到 $B$ 被 $A$ 的扩张 $E_1 + E_2$：
+$$
+\xymatrix{
+0 \ar[r] &
+A \oplus A \ar[r] \ar[d]_\Sigma &
+E_1 \oplus E_2 \ar[r] \ar[d] &
+B \oplus B \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+A \ar[r] &
+E' \ar[r] &
+B \oplus B \ar[r] &
+0\\
+0 \ar[r] &
+A \ar[r] \ar[u] &
+E_1 + E_2 \ar[r] \ar[u] &
+B \ar[r] \ar[u]^\Delta &
+0
+}
+$$
+扩张 $E_1 + E_2$ 称为给定扩张的 {\it Baer 和}。
+
+\begin{lemma}
+\label{homology-lemma-baer-sum}
+上述构造 $(E_1, E_2) \mapsto E_1 + E_2$ 在 $\Ext_\mathcal{A}(B, A)$ 上定义交换群运算，并且对两个变量均具函子性。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-six-term-sequence-ext}
+设 $\mathcal{A}$ 为阿贝尔范畴，$0 \to M_1 \to M_2 \to M_3 \to 0$ 为 $\mathcal{A}$ 中的短正合序列。
+\begin{enumerate}
+\item 对 $\mathcal{A}$ 的每个对象 $N$，有典范的六项阿贝尔群正合序列
+$$
+\xymatrix{
+0 \ar[r] &
+\Hom_\mathcal{A}(M_3, N) \ar[r] &
+\Hom_\mathcal{A}(M_2, N) \ar[r] &
+\Hom_\mathcal{A}(M_1, N) \ar[lld] \\
+& \Ext_\mathcal{A}(M_3, N) \ar[r] &
+\Ext_\mathcal{A}(M_2, N) \ar[r] &
+\Ext_\mathcal{A}(M_1, N)
+}
+$$
+；
+\item 对 $\mathcal{A}$ 的每个对象 $N$，有典范的六项阿贝尔群正合序列
+$$
+\xymatrix{
+0 \ar[r] &
+\Hom_\mathcal{A}(N, M_1) \ar[r] &
+\Hom_\mathcal{A}(N, M_2) \ar[r] &
+\Hom_\mathcal{A}(N, M_3) \ar[lld] \\
+& \Ext_\mathcal{A}(N, M_1) \ar[r] &
+\Ext_\mathcal{A}(N, M_2) \ar[r] &
+\Ext_\mathcal{A}(N, M_3)
+}
+$$
+。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：边界映射由给定短正合序列的推出或拉回来定义。
+\end{proof}
+
+\section{加性函子}
+\label{homology-section-functors}
+
+\noindent
+先给出一个刻画加性范畴之间加性函子的完全平凡的引理。
+
+\begin{lemma}
+\label{homology-lemma-additive-functor}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为加性范畴，$F : \mathcal{A} \to \mathcal{B}$ 为函子。下列条件等价：
+\begin{enumerate}
+\item $F$ 是加性函子；
+\item 对所有 $A, B \in \mathcal{A}$，$F(A) \oplus F(B) \to F(A \oplus B)$ 是同构；
+\item 对所有 $A, B \in \mathcal{A}$，$F(A \oplus B) \to F(A) \oplus F(B)$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{homology-lemma-additive-additive}，加性函子与直和可交换，故 (1) 蕴含 (2) 与 (3)。若 (2) 成立且 $0$ 表示 $\mathcal{A}$ 的零对象，则映射 $F(0) \oplus F(0) \to F(0 \oplus 0) \cong F(0)$ 为同构，这蕴含对 $\mathcal{B}$ 中所有 $C$，对角映射 $\Hom(F(0), C) \to \Hom(F(0), C) \oplus \Hom(F(0), C)$ 均为双射。因此 $F(0)$ 是 $\mathcal{B}$ 的零对象，且 $F$ 把任意两个对象间的零态射映为零态射。若 (3) 成立，结论同样成立。于是 (2) 与 (3) 等价，因为复合
+$F(A) \oplus F(B) \to F(A \oplus B) \to F(A) \oplus F(B)$
+由矩阵
+$$
+\left(
+\begin{matrix}
+F(1) & F(0) \\
+F(0) & F(1)
+\end{matrix}
+\right)
+$$
+给出，因而是恒等映射。现假设 (2) 与 (3) 成立。设 $f, g : A \to B$ 为映射。则 $f + g$ 等于复合
+$$
+A \to A \oplus A \xrightarrow{\text{diag}(f, g)} B \oplus B \to B
+$$
+应用函子 $F$ 并考虑图
+$$
+\xymatrix{
+F(A) \ar[r] \ar[rd] &
+F(A \oplus A) \ar[rr]_{F(\text{diag}(f, g))} & &
+F(B \oplus B) \ar[r] \ar[d] &
+F(B) \\
+&
+F(A) \oplus F(A) \ar[u] \ar[rr]^{\text{diag}(F(f), F(g))} & &
+F(B) \oplus F(B) \ar[ru]
+}
+$$
+我们断言此图交换。中间方框可分别在四个诱导映射 $F(A) \to F(B)$ 上验证；这由 $F$ 是函子且把零态射映为零态射得出。对左侧三角形，利用 $F(A \oplus A) \to F(A) \oplus F(A)$ 是同构，可知只需与该映射复合后验证，而此时验证是平凡的。另一三角形由对偶方式处理。因此沿底部复合等于 $F(f + g)$，结论随之得出。
+\end{proof}
+
+\noindent
+回顾我们在《范畴》，定义 \ref{categories-definition-exact} 中，对具有有限（余）极限的范畴之间的函子定义了“右正合”“左正合”和“正合”。因此这些概念特别适用于阿贝尔范畴之间的函子。
+
+\begin{lemma}
+\label{homology-lemma-exact-functor}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为阿贝尔范畴，$F : \mathcal{A} \to \mathcal{B}$ 为函子。
+\begin{enumerate}
+\item 若 $F$ 左正合或右正合，则它是加性函子。
+\item $F$ 左正合，当且仅当对每个短正合序列 $0 \to A \to B \to C \to 0$，序列 $0 \to F(A) \to F(B) \to F(C)$ 正合。
+\item $F$ 右正合，当且仅当对每个短正合序列 $0 \to A \to B \to C \to 0$，序列 $F(A) \to F(B) \to F(C) \to 0$ 正合。
+\item $F$ 正合，当且仅当对每个短正合序列 $0 \to A \to B \to C \to 0$，序列 $0 \to F(A) \to F(B) \to F(C) \to 0$ 正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $F$ 左正合，即 $F$ 与有限极限可交换，则 $F$ 把积送到积，故保直和，因而由引理 \ref{homology-lemma-additive-functor}，$F$ 是加性函子。另一方面，假设对每个短正合序列 $0 \to A \to B \to C \to 0$，序列 $0 \to F(A) \to F(B) \to F(C)$ 都正合。对任意两个对象 $A, B$，有短正合序列
+$$
+0 \to A \to A \oplus B \to B \to 0
+$$
+例如见引理 \ref{homology-lemma-additive-cat-biproduct-kernel}。由假设，下列交换图的下行正合：
+$$
+\xymatrix{
+0 \ar[r] &
+F(A) \ar[d] \ar[r] &
+F(A) \oplus F(B) \ar[r] \ar[d] &
+F(B) \ar[d] \ar[r] &
+0 \\
+0 \ar[r] &
+F(A) \ar[r] &
+F(A \oplus B) \ar[r] &
+F(B)
+}
+$$
+因此由蛇引理（引理 \ref{homology-lemma-snake}），$F(A) \oplus F(B) \to F(A \oplus B)$ 是同构。故在这种情形下 $F$ 也是加性函子。于是以下可假设 $F$ 为加性函子。
+
+\medskip\noindent
+记 $f : B \to C$ 为从 $B$ 到 $C$ 的映射。$0 \to A \to B \to C$ 正合恰好意味着 $A = \Ker(f)$。显然，$f$ 的核是从 $B$ 到 $C$ 的两个映射 $f$ 与 $0$ 的等化子。因此，若 $F$ 与极限可交换，则 $F(\Ker(f)) = \Ker(F(f))$，这恰好意味着 $0 \to F(A) \to F(B) \to F(C)$ 正合。
+
+\medskip\noindent
+反过来，假设 $F$ 是加性函子，并将任一短正合序列 $0 \to A \to B \to C \to 0$ 变为正合序列 $0 \to F(A) \to F(B) \to F(C)$。由于 $F$ 加性，它与直和、因而与 $\mathcal{A}$ 中的有限积可交换。要证明它与有限极限可交换，只需证明它与等化子可交换。但阿贝尔范畴中的等化子就是差映射的核，故只需证明 $F$ 与取核可交换。设 $f : A \to B$ 为态射。把 $f$ 分解为 $A \to I \to B$，其中 $f' : A \to I$ 为满射态射，$i : I \to B$ 为单射态射（由阿贝尔范畴的定义可作此分解）。显然 $\Ker(f) = \Ker(f')$。此外，
+$0 \to \Ker(f') \to A \to I \to 0$ 与 $0 \to I \to B \to B/I \to 0$ 均为短正合序列。由对 $F$ 的条件可知
+$0 \to F(\Ker(f')) \to F(A) \to F(I)$ 与 $0 \to F(I) \to F(B) \to F(B/I)$ 正合。因此，$F(\Ker(f'))$ 也是映射 $F(A) \to F(B)$ 的核，结论得证。
+
+\medskip\noindent
+(3) 的证明与 (2) 类似。(4) 是 (2) 与 (3) 的合并。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-exact-functor-ext}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为阿贝尔范畴，$F : \mathcal{A} \to \mathcal{B}$ 为正合函子。对 $\mathcal{A}$ 的每一对对象 $A, B$，函子 $F$ 诱导阿贝尔群同态
+$$
+\Ext_\mathcal{A}(B, A)
+\longrightarrow
+\Ext_\mathcal{B}(F(B), F(A))
+$$
+它把扩张 $E$ 映为 $F(E)$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+下述引理用于证明一个位点上的阿贝尔层所成的范畴是阿贝尔范畴，其中函子 $b$ 是层化函子。
+
+\begin{lemma}
+\label{homology-lemma-adjoint-get-abelian}
+设 $a : \mathcal{A} \to \mathcal{B}$ 与 $b : \mathcal{B} \to \mathcal{A}$ 为函子。假设：
+\begin{enumerate}
+\item $\mathcal{A}$、$\mathcal{B}$ 为加性范畴，$a$、$b$ 为加性函子，且 $a$ 是 $b$ 的右伴随；
+\item $\mathcal{B}$ 为阿贝尔范畴且 $b$ 左正合；
+\item $ba \cong \text{id}_\mathcal{A}$。
+\end{enumerate}
+则 $\mathcal{A}$ 是阿贝尔范畴。
+\end{lemma}
+
+\begin{proof}
+由 $\mathcal{B}$ 为阿贝尔范畴及引理 \ref{homology-lemma-colimit-abelian-category}，$\mathcal{B}$ 中所有有限极限和余极限都存在。由于 $b$ 是左伴随，$b$ 也右正合，因而正合，见《范畴》，引理 \ref{categories-lemma-exact-adjoint}。设 $\varphi : B_1 \to B_2$ 为 $\mathcal{B}$ 的态射。特别地，若 $K = \Ker(B_1 \to B_2)$，则 $K$ 是 $0$ 与 $\varphi$ 的等化子，故 $bK$ 是 $0$ 与 $b\varphi$ 的等化子，即 $bK$ 是 $b\varphi$ 的核。类似地，若 $Q = \Coker(B_1 \to B_2)$，则 $Q$ 是 $0$ 与 $\varphi$ 的余等化子，故 $bQ$ 是 $0$ 与 $b\varphi$ 的余等化子，即 $bQ$ 是 $b\varphi$ 的余核。因此，$\mathcal{A}$ 中每个形如 $b\varphi$ 的态射都有核和余核。又因 $ba \cong \text{id}$，$\mathcal{A}$ 的每个态射都具有这种形式，于是 $\mathcal{A}$ 中的核和余核均存在。事实上，上述论证表明，若 $\psi : A_1 \to A_2$ 为态射，则
+$$
+\Ker(\psi) = b\Ker(a\psi),
+\quad\text{且}\quad
+\Coker(\psi) = b\Coker(a\psi).
+$$
+还须证明 $\Coim(\psi)= \Im(\psi)$，如下进行。
+
+首先注意，由于 $\mathcal{A}$ 有核和余核，它有所有有限极限和余极限（见引理 \ref{homology-lemma-colimit-abelian-category} 的证明）。于是由《范畴》，引理 \ref{categories-lemma-exact-adjoint}，$a$ 左正合，因而把核（即等化子）变为核。
+\begin{align*}
+\Coim(\psi)
+& =
+\Coker(\Ker(\psi) \to A_1)
+& \text{由定义} \\
+& =
+b\Coker(a(\Ker(\psi) \to A_1))
+& \text{由上式} \\
+& =
+b\Coker(\Ker(a\psi) \to aA_1))
+& a\text{ 保持核} \\
+& =
+b\Coim(a\psi)
+& \text{由定义} \\
+& =
+b\Im(a\psi)
+& \mathcal{B}\text{ 为 Abel 范畴} \\
+& =
+b\Ker(aA_2 \to \Coker(a\psi))
+& \text{由定义} \\
+& =
+\Ker(baA_2 \to b\Coker(a\psi))
+& b\text{ 保持核} \\
+& =
+\Ker(A_2 \to b\Coker(a\psi))
+& ba = \text{id}_\mathcal{A} \\
+& =
+\Ker(A_2 \to \Coker(\psi))
+& \text{由上式} \\
+& =
+\Im(\psi)
+& \text{由定义}.
+\end{align*}
+故引理成立。
+\end{proof}
+
+\section{局部化}
+\label{homology-section-localization}
+
+\noindent
+本节说明 Gabriel--Zisman 局部化如何与范畴上的加性结构相互作用。
+
+\begin{lemma}
+\label{homology-lemma-localization-preadditive}
+设 $\mathcal{C}$ 为预加性范畴，$S$ 为左乘法系或右乘法系。$S^{-1}\mathcal{C}$ 上存在唯一的预加性结构，使局部化函子 $Q : \mathcal{C} \to S^{-1}\mathcal{C}$ 为加性函子。
+\end{lemma}
+
+\begin{proof}
+证明 $S$ 为左乘法系的情形；$S$ 为右乘法系的情形与之对偶。设 $X, Y$ 为 $\mathcal{C}$ 的对象，$\alpha, \beta : X \to Y$ 为 $S^{-1}\mathcal{C}$ 中的态射。由《范畴》，引理 \ref{categories-lemma-morphisms-left-localization}，可用具有公分母 $s$ 的两对 $s^{-1}f, s^{-1}g$ 表示它们。假设 $S^{-1}\mathcal{C}$ 上已有预加性结构且 $Q$ 为加性函子，则
+\begin{align*}
+s^{-1}f+s^{-1}g
+&=Q(s)^{-1}\circ Q(f)+Q(s)^{-1}\circ Q(g)\\
+&=Q(s)^{-1}\circ(Q(f)+Q(g))\\
+&=Q(s)^{-1}\circ Q(f+g)\\
+&=s^{-1}(f+g).
+\end{align*}
+因此，若 $S^{-1}\mathcal{C}$ 上的预加性结构存在，它必唯一。相应地，把 $\alpha + \beta$ 定义为 $s^{-1}(f + g)$ 的等价类；以下证明此定义良定且复合为双线性。一旦完成这些验证，$Q$ 是加性函子便显然成立。
+
+\medskip\noindent
+先证明上述构造良定。抽象地说，这使用了阿贝尔群的滤过余极限与集合的滤过余极限相同，并应用《范畴》，公式 (\ref{categories-equation-left-localization-morphisms-colimit})。更具体地，设 $s : Y \to Y_1$ 且 $f, g : X \to Y_1$。再设 $\alpha, \beta$ 有第二组表示 $(s')^{-1}f', (s')^{-1}g'$，其中 $s' : Y \to Y_2$，$f', g' : X \to Y_2$。由《范畴》，注记 \ref{categories-remark-left-localization-morphisms-colimit}，可找到态射 $s_3 : Y \to Y_3$ 以及 $a_1 : Y_1 \to Y_3$、$a_2 : Y_2 \to Y_3$，满足 $a_1 \circ s = s_3 = a_2 \circ s'$，并且 $a_1 \circ f = a_2 \circ f'$、$a_1 \circ g = a_2 \circ g'$。于是 $s^{-1}(f + g)$ 等价于
+\begin{align*}
+s_3^{-1}(a_1 \circ (f + g)) & =
+s_3^{-1}(a_1 \circ f + a_1 \circ g) \\
+& = s_3^{-1}(a_2 \circ f' + a_2 \circ g') \\
+& = s_3^{-1}(a_2 \circ (f' + g')),
+\end{align*}
+而后者等价于 $(s')^{-1}(f' + g')$。
+
+\medskip\noindent
+固定 $s : Y \to Y'$ 与 $f, g : X \to Y'$，使得在 $S^{-1}\mathcal{C}$ 中作为 $X \to Y$ 的态射有 $\alpha = s^{-1}f$、$\beta = s^{-1}g$。为证明复合双线性，先考虑 $S^{-1}\mathcal{C}$ 中态射 $\gamma : Y \to Z$ 的情形。设某个 $h : Y \to Z'$ 与 $S$ 中的 $t : Z \to Z'$ 使 $\gamma = t^{-1}h$。利用 LMS2，选取态射 $a : Y' \to Z''$ 与 $S$ 中的 $t' : Z' \to Z''$，使 $a \circ s = t' \circ h$。图示为
+$$
+\xymatrix{
+& & Z \ar[d]^t \\
+& Y \ar[r]^h \ar[d]^s & Z' \ar[d]^{t'} \\
+X \ar[r]^{f, g} & Y' \ar[r]^a & Z''
+}
+$$
+于是 $\gamma \circ \alpha = (t' \circ t)^{-1}(a \circ f)$，且 $\gamma \circ \beta = (t' \circ t)^{-1}(a \circ g)$。所以 $\gamma \circ (\alpha + \beta)$ 由
+$(t' \circ t)^{-1}(a \circ (f + g)) = (t' \circ t)^{-1}(a \circ f + a \circ g)$ 表示，而它表示 $\gamma \circ \alpha + \gamma \circ \beta$。
+
+\medskip\noindent
+最后，设 $\delta : W \to X$ 是 $S^{-1}\mathcal{C}$ 的另一态射。设某个 $i : W \to X'$ 与 $S$ 中的 $r : X \to X'$ 使 $\delta = r^{-1}i$。我们断言可找到 $S$ 中的态射 $s' : Y' \to Y''$ 与态射 $a'', b'' : X' \to Y''$，使下图交换：
+$$
+\xymatrix{
+& & & Y \ar[d]^s \\
+& X \ar[rr]^{f, g, f + g} \ar[d]^r & & Y' \ar[d]^{s'} \\
+W \ar[r]^i & X' \ar[rr]^{a'', b'', a'' + b''} & & Y''
+}
+$$
+确实，先由 LMS2 选取 $S$ 中的 $s_1 : Y' \to Y_1$、$s_2 : Y' \to Y_2$ 以及 $a : X' \to Y_1$、$b : X' \to Y_2$，使 $a \circ r = s_1 \circ f$ 且 $b \circ r = s_2 \circ f$。
+% P02-E0007: frozen source line 1848 repeats f; the second occurrence appears to require g.
+然后利用范畴 $Y'/S$ 为滤过范畴（见《范畴》，注记 \ref{categories-remark-left-localization-morphisms-colimit}），可找到 $s' : Y' \to Y''$ 及态射 $a' : Y_1 \to Y''$、$b' : Y_2 \to Y''$，满足 $s' = a' \circ s_1$ 且 $s' = b' \circ s_2$。令 $a'' = a' \circ a$、$b'' = b' \circ b$ 即可。此时，复合 $\alpha \circ \delta$ 与 $\beta \circ \delta$ 分别由 $(s' \circ s)^{-1}(a'' \circ i)$ 与 $(s' \circ s)^{-1}(b'' \circ i)$ 表示。因此 $\alpha \circ \delta + \beta \circ \delta$ 由
+$(s' \circ s)^{-1}(a'' \circ i + b'' \circ i) = (s' \circ s)^{-1}((a'' + b'') \circ i)$ 表示；由上图，它又是 $(\alpha + \beta) \circ \delta$ 的一个代表。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-localization-additive}
+设 $\mathcal{C}$ 为加性范畴，$S$ 为左乘法系或右乘法系。则 $S^{-1}\mathcal{C}$ 为加性范畴，且局部化函子 $Q : \mathcal{C} \to S^{-1}\mathcal{C}$ 为加性函子。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{homology-lemma-localization-preadditive}，$S^{-1}\mathcal{C}$ 为预加性范畴且 $Q$ 为加性函子。由引理 \ref{homology-lemma-additive-additive}，$S^{-1}\mathcal{C}$ 有零对象与直和。
+\end{proof}
+
+\noindent
+下述引理描述在反演一个乘法系时局部化函子的“核”。
+
+\begin{lemma}
+\label{homology-lemma-kernel-localization}
+设 $\mathcal{C}$ 为加性范畴，$S$ 为乘法系，$X$ 为 $\mathcal{C}$ 的对象。下列条件等价：
+\begin{enumerate}
+\item 在 $S^{-1}\mathcal{C}$ 中 $Q(X) = 0$；
+\item 存在 $Y \in \Ob(\mathcal{C})$，使 $0 : X \to Y$ 属于 $S$；
+\item 存在 $Z \in \Ob(\mathcal{C})$，使 $0 : Z \to X$ 属于 $S$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 (2) 成立，则 $0 = Q(0) : Q(X) \to Q(Y)$ 是同构。在加性范畴 $S^{-1}\mathcal{C}$ 中，这蕴含 $Q(X) = 0$。故 (2) $\Rightarrow$ (1)。类似地，(3) $\Rightarrow$ (1)。设 $Q(X) = 0$，则态射 $f : 0 \to X$ 在 $S^{-1}\mathcal{C}$ 中变为同构。因此由《范畴》，引理 \ref{categories-lemma-what-gets-inverted}，存在态射 $g : Z \to 0$，使 $fg \in S$。这证明 (1) $\Rightarrow$ (3)。类似地，(1) $\Rightarrow$ (2)。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-localization-abelian}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若 $S$ 为左乘法系，则范畴 $S^{-1}\mathcal{A}$ 有余核，且函子 $Q : \mathcal{A} \to S^{-1}\mathcal{A}$ 与取余核可交换。
+\item 若 $S$ 为右乘法系，则范畴 $S^{-1}\mathcal{A}$ 有核，且函子 $Q : \mathcal{A} \to S^{-1}\mathcal{A}$ 与取核可交换。
+\item 若 $S$ 为乘法系，则范畴 $S^{-1}\mathcal{A}$ 为阿贝尔范畴，且函子 $Q : \mathcal{A} \to S^{-1}\mathcal{A}$ 正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $S$ 为左乘法系。设 $a : X \to Y$ 为 $S^{-1}\mathcal{A}$ 中的态射，则某个 $S$ 中的 $s : Y \to Y'$ 与 $f : X \to Y'$ 使 $a = s^{-1}f$。由于 $Q(s)$ 是同构，$\Coker(a : X \to Y)$ 的存在性等价于 $\Coker(Q(f) : X \to Y')$ 的存在性。因为 $\Coker(Q(f))$ 是 $0$ 与 $Q(f)$ 的余等化子，由《范畴》，引理 \ref{categories-lemma-left-localization-limits}，$\Coker(Q(f))$ 由 $Q(\Coker(f))$ 表示。这证明 (1)。
+
+\medskip\noindent
+(2) 与 (1) 对偶。
+
+\medskip\noindent
+若 $S$ 为乘法系，则 $S$ 同时是左乘法系和右乘法系。因此 $S^{-1}\mathcal{A}$ 有核和余核，且 $Q$ 与取核、取余核可交换。要完成 (3) 的证明，还须说明 $S^{-1}\mathcal{A}$ 中 $\Coim = \Im$。再次利用 $S^{-1}\mathcal{A}$ 的任意箭头都同构于某个箭头 $Q(f)$，结论由 $\mathcal{A}$ 中的相应结果推出。
+\end{proof}
+
+\section{Jordan--H\"older 定理}
+\label{homology-section-jordan-holder}
+
+\noindent
+Jordan--H\"older 引理即引理 \ref{homology-lemma-jordan-holder}。先给出一些定义。
+
+\begin{definition}
+\label{homology-definition-simple}
+设 $\mathcal{A}$ 为阿贝尔范畴。若 $\mathcal{A}$ 的对象 $A$ 非零，且 $A$ 的子对象只有 $0$ 与 $A$，则称该对象为{\it 单对象}。
+\end{definition}
+
+\begin{definition}
+\label{homology-definition-Artinian}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若 $\mathcal{A}$ 的对象 $A$ 对子对象满足降链条件，则称该对象为 {\it Artin 对象}。
+\item 若 $\mathcal{A}$ 的每个对象都是 Artin 对象，则称 $\mathcal{A}$ 为 {\it Artin 范畴}。
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{homology-definition-Noetherian}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若 $\mathcal{A}$ 的对象 $A$ 对子对象满足升链条件，则称该对象为 {\it Noether 对象}。
+\item 若 $\mathcal{A}$ 的每个对象都是 Noether 对象，则称 $\mathcal{A}$ 为 {\it Noether 范畴}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-ses-artinian}
+设 $\mathcal{A}$ 为阿贝尔范畴，$0 \to A_1 \to A_2 \to A_3 \to 0$ 为 $\mathcal{A}$ 中的短正合序列。则 $A_2$ 是 Artin 对象，当且仅当 $A_1$ 与 $A_3$ 都是 Artin 对象。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-noetherian}
+设 $\mathcal{A}$ 为阿贝尔范畴，$0 \to A_1 \to A_2 \to A_3 \to 0$ 为 $\mathcal{A}$ 中的短正合序列。则 $A_2$ 是 Noether 对象，当且仅当 $A_1$ 与 $A_3$ 都是 Noether 对象。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-finite-length}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象。下列条件等价：
+\begin{enumerate}
+\item $A$ 既为 Artin 对象又为 Noether 对象；
+\item 存在由子对象组成的滤过 $0 \subset A_1 \subset A_2 \subset \ldots \subset A_n = A$，使 $i = 1, \ldots, n$ 时 $A_i/A_{i - 1}$ 为单对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1)。若 $A$ 为零，则 (2) 成立。若 $A$ 非零，则由 Artin 性质，存在最小非零对象 $A_1 \subset A$；显然 $A_1$ 为单对象。若 $A_1 = A$，则已经完成。否则，可找到在满足 $A_2 \not = A_1$ 的条件下极小的 $A_1 \subset A_2 \subset A$；于是 $A_2/A_1$ 为单对象。如此继续，可得到 $A$ 的子对象序列 $0 \subset A_1 \subset A_2 \subset \ldots$，且 $A_i/A_{i - 1}$ 为单对象。由于 $A$ 为 Noether 对象，该过程必终止，故 (2) 成立。
+
+\medskip\noindent
+假设 (2)。对 $n$ 归纳证明 (1)。若 $n = 1$，则 $A$ 为单对象，显然既是 Noether 对象又是 Artin 对象。若结论对 $n - 1$ 成立，则利用短正合序列 $0 \to A_{n - 1} \to A_n \to A_n/A_{n - 1} \to 0$ 以及引理 \ref{homology-lemma-ses-artinian}、\ref{homology-lemma-ses-noetherian}，即可对 $n$ 得出结论。
+\end{proof}
+
+\begin{lemma}[Jordan--H\"older]
+\label{homology-lemma-jordan-holder}
+设 $\mathcal{A}$ 为阿贝尔范畴，$A$ 为 $\mathcal{A}$ 的对象并满足引理 \ref{homology-lemma-finite-length} 中的等价条件。给定两个滤过
+$$
+0 \subset A_1 \subset A_2 \subset \ldots \subset A_n = A
+\quad\text{且}\quad
+0 \subset B_1 \subset B_2 \subset \ldots \subset B_m = A
+$$
+并设 $S_i = A_i/A_{i - 1}$、$T_j = B_j/B_{j - 1}$ 都是单对象，则 $n = m$，且存在 $\{1, \ldots, n\}$ 的置换 $\sigma$，使对所有 $i \in \{1, \ldots, n\}$ 都有 $S_i \cong T_{\sigma(i)}$。
+\end{lemma}
+
+\begin{proof}
+令 $j$ 为满足 $A_1 \subset B_j$ 的最小指标。则映射 $S_1 = A_1 \to B_j/B_{j - 1} = T_j$ 是同构。此外，对象 $A/A_1 = A_n/A_1 = B_m/A_1$ 有两个滤过
+$$
+0 \subset A_2/A_1 \subset A_3/A_1 \subset \ldots \subset A_n/A_1
+$$
+与
+$$
+0 \subset (B_1 + A_1)/A_1 \subset \ldots \subset
+(B_{j - 1} + A_1)/A_1 = B_j/A_1 \subset B_{j + 1}/A_1
+\subset \ldots \subset B_m/A_1
+$$
+由归纳法得出结论。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Serre 子范畴}
+\label{homology-section-serre-subcategories}
+
+\noindent
+在 \cite[Chapter I, Section 1]{Serre_homotopie_classes} 中定义了阿贝尔群的一个“类”。许多作者把这一概念推广到阿贝尔范畴（方式略有不同）。我们采用下面这个与 Serre 原定义几乎完全相同的版本。
+
+\begin{definition}
+\label{homology-definition-serre-subcategory}
+\begin{reference}
+\cite[Condition (I) on page 259]{Serre_homotopie_classes}
+\end{reference}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item $\mathcal{A}$ 的一个 {\it Serre 子范畴}是 $\mathcal{A}$ 的非空满子范畴 $\mathcal{C}$，满足：给定正合序列\footnote{依定义 \ref{homology-definition-exact}，这意味着 $\Im(A \to B) = \Ker(B \to C)$。}
+$$
+A \to B \to C
+$$
+若 $A, C \in \Ob(\mathcal{C})$，则 $B \in \Ob(\mathcal{C})$。
+\item $\mathcal{A}$ 的一个{\it 弱 Serre 子范畴}是 $\mathcal{A}$ 的非空满子范畴 $\mathcal{C}$，满足：给定正合序列
+$$
+A_0 \to A_1 \to A_2 \to A_3 \to A_4
+$$
+若 $A_0, A_1, A_3, A_4$ 属于 $\mathcal{C}$，则 $A_2$ 也属于 $\mathcal{C}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+有些文献把第二个概念称为“厚”子范畴，另一些文献则把第一个概念称为“厚”子范畴。不过，Serre 子范畴这一名称似乎已普遍指上述第一个概念。注意在两种情形下，$\mathcal{C}$ 都是阿贝尔范畴，且包含函子 $\mathcal{C} \to \mathcal{A}$ 是全忠实正合函子。下面进一步刻画这两类子范畴。
+
+\begin{lemma}
+\label{homology-lemma-characterize-serre-subcategory}
+设 $\mathcal{A}$ 为阿贝尔范畴，$\mathcal{C}$ 为 $\mathcal{A}$ 的子范畴。则 $\mathcal{C}$ 是 Serre 子范畴，当且仅当满足：
+\begin{enumerate}
+\item $0 \in \Ob(\mathcal{C})$；
+\item $\mathcal{C}$ 是 $\mathcal{A}$ 的严格满子范畴；
+\item $\mathcal{C}$ 的对象的任意子对象或商对象仍为 $\mathcal{C}$ 的对象；
+\item 若 $A \in \Ob(\mathcal{A})$ 是 $\mathcal{C}$ 中对象的扩张，则 $A \in \Ob(\mathcal{C})$。
+\end{enumerate}
+此外，Serre 子范畴是阿贝尔范畴，且包含函子正合。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-characterize-weak-serre-subcategory}
+设 $\mathcal{A}$ 为阿贝尔范畴，$\mathcal{C}$ 为 $\mathcal{A}$ 的子范畴。则 $\mathcal{C}$ 是弱 Serre 子范畴，当且仅当满足：
+\begin{enumerate}
+\item $0 \in \Ob(\mathcal{C})$；
+\item $\mathcal{C}$ 是 $\mathcal{A}$ 的严格满子范畴；
+\item $\mathcal{C}$ 中对象间态射在 $\mathcal{A}$ 中的核与余核仍在 $\mathcal{C}$ 中；
+\item 若 $A \in \Ob(\mathcal{A})$ 是 $\mathcal{C}$ 中对象的扩张，则 $A \in \Ob(\mathcal{C})$。
+\end{enumerate}
+此外，弱 Serre 子范畴是阿贝尔范畴，且包含函子正合。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-kernel-exact-functor}
+设 $\mathcal{A}$、$\mathcal{B}$ 为阿贝尔范畴，$F : \mathcal{A} \to \mathcal{B}$ 为正合函子。则 $\mathcal{A}$ 中满足 $F(C) = 0$ 的对象 $C$ 所成的满子范畴构成 $\mathcal{A}$ 的 Serre 子范畴。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-kernel-category}
+设 $\mathcal{A}$、$\mathcal{B}$ 为阿贝尔范畴，$F : \mathcal{A} \to \mathcal{B}$ 为正合函子。$\mathcal{A}$ 中满足 $F(C) = 0$ 的对象 $C$ 所成的满子范畴称为{\it 函子 $F$ 的核}，有时记作 $\Ker(F)$。
+\end{definition}
+
+\noindent
+阿贝尔范畴的任一 Serre 子范畴都是某个正合函子的核。在《例》，第 \ref{examples-section-serre-quotient-modulo-torsion-modules} 节中，我们对 Serre 最初的挠群例子讨论这一点。
+
+\begin{lemma}
+\label{homology-lemma-serre-subcategory-is-kernel}
+设 $\mathcal{A}$ 为阿贝尔范畴，$\mathcal{C} \subset \mathcal{A}$ 为 Serre 子范畴。存在阿贝尔范畴 $\mathcal{A}/\mathcal{C}$ 与正合函子
+$$
+F : \mathcal{A} \longrightarrow \mathcal{A}/\mathcal{C}
+$$
+其中该函子本质满且核为 $\mathcal{C}$。范畴 $\mathcal{A}/\mathcal{C}$ 与函子 $F$ 由如下泛性质刻画：对任何满足 $\mathcal{C} \subset \Ker(G)$ 的正合函子 $G : \mathcal{A} \to \mathcal{B}$，存在唯一正合函子 $H : \mathcal{A}/\mathcal{C} \to \mathcal{B}$，使 $G = H \circ F$。
+\end{lemma}
+
+\begin{proof}
+考虑 $\mathcal{A}$ 的如下箭头集合：
+$$
+S = \{f \in \text{Arrows}(\mathcal{A}) \mid
+\Ker(f), \Coker(f) \in \Ob(\mathcal{C}) \}.
+$$
+我们断言 $S$ 是乘法系。为此须检验 MS1、MS2、MS3，见《范畴》，定义 \ref{categories-definition-multiplicative-system}。
+
+\medskip\noindent
+恒等态射显然属于 $S$。设 $f : A \to B$ 与 $g : B \to C$ 属于 $S$。有正合序列
+$$
+\begin{matrix}
+0 \to \Ker(f) \to \Ker(gf) \to \Ker(g) \\
+\Coker(f) \to \Coker(gf) \to \Coker(g) \to 0
+\end{matrix}
+$$
+故 $gf \in S$，这证明 MS1。（事实上，类似论证表明 $S$ 是饱和乘法系，见《范畴》，定义 \ref{categories-definition-saturated-multiplicative-system}。）
+
+\medskip\noindent
+考虑实线图
+$$
+\xymatrix{
+A \ar[d]_t \ar[r]_g & B \ar@{..>}[d]^s \\
+C \ar@{..>}[r]^f & C \amalg_A B
+}
+$$
+其中 $t \in S$。令 $W = C \amalg_A B =  \Coker((t, -g) : A \to C \oplus B)$。则 $\Ker(t) \to \Ker(s)$ 为满射态射，而 $\Coker(t) \to \Coker(s)$ 为同构。因此 $s$ 属于 $S$。这证明 LMS2；RMS2 的证明与之对偶。
+
+\medskip\noindent
+最后，设 $f, g : B \to C$ 为态射，$s : A \to B$ 属于 $S$，且 $f \circ s = g \circ s$。这意味着 $(f - g) \circ s = 0$，继而意味着 $I = \Im(f - g) \subset C$ 是 $\Coker(s)$ 的商，因而是 $\mathcal{C}$ 的对象。于是 $t : C \to C' = C/I$ 属于 $S$，且 $t \circ (f - g) = 0$，即 $t \circ f = t \circ g$。这证明 LMS3；RMS3 的证明与之对偶。
+
+\medskip\noindent
+已证 $S$ 为乘法系，令 $\mathcal{A}/\mathcal{C} = S^{-1}\mathcal{A}$，并令 $F$ 为局部化函子 $Q$。由引理 \ref{homology-lemma-localization-abelian}，范畴 $\mathcal{A}/\mathcal{C}$ 为阿贝尔范畴且 $F$ 正合。若 $X$ 属于 $F = Q$ 的核，则由引理 \ref{homology-lemma-kernel-localization}，$0 : X \to Z$ 属于 $S$，故 $X$ 是 $\mathcal{C}$ 的对象，即 $F$ 的核为 $\mathcal{C}$。
+
+最后，若 $G$ 如引理所述，则 $G$ 把 $S$ 的每个元素变为同构。因此由局部化的泛性质（见《范畴》，引理 \ref{categories-lemma-properties-left-localization}），得到函子 $H : \mathcal{A}/\mathcal{C} \to \mathcal{B}$。还须证明 $H$ 正合。由引理 \ref{homology-lemma-exact-functor}，只需证明 $H$ 与取核、取余核可交换。设 $A \to B$ 为 $\mathcal{A}/\mathcal{C}$ 中的态射。可将 $A \to B$ 表示为 $fs^{-1}$，其中 $s : A' \to A$ 属于 $S$，$f : A' \to B$ 为 $\mathcal{A}$ 的任意态射。因为 $F = Q$ 把 $s$ 映为商范畴 $\mathcal{A}/\mathcal{C}$ 中的同构，只需证明 $H$ 与 $\mathcal{A}$ 的态射 $f : A \to B$ 的核和余核可交换。但此时 $H(f) = G(f)$，结论由 $G$ 正合得到。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-quotient-by-kernel-exact-functor}
+设 $\mathcal{A}$、$\mathcal{B}$ 为阿贝尔范畴，$F : \mathcal{A} \to \mathcal{B}$ 为正合函子。设 $\mathcal{C} \subset \mathcal{A}$ 为包含于 $F$ 的核中的 Serre 子范畴。则 $\mathcal{C} = \Ker(F)$，当且仅当诱导函子 $\overline{F} : \mathcal{A}/\mathcal{C} \to \mathcal{B}$（引理 \ref{homology-lemma-serre-subcategory-is-kernel}）是忠实函子。
+\end{lemma}
+
+\begin{proof}
+以下不再另行说明地使用引理 \ref{homology-lemma-serre-subcategory-is-kernel} 的结果。“仅当”方向成立，因为按构造 $\overline{F}$ 的核为零。确实，若 $f : X \to Y$ 为 $\mathcal{A}/\mathcal{C}$ 中满足 $\overline{F}(f) = 0$ 的态射，则 $\overline{F}(\Im(f)) = \Im(\overline{F}(f)) = 0$；由对 $F$ 的核的假设，$\Im(f) = 0$，故 $f = 0$。
+
+\medskip\noindent
+对“若”方向，设 $X$ 为 $\mathcal{A}$ 中满足 $F(X) = 0$ 的对象。则 $\overline{F}(\text{id}_X) = \text{id}_{\overline{F}(X)} = 0$；由 $\overline{F}$ 的忠实性，$\mathcal{A}/\mathcal{C}$ 中 $\text{id}_X = 0$。所以 $\mathcal{A}/\mathcal{C}$ 中 $X = 0$，即 $X \in \Ob(\mathcal{C})$。
+\end{proof}
+
+\section{K 群}
+\label{homology-section-K-groups}
+
+\noindent
+简单介绍阿贝尔范畴的 $K_0$。
+
+\begin{definition}
+\label{homology-definition-K-zero}
+设 $\mathcal{A}$ 为阿贝尔范畴。以 $K_0(\mathcal{A})$ 表示{\it $\mathcal{A}$ 的第零 $K$ 群}。它是如下构造的阿贝尔群：取以 $\mathcal{A}$ 的对象为生成元的自由阿贝尔群，并对每个短正合序列 $0 \to A \to B \to C \to 0$ 加入关系 $[B] - [A] - [C] = 0$。
+\end{definition}
+
+\noindent
+换言之，有表示
+$$
+\bigoplus_{A \to B \to C\text{ 短正合列}}
+\mathbf{Z}[A \to B \to C]
+\longrightarrow
+\bigoplus_{A \in \Ob(\mathcal{A})}
+\mathbf{Z}[A]
+\longrightarrow
+K_0(\mathcal{A})
+\longrightarrow
+0
+$$
+其中 $[A \to B \to C] \mapsto [B] - [A] - [C]$ 给出 $K_0(\mathcal{A})$ 的这一表示。短正合序列 $0 \to 0 \to 0 \to 0 \to 0$ 在 $K_0(\mathcal{A})$ 中给出关系 $[0] = 0$。除非另有说明，我们的范畴都是“小”范畴，故不存在集合论问题。《代数》，第 \ref{algebra-section-K-groups} 节计算了若干环上模范畴的 $K$ 群例子。
+
+\begin{lemma}
+\label{homology-lemma-exact-functor-K-groups}
+设 $F : \mathcal{A} \to \mathcal{B}$ 为阿贝尔范畴之间的正合函子。则 $F$ 通过 $K_0(F)([A]) = [F(A)]$ 诱导 $K$ 群同态 $K_0(F) : K_0(\mathcal{A}) \to K_0(\mathcal{B})$。
+\end{lemma}
+
+\begin{proof}
+不证自明。
+\end{proof}
+
+\noindent
+设给定阿贝尔范畴 $\mathcal{A}$ 的对象 $M$ 与形如
+\begin{equation}
+\label{homology-equation-cyclic-complex}
+\xymatrix{
+\ldots \ar[r] &
+M \ar[r]^\varphi &
+M \ar[r]^\psi &
+M \ar[r]^\varphi &
+M \ar[r] & \ldots
+}
+\end{equation}
+的复形。在这种情形下定义
+$$
+H^0(M, \varphi, \psi) = \Ker(\psi)/\Im(\varphi)
+, \quad\text{且}\quad
+H^1(M, \varphi, \psi) = \Ker(\varphi)/\Im(\psi).
+$$
+
+\begin{lemma}
+\label{homology-lemma-serre-subcategory-K-groups}
+设 $\mathcal{A}$ 为阿贝尔范畴，$\mathcal{C} \subset \mathcal{A}$ 为 Serre 子范畴，并令 $\mathcal{B} = \mathcal{A}/\mathcal{C}$。
+\begin{enumerate}
+\item 正合函子 $\mathcal{C} \to \mathcal{A}$ 与 $\mathcal{A} \to \mathcal{B}$ 诱导 $K$ 群正合序列
+$$
+K_0(\mathcal{C}) \to
+K_0(\mathcal{A}) \to
+K_0(\mathcal{B}) \to
+0
+$$
+\item $K_0(\mathcal{C}) \to K_0(\mathcal{A})$ 的核等于所有形如
+$$
+[H^0(M, \varphi, \psi)] - [H^1(M, \varphi, \psi)]
+$$
+的元素之集合，其中 $(M, \varphi, \psi)$ 是 (\ref{homology-equation-cyclic-complex}) 中那样的复形，且它在 $\mathcal{B}$ 中变为正合；换言之，$H^0(M, \varphi, \psi)$ 与 $H^1(M, \varphi, \psi)$ 都是 $\mathcal{C}$ 的对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。$K_0(\mathcal{A}) \to K_0(\mathcal{B})$ 显然为满射，且复合 $K_0(\mathcal{C}) \to K_0(\mathcal{A}) \to K_0(\mathcal{B})$ 为零。设 $x \in K_0(\mathcal{A})$ 映为 $K_0(\mathcal{B})$ 中的零。可写 $x = [A] - [A']$，其中 $A, A'$ 属于 $\mathcal{A}$（这是个有趣的练习）。以 $B, B'$ 表示 $\mathcal{B}$ 中的相应对象。$x$ 映为 $K_0(\mathcal{B})$ 中的零，意味着存在有限集 $I = I^+ \amalg I^{-}$，并且对每个 $i \in I$ 有 $\mathcal{B}$ 中的短正合序列
+$$
+0 \to B_i \to B'_i \to B''_i \to 0
+$$
+使在以 $\mathcal{B}$ 对象的同构类为生成元的自由阿贝尔群中
+$$
+[B] - [B'] = \sum\nolimits_{i \in I^{+}} ([B'_i] - [B_i] - [B''_i])
+-
+\sum\nolimits_{i \in I^{-}} ([B'_i] - [B_i] - [B''_i])
+$$
+可改写为
+$$
+[B]
++ \sum\nolimits_{i \in I^{+}} ([B_i] + [B''_i])
++ \sum\nolimits_{i \in I^{-}} [B'_i]
+=
+[B']
++ \sum\nolimits_{i \in I^{-}} ([B_i] + [B''_i])
++ \sum\nolimits_{i \in I^{+}} [B'_i].
+$$
+由于等式两边必须含有按重数计算相同的 $\mathcal{B}$ 对象同构类，这意味着存在双射
+$$
+\tau :
+\{B\} \amalg \{B_i, B''_i; i \in I^+\} \amalg \{B'_i; i \in I^-\}
+\longrightarrow
+\{B'\} \amalg \{B_i, B''_i; i \in I^-\} \amalg \{B'_i; i \in I^+\}
+$$
+使 $N$ 与 $\tau(N)$ 在 $\mathcal{B}$ 中同构。引理 \ref{homology-lemma-serre-subcategory-is-kernel} 与 \ref{homology-lemma-localization-abelian} 的证明表明，可对 $i \in I$ 选取 $\mathcal{A}$ 中的短正合序列
+$$
+0 \to A_i \to A'_i \to A''_i \to 0
+$$
+使 $B_i, B'_i, B''_i$ 分别同构于 $A_i, A'_i, A''_i$ 在 $\mathcal{B}$ 中的像。这蕴含相应双射
+$$
+\tau :
+\{A\} \amalg \{A_i, A''_i; i \in I^+\} \amalg \{A'_i; i \in I^-\}
+\longrightarrow
+\{A'\} \amalg \{A_i, A''_i; i \in I^-\} \amalg \{A'_i; i \in I^+\}
+$$
+满足：$M$ 与 $\tau(M)$ 是 $\mathcal{A}$ 的对象，且在 $\mathcal{B}$ 中变为同构。这意味着 $[M] - [\tau(M)]$ 属于 $K_0(\mathcal{C}) \to K_0(\mathcal{A})$ 的像。确实，$\mathcal{B}$ 中该同构由 $\mathcal{A}$ 中的图 $M \leftarrow M' \rightarrow \tau(M)$ 给出，其中 $M' \to M$ 与 $M' \to \tau(M)$ 的核和余核都在 $\mathcal{C}$ 中。逆推以上过程可知 $x = [A] - [A']$ 属于 $K_0(\mathcal{C}) \to K_0(\mathcal{A})$ 的像，(1) 得证。
+
+\medskip\noindent
+证明 (2)。证明与 (1) 类似，但需要稍多的记账。先注意，任何形如 $[H^0(M, \varphi, \psi)] - [H^1(M, \varphi, \psi)]$ 的类在 $K_0(\mathcal{A})$ 中为零，因为
+\begin{align*}
+0 & = [M] - [M] \\
+& =  [\Ker(\varphi)] + [\Im(\varphi)]
+- [\Ker(\psi)] - [\Im(\psi)] \\
+& =
+[\Ker(\varphi)/\Im(\psi)] -
+[\Ker(\psi)/\Im(\varphi)] \\
+& = [H^1(M, \varphi, \psi)] - [H^0(M, \varphi, \psi)],
+\end{align*}
+正如所需。因此只须证明 $K_0(\mathcal{C}) \to K_0(\mathcal{A})$ 的任一核中元素都有这种形式。
+
+\medskip\noindent
+$K_0(\mathcal{C})$ 中任一元素 $x$ 都可表示为 $\mathcal{C}$ 的两个对象之差 $x = [P] - [Q]$（有趣的练习）。假设该元素在 $K_0(\mathcal{A})$ 中映为零。这意味着存在：
+\begin{enumerate}
+\item 有限集 $I = I^{+} \amalg I^{-}$；
+\item 对每个 $i \in I$，$\mathcal{A}$ 中的短正合序列 $0 \to A_i \to B_i \to C_i \to 0$；
+\end{enumerate}
+使在以 $\mathcal{A}$ 的对象为生成元的自由阿贝尔群中
+$$
+[P] - [Q] =
+\sum\nolimits_{i \in I^{+}} ([B_i] - [A_i] - [C_i])
+-
+\sum\nolimits_{i \in I^{-}} ([B_i] - [A_i] - [C_i])
+$$
+可改写为
+$$
+[P]
++ \sum\nolimits_{i \in I^{+}} ([A_i] + [C_i])
++ \sum\nolimits_{i \in I^{-}} [B_i]
+=
+[Q]
++ \sum\nolimits_{i \in I^{-}} ([A_i] + [C_i])
++ \sum\nolimits_{i \in I^{+}} [B_i].
+$$
+由于等式两边必须含有按重数计算相同的 $\mathcal{A}$ 对象，故其中出现的项之间存在双射 $\tau$。令
+$$
+T^{+} =
+\{p\}\ \amalg\ \{a, c\} \times I^{+}\ \amalg\ \{b\} \times I^{-}
+$$
+及
+$$
+T^{-} =
+\{q\}\ \amalg\ \{a, c\} \times I^{-}\ \amalg\ \{b\} \times I^{+}.
+$$
+令 $T = T^{+} \amalg T^{-} = \{p, q\} \amalg \{a, b, c\} \times I$。对 $t \in T$ 定义
+$$
+O(t)
+=
+\left\{
+\begin{matrix}
+P & \text{若} & t = p \\
+Q & \text{若} & t = q \\
+A_i & \text{若} & t = (a, i) \\
+B_i & \text{若} & t = (b, i) \\
+C_i & \text{若} & t = (c, i)
+\end{matrix}
+\right.
+$$
+于是可把 $\tau : T^{+} \to T^{-}$ 看作双射，使对所有 $t \in T^{+}$ 都有 $O(t) = O(\tau(t))$。令 $t^{-}_0 = \tau(p)$，并令 $t^{+}_0 \in T^{+}$ 为满足 $\tau(t^{+}_0) = q$ 的唯一元素。考虑对象
+$$
+M^{+} = \bigoplus\nolimits_{t \in T^{+}} O(t)
+$$
+借助 $\tau$ 可知它等于对象
+$$
+M^{-} = \bigoplus\nolimits_{t \in T^{-}} O(t)
+$$
+考虑映射
+$$
+\varphi : M^{+} \longrightarrow M^{-}
+$$
+它在对应于 $t = (a, i)$、$i \in I^{+}$ 的直和项 $O(t) = A_i$ 上，使用映射 $A_i \to B_i$ 进入 $M^{-}$ 的直和项 $O((b, i)) = B_i$；在对应于 $(b, i)$、$i \in I^{-}$ 的直和项 $O(t) = B_i$ 上，使用映射 $B_i \to C_i$ 进入 $M^{-}$ 的直和项 $O((c, i)) = C_i$。该映射在对应于 $p$ 与 $(c, i)$、$i \in I^{+}$ 的直和项上为零。
+
+类似地，考虑映射
+$$
+\psi : M^{-} \longrightarrow M^{+}
+$$
+它在对应于 $t = (a, i)$、$i \in I^{-}$ 的直和项 $O(t) = A_i$ 上，使用映射 $A_i \to B_i$ 进入 $M^{+}$ 的直和项 $O((b, i)) = B_i$；在对应于 $(b, i)$、$i \in I^{+}$ 的直和项 $O(t) = B_i$ 上，使用映射 $B_i \to C_i$ 进入 $M^{+}$ 的直和项 $O((c, i)) = C_i$。该映射在对应于 $q$ 与 $(c, i)$、$i \in I^{-}$ 的直和项上为零。
+
+\medskip\noindent
+注意，$\varphi$ 的核等于直和项 $P$、各直和项 $O((c, i)) = C_i$（$i \in I^{+}$），以及各直和项 $O((b, i)) = B_i$ 内的子对象 $A_i$（$i \in I^{-}$）之直和。$\psi$ 的像等于各直和项 $O((c, i)) = C_i$（$i \in I^{+}$）及各直和项 $O((b, i)) = B_i$ 内的子对象 $A_i$（$i \in I^{-}$）之直和。换言之，
+$$
+P \cong \Ker(\varphi)/\Im(\psi).
+$$
+完全同样地，
+$$
+Q \cong \Ker(\psi)/\Im(\varphi).
+$$
+如上所述，双射 $\tau$ 的存在表明 $M^{+} = M^{-}$，引理遂得证。
+\end{proof}
+
+\section{上同调 \texorpdfstring{\zhdelta}{δ}-函子}
+\label{homology-section-cohomological-delta-functor}
+
+\begin{definition}
+\label{homology-definition-cohomological-delta-functor}
+设 $\mathcal{A}, \mathcal{B}$ 为阿贝尔范畴。从 $\mathcal{A}$ 到
+$\mathcal{B}$ 的一个{\it 上同调 $\delta$-函子}，简称一个
+{\it $\delta$-函子}，由下列数据给出：
+\begin{enumerate}
+\item 一族加性函子 $F^n : \mathcal{A} \to \mathcal{B}$，$n \geq 0$；以及
+\item 对 $\mathcal{A}$ 中每个短正合列 $0 \to A \to B \to C \to 0$，
+一族 $\mathcal{B}$ 中的态射
+$\delta_{A \to B \to C} : F^n(C) \to F^{n + 1}(A)$，$n \geq 0$。
+\end{enumerate}
+要求这些数据满足下列公理：
+\begin{enumerate}
+\item 对每个如上的短正合列，序列
+$$
+\xymatrix{
+0 \ar[r] &
+F^0(A) \ar[r] &
+F^0(B) \ar[r] &
+F^0(C) \ar[lld]^{\delta_{A \to B \to C}} \\
+ &
+F^1(A) \ar[r] &
+F^1(B) \ar[r] &
+F^1(C) \ar[lld]^{\delta_{A \to B \to C}} \\
+ &
+F^2(A) \ar[r] &
+F^2(B) \ar[r] &
+\ldots
+}
+$$
+正合；以及
+\item 对 $\mathcal{A}$ 中短正合列的每个态射
+$(A \to B \to C) \to (A' \to B' \to C')$，图表
+$$
+\xymatrix{
+F^n(C) \ar[d] \ar[rr]_{\delta_{A \to B \to C}} & & F^{n + 1}(A) \ar[d] \\
+F^n(C') \ar[rr]^{\delta_{A' \to B' \to C'}} & & F^{n + 1}(A')
+}
+$$
+交换。
+\end{enumerate}
+\end{definition}
+
+\noindent
+特别地，注意这蕴含 $F^0$ 左正合。
+
+\begin{definition}
+\label{homology-definition-morphism-delta-functors}
+设 $\mathcal{A}, \mathcal{B}$ 为阿贝尔范畴，并设
+$(F^n, \delta_F)$ 与 $(G^n, \delta_G)$ 是从 $\mathcal{A}$ 到
+$\mathcal{B}$ 的 $\delta$-函子。从 $F$ 到 $G$ 的一个
+{\it $\delta$-函子态射}，是函子变换
+$t^n : F^n \to G^n$（$n \geq 0$）的一族，使得对 $\mathcal{A}$ 中
+每个短正合列 $0 \to A \to B \to C \to 0$，图表
+$$
+\xymatrix{
+F^n(C) \ar[d]_{t^n} \ar[rr]_{\delta_{F, A \to B \to C}} &
+& F^{n + 1}(A) \ar[d]^{t^{n + 1}} \\
+G^n(C) \ar[rr]^{\delta_{G, A \to B \to C}} & & G^{n + 1}(A)
+}
+$$
+交换。
+\end{definition}
+
+\begin{definition}
+\label{homology-definition-universal-delta-functor}
+设 $\mathcal{A}, \mathcal{B}$ 为阿贝尔范畴，并设
+$F = (F^n, \delta_F)$ 是从 $\mathcal{A}$ 到 $\mathcal{B}$ 的
+$\delta$-函子。若对每个 $\delta$-函子 $G = (G^n, \delta_G)$ 以及
+任意函子态射 $t : F^0 \to G^0$，都存在唯一的 $\delta$-函子态射
+$\{t^n\}_{n \geq 0} : F \to G$ 使得 $t = t^0$，则称 $F$ 是一个
+{\it 泛 $\delta$-函子}。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-efface-implies-universal}
+设 $\mathcal{A}, \mathcal{B}$ 为阿贝尔范畴，并设
+$F = (F^n, \delta_F)$ 是从 $\mathcal{A}$ 到 $\mathcal{B}$ 的
+$\delta$-函子。假设对每个 $n > 0$ 以及任意
+$A \in \Ob(\mathcal{A})$，都存在一个单射态射 $u : A \to B$
+（依赖于 $A$ 与 $n$），使得
+$F^n(u) : F^n(A) \to F^n(B)$ 为零。那么 $F$ 是泛 $\delta$-函子。
+\end{lemma}
+
+\begin{proof}
+设 $G = (G^n, \delta_G)$ 是从 $\mathcal{A}$ 到 $\mathcal{B}$ 的
+$\delta$-函子，并设 $t : F^0 \to G^0$ 为函子态射。我们须证明存在
+唯一的 $\delta$-函子态射 $\{t^n\}_{n \geq 0} : F \to G$，使得
+$t = t^0$。我们对 $n$ 归纳构造 $t^n$。当 $n = 0$ 时令
+$t^0 = t$。假设已经唯一地构造了 $i \leq n$ 时的函子变换序列
+$t^i$，并且它与次数 $\leq n$ 中的映射 $\delta$ 相容。
+
+\medskip\noindent
+令 $A \in \Ob(\mathcal{A})$。由假设可选取一个嵌入
+$u : A \to B$，使得 $F^{n + 1}(u) = 0$。令 $C = B/u(A)$。
+短正合列 $0 \to A \to B \to C \to 0$ 对 $\delta$-函子 $F$
+给出的长正合上同调列，连同我们对 $u$ 的选择，表明
+$F^{n + 1}(A) = \Coker(F^n(B) \to F^n(C))$。由于已经定义了
+$t^n$，我们可令
+$$
+t^{n + 1}_A : F^{n + 1}(A) \to G^{n + 1}(A)
+$$
+为使下图交换的唯一映射：
+$$
+\xymatrix{
+\Coker(F^n(B) \to F^n(C)) \ar[r]_{t^n}
+\ar[d]_{\delta_{F, A \to B \to C}} &
+\Coker(G^n(B) \to G^n(C))
+\ar[d]^{\delta_{G, A \to B \to C}} \\
+F^{n + 1}(A) \ar[r]^{t^{n + 1}_A} &
+G^{n + 1}(A)
+}
+$$
+显然，所加要求唯一地决定了这一映射。我们略去它定义函子变换的验证。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-uniqueness-universal-delta-functor}
+设 $\mathcal{A}, \mathcal{B}$ 为阿贝尔范畴，并设
+$F : \mathcal{A} \to \mathcal{B}$ 为函子。若存在一个从
+$\mathcal{A}$ 到 $\mathcal{B}$ 的泛 $\delta$-函子
+$(F^n, \delta_F)$，且 $F^0 = F$，则它在 $\delta$-函子的唯一同构意义下确定。
+\end{lemma}
+
+\begin{proof}
+由定义立即可得。
+\end{proof}
+
+\section{复形}
+\label{homology-section-complexes}
+
+\noindent
+当然，链复形与上链复形的概念互为对偶，本节两部分只需选读其一即可；
+因此任选你喜欢的一部分。（严格说来，这并不完全奏效，因为各项的编号约定
+并不适合在链复形与上链复形之间直接转换。）
+
+\medskip\noindent
+加性范畴 $\mathcal{A}$ 中的一个{\it 链复形 $A_\bullet$}，是
+$\mathcal{A}$ 中的复形
+$$
+\ldots \to
+A_{n + 1} \xrightarrow{d_{n + 1}}
+A_n \xrightarrow{d_n}
+A_{n - 1} \to
+\ldots
+$$
+换言之，对每个 $i \in \mathbf{Z}$ 给定 $\mathcal{A}$ 的对象 $A_i$，
+并对每个 $i \in \mathbf{Z}$ 给定态射 $d_i : A_i \to A_{i - 1}$，
+且对所有 $i$ 均有 $d_{i - 1} \circ d_i = 0$。一个
+{\it 链复形态射 $f : A_\bullet \to B_\bullet$}，由一族态射
+$f_i : A_i \to B_i$ 给出，并要求所有图表
+$$
+\xymatrix{
+A_i \ar[r]_{d_i} \ar[d]_{f_i} & A_{i - 1} \ar[d]^{f_{i - 1}} \\
+B_i \ar[r]^{d_i} & B_{i - 1}
+}
+$$
+交换。$\mathcal{A}$ 的{\it 链复形范畴}记作
+$\text{Ch}(\mathcal{A})$。其中由形如
+$$
+\ldots \to A_2 \to A_1 \to A_0 \to 0 \to 0 \to \ldots
+$$
+的对象组成的全子范畴记作 $\text{Ch}_{\geq 0}(\mathcal{A})$。
+换言之，链复形 $A_\bullet$ 属于
+$\text{Ch}_{\geq 0}(\mathcal{A})$，当且仅当对所有 $i < 0$ 均有
+$A_i = 0$。
+
+\medskip\noindent
+给定加性范畴 $\mathcal{A}$，通过函子
+$$
+\mathcal{A} \longrightarrow \text{Ch}(\mathcal{A}),\quad
+A \longmapsto (\ldots \to 0 \to A \to 0 \to \ldots)
+$$
+把 $\mathcal{A}$ 等同于 $\text{Ch}(\mathcal{A})$ 中由仅在次数 $0$
+处非零的链复形组成的全子范畴。略用记号时，我们常把右端对象简记为
+$A$。若想强调把 $A$ 看作链复形，有时可使用记号 $A[0]$；见
+第 \ref{homology-section-homotopy-shift} 节。
+
+\medskip\noindent
+链复形态射 $f, g : A_\bullet \to B_\bullet$ 之间的一个
+{\it 同伦 $h$}，是一族态射 $h_i : A_i \to B_{i + 1}$，使得对所有
+$i$ 均有
+$$
+f_i - g_i = d_{i + 1} \circ h_i + h_{i - 1} \circ d_i
+$$
+若 $f$ 与 $g$ 之间存在同伦，则称两个态射
+$f, g : A_\bullet \to B_\bullet$ {\it 同伦}。显然，链复形、链复形态射
+以及链复形态射之间的同伦这些概念，即使在预加性范畴中也有意义。
+
+\begin{lemma}
+\label{homology-lemma-compose-homotopy}
+\begin{slogan}
+$\text{Ch}(\mathcal{A})$ 的 Hom 函子保持同伦关系。
+\end{slogan}
+设 $\mathcal{A}$ 为加性范畴。设 $f, g : B_\bullet \to C_\bullet$
+为链复形态射，并给定链复形态射
+$a : A_\bullet \to B_\bullet$ 与 $c : C_\bullet \to D_\bullet$。
+若 $\{h_i : B_i \to C_{i + 1}\}$ 定义了 $f$ 与 $g$ 之间的同伦，
+则 $\{c_{i + 1} \circ h_i \circ a_i\}$ 定义了
+$c \circ f \circ a$ 与 $c \circ g \circ a$ 之间的同伦。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+特别地，这意味着可以定义以同伦类为态射的链复形范畴。稍后我们将回到这一点。
+
+\begin{definition}
+\label{homology-definition-homotopy-equivalent}
+设 $\mathcal{A}$ 为加性范畴。若存在态射
+$b : B_\bullet \to A_\bullet$，使得 $b \circ a$ 与 $\text{id}_A$
+之间存在同伦，并且 $a \circ b$ 与 $\text{id}_B$ 之间存在同伦，
+则称态射 $a : A_\bullet \to B_\bullet$ 为{\it 同伦等价}。
+若 $A_\bullet$ 与 $B_\bullet$ 之间存在这样的态射，则称
+$A_\bullet$ 与 $B_\bullet$ {\it 同伦等价}。
+\end{definition}
+
+\noindent
+换言之，两个复形同伦等价，当且仅当它们在以同伦类为态射的复形范畴中同构。
+
+\begin{lemma}
+\label{homology-lemma-cat-chain-abelian}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item $\mathcal{A}$ 中链复形的范畴是阿贝尔范畴。
+\item 复形态射 $f : A_\bullet \to B_\bullet$ 是单射态射，当且仅当每个
+$f_n : A_n \to B_n$ 都是单射态射。
+\item 复形态射 $f : A_\bullet \to B_\bullet$ 是满射态射，当且仅当每个
+$f_n : A_n \to B_n$ 都是满射态射。
+\item 链复形序列
+$$
+A_\bullet \xrightarrow{f} B_\bullet \xrightarrow{g} C_\bullet
+$$
+在 $B_\bullet$ 处正合，当且仅当每个序列
+$$
+A_i \xrightarrow{f_i} B_i \xrightarrow{g_i} C_i
+$$
+都在 $B_i$ 处正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+对任意 $i \in \mathbf{Z}$，阿贝尔范畴中链复形 $A_\bullet$ 的第
+$i$ 个{\it 同调群}定义为
+$$
+H_i(A_\bullet) = \Ker(d_i)/\Im(d_{i + 1}).
+$$
+若 $f : A_\bullet \to B_\bullet$ 是 $\mathcal{A}$ 中的链复形态射，
+则得到诱导态射 $H_i(f) : H_i(A_\bullet) \to H_i(B_\bullet)$，因为显然
+$f_i(\Ker(d_i : A_i \to A_{i - 1})) \subset
+\Ker(d_i : B_i \to B_{i - 1})$，而 $\Im(d_{i + 1})$ 也同样如此。
+因此得到函子
+$$
+H_i : \text{Ch}(\mathcal{A}) \longrightarrow \mathcal{A}.
+$$
+
+\begin{definition}
+\label{homology-definition-quasi-isomorphism}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若诱导映射 $H_i(f) : H_i(A_\bullet) \to H_i(B_\bullet)$ 对所有
+$i \in \mathbf{Z}$ 都是同构，则称链复形态射
+$f : A_\bullet \to B_\bullet$ 为{\it 拟同构}。
+\item 若链复形 $A_\bullet$ 的所有同调对象 $H_i(A_\bullet)$ 都为零，
+则称它{\it 无环}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-map-homology-homotopy}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若映射 $f, g : A_\bullet \to B_\bullet$ 同伦，则诱导映射
+$H_i(f)$ 与 $H_i(g)$ 相等。
+\item 若映射 $f : A_\bullet \to B_\bullet$ 是同伦等价，则 $f$ 是拟同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-long-exact-sequence-chain}
+设 $\mathcal{A}$ 为阿贝尔范畴。假设
+$$
+0 \to
+A_\bullet \to
+B_\bullet \to
+C_\bullet \to
+0
+$$
+是 $\mathcal{A}$ 中链复形的短正合列。那么存在典范的长正合同调列
+$$
+\xymatrix{
+\ldots & \ldots & \ldots \ar[lld] \\
+H_i(A_\bullet) \ar[r] & H_i(B_\bullet) \ar[r] & H_i(C_\bullet) \ar[lld] \\
+H_{i - 1}(A_\bullet) \ar[r] &
+H_{i - 1}(B_\bullet) \ar[r] &
+H_{i - 1}(C_\bullet) \ar[lld] \\
+\ldots & \ldots & \ldots \\
+}
+$$
+\end{lemma}
+
+\begin{proof}
+略。各映射来自把蛇引理 \ref{homology-lemma-snake} 应用于图表
+$$
+\xymatrix{
+&
+A_i/\Im(d_{A, i + 1}) \ar[r] \ar[d]^{d_{A, i}} &
+B_i/\Im(d_{B, i + 1}) \ar[r] \ar[d]^{d_{B, i}} &
+C_i/\Im(d_{C, i + 1}) \ar[r] \ar[d]^{d_{C, i}} &
+0 \\
+0 \ar[r] &
+\Ker(d_{A, i - 1}) \ar[r] &
+\Ker(d_{B, i - 1}) \ar[r] &
+\Ker(d_{C, i - 1}) &
+}
+$$
+\end{proof}
+
+\noindent
+加性范畴 $\mathcal{A}$ 中的一个{\it 上链复形 $A^\bullet$}，是
+$\mathcal{A}$ 中的复形
+$$
+\ldots \to
+A^{n - 1} \xrightarrow{d^{n - 1}}
+A^n \xrightarrow{d^n}
+A^{n + 1} \to
+\ldots
+$$
+换言之，对每个 $i \in \mathbf{Z}$ 给定 $\mathcal{A}$ 的对象 $A^i$，
+并对每个 $i \in \mathbf{Z}$ 给定态射 $d^i : A^i \to A^{i + 1}$，
+且对所有 $i$ 均有 $d^{i + 1} \circ d^i = 0$。一个
+{\it 上链复形态射 $f : A^\bullet \to B^\bullet$}，由一族态射
+$f^i : A^i \to B^i$ 给出，并要求所有图表
+$$
+\xymatrix{
+A^i \ar[r]_{d^i} \ar[d]_{f^i} & A^{i + 1} \ar[d]^{f^{i + 1}} \\
+B^i \ar[r]^{d^i} & B^{i + 1}
+}
+$$
+交换。$\mathcal{A}$ 的{\it 上链复形范畴}记作
+$\text{CoCh}(\mathcal{A})$。其中由形如
+$$
+\ldots \to 0 \to 0 \to A^0 \to A^1 \to A^2 \to \ldots
+$$
+的对象组成的全子范畴记作 $\text{CoCh}_{\geq 0}(\mathcal{A})$。
+换言之，上链复形 $A^\bullet$ 属于子范畴
+$\text{CoCh}_{\geq 0}(\mathcal{A})$，当且仅当对所有 $i < 0$ 均有
+$A^i = 0$。
+
+\medskip\noindent
+给定加性范畴 $\mathcal{A}$，通过函子
+$$
+\mathcal{A} \longrightarrow \text{CoCh}(\mathcal{A}),\quad
+A \longmapsto (\ldots \to 0 \to A \to 0 \to \ldots)
+$$
+把 $\mathcal{A}$ 等同于 $\text{CoCh}(\mathcal{A})$ 中由仅在次数 $0$
+处非零的上链复形组成的全子范畴。略用记号时，我们常把右端对象简记为
+$A$。若想强调把 $A$ 看作上链复形，有时可使用记号 $A[0]$；见
+第 \ref{homology-section-homotopy-shift} 节。
+
+\medskip\noindent
+上链复形态射 $f, g : A^\bullet \to B^\bullet$ 之间的一个
+{\it 同伦 $h$}，是一族态射 $h^i : A^i \to B^{i - 1}$，使得对所有
+$i$ 均有
+$$
+f^i - g^i = d^{i - 1} \circ h^i + h^{i + 1} \circ d^i
+$$
+若 $f$ 与 $g$ 之间存在同伦，则称两个态射
+$f, g : A^\bullet \to B^\bullet$ {\it 同伦}。显然，上链复形、上链复形态射
+以及上链复形态射之间的同伦这些概念，即使在预加性范畴中也有意义。
+
+\begin{lemma}
+\label{homology-lemma-compose-homotopy-cochain}
+设 $\mathcal{A}$ 为加性范畴。设 $f, g : B^\bullet \to C^\bullet$
+为上链复形态射，并给定上链复形态射
+$a : A^\bullet \to B^\bullet$ 与 $c : C^\bullet \to D^\bullet$。
+若 $\{h^i : B^i \to C^{i - 1}\}$ 定义了 $f$ 与 $g$ 之间的同伦，
+则 $\{c^{i - 1} \circ h^i \circ a^i\}$ 定义了
+$c \circ f \circ a$ 与 $c \circ g \circ a$ 之间的同伦。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+特别地，这意味着可以定义以同伦类为态射的上链复形范畴。稍后我们将回到这一点。
+
+\begin{definition}
+\label{homology-definition-homotopy-equivalent-cochain}
+设 $\mathcal{A}$ 为加性范畴。若存在态射
+$b : B^\bullet \to A^\bullet$，使得 $b \circ a$ 与 $\text{id}_A$
+之间存在同伦，并且 $a \circ b$ 与 $\text{id}_B$ 之间存在同伦，
+则称态射 $a : A^\bullet \to B^\bullet$ 为{\it 同伦等价}。
+若 $A^\bullet$ 与 $B^\bullet$ 之间存在这样的态射，则称
+$A^\bullet$ 与 $B^\bullet$ {\it 同伦等价}。
+\end{definition}
+
+\noindent
+换言之，两个复形同伦等价，当且仅当它们在以同伦类为态射的复形范畴中同构。
+
+\begin{lemma}
+\label{homology-lemma-cat-cochain-abelian}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item $\mathcal{A}$ 中上链复形的范畴是阿贝尔范畴。
+\item 上链复形态射 $f : A^\bullet \to B^\bullet$ 是单射态射，当且仅当每个
+$f^n : A^n \to B^n$ 都是单射态射。
+\item 上链复形态射 $f : A^\bullet \to B^\bullet$ 是满射态射，当且仅当每个
+$f^n : A^n \to B^n$ 都是满射态射。
+\item 上链复形序列
+$$
+A^\bullet \xrightarrow{f} B^\bullet \xrightarrow{g} C^\bullet
+$$
+在 $B^\bullet$ 处正合，当且仅当每个序列
+$$
+A^i \xrightarrow{f^i} B^i \xrightarrow{g^i} C^i
+$$
+都在 $B^i$ 处正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+对任意 $i \in \mathbf{Z}$，上链复形 $A^\bullet$ 的第
+$i$ 个{\it 上同调群}定义为
+$$
+H^i(A^\bullet) = \Ker(d^i)/\Im(d^{i - 1}).
+$$
+若 $f : A^\bullet \to B^\bullet$ 是 $\mathcal{A}$ 中的上链复形态射，
+则得到诱导态射 $H^i(f) : H^i(A^\bullet) \to H^i(B^\bullet)$，因为显然
+$f^i(\Ker(d^i : A^i \to A^{i + 1})) \subset
+\Ker(d^i : B^i \to B^{i + 1})$，而 $\Im(d^{i - 1})$ 也同样如此。
+因此得到函子
+$$
+H^i : \text{CoCh}(\mathcal{A}) \longrightarrow \mathcal{A}.
+$$
+
+\begin{definition}
+\label{homology-definition-quasi-isomorphism-cochain}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若诱导映射 $H^i(f) : H^i(A^\bullet) \to H^i(B^\bullet)$ 对所有
+$i \in \mathbf{Z}$ 都是同构，则称 $\mathcal{A}$ 的上链复形态射
+$f : A^\bullet \to B^\bullet$ 为{\it 拟同构}。
+\item 若上链复形 $A^\bullet$ 的所有上同调对象 $H^i(A^\bullet)$ 都为零，
+则称它{\it 无环}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-map-cohomology-homotopy-cochain}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若映射 $f, g : A^\bullet \to B^\bullet$ 同伦，则诱导映射
+$H^i(f)$ 与 $H^i(g)$ 相等。
+\item 若 $f : A^\bullet \to B^\bullet$ 是同伦等价，则 $f$ 是拟同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-long-exact-sequence-cochain}
+\begin{slogan}
+复形的短正合列导出（上）同调的长正合列。
+\end{slogan}
+设 $\mathcal{A}$ 为阿贝尔范畴。假设
+$$
+0 \to
+A^\bullet \to
+B^\bullet \to
+C^\bullet \to
+0
+$$
+是 $\mathcal{A}$ 中上链复形的短正合列。那么存在长正合上同调列
+$$
+\xymatrix{
+\ldots & \ldots & \ldots \ar[lld] \\
+H^i(A^\bullet) \ar[r] &
+H^i(B^\bullet) \ar[r] &
+H^i(C^\bullet) \ar[lld] \\
+H^{i + 1}(A^\bullet) \ar[r] &
+H^{i + 1}(B^\bullet) \ar[r] &
+H^{i + 1}(C^\bullet) \ar[lld] \\
+\ldots & \ldots & \ldots \\
+}
+$$
+此构造产生关于短正合列函子性且与
+定义 \ref{homology-definition-cohomology-shift} 中的平移相容的长正合上同调列。
+\end{lemma}
+
+\begin{proof}
+对水平映射 $H^i(A^\bullet) \to H^i(B^\bullet)$ 与
+$H^i(B^\bullet) \to H^i(C^\bullet)$，使用上文所述 $H^i$ 的函子性。
+对“边界映射” $H^i(C^\bullet) \to H^{i + 1}(A^\bullet)$，使用把蛇引理
+\ref{homology-lemma-snake} 应用于图表
+$$
+\xymatrix{
+&
+A^i/\Im(d_A^{i - 1}) \ar[r] \ar[d]^{d_A^i} &
+B^i/\Im(d_B^{i - 1}) \ar[r] \ar[d]^{d_B^i} &
+C^i/\Im(d_C^{i - 1}) \ar[r] \ar[d]^{d_C^i} &
+0 \\
+0 \ar[r] &
+\Ker(d_A^{i + 1}) \ar[r] &
+\Ker(d_B^{i + 1}) \ar[r] &
+\Ker(d_C^{i + 1}) &
+}
+$$
+所得的映射 $\delta$。这是可行的，因为右侧竖直映射的核等于
+$H^i(C^\bullet)$，而左侧竖直映射的余核等于
+$H^{i + 1}(A^\bullet)$。长序列的正合性就是引理 \ref{homology-lemma-snake}
+第 (2) 部分中的正合性。% P02-E0008: source line 3246 has “exactnesss”.
+函子性由引理 \ref{homology-lemma-snake-natural} 给出；与平移的相容性由定义立即可得。
+\end{proof}
+
+\section{同伦与平移函子}
+\label{homology-section-homotopy-shift}
+
+\noindent
+令人烦恼的是，任何同调代数的讨论都不得不涉及符号与指标\footnote{如果你发现
+符号错误，或能改进我们的约定，请告知我们。}。
+
+\begin{definition}
+\label{homology-definition-shift}
+设 $\mathcal{A}$ 为加性范畴，并设 $A_\bullet$ 为边界映射为
+$d_{A, n} : A_n \to A_{n - 1}$ 的链复形。对任意
+$k \in \mathbf{Z}$，如下定义{\it 平移 $k$ 的链复形 $A[k]_\bullet$}：
+\begin{enumerate}
+\item 令 $A[k]_n = A_{n + k}$；以及
+\item 令 $d_{A[k], n} : A[k]_n \to A[k]_{n - 1}$ 等于
+$d_{A[k], n} = (-1)^k d_{A, n + k}$。
+\end{enumerate}
+若 $f : A_\bullet \to B_\bullet$ 是链复形态射，则令
+$f[k] : A[k]_\bullet \to B[k]_\bullet$ 为满足
+$f[k]_n = f_{k + n}$ 的链复形态射。
+\end{definition}
+
+\noindent
+当然，这意味着有函子
+$[k] : \text{Ch}(\mathcal{A}) \to \text{Ch}(\mathcal{A})$，它们彼此
+严格交换（无需插入任何函子同构），并且
+$A[k][l]_\bullet = A[k + l]_\bullet$、
+$[0] = \text{id}_{\text{Ch}(\mathcal{A})}$。
+
+\medskip\noindent
+回忆我们把 $\mathcal{A}$ 看作 $\text{Ch}(\mathcal{A})$ 的全子范畴；
+见第 \ref{homology-section-complexes} 节。因此，对 $\mathcal{A}$ 的任意对象
+$A$，记号 $A[k]$ 表示唯一的链复形：除次数 $-k$ 处为 $A$ 外，
+其他各次均为零。
+
+\begin{definition}
+\label{homology-definition-homology-shift}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $A_\bullet$ 为边界映射为
+$d_{A, n} : A_n \to A_{n - 1}$ 的链复形。对任意
+$k \in \mathbf{Z}$，借助等同 $A_{i + k} = A[k]_i$，我们作等同
+{\it $H_{i + k}(A_\bullet) \rightarrow H_i(A[k]_\bullet)$}。
+\end{definition}
+
+\noindent
+这一等同关于 $A_\bullet$ 具有函子性。注意，因为该定义不涉及符号，
+实际上我们得到所有同调对象 $H_{i - k}(A[k]_\bullet)$ 的相容等同系；
+它们还与等同 $A[k][l]_\bullet = A[k + l]_\bullet$ 以及
+$[0] = \text{id}_{\text{Ch}(\mathcal{A})}$ 相容。
+
+\medskip\noindent
+设 $\mathcal{A}$ 为加性范畴。假设 $A_\bullet$ 与 $B_\bullet$ 是链复形，
+$a, b : A_\bullet \to B_\bullet$ 是链复形态射，并且
+$\{h_i : A_i \to B_{i + 1}\}$ 是 $a$ 与 $b$ 之间的同伦。回忆这意味着
+$a_i - b_i = d_{i + 1} \circ h_i + h_{i - 1} \circ d_i$。
+如果 $a = b$，则得到公式
+$0 = d_{i + 1} \circ h_i + h_{i - 1} \circ d_i$；换言之，
+$ - d_{i + 1} \circ h_i = h_{i - 1} \circ d_i$。由上面的定义，这意味着
+$\{h_i\}$ 定义了链复形态射
+$$
+A_\bullet \longrightarrow B[1]_\bullet.
+$$
+由上面的说明，这与态射 $A[-1]_\bullet \to B_\bullet$ 是同一回事。
+这就证明了下面的引理。
+
+\begin{lemma}
+\label{homology-lemma-homotopy-shift}
+设 $\mathcal{A}$ 为加性范畴，并假设 $A_\bullet$ 与 $B_\bullet$ 是链复形。
+给定任意链复形态射 $a : A_\bullet \to B_\bullet$，从 $a$ 到 $a$ 的
+同伦之集合与
+$\Mor_{\text{Ch}(\mathcal{A})}(A_\bullet, B[1]_\bullet)$ 之间存在双射。
+更一般地，$a$ 与 $b$ 之间的同伦之集合或者为空，或者是群
+$\Mor_{\text{Ch}(\mathcal{A})}(A_\bullet, B[1]_\bullet)$ 的主齐性空间。
+\end{lemma}
+
+\begin{proof}
+见上文。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-termwise-split}
+设 $\mathcal{A}$ 为阿贝尔范畴。设
+$$
+0 \to A_\bullet \to B_\bullet \to C_\bullet \to 0
+$$
+为复形的短正合列。假设 $\{s_n : C_n \to B_n\}$ 是一族态射，
+它们分裂短正合列 $0 \to A_n \to B_n \to C_n \to 0$。
+令 $\pi_n : B_n \to A_n$ 为相应的投影；见引理
+\ref{homology-lemma-ses-split}。那么态射族
+$$
+\pi_{n - 1} \circ d_{B, n} \circ s_n
+:
+C_n \to A_{n - 1}
+$$
+定义了复形态射 $\delta(s) : C_\bullet \to A[-1]_\bullet$。
+\end{lemma}
+
+\begin{proof}
+用 $i : A_\bullet \to B_\bullet$ 与 $q : B_\bullet \to C_\bullet$
+表示短正合列中的复形态射。于是
+$i_{n - 1} \circ \pi_{n - 1} \circ d_{B, n} \circ s_n =
+d_{B, n} \circ s_n - s_{n - 1} \circ d_{C, n}$。因此
+$i_{n - 2} \circ d_{A, n - 1} \circ \pi_{n - 1} \circ d_{B, n} \circ s_n =
+d_{B, n - 1} \circ (d_{B, n} \circ s_n - s_{n - 1} \circ d_{C, n}) =
+- d_{B, n - 1} \circ s_{n - 1} \circ d_{C, n}$，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-termwise-split-long}
+记号与假设同上面的引理 \ref{homology-lemma-ses-termwise-split}。复形态射
+$\delta(s) : C_\bullet \to A[-1]_\bullet$ 诱导的映射
+$$
+H_i(\delta(s)) :
+H_i(C_\bullet) \longrightarrow H_i(A[-1]_\bullet) = H_{i - 1}(A_\bullet)
+$$
+就是由引理 \ref{homology-lemma-long-exact-sequence-chain} 关联于该链复形短正合列的
+长正合同调列中出现的映射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-termwise-split-homotopy}
+记号与假设同上面的引理 \ref{homology-lemma-ses-termwise-split}。假设
+$\{s'_n : C_n \to B_n\}$ 是对分裂的另一种选择。对某些唯一的态射
+$h_n : C_n \to A_n$，写成 $s'_n = s_n + i_n \circ h_n$。
+映射族 $\{h_n : C_n \to A[-1]_{n + 1}\}$ 是相应态射
+$\delta(s), \delta(s') : C_\bullet \to A[-1]_\bullet$ 之间的同伦。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-shift-cochain}
+设 $\mathcal{A}$ 为加性范畴，并设 $A^\bullet$ 为边界映射为
+$d_A^n : A^n \to A^{n + 1}$ 的上链复形。对任意
+$k \in \mathbf{Z}$，如下定义{\it 平移 $k$ 的上链复形 $A[k]^\bullet$}：
+\begin{enumerate}
+\item 令 $A[k]^n = A^{n + k}$；以及
+\item 令 $d_{A[k]}^n : A[k]^n \to A[k]^{n + 1}$ 等于
+$d_{A[k]}^n = (-1)^k d_A^{n + k}$。
+\end{enumerate}
+若 $f : A^\bullet \to B^\bullet$ 是上链复形态射，则令
+$f[k] : A[k]^\bullet \to B[k]^\bullet$ 为满足
+$f[k]^n = f^{k + n}$ 的上链复形态射。
+\end{definition}
+
+\noindent
+当然，这意味着有函子
+$[k] : \text{CoCh}(\mathcal{A}) \to \text{CoCh}(\mathcal{A})$，
+它们彼此严格交换（无需插入任何函子同构），并且
+$A[k][l]^\bullet = A[k + l]^\bullet$、
+$[0] = \text{id}_{\text{CoCh}(\mathcal{A})}$。
+
+\medskip\noindent
+回忆我们把 $\mathcal{A}$ 看作 $\text{CoCh}(\mathcal{A})$ 的全子范畴；
+见第 \ref{homology-section-complexes} 节。因此，对 $\mathcal{A}$ 的任意对象
+$A$，记号 $A[k]$ 表示唯一的上链复形：除次数 $-k$ 处为 $A$ 外，
+其他各次均为零。
+
+\begin{definition}
+\label{homology-definition-cohomology-shift}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $A^\bullet$ 为边界映射为
+$d_A^n : A^n \to A^{n + 1}$ 的上链复形。对任意
+$k \in \mathbf{Z}$，借助等同 $A^{i + k} = A[k]^i$，我们作等同
+{\it $H^{i + k}(A^\bullet) \longrightarrow H^i(A[k]^\bullet)$}。
+\end{definition}
+
+\noindent
+这一等同关于 $A^\bullet$ 具有函子性。注意，因为该定义不涉及符号，
+实际上我们得到所有同调对象 $H^{i - k}(A[k]^\bullet)$ 的相容等同系；
+它们还与等同 $A[k][l]^\bullet = A[k + l]^\bullet$ 以及
+$[0] = \text{id}_{\text{CoCh}(\mathcal{A})}$ 相容。
+
+\medskip\noindent
+设 $\mathcal{A}$ 为加性范畴。假设 $A^\bullet$ 与 $B^\bullet$ 是上链复形，
+$a, b : A^\bullet \to B^\bullet$ 是上链复形态射，并且
+$\{h^i : A^i \to B^{i - 1}\}$ 是 $a$ 与 $b$ 之间的同伦。回忆这意味着
+$a^i - b^i = d^{i - 1} \circ h^i + h^{i + 1} \circ d^i$。
+如果 $a = b$，则得到公式
+$0 = d^{i - 1} \circ h^i + h^{i + 1} \circ d^i$；换言之，
+$ - d^{i - 1} \circ h^i = h^{i + 1} \circ d^i$。由上面的定义，这意味着
+$\{h^i\}$ 定义了上链复形态射
+$$
+A^\bullet \longrightarrow B[-1]^\bullet.
+$$
+由上面的说明，这与态射 $A[1]^\bullet \to B^\bullet$ 是同一回事。
+这就证明了下面的引理。
+
+\begin{lemma}
+\label{homology-lemma-homotopy-shift-cochain}
+设 $\mathcal{A}$ 为加性范畴，并假设 $A^\bullet$ 与 $B^\bullet$ 是上链复形。
+给定任意上链复形态射 $a : A^\bullet \to B^\bullet$，从 $a$ 到 $a$ 的
+同伦之集合与
+$\Mor_{\text{CoCh}(\mathcal{A})}(A^\bullet, B[-1]^\bullet)$ 之间存在双射。
+更一般地，$a$ 与 $b$ 之间的同伦之集合或者为空，或者是群
+$\Mor_{\text{CoCh}(\mathcal{A})}(A^\bullet, B[-1]^\bullet)$ 的主齐性空间。
+\end{lemma}
+
+\begin{proof}
+见上文。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-termwise-split-cochain}
+设 $\mathcal{A}$ 为加性范畴。设
+$$
+0 \to A^\bullet \to B^\bullet \to C^\bullet \to 0
+$$
+为复形组成的一个复形（！）。假设给定与所示序列中映射相容的分裂
+$B^n = A^n \oplus C^n$。令 $s^n : C^n \to B^n$ 与
+$\pi^n : B^n \to A^n$ 为相应映射。那么态射族
+$$
+\pi^{n + 1} \circ d_B^n \circ s^n
+:
+C^n \to A^{n + 1}
+$$
+定义了复形态射 $\delta : C^\bullet \to A[1]^\bullet$。
+\end{lemma}
+
+\begin{proof}
+用 $i : A^\bullet \to B^\bullet$ 与 $q : B^\bullet \to C^\bullet$
+表示短正合列中的复形态射。于是
+$i^{n + 1} \circ \pi^{n + 1} \circ d_B^n \circ s^n =
+d_B^n \circ s^n - s^{n + 1} \circ d_C^n$。因此
+$i^{n + 2} \circ d_A^{n + 1} \circ \pi^{n + 1} \circ d_B^n \circ s^n =
+d_B^{n + 1} \circ (d_B^n \circ s^n - s^{n + 1} \circ d_C^n) =
+- d_B^{n + 1} \circ s^{n + 1} \circ d_C^n$，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-termwise-split-long-cochain}
+记号与假设同上面的引理 \ref{homology-lemma-ses-termwise-split-cochain}，并进一步
+假设 $\mathcal{A}$ 是阿贝尔范畴。复形态射
+$\delta : C^\bullet \to A[1]^\bullet$ 诱导的映射
+$$
+H^i(\delta) :
+H^i(C^\bullet) \longrightarrow H^i(A[1]^\bullet) = H^{i + 1}(A^\bullet)
+$$
+就是由引理 \ref{homology-lemma-long-exact-sequence-cochain} 关联于该上链复形
+短正合列的长正合同调列中出现的映射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-ses-termwise-split-homotopy-cochain}
+记号与假设同引理 \ref{homology-lemma-ses-termwise-split-cochain}。令
+$\alpha : A^\bullet \to B^\bullet$、
+$\beta : B^\bullet \to C^\bullet$ 为给定的复形态射。假设
+$(s')^n : C^n \to B^n$ 与 $(\pi')^n : B^n \to A^n$ 是对分裂的
+另一种选择。对某些唯一的态射 $h^n : C^n \to A^n$ 与
+$g^n : C^n \to A^n$，写成
+$(s')^n = s^n + \alpha^n \circ h^n$ 及
+$(\pi')^n = \pi^n + g^n \circ \beta^n$。那么
+\begin{enumerate}
+\item $g^n = - h^n$；并且
+\item 映射族 $\{g^n : C^n \to A[1]^{n - 1}\}$ 是
+$\delta, \delta' : C^\bullet \to A[1]^\bullet$ 之间的同伦；更精确地，
+$(\delta')^n = \delta^n + g^{n + 1} \circ d_C^n + d_{A[1]}^{n - 1} \circ g^n$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $(s')^n$ 与 $(\pi')^n$ 是分裂，我们有
+$(\pi')^n \circ (s')^n = 0$。因此
+$$
+0 = ( \pi^n + g^n \circ \beta^n ) \circ ( s^n + \alpha^n \circ h^n ) =
+g^n \circ \beta^n \circ s^n + \pi^n \circ \alpha^n \circ h^n =
+g^n + h^n
+$$
+这证明了 (1)。如下计算 $(\delta')^n$：
+$$
+( \pi^{n + 1} + g^{n + 1} \circ \beta^{n + 1} )
+\circ d_B^n \circ
+( s^n + \alpha^n \circ h^n )
+= \delta^n + g^{n + 1} \circ d_C^n + d_A^n \circ h^n
+$$
+由于 $h^n = -g^n$ 且 $d_{A[1]}^{n - 1} = -d_A^n$，遂得 (2)。
+\end{proof}
+
+\section{复形的截断}
+\label{homology-section-truncations}
+
+\noindent
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $A_\bullet$ 为链复形。
+复形 $A_\bullet$ 有若干种{\it 截断}方式。
+\begin{enumerate}
+\item {\it “朴素”截断 $\sigma_{\leq n}$} 是子复形
+$\sigma_{\leq n} A_\bullet$，其定义规则为：若 $i > n$，则
+$(\sigma_{\leq n} A_\bullet)_i = 0$；若 $i \leq n$，则
+$(\sigma_{\leq n} A_\bullet)_i = A_i$。图示为
+$$
+\xymatrix{
+\sigma_{\leq n}A_\bullet \ar[d]  &
+\ldots \ar[r] &
+0 \ar[r] \ar[d] &
+A_n \ar[r] \ar[d] &
+A_{n - 1} \ar[r] \ar[d] &
+\ldots \\
+A_\bullet  &
+\ldots \ar[r] &
+A_{n + 1} \ar[r] &
+A_n \ar[r] &
+A_{n - 1} \ar[r] &
+\ldots
+}
+$$
+注意性质
+$\sigma_{\leq n}A_\bullet / \sigma_{\leq n - 1}A_\bullet = A_n[-n]$。
+\item {\it “朴素”截断 $\sigma_{\geq n}$} 是商复形
+$\sigma_{\geq n} A_\bullet$，其定义规则为：若 $i \geq n$，则
+$(\sigma_{\geq n} A_\bullet)_i = A_i$；若 $i < n$，则
+$(\sigma_{\geq n} A_\bullet)_i = 0$。图示为
+$$
+\xymatrix{
+A_\bullet \ar[d]  &
+\ldots \ar[r] &
+A_{n + 1} \ar[r] \ar[d] &
+A_n \ar[r] \ar[d] &
+A_{n - 1} \ar[r] \ar[d] &
+\ldots \\
+\sigma_{\geq n}A_\bullet  &
+\ldots \ar[r] &
+A_{n + 1} \ar[r] &
+A_n \ar[r] &
+0 \ar[r] &
+\ldots
+}
+$$
+复形态射 $\sigma_{\geq n}A_\bullet \to \sigma_{\geq n + 1}A_\bullet$
+是满射态射，其核为 $A_n[-n]$。
+\item {\it 典范截断} $\tau_{\geq n}A_\bullet$ 由下图定义：
+$$
+\xymatrix{
+\tau_{\geq n}A_\bullet \ar[d]  &
+\ldots \ar[r] &
+A_{n + 1} \ar[r] \ar[d] &
+\Ker(d_n) \ar[r] \ar[d] &
+0 \ar[r] \ar[d] &
+\ldots \\
+A_\bullet  &
+\ldots \ar[r] &
+A_{n + 1} \ar[r] &
+A_n \ar[r] &
+A_{n - 1} \ar[r] &
+\ldots
+}
+$$
+注意这些复形具有性质
+$$
+H_i(\tau_{\geq n}A_\bullet) =
+\left\{
+\begin{matrix}
+H_i(A_\bullet) & \text{若} & i \geq n \\
+0 & \text{若} & i < n
+\end{matrix}
+\right.
+$$
+\item {\it 典范截断} $\tau_{\leq n}A_\bullet$ 由下图定义：
+$$
+\xymatrix{
+A_\bullet \ar[d]  &
+\ldots \ar[r] &
+A_{n + 1} \ar[r] \ar[d] &
+A_n \ar[r] \ar[d] &
+A_{n - 1} \ar[r] \ar[d] &
+\ldots \\
+\tau_{\leq n}A_\bullet  &
+\ldots \ar[r] &
+0 \ar[r] &
+\Coker(d_{n + 1}) \ar[r] &
+A_{n - 1} \ar[r] &
+\ldots
+}
+$$
+注意这些复形具有性质
+$$
+H_i(\tau_{\leq n}A_\bullet) =
+\left\{
+\begin{matrix}
+H_i(A_\bullet) & \text{若} & i \leq n \\
+0 & \text{若} & i > n
+\end{matrix}
+\right.
+$$
+\end{enumerate}
+
+\noindent
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $A^\bullet$ 为上链复形。
+复形 $A^\bullet$ 有四种截断方式。
+\begin{enumerate}
+\item {\it “朴素”截断 $\sigma_{\geq n}$} 是子复形
+$\sigma_{\geq n} A^\bullet$，其定义规则为：若 $i < n$，则
+$(\sigma_{\geq n} A^\bullet)^i = 0$；若 $i \geq n$，则
+$(\sigma_{\geq n} A^\bullet)^i = A^i$。图示为
+$$
+\xymatrix{
+\sigma_{\geq n}A^\bullet \ar[d]  &
+\ldots \ar[r] &
+0 \ar[r] \ar[d] &
+A^n \ar[r] \ar[d] &
+A^{n + 1} \ar[r] \ar[d] &
+\ldots \\
+A^\bullet  &
+\ldots \ar[r] &
+A^{n - 1} \ar[r] &
+A^n \ar[r] &
+A^{n + 1} \ar[r] &
+\ldots
+}
+$$
+注意性质
+$\sigma_{\geq n}A^\bullet / \sigma_{\geq n + 1}A^\bullet
+= A^n[-n]$。
+\item {\it “朴素”截断 $\sigma_{\leq n}$} 是商复形
+$\sigma_{\leq n} A^\bullet$，其定义规则为：若 $i > n$，则
+$(\sigma_{\leq n} A^\bullet)^i = 0$；若 $i \leq n$，则
+$(\sigma_{\leq n} A^\bullet)^i = A^i$。图示为
+$$
+\xymatrix{
+A^\bullet \ar[d]  &
+\ldots \ar[r] &
+A^{n - 1} \ar[r] \ar[d] &
+A^n \ar[r] \ar[d] &
+A^{n + 1} \ar[r] \ar[d] &
+\ldots \\
+\sigma_{\leq n}A^\bullet &
+\ldots \ar[r] &
+A^{n - 1} \ar[r] &
+A^n \ar[r] &
+0 \ar[r] &
+\ldots \\
+}
+$$
+复形态射 $\sigma_{\leq n}A^\bullet \to \sigma_{\leq n - 1}A^\bullet$
+是满射态射，其核为 $A^n[-n]$。
+\item {\it 典范截断} $\tau_{\leq n}A^\bullet$ 由下图定义：
+$$
+\xymatrix{
+\tau_{\leq n}A^\bullet \ar[d]  &
+\ldots \ar[r] &
+A^{n - 1} \ar[r] \ar[d] &
+\Ker(d^n) \ar[r] \ar[d] &
+0 \ar[r] \ar[d] &
+\ldots \\
+A^\bullet  &
+\ldots \ar[r] &
+A^{n - 1} \ar[r] &
+A^n \ar[r] &
+A^{n + 1} \ar[r] &
+\ldots
+}
+$$
+注意这些复形具有性质
+$$
+H^i(\tau_{\leq n}A^\bullet) =
+\left\{
+\begin{matrix}
+H^i(A^\bullet) & \text{若} & i \leq n \\
+0 & \text{若} & i > n
+\end{matrix}
+\right.
+$$
+\item {\it 典范截断} $\tau_{\geq n}A^\bullet$ 由下图定义：
+$$
+\xymatrix{
+A^\bullet \ar[d] &
+\ldots \ar[r] &
+A^{n - 1} \ar[r] \ar[d] &
+A^n \ar[r] \ar[d] &
+A^{n + 1} \ar[r] \ar[d] &
+\ldots \\
+\tau_{\geq n}A^\bullet &
+\ldots \ar[r] &
+0 \ar[r] &
+\Coker(d^{n - 1}) \ar[r] &
+A^{n + 1} \ar[r] &
+\ldots
+}
+$$
+注意这些复形具有性质
+$$
+H^i(\tau_{\geq n}A^\bullet) =
+\left\{
+\begin{matrix}
+0 & \text{若} & i < n \\
+H^i(A^\bullet) & \text{若} & i \geq n
+\end{matrix}
+\right.
+$$
+\end{enumerate}
+
+\section{分次对象}
+\label{homology-section-graded}
+
+\noindent
+作如下定义。
+
+\begin{definition}
+\label{homology-definition-graded}
+设 $\mathcal{A}$ 为加性范畴。$\mathcal{A}$ 的{\it 分次对象范畴}记作
+$\text{Gr}(\mathcal{A})$，它是具有下列对象与态射的范畴：
+\begin{enumerate}
+\item 对象 $A = (A^i)$ 是 $\mathcal{A}$ 的对象 $A^i$（$i \in \mathbf{Z}$）
+组成的族；以及
+\item 态射 $f : A = (A^i) \to B = (B^i)$ 是 $\mathcal{A}$ 的态射
+$f^i : A^i \to B^i$ 组成的族。
+\end{enumerate}
+\end{definition}
+
+\noindent
+若 $\mathcal{A}$ 有可数直和，则可把对象
+$$
+A = \bigoplus\nolimits_{i \in \mathbf{Z}} A^i
+$$
+关联于 $\text{Gr}(\mathcal{A})$ 的对象 $A = (A^i)$，并置
+$k^iA = A^i$。在这种情况下，$\text{Gr}(\mathcal{A})$ 等价于下述
+二元组 $(A, k)$ 的范畴：$A$ 是 $\mathcal{A}$ 的对象，并带有由
+$\mathbf{Z}$ 标号的直和项所成的直和分解
+$$
+A = \bigoplus\nolimits_{i \in \mathbf{Z}} k^iA
+$$
+此类对象之间的态射 $(A, k) \to (B, k)$，由 $\mathcal{A}$ 中满足
+对所有 $i \in \mathbf{Z}$ 均有 $\varphi(k^iA) \subset k^iB$ 的态射
+$\varphi : A \to B$ 给出。只要加性范畴 $\mathcal{A}$ 有可数直和，
+我们都会使用这一等价而不再说明。
+
+\medskip\noindent
+然而，按我们的定义，加性范畴或阿贝尔范畴不一定具有所有（可数）直和。
+在这种情况下，上述定义仍然有意义。例如，若
+$\mathcal{A} = \text{Vect}_k$ 是域 $k$ 上有限维向量空间的范畴，则
+$\text{Gr}(\text{Vect}_k)$ 是带有给定分次且每个分次部分均有限维的
+向量空间之范畴，而不是带有给定分次的有限维向量空间之范畴。
+
+\begin{lemma}
+\label{homology-lemma-graded}
+设 $\mathcal{A}$ 为阿贝尔范畴。分次对象范畴
+$\text{Gr}(\mathcal{A})$ 是阿贝尔范畴。
+\end{lemma}
+
+\begin{proof}
+设 $f : A = (A^i) \to B = (B^i)$ 是 $\mathcal{A}$ 的分次对象之间
+由 $\mathcal{A}$ 的态射 $f^i : A^i \to B^i$ 给出的态射。那么在范畴
+$\text{Gr}(\mathcal{A})$ 中有
+$\Ker(f) = (\Ker(f^i))$ 及 $\Coker(f) = (\Coker(f^i))$。
+由于 $\mathcal{A}$ 中 $\Im = \Coim$，在
+$\text{Gr}(\mathcal{A})$ 中也同样成立。
+\end{proof}
+
+\begin{remark}[警告]
+\label{homology-remark-direct-sums-not-exact}
+存在具有可数直和，但可数直和不正合的阿贝尔范畴 $\mathcal{A}$。
+一个例子是 $\mathbf{R}$ 上阿贝尔群层的范畴之反范畴。事实上，
+$\mathbf{R}$ 上阿贝尔群层的范畴具有可数积，但可数积不正合。
+对这样的范畴，上述函子
+$\text{Gr}(\mathcal{A}) \to \mathcal{A}$、
+$(A^i) \mapsto \bigoplus A^i$ 不正合。仍然成立的是，
+$\text{Gr}(\mathcal{A})$ 等价于 $\mathcal{A}$ 的分次对象
+$(A, k)$ 所成的范畴；但在分次对象范畴中，态射
+$\varphi : (A, k) \to (B, k)$ 的核并不等于配备直和分解的
+$\Ker(\varphi)$，而是各映射 $k^iA \to k^iB$ 的核之直和。
+\end{remark}
+
+\begin{definition}
+\label{homology-definition-graded-shift}
+设 $\mathcal{A}$ 为加性范畴。若 $A = (A^i)$ 是分次对象，则它的第
+$k$ 次{\it 平移} $A[k]$ 是满足 $A[k]^i = A^{k + i}$ 的分次对象。
+\end{definition}
+
+\noindent
+若 $A$ 与 $B$ 是 $\mathcal{A}$ 的分次对象，则有
+\begin{equation}
+\label{homology-equation-hom-into-shift}
+\Hom_{\text{Gr}(\mathcal{A})}(A, B[k]) =
+\Hom_{\text{Gr}(\mathcal{A})}(A[-k], B)
+\end{equation}
+而这个群的元素有时称为分次对象之间的一个{\it $k$ 次齐次映射}。
+
+\medskip\noindent
+给定任意集合 $G$，可把 $\mathcal{A}$ 的 $G$-分次对象定义为如下
+范畴：其对象是由 $G$ 的元素参数化的对象族
+$A = (A^g)_{g \in G}$；态射 $f : A \to B$ 定义为映射
+$f^g : A^g \to B^g$ 的族，其中 $g$ 遍历 $G$ 的元素。若 $G$ 是阿贝尔群，
+则可无歧义地在 $G$-分次对象范畴上按规则
+$(A[g])^{g_0} = A^{g + g_0}$ 定义平移函子 $[g]$。
+这种构造的一个特例是 $G = \mathbf{Z} \times \mathbf{Z}$。
+此时范畴的对象称为 $\mathcal{A}$ 的{\it 双分次}对象。双分次对象
+$A$ 的 $(p, q)$ 分量通常记作 $A^{p, q}$。对
+$(a, b) \in \mathbf{Z} \times \mathbf{Z}$，我们写 $A[a, b]$ 而不是
+$A[(a, b)]$。态射 $A \to A[a, b]$ 有时称为一个
+{\it 双次数为 $(a, b)$ 的映射}。
+
+\section{加性幺半范畴}
+\label{homology-section-monoidal}
+
+\noindent
+本节给出范畴上的幺半结构与加性结构相互作用的一些材料。
+
+\begin{definition}
+\label{homology-definition-additive-monoidal}
+一个{\it 加性幺半范畴}，是配备幺半结构 $\otimes, \phi$
+（范畴论，定义 \ref{categories-definition-monoidal-category}）的加性范畴
+$\mathcal{A}$，并要求 $\otimes$ 关于每个变量都是加性函子。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-additive-dual}
+设 $\mathcal{A}$ 为加性幺半范畴。若 $Y_i$（$i = 1, 2$）是
+$X_i$（$i = 1, 2$）的左对偶，则 $Y_1 \oplus Y_2$ 是
+$X_1 \oplus X_2$ 的左对偶。
+\end{lemma}
+
+\begin{proof}
+由伴随的唯一性及范畴论，注记
+\ref{categories-remark-left-dual-adjoint} 可得。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-Karoubian-dual}
+在 Karoubian 加性幺半范畴中，具有左对偶的对象之每个直和项都有左对偶。
+\end{lemma}
+
+\begin{proof}
+我们将使用范畴论，引理 \ref{categories-lemma-left-dual} 而不再说明。
+设 $X$ 是具有左对偶 $Y$ 的对象。我们有
+$$
+\Hom(X, X) = \Hom(\mathbf{1}, X \otimes Y) = \Hom(Y, Y)
+$$
+若 $a : X \to X$ 对应于 $b : Y \to Y$，则 $b$ 是 $Y$ 的唯一自同态，
+使得在
+$$
+\Hom(Z' \otimes X, Z) = \Hom(Z', Z \otimes Y)
+$$
+上预复合 $a$，等同于后复合 $1 \otimes b$。因此双射
+$\Hom(X, X) \to \Hom(Y, Y)$、$a \mapsto b$ 是代数
+$\Hom(X, X)$ 的反代数与代数 $\Hom(Y, Y)$ 之间的同构。
+特别地，若 $X = X_1 \oplus X_2$，则相应投影元 $e_1, e_2$ 被映到
+$\Hom(Y, Y)$ 中的幂等元。若 $Y = Y_1 \oplus Y_2$ 是 $Y$ 的相应
+直和分解（第 \ref{homology-section-karoubian} 节），则在双射
+$\Hom(Z' \otimes X, Z) = \Hom(Z', Z \otimes Y)$ 下，对
+$i = 1, 2$，我们函子性地得到子群之间的等式
+$\Hom(Z' \otimes X_i, Z) = \Hom(Z', Z \otimes Y_i)$。
+由范畴论，注记 \ref{categories-remark-left-dual-adjoint} 中的讨论可知，
+$Y_i$ 是 $X_i$ 的左对偶。
+\end{proof}
+
+\begin{example}
+\label{homology-example-graded-vector-spaces}
+设 $F$ 为域，并设 $\mathcal{C}$ 为分次 $F$-向量空间的范畴。
+给定分次向量空间 $V$ 与 $W$，令 $V \otimes W$ 表示其次数 $n$ 部分为
+$$
+(V \otimes W)^n = \bigoplus\nolimits_{n = p + q} V^p \otimes_F W^q
+$$
+的分次 $F$-向量空间。给定第三个分次向量空间 $U$，作为结合约束
+$\phi : U \otimes (V \otimes W) \to (U \otimes V) \otimes W$，
+我们使用向量空间的“通常”同构
+$$
+U^p \otimes_F (V^q \otimes_F W^r) \to (U^p \otimes_F V^q) \otimes_F W^r
+$$
+作为单位对象，使用在次数 $0$ 处为 $F$、其他次数处为零的分次
+$F$-向量空间 $\mathbf{1}$。$\mathcal{C}$ 上有两个交换约束，使
+$\mathcal{C}$ 成为对称幺半范畴：一个涉及符号，另一个不涉及。我们通常
+使用涉及符号的那个。
+明确地说，若 $V$ 与 $W$ 是分次 $F$-向量空间，我们使用同构
+$\psi : V \otimes W \to W \otimes V$，它在次数 $n$ 处使用
+$$
+V^p \otimes_F W^q \to W^q \otimes_F V^p,\quad
+v \otimes w \mapsto (-1)^{pq} w \otimes v
+$$
+我们略去其有效性的验证。
+\end{example}
+
+\begin{lemma}
+\label{homology-lemma-left-dual-graded-vector-spaces}
+设 $F$ 为域，并按例 \ref{homology-example-graded-vector-spaces} 把分次
+$F$-向量空间范畴 $\mathcal{C}$ 看作幺半范畴。若 $\mathcal{C}$ 中的
+$V$ 具有左对偶 $W$，则 $\sum_n \dim_F V^n < \infty$，且映射
+$\epsilon$ 定义非退化配对 $W^{-n} \times V^n \to F$。
+\end{lemma}
+
+\begin{proof}
+作为单位对象，我们取。% P02-E0009: source line 4074 is the incomplete fragment “As unit we take”.
+由范畴论，定义 \ref{categories-definition-dual}，我们有映射
+$$
+\eta : \mathbf{1} \to V \otimes W\quad
+\epsilon : W \otimes V \to \mathbf{1}
+$$
+由于 $\mathbf{1} = F$ 置于次数 $0$，可以把 $\epsilon$ 看作引理陈述中的
+一列配对 $W^{-n} \times V^n \to F$。对所有 $n$，为 $V^n$ 选取基
+$\{e_{n, i}\}_{i \in I_n}$。写成
+$$
+\eta(1) = \sum e_{n, i} \otimes w_{-n, i}
+$$
+其中 $w_{-n, i} \in W^{-n}$，且除有限多个外均为零！条件
+$(\epsilon \otimes 1) \circ (1 \otimes \eta)$ 是 $W$ 上的恒等映射，
+意味着
+$$
+\sum\nolimits_{n, i} \epsilon(w, e_{n, i})w_{-n, i} = w
+$$
+因此，作为分次向量空间，$W$ 由有限多个非零向量 $w_{-n, i}$ 生成。
+条件 $(1 \otimes \epsilon) \circ (\eta \otimes 1)$ 是 $V$ 上的恒等映射，
+意味着
+$$
+\sum\nolimits_{n, i} e_{n, i}\ \epsilon(w_{-n, i}, v) = v
+$$
+特别地，置 $v = e_{n, i}$，可得
+$\epsilon(w_{-n, i}, e_{n, i'}) = \delta_{ii'}$。因此引理的陈述成立，
+并且 $\{w_{-n, i}\}_{i \in I_n}$ 是 $W^{-n}$ 中与所选 $V^n$ 的基
+对偶的基。
+\end{proof}
+
+\section{双复形及其相伴总复形}
+\label{homology-section-double-complexes}
+
+\noindent
+我们讨论双复形及其相伴总复形。
+
+\begin{definition}
+\label{homology-definition-double-complex}
+设 $\mathcal{A}$ 为加性范畴。$\mathcal{A}$ 中的一个{\it 双复形}，
+由系统
+$(\{A^{p, q}, d_1^{p, q}, d_2^{p, q}\}_{p, q\in \mathbf{Z}})$ 给出；
+其中每个 $A^{p, q}$ 都是 $\mathcal{A}$ 的对象，而
+$d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$ 及
+$d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ 是 $\mathcal{A}$ 的态射，
+并且对所有 $p, q \in \mathbf{Z}$ 均满足下列规则：
+\begin{enumerate}
+\item $d_1^{p + 1, q} \circ d_1^{p, q} = 0$
+\item $d_2^{p, q + 1} \circ d_2^{p, q} = 0$
+\item $d_1^{p, q + 1} \circ d_2^{p, q} = d_2^{p + 1, q} \circ d_1^{p, q}$
+\end{enumerate}
+\end{definition}
+
+\noindent
+这正是该定义的上链版本。它说明每个 $A^{p, \bullet}$ 都是上链复形，
+每个 $d_1^{p, \bullet}$ 都是复形态射
+$A^{p, \bullet} \to A^{p + 1, \bullet}$，并且作为复形态射有
+$d_1^{p + 1, \bullet} \circ d_1^{p, \bullet} = 0$。
+换言之，可把双复形看作复形组成的复形。因此，在图表
+$$
+\xymatrix{
+\ldots &
+\ldots &
+\ldots &
+\ldots \\
+\ldots \ar[r] &
+A^{p, q + 1} \ar[r]^{d_1^{p, q + 1}} \ar[u] &
+A^{p + 1, q + 1} \ar[r] \ar[u] &
+\ldots \\
+\ldots \ar[r] &
+A^{p, q} \ar[r]^{d_1^{p, q}} \ar[u]^{d_2^{p, q}} &
+A^{p + 1, q} \ar[r] \ar[u]_{d_2^{p + 1, q}} &
+\ldots \\
+\ldots &
+\ldots \ar[u] &
+\ldots \ar[u] &
+\ldots
+}
+$$
+中，每个方块都交换。警告：文献中还可见另一种定义，其中“双复形”
+（bicomplex 或 double complex）的上述方块反交换。
+
+\begin{example}
+\label{homology-example-double-complex-as-tensor-product-of}
+设 $\mathcal{A}$、$\mathcal{B}$、$\mathcal{C}$ 为加性范畴。假设
+$$
+\otimes : \mathcal{A} \times \mathcal{B} \longrightarrow \mathcal{C},
+\quad
+(X, Y) \longmapsto X \otimes Y
+$$
+是一个在态射上双线性的函子；$\mathcal{A} \times \mathcal{B}$ 的定义
+见范畴论，定义 \ref{categories-definition-product-category}。
+给定 $\mathcal{A}$ 的复形 $X^\bullet$ 及 $\mathcal{B}$ 的复形
+$Y^\bullet$，可在 $\mathcal{C}$ 中得到双复形
+$$
+K^{\bullet, \bullet} = X^\bullet \otimes Y^\bullet
+$$
+这里第一微分 $K^{p, q} \to K^{p + 1, q}$ 是由态射
+$X^p \to X^{p + 1}$ 以及 $Y^q$ 上的恒等映射诱导的态射
+$X^p \otimes Y^q \to X^{p + 1} \otimes Y^q$。第二微分类似。
+\end{example}
+
+\begin{definition}
+\label{homology-definition-associated-simple-complex}
+设 $\mathcal{A}$ 为加性范畴，并设 $A^{\bullet, \bullet}$ 为双复形。
+它的{\it 相伴单复形}记作 $sA^\bullet$，也常称为{\it 相伴总复形}，
+记作 $\text{Tot}(A^{\bullet, \bullet})$；其定义为
+$$
+sA^n = \text{Tot}^n(A^{\bullet, \bullet}) =
+\bigoplus\nolimits_{n = p + q} A^{p, q}
+$$
+（如果存在），并带有微分
+$$
+d_{sA^\bullet}^n = d_{\text{Tot}(A^{\bullet, \bullet})}^n =
+\sum\nolimits_{n = p + q} (d_1^{p, q} + (-1)^p d_2^{p, q})
+$$
+\end{definition}
+
+\noindent
+若 $\mathcal{A}$ 中存在可数直和，或对每个 $n$，至多有限多个
+$A^{p, n - p}$ 非零，则 $\text{Tot}(A^{\bullet, \bullet})$ 存在。
+注意该定义关于指标 $(p, q)$ {\it 不}对称。
+
+\begin{remark}
+\label{homology-remark-triple-complex}
+设 $\mathcal{A}$ 为加性范畴，并设 $A^{\bullet, \bullet, \bullet}$
+为三重复形。相伴总复形的项为
+$$
+\text{Tot}^n(A^{\bullet, \bullet, \bullet}) =
+\bigoplus\nolimits_{p + q + r = n} A^{p, q, r}
+$$
+而其微分为
+$$
+d^n_{\text{Tot}(A^{\bullet, \bullet, \bullet})} =
+\sum\nolimits_{p + q + r = n}
+d_1^{p, q, r} + (-1)^pd_2^{p, q, r} + (-1)^{p + q}d_3^{p, q, r}
+$$
+按此定义，一个简单计算表明相伴总复形等于
+$$
+\text{Tot}(A^{\bullet, \bullet, \bullet}) =
+\text{Tot}(\text{Tot}_{12}(A^{\bullet, \bullet, \bullet})) =
+\text{Tot}(\text{Tot}_{23}(A^{\bullet, \bullet, \bullet}))
+$$
+换言之，可以先合并前两个变量，再把它们的和与最后一个变量合并；
+也可以先合并后两个变量，再把第一个变量与后两者之和合并。
+\end{remark}
+
+\begin{remark}
+\label{homology-remark-shift-double-complex}
+设 $\mathcal{A}$ 为加性范畴，并设 $A^{\bullet, \bullet}$ 是微分为
+$d_1^{p, q}$ 与 $d_2^{p, q}$ 的双复形。用
+$A^{\bullet, \bullet}[a, b]$ 表示满足
+$$
+(A^{\bullet, \bullet}[a, b])^{p, q} = A^{p + a, q + b}
+$$
+且微分为
+$$
+d_{A^{\bullet, \bullet}[a, b], 1}^{p, q} = (-1)^a d_1^{p + a, q + b}
+\quad\text{且}\quad
+d_{A^{\bullet, \bullet}[a, b], 2}^{p, q} = (-1)^b d_2^{p + a, q + b}
+$$
+的双复形。在这种情况下，存在良定义的同构
+$$
+\gamma :
+\text{Tot}(A^{\bullet, \bullet})[a + b]
+\longrightarrow
+\text{Tot}(A^{\bullet, \bullet}[a, b])
+$$
+它在次数 $n$ 处由映射
+$$
+\xymatrix{
+(\text{Tot}(A^{\bullet, \bullet})[a + b])^n =
+\bigoplus_{p + q = n + a + b} A^{p, q}
+\ar[d]^{\epsilon(p, q, a, b)\text{id}_{A^{p, q}}} \\
+\text{Tot}(A^{\bullet, \bullet}[a, b])^n =
+\bigoplus_{p' + q' = n} A^{p' + a, q' + b}
+}
+$$
+给出，其中 $\epsilon(p, q, a, b)$ 是某个符号。当然，当
+$p = p' + a$ 且 $q = q' + b$ 时，直和项 $A^{p, q}$ 映到直和项
+$A^{p' + a, q' + b}$。为求出这些符号应满足的条件，注意在源上有
+$$
+d|_{A^{p, q}} = (-1)^{a + b}\left(d_1^{p, q} + (-1)^pd_2^{p, q}\right)
+$$
+而在目标上有
+$$
+d|_{A^{p' + a, q' + b}} =
+(-1)^ad_1^{p' + a, q' + b} + (-1)^{p'}(-1)^bd_2^{p' + a, q' + b}
+$$
+因此约束为
+$$
+(-1)^a \epsilon(p, q, a, b) = \epsilon(p + 1, q, a, b)(-1)^{a + b}
+\Leftrightarrow
+\epsilon(p + 1, q, a, b) = (-1)^b \epsilon(p, q, a, b)
+$$
+以及
+$$
+(-1)^{p' + b}\epsilon(p, q, a, b) =
+\epsilon(p, q + 1, a, b) (-1)^{a + b + p}
+\Leftrightarrow
+\epsilon(p, q, a, b) = \epsilon(p, q + 1, a, b)
+$$
+因此选择 $\epsilon(p, q, a, b) = (-1)^{pb}$。
+\end{remark}
+
+\begin{remark}
+\label{homology-remark-double-complex-complex-of-complexes-first}
+设 $\mathcal{A}$ 为具有可数直和的加性范畴。用
+$\text{DoubleComp}(\mathcal{A})$ 表示双复形范畴。可把
+$\text{DoubleComp}(\mathcal{A})$ 的对象 $A^{\bullet, \bullet}$ 如下看作
+复形组成的复形：
+$$
+\ldots \to A^{\bullet, -1} \to A^{\bullet, 0} \to A^{\bullet, 1} \to \ldots
+$$
+交换两个指标之角色的变体见注记
+\ref{homology-remark-double-complex-complex-of-complexes-second}。本注记说明，
+取相伴总复形与本章此前研究过的复形上的所有结构相容。
+
+\medskip\noindent
+首先，注意按上述方式把双复形看作复形组成的复形时，其上的平移函子就是
+注记 \ref{homology-remark-shift-double-complex} 中定义的函子 $[0, 1]$。
+由注记 \ref{homology-remark-shift-double-complex}，函子
+$$
+\text{Tot} : \text{DoubleComp}(\mathcal{A}) \to \text{Comp}(\mathcal{A})
+$$
+与平移函子相容；也就是说，存在函子性同构
+$\gamma : \text{Tot}(A^{\bullet, \bullet})[1] \to
+\text{Tot}(A^{\bullet, \bullet}[0, 1])$。
+
+\medskip\noindent
+其次，若
+$$
+f, g : A^{\bullet, \bullet} \to B^{\bullet, \bullet}
+$$
+在按上述方式把 $f$ 与 $g$ 看作复形组成的复形之间的态射时同伦，则
+$$
+\text{Tot}(f), \text{Tot}(g) :
+\text{Tot}(A^{\bullet, \bullet}) \to \text{Tot}(B^{\bullet, \bullet})
+$$
+是同伦的复形映射。事实上，设 $h = (h^q)$ 为 $f$ 与 $g$ 之间的同伦。
+若用 $h^{p, q} : A^{p, q} \to B^{p, q - 1}$ 表示 $h^q$ 的次数 $p$
+分量，则这意味着
+$$
+f^{p, q} - g^{p, q} = d_2^{p, q - 1} \circ h^{p, q} +
+h^{p, q + 1} \circ d_2^{p, q}
+$$
+而 $h^q : A^{\bullet, q} \to B^{\bullet, q - 1}$ 是复形映射这一事实意味着
+$$
+d_1^{p, q - 1} \circ h^{p, q} = h^{p + 1, q} \circ d_1^{p, q}
+$$
+定义同伦 $h' = ((h')^n)$ 如下：映射
+$(h')^n : \text{Tot}^n(A^{\bullet, \bullet}) \to
+\text{Tot}^{n - 1}(B^{\bullet, \bullet})$ 在 $p + q = n$ 的直和项
+$A^{p, q}$ 上使用 $(-1)^ph^{p, q}$。于是可见
+$$
+d_{\text{Tot}(B^{\bullet, \bullet})} \circ h' +
+h' \circ d_{\text{Tot}(A^{\bullet, \bullet})}
+$$
+限制在直和项 $A^{p, q}$ 上等于
+$$
+d_1^{p, q - 1} \circ (-1)^p h^{p, q} +
+(-1)^p d_2^{p, q - 1} \circ (-1)^p h^{p, q} +
+(-1)^{p + 1} h^{p + 1, q} \circ d_1^{p, q} +
+(-1)^p h^{p, q + 1} \circ (-1)^p d_2^{p, q}
+$$
+由上面的等式，其值为 $f^{p, q} - g^{p, q}$。这证明了第二个相容性。
+
+\medskip\noindent
+第三，假设上一段中 $f = g$。那么上述对应 $h \leadsto h'$ 与引理
+\ref{homology-lemma-homotopy-shift-cochain} 的等同相容。更精确地，若通过该引理
+把 $h$ 看作复形组成的复形之间的态射
+$A^{\bullet, \bullet} \to B^{\bullet, \bullet}[0, -1]$，则
+$$
+\text{Tot}(A^{\bullet, \bullet})
+\xrightarrow{\text{Tot}(h)}
+\text{Tot}(B^{\bullet, \bullet}[0, -1])
+\xrightarrow{\gamma^{-1}}
+\text{Tot}(B^{\bullet, \bullet})[-1]
+$$
+等于把 $h'$ 通过该引理看作的复形态射。这里 $\gamma$ 是注记
+\ref{homology-remark-shift-double-complex} 的等同。第三点的验证是立即的。
+
+\medskip\noindent
+第四，设
+$$
+0 \to A^{\bullet, \bullet} \to B^{\bullet, \bullet} \to
+C^{\bullet, \bullet} \to 0
+$$
+是双复形组成的一个复形；并假设按上述方式把双复形看作复形组成的复形时，
+给定了如引理 \ref{homology-lemma-ses-termwise-split-cochain} 中的分裂
+$s^q : C^{\bullet, q} \to B^{\bullet, q}$ 与
+$\pi^q : B^{\bullet, q} \to A^{\bullet, q}$。一方面，引理
+\ref{homology-lemma-ses-termwise-split-cochain} 的过程产生映射
+$$
+\delta : C^{\bullet, \bullet} \longrightarrow A^{\bullet, \bullet}[0, 1]
+$$
+另一方面，取 $\text{Tot}$ 得到逐项分裂（见下文）的复形
+$$
+0 \to \text{Tot}(A^{\bullet, \bullet}) \to
+\text{Tot}(B^{\bullet, \bullet}) \to
+\text{Tot}(C^{\bullet, \bullet}) \to 0
+$$
+因而由引理 \ref{homology-lemma-ses-termwise-split-cochain} 与
+\ref{homology-lemma-ses-termwise-split-homotopy-cochain}，它带有一个在同伦意义下
+良定义的态射
+$$
+\delta' :
+\text{Tot}(C^{\bullet, \bullet})
+\longrightarrow
+\text{Tot}(A^{\bullet, \bullet})[1]
+$$
+断言：这些映射在下述意义下相同，即
+$$
+\text{Tot}(C^{\bullet, \bullet})
+\xrightarrow{\text{Tot}(\delta)}
+\text{Tot}(A^{\bullet, \bullet}[0, 1]) \xrightarrow{\gamma^{-1}}
+\text{Tot}(A^{\bullet, \bullet})[1]
+$$
+等于 $\delta'$，其中 $\gamma$ 如注记 \ref{homology-remark-shift-double-complex}
+所述。为说明这一点，用 $s^{p, q} : C^{p, q} \to B^{\bullet, q}$ 与
+$\pi^{p, q} : B^{p, q} \to A^{p, q}$ 表示 $s^q$ 与 $\pi^q$ 的分量。
+% P02-E0010: source line 4435 types the component codomain as B^{\bullet,q}, not B^{p,q}.
+作为分裂
+$(s')^n : \text{Tot}^n(C^{\bullet, \bullet}) \to
+\text{Tot}^n(B^{\bullet, \bullet})$ 与
+$(\pi')^n : \text{Tot}^n(B^{\bullet, \bullet}) \to
+\text{Tot}^n(A^{\bullet, \bullet})$，我们使用在 $p + q = n$ 时分量为
+$s^{p, q}$ 与 $\pi^{p, q}$ 的映射。回忆
+$$
+(\delta')^n =
+(\pi')^{n + 1} \circ d_{\text{Tot}(B^{\bullet, \bullet})}^n \circ (s')^n :
+\text{Tot}^n(C^{\bullet, \bullet}) \to
+\text{Tot}^{n + 1}(A^{\bullet, \bullet})
+$$
+它在直和项 $C^{p, q}$ 上的限制等于
+$$
+\pi^{p + 1, q} \circ
+d_1^{p, q} \circ
+s^{p, q} +
+\pi^{p, q + 1} \circ
+(-1)^p d_2^{p, q} \circ
+s^{p, q} =
+\pi^{p, q + 1} \circ
+(-1)^p d_2^{p, q} \circ
+s^{p, q}
+$$
+等式成立，是因为 $s^q$ 是以 $d_1$ 为微分的复形态射，并且在每个双次数中
+$s$ 与 $\pi$ 对应于 $B$ 的直和分解，故
+$\pi^{p + 1, q} \circ s^{p + 1, q} = 0$。另一方面，对 $\delta$ 有
+$$
+\delta^q =  \pi^q \circ d_2 \circ s^q :
+C^{\bullet, q} \to A^{\bullet, q + 1}
+$$
+其在直和项 $C^{p, q}$ 上的限制等于
+$\pi^{p, q + 1} \circ d_2^{p, q} \circ s^{p, q}$。符号之差恰由同构
+$\gamma$ 中的符号 $(-1)^p$ 抵消，第四个断言得证。
+\end{remark}
+
+\begin{remark}
+\label{homology-remark-double-complex-complex-of-complexes-second}
+设 $\mathcal{A}$ 为具有可数直和的加性范畴。用
+$\text{DoubleComp}(\mathcal{A})$ 表示双复形范畴。可把
+$\text{DoubleComp}(\mathcal{A})$ 的对象 $A^{\bullet, \bullet}$ 如下看作
+复形组成的复形：
+$$
+\ldots \to A^{-1, \bullet} \to A^{0, \bullet} \to A^{1, \bullet} \to \ldots
+$$
+交换两个指标之角色的变体见注记
+\ref{homology-remark-double-complex-complex-of-complexes-first}。本注记说明，
+取相伴总复形与本章此前研究过的复形上的所有结构相容。
+
+\medskip\noindent
+首先，注意按上述方式把双复形看作复形组成的复形时，其上的平移函子就是
+注记 \ref{homology-remark-shift-double-complex} 中定义的函子 $[1, 0]$。
+由注记 \ref{homology-remark-shift-double-complex}，函子
+$$
+\text{Tot} : \text{DoubleComp}(\mathcal{A}) \to \text{Comp}(\mathcal{A})
+$$
+与平移函子相容；也就是说，存在函子性同构
+$\gamma : \text{Tot}(A^{\bullet, \bullet})[1] \to
+\text{Tot}(A^{\bullet, \bullet}[1, 0])$。
+
+\medskip\noindent
+其次，若
+$$
+f, g : A^{\bullet, \bullet} \to B^{\bullet, \bullet}
+$$
+在按上述方式把 $f$ 与 $g$ 看作复形组成的复形之间的态射时同伦，则
+$$
+\text{Tot}(f), \text{Tot}(g) :
+\text{Tot}(A^{\bullet, \bullet}) \to \text{Tot}(B^{\bullet, \bullet})
+$$
+是同伦的复形映射。事实上，设 $h = (h^p)$ 为 $f$ 与 $g$ 之间的同伦。
+若用 $h^{p, q} : A^{p, q} \to B^{p - 1, q}$ 表示 $h^q$ 的次数 $p$
+分量，则这意味着
+% P02-E0011: source line 4518 says “degree p of h^q” although the family was h=(h^p).
+$$
+f^{p, q} - g^{p, q} = d_1^{p - 1, q} \circ h^{p, q} +
+h^{p + 1, q} \circ d_1^{p, q}
+$$
+而 $h^p : A^{p, \bullet} \to B^{p - 1, \bullet}$ 是复形映射这一事实意味着
+$$
+d_2^{p - 1, q} \circ h^{p, q} = h^{p, q + 1} \circ d_2^{p, q}
+$$
+定义同伦 $h' = ((h')^n)$ 如下：映射
+$(h')^n : \text{Tot}^n(A^{\bullet, \bullet}) \to
+\text{Tot}^{n - 1}(B^{\bullet, \bullet})$ 在 $p + q = n$ 的直和项
+$A^{p, q}$ 上使用 $h^{p, q}$。于是可见
+$$
+d_{\text{Tot}(B^{\bullet, \bullet})} \circ h' +
+h' \circ d_{\text{Tot}(A^{\bullet, \bullet})}
+$$
+限制在直和项 $A^{p, q}$ 上等于
+$$
+d_1^{p - 1, q} \circ h^{p, q} +
+(-1)^{p - 1} d_2^{p - 1, q} \circ h^{p, q} +
+h^{p + 1, q} \circ d_1^{p, q} +
+h^{p, q + 1} \circ (-1)^p d_2^{p, q}
+$$
+由上面的等式，其值为 $f^{p, q} - g^{p, q}$。这证明了第二个相容性。
+
+\medskip\noindent
+第三，假设上一段中 $f = g$。那么上述对应 $h \leadsto h'$ 与引理
+\ref{homology-lemma-homotopy-shift-cochain} 的等同相容。更精确地，若通过该引理
+把 $h$ 看作复形组成的复形之间的态射
+$A^{\bullet, \bullet} \to B^{\bullet, \bullet}[-1, 0]$，则
+$$
+\text{Tot}(A^{\bullet, \bullet})
+\xrightarrow{\text{Tot}(h)}
+\text{Tot}(B^{\bullet, \bullet}[-1, 0])
+\xrightarrow{\gamma^{-1}}
+\text{Tot}(B^{\bullet, \bullet})[-1]
+$$
+等于把 $h'$ 通过该引理看作的复形态射。这里 $\gamma$ 是注记
+\ref{homology-remark-shift-double-complex} 的等同。第三点的验证是立即的。
+
+\medskip\noindent
+第四，设
+$$
+0 \to A^{\bullet, \bullet} \to B^{\bullet, \bullet} \to
+C^{\bullet, \bullet} \to 0
+$$
+是双复形组成的一个复形；并假设按上述方式把双复形看作复形组成的复形时，
+给定了如引理 \ref{homology-lemma-ses-termwise-split-cochain} 中的分裂
+$s^p : C^{p, \bullet} \to B^{p, \bullet}$ 与
+$\pi^p : B^{p, \bullet} \to A^{p, \bullet}$。一方面，引理
+\ref{homology-lemma-ses-termwise-split-cochain} 的过程产生映射
+$$
+\delta : C^{\bullet, \bullet} \longrightarrow A^{\bullet, \bullet}[0, 1]
+$$
+% P02-E0012: source line 4581 uses [0,1] although this second-index-switched construction and lines 4603/4648 require [1,0].
+另一方面，取 $\text{Tot}$ 得到逐项分裂（见下文）的复形
+$$
+0 \to \text{Tot}(A^{\bullet, \bullet}) \to
+\text{Tot}(B^{\bullet, \bullet}) \to
+\text{Tot}(C^{\bullet, \bullet}) \to 0
+$$
+因而由引理 \ref{homology-lemma-ses-termwise-split-cochain} 与
+\ref{homology-lemma-ses-termwise-split-homotopy-cochain}，它带有一个在同伦意义下
+良定义的态射
+$$
+\delta' :
+\text{Tot}(C^{\bullet, \bullet})
+\longrightarrow
+\text{Tot}(A^{\bullet, \bullet})[1]
+$$
+断言：这些映射在下述意义下相同，即
+$$
+\text{Tot}(C^{\bullet, \bullet})
+\xrightarrow{\text{Tot}(\delta)}
+\text{Tot}(A^{\bullet, \bullet}[1, 0]) \xrightarrow{\gamma^{-1}}
+\text{Tot}(A^{\bullet, \bullet})[1]
+$$
+等于 $\delta'$，其中 $\gamma$ 如注记 \ref{homology-remark-shift-double-complex}
+所述。为说明这一点，用 $s^{p, q} : C^{p, q} \to B^{\bullet, q}$ 与
+$\pi^{p, q} : B^{p, q} \to A^{p, q}$ 表示 $s^q$ 与 $\pi^q$ 的分量。
+% P02-E0013: source lines 4608-4609 retain s^q/pi^q and B^{\bullet,q} despite the second construction using s^p/pi^p and bidegree components.
+作为分裂
+$(s')^n : \text{Tot}^n(C^{\bullet, \bullet}) \to
+\text{Tot}^n(B^{\bullet, \bullet})$ 与
+$(\pi')^n : \text{Tot}^n(B^{\bullet, \bullet}) \to
+\text{Tot}^n(A^{\bullet, \bullet})$，我们使用在 $p + q = n$ 时分量为
+$s^{p, q}$ 与 $\pi^{p, q}$ 的映射。回忆
+$$
+(\delta')^n =
+(\pi')^{n + 1} \circ d_{\text{Tot}(B^{\bullet, \bullet})}^n \circ (s')^n :
+\text{Tot}^n(C^{\bullet, \bullet}) \to
+\text{Tot}^{n + 1}(A^{\bullet, \bullet})
+$$
+它在直和项 $C^{p, q}$ 上的限制等于
+$$
+\pi^{p + 1, q} \circ
+d_1^{p, q} \circ
+s^{p, q} +
+\pi^{p, q + 1} \circ
+(-1)^p d_2^{p, q} \circ
+s^{p, q} =
+\pi^{p + 1, q} \circ
+d_1^{p, q} \circ
+s^{p, q}
+$$
+等式成立，是因为 $s^p$ 是以 $d_2$ 为微分的复形态射，并且在每个双次数中
+$s$ 与 $\pi$ 对应于 $B$ 的直和分解，故
+$\pi^{p, q + 1} \circ s^{p, q + 1} = 0$。另一方面，对 $\delta$ 有
+$$
+\delta^p =  \pi^p \circ d_1 \circ s^p :
+C^{p, \bullet} \to A^{p + 1, \bullet}
+$$
+其在直和项 $C^{p, q}$ 上的限制等于
+$\pi^{p + 1, q} \circ d_1^{p, q} \circ s^{p, q}$。
+因此所得与前面相同，这也符合下述事实：同构
+$\gamma : \text{Tot}(A^{\bullet, \bullet})[1] \to
+\text{Tot}(A^{\bullet, \bullet}[1, 0])$ 的定义不涉及符号。
+\end{remark}
+
+\section{滤过}
+\label{homology-section-filtrations}
+
+\noindent
+这部分材料可参见很好的参考文献 \cite[Section 1]{HodgeII}。
+（注意，我们关于阿贝尔范畴的约定不同。）
+
+\begin{definition}
+\label{homology-definition-filtered}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 对象 $A$ 上的一个{\it 递减滤过} $F$，是一族 $A$ 的子对象
+$(F^nA)_{n \in \mathbf{Z}}$，使得
+$$
+A \supset \ldots \supset F^nA \supset F^{n + 1}A \supset \ldots \supset 0
+$$
+\item $\mathcal{A}$ 的一个{\it 滤过对象}，是由 $\mathcal{A}$ 的对象
+$A$ 及 $A$ 上的递减滤过 $F$ 组成的二元组 $(A, F)$。
+\item 一个{\it 滤过对象态射 $(A, F) \to (B, F)$}，由
+$\mathcal{A}$ 中满足对所有 $i \in \mathbf{Z}$ 均有
+$\varphi(F^iA) \subset F^iB$ 的态射 $\varphi : A \to B$ 给出。
+\item 滤过对象的范畴记作 $\text{Fil}(\mathcal{A})$。
+\item 给定滤过对象 $(A, F)$ 与子对象 $X \subset A$，$X$ 上的
+{\it 诱导滤过}是满足 $F^nX = X \cap F^nA$ 的滤过。
+\item 给定滤过对象 $(A, F)$ 与满射态射 $\pi : A \to Y$，
+{\it 商滤过}是满足 $F^nY = \pi(F^nA)$ 的滤过。
+\item 若存在 $n, m$ 使得 $F^nA = A$ 且 $F^mA = 0$，则称对象
+$A$ 上的滤过 $F$ {\it 有限}。
+\item 给定滤过对象 $(A, F)$，若存在 $A$ 的、包含于所有 $F^iA$ 中的最大子对象，
+则称 $\bigcap F^iA$ 存在。若存在 $A$ 的、包含所有 $F^iA$ 的最小子对象，
+则称 $\bigcup F^iA$ 存在。
+\item 若 $\bigcap F^iA = 0$，则称滤过对象 $(A, F)$ 上的滤过
+{\it 分离}；若 $\bigcup F^iA = A$，则称其{\it 穷尽}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+略用记号时，若滤过对象态射 $f : (A, F) \to (B, F)$ 所对应的
+$f : A \to B$ 在阿贝尔范畴 $\mathcal{A}$ 中是单射态射，我们就称
+该态射{\it 单射}。类似地，若 $f : A \to B$ 在范畴 $\mathcal{A}$ 中是
+满射态射，就称 $f$ {\it 满射}。单射（相应地，满射）等价于在
+$\text{Fil}(\mathcal{A})$ 中是单态射（相应地，满态射）。由引理
+\ref{homology-lemma-filtered}，这也等价于具有零核（相应地，零余核）。
+
+\begin{lemma}
+\label{homology-lemma-filtered}
+设 $\mathcal{A}$ 为阿贝尔范畴。滤过对象范畴
+$\text{Fil}(\mathcal{A})$ 具有下列性质：
+\begin{enumerate}
+\item 它是加性范畴。
+\item 它有零对象。
+\item 它有核与余核、像与余像。
+\item 一般而言，它不是阿贝尔范畴。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然 $\text{Fil}(\mathcal{A})$ 是加性的；其直和由
+$(A, F) \oplus (B, F) = (A \oplus B, F)$ 给出，其中
+$F^p(A \oplus B) = F^pA \oplus F^pB$。滤过对象态射
+$f : (A, F) \to (B, F)$ 的核，是嵌入 $\Ker(f) \subset A$，
+其中 $\Ker(f)$ 配备诱导滤过。滤过对象态射 $f : A \to B$ 的余核，
+是满射态射 $B \to \Coker(f)$，其中 $\Coker(f)$ 配备商滤过。
+既然所有核与余核都存在，所有余像与像也存在。最后一个陈述见例
+\ref{homology-example-not-abelian}。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-strict}
+设 $\mathcal{A}$ 为阿贝尔范畴。若对所有 $i \in \mathbf{Z}$ 均有
+$f(F^iA) = f(A) \cap F^iB$，则称 $\mathcal{A}$ 的滤过对象之间的态射
+$f : A \to B$ 是{\it 严格的}。
+\end{definition}
+
+\noindent
+这也等价于要求对所有 $i \in \mathbf{Z}$ 均有
+$f^{-1}(F^iB) = F^iA + \Ker(f)$。如下刻画严格态射。
+
+\begin{lemma}
+\label{homology-lemma-characterize-strict-general}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $f : A \to B$ 是
+$\mathcal{A}$ 的滤过对象之间的态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 是严格的；
+\item 引理 \ref{homology-lemma-coim-im-map} 的态射
+$\Coim(f) \to \Im(f)$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意 $\Coim(f) \to \Im(f)$ 是 $\mathcal{A}$ 的对象之间的同构，而
+(2) 表示它是滤过对象之间的同构。由引理 \ref{homology-lemma-filtered} 的证明中
+对核与余核的描述，$\Coim(f)$ 上的滤过是来自
+$A \to \Coim(f)$ 的商滤过。类似地，$\Im(f)$ 上的滤过是来自嵌入
+$\Im(f) \to B$ 的诱导滤过。严格性的定义恰好说明该商滤过就是该诱导滤过。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-add-summand-strict-monomorphism}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $f : A \to B$ 是滤过对象之间的
+严格单态射，并设 $g : A \to C$ 是滤过对象态射。那么
+$f \oplus g : A \to B \oplus C$ 是严格单态射。
+\end{lemma}
+
+\begin{proof}
+由定义显然。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-add-summand-strict-epimorphism}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $f : B \to A$ 是滤过对象之间的
+严格满态射，并设 $g : C \to A$ 是滤过对象态射。那么
+$f \oplus g : B \oplus C \to A$ 是严格满态射。
+\end{lemma}
+
+\begin{proof}
+由定义显然。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-induced-and-quotient-strict}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(A, F)$、$(B, F)$ 为滤过对象，
+$u : A \to B$ 为滤过对象态射。若 $u$ 是单射态射，则 $u$ 严格当且仅当
+$A$ 上的滤过是诱导滤过。若 $u$ 是满射态射，则 $u$ 严格当且仅当
+$B$ 上的滤过是商滤过。
+\end{lemma}
+
+\begin{proof}
+由定义立即可得。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-composition-strict}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $f : A \to B$、$g : B \to C$
+为滤过对象之间的严格态射。
+\begin{enumerate}
+\item 一般而言，复合 $g \circ f$ 不严格。
+\item 若 $g$ 是单射态射，则 $g \circ f$ 严格。
+\item 若 $f$ 是满射态射，则 $g \circ f$ 严格。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $B$ 为域 $k$ 上以 $e_1, e_2$ 为基的向量空间，并带有如下滤过：
+当 $n < 0$ 时 $F^nB = B$，$F^0B = ke_1$，而当 $n > 0$ 时
+$F^nB = 0$。现取 $A = k(e_1 + e_2)$ 与 $C = B/ke_2$，并赋予由
+$B$ 诱导的滤过，即使得 $A \to B$ 与 $B \to C$ 严格的滤过
+（引理 \ref{homology-lemma-induced-and-quotient-strict}）。于是，当 $n < 0$ 时
+$F^n(A) = A$，而当 $n \geq 0$ 时 $F^n(A) = 0$。另外，当
+$n \leq 0$ 时 $F^n(C) = C$，而当 $n > 0$ 时 $F^n(C) = 0$。
+故非零复合 $A \to C$ 不严格。
+
+\medskip\noindent
+假设 $g$ 是单射态射。则
+\begin{align*}
+g(f(F^pA)) & = g(f(A) \cap F^pB) \\
+& = g(f(A)) \cap g(F^p(B)) \\
+& = (g \circ f)(A) \cap (g(B) \cap F^pC) \\
+& = (g \circ f)(A) \cap F^pC.
+\end{align*}
+第一个等式来自 $f$ 严格；第二个来自 $g$ 是单射态射；第三个来自
+$g$ 严格；第四个来自 $(g \circ f)(A) \subset g(B)$。
+
+\medskip\noindent
+假设 $f$ 是满射态射。则
+\begin{align*}
+(g \circ f)^{-1}(F^iC) & = f^{-1}(F^iB + \Ker(g)) \\
+& = f^{-1}(F^iB) + f^{-1}(\Ker(g)) \\
+& = F^iA + \Ker(f) + \Ker(g \circ f) \\
+& = F^iA + \Ker(g \circ f)
+\end{align*}
+第一个等式来自 $g$ 严格；第二个来自 $f$ 是满射态射；第三个来自
+$f$ 严格；最后一个来自 $\Ker(f) \subset \Ker(g \circ f)$。
+\end{proof}
+
+\noindent
+下面的引理说明，滤过对象的子对象具有良定义的滤过，与把该对象写成余核的
+方式无关。
+
+\begin{lemma}
+\label{homology-lemma-filtration-subobject}
+设 $\mathcal{A}$ 为阿贝尔范畴，$(A, F)$ 为 $\mathcal{A}$ 的滤过对象，
+并设 $X \subset Y \subset A$ 为 $A$ 的子对象。在对象
+$$
+Y/X = \Ker(A/X \to A/Y)
+$$
+上，来自 $Y$ 的诱导滤过的商滤过，与来自 $A/X$ 的商滤过的诱导滤过
+相同。态射 $X \to Y$、$X \to A$、$Y \to A$、$Y \to A/X$、
+$Y \to Y/X$、$Y/X \to A/X$ 中任一个，在配备诱导滤过或商滤过后都是
+严格的。
+\end{lemma}
+
+\begin{proof}
+$Y/X$ 上的商滤过由
+$F^p(Y/X) = F^pY/(X \cap F^pY) = F^pY/F^pX$ 给出，因为
+$F^pY = Y \cap F^pA$ 且 $F^pX = X \cap F^pA$。由嵌入
+$Y/X \to A/X$ 得到的诱导滤过为
+\begin{align*}
+F^p(Y/X) & = Y/X \cap F^p(A/X) \\
+& = Y/X \cap (F^pA + X)/X \\
+& = (Y \cap F^pA)/(X \cap F^pA) \\
+& = F^pY/F^pX.
+\end{align*}
+这证明了引理的第一个陈述。其余各情形的证明类似。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-pushout-filtered}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$A, B, C \in \text{Fil}(\mathcal{A})$。设 $f : A \to B$ 与
+$g : A \to C$ 为态射。那么在 $\text{Fil}(\mathcal{A})$ 中存在推出
+$$
+\xymatrix{
+A \ar[r]_f \ar[d]_g & B \ar[d]^{g'} \\
+C \ar[r]^{f'} & C \amalg_A B
+}
+$$
+若 $f$ 严格，则 $f'$ 也严格。
+\end{lemma}
+
+\begin{proof}
+令 $C \amalg_A B$ 等于 $\text{Fil}(\mathcal{A})$ 中的
+$\Coker((g, -f) : A \to C \oplus B)$。由引理 \ref{homology-lemma-filtered}，
+该余核存在。它是推出；见例 \ref{homology-example-fibre-product-pushouts}。
+注意 $F^p(C \amalg_A B)$ 是 $F^pC \oplus F^pB$ 的像。因此
+$$
+(f')^{-1}(F^p(C \amalg_A B)) = g(f^{-1}(F^pB)) + F^pC
+$$
+最后一个陈述由此可得。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-fibre-product-filtered}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$A, B, C \in \text{Fil}(\mathcal{A})$。设 $f : B \to A$ 与
+$g : C \to A$ 为态射。那么在 $\text{Fil}(\mathcal{A})$ 中存在纤维积
+$$
+\xymatrix{
+B \times_A C \ar[r]_{g'} \ar[d]_{f'} & B \ar[d]^f \\
+C \ar[r]^g & A
+}
+$$
+若 $f$ 严格，则 $f'$ 也严格。
+\end{lemma}
+
+\begin{proof}
+本引理与引理 \ref{homology-lemma-pushout-filtered} 对偶。
+\end{proof}
+
+\noindent
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(A, F)$ 为 $\mathcal{A}$ 的滤过对象。
+用 $\text{gr}^p_F(A) = \text{gr}^p(A)$ 表示 $\mathcal{A}$ 的对象
+$F^pA/F^{p + 1}A$。这定义了加性函子
+$$
+\text{gr}^p :
+\text{Fil}(\mathcal{A})
+\longrightarrow
+\mathcal{A}, \quad
+(A, F)
+\longmapsto
+\text{gr}^p(A).
+$$
+回忆我们已在第 \ref{homology-section-graded} 节定义 $\mathcal{A}$ 的分次对象范畴
+$\text{Gr}(\mathcal{A})$。对 $\text{Fil}(\mathcal{A})$ 中的
+$(A, F)$，可置
+$$
+\text{gr}(A) = \text{下列对象的分次对象： }\mathcal{A}\text{ 其 }
+p\text{次分次部分为 }\text{gr}^p(A)
+$$
+若 $\mathcal{A}$ 有可数直和，则简单地有
+$$
+\text{gr}(A) = \bigoplus \text{gr}^p(A)
+$$
+这定义了加性函子
+$$
+\text{gr} :
+\text{Fil}(\mathcal{A})
+\longrightarrow
+\text{Gr}(\mathcal{A}), \quad
+(A, F) \longmapsto \text{gr}(A).
+$$
+
+\begin{lemma}
+\label{homology-lemma-ses-gr}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 设 $A$ 为滤过对象且 $X \subset A$。那么对每个 $p$，序列
+$$
+0 \to \text{gr}^p(X) \to \text{gr}^p(A) \to \text{gr}^p(A/X) \to 0
+$$
+正合（其中 $X$ 配备诱导滤过，$A/X$ 配备商滤过）。
+\item 设 $f : A \to B$ 为 $\mathcal{A}$ 的滤过对象之间的态射。
+那么对每个 $p$，序列
+$$
+0 \to \text{gr}^p(\Ker(f)) \to \text{gr}^p(A) \to
+\text{gr}^p(\Coim(f)) \to 0
+$$
+及
+$$
+0 \to \text{gr}^p(\Im(f)) \to \text{gr}^p(B) \to
+\text{gr}^p(\Coker(f)) \to 0
+$$
+正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们有 $F^{p + 1}X = X \cap F^{p + 1}A$，故映射
+$\text{gr}^p(X) \to \text{gr}^p(A)$ 是单射态射。对偶地，映射
+$\text{gr}^p(A) \to \text{gr}^p(A/X)$ 是满射态射。映射
+$F^pA/F^{p + 1}A \to A/X + F^{p + 1}A$ 的核显然为
+$F^{p + 1}A + X \cap F^pA/F^{p + 1}A = F^pX/F^{p + 1}X$，
+故在中间正合。(2) 的两个短正合列是 (1) 的短正合列之特例。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-characterize-strict}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $f : A \to B$ 为
+$\mathcal{A}$ 的有限滤过对象之间的态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 严格；
+\item 态射 $\Coim(f) \to \Im(f)$ 是同构；
+\item $\text{gr}(\Coim(f)) \to \text{gr}(\Im(f))$ 是同构；
+\item 序列 $\text{gr}(\Ker(f)) \to \text{gr}(A) \to \text{gr}(B)$ 正合；
+\item 序列 $\text{gr}(A) \to \text{gr}(B) \to
+\text{gr}(\Coker(f))$ 正合；以及
+\item 序列
+$$
+0 \to
+\text{gr}(\Ker(f)) \to
+\text{gr}(A) \to
+\text{gr}(B) \to
+\text{gr}(\Coker(f)) \to 0
+$$
+正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性是引理 \ref{homology-lemma-characterize-strict-general}。
+由引理 \ref{homology-lemma-ses-gr}，可见 (4)、(5)、(6) 蕴含 (3)，且 (3)
+蕴含 (4)、(5)、(6)。因此只须证明 (3) 蕴含 (2)。于是我们要证明：
+若 $f : A \to B$ 是有限滤过对象之间的单射且满射的映射，并诱导同构
+$\text{gr}(A) \to \text{gr}(B)$，则 $f$ 诱导滤过对象之间的同构。
+换言之，要证明对所有 $p$ 均有 $f(F^pA) = F^pB$。由于滤过有限，
+可对 $p$ 作降归纳。假设 $f(F^{p + 1}A) = F^{p + 1}B$。那么交换图
+$$
+\xymatrix{
+0 \ar[r] &
+F^{p + 1}A \ar[r] \ar[d]^f &
+F^pA \ar[r] \ar[d]^f &
+\text{gr}^p(A) \ar[r] \ar[d]^{\text{gr}^p(f)} &
+0 \\
+0 \ar[r] &
+F^{p + 1}B \ar[r] &
+F^pB \ar[r] &
+\text{gr}^p(B) \ar[r] &
+0
+}
+$$
+与五引理蕴含 $f(F^pA) = F^pB$。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-filtered-complex}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $A \to B \to C$ 是
+$\mathcal{A}$ 的滤过对象所成的复形。假设
+$\alpha : A \to B$ 与 $\beta : B \to C$ 是滤过对象之间的严格态射。
+那么
+$\text{gr}(\Ker(\beta)/\Im(\alpha)) =
+\Ker(\text{gr}(\beta))/\Im(\text{gr}(\alpha)))$。
+% P02-E0014: source line 5082 contains an unmatched closing parenthesis.
+\end{lemma}
+
+\begin{proof}
+这形式地来自引理 \ref{homology-lemma-ses-gr}，以及由引理
+\ref{homology-lemma-characterize-strict-general} 得到的
+$\Coim(\alpha) \cong \Im(\alpha)$ 与
+$\Coim(\beta) \cong \Im(\beta)$。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-filtered-acyclic}
+设 $\mathcal{A}$ 为阿贝尔范畴。设 $A \to B \to C$ 是
+$\mathcal{A}$ 的滤过对象所成的复形。假设 $A, B, C$ 具有有限滤过，
+且 $\text{gr}(A) \to \text{gr}(B) \to \text{gr}(C)$ 正合。那么
+\begin{enumerate}
+\item 对每个 $p \in \mathbf{Z}$，序列
+$\text{gr}^p(A) \to \text{gr}^p(B) \to \text{gr}^p(C)$ 正合；
+\item 对每个 $p \in \mathbf{Z}$，序列
+$F^p(A) \to F^p(B) \to F^p(C)$ 正合；
+\item 对每个 $p \in \mathbf{Z}$，序列
+$A/F^p(A) \to B/F^p(B) \to C/F^p(C)$ 正合；
+\item 映射 $A \to B$ 与 $B \to C$ 严格；以及
+\item $A \to B \to C$ 正合（作为 $\mathcal{A}$ 中的序列）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由定义立即可得。我们对滤过的长度归纳证明 (3)。若 $A$、$B$、$C$
+都只有一个非零的分次部分，则 (3) 成立，因为 $\text{gr}(A) = A$ 等。
+令 $n$ 为使 $F^nA, F^nB, F^nC$ 中至少一个非零的最大整数。令
+$A' = A/F^nA$、$B' = B/F^nB$、$C' = C/F^nC$，并配备诱导滤过。
+注意 $\text{gr}(A) = F^nA \oplus \text{gr}(A')$，对 $B$ 与 $C$ 亦然。
+归纳假设可应用于 $A' \to B' \to C'$，从而蕴含当 $p \geq n$ 时
+$A/F^p(A) \to B/F^p(B) \to C/F^p(C)$ 正合。为对 $p = n + 1$
+得到同一结论，即证明 $A \to B \to C$ 正合，使用交换图
+$$
+\xymatrix{
+0 \ar[r] & F^nA \ar[r] \ar[d] & A \ar[r] \ar[d] & A' \ar[r] \ar[d] & 0 \\
+0 \ar[r] & F^nB \ar[r] \ar[d] & B \ar[r] \ar[d] & B' \ar[r] \ar[d] & 0 \\
+0 \ar[r] & F^nC \ar[r] & C \ar[r] & C' \ar[r] & 0
+}
+$$
+其各行是 $\mathcal{A}$ 中对象的短正合列。(2) 的证明与此对偶。
+当然，(5) 由 (2) 得到。
+
+\medskip\noindent
+为证明 (4)，用 $f : A \to B$ 与 $g : B \to C$ 表示给定态射。
+由 (2) 知 $f(F^p(A)) = \Ker(F^p(B) \to F^p(C))$，由 (5) 知
+$f(A) = \Ker(g)$。因此
+$f(F^p(A)) =  \Ker(F^p(B) \to F^p(C)) =
+\Ker(g) \cap F^p(B) = f(A) \cap F^p(B)$，这证明 $f$ 严格。
+$g$ 严格的证明与此对偶。
+\end{proof}
+
+\section{谱序列}
+\label{homology-section-spectral-sequence}
+
+\noindent
+关于谱序列的精彩讨论可见 \cite{Eisenbud}。亦见 \cite{McCleary}、
+\cite{Lang} 等。
+
+\begin{definition}
+\label{homology-definition-spectral-sequence}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item $\mathcal{A}$ 中的一个{\it 谱序列}由系统
+$(E_r, d_r)_{r \geq 1}$ 给出，其中每个 $E_r$ 是 $\mathcal{A}$ 的对象，
+每个 $d_r : E_r \to E_r$ 是满足 $d_r \circ d_r = 0$ 的态射，且对
+$r \geq 1$ 有 $E_{r + 1} = \Ker(d_r)/\Im(d_r)$。
+\item 一个{\it 谱序列态射}
+$f : (E_r, d_r)_{r \geq 1} \to (E'_r, d'_r)_{r \geq 1}$，
+由一族态射 $f_r : E_r \to E'_r$ 给出，并满足
+$f_r \circ d_r = d'_r \circ f_r$；此外，在等同
+$E_{r + 1} = \Ker(d_r)/\Im(d_r)$ 与
+$E'_{r + 1} = \Ker(d'_r)/\Im(d'_r)$ 下，$f_{r + 1}$ 是由 $f_r$
+诱导的态射。
+\end{enumerate}
+\end{definition}
+
+\noindent
+有时我们会稍微放宽这一定义，允许 $E_{r + 1}$ 是配备给定同构
+$E_{r + 1} \to \Ker(d_r)/\Im(d_r)$ 的对象。此外，有时对某个
+$r_0 \in \mathbf{Z}$，我们有系统 $(E_r, d_r)_{r \geq r_0}$，
+它对指标 $\geq r_0$ 满足上面定义的性质。我们也称其为谱序列，因为简单地
+重新编号后，它无论如何都落在该定义之内。事实上，文献中可见
+$r_0 = 0$ 与 $r_0 = -1$ 的情形。
+
+\medskip\noindent
+给定谱序列 $(E_r, d_r)_{r \geq 1}$，按如下简单过程定义
+$$
+0 = B_1 \subset B_2 \subset \ldots \subset B_r \subset \ldots
+\subset Z_r \subset \ldots \subset Z_2 \subset Z_1 = E_1
+$$
+令 $B_2 = \Im(d_1)$、$Z_2 = \Ker(d_1)$。于是显然有
+$d_2 : Z_2/B_2 \to Z_2/B_2$。因此可把 $B_3$ 定义为包含 $B_2$
+且使 $B_3/B_2$ 为 $d_2$ 之像的 $E_1$ 的唯一子对象。类似地，可把
+$Z_3$ 定义为包含 $B_2$ 且使 $Z_3/B_2$ 为 $d_2$ 之核的 $E_1$
+的唯一子对象。依此类推。特别地，对所有 $r \geq 1$ 有
+$$
+E_r = Z_r/B_r
+$$
+若谱序列始于 $r = r_0$，则类似地可把 $B_i$、$Z_i$ 构造为
+$E_{r_0}$ 的子对象。事实上，文献中有时使用记号
+$$
+0 = B_r(E_r) \subset B_{r + 1}(E_r) \subset B_{r + 2}(E_r) \subset \ldots
+\subset Z_{r + 2}(E_r) \subset Z_{r + 1}(E_r) \subset Z_r(E_r) = E_r
+$$
+表示上面所述但以 $E_r$ 开始的滤过。
+
+\begin{definition}
+\label{homology-definition-limit-spectral-sequence}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(E_r, d_r)_{r \geq 1}$ 为谱序列。
+\begin{enumerate}
+\item 若 $E_1$ 的子对象 $Z_{\infty} = \bigcap Z_r$ 与
+$B_{\infty} = \bigcup B_r$ 存在，则把谱序列的
+{\it 极限}\footnote{这一记号并未得到普遍接受。在一些参考文献中，
+$E_1$ 的一对子对象 $Z_\infty$ 与 $B_\infty$，满足
+$0 = B_1 \subset B_2 \subset \ldots \subset B_\infty \subset Z_\infty
+\subset \ldots \subset Z_2 \subset Z_1 = E_1$，是构成谱序列的数据的一部分！}
+定义为对象 $E_{\infty} = Z_{\infty}/B_{\infty}$。
+\item 若微分 $d_r, d_{r + 1}, \ldots$ 全都为零，则称该谱序列
+{\it 在 $E_r$ 处退化}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，若谱序列在 $E_r$ 处退化，则
+$E_r = E_{r + 1} = \ldots = E_{\infty}$（而且极限当然存在）。
+此外，我们将遇到的几乎每个阿贝尔范畴都有可数和与交。
+
+\begin{remark}[变体]
+\label{homology-remark-allow-translation-functors}
+谱序列的各项通常带有附加结构，例如分次或双分次。为容纳这种情形
+（并绕开某些技术问题），引入如下概念。设 $\mathcal{A}$ 为阿贝尔范畴，
+并设 $(T_r)_{r \geq 1}$ 为一列{\it 平移}函子或{\it 移位}函子，
+也就是说 $T_r : \mathcal{A} \to \mathcal{A}$ 是范畴同构。
+在这一设定下，一个{\it 谱序列}由系统 $(E_r, d_r)_{r \geq 1}$ 给出，
+其中每个 $E_r$ 是 $\mathcal{A}$ 的对象，每个
+$d_r : E_r \to T_rE_r$ 是满足 $T_rd_r \circ d_r = 0$ 的态射，从而
+$$
+\xymatrix{
+\ldots \ar[r] &
+T_r^{-1}E_r \ar[r]^-{T_r^{-1}d_r} &
+E_r \ar[r]^-{d_r} &
+T_rE_r \ar[r]^{T_r d_r} &
+T_r^2E_r \ar[r] & \ldots
+}
+$$
+是复形，并且对 $r \geq 1$ 有
+$E_{r + 1} = \Ker(d_r)/\Im(T_r^{-1}d_r)$。在这一设定下，
+{\it 谱序列态射}的含义是清楚的。在这一设定下仍可定义
+$$
+0 = B_1 \subset B_2 \subset \ldots \subset B_r \subset \ldots
+\subset Z_r \subset \ldots \subset Z_2 \subset Z_1 = E_1
+$$
+以及如上的 $Z_\infty$ 与 $B_\infty$（如果它们存在）。
+\end{remark}
+
+\section{谱序列：正合偶}
+\label{homology-section-exact-couple}
+
+\begin{definition}
+\label{homology-definition-exact-couple}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 一个{\it 正合偶}是数据 $(A, E, \alpha, f, g)$，其中
+$A$、$E$ 是 $\mathcal{A}$ 的对象，而 $\alpha$、$f$、$g$ 是下图中的态射：
+$$
+\xymatrix{
+A \ar[rr]_{\alpha} & & A \ar[ld]^g \\
+& E \ar[lu]^f &
+}
+$$
+并要求每个箭头的核都是其前一箭头的像。因此
+$\Ker(\alpha) = \Im(f)$、$\Ker(f) = \Im(g)$，且
+$\Ker(g) = \Im(\alpha)$。
+\item 一个{\it 正合偶态射}
+$t : (A, E, \alpha, f, g) \to (A', E', \alpha', f', g')$，
+由态射 $t_A : A \to A'$ 与 $t_E : E \to E'$ 给出，并满足
+$\alpha' \circ t_A = t_A \circ \alpha$、
+$f' \circ t_E = t_A \circ f$，且 $g' \circ t_A = t_E \circ g$。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-derived-exact-couple}
+设 $(A, E, \alpha, f, g)$ 是阿贝尔范畴 $\mathcal{A}$ 中的正合偶。
+置
+\begin{enumerate}
+\item $d = g \circ f : E \to E$，从而 $d \circ d = 0$；
+\item $E' = \Ker(d)/\Im(d)$；
+\item $A' = \Im(\alpha)$；
+\item $\alpha' : A' \to A'$ 为 $\alpha$ 诱导的态射；
+\item $f' : E' \to A'$ 为 $f$ 诱导的态射；
+\item $g' : A' \to E'$ 为“$g \circ \alpha^{-1}$”诱导的态射。
+\end{enumerate}
+那么
+\begin{enumerate}
+\item $\Ker(d) = f^{-1}(\Ker(g)) = f^{-1}(\Im(\alpha))$；
+\item $\Im(d) = g(\Im(f)) = g(\Ker(\alpha))$；
+\item $(A', E', \alpha', f', g')$ 是正合偶。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+因此显然，给定正合偶 $(A, E, \alpha, f, g)$，令
+$E_1 = E$、$d_1 = d$、$E_2 = E'$、$d_2 = d' = g' \circ f'$、
+$E_3 = E''$、$d_3 = d'' = g'' \circ f''$，依此类推，就得到谱序列。
+
+\begin{definition}
+\label{homology-definition-spectral-sequence-associated-exact-couple}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(A, E, \alpha, f, g)$ 为正合偶。
+{\it 关联于该正合偶的谱序列}，是谱序列
+$(E_r, d_r)_{r \geq 1}$，其中 $E_1 = E$、$d_1 = d$、
+$E_2 = E'$、$d_2 = d' = g' \circ f'$、$E_3 = E''$、
+$d_3 = d'' = g'' \circ f''$，依此类推。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-spectral-sequence-associated-exact-couple}
+设 $\mathcal{A}$ 为阿贝尔范畴，$(A, E, \alpha, f, g)$ 为正合偶，
+并设 $(E_r, d_r)_{r \geq 1}$ 为关联于该正合偶的谱序列。在这种情况下有
+$$
+0 = B_1 \subset \ldots \subset
+B_{r + 1} = g(\Ker(\alpha^r))
+\subset \ldots \subset
+Z_{r + 1} = f^{-1}(\Im(\alpha^r))
+\subset \ldots \subset Z_1 = E
+$$
+且映射 $d_{r + 1} : E_{r + 1} \to E_{r + 1}$ 由下列规则描述：
+对 $\mathcal{A}$ 的任意（测试）对象 $T$ 以及任意元素
+$x : T \to Z_{r + 1}$、$y : T \to A$，若
+$f \circ x = \alpha^r \circ y$，则
+$$
+d_{r + 1} \circ \overline{x} = \overline{g \circ y}
+$$
+其中 $\overline{x} : T \to E_{r + 1}$ 是诱导态射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+注意，在引理的情形中，只要 $\bigcup \Ker(\alpha^r)$ 与
+$\bigcap \Im(\alpha^r)$ 存在，显然有
+$$
+B_\infty = g\left(\bigcup\nolimits_r \Ker(\alpha^r)\right)
+\subset
+Z_\infty = f^{-1}\left(\bigcap\nolimits_r \Im(\alpha^r)\right)
+$$
+这产生极限 $E_\infty = Z_\infty / B_\infty$；见定义
+\ref{homology-definition-limit-spectral-sequence}。
+
+\begin{remark}[变体]
+\label{homology-remark-shifted-exact-couple}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$S, T : \mathcal{A} \to \mathcal{A}$ 为移位函子，即范畴同构。
+对 $A \in \Ob(\mathcal{A})$ 与 $n \in \mathbf{Z}$，我们用
+$S^nA$ 与 $T^nA$ 表示 $n$ 重复合。在这种情况下，一个{\it 正合偶}
+是数据 $(A, E, \alpha, f, g)$，其中 $A$、$E$ 是 $\mathcal{A}$ 的对象，
+而 $\alpha : A \to T^{-1}A$、$f : E \to A$、$g : A \to SE$
+为态射，使得
+$$
+\xymatrix{
+TE \ar[r]^-{Tf} &
+TA \ar[r]^-{T\alpha} &
+A \ar[r]^-{g} &
+SE \ar[r]^{Sf} & SA
+}
+$$
+是正合复形。可将其图示如下：
+$$
+\xymatrix{
+TA \ar[rrr]_{T\alpha} & & &
+A \ar[ld]^g \ar[rrr]_\alpha & & &
+T^{-1}A \ar[ld]^{T^{-1}g} \\
+& TE \ar[lu]^{Tf} \ar@{..}[r] & SE & &
+E \ar[lu]^f \ar@{..}[r] & T^{-1}SE
+}
+$$
+置 $d = g \circ f : E \to SE$。那么
+$d \circ S^{-1}d = g \circ f \circ S^{-1}g \circ S^{-1}f = 0$，
+因为 $f \circ S^{-1}g = 0$。置
+$E' = \Ker(d)/\Im(S^{-1}d)$、$A' = \Im(T\alpha)$。
+令 $\alpha' : A' \to T^{-1}A'$ 为 $\alpha$ 诱导的态射。令
+$f' : E' \to A'$ 为 $f$ 诱导的态射；这是可行的，因为
+$f(\Ker(d)) \subset \Ker(g) = \Im(T\alpha)$。最后，令
+$g' : A' \to TSE'$ 为“$Tg \circ (T\alpha)^{-1}$”诱导的态射\footnote{这是
+可行的，因为 $TSE' = \Ker(TSd)/\Im(Td)$，且
+$Tg(\Ker(T\alpha)) = Tg(\Im(Tf)) = \Im(T(d))$，以及
+$TS(d)(\Im(Tg)) = \Im(TSg \circ TSf \circ Tg) = 0$。}。
+
+\medskip\noindent
+与上文完全相同地可得
+\begin{enumerate}
+\item $\Ker(d) = f^{-1}(\Ker(g)) = f^{-1}(\Im(T\alpha))$；
+\item $\Im(d) = g(\Im(f)) = g(\Ker(\alpha))$；
+\item $(A', E', \alpha', f', g')$ 是关于移位函子 $TS$ 与 $T$ 的正合偶。
+\end{enumerate}
+我们得到一个谱序列（如注记 \ref{homology-remark-allow-translation-functors}），
+其 $E_1 = E$、$E_2 = E'$ 等，并且对所有 $r \geq 1$ 有
+$d_r : E_r \to T^{r - 1}SE_r$。引理
+\ref{homology-lemma-spectral-sequence-associated-exact-couple} 告诉我们，在这种情况下
+$$
+SB_{r + 1} =
+g(\Ker(T^{-r + 1}\alpha \circ \ldots \circ T^{-1}\alpha \circ \alpha))
+$$
+以及
+$$
+Z_{r + 1} = f^{-1}(\Im(T\alpha \circ T^2\alpha \circ \ldots \circ T^r\alpha))
+$$
+映射 $d_{r + 1}$ 的描述与引理中给出的类似。（也许使用这些显式描述来证明
+由这样的正合偶得到谱序列会更容易。）
+\end{remark}
+
+\section{谱序列：微分对象}
+\label{homology-section-differential-object}
+
+\begin{definition}
+\label{homology-definition-differential-object}
+设 $\mathcal{A}$ 为阿贝尔范畴。$\mathcal{A}$ 的一个{\it 微分对象}，
+是二元组 $(A, d)$，其中 $A$ 是 $\mathcal{A}$ 的对象，并配备满足
+$d \circ d = 0$ 的自映射 $d$。一个{\it 微分对象态射}
+$(A, d) \to (B, d)$，由满足 $d \circ \alpha = \alpha \circ d$ 的
+态射 $\alpha : A \to B$ 给出。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-differential-objects-abelian}
+\begin{slogan}
+阿贝尔范畴的微分对象之范畴本身是阿贝尔范畴。
+\end{slogan}
+设 $\mathcal{A}$ 为阿贝尔范畴。$\mathcal{A}$ 的微分对象之范畴是阿贝尔范畴。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-differential-object-homology}
+对微分对象 $(A, d)$，用
+$$
+H(A, d) = \Ker(d)/\Im(d)
+$$
+表示它的{\it 同调}。
+\end{definition}
+
+\begin{lemma}
+\label{homology-lemma-differential-objects-ses}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$0 \to (A, d) \to (B, d) \to (C, d) \to 0$ 为微分对象的短正合列。
+那么得到正合同调列
+$$
+\ldots \to H(C, d) \to H(A, d) \to H(B, d) \to H(C, d) \to \ldots
+$$
+\end{lemma}
+
+\begin{proof}
+把引理 \ref{homology-lemma-long-exact-sequence-cochain} 应用于复形短正合列
+$$
+\begin{matrix}
+0 & \to & A & \to & B & \to & C & \to & 0 \\
+& & \downarrow & & \downarrow & & \downarrow \\
+0 & \to & A & \to & B & \to & C & \to & 0 \\
+& & \downarrow & & \downarrow & & \downarrow \\
+0 & \to & A & \to & B & \to & C & \to & 0
+\end{matrix}
+$$
+其中竖直箭头为 $d$。
+\end{proof}
+
+\noindent
+下面给出谱序列的一个重要例子。设 $\mathcal{A}$ 为阿贝尔范畴，
+$(A, d)$ 为 $\mathcal{A}$ 的微分对象，并设
+$\alpha : (A, d) \to (A, d)$ 为该微分对象的自同态。若假设
+$\alpha$ 是单射态射，则得到微分对象的短正合列
+$$
+0 \to (A, d) \to (A, d) \to (A/\alpha A, d) \to 0
+$$
+由引理 \ref{homology-lemma-differential-objects-ses}，得到正合偶
+$$
+\xymatrix{
+H(A, d) \ar[rr]_{\overline{\alpha}} & & H(A, d) \ar[ld]^g \\
+& H(A/\alpha A, d) \ar[lu]^f &
+}
+$$
+其中 $g$ 是典范映射，$f$ 是蛇引理中定义的映射。由第
+\ref{homology-section-exact-couple} 节，得到一个相伴谱序列。由于在此情形中
+$E_1 = H(A/\alpha A, d)$，定义 $E_0 = A/\alpha A$ 与 $d_0 = d$
+是有意义的。换言之，我们从 $r = 0$ 开始谱序列。按照第
+\ref{homology-section-spectral-sequence} 节的约定，定义一列子对象
+$$
+0 = B_0 \subset \ldots \subset B_r \subset \ldots
+\subset Z_r \subset \ldots \subset Z_0 = E_0
+$$
+并满足 $E_r = Z_r/B_r$。由引理
+\ref{homology-lemma-spectral-sequence-associated-exact-couple}，对 $r \geq 1$ 有
+\begin{enumerate}
+\item $B_r$ 是 $(\alpha^{r - 1})^{-1}(d A)$ 在自然映射
+$A \to A/\alpha A$ 下的像；
+\item $Z_r$ 是 $d^{-1}(\alpha^r A)$ 在自然映射
+$A \to A/\alpha A$ 下的像；以及
+\item $d_r : E_r \to E_r$ 如下给出：给定元素 $z \in Z_r$，选取
+$y \in A$ 使得 $d(z) = \alpha^r(y)$。那么
+$d_r(z + B_r + \alpha A) = y + B_r + \alpha A$。
+\end{enumerate}
+警告：不一定有 $\alpha A \subset (\alpha^{r - 1})^{-1}(dA)$，也不一定有
+$\alpha A \subset d^{-1}(\alpha^r A)$。成立的是
+$(\alpha^{r - 1})^{-1}(dA) \subset d^{-1}(\alpha^r A)$。我们有
+$$
+E_r
+=
+\frac{d^{-1}(\alpha^r A) + \alpha A}{(\alpha^{r - 1})^{-1}(dA) + \alpha A}.
+$$
+直接验证 (1)--(3) 给出谱序列并不困难。
+
+\begin{definition}
+\label{homology-definition-differential-object-selfmap}
+设 $\mathcal{A}$ 为阿贝尔范畴，$(A, d)$ 为 $\mathcal{A}$ 的微分对象，
+并设 $\alpha : A \to A$ 为 $A$ 的、与 $d$ 交换的单射自映射。{\it 关联于
+$(A, d, \alpha)$ 的谱序列}，是上面描述的谱序列
+$(E_r, d_r)_{r \geq 0}$。
+\end{definition}
+
+\begin{remark}[变体]
+\label{homology-remark-differential-object-selfmap}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$S, T : \mathcal{A} \to \mathcal{A}$ 为移位函子，即范畴同构。
+假设作为函子有 $TS = ST$。考虑二元组 $(A, d)$，其中 $A$ 是
+$\mathcal{A}$ 的对象，而 $d : A \to SA$ 是满足
+$d \circ S^{-1}d = 0$ 的态射。这些对象所成的范畴是阿贝尔范畴。
+定义 $H(A, d) = \Ker(d)/\Im(S^{-1}d)$，并注意
+$H(SA, Sd) = SH(A, d)$（典范同构）。给定短正合列
+$$
+0 \to (A, d) \to (B, d) \to (C, d) \to 0
+$$
+得到长正合同调列
+$$
+\ldots \to S^{-1}H(C, d) \to
+H(A, d) \to H(B, d) \to H(C, d) \to SH(A, d) \to \ldots
+$$
+（注意边界映射中的移位）。由于 $ST = TS$，函子 $T$ 通过置
+$T(A, d) = (TA, Td)$ 定义二元组范畴上的移位函子。其次，设
+$\alpha : (A, d) \to T^{-1}(A, d)$ 是单射态射，其余核为 $(Q, d)$。
+那么得到如注记 \ref{homology-remark-shifted-exact-couple} 中关于移位函子
+$TS$ 与 $T$ 的正合偶
+$$
+(H(A, d), S^{-1}H(Q, d), \overline{\alpha}, f, g)
+$$
+其中 $\overline{\alpha} : H(A, d) \to T^{-1}H(A, d)$ 由
+$\alpha$ 诱导，映射 $f : S^{-1}H(Q, d) \to H(A, d)$ 是边界映射，
+而 $g : H(A, d) \to TH(Q, d) = TS(S^{-1}H(Q, d))$ 由商映射
+$A \to TQ$ 诱导。因此得到如上的谱序列，其
+$E_1 = S^{-1}H(Q, d)$，微分为 $d_r : E_r \to T^rSE_r$。
+如上置 $E_0 = S^{-1}Q$，并令 $d_0 : E_0 \to SE_0$ 由
+$S^{-1}d : S^{-1}Q \to Q$ 给出。若按照约定定义
+$B_r \subset Z_r \subset E_0$，则对 $r \geq 1$ 有
+\begin{enumerate}
+\item $SB_r$ 是
+$$
+(T^{-r + 1}\alpha \circ \ldots \circ T^{-1}\alpha)^{-1}
+\Im(T^{-r}S^{-1}d)
+$$
+在自然映射 $T^{-1}A \to Q$ 下的像；
+\item $Z_r$ 是
+$$
+(S^{-1}T^{-1}d)^{-1}
+\Im(\alpha \circ \ldots \circ T^{r - 1}\alpha)
+$$
+在自然映射 $S^{-1}T^{-1}A \to S^{-1}Q$ 下的像。
+\end{enumerate}
+微分可描述如下：若 $x \in Z_r$，选取映到 $x$ 的
+$x' \in S^{-1}T^{-1}A$。那么对某个 $y \in T^{r - 1}A$，
+$S^{-1}T^{-1}d(x')$ 是
+$(\alpha \circ \ldots \circ T^{r - 1}\alpha)(y)$。于是
+$d_r(x) \in T^rSE_r$ 由 $y$ 在 $T^rSE_0 = T^rQ$ 中的像之模
+$T^rSB_r$ 的类表示。
+\end{remark}
+
+\section{谱序列：滤过微分对象}
+\label{homology-section-filtered-differential}
+
+\noindent
+可以从一个滤过微分对象出发构造谱序列。
+
+\begin{definition}
+\label{homology-definition-filtered-differential}
+设 $\mathcal{A}$ 为阿贝尔范畴。一个{\it 滤过微分对象}
+$(K, F, d)$，是 $\mathcal{A}$ 的滤过对象 $(K, F)$，并配备平方为零的
+自同态 $d : (K, F) \to (K, F)$，即 $d \circ d = 0$。
+\end{definition}
+
+\noindent
+为描述关联于这种对象的谱序列，暂时假设 $\mathcal{A}$ 是具有可数直和且
+可数直和正合的阿贝尔范畴（这不是自动成立的；见注记
+\ref{homology-remark-direct-sums-not-exact}）。设 $(K, F, d)$ 为
+$\mathcal{A}$ 的滤过微分对象。注意每个 $F^nK$ 本身都是微分对象。
+考虑对象 $A = \bigoplus F^nK$，并在每个直和项上使用 $d$，从而为其
+配备微分 $d$。那么 $(A, d)$ 是 $\mathcal{A}$ 的带分次微分对象。
+考虑映射
+$$
+\alpha : A \to A
+$$
+它由各嵌入 $F^nK \to F^{n - 1}K$ 给出。这显然是微分对象之间的
+单射态射 $\alpha : (A, d) \to (A, d)$。因此，由定义
+\ref{homology-definition-differential-object-selfmap} 得到一个谱序列。
+我们称它为{\it 关联于滤过微分对象 $(K, F, d)$ 的谱序列}。
+
+\medskip\noindent
+来求出这个谱序列的各项。首先，注意
+$A/\alpha A = \text{gr}(K)$，并带有微分 $d = \text{gr}(d)$。
+因此可见
+$$
+E_0 = \text{gr}(K), \quad d_0 = \text{gr}(d).
+$$
+于是分次微分对象 $\text{gr}(K)$ 的同调是下一项：
+$$
+E_1 = H(\text{gr}(K), \text{gr}(d)).
+$$
+此外，$E_0$ 是 $\mathcal{A}$ 的分次对象，而 $d_0$ 与该分次相容，
+故 $E_1$ 显然也是分次对象。然而，微分 $d_1$ 并不保持这一分次，
+而是把次数平移 $1$。
+
+\medskip\noindent
+为精确说明这一点，定义
+$$
+Z_r^p =
+\frac{F^pK \cap d^{-1}(F^{p + r}K) + F^{p + 1}K}{F^{p + 1}K}
+$$
+以及
+$$
+B_r^p =
+\frac{F^pK \cap d(F^{p - r + 1}K) + F^{p + 1}K}{F^{p + 1}K}.
+$$
+这一记号虽然相当自然，但似乎不同于文献中大多数地方的记号。
+也许这并不重要，因为文献本身似乎也没有一致的记号选择。
+按这些选择，第 \ref{homology-section-differential-object} 节中定义的
+$B_r \subset E_0$（相应地，$Z_r \subset E_0$）等于
+$\bigoplus_p B_r^p$（相应地，$\bigoplus_p Z_r^p$）。因此，若对
+$r \geq 0$ 与 $p \in \mathbf{Z}$ 定义
+$$
+E_r^p = Z_r^p/B_r^p
+$$
+则 $E_r = \bigoplus_p E_r^p$。可按规则
+$$
+z + F^{p + 1}K
+\longmapsto
+dz + F^{p + r + 1}K
+$$
+定义微分 $d_r^p : E_r^p \to E_r^{p + r}$，其中
+$z \in F^pK \cap d^{-1}(F^{p + r}K)$。
+
+\begin{lemma}
+\label{homology-lemma-spectral-sequence-filtered-differential}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K, F, d)$ 为 $\mathcal{A}$ 的
+滤过微分对象。存在 $\text{Gr}(\mathcal{A})$ 中关联于 $(K, F, d)$
+的谱序列 $(E_r, d_r)_{r \geq 0}$，使得对所有 $r$ 均有
+$d_r : E_r \to E_r[r]$，并且分次部分 $E_r^p$ 及映射
+$d_r^p : E_r^p \to E_r^{p + r}$ 如上给出。此外，
+$E_0^p = \text{gr}^p K$、$d_0^p = \text{gr}^p(d)$，且
+$E_1^p = H(\text{gr}^pK, \text{gr}^p(d))$。
+\end{lemma}
+
+\begin{proof}
+若 $\mathcal{A}$ 有可数直和且可数直和正合，则结论来自上面的讨论。
+一般情形如下处理；我们强烈建议读者跳过这个证明。考虑
+$\text{Gr}(\mathcal{A})$ 的对象 $A = (F^{p + 1}K)$，即把
+$F^{p + 1}K$ 置于次数 $p$（编号中的奇特平移是为了使后面的编号正确）。
+通过在每个分量上使用 $d$，为其配备微分 $d$。那么 $(A, d)$ 是
+$\text{Gr}(\mathcal{A})$ 的微分对象。考虑映射
+$$
+\alpha : A \to A[-1]
+$$
+它在次数 $p$ 处由嵌入 $F^{p + 1}A \to F^pA$ 给出。
+% P02-E0015: source line 5773 applies F to A; the construction defined A^p=F^{p+1}K and appears to require the inclusions F^{p+1}K -> F^pK.
+这显然是微分对象之间的单射态射
+$\alpha : (A, d) \to (A, d)[-1]$。因此可在
+$S = \text{id}$、$T = [1]$ 时应用注记
+\ref{homology-remark-differential-object-selfmap}。所得
+$\text{Gr}(\mathcal{A})$ 中的谱序列
+$(E_r, d_r)_{r \geq 0}$ 正是我们所求的谱序列。稍微展开这些定义。
+首先，$E_r = (E_r^p)$ 是 $\text{Gr}(\mathcal{A})$ 的对象。
+其次，由于 $T^rS = [r]$，有 $d_r : E_r \to E_r[r]$，即
+$d_r^p : E_r^p \to E_r^{p + r}$。
+
+\medskip\noindent
+为看出分次部分的描述成立，按上面的方法论证。首先有
+$E_0 = \Coker(\alpha : A \to A[-1])$，由上面的编号选择，这给出
+$E_0^p = \text{gr}^pK$。第一个微分为
+$d_0^p = \text{gr}^pd : E_0^p \to E_0^p$。其次，注记
+\ref{homology-remark-differential-object-selfmap} 中对边界 $B_r$ 与余闭元
+$Z_r$ 的描述，直接转化为上面给出的 $Z_r^p$ 与 $B_r^p$ 的公式。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-spectral-sequence-filtered-differential-d1}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K, F, d)$ 为 $\mathcal{A}$ 的
+滤过微分对象。关联于 $(K, F, d)$ 的谱序列
+$(E_r, d_r)_{r \geq 0}$ 中的
+$$
+d_1^p :
+E_1^p = H(\text{gr}^pK)
+\longrightarrow
+H(\text{gr}^{p + 1}K) = E_1^{p + 1}
+$$
+等于关联于微分对象短正合列
+$$
+0 \to \text{gr}^{p + 1}K \to F^pK/F^{p + 2}K \to \text{gr}^pK \to 0.
+$$
+的同调边界映射。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{homology-lemma-spectral-sequence-filtered-differential} 前给出的
+微分 $d_1^p$ 的公式显然可得。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-filtration-cohomology-filtered-differential}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K, F, d)$ 为 $\mathcal{A}$ 的
+滤过微分对象。$H(K, d)$ 上的{\it 诱导滤过}定义为
+$F^pH(K, d) = \Im(H(F^pK, d) \to H(K, d))$。
+\end{definition}
+
+\noindent
+展开其含义可见
+$$
+F^pH(K, d) =
+\frac{\Ker(d) \cap F^pK + \Im(d)}{\Im(d)}
+$$
+因而
+$$
+\text{gr}^p H(K) =
+\frac{\Ker(d) \cap F^pK + \Im(d)}{\Ker(d) \cap F^{p + 1}K + \Im(d)} =
+\frac{\Ker(d) \cap F^pK}{\Ker(d) \cap F^{p + 1}K + \Im(d) \cap F^pK}
+$$
+
+\begin{lemma}
+\label{homology-lemma-compute-filtered-cohomology}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K, F, d)$ 为 $\mathcal{A}$ 的
+滤过微分对象。若 $Z_\infty^p$ 与 $B_\infty^p$ 存在（见证明），则
+\begin{enumerate}
+\item 极限 $E_\infty$ 存在并且是分次的，其次数 $p$ 部分为
+$E_\infty^p = Z_\infty^p/B_\infty^p$；以及
+\item $K$ 的同调的相伴分次对象 $\text{gr}(H(K))$ 是分次极限对象
+$E_\infty$ 的分次子商。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+定义 \ref{homology-definition-limit-spectral-sequence} 的对象 $Z_\infty$、
+$B_\infty$ 及极限 $E_\infty = Z_\infty/B_\infty$，按照引理
+\ref{homology-lemma-spectral-sequence-filtered-differential} 的证明中对谱序列的
+构造，是 $\text{Gr}(\mathcal{A})$ 的对象。
+由于 $Z_r^p$（相应地，$B_r^p$）是 $Z_r$（相应地，$B_r$）的第 $p$
+个分次部分，若假设
+$$
+Z_\infty^p = \bigcap\nolimits_r Z_r^p =
+\frac{\bigcap_r (F^pK \cap d^{-1}(F^{p + r}K) + F^{p + 1}K)}{F^{p + 1}K}
+$$
+及
+$$
+B_\infty^p = \bigcup\nolimits_r B_r^p =
+\frac{\bigcup_r (F^pK \cap d(F^{p - r + 1}K) + F^{p + 1}K)}{F^{p + 1}K}.
+$$
+存在，则 $Z_\infty$ 与 $B_\infty$ 存在，且其次数 $p$ 部分分别为
+$Z_\infty^p$ 与 $B_\infty^p$（这来自关于分次子对象之并与交的初等论证）。
+因此
+$$
+E_\infty^p =
+\frac{\bigcap_r (F^pK \cap d^{-1}(F^{p + r}K) + F^{p + 1}K)}
+{\bigcup_r (F^pK \cap d(F^{p - r + 1}K) + F^{p + 1}K)}.
+$$
+其中分子与分母都存在。我们有
+\begin{equation}
+\label{homology-equation-on-top}
+\Ker(d) \cap F^pK + F^{p + 1}K
+\subset
+\bigcap\nolimits_r \left(F^pK \cap d^{-1}(F^{p + r}K) + F^{p + 1}K\right)
+\end{equation}
+以及
+\begin{equation}
+\label{homology-equation-at-bottom}
+\bigcup\nolimits_r \left(F^pK \cap d(F^{p - r + 1}K) + F^{p + 1}K\right)
+\subset
+\Im(d) \cap F^pK + F^{p + 1}K.
+\end{equation}
+因此，$E_\infty^p$ 的一个子商为
+$$
+\frac{\Ker(d) \cap F^pK + F^{p + 1}K}{\Im(d) \cap F^pK + F^{p + 1}K} =
+\frac{\Ker(d) \cap F^pK}{\Im(d) \cap F^pK + \Ker(d) \cap F^{p + 1}K}
+$$
+将其与定义 \ref{homology-definition-filtration-cohomology-filtered-differential}
+后的讨论中给出的 $\text{gr}^pH(K)$ 公式比较，即得结论。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-filtered-differential-ss-converges}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K, F, d)$ 为 $\mathcal{A}$ 的
+滤过微分对象。称关联于 $(K, F, d)$ 的谱序列
+\begin{enumerate}
+\item {\it 弱收敛到 $H(K)$}，若通过引理
+\ref{homology-lemma-compute-filtered-cohomology} 有
+$\text{gr}H(K) = E_{\infty}$；
+\item {\it 汇聚到 $H(K)$}，若它弱收敛到 $H(K)$，并且
+$\bigcap F^pH(K) = 0$、$\bigcup F^pH(K) = H(K)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+遗憾的是，文献中似乎很难找到关于这些概念的一套一致术语。
+
+\begin{lemma}
+\label{homology-lemma-filtered-differential-ss-converges}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K, F, d)$ 为 $\mathcal{A}$ 的
+滤过微分对象。关联谱序列
+\begin{enumerate}
+\item 弱收敛到 $H(K)$，当且仅当对每个 $p \in \mathbf{Z}$，
+等式 (\ref{homology-equation-at-bottom}) 与 (\ref{homology-equation-on-top}) 中均取等号；
+\item 汇聚到 $H(K)$，当且仅当它弱收敛到 $H(K)$，并且
+$\bigcap_p (\Ker(d) \cap F^pK + \Im(d)) = \Im(d)$ 及
+$\bigcup_p (\Ker(d) \cap F^pK + \Im(d)) = \Ker(d)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由上面的讨论立即可得。
+\end{proof}
+
+\section{谱序列：滤过复形}
+\label{homology-section-filtered-complex}
+
+\begin{definition}
+\label{homology-definition-filtered-complex}
+设 $\mathcal{A}$ 为阿贝尔范畴。$\mathcal{A}$ 的一个
+{\it 滤过复形 $K^\bullet$}，是 $\text{Fil}(\mathcal{A})$ 中的复形
+（见定义 \ref{homology-definition-filtered}）。
+\end{definition}
+
+\noindent
+我们用 $F$ 表示各对象上的滤过。因此，$F^pK^n$ 表示复形第 $n$ 项之
+滤过的第 $p$ 步。注意，每个 $F^pK^\bullet$ 都是 $\mathcal{A}$ 中的
+复形。因此，也可把滤过复形定义为 $\mathcal{A}$ 的复形所成的
+（阿贝尔）范畴中的滤过对象。特别地，$\text{gr} K^\bullet$ 是
+$\mathcal{A}$ 的复形范畴中的分次对象。
+
+\medskip\noindent
+为描述关联于这种对象的谱序列，暂时假设 $\mathcal{A}$ 是具有可数直和且
+可数直和正合的阿贝尔范畴（这不是自动成立的；见注记
+\ref{homology-remark-direct-sums-not-exact}）。用 $d$ 表示 $K$ 的微分。
+忘掉分次后，可把 $\bigoplus K^n$ 看作 $\mathcal{A}$ 的滤过微分对象。
+因此，按照第 \ref{homology-section-filtered-differential} 节，得到谱序列
+$(E_r, d_r)_{r \geq 0}$。本节将求出该谱序列的各项，并用 $K$ 的分次
+所给出的附加结构装备这些项。
+
+\medskip\noindent
+首先指出，$E_0^p = \text{gr}^p K^\bullet$ 是复形，因而是分次的。
+所以 $E_0$ 自然地是双分次的。通常使用双分次
+$$
+E_0 = \bigoplus\nolimits_{p, q} E_0^{p, q},
+\quad
+E_0^{p, q} = \text{gr}^p K^{p + q}
+$$
+其思想是把 $p + q$ 看作（上）同调类的{\it 总次数}。此外，$p$ 称为
+{\it 滤过次数}，$q$ 称为{\it 余次数}。微分 $d_0$ 按如下方式与此
+双分次相容：
+$$
+d_0  = \bigoplus d_0^{p, q},
+\quad
+d_0^{p, q} : E_0^{p, q} \to E_0^{p, q + 1}.
+$$
+事实上，$d_0^p$ 正是复形 $\text{gr}^p K^\bullet$ 上的微分
+（该复形以略作平移的方式作为 $\text{gr}^pE_0$ 出现）。
+
+\medskip\noindent
+为进一步讨论，把第 \ref{homology-section-filtered-differential} 节引入的对象
+$B_r^p$ 与 $Z_r^p$ 视为分次对象，并求出微分的相应分解。
+我们完全直接地进行，但再次警告读者，我们的记号与其他地方的记号不同。
+定义
+$$
+Z_r^{p, q} =
+\frac{F^pK^{p + q} \cap d^{-1}(F^{p + r}K^{p + q + 1}) + F^{p + 1}K^{p + q}}
+{F^{p + 1}K^{p + q}}
+$$
+及
+$$
+B_r^{p, q} =
+\frac{F^pK^{p + q} \cap d(F^{p - r + 1}K^{p + q - 1}) + F^{p + 1}K^{p + q}}
+{F^{p + 1}K^{p + q}}
+$$
+当然，$E_r^{p, q} = Z_r^{p, q}/B_r^{p, q}$。按这些定义，显然有
+$Z_r^p = \bigoplus_q Z_r^{p, q}$、
+$B_r^p = \bigoplus_q B_r^{p, q}$ 及
+$E_r^p = \bigoplus_q E_r^{p, q}$。而且
+$$
+0 \subset \ldots \subset B_r^{p, q} \subset
+\ldots
+\subset Z_r^{p, q} \subset \ldots \subset E_0^{p, q}
+$$
+映射 $d_r^p$ 也分解为映射
+$$
+d_r^{p, q} : E_r^{p, q} \longrightarrow E_r^{p + r, q - r + 1},
+\quad
+z + F^{p + 1}K^{p + q}
+\mapsto
+dz + F^{p + r + 1}K^{p + q + 1}
+$$
+的直和，其中
+$z \in F^pK^{p + q} \cap d^{-1}(F^{p + r}K^{p + q + 1})$。
+
+\begin{lemma}
+\label{homology-lemma-spectral-sequence-filtered-complex}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。存在 $\mathcal{A}$ 的双分次对象范畴中关联于
+$(K^\bullet, F)$ 的谱序列 $(E_r, d_r)_{r \geq 0}$，使 $d_r$ 的
+双次数为 $(r, - r + 1)$，并且 $E_r$ 的双分次部分 $E_r^{p, q}$ 及
+映射 $d_r^{p, q} : E_r^{p, q} \to E_r^{p + r, q - r + 1}$ 如上给出。
+此外，有 $E_0^{p, q} = \text{gr}^p(K^{p + q})$、
+$d_0^{p, q} = \text{gr}^p(d^{p + q})$，且
+$E_1^{p, q} = H^{p + q}(\text{gr}^p(K^\bullet))$。
+\end{lemma}
+
+\begin{proof}
+若 $\mathcal{A}$ 有可数直和且可数直和正合，则结论来自上面的讨论。
+一般情形如下处理；我们强烈建议读者跳过这个证明。考虑
+$\mathcal{A}$ 的双分次对象
+$A = (F^{p + 1}K^{p + 1 + q})$，即把 $F^{p + 1}K^{p + 1 + q}$
+置于双次数 $(p, q)$（编号中的奇特平移是为了使后面的编号正确）。
+通过在每个分量上使用 $d$，为其配备微分 $d : A \to A[0, 1]$。
+那么 $(A, d)$ 是微分双分次对象。考虑映射
+$$
+\alpha : A \to A[-1, 1]
+$$
+它在双次数 $(p, q)$ 处由嵌入
+$F^{p + 1}K^{p + 1 + q} \to F^pK^{p + 1 + q}$ 给出。
+这是微分对象之间的单射态射
+$\alpha : (A, d) \to (A, d)[-1, 1]$。因此可在
+$S = [0, 1]$、$T = [1, -1]$ 时应用注记
+\ref{homology-remark-differential-object-selfmap}。所得双分次对象的谱序列
+$(E_r, d_r)_{r \geq 0}$ 正是我们所求的谱序列。稍微展开这些定义。
+首先有 $E_r = (E_r^{p, q})$。其次，由于
+$T^rS = [r, -r + 1]$，有 $d_r : E_r \to E_r[r, -r + 1]$，
+即 $d_r^{p, q} : E_r^{p, q} \to E_r^{p + r, q - r + 1}$。
+
+\medskip\noindent
+为看出分次部分的描述成立，按上面的方法论证。首先有
+$$
+E_0 = \Coker(\alpha : A \to A[-1, 1])[0, -1] =
+\Coker(\alpha[0, -1] : A[0, -1] \to A[-1, 0])
+$$
+由上面的编号选择，这给出
+$$
+E_0^{p, q} = \Coker(F^{p + 1}K^{p + q} \to F^pK^{p + q}) = \text{gr}^pK^{p + q}
+$$
+第一个微分为
+$d_0^{p, q} = \text{gr}^pd^{p + q} : E_0^{p, q} \to E_0^{p, q + 1}$。
+其次，注记 \ref{homology-remark-differential-object-selfmap} 中对边界 $B_r$
+与余闭元 $Z_r$ 的描述，直接转化为上面给出的
+$Z_r^{p, q}$ 与 $B_r^{p, q}$ 的公式。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-spectral-sequence-filtered-complex-d1}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。假设 $\mathcal{A}$ 有可数直和，并设
+$(E_r, d_r)_{r \geq 0}$ 为关联于 $(K^\bullet, F)$ 的谱序列。
+\begin{enumerate}
+\item 映射
+$$
+d_1^{p, q} :
+E_1^{p, q} = H^{p + q}(\text{gr}^p(K^\bullet))
+\longrightarrow
+E_1^{p + 1, q} = H^{p + q + 1}(\text{gr}^{p + 1}(K^\bullet))
+$$
+等于关联于复形短正合列
+$$
+0 \to \text{gr}^{p + 1}(K^\bullet) \to
+F^pK^\bullet/F^{p + 2}K^\bullet \to \text{gr}^p(K^\bullet) \to 0.
+$$
+的上同调边界映射。
+\item 假设对所有 $p \in \mathbf{Z}$ 均有
+$d(F^pK) \subset F^{p + 1}K$。那么 $d$ 在
+$\text{gr}^p(K^\bullet)$ 上诱导零微分，因而
+$E_1^{p, q} = \text{gr}^p(K^\bullet)^{p + q}$。此外，此时
+$$
+d_1^{p, q} :
+E_1^{p, q} = \text{gr}^p(K^\bullet)^{p + q}
+\longrightarrow
+E_1^{p + 1, q} = \text{gr}^{p + 1}(K^\bullet)^{p + q + 1}
+$$
+是由 $d$ 诱导的态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{homology-lemma-spectral-sequence-filtered-complex} 前给出的
+微分 $d_1^{p, q}$ 的公式显然可得。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-spectral-sequence-filtered-complex-functorial}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设
+$\alpha : (K^\bullet, F) \to (L^\bullet, F)$ 为 $\mathcal{A}$ 的
+滤过复形之间的态射。设 $(E_r(K), d_r)_{r \geq 0}$（相应地，
+$(E_r(L), d_r)_{r \geq 0}$）为关联于 $(K^\bullet, F)$（相应地，
+$(L^\bullet, F)$）的谱序列。态射 $\alpha$ 诱导与双分次相容的典范
+谱序列态射 $\{\alpha_r : E_r(K) \to E_r(L)\}_{r \geq 0}$。
+\end{lemma}
+
+\begin{proof}
+由谱序列各项的显式表示显然可得。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-filtration-cohomology-filtered-complex}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。$H^n(K^\bullet)$ 上的{\it 诱导滤过}定义为
+$F^pH^n(K^\bullet) = \Im(H^n(F^pK^\bullet) \to H^n(K^\bullet))$。
+\end{definition}
+
+\noindent
+展开其含义可见
+\begin{equation}
+\label{homology-equation-filtration-cohomology}
+F^pH^n(K^\bullet, d) =
+\frac{\Ker(d) \cap F^pK^n + \Im(d) \cap K^n}{\Im(d) \cap K^n}
+\end{equation}
+因而
+\begin{equation}
+\label{homology-equation-graded-cohomology}
+\text{gr}^p H^n(K^\bullet) =
+\frac{\Ker(d) \cap F^pK^n}{\Ker(d) \cap F^{p + 1}K^n + \Im(d) \cap F^pK^n}
+\end{equation}
+（略去一个中间步骤）。
+
+\begin{lemma}
+\label{homology-lemma-compute-cohomology-filtered-complex}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。若 $Z_\infty^{p, q}$ 与
+$B_\infty^{p, q}$ 存在（见证明），则
+\begin{enumerate}
+\item 极限 $E_\infty$ 存在并且是双分次对象，其双次数 $(p, q)$ 部分为
+$E_\infty^{p, q} = Z_\infty^{p, q}/B_\infty^{p, q}$；
+\item $K^\bullet$ 的第 $n$ 个上同调对象之第 $p$ 个分次部分
+$\text{gr}^pH^n(K^\bullet)$ 是 $E_\infty^{p, n - p}$ 的子商。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+定义 \ref{homology-definition-limit-spectral-sequence} 的对象
+$Z_\infty$、$B_\infty$ 及极限 $E_\infty = Z_\infty/B_\infty$，
+按照引理 \ref{homology-lemma-spectral-sequence-filtered-complex} 中对谱序列的
+构造，是 $\mathcal{A}$ 的双分次对象。由于 $Z_r^{p, q}$（相应地，
+$B_r^{p, q}$）是 $Z_r$（相应地，$B_r$）的双次数 $(p, q)$ 部分，
+若假设
+$$
+Z_\infty^{p, q} = \bigcap\nolimits_r Z_r^{p, q} =
+\bigcap\nolimits_r
+\frac{F^pK^{p + q} \cap d^{-1}(F^{p + r}K^{p + q + 1}) + F^{p + 1}K^{p + q}}
+{F^{p + 1}K^{p + q}}
+$$
+以及
+$$
+B_\infty^{p, q} = \bigcup\nolimits_r B_r^{p, q} =
+\bigcup\nolimits_r
+\frac{F^pK^{p + q} \cap d(F^{p - r + 1}K^{p + q - 1}) + F^{p + 1}K^{p + q}}
+{F^{p + 1}K^{p + q}}
+$$
+存在，则 $Z_\infty$ 与 $B_\infty$ 存在，且双次数 $(p, q)$ 部分分别为
+$Z_\infty^{p, q}$ 与 $B_\infty^{p, q}$（这来自关于双分次对象之并与交的
+初等论证）。因此
+$$
+E_\infty^{p, q} =
+\frac{\bigcap_r (F^pK^{p + q} \cap d^{-1}(F^{p + r}K^{p + q + 1})
++ F^{p + 1}K^{p + q})}
+{\bigcup_r (F^pK^{p + q} \cap d(F^{p - r + 1}K^{p + q - 1})
++ F^{p + 1}K^{p + q})}.
+$$
+其中分子与分母都存在。置 $n = p + q$，有
+\begin{equation}
+\label{homology-equation-on-top-bigraded}
+\Ker(d) \cap F^pK^{n} + F^{p + 1}K^{n}
+\subset
+\bigcap\nolimits_r
+\left(
+F^pK^{n} \cap d^{-1}(F^{p + r}K^{n + 1}) + F^{p + 1}K^{n}
+\right)
+\end{equation}
+以及
+\begin{equation}
+\label{homology-equation-at-bottom-bigraded}
+\bigcup\nolimits_r
+\left(
+F^pK^{n} \cap d(F^{p - r + 1}K^{n - 1}) + F^{p + 1}K^{n}
+\right)
+\subset
+\Im(d) \cap F^pK^{n} + F^{p + 1}K^{n}.
+\end{equation}
+因此，$E_\infty^{p, q}$ 的一个子商为
+$$
+\frac{\Ker(d) \cap F^pK^{n} + F^{p + 1}K^n}
+{\Im(d) \cap F^pK^{n} + F^{p + 1}K^{n}} =
+\frac{\Ker(d) \cap F^pK^n}{\Im(d) \cap F^pK^n + \Ker(d) \cap F^{p + 1}K^n}
+$$
+与 (\ref{homology-equation-graded-cohomology}) 比较即得结论。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-bounded-ss}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(E_r, d_r)_{r \geq r_0}$ 为
+$\mathcal{A}$ 的双分次对象的谱序列，其中 $d_r$ 的双次数为
+$(r, -r + 1)$。称这样的谱序列
+\begin{enumerate}
+\item {\it 正则}，若对所有 $p, q \in \mathbf{Z}$，存在
+$b = b(p, q)$，使得当 $r \geq b$ 时映射
+$d_r^{p, q} : E_r^{p, q} \to E_r^{p + r, q - r + 1}$ 均为零；
+\item {\it 余正则}，若对所有 $p, q \in \mathbf{Z}$，存在
+$b = b(p, q)$，使得当 $r \geq b$ 时映射
+$d_r^{p - r, q + r - 1} : E_r^{p - r, q + r - 1} \to E_r^{p, q}$
+均为零；
+\item {\it 有界}，若对所有 $n$，只有有限多个
+$E_{r_0}^{p, n - p}$ 非零；
+\item {\it 下有界}，若对所有 $n$，存在 $b = b(n)$，使得当
+$p \geq b$ 时 $E_{r_0}^{p, n - p} = 0$；
+\item {\it 上有界}，若对所有 $n$，存在 $b = b(n)$，使得当
+$p \leq b$ 时 $E_{r_0}^{p, n - p} = 0$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下有界意味着：观察直线 $p + q = n$（其斜率为 $-1$）上的
+$E_r^{p, q}$ 时，当 $(p, q)$ 向右下移动便得到零。如上所述，
+文献中关于这些概念没有一致术语。
+
+\begin{lemma}
+\label{homology-lemma-relate-boundedness}
+在定义 \ref{homology-definition-bounded-ss} 的情形中，令
+$Z_r^{p, q}, B_r^{p, q} \subset E_{r_0}^{p, q}$ 为按第
+\ref{homology-section-spectral-sequence} 节定义的 $Z_r, B_r$ 的
+$(p, q)$-分次部分。
+\begin{enumerate}
+\item 谱序列正则，当且仅当对所有 $p, q$，存在 $r = r(p, q)$ 使得
+$Z_r^{p, q} = Z_{r + 1}^{p, q} = \ldots$
+\item 谱序列余正则，当且仅当对所有 $p, q$，存在 $r = r(p, q)$ 使得
+$B_r^{p, q} = B_{r + 1}^{p, q} = \ldots$
+\item 谱序列有界，当且仅当它既下有界又上有界。
+\item 若谱序列下有界，则它正则。
+\item 若谱序列上有界，则它余正则。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：若 $E_r^{p, q} = 0$，则对所有 $r' \geq r$ 均有
+$E_{r'}^{p, q} = 0$。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-filtered-complex-ss-converges}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。称关联于 $(K^\bullet, F)$ 的谱序列
+\begin{enumerate}
+\item {\it 弱收敛到 $H^*(K^\bullet)$}，若通过引理
+\ref{homology-lemma-compute-cohomology-filtered-complex}，对所有
+$p, n \in \mathbf{Z}$ 均有
+$\text{gr}^pH^n(K^\bullet) = E_{\infty}^{p, n - p}$；
+\item {\it 汇聚到 $H^*(K^\bullet)$}，若它弱收敛到
+$H^*(K^\bullet)$，并且对所有 $n$ 均有
+$\bigcap_p F^pH^n(K^\bullet) = 0$ 及
+$\bigcup_p F^p H^n(K^\bullet) = H^n(K^\bullet)$；
+\item {\it 收敛到 $H^*(K^\bullet)$}，若它正则、汇聚到
+$H^*(K^\bullet)$，并且
+$H^n(K^\bullet) = \lim_p H^n(K^\bullet)/F^pH^n(K^\bullet)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+弱收敛、汇聚或收敛都用记号
+$E_r^{p, q} \Rightarrow H^{p + q}(K^\bullet)$ 表示。如上所述，
+文献中关于这些概念没有一致术语。
+
+\begin{lemma}
+\label{homology-lemma-filtered-complex-ss-converges}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。关联谱序列
+\begin{enumerate}
+\item 弱收敛到 $H^*(K^\bullet)$，当且仅当对每个
+$p, q \in \mathbf{Z}$，等式 (\ref{homology-equation-at-bottom-bigraded}) 与
+(\ref{homology-equation-on-top-bigraded}) 中均取等号；
+\item 汇聚到 $H^*(K)$，当且仅当它弱收敛到 $H^*(K^\bullet)$，并且有
+$\bigcap_p (\Ker(d) \cap F^pK^n + \Im(d) \cap K^n) = \Im(d) \cap K^n$
+及
+$\bigcup_p (\Ker(d) \cap F^pK^n + \Im(d) \cap K^n) = \Ker(d) \cap K^n$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由上面的讨论立即可得。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-biregular-ss-converges}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。假设每个 $K^n$ 上的滤过有限
+（见定义 \ref{homology-definition-filtered}）。那么
+\begin{enumerate}
+\item 关联于 $(K^\bullet, F)$ 的谱序列有界；
+\item 每个 $H^n(K^\bullet)$ 上的滤过有限；
+\item 关联于 $(K^\bullet, F)$ 的谱序列收敛到 $H^*(K^\bullet)$；
+\item 若 $\mathcal{C} \subset \mathcal{A}$ 是弱 Serre 子范畴，并且对
+某个 $r$，所有 $p, q \in \mathbf{Z}$ 都有
+$E_r^{p, q} \in \mathcal{C}$，则 $H^n(K^\bullet)$ 属于
+$\mathcal{C}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 来自 $E_0^{p, n - p} = \text{gr}^p K^n$。(2) 由等式
+(\ref{homology-equation-filtration-cohomology}) 显然可得。我们用引理
+\ref{homology-lemma-filtered-complex-ss-converges} 证明谱序列弱收敛。
+固定 $p, n \in \mathbf{Z}$。等式 (\ref{homology-equation-on-top-bigraded})
+的右端等于 $F^pK^n \cap \Ker(d) + F^{p + 1}K^n$，因为当
+$r \gg 0$ 时 $F^{p + r}K^n = 0$。因此
+(\ref{homology-equation-on-top-bigraded}) 是等式。等式
+(\ref{homology-equation-at-bottom-bigraded}) 的左端等于
+$F^pK^n \cap \Im(d) + F^{p + 1}K^n$，因为当 $r \gg 0$ 时
+$F^{p - r + 1}K^{n - 1} = K^{n - 1}$。因此
+(\ref{homology-equation-at-bottom-bigraded}) 是等式。由 (2)，
+$H^n(K^\bullet)$ 上的滤过有限，所以得到汇聚。为证明收敛，还须证明谱序列
+正则；这来自其有界性（引理 \ref{homology-lemma-relate-boundedness}）。还须证明
+$H^n(K^\bullet) = \lim_p H^n(K^\bullet)/F^pH^n(K^\bullet)$，
+这来自 (2) 中已证的 $H^*(K^\bullet)$ 上的滤过有限。
+
+\medskip\noindent
+证明 (4)。假设对某个 $r \geq 0$ 及 $\mathcal{A}$ 的某个弱 Serre
+子范畴 $\mathcal{C}$，有 $E_r^{p, q} \in \mathcal{C}$。那么
+$E_{r + 1}^{p, q}$ 也属于 $\mathcal{C}$；见引理
+\ref{homology-lemma-characterize-weak-serre-subcategory}。由上面证明的有界性
+（由引理 \ref{homology-lemma-relate-boundedness}，它蕴含谱序列既正则又余正则），
+可找到 $r' \geq r$，使得对所有满足 $p + q = n$ 的 $p, q$，均有
+$E_\infty^{p, q} = E_{r'}^{p, q}$。于是 $H^n(K^\bullet)$ 是
+$\mathcal{A}$ 中具有有限滤过且各分次部分都属于 $\mathcal{C}$ 的对象。
+由引理 \ref{homology-lemma-characterize-weak-serre-subcategory}，这蕴含
+$H^n(K^\bullet)$ 属于 $\mathcal{C}$。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-biregular-ss-relation-in-K0}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。假设每个 $K^n$ 上的滤过有限
+（见定义 \ref{homology-definition-filtered}），并且对某个 $r$，只有有限多个
+$E_r^{p, q}$ 非零。那么只有有限多个 $H^n(K^\bullet)$ 非零，并且
+$$
+\sum (-1)^n[H^n(K^\bullet)] = \sum (-1)^{p + q} [E_r^{p, q}]
+$$
+在 $K_0(\mathcal{A}')$ 中成立，其中 $\mathcal{A}'$ 是包含各对象
+$E_r^{p, q}$ 的 $\mathcal{A}$ 的最小弱 Serre 子范畴。
+\end{lemma}
+
+\begin{proof}
+用 $E_r^{even}$ 与 $E_r^{odd}$ 表示 $E_r$ 的偶部分与奇部分，它们定义为
+所有 $p + q$ 分别为偶数与奇数的 $(p, q)$ 分量之直和。微分 $d_r$
+定义映射 $\varphi : E_r^{even} \to E_r^{odd}$ 与
+$\psi : E_r^{odd} \to E_r^{even}$，其两个方向的复合都为零。
+于是
+\begin{align*}
+[E_r^{even}] - [E_r^{odd}] & =
+[\Ker(\varphi)] + [\Im(\varphi)] - [\Ker(\psi)] - [\Im(\psi)] \\
+& =
+[\Ker(\varphi)/\Im(\psi)] - [\Ker(\psi)/\Im(\varphi)] \\
+& =
+[E_{r + 1}^{even}] - [E_{r + 1}^{odd}]
+\end{align*}
+注意所有中间对象都属于包含各对象 $E_r^{p, q}$ 的最小 Serre 子范畴。
+继续这一过程，可任意增大 $r$。由于只有有限多对 $(p, q)$ 使
+$E_r^{p, q}$ 非零，而这一性质由 $E_{r + 1}, E_{r + 2}, \ldots$
+继承，故可假设 $d_r = 0$。此时，$H^n(K^\bullet)$ 具有有限滤过
+（引理 \ref{homology-lemma-biregular-ss-converges}），其分次部分恰为
+$E_r^{p, n - p}$，结论显然。
+\end{proof}
+
+\noindent
+下面的引理更多是对我们定义的一种合理性检查。显然，若有一个滤过复形，
+使得对每个 $n$ 均有
+$$
+H^n(F^pK^\bullet) = 0\text{ 对 }p \gg 0
+\quad\text{且}\quad
+H^n(F^pK^\bullet) = H^n(K^\bullet)\text{ 对 }p \ll 0,
+$$
+那么相应谱序列应当收敛，对吗？
+
+\begin{lemma}
+\label{homology-lemma-ss-converges-trivial}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $(K^\bullet, F)$ 为
+$\mathcal{A}$ 的滤过复形。假设
+\begin{enumerate}
+\item 对每个 $n$，存在 $p_0(n)$，使得当 $p \geq p_0(n)$ 时
+$H^n(F^pK^\bullet) = 0$；
+\item 对每个 $n$，存在 $p_1(n)$，使得当 $p \leq p_1(n)$ 时
+$H^n(F^pK^\bullet) \to H^n(K^\bullet)$ 是同构。
+\end{enumerate}
+那么
+\begin{enumerate}
+\item 关联于 $(K^\bullet, F)$ 的谱序列有界；
+\item 每个 $H^n(K^\bullet)$ 上的滤过有限；
+\item 关联于 $(K^\bullet, F)$ 的谱序列收敛到 $H^*(K^\bullet)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+固定 $n$。使用关联于复形短正合列
+$$
+0 \to F^{p + 1}K^\bullet \to F^pK^\bullet \to \text{gr}^pK^\bullet \to 0
+$$
+的长正合上同调列，可得当
+$p \geq \max(p_0(n), p_0(n + 1))$ 以及
+$p < \min(p_1(n), p_1(n + 1))$ 时，$E_1^{p, n - p} = 0$。
+因此谱序列有界（定义 \ref{homology-definition-bounded-ss}）。这证明 (1)。
+
+\medskip\noindent
+由假设与定义 \ref{homology-definition-filtration-cohomology-filtered-complex}，
+$H^n(K^\bullet)$ 上的滤过显然有限。这证明 (2)。
+
+\medskip\noindent
+接着用引理 \ref{homology-lemma-filtered-complex-ss-converges} 证明谱序列弱收敛到
+$H^*(K^\bullet)$。先证明 (\ref{homology-equation-on-top-bigraded}) 中取等号。
+事实上，当 $p + r > p_0(n + 1)$ 时，映射
+$$
+d : F^pK^{n} \cap d^{-1}(F^{p + r}K^{n + 1}) \to F^{p + r}K^{n + 1}
+$$
+的像落在 $d : F^{p + r}K^n \to F^{p + r}K^{n + 1}$ 的像中，
+因为复形 $F^{p + r}K^\bullet$ 在次数 $n + 1$ 处正合。
+由此
+$F^pK^{n} \cap d^{-1}(F^{p + r}K^{n + 1}) =
+d(F^{p + r}K^n) + \Ker(d) \cap F^pK^n$。因此对这样的 $r$ 有
+$$
+\Ker(d) \cap F^pK^{n} + F^{p + 1}K^{n} =
+F^pK^{n} \cap d^{-1}(F^{p + r}K^{n + 1}) + F^{p + 1}K^{n}
+$$
+这证明了所需等式。为证明 (\ref{homology-equation-at-bottom-bigraded}) 中取等号，
+使用如下事实：当 $p - r + 1 < p_1(n - 1)$ 时有
+$$
+d(F^{p - r + 1}K^{n - 1}) = \Im(d) \cap F^{p - r + 1}K^n
+$$
+因为映射 $F^{p - r + 1}K^\bullet \to K^\bullet$ 在次数 $n - 1$
+的上同调上诱导同构。这说明对这样的 $r$ 有
+$$
+F^pK^{n} \cap d(F^{p - r + 1}K^{n - 1}) + F^{p + 1}K^{n} =
+\Im(d) \cap F^pK^{n} + F^{p + 1}K^{n}
+$$
+从而证明所需等式。
+
+\medskip\noindent
+为由引理 \ref{homology-lemma-filtered-complex-ss-converges} 看出谱序列汇聚到
+$H^*(K^\bullet)$，须证明
+$\bigcap_p (\Ker(d) \cap F^pK^n + \Im(d) \cap K^n) = \Im(d) \cap K^n$
+及
+$\bigcup_p (\Ker(d) \cap F^pK^n + \Im(d) \cap K^n) = \Ker(d) \cap K^n$。
+当 $p \geq p_0(n)$ 时有
+$\Ker(d) \cap F^pK^n + \Im(d) \cap K^n = \Im(d) \cap K^n$；
+当 $p \leq p_1(n)$ 时有
+$\Ker(d) \cap F^pK^n + \Im(d) \cap K^n = \Ker(d) \cap K^n$。
+结合弱收敛、汇聚与有界性，可见 (2) 与 (3) 成立。
+\end{proof}
+
+\section{谱序列：双复形}
+\label{homology-section-double-complex}
+
+\noindent
+设 $K^{\bullet, \bullet}$ 为双复形；见第
+\ref{homology-section-double-complexes} 节。通常用
+$H^p_I(K^{\bullet, \bullet})$ 表示如下复形：其各项为
+$\Ker(d_1^{p, q})/\Im(d_1^{p - 1, q})$（$q$ 变化），微分由 $d_2$
+诱导。于是 $H^q_{II}(H^p_I(K^{\bullet, \bullet}))$ 表示它在次数
+$q$ 处的上同调。通常还用 $H^q_{II}(K^{\bullet, \bullet})$ 表示如下
+复形：其各项为 $\Ker(d_2^{p, q})/\Im(d_2^{p, q - 1})$（$p$ 变化），
+微分由 $d_1$ 诱导。于是
+$H^p_I(H^q_{II}(K^{\bullet, \bullet}))$ 表示它在次数 $p$ 处的上同调。
+后面将会看到，这些上同调群作为关联总复形或单复形上的某个滤过之谱序列
+的各项出现；见定义 \ref{homology-definition-associated-simple-complex}。
+
+\medskip\noindent
+关联于双复形 $K^{\bullet, \bullet}$ 的总复形
+$\text{Tot}(K^{\bullet, \bullet})$ 上有两个自然滤过。即定义
+$$
+F_I^p(\text{Tot}^n(K^{\bullet, \bullet})) =
+\bigoplus\nolimits_{i + j = n, \ i \geq p} K^{i, j}
+\quad
+\text{且}
+\quad
+F_{II}^p(\text{Tot}^n(K^{\bullet, \bullet})) =
+\bigoplus\nolimits_{i + j = n, \ j \geq p} K^{i, j}.
+$$
+立即可验证 $(\text{Tot}(K^{\bullet, \bullet}), F_I)$ 与
+$(\text{Tot}(K^{\bullet, \bullet}), F_{II})$ 是滤过复形。
+由第 \ref{homology-section-filtered-complex} 节，得到两个谱序列。通常用
+$({}'E_r, {}'d_r)_{r \geq 0}$ 表示关联于滤过 $F_I$ 的谱序列，
+用 $({}''E_r, {}''d_r)_{r \geq 0}$ 表示关联于滤过 $F_{II}$ 的谱序列。
+下面描述这些谱序列。
+
+\begin{lemma}
+\label{homology-lemma-ss-double-complex}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $K^{\bullet, \bullet}$ 为双复形。
+关联于 $K^{\bullet, \bullet}$ 的谱序列具有下列各项：
+\begin{enumerate}
+\item ${}'E_0^{p, q} = K^{p, q}$，其中
+${}'d_0^{p, q} = (-1)^p d_2^{p, q} : K^{p, q} \to K^{p, q + 1}$；
+\item ${}''E_0^{p, q} = K^{q, p}$，其中
+${}''d_0^{p, q} = d_1^{q, p} : K^{q, p} \to K^{q + 1, p}$；
+\item ${}'E_1^{p, q} = H^q(K^{p, \bullet})$，其中
+${}'d_1^{p, q} = H^q(d_1^{p, \bullet})$；
+\item ${}''E_1^{p, q} = H^q(K^{\bullet, p})$，其中
+${}''d_1^{p, q} = (-1)^q H^q(d_2^{\bullet, p})$；
+\item ${}'E_2^{p, q} = H^p_I(H^q_{II}(K^{\bullet, \bullet}))$；
+\item ${}''E_2^{p, q} = H^p_{II}(H^q_I(K^{\bullet, \bullet}))$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+这些谱序列在 $H^n(\text{Tot}(K^{\bullet, \bullet}))$ 上定义两个滤过，
+我们将其记作 $F_I$ 与 $F_{II}$。
+
+\begin{definition}
+\label{homology-definition-ss-double-complex-converge}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $K^{\bullet, \bullet}$ 为双复形。
+若定义 \ref{homology-definition-filtered-complex-ss-converges} 适用，则称谱序列
+$({}'E_r, {}'d_r)_{r \geq 0}$ {\it 弱收敛到
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$}、{\it 汇聚到
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$} 或{\it 收敛到
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$}。类似地，若定义
+\ref{homology-definition-filtered-complex-ss-converges} 适用，则称谱序列
+$({}''E_r, {}''d_r)_{r \geq 0}$ {\it 弱收敛到
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$}、{\it 汇聚到
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$} 或{\it 收敛到
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$}。
+\end{definition}
+
+\noindent
+如上所述，文献中关于这些概念没有一致术语。在定义的情形中，若对所有
+$n$，通过引理 \ref{homology-lemma-compute-cohomology-filtered-complex} 的典范比较有
+$$
+\text{gr}_{F_I}(H^n(\text{Tot}(K^{\bullet, \bullet}))) =
+\oplus_{p + q = n} {}'E_\infty^{p, q}
+$$
+则第一个谱序列弱收敛。类似地，若对所有 $n$，通过引理
+\ref{homology-lemma-compute-cohomology-filtered-complex} 的典范比较有
+$$
+\text{gr}_{F_{II}}(H^n(\text{Tot}(K^{\bullet, \bullet}))) =
+\oplus_{p + q = n} {}''E_\infty^{p, q}
+$$
+则第二个谱序列 $({}''E_r, {}''d_r)_{r \geq 0}$ 弱收敛。
+
+\begin{lemma}
+\label{homology-lemma-first-quadrant-ss}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $K^{\bullet, \bullet}$ 为双复形。
+假设对每个 $n \in \mathbf{Z}$，满足 $p + q = n$ 的非零
+$K^{p, q}$ 只有有限多个。那么
+\begin{enumerate}
+\item 关联于 $K^{\bullet, \bullet}$ 的两个谱序列有界；
+\item 每个 $H^n(\text{Tot}(K^{\bullet, \bullet}))$ 上的滤过
+$F_I$、$F_{II}$ 有限；
+\item 谱序列 $({}'E_r, {}'d_r)_{r \geq 0}$ 与
+$({}''E_r, {}''d_r)_{r \geq 0}$ 收敛到
+$H^*(\text{Tot}(K^{\bullet, \bullet}))$；
+\item 若 $\mathcal{C} \subset \mathcal{A}$ 是弱 Serre 子范畴，并且对
+某个 $r$，所有 $p, q \in \mathbf{Z}$ 都有
+${}'E_r^{p, q} \in \mathcal{C}$，则
+$H^n(\text{Tot}(K^{\bullet, \bullet}))$ 属于 $\mathcal{C}$。
+对 $({}''E_r, {}''d_r)_{r \geq 0}$ 亦然。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+立即来自引理 \ref{homology-lemma-biregular-ss-converges}。
+\end{proof}
+
+\noindent
+下面给出谱序列的第一个应用。
+
+\begin{lemma}
+\label{homology-lemma-double-complex-gives-resolution}
+设 $\mathcal{A}$ 为阿贝尔范畴，$K^\bullet$ 为复形，
+$A^{\bullet, \bullet}$ 为双复形，并设
+$\alpha^p : K^p \to A^{p, 0}$ 为态射。假设
+\begin{enumerate}
+\item 对每个 $n \in \mathbf{Z}$，满足 $p + q = n$ 的非零
+$A^{p, q}$ 只有有限多个。
+\item 若 $q < 0$，则 $A^{p, q} = 0$。
+\item 态射 $\alpha^p$ 给出复形态射
+$\alpha : K^\bullet \to A^{\bullet, 0}$。
+\item 复形 $A^{p, \bullet}$ 在所有次数 $q \not = 0$ 处正合，且态射
+$K^p \to A^{p, 0}$ 诱导同构 $K^p \to \Ker(d_2^{p, 0})$。
+\end{enumerate}
+那么 $\alpha$ 诱导复形的拟同构
+$$
+K^\bullet \longrightarrow \text{Tot}(A^{\bullet, \bullet})
+$$
+此外，还有一个以第二个变量 $q$ 代替 $p$ 的引理变体。
+\end{lemma}
+
+\begin{proof}
+该映射就是由态射
+$K^n \to A^{n, 0} \to \text{Tot}^n(A^{\bullet, \bullet})$ 给出的映射；
+容易看出它们定义复形态射。考虑关联于双复形
+$A^{\bullet, \bullet}$ 的谱序列
+$({}'E_r, {}'d_r)_{r \geq 0}$。由引理 \ref{homology-lemma-first-quadrant-ss}，
+该谱序列收敛，并且每个 $n$ 上
+$H^n(\text{Tot}(A^{\bullet, \bullet}))$ 的诱导滤过有限。
+由引理 \ref{homology-lemma-ss-double-complex} 及假设 (4)，除 $q = 0$ 外有
+${}'E_1^{p, q} = 0$，并且 $'E_1^{p, 0} = K^p$，其微分
+${}'d_1^{p, 0}$ 等同于 $d_K^p$。因此
+${}'E_2^{p, 0} = H^p(K^\bullet)$，其余均为零。由次数理由，这显然蕴含
+${}'d_2^{p, q} = {}'d_3^{p, q} = \ldots = 0$。故
+$H^n(\text{Tot}(A^{\bullet, \bullet})) = H^n(K^\bullet)$。
+我们略去如下验证：这一等同由上面引入的复形态射
+$K^\bullet \to \text{Tot}(A^{\bullet, \bullet})$ 给出。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-homotopy-complex-complexes}
+设 $\mathcal{A}$ 为阿贝尔范畴，$M^\bullet$ 为 $\mathcal{A}$ 的复形，
+并设
+$$
+a :
+M^\bullet[0]
+\longrightarrow
+\left(A^{0, \bullet} \to A^{1, \bullet} \to A^{2, \bullet} \to \ldots \right)
+$$
+是 $\mathcal{A}$ 的复形组成的复形之范畴中的同伦等价。那么由
+$M^\bullet \to A^{0, \bullet}$ 诱导的映射
+$\alpha : M^\bullet \to \text{Tot}(A^{\bullet, \bullet})$ 是同伦等价。
+\end{lemma}
+
+\begin{proof}
+该陈述是有意义的，因为复形组成的复形与双复形是同一回事。假设意味着存在映射
+$$
+b :
+\left(A^{0, \bullet} \to A^{1, \bullet} \to A^{2, \bullet} \to \ldots \right)
+\longrightarrow
+M^\bullet[0]
+$$
+使得在复形组成的复形之范畴中，$a \circ b$ 与 $b \circ a$ 都同伦于
+恒等映射。这意味着 $b \circ a$ 是 $M^\bullet[0]$ 上的恒等映射
+（因为次数 $0$ 中只有一项）。另注意，$b$ 由映射
+$b^0 : A^{0, \bullet} \to M^\bullet$ 给出，而在所有其他次数中为零。
+因此 $b$ 诱导映射
+$\beta : \text{Tot}(A^{\bullet, \bullet}) \to M^\bullet$，且
+$\beta \circ \alpha$ 是 $M^\bullet$ 上的恒等映射。最后须证明
+$\alpha \circ \beta$ 同伦于恒等映射。为此，选取复形映射
+$h^n : A^{n, \bullet} \to A^{n - 1, \bullet}$，使得
+$a \circ b - \text{id} = d_1 \circ h + h \circ d_1$；这些映射由假设存在。
+这里 $d_1 : A^{n, \bullet} \to A^{n + 1, \bullet}$ 是复形组成的复形之
+微分。对所有 $n$，还用 $d_2$ 表示复形 $A^{n, \bullet}$ 的微分。
+令 $h^{n, m} : A^{n, m} \to A^{n - 1, m}$ 为 $h^n$ 的分量。
+于是可考虑
+$$
+h' : \text{Tot}(A^{\bullet, \bullet})^k =
+\bigoplus\nolimits_{n + m = k} A^{n, m}
+\to
+\bigoplus\nolimits_{n + m = k - 1} A^{n, m} =
+\text{Tot}(A^{\bullet, \bullet})^{k - 1}
+$$
+它在直和项 $A^{n, m}$ 上由 $h^{n, m}$ 给出。计算可得，映射
+$$
+d_{\text{Tot}(A^{\bullet, \bullet})} \circ h' +
+h' \circ d_{\text{Tot}(A^{\bullet, \bullet})}
+$$
+限制在直和项 $A^{n, m}$ 上等于
+$$
+d_1^{n - 1, m} \circ h^{n, m} +
+(-1)^{n - 1} d_2^{n - 1, m} \circ h^{n, m} +
+h^{n + 1, m} \circ d_1^{n, m} + h^{n, m + 1} \circ (-1)^nd_2^{n, m}
+$$
+由于 $h^n$ 是复形映射，项
+$(-1)^{n - 1} d_2^{n - 1, m} \circ h^{n, m}$ 与
+$h^{n, m + 1} \circ (-1)^nd_2^{n, m}$ 相消。另两项给出
+$(\alpha \circ \beta)|_{A^{n, m}} - \text{id}_{A^{n, m}}$，因为
+$a \circ b - \text{id} = d_1 \circ h + h \circ d_1$。证明完成。
+\end{proof}
+
+\section{阿贝尔群的双复形}
+\label{homology-section-double-complexes-abelian-groups}
+
+\noindent
+本节给出关于阿贝尔群双复形的一些结果；对于一般阿贝尔范畴，我们（尚）没有
+相应结果。请注意，只有当底层阿贝尔范畴是阿贝尔群范畴或类似范畴
+（例如某个环上的模范畴）时，才能使用这些引理。若不在餐巾上画出“之字形”，
+某些论证将难以理解——可与代数，引理
+\ref{algebra-lemma-no-spectral-sequence} 的证明比较。
+
+\begin{lemma}
+\label{homology-lemma-right-resolution-gives-qis}
+设 $M^\bullet$ 为阿贝尔群的复形，并设
+$$
+0 \to M^\bullet \to A_0^\bullet \to A_1^\bullet \to A_2^\bullet \to \ldots
+$$
+为阿贝尔群复形组成的正合复形。置 $A^{p, q} = A_p^q$，从而得到双复形。
+那么，由 $M^\bullet \to A_0^\bullet$ 诱导的映射
+$M^\bullet \to \text{Tot}(A^{\bullet, \bullet})$ 是拟同构。
+\end{lemma}
+
+\begin{proof}
+若存在 $t \in \mathbf{Z}$，使得当 $q < t$ 时 $A_0^q = 0$，则结论立即
+来自引理 \ref{homology-lemma-double-complex-gives-resolution}（按该引理最后的
+陈述交换 $p$ 与 $q$）。好，不过对每个 $t \in \mathbf{Z}$，都有朴素截断
+组成的复形
+$$
+0 \to
+\sigma_{\geq t}M^\bullet \to
+\sigma_{\geq t}A_0^\bullet \to
+\sigma_{\geq t}A_1^\bullet \to
+\sigma_{\geq t}A_2^\bullet \to \ldots
+$$
+用 $A(t)^{\bullet, \bullet}$ 表示相应双复形。
+$H^n(\text{Tot}(A^{\bullet, \bullet}))$ 的每个元素 $\xi$，都是某个 $t$
+下 $H^n(\text{Tot}(A(t)^{\bullet, \bullet}))$ 中元素的像
+（考察上同调类的显式代表元）。因此 $\xi$ 属于
+$H^n(\sigma_{\geq t}M^\bullet)$ 的像。故映射
+$H^n(M^\bullet) \to H^n(\text{Tot}(A^{\bullet, \bullet}))$ 满射。
+它也是单射，因为对所有 $t$，映射
+$H^n(\sigma_{\geq t}M^\bullet) \to
+H^n(\text{Tot}(A(t)^{\bullet, \bullet}))$ 都是单射，且可作类似论证。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-good-resolution-gives-qis}
+设 $M^\bullet$ 为阿贝尔群的复形，并设
+$$
+\ldots \to A_2^\bullet \to A_1^\bullet \to A_0^\bullet \to M^\bullet \to 0
+$$
+为阿贝尔群复形组成的正合复形，并且对所有 $p \in \mathbf{Z}$，复形
+$$
+\ldots \to \Ker(d_{A_2^\bullet}^p) \to \Ker(d_{A_1^\bullet}^p)
+\to \Ker(d_{A_0^\bullet}^p) \to \Ker(d_{M^\bullet}^p) \to 0
+$$
+也正合。置 $A^{p, q} = A_{-p}^q$，从而得到双复形。那么，由
+$A_0^\bullet \to M^\bullet$ 诱导的映射
+$\text{Tot}(A^{\bullet, \bullet}) \to M^\bullet$ 是拟同构。
+\end{lemma}
+
+\begin{proof}
+使用短正合列
+$0 \to \Ker(d^p_{A_n^\bullet}) \to A_n^p \to \Im(d^p_{A_n^\bullet}) \to 0$
+及假设，可见对所有 $p \in \mathbf{Z}$，
+$$
+\ldots \to \Im(d_{A_2^\bullet}^p) \to \Im(d_{A_1^\bullet}^p)
+\to \Im(d_{A_0^\bullet}^p) \to \Im(d_{M^\bullet}^p) \to 0
+$$
+正合。再对正合列
+$0 \to \Im(d^{p - 1}_{A_n^\bullet}) \to \Ker(d^p_{A_n^\bullet})
+\to H^p(A_n^\bullet) \to 0$ 重复这一论证，得到对所有
+$p \in \mathbf{Z}$，
+$$
+\ldots \to H^p(A_2^\bullet) \to H^p(A_1^\bullet)
+\to H^p(A_0^\bullet) \to H^p(M^\bullet) \to 0
+$$
+正合。
+
+\medskip\noindent
+写 $T^\bullet = \text{Tot}(A^{\bullet, \bullet})$。我们将证明
+$H^0(T^\bullet) \to H^0(M^\bullet)$ 是同构。相同论证适用于其他次数。
+令 $x \in \Ker(\text{d}_{T^\bullet}^0)$ 代表元素
+$\xi \in H^0(T^\bullet)$。写 $x = \sum_{i = n, \ldots, 0} x_i$，
+其中 $x_i \in A_i^i$。假设 $n > 0$。那么 $x_n$ 属于
+$d_{A_n^\bullet}^n$ 的核，并且映到 $H^n(A_{n - 1}^\bullet)$ 中的零，
+因为它映到的元素在相差一个符号后是 $x_{n - 1}$ 的边界。
+由证明的第一段，
+$x_n \bmod \Im(d^{n - 1}_{A_n^\bullet})$ 属于
+$H^n(A_{n + 1}^\bullet) \to H^n(A_n^\bullet)$ 的像。
+因此可用一个边界修改 $x$，达到 $x_n$ 是边界的情形。再修改一次 $x$，
+可假设 $x_n = 0$。归纳可见，每个上同调类 $\xi$ 都由余闭元
+$x = x_0$ 表示。最后，关于核的正合性条件告诉我们，两个这样的余闭元
+$x_0$ 与 $x_0'$ 同调，当且仅当它们在 $H^0(M^\bullet)$ 中的像相同。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-good-right-resolution-gives-qis}
+设 $M^\bullet$ 为阿贝尔群的复形，并设
+$$
+0 \to M^\bullet \to A_0^\bullet \to A_1^\bullet \to A_2^\bullet \to \ldots
+$$
+为阿贝尔群复形组成的正合复形，并且对所有 $p \in \mathbf{Z}$，复形
+$$
+0 \to
+\Coker(d_{M^\bullet}^p) \to
+\Coker(d_{A_0^\bullet}^p) \to
+\Coker(d_{A_1^\bullet}^p) \to
+\Coker(d_{A_2^\bullet}^p) \to \ldots
+$$
+也正合。置 $A^{p, q} = A_p^q$，从而得到双复形。令
+$\text{Tot}_\pi(A^{\bullet, \bullet})$ 为关联于该双复形的积总复形
+（见证明）。那么，由 $M^\bullet \to A_0^\bullet$ 诱导的映射
+$M^\bullet \to \text{Tot}_\pi(A^{\bullet, \bullet})$ 是拟同构。
+\end{lemma}
+
+\begin{proof}
+简写 $T^\bullet = \text{Tot}_\pi(A^{\bullet, \bullet})$，定义
+$$
+T^n = \prod\nolimits_{p + q = n} A^{p, q} =
+\prod\nolimits_{p + q = n} A_p^q
+\quad\text{其中}\quad
+\text{d}_{T^\bullet}^n =
+\prod\nolimits_{n = p + q} (f_p^q + (-1)^pd_{A_p^\bullet}^q)
+$$
+其中 $f_p^\bullet : A_p^\bullet \to A_{p + 1}^\bullet$ 是引理中的
+复形态射。
+
+\medskip\noindent
+我们将证明 $H^0(M^\bullet) \to H^0(T^\bullet)$ 是同构。
+相同论证适用于其他次数。令 $x \in \Ker(\text{d}_{T^\bullet}^0)$
+代表 $\xi \in H^0(T^\bullet)$。写 $x = (x_i)$，其中
+$x_i \in A_i^{-i}$。注意，$x_0$ 在
+$\Coker(A_1^{-1} \to A_1^0)$ 中映为零。因此，对某个
+$m_0 \in M^0$ 与 $y \in A_0^{-1}$，有
+$x_0 = m_0 + d_{A_0^\bullet}^{-1}(y)$。因为
+$\text{d}_{T^\bullet}(x) = 0$ 蕴含
+$\text{d}_{A_0^\bullet}(x_0) = 0$，所以
+$d_{M^\bullet}(m_0) = 0$。因此，从 $\xi$ 中减去
+$H^0(M^\bullet) \to H^0(T^\bullet)$ 像内的某个元素后，可假设
+$x_0$ 属于 $\Im(d^{-1}_{A_0^\bullet})$。
+
+\medskip\noindent
+假设 $x_0 \in \Im(d^{-1}_{A_0^\bullet})$。断言此时 $\xi = 0$。
+为证明这一点，对 $n$ 归纳寻找元素 $y_0, y_1, \ldots, y_n$，其中
+$y_i \in A_i^{-i - 1}$，使得 $x_0 = \text{d}_{A_0}^{-1}(y_0)$，且当
+$j = 1, \ldots, n$ 时
+$x_j = f_{j - 1}^{-j}(y_{j - 1}) + (-1)^j d^{-j - 1}_{A_j^\bullet}(y_j)$。
+当 $n = 0$ 时显然。证明归纳步骤：假设已经找到
+$y_0, \ldots, y_{n - 1}$。那么
+$w_n = x_n - f_{n - 1}^{-n}(y_{n - 1})$ 属于
+$d^{-n}_{A_n^\bullet}$ 的核，并映到 $H^{-n}(A_{n + 1}^\bullet)$ 中的零
+（因为它映到的元素在相差一个符号后是 $x_{n + 1}$ 的边界）。
+完全如引理 \ref{homology-lemma-good-resolution-gives-qis} 的证明，假设蕴含对所有
+$p \in \mathbf{Z}$，
+$$
+0 \to
+H^p(M^\bullet) \to
+H^p(A_0^\bullet) \to
+H^p(A_1^\bullet) \to
+H^p(A_2^\bullet) \to \ldots
+$$
+正合。因此，在用 $\Ker(d^{n - 1}_{A_{n - 1}^\bullet})$ 中的元素修改
+$y_{n - 1}$ 后，可假设 $w_n$ 在 $H^{-n}(A_n^\bullet)$ 中映为零。
+这意味着可以找到所需的 $y_n$。注意该过程不改变
+$y_0, \ldots, y_{n - 2}$。因此无限继续下去，可在 $T^{n - 1}$ 中找到
+元素 $y = (y_i)$，使得 $d_{T^\bullet}(y) = \xi$。
+% P02-E0016: source line 7003 says y lies in T^{n-1}; the constructed components y_i have total degree -1, so T^{-1} appears required.
+这说明 $H^0(M^\bullet) \to H^0(T^\bullet)$ 满射。
+
+\medskip\noindent
+假设 $m_0 \in \Ker(d^0_{M^\bullet})$ 在 $H^0(T^\bullet)$ 中映为零。
+设它映到对 $y = (y_i) \in T^{-1}$ 施加微分所得的元素。
+那么 $y_0 \in A_0^{-1}$ 在 $\Coker(d^{-2}_{A_1^\bullet})$ 中映为零。
+由假设，这意味着 $y_0 \bmod \Im(d^{-2}_{A_0^\bullet})$ 是某个
+$z \in M^{-1}$ 的像。于是 $m_0 = d^{-1}_{M^\bullet}(z)$。
+这证明单射性，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-resolution-gives-qis}
+设 $M^\bullet$ 为阿贝尔群的复形，并设
+$$
+\ldots \to A_2^\bullet \to A_1^\bullet \to A_0^\bullet \to M^\bullet \to 0
+$$
+为阿贝尔群复形组成的正合复形。置 $A^{p, q} = A_{-p}^q$，从而得到
+双复形。令 $\text{Tot}_\pi(A^{\bullet, \bullet})$ 为关联于该双复形的
+积总复形（见证明）。那么，由 $A_0^\bullet \to M^\bullet$ 诱导的映射
+$\text{Tot}_\pi(A^{\bullet, \bullet}) \to M^\bullet$ 是拟同构。
+\end{lemma}
+
+\begin{proof}
+简写 $T^\bullet = \text{Tot}_\pi(A^{\bullet, \bullet})$，定义
+$$
+T^n = \prod\nolimits_{p + q = n} A^{p, q} =
+\prod\nolimits_{p + q = n} A_{-p}^q
+\quad\text{其中}\quad
+\text{d}_{T^\bullet}^n =
+\prod\nolimits_{n = p + q} (f_{-p}^q + (-1)^pd_{A_{-p}^\bullet}^q)
+$$
+其中 $f_p^\bullet : A_p^\bullet \to A_{p - 1}^\bullet$ 是引理中的
+复形态射。先证明当 $M^\bullet$ 为零复形时，$T^\bullet$ 无环。
+下面的技巧说明这已足够。置 $B_n^\bullet = A_{n + 1}^\bullet$ 及
+$B_0^\bullet = M^\bullet$。那么有如引理中的正合列
+$$
+\ldots \to B_2^\bullet \to B_1^\bullet \to B_0^\bullet \to 0 \to 0
+$$
+令 $S^\bullet = \text{Tot}_\pi(B^{\bullet, \bullet})$。于是有显然的
+复形短正合列
+$$
+0 \to M^\bullet \to S^\bullet \to T^\bullet[1] \to 0
+$$
+再由长正合上同调列得到结论。略去一些细节。
+
+\medskip\noindent
+假设 $M^\bullet = 0$。我们将证明 $H^0(T^\bullet) = 0$。
+相同论证适用于其他次数。令
+$x =(x_n) \in \Ker(d_{T^\bullet})$ 映到 $\xi \in H^0(T^\bullet)$，
+其中 $x_n \in A^{-n, n} = A_n^n$。由于 $M^0 = 0$，可得对某个
+$y_0 \in A_1^0$ 有 $x_0 = f_1^0(y_0)$。于是
+$x_1 - d^0_{A_1^\bullet}(y_0) = f_2^1(y_1)$，因为 $x$ 是余闭元，
+故它被 $f_1^1$ 映为零；这里某个 $y_1 \in A_2^1$。
+继续归纳，找到 $y = (y_i) \in T^{-1}$，使得
+$d_{T^\bullet}(y) = x$，正如所需。
+\end{proof}
+
+\section{内射对象}
+\label{homology-section-injectives}
+
+\begin{definition}
+\label{homology-definition-injective}
+设 $\mathcal{A}$ 为阿贝尔范畴。若对每个单射态射
+$A \hookrightarrow B$ 及每个态射 $A \to J$，都存在使下图交换的态射
+$B \to J$，则称对象 $J \in \Ob(\mathcal{A})$ {\it 内射}：
+$$
+\xymatrix{
+A \ar[r] \ar[d] & B \ar@{-->}[ld] \\
+J &
+}
+$$
+\end{definition}
+
+\noindent
+下面给出不可缺少的内射对象刻画。
+
+\begin{lemma}
+\label{homology-lemma-characterize-injectives}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $I$ 为 $\mathcal{A}$ 的对象。
+下列条件等价：
+\begin{enumerate}
+\item 对象 $I$ 内射。
+\item 函子 $B \mapsto \Hom_\mathcal{A}(B, I)$ 正合。
+\item $\mathcal{A}$ 中任意短正合列
+$$
+0 \to I \to A \to B \to 0
+$$
+都分裂。
+\item 对所有 $B \in \Ob(\mathcal{A})$，均有
+$\Ext_\mathcal{A}(B, I) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-product-injectives}
+设 $\mathcal{A}$ 为阿贝尔范畴。假设
+$I_\omega$（$\omega \in \Omega$）是 $\mathcal{A}$ 的一族内射对象。
+若 $\prod_{\omega \in \Omega} I_\omega$ 存在，则它内射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-enough-injectives}
+设 $\mathcal{A}$ 为阿贝尔范畴。若每个对象 $A$ 都有一个进入某个内射对象
+$J$ 的单射态射 $A \to J$，则称 $\mathcal{A}$ {\it 有足够多的内射对象}。
+\end{definition}
+
+\begin{definition}
+\label{homology-definition-functorial-injective-embedding}
+设 $\mathcal{A}$ 为阿贝尔范畴。若存在函子
+$$
+J : \mathcal{A} \longrightarrow \text{Arrows}(\mathcal{A})
+$$
+满足
+\begin{enumerate}
+\item $s \circ J = \text{id}_\mathcal{A}$；
+\item 对任意对象 $A \in \Ob(\mathcal{A})$，态射 $J(A)$ 是单射态射；
+\item 对任意对象 $A \in \Ob(\mathcal{A})$，对象 $t(J(A))$ 是
+$\mathcal{A}$ 的内射对象，
+\end{enumerate}
+则称 $\mathcal{A}$ {\it 具有函子性内射嵌入}。我们将这样的函子记作
+$A \mapsto (A \to J(A))$。
+\end{definition}
+
+\section{投射对象}
+\label{homology-section-projectives}
+
+\begin{definition}
+\label{homology-definition-projective}
+设 $\mathcal{A}$ 为阿贝尔范畴。若对每个满射态射
+$A \rightarrow B$ 及每个态射 $P \to B$，都存在使下图交换的态射
+$P \to A$，则称对象 $P \in \Ob(\mathcal{A})$ {\it 投射}：
+$$
+\xymatrix{
+A \ar[r] & B \\
+P \ar@{-->}[u] \ar[ru] &
+}
+$$
+\end{definition}
+
+\noindent
+下面给出不可缺少的投射对象刻画。
+
+\begin{lemma}
+\label{homology-lemma-characterize-projectives}
+设 $\mathcal{A}$ 为阿贝尔范畴，并设 $P$ 为 $\mathcal{A}$ 的对象。
+下列条件等价：
+\begin{enumerate}
+\item 对象 $P$ 投射。
+\item 函子 $B \mapsto \Hom_\mathcal{A}(P, B)$ 正合。
+\item $\mathcal{A}$ 中任意短正合列
+$$
+0 \to A \to B \to P \to 0
+$$
+都分裂。
+\item 对所有 $A \in \Ob(\mathcal{A})$，均有
+$\Ext_\mathcal{A}(P, A) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-coproduct-projectives}
+设 $\mathcal{A}$ 为阿贝尔范畴。假设
+$P_\omega$（$\omega \in \Omega$）是 $\mathcal{A}$ 的一族投射对象。
+若 $\coprod_{\omega \in \Omega} P_\omega$ 存在，则它投射。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{homology-definition-enough-projectives}
+设 $\mathcal{A}$ 为阿贝尔范畴。若每个对象 $A$ 都有一个从某个投射对象
+$P$ 出发到它的满射态射 $P \to A$，则称 $\mathcal{A}$
+{\it 有足够多的投射对象}。
+\end{definition}
+
+\begin{definition}
+\label{homology-definition-functorial-projective-surjections}
+设 $\mathcal{A}$ 为阿贝尔范畴。若存在函子
+$$
+P : \mathcal{A} \longrightarrow \text{Arrows}(\mathcal{A})
+$$
+满足
+\begin{enumerate}
+\item $t \circ P = \text{id}_\mathcal{A}$；
+\item 对任意对象 $A \in \Ob(\mathcal{A})$，态射 $P(A)$ 是满射态射；
+\item 对任意对象 $A \in \Ob(\mathcal{A})$，对象 $s(P(A))$ 是
+$\mathcal{A}$ 的投射对象，
+\end{enumerate}
+则称 $\mathcal{A}$ {\it 具有函子性投射满射}。我们将这样的函子记作
+$A \mapsto (P(A) \to A)$。
+\end{definition}
+
+\section{内射对象与伴随函子}
+\label{homology-section-adjoint}
+
+\noindent
+下面给出关于伴随函子及其与内射对象之关系的若干引理。亦见引理
+\ref{homology-lemma-adjoint-get-abelian}。
+
+\begin{lemma}
+\label{homology-lemma-adjoint-preserve-injectives}
+\begin{slogan}
+具有正合左伴随的函子保持内射对象。
+\end{slogan}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为阿贝尔范畴，并设
+$u : \mathcal{A} \to \mathcal{B}$ 与
+$v : \mathcal{B} \to \mathcal{A}$ 为加性函子，其中 $u$ 是 $v$ 的右伴随。
+考虑下列条件：
+\begin{enumerate}
+\item[(a)] $v$ 把单射态射变为单射态射；
+\item[(b)] $v$ 正合；
+\item[(c)] $u$ 把内射对象变为内射对象。
+\end{enumerate}
+那么 (a) $\Leftrightarrow$ (b) $\Rightarrow$ (c)。若 $\mathcal{A}$
+有足够多的内射对象，则三个条件全都等价。
+\end{lemma}
+
+\begin{proof}
+注意，作为左伴随，$v$ 右正合（范畴论，引理
+\ref{categories-lemma-exact-adjoint}）。结合引理 \ref{homology-lemma-exact-functor}，
+这解释了为何 (a) $\Leftrightarrow$ (b)。
+
+\medskip\noindent
+假设 (a)。设 $I$ 为 $\mathcal{A}$ 的内射对象，
+$\varphi : N \to M$ 为 $\mathcal{B}$ 中的单射态射，并设
+$\alpha : N \to uI$ 为态射。由伴随性得到态射
+$\alpha : vN \to I$，而由假设，$v\varphi : vN \to vM$ 是单射态射。
+由于 $I$ 内射，得到延拓 $\alpha$ 的态射 $\beta : vM \to I$。
+再次由伴随性，它对应于延拓 $\alpha$ 的态射 $\beta : M \to uI$。
+故 (c) 成立。
+
+\medskip\noindent
+假设 $\mathcal{A}$ 有足够多的内射对象且 (c) 成立。设
+$f : B \to B'$ 为 $\mathcal{B}$ 中的单态射，并令
+$A = \Ker(v(f))$。选取到内射对象 $I$ 的单态射 $g : A \to I$
+（由假设它存在）。那么 $g$ 延拓为 $g' : v(B) \to I$，由伴随得到
+态射 $B \to u(I)$。由于 $u(I)$ 内射，该态射延拓为
+$h : B' \to u(I)$；由伴随得到延拓 $g'$ 的态射
+$k : v(B') \to I$。但此时 $k$ “延拓” $g$；由于 $g$ 是单态射，
+这迫使 $A = 0$。故 (a) 成立。
+\end{proof}
+
+\begin{remark}
+\label{homology-remark-need-left-exactness}
+设 $R \to S$ 为环同态。令 $u : \text{Mod}_S \to \text{Mod}_R$
+由 $u(N) = N_R$ 给出，令 $v : \text{Mod}_R \to \text{Mod}_S$
+由 $v(M) = M \otimes_R S$ 给出。那么 $u$ 是 $v$ 的右伴随，且
+$u$ 正合、$v$ 右正合。但一般而言，引理
+\ref{homology-lemma-adjoint-preserve-injectives} 的条件 (a)、(b)、(c) 并不成立。
+例如，若 $R = \mathbf{Z}$、$S = \mathbf{Z}/p\mathbf{Z}$，则内射
+$S$-模 $\mathbf{Z}/p\mathbf{Z}$ 不是内射 $\mathbf{Z}$-模。
+事实上，该引理表明，所有内射 $S$-模作为 $R$-模都内射，当且仅当
+$R \to S$ 是平坦环同态。
+\end{remark}
+
+\begin{lemma}
+\label{homology-lemma-adjoint-enough-injectives}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为阿贝尔范畴，并设
+$u : \mathcal{A} \to \mathcal{B}$ 与
+$v : \mathcal{B} \to \mathcal{A}$ 为加性函子。假设
+\begin{enumerate}
+\item $u$ 是 $v$ 的右伴随；
+\item $v$ 把单射态射变为单射态射；
+\item $\mathcal{A}$ 有足够多的内射对象；
+\item 对任意 $B \in \Ob(\mathcal{B})$，$vB = 0$ 蕴含 $B = 0$。
+\end{enumerate}
+那么 $\mathcal{B}$ 有足够多的内射对象。
+\end{lemma}
+
+\begin{proof}
+取 $B \in \Ob(\mathcal{B})$。取到 $\mathcal{A}$ 的某个内射对象
+$I$ 的单射态射 $vB \to I$。由引理
+\ref{homology-lemma-adjoint-preserve-injectives} 与各假设，相应映射
+$B \to uI$ 是把 $B$ 嵌入内射对象的单射态射。
+\end{proof}
+
+\begin{remark}
+\label{homology-remark-faithfulness-needed}
+设 $\mathcal{A}$、$\mathcal{B}$、$u : \mathcal{A} \to \mathcal{B}$ 与
+$v : \mathcal{B} \to \mathcal{A}$ 如引理
+\ref{homology-lemma-adjoint-enough-injectives}。在条件 (1) 与 (2) 下，条件 (4)
+等价于 $v$ 忠实。而且，条件 (4) 是必要的。一个例子是函子 $u$ 与 $v$
+都为零函子的情形。
+\end{remark}
+
+\begin{lemma}
+\label{homology-lemma-adjoint-functorial-injectives}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为阿贝尔范畴，并设
+$u : \mathcal{A} \to \mathcal{B}$ 与
+$v : \mathcal{B} \to \mathcal{A}$ 为加性函子。假设
+\begin{enumerate}
+\item $u$ 是 $v$ 的右伴随；
+\item $v$ 把单射态射变为单射态射；
+\item $\mathcal{A}$ 有足够多的内射对象；
+\item 对任意 $B \in \Ob(\mathcal{B})$，$vB = 0$ 蕴含 $B = 0$；
+\item $\mathcal{A}$ 具有函子性内射嵌入。
+\end{enumerate}
+那么 $\mathcal{B}$ 具有函子性内射嵌入。
+\end{lemma}
+
+\begin{proof}
+设 $A \mapsto (A \to J(A))$ 是 $\mathcal{A}$ 上的函子性内射嵌入。
+那么 $B \mapsto (B \to uJ(vB))$ 是 $\mathcal{B}$ 上的函子性内射嵌入。
+与引理 \ref{homology-lemma-adjoint-enough-injectives} 的证明比较。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-partially-defined-adjoint}
+设 $\mathcal{A}$ 与 $\mathcal{B}$ 为阿贝尔范畴，并设
+$u : \mathcal{A} \to \mathcal{B}$ 为函子。若存在子集
+$\mathcal{P} \subset \Ob(\mathcal{B})$，使得
+\begin{enumerate}
+\item $\mathcal{B}$ 的每个对象都是 $\mathcal{P}$ 中某个元素的商；
+\item 对每个 $P \in \mathcal{P}$，存在 $\mathcal{A}$ 的对象 $Q$，
+使得关于 $A$ 函子性地有
+$\Hom_\mathcal{A}(Q, A) = \Hom_\mathcal{B}(P, u(A))$，
+\end{enumerate}
+则 $u$ 存在左伴随 $v$。
+\end{lemma}
+
+\begin{proof}
+由 Yoneda 引理（范畴论，引理 \ref{categories-lemma-yoneda}），
+对应于 $P$ 的 $\mathcal{A}$ 的对象 $Q$ 由公式
+$\Hom_\mathcal{A}(Q, A) = \Hom_\mathcal{B}(P, u(A))$ 在唯一同构意义下
+确定。写 $Q = v(P)$。用 $i_P : P \to u(v(P))$ 表示
+$\Hom_\mathcal{A}(v(P), v(P))$ 中 $\text{id}_{v(P)}$ 对应的映射。
+(2) 中的函子性蕴含该双射由
+$$
+\Hom_\mathcal{A}(v(P), A) \to \Hom_\mathcal{B}(P, u(A)),\quad
+\varphi \mapsto u(\varphi) \circ i_P
+$$
+给出。对任意一对元素 $P_1, P_2 \in \mathcal{P}$，存在典范映射
+$$
+\Hom_\mathcal{B}(P_2, P_1)
+\to
+\Hom_\mathcal{A}(v(P_2), v(P_1)),\quad
+\varphi \mapsto v(\varphi)
+$$
+其特征规则是在 $\Hom_\mathcal{B}(P_2, u(v(P_1)))$ 中有
+$u(v(\varphi)) \circ i_{P_2} = i_{P_1} \circ \varphi$。
+注意 $\varphi \mapsto v(\varphi)$ 与复合相容；这可直接由该特征看出。
+因此 $P \mapsto v(P)$ 是从 $\mathcal{B}$ 中以 $\mathcal{P}$ 的元素为
+对象的全子范畴出发的函子。
+
+\medskip\noindent
+给定 $\mathcal{B}$ 的任意对象 $B$，选择正合列
+$$
+P_2 \to P_1 \to B \to 0
+$$
+这由假设 (1) 可行。把 $v(B)$ 定义为适合正合列
+$$
+v(P_2) \to v(P_1) \to v(B) \to 0
+$$
+的 $\mathcal{A}$ 的对象。那么
+\begin{align*}
+\Hom_\mathcal{A}(v(B), A)
+& =
+\Ker(\Hom_\mathcal{A}(v(P_1), A) \to \Hom_\mathcal{A}(v(P_2), A)) \\
+& =
+\Ker(\Hom_\mathcal{B}(P_1, u(A)) \to \Hom_\mathcal{B}(P_2, u(A))) \\
+& =
+\Hom_\mathcal{B}(B, u(A))
+\end{align*}
+因此可取 $\mathcal{P} = \Ob(\mathcal{B})$；也就是说，$v$ 处处有定义。
+\end{proof}
+
+\section{本质常值系统}
+\label{homology-section-essentially-constant}
+
+\noindent
+本节讨论取值于加性范畴的本质常值系统。
+
+\begin{lemma}
+\label{homology-lemma-essentially-constant-into-karoubian}
+设 $\mathcal{I}$ 为范畴，$\mathcal{A}$ 为预加性 Karoubian 范畴，并设
+$M : \mathcal{I} \to \mathcal{A}$ 为图式。
+\begin{enumerate}
+\item 假设 $\mathcal{I}$ 是滤过的。下列条件等价：
+\begin{enumerate}
+\item $M$ 本质常值；
+\item $X = \colim M$ 存在，且存在余终滤过子范畴
+$\mathcal{I}' \subset \mathcal{I}$，使得对
+$i' \in \Ob(\mathcal{I}')$ 有直和分解
+$M_{i'} = X_{i'} \oplus Z_{i'}$，其中 $X_{i'}$ 同构地映到 $X$，
+而对 $\mathcal{I}'$ 中的某个 $i' \to i''$，$Z_{i'}$ 在
+$M_{i''}$ 中的像为零。
+\end{enumerate}
+\item 假设 $\mathcal{I}$ 是余滤过的。下列条件等价：
+\begin{enumerate}
+\item $M$ 本质常值；
+\item $X = \lim M$ 存在，且存在共始余滤过子范畴
+$\mathcal{I}' \subset \mathcal{I}$，使得对
+$i' \in \Ob(\mathcal{I}')$ 有直和分解
+$M_{i'} = X_{i'} \oplus Z_{i'}$，其中 $X$ 同构地映到
+$X_{i'}$，而对 $\mathcal{I}'$ 中的某个 $i'' \to i'$，
+$M_{i''} \to Z_{i'}$ 为零。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1)(a) 成立，即 $\mathcal{I}$ 是滤过的且 $M$ 本质常值。
+令 $X = \colim M_i$。按《范畴》，定义
+\ref{categories-definition-essentially-constant-diagram} 选取
+$i$ 与 $X \to M_i$。令 $\mathcal{I}'$ 为如下对象所组成的全子范畴：
+它们都是以 $i$ 为源的某个态射的靶。设
+$i' \in \Ob(\mathcal{I}')$，并选取态射 $i \to i'$。
+那么 $X \to M_i \to M_{i'}$ 与 $M_{i'} \to X$ 的复合是
+$X$ 上的恒等态射。由于 $\mathcal{A}$ 是 Karoubian 范畴，可得直和分解
+$M_{i'} = X_{i'} \oplus Z_{i'}$，其中
+$Z_{i'} = \Ker(M_{i'} \to X)$，且 $X_{i'}$ 同构地映到 $X$。
+按《范畴》，定义
+\ref{categories-definition-essentially-constant-diagram}，选取
+$i \to k$ 与 $i' \to k$，使
+$M_{i'} \to X \to M_i \to M_k$ 等于 $M_{i'} \to M_k$。
+于是 $M_{i'} \to M_k$ 在 $Z_{i'}$ 上为零。因此 (1)(b) 成立。
+
+\medskip\noindent
+假设 (1)(b) 成立，即 $\mathcal{I}$ 是滤过的，并且有
+$\mathcal{I}' \subset \mathcal{I}$ 以及对
+$i' \in \Ob(\mathcal{I}')$ 的直和分解
+$M_{i'} = X_{i'} \oplus Z_{i'}$，满足引理所述条件。为证明
+$M$ 本质常值，可把 $\mathcal{I}$ 换成 $\mathcal{I}'$；见
+《范畴》，引理 \ref{categories-lemma-cofinal-essentially-constant}。
+任取 $i \in \Ob(\mathcal{I})$，以 $X \to M_i$ 表示同构
+$X_i \to X$ 的逆与包含映射 $X_i \to M_i$ 的复合。若 $j$ 是另一对象，
+则选取 $j \to k$，使 $Z_j \to M_k$ 为零。由于
+$\mathcal{I}$ 是滤过的，在必要时增大 $k$ 后，还可假设存在态射
+$i \to k$。于是 $M_j \to X \to M_i \to M_k$ 与
+$M_j \to M_k$ 都在 $Z_j$ 上为零。再后复合一个使直和项
+$Z_k$ 为零的态射 $M_k \to M_l$，便得到
+$M_j \to X \to M_i \to M_l$ 与 $M_j \to M_l$ 相等；也就是说，
+$M$ 本质常值。
+
+\medskip\noindent
+(2) 的证明与之对偶。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-direct-sum-from-product-colimit}
+设 $\mathcal{I}$ 为范畴，$\mathcal{A}$ 为加性 Karoubian 范畴，并设
+$F : \mathcal{I} \to \mathcal{A}$ 与
+$G : \mathcal{I} \to \mathcal{A}$ 为函子。下列条件等价：
+\begin{enumerate}
+\item $\colim_\mathcal{I} F \oplus G$ 存在；
+\item $\colim_\mathcal{I} F$ 与 $\colim_\mathcal{I} G$ 均存在。
+\end{enumerate}
+在这种情形下，
+$\colim_\mathcal{I} F \oplus G =
+\colim_\mathcal{I} F \oplus \colim_\mathcal{I} G$。
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。令 $W = \colim_\mathcal{I} F \oplus G$。
+注意，到 $F$ 上的投影定义了幂等自然变换
+$F \oplus G \to F \oplus G$。因此由《范畴》，引理
+\ref{categories-lemma-functorial-colimit}，得到幂等自同态
+$W \to W$。由于 $\mathcal{A}$ 是 Karoubian 范畴，得到相应的直和分解
+$W = X \oplus Y$；见引理 \ref{homology-lemma-karoubian}。一个直接的论证
+（略去）表明 $X = \colim_\mathcal{I} F$ 且
+$Y = \colim_\mathcal{I} G$。故 (2) 成立。我们略去 (2) 蕴含 (1)
+的证明。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-direct-sum-from-product-essentially-constant}
+设 $\mathcal{I}$ 为滤过范畴，$\mathcal{A}$ 为加性 Karoubian 范畴，
+并设 $F : \mathcal{I} \to \mathcal{A}$ 与
+$G : \mathcal{I} \to \mathcal{A}$ 为函子。下列条件等价：
+\begin{enumerate}
+\item $F \oplus G : \mathcal{I} \to \mathcal{A}$ 本质常值；
+\item $F$ 与 $G$ 都本质常值。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。特别地，
+$W = \colim_\mathcal{I} F \oplus G$ 存在，因而由引理
+\ref{homology-lemma-direct-sum-from-product-colimit}，有
+$W = X \oplus Y$，其中 $X = \colim_\mathcal{I} F$ 且
+$Y = \colim_\mathcal{I} G$。例如利用《范畴》，引理
+\ref{categories-lemma-characterize-essentially-constant-ind}
+中的刻画，一个直接的论证（略去）表明 $F$ 以 $X$ 为值本质常值，
+而 $G$ 以 $Y$ 为值本质常值。故 (2) 成立。略去 (2) 蕴含 (1)
+的证明。
+\end{proof}
+
+
+
+
+
+\section{逆系统}
+\label{homology-section-inverse-systems}
+
+\noindent
+设 $\mathcal{C}$ 为范畴。在《范畴》，第
+\ref{categories-section-posets-limits} 节中，我们定义了预序集上的
+（取值于范畴 $\mathcal{C}$ 的）逆系统。若该预序集是带通常次序的
+$\mathbf{N} = \{1, 2, 3, \ldots\}$，则 $\mathbf{N}$ 上的这种逆系统
+通常简称为{\it 逆系统}。它无非由一对 $(M_i, f_{ii'})$ 构成，其中对每个
+$i \in \mathbf{N}$，$M_i$ 是 $\mathcal{C}$ 的对象；并且对每个
+$i > i'$，$i, i' \in \mathbf{N}$，都有态射
+$f_{ii'} : M_i \to M_{i'}$，还要求在复合有意义时
+$f_{i'i''} \circ f_{ii'} = f_{ii''}$。显然，实际上只需给出态射
+$M_2 \to M_1$、$M_3 \to M_2$，依此类推。因此逆系统经常画成
+$$
+M_1 \xleftarrow{\varphi_2} M_2 \xleftarrow{\varphi_3} M_3 \leftarrow \ldots
+$$
+此外，我们常从记号中省去转移映射 $\varphi_i$，而只说
+“设 $(M_i)$ 为逆系统”。
+
+\medskip\noindent
+所有取值于 $\mathcal{C}$ 的逆系统在显然的态射概念下构成范畴。
+
+\begin{lemma}
+\label{homology-lemma-inverse-systems-abelian}
+设 $\mathcal{C}$ 为范畴。
+\begin{enumerate}
+\item 若 $\mathcal{C}$ 是加性范畴，则取值于 $\mathcal{C}$ 的逆系统范畴
+是加性范畴。
+\item 若 $\mathcal{C}$ 是阿贝尔范畴，则取值于 $\mathcal{C}$ 的逆系统
+范畴是阿贝尔范畴。逆系统的序列
+$(K_i) \to (L_i) \to (M_i)$ 正合，当且仅当每个
+% P02-E0017: frozen source names N_i here although the displayed system names M_i.
+$K_i \to L_i \to N_i$ 都正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+这种逆系统的极限（见《范畴》，第
+\ref{categories-section-posets-limits} 节）记为 $\lim M_i$ 或
+$\lim_i M_i$。若 $\mathcal{C}$ 是阿贝尔群（或集合）的范畴，则极限
+总是存在，并且实际上可描述为
+$$
+\lim_i M_i
+=
+\{(x_i) \in \prod M_i \mid \varphi_i(x_i) = x_{i - 1}, \ i = 2, 3, \ldots\}
+$$
+参见《范畴》，第 \ref{categories-section-limit-sets} 节。然而，给定
+阿贝尔群逆系统的短正合列
+$$
+0 \to (A_i) \to (B_i) \to (C_i) \to 0
+$$
+相应的极限列并不总是正合。为进一步讨论这一问题，引入如下概念。
+
+\begin{definition}
+\label{homology-definition-Mittag-Leffler}
+设 $\mathcal{C}$ 为阿贝尔范畴。若对每个 $i$ 都存在
+$c = c(i) \geq i$，使得
+$$
+\Im(A_k \to A_i) = \Im(A_c \to A_i)
+$$
+对所有 $k \geq c$ 成立，则称逆系统 $(A_i)$ 满足
+{\it Mittag-Leffler 条件}，或简称为 {\it ML}。
+\end{definition}
+
+\noindent
+事实表明，只要在阿贝尔群、某环上的模等所构成的阿贝尔范畴中工作，
+Mittag-Leffler 条件就足以保证 $\lim$-函子正合。A.\ Neeman 的一篇论文
+（见 \cite{Neeman-Counterexample}）表明，在具有 AB4*（即积正合）的
+阿贝尔范畴中，该条件并不足够强。
+
+\begin{lemma}
+\label{homology-lemma-Mittag-Leffler}
+设
+$$
+0 \to (A_i) \to (B_i) \to (C_i) \to 0
+$$
+为阿贝尔群逆系统的短正合列。
+\begin{enumerate}
+\item 无论如何，序列
+$$
+0 \to \lim_i A_i \to \lim_i B_i \to \lim_i C_i
+$$
+是正合的。
+\item 若 $(B_i)$ 是 ML，则 $(C_i)$ 也是 ML。
+\item 若 $(A_i)$ 是 ML，则
+$$
+0 \to \lim_i A_i \to \lim_i B_i \to \lim_i C_i \to 0
+$$
+是正合的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这是一个很好的练习。关于 (3)，见《代数》，引理
+\ref{algebra-lemma-Mittag-Leffler}。
+\end{proof}
+
+\begin{lemma}
+\label{homology-lemma-apply-Mittag-Leffler}
+设
+$$
+(A_i) \to (B_i) \to (C_i) \to (D_i)
+$$
+为阿贝尔群逆系统的正合列。若系统 $(A_i)$ 是 ML，则序列
+$$
+\lim_i B_i \to \lim_i C_i \to \lim_i D_i
+$$
+正合。
+\end{lemma}
+
+\begin{proof}
+令 $Z_i = \Ker(C_i \to D_i)$ 且 $I_i = \Im(A_i \to B_i)$。
+那么 $\lim Z_i = \Ker(\lim C_i \to \lim D_i)$，并且得到系统的短正合列
+$$
+0 \to (I_i) \to (B_i) \to (Z_i) \to 0
+$$
+此外，由引理 \ref{homology-lemma-Mittag-Leffler} 可知 $(I_i)$ 具有 (ML)；
+再次应用引理 \ref{homology-lemma-Mittag-Leffler}，便知
+$\lim B_i \to \lim Z_i$ 满射，从而证明引理。
+\end{proof}
+
+\noindent
+下述对本质常值逆系统的刻画特别表明它们具有 ML。
+
+\begin{lemma}
+\label{homology-lemma-essentially-constant}
+设 $\mathcal{A}$ 为阿贝尔范畴，$(A_i)$ 为 $\mathcal{A}$ 中的逆系统，
+其极限为 $A = \lim A_i$。那么 $(A_i)$ 本质常值（见《范畴》，定义
+\ref{categories-definition-essentially-constant-diagram}），当且仅当存在
+某个 $i$，使得对所有 $j \geq i$ 都有直和分解
+$A_j = A \oplus Z_j$，并且：(a) 映射 $A_{j'} \to A_j$ 与这些直和分解
+相容；(b) 对所有 $j$，存在某个 $j' \geq j$，使
+$Z_{j'} \to Z_j$ 为零。
+\end{lemma}
+
+\begin{proof}
+假设 $(A_i)$ 本质常值。那么存在某个 $i$ 以及态射
+$A_i \to A$，使 $A \to A_i \to A$ 为恒等态射；并且对所有
+$j \geq i$，存在 $j' \geq j$，使 $A_{j'} \to A_j$ 分解为
+$A_{j'} \to A_i \to A \to A_j$（最后一个映射来自
+$A = \lim A_i$）。于是，对所有 $j \geq i$ 令
+$Z_j = \Ker(A_j \to A)$ 即可。略去逆命题的证明。
+\end{proof}
+
+\noindent
+我们将在《更多代数》，引理
+\ref{more-algebra-lemma-Mittag-Leffler} 中改进下述引理。
+
+\begin{lemma}
+\label{homology-lemma-exact-sequence-ML}
+设
+$$
+0 \to (A_i) \to (B_i) \to (C_i) \to 0
+$$
+为阿贝尔群逆系统的正合列。若 $(C_i)$ 本质常值，则 $(A_i)$ 具有 ML
+当且仅当 $(B_i)$ 具有 ML。
+\end{lemma}
+
+\begin{proof}
+重新编号后，可假设 $C_i = C \oplus Z_i$，该分解与转移映射相容，
+并且对所有 $i$ 都存在 $i' \geq i$，使 $Z_{i'} \to Z_i$ 为零；
+见引理 \ref{homology-lemma-essentially-constant}。
+
+\medskip\noindent
+先假设 $C = 0$，即 $C_i = Z_i$。在这种情形下，选取
+$1 = n_1 < n_2 < n_3 < \ldots$，使
+$Z_{n_{i + 1}} \to Z_{n_i}$ 为零。于是
+$B_{n_{i + 1}} \to B_{n_i}$ 通过 $A_{n_i} \subset B_{n_i}$ 分解。
+因此，当 $j \geq i + 1$ 时，在 $A_{n_i}$ 中有
+$$
+\Im(A_{n_j} \to A_{n_i}) \subset \Im(B_{n_j} \to B_{n_i}) \subset
+\Im(A_{n_{j - 1}} \to A_{n_i})
+$$
+所以当 $j \geq i + 1$ 时，像 $\Im(A_{n_j} \to A_{n_i})$ 稳定，
+当且仅当像 $\Im(B_{n_j} \to B_{n_i})$ 稳定。所需等价性由此推出
+（略去一个小细节）。
+
+\medskip\noindent
+若 $C \not = 0$，以 $B'_i \subset B_i$ 表示映射
+$B_i \to C \oplus Z_i$ 下 $C$ 的逆像。由前一段可知，$(B'_i)$
+具有 ML 当且仅当 $(B_i)$ 具有 ML。因此可用 $(B'_i)$ 替换
+$(B_i)$。此时，对所有 $i$ 都有正合列
+$0 \to A_i \to B_i \to C \to 0$。由此，对所有 $j \geq i$，
+$$
+0 \to \Im(A_j \to A_i) \to \Im(B_j \to B_i) \to C \to 0
+$$
+均为短正合列。故当 $j \geq i$ 时，像
+$\Im(A_j \to A_i)$ 稳定，当且仅当像
+$\Im(B_j \to B_i)$ 稳定，正如所需。
+\end{proof}
+
+\noindent
+下述引理的“正确”版本见《更多代数》，引理
+\ref{more-algebra-lemma-apply-Mittag-Leffler-again}。
+
+\begin{lemma}
+\label{homology-lemma-apply-Mittag-Leffler-again}
+设
+$$
+(A^{-2}_i \to A^{-1}_i \to A^0_i \to A^1_i)
+$$
+为阿贝尔群复形的逆系统，并以
+$A^{-2} \to A^{-1} \to A^0 \to A^1$ 表示其极限。以
+$(H_i^{-1})$、$(H_i^0)$ 表示各上同调所成的逆系统，并以
+$H^{-1}$、$H^0$ 表示复形
+$A^{-2} \to A^{-1} \to A^0 \to A^1$ 的上同调。若
+$(A^{-2}_i)$ 与 $(A^{-1}_i)$ 是 ML，且
+$(H^{-1}_i)$ 本质常值，则 $H^0 = \lim H_i^0$。
+\end{lemma}
+
+\begin{proof}
+令 $Z^j_i = \Ker(A^j_i \to A^{j + 1}_i)$ 且
+$I^j_i = \Im(A^{j - 1}_i \to A^j_i)$。注意
+$\lim Z^0_i = \Ker(\lim A^0_i \to \lim A^1_i)$，因为取核与极限可交换。
+系统 $(I^{-1}_i)$ 与 $(I^0_i)$ 作为系统 $(A^{-2}_i)$ 与
+$(A^{-1}_i)$ 的商而具有 ML；见引理 \ref{homology-lemma-Mittag-Leffler}。
+因而有逆系统的正合列
+$$
+0 \to (I^{-1}_i) \to (Z^{-1}_i) \to (H^{-1}_i) \to 0
+$$
+其中 $(I^{-1}_i)$ 具有 ML，而 $(H^{-1}_i)$ 依假设本质常值。
+故由引理 \ref{homology-lemma-exact-sequence-ML}，$(Z^{-1}_i)$ 具有 ML。
+正合列
+$$
+0 \to (Z^{-1}_i) \to (A^{-1}_i) \to (I^0_i) \to 0
+$$
+以及引理 \ref{homology-lemma-Mittag-Leffler} 的一次应用表明
+$\lim A^{-1}_i \to \lim I^0_i$ 满射。最后，正合列
+$$
+0 \to (I^0_i) \to (Z^0_i) \to (H^0_i) \to 0
+$$
+和引理 \ref{homology-lemma-Mittag-Leffler} 表明
+$\lim I^0_i \to \lim Z^0_i \to \lim H^0_i \to 0$ 正合。
+综合起来即得结论。
+\end{proof}
+
+\noindent
+有时我们需要上述引理在大序数上取极限的版本。
+
+\begin{lemma}
+\label{homology-lemma-ML-over-ordinals}
+设 $\alpha$ 为序数，并设 $K_\beta^\bullet$，$\beta < \alpha$，
+为 $\alpha$ 上的阿贝尔群复形逆系统。若对所有
+$\beta < \alpha$，复形 $K_\beta^\bullet$ 都无环，且映射
+$$
+K^n_\beta \longrightarrow \lim_{\gamma < \beta} K^n_\gamma
+$$
+满射，则复形 $\lim_{\beta < \alpha} K_\beta^\bullet$ 无环。
+\end{lemma}
+
+\begin{proof}
+用超限归纳证明，对每个序数 $\alpha$ 以及引理所述的每个系统，结论均
+成立。特别地，在证明关于 $\alpha$ 的结论时，可以假设复形
+% P02-E0018: frozen source writes K^n here although it calls the limit a complex.
+$\lim_{\gamma < \beta} K^n_\gamma$ 无环。
+
+\medskip\noindent
+设 $x \in \lim_{\beta < \alpha} K^0_\beta$ 且
+$\text{d}(x) = 0$。我们要找
+$y \in \lim_{\beta < \alpha} K^{-1}_\beta$，使
+$\text{d}(y) = x$。写 $x = (x_\beta)$，其中对
+$\beta < \alpha$，$x_\beta \in K_\beta^0$ 是 $x$ 的像。
+我们将用超限递归构造 $y = (y_\beta)$。
+
+\medskip\noindent
+当 $\beta = 0$ 时，任取 $y_0 \in K_0^{-1}$，使
+$\text{d}(y_0) = x_0$。
+
+\medskip\noindent
+当 $\beta = \gamma + 1$ 为后继序数时，要找元素 $y_\beta$，使它在转移
+映射 $f : K^\bullet_\beta \to K^\bullet_\gamma$ 下映到
+$y_\gamma$，并在微分下映到 $x_\beta$。作为第一次近似，选取
+$y'_\beta$，使 $\text{d}(y'_\beta) = x_\beta$。于是差
+$y_\gamma - f(y'_\beta)$ 位于微分的核中，故等于
+$\text{d}(z_\gamma)$，其中某个 $z_\gamma \in K^{-2}_\gamma$。
+由假设，映射 $f^{-2} : K^{-2}_\beta \to K^{-2}_\gamma$ 满射。
+因而可写 $z_\gamma = f(z_\beta)$，并把 $y'_\beta$ 改为
+$y_\beta = y'_\beta + \text{d}(z_\beta)$，这便满足要求。
+
+\medskip\noindent
+若 $\beta$ 是极限序数，则有
+$\lim_{\gamma < \beta} K^{-1}_\gamma$ 中的元素
+$(y_\gamma)_{\gamma < \beta}$，其微分是 $x_\beta$ 的像。因此可与上面
+完全同样地论证：使用逐项满射的复形映射
+$f : K_\beta^\bullet \to \lim_{\gamma < \beta} K_\gamma^\bullet$，
+以及由归纳可假设
+$\lim_{\gamma < \beta} K_\gamma^\bullet$ 无环这一事实（见证明第一段）。
+\end{proof}
+
+
+\section{积的正合性}
+\label{homology-section-product-exact}
+
+
+\begin{lemma}
+\label{homology-lemma-product-abelian-groups-exact}
+设 $I$ 为集合。对 $i \in I$，设 $L_i \to M_i \to N_i$ 为阿贝尔群
+复形，并设 $H_i = \Ker(M_i \to N_i)/\Im(L_i \to M_i)$ 为其同调。
+那么
+$$
+\prod L_i \to \prod M_i \to \prod N_i
+$$
+是阿贝尔群复形，其同调为 $\prod H_i$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}

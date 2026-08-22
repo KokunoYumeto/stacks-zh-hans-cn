@@ -1,0 +1,3128 @@
+% Generated mechanically from the frozen smoothing.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{15}
+\chapter{环同态的光滑化}
+
+
+
+\phantomsection
+\label{smoothing-section-phantom}
+
+
+\section{引言}
+\label{smoothing-section-introduction}
+
+\noindent
+本章的主要结论如下：
+$$
+\fbox{诺特环之间的正则同态是光滑同态的滤过余极限。}
+$$
+该定理由 Popescu 证明，见 \cite{popescu-letter}。
+Richard Swan 给出了 Popescu 证明的一份易读阐述，见 \cite{swan}；
+他采用了 Andr\'e 的笔记以及 Ogoma 的一篇论文，见 \cite{Ogoma}。
+
+\medskip\noindent
+我们的叙述沿循 Swan 的处理，不过会先证明一个中间结果，
+以便在稍为简单的情形中展开论证。下面概述全章结构。
+首先解决如下“提升问题”：光滑代数的滤过余极限的平坦无穷小形变，
+仍是光滑代数的滤过余极限。这个结果实质上说明，只须对约化诺特环之间的
+同态证明主定理。随后证明两个十分巧妙的引理，分别称为“提升引理”和
+“消奇异化引理”。我们将说明，合用这两个引理后，主定理可归结为证明：
+域 $k$ 上几何正则的诺特代数 $\Lambda$ 是光滑 $k$-代数的滤过余极限。
+接着讨论 Popescu--Ogoma--Swan--Andr\'e 证明所需的局部技巧。
+最后三节给出证明。
+
+\medskip\noindent
+最后列出若干参考文献。设 $A$ 为 Hensel 诺特局部环。
+若对任意 $f_1, \ldots, f_m \in A[x_1, \ldots, x_n]$，方程组
+$f_1 = 0, \ldots, f_m = 0$ 在 $A$ 的完备化中有解当且仅当它在 $A$ 中有解，
+则称 $A$ 具有{\it 逼近性质}。这一定义由 Artin 提出。
+Artin 首先对解析方程组证明了逼近性质，见
+\cite{Artin-Analytic-Approximation}。
+在 \cite{Artin-Algebraic-Approximation} 中，Artin 对本质有限型于
+优秀离散赋值环的局部环证明了逼近性质。
+Artin 猜想（见 \cite{Artin-Algebraic-Approximation} 第 26 页），
+每个优秀 Hensel 局部环都应具有逼近性质。
+
+\medskip\noindent
+后来人们提出猜想：诺特环的每个正则同态都是光滑代数的滤过余极限（例如见
+\cite{Raynaud-Rennes}, \cite{popescu-global}, \cite{Artin-power-series},
+\cite{Artin-Denef}）。我们不确定这一猜想应归于谁。\footnote{在
+\cite{Artin-power-series}、\cite{Artin-Denef} 和 \cite{popescu-global}
+中表述的问题或猜想更强；\cite{Cipu} 证明了它与原版本等价。}
+它与逼近性质的联系如下：若 $A$ 如上，并且 $A \to A^\wedge$ 是光滑代数的
+余极限，则逼近性质成立（此处待补引用）。此外，若 $A$ 是优秀局部环，
+则主定理适用于同态 $A \to A^\wedge$，因为优秀局部环的条件之一是其
+形式纤维几何正则。优秀局部环由 Grothendieck 定义，该定义于 1965 年刊印。
+
+\medskip\noindent
+\cite{Artin-power-series} 证明了：对任意本质有限型于域的局部环 $R$，
+$R \to R^\wedge$ 都是光滑代数的滤过余极限。
+\cite{Rotthaus-Artin} 证明了：对任意本质有限型于优秀离散赋值环的局部环
+$R$，$R \to R^\wedge$ 都是光滑代数的滤过余极限。
+最后，如上所述，主定理在
+\cite{popescu-GND}, \cite{popescu-GNDA}, \cite{popescu-letter}, 
+\cite{Ogoma} 和 \cite{swan} 中得到证明。
+
+\medskip\noindent
+反过来，利用上述若干结果，\cite{Rotthaus-excellent} 证明了：
+任何具有逼近性质的诺特局部环都是优秀环。
+
+\medskip\noindent
+论文 \cite{Spivakovsky} 给出了主定理的另一种处理方式，但似乎颇难读懂
+（例如，\cite[Lemma 5.2]{Spivakovsky} 看来是对 \cite[Lemma 3]{Elkik}
+的不正确改述）。关于这些材料还有一篇 Bourbaki 报告，见 \cite{Teissier}。
+
+
+
+
+
+
+
+
+
+
+
+
+\section{奇异理想}
+\label{smoothing-section-singular-ideal}
+
+\noindent
+设 $R \to A$ 为环同态。$A$ 相对于 $R$ 的奇异理想，是 $A$ 中定义态射
+$\Spec(A) \to \Spec(R)$ 的奇异轨迹的根理想。其严格定义如下。
+
+\begin{definition}
+\label{smoothing-definition-singular-ideal}
+设 $R \to A$ 为环同态。$A$ 相对于 $R$ 的{\it 奇异理想}记作 $H_{A/R}$，
+它是满足下式的唯一根理想 $H_{A/R} \subset A$：
+$$
+V(H_{A/R}) = \{\mathfrak q \in \Spec(A) \mid R \to A
+\text{ 在 }\mathfrak q\text{ 处不光滑}\}.
+$$
+\end{definition}
+
+\noindent
+这一定义合理，因为 $R \to A$ 光滑的素理想所成集合是开集，见
+《代数》定义 \ref{algebra-definition-smooth-at-prime}。
+为了找出奇异理想的一组显式生成元，我们先证明以下引理。
+
+\begin{lemma}
+\label{smoothing-lemma-find-strictly-standard}
+设 $R$ 为环，$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$，
+$\mathfrak q \subset A$ 为素理想。假设 $R \to A$ 在 $\mathfrak q$ 处光滑。
+则存在 $a \in A$ 且 $a \not \in \mathfrak q$、整数 $c$ 且
+$0 \leq c \leq \min(n, m)$，以及基数均为 $c$ 的子集
+$U \subset \{1, \ldots, n\}$、$V \subset \{1, \ldots, m\}$，使得
+$$
+a = a' \det(\partial f_j/\partial x_i)_{j \in V, i \in U}
+$$
+对某个 $a' \in A$ 成立，并且
+$$
+a f_\ell \in (f_j, j \in V) + (f_1, \ldots, f_m)^2
+$$
+对所有 $\ell \in \{1, \ldots, m\}$ 都成立。
+\end{lemma}
+
+\begin{proof}
+令 $I = (f_1, \ldots, f_m)$。于是 $A$ 在 $R$ 上的朴素余切复形同伦等价于
+$I/I^2 \to \bigoplus A\text{d}x_i$，见
+《代数》引理 \ref{algebra-lemma-NL-homotopy}。
+我们将用到朴素余切复形的构造与局部化可交换；见
+《代数》第 \ref{algebra-section-netherlander} 节，特别是
+《代数》引理 \ref{algebra-lemma-localize-NL}。
+由《代数》定义 \ref{algebra-definition-smooth} 和
+\ref{algebra-definition-smooth-at-prime} 可知，对某个
+$a \in A$、$a \not \in \mathfrak q$，同态
+$(I/I^2)_a \to \bigoplus A_a\text{d}x_i$ 是分裂单射。
+重排 $x_1, \ldots, x_n$ 与 $f_1, \ldots, f_m$ 的编号后，可以假设
+$f_1, \ldots, f_c$ 构成向量空间
+$I/I^2 \otimes_A \kappa(\mathfrak q)$ 的一组基，并且
+$\text{d}x_{c + 1}, \ldots, \text{d}x_n$ 的像构成
+$\Omega_{A/R} \otimes_A \kappa(\mathfrak q)$ 的一组基。
+因此，用 $aa'$ 代替 $a$（其中 $a' \in A$ 且
+$a' \not \in \mathfrak q$）后，可以假设 $f_1, \ldots, f_c$
+构成 $(I/I^2)_a$ 的一组基，并且
+$\text{d}x_{c + 1}, \ldots, \text{d}x_n$ 的像构成
+$(\Omega_{A/R})_a$ 的一组基。在此情形中，当整数 $N$ 充分大时，
+$a^N$ 满足引理的条件（取 $U = V = \{1, \ldots, c\}$）。
+\end{proof}
+
+\noindent
+我们将使用 $A$ 中相对于 $R$ 的{\it 严格标准}元这一概念。
+这里的概念比 Swan 的论文 \cite{swan} 中所用的概念稍弱。
+我们还把上一个引理中所得类型的元素定义为{\it 初等标准}元。
+引理 \ref{smoothing-lemma-compare-standard} 将比较这些不同类型的元素。
+
+\begin{definition}
+\label{smoothing-definition-strictly-standard}
+设 $R \to A$ 为有限表示的环同态，$a \in A$。若存在一个表示
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+以及满足 $0 \leq c \leq \min(n, m)$ 的整数 $c$，使得
+\begin{equation}
+\label{smoothing-equation-elementary-standard-one}
+a = a' \det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}
+\end{equation}
+对某个 $a' \in A$ 成立，并且
+\begin{equation}
+\label{smoothing-equation-elementary-standard-two}
+a f_{c + j} \in (f_1, \ldots, f_c) + (f_1, \ldots, f_m)^2
+\end{equation}
+对 $j = 1, \ldots, m - c$ 成立，则称 $a$ 是
+{\it $A$ 中相对于 $R$ 的初等标准元}。若存在一个表示
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+以及满足 $0 \leq c \leq \min(n, m)$ 的整数 $c$，使得
+\begin{equation}
+\label{smoothing-equation-strictly-standard-one}
+a = \sum\nolimits_{I \subset \{1, \ldots, n\},\ |I| = c}
+a_I \det(\partial f_j/\partial x_i)_{j = 1, \ldots, c,\ i \in I}
+\end{equation}
+对某些 $a_I \in A$ 成立，并且
+\begin{equation}
+\label{smoothing-equation-strictly-standard-two}
+a f_{c + j} \in (f_1, \ldots, f_c) + (f_1, \ldots, f_m)^2
+\end{equation}
+对 $j = 1, \ldots, m - c$ 成立，则称 $a$ 是
+{\it $A$ 中相对于 $R$ 的严格标准元}。
+\end{definition}
+
+\noindent
+以下引理可用来理解式 (\ref{smoothing-equation-strictly-standard-one}) 所蕴含的结论。
+
+\begin{lemma}
+\label{smoothing-lemma-parse-equation-strictly-standard-one}
+设 $R$ 为环，$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$，并记
+$I = (f_1, \ldots, f_m)$。设 $a \in A$。则式
+(\ref{smoothing-equation-strictly-standard-one}) 蕴含存在一个 $A$-线性同态
+$\psi : \bigoplus\nolimits_{i = 1, \ldots, n} A \text{d}x_i \to A^{\oplus c}$
+使得复合
+$$
+A^{\oplus c} \xrightarrow{(f_1, \ldots, f_c)}
+I/I^2 \xrightarrow{f \mapsto \text{d}f}
+\bigoplus\nolimits_{i = 1, \ldots, n} A \text{d}x_i
+\xrightarrow{\psi}
+A^{\oplus c}
+$$
+就是乘以 $a$ 的同态。反之，若这样的 $\psi$ 存在，则 $a^c$ 满足
+(\ref{smoothing-equation-strictly-standard-one})。
+\end{lemma}
+
+\begin{proof}
+这是《代数》引理 \ref{algebra-lemma-matrix-left-inverse} 的一个特例。
+\end{proof}
+
+\begin{lemma}[Elkik]
+\label{smoothing-lemma-elkik}
+设 $R \to A$ 为有限表示的环同态。奇异理想 $H_{A/R}$ 既是由
+$A$ 中相对于 $R$ 的严格标准元生成的理想之根，也是由
+$A$ 中相对于 $R$ 的初等标准元生成的理想之根。
+\end{lemma}
+
+\begin{proof}
+假设 $a$ 是 $A$ 中相对于 $R$ 的严格标准元。我们断言 $A_a$ 在 $R$ 上光滑，
+这便证明了 $a \in H_{A/R}$。事实上，令
+$A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$、$c$ 和 $a' \in A$
+如定义 \ref{smoothing-definition-strictly-standard} 所述。记
+$I = (f_1, \ldots, f_m)$，则 $A$ 在 $R$ 上的朴素余切复形为
+$I/I^2 \to \bigoplus A\text{d}x_i$。
+条件 (\ref{smoothing-equation-strictly-standard-two}) 蕴含 $(I/I^2)_a$
+由 $f_1, \ldots, f_c$ 的类生成。条件
+(\ref{smoothing-equation-strictly-standard-one}) 蕴含微分同态
+$(I/I^2)_a \to \bigoplus A_a\text{d}x_i$ 有左逆，见
+引理 \ref{smoothing-lemma-parse-equation-strictly-standard-one}。
+因此，由定义和《代数》引理 \ref{algebra-lemma-localize-NL}，
+$R \to A_a$ 光滑。
+
+\medskip\noindent
+令 $H_e, H_s \subset A$ 分别为由 $A$ 中相对于 $R$ 的初等标准元、
+严格标准元生成的理想之根。由定义和刚才的证明，
+$H_e \subset H_s \subset H_{A/R}$。包含关系 $H_{A/R} \subset H_e$
+由引理 \ref{smoothing-lemma-find-strictly-standard} 得出。
+\end{proof}
+
+\begin{example}
+\label{smoothing-example-not-quasi-compact}
+有限表示环同态的光滑点集未必是拟紧开集。例如，令
+$R = k[x, y_1, y_2, y_3, \ldots]/(xy_i)$ 且 $A = R/(x)$。
+则 $R \to A$ 的光滑轨迹为 $\bigcup D(y_i)$，它不是拟紧的。
+\end{example}
+
+\begin{lemma}
+\label{smoothing-lemma-strictly-standard-base-change}
+设 $R \to A$ 为有限表示的环同态，$R \to R'$ 为环同态。
+若 $a \in A$ 是 $A$ 中相对于 $R$ 的初等标准元（相应地，严格标准元），
+则 $a \otimes 1$ 是 $A \otimes_R R'$ 中相对于 $R'$ 的初等标准元
+（相应地，严格标准元）。
+\end{lemma}
+
+\begin{proof}
+若 $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ 是 $A$ 在 $R$ 上的一个表示，
+则
+$A \otimes_R R' = R'[x_1, \ldots, x_n]/(f'_1, \ldots, f'_m)$
+是 $A \otimes_R R'$ 在 $R'$ 上的一个表示，其中 $f'_j$ 是 $f_j$
+在 $R'[x_1, \ldots, x_n]$ 中的像。因此结论由定义立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-final-solve}
+设 $R \to A \to \Lambda$ 为环同态，且 $A$ 是有限表示 $R$-代数。
+假设 $H_{A/R} \Lambda = \Lambda$。则存在分解
+$A \to B \to \Lambda$，其中 $B$ 在 $R$ 上光滑。
+\end{lemma}
+
+\begin{proof}
+选取 $f_1, \ldots, f_r \in H_{A/R}$ 和
+$\lambda_1, \ldots, \lambda_r \in \Lambda$，使得在 $\Lambda$ 中
+$\sum f_i\lambda_i = 1$。令
+$B = A[x_1, \ldots, x_r]/(f_1x_1 + \ldots + f_rx_r - 1)$
+并以 $x_i \mapsto \lambda_i$ 定义 $B \to \Lambda$。
+为验证 $B$ 在 $R$ 上光滑，注意由 $H_{A/R}$ 的定义，$A_{f_i}$
+在 $R$ 上光滑，而 $B_{f_i}$ 在 $A_{f_i}$ 上光滑。细节从略。
+\end{proof}
+
+
+
+
+
+\section{代数的表示}
+\label{smoothing-section-presentations}
+
+\noindent
+本节的若干结果由 Elkik 证明。注意，下一个引理中的代数 $C$ 是 $A$ 上的
+对称代数。此外，若 $R$ 是诺特环，则 $C$ 是有限表示 $R$-代数。
+
+\begin{lemma}
+\label{smoothing-lemma-improve-presentation}
+设 $R$ 为环，$A$ 为有限表示 $R$-代数。存在具有缩回的有限型
+$R$-代数同态 $A \to C$，且满足以下两个性质：
+\begin{enumerate}
+\item 对每个使 $R \to A_a$ 为局部完全交的 $a \in A$
+（见《代数详论》定义
+\ref{more-algebra-definition-local-complete-intersection}），
+$C_a$ 在 $A_a$ 上光滑，并且有一个表示
+$C_a = R[y_1, \ldots, y_m]/J$，其中 $J/J^2$ 是自由 $C_a$-模；
+\item 对每个使 $A_a$ 在 $R$ 上光滑的 $a \in A$，模
+$\Omega_{C_a/R}$ 是自由 $C_a$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取一个表示 $A = R[x_1, \ldots, x_n]/I$，并记
+$I = (f_1, \ldots, f_m)$。用短正合列
+$$
+0 \to K \to A^{\oplus m} \to I/I^2 \to 0
+$$
+定义 $A$-模 $K$；其中中间项的第 $j$ 个基向量 $e_j$ 映到右端 $f_j$ 的类。
+令
+$$
+C = \text{Sym}^*_A(I/I^2).
+$$
+缩回就是投影到 $C$ 的 $0$ 次部分。存在满射
+$R[x_1, \ldots, x_n, y_1, \ldots, y_m] \to C$，把 $y_j$ 映到
+$I/I^2$ 中 $f_j$ 的类。此同态的核 $J$ 由 $f_1, \ldots, f_m$，
+以及所有形如 $\sum h_j y_j$ 的元素生成；这里
+$h_j \in R[x_1, \ldots, x_n]$，且 $\sum h_j e_j$ 定义 $K$ 的一个元素。
+把《代数》引理 \ref{algebra-lemma-exact-sequence-NL} 应用于
+$R \to A \to C$ 及上述表示，并使用《代数详论》引理
+\ref{more-algebra-lemma-cotangent-complex-symmetric-algebra}，得到短正合列
+\begin{equation}
+\label{smoothing-equation-sequence}
+I/I^2 \otimes_A C \to J/J^2 \to K \otimes_A C \to 0
+\end{equation}
+的 $C$-模。设 $h \in R[x_1, \ldots, x_n]$ 的像为 $a \in A$。
+对局部化环采用如下表示：
+$$
+A_a = R[x_0, x_1, \ldots, x_n]/I'
+\quad\text{且}\quad
+C_a = R[x_0, x_1, \ldots, x_n, y_1, \ldots, y_m]/J'
+$$
+其中 $I' = (hx_0 - 1, I)$，$J' = (hx_0 - 1, J)$。因此，作为
+$A_a$-模有 $I'/(I')^2 = A_a \oplus (I/I^2)_a$，作为 $C_a$-模有
+$J'/(J')^2 = C_a \oplus (J/J^2)_a$。于是得到
+\begin{equation}
+\label{smoothing-equation-sequence-localized}
+C_a \oplus I/I^2 \otimes_A C_a \to
+C_a \oplus (J/J^2)_a \to
+K \otimes_A C_a \to 0
+\end{equation}
+这正是《代数》引理 \ref{algebra-lemma-exact-sequence-NL} 对应于
+$R \to A_a \to C_a$ 及上述表示的正合列。
+
+\medskip\noindent
+接下来，假设 $a \in A$ 使得 $A_a$ 是 $R$ 上的局部完全交。
+则 $(I/I^2)_a$ 是有限投射 $A_a$-模，见《代数详论》引理
+\ref{more-algebra-lemma-quasi-regular-ideal-finite-projective}。
+因此 $K_a \oplus (I/I^2)_a \cong A_a^{\oplus m}$ 是自由模；特别地，
+$K_a$ 也是有限投射模。由《代数详论》引理
+\ref{more-algebra-lemma-transitive-lci-at-end}，正合列
+(\ref{smoothing-equation-sequence-localized}) 在左端也正合。因此
+$$
+J'/(J')^2 \cong
+C_a \oplus I/I^2 \otimes_A C_a \oplus K \otimes_A C_a \cong
+C_a^{\oplus m + 1}
+$$
+这就证明了 (1)。最后，再假设 $A_a$ 在 $R$ 上光滑。同一表示表明，
+$\Omega_{C_a/R}$ 是同态
+$$
+J'/(J')^2 \longrightarrow
+\bigoplus\nolimits_i C_a\text{d}x_i \oplus \bigoplus\nolimits_j C_a\text{d}y_j
+$$
+的余核。在上述分解中，$J'/(J')^2$ 的直和项 $C_a$ 对应于
+$hx_0 - 1$，因而同构地映到直和项 $C_a\text{d}x_0$。
+$J'/(J')^2$ 的直和项 $I/I^2 \otimes_A C_a$ 单射到
+$\bigoplus_{i = 1, \ldots, n} C_a\text{d}x_i$，其商为
+$\Omega_{A_a/R} \otimes_{A_a} C_a$。直和项 $K \otimes_A C_a$
+单射到 $\bigoplus_{j \geq 1} C_a\text{d}y_j$，其商同构于
+$I/I^2 \otimes_A C_a$。所以，上一个显示同态的余核是模
+$I/I^2 \otimes_A C_a \oplus \Omega_{A_a/R} \otimes_{A_a} C_a$。
+由光滑环同态的定义，$(I/I^2)_a \oplus \Omega_{A_a/R}$ 是自由模，
+从而 (2) 成立。
+\end{proof}
+
+\noindent
+对 Hensel 对上的光滑环同态，以下命题由 Elkik 在 \cite{Elkik} 中证明。
+关于光滑环同态的表述可见 \cite{Arabia}；该文还证明了光滑代数之间的
+环同态可以提升。
+
+\begin{proposition}
+\label{smoothing-proposition-lift-smooth}
+\begin{slogan}
+光滑代数和 syntomic 代数可沿满射提升
+\end{slogan}
+设 $R \to R_0$ 是核为 $I$ 的满环同态。
+\begin{enumerate}
+\item 若 $R_0 \to A_0$ 是 syntomic 环同态，则存在 syntomic 环同态
+$R \to A$，使得 $A/IA \cong A_0$。
+\item 若 $R_0 \to A_0$ 是光滑环同态，则存在光滑环同态
+$R \to A$，使得 $A/IA \cong A_0$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+假设 $R_0 \to A_0$ 是 syntomic 的；特别地，它是局部完全交
+（见《代数详论》引理 \ref{more-algebra-lemma-syntomic-lci}）。
+选取表示 $A_0 = R_0[x_1, \ldots, x_n]/J_0$，并令
+$C_0 = \text{Sym}^*_{A_0}(J_0/J_0^2)$。注意，$J_0/J_0^2$ 是有限投射
+$A_0$-模（见《代数》引理
+\ref{algebra-lemma-syntomic-presentation-ideal-mod-squares}）。
+由引理 \ref{smoothing-lemma-improve-presentation}，环同态 $A_0 \to C_0$ 光滑，
+并且可找到表示 $C_0 = R_0[y_1, \ldots, y_m]/K_0$，使得
+$K_0/K_0^2$ 是自由 $C_0$-模。由《代数》引理
+\ref{algebra-lemma-huber}，可以假设
+$C_0 = R_0[y_1, \ldots, y_m]/(\overline{f}_1, \ldots, \overline{f}_c)$
+其中 $\overline{f}_1, \ldots, \overline{f}_c$ 的像构成 $K_0/K_0^2$
+在 $C_0$ 上的一组基。选取 $\overline{f}_1, \ldots, \overline{f}_c$
+的提升 $f_1, \ldots, f_c \in R[y_1, \ldots, y_c]$，并令
+$$
+C = R[y_1, \ldots, y_m]/(f_1, \ldots, f_c)
+$$
+由构造，$C_0 = C/IC$。由《代数》引理
+\ref{algebra-lemma-localize-relative-complete-intersection}，
+用 $C_g$ 代替 $C$ 后，可以假设 $C$ 是 $R$ 上的相对整体完全交。
+因此存在有限投射 $A_0$-模 $P_0$，使
+$C_0 = \text{Sym}^*_{A_0}(P_0)$ 同构于某个 syntomic $R$-代数
+$C$ 的 $C/IC$。
+
+\medskip\noindent
+选取整数 $n$ 以及直和分解
+$A_0^{\oplus n} = P_0 \oplus Q_0$.
+由《代数详论》引理 \ref{more-algebra-lemma-lift-projective-module}，
+可找到平展环同态 $C \to C'$，它诱导同构 $C/IC \to C'/IC'$；
+还可找到有限投射 $C'$-模 $Q$，使 $Q/IQ$ 同构于
+$Q_0 \otimes_{A_0} C/IC$。于是 $D = \text{Sym}_{C'}^*(Q)$ 是光滑
+$C'$-代数（见《代数详论》引理
+\ref{more-algebra-lemma-symmetric-algebra-smooth}）。图示如下：
+$$
+\xymatrix{
+R \ar[d] \ar[rr] & &
+C \ar[r] \ar[d] &
+C' \ar[r] \ar[d] &
+D \ar[d] \\
+R/I \ar[r] &
+A_0 \ar[r] &
+C/IC \ar[r]^{\cong} &
+C'/IC' \ar[r] &
+D/ID
+}
+$$
+注意，$Q$ 的选取给出
+\begin{align*}
+D/ID & =
+\text{Sym}_{C/IC}^*(Q_0 \otimes_{A_0} C/IC) \\
+& =
+\text{Sym}_{A_0}^*(Q_0) \otimes_{A_0} C/IC \\
+& =
+\text{Sym}_{A_0}^*(Q_0) \otimes_{A_0}
+\text{Sym}_{A_0}^*(P_0) \\
+& =
+\text{Sym}_{A_0}^*(Q_0 \oplus P_0) \\
+& =
+\text{Sym}_{A_0}^*(A_0^{\oplus n}) \\
+& =
+A_0[x_1, \ldots, x_n]
+\end{align*}
+选取 $f_1, \ldots, f_n \in D$，使它们在
+$D/ID = A_0[x_1, \ldots, x_n]$ 中分别映到 $x_1, \ldots, x_n$。
+令 $A = D/(f_1, \ldots, f_n)$。注意 $A_0 = A/IA$。
+我们断言，$R \to A$ 在 $V(IA)$ 的某个邻域上是 syntomic 的。
+若断言成立，就可找到映到 $1 \in A_0$ 的 $f \in A$，使 $A_f$
+在 $R$ 上 syntomic；于是 (1) 的证明完成。
+
+\medskip\noindent
+证明上述断言。注意，$R \to D$ 是 syntomic 环同态 $R \to C$、
+平展环同态 $C \to C'$ 与光滑环同态 $C' \to D$ 的复合，因而是
+syntomic 的（见《代数》引理
+\ref{algebra-lemma-composition-syntomic} 以及
+\ref{algebra-lemma-smooth-syntomic}）。这个问题在 $\Spec(D)$ 上是局部的，
+故可假设 $D$ 是相对整体完全交（见《代数》引理
+\ref{algebra-lemma-syntomic}）。设
+$D = R[y_1, \ldots, y_m]/(g_1, \ldots, g_s)$。
+令 $f'_1, \ldots, f'_n \in R[y_1, \ldots, y_m]$ 为
+$f_1, \ldots, f_n$ 的提升。应用《代数》引理
+\ref{algebra-lemma-localize-relative-complete-intersection} 即得断言。
+
+\medskip\noindent
+证明 (2)。由于光滑环同态是 syntomic 的，可找到 syntomic 环同态
+$R \to A$，使得 $A_0 = A/IA$。由假设，$R \to A$ 的纤维在
+$V(I)$ 中的素理想上光滑，故 $R \to A$ 在 $V(IA)$ 的一个开邻域上光滑
+（见《代数》引理 \ref{algebra-lemma-flat-fibre-smooth}）。
+因此，以一个局部化代替 $A$，便得到所需结论。
+\end{proof}
+
+\noindent
+我们知道，任意 syntomic 环同态 $R \to A$ 在局部都是相对整体完全交，见
+《代数》引理 \ref{algebra-lemma-syntomic}。下一个引理说明，
+$\Spec(A)$ 上的向量丛是相对整体完全交。
+
+\begin{lemma}
+\label{smoothing-lemma-syntomic-complete-intersection}
+设 $R \to A$ 为 syntomic 环同态。则存在具有缩回的光滑 $R$-代数同态
+$A \to C$，使得 $C$ 是 $R$ 上的相对整体完全交，即
+$$
+C \cong R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)
+$$
+在 $R$ 上平坦，且所有纤维的维数均为 $n - c$。
+\end{lemma}
+
+\begin{proof}
+应用引理 \ref{smoothing-lemma-improve-presentation} 得到 $A \to C$。
+由《代数》引理 \ref{algebra-lemma-huber}，可写成
+$C = R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$，其中 $f_i$ 的像构成
+$J/J^2$ 的一组基。环同态 $R \to C$ 是一个 syntomic 环同态与一个光滑
+环同态的复合，因而是 syntomic 的（所以是平坦的）。由《代数》引理
+\ref{algebra-lemma-lci}，纤维的维数为 $n - c$
+（这些纤维是局部完全交，故该引理适用）。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-smooth-standard-smooth}
+设 $R \to A$ 为光滑环同态。则存在具有缩回的光滑 $R$-代数同态
+$A \to B$，使得 $B$ 在 $R$ 上标准光滑，即
+$$
+B \cong R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)
+$$
+并且 $\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+在 $B$ 中可逆。
+\end{lemma}
+
+\begin{proof}
+应用引理 \ref{smoothing-lemma-syntomic-complete-intersection}，得到具有缩回的光滑
+$R$-代数同态 $A \to C$，使得
+$C = R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$ 是 $R$ 上的相对整体完全交。
+由于 $C$ 在 $R$ 上光滑，存在短正合列
+$$
+0 \to
+\bigoplus\nolimits_{j = 1, \ldots, c} C f_j \to
+\bigoplus\nolimits_{i = 1, \ldots, n} C\text{d}x_i \to
+\Omega_{C/R} \to 0
+$$
+由于 $\Omega_{C/R}$ 是投射 $C$-模，此正合列分裂。选取第一个同态的左逆
+$t$。记
+$t(\text{d}x_i) = \sum c_{ij} f_j$
+于是 $\sum_i \frac{\partial f_j}{\partial x_i} c_{i\ell} = \delta_{j\ell}$
+（Kronecker delta）。令
+$$
+B' = C[y_1, \ldots, y_c] =
+R[x_1, \ldots, x_n, y_1, \ldots, y_c]/(f_1, \ldots, f_c)
+$$
+$R$-代数同态 $C \to B'$ 有一个由 $y_j \mapsto 0$ 给出的缩回。
+我们断言，同态
+$$
+R[z_1, \ldots, z_n] \longrightarrow B',\quad
+z_i \longmapsto x_i - \sum\nolimits_j c_{ij} y_j
+$$
+在 $\Spec(C) \to \Spec(B')$ 的像中每一点处都是平展的。
+在 $\Omega_{B'/R[z_1, \ldots, z_n]}$ 中有
+$$
+0 =
+\text{d}f_j - \sum\nolimits_i \frac{\partial f_j}{\partial x_i} \text{d}z_i
+\equiv
+\sum\nolimits_{i, \ell}
+\frac{\partial f_j}{\partial x_i} c_{i\ell} \text{d}y_\ell
+\equiv
+\text{d}y_j \bmod (y_1, \ldots, y_c)\Omega_{B'/R[z_1, \ldots, z_n]}
+$$
+又因为模去
+$\sum B'\text{d}y_j + (y_1, \ldots, y_c)\Omega_{B'/R[z_1, \ldots, z_n]}$
+后有 $0 = \text{d}z_i = \text{d}x_i$，故
+$$
+\Omega_{B'/R[z_1, \ldots, z_n]}/
+(y_1, \ldots, y_c)\Omega_{B'/R[z_1, \ldots, z_n]} = 0.
+$$
+由于 $\Omega_{B'/R[z_1, \ldots, z_n]}$ 是有限 $B'$-模，Nakayama 引理
+给出某个 $g \in 1 + (y_1, \ldots, y_c)$，使得
+$(\Omega_{B'/R[z_1, \ldots, z_n]})_g = 0$。这证明了
+$R[z_1, \ldots, z_n] \to B'_g$ 非分歧，见《代数》定义
+\ref{algebra-definition-unramified}。对任意以域 $k$ 为目标的环同态
+$R \to k$，得到两个维数为 $n$ 的光滑 $k$-代数之间的非分歧环同态
+$k[z_1, \ldots, z_n] \to (B'_g) \otimes_R k$。由《代数》引理
+\ref{algebra-lemma-CM-over-regular-flat} 和
+\ref{algebra-lemma-characterize-smooth-kbar}，
+$k[z_1, \ldots, z_n] \to (B'_g) \otimes_R k$ 是平坦的。
+再由逐纤维平坦性判别法（crit\`ere de platitude par fibre；见《代数》引理
+\ref{algebra-lemma-criterion-flatness-fibre}），可知
+$R[z_1, \ldots, z_n] \to B'_g$ 平坦。最后，《代数》引理
+\ref{algebra-lemma-characterize-etale} 蕴含
+$R[z_1, \ldots, z_n] \to B'_g$ 平展。令 $B = B'_g$。
+注意 $C \to B$ 光滑且有缩回，故 $A \to B$ 也光滑且有缩回。
+此外，$R[z_1, \ldots, z_n] \to B$ 平展。由《代数》引理
+\ref{algebra-lemma-etale-standard-smooth}，可写成
+$$
+B = R[z_1, \ldots, z_n, w_1, \ldots, w_m]/(g_1, \ldots, g_m)
+$$
+其中 $\det(\partial g_j/\partial w_i)$ 在 $B$ 中可逆。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-colimit-standard-smooth}
+设 $R \to \Lambda$ 为环同态。若 $\Lambda$ 是光滑 $R$-代数的滤过余极限，
+则 $\Lambda$ 是标准光滑 $R$-代数的滤过余极限。
+\end{lemma}
+
+\begin{proof}
+设 $A \to \Lambda$ 为 $R$-代数同态，其中 $A$ 是有限表示 $R$-代数。
+按照《代数》引理 \ref{algebra-lemma-when-colimit}，只需把此同态经由某个
+标准光滑代数分解。我们已知它可以分解为 $A \to B \to \Lambda$，其中
+$B$ 在 $R$ 上光滑。由引理 \ref{smoothing-lemma-smooth-standard-smooth}，选取具有缩回
+$C \to B$ 的 $R$-代数同态 $B \to C$，使 $C$ 在 $R$ 上标准光滑。
+所求分解便是 $A \to B \to C \to B \to \Lambda$。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-standard-smooth-include-generators}
+设 $R \to A$ 为标准光滑环同态，$E \subset A$ 为有限子集，且 $|E| = n$。
+则存在表示
+$A = R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$，其中 $c \geq n$，
+使 $\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$ 在 $A$ 中可逆，
+并且 $E$ 恰为 $x_1, \ldots, x_n$ 的同余类所成集合。
+\end{lemma}
+
+\begin{proof}
+选取表示 $A = R[y_1, \ldots, y_m]/(g_1, \ldots, g_d)$，使得
+$\det(\partial g_j/\partial y_i)_{i, j = 1, \ldots, d}$ 的像在 $A$ 中可逆。
+选定枚举 $E = \{a_1, \ldots, a_n\}$，并选取
+$h_i \in R[y_1, \ldots, y_m]$，使其在 $A$ 中的像为 $a_i$。
+考虑表示
+$$
+A = R[x_1, \ldots, x_n, y_1, \ldots, y_m]/
+(x_1 - h_1, \ldots, x_n - h_n, g_1, \ldots, g_d)
+$$
+并令 $c = n + d$。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-compare-standard}
+设 $R \to A$ 为有限表示环同态，$a \in A$。考虑关于 $a$ 的下列条件：
+\begin{enumerate}
+\item $A_a$ 在 $R$ 上光滑；
+\item $A_a$ 在 $R$ 上光滑，且 $\Omega_{A_a/R}$ 稳定自由；
+\item $A_a$ 在 $R$ 上光滑，且 $\Omega_{A_a/R}$ 自由；
+\item $A_a$ 在 $R$ 上标准光滑；
+\item $a$ 是 $A$ 中相对于 $R$ 的严格标准元；
+\item $a$ 是 $A$ 中相对于 $R$ 的初等标准元。
+\end{enumerate}
+则有
+\begin{enumerate}
+\item[(a)] (4) $\Rightarrow$ (3) $\Rightarrow$ (2) $\Rightarrow$ (1),
+\item[(b)] (6) $\Rightarrow$ (5),
+\item[(c)] (6) $\Rightarrow$ (4),
+\item[(d)] (5) $\Rightarrow$ (2),
+\item[(e)] (2) $\Rightarrow$ 当 $e \geq e_0$ 时，$a^e$ 是 $A$ 中相对于
+$R$ 的严格标准元；
+\item[(f)] (4) $\Rightarrow$ 当 $e \geq e_0$ 时，$a^e$ 是 $A$ 中相对于
+$R$ 的初等标准元。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定义和《代数》引理 \ref{algebra-lemma-standard-smooth}，(a) 显然。
+由定义 \ref{smoothing-definition-strictly-standard}，(b) 显然。
+
+\medskip\noindent
+证明 (c)。选取表示 $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$，
+使 (\ref{smoothing-equation-elementary-standard-one}) 和
+(\ref{smoothing-equation-elementary-standard-two}) 成立。
+选取映到 $a$ 的 $h \in R[x_1, \ldots, x_n]$。于是
+$$
+A_a = R[x_0, x_1, \ldots, x_n]/(x_0h - 1, f_1, \ldots, f_m).
+$$
+记 $J = (x_0h - 1, f_1, \ldots, f_m)$。由
+(\ref{smoothing-equation-elementary-standard-two})，$A_a$-模 $J/J^2$ 由
+$x_0h - 1, f_1, \ldots, f_c$ 生成。因此，与《代数》引理
+\ref{algebra-lemma-huber} 的证明相同，可以选取 $g \in 1 + J$，使得
+$$
+A_a = R[x_0, \ldots, x_n, x_{n + 1}]/
+(x_0h - 1, f_1, \ldots, f_c, gx_{n + 1} - 1).
+$$
+此时，(\ref{smoothing-equation-elementary-standard-one}) 蕴含 $R \to A_a$
+标准光滑（用坐标 $x_0, x_1, \ldots, x_c, x_{n + 1}$ 求偏导）。
+
+\medskip\noindent
+证明 (d)。选取表示 $A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$，
+使 (\ref{smoothing-equation-strictly-standard-one}) 和
+(\ref{smoothing-equation-strictly-standard-two}) 成立。记 $I = (f_1, \ldots, f_m)$。
+由引理 \ref{smoothing-lemma-elkik}，我们已经知道 $A_a$ 在 $R$ 上光滑。
+由引理 \ref{smoothing-lemma-parse-equation-strictly-standard-one}，
+$(I/I^2)_a$ 是以 $f_1, \ldots, f_c$ 为基的自由模，并同构地映到
+$\bigoplus A_a \text{d}x_i$ 的一个直和项。由于
+$\Omega_{A_a/R} = (\Omega_{A/R})_a$ 是同态
+$(I/I^2)_a \to \bigoplus A_a \text{d}x_i$ 的余核，故它稳定自由。
+
+\medskip\noindent
+证明 (e)。选取表示 $A = R[x_1, \ldots, x_n]/I$，其中 $I$ 有限生成。
+由假设，存在短正合列
+$$
+0 \to (I/I^2)_a \to \bigoplus\nolimits_{i = 1, \ldots, n} A_a\text{d}x_i \to
+\Omega_{A_a/R} \to 0
+$$
+且它分裂正合。因此 $(I/I^2)_a \oplus \Omega_{A_a/R}$ 是自由
+$A_a$-模。由于 $\Omega_{A_a/R}$ 稳定自由，$(I/I^2)_a$ 也稳定自由。
+于是，对某个 $r$，用表示
+$A = R[x_1, \ldots, x_n, x_{n + 1}, \ldots, x_{n + r}]/J$ 代替上述表示，
+其中 $J = (I, x_{n + 1}, \ldots, x_{n + r})$，便可使 $(J/J^2)_a$
+为（有限）自由模。选取 $f_1, \ldots, f_c \in J$，使其像构成
+$(J/J^2)_a$ 的一组基，再把它们扩充为一列生成元
+$f_1, \ldots, f_m \in J$。考虑表示
+$A = R[x_1, \ldots, x_{n + r}]/(f_1, \ldots, f_m)$。
+由构造，当 $e$ 充分大时，$a^e$ 满足
+(\ref{smoothing-equation-strictly-standard-two})。此外，由于
+$(J/J^2)_a \to \bigoplus\nolimits_{i = 1, \ldots, n + r} A_a\text{d}x_i$
+是分裂单射，可以找到一个 $A_a$-线性左逆。用基
+$f_1, \ldots, f_c$ 写出此左逆并清去分母，得到线性同态
+$\psi_0 : A^{\oplus n + r} \to A^{\oplus c}$，使得
+$$
+A^{\oplus c} \xrightarrow{(f_1, \ldots, f_c)}
+J/J^2 \xrightarrow{f \mapsto \text{d}f}
+\bigoplus\nolimits_{i = 1, \ldots, n + r} A \text{d}x_i
+\xrightarrow{\psi_0}
+A^{\oplus c}
+$$
+是乘以 $a^{e_0}$ 的同态，其中 $e_0 \geq 1$。由引理
+\ref{smoothing-lemma-parse-equation-strictly-standard-one}，
+(\ref{smoothing-equation-strictly-standard-one}) 对 $a^{ce_0}$ 成立，
+因而对所有满足 $e \geq ce_0$ 的 $a^e$ 成立。
+
+\medskip\noindent
+证明 (f)。选取表示
+$A_a = R[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$，使得
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$ 在 $A_a$ 中可逆。
+由引理 \ref{smoothing-lemma-standard-smooth-include-generators}，可以假设对某个
+$m < n$，元素 $x_1, \ldots, x_m$ 的类分别对应于 $a_i/1$，其中
+$a_1, \ldots, a_m \in A$ 是 $A$ 在 $R$ 上的一组生成元。
+对 $m < i \leq n$ 用 $a^Nx_i$ 代替 $x_i$ 后，可以假设 $x_i$ 的类
+为某个 $a_i \in A$ 所给出的 $a_i/1 \in A_a$。考虑环同态
+$$
+\Psi : R[x_1, \ldots, x_n] \longrightarrow A,\quad
+x_i \longmapsto a_i.
+$$
+这是满环同态。用 $a^Nf_j$ 代替 $f_j$ 后，可以假设
+$f_j \in R[x_1, \ldots, x_n]$ 且 $\Psi(f_j) = 0$
+（毕竟在 $A_a$ 中 $f_j(a_1/1, \ldots, a_n/1) = 0$）。令
+$J = \Ker(\Psi)$。则 $A = R[x_1, \ldots, x_n]/J$ 是一个表示，
+并且 $f_1, \ldots, f_c \in J$ 满足：$(J/J^2)_a$ 以
+$f_1, \ldots, f_c$ 为自由基，而且
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$ 的像在 $A_a$
+中可逆。因此，对所有充分大的 $e$，$a^e$ 满足
+(\ref{smoothing-equation-elementary-standard-one}) 和
+(\ref{smoothing-equation-elementary-standard-two})，正是所需结论。
+\end{proof}
+
+
+
+
+
+
+\section{插曲：N\'eron 消奇异化}
+\label{smoothing-section-neron}
+
+\noindent
+我们暂且中断对 Popescu 定理一般情形的攻克，转而研究一个较容易但已十分
+有趣的情形，即 $R \to \Lambda$ 是离散赋值环之间的同态。
+对此的讨论见 \cite[Section 4]{Artin-Algebraic-Approximation}。
+
+\begin{situation}
+\label{smoothing-situation-neron}
+设 $R \subset \Lambda$ 是分歧指数为 $1$ 的离散赋值环扩张
+（见《代数详论》定义
+\ref{more-algebra-definition-extension-discrete-valuation-rings}）。
+给定分解
+$$
+R \to A \xrightarrow{\varphi} \Lambda
+$$
+其中 $R \to A$ 平坦且为有限型。令 $\mathfrak q = \Ker(\varphi)$，
+$\mathfrak p = \varphi^{-1}(\mathfrak m_\Lambda)$。
+\end{situation}
+
+\noindent
+在情形 \ref{smoothing-situation-neron} 中，令 $\pi \in R$ 为一致化元。
+回顾一下，$A$ 在 $R$ 上平坦意味着 $\pi$ 是 $A$ 上的非零因子
+（见《代数详论》引理
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat}）。
+由关于 $R \subset \Lambda$ 的假设，$\pi$ 在 $\Lambda$ 中的像也是一致化元。
+由于 $\pi \in \mathfrak p$，可以考虑 N\'eron 仿射吹起代数
+（见《代数》第 \ref{algebra-section-blow-up} 节）
+$$
+\varphi' :
+A' = A[\textstyle{\frac{\mathfrak p}{\pi}}]
+\longrightarrow
+\Lambda
+$$
+它带有到 $\Lambda$ 的诱导同态，把 $a/\pi^n$（其中
+$a \in \mathfrak p^n$）映到 $\Lambda$ 中的 $\pi^{-n}\varphi(a)$。
+以 $\mathfrak q' \subset \mathfrak p' \subset A'$ 记 $A'$ 中相应的素理想。
+注意，$A'$ 的同构类不依赖于一致化元的选取。重复此构造得到序列
+$$
+A \to A' \to A'' \to \ldots \to \Lambda
+$$
+
+\begin{lemma}
+\label{smoothing-lemma-neron-functorial}
+在情形 \ref{smoothing-situation-neron} 中，N\'eron 吹起在下述意义下具有函子性：
+\begin{enumerate}
+\item 若 $a \in A$ 且 $a \not \in \mathfrak p$，则 $A_a$ 的 N\'eron 吹起
+为 $A'_a$；
+\item 若 $B \to A$ 是核为 $I$ 的平坦有限型 $R$-代数之间的满同态，
+则 $A'$ 是 $B'/IB'$ 对其 $\pi$-幂挠子模取商所得的环。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 和 (2) 都是《代数》引理
+\ref{algebra-lemma-blowup-base-change} 的特例。事实上，只要有
+$A_1 \to A_2 \to \Lambda$ 且 $\mathfrak p_1 A_2 = \mathfrak p_2$，
+$A_2'$ 就是 $A_1' \otimes_{A_1} A_2$ 对其 $\pi$-幂挠子模取商所得的环。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-neron-blowup-smooth}
+在情形 \ref{smoothing-situation-neron} 中，假设 $R \to A$ 在 $\mathfrak p$ 处光滑，
+且 $R/\pi R \subset \Lambda/\pi \Lambda$ 是可分域扩张。
+则 $R \to A'$ 在 $\mathfrak p'$ 处光滑，并且存在短正合列
+$$
+0 \to
+\Omega_{A/R} \otimes_A A'_{\mathfrak p'} \to
+\Omega_{A'/R, \mathfrak p'} \to
+(A'/\pi A')_{\mathfrak p'}^{\oplus c} \to 0
+$$
+其中 $c = \dim((A/\pi A)_\mathfrak p)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{smoothing-lemma-neron-functorial}，可以用 $A$ 关于某个不属于
+$\mathfrak p$ 的元素的局部化代替 $A$；下文将不再特别说明这一点。
+记 $\kappa = R/\pi R$。由于光滑性在基变换下保持
+（见《代数》引理 \ref{algebra-lemma-base-change-smooth}），
+$A/\pi A$ 在 $\mathfrak p$ 处是光滑 $\kappa$-代数。因此
+$(A/\pi A)_\mathfrak p$ 是正则局部环
+（见《代数》引理 \ref{algebra-lemma-characterize-smooth-over-field}）。
+选取 $g_1, \ldots, g_c \in \mathfrak p$，使其像构成
+$(A/\pi A)_\mathfrak p$ 的一组正则参数。必要时局部化 $A$ 后，有
+$\mathfrak p = (\pi, g_1, \ldots, g_c)$。注意
+$\pi, g_1, \ldots, g_c$ 是 $A_\mathfrak p$ 中的正则序列
+（首先 $\pi$ 是非零因子，再对序列的其余部分应用《代数》引理
+\ref{algebra-lemma-regular-ring-CM}）。再次局部化 $A$ 后，可以假设
+$\pi, g_1, \ldots, g_c$ 是 $A$ 中的正则序列
+（见《代数》引理 \ref{algebra-lemma-regular-sequence-in-neighbourhood}）。
+由此
+$$
+A' = A[y_1, \ldots, y_c]/(\pi y_1 - g_1, \ldots, \pi y_c - g_c) =
+A[y_1, \ldots, y_c]/I
+$$
+由《代数详论》引理 \ref{more-algebra-lemma-blowup-regular-sequence} 得出。
+下文将直接使用以朴素余切复形表述的光滑性定义
+（见《代数》定义 \ref{algebra-definition-smooth}）以及《代数》引理
+\ref{algebra-lemma-smooth-at-point} 的判别准则，不再另行说明。
+《代数》引理 \ref{algebra-lemma-exact-sequence-NL} 对
+$R \to A[y_1, \ldots, y_c] \to A'$ 给出的正合列为
+$$
+0 \to H_1(\NL_{A'/R}) \to I/I^2 \to
+\Omega_{A/R} \otimes_A A' \oplus
+\bigoplus\nolimits_{i = 1, \ldots, c} A' \text{d}y_i \to
+\Omega_{A'/R} \to 0
+$$
+其中 $I/I^2$ 中 $\pi y_i - g_i$ 的类映到下一项中的
+$- \text{d}g_i + \pi \text{d}y_i$。这里用《代数》引理
+\ref{algebra-lemma-NL-surjection} 计算
+$\NL_{A'/A[y_1, \ldots, y_c]}$，并使用了
+$R \to A[y_1, \ldots, y_c]$ 光滑这一事实。因此
+$H_1(\NL_{A[y_1, \ldots, y_c]/R}) = 0$，而且
+$\Omega_{A[y_1, \ldots, y_c]/R}$ 是有限投射（因而平坦）
+$A[y_1, \ldots, y_c]$-模；事实上，它是
+$\Omega_{A/R} \otimes_A A[y_1, \ldots, y_c]$ 与以 $\text{d}y_i$
+为基的自由模之直和。为完成证明，只需说明
+$\text{d}g_1, \ldots, \text{d}g_c$ 是有限自由模
+$\Omega_{A/R, \mathfrak p}$ 的一组基的一部分。事实上，这将说明
+$(I/I^2)_\mathfrak p$ 是以 $\pi y_i - g_i$ 为基的自由模，
+正合列中间同态在 $\mathfrak p$ 处的局部化是单射，因而
+$H_1(\NL_{A'/R})_\mathfrak p = 0$，并且余核
+$\Omega_{A'/R, \mathfrak p}$ 有限自由。为此，只需证明
+$\text{d}g_i$ 的像在
+$\Omega_{A/R, \mathfrak p}/\pi = \Omega_{(A/\pi A)/\kappa, \mathfrak p}$
+中在 $\kappa(\mathfrak p)$ 上线性无关（该等式由《代数》引理
+\ref{algebra-lemma-differentials-base-change} 给出）。由于
+$\kappa \subset \kappa(\mathfrak p) \subset \Lambda/\pi \Lambda$，
+$\kappa(\mathfrak p)$ 在 $\kappa$ 上可分
+（见《代数》定义 \ref{algebra-definition-separable-field-extension}）。
+所需的线性无关性由《代数》引理
+\ref{algebra-lemma-computation-differential} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-neron-when-smooth}
+在情形 \ref{smoothing-situation-neron} 中，假设 $R \to A$ 在 $\mathfrak q$ 处光滑，
+并有核为 $I$ 的满 $R$-代数同态 $B \to A$。假设 $R \to B$ 在
+$\mathfrak p_B = (B \to A)^{-1}\mathfrak p$ 处光滑。若同态
+$$
+I/I^2 \otimes_A \Lambda \to \Omega_{B/R} \otimes_B \Lambda
+$$
+的余核为自由 $\Lambda$-模，则 $R \to A$ 在 $\mathfrak p$ 处光滑。
+\end{lemma}
+
+\begin{proof}
+同态 $I/I^2 \to \Omega_{B/R} \otimes_B A$ 的余核为 $\Omega_{A/R}$，
+见《代数》引理 \ref{algebra-lemma-differential-seq}。令
+$d = \dim_\mathfrak q(A/R)$ 为 $R \to A$ 在 $\mathfrak q$ 处的相对维数，
+即 $\Spec(A[1/\pi])$ 在 $\mathfrak q$ 处的维数；见《代数》定义
+\ref{algebra-definition-relative-dimension}。于是
+$\Omega_{A/R, \mathfrak q}$ 是秩为 $d$ 的自由 $A_\mathfrak q$-模
+（见《代数》引理 \ref{algebra-lemma-characterize-smooth-over-field}）。
+因此，若引理的假设成立，则 $\Omega_{A/R} \otimes_A \Lambda$
+是秩为 $d$ 的自由模。从而 $\Omega_{A/R} \otimes_A \kappa(\mathfrak p)$
+的维数为 $d$（与 $\Lambda/\pi \Lambda$ 张量后即可看出）。
+由于 $R \to A$ 平坦，且 $\mathfrak p$ 是 $\mathfrak q$ 的特化，
+《代数》引理 \ref{algebra-lemma-dimension-fibres-bounded-open-upstairs}
+给出 $\dim_\mathfrak p(A/R) \geq d$。最后，由《代数》引理
+\ref{algebra-lemma-flat-fibre-smooth} 和
+\ref{algebra-lemma-characterize-smooth-over-field}，
+$R \to A$ 在 $\mathfrak p$ 处光滑。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-neron-desingularization}
+在情形 \ref{smoothing-situation-neron} 中，假设 $R \to A$ 在 $\mathfrak q$ 处光滑，
+且 $R/\pi R \subset \Lambda/\pi \Lambda$ 是可分域扩张。
+则经过有限次仿射 N\'eron 吹起后，代数 $A$ 在 $\mathfrak p$ 处变为
+光滑 $R$-代数。
+\end{lemma}
+
+\begin{proof}
+选取 $R$-代数 $B$ 和满同态 $B \to A$。令
+$\mathfrak p_B = (B \to A)^{-1}(\mathfrak p)$，并以 $r$ 记
+$R \to B$ 在 $\mathfrak p_B$ 处的相对维数。选取 $B$，使得
+$R \to B$ 在 $\mathfrak p_B$ 处光滑。例如，可取 $B$ 为 $R$ 上有
+$r$ 个变量的多项式代数。考虑引理 \ref{smoothing-lemma-neron-when-smooth} 中的复形
+$$
+I/I^2 \otimes_A \Lambda \longrightarrow \Omega_{B/R} \otimes_B \Lambda
+$$
+由有限 $\Lambda$-模的结构
+（见《代数详论》引理 \ref{more-algebra-lemma-modules-PID}），
+其余核形如
+$$
+\Lambda^{\oplus d} \oplus
+\bigoplus\nolimits_{i = 1, \ldots, n} \Lambda/\pi^{e_i} \Lambda
+$$
+其中 $d \geq 0$、$n \geq 0$ 且 $e_i \geq 1$。注意，$d$ 是 $A/R$
+在 $\mathfrak q$ 处的相对维数
+（见《代数》引理 \ref{algebra-lemma-characterize-smooth-over-field}）。
+若缺陷 $e = \sum_{i = 1, \ldots, n} e_i$ 为零，
+则引理 \ref{smoothing-lemma-neron-when-smooth} 已给出结论。
+
+\medskip\noindent
+下面考察施行 N\'eron 吹起后发生的情形。回顾一下，$A'$ 是
+$B'/IB'$ 对其 $\pi$-幂挠子模取商所得的环
+（见引理 \ref{smoothing-lemma-neron-functorial}），而 $R \to B'$ 在
+$\mathfrak p_{B'}$ 处光滑（见引理 \ref{smoothing-lemma-neron-blowup-smooth}）。
+因此吹起后得到完全相同的设定。图示如下：
+$$
+\xymatrix{
+0 \ar[r] & I' \ar[r] & B' \ar[r] & A' \ar[r] & 0 \\
+0 \ar[r] & I \ar[u] \ar[r] & B \ar[u] \ar[r] & A \ar[r] \ar[u] & 0
+}
+$$
+由于 $I \subset \mathfrak p_B$，同态 $I \to I'$ 经由 $\pi I'$ 分解。
+考察所诱导的复形同态，得到
+$$
+\xymatrix{
+I'/(I')^2 \otimes_{A'} \Lambda \ar[r] &
+\Omega_{B'/R} \otimes_{B'} \Lambda \ar@{=}[r] & M' \\
+I/I^2 \otimes_A \Lambda \ar[r] \ar[u] &
+\Omega_{B/R} \otimes_B \Lambda \ar[u] \ar@{=}[r] & M
+}
+$$
+此时 $M \subset M'$ 是有限自由 $\Lambda$-模，且商 $M'/M$ 被 $\pi$ 零化，
+见引理 \ref{smoothing-lemma-neron-blowup-smooth}。令 $N \subset M$ 与
+$N' \subset M'$ 分别为水平同态的像，并记 $Q = M/N$、$Q' = M'/N'$。
+得到交换图
+$$
+\xymatrix{
+0 \ar[r] &
+N' \ar[r] &
+M' \ar[r] &
+Q' \ar[r] &
+0 \\
+0 \ar[r] &
+N \ar[r] \ar[u] &
+M \ar[r] \ar[u] &
+Q \ar[r] \ar[u] &
+0
+}
+$$
+其中 $N \subset N'$ 是秩为 $r - d$ 的自由 $\Lambda$-模。
+由于 $I$ 映入 $\pi I'$，有 $N \subset \pi N'$。
+
+\medskip\noindent
+令 $K = \Lambda_\pi$ 为 $\Lambda$ 的分式域。存在交换图
+$$
+\xymatrix{
+0 \ar[r] &
+N' \ar[r] &
+N'_K \cap M' \ar[r] &
+Q'_{tor} \ar[r] &
+0 \\
+0 \ar[r] &
+N \ar[r] \ar[u] &
+N_K \cap M \ar[r] \ar[u] &
+Q_{tor} \ar[r] \ar[u] &
+0
+}
+$$
+其两行都是短正合列。这表明缺陷的变化量为
+$$
+e - e' =
+\text{length}(Q_{tor}) - \text{length}(Q'_{tor})
+=
+\text{length}(N'/N) - \text{length}(N'_K \cap M' / N_K \cap M)
+$$
+由于 $M'/M$ 被 $\pi$ 零化，$N'_K \cap M' / N_K \cap M$ 也被
+$\pi$ 零化，故其长度至多为 $\dim_K(N_K)$。又因
+$N \subset \pi N'$，有 $\text{length}(N'/N) \ge \dim_K(N_K)$，
+而等号成立当且仅当 $N = \pi N'$。
+
+\medskip\noindent
+为完成证明，需要说明：当 $A$ 在 $\mathfrak p$ 处不光滑时，
+$N$ 严格小于 $\pi N'$；这正是 N\'eron 论证中的关键计算。
+为此，考虑正合列
+$$
+I/I^2 \otimes_B \kappa(\mathfrak p_B)
+\to \Omega_{B/R} \otimes_B \kappa(\mathfrak p_B)
+\to \Omega_{A/R} \otimes_A \kappa(\mathfrak p) \to 0
+$$
+（由《代数》引理 \ref{algebra-lemma-differential-seq} 得出）。
+由于 $R \to A$ 在 $\mathfrak p$ 处不光滑，
+$\Omega_{A/R} \otimes_A \kappa(\mathfrak p)$ 的维数 $s$ 大于 $d$。
+另一方面，第一个同态经由单射
+$$
+\mathfrak p B_\mathfrak p/\mathfrak p^2 B_\mathfrak p
+\to \Omega_{B/R} \otimes_B \kappa(\mathfrak p_B)
+$$
+分解；该单射来自《代数》引理
+\ref{algebra-lemma-computation-differential}。注意，由关于
+$R/\pi R \subset \Lambda/\pi \Lambda$ 的假设，
+$\kappa(\mathfrak p)$ 在 $k$ 上可分。因此可以找到生成元
+$g_1, \ldots, g_t \in I$，使得当 $j > r - s$ 时
+$g_j \in \mathfrak p^2$。于是当 $j > r - s$ 时，$g_j$ 在 $A'$ 中的像
+属于 $\pi^2 I'$。由于 $r - s < r - d$，$N$ 的至少一个极小生成元
+在 $N'$ 中变得可被 $\pi^2$ 整除。因此缺陷 $e$ 至少减少 $1$，证明完成。
+\end{proof}
+
+\noindent
+若 $R \to \Lambda$ 是离散赋值环扩张，则 $R \to \Lambda$ 正则当且仅当：
+(a) 分歧指数为 $1$；(b) 分式域扩张可分；并且
+(c) $R/\mathfrak m_R \subset \Lambda/\mathfrak m_\Lambda$ 可分。
+因此，以下结果是定理 \ref{smoothing-theorem-popescu} 中一般 N\'eron 消奇异化的特例。
+
+\begin{lemma}
+\label{smoothing-lemma-neron-colimit}
+\begin{slogan}
+DVR 的非分歧扩张是 ind-smooth 的，亦即 N\'eron 消奇异化
+\end{slogan}
+设 $R \subset \Lambda$ 是分歧指数为 $1$ 的离散赋值环扩张，
+并且它所诱导的剩余域扩张和分式域扩张均可分。
+则 $\Lambda$ 是光滑 $R$-代数的滤过余极限。
+\end{lemma}
+
+\begin{proof}
+由《代数》引理 \ref{algebra-lemma-when-colimit}，只需证明情形
+\ref{smoothing-situation-neron} 中的任意 $R \to A \to \Lambda$ 都可分解为
+$A \to B \to \Lambda$，其中 $B$ 是光滑 $R$-代数。用 $A$ 在
+$\Lambda$ 中的像代替 $A$ 后，可以假设 $A$ 是整环，其分式域 $K$
+是 $\Lambda$ 的分式域的子域。特别地，由假设，$A$ 在 $R$ 的分式域上可分。
+于是由《代数》引理 \ref{algebra-lemma-smooth-at-generic-point}，
+$R \to A$ 在 $\mathfrak q = (0)$ 处光滑。经有限次 N\'eron 吹起后，
+可以假设 $R \to A$ 在 $\mathfrak p$ 处光滑，见引理
+\ref{smoothing-lemma-neron-desingularization}。随后，对某个
+$a \in A$、$a \not \in \mathfrak p$，用其局部化代替 $A$，即可使
+$A$ 在 $R$ 上光滑。引理得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{提升问题}
+\label{smoothing-section-lifting}
+
+\noindent
+本节的目标是证明（命题 \ref{smoothing-proposition-lift}）：由光滑代数的滤过余极限
+构成的代数类在平坦无穷小形变下封闭。证明是初等的，只用到第
+\ref{smoothing-section-presentations} 节关于光滑代数表示的结果。
+
+\begin{lemma}
+\label{smoothing-lemma-lift-once}
+设 $R \to \Lambda$ 为环同态，$I \subset R$ 为理想。假设
+\begin{enumerate}
+\item $I^2 = 0$；
+\item $\Lambda/I\Lambda$ 是光滑 $R/I$-代数的滤过余极限。
+\end{enumerate}
+设 $\varphi : A \to \Lambda$ 为 $R$-代数同态，其中 $A$ 是有限表示
+$R$-代数。则存在分解
+$$
+A \to B/J \to \Lambda
+$$
+其中 $B$ 是光滑 $R$-代数，而 $J \subset IB$ 是有限生成理想。
+\end{lemma}
+
+\begin{proof}
+选取分解
+$$
+A/IA \to \bar B \to \Lambda/I\Lambda
+$$
+其中 $\bar B$ 在 $R/I$ 上标准光滑；由假设和引理
+\ref{smoothing-lemma-colimit-standard-smooth}，这样的分解存在。写成
+$$
+\bar B = A/IA[t_1, \ldots, t_r]/(\bar g_1, \ldots, \bar g_s)
+$$
+并设 $\bar B \to \Lambda/I\Lambda$ 把 $t_i$ 映到 $\lambda_i$ 模
+$I\Lambda$ 的类。选取 $\bar g_1, \ldots, \bar g_s$ 的提升
+$g_1, \ldots, g_s \in A[t_1, \ldots, t_r]$。写成
+$\varphi(g_i)(\lambda_1, \ldots, \lambda_r) =
+\sum \epsilon_{ij} \mu_{ij}$
+其中某些 $\epsilon_{ij} \in I$，$\mu_{ij} \in \Lambda$。定义
+$$
+A' = A[t_1, \ldots, t_r, \delta_{i, j}]/
+(g_i - \sum \epsilon_{ij} \delta_{ij})
+$$
+并考虑同态
+$$
+A' \longrightarrow \Lambda,\quad
+a \longmapsto \varphi(a),\quad
+t_i \longmapsto \lambda_i,\quad
+\delta_{ij} \longmapsto \mu_{ij}
+$$
+有
+$$
+A'/IA' = A/IA[t_1, \ldots, t_r]/(\bar g_1, \ldots, \bar g_s)[\delta_{ij}]
+\cong \bar B[\delta_{ij}]
+$$
+由于 $\bar B$ 标准光滑，这是一个标准光滑 $R/I$-代数。选取表示
+$A'/IA' = R/I[x_1, \ldots, x_n]/(\bar f_1, \ldots, \bar f_c)$，使得
+$\det(\partial \bar f_j/\partial x_i)_{i, j = 1, \ldots, c}$ 在
+$A'/IA'$ 中可逆。选取 $\bar f_1, \ldots, \bar f_c$ 的提升
+$f_1, \ldots, f_c \in R[x_1, \ldots, x_n]$。于是
+$$
+B = R[x_1, \ldots, x_n, x_{n + 1}]/
+(f_1, \ldots, f_c,
+x_{n + 1}\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c} - 1)
+$$
+在 $R$ 上光滑。由于光滑环同态形式光滑
+（见《代数》命题 \ref{algebra-proposition-smooth-formally-smooth}），
+存在模 $I$ 后为同构的 $R$-代数同态 $B \to A'$。再由 Nakayama 引理
+（《代数》引理 \ref{algebra-lemma-NAK}），$B \to A'$ 是满射。
+因此 $A' = B/J$，其中 $J \subset IB$ 有限生成
+（见《代数》引理 \ref{algebra-lemma-finite-presentation-independent}）。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-lift-twice}
+设 $R \to \Lambda$ 为环同态，$I \subset R$ 为理想。假设
+\begin{enumerate}
+\item $I^2 = 0$；
+\item $\Lambda/I\Lambda$ 是光滑 $R/I$-代数的滤过余极限；
+\item $R \to \Lambda$ 平坦。
+\end{enumerate}
+设 $\varphi : B \to \Lambda$ 为 $R$-代数同态，其中 $B$ 在 $R$ 上光滑。
+设 $J \subset IB$ 为有限生成理想，且 $\varphi(J) = 0$。
+则存在 $R$-代数同态
+$$
+B \xrightarrow{\alpha} B' \xrightarrow{\beta} \Lambda
+$$
+使得 $B'$ 在 $R$ 上光滑、$\alpha(J) = 0$，并且
+$\beta \circ \alpha = \varphi$。
+\end{lemma}
+
+\begin{proof}
+只要能对 $J = (h)$ 的情形证明引理，便可对 $J$ 的生成元个数作归纳。
+具体地，假设 $J$ 可由 $n$ 个元素 $h_1, \ldots, h_n$ 生成，且引理对
+$J$ 由 $n - 1$ 个元素生成的一切情形成立。先应用 $n = 1$ 的情形，
+得到 $B \to B' \to \Lambda$，其中第一个同态把 $h_n$ 映为零。
+再令 $J'$ 为 $B'$ 中由 $h_1, \ldots, h_{n - 1}$ 的像生成的理想，
+应用 $n - 1$ 的情形得到 $B' \to B'' \to \Lambda$。
+容易验证 $B \to B'' \to \Lambda$ 满足要求。
+
+\medskip\noindent
+假设 $J = (h)$，并把 $h$ 写成 $h = \sum \epsilon_i b_i$，其中
+$\epsilon_i \in I$、$b_i \in B$。注意
+$0 = \varphi(h) = \sum \epsilon_i \varphi(b_i)$。由于 $\Lambda$ 在
+$R$ 上平坦，平坦性的方程判别准则
+（见《代数》引理 \ref{algebra-lemma-flat-eq}）表明，存在
+$\lambda_j \in \Lambda$（$j = 1, \ldots, m$）和 $a_{ij} \in R$，使得
+$\varphi(b_i) = \sum_j a_{ij} \lambda_j$ 且
+$\sum_i \epsilon_i a_{ij} = 0$。令
+$$
+C = B[x_1, \ldots, x_m]/(b_i - \sum a_{ij} x_j)
+$$
+并以 $\varphi$ 和 $x_j \mapsto \lambda_j$ 定义 $C \to \Lambda$。
+按引理 \ref{smoothing-lemma-lift-once} 选取分解
+$$
+C \to B'/J' \to \Lambda
+$$
+由于 $B$ 在 $R$ 上光滑，可以把同态 $B \to C \to B'/J'$ 提升为
+$\alpha : B \to B'$。于是 $\varphi = \beta \circ \alpha$。
+为完成证明，只需验证 $\alpha(h) = 0$。事实上，$\alpha$ 是
+$B \to C \to B'/J'$ 的提升这一事实蕴含
+$$
+\alpha(b_i) = \sum a_{ij} \xi_j + \theta_i
+$$
+其中某些 $\xi_j \in B'$，$\theta_i \in J' \subset IB'$。因此
+$$
+\alpha(h) = \alpha(\sum \epsilon_i b_i) =
+\sum \epsilon_i a_{ij} \xi_j + \sum \epsilon_i \theta_i = 0
+$$
+这是因为上述关系成立且 $I^2 = 0$。
+\end{proof}
+
+\begin{proposition}
+\label{smoothing-proposition-lift}
+\begin{slogan}
+代数的 ind-光滑性在无穷小形变下保持
+\end{slogan}
+设 $R \to \Lambda$ 为环同态，$I \subset R$ 为理想。假设
+\begin{enumerate}
+\item $I$ 是幂零理想；
+\item $\Lambda/I\Lambda$ 是光滑 $R/I$-代数的滤过余极限；
+\item $R \to \Lambda$ 平坦。
+\end{enumerate}
+则 $\Lambda$ 是光滑 $R$-代数的滤过余极限。
+\end{proposition}
+
+\begin{proof}
+对某个 $n$ 有 $I^n = 0$，故对 $n$ 作归纳可知，只需考虑 $I^2 = 0$
+的情形。设 $\varphi : A \to \Lambda$ 为 $R$-代数同态，其中 $A$ 是
+有限表示 $R$-代数。由《代数》引理 \ref{algebra-lemma-when-colimit}，
+需要找到分解 $A \to B \to \Lambda$，其中 $B$ 在 $R$ 上光滑。
+由引理 \ref{smoothing-lemma-lift-once}，可以假设 $A = B/J$，其中 $B$ 在 $R$
+上光滑，而 $J \subset IB$ 是有限生成理想。由引理
+\ref{smoothing-lemma-lift-twice}，可以找到交换图
+$$
+\xymatrix{
+B \ar[rr]_\alpha \ar[rd]_\varphi & & B' \ar[ld]^\beta \\
+& \Lambda
+}
+$$
+其中各同态均为 $R$-代数同态，$B'$ 在 $R$ 上光滑，且
+$\alpha(J) = 0$。所以 $\alpha$ 分解为 $B \to A \to B'$，证明完成。
+\end{proof}
+
+
+
+
+
+
+\section{提升引理}
+\label{smoothing-section-lifting-lemma}
+
+\noindent
+下面是一个极其巧妙的引理。
+
+\begin{lemma}
+\label{smoothing-lemma-lifting}
+设 $R$ 为诺特环，$\Lambda$ 为 $R$-代数。设 $\pi \in R$，并假设
+$\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$ 且
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$。
+假设有 $R$-代数同态
+$R/\pi^2R \to \bar C \to \Lambda/\pi^2\Lambda$，其中 $\bar C$ 有限表示。
+则存在 $R$-代数同态 $D \to \Lambda$ 及交换图
+$$
+\xymatrix{
+R/\pi^2R \ar[r] \ar[d] &
+\bar C \ar[r] \ar[d] &
+\Lambda/\pi^2\Lambda \ar[d] \\
+R/\pi R \ar[r] &
+D/\pi D \ar[r] &
+\Lambda/\pi \Lambda
+}
+$$
+满足以下性质：
+\begin{enumerate}
+\item[(a)] $D$ 有限表示；
+\item[(b)] 对任意满足 $\pi \not \in \mathfrak q$ 的素理想 $\mathfrak q$，
+$R \to D$ 在 $\mathfrak q$ 处光滑；
+\item[(c)] 对任意满足 $\pi \in \mathfrak q$、且位于 $\bar C$ 中一个
+$R/\pi^2 R \to \bar C$ 光滑的素理想之上的素理想 $\mathfrak q$，
+$R \to D$ 在 $\mathfrak q$ 处光滑；
+\item[(d)] 对任意位于 $\bar C$ 中一个 $R/\pi^2R \to \bar C$ 光滑的
+素理想之上的素理想，$\bar C/\pi \bar C \to D/\pi D$ 在该处光滑。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取表示
+$$
+\bar C = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)
+$$
+再记 $I = (f_1, \ldots, f_m)$，并以 $\bar I$ 记 $I$ 在
+$R/\pi^2R[x_1, \ldots, x_n]$ 中的像。由于 $R$ 是诺特环，$\bar C$
+也是诺特环。因此 $R/\pi^2 R \to \bar C$ 的光滑轨迹拟紧，见
+《拓扑》引理 \ref{topology-lemma-Noetherian}。应用引理
+\ref{smoothing-lemma-find-strictly-standard}，可以选取有限个元素
+$a_1, \ldots, a_r \in R[x_1, \ldots, x_n]$，使得
+\begin{enumerate}
+\item 开子空间 $\Spec(\bar C_{a_k}) \subset \Spec(\bar C)$ 的并覆盖
+$R/\pi^2 R \to \bar C$ 的光滑轨迹；
+\item 对每个 $k = 1, \ldots, r$，存在有限子集
+$E_k \subset \{1, \ldots, m\}$，使得 $(\bar I/\bar I^2)_{a_k}$
+以 $f_j$（$j \in E_k$）的类为自由基。
+\end{enumerate}
+令 $I_k = (f_j, j \in E_k) \subset I$，并以 $\bar I_k$ 记 $I_k$ 在
+$R/\pi^2R[x_1, \ldots, x_n]$ 中的像。由 (2) 和 Nakayama 引理，
+对某个 $b'_k \in \bar I_{a_k}$，$(\bar I/\bar I_k)_{a_k}$ 被
+$1 + b'_k$ 零化。设 $b'_k$ 是某个 $b_k \in I$ 和某个整数 $N$ 所给出的
+$b_k/(a_k)^N$ 的像。用 $a_kb_k$ 代替 $a_k$ 后，得到
+\begin{enumerate}
+\item[(3)] $(\bar I_k)_{a_k} = (\bar I)_{a_k}$.
+\end{enumerate}
+因此，必要时用 $a_k$ 的一个高次幂代替 $a_k$ 后，可以写成
+\begin{enumerate}
+\item[(4)]
+$a_k f_\ell = \sum\nolimits_{j \in E_k} h_{k, \ell}^jf_j + \pi^2 g_{k, \ell}$
+\end{enumerate}
+其中 $\ell \in \{1, \ldots, m\}$ 任意，而某些
+$h_{i, \ell}^j, g_{i, \ell} \in R[x_1, \ldots, x_n]$。
+若 $\ell \in E_k$，则取 $h_{k, \ell}^j = a_k\delta_{\ell, j}$
+（Kronecker delta）和 $g_{k, \ell} = 0$。令
+$$
+D = R[x_1, \ldots, x_n, z_1, \ldots, z_m]/
+(f_j - \pi z_j, p_{k, \ell}).
+$$
+这里 $j \in \{1, \ldots, m\}$、$k \in \{1, \ldots, r\}$、
+$\ell \in \{1, \ldots, m\}$，并且
+$$
+p_{k, \ell} = a_k z_\ell - \sum\nolimits_{j \in E_k} h_{k, \ell}^j z_j
+- \pi g_{k, \ell}.
+$$
+注意，由上述选取，当 $\ell \in E_k$ 时 $p_{k, \ell} = 0$。
+
+\medskip\noindent
+同态 $R \to D$ 取为给定同态。设 $\bar C \to \Lambda/\pi^2\Lambda$
+把 $x_i$ 映到 $\lambda_i$ 模 $\pi^2$ 的类。对元素
+$f \in R[x_1, \ldots, x_n]$，以 $f(\lambda) \in \Lambda$ 记把
+$\lambda_i$ 代入 $x_i$ 后的结果。于是对某些 $\mu_j \in \Lambda$，有
+$f_j(\lambda) = \pi^2 \mu_j$。按 $x_i \mapsto \lambda_i$ 和
+$z_j \mapsto \pi\mu_j$ 定义 $D \to \Lambda$。这是良定义的，因为
+\begin{align*}
+p_{k, \ell} & \mapsto
+a_k(\lambda) \pi \mu_\ell -
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j(\lambda) \pi \mu_j
+- \pi g_{k, \ell}(\lambda) \\
+& =
+\pi\left(a_k(\lambda) \mu_\ell -
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j(\lambda) \mu_j
+- g_{k, \ell}(\lambda)\right)
+\end{align*}
+在上述 (4) 中代入 $x_i = \lambda_i$，可见括号内的表达式被 $\pi^2$
+零化；由于假设 $\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$，
+它也被 $\pi$ 零化。同态 $\bar C \to D/\pi D$ 由
+$x_i \mapsto x_i$ 决定（显然良定义）。因此，只须证明 (b)、(c) 和 (d)。
+
+\medskip\noindent
+利用 (4) 得到以下关键等式：
+\begin{align*}
+\pi p_{k, \ell} & =
+\pi a_k z_\ell - \sum\nolimits_{j \in E_k} \pi h_{k, \ell}^jz_j
+- \pi^2 g_{k, \ell} \\
+& =
+- a_k (f_\ell - \pi z_\ell) + a_k f_\ell +
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j (f_j - \pi z_j) -
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j f_j - \pi^2 g_{k, \ell} \\
+& =
+-a_k(f_\ell - \pi z_\ell) +
+\sum\nolimits_{j \in E_k} h_{k, \ell}^j(f_j - \pi z_j)
+\end{align*}
+最后所得表达式属于由 $f_j - \pi z_j$ 生成的理想。特别地，
+$D[1/\pi]$ 同构于
+$R[1/\pi][x_1, \ldots, x_n, z_1, \ldots, z_m]/(f_j - \pi z_j)$，
+后者又同构于 $R[1/\pi][x_1, \ldots, x_n]$，因而在 $R$ 上光滑。
+这证明了 (b)。
+
+\medskip\noindent
+固定 $k \in \{1, \ldots, r\}$，考虑环
+$$
+D_k = R[x_1, \ldots, x_n, z_1, \ldots, z_m]/
+(f_j - \pi z_j, j \in E_k, p_{k, \ell})
+$$
+由于当 $\ell \in E_k$ 时 $p_{k, \ell}$ 为零，方程的数目为
+$m = |E_k| + (m - |E_k|)$。还要注意
+\begin{align*}
+(D_k/\pi D_k)_{a_k}
+& =
+R/\pi R[x_1, \ldots, x_n, 1/a_k, z_1, \ldots, z_m]/
+(f_j, j \in E_k, p_{k, \ell}) \\
+& =
+(\bar C/\pi \bar C)_{a_k}[z_1, \ldots, z_m]/
+(a_kz_\ell - \sum\nolimits_{j \in E_k} h_{k, \ell}^j z_j) \\
+& \cong
+(\bar C/\pi \bar C)_{a_k}[z_j, j \in E_k]
+\end{align*}
+特别地，$(D_k/\pi D_k)_{a_k}$ 在 $(\bar C/\pi \bar C)_{a_k}$ 上光滑。
+由我们对 $a_k$ 的选择，$(\bar C/\pi \bar C)_{a_k}$ 在
+$R/\pi R$ 上光滑且相对维数为 $n - |E_k|$，见 (2)。因此，若素理想
+$\mathfrak q_k \subset D_k$ 含有 $\pi$ 且位于
+$\Spec(\bar C_{a_k})$ 之上，则 $R \to D_k$ 的纤维环
+在 $\mathfrak q_k$ 处光滑且维数为 $n$。于是，由上述方程数目的计算，
+$R \to D_k$ 在 $\mathfrak q_k$ 处为 syntomic，见《代数》
+引理 \ref{algebra-lemma-localize-relative-complete-intersection}。
+因而 $R \to D_k$ 在 $\mathfrak q_k$ 处光滑，见《代数》
+引理 \ref{algebra-lemma-flat-fibre-smooth}。
+
+\medskip\noindent
+为完成证明，设 $\mathfrak q \subset D$ 是一个含有 $\pi$ 的素理想，
+它位于某个使 $R/\pi^2 R \to \bar C$ 光滑的素理想之上。
+由 (1)，对某个 $k$ 有 $a_k \not \in \mathfrak q$。
+我们将证明满射 $D_k \to D$ 在 $\mathfrak q$ 处诱导局部环的同构。
+由上一段，我们已经知道环同态
+$\bar C/\pi \bar C \to D_k/\pi D_k$ 和 $R \to D_k$
+在相应的素理想 $\mathfrak q_k$ 处光滑。这将证明 (c) 和 (d)，
+从而完成整个证明。
+
+\medskip\noindent
+首先注意，对任意 $\ell$，上面证明的等式
+$\pi p_{k, \ell} = -a_k(f_\ell - \pi z_\ell) +
+\sum_{j \in E_k} h_{k, \ell}^j (f_j - \pi z_j)$ 表明
+$f_\ell - \pi z_\ell$ 在 $(D_k)_{a_k}$ 中的像为零，因而它在
+$(D_k)_{\mathfrak q_k}$ 中的像尤其为零。
+关系式 (4) 蕴含在 $I/I^2$ 中有 $a_k f_\ell =
+\sum_{j \in E_k} h_{k, \ell}^j f_j$。
+由于 $(\bar I_k/\bar I_k^2)_{a_k}$ 是以
+$f_j$（$j \in E_k$）为基的自由模，可知
+$$
+a_{k'} h_{k, \ell}^j -
+\sum\nolimits_{j' \in E_{k'}} h_{k', \ell}^{j'} h_{k, j'}^j
+$$
+对每个 $k,k',\ell$ 和 $j \in E_k$，这个元素在 $\bar C_{a_k}$ 中为零。
+因此，可以取充分大的整数 $N$，使得
+$$
+a_k^N\left(
+a_{k'} h_{k, \ell}^j -
+\sum\nolimits_{j' \in E_{k'}} h_{k', \ell}^{j'} h_{k, j'}^j
+\right)
+$$
+属于 $I_k + \pi^2R[x_1, \ldots, x_n]$。模 $\pi$ 计算可得
+\begin{align*}
+&
+a_kp_{k', \ell} - a_{k'}p_{k, \ell} + \sum h_{k', \ell}^{j'} p_{k, j'}
+\\
+&
+=
+- a_k \sum h_{k', \ell}^{j'} z_{j'}
++ a_{k'} \sum h_{k, \ell}^j z_j
++ \sum h_{k', \ell}^{j'} a_k z_{j'}
+- \sum \sum h_{k', \ell}^{j'} h_{k, j'}^j z_j \\
+&
+=
+\sum \left(
+a_{k'} h_{k, \ell}^j
+- \sum h_{k', \ell}^{j'} h_{k, j'}^j
+\right) z_j
+\end{align*}
+其中采用爱因斯坦求和约定。结合前述结果可知，在
+$R[x_1, \ldots, x_n, z_1, \ldots, z_m]$ 中，
+$a_k^{N + 1} p_{k', \ell}$ 属于由 $I_k$ 和 $\pi$ 生成的理想。
+因此 $p_{k', \ell}$ 的像属于 $\pi (D_k)_{a_k}$。另一方面，等式
+$$
+\pi p_{k', \ell} =
+-a_{k'} (f_\ell - \pi z_\ell) +
+\sum\nolimits_{j' \in E_{k'}} h_{k', \ell}^{j'}(f_{j'} - \pi z_{j'})
+$$
+表明 $\pi p_{k', \ell}$ 在 $(D_k)_{a_k}$ 中为零。
+我们已经假设 $\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$，
+而 $(D_k)_{\mathfrak q_k}$ 在 $R$ 上光滑，因而在 $R$ 上平坦，故有
+$\text{Ann}_{(D_k)_{\mathfrak q_k}}(\pi) =
+\text{Ann}_{(D_k)_{\mathfrak q_k}}(\pi^2)$.
+于是 $p_{k', \ell}$ 的像也为零，从而
+$D_{\mathfrak q} = (D_k)_{\mathfrak q_k}$，证毕。
+\end{proof}
+
+
+
+
+
+
+\section{消奇异化引理}
+\label{smoothing-section-desingularization-lemma}
+
+\noindent
+下面是另一个极为巧妙的引理。
+
+\begin{lemma}
+\label{smoothing-lemma-desingularize}
+设 $R$ 为诺特环，$\Lambda$ 为 $R$-代数。取 $\pi \in R$，
+并假设 $\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$。
+设 $A \to \Lambda$ 为 $R$-代数同态，其中 $A$ 为有限表示。假设
+\begin{enumerate}
+\item $\pi$ 的像在 $A$ 中相对于 $R$ 是严格标准元；
+\item 存在与到 $\Lambda/\pi^4 \Lambda$ 的同态相容的截面
+$\rho : A/\pi^4 A \to R/\pi^4 R$。
+\end{enumerate}
+则可以找到 $R$-代数同态 $A \to B \to \Lambda$，其中 $B$ 为有限表示，
+并且 $\mathfrak a B \subset H_{B/R}$，这里
+$\mathfrak a = \text{Ann}_R(\text{Ann}_R(\pi^2)/\text{Ann}_R(\pi))$。
+\end{lemma}
+
+\begin{proof}
+选取一个表示
+$$
+A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_m)
+$$
+以及 $0 \leq c \leq \min(n, m)$，使得
+(\ref{smoothing-equation-strictly-standard-one}) 对 $\pi$ 成立，并且
+\begin{equation}
+\label{smoothing-equation-star}
+\pi f_{c + j} \in (f_1, \ldots, f_c) + (f_1, \ldots, f_m)^2
+\end{equation}
+对 $j = 1, \ldots, m - c$ 成立。设 $\rho$ 把 $x_i$ 映到
+$r_i \in R$ 的类。把 $x_i$ 替换为 $x_i-r_i$ 后，可以假设
+$\rho(x_i) = 0$ 于 $R/\pi^4 R$ 中。这蕴含
+$f_j(0) \in \pi^4R$，并且 $A \to \Lambda$ 把 $x_i$
+映到某个 $\pi^4\lambda_i$，其中 $\lambda_i \in \Lambda$。写成
+$$
+f_j = f_j(0) + \sum\nolimits_{i = 1, \ldots, n} r_{ji} x_i + \text{高阶项}
+$$
+于是 $\partial f_j/\partial x_i$ 的常数项为 $r_{ji}$。
+把 $\rho$ 应用于关于 $\pi$ 的 (\ref{smoothing-equation-strictly-standard-one})，可得
+$$
+\pi = \sum\nolimits_{I \subset \{1, \ldots, n\},\ |I| = c}
+r_I \det(r_{ji})_{j = 1, \ldots, c,\ i \in I} \bmod \pi^4R
+$$
+其中某些 $r_I \in R$。因此有
+$$
+u\pi = \sum\nolimits_{I \subset \{1, \ldots, n\},\ |I| = c}
+r_I \det(r_{ji})_{j = 1, \ldots, c,\ i \in I}
+$$
+其中某个 $u \in 1 + \pi^3R$。由《代数》
+引理 \ref{algebra-lemma-matrix-left-inverse}，存在一个
+$n \times c$ 矩阵 $(s_{ik})$，使得
+$$
+u\pi \delta_{jk} = \sum\nolimits_{i = 1, \ldots, n} r_{ji}s_{ik}\quad
+\text{对所有 } j, k = 1, \ldots, c
+$$
+（Kronecker 符号）。引入辅助变量
+$v_1, \ldots, v_c, w_1, \ldots, w_n$，并置
+$$
+h_i = x_i - \pi^2 \sum\nolimits_{j = 1, \ldots c} s_{ij} v_j - \pi^3 w_i
+$$
+下文将不再另行说明地使用等式
+$$
+R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(h_1, \ldots, h_n) = R[v_1, \ldots, v_c, w_1, \ldots, w_n]
+$$
+。在
+$R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(h_1, \ldots, h_n)$ 中有
+\begin{align*}
+f_j & = f_j(x_1 - h_1, \ldots, x_n - h_n) \\
+& =
+\pi^2 \sum\nolimits_{k = 1}^c
+\left(\sum\nolimits_{i = 1}^n r_{ji} s_{ik}\right) v_k
++
+\pi^3 \sum\nolimits_{i = 1}^n r_{ji}w_i \bmod \pi^4 \\
+& =
+\pi^3 v_j + \pi^3 \sum\nolimits_{i = 1}^n r_{ji}w_i \bmod \pi^4
+\end{align*}
+，其中 $1 \leq j \leq c$。因此，可以选取元素
+$g_j \in R[v_1, \ldots, v_c, w_1, \ldots, w_n]$，使得
+$g_j = v_j + \sum r_{ji}w_i \bmod \pi$，并且在 $R$-代数
+$R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(h_1, \ldots, h_n)$ 中有 $f_j = \pi^3 g_j$。置
+$$
+B = R[x_1, \ldots, x_n, v_1, \ldots, v_c, w_1, \ldots, w_n]/
+(f_1, \ldots, f_m, h_1, \ldots, h_n, g_1, \ldots, g_c).
+$$
+$A \to B$ 的同态是显然的。定义 $B \to \Lambda$，令
+$x_i \mapsto \pi^4\lambda_i$、$v_i \mapsto 0$ 且
+$w_i \mapsto \pi \lambda_i$。于是，元素 $f_j$ 和 $h_i$ 显然都映到
+$\Lambda$ 中的零。此外，$g_i$ 映到 $\pi\Lambda$ 中的某个元素 $t$，
+且 $\pi^3t = 0$（因为模掉由诸 $h$ 生成的理想后，
+$f_i = \pi^3 g_i$）。所以，假设
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$ 蕴含 $t=0$。
+因而，只需证明关于光滑性的断言即可。
+
+\medskip\noindent
+注意，$B_\pi \cong A_\pi[v_1, \ldots, v_c]$，因为方程
+$f_i=0$ 蕴含 $g_i=0$。又因假设 $\pi$ 在 $A$ 中相对于 $R$ 是严格标准元，
+$A_\pi$ 在 $R$ 上光滑，见引理 \ref{smoothing-lemma-elkik}，故
+$B_\pi$ 在 $R$ 上光滑。
+
+\medskip\noindent
+置 $B' = R[v_1, \ldots, v_c, w_1, \ldots, w_n]/(g_1, \ldots, g_c)$。
+由于 $g_i = v_i + \sum r_{ji}w_i \bmod \pi$，可知
+$B'/\pi B' = R/\pi R[w_1, \ldots, w_n]$。因此，由《代数》引理
+\ref{algebra-lemma-localize-relative-complete-intersection} 和
+\ref{algebra-lemma-flat-fibre-smooth}
+，$R \to B'$ 在 $V(\pi)$ 的每一点都光滑且相对维数为 $n$
+（第一个引理表明它在这些素理想处为 syntomic，因而特别是平坦的；
+随后第二个引理表明它是光滑的）。
+
+\medskip\noindent
+设 $\mathfrak q \subset B$ 是一个满足 $\pi \in \mathfrak q$ 的素理想，
+并且对某个 $r \in \mathfrak a$ 有 $r \not \in \mathfrak q$。
+记 $\mathfrak q' = B' \cap \mathfrak q$。我们断言，满射 $B' \to B$
+诱导局部环的同构 $(B')_{\mathfrak q'} \to B_\mathfrak q$；这将完成
+引理的证明。注意，$B_\mathfrak q$ 是 $(B')_{\mathfrak q'}$ 对由
+$f_{c + j}$（$j = 1, \ldots, m - c$）生成之理想的商。我们作两个观察：
+第一，$f_{c+j}$ 在 $(B')_{\mathfrak q'}$ 中的像可被 $\pi^2$ 整除；
+第二，由 (\ref{smoothing-equation-star})，$\pi f_{c+j}$ 在
+$(B')_{\mathfrak q'}$ 中的像可以写成
+$\sum b_{j_1 j_2} f_{c + j_1}f_{c + j_2}$。因此，每个
+$\pi f_{c+j}$ 的像都属于由元素 $\pi^2 f_{c+j'}$ 生成的理想。
+由于 $(B')_{\mathfrak q'}$ 是诺特局部环，故其中
+$\pi f_{c+j}=0$，见《代数》
+引理 \ref{algebra-lemma-intersect-powers-ideal-module-zero}。
+又因 $R \to (B')_{\mathfrak q'}$ 平坦，可知
+$$
+\left(\text{Ann}_R(\pi^2)/\text{Ann}_R(\pi)\right)
+\otimes_R (B')_{\mathfrak q'}
+=
+\text{Ann}_{(B')_{\mathfrak q'}}(\pi^2)/\text{Ann}_{(B')_{\mathfrak q'}}(\pi)
+$$
+由于 $r \in \mathfrak a$ 在 $(B')_{\mathfrak q'}$ 中可逆，
+这个模必为零。因此，$f_{c+j}$ 在 $(B')_{\mathfrak q'}$ 中的像为零，
+正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-desingularize-strictly-standard}
+设 $R$ 为诺特环，$\Lambda$ 为 $R$-代数。取 $\pi \in R$，并假设
+$\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$ 且
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$。
+设 $A \to \Lambda$ 和 $D \to \Lambda$ 为 $R$-代数同态，
+其中 $A$ 和 $D$ 均为有限表示。假设
+\begin{enumerate}
+\item $\pi$ 在 $A$ 中相对于 $R$ 是严格标准元；
+\item 存在与到 $\Lambda/\pi^4\Lambda$ 的同态相容的 $R$-代数同态
+$A/\pi^4 A \to D/\pi^4 D$。
+\end{enumerate}
+则可找到 $R$-代数同态 $B \to \Lambda$，其中 $B$ 为有限表示，
+以及与到 $\Lambda$ 的同态相容的 $R$-代数同态 $A \to B$ 和 $D \to B$，
+使得 $H_{D/R}B \subset H_{B/D}$ 且 $H_{D/R}B \subset H_{B/R}$。
+\end{lemma}
+
+\begin{proof}
+把引理 \ref{smoothing-lemma-desingularize} 应用于
+$$
+D \longrightarrow A \otimes_R D \longrightarrow \Lambda
+$$
+以及 $\pi$ 在 $D$ 中的像。由引理
+\ref{smoothing-lemma-strictly-standard-base-change}，$\pi$ 在 $A \otimes_R D$
+中相对于 $D$ 是严格标准元。取 (2) 中同态所诱导的同态作为截面
+$\rho : (A \otimes_R D)/\pi^4 (A \otimes_R D) \to D/\pi^4 D$。
+于是引理 \ref{smoothing-lemma-desingularize} 适用，并给出分解
+$A \otimes_R D \to B \to \Lambda$，其中 $B$ 为有限表示，且
+$\mathfrak a B \subset H_{B/D}$，这里
+$$
+\mathfrak a = \text{Ann}_D(\text{Ann}_D(\pi^2)/\text{Ann}_D(\pi)).
+$$
+对 $D$ 的任意素理想 $\mathfrak q$，若 $D_\mathfrak q$ 在 $R$ 上平坦，
+则有
+$\text{Ann}_{D_\mathfrak q}(\pi^2)/\text{Ann}_{D_\mathfrak q}(\pi) = 0$
+这是因为元素的零化子与平坦基变换可交换，且我们假设了
+$\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$。由于 $D$ 是诺特环，
+$\text{Ann}_D(\pi^2)/\text{Ann}_D(\pi)$ 是有限 $D$-模，
+故取其零化子与局部化可交换。因此 $\mathfrak a \not \subset \mathfrak q$，
+从而 $D \to B$ 在 $B$ 中位于 $\mathfrak q$ 之上的任意素理想处光滑。
+凡使 $R \to D$ 光滑的 $D$ 中素理想 $\mathfrak q$，都有
+$D_\mathfrak q$ 在 $R$ 上平坦，所以 $H_{D/R}B \subset H_{B/D}$。
+最后的包含关系 $H_{D/R}B \subset H_{B/R}$ 源于光滑环同态的复合仍光滑
+（《代数》，引理 \ref{algebra-lemma-compose-smooth}）。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-desingularize-lifting-apply}
+设 $R$ 为诺特环，$\Lambda$ 为 $R$-代数。取 $\pi \in R$，并假设
+$\text{Ann}_R(\pi) = \text{Ann}_R(\pi^2)$ 且
+$\text{Ann}_\Lambda(\pi) = \text{Ann}_\Lambda(\pi^2)$。
+设 $A \to \Lambda$ 为 $R$-代数同态，其中 $A$ 为有限表示，
+并假设 $\pi$ 在 $A$ 中相对于 $R$ 是严格标准元。设
+$$
+A/\pi^8A \to \bar C \to \Lambda/\pi^8\Lambda
+$$
+是一个分解，其中 $\bar C$ 为有限表示。则可以找到分解
+$A \to B \to \Lambda$，其中 $B$ 为有限表示，
+$R_\pi \to B_\pi$ 光滑，并且
+$$
+H_{\bar C/(R/\pi^8 R)} \cdot \Lambda/\pi^8\Lambda
+\subset
+\sqrt{H_{B/R} \Lambda} \bmod \pi^8\Lambda.
+$$
+\end{lemma}
+
+\begin{proof}
+应用引理 \ref{smoothing-lemma-lifting}，得到 $R \to D \to \Lambda$ 以及分解
+$\bar C/\pi^4\bar C \to D/\pi^4 D \to \Lambda/\pi^4\Lambda$
+，使 $R \to D$ 在任何不含 $\pi$ 的素理想处都光滑，
+并且在任何位于 $\bar C/\pi^4\bar C$ 中使
+$R/\pi^8 R \to \bar C$ 光滑之素理想上方的素理想处也光滑。
+由引理 \ref{smoothing-lemma-desingularize-strictly-standard}，可以找到有限表示的
+$R$-代数 $B$，以及分解 $A \to B \to \Lambda$ 和
+$D \to B \to \Lambda$，使得 $H_{D/R}B \subset H_{B/R}$。
+略去验证这确实给出了本引理所述问题的解。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{预备：约化到基域}
+\label{smoothing-section-reduction}
+
+\noindent
+本节应用前几节的引理，证明只需在基环为域时证明主结果，
+见引理 \ref{smoothing-lemma-reduce-to-field}。
+
+\begin{situation}
+\label{smoothing-situation-global}
+这里 $R \to \Lambda$ 是诺特环之间的正则环同态。
+\end{situation}
+
+\noindent
+设 $R \to \Lambda$ 如情形 \ref{smoothing-situation-global} 所述。
+若 $\Lambda$ 是光滑 $R$-代数的滤过余极限，则称
+{\it $R \to \Lambda$ 满足 PT}。
+
+\begin{lemma}
+\label{smoothing-lemma-product}
+设 $R_i \to \Lambda_i$（$i=1,2$）如情形
+\ref{smoothing-situation-global} 所述。若 $R_i \to \Lambda_i$（$i=1,2$）
+均满足 PT，则 $R_1 \times R_2 \to \Lambda_1 \times \Lambda_2$ 满足 PT。
+\end{lemma}
+
+\begin{proof}
+略。提示：滤过余极限的乘积仍是滤过余极限。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-delocalize-base}
+设 $R \to A \to \Lambda$ 为环同态，其中 $A$ 在 $R$ 上为有限表示；
+设 $S \subset R$ 为乘法集。给定分解
+$S^{-1}A \to B' \to S^{-1}\Lambda$，其中 $B'$ 在 $S^{-1}R$ 上光滑。
+则可找到分解 $A \to B \to \Lambda$，使某个 $s \in S$ 的像
+在 $B$ 中相对于 $R$ 是初等标准元
+（定义 \ref{smoothing-definition-strictly-standard}）。
+\end{lemma}
+
+\begin{proof}
+先对 $S^{-1}R \to B'$ 应用引理
+\ref{smoothing-lemma-smooth-standard-smooth}，从而可假设 $B'$ 在 $S^{-1}R$
+上标准光滑。写
+$A = R[x_1, \ldots, x_n]/(g_1, \ldots, g_t)$，并设 $x_i$
+在 $\Lambda$ 中映到 $\lambda_i$。可以写成
+$B' = S^{-1}R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$
+，其中某个 $c \geq n$，使得
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+在 $B'$ 中可逆，并且 $A \to B'$ 由 $x_i \mapsto x_i$ 给出，
+见引理 \ref{smoothing-lemma-standard-smooth-include-generators}。
+将 $i>n$ 的 $x_i$ 乘以 $S$ 中某个元素，并相应修改方程 $f_j$ 后，
+可假设对 $i>n$，$B' \to S^{-1}\Lambda$ 把 $x_i$ 映到某个
+$\lambda_i/1$，其中 $\lambda_i \in \Lambda$。选取关系式
+$$
+1 =
+a_0 \det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}
++
+\sum\nolimits_{j = 1, \ldots, c} a_jf_j
+$$
+，其中某些 $a_j \in S^{-1}R[x_1, \ldots, x_{n + m}]$。
+由于 $S$ 的每个元素在 $B'$ 中都可逆，消去分母后，可以假设
+$f_j, a_j \in R[x_1, \ldots, x_{n + m}]$，并且
+$$
+s_0 = a_0 \det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}
++
+\sum\nolimits_{j = 1, \ldots, c} a_jf_j
+$$
+，其中某个 $s_0 \in S$。由于 $g_j$ 在
+$S^{-1}R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, x_c)$
+中的像为零，可以找到元素 $s_j \in S$，使得 $s_jg_j=0$ 于
+$R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$.
+由于 $f_j$ 在 $S^{-1}\Lambda$ 中的像为零，可以找到 $s'_j \in S$，
+使 $s'_j f_j(\lambda_1, \ldots, \lambda_{n + m}) = 0$ 于
+$\Lambda$ 中。考虑环
+$$
+B = R[x_1, \ldots, x_{n + m}]/
+(s'_1f_1, \ldots, s'_cf_c, g_1, \ldots, g_t)
+$$
+以及分解 $A \to B \to \Lambda$，其中 $B \to \Lambda$ 由
+$x_i \mapsto \lambda_i$ 给出。我们断言
+$s = s_0s_1 \ldots s_ts'_1 \ldots s'_c$ 在 $B$ 中相对于 $R$
+是初等标准元，这将完成证明。事实上，
+$s_j g_j \in (f_1, \ldots, f_c)$，因而
+$sg_j \in (s'_1f_1, \ldots, s'_cf_c)$。最后有
+$$
+a_0\det(\partial s'_jf_j/\partial x_i)_{i, j = 1, \ldots, c}
++
+\sum\nolimits_{j = 1, \ldots, c}
+(s'_1 \ldots \hat{s'_j} \ldots s'_c) a_j s'_jf_j
+=
+s_0s'_1\ldots s'_c
+$$
+，而它整除 $s$，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-reduce-to-field}
+\begin{slogan}
+证明 Popescu 逼近可约化到域上代数的情形
+\end{slogan}
+若在情形 \ref{smoothing-situation-global} 中每当 $R$ 是域时 PT 都成立，
+则 PT 一般地成立。
+\end{lemma}
+
+\begin{proof}
+假设在情形 \ref{smoothing-situation-global} 中，只要 $R$ 是域，PT 就成立。
+任取情形 \ref{smoothing-situation-global} 中的 $R \to \Lambda$。注意，
+$R/I \to \Lambda/I\Lambda$ 仍是诺特环之间的正则环同态，
+见《代数详论》引理 \ref{more-algebra-lemma-regular-base-change}。
+考虑理想的集合
+$$
+\mathcal{I} = \{I \subset R \mid R/I \to \Lambda/I\Lambda
+\text{不满足 PT}\}
+$$
+我们必须证明 $\mathcal{I}$ 为空。若它非空，则因 $R$ 是诺特环，
+其中存在极大元。把 $R$ 替换为 $R/I$，把 $\Lambda$ 替换为
+$\Lambda/I$，便得到这样一种情形：对 $R$ 的任意非零理想 $I$，
+$R/I \to \Lambda/I\Lambda$ 都满足 PT。特别地，应用命题
+\ref{smoothing-proposition-lift} 可知 $R$ 是既约环。
+
+\medskip\noindent
+设 $A \to \Lambda$ 为 $R$-代数同态，其中 $A$ 为有限表示。
+必须找到分解 $A \to B \to \Lambda$，使 $B$ 在 $R$ 上光滑，
+见《代数》引理 \ref{algebra-lemma-when-colimit}。
+
+\medskip\noindent
+设 $S \subset R$ 为非零因子的集合，并考虑 $R$ 的全分式环
+$Q=S^{-1}R$。已知 $Q = K_1 \times \ldots \times K_n$ 是若干域的乘积，
+见《代数》引理 \ref{algebra-lemma-total-ring-fractions-no-embedded-points}
+和 \ref{algebra-lemma-Noetherian-irreducible-components}。
+由引理 \ref{smoothing-lemma-product} 及我们的假设，环同态
+$S^{-1}R \to S^{-1}\Lambda$ 满足 PT。因此，可以找到分解
+$S^{-1}A \to B' \to S^{-1}\Lambda$，其中 $B'$ 在 $S^{-1}R$ 上光滑。
+
+\medskip\noindent
+应用引理 \ref{smoothing-lemma-delocalize-base}，得到分解
+$A \to B \to \Lambda$，使某个 $\pi \in S$ 在 $B$ 中相对于 $R$
+是初等标准元。把 $A$ 替换为 $B$ 后，可假设 $\pi$ 在 $A$ 中是
+初等标准元，因而是严格标准元。已知
+$R/\pi^8R \to \Lambda/\pi^8\Lambda$ 满足 PT，所以可以找到分解
+$R/\pi^8 R \to A/\pi^8A \to \bar C \to \Lambda/\pi^8\Lambda$
+，其中 $R/\pi^8 R \to \bar C$ 光滑。由引理 \ref{smoothing-lemma-lifting}，
+可以找到 $R$-代数同态 $D \to \Lambda$，其中 $D$ 在 $R$ 上光滑，
+以及分解
+$R/\pi^4 R \to A/\pi^4A \to D/\pi^4D \to \Lambda/\pi^4\Lambda$.
+由引理 \ref{smoothing-lemma-desingularize-strictly-standard}，可以找到
+$A \to B \to \Lambda$，其中 $B$ 在 $R$ 上光滑，从而完成证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{局部技巧}
+\label{smoothing-section-local}
+
+
+\begin{situation}
+\label{smoothing-situation-local}
+给定诺特环 $R$、$R$-代数同态 $A \to \Lambda$，以及素理想
+$\mathfrak q \subset \Lambda$。假设 $A$ 在 $R$ 上为有限表示。
+在此情形下，记 $\mathfrak h_A = \sqrt{H_{A/R} \Lambda}$。
+\end{situation}
+
+\noindent
+设 $R \to A \to \Lambda \supset \mathfrak q$ 如情形
+\ref{smoothing-situation-local} 所述。若存在分解 $A \to B \to \Lambda$，
+其中 $B$ 为有限表示，且
+$\mathfrak h_A \subset \mathfrak h_B \not \subset \mathfrak q$，
+则称 {\it $R \to A \to \Lambda \supset \mathfrak q$ 可消解}。
+此时称分解 $A \to B \to \Lambda$ 为
+{\it $R \to A \to \Lambda \supset \mathfrak q$ 的一个消解}。
+
+\begin{lemma}
+\label{smoothing-lemma-lift-solution}
+设 $R \to A \to \Lambda \supset \mathfrak q$ 如情形
+\ref{smoothing-situation-local} 所述。设 $r \geq 1$，并设
+$\pi_1, \ldots, \pi_r \in R$ 的像属于 $\mathfrak q$。假设
+\begin{enumerate}
+\item 对 $i = 1, \ldots, r$ 有
+$$
+\text{Ann}_{R/(\pi_1^8, \ldots, \pi_{i - 1}^8)R}(\pi_i)
+=
+\text{Ann}_{R/(\pi_1^8, \ldots, \pi_{i - 1}^8)R}(\pi_i^2)
+$$
+且
+$$
+\text{Ann}_{\Lambda/(\pi_1^8, \ldots, \pi_{i - 1}^8)\Lambda}(\pi_i)
+=
+\text{Ann}_{\Lambda/(\pi_1^8, \ldots, \pi_{i - 1}^8)\Lambda}(\pi_i^2)
+$$
+\item 对 $i = 1, \ldots, r$，元素 $\pi_i$ 的像在 $A$ 中相对于 $R$
+是严格标准元。
+\end{enumerate}
+那么，若
+$$
+R/(\pi_1^8, \ldots, \pi_r^8)R \to A/(\pi_1^8, \ldots, \pi_r^8)A
+\to \Lambda/(\pi_1^8, \ldots, \pi_r^8)\Lambda \supset
+\mathfrak q/(\pi_1^8, \ldots, \pi_r^8)\Lambda
+$$
+可消解，则 $R \to A \to \Lambda \supset \mathfrak q$ 也可消解。
+\end{lemma}
+
+\begin{proof}
+对 $r$ 作归纳证明。
+
+\medskip\noindent
+先考虑 $r=1$。此时假设存在分解
+$A/\pi_1^8 \to \bar C \to \Lambda/\pi_1^8$，它消解了模
+$\pi_1^8$ 的情形。条件 (1) 和 (2) 正是应用引理
+\ref{smoothing-lemma-desingularize-lifting-apply} 所需的假设。
+因此，可以把消解 $\bar C$“提升”为
+$R \to A \to \Lambda \supset \mathfrak q$ 的消解。
+
+\medskip\noindent
+再考虑 $r>1$。此时，把关于 $r-1$ 的归纳假设应用于情形
+$R/\pi_1^8 \to A/\pi_1^8 \to \Lambda/\pi_1^8
+\supset \mathfrak q/\pi_1^8\Lambda$.
+注意，引理 \ref{smoothing-lemma-strictly-standard-base-change} 表明性质 (2)
+在这里得到保持。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-delocalize-weak}
+\begin{reference}
+\cite[Lemma 12.2]{swan} 或
+\cite[Lemma 2]{popescu-GND}
+\end{reference}
+设 $R \to A \to \Lambda \supset \mathfrak q$ 如情形
+\ref{smoothing-situation-local} 所述，并令 $\mathfrak p=R\cap\mathfrak q$。
+假设 $\mathfrak q$ 是包含 $\mathfrak h_A$ 的极小素理想，并且
+$R_\mathfrak p \to A_\mathfrak p \to \Lambda_\mathfrak q
+\supset \mathfrak q\Lambda_\mathfrak q$ 可消解。
+则存在分解 $A \to C \to \Lambda$，其中 $C$ 为有限表示，且
+$H_{C/R} \Lambda \not \subset \mathfrak q$。
+\end{lemma}
+
+\begin{proof}
+设 $A_\mathfrak p \to C \to \Lambda_\mathfrak q$ 是
+$R_\mathfrak p \to A_\mathfrak p \to \Lambda_\mathfrak q
+\supset \mathfrak q\Lambda_\mathfrak q$ 的一个消解。由
+$\mathfrak q$ 是包含 $\mathfrak h_A$ 的极小素理想这一假设，
+这意味着 $H_{C/R_\mathfrak p} \Lambda_\mathfrak q = \Lambda_\mathfrak q$。
+由引理 \ref{smoothing-lemma-final-solve}，可假设 $C$ 在 $R_\mathfrak p$ 上光滑；
+再由引理 \ref{smoothing-lemma-smooth-standard-smooth}，可假设 $C$ 在
+$R_\mathfrak p$ 上标准光滑。写
+$A = R[x_1, \ldots, x_n]/(g_1, \ldots, g_t)$，并设
+$A \to \Lambda$ 由 $x_i \mapsto \lambda_i$ 给出。写
+$C = R_\mathfrak p[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$，
+其中某个 $c \geq n$，使 $A \to C$ 把 $x_i$ 映到 $x_i$，并且
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+在 $C$ 中可逆，见引理 \ref{smoothing-lemma-standard-smooth-include-generators}。
+消去分母后，可假设 $f_1,\ldots,f_c$ 属于
+$R[x_1, \ldots, x_{n + m}]$。当然，
+$\det(\partial f_j/\partial x_i)_{i, j = 1, \ldots, c}$
+在 $R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$ 中未必可逆，
+但将某个 $s_0 \in R$（$s_0 \not \in \mathfrak p$）取逆后便可逆。
+由于 $g_j$ 经 $R[x_1, \ldots, x_n] \to A \to C$ 映到零，
+可以找到 $s_j \in R$，其中 $s_j \not \in \mathfrak p$，使
+$s_jg_j$ 在 $R[x_1, \ldots, x_{n + m}]/(f_1, \ldots, f_c)$ 中为零。
+将 $f_j$ 写成 $f_j = F_j(x_1, \ldots, x_{n + m}, 1)$，其中多项式
+$F_j \in R[x_1, \ldots, x_n, X_{n + 1}, \ldots, X_{n + m + 1}]$
+关于 $X_{n + 1}, \ldots, X_{n + m + 1}$ 齐次。选取
+$\lambda_{n + i} \in \Lambda$（$i = 1, \ldots, m + 1$），其中
+$\lambda_{n + m + 1} \not \in \mathfrak q$，使 $x_{n+i}$ 在
+$\Lambda_\mathfrak q$ 中映到
+$\lambda_{n + i}/\lambda_{n + m + 1}$。于是
+\begin{align*}
+F_j(\lambda_1, \ldots, \lambda_{n + m + 1})
+& =
+(\lambda_{n + m + 1})^{\deg(F_j)} F_j(\lambda_1, \ldots, \lambda_n,
+\frac{\lambda_{n + 1}}{\lambda_{n + m + 1}}, \ldots,
+\frac{\lambda_{n + m}}{\lambda_{n + m + 1}}, 1) \\
+& =
+(\lambda_{n + m + 1})^{\deg(F_j)} f_j(\lambda_1, \ldots, \lambda_n,
+\frac{\lambda_{n + 1}}{\lambda_{n + m + 1}}, \ldots,
+\frac{\lambda_{n + m}}{\lambda_{n + m + 1}}) \\
+& = 0
+\end{align*}
+在 $\Lambda_\mathfrak q$ 中成立。因此，可以找到
+$\lambda_0 \in \Lambda$，其中 $\lambda_0 \not \in \mathfrak q$，使得
+$\lambda_0 F_j(\lambda_1, \ldots, \lambda_{n + m + 1}) = 0$
+在 $\Lambda$ 中成立。现在置 $B$ 为
+$$
+R[x_0, \ldots, x_{n + m + 1}]/
+(g_1, \ldots, g_t, x_0F_1(x_1, \ldots, x_{n + m + 1}), \ldots,
+x_0F_c(x_1, \ldots, x_{n + m + 1}))
+$$
+，并通过 $x_i \mapsto \lambda_i$ 将其映到 $\Lambda$。
+令 $b$ 为 $x_0x_{n+m+1}s_0s_1\ldots s_t$ 在 $B$ 中的像。
+则 $B_b$ 同构于
+$$
+R_{s_0s_1 \ldots s_t}[x_0, x_1, \ldots, x_{n + m + 1}, 1/x_0x_{n + m + 1}]/
+(f_1, \ldots, f_c)
+$$
+，后者依构造在 $R$ 上光滑。由于 $b$ 的像不属于 $\mathfrak q$，
+结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-delocalize-height-zero}
+设 $R \to A \to \Lambda \supset \mathfrak q$ 如情形
+\ref{smoothing-situation-local} 所述，并令 $\mathfrak p=R\cap\mathfrak q$。假设
+\begin{enumerate}
+\item $\mathfrak q$ 是包含 $\mathfrak h_A$ 的极小素理想；
+\item $R_\mathfrak p \to A_\mathfrak p \to \Lambda_\mathfrak q
+\supset \mathfrak q\Lambda_\mathfrak q$ 可消解；
+\item $\dim(\Lambda_\mathfrak q) = 0$.
+\end{enumerate}
+则 $R \to A \to \Lambda \supset \mathfrak q$ 可消解。
+\end{lemma}
+
+\begin{proof}
+由 (3)，环 $\Lambda_\mathfrak q$ 是 Artin 局部环，因而
+$\mathfrak q\Lambda_\mathfrak q$ 幂零。故对某个 $N>0$，有
+$(\mathfrak h_A)^N \Lambda_\mathfrak q = 0$。于是存在
+$\lambda \in \Lambda$，其中 $\lambda \not \in \mathfrak q$，使
+$\lambda(\mathfrak h_A)^N=0$ 于 $\Lambda$ 中。设
+$H_{A/R}=(a_1,\ldots,a_r)$，于是 $\lambda a_i^N=0$ 于 $\Lambda$ 中。
+由引理 \ref{smoothing-lemma-delocalize-weak}，可以找到分解
+$A \to C \to \Lambda$，其中 $C$ 为有限表示，且
+$\mathfrak h_C \not \subset \mathfrak q$。写
+$C=A[x_1,\ldots,x_n]/(f_1,\ldots,f_m)$。置
+$$
+B = A[x_1, \ldots, x_n, y_1, \ldots, y_r, z, t_{ij}]/
+(f_j - \sum y_i t_{ij}, zy_i)
+$$
+其中 $t_{ij}$ 是 $rm$ 个变量。令 $t_{ij}$ 全部等于零，便得到同态
+$B \to C[y_i,z]/(y_iz)$。同态 $B \to \Lambda$ 是复合
+$B \to C[y_i,z]/(y_iz) \to \Lambda$，其中
+$C[y_i,z]/(y_iz) \to \Lambda$ 延拓给定同态 $C \to \Lambda$，
+把 $z$ 映到 $\lambda$，并把 $y_i$ 映到 $a_i^N$ 在 $\Lambda$ 中的像。
+
+\medskip\noindent
+我们断言，$B$ 是 $R \to A \to \Lambda \supset \mathfrak q$ 的一个解。
+首先，$B_z$ 同构于 $C[y_1, \ldots, y_r,z,z^{-1}]$，因而是光滑的。
+另一方面，
+$B_{y_\ell} \cong A[x_i, y_i, y_\ell^{-1}, t_{ij}, i \not = \ell]$
+在 $A$ 上光滑。因此，$z$ 以及各个 $a_\ell y_\ell$
+（光滑同态的复合仍光滑）全都属于 $H_{B/R}$。引理得证。
+\end{proof}
+
+
+
+
+\section{可分剩余域}
+\label{smoothing-section-separable}
+
+\noindent
+本节说明当剩余域扩张可分时如何求解一个局部问题。
+
+\begin{lemma}[Ogoma]
+\label{smoothing-lemma-ogoma}
+设 $A$ 为诺特环，$M$ 为有限 $A$-模，$S\subset A$ 为乘法集。
+若 $\pi\in A$ 且
+$\Ker(\pi : S^{-1}M \to S^{-1}M) =
+\Ker(\pi^2 : S^{-1}M \to S^{-1}M)$
+，则存在 $s\in S$，使得对任意 $n>0$ 都有
+$\Ker(s^n\pi : M \to M) = \Ker((s^n\pi)^2 : M \to M)$.
+\end{lemma}
+
+\begin{proof}
+令 $K=\Ker(\pi:M\to M)$、
+$K'=\{m\in M\mid \pi^2m=0\text{ 于 }S^{-1}M\text{ 中}\}$，
+并令 $Q=K'/K$。由假设，$S^{-1}Q=0$。由于 $A$ 是诺特环，
+$Q$ 是有限 $A$-模。因此可以找到 $s\in S$ 使 $s$ 零化 $Q$；
+这个 $s$ 即合要求。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-find-sequence}
+设 $\Lambda$ 为诺特环，$I\subset\Lambda$ 为理想，
+且 $I\subset\mathfrak q$，其中 $\mathfrak q$ 为素理想。
+设 $n,e$ 为正整数。假设
+$\mathfrak q^n\Lambda_\mathfrak q\subset I\Lambda_\mathfrak q$，
+且 $\Lambda_\mathfrak q$ 是维数为 $d$ 的正则局部环。
+则存在 $n>0$ 以及 $\pi_1,\ldots,\pi_d\in\Lambda$，使得
+\begin{enumerate}
+\item $(\pi_1, \ldots, \pi_d)\Lambda_\mathfrak q =
+\mathfrak q\Lambda_\mathfrak q$；
+\item $\pi_1^n, \ldots, \pi_d^n \in I$；
+\item 对 $i=1,\ldots,d$ 有
+$$
+\text{Ann}_{\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)\Lambda}(\pi_i) =
+\text{Ann}_{\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)\Lambda}(\pi_i^2).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+置 $S=\Lambda\setminus\mathfrak q$，于是
+$\Lambda_\mathfrak q=S^{-1}\Lambda$。先选取满足 (1) 的
+$\pi_1,\ldots,\pi_d$；这因 $\Lambda_\mathfrak q$ 正则而可行。
+由假设，$\pi_i^n\in I\Lambda_\mathfrak q$，故可找到
+$s_1,\ldots,s_d\in S$，使 $s_i\pi_i^n\in I$。以
+$s_i\pi_i$ 替换 $\pi_i$ 后便得到 (2)。注意，继续乘以 $S$ 中元素
+仍保持 (1) 和 (2)。假设对某个 $t\in\{0,\ldots,d\}$，
+(3) 对 $i=1,\ldots,t$ 成立。注意，
+$\pi_1,\ldots,\pi_d$ 是 $S^{-1}\Lambda$ 中的正则序列，
+见《代数》引理 \ref{algebra-lemma-regular-ring-CM}。
+特别地，由《代数》引理 \ref{algebra-lemma-regular-sequence-powers}，
+$\pi_1^e,\ldots,\pi_t^e,\pi_{t+1}$ 是
+$S^{-1}\Lambda=\Lambda_\mathfrak q$ 中的正则序列。因此
+$$
+\text{Ann}_{S^{-1}\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)}(\pi_i) =
+\text{Ann}_{S^{-1}\Lambda/(\pi_1^e, \ldots, \pi_{i - 1}^e)}(\pi_i^2).
+$$
+由引理 \ref{smoothing-lemma-ogoma}，取某个 $s\in S$，以
+$s\pi_{t+1}$ 替换 $\pi_{t+1}$ 后，便可使 (3) 对 $i=t+1$ 成立。
+对 $t$ 归纳，即得到满足 (1)、(2) 和 (3) 的序列。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-resolve-special}
+设 $k \to A \to \Lambda \supset \mathfrak q$ 如情形
+\ref{smoothing-situation-local} 所述，其中
+\begin{enumerate}
+\item $k$ 是域；
+\item $\Lambda$ 是诺特环；
+\item $\mathfrak q$ 是包含 $\mathfrak h_A$ 的极小素理想；
+\item $\Lambda_\mathfrak q$ 是正则局部环；
+\item 域扩张 $\kappa(\mathfrak q)/k$ 可分。
+\end{enumerate}
+则 $k \to A \to \Lambda \supset \mathfrak q$ 可消解。
+\end{lemma}
+
+\begin{proof}
+置 $d=\dim\Lambda_\mathfrak q$ 及 $R=k[x_1,\ldots,x_d]$。
+选取 $n>0$，使
+$\mathfrak q^n\Lambda_\mathfrak q\subset\mathfrak h_A\Lambda_\mathfrak q$；
+这因 $\mathfrak q$ 是包含 $\mathfrak h_A$ 的极小素理想而可行。
+选取 $H_{A/R}$ 的生成元 $a_1,\ldots,a_r$。置
+$$
+B = A[x_1, \ldots, x_d, z_{ij}]/(x_i^n - \sum z_{ij}a_j)
+$$
+每个 $B_{a_j}$ 都在 $R$ 上光滑：它是
+$A_{a_j}[x_1,\ldots,x_d]$ 上的多项式代数，而 $A_{a_j}$ 在 $k$ 上光滑。
+因此 $B_{x_i}$ 在 $R$ 上光滑。令 $B\to C$ 为引理
+\ref{smoothing-lemma-improve-presentation} 中构造的 $R$-代数同态；该构造还给出
+$R$-代数缩回 $C\to B$，特别给出与上述图表相容的同态
+$C\to\Lambda$。依构造，$C_{x_i}$ 是光滑 $R$-代数，且
+$\Omega_{C_{x_i}/R}$ 自由。因此，可以找到 $c>0$，使 $x_i^c$
+在 $C/R$ 中是严格标准元，见引理 \ref{smoothing-lemma-compare-standard}。
+现在按照引理 \ref{smoothing-lemma-find-sequence} 选取
+$\pi_1,\ldots,\pi_d\in\Lambda$，
+其中 $n=n$、$e=8c$、$\mathfrak q=\mathfrak q$ 且
+$I=\mathfrak h_A$。写
+$\pi_i^n=\sum\lambda_{ij}a_j$，其中某些 $\pi_{ij}\in\Lambda$。
+存在同态 $B\to\Lambda$，由 $x_i\mapsto\pi_i$ 及
+$z_{ij}\mapsto\lambda_{ij}$ 给出。置 $R=k[x_1,\ldots,x_d]$。图表为
+$$
+\xymatrix{
+R \ar[r] & B \ar[rd] \\
+k \ar[u] \ar[r] & A \ar[u] \ar[r] & \Lambda
+}
+$$
+现在把引理 \ref{smoothing-lemma-lift-solution} 应用于
+$R \to C \to \Lambda \supset \mathfrak q$ 以及 $R$ 中的元素序列
+$x_1^c,\ldots,x_d^c$。假设 (2) 显然成立。对 $R$ 而言，
+直接检验可知假设 (1) 成立；对 $\Lambda$ 而言，它由我们对
+$\pi_1,\ldots,\pi_d$ 的选择成立。（注意，若
+$\text{Ann}_\Lambda(\pi)=\text{Ann}_\Lambda(\pi^2)$，则对所有
+$c>0$ 都有 $\text{Ann}_\Lambda(\pi)=\text{Ann}_\Lambda(\pi^c)$。）
+因此，只需消解
+$$
+R/(x_1^e, \ldots, x_d^e) \to C/(x_1^e, \ldots, x_d^e) \to
+\Lambda/(\pi_1^e, \ldots, \pi_d^e) \supset
+\mathfrak q/(\pi_1^e, \ldots, \pi_d^e)
+$$
+，其中 $e=8c$。由引理 \ref{smoothing-lemma-delocalize-height-zero}，
+只需在 $\mathfrak q$ 处局部化后消解它。由于
+$x_1,\ldots,x_d$ 在 $\Lambda_\mathfrak q$ 中映成正则序列，
+$R_\mathfrak p\to\Lambda_\mathfrak q$ 平坦，见《代数》
+引理 \ref{algebra-lemma-flat-over-regular}。所以
+$$
+R_\mathfrak p/(x_1^e, \ldots, x_d^e) \to
+\Lambda_\mathfrak q/(\pi_1^e, \ldots, \pi_d^e)
+$$
+是 Artin 局部环之间的平坦环同态。此外，由假设，该同态在剩余域上
+诱导可分域扩张。因此，由《代数》引理
+\ref{algebra-lemma-colimit-syntomic} 和命题 \ref{smoothing-proposition-lift}，
+这个同态是光滑代数的滤过余极限。所需解的存在性由《代数》
+引理 \ref{algebra-lemma-when-colimit} 得出。
+\end{proof}
+
+
+
+
+
+
+\section{不可分剩余域}
+\label{smoothing-section-inseparable}
+
+\noindent
+本节说明当剩余域扩张不可分时如何求解一个局部问题。
+
+\begin{lemma}
+\label{smoothing-lemma-helper}
+设 $k$ 为特征 $p>0$ 的域，
+$(\Lambda,\mathfrak m,K)$ 为 Artin 局部 $k$-代数。
+假设 $\dim H_1(L_{K/k})<\infty$。则 $\Lambda$ 是 Artin 局部
+$k$-代数 $A$ 的滤过余极限，其中每个同态 $A\to\Lambda$ 都平坦，
+$\mathfrak m_A\Lambda=\mathfrak m$，且 $A$ 在 $k$ 上本质有限型。
+\end{lemma}
+
+\begin{proof}
+注意，$A\to\Lambda$ 的平坦性蕴含该同态为单射，故本引理实际说明
+$\Lambda$ 是这类子环 $A\subset\Lambda$ 的有向并。令 $n$ 为满足
+$\mathfrak m^n=0$ 的最小整数。对 $n$ 归纳证明本引理。
+$n=1$ 的情形显然，因为任一域扩张都是有限生成域扩张的并。
+
+\medskip\noindent
+选取生成 $\mathfrak m$ 的元素
+$\lambda_1,\ldots,\lambda_d\in\mathfrak m$。由于 $K$ 在
+$\mathbf{F}_p$ 上形式光滑（见《代数》引理
+\ref{algebra-lemma-formally-smooth-extensions-easy}），可以找到环同态
+$\sigma:K\to\Lambda$，它是商同态 $\Lambda\to K$ 的截面。
+一般而言，$\sigma$ {\bf 不是} $k$-代数同态。给定 $\sigma$，定义
+$$
+\Psi_\sigma : K[x_1, \ldots, x_d] \longrightarrow \Lambda
+$$
+：在 $K$ 的元素上使用 $\sigma$，并令 $x_i\mapsto\lambda_i$。
+断言：存在 $\sigma:K\to\Lambda$ 以及在 $k$ 上有限生成的子域
+$k\subset F\subset K$，使 $k$ 在 $\Lambda$ 中的像包含于
+$\Psi_\sigma(F[x_1,\ldots,x_d])$。
+
+\medskip\noindent
+对满足 $\mathfrak m^n=0$ 的最小整数 $n$ 作归纳，以证明该断言。
+$n=1$ 时显然。若 $n>1$，置 $I=\mathfrak m^{n-1}$ 及
+$\Lambda'=\Lambda/I$。由归纳假设，可认为已给定
+$\sigma':K\to\Lambda'$ 以及有限生成的 $k\subset F'\subset K$，
+使 $k\to\Lambda\to\Lambda'$ 的像包含于
+$A'=\Psi_{\sigma'}(F'[x_1,\ldots,x_d])$。记
+$\tau':k\to A'$ 为所诱导的同态。选取 $\sigma'$ 的一个提升
+$\sigma:K\to\Lambda$；这可由前述 $K/\mathbf{F}_p$ 的形式光滑性做到。
+留意，稍后可用某个导子 $D:K\to I$ 把 $\sigma$ 改为 $\sigma+D$。
+置 $A=F[x_1,\ldots,x_d]/(x_1,\ldots,x_d)^n$。于是
+$\Psi_\sigma$ 诱导环同态 $\Psi_\sigma:A\to\Lambda$；它与商同态
+$\Lambda\to\Lambda'$ 的复合诱导一个核为幂零理想的满射 $A\to A'$。
+选取 $\tau'$ 的提升 $\tau:k\to A$；这可由
+$k/\mathbf{F}_p$ 的形式光滑性做到。于是得到两个从 $k$ 到
+$\Lambda$ 的同态，即 $\Psi_\sigma\circ\tau:k\to\Lambda$ 和给定同态
+$i:k\to\Lambda$。它们模 $I$ 相同，故其差为导子
+$\theta=i-\Psi_\sigma\circ\tau:k\to I$。注意，若把 $\sigma$
+改为 $\sigma+D$，则 $\theta$ 相应改为 $\theta-D|_k$。
+
+\medskip\noindent
+在 $k$ 中选取一族元素 $\{y_j\}_{j\in J}$，使其微分
+$\text{d}y_j$ 构成 $\Omega_{k/\mathbf{F}_p}$ 的一组基。
+对 $\mathbf{F}_p\subset k\subset K$，Jacobi--Zariski 序列为
+$$
+0 \to H_1(L_{K/k}) \to \Omega_{k/\mathbf{F}_p} \otimes K \to
+\Omega_{K/\mathbf{F}_p} \to \Omega_{K/k} \to 0
+$$
+由于 $\dim H_1(L_{K/k})<\infty$，可以找到有限子集
+$J_0\subset J$，使第一个同态的像包含于
+$\bigoplus_{j\in J_0}K\text{d}y_j$。因此，元素
+$\text{d}y_j$（$j\in J\setminus J_0$）在
+$\Omega_{K/\mathbf{F}_p}$ 中的像在 $K$ 上线性无关。故可选取
+$D:K\to I$，使 $\theta-D|_k=\xi\circ\text{d}$，其中 $\xi$ 是复合
+$$
+\Omega_{k/\mathbf{F}_p} = \bigoplus\nolimits_{j \in J} k \text{d}y_j
+\longrightarrow \bigoplus\nolimits_{j \in J_0} k \text{d}y_j
+\longrightarrow I
+$$
+对 $j\in J_0$，令 $f_j=\xi(\text{d}y_j)\in I$。按上面所述，
+把 $\sigma$ 改为 $\sigma+D$。于是，对 $a\in k$，若在
+$\Omega_{k/\mathbf{F}_p}$ 中有
+$\text{d}a=\sum a_j\text{d}y_j$，则
+$\theta(a)=\sum_{j\in J_0}a_jf_j$。注意，$I$ 由
+$\lambda_1,\ldots,\lambda_d$ 中总次数
+$|E|=\sum e_i=n-1$ 的单项式
+$\lambda^E=\lambda_1^{e_1}\ldots\lambda_d^{e_d}$ 生成。写
+$f_j=\sum_Ec_{j,E}\lambda^E$，其中 $c_{j,E}\in K$。
+把 $F'$ 替换为 $F=F'(c_{j,E})$，断言即得证。
+
+\medskip\noindent
+按断言选取 $\sigma$ 和 $F$。$\Psi_\sigma$ 的核由有限多个多项式
+$g_1,\ldots,g_t\in K[x_1,\ldots,x_d]$ 生成。向 $F$ 中添加有限多个
+元素将其扩大后，可假设这些多项式的系数都在 $F$ 中。此时同态
+$A = F[x_1, \ldots, x_d]/(g_1, \ldots, g_t) \to
+K[x_1, \ldots, x_d]/(g_1, \ldots, g_t) = \Lambda$ 显然平坦。
+由该断言，$A$ 是 $\Lambda$ 的 $k$-子代数。由于 $K$ 是这些子域
+$F$ 的滤过并，$\Lambda$ 显然是这些代数的滤过余极限。最后，
+由《代数》引理
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}，
+这些代数在 $k$ 上本质有限型。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-solution-modulo}
+设 $k$ 为特征 $p>0$ 的域，$\Lambda$ 为几何正则的诺特
+$k$-代数，$\mathfrak q\subset\Lambda$ 为素理想。设 $n\geq1$ 为整数，
+且 $E\subset\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+为有限子集。则可以找到 $m\geq0$ 以及
+$\varphi:k[y_1,\ldots,y_m]\to\Lambda$，使得
+\begin{enumerate}
+\item 令 $\mathfrak p=\varphi^{-1}(\mathfrak q)$，则
+$\mathfrak q\Lambda_\mathfrak q=\mathfrak p\Lambda_\mathfrak q$，且
+$k[y_1,\ldots,y_m]_\mathfrak p\to\Lambda_\mathfrak q$ 平坦；
+\item 存在由 Artin 局部环同态组成的分解
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to D \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+，其中第一个箭头本质光滑，第二个箭头平坦；
+\item 模 $\mathfrak q^n\Lambda_\mathfrak q$ 意义下，$E$ 包含于 $D$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+置 $\bar\Lambda=\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$。
+由《代数详论》命题
+\ref{more-algebra-proposition-characterization-geometrically-regular}.
+，有 $\dim H_1(L_{\kappa(\mathfrak q)/k})<\infty$。
+按照引理 \ref{smoothing-lemma-helper}，选取含 $E$ 的 $A\subset\bar\Lambda$，
+使 $A$ 是在 $k$ 上本质有限型的 Artin 局部环，$A\to\bar\Lambda$
+平坦，且 $\mathfrak m_A$ 生成 $\bar\Lambda$ 的极大理想。
+记剩余域 $F=A/\mathfrak m_A$，于是 $k\subset F\subset K$。
+选取 $\lambda_1,\ldots,\lambda_t\in\Lambda$，它们在
+$\bar\Lambda$ 中映到 $A$ 的元素，并且
+$\text{d}\lambda_1,\ldots,\text{d}\lambda_t$ 的像构成
+$\Omega_{F/k}$ 的一组基。考虑把 $y_j$ 映到 $\lambda_j$ 的同态
+$\varphi':k[y_1,\ldots,y_t]\to\Lambda$，并置
+$\mathfrak p'=(\varphi')^{-1}(\mathfrak q)$。由《代数详论》引理
+\ref{more-algebra-lemma-geometrically-regular-over-field}
+，环同态 $k[y_1,\ldots,y_t]_{\mathfrak p'}\to\Lambda_\mathfrak q$
+平坦，且 $\Lambda_\mathfrak q/\mathfrak p'\Lambda_\mathfrak q$ 正则。
+因此，可以再选取元素 $\lambda_{t+1},\ldots,\lambda_m\in\Lambda$；
+它们在 $\bar\Lambda$ 中映入 $A$，且在
+$\Lambda_\mathfrak q/\mathfrak p'\Lambda_\mathfrak q$ 中映成一组
+正则参数系。由此得到满足性质 (1) 的
+$\varphi:k[y_1,\ldots,y_m]\to\Lambda$，并且
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to \bar\Lambda$
+经由 $A$ 分解。因此，
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to A$ 由《代数》引理
+\ref{algebra-lemma-flatness-descends-more-general} 可知是平坦的。
+依构造，剩余域扩张 $F/\kappa(\mathfrak p)$ 有限生成，且
+$\Omega_{F/\kappa(\mathfrak p)}=0$。故由《代数详论》引理
+\ref{more-algebra-lemma-cartier-equality}，它是有限可分扩张。因此
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to A$
+由《代数》引理
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}
+可知是有限的。最后，由《代数》引理
+\ref{algebra-lemma-characterize-etale}，它是平展的。
+平展环同态当然本质光滑，故结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-enlarge-solution-modulo}
+设 $\varphi:k[y_1,\ldots,y_m]\to\Lambda$、$n$、$\mathfrak q$、
+$\mathfrak p$ 以及
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n \to
+D \to \Lambda_\mathfrak q/\mathfrak q^n \Lambda_\mathfrak q
+$$
+如引理 \ref{smoothing-lemma-solution-modulo} 所述。则对任意
+$\lambda\in\Lambda\setminus\mathfrak q$，存在整数 $q>0$ 以及分解
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n \to
+D \to D' \to \Lambda_\mathfrak q/\mathfrak q^n \Lambda_\mathfrak q
+$$
+，使 $D\to D'$ 是 Artin 局部环之间的本质光滑同态，
+最后一个箭头平坦，并且 $\lambda^q$ 属于 $D'$。
+\end{lemma}
+
+\begin{proof}
+置 $\bar\Lambda=\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$，
+并令 $\bar\lambda$ 为 $\lambda$ 在 $\bar\Lambda$ 中的像，
+$\alpha\in\kappa(\mathfrak q)$ 为 $\lambda$ 在剩余域中的像。
+设 $k\subset F\subset\kappa(\mathfrak q)$ 为 $D$ 的剩余域。
+若 $\alpha\in F$，则可找到 $x\in D$，使
+$x\bar\lambda=1\bmod\mathfrak q$。若 $q$ 可被 $p$ 整除，则
+$(x\bar\lambda)^q=1\bmod(\mathfrak q)^q$，故
+$\bar\lambda^q\in D$。若 $\alpha$ 在 $F$ 上超越，则可取
+$D'=(D[\bar\lambda])_\mathfrak m$，即把由 $D$ 和 $\bar\lambda$
+生成的子环在
+$\mathfrak m=D[\bar\lambda]\cap\mathfrak q\bar\Lambda$ 处局部化。
+这是可行的，因为此时 $D[\bar\lambda]$ 实际上是 $D$ 上的多项式代数。
+最后，若 $\lambda\bmod\mathfrak q$ 在 $F$ 上代数，则可以找到
+$p$ 的幂 $q$，使 $\alpha^q$ 在 $F$ 上可分代数，
+见《域》一章第 \ref{fields-section-algebraic} 节。
+注意，$D$ 和 $\bar\Lambda$ 都是 Hensel 局部环，见《代数》引理
+\ref{algebra-lemma-local-dimension-zero-henselian}。令 $D\to D'$ 为
+有限平展扩张，其剩余域扩张为 $F(\alpha^q)/F$，见《代数》引理
+\ref{algebra-lemma-henselian-cat-finite-etale}。由于 $\bar\Lambda$
+是 Hensel 环，且其剩余域包含 $F(\alpha^q)$，可以找到分解
+$D'\to\bar\Lambda$。由论证的第一部分可知，对某个 $q'>0$，有
+$\bar\lambda^{qq'}\in D'$。
+\end{proof}
+
+\begin{lemma}
+\label{smoothing-lemma-resolve-general}
+设 $k \to A \to \Lambda \supset \mathfrak q$ 如情形
+\ref{smoothing-situation-local} 所述，其中
+\begin{enumerate}
+\item $k$ 是特征 $p>0$ 的域；
+\item $\Lambda$ 是诺特环，且在 $k$ 上几何正则；
+\item $\mathfrak q$ 是包含 $\mathfrak h_A$ 的极小素理想。
+\end{enumerate}
+则 $k \to A \to \Lambda \supset \mathfrak q$ 可消解。
+\end{lemma}
+
+\begin{proof}
+按给定顺序完成以下步骤即可证明本引理。下面将逐一说明这些步骤。
+\begin{enumerate}
+\item
+\label{smoothing-item-power}
+选取整数 $N>0$，使
+$\mathfrak q^N\Lambda_\mathfrak q \subset H_{A/k}\Lambda_\mathfrak q$.
+\item
+\label{smoothing-item-generators}
+选取理想 $H_{A/R}$ 的生成元 $a_1,\ldots,a_t\in A$。
+\item
+\label{smoothing-item-dimension}
+置 $d=\dim(\Lambda_\mathfrak q)$。
+\item
+\label{smoothing-item-standardizer}
+置 $B=A[x_1,\ldots,x_d,z_{ij}]/(x_i^{2N}-\sum z_{ij}a_j)$。
+\item
+\label{smoothing-item-elkik}
+把 $B$ 看作 $k[x_1,\ldots,x_d]$-代数，并令 $B\to C$ 如引理
+\ref{smoothing-lemma-improve-presentation} 所述。我们还得到截面 $C\to B$。
+\item
+\label{smoothing-item-strictly-standard}
+选取 $c>0$，使每个 $x_i^c$ 在 $C$ 中相对于
+$k[x_1,\ldots,x_d]$ 都是严格标准元。
+\item
+\label{smoothing-item-set-n}
+置 $n=N+dc$ 及 $e=8c$。
+\item
+\label{smoothing-item-set-E}
+令 $E\subset\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+为 $A$ 作为 $k$-代数的一组生成元的像。
+\item
+\label{smoothing-item-NP}
+选取整数 $m$、$k$-代数同态
+$\varphi : k[y_1, \ldots, y_m] \to \Lambda$
+以及由 Artin 局部环组成的分解
+$$
+k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to D \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+，使第一个箭头本质光滑，第二个箭头平坦，$E$ 包含于 $D$；并且令
+$\mathfrak p=\varphi^{-1}(\mathfrak q)$ 时，同态
+$k[y_1,\ldots,y_m]_\mathfrak p\to\Lambda_\mathfrak q$ 平坦，且
+$\mathfrak p\Lambda_\mathfrak q=\mathfrak q\Lambda_\mathfrak q$。
+\item
+\label{smoothing-item-choose-pii}
+选取 $\pi_1,\ldots,\pi_d\in\mathfrak p$，它们映成
+$k[y_1,\ldots,y_m]_\mathfrak p$ 的一组正则参数系。
+\item
+\label{smoothing-item-set-R}
+令 $R=k[y_1,\ldots,y_m,t_1,\ldots,t_m]$ 且 $\gamma_i=\pi_it_i$。
+\item
+\label{smoothing-item-modify-pii}
+必要时修改 $\pi_i$ 的选择，使得对 $i=1,\ldots,d$ 有
+$$
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i)
+=
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i^2)
+$$
+\item
+\label{smoothing-item-choose-deltai}
+存在 $\delta_1,\ldots,\delta_d\in\Lambda$，其中
+$\delta_i \not \in \mathfrak q$，以及分解
+$D \to D' \to \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+，其中 $D'$ 是 Artin 局部环，$D\to D'$ 本质光滑，且同态
+$D'\to\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$ 平坦；
+令 $\pi_i'=\delta_i\pi_i$，则对 $i=1,\ldots,d$ 有
+\begin{enumerate}
+\item 在 $\Lambda$ 中，$(\pi_i')^{2N}=\sum a_j\lambda_{ij}$，其中
+$\lambda_{ij}\bmod\mathfrak q^n\Lambda_\mathfrak q$ 是 $D'$ 的元素；
+\item $\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_{i - 1}^e)}({\pi'}_i) =
+\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_{i - 1}^e)}({\pi'}_i^2)$；
+\item $\delta_i\bmod\mathfrak q^n\Lambda_\mathfrak q$ 是 $D'$ 的元素。
+\end{enumerate}
+\item
+\label{smoothing-item-map-B-Lambda}
+令 $x_i\mapsto\pi_i'$、$z_{ij}\mapsto\lambda_{ij}$，以此定义
+$B\to\Lambda$。把 $B\to\Lambda$ 与缩回 $C\to B$ 复合，
+定义 $C\to\Lambda$。
+\item
+\label{smoothing-item-set-map-R}
+定义 $R\to\Lambda$：在 $k[y_1,\ldots,y_m]$ 上取 $\varphi$，
+并令 $t_i\mapsto\delta_i$。再引入同态
+$$
+k[x_1, \ldots, x_d]
+\longrightarrow
+R = k[y_1, \ldots, y_m, t_1, \ldots, t_d]
+$$
+，令 $x_i\mapsto\gamma_i=\pi_it_i$。
+\item
+\label{smoothing-item-first-solve}
+只需消解
+$$
+R
+\to
+C \otimes_{k[x_1, \ldots, x_d]} R
+\to
+\Lambda \supset \mathfrak q
+$$
+\item
+\label{smoothing-item-set-I}
+置 $I=(\gamma_1^e,\ldots,\gamma_d^e)\subset R$。
+\item
+\label{smoothing-item-second-resolve}
+只需消解
+$$
+R/I
+\to
+C \otimes_{k[x_1, \ldots, x_d]} R/I
+\to
+\Lambda/I\Lambda \supset \mathfrak q/I\Lambda
+$$
+\item
+\label{smoothing-item-set-r}
+记 $\mathfrak q$ 在
+$R=k[y_1,\ldots,y_m,t_1,\ldots,t_d]$ 中的逆像为
+$\mathfrak r\subset R$。
+\item
+\label{smoothing-item-third-resolve}
+只需消解
+$$
+(R/I)_\mathfrak r \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/I)_\mathfrak r \to
+\Lambda_\mathfrak q/I\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/I\Lambda_\mathfrak q
+$$
+\item
+\label{smoothing-item-fourth-resolve}
+在 $k[y_1,\ldots,y_m]$ 中置 $J=(\pi_1^e,\ldots,\pi_d^e)$。
+\item
+\label{smoothing-item-fifth-resolve}
+只需消解
+$$
+(R/JR)_\mathfrak p \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/JR)_\mathfrak p \to
+\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+$$
+\item
+\label{smoothing-item-sixth-resolve}
+只需消解
+$$
+(R/\mathfrak p^nR)_\mathfrak p \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+\item
+\label{smoothing-item-seventh-resolve}
+只需消解
+$$
+(R/\mathfrak p^nR)_\mathfrak p \to
+B \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+\item
+\label{smoothing-item-eighth-resolve}
+借助给定同态
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p
+\to D'$ 以及赋值 $t_i\mapsto t_i$，赋予环
+$D'[t_1,\ldots,t_d]$ 一个
+$R_\mathfrak p/\mathfrak p^nR_\mathfrak p$-代数结构。只需找到分解
+$$
+B \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p
+\to D'[t_1, \ldots, t_d] \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q
+$$
+，其中第二个箭头把 $t_i$ 映到 $\delta_i$，并诱导给定同态
+$D'\to\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$。
+\item
+\label{smoothing-item-done}
+由上面对 $D'$ 的选择，这样的分解存在。
+\end{enumerate}
+下面逐步给出论证；仅引入记号的步骤不再说明。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-power})。这是可行的，因为 $\mathfrak q$ 是包含
+$\mathfrak h_A=\sqrt{H_{A/k}\Lambda}$ 的极小素理想。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-strictly-standard})。注意，$A_{a_i}$ 在 $k$ 上光滑。
+因此，$B_{a_j}$ 同构于 $A_{a_j}[x_1,\ldots,x_d]$ 上的多项式代数，
+从而在 $k[x_1,\ldots,x_d]$ 上光滑。于是 $B_{x_i}$ 在
+$k[x_1,\ldots,x_d]$ 上光滑。由引理
+\ref{smoothing-lemma-improve-presentation}，$C_{x_i}$ 在
+$k[x_1,\ldots,x_d]$ 上光滑，且其微分模有限自由。因此，由引理
+\ref{smoothing-lemma-compare-standard}，$x_i$ 的某个幂在 $C$ 中相对于
+$k[x_1,\ldots,x_n]$ 是严格标准元。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-NP})。这由应用引理 \ref{smoothing-lemma-solution-modulo} 得出。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-choose-pii})。由于
+$k[y_1, \ldots, y_m]_\mathfrak p \to \Lambda_\mathfrak q$
+依构造是平坦的，且
+$\mathfrak p\Lambda_\mathfrak q=\mathfrak q\Lambda_\mathfrak q$，
+由《代数》引理 \ref{algebra-lemma-dimension-base-fibre-equals-total}，
+有 $\dim(k[y_1,\ldots,y_m]_\mathfrak p)=d$。因而可以找到
+$\pi_1,\ldots,\pi_d\in\Lambda$，它们在 $\Lambda_\mathfrak q$
+中映成一组正则参数系。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-modify-pii})。由《代数》引理
+\ref{algebra-lemma-regular-ring-CM}，序列
+$\pi_1,\ldots,\pi_d$ 的任意排列都是
+$k[y_1,\ldots,y_m]_\mathfrak p$ 中的正则序列。因此
+$\gamma_1=\pi_1t_1,\ldots,\gamma_d=\pi_dt_d$ 是
+$R_\mathfrak p=k[y_1,\ldots,y_m]_\mathfrak p[t_1,\ldots,t_d]$
+中的正则序列，见《代数》引理
+\ref{algebra-lemma-regular-sequence-in-polynomial-ring}。
+令 $S=k[y_1,\ldots,y_m]\setminus\mathfrak p$，于是
+$R_\mathfrak p=S^{-1}R$。注意，即使把各个 $\pi_i$ 乘以 $S$ 中元素，
+$\pi_1,\ldots,\pi_d$ 和 $\gamma_1,\ldots,\gamma_d$ 仍是正则序列。
+假设
+$$
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i)
+=
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)R}(\gamma_i^2)
+$$
+对某个 $t\in\{0,\ldots,d\}$ 及 $i=1,\ldots,t$ 成立。由《代数》
+引理 \ref{algebra-lemma-regular-sequence-powers}，
+$\gamma_1^e,\ldots,\gamma_t^e,\gamma_{t+1}$ 是 $S^{-1}R$
+中的正则序列，故
+$$
+\text{Ann}_{S^{-1}R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)}(\gamma_i) =
+\text{Ann}_{S^{-1}R/(\gamma_1^e, \ldots, \gamma_{i - 1}^e)}(\gamma_i^2).
+$$
+因此，
+$$
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_t^e)R}(\gamma_{t + 1})
+=
+\text{Ann}_{R/(\gamma_1^e, \ldots, \gamma_t^e)R}(\gamma_{t + 1}^2)
+$$
+由引理 \ref{smoothing-lemma-ogoma}，取某个 $s\in S$ 并以
+$s\pi_{t+1}$ 替换 $\pi_{t+1}$ 后，上式成立。对 $t$ 归纳，
+即得到所需序列。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-choose-deltai})。令 $S=\Lambda\setminus\mathfrak q$，
+于是 $\Lambda_\mathfrak q=S^{-1}\Lambda$；并置
+$\bar\Lambda=\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$。
+假设已有 $t\in\{0,\ldots,d\}$、$\delta_1,\ldots,\delta_t\in S$，
+以及 (\ref{smoothing-item-choose-deltai}) 中的分解
+$D\to D'\to\bar\Lambda$，使 (a)、(b)、(c) 对
+$i=1,\ldots,t$ 成立。由 (\ref{smoothing-item-power})，
+$\mathfrak q^N\Lambda_\mathfrak q\subset H_{A/k}\Lambda_\mathfrak q$，
+所以 $\pi_{t+1}^N\in H_{A/k}\Lambda_\mathfrak q$，进而
+$\pi_{t+1}^N\in H_{A/k}\bar\Lambda$。由于
+$D'\to\bar\Lambda$ 忠实平坦，由《代数》引理
+\ref{algebra-lemma-faithfully-flat-universally-injective} 又有
+$\pi_{t+1}^N\in H_{A/k}D'$。回忆 $H_{A/k}=(a_1,\ldots,a_t)$。
+设在 $D'$ 中 $\pi_{t+1}^N=\sum a_jd_j$，并选取
+$c_j\in\Lambda_\mathfrak q$ 提升 $d_j\in D'$。则
+$\pi_{t+1}^N=\sum c_ja_j+\epsilon$，其中
+$\epsilon\in\mathfrak q^n\Lambda_\mathfrak q\subset
+\mathfrak q^{n-N}H_{A/k}\Lambda_\mathfrak q$。对某些
+$c'_j\in\mathfrak q^{n-N}\Lambda_\mathfrak q$，写
+$\epsilon=\sum a_jc'_j$。于是
+$\pi_{t+1}^{2N}=\sum(\pi_{t+1}^Nc_j+\pi_{t+1}^Nc'_j)a_j$。
+注意，$\pi_{t+1}^Nc'_j$ 在 $\bar\Lambda$ 中映到零；这个虽显然却
+关键的观察将确保稍后 (a) 成立。
+现在选取 $s\in S$，使存在 $\mu_{t + 1j}\in\Lambda$，一方面在
+$S^{-1}\Lambda$ 中有
+$\pi_{t+1}^Nc_j+\pi_{t+1}^Nc'_j=\mu_{t + 1j}/s^{2N}$，
+另一方面在 $\Lambda$ 中有
+$(s\pi_{t+1})^{2N}=\sum\mu_{t + 1j}a_j$（略去一个小细节）。
+还可把 $s$ 替换为它的某个幂并扩大 $D'$，使 $s$ 的像属于 $D'$。
+在这些选择下，$\mu_{t + 1j}$ 映到 $s^{2N}d_j$，后者属于 $D'$。
+注意，由我们对 $\varphi$ 的选择，$\pi_1,\ldots,\pi_d$ 是
+$S^{-1}\Lambda$ 中的一组正则参数序列。因此，由《代数》引理
+\ref{algebra-lemma-regular-ring-CM}，它们构成
+$\Lambda_\mathfrak q$ 中的正则序列。再由《代数》引理
+\ref{algebra-lemma-regular-sequence-powers}，
+${\pi'}_1^e,\ldots,{\pi'}_t^e,s\pi_{t+1}$ 是
+$S^{-1}\Lambda$ 中的正则序列。所以
+$$
+\text{Ann}_{S^{-1}\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}(s\pi_{t + 1}) =
+\text{Ann}_{S^{-1}\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}((s\pi_{t + 1})^2).
+$$
+因此，可以应用引理 \ref{smoothing-lemma-ogoma} 找到 $s'\in S$，使得
+$$
+\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}((s')^qs\pi_{t + 1})
+=
+\text{Ann}_{\Lambda/({\pi'}_1^e, \ldots, {\pi'}_t^e)}(((s')^qs\pi_{t + 1})^2).
+$$
+对任意 $q>0$ 都成立。由引理 \ref{smoothing-lemma-enlarge-solution-modulo}，
+可以选择 $q$ 并扩大 $D'$，使 $(s')^q$ 的像属于 $D'$。
+置 $\delta_{t+1}=(s')^qs$，便得 (a)、(b)、(c) 对
+$i=1,\ldots,t+1$ 成立。对于 (a)，注意可取
+$\lambda_{t + 1j}=(s')^{2Nq}\mu_{t + 1j}$。对 $t$ 归纳即得结论。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-first-solve})。依构造，
+$H_{(C\otimes_{k[x_1,\ldots,x_d]}R)/R}\Lambda$ 的根包含
+$\mathfrak h_A$。事实上，元素 $a_j\in H_{A/k}$ 映到
+$H_{B/k[x_1,\ldots,x_n]}$ 的元素，继而映到
+$H_{C/k[x_1,\ldots,x_n]}$ 的元素，所以 $a_j\otimes1$ 映到
+$H_{C\otimes_{k[x_1,\ldots,x_d]}R/R}$ 的元素。此外，若有
+$C\otimes_{k[x_1,\ldots,x_n]}R\to T\to\Lambda$，它是下列情形的解：
+$$
+R
+\to
+C \otimes_{k[x_1, \ldots, x_d]} R
+\to
+\Lambda \supset \mathfrak q
+$$
+，则因 $R$ 在 $k$ 上光滑，有 $H_{T/R}\subset H_{T/k}$。
+所以 $T$ 也是原情形 $k\to A\to\Lambda\supset\mathfrak q$ 的解。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-second-resolve})。把引理 \ref{smoothing-lemma-lift-solution}
+应用于
+$R \to C \otimes_{k[x_1, \ldots, x_d]} R
+\to \Lambda \supset \mathfrak q$ 以及元素序列
+$\gamma_1^c,\ldots,\gamma_d^c$ 即得。注意，由于 $x_i^c$
+在 $C$ 中相对于 $k[x_1,\ldots,x_d]$ 是严格标准元，引理
+\ref{smoothing-lemma-strictly-standard-base-change} 表明 $\gamma_i^c$ 在
+$C\otimes_{k[x_1,\ldots,x_d]}R$ 中相对于 $R$ 是严格标准元。
+引理 \ref{smoothing-lemma-lift-solution} 的另一个假设由步骤
+(\ref{smoothing-item-modify-pii}) 和 (\ref{smoothing-item-choose-deltai}) 成立。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-third-resolve})。把引理
+\ref{smoothing-lemma-delocalize-height-zero} 应用于
+(\ref{smoothing-item-second-resolve}) 中的情形。以下论证中的目标环均为
+Artin 局部环，因此我们所求的是经由源环上某个光滑代数 $T$ 的分解。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-fifth-resolve})。假设
+$C\otimes_{k[x_1,\ldots,x_d]}(R/JR)_\mathfrak p\to
+T\to\Lambda_\mathfrak q/J\Lambda_\mathfrak q$ 是下列情形的解：
+$$
+(R/JR)_\mathfrak p \to
+C \otimes_{k[x_1, \ldots, x_d]} (R/JR)_\mathfrak p \to
+\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+\supset
+\mathfrak q\Lambda_\mathfrak q/J\Lambda_\mathfrak q
+$$
+则
+$C\otimes_{k[x_1,\ldots,x_d]}(R/I)_\mathfrak r\to T_\mathfrak r\to
+\Lambda_\mathfrak q/I\Lambda_\mathfrak q$
+是 (\ref{smoothing-item-third-resolve}) 中情形的解。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-sixth-resolve})。$n=N+dc$ 足够大，因而
+$\mathfrak p^nk[y_1,\ldots,y_m]_\mathfrak p\subset J_\mathfrak p$
+且 $\mathfrak q^n\Lambda_\mathfrak q\subset J\Lambda_\mathfrak q$。
+因此，若有
+$C \otimes_{k[x_1, \ldots, x_d]} (R/\mathfrak p^nR)_\mathfrak p \to
+T \to \Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+作为 (\ref{smoothing-item-fifth-resolve} 的一个解，则可取 $T/JT$ 作为
+(\ref{smoothing-item-sixth-resolve}) 的解。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-seventh-resolve})。这是因为在 $R$-代数范畴中
+已有截面 $C\to B$。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-eighth-resolve})。这是因为 $D'$ 在 Artin 局部环
+$k[y_1, \ldots, y_m]_\mathfrak p/\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p$
+上本质光滑，并且
+$$
+R_\mathfrak p/\mathfrak p^nR_\mathfrak p =
+k[y_1, \ldots, y_m]_\mathfrak p/
+\mathfrak p^n k[y_1, \ldots, y_m]_\mathfrak p[t_1, \ldots, t_d].
+$$
+因此，$D'[t_1,\ldots,t_d]$ 是光滑
+$R_\mathfrak p/\mathfrak p^nR_\mathfrak p$-代数的滤过余极限，并且
+$B \otimes_{k[x_1, \ldots, x_d]} (R_\mathfrak p/\mathfrak p^nR_\mathfrak p)$
+经由其中一个代数分解。
+
+\medskip\noindent
+关于 (\ref{smoothing-item-done})。证明的最后一个微妙之处在于，不能直接使用
+$B\to D'$ 这个把 $x_i$ 映到 $\pi_i'$ 在 $D'$ 中的像、把
+$z_{ij}$ 映到 $\lambda_{ij}$ 在 $D'$ 中之像的同态，因为需要图表
+$$
+\xymatrix{
+B \ar[r] & D'[t_1, \ldots, t_d] \\
+k[x_1, \ldots, x_d] \ar[r] \ar[u] &
+R_\mathfrak p/\mathfrak p^nR_\mathfrak p \ar[u]
+}
+$$
+可交换，并且需要复合
+$B \to D'[t_1, \ldots, t_d] \to
+\Lambda_\mathfrak q/\mathfrak q^n\Lambda_\mathfrak q$
+等于 (\ref{smoothing-item-map-B-Lambda}) 中的同态。这就要求把 $x_i$ 映到
+$\pi_it_i$ 在 $D'[t_1,\ldots,t_d]$ 中的像。因此，把 $z_{ij}$ 映到
+$\lambda_{ij}t_i^{2N}/\delta_i^{2N}$ 在
+$D'[t_1,\ldots,t_d]$ 中的像，一切便都清楚了。
+\end{proof}
+
+
+
+
+
+
+
+\section{主定理}
+\label{smoothing-section-main}
+
+\noindent
+本节汇总前面的论证。
+
+\begin{theorem}[Popescu]
+\label{smoothing-theorem-popescu}
+任意诺特环之间的正则同态都是光滑环同态的滤过余极限。
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{smoothing-lemma-reduce-to-field}，只需对 $k\to\Lambda$ 证明结论，
+其中 $\Lambda$ 是在 $k$ 上几何正则的诺特环。设
+$k\to A\to\Lambda$ 是一个分解，其中 $A$ 为有限型 $k$-代数。
+只需构造分解 $A\to B\to\Lambda$，其中 $B$ 为有限型且
+$\mathfrak h_B=\Lambda$，见引理 \ref{smoothing-lemma-final-solve}。
+因此，可以对理想 $\mathfrak h_A$ 作诺特归纳。选取
+$\mathfrak q\supset\mathfrak h_A$，使 $\mathfrak q$ 是包含
+$\mathfrak h_A$ 的极小素理想。现在只需消解
+$k\to A\to\Lambda\supset\mathfrak q$
+（其定义见情形 \ref{smoothing-situation-local} 后的正文）。若 $k$ 的特征为零，
+结论由引理 \ref{smoothing-lemma-resolve-special} 得出；若 $k$ 的特征为
+$p>0$，结论由引理 \ref{smoothing-lemma-resolve-general} 得出。
+\end{proof}
+
+
+
+
+\section{G-环的逼近性质}
+\label{smoothing-section-approximation-G-rings}
+
+\noindent
+设 $R$ 为诺特局部环。此时，$R$ 是 G-环当且仅当环同态
+$R\to R^\wedge$ 正则，见《代数详论》引理
+\ref{more-algebra-lemma-check-G-ring-maximal-ideals}。在这种情况下，
+$R$ 的 Hensel 化 $R^h$ 及严格 Hensel 化 $R^{sh}$ 都是 G-环，
+见《代数详论》引理 \ref{more-algebra-lemma-henselization-G-ring}。
+此外，在一个域、完备局部环、$\mathbf{Z}$ 或特征零 Dedekind 环上
+本质有限型的任意代数都是 G-环，见《代数详论》命题
+\ref{more-algebra-proposition-ubiquity-G-ring}。因此，有大量环可应用
+下面的结果。
+
+\medskip\noindent
+设 $R$ 为环，$f_1,\ldots,f_m\in R[x_1,\ldots,x_n]$，且 $S$ 为
+$R$-代数。在这种情形下，称向量 $(a_1,\ldots,a_n)\in S^n$
+是{\it $S$ 中的解}，当且仅当
+$$
+f_j(a_1, \ldots, a_n) = 0 \text{ 于 } S \text{ 中，对 }
+j = 1, \ldots, m
+$$
+代数几何中的一个重要问题自然是判定多项式方程组何时有解。
+下面的定理说明，在诺特局部环的完备化中有解，往往足以推出
+在该环的 Hensel 化中有解。
+
+\begin{theorem}
+\label{smoothing-theorem-approximation-property}
+设 $R$ 为诺特局部环，且
+$f_1,\ldots,f_m\in R[x_1,\ldots,x_n]$。假设
+$(a_1,\ldots,a_n)\in(R^\wedge)^n$ 是 $R^\wedge$ 中的解。
+若 $R$ 是 Hensel G-环，则对每个整数 $N$，都存在 $R$ 中的解
+$(b_1,\ldots,b_n)\in R^n$，使
+$a_i-b_i\in\mathfrak m^NR^\wedge$。
+\end{theorem}
+
+\begin{proof}
+选取 $c_i\in R$，使 $a_i-c_i\in\mathfrak m^N$。选取生成元
+$\mathfrak m^N=(d_1,\ldots,d_M)$，并写成
+$a_i=c_i+\sum a_{i,l}d_l$。考虑多项式环 $R[x_{i,l}]$ 及元素
+$$
+g_j = f_j(c_1 + \sum x_{1, l} d_l , \ldots, c_n + \sum x_{n, l} d_{n, l})
+\in R[x_{i, l}]
+$$
+方程组 $g_j=0$ 有解 $(a_{i,l})$。假设可以证明它在 $R$ 中有解
+$(b_{i,l})$，则 $b_i=c_i+\sum b_{i,l}d_l$ 是 $f_j=0$ 的解，
+且模 $\mathfrak m^N$ 与 $a_i$ 同余。因此，只需证明在 $R^\wedge$
+上可解蕴含在 $R$ 上可解。
+
+\medskip\noindent
+令 $A\subset R^\wedge$ 为由 $a_1,\ldots,a_n$ 生成的 $R$-子代数。
+我们假设了 $R$ 是 G-环，即 $R\to R^\wedge$ 正则，因此存在分解
+$$
+A \to B \to R^\wedge
+$$
+，其中 $B$ 在 $R$ 上光滑，见定理 \ref{smoothing-theorem-popescu}。
+记剩余域 $\kappa=R/\mathfrak m$。它也是 $R^\wedge$ 的剩余域，
+所以得到交换图
+$$
+\xymatrix{
+B \ar[rd] \ar@{..>}[r] & R' \ar@{..>}[d] \\
+R \ar[r] \ar[u] & \kappa
+}
+$$
+由于竖直箭头光滑，《代数详论》引理
+\ref{more-algebra-lemma-lift-section-smooth-morphism} 蕴含存在平展环同态
+$R\to R'$，它诱导同构 $R/\mathfrak m\to R'/\mathfrak mR'$，
+并存在使上图交换的 $R$-代数同态 $B\to R'$。由于 $R$ 是 Hensel 环，
+$R\to R'$ 有截面，见《代数》引理
+\ref{algebra-lemma-characterize-henselian}。令 $b_i\in R$ 为 $a_i$
+经环同态 $A\to B\to R'\to R$ 所得的像。由于这些全是
+$R$-代数同态，$(b_1,\ldots,b_n)$ 是 $R$ 中的解。
+\end{proof}
+
+\noindent
+给定诺特局部环 $(R,\mathfrak m)$、平展环同态 $R\to R'$，
+以及位于 $\mathfrak m$ 之上且满足
+$\kappa(\mathfrak m)=\kappa(\mathfrak m')$ 的极大理想
+$\mathfrak m'\subset R'$，则有包含关系
+$$
+R \subset R_{\mathfrak m'} \subset R^h \subset R^\wedge,
+$$
+，见《代数》引理 \ref{algebra-lemma-henselian-functorial-prepare}
+和《代数详论》引理 \ref{more-algebra-lemma-henselization-noetherian}。
+
+\begin{theorem}
+\label{smoothing-theorem-approximation-property-variant}
+设 $R$ 为诺特局部环，且
+$f_1,\ldots,f_m\in R[x_1,\ldots,x_n]$。假设
+$(a_1,\ldots,a_n)\in(R^\wedge)^n$ 是一个解。若 $R$ 是 G-环，
+则对每个整数 $N$，都存在
+\begin{enumerate}
+\item 平展环同态 $R\to R'$；
+\item 位于 $\mathfrak m$ 之上的极大理想 $\mathfrak m'\subset R'$；
+\item $R'$ 中的解 $(b_1,\ldots,b_n)\in(R')^n$，
+\end{enumerate}
+使得 $\kappa(\mathfrak m)=\kappa(\mathfrak m')$ 且
+$a_i-b_i\in(\mathfrak m')^NR^\wedge$。
+\end{theorem}
+
+\begin{proof}
+可以由定理 \ref{smoothing-theorem-approximation-property} 推出本定理：
+由《代数详论》引理 \ref{more-algebra-lemma-henselization-G-ring}，
+Hensel 化 $R^h$ 是 G-环；再把 $R^h$ 写成平展扩张 $R'$ 的有向余极限即可。
+不过，我们改为在当前情形下重做上一条定理的证明。
+
+\medskip\noindent
+选取 $c_i\in R$，使 $a_i-c_i\in\mathfrak m^N$。选取生成元
+$\mathfrak m^N=(d_1,\ldots,d_M)$，并写成
+$a_i=c_i+\sum a_{i,l}d_l$。考虑多项式环 $R[x_{i,l}]$ 及元素
+$$
+g_j = f_j(c_1 + \sum x_{1, l} d_l , \ldots, c_n + \sum x_{n, l} d_{n, l})
+\in R[x_{i, l}]
+$$
+方程组 $g_j=0$ 有解 $(a_{i,l})$。假设可以证明：对某个平展环同态
+$R\to R'$，存在极大理想 $\mathfrak m'$ 满足
+$\kappa(\mathfrak m)=\kappa(\mathfrak m')$，且 $g_j=0$ 在 $R'$
+中有解 $(b_{i,l})$。则 $b_i=c_i+\sum b_{i,l}d_l$ 是 $f_j=0$
+的解，并且模 $(\mathfrak m')^N$ 与 $a_i$ 同余。因此，只需证明
+$R^\wedge$ 上可解蕴含在某个平展环扩张上可解，而且该扩张在
+$\mathfrak m$ 上方的某个素理想处诱导平凡剩余域扩张。
+
+\medskip\noindent
+令 $A\subset R^\wedge$ 为由 $a_1,\ldots,a_n$ 生成的 $R$-子代数。
+我们假设了 $R$ 是 G-环，即 $R\to R^\wedge$ 正则，故存在分解
+$$
+A \to B \to R^\wedge
+$$
+，其中 $B$ 在 $R$ 上光滑，见定理 \ref{smoothing-theorem-popescu}。
+记剩余域 $\kappa=R/\mathfrak m$。它也是 $R^\wedge$ 的剩余域，
+所以得到交换图
+$$
+\xymatrix{
+B \ar[rd] \ar@{..>}[r] & R' \ar@{..>}[d] \\
+R \ar[r] \ar[u] & \kappa
+}
+$$
+由于竖直箭头光滑，《代数详论》引理
+\ref{more-algebra-lemma-lift-section-smooth-morphism} 蕴含存在平展环同态
+$R\to R'$，它诱导同构 $R/\mathfrak m\to R'/\mathfrak mR'$，
+并存在使上图交换的 $R$-代数同态 $B\to R'$。令 $b_i\in R'$
+为 $a_i$ 经环同态 $A\to B\to R'$ 所得的像。由于这些全是
+$R$-代数同态，$(b_1,\ldots,b_n)$ 是 $R'$ 中的解。
+\end{proof}
+
+\begin{example}
+\label{smoothing-example-describe-henselian}
+设 $(R,\mathfrak m)$ 为诺特局部环，其 Hensel 化为 $R^h$。
+完备化之间的同态 $R^\wedge\to(R^h)^\wedge$ 是同构，见《代数详论》
+引理 \ref{more-algebra-lemma-henselization-noetherian}。由于 $R^h$
+也是诺特环（同上），可将 $R^h$ 看作其完备化的子环
+（因为完备化忠实平坦）。由此，可把 $R^h$ 视为 $R^\wedge$ 的子环。
+
+\medskip\noindent
+来考察 $R^\wedge$ 中哪些元素属于 $R^h$。为简单起见，假设 $R$
+为整环，其分式域为 $K$。显然，$R^h$ 的每个元素 $f$ 都在 $R$
+上代数；这意味着存在形如
+$a_nf^n+\ldots+a_1f+a_0=0$ 的方程，其中 $a_i\in R$、$n>0$ 且
+$a_n \not = 0$。
+
+\medskip\noindent
+反之，假设 $f\in R^\wedge$、$n\in\mathbf{N}$ 且
+$a_0,\ldots,a_n\in R$，其中 $a_n \not = 0$，并满足
+$a_nf^n+\ldots+a_1f+a_0=0$。若 $R$ 是 G-环，则对每个 $N>0$，
+都存在 $g\in R^h$，使
+$a_ng^n+\ldots+a_1g+a_0=0$ 且
+$f-g\in\mathfrak m^NR^\wedge$，见定理
+\ref{smoothing-theorem-approximation-property-variant}。我们希望推出当
+$N\gg0$ 时 $f=g$。若非如此，就会在 $R^h$ 中找到 $P(T)$ 的无穷多个
+根 $g$。这是不可能的，因为 (1) $R^h\subset R^h\otimes_RK$，
+且 (2) $R^h\otimes_RK$ 是 $K$ 的有限多个域扩张的乘积。事实上，
+$R\to K$ 为单射而 $R\to R^h$ 平坦，故
+$R^h\to R^h\otimes_RK$ 为单射；(2) 则由《代数详论》引理
+\ref{more-algebra-lemma-fibres-henselization} 得出。
+
+\medskip\noindent
+结论：若 $R$ 是分式域为 $K$ 的诺特局部整环且为 G-环，
+则 $R^h\subset R^\wedge$ 恰为所有在 $K$ 上代数的元素所成的集合。
+\end{example}
+
+\noindent
+下面是本节主定理的另一个变体。
+
+\begin{lemma}
+\label{smoothing-lemma-approximation-property-variant}
+设 $R$ 为诺特环，$\mathfrak p\subset R$ 为素理想，且
+$f_1,\ldots,f_m\in R[x_1,\ldots,x_n]$。假设
+$(a_1,\ldots,a_n)\in((R_\mathfrak p)^\wedge)^n$ 是一个解。
+若 $R_\mathfrak p$ 是 G-环，则对每个整数 $N$，都存在
+\begin{enumerate}
+\item 平展环同态 $R\to R'$；
+\item 位于 $\mathfrak p$ 之上的素理想 $\mathfrak p'\subset R'$；
+\item $R'$ 中的解 $(b_1,\ldots,b_n)\in(R')^n$，
+\end{enumerate}
+使得 $\kappa(\mathfrak p)=\kappa(\mathfrak p')$ 且
+$a_i-b_i\in(\mathfrak p')^N(R'_{\mathfrak p'})^\wedge$。
+\end{lemma}
+
+\begin{proof}
+由定理 \ref{smoothing-theorem-approximation-property-variant}，可以在某个
+$R_\mathfrak p$ 上平展的环 $R''$ 中找到解
+$(b'_1,\ldots,b'_n)$；并有位于 $\mathfrak p$ 之上的素理想
+$\mathfrak p''$，满足 $\kappa(\mathfrak p)=\kappa(\mathfrak p'')$ 且
+$a_i-b'_i\in(\mathfrak p'')^N(R''_{\mathfrak p''})^\wedge$。
+对某个平展 $R$-代数 $R'$，可以写成
+$R''=R'\otimes_RR_\mathfrak p$（见《代数》引理
+\ref{algebra-lemma-etale}）。必要时把 $R'$ 替换为一个主局部化，
+便可假设 $(b'_1,\ldots,b'_n)$ 来自 $R'$ 中的解
+$(b_1,\ldots,b_n)$。置 $\mathfrak p'=R'\cap\mathfrak p''$，则
+$R''_{\mathfrak p''}=R'_{\mathfrak p'}$，证明完成。
+\end{proof}
+
+
+
+\section{Hensel 对的逼近}
+\label{smoothing-section-approximation-pairs}
+
+\noindent
+可以把第 \ref{smoothing-section-approximation-G-rings} 节的讨论推广到 Hensel 对。
+Hensel 对的定义见《代数详论》第
+\ref{more-algebra-section-henselian-pairs} 节。
+
+\begin{lemma}
+\label{smoothing-lemma-henselian-pair}
+\begin{slogan}
+Hensel 对的逼近。
+\end{slogan}
+设 $(A,I)$ 为 Hensel 对，其中 $A$ 是诺特环。令 $A^\wedge$
+为 $A$ 的 $I$-进完备化。假设下列条件至少有一个成立：
+\begin{enumerate}
+\item $A\to A^\wedge$ 是正则环同态；
+\item $A$ 是诺特 G-环；
+\item $(A,I)$ 是某个对 $(B,J)$ 的 Hensel 化
+（《代数详论》，引理 \ref{more-algebra-lemma-henselization}），
+其中 $B$ 是诺特 G-环。
+\end{enumerate}
+给定 $f_1,\ldots,f_m\in A[x_1,\ldots,x_n]$ 以及
+$\hat{a}_1,\ldots,\hat{a}_n\in A^\wedge$，满足对
+$j=1,\ldots,m$ 有 $f_j(\hat{a}_1,\ldots,\hat{a}_n)=0$。
+则对每个 $N\geq1$，都存在 $a_1,\ldots,a_n\in A$，使
+$\hat{a}_i-a_i\in I^N$，且对 $j=1,\ldots,m$ 有
+$f_j(a_1,\ldots,a_n)=0$。
+\end{lemma}
+
+\begin{proof}
+由《代数详论》引理
+\ref{more-algebra-lemma-henselization-pair-G-ring}，(3) 蕴含 (2)；
+由《代数详论》引理
+\ref{more-algebra-lemma-map-G-ring-to-completion-regular}，(2) 蕴含 (1)。
+因此，只需在 $A\to A^\wedge$ 为正则环同态的情形证明本引理。
+
+\medskip\noindent
+令 $\hat{a}_1,\ldots,\hat{a}_n$ 如引理陈述所述。由定理
+\ref{smoothing-theorem-popescu}，可以找到分解 $A\to B\to A^\wedge$，
+其中 $A\to P$ 光滑，并有 $b_1,\ldots,b_n\in B$ 满足
+$f_j(b_1,\ldots,b_n)=0$ 于 $B$ 中。记 $\sigma$ 为复合
+$B\to A^\wedge\to A/I^N$。由《代数详论》引理
+\ref{more-algebra-lemma-lift-section-smooth-morphism}，可以找到平展环同态
+$A\to A'$，它诱导同构 $A/I^N\to A'/I^NA'$，并有提升 $\sigma$ 的
+$A$-代数同态 $\tilde\sigma:B\to A'$。由于 $(A,I)$ 是 Hensel 对，
+存在 $A$-代数同态 $\chi:A'\to A$，见《代数详论》引理
+\ref{more-algebra-lemma-characterize-henselian-pair}。
+置 $a_i=\chi(\tilde\sigma(b_i))$，便得到一个解。
+\end{proof}

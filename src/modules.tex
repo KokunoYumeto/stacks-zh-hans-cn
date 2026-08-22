@@ -1,0 +1,5228 @@
+% Generated mechanically from the frozen modules.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{16}
+\chapter{模层}
+
+
+
+\phantomsection
+\label{modules-section-phantom}
+
+
+\section{引言}
+\label{modules-section-introduction}
+
+\noindent
+本章阐述模层的基本概念。其中尤其包括阿贝尔群层的情形，因为它们可视为
+$\underline{\mathbf{Z}}$-模层。基本参考文献为 \cite{FAC}、\cite{EGA}
+和 \cite{SGA4}。
+
+\medskip\noindent
+关于环拓扑斯上的模层，我们在另一章中加以讨论（见《站点上的模》
+第 \ref{sites-modules-section-introduction} 节），不过那里大部分内容只是重述本章的讨论。
+
+
+
+
+
+\section{退化情形}
+\label{modules-section-pathology}
+
+\noindent
+环空间是由拓扑空间 $X$ 与环层 $\mathcal{O}$ 组成的序对。定义允许
+$\mathcal{O} = 0$。此时模范畴只有一个对象（即 $0$）。它仍是阿贝尔范畴等，
+但略显退化。类似地，层 $\mathcal{O}$ 在 $X$ 的某些开子集上也可能为零，等等。
+
+\medskip\noindent
+考察局部环空间时不会出现这种情形（我们稍后将这样做）。
+
+
+
+
+
+
+
+
+\section{模层的阿贝尔范畴}
+\label{modules-section-kernels}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间，见《层》定义
+\ref{sheaves-definition-ringed-space}。设 $\mathcal{F}$、$\mathcal{G}$
+为 $\mathcal{O}_X$-模层，见《层》定义
+\ref{sheaves-definition-sheaf-modules}。设
+$\varphi, \psi : \mathcal{F} \to \mathcal{G}$ 为 $\mathcal{O}_X$-模层的态射。
+定义 $\varphi + \psi : \mathcal{F} \to \mathcal{G}$：在每个开集
+$U \subset X$ 上，它是由 $\varphi$、$\psi$ 诱导的两个映射之和。
+显然，这仍是 $\mathcal{O}_X$-模层的态射。也显然，$\mathcal{O}_X$-模层态射的
+复合关于这一加法是双线性的。因此 $\textit{Mod}(\mathcal{O}_X)$
+是预加性范畴，见《同调》定义 \ref{homology-definition-preadditive}。
+
+\medskip\noindent
+记 $0$ 为在每个开集 $U \subset X$ 上恒取值 $\{0\}$ 的
+$\mathcal{O}_X$-模层。显然，它既是 $\textit{Mod}(\mathcal{O}_X)$ 的终对象，
+也是其始对象。给定 $\mathcal{O}_X$-模层态射
+$\varphi : \mathcal{F} \to \mathcal{G}$，下列条件等价：
+(a) $\varphi$ 为零；(b) $\varphi$ 分解通过 $0$；
+(c) $\varphi$ 在每个开集 $U$ 的截面上为零；
+(d) 对所有 $x \in X$，都有 $\varphi_x = 0$。见《层》引理
+\ref{sheaves-lemma-points-exactness}。
+
+\medskip\noindent
+此外，给定两个 $\mathcal{O}_X$-模层 $\mathcal{F}$、$\mathcal{G}$，
+可将直和定义为
+$$
+\mathcal{F} \oplus \mathcal{G} = \mathcal{F} \times \mathcal{G}
+$$
+并配以《同调》定义 \ref{homology-definition-direct-sum} 中显然的映射
+$(i, j, p, q)$。因此 $\textit{Mod}(\mathcal{O}_X)$ 是加性范畴，见
+《同调》定义 \ref{homology-definition-additive-category}。
+
+\medskip\noindent
+设 $\varphi : \mathcal{F} \to \mathcal{G}$ 为 $\mathcal{O}_X$-模层态射。
+可将 $\Ker(\varphi)$ 定义为 $\mathcal{F}$ 的子层，其截面为
+$$
+\Ker(\varphi)(U) =
+\{ s \in \mathcal{F}(U) \mid \varphi(s) = 0 \text{ 于 } \mathcal{G}(U)\}
+$$
+其中 $U$ 遍历 $X$ 的所有开集。容易看出，这确实是 $\mathcal{O}_X$-模层范畴中的核。
+换言之，态射 $\alpha : \mathcal{H} \to \mathcal{F}$ 分解通过
+$\Ker(\varphi)$，当且仅当 $\varphi \circ \alpha = 0$。此外，在茎的层次上有
+$\Ker(\varphi)_x = \Ker(\varphi_x)$。
+
+\medskip\noindent
+另一方面，将 $\Coker(\varphi)$ 定义为下述 $\mathcal{O}_X$-模预层所关联的
+$\mathcal{O}_X$-模层：
+$$
+U
+\longmapsto
+\Coker(\mathcal{F}(U)\to \mathcal{G}(U)) =
+\mathcal{G}(U)/\varphi(\mathcal{F}(U)).
+$$
+由于取茎与层化可交换，见《层》引理
+\ref{sheaves-lemma-stalk-sheafification}，可得
+$\Coker(\varphi)_x = \Coker(\varphi_x)$。因此映射
+$\mathcal{G} \to \Coker(\varphi)$ 是满射（作为集合层的态射），见《层》第
+\ref{sheaves-section-exactness-points} 节。为证明这是余核，注意若
+$\beta : \mathcal{G} \to \mathcal{H}$ 是满足
+$\beta \circ \varphi = 0$ 的 $\mathcal{O}_X$-模层态射，则对每个开集
+$U \subset X$，$\beta$ 都诱导一个从
+$\mathcal{G}(U)/\varphi(\mathcal{F}(U))$ 到 $\mathcal{H}(U)$ 的映射。
+由层化的泛性质（见《层》引理
+\ref{sheaves-lemma-sheafification-presheaf-modules}），得到典范映射
+$\Coker(\varphi) \to \mathcal{H}$，使得原来的 $\beta$ 等于复合
+$\mathcal{G} \to \Coker(\varphi) \to \mathcal{H}$。由上述满射性，
+态射 $\Coker(\varphi) \to \mathcal{H}$ 是唯一的。
+
+\begin{lemma}
+\label{modules-lemma-abelian}
+设 $(X, \mathcal{O}_X)$ 为环空间。范畴 $\textit{Mod}(\mathcal{O}_X)$
+是阿贝尔范畴。此外，一个复形
+$$
+\mathcal{F} \to \mathcal{G} \to \mathcal{H}
+$$
+在 $\mathcal{G}$ 处正合，当且仅当对所有 $x \in X$，复形
+$$
+\mathcal{F}_x \to \mathcal{G}_x \to \mathcal{H}_x
+$$
+在 $\mathcal{G}_x$ 处正合。
+\end{lemma}
+
+\begin{proof}
+依《同调》定义 \ref{homology-definition-abelian-category}，只需证明像与余像一致。
+依《层》引理 \ref{sheaves-lemma-points-exactness}，只需证明像与余像在每个
+$x \in X$ 处的茎相同。由上述核与余核的构造，这些茎正是
+$\mathcal{O}_{X, x}$-模范畴中的余像与像。结论遂由环上模的范畴是阿贝尔范畴这一事实得到。
+\end{proof}
+
+\noindent
+事实上，范畴 $\textit{Mod}(\mathcal{O}_X)$ 还有许多其他性质。以下给出两种构造。
+\begin{enumerate}
+\item 给定任意集合 $I$，并对每个 $i \in I$ 给定一个 $\mathcal{O}_X$-模层，
+可作乘积
+$$
+\prod\nolimits_{i \in I} \mathcal{F}_i
+$$
+它是在每个开集 $U$ 上取诸模 $\mathcal{F}_i(U)$ 之积的层。这也就是范畴积，
+如《范畴论》定义 \ref{categories-definition-product} 所述。
+\item 给定任意集合 $I$，并对每个 $i \in I$ 给定一个 $\mathcal{O}_X$-模层，
+可作直和
+$$
+\bigoplus\nolimits_{i \in I} \mathcal{F}_i
+$$
+它是在每个开集 $U$ 上取诸模 $\mathcal{F}_i(U)$ 之直和的预层的{\it 层化}。
+这也就是范畴余积，如《范畴论》定义
+\ref{categories-definition-coproduct} 所述；由层化的泛性质即可看出这一点。
+\end{enumerate}
+由这些构造可知，$\textit{Mod}(\mathcal{O}_X)$ 中所有极限与余极限都存在。
+
+\begin{lemma}
+\label{modules-lemma-limits-colimits}
+设 $(X, \mathcal{O}_X)$ 为环空间。
+\begin{enumerate}
+\item $\textit{Mod}(\mathcal{O}_X)$ 中所有极限都存在。极限与
+$\mathcal{O}_X$-模预层的相应极限相同（即极限与在开集上取截面可交换）。
+\item $\textit{Mod}(\mathcal{O}_X)$ 中所有余极限都存在。余极限是预层范畴中
+相应余极限的层化。取余极限与取茎可交换。
+\item 滤过余极限是正合的。
+\item 有限直和与 $\mathcal{O}_X$-模预层的相应有限直和相同。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $\textit{Mod}(\mathcal{O}_X)$ 是阿贝尔范畴（引理 \ref{modules-lemma-abelian}），
+它具有所有有限极限与有限余极限（《同调》引理
+\ref{homology-lemma-colimit-abelian-category}）。因此，由积和余积的存在及其上述描述，
+再结合《范畴论》引理 \ref{categories-lemma-limits-products-equalizers} 与
+\ref{categories-lemma-colimits-coproducts-coequalizers}，便得到极限与余极限的存在性及其描述。
+由于层化与取茎可交换，可见取余极限与取茎可交换。第 (3) 项的含义如下：
+给定有向集 $I$ 上一族 $\mathcal{O}_X$-模层的正合列
+$0 \to \mathcal{F}_i \to \mathcal{G}_i \to \mathcal{H}_i \to 0$，则序列
+$0 \to \colim \mathcal{F}_i \to \colim \mathcal{G}_i \to
+\colim \mathcal{H}_i \to 0$ 也正合。由于可在茎上检验正合性（引理
+\ref{modules-lemma-abelian}），这由模的相应情形，即《代数》引理
+\ref{algebra-lemma-directed-colimit-exact} 得出。第 (4) 项的证明从略。
+\end{proof}
+
+\noindent
+极限与余极限的存在，使我们可以像《范畴论》第
+\ref{categories-section-exact-functor} 节那样，以极限和余极限来考察定义在
+$\mathcal{O}$-模层范畴上的函子的正合性。关于用短正合列描述正合性，见《同调》引理
+\ref{homology-lemma-exact-functor}。
+
+\begin{lemma}
+\label{modules-lemma-exactness-pushforward-pullback}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+\begin{enumerate}
+\item 函子
+$f_* : \textit{Mod}(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_Y)$
+是左正合的。事实上，它与所有极限可交换。
+\item 函子
+$f^* : \textit{Mod}(\mathcal{O}_Y) \to \textit{Mod}(\mathcal{O}_X)$
+是右正合的。事实上，它与所有余极限可交换。
+\item 阿贝尔群层上的逆像函子
+$f^{-1} : \textit{Ab}(Y) \to \textit{Ab}(X)$ 是正合的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1)、(2) 项成立，是因为 $(f^*, f_*)$ 是一对伴随函子，见《层》引理
+\ref{sheaves-lemma-adjoint-pullback-pushforward-modules} 和《范畴论》第
+\ref{categories-section-adjoint} 节。第 (3) 项由可在茎上检验正合性（引理
+\ref{modules-lemma-abelian}）以及逆像之茎的描述得出，见《层》引理
+\ref{sheaves-lemma-pullback-abelian-stalk}。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-j-shriek-exact}
+设 $j : U \to X$ 为拓扑空间的开浸入。函子
+$j_! : \textit{Ab}(U) \to \textit{Ab}(X)$ 是正合的。
+\end{lemma}
+
+\begin{proof}
+这由《层》引理 \ref{sheaves-lemma-j-shriek-abelian} 给出的茎的描述得出。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-section-direct-sum-quasi-compact}
+设 $(X, \mathcal{O}_X)$ 为环空间，$I$ 为集合。对 $i \in I$，设
+$\mathcal{F}_i$ 为 $\mathcal{O}_X$-模层。若 $U \subset X$ 为拟紧开集，则映射
+$$
+\bigoplus\nolimits_{i \in I} \mathcal{F}_i(U)
+\longrightarrow
+\left(\bigoplus\nolimits_{i \in I} \mathcal{F}_i\right)(U)
+$$
+是双射。
+\end{lemma}
+
+\begin{proof}
+若 $s$ 是右端的一个元素，则存在开覆盖
+$U = \bigcup_{j \in J} U_j$，使得 $s|_{U_j}$ 是有限和
+$\sum_{i \in I_j} s_{ji}$，其中 $s_{ji} \in \mathcal{F}_i(U_j)$。
+由于 $U$ 拟紧，可设此覆盖为有限覆盖，即 $J$ 有限。于是
+$I' = \bigcup_{j \in J} I_j$ 是 $I$ 的有限子集。显然，$s$ 是子层
+$\bigoplus_{i \in I'} \mathcal{F}_i$ 的一个截面。有限直和无需层化，故结论由上面的
+引理 \ref{modules-lemma-limits-colimits} 得出。
+\end{proof}
+
+
+
+\section{模层的截面}
+\label{modules-section-sections}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+并设 $s \in \Gamma(X, \mathcal{F}) = \mathcal{F}(X)$ 为整体截面。
+存在唯一的{\it $\mathcal{O}_X$-模层态射}
+$$
+\mathcal{O}_X \longrightarrow \mathcal{F}, \ f \longmapsto fs
+$$
+称为{\it 与 $s$ 关联的态射}。上式表示：$\mathcal{O}_X$ 的一个局部截面 $f$，
+即某个开集 $U$ 上的截面 $f$，被映到 $f$ 与 $s$ 在 $U$ 上的限制之乘积。
+反过来，任意态射 $\varphi : \mathcal{O}_X \to \mathcal{F}$ 都给出截面
+$s = \varphi(1)$，并且 $\varphi$ 正是与 $s$ 关联的态射。
+
+\begin{definition}
+\label{modules-definition-globally-generated}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若存在集合 $I$ 以及整体截面
+$s_i \in \Gamma(X, \mathcal{F})$（$i \in I$），使得映射
+$$
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_X \longrightarrow \mathcal{F}
+$$
+为满射，其中它在与 $i$ 对应的直和项上就是与 $s_i$ 关联的态射，
+则称 $\mathcal{F}$ {\it 由整体截面生成}。在这种情形下，称诸截面 $s_i$
+{\it 生成} $\mathcal{F}$。
+\end{definition}
+
+\noindent
+我们经常沿用《层》第 \ref{sheaves-section-stalks} 节引入的符号滥用：
+若 $s$ 是定义在点 $x \in X$ 的某个开邻域上的 $\mathcal{F}$ 的局部截面，
+则以 $s_x$，甚至仍以 $s$，表示 $s$ 在茎 $\mathcal{F}_x$ 中的像。
+
+\begin{lemma}
+\label{modules-lemma-globally-generated}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+$I$ 为集合，并设 $s_i \in \Gamma(X, \mathcal{F})$（$i \in I$）为整体截面。
+诸截面 $s_i$ 生成 $\mathcal{F}$，当且仅当对所有 $x\in X$，诸元素
+$s_{i, x} \in \mathcal{F}_x$ 生成 $\mathcal{O}_{X, x}$-模
+$\mathcal{F}_x$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-tensor-product-globally-generated}
+\begin{slogan}
+整体生成的模层之张量积仍是整体生成的。
+\end{slogan}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$、$\mathcal{G}$ 为
+$\mathcal{O}_X$-模层。若 $\mathcal{F}$ 与 $\mathcal{G}$ 由整体截面生成，
+则 $\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-generated-by-local-sections}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+$I$ 为集合。设 $s_i$（$i \in I$）为 $\mathcal{F}$ 的一族局部截面，
+即对某些开集 $U_i \subset X$ 有 $s_i \in \mathcal{F}(U_i)$。
+存在唯一的最小 $\mathcal{O}_X$-模子层 $\mathcal{G}$，使得每个 $s_i$
+都对应于 $\mathcal{G}$ 的一个局部截面。
+\end{lemma}
+
+\begin{proof}
+考虑由下述规则定义的 $\mathcal{O}_X$-模子预层：
+$$
+U
+\longmapsto
+\{
+\text{形如 } \sum\nolimits_{i \in J} f_i (s_i|_U) \text{，其中 }
+J \text{ 有限，} U \subset U_i \text{ 若 } i\in J \text{，且 }
+f_i \in \mathcal{O}_X(U)
+\}
+$$
+令 $\mathcal{G}$ 为此子预层的层化。依《层》引理
+\ref{sheaves-lemma-sheafify-epi-mono}，它是 $\mathcal{F}$ 的子层。
+由于所有上述有限和显然都必须属于 $\mathcal{G}$，这正是所求的最小子层。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-generated-by-local-sections}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+给定集合 $I$ 以及 $\mathcal{F}$ 的局部截面 $s_i$（$i \in I$），称上述
+引理 \ref{modules-lemma-generated-by-local-sections} 中的子层 $\mathcal{G}$ 为
+{\it 由诸 $s_i$ 生成的子层}。
+\end{definition}
+
+\begin{lemma}
+\label{modules-lemma-generated-by-local-sections-stalk}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+给定集合 $I$ 以及 $\mathcal{F}$ 的局部截面 $s_i$（$i \in I$）。
+设 $\mathcal{G}$ 为由诸 $s_i$ 生成的子层，并设 $x\in X$。则
+$\mathcal{G}_x$ 是 $\mathcal{F}_x$ 中由所有 $s_{i, x}$ 生成的
+$\mathcal{O}_{X, x}$-子模，其中 $i$ 遍历使 $s_i$ 在 $x$ 处有定义的指标。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{modules-lemma-generated-by-local-sections} 的证明中 $\mathcal{G}$ 的构造立即可见。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{模层与截面的支集}
+\label{modules-section-support}
+
+\begin{definition}
+\label{modules-definition-support}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item $\mathcal{F}$ 的{\it 支集}是所有满足 $\mathcal{F}_x \not = 0$
+的点 $x \in X$ 组成的集合。
+\item 以 $\text{Supp}(\mathcal{F})$ 表示 $\mathcal{F}$ 的支集。
+\item 设 $s \in \Gamma(X, \mathcal{F})$ 为整体截面。$s$ 的{\it 支集}
+是所有使 $s$ 的像 $s_x \in \mathcal{F}_x$ 非零的点 $x \in X$ 组成的集合。
+\end{enumerate}
+\end{definition}
+
+\noindent
+由此当然也定义了局部截面的支集，因为局部截面就是 $\mathcal{F}$ 的某个限制的整体截面。
+
+\begin{lemma}
+\label{modules-lemma-support-section-closed}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，
+$U \subset X$ 为开集。
+\begin{enumerate}
+\item $s \in \mathcal{F}(U)$ 的支集在 $U$ 中是闭集。
+\item $fs$ 的支集包含于 $f \in \mathcal{O}_X(U)$ 与
+$s \in \mathcal{F}(U)$ 的支集之交。
+\item $s + s'$ 的支集包含于 $s, s' \in \mathcal{F}(U)$ 的支集之并。
+\item $\mathcal{F}$ 的支集是 $\mathcal{F}$ 的所有局部截面的支集之并。
+\item 若 $\varphi : \mathcal{F} \to \mathcal{G}$ 为 $\mathcal{O}_X$-模层态射，
+则 $\varphi(s)$ 的支集包含于 $s \in \mathcal{F}(U)$ 的支集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这是因为，若 $s_x = 0$，则由茎的定义，$s$ 在 $x$ 的某个开邻域上为零。
+$f$ 的情形同理。细节从略。
+\end{proof}
+
+\noindent
+一般而言，模层的支集不一定闭。例如，可在带通常阿基米德拓扑的
+$\mathbf{R}$ 上取一个阿贝尔群层，它是无穷多个非零摩天楼层的直和，
+其中每个摩天楼层都支撑在 $\mathbf{R}$ 的单点 $p_i$ 上。此时支集就是点集
+$\{p_i\}$，而这个集合未必闭。
+
+\medskip\noindent
+另一个例子是开浸入 $j : U = (0 , \infty) \to \mathbf{R} = X$ 及阿贝尔群层
+$j_!\underline{\mathbf{Z}}_U$。由《层》第
+\ref{sheaves-section-open-immersions} 节，此层的支集恰为 $U$。
+
+\begin{lemma}
+\label{modules-lemma-support-sheaf-rings-closed}
+设 $X$ 为拓扑空间。环层的支集是闭集。
+\end{lemma}
+
+\begin{proof}
+这是因为，依我们的约定，一个环为 $0$ 当且仅当 $1 = 0$；因此环层的支集
+就是其单位截面的支集。
+\end{proof}
+
+
+
+
+
+
+\section{闭浸入与阿贝尔群层}
+\label{modules-section-closed-immersions}
+
+\noindent
+回忆，我们将拓扑空间 $X$ 上的阿贝尔群层视为
+$\underline{\mathbf{Z}}_X$-模层。因此，关于模层的任何结果和定义都可用于阿贝尔群层。
+
+\begin{lemma}
+\label{modules-lemma-i-star-exact}
+设 $X$ 为拓扑空间，$Z \subset X$ 为闭子集。以 $i : Z \to X$ 表示包含映射。函子
+$$
+i_* : \textit{Ab}(Z) \longrightarrow \textit{Ab}(X)
+$$
+是正合且全忠实的，其本质像恰由支集包含于 $Z$ 的阿贝尔群层组成。
+函子 $i^{-1}$ 是 $i_*$ 的左逆。
+\end{lemma}
+
+\begin{proof}
+正合性由《层》引理 \ref{sheaves-lemma-stalks-closed-pushforward}
+中的茎的描述及引理 \ref{modules-lemma-abelian} 得出。其余断言已在《层》引理
+\ref{sheaves-lemma-equivalence-categories-closed-abelian} 中证明。
+\end{proof}
+
+\noindent
+设 $\mathcal{F}$ 为拓扑空间 $X$ 上的阿贝尔群层。给定闭子集 $Z$，
+$\mathcal{F}$ 有一个典范阿贝尔子层，它恰由支集包含于 $Z$ 的截面组成。
+准确陈述如下。
+
+\begin{remark}
+\label{modules-remark-sections-support-in-closed}
+设 $X$ 为拓扑空间，$Z \subset X$ 为闭子集，$\mathcal{F}$ 为 $X$ 上的阿贝尔群层。
+对开集 $U \subset X$，定义
+$$
+\mathcal{H}_Z(\mathcal{F})(U) =
+\{s \in \mathcal{F}(U) \mid
+\text{截面 }s\text{ 的支集包含于 }Z \cap U\}.
+$$
+则 $\mathcal{H}_Z(\mathcal{F})$ 是 $\mathcal{F}$ 的阿贝尔子层，
+并且是 $\mathcal{F}$ 中支集包含于 $Z$ 的最大阿贝尔子层。由引理
+\ref{modules-lemma-i-star-exact}，可将（并且我们确实将）
+$\mathcal{H}_Z(\mathcal{F})$ 视为 $Z$ 上的阿贝尔群层。如此得到左正合函子
+$$
+\textit{Ab}(X) \longrightarrow \textit{Ab}(Z),\quad
+\mathcal{F} \longmapsto \mathcal{H}_Z(\mathcal{F})
+\text{视为 }Z\text{ 上的阿贝尔群层}
+$$
+上述所有断言均直接由引理 \ref{modules-lemma-support-section-closed} 得出。
+\end{remark}
+
+\noindent
+这里正好可以证明，函子 $i_*$ 在阿贝尔群层上有右伴随。
+
+\begin{lemma}
+\label{modules-lemma-i-star-right-adjoint}
+设 $i : Z \to X$ 为闭子集到拓扑空间 $X$ 的包含映射。注
+\ref{modules-remark-sections-support-in-closed} 中的函子
+$\textit{Ab}(X) \to \textit{Ab}(Z)$，
+$\mathcal{F} \mapsto \mathcal{H}_Z(\mathcal{F})$，是
+$i_* : \textit{Ab}(Z) \to \textit{Ab}(X)$ 的右伴随。特别地，
+$i_*$ 与任意余极限可交换。
+\end{lemma}
+
+\begin{proof}
+只需证明，对 $X$ 上任意阿贝尔群层 $\mathcal{F}$ 以及 $Z$ 上任意阿贝尔群层
+$\mathcal{G}$，都有
+$$
+\Hom_{\textit{Ab}(X)}(i_*\mathcal{G}, \mathcal{F}) =
+\Hom_{\textit{Ab}(Z)}(\mathcal{G}, \mathcal{H}_Z(\mathcal{F}))
+$$
+这是显然的，因为 $i_*\mathcal{G}$ 的任意截面的支集终究都包含于 $Z$。
+细节从略。
+\end{proof}
+
+\begin{remark}
+\label{modules-remark-i-star-right-adjoint}
+在《层》注 \ref{sheaves-remark-i-star-not-exact} 中，我们证明了：
+$i_*$ 作为集合层范畴上的函子没有右伴随，原因很简单，它不正合。
+不过，与此非常接近的说法确实成立。事实上，函子 $i_*$ 在带基点集合层上正合；
+对带基点集合层可以定义支集包含于 $Z$ 的截面，而 $\mathcal{H}_Z$ 也有意义，
+并且是 $i_*$ 的右伴随。
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{一个典范正合列}
+\label{modules-section-canonical-exact-sequence}
+
+\noindent
+我们为这个正合列单列一节。
+
+\begin{lemma}
+\label{modules-lemma-canonical-exact-sequence}
+设 $X$ 为拓扑空间，$U \subset X$ 为开子集，其补集为 $Z \subset X$。
+以 $j : U \to X$ 表示开浸入，以 $i : Z \to X$ 表示闭浸入。
+对 $X$ 上任意阿贝尔群层 $\mathcal{F}$，伴随态射
+$j_{!}j^{-1}\mathcal{F} \to \mathcal{F}$ 与
+$\mathcal{F} \to i_*i^{-1}\mathcal{F}$ 给出阿贝尔群层的短正合列
+$$
+0 \to j_{!}j^{-1}\mathcal{F} \to \mathcal{F} \to i_*i^{-1}\mathcal{F} \to 0
+$$
+。对 $X$ 上阿贝尔群层的任意态射
+$\varphi : \mathcal{F} \to \mathcal{G}$，得到如下短正合列之间的态射：
+$$
+\xymatrix{
+0 \ar[r] &
+j_{!}j^{-1}\mathcal{F} \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar[d] &
+i_*i^{-1}\mathcal{F} \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+j_{!}j^{-1}\mathcal{G} \ar[r] &
+\mathcal{G} \ar[r] &
+i_*i^{-1}\mathcal{G} \ar[r] &
+0
+}
+$$
+\end{lemma}
+
+\begin{proof}
+短正合列的函子性立即来自伴随态射的自然性。可在茎上检验正合性（引理
+\ref{modules-lemma-abelian}）。关于这里所涉及的茎的描述，见《层》引理
+\ref{sheaves-lemma-j-shriek-abelian} 与
+\ref{sheaves-lemma-stalks-closed-pushforward}。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{局部由截面生成的模层}
+\label{modules-section-locally-generated}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间。在本节及下一节中，我们常把层限制到开子空间
+$U \subset X$，见《层》第 \ref{sheaves-section-open-immersions} 节。
+特别地，我们常以 $(U, \mathcal{O}_U)$ 表示这个开子空间，而不用更准确的记号
+$(U, \mathcal{O}_X|_U)$，见《层》定义 \ref{sheaves-definition-restriction}。
+
+\medskip\noindent
+考虑开浸入 $j : U = (0 , \infty) \to \mathbf{R} = X$ 以及阿贝尔群层
+$j_!\underline{\mathbf{Z}}_U$。由《层》第
+\ref{sheaves-section-open-immersions} 节，$j_!\underline{\mathbf{Z}}_U$
+在 $x = 0$ 处的茎为 $0$。事实上，此层在任意包含 $0$ 的开区间上的截面都为
+$0$。因此，不存在点 $0$ 的开邻域，使得此层在其上可由截面生成。
+
+\begin{definition}
+\label{modules-definition-locally-generated}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若对每个 $x \in X$ 都存在 $x$ 的开邻域 $U$，使得 $\mathcal{F}|_U$
+作为 $\mathcal{O}_U$-模层是整体生成的，则称 $\mathcal{F}$
+{\it 局部由截面生成}。
+\end{definition}
+
+\noindent
+换言之，存在集合 $I$，且对每个 $i$ 存在截面
+$s_i \in \mathcal{F}(U)$，使得相应态射
+$$
+\bigoplus\nolimits_{i \in I} \mathcal{O}_U
+\longrightarrow
+\mathcal{F}|_U
+$$
+为满射。
+
+\begin{lemma}
+\label{modules-lemma-pullback-locally-generated}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+若 $\mathcal{G}$ 局部由截面生成，则其拉回 $f^*\mathcal{G}$ 亦然。
+\end{lemma}
+
+\begin{proof}
+给定 $Y$ 的开子空间 $V$，可考虑如下环空间交换图：
+$$
+\xymatrix{
+(f^{-1}V, \mathcal{O}_{f^{-1}V}) \ar[r]_{j'} \ar[d]_{f'} &
+(X, \mathcal{O}_X) \ar[d]^f \\
+(V, \mathcal{O}_V) \ar[r]^j &
+(Y, \mathcal{O}_Y)
+}
+$$
+我们知道 $f^*\mathcal{G}|_{f^{-1}V} \cong (f')^*(\mathcal{G}|_V)$，
+见《层》引理 \ref{sheaves-lemma-push-pull-composition-modules}。
+因此可设 $\mathcal{G}$ 是整体生成的。
+
+\medskip\noindent
+由引理 \ref{modules-lemma-exactness-pushforward-pullback}，我们已经知道 $f^*$
+与所有余极限可交换，并且是右正合的。因此，若有满射
+$$
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_Y
+\to
+\mathcal{G}
+\to
+0
+$$
+，则施用 $f^*$ 后得到满射
+$$
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_X
+\to
+f^*\mathcal{G}
+\to
+0.
+$$
+这就证明了引理。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{有限型模层}
+\label{modules-section-finite-type}
+
+\begin{definition}
+\label{modules-definition-finite-type}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若对每个 $x \in X$ 都存在开邻域 $U$，使得 $\mathcal{F}|_U$
+由有限多个截面生成，则称 $\mathcal{F}$ 是{\it 有限型的}。
+\end{definition}
+
+\begin{lemma}
+\label{modules-lemma-pullback-finite-type}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+有限型 $\mathcal{O}_Y$-模层的拉回 $f^*\mathcal{G}$ 是有限型
+$\mathcal{O}_X$-模层。
+\end{lemma}
+
+\begin{proof}
+按照引理 \ref{modules-lemma-pullback-locally-generated} 的证明，可设 $\mathcal{G}$
+由有限多个整体截面生成。由引理
+\ref{modules-lemma-exactness-pushforward-pullback}，我们已经知道 $f^*$
+与所有余极限可交换，并且是右正合的。因此，若有满射
+$$
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_Y
+\to
+\mathcal{G}
+\to
+0
+$$
+，则施用 $f^*$ 后得到满射
+$$
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_X
+\to
+f^*\mathcal{G}
+\to
+0.
+$$
+这就证明了引理。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-extension-finite-type}
+设 $X$ 为环空间。有限型 $\mathcal{O}_X$-模层之间态射的像是有限型的。设
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+为 $\mathcal{O}_X$-模层的短正合列。若 $\mathcal{F}_1$ 与
+$\mathcal{F}_3$ 是有限型的，则 $\mathcal{F}_2$ 也是有限型的。
+\end{lemma}
+
+\begin{proof}
+关于像的断言是平凡的。关于短正合列的断言来自以下事实：
+$\mathcal{F}_3$ 的截面局部地可提升为 $\mathcal{F}_2$ 的截面，
+并且环上模范畴中有相应结论（例如将其用于各个茎）。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-finite-type-surjective-on-stalk}
+设 $X$ 为环空间，$\varphi : \mathcal{G} \to \mathcal{F}$ 为
+$\mathcal{O}_X$-模层同态，且 $x \in X$。假设 $\mathcal{F}$ 是有限型的，
+并且茎上的映射 $\varphi_x : \mathcal{G}_x \to \mathcal{F}_x$ 为满射。
+则存在开邻域 $x \in U \subset X$，使得 $\varphi|_U$ 为满射。
+\end{lemma}
+
+\begin{proof}
+取 $x$ 的开邻域 $U \subset X$，使得 $\mathcal{F}$ 在 $U$ 上由
+$s_1, \ldots, s_n \in \mathcal{F}(U)$ 生成。由 $\varphi_x$ 的满射性，
+缩小 $U$ 后可设 $s_i = \varphi(t_i)$，其中
+$t_i \in \mathcal{G}(U)$。于是这个 $U$ 满足要求。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-finite-type-stalk-zero}
+设 $X$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层，且 $x \in X$。
+假设 $\mathcal{F}$ 是有限型的并且 $\mathcal{F}_x = 0$。则存在开邻域
+$x \in U \subset X$，使得 $\mathcal{F}|_U$ 为零。
+\end{lemma}
+
+\begin{proof}
+这是把引理 \ref{modules-lemma-finite-type-surjective-on-stalk}
+用于态射 $0 \to \mathcal{F}$ 所得的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-support-finite-type-closed}
+\begin{slogan}
+在任意环空间上，有限型模层都具有闭支集。
+\end{slogan}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若 $\mathcal{F}$ 是有限型的，则 $\mathcal{F}$ 的支集是闭集。
+\end{lemma}
+
+\begin{proof}
+这只是引理 \ref{modules-lemma-finite-type-stalk-zero} 的改述。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-finite-type-quasi-compact-colimit}
+设 $X$ 为环空间，$I$ 为预序集，并设 $(\mathcal{F}_i, f_{ii'})$
+为 $I$ 上由 $\mathcal{O}_X$-模层组成的系统（见《范畴论》第
+\ref{categories-section-posets-limits} 节）。令
+$\mathcal{F} = \colim \mathcal{F}_i$ 为其余极限。假设
+(a) $I$ 有向；(b) $\mathcal{F}$ 是有限型 $\mathcal{O}_X$-模层；
+(c) $X$ 拟紧。则存在 $i$，使得 $\mathcal{F}_i \to \mathcal{F}$ 为满射。
+若转移映射 $f_{ii'}$ 都是单射，则可得对某个 $i \in I$ 有
+$\mathcal{F} = \mathcal{F}_i$。
+\end{lemma}
+
+\begin{proof}
+设 $x \in X$。存在 $x$ 的开邻域 $U \subset X$ 及有限多个截面
+$s_j \in \mathcal{F}(U)$（$j = 1, \ldots, m$），使得
+$s_1, \ldots, s_m$ 作为 $\mathcal{O}_U$-模层生成 $\mathcal{F}$。
+必要时把 $U$ 缩小为 $x$ 的更小开邻域，可设每个 $s_j$ 都来自某个
+$i \in I$ 所对应的 $\mathcal{F}_i$ 的截面。于是，由于 $X$ 拟紧，
+可找到有限开覆盖 $X = \bigcup_{j = 1, \ldots, m} U_j$；对每个 $j$，
+可找到指标 $i_j$ 及有限多个截面
+$s_{jl} \in \mathcal{F}_{i_j}(U_j)$，使它们的像生成 $\mathcal{F}$
+在 $U_j$ 上的限制。显然，任取不小于所有 $i_j$ 的指标 $i \in I$，
+引理的结论都成立。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-set-isomorphism-classes-finite-type-modules}
+设 $X$ 为环空间。存在一组有限型 $\mathcal{O}_X$-模层
+$\{\mathcal{F}_i\}_{i \in I}$，使得 $X$ 上每个有限型
+$\mathcal{O}_X$-模层都恰与其中一个 $\mathcal{F}_i$ 同构。
+\end{lemma}
+
+\begin{proof}
+对每个开覆盖 $\mathcal{U} : X = \bigcup U_j$，考虑这样的
+$\mathcal{O}_X$-模层 $\mathcal{F}$：每个限制 $\mathcal{F}|_{U_j}$
+都是某个 $r_j \geq 0$ 所对应的 $\mathcal{O}_{U_j}^{\oplus r_j}$ 的商。
+这些层由子层 $\mathcal{K}_j \subset \mathcal{O}_{U_j}^{\oplus r_j}$
+及粘合数据参数化：
+$$
+\varphi_{jj'} :
+\mathcal{O}_{U_j \cap U_{j'}}^{\oplus r_j}/
+(\mathcal{K}_j|_{U_j \cap U_{j'}})
+\longrightarrow
+\mathcal{O}_{U_j \cap U_{j'}}^{\oplus r_{j'}}/
+(\mathcal{K}_{j'}|_{U_j \cap U_{j'}})
+$$
+见《层》第 \ref{sheaves-section-glueing-sheaves} 节。注意，所有粘合数据组成一个集合。
+所有满足映射 $J \to \mathcal{P}(X)$，$j \mapsto U_j$ 为单射的覆盖
+$\mathcal{U} : X = \bigcup_{j \in J} U_i$ 也组成一个集合。因此，
+由上述商粘合而成的所有 $\mathcal{O}_X$-模层组成一个集合 $\mathcal{I}$。
+按定义，每个有限型 $\mathcal{O}_X$-模层都与 $\mathcal{I}$ 中的某个元素同构。
+从 $\mathcal{I}$ 内每个同构类中选取一个元素，便得到所求的层集（这里使用选择公理）。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{拟凝聚模层}
+\label{modules-section-quasi-coherent}
+
+\noindent
+本节引入拟凝聚 $\mathcal{O}_X$-模层这一抽象概念。它在代数几何中非常有用，
+因为概形上的拟凝聚模层在任意仿射开集上都有良好的描述。不过我们提醒读者：
+在一般的（局部）环空间情形下，这一概念的行为很差。拟凝聚层范畴一般不是
+阿贝尔范畴；拟凝聚层的无穷直和也未必拟凝聚；等等。
+
+\begin{definition}
+\label{modules-definition-quasi-coherent}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若对每个点 $x \in X$ 都存在开邻域 $x\in U \subset X$，使得
+$\mathcal{F}|_U$ 同构于某个如下态射的余核：
+$$
+\bigoplus\nolimits_{j \in J}
+\mathcal{O}_U
+\longrightarrow
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_U
+$$
+则称 $\mathcal{F}$ 为{\it 拟凝聚 $\mathcal{O}_X$-模层}。
+拟凝聚 $\mathcal{O}_X$-模层的范畴记为 $\QCoh(\mathcal{O}_X)$。
+\end{definition}
+
+\noindent
+此定义是说，$X$ 可由这样的开集 $U$ 覆盖：$\mathcal{F}|_U$ 具有如下形式的
+{\it 表示}：
+$$
+\bigoplus\nolimits_{j \in J}
+\mathcal{O}_U
+\longrightarrow
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_U
+\longrightarrow
+\mathcal{F}|_U
+\longrightarrow
+0.
+$$
+这里“表示”是指所展示的序列正合。换言之：
+\begin{enumerate}
+\item 对 $X$ 的每个点 $x$，都存在一个开邻域 $U$，使得
+$\mathcal{F}|_U$ 由整体截面生成；
+\item 适当选取这些截面后，相应满射的核也由整体截面生成。
+\end{enumerate}
+
+\begin{lemma}
+\label{modules-lemma-direct-sum-quasi-coherent}
+设 $(X, \mathcal{O}_X)$ 为环空间。两个拟凝聚 $\mathcal{O}_X$-模层的直和
+仍是拟凝聚 $\mathcal{O}_X$-模层。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{remark}
+\label{modules-remark-infinite-direct-sum-quasi-coherent-not}
+警告：拟凝聚 $\mathcal{O}_X$-模层的无穷直和一般并非拟凝聚的。
+关于拟凝聚模层更为奇特的行为，见例 \ref{modules-example-quasi-coherent}。
+\end{remark}
+
+\begin{lemma}
+\label{modules-lemma-pullback-quasi-coherent}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+拟凝聚 $\mathcal{O}_Y$-模层的拉回 $f^*\mathcal{G}$ 是拟凝聚的。
+\end{lemma}
+
+\begin{proof}
+按照引理 \ref{modules-lemma-pullback-locally-generated} 的证明，可设 $\mathcal{G}$
+有一个由若干份 $\mathcal{O}_Y$ 的直和给出的整体表示。由引理
+\ref{modules-lemma-exactness-pushforward-pullback}，我们已经知道 $f^*$
+与所有余极限可交换，并且是右正合的。因此，若有正合列
+$$
+\bigoplus\nolimits_{j \in J}
+\mathcal{O}_Y
+\longrightarrow
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_Y
+\longrightarrow
+\mathcal{G}
+\longrightarrow
+0
+$$
+，则施用 $f^*$ 后得到正合列
+$$
+\bigoplus\nolimits_{j \in J}
+\mathcal{O}_X
+\longrightarrow
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_X
+\longrightarrow
+f^*\mathcal{G}
+\longrightarrow
+0.
+$$
+这就证明了引理。
+\end{proof}
+
+\noindent
+这给出了大量拟凝聚层的例子。
+
+\begin{lemma}
+\label{modules-lemma-construct-quasi-coherent-sheaves}
+设 $(X, \mathcal{O}_X)$ 为环空间，
+$\alpha : R \to \Gamma(X, \mathcal{O}_X)$ 为从环 $R$ 到 $X$ 上整体截面环的
+环同态，并设 $M$ 为 $R$-模。下列三种构造给出典范同构的
+$\mathcal{O}_X$-模层：
+\begin{enumerate}
+\item 令 $\pi : (X, \mathcal{O}_X) \longrightarrow (\{*\}, R)$
+为如下环空间态射：$\pi : X \to \{*\}$ 是唯一映射，且 $\pi$-映射
+$\pi^\sharp$ 是给定同态 $\alpha : R \to \Gamma(X, \mathcal{O}_X)$。
+置 $\mathcal{F}_1 = \pi^*M$。
+\item 选取一个表示
+$\bigoplus_{j \in J} R \to \bigoplus_{i \in I} R \to M \to 0$.
+Set
+$$
+\mathcal{F}_2 = \Coker\left(
+\bigoplus\nolimits_{j \in J} \mathcal{O}_X
+\to
+\bigoplus\nolimits_{i \in I} \mathcal{O}_X
+\right).
+$$
+这里，在与 $j \in J$ 对应的分量 $\mathcal{O}_X$ 上，此态射由截面
+$\sum_i \alpha(r_{ij})$ 给出，其中 $r_{ij}$ 是 $M$ 的表示中该态射的矩阵系数。
+\item 令 $\mathcal{F}_3$ 为预层
+$U \mapsto \mathcal{O}_X(U) \otimes_R M$ 所关联的层，其中映射
+$R \to \mathcal{O}_X(U)$ 是 $\alpha$ 与限制映射
+$\mathcal{O}_X(X) \to \mathcal{O}_X(U)$ 的复合。
+\end{enumerate}
+此构造具有下列性质：
+\begin{enumerate}
+\item 所得 $\mathcal{O}_X$-模层
+$\mathcal{F}_M = \mathcal{F}_1 = \mathcal{F}_2 = \mathcal{F}_3$
+是拟凝聚的。
+\item 此构造给出从 $R$-模范畴到 $X$ 上拟凝聚层范畴的函子，
+并且它与任意余极限可交换。
+\item 对任意 $x \in X$，有
+$\mathcal{F}_{M, x} = \mathcal{O}_{X, x} \otimes_R M$，且该等式关于 $M$ 是函子性的。
+\item 给定任意 $\mathcal{O}_X$-模层 $\mathcal{G}$，有
+$$
+\Mor_{\mathcal{O}_X}(\mathcal{F}_M, \mathcal{G})
+=
+\Hom_R(M, \Gamma(X, \mathcal{G}))
+$$
+其中 $\Gamma(X, \mathcal{G})$ 上的 $R$-模结构由其
+$\Gamma(X, \mathcal{O}_X)$-模结构经 $\alpha$ 得到。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $\pi^*$ 按定义就是第 (3) 项中预层的层化，故 $\mathcal{F}_1$
+与 $\mathcal{F}_3$ 同构，见《层》第
+\ref{sheaves-section-ringed-spaces-functoriality-modules} 节。
+第 (2) 项与第 (1) 项的构造同构，是因为函子 $\pi^*$ 右正合，所以
+$\pi^*(\bigoplus_{j \in J} R) \to \pi^*(\bigoplus_{i \in I} R) \to
+\pi^*M \to 0$ 正合；$\pi^*$ 与任意直和可交换，见引理
+\ref{modules-lemma-exactness-pushforward-pullback}；最后还要用到
+$\pi^*(R) = \mathcal{O}_X$。
+
+\medskip\noindent
+断言 (1) 由构造 (2) 显然成立。断言 (2) 由 $\pi^*$ 具有上述性质显然成立。
+断言 (3) 来自拉回层之茎的描述，见《层》引理
+\ref{sheaves-lemma-stalk-pullback-modules}。断言 (4) 来自 $\pi_*$ 与
+$\pi^*$ 的伴随性。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-sheaf-associated}
+在引理 \ref{modules-lemma-construct-quasi-coherent-sheaves} 的情形下，称
+$\mathcal{F}_M$ 为{\it 与模 $M$ 及环同态 $\alpha$ 关联的层}。
+若 $R = \Gamma(X, \mathcal{O}_X)$ 且 $\alpha = \text{id}_R$，
+则简称 $\mathcal{F}_M$ 为{\it 与模 $M$ 关联的层}。
+\end{definition}
+
+
+\begin{lemma}
+\label{modules-lemma-restrict-quasi-coherent}
+设 $(X, \mathcal{O}_X)$ 为环空间，并置
+$R = \Gamma(X, \mathcal{O}_X)$。设 $M$ 为 $R$-模，$\mathcal{F}_M$
+为与 $M$ 关联的拟凝聚 $\mathcal{O}_X$-模层。若
+$g : (Y, \mathcal{O}_Y) \to (X, \mathcal{O}_X)$ 为环空间态射，
+则 $g^*\mathcal{F}_M$ 是与 $\Gamma(Y, \mathcal{O}_Y)$-模
+$\Gamma(Y, \mathcal{O}_Y) \otimes_R M$ 关联的层。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{modules-lemma-construct-quasi-coherent-sheaves} 中把
+$\mathcal{F}_M$ 描述为 $\pi^*M$ 的第一种描述，以及如下环空间交换图，
+即可得到断言：
+$$
+\xymatrix{
+(Y, \mathcal{O}_Y) \ar[r]_-\pi \ar[d]_g &
+(\{*\}, \Gamma(Y, \mathcal{O}_Y)) \ar[d]^{\text{由 }g^\sharp\text{ 诱导}} \\
+(X, \mathcal{O}_X) \ar[r]^-\pi &
+(\{*\}, \Gamma(X, \mathcal{O}_X))
+}
+$$
+（还要使用《层》引理 \ref{sheaves-lemma-push-pull-composition-modules}。）
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-quasi-coherent-module}
+设 $(X, \mathcal{O}_X)$ 为环空间，$x \in X$ 为一点。假设 $x$ 有拟紧邻域基。
+任取拟凝聚 $\mathcal{O}_X$-模层 $\mathcal{F}$。则存在 $x$ 的开邻域 $U$，
+使得 $\mathcal{F}|_U$ 同构于 $(U, \mathcal{O}_U)$ 上与某个
+$\Gamma(U, \mathcal{O}_U)$-模 $M$ 关联的模层 $\mathcal{F}_M$。
+\end{lemma}
+
+\begin{proof}
+首先，可用 $x$ 的一个开邻域替换 $X$，并设 $\mathcal{F}$ 同构于如下态射的余核：
+$$
+\Psi :
+\bigoplus\nolimits_{j \in J}
+\mathcal{O}_X
+\longrightarrow
+\bigoplus\nolimits_{i \in I}
+\mathcal{O}_X.
+$$
+问题在于，这一态射未必由一个“矩阵”给出，因为直和的整体截面模一般不同于
+各整体截面模的直和。
+
+\medskip\noindent
+取 $x$ 的拟紧邻域 $x \in E \subset X$（注意，$E$ 未必开），再取包含于
+$E$ 的开邻域 $x \in U \subset E$。接着仿照引理
+\ref{modules-lemma-section-direct-sum-quasi-compact} 的证明。对每个 $j \in J$，
+以 $s_j \in \Gamma(X, \bigoplus\nolimits_{i \in I} \mathcal{O}_X)$
+表示与 $j$ 对应的直和项 $\mathcal{O}_X$ 中截面 $1$ 的像。
+存在有限族开集 $U_{jk}$（$k \in K_j$），使得
+$E \subset \bigcup_{k \in K_j} U_{jk}$，并且每个限制
+$s_j|_{U_{jk}}$ 都是有限和 $\sum_{i \in I_{jk}} f_{jki}$，其中
+$I_{jk} \subset I$，且 $f_{jki}$ 属于与 $i \in I$ 对应的直和项
+$\mathcal{O}_X$。置 $I_j = \bigcup_{k \in K_j} I_{jk}$；这是有限集。
+由于 $U \subset E \subset \bigcup_{k \in K_j} U_{jk}$，截面 $s_j|_U$
+是有限直和 $\bigoplus_{i \in I_j} \mathcal{O}_X$ 的截面。由引理
+\ref{modules-lemma-limits-colimits}，实际上 $s_j|_U$ 是和
+$\sum_{i \in I_j} f_{ij}$，其中
+$f_{ij} \in \mathcal{O}_X(U) = \Gamma(U, \mathcal{O}_U)$。
+
+\medskip\noindent
+现在可将模 $M$ 定义为如下映射的余核：
+$$
+\bigoplus\nolimits_{j \in J}
+\Gamma(U, \mathcal{O}_U)
+\longrightarrow
+\bigoplus\nolimits_{i \in I}
+\Gamma(U, \mathcal{O}_U)
+$$
+其矩阵由 $(f_{ij})$ 给出。由引理
+\ref{modules-lemma-construct-quasi-coherent-sheaves} 的构造 (2)，可见
+$\mathcal{F}_M$ 与 $\mathcal{F}|_U$ 有相同的表示，因而
+$\mathcal{F}_M \cong \mathcal{F}|_U$。
+\end{proof}
+
+\begin{example}
+\label{modules-example-quasi-coherent}
+令 $X$ 为可数多个实直线副本 $L_1, L_2, L_3, \ldots$ 在 $0$ 处全部粘合
+而成的空间；$0$ 的一个邻域基为 $\{U_n\}_{n \in \mathbf{N}}$，其中
+$U_n \cap L_i = (-1/n, 1/n)$。令 $\mathcal{O}_X$ 为实值连续函数层。
+设 $f : \mathbf{R} \to \mathbf{R}$ 为连续函数，它在 $(-1, 1)$ 上恒为零，
+而在 $(-\infty, -2) \cup (2, \infty)$ 上恒为 $1$。以 $f_n$ 表示 $X$
+上的连续函数，它在每条 $L_j = \mathbf{R}$ 上都等于
+$x \mapsto f(nx)$。令 $1_{L_j}$ 为 $L_j$ 的示性函数。考虑映射
+$$
+\bigoplus\nolimits_{j \in \mathbf{N}}
+\mathcal{O}_X
+\longrightarrow
+\bigoplus\nolimits_{j, i \in \mathbf{N}}
+\mathcal{O}_X, \quad
+e_j \longmapsto \sum\nolimits_{i \in \mathbf{N}} f_j 1_{L_i} e_{ij}
+$$
+，其中记号含义显然。这一定义有意义，因为 $f_j$ 在 $0$ 的一个邻域上为零，
+故该和局部有限。在 $U_n$ 上，当 $j > 2n$ 时，$e_j$ 的像不能写成
+$\sum g_{ij} e_{ij}$ 这样的有限线性组合，其中 $g_{ij}$ 连续。因此，
+不存在 $0 \in X$ 的邻域，使所展示的映射像上面引理
+\ref{modules-lemma-quasi-coherent-module} 的证明中那样由一个“矩阵”给出。
+
+\medskip\noindent
+注意，$\bigoplus\nolimits_{j \in \mathbf{N}} \mathcal{O}_X$
+是与以 $e_j$ 为基的自由模关联的层；另一个直和亦然。因此可见，
+与模关联的层之间的态射一般即使在 $X$ 上局部地也未必来自模之间的态射。
+类似地，应当存在环空间 $X$ 与拟凝聚 $\mathcal{O}_X$-模层 $\mathcal{F}$，
+使得 $\mathcal{F}$ 局部地也不具有 $\mathcal{F}_M$ 的形式。
+（若找到这样的例子，请发电子邮件告知。）此外，应当还存在局部紧空间 $X$
+及态射 $\mathcal{F}_M \to \mathcal{F}_N$，它们局部地也不来自模之间的态射
+（引理 \ref{modules-lemma-quasi-coherent-module} 的证明表明，若 $N$ 自由，
+这种情形不会发生）。
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{有限表示模层}
+\label{modules-section-finite-presentation}
+
+\noindent
+定义如下。
+
+\begin{definition}
+\label{modules-definition-finite-presentation}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若对每个点 $x \in X$，都存在开邻域 $x\in U \subset X$ 以及
+$n, m \in \mathbf{N}$，使得 $\mathcal{F}|_U$ 同构于如下态射的余核：
+$$
+\bigoplus\nolimits_{j = 1, \ldots, m}
+\mathcal{O}_U
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_U
+$$
+则称 $\mathcal{F}$ 是{\it 有限表示的}。
+\end{definition}
+
+\noindent
+这就是说，$X$ 可由这样的开集 $U$ 覆盖：$\mathcal{F}|_U$ 有如下形式的
+{\it 表示}：
+$$
+\bigoplus\nolimits_{j = 1, \ldots, m}
+\mathcal{O}_U
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_U
+\to
+\mathcal{F}|_U
+\to
+0.
+$$
+这里“表示”是指所展示的序列正合。换言之：
+\begin{enumerate}
+\item 对 $X$ 的每个点 $x$，都存在一个开邻域 $U$，使得
+$\mathcal{F}|_U$ 由有限多个整体截面生成；
+\item 适当选取这些截面后，相应满射的核也由有限多个整体截面生成。
+\end{enumerate}
+
+\begin{lemma}
+\label{modules-lemma-finite-presentation-quasi-coherent}
+设 $(X, \mathcal{O}_X)$ 为环空间。任意有限表示
+$\mathcal{O}_X$-模层都是拟凝聚的。
+\end{lemma}
+
+\begin{proof}
+由定义立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-cokernel-finite-finite-presentation}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为有限表示
+$\mathcal{O}_X$-模层，并设
+$\varphi : \mathcal{G} \to \mathcal{F}$ 为 $\mathcal{O}_X$-模层态射。
+若 $\mathcal{G}$ 是有限型的，则 $\Coker(\varphi)$ 是有限表示的。
+\end{lemma}
+
+\begin{proof}
+在 $X$ 上局部地，可写成
+$\mathcal{F} = \mathcal{O}_X^{\oplus n} / \mathcal{M}$，其中
+$\mathcal{M} \subset \mathcal{O}_X^{\oplus n}$ 是有限型
+$\mathcal{O}_X$-子模层。因此
+$\Im(\varphi) = \mathcal{N} / \mathcal{M}$，其中
+$\mathcal{N} \subset \mathcal{O}_X^{\oplus n}$ 是包含 $\mathcal{M}$ 的
+$\mathcal{O}_X$-子模层。由于 $\mathcal{G} \to \Im(\varphi)$ 为满射且
+$\mathcal{G}$ 是有限型的，$\mathcal{O}_X$-模层 $\Im(\varphi)$ 是有限型的。
+由引理 \ref{modules-lemma-extension-finite-type}，$\mathcal{N}$ 是有限型的。因此
+$\Coker(\varphi) = \mathcal{O}_X^{\oplus n} / \mathcal{N}$ 是有限表示的。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-kernel-surjection-finite-free-onto-finite-presentation}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为有限表示
+$\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若 $\psi : \mathcal{O}_X^{\oplus r} \to \mathcal{F}$ 为满射，
+则 $\Ker(\psi)$ 是有限型的。
+\item 若 $\theta : \mathcal{G} \to \mathcal{F}$ 为满射且
+$\mathcal{G}$ 是有限型的，则 $\Ker(\theta)$ 是有限型的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证 (1)。设 $x \in X$。取 $x$ 的开邻域 $U \subset X$，使得存在表示
+$$
+\mathcal{O}_U^{\oplus m}
+\xrightarrow{\chi}
+\mathcal{O}_U^{\oplus n}
+\xrightarrow{\varphi}
+\mathcal{F}|_U
+\to
+0.
+$$
+令 $e_k$ 为生成 $\mathcal{O}_X^{\oplus r}$ 第 $k$ 个直和因子的截面。
+对每个 $k = 1, \ldots, r$，把 $U$ 缩小为 $x$ 的一个较小邻域后，
+可将 $\psi(e_k)$ 提升为 $U$ 上 $\mathcal{O}_U^{\oplus n}$ 的截面
+$\tilde e_k$。由此得到层态射
+$\alpha : \mathcal{O}_U^{\oplus r} \to \mathcal{O}_U^{\oplus n}$，
+满足 $\varphi \circ \alpha = \psi$。类似地，缩小 $U$ 后可找到态射
+$\beta : \mathcal{O}_U^{\oplus n} \to \mathcal{O}_U^{\oplus r}$，
+满足 $\psi \circ \beta = \varphi$。于是映射
+$$
+\mathcal{O}_U^{\oplus m} \oplus
+\mathcal{O}_U^{\oplus r}
+\xrightarrow{\beta \circ \chi, 1 - \beta \circ \alpha}
+\mathcal{O}_U^{\oplus r}
+$$
+满射到 $\psi$ 的核。
+
+\medskip\noindent
+为证 (2)，可局部选取满射
+$\eta : \mathcal{O}_X^{\oplus r} \to \mathcal{G}$。由 (1)，
+$\Ker(\theta \circ \eta)$ 是有限型的。由于
+$\Ker(\theta) = \eta(\Ker(\theta \circ \eta))$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-finite-presentation}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+有限表示模层的拉回 $f^*\mathcal{G}$ 仍是有限表示的。
+\end{lemma}
+
+\begin{proof}
+与引理 \ref{modules-lemma-pullback-quasi-coherent} 的证明完全相同，
+只是指标集都是有限的。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-quasi-coherent-limit-finite-presentation}
+设 $(X, \mathcal{O}_X)$ 为环空间，置 $R = \Gamma(X, \mathcal{O}_X)$，
+并设 $M$ 为 $R$-模。与 $M$ 关联的 $\mathcal{O}_X$-模层
+$\mathcal{F}_M$ 是有限表示 $\mathcal{O}_X$-模层的有向余极限。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{modules-lemma-construct-quasi-coherent-sheaves}
+以及任意模都是有限表示模的有向余极限这一事实得到，见《代数》引理
+\ref{algebra-lemma-module-colimit-fp}。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-finite-presentation-stalk-free}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为有限表示
+$\mathcal{O}_X$-模层。设 $x \in X$ 且
+$\mathcal{F}_x \cong \mathcal{O}_{X, x}^{\oplus r}$。则存在 $x$ 的开邻域
+$U$，使得 $\mathcal{F}|_U \cong \mathcal{O}_U^{\oplus r}$。
+\end{lemma}
+
+\begin{proof}
+选取 $s_1, \ldots, s_r \in \mathcal{F}_x$，使它们经该同构映到
+$\mathcal{O}_{X, x}^{\oplus r}$ 的一组基。取 $x$ 的开邻域 $U$，
+使每个 $s_i$ 都提升为 $s_i \in \mathcal{F}(U)$。缩小 $U$ 后，
+诱导态射 $\psi : \mathcal{O}_U^{\oplus r} \to \mathcal{F}|_U$ 为满射
+（引理 \ref{modules-lemma-finite-type-surjective-on-stalk}）。由引理
+\ref{modules-lemma-kernel-surjection-finite-free-onto-finite-presentation}，
+$\Ker(\psi)$ 是有限型的。于是 $\Ker(\psi)_x = 0$ 意味着再次缩小 $U$ 后
+$\Ker(\psi)$ 变为零（引理 \ref{modules-lemma-finite-type-stalk-zero}）。
+\end{proof}
+
+
+
+
+
+\section{凝聚模层}
+\label{modules-section-coherent}
+
+\noindent
+本节的参考文献为 \cite{FAC}。
+
+\medskip\noindent
+环空间 $X$ 上的凝聚层范畴比拟凝聚层范畴更为合理：无论 $X$ 如何，
+它至少都是 $\textit{Mod}(\mathcal{O}_X)$ 的阿贝尔子范畴。另一方面，
+在一般环空间的情形下，凝聚模层的拉回“几乎从不”凝聚。
+
+\begin{definition}
+\label{modules-definition-coherent}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若下列两个条件成立，则称 $\mathcal{F}$ 为{\it 凝聚 $\mathcal{O}_X$-模层}：
+\begin{enumerate}
+\item $\mathcal{F}$ 是有限型的；
+\item 对每个开集 $U \subset X$ 及每个有限族
+$s_i \in \mathcal{F}(U)$（$i = 1, \ldots, n$），相应态射
+$\bigoplus_{i = 1, \ldots, n} \mathcal{O}_U \to \mathcal{F}|_U$
+的核都是有限型的。
+\end{enumerate}
+凝聚 $\mathcal{O}_X$-模层的范畴记为 $\textit{Coh}(\mathcal{O}_X)$。
+\end{definition}
+
+\begin{lemma}
+\label{modules-lemma-coherent-finite-presentation}
+设 $(X, \mathcal{O}_X)$ 为环空间。任意凝聚 $\mathcal{O}_X$-模层都是
+有限表示的，因而是拟凝聚的。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}$ 为 $X$ 上的凝聚层。取一点 $x \in X$。由凝聚定义的 (1)，
+可找到开邻域 $U$ 及 $\mathcal{F}$ 在 $U$ 上的截面
+$s_i$（$i = 1, \ldots, n$），使得
+$\Psi : \bigoplus_{i = 1, \ldots, n} \mathcal{O}_U \to \mathcal{F}$
+为满射。由凝聚定义的 (2)，可找到开邻域 $x \in V \subset U$ 以及
+$\bigoplus_{i = 1, \ldots, n} \mathcal{O}_V$ 的截面
+$t_1, \ldots, t_m$，它们生成 $\Psi|_V$ 的核。于是，在 $V$ 上得到表示
+$$
+\bigoplus\nolimits_{j = 1, \ldots, m}
+\mathcal{O}_V
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_V
+\to
+\mathcal{F}|_V
+\to
+0
+$$
+，如所求。
+\end{proof}
+
+\begin{example}
+\label{modules-example-coherent-not-Noetherian}
+假设 $X$ 是一个点。此时上述定义给出了环上模的一个概念。
+“凝聚”的定义意味着什么？它与诺特性密切相关，但二者并不相同。
+事实上，环 $R = \mathbf{C}[x_1, x_2, x_3, \ldots]$ 作为自身上的模是凝聚的，
+却不是诺特的。更多讨论见《代数》第 \ref{algebra-section-coherent} 节。
+\end{example}
+
+\begin{lemma}
+\label{modules-lemma-coherent-abelian}
+设 $(X, \mathcal{O}_X)$ 为环空间。
+\begin{enumerate}
+\item 凝聚层的任意有限型子层都是凝聚的。
+\item 设 $\varphi : \mathcal{F} \to \mathcal{G}$ 为从有限型层
+$\mathcal{F}$ 到凝聚层 $\mathcal{G}$ 的态射。则 $\Ker(\varphi)$ 是有限型的。
+\item 设 $\varphi : \mathcal{F} \to \mathcal{G}$ 为凝聚
+$\mathcal{O}_X$-模层之间的态射。则 $\Ker(\varphi)$ 与
+$\Coker(\varphi)$ 都是凝聚的。
+\item 给定 $\mathcal{O}_X$-模层的短正合列
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+，若其中两个模层凝聚，则第三个也凝聚。
+\item 范畴 $\textit{Coh}(\mathcal{O}_X)$ 是
+$\textit{Mod}(\mathcal{O}_X)$ 的弱 Serre 子范畴。特别地，凝聚模层范畴是
+阿贝尔范畴，且包含函子
+$\textit{Coh}(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$
+是正合的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+定义 \ref{modules-definition-coherent} 的条件 (2) 对凝聚层的任意子层都成立。
+因此得到 (1)。
+
+\medskip\noindent
+假设 (2) 的条件成立。来证明 $\Ker(\varphi)$ 是有限型的。取 $x \in X$，
+并取 $x$ 在 $X$ 中的开邻域 $U$，使得 $\mathcal{F}|_U$ 由
+$s_1, \ldots, s_n$ 生成。由定义 \ref{modules-definition-coherent}，诱导态射
+$\bigoplus_{i = 1}^n \mathcal{O}_U \to \mathcal{G}$,
+$e_i \mapsto \varphi(s_i)$ 的核 $\mathcal{K}$ 是有限型的。因此，
+$\Ker(\varphi)$ 作为复合
+$\mathcal{K} \to \bigoplus_{i = 1}^n \mathcal{O}_U \to \mathcal{F}$
+的像，是有限型的。
+
+\medskip\noindent
+假设 (3) 的条件成立。由 (2)，$\varphi$ 的核是有限型的；再由 (1)，它是凝聚的。
+
+\medskip\noindent
+在相同条件下，来证明 $\Coker(\varphi)$ 凝聚。由于 $\mathcal{G}$ 是有限型的，
+$\Coker(\varphi)$ 也是有限型的。设 $U \subset X$ 为开集，且
+$\overline{s}_i \in \Coker(\varphi)(U)$（$i = 1, \ldots, n$）为截面。
+只需证明相应态射
+$\overline{\Psi} : \bigoplus_{i = 1}^n \mathcal{O}_U \to \Coker(\varphi)$
+的核是有限型的。存在 $U$ 的一个开覆盖，使得在其中每个开集上，
+所有 $\overline{s}_i$ 都提升为 $\mathcal{G}$ 的截面 $s_i$。
+因此可设这在整个 $U$ 上成立。还可设存在 $\Im(\varphi)$ 在 $U$ 上的截面
+$t_j$（$j = 1, \ldots, m$），它们在 $U$ 上生成 $\Im(\varphi)$。
+令 $\Phi : \bigoplus_{j = 1}^m \mathcal{O}_U \to \Im(\varphi)$
+由 $t_j$ 定义，并令
+$\Psi :
+\bigoplus_{j = 1}^m \mathcal{O}_U \oplus
+\bigoplus_{i = 1}^n \mathcal{O}_U \to \mathcal{G}$
+由 $t_j$ 与 $s_i$ 定义。考虑如下交换图：
+$$
+\xymatrix{
+0 \ar[r] &
+\bigoplus_{j = 1}^m \mathcal{O}_U \ar[d]_\Phi \ar[r] &
+\bigoplus_{j = 1}^m \mathcal{O}_U \oplus
+\bigoplus_{i = 1}^n \mathcal{O}_U \ar[d]_\Psi \ar[r] &
+\bigoplus_{i = 1}^n \mathcal{O}_U \ar[d]_{\overline{\Psi}} \ar[r] &
+0 \\
+0 \ar[r] &
+\Im(\varphi) \ar[r] &
+\mathcal{G} \ar[r] &
+\Coker(\varphi) \ar[r] &
+0
+}
+$$
+由蛇形引理得到正合列
+$\Ker(\Psi) \to \Ker(\overline{\Psi}) \to 0$。由于 $\Ker(\Psi)$
+是有限型模层，可见 $\Ker(\overline{\Psi})$ 是有限型的。
+
+\medskip\noindent
+证明 (4)。设
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+为 $\mathcal{O}_X$-模层的短正合列。由 (3)，只需证明：若
+$\mathcal{F}_1$ 与 $\mathcal{F}_3$ 凝聚，则 $\mathcal{F}_2$ 也凝聚。
+由引理 \ref{modules-lemma-extension-finite-type}，$\mathcal{F}_2$ 是有限型的。
+设 $s_1, \ldots, s_n$ 为 $\mathcal{F}_2$ 的有限多个局部截面，
+它们定义在 $X$ 的同一开集 $U$ 上。只需证明它们之间的关系模层
+$\mathcal{K}$ 是有限型的。考虑如下交换图：
+$$
+\xymatrix{
+0 \ar[r] &
+0 \ar[r] \ar[d] &
+\bigoplus_{i = 1}^{n} \mathcal{O}_U \ar[r] \ar[d] &
+\bigoplus_{i = 1}^{n} \mathcal{O}_U \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+\mathcal{F}_1 \ar[r] &
+\mathcal{F}_2 \ar[r] &
+\mathcal{F}_3 \ar[r] &
+0
+}
+$$
+，其中记号含义显然。由蛇形引理得到短正合列
+$0 \to \mathcal{K} \to \mathcal{K}_3 \to \mathcal{F}_1$
+，其中 $\mathcal{K}_3$ 是诸截面 $s_i$ 在 $\mathcal{F}_3$ 中的像之间的关系模层。
+由于 $\mathcal{F}_1$ 凝聚，可见 $\mathcal{K}$ 是从有限型模层到凝聚模层的
+某个态射之核，故由 (2)，它是有限型的。
+
+\medskip\noindent
+证明 (5)。这是因为 (3) 与 (4) 表明《同调》引理
+\ref{homology-lemma-characterize-weak-serre-subcategory} 适用。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-coherent-structure-sheaf}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+假设 $\mathcal{O}_X$ 作为 $\mathcal{O}_X$-模层是凝聚的。则
+$\mathcal{F}$ 凝聚，当且仅当它是有限表示的。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-finite-type-to-coherent-injective-on-stalk}
+设 $X$ 为环空间，$\varphi : \mathcal{G} \to \mathcal{F}$ 为
+$\mathcal{O}_X$-模层同态，且 $x \in X$。假设 $\mathcal{G}$ 是有限型的，
+$\mathcal{F}$ 凝聚，并且茎上的映射
+$\varphi_x : \mathcal{G}_x \to \mathcal{F}_x$ 为单射。则存在开邻域
+$x \in U \subset X$，使得 $\varphi|_U$ 为单射。
+\end{lemma}
+
+\begin{proof}
+以 $\mathcal{K} \subset \mathcal{G}$ 表示 $\varphi$ 的核。由引理
+\ref{modules-lemma-coherent-abelian}，$\mathcal{K}$ 是有限型
+$\mathcal{O}_X$-模层。假设给出 $\mathcal{K}_x = 0$。由引理
+\ref{modules-lemma-finite-type-stalk-zero}，存在 $x$ 的开邻域 $U$，使得
+$\mathcal{K}|_U = 0$。于是这个 $U$ 满足要求。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{环空间的闭浸入}
+\label{modules-section-closed-immersion}
+
+\noindent
+何时称环空间态射
+$i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$ 为闭浸入？
+
+\medskip\noindent
+受正规拓扑空间的闭浸入（配以连续函子层）或微分流形的闭浸入
+（配以可微函数层）这些例子的启发，至少作如下假设似乎是自然的：
+\begin{enumerate}
+\item 映射 $i$ 是拓扑空间的闭浸入。
+\item 相应态射 $\mathcal{O}_X \to i_*\mathcal{O}_Z$ 为满射。
+以 $\mathcal{I}$ 表示其核。
+\end{enumerate}
+仅这些条件就已蕴含若干令人满意的结果。例如，我们将证明
+$\mathcal{O}_Z$-模层范畴等价于被 $\mathcal{I}$ 零化的
+$\mathcal{O}_X$-模层范畴，从而推广第 \ref{modules-section-closed-immersions} 节
+关于阿贝尔群层的结果。
+
+\medskip\noindent
+不过，在 Stacks Project 中，我们选取的定义保证：若 $i$ 是闭浸入且
+$(X, \mathcal{O}_X)$ 是概形，则 $(Z, \mathcal{O}_Z)$ 也是概形。
+此外，在这种情形下，我们希望 $i_*$ 与 $i^*$ 给出拟凝聚
+$\mathcal{O}_Z$-模层范畴和被 $\mathcal{I}$ 零化的拟凝聚
+$\mathcal{O}_X$-模层范畴之间的等价。一个最低条件是
+$i_*\mathcal{O}_Z$ 为拟凝聚 $\mathcal{O}_X$-模层。保证这一点的一种好办法
+是要求 $\mathcal{I}$ 局部由截面生成。可以把这个条件理解为：
+“$(Z, \mathcal{O}_Z)$ 在 $(X, \mathcal{O}_X)$ 上局部地由令某些正则函数
+$f_i$（即 $\mathcal{O}_X$ 的局部截面）等于零来定义”。这引出如下定义。
+
+\begin{definition}
+\label{modules-definition-closed-immersion}
+环空间的{\it 闭浸入}\footnote{这是非标准记法；见上面的讨论。}是态射
+$i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$
+，并具有下列性质：
+\begin{enumerate}
+\item 映射 $i$ 是拓扑空间的闭浸入。
+\item 相应态射 $\mathcal{O}_X \to i_*\mathcal{O}_Z$ 为满射。
+以 $\mathcal{I}$ 表示其核。
+\item $\mathcal{O}_X$-模层 $\mathcal{I}$ 局部由截面生成。
+\end{enumerate}
+\end{definition}
+
+\noindent
+事实上，此定义仍不能保证拟凝聚 $\mathcal{O}_Z$-模层的 $i_*$
+是拟凝聚 $\mathcal{O}_X$-模层。问题在于，尚不清楚如何把拟凝聚
+$\mathcal{O}_Z$-模层的局部表示转化为其直像的局部表示。不过下述结论是平凡的。
+
+\begin{lemma}
+\label{modules-lemma-i-star-quasi-coherent}
+设 $i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$ 为环空间的闭浸入，
+$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_Z$-模层。则在 $X$ 上局部地，
+$i_*\mathcal{F}$ 是拟凝聚 $\mathcal{O}_X$-模层之间某个态射的余核。
+\end{lemma}
+
+\begin{proof}
+由定义，$i_*\mathcal{O}_Z$ 是拟凝聚的。并且在 $Z$ 上局部地，
+层 $\mathcal{F}$ 是若干份 $\mathcal{O}_Z$ 的直和之间某个态射的余核。
+此外，同一个拟凝聚层的任意多份副本之直和是拟凝聚的。最后，
+$i_*$ 与任意余极限可交换，见引理 \ref{modules-lemma-i-star-right-adjoint}。
+略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-i-star-reflects-finite-type}
+设 $i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$ 为环空间态射。
+假设 $i$ 是从 $Z$ 到 $X$ 的某个闭子集上的同胚，并且
+$\mathcal{O}_X \to i_*\mathcal{O}_Z$ 为满射。设 $\mathcal{F}$ 为
+$\mathcal{O}_Z$-模层。则 $i_*\mathcal{F}$ 是有限型的，当且仅当
+$\mathcal{F}$ 是有限型的。
+\end{lemma}
+
+\begin{proof}
+假设 $\mathcal{F}$ 是有限型的。取 $x \in X$。若 $x \not \in Z$，
+则 $i_*\mathcal{F}$ 在 $x$ 的某个邻域上为零，因而在该邻域上有限生成。
+若 $x = i(z)$，则取开邻域 $z \in V \subset Z$ 及截面
+$s_1, \ldots, s_n \in \mathcal{F}(V)$，使它们在 $V$ 上生成
+$\mathcal{F}$。对某个开集 $U \subset X$ 写成 $V = Z \cap U$。
+注意，$U$ 是 $x$ 的邻域。显然，诸 $s_i$ 给出 $i_*\mathcal{F}$ 在
+$U$ 上的截面 $s_i$。所得态射
+$$
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{O}_U
+\longrightarrow
+i_*\mathcal{F}|_U
+$$
+为满射，这可由考察其在茎上的作用看出（这里使用
+$\mathcal{O}_X \to i_*\mathcal{O}_Z$ 为满射）。因此
+$i_*\mathcal{F}$ 是有限型的。
+
+\medskip\noindent
+反过来，假设 $i_*\mathcal{F}$ 是有限型的。取 $z \in Z$，置
+$x = i(z)$。依假设，存在 $x$ 的开邻域 $U \subset X$ 及截面
+$s_1, \ldots, s_n \in (i_*\mathcal{F})(U)$，它们在 $U$ 上生成
+$i_*\mathcal{F}$。置 $V = Z \cap U$。由 $i_*$ 的定义，诸截面 $s_i$
+对应于 $\mathcal{F}$ 在 $V$ 上的截面 $s_i$。所得态射
+$$
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{O}_V
+\longrightarrow
+\mathcal{F}|_V
+$$
+为满射，这可由考察其在茎上的作用看出。因此 $\mathcal{F}$ 是有限型的。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-i-star-equivalence}
+设 $i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$ 为环空间态射。
+假设 $i$ 是从 $Z$ 到 $X$ 的某个闭子集上的同胚，并且
+$i^\sharp : \mathcal{O}_X \to i_*\mathcal{O}_Z$ 为满射。
+以 $\mathcal{I} \subset \mathcal{O}_X$ 表示 $i^\sharp$ 的核。函子
+$$
+i_* :
+\textit{Mod}(\mathcal{O}_Z)
+\longrightarrow
+\textit{Mod}(\mathcal{O}_X)
+$$
+是正合且全忠实的，其本质像由满足 $\mathcal{I}\mathcal{G} = 0$ 的
+$\mathcal{O}_X$-模层 $\mathcal{G}$ 组成。
+\end{lemma}
+
+\begin{proof}
+我们断言，对 $\mathcal{O}_Z$-模层 $\mathcal{F}$，典范态射
+$$
+i^*i_*\mathcal{F} \longrightarrow \mathcal{F}
+$$
+是同构。可在茎上检验这一点。设 $z \in Z$ 且 $x = i(z)$。有
+$$
+(i^*i_*\mathcal{F})_z =
+(i_*\mathcal{F})_x \otimes_{\mathcal{O}_{X, x}} \mathcal{O}_{Z, z} =
+\mathcal{F}_z \otimes_{\mathcal{O}_{X, x}} \mathcal{O}_{Z, z} =
+\mathcal{F}_z
+$$
+，这里使用《层》引理 \ref{sheaves-lemma-stalk-pullback-modules}、
+$\mathcal{O}_{Z, z}$ 是 $\mathcal{O}_{X, x}$ 的商这一事实，以及《层》引理
+\ref{sheaves-lemma-stalks-closed-pushforward}。由此可知 $i_*$ 全忠实。
+
+\medskip\noindent
+设 $\mathcal{G}$ 为满足 $\mathcal{I}\mathcal{G} = 0$ 的
+$\mathcal{O}_X$-模层。我们将证明典范态射
+$$
+\mathcal{G} \longrightarrow i_*i^*\mathcal{G}
+$$
+是同构。这就证明了 $\mathcal{G} = i_*\mathcal{F}$，其中
+$\mathcal{F} = i^*\mathcal{G}$，从而完成证明。检验所展示的态射在茎上诱导同构。
+若 $x \in X$ 且 $x \not \in i(Z)$，则 $\mathcal{G}_x = 0$，
+因为此时 $\mathcal{I}_x = \mathcal{O}_{X, x}$。同上，由《层》引理
+\ref{sheaves-lemma-stalks-closed-pushforward}，有
+$(i_*i^*\mathcal{G})_x = 0$。另一方面，若 $x \in Z$，则得到态射
+$$
+\mathcal{G}_x
+\longrightarrow
+\mathcal{G}_x \otimes_{\mathcal{O}_{X, x}} \mathcal{O}_{Z, x}
+$$
+，这里使用《层》引理 \ref{sheaves-lemma-stalk-pullback-modules} 与
+\ref{sheaves-lemma-stalks-closed-pushforward}。此态射是同构，因为
+$\mathcal{O}_{Z, x} = \mathcal{O}_{X, x}/\mathcal{I}_x$，
+且依假设 $\mathcal{G}_x$ 被 $\mathcal{I}_x$ 零化。
+\end{proof}
+
+\begin{remark}
+\label{modules-remark-sections-support-in-closed-modules}
+设 $(X, \mathcal{O}_X)$ 为环空间，$Z \subset X$ 为闭子集。对
+$\mathcal{O}_X$-模层 $\mathcal{F}$，可以考虑{\it 支集包含于 $Z$ 的截面子模层}，
+记为 $\mathcal{H}_Z(\mathcal{F})$，由下式定义：
+$$
+\mathcal{H}_Z(\mathcal{F})(U) =
+\{s \in \mathcal{F}(U) \mid \text{Supp}(s) \subset U \cap Z\}
+$$
+注意，$\mathcal{H}_Z(\mathcal{F})(U)$ 是 $\mathcal{O}_X(U)$-模；
+换言之，$\mathcal{H}_Z(\mathcal{F})$ 是 $\mathcal{O}_X$-模层。
+由构造，它是 $\mathcal{F}$ 中支集包含于 $Z$ 的最大
+$\mathcal{O}_X$-子模层。将引理 \ref{modules-lemma-i-star-equivalence}
+用于环空间态射 $(Z, \mathcal{O}_X|_Z) \to (X, \mathcal{O}_X)$，
+可将（并且我们确实将）$\mathcal{H}_Z(\mathcal{F})$ 视为 $Z$ 上的
+$\mathcal{O}_X|_Z$-模层。由此得到函子
+$$
+\textit{Mod}(\mathcal{O}_X) \longrightarrow \textit{Mod}(\mathcal{O}_X|_Z),
+\quad
+\mathcal{F} \longmapsto \mathcal{H}_Z(\mathcal{F})
+\text{视为一个 }\mathcal{O}_X|_Z\text{-模层，其底空间为 }Z
+$$
+此函子左正合，但一般并不正合。上述所有断言均直接由引理
+\ref{modules-lemma-support-section-closed} 得出。显然，此构造与注
+\ref{modules-remark-sections-support-in-closed} 中的构造相容。
+\end{remark}
+
+\begin{lemma}
+\label{modules-lemma-adjoint-section-with-support}
+设 $(X, \mathcal{O}_X)$ 为环空间，$i : Z \to X$ 为闭子集的包含映射。注
+\ref{modules-remark-sections-support-in-closed-modules} 中的函子
+$\mathcal{H}_Z : \textit{Mod}(\mathcal{O}_X) \to
+\textit{Mod}(\mathcal{O}_X|_Z)$ 是
+$i_* : \textit{Mod}(\mathcal{O}_X|_Z) \to \textit{Mod}(\mathcal{O}_X)$
+的右伴随。
+\end{lemma}
+
+\begin{proof}
+只需证明，对任意 $\mathcal{O}_X$-模层 $\mathcal{F}$ 以及任意
+$\mathcal{O}_X|_Z$-模层 $\mathcal{G}$，都有
+$$
+\Hom_{\mathcal{O}_X|_Z}(\mathcal{G}, \mathcal{H}_Z(\mathcal{F})) =
+\Hom_{\mathcal{O}_X}(i_*\mathcal{G}, \mathcal{F})
+$$
+这是显然的，因为 $i_*\mathcal{G}$ 的任意截面的支集终究都包含于 $Z$。
+细节从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{局部自由层}
+\label{modules-section-locally-free}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间。我们的约定允许（某些）茎
+$\mathcal{O}_{X, x}$ 为零环。这意味着在定义局部自由层的秩时必须稍加谨慎。
+
+\begin{definition}
+\label{modules-definition-locally-free}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若对每个点 $x \in X$，都存在集合 $I$ 及开邻域
+$x \in U \subset X$，使得 $\mathcal{F}|_U$ 作为
+$\mathcal{O}_X|_U$-模层同构于
+$\bigoplus_{i \in I} \mathcal{O}_X|_U$，则称 $\mathcal{F}$ {\it 局部自由}。
+\item 若可将指标集 $I$ 选为有限集，则称 $\mathcal{F}$ {\it 有限局部自由}。
+\item 若可将指标集 $I$ 选为基数 $r$ 的集合，则称 $\mathcal{F}$
+{\it 有限局部自由且秩为 $r$}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+（有限）局部自由层的有限直和仍是（有限）局部自由的。不过，
+局部自由层的无穷直和未必局部自由。
+
+\begin{lemma}
+\label{modules-lemma-locally-free-quasi-coherent}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+若 $\mathcal{F}$ 局部自由，则它拟凝聚。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-locally-free}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+若 $\mathcal{G}$ 是局部自由 $\mathcal{O}_Y$-模层，则
+$f^*\mathcal{G}$ 是局部自由 $\mathcal{O}_X$-模层。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-rank}
+设 $(X, \mathcal{O}_X)$ 为环空间。假设 $\mathcal{O}_X$ 的支集为 $X$，
+即 $\mathcal{O}_X$ 的所有茎都是非零环。设 $\mathcal{F}$ 为局部自由
+$\mathcal{O}_X$-模层。存在局部常值函数
+$$
+\text{rank}_\mathcal{F} :
+X \longrightarrow \{0, 1, 2, \ldots\}\cup\{\infty\}
+$$
+，使得对任意点 $x \in X$，凡集合 $I$ 满足 $\mathcal{F}$ 在 $x$ 的某个邻域上
+同构于 $\bigoplus_{i\in I} \mathcal{O}_X$，其基数都等于
+$\text{rank}_\mathcal{F}(x)$。
+\end{lemma}
+
+\begin{proof}
+在引理的假设下，$I$ 的基数可由非零环 $\mathcal{O}_{X, x}$ 上自由模
+$\mathcal{F}_x$ 的秩读出，并且它在 $x$ 的某个邻域上为常数。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-map-finite-locally-free}
+设 $(X, \mathcal{O}_X)$ 为环空间，$r \geq 0$。设
+$\varphi : \mathcal{F} \to \mathcal{G}$ 为秩 $r$ 的有限局部自由
+$\mathcal{O}_X$-模层之间的态射。则 $\varphi$ 是同构，当且仅当
+$\varphi$ 为满射。
+\end{lemma}
+
+\begin{proof}
+假设 $\varphi$ 为满射。取 $x \in X$。存在 $x$ 的开邻域 $U$，使得
+$\mathcal{F}|_U$ 与 $\mathcal{G}|_U$ 都同构于
+$\mathcal{O}_U^{\oplus r}$。选取 $\mathcal{G}|_U$ 的自由生成元的提升，
+得到态射 $\psi : \mathcal{G}|_U \to \mathcal{F}|_U$，满足
+$\varphi|_U \circ \psi = \text{id}$。因此，由 $\varphi$ 诱导的映射
+$\Gamma(U, \mathcal{F}) \to \Gamma(U, \mathcal{G})$ 为满射。
+由于 $\Gamma(U, \mathcal{F})$ 与 $\Gamma(U, \mathcal{G})$
+作为 $\Gamma(U, \mathcal{O}_U)$-模都同构于
+$\Gamma(U, \mathcal{O}_U)^{\oplus r}$，可应用《代数》引理
+\ref{algebra-lemma-fun}，得到
+$\Gamma(U, \mathcal{F}) \to \Gamma(U, \mathcal{G})$ 为单射。
+证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-direct-summand-of-locally-free-is-locally-free}
+设 $(X, \mathcal{O}_X)$ 为环空间。若所有茎 $\mathcal{O}_{X, x}$
+都是局部环，则有限局部自由 $\mathcal{O}_X$-模层的任意直和项都是有限局部自由的。
+\end{lemma}
+
+\begin{proof}
+假设 $\mathcal{F}$ 是有限局部自由 $\mathcal{O}_X$-模层
+$\mathcal{H}$ 的直和项。设 $x \in X$。则 $\mathcal{H}_x$ 是有限自由
+$\mathcal{O}_{X, x}$-模。由于 $\mathcal{O}_{X, x}$ 是局部环，
+对某个 $r$ 有 $\mathcal{F}_x \cong \mathcal{O}_{X, x}^{\oplus r}$，
+见《代数》引理 \ref{algebra-lemma-finite-projective}。由引理
+\ref{modules-lemma-finite-presentation-stalk-free}，$\mathcal{F}$ 在 $x$ 的某个开邻域上
+是秩 $r$ 的自由模层。（注意，$\mathcal{F}$ 作为 $\mathcal{H}$ 的直和项是有限表示的。）
+\end{proof}
+
+
+
+
+
+\section{双线性映射}
+\label{modules-section-bilinear}
+
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$、$\mathcal{G}$、
+$\mathcal{H}$ 为 $\mathcal{O}_X$-模层。$\mathcal{O}_X$-模层的
+{\it 双线性映射} $f : \mathcal{F} \times \mathcal{G} \to \mathcal{H}$
+是所示的集合层态射，并且对每个开集 $U \subset X$，诱导映射
+$$
+\mathcal{F}(U) \times \mathcal{G}(U) \to \mathcal{H}(U)
+$$
+都是模的 $\mathcal{O}_X(U)$-双线性映射。等价地，可以模仿模的双线性映射的
+通常公理，要求集合层的某些态射图交换。例如，公理
+$f(x + y, z) = f(x, z) + f(y, z)$ 由下图的交换性表示：
+$$
+\xymatrix{
+\mathcal{F} \times \mathcal{F} \times \mathcal{G}
+\ar[rrr]_{(f \circ \text{pr}_{13}, f \circ \text{pr}_{23})}
+\ar[d]_{(+ \circ \text{pr}_{12}, \text{pr}_3)} & & &
+\mathcal{H} \times \mathcal{H}
+\ar[d]^{+} \\
+\mathcal{F} \times \mathcal{G} \ar[rrr]^f & & &
+\mathcal{H}
+}
+$$
+另一种刻画如下：若
+$f : \mathcal{F} \times \mathcal{G} \to \mathcal{H}$ 是集合层态射，
+并且它在 $X$ 的每个点的茎上都诱导模的双线性映射，则 $f$ 是模层的双线性映射。
+这是因为，可以通过在茎上检验来判断局部截面是否相等。
+
+\medskip\noindent
+以 $\text{Mor}( - , - )$ 表示 $X$ 上集合层范畴中的态射。双线性映射还有如下刻画：
+集合层态射 $f : \mathcal{F} \times \mathcal{G} \to \mathcal{H}$
+是双线性的，如果对任意集合层 $\mathcal{S}$，规则
+$$
+\text{Mor}(\mathcal{S}, \mathcal{F}) \times
+\text{Mor}(\mathcal{S}, \mathcal{G}) \to
+\text{Mor}(\mathcal{S}, \mathcal{H}),\quad
+(a, b) \mapsto f \circ (a \times b)
+$$
+都是环 $\text{Mor}(\mathcal{S}, \mathcal{O}_X)$ 上模的双线性映射。
+我们通常不采用这一观点，因为从局部截面集的角度思考更容易，而且两种观点显然等价。
+
+\medskip\noindent
+最后，还可用另一种方式表述此定义：$\mathcal{O}_X$ 是集合层范畴中的环对象，
+而 $\mathcal{F}$、$\mathcal{G}$、$\mathcal{H}$ 是该环对象上的模对象。
+于是，在任意范畴中，都可对环对象上的模对象定义双线性映射。
+为了表述何为环对象、何为环对象上的模对象，以及这类对象在范畴中的双线性映射，
+假设该范畴具有有限积会很方便（但并非绝对必要）；集合层范畴确实具有这一性质。
+
+
+
+
+
+
+
+\section{张量积}
+\label{modules-section-tensor-product}
+
+\noindent
+我们已经在《层》第 \ref{sheaves-section-presheaves-modules} 节与第
+\ref{sheaves-section-sheafification-presheaves-modules} 节中，
+在换环的情形下简要讨论过张量积。现在将其推广到模层的张量积。
+
+\medskip\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$、$\mathcal{G}$
+为 $\mathcal{O}_X$-模层。首先定义{\it 张量积预层}
+$$
+\mathcal{F} \otimes_{p, \mathcal{O}_X} \mathcal{G}
+$$
+：它给每个开集 $U \subset X$ 指派 $\mathcal{O}_X(U)$-模
+$\mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}(U)$。
+然后把{\it 张量积层}定义为上述预层的层化：
+$$
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+=
+(\mathcal{F} \otimes_{p, \mathcal{O}_X} \mathcal{G})^\#
+$$
+它可刻画为这样的 $\mathcal{O}_X$-模层：对任意第三个
+$\mathcal{O}_X$-模层 $\mathcal{H}$，都有
+$$
+\Hom_{\mathcal{O}_X}
+(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}, \mathcal{H})
+=
+\text{Bilin}_{\mathcal{O}_X}(\mathcal{F} \times \mathcal{G}, \mathcal{H}).
+$$
+这里右端表示第 \ref{modules-section-bilinear} 节所定义的
+$\mathcal{O}_X$-模层双线性映射的集合。
+
+\medskip\noindent
+环 $R$ 上模 $M,N$ 的张量积满足对称性，即
+$M \otimes_R N = N \otimes_R M$；因此模层的张量积也满足同样的性质，即有
+$$
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+=
+\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+，且关于 $\mathcal{F}$、$\mathcal{G}$ 是函子性的。由于模的张量积满足结合性，
+还得到典范的函子性同构
+$$
+(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G})
+\otimes_{\mathcal{O}_X} \mathcal{H}
+=
+\mathcal{F} \otimes_{\mathcal{O}_X}
+(\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{H})
+$$
+，它关于 $\mathcal{F}$、$\mathcal{G}$、$\mathcal{H}$ 是函子性的。
+
+\begin{lemma}
+\label{modules-lemma-stalk-tensor-product}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$、$\mathcal{G}$
+为 $\mathcal{O}_X$-模层，且 $x \in X$。存在 $\mathcal{O}_{X, x}$-模的典范同构
+$$
+(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G})_x
+=
+\mathcal{F}_x \otimes_{\mathcal{O}_{X, x}} \mathcal{G}_x
+$$
+，它关于 $\mathcal{F}$ 与 $\mathcal{G}$ 是函子性的。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-tensor-product-sheafification}
+设 $(X, \mathcal{O}_X)$ 为环空间。设 $\mathcal{F}'$、$\mathcal{G}'$
+为 $\mathcal{O}_X$-模预层，其层化分别为 $\mathcal{F}$、$\mathcal{G}$。则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G} =
+(\mathcal{F}' \otimes_{p, \mathcal{O}_X} \mathcal{G}')^\#$.
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+\begin{lemma}
+\label{modules-lemma-tensor-product-exact}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{G}$ 为 $\mathcal{O}_X$-模层。若
+$\mathcal{F}_1
+\to \mathcal{F}_2
+\to \mathcal{F}_3
+\to 0$
+是 $\mathcal{O}_X$-模层的正合列，则诱导序列
+$$
+\mathcal{F}_1 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{F}_2 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{F}_3 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+0
+$$
+正合。
+\end{lemma}
+
+\begin{proof}
+这由以下三点得出：可在茎上检验正合性（引理 \ref{modules-lemma-abelian}）；
+茎的描述（引理 \ref{modules-lemma-stalk-tensor-product}）；以及模的张量积的相应结果
+（《代数》引理 \ref{algebra-lemma-tensor-product-exact}）。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-tensor-product-pullback}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射，
+$\mathcal{F}$、$\mathcal{G}$ 为 $\mathcal{O}_Y$-模层。则
+$f^*(\mathcal{F} \otimes_{\mathcal{O}_Y} \mathcal{G})
+= f^*\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G}$
+，且关于 $\mathcal{F}$、$\mathcal{G}$ 是函子性的。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-tensor-commute-colimits}
+设 $(X, \mathcal{O}_X)$ 为环空间。对任意 $\mathcal{O}_X$-模层
+$\mathcal{F}$，函子
+$$
+\textit{Mod}(\mathcal{O}_X) \longrightarrow \textit{Mod}(\mathcal{O}_X)
+, \quad
+\mathcal{G} \longmapsto \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+$$
+与任意余极限可交换。
+\end{lemma}
+
+\begin{proof}
+设 $I$ 为预序集，$\{\mathcal{G}_i\}$ 为 $I$ 上的系统，并置
+$\mathcal{G} = \colim_i \mathcal{G}_i$。回忆，$\mathcal{G}$ 是与预层
+$\mathcal{G}' : U \mapsto \colim_i \mathcal{G}_i(U)$ 关联的层，见《层》第
+\ref{sheaves-section-limits-sheaves} 节。由引理
+\ref{modules-lemma-tensor-product-sheafification}，张量积
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 是如下预层的层化：
+$$
+U \longmapsto
+\mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \colim_i \mathcal{G}_i(U) =
+\colim_i \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}_i(U)
+$$
+其中等号来自《代数》引理
+\ref{algebra-lemma-tensor-products-commute-with-limits}。因此，引理由
+$\textit{Mod}(\mathcal{O}_X)$ 中余极限的描述得出，见引理
+\ref{modules-lemma-limits-colimits}。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-tensor-product-permanence}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$、$\mathcal{G}$
+为 $\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若 $\mathcal{F}$、$\mathcal{G}$ 局部由截面生成，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\item 若 $\mathcal{F}$、$\mathcal{G}$ 是有限型的，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\item 若 $\mathcal{F}$、$\mathcal{G}$ 拟凝聚，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\item 若 $\mathcal{F}$、$\mathcal{G}$ 是有限表示的，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\item 若 $\mathcal{F}$ 是有限表示的且 $\mathcal{G}$ 凝聚，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 凝聚。
+\item 若 $\mathcal{F}$、$\mathcal{G}$ 凝聚，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\item 若 $\mathcal{F}$、$\mathcal{G}$ 局部自由，则
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 亦然。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+首先证明局部自由 $\mathcal{O}_X$-模层的张量积局部自由。只需证明
+$(\bigoplus_{i \in I} \mathcal{O}_X) \otimes_{\mathcal{O}_X}
+(\bigoplus_{j \in J} \mathcal{O}_X) \cong
+\bigoplus_{(i, j) \in I \times J} \mathcal{O}_X$.
+层 $\bigoplus_{i \in I} \mathcal{O}_X$ 是与预层
+$U \mapsto \bigoplus_{i \in I} \mathcal{O}_X(U)$ 关联的层。因此，
+该张量积是与如下预层关联的层：
+$$
+U \longmapsto
+(\bigoplus\nolimits_{i \in I} \mathcal{O}_X(U))
+\otimes_{\mathcal{O}_X(U)}
+(\bigoplus\nolimits_{j \in J} \mathcal{O}_X(U)).
+$$
+由于对任意环 $R$ 都有
+$(\bigoplus_{i \in I} R) \otimes_R (\bigoplus_{j \in J} R) =
+\bigoplus_{(i, j) \in I \times J} R$，遂得到所需结论。
+
+\medskip\noindent
+若 $\mathcal{F}_2 \to \mathcal{F}_1 \to \mathcal{F} \to 0$ 正合，
+则由引理 \ref{modules-lemma-tensor-product-exact}，复形
+$\mathcal{F}_2 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{F}_1 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G} \to 0$
+正合。由此可证明 (5)。事实上，在这种情形下，局部存在上述正合列，且
+$\mathcal{F}_i$（$i = 1, 2$）有限自由。因此两项
+$\mathcal{F}_2 \otimes_{\mathcal{O}_X} \mathcal{G}$ 与
+$\mathcal{F}_1 \otimes_{\mathcal{O}_X} \mathcal{G}$
+同构于 $\mathcal{G}$ 的有限直和（例如由引理
+\ref{modules-lemma-tensor-commute-colimits}）。由于有限直和是凝聚层，
+这两项凝聚，因而该态射的余核也凝聚，见引理 \ref{modules-lemma-coherent-abelian}。
+
+\medskip\noindent
+若此外 $\mathcal{G}_2 \to \mathcal{G}_1 \to \mathcal{G} \to 0$ 也正合，
+则可见
+$$
+\mathcal{F}_2 \otimes_{\mathcal{O}_X} \mathcal{G}_1
+\oplus
+\mathcal{F}_1 \otimes_{\mathcal{O}_X} \mathcal{G}_2
+\to
+\mathcal{F}_1 \otimes_{\mathcal{O}_X} \mathcal{G}_1
+\to
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+\to 0
+$$
+正合。由此例如可证明 (3)。事实上，假设意味着局部可找到上述表示，
+其中 $\mathcal{F}_i$、$\mathcal{G}_i$ 都是自由
+$\mathcal{O}_X$-模层。因此，所展示的表示也是用自由层给出的张量积表示。
+
+\medskip\noindent
+其余断言的证明从略。
+\end{proof}
+
+
+
+
+
+\section{平坦模层}
+\label{modules-section-flat}
+
+\noindent
+可以完全仿照环上模的情形来定义平坦模层。
+
+\begin{definition}
+\label{modules-definition-flat}
+设 $(X, \mathcal{O}_X)$ 为环空间。若函子
+$$
+\textit{Mod}(\mathcal{O}_X)
+\longrightarrow
+\textit{Mod}(\mathcal{O}_X), \quad
+\mathcal{G} \mapsto \mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+是正合的，则称 $\mathcal{O}_X$-模层 $\mathcal{F}$ {\it 平坦}。
+\end{definition}
+
+\noindent
+平坦性可以通过考察茎来刻画。
+
+\begin{lemma}
+\label{modules-lemma-flat-stalks-flat}
+设 $(X, \mathcal{O}_X)$ 为环空间。$\mathcal{O}_X$-模层 $\mathcal{F}$
+平坦，当且仅当对所有 $x \in X$，茎 $\mathcal{F}_x$ 都是平坦
+$\mathcal{O}_{X, x}$-模。
+\end{lemma}
+
+\begin{proof}
+假设对所有 $x \in X$，$\mathcal{F}_x$ 都是平坦
+$\mathcal{O}_{X, x}$-模。此时，若
+$\mathcal{G} \to \mathcal{H} \to \mathcal{K}$ 正合，则
+$\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{H} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{K} \otimes_{\mathcal{O}_X} \mathcal{F}$
+也正合，因为可以在茎上检验正合性，且张量积与取茎可交换，见引理
+\ref{modules-lemma-stalk-tensor-product}。反过来，假设 $\mathcal{F}$ 平坦，
+并设 $x \in X$。考虑摩天楼层 $i_{x, *} M$，其中 $M$ 为
+$\mathcal{O}_{X, x}$-模。注意
+$$
+M \otimes_{\mathcal{O}_{X, x}} \mathcal{F}_x =
+\left(i_{x, *} M \otimes_{\mathcal{O}_X} \mathcal{F}\right)_x
+$$
+，这再次由引理 \ref{modules-lemma-stalk-tensor-product} 得到。由于 $i_{x, *}$ 正合，
+$\mathcal{F}$ 平坦意味着
+$M \mapsto M \otimes_{\mathcal{O}_{X, x}} \mathcal{F}_x$ 正合。
+因此 $\mathcal{F}_x$ 是平坦 $\mathcal{O}_{X, x}$-模。
+\end{proof}
+
+\noindent
+因此下述定义是合理的。
+
+\begin{definition}
+\label{modules-definition-flat-at-point}
+设 $(X, \mathcal{O}_X)$ 为环空间，$x \in X$。若 $\mathcal{F}_x$
+是平坦 $\mathcal{O}_{X, x}$-模，则称 $\mathcal{O}_X$-模层
+$\mathcal{F}$ {\it 在 $x$ 处平坦}。
+\end{definition}
+
+\noindent
+因此，$\mathcal{F}$ 是平坦 $\mathcal{O}_X$-模层，当且仅当它在每一点处平坦。
+
+\begin{lemma}
+\label{modules-lemma-base-change-flat}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射。
+若 $\mathcal{G}$ 是平坦 $\mathcal{O}_Y$-模层，则
+$f^*\mathcal{G}$ 是平坦 $\mathcal{O}_X$-模层。
+\end{lemma}
+
+\begin{proof}
+结合引理 \ref{modules-lemma-flat-stalks-flat}、《层》引理
+\ref{sheaves-lemma-stalk-pullback-modules} 及《代数》引理
+\ref{algebra-lemma-flat-base-change} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-colimits-flat}
+设 $(X, \mathcal{O}_X)$ 为环空间。平坦 $\mathcal{O}_X$-模层的滤过余极限
+是平坦的；平坦 $\mathcal{O}_X$-模层的直和也是平坦的。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{modules-lemma-tensor-commute-colimits}、引理
+\ref{modules-lemma-stalk-tensor-product}、《代数》引理
+\ref{algebra-lemma-directed-colimit-exact}，以及可以在茎上检验正合性这一事实得出。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-j-shriek-flat}
+设 $(X, \mathcal{O}_X)$ 为环空间，$U \subset X$ 为开集。
+层 $j_{U!}\mathcal{O}_U$ 是平坦 $\mathcal{O}_X$-模层。
+\end{lemma}
+
+\begin{proof}
+$j_{U!}\mathcal{O}_U$ 的茎或为零，或等于 $\mathcal{O}_{X, x}$。
+应用引理 \ref{modules-lemma-flat-stalks-flat} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-module-quotient-flat}
+设 $(X, \mathcal{O}_X)$ 为环空间。
+\begin{enumerate}
+\item 任意 $\mathcal{O}_X$-模层都是某个直和
+$\bigoplus j_{U_i!}\mathcal{O}_{U_i}$ 的商。
+\item 任意 $\mathcal{O}_X$-模层都是某个平坦 $\mathcal{O}_X$-模层的商。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模层。对每个开集 $U \subset X$
+及每个 $s \in \mathcal{F}(U)$，都得到态射
+$j_{U!}\mathcal{O}_U \to \mathcal{F}$，即态射
+$\mathcal{O}_U \to \mathcal{F}|_U$，$1 \mapsto s$ 的伴随态射。显然，态射
+$$
+\bigoplus\nolimits_{(U, s)} j_{U!}\mathcal{O}_U
+\longrightarrow
+\mathcal{F}
+$$
+为满射；结合引理 \ref{modules-lemma-colimits-flat} 与
+\ref{modules-lemma-j-shriek-flat} 可知其源平坦。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-flat-tor-zero}
+设 $(X, \mathcal{O}_X)$ 为环空间。设
+$$
+0 \to \mathcal{F}'' \to \mathcal{F}' \to \mathcal{F} \to 0
+$$
+为 $\mathcal{O}_X$-模层的短正合列。假设 $\mathcal{F}$ 平坦。
+则对任意 $\mathcal{O}_X$-模层 $\mathcal{G}$，序列
+$$
+0 \to
+\mathcal{F}'' \otimes_\mathcal{O} \mathcal{G} \to
+\mathcal{F}' \otimes_\mathcal{O} \mathcal{G} \to
+\mathcal{F} \otimes_\mathcal{O} \mathcal{G} \to 0
+$$
+正合。
+\end{lemma}
+
+\begin{proof}
+对每个 $x \in X$，$\mathcal{F}_x$ 都是平坦 $\mathcal{O}_{X, x}$-模，
+且可在茎上检验正合性；故结论由《代数》引理
+\ref{algebra-lemma-flat-tor-zero} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-flat-ses}
+\begin{slogan}
+环空间上平坦模层的满态射之核以及平坦模层的扩张仍是平坦的。
+\end{slogan}
+设 $(X, \mathcal{O}_X)$ 为环空间。设
+$$
+0 \to
+\mathcal{F}_2 \to
+\mathcal{F}_1 \to
+\mathcal{F}_0 \to 0
+$$
+为 $\mathcal{O}_X$-模层的短正合列。
+\begin{enumerate}
+\item 若 $\mathcal{F}_2$ 与 $\mathcal{F}_0$ 平坦，则 $\mathcal{F}_1$ 也平坦。
+\item 若 $\mathcal{F}_1$ 与 $\mathcal{F}_0$ 平坦，则 $\mathcal{F}_2$ 也平坦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于正合性与平坦性都可在茎的层次上检验，结论由《代数》引理
+\ref{algebra-lemma-flat-ses} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-flat-resolution-of-flat}
+设 $(X, \mathcal{O}_X)$ 为环空间。设
+$$
+\ldots \to
+\mathcal{F}_2 \to
+\mathcal{F}_1 \to
+\mathcal{F}_0 \to
+\mathcal{Q} \to 0
+$$
+为 $\mathcal{O}_X$-模层的正合复形。若 $\mathcal{Q}$ 与所有
+$\mathcal{F}_i$ 都是平坦 $\mathcal{O}_X$-模层，则对任意
+$\mathcal{O}_X$-模层 $\mathcal{G}$，复形
+$$
+\ldots \to
+\mathcal{F}_2 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{F}_1 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{F}_0 \otimes_{\mathcal{O}_X} \mathcal{G} \to
+\mathcal{Q} \otimes_{\mathcal{O}_X} \mathcal{G} \to 0
+$$
+也正合。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{modules-lemma-flat-tor-zero}，把该复形拆成短正合列，并用引理
+\ref{modules-lemma-flat-ses} 归纳证明
+$\Im(\mathcal{F}_{i + 1} \to \mathcal{F}_i)$ 平坦，即得结论。
+\end{proof}
+
+\noindent
+下述引理给出平坦性的方程判据（《代数》引理
+\ref{algebra-lemma-flat-eq}）的一个方向。
+
+\begin{lemma}
+\label{modules-lemma-flat-eq}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为平坦
+$\mathcal{O}_X$-模层，$U \subset X$ 为开集，并设
+$$
+\mathcal{O}_U \xrightarrow{(f_1, \ldots, f_n)}
+\mathcal{O}_U^{\oplus n} \xrightarrow{(s_1, \ldots, s_n)}
+\mathcal{F}|_U
+$$
+为 $\mathcal{O}_U$-模层的复形。对每个 $x \in U$，都存在 $x$ 的开邻域
+$V \subset U$ 以及 $(s_1, \ldots, s_n)|_V$ 的分解
+$$
+\mathcal{O}_V^{\oplus n}
+\xrightarrow{A}
+\mathcal{O}_V^{\oplus m} \xrightarrow{(t_1, \ldots, t_m)}
+\mathcal{F}|_V
+$$
+，使得 $A \circ (f_1, \ldots, f_n)|_V = 0$。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{I} \subset \mathcal{O}_U$ 为由 $f_1, \ldots, f_n$
+生成的理想层。则 $\sum f_i \otimes s_i$ 是
+$\mathcal{I} \otimes_{\mathcal{O}_U} \mathcal{F}|_U$ 的截面，
+并且它在 $\mathcal{F}|_U$ 中的像为零。由于 $\mathcal{F}|_U$ 平坦，态射
+$\mathcal{I} \otimes_{\mathcal{O}_U} \mathcal{F}|_U \to \mathcal{F}|_U$
+为单射。由于 $\mathcal{I} \otimes_{\mathcal{O}_U} \mathcal{F}|_U$
+是与预层张量积关联的层，可见存在 $x$ 的开邻域 $V \subset U$，使得
+$\sum f_i|_V \otimes s_i|_V$ 在
+$\mathcal{I}(V) \otimes_{\mathcal{O}(V)} \mathcal{F}(V)$ 中为零。
+利用《代数》引理 \ref{algebra-lemma-relations} 展开定义，得到
+$t_1, \ldots, t_m \in \mathcal{F}(V)$ 及 $a_{ij} \in \mathcal{O}(V)$，
+使得 $\sum a_{ij}f_i|_V = 0$ 且 $s_i|_V = \sum a_{ij}t_j$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{对偶}
+\label{modules-section-duals}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间。赋予第
+\ref{modules-section-tensor-product} 节所构造张量积的
+$\mathcal{O}_X$-模层范畴是对称幺半范畴。对于
+$\mathcal{O}_X$-模层 $\mathcal{F}$，下列条件等价：
+\begin{enumerate}
+\item $\mathcal{F}$ 在 $\mathcal{O}_X$-模层的幺半范畴中有左对偶；
+\item $\mathcal{F}$ 局部为有限自由 $\mathcal{O}_X$-模层的直和项；
+\item 作为 $\mathcal{O}_X$-模层，$\mathcal{F}$ 有限表示且平坦。
+\end{enumerate}
+本节的例 \ref{modules-example-dual} 及引理
+\ref{modules-lemma-left-dual-module}、\ref{modules-lemma-flat-locally-finite-presentation}
+证明了这一点。
+
+\begin{example}
+\label{modules-example-dual}
+设 $(X, \mathcal{O}_X)$ 为环空间。设 $\mathcal{F}$ 为
+$\mathcal{O}_X$-模层，且局部为有限自由
+$\mathcal{O}_X$-模层的直和项。则态射
+$$
+\mathcal{F} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X)
+\longrightarrow
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})
+$$
+是同构。事实上，这是一个局部问题；当 $\mathcal{F}$ 有限自由时结论成立，
+而且若结论对某个模层成立，则对它的任一直和项也成立。记
+$$
+\eta :
+\mathcal{O}_X
+\longrightarrow
+\mathcal{F} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X)
+$$
+为把 $1$ 映到上述同构之下与
+$\text{id}_\mathcal{F}$ 对应的截面的态射。记
+$$
+\epsilon : 
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X)
+\otimes_{\mathcal{O}_X} \mathcal{F}
+\longrightarrow
+\mathcal{O}_X
+$$
+为求值态射。于是
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X), \eta, \epsilon$
+是《范畴论》定义 \ref{categories-definition-dual}
+意义下 $\mathcal{F}$ 的左对偶。我们略去下列等式的验证：
+$(1 \otimes \epsilon) \circ (\eta \otimes 1) = \text{id}_\mathcal{F}$
+以及
+$(\epsilon \otimes 1) \circ (1 \otimes \eta) =
+\text{id}_{\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X)}$.
+\end{example}
+
+\begin{lemma}
+\label{modules-lemma-left-dual-module}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。设 $\mathcal{G}, \eta, \epsilon$
+是 $\mathcal{O}_X$-模层的幺半范畴中 $\mathcal{F}$ 的左对偶，参见
+《范畴论》定义 \ref{categories-definition-dual}。则
+\begin{enumerate}
+\item $\mathcal{F}$ 局部为有限自由 $\mathcal{O}_X$-模层的直和项；
+\item 态射
+$e : \SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X) \to \mathcal{G}$
+把局部截面 $\lambda$ 映到 $(\lambda \otimes 1)(\eta)$，且它是同构；
+\item 对 $\mathcal{F}$ 与 $\mathcal{G}$ 的局部截面 $f$ 与 $g$，有
+$\epsilon(f, g) = e^{-1}(g)(f)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这些假设意味着
+$$
+\mathcal{F} \xrightarrow{\eta \otimes 1}
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+\otimes_{\mathcal{O}_X} \mathcal{F}
+\xrightarrow{1 \otimes \epsilon} \mathcal{F}
+\quad\text{且}\quad
+\mathcal{G} \xrightarrow{1 \otimes \eta}
+\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{G}
+\xrightarrow{\epsilon \otimes 1} \mathcal{G}
+$$
+均为恒等态射。设 $x \in X$。可以找到 $x$ 的开邻域 $U$，
+以及 $\mathcal{F}$ 与 $\mathcal{G}$ 在 $U$ 上的有限多个截面
+$f_1, \ldots, f_n$ 与 $g_1, \ldots, g_n$，使得
+$\eta(1) = \sum f_i g_i$。记
+$$
+\mathcal{O}_U^{\oplus n} \to \mathcal{F}|_U
+$$
+为把第 $i$ 个基向量映到 $f_i$ 的态射。于是态射 $\eta|_U$
+可经由态射
+$\tilde \eta : \mathcal{O}_U \to
+\mathcal{O}_U^{\oplus n} \otimes_{\mathcal{O}_U} \mathcal{G}|_U$
+分解。由此得到交换图
+$$
+\xymatrix{
+\mathcal{F}|_U
+\ar[rr]_-{\eta \otimes 1} \ar[rrd]_-{\tilde \eta \otimes 1} & &
+\mathcal{F}|_U \otimes \mathcal{G}|_U \otimes \mathcal{F}|_U
+\ar[r]_-{1 \otimes \epsilon} &
+\mathcal{F}|_U \\
+& &
+\mathcal{O}_U^{\oplus n} \otimes \mathcal{G}|_U \otimes \mathcal{F}|_U
+\ar[u] \ar[r]^-{1 \otimes \epsilon} &
+\mathcal{O}_U^{\oplus n} \ar[u]
+}
+$$
+这表明 $\mathcal{F}$ 上的恒等态射在 $X$ 上局部地经由有限自由模层分解，
+从而证明了 (1)。由《范畴论》引理
+\ref{categories-lemma-left-dual} 及其证明得到 (2)。
+由本证明中的第一个等式得到 (3)。也可以由左对偶的唯一性
+（《范畴论》注 \ref{categories-remark-left-dual-adjoint}）
+以及例 \ref{modules-example-dual} 中左对偶的构造推出 (2) 与 (3)。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-flat-locally-finite-presentation}
+设 $(X, \mathcal{O}_X)$ 为环空间。设 $\mathcal{F}$ 为有限表示的平坦
+$\mathcal{O}_X$-模层。则 $\mathcal{F}$ 局部为有限自由
+$\mathcal{O}_X$-模层的直和项。
+\end{lemma}
+
+\begin{proof}
+以一个开覆盖的成员替换 $X$ 后，可以假设存在表示
+$$
+\mathcal{O}_X^{\oplus r} \to
+\mathcal{O}_X^{\oplus n} \to \mathcal{F} \to 0
+$$
+设 $x \in X$。由引理 \ref{modules-lemma-flat-eq}，把 $X$
+缩小为 $x$ 的某个开邻域后，可以假设存在分解
+$$
+\mathcal{O}_X^{\oplus n} \to
+\mathcal{O}_X^{\oplus n_1} \to \mathcal{F}
+$$
+使得复合
+$\mathcal{O}_X^{\oplus r} \to \mathcal{O}_X^{\oplus n} \to
+\mathcal{O}_X^{\oplus n_1}$
+零化 $\mathcal{O}_X^{\oplus r}$ 的第一个直和项。
+再重复此论证 $r - 1$ 次，得到分解
+$$
+\mathcal{O}_X^{\oplus n} \to
+\mathcal{O}_X^{\oplus n_r} \to \mathcal{F}
+$$
+使得复合
+$\mathcal{O}_X^{\oplus r} \to \mathcal{O}_X^{\oplus n}
+\to \mathcal{O}_X^{\oplus n_r}$ 为零。这意味着满射
+$\mathcal{O}_X^{\oplus n_r} \to \mathcal{F}$ 有截面，故得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{可构造集合层}
+\label{modules-section-constructible}
+
+\noindent
+设 $X$ 为拓扑空间。给定集合 $S$，回顾 $\underline{S}$
+或 $\underline{S}_X$ 表示取值为 $S$ 的常值层，参见
+《层》定义 \ref{sheaves-definition-constant-sheaf}。
+设 $U \subset X$ 为拓扑空间 $X$ 的开子集。我们以 $j_U$
+表示包含态射，并以 $j_{U!} : \Sh(U) \to \Sh(X)$ 表示
+《层》第 \ref{sheaves-section-open-immersions} 节所述的以空集延拓。
+
+\begin{lemma}
+\label{modules-lemma-surjection}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的一个拓扑基，
+$\mathcal{F}$ 为 $X$ 上的集合层。则存在集合 $I$，并且对每个
+$i \in I$ 存在 $U_i \in \mathcal{B}$ 及有限集 $S_i$，使得存在满射
+$\coprod_{i \in I} j_{U_i!}\underline{S_i} \to \mathcal{F}$。
+\end{lemma}
+
+\begin{proof}
+设 $S$ 为单点集。我们将以 $S_i = S$ 证明结论。对每个 $x \in X$
+及元素 $s \in \mathcal{F}_x$，可选取 $U(x, s) \in \mathcal{B}$
+与 $s(x, s) \in \mathcal{F}(U(x, s))$，使后者在
+$\mathcal{F}_x$ 中映到 $s$。由《层》引理
+\ref{sheaves-lemma-j-shriek}，截面 $s(x, s)$ 对应于层态射
+$j_{U(x, s)!}\underline{S} \to \mathcal{F}$。于是
+$$
+\coprod\nolimits_{(x, s)} j_{U(x, s)!}\underline{S} \to \mathcal{F}
+$$
+在茎上满射，因而是满射。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-filtered-colimit-constructibles}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的一个拓扑基，并假设每个
+$U \in \mathcal{B}$ 都拟紧。则 $X$ 上的每个集合层都是如下形式的层的
+滤过余极限：
+\begin{equation}
+\label{modules-equation-towards-constructible-sets}
+\text{余等化子}\left(
+\xymatrix{
+\coprod\nolimits_{b = 1, \ldots, m} j_{V_b!}\underline{S_b}
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\coprod\nolimits_{a = 1, \ldots, n} j_{U_a!}\underline{S_a}
+}
+\right)
+\end{equation}
+其中 $U_a,V_b \in \mathcal{B}$，而 $S_a,S_b$ 为有限集。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{modules-lemma-surjection}，每个集合层 $\mathcal{F}$
+都是某个满射的靶，该满射的源 $\mathcal{F}_0$ 是形如
+$j_{U!}\underline{S}$ 的层的余积，其中 $U \in \mathcal{B}$
+且 $S$ 有限。把这一结论应用于
+$\mathcal{F}_0 \times_\mathcal{F} \mathcal{F}_0$，可见
+$\mathcal{F}$ 是一对态射的余等化子：
+$$
+\xymatrix{
+\coprod\nolimits_{b \in B} j_{V_b!}\underline{S_b}
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\coprod\nolimits_{a \in A} j_{U_a!}\underline{S_a}
+}
+$$
+这里 $A,B$ 为某些指标集，$V_b,U_a \in \mathcal{B}$，
+而 $S_a,S_b$ 有限。对每个有限子集 $B' \subset B$，存在有限子集
+$A' \subset A$，使得两态射都把 $b \in B'$ 上的余积映入
+$a \in A'$ 上的余积。事实上，可以把右端视为具有单射转移态射的滤过余极限。
+因此，在拟紧开集 $V_b$（$b \in B'$）上取截面与此余积可交换，参见
+《层》引理 \ref{sheaves-lemma-directed-colimits-sections}。
+所以我们的层是有限余积之间这些态射的余核的余极限。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-constructible-comes-from-finite}
+设 $X$ 为谱拓扑空间，$\mathcal{B}$ 为 $X$ 的拟紧开子集之集，
+$\mathcal{F}$ 为式 (\ref{modules-equation-towards-constructible-sets})
+所示的集合层。则存在到某个有限清醒拓扑空间 $Y$ 的连续谱映射
+$f : X \to Y$，以及 $Y$ 上具有有限茎的集合层 $\mathcal{G}$，
+使得 $f^{-1}\mathcal{G} \cong \mathcal{F}$。
+\end{lemma}
+
+\begin{proof}
+可以把 $X = \lim X_i$ 写成有限清醒空间的有向逆极限，参见
+《拓扑学》引理
+\ref{topology-lemma-spectral-inverse-limit-finite-sober-spaces}。
+转移态射 $X_{i'} \to X_i$ 自然都是谱映射，故由《拓扑学》引理
+\ref{topology-lemma-directed-inverse-limit-spectral-spaces}，
+态射 $p_i : X \to X_i$ 都是谱映射。对某个 $i$，可找到
+$X_i$ 的开集 $U_{a, i}$ 与 $V_{b, i}$，其逆像分别为
+$U_a$ 与 $V_b$，参见《拓扑学》引理
+\ref{topology-lemma-descend-opens}。以 $\mathcal{F}$ 为余等化子的两个态射
+$$
+\beta, \gamma :
+\coprod\nolimits_{b \in B} j_{V_b!}\underline{S_b}
+\longrightarrow
+\coprod\nolimits_{a \in A} j_{U_a!}\underline{S_a}
+$$
+经伴随对应于两族集合映射
+$$
+\beta_b, \gamma_b :
+S_b
+\longrightarrow
+\Gamma(V_b, \coprod\nolimits_{a \in A} j_{U_a!}\underline{S_a}), \quad
+b \in B
+$$
+。注意
+$p_i^{-1}(j_{U_{a, i}!}\underline{S_a}) = j_{U_a!}\underline{S_a}$
+，且 $(X_{i'} \to X_i)^{-1}(j_{U_{a, i}!}\underline{S_a}) =
+j_{U_{a, i'}!}\underline{S_a}$。由《层》引理
+\ref{sheaves-lemma-compute-pullback-to-limit}（并利用 $S_b$
+与 $B$ 均为有限集），增大 $i$ 后可找到映射
+$$
+\beta_{b, i}, \gamma_{b, i} :
+S_b
+\longrightarrow
+\Gamma(V_{b, i}, \coprod\nolimits_{a \in A} j_{U_{a, i}!}\underline{S_a})
+, \quad b \in B
+$$
+，它们经 $p_i$ 拉回后给出映射 $\beta_b$ 与 $\gamma_b$。
+这些映射又依次对应于 $X_i$ 上的层态射
+$$
+\beta_i, \gamma_i :
+\coprod\nolimits_{b \in B} j_{V_{b, i}!}\underline{S_b}
+\longrightarrow
+\coprod\nolimits_{a \in A} j_{U_{a, i}!}\underline{S_a}
+$$
+。于是可取 $Y = X_i$ 以及
+$$
+\mathcal{G} =
+\text{余等化子}\left(
+\xymatrix{
+\coprod\nolimits_{b = 1, \ldots, m} j_{V_{b, i}!}\underline{S_b}
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\coprod\nolimits_{a = 1, \ldots, n} j_{U_{a, i}!}\underline{S_a}
+}
+\right)
+$$
+我们略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-constructible-in-constant}
+设 $X$ 为谱拓扑空间，$\mathcal{B}$ 为 $X$ 的拟紧开子集之集，
+$\mathcal{F}$ 为式 (\ref{modules-equation-towards-constructible-sets})
+所示的集合层。则存在有限多个可构造闭子集
+$Z_1, \ldots, Z_n \subset X$ 及有限集 $S_i$，使得
+$\mathcal{F}$ 同构于 $\prod (Z_i \to X)_*\underline{S_i}$ 的一个子层。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{modules-lemma-constructible-comes-from-finite}，可归约到有限清醒拓扑空间
+以及具有有限茎的层这一情形。此时
+$\mathcal{F} \subset \prod_{x \in X} i_{x, *}\mathcal{F}_x$，
+其中 $i_x : \{x\} \to X$ 为嵌入。我们略去
+$i_{x, *}\mathcal{F}_x$ 是 $\overline{\{x\}}$ 上常值层的证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{环空间的平坦态射}
+\label{modules-section-flat-morphisms}
+
+\noindent
+下述逐点定义由上面的引理 \ref{modules-lemma-flat-stalks-flat}
+与定义 \ref{modules-definition-flat-at-point} 所启发。
+
+\begin{definition}
+\label{modules-definition-flat-morphism}
+设 $f : X \to Y$ 为环空间态射，$x \in X$。若环同态
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ 平坦，则称
+$f$ {\it 在 $x$ 处平坦}。若 $f$ 在每个 $x \in X$ 处都平坦，
+则称 $f$ {\it 平坦}。
+\end{definition}
+
+\noindent
+考虑环层态射
+$f^\sharp : f^{-1}\mathcal{O}_Y \to \mathcal{O}_X$。可见它在 $x$
+处的茎就是环同态
+$f^\sharp_x : \mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$。
+因此，$f$ 在 $x$ 处平坦，当且仅当作为
+$f^{-1}\mathcal{O}_Y$-模层的 $\mathcal{O}_X$ 在 $x$ 处平坦；
+$f$ 平坦，当且仅当 $\mathcal{O}_X$ 作为
+$f^{-1}\mathcal{O}_Y$-模层平坦。平坦态射的一个非常特殊的情形是开浸入。
+
+\begin{lemma}
+\label{modules-lemma-pullback-flat}
+设 $f : X \to Y$ 为环空间的平坦态射。则拉回函子
+$f^* : \textit{Mod}(\mathcal{O}_Y) \to \textit{Mod}(\mathcal{O}_X)$
+正合。
+\end{lemma}
+
+\begin{proof}
+函子 $f^*$ 是正合函子
+$f^{-1} : \textit{Mod}(\mathcal{O}_Y) \to \textit{Mod}(f^{-1}\mathcal{O}_Y)$
+与换环函子
+$$
+\textit{Mod}(f^{-1}\mathcal{O}_Y) \to \textit{Mod}(\mathcal{O}_X), \quad
+\mathcal{F} \longmapsto
+\mathcal{F} \otimes_{f^{-1}\mathcal{O}_Y} \mathcal{O}_X.
+$$
+的复合。因此结论由定义 \ref{modules-definition-flat-morphism} 后的讨论得到。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-flat-module}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射，
+$\mathcal{F}$ 为 $\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若茎 $\mathcal{F}_x$ 是平坦 $\mathcal{O}_{Y, f(x)}$-模，
+则称 $\mathcal{F}$ {\it 在点 $x \in X$ 处在 $Y$ 上平坦}。
+\item 若 $\mathcal{F}$ 在 $X$ 的每一点 $x$ 处都在 $Y$ 上平坦，
+则称 $\mathcal{F}$ {\it 在 $Y$ 上平坦}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+根据此定义可见，$\mathcal{F}$ 在 $x$ 处在 $Y$ 上平坦，当且仅当
+$\mathcal{F}$ 作为 $f^{-1}\mathcal{O}_Y$-模层在 $x$ 处平坦，因为由
+《层》引理 \ref{sheaves-lemma-stalk-pullback}，有
+$(f^{-1}\mathcal{O}_Y)_x = \mathcal{O}_{Y, f(x)}$。
+
+\begin{lemma}
+\label{modules-lemma-pullback-tensor-flat-module}
+设 $f : X \to Y$ 为环空间态射，$\mathcal{F}$ 为在 $Y$ 上平坦的
+$\mathcal{O}_X$-模层。则函子
+$$
+\textit{Mod}(\mathcal{O}_Y) \to \textit{Mod}(\mathcal{O}_X),\quad
+\mathcal{G} \longmapsto f^*\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+正合。
+\end{lemma}
+
+\begin{proof}
+这是因为
+$f^*\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{F} =
+f^{-1}\mathcal{G} \otimes_{f^{-1}\mathcal{O}_Y} \mathcal{F}$,
+函子 $f^{-1}$ 正合，而 $\mathcal{F}$ 是平坦
+$f^{-1}\mathcal{O}_Y$-模层。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{对称幂与外幂}
+\label{modules-section-symmetric-exterior}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。定义 $\mathcal{F}$ 的{\it 张量代数}为
+非交换 $\mathcal{O}_X$-代数层
+$$
+\text{T}(\mathcal{F})
+=
+\text{T}_{\mathcal{O}_X}(\mathcal{F})
+= \bigoplus\nolimits_{n \geq 0} \text{T}^n(\mathcal{F}).
+$$
+这里 $\text{T}^0(\mathcal{F}) = \mathcal{O}_X$，
+$\text{T}^1(\mathcal{F}) = \mathcal{F}$
+，且当 $n \geq 2$ 时有
+$$
+\text{T}^n(\mathcal{F}) =
+\mathcal{F} \otimes_{\mathcal{O}_X} \ldots \otimes_{\mathcal{O}_X} \mathcal{F}
+\ \ (n\text{ 个因子})
+$$
+定义 $\wedge(\mathcal{F})$ 为 $\text{T}(\mathcal{F})$
+关于如下双边理想的商：该理想由 $\text{T}^2(\mathcal{F})$
+中形如 $s \otimes s$ 的局部截面生成，其中 $s$ 是
+$\mathcal{F}$ 的局部截面。这称为 $\mathcal{F}$ 的{\it 外代数}。
+类似地，定义 $\text{Sym}(\mathcal{F})$ 为
+$\text{T}(\mathcal{F})$ 关于如下双边理想的商：该理想由
+$\text{T}^2(\mathcal{F})$ 中形如
+$s \otimes t - t \otimes s$ 的局部截面生成。
+
+\medskip\noindent
+代数 $\text{T}(\mathcal{F})$、$\wedge(\mathcal{F})$ 与
+$\text{Sym}(\mathcal{F})$ 是《微分分次层》定义
+\ref{sdga-definition-ga} 意义下的分次 $\mathcal{O}_X$-代数。
+此外，$\text{Sym}(\mathcal{F})$ 交换，而
+$\wedge(\mathcal{F})$ 分次交换。
+
+\begin{lemma}
+\label{modules-lemma-local-tensor-algebra}
+在上述情形中，层 $\wedge^n\mathcal{F}$ 是预层
+$$
+U \longmapsto \wedge^n_{\mathcal{O}_X(U)}(\mathcal{F}(U)).
+$$
+的层化，参见《代数》第 \ref{algebra-section-tensor-algebra} 节。
+类似地，层 $\text{Sym}^n\mathcal{F}$ 是预层
+$$
+U \longmapsto \text{Sym}^n_{\mathcal{O}_X(U)}(\mathcal{F}(U)).
+$$
+的层化。
+\end{lemma}
+
+\begin{proof}
+略。用这种方式定义 $\text{Sym}(\mathcal{F})$
+与 $\wedge(\mathcal{F})$，可能比上述方法更高效。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-stalk-tensor-algebra}
+在上述情形中，设 $x \in X$。存在 $\mathcal{O}_{X, x}$-模的典范同构
+$\text{T}(\mathcal{F})_x = \text{T}(\mathcal{F}_x)$、
+$\text{Sym}(\mathcal{F})_x = \text{Sym}(\mathcal{F}_x)$ 与
+$\wedge(\mathcal{F})_x = \wedge(\mathcal{F}_x)$.
+\end{lemma}
+
+\begin{proof}
+由上面的引理 \ref{modules-lemma-local-tensor-algebra} 与
+《代数》引理 \ref{algebra-lemma-colimit-tensor-algebra} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-tensor-algebra}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射，
+$\mathcal{F}$ 为 $\mathcal{O}_Y$-模层。则
+$f^*\text{T}(\mathcal{F}) = \text{T}(f^*\mathcal{F})$；
+与 $\mathcal{F}$ 关联的外代数与对称代数也有类似结论。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-presentation-sym-exterior}
+设 $(X, \mathcal{O}_X)$ 为环空间。设
+$\mathcal{F}_2 \to \mathcal{F}_1 \to \mathcal{F} \to 0$
+为 $\mathcal{O}_X$-模层的正合列。对每个 $n \geq 1$，存在正合列
+$$
+\mathcal{F}_2 \otimes_{\mathcal{O}_X} \text{Sym}^{n - 1}(\mathcal{F}_1)
+\to
+\text{Sym}^n(\mathcal{F}_1)
+\to
+\text{Sym}^n(\mathcal{F})
+\to
+0
+$$
+以及类似的正合列
+$$
+\mathcal{F}_2 \otimes_{\mathcal{O}_X} \wedge^{n - 1}(\mathcal{F}_1)
+\to
+\wedge^n(\mathcal{F}_1)
+\to
+\wedge^n(\mathcal{F})
+\to
+0
+$$
+\end{lemma}
+
+\begin{proof}
+参见《代数》引理 \ref{algebra-lemma-presentation-sym-exterior}。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-tensor-algebra-permanence}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 局部由截面生成，则每个
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+与 $\text{Sym}^n(\mathcal{F})$ 也如此。
+\item 若 $\mathcal{F}$ 为有限型，则每个
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+与 $\text{Sym}^n(\mathcal{F})$ 也为有限型。
+\item 若 $\mathcal{F}$ 有限表示，则每个
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+与 $\text{Sym}^n(\mathcal{F})$ 也有限表示。
+\item 若 $\mathcal{F}$ 凝聚，则对 $n > 0$，每个
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+与 $\text{Sym}^n(\mathcal{F})$ 都凝聚。
+\item 若 $\mathcal{F}$ 拟凝聚，则每个
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+与 $\text{Sym}^n(\mathcal{F})$ 也拟凝聚。
+\item 若 $\mathcal{F}$ 局部自由，则每个
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+与 $\text{Sym}^n(\mathcal{F})$ 也局部自由。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+关于 $\text{T}^n(\mathcal{F})$ 的这些陈述由引理
+\ref{modules-lemma-tensor-product-permanence} 得到。
+
+\medskip\noindent
+陈述 (1) 与 (2) 源于 $\wedge^n(\mathcal{F})$ 和
+$\text{Sym}^n(\mathcal{F})$ 都是 $\text{T}^n(\mathcal{F})$ 的商。
+
+\medskip\noindent
+陈述 (6) 由《代数》引理
+\ref{algebra-lemma-free-tensor-algebra} 得到。
+
+\medskip\noindent
+对 (3) 与 (5)，我们将使用上面的引理
+\ref{modules-lemma-presentation-sym-exterior}。局部选取表示
+$\mathcal{F}_2 \to \mathcal{F}_1 \to \mathcal{F} \to 0$
+，其中 $\mathcal{F}_i$ 自由或有限自由，并应用该引理，可见
+$\text{Sym}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+有类似表示；这里使用了 (6) 与引理
+\ref{modules-lemma-tensor-product-permanence}。
+
+\medskip\noindent
+为证明 (4)，我们将使用《代数》引理
+\ref{algebra-lemma-present-sym-wedge}。可以在 $X$ 上局部化，并假设
+$\mathcal{F}$ 由有限族整体截面 $(s_i)_{i \in I}$ 生成。
+上述引理结合引理 \ref{modules-lemma-local-tensor-algebra} 表明，
+当 $n \geq 2$ 时存在正合列
+$$
+\bigoplus\nolimits_{j \in J}
+\text{T}^{n - 2}(\mathcal{F})
+\to
+\text{T}^n(\mathcal{F})
+\to
+\text{Sym}^n(\mathcal{F})
+\to
+0
+$$
+其中指标集 $J$ 有限。已知 $\text{T}^{n - 2}(\mathcal{F})$
+有限生成，故第一个箭头的像是 $\text{T}^n(\mathcal{F})$
+的凝聚子层，参见引理 \ref{modules-lemma-coherent-abelian}。
+再由同一引理可知 $\text{Sym}^n(\mathcal{F})$ 凝聚。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-whole-tensor-algebra-permanence}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 拟凝聚，则
+$\text{T}(\mathcal{F})$、$\wedge(\mathcal{F})$
+与 $\text{Sym}(\mathcal{F})$ 也都拟凝聚。
+\item 若 $\mathcal{F}$ 局部自由，则
+$\text{T}(\mathcal{F})$、$\wedge(\mathcal{F})$
+与 $\text{Sym}(\mathcal{F})$ 也都局部自由。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+局部自由模层的无限直和 $\bigoplus \mathcal{G}_i$ 未必局部自由，
+拟凝聚模层的无限直和也未必拟凝聚。问题在于，给定点 $x \in X$，
+使 $\mathcal{G}_i$ 变为自由（相应地，具有适当表示）的 $x$ 的开邻域
+$U_i$，其交集未必仍为 $x$ 的开邻域。然而，在引理
+\ref{modules-lemma-tensor-algebra-permanence} 的证明中我们看到，
+一旦为 $\mathcal{F}$ 选定适当的开邻域，该开邻域便同时适用于每个层
+$\text{T}^n(\mathcal{F})$、$\wedge^n(\mathcal{F})$
+及 $\text{Sym}^n(\mathcal{F})$。引理得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{内 Hom}
+\label{modules-section-internal-hom}
+
+\noindent
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F},\mathcal{G}$
+为 $\mathcal{O}_X$-模层。考虑规则
+$$
+U \longmapsto \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U).
+$$
+由《层》第 \ref{sheaves-section-glueing-sheaves} 节的讨论，
+这是一个阿贝尔群层。此外，给定元素
+$\varphi \in \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$
+与截面 $f \in \mathcal{O}_X(U)$，可以定义
+$f\varphi \in \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$
+：或者前复合 $\mathcal{F}|_U$ 上的乘 $f$ 态射，或者后复合
+$\mathcal{G}|_U$ 上的乘 $f$ 态射（两者给出相同结果）。
+因此实际上得到一个 $\mathcal{O}_X$-模层，记为
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$。
+存在典范的“求值”态射
+$$
+\mathcal{F}
+\otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+\longrightarrow
+\mathcal{G}.
+$$
+对每个 $x \in X$，还存在典范态射
+$$
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x
+\to
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+$$
+，但它很少是同构。
+
+\begin{lemma}
+\label{modules-lemma-internal-hom}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F},\mathcal{G},\mathcal{H}$
+为 $\mathcal{O}_X$-模层。存在典范同构
+$$
+\SheafHom_{\mathcal{O}_X}
+(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}, \mathcal{H})
+\longrightarrow
+\SheafHom_{\mathcal{O}_X}
+(\mathcal{F}, \SheafHom_{\mathcal{O}_X}(\mathcal{G}, \mathcal{H}))
+$$
+，它对三个变量都具有函子性（三处都是层 Hom）。特别地，给出态射
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G} \to \mathcal{H}$
+等价于给出态射
+$\mathcal{F} \to \SheafHom_{\mathcal{O}_X}(\mathcal{G}, \mathcal{H})$。
+\end{lemma}
+
+\begin{proof}
+这是《代数》引理
+\ref{algebra-lemma-hom-from-tensor-product} 的类似结果。
+证明相同，故略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-internal-hom-exact}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F},\mathcal{G}$
+为 $\mathcal{O}_X$-模层。
+\begin{enumerate}
+\item 若 $\mathcal{F}_2 \to \mathcal{F}_1 \to \mathcal{F} \to 0$
+是 $\mathcal{O}_X$-模层的正合列，则
+$$
+0 \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}) \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}_1, \mathcal{G}) \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}_2, \mathcal{G})
+$$
+正合。
+\item 若 $0 \to \mathcal{G} \to \mathcal{G}_1 \to \mathcal{G}_2$
+是 $\mathcal{O}_X$-模层的正合列，则
+$$
+0 \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}) \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}_1) \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}_2)
+$$
+正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}_2 \to \mathcal{F}_1 \to \mathcal{F} \to 0$
+如 (1) 所述。对每个开集 $U \subset X$，序列
+$$
+0 \to \Hom_{\mathcal{O}_U}(\mathcal{F}|_U, \mathcal{G}|_U) \to
+\Hom_{\mathcal{O}_U}(\mathcal{F}_1|_U, \mathcal{G}|_U) \to
+\Hom_{\mathcal{O}_U}(\mathcal{F}_2|_U, \mathcal{G}|_U)
+$$
+由《同调》引理 \ref{homology-lemma-check-exactness} 正合。
+这意味着对 (1) 中的层序列在 $U$ 上取截面会得到阿贝尔群的正合列。
+因此按照定义，(1) 中的序列正合。(2) 的证明完全相同。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-adjoint-tensor-restrict}
+设 $X$ 为拓扑空间，$\mathcal{O}_1 \to \mathcal{O}_2$
+为环层同态。则有
+$$
+\Hom_{\mathcal{O}_1}(\mathcal{F}_{\mathcal{O}_1}, \mathcal{G}) =
+\Hom_{\mathcal{O}_2}(\mathcal{F},
+\SheafHom_{\mathcal{O}_1}(\mathcal{O}_2, \mathcal{G}))
+$$
+，它关于 $\mathcal{F} \in \textit{Mod}(\mathcal{O}_2)$
+与 $\mathcal{G} \in \textit{Mod}(\mathcal{O}_1)$ 双函子地成立。
+\end{lemma}
+
+\begin{proof}
+略。这是《代数》引理 \ref{algebra-lemma-adjoint-hom-restrict}
+的类似结果，证明完全相同。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-stalk-internal-hom}
+设 $(X, \mathcal{O}_X)$ 为环空间，$\mathcal{F},\mathcal{G}$
+为 $\mathcal{O}_X$-模层。若 $\mathcal{F}$ 为有限型，则典范态射
+$$
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x
+\to
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+$$
+为单射。若 $\mathcal{F}$ 有限表示，则该典范态射为同构。
+\end{lemma}
+
+\begin{proof}
+该态射把
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x$
+中 $(U,\varphi)$ 的等价类映到在 $x$ 处的诱导茎态射
+$\varphi_x : \mathcal{F}_x \to \mathcal{G}_x$，其中
+$x \in U \subset X$ 为开集，且
+$\varphi \in \Hom_{\mathcal{O}_U}(\mathcal{F}|_U, \mathcal{G}|_U)$。
+
+\medskip\noindent
+假设 $\mathcal{F}$ 为有限型。取该态射核中某元素 $\sigma$
+的代表 $(U,\varphi)$，即 $\varphi_x=0$。必要时缩小 $U$，
+选取生成 $\mathcal{F}|_U$ 的截面
+$s^1, \ldots, s^n \in \mathcal{F}(U)$。由于
+$\varphi_x(s^i_x)=0$，且所涉截面只有有限多个，可以找到
+$x$ 的开邻域 $V \subset U$，使得对所有 $i=1,\ldots,n$ 都有
+$\varphi_V(s^i|_V)=0$。由于 $s^i|_V$（$i=1,\ldots,n$）
+生成 $\mathcal{F}|_V$，这意味着 $\varphi|_V=0$。
+又因 $(U,\varphi)$ 与 $(V,\varphi|_V)$ 等价，故
+$\sigma=0$，于是该态射为单射。
+
+\medskip\noindent
+接着假设 $\mathcal{F}$ 有限表示。在 $X$ 上局部化后，可以假设
+$\mathcal{F}$ 有表示
+$$
+\bigoplus\nolimits_{j = 1, \ldots, m}
+\mathcal{O}_X
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_X
+\to
+\mathcal{F}
+\to
+0.
+$$
+由引理 \ref{modules-lemma-internal-hom-exact}，这给出正合列
+$
+0 \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}) \to
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{G}
+\longrightarrow
+\bigoplus\nolimits_{j = 1, \ldots, m} \mathcal{G}.
+$
+取茎得到正合列
+$
+0 \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x \to
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{G}_x
+\longrightarrow
+\bigoplus\nolimits_{j = 1, \ldots, m} \mathcal{G}_x
+$
+。结论随即成立，因为 $\mathcal{F}_x$ 位于正合列
+$
+\bigoplus\nolimits_{j = 1, \ldots, m}
+\mathcal{O}_{X, x}
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_{X, x}
+\to
+\mathcal{F}_x
+\to
+0
+$
+中，而该列诱导正合列
+$
+0 \to
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x) \to
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{G}_x
+\longrightarrow
+\bigoplus\nolimits_{j = 1, \ldots, m} \mathcal{G}_x
+$
+，它与上面的正合列相同。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-internal-hom}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为环空间态射，
+$\mathcal{F},\mathcal{G}$ 为 $\mathcal{O}_Y$-模层。
+若 $\mathcal{F}$ 有限表示且 $f$ 平坦，则典范态射
+$$
+f^*\SheafHom_{\mathcal{O}_Y}(\mathcal{F}, \mathcal{G})
+\longrightarrow
+\SheafHom_{\mathcal{O}_X}(f^*\mathcal{F}, f^*\mathcal{G})
+$$
+为同构。
+\end{lemma}
+
+\begin{proof}
+注意 $f^*\mathcal{F}$ 也有限表示
+（引理 \ref{modules-lemma-pullback-finite-presentation}）。
+设 $x \in X$ 映到 $y \in Y$。考察 $x$ 处的茎，由引理
+\ref{modules-lemma-stalk-internal-hom} 与《代数详论》引理
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext}，
+可知在此情形中 $\Hom$ 与经
+$\mathcal{O}_{Y,y}\to\mathcal{O}_{X,x}$ 的基变换可交换，
+故得到同构。第二种证明：使用引理
+\ref{modules-lemma-stalk-internal-hom} 证明中完全相同的论证。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-internal-hom-locally-kernel-direct-sum}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F},\mathcal{G}$
+为 $\mathcal{O}_X$-模层。若 $\mathcal{F}$ 有限表示，则层
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$
+局部是由 $\mathcal{G}$ 的有限直和之间某态射的核。
+特别地，若 $\mathcal{G}$ 凝聚，则
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ 也凝聚。
+\end{lemma}
+
+\begin{proof}
+第一个断言已见于引理 \ref{modules-lemma-stalk-internal-hom} 的证明。
+关于凝聚层的结论随即由引理 \ref{modules-lemma-coherent-abelian} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-hom-finite-presentation-colimit}
+设 $X$ 为环空间，$\mathcal{F}$ 为有限表示的
+$\mathcal{O}_X$-模层。设
+$\mathcal{G} = \colim_{\lambda \in \Lambda} \mathcal{G}_\lambda$
+为 $\mathcal{O}_X$-模层的滤过余极限。则典范态射
+$$
+\colim_\lambda \SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}_\lambda)
+\longrightarrow
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+$$
+为同构。
+\end{lemma}
+
+\begin{proof}
+模层的余极限与限制到开集可交换，参见《层》第
+\ref{sheaves-section-limits-sheaves} 节。因此可以假设
+$\mathcal{F}$ 有整体表示
+$$
+\bigoplus\nolimits_{j = 1, \ldots, m}
+\mathcal{O}_X
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n}
+\mathcal{O}_X
+\to
+\mathcal{F}
+\to
+0
+$$
+函子 $\SheafHom_{\mathcal{O}_X}(-,-)$ 对任一变量都与有限直和可交换，
+而 $\SheafHom_{\mathcal{O}_X}(\mathcal{O}_X,-)$ 是恒等函子。
+由此及引理 \ref{modules-lemma-internal-hom-exact}，得到正合列
+$$
+0 \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}) \to
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{G} \to
+\bigoplus\nolimits_{j = 1, \ldots, m} \mathcal{G}
+$$
+由于滤过余极限在 $\textit{Mod}(\mathcal{O}_X)$ 中正合，
+下列交换图的顶行也正合：
+$$
+\small
+\xymatrix{
+0 \ar[r] &
+\colim_\lambda \SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}_\lambda)
+\ar[r] \ar[d] &
+\colim_\lambda \bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{G}_\lambda
+\ar[r] \ar[d] &
+\colim_\lambda \bigoplus\nolimits_{j = 1, \ldots, m} \mathcal{G}_\lambda
+\ar[d] \\
+0 \ar[r] &
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}) \ar[r] &
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{G} \ar[r] &
+\bigoplus\nolimits_{j = 1, \ldots, m} \mathcal{G}
+}
+$$
+右侧两个竖直箭头都是同构，故得结论。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-finite-presentation-quasi-compact-colimit}
+设 $X$ 为环空间，$I$ 为预序集，且
+$(\mathcal{F}_i,\varphi_{ii'})$ 为 $I$ 上由
+$\mathcal{O}_X$-模层组成的系统（参见《范畴论》第
+\ref{categories-section-posets-limits} 节）。假设
+\begin{enumerate}
+\item $I$ 有向；
+\item $\mathcal{G}$ 是有限表示的 $\mathcal{O}_X$-模层；
+\item $X$ 有一个共尾的开覆盖系统
+$\mathcal{U} : X = \bigcup_{j\in J} U_j$，
+，其中 $J$ 有限，且对所有 $j,j'\in J$，
+$U_j\cap U_{j'}$ 都拟紧。
+\end{enumerate}
+则有
+$$
+\colim_i \Hom_X(\mathcal{G}, \mathcal{F}_i)
+=
+\Hom_X(\mathcal{G}, \colim_i \mathcal{F}_i).
+$$
+\end{lemma}
+
+\begin{proof}
+置
+$\mathcal{H} = \SheafHom_{\mathcal{O}_X}(\mathcal{G}, \colim \mathcal{F}_i)$
+及 $\mathcal{H}_i = \SheafHom_{\mathcal{O}_X}(\mathcal{G}, \mathcal{F}_i)$。
+回顾按照构造有
+$$
+\Hom_X(\mathcal{G}, \mathcal{F}) = \Gamma(X, \mathcal{H})
+\quad\text{且}\quad
+\Hom_X(\mathcal{G}, \mathcal{F}_i) = \Gamma(X, \mathcal{H}_i)
+$$
+。由引理 \ref{modules-lemma-hom-finite-presentation-colimit}，有
+$\mathcal{H}=\colim\mathcal{H}_i$。因此本引理由《层》引理
+\ref{sheaves-lemma-directed-colimits-sections} 得到。
+\end{proof}
+
+\begin{remark}
+\label{modules-remark-condition-necessary}
+在上述引理中，除 $X$ 拟紧之外还需要某种条件。参见
+《层》例 \ref{sheaves-example-conditions-needed-colimit}。
+\end{remark}
+
+
+
+
+\section{模层的零化子}
+\label{modules-section-annihilator}
+
+\noindent
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。存在典范的 $\mathcal{O}_X$-模层态射
+$$
+\mathcal{O}_X
+\longrightarrow
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})
+$$
+，它把局部截面 $f\in\mathcal{O}_X(U)$ 映到由乘 $f$ 给出的态射
+$f:\mathcal{F}|_U\to\mathcal{F}|_U$。
+
+\begin{definition}
+\label{modules-definition-annihilator-sheaf}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。$\mathcal{F}$ 的{\it 零化子}，记作
+$\text{Ann}_{\mathcal{O}_X}(\mathcal{F})$，是上述态射
+$\mathcal{O}_X \to \SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})$
+的核。
+\end{definition}
+
+\noindent
+对每个 $x\in X$，有 $\mathcal{O}_{X,x}$ 的理想之间的包含：
+\begin{equation}
+\label{modules-equation-inclusion-of-annihilator-ideals}
+(\text{Ann}_{\mathcal{O}_X}(\mathcal{F}))_x
+\subset
+\text{Ann}_{\mathcal{O}_{X, x}}(\mathcal{F}_x)
+\end{equation}
+因为 $\text{Ann}_{\mathcal{O}_X}(\mathcal{F})$ 的任一截面，
+都会零化 $\mathcal{F}$ 在其定义域中各点处的茎。下述简单情形中，
+(\ref{modules-equation-inclusion-of-annihilator-ideals}) 成为等式。
+
+\begin{lemma}
+\label{modules-lemma-finite-type-annihilator-stalk}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层。若 $\mathcal{F}$ 为有限型，则
+$(\text{Ann}_{\mathcal{O}_X}(\mathcal{F}))_x =
+\text{Ann}_{\mathcal{O}_{X, x}}(\mathcal{F}_x)$.
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{modules-lemma-stalk-internal-hom}，态射
+$$
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})_x \longrightarrow
+\Hom_{\mathcal{O}_{X,x}}(\mathcal{F}_x, \mathcal{F}_x)
+$$
+为单射。因此，若 $\mathcal{O}_X$ 在 $x$ 的开邻域 $U$ 上的截面
+$f$ 在 $\mathcal{F}_x$ 上作用为零，则存在开集
+$U\supset V\ni x$，使得 $f$ 在 $\mathcal{F}|_V$ 上作用为零。
+故包含式 (\ref{modules-equation-inclusion-of-annihilator-ideals}) 是等式。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-induced-quotient-ring-sheaf-module-structure}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为
+$\mathcal{O}_X$-模层，$\mathcal{I}\subset\mathcal{O}_X$ 为理想层。若
+$\mathcal{I} \subset \text{Ann}_{\mathcal{O}_X}(\mathcal{F})$,
+则 $\mathcal{F}$ 有自然的 $\mathcal{O}_X/\mathcal{I}$-模层结构，
+且它在茎上与通常的交换代数构造一致。
+\end{lemma}
+
+\begin{proof}
+对包含态射 $\mathcal{I}\to\mathcal{O}_X$ 的余核应用泛性质，
+得到 $\mathcal{O}_X$-模层的交换图
+$$
+\xymatrix{
+\mathcal{O}_X \ar[r] \ar[d] &
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F}) \\
+\mathcal{O}_X/\mathcal{I} \ar@{-->}[ur]
+}
+$$
+。由引理 \ref{modules-lemma-internal-hom}，所得态射
+$\mathcal{O}_X/\mathcal{I} \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})$
+对应于 $\mathcal{O}_X$-模层态射
+$$
+\mathcal{O}_X/\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}
+\longrightarrow
+\mathcal{F}
+$$
+，这意味着 $\mathcal{F}$ 上有与给定 $\mathcal{O}_X$-模层结构相容的
+$\mathcal{O}_X/\mathcal{I}$-模层结构。我们略去关于茎的断言的验证。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-coherent-annihilator}
+设 $(X,\mathcal{O}_X)$ 为环空间。若
+$\mathcal{O}_X$ 与 $\mathcal{F}$ 凝聚，则
+$\text{Ann}_{\mathcal{O}_X}(\mathcal{F})$ 也凝聚。
+\end{lemma}
+
+\begin{proof}
+由于 $\text{Ann}_{\mathcal{O}_X}(\mathcal{F})$ 是
+$\mathcal{O}_X \to \SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})$
+的核，由引理 \ref{modules-lemma-coherent-abelian}，只需证明
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})$ 凝聚。
+这由引理 \ref{modules-lemma-internal-hom-locally-kernel-direct-sum}
+以及如下事实得到：$\mathcal{F}$ 凝聚，因而特别有限表示
+（引理 \ref{modules-lemma-coherent-finite-presentation}）。
+\end{proof}
+
+
+
+
+
+\section{Koszul 复形}
+\label{modules-section-koszul-complex}
+
+\noindent
+建议先阅读《代数详论》第 \ref{more-algebra-section-koszul} 节中
+关于 Koszul 复形的内容。我们如下定义 $\mathcal{O}_X$-模层范畴中的
+Koszul 复形。
+
+\begin{definition}
+\label{modules-definition-koszul}
+设 $X$ 为环空间，$\varphi:\mathcal{E}\to\mathcal{O}_X$
+为 $\mathcal{O}_X$-模层态射。与 $\varphi$ 关联的
+{\it Koszul 复形} $K_\bullet(\varphi)$ 是如下定义的交换微分分次代数层：
+\begin{enumerate}
+\item 其底层分次代数是外代数
+$K_\bullet(\varphi)=\wedge(\mathcal{E})$；
+\item 微分 $d:K_\bullet(\varphi)\to K_\bullet(\varphi)$
+是满足如下条件的唯一导子：对
+$\mathcal{E}=K_1(\varphi)$ 的所有局部截面 $e$，
+$d(e)=\varphi(e)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+具体地，若 $e_1\wedge\ldots\wedge e_n$ 是
+$\mathcal{E}$ 的局部截面的外积，则
+$$
+d(e_1 \wedge \ldots \wedge e_n) =
+\sum\nolimits_{i = 1, \ldots, n} (-1)^{i + 1}
+\varphi(e_i)e_1 \wedge \ldots \wedge \widehat{e_i} \wedge \ldots \wedge e_n.
+$$
+易见这在张量代数上给出良定义的导子；它零化
+$e\wedge e$，因而经由外代数分解。
+
+\begin{definition}
+\label{modules-definition-koszul-complex}
+设 $X$ 为环空间，且
+$f_1,\ldots,f_n\in\Gamma(X,\mathcal{O}_X)$。
+{\it $f_1,\ldots,f_n$ 上的 Koszul 复形}是与态射
+$(f_1, \ldots, f_n) : \mathcal{O}_X^{\oplus n} \to \mathcal{O}_X$.
+关联的 Koszul 复形。记作
+$K_\bullet(\mathcal{O}_X,f_1,\ldots,f_n)$
+或 $K_\bullet(\mathcal{O}_X,f_\bullet)$。
+\end{definition}
+
+\noindent
+当然，给定 $\mathcal{O}_X$-模层态射
+$\varphi:\mathcal{E}\to\mathcal{O}_X$，若 $\mathcal{E}$
+有限局部自由，则 $K_\bullet(\varphi)$ 在 $X$ 上局部同构于某个
+Koszul 复形 $K_\bullet(\mathcal{O}_X,f_1,\ldots,f_n)$。
+
+
+
+\section{可逆模层}
+\label{modules-section-invertible}
+
+\noindent
+与环上模的情形类似（《代数详论》第
+\ref{more-algebra-section-picard} 节），有下述定义。
+
+\begin{definition}
+\label{modules-definition-invertible}
+设 $(X,\mathcal{O}_X)$ 为环空间。{\it 可逆
+$\mathcal{O}_X$-模层}是满足如下条件的
+$\mathcal{O}_X$-模层 $\mathcal{L}$：函子
+$$
+\textit{Mod}(\mathcal{O}_X) \longrightarrow \textit{Mod}(\mathcal{O}_X),\quad
+\mathcal{F} \longmapsto \mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+是范畴等价。若 $\mathcal{L}$ 作为 $\mathcal{O}_X$-模层
+同构于 $\mathcal{O}_X$，则称 $\mathcal{L}$ {\it 平凡}。
+\end{definition}
+
+\noindent
+下面的引理 \ref{modules-lemma-invertible-is-locally-free-rank-1}
+说明它与秩 $1$ 局部自由模层之间的关系。
+
+\begin{lemma}
+\label{modules-lemma-invertible}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{L}$ 为
+$\mathcal{O}_X$-模层。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{L}$ 可逆；
+\item 存在 $\mathcal{O}_X$-模层 $\mathcal{N}$，使得
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N} \cong \mathcal{O}_X$.
+\end{enumerate}
+在此情形中，$\mathcal{L}$ 局部为有限自由
+$\mathcal{O}_X$-模层的直和项，且 (2) 中的模层 $\mathcal{N}$ 同构于
+$\SheafHom_{\mathcal{O}_X}(\mathcal{L}, \mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。则函子 $-\otimes_{\mathcal{O}_X}\mathcal{L}$
+本质满，故存在 (2) 所述的 $\mathcal{O}_X$-模层 $\mathcal{N}$。
+若 (2) 成立，则函子 $-\otimes_{\mathcal{O}_X}\mathcal{N}$
+是函子 $-\otimes_{\mathcal{O}_X}\mathcal{L}$ 的拟逆，故 (1) 成立。
+
+\medskip\noindent
+假设 (1) 与 (2) 成立。记
+$\psi : \mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N} \to \mathcal{O}_X$
+为给定同构。设 $x\in X$。选取开邻域 $U$、整数 $n\geq1$
+以及截面 $s_i\in\mathcal{L}(U)$、$t_i\in\mathcal{N}(U)$，
+使得 $\psi(\sum s_i\otimes t_i)=1$。考虑同构
+$$
+\mathcal{L}|_U \to
+\mathcal{L}|_U \otimes_{\mathcal{O}_U}
+\mathcal{L}|_U \otimes_{\mathcal{O}_U} \mathcal{N}|_U \to \mathcal{L}|_U
+$$
+，其中第一个箭头把 $s$ 映到 $\sum s_i\otimes s\otimes t_i$，
+第二个箭头把 $s\otimes s'\otimes t$ 映到 $\psi(s'\otimes t)s$。
+可知 $s\mapsto\sum\psi(s\otimes t_i)s_i$ 是
+$\mathcal{L}|_U$ 的自同构。此自同构分解为
+$$
+\mathcal{L}|_U \to \mathcal{O}_U^{\oplus n} \to \mathcal{L}|_U
+$$
+，其中第一个箭头由
+$s \mapsto (\psi(s \otimes t_1), \ldots, \psi(s \otimes t_n))$
+给出，第二个箭头由 $(a_1,\ldots,a_n)\mapsto\sum a_i s_i$ 给出。
+因此 $\mathcal{L}|_U$ 是有限自由 $\mathcal{O}_U$-模层的直和项。
+
+\medskip\noindent
+假设 (1) 与 (2) 成立。考虑求值态射
+$$
+\mathcal{L} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(\mathcal{L}, \mathcal{O}_X)
+\longrightarrow \mathcal{O}_X
+$$
+为完成引理的证明，我们将通过检验它在茎上诱导同构来证明它是同构。
+设 $x\in X$。由上一段已知 $\mathcal{L}$ 是有限表示的
+$\mathcal{O}_X$-模层，故由引理 \ref{modules-lemma-stalk-internal-hom}，
+只需证明
+$$
+\mathcal{L}_x \otimes_{\mathcal{O}_{X, x}}
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{L}_x, \mathcal{O}_{X, x})
+\longrightarrow \mathcal{O}_{X, x}
+$$
+为同构。由于
+$\mathcal{L}_x \otimes_{\mathcal{O}_{X, x}} \mathcal{N}_x =
+(\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N})_x =
+\mathcal{O}_{X, x}$（引理 \ref{modules-lemma-stalk-tensor-product}）
+，所需结论由《代数详论》引理
+\ref{more-algebra-lemma-invertible} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-invertible}
+设 $f:(X,\mathcal{O}_X)\to(Y,\mathcal{O}_Y)$ 为环空间态射。
+可逆 $\mathcal{O}_Y$-模层的拉回 $f^*\mathcal{L}$ 可逆。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{modules-lemma-invertible}，存在 $\mathcal{O}_Y$-模层
+$\mathcal{N}$，使得
+$\mathcal{L} \otimes_{\mathcal{O}_Y} \mathcal{N} \cong \mathcal{O}_Y$.
+拉回后，由引理 \ref{modules-lemma-tensor-product-pullback} 得到
+$f^*\mathcal{L} \otimes_{\mathcal{O}_X} f^*\mathcal{N} \cong \mathcal{O}_X$
+。因此由引理 \ref{modules-lemma-invertible}，$f^*\mathcal{L}$ 可逆。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-invertible-is-locally-free-rank-1}
+设 $(X,\mathcal{O}_X)$ 为环空间。任一秩 $1$ 局部自由
+$\mathcal{O}_X$-模层都是可逆的。若所有茎
+$\mathcal{O}_{X,x}$ 都是局部环，则逆命题也成立
+（但一般情形并非如此）。
+\end{lemma}
+
+\begin{proof}
+括号中的断言可由如下例子看出：考虑单点空间 $X$，其环层
+$\mathcal{O}_X$ 由环 $R$ 给出。此时可逆
+$\mathcal{O}_X$-模层对应于可逆 $R$-模，因此只要
+$\Pic(R)$ 不是平凡群，就得到一个例子。
+
+\medskip\noindent
+假设 $\mathcal{L}$ 是秩 $1$ 局部自由模层，考虑求值态射
+$$
+\mathcal{L} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(\mathcal{L}, \mathcal{O}_X)
+\longrightarrow \mathcal{O}_X
+$$
+在使 $\mathcal{L}$ 平凡化的开覆盖上考察，可见此态射为同构。
+故由引理 \ref{modules-lemma-invertible}，$\mathcal{L}$ 可逆。
+
+\medskip\noindent
+假设所有茎 $\mathcal{O}_{X,x}$ 都是局部环，且 $\mathcal{L}$ 可逆。
+在引理 \ref{modules-lemma-invertible} 的证明中已看到，对所有 $x\in X$，
+$\mathcal{L}_x$ 都是可逆 $\mathcal{O}_{X,x}$-模。
+由于 $\mathcal{O}_{X,x}$ 是局部环，故
+$\mathcal{L}_x \cong \mathcal{O}_{X, x}$
+（《代数详论》第 \ref{more-algebra-section-picard} 节）。
+由引理 \ref{modules-lemma-invertible}，$\mathcal{L}$ 有限表示，
+故由引理 \ref{modules-lemma-finite-presentation-stalk-free}，
+$\mathcal{L}$ 是秩 $1$ 局部自由模层。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-constructions-invertible}
+设 $(X,\mathcal{O}_X)$ 为环空间。
+\begin{enumerate}
+\item 若 $\mathcal{L},\mathcal{N}$ 是可逆
+$\mathcal{O}_X$-模层，则
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}$.
+也可逆。
+\item 若 $\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模层，则
+$\SheafHom_{\mathcal{O}_X}(\mathcal{L},\mathcal{O}_X)$ 也可逆，且求值态射
+$\mathcal{L} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(\mathcal{L}, \mathcal{O}_X) \to \mathcal{O}_X$
+为同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由定义立即得到，(2) 由引理 \ref{modules-lemma-invertible} 及其证明得到。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-powers}
+设 $(X,\mathcal{O}_X)$ 为环空间。给定 $X$ 上的可逆层
+$\mathcal{L}$ 及 $n\in\mathbf{Z}$，定义 $\mathcal{L}$ 的第
+$n$ 个{\it 张量幂} $\mathcal{L}^{\otimes n}$ 为
+$\mathcal{O}_X$ 在恰好应用 $n$ 次如下等价后的像：
+$\mathcal{F} \mapsto\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}$
+\end{definition}
+
+\noindent
+这对负的 $n$ 也有意义，因为我们已把可逆 $\mathcal{O}_X$-模层
+定义为张量作用给出等价的模层。更具体地，有
+$$
+\mathcal{L}^{\otimes n} =
+\left\{
+\begin{matrix}
+\mathcal{O}_X & \text{若} & n = 0 \\
+\SheafHom_{\mathcal{O}_X}(\mathcal{L}, \mathcal{O}_X) & \text{若} & n = -1\\
+\mathcal{L} \otimes_{\mathcal{O}_X} \ldots \otimes_{\mathcal{O}_X} \mathcal{L}
+& \text{若} & n > 0 \\
+\mathcal{L}^{\otimes -1} \otimes_{\mathcal{O}_X} \ldots
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes -1}
+& \text{若} & n < -1
+\end{matrix}
+\right.
+$$
+，参见引理 \ref{modules-lemma-constructions-invertible}。根据此定义，
+有典范同构
+$\mathcal{L}^{\otimes n} \otimes_{\mathcal{O}_X}
+\mathcal{L}^{\otimes m} \to
+\mathcal{L}^{\otimes n + m}$，且这些同构满足交换性约束与结合性约束
+（略去表述）。
+
+\medskip\noindent
+设 $(X,\mathcal{O}_X)$ 为环空间。可在
+$\bigoplus\Gamma(X,\mathcal{L}^{\otimes n})$ 上定义
+$\mathbf{Z}$-分次环结构：把
+$s\in\Gamma(X,\mathcal{L}^{\otimes n})$ 与
+$t\in\Gamma(X,\mathcal{L}^{\otimes m})$ 映到
+$\Gamma(X,\mathcal{L}^{\otimes n+m})$ 中与 $s\otimes t$ 对应的截面。
+我们略去它定义含幺元的交换结合环的验证。然而，按照《代数》第
+\ref{algebra-section-graded} 节中的约定，分次环在负次数中没有非零元。
+这引出下述定义。
+
+\begin{definition}
+\label{modules-definition-gamma-star}
+设 $(X,\mathcal{O}_X)$ 为环空间。给定 $X$ 上的可逆层
+$\mathcal{L}$，定义{\it 关联分次环}为
+$$
+\Gamma_*(X, \mathcal{L})
+=
+\bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{L}^{\otimes n})
+$$
+给定 $\mathcal{O}_X$-模层 $\mathcal{F}$，置
+$$
+\Gamma_*(X, \mathcal{L}, \mathcal{F})
+=
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X,
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+$$
+，将其视为分次 $\Gamma_*(X,\mathcal{L})$-模。
+\end{definition}
+
+\noindent
+我们常简写为 $\Gamma_*(\mathcal{L})$ 与 $\Gamma_*(\mathcal{F})$
+（但若 $\mathcal{F}$ 可逆，这一记法有歧义）。
+$\Gamma_*(\mathcal{L})$ 在 $\Gamma_*(\mathcal{F})$ 上的乘法
+用上述同构定义。若 $\gamma:\mathcal{F}\to\mathcal{G}$
+为 $\mathcal{O}_X$-模层态射，则得到
+$\Gamma_*(\mathcal{L})$-模同态
+$\gamma:\Gamma_*(\mathcal{F})\to\Gamma_*(\mathcal{G})$。
+若 $\alpha:\mathcal{L}\to\mathcal{N}$ 是可逆
+$\mathcal{O}_X$-模层之间的态射，则得到分次环同态
+$\Gamma_*(\mathcal{L})\to\Gamma_*(\mathcal{N})$。
+若 $f:(Y,\mathcal{O}_Y)\to(X,\mathcal{O}_X)$ 为环空间态射，
+且 $\mathcal{L}$ 在 $X$ 上可逆，则在 $Y$ 上得到可逆层
+$f^*\mathcal{L}$（引理 \ref{modules-lemma-pullback-invertible}）
+以及诱导的分次环同态
+$$
+f^* :
+\Gamma_*(X, \mathcal{L})
+\longrightarrow
+\Gamma_*(Y, f^*\mathcal{L})
+$$
+此外，上述构造之间还存在一些相容性；我们略去其表述。
+
+\begin{lemma}
+\label{modules-lemma-pic-set}
+设 $(X,\mathcal{O}_X)$ 为环空间。存在一族可逆模层
+$\{\mathcal{L}_i\}_{i\in I}$，使得 $X$ 上的每个可逆模层
+恰好同构于其中一个 $\mathcal{L}_i$。
+\end{lemma}
+
+\begin{proof}
+回顾任一可逆 $\mathcal{O}_X$-模层局部都是有限自由
+$\mathcal{O}_X$-模层的直和项，参见引理 \ref{modules-lemma-invertible}。
+对每个开覆盖 $\mathcal{U}:X=\bigcup_{j\in J}U_j$
+及映射 $r:J\to\mathbf{N}$，考虑满足如下条件的
+$\mathcal{O}_X$-模层 $\mathcal{F}$：
+$\mathcal{F}_j=\mathcal{F}|_{U_j}$ 是
+$\mathcal{O}_{U_j}^{\oplus r(j)}$ 的直和项。
+$\mathcal{F}_j$ 的同构类之全体是集合，因为
+$\Hom_{\mathcal{O}_U}(\mathcal{O}_U^{\oplus r}, \mathcal{O}_U^{\oplus r})$
+是集合。层 $\mathcal{F}$ 由粘合 $\mathcal{F}_j$ 得到，参见《层》第
+\ref{sheaves-section-glueing-sheaves} 节。注意所有粘合数据之全体构成集合。
+所有覆盖 $\mathcal{U} : X = \bigcup_{j \in J} U_i$ 之全体也构成集合，
+其中 $J \to \mathcal{P}(X)$、$j \mapsto U_j$ 为单射。对每个覆盖，映射
+$r:J\to\mathbf{N}$ 之全体为集合。因此所有 $\mathcal{F}$ 之全体构成集合。
+\end{proof}
+
+\noindent
+粗略地说，此引理断言可逆层的同构类之全体构成集合。
+引理 \ref{modules-lemma-constructions-invertible} 断言张量积在该集合上定义阿贝尔群结构。
+
+\begin{definition}
+\label{modules-definition-pic}
+设 $(X,\mathcal{O}_X)$ 为环空间。$X$ 的 {\it Picard 群}
+$\Pic(X)$ 是如下阿贝尔群：其元素为可逆
+$\mathcal{O}_X$-模层的同构类，加法对应于张量积。
+\end{definition}
+
+\begin{lemma}
+\label{modules-lemma-s-open}
+\begin{slogan}
+线丛的（局部）平凡化等价于（局部）非消没截面。
+\end{slogan}
+设 $X$ 为环空间。假设每个茎 $\mathcal{O}_{X,x}$ 都是
+以 $\mathfrak m_x$ 为极大理想的局部环。设 $\mathcal{L}$
+为可逆 $\mathcal{O}_X$-模层。对任一截面
+$s\in\Gamma(X,\mathcal{L})$，集合
+$$
+X_s = \{x \in X \mid \text{像 }s \not\in \mathfrak m_x\mathcal{L}_x\}
+$$
+在 $X$ 中开。态射 $s:\mathcal{O}_{X_s}\to\mathcal{L}|_{X_s}$
+是同构，且存在 $\mathcal{L}^{\otimes-1}$ 在 $X_s$ 上的截面 $s'$，
+使得 $s'(s|_{X_s})=1$。
+\end{lemma}
+
+\begin{proof}
+设 $x\in X_s$。由引理 \ref{modules-lemma-constructions-invertible}，有同构
+$$
+\mathcal{L}_x \otimes_{\mathcal{O}_{X, x}} (\mathcal{L}^{\otimes -1})_x
+\longrightarrow
+\mathcal{O}_{X, x}
+$$
+。$\mathcal{L}_x$ 与 $(\mathcal{L}^{\otimes-1})_x$
+都是秩 $1$ 自由 $\mathcal{O}_{X,x}$-模。由《代数》中的
+Nakayama 引理 \ref{algebra-lemma-NAK}，可知 $s_x$
+是 $\mathcal{L}_x$ 的一个基。因此存在基元
+$t_x\in(\mathcal{L}^{\otimes-1})_x$，使得
+$s_x\otimes t_x$ 映到 $1$。选取 $x$ 的开邻域 $U$，
+使 $t_x$ 来自 $\mathcal{L}^{\otimes-1}$ 在 $U$ 上的截面 $t$，
+且 $s\otimes t$ 映到 $1\in\mathcal{O}_X(U)$。
+显然，对每个 $x'\in U$，$s$ 都生成模 $\mathcal{L}_{x'}$。
+故 $U\subset X_s$，这证明 $X_s$ 为开集。此外，上面在 $U$
+上构造的截面 $t$ 是唯一的，因而它们粘合成引理中的截面 $s'$。
+\end{proof}
+
+\begin{remark}
+\label{modules-remark-pullback-s-open}
+给定局部环空间态射 $f:Y\to X$（参见《概形》定义
+\ref{schemes-definition-locally-ringed-space}），逆像
+$f^{-1}(X_s)$ 等于 $Y_{f^*s}$，其中
+$f^*s\in\Gamma(Y,f^*\mathcal{L})$ 是 $s$ 的拉回。
+\end{remark}
+
+
+\section{秩与行列式}
+\label{modules-section-rank-and-det}
+
+\noindent
+设 $(X,\mathcal{O}_X)$ 为环空间。考虑有限局部自由
+$\mathcal{O}_X$-模层的范畴 $\textit{Vect}(X)$。这是正合范畴
+（参见《内射对象》注 \ref{injectives-remark-embed-exact-category}），
+其可容许满态射为满射，而可容许单态射为满射的核。此外，
+$\textit{Vect}(X)$ 的对象同构类构成集合（略去证明）。
+因此可以构造第零 Grothendieck $K$-群
+$K_0(\textit{Vect}(X))$。具体地，此时
+$K_0(\textit{Vect}(X))$ 是由有限局部自由
+$\mathcal{O}_X$-模层 $\mathcal{E}$ 所对应的 $[\mathcal{E}]$
+生成、并服从如下关系的阿贝尔群：
+$$
+[\mathcal{E}] = [\mathcal{E}'] + [\mathcal{E}'']
+$$
+，只要存在有限局部自由 $\mathcal{O}_X$-模层的短正合列
+$0 \to \mathcal{E}' \to \mathcal{E} \to \mathcal{E}'' \to 0$
+。
+
+\medskip\noindent
+{\bf 秩。}假设所有茎 $\mathcal{O}_{X,x}$ 都是非零环。
+给定有限局部自由 $\mathcal{O}_X$-模层 $\mathcal{E}$，
+其{\it 秩}是局部常值函数
+$$
+\text{rank}_\mathcal{E} : X \longrightarrow \mathbf{Z}_{\geq 0},\quad
+x \longmapsto \text{rank}_{\mathcal{O}_{X, x}} \mathcal{E}_x
+$$
+，参见引理 \ref{modules-lemma-rank}。由局部自由模层的定义，
+函数 $\text{rank}_\mathcal{E}$ 局部常值。若
+$0 \to \mathcal{E}' \to \mathcal{E} \to \mathcal{E}'' \to 0$
+是有限局部自由 $\mathcal{O}_X$-模层的短正合列，则
+$\text{rank}_\mathcal{E} = \text{rank}_{\mathcal{E}'} +
+\text{rank}_{\mathcal{E}''}$,
+。因此秩定义同态
+$$
+K_0(\textit{Vect}(X)) \longrightarrow \text{Map}_{cont}(X, \mathbf{Z}),\quad
+[\mathcal{E}] \longmapsto \text{rank}_\mathcal{E}
+$$
+
+\medskip\noindent
+{\bf 行列式。}给定有限局部自由 $\mathcal{O}_X$-模层
+$\mathcal{E}$，得到不交并分解
+$$
+X = X_0 \amalg X_1 \amalg X_2 \amalg \ldots
+$$
+，其中 $X_i$ 开且闭，而 $\mathcal{E}$ 在 $X_i$ 上为秩 $i$
+的有限局部自由模层（这恰好等价于
+$\text{rank}_\mathcal{E}$ 局部常值）。在此情形中，
+定义 $\det(\mathcal{E})$ 为 $X$ 上如下可逆层：对每个
+$i\geq0$，它在 $X_i$ 上等于 $\wedge^i(\mathcal{E}|_{X_i})$。
+由于上述分解不交，无需检验任何粘合条件。由下面的引理
+\ref{modules-lemma-det-ses}，这定义阿贝尔群同态
+$$
+\det : K_0(\textit{Vect}(X)) \longrightarrow \Pic(X),\quad
+[\mathcal{E}] \longmapsto \det(\mathcal{E})
+$$
+。由此得到的 $\Pic(X)$ 中元素都是秩 $1$ 局部自由的
+（推广见引理之后）。
+
+\begin{lemma}
+\label{modules-lemma-det-ses}
+设 $X$ 为环空间。设
+$0 \to \mathcal{E}' \to \mathcal{E} \to \mathcal{E}'' \to 0$
+为有限局部自由 $\mathcal{O}_X$-模层的短正合列。则存在典范同构
+$$
+\det(\mathcal{E}') \otimes_{\mathcal{O}_X}\det(\mathcal{E}'')
+\longrightarrow
+\det(\mathcal{E})
+$$
+，它是 $\mathcal{O}_X$-模层同构。
+\end{lemma}
+
+\begin{proof}
+可把 $X$ 分解为不交的开闭子集，使得 $\mathcal{E}'$
+与 $\mathcal{E}''$ 在每个子集上都具有常秩。于是可归约到
+$\mathcal{E}'$ 与 $\mathcal{E}''$ 分别具有常秩
+$r'$ 与 $r''$ 的情形。在此情形中如下定义
+$$
+\wedge^{r'}(\mathcal{E}') \otimes_{\mathcal{O}_X} \wedge^{r''}(\mathcal{E}'')
+\longrightarrow
+\wedge^{r' + r''}(\mathcal{E})
+$$
+。给定 $\mathcal{E}'$ 的局部截面 $s'_1,\ldots,s'_{r'}$
+及 $\mathcal{E}''$ 的局部截面 $s''_1,\ldots,s''_{r''}$，
+我们把
+$$
+s'_1 \wedge \ldots \wedge s'_{r'} \otimes
+s''_1 \wedge \ldots \wedge s''_{r''}
+\quad\text{映到}\quad
+s'_1 \wedge \ldots \wedge s'_{r'} \wedge
+\tilde s''_1 \wedge \ldots \wedge \tilde s''_{r''}
+$$
+，其中 $\tilde s''_i$ 是截面 $s''_i$ 到 $\mathcal{E}$
+的某个局部提升。我们略去细节。
+\end{proof}
+
+\noindent
+设 $(X,\mathcal{O}_X)$ 为环空间。除了有限局部自由
+$\mathcal{O}_X$-模层，还可以考察如下 $\mathcal{O}_X$-模层
+$\mathcal{F}$：它在 $X$ 上局部为有限自由
+$\mathcal{O}_X$-模层的直和项。这等价于要求 $\mathcal{F}$
+是有限表示的平坦 $\mathcal{O}_X$-模层，参见引理
+\ref{modules-lemma-flat-locally-finite-presentation}。若所有茎
+$\mathcal{O}_{X,x}$ 都是局部环，则这样的 $\mathcal{F}$
+有限局部自由，参见引理
+\ref{modules-lemma-direct-summand-of-locally-free-is-locally-free}。
+然而一般情形并非如此；例如，$X$ 可以是一个点，
+$\Gamma(X,\mathcal{O}_X)$ 可以是两个非零环的积 $A\times B$，
+而 $\mathcal{F}$ 可以对应于 $A\times0$。因此对这样的模层，
+秩函数没有定义。不过仍可定义 $\det(\mathcal{F})$，而且它是定义
+\ref{modules-definition-invertible} 意义下的可逆 $\mathcal{O}_X$-模层
+（未必是秩 $1$ 局部自由模层）。当 $\mathcal{F}$ 有限局部自由时，
+我们的构造与上述构造一致。我们建议读者跳过本节余下部分。
+
+\begin{lemma}
+\label{modules-lemma-determinant-as-socle}
+设 $(X,\mathcal{O}_X)$ 为环空间，$\mathcal{F}$ 为平坦且有限表示的
+$\mathcal{O}_X$-模层。记
+$$
+\det(\mathcal{F}) \subset
+\wedge^*_{\mathcal{O}_X}(\mathcal{F})
+$$
+为 $\mathcal{F}\subset\wedge^*_{\mathcal{O}_X}(\mathcal{F})$ 的零化子。
+则 $\det(\mathcal{F})$ 是可逆 $\mathcal{O}_X$-模层。
+\end{lemma}
+
+\begin{proof}
+为证明此结论，可以在 $X$ 上局部工作。因此可以假设
+$\mathcal{F}$ 是有限自由模层的直和项，参见引理
+\ref{modules-lemma-flat-locally-finite-presentation}。设
+$\mathcal{F} \oplus \mathcal{G} = \mathcal{O}_X^{\oplus n}$.
+置 $R=\mathcal{O}_X(X)$。于是
+$\mathcal{F}(X) \oplus \mathcal{G}(X) = R^{\oplus n}$
+，相应地，对所有开集 $U\subset X$ 有
+$\mathcal{F}(U) \oplus \mathcal{G}(U) = \mathcal{O}_X(U)^{\oplus n}$
+。可知 $\mathcal{F}=\mathcal{F}_M$，如引理
+\ref{modules-lemma-construct-quasi-coherent-sheaves} 所述，其中
+$M=\mathcal{F}(X)$ 是有限投射 $R$-模。换言之，
+$\mathcal{F}(U)=M\otimes_R\mathcal{O}_X(U)$。这蕴含
+$\det(M) \otimes_R \mathcal{O}_X(U) = \det(\mathcal{F}(U))$
+对所有开集 $U\subset X$ 成立，其中 $\det$ 如《代数详论》第
+\ref{more-algebra-section-determinants} 节所述。由《代数详论》注
+\ref{more-algebra-remark-determinant-as-socle}，可见
+$$
+\det(M) \otimes_R \mathcal{O}_X(U) =
+\det(\mathcal{F}(U)) \subset
+\wedge^*_{\mathcal{O}_X(U)}(\mathcal{F}(U))
+$$
+是 $\mathcal{F}(U)$ 的零化子。可知引理陈述中所定义的
+$\det(\mathcal{F})$ 等于 $\mathcal{F}_{\det(M)}$。
+略去一些细节；必须注意，不能把零化子定义为“在开集上对截面取零化子”
+所得预层的层化。因此 $\det(\mathcal{F})$ 是一个可逆模的拉回，故得结论。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{环层的局部化}
+\label{modules-section-localizing-sheaves-rings}
+
+\noindent
+设 $X$ 为拓扑空间，$\mathcal{O}_X$ 为环预层，
+$\mathcal{S}\subset\mathcal{O}_X$ 为包含于 $\mathcal{O}_X$
+的集合预层。假设对每个开集 $U\subset X$，集合
+$\mathcal{S}(U)\subset\mathcal{O}_X(U)$ 都是乘法子集，参见
+《代数》定义 \ref{algebra-definition-multiplicative-subset}。
+此时可以考虑环预层
+$$
+\mathcal{S}^{-1}\mathcal{O}_X :
+U \longmapsto \mathcal{S}(U)^{-1}\mathcal{O}_X(U).
+$$
+若 $V\subset U$ 是 $X$ 的开集，则限制映射把截面
+$f/s$（$f\in\mathcal{O}_X(U)$、$s\in\mathcal{S}(U)$）
+映到 $(f|_V)/(s|_V)$。
+
+\begin{lemma}
+\label{modules-lemma-simple-invert}
+设 $X$ 为拓扑空间，$\mathcal{O}_X$ 为环预层，
+$\mathcal{S}\subset\mathcal{O}_X$ 为包含于 $\mathcal{O}_X$
+的集合预层。假设对每个开集 $U\subset X$，集合
+$\mathcal{S}(U)\subset\mathcal{O}_X(U)$ 都是乘法子集。
+\begin{enumerate}
+\item 存在环预层态射
+$\mathcal{O}_X \to \mathcal{S}^{-1}\mathcal{O}_X$
+，使得 $\mathcal{S}$ 的每个局部截面都映到
+$\mathcal{O}_X$ 的可逆截面。
+\item 对任一环预层同态 $\mathcal{O}_X\to\mathcal{A}$，
+若 $\mathcal{S}$ 的每个局部截面都映到 $\mathcal{A}$ 的可逆截面，
+则存在唯一分解
+$\mathcal{S}^{-1}\mathcal{O}_X \to \mathcal{A}$.
+\item 对任意 $x\in X$，有
+$$
+(\mathcal{S}^{-1}\mathcal{O}_X)_x = \mathcal{S}_x^{-1} \mathcal{O}_{X, x}.
+$$
+\item 层化 $(\mathcal{S}^{-1}\mathcal{O}_X)^\#$ 是环层，
+并带有环层态射
+$(\mathcal{O}_X)^\# \to (\mathcal{S}^{-1}\mathcal{O}_X)^\#$
+；它对于 $(\mathcal{O}_X)^\#$ 到如下环层的态射具有泛性质：
+$\mathcal{S}$ 的每个局部截面都映到可逆截面。
+\item 对任意 $x\in X$，有
+$$
+(\mathcal{S}^{-1}\mathcal{O}_X)^\#_x = \mathcal{S}_x^{-1} \mathcal{O}_{X, x}.
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+设 $X$ 为拓扑空间，$\mathcal{O}_X$ 为环预层，
+$\mathcal{S}\subset\mathcal{O}_X$ 为包含于 $\mathcal{O}_X$
+的集合预层。假设对每个开集 $U\subset X$，集合
+$\mathcal{S}(U)\subset\mathcal{O}_X(U)$ 都是乘法子集。
+设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模预层。此时可以考虑
+$\mathcal{S}^{-1}\mathcal{O}_X$-模预层
+$$
+\mathcal{S}^{-1}\mathcal{F} :
+U \longmapsto \mathcal{S}(U)^{-1}\mathcal{F}(U).
+$$
+若 $V\subset U$ 是 $X$ 的开集，则限制映射把截面
+$t/s$（$t\in\mathcal{F}(U)$、$s\in\mathcal{S}(U)$）
+映到 $(t|_V)/(s|_V)$。
+
+\begin{lemma}
+\label{modules-lemma-simple-invert-module}
+设 $X$ 为拓扑空间，$\mathcal{O}_X$ 为环预层，
+$\mathcal{S}\subset\mathcal{O}_X$ 为包含于 $\mathcal{O}_X$
+的集合预层。假设对每个开集 $U\subset X$，集合
+$\mathcal{S}(U)\subset\mathcal{O}_X(U)$ 都是乘法子集。
+对任一 $\mathcal{O}_X$-模预层 $\mathcal{F}$，有
+$$
+\mathcal{S}^{-1}\mathcal{F}
+=
+\mathcal{S}^{-1}\mathcal{O}_X \otimes_{p, \mathcal{O}_X} \mathcal{F}
+$$
+（记法见《层》第 \ref{sheaves-section-presheaves-modules} 节）；
+若 $\mathcal{F}$ 与 $\mathcal{O}_X$ 都是层，则
+$$
+(\mathcal{S}^{-1}\mathcal{F})^\#
+=
+(\mathcal{S}^{-1}\mathcal{O}_X)^\# \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+（记法见《层》第
+\ref{sheaves-section-sheafification-presheaves-modules} 节）。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{微分模}
+\label{modules-section-differentials}
+
+\noindent
+本节简述如何为环空间态射定义相对微分模。建议读者先看交换代数章节中的
+相应部分（《代数》第 \ref{algebra-section-differentials} 节）。
+
+\begin{definition}
+\label{modules-definition-derivation}
+设 $X$ 为拓扑空间，$\varphi:\mathcal{O}_1\to\mathcal{O}_2$
+为环层同态，$\mathcal{F}$ 为 $\mathcal{O}_2$-模层。
+取值于 $\mathcal{F}$ 的一个 {\it $\mathcal{O}_1$-导子}，
+更准确地说一个 {\it $\varphi$-导子}，是满足如下条件的态射
+$D:\mathcal{O}_2\to\mathcal{F}$：它可加，零化
+$\mathcal{O}_1\to\mathcal{O}_2$ 的像，并满足 {\it Leibniz 法则}
+$$
+D(ab) = aD(b) + D(a)b
+$$
+，对 $\mathcal{O}_2$ 的所有局部截面 $a,b$（在二者同时有定义之处）
+都成立。以
+$\text{Der}_{\mathcal{O}_1}(\mathcal{O}_2,\mathcal{F})$
+表示取值于 $\mathcal{F}$ 的 $\varphi$-导子之集。
+\end{definition}
+
+\noindent
+这是《代数》定义 \ref{algebra-definition-derivation}
+的层论类似物。给定定义中所述的导子
+$D:\mathcal{O}_2\to\mathcal{F}$，整体截面上的态射
+$$
+D : \Gamma(X, \mathcal{O}_2) \longrightarrow \Gamma(X, \mathcal{F})
+$$
+是代数定义意义下的 $\Gamma(X,\mathcal{O}_1)$-导子。
+注意，若 $\alpha:\mathcal{F}\to\mathcal{G}$ 为
+$\mathcal{O}_2$-模层态射，则存在诱导态射
+$$
+\text{Der}_{\mathcal{O}_1}(\mathcal{O}_2, \mathcal{F})
+\longrightarrow
+\text{Der}_{\mathcal{O}_1}(\mathcal{O}_2, \mathcal{G})
+$$
+，由规则 $D\mapsto\alpha\circ D$ 给出。换言之，我们得到一个函子。
+
+\begin{lemma}
+\label{modules-lemma-universal-module}
+设 $X$ 为拓扑空间，$\varphi:\mathcal{O}_1\to\mathcal{O}_2$
+为环层同态。函子
+$$
+\textit{Mod}(\mathcal{O}_2) \longrightarrow \textit{Ab}, \quad
+\mathcal{F} \longmapsto \text{Der}_{\mathcal{O}_1}(\mathcal{O}_2, \mathcal{F})
+$$
+可表。
+\end{lemma}
+
+\begin{proof}
+证明与代数中的类似陈述完全相同。在本证明中，对 $X$ 上任一集合层
+$\mathcal{F}$，以 $\mathcal{O}_2[\mathcal{F}]$ 表示预层
+$U\mapsto\mathcal{O}_2(U)[\mathcal{F}(U)]$ 的层化，其中后者表示以集合
+$\mathcal{F}(U)$ 为基的自由 $\mathcal{O}_2(U)$-模。
+对 $s\in\mathcal{F}(U)$，以 $[s]$ 表示
+$\mathcal{O}_2[\mathcal{F}]$ 在 $U$ 上的相应截面。
+若 $\mathcal{F}$ 是 $\mathcal{O}_2$-模层，则存在典范态射
+$$
+c : \mathcal{O}_2[\mathcal{F}] \longrightarrow \mathcal{F}
+$$
+，它在预层层面由规则
+$\sum f_s[s]\mapsto\sum f_s s$ 给出。我们将用简写
+$[s]\mapsto s$ 描述此态射，下面的其他态射也类似。考虑
+$\mathcal{O}_2$-模层态射
+\begin{equation}
+\label{modules-equation-define-module-differentials}
+\begin{matrix}
+\mathcal{O}_2[\mathcal{O}_2 \times \mathcal{O}_2] \oplus
+\mathcal{O}_2[\mathcal{O}_2 \times \mathcal{O}_2] \oplus
+\mathcal{O}_2[\mathcal{O}_1] &
+\longrightarrow &
+\mathcal{O}_2[\mathcal{O}_2] \\
+[(a, b)] \oplus [(f, g)] \oplus [h] & \longmapsto & [a + b] - [a] - [b] + \\
+& & [fg] - g[f] - f[g] + \\
+& & [\varphi(h)]
+\end{matrix}
+\end{equation}
+，这里使用上述简写。置 $\Omega_{\mathcal{O}_2/\mathcal{O}_1}$
+等于此态射的余核。显然存在集合层态射
+$$
+\text{d} : \mathcal{O}_2 \longrightarrow \Omega_{\mathcal{O}_2/\mathcal{O}_1}
+$$
+，它把局部截面 $f$ 映到 $[f]$ 在
+$\Omega_{\mathcal{O}_2/\mathcal{O}_1}$ 中的像。按照构造，
+$\text{d}$ 是 $\mathcal{O}_1$-导子。接着，设 $\mathcal{F}$
+为 $\mathcal{O}_2$-模层，$D:\mathcal{O}_2\to\mathcal{F}$
+为 $\mathcal{O}_1$-导子。考虑把 $[g]$ 映到 $D(g)$ 的
+$\mathcal{O}_2$-线性态射
+$\mathcal{O}_2[\mathcal{O}_2]\to\mathcal{F}$。
+由导子的定义，此态射零化态射
+(\ref{modules-equation-define-module-differentials}) 像中的截面，因而定义态射
+$$
+\alpha_D : \Omega_{\mathcal{O}_2/\mathcal{O}_1} \longrightarrow \mathcal{F}
+$$
+显然 $D=\alpha_D\circ\text{d}$，引理得证。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-module-differentials}
+设 $X$ 为拓扑空间，$\varphi:\mathcal{O}_1\to\mathcal{O}_2$
+为 $X$ 上的环层同态。$\varphi$ 的{\it 微分模}是表示函子
+$\mathcal{F} \mapsto \text{Der}_{\mathcal{O}_1}(\mathcal{O}_2, \mathcal{F})$
+的对象；其存在性由引理 \ref{modules-lemma-universal-module} 保证。
+它记作 $\Omega_{\mathcal{O}_2/\mathcal{O}_1}$，而{\it 泛
+$\varphi$-导子}记作
+$\text{d} : \mathcal{O}_2 \to \Omega_{\mathcal{O}_2/\mathcal{O}_1}$.
+\end{definition}
+
+\noindent
+注意 $\Omega_{\mathcal{O}_2/\mathcal{O}_1}$ 是
+$\mathcal{O}_2$-模层态射
+(\ref{modules-equation-define-module-differentials}) 的余核。此外，态射
+$\text{d}$ 由如下规则描述：$\text{d}f$ 是局部截面 $[f]$ 的像。
+
+\begin{lemma}
+\label{modules-lemma-differentials-sheafify}
+设 $X$ 为拓扑空间，$\varphi:\mathcal{O}_1\to\mathcal{O}_2$
+为 $X$ 上的环层同态。则
+$\Omega_{\mathcal{O}_2/\mathcal{O}_1}$ 是与预层
+$U\mapsto\Omega_{\mathcal{O}_2(U)/\mathcal{O}_1(U)}$ 关联的层。
+\end{lemma}
+
+\begin{proof}
+考虑态射 (\ref{modules-equation-define-module-differentials})。
+存在类似的预层态射，其在开集 $U$ 上的值为
+$$
+\mathcal{O}_2(U)[\mathcal{O}_2(U) \times \mathcal{O}_2(U)] \oplus
+\mathcal{O}_2(U)[\mathcal{O}_2(U) \times \mathcal{O}_2(U)] \oplus
+\mathcal{O}_2(U)[\mathcal{O}_1(U)]
+\longrightarrow
+\mathcal{O}_2(U)[\mathcal{O}_2(U)]
+$$
+由《代数》定义 \ref{algebra-definition-differentials}
+中微分模的构造，此态射的余核在 $U$ 上的值为
+$\Omega_{\mathcal{O}_2(U)/\mathcal{O}_1(U)}$。另一方面，
+(\ref{modules-equation-define-module-differentials}) 中的各层是上述预层的层化。
+由于层化正合，结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-localize-differentials}
+设 $X$ 为拓扑空间，$\varphi:\mathcal{O}_1\to\mathcal{O}_2$
+为环层同态。对开集 $U\subset X$，存在典范同构
+$$
+\Omega_{\mathcal{O}_2/\mathcal{O}_1}|_U =
+\Omega_{(\mathcal{O}_2|_U)/(\mathcal{O}_1|_U)}
+$$
+，它与泛导子相容。
+\end{lemma}
+
+\begin{proof}
+这是因为 $\Omega_{\mathcal{O}_2/\mathcal{O}_1}$
+是态射 (\ref{modules-equation-define-module-differentials}) 的余核。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-differentials}
+设 $f:Y\to X$ 为拓扑空间的连续映射，
+$\varphi:\mathcal{O}_1\to\mathcal{O}_2$ 为 $X$ 上的环层同态。
+则存在典范等同
+$f^{-1}\Omega_{\mathcal{O}_2/\mathcal{O}_1} =
+\Omega_{f^{-1}\mathcal{O}_2/f^{-1}\mathcal{O}_1}$
+，它与泛导子相容。
+\end{lemma}
+
+\begin{proof}
+这是因为层 $\Omega_{\mathcal{O}_2/\mathcal{O}_1}$
+是态射 (\ref{modules-equation-define-module-differentials}) 的余核，
+$\Omega_{f^{-1}\mathcal{O}_2/f^{-1}\mathcal{O}_1}$ 也有类似陈述，
+而函子 $f^{-1}$ 正合，并且
+$f^{-1}(\mathcal{O}_2[\mathcal{O}_2]) =
+f^{-1}\mathcal{O}_2[f^{-1}\mathcal{O}_2]$,
+$f^{-1}(\mathcal{O}_2[\mathcal{O}_2 \times \mathcal{O}_2]) =
+f^{-1}\mathcal{O}_2[f^{-1}\mathcal{O}_2 \times f^{-1}\mathcal{O}_2]$，且
+$f^{-1}(\mathcal{O}_2[\mathcal{O}_1]) =
+f^{-1}\mathcal{O}_2[f^{-1}\mathcal{O}_1]$.
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-stalk-module-differentials}
+设 $X$ 为拓扑空间，$\mathcal{O}_1\to\mathcal{O}_2$
+为 $X$ 上的环层同态，$x\in X$。则有
+$\Omega_{\mathcal{O}_2/\mathcal{O}_1, x} =
+\Omega_{\mathcal{O}_{2, x}/\mathcal{O}_{1, x}}$.
+\end{lemma}
+
+\begin{proof}
+这是把引理 \ref{modules-lemma-pullback-differentials} 应用于包含映射
+$\{x\}\to X$ 所得的特殊情形。另一种证明使用引理
+\ref{modules-lemma-differentials-sheafify}、《层》引理
+\ref{sheaves-lemma-stalk-sheafification} 及《代数》引理
+\ref{algebra-lemma-colimit-differentials}。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-functoriality-differentials}
+设 $X$ 为拓扑空间。设
+$$
+\xymatrix{
+\mathcal{O}_2 \ar[r]_\varphi & \mathcal{O}_2' \\
+\mathcal{O}_1 \ar[r] \ar[u] & \mathcal{O}'_1 \ar[u]
+}
+$$
+为 $X$ 上环层的交换图。态射
+$\mathcal{O}_2 \to \mathcal{O}'_2$ 与态射
+$\text{d} : \mathcal{O}'_2 \to \Omega_{\mathcal{O}'_2/\mathcal{O}'_1}$
+的复合是 $\mathcal{O}_1$-导子。因此得到典范的
+$\mathcal{O}_2$-模层态射
+$\Omega_{\mathcal{O}_2/\mathcal{O}_1} \to
+\Omega_{\mathcal{O}'_2/\mathcal{O}'_1}$.
+。它由下述性质唯一刻画：
+$\text{d}(f) \mapsto \text{d}(\varphi(f))$
+对 $\mathcal{O}_2$ 的任一局部截面 $f$ 成立。这样，
+$\Omega_{-/-}$ 成为环层箭头范畴上的函子。
+\end{lemma}
+
+\begin{proof}
+本引理由其表述即得。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-differential-seq}
+在引理 \ref{modules-lemma-functoriality-differentials} 中，假设
+$\mathcal{O}_2\to\mathcal{O}'_2$ 为满射，其核为
+$\mathcal{I}\subset\mathcal{O}_2$，并假设
+$\mathcal{O}_1=\mathcal{O}'_1$。则存在典范的
+$\mathcal{O}'_2$-模层正合列
+$$
+\mathcal{I}/\mathcal{I}^2
+\longrightarrow
+\Omega_{\mathcal{O}_2/\mathcal{O}_1} \otimes_{\mathcal{O}_2} \mathcal{O}'_2
+\longrightarrow
+\Omega_{\mathcal{O}'_2/\mathcal{O}_1}
+\longrightarrow
+0
+$$
+最左侧态射由如下规则刻画：$\mathcal{I}$ 的局部截面 $f$
+映到 $\text{d}f\otimes1$。
+\end{lemma}
+
+\begin{proof}
+对 $\mathcal{I}$ 的局部截面 $f$，以 $\overline f$ 表示
+$f$ 在 $\mathcal{I}/\mathcal{I}^2$ 中的像。为证明态射
+$\overline f\mapsto\text{d}f\otimes1$ 良定义，只需检验：
+若 $f_1,f_2$ 是 $\mathcal{I}$ 的局部截面，则
+$\text{d}f_1f_2\otimes1=0$。这由 Leibniz 法则立即得到：
+$\text{d} f_1f_2 \otimes 1 =
+(f_1 \text{d}f_2 + f_2 \text{d} f_1 )\otimes 1 =
+\text{d}f_2 \otimes f_1 + \text{d}f_1 \otimes f_2 = 0$.
+类似计算表明，此态射是
+$\mathcal{O}'_2=\mathcal{O}_2/\mathcal{I}$-线性的。右侧态射来自引理
+\ref{modules-lemma-functoriality-differentials}。为证明该序列正合，
+可在茎上检验（引理 \ref{modules-lemma-abelian}）。由引理
+\ref{modules-lemma-stalk-module-differentials}，这归结为《代数》引理
+\ref{algebra-lemma-differential-seq}。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-differentials}
+设 $(f,f^\sharp):(X,\mathcal{O}_X)\to(S,\mathcal{O}_S)$
+为环空间态射。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模层。取值于
+$\mathcal{F}$ 的 {\it $S$-导子}是
+$f^{-1}\mathcal{O}_S$-导子，更准确地说，是定义
+\ref{modules-definition-derivation} 意义下的 $f^\sharp$-导子。
+以 $\text{Der}_S(\mathcal{O}_X,\mathcal{F})$
+表示取值于 $\mathcal{F}$ 的 $S$-导子之集。
+\item {\it $X$ 在 $S$ 上的微分层 $\Omega_{X/S}$} 是带有其泛
+$S$-导子 $\text{d}_{X/S}:\mathcal{O}_X\to\Omega_{X/S}$
+的微分模 $\Omega_{\mathcal{O}_X/f^{-1}\mathcal{O}_S}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面给出导子自然出现的一种特殊情形。
+
+\begin{lemma}
+\label{modules-lemma-double-structure-gives-derivation}
+设 $(f,f^\sharp):(X,\mathcal{O}_X)\to(S,\mathcal{O}_S)$
+为环空间态射。考虑短正合列
+$$
+0 \to \mathcal{I} \to \mathcal{A} \to \mathcal{O}_X \to 0
+$$
+这里 $\mathcal{A}$ 是 $f^{-1}\mathcal{O}_S$-代数层，
+$\pi:\mathcal{A}\to\mathcal{O}_X$ 是
+$f^{-1}\mathcal{O}_S$-代数层的满射，而
+$\mathcal{I}=\Ker(\pi)$ 是其核。假设 $\mathcal{I}$
+是 $\mathcal{A}$ 中平方为零的理想层。因此 $\mathcal{I}$
+自然具有 $\mathcal{O}_X$-模层结构。$\pi$ 的截面
+$s:\mathcal{O}_X\to\mathcal{A}$ 是满足
+$\pi\circ s=\text{id}$ 的 $f^{-1}\mathcal{O}_S$-代数层态射。
+给定 $\pi$ 的任一截面 $s:\mathcal{O}_X\to\mathcal{A}$
+与任一 $S$-导子 $D:\mathcal{O}_X\to\mathcal{I}$，态射
+$$
+s + D : \mathcal{O}_X \to \mathcal{A}
+$$
+是 $\pi$ 的截面，并且每个截面 $s'$ 都能唯一地写成
+$s+D$，其中 $D$ 是 $S$-导子。
+\end{lemma}
+
+\begin{proof}
+回顾 $\mathcal{I}$ 上的 $\mathcal{O}_X$-模层结构由
+$h\tau=\tilde h\tau$（在 $\mathcal{A}$ 中相乘）给出，其中
+$h$ 是 $\mathcal{O}_X$ 的局部截面，$\tilde h$ 是 $h$
+到 $\mathcal{A}$ 的局部截面的某个局部提升，而 $\tau$
+是 $\mathcal{I}$ 的局部截面。特别地，给定 $s$，可取
+$\tilde h=s(h)$。为验证 $s+D$ 是环层同态，计算
+\begin{eqnarray*}
+(s + D)(ab) & = & s(ab) + D(ab) \\
+& = & s(a)s(b) + aD(b) + D(a)b \\
+& = & s(a) s(b) + s(a)D(b) + D(a)s(b) \\
+& = & (s(a) + D(a))(s(b) + D(b))
+\end{eqnarray*}
+，这里使用了 Leibniz 法则。以同样方式，由于 $D$ 是
+$S$-导子，可证明 $s+D$ 是 $f^{-1}\mathcal{O}_S$-代数层态射。
+反之，给定 $s'$，置 $D=s'-s$。略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-functoriality-differentials-ringed-spaces}
+设
+$$
+\xymatrix{
+X' \ar[d]_{h'} \ar[r]_f & X \ar[d]^h \\
+S' \ar[r]^g & S
+}
+$$
+为环空间的交换图。
+\begin{enumerate}
+\item 典范态射 $\mathcal{O}_X\to f_*\mathcal{O}_{X'}$ 与
+$f_*\text{d}_{X'/S'}:f_*\mathcal{O}_{X'}\to f_*\Omega_{X'/S'}$
+的复合是 $S$-导子，并由此得到典范的 $\mathcal{O}_X$-模层态射
+$\Omega_{X/S} \to f_*\Omega_{X'/S'}$.
+\item 交换图
+$$
+\xymatrix{
+f^{-1}\mathcal{O}_X \ar[r] & \mathcal{O}_{X'} \\
+f^{-1}h^{-1}\mathcal{O}_S \ar[u] \ar[r] & (h')^{-1}\mathcal{O}_{S'} \ar[u]
+}
+$$
+由引理 \ref{modules-lemma-pullback-differentials} 与
+\ref{modules-lemma-functoriality-differentials} 诱导典范态射
+$f^{-1}\Omega_{X/S}\to\Omega_{X'/S'}$。
+\end{enumerate}
+这两个态射（通过 $f_*$ 与 $f^*$ 的伴随性，并通过
+$f^*\Omega_{X/S} =
+f^{-1}\Omega_{X/S} \otimes_{f^{-1}\mathcal{O}_X} \mathcal{O}_{X'}$ 以及
+《层》引理 \ref{sheaves-lemma-adjointness-tensor-restrict}）
+对应于同一个 $\mathcal{O}_{X'}$-模层同态
+$$
+c_f : f^*\Omega_{X/S} \longrightarrow \Omega_{X'/S'}
+$$
+，它由如下性质唯一刻画：对 $\mathcal{O}_X$ 的任一局部截面
+$a$，$f^*\text{d}_{X/S}(a)$ 映到
+$\text{d}_{X'/S'}(f^*a)$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-check-functoriality-differentials}
+设
+$$
+\xymatrix{
+X'' \ar[d] \ar[r]_g & X' \ar[d] \ar[r]_f & X \ar[d] \\
+S'' \ar[r] & S' \ar[r] & S
+}
+$$
+为环空间的交换图。使用引理
+\ref{modules-lemma-functoriality-differentials-ringed-spaces} 中的记法，有
+$$
+c_{f \circ g} = c_g \circ g^* c_f
+$$
+，这是从 $(f\circ g)^*\Omega_{X/S}$ 到 $\Omega_{X''/S''}$ 的态射等式。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-triangle-differentials}
+设 $f:X\to Y$、$g:Y\to S$ 为环空间态射。则存在典范正合列
+$$
+f^*\Omega_{Y/S} \to \Omega_{X/S} \to \Omega_{X/Y} \to 0
+$$
+，其中各态射由应用引理
+\ref{modules-lemma-functoriality-differentials-ringed-spaces} 得到。
+\end{lemma}
+
+\begin{proof}
+在 $x\in X$ 处取诱导的茎态射，并使用引理
+\ref{modules-lemma-stalk-module-differentials}，得到序列
+$$
+\mathcal{O}_{X, x} \otimes_{\mathcal{O}_{Y, f(x)}}
+\Omega_{\mathcal{O}_{Y, f(x)}/\mathcal{O}_{S, g(f(x))}} \to
+\Omega_{\mathcal{O}_{X, x}/\mathcal{O}_{S, g(f(x))}} \to
+\Omega_{\mathcal{O}_{X, x}/\mathcal{O}_{Y, f(x)}} \to 0
+$$
+只需说明该序列中的态射与《代数》引理
+\ref{algebra-lemma-exact-sequence-differentials} 中的态射相同。
+这是因为引理 \ref{modules-lemma-functoriality-differentials-ringed-spaces}
+对这些态射的刻画，并且通过《层》引理
+\ref{sheaves-lemma-stalk-pullback-modules} 的同构，对任一
+$\mathcal{O}_Y$-模层的局部截面 $s$，有
+$(f^*s)_x=s_x\otimes1$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{有限阶微分算子}
+\label{modules-section-differential-operators}
+
+\noindent
+本节介绍有限阶微分算子。建议读者先看交换代数章节中的相应部分
+（《代数》第 \ref{algebra-section-differential-operators} 节）。
+
+\begin{definition}
+\label{modules-definition-differential-operators}
+设 $X$ 为拓扑空间，$\varphi:\mathcal{O}_1\to\mathcal{O}_2$
+为 $X$ 上的环层同态，$k\geq0$ 为整数，而
+$\mathcal{F},\mathcal{G}$ 为 $\mathcal{O}_2$-模层。
+{\it $k$ 阶微分算子 $D:\mathcal{F}\to\mathcal{G}$}是满足如下条件的
+$\mathcal{O}_1$-线性态射：对 $\mathcal{O}_2$ 的所有局部截面 $g$，
+态射 $s\mapsto D(gs)-gD(s)$ 是 $k-1$ 阶微分算子。
+对于起始情形 $k=0$，定义 $0$ 阶微分算子为
+$\mathcal{O}_2$-线性态射。
+\end{definition}
+
+\noindent
+若 $D:\mathcal{F}\to\mathcal{G}$ 是 $k$ 阶微分算子，则对
+$\mathcal{O}_2$ 的所有局部截面 $g$，态射 $gD$ 也是 $k$ 阶微分算子。
+两个 $k$ 阶微分算子之和仍是 $k$ 阶微分算子。因此所有这类算子之集
+$$
+\text{Diff}^k(\mathcal{F}, \mathcal{G}) =
+\text{Diff}^k_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F}, \mathcal{G})
+$$
+是 $\Gamma(X,\mathcal{O}_2)$-模。我们有
+$$
+\text{Diff}^0(\mathcal{F}, \mathcal{G}) \subset
+\text{Diff}^1(\mathcal{F}, \mathcal{G}) \subset
+\text{Diff}^2(\mathcal{F}, \mathcal{G}) \subset \ldots
+$$
+把开集 $U\subset X$ 映到 $k$ 阶微分算子
+$D:\mathcal{F}|_U\to\mathcal{G}|_U$ 所成模的规则，
+是 $X$ 上的 $\mathcal{O}_2$-模层。由此得到微分算子层
+（若以后需要，我们会在此补上定义）。
+
+\begin{lemma}
+\label{modules-lemma-composition-differential-operators}
+设 $X$ 为拓扑空间，$\mathcal{O}_1\to\mathcal{O}_2$
+为 $X$ 上的环层态射，$\mathcal{E},\mathcal{F},\mathcal{G}$
+为 $\mathcal{O}_2$-模层。若
+$D:\mathcal{E}\to\mathcal{F}$ 与
+$D':\mathcal{F}\to\mathcal{G}$ 分别为 $k$ 阶与 $k'$ 阶微分算子，
+则 $D'\circ D$ 是 $k+k'$ 阶微分算子。
+\end{lemma}
+
+\begin{proof}
+设 $g$ 为 $\mathcal{O}_2$ 的局部截面。于是把
+$\mathcal{E}$ 的局部截面 $x$ 映到
+$$
+D'(D(gx)) - gD'(D(x)) = D'(D(gx)) - D'(gD(x)) + D'(gD(x)) - gD'(D(x))
+$$
+的态射，是两个较低阶微分算子的复合之和。因此对 $k+k'$ 归纳即得本引理。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-module-principal-parts}
+设 $X$ 为拓扑空间，$\mathcal{O}_1\to\mathcal{O}_2$
+为 $X$ 上的环层态射，$\mathcal{F}$ 为 $\mathcal{O}_2$-模层，
+$k\geq0$。存在 $\mathcal{O}_2$-模层
+$\mathcal{P}^k_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F})$
+及典范同构
+$$
+\text{Diff}^k_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F}, \mathcal{G}) =
+\Hom_{\mathcal{O}_2}(
+\mathcal{P}^k_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F}), \mathcal{G})
+$$
+，它关于 $\mathcal{O}_2$-模层 $\mathcal{G}$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+存在性由一般范畴论论证得到（此处以后补引用），但我们也给出直接构造，
+因为此构造将在后续证明中有用。我们将自由使用引理
+\ref{modules-lemma-universal-module} 的证明中引入的记法。
+给定任一微分算子 $D:\mathcal{F}\to\mathcal{G}$，得到
+$\mathcal{O}_2$-线性态射
+$L_D : \mathcal{O}_2[\mathcal{F}] \to \mathcal{G}$
+，把 $[m]$ 映到 $D(m)$。若 $D$ 为 $0$ 阶，则 $L_D$
+零化局部截面
+$$
+[m + m'] - [m] - [m'],\quad
+g_0[m] - [g_0m]
+$$
+，其中 $g_0$ 是 $\mathcal{O}_2$ 的局部截面，而 $m,m'$
+是 $\mathcal{F}$ 的局部截面。若 $D$ 为 $1$ 阶，则 $L_D$
+零化局部截面
+$$
+[m + m' - [m] - [m'],\quad
+f[m] - [fm], \quad
+g_0g_1[m] - g_0[g_1m] - g_1[g_0m] + [g_1g_0m]
+$$
+，其中 $f$ 是 $\mathcal{O}_1$ 的局部截面，
+$g_0,g_1$ 是 $\mathcal{O}_2$ 的局部截面，而 $m,m'$
+是 $\mathcal{F}$ 的局部截面。若 $D$ 为 $k$ 阶，则 $L_D$
+零化局部截面 $[m+m']-[m]-[m']$、$f[m]-[fm]$ 以及局部截面
+$$
+g_0g_1\ldots g_k[m] - \sum g_0 \ldots \hat g_i \ldots g_k[g_im] + \ldots
++(-1)^{k + 1}[g_0\ldots g_km]
+$$
+反之，若 $L:\mathcal{O}_2[\mathcal{F}]\to\mathcal{G}$
+是零化前一句所列全部局部截面的 $\mathcal{O}_2$-线性态射，
+则 $m\mapsto L([m])$ 是 $k$ 阶微分算子。因此
+$\mathcal{P}^k_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F})$
+是 $\mathcal{O}_2[\mathcal{F}]$ 关于由这些局部截面生成的
+$\mathcal{O}_2$-子模层的商。
+\end{proof}
+
+\begin{definition}
+\label{modules-definition-module-principal-parts}
+设 $X$ 是一个拓扑空间，
+$\mathcal{O}_1 \to \mathcal{O}_2$ 是 $X$ 上环层之间的一个同态，
+$\mathcal{F}$ 是一个 $\mathcal{O}_2$-模层。
+称引理 \ref{modules-lemma-module-principal-parts} 中构造的模层
+$\mathcal{P}^k_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F})$
+为 $\mathcal{F}$ 的 {\it $k$ 阶主部模层}。
+\end{definition}
+
+\noindent
+注意，包含关系
+$$
+\text{Diff}^0(\mathcal{F}, \mathcal{G}) \subset
+\text{Diff}^1(\mathcal{F}, \mathcal{G}) \subset
+\text{Diff}^2(\mathcal{F}, \mathcal{G}) \subset \ldots
+$$
+通过 Yoneda 引理（《范畴论》，引理 \ref{categories-lemma-yoneda}）
+对应于满射
+$$
+\ldots \to \mathcal{P}^2_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F})
+\to \mathcal{P}^1_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F})
+\to \mathcal{P}^0_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F}) = \mathcal{F}
+$$
+
+\begin{lemma}
+\label{modules-lemma-differential-operators-sheafify}
+设 $X$ 是一个拓扑空间，$\mathcal{O}_1 \to \mathcal{O}_2$
+是 $X$ 上环预层之间的一个同态，$\mathcal{F}$ 是一个
+$\mathcal{O}_2$-模预层。则
+$\mathcal{P}^k_{\mathcal{O}_2^\#/\mathcal{O}_1^\#}(\mathcal{F}^\#)$
+是预层
+$U \mapsto P^k_{\mathcal{O}_2(U)/\mathcal{O}_1(U)}(\mathcal{F}(U))$.
+的伴随层。
+\end{lemma}
+
+\begin{proof}
+这可以完全仿照引理 \ref{modules-lemma-differentials-sheafify} 中微分层的情形证明。
+也许更自然的办法是直接利用引理
+\ref{modules-lemma-module-principal-parts} 的泛性质来得到该等式。
+细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-sequence-of-principal-parts}
+设 $X$ 是一个拓扑空间，$\mathcal{O}_1 \to \mathcal{O}_2$
+是 $X$ 上环层之间的一个同态，$\mathcal{F}$ 是一个
+$\mathcal{O}_2$-模层。存在典范短正合列
+$$
+0 \to
+\Omega_{\mathcal{O}_2/\mathcal{O}_1} \otimes_{\mathcal{O}_2} \mathcal{F} \to
+\mathcal{P}^1_{\mathcal{O}_2/\mathcal{O}_1}(\mathcal{F}) \to
+\mathcal{F} \to 0
+$$
+它对 $\mathcal{F}$ 具有函子性，称为{\it 主部序列}。
+\end{lemma}
+
+\begin{proof}
+这由交换代数版本（《代数》，引理
+\ref{algebra-lemma-sequence-of-principal-parts}）以及引理
+\ref{modules-lemma-differentials-sheafify} 和
+\ref{modules-lemma-differential-operators-sheafify} 推出。
+\end{proof}
+
+\begin{remark}
+\label{modules-remark-functoriality-principal-parts}
+设 $X$ 是一个拓扑空间，并给定 $X$ 上环层的交换图
+$$
+\xymatrix{
+\mathcal{B} \ar[r] & \mathcal{B}' \\
+\mathcal{A} \ar[u] \ar[r] & \mathcal{A}' \ar[u]
+}
+$$
+以及一个 $\mathcal{B}$-模层 $\mathcal{F}$、
+一个 $\mathcal{B}'$-模层 $\mathcal{F}'$ 和一个
+$\mathcal{B}$-线性同态 $\mathcal{F} \to \mathcal{F}'$。
+于是得到一族相容的模同态
+$$
+\xymatrix{
+\ldots \ar[r] &
+\mathcal{P}^2_{\mathcal{B}'/\mathcal{A}'}(\mathcal{F}') \ar[r] &
+\mathcal{P}^1_{\mathcal{B}'/\mathcal{A}'}(\mathcal{F}') \ar[r] &
+\mathcal{P}^0_{\mathcal{B}'/\mathcal{A}'}(\mathcal{F}') \\
+\ldots \ar[r] &
+\mathcal{P}^2_{\mathcal{B}/\mathcal{A}}(\mathcal{F}) \ar[r] \ar[u] &
+\mathcal{P}^1_{\mathcal{B}/\mathcal{A}}(\mathcal{F}) \ar[r] \ar[u] &
+\mathcal{P}^0_{\mathcal{B}/\mathcal{A}}(\mathcal{F}) \ar[u]
+}
+$$
+这些同态与此类同态的进一步复合相容。最容易的验证方法是使用引理
+\ref{modules-lemma-module-principal-parts} 的证明中以（局部）生成元和关系
+给出的模层 $\mathcal{P}^k_{\mathcal{B}/\mathcal{A}}(\mathcal{M})$
+的描述；也可以直接从这些模层的泛性质看出这一点。此外，这些同态与引理
+\ref{modules-lemma-sequence-of-principal-parts} 的短正合列相容。
+\end{remark}
+
+\noindent
+下面将定义推广到环空间的态射。
+
+\begin{definition}
+\label{modules-definition-relative-differential-operators}
+设 $(f, f^\sharp) : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$
+是环空间的一个态射，$\mathcal{F}$ 和 $\mathcal{G}$ 是
+$\mathcal{O}_X$-模层，$k \geq 0$ 是一个整数。
+所谓 $X/S$ 上的一个{\it $k$ 阶微分算子}，是指关于
+$f^\sharp : f^{-1}\mathcal{O}_S \to \mathcal{O}_X$
+的微分算子 $D : \mathcal{F} \to \mathcal{G}$。
+用 $\text{Diff}^k_{X/S}(\mathcal{F}, \mathcal{G})$
+表示这些微分算子的集合。
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{de Rham 复形}
+\label{modules-section-de-rham-complex}
+
+\noindent
+本节是《代数》第 \ref{algebra-section-de-rham-complex} 节对环空间态射的类似版本。
+我们建议读者先阅读该节。
+
+\medskip\noindent
+设 $X$ 是一个拓扑空间，$\mathcal{A} \to \mathcal{B}$ 是环层的一个同态。
+用
+$\text{d} : \mathcal{B} \to \Omega_{\mathcal{B}/\mathcal{A}}$
+表示第 \ref{modules-section-differentials} 节中构造的微分模层及其泛
+$\mathcal{A}$-导子。对 $i \geq 0$，令
+$$
+\Omega_{\mathcal{B}/\mathcal{A}}^i =
+\wedge^i_\mathcal{B}(\Omega_{\mathcal{B}/\mathcal{A}})
+$$
+为第 \ref{modules-section-symmetric-exterior} 节意义下的第 $i$ 个外幂。
+
+\begin{definition}
+\label{modules-definition-de-rham-complex}
+在上述情形中，$\mathcal{B}$ 在 $\mathcal{A}$ 上的
+{\it de Rham 复形}是唯一的 $\mathcal{A}$-模层复形
+$$
+\Omega_{\mathcal{B}/\mathcal{A}}^0 \to
+\Omega_{\mathcal{B}/\mathcal{A}}^1 \to
+\Omega_{\mathcal{B}/\mathcal{A}}^2 \to \ldots
+$$
+其 $0$ 次微分由
+$\text{d} : \mathcal{B} \to \Omega_{\mathcal{B}/\mathcal{A}}$
+给出，而更高次数的微分具有以下性质：
+\begin{equation}
+\label{modules-equation-rule}
+\text{d}\left(b_0\text{d}b_1 \wedge \ldots \wedge \text{d}b_p\right) =
+\text{d}b_0 \wedge \text{d}b_1 \wedge \ldots \wedge \text{d}b_p
+\end{equation}
+其中 $b_0, \ldots, b_p \in \mathcal{B}(U)$ 是同一个开集
+$U \subset X$ 上的截面。
+\end{definition}
+
+\noindent
+我们可以重复《代数》第 \ref{algebra-section-de-rham-complex} 节中繁复的论证来构造此复形。
+不过，回忆 $\Omega_{\mathcal{B}/\mathcal{A}}$ 是预层
+$U \mapsto \Omega_{\mathcal{B}(U)/\mathcal{A}(U)}$ 的层化，见引理
+\ref{modules-lemma-differentials-sheafify}。因此，
+$\Omega_{\mathcal{B}/\mathcal{A}}^i$ 是预层
+$U \mapsto \Omega^i_{\mathcal{B}(U)/\mathcal{A}(U)}$ 的层化，见引理
+\ref{modules-lemma-local-tensor-algebra}。所以，可以把 de Rham 复形定义为下述规则的层化：
+$$
+U \longmapsto
+\Omega^\bullet_{\mathcal{B}(U)/\mathcal{A}(U)}
+$$
+
+\begin{lemma}
+\label{modules-lemma-pullback-de-rham-complex}
+设 $f : Y \to X$ 是拓扑空间的一个连续映射，
+$\mathcal{A} \to \mathcal{B}$ 是 $X$ 上环层的一个同态。
+则 de Rham 复形之间存在典范等同
+$f^{-1}\Omega^\bullet_{\mathcal{B}/\mathcal{A}} =
+\Omega^\bullet_{f^{-1}\mathcal{B}/f^{-1}\mathcal{A}}$
+。
+\end{lemma}
+
+\begin{proof}
+从略。提示：与引理 \ref{modules-lemma-pullback-differentials} 比较。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-differentials-de-rham-complex-order-1}
+设 $X$ 是一个拓扑空间，$\mathcal{A} \to \mathcal{B}$
+是 $X$ 上环层的一个同态。微分
+$\text{d} : \Omega^i_{\mathcal{B}/\mathcal{A}}  \to
+\Omega^{i + 1}_{\mathcal{B}/\mathcal{A}}$
+是一阶微分算子。
+\end{lemma}
+
+\begin{proof}
+根据上面把 de Rham 复形构造为规则
+$U \mapsto \Omega^\bullet_{\mathcal{B}(U)/\mathcal{A}(U)}$ 的层化，
+这由《代数》引理
+\ref{algebra-lemma-differentials-de-rham-complex-order-1} 推出。
+\end{proof}
+
+\noindent
+设 $X$ 是一个拓扑空间，并设
+$$
+\xymatrix{
+\mathcal{B} \ar[r] & \mathcal{B}' \\
+\mathcal{A} \ar[r] \ar[u] & \mathcal{A}' \ar[u]
+}
+$$
+是 $X$ 上环层的一个交换图。存在 de Rham 复形的自然同态
+$$
+\Omega^\bullet_{\mathcal{B}/\mathcal{A}} \longrightarrow
+\Omega^\bullet_{\mathcal{B}'/\mathcal{A}'}
+$$
+具体而言，在 $0$ 次它是同态 $\mathcal{B} \to \mathcal{B}'$；
+在 $1$ 次它是第 \ref{modules-section-differentials} 节中构造的同态
+$\Omega_{\mathcal{B}/\mathcal{A}} \to \Omega_{\mathcal{B}'/\mathcal{A}'}$
+；而对 $p \geq 2$，它是诱导同态
+$\Omega^p_{\mathcal{B}/\mathcal{A}} =
+\wedge^p_\mathcal{B}(\Omega_{\mathcal{B}/\mathcal{A}}) \to
+\wedge^p_{\mathcal{B}'}(\Omega_{\mathcal{B}'/\mathcal{A}'}) =
+\Omega^p_{\mathcal{B}'/\mathcal{A}'}$.
+它与微分的相容性由公式 (\ref{modules-equation-rule}) 对微分的刻画得到。
+
+\begin{definition}
+\label{modules-definition-de-rham-complex-morphism-ringed-spaces}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 是环空间的一个态射。
+$f$ 的 de Rham 复形，或称 $X$ 在 $Y$ 上的 {\it de Rham 复形}，是复形
+$$
+\Omega^\bullet_{X/Y} = \Omega^\bullet_{\mathcal{O}_X/f^{-1}\mathcal{O}_Y}
+$$
+\end{definition}
+
+\noindent
+考虑环空间的交换图
+$$
+\xymatrix{
+X' \ar[d]_{h'} \ar[r]_f & X \ar[d]^h \\
+S' \ar[r]^g & S
+}
+$$
+于是得到 de Rham 复形的典范同态
+$$
+\Omega^\bullet_{X/S} \to f_*\Omega^\bullet_{X'/S'}
+$$
+事实上，$X'$ 上环层的交换图
+$$
+\xymatrix{
+f^{-1}\mathcal{O}_X \ar[r] & \mathcal{O}_{X'} \\
+f^{-1}h^{-1}\mathcal{O}_S \ar[u] \ar[r] & (h')^{-1}\mathcal{O}_{S'} \ar[u]
+}
+$$
+产生复形同态（见上文）
+$$
+f^{-1}\Omega^\bullet_{X/S} =
+\Omega^\bullet_{f^{-1}\mathcal{O}_X/f^{-1}h^{-1}\mathcal{O}_S}
+\longrightarrow
+\Omega^\bullet_{\mathcal{O}_{X'}/(h')^{-1}\mathcal{O}_{S'}} =
+\Omega^\bullet_{X'/S'}
+$$
+（第一个等式使用引理 \ref{modules-lemma-pullback-de-rham-complex}），
+然后应用伴随性即可。
+
+\begin{lemma}
+\label{modules-lemma-differentials-relative-de-rham-complex-order-1}
+设 $f : X \to Y$ 是环空间的一个态射。微分
+$\text{d} : \Omega^i_{X/Y}  \to \Omega^{i + 1}_{X/Y}$
+是 $X/Y$ 上的一阶微分算子。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{modules-lemma-differentials-de-rham-complex-order-1} 和定义得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{朴素余切复形}
+\label{modules-section-netherlander}
+
+\noindent
+本节是《代数》第 \ref{algebra-section-netherlander} 节对环空间态射的类似版本。
+我们建议读者先阅读该节。
+
+\medskip\noindent
+设 $X$ 是一个拓扑空间，$\mathcal{A} \to \mathcal{B}$ 是环层的一个同态。
+在本节中，对 $X$ 上任意集合层 $\mathcal{E}$，用
+$\mathcal{A}[\mathcal{E}]$ 表示预层
+$U \mapsto \mathcal{A}(U)[\mathcal{E}(U)]$ 的层化。这里，
+$\mathcal{A}(U)[\mathcal{E}(U)]$
+表示 $\mathcal{A}(U)$ 上以 $\mathcal{E}(U)$ 的元素为变量的多项式代数。
+对 $e \in \mathcal{E}(U)$，用
+$[e] \in \mathcal{A}(U)[\mathcal{E}(U)]$ 表示与 $e$ 对应的变量。
+存在 $\mathcal{A}$-代数的典范满射
+\begin{equation}
+\label{modules-equation-canonical-presentation}
+\mathcal{A}[\mathcal{B}] \longrightarrow \mathcal{B},\quad [b] \longmapsto b
+\end{equation}
+把它的核记作 $\mathcal{I} \subset \mathcal{A}[\mathcal{B}]$。
+容易看出，$\mathcal{I}$ 由局部截面
+$[b][b'] - [bb']$ 和 $[a] - a$ 生成。根据引理
+\ref{modules-lemma-differential-seq}，存在典范同态
+\begin{equation}
+\label{modules-equation-naive-cotangent-complex}
+\mathcal{I}/\mathcal{I}^2
+\longrightarrow
+\Omega_{\mathcal{A}[\mathcal{B}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{B}]} \mathcal{B}
+\end{equation}
+其余核典范同构于 $\Omega_{\mathcal{B}/\mathcal{A}}$。
+
+\begin{definition}
+\label{modules-definition-naive-cotangent-complex}
+设 $X$ 是一个拓扑空间，$\mathcal{A} \to \mathcal{B}$ 是环层的一个同态。
+{\it 朴素余切复形} $\NL_{\mathcal{B}/\mathcal{A}}$ 是链复形
+(\ref{modules-equation-naive-cotangent-complex})：
+$$
+\NL_{\mathcal{B}/\mathcal{A}} =
+\left(\mathcal{I}/\mathcal{I}^2
+\longrightarrow
+\Omega_{\mathcal{A}[\mathcal{B}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{B}]} \mathcal{B}\right)
+$$
+其中 $\mathcal{I}/\mathcal{I}^2$ 位于 $-1$ 次，而
+$\Omega_{\mathcal{A}[\mathcal{B}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{B}]} \mathcal{B}$
+位于 $0$ 次。
+\end{definition}
+
+\noindent
+此构造具有类似于引理 \ref{modules-lemma-functoriality-differentials}
+中对微分模层所讨论的函子性。具体而言，给定交换图
+\begin{equation}
+\label{modules-equation-commutative-square-sheaves}
+\vcenter{
+\xymatrix{
+\mathcal{B} \ar[r] & \mathcal{B}' \\
+\mathcal{A} \ar[u] \ar[r] & \mathcal{A}' \ar[u]
+}
+}
+\end{equation}
+作为 $X$ 上环层的图，存在典范的 $\mathcal{B}$-线性复形同态
+$$
+\NL_{\mathcal{B}/\mathcal{A}} \longrightarrow \NL_{\mathcal{B}'/\mathcal{A}'}
+$$
+事实上，交换图中的同态给出典范同态
+$\mathcal{A}[\mathcal{B}] \to \mathcal{A}'[\mathcal{B}']$
+，它把 $\mathcal{I}$ 映入
+$\mathcal{I}' = \Ker(\mathcal{A}'[\mathcal{B}'] \to \mathcal{B}')$.
+由此得到同态
+$\mathcal{I}/\mathcal{I}^2 \to \mathcal{I}'/(\mathcal{I}')^2$
+以及微分模层之间的同态，二者共同给出所需的朴素余切复形之间的同态。
+该同态在如下意义下与复合相容：给定交换图
+$$
+\xymatrix{
+\mathcal{B} \ar[r] &
+\mathcal{B}' \ar[r] &
+\mathcal{B}'' \\
+\mathcal{A} \ar[u] \ar[r] &
+\mathcal{A}' \ar[u] \ar[r] &
+\mathcal{A}'' \ar[u]
+}
+$$
+作为环层的图，则复合
+$$
+\NL_{\mathcal{B}/\mathcal{A}} \longrightarrow
+\NL_{\mathcal{B}'/\mathcal{A}'} \longrightarrow
+\NL_{\mathcal{B}''/\mathcal{A}''}
+$$
+就是外部矩形所对应的同态。
+
+\medskip\noindent
+可以选取 $\mathcal{B}$ 作为 $\mathcal{A}$ 上多项式代数之商的另一个表示，
+而仍在 $D(\mathcal{B})$ 中得到同一个对象。为说明这一点，设
+$\mathcal{E}$ 是 $X$ 上的一个集合层，
+$\alpha : \mathcal{E} \to \mathcal{B}$ 是集合层的一个映射。
+于是得到一个 $\mathcal{A}$-代数同态
+$\mathcal{A}[\mathcal{E}] \to \mathcal{B}$。若此同态满射，也就是说，
+若 $\alpha(\mathcal{E})$ 作为 $\mathcal{A}$-代数生成 $\mathcal{B}$，则令
+$$
+\NL(\alpha) = \left(
+\mathcal{J}/\mathcal{J}^2
+\longrightarrow
+\Omega_{\mathcal{A}[\mathcal{E}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}]} \mathcal{B}\right)
+$$
+其中 $\mathcal{J} \subset \mathcal{A}[\mathcal{E}]$ 是满射
+$\mathcal{A}[\mathcal{E}] \to \mathcal{B}$ 的核。结论如下。
+
+\begin{lemma}
+\label{modules-lemma-NL-up-to-qis}
+在上述情形中，$D(\mathcal{B})$ 中存在典范同构
+$\NL(\alpha) = \NL_{\mathcal{B}/\mathcal{A}}$。
+\end{lemma}
+
+\begin{proof}
+注意 $\NL_{\mathcal{B}/\mathcal{A}} = \NL(\text{id}_\mathcal{B})$。
+因此，只需证明：给定如上的两个映射
+$\alpha_i : \mathcal{E}_i \to \mathcal{B}$，在 $D(\mathcal{B})$ 中存在典范拟同构
+$\NL(\alpha_1) = \NL(\alpha_2)$。为此，令
+$\mathcal{E} = \mathcal{E}_1 \amalg \mathcal{E}_2$ 且
+$\alpha = \alpha_1 \amalg \alpha_2 : \mathcal{E} \to \mathcal{B}$.
+令
+$\mathcal{J}_i = \Ker(\mathcal{A}[\mathcal{E}_i] \to \mathcal{B})$
+以及
+$\mathcal{J} = \Ker(\mathcal{A}[\mathcal{E}] \to \mathcal{B})$.
+我们得到把 $\mathcal{J}_i$ 映入 $\mathcal{J}$ 的同态
+$\mathcal{A}[\mathcal{E}_i] \to \mathcal{A}[\mathcal{E}]$。
+因而得到典范复形同态
+$$
+\NL(\alpha_i) \longrightarrow \NL(\alpha)
+$$
+，只需证明这些同态是拟同构。为此，只需在茎上检验（引理
+\ref{modules-lemma-abelian}）。若 $x \in X$，则 $\NL(\alpha)$ 的茎是
+《代数》第 \ref{algebra-section-netherlander} 节中与映射
+$\alpha_x : \mathcal{E}_x \to \mathcal{B}_x$ 所给表示
+$\mathcal{A}_x[\mathcal{E}_x] \to \mathcal{B}_x$ 相伴的复形
+$\NL(\alpha_x)$。（省略若干细节；用引理
+\ref{modules-lemma-stalk-module-differentials} 验证形成微分与取茎相容。）
+于是由《代数》引理 \ref{algebra-lemma-NL-homotopy} 得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-pullback-NL}
+设 $f : X \to Y$ 是拓扑空间的一个连续映射，
+$\mathcal{A} \to \mathcal{B}$ 是 $Y$ 上环层的一个同态。则
+$f^{-1}\NL_{\mathcal{B}/\mathcal{A}} =
+\NL_{f^{-1}\mathcal{B}/f^{-1}\mathcal{A}}$。
+\end{lemma}
+
+\begin{proof}
+从略。提示：使用引理 \ref{modules-lemma-pullback-differentials}。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-stalk-NL}
+设 $X$ 是一个拓扑空间，$\mathcal{A} \to \mathcal{B}$
+是 $X$ 上环层的一个同态，并设 $x \in X$。则
+$\NL_{\mathcal{B}/\mathcal{A}, x} =
+\NL_{\mathcal{B}_x/\mathcal{A}_x}$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{modules-lemma-pullback-NL} 对包含映射 $\{x\} \to X$ 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{modules-lemma-exact-sequence-NL}
+设 $X$ 是一个拓扑空间，并设
+$\mathcal{A} \to \mathcal{B} \to \mathcal{C}$
+是环层的同态。令 $C$ 为复形同态
+$\NL_{\mathcal{C}/\mathcal{A}} \to \NL_{\mathcal{C}/\mathcal{B}}$
+的锥（《导出范畴》，定义 \ref{derived-definition-cone}）。
+存在 $\mathcal{C}$-模层复形的典范同态
+$$
+c :
+\NL_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B} \mathcal{C}
+\longrightarrow
+C[-1]
+$$
+，它给出上同调层的典范六项正合列
+$$
+\xymatrix{
+H^0(\NL_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B} \mathcal{C}) \ar[r] &
+H^0(\NL_{\mathcal{C}/\mathcal{A}}) \ar[r] &
+H^0(\NL_{\mathcal{C}/\mathcal{B}}) \ar[r] &
+0 \\
+H^{-1}(\NL_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B} \mathcal{C}) \ar[r] &
+H^{-1}(\NL_{\mathcal{C}/\mathcal{A}}) \ar[r] &
+H^{-1}(\NL_{\mathcal{C}/\mathcal{B}}) \ar[llu]
+}
+$$
+。
+\end{lemma}
+
+\begin{proof}
+为给出同态 $c$，必须给出同态
+$c_1 : \NL_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B} \mathcal{C}
+\to \NL_{\mathcal{C}/\mathcal{A}}$，以及复合
+$$
+\NL_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B} \mathcal{C} \to
+\NL_{\mathcal{C}/\mathcal{A}} \to \NL_{\mathcal{C}/\mathcal{B}}
+$$
+与零同态之间的一个显式同伦，见《导出范畴》引理
+\ref{derived-lemma-map-from-cone}。对 $c_1$，对显然的图使用上述函子性。
+对该同伦，使用同态
+$$
+\NL_{\mathcal{B}/\mathcal{A}}^0 \otimes_\mathcal{B} \mathcal{C}
+\longrightarrow
+\NL_{\mathcal{C}/\mathcal{B}}^{-1},\quad
+\text{d}[b] \otimes 1 \longmapsto [\varphi(b)] - b[1]
+$$
+其中 $\varphi : \mathcal{B} \to \mathcal{C}$ 是给定同态。请与《代数》评注
+\ref{algebra-remark-composition-homotopy-equivalent-to-zero} 比较。
+为得到关于上同调层的结论，只需证明 $H^0(c)$ 是同构且
+$H^{-1}(c)$ 是满射。为此可以考察茎，见引理
+\ref{modules-lemma-stalk-NL}；然后使用交换代数中的相应结论，见《代数》引理
+\ref{algebra-lemma-exact-sequence-NL}。省略若干细节。
+\end{proof}
+
+\noindent
+环空间态射的余切复形用上面定义的余切复形来定义。
+
+\begin{definition}
+\label{modules-definition-cotangent-complex-morphism-ringed-topoi}
+环空间态射 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 的
+{\it 朴素余切复形} $\NL_f = \NL_{X/Y}$ 是
+$\NL_{\mathcal{O}_X/f^{-1}\mathcal{O}_Y}$。
+\end{definition}
+
+\noindent
+给定环空间的交换图
+$$
+\xymatrix{
+X' \ar[r]_g \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^h & Y
+}
+$$
+，存在典范同态 $c : g^*\NL_{X/Y} \to \NL_{X'/Y'}$。具体而言，它是同态
+$$
+g^*\NL_{X/Y} =
+\mathcal{O}_{X'} \otimes_{g^{-1}\mathcal{O}_X}
+\NL_{g^{-1}\mathcal{O}_X/g^{-1}f^{-1}\mathcal{O}_Y}
+\longrightarrow
+\NL_{\mathcal{O}_{X'}/(f')^{-1}\mathcal{O}_{Y'}} = \NL_{X'/Y'}
+$$
+，其中箭头来自环层的交换图
+$$
+\xymatrix{
+g^{-1}\mathcal{O}_X \ar[r]_{g^\sharp} &
+\mathcal{O}_{X'} \\
+g^{-1}f^{-1}\mathcal{O}_Y
+\ar[r]^{g^{-1}h^\sharp}
+\ar[u]^{g^{-1}f^\sharp} &
+(f')^{-1}\mathcal{O}_{Y'} \ar[u]_{(f')^\sharp}
+}
+$$
+，如上面的 (\ref{modules-equation-commutative-square-sheaves})。再给定一个这样的图
+$$
+\xymatrix{
+X'' \ar[r]_{g'} \ar[d] & X' \ar[d] \\
+Y'' \ar[r] & Y'
+}
+$$
+，则 $(g')^*c$ 与同态
+$c' : (g')^*\NL_{X'/Y'} \to \NL_{X''/Y''}$
+的复合是同态 $(g \circ g')^*\NL_{X''/Y''} \to \NL_{X/Y}$。
+
+\begin{lemma}
+\label{modules-lemma-exact-sequence-NL-ringed-topoi}
+设 $f : X \to Y$ 和 $g : Y \to Z$ 是环空间的态射。
+令 $C$ 为 $\mathcal{O}_X$-模层复形同态
+$\NL_{X/Z} \to \NL_{X/Y}$ 的锥。存在典范同态
+$$
+f^*\NL_{Y/Z} \to C[-1]
+$$
+，它给出上同调层的典范六项正合列
+$$
+\xymatrix{
+H^0(f^*\NL_{Y/Z}) \ar[r] &
+H^0(\NL_{X/Z}) \ar[r] &
+H^0(\NL_{X/Y}) \ar[r] &
+0 \\
+H^{-1}(f^*\NL_{Y/Z}) \ar[r] &
+H^{-1}(\NL_{X/Z}) \ar[r] &
+H^{-1}(\NL_{X/Y}) \ar[llu]
+}
+$$
+。
+\end{lemma}
+
+\begin{proof}
+考虑环层的同态
+$$
+(g \circ f)^{-1}\mathcal{O}_Z \to f^{-1}\mathcal{O}_Y \to \mathcal{O}_X
+$$
+并应用引理 \ref{modules-lemma-exact-sequence-NL}。
+\end{proof}

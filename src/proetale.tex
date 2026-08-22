@@ -1,0 +1,5443 @@
+% Generated mechanically from the frozen proetale.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% 好，从这里开始。
+%
+
+\setcounter{chapter}{60}
+\chapter{Pro-\'etale 上同调}
+
+
+
+\phantomsection
+\label{proetale-section-phantom}
+
+
+\section{引言}
+\label{proetale-section-introduction}
+
+\noindent
+本章及更多相关内容可见预印本 \cite{BS}。
+
+\medskip\noindent
+本章的目标是介绍 pro-\'etale 拓扑，并发展该拓扑下阿贝尔层上同调的
+基本理论。另一个目标是说明，使用 pro-\'etale 拓扑可以简化代数几何中
+$\ell$-进上同调的引入。
+
+\medskip\noindent
+下面简要回顾我们所理解的 $\ell$-进 \'etale 上同调史。
+在 \cite[报告 V 与 VI]{SGA5} 中，Grothendieck 等人发展出一套理论，
+把 $\ell$-进层处理为 $\mathbf{Z}/\ell^n\mathbf{Z}$-模层的逆系统。
+Deligne 在关于 Weil 猜想的第二篇论文（\cite{WeilII}）中，把
+$\ell$-进层的导出范畴引入为若干范畴的一个 2-极限；这些范畴由概形
+$X$ 的 \'etale 位点上 $\mathbf{Z}/\ell^n\mathbf{Z}$-模层的复形组成。
+Beilinson、Bernstein 与 Deligne 的论文（\cite{BBD}）以这种方法为
+基础，建立了优美的变态层理论。Uwe Jannsen 在题为“连续 \'Etale
+上同调”的论文（\cite{Jannsen}）中，讨论了域上簇的一个 $\ell$-进层
+上同调的重要变体。随后 Torsten Ekedahl 的论文（\cite{Ekedahl}）
+讨论了便利地处理定义为极限的导出范畴所需的进形式体系。
+
+\medskip\noindent
+事实表明，在概形的 pro-\'etale 位点上工作，可以避开这些作者遇到的
+一部分技术困难。代价是必须处理非 Noether 概形；即使我们只关心
+代数闭域上簇的 $\ell$-进层及其上同调，也仍然如此。
+
+\medskip\noindent
+概形的（小）pro-\'etale 位点具有足够多的拟紧 w-可缩对象，这是一个
+非常重要而显著的特征。这些对象的存在，对阿贝尔层的导出范畴以及层的
+逆系统产生若干有用而（或许）不寻常的推论。正是这一特征使我们能够
+处理 $\ell$-进层所涉及的种种微妙之处；不过，正如后文将看到的，
+它还有不少其他益处。
+
+
+
+
+\section{若干拓扑学}
+\label{proetale-section-topology}
+
+\noindent
+先作若干准备。我们已在“拓扑学”第
+\ref{topology-section-spectral} 节定义了{\it 谱空间}及谱空间之间的
+{\it 谱映射}。环的谱是谱空间；见“代数”引理
+\ref{algebra-lemma-spec-spectral}。
+
+\begin{lemma}
+\label{proetale-lemma-spectral-split}
+设 $X$ 为谱空间，并设 $X_0\subset X$ 为闭点集。下列条件等价：
+\begin{enumerate}
+\item $X$ 的每个开覆盖都可由有限不交并分解
+$X=\coprod U_i$ 加细，其中各 $U_i$ 在 $X$ 中既开又闭。
+\item 复合映射 $X_0\to X\to\pi_0(X)$ 为双射。
+\end{enumerate}
+此外，若 $X_0$ 在 $X$ 中闭，且 $X$ 的每个点都特化到 $X_0$ 中唯一的
+一点，则上述条件成立。
+\end{lemma}
+
+\begin{proof}
+以下将直接使用：$X_0$ 拟紧（“拓扑学”引理
+\ref{topology-lemma-closed-points-quasi-compact}），且 $\pi_0(X)$
+是预有限空间（“拓扑学”引理 \ref{topology-lemma-spectral-pi0}）。
+考虑图
+$$
+\xymatrix{
+X_0 \ar[rd]_f \ar[r] & X \ar[d]^\pi \\
+& \pi_0(X)
+}
+$$
+若 (2) 成立，则由“拓扑学”引理 \ref{topology-lemma-bijective-map}，
+连续双射 $f:X_0\to\pi_0(X)$ 是同胚。给定开覆盖
+$X=\bigcup U_i$，便得到开覆盖
+$\pi_0(X)=\bigcup f(X_0\cap U_i)$。由“拓扑学”引理
+\ref{topology-lemma-profinite-refine-open-covering}，可找到形如
+$\pi_0(X)=\coprod V_j$ 的有限开覆盖来加细它。由于
+$X_0\to\pi_0(X)$ 为双射，$X$ 的每个连通分支都有唯一闭点，因而恰为
+特化到该闭点的所有点组成的集合。因此，$\pi^{-1}(V_j)$ 是特化到
+$f^{-1}(V_j)$ 中各点的点集。若
+$f^{-1}(V_j)\subset X_0\cap U_i\subset U_i$，则
+$\pi^{-1}(V_j)\subset U_i$（因为开集 $U_i$ 在泛化下封闭）。由此，
+开覆盖 $X=\coprod\pi^{-1}(V_j)$ 加细了原来的覆盖。这证明 (2)
+蕴涵 (1)。
+
+\medskip\noindent
+假设 (1)。设 $x,y\in X$ 为闭点。于是有开覆盖
+$X=(X\setminus\{x\})\cup(X\setminus\{y\})$。由 (1)，存在不交并分解
+$X=U\amalg V$，其中 $U$ 与 $V$ 均开（亦均闭），且 $x\in U$、$y\in V$。
+特别地，$X$ 的每个连通分支至多有一个闭点。由“拓扑学”引理
+\ref{topology-lemma-quasi-compact-closed-point}，每个连通分支
+（它是闭的）也确有一个闭点。因此 $X_0\to\pi_0(X)$ 为双射，
+这证明 (1) 蕴涵 (2)。
+
+\medskip\noindent
+假设 $X_0$ 在 $X$ 中闭，且每个点都特化到 $X_0$ 中唯一的一点。
+则 $X_0$ 是由闭点组成的谱空间（“拓扑学”引理
+\ref{topology-lemma-spectral-sub}），故为预有限空间（“拓扑学”引理
+\ref{topology-lemma-characterize-profinite-spectral}）。设
+$x,y\in X_0$ 互异。由“拓扑学”引理
+\ref{topology-lemma-profinite-refine-open-covering}，可找到不交并分解
+$X_0=U_0\amalg V_0$，其中 $U_0$ 与 $V_0$ 均开且闭，并且
+$x\in U_0$、$y\in V_0$。令 $U\subset X$（相应地 $V\subset X$）
+为特化到 $U_0$（相应地 $V_0$）的点集。注意
+$X=U\amalg V$。由“拓扑学”引理
+\ref{topology-lemma-make-spectral-space}，$U$ 是拟紧开子集的交，
+故 $U$ 在可构造拓扑中闭。又因 $U$ 在特化下封闭，由“拓扑学”引理
+\ref{topology-lemma-constructible-stable-specialization-closed}，
+$U$ 闭。由对称性，$V$ 也闭，故 $U$ 与 $V$ 均开且闭。这证明 $x,y$
+不在 $X$ 的同一连通分支中。换言之，$X_0\to\pi_0(X)$ 为单射。
+由“拓扑学”引理 \ref{topology-lemma-quasi-compact-closed-point}
+以及连通分支为闭集这一事实，该映射也满。于是最后一个条件蕴涵 (2)。
+\end{proof}
+
+\begin{example}
+\label{proetale-example-not-w-local}
+设 $T$ 为预有限空间。取一点 $t\in T$，并假设
+$T\setminus\{t\}$ 不拟紧。令 $X=T\times\{0,1\}$。在 $X$ 上考虑
+由下列集合给出子基的拓扑：当 $U\subset T$ 开时的
+$U\times\{0,1\}$，集合 $X\setminus\{(t,0)\}$，以及当
+$U\subset T$ 开且 $t\not \in U$ 时的 $U\times\{1\}$。
+$X$ 的闭点集为 $X_0=T\times\{0\}$，而 $(t,1)$ 属于 $X_0$ 的闭包。
+此外，$X_0\to\pi_0(X)$ 是双射。此例说明，引理
+\ref{proetale-lemma-spectral-split} 的条件 (1) 与 (2) 并不蕴涵闭点集为闭集。
+\end{example}
+
+\noindent
+事实表明，使用满足引理 \ref{proetale-lemma-spectral-split} 末句所述稍强性质的
+谱空间更为方便。我们给这一性质命名。
+
+\begin{definition}
+\label{proetale-definition-w-local}
+若谱空间 $X$ 的闭点集 $X_0$ 为闭集，且 $X$ 的每个点都特化到唯一的
+闭点，则称该空间为{\it w-局部的}。w-局部空间之间的连续映射
+$f:X\to Y$ 称为{\it w-局部的}，如果它是谱映射，并把 $X$ 的每个
+闭点映到 $Y$ 的闭点。
+\end{definition}
+
+\noindent
+在引理 \ref{proetale-lemma-spectral-split} 的证明中已经看到，此时
+$X_0\to\pi_0(X)$ 是同胚，且 $X_0\cong\pi_0(X)$ 为预有限空间。
+此外，$X$ 的一个连通分支恰是特化到某个给定 $x\in X_0$ 的所有点
+组成的集合。
+
+\begin{lemma}
+\label{proetale-lemma-closed-subspace-w-local}
+设 $X$ 为 w-局部谱空间。若 $Y\subset X$ 闭，则 $Y$ 为 w-局部的。
+\end{lemma}
+
+\begin{proof}
+闭点子集 $Y_0\subset Y$ 为闭集，因为 $Y_0=X_0\cap Y$。由于 $X$
+是 $w$-局部的，每个 $y\in Y$ 都特化到 $X_0$ 中唯一的一点。又因
+$\overline{\{y\}}\subset Y$，该特化点属于 $Y$，从而也属于 $Y_0$。
+故 $Y$ 为 $w$-局部的。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-silly}
+设 $X$ 为谱空间，并设
+$$
+\xymatrix{
+Y \ar[r] \ar[d] & T \ar[d] \\
+X \ar[r] & \pi_0(X)
+}
+$$
+为拓扑空间范畴中的笛卡尔图，其中 $T$ 为预有限空间。则 $Y$ 为
+谱空间，且 $T=\pi_0(Y)$。若再假设 $X$ 为 w-局部的，则 $Y$ 为
+w-局部的，$Y\to X$ 为 w-局部映射，并且 $Y$ 的闭点集是 $X$
+的闭点集的逆像。
+\end{lemma}
+
+\begin{proof}
+注意，$\pi_0(X)$ 是预有限空间，因而是 Hausdorff 的，所以 $Y$ 是
+$X\times T$ 的闭子空间（使用“拓扑学”引理
+\ref{topology-lemma-spectral-pi0} 与
+\ref{topology-lemma-fibre-product-closed}）。又因 $X\times T$
+为谱空间（“拓扑学”引理
+\ref{topology-lemma-product-spectral-spaces}），故 $Y$ 为谱空间
+（“拓扑学”引理 \ref{topology-lemma-spectral-sub}）。考虑典范分解
+$Y\to\pi_0(Y)\to T$（“拓扑学”引理
+\ref{topology-lemma-space-connected-components}）。显然
+$\pi_0(Y)\to T$ 满射。$Y\to T$ 的各纤维同胚于
+$X\to\pi_0(X)$ 的各纤维，因而连通。于是 $\pi_0(Y)\to T$ 单射。
+由“拓扑学”引理 \ref{topology-lemma-bijective-map}，
+$\pi_0(Y)\to T$ 是同胚。
+
+\medskip\noindent
+再假设 $X$ 为 w-局部的，并以 $X_0\subset X$ 表示闭点集。令
+$Y_0\subset Y$ 为 $X_0$ 在 $Y$ 中的逆像。由引理
+\ref{proetale-lemma-spectral-split}，$X_0\to\pi_0(X)$ 为双射，故
+该逆像双射地映到 $T$。此外，$Y_0$ 是谱空间 $Y$ 的闭子集，因而拟紧。
+于是由“拓扑学”引理 \ref{topology-lemma-bijective-map}，
+$Y_0\to\pi_0(Y)=T$ 为同胚。因此 $Y_0$ 的所有点在 $Y$ 中均为闭点。
+反之，若 $y\in Y$ 为闭点，则它在 $Y\to\pi_0(Y)=T$ 的相应纤维中闭，
+从而其在 $X$ 中的像 $x$ 在 $X\to\pi_0(X)$ 的同胚纤维中闭。
+这蕴涵 $x\in X_0$，故 $y\in Y_0$。所以 $Y_0$ 正是 $Y$ 的闭点集；
+对每个 $y\in Y_0$，$y$ 的所有泛化点组成 $Y\to\pi_0(Y)$ 的相应
+纤维。引理得证。
+\end{proof}
+
+
+
+
+\section{局部同构}
+\label{proetale-section-local-isomorphism}
+
+\noindent
+先给出一个定义。
+
+\begin{definition}
+\label{proetale-definition-local-isomorphism}
+设 $\varphi:A\to B$ 为环映射。
+\begin{enumerate}
+\item 若对每个素理想 $\mathfrak q\subset B$，都存在
+$g\in B$、$g\not \in\mathfrak q$，使 $A\to B_g$ 诱导开浸入
+$\Spec(B_g)\to\Spec(A)$，则称 $A\to B$ 为{\it 局部同构}。
+\item 若对每个素理想 $\mathfrak q\subset B$，典范映射
+$A_{\varphi^{-1}(\mathfrak q)}\to B_\mathfrak q$ 都是同构，则称
+$A\to B$ {\it 诱导局部环同构}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+列出若干初等性质。
+
+\begin{lemma}
+\label{proetale-lemma-base-change-local-isomorphism}
+设 $A\to B$ 与 $A\to A'$ 为环映射，并令
+$B'=B\otimes_AA'$ 为 $B$ 的基变换。
+\begin{enumerate}
+\item 若 $A\to B$ 为局部同构，则 $A'\to B'$ 为局部同构。
+\item 若 $A\to B$ 诱导局部环同构，则 $A'\to B'$ 也诱导局部环同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-composition-local-isomorphism}
+设 $A\to B$ 与 $B\to C$ 为环映射。
+\begin{enumerate}
+\item 若 $A\to B$ 与 $B\to C$ 均为局部同构，则 $A\to C$ 为局部同构。
+\item 若 $A\to B$ 与 $B\to C$ 均诱导局部环同构，则 $A\to C$
+也诱导局部环同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-local-isomorphism-permanence}
+设 $A$ 为环，并设 $B\to C$ 为 $A$-代数同态。
+\begin{enumerate}
+\item 若 $A\to B$ 与 $A\to C$ 均为局部同构，则 $B\to C$ 为局部同构。
+\item 若 $A\to B$ 与 $A\to C$ 均诱导局部环同构，则 $B\to C$
+也诱导局部环同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-local-isomorphism-implies}
+设 $A\to B$ 为局部同构。则
+\begin{enumerate}
+\item $A\to B$ 是 \'etale 的；
+\item $A\to B$ 诱导局部环同构；
+\item $A\to B$ 拟有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-structure-local-isomorphism}
+设 $A\to B$ 为局部同构。则存在 $n\geq0$、
+$g_1,\ldots,g_n\in B$ 与 $f_1,\ldots,f_n\in A$，使得
+$(g_1,\ldots,g_n)=B$ 且 $A_{f_i}\cong B_{g_i}$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-fully-faithful-spaces-over-X}
+设
+$p:(Y,\mathcal{O}_Y)\to(X,\mathcal{O}_X)$ 与
+$q:(Z,\mathcal{O}_Z)\to(X,\mathcal{O}_X)$ 为局部环空间的态射。
+若 $\mathcal{O}_Y=p^{-1}\mathcal{O}_X$，则
+$$
+\Mor_{\text{LRS}/(X, \mathcal{O}_X)}((Z, \mathcal{O}_Z), (Y, \mathcal{O}_Y))
+\longrightarrow
+\Mor_{\textit{Top}/X}(Z, Y),\quad
+(f, f^\sharp) \longmapsto f
+$$
+为双射。这里 $\text{LRS}/(X,\mathcal{O}_X)$ 是 $X$ 上局部环空间的
+范畴，$\textit{Top}/X$ 是 $X$ 上拓扑空间的范畴。
+\end{lemma}
+
+\begin{proof}
+由定义立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-local-isomorphism-fully-faithful}
+设 $A$ 为环，并置 $X=\Spec(A)$。函子
+$$
+B \longmapsto \Spec(B)
+$$
+从满足 $A\to B$ 诱导局部环同构的 $A$-代数 $B$ 所成范畴，到
+$X$ 上拓扑空间的范畴，是全忠实的。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{proetale-lemma-fully-faithful-spaces-over-X} 以及下述事实得到：
+若 $A\to B$ 诱导局部环同构，则 $\Spec(A)$ 的结构层沿
+$p:\Spec(B)\to\Spec(A)$ 的拉回等于 $\Spec(B)$ 的结构层。
+\end{proof}
+
+
+
+
+\section{Ind-Zariski 代数}
+\label{proetale-section-ind-zariski}
+
+\noindent
+先给出一个定义；它与论文 \cite{BS} 中相应定义的比较见注
+\ref{proetale-remark-slightly-stronger}。
+
+\begin{definition}
+\label{proetale-definition-ind-zariski}
+若 $B$ 可写成滤过余极限 $B=\colim B_i$，且每个 $A\to B_i$ 都是
+局部同构，则称环映射 $A\to B$ 为 {\it ind-Zariski} 的。
+\end{definition}
+
+\noindent
+局部化 $A\to S^{-1}A$ 是 ind-Zariski 映射的一个例子；见“代数”引理
+\ref{algebra-lemma-localization-colimit}。ind-Zariski 代数范畴对若干
+自然运算封闭。
+
+\begin{lemma}
+\label{proetale-lemma-base-change-ind-zariski}
+设 $A\to B$ 与 $A\to A'$ 为环映射，并令
+$B'=B\otimes_AA'$ 为 $B$ 的基变换。若 $A\to B$ 为 ind-Zariski，
+则 $A'\to B'$ 为 ind-Zariski。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-composition-ind-zariski}
+设 $A\to B$ 与 $B\to C$ 为环映射。若 $A\to B$ 与 $B\to C$
+均为 ind-Zariski，则 $A\to C$ 为 ind-Zariski。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-ind-zariski-permanence}
+设 $A$ 为环，并设 $B\to C$ 为 $A$-代数同态。若 $A\to B$ 与
+$A\to C$ 均为 ind-Zariski，则 $B\to C$ 为 ind-Zariski。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-ind-ind-zariski}
+ind-Zariski $A$-代数的滤过余极限在 $A$ 上仍为 ind-Zariski。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-ind-zariski-implies}
+设 $A\to B$ 为 ind-Zariski。则 $A\to B$ 诱导局部环同构。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+\section{构造 w-局部仿射概形}
+\label{proetale-section-construction}
+
+\noindent
+若仿射概形 $X$ 的底拓扑空间为 w-局部的（定义
+\ref{proetale-definition-w-local}），则称该概形为 {\it w-局部的}。事实表明，
+对任意环 $A$，都存在典范的忠实平坦 ind-Zariski 环映射
+$A\to A_w$，使 $\Spec(A_w)$ 为 w-局部的。构造 $A_w$ 的关键是
+下述简单引理。
+
+\begin{lemma}
+\label{proetale-lemma-localization}
+设 $A$ 为环，置 $X=\Spec(A)$。设 $Z\subset X$ 为形如
+$D(f)\cap V(I)$ 的局部闭子概形，其中 $f\in A$ 且 $I\subset A$ 为理想。则
+\begin{enumerate}
+\item 存在乘法子集 $S\subset A$，使得 $\Spec(S^{-1}A)$ 同胚地映到
+$X$ 中特化到 $Z$ 的点集；
+\item $A$-代数 $A_Z^\sim=S^{-1}A$ 仅依赖于底层局部闭子集
+$Z\subset X$；
+\item $Z$ 是 $\Spec(A_Z^\sim)$ 的闭子概形。
+\end{enumerate}
+若 $A\to A'$ 为环映射，且同样形状的局部闭子概形
+$Z'\subset X'=\Spec(A')$ 映入 $Z$，则存在唯一的 $A$-代数映射
+$A_Z^\sim\to(A')_{Z'}^\sim$。
+\end{lemma}
+
+\begin{proof}
+令 $S\subset A$ 为所有在
+$\Gamma(Z,\mathcal{O}_Z)=(A/I)_f$ 中映为可逆元的元素所成的乘法集。
+若 $A$ 的素理想 $\mathfrak p$ 不特化到 $Z$，则 $\mathfrak p$ 在
+$(A/I)_f$ 中生成单位理想。因此可对某个 $n\geq0$、
+$g\in\mathfrak p$、$h\in I$ 写成 $f^n=g+h$。于是 $g\in S$，
+故 $\mathfrak p$ 不属于 $S^{-1}A$ 的谱。反之，若 $\mathfrak p$
+确实特化到 $Z$，即
+$\mathfrak p\subset\mathfrak q\supset I$ 且
+$f\not \in\mathfrak q$，则 $S^{-1}A$ 映到 $A_\mathfrak q$，所以
+$\mathfrak p$ 属于 $S^{-1}A$ 的谱。这证明 (1)。
+
+\medskip\noindent
+局部化 $S^{-1}A$ 的同构类仅依赖于相应的子集
+$\Spec(S^{-1}A)\subset\Spec(A)$，故 (2) 成立。由构造，
+$S^{-1}A$ 满射到 $(A/I)_f$，故 (3) 成立。最后的断言则由下述事实
+推出：与 $Z'$ 对应的乘法子集 $S'\subset A'$ 包含乘法子集 $S$ 的像。
+\end{proof}
+
+\noindent
+设 $A$ 为环，并设 $E\subset A$ 为有限子集。考察 $E$ 中各元素的
+消失情形，可得到 $X=\Spec(A)$ 到局部闭子概形的分层。更准确地，
+对不交并分解 $E=E'\amalg E''$，置
+\begin{equation}
+\label{proetale-equation-stratum}
+Z(E', E'') =
+\bigcap\nolimits_{f \in E'} D(f) \cap \bigcap\nolimits_{f \in E''} V(f) =
+D(\prod\nolimits_{f \in E'} f) \cap V( \sum\nolimits_{f \in E''} fA)
+\end{equation}
+$Z(E',E'')$ 的点恰为满足下述条件的 $x\in X$：每个 $f\in E'$ 在
+$\kappa(x)$ 中的像非零，而每个 $f\in E''$ 在 $\kappa(x)$ 中的像
+为零。因此，集合意义下显然有
+\begin{equation}
+\label{proetale-equation-stratify}
+X = \coprod\nolimits_{E = E' \amalg E''} Z(E', E'')
+\end{equation}
+。注意，每个分层片都是可构造的。
+
+\begin{lemma}
+\label{proetale-lemma-refine}
+设 $X=\Spec(A)$ 如上。给定由可构造子集组成的任意有限分层
+$X=\coprod T_i$，存在有限子集 $E\subset A$，使分层
+(\ref{proetale-equation-stratify}) 加细 $X=\coprod T_i$。
+\end{lemma}
+
+\begin{proof}
+可写成有限并
+$T_i=\bigcup_jU_{i,j}\cap V_{i,j}^c$，其中 $U_{i,j}$ 与 $V_{i,j}$ 是
+$X$ 中的拟紧开集。再写成
+$U_{i,j}=\bigcup D(f_{i,j,k})$ 与
+$V_{i,j}=\bigcup D(g_{i,j,l})$。置
+$E=\{f_{i,j,k}\}\cup\{g_{i,j,l}\}$ 即可，因为
+(\ref{proetale-equation-stratify}) 的各分层片由 $E$ 中元素的消失型标记，
+显然加细给定分层。
+\end{proof}
+
+\noindent
+继续上述讨论。给定有限子集 $E\subset A$，置
+\begin{equation}
+\label{proetale-equation-ring}
+A_E = \prod\nolimits_{E = E' \amalg E''} A_{Z(E', E'')}^\sim
+\end{equation}
+，其中沿用引理 \ref{proetale-lemma-localization} 的记号。此定义有意义，因为
+(\ref{proetale-equation-stratum}) 表明每个 $Z(E',E'')$ 都具有所需的形状。
+取此环的谱，记作
+\begin{equation}
+\label{proetale-equation-spectrum}
+X_E = \Spec(A_E) = \coprod\nolimits_{E = E' \amalg E''} X_{E', E''}
+\end{equation}
+，其中 $X_{E',E''}=\Spec(A_{Z(E',E'')}^\sim)$。注意
+\begin{equation}
+\label{proetale-equation-closed}
+Z_E = \coprod\nolimits_{E = E' \amalg E''} Z(E', E'')
+\longrightarrow
+X_E
+\end{equation}
+是闭子概形。由构造，闭子概形 $Z_E$ 包含仿射概形 $X_E$ 的所有闭点，
+因为 $X_{E',E''}$ 的每个点都特化到 $Z(E',E'')$ 的某个点。
+
+\medskip\noindent
+令 $I(A)$ 为 $A$ 的所有有限子集按包含关系组成的偏序集。这是有向偏序集。
+对 $E_1\subset E_2$，存在典范过渡映射
+$A_{E_1}\to A_{E_2}$，它是 $A$-代数映射。事实上，给定分解
+$E_2=E'_2\amalg E''_2$，置
+$E'_1=E_1\cap E'_2$ 与 $E''_1=E_1\cap E''_2$。注意
+$Z(E'_2,E''_2)\subset Z(E'_1,E''_1)$，故由引理
+\ref{proetale-lemma-localization}，存在唯一的 $A$-代数映射
+$A_{Z(E'_1,E''_1)}^\sim\to A_{Z(E'_2,E''_2)}^\sim$。把这些映射合在一起，
+便得到所需的环映射 $A_{E_1}\to A_{E_2}$。注意，对应的仿射概形映射
+\begin{equation}
+\label{proetale-equation-transition}
+X_{E_2} \longrightarrow X_{E_1}
+\end{equation}
+把 $Z_{E_2}$ 映入 $Z_{E_1}$。由唯一性，得到一个 $A$-代数系统，
+其指标集为 $I(A)$，并置
+\begin{equation}
+\label{proetale-equation-colimit-ring}
+A_w = \colim_{E \in I(A)} A_E
+\end{equation}
+这个 $A$-代数在 $A$ 上是 ind-Zariski 且忠实平坦的。最后，置
+$X_w=\Spec(A_w)$，并令其带有闭子概形
+$Z=\lim_{E\in I(A)}Z_E$。用公式表示为
+\begin{equation}
+\label{proetale-equation-final}
+X_w = \lim_{E \in I(A)} X_E \supset Z = \lim_{E \in I(A)} Z_E
+\end{equation}
+
+\begin{lemma}
+\label{proetale-lemma-make-w-local}
+设 $X=\Spec(A)$ 为仿射概形，并采用如上的 $A\to A_w$、
+$X_w=\Spec(A_w)$ 与 $Z\subset X_w$。则
+\begin{enumerate}
+\item $A\to A_w$ 是 ind-Zariski 且忠实平坦的；
+\item $X_w\to X$ 诱导双射 $Z\to X$；
+\item $Z$ 是 $X_w$ 的闭点集；
+\item $Z$ 是约化概形；
+\item $X_w$ 的每个点都特化到 $Z$ 的唯一一点。
+\end{enumerate}
+特别地，$X_w$ 是 w-局部的（定义 \ref{proetale-definition-w-local}）。
+\end{lemma}
+
+\begin{proof}
+由构造，映射 $A\to A_w$ 是 ind-Zariski 的。对每个 $E$，态射
+$Z_E\to X$ 都是双射，故 (2) 成立。由于 $Z\subset X_w$，可知
+$X_w\to X$ 满射；再由“代数”引理 \ref{algebra-lemma-ff-rings}，
+$A\to A_w$ 忠实平坦。这证明了 (1)。
+
+\medskip\noindent
+设 $y\in X_w$ 且 $y\not\in Z$。则存在 $E$，使 $y$ 在 $X_E$ 中的像
+不属于 $Z_E$。于是对每个 $E\subset E'$，$y$ 在 $X_{E'}$ 中的像也不
+属于 $Z_{E'}$。令 $T_{E'}\subset X_{E'}$ 为 $y$ 的像的闭包所给出的
+约化闭子概形。显然，$T=\lim_{E\subset E'}T_{E'}$ 是 $y$ 在 $X_w$
+中的闭包。对每个 $E\subset E'$，概形 $T_{E'}\cap Z_{E'}$ 由
+$X_{E'}$ 的构造非空。因此
+$\lim T_{E'}\cap Z_{E'}$ 非空，从而 $T\cap Z$ 非空。故 $y$ 不是闭点。
+这表明 $X_w$ 的每个闭点都属于 $Z$。
+
+\medskip\noindent
+设 $y\in X_w$ 特化到 $z,z'\in Z$。我们来证明 $z=z'$；这将完成 (3)
+的证明，并推出 (5)。令 $x,x'\in X$ 分别为 $z$ 与 $z'$ 的像。由于
+$Z\to X$ 是双射，只需证明 $x=x'$。若 $x \not = x'$，则存在 $f\in A$，
+使 $x\in D(f)$ 且 $x'\in V(f)$（或反之）。置 $E=\{f\}$，于是
+$$
+X_E = \Spec(A_f) \amalg \Spec(A_{V(f)}^\sim)
+$$
+可见 $z$ 与 $z'$ 分别映到 $x_E$ 与 $x'_E$，而后二者位于上述 $X_E$
+分解的不同部分。因此，$x_E$ 与 $x'_E$ 不可能是同一点的特化，
+这就是所需的矛盾。
+
+\medskip\noindent
+回忆，对有限子集 $E\subset A$，$Z_E$ 是局部闭子概形
+$Z(E',E'')$ 的不交并；其中每一项都同构于 $(A/I)_f$ 的谱，
+其中 $I$ 是由 $E''$ 生成的理想，$f$ 是 $E'$ 中各元素的乘积。
+任意幂零元 $b$ 在 $(A/I)_f$ 中都是 $g/f^n$ 的类，其中 $g\in A$。
+置 $E'=E\cup\{g\}$，读者可验证，$b$ 在此系统的过渡映射
+$Z_{E'}\to Z_E$ 下拉回为零。这证明了 (4)。
+\end{proof}
+
+\begin{remark}
+\label{proetale-remark-size-w}
+设 $A$ 为环，$\kappa$ 为不小于 $A$ 的基数的无限基数。则
+$A_w$（引理 \ref{proetale-lemma-make-w-local}）的基数至多为 $\kappa$。
+事实上，每个 $A_E$ 的基数至多为 $\kappa$，而 $A$ 的有限子集所成的
+集合的基数也至多为 $\kappa$。由于
+$\kappa\otimes\kappa=\kappa$，结论成立；见“集合”第
+\ref{sets-section-cardinals} 节。
+\end{remark}
+
+\begin{lemma}[此构造的泛性质]
+\label{proetale-lemma-universal}
+设 $A$ 为环，并设 $A\to A_w$ 为引理 \ref{proetale-lemma-make-w-local} 中构造的
+环映射。对任意环映射 $A\to B$，若 $\Spec(B)$ 是 w-局部的，则存在唯一分解
+$A\to A_w\to B$，使得 $\Spec(B)\to\Spec(A_w)$ 是 w-局部的。
+\end{lemma}
+
+\begin{proof}
+记 $Y=\Spec(B)$，并记 $Y_0\subset Y$ 为闭点集。记给定态射为
+$f:Y\to X$。回忆，$Y_0$ 是预有限的；特别地，$Y_0$ 的每个可构造子集
+都是开闭的。设 $E\subset A$ 为有限子集。回忆，
+$A_w=\colim A_E$，且 $\Spec(A_w)$ 的闭点集是闭子集
+$Z_E\subset X_E=\Spec(A_E)$ 的逆极限。因此，只需证明存在唯一分解
+$A\to A_E\to B$，使 $Y\to X_E$ 把 $Y_0$ 映入 $Z_E$。
+由于 $Z_E\to X=\Spec(A)$ 是双射，且各分层片 $Z(E',E'')$ 可构造，故
+$$
+Y_0 = \coprod f^{-1}(Z(E', E'')) \cap Y_0
+$$
+是到开闭子集的不交并分解。由于 $Y_0=\pi_0(Y)$，得到 $Y$ 到开闭部分的
+相应分解。因此，只需在 $f(Y_0)\subset Z(E',E'')$ 对某个分解
+$E=E'\amalg E''$ 成立时构造该分解。在这种情况下，$f(Y)$ 包含于
+$X$ 中特化到 $Z(E',E'')$ 的点集，而该点集同胚于 $X_{E',E''}$。
+于是得到唯一的连续映射 $Y\to X_{E',E''}$，它位于 $X$ 上。由引理
+\ref{proetale-lemma-fully-faithful-spaces-over-X}，它对应于唯一的概形态射
+$Y\to X_{E',E''}$，该态射位于 $X$ 上。证明完毕。
+\end{proof}
+
+\noindent
+回忆，环的谱为预有限空间，当且仅当其中每个点都是闭点。事实上，
+还有一系列与此等价的条件；见“代数”引理
+\ref{algebra-lemma-ring-with-only-minimal-primes} 或“拓扑学”引理
+\ref{topology-lemma-characterize-profinite-spectral}。
+
+\begin{lemma}
+\label{proetale-lemma-profinite-goes-up}
+设 $A$ 为环且 $\Spec(A)$ 为预有限空间，并设 $A\to B$ 为环映射。
+在下列每种情形下，$\Spec(B)$ 都是预有限空间：
+\begin{enumerate}
+\item 若 $\mathfrak q,\mathfrak q'\subset B$ 位于 $A$ 的同一个素理想之上，
+则既不成立 $\mathfrak q\subset\mathfrak q'$，也不成立
+$\mathfrak q'\subset\mathfrak q$；
+\item $A\to B$ 诱导代数的剩余域扩张；
+\item $A\to B$ 是局部同构；
+\item $A\to B$ 诱导局部环同构；
+\item $A\to B$ 是弱 \'etale 的；
+\item $A\to B$ 是拟有限的；
+\item $A\to B$ 是非分歧的；
+\item $A\to B$ 是 \'etale 的；
+\item $B$ 是具有 (1)--(8) 中性质的 $A$-代数的滤过余极限；
+\item 等等。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由上述参考结果（“代数”引理
+\ref{algebra-lemma-ring-with-only-minimal-primes} 或“拓扑学”引理
+\ref{topology-lemma-characterize-profinite-spectral}），$\Spec(A)$ 的不同点
+之间没有特化关系，而 $\Spec(B)$ 是预有限空间，当且仅当 $\Spec(B)$ 的
+不同点之间没有特化关系。这些特化关系只能发生在
+$\Spec(B)\to\Spec(A)$ 的纤维中。因此 (1) 成立。
+
+\medskip\noindent
+由“代数”引理 \ref{algebra-lemma-finite-residue-extension-closed}，
+(2) 的假设蕴含 $B$ 的所有素理想都是极大理想，故 (2) 成立。
+若 $A\to B$ 是局部同构或诱导局部环同构，则剩余域扩张均为平凡扩张，
+所以 (3) 与 (4) 由 (2) 得出。若 $A\to B$ 是弱 \'etale 的，则
+“代数续篇”引理
+\ref{more-algebra-lemma-weakly-etale-residue-field-extensions} 表明它诱导
+可分代数的剩余域扩张，故 (5) 由 (2) 得出。若 $A\to B$ 是拟有限的，
+则各纤维都是有限离散拓扑空间，故 (6) 由 (1) 得出。因此 (3) 由 (1)
+得出。情形 (7) 与 (8) 由此得出，因为非分歧及 \'etale 环映射是拟有限的
+（“代数”引理 \ref{algebra-lemma-unramified-quasi-finite} 与
+\ref{algebra-lemma-etale-quasi-finite}）。若
+$B=\colim B_i$ 是 $A$-代数的滤过余极限，则由“极限”引理
+\ref{limits-lemma-inverse-limit-top}，在拓扑空间范畴中有
+$\Spec(B)=\lim\Spec(B_i)$。因此，若每个 $\Spec(B_i)$ 都是预有限空间，
+则由“拓扑学”引理 \ref{topology-lemma-directed-inverse-limit-profinite}，
+$\Spec(B)$ 亦然。这证明了 (9)。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-localize-along-closed-profinite}
+设 $A$ 为环，并设 $V(I)\subset\Spec(A)$ 为一个作为拓扑空间是预有限的
+闭子集。则存在 ind-Zariski 环映射 $A\to B$，使得 $\Spec(B)$ 是
+w-局部的，其闭点集为 $V(IB)$，且 $A/I\cong B/IB$。
+\end{lemma}
+
+\begin{proof}
+取引理 \ref{proetale-lemma-make-w-local} 中的 $A\to A_w$ 与
+$Z\subset Y=\Spec(A_w)$。令 $T\subset Z$ 为 $V(I)$ 的逆像。
+由“拓扑学”引理 \ref{topology-lemma-bijective-map}，
+$T\to V(I)$ 是同胚。令 $B=(A_w)_T^\sim$；见引理
+\ref{proetale-lemma-localization}。显然，$B$ 是 w-局部的，且闭点集为 $V(IB)$。
+环映射 $A/I\to B/IB$ 是 ind-Zariski 的，并在底层拓扑空间上诱导同胚。
+故由引理 \ref{proetale-lemma-local-isomorphism-fully-faithful}，它是同构。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-w-local-algebraic-residue-field-extensions}
+设 $A$ 为环且 $X=\Spec(A)$ 是 w-局部的。设 $I\subset A$ 为定义闭点集
+$X_0$ 的根理想；该闭点集取自 $X$。设环映射 $A\to B$ 在各素理想处诱导代数的
+剩余域扩张。则
+\begin{enumerate}
+\item $Z=V(IB)$ 的每个点都是 $\Spec(B)$ 的闭点；
+\item 存在 ind-Zariski 环映射 $B\to C$，使得
+\begin{enumerate}
+\item $B/IB\to C/IC$ 是同构；
+\item 空间 $Y=\Spec(C)$ 是 w-局部的；
+\item 诱导映射 $p:Y\to X$ 是 w-局部的；
+\item $p^{-1}(X_0)$ 是 $Y$ 的闭点集。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+把引理 \ref{proetale-lemma-profinite-goes-up} 应用于 $A/I\to B/IB$，可知
+$Z=V(IB)=\Spec(B/IB)$ 的所有点都是闭点；事实上，$\Spec(B/IB)$ 是
+预有限空间。最后把引理 \ref{proetale-lemma-localize-along-closed-profinite}
+应用于 $IB\subset B$，即得结论。
+\end{proof}
+
+
+
+
+
+\section{诱导局部环同构与 ind-Zariski 的比较}
+\label{proetale-section-connected-components}
+
+\noindent
+ind-Zariski 环映射 $A \to B$ 诱导局部环同构（引理
+\ref{proetale-lemma-ind-zariski-implies}），但其逆命题不成立（“例”第
+\ref{examples-section-not-ind-etale} 节）。不过，诱导局部环同构的环映射
+可以用 ind-Zariski 环映射来描述；这给出一种结构定理，见命题
+\ref{proetale-proposition-maps-wich-identify-local-rings}。
+
+\medskip\noindent
+设 $A$ 为环，令 $X = \Spec(A)$。由“拓扑学”引理
+\ref{topology-lemma-spectral-pi0}（以及“代数”引理
+\ref{algebra-lemma-spec-spectral}），连通分支空间 $\pi_0(X)$ 是
+预有限空间。
+
+\begin{lemma}
+\label{proetale-lemma-construct}
+设 $A$ 为环，令 $X = \Spec(A)$。设 $T \subset \pi_0(X)$ 为闭子集。
+则存在满的 ind-Zariski 环映射 $A \to B$，使得
+$\Spec(B) \to \Spec(A)$ 诱导 $\Spec(B)$ 与 $T$ 在 $X$ 中的逆像之间的
+同胚。
+\end{lemma}
+
+\begin{proof}
+令 $Z \subset X$ 为 $T$ 的逆像。则 $Z$ 是 $X$ 中所有包含 $Z$ 的开闭
+子集的交 $Z = \bigcap Z_\alpha$；见“拓扑学”引理
+\ref{topology-lemma-closed-union-connected-components}。对每个 $\alpha$，
+有 $Z_\alpha = \Spec(A_\alpha)$，其中 $A \to A_\alpha$ 是局部同构
+（在一个幂等元处的局部化）。置 $B = \colim A_\alpha$ 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-construct-profinite}
+设 $A$ 为环并令 $X = \Spec(A)$。设 $T$ 为预有限空间，且
+$T \to \pi_0(X)$ 为连续映射。则存在 ind-Zariski 环映射
+$A \to B$，使得在记 $Y = \Spec(B)$ 时，下图
+$$
+\xymatrix{
+Y \ar[r] \ar[d] & \pi_0(Y) \ar[d] \\
+X \ar[r] & \pi_0(X)
+}
+$$
+在拓扑空间范畴中是笛卡尔图，并且作为 $\pi_0(X)$ 上的空间有
+$\pi_0(Y) = T$。
+\end{lemma}
+
+\begin{proof}
+具体地，把 $T = \lim T_i$ 写成以有向集为指标的有限离散空间逆系统的
+极限（见“拓扑学”引理 \ref{topology-lemma-profinite}）。对每个 $i$，令
+$Z_i = \Im(T \to \pi_0(X) \times T_i)$；这是闭子集。注意，
+$X \times T_i$ 是 $A_i = \prod_{t \in T_i} A$ 的谱，且
+$A \to A_i$ 是局部同构。由引理 \ref{proetale-lemma-construct}，
+$Z_i \subset \pi_0(X \times T_i) = \pi_0(X) \times T_i$ 对应于一个
+ind-Zariski 满射 $A_i \to B_i$，使得作为 $X \times T_i$ 的子集有
+$\Spec(B_i) = X \times_{\pi_0(X)} Z_i$。过渡映射 $T_i \to T_{i'}$
+诱导映射 $Z_i \to Z_{i'}$ 及
+$X \times_{\pi_0(X)} Z_i \to X \times_{\pi_0(X)} Z_{i'}$，从而诱导环映射
+$B_{i'} \to B_i$（引理 \ref{proetale-lemma-local-isomorphism-fully-faithful} 与
+\ref{proetale-lemma-ind-zariski-implies}）。置 $B = \colim B_i$。由于
+$T = \lim Z_i$，有
+$X \times_{\pi_0(X)} T = \lim  X \times_{\pi_0(X)} Z_i$，因而
+$Y = \Spec(B) = \lim \Spec(B_i)$ 位于拓扑空间的笛卡尔图
+$$
+\xymatrix{
+Y \ar[r] \ar[d] & T \ar[d] \\
+X \ar[r] & \pi_0(X)
+}
+$$
+中。由引理 \ref{proetale-lemma-silly}，可得 $T = \pi_0(Y)$。
+\end{proof}
+
+\begin{example}
+\label{proetale-example-construct-space}
+设 $k$ 为域，$T$ 为预有限拓扑空间。存在 ind-Zariski 环映射
+$k \to A$，使得 $\Spec(A)$ 同胚于 $T$。事实上，只需把引理
+\ref{proetale-lemma-construct-profinite} 应用于
+$T \to \pi_0(\Spec(k)) = \{*\}$。在这种情况下，若把 $T = \lim T_i$
+写成每个 $T_i$ 都有限的滤过极限，则有
+$$
+A = \colim \text{Map}(T_i, k)
+$$
+\end{example}
+
+\begin{lemma}
+\label{proetale-lemma-w-local-morphism-equal-points-stalks-is-iso}
+设 $A \to B$ 为满足下列条件的环映射：
+\begin{enumerate}
+\item $A \to B$ 诱导局部环同构；
+\item 拓扑空间 $\Spec(B)$、$\Spec(A)$ 是 w-局部的；
+\item $\Spec(B) \to \Spec(A)$ 是 w-局部的；
+\item $\pi_0(\Spec(B)) \to \pi_0(\Spec(A))$ 是双射。
+\end{enumerate}
+则 $A \to B$ 是同构。
+\end{lemma}
+
+\begin{proof}
+令 $X_0 \subset X = \Spec(A)$ 与 $Y_0 \subset Y = \Spec(B)$ 分别为
+闭点集。由假设，$Y_0$ 映入 $X_0$，且诱导映射 $Y_0 \to X_0$ 是双射。
+作为空间，$\Spec(A)$ 是 $A$ 在各闭点处的局部环之谱的不交并；$B$ 也
+同样。因此 $X \to Y$ 是双射。由于 $A \to B$ 平坦，下行定理成立
+（“代数”引理 \ref{algebra-lemma-flat-going-down}）。故“代数”引理
+\ref{algebra-lemma-unique-prime-over-localize-below} 表明，对位于
+$\mathfrak p \subset A$ 之上的任意素理想 $\mathfrak q \subset B$，有
+$B_\mathfrak q = B_\mathfrak p$。由假设，$B_\mathfrak q = A_\mathfrak p$，
+故对 $A$ 的每个素理想 $\mathfrak p$，都有
+$A_\mathfrak p = B_\mathfrak p$。于是由“代数”引理
+\ref{algebra-lemma-characterize-zero-local}，$A = B$。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-w-local-morphism-equal-stalks-is-ind-zariski}
+设 $A \to B$ 为满足下列条件的环映射：
+\begin{enumerate}
+\item $A \to B$ 诱导局部环同构；
+\item 拓扑空间 $\Spec(B)$、$\Spec(A)$ 是 w-局部的；
+\item $\Spec(B) \to \Spec(A)$ 是 w-局部的。
+\end{enumerate}
+则 $A \to B$ 是 ind-Zariski 的。
+\end{lemma}
+
+\begin{proof}
+置 $X = \Spec(A)$ 与 $Y = \Spec(B)$。令 $X_0 \subset X$ 与
+$Y_0 \subset Y$ 为闭点集。取仿射概形的 ind-Zariski 态射
+$A \to A'$，使得在记 $X' = \Spec(A')$ 时，下图
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & \pi_0(X') \ar[d] \\
+X \ar[r] & \pi_0(X)
+}
+$$
+在拓扑空间范畴中是笛卡尔图，并且作为 $\pi_0(X)$ 上的空间有
+$\pi_0(X') = \pi_0(Y)$；见引理 \ref{proetale-lemma-construct-profinite}。
+由引理 \ref{proetale-lemma-silly}，$X'$ 是 w-局部的，且闭点集
+$X'_0 \subset X'$ 是 $X_0$ 的逆像。
+
+\medskip\noindent
+在 $X$ 上得到底层拓扑空间的连续映射 $Y \to X'$，它将 $\pi_0(Y)$
+与 $\pi_0(X')$ 等同。由引理
+\ref{proetale-lemma-local-isomorphism-fully-faithful}（以及引理
+\ref{proetale-lemma-ind-zariski-implies}），它对应于 $X$ 上的仿射概形态射
+$Y \to X'$。由于 $Y \to X$ 把 $Y_0$ 映入 $X_0$，可见
+$Y \to X'$ 把 $Y_0$ 映入 $X'_0$，即 $Y \to X'$ 是 w-局部的。
+由引理 \ref{proetale-lemma-w-local-morphism-equal-points-stalks-is-iso}，
+$Y \cong X'$，得证。
+\end{proof}
+
+\noindent
+下面的命题是我们稍后将证明的那类结果的一个预备。
+
+\begin{proposition}
+\label{proetale-proposition-maps-wich-identify-local-rings}
+设 $A \to B$ 为诱导局部环同构的环映射。则存在忠实平坦的
+ind-Zariski 环映射 $B \to B'$，使得 $A \to B'$ 是 ind-Zariski 的。
+\end{proposition}
+
+\begin{proof}
+分别令 $A \to A_w$、$B \to B_w$ 为引理
+\ref{proetale-lemma-make-w-local} 对 $A$、$B$ 构造的忠实平坦 ind-Zariski 环映射。
+由于 $\Spec(B_w)$ 是 w-局部的，由引理 \ref{proetale-lemma-universal}，存在唯一分解
+$A \to A_w \to B_w$，使得 $\Spec(B_w) \to \Spec(A_w)$ 是 w-局部的。
+注意，$A_w \to B_w$ 诱导局部环同构；见引理
+\ref{proetale-lemma-local-isomorphism-permanence}。由引理
+\ref{proetale-lemma-w-local-morphism-equal-stalks-is-ind-zariski}，这意味着
+$A_w \to B_w$ 是 ind-Zariski 的。由于 $B \to B_w$ 是忠实平坦的
+ind-Zariski 映射（引理 \ref{proetale-lemma-make-w-local}），而复合
+$A \to B \to B_w$ 是 ind-Zariski 的（引理
+\ref{proetale-lemma-composition-ind-zariski}），命题得证。
+\end{proof}
+
+\noindent
+上述命题使我们可以刻画仿射概形的 pro-Zariski 位点中的仿射弱可缩对象。
+
+\begin{lemma}
+\label{proetale-lemma-w-local-extremally-disconnected}
+设 $A$ 为环。下列条件等价：
+\begin{enumerate}
+\item 每个诱导局部环同构的忠实平坦环映射 $A \to B$ 都有回缩；
+\item 每个忠实平坦 ind-Zariski 环映射 $A \to B$ 都有回缩；
+\item $A$ 满足
+\begin{enumerate}
+\item $\Spec(A)$ 是 w-局部的；
+\item $\pi_0(\Spec(A))$ 是极端不连通的。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性立即由命题
+\ref{proetale-proposition-maps-wich-identify-local-rings} 得出。
+
+\medskip\noindent
+假设 (3)(a) 与 (3)(b)。设 $A \to B$ 忠实平坦且为 ind-Zariski。
+下文将不再明说地使用如下事实：平坦映射 $A \to B$ 忠实平坦，当且仅当
+$\Spec(A)$ 的每个闭点都属于 $\Spec(B) \to \Spec(A)$ 的像。
+我们来证明 $A \to B$ 有回缩。
+
+\medskip\noindent
+设 $I \subset A$ 为理想，使得 $V(I) \subset \Spec(A)$ 是
+$\Spec(A)$ 的闭点集。可把 $B$ 替换为引理
+\ref{proetale-lemma-w-local-algebraic-residue-field-extensions} 对 $A \to B$ 与
+$I \subset A$ 构造的环 $C$。因此可以假设 $\Spec(B)$ 是 w-局部的，
+且 $\Spec(B)$ 的闭点集为 $V(IB)$。
+
+\medskip\noindent
+假设 $\Spec(B)$ 是 w-局部的，且 $\Spec(B)$ 的闭点集为 $V(IB)$。
+对满连续映射 $V(IB) \to V(I)$ 选取一个连续截面。这是可能的，因为
+$V(I) \cong \pi_0(\Spec(A))$ 极端不连通；见“拓扑学”命题
+\ref{topology-proposition-projective-in-category-hausdorff-qc}。该截面的像是
+闭子空间 $T \subset \pi_0(\Spec(B)) \cong V(IB)$，并同胚地映到
+$\pi_0(A)$ 上。把 $B$ 替换为引理 \ref{proetale-lemma-construct} 中构造的
+ind-Zariski 商环，可假设
+$\pi_0(\Spec(B)) \to \pi_0(\Spec(A))$ 为双射。此时由引理
+\ref{proetale-lemma-w-local-morphism-equal-points-stalks-is-iso}，$A \to B$ 是同构。
+
+\medskip\noindent
+假设 (1)，等价地假设 (2)。令 $A \to A_w$ 为引理
+\ref{proetale-lemma-make-w-local} 中构造的环映射。由 (1)，存在回缩
+$A_w \to A$。因此 $\Spec(A)$ 同胚于 $\Spec(A_w)$ 的一个闭子集。
+由引理 \ref{proetale-lemma-closed-subspace-w-local}，(3)(a) 成立。最后，令
+$T \to \pi_0(A)$ 为满映射，其中 $T$ 是极端不连通、拟紧的 Hausdorff
+拓扑空间（“拓扑学”引理 \ref{topology-lemma-existence-projective-cover}）。
+按适用于 $T \to \pi_0(\Spec(A))$ 的方式，选取引理
+\ref{proetale-lemma-construct-profinite} 中的 $A \to B$。由 (1)，存在回缩
+$B \to A$。于是 $T = \pi_0(\Spec(B)) \to \pi_0(\Spec(A))$ 有截面。
+利用“拓扑学”命题
+\ref{topology-proposition-projective-in-category-hausdorff-qc} 的形式范畴论
+论证可知，$\pi_0(\Spec(A))$ 是极端不连通的。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-find-Zariski-w-contractible}
+设 $A$ 为环。则存在忠实平坦的 ind-Zariski 环映射 $A \to B$，使得
+$B$ 满足引理 \ref{proetale-lemma-w-local-extremally-disconnected} 中的等价条件。
+\end{lemma}
+
+\begin{proof}
+首先应用引理 \ref{proetale-lemma-make-w-local}，可假设 $\Spec(A)$ 是 w-局部的。
+选取极端不连通空间 $T$ 及满连续映射
+$T \to \pi_0(\Spec(A))$；见“拓扑学”引理
+\ref{topology-lemma-existence-projective-cover}。注意，$T$ 是预有限空间。
+应用引理 \ref{proetale-lemma-construct-profinite}，得到 ind-Zariski 环映射
+$A \to B$，使得 $\pi_0(\Spec(B)) \to \pi_0(\Spec(A))$ 实现映射
+$T \to \pi_0(\Spec(A))$，并使下图
+$$
+\xymatrix{
+\Spec(B) \ar[r] \ar[d] & \pi_0(\Spec(B)) \ar[d] \\
+\Spec(A) \ar[r] & \pi_0(\Spec(A))
+}
+$$
+在拓扑空间范畴中是笛卡尔图。注意，$\Spec(B)$ 是 w-局部的，
+$\Spec(B) \to \Spec(A)$ 是 w-局部的，而且 $\Spec(B)$ 的闭点集是
+$\Spec(A)$ 的闭点集的逆像；见引理 \ref{proetale-lemma-silly}。因此，
+引理 \ref{proetale-lemma-w-local-extremally-disconnected} 的条件 (3) 对 $B$ 成立。
+\end{proof}
+
+\begin{remark}
+\label{proetale-remark-slightly-stronger}
+在引理 \ref{proetale-lemma-construct}、\ref{proetale-lemma-construct-profinite}、命题
+\ref{proetale-proposition-maps-wich-identify-local-rings} 以及引理
+\ref{proetale-lemma-find-Zariski-w-contractible} 中，我们都找到了具有某些性质的
+ind-Zariski 环映射。论文 \cite{BS} 的作者使用 ind-(Zariski 局部化)
+这一概念，它是主局部化的有限直积所成的滤过余极限。在上述每个结果中，
+都可以把 ind-Zariski 替换为 ind-(Zariski 局部化)。但本文不需要这一点，
+而且这里定义的环的 ind-Zariski 同态在形式上具有稍好的性质。此外，
+ind-Zariski 环映射这一概念正是下一节所定义的 ind-\'etale 环映射的
+自然类比。
+\end{remark}
+
+
+
+
+\section{Ind-\'etale 代数}
+\label{proetale-section-ind-etale}
+
+\noindent
+先给出定义。
+
+\begin{definition}
+\label{proetale-definition-ind-etale}
+若 $B$ 可写成 \'etale $A$-代数的滤过余极限，则称环映射 $A \to B$
+为 {\it ind-\'etale} 的。
+\end{definition}
+
+\noindent
+ind-\'etale 代数范畴在若干自然运算下封闭。
+
+\begin{lemma}
+\label{proetale-lemma-base-change-ind-etale}
+设 $A \to B$ 与 $A \to A'$ 为环映射，并令 $B' = B \otimes_A A'$ 为
+$B$ 的基变换。若 $A \to B$ 是 ind-\'etale 的，则 $A' \to B'$ 也是
+ind-\'etale 的。
+\end{lemma}
+
+\begin{proof}
+这就是“代数”引理 \ref{algebra-lemma-base-change-colimit-etale}。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-composition-ind-etale}
+设 $A \to B$ 与 $B \to C$ 为环映射。若 $A \to B$ 与 $B \to C$ 都是
+ind-\'etale 的，则 $A \to C$ 也是 ind-\'etale 的。
+\end{lemma}
+
+\begin{proof}
+这就是“代数”引理 \ref{algebra-lemma-composition-colimit-etale}。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-ind-ind-etale}
+ind-\'etale $A$-代数的滤过余极限在 $A$ 上仍为 ind-\'etale。
+\end{lemma}
+
+\begin{proof}
+这就是“代数”引理 \ref{algebra-lemma-colimit-colimit-etale}。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-ind-etale-permanence}
+设 $A$ 为环。设 $B \to C$ 为 ind-\'etale $A$-代数之间的 $A$-代数映射。
+则 $C$ 是 ind-\'etale $B$-代数。
+\end{lemma}
+
+\begin{proof}
+这就是“代数”引理 \ref{algebra-lemma-colimits-of-etale}。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-ind-etale-implies}
+设 $A \to B$ 是 ind-\'etale 的。则 $A \to B$ 是弱 \'etale 的
+（“代数续篇”定义 \ref{more-algebra-definition-weakly-etale}）。
+\end{lemma}
+
+\begin{proof}
+这由“代数续篇”引理 \ref{more-algebra-lemma-when-weakly-etale} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-lift-ind-etale}
+设 $A$ 为环，$I \subset A$ 为理想。基变换函子
+$$
+\text{ind-\'etale }A\text{-代数}
+\longrightarrow
+\text{ind-\'etale }A/I\text{-代数},\quad
+C \longmapsto C/IC
+$$
+有全忠实的右伴随 $v$。特别地，给定 ind-\'etale $A/I$-代数
+$\overline{C}$，存在 ind-\'etale $A$-代数 $C = v(\overline{C})$，使得
+$\overline{C} = C/IC$。
+\end{lemma}
+
+\begin{proof}
+设 $\overline{C}$ 为 ind-\'etale $A/I$-代数。考虑由分解
+$A \to B \to \overline{C}$ 组成的范畴 $\mathcal{C}$，其中
+$A \to B$ 是 \'etale 的。（本证明忽略若干集合论问题。）我们将证明
+此范畴是有向的，并且 $C = \colim_\mathcal{C} B$ 是满足
+$\overline{C} = C/IC$ 的 ind-\'etale $A$-代数。
+
+\medskip\noindent
+先证明 $\mathcal{C}$ 是有向的（“范畴”定义
+\ref{categories-definition-directed}）。该范畴非空，因为
+$A \to A \to \overline{C}$ 是一个对象。设
+$A \to B \to \overline{C}$ 与 $A \to B' \to \overline{C}$ 是
+$\mathcal{C}$ 的两个对象。则 $A \to B \otimes_A B' \to \overline{C}$
+也是对象（使用“代数”引理 \ref{algebra-lemma-etale}）。设
+$f, g : B \to B'$ 是 $\mathcal{C}$ 的对象
+$A \to B \to \overline{C}$ 与 $A \to B' \to \overline{C}$ 之间的
+两个映射。则其一个余等化子为
+$A \to B' \otimes_{f, B, g} B' \to \overline{C}$。由“代数”引理
+\ref{algebra-lemma-etale} 与 \ref{algebra-lemma-map-between-etale}，
+它是 $\mathcal{C}$ 的对象。因此范畴 $\mathcal{C}$ 是有向的。
+
+\medskip\noindent
+把 $\overline{C} = \colim \overline{B_i}$ 写成滤过余极限，其中
+$\overline{B_i}$ 在 $A/I$ 上是 \'etale 的。对每个 $i$，存在 \'etale 映射
+$A \to B_i$，使得 $\overline{B_i} = B_i/IB_i$；见“代数”引理
+\ref{algebra-lemma-lift-etale}。因此 $C \to \overline{C}$ 满射。由于
+$C/IC \to \overline{C}$ 是 ind-\'etale 的（引理
+\ref{proetale-lemma-ind-etale-permanence}），它是平坦的。因此 $\overline{C}$ 是
+$C/IC$ 在某个乘法子集 $S \subset C/IC$ 处的局部化（“代数”引理
+\ref{algebra-lemma-pure}）。取 $f \in C$，使其映到 $S \subset C/IC$ 的
+一个元素。选取 $\mathcal{C}$ 中的 $A \to B \to \overline{C}$ 及
+$g \in B$，使其在余极限中映到 $f$。于是
+$A \to B_g \to \overline{C}$ 也是 $\mathcal{C}$ 的对象。因此 $f$ 是
+$C$ 中的可逆元，从而 $C/IC = \overline{C}$。
+
+\medskip\noindent
+其次，断言对 $A$ 上的 ind-\'etale 代数 $D$ 有
+$$
+\Mor_A(D, C) = \Mor_{A/I}(D/ID, \overline{C})
+$$
+事实上，设 $D/ID \to \overline{C}$ 为 $A/I$-代数映射。把
+$D = \colim_{i \in I} D_i$ 写成以有向集 $I$ 为指标的余极限，其中
+$D_i$ 在 $A$ 上是 \'etale 的。由 $\mathcal{C}$ 的选取，得到函子
+$I \to \mathcal{C}$，从而得到与到 $\overline{C}$ 的映射相容的映射
+$D \to C$。断言得证。
+
+\medskip\noindent
+因此，由下述规则定义的函子 $v$
+$$
+\overline{C} 
+\longmapsto
+v(\overline{C}) = \colim_{A \to B \to \overline{C}} B
+$$
+是基变换函子 $u$ 的右伴随，正如引理所要求的。函子 $v$ 是全忠实的，
+因为由构造有 $u \circ v = \text{id}$；见“范畴”引理
+\ref{categories-lemma-adjoint-fully-faithful}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{构造 ind-\'etale 代数}
+\label{proetale-section-construction-ind-etale}
+
+\noindent
+设 $A$ 为环。回顾任意 \'etale 环映射 $A \to B$ 都同构于相对维数为 $0$ 的
+标准光滑环映射。这种环映射形如
+$$
+A \longrightarrow A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+其中以 $\partial f_i/\partial x_j$ 为元素的 $n \times n$ 矩阵之行列式在商环中
+可逆。见“代数”引理 \ref{algebra-lemma-etale-standard-smooth}。
+
+\medskip\noindent
+令 $S(A)$ 为所有相对维数为 $0$ 的{\it 忠实平坦}\footnote{在已有平坦性的
+情况下，例如对光滑或 \'etale 环映射而言，这仅表示所诱导的谱映射是满射。
+见“代数”引理 \ref{algebra-lemma-ff-rings}。}标准光滑 $A$-代数所成的集合。
+令 $I(A)$ 为 $S(A)$ 的有限子集 $E$ 按包含关系组成的偏序集。注意 $I(A)$
+是有向偏序集。对 $E = \{A \to B_1, \ldots, A \to B_n\}$，置
+$$
+B_E = B_1 \otimes_A \ldots \otimes_A B_n
+$$
+则 $B_E$ 是忠实平坦的 \'etale $A$-代数。若 $E \subset E'$，则有 \'etale
+$A$-代数的典范过渡映射 $B_E \to B_{E'}$。具体地，设
+$E = \{A \to B_1, \ldots, A \to B_n\}$ 且
+$E' = \{A \to B_1, \ldots, A \to B_{n + m}\}$，则 $B_E \to B_{E'}$
+把 $b_1 \otimes \ldots \otimes b_n$ 映到 $B_{E'}$ 的元素
+$b_1 \otimes \ldots \otimes b_n \otimes 1 \otimes \ldots \otimes 1$。
+此构造给出以 $I(A)$ 为指标的忠实平坦 \'etale $A$-代数系统，并置
+$$
+T(A) = \colim_{E \in I(A)} B_E
+$$
+注意，$T(A)$ 是忠实平坦的 ind-\'etale $A$-代数（“代数”引理
+\ref{algebra-lemma-colimit-faithfully-flat}）。由构造，对任意忠实平坦的
+\'etale $A$-代数 $B$，都有一个（不唯一的）$A$-代数映射 $B \to T(A)$。
+事实上，选取某个 $(A \to B_0) \in S(A)$ 及同构 $B \cong B_0$。则典范映射
+$$
+B \to B_0 \to 
+T(A) = \colim_{E \in I(A)} B_E
+$$
+就是所需映射。
+
+\begin{lemma}
+\label{proetale-lemma-first-construction}
+给定环 $A$，存在忠实平坦的 ind-\'etale $A$-代数 $C$，使得每个忠实平坦的
+\'etale 环映射 $C \to B$ 都有回缩。
+\end{lemma}
+
+\begin{proof}
+置 $T^1(A) = T(A)$ 且 $T^{n + 1}(A) = T(T^n(A))$。令
+$$
+C = \colim T^n(A)
+$$
+此代数在每个 $T^n(A)$ 上忠实平坦，特别地在 $A$ 上忠实平坦；见“代数”引理
+\ref{algebra-lemma-colimit-faithfully-flat}。此外，由引理
+\ref{proetale-lemma-ind-ind-etale}，$C$ 在 $A$ 上是 ind-\'etale 的。若 $C \to B$
+是 \'etale 的，则存在 $n$ 及 \'etale 环映射 $T^n(A) \to B'$，使得
+$B = C \otimes_{T^n(A)} B'$；见“代数”引理 \ref{algebra-lemma-etale}。
+若 $C \to B$ 忠实平坦，则 $\Spec(B) \to \Spec(C) \to \Spec(T^n(A))$
+满射，因而 $\Spec(B') \to \Spec(T^n(A))$ 满射。换言之，
+$T^n(A) \to B'$ 忠实平坦。由上述构造，存在 $T^n(A)$-代数映射
+$B' \to T^{n + 1}(A)$。它诱导 $C$-代数映射 $B \to C$，证明完毕。
+\end{proof}
+
+\begin{remark}
+\label{proetale-remark-size-T}
+设 $A$ 为环，$\kappa$ 为不小于 $A$ 的基数的无限基数。则 $T(A)$ 的基数至多为
+$\kappa$。事实上，每个 $B_E$ 的基数至多为 $\kappa$，指标集 $I(A)$ 的基数
+也至多为 $\kappa$。由于 $\kappa \otimes \kappa = \kappa$，结论成立；见
+“集合”第 \ref{sets-section-cardinals} 节。因此，引理
+\ref{proetale-lemma-first-construction} 的证明中构造的环之基数也至多为 $\kappa$。
+\end{remark}
+
+\begin{remark}
+\label{proetale-remark-first-construction-functorial}
+构造 $A \mapsto T(A)$ 在如下意义下是函子性的：若 $A \to A'$ 为环映射，
+则可以构造交换图
+$$
+\xymatrix{
+A \ar[r] \ar[d] & T(A) \ar[d] \\
+A' \ar[r] & T(A')
+}
+$$
+。具体地，给定 $S(A)$ 中的
+$(A \to A[x_1, \ldots, x_n]/(f_1, \ldots, f_n))$，利用环映射
+$\varphi : A \to A'$ 得到 $S(A')$ 中的相应元素
+$(A' \to A'[x_1, \ldots, x_n]/(f^\varphi_1, \ldots, f^\varphi_n))$；
+这里 $f^\varphi$ 表示对多项式 $f$ 的系数施以 $\varphi$ 所得的多项式。此外，
+环范畴中有交换图
+$$
+\xymatrix{
+A \ar[r] \ar[d] & A[x_1, \ldots, x_n]/(f_1, \ldots, f_n) \ar[d] \\
+A' \ar[r] & A'[x_1, \ldots, x_n]/(f^\varphi_1, \ldots, f^\varphi_n)
+}
+$$
+。对有限集 $E \subset S(A)$，置 $E' = \varphi(E)$，并按显然方式定义
+$B_E \to B_{E'}$。取余极限便得到所需映射 $T(A) \to T(A')$；见“范畴”引理
+\ref{categories-lemma-functorial-colimit}。
+\end{remark}
+
+\begin{lemma}
+\label{proetale-lemma-have-sections-quotient}
+设环 $A$ 满足每个忠实平坦的 \'etale 环映射 $A \to B$ 都有回缩。则每个商环
+$A/I$ 也具有同样的性质。
+\end{lemma}
+
+\begin{proof}
+设 $A/I \to \overline{B}$ 忠实平坦且为 \'etale。由“代数”引理
+\ref{algebra-lemma-lift-etale}，可对某个 \'etale 环映射 $A \to B$ 写成
+$\overline{B} = B/IB$。映射 $\Spec(B) \to \Spec(A)$ 的像 $U$ 是开集且包含
+$V(I)$。因此补集 $Z = \Spec(A) \setminus U$ 拟紧且与 $V(I)$ 不交。故对某个
+$r \geq 0$ 及 $f_i \in I$，有
+$Z \subset D(f_1) \cup \ldots \cup D(f_r)$。于是
+$A \to B' = B \times \prod A_{f_i}$ 忠实平坦且为 \'etale，并且
+$\overline{B} = B'/IB'$。因此，$A \to B'$ 的回缩 $B' \to A$ 诱导
+$A/I \to \overline{B}$ 的回缩。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-have-sections-strictly-henselian}
+设环 $A$ 满足每个忠实平坦的 \'etale 环映射 $A \to B$ 都有回缩。则 $A$ 在每个
+极大理想处的局部环都是严格 Hensel 环。
+\end{lemma}
+
+\begin{proof}
+设 $\mathfrak m$ 为 $A$ 的极大理想。设 $A \to B$ 为 \'etale 环映射，且
+$\mathfrak q \subset B$ 为位于 $\mathfrak m$ 之上的素理想。根据“代数”引理
+\ref{algebra-lemma-strict-henselization-different} 对严格 Hensel 化
+$A_\mathfrak m^{sh}$ 的描述，只需证明 $A_\mathfrak m = B_\mathfrak q$。
+注意，位于 $\mathfrak m$ 之上的素理想
+$\mathfrak q = \mathfrak q_1, \mathfrak q_2, \ldots, \mathfrak q_n$ 只有有限个；
+又因 \'etale 环映射是拟有限的，它们之间不存在特化关系，见“代数”引理
+\ref{algebra-lemma-etale-quasi-finite}。因此 $\mathfrak q_i$ 是极大理想，并可找到
+$g \in \mathfrak q_2 \cap \ldots \cap \mathfrak q_n$，
+$g \not \in \mathfrak q$（“代数”引理 \ref{algebra-lemma-silly}）。把 $B$ 替换为
+$B_g$ 后，$\mathfrak q$ 是 $B$ 中唯一位于 $\mathfrak m$ 之上的素理想。
+映射 $\Spec(B) \to \Spec(A)$ 的像 $U \subset \Spec(A)$ 是开集（“代数”命题
+\ref{algebra-proposition-fppf-open}）。因此补集 $\Spec(A) \setminus U$ 是闭集，
+并可找到 $f \in A$、$f \not \in \mathfrak p$，使得
+$\Spec(A) = U \cup D(f)$。环映射 $A \to B \times A_f$ 忠实平坦且为
+\'etale，故由关于 $A$ 的假设，它有回缩 $\sigma : B \times A_f \to A$。
+注意，$\sigma$ 是 \'etale 的，因而作为 \'etale $A$-代数之间的映射是平坦的
+（“代数”引理 \ref{algebra-lemma-map-between-etale}）。由于 $\mathfrak q$ 是
+$B \times A_f$ 中唯一位于 $A$ 之上的素理想，可知
+$A_\mathfrak p \to B_\mathfrak q$ 有一个同样平坦的回缩。因此
+$A_\mathfrak p \to B_\mathfrak q \to A_\mathfrak p$
+是复合为恒等映射的平坦局部环映射。由于局部环的平坦局部同态是单射，得出
+这些映射都是同构，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-have-sections-localize}
+设环 $A$ 满足每个忠实平坦的 \'etale 环映射 $A \to B$ 都有回缩。设
+$Z \subset \Spec(A)$ 为闭子概形，并令 $A \to A_Z^\sim$ 如引理
+\ref{proetale-lemma-localization} 中所构造。则每个忠实平坦的 \'etale 环映射
+$A_Z^\sim \to C$ 都有回缩。
+\end{lemma}
+
+\begin{proof}
+存在 \'etale 环映射 $A \to B'$，使得作为 $A_Z^\sim$-代数有
+$C = B' \otimes_A A_Z^\sim$。映射 $\Spec(B') \to \Spec(A)$ 的像
+$U' \subset \Spec(A)$ 是开集且包含 $V(I)$，因此可找到 $f \in I$，使得
+$\Spec(A) = U' \cup D(f)$。于是 $A \to B' \times A_f$ 是 \'etale 且忠实平坦的。
+由假设存在回缩 $B' \times A_f \to A$。局部化后得到所需回缩
+$C \to A_Z^\sim$。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-get-w-local-algebraic-residue-field-extensions}
+设 $A \to B$ 为在剩余域上诱导代数扩张的环映射。存在交换图
+$$
+\xymatrix{
+B \ar[r] & D \\
+A \ar[r] \ar[u] & C \ar[u]
+}
+$$
+满足下列性质：
+\begin{enumerate}
+\item $A \to C$ 忠实平坦且为 ind-\'etale；
+\item $B \to D$ 忠实平坦且为 ind-\'etale；
+\item $\Spec(C)$ 是 w-局部的；
+\item $\Spec(D)$ 是 w-局部的；
+\item $\Spec(D) \to \Spec(C)$ 是 w-局部的；
+\item $\Spec(D)$ 的闭点集是 $\Spec(C)$ 的闭点集的逆像；
+\item $\Spec(C)$ 的闭点集满射到 $\Spec(A)$；
+\item $\Spec(D)$ 的闭点集满射到 $\Spec(B)$；
+\item 对极大理想 $\mathfrak m \subset C$，局部环 $C_\mathfrak m$ 是严格
+Hensel 环。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+存在忠实平坦的 ind-Zariski 环映射 $A \to A'$，使得 $\Spec(A')$ 是
+w-局部的，并且 $\Spec(A')$ 的闭点集映满 $\Spec(A)$；见引理
+\ref{proetale-lemma-make-w-local}。设 $I \subset A'$ 为使 $V(I)$ 等于 $\Spec(A')$
+的闭点集的理想。按引理 \ref{proetale-lemma-first-construction} 选取 $A' \to C'$。
+注意，由引理 \ref{proetale-lemma-have-sections-strictly-henselian}，在极大理想
+$\mathfrak m' \subset C'$ 处的局部环 $C'_{\mathfrak m'}$ 都是严格 Hensel 环。
+把引理 \ref{proetale-lemma-w-local-algebraic-residue-field-extensions} 应用于
+$A' \to C'$ 与 $I \subset A'$，得到满足 $C'/IC' \cong C/IC$ 的
+$C' \to C$。注意，由于 $A' \to C'$ 忠实平坦，$\Spec(C'/IC')$ 满射到
+$A'$ 的闭点集，特别地满射到 $\Spec(A)$。此外，由于
+$V(IC) \subset \Spec(C)$ 是 $C$ 的闭点集，而 $C' \to C$ 是 ind-Zariski 的
+（并诱导局部环同构），得到性质 (1)、(3)、(7) 与 (9)。
+
+\medskip\noindent
+用 $J \subset C$ 表示使 $V(J)$ 等于 $\Spec(C)$ 的闭点集的理想。置
+$D' = B \otimes_A C$。环映射 $C \to D'$ 在剩余域上诱导代数扩张。注意，
+由于 $V(J) \to \Spec(A)$ 满射，映射 $T = V(JD') \to \Spec(B)$ 也满射。
+把引理 \ref{proetale-lemma-w-local-algebraic-residue-field-extensions} 应用于
+$C \to D'$ 与 $J \subset C$，得到满足 $D'/JD' \cong D/JD$ 的
+$D' \to D$。引理中其余所有性质都直接由引理
+\ref{proetale-lemma-w-local-algebraic-residue-field-extensions} 的结论得出。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{弱 \'etale 与 pro-\'etale 的比较}
+\label{proetale-section-weakly-etale}
+
+\noindent
+回顾：若 $A \to B$ 平坦且 $B \otimes_A B \to B$ 平坦，则称环同态
+$A \to B$ 为{\it 弱 \'etale} 的。我们已在“代数续篇”第
+\ref{more-algebra-section-weakly-etale} 节证明了这种环映射的一些性质。特别地，
+若 $A \to B$ 是局部同态，且 $A$ 是严格 Hensel 局部环，则 $A = B$；见
+“代数续篇”定理 \ref{more-algebra-theorem-olivier}。利用该定理与上述工作，
+得到弱 \'etale 环映射的如下结构定理。
+
+\begin{proposition}
+\label{proetale-proposition-weakly-etale}
+设 $A \to B$ 为弱 \'etale 环映射。则存在忠实平坦的 ind-\'etale 环映射
+$B \to B'$，使得 $A \to B'$ 是 ind-\'etale 的。
+\end{proposition}
+
+\begin{proof}
+环映射 $A \to B$ 在剩余域上诱导（可分）代数扩张；见“代数续篇”引理
+\ref{more-algebra-lemma-weakly-etale-residue-field-extensions}。因此可应用引理
+\ref{proetale-lemma-get-w-local-algebraic-residue-field-extensions} 并选取图
+$$
+\xymatrix{
+B \ar[r] & D \\
+A \ar[r] \ar[u] & C \ar[u]
+}
+$$
+并使其具有该引理所列的性质。由“代数续篇”引理
+\ref{more-algebra-lemma-weakly-etale-permanence}，$C \to D$ 是弱 \'etale 的。
+选取极大理想 $\mathfrak m \subset D$。由构造，它位于某个极大理想
+$\mathfrak m' \subset C$ 之上。由“代数续篇”定理
+\ref{more-algebra-theorem-olivier}，环映射
+$C_{\mathfrak m'} \to D_\mathfrak m$ 是同构。由于 $\Spec(C)$ 的每个点都特化到
+一个闭点，得出 $C \to D$ 诱导局部环同构。因此命题
+\ref{proetale-proposition-maps-wich-identify-local-rings} 可用于环映射 $C \to D$。
+选取忠实平坦且为 ind-Zariski 的 $D \to D'$，使得 $C \to D'$ 是
+ind-Zariski 的。于是 $B \to D'$ 满足命题的要求。
+\end{proof}
+
+
+
+
+
+\section{V 拓扑与 pro-h 拓扑}
+\label{proetale-section-V-versus-pro-h}
+
+\noindent
+V 拓扑在“拓扑”第 \ref{topologies-section-V} 节中引入。h 拓扑在
+“平坦性续篇”第 \ref{flat-section-h} 节中引入。作为一种中间拓扑的 ph 拓扑
+则在“拓扑”第 \ref{topologies-section-ph} 节中引入。
+
+\medskip\noindent
+给定合适概形范畴 $\mathcal{C}$ 上的拓扑 $\tau$，可按如下方式在
+$\mathcal{C}$ 上引入“pro-$\tau$ 拓扑”。回顾，对 $\mathcal{C}$ 中的 $X$，用
+$h_X$ 表示与 $X$ 相伴的可表预层。暂称 $\mathcal{C}$ 的态射 $X \to Y$ 为
+$\tau$-盖\footnote{不要把它与覆盖的概念混淆。例如，若 $\tau = \etale$，
+则任何有截面的态射 $X \to Y$ 都是 $\tau$-盖；但我们对 \'etale 覆盖
+$\{V_i \to Y\}_{i \in I}$ 的定义要求每个 $V_i \to Y$ 都是 \'etale 的。}，
+如果 $h_X \to h_Y$ 的 $\tau$-层化是满射。于是可把 pro-$\tau$ 拓扑定义为满足
+下列条件的最粗拓扑：
+\begin{enumerate}
+\item pro-$\tau$ 拓扑细于 $\tau$ 拓扑；
+\item 若 $Y$ 为仿射概形，且 $X = \lim X_\lambda$ 是 $Y$ 上仿射概形
+$X_\lambda$ 的有向极限，并且对所有 $\lambda$，$h_{X_\lambda} \to h_Y$
+都是 $\tau$-盖，则 $X \to Y$ 是 pro-$\tau$-盖。
+\end{enumerate}
+采用这种刻意严谨的表述，是因为不想指定 pro-$\tau$ 覆盖的一种选取：对不同的
+$\tau$，适合采用不同的覆盖族集合。例如，在第 \ref{proetale-section-proetale} 节中将会
+看到，为定义 pro-\'etale 拓扑，考察具有某种有限性条件的弱 \'etale 态射族很
+有效。更一般地，本段提出的构造主要用于说明本节结果的动机；下文绝不会以此
+方法隐式定义 pro-$\tau$ 拓扑。
+
+\medskip\noindent
+下一个引理说明 pro-V 拓扑等于 V 拓扑。
+
+\begin{lemma}
+\label{proetale-lemma-pro-V-V}
+设 $Y$ 为仿射概形，$X = \lim X_i$ 为 $Y$ 上仿射概形的有向极限。下列条件等价：
+\begin{enumerate}
+\item $\{X \to Y\}$ 是标准 V 覆盖（“拓扑”定义
+\ref{topologies-definition-standard-V-covering}）；
+\item 对所有 $i$，$\{X_i \to Y\}$ 都是标准 V 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+单元族 $\{X \to Y\}$ 是标准 V 覆盖，当且仅当对任意态射
+$g : \Spec(V) \to Y$，存在赋值环扩张 $V \subset W$ 及交换图
+$$
+\xymatrix{
+\Spec(W) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(V) \ar[r]^g & Y
+}
+$$
+。因此 (1) $\Rightarrow$ (2) 由定义立即成立。反过来，假设 (2)，并给定如上的
+$g : \Spec(V) \to Y$。写成 $\Spec(V) \times_Y X_i = \Spec(A_i)$。由于
+$\{X_i \to Y\}$ 是标准 V 覆盖，可以选取赋值环 $W_i$ 及环映射
+$A_i \to W_i$，使得复合 $V \to A_i \to W_i$ 是赋值环扩张。特别地，
+$A_i$ 对其 $V$-挠的商 $A'_i$ 是忠实平坦的 $V$-代数。其平坦性由“代数续篇”
+引理 \ref{more-algebra-lemma-valuation-ring-torsion-free-flat} 得出；谱上的满射性
+则是因为 $A_i \to W_i$ 经由 $A'_i$ 分解。因此
+$$
+A = \colim A'_i
+$$
+是忠实平坦的 $V$-代数（“代数”引理
+\ref{algebra-lemma-colimit-faithfully-flat}）。由于
+$\{\Spec(A) \to \Spec(V)\}$ 是标准 fpqc 覆盖，它也是标准 V 覆盖（“拓扑”引理
+\ref{topologies-lemma-standard-fpqc-standard-V}），故可选取
+$\Spec(W) \to \Spec(A)$，使得 $V \to W$ 是赋值环扩张。再与态射
+$\Spec(A) \to X = \Spec(\colim A_i)$ 复合，证明即告完成。
+\end{proof}
+
+\noindent
+下一个引理说明 pro-h 拓扑、pro-ph 拓扑与 V 拓扑彼此相等。
+
+\begin{lemma}
+\label{proetale-lemma-pro-h-V}
+设 $X \to Y$ 为仿射概形的态射。下列条件等价：
+\begin{enumerate}
+\item $\{X \to Y\}$ 是标准 V 覆盖（“拓扑”定义
+\ref{topologies-definition-standard-V-covering}）；
+\item $X = \lim X_i$ 是 $Y$ 上仿射概形的有向极限，并且对每个 $i$，
+$\{X_i \to Y\}$ 都是 ph 覆盖；
+\item $X = \lim X_i$ 是 $Y$ 上仿射概形的有向极限，并且对每个 $i$，
+$\{X_i \to Y\}$ 都是 h 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (2) $\Rightarrow$ (1)。回顾，由仿射概形间单个箭头给出的 V 覆盖是标准
+V 覆盖；见“拓扑”定义 \ref{topologies-definition-V-covering} 与引理
+\ref{topologies-lemma-refine-standard-V}。还要回顾，任意 ph 覆盖都是 V 覆盖；
+见“拓扑”引理
+\ref{topologies-lemma-zariski-etale-smooth-syntomic-fppf-fpqc-ph-V}。因此，若
+$X = \lim X_i$ 如 (2) 所述，则对每个 $i$，$\{X_i \to Y\}$ 都是标准 V 覆盖。
+由引理 \ref{proetale-lemma-pro-V-V}，(1) 成立。
+
+\medskip\noindent
+证明 (3) $\Rightarrow$ (2)。这是清楚的，因为 h 覆盖总是 ph 覆盖；见“平坦性
+续篇”定义 \ref{flat-definition-h-covering}。
+
+\medskip\noindent
+证明 (1) $\Rightarrow$ (3)。这是有实质内容的方向，不过证明中的实质内容蕴含在
+“平坦性续篇”引理 \ref{flat-lemma-equivalence-h-v-locally-finite-presentation}
+中。写 $X = \Spec(A)$ 与 $Y = \Spec(R)$。可把 $A = \colim A_i$ 写成余极限，
+其中 $A_i$ 在 $R$ 上有限表示；见“代数”引理
+\ref{algebra-lemma-ring-colimit-fp}。置 $X_i = \Spec(A_i)$。由 (1) 与“拓扑”引理
+\ref{topologies-lemma-refine-standard-V}，对所有 $i$，$\{X_i \to Y\}$ 都是标准
+V 覆盖。因此，由“平坦性续篇”定义 \ref{flat-definition-h-covering}，
+$\{X_i \to Y\}$ 是 h 覆盖。证明完毕。
+\end{proof}
+
+\noindent
+粗略地说，下一个引理表明，保极限的 h 层对 V 覆盖满足层条件。另请与注
+\ref{proetale-remark-h-limit-preserving} 比较。
+
+\begin{lemma}
+\label{proetale-lemma-h-limit-preserving}
+设 $S$ 为概形，$F$ 为定义在 $S$ 上所有概形的范畴上的反变函子。若
+\begin{enumerate}
+\item $F$ 对 h 拓扑满足层性质；
+\item $F$ 保极限（“极限”注 \ref{limits-remark-limit-preserving}），
+\end{enumerate}
+则 $F$ 对 V 拓扑满足层性质。
+\end{lemma}
+
+\begin{proof}
+通过验证“拓扑”引理 \ref{topologies-lemma-sheaf-property-V} 的 (1) 与 (2') 来
+证明。对 Zariski 覆盖的层性质来自 $F$ 对所有 h 覆盖都具有层性质这一事实。
+最后，设 $X \to Y$ 为 $S$ 上仿射概形的态射，并且 $\{X \to Y\}$ 是 V 覆盖。
+由引理 \ref{proetale-lemma-pro-h-V}，可把 $X = \lim X_i$ 写成 $Y$ 上仿射概形的有向
+极限，使得对每个 $i$，$\{X_i \to Y\}$ 都是 h 覆盖。于是得到
+\begin{align*}
+&
+\text{等化子}(
+\xymatrix{
+F(X) \ar@<1ex>[r] \ar@<-1ex>[r] &
+F(X \times_Y X)
+}
+)
+\\
+& =
+\text{等化子}(
+\xymatrix{
+\colim F(X_i) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\colim F(X_i \times_Y X_i)
+}
+)
+\\
+& =
+\colim
+\text{等化子}(
+\xymatrix{
+F(X_i) \ar@<1ex>[r] \ar@<-1ex>[r] &
+F(X_i \times_Y X_i)
+}
+)
+\\
+& =
+\colim F(Y) = F(Y)
+\end{align*}
+这正是所要证明的。第一个等式成立，是因为 $F$ 保极限，且
+$X = \lim X_i$、$X \times_Y X = \lim X_i \times_Y X_i$。第二个等式成立，
+是因为滤过余极限是正合的。第三个等式成立，是因为 $F$ 对 h 覆盖满足层性质。
+\end{proof}
+
+\begin{remark}
+\label{proetale-remark-h-limit-preserving}
+设 $S$ 为包含在大位点 $\Sch_h$ 中的概形。设 $F$ 为 $(\Sch/S)_h$ 上的集合层，
+并且只要 $T = \lim T_i$ 是 $(\Sch/S)_h$ 中仿射概形的有向极限，就有
+$F(T) = \colim F(T_i)$。在这种情况下，$F$ 唯一延拓为 $S$ 上所有概形的范畴
+上的反变函子 $F'$，使得 (a) $F'$ 对 h 拓扑满足层性质，并且 (b) $F'$ 保极限。
+见“平坦性续篇”引理 \ref{flat-lemma-extend-sheaf-h}。此时，引理
+\ref{proetale-lemma-h-limit-preserving} 表明 $F'$ 对 V 拓扑满足层性质。
+\end{remark}
+
+
+
+
+
+
+
+\section{构造 w-可缩覆盖}
+\label{proetale-section-w-contractible}
+
+\noindent
+本节构造仿射概形的 w-可缩覆盖。
+
+\begin{definition}
+\label{proetale-definition-w-contractible}
+设 $A$ 为环。若每个忠实平坦的弱 \'etale 环映射 $A \to B$ 都有回缩，则称
+$A$ 是{\it w-可缩的}。
+\end{definition}
+
+\noindent
+注意，由命题 \ref{proetale-proposition-weakly-etale}，一个等价定义是要求每个忠实平坦的
+ind-\'etale 环映射 $A \to B$ 都有回缩。下面这个关键观察将使我们能够构造
+w-可缩环。
+
+\begin{lemma}
+\label{proetale-lemma-w-local-strictly-henselian-extremally-disconnected}
+设 $A$ 为环。下列条件等价：
+\begin{enumerate}
+\item $A$ 是 w-可缩的；
+\item 每个忠实平坦的 ind-\'etale 环映射 $A \to B$ 都有回缩；
+\item $A$ 满足
+\begin{enumerate}
+\item $\Spec(A)$ 是 w-局部的；
+\item $\pi_0(\Spec(A))$ 是极端不连通的；
+\item 对每个极大理想 $\mathfrak m \subset A$，局部环 $A_\mathfrak m$
+都是严格 Hensel 环。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性立即由命题 \ref{proetale-proposition-weakly-etale} 得出。
+
+\medskip\noindent
+假设 (3)(a)、(3)(b) 与 (3)(c)。设 $A \to B$ 忠实平坦且为 ind-\'etale。
+下文将不再明说地使用如下事实：平坦映射 $A \to B$ 忠实平坦，当且仅当
+$\Spec(A)$ 的每个闭点都属于 $\Spec(B) \to \Spec(A)$ 的像。我们来证明
+$A \to B$ 有回缩。
+
+\medskip\noindent
+设 $I \subset A$ 为理想，使得 $V(I) \subset \Spec(A)$ 是 $\Spec(A)$ 的闭点集。
+可把 $B$ 替换为引理 \ref{proetale-lemma-w-local-algebraic-residue-field-extensions}
+对 $A \to B$ 与 $I \subset A$ 构造的环 $C$。因此可以假设 $\Spec(B)$ 是
+w-局部的，且 $\Spec(B)$ 的闭点集为 $V(IB)$。此时，由条件 (3)(c)，
+$A \to B$ 诱导局部环同构，因为只需在 $B$ 中位于 $A$ 的极大理想之上的极大
+理想处检验。于是由引理 \ref{proetale-lemma-w-local-extremally-disconnected}，
+$A \to B$ 有回缩。
+
+\medskip\noindent
+假设 (1)，等价地假设 (2)。由引理
+\ref{proetale-lemma-have-sections-strictly-henselian} 得到 (3)(c)。性质 (3)(a) 与
+(3)(b) 由引理 \ref{proetale-lemma-w-local-extremally-disconnected} 得出。
+\end{proof}
+
+\begin{proposition}
+\label{proetale-proposition-find-w-contractible}
+对每个环 $A$，都存在忠实平坦的 ind-\'etale 环映射 $A \to D$，使得 $D$ 是
+w-可缩的。
+\end{proposition}
+
+\begin{proof}
+把引理 \ref{proetale-lemma-get-w-local-algebraic-residue-field-extensions} 应用于
+$\text{id}_A : A \to A$，得到忠实平坦的 ind-\'etale 环映射 $A \to C$，使得
+$C$ 是 w-局部的，且 $C$ 在每个极大理想处的局部环都是严格 Hensel 环。选取
+极端不连通空间 $T$ 及满连续映射 $T \to \pi_0(\Spec(C))$；见“拓扑学”引理
+\ref{topology-lemma-existence-projective-cover}。注意，$T$ 是预有限的。应用引理
+\ref{proetale-lemma-construct-profinite}，得到 ind-Zariski 环映射 $C \to D$，使得
+$\pi_0(\Spec(D)) \to \pi_0(\Spec(C))$ 实现 $T \to \pi_0(\Spec(C))$，并且
+$$
+\xymatrix{
+\Spec(D) \ar[r] \ar[d] & \pi_0(\Spec(D)) \ar[d] \\
+\Spec(C) \ar[r] & \pi_0(\Spec(C))
+}
+$$
+在拓扑空间范畴中是笛卡尔图。注意，$\Spec(D)$ 是 w-局部的，
+$\Spec(D) \to \Spec(C)$ 是 w-局部的，而且 $\Spec(D)$ 的闭点集是
+$\Spec(C)$ 的闭点集的逆像；见引理 \ref{proetale-lemma-silly}。因此，$D$ 在其极大理想
+处的局部环仍然都是严格 Hensel 环（因为它们同构于 $C$ 在相应极大理想处的
+局部环）。由引理 \ref{proetale-lemma-w-local-strictly-henselian-extremally-disconnected}
+可知，$D$ 是 w-可缩的。
+\end{proof}
+
+\begin{remark}
+\label{proetale-remark-size-w-contractible}
+设 $A$ 为环，$\kappa$ 为不小于 $A$ 的基数的无限基数。则命题
+\ref{proetale-proposition-find-w-contractible} 中构造的环 $D$ 的基数至多为
+$$
+\kappa^{2^{2^{2^\kappa}}}.
+$$
+事实上，环映射 $A \to D$ 构造为复合
+$$
+A \to A_w = A' \to C' \to C \to D.
+$$
+其中，构造的前三步在引理
+\ref{proetale-lemma-get-w-local-algebraic-residue-field-extensions} 证明的第一段中完成。
+对第一步，由注 \ref{proetale-remark-size-w} 有 $|A_w| \leq \kappa$。由注
+\ref{proetale-remark-size-T} 有 $|C'| \leq \kappa$。然后 $|C| \leq \kappa$，因为
+$C$ 是 $(C')_w$ 的局部化（它由对 $C'$ 应用引理
+\ref{proetale-lemma-localize-along-closed-profinite} 构造；该应用位于引理
+\ref{proetale-lemma-w-local-algebraic-residue-field-extensions} 的证明中）。因此 $C$ 至多有
+$2^\kappa$ 个极大理想。最后，环映射 $C \to D$ 诱导局部环同构，并且由
+“拓扑学”注 \ref{topology-remark-size-projective-cover}，$D$ 的极大理想集的基数
+至多为 $2^{2^{2^\kappa}}$。由于
+$D \subset \prod_{\mathfrak m \subset D} D_\mathfrak m$，可见 $D$ 的基数至多为
+上述基数。
+\end{remark}
+
+\begin{lemma}
+\label{proetale-lemma-finite-finitely-presented-over-extremally-disconnected}
+设 $A \to B$ 为拟有限且有限表示的环映射。若 $A$ 的剩余域都是可分代数闭域，
+且 $\Spec(A)$ 是 Hausdorff 且极端不连通的，则 $\Spec(B)$ 是极端不连通的。
+\end{lemma}
+
+\begin{proof}
+置 $X = \Spec(A)$ 与 $Y = \Spec(B)$。按“\'Etale 上同调”引理
+\ref{etale-cohomology-lemma-decompose-quasi-finite-morphism} 选取有限分割
+$X = \coprod X_i$ 及 $X'_i \to X_i$。由“拓扑学”命题
+\ref{topology-proposition-projective-in-category-hausdorff-qc}，拓扑空间映射
+$\coprod X_i \to X$（其源是拓扑空间范畴中的不交并）有截面。因此在拓扑意义下，
+$X$ 是各层 $X_i$ 的不交并。故可把 $X$ 替换为各 $X_i$，并假设存在满的有限局部
+自由态射 $X' \to X$，使 $(X' \times_X Y)_{red}$ 同构于有限多个
+$X'_{red}$ 副本的不交并。考虑图
+$$
+\xymatrix{
+\coprod_{i = 1, \ldots, r} X' \ar[r] \ar[d] & Y \ar[d] \\
+X' \ar[r] & X
+}
+$$
+关于 $A$ 的剩余域的假设蕴含：在底层点集上，此图是纤维积图（略去细节）。
+由于 $X$ 极端不连通，而 $X'$ 是 Hausdorff 的（引理
+\ref{proetale-lemma-profinite-goes-up}），连续映射 $X' \to X$ 有连续截面 $\sigma$。于是
+$\coprod_{i = 1, \ldots, r} \sigma(X) \to Y$ 是双射连续映射。由“拓扑学”引理
+\ref{topology-lemma-bijective-map}，它是同胚，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-finite-finitely-presented-over-w-contractible}
+设 $A \to B$ 为有限且有限表示的环映射。若 $A$ 是 w-可缩的，则 $B$ 也是。
+\end{lemma}
+
+\begin{proof}
+使用引理 \ref{proetale-lemma-w-local-strictly-henselian-extremally-disconnected} 的判据。
+置 $X = \Spec(A)$、$Y = \Spec(B)$，并用 $f : Y \to X$ 表示所诱导的态射。
+由于 $f : Y \to X$ 是有限态射，$Y$ 的闭点集 $Y_0$ 是 $X$ 的闭点集 $X_0$
+的逆像。设 $y \in Y$ 的像为 $x \in X$，则 $x$ 特化到唯一闭点
+$x_0 \in X$。设 $f^{-1}(\{x_0\}) = \{y_1, \ldots, y_n\}$，其中 $y_i$ 在
+$Y$ 中闭。由于 $R = \mathcal{O}_{X, x_0}$ 是严格 Hensel 环，且 $f$ 有限，可知
+$Y \times_{f, X} \Spec(R)$ 等于
+$\coprod_{i = 1, \ldots, n} \Spec(R_i)$，其中每个 $R_i$ 都是在 $R$ 上有限的
+局部环，其极大理想对应于 $y_i$；见“代数”引理
+\ref{algebra-lemma-characterize-henselian} 的 (10)。于是 $y$ 恰好属于这些
+$\Spec(R_i)$ 中的一个，从而 $y$ 恰好特化到一个 $y_i$。换言之，$Y$ 的每个点
+都特化到 $Y_0$ 的唯一一点。因此 $Y$ 是 w-局部的。对每个像为 $x \in X_0$
+的 $y \in Y_0$，把“代数”引理 \ref{algebra-lemma-finite-over-henselian} 应用于
+$\mathcal{O}_{X, x} \to B \otimes_A \mathcal{O}_{X, x}$，可知
+$\mathcal{O}_{Y, y}$ 是严格 Hensel 环。还需证明 $Y_0$ 极端不连通。为此考察
+$X_0 \times_X Y \to X_0$，其中 $X_0 \subset X$ 带有约化诱导概形结构。注意，
+$X_0 \times_X Y$ 的底层拓扑空间就是 $Y_0$。现在所需结论由引理
+\ref{proetale-lemma-finite-finitely-presented-over-extremally-disconnected} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-localization-w-contractible}
+设 $A$ 为环，$Z \subset \Spec(A)$ 为形如 $Z = V(f_1, \ldots, f_r)$ 的闭子集。
+置 $B = A_Z^\sim$，见引理 \ref{proetale-lemma-localization}。若 $A$ 是 w-可缩的，
+则 $B$ 也是。
+\end{lemma}
+
+\begin{proof}
+设 $A_Z^\sim \to B$ 为忠实平坦的弱 \'etale 环映射。考虑环映射
+$$
+A \longrightarrow A_{f_1} \times \ldots \times A_{f_r} \times B
+$$
+，它忠实平坦且为弱 \'etale。若 $A$ 是 w-可缩的，则存在回缩 $\sigma$。考虑态射
+$$
+\Spec(A_Z^\sim) \to \Spec(A) \xrightarrow{\Spec(\sigma)}
+\coprod \Spec(A_{f_i}) \amalg \Spec(B)
+$$
+$Z \subset \Spec(A_Z^\sim)$ 的每个点都映入分支 $\Spec(B)$。由于
+$\Spec(A_Z^\sim)$ 的每个点都特化到 $Z$ 的一点，便得到所需态射
+$\Spec(A_Z^\sim) \to \Spec(B)$。
+\end{proof}
+
+
+
+
+
+
+\section{pro-\'etale 位点}
+\label{proetale-section-proetale}
+
+\noindent
+本节只讨论各种 pro-\'etale 位点及其间态射的实际定义与构造。弱可缩对象的存在性
+将在第 \ref{proetale-section-weakly-contractible} 节中处理。
+
+\medskip\noindent
+pro-\'etale 拓扑在一点上类似 fpqc 拓扑（见“拓扑”第
+\ref{topologies-section-fpqc} 节）：概形的小 pro-\'etale 位点上的层拓扑斯依赖于
+底层概形范畴的选取。因此不能谈论概形的{\it 那个} pro-\'etale 拓扑斯。不过，
+扩大底层概形范畴并不改变层的上同调群；见第 \ref{proetale-section-change-universe} 节。
+
+\medskip\noindent
+我们将用概形的弱 \'etale 态射定义 pro-\'etale 覆盖；见“态射续篇”第
+\ref{more-morphisms-section-weakly-etale} 节。原因是，一方面，定义概形的
+pro-\'etale 态射这一概念颇为棘手；另一方面，命题
+\ref{proetale-proposition-weakly-etale} 保证下述定义给出相同的层\footnote{准确地说，
+用这里选取的覆盖得到的 pro-\'etale 拓扑，与第 \ref{proetale-section-V-versus-pro-h} 节
+所述一般步骤从 $\tau = \etale$ 出发得到的拓扑相同。}。
+
+\begin{definition}
+\label{proetale-definition-fpqc-covering}
+设 $T$ 为概形。$T$ 的一个{\it pro-\'etale 覆盖}是概形态射族
+$\{f_i : T_i \to T\}_{i \in I}$，使得每个 $f_i$ 都是弱 \'etale 的，并且对
+每个仿射开集 $U \subset T$，都存在 $n \geq 0$、映射
+$a : \{1, \ldots, n\} \to I$ 及仿射开集 $V_j \subset T_{a(j)}$，
+$j = 1, \ldots, n$，满足 $\bigcup_{j = 1}^n f_{a(j)}(V_j) = U$。
+\end{definition}
+
+\noindent
+当然，此条件蕴含 $T = \bigcup f_i(T_i)$。下面的引理使我们能够识别
+pro-\'etale 覆盖，也使我们能把许多关于 pro-\'etale 覆盖的引理归约为 fpqc
+覆盖的相应结果。
+
+\begin{lemma}
+\label{proetale-lemma-recognize-proetale-covering}
+设 $T$ 为概形，$\{f_i : T_i \to T\}_{i \in I}$ 为以 $T$ 为靶的概形态射族。
+下列条件等价：
+\begin{enumerate}
+\item $\{f_i : T_i \to T\}_{i \in I}$ 是 pro-\'etale 覆盖；
+\item 每个 $f_i$ 都是弱 \'etale 的，且 $\{f_i : T_i \to T\}_{i \in I}$
+是 fpqc 覆盖；
+\item 每个 $f_i$ 都是弱 \'etale 的，并且对每个仿射开集 $U \subset T$，
+存在除有限多个外均为空的拟紧开集 $U_i \subset T_i$，使得
+$U = \bigcup f_i(U_i)$；
+\item 每个 $f_i$ 都是弱 \'etale 的，并且存在仿射开覆盖
+$T = \bigcup_{\alpha \in A} U_\alpha$，使得对每个 $\alpha \in A$，都存在
+$i_{\alpha, 1}, \ldots, i_{\alpha, n(\alpha)} \in I$ 及拟紧开集
+$U_{\alpha, j} \subset T_{i_{\alpha, j}}$，满足
+$U_\alpha = \bigcup_{j = 1, \ldots, n(\alpha)}
+f_{i_{\alpha, j}}(U_{\alpha, j})$。
+\end{enumerate}
+若 $T$ 拟分离，则上述条件还等价于：
+\begin{enumerate}
+\item[(5)] 每个 $f_i$ 都是弱 \'etale 的，并且对每个 $t \in T$，都存在
+$i_1, \ldots, i_n \in I$ 及拟紧开集 $U_j \subset T_{i_j}$，使得
+$\bigcup_{j = 1, \ldots, n} f_{i_j}(U_j)$ 是 $t$ 在 $T$ 中的一个邻域
+（不一定是开集）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性由定义立即成立。因此本引理由“拓扑”引理
+\ref{topologies-lemma-recognize-fpqc-covering} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-etale-proetale}
+任意 \'etale 覆盖及任意 Zariski 覆盖都是 pro-\'etale 覆盖。
+\end{lemma}
+
+\begin{proof}
+这由 fpqc 覆盖的相应结果（“拓扑”引理
+\ref{topologies-lemma-zariski-etale-smooth-syntomic-fppf-fpqc}）、引理
+\ref{proetale-lemma-recognize-proetale-covering}，以及 \'etale 态射是弱 \'etale 态射这一
+事实得出；见“态射续篇”引理 \ref{more-morphisms-lemma-when-weakly-etale}。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-proetale}
+设 $T$ 为概形。
+\begin{enumerate}
+\item 若 $T' \to T$ 是同构，则 $\{T' \to T\}$ 是 $T$ 的 pro-\'etale 覆盖。
+\item 若 $\{T_i \to T\}_{i\in I}$ 是 pro-\'etale 覆盖，且对每个 $i$ 都有
+pro-\'etale 覆盖 $\{T_{ij} \to T_i\}_{j\in J_i}$，则
+$\{T_{ij} \to T\}_{i \in I, j\in J_i}$ 是 pro-\'etale 覆盖。
+\item 若 $\{T_i \to T\}_{i\in I}$ 是 pro-\'etale 覆盖，而 $T' \to T$
+是概形态射，则 $\{T' \times_T T_i \to T'\}_{i\in I}$ 是 pro-\'etale 覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由以下事实得出：弱 \'etale 态射的复合与基变换仍为弱 \'etale（“态射续篇”引理
+\ref{more-morphisms-lemma-composition-weakly-etale} 与
+\ref{more-morphisms-lemma-base-change-weakly-etale}）、引理
+\ref{proetale-lemma-recognize-proetale-covering}，以及 fpqc 覆盖的相应结果（见“拓扑”引理
+\ref{topologies-lemma-fpqc}）。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-proetale-affine}
+设 $T$ 为仿射概形，$\{T_i \to T\}_{i \in I}$ 为 $T$ 的 pro-\'etale 覆盖。
+则存在作为 $\{T_i \to T\}_{i \in I}$ 之加细的 pro-\'etale 覆盖
+$\{U_j \to T\}_{j = 1, \ldots, n}$，使得每个 $U_j$ 都是仿射概形。此外，
+可以选取每个 $U_j$ 为某个 $T_i$ 中的仿射开集。
+\end{lemma}
+
+\begin{proof}
+这直接由定义得出。
+\end{proof}
+
+\noindent
+因此如下定义仿射概形的相应标准覆盖。
+
+\begin{definition}
+\label{proetale-definition-standard-proetale}
+设 $T$ 为仿射概形。$T$ 的一个{\it 标准 pro-\'etale 覆盖}是态射族
+$\{f_i : T_i \to T\}_{i = 1, \ldots, n}$，其中每个 $T_j$ 都是仿射的，
+每个 $f_i$ 都是弱 \'etale 的，并且 $T = \bigcup f_i(T_i)$。
+\end{definition}
+
+\noindent
+我们依照“拓扑”第 \ref{topologies-section-procedure} 节给出的一般方案，构造将要
+使用的大 pro-\'etale 位点。不过，由于需要稍大的环来容纳某些构造的规模，
+我们对这些构造略作修改。
+
+\begin{definition}
+\label{proetale-definition-big-proetale-site}
+一个{\it 大 pro-\'etale 位点}是按如下方式构造的、如“位点”定义
+\ref{sites-definition-site} 所述的任意位点 $\Sch_\proetale$：
+\begin{enumerate}
+\item 选取任意概形集 $S_0$，以及这些概形间任意的 pro-\'etale 覆盖集
+$\text{Cov}_0$。
+\item 把“集合”式 (\ref{sets-equation-bound}) 中的函数 $Bound$ 改为
+$$
+Bound(\kappa) = \max\{\kappa^{2^{2^{2^\kappa}}}, \kappa^{\aleph_0}, \kappa^+\}.
+$$
+\item 取从集合 $S_0$ 与函数 $Bound$ 出发、按“集合”引理
+\ref{sets-lemma-construct-category} 构造的任意范畴 $\Sch_\alpha$ 为底层范畴。
+\item 从范畴 $\Sch_\alpha$、pro-\'etale 覆盖类及上面选取的集合
+$\text{Cov}_0$ 出发，按“集合”引理 \ref{sets-lemma-coverings-site} 选取任意覆盖集。
+\end{enumerate}
+\end{definition}
+
+\noindent
+关于大位点定义的动机与说明，见“拓扑”定义
+\ref{topologies-definition-big-zariski-site} 后的各条注。
+
+\medskip\noindent
+由引理 \ref{proetale-lemma-proetale-induced} 将可看出，大 pro-\'etale 位点
+$\Sch_\proetale$ 上的拓扑在某种意义下由所有概形的范畴上的 pro-\'etale 拓扑
+诱导而来。
+
+\begin{definition}
+\label{proetale-definition-big-small-proetale}
+设 $S$ 为概形，$\Sch_\proetale$ 为包含 $S$ 的大 pro-\'etale 位点。
+\begin{enumerate}
+\item $S$ 的{\it 大 pro-\'etale 位点}记为 $(\Sch/S)_\proetale$，它是“位点”
+第 \ref{sites-section-localize} 节中引入的位点 $\Sch_\proetale/S$。
+\item $S$ 的{\it 小 pro-\'etale 位点}记为 $S_\proetale$，它是
+$(\Sch/S)_\proetale$ 的全子范畴，其对象为使 $U \to S$ 弱 \'etale 的
+$U/S$。$S_\proetale$ 的覆盖是 $(\Sch/S)_\proetale$ 的任意覆盖
+$\{U_i \to U\}$，其中 $U \in \Ob(S_\proetale)$。
+\item $S$ 的{\it 大仿射 pro-\'etale 位点}记为
+$(\textit{Aff}/S)_\proetale$，它是 $(\Sch/S)_\proetale$ 的全子范畴，其对象为
+仿射的 $U/S$。$(\textit{Aff}/S)_\proetale$ 的覆盖是
+$(\Sch/S)_\proetale$ 的任意标准 pro-\'etale 覆盖 $\{U_i \to U\}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+小 pro-\'etale 位点和大仿射 pro-\'etale 位点是否确为位点，并非完全显然。我们现在
+验证这一点。
+
+\begin{lemma}
+\label{proetale-lemma-verify-site-proetale}
+设 $S$ 为概形，$\Sch_\proetale$ 为包含 $S$ 的大 pro-\'etale 位点。则
+$S_\proetale$ 与 $(\textit{Aff}/S)_\proetale$ 都是位点。
+\end{lemma}
+
+\begin{proof}
+先证明 $S_\proetale$ 是位点。它是一个范畴，并配有一组具有固定目标的态射族。
+因此须证明“位点”定义 \ref{sites-definition-site} 的性质 (1)、(2) 与 (3)。
+由于 $(\Sch/S)_\proetale$ 是位点，只须证明：若 $\{U_i \to U\}$ 是
+$(\Sch/S)_\proetale$ 的覆盖且 $U \in \Ob(S_\proetale)$，则也有
+$U_i \in \Ob(S_\proetale)$。这由定义以及弱 \'etale 态射的复合仍为弱 \'etale
+态射这一事实得出。
+
+\medskip\noindent
+同理，为证明 $(\textit{Aff}/S)_\proetale$ 是位点，只须证明仿射概形的标准
+pro-\'etale 覆盖全体满足“位点”定义 \ref{sites-definition-site} 的性质 (1)、(2)
+与 (3)。这由引理 \ref{proetale-lemma-recognize-proetale-covering} 以及标准 fpqc 覆盖的
+相应结果（“拓扑”引理 \ref{topologies-lemma-fpqc-affine-axioms}）得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-fibre-products-proetale}
+设 $S$ 为概形，$\Sch_\proetale$ 为包含 $S$ 的大 pro-\'etale 位点，并设
+$\Sch$ 为所有概形组成的范畴。
+\begin{enumerate}
+\item 范畴 $\Sch_\proetale$、$(\Sch/S)_\proetale$、$S_\proetale$ 与
+$(\textit{Aff}/S)_\proetale$ 都有纤维积，且与 $\Sch$ 中的纤维积一致。
+\item 范畴 $\Sch_\proetale$、$(\Sch/S)_\proetale$ 与 $S_\proetale$ 都有
+等化子，且与 $\Sch$ 中的等化子一致。
+\item 范畴 $(\Sch/S)_\proetale$ 与 $S_\proetale$ 都有终对象，即 $S/S$。
+\item 范畴 $\Sch_\proetale$ 有与 $\Sch$ 的终对象一致的终对象，即
+$\Spec(\mathbf{Z})$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+按构造，范畴 $\Sch_\proetale$ 包含 $\Spec(\mathbf{Z})$，并且对积与纤维积封闭；
+见“集合”引理 \ref{sets-lemma-what-is-in-it}。设有概形态射 $U \to S$、
+$V \to U$、$W \to U$，其中 $U, V, W \in \Ob(\Sch_\proetale)$。
+$\Sch_\proetale$ 中的纤维积 $V \times_U W$ 也是 $\Sch$ 中的纤维积；在所有
+$S$-概形组成的范畴中，它又是 $V/S$ 与 $W/S$ 在 $U/S$ 上的纤维积，因而也是
+$(\Sch/S)_\proetale$ 中的纤维积。这证明了关于 $(\Sch/S)_\proetale$ 的结论。
+若 $U \to S$、$V \to U$ 与 $W \to U$ 都是弱 \'etale 的，则
+$V \times_U W \to S$ 也是弱 \'etale 的（见“态射续篇”第
+\ref{more-morphisms-section-weakly-etale} 节），故 $S_\proetale$ 中也有纤维积。
+若 $U, V, W$ 都是仿射的，则 $V \times_U W$ 也是仿射的，故
+$(\textit{Aff}/S)_\proetale$ 中也有纤维积。
+
+\medskip\noindent
+设 $a, b : U \to V$ 是 $\Sch_\proetale$ 中的两个态射。此时 $a$ 与 $b$ 的等化子
+（在概形范畴中）为
+$$
+V
+\times_{\Delta_{V/\Spec(\mathbf{Z})}, V \times_{\Spec(\mathbf{Z})} V, (a, b)}
+(U \times_{\Spec(\mathbf{Z})} U)
+$$
+由上可知它是 $\Sch_\proetale$ 的对象。因此 $\Sch_\proetale$ 有等化子。若 $a$ 与
+$b$ 是 $S$ 上的态射，则其等化子（在概形范畴中）还可写为
+$$
+V \times_{\Delta_{V/S}, V \times_S V, (a, b)} (U \times_S U)
+$$
+故 $(\Sch/S)_\proetale$ 有等化子。此外，若 $U$ 与 $V$ 在 $S$ 上弱 \'etale，
+则上述等化子作为在 $S$ 上弱 \'etale 的概形之纤维积，也弱 \'etale。
+因此 $S_\proetale$ 有等化子。关于终对象的断言是显然的。
+\end{proof}
+
+\noindent
+下面验证大仿射 pro-\'etale 位点与大 pro-\'etale 位点定义同一拓扑斯。
+
+\begin{lemma}
+\label{proetale-lemma-affine-big-site-proetale}
+设 $S$ 为概形，$\Sch_\proetale$ 为包含 $S$ 的大 pro-\'etale 位点。函子
+$(\textit{Aff}/S)_\proetale \to (\Sch/S)_\proetale$ 是特殊余连续函子。因此它诱导
+从 $\Sh((\textit{Aff}/S)_\proetale)$ 到 $\Sh((\Sch/S)_\proetale)$ 的拓扑斯等价。
+\end{lemma}
+
+\begin{proof}
+特殊余连续函子的概念见“位点”定义
+\ref{sites-definition-special-cocontinuous-functor}。因此须验证“位点”引理
+\ref{sites-lemma-equivalence} 的假设 (1)--(5)。将包含函子记为
+$u : (\textit{Aff}/S)_\proetale \to (\Sch/S)_\proetale$。余连续性恰好是说：当
+$T$ 仿射时，$T/S$ 的任意 pro-\'etale 覆盖均可由 $T$ 的一个标准 pro-\'etale
+覆盖加细。这正是引理 \ref{proetale-lemma-proetale-affine} 的内容，故 (1) 成立。
+由于标准 pro-\'etale 覆盖就是 pro-\'etale 覆盖，$u$ 显然连续，故 (2) 成立。
+(3) 与 (4) 立即由 $u$ 全忠实得出。最后，(5) 由每个概形都有仿射开覆盖得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-put-in-T}
+设 $\Sch_\proetale$ 为大 pro-\'etale 位点，$f : T \to S$ 为
+$\Sch_\proetale$ 中的态射。函子 $T_\proetale \to (\Sch/S)_\proetale$ 余连续，
+并诱导拓扑斯态射
+$$
+i_f :
+\Sh(T_\proetale)
+\longrightarrow
+\Sh((\Sch/S)_\proetale)
+$$
+对于 $(\Sch/S)_\proetale$ 上的层 $\mathcal{G}$，有公式
+$(i_f^{-1}\mathcal{G})(U/T) = \mathcal{G}(U/S)$。函子 $i_f^{-1}$ 还有一个左伴随
+$i_{f, !}$，后者保持纤维积与等化子。
+\end{lemma}
+
+\begin{proof}
+将该函子记为 $u : T_\proetale \to (\Sch/S)_\proetale$。换言之，给定与
+$T_\proetale$ 的一个对象对应的弱 \'etale 态射 $j : U \to T$，令
+$u(U \to T) = (f \circ j : U \to S)$。由引理
+\ref{proetale-lemma-fibre-products-proetale}，此函子保持纤维积。此外，引理
+\ref{proetale-lemma-fibre-products-proetale} 说明 $T_\proetale$ 有等化子且 $u$ 保持等化子。
+它显然余连续。又因 $u$ 将覆盖变为
+覆盖并保持纤维积，它也是连续的。因此结论由“位点”引理
+\ref{sites-lemma-when-shriek} 与 \ref{sites-lemma-preserve-equalizers} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-at-the-bottom}
+设 $S$ 为概形，$\Sch_\proetale$ 为包含 $S$ 的大 pro-\'etale 位点。包含函子
+$S_\proetale \to (\Sch/S)_\proetale$ 满足“位点”引理
+\ref{sites-lemma-bigger-site} 的假设，因而诱导位点态射
+$$
+\pi_S : (\Sch/S)_\proetale \longrightarrow S_\proetale
+$$
+及拓扑斯态射
+$$
+i_S : \Sh(S_\proetale) \longrightarrow \Sh((\Sch/S)_\proetale)
+$$
+使得 $\pi_S \circ i_S = \text{id}$。此外，$i_S = i_{\text{id}_S}$，其中
+$i_{\text{id}_S}$ 如引理 \ref{proetale-lemma-put-in-T} 所述。特别地，函子
+$i_S^{-1} = \pi_{S, *}$ 由规则
+$i_S^{-1}(\mathcal{G})(U/S) = \mathcal{G}(U/S)$ 描述。
+\end{lemma}
+
+\begin{proof}
+在此情形，函子 $u : S_\proetale \to (\Sch/S)_\proetale$ 除具有上面引理
+\ref{proetale-lemma-put-in-T} 的证明中所见的性质外，还全忠实并将终对象变为终对象。
+本引理由“位点”引理 \ref{sites-lemma-bigger-site} 得出。
+\end{proof}
+
+\begin{definition}
+\label{proetale-definition-restriction-small-proetale}
+在引理 \ref{proetale-lemma-at-the-bottom} 的情形中，函子 $i_S^{-1} = \pi_{S, *}$ 常称为
+{\it 到小 pro-\'etale 位点的限制}。对于大 pro-\'etale 位点上的层
+$\mathcal{F}$，将此限制记为 $\mathcal{F}|_{S_\proetale}$。
+\end{definition}
+
+\noindent
+采用此记号，对于大位点上的层 $\mathcal{F}$ 和大位点上的层 $\mathcal{G}$，有
+\begin{align*}
+\Mor_{\Sh(S_\proetale)}(\mathcal{F}|_{S_\proetale}, \mathcal{G})
+& =
+\Mor_{\Sh((\Sch/S)_\proetale)}(\mathcal{F},
+i_{S, *}\mathcal{G}) \\
+\Mor_{\Sh(S_\proetale)}(\mathcal{G}, \mathcal{F}|_{S_\proetale})
+& =
+\Mor_{\Sh((\Sch/S)_\proetale)}(\pi_S^{-1}\mathcal{G}, \mathcal{F})
+\end{align*}
+此外，有 $(i_{S, *}\mathcal{G})|_{S_\proetale} = \mathcal{G}$，并且有
+$(\pi_S^{-1}\mathcal{G})|_{S_\proetale} = \mathcal{G}$。
+
+\begin{lemma}
+\label{proetale-lemma-morphism-big}
+设 $\Sch_\proetale$ 为大 pro-\'etale 位点，$f : T \to S$ 为
+$\Sch_\proetale$ 中的态射。函子
+$$
+u : (\Sch/T)_\proetale \longrightarrow (\Sch/S)_\proetale, \quad
+V/T \longmapsto V/S
+$$
+余连续，并有连续的右伴随
+$$
+v : (\Sch/S)_\proetale \longrightarrow (\Sch/T)_\proetale, \quad
+(U \to S) \longmapsto (U \times_S T \to T).
+$$
+它们诱导同一个拓扑斯态射
+$$
+f_{big} :
+\Sh((\Sch/T)_\proetale)
+\longrightarrow
+\Sh((\Sch/S)_\proetale)
+$$
+我们有 $f_{big}^{-1}(\mathcal{G})(U/T) = \mathcal{G}(U/S)$。
+我们有 $f_{big, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$。
+此外，$f_{big}^{-1}$ 有一个左伴随 $f_{big!}$，后者保持纤维积与等化子。
+\end{lemma}
+
+\begin{proof}
+函子 $u$ 余连续、连续，并保持纤维积与等化子（细节从略；比较引理
+\ref{proetale-lemma-put-in-T} 的证明）。因此可应用“位点”引理
+\ref{sites-lemma-when-shriek} 与 \ref{sites-lemma-preserve-equalizers}，从而得到
+$f_{big}^{-1}$ 的公式及 $f_{big!}$ 的存在性。此外，函子 $v$ 是右伴随，因为给定
+$U/T$ 与 $V/S$，有 $\Mor_S(u(U), V) = \Mor_T(U, V \times_S T)$，正如所需。
+于是可应用“位点”引理 \ref{sites-lemma-have-functor-other-way} 与
+\ref{sites-lemma-have-functor-other-way-morphism}，得到 $f_{big, *}$ 的公式。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-morphism-big-small}
+设 $\Sch_\proetale$ 为大 pro-\'etale 位点，$f : T \to S$ 为
+$\Sch_\proetale$ 中的态射。
+\begin{enumerate}
+\item 有 $i_f = f_{big} \circ i_T$，其中 $i_f$ 如引理
+\ref{proetale-lemma-put-in-T} 所述，而 $i_T$ 如引理 \ref{proetale-lemma-at-the-bottom} 所述。
+\item 函子 $S_\proetale \to T_\proetale$，
+$(U \to S) \mapsto (U \times_S T \to T)$ 连续，并诱导拓扑斯态射
+$$
+f_{small} : \Sh(T_\proetale) \longrightarrow \Sh(S_\proetale).
+$$
+有 $f_{small, *}(\mathcal{F})(U/S) = \mathcal{F}(U \times_S T/T)$。
+\item 有如下位点态射的交换图
+$$
+\xymatrix{
+T_\proetale \ar[d]_{f_{small}} &
+(\Sch/T)_\proetale \ar[d]^{f_{big}} \ar[l]^{\pi_T}\\
+S_\proetale &
+(\Sch/S)_\proetale \ar[l]_{\pi_S}
+}
+$$
+故作为拓扑斯态射，有 $f_{small} \circ \pi_T = \pi_S \circ f_{big}$。
+\item 有 $f_{small} = \pi_S \circ f_{big} \circ i_T = \pi_S \circ i_f$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+等式 $i_f = f_{big} \circ i_T$ 由等式
+$i_f^{-1} = i_T^{-1} \circ f_{big}^{-1}$ 得出；后者由上面对这些函子的描述显然成立。
+这证明了 (1)。
+
+\medskip\noindent
+函子 $u : S_\proetale \to T_\proetale$，
+$u(U \to S) = (U \times_S T \to T)$ 将覆盖变为覆盖并保持纤维积；见引理
+\ref{proetale-lemma-proetale} 与 \ref{proetale-lemma-fibre-products-proetale}。此外，
+$S_\proetale$、$T_\proetale$ 都有终对象，即 $S/S$ 与 $T/T$，并且
+$u(S/S) = T/T$。因此由“位点”命题 \ref{sites-proposition-get-morphism}，函子
+$u$ 对应一个位点态射 $T_\proetale \to S_\proetale$。它进而给出该拓扑斯态射；
+见“位点”引理 \ref{sites-lemma-morphism-sites-topoi}。直像的描述由这些引文显然得出。
+
+\medskip\noindent
+(3) 由下述事实得出：$\pi_S$ 与 $\pi_T$ 由包含函子给出，而 $f_{small}$ 与
+$f_{big}$ 由基变换函子 $U \mapsto U \times_S T$ 给出。
+
+\medskip\noindent
+(4) 由 (3) 前复合 $i_T$ 得出。
+\end{proof}
+
+\noindent
+在该引理的情形中，采用定义 \ref{proetale-definition-restriction-small-proetale} 的术语，
+对于 $T$ 的大 pro-\'etale 位点上的层 $\mathcal{F}$，有
+\begin{equation}
+\label{proetale-equation-compare-big-small}
+(f_{big, *}\mathcal{F})|_{S_\proetale} =
+f_{small, *}(\mathcal{F}|_{T_\proetale}),
+\end{equation}
+此等式由引理中位点图的交换性显然得出，因为到 $T$（分别地，$S$）的小
+pro-\'etale 位点的限制由 $\pi_{T, *}$（分别地，$\pi_{S, *}$）给出。涉及拉回与
+限制的类似公式并不成立。
+
+\begin{lemma}
+\label{proetale-lemma-composition-proetale}
+给定 $\Sch_\proetale$ 中的概形 $X$、$Y$、$Y$ 以及态射 $f : X \to Y$、
+$g : Y \to Z$，有 $g_{big} \circ f_{big} = (g \circ f)_{big}$ 与
+$g_{small} \circ f_{small} = (g \circ f)_{small}$。
+\end{lemma}
+
+\begin{proof}
+对于大位点上的函子，这由引理 \ref{proetale-lemma-morphism-big} 中对直像与拉回的简单描述
+得出。对于小位点上的函子，这由引理 \ref{proetale-lemma-morphism-big-small} 中对直像函子的
+描述得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-morphism-big-small-cartesian-diagram}
+设 $\Sch_\proetale$ 为大 pro-\'etale 位点。考虑 $\Sch_\proetale$ 中的笛卡尔图
+$$
+\xymatrix{
+T' \ar[r]_{g'} \ar[d]_{f'} & T \ar[d]^f \\
+S' \ar[r]^g & S
+}
+$$
+则 $i_g^{-1} \circ f_{big, *} = f'_{small, *} \circ (i_{g'})^{-1}$，并且
+$g_{big}^{-1} \circ f_{big, *} = f'_{big, *} \circ (g'_{big})^{-1}$。
+\end{lemma}
+
+\begin{proof}
+由于该图是笛卡尔的，对 $U'/S'$ 有 $U' \times_{S'} T' = U' \times_S T$。
+因此，$i_g^{-1} \circ f_{big, *}$ 与
+$f'_{small, *} \circ (i_{g'})^{-1}$ 都将 $(\Sch/T)_\proetale$ 上的层
+$\mathcal{F}$ 送到 $S'_\proetale$ 上的层
+$U' \mapsto \mathcal{F}(U' \times_{S'} T')$（使用引理
+\ref{proetale-lemma-put-in-T} 与 \ref{proetale-lemma-morphism-big}）。第二个等式可同样证明，也可由
+非常一般的“位点”引理 \ref{sites-lemma-localize-morphism} 推出。
+\end{proof}
+
+\noindent
+可以把 $S$ 的大 pro-\'etale 位点上的层看作一族层：对每个 $S$ 上的概形，取其小
+pro-\'etale 位点上的一个层。
+
+\begin{lemma}
+\label{proetale-lemma-characterize-sheaf-big}
+设 $S$ 为大 pro-\'etale 位点 $\Sch_\proetale$ 所包含的概形。大 pro-\'etale 位点
+$(\Sch/S)_\proetale$ 上的层 $\mathcal{F}$ 由下列数据给出：
+\begin{enumerate}
+\item 对每个 $T/S \in \Ob((\Sch/S)_\proetale)$，取 $T_\proetale$ 上的层
+$\mathcal{F}_T$；
+\item 对 $(\Sch/S)_\proetale$ 中的每个 $f : T' \to T$，取映射
+$c_f : f_{small}^{-1}\mathcal{F}_T \to \mathcal{F}_{T'}$。
+\end{enumerate}
+这些数据须满足下列条件：
+\begin{enumerate}
+\item[(a)] 对 $(\Sch/S)_\proetale$ 中任意 $f : T' \to T$ 与
+$g : T'' \to T'$，复合 $c_g \circ g_{small}^{-1}c_f$ 等于 $c_{f \circ g}$；
+\item[(b)] 若 $(\Sch/S)_\proetale$ 中的 $f : T' \to T$ 是弱 \'etale 的，
+则 $c_f$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+与“拓扑”引理 \ref{topologies-lemma-characterize-sheaf-big-etale} 的证明相同。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-alternative}
+设 $S$ 为概形。以 $S_{affine, \proetale}$ 表示 $S_\proetale$ 中由仿射对象组成的
+全子范畴。$S_{affine, \proetale}$ 的覆盖取为标准 pro-\'etale 覆盖；见定义
+\ref{proetale-definition-standard-proetale}。则限制
+$$
+\mathcal{F} \longmapsto \mathcal{F}|_{S_{affine, \etale}}
+$$
+定义拓扑斯等价 $\Sh(S_\proetale) \cong \Sh(S_{affine, \proetale})$。
+\end{lemma}
+
+\begin{proof}
+这可直接由定义证明，是一道很好的练习。不过，它也立即由“位点”引理
+\ref{sites-lemma-equivalence} 得出：只须验证包含函子
+$S_{affine, \proetale} \to S_\proetale$ 是特殊余连续函子（见“位点”定义
+\ref{sites-definition-special-cocontinuous-functor}）。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-affine-alternative}
+设 $S$ 为仿射概形。以 $S_{app}$ 表示 $S_\proetale$ 中由满足
+$\mathcal{O}(S) \to \mathcal{O}(U)$ 为 ind-\'etale 的仿射对象 $U$ 组成的全子范畴。
+$S_{app}$ 的覆盖取为标准 pro-\'etale 覆盖；见定义
+\ref{proetale-definition-standard-proetale}。则限制
+$$
+\mathcal{F} \longmapsto \mathcal{F}|_{S_{app}}
+$$
+定义拓扑斯等价 $\Sh(S_\proetale) \cong \Sh(S_{app})$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-alternative}，可用 $S_{affine, \proetale}$ 代替
+$S_\proetale$。只须验证包含函子 $S_{app} \to S_{affine, \proetale}$ 是特殊
+余连续函子，本引理便由“位点”引理 \ref{sites-lemma-equivalence} 得出；见“位点”
+定义 \ref{sites-definition-special-cocontinuous-functor}。“位点”引理
+\ref{sites-lemma-equivalence} 的各条件立即由定义及下列事实得出：(a)
+$S_{affine, \proetale}$ 的任意对象 $U$ 都有一个覆盖 $\{V \to U\}$，其中 $V$
+在 $X$ 上 ind-\'etale（命题 \ref{proetale-proposition-weakly-etale}）；以及 (b) 函子 $u$
+全忠实。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-proetale-subcanonical}
+设 $S$ 为概形。pro-\'etale 位点 $\Sch_\proetale$、$S_\proetale$、
+$(\Sch/S)_\proetale$、$S_{affine, \proetale}$ 与
+$(\textit{Aff}/S)_\proetale$ 上的拓扑均为次典范的。
+\end{lemma}
+
+\begin{proof}
+合用引理 \ref{proetale-lemma-recognize-proetale-covering} 与“下降”引理
+\ref{descent-lemma-fpqc-universal-effective-epimorphisms}。
+\end{proof}
+
+
+
+
+
+\section{弱可缩对象}
+\label{proetale-section-weakly-contractible}
+
+\noindent
+本节证明一个关键事实：我们的 pro-\'etale 位点含有许多弱可缩对象。事实上，引理
+\ref{proetale-lemma-get-many-weakly-contractible} 的证明正是定义
+\ref{proetale-definition-big-proetale-site} 中函数 $Bound$ 采用该形式的原因（不过，对忽略
+集合论问题的读者而言，这条信息没有实际内容）。
+
+\noindent
+先用 pro-\'etale 覆盖表述 w-可缩环的概念。
+
+\begin{lemma}
+\label{proetale-lemma-w-contractible-proetale-cover}
+设 $T = \Spec(A)$ 为仿射概形。下列条件等价：
+\begin{enumerate}
+\item $A$ 是 w-可缩的；
+\item $T$ 的每个 pro-\'etale 覆盖都可由形如
+$T = \coprod_{i = 1, \ldots, n} U_i$ 的 Zariski 覆盖加细。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $A$ 是 w-可缩的。由引理 \ref{proetale-lemma-proetale-affine}，只须证明 $T$ 的某个
+Zariski 覆盖能够加细每个标准 pro-\'etale 覆盖
+$\{f_i : T_i \to T\}_{i = 1, \ldots, n}$。态射 $\coprod T_i \to T$ 是仿射概形间
+满的弱 \'etale 态射。因此由定义 \ref{proetale-definition-w-contractible}，存在 $T$ 上的态射
+$\sigma : T \to \coprod T_i$。于是 Zariski 覆盖
+$T = \coprod \sigma^{-1}(T_i)$ 加细 $\{f_i : T_i \to T\}$。
+
+\medskip\noindent
+反之，假设 (2)。若 $A \to B$ 忠实平坦且弱 \'etale，则
+$\{\Spec(B) \to T\}$ 是 pro-\'etale 覆盖。因此存在 Zariski 覆盖
+$T = \coprod U_i$ 以及 $T$ 上的态射 $U_i \to \Spec(B)$。由于
+$T = \coprod U_i$，得到 $T \to \Spec(B)$，也即一个 $A$-代数映射 $B \to A$。
+这说明 $A$ 是 w-可缩的。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-w-contractible-is-weakly-contractible}
+设 $\Sch_\proetale$ 为定义 \ref{proetale-definition-big-proetale-site} 所述的大
+pro-\'etale 位点，并设 $T = \Spec(A)$ 为 $\Sch_\proetale$ 的仿射对象。下列条件等价：
+\begin{enumerate}
+\item $A$ 是 w-可缩的；
+\item $T$ 是 $\Sch_\proetale$ 的弱可缩对象（“位点”定义
+\ref{sites-definition-w-contractible}）；
+\item $T$ 的每个 pro-\'etale 覆盖都可由形如
+$T = \coprod_{i = 1, \ldots, n} U_i$ 的 Zariski 覆盖加细。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+引理 \ref{proetale-lemma-w-contractible-proetale-cover} 已证明 (1) 与 (3) 等价。
+
+\medskip\noindent
+假设 (3)，并设 $\mathcal{F} \to \mathcal{G}$ 是 $\Sch_\proetale$ 上层的满射。
+取 $s \in \mathcal{G}(T)$。为证明 (2)，我们将证明 $s$ 属于
+$\mathcal{F}(T) \to \mathcal{G}(T)$ 的像。可找到 $\Sch_\proetale$ 的覆盖
+$\{T_i \to T\}$，使 $s$ 在 $T_i$ 上提升为 $\mathcal{F}$ 的截面（“位点”定义
+\ref{sites-definition-sheaves-injective-surjective}）。由 (3)，可以假设有由既开又闭的
+子集组成的有限覆盖 $T = \coprod_{j = 1, \ldots, m} U_j$，并有映到
+$s|_{U_j}$ 的 $t_j \in \mathcal{F}(U_j)$。由于 Zariski 覆盖是
+$\Sch_\proetale$ 中的覆盖（引理 \ref{proetale-lemma-etale-proetale}），可知
+$\mathcal{F}(T) = \prod \mathcal{F}(U_j)$。因此
+$t = (t_1, \ldots, t_m) \in \mathcal{F}(T)$ 是映到 $s$ 的截面。
+
+\medskip\noindent
+假设 (2)。取命题 \ref{proetale-proposition-find-w-contractible} 所述的 $A \to D$。
+则 $\{V \to T\}$ 是 $\Sch_\proetale$ 的覆盖。（注意，由注
+\ref{proetale-remark-size-w-contractible}、定义 \ref{proetale-definition-big-proetale-site} 中对函数
+$Bound$ 的选取以及“集合”引理 \ref{sets-lemma-bound-size} 对仿射概形大小的计算，
+$V = \Spec(D)$ 是 $\Sch_\proetale$ 的对象。）由于 $\Sch_\proetale$ 上的拓扑是
+次典范的（引理 \ref{proetale-lemma-proetale-subcanonical}），$h_V \to h_T$ 是层的满射
+（“位点”引理 \ref{sites-lemma-covering-surjective-after-sheafification}）。由于假设
+$T$ 弱可缩，存在元素 $f \in h_V(T) = \Mor(T, V)$，其在 $h_T(T)$ 中的像为
+$\text{id}_T$。因此 $A \to D$ 有回缩 $\sigma : D \to A$。现若 $A \to B$
+忠实平坦且弱 \'etale，则 $D \to D \otimes_A B$ 具有相同性质，故存在回缩
+$D \otimes_A B \to D$；将其与 $\sigma$ 复合，得到 $A \to B$ 的回缩
+$B \to D \otimes_A B \to D \to A$。因此 $A$ 是 w-可缩的，(1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-get-many-weakly-contractible}
+设 $\Sch_\proetale$ 为定义 \ref{proetale-definition-big-proetale-site} 所述的大
+pro-\'etale 位点。对 $\Sch_\proetale$ 的每个对象 $T$，存在 $\Sch_\proetale$
+中的覆盖 $\{T_i \to T\}$，使每个 $T_i$ 都是仿射的，并且是某个 w-可缩环的谱。
+特别地，$T_i$ 在 $\Sch_\proetale$ 中弱可缩。
+\end{lemma}
+
+\begin{proof}
+对于不关心集合论问题的读者，本引理是引理
+\ref{proetale-lemma-w-contractible-is-weakly-contractible} 与命题
+\ref{proetale-proposition-find-w-contractible} 的平凡推论。下面给出细节。选取仿射开覆盖
+$T = \bigcup U_i$，并写成 $U_i = \Spec(A_i)$。依照命题
+\ref{proetale-proposition-find-w-contractible}，选取忠实平坦的 ind-\'etale 环映射
+$A_i \to D_i$，使 $D_i$ 为 w-可缩的。态射族 $\{\Spec(D_i) \to T\}$ 是
+pro-\'etale 覆盖。若能证明 $\Spec(D_i)$ 同构于 $\Sch_\proetale$ 的某个对象，记为
+$T_i$，则由定义 \ref{proetale-definition-big-proetale-site} 中 $\Sch_\proetale$ 的构造，
+更确切地说，由最后一步对“集合”引理 \ref{sets-lemma-coverings-site} 的应用，
+$\{T_i \to T\}$ 将与 $\Sch_\proetale$ 的一个覆盖组合等价。由定义
+\ref{proetale-definition-big-proetale-site} 中 $\Sch_\proetale$ 的构造，更确切地说，由第
+(3) 步对“集合”引理 \ref{sets-lemma-construct-category} 的应用，为证明
+$\Spec(D_i)$ 同构于 $\Sch_\proetale$ 的一个对象，只须证明
+$|D_i| \leq Bound(\text{size}(T))$。由“集合”引理
+\ref{sets-lemma-bound-affine} 与 \ref{sets-lemma-bound-finite-type}，有
+$|A_i| \leq \text{size}(U_i) \leq \text{size}(T)$；故由注
+\ref{proetale-remark-size-w-contractible}，有
+$|D_i| \leq \kappa^{2^{2^{2^\kappa}}}$，其中 $\kappa = \text{size}(T)$。因此，
+由定义 \ref{proetale-definition-big-proetale-site} 中对函数 $Bound$ 的选取，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-proetale-enough-w-contractible}
+设 $S$ 为概形。pro-\'etale 位点 $S_\proetale$、$(\Sch/S)_\proetale$、
+$S_{affine, \proetale}$ 与 $(\textit{Aff}/S)_\proetale$，以及在 $S$ 仿射时的
+$S_{app}$，都有足够多（仿射的）拟紧弱可缩对象；见“位点”定义
+\ref{sites-definition-w-contractible}。
+\end{lemma}
+
+\begin{proof}
+立即由引理 \ref{proetale-lemma-get-many-weakly-contractible} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-weakly-contractible-cover}
+设 $S$ 为概形。pro-\'etale 位点 $\Sch_\proetale$、$S_\proetale$、
+$(\Sch/S)_\proetale$ 具有下列性质：对任意对象 $U$，存在覆盖
+$\{V \to U\}$，其中 $V$ 为弱可缩对象。若 $U$ 拟紧，则可选取 $V$ 为仿射且
+弱可缩的。
+\end{lemma}
+
+\begin{proof}
+设 $V = \coprod_{j \in J} V_j$ 是 $(\Sch/S)_\proetale$ 的对象，并且是弱可缩对象
+$V_j$ 的不交并。由于不交并分解是 pro-\'etale 覆盖，对任意 pro-\'etale 层
+$\mathcal{F}$，有 $\mathcal{F}(V) = \prod_{j \in J} \mathcal{F}(V_j)$。设
+$\mathcal{F} \to \mathcal{G}$ 是集合层的满射。由于 $V_j$ 弱可缩，映射
+$\mathcal{F}(V_j) \to \mathcal{G}(V_j)$ 是满射；见“位点”定义
+\ref{sites-definition-w-contractible}。因此，作为集合满射之积，
+$\mathcal{F}(V) \to \mathcal{G}(V)$ 是满射，从而 $V$ 弱可缩。
+
+\medskip\noindent
+依照引理 \ref{proetale-lemma-get-many-weakly-contractible}，选取覆盖
+$\{U_i \to U\}_{i \in I}$，其中 $U_i$ 仿射且弱可缩。取
+$V = \coprod_{i \in I} U_i$（这里有一个集合论问题，将在下文处理）。则
+$\{V \to U\}$ 是所需的、由弱可缩对象给出的 pro-\'etale 覆盖（要验证它是覆盖，
+使用引理 \ref{proetale-lemma-recognize-proetale-covering}）。若 $U$ 拟紧，则由引理
+\ref{proetale-lemma-recognize-proetale-covering} 立即可知，可选取有限子集 $I' \subset I$，
+使 $\{U_i \to U\}_{i \in I'}$ 仍为覆盖；于是
+$\{\coprod_{i \in I'} U_i \to U\}$ 是所需的、由仿射弱可缩对象给出的覆盖。
+
+\medskip\noindent
+本段处理集合论问题，我们强烈建议读者跳过。为确定该不交并位于我们的部分宇宙中，
+需要控制指标集 $I$ 的基数。由引理 \ref{proetale-lemma-get-many-weakly-contractible} 的
+证明中覆盖 $\{U_i \to U\}_{i \in I}$ 的构造立即可见
+$|I| \leq \text{size}(U)$，其中概形的大小如“集合”第
+\ref{sets-section-categories-schemes} 节所定义。此外，对每个 $i$，有
+$\text{size}(U_i) \leq Bound(\text{size}(U))$；这由引理
+\ref{proetale-lemma-get-many-weakly-contractible} 的证明中对
+$\Gamma(U_i, \mathcal{O}_{U_i})$ 基数的估计以及“集合”引理
+\ref{sets-lemma-bound-affine} 得出。因而由“集合”引理 \ref{sets-lemma-bound-size}，
+有 $\text{size}(\coprod_{i \in I} U_i)) \leq Bound(\text{size}(U))$。所以，由通过
+“集合”引理 \ref{sets-lemma-construct-category} 对大 pro-\'etale 位点的构造，
+$\coprod_{i \in I} U_i$ 同构于我们位点的一个对象，证明完毕。
+\end{proof}
+
+
+
+
+
+
+\section{弱可缩超覆盖}
+\label{proetale-section-hypercovering}
+
+\noindent
+第 \ref{proetale-section-weakly-contractible} 节的结果蕴含由弱可缩对象组成的超覆盖之存在性。
+
+\begin{lemma}
+\label{proetale-lemma-w-contractible-hypercovering}
+设 $X$ 为概形。
+\begin{enumerate}
+\item 对 $X_\proetale$ 的每个对象 $U$，存在 $X_\proetale$ 中 $U$ 的超覆盖
+$K$，使每一项 $K_n$ 都由 $X_\proetale$ 中覆盖 $U$ 的一个弱可缩对象组成。
+\item 对 $X_\proetale$ 的每个拟紧拟分离对象 $U$，存在 $X_\proetale$ 中 $U$
+的超覆盖 $K$，使每一项 $K_n$ 都由 $X_\proetale$ 中覆盖 $U$ 的一个仿射弱可缩
+对象组成。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{B} \subset \Ob(X_\proetale)$ 为 $X_\proetale$ 的弱可缩对象集。由引理
+\ref{proetale-lemma-weakly-contractible-cover}，$X_\proetale$ 的每个对象 $T$ 都有覆盖
+$\{T_i \to T\}_{i \in I}$，其中 $I$ 有限且 $T_i \in \mathcal{B}$。由“超覆盖”引理
+\ref{hypercovering-lemma-w-contractible}，得到 $U$ 的超覆盖 $K$，使得
+$K_n = \{U_{n, i}\}_{i \in I_n}$，其中 $I_n$ 有限且 $U_{n, i}$ 弱可缩。随后可将
+$K$ 替换为 $U$ 的如下超覆盖：其第 $n$ 次项由 $\{U_n\}$ 给出，其中
+$U_n = \coprod_{i \in I_n} U_{n, i}$。“超覆盖”注
+\ref{hypercovering-remark-take-unions-hypercovering-X} 保证此替换可行。
+
+\medskip\noindent
+令 $X_{qcqs, \proetale} \subset X_\proetale$ 为由拟紧拟分离对象组成的全子范畴，
+并将 $X_{qcqs, \proetale}$ 的覆盖取为有限 pro-\'etale 覆盖。于是
+$X_{qcqs, \proetale}$ 是有纤维积的位点，且包含函子
+$X_{qcqs, \proetale} \to X_\proetale$ 连续并保持纤维积。特别地，若 $K$ 是
+$X_{qcqs, \proetale}$ 中对象 $U$ 的超覆盖，则由“超覆盖”引理
+\ref{hypercovering-lemma-hypercovering-continuous-functor}，$K$ 也是
+$X_\proetale$ 中 $U$ 的超覆盖。令
+$\mathcal{B} \subset \Ob(X_{qcqs, \proetale})$ 为仿射弱可缩对象集。由引理
+\ref{proetale-lemma-get-many-weakly-contractible} 以及仿射概形的有限并仍为仿射这一事实，
+对 $X_{qcqs, \proetale}$ 的每个对象 $U$，存在 $X_{qcqs, \proetale}$ 的覆盖
+$\{V \to U\}$，其中 $V \in \mathcal{B}$。由“超覆盖”引理
+\ref{hypercovering-lemma-w-contractible}，得到 $U$ 的超覆盖 $K$，使得
+$K_n = \{U_{n, i}\}_{i \in I_n}$，其中 $I_n$ 有限且 $U_{n, i}$ 仿射而弱可缩。
+随后可将 $K$ 替换为 $U$ 的如下超覆盖：其第 $n$ 次项由 $\{U_n\}$ 给出，其中
+$U_n = \coprod_{i \in I_n} U_{n, i}$。“超覆盖”注
+\ref{hypercovering-remark-take-unions-hypercovering-X} 保证此替换可行。
+\end{proof}
+
+\noindent
+在下一个引理中，我们使用与位点中超覆盖 $K$ 相伴的 {\v C}ech 复形
+$s(\mathcal{F}(K))$；见“超覆盖”第 \ref{hypercovering-section-hyper-cech} 节。
+若 $K$ 是 $U$ 的超覆盖且 $K_n = \{U_n \to U\}$，则 {\v C}ech 复形形如
+$$
+s(\mathcal{F}(K)) =
+\left(
+\mathcal{F}(U_0) \to \mathcal{F}(U_1) \to \mathcal{F}(U_2) \to \ldots
+\right)
+$$
+其中 $s(\mathcal{F}(U_n))$ 置于上同调次数 $n$。
+
+\begin{lemma}
+\label{proetale-lemma-compute-cohomology}
+设 $X$ 为概形。设 $E \in D^+(X_\proetale)$ 由阿贝尔层的下有界复形
+$\mathcal{E}^\bullet$ 表示。设 $K$ 是 $U \in \Ob(X_\proetale)$ 的超覆盖，且
+$K_n = \{U_n \to U\}$，其中 $U_n$ 是 $X_\proetale$ 的弱可缩对象。则
+$$
+R\Gamma(U, E) = \text{Tot}(s(\mathcal{E}^\bullet(K)))
+$$
+在 $D(\textit{Ab})$ 中成立。
+\end{lemma}
+
+\begin{proof}
+若 $\mathcal{E}$ 是 $X_\proetale$ 上的阿贝尔层，则“超覆盖”引理
+\ref{hypercovering-lemma-cech-spectral-sequence} 的谱序列蕴含
+$$
+R\Gamma(X_\proetale, \mathcal{E}) = s(\mathcal{E}(K))
+$$
+因为任意层在 $U_n$ 上的高阶上同调群均消失；见“位点上同调”引理
+\ref{sites-cohomology-lemma-w-contractible}。
+
+\medskip\noindent
+若 $\mathcal{E}^\bullet$ 下有界，则可选取内射分解
+$\mathcal{E}^\bullet \to \mathcal{I}^\bullet$，并考虑复形映射
+$$
+\text{Tot}(s(\mathcal{E}^\bullet(K)))
+\longrightarrow
+\text{Tot}(s(\mathcal{I}^\bullet(K)))
+$$
+对每个 $n$，映射 $\mathcal{E}^\bullet(U_n) \to \mathcal{I}^\bullet(U_n)$ 是拟同构，
+因为在 $U_n$ 上取截面是正合的。因此由“同调”引理
+\ref{homology-lemma-first-quadrant-ss} 的一个谱序列，上述映射是拟同构。利用第一段的
+结果可知，对每个 $p$，复形 $s(\mathcal{I}^p(K))$ 在次数 $n > 0$ 无同调，
+并在次数 $0$ 计算 $\mathcal{I}^p(U)$。于是“同调”引理
+\ref{homology-lemma-first-quadrant-ss} 的另一个谱序列说明
+$\text{Tot}(s(\mathcal{I}^\bullet(K)))$ 计算
+$R\Gamma(U, E) = \mathcal{I}^\bullet(U)$。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-quasi-compact-quasi-separated-commutes-direct-sums}
+设 $X$ 为拟紧拟分离概形。函子
+$R\Gamma(X, -) : D^+(X_\proetale) \to D(\textit{Ab})$ 与直和及同伦余极限交换。
+\end{lemma}
+
+\begin{proof}
+该断言含义如下：设有 $D^+(X_\proetale)$ 的一族对象 $E_i$，使得
+$\bigoplus E_i$ 是 $D^+(X_\proetale)$ 的对象。则
+$R\Gamma(X, \bigoplus E_i) = \bigoplus R\Gamma(X, E_i)$。为验证这一点，选取
+$X$ 的超覆盖 $K$，满足 $K_n = \{U_n \to X\}$，其中 $U_n$ 是仿射弱可缩概形；
+见引理 \ref{proetale-lemma-w-contractible-hypercovering}。取整数 $N$，使得当 $p < N$ 时
+$H^p(E_i) = 0$。选取表示 $E_i$ 的阿贝尔层复形 $\mathcal{E}_i^\bullet$，使得
+当 $p < N$ 时 $\mathcal{E}_i^p = 0$。逐项直和
+$\bigoplus \mathcal{E}_i^\bullet$ 在 $D(X_\proetale)$ 中表示 $\bigoplus E_i$；
+见“内射对象”引理 \ref{injectives-lemma-derived-products}。由引理
+\ref{proetale-lemma-compute-cohomology}，有
+$$
+R\Gamma(X, \bigoplus E_i) =
+\text{Tot}(s((\bigoplus \mathcal{E}^\bullet_i)(K)))
+$$
+以及
+$$
+R\Gamma(X, E_i) = \text{Tot}(s(\mathcal{E}^\bullet_i(K)))
+$$
+由于每个 $U_n$ 拟紧，有
+$$
+\text{Tot}(s((\bigoplus \mathcal{E}^\bullet_i)(K))) =
+\bigoplus \text{Tot}(s(\mathcal{E}^\bullet_i(K)))
+$$
+这由“位点上的模”引理 \ref{sites-modules-lemma-sections-over-quasi-compact} 得出。
+关于同伦余极限的断言形式地源于如下事实：$R\Gamma$ 是三角范畴间的正合函子，
+且它与直和交换，这一点刚刚已经证明。
+\end{proof}
+
+\begin{remark}
+\label{proetale-remark-extend-to-all}
+设 $X$ 为概形。由于 $X_\proetale$ 有足够多的弱可缩对象，由“位点上同调”命题
+\ref{sites-cohomology-proposition-enough-weakly-contractibles}，对
+$D(X_\proetale)$ 中所有 $K$，有 $K = R\lim \tau_{\geq -n}K$。又由“内射对象”引理
+\ref{injectives-lemma-RF-commutes-with-Rlim}，$R\Gamma$ 与 $R\lim$ 交换，故
+$$
+R\Gamma(X, K) = R\lim R\Gamma(X, \tau_{\geq -n}K)
+$$
+在 $D(\textit{Ab})$ 中成立。这有时使我们能够把关于下有界复形的结果推广到所有复形。
+\end{remark}
+
+
+
+
+
+
+
+\section{紧生成}
+\label{proetale-section-compact-generation}
+
+\noindent
+本节证明，与我们的 pro-\'etale 位点相伴的若干导出范畴是“导出范畴”定义
+\ref{derived-definition-compactly-generated} 所述的紧生成范畴。
+
+\begin{lemma}
+\label{proetale-lemma-enough-compact-proetale}
+设 $S$ 为概形，$\Lambda$ 为环。
+\begin{enumerate}
+\item $D(S_\proetale)$ 是紧生成的；
+\item $D(S_\proetale, \Lambda)$ 是紧生成的；
+\item 对 $S_\proetale$ 上任意环层 $\mathcal{A}$，
+$D(S_\proetale, \mathcal{A})$ 是紧生成的；
+\item $D((\Sch/S)_\proetale)$ 是紧生成的；
+\item $D((\Sch/S)_\proetale, \Lambda)$ 是紧生成的；
+\item 对 $(\Sch/S)_\proetale$ 上任意环层 $\mathcal{A}$，
+$D((\Sch/S)_\proetale, \mathcal{A})$ 是紧生成的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (3)。设 $U$ 是 $S_\proetale$ 的仿射弱可缩对象。则
+$j_{U!}\mathcal{A}_U$ 是导出范畴 $D(S_\proetale, \mathcal{A})$ 的紧对象；见
+“位点上同调”引理
+\ref{sites-cohomology-lemma-quasi-compact-weakly-contractible-compact}。选取集合 $I$，
+并对每个 $i \in I$ 选取 $S_\proetale$ 的仿射弱可缩对象 $U_i$，使
+$S_\proetale$ 的每个仿射弱可缩对象都同构于某个 $U_i$。这是可行的，因为
+$\Ob(S_\proetale)$ 是集合。为完成 (3) 的证明，只须证明
+$\bigoplus j_{U_i, !}\mathcal{A}_{U_i}$ 是 $D(S_\proetale, \mathcal{A})$ 的生成元；
+见“导出范畴”定义 \ref{derived-definition-generators}。为此，设 $K$ 是
+$D(S_\proetale, \mathcal{A})$ 的非零对象。则在我们的位点 $S_\proetale$ 中存在
+对象 $T$，且 $H^n(K)(T)$ 中存在非零元素 $\xi$。换言之，$\xi$ 是 $K$ 的第
+$n$ 个上同调层的非零截面。可以假设 $K$ 由 $\mathcal{A}$-模层的复形
+$\mathcal{K}^\bullet$ 表示，而 $\xi$ 是满足 $\text{d}(s) = 0$ 的截面
+$s \in \mathcal{K}^n(T)$ 的类。确切地说，$\xi$ 局部表示为一个截面的类（因此，
+用 $T$ 的某个覆盖成员替换 $T$ 后便得到此结论）。接着，依照引理
+\ref{proetale-lemma-get-many-weakly-contractible} 选取覆盖
+$\{T_j \to T\}_{j \in J}$。由于 $H^n(K)$ 是层，对某个 $j$，限制
+$\xi|_{T_j}$ 仍非零。因此 $s|_{T_j}$ 在 $D(S_\proetale, \mathcal{A})$ 中定义非零映射
+$j_{T_j, !}\mathcal{A}_{T_j} \to K$。由于对某个 $i \in I$ 有
+$T_j \cong U_i$，结论得证。
+
+\medskip\noindent
+完全相同的论证适用于 $S$ 的大 pro-\'etale 位点。
+\end{proof}
+
+
+
+
+
+
+
+\section{拓扑的比较}
+\label{proetale-section-compare-topologies}
+
+\noindent
+本节是“\'Etale 上同调”第
+\ref{etale-cohomology-section-compare-topologies} 节的类似版本。
+
+\begin{lemma}
+\label{proetale-lemma-presheaf-value-weakly-contractible}
+设 $X$ 为概形，$\mathcal{F}$ 为 $X_\proetale$ 上的集合预层，并且它将有限不交并
+送到积。若 $W$ 是 $X_\proetale$ 的仿射弱可缩对象，则
+$\mathcal{F}^\#(W) = \mathcal{F}(W)$。
+\end{lemma}
+
+\begin{proof}
+回忆 $\mathcal{F}^\#$ 等于 $(\mathcal{F}^+)^+$；见“位点”定理
+\ref{sites-theorem-plus}。这里 $\mathcal{F}^+$ 是将 $X_\proetale$ 的对象 $U$ 送到
+$\colim H^0(\mathcal{U}, \mathcal{F})$ 的预层，其中余极限取遍 $U$ 的所有
+pro-\'etale 覆盖 $\mathcal{U}$。因此只须证明：(a) $\mathcal{F}^+$ 将有限不交并
+送到积；(b) 它将 $W$ 送到 $\mathcal{F}(W)$。若 $U = U_1 \amalg U_2$，则给定
+$U$ 的 pro-\'etale 覆盖 $\mathcal{U} = \{f_j : V_j \to U\}$，得到 pro-\'etale 覆盖
+$\mathcal{U}_i = \{f_j^{-1}(U_i) \to U_i\}$，并且显然有
+$$
+H^0(\mathcal{U}, \mathcal{F}) =
+H^0(\mathcal{U}_1, \mathcal{F}) \times
+H^0(\mathcal{U}_2, \mathcal{F})
+$$
+因为 $\mathcal{F}$ 将有限不交并送到积（这包括 $\mathcal{F}$ 将空概形送到单点集
+这一条件）。这证明了 (a)。最后，由引理
+\ref{proetale-lemma-w-contractible-is-weakly-contractible}，$W$ 的任意 pro-\'etale 覆盖都可由
+有限不交并分解 $W = W_1 \amalg \ldots W_n$ 加细。因此恰因 $\mathcal{F}$ 在
+$W$ 上的值是 $\mathcal{F}$ 在各 $W_j$ 上之值的积，有
+$\mathcal{F}^+(W) = \mathcal{F}(W)$。这证明了 (b)。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-small-pullback-weakly-contractible}
+设 $f : X \to Y$ 为概形态射，$\mathcal{F}$ 为 $Y_\proetale$ 上的集合层。若
+$W$ 是 $X_\proetale$ 的仿射弱可缩对象，则
+$$
+f_{small}^{-1}\mathcal{F}(W) = \colim_{W \to V} \mathcal{F}(V)
+$$
+其中余极限取遍 $Y$ 上满足 $V \in Y_\proetale$ 的态射 $W \to V$。
+\end{lemma}
+
+\begin{proof}
+回忆 $f_{small}^{-1}\mathcal{F}$ 是与下列预层相伴的层：
+$$
+u_p\mathcal{F} : U \mapsto \colim_{U \to V} \mathcal{F}(V)
+$$
+它在 $X_\etale$ 上；见“位点”第 \ref{sites-section-morphism-sites} 节与第
+\ref{sites-section-continuous-functors} 节。记号中省略了如下事实：余极限取遍范畴
+$\{U \to V, V \in Y_\proetale\}$ 的对偶范畴。由引理
+\ref{proetale-lemma-presheaf-value-weakly-contractible}，只须证明 $u_p\mathcal{F}$ 将有限不交并
+送到积。设 $U = U_1 \amalg U_2$ 是既开又闭的子概形之不交并。有函子
+$$
+\{U_1 \to V_1\} \times \{U_2 \to V_2\} \longrightarrow
+\{U \to V\},\quad
+(U_1 \to V_1, U_2 \to V_2) \longmapsto (U \to V_1 \amalg V_2)
+$$
+它是初始的（“范畴”定义 \ref{categories-definition-initial}）。因此，对偶范畴上的
+相应函子是共尾的；由“范畴”引理 \ref{categories-lemma-cofinal}，可知
+$u_p\mathcal{F}$ 在 $U$ 上的值，是在该积范畴上取各
+$\mathcal{F}(V_1 \amalg V_2)$ 的余极限。由于 $\mathcal{F}$ 是层，它将不交并送到积，
+故 $u_p\mathcal{F}$ 也如此。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-describe-pullback}
+设 $S$ 为概形。考虑引理 \ref{proetale-lemma-at-the-bottom} 的态射
+$$
+\pi_S : (\Sch/S)_\proetale \longrightarrow S_\proetale
+$$
+。设 $\mathcal{F}$ 为 $S_\proetale$ 上的层。则 $\pi_S^{-1}\mathcal{F}$ 由规则
+$$
+(\pi_S^{-1}\mathcal{F})(T) = \Gamma(T_\proetale, f_{small}^{-1}\mathcal{F})
+$$
+给出，其中 $f : T \to S$。此外，$\pi_S^{-1}\mathcal{F}$ 对 fpqc 覆盖满足层条件。
+\end{lemma}
+
+\begin{proof}
+注意，我们有态射 $i_f : \Sh(T_\proetale) \to \Sh(\Sch/S)_\proetale)$，使得作为
+态射 $T_\proetale \to S_\proetale$，有 $\pi_S \circ i_f = f_{small}$；见引理
+\ref{proetale-lemma-put-in-T}。由于拉回具有传递性，可得
+$i_f^{-1} \pi_S^{-1}\mathcal{F} = f_{small}^{-1}\mathcal{F}$，正如所需。
+
+\medskip\noindent
+设 $\{g_i : T_i \to T\}_{i \in I}$ 为 fpqc 覆盖。最后一个断言的含义如下：给定
+$T_\proetale$ 上的层 $\mathcal{G}$ 及截面
+$s_i \in \Gamma(T_i, g_{i, small}^{-1}\mathcal{G})$，若它们到
+$T_i \times_T T_j$ 上的拉回一致，则 $T$ 上存在 $\mathcal{G}$ 的唯一截面 $s$，
+其到 $T_i$ 上的拉回等于 $s_i$。我们只证明 $T$ 仿射且覆盖由仿射概形间的单个
+满平坦态射 $T' \to T$ 给出的情形，并略去一般情形到此情形的归约。
+
+\medskip\noindent
+设 $g : T' \to T$ 是仿射概形间的满平坦态射，并设
+$s' \in g_{small}^{-1}\mathcal{G}(T')$ 为满足
+$\text{pr}_0^*s' = \text{pr}_1^*s'$ 于 $T' \times_T T'$ 的截面。选取满的弱
+\'etale 态射 $W \to T'$，其中 $W$ 仿射且弱可缩；见引理
+\ref{proetale-lemma-weakly-contractible-cover}。由引理
+\ref{proetale-lemma-small-pullback-weakly-contractible}，限制 $s'|_W$ 是
+$\colim_{W \to U} \mathcal{G}(U)$ 的元素。选取与 $s'$ 对应的
+$\phi : W \to U_0$ 与 $s_0 \in \mathcal{G}(U_0)$。选取满的弱 \'etale 态射
+$V \to W \times_T W$，其中 $V$ 仿射且弱可缩。将诱导态射记为
+$a, b : V \to W$。由于 $a^*(s'|_W) = b^*(s'|_W)$，且范畴
+$\{V \to U, U \in T_\proetale\}$ 是余滤的（这是显然的；如有疑问，见“位点”引理
+\ref{sites-lemma-directed-morphism}），两个态射
+$\phi \circ a , \phi \circ b : V \to U_0$ 必须相等。由“下降”第
+\ref{descent-section-fpqc-universal-effective-epimorphisms} 节中的结果（特别是“下降”
+引理 \ref{descent-lemma-fpqc-universal-effective-epimorphisms}），存在唯一态射
+$T \to U_0$，使 $\phi$ 是此态射与结构态射 $W \to T$ 的复合（略去一个小细节）。
+于是可令 $s$ 为 $s_0$ 沿此态射的拉回。我们略去验证 $s$ 到 $T'$ 上的拉回为
+$s'$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{大、小拓扑斯的比较}
+\label{proetale-section-compare}
+
+\noindent
+本节是“\'Etale 上同调”第 \ref{etale-cohomology-section-compare} 节的类似版本。
+下文常以 $\mathcal{F} \mapsto \mathcal{F}|_{S_\proetale}$ 表示与引理
+\ref{proetale-lemma-at-the-bottom} 的拓扑斯态射
+$i_S : \Sh(S_\proetale) \to \Sh((\Sch/S)_\proetale)$ 相应的拉回函子 $i_S^{-1}$。
+
+\begin{lemma}
+\label{proetale-lemma-compare-injectives}
+设 $S$ 为概形，$T$ 为 $(\Sch/S)_\proetale$ 的对象。
+\begin{enumerate}
+\item 若 $\mathcal{I}$ 在 $\textit{Ab}((\Sch/S)_\proetale)$ 中内射，则
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}$ 在 $\textit{Ab}(T_\proetale)$ 中内射；
+\item $\mathcal{I}|_{S_\proetale}$ 在 $\textit{Ab}(S_\proetale)$ 中内射。
+\end{enumerate}
+\item 若 $\mathcal{I}^\bullet$ 是 $\textit{Ab}((\Sch/S)_\proetale)$ 中的 K-内射复形，
+则
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}^\bullet$ 是 $\textit{Ab}(T_\proetale)$ 中的 K-内射复形；
+\item $\mathcal{I}^\bullet|_{S_\proetale}$ 是 $\textit{Ab}(S_\proetale)$ 中的
+K-内射复形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)(a) 与 (2)(a)：$i_f^{-1}$ 是正合函子 $i_{f, !}$ 的右伴随。事实上，回忆
+$i_f$ 对应余连续函子 $u : T_\proetale \to (\Sch/S)_\proetale$，后者连续并保持
+纤维积与等化子；见引理 \ref{proetale-lemma-put-in-T} 及其证明。因此，由“位点上的模”引理
+\ref{sites-modules-lemma-g-shriek-adjoint} 得到 $i_{f, !}$。“位点上的模”引理
+\ref{sites-modules-lemma-exactness-lower-shriek} 证明了它是正合的。于是由“同调”引理
+\ref{homology-lemma-adjoint-preserve-injectives} 与“导出范畴”引理
+\ref{derived-lemma-adjoint-preserve-K-injectives}，得到 (1)(a) 与 (2)(a)。
+
+\medskip\noindent
+由于 $i_S = i_{\text{id}_S}$，(1)(b) 与 (2)(b) 分别是 (1)(a) 与 (2)(a) 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-higher-direct-image}
+设 $f : T \to S$ 为概形态射。对 $D((\Sch/T)_\proetale)$ 中的 $K$，有
+$$
+(Rf_{big, *}K)|_{S_\proetale} = Rf_{small, *}(K|_{T_\proetale})
+$$
+在 $D(S_\proetale)$ 中成立。更一般地，设
+$S' \in \Ob((\Sch/S)_\proetale)$，其结构态射为 $g : S' \to S$。考虑纤维积图
+$$
+\xymatrix{
+T' \ar[r]_{g'} \ar[d]_{f'} & T \ar[d]^f \\
+S' \ar[r]^g & S
+}
+$$
+则对 $D((\Sch/T)_\proetale)$ 中的 $K$，有
+$$
+i_g^{-1}(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^{-1}K)
+$$
+在 $D(S'_\proetale)$ 中成立，并且
+$$
+g_{big}^{-1}(Rf_{big, *}K) = Rf'_{big, *}((g'_{big})^{-1}K)
+$$
+在 $D((\Sch/S')_\proetale)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+选取表示 $K$ 的阿贝尔层 K-内射复形后，第一个等式由引理
+\ref{proetale-lemma-compare-injectives} 与 (\ref{proetale-equation-compare-big-small}) 得出。选取表示
+$K$ 的阿贝尔层 K-内射复形后，第二个等式由引理 \ref{proetale-lemma-compare-injectives} 与
+引理 \ref{proetale-lemma-morphism-big-small-cartesian-diagram} 得出。类似地，选取表示 $K$ 的
+阿贝尔层 K-内射复形后，第三个等式由“位点上同调”引理
+\ref{sites-cohomology-lemma-cohomology-of-open}、
+\ref{sites-cohomology-lemma-restrict-K-injective-to-open} 以及引理
+\ref{proetale-lemma-morphism-big-small-cartesian-diagram} 得出。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$\mathcal{H}$ 为 $(\Sch/S)_\proetale$ 上的阿贝尔层。回忆
+$H^n_\proetale(U, \mathcal{H})$ 表示 $\mathcal{H}$ 在
+$(\Sch/S)_\proetale$ 的对象 $U$ 上的上同调。
+
+\begin{lemma}
+\label{proetale-lemma-compare-cohomology-big-small}
+设 $f : T \to S$ 为概形态射。对 $D(S_\proetale)$ 中的 $K$，有
+$$
+H^n_\proetale(S, \pi_S^{-1}K) = H^n(S_\proetale, K)
+$$
+以及
+$$
+H^n_\proetale(T, \pi_S^{-1}K) = H^n(T_\proetale, f_{small}^{-1}K).
+$$
+对 $D((\Sch/S)_\proetale)$ 中的 $M$，有
+$$
+H^n_\proetale(T, M) = H^n(T_\proetale, i_f^{-1}M).
+$$
+\end{lemma}
+
+\begin{proof}
+为证明最后一个等式，用阿贝尔层的 K-内射复形表示 $M$，应用引理
+\ref{proetale-lemma-compare-injectives} 并展开定义即可。由于
+$i_f^{-1} \circ \pi_S^{-1} = f_{small}^{-1}$，第二个等式由此得出。第一个等式是
+第二个等式的特例。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-cohomological-descent-proetale}
+设 $S$ 为概形。对 $K \in D(S_\proetale)$，映射
+$$
+K \longrightarrow R\pi_{S, *}\pi_S^{-1}K
+$$
+是同构。
+\end{lemma}
+
+\begin{proof}
+这是因为 $\pi_S^{-1}$ 与 $\pi_{S, *} = i_S^{-1}$ 都是正合函子，并且复合
+$\pi_{S, *} \circ \pi_S^{-1}$ 是恒等函子。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{pro-\'etale 位点的点}
+\label{proetale-section-points}
+
+\noindent
+先应用 Deligne 判据证明有足够多的点。
+
+\begin{lemma}
+\label{proetale-lemma-points-proetale}
+设 $S$ 为概形。pro-\'etale 位点 $\Sch_\proetale$、$S_\proetale$、
+$(\Sch/S)_\proetale$、$S_{affine, \proetale}$ 与
+$(\textit{Aff}/S)_\proetale$ 都有足够多的点。
+\end{lemma}
+
+\begin{proof}
+$S$ 的大 pro-\'etale 拓扑斯等价于 $(\textit{Aff}/S)_\proetale$ 所定义的拓扑斯；
+见引理 \ref{proetale-lemma-affine-big-site-proetale}。$S_\proetale$ 上的层拓扑斯等价于与
+$S_{affine, \proetale}$ 相伴的拓扑斯；见引理 \ref{proetale-lemma-alternative}。关于位点
+$(\textit{Aff}/S)_\proetale$ 与 $S_{affine, \proetale}$ 的结论立即由 Deligne 的结果
+“位点”引理 \ref{sites-lemma-criterion-points} 得出。$\Sch_\proetale$ 的情形则由
+它等于 $(\Sch/\Spec(\mathbf{Z}))_\proetale$ 得到。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$\overline{s} : \Spec(k) \to S$ 为几何点。定义
+$\overline{s}$ 的一个{\it pro-\'etale 邻域}为交换图
+$$
+\xymatrix{
+\Spec(k) \ar[r]_-{\overline{u}} \ar[rd]_{\overline{s}} & U \ar[d] \\
+& S
+}
+$$
+，其中 $U \to S$ 弱 \'etale。
+
+\begin{lemma}
+\label{proetale-lemma-cofinal-etale}
+设 $S$ 为概形，$\overline{s} : \Spec(k) \to S$ 为几何点。$\overline{s}$ 的
+pro-\'etale 邻域范畴是余滤的。
+\end{lemma}
+
+\begin{proof}
+证明与“\'Etale 上同调”引理 \ref{etale-cohomology-lemma-cofinal-etale} 的证明相同，
+但须使用“态射续篇”引理
+\ref{more-morphisms-lemma-composition-weakly-etale}、
+\ref{more-morphisms-lemma-base-change-weakly-etale} 与
+\ref{more-morphisms-lemma-weakly-etale-permanence} 中证明的关于弱 \'etale 态射的
+相应事实。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-geometric-lift-to-cover}
+设 $S$ 为概形，$\overline{s}$ 为 $S$ 的几何点，并设
+$\mathcal{U} = \{\varphi_i : S_i \to S\}_{i\in I}$ 为 pro-\'etale 覆盖。则存在
+$i \in I$ 及 $S_i$ 的几何点 $\overline{s}_i$，后者映到 $\overline{s}$。
+\end{lemma}
+
+\begin{proof}
+这立即由如下事实得出：$\coprod \varphi_i$ 是满的，而弱 \'etale 态射诱导的剩余域
+扩张是可分代数扩张（例如见“态射续篇”引理
+\ref{more-morphisms-lemma-weakly-etale-strictly-henselian-local-rings}。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$\overline{s}$ 为 $S$ 的几何点。对 $\Sh(S_\proetale)$ 中的
+$\mathcal{F}$，以公式
+$$
+\mathcal{F}_{\overline{s}} = \colim_{(U, \overline{u})} \mathcal{F}(U)
+$$
+定义{\it $\mathcal{F}$ 在 $\overline{s}$ 处的茎}，其中余极限取遍 $\overline{s}$ 的
+所有满足 $U \in \Ob(S_\proetale)$ 的 pro-\'etale 邻域
+$(U, \overline{u})$。由上面两个引理，函子
+$$
+S_\proetale \textit{Sets},\quad
+U \longmapsto
+\{\overline{u}\text{ 是 }U\text{ 的几何点，且映到 }\overline{s}\}
+$$
+定义位点 $S_\proetale$ 的一个点；见“位点”定义 \ref{sites-definition-point} 与引理
+\ref{sites-lemma-neighbourhoods-cofiltered}。因此函子
+$\mathcal{F} \mapsto \mathcal{F}_{\overline{s}}$ 定义拓扑斯
+$\Sh(S_\proetale)$ 的一个点；见“位点”定义 \ref{sites-definition-point-topos} 与引理
+\ref{sites-lemma-point-site-topos}。特别地，此函子正合并与任意余极限交换。事实上，
+此函子还有另一种描述。
+
+\begin{lemma}
+\label{proetale-lemma-classical-point}
+在上述情形中，概形 $\Spec(\mathcal{O}_{S, \overline{s}}^{sh})$ 是
+$X_\proetale$ 的对象，并且有关于 $\mathcal{F}$ 函子性的典范同构
+$$
+\mathcal{F}(\Spec(\mathcal{O}_{S, \overline{s}}^{sh})) =
+\mathcal{F}_{\overline{s}}
+$$
+\end{lemma}
+
+\begin{proof}
+第一个断言由严格 Hensel 化作为 $S$ 上 \'etale 代数之滤过余极限的构造显然得出；
+也可使用“态射续篇”引理
+\ref{more-morphisms-lemma-weakly-etale-strictly-henselian-local-rings} 对弱 \'etale
+态射的刻画。第二个断言由 Olivier 定理（“代数续篇”定理
+\ref{more-algebra-theorem-olivier}）得出：概形
+$\Spec(\mathcal{O}_{S, \overline{s}}^{sh})$ 是 $\overline{s}$ 的 pro-\'etale 邻域范畴
+的始对象。
+\end{proof}
+
+\noindent
+与 $S$ 的 \'etale 拓扑斯的情形不同，$\Sh(S_\proetale)$ 的每个点并不都具有这种
+形式，与几何点相伴的点族也不是保守的。事实上，设 $S = \Spec(k)$，其中 $k$ 是
+代数闭域。令 $A$ 为非零阿贝尔群。考虑 $S_\proetale$ 上如下定义的层 $\mathcal{F}$：
+$$
+\mathcal{F}(U) =
+\frac{\{\text{映射 }U \to A\}}{\{\text{局部常值映射}\}}
+$$
+当 $U$ 仿射时用此式定义，一般情形则取层化；见例
+\ref{proetale-example-functions-mod-locally-constant-functions}。若 $U = S = \Spec(k)$，则
+$\mathcal{F}(U) = 0$，但一般而言 $\mathcal{F}$ 并非零层。事实上，
+$S_\proetale$ 包含具有无限多个点的仿射对象。例如，设 $E = \lim E_n$ 是具有满
+转移映射的有限集之逆极限，例如
+$E = \mathbf{Z}_p = \lim \mathbf{Z}/p^n\mathbf{Z}$。概形
+$U = \Spec(\colim \text{Map}(E_n, k))$ 是 $S_\proetale$ 的对象，因为
+$\colim \text{Map}(E_n, k)$ 在 $k$ 上弱 \'etale（甚至 ind-Zariski）。由于存在并非
+局部常值的映射 $E \to A$，故 $\mathcal{F}(U)$ 非零。因此 $\mathcal{F}$ 是非零
+阿贝尔层，但它在 $S$ 的唯一几何点处的茎为零。既然已知 $S_\proetale$ 有足够多的
+点，便可断定 pro-\'etale 位点必有一个点并非来自上述构造。
+
+\medskip\noindent
+使用仿射弱可缩对象，可以替代使用点的论证。首先，由引理
+\ref{proetale-lemma-proetale-enough-w-contractible}，有足够多的仿射弱可缩对象。其次，若
+$W \in \Ob(S_\proetale)$ 仿射且弱可缩，则函子
+$$
+\Sh(S_\proetale) \longrightarrow \textit{Sets},\quad
+\mathcal{F} \longmapsto \mathcal{F}(W)
+$$
+是与所有极限交换的正合函子 $\Sh(S_\proetale) \to \textit{Sets}$。函子
+$$
+\textit{Ab}(S_\proetale) \longrightarrow \textit{Ab},\quad
+\mathcal{F} \longmapsto \mathcal{F}(W)
+$$
+正合并与直和交换（因为 $W$ 拟紧；见“位点”引理
+\ref{sites-lemma-directed-colimits-sections}），故与所有极限和余极限交换。此外，可在
+$S_\proetale$ 的这些仿射弱可缩对象上求值，以检验阿贝尔层复形的正合性；见
+“位点上同调”命题 \ref{sites-cohomology-proposition-enough-weakly-contractibles}。
+
+\medskip\noindent
+最后要指出，对仿射弱可缩的 $W$，函子 $\mathcal{F} \mapsto \mathcal{F}(W)$ 一般并非
+$S_\proetale$ 某个点的茎函子，因为当 $W$ 不连通时，它不保持集合层的余积。事实上，
+只要 $W$ 有多于 $1$ 个闭点，$W$ 就不连通；也就是说，只要 $W$ 不是严格 Hensel
+局部环的谱（这正是上面讨论的特殊情形），它便不连通。
+
+
+
+
+
+\section{与 \'etale 位点的比较}
+\label{proetale-section-comparison}
+
+\noindent
+设 $X$ 为概形。适当选择位点后\footnote{如定义
+\ref{proetale-definition-big-proetale-site} 所述，选择一个含有 $X$ 的大 pro-\'etale 位点
+$\Sch_\proetale$。然后令 $\Sch_\etale$ 为与 $\Sch_\proetale$ 具有相同底范畴的
+位点，但其覆盖恰为同时也是 \'etale 覆盖的那些 pro-\'etale 覆盖。作此选择后，
+令 $X_\etale$ 与 $X_\proetale$ 分别为定义
+\ref{proetale-definition-big-small-proetale} 以及“概形上的拓扑”定义
+\ref{topologies-definition-big-small-etale} 中所定义的子范畴。另参见
+“概形上的拓扑”注记 \ref{topologies-remark-choice-sites}。}，将 $U/X$ 映到 $U/X$
+的函子 $u : X_\etale \to X_\proetale$ 定义了一个位点态射
+$$
+\epsilon : X_\proetale \longrightarrow X_\etale
+$$
+这由“位点”命题 \ref{sites-proposition-get-morphism} 得出。
+
+\begin{lemma}
+\label{proetale-lemma-describe-pullback-from-etale}
+沿用上述记号。设 $\mathcal{F}$ 为 $X_\etale$ 上的层。规则
+$$
+X_\proetale \longrightarrow \textit{Sets},\quad
+(f : Y \to X) \longmapsto \Gamma(Y_\etale, f_\etale^{-1}\mathcal{F})
+$$
+是一个层，并且等于 $\epsilon^{-1}\mathcal{F}$。这里
+$f_\etale : Y_\etale \to X_\etale$ 是在“Étale 上同调”第
+\ref{etale-cohomology-section-functoriality} 节中构造的小 \'etale 位点态射。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-recognize-proetale-covering}，每个 pro-\'etale 覆盖都是 fpqc
+覆盖。因此根据“Étale 上同调”引理
+\ref{etale-cohomology-lemma-describe-pullback}，该公式定义了 $X_\proetale$
+上的一个层。令 $a : \Sh(X_\etale) \to \Sh(X_\proetale)$ 为把 $\mathcal{F}$
+映到引理中公式所给之层的函子。为证明 $a = \epsilon^{-1}$，只需证明 $a$
+是 $\epsilon_*$ 的左伴随。
+
+\medskip\noindent
+设 $\mathcal{G}$ 为 $\Sh(X_\proetale)$ 的对象。回忆
+$\epsilon_*\mathcal{G}$ 就是把 $\mathcal{G}$ 限制到全子范畴 $X_\etale$
+所得的层。设 $f : Y \to X$ 为 $X_\proetale$ 的一个对象。我们把
+$Y_\etale$ 看作 $X_\proetale$ 的子范畴。层 $\mathcal{G}$ 的限制映射定义了映射
+$$
+\epsilon_*\mathcal{G} = \mathcal{G}|_{X_\etale}
+\longrightarrow
+f_{\etale, *}(\mathcal{G}|_{Y_\etale})
+$$
+具体而言，对 $X_\etale$ 中的 $U$，
+$f_{\etale, *}(\mathcal{G}|_{Y_\etale})$ 在 $U$ 上的值为
+$\mathcal{G}(Y \times_X U)$，并且存在限制映射
+$\mathcal{G}(U) \to \mathcal{G}(Y \times_X U)$。由伴随性，这确定了映射
+$$
+f_\etale^{-1}(\epsilon_*\mathcal{G}) \to \mathcal{G}|_{Y_\etale}
+$$
+对 $X_\proetale$ 中所有 $f : Y \to X$ 汇集这些映射，我们得到典范映射
+$a(\epsilon_*\mathcal{G}) \to \mathcal{G}$。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为 $\Sh(X_\etale)$ 的对象。显然有
+$\mathcal{F} = \epsilon_*a(\mathcal{F})$。
+
+\medskip\noindent 
+我们断言，映射 $\mathcal{F} \to \epsilon_*a(\mathcal{F})$ 与
+$a(\epsilon_*\mathcal{G}) \to \mathcal{G}$ 分别是该伴随的单位与余单位（参见
+“范畴”第 \ref{categories-section-adjoint} 节）。为此，只需证明相应的映射
+$$
+\Mor_{\Sh(X_\proetale)}(a(\mathcal{F}), \mathcal{G}) \to
+\Mor_{\Sh(X_\etale)}(\mathcal{F}, \epsilon^{-1}\mathcal{G})
+$$
+以及
+$$
+\Mor_{\Sh(X_\etale)}(\mathcal{F}, \epsilon^{-1}\mathcal{G}) \to
+\Mor_{\Sh(X_\proetale)}(a(\mathcal{F}), \mathcal{G})
+$$
+互为逆映射。细节验证从略。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-fully-faithful}
+设 $X$ 为概形。对 $X_\etale$ 上的每个层 $\mathcal{F}$，伴随映射
+$\mathcal{F} \to \epsilon_*\epsilon^{-1}\mathcal{F}$ 是同构；换言之，对
+$X_\etale$ 中的 $U$，有
+$\epsilon^{-1}\mathcal{F}(U) = \mathcal{F}(U)$。
+\end{lemma}
+
+\begin{proof}
+立即由引理 \ref{proetale-lemma-describe-pullback-from-etale} 中对
+$\epsilon^{-1}$ 的描述得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-limit-pullback}
+设 $X$ 为概形。设 $Y = \lim Y_i$ 是 $X_\proetale$ 中拟紧拟分离对象所成有向逆
+系统的极限，并且转移态射为仿射态射。对 $X_\etale$ 上任意层 $\mathcal{F}$，有
+$$
+\epsilon^{-1}\mathcal{F}(Y) = \colim \epsilon^{-1}\mathcal{F}(Y_i)
+$$
+此外，如果 $Y_i$ 属于 $X_\etale$，则有
+$\epsilon^{-1}\mathcal{F}(Y) = \colim \mathcal{F}(Y_i)$。
+\end{lemma}
+
+\begin{proof}
+根据引理 \ref{proetale-lemma-describe-pullback-from-etale} 中对
+$\epsilon^{-1}\mathcal{F}$ 的描述，所示公式是“Étale 上同调”定理
+\ref{etale-cohomology-theorem-colimit} 的特殊情形。（当 $X$、$Y$ 与各
+$Y_i$ 均为仿射概形时，可参见更易读的“Étale 上同调”引理
+\ref{etale-cohomology-lemma-directed-colimit-cohomology}。）最后的断言立即由此及
+引理 \ref{proetale-lemma-fully-faithful} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-affine-vanishing}
+设 $X$ 为仿射概形。对 $X_\etale$ 上的内射阿贝尔层 $\mathcal{I}$，当
+$p > 0$ 时有 $H^p(X_\proetale, \epsilon^{-1}\mathcal{I}) = 0$。
+\end{lemma}
+
+\begin{proof}
+我们将用“位点上的上同调”引理
+\ref{sites-cohomology-lemma-cech-vanish-collection} 证明这一点。令
+$\mathcal{B} \subset \Ob(X_\proetale)$ 为 $X_\proetale$ 中满足
+$\mathcal{O}(X) \to \mathcal{O}(U)$ 为 ind-\'etale 的仿射对象 $U$ 所成的集合。
+令 $\text{Cov}$ 为形如 $\{U_i \to U\}_{i = 1, \ldots, n}$ 的 pro-\'etale
+覆盖所成的集合，其中 $U \in \mathcal{B}$，并且对
+$i = 1, \ldots, n$，$\mathcal{O}(U) \to \mathcal{O}(U_i)$ 为 ind-\'etale。
+ “位点上的上同调”引理
+\ref{sites-cohomology-lemma-cech-vanish-collection} 的性质 (1) 与 (2)，由引理
+\ref{proetale-lemma-composition-ind-etale}、\ref{proetale-lemma-base-change-ind-etale}、
+\ref{proetale-lemma-proetale-affine} 以及命题 \ref{proetale-proposition-weakly-etale} 可知，对
+$\mathcal{B}$ 和 $\text{Cov}$ 成立。
+
+\medskip\noindent
+为检验条件 (3)，设
+$\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$ 是 $\text{Cov}$ 的元素。
+我们必须证明 $\epsilon^{-1}\mathcal{I}$ 关于 $\mathcal{U}$ 的高阶 Čech
+上同调群为零。首先，将 $U_i = \lim_{a \in A_i} U_{i, a}$ 写成有向逆极限，
+其中 $U_{i, a} \to U$ 为 \'etale 态射且 $U_{i, a}$ 为仿射概形。我们将
+$A_1 \times \ldots \times A_n$ 视为有向集，其序定义为：
+$(a_1, \ldots, a_n) \geq (a_1', \ldots, a_n')$ 当且仅当对
+$i = 1, \ldots, n$ 有 $a_i \geq a_i'$。注意，对所有
+$a_1, \ldots, a_n \in A_1 \times \ldots \times A_n$，
+$\mathcal{U}_{(a_1, \ldots, a_n)} = \{U_{i, a_i} \to U\}_{i = 1, \ldots, n}$
+都是 \'etale 覆盖。又注意到
+$$
+U_{i_0} \times_U U_{i_1} \times_U \ldots \times_U U_{i_p}
+=
+\lim_{(a_1, \ldots, a_n) \in A_1 \times \ldots \times A_n}
+U_{i_0, a_{i_0}} \times_U
+U_{i_1, a_{i_1}} \times_U \ldots \times_U U_{i_p, a_{i_p}}
+$$
+对所有 $i_0, \ldots, i_p \in \{1, \ldots, n\}$ 都成立，因为极限与纤维积
+可交换。因此由引理 \ref{proetale-lemma-limit-pullback} 以及滤过余极限的正合性，有
+$$
+\check{H}^p(\mathcal{U}, \epsilon^{-1}\mathcal{I}) =
+\colim \check{H}^p(\mathcal{U}_{(a_1, \ldots, a_n)}, \epsilon^{-1}\mathcal{I}) 
+$$
+所以只需对 $U$ 的 \'etale 覆盖证明该消没性即可！
+
+\medskip\noindent
+设 $\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$ 为 \'etale 覆盖，其中
+$U_i$ 为仿射概形。将 $U = \lim_{b \in B} U_b$ 写成有向逆极限，其中 $U_b$
+为仿射概形且 $U_b \to X$ 为 \'etale 态射。由“极限”引理
+\ref{limits-lemma-descend-finite-presentation}、
+\ref{limits-lemma-limit-affine} 和 \ref{limits-lemma-descend-etale}，可以选择
+$b_0 \in B$，使得对 $i = 1, \ldots, n$，存在仿射概形之间的 \'etale 态射
+$U_{i, b_0} \to U_{b_0}$，并且
+$U_i = U \times_{U_{b_0}} U_{i, b_0}$。对 $b \geq b_0$，置
+$U_{i, b} = U_b \times_{U_{b_0}} U_{i, b_0}$。当 $b$ 足够大时，族
+$\mathcal{U}_b = \{U_{i, b} \to U_b\}_{i = 1, \ldots, n}$ 是 \'etale 覆盖，
+参见“极限”引理 \ref{limits-lemma-descend-surjective}。与前面完全相同，可得
+$$
+\check{H}^p(\mathcal{U}, \epsilon^{-1}\mathcal{I}) =
+\colim \check{H}^p(\mathcal{U}_b, \epsilon^{-1}\mathcal{I}) =
+\colim \check{H}^p(\mathcal{U}_b, \mathcal{I})
+$$
+其中最后一个等号由引理 \ref{proetale-lemma-fully-faithful} 得出。右端每个 {\v C}ech
+复形在正次数均无上同调（“位点上的上同调”引理
+\ref{sites-cohomology-lemma-injective-trivial-cech}），故左端复形亦然。这就证明了
+“位点上的上同调”引理 \ref{sites-cohomology-lemma-cech-vanish-collection}
+的条件 (3)。由于 $X \in \mathcal{B}$，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-relative-comparison}
+设 $X$ 为概形。
+\begin{enumerate}
+\item 对 $X_\etale$ 上的阿贝尔层 $\mathcal{F}$，有
+$R\epsilon_*(\epsilon^{-1}\mathcal{F}) = \mathcal{F}$。
+\item 对 $K \in D^+(X_\etale)$，映射 $K \to R\epsilon_*\epsilon^{-1}K$
+是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{I}$ 为 $X_\etale$ 上的内射阿贝尔层。回忆
+$R^q\epsilon_*(\epsilon^{-1}\mathcal{I})$ 是与
+$U \mapsto H^q(U_\proetale, \epsilon^{-1}\mathcal{I})$ 相关联的层，参见
+“位点上的上同调”引理 \ref{sites-cohomology-lemma-higher-direct-images}。
+由引理 \ref{proetale-lemma-affine-vanishing}，当 $q > 0$ 且 $U$ 为 $X$ 上的仿射
+\'etale 概形时，该值为零。由于 $X_\etale$ 的每个对象都可由仿射对象覆盖，故当
+$q > 0$ 时，$R^q\epsilon_*(\epsilon^{-1}\mathcal{I}) = 0$。
+
+\medskip\noindent
+设 $K \in D^+(X_\etale)$。选择一个表示 $K$ 的、由 $X_\etale$ 上内射阿贝尔层
+组成的下有界复形 $\mathcal{I}^\bullet$。于是 $\epsilon^{-1}K$ 由
+$\epsilon^{-1}\mathcal{I}^\bullet$ 表示。由 Leray 无环性引理（“衍生范畴”引理
+\ref{derived-lemma-leray-acyclicity}），
+$R\epsilon_*\epsilon^{-1}K$ 由 $\epsilon_*\epsilon^{-1}\mathcal{I}^\bullet$
+表示。由引理 \ref{proetale-lemma-fully-faithful}，可得
+$R\epsilon_*\epsilon^{-1}\mathcal{I}^\bullet = \mathcal{I}^\bullet$，从而 (2)
+得证。(1) 是 (2) 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-cohomology}
+设 $X$ 为概形。
+\begin{enumerate}
+\item 对 $X_\etale$ 上的阿贝尔层 $\mathcal{F}$，有
+$$
+H^i(X_\etale, \mathcal{F}) =
+H^i(X_\proetale, \epsilon^{-1}\mathcal{F})
+$$
+对所有 $i$ 均成立。
+\item 对 $K \in D^+(X_\etale)$，有
+$$
+R\Gamma(X_\etale, K) = R\Gamma(X_\proetale, \epsilon^{-1}K)
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{proetale-lemma-relative-comparison} 与 Leray 谱序列（“位点上的上同调”
+引理 \ref{sites-cohomology-lemma-apply-Leray}）的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-cohomology-nonabelian}
+设 $X$ 为概形。设 $\mathcal{G}$ 为 $X_\etale$ 上的（可能非交换）群层。则有
+$$
+H^1(X_\etale, \mathcal{G}) =
+H^1(X_\proetale, \epsilon^{-1}\mathcal{G})
+$$
+其中 $H^1$ 定义为挠子的同构类所成的集合（参见“位点上的上同调”第
+\ref{sites-cohomology-section-h1-torsors} 节）。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-fully-faithful}，函子 $\epsilon^{-1}$ 是全忠实的，故映射
+$H^1(X_\etale, \mathcal{G}) \to H^1(X_\proetale, \epsilon^{-1}\mathcal{G})$
+显然是单射。为证明满射性，只需证明任意 $\epsilon^{-1}\mathcal{G}$-挠子
+$\mathcal{F}$ 都是 \'etale 局部平凡的。为此可以假设 $X$ 为仿射概形。因此，
+我们归约为对仿射概形 $X$ 证明满射性。
+
+\medskip\noindent
+选择一个覆盖 $\{U \to X\}$，使得 (a) $U$ 为仿射概形，(b)
+$\mathcal{O}(X) \to \mathcal{O}(U)$ 为 ind-\'etale，并且 (c)
+$\mathcal{F}(U)$ 非空。由命题 \ref{proetale-proposition-weakly-etale}，以及 $X$ 的标准
+pro-\'etale 覆盖在 $X$ 的所有 pro-\'etale 覆盖中共尾这一事实（引理
+\ref{proetale-lemma-proetale-affine}），可以作出这种选择。将 $U = \lim U_i$ 写成
+$X$ 上仿射 \'etale 概形的极限。选取 $s \in \mathcal{F}(U)$。令
+$g \in \epsilon^{-1}\mathcal{G}(U \times_X U)$ 为满足
+$g \cdot \text{pr}_1^*s = \text{pr}_2^*s$ 在 $\mathcal{F}(U \times_X U)$
+中成立的唯一截面。于是 $g$ 满足余循环条件
+$$
+\text{pr}_{12}^*g \cdot \text{pr}_{23}^*g = \text{pr}_{13}^*g
+$$
+于 $\epsilon^{-1}\mathcal{G}(U \times_X U \times_X U)$ 中。由引理
+\ref{proetale-lemma-limit-pullback}，有
+$$
+\epsilon^{-1}\mathcal{G}(U \times_X U) =
+\colim \mathcal{G}(U_i \times_X U_i)
+$$
+以及
+$$
+\epsilon^{-1}\mathcal{G}(U \times_X U \times_X U) =
+\colim \mathcal{G}(U_i \times_X U_i \times_X U_i)
+$$
+因此可以找到一个 $i$ 以及映到 $g$ 且满足余循环条件的元素
+$g_i \in \mathcal{G}(U_i \times_X U_i)$。于是余循环 $g_i$ 定义了
+$X_\etale$ 上的一个 $\mathcal{G}$-挠子；按构造，其拉回与 $\mathcal{F}$
+同构。这里略去了一些细节（即挠子与 1-余循环之间的关系；这一内容应当加入位点
+上同调一章）。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-derived}
+设 $X$ 为概形，$\Lambda$ 为环。
+\begin{enumerate}
+\item 全忠实函子
+$\epsilon^{-1} : \textit{Mod}(X_\etale, \Lambda) \to
+\textit{Mod}(X_\proetale, \Lambda)$
+的本质像是弱 Serre 子范畴 $\mathcal{C}$。
+\item 函子 $\epsilon^{-1}$ 定义了 $D^+(X_\etale, \Lambda)$ 与
+$D^+_\mathcal{C}(X_\proetale, \Lambda)$ 之间的范畴等价，其拟逆由
+$R\epsilon_*$ 给出。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明 (1)，我们将验证“同调”引理
+\ref{homology-lemma-characterize-weak-serre-subcategory} 的条件 (1)--(4)。由于
+$\epsilon^{-1}$ 全忠实（引理 \ref{proetale-lemma-fully-faithful}）且正合，除了条件 (4)
+之外，其余条件均显然成立。然而，如果
+$$
+0 \to \epsilon^{-1}\mathcal{F}_1 \to \mathcal{G} \to
+\epsilon^{-1}\mathcal{F}_2 \to 0
+$$
+是 $X_\proetale$ 上 $\Lambda$-模层的短正合列，则得到
+$$
+0 \to \epsilon_*\epsilon^{-1}\mathcal{F}_1 \to \epsilon_*\mathcal{G} \to
+\epsilon_*\epsilon^{-1}\mathcal{F}_2 \to
+R^1\epsilon_*\epsilon^{-1}\mathcal{F}_1
+$$
+由引理 \ref{proetale-lemma-relative-comparison}，这等同于短正合列
+$$
+0 \to \mathcal{F}_1 \to \epsilon_*\mathcal{G} \to \mathcal{F}_2 \to 0
+$$
+将其拉回，可得 $\mathcal{G} = \epsilon^{-1}\epsilon_*\mathcal{G}$。这证明了 (1)。
+
+\medskip\noindent
+(2) 由 (1) 以及“位点上的上同调”引理
+\ref{sites-cohomology-lemma-equivalence-bounded} 得出。
+\end{proof}
+
+\noindent
+设 $\Lambda$ 为环。在“位点上的模”第
+\ref{sites-modules-section-locally-constant} 节中，我们已经定义了位点上局部常值
+$\Lambda$-模层的概念。如果 $M$ 是 $\Lambda$-模，则 $\underline{M}$ 作为
+$\underline{\Lambda}$-模层是有限表现的，当且仅当 $M$ 是有限表现
+$\Lambda$-模；参见“位点上的模”引理
+\ref{sites-modules-lemma-locally-constant-finite-type}。
+
+\begin{lemma}
+\label{proetale-lemma-compare-locally-constant}
+设 $X$ 为概形，$\Lambda$ 为环。函子 $\epsilon^{-1}$ 定义了范畴等价
+$$
+\left\{
+\begin{matrix}
+\text{局部常值层}\\
+\text{为 }\Lambda\text{-模层，定义于 }X_\etale\\
+\text{且为有限表现}
+\end{matrix}
+\right\}
+\longleftrightarrow
+\left\{
+\begin{matrix}
+\text{局部常值层}\\
+\text{为 }\Lambda\text{-模层，定义于 }X_\proetale\\
+\text{且为有限表现}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}$ 为 $X_\proetale$ 上有限表现的局部常值 $\Lambda$-模层。选择
+pro-\'etale 覆盖 $\{U_i \to X\}$，使得 $\mathcal{F}|_{U_i}$ 为常值层，即
+$\mathcal{F}|_{U_i} \cong \underline{M_i}_{U_i}$。注意，如果 $M_i$ 与 $M_j$
+不同构，则 $U_i \times_X U_j$ 为空。对每个 $\Lambda$-模 $M$，令
+$I_M = \{i \in I \mid M_i \cong M\}$。由于 pro-\'etale 覆盖是 fpqc 覆盖，
+并由“下降”引理 \ref{descent-lemma-open-fpqc-covering}，可知
+$U_M = \bigcup_{i \in I_M} \Im(U_i \to X)$ 是 $X$ 的开子集。于是
+$X = \coprod U_M$ 是 $X$ 的不交开覆盖。可以用某个 $M$ 所对应的 $U_M$
+替换 $X$，并假设对所有 $i$ 都有 $M_i = M$。
+
+\medskip\noindent
+考虑层 $\mathcal{I} = \mathit{Isom}(\underline{M}, \mathcal{F})$。该层是
+$\mathcal{G} = \mathit{Isom}(\underline{M}, \underline{M})$ 的挠子。由
+“位点上的模”引理 \ref{sites-modules-lemma-locally-constant}，有
+$\mathcal{G} = \underline{G}$，其中 $G = \mathit{Isom}_\Lambda(M, M)$。由引理
+\ref{proetale-lemma-compare-cohomology-nonabelian}，\'etale 拓扑与 pro-\'etale 拓扑的挠子
+相同，因此 $\mathcal{I}$ 在 $X$ 上 \'etale 局部地有截面。于是
+$\mathcal{F}$ 在 \'etale 局部为常值层，这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-locally-constant-derived}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。令 $D_{flc}(X_\etale, \Lambda)$（相应地，
+$D_{flc}(X_\proetale, \Lambda)$）为 $D(X_\etale, \Lambda)$（相应地，
+$D(X_\proetale, \Lambda)$）的全子范畴，其对象是上同调层均为有限型局部常值
+$\Lambda$-模层的那些复形。则
+$$
+\epsilon^{-1} :
+D_{flc}^+(X_\etale, \Lambda)
+\longrightarrow
+D_{flc}^+(X_\proetale, \Lambda)
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+由“位点上的模”引理
+\ref{sites-modules-lemma-kernel-finite-locally-constant} 与“衍生范畴”
+第 \ref{derived-section-triangulated-sub} 节，范畴
+$D_{flc}(X_\etale, \Lambda)$ 和 $D_{flc}(X_\proetale, \Lambda)$ 分别是
+$D(X_\etale, \Lambda)$ 和 $D(X_\proetale, \Lambda)$ 的严格全、饱和三角子范畴。
+结合引理 \ref{proetale-lemma-compare-derived} 与
+\ref{proetale-lemma-compare-locally-constant} 即得本引理的断言。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-truncations}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。设 $K$ 为
+$D(X_\proetale, \Lambda)$ 的对象。置
+$K_n = K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$。如果 $K_1$
+满足
+\begin{enumerate}
+\item 属于 $\epsilon^{-1} :D(X_\etale, \Lambda/I) \to
+D(X_\proetale, \Lambda/I)$ 的本质像，并且
+\item 对某个 $a \in \mathbf{Z}$，具有位于 $[a,\infty)$ 内的 Tor 振幅，
+\end{enumerate}
+则作为 $D(X_\proetale, \Lambda/I^n)$ 的对象，$K_n$ 也满足 (1) 与 (2)。
+\end{lemma}
+
+\begin{proof}
+关于 $K_n$ 的断言 (2) 由更一般的“位点上的上同调”引理
+\ref{sites-cohomology-lemma-bounded} 得出。关于 $K_n$ 的断言 (1) 则由下列
+特异三角以及对 $n$ 的归纳得出：
+$$
+K \otimes_\Lambda^\mathbf{L} \underline{I^n/I^{n + 1}} \to
+K_{n + 1} \to
+K_n \to
+K \otimes_\Lambda^\mathbf{L} \underline{I^n/I^{n + 1}}[1]
+$$
+以及同构
+$$
+K \otimes_\Lambda^\mathbf{L} \underline{I^n/I^{n + 1}} =
+K_1 \otimes_{\Lambda/I}^\mathbf{L} \underline{I^n/I^{n + 1}}
+$$
+再结合引理 \ref{proetale-lemma-compare-derived} 所证明的事实：$\epsilon^{-1}$ 的本质像是
+$D^+(X_\proetale, \Lambda/I^n)$ 的三角子范畴。
+\end{proof}
+
+\begin{example}
+\label{proetale-example-functions-mod-locally-constant-functions}
+设 $X$ 为概形，$A$ 为阿贝尔群。以 $fun(-, A)$ 表示 $X_\proetale$ 上将 $U$
+映到所有映射 $U \to A$（点集之间的映射）所成集合的层。考虑
+$X_\proetale$ 上的层列
+$$
+0 \to \underline{A} \to fun(-, A) \to \mathcal{F} \to 0
+$$
+由于常值层是从终拓扑斯拉回的，可知
+$\underline{A} = \epsilon^{-1}\underline{A}$。然而，如果 $A$ 有多于一个元素，
+则 $fun(-, A)$ 与 $\mathcal{F}$ 都不是从 $X$ 的 \'etale 位点拉回的。为了在某些
+情形下算出 $\mathcal{F}$ 的值，假设 $X$ 的所有点都是闭点且剩余域可分闭，并设
+$U$ 为仿射概形。于是 $U$ 的所有点也都是闭点且剩余域可分闭，并且有
+$$
+H^1_\proetale(U, \underline{A}) =
+H^1_\etale(U, \underline{A}) = 0
+$$
+这是由引理 \ref{proetale-lemma-compare-cohomology} 与“Étale 上同调”引理
+\ref{etale-cohomology-lemma-affine-only-closed-points} 得出的。因此在此情形下有
+$$
+\mathcal{F}(U) = fun(U, A)/\underline{A}(U)
+$$
+\end{example}
+
+
+
+
+
+\section{常值 Noether 情形下的衍生完备化}
+\label{proetale-section-derived-completion-noetherian}
+
+\noindent
+我们继续“代数化与形式几何”第
+\ref{algebraization-section-derived-completion} 节中开始的讨论；假定读者至少已读过
+该节的一部分。
+
+\medskip\noindent
+设 $\mathcal{C}$ 为位点，$\Lambda$ 为 Noether 环，并设 $I \subset \Lambda$
+为理想。回忆“位点上的模”引理
+\ref{sites-modules-lemma-completion-flat} 告诉我们
+$$
+\underline{\Lambda}^\wedge = \lim \underline{\Lambda/I^n}
+$$
+是平坦 $\underline{\Lambda}$-代数，并且映射
+$\underline{\Lambda} \to \underline{\Lambda}^\wedge$ 识别模 $I$ 的商。因此
+“代数化与形式几何”引理
+\ref{algebraization-lemma-restriction-derived-complete-equivalence} 告诉我们
+$$
+D_{comp}(\mathcal{C}, \Lambda) =
+D_{comp}(\mathcal{C}, \underline{\Lambda}^\wedge)
+$$
+特别地，$D_{comp}(\mathcal{C}, \Lambda)$ 的对象 $K$ 的上同调层 $H^i(K)$
+是 $\underline{\Lambda}^\wedge$-模层。为使记号方便，我们通常使用
+$D_{comp}(\mathcal{C}, \Lambda)$。
+
+\begin{lemma}
+\label{proetale-lemma-naive-completion}
+设 $\mathcal{C}$ 为位点，$\Lambda$ 为 Noether 环，并设 $I \subset \Lambda$
+为理想。“代数化与形式几何”命题
+\ref{algebraization-proposition-derived-completion} 中包含函子
+$D_{comp}(\mathcal{C}, \Lambda) \to D(\mathcal{C}, \Lambda)$
+的左伴随将 $K$ 映到
+$$
+K^\wedge = R\lim(K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n})
+$$
+特别地，$K$ 衍生完备，当且仅当
+$K = R\lim(K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n})$。
+\end{lemma}
+
+\begin{proof}
+选择 $I$ 的生成元 $f_1, \ldots, f_r$。由“代数化与形式几何”
+引理 \ref{algebraization-lemma-derived-completion-koszul}，有
+$$
+K^\wedge = 
+R\lim (K \otimes_\Lambda^\mathbf{L} \underline{K_n})
+$$
+其中 $K_n = K(\Lambda, f_1^n, \ldots, f_r^n)$。在“代数补充”引理
+\ref{more-algebra-lemma-sequence-Koszul-complexes} 中，我们已经看到
+$D(\Lambda)$ 中的 pro-系统 $\{K_n\}$ 与 $\{\Lambda/I^n\}$ 同构。因此引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-pushforward-Noetherian-case}
+设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想，并设
+$f : \Sh(\mathcal{D}) \to \Sh(\mathcal{C})$ 为拓扑斯态射。则
+\begin{enumerate}
+\item $Rf_*$ 将 $D_{comp}(\mathcal{D}, \Lambda)$ 映入
+$D_{comp}(\mathcal{C}, \Lambda)$；
+\item 映射 $Rf_* : D_{comp}(\mathcal{D}, \Lambda) \to
+D_{comp}(\mathcal{C}, \Lambda)$ 有左伴随
+$Lf_{comp}^* : D_{comp}(\mathcal{C}, \Lambda) \to
+D_{comp}(\mathcal{D}, \Lambda)$，该左伴随由 $Lf^*$ 后接衍生完备化给出；
+\item $Rf_*$ 与衍生完备化可交换；
+\item 对 $D_{comp}(\mathcal{D}, \Lambda)$ 中的 $K$，有
+$Rf_*K = R\lim Rf_*(K \otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n})$.
+\item 对 $D_{comp}(\mathcal{C}, \Lambda)$ 中的 $M$，有
+$Lf^*_{comp}M =
+R\lim Lf^*(M \otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们已经在“代数化与形式几何”引理
+\ref{algebraization-lemma-pushforward-derived-complete-adjoint} 中看到了 (1) 与 (2)。
+(3) 由“代数化与形式几何”引理
+\ref{algebraization-lemma-pushforward-commutes-with-derived-completion} 得出。为证明
+(4)，设 $K$ 衍生完备。则
+$$
+Rf_*K = Rf_*( R\lim K \otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n}) =
+R\lim Rf_*(K \otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n})
+$$
+第一个等号由引理 \ref{proetale-lemma-naive-completion} 得出，第二个等号则因为 $Rf_*$
+与 $R\lim$ 可交换（“位点上的上同调”引理
+\ref{sites-cohomology-lemma-Rf-commutes-with-Rlim}）。这证明了 (4)。为证明 (5)，
+由引理 \ref{proetale-lemma-naive-completion}，有
+$$
+Lf_{comp}^*M =
+R\lim ( Lf^*M \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n})
+$$
+由“位点上的上同调”引理
+\ref{sites-cohomology-lemma-pullback-tensor-product}，$Lf^*$ 与衍生张量积可交换；
+又因为 $Lf^*\underline{\Lambda/I^n} = \underline{\Lambda/I^n}$，故得到 (5)。
+\end{proof}
+
+
+
+
+
+
+
+\section{衍生完备化与弱可缩对象}
+\label{proetale-section-derived-completion-proetale}
+
+\noindent
+我们继续第 \ref{proetale-section-derived-completion-noetherian} 节的讨论。本节将说明弱可缩
+对象的存在如何简化对衍生完备模的研究。
+
+\medskip\noindent
+设 $\mathcal{C}$ 为位点，$\Lambda$ 为 Noether 环，并设 $I \subset \Lambda$
+为理想。尽管关于 $D_{comp}(\mathcal{C}, \Lambda)$ 的一般理论相当完善，显式给出
+衍生完备复形的例子却很困难。我们知道
+\begin{enumerate}
+\item $D(\mathcal{C}, \Lambda/I^n)$ 的每个对象 $M$ 限制为
+$D(\mathcal{C}, \Lambda)$ 的一个衍生完备对象；并且
+\item 对每个 $K \in D(\mathcal{C}, \Lambda)$，衍生完备化
+$K^\wedge = R\lim (K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n})$
+是衍生完备的。
+\end{enumerate}
+第一类对象平凡地完备，或许并不有趣。(2) 的问题在于，一般的衍生完备化颇为
+神秘，即使在 $K = \underline{\Lambda}$ 的情形也是如此。具体而言，由同伦极限的
+定义，在 $D(\mathcal{C}, \Lambda)$ 中有特异三角
+$$
+R\lim(\underline{\Lambda/I^n}) \to
+\prod \underline{\Lambda/I^n} \to
+\prod \underline{\Lambda/I^n} \to
+R\lim(\underline{\Lambda/I^n})[1]
+$$
+其中乘积取在 $D(\mathcal{C}, \Lambda)$ 中。这些乘积通过取内射分解的乘积来计算
+（“内射对象”引理 \ref{injectives-lemma-derived-products}），所以可知层
+$H^p(\prod \underline{\Lambda/I^n})$ 是下列预层的层化：
+$$
+U \longmapsto \prod H^p(U, \Lambda/I^n).
+$$
+作为一个显式例子，如果 $X = \Spec(\mathbf{C}[t, t^{-1}])$、
+$\mathcal{C} = X_\etale$、$\Lambda = \mathbf{Z}$、$I = (2)$ 且 $p = 1$，
+那么得到下列预层的层化：
+$$
+U \mapsto \prod H^1(U_\etale, \mathbf{Z}/2^n\mathbf{Z})
+$$
+这里 $U$ 为 $X$ 上的 \'etale 概形。注意，
+$H^1(X_\etale, \mathbf{Z}/m\mathbf{Z})$ 是阶为 $m$ 的循环群，其生成元
+$\alpha_m$ 由方程 $t = s^m$ 所给的有限 \'etale
+$\mathbf{Z}/m\mathbf{Z}$-覆盖给出（参见“Étale 上同调”第
+\ref{etale-cohomology-section-computation} 节）。于是上述预层的截面
+$$
+\alpha = (\alpha_{2^n}) \in \prod H^1(X_\etale, \mathbf{Z}/2^n\mathbf{Z})
+$$
+在 $X$ 上任何非空 \'etale 概形上的限制都不为零，因而与该预层相关联的层不为零。
+
+\medskip\noindent
+然而，在 pro-\'etale 位点上不会发生这种现象。原因是我们有足够多的（拟紧）弱可缩
+对象。在下面的命题中，我们汇集关于常值 Noether 情形下衍生完备化的一些结果；
+这些结果适用于具有足够多弱可缩对象的位点（参见“位点”定义
+\ref{sites-definition-w-contractible}）。
+
+\begin{proposition}
+\label{proetale-proposition-enough-weakly-contractibles}
+设 $\mathcal{C}$ 为位点，并假设 $\mathcal{C}$ 有足够多的弱可缩对象。设
+$\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。
+\begin{enumerate}
+\item 衍生完备 $\Lambda$-模层所成的范畴是
+$\textit{Mod}(\mathcal{C}, \Lambda)$ 的弱 Serre 子范畴。
+\item $\Lambda$-模层 $\mathcal{F}$ 满足
+$\mathcal{F} = \lim \mathcal{F}/I^n\mathcal{F}$，当且仅当 $\mathcal{F}$
+衍生完备且 $\bigcap I^n\mathcal{F} = 0$。
+\item 层 $\underline{\Lambda}^\wedge$ 是衍生完备的。
+\item 如果 $\ldots \to \mathcal{F}_3 \to \mathcal{F}_2 \to \mathcal{F}_1$
+是衍生完备 $\Lambda$-模层的逆系统，则 $\lim \mathcal{F}_n$ 衍生完备。
+\item 对象 $K \in D(\mathcal{C}, \Lambda)$ 衍生完备，当且仅当其每个上同调层
+$H^p(K)$ 都衍生完备。
+\item 对象 $K \in D_{comp}(\mathcal{C}, \Lambda)$ 上有界，当且仅当
+$K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I}$ 上有界。
+\item 如果 $K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I}$ 具有有限 Tor
+维数，则对象 $K \in D_{comp}(\mathcal{C}, \Lambda)$ 有界。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+取子集 $\mathcal{B} \subset \Ob(\mathcal{C})$，使得每个 $U \in \mathcal{B}$
+均弱可缩，并且 $\mathcal{C}$ 的每个对象都有一个由 $\mathcal{B}$ 中元素组成的
+覆盖。下文将不加说明地使用“位点上的上同调”引理
+\ref{sites-cohomology-lemma-w-contractible} 与命题
+\ref{sites-cohomology-proposition-enough-weakly-contractibles} 的结果。
+
+\medskip\noindent
+回忆 $R\lim$ 与 $R\Gamma(U, -)$ 可交换，参见“内射对象”引理
+\ref{injectives-lemma-RF-commutes-with-Rlim}。设 $f \in I$。回忆
+$T(K, f)$ 是系统
+$$
+\ldots \xrightarrow{f} K \xrightarrow{f} K \xrightarrow{f} K
+$$
+在 $D(\mathcal{C}, \Lambda)$ 中的同伦极限。因此
+$$
+R\Gamma(U, T(K, f)) = T(R\Gamma(U, K), f).
+$$
+由于可以通过在 $U \in \mathcal{B}$ 上取值来检验 $D(\mathcal{C}, \Lambda)$
+中对象之间的映射是否为同构，故可断定：$D(\mathcal{C}, \Lambda)$ 的对象 $K$
+衍生完备，当且仅当对每个 $U \in \mathcal{B}$，对象 $R\Gamma(U, K)$ 作为
+$D(\Lambda)$ 的对象衍生完备。
+
+\medskip\noindent
+上述注记表明，(1) 与 (5) 由环上模的相应结果得出，参见“代数补充”
+引理 \ref{more-algebra-lemma-hom-from-Af} 与
+\ref{more-algebra-lemma-serre-subcategory}。同理，(2) 可由“代数补充”命题
+\ref{more-algebra-proposition-derived-complete-modules} 得出，因为对
+$U \in \mathcal{B}$ 有 $(I^n\mathcal{F})(U) = I^n \cdot \mathcal{F}(U)$
+（这是因为在 $U$ 上取值是正合的）。
+
+\medskip\noindent
+证明 (4)。同伦极限 $R\lim \mathcal{F}_n$ 属于 $D_{comp}(X, \Lambda)$（参见
+“代数化与形式几何”定义
+\ref{algebraization-definition-derived-complete} 后的讨论）。由刚刚证明的 (5)，
+可得
+$\lim \mathcal{F}_n = H^0(R\lim \mathcal{F}_n)$
+是衍生完备的。(3) 是 (4) 的特殊情形。
+
+\medskip\noindent
+证明 (6) 与 (7)。结论由引理 \ref{proetale-lemma-naive-completion}、“位点上的上同调”
+引理 \ref{sites-cohomology-lemma-bounded}，以及“位点上的上同调”命题
+\ref{sites-cohomology-proposition-enough-weakly-contractibles} 中对同伦极限的计算得出。
+\end{proof}
+
+
+
+
+
+
+\section{一点的上同调}
+\label{proetale-section-cohomology-point}
+
+\noindent
+设 $\Lambda$ 为关于理想 $I \subset \Lambda$ 完备的 Noether 环，并设 $k$ 为域。
+本节中我们“计算”
+$$
+H^i(\Spec(k)_\proetale, \underline{\Lambda}^\wedge)
+$$
+其中仍如前面一样，$\underline{\Lambda}^\wedge = \lim_m
+\underline{\Lambda/I^m}$。设 $k^{sep}$ 为 $k$ 的一个可分代数闭包。则
+$$
+\mathcal{U} = \{\Spec(k^{sep}) \to \Spec(k)\}
+$$
+是 $\Spec(k)$ 的 pro-\'etale 覆盖。我们将对该覆盖使用从 {\v C}ech 到上同调的
+谱序列。置 $U_0 = \Spec(k^{sep})$，并令
+\begin{align*}
+U_n & =
+\Spec(k^{sep}) \times_{\Spec(k)}
+\Spec(k^{sep}) \times_{\Spec(k)} \ldots
+\times_{\Spec(k)} \Spec(k^{sep}) \\
+& =
+\Spec(k^{sep} \otimes_k k^{sep} \otimes_k \ldots \otimes_k k^{sep})
+\end{align*}
+（共有 $n + 1$ 个因子）。注意，$U_0$ 的底拓扑空间 $|U_0|$ 是单点集，并且当
+$n \geq 1$ 时有
+$$
+|U_n| = G \times \ldots \times G\quad (n\text{ 个因子})
+$$
+作为预有限空间，其中 $G = \text{Gal}(k^{sep}/k)$。具体而言，$U_n$ 的每个点
+都有剩余域 $k^{sep}$，并把 $(\sigma_1, \ldots, \sigma_n)$ 与下列满射所对应的点
+等同：
+$$
+k^{sep} \otimes_k k^{sep} \otimes_k \ldots \otimes_k k^{sep}
+\longrightarrow k^{sep}, \quad
+\lambda_0 \otimes \lambda_1 \otimes \ldots \lambda_n
+\longmapsto \lambda_0 \sigma_1(\lambda_1) \ldots \sigma_n(\lambda_n)
+$$
+于是可计算得
+\begin{align*}
+R\Gamma((U_n)_\proetale, \underline{\Lambda}^\wedge)
+& =
+R\lim_m R\Gamma((U_n)_\proetale, \underline{\Lambda/I^m}) \\
+& =
+R\lim_m R\Gamma((U_n)_\etale, \underline{\Lambda/I^m}) \\
+& =
+\lim_m H^0(U_n, \underline{\Lambda/I^m}) \\
+& = 
+\text{Maps}_{cont}(G \times \ldots \times G, \Lambda)
+\end{align*}
+第一个等号成立，是因为 $R\Gamma$ 与衍生极限可交换，并且由命题
+\ref{proetale-proposition-enough-weakly-contractibles}，$\Lambda^\wedge$ 是各层
+$\underline{\Lambda/I^m}$ 的衍生极限。第二个等号由引理
+\ref{proetale-lemma-compare-cohomology} 得出。第三个等号由“Étale 上同调”引理
+\ref{etale-cohomology-lemma-affine-only-closed-points} 得出。第四个等号利用
+“Étale 上同调”注记
+\ref{etale-cohomology-remark-constant-locally-constant-maps} 识别常值层
+$\underline{\Lambda/I^m}$ 的截面。接着利用 $\Lambda$ 关于 $I$ 完备，因而作为
+拓扑空间等于 $\lim_m \Lambda/I^m$ 这一事实，得到
+$\lim_m \text{Map}_{cont}(G, \Lambda/I^m) = \text{Map}_{cont}(G, \Lambda)$；
+对 $G$ 的更高次幂也同样成立。此时“位点上的上同调”引理
+\ref{sites-cohomology-lemma-cech-cohomology} 与
+\ref{sites-cohomology-lemma-cech-spectral-sequence-application} 告诉我们，
+$$
+\Lambda \to \text{Maps}_{cont}(G, \Lambda) \to
+\text{Maps}_{cont}(G \times G, \Lambda) \to \ldots
+$$
+该复形计算 pro-\'etale 上同调。换言之，可知
+$$
+H^i(\Spec(k)_\proetale, \underline{\Lambda}^\wedge)
+=
+H^i_{cont}(G, \Lambda)
+$$
+其中右端是 Tate 连续上同调，参见“Étale 上同调”第
+\ref{etale-cohomology-section-continuous-group-cohomology} 节。当然，结果理应如此。
+
+\begin{lemma}
+\label{proetale-lemma-more-general-point}
+设 $k$ 为域，并设 $G = \text{Gal}(k^{sep}/k)$ 为其绝对 Galois 群。此外，
+\begin{enumerate}
+\item 设 $M$ 为带连续 $G$-作用的预有限阿贝尔群；或者
+\item 设 $\Lambda$ 为 Noether 环、$I \subset \Lambda$ 为理想，并设 $M$ 为带连续
+$G$-作用的 $I$-进完备 $\Lambda$-模。
+\end{enumerate}
+则在 $\Spec(k)_\proetale$ 上有一个与 $M$ 相关联的典范层
+$\underline{M}^\wedge$，使得
+$$
+H^i(\Spec(k), \underline{M}^\wedge) = H^i_{cont}(G, M)
+$$
+等式作为阿贝尔群或 $\Lambda$-模成立。
+\end{lemma}
+
+\begin{proof}
+证明情形 (2)。置 $M_n = M/I^nM$。由于假设 $M$ 是 $I$-进完备的，故
+$M = \lim M_n$。由于 $G$ 的作用连续，我们在 $M_n$ 上得到 $G$ 的连续作用。
+由“Étale 上同调”定理
+\ref{etale-cohomology-theorem-equivalence-sheaves-point}，该作用对应于
+$\Spec(k)_\etale$ 上的一个（局部常值）$\Lambda/I^n$-模层
+$\underline{M_n}$。通过比较态射 $\epsilon$ 将其拉回到
+$\Spec(k)_\proetale$，并取极限
+$$
+\underline{M}^\wedge = \lim \epsilon^{-1}\underline{M_n}
+$$
+便得到引理中所述的层。与本节开头完全相同的论证给出它与 Tate 连续 Galois
+上同调的比较。
+\end{proof}
+
+
+
+
+
+
+\section{pro-\'etale 位点的函子性}
+\label{proetale-section-morphism}
+
+\noindent
+设 $f : X \to Y$ 为概形态射。函子 $Y_\proetale \to X_\proetale$，
+$V \mapsto X \times_Y V$，诱导位点态射
+$f_\proetale : X_\proetale \to Y_\proetale$；参见“位点”命题
+\ref{sites-proposition-get-morphism}。事实上，我们得到位点态射的交换图
+$$
+\xymatrix{
+X_\proetale \ar[r]_\epsilon \ar[d]_{f_\proetale} &
+X_\etale \ar[d]^{f_\etale} \\
+Y_\proetale \ar[r]^\epsilon & Y_\etale
+}
+$$
+其中 $\epsilon$ 如第 \ref{proetale-section-comparison} 节所定义。特别地，有
+$\epsilon^{-1} f_\etale^{-1} = f_\proetale^{-1} \epsilon^{-1}$。关于直像有如下
+相应结果。
+
+\begin{lemma}
+\label{proetale-lemma-morphism-comparison}
+设 $f : X \to Y$ 为拟紧拟分离的概形态射。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 为 $X_\etale$ 上的集合层。则有
+$f_{\proetale, *}\epsilon^{-1}\mathcal{F} =
+\epsilon^{-1}f_{\etale, *}\mathcal{F}$.
+\item 设 $\mathcal{F}$ 为 $X_\etale$ 上的阿贝尔层。则有
+$Rf_{\proetale, *}\epsilon^{-1}\mathcal{F} =
+\epsilon^{-1}Rf_{\etale, *}\mathcal{F}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。设 $\mathcal{F}$ 为 $X_\etale$ 上的集合层。存在典范映射
+$\epsilon^{-1}f_{\etale, *}\mathcal{F} \to
+f_{\proetale, *}\epsilon^{-1}\mathcal{F}$，参见“位点”第
+\ref{sites-section-pullback} 节。为证明它是同构，可以在 $Y$ 上（Zariski）
+局部地工作，因而可假设 $Y$ 为仿射概形。此时，$Y_\proetale$ 的每个对象都有一个
+由形如 $V = \lim V_i$ 的对象组成的覆盖，其中各 $V_i$ 是 $Y$ 上的仿射
+\'etale 概形（例如由命题 \ref{proetale-proposition-weakly-etale} 可知）。将映射
+$\epsilon^{-1}f_{\etale, *}\mathcal{F} \to
+f_{\proetale, *}\epsilon^{-1}\mathcal{F}$
+在 $V$ 上取值，得到映射
+$$
+\colim \Gamma(X \times_Y V_i, \mathcal{F})
+\longrightarrow
+\Gamma(X \times_Y V, \epsilon^*\mathcal{F})
+$$
+左端参见引理 \ref{proetale-lemma-limit-pullback}。由引理
+\ref{proetale-lemma-describe-pullback-from-etale}，有
+$$
+\Gamma(X \times_Y V, \epsilon^*\mathcal{F}) =
+\Gamma(X \times_Y V, g_\etale^{-1}\mathcal{F})
+$$
+其中 $g : X \times_Y V \to X$ 是投影。因此结论由“Étale 上同调”引理
+\ref{etale-cohomology-lemma-directed-colimit-cohomology} 得出。
+
+\medskip\noindent
+证明 (2)。与上面完全相同的论证表明，只需证明映射
+$$
+\colim H^i_\etale(X \times_Y V_i, \mathcal{F})
+\longrightarrow
+H^i_\etale(X \times_Y V, \mathcal{F})
+$$
+是同构；这再次由“Étale 上同调”引理
+\ref{etale-cohomology-lemma-directed-colimit-cohomology} 得出。
+\end{proof}
+
+
+
+
+
+
+
+\section{有限态射与 pro-\'etale 位点}
+\label{proetale-section-finite}
+
+\noindent
+概形的有限态射是否在 pro-\'etale 阿贝尔层上确定正合直像并不明显。
+
+\begin{lemma}
+\label{proetale-lemma-finite}
+设 $f : Z \to X$ 为局部有限表现的有限概形态射。则
+$f_{\proetale, *} : \textit{Ab}(Z_\proetale) \to \textit{Ab}(X_\proetale)$
+是正合的。
+\end{lemma}
+
+\begin{proof}
+为证明这一点，可以在 $X$ 上（Zariski）局部地工作，并假设 $X$ 为仿射概形，
+记作 $X = \Spec(A)$。于是对某个有限表现的有限 $A$-代数 $B$，有
+$Z = \Spec(B)$。命题 \ref{proetale-proposition-find-w-contractible} 的证明中的构造给出
+忠实平坦的 ind-\'etale 环映射 $A \to D$，其中 $D$ 是 w-可缩的。可以通过在这样
+的对象 $U = \Spec(D)$ 上取值来检验层列的正合性。此时，
+$f_{\proetale, *}\mathcal{F}$ 在 $U$ 上的值等于 $\mathcal{F}$ 在
+$V = \Spec(D \otimes_A B)$ 上的值。由引理
+\ref{proetale-lemma-finite-finitely-presented-over-w-contractible}，$D \otimes_A B$ 是
+w-可缩的，故在 $V$ 上取值是正合的。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{闭浸入与 pro-\'etale 位点}
+\label{proetale-section-closed-immersion}
+
+\noindent
+概形的闭浸入是否在 pro-\'etale 阿贝尔层上确定正合直像并不明显（而且很可能不
+成立）。
+
+\begin{lemma}
+\label{proetale-lemma-closed-immersion-affines}
+设 $i : Z \to X$ 为仿射概形之间的闭浸入态射。以 $X_{app}$ 和 $Z_{app}$
+表示引理 \ref{proetale-lemma-affine-alternative} 中引入的位点。基变换函子
+$$
+u : X_{app} \to Z_{app},\quad U \longmapsto u(U) = U \times_X Z
+$$
+是连续的，并有一个全忠实左伴随 $v$。对 $Z_{app}$ 中的 $V$，态射
+$V \to v(V)$ 是闭浸入，它将 $V$ 与
+$u(v(V)) = v(V) \times_X Z$ 等同，并且 $v(V)$ 的每个点都特殊化到 $V$
+中的一个点。函子 $v$ 余连续，并将覆盖映到覆盖。
+\end{lemma}
+
+\begin{proof}
+该伴随的存在性立即由引理 \ref{proetale-lemma-lift-ind-etale} 及各定义得出。由
+$X_{app}$ 中覆盖的定义，$u$ 显然是连续的。
+
+\medskip\noindent
+写成 $X = \Spec(A)$ 与 $Z = \Spec(A/I)$。设 $V = \Spec(\overline{C})$
+为 $Z_{app}$ 的对象，并令 $v(V) = \Spec(C)$。我们已在引理
+\ref{proetale-lemma-lift-ind-etale} 的陈述中看到，$V$ 等于
+$v(V) \times_X Z = \Spec(C/IC)$。任意 $g \in C$，若其在
+$C/IC = \overline{C}$ 中的像可逆，则它在 $C$ 中可逆。事实上，我们有
+$A$-代数映射 $C \to C_g \to C/IC$，并由伴随性得到 $C$-代数映射
+$C_g \to C$。因此 $v(V)$ 的每个点都特殊化到 $V$ 中的一个点。
+
+\medskip\noindent
+设 $\{V_i \to V\}$ 是 $Z_{app}$ 中的覆盖。于是
+$\{v(V_i) \to v(V)\}$ 是 $Z_{app}$ 中的有限态射族，并且
+$V \subset v(V)$ 的每个点都属于某个映射 $v(V_i) \to v(V)$ 的像。由于各态射
+$v(V_i) \to v(V)$ 平坦（因为它们是弱 \'etale 的），可断定
+$\{v(V_i) \to v(V)\}$ 联合满射。这证明了 $v$ 将覆盖映到覆盖。
+
+\medskip\noindent
+设 $V$ 为 $Z_{app}$ 的对象，并设 $\{U_i \to v(V)\}$ 是 $X_{app}$ 中的覆盖。
+于是 $\{u(U_i) \to u(v(V)) = V\}$ 是 $Z_{app}$ 的覆盖。由伴随性，得到态射
+$v(u(U_i)) \to U_i$。因此族 $\{v(u(U_i)) \to v(V)\}$ 加细给定覆盖，从而可知
+$v$ 是余连续的。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-closed-immersion-affines-apply}
+设 $Z \to X$ 为仿射概形之间的闭浸入态射。相应的拓扑斯态射
+$i = i_\proetale$ 等于与引理 \ref{proetale-lemma-closed-immersion-affines} 中全忠实余连续
+函子 $v : Z_{app} \to X_{app}$ 相关联的拓扑斯态射。因此
+\begin{enumerate}
+\item $i^{-1}\mathcal{F}$ 是与预层 $V \mapsto \mathcal{F}(v(V))$ 相关联的层；
+\item 对 $Z_{app}$ 的弱可缩对象 $V$，有
+$i^{-1}\mathcal{F}(V) = \mathcal{F}(v(V))$；
+\item $i^{-1} : \Sh(X_\proetale) \to \Sh(Z_\proetale)$
+有左伴随 $i^{Sh}_!$；
+\item $i^{-1} : \textit{Ab}(X_\proetale) \to \textit{Ab}(Z_\proetale)$
+有左伴随 $i_!$；
+\item $\text{id} \to i^{-1}i^{Sh}_!$、$\text{id} \to i^{-1}i_!$ 与
+$i^{-1}i_* \to \text{id}$ 都是同构；并且
+\item $i_*$、$i^{Sh}_!$ 与 $i_!$ 都是全忠实的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-affine-alternative}，可以用位点态射
+$u : X_{app} \to Z_{app}$，$V \mapsto V \times_X Z$ 来描述 $i_\proetale$。
+引理的第一个陈述由“位点”引理 \ref{sites-lemma-have-functor-other-way} 与
+\ref{sites-lemma-have-functor-other-way-morphism} 得出（但要交换 $u$ 与 $v$
+的角色）。
+
+\medskip\noindent
+证明 (1)。由 $i$ 作为与 $v$ 相关联之拓扑斯态射的描述，该结论按构造成立；参见
+“位点”引理 \ref{sites-lemma-cocontinuous-morphism-topoi}。
+
+\medskip\noindent
+证明 (2)。由引理 \ref{proetale-lemma-closed-immersion-affines}，函子 $v$ 将覆盖映到覆盖，
+所以预层 $\mathcal{G} : V \mapsto \mathcal{F}(v(V))$ 是分离预层（“位点”定义
+\ref{sites-definition-separated}）。因此 $\mathcal{G}$ 的层化是
+$\mathcal{G}^+$，参见“位点”定理 \ref{sites-theorem-plus}。接着，设 $V$ 为
+$Z_{app}$ 的弱可缩对象。设
+$\mathcal{V} = \{V_i \to V\}_{i = 1, \ldots, n}$ 是 $Z_{app}$ 中任意覆盖，并置
+$\mathcal{V}' = \{\coprod V_i \to V\}$。由于 $v$ 与有限不交并可交换（因为它是
+左伴随，或直接由构造可知），而 $\mathcal{F}$ 将有限不交并映到乘积，所以
+$$
+H^0(\mathcal{V}, \mathcal{G}) = H^0(\mathcal{V}', \mathcal{G})
+$$
+（记号同“位点”第 \ref{sites-section-sheafification} 节；另与“Étale 上同调”
+引理 \ref{etale-cohomology-lemma-cech-complex} 比较）。因此可假设
+覆盖由单个态射给出，即 $\{V' \to V\}$。由于 $V$ 弱可缩，该覆盖可由平凡覆盖
+$\{V \to V\}$ 加细。因此 $\mathcal{G}^+ = i^{-1}\mathcal{F}$ 在 $V$ 上的值
+就是 $\mathcal{F}(v(V))$，从而 (2) 得证。
+
+\medskip\noindent
+证明 (3)。$Z_{app}$ 的每个对象都有弱可缩对象组成的覆盖（引理
+\ref{proetale-lemma-proetale-enough-w-contractible}）。由上可知，如果 $i^{Sh}_!$ 存在，
+那么对弱可缩的 $V$ 应有 $i^{Sh}_!h_V = h_{v(V)}$。于是 $i^{Sh}_!$ 的存在性由
+“位点”引理 \ref{sites-lemma-existence-lower-shriek} 得出。
+
+\medskip\noindent
+证明 (4)。同样地，对 $Z_{app}$ 中弱可缩的 $V$，置
+$i_!\mathbf{Z}_V = \mathbf{Z}_{v(V)}$，对直和作类似处理，再应用“同调”
+引理 \ref{homology-lemma-partially-defined-adjoint}，即得 $i_!$ 的存在性。细节从略。
+
+\medskip\noindent
+证明 (5)。设 $V$ 为 $Z_{app}$ 的可缩对象。则
+$i^{-1}i^{Sh}_!h_V = i^{-1}h_{v(V)} = h_{u(v(V))} = h_V$。（一般而言，
+$i^{-1}h_U = h_{u(U)}$。）由于可缩的 $V$ 所对应的层 $h_V$ 生成
+$\Sh(Z_{app})$（“位点”引理
+\ref{sites-lemma-sheaf-coequalizer-representable}），可得
+$\text{id} \to i^{-1}i^{Sh}_!$ 是同构。对映射
+$\text{id} \to i^{-1}i_!$ 亦同。然后
+$(i^{-1}i_*\mathcal{H})(V) = i_*\mathcal{H}(v(V)) =
+\mathcal{H}(u(v(V))) = \mathcal{H}(V)$，由此可知
+$i^{-1}i_* \to \text{id}$ 是同构。
+
+\medskip\noindent
+现在 (6) 中的全忠实性断言由“范畴”引理
+\ref{categories-lemma-adjoint-fully-faithful} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-closed-immersion}
+设 $i : Z \to X$ 为概形的闭浸入。则
+\begin{enumerate}
+\item $i_\proetale^{-1}$ 与极限可交换；
+\item $i_{\proetale, *}$ 是全忠实的；并且
+\item $i_\proetale^{-1}i_{\proetale, *} \cong \text{id}_{\Sh(Z_\proetale)}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由“位点”引理 \ref{sites-lemma-exactness-properties}，断言 (2) 与 (3) 等价。
+(1) 与 (3) 在 $X$ 上是（Zariski）局部的，因此可假设 $X$ 为仿射概形。在此
+情形，结论由引理 \ref{proetale-lemma-closed-immersion-affines-apply} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-thickening}
+设 $i : Z \to X$ 为整、泛单射且满射的概形态射。则 $i_{\proetale, *}$ 与
+$i_\proetale^{-1}$ 是 pro-\'etale 拓扑斯范畴之间互为拟逆的等价。
+\end{lemma}
+
+\begin{proof}
+立即归约到 $X$ 为仿射概形的情形。此时 $Z$ 也为仿射概形。置
+$A = \mathcal{O}(X)$ 与 $B = \mathcal{O}(Z)$。于是 $A$ 上与 $B$ 上的 \'etale
+代数范畴等价，参见“Étale 上同调”定理
+\ref{etale-cohomology-theorem-topological-invariance} 及注记
+\ref{etale-cohomology-remark-affine-inside-equivalence}。因此 $A$ 上与 $B$ 上的
+ind-\'etale 代数范畴等价。换言之，引理 \ref{proetale-lemma-affine-alternative} 中的范畴
+$X_{app}$ 与 $Z_{app}$ 等价。我们略去该等价双向地将覆盖映到覆盖的验证。现在由
+引理 \ref{proetale-lemma-affine-alternative} 所述 pro-\'etale 拓扑斯是 $X_{app}$ 上层的
+拓扑斯，即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compute-i-star}
+设 $i : Z \to X$ 为概形的闭浸入。设 $U \to X$ 为 $X_\proetale$ 的对象，并且
+\begin{enumerate}
+\item $U$ 是仿射且弱可缩的；并且
+\item $U$ 的每个点都特殊化到 $U \times_X Z$ 中的一个点。
+\end{enumerate}
+则对 $X_\proetale$ 上所有阿贝尔层，均有
+$i_\proetale^{-1}\mathcal{F}(U \times_X Z) = \mathcal{F}(U)$。
+\end{lemma}
+
+\begin{proof}
+由于拉回与限制可交换，可以用 $U$ 替换 $X$。因此可假设 $X$ 仿射且弱可缩，
+并且 $X$ 的每个点都特殊化到 $Z$ 中的一个点。由引理
+\ref{proetale-lemma-closed-immersion-affines-apply} 的 (1)，只需在此情形证明
+$v(Z) = X$。所以我们必须证明：若 $A$ 是 w-可缩环，$I \subset A$ 是含于 $A$
+之 Jacobson 根中的理想，并且 $A \to B \to A/I$ 是一个分解，其中
+$A \to B$ 为 ind-\'etale，则存在唯一的收缩 $B \to A$，与到 $A/I$ 的映射相容。
+注意，作为 $A/I$-代数，有 $B/IB = A/I \times R$。对 $B$ 作局部化替换后，
+可以假设 $B/IB = A/I$。注意 $\Spec(B) \to \Spec(A)$ 是满射，因为其像
+含有 $V(I)$，从而含有所有闭点，并且在特殊化下封闭。由于 $A$ 是 w-可缩的，存在
+收缩 $B \to A$。由于 $B/IB = A/I$，该收缩与到 $A/I$ 的映射相容。唯一性的证明
+从略（提示：利用 $A$ 与 $B$ 在 $A$ 的极大理想处有同构的局部环）。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-closed-immersion-complement-retrocompact-exact}
+设 $i : Z \to X$ 为概形的闭浸入。如果 $X \setminus i(Z)$ 是 $X$ 的逆紧开子集，
+则 $i_{\proetale, *}$ 是正合的。
+\end{lemma}
+
+\begin{proof}
+该问题在 $X$ 上是局部的，因此可假设 $X$ 为仿射概形。记
+$X = \Spec(A)$ 与 $Z = \Spec(A/I)$。存在 $f_1, \ldots, f_r \in I$，使得在
+集合论意义下 $Z = V(f_1, \ldots, f_r)$，参见“代数”引理
+\ref{algebra-lemma-qc-open}。由引理 \ref{proetale-lemma-thickening}，可以假设
+$Z = \Spec(A/(f_1, \ldots, f_r))$。在此情形，由引理 \ref{proetale-lemma-finite}，函子
+$i_{\proetale, *}$ 是正合的。
+\end{proof}
+
+
+
+
+
+\section{零延拓}
+\label{proetale-section-extension-by-zero}
+
+\noindent
+“位点上的模”第 \ref{sites-modules-section-localize} 节中的一般材料使我们可以
+作如下定义。
+
+\begin{definition}
+\label{proetale-definition-extension-zero}
+设 $j : U \to X$ 为概形的弱 \'etale 态射。
+\begin{enumerate}
+\item 限制函子
+$j^{-1} : \Sh(X_\proetale) \to \Sh(U_\proetale)$
+有左伴随
+$j_!^{Sh} : \Sh(X_\proetale) \to \Sh(U_\proetale)$.
+\item 限制函子
+$j^{-1} : \textit{Ab}(X_\proetale) \to \textit{Ab}(U_\proetale)$
+有一个记作
+$j_! : \textit{Ab}(U_\proetale) \to \textit{Ab}(X_\proetale)$
+的左伴随，称为{\it 零延拓}。
+\item 设 $\Lambda$ 为环。函子
+$j^{-1} : \textit{Mod}(X_\proetale, \Lambda) \to
+\textit{Mod}(U_\proetale, \Lambda)$
+有左伴随
+$j_! : \textit{Mod}(U_\proetale, \Lambda) \to
+\textit{Mod}(X_\proetale, \Lambda)$
+，称为{\it 零延拓}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+照例，将其与 \'etale 情形进行比较。
+
+\begin{lemma}
+\label{proetale-lemma-jshriek-comparison}
+设 $j : U \to X$ 为概形的 \'etale 态射，$\mathcal{G}$ 为 $U_\etale$ 上的阿贝尔
+层。则作为 $X_\proetale$ 上的层，有
+$\epsilon^{-1} j_!\mathcal{G} = j_!\epsilon^{-1}\mathcal{G}$。
+\end{lemma}
+
+\begin{proof}
+这是因为两个函子都是 $j_\proetale^{-1} \epsilon_* =
+\epsilon_* j_\etale^{-1}$ 的左伴随。该等式由第 \ref{proetale-section-morphism} 节中的讨论
+成立。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-jshriek-zero}
+设 $j : U \to X$ 为概形的弱 \'etale 态射，并设 $i : Z \to X$ 为满足
+$U \times_X Z = \emptyset$ 的闭浸入。设 $V \to X$ 为 $X_\proetale$ 的仿射对象，
+使得 $V$ 的每个点都特殊化到 $V_Z = Z \times_X V$ 中的一个点。则对
+$U_\proetale$ 上所有阿贝尔层，均有 $j_!\mathcal{F}(V) = 0$。
+\end{lemma}
+
+\begin{proof}
+设 $\{V_i \to V\}$ 为 pro-\'etale 覆盖。若能将该覆盖加细为一个覆盖，使其中各
+成员都没有到 $U$ 的 $X$-态射，则引理得证（参见“位点上的模”第
+\ref{sites-modules-section-localize} 节中 $j_!$ 的构造）。先加细该覆盖，得到
+$V_i$ 均为仿射概形的有限覆盖。对每个 $i$，令 $V_i = \Spec(A_i)$，并令
+$Z_i \subset V_i$ 为 $Z$ 的逆像。沿用引理 \ref{proetale-lemma-localization} 中的记号，置
+$W_i = \Spec(A_{i, Z_i}^\sim)$。于是 $\coprod W_i \to V$ 是弱 \'etale 态射，
+且其像包含 $V_Z$ 的所有点。由我们关于特殊化的假设，该像因而包含 $V$ 的所有
+点。所以 $\{W_i \to V\}$ 是给定覆盖的一个 pro-\'etale 加细。但是 $W_i$ 中的
+每个点都特殊化到位于 $Z$ 上方的一个点，故不存在 $X$ 上的态射 $W_i \to U$。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-open-immersion}
+设 $j : U \to X$ 为概形的开浸入。则
+$\text{id} \cong j^{-1}j_!$ 与 $j^{-1}j_* \cong \text{id}$，并且函子 $j_!$
+和 $j_*$ 都是全忠实的。
+\end{lemma}
+
+\begin{proof}
+参见“位点上的模”引理 \ref{sites-modules-lemma-restrict-back}（集合层的情形
+参见“位点”引理 \ref{sites-lemma-restrict-back}），以及“范畴”引理
+\ref{categories-lemma-adjoint-fully-faithful}。
+\end{proof}
+
+\noindent
+下面说明零延拓与到补闭子概形的限制之间的关系。
+
+\begin{lemma}
+\label{proetale-lemma-ses-associated-to-open}
+设 $X$ 为概形，$Z \subset X$ 为闭子概形，并令 $U \subset X$ 为其补集。以
+$i : Z \to X$ 与 $j : U \to X$ 表示包含态射。假设 $j$ 是拟紧态射。对
+$X_\proetale$ 上每个阿贝尔层，都有典范短正合列
+$$
+0 \to j_!j^{-1}\mathcal{F} \to \mathcal{F} \to i_*i^{-1}\mathcal{F} \to 0
+$$
+于 $X_\proetale$ 上，其中所有函子均针对 pro-\'etale 拓扑。
+\end{lemma}
+
+\begin{proof}
+由所涉及函子的伴随性质得到这些映射。只需证明 $X_\proetale$ 有足够多的对象
+（“位点”定义 \ref{sites-definition-w-contractible}），使得该序列在这些对象上
+取值得到短正合列。设 $V = \Spec(A)$ 为 $X_\proetale$ 的仿射对象，并且 $A$
+是 w-可缩的（这类对象足够多）。于是 $V \times_X Z$ 由理想 $I \subset A$
+截出。$j$ 拟紧这一假设蕴含存在 $f_1, \ldots, f_r \in I$，使得
+$V(I) = V(f_1, \ldots, f_r)$。我们得到忠实平坦的 ind-Zariski 环映射
+$$
+A \longrightarrow A_{f_1} \times \ldots \times A_{f_r} \times
+A_{V(I)}^\sim
+$$
+其中 $A_{V(I)}^\sim$ 如引理 \ref{proetale-lemma-localization} 所定义。由于
+$V_i = \Spec(A_{f_i}) \to X$ 经由 $U$ 分解，有
+$$
+j_!j^{-1}\mathcal{F}(V_i) = \mathcal{F}(V_i)
+\quad\text{且}\quad
+i_*i^{-1}\mathcal{F}(V_i) = 0
+$$
+另一方面，对概形 $V^\sim = \Spec(A_{V(I)}^\sim)$，有
+$$
+j_!j^{-1}\mathcal{F}(V^\sim) = 0
+\quad\text{且}\quad
+\mathcal{F}(V^\sim) = i_*i^{-1}\mathcal{F}(V^\sim)
+$$
+第一个等号由引理 \ref{proetale-lemma-jshriek-zero} 得出，第二个等号由引理
+\ref{proetale-lemma-compute-i-star} 与 \ref{proetale-lemma-localization-w-contractible} 得出。因此该
+序列在 $\Spec(A_{f_1} \times \ldots \times A_{f_r} \times A_{V(I)}^\sim)$
+上取值得到正合列，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-j-shriek-limits}
+设 $j : U \to X$ 为概形的拟紧开浸入态射。函子
+$j_! : \textit{Ab}(U_\proetale) \to \textit{Ab}(X_\proetale)$
+与极限可交换。
+\end{lemma}
+
+\begin{proof}
+由于 $j_!$ 正合，只需证明 $j_!$ 与乘积可交换。该问题在 $X$ 上是局部的，因此
+可假设 $X$ 为仿射概形。设 $\mathcal{G}$ 为 $U_\proetale$ 上的阿贝尔层。我们有
+$j^{-1}j_*\mathcal{G} = \mathcal{G}$。因此应用引理
+\ref{proetale-lemma-ses-associated-to-open} 的正合列，得到
+$$
+0 \to j_!\mathcal{G} \to j_*\mathcal{G} \to i_*i^{-1}j_*\mathcal{G} \to 0
+$$
+其中 $i : Z \to X$ 是补集 $Z = X \setminus U$ 所带诱导既约概形结构的包含态射。
+函子 $j_*$ 与 $i_*$ 作为右伴随都与乘积可交换。由引理
+\ref{proetale-lemma-closed-immersion}，函子 $i^{-1}$ 与乘积可交换。因此 $j_!$ 也与乘积
+可交换，因为在 pro-\'etale 位点上乘积是正合的（“位点上的上同调”命题
+\ref{sites-cohomology-proposition-enough-weakly-contractibles}）。
+\end{proof}
+
+
+
+
+\section{pro-\'etale 位点上的可构造层}
+\label{proetale-section-constructible}
+
+\noindent
+我们只讨论 Noether 环上的可构造 $\Lambda$-模层。以后还打算讨论集合、群等的可构造
+层。
+
+\begin{definition}
+\label{proetale-definition-constructible}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。如果对每个仿射开子集 $U \subset X$，
+都存在将 $U$ 分解为可构造局部闭子概形的有限分解 $U = \coprod_i U_i$，使得对
+所有 $i$，$\mathcal{F}|_{U_i}$ 都是有限型且局部常值的，则称
+$X_\proetale$ 上的 $\Lambda$-模层为{\it 可构造的}。
+\end{definition}
+
+\noindent
+这仍未给出任何“新的”对象。
+
+\begin{lemma}
+\label{proetale-lemma-compare-constructible}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。函子 $\epsilon^{-1}$ 定义了范畴等价
+$$
+\left\{
+\begin{matrix}
+\text{可构造层}\\
+\Lambda\text{-模层，定义于 }X_\etale\\
+\end{matrix}
+\right\}
+\longleftrightarrow
+\left\{
+\begin{matrix}
+\text{可构造层}\\
+\Lambda\text{-模层，定义于 }X_\proetale\\
+\end{matrix}
+\right\}
+$$
+即 $X_\etale$ 上的可构造 $\Lambda$-模层与 $X_\proetale$ 上的可构造
+$\Lambda$-模层之间的等价。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-fully-faithful}，函子 $\epsilon^{-1}$ 全忠实，并与到各分层的拉回
+（限制）可交换。因此，可构造 \'etale 层在 $\epsilon^{-1}$ 下的像是可构造
+pro-\'etale 层。为完成证明，设 $\mathcal{F}$ 是定义
+\ref{proetale-definition-constructible} 所述 $X_\proetale$ 上的可构造 $\Lambda$-模层。
+存在典范映射
+$$
+\epsilon^{-1}\epsilon_*\mathcal{F} \longrightarrow \mathcal{F}
+$$
+我们将证明该映射是同构。这将证明 $\mathcal{F}$ 属于 $\epsilon^{-1}$ 的本质像，
+从而完成证明（细节从略）。
+
+\medskip\noindent
+由于只需在 $X$ 上局部地证明这一点，可以假设 $X$ 拟紧拟分离，并且有一个由
+可构造局部闭分层给出的有限分割 $X = \coprod_{i = 1, \ldots, n} X_i$，使得
+$\mathcal{F}|_{X_i}$ 是有限型局部常值层。我们对 $n$ 归纳。基本情形
+$n = 1$ 由引理 \ref{proetale-lemma-compare-locally-constant} 得出。取一点 $x \in X$；
+则对某个 $k$ 有 $x \in X_k$。只需证明所示映射在 $x$ 的某个开邻域中是同构。
+因此可以假设 $X_k$ 在 $X$ 中闭。置 $Z = X_k$，并以 $U \subset X$ 表示 $Z$
+的补集。注意，归纳假设适用于 $\mathcal{F}$ 到 $Z$ 及到 $U$ 的限制。由引理
+\ref{proetale-lemma-ses-associated-to-open}，在 $X_\proetale$ 上有短正合列
+$$
+0 \to j_!j^{-1}\mathcal{F} \to \mathcal{F} \to i_*i^{-1}\mathcal{F} \to 0
+$$
+函子性给出交换图
+$$
+\xymatrix{
+0 \ar[r] &
+\epsilon^{-1}\epsilon_*j_!j^{-1}\mathcal{F} \ar[r] \ar[d] &
+\epsilon^{-1}\epsilon_*\mathcal{F} \ar[r] \ar[d] &
+\epsilon^{-1}\epsilon_*i_*i^{-1}\mathcal{F} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+j_!j^{-1}\mathcal{F} \ar[r] &
+\mathcal{F} \ar[r] &
+i_*i^{-1}\mathcal{F} \ar[r] & 0
+}
+$$
+由归纳，一方面我们知道
+$\epsilon^{-1}\epsilon_*i^{-1}\mathcal{F} \to i^{-1}\mathcal{F}$
+以及
+$\epsilon^{-1}\epsilon_*j^{-1}\mathcal{F} \to j^{-1}\mathcal{F}$
+是同构；另一方面，知道
+$i^{-1}\mathcal{F} = \epsilon^{-1}\mathcal{A}$
+以及
+$j^{-1}\mathcal{F} = \epsilon^{-1}\mathcal{B}$
+其中有某些可构造 $\Lambda$-模层 $\mathcal{A}$ 定义在 $Z_\etale$ 上，而
+$\mathcal{B}$ 定义在 $U_\etale$ 上。于是
+$$
+\epsilon^{-1}\epsilon_*j_!j^{-1}\mathcal{F} =
+\epsilon^{-1}\epsilon_*j_!\epsilon^{-1}\mathcal{B} =
+\epsilon^{-1}\epsilon_*\epsilon^{-1}j_!\mathcal{B} =
+\epsilon^{-1}j_!\mathcal{B} =
+j_!\epsilon^{-1}\mathcal{B} =
+j_!j^{-1}\mathcal{F}
+$$
+其中第二个等号由引理 \ref{proetale-lemma-jshriek-comparison} 得出，第三个等号由引理
+\ref{proetale-lemma-fully-faithful} 得出，第四个等号再次由引理
+\ref{proetale-lemma-jshriek-comparison} 得出。类似地，有
+$$
+\epsilon^{-1}\epsilon_*i_*i^{-1}\mathcal{F} =
+\epsilon^{-1}\epsilon_*i_*\epsilon^{-1}\mathcal{A} =
+\epsilon^{-1}\epsilon_*\epsilon^{-1}i_*\mathcal{A} =
+\epsilon^{-1}i_*\mathcal{A} =
+i_*\epsilon^{-1}\mathcal{A} =
+i_*i^{-1}\mathcal{F}
+$$
+这次使用引理 \ref{proetale-lemma-morphism-comparison}。由五引理可知，上面大图中央的竖直
+映射是同构。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-constructible-serre}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。$X_\proetale$ 上可构造
+$\Lambda$-模层所成的范畴是 $\textit{Mod}(X_\proetale, \Lambda)$ 的弱 Serre
+子范畴。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{proetale-lemma-compare-constructible}、\ref{proetale-lemma-compare-derived}，以及
+\'etale 位点上的相应结果（“Étale 上同调”引理
+\ref{etale-cohomology-lemma-constructible-abelian}）的形式推论。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-constructible-derived}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。令 $D_c(X_\etale, \Lambda)$（相应地，
+$D_c(X_\proetale, \Lambda)$）为 $D(X_\etale, \Lambda)$（相应地，
+$D(X_\proetale, \Lambda)$）的全子范畴，其对象是上同调层均为可构造
+$\Lambda$-模层的那些复形。则
+$$
+\epsilon^{-1} :
+D_c^+(X_\etale, \Lambda)
+\longrightarrow
+D_c^+(X_\proetale, \Lambda)
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+由“Étale 上同调”引理
+\ref{etale-cohomology-lemma-constructible-abelian}、引理
+\ref{proetale-lemma-constructible-serre} 与“衍生范畴”第
+\ref{derived-section-triangulated-sub} 节，范畴 $D_c(X_\etale, \Lambda)$ 与
+$D_c(X_\proetale, \Lambda)$ 分别是 $D(X_\etale, \Lambda)$ 与
+$D(X_\proetale, \Lambda)$ 的严格全、饱和三角子范畴。结合引理
+\ref{proetale-lemma-compare-derived} 与 \ref{proetale-lemma-compare-constructible} 即得本引理的断言。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-tensor-c}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环。设
+$K, L \in D_c^-(X_\proetale, \Lambda)$。则
+$K \otimes_\Lambda^\mathbf{L} L$ 属于 $D_c^-(X_\proetale, \Lambda)$。
+\end{lemma}
+
+\begin{proof}
+注意，$H^i(K \otimes_\Lambda^\mathbf{L} L)$ 与
+$H^i(\tau_{\geq i - 1}K \otimes_\Lambda^\mathbf{L} \tau_{\geq i - 1}L)$
+相同。因此可以假设 $K$ 与 $L$ 有界。在此情形，可应用引理
+\ref{proetale-lemma-compare-constructible-derived} 归约到 \'etale 位点的情形；参见
+“Étale 上同调”引理 \ref{etale-cohomology-lemma-tensor-c}。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-compare-truncations-constructible}
+设 $X$ 为概形，$\Lambda$ 为 Noether 环，并设 $I \subset \Lambda$ 为理想。设
+$K$ 为 $D(X_\proetale, \Lambda)$ 的对象。置
+$K_n = K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$。如果 $K_1$
+属于 $D^-_c(X_\proetale, \Lambda/I)$，那么对所有 $n$，$K_n$ 都属于
+$D^-_c(X_\proetale, \Lambda/I^n)$。
+\end{lemma}
+
+\begin{proof}
+考虑特异三角
+$$
+K \otimes_\Lambda^\mathbf{L} \underline{I^n/I^{n + 1}} \to
+K_{n + 1} \to
+K_n \to
+K \otimes_\Lambda^\mathbf{L} \underline{I^n/I^{n + 1}}[1]
+$$
+以及同构
+$$
+K \otimes_\Lambda^\mathbf{L} \underline{I^n/I^{n + 1}} =
+K_1 \otimes_{\Lambda/I}^\mathbf{L} \underline{I^n/I^{n + 1}}
+$$
+由引理 \ref{proetale-lemma-tensor-c}，该张量积具有可构造上同调层（并且当 $K_1$ 的上同调
+消没时也消没）。因此，利用引理 \ref{proetale-lemma-constructible-serre} 对 $n$ 归纳，
+可知每个 $K_n$ 都具有可构造上同调层。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{可构造进层}
+\label{proetale-section-adic}
+
+\noindent
+本节定义可构造 $\Lambda$-层的概念以及若干变体。
+
+\begin{definition}
+\label{proetale-definition-adic}
+设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。设 $X$ 为概形，并设
+$\mathcal{F}$ 为 $X_\proetale$ 上的 $\Lambda$-模层。
+\begin{enumerate}
+\item 如果 $\mathcal{F} = \lim \mathcal{F}/I^n\mathcal{F}$，并且每个
+$\mathcal{F}/I^n\mathcal{F}$ 都是可构造 $\Lambda/I^n$-模层，则称
+$\mathcal{F}$ 为{\it 可构造 $\Lambda$-层}。
+\item 如果 $\mathcal{F}$ 是可构造 $\Lambda$-层，并且每个
+$\mathcal{F}/I^n\mathcal{F}$ 都局部常值，则称 $\mathcal{F}$ 为 {\it lisse}。
+\item 如果存在 $I$-进完备 $\Lambda$-模 $M$，其中 $M/IM$ 有限，并且
+$\mathcal{F}$ 局部同构于
+$$
+\underline{M}^\wedge = \lim \underline{M/I^nM}.
+$$
+则称 $\mathcal{F}$ 为{\it 进 lisse}\footnote{这可能不是标准记号。}。
+\item 如果对每个仿射开子集 $U \subset X$，都存在将 $U = \coprod U_i$ 分解为
+可构造局部闭子概形的分解，使得 $\mathcal{F}|_{U_i}$ 是进 lisse 的，则称
+$\mathcal{F}$ 为{\it 进可构造的}\footnote{这可能不是标准记号。}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+当 $\Lambda = \mathbf{Z}_\ell$ 且 $I = (\ell)$ 时，可构造 $\Lambda$-层的定义
+等价于 \cite[Expos\'e VI, Definition 1.1.1]{SGA5} 中的定义。显然有蕴含关系
+$$
+\xymatrix{
+\text{进 lisse} \ar@{=>}[r] \ar@{=>}[d] &
+\text{进可构造} \ar@{=>}[d] \\
+\text{lisse 可构造 }\Lambda\text{-层} \ar@{=>}[r] &
+\text{可构造 }\Lambda\text{-层}
+}
+$$
+在某些情形，竖直箭头可以反向（参见引理 \ref{proetale-lemma-Noetherian-constructible} 与
+\ref{proetale-lemma-Noetherian-adic-constructible}）。一般而言，进可构造层范畴和可构造
+$\Lambda$-层范畴在核与余核下都不封闭。
+
+\medskip\noindent
+具体而言，设 $X$ 为仿射概形，其底拓扑空间 $|X|$ 与
+$\Lambda = \mathbf{Z}_\ell$ 同胚，参见例 \ref{proetale-example-construct-space}。以
+$f : |X| \to \mathbf{Z}_\ell = \Lambda$ 表示一个同胚。可以把 $f$ 看作
+$X$ 上 $\underline{\Lambda}^\wedge$ 的一个截面；乘以 $f$ 便定义了二项复形
+$$
+\underline{\Lambda}^\wedge \xrightarrow{f} \underline{\Lambda}^\wedge
+$$
+于 $X_\proetale$ 上。层 $\underline{\Lambda}^\wedge$ 是进 lisse 的。然而，上述
+映射的余核不是进可构造的，因为该余核之茎的同构型取无穷多个值：
+$\mathbf{Z}/\ell^n\mathbf{Z}$ 与 $\mathbf{Z}_\ell$。该余核是可构造
+$\mathbf{Z}_\ell$-层。然而，核甚至不是可构造 $\mathbf{Z}_\ell$-层，因为它在
+一个非拟紧开集上为零，但自身不为零。
+
+\begin{lemma}
+\label{proetale-lemma-Noetherian-constructible}
+设 $X$ 为 Noether 概形，$\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想，
+并设 $\mathcal{F}$ 为 $X_\proetale$ 上的可构造 $\Lambda$-层。则存在由局部闭子概形
+给出的有限分割 $X = \coprod X_i$，使得限制 $\mathcal{F}|_{X_i}$ 为 lisse。
+\end{lemma}
+
+\begin{proof}
+令 $R = \bigoplus I^n/I^{n + 1}$。注意 $R$ 是 Noether 环。由于每个层
+$\mathcal{F}/I^n\mathcal{F}$ 都是可构造 $\Lambda/I^n\Lambda$-模层，
+$I^n\mathcal{F}/I^{n + 1}\mathcal{F}$ 也为可构造 $\Lambda/I$-模层，因而由引理
+\ref{proetale-lemma-compare-constructible}，它是 $X_\etale$ 上某个可构造层
+$\mathcal{G}_n$ 的拉回。置 $\mathcal{G} = \bigoplus \mathcal{G}_n$。这是
+$X_\etale$ 上的 $R$-模层，并且映射
+$$
+\mathcal{G}_0 \otimes_{\Lambda/I} \underline{R}
+\longrightarrow
+\mathcal{G}
+$$
+是满射，因为各映射
+$$
+\mathcal{F}/I\mathcal{F} \otimes \underline{I^n/I^{n + 1}} \to
+I^n\mathcal{F}/I^{n + 1}\mathcal{F}
+$$
+都是满射。因此，由“Étale 上同调”命题
+\ref{etale-cohomology-proposition-constructible-over-noetherian}，
+$\mathcal{G}$ 是可构造 $R$-模层。选择分割 $X = \coprod X_i$，使得
+$\mathcal{G}|_{X_i}$ 是有限型局部常值 $R$-模层（“Étale 上同调”引理
+\ref{etale-cohomology-lemma-constructible-quasi-compact-quasi-separated}）。我们断言
+这就是引理中所需的分割。事实上，用 $X_i$ 替换 $X$ 后，可以假设
+$\mathcal{G}$ 局部常值。于是每个层
+ $I^n\mathcal{F}/I^{n + 1}\mathcal{F}$ 都局部常值。使用短正合列
+$$
+0 \to I^n\mathcal{F}/I^{n + 1}\mathcal{F} \to
+\mathcal{F}/I^{n + 1}\mathcal{F} \to \mathcal{F}/I^n\mathcal{F} \to 0
+$$
+以及归纳和“位点上的模”引理
+\ref{sites-modules-lemma-kernel-finite-locally-constant}，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-weird}
+设 $X$ 为弱可缩仿射概形，$\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。
+设 $\mathcal{F}$ 为 $X_\proetale$ 上满足下列条件的 $\Lambda$-模层：
+\begin{enumerate}
+\item $\mathcal{F} = \lim \mathcal{F}/I^n\mathcal{F}$,
+\item $\mathcal{F}/I^n\mathcal{F}$ 是常值 $\Lambda/I^n$-模层；
+\item $\mathcal{F}/I\mathcal{F}$ 是有限型的。
+\end{enumerate}
+则 $\mathcal{F} \cong \underline{M}^\wedge$，其中 $M$ 是有限
+$\Lambda^\wedge$-模。
+\end{lemma}
+
+\begin{proof}
+选择 $\Lambda/I^n$-模 $M_n$，使得
+$\mathcal{F}/I^n\mathcal{F} \cong \underline{M_n}$。由于有满射
+$\mathcal{F}/I^{n + 1}\mathcal{F} \to \mathcal{F}/I^n\mathcal{F}$，可知存在满射
+$M_{n + 1} \to M_n$，它们诱导同构
+$M_{n + 1}/I^nM_{n + 1} \to M_n$。固定这类满射的一种选择，并置
+$M = \lim M_n$。于是 $M$ 是 $I$-进完备 $\Lambda$-模，且
+$M/I^nM = M_n$；参见“代数”引理 \ref{algebra-lemma-limit-complete}。由于
+$M_1$ 是有限型 $\Lambda$-模（“位点上的模”引理
+\ref{sites-modules-lemma-locally-constant-finite-type}），可知 $M$ 是有限
+$\Lambda^\wedge$-模。考虑 $X_\proetale$ 上的层
+$$
+\mathcal{I}_n = \mathit{Isom}(\underline{M_n}, \mathcal{F}/I^n\mathcal{F})
+$$
+模去 $I^n$ 定义了转移映射
+$$
+\mathcal{I}_{n + 1} \longrightarrow \mathcal{I}_n
+$$
+由我们对 $M_n$ 的选择，层 $\mathcal{I}_n$ 是下列群层的挠子：
+$$
+\mathit{Isom}(\underline{M_n}, \underline{M_n}) =
+\underline{\text{Isom}_\Lambda(M_n, M_n)}
+$$
+（“位点上的模”引理 \ref{sites-modules-lemma-locally-constant}），因为
+$\mathcal{F}/I^n\mathcal{F}$ 在（\'etale）局部同构于 $\underline{M_n}$。由
+“代数补充”引理 \ref{more-algebra-lemma-hom-systems-ML}，层系统
+$(\mathcal{I}_n)$ 满足 Mittag-Leffler 条件。对每个 $n$，令
+$\mathcal{I}'_n \subset \mathcal{I}_n$ 为当 $N \gg n$ 时
+$\mathcal{I}_N \to \mathcal{I}_n$ 的像。则
+$$
+\ldots \to \mathcal{I}'_3 \to \mathcal{I}'_2 \to \mathcal{I}'_1 \to *
+$$
+是 $X_\proetale$ 上集合层的序列，其转移映射均为满射。由于 $*(X)$ 是单点集
+（非空），并且在 $X$ 上取值将集合层的满射映到集合的满射，可以选取
+$s \in \lim \mathcal{I}'_n(X)$。这些截面定义同构
+$\underline{M}^\wedge \to \lim \mathcal{F}/I^n\mathcal{F} = \mathcal{F}$，证明
+完成。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-connected-lisse}
+设 $X$ 为连通概形，$\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。如果
+$\mathcal{F}$ 是 $X_\proetale$ 上 lisse 可构造 $\Lambda$-层，则 $\mathcal{F}$
+是进 lisse 的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-compare-locally-constant}，对某个局部常值
+$\Lambda/I^n$-模层 $\mathcal{G}_n$，有
+$\mathcal{F}/I^n\mathcal{F} = \epsilon^{-1}\mathcal{G}_n$。由“Étale 上同调”
+引理 \ref{etale-cohomology-lemma-connected-locally-constant}，存在有限
+$\Lambda/I^n$-模 $M_n$，使得 $\mathcal{G}_n$ 局部同构于 $\underline{M_n}$。
+选择覆盖 $\{W_t \to X\}_{t \in T}$，使得每个 $W_t$ 都仿射且弱可缩。于是
+$\mathcal{F}|_{W_t}$ 满足引理 \ref{proetale-lemma-weird} 的假设，因此对某个有限
+$\Lambda^\wedge$-模 $N_t$，有
+$\mathcal{F}|_{W_t} \cong \underline{N_t}^\wedge$。注意，对所有 $t$ 与 $n$，
+$N_t/I^nN_t \cong M_n$。因此对所有 $t, t' \in T$，有
+$N_t \cong N_{t'}$；参见“代数补充”引理
+\ref{more-algebra-lemma-isomorphic-completions}。这证明了 $\mathcal{F}$ 是进 lisse
+的。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-Noetherian-adic-constructible}
+设 $X$ 为 Noether 概形，$\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想，
+并设 $\mathcal{F}$ 为 $X_\proetale$ 上的可构造 $\Lambda$-层。则
+$\mathcal{F}$ 是进可构造的。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{proetale-lemma-Noetherian-constructible}、\ref{proetale-lemma-connected-lisse}、
+Noether 概形局部连通这一事实（“拓扑”引理
+\ref{topology-lemma-locally-Noetherian-locally-connected}），以及各定义的推论。
+\end{proof}
+
+\noindent
+在衍生完备 $\Lambda$-模层的范畴中识别可构造 $\Lambda$-层将很有用。事实证明，
+“代数补充”引理 \ref{more-algebra-lemma-derived-complete-finite} 的朴素类比
+在此情形不成立。不过，下面给出“代数补充”引理
+\ref{more-algebra-lemma-derived-complete-zero} 的类比。
+
+\begin{lemma}
+\label{proetale-lemma-derived-complete-zero}
+设 $X$ 为概形，$\Lambda$ 为环，并设 $I \subset \Lambda$ 为有限生成理想。设
+$\mathcal{F}$ 为 $X_\proetale$ 上的 $\Lambda$-模层。如果 $\mathcal{F}$ 衍生完备
+且 $\mathcal{F}/I\mathcal{F} = 0$，则 $\mathcal{F} = 0$。
+\end{lemma}
+
+\begin{proof}
+假设 $\mathcal{F}/I\mathcal{F}$ 为零。令 $I = (f_1, \ldots, f_r)$。设 $i < r$
+为使得 $\mathcal{G} = \mathcal{F}/(f_1, \ldots, f_i)\mathcal{F}$ 非零的最大整数。
+如果这样的 $i$ 不存在，则 $\mathcal{F} = 0$，这正是所要证明的。于是
+$\mathcal{G}$ 作为衍生完备模之间某个映射的余核是衍生完备的，参见命题
+\ref{proetale-proposition-enough-weakly-contractibles}。由 $i$ 的选择，
+$f_{i + 1} : \mathcal{G} \to \mathcal{G}$ 是满射。因此
+$$
+\lim (\ldots \to \mathcal{G} \xrightarrow{f_{i + 1}} \mathcal{G}
+\xrightarrow{f_{i + 1}} \mathcal{G})
+$$
+非零，这与 $\mathcal{G}$ 的衍生完备性矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-derived-complete-limit}
+设 $X$ 为弱可缩仿射概形，$\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。
+设 $\mathcal{F}$ 为 $X_\proetale$ 上的衍生完备 $\Lambda$-模层，并且
+$\mathcal{F}/I\mathcal{F}$ 是有限型局部常值 $\Lambda/I$-模层。则存在整数 $t$
+以及满射
+$$
+(\underline{\Lambda}^\wedge)^{\oplus t} \to \mathcal{F}
+$$
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 弱可缩，存在有限不交开覆盖 $X = \coprod U_i$，使得
+$\mathcal{F}/I\mathcal{F}|_{U_i}$ 同构于与有限 $\Lambda/I$-模 $M_i$ 相关联的
+常值层。选取 $M_i$ 的有限多个生成元 $m_{ij}$。可以找到截面
+$s_{ij} \in \mathcal{F}(X)$，其限制是将 $m_{ij}$ 看作
+$\mathcal{F}/I\mathcal{F}$ 在 $U_i$ 上的截面所得者。令 $t$ 为各 $s_{ij}$ 的
+总数。于是得到映射
+$$
+\alpha : \underline{\Lambda}^{\oplus t} \longrightarrow \mathcal{F}
+$$
+按构造，该映射模去 $I$ 后为满射。由引理 \ref{proetale-lemma-naive-completion}，
+$\underline{\Lambda}^{\oplus t}$ 的衍生完备化是层
+$(\underline{\Lambda}^\wedge)^{\oplus t}$。由于 $\mathcal{F}$ 衍生完备，可知
+$\alpha$ 经由映射
+$$
+\alpha^\wedge :
+(\underline{\Lambda}^\wedge)^{\oplus t}
+\longrightarrow
+\mathcal{F}
+$$
+分解。由命题 \ref{proetale-proposition-enough-weakly-contractibles}，
+$\mathcal{Q} = \Coker(\alpha^\wedge)$ 是衍生完备 $\Lambda$-模层。按构造，
+$\mathcal{Q}/I\mathcal{Q} = 0$。由引理 \ref{proetale-lemma-derived-complete-zero}，有
+$\mathcal{Q} = 0$，这正是所要证明的。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{合适的衍生范畴}
+\label{proetale-section-suitable-derived}
+
+\noindent
+设 $X$ 为概形。我们将看到，对于许多概形 $X$，可以通过考察
+$D(X_\proetale, \Lambda)$ 中满足如下性质的衍生完备对象 $K$，得到一个合适的
+$\ell$-进层衍生范畴：$K \otimes_\Lambda^\mathbf{L} \mathbf{F}_\ell$
+有界且其上同调层可构造。一般定义如下。
+
+\begin{definition}
+\label{proetale-definition-Dbc}
+设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。设 $X$ 为概形。
+若 $D(X_\proetale, \Lambda)$ 的对象 $K$ 满足
+\begin{enumerate}
+\item $K$ 关于 $I$ 衍生完备；
+\item $K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I}$
+的上同调层可构造，并且局部具有有限 Tor 维数，
+\end{enumerate}
+则称该对象{\it 可构造}。以 $D_{cons}(X, \Lambda)$ 表示
+$D(X_\proetale, \Lambda)$ 中由可构造 $K$ 组成的全子范畴。
+\end{definition}
+
+\noindent
+回忆在我们的约定下，具有有限 Tor 维数的复形是有界的
+（位点上的上同调，定义 \ref{sites-cohomology-definition-tor-amplitude}）。
+事实上，可将目前证明的一切汇总为下面的引理。
+
+\begin{lemma}
+\label{proetale-lemma-describe-constructible-complexes}
+在上述情形中，设 $K$ 属于 $D_{cons}(X, \Lambda)$，且 $X$ 拟紧。令
+$K_n = K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$.
+则存在 $a, b$，使得
+\begin{enumerate}
+\item $K = R\lim K_n$，且 $H^i(K) = 0$ 对所有 $i \not \in [a, b]$ 成立；
+\item 每个 $K_n$ 的 Tor 振幅均包含于 $[a, b]$；
+\item 每个 $K_n$ 均具有可构造上同调层；
+\item 对某个
+$L_n \in D_{ctf}(X_\etale, \Lambda/I^n)$
+（Étale 上同调，定义 \ref{etale-cohomology-definition-ctf}），有
+$K_n = \epsilon^{-1}L_n$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $K$ 衍生完备，由引理 \ref{proetale-lemma-naive-completion} 有
+$K = R\lim K_n$。按照局部具有有限 Tor 维数的定义，可以找到
+$a, b$，使得 $K_1$ 的 Tor 振幅包含于 $[a, b]$。第 (2) 点由
+位点上的上同调，引理 \ref{sites-cohomology-lemma-bounded} 得出。
+接着，由于 $K$ 衍生完备，第 (1) 点可由位点上的上同调，命题
+\ref{sites-cohomology-proposition-enough-weakly-contractibles}
+对极限的描述以及以下事实得出：
+$H^b(K_{n + 1}) \to H^b(K_n)$ 是满射，因为
+$K_n = K_{n + 1} \otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n}$。
+第 (3) 点由引理 \ref{proetale-lemma-compare-truncations-constructible} 得出。
+第 (4) 点由引理 \ref{proetale-lemma-compare-constructible-derived} 以及
+$L_n$ 具有有限 Tor 维数这一事实得出，因为 $K_n$ 具有有限 Tor 维数
+（略去一个简短论证）。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-local-structure-constructible-complex}
+设 $X$ 为弱可缩仿射概形。设 $\Lambda$ 为 Noether 环，
+$I \subset \Lambda$ 为理想。设 $K$ 为 $D_{cons}(X, \Lambda)$ 的对象，
+并且
+$K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I}$ 的上同调层局部常值。
+则存在有限不交开覆盖 $X = \coprod U_i$，并且对每个
+$i$，存在一族有限的有限投射 $\Lambda^\wedge$-模
+$M^a, \ldots, M^b$，使得在某些层的 $\Lambda$-模映射
+$(\underline{M^i})^\wedge \to (\underline{M^{i + 1}})^\wedge$ 下，
+$K|_{U_i}$ 在 $D(U_{i, \proetale}, \Lambda)$ 中由复形
+$$
+(\underline{M^a})^\wedge \to \ldots \to (\underline{M^b})^\wedge
+$$
+表示。
+\end{lemma}
+
+\begin{proof}
+我们自由使用引理 \ref{proetale-lemma-describe-constructible-complexes} 的结论。
+取该引理中的 $a, b$。我们对 $b - a$ 作归纳来证明本引理。
+令 $\mathcal{F} = H^b(K)$。注意，由命题
+\ref{proetale-proposition-enough-weakly-contractibles}，$\mathcal{F}$ 是衍生完备
+$\Lambda$-模层。此外，$\mathcal{F}/I\mathcal{F}$ 是有限型
+$\Lambda/I$-模的局部常值层。应用引理
+\ref{proetale-lemma-derived-complete-limit}，得到满射
+$\rho : (\underline{\Lambda}^\wedge)^{\oplus t} \to \mathcal{F}$.
+
+\medskip\noindent
+若 $a = b$，则 $K = \mathcal{F}[-b]$。在此情形下，
+$$
+\mathcal{F} \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I} =
+\mathcal{F}/I\mathcal{F}
+$$
+由于 $X$ 弱可缩且 $\mathcal{F}/I\mathcal{F}$ 局部常值，可以找到由仿射开集
+$U_i$ 构成的有限不交并分解 $X = \coprod U_i$，以及
+$\Lambda/I$-模 $\overline{M}_i$，使得
+$\mathcal{F}/I\mathcal{F}$ 在 $U_i$ 上限制为
+$\underline{\overline{M}_i}$。细分此覆盖后，可以假设映射
+$$
+\rho|_{U_i} \bmod I :
+\underline{\Lambda/I}^{\oplus t}
+\longrightarrow
+\underline{\overline{M}_i}
+$$
+等于某个满射模同态
+$\alpha_i : \Lambda/I^{\oplus t} \to \overline{M}_i$ 所诱导的
+$\underline{\alpha_i}$；见位点上的模，引理
+\ref{sites-modules-lemma-morphism-locally-constant}。注意，每个
+$\overline{M}_i$ 都是有限 $\Lambda/I$-模。由于
+$\mathcal{F}/I\mathcal{F}$ 的 Tor 振幅包含于 $[0, 0]$，可知
+$\overline{M}_i$ 是平坦 $\Lambda/I$-模。因此 $\overline{M}_i$ 有限投射
+（代数，引理 \ref{algebra-lemma-finite-projective}）。于是可以找到投影算子
+$\overline{p}_i : (\Lambda/I)^{\oplus t} \to (\Lambda/I)^{\oplus t}$
+使其像在映射 $\alpha_i$ 下同构地映到 $\overline{M}_i$。可以将
+$\overline{p}_i$ 提升为投影算子
+$p_i : (\Lambda^\wedge)^{\oplus t} \to
+(\Lambda^\wedge)^{\oplus t}$\footnote{证明：由代数，引理
+\ref{algebra-lemma-lift-idempotents-noncommutative}，可以把
+$\overline{p}_i$ 提升为相容的投影算子系
+$p_{i, n} : (\Lambda/I^n)^{\oplus t} \to (\Lambda/I^n)^{\oplus t}$；
+再令 $p_i = \lim p_{i, n}$ 即可，因为
+$\Lambda^\wedge = \lim \Lambda/I^n$。}。在 $M_i/IM_i = \overline{M}_i$
+下，$M_i = \Im(p_i)$ 是有限且 $I$-进完备的 $\Lambda^\wedge$-模。
+在 $U_i$ 上考察映射
+$$
+\underline{M_i}^\wedge \to
+(\underline{\Lambda}^\wedge)^{\oplus t} \to
+\mathcal{F}|_{U_i}
+$$
+按构造，其复合模 $I$ 诱导同构。源与靶均衍生完备，因而余核
+$\mathcal{Q}$ 和核 $\mathcal{K}$ 也衍生完备。按构造有
+$\mathcal{Q}/I\mathcal{Q} = 0$，故由引理
+\ref{proetale-lemma-derived-complete-zero}，$\mathcal{Q}$ 为零。于是
+$$
+0 \to \mathcal{K}/I\mathcal{K} \to
+\underline{\overline{M}_i}
+\to \mathcal{F}/I\mathcal{F} \to 0
+$$
+因 $\text{Tor}_1$ 消失而正合，见本段开头；还要使用位点上的模，引理
+\ref{sites-modules-lemma-completion-flat} 中的
+$\underline{\Lambda}^\wedge/I\overline{\Lambda}^\wedge$，从而看出
+$\underline{M_i}^\wedge/I\underline{M_i}^\wedge = \underline{\overline{M}_i}$。
+所以按构造 $\mathcal{K}/I\mathcal{K} = 0$，与前同理可得
+$\mathcal{K} = 0$。这证明了 $a = b$ 时的结论。
+
+\medskip\noindent
+若 $b > a$，则把映射 $\rho$ 提升为映射
+$$
+\tilde \rho : (\underline{\Lambda}^\wedge)^{\oplus t}[-b] \longrightarrow K
+$$
+于 $D(X_\proetale, \Lambda)$ 中。由第
+\ref{proetale-section-derived-completion-noetherian} 节开头的讨论，可以把
+$K$ 看成 $\underline{\Lambda}^\wedge$-模复形；又因为
+$X_\proetale$ 弱可缩，所以将元素
+$\rho(e_s) \in H^0(X, \mathcal{F})$ 提升为 $H^b(X, K)$ 的元素不存在障碍。
+把 $\tilde \rho$ 嵌入到区分三角
+$$
+(\underline{\Lambda}^\wedge)^{\oplus t}[-b] \to K \to L \to
+(\underline{\Lambda}^\wedge)^{\oplus t}[-b + 1]
+$$
+中，可知 $L$ 是 $D_{cons}(X, \Lambda)$ 的对象，并且
+$L \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I}$ 的 Tor 振幅包含于
+$[a, b - 1]$（略去细节）。由归纳假设，可以如引理所述在局部描述 $L$；
+设 $L$ 同构于
+$$
+(\underline{M^a})^\wedge \to \ldots \to (\underline{M^{b - 1}})^\wedge
+$$
+映射
+$L \to (\underline{\Lambda}^\wedge)^{\oplus t}[-b + 1]$
+对应于映射
+$(\underline{M^{b - 1}})^\wedge \to (\underline{\Lambda}^\wedge)^{\oplus t}$
+，它使我们可以将此复形延长一项。由三角范畴的性质，相应复形在衍生范畴中
+同构于 $K$。证明完毕。
+\end{proof}
+
+\noindent
+受可构造 $\Lambda$-层情形的启发，我们引入如下概念。
+
+\begin{definition}
+\label{proetale-definition-adic-constructible}
+设 $X$ 为概形。设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想。
+设 $K \in D(X_\proetale, \Lambda)$。
+\begin{enumerate}
+\item 若存在由有限投射 $\Lambda^\wedge$-模组成的有限复形 $M^\bullet$，
+使得 $K$ 局部同构于
+$$
+\underline{M^a}^\wedge \to \ldots \to \underline{M^b}^\wedge
+$$
+，则称 $K$ 为{\it 进 lisse}\footnote{这可能不是标准记法。}。
+\item 若对每个仿射开集 $U \subset X$，都存在分解为可构造局部闭子概形的
+分解 $U = \coprod U_i$，使得 $K|_{U_i}$ 为进 lisse，则称 $K$
+为{\it 进可构造}\footnote{这可能不是标准记法。}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+引理 \ref{proetale-lemma-local-structure-constructible-complex} 中得到的局部结构
+与进 lisse 复形的结构之间的差别在于：引理
+\ref{proetale-lemma-local-structure-constructible-complex} 中的映射
+$\underline{M^i}^\wedge \to \underline{M^{i + 1}}^\wedge$ 未必是常值的，
+而上述定义要求它们为常值映射。
+
+\begin{lemma}
+\label{proetale-lemma-weakly-contractible-locally-constant-ML}
+设 $X$ 为弱可缩仿射概形。设 $\Lambda$ 为 Noether 环，
+$I \subset \Lambda$ 为理想。设 $K$ 为 $D_{cons}(X, \Lambda)$ 的对象，且
+$K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$
+在 $D(X_\proetale, \Lambda/I^n)$ 中同构于某个常值
+$\Lambda/I^n$-模层复形。则
+$$
+H^0(X, K \otimes_\Lambda^\mathbf{L} \Lambda/I^n)
+$$
+满足 Mittag-Leffler 条件。
+\end{lemma}
+
+\begin{proof}
+设 $K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$ 同构于
+$\underline{E_n}$，其中 $E_n$ 是 $D(\Lambda/I^n)$ 的某个对象。
+由于 $K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I}$ 具有有限 Tor
+维数及有限型上同调层，可知 $E_1$ 完美（见代数补充，引理
+\ref{more-algebra-lemma-perfect}）。转移映射
+$$
+K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^{n + 1}}
+\to
+K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}
+$$
+局部来自 $D(\Lambda/I^{n + 1})$ 中的复形映射
+$E_{n + 1} \to E_n$（这样的映射可能有许多不同选择）；见位点上的上同调，
+引理 \ref{sites-cohomology-lemma-locally-constant-map}。对每个 $n$
+选取一个这样的映射，并注意到它诱导 $D(\Lambda/I^n)$ 中的同构
+$E_{n + 1} \otimes_{\Lambda/I^{n + 1}}^\mathbf{L} \Lambda/I^n \to E_n$
+。由代数补充，引理
+\ref{more-algebra-lemma-Rlim-perfect-gives-complete}，可以找到由有限投射
+$\Lambda^\wedge$-模组成的有限复形 $M^\bullet$，以及
+$D(\Lambda/I^n)$ 中与转移映射相容的同构
+$M^\bullet/I^nM^\bullet \to E_n$。
+
+\medskip\noindent
+现在注意，对于每个有限指标组 $n > m > k$，三重映射
+$$
+H^0(X, K \otimes_\Lambda^\mathbf{L} \Lambda/I^n)
+\to
+H^0(X, K \otimes_\Lambda^\mathbf{L} \Lambda/I^m)
+\to
+H^0(X, K \otimes_\Lambda^\mathbf{L} \Lambda/I^k)
+$$
+同构于
+$$
+H^0(X, \underline{M^\bullet/I^nM^\bullet})
+\to
+H^0(X, \underline{M^\bullet/I^mM^\bullet})
+\to
+H^0(X, \underline{M^\bullet/I^kM^\bullet})
+$$
+事实上，任选同构
+$$
+\underline{M^\bullet/I^nM^\bullet} \to
+K \otimes_\Lambda^\mathbf{L} \Lambda/I^n
+$$
+，它模 $I^m$ 和 $I^k$ 诱导类似同构，因而断言成立。因此，为证明本引理，
+只需证明系统
+$H^0(X, \underline{M^\bullet/I^nM^\bullet})$ 满足 Mittag-Leffler 条件。
+由于在 $X$ 上取截面是正合的，只需证明 $\Lambda$-模系统
+$$
+H^0(M^\bullet/I^nM^\bullet)
+$$
+满足 Mittag-Leffler 条件。令 $A = \Lambda^\wedge$，考察谱序列
+$$
+\text{Tor}_{-p}^A(H^q(M^\bullet), A/I^nA) \Rightarrow
+H^{p + q}(M^\bullet/I^nM^\bullet)
+$$
+由代数补充，引理 \ref{more-algebra-lemma-tor-strictly-pro-zero}，当
+$p > 0$ 时，pro-系统
+$\{\text{Tor}_{-p}^A(H^q(M^\bullet), A/I^nA)\}$ 为零。因此 pro-系统
+$\{H^0(M^\bullet/I^nM^\bullet)\}$ 等于 pro-系统
+$\{H^0(M^\bullet)/I^nH^0(M^\bullet)\}$，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-connected-adic-lisse}
+设 $X$ 为连通概形。设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$
+为理想。若 $K$ 属于 $D_{cons}(X, \Lambda)$，且
+$K \otimes_\Lambda \underline{\Lambda/I}$ 具有局部常值上同调层，
+则 $K$ 为进 lisse（定义 \ref{proetale-definition-adic-constructible}）。
+\end{lemma}
+
+\begin{proof}
+记 $K_n = K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$。
+以下将不再说明地使用引理 \ref{proetale-lemma-describe-constructible-complexes}
+的结论。由位点上的上同调，引理
+\ref{sites-cohomology-lemma-locally-constant-bounded}，可知对所有 $n$，
+$K_n$ 均具有局部常值上同调层。有 $K_n = \epsilon^{-1}L_n$，其中某个
+$L_n$ 属于 $D_{ctf}(X_\etale, \Lambda/I^n)$ 且具有局部常值上同调层。由 Étale 上同调，引理
+\ref{etale-cohomology-lemma-connected-ctf-locally-constant}，存在完美对象
+$M_n \in D(\Lambda/I^n)$，使得 $L_n$ 在 étale 局部同构于
+$\underline{M_n}$。与 $K_{n + 1} \to K_n$ 对应的映射
+$L_{n + 1} \to L_n$ 诱导同构
+$L_{n + 1} \otimes_{\Lambda/I^{n + 1}}^\mathbf{L} \underline{\Lambda/I^n}
+\to L_n$。在 $X$ 上局部考察，可知 $D(\Lambda/I^{n + 1})$ 中存在映射
+$M_{n + 1} \to M_n$，其诱导同构
+$M_{n + 1} \otimes_{\Lambda/I^{n + 1}} \Lambda/I^n \to M_n$；见
+位点上的上同调，引理 \ref{sites-cohomology-lemma-locally-constant-map}。
+固定一组这样的映射。由代数补充，引理
+\ref{more-algebra-lemma-Rlim-perfect-gives-complete}，可以找到由有限投射
+$\Lambda^\wedge$-模组成的有限复形 $M^\bullet$，以及
+$D(\Lambda/I^n)$ 中与转移映射相容的同构
+$M^\bullet/I^nM^\bullet \to M_n$。为完成证明，我们将证明 $K$ 局部同构于
+$$
+\underline{M^\bullet}^\wedge =
+\lim \underline{M^\bullet/I^nM^\bullet} =
+R\lim \underline{M^\bullet/I^nM^\bullet}
+$$
+令 $E^\bullet$ 为 $M^\bullet$ 的对偶复形，见代数补充，引理
+\ref{more-algebra-lemma-dual-perfect-complex} 及其证明。考察
+$D(X_\proetale, \Lambda/I^n)$ 的对象
+$$
+H_n =
+R\SheafHom_{\Lambda/I^n}(\underline{M^\bullet/I^nM^\bullet}, K_n) =
+\underline{E^\bullet/I^nE^\bullet} \otimes_{\Lambda/I^n}^\mathbf{L} K_n
+$$
+。模去 $I^n$ 定义转移映射 $H_{n + 1} \to H_n$。令
+$H = R\lim H_n$。则 $H$ 是 $D_{cons}(X, \Lambda)$ 的对象（略去细节），
+且 $H \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n} = H_n$。
+选取覆盖 $\{W_t \to X\}_{t \in T}$，其中每个 $W_t$ 都是仿射且弱可缩的。
+由我们对 $M^\bullet$ 的选择，可知
+\begin{align*}
+H_n|_{W_t} & \cong 
+R\SheafHom_{\Lambda/I^n}(\underline{M^\bullet/I^nM^\bullet},
+\underline{M^\bullet/I^nM^\bullet}) \\
+& =
+\underline{
+\text{Tot}(E^\bullet/I^nE^\bullet \otimes_{\Lambda/I^n} M^\bullet/I^nM^\bullet)
+}
+\end{align*}
+因此可以将引理 \ref{proetale-lemma-weakly-contractible-locally-constant-ML}
+应用于 $H = R\lim H_n$。于是系统 $H^0(W_t, H_n)$ 满足
+Mittag-Leffler 条件。由于对所有 $n \gg 1$，$H^0(W_t, H_n)$ 中都存在
+一个元素，它映到
+$$
+H^0(W_t, H_1) = \Hom(\underline{M^\bullet/IM^\bullet}, K_1)
+$$
+中的同构，故可以在逆极限中找到元素 $(\varphi_{t, n})$，它模 $I$
+给出同构。于是
+$$
+R\lim \varphi_{t, n} :
+\underline{M^\bullet}^\wedge|_{W_t} =
+R\lim \underline{M^\bullet/I^nM^\bullet}|_{W_t}
+\longrightarrow
+R\lim K_n|_{W_t} = K|_{W_t}
+$$
+是同构。证明完毕。
+\end{proof}
+
+\begin{proposition}
+\label{proetale-proposition-Noetherian-adic-constructible}
+设 $X$ 为 Noether 概形。设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$
+为理想。设 $K$ 为 $D_{cons}(X, \Lambda)$ 的对象。则 $K$ 进可构造
+（定义 \ref{proetale-definition-adic-constructible}）。
+\end{proposition}
+
+\begin{proof}
+这由引理 \ref{proetale-lemma-connected-adic-lisse}、Noether 概形局部连通这一事实
+（拓扑，引理 \ref{topology-lemma-locally-Noetherian-locally-connected}）
+以及相关定义得出。
+\end{proof}
+
+
+
+
+
+
+
+\section{固有基变换}
+\label{proetale-section-proper-base-change}
+
+\noindent
+本节说明如何利用 étale 上同调的固有基变换定理，证明 pro-étale 位点上
+衍生完备对象的固有基变换定理。这遵循如下总体思路：只用 pro-étale
+拓扑处理“极限问题”，而其余一切则用已对 étale 拓扑证明的结果处理。
+
+\begin{theorem}
+\label{proetale-theorem-proper-base-change}
+设 $f : X \to Y$ 为概形的固有态射，$g : Y' \to Y$ 为概形态射，
+它们给出基变换图
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+设 $\Lambda$ 为 Noether 环，$I \subset \Lambda$ 为理想，并且
+$\Lambda/I$ 是挠的。设 $K$ 为 $D(X_\proetale)$ 的对象，满足
+\begin{enumerate}
+\item $K$ 衍生完备；
+\item $K \otimes_\Lambda^\mathbf{L} \underline{\Lambda/I^n}$ 下有界，
+且其上同调层来自 $X_\etale$；
+\item $\Lambda/I^n$ 是完美 $\Lambda$-模\footnote{若 $K$ 为可构造复形，
+则可去掉此假设；见 \cite{BS}。}。
+\end{enumerate}
+则基变换映射
+$$
+Lg_{comp}^*Rf_*K \longrightarrow Rf'_*L(g')^*_{comp}K
+$$
+是同构。
+\end{theorem}
+
+\begin{proof}
+略去基变换映射的构造（它只使用衍生直像与完备化衍生拉回的形式性质；
+参见位点上的上同调，评注 \ref{sites-cohomology-remark-base-change}）。
+记 $K_n = K \otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n}$。
+由于 $K$ 衍生完备，由引理 \ref{proetale-lemma-naive-completion} 有
+$K = R\lim K_n$。由引理 \ref{proetale-lemma-pushforward-Noetherian-case} 和
+\ref{proetale-lemma-naive-completion}，可以展开左边：
+$$
+Lg_{comp}^* Rf_* K =
+R\lim Lg^*(Rf_*K)\otimes^\mathbf{L}_\Lambda \underline{\Lambda/I^n} =
+R\lim Lg^* Rf_* K_n
+$$
+最后一个等式来自 $\Lambda/I^n$ 是完美模以及投影公式（位点上的上同调，
+引理 \ref{sites-cohomology-lemma-projection-formula}）。利用引理
+\ref{proetale-lemma-pushforward-Noetherian-case}，可以展开右边：
+$$
+Rf'_* L(g')^*_{comp} K =
+Rf'_* R\lim L(g')^* K_n  =
+R\lim Rf'_* L(g')^* K_n
+$$
+最后一个等式是因为 $Rf'_*$ 与 $R\lim$ 可交换（位点上的上同调，引理
+\ref{sites-cohomology-lemma-Rf-commutes-with-Rlim}）。因此，只需证明映射
+$$
+Lg^* Rf_* K_n \longrightarrow Rf'_* L(g')^* K_n
+$$
+均为同构。由引理 \ref{proetale-lemma-compare-derived} 和第二个条件，可以对某个
+$L_n \in D^+(X_\etale, \Lambda/I^n)$ 写成
+$K_n = \epsilon^{-1}L_n$。由引理 \ref{proetale-lemma-morphism-comparison} 以及
+$\epsilon^{-1}$ 与拉回可交换这一事实，得到
+$$
+Lg^* Rf_* K_n =
+Lg^* Rf_* \epsilon^*L_n =
+Lg^* \epsilon^{-1} Rf_* L_n =
+\epsilon^{-1} Lg^* Rf_* L_n
+$$
+以及
+$$
+Rf'_* L(g')^* K_n =
+Rf'_* L(g')^* \epsilon^{-1} L_n =
+Rf'_* \epsilon^{-1} L(g')^* L_n =
+\epsilon^{-1} Rf'_* L(g')^* L_n
+$$
+（这里也使用了 $L_n$ 下有界）。最后，由 étale 上同调的固有基变换定理
+（Étale 上同调，定理
+\ref{etale-cohomology-theorem-proper-base-change}），有
+$$
+Lg^* Rf_* L_n = Rf'_* L(g')^* L_n
+$$
+（再次使用了 $L_n$ 下有界），定理得证。
+\end{proof}
+
+
+
+
+
+
+\section{更换部分宇宙}
+\label{proetale-section-change-universe}
+
+\noindent
+我们建议读者跳过本节：这里将证明 pro-étale 拓扑中层的上同调不依赖于
+部分宇宙的选择。具体而言，下面引理
+\ref{proetale-lemma-proetale-cohomology-independent-partial-universe} 的函子
+$g_*$ 是小 pro-étale 拓扑斯的一个嵌入，并且不改变上同调。
+对大 pro-étale 位点，引理 \ref{proetale-lemma-change-alpha} 和
+\ref{proetale-lemma-cohomology-enlarge-partial-universe} 给出本质上相同的结论。
+
+\medskip\noindent
+但首先，按照第 \ref{proetale-section-proetale} 节中的承诺，我们证明大 pro-étale
+位点 $\Sch_\proetale$ 上的拓扑在某种意义下由全体概形之范畴上的
+pro-étale 拓扑诱导。
+
+\begin{lemma}
+\label{proetale-lemma-proetale-induced}
+设 $\Sch_\proetale$ 为定义 \ref{proetale-definition-big-proetale-site} 所述的大
+pro-étale 位点。设 $T \in \Ob(\Sch_\proetale)$。任取 $T$ 的 pro-étale
+覆盖 $\{T_i \to T\}_{i \in I}$。则位点 $\Sch_\proetale$ 中存在 $T$
+的覆盖 $\{U_j \to T\}_{j \in J}$，它细分 $\{T_i \to T\}_{i \in I}$。
+\end{lemma}
+
+\begin{proof}
+首先，取引理 \ref{proetale-lemma-get-many-weakly-contractible} 所述的覆盖
+$\{V_k \to T\}$。于是 pro-étale 覆盖
+$\{T_i \times_T V_k \to V_k\}$ 可由有限不交开覆盖
+$V_k = V_{k, 1} \amalg \ldots \amalg V_{k, n_k}$ 细分，见引理
+\ref{proetale-lemma-w-contractible-proetale-cover}。于是
+$\{V_{k, i} \to T\}$ 是 $\Sch_\proetale$ 中的覆盖，并细分
+$\{T_i \to T\}_{i \in I}$。
+\end{proof}
+
+\noindent
+我们先陈述并证明小 pro-étale 位点的比较。注意，我们并未断言概形的小
+pro-étale 拓扑斯不依赖于部分宇宙的选择；这并不成立，与小 étale
+拓扑斯的情形不同（Étale 上同调，引理
+\ref{etale-cohomology-lemma-etale-topos-independent-partial-universe}）。
+
+\begin{lemma}
+\label{proetale-lemma-proetale-cohomology-independent-partial-universe}
+设 $S$ 为概形。设 $S_\proetale \subset S_\proetale'$ 为按定义
+\ref{proetale-definition-big-small-proetale} 构造的 $S$ 的两个小 pro-étale 位点。
+则包含函子满足位点，引理 \ref{sites-lemma-bigger-site} 的假设。
+因而存在拓扑斯态射
+$$
+\xymatrix{
+\Sh(S_\proetale) \ar[r]^g &
+\Sh(S_\proetale') \ar[r]^f &
+\Sh(S_\proetale)
+}
+$$
+其复合同构于恒等态射，且 $f_* = g^{-1}$。此外，
+\begin{enumerate}
+\item 对 $\mathcal{F}' \in \textit{Ab}(S_\proetale')$，有
+$H^p(S_\proetale', \mathcal{F}') = H^p(S_\proetale, g^{-1}\mathcal{F}')$,
+\item 对 $\mathcal{F} \in \textit{Ab}(S_\proetale)$，有
+$$
+H^p(S_\proetale, \mathcal{F}) =
+H^p(S_\proetale', g_*\mathcal{F}) =
+H^p(S_\proetale', f^{-1}\mathcal{F}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+包含函子全忠实且连续。我们已经看到，$S_\proetale$ 和
+$S_\proetale'$ 有纤维积及终对象，并且此函子与它们可交换
+（引理 \ref{proetale-lemma-fibre-products-proetale}）。由引理
+\ref{proetale-lemma-proetale-induced}，包含函子余连续。因此 $f$ 与 $g$
+的存在性由位点，引理 \ref{sites-lemma-bigger-site} 得出。
+第 (1) 点中的等式即位点上的上同调，引理
+\ref{sites-cohomology-lemma-cohomology-bigger-site}。第 (2) 点由第 (1) 点
+以及 $\mathcal{F} = g^{-1}g_*\mathcal{F} = g^{-1}f^{-1}\mathcal{F}$ 得出。
+\end{proof}
+
+\noindent
+下面证明大 pro-étale 拓扑斯的相应结果。
+
+\begin{lemma}
+\label{proetale-lemma-change-alpha}
+设给定定义 \ref{proetale-definition-big-proetale-site} 所述的大位点
+$\Sch_\proetale$ 和 $\Sch'_\proetale$。假设 $\Sch_\proetale$ 包含于
+$\Sch'_\proetale$。包含函子 $\Sch_\proetale \to \Sch'_\proetale$
+满足位点，引理 \ref{sites-lemma-bigger-site} 的假设。存在拓扑斯态射
+\begin{eqnarray*}
+g : \Sh(\Sch_\proetale) &
+\longrightarrow &
+\Sh(\Sch'_\proetale) \\
+f : \Sh(\Sch'_\proetale) &
+\longrightarrow &
+\Sh(\Sch_\proetale)
+\end{eqnarray*}
+使得 $f \circ g \cong \text{id}$。对 $\Sch_\proetale$ 的任意对象 $S$，
+包含函子 $(\Sch/S)_\proetale \to (\Sch'/S)_\proetale$ 也满足位点，引理
+\ref{sites-lemma-bigger-site} 的假设。因而类似地得到态射
+\begin{eqnarray*}
+g : \Sh((\Sch/S)_\proetale) &
+\longrightarrow &
+\Sh((\Sch'/S)_\proetale) \\
+f : \Sh((\Sch'/S)_\proetale) &
+\longrightarrow &
+\Sh((\Sch/S)_\proetale)
+\end{eqnarray*}
+且 $f \circ g \cong \text{id}$。
+\end{lemma}
+
+\begin{proof}
+对函子
+$\Sch_\proetale \to \Sch'_\proetale$ 和
+$(\Sch/S)_\proetale \to (\Sch'/S)_\proetale$，位点，引理
+\ref{sites-lemma-bigger-site} 的假设 (b)、(c) 和 (e) 是立即成立的。
+性质 (a) 由引理 \ref{proetale-lemma-proetale-induced} 成立。性质 (d) 成立，是因为
+范畴 $\Sch_\proetale$、$\Sch'_\proetale$ 中的纤维积存在，并且与概形范畴
+中的纤维积相容。
+\end{proof}
+
+\begin{lemma}
+\label{proetale-lemma-cohomology-enlarge-partial-universe}
+设 $S$ 为概形。设 $(\Sch/S)_\proetale$ 和 $(\Sch'/S)_\proetale$ 为定义
+\ref{proetale-definition-big-small-proetale} 所述的 $S$ 的两个大 pro-étale 位点。
+假设前者包含于后者。在此情形下，
+\begin{enumerate}
+\item 对定义于 $(\Sch'/S)_\proetale$ 上的任意阿贝尔层 $\mathcal{F}'$，
+以及 $(\Sch/S)_\proetale$ 的任意对象 $U$，有
+$$
+H^p(U, \mathcal{F}'|_{(\Sch/S)_\proetale}) =
+H^p(U, \mathcal{F}')
+$$
+换言之，在较大位点中计算的 $\mathcal{F}'$ 在 $U$ 上的上同调，与把
+$\mathcal{F}'$ 限制到较小位点后在 $U$ 上计算的上同调一致。
+\item 对 $(\Sch/S)_\proetale$ 上的任意阿贝尔层 $\mathcal{F}$，存在
+$(\Sch/S)_\proetale'$ 上的阿贝尔层 $\mathcal{F}'$，其到
+$(\Sch/S)_\proetale$ 的限制同构于 $\mathcal{F}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{proetale-lemma-change-alpha}，包含函子
+$(\Sch/S)_\proetale \to (\Sch'/S)_\proetale$ 满足位点，引理
+\ref{sites-lemma-bigger-site} 的假设。这推出第 (2) 点，而第 (1) 点由
+位点上的上同调，引理 \ref{sites-cohomology-lemma-cohomology-bigger-site}
+得出。
+\end{proof}

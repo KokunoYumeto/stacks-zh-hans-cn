@@ -1,0 +1,5044 @@
+% Generated mechanically from the frozen topology.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{4}
+\chapter{拓扑}
+
+
+
+\phantomsection
+\label{topology-section-phantom}
+
+
+\section{引言}
+\label{topology-section-introduction}
+
+\noindent
+本文将介绍基础拓扑学。可参见 \cite{Engelking}。
+
+\section{基本概念}
+\label{topology-section-topology-basic}
+
+\noindent
+下面列出拓扑学中的若干基本概念。其中一些将在后文作更详细的讨论，
+另一些已在表中定义；其余则视为基础知识而不再定义。如果你对大多数斜体概念
+尚不熟悉，我们建议先阅读一本拓扑学入门教材，再继续阅读本文。
+
+\begin{enumerate}
+\item
+\label{topology-item-space}
+$X$ 是一个{\it 拓扑空间}，
+\item
+\label{topology-item-point}
+$x\in X$ 是一个{\it 点}，
+\item
+\label{topology-item-locally-closed}
+$E \subset X$ 是一个{\it 局部闭}子集，
+\item
+\label{topology-item-closed-point}
+$x\in X$ 是一个{\it 闭点}，
+\item
+\label{topology-item-dense}
+$E \subset X$ 是一个{\it 稠密}子集，
+\item
+\label{topology-item-continuous}
+$f : X_1 \to X_2$ 是{\it 连续的}，
+\item
+\label{topology-item-upper-semi-continuous}
+扩展实值函数 $f : X \to \mathbf{R} \cup \{\infty, -\infty\}$ 称为
+{\it 上半连续的}，如果对每个 $a \in \mathbf{R}$，
+$\{x \in X \mid f(x) < a\}$ 都是开集，
+\item
+\label{topology-item-lower-semi-continuous}
+扩展实值函数 $f : X \to \mathbf{R} \cup \{\infty, -\infty\}$ 称为
+{\it 下半连续的}，如果对每个 $a \in \mathbf{R}$，
+$\{x \in X \mid f(x) > a\}$ 都是开集，
+\item 空间间的连续映射 $f : X \to Y$ 称为{\it 开映射}，如果对每个开集
+$U \subset X$，$f(U)$ 在 $Y$ 中是开集，
+\item 空间间的连续映射 $f : X \to Y$ 称为{\it 闭映射}，如果对每个闭集
+$Z \subset X$，$f(Z)$ 在 $Y$ 中是闭集，
+\item
+\label{topology-item-neighbourhood}
+点 $x \in X$ 的一个{\it 邻域}是任意子集 $E \subset X$，
+它包含某个含有 $x$ 的开子集，
+\item
+\label{topology-item-induced-topology}
+子集 $E \subset X$ 上的{\it 诱导拓扑}，
+\item
+\label{topology-item-covering}
+$\mathcal{U} : U = \bigcup_{i \in I} U_i$ 是 $U$ 的一个
+{\it 开覆盖}（注意：允许任意 $U_i$ 为空；当 $U$ 为空时，甚至允许 $I$ 为空集），
+\item
+\label{topology-item-subcover}
+如 (\ref{topology-item-covering}) 中覆盖的一个{\it 子覆盖}，是满足 $I' \subset I$ 的
+开覆盖 $\mathcal{U}' : U = \bigcup_{i \in I'} U_i$，
+\item
+\label{topology-item-refinement}
+开覆盖 $\mathcal{V}$ 是开覆盖 $\mathcal{U}$ 的一个{\it 加细}
+（若 $\mathcal{V} : U = \bigcup_{j \in J} V_j$ 且
+$\mathcal{U} : U = \bigcup_{i \in I} U_i$，这意味着每个 $V_j$
+都完全包含于某个 $U_i$ 中），
+\item
+\label{topology-item-fundamental-system}
+{\it $\{ E_i \}_{i \in I}$ 是 $X$ 中点 $x$ 的一个邻域基本系}，
+\item
+\label{topology-item-Hausdorff}
+拓扑空间 $X$ 称为{\it Hausdorff 空间}或{\it 分离空间}，当且仅当对任意两个
+不同的点 $x, y \in X$，存在不交的开集 $U, V \subset X$，使得
+$x \in U$、$y \in V$，
+\item 两个拓扑空间的{\it 积}，
+\label{topology-item-product}
+\item
+\label{topology-item-fibre-product}
+一对连续映射 $f : X \to Y$ 和 $g : Z \to Y$ 的
+{\it 纤维积 $X \times_Y Z$}，
+\item
+\label{topology-item-discrete-indiscrete}
+集合上的{\it 离散拓扑}与{\it 平凡拓扑}，
+\item 等等。
+\end{enumerate}
+
+
+
+\section{Hausdorff 空间}
+\label{topology-section-Hausdorff}
+
+\noindent
+拓扑空间范畴具有有限积。
+
+\begin{lemma}
+\label{topology-lemma-Hausdorff}
+设 $X$ 为拓扑空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 是 Hausdorff 空间，
+\item 对角线 $\Delta(X) \subset X \times X$ 是闭集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $X$ 是 Hausdorff 空间。设 $(x, y) \not \in \Delta(X)$，即
+$x \neq y$。存在 $X$ 中不交的开集 $U$ 与 $V$，使得
+$x \in U$ 且 $y \in V$。于是 $U \times V \subset
+(X \times X) \setminus \Delta(X) $。这说明 $ (X \times X) \setminus
+\Delta(X)$ 是 $ X \times X$ 的开集，也就等价于说对角线
+$\Delta(X) \subset X \times X$ 在 $X \times X$ 中是闭集。
+反之也类似：补集 $(X \times X) \setminus \Delta(X)$ 恰由满足
+$ x \neq y$ 的 $(x, y) \in X\times X$ 组成。因此，如果
+$ \Delta(X) \subset X \times X$ 是闭集，那么由积拓扑的定义，
+对每个这样的 $ (x, y)$，存在开集 $U, V \subset X$，满足
+$(x, y) \in U \times V$ 且 $(U \times V)\cap \Delta(X) = \emptyset$。
+换言之，$x \in U$、$y \in V$ 且 $U \cap V = \emptyset$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-graph-closed}
+\begin{slogan}
+到 Hausdorff 空间的映射之图是闭的。
+\end{slogan}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。
+若 $Y$ 是 Hausdorff 空间，则 $f$ 的图在 $X \times Y$ 中是闭的。
+\end{lemma}
+
+\begin{proof}
+该图是映射 $X \times Y \to Y \times Y$ 下对角线的逆像。
+因此本引理由引理 \ref{topology-lemma-Hausdorff} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-section-closed}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。设 $s : Y \to X$
+为满足 $f \circ s = \text{id}_Y$ 的连续映射。若 $X$ 是 Hausdorff 空间，
+则 $s(Y)$ 是闭集。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-Hausdorff} 以及
+$s(Y) = \{x \in X \mid x = s(f(x))\}$ 可得。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-fibre-product-closed}
+设 $X \to Z$ 和 $Y \to Z$ 为拓扑空间间的连续映射。
+若 $Z$ 是 Hausdorff 空间，则 $X \times_Z Y$ 在 $X \times Y$ 中是闭的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-Hausdorff} 可得，因为 $X \times_Z Y$ 是映射
+$X \times Y \to Z \times Z$ 下 $\Delta(Z)$ 的逆像。
+\end{proof}
+
+
+
+
+\section{分离映射}
+\label{topology-section-separated}
+
+\noindent
+本节只给出定义和若干简单引理。
+
+\begin{definition}
+\label{topology-definition-separated}
+拓扑空间间的连续映射 $f : X \to Y$ 称为{\it 分离的}，当且仅当
+对角映射 $\Delta : X \to X \times_Y X$ 是闭映射。
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-separated}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。下列条件等价：
+\begin{enumerate}
+\item $f$ 是分离的，
+\item $\Delta(X) \subset X \times_Y X$ 是闭子集，
+\item 对于映到 $Y$ 中同一点的任意不同两点 $x, x' \in X$，
+存在分别为 $x$ 与 $x'$ 的不交开邻域。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $f$ 分离，则由定义 \ref{topology-definition-separated}，$\Delta$ 是闭映射。
+由于 $X$ 在 $X$ 中闭，$\Delta(X)$ 在 $ X\times_Y X $ 中闭。
+因此 (1) 蕴含 (2)。
+
+\medskip\noindent
+假设 $\Delta(X) \subset X \times_Y X$ 是闭子集，并令 $U$ 表示其开补集。
+这意味着存在开集 $W \subset X \times X$，使得
+$W \cap (X \times_Y X) = U$。另一方面，由积拓扑的定义，若
+$(x, x') \in W \cap (X \times_Y X)$，则存在 $X$ 的开集 $V$ 与 $V'$，
+使得 $x \in V$、$x' \in V'$ 且 $V \times V' \subset W$。
+若 $V \cap V' \neq \emptyset$，则存在 $z \in V \cap V'$。
+然而 $(z, z) \in X \times_Y X$，所以
+$(z,z) \in (V \times V') \cap (X\times_Y X) \subset U$，矛盾。
+因此 $V \cap V' = \emptyset $，从而得到 $x$ 与 $x'$ 的两个不交开邻域。
+这证明 (2) 蕴含 (3)。
+
+\medskip\noindent
+最后，假设对任意映到 $Y$ 中同一点的不同两点 $x, x' \in X$，
+都存在 $x$ 的一个开邻域与 $x'$ 的一个开邻域，且二者不交。
+设 $F$ 为 $X$ 的闭集。我们证明
+$\Delta(F)$ 是 $X \times_Y X$ 的闭子集。取
+$(x, x') \in X \times_Y X$ 且不属于 $\Delta(F)$。
+于是或者 $x \not = x'$，或者 $x \not \in F$。
+在第一种情形，选取 $x, x'$ 的不交开邻域 $V, V' \subset X$，于是
+$(V \times V') \cap X \times_Y X$ 是 $(x, x')$ 的一个开邻域，
+且不与 $\Delta(F)$ 相交。在第二种情形，
+$((X \setminus F) \times X) \cap X \times_Y X$ 是 $(x, x')$ 的一个
+开邻域，且不与 $\Delta(F)$ 相交。由此证明 (3) 蕴含 (1)。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-from-hausdorff}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。若 $X$ 是 Hausdorff 空间，
+则 $f$ 是分离的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-separated} 与引理 \ref{topology-lemma-Hausdorff} 立即可得，
+因为 $\Delta(X)$ 在 $X \times X$ 中闭蕴含 $\Delta(X)$ 在
+$X \times_Y X$ 中闭。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-base-change-separated}
+设 $f : X \to Y$ 与 $Y' \to Y$ 为拓扑空间间的连续映射。
+若 $f$ 分离，则 $f' : Y' \times_Y X \to Y'$ 分离。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-separated} 的刻画 (2) 可得。事实上，令
+$X' = Y' \times_Y X$，则纤维积 $X' \times_{Y'} X'$ 中的对角线
+$\Delta(X')$ 是 $X \times_Y X$ 中 $\Delta(X)$ 的逆像。
+\end{proof}
+
+
+
+
+\section{基}
+\label{topology-section-bases}
+
+\noindent
+本节介绍拓扑空间之基的基本材料。
+
+\begin{definition}
+\label{topology-definition-base}
+设 $X$ 为拓扑空间。$X$ 的一个子集族 $\mathcal{B}$ 称为
+{\it $X$ 上拓扑的一个基}或{\it $X$ 上拓扑的一个基底}，如果满足：
+\begin{enumerate}
+\item 每个元素 $B \in \mathcal{B}$ 都在 $X$ 中开。
+\item 对每个开集 $U \subset X$ 以及每个 $x \in U$，存在
+$B \in \mathcal{B}$，使得 $x \in B \subset U$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面的引理有时用来定义拓扑。
+
+\begin{lemma}
+\label{topology-lemma-make-base}
+设 $X$ 为集合，$\mathcal{B}$ 为一个子集族。假设
+$X = \bigcup_{B \in \mathcal{B}} B$，并且对任意
+$x \in B_1 \cap B_2$，其中 $B_1, B_2 \in \mathcal{B}$，
+都存在 $B_3 \in \mathcal{B}$，使得
+$x \in B_3 \subset B_1 \cap B_2$。那么 $X$ 上存在唯一的拓扑，
+使得 $\mathcal{B}$ 是该拓扑的一个基底。
+\end{lemma}
+
+\begin{proof}
+令 $\sigma(\mathcal B)$ 表示 $X$ 的所有可写成 $\mathcal B$ 中元素之并的
+子集所成的集合。我们断言 $\sigma(\mathcal{B})$ 是一个拓扑。
+事实上，空集属于 $\sigma(\mathcal{B})$（作为空并），而 $X$ 属于
+$\sigma(\mathcal{B})$（作为 $\mathcal{B}$ 所有元素之并）。显然
+$\sigma(\mathcal{B})$ 对任意并封闭。最后，若
+$U, V \in \sigma(\mathcal{B})$，则可写
+$U = \bigcup_{i \in I} U_i$ 和 $V = \bigcup_{j \in J} V_j$，
+其中对所有 $i \in I$ 与 $j \in J$，都有 $U_i, V_j \in \mathcal{B}$。
+于是
+$$
+U \cap V = \bigcup\nolimits_{i \in I, j \in J}
+U_i \cap V_j
+$$
+引理中的假设告诉我们 $U_i \cap V_j \in \sigma(\mathcal{B})$，
+因而 $U \cap V$ 也属于其中。故 $\sigma(\mathcal{B})$ 是一个拓扑。
+定义 \ref{topology-definition-base} 的性质 (1) 与 (2) 对此拓扑立即成立。
+为证明该拓扑的唯一性，设 $\mathcal T$ 为 $X$ 上一个以
+$\mathcal B$ 为基的拓扑。由定义 \ref{topology-definition-base} 的 (1)，
+$\mathcal{B}$ 的每个元素当然都属于 $\mathcal{T}$，所以
+$\sigma(\mathcal{B}) \subset \mathcal{T}$。反之，定义
+\ref{topology-definition-base} 的 (2) 表明 $\mathcal{T}$ 的每个元素都是
+$\mathcal{B}$ 中元素之并，即 $\mathcal{T} \subset \sigma(\mathcal{B})$。
+证毕。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-refine-covering-basis}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 上拓扑的一个基底。
+设 $\mathcal{U} : U = \bigcup_i U_i$ 为 $U \subset X$ 的一个开覆盖。
+则存在开覆盖 $U = \bigcup V_j$，它是 $\mathcal{U}$ 的加细，
+并且每个 $V_j$ 都是基底 $\mathcal{B}$ 的元素。
+\end{lemma}
+
+\begin{proof}
+若 $ x \in U = \bigcup_{i\in I} U_i $，则存在 $ i_x \in I $，使得
+$ x \in U_{i_x} $。因此存在 $ B_{i_x} \in \mathcal{B}$，满足
+$ x \in B_{i_x} \subset U_{i_x}$。令
+$J = \{i_x | x \in U\}$，并对 $j = i_x \in J$ 令 $V_j = B_{i_x}$。
+这给出所需的 $U$ 的开覆盖 $\{V_j\}_{j \in J}$。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-subbase}
+设 $X$ 为拓扑空间。$X$ 的一个子集族 $\mathcal{B}$ 称为
+{\it $X$ 上拓扑的一个子基}或{\it $X$ 上拓扑的一个子基底}，
+如果 $\mathcal{B}$ 中元素的有限交构成 $X$ 上拓扑的一个基底。
+\end{definition}
+
+\noindent
+特别地，$\mathcal{B}$ 的每个元素都是开集。
+
+\begin{lemma}
+\label{topology-lemma-subbase}
+设 $X$ 为集合。给定 $X$ 的任意子集族 $\mathcal{B}$，$X$ 上存在唯一的拓扑，
+使得 $\mathcal{B}$ 是该拓扑的一个子基。
+\end{lemma}
+
+\begin{proof}
+按约定，$\bigcap_\emptyset B = X $。因此可将引理
+\ref{topology-lemma-make-base} 应用于 $\mathcal B$ 中元素的有限交所成的集合。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-create-map-from-subcollection}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的一个开集族。假设
+$X = \bigcup_{U \in \mathcal{B}} U$，并且对 $U, V \in \mathcal{B}$ 有
+$U \cap V = \bigcup_{W \in \mathcal{B}, W \subset U \cap V} W$。
+那么存在拓扑空间间的连续映射 $f : X \to Y$，满足：
+\begin{enumerate}
+\item 对 $U \in \mathcal{B}$，像 $f(U)$ 是开集；
+\item 对 $U \in \mathcal{B}$，有 $f^{-1}(f(U)) = U$；
+\item 开集 $f(U)$（$U \in \mathcal{B}$）构成 $Y$ 上拓扑的一个基底。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在 $X$ 的点上按下式定义等价关系 $\sim$：
+$$
+x \sim y \Leftrightarrow
+(\forall U \in \mathcal{B} : x \in U \Leftrightarrow y \in U)
+$$
+令 $Y$ 为等价类的集合，$f : X \to Y$ 为自然映射。
+按构造，(2) 成立。对 $\mathcal{B}$ 的假设恰好对应于引理
+\ref{topology-lemma-make-base} 对子集 $f(U)$（$U \in \mathcal{B}$）之集合的假设。
+因此 $Y$ 上存在唯一的拓扑使 (3) 成立，而 (1) 也随即显然成立。
+\end{proof}
+
+\section{浸没映射}
+\label{topology-section-submersive}
+
+\noindent
+若 $X$ 是拓扑空间而 $E \subset X$ 是一个子集，我们通常在 $E$ 上赋予
+{\it 诱导拓扑}。
+
+\begin{lemma}
+\label{topology-lemma-induced}
+设 $X$ 为拓扑空间，$Y$ 为集合，并设 $f : Y \to X$ 为集合间的单射。
+$Y$ 上的诱导拓扑可由下列任一陈述刻画：
+\begin{enumerate}
+\item 它是使 $f$ 连续的 $Y$ 上最弱拓扑，
+\item $Y$ 的开子集恰为 $f^{-1}(U)$，其中 $U \subset X$ 为开集，
+\item $Y$ 的闭子集恰为 $f^{-1}(Z)$，其中 $Z \subset X$ 为闭集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+集合 $\mathcal{T} = \{f^{-1}(U) | U \subset X \text{ 开}\}$ 是 $Y$
+上的一个拓扑。首先，$\emptyset = f^{-1}(\emptyset)$ 且 $f^{-1}(X) = Y$。
+所以 $\mathcal{T}$ 包含 $\emptyset$ 与 $Y$。
+
+\medskip\noindent
+现设 $\{V_i\}_{i \in I}$ 为一族开子集，其中 $V_i \in \mathcal{T}$，
+并写成 $V_i = f^{-1}(U_i)$，这里 $U_i$ 是 $X$ 的开子集。则
+$$
+\bigcup\nolimits_{i\in I} V_i =
+\bigcup\nolimits_{i\in I} f^{-1}(U_i) =
+f^{-1}\left(\bigcup\nolimits_{i\in I} U_i\right)
+$$
+由于 $\bigcup_{i\in I} U_i$ 在 $X$ 中开，故
+$\bigcup_{i\in I} V_i \in \mathcal{T}$。
+再设 $V_1, V_2 \in \mathcal{T}$。存在 $X$ 中的开集 $U_1, U_2$，
+使得 $V_1 = f^{-1}(U_1)$ 且 $V_2 = f^{-1}(U_2)$。于是
+$$
+V_1 \cap V_2 = f^{-1}(U_1) \cap f^{-1}(U_2) = f^{-1}(U_1 \cap U_2)
+$$
+由于 $U_1 \cap U_2$ 在 $X$ 中开，故 $V_1 \cap V_2 \in \mathcal{T}$。
+
+\medskip\noindent
+根据连续映射的定义，$Y$ 上任何使 $f$ 连续的拓扑都包含
+$\mathcal{T}$。所以 $\mathcal{T}$ 确实是使 $f$ 连续的 $Y$ 上最弱拓扑。
+这证明 (1) 与 (2) 等价。
+
+\medskip\noindent
+对所有子集 $E \subset X$ 都有等式
+$f^{-1}(X \setminus E) = Y \setminus f^{-1}(E)$，故 (2) 与 (3) 等价。
+\end{proof}
+
+\noindent
+对偶地，若 $X$ 是拓扑空间且 $X \to Y$ 是集合间的满射，则可在 $Y$
+上赋予{\it 商拓扑}。
+
+\begin{lemma}
+\label{topology-lemma-quotient}
+设 $X$ 为拓扑空间，$Y$ 为集合，并设 $f : X \to Y$ 为集合间的满射。
+$Y$ 上的商拓扑可由下列任一陈述刻画：
+\begin{enumerate}
+\item 它是使 $f$ 连续的 $Y$ 上最强拓扑，
+\item $Y$ 的子集 $V$ 是开集，当且仅当 $f^{-1}(V)$ 是开集，
+\item $Y$ 的子集 $Z$ 是闭集，当且仅当 $f^{-1}(Z)$ 是闭集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+集合 $\mathcal{T} = \{V\subset Y | f^{-1}(V) \text{ 开}\}$ 是 $Y$
+上的一个拓扑。首先，$\emptyset = f^{-1}(\emptyset)$ 且 $f^{-1}(Y) = X$。
+所以 $\mathcal{T}$ 包含 $\emptyset$ 与 $Y$。
+
+\medskip\noindent
+设 $(V_i)_{i \in I}$ 为一族元素 $V_i \in \mathcal{T}$。则
+$$
+\bigcup\nolimits_{i\in I} f^{-1}(V_i) =
+f^{-1}\left(\bigcup\nolimits_{i\in I} V_i\right)
+$$
+由于 $\bigcup_{i\in I}f^{-1}(V_i)$ 在 $X$ 中开，故
+$\bigcup_{i\in I} V_i \in \mathcal{T}$。此外，若
+$V_1, V_2 \in \mathcal{T}$，则
+$$
+f^{-1}(V_1) \cap f^{-1}(V_2) = f^{-1}(V_1 \cap V_2)
+$$
+由于 $f^{-1}(V_1) \cap f^{-1}(V_2)$ 在 $X$ 中开，故
+$V_1 \cap V_2 \in \mathcal{T}$。
+
+\medskip\noindent
+最后，根据连续函数的定义，$Y$ 上任何使 $f$ 连续的拓扑都包含于
+$\mathcal{T}$，所以 $\mathcal{T}$ 是使 $f$ 连续的 $Y$ 上最强拓扑。
+这证明 (1) 与 (2) 等价。
+
+\medskip\noindent
+最后，对所有子集 $E \subset X$ 都有 $f^{-1}(X\setminus E) = Y
+\setminus f^{-1}(E)$，故 (2) 与 (3) 等价。
+\end{proof}
+
+\noindent
+设 $f : X \to Y$ 为拓扑空间间的连续映射。此时，作为集合间的映射，
+我们得到分解 $X \to f(X) \to Y$。可以在 $f(X)$ 上赋予由满射
+$X \to f(X)$ 给出的商拓扑，也可以赋予由单射 $f(X) \to Y$ 给出的
+诱导拓扑。映射
+$$
+(f(X), \text{商拓扑})
+\longrightarrow
+(f(X), \text{诱导拓扑})
+$$
+是连续的。
+
+\begin{definition}
+\label{topology-definition-submersive}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。
+\begin{enumerate}
+\item 如果 $f(X)$ 上的诱导拓扑与商拓扑相同（见上面的讨论），
+则称 $f$ 为一个{\it 拓扑空间的严格映射}。
+\item 如果 $f$ 是满射且严格，则称 $f$ 是{\it 浸没的}
+\footnote{这与微分流形之间浸没的概念大不相同！使用“严格且满射”来代替
+“浸没”或许是一个好主意。}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+因此，连续映射 $f : X \to Y$ 是浸没的，当且仅当 $f$ 是满射，
+并且对任意 $T \subset Y$，$T$ 为开集或闭集当且仅当
+$f^{-1}(T)$ 亦然。换言之，相对于满射 $X \to Y$，$Y$ 具有商拓扑。
+
+\begin{lemma}
+\label{topology-lemma-open-morphism-quotient-topology}
+设 $f : X \to Y$ 为拓扑空间间满、开且连续的映射。
+设 $T \subset Y$ 为子集。则
+\begin{enumerate}
+\item $f^{-1}(\overline{T}) = \overline{f^{-1}(T)}$，
+\item $T \subset Y$ 是闭集，当且仅当 $f^{-1}(T)$ 是闭集，
+\item $T \subset Y$ 是开集，当且仅当 $f^{-1}(T)$ 是开集，
+\item $T \subset Y$ 是局部闭集，当且仅当 $f^{-1}(T)$ 是局部闭集。
+\end{enumerate}
+特别地，$f$ 是浸没的。
+\end{lemma}
+
+\begin{proof}
+显然 $\overline{f^{-1}(T)} \subset f^{-1}(\overline{T})$。
+若 $x \in X$ 且 $x \not \in \overline{f^{-1}(T)}$，则存在开邻域
+$x \in U \subset X$，使得 $U \cap f^{-1}(T) = \emptyset$。
+由于 $f$ 是开映射，$f(U)$ 是 $f(x)$ 的一个不与 $T$ 相交的开邻域。
+所以 $x \not \in f^{-1}(\overline{T})$。这证明 (1)。
+(2) 是 (1) 的简单推论。(3) 由 $f$ 开且满立即得出。
+对于 (4)，若 $f^{-1}(T)$ 局部闭，则
+$f^{-1}(T) \subset \overline{f^{-1}(T)} = f^{-1}(\overline{T})$
+是开集。因此，将 (3) 应用于映射
+$f^{-1}(\overline{T}) \to \overline{T}$，可知 $T$ 在
+$\overline{T}$ 中开，即 $T$ 局部闭。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-morphism-quotient-topology}
+设 $f : X \to Y$ 为拓扑空间间满、闭且连续的映射。
+设 $T \subset Y$ 为子集。则
+\begin{enumerate}
+\item $\overline{T} = f(\overline{f^{-1}(T)})$，
+\item $T \subset Y$ 是闭集，当且仅当 $f^{-1}(T)$ 是闭集，
+\item $T \subset Y$ 是开集，当且仅当 $f^{-1}(T)$ 是开集，
+\item $T \subset Y$ 是局部闭集，当且仅当
+$f^{-1}(T)$ 是局部闭集。
+\end{enumerate}
+特别地，$f$ 是浸没的。
+\end{lemma}
+
+\begin{proof}
+显然 $\overline{f^{-1}(T)} \subset f^{-1}(\overline{T})$。
+于是 $T \subset f(\overline{f^{-1}(T)}) \subset \overline{T}$
+是闭子集，从而得到 (1)。(2) 由 $f$ 是闭映射且满射立即可得。
+(3) 由将 (2) 应用于 $T$ 的补集得到。
+对于 (4)，若 $f^{-1}(T)$ 局部闭，则
+$f^{-1}(T) \subset \overline{f^{-1}(T)}$ 是开集。
+由 (1)，映射 $\overline{f^{-1}(T)} \to \overline{T}$ 是满射，
+所以可将 (3) 应用于由 $f$ 诱导的映射
+$\overline{f^{-1}(T)} \to \overline{T}$，从而得出 $T$ 在
+$\overline{T}$ 中开，即 $T$ 局部闭。
+\end{proof}
+
+\section{连通分支}
+\label{topology-section-connected-components}
+
+\begin{definition}
+\label{topology-definition-connected-components}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 如果 $X$ 非空，并且每当 $X = T_1 \amalg T_2$，其中
+$T_i \subset X$ 既开又闭时，必有 $T_1 = \emptyset$ 或
+$T_2 = \emptyset$，则称 $X$ 是{\it 连通的}。
+\item 如果 $T \subset X$ 是 $X$ 的极大连通子集，则称 $T$ 是
+$X$ 的一个{\it 连通分支}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+空空间不是连通的。
+
+\begin{lemma}
+\label{topology-lemma-image-connected-space}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。若 $E \subset X$ 是连通子集，
+则 $f(E) \subset Y$ 也是连通的。
+\end{lemma}
+
+\begin{proof}
+设 $A \subset f(E)$ 为 $f(E)$ 的一个既开又闭的子集。由于 $f$ 连续，
+$f^{-1}(A)$ 是 $E$ 的一个既开又闭的子集。由于 $E$ 连通，
+$f^{-1}(A) = \emptyset$ 或 $f^{-1}(A) = E$。另一方面，$A\subset f(E)$
+蕴含 $A = f(f^{-1}(A))$。事实上，若 $x\in f(f^{-1}(A))$，则存在
+$y\in f^{-1}(A)$ 使 $f(y) = x$；又因为 $y\in f^{-1}(A)$，有
+$f(y) \in A$，即 $x\in A$。反之，若 $x\in A$，由 $A\subset f(E)$，
+存在 $y\in E$ 使 $f(y) = x$。因此 $y\in f^{-1}(A)$，从而
+$x\in f(f^{-1}(A))$。于是 $A = \emptyset$ 或 $A = f(E)$，这证明
+$f(E)$ 连通。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-connected-components}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 若 $T \subset X$ 连通，则其闭包也连通。
+\item $X$ 的任意连通分支都是闭的（但未必是开的）。
+\item $X$ 的每个连通子集都包含于 $X$ 的唯一一个连通分支中。
+\item $X$ 的每个点都包含于唯一一个连通分支中；换言之，$X$ 是其各连通分支
+的不交并。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\overline{T}$ 为连通子集 $T$ 的闭包。假设
+$\overline{T} = T_1 \amalg T_2$，其中 $T_i \subset \overline{T}$
+既开又闭。则 $T = (T\cap T_1) \amalg (T \cap T_2)$。
+所以 $T$ 等于二者之一，比如 $T = T_1 \cap T$。于是
+$\overline{T} \subset T_1$。这蕴含 (1) 与 (2)。
+
+\medskip\noindent
+设 $A$ 为 $X$ 的一族非空连通子集，且
+$\Omega = \bigcap_{T \in A} T$ 非空。我们断言
+$E = \bigcup_{T \in A} T$ 连通。事实上，$E$ 包含 $\Omega$，故非空。
+设 $E = E_1 \amalg E_2$，其中 $E_i$ 在 $E$ 中闭。重新编号后，可设
+$E_1$ 与 $\Omega$ 相交。于是每个 $T \in A$ 都与 $E_1$ 相交；由于
+$T$ 连通，它必包含于 $E_1$。故 $E \subset E_1$，断言得证。
+
+\medskip\noindent
+设 $W \subset X$ 为非空连通子集。将上一段的结果应用于 $X$ 中所有包含
+$W$ 的连通子集所成的集合，便可看出 $E$ 是 $X$ 的一个连通分支。
+这证明 (3) 中的存在性与唯一性。
+
+\medskip\noindent
+设 $x \in X$。在上一段中取 $W = \{x\}$，可知 $x$ 包含于 $X$ 的
+唯一一个连通分支中。任意两个不同的连通分支必不交（由第二段的结果）。
+
+\medskip\noindent
+要得到连通分支不为开集的例子，只需取带有积拓扑的无穷积
+$\prod_{n \in \mathbf{N}} \{0, 1\}$。它的连通分支都是单点集，而这些
+单点集不是开集。
+\end{proof}
+
+\begin{remark}
+\label{topology-remark-quasi-components}
+\begin{reference}
+\cite[Example 6.1.24]{Engelking}
+\end{reference}
+设 $X$ 为拓扑空间，$x \in X$。设 $Z \subset X$ 为 $X$ 中经过 $x$ 的
+连通分支。考虑 $X$ 中所有包含 $x$ 的既开又闭子集之交 $E$。
+显然 $Z \subset E$。一般而言 $Z \not = E$。例如，令
+$X = \{x, y, z_1, z_2, \ldots\}$，并赋予以下开集族为基的拓扑：
+对所有 $n$，取 $\{z_n\}$、$\{x, z_n, z_{n + 1}, \ldots\}$ 以及
+$\{y, z_n, z_{n + 1}, \ldots\}$。则 $Z = \{x\}$ 且
+$E = \{x, y\}$。细节从略。
+\end{remark}
+
+\begin{lemma}
+\label{topology-lemma-connected-fibres-quotient-topology-connected-components}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。假设
+\begin{enumerate}
+\item $f$ 的所有纤维都连通，并且
+\item 子集 $T \subset Y$ 是闭的，当且仅当 $f^{-1}(T)$ 是闭的。
+\end{enumerate}
+则 $f$ 诱导 $X$ 与 $Y$ 的连通分支集合之间的双射。
+\end{lemma}
+
+\begin{proof}
+设 $T \subset Y$ 为一个连通分支。注意 $T$ 是闭的，参见引理
+\ref{topology-lemma-connected-components}。只要证明 $f^{-1}(T)$ 连通，本引理即得证，
+因为由引理 \ref{topology-lemma-image-connected-space}，$X$ 的任何连通子集都映入
+$Y$ 的某个连通分支。假设 $f^{-1}(T) = Z_1 \amalg Z_2$，其中
+$Z_1$、$Z_2$ 闭。对任意 $t \in T$，有
+$f^{-1}(\{t\}) = Z_1 \cap f^{-1}(\{t\}) \amalg Z_2 \cap f^{-1}(\{t\})$。
+由 (1)，$f^{-1}(\{t\})$ 连通，因而或者
+$f^{-1}(\{t\}) \subset Z_1$，或者 $f^{-1}(\{t\}) \subset Z_2$。
+换言之，$T = T_1 \amalg T_2$，其中 $f^{-1}(T_i) = Z_i$。
+由 (2)，$T_i$ 在 $Y$ 中闭。因此按所需，$T_1 = \emptyset$ 或
+$T_2 = \emptyset$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-connected-fibres-connected-components}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。假设
+(a) $f$ 是开映射，
+(b) $f$ 的所有纤维都连通。
+则 $f$ 诱导 $X$ 与 $Y$ 的连通分支集合之间的双射。
+\end{lemma}
+
+\begin{proof}
+这是引理
+\ref{topology-lemma-connected-fibres-quotient-topology-connected-components} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-finite-fibre-connected-components}
+设 $f : X \to Y$ 为非空拓扑空间间的连续映射。假设
+(a) $Y$ 连通，
+(b) $f$ 是开映射且为闭映射，并且
+(c) 存在点 $y\in Y$，使得纤维 $f^{-1}(y)$ 为有限集。
+则 $X$ 至多有 $|f^{-1}(y)|$ 个连通分支。因此，$X$ 的任一连通分支
+$T$ 都既开又闭，而 $f(T)$ 是 $Y$ 的非空且既开又闭的子集，故等于 $Y$。
+\end{lemma}
+
+\begin{proof}
+若拓扑空间 $X$ 至少有 $N$ 个连通分支，其中 $N \in \mathbf{N}$，
+则由归纳法可找到分解 $X = X_1 \amalg \ldots \amalg X_N$，将 $X$
+写成 $N$ 个非空且既开又闭的子集 $X_1, \ldots , X_N$ 的不交并。
+由于 $f$ 开且闭，每个 $f(X_i)$ 都是 $Y$ 的非空且既开又闭的子集，
+从而等于 $Y$。特别地，对每个 $1 \leq i \leq N$，交集
+$X_i \cap f^{-1}(y)$ 非空。因此 $f^{-1}(y)$ 至少有 $N$ 个元素。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-totally-disconnected}
+若拓扑空间的每个连通分支都是单点集，则称该空间{\it 全不连通}。
+\end{definition}
+
+\noindent
+离散空间是全不连通的。全不连通空间未必离散；例如
+$\mathbf{Q} \subset \mathbf{R}$ 全不连通但不离散。
+
+\begin{lemma}
+\label{topology-lemma-space-connected-components}
+设 $X$ 为拓扑空间。令 $\pi_0(X)$ 为 $X$ 的连通分支集合。
+令 $X \to \pi_0(X)$ 为将 $x \in X$ 映到 $X$ 中经过 $x$ 的连通分支
+的映射。在 $\pi_0(X)$ 上赋予商拓扑。则 $\pi_0(X)$ 是全不连通空间，
+并且从 $X$ 到任意全不连通空间 $Y$ 的连续映射 $X \to Y$ 都通过
+$\pi_0(X)$ 分解。
+\end{lemma}
+
+\begin{proof}
+由引理
+\ref{topology-lemma-connected-fibres-quotient-topology-connected-components}，
+$\pi_0(X)$ 的连通分支都是单点集。第二个陈述的证明从略。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-locally-connected}
+若拓扑空间 $X$ 的每个点 $x \in X$ 都有一个由连通邻域组成的邻域基本系，
+则称 $X$ {\it 局部连通}。
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-locally-connected}
+设 $X$ 为拓扑空间。若 $X$ 局部连通，则
+\begin{enumerate}
+\item $X$ 的任意开子集都局部连通，并且
+\item $X$ 的连通分支都是开集。
+\end{enumerate}
+所以 $X$ 的开子集的连通分支也都是开集。特别地，每个点都有一个由开连通
+邻域组成的邻域基本系。
+\end{lemma}
+
+\begin{proof}
+对所有 $x\in X$，记 $\mathcal{N}(x)$ 为 $x$ 的连通邻域基本系，并设
+$U\subset X$ 为 $X$ 的开子集。则对所有 $x\in U$，$U$ 是 $x$ 的邻域，
+所以集合 $\{V \in \mathcal{N}(x) | V\subset U\}$ 非空，且为 $U$ 中
+$x$ 的连通邻域基本系。因此 $U$ 局部连通，这证明 (1)。
+
+\medskip\noindent
+设 $x \in \mathcal{C} \subset X$，其中 $\mathcal{C}$ 为 $x$ 的连通分支。
+由于 $X$ 局部连通，存在 $x$ 的一个连通邻域 $\mathcal{N}$。
+因此由连通分支的定义，$\mathcal{N} \subset \mathcal{C}$，从而
+$\mathcal{C}$ 是 $x$ 的一个邻域。这说明 $\mathcal{C}$ 是其每一点的邻域；
+换言之，$\mathcal{C}$ 是开集，(2) 得证。
+\end{proof}
+
+\section{不可约分支}
+\label{topology-section-irreducible-components}
+
+\begin{definition}
+\label{topology-definition-irreducible-components}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 如果 $X$ 非空，并且每当 $X = Z_1 \cup Z_2$，其中 $Z_i$ 为闭集时，
+都有 $X = Z_1$ 或 $X = Z_2$，则称 $X$ 是{\it 不可约的}。
+\item 如果 $Z \subset X$ 是 $X$ 的极大不可约子集，则称 $Z$ 是 $X$
+的一个{\it 不可约分支}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+不可约空间显然是连通的。
+
+\begin{lemma}
+\label{topology-lemma-image-irreducible-space}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。若 $E \subset X$ 是不可约子集，
+则 $f(E) \subset Y$ 也不可约。
+\end{lemma}
+
+\begin{proof}
+显然可以假设 $E = X$（即 $X$ 不可约）且 $f(E) = Y$（即 $f$ 满）。
+首先，因为 $X \not = \emptyset$，所以 $Y \not = \emptyset$。
+其次，假设 $Y = Y_1 \cup Y_2$，其中 $Y_1$、$Y_2$ 闭。
+则 $X = X_1 \cup X_2$，其中 $X_i = f^{-1}(Y_i)$ 在 $X$ 中闭。
+由对 $X$ 的假设，必有 $X = X_1$ 或 $X = X_2$；又因 $f$ 满，故
+$Y = Y_1$ 或 $Y = Y_2$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-irreducible}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 若 $T \subset X$ 不可约，则它在 $X$ 中的闭包也不可约。
+\item $X$ 的任一不可约分支都是闭的。
+\item $X$ 的任一不可约子集都包含于 $X$ 的某个不可约分支中。
+\item $X$ 的每个点都包含于 $X$ 的某个不可约分支中；换言之，$X$ 是其
+不可约分支之并。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\overline{T}$ 为不可约子集 $T$ 的闭包。若
+$\overline{T} = Z_1 \cup Z_2$，其中 $Z_i \subset \overline{T}$ 闭，
+则 $T = (T\cap Z_1) \cup (T \cap Z_2)$，从而 $T$ 等于二者之一，比如
+$T = Z_1 \cap T$。于是显然 $\overline{T} \subset Z_1$。这证明 (1)。
+(2) 由 (1) 和不可约分支的定义立即得出。
+
+\medskip\noindent
+设 $T \subset X$ 不可约。考虑所有满足 $T \subset T' \subset X$ 的
+不可约子集所成的集合 $A$。因为 $T \in A$，所以 $A$ 非空。
+包含关系给出 $A$ 上的偏序：
+$T' \leq T'' \Leftrightarrow T' \subset T''$。
+选取极大全序子集 $A' \subset A$，并令
+$E = \bigcup_{T' \in A'} T'$。我们断言 $E$ 不可约。事实上，假设
+$E =  Z_1 \cup Z_2$ 是 $E$ 的两个闭子集之并。对每个 $T' \in A'$，
+由 $T'$ 的不可约性，或者 $T' \subset Z_1$，或者 $T' \subset Z_2$。
+假设对某个 $T'_0 \in A'$ 有 $T'_0 \not\subset Z_1$
+（否则结论已经成立）。由于 $A'$ 是全序的，立即可见对所有
+$T' \in A'$ 都有 $T' \subset Z_2$。故 $E = Z_2$。这证明 (3)。
+因为单点空间不可约，(4) 是 (3) 的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-pick-irreducible-components}
+设 $X$ 为拓扑空间，并假设 $X = \bigcup_{i = 1, \ldots, n} X_i$，
+其中每个 $X_i$ 都是 $X$ 的不可约闭子集，并且没有任何 $X_i$ 包含于
+其余各项之并。则每个 $X_i$ 都是 $X$ 的不可约分支，而 $X$ 的每个
+不可约分支都是某个 $X_i$。
+\end{lemma}
+
+\begin{proof}
+设 $Y$ 为 $X$ 的一个不可约分支。写成
+$Y = \bigcup_{i = 1, \ldots, n} (Y \cap X_i)$。由于 $X_i$ 在 $X$ 中闭，
+每个 $Y \cap X_i$ 在 $Y$ 中闭。由 $Y$ 的不可约性，$Y$ 等于某个
+$Y \cap X_i$，即 $Y \subset X_i$。由不可约分支的极大性，得到
+$Y = X_i$。
+
+\medskip\noindent
+反之，取任一 $X_i$。由引理 \ref{topology-lemma-irreducible}，它包含于 $X$ 的某个
+不可约分支 $Y$ 中。由上一段，某个 $j$ 满足 $Y = X_j$。所以
+$X_i \subset X_j$；由于原来的并中没有冗余项，$X_i = X_j$，故它是
+一个不可约分支。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-surjective-continuous-irreducible-components}
+设 $f : X \to Y$ 为拓扑空间间满且连续的映射。若 $X$ 有有限个不可约分支，
+比如有 $n$ 个，则 $Y$ 有 $\leq n$ 个不可约分支。
+\end{lemma}
+
+\begin{proof}
+设 $X_1, \ldots, X_n$ 为 $X$ 的不可约分支。由引理
+\ref{topology-lemma-image-irreducible-space} 与 \ref{topology-lemma-irreducible}，
+$f(X_i)$ 的闭包 $Y_i \subset Y$ 不可约。因为 $f$ 满，
+$Y$ 是各 $Y_i$ 之并。可以选取极小子集
+$I \subset \{1, \ldots, n\}$，使得 $Y = \bigcup_{i \in I} Y_i$。
+于是可应用引理 \ref{topology-lemma-pick-irreducible-components}，看出对
+$i \in I$，$Y_i$ 恰为 $Y$ 的不可约分支。
+\end{proof}
+
+\noindent
+单点集不可约。因此，若 $x \in X$ 是一点，则闭包
+$\overline{\{x\}}$ 是 $X$ 的不可约闭子集。
+
+\begin{definition}
+\label{topology-definition-generic-point}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 设 $Z \subset X$ 为不可约闭子集。如果点 $\xi \in Z$ 满足
+$Z = \overline{\{\xi\}}$，则称它为 $Z$ 的一个{\it 泛点}。
+\item 如果对每个 $x, x' \in X$，只要 $x \not = x'$，就存在 $X$
+的一个闭子集恰好包含这两点之一，则称空间 $X$ 为{\it Kolmogorov 空间}。
+\item 如果每个不可约闭子集都有泛点，则称空间 $X$ {\it 拟清醒}。
+\item 如果每个不可约闭子集都有唯一泛点，则称空间 $X$ {\it 清醒}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+拓扑空间 $X$ 为 Kolmogorov、拟清醒或清醒，当且仅当从 $X$ 到 $X$
+的不可约闭子集之集合的映射 $x\mapsto\overline{\{x\}}$ 分别为单射、
+满射或双射。因此，一个拓扑空间清醒，当且仅当它拟清醒且为 Kolmogorov 空间。
+
+\begin{lemma}
+\label{topology-lemma-sober-subspace}
+设 $X$ 为拓扑空间，且 $Y\subset X$。
+\begin{enumerate}
+\item 若 $X$ 为 Kolmogorov 空间，则 $Y$ 也是。
+\item 假设 $Y$ 在 $X$ 中局部闭。若 $X$ 拟清醒，则 $Y$ 也拟清醒。
+\item 假设 $Y$ 在 $X$ 中局部闭。若 $X$ 清醒，则 $Y$ 也清醒。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。假设 $X$ 为 Kolmogorov 空间。设 $x,y\in Y$ 且
+$x\neq y$。则
+$\overline{\overline{\{x\}}\cap Y}=\overline{\{x\}}\neq\overline{\{y\}}=
+\overline{\overline{\{y\}}\cap Y}$。故
+$\overline{\{x\}}\cap Y\neq\overline{\{y\}}\cap Y$。这说明 $Y$
+是 Kolmogorov 空间。
+
+\medskip\noindent
+(2) 的证明。假设 $X$ 拟清醒。只需分别考虑 $Y$ 闭与 $Y$ 开的情形。
+先假设 $Y$ 闭。设 $Z$ 为 $Y$ 的不可约闭子集。则 $Z$ 是 $X$ 的
+不可约闭子集。因此存在 $x \in Z$，使得 $\overline{\{x\}} = Z$。
+于是 $\overline{\{x\}} \cap Y = Z$。这说明 $Y$ 拟清醒。
+再假设 $Y$ 开。设 $Z$ 为 $Y$ 的不可约闭子集。则 $\overline{Z}$ 是
+$X$ 的不可约闭子集。因此存在 $x \in \overline{Z}$，使得
+$\overline{\{x\}}=\overline{Z}$。若 $x\notin Y$，便得到矛盾
+$Z=Z\cap Y\subset\overline{Z}\cap Y=\overline{\{x\}}\cap Y=\emptyset$。
+所以 $x\in Y$。于是 $Z=\overline{Z}\cap Y=\overline{\{x\}}\cap Y$。
+这说明 $Y$ 拟清醒。
+
+\medskip\noindent
+(3) 由 (1) 与 (2) 立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-sober-local}
+设 $X$ 为拓扑空间，$(X_i)_{i\in I}$ 为 $X$ 的一个覆盖。
+\begin{enumerate}
+\item 假设对每个 $i\in I$，$X_i$ 在 $X$ 中局部闭。则 $X$ 为
+Kolmogorov 空间，当且仅当对每个 $i\in I$，$X_i$ 都是 Kolmogorov 空间。
+\item 假设对每个 $i\in I$，$X_i$ 在 $X$ 中开。则 $X$ 拟清醒，
+当且仅当对每个 $i\in I$，$X_i$ 都拟清醒。
+\item 假设对每个 $i\in I$，$X_i$ 在 $X$ 中开。则 $X$ 清醒，
+当且仅当对每个 $i\in I$，$X_i$ 都清醒。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。若 $X$ 为 Kolmogorov 空间，则由引理
+\ref{topology-lemma-sober-subspace}，对每个 $i\in I$，$X_i$ 也是。
+反之，假设对每个 $i\in I$，$X_i$ 都是 Kolmogorov 空间。
+设 $x,y\in X$ 且 $\overline{\{x\}}=\overline{\{y\}}$。存在
+$i\in I$ 使 $x\in X_i$。存在开子集 $U\subset X$，使得 $X_i$ 是
+$U$ 的闭子集。若 $y\notin U$，则得到矛盾
+$x\in\overline{\{x\}}\cap U=\overline{\{y\}}\cap U=\emptyset$。
+故 $y\in U$。于是
+$y\in\overline{\{y\}}\cap U=\overline{\{x\}}\cap U\subset X_i$，
+这说明 $y\in X_i$。从而
+$\overline{\{x\}}\cap X_i=\overline{\{y\}}\cap X_i$。
+由于 $X_i$ 为 Kolmogorov 空间，得到 $x=y$。这说明 $X$ 为
+Kolmogorov 空间。
+
+\medskip\noindent
+(2) 的证明。若 $X$ 拟清醒，则由引理 \ref{topology-lemma-sober-subspace}，
+对每个 $i\in I$，$X_i$ 也拟清醒。反之，假设对每个 $i\in I$，
+$X_i$ 都拟清醒。设 $Y$ 为 $X$ 的不可约闭子集。因为
+$Y\neq\emptyset$，存在 $i\in I$ 使 $X_i\cap Y\neq\emptyset$。
+由于 $X_i$ 在 $X$ 中开，$X_i\cap Y$ 在 $Y$ 中非空且开，因而不可约
+并在 $Y$ 中稠密。于是 $X_i\cap Y$ 是 $X_i$ 的不可约闭子集。
+由于 $X_i$ 拟清醒，存在 $x\in X_i\cap Y$，使得
+$X_i\cap Y=\overline{\{x\}}\cap X_i\subset\overline{\{x\}}$。
+因为 $X_i\cap Y$ 在 $Y$ 中稠密且 $Y$ 在 $X$ 中闭，所以
+$Y=\overline{X_i\cap Y}\cap Y\subset\overline{X_i\cap Y}\subset
+\overline{\{x\}}\subset Y$。因此 $Y=\overline{\{x\}}$。
+这说明 $X$ 拟清醒。
+
+\medskip\noindent
+(3) 由 (1) 与 (2) 立即得出。
+\end{proof}
+
+\begin{example}
+\label{topology-example-quasi-sober-not-kolmogorov}
+设 $X$ 为基数至少为 $2$ 的平凡空间。则 $X$ 拟清醒但不是 Kolmogorov
+空间。此外，它的单点集族是由离散空间、因而由 Kolmogorov 空间组成的
+$X$ 的覆盖。
+\end{example}
+
+\begin{example}
+\label{topology-example-kolmogorov-not-quasi-sober}
+设 $Y$ 为无穷集，并赋予以 $Y$ 及 $Y$ 的有限子集为闭集的拓扑。
+则 $Y$ 是 Kolmogorov 空间但不拟清醒。然而，它的单点集族是一个由离散空间、
+因而由清醒空间组成的覆盖。
+\end{example}
+
+\begin{example}
+\label{topology-example-not-kolmogorov-not-quasi-sober}
+令 $X$ 与 $Y$ 如例 \ref{topology-example-quasi-sober-not-kolmogorov} 和例
+\ref{topology-example-kolmogorov-not-quasi-sober}。则 $X\amalg Y$ 既不是
+Kolmogorov 空间，也不拟清醒。
+\end{example}
+
+\begin{example}
+\label{topology-example-sober-subspace}
+设 $Z$ 为无穷集，且 $z\in Z$。在 $Z$ 上赋予以 $Z$ 及
+$Z\setminus\{z\}$ 的有限子集为闭集的拓扑。则 $Z$ 清醒，但其子空间
+$Z\setminus\{z\}$ 不拟清醒。
+\end{example}
+
+\begin{example}
+\label{topology-example-Hausdorff}
+回忆，拓扑空间 $X$ 为 Hausdorff 空间，当且仅当对任意不同的点
+$x, y \in X$，存在不交的开集 $U, V \subset X$，使得
+$x \in U$、$y \in V$。在这种情形，$X$ 不可约，当且仅当 $X$ 为单点集。
+类似地，$X$ 的任一子集不可约，当且仅当它为单点集。因此 Hausdorff 空间
+是清醒的。
+\end{example}
+
+\begin{lemma}
+\label{topology-lemma-irreducible-on-top}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。假设
+(a) $Y$ 不可约，
+(b) $f$ 是开映射，并且
+(c) 存在一族稠密的点 $y \in Y$，使得 $f^{-1}(y)$ 不可约。
+则 $X$ 不可约。
+\end{lemma}
+
+\begin{proof}
+假设 $X = Z_1 \cup Z_2$，其中 $Z_i$ 闭。考虑开集
+$U_1 = Z_1 \setminus Z_2 = X \setminus Z_2$ 与
+$U_2 = Z_2 \setminus Z_1 = X \setminus Z_1$。为得到矛盾，假设
+$U_1$ 与 $U_2$ 都非空。由 (b)，$f(U_i)$ 是开集。由 (a)，$Y$
+不可约，故 $f(U_1) \cap f(U_2) \not = \emptyset$。由 (c)，存在一个
+对应于该交集中某一点的点 $y$，使得纤维 $X_y = f^{-1}(y)$ 不可约。
+于是 $X_y \cap U_1$ 与 $X_y \cap U_2$ 是 $X_y$ 的两个非空不交开子集，
+矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-irreducible-fibres-irreducible-components}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。假设 (a) $f$ 是开映射，并且
+(b) 对每个 $y \in Y$，纤维 $f^{-1}(y)$ 都不可约。
+则 $f$ 诱导不可约分支之间的双射。
+\end{lemma}
+
+\begin{proof}
+指出一点：假设 (b) 蕴含 $f$ 满（见定义
+\ref{topology-definition-irreducible-components}）。设 $T \subset Y$ 为一个
+不可约分支。注意 $T$ 是闭的，参见引理 \ref{topology-lemma-irreducible}。
+只要证明 $f^{-1}(T)$ 不可约，本引理即得证，因为由引理
+\ref{topology-lemma-image-irreducible-space}，$X$ 的任何不可约子集都映入 $Y$
+的某个不可约分支。注意 $f^{-1}(T) \to T$ 满足引理
+\ref{topology-lemma-irreducible-on-top} 的假设。因此结论成立。
+\end{proof}
+
+\noindent
+下面引理中的构造有时称为“清醒化”。
+
+\begin{lemma}
+\label{topology-lemma-make-sober}
+\begin{reference}
+\cite[Page 68 ff]{EGA1-second}
+\end{reference}
+设 $X$ 为拓扑空间。存在典范连续映射
+$$
+c : X \longrightarrow X'
+$$
+从 $X$ 映到一个清醒拓扑空间 $X'$，它在从 $X$ 到清醒拓扑空间的连续映射中
+具有泛性质。此外，赋值 $U' \mapsto c^{-1}(U')$ 给出 $X'$ 与 $X$
+的开集之间的双射，并且与有限交和任意并相容。像 $c(X)$ 是 Kolmogorov
+拓扑空间，而映射 $c : X \to c(X)$ 在从 $X$ 到 Kolmogorov 空间的映射中
+具有泛性质。
+\end{lemma}
+
+\begin{proof}
+令 $X'$ 为 $X$ 的不可约闭子集之集合，并令
+$$
+c : X \to X', \quad x \mapsto \overline{\{x\}}.
+$$
+对开集 $U \subset X$，令 $U' \subset X'$ 表示所有与 $U$ 相交的
+$X$ 的不可约闭子集之集合。则 $c^{-1}(U') = U$。特别地，若
+$U_1 \not = U_2$ 是 $X$ 中的开集，则 $U'_1 \not = U_2'$。
+所以 $c$ 诱导 $X'$ 中形如 $U'$ 的子集与 $X$ 的开集之间的双射。
+
+\medskip\noindent
+设 $U_1, U_2$ 在 $X$ 中开。假设 $Z \in U'_1$ 且 $Z \in U'_2$。
+则 $Z \cap U_1$ 与 $Z \cap U_2$ 是不可约空间 $Z$ 的非空开子集，
+所以 $Z \cap U_1 \cap U_2$ 非空。因此
+$(U_1 \cap U_2)' = U'_1 \cap U'_2$。规则 $U \mapsto U'$ 也与任意并相容
+（细节从略）。于是显然，全体 $U'$ 构成 $X'$ 上的一个拓扑，并且得到
+引理所述的双射。
+
+\medskip\noindent
+接着证明 $X'$ 清醒。设 $T \subset X'$ 为不可约闭子集。
+设 $U \subset X$ 为满足 $X' \setminus T = U'$ 的开集。由引理中双射的性质，
+$Z = X \setminus U$ 不可约。我们断言 $Z \in T$ 是唯一泛点。
+事实上，任何不含 $Z$ 的形如 $V' \subset X'$ 的开集，都来自某个
+不与 $Z$ 相交、即包含于 $U$ 的开集 $V \subset X$。
+
+\medskip\noindent
+最后验证泛性质。设 $f : X \to Y$ 为到清醒拓扑空间的连续映射。
+令 $f' : X' \to Y$ 将不可约闭子集 $Z \subset X$ 映到
+$\overline{f(Z)}$ 的唯一泛点。立即可见，作为集合间映射有
+$f' \circ c = f$，而 $c$ 的性质蕴含 $f'$ 连续。连续映射 $f'$ 的唯一性的
+验证从略。关于 Kolmogorov 空间的陈述之证明也从略。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-remove-irreducible-connected}
+设 $X$ 为连通拓扑空间，并且只有有限个不可约分支
+$X_1, \ldots, X_n$。若 $n > 1$，则存在 $1 \leq j \leq n$，使得
+$X' = \bigcup_{i \not = j} X_i$ 连通。
+\end{lemma}
+
+\begin{proof}
+这是一个图论问题。令 $\Gamma$ 为以 $V = \{1, \ldots, n\}$ 为顶点集的图，
+并且 $i$ 与 $j$ 之间有边，当且仅当 $X_i \cap X_j$ 非空。
+$X$ 的连通性意味着 $\Gamma$ 连通。问题是找出 $1 \leq j \leq n$，
+使 $\Gamma \setminus \{j\}$ 仍然连通。可选取距离最大的
+$j, j' \in E$，此时 $j$ 即可（选一个叶子！）。细节从略。
+\end{proof}
+
+% P01-ERRATA-E0015: source line 1236 uses j,j' \in E although the graph's vertex set is V; canonical text retained.
+\section{Noether 拓扑空间}
+\label{topology-section-noetherian}
+
+\begin{definition}
+\label{topology-definition-noetherian}
+若 $X$ 的闭子集满足降链条件，则称一个拓扑空间为{\it Noether 空间}。
+若每一点都有一个 Noether 邻域，则称一个拓扑空间{\it 局部 Noether}。
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-Noetherian}
+设 $X$ 为 Noether 拓扑空间。
+\begin{enumerate}
+\item $X$ 的任意子集带诱导拓扑后都是 Noether 空间。
+\item 空间 $X$ 只有有限个不可约分支。
+\item $X$ 的每个不可约分支都包含 $X$ 的一个非空开集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $T \subset X$ 为 $X$ 的一个子集。设
+$T_1 \supset T_2 \supset \ldots$ 为 $T$ 的闭子集之降链。
+写成 $T_i =  T \cap Z_i$，其中 $Z_i \subset X$ 闭。考虑闭子集的降链
+$Z_1 \supset Z_1\cap Z_2 \supset Z_1 \cap Z_2 \cap Z_3 \ldots$。
+由假设，此链稳定，因而原来的 $T_i$ 序列也稳定。所以 $T$ 为 Noether 空间。
+
+\medskip\noindent
+令 $A$ 为 $X$ 的所有不具有有限多个不可约分支的闭子集之集合。
+为得到矛盾，假设 $A$ 非空。包含关系给出 $A$ 上的偏序：
+$\alpha \leq \alpha' \Leftrightarrow Z_{\alpha} \subset Z_{\alpha'}$。
+由降链条件，可以找到 $A$ 的一个最小元素，记为 $Z$。因为 $Z$ 不是
+有限多个不可约分支之并，所以它不可约。故可以写成
+$Z = Z' \cup Z''$，其中二者都是严格较小的闭子集。按构造，
+$Z' = \bigcup Z'_i$ 与 $Z'' = \bigcup Z''_j$ 各自都是其不可约分支的有限并
+（引理 \ref{topology-lemma-irreducible}）。因此
+$Z = \bigcup Z'_i \cup \bigcup Z''_j$ 是不可约闭子集的有限并。
+从这一表达式中去掉冗余项后，就得到 $Z$ 的不可约分支分解
+（引理 \ref{topology-lemma-pick-irreducible-components}），矛盾。
+
+\medskip\noindent
+设 $Z \subset X$ 为 $X$ 的一个不可约分支。设
+$Z_1, \ldots, Z_n$ 为 $X$ 的其他不可约分支。考虑
+$U = Z \setminus (Z_1\cup\ldots\cup Z_n)$。它非空，否则不可约空间
+$Z$ 将包含于某个其他 $Z_i$ 中。又因为
+$X = Z \cup Z_1 \cup \ldots Z_n$（见引理 \ref{topology-lemma-irreducible}），
+还有 $U = X \setminus (Z_1\cup\ldots\cup Z_n)$，故该集合在 $X$ 中开。
+所以 $Z$ 包含 $X$ 的一个非空开集。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-image-Noetherian}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。
+\begin{enumerate}
+\item 若 $X$ 为 Noether 空间，则 $f(X)$ 为 Noether 空间。
+\item 若 $X$ 局部 Noether 且 $f$ 为开映射，则 $f(X)$ 局部 Noether。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在情形 (1)，假设 $Z_1 \supset Z_2 \supset Z_3 \supset \ldots$ 是
+$f(X)$ 的闭子集之降链（照例，它作为 $Y$ 的子集带诱导拓扑）。则
+$f^{-1}(Z_1) \supset f^{-1}(Z_2) \supset f^{-1}(Z_3) \supset \ldots$
+是 $X$ 的闭子集之降链，故该链稳定。由于
+$f(f^{-1}(Z_i)) = Z_i$，可知
+$Z_1 \supset Z_2 \supset Z_3 \supset \ldots$ 也稳定。
+在情形 (2)，设 $y \in f(X)$。选取 $x \in X$ 使得 $f(x) = y$。
+由假设，存在 $x$ 的一个 Noether 邻域 $E \subset X$。则由 (1)，
+$f(E) \subset f(X)$ 是一个 Noether 邻域。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-finite-union-Noetherian}
+设 $X$ 为拓扑空间。设 $X_i \subset X$（$i = 1, \ldots, n$）为有限个
+子集。若每个 $X_i$（带诱导拓扑）都是 Noether 空间，则
+$\bigcup_{i = 1, \ldots, n}  X_i$（带诱导拓扑）也是 Noether 空间。
+\end{lemma}
+
+\begin{proof}
+设 $\{F_m\}_{m \in \mathbf{N}}$ 为带诱导拓扑的
+$X' = \bigcup_{i = 1, \ldots, n}  X_i$ 的闭子集之降链。
+则可以找到 $X$ 的闭子集之降链 $\{G_m\}_{m \in \mathbf{N}}$，
+使得对所有 $m$，$F_m = G_m \cap X'$（略去一个小细节）。
+由于 $X_i$ 为 Noether 空间，而
+$\{G_m \cap X_i\}_{m \in \mathbf{N}}$ 是 $X_i$ 的闭子集之降链，
+故存在 $m_i \in \mathbf{N}$，使得对所有 $m \geq m_i$，都有
+$G_m \cap X_i = G_{m_i} \cap X_i$。令
+$m_0 = \max_{i = 1, \ldots, n} m_i$。则显然
+$$
+F_m = G_m \cap X' = G_m \cap (X_1 \cup \ldots \cup X_n) =
+(G_m \cap X_1) \cup \ldots (G_m \cap X_n)
+$$
+在 $m \geq m_0$ 时稳定，证明完毕。
+\end{proof}
+
+\begin{example}
+\label{topology-example-locally-Noetherian-no-closed-point}
+任意非空的 Kolmogorov Noether 拓扑空间都有闭点（合并引理
+\ref{topology-lemma-quasi-compact-closed-point} 与
+\ref{topology-lemma-Noetherian-quasi-compact}）。令
+$X = \{1, 2, 3, \ldots \}$。在 $X$ 上定义以 $\emptyset$、
+$\{1, 2, \ldots, n\}$（$n \geq 1$）及 $X$ 为开集的拓扑。
+于是 $X$ 是一个没有任何闭点的局部 Noether 拓扑空间。
+该空间不可能是局部 Noether 概形的底拓扑空间，参见
+Properties, Lemma \ref{properties-lemma-locally-Noetherian-closed-point}。
+\end{example}
+
+\begin{lemma}
+\label{topology-lemma-locally-Noetherian-locally-connected}
+设 $X$ 为局部 Noether 拓扑空间。则 $X$ 局部连通。
+\end{lemma}
+
+\begin{proof}
+设 $x \in X$。设 $E$ 为 $x$ 的一个邻域。需要找到包含于 $E$ 的
+$x$ 的一个连通邻域。由假设，存在 $x$ 的一个 Noether 邻域 $E'$。
+于是 $E \cap E'$ 为 Noether 空间，见引理 \ref{topology-lemma-Noetherian}。
+设 $E \cap E' = Y_1 \cup \ldots \cup Y_n$ 为其不可约分支分解，见引理
+\ref{topology-lemma-Noetherian}。令 $E'' = \bigcup_{x \in Y_i} Y_i$。
+这是 $E \cap E'$ 的一个含 $x$ 的连通子集。它包含 $E \cap E'$ 的开集
+$E \cap E' \setminus (\bigcup_{x \not \in Y_i} Y_i)$，故它是 $X$ 中
+$x$ 的一个邻域。本引理得证。
+\end{proof}
+
+\section{Krull 维数}
+\label{topology-section-krull-dimension}
+
+\begin{definition}
+\label{topology-definition-Krull}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item $X$ 的一个{\it 不可约闭子集链}是序列
+$Z_0 \subset Z_1 \subset \ldots \subset Z_n \subset X$，其中 $Z_i$
+闭且不可约，并且对 $i = 0, \ldots, n - 1$ 有
+$Z_i \not = Z_{i + 1}$。
+\item $X$ 的不可约闭子集链
+$Z_0 \subset Z_1 \subset \ldots \subset Z_n \subset X$ 的
+{\it 长度}是整数 $n$。
+\item $X$ 的{\it 维数}，更准确地说是{\it Krull 维数} $\dim(X)$，
+是由下式定义的 $\{-\infty, 0, 1, 2, 3, \ldots, \infty\}$ 中的元素：
+$$
+\dim(X) =
+\sup \{\text{不可约闭子集链的长度}\}
+$$
+因此，$\dim(X) = -\infty$ 当且仅当 $X$ 为空空间。
+\item 设 $x \in X$。$X$ 在 $x$ 处的{\it Krull 维数}定义为
+$$
+\dim_x(X) = \min \{\dim(U), x\in U\subset X\text{ 开}\}
+$$
+即当 $U$ 遍历 $X$ 中 $x$ 的开邻域时 $\dim(U)$ 的最小值。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，若 $U' \subset U \subset X$ 都是开集，则
+$\dim(U') \leq \dim(U)$。因此，若 $\dim_x(X) = d$，则 $x$ 有一个
+由满足 $\dim(U) = \dim_x(X)$ 的开邻域 $U$ 组成的邻域基本系。
+
+\begin{lemma}
+\label{topology-lemma-dimension-supremum-local-dimensions}
+设 $X$ 为拓扑空间。则 $\dim(X) = \sup \dim_x(X)$，其中上确界遍历
+$X$ 的所有点 $x$。
+\end{lemma}
+
+\begin{proof}
+显然，对所有 $x \in X$ 都有 $\dim(X) \geq \dim_x(X)$（见定义
+\ref{topology-definition-Krull} 后的讨论）。这给出一个方向的不等式。
+反之，设 $n \geq 0$，并假设 $\dim(X) \geq n$。则可找到不可约闭子集链
+$Z_0 \subset Z_1 \subset \ldots \subset Z_n \subset X$。
+选取 $x \in Z_0$。对 $x$ 的每个开邻域 $U$，得到 $U$ 中的
+不可约闭子集链
+$$
+Z_0 \cap U \subset Z_1 \cap U \subset \ldots \subset Z_n \cap U
+$$
+事实上，$U \cap Z_i$ 在 $U$ 中闭且不可约，并且各包含关系都是严格的
+（细节从略；提示：$U \cap Z_i$ 的闭包是 $Z_i$）。由此可见
+$\dim_x(X) \geq n$，这证明另一个方向的不等式。
+\end{proof}
+
+\begin{example}
+\label{topology-example-Krull-Rn}
+通常的欧氏空间 $\mathbf{R}^n$ 的 Krull 维数是 $0$。
+\end{example}
+
+\begin{example}
+\label{topology-example-krull-2set}
+令 $X = \{s, \eta\}$，其开集为
+$\{\emptyset, \{\eta\}, \{s, \eta\}\}$。在这种情形，一个极大的
+不可约闭子集链是 $\{s\} \subset \{s, \eta\}$。因此
+$\dim(X) = 1$。很容易推广此例，得到一个 Krull 维数为 $n$ 的
+$(n + 1)$ 元拓扑空间。
+\end{example}
+
+\begin{definition}
+\label{topology-definition-equidimensional}
+设 $X$ 为拓扑空间。若 $X$ 的每个不可约分支都具有相同维数，
+则称 $X$ {\it 等维}。
+\end{definition}
+
+\section{余维数与链状空间}
+\label{topology-section-catenary-spaces}
+
+\noindent
+这里只定义不可约闭子集的余维数。
+
+\begin{definition}
+\label{topology-definition-codimension}
+设 $X$ 为拓扑空间。设 $Y \subset X$ 为不可约闭子集。$Y$ 在 $X$ 中的
+{\it 余维数}，是 $X$ 中以 $Y$ 起始的不可约闭子集链
+$$
+Y = Y_0 \subset Y_1 \subset \ldots \subset Y_e \subset X
+$$
+之长度 $e$ 的上确界。将其记为 $\text{codim}(Y, X)$。
+\end{definition}
+
+\noindent
+余维数是 $\{0, 1, 2, \ldots\} \cup \{\infty\}$ 中的元素。
+若 $\text{codim}(Y, X) < \infty$，则每条链都可以延拓为极大链
+（但这些极大链未必具有相同长度）。
+
+\begin{lemma}
+\label{topology-lemma-codimension-at-generic-point}
+设 $X$ 为拓扑空间。设 $Y \subset X$ 为不可约闭子集。
+设 $U \subset X$ 为开子集，且 $Y \cap U$ 非空。则
+$$
+\text{codim}(Y, X) = \text{codim}(Y \cap U, U)
+$$
+\end{lemma}
+
+\begin{proof}
+规则 $T \mapsto \overline{T}$ 在 $U$ 的不可约闭子集与 $X$ 中和 $U$
+相交的不可约闭子集之间定义一个保持包含关系的双射。由此容易得到本引理。
+细节从略。
+\end{proof}
+
+\begin{example}
+\label{topology-example-Noetherian-infinite-codimension}
+令 $X = [0, 1]$ 为单位区间，并赋予以下拓扑：开集是 $[0, 1]$、
+对 $n \in \mathbf{N}$ 的 $(1 - 1/n, 1]$ 以及 $\emptyset$。
+所以闭集是 $\emptyset$、$\{0\}$、对 $n > 1$ 的
+$[0, 1 - 1/n]$ 以及 $[0, 1]$。这显然是一个 Noether 拓扑空间。
+但不可约闭子集 $Y = \{0\}$ 具有无穷余维数
+$\text{codim}(Y, X) = \infty$。只需注意所有闭集
+$[0, 1 - 1/n]$ 都不可约即可看出这一点。
+\end{example}
+
+\begin{definition}
+\label{topology-definition-catenary}
+设 $X$ 为拓扑空间。如果对每一对不可约闭子集 $T \subset T'$，都有
+$\text{codim}(T, T') < \infty$，并且每条不可约闭子集极大链
+$$
+T = T_0 \subset T_1 \subset \ldots \subset T_e = T'
+$$
+都具有相同长度（等于余维数），则称 $X$ 是{\it 链状的}。
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-catenary}
+设 $X$ 为拓扑空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 是链状的，
+\item $X$ 有一个由链状空间组成的开覆盖。
+\end{enumerate}
+此外，在这种情形，$X$ 的任意局部闭子空间都是链状的。
+\end{lemma}
+
+\begin{proof}
+假设 $X$ 是链状的，并设 $U \subset X$ 为开子集。规则
+$T \mapsto \overline{T}$ 在 $U$ 的不可约闭子集与 $X$ 中和 $U$
+相交的不可约闭子集之间定义一个保持包含关系的双射。由此容易得到本引理。
+细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-catenary-in-codimension}
+设 $X$ 为拓扑空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 是链状的，并且
+\item 对每一对不可约闭子集 $Y \subset Y'$，都有
+$\text{codim}(Y, Y') < \infty$，且对每一组三个不可约闭子集
+$Y \subset Y' \subset Y''$，都有
+$$
+\text{codim}(Y, Y'') = \text{codim}(Y, Y') + \text{codim}(Y', Y'').
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先假设 $X$ 是链状的。由定义 \ref{topology-definition-catenary}，对每一对
+不可约闭子集 $Y \subset Y'$ 都有 $\text{codim}(Y,Y') < \infty$。
+设 $Y \subset Y' \subset Y''$ 为 $X$ 的三个不可约闭子集。设
+$$
+Y = Y_0 \subset Y_1 \subset ... \subset Y_{e_1} = Y'
+$$
+为 $Y$ 与 $Y'$ 之间的不可约闭子集极大链，其中
+$e_1 = \text{codim}(Y,Y')$。又设
+$$
+Y' = Y_{e_1} \subset Y_{e_1 + 1}\subset ... \subset Y_{e_1 + e_2} = Y''
+$$
+为 $Y'$ 与 $Y''$ 之间的不可约闭子集极大链，其中
+$e_2 = \text{codim}(Y',Y'')$。由于这两条链都是极大的，其连接
+$$
+Y = Y_0\subset Y_1 \subset ... \subset Y_{e_1} = Y' =
+Y_{e_1} \subset Y_{e_1+1}\subset ... \subset Y_{e_1+e_2}=Y''
+$$
+也是 $Y$ 与 $Y''$ 之间的极大链，且其长度等于 $e_1 + e_2$。
+因为 $X$ 是链状的，每条极大链都具有等于余维数的相同长度。
+所以 (2) 中的等式
+$\text{codim}(Y,Y'') = e_1 + e_2 = \text{codim}(Y,Y') + \text{codim}(Y',Y'')$
+成立。
+
+\medskip\noindent
+反之，由归纳法证明：若 $Y = Y_1 \subset ... \subset Y_n = Y'$，则
+$ \text{codim}(Y,Y') = \text{codim}(Y_1,Y_2) + ... +
+\text{codim}(Y_{n-1},Y_n)$。因此，极大链被迫具有相同长度。
+\end{proof}
+
+\section{拟紧空间与拟紧映射}
+\label{topology-section-quasi-compact}
+
+\noindent
+“紧”一词将保留给 Hausdorff 拓扑空间使用，而代数几何中出现的许多空间
+并不是 Hausdorff 空间。
+
+\begin{definition}
+\label{topology-definition-quasi-compact}
+拟紧性。
+\begin{enumerate}
+\item 若拓扑空间 $X$ 的每个开覆盖都有有限子覆盖，则称 $X$ {\it 拟紧}。
+\item 若对每个拟紧开集 $V \subset Y$，连续映射 $f : X \to Y$
+的逆像 $f^{-1}(V)$ 都拟紧，则称该映射{\it 拟紧}。
+\item 若包含映射 $Z \to X$ 拟紧，则称子集 $Z \subset X$ {\it 逆紧}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+许多拓扑学文本把拟紧且 Hausdorff 的空间称为{\it 紧空间}；另一些文本
+则省略 Hausdorff 条件。为避免代数几何中的混淆，我们采用“拟紧”一词。
+映射的拟紧性与“固有映射”的概念大不相同：在后一概念中，除了闭性与分离性，
+还要求目标中任意拟紧子集的逆像拟紧；而在上面的定义中，我们仅考虑拟紧
+{\it 开}集。
+
+\begin{lemma}
+\label{topology-lemma-composition-quasi-compact}
+拟紧映射的复合是拟紧的。
+\end{lemma}
+
+\begin{proof}
+由定义立即可得。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-in-quasi-compact}
+拟紧拓扑空间的闭子集是拟紧的。
+\end{lemma}
+
+\begin{proof}
+设 $E \subset X$ 为拟紧空间 $X$ 的闭子集。设 $E = \bigcup V_j$
+为一个开覆盖。选取开集 $U_j \subset X$，使得 $V_j = E \cap U_j$。
+则 $X = (X \setminus E) \cup \bigcup U_j$ 是 $X$ 的开覆盖。因此，对某个
+$n$ 及某些指标 $j_i$，有
+$X = (X \setminus E) \cup U_{j_1} \cup \ldots \cup U_{j_n}$。
+于是按所需，$E = V_{j_1} \cup \ldots \cup V_{j_n}$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-quasi-compact-in-Hausdorff}
+设 $X$ 为 Hausdorff 拓扑空间。
+\begin{enumerate}
+\item 若 $E \subset X$ 拟紧，则它是闭集。
+\item 若 $E_1, E_2 \subset X$ 是不交的拟紧子集，则存在开集
+$E_i \subset U_i$，使得 $U_1 \cap U_2 = \emptyset$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。设 $x \in X$，且 $x \not \in E$。对每个 $e \in E$，
+都可以找到不交的开集 $V_e$ 与 $U_e$，使得 $e \in V_e$ 且
+$x \in U_e$。因为 $E \subset \bigcup V_e$，可以找到有限多个
+$e_1, \ldots, e_n$，使得 $E \subset V_{e_1} \cup \ldots \cup V_{e_n}$。
+于是 $U = U_{e_1} \cap \ldots \cap U_{e_n}$ 是 $x$ 的一个开邻域，
+它不与 $V_{e_1} \cup \ldots \cup V_{e_n}$ 相交，特别地不与 $E$ 相交。
+所以 $E$ 是闭的。
+
+\medskip\noindent
+(2) 的证明。在 (1) 的证明中已经看到，给定 $x \in E_1$，可以找到
+开邻域 $x \in U_x$ 和一个开集 $E_2 \subset V_x$，使得
+$U_x \cap V_x = \emptyset$。由于 $E_1$ 拟紧，可以找到有限多个
+$x_i \in E_1$，使得 $E_1 \subset U = U_{x_1} \cup \ldots \cup U_{x_n}$。
+取 $V = V_{x_1} \cap \ldots \cap V_{x_n}$，证明即告完成。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-in-compact}
+设 $X$ 为拟紧 Hausdorff 空间，$E \subset X$。下列条件等价：
+(a) $E$ 在 $X$ 中闭；(b) $E$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+蕴含关系 (a) $\Rightarrow$ (b) 是引理
+\ref{topology-lemma-closed-in-quasi-compact}；蕴含关系 (b) $\Rightarrow$ (a)
+是引理 \ref{topology-lemma-quasi-compact-in-Hausdorff}。
+\end{proof}
+
+\noindent
+下面的结果其实只是拟紧性质的另一种表述。
+
+\begin{lemma}
+\label{topology-lemma-intersection-closed-in-quasi-compact}
+设 $X$ 为拟紧拓扑空间。若 $\{Z_\alpha\}_{\alpha \in A}$ 是一族闭子集，
+并且每个有限子族之交均非空，则
+$\bigcap_{\alpha \in A} Z_\alpha$ 非空。
+\end{lemma}
+
+\begin{proof}
+假设 $\bigcap_{\alpha \in A} Z_{\alpha} = \emptyset$。
+取补集可得 $\bigcup_{\alpha \in A} (X\setminus Z_{\alpha})=X$。
+因为各子集 $Z_\alpha$ 都闭，
+$\bigcup_{\alpha \in A} (X \setminus Z_{\alpha})$ 是拟紧空间 $X$ 的
+开覆盖。因此存在有限子集 $J \subset A$，使得
+$X = \bigcup_{\alpha \in J} (X\setminus Z_{\alpha})$。
+其补集于是为空，即 $\bigcap_{\alpha \in J} Z_{\alpha} = \emptyset$。
+这证明存在有限子族 $\{Z_{\alpha}\}_{\alpha \in J}$ 满足
+$\bigcap_{\alpha \in J} Z_{\alpha}=\emptyset$；由逆否命题得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-image-quasi-compact}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。
+\begin{enumerate}
+\item 若 $X$ 拟紧，则 $f(X)$ 拟紧。
+\item 若 $f$ 拟紧，则 $f(X)$ 逆紧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $f(X) = \bigcup V_i$ 是开覆盖，则
+$X = \bigcup f^{-1}(V_i)$ 是开覆盖。因此，若 $X$ 拟紧，则对某些
+$i_1, \ldots, i_n \in I$，有
+$X = f^{-1}(V_{i_1}) \cup \ldots \cup f^{-1}(V_{i_n})$，从而
+$f(X) = V_{i_1} \cup \ldots \cup V_{i_n}$。这证明 (1)。
+假设 $f$ 拟紧，并设 $V \subset Y$ 为拟紧开集。则 $f^{-1}(V)$ 拟紧，
+故由 (1)，$f(f^{-1}(V)) = f(X) \cap V$ 拟紧。因此 $f(X)$ 逆紧。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-quasi-compact-closed-point}
+设 $X$ 为拓扑空间。假设
+\begin{enumerate}
+\item $X$ 非空，
+\item $X$ 拟紧，并且
+\item $X$ 为 Kolmogorov 空间。
+\end{enumerate}
+则 $X$ 有闭点。
+\end{lemma}
+
+\begin{proof}
+考虑 $X$ 中所有单点闭包所成的集合
+$$
+\mathcal{T} =
+\{Z \subset X \mid Z = \overline{\{x\}} \text{ 对某个 }x \in X\}
+$$
+因为 $X$ 非空，它也非空。用包含关系将 $\mathcal{T}$ 视为偏序集。
+设 $Z_\alpha$（$\alpha \in A$）是 $\mathcal{T}$ 的一个全序子集。
+由引理 \ref{topology-lemma-intersection-closed-in-quasi-compact}，
+$\bigcap_{\alpha \in A} Z_\alpha \not = \emptyset$。故存在某个
+$x \in \bigcap_{\alpha \in A} Z_\alpha$，而且
+$Z = \overline{\{x\}}\in \mathcal{T}$ 是该族的一个下界。
+由 Zorn 引理，存在极小元素 $Z \in \mathcal{T}$。因为 $X$ 为
+Kolmogorov 空间，可知对某个 $x$ 有 $Z = \{x\}$，且 $x \in X$
+是闭点。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-points-quasi-compact}
+设 $X$ 为拟紧 Kolmogorov 空间。则 $X$ 的闭点集合 $X_0$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+设 $X_0 = \bigcup U_{i, 0}$ 为开覆盖。对某个开集 $U_i \subset X$，
+写成 $U_{i, 0} = X_0 \cap U_i$。考虑 $\bigcup U_i$ 的补集 $Z$。
+它是 $X$ 的闭子集，故拟紧（引理 \ref{topology-lemma-closed-in-quasi-compact}），
+并且是 Kolmogorov 空间。由引理 \ref{topology-lemma-quasi-compact-closed-point}，
+若 $Z$ 非空，它就会有闭点，这与 $X_0 \subset \bigcup U_i$ 矛盾。
+因此 $Z = \emptyset$ 且 $X = \bigcup U_i$。由于 $X$ 拟紧，该覆盖有
+有限子覆盖，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-connected-component-intersection}
+设 $X$ 为拓扑空间。假设
+\begin{enumerate}
+\item $X$ 拟紧，
+\item $X$ 有一个由拟紧开集组成的拓扑基，并且
+\item 两个拟紧开集之交拟紧。
+\end{enumerate}
+对任意 $x \in X$，$X$ 中包含 $x$ 的连通分支，等于 $X$ 中所有包含
+$x$ 的既开又闭子集之交。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 为包含 $x$ 的连通分支。设
+$S = \bigcap_{\alpha \in A} Z_\alpha$ 为 $X$ 中所有包含 $x$ 的既开又闭
+子集 $Z_\alpha$ 之交。注意 $S$ 在 $X$ 中闭。还要注意，任意有限多个
+$Z_\alpha$ 之交仍是某个 $Z_\alpha$。因为 $T$ 连通且 $x \in T$，有
+$T \subset S$。只需证明 $S$ 连通。若不然，则存在不交并分解
+$S = B \amalg C$，其中 $B$ 与 $C$ 在 $S$ 中既开又闭。特别地，
+$B$ 与 $C$ 在 $X$ 中闭，所以由引理 \ref{topology-lemma-closed-in-quasi-compact}
+及假设 (1)，二者拟紧。由假设 (2)，存在拟紧开集 $U, V \subset X$，
+使得 $B = S \cap U$ 且 $C = S \cap V$（细节从略）。于是
+$U \cap V \cap S = \emptyset$，故
+$\bigcap_\alpha U \cap V \cap Z_\alpha = \emptyset$。
+由假设 (3)，交 $U \cap V$ 拟紧。由引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact}，对某个
+$\alpha' \in A$，有 $U \cap V \cap Z_{\alpha'} = \emptyset$。
+因为 $X \setminus (U \cup V)$ 与 $S$ 不交，且在 $X$ 中闭、因而拟紧，
+可以使用同一引理，看出对某个 $\alpha'' \in A$ 有
+$Z_{\alpha''} \subset U \cup V$。于是
+$Z_\alpha = Z_{\alpha'} \cap Z_{\alpha''}$ 包含于 $U \cup V$，
+并与 $U \cap V$ 不交。所以
+$Z_\alpha = U \cap Z_\alpha \amalg V \cap Z_\alpha$ 是两个开部分的不交并，
+从而 $U \cap Z_\alpha$ 与 $V \cap Z_\alpha$ 在 $X$ 中既开又闭。
+因此，若比如 $x \in B$，则可见 $S \subset U \cap Z_\alpha$，
+从而 $C = \emptyset$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-connected-component-intersection-compact-Hausdorff}
+设 $X$ 为拓扑空间。假设 $X$ 拟紧且为 Hausdorff 空间。
+对任意 $x \in X$，$X$ 中包含 $x$ 的连通分支，等于 $X$ 中所有包含
+$x$ 的既开又闭子集之交。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 为包含 $x$ 的连通分支。设
+$S = \bigcap_{\alpha \in A} Z_\alpha$ 为 $X$ 中所有包含 $x$ 的既开又闭
+子集 $Z_\alpha$ 之交。注意 $S$ 在 $X$ 中闭。还要注意，任意有限多个
+$Z_\alpha$ 之交仍是某个 $Z_\alpha$。因为 $T$ 连通且 $x \in T$，有
+$T \subset S$。只需证明 $S$ 连通。若不然，则存在不交并分解
+$S = B \amalg C$，其中 $B$ 与 $C$ 在 $S$ 中既开又闭。特别地，
+$B$ 与 $C$ 在 $X$ 中闭，所以由引理 \ref{topology-lemma-closed-in-quasi-compact}
+可知二者拟紧。由引理 \ref{topology-lemma-quasi-compact-in-Hausdorff}，
+存在不交的开集 $U, V \subset X$，使得 $B \subset U$ 且 $C \subset V$。
+于是 $X \setminus U \cup V$ 在 $X$ 中闭，故拟紧
+（引理 \ref{topology-lemma-closed-in-quasi-compact}）。由引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact}，对某个 $\alpha$ 有
+$(X \setminus U \cup V) \cap Z_\alpha = \emptyset$。换言之，
+$Z_\alpha \subset U \cup V$。因此
+$Z_\alpha = Z_\alpha \cap V \amalg Z_\alpha \cap U$ 是两个开部分的不交并，
+从而 $U \cap Z_\alpha$ 与 $V \cap Z_\alpha$ 在 $X$ 中既开又闭。
+因此，若比如 $x \in B$，则可见 $S \subset U \cap Z_\alpha$，
+从而 $C = \emptyset$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-union-connected-components}
+设 $X$ 为拓扑空间。假设
+\begin{enumerate}
+\item $X$ 拟紧，
+\item $X$ 有一个由拟紧开集组成的拓扑基，并且
+\item 两个拟紧开集之交拟紧。
+\end{enumerate}
+对一个子集 $T \subset X$，下列条件等价：
+\begin{enumerate}
+\item[(a)] $T$ 是 $X$ 的若干既开又闭子集之交，并且
+\item[(b)] $T$ 在 $X$ 中闭，且是 $X$ 的若干连通分支之并。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然 (a) 蕴含 (b)。假设 (b)。设 $x \in X$，且 $x \not \in T$。
+设 $x \in C \subset X$ 为 $X$ 中包含 $x$ 的连通分支。由引理
+\ref{topology-lemma-connected-component-intersection}，可见
+$C = \bigcap V_\alpha$ 是 $X$ 中所有包含 $C$ 的既开又闭子集
+$V_\alpha$ 之交。特别地，任意两项之交 $V_\alpha \cap V_\beta$
+仍作为某个 $V_\alpha$ 出现。因为 $T$ 是 $X$ 的若干连通分支之并，
+$C \cap T = \emptyset$。所以
+$T \cap \bigcap V_\alpha = \emptyset$。由于 $T$ 是拟紧空间的闭子集，
+所以它拟紧（见引理 \ref{topology-lemma-closed-in-quasi-compact}）。由引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact}，可知对某个 $\alpha$ 有
+$T \cap V_\alpha = \emptyset$。对这个 $\alpha$，
+$U_\alpha = X \setminus V_\alpha$ 是 $X$ 的一个既开又闭的子集，
+它包含 $T$ 但不含 $x$。本引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-Noetherian-quasi-compact}
+设 $X$ 为 Noether 拓扑空间。
+\begin{enumerate}
+\item 空间 $X$ 拟紧。
+\item $X$ 的任意子集都逆紧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $X = \bigcup U_i$ 是由集合 $I$ 索引的 $X$ 的开覆盖，并且不存在
+有限开覆盖对它的加细。按下述方式归纳选取 $I$ 中的元素
+$i_1, i_2, \ldots $：选取 $i_{n + 1}$，使得 $U_{i_{n + 1}}$
+不包含于 $U_{i_1} \cup \ldots \cup U_{i_n}$。于是得到闭子集的严格
+无穷降链
+$X \supset (X \setminus U_{i_1}) \supset
+(X \setminus U_{i_1} \cup U_{i_2}) \supset \ldots$。
+这与 $X$ 为 Noether 空间矛盾，故第一个断言得证。第二个断言现在很清楚，
+因为由引理 \ref{topology-lemma-Noetherian}，$X$ 的每个子集都是 Noether 空间。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-quasi-compact-locally-Noetherian-Noetherian}
+拟紧的局部 Noether 空间是 Noether 空间。
+\end{lemma}
+
+\begin{proof}
+这些条件立即蕴含 $X$ 有一个由有限多个 Noether 子集组成的覆盖，故由引理
+\ref{topology-lemma-finite-union-Noetherian}，该空间是 Noether 空间。
+\end{proof}
+
+\begin{lemma}[Alexander 子基定理]
+\label{topology-lemma-subbase-theorem}
+设 $X$ 为拓扑空间，$\mathcal{B}$ 为 $X$ 的一个子基。若每个由
+$\mathcal{B}$ 中元素组成的 $X$ 的覆盖都有有限加细，则 $X$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+假设 $X$ 有一个不存在有限加细的开覆盖。利用 Zorn 引理，可以选取
+一个不存在有限加细的极大开覆盖
+$X = \bigcup_{i \in I} U_i$（细节从略）。换言之，若 $U \subset X$
+是一个没有作为某个 $U_i$ 出现的开集，则覆盖
+$X = U \cup \bigcup_{i \in I} U_i$ 确实有有限加细。
+令 $I' \subset I$ 为满足 $U_i \in \mathcal{B}$ 的指标集合。
+则 $\bigcup_{i \in I'} U_i \not = X$，否则由对 $\mathcal{B}$ 的假设，
+会得到覆盖 $X$ 的有限加细。选取 $x \in X$，使得
+$x \not \in \bigcup_{i \in I'} U_i$。选取 $i \in I$ 使 $x \in U_i$。
+选取 $V_1, \ldots, V_n \in \mathcal{B}$，使得
+$x \in V_1 \cap \ldots \cap V_n \subset U_i$。这是可行的，因为
+$\mathcal{B}$ 是 $X$ 的一个子基。注意 $V_j$ 不作为某个 $U_i$ 出现。
+由所选覆盖的极大性，对每个 $j$，存在
+$i_{j, 1}, \ldots, i_{j, n_j} \in I$，使得
+$X = V_j \cup U_{i_{j, 1}} \cup \ldots \cup U_{i_{j, n_j}}$。
+因为 $V_1 \cap \ldots \cap V_n \subset U_i$，可得
+$X = U_i \cup \bigcup U_{i_{j, l}}$，矛盾。
+\end{proof}
+
+% P01-ERRATA-E0016: source lines 1882 and 1884 omit parentheses around U \cup V in two set complements; canonical formulas retained.
+% P01-ERRATA-E0017: source line 1947 writes X \setminus U_{i_1} \cup U_{i_2} instead of the complement of the growing union; canonical formula retained.
+\section{局部拟紧空间}
+\label{topology-section-locally-quasi-compact}
+
+\noindent
+回忆一点：一个点的邻域未必是开集。
+
+\begin{definition}
+\label{topology-definition-locally-quasi-compact}
+若拓扑空间 $X$ 的每个点都有一个拟紧邻域基本系，则称该空间
+{\it 局部拟紧}\footnote{这可能不是标准术语。文献中还使用下列定义：
+(1) 每个点都有某个拟紧邻域；(2) 每个点都有一个闭拟紧邻域。
+概形具有如下性质：每个点都有一个由开拟紧邻域组成的邻域基本系。}。
+\end{definition}
+
+\noindent
+文献中的{\it 局部紧空间}一词通常指下列引理中的空间。
+
+\begin{lemma}
+\label{topology-lemma-locally-quasi-compact-Hausdorff}
+Hausdorff 空间局部拟紧，当且仅当每个点都有一个拟紧邻域。
+\end{lemma}
+
+\begin{proof}
+设 $X$ 为 Hausdorff 空间。设 $x \in X$，并设
+$x \in E \subset X$ 为一个拟紧邻域。由引理
+\ref{topology-lemma-quasi-compact-in-Hausdorff}，$E$ 闭。假设
+$x \in U \subset X$ 是 $x$ 的一个开邻域。则 $Z = E \setminus U$
+是 $E$ 的一个不含 $x$ 的闭子集。由引理
+\ref{topology-lemma-quasi-compact-in-Hausdorff}，可以找到 $E$ 的一对不交开子集
+$W, V \subset E$，使得 $x \in V$ 且 $Z \subset W$。
+于是 $\overline{V} \subset E$ 是 $x$ 的一个包含于 $E \cap U$ 的闭邻域。
+此外，$\overline{V}$ 作为 $E$ 的闭子集是拟紧的
+（引理 \ref{topology-lemma-closed-in-quasi-compact}）。由此得到 $x$ 的一个
+拟紧邻域基本系。
+\end{proof}
+
+\begin{lemma}[Baire 纲定理]
+\label{topology-lemma-baire-category-locally-compact}
+设 $X$ 为局部拟紧 Hausdorff 空间。设 $U_n \subset X$（$n \geq 1$）
+为稠密开子集。则 $\bigcap_{n \geq 1} U_n$ 在 $X$ 中稠密。
+\end{lemma}
+
+\begin{proof}
+将 $U_n$ 替换为 $\bigcap_{i = 1, \ldots, n} U_i$ 后，可以假设
+$U_1 \supset U_2 \supset \ldots$。设 $x \in X$。我们将证明 $x$ 属于
+$\bigcap_{n \geq 1} U_n$ 的闭包。为此，设 $E$ 为 $x$ 的一个邻域。
+为证明 $E \cap \bigcap_{n \geq 1} U_n$ 非空，可以把 $E$ 换成一个
+更小的邻域。将 $E$ 这样替换后，可以假设 $E$ 拟紧。
+
+\medskip\noindent
+置 $x_0 = x$ 且 $E_0 = E$。下面归纳选取点
+$x_i \in E_{i - 1} \cap U_i$，以及 $x_i$ 的拟紧邻域 $E_i$，使得
+$E_i \subset E_{i - 1} \cap U_i$。因为 $X$ 为 Hausdorff 空间，
+各子集 $E_i \subset X$ 都是闭的
+（引理 \ref{topology-lemma-quasi-compact-in-Hausdorff}）。又因各 $E_i$ 非空，
+由引理 \ref{topology-lemma-intersection-closed-in-quasi-compact} 可知
+$\bigcap_{i \geq 1} E_i$ 非空。由于
+$\bigcap_{i \geq 1} E_i \subset E \cap \bigcap_{n \geq 1} U_n$，
+本引理得证。
+
+\medskip\noindent
+基础情形 $i = 0$ 已在上面完成。现作归纳步骤。因为 $E_{i - 1}$ 是
+$x_{i - 1}$ 的邻域，可以找到开集
+$x_{i - 1} \in W \subset E_{i - 1}$。由于 $U_i$ 在 $X$ 中稠密，
+$W \cap U_i$ 非空。任取 $x_i \in W \cap U_i$。由局部拟紧空间的定义，
+可以找到 $x_i$ 的一个包含于 $W \cap U_i$ 的拟紧邻域 $E_i$。
+于是按所需，$E_i \subset E_{i - 1} \cap U_i$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-relatively-compact-refinement}
+设 $X$ 为 Hausdorff 且拟紧的空间。设
+$X = \bigcup_{i \in I} U_i$ 为开覆盖。则存在开覆盖
+$X = \bigcup_{i \in I} V_i$，使得对所有 $i$ 都有
+$\overline{V_i} \subset U_i$。
+\end{lemma}
+
+\begin{proof}
+设 $x \in X$。选取 $i(x) \in I$，使得 $x \in U_{i(x)}$。
+因为 $X \setminus U_{i(x)}$ 与 $\{x\}$ 是 $X$ 的不交闭子集，
+由引理 \ref{topology-lemma-closed-in-quasi-compact} 和
+\ref{topology-lemma-quasi-compact-in-Hausdorff}，存在 $x$ 的开邻域 $U_x$，
+其闭包与 $X \setminus U_{i(x)}$ 不交。所以
+$\overline{U_x} \subset U_{i(x)}$。因为 $X$ 拟紧，存在有限多个点
+$x_1, \ldots, x_m$，使得
+$X = U_{x_1} \cup \ldots \cup U_{x_m}$。令
+$V_i = \bigcup_{i = i(x_j)} U_{x_j}$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-refine-covering}
+设 $X$ 为 Hausdorff 且拟紧的空间。设
+$X = \bigcup_{i \in I} U_i$ 为开覆盖。假设给定整数 $p \geq 0$，
+并且对 $I$ 的每个 $(p + 1)$ 元组 $i_0, \ldots, i_p$，都给定开覆盖
+$U_{i_0} \cap \ldots \cap U_{i_p} = \bigcup W_{i_0 \ldots i_p, k}$。
+则存在开覆盖 $X = \bigcup_{j \in J} V_j$ 与映射
+$\alpha : J \to I$，使得 $\overline{V_j} \subset U_{\alpha(j)}$，
+并且对某个 $k$，每个 $V_{j_0} \cap \ldots \cap V_{j_p}$ 都包含于
+$W_{\alpha(j_0) \ldots \alpha(j_p), k}$ 中。
+\end{lemma}
+
+\begin{proof}
+因为 $X$ 拟紧，可以归约到 $I$ 有限的情形（细节从略）。
+对有限的 $I$，关于 $p$ 归纳证明。基础情形 $p = 0$ 立即由取引理
+\ref{topology-lemma-relatively-compact-refinement} 中的一个覆盖得到，该覆盖加细开覆盖
+$X = \bigcup W_{i_0, k}$。
+
+\medskip\noindent
+归纳步骤。假设本引理对 $p - 1$ 已证。对 $I$ 的所有 $p$ 元组
+$i'_0, \ldots, i'_{p - 1}$，令
+$U_{i'_0} \cap \ldots \cap U_{i'_{p - 1}} =
+\bigcup W_{i'_0 \ldots i'_{p - 1}, k}$ 为如下这些覆盖的一个共同加细：
+$U_{i_0} \cap \ldots \cap U_{i_p} = \bigcup W_{i_0 \ldots i_p, k}$，
+其中相应的 $(p + 1)$ 元组满足
+$\{i'_0, \ldots, i'_{p - 1}\} = \{i_0, \ldots, i_p\}$（集合相等）。
+（因为 $I$ 有限，这样的覆盖只有有限多个。）由归纳假设，对这些开集存在
+一个解，记为 $X = \bigcup V_j$ 与 $\alpha : J \to I$。
+此时，覆盖 $X = \bigcup_{j \in J} V_j$ 与 $\alpha$ 满足
+$\overline{V_j} \subset U_{\alpha(j)}$；并且只要
+$\alpha(j_0), \ldots, \alpha(j_p)$ 中有重复项，对某个 $k$，每个
+$V_{j_0} \cap \ldots \cap V_{j_p}$ 都包含于
+$W_{\alpha(j_0) \ldots \alpha(j_p), k}$。当然，可以且确实假设 $J$ 有限。
+
+\medskip\noindent
+固定两两不同的 $i_0, \ldots, i_p \in I$。考虑 $(p + 1)$ 元组
+$j_0, \ldots, j_p \in J$，它满足
+$i_0 = \alpha(j_0), \ldots, i_p = \alpha(j_p)$，并且
+$V_{j_0} \cap \ldots \cap V_{j_p}$ 对任意 $k$ 都{\bf 不}包含于
+$W_{\alpha(j_0) \ldots \alpha(j_p), k}$。令 $N$ 为这种
+$(p + 1)$ 元组的个数。我们说明如何减小 $N$。由于
+$$
+\overline{V_{j_0}} \cap \ldots \cap \overline{V_{j_p}} \subset
+U_{i_0} \cap \ldots \cap U_{i_p} = \bigcup W_{i_0 \ldots i_p, k}
+$$
+可以找到有限集 $K = \{k_1, \ldots, k_t\}$，使左端包含于
+$\bigcup_{k \in K} W_{i_0 \ldots i_p, k}$。于是考虑开覆盖
+$$
+V_{j_0} =
+(V_{j_0} \setminus (\overline{V_{j_1}} \cap \ldots \cap \overline{V_{j_p}}))
+\cup (\bigcup\nolimits_{k \in K} V_{j_0} \cap W_{i_0 \ldots i_p, k})
+$$
+右端第一个开集与 $V_{j_1} \cap \ldots \cap V_{j_p}$ 之交为空，
+而右端其他开集 $V_{j_0, k}$ 满足
+$V_{j_0, k} \cap V_{j_1} \ldots \cap V_{j_p} \subset
+W_{\alpha(j_0) \ldots \alpha(j_p), k}$。令 $J' = J \amalg K$。
+对 $j \in J$，若 $j \not = j_0$，令 $V'_j = V_j$；并令
+$V'_{j_0} =
+V_{j_0} \setminus (\overline{V_{j_1}} \cap \ldots \cap \overline{V_{j_p}})$。
+对 $k \in K$，令 $V'_k = V_{j_0, k}$。最后，映射
+$\alpha' : J' \to I$ 在 $J$ 上由 $\alpha$ 给出，并将 $K$ 的每个元素
+映到 $i_0$。简单检查可见，经此替换后 $N$ 减少一。
+重复此过程 $N$ 次，就达到 $N = 0$ 的情形。
+
+\medskip\noindent
+为完成证明，对下述数目 $M$ 作归纳：具有两两不同分量的
+$(p + 1)$ 元组 $i_0, \ldots, i_p \in I$ 的数目，其中存在
+$(p + 1)$ 元组 $j_0, \ldots, j_p \in J$，满足
+$i_0 = \alpha(j_0), \ldots, i_p = \alpha(j_p)$，且
+$V_{j_0} \cap \ldots \cap V_{j_p}$ 对任意 $k$ 都{\bf 不}包含于
+$W_{\alpha(j_0) \ldots \alpha(j_p), k}$。为此，断言上一段所作的操作
+不会增大 $M$。这形式地来自如下事实：映射 $\alpha' : J' \to I$
+通过某个映射 $\beta : J' \to J$ 分解，并且
+$V'_{j'} \subset V_{\beta(j')}$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-lift-covering-of-a-closed}
+设 $X$ 为 Hausdorff 且局部拟紧的空间。设 $Z \subset X$ 为拟紧
+（因而闭的）子集。假设给定整数 $p \geq 0$、集合 $I$、对每个
+$i \in I$ 给定开集 $U_i \subset X$，并且对 $I$ 的每个
+$(p + 1)$ 元组 $i_0, \ldots, i_p$ 给定开集
+$W_{i_0 \ldots i_p} \subset U_{i_0} \cap \ldots \cap U_{i_p}$，使得
+\begin{enumerate}
+\item $Z \subset \bigcup U_i$，并且
+\item 对每个 $i_0, \ldots, i_p$，有
+$W_{i_0 \ldots i_p} \cap Z = U_{i_0} \cap \ldots \cap U_{i_p} \cap Z$。
+\end{enumerate}
+则存在 $X$ 的开集 $V_i$，使得 $Z \subset \bigcup V_i$，
+对所有 $i$ 都有 $\overline{V_i} \subset U_i$，并且对所有
+$(p + 1)$ 元组 $i_0, \ldots, i_p$，都有
+$V_{i_0} \cap \ldots \cap V_{i_p} \subset W_{i_0 \ldots i_p}$。
+\end{lemma}
+
+\begin{proof}
+因为 $Z$ 拟紧，可以归约到 $I$ 有限的情形（细节从略）。
+因为 $X$ 局部拟紧且 $Z$ 拟紧，可以找到拟紧邻域 $Z \subset E$，
+即 $E$ 拟紧并且包含 $Z$ 在 $X$ 中的一个开邻域。若将 $X$ 替换为 $E$
+后能证明该结果，则原结果随即成立。因此可假设 $X$ 拟紧。
+
+\medskip\noindent
+在 $I$ 有限且 $X$ 拟紧的情形，关于 $p$ 归纳证明。基础情形为
+$p = 0$。此时 $X = (X \setminus Z) \cup \bigcup W_i$。由引理
+\ref{topology-lemma-relatively-compact-refinement}，可以找到由开集组成的覆盖
+$X = V \cup \bigcup V_i$，其中 $V_i \subset W_i$、
+$V \subset X \setminus Z$，并且对所有 $i$，
+$\overline{V_i} \subset W_i$。于是得到引理所提问题的一个解。
+
+\medskip\noindent
+归纳步骤。假设本引理对 $p - 1$ 已证。令
+$W_{j_0 \ldots j_{p - 1}}$ 等于所有满足
+$\{j_0, \ldots, j_{p - 1}\} = \{i_0, \ldots, i_p\}$（集合相等）的
+$W_{i_0 \ldots i_p}$ 之交。由归纳假设，对这些开集存在一个解，记为
+$V_i \subset U_i$。由 $W_{j_0 \ldots j_{p - 1}}$ 的选取方式可知，
+对所有满足某个 $0 \leq a < b \leq p$ 有 $i_a = i_b$ 的
+$(p + 1)$ 元组 $i_0, \ldots, i_p$，都有
+$V_{i_0} \cap \ldots \cap V_{i_p} \subset W_{i_0 \ldots i_p}$。
+所以，仅当对某个元素两两不同的 $(p + 1)$ 元组
+$i_0, \ldots, i_p$ 有
+$V_{i_0} \cap \ldots \cap V_{i_p} \not \subset W_{i_0 \ldots i_p}$ 时，
+才需修改 $V_i$ 的选取。在这种情形，有
+$$
+T =
+\overline{V_{i_0} \cap \ldots \cap V_{i_p} \setminus W_{i_0 \ldots i_p}}
+\subset 
+\overline{V_{i_0}} \cap \ldots \cap \overline{V_{i_p}} \setminus
+W_{i_0 \ldots i_p}
+$$
+它是 $X$ 的闭子集，包含于 $U_{i_0} \cap \ldots \cap U_{i_p}$，
+并且不与 $Z$ 相交。因此可将 $V_{i_0}$ 替换为
+$V_{i_0} \setminus T$ 来“修正”该问题。对每个有问题的元组有限次重复此操作后，
+本引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-lift-covering-of-quasi-compact-hausdorff-subset}
+设 $X$ 为拓扑空间。设 $Z \subset X$ 为拟紧子集，且 $Z$ 的任意两点在
+$X$ 中都有不交开邻域。假设给定整数 $p \geq 0$、集合 $I$、对每个
+$i \in I$ 给定开集 $U_i \subset X$，并且对 $I$ 的每个
+$(p + 1)$ 元组 $i_0, \ldots, i_p$ 给定开集
+$W_{i_0 \ldots i_p} \subset U_{i_0} \cap \ldots \cap U_{i_p}$，使得
+\begin{enumerate}
+\item $Z \subset \bigcup U_i$，并且
+\item 对每个 $i_0, \ldots, i_p$，有
+$W_{i_0 \ldots i_p} \cap Z = U_{i_0} \cap \ldots \cap U_{i_p} \cap Z$。
+\end{enumerate}
+则存在 $X$ 的开集 $V_i$，使得
+\begin{enumerate}
+\item $Z \subset \bigcup V_i$，
+\item 对所有 $i$，$V_i \subset U_i$，
+\item 对所有 $i$，$\overline{V_i} \cap Z \subset U_i$，并且
+\item 对所有 $(p + 1)$ 元组 $i_0, \ldots, i_p$，有
+$V_{i_0} \cap \ldots \cap V_{i_p} \subset W_{i_0 \ldots i_p}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+因为 $Z$ 拟紧，可以归约到 $I$ 有限的情形（细节从略）。
+在 $I$ 有限的情形，关于 $p$ 归纳证明。
+
+\medskip\noindent
+基础情形为 $p = 0$。对 $z \in Z \cap U_i$ 与
+$z' \in Z \setminus U_i$，存在 $X$ 中不交的开集
+$z \in V_{z, z'}$ 与 $z' \in W_{z, z'}$。因为
+$Z \setminus U_i$ 拟紧（引理 \ref{topology-lemma-closed-in-quasi-compact}），
+可以选取有限多个 $z'_1, \ldots, z'_r$，使得
+$Z \setminus U_i \subset W_{z, z'_1} \cup \ldots \cup W_{z, z'_r}$。
+于是
+$V_z = V_{z, z'_1} \cap \ldots \cap V_{z, z'_r} \cap U_i$
+是 $z$ 的一个包含于 $U_i$ 的开邻域，并具有
+$\overline{V_z} \cap Z \subset U_i$ 的性质。由于 $z$ 与 $i$ 任意，
+并且 $Z$ 拟紧，可以找到有限列表 $z_1, i_1, \ldots, z_t, i_t$ 以及
+开集 $V_{z_j} \subset U_{i_j}$，满足
+$\overline{V_{z_j}} \cap Z \subset U_{i_j}$ 且
+$Z \subset \bigcup V_{z_j}$。于是可令
+$V_i = W_i \cap (\bigcup_{j : i = i_j} V_{z_j})$，解决 $p = 0$ 的情形。
+
+\medskip\noindent
+归纳步骤。假设本引理对 $p - 1$ 已证。令
+$W_{j_0 \ldots j_{p - 1}}$ 等于所有满足
+$\{j_0, \ldots, j_{p - 1}\} = \{i_0, \ldots, i_p\}$（集合相等）的
+$W_{i_0 \ldots i_p}$ 之交。由归纳假设，对这些开集存在一个解，记为
+$V_i \subset U_i$。由 $W_{j_0 \ldots j_{p - 1}}$ 的选取方式可知，
+对所有满足某个 $0 \leq a < b \leq p$ 有 $i_a = i_b$ 的
+$(p + 1)$ 元组 $i_0, \ldots, i_p$，都有
+$V_{i_0} \cap \ldots \cap V_{i_p} \subset W_{i_0 \ldots i_p}$。
+所以，仅当对某个元素两两不同的 $(p + 1)$ 元组
+$i_0, \ldots, i_p$ 有
+$V_{i_0} \cap \ldots \cap V_{i_p} \not \subset W_{i_0 \ldots i_p}$ 时，
+才需修改 $V_i$ 的选取。在这种情形，有
+$$
+T =
+\overline{V_{i_0} \cap \ldots \cap V_{i_p} \setminus W_{i_0 \ldots i_p}}
+\subset
+\overline{V_{i_0}} \cap \ldots \cap \overline{V_{i_p}} \setminus
+W_{i_0 \ldots i_p}
+$$
+由开集 $V_i$ 的性质 (3)，它是 $X$ 的一个不与 $Z$ 相交的闭子集。
+因此可将 $V_{i_0}$ 替换为 $V_{i_0} \setminus T$ 来“修正”该问题。
+对每个有问题的元组有限次重复此操作后，本引理得证。
+\end{proof}
+
+\section{空间的极限}
+\label{topology-section-limits}
+
+\noindent
+拓扑空间范畴具有积。具体地，若 $I$ 为集合，并且对 $i \in I$ 给定
+拓扑空间 $X_i$，就在 $\prod_{i \in I} X_i$ 上赋予{\it 积拓扑}。
+拓扑基取为形如 $\prod U_i$ 的集合，其中 $U_i \subset X_i$ 为开集，
+且除有限多个 $i$ 外都有 $U_i = X_i$。
+
+\medskip\noindent
+拓扑空间范畴具有等化子。具体地，若 $a, b : X \to Y$ 是拓扑空间的态射，
+则 $a$ 与 $b$ 的等化子是赋予诱导拓扑的子集
+$\{x \in X \mid a(x) = b(x)\} \subset X$。
+
+\begin{lemma}
+\label{topology-lemma-limits}
+拓扑空间范畴具有极限，而且到集合范畴的遗忘函子与极限交换。
+\end{lemma}
+
+\begin{proof}
+这由上面的讨论和 Categories, Lemma
+\ref{categories-lemma-limits-products-equalizers} 得出。
+从上面的描述可知，遗忘函子与极限交换。另一种看法是使用 Categories,
+Lemma \ref{categories-lemma-adjoint-exact}，并利用遗忘函子具有左伴随这一事实；
+该左伴随就是把一个集合映到相应离散拓扑空间的函子。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-describe-limits}
+设 $\mathcal{I}$ 为余滤范畴。设 $i \mapsto X_i$ 为 $\mathcal{I}$ 上的
+拓扑空间图。设 $X = \lim X_i$ 为极限，其投影映射为
+$f_i : X \to X_i$。
+\begin{enumerate}
+\item $X$ 的任意开集都形如 $\bigcup_{j \in J} f_j^{-1}(U_j)$，
+其中 $J \subset I$ 为某个子集，且 $U_j \subset X_j$ 为开集。
+\item $X$ 的任意拟紧开集都形如 $f_i^{-1}(U_i)$，其中 $i$ 为某个指标，
+且 $U_i \subset X_i$ 为某个开集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+上面给出的极限构造表明，$X \subset \prod X_i$ 并带诱导拓扑。
+$\prod X_i$ 的一个拓扑基由开集 $\prod U_i$ 构成，其中
+$U_i \subset X_i$ 开，并且除有限多个 $i$ 外都有 $U_i = X_i$。
+设 $i_1, \ldots, i_n \in \Ob(\mathcal{I})$ 是满足
+$U_{i_j} \not = X_{i_j}$ 的对象。则
+$$
+X \cap \prod U_i = f_{i_1}^{-1}(U_{i_1}) \cap \ldots \cap f_{i_n}^{-1}(U_{i_n})
+$$
+对拓扑空间的一般极限而言，这些集合构成 $X$ 上拓扑的一个基。
+不过，如果 $\mathcal{I}$ 如引理陈述中那样余滤，就可以选取
+$j \in \Ob(\mathcal{I})$ 以及态射 $j \to i_l$（$l = 1, \ldots, n$）。令
+$$
+U_j =
+(X_j \to X_{i_1})^{-1}(U_{i_1}) \cap \ldots \cap
+(X_j \to X_{i_n})^{-1}(U_{i_n})
+$$
+于是显然 $X \cap \prod U_i = f_j^{-1}(U_j)$。因此，对 $X$ 的任意开集
+$W$，存在集合 $A$、映射 $\alpha : A \to \Ob(\mathcal{I})$ 以及开集
+$U_a \subset X_{\alpha(a)}$，使得
+$W = \bigcup f_{\alpha(a)}^{-1}(U_a)$。置 $J = \Im(\alpha)$，并对
+$j \in J$ 置 $U_j = \bigcup_{\alpha(a) = j} U_a$，即可看出
+$W = \bigcup_{j \in J} f_j^{-1}(U_j)$。这证明 (1)。
+
+\medskip\noindent
+为证明 (2)，假设 $\bigcup_{j \in J} f_j^{-1}(U_j)$ 拟紧。
+则对某些 $j_1, \ldots, j_m \in J$，它等于
+$f_{j_1}^{-1}(U_{j_1}) \cup \ldots \cup f_{j_m}^{-1}(U_{j_m})$。
+因为 $\mathcal{I}$ 余滤，可以选取 $i \in \Ob(\mathcal{I})$ 和态射
+$i \to j_l$（$l = 1, \ldots, m$）。令
+$$
+U_i =
+(X_i \to X_{j_1})^{-1}(U_{j_1}) \cup \ldots \cup
+(X_i \to X_{j_m})^{-1}(U_{j_m})
+$$
+则按所需，该开集等于 $f_i^{-1}(U_i)$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-characterize-limit}
+设 $\mathcal{I}$ 为余滤范畴。设 $i \mapsto X_i$ 为 $\mathcal{I}$ 上的
+拓扑空间图。设 $X$ 为拓扑空间，并满足
+\begin{enumerate}
+\item 作为集合，$X = \lim X_i$（用 $f_i$ 表示投影映射），
+\item 对 $i \in \Ob(\mathcal{I})$ 以及开集 $U_i \subset X_i$，
+所有集合 $f_i^{-1}(U_i)$ 构成 $X$ 上拓扑的一个基。
+\end{enumerate}
+则作为拓扑空间，$X$ 是各 $X_i$ 的极限。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-describe-limits} 中对极限拓扑的描述得出。
+\end{proof}
+
+\begin{theorem}[Tychonov 定理]
+\label{topology-theorem-tychonov}
+拟紧空间的积拟紧。
+\end{theorem}
+
+\begin{proof}
+设 $I$ 为集合，并对 $i \in I$ 设 $X_i$ 为拟紧拓扑空间。
+置 $X = \prod X_i$。令 $\mathcal{B}$ 为 $X$ 的所有形如
+$U_i \times \prod_{i' \in I, i' \not = i} X_{i'}$ 的子集之集合，
+其中 $U_i \subset X_i$ 开。按构造，该族是 $X$ 上拓扑的一个子基。
+由引理 \ref{topology-lemma-subbase-theorem}，只需证明任何由 $\mathcal{B}$ 中元素
+$B_j$ 组成的覆盖 $X = \bigcup_{j \in J} B_j$ 都有有限加细。
+可以分解 $J = \coprod J_i$，使得若 $j \in J_i$，则
+$B_j = U_j \times \prod_{i' \not = i} X_{i'}$，其中
+$U_j \subset X_i$ 开。若 $X_i = \bigcup_{j \in J_i} U_j$，
+则存在有限加细，从而 $X = \bigcup_{j \in J} B_j$ 有有限加细。
+若非如此，则对每个 $i$，可以选取一点 $x_i \in X_i$，使它不属于
+$\bigcup_{j \in J_i} U_j$。但此时点 $x = (x_i)_{i \in I}$ 属于 $X$，
+却不属于 $\bigcup_{j \in J} B_j$，矛盾。
+\end{proof}
+
+\noindent
+若去掉空间 $X_i$ 为 Hausdorff 空间的假设，下面的引理不成立；参见
+Examples, Section \ref{examples-section-lim-not-quasi-compact}。
+
+\begin{lemma}
+\label{topology-lemma-inverse-limit-quasi-compact}
+设 $\mathcal{I}$ 为范畴，$i \mapsto X_i$ 为拓扑空间范畴中
+$\mathcal{I}$ 上的图。若每个 $X_i$ 都拟紧且为 Hausdorff 空间，则
+$\lim X_i$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+回忆，$\lim X_i$ 是 $\prod X_i$ 的子空间。由定理
+\ref{topology-theorem-tychonov}，该积拟紧。因此只需证明 $\lim X_i$ 是
+$\prod X_i$ 的闭子空间（引理 \ref{topology-lemma-closed-in-quasi-compact}）。
+若 $\varphi : j \to k$ 是 $\mathcal{I}$ 的一个态射，令
+$\Gamma_\varphi \subset X_j \times X_k$ 表示相应连续映射
+$X_j \to X_k$ 的图。由引理 \ref{topology-lemma-graph-closed}，该图闭。
+显然，$\lim X_i$ 是下列闭子集之交：
+$$
+\Gamma_\varphi \times \prod\nolimits_{l \not = j, k} X_l
+\subset \prod X_i
+$$
+故结论成立。
+\end{proof}
+
+\noindent
+下面的引理推广了 Categories, Lemma
+\ref{categories-lemma-nonempty-limit}，并部分推广了引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact}。
+
+\begin{lemma}
+\label{topology-lemma-nonempty-limit}
+设 $\mathcal{I}$ 为余滤范畴，$i \mapsto X_i$ 为拓扑空间范畴中
+$\mathcal{I}$ 上的图。若每个 $X_i$ 都拟紧、Hausdorff 且非空，
+则 $\lim X_i$ 非空。
+\end{lemma}
+
+\begin{proof}
+在引理 \ref{topology-lemma-inverse-limit-quasi-compact} 的证明中已经看到，
+$X = \lim X_i$ 是拟紧空间 $\prod X_i$ 内下列闭子集之交：
+$$
+Z_\varphi = \Gamma_\varphi \times \prod\nolimits_{l \not = j, k} X_l
+$$
+其中 $\varphi : j \to k$ 是 $\mathcal{I}$ 的一个态射，而
+$\Gamma_\varphi \subset X_j \times X_k$ 是相应态射 $X_j \to X_k$ 的图。
+所以由引理 \ref{topology-lemma-intersection-closed-in-quasi-compact}，只需证明这些
+子集的任意有限交非空。假设
+$\varphi_t : j_t \to k_t$（$t = 1, \ldots, n$）为 $\mathcal{I}$ 的
+有限多个态射。因为 $\mathcal{I}$ 余滤，可以选取对象 $j$，并对每个
+$t$ 选取态射 $\psi_t : j \to j_t$。对每一对 $t, t'$，如果
+(a) $j_t = j_{t'}$，或 (b) $j_t = k_{t'}$，或 (c) $k_t = k_{t'}$，
+就得到两个态射 $j \to l$；在情形 (a)、(b) 中 $l = j_t$，而在情形
+(c) 中 $l = k_t$。因为 $\mathcal{I}$ 余滤，并且序对 $(t, t')$
+只有有限多个，可以选取一个映射 $j' \to j$，使所有这些序对
+$(t, t')$ 所对应的两个态射等化。选取元素 $x \in X_{j'}$，并对每个
+$t$，令 $x_{j_t}$、相应地令 $x_{k_t}$，分别为 $x$ 在态射
+$X_{j'} \to X_j \to X_{j_t}$、相应地在态射
+$X_{j'} \to X_j \to X_{j_t} \to X_{k_t}$ 下的像。
+对任一指标 $l \in \Ob(\mathcal{I})$，若对所有 $t$ 它都不等于
+$j_t$ 或 $k_t$，则任选元素 $x_l \in X_l$（使用选择公理）。于是按构造，
+$(x_i)_{i \in \Ob(\mathcal{I})}$ 属于交集
+$$
+Z_{\varphi_1} \cap \ldots \cap Z_{\varphi_n}
+$$
+证明完成。
+\end{proof}
+
+\section{可构造集}
+\label{topology-section-constructible}
+
+\begin{definition}
+\label{topology-definition-constructible}
+设 $X$ 为拓扑空间，$E \subset X$ 为 $X$ 的一个子集。
+\begin{enumerate}
+\item 若 $E$ 是有限多个形如 $U \cap V^c$ 的子集之并，其中
+$U, V \subset X$ 在 $X$ 中开且逆紧，则称 $E$ 在 $X$ 中
+{\it 可构造}\footnote{在 EGA I 第二版 \cite{EGA1-second} 中，
+这称为“全局可构造”集，而“可构造”一词用于我们所称的局部可构造集。}。
+\item 若存在开覆盖 $X = \bigcup V_i$，使得每个 $E \cap V_i$
+在 $V_i$ 中可构造，则称 $E$ 在 $X$ 中{\it 局部可构造}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-constructible}
+可构造集族对有限交、有限并和补集封闭。
+\end{lemma}
+
+\begin{proof}
+注意，若 $U_1$、$U_2$ 在 $X$ 中开且逆紧，则 $U_1 \cup U_2$ 也如此，
+因为 $X$ 的两个拟紧子集之并拟紧。$U_1 \cap U_2$ 也逆紧。
+事实上，假设 $U \subset X$ 是拟紧开集；因为 $U_2$ 在 $X$ 中逆紧，
+$U_2 \cap U$ 拟紧；又因为 $U_1$ 在 $X$ 中逆紧，可知
+$U_1 \cap (U_2 \cap U)$ 拟紧。由此形式地可证：可构造集的补集可构造，
+有限多个可构造集之并可构造，而有限多个可构造集之交可构造。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-inverse-images-constructibles}
+设 $f : X \to Y$ 为拓扑空间间的连续映射。如果 $Y$ 的每个逆紧开子集的逆像
+在 $X$ 中逆紧，则可构造集的逆像可构造。
+\end{lemma}
+
+\begin{proof}
+这是因为 $f^{-1}(U \cap V^c) = f^{-1}(U) \cap f^{-1}(V)^c$，
+再结合可构造集的定义即可。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-open-immersion-constructible-inverse-image}
+设 $U \subset X$ 为开集。对可构造集 $E \subset X$，交集
+$E \cap U$ 在 $U$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+假设 $V \subset X$ 在 $X$ 中开且逆紧。由引理
+\ref{topology-lemma-inverse-images-constructibles}，只需证明 $V \cap U$ 在 $U$
+中逆紧。为此，设 $W \subset U$ 开且拟紧。则 $W$ 在 $X$ 中也开且拟紧。
+因为 $V$ 在 $X$ 中逆紧，故 $V \cap W = V \cap U \cap W$ 拟紧。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-quasi-compact-open-immersion-constructible-image}
+设 $U \subset X$ 为逆紧开集，$E \subset U$。若 $E$ 在 $U$ 中可构造，
+则 $E$ 在 $X$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+假设 $V, W \subset U$ 在 $U$ 中开且逆紧。则 $V, W$ 在 $X$ 中开且逆紧
+（引理 \ref{topology-lemma-composition-quasi-compact}）。因此
+$V \cap (U \setminus W) = V \cap (X \setminus W)$ 在 $X$ 中可构造。
+又因 $U$ 的每个可构造子集都是有限多个形如
+$V \cap (U \setminus W)$ 的子集之并，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-collate-constructible}
+设 $X$ 为拓扑空间，$E \subset X$ 为子集。设
+$X = V_1 \cup \ldots \cup V_m$ 为由逆紧开集组成的有限覆盖。
+则 $E$ 在 $X$ 中可构造，当且仅当对每个 $j = 1, \ldots, m$，
+$E \cap V_j$ 在 $V_j$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+若 $E$ 在 $X$ 中可构造，则由引理
+\ref{topology-lemma-open-immersion-constructible-inverse-image}，对所有 $j$，
+$E \cap V_j$ 在 $V_j$ 中可构造。反之，假设对每个
+$j = 1, \ldots, m$，$E \cap V_j$ 在 $V_j$ 中可构造。由引理
+\ref{topology-lemma-quasi-compact-open-immersion-constructible-image}，
+$E = \bigcup E \cap V_j$ 是可构造集的有限并，因而可构造。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-intersect-constructible-with-closed}
+设 $X$ 为拓扑空间。设 $Z \subset X$ 为闭子集，并且
+$X \setminus Z$ 拟紧。则对可构造集 $E \subset X$，交集
+$E \cap Z$ 在 $Z$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+假设 $V \subset X$ 在 $X$ 中开且逆紧。由引理
+\ref{topology-lemma-inverse-images-constructibles}，只需证明 $V \cap Z$ 在 $Z$
+中逆紧。为此，设 $W \subset Z$ 开且拟紧。子集
+$W' = W \cup (X \setminus Z)$ 拟紧、开，并且 $W = Z \cap W'$。
+于是 $V \cap Z \cap W = V \cap Z \cap W'$ 是拟紧开集
+$V \cap W'$ 的闭子集，因为 $V$ 在 $X$ 中逆紧。因此由引理
+\ref{topology-lemma-closed-in-quasi-compact}，$V \cap Z \cap W$ 拟紧。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-intersect-constructible-with-retrocompact}
+设 $X$ 为拓扑空间，$T \subset X$ 为子集。假设
+\begin{enumerate}
+\item $T$ 在 $X$ 中逆紧，
+\item 拟紧开集构成 $X$ 上拓扑的一个基。
+\end{enumerate}
+则对可构造集 $E \subset X$，交集 $E \cap T$ 在 $T$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+假设 $V \subset X$ 在 $X$ 中开且逆紧。由引理
+\ref{topology-lemma-inverse-images-constructibles}，只需证明 $V \cap T$ 在 $T$
+中逆紧。为此，设 $W \subset T$ 开且拟紧。由假设 (2)，可以找到
+拟紧开集 $W' \subset X$，使得 $W = T \cap W'$（细节从略）。
+于是 $V \cap T \cap W = V \cap T \cap W'$ 是 $T$ 与拟紧开集
+$V \cap W'$ 之交，因为 $V$ 在 $X$ 中逆紧。因此
+$V \cap T \cap W$ 拟紧。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-constructible-image}
+设 $Z \subset X$ 为闭子集，其补集为逆紧开集。设 $E \subset Z$。
+若 $E$ 在 $Z$ 中可构造，则 $E$ 在 $X$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+假设 $V \subset Z$ 在 $Z$ 中开且逆紧。考虑 $X$ 的开子集
+$\tilde V = V \cup (X \setminus Z)$。设 $W \subset X$ 开且拟紧。则
+$$
+W \cap \tilde V =
+\left(V \cap W\right) \cup \left((X \setminus Z) \cap W\right).
+$$
+第一部分拟紧，因为 $V \cap W = V \cap (Z \cap W)$，且
+$(Z \cap W)$ 在 $Z$ 中开且拟紧
+（引理 \ref{topology-lemma-closed-in-quasi-compact}），而 $V$ 在 $Z$ 中逆紧。
+第二部分拟紧，因为 $(X \setminus Z)$ 在 $X$ 中逆紧。由此可知
+$\tilde V$ 在 $X$ 中逆紧。因此，若 $V_1, V_2 \subset Z$ 开且逆紧，
+则
+$$
+V_1 \cap (Z \setminus V_2) = \tilde V_1 \cap (X \setminus \tilde V_2)
+$$
+在 $X$ 中可构造。又因 $Z$ 的每个可构造子集都是有限多个形如
+$V_1 \cap (Z \setminus V_2)$ 的子集之并，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-constructible-is-retrocompact}
+设 $X$ 为拓扑空间。$X$ 的每个可构造子集都逆紧。
+\end{lemma}
+
+\begin{proof}
+设 $E = \bigcup_{i = 1, \ldots, n} U_i \cap V_i^c$，其中 $U_i, V_i$
+在 $X$ 中开且逆紧。设 $W \subset X$ 为拟紧开集。则
+$E \cap W = \bigcup_{i = 1, \ldots, n} U_i \cap V_i^c \cap W$。
+所以，只需证明：若 $U, V$ 开且逆紧，而 $W$ 开且拟紧，则
+$U \cap V^c \cap W$ 拟紧。这是因为 $U \cap V^c \cap W$ 是拟紧集
+$U \cap W$ 的闭子集，故可应用引理
+\ref{topology-lemma-closed-in-quasi-compact}。
+\end{proof}
+
+\noindent
+问题：若仅假设 $X$ 是拟紧拓扑空间，下面的引理是否仍然成立？
+与引理 \ref{topology-lemma-intersect-constructible-with-closed} 比较。
+
+\begin{lemma}
+\label{topology-lemma-intersect-constructible-with-constructible}
+设 $X$ 为拓扑空间。假设 $X$ 有一个由拟紧开集组成的基。
+若 $E, E'$ 在 $X$ 中可构造，则交集 $E \cap E'$ 在 $E$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{topology-lemma-intersect-constructible-with-retrocompact} 与
+\ref{topology-lemma-constructible-is-retrocompact}。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-constructible-in-constructible}
+设 $X$ 为拓扑空间。假设 $X$ 有一个由拟紧开集组成的基。
+设 $E$ 在 $X$ 中可构造，而 $F \subset E$ 在 $E$ 中可构造。
+则 $F$ 在 $X$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+注意，$X$ 的任意逆紧子集 $T$ 的诱导拓扑都有一个由拟紧开集组成的基。
+特别地，这对任意可构造子集成立
+（引理 \ref{topology-lemma-constructible-is-retrocompact}）。写成
+$E = E_1 \cup \ldots \cup E_n$，其中 $E_i = U_i \cap V_i^c$，而
+$U_i, V_i \subset X$ 开且逆紧。注意，由引理
+\ref{topology-lemma-intersect-constructible-with-constructible}，
+$E_i = E \cap E_i$ 在 $E$ 中可构造。再由引理
+\ref{topology-lemma-intersect-constructible-with-constructible}，
+$F \cap E_i$ 在 $E_i$ 中可构造。所以，只需证明
+$E = U \cap V^c$ 的情形，其中 $U, V \subset X$ 开且逆紧。
+在这种情形，包含映射 $E \subset X$ 是复合
+$$
+E = U \cap V^c \to U \to X
+$$
+然后可将引理 \ref{topology-lemma-closed-constructible-image} 应用于第一个包含，
+将引理 \ref{topology-lemma-quasi-compact-open-immersion-constructible-image}
+应用于第二个包含。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-locally-closed-constructible-image}
+设 $X$ 为拟紧拓扑空间，它有一个由拟紧开集组成的基，并且任意两个拟紧开集
+之交拟紧。设 $T \subset X$ 为局部闭子集，且 $T$ 拟紧，而 $T^c$
+在 $X$ 中逆紧。则 $T$ 在 $X$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+注意，$T$ 拟紧且在 $\overline{T}$ 中开。利用由拟紧开集组成的基，
+可以写成 $T = U \cap \overline{T}$，其中 $U$ 是 $X$ 中的拟紧开集。
+则 $V = U \setminus T = U \cap T^c$ 在 $U$ 中逆紧，因为 $T^c$
+在 $X$ 中逆紧。所以 $V$ 拟紧。由于任意两个拟紧开集之交拟紧，
+$X$ 的任意拟紧开集都逆紧。因此，$T = U \cap V^c$，其中 $U$
+与 $V = U \setminus T$ 都是 $X$ 的逆紧开集。更不必说，$T$ 在 $X$
+中可构造。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-collate-constructible-from-constructible}
+设 $X$ 为拓扑空间，并且有一个由拟紧开集组成的拓扑基。
+设 $E \subset X$ 为子集。设
+$X = E_1 \cup \ldots \cup E_m$ 为由可构造子集组成的有限覆盖。
+则 $E$ 在 $X$ 中可构造，当且仅当对每个 $j = 1, \ldots, m$，
+$E \cap E_j$ 在 $E_j$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{topology-lemma-intersect-constructible-with-constructible} 与
+\ref{topology-lemma-constructible-in-constructible}。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-generic-point-in-constructible}
+设 $X$ 为拓扑空间。假设 $Z \subset X$ 不可约。设 $E \subset X$
+为有限多个局部闭子集之并（例如，$E$ 可构造）。下列条件等价：
+\begin{enumerate}
+\item 交集 $E \cap Z$ 包含 $Z$ 的一个稠密开子集。
+\item 交集 $E \cap Z$ 在 $Z$ 中稠密。
+\end{enumerate}
+若 $Z$ 有泛点 $\xi$，则这些条件还等价于
+\begin{enumerate}
+\item[(3)] 有 $\xi \in E$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+蕴含关系 (1) $\Rightarrow$ (2) 显然。假设 (2)。注意，$E \cap Z$
+是 $Z$ 的有限多个局部闭子集 $Z_i$ 之并。由于 $Z$ 不可约，必有某个
+$Z_i$ 在 $Z$ 中稠密。因为该 $Z_i$ 在其闭包中开，所以它在 $Z$ 中
+稠密且开。因此 (1) 成立。
+
+\medskip\noindent
+假设 $\xi \in Z$ 为泛点。若等价条件 (1)、(2) 成立，则
+$\xi \in E$。反之，若 $\xi \in E$，则 $\xi \in E \cap Z$，
+从而 $E \cap Z$ 在 $Z$ 中稠密。
+\end{proof}
+
+\section{可构造集与 Noether 空间}
+\label{topology-section-constructible-Noetherian}
+
+\begin{lemma}
+\label{topology-lemma-constructible-Noetherian-space}
+设 $X$ 为 Noether 拓扑空间。$X$ 中的可构造集恰为 $X$ 的有限多个
+局部闭子集之并。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{topology-lemma-Noetherian-quasi-compact} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-constructible-map-Noetherian}
+设 $f : X \to Y$ 为 Noether 拓扑空间之间的连续映射。
+若 $E \subset Y$ 在 $Y$ 中可构造，则 $f^{-1}(E)$ 在 $X$ 中可构造。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{topology-lemma-constructible-Noetherian-space} 和连续映射的定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-characterize-constructible-Noetherian}
+设 $X$ 为 Noether 拓扑空间，$E \subset X$ 为子集。下列条件等价：
+\begin{enumerate}
+\item $E$ 在 $X$ 中可构造；
+\item 对每个不可约闭子集 $Z \subset X$，交集 $E \cap Z$ 或者包含
+$Z$ 的一个非空开集，或者在 $Z$ 中不稠密。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $E$ 可构造，且 $Z \subset X$ 为不可约闭子集。由引理
+\ref{topology-lemma-constructible-map-Noetherian}，$E \cap Z$ 在 $Z$ 中可构造。
+因此，$E \cap Z$ 是 $Z$ 的有限多个非空局部闭子集 $T_i$ 之并。
+显然，若所有 $T_i$ 都不在 $Z$ 中开，则 $E \cap Z$ 在 $Z$ 中不稠密。
+由此可见 (1) 蕴含 (2)。
+
+\medskip\noindent
+反之，假设 (2) 成立。考虑由 $X$ 的所有闭子集 $Y$ 组成的集合
+$\mathcal{S}$，其中 $E \cap Y$ 在 $Y$ 中不可构造。若
+$\mathcal{S} \not = \emptyset$，则由于 $X$ 是 Noether 的，
+它有一个极小元 $Y$。设
+$Y = Y_1 \cup \ldots \cup Y_r$ 是 $Y$ 的不可约分支分解，参见引理
+\ref{topology-lemma-Noetherian}。若 $r > 1$，则每个 $Y_i \cap E$ 在 $Y_i$
+中可构造，因而是 $Y_i$ 的有限多个局部闭子集之并。于是
+$E \cap Y$ 也是 $Y$ 的有限多个局部闭子集之并；由引理
+\ref{topology-lemma-constructible-Noetherian-space}，$E \cap Y$ 在 $Y$ 中可构造。
+这产生矛盾，故 $r = 1$。若 $r = 1$，则 $Y$ 不可约；由假设 (2)，
+$E \cap Y$ 或者 (a) 包含 $Y$ 的一个开集 $V$，或者 (b) 在 $Y$ 中
+不稠密。在情形 (a)，由 $Y$ 的极小性，$E \cap (Y \setminus V)$
+是 $Y \setminus V$ 的有限多个局部闭子集之并。因此，$E \cap Y$
+是 $Y$ 的有限多个局部闭子集之并，并由引理
+\ref{topology-lemma-constructible-Noetherian-space} 可知其可构造。这产生矛盾，
+所以必处于情形 (b)。在情形 (b)，存在真闭子集 $Y' \subset Y$，使得
+$E \cap Y = E \cap Y'$。由 $Y$ 的极小性，$E \cap Y'$ 是 $Y'$
+的有限多个局部闭子集之并；由此可见，$E \cap Y' = E \cap Y$
+是 $Y$ 的有限多个局部闭子集之并，并由引理
+\ref{topology-lemma-constructible-Noetherian-space} 可知其可构造。
+这个矛盾完成了引理的证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-constructible-neighbourhood-Noetherian}
+设 $X$ 为 Noether 拓扑空间，$x \in X$，且 $E \subset X$ 在 $X$
+中可构造。下列条件等价：
+\begin{enumerate}
+\item $E$ 是 $x$ 的邻域；
+\item 对 $X$ 的每个包含 $x$ 的不可约闭子集 $Y$，交集 $E \cap Y$ 在 $Y$
+中稠密。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 蕴含 (2) 是清楚的。假设 (2)。考虑由 $X$ 的所有包含 $x$
+的闭子集 $Y$ 组成的集合 $\mathcal{S}$，其中 $E \cap Y$ 不是 $Y$
+中 $x$ 的邻域。若 $\mathcal{S} \not = \emptyset$，则由于 $X$
+是 Noether 的，它有一个极小元 $Y$。假设
+$Y = Y_1 \cup Y_2$，其中 $Y_1$、$Y_2$ 是两个更小的非空闭子集。
+若对 $i = 1, 2$ 都有 $x \in Y_i$，则 $Y_i \cap E$ 是 $Y_i$
+中 $x$ 的邻域，从而 $Y \cap E$ 是 $Y$ 中 $x$ 的邻域，矛盾。
+若 $x \in Y_1$ 但 $x \not\in Y_2$（不妨如此），则
+$Y_1 \cap E$ 是 $Y_1$ 中 $x$ 的邻域，因而也是 $Y$ 中 $x$ 的邻域，
+这同样产生矛盾。因此，$Y$ 是不可约闭集。由假设 (2)，$E \cap Y$
+在 $Y$ 中稠密。于是 $E \cap Y$ 包含 $Y$ 的一个开集 $V$，参见引理
+\ref{topology-lemma-characterize-constructible-Noetherian}。若 $x \in V$，则
+$E \cap Y$ 是 $Y$ 中 $x$ 的邻域，矛盾。若 $x \not \in V$，则
+$Y' = Y \setminus V$ 是包含 $x$ 的 $Y$ 的真闭子集。由 $Y$ 的极小性，
+$E \cap Y'$ 包含 $Y'$ 中 $x$ 的一个开邻域 $V' \subset Y'$。
+但此时 $V' \cup V$ 是 $Y$ 中包含于 $E$ 的 $x$ 的开邻域，矛盾。
+这个矛盾完成了引理的证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-characterize-open-Noetherian}
+设 $X$ 为 Noether 拓扑空间，$E \subset X$ 为子集。下列条件等价：
+\begin{enumerate}
+\item $E$ 在 $X$ 中开；
+\item 对每个不可约闭子集 $Y$，交集 $E \cap Y$ 或者为空，或者包含
+$Y$ 的一个非空开集。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这形式地由引理 \ref{topology-lemma-characterize-constructible-Noetherian} 与
+\ref{topology-lemma-constructible-neighbourhood-Noetherian} 得出。
+\end{proof}
+
+\section{固有映射的刻画}
+\label{topology-section-proper}
+
+\noindent
+本节讨论通常拓扑学中的固有映射概念。我们称拓扑空间的连续映射为
+{\it 固有的}，如果它是普遍闭且分离的。虽然这与代数几何中固有态射的
+定义很好地吻合，但它不同于 Bourbaki 的定义。采用我们对拓扑空间固有映射
+的定义，固有基变换定理（Cohomology，定理
+\ref{cohomology-theorem-proper-base-change}）无需任何进一步假设即成立。
+此外，给定 $\mathbf{C}$ 上有限型概形的态射 $f : X \to Y$，有如下结论：
+$f$ 作为概形态射是固有的，当且仅当在赋予经典拓扑的
+$\mathbf{C}$-点上，连续映射 $f : X(\mathbf{C}) \to Y(\mathbf{C})$
+是固有的。这在 \cite[Exp. XII, Prop.\ 3.2(v)]{SGA1} 中得到说明；
+其中还有一个脚注指出，他们在拓扑学中采用的是附加了分离性的 Bourbaki
+固有性概念。
+
+\medskip\noindent
+我们发现，为三个不同的概念分别命名很有用：分离、普遍闭，以及二者兼具
+（即固有性）。对于局部紧 Hausdorff 空间的连续映射 $f : X \to Y$，
+“固有”一词长期以来用于表示“$f^{-1}($紧集$) =$ 紧集”这一概念；
+对于这样良好的空间，它等价于普遍闭。事实上，我们将会看到，若为清楚起见
+用“拟紧”来表述原像条件，并加入映射为闭映射这一假设，则该条件一般地等价于
+普遍闭。另见 \cite[Exercises 22-26 in Chapter II]{LangReal}，但须注意，
+Lang 与 Bourbaki 一样，把“固有”用作“普遍闭”的同义词。
+
+\begin{lemma}[管状引理]
+\label{topology-lemma-tube}
+设 $X$ 与 $Y$ 为拓扑空间，$A \subset X$ 与 $B \subset Y$ 为拟紧子集。
+设 $A \times B \subset W \subset X \times Y$，其中 $W$ 在
+$X \times Y$ 中开。则存在开集 $A \subset U \subset X$ 与
+$B \subset V \subset Y$，使得 $U \times V \subset W$。
+\end{lemma}
+
+\begin{proof}
+对每个 $a \in A$ 与 $b \in B$，存在 $X$ 的开集 $U_{(a, b)}$
+和 $Y$ 的开集 $V_{(a, b)}$，使得
+$(a, b) \in U_{(a, b)} \times V_{(a, b)} \subset W$。
+固定 $b$，则存在有限多个 $a_1, \ldots, a_n$，使得
+$A \subset U_{(a_1, b)} \cup \ldots \cup U_{(a_n, b)}$。因此
+$$
+A \times \{b\} \subset
+(U_{(a_1, b)} \cup \ldots \cup U_{(a_n, b)}) \times
+(V_{(a_1, b)} \cap \ldots \cap V_{(a_n, b)}) \subset W.
+$$
+所以，对每个 $b \in B$，存在开集 $U_b \subset X$ 与
+$V_b \subset Y$，使得 $A \times \{b\} \subset U_b \times V_b \subset W$。
+同上，存在有限多个 $b_1, \ldots, b_m$，使得
+$B \subset V_{b_1} \cup \ldots \cup V_{b_m}$。此时结论成立，因为
+$A \times B \subset
+(U_{b_1} \cap \ldots \cap U_{b_m}) \times
+(V_{b_1} \cup \ldots \cup V_{b_m})$。
+\end{proof}
+
+\noindent
+以下定义中的术语可能与你习惯的略有不同。
+
+\begin{definition}
+\label{topology-definition-proper-map}
+设 $f : X\to Y$ 为拓扑空间之间的连续映射。
+\begin{enumerate}
+\item 若每个闭子集的像都是闭的，则称映射 $f$ 为{\it 闭映射}。
+\item 若对任意拓扑空间 $Z$，映射 $Z \times X\to Z \times Y$ 都是闭映射，
+则称映射 $f$ 为 {\it Bourbaki-固有的}\footnote{这是 \cite{Bourbaki}
+采用的术语。在文献中，这一性质有时也称为“普遍闭”。}。
+\item 若每个拟紧子集 $V \subset Y$ 的原像 $f^{-1}(V)$ 都拟紧，
+则称映射 $f$ 为{\it 拟固有的}。
+\item 若对任意连续映射 $g: Z \to Y$，映射
+$f': Z \times_Y X \to Z$ 都是闭映射，则称 $f$ 为{\it 普遍闭的}。
+\item 若 $f$ 分离且普遍闭，则称 $f$ 为{\it 固有的}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面的引理以后会用到。
+
+\begin{lemma}
+\label{topology-lemma-characterize-quasi-compact}
+\begin{reference}
+这是 \cite[I, p. 75, Lemme 1]{Bourbaki} 与
+\cite[I, p. 76, Corrolaire 1]{Bourbaki} 的结合。
+\end{reference}
+拓扑空间 $X$ 拟紧，当且仅当对任意拓扑空间 $Z$，投影映射
+$Z \times X \to Z$ 都是闭映射。
+\end{lemma}
+
+\begin{proof}
+（另见下面的评注。）若 $X$ 不拟紧，则存在开覆盖
+$X = \bigcup_{i \in I} U_i$，使得任意有限多个 $U_i$ 都不能覆盖 $X$。
+令 $Z$ 为 $I$ 的幂集 $\mathcal{P}(I)$ 的子集，由 $I$ 本身以及 $I$
+的所有非空有限子集组成。在 $Z$ 上定义拓扑，并以下列集合为拓扑基：
+\begin{enumerate}
+\item $Z\setminus\{I\}$ 的所有子集。
+\item 对 $I$ 的每个有限子集 $K$，取集合
+% P01-ERRATA-E0018: frozen source has an unmatched closing parenthesis in this set-builder formula; preserved here.
+$U_K := \{J\subset I \mid J \in Z, \ K\subset J \})$。
+\end{enumerate}
+留给读者验证这确实是一个拓扑基。考虑由下式定义的 $Z \times X$ 的子集
+$$
+M = \{(J, x) \mid J \in Z, \ x \in \bigcap\nolimits_{i \in J} U_i^c)\}
+$$
+若 $(J, x) \not \in M$，则对某个 $i \in J$ 有 $x \in U_i$。
+因此，$U_{\{i\}} \times U_i \subset Z \times X$ 是一个包含
+$(J, x)$ 且不与 $M$ 相交的开子集。所以 $M$ 是闭的。
+$M$ 到 $Z$ 的投影是 $Z-\{I\}$，它不是闭的。因此
+$Z \times X \to Z$ 不是闭映射。
+
+\medskip\noindent
+假设 $X$ 拟紧。设 $Z$ 为拓扑空间，$M \subset  Z \times X$ 为闭子集。
+设 $z \in Z$ 是一个不属于 $\text{pr}_1(M)$ 的点。由管状引理
+\ref{topology-lemma-tube}，存在开集 $U \subset Z$，使得 $U \times X$ 包含于
+$M$ 的补集。因此，$\text{pr}_1(M)$ 是闭的。
+\end{proof}
+
+\begin{remark}
+\label{topology-remark-lemma-literature}
+引理 \ref{topology-lemma-characterize-quasi-compact} 是
+\cite[I, p. 75, Lemme 1]{Bourbaki} 与
+\cite[I, p. 76, Corollaire 1]{Bourbaki} 的结合。
+\end{remark}
+
+\begin{theorem}
+\label{topology-theorem-characterize-proper}
+\begin{reference}
+在 \cite[I, p. 75, Theorem 1]{Bourbaki} 中可找到：
+(2) $\Leftrightarrow$ (4)。
+在 \cite[I, p. 77, Proposition 6]{Bourbaki} 中可找到：
+(2) $\Rightarrow$ (1)。
+\end{reference}
+设 $f: X\to Y$ 为拓扑空间之间的连续映射。下列条件等价：
+\begin{enumerate}
+\item 映射 $f$ 拟固有且为闭映射。
+\item 映射 $f$ 是 Bourbaki-固有的。
+\item 映射 $f$ 普遍闭。
+\item 映射 $f$ 是闭映射，并且对任意 $y\in Y$，$f^{-1}(y)$ 拟紧。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+（另见下面的评注。）若映射 $f$ 满足 (1)，则它自动满足 (4)，因为单点
+总是拟紧的。
+
+\medskip\noindent
+假设映射 $f$ 满足 (4)。我们将证明它普遍闭，即 (3) 成立。
+设 $g : Z \to Y$ 为拓扑空间的连续映射，并考虑图表
+$$
+\xymatrix{
+Z \times_Y X \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Z \ar[r]^g & Y
+}
+$$
+在证明中，我们会用到 $Z \times_Y X \to Z \times X$ 是到其像上的同胚；
+也就是说，可将 $Z \times_Y X$ 与 $Z \times X$ 中相应的子集按诱导拓扑
+等同起来。$f' : Z \times_Y X \to Z$ 的像是
+$\Im(f') = \{z : g(z) \in f(X)\}$。因为 $f(X)$ 是闭的，所以
+$\Im(f')$ 是 $Z$ 的闭子空间。考虑闭子集
+$P \subset Z \times_Y X$。设 $z \in Z$，且 $z \not \in f'(P)$。
+若 $z \not \in \Im(f')$，则 $Z \setminus \Im(f')$ 是避开 $f'(P)$
+的一个开邻域。若 $z$ 属于 $\Im(f')$，则
+$(f')^{-1}\{z\} = \{z\} \times f^{-1}\{g(z)\}$，并且由假设，
+$f^{-1}\{g(z)\}$ 拟紧。因为 $P$ 是 $Z \times_Y X$ 的闭子集，
+存在 $Z \times X$ 的闭子集 $P'$，使得
+$P = P' \cap Z \times_Y X$。由于 $(f')^{-1}\{z\}$ 是
+$P^c = P'^c \cup (Z \times_Y X)^c$ 的子集，并且
+$(f')^{-1}\{z\}$ 与 $(Z \times_Y X)^c$ 不相交，故
+$(f')^{-1}\{z\}$ 包含于 $P'^c$。可将管状引理 \ref{topology-lemma-tube}
+应用于
+$(f')^{-1}\{z\} = \{z\} \times f^{-1}\{g(z)\}
+\subset (P')^c \subset Z \times X$。由此得到包含
+$(f')^{-1}\{z\}$ 的 $V \times U$，其中 $U$ 和 $V$ 分别是 $X$ 与
+$Z$ 中的开集，并且 $V \times U$ 与 $P'$ 的交为空。于是集合
+$V \cap g^{-1}(Y-f(U^c))$ 在 $Z$ 中开，因为 $f$ 是闭映射；它包含
+$z$，并且与 $P$ 的像不相交。因此 $f'(P)$ 是闭的。换言之，映射 $f$
+普遍闭。
+
+\medskip\noindent
+蕴含关系 (3) $\Rightarrow$ (2) 是平凡的。事实上，给定任意拓扑空间
+$Z$，考虑投影态射 $g : Z \times Y \to Y$。此时容易看出，$f'$ 就是映射
+$Z \times X \to Z \times Y$；换言之，
+$(Z \times Y) \times_Y X = Z \times X$。（这一等同纯粹是范畴性质，
+本身与拓扑空间无关。）
+
+\medskip\noindent
+假设 $f$ 满足 (2)。我们将证明它满足 (1)。注意，$f$ 是闭映射，因为
+$f$ 可与映射 $\{pt\} \times X \to \{pt\} \times Y$ 等同，而后者依假设
+是闭映射。任取拟紧子集 $K \subset Y$。设 $Z$ 为任意拓扑空间。
+因为 $Z \times X \to Z \times Y$ 是闭映射，所以映射
+$Z \times f^{-1}(K) \to Z \times K$ 是闭映射（若 $T$ 在
+$Z \times f^{-1}(K)$ 中闭，可将其写成
+$T = Z \times f^{-1}(K) \cap T'$，其中 $T' \subset Z \times X$
+闭）。因为 $K$ 拟紧，由引理 \ref{topology-lemma-characterize-quasi-compact}，
+$K \times Z\to Z$ 是闭映射。因此复合
+$Z \times f^{-1}(K)\to Z \times K \to Z$ 是闭映射；再次由引理
+\ref{topology-lemma-characterize-quasi-compact}，$f^{-1}(K)$ 必拟紧。
+\end{proof}
+
+\begin{remark}
+\label{topology-remark-proof-literature}
+下面给出一些文献出处。在 \cite[I, p. 75, Theorem 1]{Bourbaki} 中可找到：
+(2) $\Leftrightarrow$ (4)。在 \cite[I, p. 77, Proposition 6]{Bourbaki}
+中可找到：(2) $\Rightarrow$ (1)。当然，平凡地有
+(1) $\Rightarrow$ (4)。所以 (1)、(2) 与 (4) 等价。
+(3) 与 (4) 的等价性见 \cite[Chapter II, Exercise 25]{LangReal}。
+\end{remark}
+
+\begin{lemma}
+\label{topology-lemma-closed-map}
+\begin{slogan}
+从紧空间到 Hausdorff 空间的映射是普遍闭的。
+\end{slogan}
+设 $f : X \to Y$ 为拓扑空间的连续映射。若 $X$ 拟紧且 $Y$ 为
+Hausdorff 空间，则 $f$ 普遍闭。
+\end{lemma}
+
+\begin{proof}
+由于 $Y$ 的每个点都是闭点，由引理 \ref{topology-lemma-closed-in-quasi-compact}
+可知，对所有 $y \in Y$，$X$ 的闭子集 $f^{-1}(y)$ 都拟紧。因此，
+由定理 \ref{topology-theorem-characterize-proper}，只需证明 $f$ 是闭映射。
+若 $E \subset X$ 闭，则它拟紧（引理 \ref{topology-lemma-closed-in-quasi-compact}），
+所以 $f(E) \subset Y$ 拟紧（引理 \ref{topology-lemma-image-quasi-compact}），
+进而 $f(E)$ 在 $Y$ 中闭（引理 \ref{topology-lemma-quasi-compact-in-Hausdorff}）。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-bijective-map}
+设 $f : X \to Y$ 为拓扑空间的连续映射。若 $f$ 是双射，$X$ 拟紧，
+且 $Y$ 为 Hausdorff 空间，则 $f$ 是同胚。
+\end{lemma}
+
+\begin{proof}
+只需证明 $f$ 是闭映射，因为这蕴含 $f^{-1}$ 连续。若 $T \subset X$
+闭，则由引理 \ref{topology-lemma-closed-in-quasi-compact}，$T$ 拟紧；因此由引理
+\ref{topology-lemma-image-quasi-compact}，$f(T)$ 拟紧；进而由引理
+\ref{topology-lemma-quasi-compact-in-Hausdorff}，$f(T)$ 闭。
+\end{proof}
+
+\section{Jacobson 空间}
+\label{topology-section-space-jacobson}
+
+\begin{definition}
+\label{topology-definition-space-jacobson}
+设 $X$ 为拓扑空间，$X_0$ 为 $X$ 的闭点集。若每个闭子集
+$Z \subset X$ 都是 $Z \cap X_0$ 的闭包，则称 $X$ 是
+{\it Jacobson 空间}。
+\end{definition}
+
+\noindent
+注意，拓扑空间 $X$ 是 Jacobson 空间，当且仅当 $X$ 的每个非空局部闭
+子集都有一个在 $X$ 中闭的点。
+
+\medskip\noindent
+设 $X$ 为 Jacobson 空间，并设 $X_0$ 为赋予诱导拓扑的 $X$ 的闭点集。
+显然，定义蕴含态射 $X_0 \to X$ 在 $X_0$ 的闭子集与 $X$ 的闭子集之间
+诱导双射。因此，$X$ 的许多性质由 $X_0$ 继承。例如，$X$ 与 $X_0$
+的 Krull 维数相同。
+
+\begin{lemma}
+\label{topology-lemma-jacobson-check-irreducible-closed}
+设 $X$ 为拓扑空间，$X_0$ 为 $X$ 的闭点集。假设对每个点 $x\in X$，
+交集 $X_0 \cap \overline{\{x\}}$ 在 $\overline{\{x\}}$ 中稠密。
+则 $X$ 是 Jacobson 空间。
+\end{lemma}
+
+\begin{proof}
+设 $Z$ 为 $X$ 的闭子集，$U$ 为 $X$ 的开子集，并且 $U\cap Z$ 非空。
+于是，对 $x\in U\cap Z$，$\overline{\{x\}}\cap U$ 是 $Z\cap U$
+的非空子集；由假设，它包含一个在 $X$ 中闭的点，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-non-jacobson-Noetherian-characterize}
+设 $X$ 为具有拟紧开集基的 Kolmogorov 拓扑空间。若 $X$ 不是
+Jacobson 空间，则存在非闭点 $x \in X$，使得 $\{x\}$ 局部闭。
+\end{lemma}
+
+\begin{proof}
+因为 $X$ 不是 Jacobson 空间，存在 $X$ 中的闭集 $Z$ 与开集 $U$，
+使得 $Z \cap U$ 非空且不包含在 $X$ 中闭的点。由于 $X$ 有拟紧开集基，
+可将 $U$ 替换为 $Z\cap U$ 中某点的拟紧开邻域；故可假设 $U$ 是拟紧
+开集。由引理 \ref{topology-lemma-quasi-compact-closed-point}，存在点
+$x \in Z \cap U$，它在 $Z \cap U$ 中闭。因此 $\{x\}$ 局部闭，
+但在 $X$ 中不闭。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-jacobson-local}
+设 $X$ 为拓扑空间，$X = \bigcup U_i$ 为一个开覆盖。则 $X$ 是
+Jacobson 空间，当且仅当每个 $U_i$ 都是 Jacobson 空间。此外，在这种
+情形有 $X_0 = \bigcup U_{i, 0}$。
+\end{lemma}
+
+\begin{proof}
+设 $X$ 为拓扑空间，$X_0$ 为 $X$ 的闭点集，$U_{i, 0}$ 为 $U_i$
+的闭点集。于是 $X_0 \cap U_i \subset U_{i, 0}$，但一般未必相等。
+
+\medskip\noindent
+先假设每个 $U_i$ 都是 Jacobson 空间。我们断言在这种情形
+$X_0 \cap U_i = U_{i, 0}$。事实上，假设 $x \in U_{i, 0}$，即 $x$
+在 $U_i$ 中闭。令 $\overline{\{x\}}$ 为其在 $X$ 中的闭包，并考虑
+$\overline{\{x\}} \cap U_j$。若 $x \not \in U_j$，则
+$\overline{\{x\}} \cap U_j = \emptyset$。若 $x \in U_j$，则
+$U_i \cap U_j \subset U_j$ 是 $U_j$ 中包含 $x$ 的开子集。令
+$T' = U_j \setminus U_i \cap U_j$ 且 $T = \{x\} \amalg T'$。
+由于 $x$ 在 $U_i \cap U_j$ 中闭（因为 $x$ 在 $U_i$ 中闭），可知
+$T$、$T'$ 都是 $U_j$ 的闭子集，且 $T$ 包含 $x$。因为 $U_j$ 是
+Jacobson 空间，$U_j$ 的闭点在 $T$ 中稠密。鉴于
+$T = \{x\} \amalg T'$，这只有在 $x$ 于 $U_j$ 中闭时才可能成立。
+因此 $\overline{\{x\}} \cap U_j = \{x\}$。由此得出
+$\overline{\{x\}} = \{ x \}$，正合所需。
+
+\medskip\noindent
+设 $Z \subset X$ 为闭子集（仍假设每个 $U_i$ 都是 Jacobson 空间）。
+既然现在知道 $X_0 \cap Z  \cap U_i
+= U_{i, 0} \cap Z$ 在 $Z \cap U_i$ 中稠密，便立即得出
+$X_0 \cap Z$ 在 $Z$ 中稠密。
+
+\medskip\noindent
+反之，假设 $X$ 是 Jacobson 空间。设 $Z \subset U_i$ 为闭子集。
+则 $X_0 \cap \overline{Z}$ 在 $\overline{Z}$ 中稠密。由于
+$\overline{Z} \setminus Z$ 是闭的，$X_0 \cap Z$ 也在 $Z$ 中稠密。
+由 $X_0 \cap U_i \subset U_{i, 0}$ 可知，$U_{i, 0} \cap Z$ 在 $Z$
+中稠密。因此 $U_i$ 是 Jacobson 空间，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-jacobson-inherited}
+设 $X$ 为 Jacobson 空间。下列类型的子集 $T \subset X$ 都是
+Jacobson 空间：
+\begin{enumerate}
+\item 开子空间。
+\item 闭子空间。
+\item 局部闭子空间。
+\item 局部闭子空间之并。
+\item 可构造集。
+\item 任意在 $X$ 上局部地为局部闭子集之并的子集 $T \subset X$。
+\end{enumerate}
+在每种情形，$T$ 的闭点都在 $X$ 中闭。
+\end{lemma}
+
+\begin{proof}
+设 $X_0$ 为 $X$ 的闭点集。对任意子集 $T \subset X$，以 $(*)$
+表示下列性质：
+\begin{itemize}
+\item[(*)] $T$ 的每个非空局部闭子集都有一个在 $X$ 中闭的点。
+\end{itemize}
+注意，总有 $X_0 \cap T \subset T_0$。因此性质 $(*)$ 蕴含 $T$
+是 Jacobson 空间。此外，它显然蕴含 $T$ 的每个闭点都在 $X$ 中闭。
+
+\medskip\noindent
+假设 $T=\bigcup_i T_i$，其中 $T_i$ 在 $X$ 中局部闭。任取 $T$
+中的非空局部闭子集 $A\subset T$，则存在某个 $T_i$，使得
+$A\cap T_i$ 非空；它在 $T_i$ 中局部闭，从而也在 $X$ 中局部闭。
+因为 $X$ 是 Jacobson 空间，$A$ 有一个在 $X$ 中闭的点。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-finite-jacobson}
+有限 Jacobson 空间是离散的。只有有限多个闭点的 Jacobson 空间是离散的。
+\end{lemma}
+
+\begin{proof}
+若 $X$ 有限，则闭点集 $X_0 \subset X$ 有限。假设 $X_0$ 有限且
+$X$ 是 Jacobson 空间。由 Jacobson 性质，$\overline{X_0} = X$。
+现在
+$X_0 =\{x_1, \ldots, x_n\} = \bigcup_{i = 1, \ldots, n} \{x_i\}$
+是有限多个闭集之并，因而闭；所以 $X = \overline{X_0} = X_0$。
+每个点都闭，并且由有限性，每个点都开。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-jacobson-equivalent-locally-closed}
+\begin{slogan}
+对 Jacobson 空间而言，闭点反映拓扑的全部信息。
+\end{slogan}
+假设 $X$ 为 Jacobson 拓扑空间，并设 $X_0$ 为 $X$ 的闭点集。
+存在一个保持包含关系的双射对应
+$$
+\{\text{局部闭子集的有限并，位于 } X\}
+\leftrightarrow
+\{\text{局部闭子集的有限并，位于 } X_0\}
+$$
+由 $E \mapsto E \cap X_0$ 给出。这个对应保持其中的局部闭子集、开子集
+与闭子集。
+\end{lemma}
+
+\begin{proof}
+只需证明对应 $E \mapsto E \cap X_0$ 是单射。事实上，若 $E\neq E'$，
+则不妨设 $E\setminus E'$ 非空；它是有限多个局部闭集之并（略去细节）。
+由于 $X$ 是 Jacobson 空间，可知
+$(E \setminus E') \cap X_0 = E \cap X_0 \setminus E' \cap X_0$ 非空。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-jacobson-equivalent-constructible}
+假设 $X$ 为 Jacobson 拓扑空间，并设 $X_0$ 为 $X$ 的闭点集。
+存在一个保持包含关系的双射对应
+$$
+\{\text{下列对象的可构造子集： } X\}
+\leftrightarrow
+\{\text{下列对象的可构造子集： } X_0\}
+$$
+由 $E \mapsto E \cap X_0$ 给出。这个对应保持其中的逆紧开子集以及
+这些子集的补集。
+\end{lemma}
+
+\begin{proof}
+由上面的引理 \ref{topology-lemma-jacobson-equivalent-locally-closed}，只需证明：
+若 $U$ 在 $X$ 中开，则 $U\cap X_0$ 在 $X_0$ 中逆紧，当且仅当 $U$
+在 $X$ 中逆紧。为此，只需证明：若 $U$ 在 $X$ 中开，则
+$U\cap X_0$ 拟紧，当且仅当 $U$ 拟紧。由引理
+\ref{topology-lemma-jacobson-inherited}，可以用 $U$ 替换 $X$，并假设 $U = X$。
+最后注意，$X$ 的任意开集族 $\mathcal{U}$ 覆盖 $X$，当且仅当它覆盖
+$X_0$。这是因为若闭集 $X\setminus \bigcup \mathcal{U}$ 非空，
+利用 $X$ 的 Jacobson 性质可在其中找到一个属于 $X_0$ 的点。
+\end{proof}
+
+\section{特化}
+\label{topology-section-specialization}
+
+\begin{definition}
+\label{topology-definition-specialization}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 若 $x, x' \in X$，且 $x \in \overline{\{x'\}}$，则称 $x$ 是
+$x'$ 的一个{\it 特化}，或称 $x'$ 是 $x$ 的一个{\it 一般化}。
+记作 $x' \leadsto x$。
+\item 若对所有 $x' \in T$ 以及每个特化 $x' \leadsto x$，都有
+$x \in T$，则称子集 $T \subset X$ {\it 对特化稳定}。
+\item 若对所有 $x \in T$ 以及每个一般化 $x' \leadsto x$，都有
+$x' \in T$，则称子集 $T \subset X$ {\it 对一般化稳定}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-open-closed-specialization}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item $X$ 的任意闭子集对特化稳定。
+\item $X$ 的任意开子集对一般化稳定。
+\item 子集 $T \subset X$ 对特化稳定，当且仅当其补集 $T^c$
+对一般化稳定。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $F$ 为 $X$ 的闭子集。若 $y\in F$，则 $\{y\} \subset F$；
+由于 $F$ 闭，故 $\overline{\{y\}} \subset \overline{F} = F$。
+所以，对 $y$ 的每个特化 $x$，都有 $x\in F$。
+
+\medskip\noindent
+设 $x, y\in X$ 且 $x\in \overline{\{y\}}$，并设 $T$ 为 $X$
+的子集。说 $T$ 对特化稳定，就是说 $y\in T$ 蕴含 $x\in T$；
+反过来，说 $T$ 对一般化稳定，就是说 $x\in T$ 蕴含 $y\in T$。
+因此，取逆否命题即证得 (3)。
+
+\medskip\noindent
+对补集应用 (1) 与 (3)，即得第二条性质。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-stable-specialization}
+设 $T \subset X$ 为拓扑空间 $X$ 的子集。下列条件等价：
+\begin{enumerate}
+\item $T$ 对特化稳定；
+\item $T$ 是 $X$ 的闭子集的（有向）并。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $T$ 对特化稳定，则对所有 $y\in T$ 都有
+$\overline{\{y\}} \subset T$。所以
+$T = \bigcup_{y\in T} \overline{\{y\}}$，这是 $X$ 的闭子集之并。
+反之，假设 $T =
+\bigcup_{i\in I}F_i$，其中 $F_i$ 是 $X$ 的闭子集。若 $y\in T$，
+则存在 $i\in I$ 使得 $y\in F_i$。因为 $F_i$ 闭，有
+$\overline{\{y\}} \subset F_i \subset T$，这证明了 $T$ 对特化稳定。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-lift-specializations}
+设 $f : X \to Y$ 为拓扑空间的连续映射。
+\begin{enumerate}
+\item 若给定 $Y$ 中的 $y' \leadsto y$ 以及任意满足
+$f(x') = y'$ 的 $x'\in X$，都存在 $X$ 中 $x'$ 的一个特化
+$x' \leadsto x$，使得 $f(x) = y$，则称{\it 特化可沿 $f$ 提升}，
+或称 $f$ 是{\it 特化型的}。
+\item 若给定 $Y$ 中的 $y' \leadsto y$ 以及任意满足
+$f(x) = y$ 的 $x\in X$，都存在 $X$ 中 $x$ 的一个一般化
+$x' \leadsto x$，使得 $f(x') = y'$，则称{\it 一般化可沿 $f$ 提升}，
+或称 $f$ 是{\it 一般化型的}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-lift-specialization-composition}
+设 $f : X \to Y$ 与 $g : Y \to Z$ 为拓扑空间的连续映射。
+若特化可沿 $f$ 和 $g$ 提升，则特化可沿 $g \circ f$ 提升。
+“一般化可沿其提升”的情形也同样成立。
+\end{lemma}
+
+\begin{proof}
+设 $z'\leadsto z$ 为 $Z$ 中的特化，并设 $x' \in X$ 满足
+$g\circ f (x') = z'$。因为特化可沿 $g$ 提升，存在 $Y$ 中 $f(x')$
+的一个特化 $f(x') \leadsto y$，使得 $g(y) = z$。同样，因为特化可沿
+$f$ 提升，存在 $X$ 中 $x'$ 的一个特化 $x' \leadsto x$，使得
+$f(x) = y$。这给出 $X$ 中 $x'$ 的一个特化 $x' \leadsto x$，满足
+$g\circ f(x) = z$。换言之，特化可沿 $g\circ f$ 提升。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-lift-specializations-images}
+设 $f : X \to Y$ 为拓扑空间的连续映射。
+\begin{enumerate}
+\item 若特化可沿 $f$ 提升，并且 $T \subset X$ 对特化稳定，则
+$f(T) \subset Y$ 对特化稳定。
+\item 若一般化可沿 $f$ 提升，并且 $T \subset X$ 对一般化稳定，则
+$f(T) \subset Y$ 对一般化稳定。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $y' \leadsto y$ 为 $Y$ 中的特化，其中 $y'\in f(T)$；并取
+$x'\in T$，使得 $f(x') = y'$。因为特化可沿 $f$ 提升，存在 $X$
+中 $x'$ 的一个特化 $x'\leadsto x$，使得 $f(x) = y$。但 $T$
+对特化稳定，所以 $x\in T$，进而 $y \in f(T)$。因此 $f(T)$
+对特化稳定。
+
+\medskip\noindent
+(2) 的证明完全相同，只需使用一般化可沿 $f$ 提升。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-open-map-specialization}
+设 $f : X \to Y$ 为拓扑空间的连续映射。
+\begin{enumerate}
+\item 若 $f$ 是闭映射，则特化可沿 $f$ 提升。
+\item 若 $f$ 是开映射，$X$ 是 Noether 拓扑空间，$X$ 的每个不可约
+闭子集都有泛点，并且 $Y$ 是 Kolmogorov 空间，则一般化可沿 $f$ 提升。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $f$ 是闭映射。给定 $Y$ 中的 $y' \leadsto y$ 以及任意满足
+$f(x') = y'$ 的 $x'\in X$。考虑 $X$ 的闭子集
+$T = \overline{\{x'\}}$。于是 $f(T) \subset Y$ 是闭子集，且
+$y' \in f(T)$。所以也有 $y \in f(T)$。故 $y = f(x)$，其中
+$x \in T$；也就是说，$x' \leadsto x$。
+
+\medskip\noindent
+假设 $f$ 是开映射，$X$ 是 Noether 的，$X$ 的每个不可约闭子集都有泛点，
+并且 $Y$ 是 Kolmogorov 空间。给定 $Y$ 中的 $y' \leadsto y$ 以及任意
+满足 $f(x) = y$ 的 $x \in X$。考虑
+$T = f^{-1}(\{y'\}) \subset X$。取包含关系 $x \in U \subset X$
+所给出的 $x$ 的开邻域。于是 $f(U) \subset Y$ 开且 $y \in f(U)$，
+故也有 $y' \in f(U)$。换言之，$T \cap U \not = \emptyset$。
+这证明 $x \in \overline{T}$。由于 $X$ 是 Noether 的，$T$ 也是
+Noether 的（引理 \ref{topology-lemma-Noetherian}）。因此它有不可约分支分解
+$T = T_1 \cup \ldots \cup T_n$。相应地，
+$\overline{T} = \overline{T_1} \cup \ldots \cup \overline{T_n}$。
+由上可知，对某个 $i$ 有 $x \in \overline{T_i}$。依假设，存在泛点
+$x' \in \overline{T_i}$，从而 $x' \leadsto x$。由于
+$x' \in \overline{T}$，可知 $f(x') \in \overline{\{y'\}}$。注意
+$f(\overline{T_i}) = f(\overline{\{x'\}}) \subset \overline{\{f(x')\}}$。
+若 $f(x') \not = y'$，则由于 $Y$ 是 Kolmogorov 空间，$f(x')$
+不是不可约闭子集 $\overline{\{y'\}}$ 的泛点，并且包含关系
+$\overline{\{f(x')\}} \subset \overline{\{y'\}}$ 是严格的；
+也就是说，$y' \not \in f(\overline{T_i})$。这与
+$f(T_i) = \{y'\}$ 矛盾。所以 $f(x') = y'$，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-quotient-kolmogorov}
+假设 $s, t : R \to U$ 与 $\pi : U \to X$ 为拓扑空间的连续映射，并且
+\begin{enumerate}
+\item $\pi$ 是开映射；
+\item $U$ 是清醒的；
+\item $s, t$ 的纤维有限；
+\item 一般化可沿 $s, t$ 提升；
+\item $(t, s)(R) \subset U \times U$ 是 $U$ 上的等价关系，并且
+$X$ 作为集合是 $U$ 关于此等价关系的商。
+\end{enumerate}
+则 $X$ 是 Kolmogorov 空间。
+\end{lemma}
+
+\begin{proof}
+性质 (3) 与 (5) 蕴含点 $x$ 对应于该等价关系的一个有限等价类
+$\{u_1, \ldots, u_n\} \subset U$。假设 $x' \in X$ 是另一个点，
+对应于等价类 $\{u'_1, \ldots, u'_m\} \subset U$。假设对某个
+$i, j$ 有 $u_i \leadsto u'_j$。那么，对任意满足
+$s(r') = u'_j$ 的 $r' \in R$，由 (4) 可找到 $r \leadsto r'$，
+使得 $s(r) = u_i$。所以 $t(r) \leadsto t(r')$。由于
+$\{u'_1, \ldots, u'_m\} = t(s^{-1}(\{u'_j\}))$，可知
+$\{u'_1, \ldots, u'_m\}$ 的每个元素都是 $\{u_1, \ldots, u_n\}$
+中某个元素的特化。因此
+$\overline{\{u_1\}} \cup \ldots \cup \overline{\{u_n\}}$
+是等价类之并，从而形如 $\pi^{-1}(Z)$，其中 $Z \subset X$ 为某个子集。
+由 (1)，$Z$ 在 $X$ 中闭；事实上
+$Z = \overline{\{x\}}$，因为对每个 $i$ 都有
+$\pi(\overline{\{u_i\}}) \subset \overline{\{x\}}$。换言之，
+$x \leadsto x'$ 当且仅当 $x$ 在 $U$ 中的某个提升特化到 $x'$ 在 $U$
+中的某个提升；这又当且仅当 $x'$ 在 $U$ 中的每个提升都是 $x$ 在 $U$
+中的某个提升的特化。
+
+\medskip\noindent
+假设 $x \leadsto x'$ 与 $x' \leadsto x$ 都成立。仍如上，设 $x$ 对应于
+$\{u_1, \ldots, u_n\}$，而 $x'$ 对应于
+$\{u'_1, \ldots, u'_m\}$。由上一段的结果，可以找到序列
+$$
+\ldots \leadsto u'_{j_3} \leadsto u_{i_3} \leadsto u'_{j_2} \leadsto
+u_{i_2} \leadsto u'_{j_1} \leadsto u_{i_1}
+$$
+它必定重复；所以由 (2) 可知
+$\{u_1, \ldots, u_n\} = \{u'_1, \ldots, u'_m\}$，即 $x = x'$。
+因此 $X$ 是 Kolmogorov 空间。
+\end{proof}
+
+
+\begin{lemma}
+\label{topology-lemma-dimension-specializations-lift}
+设 $f : X \to Y$ 为拓扑空间的态射。假设 $Y$ 是清醒拓扑空间，且
+$f$ 满射。若特化或一般化二者之一可沿 $f$ 提升，则
+$\dim(X) \geq \dim(Y)$。
+\end{lemma}
+
+\begin{proof}
+假设特化可沿 $f$ 提升。
+% P01-ERRATA-E0019: frozen source omits a subset relation before Z_e in the chain; preserved here.
+% P01-ERRATA-E0020: frozen prose calls this a chain of closed subsets of X although the formula and proof place it in Y; preserved here.
+设 $Z_0 \subset Z_1 \subset \ldots Z_e \subset Y$ 为 $X$ 的不可约闭子集链。
+设 $\xi_e \in X$ 为一个映到 $Z_e$ 的泛点的点。依假设，存在 $X$
+中的特化 $\xi_e \leadsto \xi_{e - 1}$，使得 $\xi_{e - 1}$ 映到
+$Z_{e - 1}$ 的泛点。如此继续，得到特化序列
+$$
+\xi_e \leadsto \xi_{e - 1} \leadsto \ldots \leadsto \xi_0
+$$
+其中 $\xi_i$ 映到 $Z_i$ 的泛点。这显然蕴含不可约闭子集序列
+$$
+\overline{\{\xi_0\}} \subset
+\overline{\{\xi_1\}} \subset \ldots
+\overline{\{\xi_e\}}
+$$
+是 $X$ 中长度为 $e$ 的链。一般化可沿 $f$ 提升的情形类似。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-characterize-closed-Noetherian}
+设 $X$ 为 Noether 清醒拓扑空间，$E \subset X$ 为 $X$ 的子集。
+\begin{enumerate}
+\item 若 $E$ 可构造且对特化稳定，则 $E$ 闭。
+\item 若 $E$ 可构造且对一般化稳定，则 $E$ 开。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $E$ 可构造且对一般化稳定。设 $Y \subset X$ 为不可约闭子集，
+其泛点为 $\xi \in Y$。若 $E \cap Y$ 非空，则由对一般化的稳定性，
+它包含 $\xi$，因而在 $Y$ 中稠密；所以它包含 $Y$ 的一个非空开集，
+参见引理 \ref{topology-lemma-characterize-constructible-Noetherian}。
+由引理 \ref{topology-lemma-characterize-open-Noetherian}，$E$ 是开的。
+这证明了 (2)。为证明 (1)，对 $E$ 在 $X$ 中的补集应用 (2)。
+\end{proof}
+
+\section{维数函数}
+\label{topology-section-dimension-function}
+
+\noindent
+除非所考虑的空间是清醒的（定义 \ref{topology-definition-generic-point}），
+否则考虑维数函数几乎没有意义。因此，可以用与 $X$ 关联的清醒拓扑空间
+来改进下面的定义。由于概形的底拓扑空间是清醒的，我们不作这一改进。
+
+\begin{definition}
+\label{topology-definition-dimension-function}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 设 $x, y \in X$ 且 $x \not = y$。假设 $x \leadsto y$，即 $y$
+是 $x$ 的一个特化。若不存在 $z \in X \setminus \{x, y\}$，使得
+$x \leadsto z$ 且 $z \leadsto y$，则称 $y$ 是 $x$ 的一个
+{\it 直接特化}。
+\item 若映射 $\delta : X \to \mathbf{Z}$ 满足下列条件，则称它为
+{\it 维数函数}\footnote{这很可能不是标准术语。这一概念通常只对
+（局部）Noether 概形引入；在这种情形，条件 (a) 由 (b) 蕴含。}：
+\begin{enumerate}
+\item 每当 $x \leadsto y$ 且 $x \not = y$ 时，都有
+$\delta(x) > \delta(y)$；
+\item 对 $X$ 中的每个直接特化 $x \leadsto y$，都有
+$\delta(x) = \delta(y) + 1$。
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+显然，若 $\delta$ 是维数函数，则对任意 $t \in \mathbf{Z}$，
+$\delta + t$ 也是维数函数。下面是一个有趣的引理。
+
+\begin{lemma}
+\label{topology-lemma-dimension-function-catenary}
+设 $X$ 为拓扑空间。若 $X$ 清醒且有维数函数，则 $X$ 是链状空间。
+此外，对任意 $x \leadsto y$，有
+$$
+\delta(x) - \delta(y) =
+\text{codim}\left(\overline{\{y\}}, \ \overline{\{x\}}\right).
+$$
+\end{lemma}
+
+\begin{proof}
+假设 $Y \subset Y' \subset X$ 为不可约闭子集，并设
+$\xi \in Y$、$\xi' \in Y'$ 为它们的泛点。由定义立即可见
+$\text{codim}(Y, Y') \leq \delta(\xi) - \delta(\xi') < \infty$。
+事实上，第一个不等式是等式。设
+$$
+Y = Y_0 \subset Y_1 \subset \ldots \subset Y_e = Y'
+$$
+为任意不可约闭子集极大链，并以 $\xi_i \in Y_i$ 表示泛点。
+那么 $\xi_i \leadsto \xi_{i + 1}$ 是直接特化。因此，
+$e = \delta(\xi) - \delta(\xi')$，正合所需。这也证明了引理的最后一个
+断言。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-dimension-function-unique}
+设 $X$ 为拓扑空间，并设 $\delta$、$\delta'$ 为 $X$ 上的两个维数函数。
+若 $X$ 局部 Noether 且清醒，则 $\delta - \delta'$ 在 $X$ 上局部常值。
+\end{lemma}
+
+\begin{proof}
+设 $x \in X$ 为一点。我们将证明 $\delta - \delta'$ 在 $x$ 的一个邻域
+上常值。可以把 $X$ 替换为 $X$ 中 $x$ 的一个 Noether 开邻域。
+因此可假设 $X$ Noether 且清醒。设 $Z_1, \ldots, Z_r$ 为 $X$
+中经过 $x$ 的不可约分支。（因为 $X$ 是 Noether 的，它们只有有限多个，
+参见引理 \ref{topology-lemma-Noetherian}。）设 $\xi_i \in Z_i$ 为泛点。
+注意，$Z_1 \cup \ldots \cup Z_r$ 是 $X$ 中 $x$ 的一个邻域
+（未必闭）。我们断言 $\delta - \delta'$ 在
+$Z_1 \cup \ldots \cup Z_r$ 上常值。事实上，若 $y \in Z_i$，则
+$$
+\delta(x) - \delta(y) = \delta(x) - \delta(\xi_i) + \delta(\xi_i) - \delta(y)
+= - \text{codim}(\overline{\{x\}}, Z_i)
++ \text{codim}(\overline{\{y\}}, Z_i)
+$$
+这是由引理 \ref{topology-lemma-dimension-function-catenary} 得出的。
+对 $\delta'$ 也同样。因此结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-locally-dimension-function}
+设 $X$ 局部 Noether、清醒且链状。则每个点都有一个拥有维数函数的开邻域
+$U \subset X$。
+\end{lemma}
+
+\begin{proof}
+我们将反复使用：链状空间的开子空间仍为链状空间，参见引理
+\ref{topology-lemma-catenary}；以及 Noether 拓扑空间只有有限多个不可约分支，
+参见引理 \ref{topology-lemma-Noetherian}。在引理
+\ref{topology-lemma-dimension-function-unique} 的证明中，我们已经看到如何构造
+这样的函数。具体而言，先把 $X$ 替换为 $x$ 的一个 Noether 开邻域。
+接着，设 $Z_1, \ldots, Z_r \subset X$ 为 $X$ 的不可约分支。设
+$$
+Z_i \cap Z_j = \bigcup Z_{ijk}
+$$
+为不可约分支分解。将 $X$ 替换为
+$$
+X \setminus \left(
+\bigcup\nolimits_{x \not \in Z_i} Z_i
+\cup
+\bigcup\nolimits_{x \not \in Z_{ijk}} Z_{ijk}
+\right)
+$$
+于是可以假设对所有 $i$ 都有 $x \in Z_i$，并且对所有 $i, j, k$
+都有 $x \in Z_{ijk}$。对 $y \in X$，任取满足 $y \in Z_i$ 的 $i$，
+并令
+$$
+\delta(y) = - \text{codim}(\overline{\{y\}}, Z_i)
++ \text{codim}(\overline{\{x\}}, Z_i).
+$$
+我们断言这是一个维数函数。先证明它是良定义的，即与 $i$ 的选择无关。
+假设对某个 $i, j, k$ 有 $y \in Z_{ijk}$。则有（使用引理
+\ref{topology-lemma-catenary-in-codimension}）
+\begin{align*}
+\delta(y) & =
+- \text{codim}(\overline{\{y\}}, Z_i)
++ \text{codim}(\overline{\{x\}}, Z_i) \\
+& =
+- \text{codim}(\overline{\{y\}}, Z_{ijk})
+- \text{codim}(Z_{ijk}, Z_i)
++ \text{codim}(\overline{\{x\}}, Z_{ijk})
++ \text{codim}(Z_{ijk}, Z_i) \\
+& =
+- \text{codim}(\overline{\{y\}}, Z_{ijk})
++ \text{codim}(\overline{\{x\}}, Z_{ijk})
+\end{align*}
+它关于 $i$ 与 $j$ 对称。略去验证它是维数函数的证明。
+\end{proof}
+
+\begin{remark}
+\label{topology-remark-obstruction-to-dimension-function}
+合并引理 \ref{topology-lemma-dimension-function-unique} 与
+\ref{topology-lemma-locally-dimension-function} 可知，在链状、局部 Noether、清醒的
+拓扑空间上，存在维数函数的障碍是 $H^1(X, \mathbf{Z})$ 的一个元素。
+\end{remark}
+
+\section{无处稠密集}
+\label{topology-section-nowhere-dense}
+
+\begin{definition}
+\label{topology-definition-nowhere-dense}
+设 $X$ 为拓扑空间。
+\begin{enumerate}
+\item 给定子集 $T \subset X$，$T$ 的{\it 内部}是 $X$ 中包含于 $T$
+的最大开子集。
+\item 若 $T$ 的闭包内部为空，则称子集 $T \subset X$ {\it 无处稠密}。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{topology-lemma-nowhere-dense}
+设 $X$ 为拓扑空间。有限多个无处稠密集之并仍为无处稠密集。
+\end{lemma}
+
+\begin{proof}
+只需对两个无处稠密集证明本引理，一般结果即可由归纳法得出。
+设 $A,B \subset X$ 为无处稠密子集。有
+$\overline{A \cup B} = \overline{A} \cup \overline{B}$。因此，若
+$U \subset \overline{A \cup B}$ 是 $X$ 的开子集，则
+% P01-ERRATA-E0021: frozen source omits grouping around U intersect closure(B) and closure(A); formulas preserved here.
+$U \setminus U \cap \overline{B}$ 是 $U$ 以及 $X$ 的开子集，并包含于
+$\overline{A}$，因而为空。同理，$U \setminus U \cap \overline{A}$
+为空。所以 $U = \emptyset$，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-image-nowhere-dense-open}
+设 $X$ 为拓扑空间，$U \subset X$ 为开集，$T \subset U$ 为子集。
+若 $T$ 在 $U$ 中无处稠密，则 $T$ 在 $X$ 中无处稠密。
+\end{lemma}
+
+\begin{proof}
+假设 $T$ 在 $U$ 中无处稠密。假设 $x \in X$ 是 $T$ 在 $X$ 中的闭包
+$\overline{T}$ 的一个内点。设 $x \in V \subset \overline{T}$，其中
+$V \subset X$ 在 $X$ 中开。注意，$\overline{T} \cap U$ 是 $T$
+在 $U$ 中的闭包。由于 $\overline{T} \cap U$ 的内部为空，必有
+$V \cap U = \emptyset$。所以 $x$ 不可能属于 $U$ 的闭包，更不可能属于
+$T$ 的闭包，矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-nowhere-dense-local}
+设 $X$ 为拓扑空间，$X = \bigcup U_i$ 为开覆盖，且 $T \subset X$
+为子集。若对所有 $i$，$T \cap U_i$ 在 $U_i$ 中无处稠密，则 $T$
+在 $X$ 中无处稠密。
+\end{lemma}
+
+\begin{proof}
+以 $\overline{T}_i$ 表示 $T \cap U_i$ 在 $U_i$ 中的闭包。
+有 $\overline{T} \cap U_i = \overline{T}_i$。取内部与同开集求交可交换，
+所以
+$$
+(\text{下列对象的内部： }\overline{T}) \cap U_i =
+\text{下列对象的内部： }(\overline{T} \cap U_i) =
+\text{在下列对象中的内部： }U_i\text{ 属于 }\overline{T}_i
+$$
+由假设，最后一项为空。因此 $T$ 在 $X$ 中无处稠密。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-closed-image-nowhere-dense}
+设 $f : X \to Y$ 为拓扑空间的连续映射，$T \subset X$ 为子集。
+若 $f$ 是 $X$ 到 $Y$ 的一个闭子集上的同胚，并且 $T$ 在 $X$
+中无处稠密，则 $f(T)$ 在 $Y$ 中也无处稠密。
+\end{lemma}
+
+\begin{proof}
+因为 $f(X)$ 在 $Y$ 中闭，并且 $f$ 是 $X$ 到 $f(X)$ 上的同胚，
+所以 $f(T)$ 在 $Y$ 中的闭包等于 $f(\overline{T})$。因此，若
+$V \subset Y$ 是包含于 $f(T)$ 闭包的开集，则 $U = f^{-1}(V)$
+是包含于 $\overline{T}$ 的开集。所以 $U = \emptyset$，进而
+$V = \emptyset$，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-open-inverse-image-closed-nowhere-dense}
+设 $f : X \to Y$ 为拓扑空间的连续映射，$T \subset Y$ 为子集。
+若 $f$ 是开映射，且 $T$ 是 $Y$ 的闭无处稠密子集，则 $f^{-1}(T)$
+也是 $X$ 的闭无处稠密子集。若 $f$ 满射且为开映射，则 $T$ 是闭无处
+稠密集，当且仅当 $f^{-1}(T)$ 是闭无处稠密集。
+\end{lemma}
+
+\begin{proof}
+略。（提示：在第一种情形，$f^{-1}(T)$ 的内部映入 $T$ 的内部；
+在第二种情形，$f^{-1}(T)$ 的内部满射到 $T$ 的内部。）
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-dense-in-constructible}
+设 $X$ 为拓扑空间。设 $E \subset X$ 为有限多个局部闭子集之并
+（例如，$E$ 可构造）。则 $E$ 包含其闭包的一个稠密开子集。
+\end{lemma}
+
+\begin{proof}
+用 $E$ 的闭包替换 $X$ 后，可以假设 $E$ 在 $X$ 中稠密；我们需要证明
+$E$ 包含一个稠密开集。于是 $E$ 的补集 $T$ 是有限多个局部闭子集之并，
+设 $T = T_1 \cup \ldots \cup T_n$，并且 $T$ 在 $X$ 中无处稠密。
+由于 $T_i$ 在其闭包 $Z_i$ 中开且稠密，可知 $Z_i$ 在 $X$ 中也无处
+稠密。于是，由引理 \ref{topology-lemma-nowhere-dense}，$T$ 的闭包
+$Z = Z_1 \cup \ldots \cup Z_n$ 在 $X$ 中无处稠密。由此得出，$E$
+包含稠密开集 $X \setminus Z$。
+\end{proof}
+
+\section{仿有限空间}
+\label{topology-section-profinite}
+
+\noindent
+定义如下。
+
+\begin{definition}
+\label{topology-definition-profinite}
+若一个拓扑空间同胚于有限离散空间图表的极限，则称它是
+{\it 仿有限的}。
+\end{definition}
+
+\noindent
+这并不是仿有限空间最方便的刻画。
+
+\begin{lemma}
+\label{topology-lemma-profinite}
+设 $X$ 为拓扑空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 是仿有限空间；
+\item $X$ 是 Hausdorff、拟紧且全不连通的。
+\end{enumerate}
+若这些条件成立，则 $X$ 是有限离散空间的余滤极限。
+\end{lemma}
+
+\begin{proof}
+假设 (1)。选取有限离散空间的图表 $i \mapsto X_i$，使得
+$X = \lim X_i$。因为每个 $X_i$ 都是 Hausdorff 且拟紧的，由引理
+\ref{topology-lemma-inverse-limit-quasi-compact} 可知 $X$ 拟紧。若
+$x, x' \in X$ 是不同的点，则 $x$ 与 $x'$ 在某个 $X_i$ 中的像不同。
+所以 $x$ 与 $x'$ 有不交开邻域，即 $X$ 是 Hausdorff 的。用完全相同的
+方法可见 $X$ 全不连通。
+
+\medskip\noindent
+假设 (2)。令 $\mathcal{I}$ 为所有有限不交并分解
+$X = \coprod_{i \in I} U_i$ 构成的集合，其中对所有 $i \in I$，
+$U_i$ 都是非空开（因而也闭）子集。对每个 $I \in \mathcal{I}$，
+存在连续映射 $X \to I$，把 $U_i$ 的点送到 $i$。定义偏序如下：
+对 $I, I' \in \mathcal{I}$，$I \leq I'$ 当且仅当 $I'$ 对应的覆盖
+加细 $I$ 对应的覆盖。在这种情形，我们得到典范映射 $I' \to I$。
+换言之，我们得到以 $\mathcal{I}$ 为指标的有限离散空间逆系统。
+映射 $X \to I$ 相容地拼合，给出连续映射
+$$
+X \longrightarrow \lim_{I \in \mathcal{I}} I
+$$
+我们断言此映射是同胚，这便完成证明。（最后一个断言也随之成立，因为
+偏序集 $\mathcal{I}$ 是有向的：给定 $X$ 的两个不交并分解，可以找到
+一个同时加细二者的第三个分解。）事实上，该映射是单射，因为 $X$
+全不连通，故 $\{x\}$ 是 $X$ 中所有包含 $x$ 的开闭子集之交
+（引理 \ref{topology-lemma-connected-component-intersection-compact-Hausdorff}）；
+该映射由引理 \ref{topology-lemma-intersection-closed-in-quasi-compact} 是满射。
+由引理 \ref{topology-lemma-bijective-map}，该映射是同胚。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-directed-inverse-limit-profinite}
+仿有限空间的极限仍是仿有限空间。
+\end{lemma}
+
+\begin{proof}
+设 $i \mapsto X_i$ 为以指标范畴 $\mathcal{I}$ 为指标的仿有限空间图表。
+使用引理 \ref{topology-lemma-profinite} 对仿有限空间的刻画。特别地，每个 $X_i$
+都是 Hausdorff、拟紧且全不连通的。由引理 \ref{topology-lemma-limits}，极限
+$X = \lim X_i$ 存在。由引理 \ref{topology-lemma-inverse-limit-quasi-compact}，
+极限 $X$ 拟紧。设 $x, x' \in X$ 为不同的点。则存在某个 $i$，使得
+$x$ 与 $x'$ 在 $X_i$ 中的像 $x_i$ 与 $x'_i$ 在投影 $X \to X_i$
+下彼此不同。
+于是 $x_i$ 与 $x'_i$ 在 $X_i$ 中有不交开邻域。取这些开集的原像，
+可知 $X$ 是 Hausdorff 的。同样，$x_i$ 与 $x'_i$ 位于 $X_i$ 的不同
+连通分支中，从而 $x$ 与 $x'$ 必位于 $X$ 的不同连通分支中。因此
+$X$ 全不连通。这完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-profinite-refine-open-covering}
+设 $X$ 为仿有限空间。$X$ 的每个开覆盖都有一个形如
+$X = \coprod U_i$ 的有限覆盖加细，其中 $U_i$ 开且闭。
+\end{lemma}
+
+\begin{proof}
+将 $X = \lim X_i$ 写成以有向集 $I$ 为指标的有限离散空间逆系统的极限
+（引理 \ref{topology-lemma-profinite}）。以 $f_i : X \to X_i$ 表示投影。
+对每个点 $x = (x_i) \in X$，开邻域的一个基本系由
+$f_i^{-1}(\{x_i\})$ 构成。因此，由于 $X$ 拟紧，可以假设有开覆盖
+$$
+X = f_{i_1}^{-1}(\{x_{i_1}\}) \cup \ldots \cup f_{i_n}^{-1}(\{x_{i_n}\})
+$$
+选取 $i \in I$，使得对 $j = 1, \ldots, n$ 有 $i \geq i_j$
+（因为 $I$ 是有向集，这是可能的）。于是覆盖
+$$
+X = \coprod\nolimits_{t \in X_i} f_i^{-1}(\{t\})
+$$
+加细给定覆盖，并且具有所要求的形式。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-pi0-profinite}
+设 $X$ 为拓扑空间。若 $X$ 拟紧，并且 $X$ 的每个连通分支都是所有
+包含它的开闭子集之交，则 $\pi_0(X)$ 是仿有限空间。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{topology-lemma-profinite} 来证明。由于 $\pi_0(X)$ 是拟紧空间的像，
+它拟紧（引理 \ref{topology-lemma-image-quasi-compact}）。按构造，它全不连通
+（引理 \ref{topology-lemma-space-connected-components}）。设 $C, D \subset X$
+为 $X$ 的两个不同连通分支。把 $C = \bigcap U_\alpha$ 写成 $X$ 中所有
+包含 $C$ 的开闭子集之交。$U_\alpha$ 的任意有限交仍属此类。由于
+$\bigcap U_\alpha \cap D = \emptyset$，可知对某个 $\alpha$ 有
+$U_\alpha \cap D = \emptyset$（使用引理
+\ref{topology-lemma-connected-components}、\ref{topology-lemma-closed-in-quasi-compact} 与
+\ref{topology-lemma-intersection-closed-in-quasi-compact}）。因为 $U_\alpha$ 开且闭，
+它是其所包含的连通分支之并；也就是说，$U_\alpha$ 是某个开闭子集
+$V_\alpha \subset \pi_0(X)$ 的原像。这证明了对应于 $C$ 与 $D$ 的点
+包含于不交开子集中，即 $\pi_0(X)$ 是 Hausdorff 的。
+\end{proof}
+
+\section{谱空间}
+\label{topology-section-spectral}
+
+\noindent
+本节材料取自 \cite{Hochster} 与 \cite{Hochster-thesis}。Hochster 在其
+博士论文中证明了（除其他结果外），谱空间恰好是能够作为某个环的谱出现的
+拓扑空间。
+
+\begin{definition}
+\label{topology-definition-spectral-space}
+若拓扑空间 $X$ 清醒且拟紧，任意两个拟紧开集之交拟紧，并且拟紧开集族
+构成拓扑基，则称它为{\it 谱空间}。若谱空间的连续映射
+$f : X \to Y$ 对每个拟紧开集的原像都拟紧，则称它为{\it 谱映射}。
+\end{definition}
+
+\noindent
+换言之，谱空间的连续映射是谱映射，当且仅当它拟紧
+（定义 \ref{topology-definition-quasi-compact}）。
+
+\medskip\noindent
+设 $X$ 为谱空间。$X$ 上的{\it 可构造拓扑}，是以集合 $U$ 与 $U^c$
+为开集子基的拓扑，其中 $U$ 是 $X$ 的拟紧开集。注意，因为 $X$ 是谱空间，
+开集 $U \subset X$ 逆紧，当且仅当 $U$ 拟紧。因此，可构造拓扑也可刻画为
+使 $X$ 的每个可构造子集同时开且闭的最粗拓扑（可构造集的定义与性质见
+第 \ref{topology-section-constructible} 节）。由此可知，$X$ 的子集在可构造拓扑
+中开（相应地，闭），当且仅当它是可构造子集之并（相应地，交）。
+由于拟紧开集族构成 $X$ 的拓扑基，可见可构造拓扑比 $X$ 上的给定拓扑更细。
+
+\begin{lemma}
+\label{topology-lemma-constructible-hausdorff-quasi-compact}
+设 $X$ 为谱空间。可构造拓扑是 Hausdorff、全不连通且拟紧的。
+\end{lemma}
+
+\begin{proof}
+设 $x, y \in X$ 且 $x \not = y$。因为 $X$ 清醒，存在恰好包含两点
+$x, y$ 之一的开子集 $U$。不妨设 $x \in U$。可将 $U$ 替换为包含于
+$U$ 的 $x$ 的拟紧开邻域。于是 $U$ 与 $U^c$ 在可构造拓扑中都开且闭。
+因为 $x \in U$ 与 $y \in U^c$ 是可构造拓扑中的不交开集，所以 $X$
+在可构造拓扑中是 Hausdorff 的。$U$ 的存在也蕴含 $x$ 与 $y$ 在可构造
+拓扑中位于不同连通分支，故 $X$ 在可构造拓扑中全不连通。
+
+\medskip\noindent
+令 $\mathcal{B}$ 为所有子集 $B \subset X$ 构成的集合，其中 $B$
+或者是拟紧开集，或者是具有拟紧补集的闭集。若 $B \in \mathcal{B}$，
+则 $B^c \in \mathcal{B}$。由引理 \ref{topology-lemma-subbase-theorem}，只需证明
+每个满足 $B_i \in \mathcal{B}$ 的覆盖
+$X = \bigcup_{i \in I} B_i$ 都有有限加细。取补集可知，我们必须证明：
+若 $\mathcal{B}$ 中的元素族 $\{B_i\}_{i \in I}$ 对所有 $n$ 以及所有
+$i_1, \ldots, i_n \in I$ 都满足
+$B_{i_1} \cap \ldots \cap B_{i_n} \not = \emptyset$，则它有公共交点。
+可以并且确实假设：若 $i \not = i'$，则 $B_i \not = B_{i'}$。
+
+\medskip\noindent
+反设 $\{B_i\}_{i \in I}$ 是 $\mathcal{B}$ 中具有有限交性质但总交为空
+的元素族。应用 Zorn 引理可假设该族极大（略去细节）。令
+$I' \subset I$ 为使得 $B_i$ 闭的那些指标，并置
+$Z = \bigcap_{i \in I'} B_i$。由引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact}，这是 $X$ 的非空闭子集。
+若 $Z$ 可约，则可写成 $Z = Z' \cup Z''$，其中两个闭子集都
+不等于 $Z$。特别地，这意味着可以找到与 $Z'$ 相交但不与
+$Z''$ 相交的拟紧开集 $U' \subset X$。类似地，可以找到与 $Z''$
+相交但不与 $Z'$ 相交的拟紧开集 $U'' \subset X$。置
+$B' = X \setminus U'$ 与 $B'' = X \setminus U''$。注意
+$Z'' \subset B'$ 且 $Z' \subset B''$。若存在有限多个指标
+$i_1, \ldots, i_n \in I$，使得
+$B' \cap B_{i_1} \cap \ldots \cap B_{i_n} = \emptyset$，并且还存在
+有限多个指标 $j_1, \ldots, j_m \in I$，使得
+$B'' \cap B_{j_1} \cap \ldots \cap B_{j_m} = \emptyset$，则可得
+$Z \cap B_{i_1} \cap \ldots \cap B_{i_n} \cap B_{j_1} \cap \ldots \cap B_{j_m}
+= \emptyset$。然而，集合
+$B_{i_1} \cap \ldots \cap B_{i_n} \cap B_{j_1} \cap \ldots \cap B_{j_m}$
+拟紧，因此可以找到有限多个指标 $i'_1, \ldots, i'_l \in I'$，使得
+$B_{i_1} \cap \ldots \cap B_{i_n} \cap B_{j_1} \cap \ldots \cap
+B_{j_m} \cap B_{i'_1} \cap \ldots \cap B_{i'_l} = \emptyset$，矛盾。
+因此，可以把 $B'$ 或 $B''$ 之一加入给定族，这与极大性矛盾。
+由此得出 $Z$ 不可约。但这也导致矛盾，因为此时对每个
+$i \in I \setminus I'$，非空开集 $Z \cap B_i$（其非空性由上面同样的
+论证得出）都包含 $Z$ 的唯一泛点。这个矛盾证明了引理。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-fibres-spectral-map-quasi-compact}
+设 $f : X \to Y$ 为谱空间之间的谱映射。则
+\begin{enumerate}
+\item $f$ 对可构造拓扑连续；
+\item $f$ 的纤维拟紧；
+\item 其像在可构造拓扑中闭。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以 $X'$ 与 $Y'$ 表示分别赋予可构造拓扑的 $X$ 与 $Y$；由引理
+\ref{topology-lemma-constructible-hausdorff-quasi-compact}，它们是拟紧 Hausdorff
+空间。第 (1) 条是说 $X' \to Y'$ 连续，它立即由定义得出。第 (3) 条成立，
+因为 $f(X')$ 是 Hausdorff 空间 $Y'$ 的拟紧子集，参见引理
+\ref{topology-lemma-quasi-compact-in-Hausdorff}。我们有拓扑空间连续映射的交换图
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Y' \ar[r] & Y
+}
+$$
+因为 $Y'$ 是 Hausdorff 的，可知纤维 $X'_y$ 在 $X'$ 中闭。因为 $X'$
+拟紧，可知 $X'_y$ 拟紧（引理 \ref{topology-lemma-closed-in-quasi-compact}）。
+由于 $X'_y \to X_y$ 是满连续映射，由引理
+\ref{topology-lemma-image-quasi-compact} 得出 $X_y$ 拟紧。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-spectral-if-continuous-wrt-constructible-top}
+设 $X$ 与 $Y$ 为谱空间，$f : X \to Y$ 为连续映射。则 $f$ 是谱映射，
+当且仅当 $f$ 对可构造拓扑连续。
+\end{lemma}
+
+\begin{proof}
+必要性是引理 \ref{topology-lemma-fibres-spectral-map-quasi-compact}。假设 $f$
+对可构造拓扑连续。设 $V \subset Y$ 为拟紧开集。则 $V$ 在可构造拓扑
+中开且闭。因此 $f^{-1}(V)$ 在可构造拓扑中开且闭。由引理
+\ref{topology-lemma-constructible-hausdorff-quasi-compact}，$X$ 在可构造拓扑中
+拟紧，所以 $f^{-1}(V)$ 在可构造拓扑中拟紧。由于恒等映射
+$f^{-1}(V) \to f^{-1}(V)$ 从可构造拓扑到通常拓扑是满且连续的，
+由引理 \ref{topology-lemma-image-quasi-compact}，$f^{-1}(V)$ 在 $X$ 的拓扑中拟紧。
+这完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-spectral-sub}
+设 $X$ 为谱空间。设 $E \subset X$ 在可构造拓扑中闭（例如可构造或闭）。
+则赋予诱导拓扑的 $E$ 是谱空间。
+\end{lemma}
+
+\begin{proof}
+设 $Z \subset E$ 为闭不可约子集，并设 $\eta$ 为 $Z$ 在 $X$ 中的闭包
+$\overline{Z}$ 的泛点。为证明 $E$ 清醒，我们证明 $\eta \in E$。
+若不然，因为 $E$ 在可构造拓扑中闭，存在可构造子集 $F \subset X$，
+使得 $\eta \in F$ 且 $F \cap E = \emptyset$。由引理
+\ref{topology-lemma-generic-point-in-constructible}，这蕴含
+$F \cap \overline{Z}$ 包含 $\overline{Z}$ 的一个非空开子集。但这是不可能
+的，因为 $\overline{Z}$ 是 $Z$ 的闭包，而 $Z \cap F = \emptyset$。
+
+\medskip\noindent
+因为 $E$ 在可构造拓扑中闭，所以它在可构造拓扑中拟紧
+（引理 \ref{topology-lemma-closed-in-quasi-compact} 与
+\ref{topology-lemma-constructible-hausdorff-quasi-compact}）。因此，它在来自 $X$
+的拓扑中更是拟紧的。若 $U \subset X$ 是拟紧开集，则 $E \cap U$
+在可构造拓扑中闭，因而拟紧（如上所见）。由此可知，$E$ 的拟紧开子集
+是形如 $E \cap U$ 的交集，其中 $U$ 是 $X$ 的拟紧开集。这些集合构成
+拓扑基。最后，给定两个拟紧开集 $U, U' \subset X$，交集
+$(E \cap U) \cap (E \cap U') = E \cap (U \cap U')$，并且由于 $X$
+是谱空间，$U \cap U'$ 拟紧。这完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-constructible-stable-specialization-closed}
+设 $X$ 为谱空间。设 $E \subset X$ 为在可构造拓扑中闭的子集
+（例如可构造子集）。
+\begin{enumerate}
+\item 若 $x \in \overline{E}$，则 $x$ 是 $E$ 中某点的特化。
+\item 若 $E$ 对特化稳定，则 $E$ 闭。
+\item 若 $E' \subset X$ 在可构造拓扑中开（例如可构造），并且对一般化
+稳定，则 $E'$ 开。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。设 $x \in \overline{E}$。令 $\{U_i\}$ 为 $x$ 的所有拟紧
+开邻域构成的集合。有限多个 $U_i$ 之交仍属此类。对所有 $i$，交集
+$U_i \cap E$ 非空。由于子集 $U_i \cap E$ 在可构造拓扑中闭，由引理
+\ref{topology-lemma-constructible-hausdorff-quasi-compact} 与引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact} 可知
+$\bigcap (U_i \cap E)$ 非空。因为 $\{U_i\}$ 是 $x$ 的开邻域基本系，
+可知 $\bigcap U_i$ 是 $x$ 的一般化点集。因此，$x$ 是 $E$ 中某点的特化。
+
+\medskip\noindent
+第 (2) 条立即由 (1) 得出。
+
+\medskip\noindent
+证明 (3)。假设 $E'$ 如 (3) 所述。$E'$ 的补集在可构造拓扑中闭
+（引理 \ref{topology-lemma-constructible}），并且对特化稳定
+（引理 \ref{topology-lemma-open-closed-specialization}）。所以由 (2)，该补集闭；
+也就是说，$E'$ 开。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-two-points}
+设 $X$ 为谱空间，$x, y \in X$。那么，或者存在一个同时特化到 $x$ 与
+$y$ 的第三个点，或者存在分别包含 $x$ 与 $y$ 的不交开邻域。
+\end{lemma}
+
+\begin{proof}
+令 $\{U_i\}$ 为 $x$ 的所有拟紧开邻域构成的集合。有限多个 $U_i$
+之交仍属此类。令 $\{V_j\}$ 为 $y$ 的所有拟紧开邻域构成的集合。
+有限多个 $V_j$ 之交仍属此类。若对某个 $i, j$，$U_i \cap V_j$ 为空，
+则结论成立。否则，对所有 $i$ 与 $j$，交集 $U_i \cap V_j$ 都非空。
+集合 $U_i \cap V_j$ 在 $X$ 的可构造拓扑中闭。由引理
+\ref{topology-lemma-constructible-hausdorff-quasi-compact} 与引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact} 可知
+$\bigcap (U_i \cap V_j)$ 非空。由于 $X$ 清醒，且 $\{U_i\}$ 是 $x$
+的开邻域基本系，可知 $\bigcap U_i$ 是 $x$ 的一般化点集。类似地，
+$\bigcap V_j$ 是 $y$ 的一般化点集。因此，
+$\bigcap (U_i \cap V_j)$ 的任意元素都同时特化到 $x$ 与 $y$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-characterize-profinite-spectral}
+设 $X$ 为谱空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 仿有限；
+\item $X$ 是 Hausdorff 的；
+\item $X$ 全不连通；
+\item 每个拟紧开集都闭；
+\item 点之间不存在非平凡特化；
+\item $X$ 的每个点都闭；
+\item $X$ 的每个点都是 $X$ 的某个不可约分支的泛点；
+\item 可构造拓扑等于 $X$ 上的给定拓扑；
+% P01-ERRATA-E0022: frozen source contains the editorial placeholder “add more here”; translated literally.
+\item 在此添加更多条件。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+引理 \ref{topology-lemma-profinite} 给出蕴含关系 (1) $\Rightarrow$ (3)。
+不可约分支是闭的，所以若 $X$ 全不连通，则每个点都闭。因此 (3) 蕴含
+(6)。(6) 与 (5) 的等价性是立即的；而因为 $X$ 清醒，
+(6) $\Leftrightarrow$ (7) 成立。假设 (5)。则 $X$ 的所有可构造子集都闭
+（引理 \ref{topology-lemma-constructible-stable-specialization-closed}），特别地，
+所有拟紧开集都闭。所以 (5) 蕴含 (4)。因为 $X$ 清醒，对任意两点，
+存在恰好包含其中一点的拟紧开集，故 (4) 蕴含 (2)。由可构造拓扑的定义，
+(4) 与 (8) 等价。只需再证明 (2) 蕴含 (1)。假设 $X$ 是 Hausdorff 的。
+每个拟紧开集也闭（引理 \ref{topology-lemma-quasi-compact-in-Hausdorff}）。
+这蕴含 $X$ 全不连通。所以由引理 \ref{topology-lemma-profinite}，它仿有限。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-spectral-pi0}
+若 $X$ 为谱空间，则 $\pi_0(X)$ 为仿有限空间。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{topology-lemma-connected-component-intersection} 与
+\ref{topology-lemma-pi0-profinite}。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-product-spectral-spaces}
+两个谱空间的积是谱空间。
+\end{lemma}
+
+\begin{proof}
+设 $X$、$Y$ 为谱空间。以 $p : X \times Y \to X$ 与
+$q : X \times Y \to Y$ 表示投影。设 $Z \subset X \times Y$ 为闭不可约
+子集。那么 $p(Z) \subset X$ 不可约，且 $q(Z) \subset Y$ 不可约。
+% P01-ERRATA-E0023: frozen source names p(X) and q(Y), while the proof immediately and necessarily uses p(Z) and q(Z); preserved here.
+设 $x \in X$ 为 $p(X)$ 的闭包的泛点，并设 $y \in Y$ 为 $q(Y)$
+的闭包的泛点。若 $(x, y) \not \in Z$，则存在开集
+$x \in U \subset X$、$y \in V \subset Y$，使得
+$Z \cap U \times V = \emptyset$。所以 $Z$ 包含于
+$(X \setminus U) \times Y \cup X \times (Y \setminus V)$。由于 $Z$
+不可约，可知或者 $Z \subset (X \setminus U) \times Y$，或者
+$Z \subset X \times (Y \setminus V)$。在第一种情形，
+$p(Z) \subset (X \setminus U)$；在第二种情形，
+$q(Z) \subset (Y \setminus V)$。两种情形都荒谬，因为 $x$ 位于
+$p(Z)$ 的闭包中，且 $y$ 位于 $q(Z)$ 的闭包中。因此
+$(x, y) \in Z$，这意味着 $(x, y)$ 是 $Z$ 的泛点。
+
+\medskip\noindent
+$X \times Y$ 的拓扑基由形如 $U \times V$ 的开集组成，其中
+$U \subset X$ 与 $V \subset Y$ 为拟紧开集（这里用到 $X$ 与 $Y$
+都是谱空间）。那么，作为拟紧空间之积，$U \times V$ 拟紧。此外，
+$X \times Y$ 的任意拟紧开集都是这种拟紧矩形 $U \times V$ 的有限并。
+由此可知，任意两个这种开集之交仍拟紧（因为 $X$ 与 $Y$ 是谱空间）。
+这完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-spectral-bijective}
+设 $f : X \to Y$ 为拓扑空间的连续映射。若
+\begin{enumerate}
+\item $X$ 与 $Y$ 都是谱空间；
+\item $f$ 是双射谱映射；
+\item 一般化（相应地，特化）可沿 $f$ 提升，
+\end{enumerate}
+则 $f$ 是同胚。
+\end{lemma}
+
+\begin{proof}
+因为 $f$ 是谱映射，它在 $X$ 与 $Y$ 的可构造拓扑之间定义连续映射。
+由引理 \ref{topology-lemma-constructible-hausdorff-quasi-compact} 与
+\ref{topology-lemma-bijective-map}，$X \to Y$ 在可构造拓扑中是同胚。
+设 $U \subset X$ 为拟紧开集。则 $f(U)$ 在 $Y$ 中可构造。设
+$y \in Y$ 特化到 $f(U)$ 中的某个点。由最后一个假设，$f^{-1}(y)$
+特化到 $U$ 的某个点。所以 $f^{-1}(y) \in U$，从而 $y \in f(U)$。
+由引理 \ref{topology-lemma-constructible-stable-specialization-closed}，可知
+$f(U)$ 开。因此 $f$ 是同胚。为在特化可沿 $f$ 提升的情形证明本引理，
+改为证明：若 $X \setminus Z$ 是 $X$ 的拟紧开集，则 $f(Z)$ 闭。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-directed-inverse-limit-finite-sober-spectral-spaces}
+有限清醒拓扑空间的有向逆系统之逆极限是谱拓扑空间。
+\end{lemma}
+
+\begin{proof}
+设 $I$ 为有向集，$X_i$ 为以 $I$ 为指标的有限清醒空间逆系统。
+令 $X = \lim X_i$，其存在性由引理 \ref{topology-lemma-limits} 得出。
+作为集合，$X = \lim X_i$。以 $p_i : X \to X_i$ 表示投影。
+因为 $I$ 有向，可以应用引理 \ref{topology-lemma-describe-limits}。拓扑基由开集
+$p_i^{-1}(U_i)$ 给出，其中 $U_i \subset X_i$ 开。因为
+$p_i^{-1}(U_i)$ 的开覆盖特别也是仿有限拓扑中的开覆盖，可知
+$p_i^{-1}(U_i)$ 拟紧。给定 $U_i \subset X_i$ 与 $U_j \subset X_j$，
+则对某个 $k \geq i, j$ 以及某个开集 $U_k \subset X_k$，有
+$p_i^{-1}(U_i) \cap p_j^{-1}(U_j) = p_k^{-1}(U_k)$。最后，若
+$Z \subset X$ 不可约且闭，则 $p_i(Z) \subset X_i$ 不可约，因而有唯一
+泛点 $\xi_i$（因为 $X_i$ 是有限清醒拓扑空间）。于是
+$\xi = \lim \xi_i$ 是 $Z$ 的泛点（它是 $Z$ 的点，因为 $Z$ 闭）。
+这完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-spectral-closed-in-product-two-point-space}
+设 $W$ 为恰有两个点的拓扑空间，其中一个点闭，另一个不闭。一个拓扑空间
+是谱空间，当且仅当它同胚于若干个 $W$ 的积的一个子空间，且该子空间在
+可构造拓扑中闭。
+\end{lemma}
+
+\begin{proof}
+写成 $W = \{0, 1\}$，其中 $0$ 是 $1$ 的特化，但反之不然。设 $I$
+为集合。由引理 \ref{topology-lemma-directed-inverse-limit-finite-sober-spectral-spaces}，
+空间 $\prod_{i \in I} W$ 是谱空间。因此，由引理 \ref{topology-lemma-spectral-sub}，
+$\prod_{i \in I} W$ 中在可构造拓扑下闭的子空间是谱空间。
+
+\medskip\noindent
+反之，设 $X$ 为谱空间。设 $U \subset X$ 为拟紧开集。考虑连续映射
+$$
+f_U : X \longrightarrow W
+$$
+它把 $U$ 中的每个点映到 $1$，把 $X \setminus U$ 中的每个点映到 $0$。
+取这些映射的积，得到连续映射
+$$
+f = \prod f_U : X \longrightarrow \prod\nolimits_U W
+$$
+% P01-ERRATA-E0024: frozen source uses an undefined codomain Y at this point; preserved here until Y is defined below as f(X).
+按构造，映射 $f : X \to Y$ 是谱映射。由引理
+\ref{topology-lemma-fibres-spectral-map-quasi-compact}，$f$ 的像在可构造拓扑中闭。
+若 $x', x \in X$ 不同，则因为 $X$ 清醒，或者 $x'$ 不是 $x$ 的特化，
+或者反过来。无论哪种情形（因为拟紧开集构成 $X$ 的拓扑基），都存在
+拟紧开集 $U \subset X$，使得 $f_U(x') \not = f_U(x)$。因此 $f$
+是单射。令 $Y = f(X)$ 并赋予诱导拓扑。设 $y' \leadsto y$ 为 $Y$
+中的特化，并设 $f(x') = y'$ 且 $f(x) = y$。如上论证可知
+$x' \leadsto x$，因为否则存在某个 $U$，使得 $x \in U$ 且
+$x' \not \in U$，这会蕴含 $f_U(x') \not \leadsto f_U(x)$。
+由引理 \ref{topology-lemma-spectral-bijective}，得出 $f : X \to Y$ 是同胚。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-spectral-inverse-limit-finite-sober-spaces}
+一个拓扑空间是谱空间，当且仅当它是有限清醒拓扑空间的有向逆极限。
+\end{lemma}
+
+\begin{proof}
+一个方向由引理
+\ref{topology-lemma-directed-inverse-limit-finite-sober-spectral-spaces} 给出。
+反之，假设 $X$ 是谱空间。由引理
+\ref{topology-lemma-spectral-closed-in-product-two-point-space}，可以假设
+$X \subset \prod_{i \in I} W$ 是在可构造拓扑中闭的子集，其中
+$W = \{0, 1\}$。可以把
+$$
+\prod\nolimits_{i \in I} W =
+\lim_{J \subset I\text{ 有限 }} \prod\nolimits_{j \in J} W
+$$
+写成余滤极限。对每个 $J$，令 $X_J \subset \prod_{j \in J} W$ 为
+$X$ 的像。因为 $X$ 在赋予可构造拓扑的积中闭，可知作为集合
+$X = \lim X_J$（略去细节）。关于极限的一个形式论证（略）表明，
+作为拓扑空间也有 $X = \lim X_J$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-Noetherian-goes-to-spectral}
+设 $X$ 为拓扑空间，并设 $c : X \to X'$ 为从 $X$ 到清醒拓扑空间的
+泛映射，参见引理 \ref{topology-lemma-make-sober}。
+\begin{enumerate}
+\item 若 $X$ 拟紧，则 $X'$ 也拟紧。
+\item 若 $X$ 拟紧、有拟紧开集基，并且任意两个拟紧开集之交拟紧，
+则 $X'$ 是谱空间。
+\item 若 $X$ 是 Noether 的，则 $X'$ 是 Noether 谱空间。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $U \subset X$ 为开集，并设 $U' \subset X'$ 为对应开集，即满足
+$c^{-1}(U') = U$ 的开集。于是 $U$ 拟紧，当且仅当 $U'$ 拟紧，因为沿
+$c$ 拉回给出 $X$ 与 $X'$ 的开集之间保持并的双射。这特别证明了 (1)。
+
+\medskip\noindent
+证明 (2)。由上可知，$X'$ 有拟紧开集基。因为 $c^{-1}$ 也与成对开集之交
+可交换，可知 $X'$ 的任意两个拟紧开集之交拟紧。最后，由 (1)，$X'$
+拟紧；而按构造，它清醒。因此 $X'$ 是谱空间。
+
+\medskip\noindent
+证明 (3)。$X'$ 是 Noether 的，这是立即的，因为该性质由开子集的升链
+条件定义，而这一条件对 $X$ 成立。我们已经在 (2) 中看到 $X'$ 是谱空间。
+\end{proof}
+
+\section{谱空间的极限}
+\label{topology-section-limits-spectral}
+
+\noindent
+引理 \ref{topology-lemma-spectral-inverse-limit-finite-sober-spaces} 告诉我们，每个
+谱空间都是有限清醒空间的余滤极限。每个有限清醒空间都是谱空间，并且
+有限清醒空间的每个连续映射都是谱空间之间的谱映射。本节证明一些关于
+由谱映射组成的谱拓扑空间系统之极限的引理。
+
+\begin{lemma}
+\label{topology-lemma-inverse-limit-spectral-spaces-quasi-compact}
+设 $\mathcal{I}$ 为范畴，$i \mapsto X_i$ 为谱空间图表，并且对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射 $f_a : X_j \to X_i$ 是谱映射。
+\begin{enumerate}
+\item 给定在可构造拓扑中闭的子集 $Z_i \subset X_i$，并且对
+$\mathcal{I}$ 中所有 $a : j \to i$ 都有 $f_a(Z_j) \subset Z_i$，
+则 $\lim Z_i$ 拟紧。
+\item 空间 $X = \lim X_i$ 拟紧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-limits}，极限 $Z = \lim Z_i$ 存在。以 $X'_i$
+表示赋予可构造拓扑的空间 $X_i$，以 $Z'_i$ 表示 $X'_i$ 的相应子空间。
+设 $a : j \to i$ 为 $\mathcal{I}$ 中的态射。因为 $f_a$ 是谱映射，
+它定义连续映射 $f_a : X'_j \to X'_i$。所以
+$f_a|_{Z_j} : Z'_j \to Z'_i$ 是拟紧 Hausdorff 空间的连续映射
+（由引理 \ref{topology-lemma-constructible-hausdorff-quasi-compact} 与
+\ref{topology-lemma-closed-in-quasi-compact}）。因此，由引理
+\ref{topology-lemma-inverse-limit-quasi-compact}，$Z' = \lim Z_i$ 拟紧。
+映射 $Z'_i \to Z_i$ 连续，故 $Z' \to Z$ 连续且在底集合上为双射。
+所以，作为满连续映射 $Z' \to Z$ 的像，$Z$ 拟紧
+（引理 \ref{topology-lemma-image-quasi-compact}）。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-inverse-limit-spectral-spaces-nonempty}
+设 $\mathcal{I}$ 为余滤范畴，$i \mapsto X_i$ 为谱空间图表，并且对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射 $f_a : X_j \to X_i$ 是谱映射。
+\begin{enumerate}
+\item 给定在可构造拓扑中闭的非空子集 $Z_i \subset X_i$，并且对
+$\mathcal{I}$ 中所有 $a : j \to i$ 都有 $f_a(Z_j) \subset Z_i$，
+则 $\lim Z_i$ 非空。
+\item 若每个 $X_i$ 都非空，则 $X = \lim X_i$ 非空。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以 $X'_i$ 表示赋予可构造拓扑的空间 $X_i$，以 $Z'_i$ 表示 $X'_i$
+的相应子空间。设 $a : j \to i$ 为 $\mathcal{I}$ 中的态射。因为 $f_a$
+是谱映射，它定义连续映射 $f_a : X'_j \to X'_i$。所以
+$f_a|_{Z_j} : Z'_j \to Z'_i$ 是拟紧 Hausdorff 空间的连续映射
+（由引理 \ref{topology-lemma-constructible-hausdorff-quasi-compact} 与
+\ref{topology-lemma-closed-in-quasi-compact}）。由引理 \ref{topology-lemma-nonempty-limit}，
+空间 $\lim Z'_i$ 非空。由于作为集合有 $\lim Z'_i = \lim Z_i$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-inverse-limit-spectral-spaces-equal}
+设 $\mathcal{I}$ 为余滤范畴，$i \mapsto X_i$ 为谱空间图表，并且对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射 $f_a : X_j \to X_i$ 是谱映射。
+令 $X = \lim X_i$，投影为 $p_i : X \to X_i$。设
+$i \in \Ob(\mathcal{I})$，并设 $E, F \subset X_i$ 为子集，其中 $E$
+在可构造拓扑中闭，$F$ 在可构造拓扑中开。那么
+$p_i^{-1}(E) \subset p_i^{-1}(F)$，当且仅当存在 $\mathcal{I}$ 中的态射
+$a : j \to i$，使得 $f_a^{-1}(E) \subset f_a^{-1}(F)$。
+\end{lemma}
+
+\begin{proof}
+注意
+$$
+p_i^{-1}(E) \setminus p_i^{-1}(F) =
+\lim_{a : j \to i} f_a^{-1}(E) \setminus f_a^{-1}(F)
+$$
+因为 $f_a$ 是谱映射，它对可构造拓扑连续，故集合
+$f_a^{-1}(E) \setminus f_a^{-1}(F)$ 在可构造拓扑中闭。因此可应用引理
+\ref{topology-lemma-inverse-limit-spectral-spaces-nonempty}，得到左边非空，当且仅当
+右边每个空间都非空。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-inverse-limit-spectral-spaces-constructible}
+设 $\mathcal{I}$ 为余滤范畴，$i \mapsto X_i$ 为谱空间图表，并且对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射 $f_a : X_j \to X_i$ 是谱映射。
+令 $X = \lim X_i$，投影为 $p_i : X \to X_i$。设 $E \subset X$
+为可构造子集。则存在 $i \in \Ob(\mathcal{I})$ 以及可构造子集
+$E_i \subset X_i$，使得 $p_i^{-1}(E_i) = E$。若 $E$ 开（相应地，闭），
+则可选取开（相应地，闭）的 $E_i$。
+\end{lemma}
+
+\begin{proof}
+假设 $E$ 是 $X$ 的拟紧开集。由引理 \ref{topology-lemma-describe-limits}，
+可以对某个 $i$ 与某个开集 $U_i \subset X_i$ 写成
+$E = p_i^{-1}(U_i)$。将 $U_i = \bigcup U_{i, \alpha}$ 写成拟紧开集之并。
+因为 $E$ 拟紧，可以找到 $\alpha_1, \ldots, \alpha_n$，使得
+$E = p_i^{-1}(U_{i, \alpha_1} \cup \ldots \cup U_{i, \alpha_n})$。
+所以 $E_i = U_{i, \alpha_1} \cup \ldots \cup U_{i, \alpha_n}$ 合用。
+
+\medskip\noindent
+假设 $E$ 是闭可构造子集。则 $E^c$ 是拟紧开集。由上一段的结果，
+对某个 $i$ 以及拟紧开集 $F_i \subset X_i$，有
+$E^c = p_i^{-1}(F_i)$。于是 $E = p_i^{-1}(F_i^c)$，正合所需。
+
+\medskip\noindent
+若 $E$ 一般，可以写成 $E = \bigcup_{l = 1, \ldots, n} U_l \cap Z_l$，
+其中 $U_l$ 是可构造开集，$Z_l$ 是可构造闭集。由前几段的结果，可写成
+$U_l = p_{i_l}^{-1}(U_{l, i_l})$ 与
+$Z_l = p_{j_l}^{-1}(Z_{l, j_l})$，其中
+$U_{l, i_l} \subset X_{i_l}$ 为可构造开集，
+$Z_{l, j_l} \subset X_{j_l}$ 为可构造闭集。由于 $\mathcal{I}$ 余滤，
+可以选取 $\mathcal{I}$ 的对象 $k$ 以及态射 $a_l : k \to i_l$ 与
+$b_l : k \to j_l$。于是取
+$E_k = \bigcup_{l = 1, \ldots, n}
+f_{a_l}^{-1}(U_{l, i_l}) \cap f_{b_l}^{-1}(Z_{l, j_l})$，得到 $X_k$
+的一个可构造子集，其在 $X$ 中的原像为 $E$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-directed-inverse-limit-spectral-spaces}
+设 $\mathcal{I}$ 为余滤指标范畴，$i \mapsto X_i$ 为谱空间图表，并且对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射 $f_a : X_j \to X_i$ 是谱映射。
+则逆极限 $X = \lim X_i$ 是谱拓扑空间，并且投影
+$p_i : X \to X_i$ 是谱映射。
+\end{lemma}
+
+\begin{proof}
+极限 $X = \lim X_i$ 存在（引理 \ref{topology-lemma-limits}），并由引理
+\ref{topology-lemma-inverse-limit-spectral-spaces-quasi-compact} 拟紧。
+
+\medskip\noindent
+以 $p_i : X \to X_i$ 表示投影。因为 $\mathcal{I}$ 余滤，可以应用引理
+\ref{topology-lemma-describe-limits}。所以 $X$ 的拓扑基由开集 $p_i^{-1}(U_i)$
+给出，其中 $U_i \subset X_i$ 开。由于 $X_i$ 的拓扑基由拟紧开集给出，
+可知 $X$ 的一个拓扑基由 $p_i^{-1}(U_i)$ 给出，其中
+$U_i \subset X_i$ 是拟紧开集。形式论证表明，作为拓扑空间有
+$$
+p_i^{-1}(U_i) = \lim_{a : j \to i} f_a^{-1}(U_i)
+$$
+因为每个 $f_a$ 都是谱映射，集合 $f_a^{-1}(U_i)$ 在 $X_j$ 的可构造
+拓扑中闭，所以由引理 \ref{topology-lemma-inverse-limit-spectral-spaces-quasi-compact}，
+$p_i^{-1}(U_i)$ 拟紧。因此，$X$ 有一个由拟紧开集组成的拓扑基。
+
+\medskip\noindent
+$X$ 的任意拟紧开集 $U$ 都形如 $U = p_i^{-1}(U_i)$，其中 $i$ 为某个
+指标，$U_i \subset X_i$ 为某个拟紧开集（见引理
+\ref{topology-lemma-inverse-limit-spectral-spaces-constructible}）。给定拟紧开集
+$U_i \subset X_i$ 与 $U_j \subset X_j$，则对某个 $k$ 以及拟紧开集
+$U_k \subset X_k$，有
+$p_i^{-1}(U_i) \cap p_j^{-1}(U_j) = p_k^{-1}(U_k)$。事实上，选取 $k$
+以及态射 $k \to i$ 与 $k \to j$，并令 $U_k$ 为 $U_i$ 与 $U_j$
+在 $X_k$ 中的拉回之交。由此可见，$X$ 的任意两个拟紧开集之交仍为
+拟紧开集。
+
+\medskip\noindent
+最后，设 $Z \subset X$ 不可约且闭。则 $p_i(Z) \subset X_i$ 不可约，
+因而 $Z_i = \overline{p_i(Z)}$ 有唯一泛点 $\xi_i$（因为 $X_i$ 是谱空间）。
+对 $\mathcal{I}$ 中的 $a : j \to i$，有 $f_a(\xi_j) = \xi_i$，因为
+$\overline{f_a(Z_j)} = Z_i$。所以 $\xi = \lim \xi_i$ 是 $X$ 的点。
+断言：$\xi \in Z$。若不然，可以找到包含 $\xi$ 且与 $Z$ 不相交的
+拟紧开集。它应当形如 $p_i^{-1}(U_i)$，其中 $i$ 为某个指标，
+$U_i \subset X_i$ 为拟紧开集。于是 $\xi_i \in U_i$，但
+$p_i(Z) \cap U_i = \emptyset$，这与 $\xi_i \in \overline{p_i(Z)}$ 矛盾。
+所以 $\xi \in Z$，从而 $\overline{\{\xi\}} \subset Z$。反过来，
+每个 $z \in Z$ 都在 $\xi$ 的闭包中。事实上，给定 $z$ 的拟紧开邻域
+$U$，将 $U = p_i^{-1}(U_i)$ 写成上述形式，其中 $i$ 为某个指标，
+$U_i \subset X_i$ 为拟紧开集。由 $p_i(z) \in U_i$ 得
+$\xi_i \in U_i$，进而 $\xi \in U$。因此 $\xi$ 是 $Z$ 的泛点。
+略去 $\xi$ 是 $Z$ 的唯一泛点的证明（提示：证明第二个泛点必须等于
+$\xi$；为此证明它在 $X_i$ 中必映到 $\xi_i$，因为由 $X_i$ 的谱性，
+不可约集 $Z_i$ 有唯一泛点）。这完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-descend-opens}
+设 $\mathcal{I}$ 为余滤指标范畴，$i \mapsto X_i$ 为谱空间图表，并且对
+$\mathcal{I}$ 中的 $a : j \to i$，相应映射 $f_a : X_j \to X_i$ 是谱映射。
+置 $X = \lim X_i$，并以 $p_i : X \to X_i$ 表示投影。
+\begin{enumerate}
+\item 给定任意拟紧开集 $U \subset X$，存在 $i \in \Ob(\mathcal{I})$
+以及拟紧开集 $U_i \subset X_i$，使得 $p_i^{-1}(U_i) = U$。
+\item 给定拟紧开集 $U_i \subset X_i$ 与 $U_j \subset X_j$，并假设
+$p_i^{-1}(U_i) \subset p_j^{-1}(U_j)$，则存在
+$k \in \Ob(\mathcal{I})$ 以及态射 $a : k \to i$ 与 $b : k \to j$，
+使得 $f_a^{-1}(U_i) \subset f_b^{-1}(U_j)$。
+\item 若 $U_i, U_{1, i}, \ldots, U_{n, i} \subset X_i$ 是拟紧开集，且
+$p_i^{-1}(U_i) = p_i^{-1}(U_{1, i}) \cup \ldots \cup p_i^{-1}(U_{n, i})$，
+则对 $\mathcal{I}$ 中的某个态射 $a : j \to i$，有
+$f_a^{-1}(U_i) = f_a^{-1}(U_{1, i}) \cup \ldots \cup f_a^{-1}(U_{n, i})$。
+\item 与 (3) 相同的断言，但把并换成交。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 条是引理 \ref{topology-lemma-inverse-limit-spectral-spaces-constructible}
+的特殊情形。第 (2) 条是引理
+\ref{topology-lemma-inverse-limit-spectral-spaces-equal} 的特殊情形，因为拟紧开集
+在可构造拓扑中既开又闭。第 (3)、(4) 条形式地由 (1)、(2) 以及子集取原像
+与取并、取交可交换这一事实得出。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-make-spectral-space}
+设 $W$ 为谱空间 $X$ 的子集。下列条件等价：
+\begin{enumerate}
+\item $W$ 是可构造集之交，并且对一般化封闭；
+\item $W$ 拟紧且对一般化封闭；
+\item 存在拟紧子集 $E \subset X$，使得 $W$ 是特化到 $E$ 的点集；
+\item $W$ 是拟紧开子集之交；
+\item
+\label{topology-item-intersection-quasi-compact-open}
+存在非空集合 $I$ 以及拟紧开集 $U_i \subset X$（$i \in I$），使得
+$W = \bigcap U_i$，并且对所有 $i, j \in I$，存在 $k \in I$ 满足
+$U_k \subset U_i \cap U_j$。
+\end{enumerate}
+在这种情形，(a) $W$ 是谱空间，(b) 作为拓扑空间有 $W = \lim U_i$，
+并且 (c) 对任意包含 $W$ 的开集 $U$，存在某个 $i$ 使得 $U_i \subset U$。
+\end{lemma}
+
+\begin{proof}
+设 $W \subset X$ 满足 (1)。则 $W$ 在可构造拓扑中闭，故在可构造拓扑
+中拟紧（由引理 \ref{topology-lemma-constructible-hausdorff-quasi-compact} 与
+\ref{topology-lemma-closed-in-quasi-compact}），进而在 $X$ 的拓扑中拟紧
+（因为 $X$ 的开集在可构造拓扑中开）。所以 (2) 成立。
+
+\medskip\noindent
+取 $E = W$，显然可见 (2) 蕴含 (3)。
+
+\medskip\noindent
+设 $X$ 为谱空间，且 $E \subset W$ 如 (3) 所述。因为 $W$ 的每个点
+都特化到 $E$ 的某个点，所以 $W$ 的包含 $E$ 的开集等于 $W$。
+因此，因为 $E$ 拟紧，$W$ 也拟紧。若 $x \in X$ 且 $x \not \in W$，
+则 $Z = \overline{\{x\}}$ 与 $W$ 不相交。因为 $W$ 拟紧，可以找到拟紧
+开集 $U$，使得 $W \subset U$ 且 $U \cap Z = \emptyset$。由此得出 (4)。
+
+\medskip\noindent
+若 $W = \bigcap_{j \in J} U_j$，则令 $I$ 等于 $J$ 的有限子集集，并对
+$i = \{j_1, \ldots, j_r\}$ 令
+$U_i = U_{j_1} \cap \ldots \cap U_{j_r}$，即可看出 (4) 蕴含 (5)。
+(5) 蕴含 (1) 是立即的。
+
+\medskip\noindent
+设 $I$ 与 $U_i$ 如 (5) 所述。因为 $W = \bigcap U_i$，由极限的泛性质，
+有 $W = \lim U_i$。于是由引理
+\ref{topology-lemma-directed-inverse-limit-spectral-spaces}，$W$ 是谱空间。
+设 $U \subset X$ 为 $W$ 的开邻域。于是
+$E_i = U_i \cap (X \setminus U)$ 是谱空间 $Z = X \setminus U$
+中的可构造子集族，其总交为空。利用 $Z$ 上的谱拓扑拟紧
+% P01-ERRATA-E0025: frozen source says “spectral topology” but invokes the lemma proving quasi-compactness of the constructible topology; preserved here.
+（引理 \ref{topology-lemma-constructible-hausdorff-quasi-compact}），再由引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact} 可知，对某个 $i$ 有
+$E_i = \emptyset$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-make-spectral-space-minus}
+设 $X$ 为谱空间，$E \subset X$ 为可构造子集。设 $W \subset X$ 为
+$X$ 中特化到 $E$ 的某个点的点集。则 $W \setminus E$ 是谱空间。
+若 $W = \bigcap U_i$，其中 $U_i$ 如引理 \ref{topology-lemma-make-spectral-space}
+的 (\ref{topology-item-intersection-quasi-compact-open}) 所述，则
+$W \setminus E = \lim (U_i \setminus E)$。
+\end{lemma}
+
+\begin{proof}
+因为 $E$ 可构造，所以它拟紧，因而引理 \ref{topology-lemma-make-spectral-space}
+可应用于 $W$。若 $E$ 可构造，则对所有 $i \in I$，$E$ 在 $U_i$
+中可构造。因此，由引理 \ref{topology-lemma-spectral-sub}，$U_i \setminus E$
+是谱空间。因为 $W \setminus E = \bigcap (U_i \setminus E)$，由极限的
+泛性质有
+% P01-ERRATA-E0026: frozen source omits grouping around the objects U_i minus E after lim; preserved here.
+$W \setminus E = \lim U_i \setminus E$。于是由引理
+\ref{topology-lemma-directed-inverse-limit-spectral-spaces}，$W \setminus E$ 是谱空间。
+\end{proof}
+
+\section{Stone-{\v C}ech 紧化}
+\label{topology-section-stone-cech}
+
+\noindent
+拓扑空间 $X$ 的 Stone-{\v C}ech 紧化，是从 $X$ 到 Hausdorff 拟紧空间
+$\beta(X)$ 的映射 $X \to \beta(X)$，它对这类映射具有泛性质。
+我们用一个标准论证证明其存在；该论证使用下面的简单引理。
+
+\begin{lemma}
+\label{topology-lemma-dense-image}
+设 $f : X \to Y$ 为拓扑空间的连续映射。假设 $f(X)$ 在 $Y$ 中稠密，
+且 $Y$ 是 Hausdorff 的。则 $Y$ 的基数不超过 $P(P(X))$ 的基数，
+其中 $P$ 表示幂集运算。
+\end{lemma}
+
+\begin{proof}
+令 $S = f(X) \subset Y$。令 $\mathcal{D}$ 为 $Y$ 的所有闭域组成的集合，
+即等于自身内部之闭包的子集 $D \subset Y$。注意，$Y$ 的开子集之闭包
+是闭域。对 $y \in Y$，考虑集合
+$$
+I_y = \{T \subset S \mid \text{ 存在 }
+D \in \mathcal{D}\text{ 其中 }T = S \cap D\text{ 且 }y \in D\}.
+$$
+因为 $S$ 在 $Y$ 中稠密，所以对每个闭域 $D$，$S \cap D$ 在 $D$
+中稠密。因此，若对 $D, D' \in \mathcal{D}$ 有
+$D \cap S = D' \cap S$，则 $D = D'$。于是，$I_y = I_{y'}$ 蕴含
+$y = y'$，因为 Hausdorff 条件保证可以找到包含 $y$ 而不包含 $y'$
+的闭域。结论随即成立。
+\end{proof}
+
+\noindent
+设 $X$ 为拓扑空间。由引理 \ref{topology-lemma-dense-image}，存在集合 $I$，
+其元素为具有稠密像的连续映射 $f : X \to Y$ 的同构类，其中 $Y$
+为 Hausdorff 且拟紧。对 $i \in I$，选取代表 $f_i : X \to Y_i$。
+考虑映射
+$$
+\prod f_i : X \longrightarrow \prod\nolimits_{i \in I} Y_i
+$$
+并以 $\beta(X)$ 表示其像的闭包。因为每个 $Y_i$ 都是 Hausdorff 的，
+$\beta(X)$ 也是。因为每个 $Y_i$ 都拟紧，$\beta(X)$ 也拟紧
+（使用定理 \ref{topology-theorem-tychonov} 与引理
+\ref{topology-lemma-closed-in-quasi-compact}）。
+
+\medskip\noindent
+我们来证明典范映射 $X \to \beta(X)$ 对到 Hausdorff 拟紧空间的映射
+满足泛性质。具体地，设 $f : X \to Y$ 为这种态射。令 $Z \subset Y$
+为 $f(X)$ 的闭包。那么 $X \to Z$ 同构于映射 $f_i : X \to Y_i$
+之一，设为 $f_{i_0} : X \to Y_{i_0}$。所以 $f$ 按所需方式分解为
+$X \to \beta(X) \to \prod Y_i \to Y_{i_0} \cong Z \to Y$。
+
+\begin{lemma}
+\label{topology-lemma-one-point-compactification}
+设 $X$ 为 Hausdorff 局部拟紧空间。存在映射 $X \to X^*$，它把 $X$
+等同于拟紧 Hausdorff 空间 $X^*$ 的开子空间，并且
+$X^* \setminus X$ 是单点集（单点紧化）。特别地，映射
+$X \to \beta(X)$ 把 $X$ 等同于 $\beta(X)$ 的开子空间。
+\end{lemma}
+
+\begin{proof}
+置 $X^* = X \amalg \{\infty\}$。规定 $X^*$ 的子集 $V$ 为开集，
+如果或者 $V \subset X$ 在 $X$ 中开，或者 $\infty \in V$，并且
+$U = V \cap X$ 是 $X$ 的开集，满足 $X \setminus U$ 拟紧。
+略去验证这定义了一个拓扑。显然，
+% P01-ERRATA-E0027: frozen source says the map identifies X with an open subspace of X, not X-star; preserved here.
+$X \to X^*$ 把 $X$ 等同于 $X$ 的开子空间。
+
+\medskip\noindent
+因为 $X$ 局部拟紧，每个点 $x \in X$ 都有拟紧邻域
+$x \in E \subset X$。于是 $E$ 闭（引理
+\ref{topology-lemma-quasi-compact-in-Hausdorff} 的第 (1) 条），并且
+$V = (X \setminus E) \amalg \{\infty\}$ 是 $\infty$ 的开邻域，
+与 $E$ 的内部不交。因此 $X^*$ 是 Hausdorff 的。
+
+\medskip\noindent
+设 $X^* = \bigcup V_i$ 为开覆盖。则对某个 $i$（设为 $i_0$），有
+$\infty \in V_{i_0}$。按构造，$Z = X^* \setminus V_{i_0}$ 拟紧。
+因此覆盖 $Z \subset \bigcup_{i \not = i_0} Z \cap V_i$ 有有限加细，
+这蕴含 $X^*$ 的给定覆盖有有限加细。所以 $X^*$ 拟紧。
+
+\medskip\noindent
+由 Stone-{\v C}ech 紧化的泛性质，映射 $X \to X^*$ 分解为
+$X \to \beta(X) \to X^*$。令 $\varphi : \beta(X) \to X^*$ 为该分解。
+那么 $X \to \varphi^{-1}(X)$ 是 $\varphi^{-1}(X) \to X$ 的截面，
+所以其像闭（引理 \ref{topology-lemma-section-closed}）。由于 $X \to \beta(X)$
+的像稠密，得出 $X = \varphi^{-1}(X)$。
+\end{proof}
+
+\section{极端不连通空间}
+\label{topology-section-extremally-disconnected}
+
+\noindent
+本节材料取自 \cite{Gleason}（并按 \cite{Rainwater} 作了轻微修改）。
+Gleason 的论文证明，在拟紧 Hausdorff 空间范畴中，“投射对象”恰好是
+极端不连通空间。
+
+\begin{definition}
+\label{topology-definition-extremally-disconnected}
+若拓扑空间 $X$ 的每个开子集之闭包仍开，则称 $X$ 为
+{\it 极端不连通的}。
+\end{definition}
+
+\noindent
+若 $X$ 是 Hausdorff 且极端不连通的，则 $X$ 全不连通
+（一般情形下这不成立）。若 $X$ 拟紧、Hausdorff 且极端不连通，则由引理
+\ref{topology-lemma-profinite}，$X$ 仿有限；但逆命题一般不成立。例如，$p$-进整数
+$\mathbf{Z}_p = \lim \mathbf{Z}/p^n\mathbf{Z}$ 是并非极端不连通的
+仿有限空间。事实上，若 $U \subset \mathbf{Z}_p$ 为所有赋值为偶数的
+非零元素构成的集合，则 $U$ 开，但其闭包 $U \cup \{0\}$ 不开。
+
+\begin{lemma}
+\label{topology-lemma-image-open-technical}
+设 $f : X \to Y$ 为拓扑空间的连续映射。假设 $f$ 满射，并且对每个真闭
+子集 $E \subset X$ 都有 $f(E) \not = Y$。那么，对开集 $U \subset X$，
+子集 $f(U)$ 包含于 $Y \setminus f(X \setminus U)$ 的闭包。
+\end{lemma}
+
+\begin{proof}
+取 $y \in f(U)$，并设 $V \subset Y$ 为 $y$ 的任意开邻域。我们证明
+$V$ 与 $Y \setminus f(X \setminus U)$ 相交。注意，
+$W = U \cap f^{-1}(V)$ 是 $X$ 的非空开子集，所以
+$f(X \setminus W) \not = Y$。取 $y' \in Y$，使得
+$y' \not \in f(X \setminus W)$。容易证明 $y' \in V$ 且
+$y' \in Y \setminus f(X \setminus U)$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-intersection-empty}
+设 $X$ 为极端不连通空间。若 $U, V \subset X$ 是不交开子集，则
+$\overline{U}$ 与 $\overline{V}$ 也不交。
+\end{lemma}
+
+\begin{proof}
+由假设，$\overline{U}$ 开，所以 $V \cap \overline{U}$ 是与 $U$ 不交的
+开集；它必为空，因为 $\overline{U}$ 是 $X$ 中所有包含 $U$ 的闭子集之交。
+这意味着开集 $\overline{V} \cap \overline{U}$ 避开 $V$，故由同一论证
+它为空。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-isomorphism}
+设 $f : X \to Y$ 为 Hausdorff 拟紧拓扑空间的连续映射。若 $Y$
+极端不连通，$f$ 满射，并且对 $X$ 的每个真闭子集 $Z$ 都有
+$f(Z) \not = Y$，则 $f$ 是同胚。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{topology-lemma-bijective-map}，只需证明 $f$ 单射。假设
+$x, x' \in X$ 为不同的点，且 $y = f(x) = f(x')$。选取 $x, x'$
+的不交开邻域 $U, U' \subset X$。注意，$f$ 是闭映射
+（引理 \ref{topology-lemma-closed-map}），故
+$T = f(X \setminus U)$ 与 $T' = f(X \setminus U')$ 在 $Y$ 中闭。
+因为 $X$ 是 $X \setminus U$ 与 $X \setminus U'$ 之并，可知
+$Y = T \cup T'$。由引理 \ref{topology-lemma-image-open-technical}，$y$ 同时属于
+$Y \setminus T$ 的闭包与 $Y \setminus T'$ 的闭包。另一方面，由引理
+\ref{topology-lemma-intersection-empty}，二者之交为空。这样便得到所需矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-find-compact-subset}
+设 $f : X \to Y$ 为 Hausdorff 拟紧拓扑空间之间的满连续映射。
+则存在拟紧子集 $E \subset X$，使得 $f(E) = Y$，但对所有真闭子集
+$E' \subset E$ 都有 $f(E') \not = Y$。
+\end{lemma}
+
+\begin{proof}
+我们将不再特别说明地使用：$X$ 的拟紧子集恰好是其闭子集
+（引理 \ref{topology-lemma-closed-in-compact}）。考虑所有满足 $f(E) = Y$
+的拟紧子集 $E \subset X$ 按包含关系组成的集合 $\mathcal{E}$。
+我们用 Zorn 引理证明 $\mathcal{E}$ 有极小元。为此，只需证明：
+给定 $\mathcal{E}$ 中的全序族 $E_\lambda$，交集
+$\bigcap E_\lambda$ 属于 $\mathcal{E}$。它是闭的，因而拟紧。
+对每个 $y \in Y$，集合 $E_\lambda \cap f^{-1}(\{y\})$ 非空且闭，
+故由引理 \ref{topology-lemma-intersection-closed-in-quasi-compact}，交集
+$\bigcap E_\lambda \cap f^{-1}(\{y\}) = \bigcap (E_\lambda \cap f^{-1}(\{y\}))$
+非空。这完成了证明。
+\end{proof}
+
+\begin{proposition}
+\label{topology-proposition-projective-in-category-hausdorff-qc}
+设 $X$ 为 Hausdorff 拟紧拓扑空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 极端不连通；
+\item 对任意满连续映射 $f : Y \to X$，若 $Y$ 是 Hausdorff 拟紧的，
+则存在连续截面；
+\item 对拟紧 Hausdorff 空间连续映射的任意实线交换图
+$$
+\xymatrix{
+& Y \ar[d] \\
+X \ar@{..>}[ru] \ar[r] & Z
+}
+$$
+若 $Y \to Z$ 满射，则在拓扑空间范畴中存在使图表交换的点线箭头。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+显然，(3) 蕴含 (2)。另一方面，若 (2) 成立，并且 $X \to Z$ 与
+$Y \to Z$ 如 (3) 所述，则 (2) 保证投影 $X \times_Z Y \to X$ 有截面，
+这蕴含存在合适的点线箭头（略去细节）。所以 (3) 与 (2) 等价。
+
+\medskip\noindent
+假设 $X$ 极端不连通，并设 $f : Y \to X$ 如 (2) 所述。由引理
+\ref{topology-lemma-find-compact-subset}，存在拟紧子集 $E \subset Y$，使得
+$f(E) = X$，但对所有真闭子集 $E' \subset E$ 都有 $f(E') \not = X$。
+由引理 \ref{topology-lemma-isomorphism}，$f|_E : E \to X$ 是同胚，其逆给出
+所需截面。
+
+\medskip\noindent
+假设 (2)。设 $U \subset X$ 为开集，补集为 $Z$。考虑满连续映射
+$f : \overline{U} \amalg Z \to X$。设 $\sigma$ 为一个截面。于是
+$\overline{U} = \sigma^{-1}(\overline{U})$ 开。因此 $X$ 极端不连通。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-rainwater}
+设 $f : X \to X$ 为 Hausdorff 拓扑空间的满连续自映射。若 $f$ 不是
+$\text{id}_X$，则存在真闭子集 $E \subset X$，使得 $X = E \cup f(E)$。
+\end{lemma}
+
+\begin{proof}
+取 $p \in X$，使得 $f(p) \not = p$。选取不交开邻域
+$p \in U$、$f(p) \in V$，并置
+% P01-ERRATA-E0028: frozen source omits parentheses around U intersect f^{-1}(V); the subsequent complement argument requires them, but the formula is preserved here.
+$E = X \setminus U \cap f^{-1}(V)$。于是 $p \not \in E$，故 $E$ 是真闭
+子集。若 $x \in X$，则或者 $x \in E$；否则
+$x \in U \cap f^{-1}(V)$。写成 $x = f(y)$（因为 $f$ 满射，这是可能的）。
+若 $y \in U \cap f^{-1}(V)$，则会有 $x = f(y) \in V$，这与
+$x \in U$ 矛盾。所以 $y \in E$，并且 $x \in f(E)$。
+\end{proof}
+
+\begin{example}
+\label{topology-example-stone-Cech-discrete}
+可以用命题 \ref{topology-proposition-projective-in-category-hausdorff-qc} 看出，
+离散空间 $X$ 的 Stone-{\v C}ech 紧化 $\beta(X)$ 极端不连通。
+事实上，设 $f : Y \to \beta(X)$ 为连续满射，其中 $Y$ 拟紧且 Hausdorff。
+因为 $X$ 离散，可以把映射 $X \to \beta(X)$ 提升为连续（！）映射
+$X \to Y$。由 Stone-{\v C}ech 紧化的泛性质，得到分解
+$X \to \beta(X) \to Y$。因为 $\beta(X) \to Y \to \beta(X)$ 在稠密
+子集 $X$ 上等于恒等映射，可知我们得到了一个截面。特别地，离散空间的
+Stone-{\v C}ech 紧化全不连通，从而仿有限（见定义
+\ref{topology-definition-extremally-disconnected} 后的讨论与引理 \ref{topology-lemma-profinite}）。
+\end{example}
+
+\noindent
+利用例 \ref{topology-example-stone-Cech-discrete} 所提供的大量极端不连通空间，
+可以证明每个拟紧 Hausdorff 空间在拟紧 Hausdorff 空间范畴中都有
+“投射覆盖”。
+
+\begin{lemma}
+\label{topology-lemma-existence-projective-cover}
+\begin{slogan}
+每个拟紧 Hausdorff 空间都有典范的极端不连通覆盖
+\end{slogan}
+设 $X$ 为拟紧 Hausdorff 空间。存在连续满射 $X' \to X$，其中 $X'$
+拟紧、Hausdorff 且极端不连通。若要求 $X'$ 的每个真闭子集都不映满
+$X$，则 $X'$ 在同构意义下唯一。
+\end{lemma}
+
+\begin{proof}
+令 $Y = X$，但赋予离散拓扑。令 $X' = \beta(Y)$。连续映射
+$Y \to X$ 分解为 $Y \to X' \to X$。由例
+\ref{topology-example-stone-Cech-discrete}，这证明了引理的第一个断言。
+
+\medskip\noindent
+由引理 \ref{topology-lemma-find-compact-subset}，可以找到拟紧子集 $E \subset X'$，
+它满射到 $X$，且 $E$ 的任何真闭子集都不满射到 $X$。因为 $X'$
+极端不连通，存在 $X$ 上的连续映射 $f : X' \to E$
+（命题 \ref{topology-proposition-projective-in-category-hausdorff-qc}）。把 $f$ 与映射
+$E \to X'$ 复合，得到连续自映射 $f|_E : E \to E$。注意，$f|_E$
+必定满射，否则其像会是真闭子集并满射到 $X$。所以 $f|_E$ 必须是
+$\text{id}_E$，否则引理 \ref{topology-lemma-rainwater} 表明 $E$ 并非极小。
+因此，$\text{id}_E$ 经过极端不连通空间 $X'$ 分解。形式的范畴论论证
+（使用命题 \ref{topology-proposition-projective-in-category-hausdorff-qc} 的刻画）
+表明 $E$ 极端不连通。
+
+\medskip\noindent
+% P01-ERRATA-E0029: frozen proof does not explicitly replace X' by the minimal E before invoking minimality of X' in the uniqueness argument.
+为证明唯一性，假设有第二个极小覆盖 $X'' \to X$。由命题
+\ref{topology-proposition-projective-in-category-hausdorff-qc} 中证明的提升性质，
+可以找到 $X$ 上的连续映射 $g : X' \to X''$。注意，$g$ 是闭映射
+（引理 \ref{topology-lemma-closed-map}）。因此 $g(X') \subset X''$ 是满射到
+$X$ 的闭子集；由 $X''$ 的极小性，得出 $g(X') = X''$。另一方面，
+若 $E \subset X'$ 是真闭子集，则 $g(E) \not = X''$，因为由 $X'$
+的极小性，$E$ 不满射到 $X$。由引理 \ref{topology-lemma-isomorphism}，$g$ 是同构。
+\end{proof}
+
+\begin{remark}
+\label{topology-remark-size-projective-cover}
+设 $X$ 为拟紧 Hausdorff 空间，并设 $\kappa$ 为不小于 $X$ 基数的无限
+基数。那么，极小拟紧 Hausdorff 极端不连通覆盖
+$X' \to X$（引理 \ref{topology-lemma-existence-projective-cover}）的基数至多为
+$2^{2^\kappa}$。事实上，选取子集 $S \subset X'$，使其双射地映到 $X$。
+由 $X'$ 的极小性，集合 $S$ 在 $X'$ 中稠密。因此，由引理
+\ref{topology-lemma-dense-image}，$|X'| \leq 2^{2^\kappa}$。
+\end{remark}
+
+\section{杂项}
+\label{topology-section-miscellany}
+
+
+\noindent
+下面的引理适用于与拟分离概形关联的底拓扑空间。
+
+\begin{lemma}
+\label{topology-lemma-topology-quasi-separated-scheme}
+设 $X$ 为满足下列条件的拓扑空间：
+\begin{enumerate}
+\item 有一个由拟紧开集组成的拓扑基；
+\item 任意两个拟紧开集之交拟紧。
+\end{enumerate}
+则
+\begin{enumerate}
+\item $X$ 局部拟紧；
+\item 拟紧开集 $U \subset X$ 逆紧；
+\item 任意拟紧开集 $U \subset X$ 都有一个开覆盖的共尾系
+$\mathcal{U} : U = \bigcup_{j\in J} U_j$，其中 $J$ 有限，并且所有
+$U_j$ 与 $U_j \cap U_{j'}$ 都拟紧；
+% P01-ERRATA-E0030: frozen source contains the editorial placeholder “add more here”; translated literally.
+\item 在此添加更多条件。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-isolated-point}
+设 $X$ 为拓扑空间。若 $\{x\}$ 在 $X$ 中开，则称 $x \in X$ 是 $X$
+的{\it 孤立点}。
+\end{definition}
+
+
+
+\section{分划与分层}
+\label{topology-section-stratifications}
+
+\noindent
+分层可以用许多不同方式定义。欢迎对本节的定义选择提出意见。
+
+\begin{definition}
+\label{topology-definition-paritition}
+设 $X$ 为拓扑空间。$X$ 的一个{\it 分划}是分解
+$X = \coprod X_i$，其中 $X_i$ 是局部闭子集。$X_i$ 称为该分划的
+{\it 分块}。给定 $X$ 的两个分划，若其中一个的各分块都是另一个的
+若干分块之并，则称后者{\it 加细}前者。
+\end{definition}
+
+\noindent
+任意拓扑空间 $X$ 都有按连通分支给出的分划。若 $X$ 有有限多个不可约
+分支 $Z_1, \ldots, Z_r$，则有一个分块为
+$X_I = \bigcap_{i \in I} Z_i \setminus (\bigcup_{i \not \in I} Z_i)$
+的分划，其指标是子集 $I \subset \{1, \ldots, r\}$；该分划加细按连通
+分支给出的分划。
+
+\begin{definition}
+\label{topology-definition-good-stratification}
+设 $X$ 为拓扑空间。$X$ 的一个{\it 良好分层}是分划
+$X = \coprod X_i$，满足对所有 $i, j \in I$ 都有
+$$
+X_i \cap \overline{X_j} \not = \emptyset
+\Rightarrow
+X_i \subset \overline{X_j}.
+$$
+\end{definition}
+
+\noindent
+给定良好分层 $X = \coprod_{i \in I} X_i$，通过规定 $i \leq j$
+当且仅当 $X_i \subset \overline{X_j}$，在 $I$ 上得到偏序。于是
+$$
+\overline{X_j} = \bigcup\nolimits_{i \leq j} X_i
+$$
+然而，代数几何中经常出现的情形是：在最后一个展示公式中，左边只是右边
+的子集。这引出下面的定义。
+
+\begin{definition}
+\label{topology-definition-stratification}
+设 $X$ 为拓扑空间。$X$ 的一个{\it 分层}由分划
+$X = \coprod_{i \in I} X_i$ 以及 $I$ 上的一个偏序给出，使得对每个
+$j \in I$ 都有
+$$
+\overline{X_j} \subset \bigcup\nolimits_{i \leq j} X_i
+$$
+分块 $X_i$ 称为该分层的{\it 层}。
+\end{definition}
+
+\noindent
+我们常对分层附加条件。例如，若分层{\it 局部有限}，即每个点都有只与
+有限多个层相交的邻域，则它尤其良好。更一般地，引入下面的定义。
+
+\begin{definition}
+\label{topology-definition-locally-finite}
+设 $X$ 为拓扑空间，$I$ 为集合，并且对 $i \in I$ 设
+$E_i \subset X$ 为子集。若对所有 $x \in X$，都存在 $x$ 的开邻域 $U$，
+使得 $\{i \in I | E_i \cap U \not = \emptyset\}$ 有限，则称集合族
+$\{E_i\}_{i \in I}$ {\it 局部有限}。
+\end{definition}
+
+
+\begin{remark}
+\label{topology-remark-locally-finite-stratification}
+给定拓扑空间 $X$ 的局部有限分层 $X = \coprod X_i$，得到由 $I$ 指标化的
+$X$ 的闭子集族 $Z_i = \bigcup_{j \leq i} X_j$，并且
+$$
+Z_i \cap Z_j = \bigcup\nolimits_{k \leq i, j} Z_k
+$$
+反之，给定由偏序集 $I$ 指标化的闭子集 $Z_i \subset X$，假设
+$X = \bigcup Z_i$，每个点都有只与有限多个 $Z_i$ 相交的邻域，并且上面的
+展示公式成立；那么，令 $X_i = Z_i \setminus \bigcup_{j < i} Z_j$，
+得到 $X$ 的一个局部有限分层。
+\end{remark}
+
+\begin{lemma}
+\label{topology-lemma-partition-refined-by-stratification}
+设 $X$ 为拓扑空间，$X = \coprod X_i$ 为 $X$ 的有限分划。
+则存在加细它的 $X$ 的有限分层。
+\end{lemma}
+
+\begin{proof}
+令 $T_i = \overline{X_i}$ 且 $\Delta_i = T_i \setminus X_i$。令 $S$
+为所有 $T_i$ 与 $\Delta_i$ 的交所组成的集合。（例如
+$T_1 \cap T_2 \cap \Delta_4$ 是 $S$ 的一个元素。）那么
+$S = \{Z_s\}$ 是 $X$ 的有限闭子集族，并且对所有 $s, s' \in S$，
+有 $Z_s \cap Z_{s'} \in S$。在 $S$ 上定义包含偏序。然后令
+$Y_s = Z_s \setminus \bigcup_{s' < s} Z_{s'}$，便得到所需分层。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-constructible-partition-refined-by-stratification}
+设 $X$ 为拓扑空间。假设 $X = T_1 \cup \ldots \cup T_n$ 被写成可构造
+子集之并。则存在有限分层 $X = \coprod X_i$，其中每个 $X_i$ 可构造，
+并且每个 $T_k$ 都是若干层之并。
+\end{lemma}
+
+\begin{proof}
+由可构造子集的定义，可将每个 $T_i$ 写成有限多个 $U \cap V^c$ 之并，
+其中 $U, V \subset X$ 是逆紧开集。因此可假设
+$T_i = U_i \cap V_i^c$，其中 $U_i, V_i \subset X$ 是逆紧开集。
+令 $S$ 为 $X$ 的有限闭子集集，由
+$\emptyset, X, U_i^c, V_i^c$ 以及它们的有限交组成。若 $Z \in S$，
+则 $Z$ 在 $X$ 中可构造（引理 \ref{topology-lemma-constructible}）。此外，对所有
+$Z, Z' \in S$，有 $Z \cap Z' \in S$。在 $S$ 上定义包含偏序。
+对 $Z \in S$，令
+$X_Z = Z \setminus \bigcup_{Z' < Z,\ Z' \in S} Z'$，得到满足引理所述
+性质的分层 $X = \coprod_{Z \in S} X_Z$。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-noetherian-partition-refined-by-stratification}
+设 $X$ 为 Noether 拓扑空间。$X$ 的任意有限分划都可由有限良好分层加细。
+\end{lemma}
+
+\begin{proof}
+设 $X = \coprod X_i$ 为 $X$ 的有限分划，并设 $Z$ 为 $X$ 的一个不可约
+分支。由于 $X = \bigcup \overline{X_i}$，且指标集有限，存在某个 $i$
+使得 $Z \subset \overline{X_i}$。因为 $X_i$ 局部闭，这蕴含
+$Z \cap X_i$ 包含 $Z$ 的一个开集。所以 $Z \cap X_i$ 包含 $X$ 的一个
+开集 $U$（引理 \ref{topology-lemma-Noetherian}）。写成
+$X_i = U \amalg X_i^1 \amalg X_i^2$，其中
+$X_i^1 = (X_i \setminus U) \cap \overline{U}$ 且
+$X_i^2 = (X_i \setminus U) \cap \overline{U}^c$。对 $i' \not = i$，令
+$X_{i'}^1 = X_{i'} \cap \overline{U}$ 且
+$X_{i'}^2 = X_{i'} \cap \overline{U}^c$。于是
+$$
+X \setminus U = \coprod X^k_l
+$$
+是一个满足 $\overline{U} \setminus U = \bigcup X_l^1$ 的分划。
+注意，$X \setminus U$ 闭且严格小于 $X$。由 Noether 归纳法，可以把这个
+分划加细为有限良好分层
+$X \setminus U = \coprod_{\alpha \in A} T_\alpha$。于是
+$X = U \amalg \coprod_{\alpha \in A} T_\alpha$ 是加细原分划的 $X$
+的有限良好分层。
+\end{proof}
+
+
+
+
+
+
+
+\section{空间的余极限}
+\label{topology-section-colimits}
+
+\noindent
+拓扑空间范畴有余积。具体地，若 $I$ 是集合，并且对 $i \in I$ 给定拓扑
+空间 $X_i$，则在集合 $\coprod_{i \in I} X_i$ 上赋予{\it 余积拓扑}。
+我们用形如 $U_i$ 的集合构成这一拓扑的基，其中 $U_i \subset X_i$ 开。
+
+\medskip\noindent
+拓扑空间范畴有余等化子。具体地，若 $a, b : X \to Y$ 为拓扑空间的态射，
+则 $a$ 与 $b$ 的余等化子，是集合范畴中的余等化子 $Y/\sim$ 赋予商拓扑
+（第 \ref{topology-section-submersive} 节）。
+
+\begin{lemma}
+\label{topology-lemma-colimits}
+拓扑空间范畴有余极限，并且到集合范畴的遗忘函子与余极限可交换。
+\end{lemma}
+
+\begin{proof}
+这由上面的讨论以及 Categories，引理
+\ref{categories-lemma-colimits-coproducts-coequalizers} 得出。
+Categories，评注 \ref{categories-remark-how-to-use-it} 中勾勒了余极限存在性的
+另一个证明。由上可知，遗忘函子与余极限可交换。另一种看法是使用
+Categories，引理 \ref{categories-lemma-adjoint-exact}，以及遗忘函子有右伴随
+这一事实；该右伴随把集合赋予相应的混沌（或无差别）拓扑空间。
+\end{proof}
+
+\section{拓扑群、环与模}
+\label{topology-section-topological-groups}
+
+\noindent
+本节仅简要给出一些定义和初等性质。
+
+\begin{definition}
+\label{topology-definition-topological-group}
+所谓一个{\it 拓扑群}，是指赋予了拓扑的群 $G$，使得乘法
+$G \times G \to G$，$(x, y) \mapsto xy$ 与取逆映射
+$G \to G$，$x \mapsto x^{-1}$ 都连续。
+所谓一个{\it 拓扑群同态}，是指连续的群同态。
+\end{definition}
+
+\noindent
+若 $G$ 是拓扑群且 $H \subset G$ 是子群，则 $H$ 赋予诱导拓扑后是
+拓扑群。若 $G$ 是拓扑群且 $G \to H$ 是群的满射，则 $H$ 赋予商拓扑后
+是拓扑群。
+
+\begin{example}
+\label{topology-example-automorphisms-of-a-set}
+设 $E$ 为集合。我们可以在自映射集 $\text{Map}(E, E)$ 上赋予紧开拓扑；
+也就是说，对给定的 $f : E \to E$，由集合
+$U_S(f) = \{f' : E \to E \mid f'|_S = f|_S\}$ 构成 $f$ 的一个邻域基本系，
+其中 $S \subset E$ 有限。当 $E$ 赋予离散拓扑时，作用
+$$
+\text{Map}(E, E) \times E \longrightarrow E,\quad
+(f, e) \longmapsto f(e)
+$$
+连续。若 $X$ 是拓扑空间且 $X \times E \to E$ 是连续映射，则映射
+$X \to \text{Map}(E, E)$ 连续。换言之，紧开拓扑是使上面所示的“作用”
+映射连续的最粗拓扑。复合映射
+$$
+\text{Map}(E, E) \times \text{Map}(E, E) \to \text{Map}(E, E)
+$$
+也连续（利用上面对邻域的描述很容易验证）。最后，若
+$\text{Aut}(E) \subset \text{Map}(E, E)$ 是可逆映射的子集，则取逆映射
+$i : \text{Aut}(E) \to \text{Aut}(E)$，$f \mapsto f^{-1}$ 也连续。事实上，
+设 $S \subset E$ 有限，则
+$i^{-1}(U_S(f^{-1})) = U_{f^{-1}(S)}(f)$。因此
+$\text{Aut}(E)$ 是定义 \ref{topology-definition-topological-group} 所述的拓扑群。
+\end{example}
+
+\begin{lemma}
+\label{topology-lemma-topological-group-limits}
+拓扑群范畴有极限，并且极限与到以下范畴的遗忘函子可交换：
+(a) 拓扑空间范畴；(b) 群范畴。
+\end{lemma}
+
+\begin{proof}
+只需证明积和等化子的存在性及交换性，见 Categories，引理
+\ref{categories-lemma-limits-products-equalizers}。设 $G_i$，$i \in I$ 是一族
+拓扑群。取通常的积 $G = \prod G_i$，并赋予积拓扑。由于作为拓扑空间有
+$G \times G = \prod (G_i \times G_i)$（因为在任意范畴中，积与积可交换），
+所以 $G$ 上的乘法连续。取逆映射也同样连续。设
+$a, b : G \to H$ 是两个拓扑群同态。作为等化子，我们可以直接取 $a$ 与
+$b$ 作为拓扑空间映射的等化子；这与把它们视为群同态时的等化子赋予诱导
+拓扑所得对象相同。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-profinite-group}
+设 $G$ 为拓扑群。下列条件等价：
+\begin{enumerate}
+\item 作为拓扑空间，$G$ 是仿有限的；
+\item $G$ 是有限离散拓扑群所成图表的极限；
+\item $G$ 是有限离散拓扑群的余滤极限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对于拓扑空间，我们已有相应结果，见引理 \ref{topology-lemma-profinite}。结合引理
+\ref{topology-lemma-topological-group-limits}，可知只需证明 (1) 蕴含 (3)。
+
+\medskip\noindent
+我们先证明，单位元 $e$ 的每个邻域 $E$ 都包含一个开子群。事实上，由于
+$G$ 是有限离散拓扑空间的余滤极限（引理 \ref{topology-lemma-profinite}），可以选择
+到有限离散空间 $T$ 的连续映射 $f : G \to T$，使得
+$f^{-1}(f(\{e\})) \subset E$。考虑
+$$
+H = \{g \in G \mid f(gg') = f(g')\text{ 对所有 }g' \in G\}
+$$
+这是 $G$ 的一个子群，并且包含于 $E$。因此只需证明 $H$ 是开的。
+% P01-ERRATA: P01-E0032 -- the frozen proof does not handle t outside f(G), when W is empty.
+取
+$t \in T$，并令 $W = f^{-1}(\{t\})$。注意 $W \subset G$ 是开闭的，
+尤其是拟紧的。对每个 $w \in W$，存在开邻域 $e \in U_w \subset G$ 和
+$w \in U'_w \subset W$，使得 $U_wU'_w \subset W$。由拟紧性，可以找到
+$w_1, \ldots, w_n$，使得 $W = \bigcup U'_{w_i}$。于是
+% P01-ERRATA: P01-E0033 -- the frozen assertion leaves g free; it needs g in U_t.
+$U_t = U_{w_1} \cap \ldots \cap U_{w_n}$ 是 $e$ 的开邻域，并且对所有
+$w \in W$ 都有 $f(gw) = t$。由于 $T$ 有限，可知
+$\bigcap_{t \in T} U_t \subset H$ 是 $e$ 的开邻域。又因为
+$H \subset G$ 是子群，所以 $H$ 是开的。
+
+\medskip\noindent
+假设 $H \subset G$ 是开子群。由于 $G$ 拟紧，可知 $H$ 在 $G$ 中的指数
+有限。设 $G = Hg_1 \cup \ldots \cup Hg_n$。则
+% P01-ERRATA: P01-E0034 -- these are left-coset representatives, but the written conjugates use the right-coset orientation.
+$N = \bigcap_{i = 1, \ldots, n} g_iHg_i^{-1}$ 是包含于 $H$ 的开正规子群。
+由于 $N$ 的指数也有限，可知 $G \to G/N$ 是到一个有限离散拓扑群的满射。
+
+\medskip\noindent
+考虑映射
+$$
+G \longrightarrow \lim_{N \subset G\text{ 开且正规}} G/N
+$$
+我们断言该映射是拓扑群的同构。这就完成了引理的证明，因为右侧的极限是
+余滤的（两个开正规子群之交仍是开正规子群）。该映射连续，因为每个
+$G \to G/N$ 都连续。该映射为单射，因为 $G$ 是 Hausdorff 的，并且由
+上面的论证，$e$ 的每个邻域都包含某个 $N$。由引理
+\ref{topology-lemma-intersection-closed-in-quasi-compact}，该映射为满射。由引理
+\ref{topology-lemma-bijective-map}，该映射是同胚。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-profinite-group}
+若一个拓扑群满足引理 \ref{topology-lemma-profinite-group} 中的等价条件，则称它为
+{\it 仿有限群}。
+\end{definition}
+
+\noindent
+若 $G_1 \to G_2 \to G_3 \to \ldots$ 是一个拓扑群系统，则它在拓扑群中
+的余极限 $G = \colim G_n$（引理 \ref{topology-lemma-topological-group-colimits}）
+一般不同于它在拓扑空间中的余极限（引理 \ref{topology-lemma-colimits}），尽管二者
+具有相同的底层集合。见 Examples，第 \ref{examples-section-colimit-topology} 节。
+
+\begin{lemma}
+\label{topology-lemma-topological-group-colimits}
+拓扑群范畴有余极限，并且余极限与到群范畴的遗忘函子可交换。
+\end{lemma}
+
+\begin{proof}
+我们将用 Categories，评注 \ref{categories-remark-how-to-use-it} 中的论证来
+证明余极限存在。具体地，假设
+% P01-ERRATA: P01-E0031 -- frozen source writes Top although the stated codomain is TopGroup.
+$\mathcal{I} \to \textit{Top}$，$i \mapsto G_i$ 是一个取值于拓扑群范畴
+$\textit{TopGroup}$ 的函子。于是可以考虑
+$$
+F : \textit{TopGroup} \longrightarrow \textit{Sets},\quad
+H \longmapsto \lim_\mathcal{I} \Mor_{\textit{TopGroup}}(G_i, H)
+$$
+该函子与极限可交换。此外，给定任意拓扑群 $H$ 以及 $F(H)$ 的一个元素
+$(\varphi_i : G_i \to H)$，存在基数不超过 $|\coprod G_i|$ 的子群
+$H' \subset H$（这里的余积取在群范畴中，即诸 $G_i$ 的自由积），使得
+同态 $\varphi_i$ 的像都落在 $H'$ 中。事实上，可以取由诸
+$\varphi_i$ 的像生成的子群，并赋予诱导拓扑。因此，Categories，引理
+\ref{categories-lemma-a-version-of-brown} 的假设显然满足，从而得到表示函子
+$F$ 的拓扑群 $G$；这恰好意味着 $G$ 是图表 $i \mapsto G_i$ 的余极限。
+
+\medskip\noindent
+为证明它与到群范畴的遗忘函子可交换，我们使用 Categories，引理
+\ref{categories-lemma-adjoint-exact}。事实上，该遗忘函子有右伴随，即把一个群
+赋予相应的混沌（或无差别）拓扑群的函子。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-topological-ring}
+所谓一个{\it 拓扑环}，是指赋予了拓扑的环 $R$，使得加法
+$R \times R \to R$，$(x, y) \mapsto x + y$ 和乘法
+$R \times R \to R$，$(x, y) \mapsto xy$ 都连续。
+所谓一个{\it 拓扑环同态}，是指连续的环同态。
+\end{definition}
+
+\noindent
+在 Stacks Project 中，环是有 $1$ 的交换环。若 $R$ 是拓扑环，则
+$(R, +)$ 是拓扑群，因为 $x \mapsto -x$ 连续。若 $R$ 是拓扑环且
+$R' \subset R$ 是子环，则 $R'$ 赋予诱导拓扑后是拓扑环。若 $R$ 是拓扑环
+且 $R \to R'$ 是环的满射，则 $R'$ 赋予商拓扑后是拓扑环。
+
+\begin{lemma}
+\label{topology-lemma-topological-ring-limits}
+拓扑环范畴有极限，并且极限与到以下范畴的遗忘函子可交换：
+(a) 拓扑空间范畴；(b) 环范畴。
+\end{lemma}
+
+\begin{proof}
+只需证明积和等化子的存在性及交换性，见 Categories，引理
+\ref{categories-lemma-limits-products-equalizers}。设 $R_i$，$i \in I$ 是一族
+拓扑环。取通常的积 $R = \prod R_i$，并赋予积拓扑。由于作为拓扑空间有
+$R \times R = \prod (R_i \times R_i)$（因为在任意范畴中，积与积可交换），
+所以 $R$ 上的加法和乘法连续。设 $a, b : R \to R'$ 是两个拓扑环同态。
+作为等化子，我们可以直接取 $a$ 与 $b$ 作为拓扑空间映射的等化子；这与
+把它们视为环同态时的等化子赋予诱导拓扑所得对象相同。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-topological-ring-colimits}
+拓扑环范畴有余极限，并且余极限与到环范畴的遗忘函子可交换。
+\end{lemma}
+
+\begin{proof}
+与引理 \ref{topology-lemma-topological-group-colimits} 的证明中所用完全相同的论证表明
+余极限存在。为证明它与到环范畴的遗忘函子可交换，我们使用 Categories，
+引理 \ref{categories-lemma-adjoint-exact}。事实上，该遗忘函子有右伴随，即把
+一个环赋予相应的混沌（或无差别）拓扑环的函子。
+\end{proof}
+
+\begin{definition}
+\label{topology-definition-topological-module}
+设 $R$ 为拓扑环。所谓一个{\it 拓扑模}，是指赋予了拓扑的 $R$-模 $M$，
+使得加法 $M \times M \to M$ 与纯量乘法 $R \times M \to M$ 都连续。
+所谓一个{\it 拓扑模同态}，是指连续的模同态。
+\end{definition}
+
+\noindent
+若 $R$ 是拓扑环且 $M$ 是拓扑模，则 $(M, +)$ 是拓扑群，因为
+$x \mapsto -x$ 连续。若 $R$ 是拓扑环，$M$ 是拓扑模且
+$M' \subset M$ 是子模，则 $M'$ 赋予诱导拓扑后是拓扑模。若 $R$ 是拓扑环，
+$M$ 是拓扑模且 $M \to M'$ 是模的满射，则 $M'$ 赋予商拓扑后是拓扑模。
+
+\begin{lemma}
+\label{topology-lemma-topological-module-limits}
+设 $R$ 为拓扑环。$R$ 上的拓扑模范畴有极限，并且极限与到以下范畴的遗忘
+函子可交换：(a) 拓扑空间范畴；(b) $R$-模范畴。
+\end{lemma}
+
+\begin{proof}
+只需证明积和等化子的存在性及交换性，见 Categories，引理
+\ref{categories-lemma-limits-products-equalizers}。设 $M_i$，$i \in I$ 是一族
+$R$ 上的拓扑模。取通常的积 $M = \prod M_i$，并赋予积拓扑。由于作为
+拓扑空间有 $M \times M = \prod (M_i \times M_i)$（因为在任意范畴中，
+积与积可交换），所以 $M$ 上的加法连续。乘法 $R \times M \to M$ 也同样
+连续。设 $a, b : M \to M'$ 是两个 $R$ 上的拓扑模同态。作为等化子，我们
+可以直接取 $a$ 与 $b$ 作为拓扑空间映射的等化子；这与把它们视为模同态时
+的等化子赋予诱导拓扑所得对象相同。
+\end{proof}
+
+\begin{lemma}
+\label{topology-lemma-topological-module-colimits}
+设 $R$ 为拓扑环。$R$ 上的拓扑模范畴有余极限，并且余极限与到 $R$-模范畴
+的遗忘函子可交换。
+\end{lemma}
+
+\begin{proof}
+与引理 \ref{topology-lemma-topological-group-colimits} 的证明中所用完全相同的论证表明
+余极限存在。为证明它与到 $R$-模范畴的遗忘函子可交换，我们使用
+Categories，引理 \ref{categories-lemma-adjoint-exact}。事实上，该遗忘函子有
+右伴随，即把一个模赋予相应的混沌（或无差别）拓扑模的函子。
+\end{proof}
+
+
+
+
+
+
+
+
+% P01 cursor: frozen topology.tex translated through source line 6020; chapter complete pending structural/build QA.

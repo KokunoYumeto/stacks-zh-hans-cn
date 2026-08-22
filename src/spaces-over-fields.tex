@@ -1,0 +1,2769 @@
+% Generated mechanically from the frozen spaces-over-fields.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{71}
+\chapter{域上的代数空间}
+
+
+
+\phantomsection
+\label{spaces-over-fields-section-phantom}
+
+
+\section{引言}
+\label{spaces-over-fields-section-introduction}
+
+\noindent
+本章是关于簇的一章在代数空间情形下的对应版本。代数空间的一份参考文献是
+\cite{Kn}。
+
+
+\section{约定}
+\label{spaces-over-fields-section-conventions}
+
+\noindent
+始终假设所有概形都包含在一个大 fppf 位点 $\Sch_{fppf}$ 中，并且所考虑的每个环
+$A$ 都满足：$\Spec(A)$（同构于）该大位点的一个对象。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。在本章及以下各章中，将用
+$X \times_S X$ 表示 $X$ 与自身的积（在 $S$ 上代数空间的范畴中），而不用
+$X \times X$。
+
+
+
+\section{泛有限态射}
+\label{spaces-over-fields-section-generically-finite}
+
+\noindent
+本节继续《良态空间》第 \ref{decent-spaces-section-generically-finite} 节中的讨论，
+以及《簇》第 \ref{varieties-section-generically-finite} 节中关于代数空间态射的对应讨论。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-quasi-finite-in-codim-1}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 局部有限型，
+且 $Y$ 局部诺特。设 $y \in |Y|$ 为 $Y$ 上余维 $\leq 1$ 的点。设
+$X^0 \subset |X|$ 为 $X$ 上余维 $0$ 的点所成的集合。再假设下列条件之一成立：
+\begin{enumerate}
+\item 对每个 $x \in X^0$，$x/f(x)$ 的超越次数为 $0$；
+\item 对每个满足 $f(x) \leadsto y$ 的 $x \in X^0$，$x/f(x)$ 的超越次数为 $0$；
+\item $f$ 在每个 $x \in X^0$ 处拟有限；
+\item $f$ 在 $|X|$ 的一个稠密点集上拟有限；
+% P09-ERR-0241
+\item 此处需补充更多条件。
+\end{enumerate}
+则 $f$ 在 $X$ 中位于 $y$ 上方的每一点处拟有限。
+\end{lemma}
+
+\begin{proof}
+我们要把证明归约到概形情形。为此，选取交换图
+$$
+\xymatrix{
+U \ar[r] \ar[d]_g & X \ar[d]^f \\
+V \ar[r] & Y
+}
+$$
+其中 $U$, $V$ 为概形，水平箭头平展且满。选取映到 $y$ 的 $v \in V$。注意，
+$V$ 局部诺特，并且 $\dim(\mathcal{O}_{V, v}) \leq 1$（见《空间的性质》定义
+\ref{spaces-properties-definition-dimension-local-ring} 以及
+注 \ref{spaces-properties-remark-list-properties-local-etale-topology}）。
+$U \to V$ 在 $v$ 上的纤维 $U_v$ 满射到
+$f^{-1}(\{y\}) \subset |X|$。$X^0$ 在 $U$ 中的逆像恰为 $U$ 的不可约分支的一般点集
+（《空间的性质》引理 \ref{spaces-properties-lemma-codimension-0-points}）。
+若 $\eta \in U$ 是这样的点，其像为 $x \in X^0$，则 $x / f(x)$ 的超越次数就是
+$\kappa(\eta)$ 在 $\kappa(g(\eta))$ 上的超越次数（《空间的态射》定义
+\ref{spaces-morphisms-definition-dimension-fibre}）。注意，$U \to V$ 在
+$u \in U$ 处拟有限，当且仅当 $f$ 在 $u$ 于 $X$ 中的像处拟有限。
+
+\medskip\noindent
+情形 (1)。此时可应用《簇》引理
+\ref{varieties-lemma-quasi-finite-in-codim-1} 的情形 (1)，从而 $U \to V$
+在 $U_v$ 的所有点处拟有限。因此，$f$ 在位于 $y$ 上方的每一点处拟有限。
+
+\medskip\noindent
+情形 (2)。设 $u \in U$ 为某个不可约分支的一般点，且它在 $V$ 中的像特化到 $v$。
+则 $u$ 的像 $x \in X^0$ 满足 $f(x) \leadsto y$。故可应用《簇》引理
+\ref{varieties-lemma-quasi-finite-in-codim-1} 的情形 (2)，并如前得出结论。
+
+\medskip\noindent
+情形 (3) 由《簇》引理 \ref{varieties-lemma-quasi-finite-in-codim-1}
+的情形 (3) 得出。
+
+\medskip\noindent
+在情形 (4) 中，由于 $|U| \to |X|$ 是开映射，$U \to V$ 拟有限的点集也稠密。
+因此，可应用《簇》引理 \ref{varieties-lemma-quasi-finite-in-codim-1}
+的情形 (4)。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-finite-in-codim-1}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 固有，且
+$Y$ 局部诺特。设 $y \in Y$ 为 $Y$ 中余维 $\leq 1$ 的点。设
+$X^0 \subset |X|$ 为 $X$ 上余维 $0$ 的点所成的集合。再假设下列条件之一成立：
+\begin{enumerate}
+\item 对每个 $x \in X^0$，$x/f(x)$ 的超越次数为 $0$；
+\item 对每个满足 $f(x) \leadsto y$ 的 $x \in X^0$，$x/f(x)$ 的超越次数为 $0$；
+\item $f$ 在每个 $x \in X^0$ 处拟有限；
+\item $f$ 在 $|X|$ 的一个稠密点集上拟有限；
+% P09-ERR-0241
+\item 此处需补充更多条件。
+\end{enumerate}
+则存在包含 $y$ 的开子空间 $Y' \subset Y$，使得
+$Y' \times_Y X \to Y'$ 有限。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-over-fields-lemma-quasi-finite-in-codim-1}，态射 $f$ 在位于 $y$ 上方的每一点处
+拟有限。设 $\overline{y} : \Spec(k) \to Y$ 为位于 $y$ 上方的几何点。则
+$|X_{\overline{y}}|$ 是离散空间（《良态空间》引理
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf}）。由于 $f$ 固有，
+$X_{\overline{y}}$ 拟紧，从而 $|X_{\overline{y}}|$ 有限。因此，可应用
+《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-modification-normal-iso-over-codimension-1}
+设 $S$ 为概形，$X$ 为 $S$ 上的诺特代数空间。设 $f : Y \to X$ 为代数空间的
+双有理固有态射，并且 $Y$ 约化。设 $U \subset X$ 为使 $f$ 在其上为同构的最大开子空间。
+则 $U$ 包含：
+\begin{enumerate}
+\item $X$ 中每个余维 $0$ 的点；
+\item 每个在 $X$ 上余维为 $1$ 且 $X$ 在 $x$ 处的局部环正规的
+$x \in |X|$（《空间的性质》注
+\ref{spaces-properties-remark-list-properties-local-ring-local-etale-topology}）；以及
+\item 每个满足 $|Y| \to |X|$ 在 $x$ 上的纤维有限且 $X$ 在 $x$ 处的局部环正规的
+$x \in |X|$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由《良态空间》引理
+\ref{decent-spaces-lemma-birational-isomorphism-over-dense-open} 得出（还用到诺特代数空间
+$X$ 与 $Y$ 拟分离，从而良态）。(2) 由 (3) 和引理
+\ref{spaces-over-fields-lemma-finite-in-codim-1} 得出（还用到有限态射具有有限纤维）。设
+$x \in |X|$ 如 (3) 所述。由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+（由《良态空间》引理 \ref{decent-spaces-lemma-conditions-on-fibre-and-qf}
+可知其适用），可假设 $f$ 有限。选取仿射概形 $X'$、平展态射 $X' \to X$，以及映到 $x$ 的点
+% P09-ERR-0242
+$x' \in X$。只需证明：存在 $x' \in X'$ 的开邻域 $U'$，使得
+$Y \times_X X' \to X'$ 在 $U'$ 上为同构（此时 $U$ 包含 $U'$ 在 $X$ 中的像，见
+《空间》引理 \ref{spaces-lemma-descent-representable-transformations-property}）。于是
+% P09-ERR-0243
+$Y \times_X X' \to X$ 是有限双有理态射（《良态空间》引理
+\ref{decent-spaces-lemma-birational-etale-localization}）。由于有限态射是仿射的，问题归约为
+诺特仿射概形的有限双有理态射 $Y \to X$，其中 $x \in X$ 且
+$\mathcal{O}_{X, x}$ 是正规整环。该情形已在《簇》引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1} 中处理。
+\end{proof}
+
+
+
+
+
+
+\section{整代数空间}
+\label{spaces-over-fields-section-integral-spaces}
+
+\noindent
+尚未定义整代数空间的概念。问题在于，整性不是概形的平展局部性质。可以用《性质》
+引理 \ref{properties-lemma-characterize-integral} 中的性质，即 $X$ 约化且 $|X|$
+不可约，来定义整代数空间。但这样一来，《空间》例
+\ref{spaces-example-infinite-product} 中描述的代数空间将是整的，这似乎不妥。
+为避免这种病态情形，还将假设 $X$ 是良态代数空间，尽管也许存在更弱的替代条件。
+
+\begin{definition}
+\label{spaces-over-fields-definition-integral-algebraic-space}
+设 $S$ 为概形。若 $S$ 上的代数空间 $X$ 约化、良态且 $|X|$ 不可约，则称其为
+{\it 整的}。
+\end{definition}
+
+\noindent
+在此情形下，不可约拓扑空间 $|X|$ 是良态拓扑空间（《良态空间》命题
+\ref{decent-spaces-proposition-reasonable-sober}），故它有唯一的一般点 $x$。
+事实上，我们已在《良态空间》引理
+\ref{decent-spaces-lemma-finitely-many-irreducible-components} 中刻画了具有有限多个
+不可约分支的良态代数空间。应用该引理可知，若代数空间 $X$ 约化，具有不可约稠密
+开子概形 $X'$，其一般点为 $x'$，且态射 $x' \to X$ 拟紧，则它是整的。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-integral-algebraic-space-rational-functions}
+设 $S$ 为概形，$X$ 为 $S$ 上的整代数空间。设 $\eta \in |X|$ 为 $X$ 的一般点。
+有典范等同
+$$
+R(X) = \mathcal{O}_{X, \eta}^h = \kappa(\eta)
+$$
+其中 $R(X)$ 是《空间的态射》定义
+\ref{spaces-morphisms-definition-ring-of-rational-functions},
+中定义的有理函数环，$\kappa(\eta)$ 是《良态空间》定义
+\ref{decent-spaces-definition-residue-field} 中定义的剩余域，而
+$\mathcal{O}_{X, \eta}^h$ 是《良态空间》定义
+\ref{decent-spaces-definition-elemenary-etale-neighbourhood} 中定义的亨泽尔局部环。
+特别地，这些环都是域。
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 在 $\eta$ 的某个开邻域中是概形（见上文讨论），这立即由概形的对应结果得出，
+见《态射》引理 \ref{morphisms-lemma-integral-scheme-rational-functions}。还用到：
+域的亨泽尔化是其自身，并且这些对象关于代数空间的定义与概形情形的定义相容。
+细节从略。
+\end{proof}
+
+\noindent
+这引出以下定义。
+
+\begin{definition}
+\label{spaces-over-fields-definition-function-field}
+设 $S$ 为概形，$X$ 为 $S$ 上的整代数空间。$X$ 的{\it 函数域}，或
+{\it 有理函数域}，是引理
+\ref{spaces-over-fields-lemma-integral-algebraic-space-rational-functions} 中的域 $R(X)$。
+\end{definition}
+
+\noindent
+有时也用 $k(X)$ 而非 $R(X)$ 表示该域。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-integral-sections}
+设 $S$ 为概形，$X$ 为 $S$ 上的整代数空间。则
+$\Gamma(X, \mathcal{O}_X)$ 是整环。
+\end{lemma}
+
+\begin{proof}
+令 $R = \Gamma(X, \mathcal{O}_X)$。若 $f, g \in R$ 非零且 $fg = 0$，则
+$X = V(f) \cup V(g)$，其中 $V(f)$ 表示由 $f$ 截出的 $X$ 的闭子空间。由于
+$X$ 不可约，必有 $V(f) = X$ 或 $V(g) = X$。于是由《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-space}，必有 $f = 0$ 或 $g = 0$。
+\end{proof}
+
+\noindent
+下面是关于正规整代数空间的一个引理。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-normal-integral-cover-by-affines}
+设 $S$ 为概形，$X$ 为 $S$ 上的正规整代数空间。对每个 $x \in |X|$，存在正规整
+仿射概形 $U$ 和平展态射 $U \to X$，使得 $x$ 属于其像。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $U$ 和平展态射 $U \to X$，使得 $x$ 属于其像。设
+% P09-ERR-0244
+$u_i$（$i \in I$）为 $U$ 的不可约分支的一般点。则每个 $u_i$ 都映到 $X$ 的一般点
+（《良态空间》引理 \ref{decent-spaces-lemma-decent-generic-points}）。由良态空间的定义
+（《良态空间》定义 \ref{decent-spaces-definition-very-reasonable}），$I$ 有限。因此
+$U = \Spec(A)$，其中 $A$ 是具有有限多个极小素理想的正规环。由《代数》引理
+\ref{algebra-lemma-characterize-reduced-ring-normal}，
+$A = \prod_{i \in I} A_i$ 是正规整环的乘积。于是 $U = \coprod U_i$，其中
+$U_i = \Spec(A_i)$；对某个 $i$，$x$ 属于 $U_i \to X$ 的像。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-normal-integral-sections}
+设 $S$ 为概形，$X$ 为 $S$ 上的正规整代数空间。则
+$\Gamma(X, \mathcal{O}_X)$ 是正规整环。
+\end{lemma}
+
+\begin{proof}
+令 $R = \Gamma(X, \mathcal{O}_X)$。由引理 \ref{spaces-over-fields-lemma-integral-sections}，
+$R$ 是整环。设 $f = a/b$ 为 $R$ 的分式域中在 $R$ 上整的元素。对任意平展态射
+$U \to X$，其中 $U$ 是概形，至多存在一个
+$f_U \in \Gamma(U, \mathcal{O}_U)$ 满足 $b|_U f_U = a|_U$。事实上，$U$
+约化，且 $U$ 的一般点映到 $X$ 的一般点，这蕴含 $b|_U$ 是非零因子。对每个
+$x \in |X|$，按引理 \ref{spaces-over-fields-lemma-normal-integral-cover-by-affines} 选取
+$U \to X$。由《性质》引理 \ref{properties-lemma-normal-integral-sections}，
+$\Gamma(U, \mathcal{O}_U)$ 是正规整环，故存在唯一的
+$f_U \in \Gamma(U, \mathcal{O}_U)$ 满足 $b|_U f_U = a|_U$。由上述唯一性，
+这些 $f_U$ 可黏合，并定义结构层的整体截面 $f$，即 $R$ 的元素。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-decent-irreducible-closed}
+设 $S$ 为概形，$X$ 为 $S$ 上的良态代数空间。下列集合之间存在典范双射：
+\begin{enumerate}
+\item $X$ 的点集，即 $|X|$；
+\item $|X|$ 的不可约闭子集所成的集合；
+\item $X$ 的整的闭子空间所成的集合。
+\end{enumerate}
+从 (1) 到 (2) 的双射把 $x$ 映到 $\overline{\{x\}}$；从 (3) 到 (2) 的双射把
+$Z$ 映到 $|Z|$。
+\end{lemma}
+
+\begin{proof}
+由《良态空间》命题 \ref{decent-spaces-proposition-reasonable-sober}，$|X|$
+是良态拓扑空间，故上述映射给出 (1) 与 (2) 之间的双射。给定闭且不可约的
+$T \subset |X|$，存在唯一的约化闭子空间 $Z \subset X$ 使得 $|Z| = T$；
+即 $Z$ 是 $T$ 上的约化诱导子空间结构，见《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}。它是整代数空间，因为它良态、
+约化且不可约。
+\end{proof}
+
+
+
+
+
+
+\section{整代数空间之间的态射}
+\label{spaces-over-fields-section-morphisms-between-integral-spaces}
+
+\noindent
+以下引理刻画整代数空间之间有限次数的支配态射。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-finite-degree}
+设 $S$ 为概形。设
+% P09-ERR-0245
+$X$, $Y$ 为 $S$ 上的整代数空间。设 $x \in |X|$ 与 $y \in |Y|$ 为一般点。
+设 $f : X \to Y$ 局部有限型。假设 $f$ 支配（《空间的态射》定义
+\ref{spaces-morphisms-definition-dominant}）。下列条件等价：
+\begin{enumerate}
+\item $x/y$ 的超越次数为 $0$；
+\item 扩张 $\kappa(x)/\kappa(y)$（见证明）有限；
+\item 存在非空仿射开集 $U \subset X$ 和 $V \subset Y$，使得
+$f(U) \subset V$ 且 $f|_U : U \to V$ 有限；
+\item $f$ 在 $x$ 处拟有限；
+\item $x$ 是 $|X|$ 中映到 $y$ 的唯一点。
+\end{enumerate}
+若 $f$ 分离或 $f$ 拟紧，则这些条件还等价于：
+\begin{enumerate}
+\item[(6)] 存在非空仿射开集 $V \subset Y$，使得 $f^{-1}(V) \to V$ 有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由初等拓扑，因 $f$ 支配，有 $f(x) = y$。设 $Y' \subset Y$ 为 $Y$ 的概形轨迹，
+设 $X' \subset f^{-1}(Y')$ 为 $f^{-1}(Y')$ 的概形轨迹。由上文讨论，并用到
+《良态空间》命题 \ref{decent-spaces-proposition-reasonable-sober} 及定理
+\ref{decent-spaces-theorem-decent-open-dense-scheme}，可知 $x \in |X'|$ 且
+$y \in |Y'|$。于是 $f|_{X'} : X' \to Y'$ 是局部有限型的整概形之间的态射。
+因此，由《态射》引理 \ref{morphisms-lemma-finite-degree}，(1)、(2)、(3) 等价。
+
+\medskip\noindent
+对 $X \to Y \to Y$ 应用《空间的态射》引理
+\ref{spaces-morphisms-lemma-compare-tr-deg}，条件 (4) 蕴含条件 (1)。另一方面，
+有限态射拟有限，并且因为 $x$ 是一般点而有 $x \in U$，故条件 (3) 蕴含条件 (4)。
+所以 (1) -- (4) 等价。
+
+\medskip\noindent
+假设等价条件 (1) -- (4) 成立。设 $x' \mapsto y$。则 $x \leadsto x'$ 是
+$|X| \to |Y|$ 在 $y$ 上的纤维中的特化。若 $x' \not = x$，则由《良态空间》引理
+\ref{decent-spaces-lemma-conditions-on-point-in-fibre-and-qf}，$f$ 在 $x$ 处不拟有限。
+故 $x = x'$，条件 (5) 成立。反之，若 (5) 成立，则概形态射 $X' \to Y'$
+（见上文）也满足 (5)，再由《态射》引理 \ref{morphisms-lemma-finite-degree}
+可知 (1) 成立。
+
+\medskip\noindent
+注意，无需对 $f$ 作任何进一步假设，(6) 就蕴含等价条件 (1) -- (5)。为完成证明，
+只需说明等价条件 (1) -- (5) 蕴含 (6)。这由《良态空间》引理
+\ref{decent-spaces-lemma-finite-over-dense-open} 得出。
+\end{proof}
+
+\begin{definition}
+\label{spaces-over-fields-definition-degree}
+设 $S$ 为概形。设 $X$ 与 $Y$ 为 $S$ 上的整代数空间。设 $f : X \to Y$
+局部有限型且支配。假设引理 \ref{spaces-over-fields-lemma-finite-degree} 的等价条件 (1) -- (5)
+中任一条件成立。设 $x \in |X|$ 与 $y \in |Y|$ 为一般点。正整数
+$$
+\deg(X/Y) = [\kappa(x) : \kappa(y)]
+$$
+称为{\it $X$ 在 $Y$ 上的次数}。
+\end{definition}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-degree-composition}
+设 $S$ 为概形。设 $X$, $Y$, $Z$ 为 $S$ 上的整代数空间。设 $f : X \to Y$ 与
+$g : Y \to Z$ 为局部有限型的支配态射。假设引理
+\ref{spaces-over-fields-lemma-finite-degree} 的等价条件 (1) -- (5) 中任一条件对 $f$ 和 $g$ 成立。则
+$$
+\deg(X/Z) = \deg(X/Y) \deg(Y/Z).
+$$
+\end{lemma}
+
+\begin{proof}
+这由域的有限扩张塔中次数的乘法性得出，见《域》引理
+\ref{fields-lemma-multiplicativity-degrees}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Weil 除子}
+\label{spaces-over-fields-section-Weil-divisors}
+
+\noindent
+本节是《除子》第 \ref{divisors-section-Weil-divisors} 节的对应版本。
+
+\medskip\noindent
+我们将对局部诺特整代数空间引入 Weil 除子以及 Weil 除子的有理等价。由于不假设
+代数空间拟紧，定义 Weil 除子时必须稍加谨慎。例如，有理函数可能有无穷多个极点，
+所以必须允许素除子的无穷和。在拟紧情形下，Weil 除子照常是有限和。下面的基本引理
+将经常用于证明闭子空间族局部有限。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-components-locally-finite}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的代数空间。若 $T \subset |X|$ 为闭子集，
+则 $T$ 的不可约分支族局部有限。
+\end{lemma}
+
+\begin{proof}
+拓扑空间 $|X|$ 局部诺特（《空间的性质》引理
+\ref{spaces-properties-lemma-Noetherian-topology}）。诺特拓扑空间只有有限多个不可约分支，
+且诺特空间的子空间仍为诺特空间（《拓扑》引理
+\ref{topology-lemma-Noetherian}）。因此，本引理由局部有限的定义得出（《拓扑》定义
+\ref{topology-definition-locally-finite}）。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的良态代数空间。设 $Z$ 为 $X$ 的整的闭子空间，
+$\xi \in |Z|$ 为一般点。由《良态空间》引理
+\ref{decent-spaces-lemma-codimension-local-ring}，$|Z|$ 在 $|X|$ 中的余维等于
+$X$ 在 $\xi$ 处的局部环之维数。回顾：这也表述为{\it $\xi$ 是 $X$ 上余维为
+$1$ 的点}，见《空间的性质》定义
+\ref{spaces-properties-definition-dimension-local-ring}。
+
+\begin{definition}
+\label{spaces-over-fields-definition-Weil-divisor}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特的整代数空间。
+\begin{enumerate}
+\item {\it 素除子}是余维为 $1$ 的整的闭子空间 $Z \subset X$；即 $|Z|$ 的一般点
+是 $X$ 上余维为 $1$ 的点。
+\item {\it Weil 除子}是形式和 $D = \sum n_Z Z$，其中对 $X$ 的素除子求和，并且族
+$\{|Z| : n_Z \not = 0\}$ 在 $|X|$ 中局部有限（《拓扑》定义
+\ref{topology-definition-locally-finite}）。
+\end{enumerate}
+$X$ 上所有 Weil 除子所成的群记为 $\text{Div}(X)$。
+\end{definition}
+
+\noindent
+下一步要定义与有理函数相伴的 Weil 除子。为此，需要定义局部诺特整代数空间 $X$
+上的有理函数沿素除子 $Z$ 的消没阶。设 $\xi \in |Z|$ 为一般点。这里遇到的问题是：
+局部环 $\mathcal{O}_{X, \xi}$ 不存在，而亨泽尔局部环
+$\mathcal{O}_{X, \xi}^h$ 可能不是整环，见例 \ref{spaces-over-fields-example-not-a-domain}。
+为绕开这一问题，使用以下引理。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-order-vanishing}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。设 $Z \subset X$ 为素除子，
+$\xi \in |Z|$ 为一般点。则亨泽尔局部环 $\mathcal{O}_{X, \xi}^h$
+是约化的 $1$ 维诺特局部环，并且存在典范单射
+$$
+R(X) \longrightarrow Q(\mathcal{O}_{X, \xi}^h)
+$$
+从 $X$ 的函数域 $R(X)$ 到全分式环。
+\end{lemma}
+
+\begin{proof}
+将使用《良态空间》第
+\ref{decent-spaces-section-residue-fields-henselian-local-rings} 节的结果。设
+$(U, u) \to (X, \xi)$ 为初等平展邻域。注意，$U$ 局部诺特且约化。因此，
+$\mathcal{O}_{U, u}$ 是约化的 $1$ 维诺特环（其维数来自素除子的定义）。用 $u$ 的一个
+仿射开邻域替换 $U$ 后，可假设 $U$ 诺特且仿射。再用更小的开集替换 $U$ 后，可假设
+$U$ 的每个不可约分支都经过 $u$。由于 $U \to X$ 是开映射而 $X$ 不可约，
+$U \to X$ 支配。因此，通过复合有理映射得到环同态 $R(X) \to R(U)$，见
+《空间的态射》第 \ref{spaces-morphisms-section-rational-maps} 节。由于 $R(X)$ 是域，
+该同态为单射。由对 $U$ 的选取，$R(U)$ 是全分式环
+$Q(\mathcal{O}_{U, u})$，见《态射》引理
+\ref{morphisms-lemma-integral-scheme-rational-functions} 及《代数》引理
+\ref{algebra-lemma-total-ring-fractions-no-embedded-points}。
+
+\medskip\noindent
+至此，已证明把引理中的 $\mathcal{O}_{X, \xi}^h$ 换成
+% P09-ERR-0246
+$\mathcal{O}_{U, u}$ 后所得的全部陈述。然而，$\mathcal{O}_{X, \xi}^h$ 是
+$\mathcal{O}_{U, u}$ 的亨泽尔化。因此，$\mathcal{O}_{X, \xi}^h$ 是约化的 $1$ 维诺特环，
+见《更多代数》诸引理
+\ref{more-algebra-lemma-henselization-reduced},
+\ref{more-algebra-lemma-henselization-dimension} 及
+\ref{more-algebra-lemma-henselization-noetherian}.
+由《更多代数》引理 \ref{more-algebra-lemma-dumb-properties-henselization}，
+$\mathcal{O}_{U, u} \to \mathcal{O}_{X, \xi}^h$ 忠实平坦，故它把非零因子映为非零因子。
+因此得到典范同态
+$Q(\mathcal{O}_{U, u}) \to Q(\mathcal{O}_{X, \xi}^h)$，进而得到所需同态。
+略去该同态与下述邻域选取无关的验证：
+% P09-ERR-0247
+$(U, u) \to (X, x)$；稍好的做法是先注意到
+$\colim Q(\mathcal{O}_{U, u}) = Q(\mathcal{O}_{X, \xi}^h)$.
+\end{proof}
+
+\begin{definition}
+\label{spaces-over-fields-definition-order-vanishing}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。设 $f \in R(X)^*$。对每个
+素除子 $Z \subset X$，把{\it $f$ 沿 $Z$ 的消没阶}定义为整数
+$$
+\text{ord}_Z(f) =
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h) -
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/b \mathcal{O}_{X, \xi}^h)
+$$
+其中 $a, b \in \mathcal{O}_{X, \xi}^h$ 是非零因子，并且 $f$ 在
+$Q(\mathcal{O}_{X, \xi}^h)$ 中的像（引理 \ref{spaces-over-fields-lemma-order-vanishing}）等于 $a/b$。
+由《代数》引理 \ref{algebra-lemma-ord-additive}，该定义是良定义的。
+\end{definition}
+
+\noindent
+若 $\mathcal{O}_{X, \xi}^h$ 恰为整环，则有
+$$
+\text{ord}_Z(f) = \text{ord}_{\mathcal{O}_{X, \xi}^h}(f)
+$$
+其中右端是《代数》定义 \ref{algebra-definition-ord} 中的概念。注意，对
+$f, g \in R(X)^*$，有
+$$
+\text{ord}_Z(fg) = \text{ord}_Z(f) + \text{ord}_Z(g).
+$$
+当然，可能有 $\text{ord}_Z(f) < 0$。在此情形下，称 $f$ 沿 $Z$ 有{\it 极点}，
+并称 $-\text{ord}_Z(f) > 0$ 为{\it $f$ 沿 $Z$ 的极点阶数}。必须注意，条件
+$\text{ord}_Z(f) \geq 0$ 与条件 $f \in \mathcal{O}_{X, \xi}^h$
+{\bf 并不}等价，除非局部环
+% P09-ERR-0248
+$\mathcal{O}_{X, \xi}$ 是离散赋值环。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-order-vanishing-agrees}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。设 $f \in R(X)^*$。若素除子
+$Z \subset X$ 与 $X$ 的概形轨迹相交，则定义 \ref{spaces-over-fields-definition-order-vanishing}
+中的消没阶 $\text{ord}_Z(f)$ 与《除子》定义
+\ref{divisors-definition-order-vanishing} 中的消没阶一致。
+\end{lemma}
+
+\begin{proof}
+缩小 $X$ 后，可假设 $X$ 是整诺特概形。若 $\xi \in Z$ 表示一般点，则
+$\mathcal{O}_{X, \xi}^h$ 是 $\mathcal{O}_{X, \xi}$ 的亨泽尔化（《良态空间》引理
+\ref{decent-spaces-lemma-describe-henselian-local-ring}）。为证明引理，以下等式既充分又必要：
+$$
+\text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{X, \xi}/a \mathcal{O}_{X, \xi}) =
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h)
+$$
+这立即由《代数》引理 \ref{algebra-lemma-pullback-module} 得出（并用到
+$\mathcal{O}_{X, \xi} \to \mathcal{O}_{X, \xi}^h$ 是诺特局部环之间的平坦局部环同态）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-divisor-locally-finite}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。设 $f \in R(X)^*$。则族
+% P09-ERR-0249
+$$
+\{Z \subset X \mid Z\text{ 为素除子，其一般点为 }\xi
+\text{ 且 }f\text{ 不属于 }\mathcal{O}_{X, \xi}\}
+$$
+以及
+$$
+\{Z \subset X \mid Z \text{ 为素除子且 }\text{ord}_Z(f) \not = 0\}
+$$
+在 $X$ 中局部有限。
+\end{lemma}
+
+\begin{proof}
+存在非空开子空间 $U \subset X$，使 $f$ 对应于
+$\Gamma(U, \mathcal{O}_X^*)$ 的一个截面。因此，引理中的集合里可能出现的素除子
+全都对应于 $|X| \setminus |U|$ 的不可约分支。于是引理
+\ref{spaces-over-fields-lemma-components-locally-finite} 给出所需结论。
+\end{proof}
+
+\noindent
+该引理使我们可以作如下定义。
+
+\begin{definition}
+\label{spaces-over-fields-definition-principal-divisor}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特的整代数空间。设 $f \in R(X)^*$。
+{\it 与 $f$ 相伴的主 Weil 除子}是 Weil 除子
+$$
+\text{div}(f) = \text{div}_X(f) = \sum \text{ord}_Z(f) [Z]
+$$
+其中对素除子求和，而 $\text{ord}_Z(f)$ 如定义
+\ref{spaces-over-fields-definition-order-vanishing} 所述。由引理
+\ref{spaces-over-fields-lemma-divisor-locally-finite}，这是有意义的。
+\end{definition}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-div-additive}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特的整代数空间。设
+$f, g \in R(X)^*$。则
+$$
+\text{div}_X(fg) = \text{div}_X(f) + \text{div}_X(g)
+$$
+作为 $X$ 上的 Weil 除子成立。
+\end{lemma}
+
+\begin{proof}
+这由 $\text{ord}$ 函数的可加性显然得出。
+\end{proof}
+
+\noindent
+% P09-ERR-0250
+由上述引理可见，主 Weil 除子所成的集合构成所有 Weil 除子之群的一个子群。
+这引出以下定义。
+
+\begin{definition}
+\label{spaces-over-fields-definition-class-group}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。$X$ 的
+{\it Weil 除子类群}是 Weil 除子群对主 Weil 除子子群的商，记作
+$\text{Cl}(X)$。
+\end{definition}
+
+\noindent
+由构造得到正合复形
+\begin{equation}
+\label{spaces-over-fields-equation-Weil-divisor-class}
+R(X)^* \xrightarrow{\text{div}} \text{Div}(X) \to \text{Cl}(X) \to 0
+\end{equation}
+可把它看作 $\text{Cl}(X)$ 的一个表示。下一步要把 Weil 除子类群与 Picard 群联系起来。
+
+\begin{example}
+\label{spaces-over-fields-example-Z-mod-2}
+这是《空间的态射》例
+\ref{spaces-morphisms-example-universal-homeomorphism} 的继续。考虑代数空间
+$X = \mathbf{A}^1_k/\{t \sim -t \mid t \not = 0\}$.
+它是域 $k$ 上的光滑代数空间。存在普遍同胚
+$$
+X \longrightarrow \mathbf{A}^1_k = \Spec(k[t])
+$$
+它在 $\mathbf{A}^1_k \setminus \{0\}$ 上为同构。由此 $X$ 诺特且为整的。由于
+$\dim(X) = 1$，$X$ 的素除子就是 $X$ 的闭点。考虑位于
+$0 \in \mathbf{A}^1_k$ 上方的唯一闭点 $x \in |X|$。由于
+% P09-ERR-0251
+$X \setminus \{x\}$ 同构地映到 $\mathbf{A}^1 \setminus \{0\}$，
+$\text{Cl}(X)$ 中不同于 $x$ 的闭点之类均为零。然而，$t$ 在 $X$ 上的除子为
+$2[x]$。故 $\text{Cl}(X) = \mathbf{Z}/2\mathbf{Z}$。
+\end{example}
+
+\begin{example}
+\label{spaces-over-fields-example-not-a-domain}
+设 $k$ 为域。令
+$$
+U = \Spec(k[x, y]/(xy))
+$$
+为 $\mathbf{A}^2_k$ 中两条坐标轴的并。
+% P09-ERR-0252
+记 $\Delta : U \to U \times_k U$ 为对角态射，并记
+$\Delta' : U \to U \times_k U$ 为映射 $u \mapsto (u, \sigma(u))$，其中
+$\sigma : U \to U$，$(x, y) \mapsto (y, x)$，是交换两条坐标轴的自同构。令
+$$
+R = \Delta(U) \amalg \Delta'(U \setminus \{0_U\})
+$$
+其中 $0_U \in U$ 为原点。容易看出，$R$ 是 $U$ 上的平展等价关系。商
+$X = U/R$ 是代数空间。态射 $U \to \mathbf{A}^1_k$，
+$(x, y) \mapsto x + y$，是 $R$-不变的，故定义态射
+$$
+X \longrightarrow \mathbf{A}^1_k
+$$
+该态射是普遍同胚，并且在 $\mathbf{A}^1_k \setminus \{0\}$ 上为同构。因此，
+$X$ 整且诺特。与例 \ref{spaces-over-fields-example-Z-mod-2} 完全相同，读者可证
+$\text{Cl}(X) = \mathbf{Z}/2\mathbf{Z}$，其生成元对应于映到
+$0 \in \mathbf{A}^1_k$ 的唯一闭点 $x \in |X|$。然而，在此情形下，$X$ 在 $x$
+处的亨泽尔局部环不是整环，因为它是 $\mathcal{O}_{U, 0_U}$ 的亨泽尔化。
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{与可逆模相伴的 Weil 除子类}
+\label{spaces-over-fields-section-c1}
+
+\noindent
+本节完全按照第 \ref{spaces-over-fields-section-Weil-divisors} 节相同的步骤，在局部诺特整代数空间上
+定义典范映射 $\Pic(X) \to \text{Cl}(X)$。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间，$\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-regular-meromorphic-section-exists}，存在正则亚纯截面
+$s \in \Gamma(X, \mathcal{K}_X(\mathcal{L}))$。事实上，由《空间上的除子》引理
+\ref{spaces-divisors-lemma-compute-meromorphic}，这等价于
+$\mathcal{L}_\eta$ 中的非零元素，其中 $\eta \in |X|$ 为一般点。同一引理还说明，
+若 $\mathcal{L} = \mathcal{O}_X$，则 $s$ 等价于 $X$ 上的非零有理函数（故以下做法
+与第 \ref{spaces-over-fields-section-Weil-divisors} 节的构造一致）。
+
+\medskip\noindent
+设 $Z \subset X$ 为素除子，$\xi \in |Z|$ 为一般点。将定义 $s$ 沿 $Z$ 的消没阶。
+考虑典范态射
+$$
+c_\xi : \Spec(\mathcal{O}_{X, \xi}^h) \longrightarrow X
+$$
+其源是 $X$ 在 $\xi$ 处的亨泽尔局部环之谱（《良态空间》定义
+% P09-ERR-0253
+\ref{decent-spaces-definition-henselian-local-ring}）。拉回
+$\mathcal{L}_\xi = c_\xi^*\mathcal{L}$ 是可逆模，因而平凡；选取
+$\mathcal{L}_\xi$ 的一个生成元 $s_\xi$。由于 $c_\xi$ 平坦，亚纯函数及（正则）截面对
+$c_\xi$ 的拉回有定义，见
+《空间上的除子》定义
+\ref{spaces-divisors-definition-pullback-meromorphic-sections} 以及
+引理 \ref{spaces-divisors-lemma-pullback-meromorphic-sections-defined} 及
+\ref{spaces-divisors-lemma-meromorphic-sections-pullback}.
+因此得到
+$$
+c_\xi^*(s) = f s_\xi
+$$
+其中 $f \in Q(\mathcal{O}_{X, \xi}^h)$ 是某个非零因子。这里使用《除子》引理
+\ref{divisors-lemma-locally-Noetherian-K}，借助 $\mathcal{O}_{X, \xi}^h$
+的全分式环来表示
+$\mathcal{L}_\xi \cong \mathcal{O}_{\Spec(\mathcal{O}_{X, \xi}^h)}$
+的亚纯截面空间。约定把该元素记为
+$$
+s/s_\xi = f \in  Q(\mathcal{O}_{X, \xi}^h)
+$$
+注意，若改变 $s_\xi$ 的选取，则 $f = s/s_\xi$ 被 $uf$ 代替，其中
+$u \in \mathcal{O}_{X, \xi}^h$ 是单位。
+
+\begin{definition}
+\label{spaces-over-fields-definition-order-vanishing-meromorphic}
+设 $S$ 为概形。设
+% P09-ERR-0254
+$X$ 为 $S$ 上局部诺特的整代数空间，$\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。
+设 $s \in \Gamma(X, \mathcal{K}_X(\mathcal{L}))$ 为 $\mathcal{L}$ 的正则亚纯截面。
+对每个一般点为 $\xi \in |Z|$ 的素除子 $Z \subset X$，把
+{\it $s$ 沿 $Z$ 的消没阶}定义为整数
+$$
+\text{ord}_{Z, \mathcal{L}}(s) =
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h) -
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/b \mathcal{O}_{X, \xi}^h)
+$$
+其中 $a, b \in \mathcal{O}_{X, \xi}^h$ 为非零因子，并且上文构造的
+$Q(\mathcal{O}_{X, \xi}^h)$ 中的元素 $s/s_\xi$ 等于 $a/b$。由上文及《代数》引理
+\ref{algebra-lemma-ord-additive}，这是良定义的。
+\end{definition}
+
+\noindent
+如上所述，$\mathcal{O}_X$ 的正则亚纯截面 $s$ 可写成 $s = f \cdot 1$，其中 $f$
+是 $X$ 上的非零有理函数，并且有
+$\text{ord}_Z(f) = \text{ord}_{Z, \mathcal{O}_X}(s)$。与主除子情形一样，有以下引理。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间，$\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模。设
+% P09-ERR-0255
+$s \in \mathcal{K}_X(\mathcal{L})$ 为 $\mathcal{L}$ 的正则（即非零）亚纯截面。
+则集合
+$$
+\{Z \subset X \mid Z \text{ 为素除子，其一般点为 }\xi
+\text{ 且 }s\text{ 不属于 }\mathcal{L}_\xi\}
+$$
+以及
+$$
+\{Z \subset X \mid Z \text{ 为素除子且 }
+\text{ord}_{Z, \mathcal{L}}(s) \not = 0\}
+$$
+在 $X$ 中局部有限。
+\end{lemma}
+
+\begin{proof}
+存在非空开子空间 $U \subset X$，使 $s$ 对应于 $\Gamma(U, \mathcal{L})$
+的一个截面，且该截面在 $U$ 上生成 $\mathcal{L}$。因此，引理中的集合里可能出现的
+素除子全都对应于 $|X| \setminus |U|$ 的不可约分支。故引理
+% P09-ERR-0256
+\ref{spaces-over-fields-lemma-components-locally-finite} 给出所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-divisor-meromorphic-well-defined}
+设 $S$ 为概形。设
+% P09-ERR-0257
+$X$ 为 $S$ 上局部诺特的整代数空间，$\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。
+设 $s, s' \in \mathcal{K}_X(\mathcal{L})$ 为 $\mathcal{L}$ 的非零亚纯截面。
+则 $f = s/s'$ 是 $R(X)^*$ 的元素，并且有
+$$
+\sum \text{ord}_{Z, \mathcal{L}}(s)[Z]
+=
+\sum \text{ord}_{Z, \mathcal{L}}(s')[Z]
++
+\text{div}(f)
+$$
+作为 Weil 除子成立。
+\end{lemma}
+
+\begin{proof}
+这由定义显然。注意，引理 \ref{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}
+保证这些和确实是 Weil 除子。
+\end{proof}
+
+\begin{definition}
+\label{spaces-over-fields-definition-divisor-invertible-sheaf}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间，$\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模。
+\begin{enumerate}
+\item 对 $\mathcal{L}$ 的任意非零亚纯截面 $s$，把{\it 与 $s$ 相伴的 Weil 除子}
+定义为
+$$
+\text{div}_\mathcal{L}(s) =
+\sum \text{ord}_{Z, \mathcal{L}}(s) [Z] \in \text{Div}(X)
+$$
+其中对素除子求和。由引理 \ref{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}，
+这是良定义的。
+\item 把{\it 与 $\mathcal{L}$ 相伴的 Weil 除子类}定义为
+$\text{div}_\mathcal{L}(s)$ 在 $\text{Cl}(X)$ 中的像，其中 $s$ 是
+$\mathcal{L}$ 在 $X$ 上的任意非零亚纯截面。由引理
+\ref{spaces-over-fields-lemma-divisor-meromorphic-well-defined}，这是良定义的。
+\end{enumerate}
+\end{definition}
+
+\noindent
+正如所预期的，该构造关于可逆模可加。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-c1-additive}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。设 $\mathcal{L}$、
+$\mathcal{N}$ 为可逆 $\mathcal{O}_X$-模。设 $s$、$t$ 分别为 $\mathcal{L}$、
+$\mathcal{N}$ 的非零亚纯截面。则 $st$ 是
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}$ 的非零亚纯截面，并且
+$$
+\text{div}_{\mathcal{L} \otimes \mathcal{N}}(st)
+=
+\text{div}_\mathcal{L}(s) + \text{div}_\mathcal{N}(t)
+$$
+在 $\text{Div}(X)$ 中成立。特别地，
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}$ 的 Weil 除子类是
+$\mathcal{L}$ 与 $\mathcal{N}$ 的 Weil 除子类之和。
+\end{lemma}
+
+\begin{proof}
+设 $s$、$t$ 分别为 $\mathcal{L}$、$\mathcal{N}$ 的非零亚纯截面。则 $st$ 是
+$\mathcal{L} \otimes \mathcal{N}$ 的非零亚纯截面。设 $Z \subset X$ 为素除子，
+$\xi \in |Z|$ 为其一般点。按本节前述记号，选取生成元
+$s_\xi \in \mathcal{L}_\xi$ 和 $t_\xi \in \mathcal{N}_\xi$。则
+$s_\xi \otimes t_\xi$ 是 $(\mathcal{L} \otimes \mathcal{N})_\xi$ 的生成元。
+在 $Q(\mathcal{O}_{X, \xi}^h)$ 中，
+$st/(s_\xi t_\xi) = (s/s_\xi)(t/t_\xi)$。应用《代数》引理
+\ref{algebra-lemma-ord-additive} 的可加性，可得
+$$
+\text{div}_{\mathcal{L} \otimes \mathcal{N}, Z}(st)
+=
+\text{div}_{\mathcal{L}, Z}(s) + \text{div}_{\mathcal{N}, Z}(t)
+$$
+% P09-ERR-0258
+略去一些细节。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。由上述构造和引理，得到交换群同态
+\begin{equation}
+\label{spaces-over-fields-equation-c1}
+\Pic(X) \longrightarrow \text{Cl}(X)
+\end{equation}
+它把可逆模映到其 Weil 除子类。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-normal-c1-injective}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的整代数空间。若 $X$ 正规，则映射
+(\ref{spaces-over-fields-equation-c1}) $\Pic(X) \to \text{Cl}(X)$ 为单射。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模，其相伴 Weil 除子类平凡。设 $s$ 为
+$\mathcal{L}$ 的正则亚纯截面。该假设意味着，对某个 $f \in R(X)^*$，有
+$\text{div}_\mathcal{L}(s) = \text{div}(f)$。于是 $t = f^{-1}s$ 是
+$\mathcal{L}$ 的正则亚纯截面，且 $\text{div}_\mathcal{L}(t) = 0$，见引理
+\ref{spaces-over-fields-lemma-divisor-meromorphic-well-defined}。断言 $t$ 定义 $\mathcal{L}$ 的一个平凡化。
+该断言即完成引理的证明。由于目前尚无太多可用理论，对该断言的证明略显笨拙；建议读者
+% P09-ERR-0259
+略过此证明。
+
+\medskip\noindent
+可以平展局部地验证该断言。设 $U \in X_\etale$ 仿射，且
+$\mathcal{L}|_U$ 平凡。设 $s_U \in \Gamma(U, \mathcal{L}|_U)$ 为一个平凡化。
+由《性质》引理 \ref{properties-lemma-normal-locally-finite-nr-irreducibles}，
+还可假设 $U$ 整。把 $U = \Spec(A)$ 写成正规诺特整环 $A$ 的谱，其分式域为 $K$。
+可以对某个 $K$ 中的元素 $f$ 写成 $t|_U = f s_U$；例如见《空间上的除子》引理
+\ref{spaces-divisors-lemma-meromorphic-quasi-coherent}。设高度为一的素理想
+$\mathfrak p \subset A$ 对应于余维为 $1$ 的点 $u \in U$，后者映到余维为 $1$ 的点
+$\xi \in |X|$。按本节开头所述选取 $\mathcal{L}_\xi$ 的平凡化 $s_\xi$。
+选取 $U$ 位于 $u$ 上方的几何点 $\overline{u}$。则
+$$
+(\mathcal{O}_{X, \xi}^h)^{sh} =
+\mathcal{O}_{X, \overline{u}} =
+\mathcal{O}_{U, u}^{sh} = (A_\mathfrak p)^{sh}
+$$
+见《良态空间》诸引理
+\ref{decent-spaces-lemma-henselian-local-ring-strict}
+及《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring}.
+$X$ 的正规性说明这些全都是离散赋值环。把 $\mathcal{L}$ 拉回到
+$\Spec(\mathcal{O}_{X, \overline{u}})$ 后，平凡化 $s_U$ 与 $s_\xi$ 相差一个单位。
+写 $t = f_\xi s_\xi$，其中 $f_\xi \in Q(\mathcal{O}_{X, \xi}^h)$。由此，
+$f_\xi$ 与 $f$ 在 $Q(\mathcal{O}_{X, \overline{u}})$ 中相差一个单位。若
+$Z \subset X$ 表示对应于 $\xi$ 的素除子（引理
+\ref{spaces-over-fields-lemma-decent-irreducible-closed}），则
+$0 = \text{ord}_{Z, \mathcal{L}}(t) =
+\text{ord}_{\mathcal{O}_{X, \xi}^h}(f_\xi)$
+而由于 $\mathcal{O}_{X, \xi}^h$ 是离散赋值环，$f_\xi$ 是单位。因此，$f$ 是
+$\mathcal{O}_{X, \overline{u}}$ 中的单位，特别有 $f \in A_\mathfrak p$。
+由《代数》引理
+\ref{algebra-lemma-normal-domain-intersection-localizations-height-1}，这蕴含
+$f \in A$。因此 $t \in \Gamma(X, \mathcal{L})$。把 $t^{-1}$ 视为
+$\mathcal{L}^{\otimes -1}$ 的亚纯截面并重复这一论证，即完成证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{修改与 alteration}
+\label{spaces-over-fields-section-modifications-alterations}
+
+\noindent
+利用整代数空间的概念，可以如下定义修改。
+
+\begin{definition}
+\label{spaces-over-fields-definition-modification}
+设 $S$ 为概形，$X$ 为 $S$ 上的整代数空间。所谓{\it $X$ 的修改}，是指
+$S$ 上代数空间的一个双有理固有态射 $f : X' \to X$，其中 $X'$ 为整空间。
+\end{definition}
+
+\noindent
+关于代数空间的双有理态射，见《良态空间》定义
+\ref{decent-spaces-definition-birational}。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-modification-iso-over-open}
+设 $f : X' \to X$ 为定义 \ref{spaces-over-fields-definition-modification} 所述的修改。
+则存在非空开子空间 $U \subset X$，使 $f^{-1}(U) \to U$ 为同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-over-fields-lemma-finite-degree}，存在非空开子空间 $U \subset X$，使
+$f^{-1}(U) \to U$ 有限。由泛平坦性（《空间的态射》命题
+\ref{spaces-morphisms-proposition-generic-flatness-reduced})
+可假设 $f^{-1}(U) \to U$ 平坦且为有限表示。因此 $f^{-1}(U) \to U$
+有限局部自由（《空间的态射》引理 \ref{spaces-morphisms-lemma-finite-flat}）。
+由于 $f$ 双有理，$X'$ 在 $X$ 上的次数为 $1$。故 $f^{-1}(U) \to U$
+是次数为 $1$ 的有限局部自由态射，换言之，它是同构。
+\end{proof}
+
+\begin{definition}
+\label{spaces-over-fields-definition-alteration}
+设 $S$ 为概形，$X$ 为 $S$ 上的整代数空间。所谓{\it $X$ 的 alteration}，
+是指 $S$ 上代数空间的一个固有支配态射 $f : Y \to X$，其中 $Y$ 为整空间，
+并且存在某个非空开子空间 $U \subset X$，使 $f^{-1}(U) \to U$ 有限。
+\end{definition}
+
+\noindent
+若 $f : Y \to X$ 是整代数空间之间的支配固有态射，并且一般点处诱导的
+剩余域扩张有限，则它就是 alteration。准确陈述如下。
+% P09-ERR-0260
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-alteration-generically-finite}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上整代数空间之间的固有支配态射。
+则 $f$ 为 alteration，当且仅当引理 \ref{spaces-over-fields-lemma-finite-degree} 中相互等价的
+条件 (1)--(6) 中任一条件成立。
+\end{lemma}
+
+\begin{proof}
+这是陈述中所引引理的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-alteration-contained-in}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的固有满态射。假设 $Y$ 为整空间。
+则存在整闭子空间 $X' \subset X$，使得 $f' = f|_{X'} : X' \to Y$ 为 alteration。
+\end{lemma}
+
+\begin{proof}
+设 $V \subset Y$ 为非空仿射开子空间（《良态空间》定理
+\ref{decent-spaces-theorem-decent-open-dense-scheme}）。设 $\eta \in V$ 为一般点。
+则 $X_\eta$ 是 $\eta$ 上非空的固有代数空间。选取闭点 $x \in |X_\eta|$
+（其存在性是因为 $|X_\eta|$ 是拟紧的良态拓扑空间，见《良态空间》命题
+\ref{decent-spaces-proposition-reasonable-sober} 及《拓扑》引理
+\ref{topology-lemma-quasi-compact-closed-point}）。
+% P09-ERR-0261
+令 $X'$ 为 $\overline{\{x\}} \subset |X|$ 上的约化诱导闭子空间结构
+（《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}）。
+% P09-ERR-0262
+由于像包含 $\eta$，态射 $f' : X' \to Y$ 为满射。又因 $f'$ 是闭浸入与固有态射的复合，
+故它是固有的。最后，纤维 $X'_\eta$ 只有一个点；对此可分别对 $X \to Y$ 和
+$X' \to Y$ 以及点 $\eta$ 应用《良态空间》引理
+\ref{decent-spaces-lemma-topology-fibre}。由于 $Y$ 良态且 $X' \to Y$ 分离，
+可知 $X'$ 良态（《良态空间》诸引理
+% P09-ERR-0263
+\ref{decent-spaces-lemma-properties-trivial-implications} 及
+\ref{decent-spaces-lemma-property-over-property}）。于是由引理
+\ref{spaces-over-fields-lemma-alteration-generically-finite}，$f'$ 是 alteration。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{概形轨迹}
+\label{spaces-over-fields-section-schematic}
+
+\noindent
+关于代数空间的概形轨迹，我们已经证明了若干结果。以下列出相关参考：
+\begin{enumerate}
+\item 《空间的性质》第
+\ref{spaces-properties-section-schematic} 节及第
+\ref{spaces-properties-section-getting-a-scheme},
+\item 《良态空间》第 \ref{decent-spaces-section-schematic} 节，
+\item 《空间的性质》引理
+\ref{spaces-properties-lemma-point-like-spaces}
+$\Leftarrow$
+《良态空间》引理 \ref{decent-spaces-lemma-decent-point-like-spaces}
+$\Leftarrow$
+《良态空间》引理 \ref{decent-spaces-lemma-when-field}，
+\item 《空间的极限》第 \ref{spaces-limits-section-affine} 节，以及
+\item 《空间的极限》第 \ref{spaces-limits-section-representable} 节。
+\end{enumerate}
+在某些情形下，特定类型的代数空间态射自动可表，例如分离的局部拟有限态射
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}）以及
+平坦单态射（《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-flat-case}）。第
+\ref{spaces-over-fields-section-schematic-and-field-extension} 节将研究基域扩张下概形轨迹的变化。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-locally-finite-type-dim-zero}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。假设 $X$ 至少满足下列条件之一：
+\begin{enumerate}
+\item $X$ 拟分离且 $\dim(X) = 0$；
+\item $X$ 在某个域 $k$ 上局部有限型，且 $\dim(X) = 0$；
+\item $X$ 诺特且 $\dim(X) = 0$；或者
+\item 在此补充更多内容。
+% P09-ERR-0264
+\end{enumerate}
+则 $X$ 是分离概形，并且 $X$ 的任意拟紧开子空间均为仿射的。
+\end{lemma}
+
+\begin{proof}
+若证明了 $X$ 的任意拟紧开子空间均为仿射的，则 $X$ 是分离概形。因此可假设
+$X$ 拟紧，并以证明 $X$ 仿射为目标。情形 (2) 与 (3) 立即由情形 (1) 推出；不过我们将
+分别证明 (2) 与 (3)，因为这些证明所用的理论少得多。
+% P09-ERR-0265
+
+\medskip\noindent
+情形 (3) 的证明。设 $U$ 为仿射概形，$U \to X$ 为平展态射。令
+$R = U \times_X U$。两个投影态射 $s, t : R \to U$ 都是概形的平展态射。
+由《空间的性质》定义 \ref{spaces-properties-definition-dimension}，可知
+$\dim(U) = 0$ 且 $\dim(R) = 0$。由于 $R$ 是维数为 $0$ 的局部诺特概形，
+$R$ 是一些阿廷局部环之谱的不交并（《性质》引理
+\ref{properties-lemma-locally-Noetherian-dimension-0}）。由于已假设 $X$ 诺特
+（从而拟分离），可知 $R$ 拟紧。因此 $R$ 是仿射概形（使用《概形》引理
+\ref{schemes-lemma-disjoint-union-affines}）。平展态射 $s, t : R \to U$ 诱导有限的
+剩余域扩张。因此，由《代数》引理
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}
+（略去一处小细节），$s$ 与 $t$ 均为有限态射。于是《群胚》命题
+\ref{groupoids-proposition-finite-flat-equivalence} 说明 $X = U/R$ 是仿射概形。
+
+\medskip\noindent
+情形 (2) 的证明——几乎与情形 (3) 的证明相同。设 $U$ 为仿射概形，
+$U \to X$ 为平展满态射。令 $R = U \times_X U$。两个投影态射
+$s, t : R \to U$ 都是概形的平展态射。由《空间的性质》定义
+\ref{spaces-properties-definition-dimension}，可知 $\dim(U) = 0$，并且同样有
+$\dim(R) = 0$。另一方面，态射 $U \to \Spec(k)$ 是平展态射 $U \to X$ 与
+$X \to \Spec(k)$ 的复合，故为局部有限型，见《空间的态射》诸引理
+\ref{spaces-morphisms-lemma-composition-finite-type} 及
+\ref{spaces-morphisms-lemma-etale-locally-finite-type}.
+同理，$R \to \Spec(k)$ 为局部有限型。因此由《簇》引理
+\ref{varieties-lemma-algebraic-scheme-dim-0}，$U$ 与 $R$ 都是一些在 $k$ 上有限的
+阿廷局部 $k$-代数之谱的不交并。故 $U \times_{\Spec(k)} U$ 也具有同样的性质。由于
+$$
+R = U \times_X U \longrightarrow U \times_{\Spec(k)} U
+$$
+是单态射，可知 $R$ 是有限（！）多个有限 $k$-代数之谱的不交并。因此 $R$ 仿射，
+见《概形》引理 \ref{schemes-lemma-disjoint-union-affines}。再次应用《簇》引理
+\ref{varieties-lemma-algebraic-scheme-dim-0}，可知 $R$ 在 $k$ 上有限。故 $s, t$
+均为有限态射，见《态射》引理 \ref{morphisms-lemma-finite-permanence}。于是《群胚》命题
+\ref{groupoids-proposition-finite-flat-equivalence} 说明 $X = U/R$ 是仿射概形。
+
+\medskip\noindent
+情形 (1) 的上同调证明。由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-vanishing-above-dimension}，$X$ 上任意拟凝聚层
+$\mathcal{F}$ 的高阶上同调群均消没。因此由《空间的上同调》命题
+\ref{spaces-cohomology-proposition-vanishing-affine}，$X$ 为仿射的（特别地，是概形）。
+
+\medskip\noindent
+情形 (1) 的几何证明。选取分层
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+以及《良态空间》引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated} 所述的平展态射
+$f_p : V_p \to U_p$（下文将使用它们的全部性质）。由代数空间维数的定义，
+$\dim(V_p) = 0$。因此《性质》引理 \ref{properties-lemma-dimension-zero}
+可用于每个 $V_p$。于是 $f_p^{-1}(U_{p + 1}) \subset V_p$ 是拟紧开子集，故既仿射又闭。
+由此 $|T_p| \subset |U_p|$（见前引处）既开又闭。因此 $X$ 是一些开闭子空间的不交并，
+而这些子空间的约化结构均为概形。于是 $X$ 是概形（《空间的极限》引理
+\ref{spaces-limits-lemma-reduction-scheme}）。最后应用上文已经引用过的概形情形，即完成证明。
+\end{proof}
+
+\noindent
+下列引理说明，拟分离代数空间在余维 $1$ 以外是概形。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-generic-point-in-schematic-locus}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟分离代数空间。设 $x \in |X|$。下列条件等价：
+\begin{enumerate}
+\item $x$ 是 $X$ 上余维为 $0$ 的点；
+\item $X$ 在 $x$ 处的局部环维数为 $0$；以及
+\item $x$ 是 $|X|$ 的某个不可约分支的一般点。
+\end{enumerate}
+若这些条件成立，则存在包含 $x$ 的 $X$ 的开子空间，并且该开子空间为概形。
+\end{lemma}
+
+\begin{proof}
+(1)、(2) 与 (3) 的等价性由《良态空间》引理
+\ref{decent-spaces-lemma-decent-generic-points} 以及拟分离代数空间良态这一事实
+（《良态空间》第 \ref{decent-spaces-section-reasonable-decent} 节）推出。
+不过，下一段将给出这一等价性的更初等证明。
+
+\medskip\noindent
+注意，(1) 与 (2) 依定义等价（《空间的性质》定义
+\ref{spaces-properties-definition-dimension-local-ring}）。为证明 (1) 与 (3) 等价，
+可假设 $X$ 拟紧。选取
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+以及《良态空间》引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated} 所述的
+$f_i : V_i \to U_i$。设 $x \in U_i$ 且 $x \not \in U_{i + 1}$。则存在唯一的
+$y \in V_i$，使 $x = f_i(y)$。若 (1) 成立，则 $y$ 是 $V_i$ 的某个不可约分支的一般点
+（《空间的性质》引理 \ref{spaces-properties-lemma-codimension-0-points}）。由于
+$f_i^{-1}(U_{i + 1})$ 是 $V_i$ 中不包含 $y$ 的拟紧开子集，存在 $y$ 的开邻域
+$W \subset V_i$，它与 $f_i^{-1}(V_i)$ 不交（见《性质》引理
+% P09-ERR-0266
+\ref{properties-lemma-generic-point-in-constructible}，或者更简单地见《代数》引理
+\ref{algebra-lemma-standard-open-containing-maximal-point}）。于是
+$f_i|_W : W \to X$ 是到其像的同构，故 $x = f_i(y)$ 是 $|X|$ 的一般点。
+反之，假设 (3) 成立。则 $f_i$ 把 $\overline{\{y\}}$ 映到 $|U_i|$ 的不可约分支
+$\overline{\{x\}}$ 上。由于 $|f_i|$ 在 $\overline{\{x\}}$ 上方为双射，可知
+$\overline{\{y\}}$ 是 $U_i$ 的一个不可约分支。因此 $x$ 是余维为 $0$ 的点。
+% P09-ERR-0267
+
+\medskip\noindent
+引理的最后一个陈述即《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+\end{proof}
+
+\noindent
+下列引理说明，分离的局部诺特代数空间在余维 $1$ 处为概形，亦即在余维 $2$ 以外为概形。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}
+\begin{slogan}
+分离代数空间在余维 1 处为概形。
+\end{slogan}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $x \in |X|$。若 $X$ 分离、局部诺特，
+并且 $X$ 在 $x$ 处的局部环维数为 $\leq 1$（《空间的性质》定义
+\ref{spaces-properties-definition-dimension-local-ring}),
+则存在包含 $x$ 的 $X$ 的开子空间，并且该开子空间为概形。
+\end{lemma}
+
+\begin{proof}
+（另有一种避开有限群胚材料的方法，见下述评注。）可以把 $X$ 换成 $x$ 的一个拟紧邻域，
+因而可假设 $X$ 拟紧、分离且诺特。
+% P09-ERR-0268
+存在概形 $U$ 及有限满态射 $U \to X$，见《空间的极限》命题
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+令 $R = U \times_X U$。则 $j : R \to U \times_S U$ 是等价关系，并由此得到
+$S$ 上的群胚概形 $(U, R, s, t, c)$，其中 $s, t$ 有限，且 $U$ 诺特而分离。
+设 $\{u_1, \ldots, u_n\} \subset U$ 为映到 $x$ 的点集。由《良态空间》引理
+\ref{decent-spaces-lemma-dimension-local-ring-quasi-finite}.
+可得 $\dim(\mathcal{O}_{U, u_i}) \leq 1$。
+
+\medskip\noindent
+由《群胚进阶》引理
+\ref{more-groupoids-lemma-find-affine-codimension-1}，存在包含轨道
+$\{u_1, \ldots, u_n\}$ 的 $R$-不变仿射开子集 $W \subset U$。由于 $U \to X$
+有限且满，连续映射 $|U| \to |X|$ 为闭满射，故由《拓扑》引理
+\ref{topology-lemma-closed-morphism-quotient-topology}，它是商映射。因此 $f(W)$ 为开集，
+并存在开子空间 $X' \subset X$，使 $f : W \to X'$ 为有限满态射。
+% P09-ERR-0269
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+可知 $X'$ 是仿射概形，证明完成。
+\end{proof}
+
+\begin{remark}
+\label{spaces-over-fields-remark-alternate-proof-scheme-codim-1}
+下面给出引理 \ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus} 的一个证明梗概，
+其中不使用《群胚进阶》引理
+\ref{more-groupoids-lemma-find-affine-codimension-1}.
+
+\medskip\noindent
+步骤 1。可假设 $X$ 是约化的诺特分离代数空间（例如使用《空间的上同调》引理
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+或者《空间的极限》引理 \ref{spaces-limits-lemma-reduction-scheme}），
+并可选取有限满态射 $Y \to X$，其中 $Y$ 为诺特概形（由《空间的极限》命题
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}).
+
+\medskip\noindent
+步骤 2。用 $x$ 的一个开邻域替换 $X$ 后，存在双有理有限态射 $X' \to X$ 以及闭子概形
+$Y' \subset X' \times_X Y$，使 $Y' \to X'$ 为有限局部自由满态射。事实上，由于 $X$
+约化，存在稠密开子空间 $U \subset X$，使 $Y$ 在其上方平坦（《空间的态射》命题
+\ref{spaces-morphisms-proposition-generic-flatness-reduced}）。于是可以选取
+$U$-容许爆破 $b : \tilde X \to X$，使 $Y$ 的严格变换 $\tilde Y$ 在 $\tilde X$ 上平坦，
+见《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-flat-after-blowing-up}。
+（若想避开关于爆破的结果，也可改用 Hilbert 概形。）然后令 $X' \subset \tilde X$ 为
+$b^{-1}(U)$ 的概形论闭包，并令 $Y' = X' \times_{\tilde X} \tilde Y$。由于 $x$ 是余维为
+$1$ 的点，可知 $X' \to X$ 在 $x$ 的某个邻域上有限（引理
+\ref{spaces-over-fields-lemma-finite-in-codim-1}）。
+
+\medskip\noindent
+步骤 3。把 $X$ 缩小到 $x$ 的一个更小邻域后，$X'$ 是概形。这是因为 $Y'$ 是概形、
+$Y' \to X'$ 有限局部自由，并且 $Y'$ 中每个由余维为 $1$ 的点组成的有限集都包含在某个
+仿射开子集中。使用《空间的性质》命题
+% P09-ERR-0270
+\ref{spaces-properties-proposition-finite-flat-equivalence-global} 及《簇》命题
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}.
+
+\medskip\noindent
+步骤 4。存在仿射开子集 $W' \subset X'$，它包含 $x$ 上方的所有点，并且是 $X$ 的某个
+开子空间的原像。为证明这一点，设 $Z \subset X$ 为 $X' \to X$ 不是同构的点集的闭包。
+可以假设 $x \in Z$，否则已经完成。此时 $x$ 是 $Z$ 的某个不可约分支的一般点；缩小
+$X$ 后，可假设 $Z$ 是仿射概形（引理
+\ref{spaces-over-fields-lemma-generic-point-in-schematic-locus}）。于是原像 $Z' \subset X'$ 也是仿射概形。
+设 $x_1, \ldots, x_n \in Z'$ 为映到 $x$ 的各点。可以在 $X'$ 中找到仿射开子集 $W'$，
+使它与 $Z'$ 的交集是 $Z$ 中某个包含 $x$ 的主开子集的原像。事实上，首先利用《簇》命题
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}，选取包含
+$x_1, \ldots, x_n$ 的仿射开子集 $W' \subset X'$。然后选取包含 $x$ 的主开子集
+$D(f) \subset Z$，使其原像 $D(f|_{Z'})$ 包含在 $W' \cap Z'$ 中。再选取
+$f' \in \Gamma(W', \mathcal{O}_{W'})$，其限制为 $f|_{Z'}$，并把 $W'$
+替换为 $D(f') \subset W'$。由于 $X' \to X$ 在 $Z' \to Z$ 之外为同构，对 $W'$
+的这一选取保证了 $W'$ 的像 $W \subset X$ 为开集，并且它在 $X'$ 中的原像为 $W'$。
+
+\medskip\noindent
+步骤 5。此时 $W' \to W$ 是有限满态射，而由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+可知 $W$ 是概形，证明完成。
+\end{remark}
+
+
+
+
+
+\section{概形轨迹与域扩张}
+\label{spaces-over-fields-section-schematic-and-field-extension}
+
+\noindent
+域 $k$ 上不可表的代数空间，在基变换到 $k$ 的某个扩张后可能变得可表（即成为概形）。
+见《空间》例 \ref{spaces-example-non-representable-descent}。本节研究这一问题。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-scheme-after-purely-inseparable-base-change}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。若存在纯不可分域扩张 $k'/k$，
+使 $X_{k'}$ 为概形，则 $X$ 为概形。
+\end{lemma}
+
+\begin{proof}
+态射 $X_{k'} \to X$ 是整的、满的且泛单。故本引理由《空间的极限》引理
+\ref{spaces-limits-lemma-integral-universally-bijective-scheme}.
+推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-when-scheme-after-base-change}
+设 $k$ 为域，其代数闭包为 $\overline{k}$。设 $X$ 为 $k$ 上的拟分离代数空间。
+\begin{enumerate}
+\item 若存在域扩张 $K/k$，使 $X_K$ 为概形，则 $X_{\overline{k}}$ 为概形。
+\item 若 $X$ 拟紧，并存在域扩张 $K/k$，使 $X_K$ 为概形，则对于 $k$ 的某个
+有限可分扩张 $k'$，$X_{k'}$ 为概形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于每个代数空间都是其拟紧开子空间的并，引理的第一部分由第二部分推出
+（略去一些细节）。因此假设 $X$ 拟紧，并给定扩张 $K/k$，使 $X_K$ 可表。
+把 $K = \bigcup A$ 写成有限生成 $k$-子代数 $A$ 的余极限。由《空间的极限》引理
+\ref{spaces-limits-lemma-limit-is-scheme}，对某个 $A$，$X_A$ 为概形。选取极大理想
+$\mathfrak m \subset A$。由 Hilbert 零点定理（《代数》定理
+\ref{algebra-theorem-nullstellensatz}），剩余域 $k' = A/\mathfrak m$ 是 $k$ 的有限扩张。
+故 $X_{k'}$ 为概形。若 $k' \supset k$ 不可分，设 $k'/k''/k$ 为《域》引理
+\ref{fields-lemma-separable-first} 中得到的子扩张。由于 $k'/k''$ 纯不可分，
+由引理 \ref{spaces-over-fields-lemma-scheme-after-purely-inseparable-base-change}，代数空间
+$X_{k''}$ 为概形。由于 $k''|k$ 可分，证明完成。
+% P09-ERR-0271
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-base-change-by-Galois}
+设 $k'/k$ 为有限 Galois 扩张，其 Galois 群为 $G$。设 $X$ 为 $k$ 上的代数空间。
+则 $G$ 自由作用在代数空间 $X_{k'}$ 上，并且在《空间的性质》引理
+\ref{spaces-properties-lemma-quotient} 的意义下有 $X = X_{k'}/G$。
+\end{lemma}
+
+\begin{proof}
+略。提示：先证明 $\Spec(k) = \Spec(k')/G$，再使用取商与基变换的相容性。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-when-quotient-scheme-at-point}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，$G$ 为自由作用在 $X$ 上的有限群。
+按《空间的性质》引理 \ref{spaces-properties-lemma-quotient} 令 $Y = X/G$。
+对 $y \in |Y|$，下列条件等价：
+\begin{enumerate}
+\item $y$ 位于 $Y$ 的概形轨迹中；以及
+\item 存在仿射开子集 $U \subset X$，它包含 $y$ 的原像。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的性质》引理 \ref{spaces-properties-lemma-quotient} 中 $Y = X/G$ 的构造，
+态射 $X \to Y$ 满且平展。显然有 $X \times_Y X = X \times G$，故态射
+$X \to Y$ 甚至有限平展。它也是满的。因此，本引理由《良态空间》引理
+\ref{decent-spaces-lemma-when-quotient-scheme-at-point} 推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-scheme-after-purely-transcendental-base-change}
+设 $k$ 为域，$X$ 为 $k$ 上的拟分离代数空间。若存在纯超越域扩张 $K/k$，
+使 $X_K$ 为概形，则 $X$ 为概形。
+\end{lemma}
+
+\begin{proof}
+由于每个代数空间都是其拟紧开子空间的并，可假设 $X$ 拟紧（略去一些细节）。
+回忆《域》定义 \ref{fields-definition-transcendence}，关于扩张 $K/k$ 的假设表示
+$K$ 是 $k$ 上某个多项式环（变量可能有无限多个）的分式域。因此 $K = \bigcup A$
+是一些子代数的并，其中每个子代数都是 $k$ 上有限多项式代数的局部化。由《空间的极限》引理
+\ref{spaces-limits-lemma-limit-is-scheme}，对某个 $A$，$X_A$ 是概形。写成
+$$
+A = k[x_1, \ldots, x_n][1/f]
+$$
+其中 $f \in k[x_1, \ldots, x_n]$ 非零。
+
+\medskip\noindent
+若 $k$ 无限，则可如下完成证明：选取 $a_1, \ldots, a_n \in k$，使
+$f(a_1, \ldots, a_n) \not = 0$。于是 $(a_1, \ldots, a_n)$ 定义一个
+$k$-代数映射 $A \to k$，它把 $x_i$ 映到 $a_i$，把 $1/f$ 映到
+$1/f(a_1, \ldots, a_n)$。故基变换 $X_A \times_{\Spec(A)} \Spec(k) \cong X$
+如所需地是概形。
+% P09-ERR-0272
+
+\medskip\noindent
+本段在 $k$ 有限时完成证明。此时把 $X = \lim X_i$ 写成极限，其中 $X_i$ 在 $k$ 上为有限表示，
+转移态射均为仿射态射（《空间的极限》引理
+\ref{spaces-limits-lemma-relative-approximation}）。使用《空间的极限》引理
+\ref{spaces-limits-lemma-limit-is-scheme}，可知对某个 $i$，$X_{i, A}$ 为概形。因此可假设
+$X \to \Spec(k)$ 为有限表示。设 $x \in |X|$ 为闭点。可以用闭浸入
+$\Spec(\kappa) \to X$ 表示 $x$（《良态空间》引理
+\ref{decent-spaces-lemma-decent-space-closed-point}）。于是
+$\Spec(\kappa) \to \Spec(k)$ 为有限型，故 $\kappa$ 是 $k$ 的有限扩张
+（由 Hilbert 零点定理，见《代数》定理 \ref{algebra-theorem-nullstellensatz}；
+略去一些细节）。设 $[\kappa : k] = d$。选取与 $d$ 互素的整数 $n \gg 0$，并令
+$k'/k$ 为次数为 $n$ 的扩张。则 $k'/k$ 为 Galois 扩张，且
+$G = \text{Aut}(k'/k)$ 是阶为 $n$ 的循环群。当 $n$ 足够大时，与上文相同的理由说明存在
+$k$-代数同态 $A \to k'$。
+% P09-ERR-0273
+于是 $X_{k'}$ 是概形，且 $X = X_{k'}/G$（引理
+\ref{spaces-over-fields-lemma-base-change-by-Galois}）。另一方面，由于 $n$ 与 $d$ 互素，有
+$$
+\Spec(\kappa) \times_{X} X_{k'} =
+\Spec(\kappa) \times_{\Spec(k)} \Spec(k') =
+\Spec(\kappa \otimes_k k')
+$$
+是某个域的谱。换言之，$X_{k'} \to X$ 在 $x$ 上方的纤维只有一个点。因此由引理
+\ref{spaces-over-fields-lemma-when-quotient-scheme-at-point}，$x$ 如所需地位于 $X$ 的概形轨迹中。
+\end{proof}
+
+\begin{remark}
+\label{spaces-over-fields-remark-when-does-the-argument-work}
+设 $k$ 为有限域，$K/k$ 为几何不可约域扩张。则 $K$ 是几何不可约有限型 $k$-代数
+$A$ 的极限。给定 $A$，Lang 与 Weil 的估计 \cite{LW} 说明，当 $n \gg 0$ 时，
+存在 $k$-代数同态 $A \to k'$，其中 $k'/k$ 的次数为 $n$。
+% P09-ERR-0274
+分析引理 \ref{spaces-over-fields-lemma-scheme-after-purely-transcendental-base-change} 证明中的论证可知：
+若 $X$ 是 $k$ 上的拟分离代数空间，且 $X_K$ 为概形，则 $X$ 为概形。若以后需要这一结果，
+我们将在此作出准确陈述并给出证明。
+% P09-ERR-0275
+\end{remark}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-scheme-over-algebraic-closure-enough-affines}
+设 $k$ 为域，其代数闭包为 $\overline{k}$。设 $X$ 为 $k$ 上满足下列条件的代数空间：
+\begin{enumerate}
+\item $X$ 良态且在 $k$ 上局部有限型；
+\item $X_{\overline{k}}$ 为概形；以及
+\item $X_{\overline{k}}$ 的任意有限个 $\overline{k}$-有理点都包含在某个仿射开子集中。
+% P09-ERR-0276
+\end{enumerate}
+则 $X$ 为概形。
+\end{lemma}
+
+\begin{proof}
+若 $K/k$ 为扩张，则基变换 $X_K$ 良态（《良态空间》引理
+\ref{decent-spaces-lemma-representable-named-properties}），并且在 $K$ 上局部有限型
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-base-change-finite-type}）。
+由引理 \ref{spaces-over-fields-lemma-scheme-after-purely-inseparable-base-change}，只需证明 $X$ 在基变换到
+$k$ 的完美化后成为概形；因此可假设 $k$ 为完美域（这一步并非严格必要，但可使其余论证
+更易理解）。用拟紧开子集覆盖 $X$ 可知，只需在 $X$ 拟紧时证明本引理（略去一处小细节）。
+在此情形，$|X|$ 是良态拓扑空间（《良态空间》命题
+\ref{decent-spaces-proposition-reasonable-sober}）。故只需证明 $|X|$ 中每个闭点都位于
+$X$ 的概形轨迹中（使用《空间的性质》引理
+\ref{spaces-properties-lemma-subscheme} 及《拓扑》引理
+\ref{topology-lemma-quasi-compact-closed-point}）。
+
+\medskip\noindent
+设 $x \in |X|$ 为闭点。由《良态空间》引理
+\ref{decent-spaces-lemma-decent-space-closed-point}，可找到表示 $x$ 的闭浸入
+$\Spec(l) \to X$。态射 $\Spec(l) \to \Spec(k)$ 为有限型（《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-type}），因此由 Hilbert 零点定理
+（《代数》定理 \ref{algebra-theorem-nullstellensatz}），$l$ 是 $k$ 的有限扩张。
+由于 $k$ 完美，该扩张可分。因此概形
+$$
+\Spec(l) \times_X X_{\overline{k}} =
+\Spec(l) \times_{\Spec(k)} \Spec(\overline{k}) =
+\Spec(l \otimes_k \overline{k})
+$$
+是有限多个 $\overline{k}$-有理点的不交并。由假设 (3)，可以找到包含这些点的仿射开子集
+$W \subset X_{\overline{k}}$。
+
+\medskip\noindent
+由引理 \ref{spaces-over-fields-lemma-when-scheme-after-base-change}，对某个有限扩张 $k'/k$，
+$X_{k'}$ 为概形。扩大 $k'$ 后，可假设存在仿射开子集 $U' \subset X_{k'}$，其到
+$\overline{k}$ 的基变换恢复 $W$（使用 $X_{\overline{k}}$ 是概形 $X_{k''}$ 的极限这一事实，
+其中 $k' \subset k'' \subset \overline{k}$ 为有限扩张，并使用《极限》诸引理
+\ref{limits-lemma-descend-opens} 及 \ref{limits-lemma-limit-affine}）。可以假设
+$k'/k$ 为 Galois 扩张（取正规闭包，见《域》引理
+\ref{fields-lemma-normal-closure}，并使用 $k$ 完美这一事实）。
+% P09-ERR-0277
+令 $G = \text{Gal}(k'/k)$。依构造，$G$-不变闭子概形
+$\Spec(l) \times_X X_{k'}$ 包含在 $U'$ 中。因此由引理
+\ref{spaces-over-fields-lemma-base-change-by-Galois} 及
+\ref{spaces-over-fields-lemma-when-quotient-scheme-at-point}，$x$ 位于概形轨迹中。
+\end{proof}
+
+\noindent
+下列两个引理应当移到别处。请将下一个引理与《良态空间》引理
+\ref{decent-spaces-lemma-conditions-on-space-over-field} 比较。
+% P09-ERR-0278
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-locally-quasi-finite-over-field}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 在 $k$ 上局部拟有限；
+\item $X$ 在 $k$ 上局部有限型，且维数为 $0$；
+\item $X$ 为概形，且在 $k$ 上局部拟有限；
+\item $X$ 为概形、在 $k$ 上局部有限型且维数为 $0$；以及
+\item $X$ 是一些阿廷局部 $k$-代数 $A$ 在 $k$ 上的谱的不交并，并且
+$\dim_k(A) < \infty$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于基底是域，$X/k$ 的相对维数与 $X$ 的维数相同。
+% P09-ERR-0279
+因此由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite-rel-dimension-0}，(1) 与 (2) 等价。
+进而由引理 \ref{spaces-over-fields-lemma-locally-finite-type-dim-zero}（以及平凡的蕴含关系），
+(1)--(4) 等价。最后，《簇》引理
+\ref{varieties-lemma-algebraic-scheme-dim-0} 说明 (1)--(4) 与 (5) 等价。
+% P09-ERR-0280
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-mono-towards-locally-quasi-finite-over-field}
+设 $k$ 为域，$f : X \to Y$ 为 $k$ 上代数空间的单态射。若 $Y$ 在 $k$ 上局部拟有限，
+则 $X$ 亦然。
+\end{lemma}
+
+\begin{proof}
+假设 $Y$ 在 $k$ 上局部拟有限。由引理
+\ref{spaces-over-fields-lemma-locally-quasi-finite-over-field}，有 $Y = \coprod \Spec(A_i)$，其中每个
+$A_i$ 都是在 $k$ 上有限的阿廷局部环。由《良态空间》引理
+\ref{decent-spaces-lemma-monomorphism-toward-disjoint-union-dim-0-rings}，
+$X$ 为概形。考虑 $X_i = f^{-1}(\Spec(A_i))$。则 $X_i$ 或有一个点，或没有点。
+若 $X_i$ 没有点，则无须证明。若 $X_i$ 有一个点，则 $X_i = \Spec(B_i)$，其中 $B_i$
+为零维局部环，且 $A_i \to B_i$ 是环的满态射。特别地，
+$A_i/\mathfrak m_{A_i} = B_i/\mathfrak m_{A_i}B_i$；由中山引理，即《代数》引理
+\ref{algebra-lemma-NAK}（因为 $\mathfrak m_{A_i}$ 是幂零理想！），可知
+$A_i \to B_i$ 为满射。因此 $B_i$ 是有限局部 $k$-代数，再由引理
+\ref{spaces-over-fields-lemma-locally-quasi-finite-over-field} 可知 $X \to \Spec(k)$ 局部拟有限。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{几何约化代数空间}
+\label{spaces-over-fields-section-geometrically-reduced}
+
+\noindent
+若 $X$ 是域上的约化代数空间，则扩张基域后，$X$ 可能变得非约化。对于几何约化代数空间，
+这种情形不会发生。
+
+\begin{definition}
+\label{spaces-over-fields-definition-geometrically-reduced}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。
+\begin{enumerate}
+\item 设 $x \in |X|$ 为点。若 $\mathcal{O}_{X, \overline{x}}$ 在 $k$ 上几何约化，
+则称 $X${\it 在 $x$ 处几何约化}。
+\item 若 $X$ 在 $X$ 的每个点处都几何约化，则称 $X$ 在 $k$ 上{\it 几何约化}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，若 $X$ 在 $x$ 处几何约化，则 $X$ 在 $x$ 处的局部环约化（《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-local-ring}）。同理，若 $X$ 在 $k$ 上几何约化，
+则 $X$ 约化（由《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-space}）。特别地，下列引理说明该定义与域上概形的
+相应性质并不冲突。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-reduced-at-point}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。设 $x \in |X|$。下列条件等价：
+\begin{enumerate}
+\item $X$ 在 $x$ 处几何约化；
+\item 对某个平展邻域 $(U, u) \to (X, x)$，其中 $U$ 为概形，$U$ 在 $u$ 处几何约化；
+\item 对任意平展邻域 $(U, u) \to (X, x)$，其中 $U$ 为概形，$U$ 在 $u$ 处几何约化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆，局部环 $\mathcal{O}_{X, \overline{x}}$ 是 $\mathcal{O}_{U, u}$ 的严格亨泽尔化，
+见《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring}。由《簇》引理
+\ref{varieties-lemma-geometrically-reduced-at-point}，$U$ 在 $u$ 处几何约化，当且仅当
+$\mathcal{O}_{U, u}$ 在 $k$ 上几何约化。因此需要证明：若 $A$ 为局部 $k$-代数，则
+$A$ 在 $k$ 上几何约化，当且仅当 $A^{sh}$ 在 $k$ 上几何约化。使用几何约化代数的定义
+（《代数》定义 \ref{algebra-definition-geometrically-reduced}）来验证这一点。设 $K/k$
+为域扩张。由于 $A \to A^{sh}$ 忠实平坦（《代数进阶》引理
+\ref{more-algebra-lemma-dumb-properties-henselization}），可知
+$A \otimes_k K \to A^{sh} \otimes_k K$ 忠实平坦（《代数》引理
+\ref{algebra-lemma-flat-base-change}）。故若 $A^{sh} \otimes_k K$ 约化，则由《代数》引理
+\ref{algebra-lemma-descent-reduced}，$A \otimes_k K$ 也约化。反之，回忆 $A^{sh}$ 是平展
+$A$-代数的余极限，见《代数》引理
+% P09-ERR-0281
+\ref{algebra-lemma-strict-henselization}。因此 $A^{sh} \otimes_k K$ 是平展
+$A \otimes_k K$-代数的滤过余极限。由《代数》引理
+\ref{algebra-lemma-reduced-goes-up} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-reduced}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 几何约化；
+\item 对某个平展满态射 $U \to X$，其中 $U$ 为概形，$U$ 几何约化；
+\item 对任意平展态射 $U \to X$，其中 $U$ 为概形，$U$ 几何约化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这直接由定义与引理 \ref{spaces-over-fields-lemma-geometrically-reduced-at-point} 得出。
+\end{proof}
+
+\noindent
+该概念在特征零的情形并无新意。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-perfect-reduced}
+设 $X$ 为完美域 $k$ 上的代数空间（例如 $k$ 的特征为零）。
+\begin{enumerate}
+\item 对 $x \in |X|$，若 $\mathcal{O}_{X, \overline{x}}$ 约化，则 $X$ 在 $x$ 处几何约化。
+\item 若 $X$ 约化，则 $X$ 在 $k$ 上几何约化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第一个陈述由《代数》引理
+\ref{algebra-lemma-separable-extension-preserves-reducedness} 及完美域的定义
+（《代数》定义 \ref{algebra-definition-perfect}）得出。第二个陈述由第一个陈述得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-reduced-positive-characteristic}
+设 $k$ 为特征 $p > 0$ 的域，$X$ 为 $k$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 在 $k$ 上几何约化；
+\item 对每个域扩张 $k'/k$，$X_{k'}$ 约化；
+\item 对每个有限纯不可分域扩张 $k'/k$，$X_{k'}$ 约化；
+\item $X_{k^{1/p}}$ 约化；
+\item $X_{k^{perf}}$ 约化；以及
+\item $X_{\bar k}$ 约化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取平展满态射 $U \to X$，其中 $U$ 为概形。借助引理
+\ref{spaces-over-fields-lemma-geometrically-reduced}，本引理由 $U$ 在 $k$ 上的相应结果推出。
+见《簇》引理 \ref{varieties-lemma-geometrically-reduced}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-reduced-upstairs}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。设 $k'/k$ 为域扩张，$x \in |X|$ 为点，
+$x' \in |X_{k'}|$ 为 $x$ 上方的点。下列条件等价：
+\begin{enumerate}
+\item $X$ 在 $x$ 处几何约化；
+\item $X_{k'}$ 在 $x'$ 处几何约化。
+\end{enumerate}
+特别地，$X$ 在 $k$ 上几何约化，当且仅当 $X_{k'}$ 在 $k'$ 上几何约化。
+\end{lemma}
+
+\begin{proof}
+选取平展态射 $U \to X$，其中 $U$ 为概形；再选取映到 $x \in |X|$ 的点 $u \in U$。
+由《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}，可以选取同时映到
+$u$ 与 $x'$ 的点 $u' \in U_{k'} = U \times_X X_{k'}$。借助引理
+\ref{spaces-over-fields-lemma-geometrically-reduced-at-point}，本引理由 $U, u, u'$ 的相应引理推出，
+后者即《簇》引理 \ref{varieties-lemma-geometrically-reduced-upstairs}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-reduced-etale-local}
+设 $k$ 为域，$f : X \to Y$ 为 $k$ 上代数空间的态射。设 $x \in |X|$ 为点，
+其像为 $y \in |Y|$。
+\begin{enumerate}
+\item 若 $f$ 在 $x$ 处平展，则
+$X$ 在 $x$ 处几何约化 $\Leftrightarrow$
+$Y$ 在 $y$ 处几何约化；
+\item 若 $f$ 平展且满，则
+$X$ 几何约化 $\Leftrightarrow$
+$Y$ 几何约化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $f$ 在 $x$ 处平展，则
+$\mathcal{O}_{X, \overline{x}} = \mathcal{O}_{Y, \overline{y}}$，故 (1) 显然。
+(2) 立即由 (1) 推出。
+\end{proof}
+
+
+
+
+
+
+\section{几何连通代数空间}
+\label{spaces-over-fields-section-geometrically-connected}
+
+\noindent
+若 $X$ 是域上的连通代数空间，则扩张基域后，$X$ 可能变得不连通。对于几何连通
+代数空间，这种情形不会发生。
+
+\begin{definition}
+\label{spaces-over-fields-definition-geometrically-connected}
+设 $X$ 为域 $k$ 上的代数空间。若对 $k$ 的每个域扩张 $k'$，基变换 $X_{k'}$
+都连通，则称 $X$ 在 $k$ 上{\it 几何连通}。
+\end{definition}
+
+\noindent
+依约定，连通拓扑空间非空；因而几何连通代数空间当然非空。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-connected-check-after-extension}
+设 $X$ 为域 $k$ 上的代数空间，$k'/k$ 为域扩张。则 $X$ 在 $k$ 上几何连通，
+当且仅当 $X_{k'}$ 在 $k'$ 上几何连通。
+\end{lemma}
+
+\begin{proof}
+若 $X$ 在 $k$ 上几何连通，则 $X_{k'}$ 在 $k'$ 上几何连通是显然的。反之，对任意
+域扩张 $k''/k$，存在 $k'/k$ 与 $k''/k$ 的共同扩域 $k'''/k$，见《域》引理
+\ref{fields-lemma-common-extension-field}。态射 $X_{k'''} \to X_{k''}$ 是满的
+（它是域的谱之间某个满态射的基变换），故 $X_{k'''}$ 连通蕴含 $X_{k''}$ 连通。
+因此，若 $X_{k'}$ 在 $k'$ 上几何连通，则 $X$ 在 $k$ 上几何连通。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-bijection-connected-components}
+设 $k$ 为域，$X$, $Y$ 为 $k$ 上的代数空间。假设 $X$ 在 $k$ 上几何连通。则投影态射
+$$
+p : X \times_k Y \longrightarrow Y
+$$
+诱导连通分支之间的双射。
+\end{lemma}
+
+\begin{proof}
+设 $y \in |Y|$ 由态射 $\Spec(K) \to Y$ 表示，其中 $K$ 为域。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，$|X \times_k Y| \to |Y|$
+在 $y$ 上的纤维是 $|X_K| \to |X \times_k Y|$ 的像。因此，由 $X$ 几何连通的假设，
+这些纤维连通。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-space-over-field-universally-open}，映射 $|p|$ 是开映射。
+于是应用《拓扑》引理
+\ref{topology-lemma-connected-fibres-connected-components} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-separably-closed-field-connected-components}
+设 $k'/k$ 为域扩张，$X$ 为 $k$ 上的代数空间。假设 $k$ 是可分代数闭域。则态射
+$X_{k'} \to X$ 诱导连通分支之间的双射。特别地，$X$ 在 $k$ 上几何连通，
+当且仅当 $X$ 连通。
+\end{lemma}
+
+\begin{proof}
+由于 $k$ 可分代数闭，$k'$ 在 $k$ 上几何连通，见《代数》引理
+\ref{algebra-lemma-separably-closed-connected-implies-geometric}。因此，由《簇》引理
+\ref{varieties-lemma-affine-geometrically-connected}，$Z = \Spec(k')$ 在 $k$
+上几何连通。由于 $X_{k'} = Z \times_k X$，该结论是引理
+\ref{spaces-over-fields-lemma-bijection-connected-components} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-characterize-geometrically-connected}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间，$\overline{k}$ 为 $k$ 的可分代数闭包。
+则 $X$ 几何连通，当且仅当基变换 $X_{\overline{k}}$ 连通。
+\end{lemma}
+
+\begin{proof}
+假设 $X_{\overline{k}}$ 连通。设 $k'/k$ 为域扩张。存在域扩张
+$\overline{k}'/\overline{k}$，使得 $k'$ 作为 $k$ 的扩张嵌入 $\overline{k}'$。
+由引理 \ref{spaces-over-fields-lemma-separably-closed-field-connected-components}，
+$X_{\overline{k}'}$ 连通。由于 $X_{\overline{k}'} \to X_{k'}$ 是满态射，
+可得所需的 $X_{k'}$ 连通性。
+\end{proof}
+
+\noindent
+设 $k$ 为域，$\overline{k}/k$ 为（可能无限的）Galois 扩张。例如，$\overline{k}$
+可以是 $k$ 的可分代数闭包。对任意 $\sigma \in \text{Gal}(\overline{k}/k)$，
+得到相应的自同构
+$
+\Spec(\sigma) :
+\Spec(\overline{k})
+\longrightarrow
+\Spec(\overline{k})
+$.
+注意
+$\Spec(\sigma) \circ \Spec(\tau) = \Spec(\tau \circ \sigma)$。因此得到相反群在概形
+$\Spec(\overline{k})$ 上的作用
+$$
+\text{Gal}(\overline{k}/k)^{opp} \times \Spec(\overline{k})
+\longrightarrow
+\Spec(\overline{k})
+$$
+设 $X$ 为 $k$ 上的代数空间。由于按定义
+$X_{\overline{k}} =
+\Spec(\overline{k}) \times_{\Spec(k)} X$
+，上述作用诱导典范作用
+\begin{equation}
+\label{spaces-over-fields-equation-galois-action-base-change-kbar}
+\text{Gal}(\overline{k}/k)^{opp} \times X_{\overline{k}}
+\longrightarrow
+X_{\overline{k}}.
+\end{equation}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-Galois-action-quasi-compact-open}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间，$\overline{k}$ 为 $k$ 的（可能无限的）
+Galois 扩张。设 $V \subset X_{\overline{k}}$ 为拟紧开子空间。则：
+\begin{enumerate}
+\item 存在有限子扩张 $\overline{k}/k'/k$ 及拟紧开子空间 $V' \subset X_{k'}$，
+使得 $V = (V')_{\overline{k}}$；
+\item 存在开子群 $H \subset \text{Gal}(\overline{k}/k)$，使得对所有
+$\sigma \in H$ 都有 $\sigma(V) = V$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 及平展满态射 $U \to X$。选取拟紧开子空间
+$W \subset U_{\overline{k}}$，使其在 $X_{\overline{k}}$ 中的像为 $V$。
+这是可能的，因为 $|U_{\overline{k}}| \to |X_{\overline{k}}|$ 连续，且
+$|U_{\overline{k}}|$ 有由拟紧开集组成的基。对 $W \subset U_{\overline{k}}$
+应用《簇》引理 \ref{varieties-lemma-Galois-action-quasi-compact-open}，即得本引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-closed-fixed-by-Galois}
+设 $k$ 为域，$\overline{k}/k$ 为（可能无限的）Galois 扩张，$X$ 为 $k$ 上的
+代数空间。设 $\overline{T} \subset |X_{\overline{k}}|$ 具有下列性质：
+\begin{enumerate}
+\item $\overline{T}$ 是 $|X_{\overline{k}}|$ 的闭子集；
+\item 对每个 $\sigma \in \text{Gal}(\overline{k}/k)$，都有
+$\sigma(\overline{T}) = \overline{T}$。
+\end{enumerate}
+则存在闭子集 $T \subset |X|$，使其在 $|X_{k'}|$ 中的逆像为 $\overline{T}$。
+% P09-ERR-0282
+\end{lemma}
+
+\begin{proof}
+令 $T \subset |X|$ 为 $\overline{T}$ 的像。由于
+$|X_{\overline{k}}| \to |X|$ 是满射，该陈述等价于 $T$ 闭且其逆像为
+$\overline{T}$。选取概形 $U$ 及平展满态射 $U \to X$。由概形的情形
+（见《簇》引理 \ref{varieties-lemma-closed-fixed-by-Galois}），存在闭子集
+$T' \subset |U|$，其在 $|U_{\overline{k}}|$ 中的逆像就是 $\overline{T}$
+的逆像。由于 $|U_{\overline{k}}| \to |X_{\overline{k}}|$ 是满射，
+可知 $T'$ 是 $T$ 经 $|U| \to |X|$ 的逆像。由 $|X|$ 上拓扑的构造，
+这说明 $T$ 闭。以同样方式可知，$\overline{T}$ 是 $T$ 的逆像。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-characterize-geometrically-disconnected}
+设 $k$ 为域，$X$ 为 $k$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 几何连通；
+\item 对每个有限可分域扩张 $k'/k$，代数空间 $X_{k'}$ 连通。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+本证明与《簇》引理
+\ref{varieties-lemma-characterize-geometrically-disconnected} 的证明相同，
+区别仅在于：将《簇》引理
+\ref{varieties-lemma-characterize-geometrically-connected} 替换为引理
+\ref{spaces-over-fields-lemma-characterize-geometrically-connected}；将《簇》引理
+\ref{varieties-lemma-Galois-action-quasi-compact-open} 替换为引理
+\ref{spaces-over-fields-lemma-Galois-action-quasi-compact-open}；并将《簇》引理
+\ref{varieties-lemma-closed-fixed-by-Galois} 替换为引理
+\ref{spaces-over-fields-lemma-closed-fixed-by-Galois}。我们建议读者阅读那个证明，而不是下面这个证明。
+% P09-ERR-0283
+
+\medskip\noindent
+由定义立即可知 (1) 蕴含 (2)。假设 $X$ 不是几何连通的。设
+$k \subset \overline{k}$ 为 $k$ 的可分代数闭包。由引理
+\ref{spaces-over-fields-lemma-characterize-geometrically-connected}，$X_{\overline{k}}$ 不连通。
+设 $X_{\overline{k}} = \overline{U} \amalg \overline{V}$，其中
+$\overline{U}$ 与 $\overline{V}$ 是 $X_{\overline{k}}$ 的非空开闭代数子空间。
+
+\medskip\noindent
+设 $W \subset X$ 为任意拟紧开子空间。则
+$W_{\overline{k}} \cap \overline{U}$ 与 $W_{\overline{k}} \cap \overline{V}$
+都是 $W_{\overline{k}}$ 的开闭子空间。特别地，
+$W_{\overline{k}} \cap \overline{U}$ 与 $W_{\overline{k}} \cap \overline{V}$
+拟紧；并且由引理 \ref{spaces-over-fields-lemma-Galois-action-quasi-compact-open}，
+$W_{\overline{k}} \cap \overline{U}$ 与 $W_{\overline{k}} \cap \overline{V}$
+都定义在某个有限子扩张上，
+且在 $\text{Gal}(\overline{k}/k)$ 的某个开子群作用下不变。下文将直接使用这一点，
+不再另行说明。
+
+\medskip\noindent
+选取拟紧开子空间 $W_0 \subset X$，使得
+$W_{0, \overline{k}} \cap \overline{U}$ 与
+$W_{0, \overline{k}} \cap \overline{V}$ 均非空。选取有限子扩张
+$\overline{k}/k'/k$，以及分解 $W_{0, k'} = U_0' \amalg V_0'$，
+其中两部分均开且闭，并且
+$W_{0, \overline{k}} \cap \overline{U} = (U'_0)_{\overline{k}}$ 且
+$W_{0, \overline{k}} \cap \overline{V} = (V'_0)_{\overline{k}}$。
+令 $H = \text{Gal}(\overline{k}/k') \subset \text{Gal}(\overline{k}/k)$。
+特别地，
+$\sigma(W_{0, \overline{k}} \cap \overline{U}) =
+W_{0, \overline{k}} \cap \overline{U}$，对 $\overline{V}$ 亦然。
+
+\medskip\noindent
+按上述方式选定 $W_0$ 与 $k'$ 后，对每个拟紧开子空间 $W \subset X$，令
+$$
+U_W =
+\bigcap\nolimits_{\sigma \in H} \sigma(W_{\overline{k}} \cap \overline{U}),
+\quad
+V_W =
+\bigcup\nolimits_{\sigma \in H} \sigma(W_{\overline{k}} \cap \overline{V}).
+$$
+由于 $W_{\overline{k}} \cap \overline{U}$ 与
+$W_{\overline{k}} \cap \overline{V}$ 在 $\text{Gal}(\overline{k}/k)$ 的某个
+开子群作用下不变，上述并与交实际上都是有限的。因此 $U_W$ 与 $V_W$ 均为开闭子空间。
+此外，由构造有 $W_{\bar k} = U_W \amalg V_W$。
+
+\medskip\noindent
+我们断言：若 $W \subset W' \subset X$ 为拟紧开子空间，则
+$W_{\overline{k}} \cap U_{W'} = U_W$ 且
+$W_{\overline{k}} \cap V_{W'} = V_W$。验证从略。因此，定义
+$U = \bigcup_{W \subset X} U_W$ 与 $V = \bigcup_{W \subset X} V_W$ 后，得到
+$X_{\overline{k}} = U \amalg V$，它是开闭子集的不交并。
+% P09-ERR-0284
+显然，$V$ 非空，因为它（局部地）由取并构造。另一方面，$U$ 非空，因为由构造它包含
+$W_0 \cap \overline{U}$。
+% P09-ERR-0285
+最后，由构造，$U, V \subset X_{\bar k}$ 闭且 $H$-不变。因此，由引理
+\ref{spaces-over-fields-lemma-closed-fixed-by-Galois}，存在闭子集 $U', V' \subset X_{k'}$，使得
+$U = (U')_{\bar k}$ 且 $V = (V')_{\bar k}$。显然
+$X_{k'} = U' \amalg V'$，故 $X_{k'}$ 如所需是不连通的。
+\end{proof}
+
+
+
+
+
+
+\section{几何不可约代数空间}
+\label{spaces-over-fields-section-geometrically-irreducible}
+
+\noindent
+《空间》例 \ref{spaces-example-infinite-product} 表明，最好不要在完全一般的情形下
+考虑不可约代数空间\footnote{准确地说，若我们说“代数空间 $X$ 不可约”，大概是指
+“拓扑空间 $|X|$ 不可约”。}。对于良态（例如拟分离）代数空间，这类灾难不会发生。
+因此，仅在代数空间良态的假设下作出下列定义。
+
+\begin{definition}
+\label{spaces-over-fields-definition-geometrically-irreducible}
+设 $k$ 为域，$X$ 为 $k$ 上的良态代数空间。若对 $k$ 的任意域扩张 $k'$，
+拓扑空间 $|X_{k'}|$ 都不可约\footnote{不可约空间非空。}，则称 $X$
+{\it 几何不可约}。
+\end{definition}
+
+\noindent
+注意，$X_{k'}$ 是良态代数空间（《良态空间》引理
+\ref{decent-spaces-lemma-representable-named-properties}）。因此，拓扑空间
+$|X_{k'}|$ 是良态拓扑空间。《良态空间》命题
+\ref{decent-spaces-proposition-reasonable-sober}。
+% P09-ERR-0286
+
+
+
+
+
+\section{几何整代数空间}
+\label{spaces-over-fields-section-geometrically-integral}
+
+\noindent
+回忆，整代数空间按定义是良态的，见第 \ref{spaces-over-fields-section-integral-spaces} 节。
+
+\begin{definition}
+\label{spaces-over-fields-definition-geometrically-integral}
+设 $X$ 为域 $k$ 上的代数空间。若对 $k$ 的每个域扩张 $k'$，代数空间
+$X_{k'}$ 都整（定义 \ref{spaces-over-fields-definition-integral-algebraic-space}），
+则称 $X$ 在 $k$ 上{\it 几何整}。
+\end{definition}
+
+\noindent
+特别地，$X$ 是良态代数空间。它与几何约化及几何不可约之间有如下关系。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-geometrically-integral}
+设 $k$ 为域，$X$ 为 $k$ 上的良态代数空间。则 $X$ 在 $k$ 上几何整，
+当且仅当 $X$ 在 $k$ 上既几何约化又几何不可约。
+\end{lemma}
+
+\begin{proof}
+这直接由定义得出，因为在良态性的条件下，我们的整性概念等价于约化且不可约。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-proper-geometrically-reduced-global-sections}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间。
+\begin{enumerate}
+\item $A = H^0(X, \mathcal{O}_X)$ 是有限维 $k$-代数；
+\item $A = \prod_{i = 1, \ldots, n} A_i$ 是阿廷局部 $k$-代数的乘积，
+$|X|$ 的每个连通分支对应一个因子；
+\item 若 $X$ 约化，则 $A = \prod_{i = 1, \ldots, n} k_i$ 是域的乘积，
+每个域都是 $k$ 的有限扩张；
+\item 若 $X$ 几何约化，则 $k_i$ 是 $k$ 的有限可分扩张；
+\item 若 $X$ 几何连通，则 $A$ 在 $k$ 上几何不可约；
+\item 若 $X$ 几何不可约，则 $A$ 在 $k$ 上几何不可约；
+\item 若 $X$ 几何约化且连通，则 $A = k$；以及
+% P09-ERR-0288
+\item 若 $X$ 几何整，则 $A = k$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}，
+$A = H^0(X, \mathcal{O}_X)$ 是有限维 $k$-代数。这证明了 (1)。
+
+\medskip\noindent
+由《代数》引理 \ref{algebra-lemma-finite-dimensional-algebra} 与《代数》命题
+\ref{algebra-proposition-dimension-zero-ring}，$A$ 是局部环的乘积。若
+$X = Y \amalg Z$，其中 $Y$ 与 $Z$ 是 $X$ 的开子空间，则取 $\mathcal{O}_X$
+在 $Y$ 上为 $1$、在 $Z$ 上为 $0$ 的截面，得到幂等元 $e \in A$。反之，若
+$e \in A$ 为幂等元，则得到 $|X|$ 的相应分解。最后，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian} 与《空间的性质》引理
+\ref{spaces-properties-lemma-Noetherian-topology}，$|X|$ 是诺特拓扑空间，
+故其连通分支都是开的。因此，$|X|$ 的连通分支与 $A$ 的本原幂等元之间存在 $1$ 对 $1$ 的对应。
+这证明了 (2)。
+
+\medskip\noindent
+若 $X$ 约化，则 $A$ 约化（《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-space}）。因此，局部环 $A_i = k_i$
+约化，从而是域（例如由《代数》引理
+\ref{algebra-lemma-minimal-prime-reduced-ring}）。这证明了 (3)。
+
+\medskip\noindent
+若 $X$ 几何约化，则对
+$A \otimes_k \overline{k} =
+H^0(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$
+也有同样结论（该等式见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}）。
+% P09-ERR-0287
+这蕴含 $k_i \otimes_k \overline{k}$ 是域的乘积，因而例如由《代数》引理
+\ref{algebra-lemma-characterize-separable-field-extensions} 与
+\ref{algebra-lemma-geometrically-reduced-finite-purely-inseparable-extension}，
+$k_i/k$ 可分。这证明了 (4)。
+
+\medskip\noindent
+若 $X$ 几何连通，则 $A \otimes_k \overline{k} =
+H^0(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$
+由 (2) 是零维局部环，故其谱只有一个点，特别地不可约。因此 $A$ 几何不可约。
+这证明了 (5)。当然，(5) 蕴含 (6)。
+
+\medskip\noindent
+若 $X$ 几何约化且连通，则 $A = k_1$ 是域，而扩张 $k_1/k$ 有限可分且几何不可约。
+但此时 $k_1 \otimes_k \overline{k}$ 是 $[k_1 : k]$ 个 $\overline{k}$ 的乘积，
+从而 $k_1 = k$。这证明了 (7)。当然，(7) 蕴含 (8)。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-characterize-trivial-pic-integral}
+设 $k$ 为域，$X$ 为 $k$ 上的固有整代数空间，$\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模。若 $H^0(X, \mathcal{L})$ 与
+$H^0(X, \mathcal{L}^{\otimes - 1})$ 均非零，则
+$\mathcal{L} \cong \mathcal{O}_X$。
+\end{lemma}
+
+\begin{proof}
+设 $s \in H^0(X, \mathcal{L})$ 与
+$t \in H^0(X, \mathcal{L}^{\otimes - 1})$ 为非零截面。设 $x \in |X|$
+为 $s$ 的支撑中的点。选取仿射平展邻域 $(U, u) \to (X, x)$，使得
+$\mathcal{L}|_U \cong \mathcal{O}_U$。于是 $s|_U$ 对应于约化概形 $U$
+（因为 $X$ 约化）上的非零正则函数，故它在 $U$ 的某个不可约分支的一般点处不消失。
+% P09-ERR-0289
+由《良态空间》引理 \ref{decent-spaces-lemma-decent-generic-points}，
+可知 $|X|$ 的一般点 $\eta$ 属于 $s$ 的支撑。对 $t$ 亦然。于是 $st$ 必非零，
+因为 $X$ 在 $\eta$ 处的局部环是域（由上述引理，该局部环维数为零；由于 $X$ 约化，
+该局部环约化；再应用《代数》引理
+\ref{algebra-lemma-minimal-prime-reduced-ring}）。然而，在引理
+\ref{spaces-over-fields-lemma-proper-geometrically-reduced-global-sections} 中已经看到
+$K = H^0(X, \mathcal{O}_X)$ 是域。因此 $st$ 处处非零，从而
+$s : \mathcal{O}_X \to \mathcal{L}$ 是同构。
+\end{proof}
+
+
+
+
+
+
+\section{维数}
+\label{spaces-over-fields-section-dimension}
+
+\noindent
+本节继续讨论维数。此前的材料列举如下：
+\begin{enumerate}
+\item 维数定义于《空间的性质》第
+\ref{spaces-properties-section-dimension} 节；
+\item 局部环的维数定义于《空间的性质》第
+\ref{spaces-properties-section-dimension-local-ring} 节；
+\item 《空间的性质》引理 \ref{spaces-properties-lemma-dimension-local-ring} 与
+\ref{spaces-properties-lemma-dimension-decent-invariant-under-etale} 中的若干结果；
+\item 相对维数定义于《空间的态射》第
+\ref{spaces-morphisms-section-relative-dimension} 节；
+\item 关于纤维维数的结果见《空间的态射》第
+\ref{spaces-morphisms-section-dimension-fibres} 节；
+\item 维数公式的一个弱形式见《空间的态射》第
+\ref{spaces-morphisms-section-dimension-formula} 节；
+\item 关于光滑性与维数的一个结果见《空间的态射》引理
+\ref{spaces-morphisms-lemma-smoothness-dimension-spaces}；
+\item 对良态空间，维数等于 $\dim(|X|)$，见《良态空间》引理
+\ref{decent-spaces-lemma-dimension-decent-space}；
+% P09-ERR-0290
+\item 关于拟有限映射与维数的结果见《良态空间》引理
+\ref{decent-spaces-lemma-dimension-local-ring-quasi-finite} 与
+\ref{decent-spaces-lemma-dimension-quasi-finite}。
+\end{enumerate}
+在《空间的态射进阶》第 \ref{spaces-more-morphisms-section-dimension} 节中，
+我们将讨论有限型态射的纤维维数跳跃。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-integral-dimension}
+设 $S$ 为概形，$f : X \to Y$ 为代数空间的整态射。则
+$\dim(X) \leq \dim(Y)$。若 $f$ 为满态射，则 $\dim(X) = \dim(Y)$。
+\end{lemma}
+
+\begin{proof}
+选取平展满态射 $V \to Y$，其中 $V$ 为概形。则 $U = X \times_Y V$ 是概形，
+而 $U \to V$ 是整态射（若 $f$ 为满态射，它也为满态射）。由《空间的性质》引理
+\ref{spaces-properties-lemma-dimension-decent-invariant-under-etale}，
+有 $\dim(X) = \dim(U)$ 与 $\dim(Y) = \dim(V)$。因此，该结论由概形的情形推出，
+即《态射》引理 \ref{morphisms-lemma-integral-dimension}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-alteration-dimension}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设：
+\begin{enumerate}
+\item $Y$ 局部诺特；
+\item $X$ 与 $Y$ 是整代数空间；
+\item $f$ 支配；以及
+\item $f$ 局部有限型。
+\end{enumerate}
+若 $x \in |X|$ 与 $y \in |Y|$ 是一般点，则
+$$
+\dim(X) \leq \dim(Y) + \text{超越次数 }x/y.
+$$
+若 $f$ 固有，则等号成立。
+\end{lemma}
+
+\begin{proof}
+回忆，$|X|$ 与 $|Y|$ 都是不可约良态拓扑空间，见定义
+\ref{spaces-over-fields-definition-integral-algebraic-space} 后的讨论。因此，$f$ 支配意味着
+$|f|$ 把 $x$ 映到 $y$。此外，$x \in |X|$ 是 $X$ 的局部环维数为 $0$
+的唯一点，见《良态空间》引理
+\ref{decent-spaces-lemma-decent-generic-points}。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-formula-general}，对任意点
+$x' \in |X|$，$X$ 在该点处的局部环维数不超过 $Y$ 在
+$y' = f(x')$ 处的局部环维数加上 $x/y$ 的超越次数。由于 $X$ 与 $Y$ 的维数分别是
+各点 $x'$ 与 $y'$ 处局部环维数的上确界（《空间的性质》引理
+\ref{spaces-properties-lemma-dimension}），故该不等式成立。
+
+\medskip\noindent
+假设 $f$ 固有。设 $V \subset Y$ 为非空拟紧开子空间。若能对态射
+$f^{-1}(V) \to V$ 证明等式，则也得到 $X \to Y$ 的等式。因此可以假设
+$X$ 与 $Y$ 拟紧。注意，$X$ 作为局部诺特良态代数空间是拟分离的，见《良态空间》引理
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}。因此，可以选取
+有限满态射 $Y' \to Y$，其中 $Y'$ 为概形，见《空间的极限》命题
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}。用适当闭子概形替换
+$Y'$ 后，可假设 $Y'$ 整，例如见更一般的引理
+\ref{spaces-over-fields-lemma-alteration-contained-in}。由同一引理，可以选取闭子空间
+$X' \subset X \times_Y Y'$，使得 $X'$ 整且 $X' \to X$ 为有限满态射。此时
+$X'$ 也局部诺特（《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}），
+再应用一次《空间的极限》命题
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}，可以选取有限满态射
+$X'' \to X'$，其中 $X''$ 为概形。与前面相同，可假设 $X''$ 整。图示为
+$$
+\xymatrix{
+X'' \ar[d] \ar[r] & X \ar[d]^f \\
+Y' \ar[r] & Y
+}
+$$
+由引理 \ref{spaces-over-fields-lemma-integral-dimension}，有 $\dim(X'') = \dim(X)$ 与
+$\dim(Y') = \dim(Y)$。由于 $X$ 与 $Y$ 分别有 $x$ 与 $y$ 的概形开邻域，
+容易看出一般点 $x'' \in X''$ 与 $y' \in Y'$ 分别是映到 $x$ 与 $y$ 的唯一点，
+且剩余域扩张 $\kappa(x'')/\kappa(x)$ 与 $\kappa(y')/\kappa(y)$ 有限。
+这蕴含 $x''/y'$ 与 $x/y$ 的超越次数相同。因此，等式由概形的情形推出，
+即《态射》引理 \ref{morphisms-lemma-alteration-dimension}。
+% P09-ERR-0291
+\end{proof}
+
+
+
+
+
+\section{域上的光滑空间}
+\label{spaces-over-fields-section-smooth}
+
+\noindent
+本节是《簇》第 \ref{varieties-section-smooth} 节的对应版本。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-smooth-regular}
+设 $k$ 为域，$X$ 为 $k$ 上光滑的代数空间。则 $X$ 是正则代数空间。
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 及平展满态射 $U \to X$。态射 $U \to \Spec(k)$ 是一个平展态射
+（因而光滑）与一个光滑态射的复合，所以光滑（见《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-smooth} 与
+\ref{spaces-morphisms-lemma-composition-smooth}）。因此，由《簇》引理
+\ref{varieties-lemma-smooth-regular}，$U$ 正则。按《空间的性质》定义
+\ref{spaces-properties-definition-type-property}，这意味着 $X$ 正则。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-smooth-separable-closed-points-dense}
+设 $k$ 为域，$X$ 为 $\Spec(k)$ 上光滑的代数空间。所有可表示为态射
+$\Spec(k') \to X$ 的像的点 $x \in |X|$ 构成 $|X|$ 中的稠密子集，
+其中 $k' \supset k$ 有限可分。
+% P09-ERR-0292
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 及平展满态射 $U \to X$。态射 $U \to \Spec(k)$ 是一个平展态射
+（因而光滑）与一个光滑态射的复合，所以光滑（见《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-smooth} 与
+\ref{spaces-morphisms-lemma-composition-smooth}）。于是应用《簇》引理
+\ref{varieties-lemma-smooth-separable-closed-points-dense} 可知，$U$ 中剩余域为
+$k$ 的有限可分扩张的闭点稠密。由 $|X|$ 上拓扑的定义，这蕴含本引理。
+\end{proof}
+
+
+
+
+
+
+
+\section{欧拉示性数}
+\label{spaces-over-fields-section-euler}
+
+\noindent
+本节证明域上固有代数空间的相干层之欧拉示性数的一些初等性质。
+
+\begin{definition}
+\label{spaces-over-fields-definition-euler-characteristic}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间，$\mathcal{F}$ 为相干
+$\mathcal{O}_X$-模。在此情形下，{\it $\mathcal{F}$ 的欧拉示性数}是整数
+% P09-ERR-0293
+$$
+\chi(X, \mathcal{F}) = \sum\nolimits_i (-1)^i \dim_k H^i(X, \mathcal{F}).
+$$
+该公式的合理性见下文。
+\end{definition}
+
+\noindent
+在该定义的情形下，向量空间 $H^i(X, \mathcal{F})$ 中只有有限多个非零
+（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-vanishing-quasi-separated}），且这些空间都有限维
+（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}）。
+因此 $\chi(X, \mathcal{F}) \in \mathbf{Z}$ 定义良好。注意，该定义依赖于域 $k$，
+而不只依赖于二元组 $(X, \mathcal{F})$。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-euler-characteristic-additive}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间。设
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+为 $X$ 上相干模的短正合列。则
+$$
+\chi(X, \mathcal{F}_2) = \chi(X, \mathcal{F}_1) + \chi(X, \mathcal{F}_3)
+$$
+\end{lemma}
+
+\begin{proof}
+考虑与该引理中的短正合列相伴的上同调长正合列
+$$
+0 \to H^0(X, \mathcal{F}_1) \to H^0(X, \mathcal{F}_2) \to
+H^0(X, \mathcal{F}_3) \to H^1(X, \mathcal{F}_1) \to \ldots
+$$
+。线性代数中的秩-零度定理表明
+$$
+0 = \dim H^0(X, \mathcal{F}_1) - \dim H^0(X, \mathcal{F}_2)
++ \dim H^0(X, \mathcal{F}_3) - \dim H^1(X, \mathcal{F}_1) + \ldots
+$$
+这立即蕴含本引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-euler-characteristic-morphism}
+设 $k$ 为域，$f : Y \to X$ 为 $k$ 上固有代数空间的态射，$\mathcal{G}$
+为相干 $\mathcal{O}_Y$-模。则
+$$
+\chi(Y, \mathcal{G}) = \sum (-1)^i \chi(X, R^if_*\mathcal{G})
+$$
+\end{lemma}
+
+\begin{proof}
+该公式有意义：层 $R^if_*\mathcal{G}$ 相干，且只有有限多个非零，见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent} 与
+\ref{spaces-cohomology-lemma-vanishing-higher-direct-images}。由《位点上的上同调》引理
+\ref{sites-cohomology-lemma-Leray}，存在谱序列，其
+$$
+E_2^{p, q} = H^p(X, R^qf_*\mathcal{G})
+$$
+收敛到 $H^{p + q}(Y, \mathcal{G})$。由 $X$ 上上同调的有限性，只有有限多个
+$E_2^{p, q}$ 非零，且每个 $E_2^{p, q}$ 都是有限维向量空间。因此，对
+$r \geq 2$，$E_r^{p, q}$ 亦然，并且
+$$
+\sum (-1)^{p + q} \dim_k E_r^{p, q}
+$$
+与 $r$ 无关。对充分大的 $r$，有 $E_r^{p, q} = E_\infty^{p, q}$；而收敛意味着
+$H^n(Y, \mathcal{G})$ 上存在滤过，其分次片为满足 $p + 1 = n$ 的
+$E_\infty^{p, q}$（这就是谱序列收敛的含义），故得结论。
+% P09-ERR-0294
+\end{proof}
+
+
+
+
+
+
+
+
+\section{数值相交}
+\label{spaces-over-fields-section-num}
+
+\noindent
+本节利用固有代数空间上相干层的欧拉示性数来得到可逆模的数值交数。
+主要工具是下述引理。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-numerical-polynomial-from-euler}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间，$\mathcal{F}$ 为相干
+$\mathcal{O}_X$-模，而
+$\mathcal{L}_1, \ldots, \mathcal{L}_r$ 为可逆 $\mathcal{O}_X$-模。映射
+$$
+(n_1, \ldots, n_r) \longmapsto
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+$$
+是关于 $n_1, \ldots, n_r$ 的数值多项式，其总次数不超过
+$\mathcal{F}$ 的概形论支撑之维数。
+\end{lemma}
+
+\begin{proof}
+设 $Z \subset X$ 为 $\mathcal{F}$ 的概形论支撑。则对某个相干
+$\mathcal{O}_Z$-模 $\mathcal{G}$ 有
+$\mathcal{F} = i_*\mathcal{G}$
+（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-support-closed}），并且
+$$
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) =
+\chi(Z, \mathcal{G} \otimes
+i^*\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+i^*\mathcal{L}_r^{\otimes n_r})
+$$
+，这是投影公式
+（《位点上的上同调》引理 \ref{sites-cohomology-lemma-projection-formula}）
+与《空间的上同调》引理
+\ref{spaces-cohomology-lemma-relative-affine-cohomology} 的结果。
+由于 $|Z| = \text{Supp}(\mathcal{F})$，只需证明
+$$
+P_\mathcal{F}(n_1, \ldots, n_r) :
+(n_1, \ldots, n_r)
+\longmapsto
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+$$
+是关于 $n_1, \ldots, n_r$ 的总次数至多为 $\dim(X)$ 的数值多项式。
+若上述结论成立，就称相干 $\mathcal{O}_X$-模 $\mathcal{F}$
+具有性质 $\mathcal{P}$。
+
+\medskip\noindent
+我们将用逐层剥离法证明该断言；更确切地说，将核验《空间的上同调》引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}
+的条件 (1)、(2) 与 (3) 均成立。
+
+\medskip\noindent
+核验条件 (1)。设
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+为 $X$ 上相干层的短正合列。由引理
+\ref{spaces-over-fields-lemma-euler-characteristic-additive}，有
+$$
+P_{\mathcal{F}_2}(n_1, \ldots, n_r) =
+P_{\mathcal{F}_1}(n_1, \ldots, n_r) +
+P_{\mathcal{F}_3}(n_1, \ldots, n_r)
+$$
+% P09-ERR-0295
+于是显然，若三个层 $\mathcal{F}_i$ 中有两个具有性质 $\mathcal{P}$，
+则第三个也具有该性质。
+
+\medskip\noindent
+条件 (2) 由下式立即得到：
+$P_{\mathcal{F}^{\oplus m}}(n_1, \ldots, n_r) =
+mP_\mathcal{F}(n_1, \ldots, n_r)$.
+
+\medskip\noindent
+证明 (3)。设 $i : Z \to X$ 为约化闭子空间，且 $|Z|$ 不可约。
+我们须找出 $X$ 上支撑为 $Z$ 的相干模 $\mathcal{G}$，使
+$\mathcal{P}$ 对 $\mathcal{G}$ 成立。下面给出两种构造：
+一种使用 Chow 引理，另一种使用概形的有限覆盖。
+
+\medskip\noindent
+% P09-ERR-0296
+用概形的有限覆盖证明 $\mathcal{G}$ 的存在性。
+选取有限满态射 $\pi : Z' \to Z$，其中 $Z'$ 为概形，见《空间的极限》命题
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}。
+置 $\mathcal{G} = i_*\pi_*\mathcal{O}_{Z'} = (i \circ \pi)_*\mathcal{O}_{Z'}$。
+$Z'$ 在 $k$ 上固有，而且 $\mathcal{G}$ 的支撑为 $Y$（略去细节）。
+% P09-ERR-0297
+我们有
+% P09-ERR-0298
+$$
+R(\pi \circ i)_*(\mathcal{O}_{Z'}) = \mathcal{G}
+\quad\text{且}\quad
+R(\pi \circ i)_*(\pi^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+) = \mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}
+$$
+。第一式成立是因为 $i \circ \pi$ 为仿射态射
+（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images}）；
+第二式由第一式与投影公式
+（《位点上的上同调》引理 \ref{sites-cohomology-lemma-projection-formula}）
+得到。应用 Leray
+（《位点上的上同调》引理 \ref{sites-cohomology-lemma-apply-Leray}），得到
+$$
+P_\mathcal{G}(n_1, \ldots, n_r) =
+\chi(Z', \pi^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}))
+$$
+。由概形情形
+（《簇》引理 \ref{varieties-lemma-numerical-polynomial-from-euler}），
+这是关于 $n_1, \ldots, n_r$ 的次数至多为 $\dim(Z')$ 的数值多项式。
+由于 $\dim(Z') \leq \dim(Z) \leq \dim(X)$，结论成立。
+第一个不等式来自《良态空间》引理
+\ref{decent-spaces-lemma-dimension-quasi-finite}。
+
+\medskip\noindent
+% P09-ERR-0299
+用 Chow 引理证明 $\mathcal{G}$ 的存在性。对态射 $Z \to \Spec(k)$
+应用《空间的上同调》引理 \ref{spaces-cohomology-lemma-weak-chow}。
+于是得到 $\Spec(k)$ 上的满固有态射 $f : Y \to Z$，其中对某个 $m$，
+$Y$ 是 $\mathbf{P}^m_k$ 的闭子概形。用某个闭子概形替换 $Y$ 后，
+可设 $Y$ 为整概形且 $f : Y \to Z$ 为 alteration，见引理
+\ref{spaces-over-fields-lemma-alteration-contained-in}。
+% P09-ERR-0300
+以 $\mathcal{O}_Y(n)$ 表示 $\mathcal{O}_{\mathbf{P}^m_k}(n)$ 的拉回。
+选取 $n > 0$，使得当 $p > 0$ 时
+$R^pf_*\mathcal{O}_Y(n) = 0$，见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-kill-by-twisting}。
+我们断言 $\mathcal{G} = i_*f_*\mathcal{O}_Y(n)$ 具有性质 $\mathcal{P}$。
+事实上，由概形情形
+（《簇》引理 \ref{varieties-lemma-numerical-polynomial-from-euler}），
+映射
+$$
+(n_1, \ldots, n_r)
+\longmapsto
+\chi(Y, \mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}))
+$$
+是关于 $n_1, \ldots, n_r$ 的总次数至多为 $\dim(Y)$ 的数值多项式。
+另一方面，由投影公式
+（《位点上的上同调》引理 \ref{sites-cohomology-lemma-projection-formula}），
+\begin{align*}
+i_*Rf_*\left(
+\mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})\right)
+& =
+i_*Rf_*\mathcal{O}_Y(n) \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r} \\
+& =
+\mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}
+\end{align*}
+，其中最后一个等式来自对 $n$ 的选取。由 Leray
+（《位点上的上同调》引理 \ref{sites-cohomology-lemma-apply-Leray}），得到
+$$
+\chi(Y, \mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})) =
+P_\mathcal{G}(n_1, \ldots, n_r)
+$$
+。由于 $\dim(Y) \leq \dim(Z) \leq \dim(X)$，结论成立。
+第一个不等式来自《空间的态射》引理
+\ref{spaces-morphisms-lemma-alteration-dimension-general}
+以及 $Y \to Z$ 为 alteration 这一事实（因而它在一般点处诱导的剩余域扩张有限）。
+% P09-ERR-0301
+\end{proof}
+
+\noindent
+下述引理大致表明，最高次系数只依赖于相干模在其支撑的一般点处的长度。
+% P09-ERR-0302
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-numerical-polynomial-leading-term}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间，$\mathcal{F}$ 为相干
+$\mathcal{O}_X$-模，而
+$\mathcal{L}_1, \ldots, \mathcal{L}_r$ 为可逆 $\mathcal{O}_X$-模。
+令 $d = \dim(\text{Supp}(\mathcal{F}))$。
+设 $Z_i \subset X$ 是 $\text{Supp}(\mathcal{F})$ 的所有 $d$ 维不可约分支。
+取 $Z_i$ 的几何一般点 $\overline{x}_i$，并置
+$m_i = \text{length}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{F}_{\overline{x}_i})$.
+则
+$$
+\chi(X, \mathcal{F} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) -
+\sum\nolimits_i
+m_i\ \chi(Z_i, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}|_{Z_i})
+$$
+是关于 $n_1, \ldots, n_r$ 的总次数 $< d$ 的数值多项式。
+\end{lemma}
+
+\begin{proof}
+先证明一个稍弱的断言。设 $\dim(X) = N$，并令 $X_i \subset X$
+为所有 $N$ 维不可约分支。取 $X_i$ 的几何一般点 $\overline{x}_i$。
+平展局部环 $\mathcal{O}_{X, \overline{x}_i}$ 是 $0$ 维 Noether 环，
+故对每个相干 $\mathcal{O}_X$-模 $\mathcal{F}$，长度
+$$
+m_i(\mathcal{F}) = \text{length}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{F}_{\overline{x}_i})
+$$
+是整数且 $\geq 0$。我们断言
+% P09-ERR-0303
+$$
+E(\mathcal{F}) =
+\chi(X, \mathcal{F} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) -
+\sum\nolimits_i
+m_i(\mathcal{F})\ \chi(Z_i, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}|_{Z_i})
+$$
+是关于 $n_1, \ldots, n_r$ 的总次数 $< N$ 的数值多项式。
+我们用《空间的上同调》引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}
+证明这一点。对任意短正合列 $0 \to \mathcal{F}' \to \mathcal{F} \to
+\mathcal{F}'' \to 0$，有
+$E(\mathcal{F}) = E(\mathcal{F}') + E(\mathcal{F}'')$.
+这来自欧拉示性数的可加性
+（引理 \ref{spaces-over-fields-lemma-euler-characteristic-additive}）
+与长度的可加性
+（《代数》引理 \ref{algebra-lemma-length-additive}）。
+这立即蕴含《空间的上同调》引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}
+的性质 (1) 与 (2)。最后，对任意不可约约化闭子空间
+$Z \subset X$ 取 $\mathcal{G} = \mathcal{O}_Z$，即可验证性质 (3)。
+% P09-ERR-0304
+事实上，若对某个 $i_0$ 有 $Z = Z_{i_0}$，则
+$m_i(\mathcal{G}) = \delta_{i_0i}$，从而 $E(\mathcal{G}) = 0$。
+若对所有 $i$ 都有 $Z \not = Z_i$，则对所有 $i$ 都有
+$m_i(\mathcal{G}) = 0$，且 $\dim(Z) < N$；此时结论来自引理
+\ref{spaces-over-fields-lemma-numerical-polynomial-from-euler}。
+
+\medskip\noindent
+现在证明引理所述断言。
+设 $Z \subset X$ 为 $\mathcal{F}$ 的概形论支撑。则对某个相干
+$\mathcal{O}_Z$-模 $\mathcal{G}$ 有
+$\mathcal{F} = i_*\mathcal{G}$
+（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-support-closed}），并且
+$$
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) =
+\chi(Z, \mathcal{G} \otimes
+i^*\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+i^*\mathcal{L}_r^{\otimes n_r})
+$$
+，这是投影公式
+（《位点上的上同调》引理 \ref{sites-cohomology-lemma-projection-formula}）
+与《空间的上同调》引理
+\ref{spaces-cohomology-lemma-relative-affine-cohomology} 的结果。
+由于 $|Z| = \text{Supp}(\mathcal{F})$，对所有 $i$ 都有
+$Z_i \subset Z$，且这些正是 $Z$ 的所有 $d$ 维不可约分支。
+我们可以并且确实把 $\overline{x}_i$ 看作 $Z$ 的几何点。映射
+$i^\sharp : \mathcal{O}_X \to i_*\mathcal{O}_Z$ 给出满射
+$$
+\mathcal{O}_{X, \overline{x}_i} \to \mathcal{O}_{Z, \overline{x}_i}
+$$
+。通过此映射，并由 $\mathcal{F} = i_*\mathcal{G}$，得到模同构
+$\mathcal{G}_{\overline{x}_i} = \mathcal{F}_{\overline{x}_i}$。
+因此
+$$
+m_i = \text{length}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{F}_{\overline{x}_i}) =
+\text{length}_{\mathcal{O}_{Z, \overline{x}_i}}
+(\mathcal{G}_{\overline{x}_i})
+$$
+。于是引理中的表达式等于
+$$
+\chi(Z, \mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) -
+\sum\nolimits_i
+m_i\ \chi(Z_i, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}|_{Z_i})
+$$
+；结论来自第一段的讨论（在那里以 $Z$ 代替 $X$）。
+% P09-ERR-0305
+\end{proof}
+
+\begin{definition}
+\label{spaces-over-fields-definition-intersection-number}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间，且
+$i : Z \to X$ 为 $d$ 维闭子空间。设
+$\mathcal{L}_1, \ldots, \mathcal{L}_d$ 为可逆
+$\mathcal{O}_X$-模。定义{\it 交数}
+$(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$
+为下述数值多项式中 $n_1 \ldots n_d$ 的系数：
+$$
+\chi(X, i_*\mathcal{O}_Z \otimes \mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes \mathcal{L}_d^{\otimes n_d}) =
+\chi(Z, \mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes \mathcal{L}_d^{\otimes n_d}|_Z)
+$$
+。在特殊情形
+$\mathcal{L}_1 = \ldots = \mathcal{L}_d = \mathcal{L}$ 下，
+记作 $(\mathcal{L}^d \cdot Z)$。
+\end{definition}
+
+\noindent
+定义中的等式来自投影公式
+（《上同调》第 \ref{cohomology-section-projection-formula} 节）
+与《概形的上同调》引理
+\ref{coherent-lemma-relative-affine-cohomology}。
+% P09-ERR-0306
+下面证明关于这些交数的几个引理。
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-intersection-number-integer}
+在定义 \ref{spaces-over-fields-definition-intersection-number} 的情形下，交数
+$(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$
+是整数。
+\end{lemma}
+
+\begin{proof}
+任一关于 $n_1, \ldots, n_d$ 的 $e$ 次数值多项式，都可唯一地写成函数
+${n_1 \choose k_1}{n_2 \choose k_2} \ldots {n_d \choose k_d}$ 的
+$\mathbf{Z}$-线性组合，其中 $k_1 + \ldots + k_d \leq e$。
+取 $e = d$ 即得。细节留作练习。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-intersection-number-additive}
+在定义 \ref{spaces-over-fields-definition-intersection-number} 的情形下，交数
+$(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z)$
+是可加的：若 $\mathcal{L}_i = \mathcal{L}_i' \otimes \mathcal{L}_i''$，
+则
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_i \cdots \mathcal{L}_d \cdot Z) =
+(\mathcal{L}_1 \cdots \mathcal{L}_i' \cdots \mathcal{L}_d \cdot Z) +
+(\mathcal{L}_1 \cdots \mathcal{L}_i'' \cdots \mathcal{L}_d \cdot Z)
+$$
+\end{lemma}
+
+\begin{proof}
+事实上，由引理 \ref{spaces-over-fields-lemma-numerical-polynomial-from-euler}，函数
+$$
+(n_1, \ldots, n_{i - 1}, n_i', n_i'', n_{i + 1}, \ldots, n_d)
+\mapsto
+\chi(Z, \mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes (\mathcal{L}_i')^{\otimes n_i'} \otimes
+(\mathcal{L}_i'')^{\otimes n_i''} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d}|_Z)
+$$
+是关于 $d + 1$ 个变量的总次数至多为 $d$ 的数值多项式。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-intersection-number-in-terms-of-components}
+在定义 \ref{spaces-over-fields-definition-intersection-number} 的情形下，设
+$Z_i \subset Z$ 为所有 $d$ 维不可约分支。令
+$m_i = \text{length}_{\mathcal{O}_{X, \overline{x}_i}}
+(\mathcal{O}_{Z, \overline{x}_i})$
+，其中 $\overline{x}_i$ 是 $Z_i$ 的几何一般点。则
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z) =
+\sum m_i(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z_i)
+$$
+\end{lemma}
+
+\begin{proof}
+立即由引理 \ref{spaces-over-fields-lemma-numerical-polynomial-leading-term} 与定义得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-intersection-number-and-pullback}
+设 $k$ 为域，$f : Y \to X$ 为 $k$ 上固有代数空间的态射。
+设 $Z \subset Y$ 为 $d$ 维整闭子空间，且
+$\mathcal{L}_1, \ldots, \mathcal{L}_d$ 为可逆 $\mathcal{O}_X$-模。则
+$$
+(f^*\mathcal{L}_1 \cdots f^*\mathcal{L}_d \cdot Z) =
+\deg(f|_Z : Z \to f(Z)) (\mathcal{L}_1 \cdots \mathcal{L}_d \cdot f(Z))
+$$
+，其中 $\deg(Z \to f(Z))$ 如定义 \ref{spaces-over-fields-definition-degree} 所述；
+若 $\dim(f(Z)) < d$，则将其取为 $0$。
+\end{lemma}
+
+\begin{proof}
+在该陈述中，$f(Z) \subset X$ 是 $f$ 的概形论像，也是在闭子集
+$f(|Z|) \subset X$ 上赋予约化诱导代数空间结构所得之空间，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-scheme-theoretic-image-reduced}。
+% P09-ERR-0307
+于是 $Z$ 与 $f(Z)$ 都是 $k$ 上约化且固有（从而良态）的代数空间，
+因而为整代数空间
+（定义 \ref{spaces-over-fields-definition-integral-algebraic-space}）。
+% P09-ERR-0308
+左端由下述函数中 $n_1 \ldots n_d$ 的系数计算：
+$$
+\chi(Y, \mathcal{O}_Z \otimes f^*\mathcal{L}_1^{\otimes n_1} \otimes
+\ldots \otimes f^*\mathcal{L}_d^{\otimes n_d}) =
+\sum (-1)^i
+\chi(X, R^if_*\mathcal{O}_Z \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})
+$$
+该等式来自引理 \ref{spaces-over-fields-lemma-euler-characteristic-morphism} 与投影公式
+（《上同调》引理 \ref{cohomology-lemma-projection-formula}）。
+若 $f(Z)$ 的维数 $< d$，则由引理
+\ref{spaces-over-fields-lemma-numerical-polynomial-from-euler}，右端是总次数 $< d$ 的多项式，
+故结论成立。以下设 $\dim(f(Z)) = d$。由维数理论
+（引理 \ref{spaces-over-fields-lemma-alteration-dimension}），引理
+\ref{spaces-over-fields-lemma-finite-degree} 的等价条件 (1) -- (5) 成立。
+因此 $\deg(Z \to f(Z))$ 定义良好。
+再次应用引理 \ref{spaces-over-fields-lemma-finite-degree}，可知 $f : Z \to f(Z)$
+在 $f(Z)$ 的某个非空开集 $V$ 上有限；必要时缩小 $V$ 后，可设 $V$
+为概形。设 $\xi \in V$ 为一般点。于是
+% P09-ERR-0309
+$\deg(f : Z \to f(Z))$ 是 $f_*\mathcal{O}_Z$ 在 $\xi$ 处的茎作为
+$\mathcal{O}_{X, \xi}$-模的长度，
+% P09-ERR-0310
+并且当 $i > 0$ 时，$R^if_*\mathcal{O}_X$ 在 $\xi$ 处的茎为零
+% P09-ERR-0311
+（例如由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}）。
+因此，当 $i > 0$ 时，各项 $\chi(X, R^if_*\mathcal{O}_Z \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})$ 的总次数均 $< d$，并且
+$$
+\chi(X, f_*\mathcal{O}_Z \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})
+=
+\deg(f : Z \to f(Z)) \chi(f(Z),
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d}|_{f(Z)})
+$$
+由引理 \ref{spaces-over-fields-lemma-numerical-polynomial-leading-term}，上式在模去一个
+总次数 $< d$ 的多项式后成立。所求结论随即得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-over-fields-lemma-numerical-intersection-effective-Cartier-divisor}
+设 $k$ 为域，$X$ 为 $k$ 上的固有代数空间，而
+$Z \subset X$ 为 $d$ 维闭子空间。设
+$\mathcal{L}_1, \ldots, \mathcal{L}_d$
+为可逆 $\mathcal{O}_X$-模。假设存在有效 Cartier 除子
+$D \subset Z$，使得
+$\mathcal{L}_1|_Z \cong \mathcal{O}_Z(D)$。则
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z) =
+(\mathcal{L}_2 \cdots \mathcal{L}_d \cdot D)
+$$
+\end{lemma}
+
+\begin{proof}
+可以用 $Z$ 替换 $X$，并用 $\mathcal{L}_i|_Z$ 替换 $\mathcal{L}_i$。
+因此可设 $X = Z$ 且 $\mathcal{L}_1 = \mathcal{O}_X(D)$。
+此时 $\mathcal{L}_1^{-1}$ 是 $D$ 的理想层，故可考虑短正合列
+$$
+0 \to \mathcal{L}_1^{\otimes -1} \to \mathcal{O}_X \to \mathcal{O}_D \to 0
+$$
+置
+$P(n_1, \ldots, n_d) =
+\chi(X, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d})$
+并置
+$Q(n_1, \ldots, n_d) =
+\chi(D, \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_d^{\otimes n_d}|_D)$.
+由可加性
+（引理 \ref{spaces-over-fields-lemma-euler-characteristic-additive}），得到
+$$
+P(n_1, \ldots, n_d) - P(n_1 - 1, n_2, \ldots, n_d) =
+Q(n_1, \ldots, n_d)
+$$
+。由于 $P$ 的总次数至多为 $d$，可知 $P$ 中 $n_1 \ldots n_d$
+的系数等于 $Q$ 中 $n_2 \ldots n_d$ 的系数。
+\end{proof}

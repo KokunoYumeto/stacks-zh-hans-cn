@@ -1,0 +1,3009 @@
+% Generated mechanically from the frozen moduli-curves.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{108}
+\chapter{曲线模空间}
+
+
+\phantomsection
+\label{moduli-curves-section-phantom}
+
+
+
+
+
+\section{引言}
+\label{moduli-curves-section-introduction}
+
+\noindent
+本章讨论若干熟知的曲线模叠。一个参考文献是
+Deligne 与 Mumford 的著名论文，见 \cite{DM}。
+
+
+
+
+\section{约定与语言滥用}
+\label{moduli-curves-section-conventions}
+
+\noindent
+我们继续采用《叠的性质》中的章节
+\ref{stacks-properties-section-conventions} 所引入的约定和语言滥用。
+除非另有说明，基概形均为 $\Spec(\mathbf{Z})$。
+
+
+
+
+
+
+\section{曲线叠}
+\label{moduli-curves-section-stack-curves}
+
+\noindent
+本节是《Quot》中的章节 \ref{quot-section-curves} 的续篇。
+设 $\Curvesstack$ 为这样一个叠：它在概形 $S$ 上的截面范畴是
+$S$ 上曲线族的范畴。需要特别记住，所谓
+{\it 曲线族}，是指态射 $f : X \to S$，其中 $X$
+是代数空间（！），而 $f$ 平坦、真、有限表示且相对维数
+$\leq 1$。我们已经知道 $\Curvesstack$ 是
+$\mathbf{Z}$ 上的代数叠，见《Quot》中的定理
+\ref{quot-theorem-curves-algebraic}。
+如果在叠的定义中不允许代数空间，则该定理并不成立。
+
+\medskip\noindent
+基变换通常用下标表示，但对 $\Curvesstack$ 不能采用这种记号，
+因为 $\Curvesstack_S$ 已用来表示 $S$ 上的纤维范畴。
+因此，我们在《Quot》中的注
+\ref{quot-remark-curves-base-change} 里用 $B\text{-}\Curvesstack$
+表示到代数空间 $B$ 的基变换
+$$
+B\text{-}\Curvesstack = \Curvesstack \times B
+$$
+右侧的积取在终对象上，即取在 $\Spec(\mathbf{Z})$ 上。
+左侧对象是这样一个叠：它分类 $B$ 上概形范畴中的曲线族。
+特别地，若 $k$ 是域，则
+$$
+k\text{-}\Curvesstack = \Curvesstack \times \Spec(k)
+$$
+是分类 $k$ 上概形范畴中的曲线族的模叠。
+在继续之前，先作如下相容性检验。
+
+\begin{lemma}
+\label{moduli-curves-lemma-extend-curves-to-spaces}
+设 $T \to B$ 是代数空间的态射。范畴
+$$
+\Mor_B(T, B\text{-}\Curvesstack) = \Mor(T, \Curvesstack)
+$$
+就是 $T$ 上曲线族的范畴。
+\end{lemma}
+
+\begin{proof}
+$T$ 上的曲线族是代数空间的态射 $f : X \to T$，它平坦、真、
+有限表示且相对维数 $\leq 1$（《空间的态射》中的定义
+\ref{spaces-morphisms-definition-relative-dimension}）。
+这与《Quot》中的情形 \ref{quot-situation-curves} 的定义完全相同，
+不同之处仅在于允许基 $T$ 为代数空间。
+代数叠和代数空间的默认基范畴是概形范畴，因此本引理并不直接
+由定义得出。不过，我们仍建议读者略过此证明。
+
+\medskip\noindent
+由上面给出的 $B\text{-}\Curvesstack$ 的积描述，只需证明绝对情形。
+取概形 $U$ 以及满的 \'etale 态射 $p : U \to T$。
+令 $R = U \times_T U$，其投影为 $s, t : R \to U$。
+
+\medskip\noindent
+设 $v : T \to \Curvesstack$ 是态射。则 $v \circ p$
+对应于曲线族 $X_U \to U$。典范 $2$-态射
+$v \circ p \circ t \to v \circ p \circ s$
+是一个同构
+$\varphi : X_U \times_{U, s} R \to X_U \times_{U, t} R$。
+该同构在 $R \times_{s, t} R$ 上满足余圈条件。
+由《自举》中的引理 \ref{bootstrap-lemma-descend-algebraic-space}，
+得到代数空间的态射 $X \to T$；它在 $U$ 上的拉回等于 $X_U$，
+并与 $\varphi$ 相容。由于 $\{U \to T\}$ 是 \'etale 覆盖，
+《空间的下降》中的引理
+\ref{spaces-descent-lemma-descending-property-flat}、
+\ref{spaces-descent-lemma-descending-property-proper} 和
+\ref{spaces-descent-lemma-descending-property-finite-presentation}
+表明 $X \to T$ 平坦、真且有限表示。
+此外，$X \to T$ 的相对维数 $\leq 1$，因为这是 \'etale 局部性质。
+故 $X \to T$ 是 $T$ 上的曲线族。
+
+\medskip\noindent
+反之，设 $X \to T$ 是曲线族。则基变换 $X_U$ 确定态射
+$w : U \to \Curvesstack$，而典范同构
+$X_U \times_{U, s} R \to X_U \times_{U, t} R$
+确定满足余圈条件的 $2$-箭头 $w \circ s \to w \circ t$。
+% P12-ERR-0229: see ../control/ERRATA_CANDIDATES.jsonl
+因此，由商 $[U/R]$ 的泛性质得到态射
+$v : T = [U/R] \to \Curvesstack$；见《空间中的群胚》中的引理
+\ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}。
+% P12-ERR-0230: see ../control/ERRATA_CANDIDATES.jsonl
+（事实上，在此情形下，更容易回到引入语言滥用之前，直接构造函子
+$\Sch/T \to \Curvesstack$；该函子“就是”态射
+$T \to \Curvesstack$。）
+
+\medskip\noindent
+我们略去如下验证：上述构造可扩张到对象之间的态射，且彼此拟逆。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{极化曲线叠}
+\label{moduli-curves-section-polarized-curves}
+
+\noindent
+本节展开《Quot》中的注
+\ref{quot-remark-alternative-approach-curves} 所讨论的部分内容。
+考虑 $2$-纤维积
+$$
+\xymatrix{
+\Curvesstack \times_{\Spacesstack'_{fp, flat, proper}}
+\Polarizedstack \ar[r] \ar[d] &
+\Polarizedstack \ar[d] \\
+\Curvesstack \ar[r] &
+\Spacesstack'_{fp, flat, proper}
+}
+$$
+我们将此 $2$-纤维积记为
+$$
+\textit{PolarizedCurves} =
+\Curvesstack
+\times_{\Spacesstack'_{fp, flat, proper}}
+\Polarizedstack
+$$
+该纤维积参数化极化曲线，即赋有相对丰沛可逆层的曲线族。
+更确切地，$\textit{PolarizedCurves}$ 的对象是二元组
+$(X \to S, \mathcal{L})$，其中
+\begin{enumerate}
+\item $X \to S$ 是真、平坦、有限表示且相对维数
+$\leq 1$ 的概形态射；以及
+\item $\mathcal{L}$ 是在 $X/S$ 上相对丰沛的可逆
+$\mathcal{O}_X$-模。
+\end{enumerate}
+$\textit{PolarizedCurves}$ 的对象之间的态射
+$(X' \to S', \mathcal{L}') \to (X \to S, \mathcal{L})$
+由三元组 $(f, g, \varphi)$ 给出，其中
+$f : X' \to X$ 和 $g : S' \to S$ 是概形态射，并组成交换图
+$$
+\xymatrix{
+X' \ar[d] \ar[r]_f & X \ar[d] \\
+S' \ar[r]^g & S
+}
+$$
+该图诱导同构 $X' \to S' \times_S X$；换言之，该图是 Cartesian 的，
+且 $\varphi : f^*\mathcal{L} \to \mathcal{L}'$ 是同构。
+复合按显然的方式定义。
+
+\begin{lemma}
+\label{moduli-curves-lemma-polarized-curves-in-polarized}
+态射
+$\textit{PolarizedCurves} \to
+\Polarizedstack$ 是开闭浸入。
+\end{lemma}
+
+\begin{proof}
+这是因为 $1$-态射
+$\Curvesstack \to \Spacesstack'_{fp, flat, proper}$
+可表为开闭浸入；见《Quot》中的引理
+\ref{quot-lemma-curves-open-and-closed-in-spaces}。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-polarized-curves-over-curves}
+态射
+$\textit{PolarizedCurves} \to \Curvesstack$
+光滑且满。
+\end{lemma}
+
+\begin{proof}
+满性。给定域 $k$ 以及 $k$ 上维数 $\leq 1$ 的真代数空间
+$X$，即 $\Curvesstack$ 在 $k$ 上的对象。
+由《域上的空间》中的引理
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}，
+代数空间 $X$ 是概形。因此 $X$ 是 $k$ 上维数 $\leq 1$ 的真概形。
+由《簇》中的引理 \ref{varieties-lemma-dim-1-proper-projective}，
+% P12-ERR-0231: see ../control/ERRATA_CANDIDATES.jsonl
+可见 $X$ 在 $\kappa$ 上是 H-射影的。
+特别地，$X$ 上存在丰沛可逆 $\mathcal{O}_X$-模
+$\mathcal{L}$。于是 $(X, \mathcal{L})$ 是
+$\textit{PolarizedCurves}$ 在 $k$ 上的对象，并映到 $X$。
+
+\medskip\noindent
+光滑性。设 $X \to S$ 是 $\Curvesstack$ 的对象，即态射
+$S \to \Curvesstack$。显然
+$$
+\textit{PolarizedCurves}
+\times_{\Curvesstack} S
+\subset \Picardstack_{X/S}
+$$
+是由如下对象 $(T/S, \mathcal{L}/X_T)$ 构成的子叠：
+$\mathcal{L}$ 在 $X_T/T$ 上丰沛。由《空间的下降》中的引理
+\ref{spaces-descent-lemma-ample-in-neighbourhood}，这是开子叠。
+又由《模叠》中的引理 \ref{moduli-lemma-pic-curves-smooth}，
+$\Picardstack_{X/S} \to S$ 光滑，结论遂得。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-etale-locally-scheme}
+设 $X \to S$ 是曲线族。则存在 \'etale 覆盖
+$\{S_i \to S\}$，使得 $X_i = X \times_S S_i$ 是概形。
+甚至可以假设 $X_i$ 在 $S_i$ 上是 H-射影的。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{moduli-curves-lemma-polarized-curves-over-curves} 的直接推论。
+% P12-ERR-0232: see ../control/ERRATA_CANDIDATES.jsonl
+具体而言，展开定义，该引理给出一个满光滑态射 $S' \to S$，
+使得 $X' = X \times_S S'$ 赋有在 $X'/S'$ 上丰沛的可逆
+$\mathcal{O}_{X'}$-模 $\mathcal{L}'$。
+于是可用一个 \'etale 覆盖 $\{S_i \to S\}$ 加细光滑覆盖
+$\{S' \to S\}$；见《态射进阶》中的引理
+\ref{more-morphisms-lemma-etale-dominates-smooth}。
+用适当开覆盖替换 $S_i$ 后，可以假设 $X_i \to S_i$ 是
+H-射影的；见《态射》中的引理
+\ref{morphisms-lemma-proper-ample-locally-projective} 和
+\ref{morphisms-lemma-characterize-locally-projective}
+（《态射进阶》中的章节
+\ref{more-morphisms-section-projective} 也对此作了详细讨论）。
+\end{proof}
+
+
+
+
+\section{曲线叠的性质}
+\label{moduli-curves-section-properties}
+
+\noindent
+下面的引理对曲面的模空间并不成立；见注
+\ref{moduli-curves-remark-boundedness-aut-does-not-work-surfaces}。
+
+\begin{lemma}
+\label{moduli-curves-lemma-curves-diagonal-separated-fp}
+$\Curvesstack$ 的对角态射分离且有限表示。
+\end{lemma}
+
+\begin{proof}
+回忆 $\Curvesstack$ 是保持极限的代数叠；见《Quot》中的引理
+\ref{quot-lemma-curves-limits}。
+由《叠的极限》中的引理
+\ref{stacks-limits-lemma-limit-preserving-diagonal}，这蕴含
+% P12-ERR-0233: see ../control/ERRATA_CANDIDATES.jsonl
+$\Delta : \Polarizedstack \to \Polarizedstack \times \Polarizedstack$
+保持极限。因此，由《叠的极限》中的命题
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}，
+$\Delta$ 局部有限表示。
+
+\medskip\noindent
+下面证明 $\Delta$ 分离。为此，只需说明：给定概形 $U$ 以及
+$\Curvesstack$ 在 $U$ 上的两个对象 $Y \to U$ 和 $X \to U$，
+代数空间
+$$
+\mathit{Isom}_U(Y, X)
+$$
+分离。
+% P12-ERR-0234: see ../control/ERRATA_CANDIDATES.jsonl
+这已经由《模叠》中的引理 \ref{moduli-lemma-Mor-s-lfp} 和
+\ref{moduli-lemma-Isom-in-Mor} 得出：目标是分离代数空间。
+
+\medskip\noindent
+为完成证明，我们说明 $\Delta$ 拟紧。由于 $\Delta$
+可由代数空间表示，只需检验 $\Delta$ 沿满光滑态射
+$U \to \Curvesstack \times \Curvesstack$ 的基变换拟紧
+（例如见《叠的性质》中的引理
+\ref{stacks-properties-lemma-check-property-covering}）。
+取 $U = \coprod U_i$ 为仿射开集的不交并，并取满光滑态射
+$$
+U \longrightarrow
+\textit{PolarizedCurves} \times \textit{PolarizedCurves}
+$$
+由于引理 \ref{moduli-curves-lemma-polarized-curves-over-curves} 表明
+$\textit{PolarizedCurves} \to \Curvesstack$ 满且光滑，
+$U \to \Curvesstack \times \Curvesstack$ 也满且光滑。
+又因为 $\textit{PolarizedCurves}$ 保持极限
+（由《Artin 公理》中的引理
+\ref{artin-lemma-fibre-product-limit-preserving} 以及《Quot》中的引理
+\ref{quot-lemma-curves-limits}、
+\ref{quot-lemma-polarized-limits} 和
+\ref{quot-lemma-spaces-limits}），可见
+$\textit{PolarizedCurves} \to \Spec(\mathbf{Z})$ 局部有限表示，
+因而 $U_i \to \Spec(\mathbf{Z})$ 局部有限表示
+（《叠的极限》中的命题
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}
+以及《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-composition-finite-presentation} 和
+\ref{stacks-morphisms-lemma-smooth-locally-finite-presentation}）。
+特别地，$U_i$ 是 Noether 仿射概形。这就化归到下一段所讨论的情形。
+
+\medskip\noindent
+在本段中，给定 Noether 仿射概形 $U$ 以及
+$\textit{PolarizedCurves}$ 在 $U$ 上的两个对象
+$(Y, \mathcal{N})$ 和 $(X, \mathcal{L})$，我们证明代数空间
+$$
+\mathit{Isom}_U(Y, X)
+$$
+拟紧。由于 $U$ 的连通分支既开又闭，可以用这些连通分支替换
+$U$。因此可以并确实假设 $U$ 连通。取一点 $u \in U$。
+令 $Q$、$P$ 为这些族的 Hilbert 多项式，即
+$$
+Q(n) = \chi(Y_u, \mathcal{N}_u^{\otimes n})
+\quad\text{且}\quad
+P(n) = \chi(X_u, \mathcal{L}_u^{\otimes n})
+$$
+见《簇》中的引理
+\ref{varieties-lemma-numerical-polynomial-from-euler}。
+由于 $U$ 连通，且函数
+$u \mapsto \chi(Y_u, \mathcal{N}_u^{\otimes n})$ 和
+$u \mapsto \chi(X_u, \mathcal{L}_u^{\otimes n})$
+局部常值（见《概形的导出范畴》中的引理
+\ref{perfect-lemma-chi-locally-constant-geometric}），
+可见在 $U$ 的每一点都得到同一 Hilbert 多项式。令
+$$
+\mathcal{M} = \text{pr}_1^*\mathcal{N}
+\otimes_{\mathcal{O}_{Y \times_U X}} \text{pr}_2^*\mathcal{L}
+$$
+为 $Y \times_U X$ 上的模。给定 $U$ 上某概形 $T$ 以及
+% P12-ERR-0235: see ../control/ERRATA_CANDIDATES.jsonl
+$(f, \varphi) \in \mathit{Isom}_U(Y, X)(T)$，则对每个 $t \in T$，
+有
+\begin{align*}
+\chi(Y_t, (\text{id} \times f)^*\mathcal{M}^{\otimes n})
+& =
+\chi(Y_t,
+\mathcal{N}_t^{\otimes n} \otimes_{\mathcal{O}_{Y_t}}
+f_t^*\mathcal{L}_t^{\otimes n}) \\
+& =
+n\deg(\mathcal{N}_t) + n\deg(f_t^*\mathcal{L}_t) +
+\chi(Y_t, \mathcal{O}_{Y_t}) \\
+& =
+Q(n) + n\deg(\mathcal{L}_t) \\
+& =
+Q(n) + P(n) - P(0)
+\end{align*}
+这里使用了真曲线的 Riemann--Roch；更确切地说，使用了
+《簇》中的定义 \ref{varieties-definition-degree-invertible-sheaf}、
+引理 \ref{varieties-lemma-degree-tensor-product}，以及
+$f_t$ 是同构这一事实。令 $P'(t) = Q(t) + P(t) - P(0)$，得到
+$$
+\mathit{Isom}_U(Y, X) =
+\mathit{Isom}_U(Y, X) \cap \mathit{Mor}^{P', \mathcal{M}}_U(Y, X)
+$$
+该交集是 $\mathit{Mor}_U(Y, X)$ 的两个开子空间之交；见
+《模叠》中的引理 \ref{moduli-lemma-Isom-in-Mor} 和注
+\ref{moduli-remark-Mor-numerical}。
+现在，$\mathit{Mor}^{P', \mathcal{M}}_U(Y, X)$
+在 $U$ 上有限表示，故由《模叠》中的引理
+\ref{moduli-lemma-Mor-qc-over-base}，它是 Noether 代数空间。
+因此该交集也是 Noether 代数空间，证明完成。
+\end{proof}
+
+\begin{remark}
+\label{moduli-curves-remark-boundedness-aut-does-not-work-surfaces}
+引理 \ref{moduli-curves-lemma-curves-diagonal-separated-fp} 的证明中的有界性论证
+对曲面的模空间并不适用；事实上，其结论也是错误的，例如域上的
+K3 曲面可以具有无限离散自同构群。该论证不适用的“原因”是：
+对于域上的射影曲面 $S$，给定 Hilbert 多项式分别为 $Q$ 和 $P$
+的丰沛可逆层 $\mathcal{N}$ 和 $\mathcal{L}$，
+$\mathcal{N} \otimes_{\mathcal{O}_S} \mathcal{L}$ 的 Hilbert 多项式
+并不存在先验界。用相交论的语言来说，若 $H_1$、$H_2$ 是 $S$
+上的丰沛有效 Cartier 除子，则相交数 $H_1 \cdot H_2$
+不能由 $H_1 \cdot H_1$ 和 $H_2 \cdot H_2$ 给出（上）界。
+\end{remark}
+
+\begin{lemma}
+\label{moduli-curves-lemma-curves-qs-lfp}
+态射 $\Curvesstack \to \Spec(\mathbf{Z})$ 拟分离且局部有限表示。
+\end{lemma}
+
+\begin{proof}
+要检验 $\Curvesstack \to \Spec(\mathbf{Z})$ 拟分离，需要证明其
+对角态射拟紧且拟分离。这立即由引理
+\ref{moduli-curves-lemma-curves-diagonal-separated-fp} 得出。
+要证明 $\Curvesstack \to \Spec(\mathbf{Z})$ 局部有限表示，只需证明
+$\Curvesstack$ 保持极限；见《叠的极限》中的命题
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}。
+这就是《Quot》中的引理 \ref{quot-lemma-curves-limits}。
+\end{proof}
+
+
+
+
+
+\section{曲线叠的开子叠}
+\label{moduli-curves-section-open}
+
+\noindent
+下文常用代数空间态射的一个性质 $P$ 来刻画
+$\Curvesstack$ 的开子叠。要说明 $P$ 定义开子叠，只需检验
+\begin{enumerate}
+\item[(o)] 给定曲线族 $f : X \to S$，存在最大开子概形
+$S' \subset S$，使得
+$f|_{f^{-1}(S')} : f^{-1}(S') \to S'$ 具有性质 $P$，
+并且 $S'$ 的构造与任意基变换交换。
+\end{enumerate}
+事实上，假设 (o) 成立。取概形 $U$ 以及满光滑态射
+$m : U \to \Curvesstack$。令
+$R = U \times_{\Curvesstack} U$，并以 $t, s : R \to U$
+表示投影。回忆 $\Curvesstack = [U/R]$ 是一个展示；见
+《代数叠》中的引理 \ref{algebraic-lemma-stack-presentation} 和定义
+\ref{algebraic-definition-presentation}。
+由 $\Curvesstack$ 作为曲线叠的构造，态射 $m$ 是曲线族
+$C \to U$ 的分类态射。图
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d] \\
+U \ar[r] & \Curvesstack
+}
+$$
+的 $2$-交换性蕴含
+$C \times_{U, s} R  \cong C \times_{U, t} R$
+（这是 $R$ 上曲线族的同构）。令 $W \subset U$ 为满足如下条件的
+最大开子概形：
+% P12-ERR-0236: see ../control/ERRATA_CANDIDATES.jsonl
+$f|_{f^{-1}(W)} : f^{-1}(W) \to W$ 具有 (o) 中的性质 $P$。
+由于按 (o)，$W$ 的构造与基变换交换，再结合上述同构，得到
+$s^{-1}(W) = t^{-1}(W)$。因此，由《叠的性质》中的引理
+\ref{stacks-properties-lemma-immersion-presentation}，
+$W \subset U$ 对应于开子叠
+$$
+\Curvesstack^P \subset \Curvesstack
+$$
+
+\medskip\noindent
+% P12-ERR-0237: see ../control/ERRATA_CANDIDATES.jsonl
+继续采用上一段的设定。我们断言开子叠 $\Curvesstack^P$
+具有以下两个泛性质：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^P$ 分解；
+\item 态射 $X \to S$ 具有性质 $P$；
+\end{enumerate}
+% P12-ERR-0238: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上维数 $\leq 1$ 的真概形 $X$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^P$ 分解；
+\item 态射 $X \to \Spec(k)$ 具有性质 $P$。
+\end{enumerate}
+\end{enumerate}
+这可通过考察 $2$-纤维积
+$$
+\xymatrix{
+T \ar[r]_p \ar[d]_q & U \ar[d] \\
+S \ar[r] & \Curvesstack
+}
+$$
+得到。注意，$T \to S$ 是 $U \to \Curvesstack$ 的基变换，
+故满且光滑。因此，(o) 给出的开集 $S' \subset S$
+由其在 $T$ 中的逆像确定。然而，由 (o) 中这些开集在基变换下
+的不变性，并且由 $2$-交换性有
+$X \times_S T \cong C \times_U T$，得到 $T$ 中开集的等式
+$q^{-1}(S') = p^{-1}(W)$。这立即蕴含 (1)，而 (2) 是 (1) 的特例。
+
+\medskip\noindent
+给定代数空间态射的两个性质 $P$ 和 $Q$，假设已经证明
+$\Curvesstack^Q$ 是 $\Curvesstack$ 的开子叠，则可以用完全相同的
+方法证明
+$\Curvesstack^{Q, P} \subset \Curvesstack^Q$
+是开子叠。我们略去精确说明。
+
+\section{具有有限约化自同构群的曲线}
+\label{moduli-curves-section-finite-aut}
+
+\noindent
+设 $X$ 是域 $k$ 上维数 $\leq 1$ 的真概形，即
+$\Curvesstack$ 在 $k$ 上的对象。由引理
+\ref{moduli-curves-lemma-curves-diagonal-separated-fp}，自同构群代数空间
+$\mathit{Aut}(X)$ 在 $k$ 上有限型且分离。
+特别地，$\mathit{Aut}(X)$ 是群概形；见《空间中群胚进阶》中的引理
+\ref{spaces-more-groupoids-lemma-group-space-scheme-locally-finite-type-over-k}。
+若 $k$ 的特征为零，则 $\mathit{Aut}(X)$ 约化，甚至在 $k$
+上光滑（《群胚》中的引理
+\ref{groupoids-lemma-group-scheme-characteristic-zero-smooth}）。
+然而，一般而言，即使 $X$ 几何约化，$\mathit{Aut}(X)$
+也不约化。
+
+\begin{example}[非约化自同构群]
+\label{moduli-curves-example-non-reduced}
+设 $k$ 是特征 $2$ 的代数闭域。令
+$Y = Z = \mathbf{P}^1_k$。在 $\mathbf{A}^1_k$ 中取三个两两不同的
+$k$-值点 $a, b, c$。把
+% P12-ERR-0239: see ../control/ERRATA_CANDIDATES.jsonl
+$\mathbf{A}^1_k \subset \mathbf{P}^1_k = Y = Z$ 看作开子概形，
+得到闭浸入
+$$
+T =  \Spec(k[t]/(t - a)^2) \amalg \Spec(k[t]/(t - b)^2)
+\amalg \Spec(k[t]/(t - c)^2)
+\longrightarrow
+\mathbf{P}^1_k
+$$
+令 $X$ 为图
+$$
+\xymatrix{
+T \ar[r] \ar[d] & Y \ar[d] \\
+Z \ar[r] & X
+}
+$$
+中的推出。令 $U \subset X$ 为
+$\mathbf{A}^1_k \amalg \mathbf{A}^1_k$ 的像所构成的仿射开部分。
+则有等化子图
+$$
+\xymatrix{
+\mathcal{O}_X(U) \ar[r] &
+k[t] \times k[t] \ar@<1ex>[r] \ar@<-1ex>[r] &
+k[t]/(t - a)^2 \times k[t]/(t - b)^2 \times k[t]/(t - c)^2
+}
+$$
+在双数 $A = k[\epsilon]$ 上，该等化子图有一个非平凡自同构，
+它把 $t$ 送到 $t + \epsilon$。留给读者验证：该自同构扩张为
+$X$ 在 $A$ 上的自同构。另一方面，读者容易证明 $X$ 在 $k$
+上的自同构群有限。因此 $\mathit{Aut}(X)$ 必不约化。
+\end{example}
+
+\noindent
+设 $X$ 是域 $k$ 上维数 $\leq 1$ 的真概形，即
+$\Curvesstack$ 在 $k$ 上的对象。即使 $X$ 光滑且几何连通，
+若 $\mathit{Aut}(X)$ 几何约化，也未必有维数 $0$。
+
+\begin{example}[正维光滑自同构群]
+\label{moduli-curves-example-pos-dim}
+设 $k$ 是代数闭域。若 $X$ 是光滑的亏格 $0$、相应地\ $1$ 的曲线，
+则其自同构群的维数为 $3$、相应地\ $1$。
+事实上，在亏格 $0$ 的情形，由《代数曲线》中的命题
+\ref{curves-proposition-projective-line}，有
+$X \cong \mathbf{P}^1_k$。由于函子同构
+$$
+\mathit{Aut}(\mathbf{P}^1_k) = \text{PGL}_{2, k}
+$$
+可见维数为 $3$。另一方面，若 $X$ 的亏格为 $1$，则映射
+$X = \underline{\Hilbfunctor}^1_{X/k} \to
+\underline{\Picardfunctor}^1_{X/k}$ 是同构；见
+《曲线的 Picard 概形》中的引理 \ref{pic-lemma-picard-pieces} 以及
+《代数曲线》中的定理
+\ref{curves-theorem-curves-rational-maps}。
+因此 $X$ 具有 Abel 簇结构
+（因为 $\underline{\Picardfunctor}^1_{X/k} \cong
+\underline{\Picardfunctor}^0_{X/k}$）。
+% P12-ERR-0240: see ../control/ERRATA_CANDIDATES.jsonl
+特别地，$X$ 的（余）切丛平凡
+（《群胚》中的引理
+\ref{groupoids-lemma-group-scheme-module-differentials}）。
+由此得到 $\dim_k H^0(X, T_X) = 1$，故
+$\dim \mathit{Aut}(X) \leq 1$。另一方面，平移
+（把 $X$ 看作群概形）给出 $\text{Aut}(X)$ 的一个 $1$-维部分，
+% P12-ERR-0241: see ../control/ERRATA_CANDIDATES.jsonl
+所以其维数确为 $1$。
+\end{example}
+
+\noindent
+事实表明，$\Curvesstack$ 有一个开子叠，参数化自同构群
+几何约化且有限的曲线。精确陈述如下。
+
+\begin{lemma}
+\label{moduli-curves-lemma-DM-curves}
+% P12-ERR-0242: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{DM} \subset \Curvesstack$，具有以下性质：
+\begin{enumerate}
+\item $\Curvesstack^{DM} \subset \Curvesstack$ 是最大的
+DM 开子叠；
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{DM}$ 分解；
+\item 群代数空间 $\mathit{Aut}_S(X)$ 在 $S$ 上非分歧；
+\end{enumerate}
+% P12-ERR-0243: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上维数 $\leq 1$ 的真概形 $X$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{DM}$ 分解；
+\item $\mathit{Aut}(X)$ 在 $k$ 上几何约化且维数为 $0$；
+\item $\mathit{Aut}(X) \to \Spec(k)$ 非分歧。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+具有性质 (1) 的开子叠之存在性由《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-open-DM-locus} 给出。
+由《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-points-DM-locus}，该开子叠的点由
+(3)(c) 刻画。(3)(b) 与 (3)(c) 的等价性是如下陈述：
+若代数空间 $G$ 在域 $k$ 上局部有限型、几何约化且维数为 $0$，
+则它在 $k$ 上非分歧。首先，由《域上的空间》中的引理
+\ref{spaces-over-fields-lemma-locally-finite-type-dim-zero}，
+$G$ 是概形。然后可在 $G$ 中取一个仿射开集，注意到它在 $k$
+上为真，并应用《簇》中的引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}。
+略去次要细节。
+
+\medskip\noindent
+由 (3)，(2) 成立。事实上，态射
+$\mathit{Aut}_S(X) \to S$ 局部有限型。因此，可以通过在概形 $S$
+各点的纤维上检验，判断 $\mathit{Aut}_S(X) \to S$
+是否在 $\mathit{Aut}_S(X)$ 的所有点处非分歧；见
+《空间的态射》中的引理
+\ref{spaces-morphisms-lemma-where-unramified}。
+但基变换到 $S$ 的一点后，就回到 (3)(a) 与 (3)(c) 的等价性。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-in-DM-locus-vector-fields}
+设 $X$ 是域 $k$ 上维数 $\leq 1$ 的真概形。则性质
+(3)(a)、(b)、(c) 还等价于
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$。
+\end{lemma}
+
+\begin{proof}
+在上面的讨论中已经看到，$G = \mathit{Aut}(X)$ 是
+$\Spec(k)$ 上有限型且分离的群概形；这里使用了引理
+\ref{moduli-curves-lemma-curves-diagonal-separated-fp} 和《空间中群胚进阶》中的引理
+\ref{spaces-more-groupoids-lemma-group-space-scheme-locally-finite-type-over-k}。
+于是，$G$ 在 $k$ 上非分歧当且仅当 $\Omega_{G/k} = 0$
+（《态射》中的引理 \ref{morphisms-lemma-unramified-omega-zero}）。
+由《群胚》中的引理
+\ref{groupoids-lemma-group-scheme-module-differentials}，
+若 $T_{G/k, e} = 0$，则上述消失成立；这里 $T_{G/k, e}$ 是
+$G$ 在单位元 $e \in G(k)$ 处的切空间，见《簇》中的定义
+\ref{varieties-definition-tangent-space} 以及《簇》中的引理
+\ref{varieties-lemma-tangent-space-cotangent-space} 里的公式。
+由于 $\kappa(e) = k$，该切空间可用如下态射定义：
+$\alpha : \Spec(k[\epsilon]) \to G = \mathit{Aut}(X)$，
+其在 $\Spec(k)$ 上的限制为 $e$。于是，只需考察自同构
+% P12-ERR-0244: see ../control/ERRATA_CANDIDATES.jsonl
+$$
+\alpha :
+X \times_{\Spec(k)} \Spec(k[\epsilon])
+\longrightarrow
+X \times_{\Spec(k)} \Spec(k[\epsilon])
+$$
+它在 $\Spec(k[\epsilon])$ 上，且在 $\Spec(k)$ 上的限制为
+$\text{id}_X$。这样的自同构称为无穷小自同构。
+
+\medskip\noindent
+$X$ 的无穷小自同构与 $\mathcal{O}_X$ 在 $k$ 上的导子按 $1$-对-$1$ 对应。
+这由《态射进阶》中的引理
+\ref{more-morphisms-lemma-difference-derivation} 和
+\ref{more-morphisms-lemma-action-by-derivations} 得出
+（我们只需要第一个引理，因为不关心反方向；另请参见
+《态射进阶》中的注
+\ref{more-morphisms-remark-another-special-case} 的说明）。
+关于证明该等式的另一种论证，参见《形变问题》中的引理
+\ref{examples-defos-lemma-schemes-TI}。
+\end{proof}
+
+\section{Cohen--Macaulay 曲线}
+\label{moduli-curves-section-CM}
+
+\noindent
+$\Curvesstack$ 有一个开子叠，参数化 Cohen--Macaulay ``曲线''。
+
+\begin{lemma}
+\label{moduli-curves-lemma-CM-curves}
+% P12-ERR-0245: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{CM} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{CM}$ 分解；
+\item 态射 $X \to S$ 是 Cohen--Macaulay 态射；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{CM}$ 分解；
+\item $X$ 是 Cohen--Macaulay 概形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to S$ 是曲线族。由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-flat-finite-presentation-CM-open}，集合
+$$
+W = \{x \in |X| : f \text{ 在下述点为 Cohen--Macaulay：}x\}
+$$
+在 $|X|$ 中是开的，并且这个开集的构造与任意基变换交换。
+由于 $f$ 为真，$S$ 的子集
+$$
+S' = S \setminus f(|X| \setminus W)
+$$
+是开的，且 $X \times_S S' \to S'$ 是 Cohen--Macaulay 态射。
+此外，$S'$ 的构造与任意基变换交换，因为 $W$ 的构造具有此性质。
+% P12-ERR-0246: see ../control/ERRATA_CANDIDATES.jsonl
+因此，由第 \ref{moduli-curves-section-open} 节所讨论的方法，得到具有所需性质的开子叠。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-CM-1-curves}
+% P12-ERR-0247: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{CM, 1} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{CM, 1}$ 分解；
+\item 态射 $X \to S$ 是 Cohen--Macaulay 态射，且具有相对维数 $1$
+（《空间的态射》中的定义
+\ref{spaces-morphisms-definition-relative-dimension}）；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{CM, 1}$ 分解；
+\item $X$ 是 Cohen--Macaulay 概形，且 $X$ 是维数为 $1$ 的等维概形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{moduli-curves-lemma-CM-curves}，若该开子叠存在，
+则显然有 $\Curvesstack^{CM, 1} \subset \Curvesstack^{CM}$。
+设 $f : X \to S$ 是曲线族，且 $f$ 是 Cohen--Macaulay 态射。
+由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-lfp-CM-relative-dimension}，有按开闭子空间的分解
+$$
+X = X_0 \amalg X_1
+$$
+使得 $X_0 \to S$ 具有相对维数 $0$，而 $X_1 \to S$ 具有相对维数 $1$。
+由于 $f$ 为真，$S$ 的子集
+$$
+S' = S \setminus f(|X_0|)
+$$
+是开的，且 $X \times_S S' \to S'$ 是相对维数为 $1$ 的
+Cohen--Macaulay 态射。此外，$S'$ 的构造与任意基变换交换，
+因为上述分解的构造具有此性质（相对维数在基变换下表现良好；见
+《空间的态射》中的引理
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}）。
+因此，由第 \ref{moduli-curves-section-open} 节所讨论的方法，得到具有所需性质的开子叠。
+\end{proof}
+
+\section{给定亏格的曲线}
+\label{moduli-curves-section-genus}
+
+\noindent
+Stacks Project 采用如下约定：域 $k$ 上的真 $1$-维概形 $X$
+的亏格 $g$ 仅在 $H^0(X, \mathcal{O}_X) = k$ 时定义。
+在此情况下，$g = \dim_k H^1(X, \mathcal{O}_X)$。
+见《代数曲线》中的第 \ref{curves-section-genus} 节。
+定义亏格所需的条件定义了一个开子叠；该开子叠又分解为开子叠的不交并，
+每个亏格对应其中一个开子叠。
+
+\begin{lemma}
+\label{moduli-curves-lemma-pre-genus-curves}
+% P12-ERR-0248: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{h0, 1} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{h0, 1}$ 分解；
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$，该等式在任意基变换后仍成立，
+且 $f$ 的纤维维数为 $1$；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{h0, 1}$ 分解；
+\item $H^0(X, \mathcal{O}_X) = k$ 且 $\dim(X) = 1$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+给定曲线族 $X \to S$，由《空间的导出范畴》中的引理
+\ref{spaces-perfect-lemma-jump-loci-geometric}，满足
+$\kappa(s) = H^0(X_s, \mathcal{O}_{X_s})$ 的 $s \in S$
+所成集合在 $S$ 中是开的。又由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-dimension-fibres-proper-flat}，
+$S$ 中纤维维数为 $1$ 的点所成集合也是开的。
+此外，若 $f : X \to S$ 是所有纤维维数均为 $1$ 的曲线族
+（特别地，$f$ 是满射），则条件 (1)(b) 等价于对每个 $s \in S$ 都有
+$\kappa(s) = H^0(X_s, \mathcal{O}_{X_s})$；见《空间的导出范畴》中的引理
+\ref{spaces-perfect-lemma-proper-flat-h0}。
+因此，该引理由第 \ref{moduli-curves-section-open} 节的一般讨论得出。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-pre-genus-in-CM-1}
+作为 $\Curvesstack$ 的开子叠，有
+$\Curvesstack^{h0, 1} \subset \Curvesstack^{CM, 1}$。
+\end{lemma}
+
+\begin{proof}
+见《代数曲线》中的引理 \ref{curves-lemma-automatic} 以及引理
+\ref{moduli-curves-lemma-pre-genus-curves} 和 \ref{moduli-curves-lemma-CM-1-curves}。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-genus}
+设 $f : X \to S$ 是曲线族，并且对所有 $s \in S$ 都有
+$\kappa(s) = H^0(X_s, \mathcal{O}_{X_s})$；换言之，分类态射
+$S \to \Curvesstack$ 经 $\Curvesstack^{h0, 1}$ 分解
+（引理 \ref{moduli-curves-lemma-pre-genus-curves}）。则：
+\begin{enumerate}
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$，且该等式普遍成立；
+\item $R^1f_*\mathcal{O}_X$ 是有限局部自由 $\mathcal{O}_S$-模；
+\item 对任意态射 $h : S' \to S$，若 $f' : X' \to S'$ 是其基变换，
+则 $h^*(R^1f_*\mathcal{O}_X) = R^1f'_*\mathcal{O}_{X'}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+应用《空间的导出范畴》中的引理
+\ref{spaces-perfect-lemma-proper-flat-h0}。这证明了 (1)。
+它还蕴含：在 $S$ 上局部可写成
+$Rf_*\mathcal{O}_X = \mathcal{O}_S \oplus P$，其中 $P$
+是 Tor 振幅位于 $[1, \infty)$ 的完美对象。回忆
+$Rf_*\mathcal{O}_X$ 的构造与任意基变换交换
+（《空间的导出范畴》中的引理
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}）。
+因此，对 $s \in S$，有
+$$
+H^i(P \otimes_{\mathcal{O}_S}^\mathbf{L} \kappa(s)) =
+H^i(X_s, \mathcal{O}_{X_s})
+\text{，其中 }i \geq 1
+$$
+由于 $X_s$ 是 $1$-维 Noether 概形，除非 $i = 1$，上式为零；见
+《上同调》中的命题
+\ref{cohomology-proposition-vanishing-Noetherian}。
+于是 $P = H^1(P)[-1]$，并且 $H^1(P)$ 有限局部自由；例如可由
+《代数进阶》中的引理
+\ref{more-algebra-lemma-lift-perfect-from-residue-field} 得出。
+由于所有构造都与基变换相容，(3) 也成立。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-pre-genus-one-piece-per-genus}
+存在开闭子叠的不交并分解
+$$
+\Curvesstack^{h0, 1} = \coprod\nolimits_{g \geq 0} \Curvesstack_g
+$$
+其中每个 $\Curvesstack_g$ 由下列条件刻画：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack_g$ 分解；
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$，该等式在任意基变换后仍成立，
+$f$ 的纤维维数为 $1$，且 $R^1f_*\mathcal{O}_X$ 是秩为 $g$
+的局部自由 $\mathcal{O}_S$-模；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经 $\Curvesstack_g$ 分解；
+\item $\dim(X) = 1$、$k = H^0(X, \mathcal{O}_X)$，且 $X$
+的亏格为 $g$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{moduli-curves-lemma-pre-genus-curves}，已经知道
+$\Curvesstack^{h0, 1}$ 作为 $\Curvesstack$ 的开子叠存在，
+并由本引理中不涉及 $R^1f_*$ 或 $H^1$ 的条件刻画。
+由第 \ref{moduli-curves-section-open} 节的讨论和引理 \ref{moduli-curves-lemma-genus}，
+立即得到开闭子叠分解的存在性。这证明了 (1) 中的刻画。
+(2) 中的刻画由《代数曲线》中的定义
+\ref{curves-definition-genus} 得出。
+\end{proof}
+
+\section{几何约化曲线}
+\label{moduli-curves-section-geometrically-reduced}
+
+\noindent
+$\Curvesstack$ 有一个开子叠，参数化几何约化的 ``曲线''。
+
+\begin{lemma}
+\label{moduli-curves-lemma-geometrically-reduced-curves}
+% P12-ERR-0249: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{geomred} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{geomred}$ 分解；
+\item 态射 $X \to S$ 的纤维几何约化
+（《空间的态射进阶》中的定义
+\ref{spaces-more-morphisms-definition-geometrically-reduced-fibre}）；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{geomred}$ 分解；
+\item $X$ 在 $k$ 上几何约化。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to S$ 是曲线族。由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-geometrically-reduced-open}，集合
+$$
+E = \{s \in S : \text{态射 }X \to S\text{ 在 }s
+\text{ 处的纤维几何约化}\}
+$$
+在 $S$ 中是开的。由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-base-change-fibres-geometrically-reduced}，
+这个开集的构造与任意基变换交换。因此，由第
+\ref{moduli-curves-section-open} 节所讨论的方法，得到具有所需性质的开子叠。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-geomred-in-CM}
+作为 $\Curvesstack$ 的开子叠，有
+$\Curvesstack^{geomred} \subset \Curvesstack^{CM}$。
+\end{lemma}
+
+\begin{proof}
+这是因为维数 $\leq 1$ 的约化 Noether 概形是 Cohen--Macaulay 概形。
+见《代数》中的引理 \ref{algebra-lemma-criterion-reduced}。
+\end{proof}
+
+\section{几何约化且连通的曲线}
+\label{moduli-curves-section-geometrically-reduced-connected}
+
+\noindent
+$\Curvesstack$ 有一个开子叠，参数化几何约化且连通的 ``曲线''。
+我们将立即排除 $0$-维对象。
+
+\begin{lemma}
+\label{moduli-curves-lemma-geometrically-reduced-connected-1-curves}
+% P12-ERR-0250: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{grc, 1} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{grc, 1}$ 分解；
+\item 态射 $X \to S$ 的几何纤维约化、连通且维数为 $1$；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{grc, 1}$ 分解；
+\item $X$ 几何约化、几何连通且维数为 $1$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{moduli-curves-lemma-geometrically-reduced-curves}、
+\ref{moduli-curves-lemma-geomred-in-CM}、\ref{moduli-curves-lemma-CM-curves} 和
+\ref{moduli-curves-lemma-CM-1-curves}，若所求开子叠存在，则显然有
+$$
+\Curvesstack^{grc, 1}
+\subset
+\Curvesstack^{geomred} \cap \Curvesstack^{CM, 1}
+$$
+设 $f : X \to S$ 是曲线族，其中 $f$ 是 Cohen--Macaulay 态射，
+具有几何约化纤维且相对维数为 $1$。由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-stein-factorization-etale}，在 Stein 分解
+$$
+X \to T \to S
+$$
+中，态射 $T \to S$ 是 \'etale 态射。这蕴含存在开闭子概形
+$S' \subset S$，使得 $X \times_S S' \to S'$ 具有几何连通纤维
+（在《态射》中的引理 \ref{morphisms-lemma-finite-locally-free}
+对有限局部自由态射 $T \to S$ 给出的分解中，这对应于 $S_1$）。
+这个开集的构造与任意基变换交换，因为几何纤维的连通分支数在基变换下不变
+（在当前特殊情形中，Stein 分解本身也与基变换交换，但得出结论并不需要这一点）。
+因此，由第 \ref{moduli-curves-section-open} 节所讨论的方法，得到具有所需性质的开子叠。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-geomredcon-in-h0-1}
+作为 $\Curvesstack$ 的开子叠，有
+$\Curvesstack^{grc, 1} \subset \Curvesstack^{h0, 1}$。
+特别地，给定几何纤维约化、连通且维数为 $1$ 的曲线族
+$f : X \to S$，则
+% P12-ERR-0251: see ../control/ERRATA_CANDIDATES.jsonl
+$R^1f_*\mathcal{O}_X$ 是有限局部自由 $\mathcal{O}_S$-模，
+且其构造与任意基变换交换。
+\end{lemma}
+
+\begin{proof}
+这由《簇》中的引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections} 以及引理
+\ref{moduli-curves-lemma-pre-genus-curves} 和
+\ref{moduli-curves-lemma-geometrically-reduced-connected-1-curves} 得出。
+最后一个陈述由引理 \ref{moduli-curves-lemma-genus} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-one-piece-per-genus}
+存在开闭子叠的不交并分解
+$$
+\Curvesstack^{grc, 1} = \coprod\nolimits_{g \geq 0} \Curvesstack^{grc, 1}_g
+$$
+其中每个 $\Curvesstack^{grc, 1}_g$ 由下列条件刻画：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{grc, 1}_g$ 分解；
+\item 态射 $f : X \to S$ 的几何纤维约化、连通且维数为 $1$，并且
+$R^1f_*\mathcal{O}_X$ 是秩为 $g$ 的局部自由 $\mathcal{O}_S$-模；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{grc, 1}_g$ 分解；
+\item $X$ 几何约化、几何连通、维数为 $1$ 且亏格为 $g$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第一种证明：令
+$\Curvesstack^{grc, 1}_g = \Curvesstack^{grc, 1} \cap \Curvesstack_g$，
+再结合引理 \ref{moduli-curves-lemma-geomredcon-in-h0-1} 和
+\ref{moduli-curves-lemma-pre-genus-one-piece-per-genus}。
+第二种证明：由第 \ref{moduli-curves-section-open} 节的讨论和引理
+\ref{moduli-curves-lemma-geomredcon-in-h0-1}，立即得到开闭子叠分解的存在性。
+这证明了 (1) 中的刻画。由于几何约化且连通的真 $1$-维概形 $X/k$
+的亏格有定义（《代数曲线》中的定义 \ref{curves-definition-genus}
+和《簇》中的引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}），
+且等于 $\dim_k H^1(X, \mathcal{O}_X)$，故 (2) 中的刻画也成立。
+\end{proof}
+
+\section{Gorenstein 曲线}
+\label{moduli-curves-section-gorenstein}
+
+\noindent
+$\Curvesstack$ 有一个开子叠，参数化 Gorenstein ``曲线''。
+
+\begin{lemma}
+\label{moduli-curves-lemma-gorenstein-curves}
+% P12-ERR-0252: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{Gorenstein} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{Gorenstein}$ 分解；
+\item 态射 $X \to S$ 是 Gorenstein 态射；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{Gorenstein}$ 分解；
+\item $X$ 是 Gorenstein 概形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to S$ 是曲线族。由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-flat-finite-presentation-gorenstein-open}，集合
+$$
+W = \{x \in |X| : f \text{ 在下述点是 Gorenstein：}x\}
+$$
+在 $|X|$ 中是开的，并且这个开集的构造与任意基变换交换。
+由于 $f$ 为真，$S$ 的子集
+$$
+S' = S \setminus f(|X| \setminus W)
+$$
+是开的，且 $X \times_S S' \to S'$ 是 Gorenstein 态射。
+此外，$S'$ 的构造与任意基变换交换，因为 $W$ 的构造具有此性质。
+% P12-ERR-0253: see ../control/ERRATA_CANDIDATES.jsonl
+因此，由第 \ref{moduli-curves-section-open} 节所讨论的方法，得到具有所需性质的开子叠。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-gorenstein-1-curves}
+% P12-ERR-0254: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠
+$\Curvesstack^{Gorenstein, 1} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{Gorenstein, 1}$ 分解；
+\item 态射 $X \to S$ 是 Gorenstein 态射，且具有相对维数 $1$
+（《空间的态射》中的定义
+\ref{spaces-morphisms-definition-relative-dimension}）；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{Gorenstein, 1}$ 分解；
+\item $X$ 是 Gorenstein 概形，且 $X$ 是维数为 $1$ 的等维概形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆 Gorenstein 概形是 Cohen--Macaulay 概形
+（《概形的对偶性》中的引理 \ref{duality-lemma-gorenstein-CM}），并且
+% P12-ERR-0255: see ../control/ERRATA_CANDIDATES.jsonl
+Gorenstein 态射是 Cohen--Macaulay 态射
+（《概形的对偶性》中的引理 \ref{duality-lemma-gorenstein-CM-morphism}）。
+因此，可以令 $\Curvesstack^{Gorenstein, 1}$ 等于
+$\Curvesstack$ 内 $\Curvesstack^{Gorenstein}$ 与
+$\Curvesstack^{CM, 1}$ 的交，并使用引理
+\ref{moduli-curves-lemma-gorenstein-curves} 和 \ref{moduli-curves-lemma-CM-1-curves}。
+\end{proof}
+
+\section{局部完全交曲线}
+\label{moduli-curves-section-lci}
+
+\noindent
+$\Curvesstack$ 有一个开子叠，参数化局部完全交 ``曲线''。
+
+\begin{lemma}
+\label{moduli-curves-lemma-lci-curves}
+% P12-ERR-0256: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{lci} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{lci}$ 分解；
+\item $X \to S$ 是局部完全交态射；
+\item $X \to S$ 是 syntomic 态射。
+\end{enumerate}
+% P12-ERR-0257: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上维数 $\leq 1$ 的真概形 $X$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{lci}$ 分解；
+\item $X$ 在 $k$ 上是局部完全交。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆 syntomic 态射等价于平坦的局部完全交态射；见
+《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-flat-lci}。因此 (1)(b) 等价于 (1)(c)。
+在第 \ref{moduli-curves-section-open} 节中已经看到，只需证明：给定曲线族
+$f : X \to S$，存在开子概形 $S' \subset S$，使得
+$S' \times_S X \to S'$ 是局部完全交态射，并且 $S'$ 的构造
+与任意基变换交换。这由更一般的《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-where-lci} 得出。
+\end{proof}
+
+\section{具有孤立奇点的曲线}
+\label{moduli-curves-section-curves-isolated}
+
+\noindent
+可以考察 $\Curvesstack$ 中参数化仅有有限多个奇点的 ``曲线''
+所构成的开子叠（在我们的设定中，这些奇点可能对应于 $0$-维分支）。
+
+\begin{lemma}
+\label{moduli-curves-lemma-isolated-sings-curves}
+% P12-ERR-0258: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{+} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{+}$ 分解；
+\item 赋予 $X \to S$ 的奇异轨迹任意一个（或某一个）闭子空间结构后，
+它在 $S$ 上有限。
+\end{enumerate}
+% P12-ERR-0259: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上维数 $\leq 1$ 的真概形 $X$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经 $\Curvesstack^{+}$ 分解；
+\item $X \to \Spec(k)$ 除有限多个点外处处光滑。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明该引理，只需证明：给定曲线族 $f : X \to S$，存在开子概形
+$S' \subset S$，使得 $S' \times_S X \to S'$ 的纤维具有性质 (2)。
+% P12-ERR-0260: see ../control/ERRATA_CANDIDATES.jsonl
+（该开集的构造将自动与基变换交换。）按定义，$X \to S$
+不光滑的点所成轨迹 $T \subset |X|$ 是闭的。令 $Z \subset X$
+为在 $T$ 上赋予约化诱导代数空间结构所得到的闭子空间
+（《空间的性质》中的定义
+\ref{spaces-properties-definition-reduced-induced-space}）。
+现在，若 $s \in S$ 是使 $Z_s$ 有限的点，则存在 $s$ 的开邻域
+$U_s \subset S$，使得 $Z \cap f^{-1}(U_s) \to U_s$ 有限；见
+《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}。
+这证明了该引理。
+\end{proof}
+
+\section{曲线叠的光滑轨迹}
+\label{moduli-curves-section-smooth}
+
+\noindent
+态射
+$$
+\Curvesstack \longrightarrow \Spec(\mathbf{Z})
+$$
+在一个最大的开子叠上光滑；见《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-where-smooth}。我们希望给出曲线属于该轨迹的判据。
+为此将使用少量形变理论。
+
+\medskip\noindent
+设 $k$ 是域，$X$ 是 $k$ 上维数 $\leq 1$ 的真概形。
+为 $k$ 选取一个 Cohen 环 $\Lambda$；见《代数》中的引理
+\ref{algebra-lemma-cohen-rings-exist}。于是处于《形变问题》中的例
+\ref{examples-defos-example-schemes} 和引理
+\ref{examples-defos-lemma-schemes-RS} 所描述的情形。因此，在剩余域为
+$k$ 的 Artin 局部 $\Lambda$-代数所成范畴 $\mathcal{C}_\Lambda$ 上，
+得到形变范畴 $\Deformationcategory_X$。
+
+\begin{lemma}
+\label{moduli-curves-lemma-in-smooth-locus}
+在上述情形中，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack \to \Spec(\mathbf{Z})$ 光滑的开集分解；
+\item 形变范畴 $\Deformationcategory_X$ 是无阻碍的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $\Curvesstack \longrightarrow \Spec(\mathbf{Z})$ 局部有限表示
+（引理 \ref{moduli-curves-lemma-curves-qs-lfp}），$\Curvesstack \longrightarrow
+\Spec(\mathbf{Z})$ 光滑的开子叠之构造与平坦基变换交换
+（《叠的态射》中的引理 \ref{stacks-morphisms-lemma-where-smooth}）。
+由于 Cohen 环 $\Lambda$ 在 $\mathbf{Z}$ 上平坦，可以在 $\Lambda$ 上工作。
+换言之，要证明
+$$
+\Lambda\text{-}\Curvesstack \longrightarrow \Spec(\Lambda)
+$$
+在由 $X/k$ 定义的点
+$x_0 : \Spec(k) \to \Lambda\text{-}\Curvesstack$ 的一个开邻域上光滑，
+当且仅当 $\Deformationcategory_X$ 无阻碍。
+
+\medskip\noindent
+该引理现在由《叠的几何》中的引理
+\ref{stacks-geometry-lemma-characterize-smoothness} 和等式
+$$
+\Deformationcategory_X =
+\mathcal{F}_{\Lambda\text{-}\Curvesstack, k, x_0}
+$$
+得出。建立这个等式并非完全平凡。事实上，左边是分类 $X$
+作为 $A \in \Ob(\mathcal{C}_\Lambda)$ 上概形的所有平坦形变
+$Y \to \Spec(A)$ 的形变范畴。右边是分类特殊纤维为 $X$
+的所有平坦态射 $Y \to \Spec(A)$ 的形变范畴，其中 $Y$ 是代数空间，
+且 $Y \to \Spec(A)$ 为真、有限表示并具有相对维数 $\leq 1$。
+由于 $A$ 是 Artin 的，例如由《域上的空间》中的引理
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus} 可知
+$Y$ 是概形。因此还需证明：$X$ 作为剩余域为 $k$ 的 Artin 局部环
+$A$ 上概形的平坦形变 $Y \to \Spec(A)$ 为真、有限表示且相对维数
+$\leq 1$。相对维数按纤维定义，故因为 $X/k$ 具有此性质，
+$Y/A$ 也自动具有此性质。态射 $Y \to \Spec(A)$ 为真且局部有限表示，
+因为 $X \to \Spec(k)$ 具有这些性质；见《态射进阶》中的引理
+\ref{more-morphisms-lemma-deform-property}。
+\end{proof}
+
+\noindent
+下面给出曲线叠中包含于光滑轨迹的一个 ``大'' 开子叠。
+
+\begin{lemma}
+\label{moduli-curves-lemma-big-smooth-part-curves}
+开子叠
+$$
+\Curvesstack^{lci+} =
+\Curvesstack^{lci} \cap \Curvesstack^{+}
+\subset \Curvesstack
+$$
+具有以下性质：
+\begin{enumerate}
+\item $\Curvesstack^{lci+} \to \Spec(\mathbf{Z})$ 光滑；
+\item 给定曲线族 $X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{lci+}$ 分解；
+\item $X \to S$ 是局部完全交态射，并且赋予 $X \to S$
+的奇异轨迹任意一个（或某一个）闭子空间结构后，它在 $S$ 上有限；
+\end{enumerate}
+% P12-ERR-0261: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上维数 $\leq 1$ 的真概形 $X$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{lci+}$ 分解；
+\item $X$ 在 $k$ 上是局部完全交，并且
+$X \to \Spec(k)$ 除有限多个点外处处光滑。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若能证明存在开子叠 $\Curvesstack^{lci+}$，其点由 (2) 刻画，
+则结合引理 \ref{moduli-curves-lemma-in-smooth-locus} 与《形变问题》中的引理
+\ref{examples-defos-lemma-curve-isolated-lci}，可知 (1) 成立。由于
+$$
+\Curvesstack^{lci+} = \Curvesstack^{lci} \cap \Curvesstack^{+}
+$$
+在 $\Curvesstack$ 内成立，由引理 \ref{moduli-curves-lemma-lci-curves} 和
+\ref{moduli-curves-lemma-isolated-sings-curves} 即得结论。
+\end{proof}
+
+\section{光滑曲线}
+\label{moduli-curves-section-smooth-curves}
+
+\noindent
+本节研究 $\Curvesstack$ 中参数化光滑 ``曲线'' 的开子叠。
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-curves}
+% P12-ERR-0262: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠
+$$
+\Curvesstack^{smooth, 1} \subset \Curvesstack^{smooth} \subset \Curvesstack
+$$
+使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{smooth}$、
+相应地，\ $\Curvesstack^{smooth, 1}$ 分解；
+\item $f$ 光滑、相应地，\ 为相对维数 $1$ 的光滑态射；
+\end{enumerate}
+% P12-ERR-0263: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经 $\Curvesstack^{smooth}$、
+相应地，\ $\Curvesstack^{smooth, 1}$ 分解；
+\item $X$ 在 $k$ 上光滑；相应地，\ $X$ 在 $k$ 上光滑，且
+$X$ 是维数为 $1$ 的等维概形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明关于 $\Curvesstack^{smooth}$ 的陈述，只需证明：给定曲线族
+$f : X \to S$，存在开子概形 $S' \subset S$，使得
+$S' \times_S X \to S'$ 光滑，并且这个开集的构造与基变换交换。
+已知存在最大的开集 $U \subset X$，使得 $U \to S$ 光滑，
+而且 $U$ 的构造与任意基变换交换；见《空间的态射》中的引理
+\ref{spaces-morphisms-lemma-where-smooth}。若
+$T = |X| \setminus |U|$，则因为 $f$ 为真，$f(T)$ 在 $S$ 中闭。
+令 $S' = S \setminus f(T)$，便得到所需开集。
+
+\medskip\noindent
+设 $f : X \to S$ 是曲线族，且 $f$ 光滑。则纤维 $X_s$
+在 $\kappa(s)$ 上光滑，因而是 Cohen--Macaulay 概形
+（例如可使用《代数》中的引理
+\ref{algebra-lemma-smooth-over-field} 和
+\ref{algebra-lemma-lci-CM} 看出）。因此，可以令
+$$
+\Curvesstack^{smooth, 1} = \Curvesstack^{smooth} \cap
+\Curvesstack^{CM, 1}
+$$
+而所需等价性由已经对 $\Curvesstack^{smooth}$ 证明的结果以及引理
+\ref{moduli-curves-lemma-CM-1-curves} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-curves-smooth}
+态射 $\Curvesstack^{smooth} \to \Spec(\mathbf{Z})$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由 $\Curvesstack^{smooth} \subset \Curvesstack^{lci+}$ 和引理
+\ref{moduli-curves-lemma-big-smooth-part-curves} 立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-curves-h0}
+% P12-ERR-0264: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{smooth, h0} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+% P12-ERR-0265: see ../control/ERRATA_CANDIDATES.jsonl
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{smooth}$ 分解；
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$，该等式在任意基变换后仍成立，
+且 $f$ 是相对维数为 $1$ 的光滑态射；
+\end{enumerate}
+% P12-ERR-0266: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{smooth, h0}$ 分解；
+\item $X$ 光滑，$\dim(X) = 1$，且 $k = H^0(X, \mathcal{O}_X)$；
+\item $X$ 光滑，$\dim(X) = 1$，且 $X$ 几何连通；
+\item $X$ 光滑，$\dim(X) = 1$，且 $X$ 几何整；
+\item $X_{\overline{k}}$ 是光滑曲线。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若令
+$$
+\Curvesstack^{smooth, h0} = \Curvesstack^{smooth} \cap
+\Curvesstack^{h0, 1}
+$$
+则由引理 \ref{moduli-curves-lemma-pre-genus-curves} 和
+\ref{moduli-curves-lemma-smooth-curves} 可知 (1) 成立。事实上，这也给出
+(2)(a) 与 (2)(b) 的等价性。为完成证明，需要说明 (2)(b)
+分别等价于 (2)(c)、(2)(d) 和 (2)(e)。
+
+\medskip\noindent
+域上的光滑概形几何正规
+（《簇》中的引理 \ref{varieties-lemma-smooth-geometrically-normal}），
+光滑性在基变换下保持
+（《态射》中的引理 \ref{morphisms-lemma-base-change-smooth}），
+并且光滑性在目标上是 fpqc 局部的
+（《下降》中的引理 \ref{descent-lemma-descending-property-smooth}）。
+牢记这些事实，(2)(b)、(2)(c)、
+% P12-ERR-0267: see ../control/ERRATA_CANDIDATES.jsonl
+(2)(d) 和 (2)(e) 的等价性由《簇》中的引理
+\ref{varieties-lemma-geometrically-normal-stein} 得出。
+\end{proof}
+
+\begin{definition}
+\label{moduli-curves-definition-deligne-mumford-smooth}
+\begin{reference}
+\cite{DM}
+\end{reference}
+% P12-ERR-0269: see ../control/ERRATA_CANDIDATES.jsonl
+我们用 $\mathcal{M}$ 表示引理 \ref{moduli-curves-lemma-smooth-curves-h0}
+中引入的参数化曲线族的代数叠 $\Curvesstack^{smooth, h0}$，
+并称其为{\it 光滑真曲线的模叠}。
+对 $g \geq 0$，我们用 $\mathcal{M}_g$ 表示引理
+\ref{moduli-curves-lemma-smooth-one-piece-per-genus} 中引入的代数叠，
+并称其为{\it 亏格为 $g$ 的光滑真曲线的模叠}。
+\end{definition}
+
+\noindent
+下面是必备引理。
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-one-piece-per-genus}
+存在开闭子叠的不交并分解
+$$
+\mathcal{M} = \coprod\nolimits_{g \geq 0} \mathcal{M}_g
+$$
+其中每个 $\mathcal{M}_g$ 由下列条件刻画：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\mathcal{M}_g$ 分解；
+\item $X \to S$ 光滑，$f_*\mathcal{O}_X = \mathcal{O}_S$，
+该等式在任意基变换后仍成立，且 $R^1f_*\mathcal{O}_X$
+是秩为 $g$ 的局部自由 $\mathcal{O}_S$-模；
+\end{enumerate}
+% P12-ERR-0268: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经 $\mathcal{M}_g$ 分解；
+\item $X$ 光滑，$\dim(X) = 1$，$k = H^0(X, \mathcal{O}_X)$，
+且 $X$ 的亏格为 $g$；
+\item $X$ 光滑，$\dim(X) = 1$，$X$ 几何连通，且 $X$ 的亏格为 $g$；
+\item $X$ 光滑，$\dim(X) = 1$，$X$ 几何整，且 $X$ 的亏格为 $g$；
+\item $X_{\overline{k}}$ 是亏格为 $g$ 的光滑曲线。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+结合引理 \ref{moduli-curves-lemma-smooth-curves-h0} 和
+\ref{moduli-curves-lemma-pre-genus-one-piece-per-genus}。也可以改用引理
+\ref{moduli-curves-lemma-one-piece-per-genus}。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-curves-h0-smooth}
+态射 $\mathcal{M} \to \Spec(\mathbf{Z})$ 和
+$\mathcal{M}_g \to \Spec(\mathbf{Z})$ 都光滑。
+\end{lemma}
+
+\begin{proof}
+由于 $\mathcal{M}$ 是 $\Curvesstack^{lci+}$ 的开子叠，
+该结论由引理 \ref{moduli-curves-lemma-big-smooth-part-curves} 得出。
+\end{proof}
+
+\section{光滑曲线的稠密性}
+\label{moduli-curves-section-smooth-is-dense}
+
+\noindent
+本节标题有些误导，因为我们并不声称 $\Curvesstack^{smooth}$
+在 $\Curvesstack$ 中稠密。事实上，这是错误的，Mumford 已在
+\cite{PathologiesIV} 中证明这一点。不过，我们将看到光滑 ``曲线''
+在一个大开集中稠密。
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-dense}
+包含关系
+$$
+|\Curvesstack^{smooth}| \subset |\Curvesstack^{lci+}|
+$$
+给出一个开稠密子集。
+\end{lemma}
+
+\begin{proof}
+由《叠的性质》中的第 \ref{stacks-properties-section-points} 节所构造的
+$|\Curvesstack^{lci+}|$ 上的拓扑，$|\Curvesstack^{smooth}|$
+是开子集。设 $\xi \in |\Curvesstack^{lci+}|$ 是一点。
+则存在域 $k$ 和 $k$ 上的概形 $X$，使得 $X$ 在 $k$ 上为真，
+$\dim(X) \leq 1$，$X$ 在 $k$ 上是局部完全交，并且
+% P12-ERR-0270: see ../control/ERRATA_CANDIDATES.jsonl
+$X$ 在 $k$ 上除有限多个点外处处光滑，而且 $\xi$ 是由 $X$
+确定的分类态射 $\Spec(k) \to \Curvesstack^{lci+}$ 的等价类。
+见引理 \ref{moduli-curves-lemma-big-smooth-part-curves}。由《形变问题》中的引理
+\ref{examples-defos-lemma-smoothing-proper-curve-isolated-lci}，
+存在平坦射影态射 $Y \to \Spec(k[[t]])$，其泛纤维光滑，
+其特殊纤维同构于 $X$。考虑由 $Y$ 确定的分类态射
+$$
+\Spec(k[[t]]) \longrightarrow \Curvesstack^{lci+}
+$$
+闭点的像为 $\xi$，而泛点的像属于 $|\Curvesstack^{smooth}|$。
+由于泛点在 $|\Spec(k[[t]])|$ 中特化到闭点，故 $\xi$
+属于 $|\Curvesstack^{smooth}|$ 的闭包，如所求。
+\end{proof}
+
+\section{结点曲线}
+\label{moduli-curves-section-nodal-curves}
+
+\noindent
+结点曲线在代数几何中扮演特殊角色。建议读者简要浏览《代数曲线》中的
+第 \ref{curves-section-nodal} 节和第
+\ref{curves-section-families-nodal} 节，以及《空间的态射进阶》中的
+第 \ref{spaces-more-morphisms-section-families-nodal} 节的部分讨论。
+
+\begin{lemma}
+\label{moduli-curves-lemma-nodal-curves}
+% P12-ERR-0271: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{nodal} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{nodal}$ 分解；
+\item $f$ 是相对维数为 $1$、至多有结点奇性的态射；
+\end{enumerate}
+% P12-ERR-0272: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{nodal}$ 分解；
+\item $X$ 的奇点至多为结点，且 $X$ 是维数为 $1$ 的等维概形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+事实上，只需证明：给定曲线族 $f : X \to S$，存在开子概形
+$S' \subset S$，使得 $S' \times_S X \to S'$ 是相对维数为 $1$、
+至多有结点奇性的态射，并且 $S'$ 的构造与任意基变换交换。
+由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-locus-where-nodal}，存在最大的开子空间
+$X' \subset X$，使得 $f|_{X'} : X' \to S$ 是相对维数为 $1$、
+至多有结点奇性的态射。此外，$X'$ 的构造与基变换交换。
+因此，可以取
+$$
+S' = S \setminus |f|(|X| \setminus |X'|)
+$$
+它是开的，因为真态射按定义普遍闭。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-nodal-curves-smooth}
+态射 $\Curvesstack^{nodal} \to \Spec(\mathbf{Z})$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由 $\Curvesstack^{nodal} \subset \Curvesstack^{lci+}$ 和引理
+\ref{moduli-curves-lemma-big-smooth-part-curves} 立即得出。
+\end{proof}
+
+\section{相对对偶层}
+\label{moduli-curves-section-relative-dualizing}
+
+\noindent
+本节主要用于在曲线族的情形引入记号。大部分工作已经在对偶性一章中完成。
+
+\medskip\noindent
+设 $f : X \to S$ 是曲线族。$D_\QCoh(\mathcal{O}_X)$ 中存在对象
+$\omega_{X/S}^\bullet$，称为{\it 相对对偶复形}，具有如下性质：
+对每个基变换图
+$$
+\xymatrix{
+X_U \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+U \ar[r]^g & S
+}
+$$
+若 $U = \Spec(A)$ 仿射，则复形
+$\omega_{X_U/U}^\bullet = L(g')^*\omega_{X/S}^\bullet$ 表示函子
+$$
+D_\QCoh(\mathcal{O}_{X_U}) \longrightarrow \text{Mod}_A,\quad
+K \longmapsto \Hom_U(Rf_*K, \mathcal{O}_U)
+$$
+更精确地，令 $(\omega_{X/S}^\bullet, \tau)$ 为《空间的对偶性》中的定义
+\ref{spaces-duality-definition-relative-dualizing-proper-flat}
+所定义的该曲线族的相对对偶复形。其存在性由《空间的对偶性》中的引理
+\ref{spaces-duality-lemma-existence-relative-dualizing} 证明。
+此外，$(\omega_{X/S}^\bullet, \tau)$ 的构造与任意基变换交换
+（这本质上源于定义；精确参考是《空间的对偶性》中的引理
+\ref{spaces-duality-lemma-base-change-relative-dualizing}）。
+从现在起，我们将 $\omega_{X/S}^\bullet$ 的基变换与基变换后曲线族的
+相对对偶复形等同，不再另行说明。
+
+\medskip\noindent
+设 $\{S_i \to S\}$ 是一个 \'etale 覆盖，其中 $S_i$ 仿射，且
+$X_i = X \times_S S_i$ 是概形；见引理
+\ref{moduli-curves-lemma-etale-locally-scheme}。由《空间的对偶性》中的引理
+\ref{spaces-duality-lemma-compare}，$\omega_{X_i/S_i}^\bullet$
+与《概形的对偶性》中的注
+\ref{duality-remark-relative-dualizing-complex} 所讨论的概形间真、平坦、
+有限表示态射 $f_i : X_i \to S_i$ 的相对对偶复形一致。
+因此，为证明 $\omega_{X/S}^\bullet$ 的某个 \'etale 局部性质，
+可以假设 $X \to S$ 是概形间态射，并使用概形对偶性一章中发展的理论。
+更一般地，对 $X$ 的任意为概形的基变换，相对对偶复形都与
+《概形的对偶性》中的注
+\ref{duality-remark-relative-dualizing-complex} 的相对对偶复形一致。
+从现在起，我们将使用这个等同，不再另行说明。
+
+\medskip\noindent
+特别地，设 $\Spec(k) \to S$ 是态射，其中 $k$ 是域。
+% P12-ERR-0273: see ../control/ERRATA_CANDIDATES.jsonl
+用 $X_k$ 表示该基变换（由《域上的空间》中的引理
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}，
+这是概形）。则 $\omega_{X_k/k}^\bullet$ 同构于《代数曲线》中的引理
+\ref{curves-lemma-duality-dim-1} 的复形 $\omega_{X_k}^\bullet$
+（两者表示同一个函子，故可使用 Yoneda 引理；而这实际上由上述评注得出）。
+由此，余调层 $H^i(\omega_{X_k/k}^\bullet)$ 仅在 $i = 0, -1$
+时可能非零。若 $X_k$ 是维数为 $1$ 的等维 Cohen--Macaulay 概形，
+则仅有 $H^{-1}$；若 $X_k$ 还为 Gorenstein 概形，则
+% P12-ERR-0274: see ../control/ERRATA_CANDIDATES.jsonl
+$H^{-1}(\omega_{X_k/k})$ 可逆；见《代数曲线》中的引理
+\ref{curves-lemma-duality-dim-1-CM} 和 \ref{curves-lemma-rr}。
+
+\begin{lemma}
+\label{moduli-curves-lemma-CM-dualizing}
+设 $X \to S$ 是纤维为维数 $1$ 的等维 Cohen--Macaulay 概形的曲线族
+（引理 \ref{moduli-curves-lemma-CM-1-curves}）。则
+$\omega_{X/S}^\bullet = \omega_{X/S}[1]$，其中 $\omega_{X/S}$
+是一个在 $S$ 上平坦的伪凝聚 $\mathcal{O}_X$-模，且其构造与任意基变换交换。
+\end{lemma}
+
+\begin{proof}
+我们建议读者由上面对基变换到域后情形的讨论直接推出此结论。
+我们的证明将使用一种稍显繁琐的归约，将问题化到 Noether 概形的情形。
+
+\medskip\noindent
+一旦证明 $\omega_{X/S}^\bullet = \omega_{X/S}[1]$ 且
+$\omega_{X/S}$ 在 $S$ 上平坦，关于基变换的陈述就由
+$\omega_{X/S}^\bullet$ 的构造与任意基变换交换这一已知事实得出。
+此外，伪凝聚性将自动成立，因为按定义 $\omega_{X/S}^\bullet$
+是伪凝聚的。其他余调层的消失与平坦性可在 \'etale 局部检验。
+因此，可以假设 $f : X \to S$ 是概形间态射，且 $S$ 仿射
+（见上面的讨论）。将 $S = \lim S_i$ 写成在 $\mathbf{Z}$ 上有限型的
+仿射概形 $S_i$ 的余滤极限。由于 $\Curvesstack^{CM, 1}$ 在
+$\mathbf{Z}$ 上局部有限表示（它是 $\Curvesstack$ 的开子叠；见引理
+\ref{moduli-curves-lemma-CM-1-curves} 和 \ref{moduli-curves-lemma-curves-qs-lfp}），
+可以找到一个 $i$ 以及曲线族 $X_i \to S_i$，其拉回为 $X \to S$
+（《叠的极限》中的引理
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}）。
+必要时增大 $i$，可假设 $X_i$ 是概形；见《空间的极限》中的引理
+\ref{spaces-limits-lemma-limit-is-scheme}。由于
+$\omega_{X/S}^\bullet$ 的构造与任意基变换交换，可以用 $S_i$ 代替 $S$。
+这样便可以并且确实假设 $S_i$ 是 Noether 概形。此时，由我们对纤维的假设，
+$f$ 显然是 Cohen--Macaulay 态射
+（《态射进阶》中的定义 \ref{more-morphisms-definition-CM}）。
+此外，由《概形的对偶性》中的第
+\ref{duality-section-upper-shriek} 节对 $f^!$ 的构造，有
+$\omega_{X/S}^\bullet = f^!\mathcal{O}_S$。
+% P12-ERR-0275: see ../control/ERRATA_CANDIDATES.jsonl
+因此，该引理由《概形的对偶性》中的引理
+\ref{duality-lemma-affine-flat-Noetherian-CM} 得出。
+\end{proof}
+
+\begin{definition}
+\label{moduli-curves-definition-relative-dualizing-sheaf}
+设 $f : X \to S$ 是纤维为维数 $1$ 的等维 Cohen--Macaulay 概形的曲线族
+（引理 \ref{moduli-curves-lemma-CM-1-curves}）。则引理
+\ref{moduli-curves-lemma-CM-dualizing} 中研究的 $\mathcal{O}_X$-模
+$$
+\omega_{X/S} = H^{-1}(\omega_{X/S}^\bullet)
+$$
+称为 $f$ 的{\it 相对对偶层}。
+\end{definition}
+
+\noindent
+在定义 \ref{moduli-curves-definition-relative-dualizing-sheaf} 的情形，
+相对对偶层 $\omega_{X/S}$ 具有以下性质（而且该性质在 $S$ 上局部刻画它）：
+对每个基变换图
+$$
+\xymatrix{
+X_U \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+U \ar[r]^g & S
+}
+$$
+若 $U = \Spec(A)$ 仿射，则模
+$\omega_{X_U/U} = (g')^*\omega_{X/S}$ 表示函子
+$$
+\QCoh(\mathcal{O}_{X_U}) \longrightarrow \text{Mod}_A,\quad
+% P12-ERR-0276: see ../control/ERRATA_CANDIDATES.jsonl
+\mathcal{F} \longmapsto \Hom_A(H^1(X, \mathcal{F}), A)
+$$
+这由上面给出的相对对偶复形的相应性质立即得出。特别地，若 $A = k$
+是域，则恢复《代数曲线》中的引理
+\ref{curves-lemma-duality-dim-1}、
+\ref{curves-lemma-duality-dim-1-CM} 和 \ref{curves-lemma-rr}
+所引入并研究的 $X_k$ 的对偶模。
+
+\begin{lemma}
+\label{moduli-curves-lemma-gorenstein-dualizing}
+设 $X \to S$ 是纤维为维数 $1$ 的等维 Gorenstein 概形的曲线族
+（引理 \ref{moduli-curves-lemma-gorenstein-1-curves}）。则相对对偶层
+$\omega_{X/S}$ 是可逆 $\mathcal{O}_X$-模，且其构造与任意基变换交换。
+\end{lemma}
+
+\begin{proof}
+这是因为由上面的讨论，相对对偶模到任一纤维的拉回均可逆。
+或者，也可以完全仿照引理 \ref{moduli-curves-lemma-CM-dualizing} 的证明，
+再由《概形的对偶性》中的引理
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein} 得到结论。
+\end{proof}
+
+\section{预稳定曲线}
+\label{moduli-curves-section-prestable-curves}
+
+\noindent
+下述定义等价于通常公认的预稳定曲线族概念。
+
+\begin{definition}
+\label{moduli-curves-definition-prestable}
+设 $f : X \to S$ 是曲线族。若满足下列条件，便称 $f$ 是一个
+{\it 预稳定曲线族}：
+\begin{enumerate}
+\item $f$ 是相对维数为 $1$、至多有结点奇性的态射；并且
+\item $f_*\mathcal{O}_X = \mathcal{O}_S$，而且该等式在任意基变换后仍成立
+\footnote{事实上，只要求 $f_*\mathcal{O}_X = \mathcal{O}_S$ 即可，
+因为此时 $f$ 的 Stein 分解是 \'etale 的；见《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-stein-factorization-etale}。
+也可以把该条件替换为要求几何纤维连通；见引理
+\ref{moduli-curves-lemma-geomredcon-in-h0-1}。}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+设 $X$ 是域 $k$ 上的真概形，且 $\dim(X) \leq 1$。
+则 $X \to \Spec(k)$ 是曲线族，因此可以问它在上述定义的意义下是否预稳定
+\footnote{此处不能使用“预稳定曲线”这一术语，因为“曲线”蕴含不可约性。
+见《代数曲线》中的第 \ref{curves-section-families-nodal} 节的讨论。}。
+展开定义可见，下列条件等价：
+\begin{enumerate}
+\item $X$ 预稳定；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，且
+$k = H^0(X, \mathcal{O}_X)$；
+\item $X_{\overline{k}}$ 连通，并且除有限多个结点外，
+它在 $\overline{k}$ 上光滑
+（《代数曲线》中的定义 \ref{curves-definition-multicross}）。
+\end{enumerate}
+这说明我们的定义与文献中的大多数定义一致。
+
+\begin{lemma}
+\label{moduli-curves-lemma-prestable-curves}
+% P12-ERR-0277: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{prestable} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{prestable}$ 分解；
+\item $X \to S$ 是预稳定曲线族；
+\end{enumerate}
+% P12-ERR-0278: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{prestable}$ 分解；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，且
+$k = H^0(X, \mathcal{O}_X)$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+给定曲线族 $X \to S$，它预稳定，当且仅当分类态射同时经
+$\Curvesstack^{nodal}$ 和 $\Curvesstack^{h0, 1}$ 分解。
+也可以使用 $\Curvesstack^{grc, 1}$（因为结点曲线几何约化，
+所以它的 $H^0$ 等于基域，当且仅当它连通）。用公式表示即
+$$
+\Curvesstack^{prestable} =
+\Curvesstack^{nodal} \cap \Curvesstack^{h0, 1} =
+\Curvesstack^{nodal} \cap \Curvesstack^{grc, 1}
+$$
+因此，该引理由引理 \ref{moduli-curves-lemma-pre-genus-curves} 和
+\ref{moduli-curves-lemma-nodal-curves} 得出。
+\end{proof}
+
+\noindent
+对每个亏格 $g \geq 0$，都有分类亏格为 $g$ 的预稳定曲线的代数叠。
+事实上，从现在起，我们称 $X \to S$ 是一个{\it 亏格为 $g$
+的预稳定曲线族}，当且仅当分类态射 $S \to \Curvesstack$
+经引理 \ref{moduli-curves-lemma-prestable-one-piece-per-genus} 的开子叠
+$\Curvesstack^{prestable}_g$ 分解。
+
+\begin{lemma}
+\label{moduli-curves-lemma-prestable-one-piece-per-genus}
+存在开闭子叠的分解
+$$
+\Curvesstack^{prestable} = \coprod\nolimits_{g \geq 0}
+\Curvesstack^{prestable}_g
+$$
+其中每个 $\Curvesstack^{prestable}_g$ 由下列性质刻画：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{prestable}_g$ 分解；
+\item $X \to S$ 是预稳定曲线族，且 $R^1f_*\mathcal{O}_X$
+是秩为 $g$ 的局部自由 $\mathcal{O}_S$-模；
+\end{enumerate}
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{prestable}_g$ 分解；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，且 $X$ 的亏格为 $g$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们已经看到 $\Curvesstack^{prestable}$ 包含于
+$\Curvesstack^{h0, 1}$，故结论由引理
+\ref{moduli-curves-lemma-prestable-curves} 和
+\ref{moduli-curves-lemma-pre-genus-one-piece-per-genus} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-prestable-curves-smooth}
+态射 $\Curvesstack^{prestable} \to \Spec(\mathbf{Z})$ 和
+$\Curvesstack^{prestable}_g \to \Spec(\mathbf{Z})$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由于 $\Curvesstack^{prestable}$ 是 $\Curvesstack^{nodal}$ 的开子叠，
+结论由引理 \ref{moduli-curves-lemma-nodal-curves-smooth} 得出。
+\end{proof}
+
+\section{半稳定曲线}
+\label{moduli-curves-section-semistable-curves}
+
+\noindent
+下述引理将帮助我们理解半稳定曲线族。
+
+\begin{lemma}
+\label{moduli-curves-lemma-semistable}
+设 $f : X \to S$ 是亏格为 $g \geq 1$ 的预稳定曲线族。
+设 $s \in S$ 是基概形上的一点，并设 $m \geq 2$。下列条件等价：
+\begin{enumerate}
+\item $X_s$ 没有有理尾
+（《代数曲线》中的例 \ref{curves-example-rational-tail}）；
+\item 对某个开子集 $s \in U \subset S$，态射
+% P12-ERR-0279: see ../control/ERRATA_CANDIDATES.jsonl
+$f^*f_*\omega_{X/S}^{\otimes m} \to \omega_{X/S}^{\otimes m}$
+在 $f^{-1}(U)$ 上满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (2)。利用第 \ref{moduli-curves-section-relative-dualizing} 节的内容，
+可知 $\omega_{X_s}^{\otimes m}$ 整体生成。然而，若
+$C \subset X_s$ 是有理尾，则由《代数曲线》中的引理
+\ref{curves-lemma-rational-tail-negative}，有
+$\deg(\omega_{X_s}|_C) < 0$，故由《簇》中的引理
+\ref{varieties-lemma-check-invertible-sheaf-trivial}，有
+$H^0(C, \omega_{X_s}|_C) = 0$；这与它整体生成矛盾。
+这证明了 (1)。
+
+\medskip\noindent
+假设 (1)。先假设 $g \geq 2$。由《代数曲线》中的引理
+\ref{curves-lemma-contracting-rational-tails}，假设 (1) 蕴含
+$\omega_{X_s}^{\otimes m}$ 整体生成。此外，由对偶性，有
+$$
+\Hom_{\kappa(s)}(H^1(X_s, \omega_{X_s}^{\otimes m}), \kappa(s)) =
+H^0(X_s, \omega_{X_s}^{\otimes 1 - m})
+$$
+见《代数曲线》中的引理 \ref{curves-lemma-duality-dim-1-CM}。
+由于 $\omega_{X_s}^{\otimes m}$ 整体生成，它在每个不可约分支上的限制
+% P12-ERR-0280: see ../control/ERRATA_CANDIDATES.jsonl
+次数非负。因此，$\omega_{X_s}^{\otimes 1 - m}$ 在每个不可约分支上的
+限制次数非正。又由 Riemann--Roch（《代数曲线》中的引理
+\ref{curves-lemma-rr}），有
+$\deg(\omega_{X_s}^{\otimes 1 - m}) = (1 - m)(2g - 2) < 0$，
+故由《簇》中的引理 \ref{varieties-lemma-no-sections-dual-nef}，
+可知该 $H^0$ 为零。由上同调与基变换可知
+$$
+E = Rf_*\omega_{X/S}^{\otimes m}
+$$
+是完美复形，且其构造与任意基变换交换
+（《空间的导出范畴》中的引理
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}）。
+上面证明的消失说明 $E \otimes^\mathbf{L} \kappa(s)$ 等于置于次数 $0$
+的 $H^0(X_s, \omega_{X_s}^{\otimes m})$。缩小 $S$ 后可得，
+$E = f_*\omega_{X/S}^{\otimes m}$ 是置于次数 $0$ 的局部自由
+$\mathcal{O}_S$-模（而且如前所述，其构造与任意基变换交换）；见
+《空间的导出范畴》中的引理
+\ref{spaces-perfect-lemma-open-where-cohomology-in-degree-i-rank-r-geometric}。
+态射 $f^*f_*\omega_{X/S}^{\otimes m} \to \omega_{X/S}^{\otimes m}$
+限制到 $X_s$ 后满射。因此，它在 $X_s$ 的某个开邻域上满射。
+由于 $f$ 是真态射，该开邻域包含 $f^{-1}(U)$，其中 $U$
+是 $S$ 中 $s$ 的某个开邻域。
+
+\medskip\noindent
+假设 (1) 且 $g = 1$。由《代数曲线》中的引理
+\ref{curves-lemma-contracting-rational-tails}，假设 (1) 意味着
+$\omega_{X_s}$ 同构于 $\mathcal{O}_{X_s}$。若能证明缩小 $S$ 后
+% P12-ERR-0281: see ../control/ERRATA_CANDIDATES.jsonl
+可逆层 $\omega_{X/S}$ 变为平凡层，结论便成立。可以假设 $S$ 仿射。
+进一步缩小 $S$ 后，可以写成
+$$
+Rf_*\mathcal{O}_X = (\mathcal{O}_S \xrightarrow{0} \mathcal{O}_S)
+$$
+它位于次数 $0$ 和 $1$，且与进一步的基变换相容；见引理
+\ref{moduli-curves-lemma-genus}。由对偶性，这意味着
+$$
+Rf_*\omega_{X/S} = (\mathcal{O}_S \xrightarrow{0} \mathcal{O}_S)
+$$
+位于次数 $0$ 和 $1$\footnote{使用
+$Rf_*\omega_{X/S}^\bullet =
+% P12-ERR-0282: see ../control/ERRATA_CANDIDATES.jsonl
+Rf_*R\SheafHom_{\mathcal{O}_X}(\mathcal{O}_X. \omega_{X/S}^\bullet) =
+R\SheafHom_{\mathcal{O}_S}(Rf_*\mathcal{O}_X, \mathcal{O}_S)$；
+这由《空间的对偶性》中的引理
+\ref{spaces-duality-lemma-iso-on-RSheafHom} 和注
+\ref{spaces-duality-remark-iso-on-RSheafHom} 得出；然后再使用由第
+\ref{moduli-curves-section-relative-dualizing} 节中的定义得到的
+$\omega_{X/S}^\bullet = \omega_{X/S}[1]$。}。
+特别地，可以得到与基变换相容的同构
+$\mathcal{O}_S \to f_*\omega_{X/S}$，因为
+$Rf_*\omega_{X/S}$ 的构造与基变换相容（见上面给出的参考）。
+由伴随性，得到整体截面 $\sigma \in \Gamma(X, \omega_{X/S})$。
+该截面在纤维 $X_s$ 上的限制非零（事实上是一个基元素）；而且由于
+$\omega_{X_s}$ 在该纤维上平凡，该截面在 $X_s$ 上处处非零。
+% P12-ERR-0283: see ../control/ERRATA_CANDIDATES.jsonl
+% P12-ERR-0284: see ../control/ERRATA_CANDIDATES.jsonl
+因此，它在 $X_s$ 的某个开邻域上处处非零。由于 $f$ 是真态射，
+该开邻域包含 $f^{-1}(U)$，其中 $U$ 是 $S$ 中 $s$ 的某个开邻域。
+\end{proof}
+
+\noindent
+受引理 \ref{moduli-curves-lemma-semistable} 启发，我们作如下定义。
+
+\begin{definition}
+\label{moduli-curves-definition-semistable}
+设 $f : X \to S$ 是曲线族。若
+\begin{enumerate}
+\item $X \to S$ 是预稳定曲线族；并且
+\item 对所有 $s \in S$，$X_s$ 的亏格均为 $\geq 1$，且没有有理尾，
+\end{enumerate}
+则称 $f$ 是一个{\it 半稳定曲线族}。
+\end{definition}
+
+\noindent
+特别地，亏格为 $0$ 的预稳定曲线族绝不半稳定。
+设 $X$ 是域 $k$ 上的真概形，且 $\dim(X) \leq 1$。
+则 $X \to \Spec(k)$ 是曲线族，因而可以问它是否半稳定。
+展开定义可见，下列条件等价：
+\begin{enumerate}
+\item $X$ 半稳定；
+\item $X$ 预稳定，亏格为 $\geq 1$，且没有有理尾；
+\item $X_{\overline{k}}$ 连通，除有限多个结点外在 $\overline{k}$ 上光滑，
+亏格为 $\geq 1$，并且没有同构于 $\mathbf{P}^1_{\overline{k}}$
+且仅在一点与 $X_{\overline{k}}$ 的其余部分相交的不可约分支。
+\end{enumerate}
+要看出 (2) 与 (3) 等价，使用《代数曲线》中的引理
+\ref{curves-lemma-contracting-rational-tails}：$X$ 没有有理尾，
+当且仅当 $X_{\overline{k}}$ 没有有理尾。
+这说明我们的定义与文献中的大多数定义一致。
+
+\begin{lemma}
+\label{moduli-curves-lemma-semistable-curves}
+% P12-ERR-0285: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{semistable} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{semistable}$ 分解；
+\item $X \to S$ 是半稳定曲线族；
+\end{enumerate}
+% P12-ERR-0286: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{semistable}$ 分解；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为 $\geq 1$，且
+$X$ 没有有理尾；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，而且对 $m \geq 2$，
+% P12-ERR-0287: see ../control/ERRATA_CANDIDATES.jsonl
+$\omega_{X_s}^{\otimes m}$ 整体生成。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2)(b) 与 (2)(c) 的等价性是《代数曲线》中的引理
+\ref{curves-lemma-contracting-rational-tails}。
+在证明的其余部分，我们将按照定义 \ref{moduli-curves-definition-semistable} 使用 (2)(b)。
+
+\medskip\noindent
+由第 \ref{moduli-curves-section-open} 节的讨论，只需考虑预稳定曲线族
+$f : X \to S$。由引理 \ref{moduli-curves-lemma-semistable}，得到所求轨迹的开性。
+该开集的构造与任意基变换交换，因为由《代数曲线》中的引理
+\ref{curves-lemma-contracting-rational-tails}，有理尾的存在或不存在
+不受基域扩张影响。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-semistable-one-piece-per-genus}
+存在开闭子叠的分解
+$$
+\Curvesstack^{semistable} = \coprod\nolimits_{g \geq 1}
+\Curvesstack^{semistable}_g
+$$
+其中每个 $\Curvesstack^{semistable}_g$ 由下列性质刻画：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\Curvesstack^{semistable}_g$ 分解；
+\item $X \to S$ 是半稳定曲线族，且 $R^1f_*\mathcal{O}_X$
+是秩为 $g$ 的局部自由 $\mathcal{O}_S$-模；
+\end{enumerate}
+% P12-ERR-0288: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{semistable}_g$ 分解；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为 $g$，且 $X$ 没有有理尾；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为 $g$，而且对 $m \geq 2$，
+% P12-ERR-0289: see ../control/ERRATA_CANDIDATES.jsonl
+$\omega_{X_s}^{\otimes m}$ 整体生成。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{moduli-curves-lemma-semistable-curves} 和
+\ref{moduli-curves-lemma-prestable-one-piece-per-genus} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-semistable-curves-smooth}
+态射 $\Curvesstack^{semistable} \to \Spec(\mathbf{Z})$ 和
+$\Curvesstack^{semistable}_g \to \Spec(\mathbf{Z})$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由于 $\Curvesstack^{semistable}$ 是 $\Curvesstack^{nodal}$ 的开子叠，
+结论由引理 \ref{moduli-curves-lemma-nodal-curves-smooth} 得出。
+\end{proof}
+
+\section{稳定曲线}
+\label{moduli-curves-section-stable-curves}
+
+\noindent
+下述引理将帮助我们理解稳定曲线族。
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable}
+设 $f : X \to S$ 是亏格为 $g \geq 2$ 的预稳定曲线族，
+并设 $s \in S$ 是基概形上的一点。下列条件等价：
+\begin{enumerate}
+\item $X_s$ 没有有理尾，也没有有理桥
+（《代数曲线》中的例 \ref{curves-example-rational-tail} 和
+\ref{curves-example-rational-bridge}）；
+\item 对某个开子集 $s \in U \subset S$，$\omega_{X/S}$
+在 $f^{-1}(U)$ 上丰沛。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (2)。则 $\omega_{X_s}$ 在 $X_s$ 上丰沛。
+由《代数曲线》中的引理 \ref{curves-lemma-rational-tail-negative} 和
+\ref{curves-lemma-rational-bridge-zero}，可知 (1) 成立
+（还使用《簇》中的引理
+\ref{varieties-lemma-ampleness-in-terms-of-degrees-components}
+对丰沛可逆层的刻画）。
+
+\medskip\noindent
+假设 (1)。则由《代数曲线》中的引理
+% P12-ERR-0290: see ../control/ERRATA_CANDIDATES.jsonl
+\ref{curves-lemma-contracting-rational-bridges}，$\omega_{X_s}$
+在 $X_s$ 上丰沛。结论由《空间的下降》中的引理
+\ref{spaces-descent-lemma-ample-in-neighbourhood} 得出。
+\end{proof}
+
+\noindent
+受引理 \ref{moduli-curves-lemma-stable} 启发，我们作如下定义。
+
+\begin{definition}
+\label{moduli-curves-definition-stable}
+设 $f : X \to S$ 是曲线族。若
+\begin{enumerate}
+\item $X \to S$ 是预稳定曲线族；并且
+% P12-ERR-0291: see ../control/ERRATA_CANDIDATES.jsonl
+\item 对所有 $s \in S$，$X_s$ 的亏格均为 $\geq 2$，
+且没有有理尾或有理桥，
+\end{enumerate}
+则称 $f$ 是一个{\it 稳定曲线族}。
+\end{definition}
+
+\noindent
+特别地，亏格为 $0$ 或 $1$ 的预稳定曲线族绝不稳定。
+设 $X$ 是域 $k$ 上的真概形，且 $\dim(X) \leq 1$。
+则 $X \to \Spec(k)$ 是曲线族，因而可以问它是否稳定。
+展开定义可见，下列条件等价：
+\begin{enumerate}
+\item $X$ 稳定；
+\item $X$ 预稳定，亏格为 $\geq 2$，没有有理尾，也没有有理桥；
+\item $X$ 几何连通，除有限多个结点外在 $k$ 上光滑，且
+$\omega_X$ 丰沛。
+\end{enumerate}
+要看出 (2) 与 (3) 等价，使用上面的引理 \ref{moduli-curves-lemma-stable}。
+这说明我们的定义与文献中的大多数定义一致。
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-curves}
+% P12-ERR-0292: see ../control/ERRATA_CANDIDATES.jsonl
+存在开子叠 $\Curvesstack^{stable} \subset \Curvesstack$，使得：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经 $\Curvesstack^{stable}$ 分解；
+\item $X \to S$ 是稳定曲线族；
+\end{enumerate}
+% P12-ERR-0293: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\Curvesstack^{stable}$ 分解；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为 $\geq 2$，
+且 $X$ 没有有理尾或有理桥；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，且
+% P12-ERR-0294: see ../control/ERRATA_CANDIDATES.jsonl
+$\omega_{X_s}$ 丰沛。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由第 \ref{moduli-curves-section-open} 节的讨论，只需考虑预稳定曲线族
+$f : X \to S$。由引理 \ref{moduli-curves-lemma-stable}，得到所求轨迹的开性。
+该开集的构造与任意基变换交换：一方面，由《代数曲线》中的引理
+\ref{curves-lemma-contracting-rational-tails} 和
+\ref{curves-lemma-contracting-rational-bridges}，有理尾或有理桥的
+存在或不存在不受基域扩张影响；另一方面，由《下降》中的引理
+\ref{descent-lemma-descending-property-ample}，丰沛性也不受基域扩张影响。
+\end{proof}
+
+\begin{definition}
+\label{moduli-curves-definition-deligne-mumford}
+\begin{reference}
+\cite{DM}
+\end{reference}
+% P12-ERR-0295: see ../control/ERRATA_CANDIDATES.jsonl
+我们用 $\overline{\mathcal{M}}$ 表示引理 \ref{moduli-curves-lemma-stable-curves}
+中引入的、参数化稳定曲线族的代数叠 $\Curvesstack^{stable}$，
+并称它为{\it 稳定曲线模叠}。对 $g \geq 2$，我们用
+$\overline{\mathcal{M}}_g$ 表示引理
+\ref{moduli-curves-lemma-stable-one-piece-per-genus} 中引入的代数叠，
+并称它为{\it 亏格为 $g$ 的稳定曲线模叠}。
+\end{definition}
+
+\noindent
+下面是必不可少的引理。
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-one-piece-per-genus}
+存在开闭子叠的分解
+$$
+\overline{\mathcal{M}} = \coprod\nolimits_{g \geq 2} \overline{\mathcal{M}}_g
+$$
+其中每个 $\overline{\mathcal{M}}_g$ 由下列性质刻画：
+\begin{enumerate}
+\item 给定曲线族 $f : X \to S$，下列条件等价：
+\begin{enumerate}
+\item 分类态射 $S \to \Curvesstack$ 经
+$\overline{\mathcal{M}}_g$ 分解；
+\item $X \to S$ 是稳定曲线族，且 $R^1f_*\mathcal{O}_X$
+是秩为 $g$ 的局部自由 $\mathcal{O}_S$-模；
+\end{enumerate}
+% P12-ERR-0296: see ../control/ERRATA_CANDIDATES.jsonl
+\item 给定域 $k$ 上的真概形 $X$，且 $\dim(X) \leq 1$，
+下列条件等价：
+\begin{enumerate}
+\item 分类态射 $\Spec(k) \to \Curvesstack$ 经
+$\overline{\mathcal{M}}_g$ 分解；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为 $g$，且
+$X$ 没有有理尾或有理桥；
+\item $X$ 的奇点至多为结点，$\dim(X) = 1$，
+$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为 $g$，且
+% P12-ERR-0297: see ../control/ERRATA_CANDIDATES.jsonl
+$\omega_{X_s}$ 丰沛。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{moduli-curves-lemma-stable-curves} 和
+\ref{moduli-curves-lemma-prestable-one-piece-per-genus} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-curves-smooth}
+态射 $\overline{\mathcal{M}} \to \Spec(\mathbf{Z})$ 和
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由于 $\overline{\mathcal{M}}$ 是 $\Curvesstack^{nodal}$ 的开子叠，
+结论由引理 \ref{moduli-curves-lemma-nodal-curves-smooth} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-curves-deligne-mumford}
+叠 $\overline{\mathcal{M}}$ 和 $\overline{\mathcal{M}}_g$
+是 $\Curvesstack^{DM}$ 的开子叠。特别地，
+$\overline{\mathcal{M}}$ 和 $\overline{\mathcal{M}}_g$ 既是 DM 叠
+（《叠的态射》中的定义
+\ref{stacks-morphisms-definition-absolute-separated}），
+也是 Deligne--Mumford 叠
+（《代数叠》中的定义 \ref{algebraic-definition-deligne-mumford}）。
+\end{lemma}
+
+\begin{proof}
+先证第一个断言。设 $X$ 是域 $k$ 上的真概形，其奇点至多为结点，
+$\dim(X) = 1$，$k = H^0(X, \mathcal{O}_X)$，$X$ 的亏格为
+$\geq 2$，而且 $X$ 没有有理尾或有理桥。需要证明分类态射
+$\Spec(k) \to \overline{\mathcal{M}} \to \Curvesstack$
+经 $\Curvesstack^{DM}$ 分解。可以先用代数闭包替换 $k$
+（因为已经知道相关的叠是代数叠 $\Curvesstack$ 的开子叠）。
+由引理 \ref{moduli-curves-lemma-stable-curves}、\ref{moduli-curves-lemma-DM-curves} 和
+\ref{moduli-curves-lemma-in-DM-locus-vector-fields}，只需证明
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$。
+这已在《代数曲线》中的引理
+\ref{curves-lemma-stable-vector-fields} 中证明。
+
+\medskip\noindent
+由于 $\Curvesstack^{DM}$ 是 $\Curvesstack$ 中为 DM 的最大开子叠，
+可知 $\Curvesstack^{DM}$ 的开子叠 $\overline{\mathcal{M}}$
+也具有此性质。最后，由《叠的态射》中的定理
+\ref{stacks-morphisms-theorem-DM}，DM 代数叠是 Deligne--Mumford 叠。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-smooth-dense-in-stable}
+设 $g \geq 2$。包含关系
+$$
+|\mathcal{M}_g| \subset |\overline{\mathcal{M}}_g|
+$$
+把左边实现为右边的开稠密子集。
+\end{lemma}
+
+\begin{proof}
+由于 $\overline{\mathcal{M}}_g \subset \Curvesstack^{lci+}$ 是开的，
+且 $\Curvesstack^{smooth} \cap \overline{\mathcal{M}}_g = \mathcal{M}_g$，
+结论立即由引理 \ref{moduli-curves-lemma-smooth-dense} 得出。
+\end{proof}
+
+\section{收缩态射}
+\label{moduli-curves-section-contracting}
+
+\noindent
+我们建议读者在继续本节之前，先熟悉《代数曲线》中的第
+\ref{curves-section-contracting-rational-tails}、
+\ref{curves-section-contracting-rational-bridges} 和
+\ref{curves-section-contracting-to-stable} 节。本节的主要结果是“稳定化”态射
+$$
+\Curvesstack^{prestable}_g
+\longrightarrow
+\overline{\mathcal{M}}_g
+$$
+的存在性；见引理 \ref{moduli-curves-lemma-stabilization-morphism}。粗略地说，
+该态射把亏格为 $g$ 的结点曲线的模点送到相伴稳定曲线的模点；
+后者构造于《代数曲线》中的引理
+\ref{curves-lemma-characterize-contraction-to-stable}。
+
+\begin{lemma}
+\label{moduli-curves-lemma-contract}
+设 $S$ 是概形，$s \in S$ 是一点。设 $f : X \to S$ 和
+$g : Y \to S$ 是曲线族，并设 $c : X \to Y$ 是 $S$ 上的态射。
+若 $c_{s, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_s}$ 且
+$R^1c_{s, *}\mathcal{O}_{X_s} = 0$，则以 $s$ 的一个开邻域替换 $S$ 后，
+有 $\mathcal{O}_Y = c_*\mathcal{O}_X$ 和
+$R^1c_*\mathcal{O}_X = 0$，而且经任意态射 $S' \to S$ 基变换后
+这些等式仍成立。
+\end{lemma}
+
+\begin{proof}
+设 $(U, u) \to (S, s)$ 是一个 \'etale 邻域，使得
+$\mathcal{O}_{Y_U} = (X_U \to Y_U)_*\mathcal{O}_{X_U}$ 且
+$R^1(X_U \to Y_U)_*\mathcal{O}_{X_U} = 0$，并且经任意
+$U' \to U$ 基变换后也有相同结论。然后用 $U \to S$ 的开像替换 $S$。
+给定 $S' \to S$，置 $U' = U \times_S S'$，便得到 \'etale 覆盖
+$\{U' \to S'\}$ 和 $\{Y_{U'} \to Y_{S'}\}$。
+因此，$c$ 经 $S' \to S$ 基变换后命题成立，可由
+$X_U \to Y_U$ 经 $U' \to U$ 基变换后命题成立推出。
+换言之，该问题在 $S$ 的 \'etale 拓扑下是局部的。
+因此，由引理 \ref{moduli-curves-lemma-etale-locally-scheme}，可以假设 $X$ 和 $Y$
+是概形。由《态射进阶》中的引理
+\ref{more-morphisms-lemma-h1-fibre-zero-isom}，存在包含 $Y_s$
+的开子概形 $V \subset Y$，使得
+$c_*\mathcal{O}_X|_V = \mathcal{O}_V$ 且
+$R^1c_*\mathcal{O}_X|_V = 0$，并且经任意 $S' \to S$ 基变换后
+这些等式仍成立。由于 $g : Y \to S$ 是真态射，可以找到 $s$
+的开邻域 $U \subset S$，使得 $g^{-1}(U) \subset V$。这个 $U$ 即可。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-contract-basic-uniqueness}
+设 $S$ 是概形，$s \in S$ 是一点。设 $f : X \to S$ 和
+$g_i : Y_i \to S$（$i = 1, 2$）是曲线族，并设
+$c_i : X \to Y_i$ 是 $S$ 上的态射。假设存在与 $c_{1, s}$ 和
+$c_{2, s}$ 相容的纤维同构 $Y_{1, s} \cong Y_{2, s}$。
+若 $c_{1, s, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_{1, s}}$ 且
+$R^1c_{1, s, *}\mathcal{O}_{X_s} = 0$，则存在 $s$ 的开邻域 $U$
+以及 $U$ 上曲线族的同构 $Y_{1, U} \cong Y_{2, U}$；该同构与给定的
+纤维同构以及 $c_1$、$c_2$ 相容。
+\end{lemma}
+
+\begin{proof}
+回顾 $\mathcal{O}_{S, s} = \colim \mathcal{O}_S(U)$，其中余极限取遍
+$s$ 的仿射邻域 $U$ 所成的系统。因此，局部环上有限表示代数空间的范畴
+是 $s$ 的仿射邻域上有限表示代数空间范畴的余极限。见《空间的极限》中的引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。
+这样便归约到 $S$ 是某个局部环的谱且 $s$ 是闭点的情形。
+
+\medskip\noindent
+假设 $S = \Spec(A)$，其中 $A$ 是局部环，$s$ 是闭点。
+将 $A = \colim A_j$ 写成局部 Noether 环 $A_j$ 的余极限
+（例如可取在 $\mathbf{Z}$ 上本质有限型），其过渡同态均为局部同态。
+置 $S_j = \Spec(A_j)$，其闭点为 $s_j$。可以找到一个 $j$ 以及曲线族
+$X_j \to S_j$、$Y_{j, i} \to S_j$；见引理
+\ref{moduli-curves-lemma-curves-qs-lfp} 和《叠的极限》中的引理
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}。
+必要时增大 $j$，可以找到态射 $c_{j, i} : X_j \to Y_{j, i}$，
+其到 $s$ 的基变换为 $c_i$；见《空间的极限》中的引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。
+由于 $\kappa(s) = \colim \kappa(s_j)$，同样可以假设存在与
+$c_{j, 1, s_j}$ 和 $c_{j, 2, s_j}$ 相容的同构
+$Y_{j, 1, s_j} \cong Y_{j, 2, s_j}$。最后，假设
+$c_{1, s, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_{1, s}}$ 和
+$R^1c_{1, s, *}\mathcal{O}_{X_s} = 0$ 可由 $c_{j, 1, s_j}$ 继承，因为
+% P12-ERR-0298: see ../control/ERRATA_CANDIDATES.jsonl
+$\{s_j \to s\}$ 是 fpqc 覆盖，而 $c_{1, s}$ 是
+$c_{j, 1, s_j}$ 经该覆盖的基变换（细节略去）。
+这样便把引理归约到下一段所讨论的情形。
+
+\medskip\noindent
+假设 $S$ 是 Noether 局部环 $\Lambda$ 的谱，$s$ 是闭点。
+考虑态射
+$$
+(c_1, c_2) : X \longrightarrow Y_1 \times_S Y_2
+$$
+的概形论像 $Z$。引理的陈述等价于断言：$Z$ 经投影态射同构地映到
+$Y_1$ 和 $Y_2$。由于取该态射的概形论像与平坦基变换交换
+% P12-ERR-0299: see ../control/ERRATA_CANDIDATES.jsonl
+（《空间的态射》中的引理
+\ref{spaces-morphisms-lemma-flat-base-change-scheme-theoretic-image}，
+可以用 $\Lambda$ 的完备化替换它
+（《代数进阶》中的第 \ref{more-algebra-section-permanence-completion} 节）。
+
+\medskip\noindent
+假设 $S$ 是完备 Noether 局部环 $\Lambda$ 的谱。
+注意，此时 $X$、$Y_1$、$Y_2$ 都是概形
+（《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-projective-over-complete}）。
+% P12-ERR-0300: see ../control/ERRATA_CANDIDATES.jsonl
+用 $X_n$、$Y_{1, n}$、$Y_{2, n}$ 表示 $X$、$Y_1$、$Y_2$
+到 $\Spec(\Lambda/\mathfrak m^{n + 1})$ 的基变换。回顾箭头
+$$
+\Deformationcategory_{X_s \to Y_{2, s}} \cong
+\Deformationcategory_{X_s \to Y_{1, s}} \longrightarrow
+\Deformationcategory_{X_s}
+$$
+是等价；见《形变问题》中的引理
+\ref{examples-defos-lemma-schemes-morphisms-smooth-to-base}。
+因此，在 $\Deformationcategory_{X_s \to Y_{1, s}}$ 中存在形式对象的同构
+$(X_n \to Y_{1, n}) \cong (X_n \to Y_{2, n})$。
+最后，由 Grothendieck 代数化定理（《概形的上同调》中的引理
+\ref{coherent-lemma-algebraize-morphism}），这给出与 $c_1$ 和 $c_2$
+相容的同构 $Y_1 \to Y_2$。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-contract-basic}
+设 $f : X \to S$ 是曲线族，$s \in S$ 是一点。设
+$h_0 : X_s \to Y_0$ 是到 $\kappa(s)$ 上真概形 $Y_0$ 的态射，
+满足 $h_{0, *}\mathcal{O}_{X_s} = \mathcal{O}_{Y_0}$ 且
+$R^1h_{0, *}\mathcal{O}_{X_s} = 0$。则存在基本 \'etale 邻域
+$(U, u) \to (S, s)$、曲线族 $Y \to U$ 以及 $U$ 上的态射
+$h : X_U \to Y$，使得它在 $u$ 上的纤维同构于 $h_0$。
+\end{lemma}
+
+\begin{proof}
+先作一些归约；建议读者跳到后面。该问题在 $S$ 上是局部的，
+故可以假设 $S$ 仿射。将 $S = \lim S_i$ 写成在 $\mathbf{Z}$ 上
+有限型仿射概形 $S_i$ 的余滤极限。对某个 $i$，可以找到曲线族
+$X_i \to S_i$，其基变换为 $X \to S$。这由引理
+\ref{moduli-curves-lemma-curves-qs-lfp} 和《叠的极限》中的引理
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving} 得出。
+设 $s_i \in S_i$ 是 $s$ 的像。注意
+$\kappa(s) = \colim \kappa(s_i)$，而且 $X_s$ 是概形
+（《域上的空间》中的引理
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}）。
+增大 $i$ 后，可以假设存在 $\kappa(s_i)$ 上有限型概形之间的态射
+$h_{i, 0} : X_{i, s_i} \to Y_i$，其到 $\kappa(s)$ 的基变换为 $h_0$；
+见《极限》中的引理 \ref{limits-lemma-descend-finite-presentation}。
+再次增大 $i$ 后，可以假设 $Y_i$ 在 $\kappa(s_i)$ 上为真；
+见《极限》中的引理 \ref{limits-lemma-eventually-proper}。
+% P12-ERR-0301: see ../control/ERRATA_CANDIDATES.jsonl
+设 $g_{i, 0} : Y_0 \to Y_{i, 0}$ 为投影。注意，它作为
+$\Spec(\kappa(s)) \to \Spec(\kappa(s_i))$ 的基变换，是忠实平坦态射。
+由平坦基变换，有
+$$
+h_{0, *}\mathcal{O}_{X_s} = g_{i, 0}^*h_{i, 0, *}\mathcal{O}_{X_{i, s_i}}
+\quad\text{且}\quad
+% P12-ERR-0302: see ../control/ERRATA_CANDIDATES.jsonl
+R^1h_{0, *}\mathcal{O}_{X_s} = g_{i, 0}^*Rh_{i, 0, *}\mathcal{O}_{X_{i, s_i}}
+$$
+见《概形的上同调》中的引理
+\ref{coherent-lemma-flat-base-change-cohomology}。
+由忠实平坦性可知，$X_i \to S_i$、$s_i \in S_i$ 和
+% P12-ERR-0303: see ../control/ERRATA_CANDIDATES.jsonl
+$X_{i, s_i} \to Y_i$ 满足该引理的全部假设。
+这便归约到下一段所讨论的情形。
+
+\medskip\noindent
+假设 $S$ 在 $\mathbf{Z}$ 上仿射且有限型。设
+$\mathcal{O}_{S, s}^h$ 是 $S$ 在 $s$ 处局部环的 Hensel 化。
+由《代数进阶》中的引理 \ref{more-algebra-lemma-henselization-G-ring}
+和命题 \ref{more-algebra-proposition-ubiquity-G-ring}，
+$\mathcal{O}_{S, s}^h$ 是 G-环。假设能够构造曲线族
+$Y' \to \Spec(\mathcal{O}_{S, s}^h)$ 以及
+$\Spec(\mathcal{O}_{S, s}^h)$ 上的态射
+$$
+h' : X \times_S \Spec(\mathcal{O}_{S, s}^h) \longrightarrow Y'
+$$
+其到闭点的基变换为 $h_0$。这已经足够。事实上，首先使用
+$$
+\mathcal{O}_{S, s}^h = \colim_{(U, u)} \mathcal{O}_U(U)
+$$
+其中余极限取遍基本 \'etale 邻域所成的滤过范畴
+（《态射进阶》中的引理
+\ref{more-morphisms-lemma-describe-henselization}）。
+其次，再次使用如下事实：给定 $Y'$ 后，可以把它下降为某个 $U$ 上的
+$Y \to U$（见上面给出的参考）。然后使用《极限》中的引理
+\ref{limits-lemma-descend-finite-presentation}，把 $h'$ 下降为某个 $h$。
+这便归约到下一段所讨论的情形。
+
+\medskip\noindent
+假设 $S = \Spec(\Lambda)$，其中
+$(\Lambda, \mathfrak m, \kappa)$ 是 Hensel Noether 局部 G-环，
+而 $s$ 是 $S$ 的闭点。回顾映射
+$$
+\Deformationcategory_{X_s \to Y_0} \to \Deformationcategory_{X_s}
+$$
+是等价；见《形变问题》中的引理
+\ref{examples-defos-lemma-schemes-morphisms-smooth-to-base}。
+（这是证明中唯一重要的一步；其余全是技巧。）
+% P12-ERR-0304: see ../control/ERRATA_CANDIDATES.jsonl
+用 $\Lambda^\wedge$ 表示 $\mathfrak m$-进完备化。
+$X$ 到 $\Lambda/\mathfrak m^{n + 1}$ 的拉回 $X_n$
+在 $\Lambda^\wedge$ 上定义了 $\Deformationcategory_{X_s}$ 的形式对象
+$\xi$。由上述等价，得到 $\Lambda^\wedge$ 上
+$\Deformationcategory_{X_s \to Y_0}$ 的形式对象 $\xi'$。
+因此得到一个巨大的交换图
+$$
+\xymatrix{
+\ldots \ar[r] &
+X_n \ar[r] \ar[d] &
+X_{n - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+X_s \ar[d] \\
+\ldots \ar[r] &
+Y_n \ar[r] \ar[d] &
+Y_{n - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+Y_0 \ar[d] \\
+\ldots \ar[r] &
+\Spec(\Lambda/\mathfrak m^{n + 1}) \ar[r] &
+\Spec(\Lambda/\mathfrak m^n) \ar[r] &
+\ldots \ar[r] &
+\Spec(\kappa)
+}
+$$
+由《Quot》中的引理 \ref{quot-lemma-curves-existence}，
+形式对象 $(Y_n)$ 来自曲线族 $Y' \to \Spec(\Lambda^\wedge)$。
+由《空间的态射进阶》中的引理
+\ref{spaces-more-morphisms-lemma-algebraize-morphism}，得到态射
+$h' : X_{\Lambda^\wedge} \to Y'$，它对所有 $n$ 都诱导给定态射
+$X_n \to Y_n$，特别地诱导给定态射 $X_s \to Y_0$。
+
+\medskip\noindent
+最后作一个标准的代数化/逼近论证。首先注意，可以找到有限生成
+$\Lambda$-子代数 $\Lambda \subset A \subset \Lambda^\wedge$、
+曲线族 $Y'' \to \Spec(A)$ 以及 $A$ 上的态射
+$h'' : X_A \to Y''$，其到 $\Lambda^\wedge$ 的基变换为 $h'$。
+这是因为 $\Lambda^\wedge$ 是这些环 $A$ 的滤过余极限；可以像前面那样，
+利用 $\Curvesstack$ 局部有限表示这一事实（由《叠的极限》中的引理
+\ref{stacks-limits-lemma-representable-by-spaces-limit-preserving}
+得到 $A$ 上的 $Y''$），并使用《空间的极限》中的引理
+\ref{spaces-limits-lemma-descend-finite-presentation}，
+把 $h'$ 下降为某个 $h''$。然后，可以使用 G-环的逼近性质
+（采用《环同态的光滑化》中的定理
+\ref{smoothing-theorem-approximation-property} 的形式），
+找到映射 $A \to \Lambda$，它所诱导的 $A \to \kappa$
+与 $A \to \Lambda^\wedge$ 所诱导的映射相同。
+把 $h''$ 基变换到 $\Lambda$，证明即告完成。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-contract-prestable-to-stable}
+设 $f : X \to S$ 是亏格为 $g \geq 2$ 的预稳定曲线族。
+$f$ 存在分解 $X \to Y \to S$，其中
+% P12-ERR-0305: see ../control/ERRATA_CANDIDATES.jsonl
+$g : Y \to S$ 是稳定曲线族，而 $c : X \to Y$ 具有下列性质：
+\begin{enumerate}
+\item $\mathcal{O}_Y = c_*\mathcal{O}_X$ 且
+$R^1c_*\mathcal{O}_X = 0$，并且经任意态射 $S' \to S$
+基变换后这些等式仍成立；
+\item 对任意 $s \in S$，态射 $c_s : X_s \to Y_s$ 是
+《代数曲线》中的第 \ref{curves-section-contracting-to-stable} 节
+所讨论的有理尾和有理桥的收缩。
+\end{enumerate}
+此外，$c : X \to Y$ 在唯一同构意义下唯一。
+\end{lemma}
+
+\begin{proof}
+设 $s \in S$。令 $c_0 : X_s \to Y_0$ 为《代数曲线》中的第
+\ref{curves-section-contracting-to-stable} 节的收缩
+（更精确地说，见《代数曲线》中的引理
+\ref{curves-lemma-characterize-contraction-to-stable}）。
+由引理 \ref{moduli-curves-lemma-contract-basic}，存在基本 \'etale 邻域
+$(U, u)$ 以及 $U$ 上曲线族之间的态射 $c : X_U \to Y$，
+其在 $u$ 处的纤维恢复 $c_0$。由于 $\omega_{Y_0}$ 丰沛，
+必要时缩小 $U$ 后，由引理 \ref{moduli-curves-lemma-stable-curves} 和
+\ref{moduli-curves-lemma-stable-one-piece-per-genus} 所蕴含的开性可知，
+$Y \to U$ 是亏格为 $g$ 的稳定曲线族。必要时再次缩小 $U$ 后，
+引理 \ref{moduli-curves-lemma-contract} 给出 $c : X_U \to Y$ 的断言 (1)。
+此外，(2) 由《代数曲线》中的引理
+\ref{curves-lemma-characterize-contraction-to-stable} 的唯一性成立。
+由此可知，引理中的态射 $c$ 在 $S$ 上 \'etale 局部存在。
+更精确地，存在 \'etale 覆盖 $\{U_i \to S\}$ 以及 $U_i$ 上的态射
+$c_i : X_{U_i} \to Y_i$，其中 $Y_i \to U_i$ 是具有引理中性质
+(1) 和 (2) 的稳定曲线族。
+
+\medskip\noindent
+为完成证明，只需证明 $c : X \to Y$ 的唯一性（在唯一同构意义下）。
+事实上，一旦完成这一步，便得到同构
+% P12-ERR-0306: see ../control/ERRATA_CANDIDATES.jsonl
+$$
+\varphi_{ij} :
+Y_i \times_{U_i} (U_i \times_S U_j)
+\longrightarrow
+Y_i \times_{U_j} (U_i \times_S U_j)
+$$
+% P12-ERR-0307: see ../control/ERRATA_CANDIDATES.jsonl
+它们在 $U_i \times U_j \times U_k$ 上满足上链条件（由唯一性）。
+% P12-ERR-0308: see ../control/ERRATA_CANDIDATES.jsonl
+由于 $\overline{\mathcal{M}_g}$ 是代数叠，下降数据有效，
+从而得到 $Y \to S$。态射 $c_i$ 下降为 $S$ 上的态射
+$c : X \to Y$。最后，$c$ 的性质 (1) 和 (2) 立即由 $c_i$
+的性质 (1) 和 (2) 得出。
+
+\medskip\noindent
+最后，若
+% P12-ERR-0309: see ../control/ERRATA_CANDIDATES.jsonl
+$c_1 : X \to Y_i$（$i = 1, 2$）是到 $S$ 上两个
+% P12-ERR-0310: see ../control/ERRATA_CANDIDATES.jsonl
+稳定曲线族的态射，并满足 (1) 和 (2)，则由引理
+\ref{moduli-curves-lemma-contract-basic-uniqueness}，至少在 $S$ 上局部，
+得到与 $c_1$ 和 $c_2$ 相容的态射 $Y_1 \to Y_2$。
+略去验证这些态射唯一的过程（提示：这由 $c_1$ 的概形论像是
+$Y_1$ 这一事实得出）。因此，这些局部给出的态射可以粘合，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-stabilization-morphism}
+设 $g \geq 2$。存在 $\mathbf{Z}$ 上代数叠之间的态射
+% P12-ERR-0311: see ../control/ERRATA_CANDIDATES.jsonl
+$$
+stabilization :
+\Curvesstack^{prestable}_g
+\longrightarrow
+\overline{\mathcal{M}}_g
+$$
+它把亏格为 $g$ 的预稳定曲线族 $X \to S$ 送到引理
+\ref{moduli-curves-lemma-contract-prestable-to-stable} 中与之相伴的稳定曲线族
+$Y \to S$。
+\end{lemma}
+
+\begin{proof}
+为说明这一点，只需检验引理
+\ref{moduli-curves-lemma-contract-prestable-to-stable} 的构造与基变换相容
+（也与同构相容，但这是立即的）；见《叠的性质》中的第
+\ref{stacks-properties-section-conventions} 节所引入的关于代数叠的
+（语言滥用）约定。为此，只需检验引理
+\ref{moduli-curves-lemma-contract-prestable-to-stable} 的性质 (1) 和 (2)
+在基变换下稳定。对 (1)，这立即清楚。对 (2)，一方面，
+《代数曲线》中的引理 \ref{curves-lemma-contracting-rational-tails} 和
+\ref{curves-lemma-contracting-rational-bridges} 的收缩在基域扩张下稳定；
+另一方面，《代数曲线》中的引理
+\ref{curves-lemma-characterize-contraction-to-stable}
+对纤维上态射的刻画条件在基域扩张下保持。因此 (2) 成立。
+\end{proof}
+
+\section{稳定约化定理}
+\label{moduli-curves-section-stable-reduction}
+
+\noindent
+在半稳定约化一章中，我们已经证明了著名的曲线半稳定约化定理。
+设 $K$ 是离散赋值环 $R$ 的分式域。设 $C$ 是 $K$ 上的射影光滑曲线，
+满足 $K = H^0(C, \mathcal{O}_C)$。按照《半稳定约化》中的定义
+\ref{models-definition-semistable}，若 $R$ 上存在泛纤维为 $C$
+的预稳定曲线族，或者 $C$ 在 $R$ 上的某个（等价地，任意）
+极小正则模型预稳定，则称 $C$ 具有{\it 半稳定约化}。
+本节将说明，对亏格为 $g \geq 2$ 的曲线，这也等价于稳定约化。
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-reduction}
+设 $R$ 是分式域为 $K$ 的离散赋值环。设 $C$ 是 $K$ 上亏格为
+$g \geq 2$ 的光滑射影曲线，满足 $K = H^0(C, \mathcal{O}_C)$。
+下列条件等价：
+\begin{enumerate}
+\item $C$ 具有半稳定约化
+（《半稳定约化》中的定义 \ref{models-definition-semistable}）；
+\item $R$ 上存在泛纤维为 $C$ 的稳定曲线族。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+稳定曲线族也是预稳定曲线族，故 (2) 蕴含 (1) 是立即的。
+反过来，给定 $R$ 上泛纤维为 $C$ 的预稳定曲线族，
+由引理 \ref{moduli-curves-lemma-contract-prestable-to-stable}，可以把它收缩成稳定曲线族。
+由于泛纤维已经稳定，该过程不改变泛纤维，证明完成。
+\end{proof}
+
+\noindent
+下述引理说明，引理 \ref{moduli-curves-lemma-stable-reduction} 所保证的 $R$
+上稳定曲线族在唯一同构意义下唯一。
+
+\begin{lemma}
+\label{moduli-curves-lemma-unique-stable-model}
+设 $R$ 是分式域为 $K$ 的离散赋值环。设 $C$ 是 $K$ 上亏格为 $g$
+的光滑真曲线，满足 $K = H^0(C, \mathcal{O}_C)$。
+若 $X$ 和 $X'$ 是 $C$ 的模型
+（《半稳定约化》中的第 \ref{models-section-models} 节），
+而且 $X$ 和 $X'$ 是 $R$ 上亏格为 $g$ 的稳定曲线族，
+则存在唯一的模型同构 $X \to X'$。
+\end{lemma}
+
+\begin{proof}
+设 $Y$ 是 $C$ 的极小模型。回顾 $Y$ 存在且唯一，
+并且在 $R$ 上是相对维数为 $1$、至多有结点奇性的态射；
+见《半稳定约化》中的命题
+\ref{models-proposition-exists-minimal-model} 以及引理
+\ref{models-lemma-minimal-model-unique} 和
+\ref{models-lemma-semistable}（后者适用是因为我们有 $X$）。
+存在收缩态射
+$$
+Y \longrightarrow Z
+$$
+使得 $Z$ 是 $R$ 上亏格为 $g$ 的稳定曲线族
+（引理 \ref{moduli-curves-lemma-contract-prestable-to-stable}）。我们断言，
+存在唯一的模型同构 $X \to Z$。由对称性，对 $X'$ 也有相同结论，
+从而完成证明。
+
+\medskip\noindent
+由《半稳定约化》中的引理
+\ref{models-lemma-blowup-at-worst-nodal}，存在序列
+$$
+X_m \to \ldots \to X_1 \to X_0 = X
+$$
+使得 $X_{i + 1} \to X_i$ 是 $X_i$ 的奇异闭点 $x_i$ 的吹起，
+$X_i \to \Spec(R)$ 是相对维数为 $1$、至多有结点奇性的态射，
+而 $X_m$ 正则。由《半稳定约化》中的引理
+\ref{models-lemma-pre-exists-minimal-model}，存在 $C$ 的真正则模型序列
+$$
+X_m = Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to Y_0 = Y
+$$
+使得每个态射都是第一类例外曲线的收缩\footnote{事实上，
+有 $X_m = Y$；即 $X_m$ 不含任何第一类例外曲线。
+我们鼓励读者仔细思考这一点，因为它会稍微简化证明。}。
+由《半稳定约化》中的引理
+\ref{models-lemma-blowdown-at-worst-nodal}，每个 $Y_i$
+在 $R$ 上都是相对维数为 $1$、至多有结点奇性的态射。
+为证明该断言，只需证明存在同构 $X \to Z$，它与态射
+$X_m \to X$ 和 $X_m = Y_n \to Y \to Z$ 相容。
+设 $s \in \Spec(R)$ 是闭点。由引理
+\ref{moduli-curves-lemma-contract-basic-uniqueness} 或引理
+\ref{moduli-curves-lemma-contract-prestable-to-stable}，问题归约为证明态射
+$X_{m, s} \to X_s$ 和 $X_{m, s} \to Z_s$
+都等于《代数曲线》中的引理
+\ref{curves-lemma-characterize-contraction-to-stable} 的典范态射。
+
+\medskip\noindent
+对 $\kappa(s)$ 上概形之间的态射 $c : U \to V$，若对
+$v \in V$ 有 $\dim(U_v) \leq 1$，并且
+$\mathcal{O}_V = c_*\mathcal{O}_U$、$R^1c_*\mathcal{O}_U = 0$，
+则称 $c$ 具有性质 (*)。该性质在复合下稳定。
+由于 $X_s$ 和 $Z_s$ 都是 $\kappa(s)$ 上亏格为 $g$ 的稳定曲线，
+只需证明态射 $Y_s \to Z_s$、$X_{i + 1, s} \to X_{i, s}$ 和
+% P12-ERR-0312: see ../control/ERRATA_CANDIDATES.jsonl
+$Y_{i + 1, s} \to Y_{i, s}$ 中的每一个都满足性质 (*)；见
+《代数曲线》中的引理
+\ref{curves-lemma-characterize-contraction-to-stable}。
+
+\medskip\noindent
+性质 (*) 对 $Y_s \to Z_s$ 由构造成立。
+
+\medskip\noindent
+态射 $c : X_{i + 1, s} \to X_{i, s}$ 构造并研究于
+《半稳定约化》中的引理
+\ref{models-lemma-blowup-at-worst-nodal} 的证明中。
+只需在 $X_{i, s}$ 上 \'etale 局部检验 (*)。
+因而只需对《半稳定约化》中的例 \ref{models-example-blowup}
+的态射“$X_1 \to X_0$”到 $R/\pi R$ 的基变换检验 (*)。
+把具体计算留给读者。
+
+\medskip\noindent
+态射 $c : Y_{i + 1, s} \to Y_{i, s}$ 是第一类例外曲线
+$E \subset Y_{i + 1}$ 的吹下的限制；也就是说，
+$b : Y_{i + 1} \to Y_i$ 是 $E$ 的收缩，也就是说，$b$ 是曲面
+$Y_i$ 上一个正则点的吹起
+（《曲面的解消》中的第 \ref{resolve-section-minus-one} 节）。
+于是 $\mathcal{O}_{Y_i} = b_*\mathcal{O}_{Y_{i + 1}}$ 且
+$R^1b_*\mathcal{O}_{Y_{i + 1}} = 0$；例如见《曲面的解消》中的引理
+\ref{resolve-lemma-cohomology-of-blowup}。
+由《态射进阶》中的引理
+\ref{more-morphisms-lemma-check-h1-fibre-zero}、
+\ref{more-morphisms-lemma-h1-fibre-zero} 和
+\ref{more-morphisms-lemma-h1-fibre-zero-check-h0-kappa}，可知
+$\mathcal{O}_{Y_{i, s}} = c_*\mathcal{O}_{Y_{i + 1, s}}$ 且
+$R^1c_*\mathcal{O}_{Y_{i + 1, s}} = 0$
+（最后一个引理只给出
+$\mathcal{O}_{Y_{i, s}} \to c_*\mathcal{O}_{Y_{i + 1, s}}$
+的满射性，但单射性容易由如下事实得出：$Y_{i, s}$ 约化，
+而 $c$ 只改变一个闭点上方的部分）。证明完成。
+\end{proof}
+
+\noindent
+由引理 \ref{moduli-curves-lemma-stable-reduction} 和《半稳定约化》中的定理
+\ref{models-theorem-semistable-reduction}，立即得到稳定约化定理。
+
+\begin{theorem}
+\label{moduli-curves-theorem-stable-reduction}
+\begin{reference}
+\cite[Corollary 2.7]{DM}
+\end{reference}
+设 $R$ 是分式域为 $K$ 的离散赋值环。设 $C$ 是 $K$ 上亏格为
+$g \geq 2$ 的光滑射影曲线，满足 $H^0(C, \mathcal{O}_C) = K$。则：
+\begin{enumerate}
+\item 存在离散赋值环扩张 $R \subset R'$，它诱导分式域的有限可分扩张
+$K'/K$；并且存在该环上亏格为 $g$ 的稳定曲线族
+$Y \to \Spec(R')$，满足在 $K'$ 上
+$Y_{K'} \cong C_{K'}$；
+\item 存在有限可分扩张 $L/K$ 以及亏格为 $g$ 的稳定曲线族
+$Y \to \Spec(A)$，其中 $A \subset L$ 是 $R$ 在 $L$ 中的整闭包，
+并且在 $L$ 上有 $Y_L \cong C_L$。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) 立即由引理 \ref{moduli-curves-lemma-stable-reduction} 和《半稳定约化》中的定理
+\ref{models-theorem-semistable-reduction} 得出。
+
+\medskip\noindent
+证明 (2)。设 $L/K$ 是《半稳定约化》中的定理
+\ref{models-theorem-semistable-reduction} 第 (3) 部分所得的有限可分扩张。
+设 $A \subset L$ 是 $R$ 的整闭包。回顾 $A$ 是 $R$ 上有限的
+Dedekind 整环，具有有限多个极大理想
+$\mathfrak m_1, \ldots, \mathfrak m_n$；见《代数进阶》中的注
+\ref{more-algebra-remark-finite-separable-extension}。
+置 $S = \Spec(A)$、$S_i = \Spec(A_{\mathfrak m_i})$、
+$U = \Spec(L)$ 和 $U_i = S_i \setminus \{\mathfrak m_i\}$。
+注意，对 $i = 1, \ldots, n$，有 $U \cong U_i$。
+置 $X = C_L$，把它视为 $S$ 的开子概形 $U$ 上的概形。
+由 $L$、$A$ 的选取以及引理 \ref{moduli-curves-lemma-stable-reduction}，
+存在稳定曲线族 $X_i \to S_i$ 以及同构
+$X \times_U U_i \cong X_i \times_{S_i} U_i$。
+由《空间的极限》中的引理
+\ref{spaces-limits-lemma-glueing-near-multiple-closed-points}，
+可以找到有限表示态射 $Y \to S$，它到每个 $S_i$ 的基变换
+都同构于 $X_i$（$i = 1, \ldots, n$）。或者，可以使用如下事实：
+$S = \bigcup_{i = 1, \ldots, n} S_i$ 是 $S$ 的开覆盖，且当
+$i \not = j$ 时 $S_i \cap S_j = U$；再应用 $n - 1$ 次
+《空间的极限》中的引理 \ref{spaces-limits-lemma-relative-glueing}，
+得到 $Y \to S$，它到每个 $S_i$ 的基变换都同构于 $X_i$
+（$i = 1, \ldots, n$）。显然，$Y \to S$ 正是所求的稳定曲线族。
+\end{proof}
+
+\section{稳定曲线叠的性质}
+\label{moduli-curves-section-properties-stable}
+
+\noindent
+本节证明 $g \geq 2$ 时 $\overline{\mathcal{M}}_g$ 的基本结构结果。
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-separated}
+设 $g \geq 2$。叠 $\overline{\mathcal{M}}_g$ 分离。
+\end{lemma}
+
+\begin{proof}
+该陈述意味着态射
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ 分离。
+我们将使用《叠的态射进阶》中的引理
+\ref{stacks-more-morphisms-lemma-refined-valuative-criterion-separated}
+所陈述的精细 Noether 赋值判据来证明这一点。
+
+\medskip\noindent
+由于 $\overline{\mathcal{M}}_g$ 是 $\Curvesstack$ 的开子叠，
+由引理 \ref{moduli-curves-lemma-curves-qs-lfp} 可知，
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ 拟分离且局部有限表示。
+特别地，叠 $\overline{\mathcal{M}}_g$ 局部 Noether
+（《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}）。
+由引理 \ref{moduli-curves-lemma-smooth-dense-in-stable}，开浸入
+$\mathcal{M}_g \to \overline{\mathcal{M}}_g$ 的像稠密。
+此外，$\mathcal{M}_g \to \overline{\mathcal{M}}_g$ 拟紧
+（《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-locally-closed-in-noetherian}），
+因而是有限型的。因此，《叠的态射进阶》中的引理
+\ref{stacks-more-morphisms-lemma-refined-valuative-criterion-separated}
+对态射
+$$
+\mathcal{M}_g \to \overline{\mathcal{M}}_g
+\quad\text{且}\quad
+\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})
+$$
+的所有预备假设均成立，只需检验以下条件：给定任意 $2$-交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] &
+\mathcal{M}_g \ar[r] &
+\overline{\mathcal{M}}_g \ar[d] \\
+\Spec(R) \ar[rr] \ar@{..>}[rru] & & \Spec(\mathbf{Z})
+}
+$$
+其中 $R$ 是分式域为 $K$ 的离散赋值环，则虚线箭头范畴或者为空，
+或者是恰有一个同构类的 setoid。（注意，无需过多担心 $2$-箭头；
+见《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-cat-dotted-arrows-independent}。）
+展开其含义，并使用如下事实：$\mathcal{M}_g$ 和
+$\overline{\mathcal{M}}_g$ 分别是参数化亏格为 $g$ 的光滑曲线族和
+稳定曲线族的代数叠，便发现所需证明的正是引理
+\ref{moduli-curves-lemma-unique-stable-model} 中陈述并证明的唯一性结果。
+\end{proof}
+
+\begin{lemma}
+\label{moduli-curves-lemma-stable-quasi-compact}
+设 $g \geq 2$。叠 $\overline{\mathcal{M}}_g$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+我们使用第 \ref{moduli-curves-section-polarized-curves} 节的记号。考虑点集
+$$
+T \subset |\textit{PolarizedCurves}|
+$$
+其中的点 $\xi$ 满足：存在域 $k$ 以及 $k$ 上表示 $\xi$ 的偶
+$(X, \mathcal{L})$，且具有下列两个性质：
+\begin{enumerate}
+\item $X$ 是亏格为 $g$ 的稳定曲线；
+\item $\mathcal{L} = \omega_X^{\otimes 3}$。
+\end{enumerate}
+显然，在连续映射
+$$
+|\textit{PolarizedCurves}|
+\longrightarrow
+|\Curvesstack|
+$$
+下，集合 $T$ 的像恰为开子集
+$$
+|\overline{\mathcal{M}}_g| \subset |\Curvesstack|
+$$
+因此，只需证明 $T$ 拟紧。由引理
+\ref{moduli-curves-lemma-polarized-curves-in-polarized}，可知
+$$
+|\textit{PolarizedCurves}| \subset |\Polarizedstack|
+$$
+是开闭浸入。因此，只需证明 $T$ 作为 $|\Polarizedstack|$
+的子集拟紧。为此，使用《模叠》中的引理
+\ref{moduli-lemma-bounded-polarized} 的判据。首先注意，对上述
+$(X, \mathcal{L})$，由 Riemann--Roch，Hilbert 多项式 $P$ 是函数
+$P(t) = (6g - 6)t + (1 - g)$；见《代数曲线》中的引理
+\ref{curves-lemma-rr}。其次，由《代数曲线》中的引理
+\ref{curves-lemma-tricanonical}，有 $H^1(X, \mathcal{L}) = 0$，
+而且 $\mathcal{L}$ 极丰沛。这恰好意味着：取
+% P12-ERR-0313: see ../control/ERRATA_CANDIDATES.jsonl
+$n = P(3) - 1$，存在闭浸入
+$$
+i : X \longrightarrow \mathbf{P}^n_k
+$$
+使得
+% P12-ERR-0314: see ../control/ERRATA_CANDIDATES.jsonl
+$\mathcal{L} = i^*\mathcal{O}_{\mathbf{P}^1_k}(1)$，如所求。
+\end{proof}
+
+\noindent
+下面是本节的主要定理。
+
+\begin{theorem}
+\label{moduli-curves-theorem-stable-smooth-proper}
+设 $g \geq 2$。代数叠 $\overline{\mathcal{M}}_g$ 是
+Deligne--Mumford 叠，在 $\Spec(\mathbf{Z})$ 上真且光滑。
+此外，参数化光滑曲线的轨迹 $\mathcal{M}_g$ 是稠密开子叠。
+\end{theorem}
+
+\begin{proof}
+陈述中提到的大多数性质已经证明。光滑性是引理
+\ref{moduli-curves-lemma-stable-curves-smooth}；Deligne--Mumford 性是引理
+\ref{moduli-curves-lemma-stable-curves-deligne-mumford}；$\mathcal{M}_g$
+的开性是引理 \ref{moduli-curves-lemma-smooth-dense-in-stable}。
+由引理 \ref{moduli-curves-lemma-stable-separated}，已知
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ 分离；
+由引理 \ref{moduli-curves-lemma-stable-quasi-compact}，已知
+$\overline{\mathcal{M}}_g$ 拟紧。因此，为证明
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ 为真并完成证明，
+可以对态射 $\mathcal{M}_g \to \overline{\mathcal{M}}_g$ 和
+$\overline{\mathcal{M}}_g \to \Spec(\mathbf{Z})$ 应用
+《叠的态射进阶》中的引理
+\ref{stacks-more-morphisms-lemma-refined-valuative-criterion-proper}。
+因而只需检验以下条件：给定任意 $2$-交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d]_j &
+\mathcal{M}_g \ar[r] &
+\overline{\mathcal{M}}_g \ar[d] \\
+\Spec(A) \ar[rr] & & \Spec(\mathbf{Z})
+}
+$$
+其中 $A$ 是分式域为 $K$ 的离散赋值环，则存在域扩张 $K'/K$
+以及支配 $A$ 的赋值环 $A' \subset K'$，使得所诱导的图
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d]_{j'} & \overline{\mathcal{M}}_g \ar[d] \\
+\Spec(A') \ar[r] \ar@{..>}[ru] & \Spec(\mathbf{Z})
+}
+$$
+的虚线箭头范畴非空
+（《叠的态射》中的定义
+\ref{stacks-morphisms-definition-fill-in-diagram}）。
+（注意，无需过多担心 $2$-箭头；见《叠的态射》中的引理
+\ref{stacks-morphisms-lemma-cat-dotted-arrows-independent}。）
+展开其含义，并使用如下事实：$\mathcal{M}_g$ 和
+$\overline{\mathcal{M}}_g$ 分别是参数化亏格为 $g$ 的光滑曲线族和
+稳定曲线族的代数叠，便发现所需证明的正是稳定约化定理，
+即定理 \ref{moduli-curves-theorem-stable-reduction} 所含的结果。
+\end{proof}

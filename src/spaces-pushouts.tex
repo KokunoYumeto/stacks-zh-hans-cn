@@ -1,0 +1,3267 @@
+% Generated mechanically from the frozen spaces-pushouts.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{80}
+\chapter{代数空间的推出}
+
+
+
+\phantomsection
+\label{spaces-pushouts-section-phantom}
+
+
+\section{引言}
+\label{spaces-pushouts-section-introduction}
+
+\noindent
+本章旨在讨论代数空间范畴中的推出。可以在不同的假设下进行这种构造。
+文献 \cite{Temkin-Tyomkin} 给出了一种相当一般的推出构造：
+其中一个态射是仿射的，另一个态射是闭浸入。
+我们在第 \ref{spaces-pushouts-section-pushouts} 节讨论它的一个特殊情形，
+即假设其中一个态射是仿射的，另一个态射是加厚；
+这种情形在形变理论中经常出现。
+
+\medskip\noindent
+在第 \ref{spaces-pushouts-section-formal-glueing} 节和第
+\ref{spaces-pushouts-section-formal-glueing-spaces} 节中，我们讨论图表
+$$
+\xymatrix{
+f^{-1}(X \setminus Z) \ar[r] \ar[d] & Y \ar[d]^f \\
+X \setminus Z \ar[r] & X
+}
+$$
+其中 $f$ 是代数空间的拟紧且拟分离态射，
+$Z \to X$ 是有限呈示的闭浸入，映射 $f^{-1}(Z) \to Z$ 是同构，
+并且 $f$ 沿 $f^{-1}(Z)$ 平坦。在这种情形下，我们把
+$X \setminus Z$ 和 $Y$ 上的拟凝聚模粘合为 $X$ 上的拟凝聚模
+（第 \ref{spaces-pushouts-section-formal-glueing} 节），并把
+$X \setminus Z$ 和 $Y$ 上的代数空间粘合为 $X$ 上的代数空间
+（第 \ref{spaces-pushouts-section-formal-glueing-spaces} 节）。
+
+\medskip\noindent
+在第 \ref{spaces-pushouts-section-coequalizer-glue} 节中，我们讨论诺特代数空间的
+固有双有理态射如何在某种意义下给出代数空间中的余等化子图表。
+
+\medskip\noindent
+在第 \ref{spaces-pushouts-section-compactifications} 节中，我们利用第
+\ref{spaces-pushouts-section-elementary-dsitnguished-squares} 节对初等特异方形的构造，
+证明代数空间情形下的 Nagata 紧化定理。
+
+
+
+
+
+
+\section{约定}
+\label{spaces-pushouts-section-conventions}
+
+\noindent
+我们始终假设所有概形都包含在一个大 fppf 位点 $\Sch_{fppf}$ 中。
+此外，所考虑的每个环 $A$ 都满足：$\Spec(A)$（同构于）
+这个大位点中的一个对象。
+
+\medskip\noindent
+设 $S$ 是概形，$X$ 是 $S$ 上的代数空间。
+在本章及以下各章中，我们把 $X$ 与自身的乘积
+（在 $S$ 上代数空间的范畴中）写成 $X \times_S X$，
+而不写成 $X \times X$。
+
+
+
+
+\section{代数空间的余极限}
+\label{spaces-pushouts-section-pushouts-generalities}
+
+\noindent
+我们简要讨论代数空间的余极限。设 $S$ 是概形。
+令 $\mathcal{I} \to (\Sch/S)_{fppf}$，$i \mapsto X_i$
+为一个图表（见《范畴》第 \ref{categories-section-limits} 节）。
+对每个 $i$，可以考虑小平展位点 $X_{i, \etale}$；
+其对象是 $X_i$ 上平展的概形，见《空间的性质》第
+\ref{spaces-properties-section-etale-site} 节。
+对 $\mathcal{I}$ 的每个态射 $i \to j$，都有态射 $X_i \to X_j$，
+从而有拉回函子 $X_{j, \etale} \to X_{i, \etale}$。
+因此得到一个从 $\mathcal{I}^{opp}$ 到范畴的 $2$-范畴的伪函子。记
+$$
+\lim_i X_{i, \etale}
+$$
+为这个 $2$-极限（此处以后补入参引）。具体而言，这是什么意思？
+这个极限的一个对象是 $\mathcal{I}$ 上的一族平展态射
+$U_i \to X_i$，使得对 $\mathcal{I}$ 中的每个 $i \to j$，图表
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & U_j \ar[d] \\
+X_i \ar[r] & X_j
+}
+$$
+是笛卡尔的。对象之间的态射按显然的方式定义。
+设 $f_i : X_i \to T$ 是一族态射，并且对每个 $i \to j$，
+复合 $X_i \to X_j \to T$ 等于 $f_i$。
+于是得到函子 $T_\etale \to \lim X_{i, \etale}$。
+有了这些记号，我们可以陈述下面的引理。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-colimit-agrees}
+设 $S$ 是概形。令 $\mathcal{I} \to (\Sch/S)_{fppf}$，$i \mapsto X_i$
+为如上的 $S$ 上概形图表。假设
+\begin{enumerate}
+\item 在概形范畴中存在 $X = \colim X_i$；
+\item $\coprod X_i \to X$ 是满射；
+\item 若 $U \to X$ 平展且 $U_i = X_i \times_X U$，则在概形范畴中
+$U = \colim U_i$；以及
+\item $\lim X_{i, \etale}$ 中每个满足 $U_i \to X_i$ 分离的对象
+$(U_i \to X_i)$，都属于函子
+$X_\etale \to \lim X_{i, \etale}$ 的本质像。
+\end{enumerate}
+则在 $S$ 上代数空间的范畴中也有 $X = \colim X_i$。
+\end{lemma}
+
+\begin{proof}
+设 $Z$ 是 $S$ 上的代数空间。设 $f_i : X_i \to Z$ 是一族态射，
+使得对每个 $i \to j$，复合 $X_i \to X_j \to Z$ 等于 $f_i$。
+我们必须构造代数空间的态射 $f : X \to Z$，使得 $f_i$ 可由复合
+$X_i \to X \to Z$ 得到。令 $W \to Z$ 是从一个概形到 $Z$ 的满平展态射。
+可以假设 $W$ 是仿射概形的不交并，特别地，可以假设 $W \to Z$ 分离。
+对每个 $i$，令 $U_i = W \times_{Z, f_i} X_i$，并把投影记作
+$h_i : U_i \to W$。于是 $U_i \to X_i$ 构成
+$\lim X_{i, \etale}$ 的一个对象，且 $U_i \to X_i$ 分离。
+由假设 (4)，可以找到平展态射 $U \to X$ 以及（函子性的）同构
+$U_i = X_i \times_X U$。由假设 (3)，存在态射 $h : U \to W$，
+使复合 $U_i \to U \to W$ 都是 $h_i$。
+令 $g : U \to Z$ 为 $h$ 与映射 $W \to Z$ 的复合。
+为完成证明，必须说明 $g : U \to Z$ 可下降为态射 $X \to Z$。
+为此，考虑态射
+$(h, h) : U \times_X U \to W \times_S W$.
+将它与 $U_i \times_{X_i} U_i \to U \times_X U$ 复合，所得态射
+$(h_i, h_i)$ 通过 $W \times_Z W$ 分解。由 (3)，$U \times_X U$
+是概形 $U_i \times_{X_i} U_i$ 的余极限，故 $(h,h)$ 通过
+$W \times_Z W$ 分解。因此两个复合
+$U \times_X U \to U \to W \to Z$ 相等。
+由于每个 $U_i \to X_i$ 都是满射，再由假设 (2)，可知 $U \to X$ 是满射。
+由于 $Z$ 是平展拓扑下的层，便得到 $g : U \to Z$ 按所需下降为
+$f : X \to Z$。
+\end{proof}
+
+\noindent
+可以在余锥上（fpqc）局部地检验一个余锥是否为余极限。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-pushout-fpqc-local}
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间。
+令 $\mathcal{I} \to (\Sch/S)_{fppf}$，$i \mapsto X_i$
+为 $B$ 上代数空间的一个图表。令 $(X, X_i \to X)$ 为此图表在
+$B$ 上代数空间范畴中的一个余锥
+（《范畴》注 \ref{categories-remark-cones-and-cocones}）。
+若存在一个 fpqc 覆盖 $\{U_a \to X\}_{a \in A}$，使得
+\begin{enumerate}
+\item 对所有 $a \in A$，在 $B$ 上代数空间范畴中有
+$U_a = \colim X_i \times_X U_a$
+；以及
+\item 对所有 $a,b \in A$，在 $B$ 上代数空间范畴中有
+$U_a \times_X U_b = \colim X_i \times_X U_a \times_X U_b$
+，
+\end{enumerate}
+则在 $B$ 上代数空间的范畴中有 $X = \colim X_i$。
+\end{lemma}
+
+\begin{proof}
+事实上，对 $B$ 上的代数空间 $Y$，一个 $B$ 上的态射 $X \to Y$
+等价于一族态射 $U_a \to Y$，它们对所有 $a,b \in A$ 都在交叠
+$U_a \times_X U_b$ 上相合；见《空间上的下降》引理
+\ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}。
+\end{proof}
+
+\noindent
+下面给出引理 \ref{spaces-pushouts-lemma-colimit-agrees} 和
+\ref{spaces-pushouts-lemma-pushout-fpqc-local} 的一个共同的部分推广；
+特别地，它可以把余极限构造约化到全体代数空间范畴的一个子范畴中。
+
+\medskip\noindent
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间。令 $\mathcal{I}$ 为指标范畴，
+并令 $i \mapsto X_i$ 为 $B$ 上代数空间范畴中的一个图表；
+见《范畴》第 \ref{categories-section-limits} 节。
+对每个 $i$，可以考虑小平展位点 $X_{i, spaces, \etale}$；
+其对象是 $X_i$ 上平展的代数空间，见《空间的性质》第
+\ref{spaces-properties-section-etale-site} 节。
+对 $\mathcal{I}$ 的每个态射 $i \to j$，都有态射 $X_i \to X_j$，
+从而有拉回函子
+$X_{j, spaces, \etale} \to X_{i, spaces, \etale}$。
+因此得到一个从 $\mathcal{I}^{opp}$ 到范畴的 $2$-范畴的伪函子。记
+$$
+\lim_i X_{i, spaces, \etale}
+$$
+为这个 $2$-极限（此处以后补入参引）。具体而言，这是什么意思？
+这个极限的一个对象，是 $B$ 上代数空间的箭头范畴中的一个图表
+$i \mapsto (U_i \to X_i)$，使得对 $\mathcal{I}$ 中每个 $i \to j$，图表
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & U_j \ar[d] \\
+X_i \ar[r] & X_j
+}
+$$
+是笛卡尔的。对象之间的态射按显然的方式定义。
+设 $f_i : X_i \to Z$ 是 $B$ 上代数空间的一族态射，
+使得对每个 $i \to j$，复合 $X_i \to X_j \to Z$ 等于 $f_i$。
+于是得到函子
+$Z_{spaces, \etale} \to \lim X_{i, spaces, \etale}$。
+有了这些记号，我们可以陈述下一个引理。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-colimit-check-etale-locally}
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间。
+令 $\mathcal{I} \to (\Sch/S)_{fppf}$，$i \mapsto X_i$
+为 $B$ 上代数空间的一个图表。令 $(X, X_i \to X)$ 为此图表在
+$B$ 上代数空间范畴中的一个余锥
+（《范畴》注 \ref{categories-remark-cones-and-cocones}）。假设
+\begin{enumerate}
+\item 基变换函子
+$X_{spaces, \etale} \to \lim X_{i, spaces, \etale}$,% P10-E0035
+把 $U$ 送到 $U_i = X_i \times_X U$，并且它是一个等价；
+\item 给定
+\begin{enumerate}
+\item $B'$ 在 $B$ 上仿射且平展；
+\item $Z$ 是 $B'$ 上的仿射概形；
+\item $U \to X \times_B B'$ 是代数空间的平展态射，且 $U$ 仿射；
+\item $f_i : U_i \to Z$ 是图表
+$i \mapsto U_i = U \times_X X_i$ 在 $B'$ 上的一个余锥；
+\end{enumerate}
+则存在唯一的 $B'$ 上态射 $f : U \to Z$，使得 $f_i$ 等于复合
+$U_i \to U \to Z$。
+\end{enumerate}
+则在全体 $B$ 上代数空间的范畴中有 $X = \colim X_i$。
+\end{lemma}
+
+\begin{proof}
+本段把问题约化到 $B$ 为仿射概形的情形。
+令 $B' \to B$ 是代数空间的平展态射。注意，若用
+$B'$、$X_i \times_B B'$、$X \times_B B'$ 分别替换 $B$、$X_i$、$X$，
+则条件 (1) 和 (2) 保持不变。
+令 $\{B_a \to B\}_{a \in A}$ 为一个平展覆盖，其中各 $B_a$ 仿射；
+见《空间的性质》引理
+\ref{spaces-properties-lemma-cover-by-union-affines}。
+对 $a \in A$，分别以 $X_a$、$X_{a,i}$ 表示 $X$ 和该图表到 $B_a$ 的基变换。
+对 $a,b \in A$，分别以 $X_{a,b}$、$X_{a,b,i}$ 表示 $X$ 和该图表到
+$B_a \times_B B_b$ 的基变换。
+由引理 \ref{spaces-pushouts-lemma-pushout-fpqc-local}，只需证明
+$X_a = \colim X_{a,i}$ 和 $X_{a,b} = \colim X_{a,b,i}$。
+这把问题约化到 $B=B_a$（仿射概形）或
+$B=B_a \times_B B_b$（分离概形）的情形。再重复一次这个论证，
+便可假设 $B$ 是仿射概形（这里用到了分离概形中两个仿射开集的交仍为仿射）。
+
+\medskip\noindent
+假设 $B$ 是仿射概形。令 $Z$ 为 $B$ 上的代数空间。我们必须证明
+$$
+\Mor_B(X, Z) \longrightarrow \lim \Mor_B(X_i, Z)
+$$
+是双射。
+
+\medskip\noindent
+证明单射性。令 $f,g : X \to Z$ 为态射，并且对所有 $i$，复合
+$f_i,g_i : X_i \to Z$ 都相同。选取仿射概形 $Z'$ 和平展态射
+$Z' \to Z$。由《空间的性质》引理
+\ref{spaces-properties-lemma-cover-by-union-affines}，可知这样的仿射概形
+能够覆盖 $Z$。令 $U = X \times_{f,Z} Z'$、$U'=X\times_{g,Z}Z'$，
+并把投影记作 $p:U\to X$ 和 $p':U'\to X$。
+由于对所有 $i$ 都有 $f_i=g_i$，可知
+$$
+U_i = X_i \times_{f_i, Z} Z' = X_i \times_{g_i, Z} Z' = U'_i
+$$
+且它们与转移态射相容。由 (1)，存在唯一的 $X$ 上代数空间同构
+$\epsilon:U\to U'$，即满足 $p=p'\circ\epsilon$，并与上述等同相容。
+选取一个平展覆盖 $\{h_a:U_a\to U\}$，其中各 $U_a$ 仿射。
+由 (2)，有
+$f\circ p\circ h_a=g\circ p'\circ\epsilon\circ h_a
+=g\circ p\circ h_a$。
+由于 $\{h_a:U_a\to U\}$ 是平展覆盖，得到 $f\circ p=g\circ p$。
+按这种方式得到的所有态射 $p:U\to X$ 构成一个平展覆盖，故 $f=g$。
+
+\medskip\noindent
+证明满射性。令 $f_i:X_i\to Z$ 为证明首段所示箭头右端的一个元素。
+只需找到一个平展覆盖 $\{U_c\to X\}_{c\in C}$，使得各族
+$f_{c,i}\in\lim_i\Mor_B(X_i\times_XU_c,Z)$ 来自态射
+$f_c:U_c\to Z$。事实上，由上面证明的唯一性，诸 $f_c$ 在
+$U_c\times_XU_b$ 上相合，因而可下降为所需态射 $f:X\to Z$。
+为找到这个覆盖，先选取一个平展覆盖
+$\{g_a:Z_a\to Z\}_{a\in A}$，其中各 $Z_a$ 仿射。然后令
+$U_{a,i}=X_i\times_{f_i,Z}Z_a$。由 (1)，对某个在 $X$ 上平展的
+代数空间 $U_a$，有 $U_{a,i}=X_i\times_XU_a$。
+再选取平展覆盖 $\{U_{a,b}\to U_a\}_{b\in B_a}$，
+其中各 $U_{a,b}$ 仿射，并考虑态射
+$$
+U_{a, b, i} = X_i \times_X U_{a, b} \to
+X_i \times_X U_a = X_i \times_{f_i, Z} Z_a \to Z_a
+$$
+由 (2)，得到与这些态射相容的态射 $f_{a,b}:U_{a,b}\to Z_a$。
+令 $C=\coprod_{a\in A}B_a$；若 $c\in C$ 对应于 $b\in B_a$，
+则令 $U_c=U_{a,b}$ 且
+$f_c=g_a\circ f_{a,b}:U_c\to Z$，结论随即得到。
+\end{proof}
+
+\noindent
+下面应用这些思路，把一般情形约化到分离代数空间的情形。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-colimit-separated-enough}
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间。
+令 $\mathcal{I}\to(\Sch/S)_{fppf}$，$i\mapsto X_i$
+为 $B$ 上代数空间的一个图表。假设
+\begin{enumerate}
+\item 每个 $X_i$ 都在 $B$ 上分离；
+\item 在 $B$ 上分离代数空间的范畴中存在 $X=\colim X_i$；
+\item $\coprod X_i\to X$ 是满射；
+\item 若 $U\to X$ 是代数空间的平展分离态射且
+$U_i=X_i\times_XU$，则在 $B$ 上分离代数空间的范畴中
+$U=\colim U_i$；以及
+\item $\lim X_{i,spaces,\etale}$ 中每个满足 $U_i\to X_i$ 分离的对象
+$(U_i\to X_i)$，都可写成 $U_i=X_i\times_XU$，其中
+$U\to X$ 是某个代数空间的平展分离态射。
+\end{enumerate}
+则在全体 $B$ 上代数空间的范畴中有 $X=\colim X_i$。
+\end{lemma}
+
+\begin{proof}
+我们建议读者改看引理 \ref{spaces-pushouts-lemma-colimit-check-etale-locally} 及其证明。
+
+\medskip\noindent
+设 $Z$ 是 $B$ 上的代数空间。设 $f_i:X_i\to Z$ 是一族态射，
+使得对每个 $i\to j$，复合 $X_i\to X_j\to Z$ 等于 $f_i$。
+我们必须构造一个 $B$ 上代数空间的态射 $f:X\to Z$，
+使 $f_i$ 可由复合 $X_i\to X\to Z$ 得到。
+令 $W\to Z$ 是从一个概形到 $Z$ 的满平展态射。
+可以假设 $W$ 是仿射概形的不交并；特别地，可以假设
+$W\to Z$ 分离且 $W$ 在 $B$ 上分离。对每个 $i$，令
+$U_i=W\times_{Z,f_i}X_i$，并把投影记作 $h_i:U_i\to W$。
+于是 $U_i\to X_i$ 构成 $\lim X_{i,spaces,\etale}$ 的一个对象，
+且 $U_i\to X_i$ 分离。由假设 (5)，可以找到代数空间的平展分离态射
+$U\to X$ 以及（函子性的）同构 $U_i=X_i\times_XU$。
+由假设 (4)，存在 $B$ 上态射 $h:U\to W$，使复合
+$U_i\to U\to W$ 都是 $h_i$。令 $g:U\to Z$ 为 $h$ 与映射
+$W\to Z$ 的复合。为完成证明，必须说明 $g:U\to Z$
+可下降为态射 $X\to Z$。为此，考虑态射
+$(h, h) : U \times_X U \to W \times_S W$.
+将它与 $U_i\times_{X_i}U_i\to U\times_XU$ 复合，所得态射
+$(h_i,h_i)$ 通过 $W\times_ZW$ 分解。由 (4)，$U\times_XU$
+是诸代数空间 $U_i\times_{X_i}U_i$ 在 $B$ 上分离代数空间范畴中的
+余极限，故 $(h,h)$ 通过 $W\times_ZW$ 分解。因此两个复合
+$U\times_XU\to U\to W\to Z$ 相等。
+由于每个 $U_i\to X_i$ 都是满射，再由假设 (2)，可知 $U\to X$ 是满射。
+由于 $Z$ 是平展拓扑下的层，便得到 $g:U\to Z$ 按所需下降为
+$f:X\to Z$。
+\end{proof}
+
+
+
+
+
+\section{平展层的下降}
+\label{spaces-pushouts-section-glueing-etale}
+
+\noindent
+本节是《平展上同调》第 \ref{etale-cohomology-section-glueing-etale} 节
+在代数空间情形下的类似版本。
+
+\medskip\noindent
+为了方便地表述结果，需要先引入一些记号。
+设 $S$ 是概形。令 $\mathcal{U}=\{f_i:X_i\to X\}$
+为 $S$ 上代数空间的一族具有固定靶的态射。
+关于 $\mathcal{U}$ 的平展层{\it 下降数据}，是一个族
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$，其中
+\begin{enumerate}
+\item $\mathcal{F}_i$ 属于 $\Sh(X_{i, \etale})$；并且
+\item $\varphi_{ij} :
+\text{pr}_{0, small}^{-1} \mathcal{F}_i
+\longrightarrow
+\text{pr}_{1, small}^{-1} \mathcal{F}_j$
+是 $\Sh((X_i \times_X X_j)_\etale)$ 中的同构。
+\end{enumerate}
+并且满足{\it 上链条件}：图表
+$$
+\xymatrix{
+\text{pr}_{0, small}^{-1}\mathcal{F}_i
+\ar[dr]_{\text{pr}_{02, small}^{-1}\varphi_{ik}}
+\ar[rr]^{\text{pr}_{01, small}^{-1}\varphi_{ij}} & &
+\text{pr}_{1, small}^{-1}\mathcal{F}_j
+\ar[dl]^{\text{pr}_{12, small}^{-1}\varphi_{jk}} \\
+& \text{pr}_{2, small}^{-1}\mathcal{F}_k
+}
+$$
+在 $\Sh((X_i \times_X X_j \times_X X_k)_\etale)$ 中交换。
+存在显然的{\it 下降数据态射}概念，由此得到下降数据的范畴。
+称下降数据
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$
+是{\it 有效的}，如果存在 $\Sh(X_\etale)$ 中的 $\mathcal{F}$ 以及同构
+$\varphi_i : f_{i, small}^{-1} \mathcal{F} \to \mathcal{F}_i$
+它们在 $\Sh(X_{i,\etale})$ 中与 $\varphi_{ij}$ 相容；也就是说，满足
+$$
+\varphi_{ij} =
+\text{pr}_{1, small}^{-1} (\varphi_j) \circ
+\text{pr}_{0, small}^{-1} (\varphi_i^{-1})
+$$
+也可以表述如下。给定 $\Sh(X_\etale)$ 的一个对象 $\mathcal{F}$，
+得到{\it 典范下降数据} $(f_{i, small}^{-1}\mathcal{F}_i,c_{ij})$，
+其中 $c_{ij}$ 是典范同构
+$$
+c_{ij} : \text{pr}_{0, small}^{-1} f_{i, small}^{-1}\mathcal{F}
+\longrightarrow
+\text{pr}_{1, small}^{-1} f_{j, small}^{-1}\mathcal{F}
+$$
+下降数据
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$
+有效，当且仅当它同构于与 $\Sh(X_\etale)$ 中某个 $\mathcal{F}$
+相伴的典范下降数据。
+
+\medskip\noindent
+如果该族只含一个态射 $\{X\to Y\}$，则把下降数据看作一对
+$(\mathcal{F},\varphi)$，其中 $\mathcal{F}$ 是 $\Sh(X_\etale)$ 的对象，
+而 $\varphi$ 是 $\Sh((X\times_YX)_\etale)$ 中的同构
+$$
+\text{pr}_{0, small}^{-1} \mathcal{F}
+\longrightarrow
+\text{pr}_{1, small}^{-1} \mathcal{F}
+$$
+，并满足上链条件：
+$$
+\xymatrix{
+\text{pr}_{0, small}^{-1}\mathcal{F}
+\ar[dr]_{\text{pr}_{02, small}^{-1}\varphi}
+\ar[rr]^{\text{pr}_{01, small}^{-1}\varphi} & &
+\text{pr}_{1, small}^{-1}\mathcal{F}
+\ar[dl]^{\text{pr}_{12, small}^{-1}\varphi} \\
+& \text{pr}_{2, small}^{-1}\mathcal{F}
+}
+$$
+该图表在 $\Sh((X\times_YX\times_YX)_\etale)$ 中交换。
+下降数据态射与有效性的概念和前面完全相同。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glue-etale-sheaf-etale}
+设 $S$ 是概形。令 $\{f_i:X_i\to X\}$ 为代数空间的一个平展覆盖。函子
+$$
+\Sh(X_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{f_i : X_i \to X\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+在《空间的性质》第 \ref{spaces-properties-section-etale-site} 节中，
+我们定义了一个位点 $X_{spaces,\etale}$：其对象是在 $X$ 上平展的
+代数空间，其覆盖为平展覆盖。此外，我们有等同
+$\Sh(X_\etale)=\Sh(X_{spaces,\etale})$，它与代数空间的态射相容，
+即与正像和逆像相容。因此，本引理来自《位点》第
+\ref{sites-section-glueing-sheaves} 节中更为一般的讨论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-reduce-to-scheme-base}
+设 $S$ 是概形。令 $f:X\to Y$ 为 $S$ 上代数空间的态射，
+并令 $\{Y_i\to Y\}_{i\in I}$ 为代数空间的一个平展覆盖。
+如果对每个 $i\in I$，函子
+$$
+\Sh(Y_{i, \etale})
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{X \times_Y Y_i \to Y_i\}
+$$
+是范畴等价，并且对每个 $i,j\in I$，函子
+$$
+\Sh((Y_i \times_Y Y_j)_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }
+\{X \times_Y Y_i \times_Y Y_j \to Y_i \times_Y Y_j\}
+$$
+也是范畴等价，那么
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{X \to Y\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-pushouts-lemma-glue-etale-sheaf-etale} 和定义的形式推论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-representable-case}
+设 $S$ 是概形。令 $f:X\to Y$ 为 $S$ 上代数空间的态射。
+假设 $f$（由概形）可表，并且 $f$ 具有下列性质之一：
+满且整；满且固有；或者满、平坦且局部有限呈示。那么
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{X \to Y\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+引理陈述中提到的代数空间态射的每一种性质都在任意基变换下保持；
+见《空间》第 \ref{spaces-section-lists} 节中的列表。
+因此可以应用引理 \ref{spaces-pushouts-lemma-reduce-to-scheme-base}，
+从而在 $Y$ 上平展局部地工作。这样便约化到 $Y$ 是概形的情形；
+略去一些细节。此时 $X$ 也是概形，结论由《平展上同调》引理
+\ref{etale-cohomology-lemma-glue-etale-sheaf-integral-surjective},
+\ref{etale-cohomology-lemma-glue-etale-sheaf-proper-surjective}, or
+\ref{etale-cohomology-lemma-glue-etale-sheaf-fppf-cover}.
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-reduce-to-scheme-source}
+设 $S$ 是概形。令 $f:X\to Y$ 为 $S$ 上代数空间的态射，
+并令 $\pi:X'\to X$ 为代数空间的态射。假设
+\begin{enumerate}
+\item $f\circ\pi$（由概形）可表；
+\item $f\circ\pi$ 具有下列性质之一：满且整；满且固有；
+或者满、平坦且局部有限呈示。
+\end{enumerate}
+那么
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{X \to Y\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-pushouts-lemma-representable-case} 和《叠》引理
+\ref{stacks-lemma-compare-descent-condition} 的形式推论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}
+设 $S$ 是概形。令 $f:X\to Y$ 为 $S$ 上代数空间的态射，
+并且具有下列性质之一：满且整；满且固有；或者满、平坦且局部有限呈示。
+则函子
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{X \to Y\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+注意，固有满态射的基变换仍然固有且满；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-proper} 和
+\ref{spaces-morphisms-lemma-base-change-surjective}。
+因此，由引理 \ref{spaces-pushouts-lemma-reduce-to-scheme-base}，
+可以在 $Y$ 上平展局部地工作。于是约化到 $Y$ 为仿射概形的情形；
+略去一些细节。
+
+\medskip\noindent
+假设 $Y$ 仿射。由引理 \ref{spaces-pushouts-lemma-reduce-to-scheme-source}，
+只需找到态射 $X'\to X$，其中 $X'$ 是概形，且 $X'\to Y$
+满足下列性质之一：满且整；满且固有；或者满、平坦且局部有限呈示。
+
+\medskip\noindent
+当 $X\to Y$ 整且满时，可以取 $X'=X$，因为整态射可表。
+
+\medskip\noindent
+如果 $f$ 固有且满，那么代数空间 $X$ 拟紧且分离；
+见《空间的态射》第 \ref{spaces-morphisms-section-quasi-compact} 节和引理
+\ref{spaces-morphisms-lemma-separated-over-separated}。
+选取一个概形 $X'$ 和一个满有限态射 $X'\to X$；见《空间的极限》命题
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}。
+于是 $X'\to Y$ 满且固有。
+
+\medskip\noindent
+最后，如果 $X\to Y$ 满、平坦且局部有限呈示，
+则可取一个仿射平展覆盖 $\{U_i\to X\}$，并令
+$X'$ 等于不交并 $\coprod U_i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glue-etale-sheaf-fppf}
+设 $S$ 是概形。令 $\{f_i:X_i\to X\}$ 为 $S$ 上代数空间的一个
+fppf 覆盖。函子
+$$
+\Sh(X_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{f_i : X_i \to X\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+对态射 $f:\coprod X_i\to X$，可以应用引理
+\ref{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}。
+然后，一个形式论证表明，关于 $f$ 的下降数据与关于该覆盖的下降数据
+是一回事；比较《下降》引理 \ref{descent-lemma-family-is-one}。
+略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glue-etale-sheaf-modification}
+设 $S$ 是概形。令 $f:Y'\to Y$ 为 $S$ 上代数空间的固有态射，
+并令 $i:Z\to Y$ 为闭浸入。置 $E=Z\times_YY'$。图表为
+$$
+\xymatrix{
+E \ar[d]_g \ar[r]_j & Y' \ar[d]^f \\
+Z \ar[r]^i & Y
+}
+$$
+如果 $f$ 在 $Y\setminus Z$ 上是同构，那么函子
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+注意，$X=Y'\coprod Z\to Y$ 是固有满态射。因此，只需构造范畴等价
+$$
+\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)
+\longrightarrow
+\text{关于下列族的平展层下降数据 }\{X \to Y\}
+$$
+并要求它与来自 $Y$ 的拉回函子相容；这样就可以用引理
+\ref{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective} 得出结论。
+因此，令 $(\mathcal{G}',\mathcal{G},\alpha)$ 为
+$\Sh(Y'_\etale)\times_{\Sh(E_\etale)}\Sh(Z_\etale)$ 的一个对象，
+记号如《范畴》例 \ref{categories-example-2-fibre-product-categories}。
+可以考虑 $X$ 上的层 $\mathcal{F}$：在分支 $Y'$ 上取
+$\mathcal{G}'$，在分支 $Z$ 上取 $\mathcal{G}$。我们有
+$$
+X \times_Y X = Y' \times_Y Y' \amalg
+Y' \times_Y Z \amalg Z \times_Y Y' \amalg Z \times_Y Z =
+Y' \times_Y Y' \amalg E \amalg E \amalg Z
+$$
+在分支 $E$、$E$、$Z$ 上，$\mathcal{F}$ 到这个代数空间的两个拉回之间
+的同构是显然的。证明中有实质的部分，是在 $Y'\times_YY'$ 上找到同构
+$\text{pr}_{0, small}^{-1}\mathcal{G}' \to
+\text{pr}_{1, small}^{-1}\mathcal{G}'$
+并使它满足上链条件。然而，$Y'\to Y$ 在 $Y\setminus Z$ 上为同构的假设蕴含
+$$
+h : Y \coprod E \times_Z E \longrightarrow Y' \times_Y Y'
+$$
+是满固有态射。（事实上它是有限态射，因为它是两个闭浸入的不交并。）
+因此，只需在由 $h_{small}$ 拉回
+$\text{pr}_{0,small}^{-1}\mathcal{G}'$ 和
+$\text{pr}_{1,small}^{-1}\mathcal{G}'$ 后，构造满足某个上链条件的同构。
+在对角线上，如何构造是清楚的。对于到 $E\times_ZE$ 的拉回，
+我们利用这样一个事实：两个层都拉回为 $\mathcal{G}$ 经态射
+$E\times_ZE\to Z$ 的拉回。略去细节。
+\end{proof}
+
+
+
+
+
+
+\section{代数空间平展态射的下降}
+\label{spaces-pushouts-section-descending-etale}
+
+\noindent
+本节把第 \ref{spaces-pushouts-section-glueing-etale} 节中关于平展层的粘合结果
+与代数空间的灵活性结合起来，得到代数空间平展态射的一些下降陈述。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-descend-etale-proper-surjective}
+设 $S$ 是概形。令 $f:X\to Y$ 为 $S$ 上代数空间的固有满态射。
+关于 $f$ 的任一下降数据 $(U/X,\varphi)$
+（《空间上的下降》定义 \ref{spaces-descent-definition-descent-datum}），
+若 $U$ 在 $X$ 上平展，则它是有效的
+（《空间上的下降》定义 \ref{spaces-descent-definition-effective}）。
+更确切地说，存在代数空间的平展态射 $V\to Y$，
+其相应的典范下降数据同构于 $(U/X,\varphi)$。
+\end{lemma}
+
+\begin{proof}
+回忆 $U$ 给出 $\Sh(X_{spaces,\etale})=\Sh(X_\etale)$ 中的可表层
+$\mathcal{F}=h_U$；见《空间的性质》第
+\ref{spaces-properties-section-etale-site} 节。
+$U$ 关于 $f$ 的下降数据恰好给出平展层关于 $\{X\to Y\}$ 的下降数据
+$(\mathcal{F},\varphi)$。由引理
+\ref{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}，这个下降数据是有效的。
+令 $\mathcal{G}$ 为 $Y_\etale$ 上相应的层。
+由《空间的性质》引理 \ref{spaces-properties-lemma-sheaf-gives-space}，
+得到对应于 $\mathcal{G}$ 的代数空间平展态射 $V\to Y$；
+我们略去对集合论条件的验证\footnote{这由 $\mathcal{F}$ 满足相应条件这一事实推出。}。
+给定的同构 $\mathcal{F}\to f_{small}^{-1}\mathcal{G}$
+对应于与下降数据相容的同构 $U\to V\times_YX$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glue-etale-space-modification}
+设 $S$ 是概形。令 $f:Y'\to Y$ 为 $S$ 上代数空间的固有态射，
+令 $i:Z\to Y$ 为闭浸入，并置 $E=Z\times_YY'$。图表为
+$$
+\xymatrix{
+E \ar[d]_g \ar[r]_j & Y' \ar[d]^f \\
+Z \ar[r]^i & Y
+}
+$$
+如果 $f$ 在 $Y\setminus Z$ 上是同构，那么函子
+$$
+Y_{spaces, \etale}
+\longrightarrow
+Y'_{spaces, \etale} \times_{E_{spaces, \etale}} Z_{spaces, \etale}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+令 $(V'\to Y',W\to Z,\alpha)$ 为右端的一个对象。
+回忆 $V'$ 和 $W$ 分别给出可表层
+$\mathcal{G}'=h_{V'}$（属于
+$\Sh(Y'_{spaces,\etale})=\Sh(Y'_\etale)$）和
+$\mathcal{G}=h_W$（属于 $\Sh(Z_{spaces,\etale})=\Sh(Z_\etale)$）；
+见《空间的性质》第 \ref{spaces-properties-section-etale-site} 节。
+同构 $\alpha:V'\times_{Y'}E\to W\times_ZE$ 决定 $E$ 上诸层的同构
+$j_{small}^{-1}\mathcal{G}'\to g_{small}^{-1}\mathcal{G}$。
+由引理 \ref{spaces-pushouts-lemma-glue-etale-sheaf-modification}，
+得到 $Y$ 上的唯一层 $\mathcal{F}$，它以与该同构相容的方式分别拉回为
+$\mathcal{G}'$ 和 $\mathcal{G}$。% P10-E0011
+由《空间的性质》引理 \ref{spaces-properties-lemma-sheaf-gives-space}，
+得到对应于 $\mathcal{F}$ 的代数空间平展态射 $V\to Y$；
+我们略去对集合论条件的验证\footnote{这由 $\mathcal{G}$ 和
+$\mathcal{G}'$ 都满足相应条件这一事实推出。}。% P10-E0012
+给定的同构 $\mathcal{G}'\to f_{small}^{-1}\mathcal{F}$ 和
+$\mathcal{G}\to i_{small}^{-1}\mathcal{F}$ 分别对应于同构
+$V'\to V\times_YY'$ 和 $W\to V\times_YZ$；
+它们按所需与 $\alpha$ 相容。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{沿加厚与仿射态射的推出}
+\label{spaces-pushouts-section-pushouts}
+
+\noindent
+本节类似于《态射续篇》第 \ref{more-morphisms-section-pushouts} 节。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-pushout-along-thickening-schemes}
+设 $S$ 是概形。令 $X\to X'$ 为 $S$ 上概形的加厚，
+令 $X\to Y$ 为 $S$ 上概形的仿射态射。
+令 $Y'=Y\amalg_XX'$ 为概形范畴中的推出（见《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}）。
+那么 $Y'$ 在 $S$ 上代数空间的范畴中也是推出。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-pushouts-lemma-colimit-agrees} 和《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-along-thickening},
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout} 和
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-pushout-along-thickening}
+设 $S$ 是概形。令 $X\to X'$ 为 $S$ 上代数空间的加厚，
+令 $X\to Y$ 为 $S$ 上代数空间的仿射态射。那么在 $S$ 上代数空间的
+范畴中存在推出
+$$
+\xymatrix{
+X \ar[r] \ar[d]_f
+&
+X' \ar[d]^{f'}
+\\
+Y \ar[r]
+&
+Y \amalg_X X'
+}
+$$
+。此外，$Y'=Y\amalg_XX'$ 是 $Y$ 的加厚，并且
+$$
+\mathcal{O}_{Y'} = \mathcal{O}_Y \times_{f_*\mathcal{O}_X} f'_*\mathcal{O}_{X'}
+$$
+作为 $Y_\etale=(Y')_\etale$ 上的层，有上述等式。
+\end{lemma}
+
+\begin{proof}
+选取概形 $V$ 和满平展态射 $V\to Y$。置 $U=V\times_YX$。
+这是一个在 $V$ 上仿射的概形，并且有满平展态射 $U\to X$。
+由《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}，
+存在满平展态射 $U'\to X'$，满足 $U=U'\times_{X'}X$。
+特别地，概形态射 $U\to U'$ 也是加厚。应用《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}，
+在概形范畴中得到推出 $V'=V\amalg_UU'$。
+
+\medskip\noindent
+重复这一过程，在概形范畴中构造推出
+$$
+\xymatrix{
+U \times_X U \ar[d] \ar[r] & U' \times_{X'} U' \ar[d] \\
+V \times_Y V \ar[r] & R'
+}
+$$
+。考虑态射
+$$
+U \times_X U \to U \to V',\quad
+U' \times_{X'} U' \to U' \to V',\quad
+V \times_Y V \to V \to V'
+$$
+其中每种情形都使用第一个投影。显然，这些态射可粘合成态射
+$t':R'\to V'$；由《态射续篇》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+可知它平展。类似地，得到平展态射 $s':R'\to V'$。
+态射 $j'=(t',s'):R'\to V'\times_SV'$ 是非分歧的
+（因为 $t'$ 平展），且限制到闭子概形 $V\times_YV\subset R'$ 后是单态射。
+由于 $V\times_YV\subset R'$ 是加厚，故 $j'$ 本身也是单态射。
+最后，$j'$ 是等价关系：可以利用概形推出的函子性构造态射
+$c':R'\times_{s',V',t'}R'\to R'$（略去细节）。
+此时置 $Y'=V'/R'$；见《空间》定理 \ref{spaces-theorem-presentation}。
+
+\medskip\noindent
+我们有态射 $X'=U'/U'\times_{X'}U'\to V'/R'=Y'$ 和
+$Y=V/V\times_YV\to V'/R'=Y'$。按构造，它们组成交换图表
+$$
+\xymatrix{
+X \ar[r] \ar[d]_f & X' \ar[d]^{f'} \\
+Y \ar[r] & Y'
+}
+$$
+由于 $Y\to Y'$ 是加厚，有 $Y_\etale=(Y')_\etale$；
+见《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}。
+图表的交换性给出这个位点上的层态射
+$$
+\mathcal{O}_{Y'}
+\longrightarrow
+\mathcal{O}_Y \times_{f_*\mathcal{O}_X} f'_*\mathcal{O}_{X'}
+$$
+。由《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}
+可知，将此映射限制到概形 $V'$ 后是同构，因此它本身也是同构。
+
+\medskip\noindent
+为完成证明，我们说明上述图表在代数空间范畴中是推出。
+为此，令 $Z$ 为代数空间，并令 $a':X'\to Z$ 和 $b:Y\to Z$
+为代数空间的态射。由引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}，
+得到唯一的态射 $h:V'\to Z$，使下列图表交换：
+$$
+\vcenter{
+\xymatrix{
+U' \ar[d] \ar[r] & V' \ar[d]^h \\
+X' \ar[r]^{a'} & Z
+}
+}
+\quad\text{和}\quad
+\vcenter{
+\xymatrix{
+V \ar[r] \ar[d] & V' \ar[d]^h \\
+Y \ar[r]^b & Z
+}
+}
+$$
+唯一性表明 $h\circ t'=h\circ s'$。因此 $h$ 唯一地分解为
+$V'\to Y'\to Z$，证明完毕。
+\end{proof}
+
+\noindent
+在下面的引理中，我们使用《范畴》例
+\ref{categories-example-2-fibre-product-categories} 所定义的范畴纤维积。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-categories-spaces-over-pushout}
+设 $S$ 是基概形。令 $X\to X'$ 为 $S$ 上代数空间的加厚，
+令 $X\to Y$ 为 $S$ 上代数空间的仿射态射。
+令 $Y'=Y\amalg_XX'$ 为推出（见引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening}）。基变换给出函子
+$$
+F :
+(\textit{Spaces}/Y')
+\longrightarrow
+(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')
+$$
+它由 $V'\longmapsto(V'\times_{Y'}Y,V'\times_{Y'}X',1)$ 给出，
+并把 $(\Sch/Y')$ 映入
+$(\Sch/Y)\times_{(\Sch/Y')}(\Sch/X')$。函子 $F$ 有左伴随
+$$
+G :
+(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')
+\longrightarrow
+(\textit{Spaces}/Y')
+$$
+它把三元组 $(V,U',\varphi)$ 映为 $S$ 上代数空间范畴中的推出
+$V\amalg_{(V\times_YX)}U'$。函子 $G$ 把
+$(\Sch/Y)\times_{(\Sch/Y')}(\Sch/X')$ 映入 $(\Sch/Y')$。
+\end{lemma}
+
+\begin{proof}
+证明完全是形式的。由于态射 $X\to X'$ 和 $X\to Y$ 可表，
+显然 $F$ 把 $(\Sch/Y')$ 映入
+$(\Sch/Y)\times_{(\Sch/Y')}(\Sch/X')$。
+
+\medskip\noindent
+来构造 $G$。令 $(V,U',\varphi)$ 为纤维积范畴的一个对象，
+并置 $U=U'\times_{X'}X$。注意 $U\to U'$ 是加厚。
+由于 $\varphi:V\times_YX\to U'\times_{X'}X=U$ 是同构，
+我们得到 $X\to Y$ 上的态射 $U\to V$，它把 $U$ 等同于纤维积
+$X\times_YV$。特别地，$U\to V$ 仿射；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-affine}。
+因此可以应用引理 \ref{spaces-pushouts-lemma-pushout-along-thickening}，
+得到推出 $V'=V\amalg_UU'$。由于 $V'$ 是推出，且给定的态射
+$V\to Y$ 与 $U'\to X'$ 作为到 $Y'$ 的态射在 $U$ 上相合，
+我们得到态射 $V'\to Y'$。令 $G(V,U',\varphi)=V'$，便得到函子 $G$。
+
+\medskip\noindent
+如果 $(V,U',\varphi)$ 是
+$(\Sch/Y)\times_{(\Sch/Y')}(\Sch/X')$ 的对象，
+那么 $U=U'\times_{X'}X$ 也是概形，并且由《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}，
+可以在概形范畴中作推出 $V'=V\amalg_UU'$。
+由引理 \ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}，
+这在概形范畴中也是推出，故 $G$ 把
+$(\Sch/Y)\times_{(\Sch/Y')}(\Sch/X')$ 映入 $(\Sch/Y')$。% P10-E0014
+
+\medskip\noindent
+来证明 $G$ 是 $F$ 的左伴随。令 $Z$ 为 $Y'$ 上的代数空间。
+我们必须证明
+$$
+\Mor(V', Z) = \Mor((V, U', \varphi), F(Z))
+$$
+其中态射集取自各自的范畴。令 $g':V'\to Z$ 为一个态射。
+分别把 $g'$ 与态射 $V\to V'$、$U'\to V'$ 复合，所得复合记作
+$\tilde g$、$\tilde f'$。分别沿 $Y\to Y'$、$X'\to Y'$ 对
+$\tilde g$、$\tilde f'$ 作基变换，得到态射
+$g:V\to Z\times_{Y'}Y$ 和 $f':U'\to Z\times_{Y'}X'$。
+于是 $(g,f')$ 是上述等式右端的元素（略去细节）。
+反过来，设 $(g,f'):(V,U',\varphi)\to F(Z)$ 是右端的一个元素。
+可以把 $g$、$f$ 分别与
+$Z\times_{Y'}X'\to Z$、$Z\times_{Y'}Y\to Z$ 复合，
+得到复合 $\tilde g:V\to Z$、$\tilde f':U'\to Z$。% P10-E0015
+$\tilde g$ 与 $\tilde f'$ 作为从 $U$ 到 $Z$ 的态射相合。
+由推出的泛性质，得到态射 $g':V'\to Z$，即等式左端的一个元素。
+略去对这两个构造互逆的验证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-diagram}
+设 $S$ 是概形。令
+$$
+\xymatrix{
+A \ar[r] \ar[d] & C \ar[d] \ar[r] & E \ar[d] \\
+B \ar[r] & D \ar[r] & F
+}
+$$
+为 $S$ 上代数空间的交换图表。假设 $A,B,C,D$ 和 $A,B,E,F$
+分别组成笛卡尔方形，并且 $B\to D$ 满且平展。
+那么 $C,D,E,F$ 组成笛卡尔方形。
+\end{lemma}
+
+\begin{proof}
+这是形式的。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout}
+在引理 \ref{spaces-pushouts-lemma-categories-spaces-over-pushout} 的情形下，
+函子 $F\circ G$ 同构于恒等函子。
+\end{lemma}
+
+\begin{proof}
+我们把这个断言约化为《态射续篇》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}.
+中的相应断言，从而证明 $F\circ G$ 同构于恒等函子。
+
+\medskip\noindent
+选取概形 $Y_1$ 和满平展态射 $Y_1\to Y$。置 $X_1=Y_1\times_YX$。
+这是一个在 $Y_1$ 上仿射的概形，并且有满平展态射 $X_1\to X$。
+由《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}，
+存在满平展态射 $X'_1\to X'$，满足 $X_1=X'_1\times_{X'}X$。
+特别地，概形态射 $X_1\to X'_1$ 也是加厚。应用《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}，
+在概形范畴中得到推出 $Y'_1=Y_1\amalg_{X_1}X'_1$。
+在引理 \ref{spaces-pushouts-lemma-pushout-along-thickening} 的证明中，
+我们把 $Y'$ 构造为 $Y'_1$ 上某个平展等价关系的商，使得得到交换图表
+\begin{equation}
+\label{spaces-pushouts-equation-cube}
+\vcenter{
+\xymatrix{
+& X \ar[rr] \ar'[d][dd] & & X' \ar[dd] \\
+X_1 \ar[rr] \ar[dd] \ar[ru] & & X_1' \ar[dd] \ar[ru] & \\
+& Y \ar'[r][rr] & & Y' \\
+Y_1 \ar[rr] \ar[ru] & & Y_1' \ar[ru]
+}
+}
+\end{equation}
+其中除前、后方形外，所有方形都是笛卡尔的
+（前、后方形是推出），东北方向的箭头都是满平展态射。
+把《态射续篇》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}
+中对前方形构造的函子记作 $F_1$、$G_1$。那么范畴图表
+$$
+\xymatrix{
+(\Sch/Y_1') \ar@<-1ex>[r]_-{F_1} \ar[d] &
+(\Sch/Y_1) \times_{(\Sch/Y_1')} (\Sch/X_1') \ar[d] \ar@<-1ex>[l]_-{G_1} \\
+(\textit{Spaces}/Y') \ar@<-1ex>[r]_-F &
+(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')
+\ar@<-1ex>[l]_-G
+}
+$$
+是交换的；这来自对基变换函子的简单考察，以及引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening-schemes} 中概形推出与代数空间推出的一致性。
+
+\medskip\noindent
+令 $(V,U',\varphi)$ 为
+$(\textit{Spaces}/Y)\times_{(\textit{Spaces}/Y')}(\textit{Spaces}/X')$
+的一个对象。记 $U=U'\times_{X'}X$，从而
+$G(V,U',\varphi)=V\amalg_UU'$。选取概形 $V_1$ 和满平展态射
+$V_1\to Y_1\times_YV$。置 $U_1=V_1\times_YX$。于是
+$$
+U_1 = V_1 \times_Y X
+\longrightarrow
+(Y_1 \times_Y V) \times_Y X =
+X_1 \times_Y V = X_1 \times_X X \times_Y V = X_1 \times_X U
+$$
+也满且平展。由《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}
+存在加厚 $U_1\to U'_1$ 和满平展态射
+$U'_1\to X'_1\times_{X'}U'$，其到 $X_1\times_XU$ 的基变换就是上述态射。
+此时 $(V_1,U'_1,\varphi_1)$ 是
+$(\Sch/Y_1)\times_{(\Sch/Y'_1)}(\Sch/X'_1)$ 的对象。
+在引理 \ref{spaces-pushouts-lemma-pushout-along-thickening} 的证明中，
+我们把 $G(V,U',\varphi)=V\amalg_UU'$ 构造为
+$G_1(V_1,U'_1,\varphi_1)=V_1\amalg_{U_1}U'_1$
+上某个平展等价关系的商，使得得到交换图表
+\begin{equation}
+\label{spaces-pushouts-equation-cube-over}
+\vcenter{
+\xymatrix{
+& U \ar[rr] \ar'[d][dd] & & U' \ar[dd] \\
+U_1 \ar[rr] \ar[dd] \ar[ru] & & U_1' \ar[dd] \ar[ru] & \\
+& V \ar'[r][rr] & & G(V, U', \varphi) \\
+V_1 \ar[rr] \ar[ru] & & G_1(V_1, U_1', \varphi_1) \ar[ru]
+}
+}
+\end{equation}
+其中除前、后方形外，所有方形都是笛卡尔的
+（前、后方形是推出），东北方向的箭头都是满平展态射。特别地，
+$$
+G_1(V_1, U_1', \varphi_1) \to G(V, U', \varphi)
+$$
+满且平展。
+
+\medskip\noindent
+最后来证明本引理。我们必须说明伴随映射
+$(V,U',\varphi)\to F(G(V,U',\varphi))$ 是同构。
+由《态射续篇》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}.
+，可知 $(V_1,U'_1,\varphi_1)\to F_1(G_1(V_1,U'_1,\varphi_1))$
+是同构。回忆 $F$ 和 $F_1$ 都由基变换给出。
+利用 (\ref{spaces-pushouts-equation-cube-over}) 的性质和引理 \ref{spaces-pushouts-lemma-diagram}，可知
+$V \to G(V, U', \varphi) \times_{Y'} Y$ 和
+$U'\to G(V,U',\varphi)\times_{Y'}X'$ 都是同构；也就是说，
+$(V,U',\varphi)\to F(G(V,U',\varphi))$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-space-over-pushout-flat-modules}
+设 $S$ 是基概形。令 $X\to X'$ 为 $S$ 上代数空间的加厚，
+令 $X\to Y$ 为 $S$ 上代数空间的仿射态射。
+令 $Y'=Y\amalg_XX'$ 为推出（见引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening}）。
+令 $V'\to Y'$ 为 $S$ 上代数空间的态射，并置
+$V=Y\times_{Y'}V'$、$U'=X'\times_{Y'}V'$、$U=X\times_{Y'}V'$。
+下列两个范畴之间存在等价：
+\begin{enumerate}
+\item 在 $Y'$ 上平坦的拟凝聚 $\mathcal{O}_{V'}$-模；以及
+\item 三元组 $(\mathcal{G},\mathcal{F}',\varphi)$ 的范畴，其中
+\begin{enumerate}
+\item $\mathcal{G}$ 是在 $Y$ 上平坦的拟凝聚 $\mathcal{O}_V$-模；
+\item $\mathcal{F}'$ 是在 $X$ 上平坦的拟凝聚 $\mathcal{O}_{U'}$-模；以及
+\item $\varphi : (U \to V)^*\mathcal{G} \to (U \to U')^*\mathcal{F}'$
+是 $\mathcal{O}_U$-模同构。
+\end{enumerate}
+\end{enumerate}
+这个等价把 $\mathcal{G}'$ 映为
+$((V\to V')^*\mathcal{G}',(U'\to V')^*\mathcal{G}',can)$。
+设 $\mathcal{G}'$ 对应于三元组 $(\mathcal{G},\mathcal{F}',\varphi)$。那么
+\begin{enumerate}
+\item[(a)] $\mathcal{G}'$ 是有限型 $\mathcal{O}_{V'}$-模，当且仅当
+$\mathcal{G}$ 和 $\mathcal{F}'$ 分别是有限型
+$\mathcal{O}_Y$-模和 $\mathcal{O}_{U'}$-模；
+\item[(b)] 如果 $V'\to Y'$ 局部有限呈示，那么 $\mathcal{G}'$
+是有限呈示 $\mathcal{O}_{V'}$-模，当且仅当 $\mathcal{G}$ 和
+$\mathcal{F}'$ 分别是有限呈示 $\mathcal{O}_Y$-模和
+$\mathcal{O}_{U'}$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+一个拟逆函子把三元组 $(\mathcal{G},\mathcal{F}',\varphi)$ 映为纤维积
+$$
+(V \to V')_*\mathcal{G}
+\times_{(U \to V')_*\mathcal{F}}
+(U' \to V')_*\mathcal{F}'
+$$
+其中 $\mathcal{F}=(U\to U')^*\mathcal{F}'$。这是可行的，因为在
+$V'$ 和 $Y'$ 上平展的仿射概形上，我们恢复了《代数续篇》引理
+\ref{more-algebra-lemma-relative-flat-module-over-fibre-product}.
+中的等价。略去细节。
+
+\medskip\noindent
+通过平展局部化（《空间的性质》第
+\ref{spaces-properties-section-properties-modules} 节），
+(a) 和 (b) 约化到 $V'$ 和 $Y'$ 都仿射的情形；此时结论来自
+《代数续篇》引理
+\ref{more-algebra-lemma-relative-finite-module-over-fibre-product} 和
+\ref{more-algebra-lemma-relative-finitely-presented-module-over-fibre-product}.
+\end{proof}
+
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-equivalence-categories-spaces-pushout-flat}
+在引理 \ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout} 的情形下，
+如果对某个三元组 $(V,U',\varphi)$ 有 $V'=G(V,U',\varphi)$，那么
+\begin{enumerate}
+\item $V'\to Y'$ 局部有限型，当且仅当 $V\to Y$ 和 $U'\to X'$
+都局部有限型；
+\item $V'\to Y'$ 平坦，当且仅当 $V\to Y$ 和 $U'\to X'$ 都平坦；
+\item $V'\to Y'$ 平坦且局部有限呈示，当且仅当 $V\to Y$ 和
+$U'\to X'$ 都平坦且局部有限呈示；
+\item $V'\to Y'$ 光滑，当且仅当 $V\to Y$ 和 $U'\to X'$ 都光滑；
+\item $V'\to Y'$ 平展，当且仅当 $V\to Y$ 和 $U'\to X'$ 都平展；以及
+\item 可按需要在此增添更多性质。
+\end{enumerate}
+如果 $W'$ 在 $Y'$ 上平坦，那么伴随映射 $G(F(W'))\to W'$ 是同构。
+因此，$F$ 和 $G$ 在以下两个范畴之间定义互为拟逆的函子：
+$Y'$ 上平坦的空间的范畴；以及满足 $V\to Y$ 和 $U'\to X'$ 平坦的
+三元组 $(V,U',\varphi)$ 的范畴。
+\end{lemma}
+
+\begin{proof}
+选取图表 (\ref{spaces-pushouts-equation-cube})，如引理
+\ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout} 的证明那样。
+
+\medskip\noindent
+证明 (1)--(5)。令 $(V,U',\varphi)$ 为
+$(\textit{Spaces}/Y)\times_{(\textit{Spaces}/Y')}(\textit{Spaces}/X')$
+的一个对象。构造图表 (\ref{spaces-pushouts-equation-cube-over})，如引理
+\ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout} 的证明那样。那么
+$G(V,U',\varphi)\to Y'$ 到 $Y'_1$ 的基变换是
+$G_1(V_1,U'_1,\varphi_1)\to Y'_1$。因此 (1)--(5) 立即来自
+《态射续篇》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+中关于概形的相应断言。
+
+\medskip\noindent
+假设 $W'\to Y'$ 平坦。选取概形 $W'_1$ 和满平展态射
+$W'_1\to Y'_1\times_{Y'}W'$。注意，$W'_1\to W'$ 是满平展态射，
+因为它是满平展态射的复合。由《态射续篇》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+将其应用于 $Y'_1$ 上的 $W'_1$ 和图表的前面（函子 $G_1$、$F_1$
+如引理 \ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout} 的证明），
+可知 $G_1(F_1(W'_1))\to W'_1$ 是同构。
+于是 $G(F(W'))$ 的构造（即作为引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening} 中构造的推出）表明
+$G_1(F_1(W'_1))\to G(F(W))$ 满且平展。% P10-E0018
+从而 $G(F(W))\to W$ 平展；例如见《空间的性质》引理
+\ref{spaces-properties-lemma-etale-local}。
+但按构造，$G(F(W))\to W$ 在底层约化代数空间上是同构，故它是同构。
+\end{proof}
+
+
+
+
+
+
+
+\section{沿闭浸入与整态射的推出}
+\label{spaces-pushouts-section-pushouts-II}
+
+\noindent
+本节类似于《态射续篇》第 \ref{more-morphisms-section-pushouts-II} 节。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-pushout-along-closed-immersion-and-integral}
+在《态射续篇》情形
+\ref{more-morphisms-situation-pushout-along-closed-immersion-and-integral}
+中，令 $Y\amalg_ZX$ 为概形范畴中的推出
+（《态射续篇》命题
+\ref{more-morphisms-proposition-pushout-along-closed-immersion-and-integral}）。
+那么 $Y\amalg_ZX$ 在 $S$ 上代数空间的范畴中也是推出。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-pushouts-lemma-colimit-agrees}、本引理中提到的命题以及
+《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-functor} 和
+\ref{more-morphisms-lemma-pushout-functor-equivalence-flat}.
+立即得到引理 \ref{spaces-pushouts-lemma-colimit-agrees} 的条件 (1) 和 (2)。
+为验证 (3) 和 (4)，注意平展态射局部拟有限，并利用《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-functor-equivalence-flat}
+中的范畴等价是用《态射续篇》引理
+\ref{more-morphisms-lemma-pushout-functor} 的推出构造得到的。
+略去次要细节。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{推出与导出范畴}
+\label{spaces-pushouts-section-pushouts-derived}
+
+\noindent
+本节讨论模的导出范畴在推出下的表现。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-pushout-along-thickening-derived}
+设 $S$ 是概形。考虑 $S$ 上代数空间范畴中的推出
+$$
+\xymatrix{
+X \ar[r]_i \ar[d]_f & X' \ar[d]^{f'}
+\\
+Y \ar[r]^j & Y'
+}
+$$
+，它如引理 \ref{spaces-pushouts-lemma-pushout-along-thickening} 中所述。
+假设 $i$ 是加厚。那么函子\footnote{所有函子都由导出拉回给出。}
+的本质像
+$$
+D(\mathcal{O}_{Y'}) \longrightarrow
+D(\mathcal{O}_Y) \times_{D(\mathcal{O}_X)} D(\mathcal{O}_{X'})
+$$
+包含每个三元组 $(M,K',\alpha)$，其中
+$M\in D(\mathcal{O}_Y)$ 和 $K'\in D(\mathcal{O}_{X'})$ 都是伪凝聚的。
+\end{lemma}
+
+\begin{proof}
+令 $(M,K',\alpha)$ 为本引理函子靶范畴的一个对象。
+这里 $\alpha:Lf^*M\to Li^*K'$ 是同构，它伴随于映射
+$\beta:M\to Rf_*Li^*K'$。于是得到映射
+$$
+Rj_*M \xrightarrow{Rj_*\beta}
+Rj_*Rf_*Li^*K' = Rf'_*Ri_*Li^*K' \leftarrow Rf'_*K'
+$$
+其中指向左的箭头来自 $K'\to Ri_*Li^*K'$。选取 $D(\mathcal{O}_{Y'})$
+中的特异三角
+$$
+M' \to Rj_*M \oplus Rf'_*K' \to Rj_*Rf_*Li^*K' \to M'[1]
+$$
+。第一个箭头定义与 $\alpha$ 相容的典范映射
+$Lj^*M'\to M$ 和 $L(f')^*M'\to K'$。
+因此，只需说明映射 $Lj^*M'\to M$ 和 $L(f')^*M'\to K$ 是同构。% P10-E0019
+这可以在 $Y'$ 上平展局部地检验，因而可以假设 $Y'$ 是平展的。% P10-E0020
+
+\medskip\noindent
+假设 $Y'$ 仿射，且 $M\in D(\mathcal{O}_Y)$ 和
+$K'\in D(\mathcal{O}_{X'})$ 都伪凝聚。设我们的推出对应于环的纤维积
+$$
+\xymatrix{
+B & B' \ar[l] \\
+A \ar[u] & A' \ar[l] \ar[u]
+}
+$$
+，其中 $B'\to B$ 是满射，其核 $I$ 局部幂零
+（因而 $A'\to A$ 也是满射，且其核 $I$ 局部幂零）。
+关于 $M$ 和 $K'$ 的假设蕴含：$M$ 来自 $D(A)$ 的一个伪凝聚对象，
+$K'$ 来自 $D(B')$ 的一个伪凝聚对象；见《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-pseudo-coherent},
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site} 和
+\ref{spaces-perfect-lemma-descend-pseudo-coherent}
+以及《概形的导出范畴》引理
+\ref{perfect-lemma-affine-compare-bounded} 和
+\ref{perfect-lemma-pseudo-coherent-affine}.
+此外，正像和导出拉回与模的导出范畴上的相应运算一致；
+见《空间的导出范畴》注
+\ref{spaces-perfect-remark-match-total-direct-images}
+以及《概形的导出范畴》引理
+\ref{perfect-lemma-quasi-coherence-pushforward} 和
+\ref{perfect-lemma-quasi-coherence-pullback}.
+这把问题约化为下一段所表述的断言。
+（确切地说，这些参引表明对象 $M'$ 属于
+$D_\QCoh(\mathcal{O}_{Y'})$，因为它是 $D(\mathcal{O}_{Y'})$
+的三角子范畴。）
+
+\medskip\noindent
+给定如上的环图表以及三元组 $(M,K',\alpha)$，其中
+$M\in D(A)$、$K'\in D(B')$ 伪凝聚，且
+$\alpha:M\otimes_A^\mathbf{L}B\to K'\otimes_{B'}^\mathbf{L}B$ 是同构。
+设有 $D(A')$ 中的特异三角
+$$
+M' \to M \oplus K' \to K' \otimes_{B'}^\mathbf{L} B \to M'[1]
+$$
+。目标是证明诱导映射 $M'\otimes_{A'}^\mathbf{L}A\to M$ 和
+$M'\otimes_{A'}^\mathbf{L}B'\to K'$ 都是同构。
+为此，选取一个表示 $M$ 的有限自由 $A$-模的有上界复形 $E^\bullet$。
+由于 $(B',I)$ 是 Hensel 对
+（《代数续篇》引理 \ref{more-algebra-lemma-locally-nilpotent-henselian}），
+且 $B=B'/I$，可以应用《代数续篇》引理
+\ref{more-algebra-lemma-lift-complex-finite-projectives}
+，得到自由 $B'$-模的有上界复形 $P^\bullet$，使 $\alpha$ 由同构
+$E^\bullet\otimes_AB\cong P^\bullet\otimes_{B'}B$ 表示。
+然后可以考虑 $B'$-模复形的短正合列
+$$
+0 \to L^\bullet \to
+E^\bullet \oplus P^\bullet \to P^\bullet \otimes_{B'} B \to 0
+$$
+。《代数续篇》引理
+\ref{more-algebra-lemma-finitely-presented-module-over-fibre-product}
+蕴含 $L^\bullet$ 是有限投射 $A'$-模的有上界复形
+（事实上，在我们的情形中直接证明 $L^n$ 有限自由相当容易），并且有
+$L^\bullet \otimes_{A'} A = E^\bullet$ 以及
+$L^\bullet \otimes_{A'} B' = P^\bullet$.
+该短正合列在 $D(A')$ 中给出特异三角
+$$
+L^\bullet \to M \oplus K' \to K' \otimes_{B'}^\mathbf{L} B \to (L^\bullet)[1]
+$$
+（《导出范畴》第 \ref{derived-section-canonical-delta-functor} 节）。
+由三角范畴的一般性质（《导出范畴》第
+\ref{derived-section-elementary-results} 节），它同构于给定的特异三角。
+换言之，$L^\bullet$ 以与给定映射相容的方式表示 $M'$。
+因此，映射 $M'\otimes_{A'}^\mathbf{L}A\to M$ 和
+$M'\otimes_{A'}^\mathbf{L}B'\to K'$ 都是同构，
+因为刚刚已经看到 $L^\bullet$ 的相应断言成立。
+\end{proof}
+
+
+
+
+
+
+
+\section{构造初等特异方形}
+\label{spaces-pushouts-section-elementary-dsitnguished-squares}
+
+\noindent
+初等特异方形定义于《空间的导出范畴》第
+\ref{spaces-perfect-section-induction} 节。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-elementary-distinguished-square-pushout}
+设 $S$ 是概形。令 $(U\subset W,f:V\to W)$ 为初等特异方形。那么
+$$
+\xymatrix{
+U \times_W V \ar[r] \ar[d] &
+V \ar[d]^f \\
+U \ar[r] & W
+}
+$$
+是 $S$ 上代数空间范畴中的推出。
+\end{lemma}
+
+\begin{proof}
+注意，$U\amalg V\to W$ 是满平展态射。纤维积
+$$
+(U \amalg V) \times_W (U \amalg V)
+$$
+是四个部分的不交并，即 $U=U\times_WU$、$U\times_WV$、
+$V\times_WU$ 和 $V\times_WV$。存在满平展态射
+$$
+V \amalg (U \times_W V) \times_U (U \times_W V) \longrightarrow V \times_W V
+$$
+，因为 $f$ 在 $W\setminus U$ 上诱导同构
+（这是初等特异方形定义的一部分）。
+令 $B$ 为 $S$ 上的代数空间，并令 $g:V\to B$ 和 $h:U\to B$
+为 $S$ 上态射，它们限制到 $U\times_WV$ 后相合。
+于是，上面对 $(U\amalg V)\times_W(U\amalg V)$ 的描述表明，
+$h\amalg g:U\amalg V\to B$ 使两个投影相等。
+由于 $B$ 是平展拓扑下的层，按所需得到 $h\amalg g$
+通过 $W$ 的唯一分解。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-construct-elementary-distinguished-square}
+设 $S$ 是概形，$V$、$U$ 是 $S$ 上的代数空间。
+令 $V'\subset V$ 为开子空间，令 $f':V'\to U$ 为 $S$ 上代数空间的
+分离平展态射。那么在 $S$ 上代数空间的范畴中存在推出
+$$
+\xymatrix{
+V' \ar[r] \ar[d] &
+V \ar[d]^f \\
+U \ar[r] & W
+}
+$$
+，而且 $(U\subset W,f:V\to W)$ 是初等特异方形。
+\end{lemma}
+
+\begin{proof}
+我们把 $W$ 构造为 $U\amalg V$ 上某个平展等价关系 $R$ 的商。
+例如，由《自举》定理 \ref{bootstrap-theorem-final-bootstrap}，
+这样的商是代数空间。此外，引理
+\ref{spaces-pushouts-lemma-elementary-distinguished-square-pushout} 的证明告诉我们应取
+$$
+R = U \amalg V' \amalg V' \amalg V \amalg
+(V' \times_U V' \setminus \Delta_{V'/U}(V'))
+$$
+由于假设 $V'\to U$ 分离，$\Delta_{V'/U}$ 的像是闭的，
+因而其补集是开子空间。态射
+$j:R\to(U\amalg V)\times_S(U\amalg V)$ 由下式给出：
+$$
+u,\ v',\ v',\ v,\ (v'_1, v'_2) \mapsto
+(u, u),\ (f'(v'), v'),\ (v', f'(v')),\ (v, v),\ (v'_1, v'_2)
+$$
+记号含义显然。立即可验证这是一个单态射和等价关系，
+且诱导态射 $s,t:R\to U\amalg V$ 平展。
+令 $W=(U\amalg V)/R$ 为商代数空间。
+得到本引理陈述中的交换图表。为完成证明，只需说明该图表是初等特异方形；
+因为这样一来，引理 \ref{spaces-pushouts-lemma-elementary-distinguished-square-pushout}
+就蕴含它是推出。因此必须说明 $U\to W$ 是开态射，
+$f$ 平展且在 $W\setminus U$ 上是同构。
+这些都由 $R$ 的选取推出；略去细节。
+\end{proof}
+
+
+
+
+
+
+\section{拟凝聚模的形式粘合}
+\label{spaces-pushouts-section-formal-glueing}
+
+\noindent
+本节类似于《代数续篇》第 \ref{more-algebra-section-formal-glueing} 节。
+对于概形态射，相关结果见 Joyet 的论文 \cite{Joyet}；
+这是一个很好的入门起点。关于它在叠的下降问题中的应用，
+见 Moret-Bailly 的论文 \cite{MB}。对于概形的仿射态射，
+论文 \cite{Ferrand-Raynaud} 的附录中有一个陈述，
+但必须补充闭子概形由有限生成理想截出的假设
+（如 Joyet 的论文中那样），否则结论并不成立。
+这部分内容向（高阶）导出范畴的推广，以及它对非平坦情形的潜在应用，
+见 \cite[第 5 节]{Bhatt-Algebraize}。
+
+\medskip\noindent
+先从一个关于支撑在闭子集上的阿贝尔层的引理开始。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-stalk-pushforward-with-support}
+设 $S$ 是概形。令 $f:Y\to X$ 为 $S$ 上代数空间的态射。
+令 $Z\subset X$ 为闭子空间，使 $f^{-1}Z\to Z$ 整且万有单射。
+令 $\overline y$ 为 $Y$ 的几何点，并令
+$\overline x=f(\overline y)$。那么
+$$
+(Rf_*Q)_{\overline{x}} = Q_{\overline{y}}
+$$
+对 $D(Y_\etale)$ 中任一支撑在 $|f^{-1}Z|$ 上的对象 $Q$，
+上述等式在 $D(\textit{Ab})$ 中成立。
+\end{lemma}
+
+\begin{proof}
+考虑代数空间的交换图表
+$$
+\xymatrix{
+f^{-1}Z \ar[r]_{i'} \ar[d]_{f'} & Y \ar[d]_f \\
+Z \ar[r]^i & X
+}
+$$
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-complexes-with-support-on-closed}，
+对 $D(f^{-1}Z_\etale)$ 中某个对象 $K'$，可以写成 $Q=Ri'_*K'$。
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-injective-push-pull}，
+有 $K'=(f')^{-1}K$，其中 $K=Rf'_*K'$。
+于是 $Rf_*Q=Rf_*Ri'_*K'=Ri_*Rf'_*K'=Ri_*K$。
+令 $\overline z$ 为 $Z$ 中对应于 $\overline x$ 的几何点，
+令 $\overline z'$ 为 $f^{-1}Z$ 中对应于 $\overline y$ 的几何点。
+如下得到本引理的结论：
+$$
+Q_{\overline{y}} = (Ri'_*K')_{\overline{y}} = K'_{\overline{z}'} =
+(f')^{-1}K_{\overline{z}'} = K_{\overline{z}} = Ri_*K_{\overline{x}} =
+Rf_*Q_{\overline{x}}
+$$
+中间的等式成立，是因为《空间的性质》引理
+\ref{spaces-properties-lemma-stalk-pullback} 给出了拉回茎的描述。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-stalk-formal-glueing}
+设 $S$ 是概形。令 $f:Y\to X$ 为 $S$ 上代数空间的态射。
+令 $Z\subset X$ 为闭子空间，使 $f^{-1}Z\to Z$ 整且万有单射。
+令 $\overline y$ 为 $Y$ 的几何点，并令
+$\overline x=f(\overline y)$。令 $\mathcal{G}$ 为 $Y$ 上的阿贝尔层。
+那么二项复形之间的映射
+$$
+\left(f_*\mathcal{G}_{\overline{x}} \to
+(f \circ j')_*(\mathcal{G}|_V)_{\overline{x}}\right)
+\longrightarrow
+\left(\mathcal{G}_{\overline{y}} \to j'_*(\mathcal{G}|_V)_{\overline{y}}\right)
+$$
+在核上诱导同构，在余核上诱导单射。这里
+$V=Y\setminus f^{-1}Z$，而 $j':V\to Y$ 是包含映射。
+\end{lemma}
+
+\begin{proof}
+选取 $D(Y_\etale)$ 中的特异三角
+$$
+\mathcal{G} \to Rj'_*\mathcal{G}|_V \to Q \to \mathcal{G}[1]
+$$
+。% P10-E0021
+$Q$ 的上同调层支撑在 $|f^{-1}Z|$ 上。应用 $Rf_*$，得到
+$$
+Rf_*\mathcal{G} \to Rf_*Rj'_*\mathcal{G}|_V \to Rf_*Q
+\to Rf_*\mathcal{G}[1]
+$$
+在 $\overline x$ 处取茎，得到正合列
+$$
+0 \to
+(R^{-1}f_*Q)_{\overline{x}} \to
+f_*\mathcal{G}_{\overline{x}} \to
+(f \circ j')_*(\mathcal{G}|_V)_{\overline{x}} \to
+(R^0f_*Q)_{\overline{x}}
+$$
+可以把它与正合列
+$$
+0 \to
+H^{-1}(Q)_{\overline{y}} \to
+\mathcal{G}_{\overline{y}} \to
+j'_*(\mathcal{G}|_V)_{\overline{y}} \to
+H^0(Q)_{\overline{y}}
+$$
+相比较。由引理 \ref{spaces-pushouts-lemma-stalk-pushforward-with-support}，
+有 $Q_{\overline y}=Rf_*Q_{\overline x}$，故本引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-stalk-of-pushforward}
+设 $S$ 是概形，$X$ 是 $S$ 上的代数空间。
+令 $f:Y\to X$ 为拟紧且拟分离的态射。
+令 $\overline x$ 为 $X$ 的几何点，并令
+$\Spec(\mathcal{O}_{X,\overline x})\to X$ 为典范态射。
+对 $Y$ 上的拟凝聚模 $\mathcal{G}$，有
+$$
+f_*\mathcal{G}_{\overline{x}} =
+\Gamma(Y \times_X \Spec(\mathcal{O}_{X, \overline{x}}), p^*\mathcal{F})
+$$
+其中 $p:Y\times_X\Spec(\mathcal{O}_{X,\overline x})\to Y$ 是投影。% P10-E0022
+\end{lemma}
+
+\begin{proof}
+注意，$f_*\mathcal{G}_{\overline x}=
+\Gamma(\Spec(\mathcal{O}_{X,\overline x}),h^*f_*\mathcal{G})$，
+其中 $h:\Spec(\mathcal{O}_{X,\overline x})\to X$。
+由于 $h$ 平坦，可以应用《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}，故结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-stalk-of-module-with-support}
+设 $S$ 是概形，$X$ 是 $S$ 上的代数空间。
+令 $i:Z\to X$ 为有限呈示的闭浸入，
+令 $Q\in D_\QCoh(\mathcal{O}_X)$ 支撑在 $|Z|$ 上。
+令 $\overline x$ 为 $X$ 的几何点，令
+$I_{\overline x}\subset\mathcal{O}_{X,\overline x}$ 为 $Z$ 的理想层的茎。
+那么上同调模 $H^n(Q_{\overline x})$ 是 $I_{\overline x}$-幂挠的
+（见《代数续篇》定义 \ref{more-algebra-definition-f-power-torsion}）。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $U$ 和平展态射 $U\to X$，使 $\overline x$
+提升为 $U$ 的几何点 $\overline u$。于是可以分别用
+$U$、$U\times_XZ$、限制 $Q|_U$、$\overline u$ 替换
+$X$、$Z$、$Q$、$\overline x$。因此可以假设 $X=\Spec(A)$ 仿射。
+令 $I\subset A$ 为定义 $Z$ 的理想。由于 $i:Z\to X$ 有限呈示，
+理想 $I=(f_1,\ldots,f_r)$ 有限生成。
+对象 $Q$ 来自一个 $A$-模复形 $M^\bullet$；见《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+以及《概形的导出范畴》引理
+\ref{perfect-lemma-affine-compare-bounded}.
+由于 $Q$ 的上同调层支撑在 $Z$ 上，可知对每个 $f\in I$，
+局部化 $M^\bullet_f$ 都无上同调。取 $x\in H^p(M^\bullet)$。
+由上可找到 $n_i$，使得对每个 $i$，在 $H^p(M^\bullet)$ 中有
+$f_i^{n_i}x=0$。令 $n=\sum n_i$，便可知 $I^n$ 消去 $x$。
+因此 $H^p(M^\bullet)$ 是 $I$-幂挠的。由于环映射
+$A\to\mathcal{O}_{X,\overline x}$ 平坦，并且
+$I_{\overline x}=I\mathcal{O}_{X,\overline x}$，结论随即得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-formal-glueing-on-closed}
+设 $S$ 是概形。令 $f:Y\to X$ 为 $S$ 上代数空间的态射，
+令 $Z\subset X$ 为闭子空间。假设 $f^{-1}Z\to Z$ 是同构，
+且 $f$ 在 $f^{-1}Z$ 的每一点都平坦。
+对 $D_\QCoh(\mathcal{O}_Y)$ 中任一支撑在 $|f^{-1}Z|$ 上的 $Q$，有
+$Lf^*Rf_*Q=Q$。
+\end{lemma}
+
+\begin{proof}
+在 $\overline y$ 处检验茎，以证明典范映射 $Lf^*Rf_*Q\to Q$ 是同构。
+如果 $\overline y$ 不在 $f^{-1}Z$ 中，那么两端都为零，结论成立。
+假设 $\overline y$ 的像 $\overline x$ 属于 $Z$。
+由引理 \ref{spaces-pushouts-lemma-stalk-pushforward-with-support}，有
+$Rf_*Q_{\overline x}=Q_{\overline y}$；又因为 $f$ 在 $\overline y$ 处平坦，故
+$$
+(Lf^*Rf_*Q)_{\overline{y}} =
+(Rf_*Q)_{\overline{x}}
+\otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}} =
+Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}
+$$
+因此只需验证典范映射
+$$
+Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}
+\longrightarrow Q_{\overline{y}}
+$$
+在导出范畴中是同构。令
+$I_{\overline x}\subset\mathcal{O}_{X,\overline x}$ 为定义 $Z$ 的理想层的茎。
+由于 $Z\to X$ 局部有限呈示，这个理想有限生成；
+把引理 \ref{spaces-pushouts-lemma-stalk-of-module-with-support} 应用于 $Y$ 上的 $Q$，
+可知 $Q_{\overline y}$ 的上同调群是
+$I_{\overline y}=I_{\overline x}\mathcal{O}_{Y,\overline y}$-幂挠的。
+因此它们也是 $I_{\overline x}$-幂挠的。环映射
+$\mathcal{O}_{X,\overline x}\to\mathcal{O}_{Y,\overline y}$ 平坦；
+又因为假设 $f^{-1}Z\to Z$ 是同构，所以分别模去
+$I_{\overline x}$ 和 $I_{\overline y}$ 后，它诱导同构。因此，由
+《代数续篇》引理 \ref{more-algebra-lemma-neighbourhood-isomorphism}，
+可知
+$Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}$
+的上同调模等于 $Q_{\overline y}$ 的上同调模，证明完成。
+\end{proof}
+
+\begin{situation}
+\label{spaces-pushouts-situation-formal-glueing}
+这里 $S$ 是基概形，$f:Y\to X$ 是 $S$ 上代数空间的拟紧且拟分离态射，
+$Z\to X$ 是有限呈示的闭浸入。假设 $f^{-1}(Z)\to Z$ 是同构，
+且 $f$ 在每一点 $x\in|f^{-1}Z|$ 都平坦。
+置 $U=X\setminus Z$ 和 $V=Y\setminus f^{-1}(Z)$。图表为
+$$
+\xymatrix{
+V \ar[r]_{j'} \ar[d]_{f|_V} & Y \ar[d]^f \\
+U \ar[r]^j & X
+}
+$$
+\end{situation}
+
+\noindent
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，定义
+$\textit{QCoh}(Y\to X,Z)$ 为三元组
+$(\mathcal{H},\mathcal{G},\varphi)$ 的范畴，其中
+$\mathcal{H}$ 是拟凝聚 $\mathcal{O}_U$-模层，
+$\mathcal{G}$ 是拟凝聚 $\mathcal{O}_Y$-模层，而
+$\varphi:f^*\mathcal{H}\to\mathcal{G}|_V$ 是 $\mathcal{O}_V$-模同构。
+存在典范函子
+\begin{equation}
+\label{spaces-pushouts-equation-formal-glueing-modules}
+\QCoh(\mathcal{O}_X) \longrightarrow \textit{QCoh}(Y \to X, Z)
+\end{equation}
+它把 $\mathcal{F}$ 映为系统 $(\mathcal{F}|_U,f^*\mathcal{F},can)$。
+类比仿射情形下给出的证明，我们构造反方向的函子。
+对对象 $(\mathcal{H},\mathcal{G},\varphi)$，赋予 $\mathcal{O}_X$-模
+\begin{equation}
+\label{spaces-pushouts-equation-reverse}
+\Ker(j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V)
+\end{equation}
+注意，由于 $Z\to X$ 有限呈示，$j$ 和 $j'$ 都是拟紧态射。
+因此，$f_*$、$j_*$ 和 $(f\circ j')_*$ 把拟凝聚模映为拟凝聚模
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-pushforward}）。
+故模 (\ref{spaces-pushouts-equation-reverse}) 拟凝聚。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-adjoint}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，函子
+(\ref{spaces-pushouts-equation-reverse}) 是函子
+(\ref{spaces-pushouts-equation-formal-glueing-modules}) 的右伴随。
+\end{lemma}
+
+\begin{proof}
+这很容易从 $f^*$ 与 $f_*$、$j^*$ 与 $j_*$ 的伴随性推出。略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-reverse-commutes-with-flat-base-change}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，令 $X'\to X$ 为代数空间的平坦态射。
+置 $Z'=X'\times_XZ$ 和 $Y'=X'\times_XY$。
+拉回 $\QCoh(\mathcal{O}_X)\to\QCoh(\mathcal{O}_{X'})$ 和
+$\QCoh(Y\to X,Z)\to\QCoh(Y'\to X',Z')$ 与函子
+(\ref{spaces-pushouts-equation-reverse}) 和
+\ref{spaces-pushouts-equation-formal-glueing-modules}) 相容。% P10-E0023
+\end{lemma}
+
+\begin{proof}
+这是因为拉回与拉回交换，而平坦拉回与沿拟紧且拟分离态射的正像交换；
+见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+\end{proof}
+
+\begin{proposition}
+\label{spaces-pushouts-proposition-formal-glueing-modules}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，函子
+(\ref{spaces-pushouts-equation-formal-glueing-modules}) 是等价，
+其拟逆由 (\ref{spaces-pushouts-equation-reverse}) 给出。
+\end{proposition}
+
+\begin{proof}
+先处理 $X$ 和 $Y$ 都是仿射概形且态射 $f$ 平坦的特殊情形。
+设 $X=\Spec(R)$、$Y=\Spec(S)$。那么 $f$ 对应于平坦环映射 $R\to S$。
+此外，$Z\subset X$ 由有限生成理想 $I\subset R$ 截出。
+选取生成元 $f_1,\ldots,f_t\in I$。
+由用模描述拟凝聚模的方式
+（《概形》第 \ref{schemes-section-quasi-coherent-affine} 节），
+可知范畴 $\textit{QCoh}(Y\to X,Z)$ 典范等价于《代数续篇》注
+\ref{more-algebra-remark-glueing-data} 中的范畴
+$\text{Glue}(R\to S,f_1,\ldots,f_t)$，并且函子
+(\ref{spaces-pushouts-equation-formal-glueing-modules}) 和 (\ref{spaces-pushouts-equation-reverse})
+分别对应于函子 $\text{Can}$ 和 $H^0$。
+因此，在这种情形下，结论来自《代数续篇》命题
+\ref{more-algebra-proposition-equivalence}。
+
+\medskip\noindent
+回到一般情形。令 $\mathcal{F}$ 为 $X$ 上的拟凝聚模。我们将证明
+$$
+\alpha :
+\mathcal{F}
+\longrightarrow
+\Ker\left(j_*\mathcal{F}|_U \oplus f_*f^*\mathcal{F} \to
+(f \circ j')_*f^*\mathcal{F}|_V\right)
+$$
+是同构。令 $(\mathcal{H},\mathcal{G},\varphi)$ 为
+$\QCoh(Y\to X,Z)$ 的一个对象。我们将证明
+$$
+\beta :
+f^*\Ker\left(
+j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V
+\right)
+\longrightarrow
+\mathcal{G}
+$$
+以及
+$$
+\gamma :
+j^*\Ker\left(
+j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V
+\right)
+\longrightarrow
+\mathcal{H}
+$$
+都是同构。为证明这些断言，只需考察茎。
+令 $\overline y$ 为 $Y$ 的几何点，它映到 $X$ 的几何点 $\overline x$。
+
+\medskip\noindent
+固定 $\QCoh(Y\to X,Z)$ 的一个对象
+$(\mathcal{H},\mathcal{G},\varphi)$。由引理
+\ref{spaces-pushouts-lemma-stalk-formal-glueing} 和一次图追逐（略去），典范映射
+$$
+\Ker(j_*\mathcal{H} \oplus f_*\mathcal{G} \to
+(f \circ j')_*\mathcal{G}|_V)_{\overline{x}}
+\longrightarrow
+\Ker(
+j_*\mathcal{H}_{\overline{x}} \oplus \mathcal{G}_{\overline{y}}
+\to
+j'_*\mathcal{G}_{\overline{y}}
+)
+$$
+是同构。
+
+\medskip\noindent
+特别地，如果 $\overline y$ 是 $V$ 的几何点，那么
+$j'_*\mathcal{G}_{\overline y}=\mathcal{G}_{\overline y}$，
+从而这个核等于 $\mathcal{H}_{\overline x}$。
+这很容易蕴含在此情形下 $\alpha_{\overline x}$、
+$\beta_{\overline x}$ 和 $\beta_{\overline y}$ 都是同构。% P10-E0024
+
+\medskip\noindent
+接着，假设 $\overline y$ 是 $f^{-1}Z$ 的一点。
+分别令 $I_{\overline x}\subset\mathcal{O}_{X,\overline x}$、
+$I_{\overline y}\subset\mathcal{O}_{Y,\overline y}$ 为截出
+$Z$、$f^{-1}Z$ 的理想的茎。那么 $I_{\overline x}$ 是有限生成理想，
+$I_{\overline y}=I_{\overline x}\mathcal{O}_{Y,\overline y}$，而
+$\mathcal{O}_{X,\overline x}\to\mathcal{O}_{Y,\overline y}$
+是平坦局部同态，并诱导同构
+$\mathcal{O}_{X,\overline x}/I_{\overline x}=
+\mathcal{O}_{Y,\overline y}/I_{\overline y}$。
+此时可以利用范畴图表进行自举：
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_X) \ar[r]_-{(\ref{spaces-pushouts-equation-formal-glueing-modules})} \ar[d] &
+\QCoh(Y \to X, Z) \ar[d] \ar@/_2pc/[l]^{(\ref{spaces-pushouts-equation-reverse})} \\
+\text{Mod}_{\mathcal{O}_{X, \overline{x}}} \ar[r]^-{\text{Can}} &
+\text{Glue}(\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}},
+f_1, \ldots, f_t) \ar@/^2pc/[l]_{H^0}
+}
+$$
+也就是说，如证明第一段中那样，我们等同
+$$
+\text{Glue}(\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}},
+f_1, \ldots, f_t)
+=
+\QCoh(\Spec(\mathcal{O}_{Y, \overline{y}}) \to
+\Spec(\mathcal{O}_{X, \overline{x}}), V(I_{\overline{x}}))
+$$
+右侧竖直函子由拉回给出，显然内方形交换。
+把证明第三段中对核之茎的计算与引理
+\ref{spaces-pushouts-lemma-stalk-of-pushforward} 结合起来，可知外方形
+（使用弯曲箭头）交换。因此，可用证明第一段中已经处理的
+仿射概形平坦态射情形得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-derived-equivalent}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，函子 $Rf_*$ 诱导
+$D_{\QCoh,|f^{-1}Z|}(\mathcal{O}_Y)$ 与
+$D_{\QCoh,|Z|}(\mathcal{O}_X)$ 之间的等价，其拟逆由 $Lf^*$ 给出。
+\end{lemma}
+
+\begin{proof}
+由于 $f$ 拟紧且拟分离，$Rf_*$ 定义从
+$D_{\QCoh,|f^{-1}Z|}(\mathcal{O}_Y)$ 到
+$D_{\QCoh,|Z|}(\mathcal{O}_X)$ 的函子；见《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-quasi-coherence-direct-image}.
+由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-quasi-coherence-pullback}
+，可知 $Lf^*$ 把 $D_{\QCoh,|Z|}(\mathcal{O}_X)$ 映入
+$D_{\QCoh,|f^{-1}Z|}(\mathcal{O}_Y)$。
+在引理 \ref{spaces-pushouts-lemma-formal-glueing-on-closed} 中已经看到，
+对 $D_{\QCoh,|f^{-1}Z|}(\mathcal{O}_Y)$ 中的 $Q$，有
+$Lf^*Rf_*Q=Q$。由《导出范畴》引理
+\ref{derived-lemma-fully-faithful-adjoint-kernel-zero}
+的对偶，为完成证明，只需说明：对
+$D_{\QCoh,|Z|}(\mathcal{O}_X)$ 中的 $K$，$Lf^*K=0$ 蕴含 $K=0$。
+这由 $f$ 在 $f^{-1}Z$ 的所有点都平坦以及
+$f^{-1}Z\to Z$ 为满射这两个事实推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-dominate-by-fpqc-covering}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，存在一个加细族
+$\{U\to X,Y\to X\}$ 的 fpqc 覆盖 $\{X_i\to X\}_{i\in I}$。
+\end{lemma}
+
+\begin{proof}
+关于 fpqc 覆盖的定义和一般性质，参见《拓扑》第
+\ref{topologies-section-fpqc} 节。特别地，可以先选取一个平展覆盖
+$\{X_i\to X\}$，其中各 $X_i$ 仿射；把 $Y$、$Z$、$U$
+基变换到每个 $X_i$，便约化到 $X$ 仿射的情形。
+此时 $U$ 拟紧，因而是仿射开集的有限并
+$U=U_1\cup\ldots\cup U_n$。于是 $Z$ 拟紧，故 $f^{-1}Z$ 也拟紧。
+因此可以选取仿射概形 $W$ 和平展态射 $h:W\to Y$，使
+$h^{-1}f^{-1}Z\to f^{-1}Z$ 为满射。
+设 $W=\Spec(B)$ 且 $h^{-1}f^{-1}Z=V(J)$，其中 $J\subset B$
+是有限型理想。由《Pro-平展上同调》引理
+\ref{proetale-lemma-localization}，存在局部化 $B\to B'$，
+使 $\Spec(B')$ 的点恰好对应于 $W=\Spec(B)$ 中特化到
+$h^{-1}f^{-1}Z=V(J)$ 的点。由于假设 $f:Y\to X$ 在
+$f^{-1}Z$ 的所有点都平坦，所以复合
+$\Spec(B')\to\Spec(B)=W\to Y\to X$ 平坦。于是由《拓扑》引理
+\ref{topologies-lemma-recognize-fpqc-covering}，
+$\{\Spec(B')\to X,U_1\to X,\ldots,U_n\to X\}$ 是 fpqc 覆盖。
+\end{proof}
+
+
+
+
+\section{代数空间的形式粘合}
+\label{spaces-pushouts-section-formal-glueing-spaces}
+
+\noindent
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，考虑由如下形状的
+$S$ 上代数空间交换图表组成的范畴 $\textit{Spaces}(Y\to X,Z)$：
+$$
+\xymatrix{
+U' \ar[d] & V' \ar[l] \ar[d] \ar[r] & Y' \ar[d] \\
+U & V \ar[l] \ar[r] & Y
+}
+$$
+其中两个方形都是笛卡尔的。存在典范函子
+\begin{equation}
+\label{spaces-pushouts-equation-formal-glueing-spaces}
+\textit{Spaces}/X \longrightarrow \textit{Spaces}(Y \to X, Z)
+\end{equation}
+它把 $X'\to X$ 映为诸态射
+$U\times_XX'\leftarrow V\times_XX'\rightarrow Y\times_XX'$。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-equivalence-on-affine}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，函子
+(\ref{spaces-pushouts-equation-formal-glueing-spaces}) 限制为下列等价：
+\begin{enumerate}
+\item 从 $X$ 上仿射的代数空间范畴，到
+$\textit{Spaces}(Y\to X,Z)$ 的满子范畴；后者由满足
+$U'\to U$、$V'\to V$、$Y'\to Y$ 都仿射的
+$(U'\leftarrow V'\rightarrow Y')$ 组成；
+\item 从闭浸入 $X'\to X$ 的范畴，到
+$\textit{Spaces}(Y\to X,Z)$ 的满子范畴；后者由满足
+$U'\to U$、$V'\to V$、$Y'\to Y$ 都是闭浸入的
+$(U'\leftarrow V'\rightarrow Y')$ 组成；以及
+\item 对有限态射成立与 (2) 相同的陈述。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在 $X$ 上仿射的代数空间范畴，等价于拟凝聚 $\mathcal{O}_X$-代数层
+$\mathcal{A}$ 的范畴。$\textit{Spaces}(Y\to X,Z)$ 中由满足
+$U'\to U$、$V'\to V$、$Y'\to Y$ 都仿射的
+$(U'\leftarrow V'\rightarrow Y')$ 所组成的满子范畴，
+等价于 $\QCoh(Y\to X,Z)$ 中代数对象的范畴。
+在两种情形下，这都来自《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-equivalence-algebras}
+；拟逆由相对谱构造给出（《空间的态射》定义
+\ref{spaces-morphisms-definition-relative-spec}），
+而相对谱构造与任意基变换交换。因此本引理的 (1) 来自命题
+\ref{spaces-pushouts-proposition-formal-glueing-modules}。
+
+\medskip\noindent
+第 (2) 部分的全忠实性由 (1) 推出。% P10-E0025
+对于本质满射性，由 (1)，问题约化为证明：$X'\to X$ 是闭浸入，
+当且仅当 $U\times_XX'\to U$ 和 $Y\times_XX'\to Y$ 都是闭浸入。
+由引理 \ref{spaces-pushouts-lemma-dominate-by-fpqc-covering}，
+$\{U\to X,Y\to X\}$ 可由某个 fpqc 覆盖加细。因此结论来自
+《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-closed-immersion}.
+
+\medskip\noindent
+对 (3)，使用证明 (2) 的论证以及《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-reflects-isomorphisms}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，函子
+(\ref{spaces-pushouts-equation-formal-glueing-spaces}) 反映同构。
+\end{lemma}
+
+\begin{proof}
+通过关于基变换的形式论证，这约化为如下问题：
+若代数空间态射 $a:X'\to X$ 使 $U\times_XX'\to U$ 和
+$Y\times_XX'\to Y$ 都是同构，则该态射是同构。
+由引理 \ref{spaces-pushouts-lemma-dominate-by-fpqc-covering}，
+族 $\{U\to X,Y\to X\}$ 可由某个 fpqc 覆盖加细。
+因此结论来自《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-isomorphism}.
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-fully-faithful-on-separated}
+在情形 \ref{spaces-pushouts-situation-formal-glueing} 中，函子
+(\ref{spaces-pushouts-equation-formal-glueing-spaces}) 在 $X$ 上分离的代数空间上全忠实。
+更确切地说，只要 $X'_2\to X$ 分离，它就诱导双射
+$$
+\Mor_X(X'_1, X'_2)
+\longrightarrow
+\Mor_{\textit{Spaces}(Y \to X, Z)}(F(X'_1), F(X'_2))
+$$
+。
+\end{lemma}
+
+\begin{proof}
+由于 $X'_2\to X$ 分离，$X$ 上态射 $X'_1\to X'_2$ 的图
+$i:X'_1\to X'_1\times_XX'_2$ 是闭浸入；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-semi-diagonal}。
+此外，闭浸入 $i:T\to X'_1\times_XX'_2$ 是某个态射的图，
+当且仅当 $\text{pr}_1\circ i$ 是同构。相同的断言也适用于
+\begin{enumerate}
+\item $U$ 上态射 $U\times_XX'_1\to U\times_XX'_2$ 的图；
+\item $V$ 上态射 $V\times_XX'_1\to V\times_XX'_2$ 的图；以及
+\item $Y$ 上态射 $Y\times_XX'_1\to Y\times_XX'_2$ 的图。
+\end{enumerate}
+此外，如果 (1)、(2)、(3) 中的态射相互配合，组成范畴
+$\textit{Spaces}(Y\to X,Z)$ 中的一个态射，那么这些图也相互配合，
+给出下列范畴的一个对象：
+$\textit{Spaces}(Y \times_X (X'_1 \times_X X'_2) \to X'_1 \times_X X'_2,
+Z \times_X (X'_1 \times_X X'_2))$
+其三个态射都是闭浸入。应用引理
+\ref{spaces-pushouts-lemma-equivalence-on-affine} 和
+\ref{spaces-pushouts-lemma-reflects-isomorphisms} 即完成证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{粘合与 Beauville--Laszlo 定理}
+\label{spaces-pushouts-section-glueing-beauville-laszlo}
+
+\noindent
+令 $R\to R'$ 为环同态，$f\in R$ 为一个元素，使得
+$$
+0 \to R \to R_f \oplus R' \to R'_f \to 0
+$$
+是短正合列。这蕴含对所有 $n$ 都有 $R/f^nR\cong R'/f^nR'$，
+并且 $(R\to R',f)$ 是《代数续篇》第
+\ref{more-algebra-section-beauville-laszlo} 节意义下的粘合对。
+置 $X=\Spec(R)$、$U=\Spec(R_f)$、$X'=\Spec(R')$、
+$U'=\Spec(R'_f)$。图表为
+$$
+\xymatrix{
+U' \ar[r] \ar[d] & X' \ar[d] \\
+U \ar[r] & X
+}
+$$
+在这种情形下，可以考虑范畴
+$\textit{Spaces}(U\leftarrow U'\to X')$，其对象为交换图表
+$$
+\xymatrix{
+V \ar[d] & V' \ar[l] \ar[d] \ar[r] & Y' \ar[d] \\
+U & U' \ar[l] \ar[r] & X'
+}
+$$
+，其中各项为代数空间，两个方形都是笛卡尔的，态射按显然方式定义。% P10-E0026
+这个范畴的对象记作 $(V,V',Y')$，省略记号中的箭头。存在函子
+\begin{equation}
+\label{spaces-pushouts-equation-beauville-laszlo-glueing-spaces}
+\textit{Spaces}/X
+\longrightarrow
+\textit{Spaces}(U \leftarrow U' \to X')
+\end{equation}
+由基变换给出：$Y\mapsto(U\times_XY,U'\times_XY,X'\times_XY)$。
+
+\medskip\noindent
+我们已在《代数续篇》第 \ref{more-algebra-section-beauville-laszlo} 节看到，
+并非每个 $R$-模 $M$ 都能从其粘合数据恢复。类似地，函子
+(\ref{spaces-pushouts-equation-beauville-laszlo-glueing-spaces})
+在全体 $X$ 上空间的范畴上并不全忠实。
+为挑出 $X$ 上代数空间的一个适当子范畴，需要下面的引理。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glueable}
+令 $(R\to R',f)$ 为如上的粘合对，$Y$ 为 $X$ 上的代数空间。
+下列条件等价：
+\begin{enumerate}
+\item 存在平展覆盖 $\{Y_i\to Y\}_{i\in I}$，其中各 $Y_i$ 仿射，
+且 $\Gamma(Y_i,\mathcal{O}_{Y_i})$ 作为 $R$-模可粘合；
+\item 对每个平展态射 $W\to Y$，只要 $W$ 仿射，
+$\Gamma(W,\mathcal{O}_W)$ 作为 $R$-模就可粘合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然 (2) 蕴含 (1)。假设 $\{Y_i\to Y\}$ 如 (1) 所述，
+且 $W\to Y$ 如 (2) 所述。那么
+$\{Y_i\times_YW\to W\}_{i\in I}$ 是平展覆盖，
+可由一个各 $W_j$ 仿射的平展覆盖
+$\{W_j\to W\}_{j=1,\ldots,m}$ 加细
+（《拓扑》引理 \ref{topologies-lemma-etale-affine}）。
+因此，为完成证明，只需证明下列三个代数断言：
+\begin{enumerate}
+\item 如果 $R\to A\to B$ 是环映射，$A\to B$ 平展，
+且 $A$ 作为 $R$-模可粘合，那么 $B$ 作为 $R$-模也可粘合；
+\item 可粘合 $R$-模的有限积可粘合；
+\item 如果 $R\to A\to B$ 是环映射，$A\to B$ 忠实平展，
+且 $B$ 作为 $R$-模可粘合，那么 $A$ 作为 $R$-模也可粘合。
+\end{enumerate}
+具体地，第一个断言蕴含 $\Gamma(W_j,\mathcal{O}_{W_j})$
+是可粘合 $R$-模，第二个断言蕴含
+$\prod\Gamma(W_j,\mathcal{O}_{W_j})$ 是可粘合 $R$-模，
+第三个断言则蕴含 $\Gamma(W,\mathcal{O}_W)$ 是可粘合 $R$-模。
+
+\medskip\noindent
+考虑平展 $R$-代数同态 $A\to B$。置
+$A'=A\otimes_RR'$ 和 $B'=B\otimes_RR'=A'\otimes_AB$。
+此时，断言 (1) 和 (3) 来自下列事实：
+(a) $A$（分别地，$B$）可粘合，当且仅当序列
+$$
+0 \to A \to A_f \oplus A' \to A'_f \to 0,
+\quad\text{分别}\quad
+0 \to B \to B_f \oplus B' \to B'_f \to 0,
+$$
+正合；(b) 第二个序列由函子 $-\otimes_AB$ 作用于第一个序列得到；
+(c) $A\to B$（忠实）平坦。略去对 (2) 的证明。
+\end{proof}
+
+\noindent
+令 $(R\to R',f)$ 为如上的粘合对。如果引理
+\ref{spaces-pushouts-lemma-glueable} 的等价条件得到满足，
+就称 $X=\Spec(R)$ 上的代数空间 $Y$
+{\it 对 $(R\to R',f)$ 可粘合}。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glueing-affines}
+令 $(R\to R',f)$ 为如上的粘合对。函子
+(\ref{spaces-pushouts-equation-beauville-laszlo-glueing-spaces}) 限制为下列两个范畴之间的等价：
+对 $(R\to R',f)$ 可粘合的仿射 $Y/X$ 的范畴；以及
+$\textit{Spaces}(U\leftarrow U'\to X')$ 中由 $V$、$V'$、$Y'$
+都仿射的对象 $(V,V',Y')$ 所组成的满子范畴。
+\end{lemma}
+
+\begin{proof}
+令 $(V,V',Y')$ 为 $\textit{Spaces}(U\leftarrow U'\to X')$
+的一个对象，并假设 $V$、$V'$、$Y'$ 都仿射。
+写成 $V=\Spec(A_1)$ 和 $Y'=\Spec(A')$。
+由范畴 $\textit{Spaces}(U\leftarrow U'\to X')$ 的定义，
+可知 $V'$ 既是 $A_1\otimes_{R_f}R'_f=A_1\otimes_RR'$ 的谱，
+也是 $A'_f$ 的谱。因此得到 $R'_f$-代数同构
+$\varphi:A'_f\to A_1\otimes_RR'$。
+由《代数续篇》定理 \ref{more-algebra-theorem-BL-glueing}，
+存在唯一的可粘合 $R$-模 $A$，以及与 $\varphi$ 相容的模同构
+$A_f\to A_1$ 和 $A\otimes_RR'\to A'$。由于序列
+$$
+0 \to A \to A_1 \oplus A' \to A'_f \to 0
+$$
+短正合，$A_1$ 和 $A'$ 上的乘法在 $A$ 上定义唯一的 $R$-代数结构，
+使映射 $A\to A_1$ 和 $A\to A'$ 是环同态。
+略去如下验证：此构造给出函子
+(\ref{spaces-pushouts-equation-beauville-laszlo-glueing-spaces})
+限制到本引理所述子范畴后的拟逆。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glueing-affines-etale}
+令 $P$ 为态射的下列性质之一：``有限''、``闭浸入''、``平坦''、
+``有限型''、``平坦且有限呈示''、``平展''。
+在引理 \ref{spaces-pushouts-lemma-glueing-affines} 的等价下，
+具有性质 $P$ 的态射对应于各分量都具有性质 $P$ 的三元组态射。
+\end{lemma}
+
+\begin{proof}
+令 $P'$ 为环同态的下列性质之一：``有限''、``满射''、``平坦''、
+``有限型''、``平坦且有限呈示''、``平展''。
+把陈述翻译为代数语言，就是：如果 $A\to B$ 是 $R$-代数同态，
+且 $A$、$B$ 对 $(R\to R',f)$ 可粘合，那么
+$A_f\to B_f$ 和 $A\otimes_RR'\to B\otimes_RR'$ 具有性质 $P'$，
+当且仅当 $A\to B$ 具有性质 $P'$。
+
+\medskip\noindent
+由《代数续篇》引理 \ref{more-algebra-lemma-faithful-descent} 和
+\ref{more-algebra-lemma-BL-flat}，当 $P'$ 为``有限''或``平坦''时，
+这个代数断言成立。
+
+\medskip\noindent
+如果 $A_f\to B_f$ 和 $A\otimes_RR'\to B\otimes_RR'$ 都是满射，
+那么 $N=B/A$ 是满足 $N_f=0$ 且 $N\otimes_RR'=0$ 的 $R$-模，
+因而由《代数续篇》引理 \ref{more-algebra-lemma-BL-faithful}，该模为零。
+所以 $A\to B$ 是满射。
+
+\medskip\noindent
+如果 $A_f\to B_f$ 和 $A\otimes_RR'\to B\otimes_RR'$ 都有限型，
+则可选取 $A$-代数同态 $A[x_1,\ldots,x_n]\to B$，使
+$A_f[x_1,\ldots,x_n]\to B_f$ 和
+$(A\otimes_RR')[x_1,\ldots,x_n]\to B\otimes_RR'$ 都是满射
+（略去一个小细节）。由前面的结果，可知
+$A[x_1,\ldots,x_n]\to B$ 是满射。因此 $A\to B$ 有限型。
+
+\medskip\noindent
+如果 $A_f\to B_f$ 和 $A\otimes_RR'\to B\otimes_RR'$ 都平坦且有限呈示，
+那么由已经证明的结论，$A\to B$ 平坦且有限型。
+选取满射 $A[x_1,\ldots,x_n]\to B$，并把核记作 $I$。
+由 $B$ 在 $A$ 上的平坦性，可知 $I_f$ 是
+$A_f[x_1,\ldots,x_n]\to B_f$ 的核，而 $I\otimes_RR'$ 是
+$A\otimes_RR'[x_1,\ldots,x_n]\to B\otimes_RR'$ 的核。
+因此，$I_f$ 是有限 $A_f[x_1,\ldots,x_n]$-模，
+$I\otimes_RR'$ 是有限 $(A\otimes_RR')[x_1,\ldots,x_n]$-模。
+把《代数续篇》引理 \ref{more-algebra-lemma-faithful-descent}
+应用于视作 $A[x_1,\ldots,x_n]$-模的 $I$，可知 $I$ 是有限生成理想，
+故 $A\to B$ 平坦且有限呈示。
+
+\medskip\noindent
+如果 $A_f\to B_f$ 和 $A\otimes_RR'\to B\otimes_RR'$ 都平展，
+那么由已经证明的结论，$A\to B$ 平坦且有限呈示。
+由于 $\Spec(B)\to\Spec(A)$ 的纤维同构于
+$\Spec(B_f)\to\Spec(A_f)$ 或
+$\Spec(B/fB)\to\Spec(A/fA)$ 的纤维，可知 $A\to B$ 非分歧；
+见《态射》引理 \ref{morphisms-lemma-unramified-over-field} 和
+\ref{morphisms-lemma-unramified-etale-fibres}。
+例如再由《态射》引理 \ref{morphisms-lemma-flat-unramified-etale}，
+得到 $A\to B$ 平展。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glueing-f}
+令 $(R\to R',f)$ 为如上的粘合对。函子
+(\ref{spaces-pushouts-equation-beauville-laszlo-glueing-spaces})
+在对 $(R\to R',f)$ 可粘合的代数空间 $Y/X$ 所组成的满子范畴上忠实。
+\end{lemma}
+
+\begin{proof}
+令 $f,g:Y\to Z$ 为 $X$ 上代数空间的两个态射，
+其中 $Y$、$Z$ 对 $(R\to R',f)$ 可粘合；并假设 $f$、$g$ 被映为范畴
+$\textit{Spaces}(U\leftarrow U'\to X')$ 中的同一个态射。
+必须证明 $f$ 与 $g$ 的等化子 $E\to Y$ 是同构。
+在 $Y$ 上平展局部地工作，可以假设 $Y$ 是仿射概形。
+那么 $E$ 是概形，且态射 $E\to Y$ 是单态射并局部拟有限；
+见《空间的态射》引理 \ref{spaces-morphisms-lemma-properties-diagonal}。
+此外，$E\to Y$ 到 $U$ 和 $X'$ 的基变换都是同构。
+由于 $Y$ 是仿射开集 $V=U\times_XY$ 与仿射闭集
+$V(f)\times_XY$ 的不交并，可知 $E$ 是它们的同构逆像的不交并。
+特别地，$E$ 拟紧。由 Zariski 主定理（《态射续篇》引理
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}），
+可知 $E$ 拟仿射。
+置 $B=\Gamma(E,\mathcal{O}_E)$ 和 $A=\Gamma(Y,\mathcal{O}_Y)$，
+从而有 $R$-代数同态 $A\to B$。由于 $E\to Y$ 基变换到 $U$ 和
+$X'$ 后都是同构，得到环映射 $B\to A_f$ 和
+$B\to A\otimes_RR'$，它们作为到 $A\otimes_RR'_f$ 的映射相合。
+由于 $A$ 对 $(R\to R',f)$ 可粘合，得到环映射 $B\to A$，
+它是映射 $A\to B$ 的左逆。相应的态射
+$Y=\Spec(A)\to\Spec(B)$ 逐点映入开子概形 $E\subset\Spec(B)$，
+因为基变换到 $U$ 和 $X'$ 后确是如此。因此得到 $Y$ 上态射 $Y\to E$。
+由于 $E\to Y$ 是单态射，% P10-E0027
+可知 $Y\to E$ 按所需是同构。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glueing-ff}
+令 $(R\to R',f)$ 为如上的粘合对。函子
+(\ref{spaces-pushouts-equation-beauville-laszlo-glueing-spaces}) 在由如下代数空间
+$Y/X$ 所组成的满子范畴上全忠实：(a) 对 $(R\to R',f)$ 可粘合；
+(b) 对角态射 $Y\to Y\times_XY$ 仿射。
+\end{lemma}
+
+\begin{proof}
+令 $Y,Z$ 为 $X$ 上的两个代数空间，二者都对 $(R\to R',f)$ 可粘合，
+并假设 $Z$ 的对角态射仿射。令
+$a:U\times_XY\to U\times_XZ$ 为 $U$ 上态射，
+$b:X'\times_XY\to X'\times_XZ$ 为 $X'$ 上态射；
+假设它们在 $U'$ 上诱导同一个态射
+$c:U'\times_XY\to U'\times_XZ$。
+我们要构造 $X$ 上态射 $f:Y\to Z$，使其基变换到 $U$、$X'$ 后
+分别给出 $a$、$b$。由引理 \ref{spaces-pushouts-lemma-glueing-f} 的忠实性，
+只需在 $Y$ 上平展局部地构造 $f$（略去细节）。
+因此可以并且确实假设 $Y$ 仿射。
+
+\medskip\noindent
+令 $y\in|Y|$ 为一点。如果 $y$ 映入开集 $U\subset X$，
+那么 $U\times_XY$ 是 $Y$ 的开集，态射 $f$ 已在其上定义
+（直接取 $a$ 即可）。因此可以假设 $y$ 映入 $X$ 的闭子集 $V(f)$。
+由于 $R/fR=R'/fR'$，存在唯一的点
+$y'\in|X'\times_XY|$ 映到 $y$。
+令 $z'=b(y')\in|X'\times_XZ|$，并令 $z\in|Z|$ 为 $y'$ 的像。
+选取一个平展邻域 $(W,w)\to(Z,z)$，其中 $W$ 仿射。注意，
+$$
+(U \times_X W) \times_{U \times_X Z, a} (U \times_X Y),\quad
+(U' \times_X W) \times_{U' \times_X Z, c} (U' \times_X Y),
+$$
+以及
+$$
+(X' \times_X W) \times_{X' \times_X Z, b} (X' \times_X Y)
+$$
+组成 $\textit{Spaces}(U\leftarrow U'\to X')$ 的一个对象，
+且各部分都仿射（这里用到了 $Z$ 具有仿射对角态射）。
+因此，由引理 \ref{spaces-pushouts-lemma-glueing-affines}，
+存在唯一的、对 $(R\to R',f)$ 可粘合的仿射概形 $V$，使得
+$$
+(U \times_X V, U' \times_X V, X' \times_X V)
+$$
+就是上述三元组。由仿射情形的全忠实性
+（引理 \ref{spaces-pushouts-lemma-glueing-affines}），得到唯一的态射 $V\to W$ 和
+$V\to Y$，它们分别与上述构造中在 $U$、$X'$ 上的第一、第二投影态射相合。
+由引理 \ref{spaces-pushouts-lemma-glueing-affines-etale}，态射 $V\to Y$ 平展。
+为完成证明，只需说明存在一点 $v\in|V|$ 映到 $y$
+（因为这样一来，$f$ 就在 $y$ 的一个平展邻域——即 $V$——上定义）。
+存在唯一的点 $w'\in|X'\times_XW|$ 映到 $w$。
+由唯一性，$w'$ 在映射 $|X'\times_XW|\to|X'\times_XZ|$ 下映到 $z'$。
+于是考虑笛卡尔图表
+$$
+\xymatrix{
+X' \times_X V \ar[r] \ar[d] & X' \times_X W \ar[d] \\
+X' \times_X Y \ar[r] & X' \times_X Z
+}
+$$
+由此可知存在一点 $v'\in|X'\times_XV|$ 映到 $y'$ 和 $w'$；
+见《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}。
+当然，$v'$ 在 $|V|$ 中的像 $v$ 映到 $y$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-glueing-quasi-affines}
+令 $(R\to R',f)$ 为如上的粘合对。
+$\textit{Spaces}(U\leftarrow U'\to X')$ 中任一满足
+$V$、$V'$、$Y'$ 都拟仿射的对象 $(V,V',Y')$，
+都同构于某个 $X$ 上分离代数空间 $Y$ 在函子
+(\ref{spaces-pushouts-equation-beauville-laszlo-glueing-spaces}) 下的像。
+\end{lemma}
+
+\begin{proof}
+如《性质》引理 \ref{properties-lemma-quasi-affine-presentation} 中那样，
+选取 $n'$、$T'\to Y'$ 以及 $n_1$、$T_1\to V$。图表为
+$$
+\xymatrix{
+& &
+T_1 \times_V V' \times_Y T' \ar[ld] \ar[rd] \\
+T_1 \ar[d] &
+T_1 \times_V V' \ar[l] \ar[dr] & &
+V' \times_{Y'} T' \ar[r] \ar[dl] &
+T' \ar[d] \\
+V & &
+V' \ar[rr] \ar[ll] & &
+Y'
+}
+$$
+注意，$T_1\times_VV'$ 和 $V'\times_{Y'}T'$ 仿射
+（事实上，态射 $V'\to V$ 和 $V'\to Y'$ 分别是仿射态射
+$U'\to U$ 和 $U'\to X'$ 的基变换，因而仿射）。按构造，有
+$$
+\mathbf{A}^{n'}_{T_1 \times_V V'} \cong
+T_1 \times_V V' \times_{Y'} T' \cong
+\mathbf{A}^{n_1}_{V' \times_{Y'} T'}
+$$
+换言之，仿射概形 $\mathbf{A}^{n'}_{T_1}$ 和
+$\mathbf{A}^{n_1}_{T'}$ 是一个三元组的组成部分，该三元组构成
+$\textit{Spaces}(U\leftarrow U'\to X')$ 的仿射对象。
+由引理 \ref{spaces-pushouts-lemma-glueing-affines}，存在仿射概形态射 $T\to X$
+以及同构 $U\times_XT\cong\mathbf{A}^{n'}_{T_1}$ 和
+$X'\times_XT\cong\mathbf{A}^{n_1}_{T'}$，它们与上述同构相容。
+这些同构给出态射
+$$
+U \times_X T \longrightarrow V
+\quad\text{和}\quad
+X' \times_X T \longrightarrow Y'
+$$
+它们在 $n=n'+n_1$ 时满足《性质》引理
+\ref{properties-lemma-quasi-affine-presentation} 的性质，
+并且还在范畴 $\textit{Spaces}(U\leftarrow U'\to X')$ 中定义从三元组
+$(U\times_XT,U'\times_XT,X'\times_XT)$ 到三元组
+$(V,V',Y')$ 的态射。
+
+\medskip\noindent
+由引理 \ref{spaces-pushouts-lemma-glueing-affines}，存在仿射概形 $W$，
+它在 $\textit{Spaces}(U\leftarrow U'\to X')$ 中的像同构于三元组
+$$
+((U \times_X T) \times_V (U \times_X T),
+(U' \times_X T) \times_{V'} (U' \times_X T),
+(X' \times_X T) \times_{Y'} (X' \times_X T))
+$$
+由这个构造的全忠实性，得到两个映射 $p_0,p_1:W\to T$，
+它们到 $U,U',X'$ 的基变换都是投影态射。
+由引理 \ref{spaces-pushouts-lemma-glueing-affines-etale}，态射 $p_0,p_1$
+平坦且有限呈示，而态射 $(p_0,p_1):W\to T\times_XT$ 是闭浸入。
+事实上，$W\to T\times_XT$ 是等价关系：由上面使用的诸引理，
+可以在基变换到 $U$ 和 $X'$ 后检验对称性、自反性和传递性；
+在那里这些性质是显然的（略去细节）。因此商层
+$$
+Y = T/W
+$$
+是代数空间；例如可用《自举》定理
+\ref{bootstrap-theorem-final-bootstrap}。
+由于显然 $Y/X$ 被映到三元组 $(V,V',Y')$。% P10-E0028
+沿拟紧满平坦态射 $T\times_XT\to Y\times_XY$ 对对角态射
+$\Delta:Y\to Y\times_XY$ 作基变换，得到闭浸入
+$W\to T\times_XT$。因此，由《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-closed-immersion}，
+$\Delta$ 是闭浸入。故代数空间 $Y$ 分离，证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{余等化子与粘合}
+\label{spaces-pushouts-section-coequalizer-glue}
+
+\noindent
+令 $X$ 为诺特代数空间，$Z\to X$ 为闭子空间，
+$X'\to X$ 为沿 $Z$ 的爆破。本节说明，可以从 $X'$、$Z_n$ 和粘合数据
+恢复 $X$；这里 $Z_n$ 是 $Z$ 在 $X$ 中的第 $n$ 阶无穷小邻域。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-coequalizer}
+设 $S$ 是概形。令
+$$
+g : Y \longrightarrow X
+$$
+为 $S$ 上代数空间的态射。假设 $X$ 局部诺特，且 $g$ 固有。
+令 $R=Y\times_XY$，其投影态射为 $t,s:R\to Y$。
+在 $S$ 上代数空间范畴中，$s,t:R\to Y$ 存在余等化子 $X'$。此外，
+\begin{enumerate}
+\item 态射 $X'\to X$ 有限；
+\item 态射 $Y\to X'$ 固有；
+\item 态射 $Y\to X'$ 为满射；
+\item 态射 $X'\to X$ 万有单射；
+\item 如果 $g$ 是满射，则态射 $X'\to X$ 是万有同胚。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+记 $h:R\to X$ 为 $s$ 或 $t$ 与 $g$ 的复合。% P10-E0029
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-proper} 和
+\ref{spaces-morphisms-lemma-composition-proper}.
+，$h$ 固有。层
+$$
+g_*\mathcal{O}_Y
+\quad\text{和}\quad
+h_*\mathcal{O}_R
+$$
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}
+可知是凝聚 $\mathcal{O}_X$-代数。$X$-态射 $s$、$t$ 诱导从前者到后者的
+$\mathcal{O}_X$-代数映射 $s^\sharp,t^\sharp$。置
+$$
+\mathcal{A} = \text{等化子}\left(s^\sharp, t^\sharp :
+g_*\mathcal{O}_Y \longrightarrow h_*\mathcal{O}_R\right)
+$$
+那么 $\mathcal{A}$ 是凝聚 $\mathcal{O}_X$-代数，可以定义
+$$
+X' = \underline{\Spec}_X(\mathcal{A})
+$$
+，如《空间的态射》定义 \ref{spaces-morphisms-definition-relative-spec}
+中那样。由《空间的态射》注
+\ref{spaces-morphisms-remark-factorization-quasi-compact-quasi-separated}
+以及 $\underline{\Spec}$ 构造的函子性，存在分解
+$$
+Y \longrightarrow X' \longrightarrow X
+$$
+，且态射 $g':Y\to X'$ 使 $s$ 与 $t$ 相等。
+
+\medskip\noindent
+在证明 $X'$ 是 $s$ 与 $t$ 的余等化子之前，先证明 $Y\to X'$ 和
+$X'\to X$ 具有所需性质。由于 $\mathcal{A}$ 是凝聚
+$\mathcal{O}_X$-模，显然 $X'\to X$ 是代数空间的有限态射。这证明了 (1)。
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence}，
+态射 $Y\to X'$ 固有。这证明了 (2)。
+以 $Y\to Y'\to X$ 表示 $g$ 的 Stein 分解，其中
+$Y'=\underline{\Spec}_X(g_*\mathcal{O}_Y)$；见《空间的态射续篇》定理
+\ref{spaces-more-morphisms-theorem-stein-factorization-Noetherian}.
+当然，得到与上面研究的态射相配合的态射 $Y\to Y'\to X'\to X$。
+由于 $\mathcal{O}_{X'}\subset g_*\mathcal{O}_Y$ 是有限扩张，
+可知 $Y'\to X'$ 有限且满。略去一些细节；提示：使用《代数》引理
+\ref{algebra-lemma-integral-overring-surjective}，并通过平展局部化约化到仿射情形。
+由于 $Y\to Y'$ 为满射（且具有几何连通的纤维），可知 $Y\to X'$ 为满射。
+这证明了 (3)。为证明 $X'\to X$ 万有单射，必须证明
+$X'\to X'\times_XX'$ 为满射；见《空间的态射》定义
+\ref{spaces-morphisms-definition-universally-injective}
+和引理 \ref{spaces-morphisms-lemma-universally-injective}。
+由于 $Y\to X'$ 为满射（见上），而且由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-surjective} 和
+\ref{spaces-morphisms-lemma-composition-surjective}
+，满射的基变换和复合仍是满射，故
+$Y\times_XY\to X'\times_XX'$ 为满射。然而，由于 $Y\to X'$
+使 $s$ 与 $t$ 相等，可知 $Y\times_XY\to X'\times_XX'$ 通过
+$X'\to X'\times_XX'$ 分解，因而后一个映射为满射。这证明了 (4)。
+最后，如果 $g$ 为满射，那么由于 $g$ 通过 $X'\to X$ 分解，
+可知 $X'\to X$ 为满射。满、万有单射的有限态射是万有同胚
+（因为它万有双射且万有闭），故 (5) 得证。
+
+\medskip\noindent
+在证明的其余部分，说明 $Y\to X'$ 是 $s$ 与 $t$ 在 $S$ 上代数空间范畴中的
+余等化子。注意，$X'$ 局部诺特
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}）。
+还要注意，由于 $Y\to X'$ 使 $s$ 与 $t$ 相等，
+$Y\times_{X'}Y\to Y\times_XY$ 是同构（这是一个范畴论陈述）。
+因此，为证明 $Y\to X'$ 是 $s$ 与 $t$ 的余等化子，
+可以并且确实假设 $X=X'$。换言之，$\mathcal{O}_X$ 是映射
+$s^\sharp,t^\sharp:g_*\mathcal{O}_Y\to h_*\mathcal{O}_R$ 的等化子。
+
+\medskip\noindent
+令 $X_1\to X$ 为 $S$ 上代数空间的平坦态射，且 $X_1$ 局部诺特。
+分别以 $g_1:Y_1\to X_1$、$h_1:R_1\to X_1$ 和
+$s_1,t_1:R_1\to Y_1$ 表示 $g,h,s,t$ 到 $X_1$ 的基变换。
+当然，$g_1$ 固有，且 $R_1=Y_1\times_{X_1}Y_1$。
+由于拟凝聚模的正像满足平坦基变换（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}），
+可知 $\mathcal{O}_{X_1}$ 是映射
+$s_1^\sharp,t_1^\sharp:g_{1,*}\mathcal{O}_{Y_1}\to
+h_{1,*}\mathcal{O}_{R_1}$ 的等化子。因此我们的所有假设都在此基变换下保持。
+
+\medskip\noindent
+现在验证引理 \ref{spaces-pushouts-lemma-colimit-check-etale-locally} 的条件 (1) 和 (2)。
+条件 (1) 来自引理 \ref{spaces-pushouts-lemma-descend-etale-proper-surjective}
+以及 $g$ 固有且满这一事实（因为 $X=X'$）。
+为验证条件 (2)，由上面关于基变换的说明，
+约化为下一段讨论并证明的断言。
+
+\medskip\noindent
+假设 $S=\Spec(A)$ 是仿射概形，$X=X'$ 是仿射概形，
+而 $Z$ 是 $S$ 上的仿射概形。必须证明
+$$
+\Mor_S(X, Z) \longrightarrow
+\text{等化子}(s, t : \Mor_S(Y, Z) \to \Mor_S(R, Z))
+$$
+是双射。然而，这从 $X=X'$ 这一事实即可看出；该事实蕴含
+$\mathcal{O}_X$ 是映射
+$s^\sharp,t^\sharp:g_*\mathcal{O}_Y\to h_*\mathcal{O}_R$ 的等化子，
+进而蕴含
+$$
+\Gamma(X, \mathcal{O}_X) =
+\text{等化子}\left(
+s^\sharp, t^\sharp : \Gamma(Y, \mathcal{O}_Y) \to
+\Gamma(R, \mathcal{O}_R)
+\right)
+$$
+事实上，我们有
+$$
+\Mor_S(X, Z) = \Hom_A(\Gamma(Z, \mathcal{O}_Z), \Gamma(X, \mathcal{O}_X))
+$$
+，对 $Y$ 和 $R$ 也有类似等式；见《空间的性质》引理
+\ref{spaces-properties-lemma-morphism-to-affine-scheme}。
+\end{proof}
+
+\noindent
+下面将在如下情形中工作。
+
+\begin{situation}
+\label{spaces-pushouts-situation-coequalizer-glue}
+设 $S$ 是概形，$X$ 是 $S$ 上局部诺特的代数空间。
+令 $Z\to X$ 为闭浸入，$U\subset X$ 为其补开子空间。
+最后，令 $f:X'\to X$ 为代数空间的固有态射，
+使 $f^{-1}(U)\to U$ 是同构。
+\end{situation}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-coequalizer-glue}
+在情形 \ref{spaces-pushouts-situation-coequalizer-glue} 中，令 $Y=X'\amalg Z$，
+$R=Y\times_XY$，投影为 $t,s:R\to Y$。
+在 $S$ 上代数空间的范畴中，$s,t:R\to Y$ 存在余等化子 $X_1$。
+态射 $X_1\to X$ 是有限万有同胚，在 $U$ 上为同构，
+并且 $Z\to X$ 可提升到 $X_1$。
+\end{lemma}
+
+\begin{proof}
+$X_1$ 的存在性以及 $X_1\to X$ 是有限万有同胚这一事实，
+是引理 \ref{spaces-pushouts-lemma-coequalizer} 的特殊情形。
+$X_1$ 的形成与 $X$ 上的平展局部化交换
+（见引理 \ref{spaces-pushouts-lemma-coequalizer} 的证明）。
+因此态射 $X_1\to X$ 在 $U$ 上为同构。
+从构造立即可知 $Z\to X$ 可提升到 $X_1$。
+\end{proof}
+
+\noindent
+在情形 \ref{spaces-pushouts-situation-coequalizer-glue} 中，对 $n\geq1$，令
+$Z_n\subset X$ 为 $Z$ 在 $X$ 中的第 $n$ 阶无穷小邻域，
+即由截出 $Z$ 的理想层的第 $n$ 次幂所定义的闭子概形。
+考虑 $Y_n=X'\amalg Z_n$、$R_n=Y_n\times_XY_n$ 以及引理
+\ref{spaces-pushouts-lemma-coequalizer-glue} 中的余等化子
+$$
+\xymatrix{
+R_n \ar@<1ex>[r] \ar@<-1ex>[r] & Y_n \ar[r] & X_n \ar[r] & X
+}
+$$
+。映射 $Y_n\to Y_{n+1}$ 和 $R_n\to R_{n+1}$ 诱导态射
+\begin{equation}
+\label{spaces-pushouts-equation-system-coequalizers}
+X_1 \to X_2 \to X_3 \to \ldots \to X
+\end{equation}
+由于态射 $X_n\to X$ 是万有同胚，这些态射中的每一个也都是万有同胚。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-essentially-constant}
+在情形 \ref{spaces-pushouts-situation-coequalizer-glue} 中，假设 $X$ 拟紧。
+在 (\ref{spaces-pushouts-equation-system-coequalizers}) 中，对所有充分大的 $n$，
+存在 $m$，使 $X_n\to X_{n+m}$ 通过闭浸入 $X\to X_{n+m}$ 分解。
+\end{lemma}
+
+\begin{proof}
+更仔细地考察 $X_n$ 的构造以及它随 $n$ 增大而发生的变化。我们有
+$X_n=\underline{\Spec}(\mathcal{A}_n)$，其中 $\mathcal{A}_n$ 是从
+$g_{n,*}\mathcal{O}_{Y_n}$ 到 $h_{n,*}\mathcal{O}_{R_n}$ 的映射
+$s_n^\sharp$ 与 $t_n^\sharp$ 的等化子。
+这里 $g_n:Y_n=X'\amalg Z_n\to X$ 和
+$h_n:R_n=Y_n\times_XY_n\to X$ 是给定态射。
+令 $\mathcal{I}\subset\mathcal{O}_X$ 为对应于 $Z$ 的凝聚理想层。那么
+$$
+g_{n, *}\mathcal{O}_{Y_n} =
+f_*\mathcal{O}_{X'} \times \mathcal{O}_X/\mathcal{I}^n
+$$
+类似地，有分解
+$$
+R_n = X' \times_X X' \amalg X' \times_X Z_n \amalg
+Z_n \times_X X' \amalg Z_n \times_X Z_n
+$$
+由于 $Z_n\to X$ 是单态射，可知
+$X'\times_XZ_n=Z_n\times_XX'$，而这个等同与到 $X$ 的两个态射、
+到 $X'$ 的两个态射以及到 $Z_n$ 的两个态射都相容。
+把到 $X$ 的态射记作 $f_n:X'\times_XZ_n\to X$。记
+$$
+\mathcal{A} = \text{等化子}(
+\xymatrix{
+f_*\mathcal{O}_{X'} \ar@<1ex>[r] \ar@<-1ex>[r] &
+(f \times f)_*\mathcal{O}_{X' \times_X X'}
+}
+)
+$$
+由上面的说明可知
+$$
+\mathcal{A}_n =
+\text{等化子}(
+\xymatrix{
+\mathcal{A} \times \mathcal{O}_X/\mathcal{I}^n \ar@<1ex>[r] \ar@<-1ex>[r] &
+f_{n, *}\mathcal{O}_{X' \times_X Z_n}
+}
+)
+$$
+我们有凝聚 $\mathcal{O}_X$-代数的典范映射
+$$
+\mathcal{O}_X \to \ldots \to \mathcal{A}_3 \to \mathcal{A}_2 \to \mathcal{A}_1
+$$
+。本引理的陈述意味着：对充分大的 $n$，存在 $m\geq0$，
+使 $\mathcal{A}_{n+m}\to\mathcal{A}_n$ 的像同构于 $\mathcal{O}_X$。
+这可以在 $X$ 上平展局部地检验。因此，由《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}，
+可以假设 $X$ 是仿射诺特概形。
+
+\medskip\noindent
+由于 $X_n\to X$ 在 $U$ 上为同构，可知
+$\mathcal{O}_X\to\mathcal{A}_n$ 的核支撑在 $|Z|$ 上。
+由于 $X$ 诺特，核序列
+$\mathcal{J}_n=\Ker(\mathcal{O}_X\to\mathcal{A}_n)$ 稳定
+（《空间的上同调》引理 \ref{spaces-cohomology-lemma-acc-coherent}）。
+设 $\mathcal{J}_{n_0}=\mathcal{J}_{n_0+1}=\ldots=\mathcal{J}$。
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-power-ideal-kills-sheaf}，
+对某个 $t\geq0$，有 $\mathcal{I}^t\mathcal{J}=0$。
+另一方面，存在 $\mathcal{O}_X$-代数映射
+$\mathcal{A}_n\to\mathcal{O}_X/\mathcal{I}^n$，
+故对所有 $n$ 都有 $\mathcal{J}\subset\mathcal{I}^n$。
+由 Artin--Rees（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-Artin-Rees}），存在 $c\geq0$，使对所有
+$n\gg0$ 都有
+$\mathcal{J}\cap\mathcal{I}^n\subset\mathcal{I}^{n-c}\mathcal{J}$。
+因此 $\mathcal{J}=0$。
+
+\medskip\noindent
+如上一段那样，取 $n\geq n_0$。那么
+$\mathcal{O}_X\to\mathcal{A}_n$ 是单射。因此，现在只需找到
+$m\geq0$，使 $\mathcal{A}_{n+m}\to\mathcal{A}_n$ 的像等于
+$\mathcal{O}_X$ 的像。注意，$\mathcal{A}_n$ 位于短正合列
+$$
+0 \to \Ker(\mathcal{A} \to f_{n, *}\mathcal{O}_{X' \times_X Z_n})
+\to \mathcal{A}_n \to \mathcal{O}_X/\mathcal{I}^n \to 0
+$$
+中；对 $\mathcal{A}_{n+m}$ 也类似。因此，只需证明
+$$
+\Ker(\mathcal{A} \to f_{n + m, *}\mathcal{O}_{X' \times_X Z_{n + m}})
+\subset
+\Im(\mathcal{I}^n \to \mathcal{A})
+$$
+对某个 $m\geq0$ 成立。为此，可以在 $X$ 上平展局部地工作；
+又因为 $X$ 诺特，可以假设 $X$ 是诺特仿射概形。
+设 $X=\Spec(R)$，而 $\mathcal{I}$ 对应于理想 $I\subset R$。
+对某个有限 $R$-代数 $A$，令 $\mathcal{A}=\widetilde A$；
+对某个有限 $R$-代数 $B$，令 $f_*\mathcal{O}_{X'}=\widetilde B$。
+那么 $R\to A\subset B$，且反演 $I$ 中任一元素后，这些映射都成为同构。
+
+\medskip\noindent
+注意，在《空间的上同调》第
+\ref{spaces-cohomology-section-theorem-formal-functions} 节所用的记号下，
+$f_{n,*}\mathcal{O}_{X'\times_XZ_n}$ 等于
+$f_*(\mathcal{O}_{X'}/I^n\mathcal{O}_{X'})$。
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal}
+，可知存在 $c\geq0$，使得
+$$
+\Ker(B \to \Gamma(X, f_*(\mathcal{O}_{X'}/I^{n + m + c}\mathcal{O}_{X'}))
+$$
+包含于 $I^{n+m}B$。% P10-E0030
+另一方面，由于 $R\to B$ 有限，且反演 $I$ 中任一元素后成为同构，
+可知当 $m$ 充分大时
+$I^{n+m}B\subset\Im(I^n\to B)$（可以选得与 $n$ 无关）。
+由于 $A\subset B$，这就完成了证明。
+\end{proof}
+
+\begin{remark}
+\label{spaces-pushouts-remark-essentially-constant}
+引理 \ref{spaces-pushouts-lemma-essentially-constant} 的含义是：系统
+$X_1\to X_2\to X_3\to\ldots$ 本质上是常值为 $X$ 的。
+见《范畴》定义 \ref{categories-definition-essentially-constant-diagram}。
+\end{remark}
+
+
+
+
+
+
+\section{紧化}
+\label{spaces-pushouts-section-compactifications}
+
+\noindent
+本节类似于《平坦性续篇》第 \ref{flat-section-compactifications} 节。
+本节的定理是 \cite{CLO} 中的主定理。
+
+\medskip\noindent
+令 $B$ 为某个基概形 $S$ 上拟紧且拟分离的代数空间。
+如果存在从它到某个在 $B$ 上固有的代数空间 $\overline X$
+的拟紧开浸入 $X\to\overline X$，就称 $B$ 上的代数空间 $X$
+{\it 在 $B$ 上有紧化}或{\it 在 $B$ 上可紧化}。
+如果 $X$ 在 $B$ 上有紧化，那么 $X\to B$ 分离且有限型。
+本节的主定理断言其逆命题也成立。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-check-separated}
+设 $S$ 是概形，$X\to Y$ 是 $S$ 上代数空间的态射。
+如果 $(U\subset X,f:V\to X)$ 是初等特异方形，
+$U\to Y$ 和 $V\to Y$ 分离，且
+$U\times_XV\to U\times_YV$ 是闭态射，那么 $X\to Y$ 分离。
+\end{lemma}
+
+\begin{proof}
+必须验证 $\Delta:X\to X\times_YX$ 是闭浸入。
+$X\times_YX$ 有一个由四部分
+$U\times_YU$、$U\times_YV$、$V\times_YU$、$V\times_YV$ 给出的平展覆盖。
+注意，
+$(U \times_Y U) \times_{(X \times_Y X), \Delta} X  = U$,
+$(U \times_Y V) \times_{(X \times_Y X), \Delta} X = U \times_X V$,
+$(V \times_Y U) \times_{(X \times_Y X), \Delta} X = V \times_X U$，以及
+$(V \times_Y V) \times_{(X \times_Y X), \Delta} X = V$.
+因此本引理的假设恰好说明 $\Delta$ 是闭浸入。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}
+设 $S$ 是概形，$X$ 是 $S$ 上拟紧且拟分离的代数空间，
+$U\subset X$ 是拟紧开子空间。
+\begin{enumerate}
+\item 如果 $Z_1,Z_2\subset X$ 是有限呈示的闭子空间，且
+$Z_1\cap Z_2\cap U=\emptyset$，那么存在 $U$-容许爆破 $X'\to X$，
+使 $Z_1$ 与 $Z_2$ 的严格变换不交；
+\item 如果 $T_1,T_2\subset|U|$ 是不交的可构造闭子集，
+那么存在 $U$-容许爆破 $X'\to X$，使 $T_1$ 与 $T_2$ 的闭包不交。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。$Z_i\to X$ 有限呈示这一假设意味着 $Z_i$ 的拟凝聚理想层
+$\mathcal{I}_i$ 有限型；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+以 $Z\subset X$ 表示由乘积 $\mathcal{I}_1\mathcal{I}_2$ 截出的闭子空间。
+注意，$Z\cap U$ 是 $Z_1\cap U$ 与 $Z_2\cap U$ 的不交并。
+由《空间上的除子》引理
+\ref{spaces-divisors-lemma-separate-disjoint-opens-by-blowing-up}
+，存在 $U\cap Z$-容许爆破 $Z'\to Z$，
+使 $Z_1$ 与 $Z_2$ 的严格变换不交。
+以 $Y\subset Z$ 表示这个爆破的中心。那么 $Y\to X$ 是有限呈示的闭浸入，
+因为它是 $Y\to Z$ 与 $Z\to X$ 的复合
+（《空间上的除子》定义
+\ref{spaces-divisors-definition-admissible-blowup} 和
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-presentation}).
+）。因此，沿 $Y$ 的爆破 $X'\to X$ 是 $U$-容许爆破。
+由严格变换的一般性质，$Z_1$、$Z_2$ 关于 $X'\to X$ 的严格变换，
+与它们关于 $Z'\to Z$ 的严格变换相同；见《空间上的除子》引理
+\ref{spaces-divisors-lemma-strict-transform}。这证明了 (1)。
+
+\medskip\noindent
+证明 (2)。由《空间的极限》引理
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}
+，存在有限型拟凝聚理想层
+$\mathcal{J}_i\subset\mathcal{O}_U$，使得
+$T_i=V(\mathcal{J}_i)$（作为集合）。
+由《空间的极限》引理 \ref{spaces-limits-lemma-extend}，
+存在有限型拟凝聚理想层 $\mathcal{I}_i\subset\mathcal{O}_X$，
+其到 $U$ 的限制为 $\mathcal{J}_i$。
+把 (1) 的结果应用于闭子空间 $Z_i=V(\mathcal{I}_i)$，即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-blowup-iso-along}
+设 $S$ 是概形，$f:X\to Y$ 是 $S$ 上拟紧且拟分离代数空间的固有态射。
+令 $V\subset Y$ 为拟紧开子空间，$U=f^{-1}(V)$。
+令 $T\subset|V|$ 为闭子集，使 $f|_U:U\to V$ 在 $V$ 中 $T$
+的某个开邻域上为同构。那么存在 $V$-容许爆破 $Y'\to Y$，
+使 $f$ 的严格变换 $f':X'\to Y'$ 在 $T$ 于 $|Y'|$ 中的闭包的
+某个开邻域上为同构。
+\end{lemma}
+
+\begin{proof}
+令 $T'\subset|V|$ 为 $f|_U$ 在其上为同构的最大开集的补集。
+那么 $T',T$ 在 $|V|$ 中闭，且 $T\cap T'=\emptyset$。
+由于 $|V|$ 是谱拓扑空间（《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral})
+），可以在 $|V|$ 中找到可构造闭子集 $T_c,T'_c$，使
+$T\subset T_c$、$T'\subset T'_c$ 且 $T_c\cap T'_c=\emptyset$
+（选取拟紧开集 $W$，它在 $|V|$ 中包含 $T'$ 且与 $T$ 不交，
+置 $T_c=|V|\setminus W$；再选取拟紧开集 $W'$，它在 $|V|$ 中
+包含 $T_c$ 且与 $T'$ 不交，置 $T'_c=|V|\setminus W'$）。
+由引理 \ref{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}，
+在用一个 $V$-容许爆破替换 $Y$ 后，可以假设 $T_c$ 与 $T'_c$
+在 $|Y|$ 中的闭包不交。令 $Y_0$ 为 $Y$ 中对应于开集
+$|Y|\setminus\overline{T}'_c$ 的开子空间，并置
+$V_0=V\cap Y_0$、$U_0=U\times_VV_0$、$X_0=X\times_YY_0$。
+由于 $U_0\to V_0$ 是同构，可以找到 $V_0$-容许爆破
+$Y'_0\to Y_0$，使 $X_0$ 的严格变换 $X'_0$ 同构地映到 $Y'_0$；
+见《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-zariski-after-blowup}.
+由《空间上的除子》引理
+\ref{spaces-divisors-lemma-extend-admissible-blowups}
+，存在 $V$-容许爆破 $Y'\to Y$，其到 $Y_0$ 的限制为 $Y'_0\to Y_0$。
+如果以 $f':X'\to Y'$ 表示 $f$ 的严格变换，
+那么由于 $f'$ 限制到 $Y'_0$ 上为同构，所需结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-blowup-etale-along}
+设 $S$ 是概形。考虑 $S$ 上拟紧且拟分离代数空间的图表
+$$
+\xymatrix{
+X \ar[d]_f & U \ar[l] \ar[d]_{f|_U} & A \ar[d] \ar[l] \\
+Y & V \ar[l] & B \ar[l]
+}
+$$
+。假设
+\begin{enumerate}
+\item $f$ 固有；
+\item $V$ 是 $Y$ 的拟紧开子空间，$U=f^{-1}(V)$；
+\item $B\subset V$ 和 $A\subset U$ 是闭子空间；
+\item $f|_A:A\to B$ 是同构，且 $f$ 在 $A$ 的每一点都平展。
+\end{enumerate}
+那么存在 $V$-容许爆破 $Y'\to Y$，使严格变换 $f':X'\to Y'$ 满足：
+对 $|A|$ 在 $|X'|$ 中的闭包的每个几何点 $\overline a$，
+都存在商 $\mathcal{O}_{X',\overline a}\to\mathcal{O}$，使得
+$\mathcal{O}_{Y',f'(\overline a)}\to\mathcal{O}$ 有限平坦。
+\end{lemma}
+
+\noindent
+从证明可以看出，实际上有更强的结论；但这个陈述已经足够长，
+而且它足以满足后面的需要。
+
+\begin{proof}
+令 $T'\subset|U|$ 为 $f|_U$ 在其上平展的最大开集的补集。
+那么 $T'$ 在 $|U|$ 中闭，并且与 $|A|$ 不交。
+由于 $|U|$ 是谱拓扑空间（《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral})
+），可以找到 $|U|$ 的可构造闭子集 $T_c,T'_c$，使
+$|A|\subset T_c$、$T'\subset T'_c$ 且 $T_c\cap T'_c=\emptyset$
+（见引理 \ref{spaces-pushouts-lemma-blowup-iso-along} 的证明）。
+由引理 \ref{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}，
+存在 $U$-容许爆破 $X_1\to X$，使 $T_c$ 与 $T'_c$ 在 $|X_1|$
+中的闭包不交。令 $X_{1,0}$ 为 $X_1$ 中对应于开集
+$|X_1|\setminus\overline{T}'_c$ 的开子空间，并置
+$U_0=U\cap X_{1,0}$。注意，按构造，$A$ 的概形论像
+$\overline A_1\subset X_1$ 包含于 $X_{1,0}$。
+
+\medskip\noindent
+在用一个 $V$-容许爆破替换 $Y$ 并取严格变换后，
+可以假设 $X_{1,0}\to Y$ 平坦、拟有限且有限呈示；
+见《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-flat-after-blowing-up} 和
+\ref{spaces-more-morphisms-lemma-flat-fp-dimension-over-dense-open}.
+考虑交换图表
+$$
+\vcenter{
+\xymatrix{
+X_1 \ar[rr] \ar[rd] & & X \ar[ld] \\
+& Y
+}
+}
+\quad\text{以及图表}\quad
+\vcenter{
+\xymatrix{
+\overline{A}_1 \ar[rr] \ar[rd] & & \overline{A} \ar[ld] \\
+& \overline{B}
+}
+}
+$$
+，以及概形论像的图表。态射 $\overline A_1\to\overline A$ 是满射：
+它固有，因而 $\overline A_1\to\overline A$ 的概形论像必等于
+$\overline A$，然后可以使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-scheme-theoretic-image-is-proper}.
+。关于平展局部环的陈述可如下得到：把几何点 $\overline a$
+提升为 $\overline A_1$ 的几何点 $\overline a_1$，并置
+$\mathcal{O}=\mathcal{O}_{X_1,\overline a_1}$。
+事实上，由于 $X_1\to Y$ 在
+$X_{1,0}\supset\overline A_1$ 上平坦且拟有限，映射
+$\mathcal{O}_{Y',f'(\overline a)}\to
+\mathcal{O}_{X_1,\overline a_1}$ 有限平坦；见《代数》引理
+\ref{algebra-lemma-quasi-finite-strict-henselization}
+和 \ref{algebra-lemma-characterize-henselian}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-replaced-by-strict-transform}
+设 $S$ 是概形，$X\to B$ 和 $Y\to B$ 是 $S$ 上代数空间的态射，
+$U\subset X$ 是开子空间。令 $V\to X\times_BY$ 为拟紧态射，
+它与第一个投影的复合映入 $U$。令 $Z\subset X\times_BY$ 为
+$V\to X\times_BY$ 的概形论像。令 $X'\to X$ 为 $U$-容许爆破。
+那么 $V\to X'\times_BY$ 的概形论像，就是 $Z$ 关于该爆破的严格变换。
+\end{lemma}
+
+\begin{proof}
+以 $Z'\to Z$ 表示严格变换。态射 $Z'\to X'$ 诱导闭浸入
+$Z'\to X'\times_BY$（因为按定义，$Z'$ 是 $X'\times_XZ$ 的闭子空间）。
+因此，为完成证明，只需说明 $V\to Z'$ 的概形论像 $Z''$ 就是 $Z'$。
+注意，$Z''\subset Z'$ 是闭子空间，且 $V\to Z'$ 通过 $Z''$ 分解。
+由于 $V\to X\times_BY$ 和 $V\to X'\times_BY$ 都拟紧
+（对后者，这来自《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-permanence}
+以及如下事实：$X'\times_BY\to X\times_BY$ 是固有态射的基变换，因而分离），
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}
+，可知 $Z\cap(U\times_BY)=Z''\cap(U\times_BY)$。
+因此，包含态射 $Z''\to Z'$ 在 $Z'\to Z$ 的例外除子 $E$ 之外是同构。
+然而，$Z'$ 的结构层没有任何支撑在 $E$ 上的非零截面
+（这是严格变换的定义），所以满射
+$\mathcal{O}_{Z'}\to\mathcal{O}_{Z''}$ 必为同构。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-compactification-dominates}
+设 $S$ 是概形，$B$ 是 $S$ 上拟紧且拟分离的代数空间，
+$U$ 是 $B$ 上有限型且分离的代数空间，$V\to U$ 是平展态射。
+如果 $V$ 在 $B$ 上有紧化 $V\subset Y$，那么存在 $V$-容许爆破
+$Y'\to Y$ 和开子空间 $V\subset V'\subset Y'$，
+使 $V\to U$ 延拓为固有态射 $V'\to U$。
+\end{lemma}
+
+\begin{proof}
+考虑``对角''态射 $V\to Y\times_BU$ 的概形论像
+$Z\subset Y\times_BU$。如果用一个 $V$-容许爆破替换 $Y$，
+那么 $Z$ 被替换为关于该爆破的严格变换；见引理
+\ref{spaces-pushouts-lemma-replaced-by-strict-transform}。因此，由《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-zariski-after-blowup}
+，可以假设 $Z\to Y$ 是开浸入。若以 $V'\subset Y$ 表示其像，
+则诱导态射 $V'\to U$ 固有，因为投影 $Y\times_BU\to U$ 固有，
+而 $V'\cong Z$ 是 $Y\times_BU$ 的闭子空间。
+\end{proof}
+
+\noindent
+下面的引理针对某个 $\mathbf Z$ 上有限型代数空间上的有限型分离代数空间来表述。
+拟紧且拟分离代数空间的版本也成立（证明本质上相同），
+但它将立即由本节的主定理推出。我们强烈建议读者先阅读本引理在概形情形下的证明。
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-two-compactifications}
+令 $B$ 为 $\mathbf Z$ 上有限型的代数空间，
+$U$ 为 $B$ 上有限型且分离的代数空间。
+令 $(U_2\subset U,f:U_1\to U)$ 为初等特异方形。
+假设 $U_1$ 和 $U_2$ 在 $B$ 上都有紧化，且
+$U_1\times_UU_2\to U$ 的像稠密。那么 $U$ 在 $B$ 上有紧化。
+\end{lemma}
+
+\begin{proof}
+对 $i=1,2$，选取 $B$ 上的紧化 $U_i\subset X_i$。
+可以假设 $U_i$ 在 $X_i$ 中概形论稠密。由引理
+\ref{spaces-pushouts-lemma-compactification-dominates}，可以假设存在开子空间
+$V_i\subset X_i$ 和固有态射 $\psi_i:V_i\to U$，延拓 $U_i\to U$。
+图表为
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & V_i \ar[r] \ar[dl]^{\psi_i} & X_i \\
+U
+}
+$$
+以 $Z_1\subset U$ 表示对应于闭子集 $|U|\setminus|U_2|$ 的约化闭子空间。
+回忆 $f^{-1}Z_1$ 是 $U_1$ 的闭子空间，并同构地映到 $Z_1$。
+以 $Z_2\subset U$ 表示对应于闭子集
+$|U|\setminus\Im(|f|)=
+|U_2|\setminus\Im(|U_1\times_UU_2|\to|U_2|)$ 的约化闭子空间。
+于是，作为集合有
+$$
+U = U_2 \amalg Z_1 = Z_2 \amalg \Im(f) =
+Z_2 \amalg \Im(U_1 \times_U U_2 \to U_2) \amalg Z_1
+$$
+。以 $Z_{i,i}\subset V_i$ 表示 $Z_i$ 在 $\psi_i$ 下的逆像。
+注意，$\psi_2$ 在 $Z_2$ 的某个开邻域上为同构。又注意，对某个与
+$f^{-1}Z_1$ 不交的闭子空间 $T\subset V_1$，有
+$Z_{1,1}=\psi_1^{-1}Z_1=f^{-1}Z_1\amalg T$，
+而且 $\psi_1$ 沿 $f^{-1}Z_1$ 平展。
+以 $Z_{i,j}\subset V_i$ 表示 $Z_j$ 在 $\psi_i$ 下的逆像。
+注意，$\psi_i:Z_{i,j}\to Z_j$ 是固有态射。
+由于 $Z_i$ 与 $Z_j$ 是 $U$ 的不交闭子空间，
+$Z_{i,i}$ 与 $Z_{i,j}$ 是 $V_i$ 的不交闭子空间。
+
+\medskip\noindent
+以 $\overline Z_{i,i}$ 和 $\overline Z_{i,j}$ 表示
+$Z_{i,i}$ 和 $Z_{i,j}$ 在 $X_i$ 中的概形论像。
+回忆 $|Z_{i,j}|$ 在 $|\overline Z_{i,j}|$ 中稠密；
+见《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-immersion}.
+用一个 $V_i$-容许爆破替换 $X_i$ 后，可以假设
+$\overline Z_{i,i}$ 与 $\overline Z_{i,j}$ 不交；见引理
+\ref{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}。
+假设这一点对 $X_1$ 和 $X_2$ 都成立。
+注意，若再用一个 $V_i$-容许爆破替换 $X_i$，此性质仍保持。
+因此，可以用另一个 $V_1$-容许爆破替换 $X_1$，并假设
+$|\overline Z_{1,1}|$ 是 $|T|$ 与 $|f^{-1}Z_1|$ 在 $|X_1|$
+中的闭包的不交并。
+
+\medskip\noindent
+置 $V_{12}=V_1\times_UV_2$。我们有浸入
+$V_{12}\to X_1\times_BX_2$，它是闭浸入
+$V_{12}=V_1\times_UV_2\to V_1\times_BV_2$
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fibre-product-after-map})
+）与开浸入 $V_1\times_BV_2\to X_1\times_BX_2$ 的复合。
+令 $X_{12}\subset X_1\times_BX_2$ 为
+$V_{12}\to X_1\times_BX_2$ 的概形论像。投影态射
+$$
+p_1 : X_{12} \to X_1
+\quad\text{和}\quad
+p_2 : X_{12} \to X_2
+$$
+固有，因为 $X_1$ 和 $X_2$ 在 $B$ 上固有。如果用一个
+$V_1$-容许爆破替换 $X_1$，那么 $X_{12}$ 被替换为关于这个爆破的严格变换；
+见引理 \ref{spaces-pushouts-lemma-replaced-by-strict-transform}。
+
+\medskip\noindent
+以 $\psi:V_{12}\to U$ 表示复合
+$\psi=\psi_1\circ p_1|_{V_{12}}=\psi_2\circ p_2|_{V_{12}}$。
+考虑闭子空间
+$$
+Z_{12, 2} =
+(p_1|_{V_{12}})^{-1}Z_{1, 2} =
+(p_2|_{V_{12}})^{-1}Z_{2, 2} =
+\psi^{-1}Z_2 \subset V_{12}
+$$
+态射 $p_1|_{V_{12}}:V_{12}\to V_1$ 在 $Z_{1,2}$ 的某个开邻域上为同构，
+因为 $\psi_2:V_2\to U$ 在 $Z_2$ 的某个开邻域上为同构，
+且 $V_{12}=V_1\times_UV_2$。由引理 \ref{spaces-pushouts-lemma-blowup-iso-along}，
+存在 $V_1$-容许爆破 $X'_1\to X_1$，使 $p_1$ 的严格变换
+$p'_1:X'_{12}\to X'_1$ 在 $|Z_{1,2}|$ 于 $|X'_1|$ 中的闭包的
+某个开邻域上为同构。用 $X'_1$ 替换 $X_1$、用 $X'_{12}$ 替换
+$X_{12}$ 后，可以假设 $p_1$ 在 $|\overline Z_{1,2}|$
+的某个开邻域上为同构。
+
+\medskip\noindent
+上一段的结果告诉我们
+$$
+X_{12} \cap (\overline{Z}_{1, 2} \times_B \overline{Z}_{2, 1}) = \emptyset
+$$
+，其中交取在 $X_1\times_BX_2$ 中。事实上，$X_{12}$ 中的逆像
+$p_1^{-1}\overline Z_{1,2}$ 同构地映到 $\overline Z_{1,2}$。
+特别地，$|Z_{12,2}|$ 在 $|p_1^{-1}\overline Z_{1,2}|$ 中稠密。
+因此，$p_2$ 把 $|p_1^{-1}\overline Z_{1,2}|$ 映入
+$|\overline Z_{2,2}|$。由于
+$|\overline Z_{2,2}|\cap|\overline Z_{2,1}|=\emptyset$，结论随即得到。
+
+\medskip\noindent
+事实表明，在结束论证前还需要再作一次爆破。令
+$V_2\subset W_2\subset X_2$ 为具有如下底层拓扑空间的开子空间：
+$$
+|W_2| =
+|V_2| \cup (|X_2| \setminus |\overline{Z}_{2, 1}|) =
+|X_2| \setminus \left(|\overline{Z}_{2, 1}| \setminus |Z_{2, 1}|\right)
+$$
+由于 $p_2(p_1^{-1}\overline Z_{1,2})$ 包含于 $W_2$（见上），
+用一个 $W_2$-容许爆破替换 $X_2$，并用相应的严格变换替换 $X_{21}$，% P10-E0031
+仍会保持 $p_1$ 在 $\overline Z_{1,2}$ 的某个开邻域上为同构这一性质。
+由于 $\overline Z_{2,1}\cap W_2=\overline Z_{2,1}\cap V_2=Z_{2,1}$，
+可知 $Z_{2,1}$ 是 $W_2$ 和 $V_2$ 的闭子空间。
+注意，作为 $X_{12}$ 的开子空间，有
+$V_{12}=V_1\times_UV_2=p_1^{-1}(V_1)=p_2^{-1}(V_2)$，
+因为它是 $X_{12}$ 中态射 $\psi:V_{12}\to U$ 可延拓到的最大开子空间；
+略去细节\footnote{事实上，$V_1\times_UV_2$ 在 $U$ 上固有，
+所以如果 $\psi$ 可延拓到 $X_{12}$ 的一个更大开集，那么由《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence}.
+，$V_1\times_UV_2$ 在这个开集中将是闭的。
+又因为 $V_{12}\subset X_{12}$ 稠密，所以得到相等。}。
+我们有 $V_{12}$ 的闭子空间之间的下列等式：
+$$
+p_2^{-1}Z_{2, 1} = p_2^{-1} \psi_2^{-1} Z_1 =
+p_1^{-1} \psi_1^{-1} Z_1= p_1^{-1}Z_{1, 1} =
+p_1^{-1}f^{-1}Z_1 \amalg p_1^{-1}T
+$$
+这里以及下文中，我们略微滥用记号，以 $p_2$ 表示 $p_2$ 到% P10-E0032
+$V_{12}$ 的限制，等等。由于 $Z_{2,1}$ 是 $W_2$ 的闭子空间，
+$p_2^{-1}(Z_{2,1})$ 是 $p_2^{-1}(W_2)$ 的闭子空间；因此
+$p_1^{-1}f^{-1}Z_1$ 也是 $p_2^{-1}(W_2)$ 的闭子空间。
+最后，因为 $\psi_1$ 沿 $f^{-1}Z_1$ 平展，且
+$V_{12}=V_1\times_UV_2$，态射 $p_2:X_{12}\to X_2$
+在 $p_1^{-1}f^{-1}Z_1$ 的各点平展。
+于是可以把引理 \ref{spaces-pushouts-lemma-blowup-etale-along} 应用于态射
+$p_2:X_{12}\to X_2$、开子空间 $W_2$、闭子空间
+$Z_{2,1}\subset W_2$ 以及闭子空间
+$p_1^{-1}f^{-1}Z_1\subset p_2^{-1}(W_2)$。
+因此，用一个 $W_2$-容许爆破替换 $X_2$，并用相应的严格变换替换
+$X_{12}$ 后，对 $|p_1^{-1}f^{-1}Z_1|$ 的闭包中的每个几何点
+$\overline y$，都得到局部环映射
+$\mathcal{O}_{X_{12},\overline y}\to\mathcal{O}$，使
+$\mathcal{O}_{X_2,p_2(\overline y)}\to\mathcal{O}$ 有限平坦。
+
+\medskip\noindent
+考虑由推出得到的代数空间
+$$
+W_2 = U \coprod\nolimits_{U_2} (X_2 \setminus \overline{Z}_{2, 1}),
+$$
+，以及以第一段中的 $T\subset V_1$ 定义的代数空间
+$$
+W_1 = U \coprod\nolimits_{U_1}
+(X_1 \setminus \overline{Z}_{1, 2} \cup \overline{T}),
+$$
+；见引理 \ref{spaces-pushouts-lemma-construct-elementary-distinguished-square}。
+应用引理 \ref{spaces-pushouts-lemma-check-separated} 来说明 $W_i\to B$ 分离。
+首先，$U\to B$ 和 $X_i\to B$ 分离。利用赋值判据，来验证拟紧浸入
+$U_i\to U\times_B(X_i\setminus\overline Z_{i,j})$ 是闭的；
+见《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}.
+选取 $B$ 上的赋值环 $A$，其分式域为 $K$，并选取相容态射
+$(u,x_i):\Spec(A)\to U\times_BX_i$ 和
+$u_i:\Spec(K)\to U_i$。由于 $\psi_i$ 固有，可以找到与 $u$、$u_i$
+相容的唯一态射 $v_i:\Spec(A)\to V_i$。
+由于 $X_i$ 在 $B$ 上固有，可知 $x_i=v_i$。
+如果 $v_i$ 不通过 $U_i\subset V_i$ 分解，那么可知 $x_i$
+把 $\Spec(A)$ 的闭点映入 $Z_{i,j}$，或者在 $i=1$ 时映入 $T$。
+这就完成了证明，因为在构造 $W_i$ 时移除了
+$\overline Z_{i,j}$ 和 $\overline T$。% P10-E0033
+
+\medskip\noindent
+另一方面，对任一 $B$ 上赋值环 $A$（其分式域为 $K$）以及任一 $B$ 上态射
+$$
+\gamma : \Spec(K) \to \Im(U_1 \times_U U_2 \to U)
+$$
+，我们声称：用赋值环的某个扩张替换 $A$ 后，存在某个 $i$，
+使 $\gamma$ 延拓为态射 $h_i:\Spec(A)\to W_i$。
+事实上，先利用固有性的赋值判据把 $\gamma$ 延拓为态射
+$g_2:\Spec(A)\to X_2$。如果 $g_2$ 的像不与
+$\overline Z_{2,1}$ 相交，就得到所需的到 $W_2$ 的态射。
+否则，令 $\overline z\in\overline Z_{2,1}$ 为位于 $g_2$
+作用下闭点之像上方的一个几何点。可以把它提升为 $X_{12}$ 的一个几何点
+$\overline y$，该点属于 $|p_1^{-1}f^{-1}Z_1|$ 的闭包；
+这是因为空间映射
+$|p_1^{-1}f^{-1}Z_1|\to|\overline Z_{2,1}|$ 是闭映射，
+且其像包含稠密开集 $|Z_{2,1}|$。用 $A$ 的严格 Hensel 化替换该环
+（《代数续篇》引理 \ref{more-algebra-lemma-henselization-valuation-ring}）后，
+得到图表
+$$
+\xymatrix{
+A \ar@{..>}[rr] & & A' \\
+\mathcal{O}_{X_2, \overline{z}} \ar[r] \ar[u] &
+\mathcal{O}_{X_{12}, \overline{y}} \ar[r] &
+\mathcal{O} \ar@{..>}[u]
+}
+$$
+，其中 $\mathcal{O}_{X_{12},\overline y}\to\mathcal{O}$ 是证明第五段中
+找到的映射。由于水平复合有限且平坦，可以找到赋值环的扩张
+$A'/A$ 和使图表交换的虚线箭头。用 $A'$ 替换 $A$ 后，
+这意味着得到提升 $g_{12}:\Spec(A)\to X_{12}$，
+其闭点映入 $|p_1^{-1}f^{-1}Z_1|$ 的闭包。
+于是 $g_1=p_1\circ g_{12}:\Spec(A)\to X_1$ 的闭点映入
+$|f^{-1}Z_1|$ 的闭包。由于 $|f^{-1}Z_1|$ 的闭包与 $|T|$ 的闭包不交，
+并包含于 $|\overline Z_{1,1}|$，而后者与
+$|\overline Z_{1,2}|$ 不交，所以 $g_1$ 按所需定义态射
+$h_1:\Spec(A)\to W_1$。
+
+\medskip\noindent
+考虑图表
+$$
+\xymatrix{
+W_1' \ar[d] \ar[r] & W & W_2' \ar[l] \ar[d] \\
+W_1 & U \ar[l] \ar[lu] \ar[u] \ar[ru] \ar[r] & W_2
+}
+$$
+，如《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-find-common-blowups}.
+中所述。由上一段，对每个实线图表
+$$
+\xymatrix{
+\Spec(K) \ar[r]_\gamma  \ar[d] & W \ar[d] \\
+\Spec(A) \ar@{..>}[ru] \ar[r] & B
+}
+$$
+，若 $\Im(\gamma)\subset\Im(U_1\times_UU_2\to U)$，
+那么在必要时用赋值环的某个扩张替换 $A$ 后，存在某个 $i$ 以及
+$\gamma$ 的延拓 $h_i:\Spec(A)\to W_i$。
+再利用 $W'_i\to W_i$ 的固有性赋值判据，可以把 $h_i$ 提升为
+$h'_i:\Spec(A)\to W'_i$。因此，在必要时扩张 $A$ 后，
+图表中的虚线箭头存在。由于 $W$ 在 $B$ 上分离，
+可知其实不需要选取扩张，而且该箭头也是唯一的；
+见《空间的态射》引理 \ref{spaces-morphisms-lemma-usual-enough} 和
+\ref{spaces-morphisms-lemma-separated-implies-valuative}。
+最后，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-refined-valuative-criterion-universally-closed}，
+虚线箭头的存在性蕴含 $W\to B$ 万有闭。
+由于 $W\to B$ 已经有限型且分离，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-pushouts-lemma-filter-Noetherian-space}
+设 $S$ 是概形，$X$ 是 $S$ 上的诺特代数空间，
+$U\subset X$ 是真稠密开子空间。那么存在仿射概形 $V$ 和平展态射
+$V\to X$，使得
+\begin{enumerate}
+\item 开子空间 $W=U\cup\Im(V\to X)$ 严格大于 $U$；
+\item $(U\subset W,V\to W)$ 是特异方形；并且
+\item $U\times_WV\to U$ 的像稠密。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取一个分层
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+以及如《合宜空间》引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}.
+中那样的态射 $f_p:V_p\to U_p$。
+令 $p$ 为满足 $U_p\not\subset U$ 的最小整数
+（由于 $U \not = X$，这是可能的）。选取仿射开集 $V\subset V_p$，
+使平展态射 $f_p|_V:V\to X$ 不通过 $U$ 分解。
+考虑开集 $W=U\cup\Im(V\to X)$，以及满足
+$|Z|=|W|\setminus|U|$ 的约化闭子空间 $Z\subset W$。
+那么 $f^{-1}Z\to Z$ 是同构，% P10-E0034
+因为对态射 $f_p$ 有相应性质；见上引理。因此
+$(U\subset W,f:V\to W)$ 是特异方形。
+开集 $I=\Im(U\times_WV\to U)$ 未必在 $U$ 中稠密。
+底层集合为 $|U|\setminus\overline{|I|}$ 的代数空间 $U'\subset U$
+是诺特的，因而可以找到稠密开子概形 $U''\subset U'$；
+例如见《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+然后可以找到稠密仿射开集 $U'''\subset U''$；见《性质》引理
+\ref{properties-lemma-Noetherian-irreducible-components} 和
+\ref{properties-lemma-maximal-points-affine}。
+用 $V\amalg U'''\to X$ 替换 $f$ 后，一切都很清楚。
+\end{proof}
+
+\begin{theorem}
+\label{spaces-pushouts-theorem-nagata}
+\begin{reference}
+\cite{CLO}
+\end{reference}
+设 $S$ 是概形，$B$ 是 $S$ 上拟紧且拟分离的代数空间，
+$X\to B$ 是分离有限型态射。那么 $X$ 在 $B$ 上有紧化。
+\end{theorem}
+
+\begin{proof}
+先约化到诺特情形。我们强烈建议读者跳过本段。
+首先，可以用 $\Spec(\mathbf Z)$ 替换 $S$；见《空间》第
+\ref{spaces-section-change-base-scheme} 节和《空间的性质》定义
+\ref{spaces-properties-definition-separated}。
+存在闭浸入 $X\to X'$，且 $X'\to B$ 有限呈示并分离；
+见《空间的极限》命题
+\ref{spaces-limits-proposition-separated-closed-in-finite-presentation}.
+如果找到 $X'$ 在 $B$ 上的紧化，那么取其中 $X$ 的概形论闭包，
+就得到 $X$ 在 $B$ 上的紧化。因此，可以假设 $X\to B$ 分离且有限呈示。
+可以把 $B=\lim B_i$ 写成一个系统的有向极限，其中各项是
+$\Spec(\mathbf Z)$ 上有限型的诺特代数空间，转移态射仿射；
+见《空间的极限》命题 \ref{spaces-limits-proposition-approximate}。
+可以选取某个 $i$ 和有限呈示态射 $X_i\to B_i$，
+使它到 $B$ 的基变换为 $X\to B$；见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。
+增大 $i$ 后，可以假设 $X_i\to B_i$ 分离；见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-separated-morphism}.
+如果能找到 $X_i$ 在 $B_i$ 上的紧化，那么它到 $B$ 的基变换就是
+$X$ 在 $B$ 上的紧化。这把问题约化到下一段讨论的情形。
+
+\medskip\noindent
+除拟紧且拟分离外，再假设 $B$ 在 $\mathbf Z$ 上有限型。
+令 $U\to X$ 为代数空间的平展态射，并假设 $U$ 在
+$\Spec(\mathbf Z)$ 上有紧化 $Y$。态射
+$$
+U \longrightarrow B \times_{\Spec(\mathbf{Z})} Y
+$$
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}
+可知分离且拟有限（所示态射分解为一个浸入，因而是单态射）。
+所以由 Zariski 主定理（《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-quasi-finite-separated-pass-through-finite})
+），存在 $U$ 到某个代数空间 $Y'$ 的开浸入，且后者在
+$B\times_{\Spec(\mathbf Z)}Y$ 上有限。那么 $Y'\to B$ 固有，
+因为它是两个固有态射的复合
+$Y'\to B\times_{\Spec(\mathbf Z)}Y\to B$
+（使用《空间的态射》引理 \ref{spaces-morphisms-lemma-finite-proper}、
+\ref{spaces-morphisms-lemma-composition-proper} 和
+\ref{spaces-morphisms-lemma-base-change-proper}）。
+）。因此 $U$ 在 $B$ 上有紧化。
+
+\medskip\noindent
+存在一个为概形的稠密开子空间 $U\subset X$
+（《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}).
+）。事实上，可以选取 $U$ 为仿射概形
+（《性质》引理 \ref{properties-lemma-Noetherian-irreducible-components} 和
+\ref{properties-lemma-maximal-points-affine}）。
+因此 $U$ 在 $\Spec(\mathbf Z)$ 上有紧化；
+这可以直接轻易证明，也可由概形的相应定理推出，
+见《平坦性续篇》定理 \ref{flat-theorem-nagata}。
+由上一段，$U$ 在 $B$ 上有紧化。
+通过诺特归纳，可以找到一个在 $B$ 上有紧化的极大稠密开子空间
+$U\subset X$。我们将说明假设 $U \not = X$ 会导致矛盾。
+事实上，由引理 \ref{spaces-pushouts-lemma-filter-Noetherian-space}，
+可以找到严格更大的开子空间 $U\subset W\subset X$ 和特异方形
+$(U\subset W,f:V\to W)$，其中 $V$ 仿射，且
+$U\times_WV$ 在 $U$ 中的像稠密。
+由于 $V$ 仿射，它和前面一样在 $B$ 上有紧化。
+因此可以应用引理 \ref{spaces-pushouts-lemma-two-compactifications}，
+得到 $W$ 在 $B$ 上有紧化，这正是所需矛盾。
+\end{proof}

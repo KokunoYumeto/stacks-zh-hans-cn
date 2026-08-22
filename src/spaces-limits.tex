@@ -1,0 +1,4679 @@
+% Generated mechanically from the frozen spaces-limits.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{69}
+\chapter{代数空间的极限}
+
+
+
+\phantomsection
+\label{spaces-limits-section-phantom}
+
+
+\section{引言}
+\label{spaces-limits-section-introduction}
+
+\noindent
+本章汇集与代数空间的极限有关的材料。第一个主题是刻画基底 $S$ 上
+局部有限表示的代数空间 $F$：它们正是保极限函子。随后我们研究以
+有向集为指标（《范畴》定义 \ref{categories-definition-directed-set}）、
+转移态射为仿射态射的逆系统的极限。依照 \cite{CLO}，我们讨论拟紧
+拟分离代数空间的绝对 Noether 逼近。另一种方法由 David Rydh 给出
+（见 \cite{rydh_approx}）；其结果还涵盖某些代数叠的绝对 Noether 逼近。
+
+
+\section{约定}
+\label{spaces-limits-section-conventions}
+
+\noindent
+我们始终假设所有概形都包含在一个 fppf 大位点 $\Sch_{fppf}$ 中，
+并且所考虑的每个环 $A$ 都具有如下性质：$\Spec(A)$（同构于）
+这个大位点中的一个对象。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。在本章及以下各章中，
+我们用 $X \times_S X$ 表示 $X$ 与自身的积（在 $S$ 上代数空间的
+范畴中），而不用 $X \times X$。
+
+
+
+
+
+
+
+
+
+
+
+\section{有限表示态射}
+\label{spaces-limits-section-finite-presentation}
+
+\noindent
+本节把《极限》命题
+\ref{limits-proposition-characterize-locally-finite-presentation}
+推广到代数空间的态射。下面定义的动机来自刚才引用的命题。
+
+\begin{definition}
+\label{spaces-limits-definition-locally-finite-presentation}
+设 $S$ 为概形。
+\begin{enumerate}
+\item 称函子 $F : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ {\it 保极限}或
+{\it 局部有限表示}，如果对于 $S$ 上仿射概形的任意有向逆系统
+$T_i$，只要其极限 $T = \lim T_i$ 是 $S$ 上的仿射概形，就有
+$$
+F(T) = \colim F(T_i).
+$$
+我们有时也说 $F$ {\it 在 $S$ 上局部有限表示}。
+\item 设 $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$。称函子的自然变换
+$a : F \to G$ {\it 保极限}或{\it 局部有限表示}，如果对于 $S$ 上
+任意概形 $T$ 及任意 $y \in G(T)$，函子
+$$
+F_y : (\Sch/T)_{fppf}^{opp} \longrightarrow \textit{Sets}, \quad
+T'/T \longmapsto \{x \in F(T') \mid a(x) = y|_{T'}\}
+$$
+在 $T$ 上局部有限表示\footnote{引理
+\ref{spaces-limits-lemma-characterize-relative-limit-preserving} 中的刻画 (2)
+或许更容易理解。}。我们有时也说 $F$ {\it 相对于 $G$ 保极限}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+在某种意义下，函子 $F_y$ 是 $a : F \to G$ 在 $y$ 上的纤维，
+但它是 $T$ 的 fppf 大位点上的预层。这个函子可写成
+\begin{equation}
+\label{spaces-limits-equation-fibre-map-functors}
+F_y =
+F|_{(\Sch/T)_{fppf}}
+{\times}_{G|_{(\Sch/T)_{fppf}}}
+*
+\end{equation}
+其中 $*$ 是 $(\Sch/T)_{fppf}$ 上（预）层范畴的终对象（见
+《位点》例 \ref{sites-example-singleton-sheaf}），而映射
+$* \to G|_{(\Sch/T)_{fppf}}$ 由 $y$ 给出。注意，如果
+$j : (\Sch/T)_{fppf} \to (\Sch/S)_{fppf}$ 是局部化函子，
+那么上述公式变为 $F_y = j^{-1}F \times_{j^{-1}G} *$，且
+$j_!F_y$ 正是纤维积 $F \times_{G, y} T$。（关于局部化，见
+《位点》第 \ref{sites-section-localize} 节；特别地，关于预层的
+$j_!$，见《位点》注 \ref{sites-remark-localize-presheaves}。）
+
+\medskip\noindent
+此时，对于 $S$ 上代数空间的态射 $X \to Y$ 何谓局部有限表示，
+我们暂时有两个定义：一个来自《空间的态射》定义
+\ref{spaces-morphisms-definition-locally-finite-presentation}；另一个把
+$X \to Y$ 看成函子的自然变换，从而应用定义
+\ref{spaces-limits-definition-locally-finite-presentation}（对后一概念，我们将尽可能
+使用“保极限”这一术语）。命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation} 将证明这两个
+定义一致。
+
+\begin{lemma}
+\label{spaces-limits-lemma-characterize-relative-limit-preserving}
+设 $S$ 为概形，$a : F \to G$ 为函子
+$(\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ 之间的自然变换。
+下列条件等价：
+\begin{enumerate}
+\item $a : F \to G$ 保极限；
+\item 对 $S$ 上仿射概形的任意有向逆系统 $T_i$，只要其极限
+$T = \lim T_i$ 是 $S$ 上的仿射概形，下列集合图就是纤维积图：
+$$
+\xymatrix{
+\colim_i F(T_i) \ar[r] \ar[d]_a & F(T) \ar[d]^a \\
+\colim_i G(T_i) \ar[r] & G(T)
+}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1)。考虑 (2) 中的 $T = \lim_{i \in I} T_i$。设
+$(y, x_T)$ 为纤维积
+$\colim_i G(T_i) \times_{G(T)} F(T)$
+的一个元素。于是对某个 $i$，$y$ 来自 $y_i \in G(T_i)$。
+考虑定义 \ref{spaces-limits-definition-locally-finite-presentation} 中
+$(\Sch/T_i)_{fppf}$ 上的函子 $F_{y_i}$。可见
+$x_T \in F_{y_i}(T)$。此外，$T = \lim_{i' \geq i} T_{i'}$ 是
+$T_i$ 上仿射概形的有向系统。因此由 (1)，$x_T$ 是
+$\colim_{i' \geq i} F_{y_i}(T_{i'})$ 中唯一元素 $x$ 的像。
+所以 $x$ 是 $\colim F(T_i)$ 中映到数对 $(y,x_T)$ 的唯一元素。
+这就证明了 (2)。
+
+\medskip\noindent
+假设 (2)。设 $T$ 为概形且 $y_T \in G(T)$。我们必须证明 $F_{y_T}$
+保极限。设 $T' = \lim_{i \in I} T'_i$ 是 $T$ 上的仿射概形，且是
+$T$ 上仿射概形 $T'_i$ 的有向极限。取 $x_{T'} \in F_{y_T}$。
+% P09-ERR-0050
+由于 $I$ 是有向集，可以选取 $i \in I$。把 $y_{T'}$ 的像记作
+$y_i \in F(T'_i)$。% P09-ERR-0051
+于是 $(y_i,x_{T'})$ 是纤维积
+$\colim_i G(T'_i) \times_{G(T')} F(T')$
+的一个元素。因此由 (2)，存在 $\colim_i F(T'_i)$ 中的唯一元素 $x$
+映到 $(y_i,x_{T'})$。显然，$x$ 给出 $\colim_i F_y(T'_i)$ 中映到
+$x_{T'}$ 的元素，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-composition-locally-finite-presentation}
+设 $S$ 为 $\Sch_{fppf}$ 中的概形。设
+$F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$，并设
+$a : F \to G$、$b : G \to H$ 为函子的自然变换。如果 $a$ 和 $b$
+都保极限，则
+$$
+b \circ a : F \longrightarrow H
+$$
+也保极限。
+\end{lemma}
+
+\begin{proof}
+令 $T = \lim_{i \in I}T_i$ 如引理
+\ref{spaces-limits-lemma-characterize-relative-limit-preserving} 的刻画 (2) 所述。
+考虑集合图
+$$
+\xymatrix{
+\colim_i F(T_i) \ar[r] \ar[d]_a & F(T) \ar[d]^a \\
+\colim_i G(T_i) \ar[r] \ar[d]_b & G(T) \ar[d]^b \\
+\colim_i H(T_i) \ar[r] & H(T)
+}
+$$
+依假设，两个方块都是纤维积方块。因此外侧矩形也是纤维积图，
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-locally-finite-presentation-permanence}
+设 $S$ 为 $\Sch_{fppf}$ 中的概形。设
+$F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$，并设
+$a : F \to G$、$b : G \to H$ 为函子的自然变换。如果 $b \circ a$
+和 $b$ 保极限，则 $a$ 保极限。
+\end{lemma}
+
+\begin{proof}
+令 $T = \lim_{i \in I}T_i$ 如引理
+\ref{spaces-limits-lemma-characterize-relative-limit-preserving} 的刻画 (2) 所述。
+考虑集合图
+$$
+\xymatrix{
+\colim_i F(T_i) \ar[r] \ar[d]_a & F(T) \ar[d]^a \\
+\colim_i G(T_i) \ar[r] \ar[d]_b & G(T) \ar[d]^b \\
+\colim_i H(T_i) \ar[r] & H(T)
+}
+$$
+依假设，下方方块和外侧矩形都是集合的纤维积。因此上方方块也是
+纤维积方块，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-base-change-locally-finite-presentation}
+设 $S$ 为 $\Sch_{fppf}$ 中的概形。设
+$F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$，并设
+$a : F \to G$、$b : H \to G$ 为函子的自然变换。考虑纤维积图
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+如果 $a$ 保极限，则其基变换 $a'$ 也保极限。
+\end{lemma}
+
+\begin{proof}
+略。提示：这是形式的。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-fibre-product-locally-finite-presentation}
+设 $S$ 为 $\Sch_{fppf}$ 中的概形。设
+$E, F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$，并设
+$a : F \to G$、$b : H \to G$ 及 $c : G \to E$ 为函子的自然变换。
+如果 $c$、$c \circ a$ 和 $c \circ b$ 保极限，则
+$F \times_G H \to E$ 也保极限。
+\end{lemma}
+
+\begin{proof}
+令 $T = \lim_{i \in I}T_i$ 如引理
+\ref{spaces-limits-lemma-characterize-relative-limit-preserving} 的刻画 (2) 所述。
+于是
+$$
+\colim (F \times_G H)(T_i) =
+\colim F(T_i) \times_{\colim G(T_i)} \colim H(T_i)
+$$
+因为滤过余极限与有限积交换。因此我们的目标是证明
+$$
+\xymatrix{
+\colim F(T_i) \times_{\colim G(T_i)} \colim H(T_i) \ar[r] \ar[d] &
+F(T) \times_{G(T)} H(T) \ar[d] \\
+\colim_i E(T_i) \ar[r] & E(T)
+}
+$$
+是纤维积图。为此只需注意，对于集合映射 $E' \to E$、$F \to G$、
+$H \to G$ 及 $G \to E$，有
+$$
+E' \times_E (F \times_G H) =
+(E' \times_E F) \times_{(E' \times_E G)} (E' \times_E H)
+$$
+略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-sheafify-finite-presentation}
+设 $S$ 为 $\Sch_{fppf}$ 中的概形，
+$F : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ 为函子。
+如果 $F$ 保极限，则其层化 $F^\#$ 也保极限。
+\end{lemma}
+
+\begin{proof}
+假设 $F$ 保极限。由于 $F^\#=(F^+)^+$（见《位点》定理
+\ref{sites-theorem-plus}），只需证明 $F^+$ 保极限。设 $T$ 为 $S$ 上
+的仿射概形，并把 $T=\lim T_i$ 写成 $S$ 上仿射概形的一个逆系统的
+有向极限。回忆 $F^+(T)$ 是 $\check H^0(\mathcal V,F)$ 的余极限，
+其中该极限遍历 $(\Sch/S)_{fppf}$ 中 $T$ 的所有覆盖。% P09-ERR-0052
+仿射概形的任意 fppf 覆盖都能由一个标准 fppf 覆盖加细，见《位点》
+引理 \ref{topologies-lemma-fppf-affine}。因此可写成
+$$
+F^+(T)
+=
+\colim_{\mathcal{V}\text{ 标准覆盖 }T}
+\check H^0(\mathcal{V}, F).
+$$
+余极限中的任意
+$\mathcal V=\{T_k\to T\}_{k=1,\ldots,n}$，都可对某个 $i$ 写成
+$\mathcal V_i\times_{T_i}T$，其中
+$\mathcal V_i=\{T_{i,k}\to T_i\}_{k=1,\ldots,n}$ 是 $T_i$ 的一个
+标准 fppf 覆盖。对 $i'\geq i$，记其基变换为
+$\mathcal V_{i'}=\{T_{i',k}\to T_{i'}\}_{k=1,\ldots,n}$。于是
+\begin{align*}
+% P09-ERR-0053
+\colim_{i' \geq i} \check H^0(\mathcal{V}_i, F)
+& =
+\colim_{i' \geq i}
+\text{等化子}
+\left(
+\xymatrix{
+\prod F(T_{i', k})
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod F(T_{i', k} \times_{T_{i'}} T_{i', l})
+}
+\right)
+\\
+& =
+\text{等化子}
+\left(
+\xymatrix{
+\colim_{i' \geq i}
+\prod F(T_{i', k})
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+% P09-ERR-0054
+\colim_{k' \geq k}
+\prod F(T_{i', k} \times_{T_{i'}} T_{i', l})
+}
+\right)
+\\
+& =
+\text{等化子}
+\left(
+\xymatrix{
+\prod F(T_k)
+\ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod F(T_k \times_T T_l)
+}
+\right)
+\\
+& =
+\check H^0(\mathcal{V}, F)
+\end{align*}
+这里第二个等号成立，是因为滤过余极限正合。第三个等号成立，是因为
+$F$ 保极限，并且由《极限》引理 \ref{limits-lemma-scheme-over-limit}，
+有 $\lim_{i'\geq i}T_{i',k}=T_k$ 及
+$\lim_{i'\geq i}T_{i',k}\times_{T_{i'}}T_{i',l}=T_k\times_TT_l$。
+同时对所有覆盖应用这一点，得到
+\begin{align*}
+F^+(T)
+& =
+\colim_{\mathcal{V}\text{ 标准覆盖 }T} \check H^0(\mathcal{V}, F) \\
+& =
+\colim_{i \in I}
+\colim_{\mathcal{V}_i\text{ 标准覆盖 }T_i}
+\check H^0(T \times_{T_i}\mathcal{V}_i, F) \\
+& =
+\colim_{i \in I} F^+(T_i)
+\end{align*}
+由《范畴》引理 \ref{categories-lemma-colimits-commute}，可以交换这些
+余极限的次序。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-sheaf-finite-presentation}
+设 $S$ 为概形，$F : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ 为函子。
+假设
+\begin{enumerate}
+\item $F$ 是层；
+\item 存在一个 fppf 覆盖 $\{U_j\to S\}_{j\in J}$，使得
+$F|_{(\Sch/U_j)_{fppf}}$ 保极限。
+\end{enumerate}
+那么 $F$ 保极限。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 为 $S$ 上的仿射概形，$I$ 为有向集，并设 $T_i$ 为 $S$ 上
+仿射概形的逆系统，且 $T=\lim T_i$。我们必须证明典范映射
+$\colim F(T_i)\to F(T)$ 是双射。
+
+\medskip\noindent
+选取某个 $0\in I$，再选取一个标准 fppf 覆盖
+$\{V_{0,k}\to T_0\}_{k=1,\ldots,m}$，它加细给定的 $S$ 的 fppf 覆盖
+拉回得到的 $\{U_j\times_ST_0\to T_0\}$。对每个 $i\geq0$，令
+$V_{i,k}=T_i\times_{T_0}V_{0,k}$，并令
+$V_k=T\times_{T_0}V_{0,k}$。注意
+$V_k=\lim_{i\geq0}V_{i,k}$，见《极限》引理
+\ref{limits-lemma-scheme-over-limit}。
+
+\medskip\noindent
+假设 $x,x'\in\colim F(T_i)$ 映到 $F(T)$ 中的同一元素。设对某个
+$i\in I$，$x,x'$ 分别由元素 $x_i,x'_i\in F(T_i)$ 给出（由于 $I$
+有向，可以为二者选取同一个 $i$）。由假设 (2) 以及 $x_i,x'_i$
+映到 $F(T)$ 中同一元素这一事实，可知
+$$
+x_i|_{V_{i', k}} = x'_i|_{V_{i', k}}
+$$
+对某个充分大的 $i'\in I$ 成立。由于 $k$ 遍历有限集
+$\{1,\ldots,m\}$，可以对每个 $k$ 选取同一个 $i'$。因为
+$\{V_{i',k}\to T_{i'}\}$ 是 fppf 覆盖且 $F$ 是层，所以如所需有
+$x_i|_{T_{i'}}=x'_i|_{T_{i'}}$。这证明了映射
+$\colim F(T_i)\to F(T)$ 是单射。
+
+\medskip\noindent
+为证明满射性，作类似论证。设 $x\in F(T)$。由假设 (2)，对每个 $k$
+都可选取一个 $i$，使得 $x|_{V_k}$ 来自某个元素
+$x_{i,k}\in F(V_{i,k})$。如前，可选取一个对所有 $k$ 都适用的 $i$。
+由上面已经证明的单射性可知
+$$
+x_{i, k}|_{V_{i', k} \times_{T_{i'}} V_{i', l}}
+=
+x_{i, l}|_{V_{i', k} \times_{T_{i'}} V_{i', l}}
+$$
+对某个充分大的 $i'$ 成立。因此由 $F$ 的层条件，各元素
+$x_{i,k}|_{V_{i',k}}$ 可以粘合为所需的元素 $x_{i'}\in F(T_{i'})$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-sheafify-finite-presentation-map}
+设 $S$ 为 $\Sch_{fppf}$ 中的概形，并设
+$F,G:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$ 为函子。如果自然变换
+$a:F\to G$ 保极限，则诱导的层之间的自然变换
+$F^\#\to G^\#$ 也保极限。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 为概形且 $y\in G^\#(T)$。我们必须证明函子
+$F^\#_y : (\Sch/T)_{fppf}^{opp} \to \textit{Sets}$
+——它由 $F^\#\to G^\#$ 和 $y$ 按照定义
+\ref{spaces-limits-definition-locally-finite-presentation} 构造——保极限。由公式
+(\ref{spaces-limits-equation-fibre-map-functors}) 可见 $F^\#_y$ 是层。选取一个
+fppf 覆盖 $\{V_j\to T\}_{j\in J}$，使得 $y|_{V_j}$ 来自某个元素
+$y_j\in F(V_j)$。% P09-ERR-0055
+注意，$F^\#$ 在 $(\Sch/V_j)_{fppf}$ 上的限制正是
+$F^\#_{y_j}$。% P09-ERR-0056
+如果能证明 $F^\#_{y_j}$ 保极限，那么引理
+\ref{spaces-limits-lemma-sheaf-finite-presentation} 保证 $F^\#_y$ 保极限，结论成立。
+这把问题约化到 $y\in G(T)$ 的情形。
+
+\medskip\noindent
+设 $y\in G(T)$。此时我们断言 $F^\#_y=(F_y)^\#$。这由公式
+(\ref{spaces-limits-equation-fibre-map-functors}) 得出。因此这种情形由引理
+\ref{spaces-limits-lemma-sheafify-finite-presentation} 得出。
+\end{proof}
+
+\begin{proposition}
+\label{spaces-limits-proposition-characterize-locally-finite-presentation}
+设 $S$ 为概形，$f:X\to Y$ 为 $S$ 上代数空间的态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 是局部有限表示的代数空间态射，见《空间的态射》定义
+\ref{spaces-morphisms-definition-locally-finite-presentation}；
+\item 作为函子的自然变换，态射 $f:X\to Y$ 保极限，见定义
+\ref{spaces-limits-definition-locally-finite-presentation}。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+假设 (1)。设 $T$ 为概形且 $y\in Y(T)$。我们必须证明
+$T\times_YX$ 在定义 \ref{spaces-limits-definition-locally-finite-presentation} 的意义下
+在 $T$ 上保极限。因此问题约化为证明：如果代数空间 $X$ 作为代数空间
+在 $S$ 上局部有限表示，那么作为函子
+$X : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+它保极限。为此选取一个展示 $X=U/R$，见《空间》定义
+\ref{spaces-definition-presentation}。由《空间的态射》定义
+\ref{spaces-morphisms-definition-locally-finite-presentation}，$U$ 和 $R$
+都是在 $S$ 上局部有限表示的概形。因此由《极限》命题
+\ref{limits-proposition-characterize-locally-finite-presentation}，只要
+$T=\lim_iT_i$ 位于 $(\Sch/S)_{fppf}$ 中，就有
+$$
+U(T) = \colim U(T_i), \quad
+R(T) = \colim R(T_i)
+$$
+。由此可知预层
+$$
+(\Sch/S)_{fppf}^{opp} \longrightarrow \textit{Sets}, \quad
+W \longmapsto U(W)/R(W)
+$$
+保极限。因此由引理 \ref{spaces-limits-lemma-sheafify-finite-presentation}，其层化
+$X=U/R$ 也保极限。
+
+\medskip\noindent
+假设 (2)。选取概形 $V$ 和满平展态射 $V\to Y$。再选取概形 $U$
+和满平展态射 $U\to V\times_YX$。由引理
+\ref{spaces-limits-lemma-base-change-locally-finite-presentation}，函子间的自然变换
+$V\times_YX\to V$ 保极限。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}，代数空间的
+态射 $U\to V\times_YX$ 局部有限表示，因而由证明的第一部分，
+它作为函子的自然变换保极限。再由引理
+\ref{spaces-limits-lemma-composition-locally-finite-presentation}，复合
+$U\to V\times_YX\to V$ 作为函子的自然变换保极限。因此由《极限》
+命题 \ref{limits-proposition-characterize-locally-finite-presentation}，
+概形态射 $U\to V$ 局部有限表示（这里暂且不论集合论问题，见证明的
+最后一段）。按照定义，这意味着 (1) 成立。
+
+\medskip\noindent
+集合论说明。设 $U\to V$ 为 $(\Sch/S)_{fppf}$ 中的态射。在《极限》
+命题 \ref{limits-proposition-characterize-locally-finite-presentation} 的
+陈述中，$U\to V$ 局部有限表示的刻画要求：对 $V$ 上仿射概形的
+{\it 每个}有向逆系统 $(T_i,f_{ii'})$，都有
+$U(T)=\colim V(T_i)$；% P09-ERR-0057
+但在当前情形中，我们只能考虑 $V$ 上那些（同构于）
+$(\Sch/S)_{fppf}$ 中对象的仿射概形 $T_i$。所以必须保证
+$(\Sch/S)_{fppf}$ 中有足够多的仿射对象，使证明成立。考察《极限》
+命题 \ref{limits-proposition-characterize-locally-finite-presentation} 中
+(2) $\Rightarrow$ (1) 的证明，可见问题约化到 $U,V$ 都仿射的情形。
+设 $U=\Spec(A)$、$V=\Spec(B)$。由 $(\Sch/S)_{fppf}$ 的构造，基数
+$\leq|B|$ 的任意环的谱都同构于 $(\Sch/S)_{fppf}$ 中的一个对象。
+因此只需注意，《代数》引理
+\ref{algebra-lemma-characterize-finite-presentation} 的证明中“仅当”部分
+只使用基数 $\leq|B|$ 的 $A$-代数。
+\end{proof}
+
+\begin{remark}
+\label{spaces-limits-remark-limit-preserving}
+下面是命题 \ref{spaces-limits-proposition-characterize-locally-finite-presentation} 的
+一个重要特例。设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。那么 $X$
+在 $S$ 上局部有限表示，当且仅当 $X$ 作为函子
+$(\Sch/S)^{opp}\to\textit{Sets}$ 保极限。与《极限》注
+\ref{limits-remark-limit-preserving} 比较。事实上，下面的引理
+\ref{spaces-limits-lemma-surjection-is-enough} 将说明，只要映射
+$$
+\colim X(T_i) \longrightarrow X(T)
+$$
+在 $T=\lim T_i$ 是 $S$ 上仿射概形的有向极限时恒为满射，就已经足够。
+\end{remark}
+
+\begin{lemma}
+\label{spaces-limits-lemma-surjection-is-enough}
+设 $S$ 为概形，$f:X\to Y$ 为 $S$ 上代数空间的态射。如果对于 $S$
+上仿射概形的每个有向极限 $T=\lim_{i\in I}T_i$，映射
+$$
+\colim X(T_i) \longrightarrow X(T) \times_{Y(T)} \colim Y(T_i)
+$$
+都是满射，则 $f$ 局部有限表示。换言之，在命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation} 的 (2) 中，
+只需检验引理 \ref{spaces-limits-lemma-characterize-relative-limit-preserving} 的
+判据中的满射性。
+\end{lemma}
+
+\begin{proof}
+选取概形 $V$ 和满平展态射 $g:V\to Y$。再选取概形 $U$ 和满平展态射
+$h:U\to V\times_YX$。只需证明，对于引理中的 $T=\lim T_i$，映射
+$$
+\colim U(T_i) \longrightarrow U(T) \times_{V(T)} \colim V(T_i)
+$$
+是满射；因为这样一来，由《极限》引理
+\ref{limits-lemma-surjection-is-enough}，$U\to V$ 就局部有限表示
+（集合论说明与命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation} 的证明完全相同）。
+因此取 $a:T\to U$ 和 $b_i:T_i\to V$，二者确定同一个态射
+$T\to V$。图示为
+$$
+\xymatrix{
+T \ar[d]_a \ar[rr]_{p_i} & & T_i \ar[d]^{b_i} \ar@{..>}[ld] \\
+U \ar[r]^-h & X \times_Y V \ar[d] \ar[r] & V \ar[d]^g \\
+& X \ar[r]^f & Y
+}
+$$
+由引理的假设，增大 $i$ 后可以找到态射 $c_i:T_i\to X$，使得
+$h\circ a=(b_i,c_i)\circ p_i:T_i\to V\times_YX$% P09-ERR-0058
+且 $f\circ c_i=g\circ b_i$。因为 $h$ 是代数空间的平展态射（因而
+局部有限表示），由命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}，映射
+$$
+\colim U(T_i) \longrightarrow U(T) \times_{(X \times_Y V)(T)}
+\colim (X \times_Y V)(T_i)
+$$
+是满射。因此再次增大 $i$ 后，可以找到所需的态射 $a_i:T_i\to U$，
+使得 $a=a_i\circ p_i$ 且 $b_i=(U\to V)\circ a_i$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{代数空间的极限}
+\label{spaces-limits-section-limits}
+
+\noindent
+下面的引理说明本章如何理解代数空间的极限。我们将不再另行说明地
+使用如下事实：代数空间的仿射态射的基变换仍为仿射态射（见
+《空间的态射》引理 \ref{spaces-morphisms-lemma-base-change-affine}）。
+
+\begin{lemma}
+\label{spaces-limits-lemma-directed-inverse-system-has-limit}
+设 $S$ 为概形，$I$ 为有向集。设 $(X_i,f_{ii'})$ 是 $S$ 上代数空间
+范畴中以 $I$ 为指标的逆系统。如果态射 $f_{ii'}:X_i\to X_{i'}$
+都是仿射的，那么极限 $X=\lim_iX_i$（作为 fppf 层）是代数空间。
+此外，
+\begin{enumerate}
+\item 每个态射 $f_i:X\to X_i$ 都是仿射的；
+\item 对任意 $i\in I$ 及代数空间的任意态射 $T\to X_i$，都有
+$$
+X \times_{X_i} T = \lim_{i' \geq i} X_{i'} \times_{X_i} T.
+$$
+这里等式是 $S$ 上代数空间之间的等式。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2) 是极限 $X=\lim X_i$ 作为 $S$ 上代数空间存在这一事实的形式推论。
+选取元素 $0\in I$（这是可能的，因为有向集非空）。选取概形 $U_0$
+和满平展态射 $U_0\to X_0$。令 $R_0=U_0\times_{X_0}U_0$，从而
+$X_0=U_0/R_0$。对 $i\geq0$，令 $U_i=X_i\times_{X_0}U_0$ 及
+$R_i=X_i\times_{X_0}R_0=U_i\times_{X_i}U_i$。由《极限》引理
+\ref{limits-lemma-directed-inverse-system-has-limit}，
+$U=\lim_{i\geq0}U_i$ 和 $R=\lim_{i\geq0}R_i$ 都是概形。此外，
+两个态射 $s,t:R\to U$ 是两个投影 $R_0\to U_0$ 沿态射 $U\to U_0$
+的基变换，特别地它们平展。态射 $R\to U\times_SU$ 定义一个等价关系，
+因为等价关系的有向极限仍为等价关系。% P09-ERR-0059
+所以 $R\to U\times_SU$ 是平展等价关系。我们断言自然映射
+\begin{equation}
+\label{spaces-limits-equation-isomorphism-sheaves}
+U/R \longrightarrow \lim X_i
+\end{equation}
+是 $S$ 上概形范畴中的 fppf 层的同构。由《空间》定理
+\ref{spaces-theorem-presentation}，该断言推出 $X=\lim X_i$ 是代数空间。
+
+\medskip\noindent
+设 $Z$ 为概形且 $a:Z\to\lim X_i$ 为态射。于是 $a=(a_i)$，其中
+$a_i:Z\to X_i$。令 $W_0=Z\times_{a_0,X_0}U_0$。由上面对
+$U_i\to X_i$ 的选取，对所有 $i\geq0$ 都有
+$W_0=Z\times_{a_i,X_i}U_i$。因此得到态射
+$W_0\to\lim_{i\geq0}U_i=U$。由于 $W_0\to Z$ 满且平展，可知
+(\ref{spaces-limits-equation-isomorphism-sheaves}) 是层的满射。最后，设 $Z$ 为概形，
+且 $a,b:Z\to U/R$ 是两个被 (\ref{spaces-limits-equation-isomorphism-sheaves})
+映为同一态射的态射。我们必须证明 $a=b$。用某个 fppf 覆盖的各成员
+替换 $Z$ 后，可以假设存在给出 $a,b$ 的态射 $a',b':Z\to U$。
+$a,b$ 被 (\ref{spaces-limits-equation-isomorphism-sheaves}) 映为同一态射这一条件
+意味着：对每个 $i\geq0$，复合
+$a_i',b_i':Z\to U\to U_i$ 作为到 $U_i/R_i=X_i$ 的态射相等。
+因此 $(a_i',b_i'):Z\to U_i\times_SU_i$ 通过 $R_i$ 分解，设分解由
+某个态射 $c_i:Z\to R_i$ 给出。由于 $R=\lim_{i\geq0}R_i$，可见
+$c=\lim c_i:Z\to R$ 是一个态射，它说明 $a,b$ 作为从 $Z$ 到
+$U/R$ 的态射相等。
+
+\medskip\noindent
+由上面已经看到 $U_i\times_{X_i}X=U$，而按构造 $U\to U_i$ 仿射，
+所以 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-space-over-limit}
+设 $S$ 为概形，$I$ 为有向集。设 $(X_i,f_{ii'})$ 是以 $I$ 为指标的
+$S$ 上代数空间的逆系统，且转移态射均仿射。令 $X=\lim_iX_i$，
+并取 $0\in I$。假设 $T\to X_0$ 是代数空间的态射。那么
+$$
+T \times_{X_0} X = \lim_{i \geq 0} T \times_{X_0} X_i
+$$
+这里等式是 $S$ 上代数空间之间的等式。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}，极限 $X$ 是代数空间。
+该等式是形式的，见《范畴》引理
+\ref{categories-lemma-colimits-commute}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-directed-inverse-system-closed-immersions}
+设 $S$ 为概形，$I$ 为有向集。设
+$(X_i,f_{i'i})\to(Y_i,g_{i'i})$ 是以 $I$ 为指标的 $S$ 上代数空间
+逆系统之间的态射。假设
+\begin{enumerate}
+\item 态射 $f_{i'i}:X_{i'}\to X_i$ 仿射；
+\item 态射 $g_{i'i}:Y_{i'}\to Y_i$ 仿射；
+\item 态射 $X_i\to Y_i$ 是闭浸入。
+\end{enumerate}
+那么 $\lim X_i\to\lim Y_i$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}，$\lim X_i$ 和
+$\lim Y_i$ 都存在。取 $0\in I$，并选取仿射概形 $V_0$ 和平展态射
+$V_0\to Y_0$。于是态射
+$V_i=Y_i\times_{Y_0}V_0\to U_i=X_i\times_{Y_0}V_0$% P09-ERR-0060
+是仿射概形的闭浸入。因此态射
+$V=Y\times_{Y_0}V_0\to U=X\times_{Y_0}V_0$% P09-ERR-0060
+是闭浸入；这是因为 $V=\lim V_i$、$U=\lim U_i$，并且仿射概形的
+闭浸入的极限仍为闭浸入：满环同态的滤过余极限仍为满射。当我们改变
+$V_0\to Y_0$ 的选取时，平展态射 $V\to Y$ 构成 $Y$ 的平展覆盖，
+故引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-directed-inverse-system-reduced}
+设 $S$ 为概形，$I$ 为有向集。设 $(X_i,f_{i'i})$ 是以 $I$ 为指标的
+$S$ 上代数空间的逆系统。如果每个 $X_i$ 都既约，那么 $X$ 既约。
+% P09-ERR-0061
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}，$\lim X_i$ 存在。
+取 $0\in I$，并选取仿射概形 $V_0$ 和平展态射
+$U_0\to X_0$。% P09-ERR-0062
+于是仿射概形 $U_i=X_i\times_{X_0}U_0$ 既约。因此
+$U=X\times_{X_0}U_0$ 作为既约仿射概形的极限也是既约仿射概形：
+既约环的滤过余极限仍既约。当我们改变 $U_0\to X_0$ 的选取时，
+平展态射 $U\to X$ 构成 $X$ 的平展覆盖，故引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-better-characterize-relative-limit-preserving}
+设 $S$ 为概形，$X\to Y$ 为 $S$ 上代数空间的态射。命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation} 中的等价条件
+(1)、(2) 还等价于
+\begin{enumerate}
+\item[(3)] 对 $S$ 上拟紧拟分离代数空间 $T_i$ 的每个有向极限
+$T=\lim T_i$，如果转移态射仿射，则集合图
+$$
+\xymatrix{
+\colim_i \Mor(T_i, X) \ar[r] \ar[d] & \Mor(T, X) \ar[d] \\
+\colim_i \Mor(T_i, Y) \ar[r] & \Mor(T, Y)
+}
+$$
+是纤维积图。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然 (3) 蕴含 (2)。我们假设 (2) 并证明 (3)。这个证明相当形式化，
+我们鼓励读者自行找出证明。
+
+\medskip\noindent
+先证明在另外假设每个 $T_i$ 都分离时 (3) 成立。选取 $i\in I$，
+再选取满平展态射 $U_i\to T_i$，其中 $U_i$ 仿射。应用引理
+\ref{spaces-limits-lemma-space-over-limit}，令 $U=U_i\times_{T_i}T$ 及
+$U_{i'}=U_i\times_{T_i}T_{i'}$，可得
+$U=\lim_{i'\geq i}U_{i'}$。当然，$U$ 和 $U_{i'}$ 都仿射（见引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。由于 $T_i$ 分离，
+纤维积 $V_i=U_i\times_{T_i}U_i$ 也是仿射概形；并且得到仿射概形
+$V=V_i\times_{T_i}T$ 和 $V_{i'}=V_i\times_{T_i}T_{i'}$，满足
+$V=\lim_{i'\geq i}V_{i'}$。注意，$U\to T$ 和 $U_i\to T_i$ 都满且
+平展，并且 $V=U\times_TU$、
+$V_{i'}=U_{i'}\times_{T_{i'}}U_{i'}$。
+
+注意，$\Mor(T,X)$ 是两个映射 $\Mor(U,X)\to\Mor(V,X)$ 的等化子；
+例如，这是因为 $X$ 作为 $(\Sch/S)_{fppf}$ 上的层，是两个映射
+$h_V\to h_u$ 的余等化子。% P09-ERR-0063
+类似地，$\Mor(T_{i'},X)$ 是两个映射
+$\Mor(U_{i'},X)\to\Mor(V_{i'},X)$ 的等化子。当然，把 $X$ 换成 $Y$
+也有同样结论。条件 (2) 说明，在 $U=\lim U_i$ 和 $V=\lim V_i$
+的情形中，(3) 中的图是纤维积。% P09-ERR-0064
+由形式推理可知，对 $T=\lim T_i$ 也有同样结论。
+
+\medskip\noindent
+在一般情形中，选取仿射概形 $U$、元素 $i\in I$ 以及满平展态射
+$U\to T_i$。重复上一段的论证仍可完成证明：概形 $V_{i'}$、$V$
+不再仿射，但仍拟紧且分离，所以可应用上一段的结果。
+\end{proof}
+
+
+
+
+\section{性质的下降}
+\label{spaces-limits-section-descent}
+
+\noindent
+本节是《极限》第 \ref{limits-section-descent} 节的类似版本。
+
+\begin{lemma}
+\label{spaces-limits-lemma-inverse-limit-sets}
+设 $S$ 为概形，$X=\lim_{i\in I}X_i$ 是 $S$ 上代数空间的有向逆系统
+的极限，其转移态射仿射（引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。如果每个 $X_i$ 都良态
+（例如拟分离或局部分离），那么作为集合有 $|X|=\lim_i|X_i|$。
+\end{lemma}
+
+\begin{proof}
+存在典范映射 $|X|\to\lim|X_i|$。选取 $0\in I$。如果
+$W_0\subset X_0$ 是开子空间，那么
+$f_0^{-1}W_0 = \lim_{i \geq 0} f_{i0}^{-1}W_0$，见
+引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}。因此，只要能对
+$X_0$ 拟紧的逆系统证明本引理，一般情形便随之成立。所以可以并且确实
+假设 $X_0$ 拟紧。
+
+\medskip\noindent
+选取仿射概形 $U_0$ 和满平展态射 $U_0\to X_0$。令
+$U_i=X_i\times_{X_0}U_0$、$U=X\times_{X_0}U_0$，并令
+$R_i=U_i\times_{X_i}U_i$、$R=U\times_XU$。回忆
+$U=\lim U_i$ 且 $R=\lim R_i$，见引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit} 的证明。还回忆
+$|X|=|U|/|R|$ 且 $|X_i|=|U_i|/|R_i|$。由《极限》引理
+\ref{limits-lemma-topology-limit}，有 $|U|=\lim|U_i|$ 及
+$|R|=\lim|R_i|$。
+
+\medskip\noindent
+证明 $|X|\to\lim|X_i|$ 的满射性。设 $(x_i)\in\lim|X_i|$。记
+$S_i\subset|U_i|$ 为 $x_i$ 的逆像。由良态空间的定义（《良态空间》
+定义 \ref{decent-spaces-definition-very-reasonable}），这是有限非空集。
+所以 $\lim S_i$ 非空，见《范畴》引理
+\ref{categories-lemma-nonempty-limit}。取
+$(u_i)\in\lim S_i\subset\lim|U_i|$。由上所述，它确定一点
+$u\in|U|$；后者映到某个 $x\in|X|$，而 $x$ 又映到 $\lim|X_i|$
+中给定的元素 $(x_i)$。
+
+\medskip\noindent
+证明 $|X|\to\lim|X_i|$ 的单射性。假设 $x,x'\in|X|$ 映到
+$\lim|X_i|$ 中的同一点。选取提升 $u,u'\in|U|$，并记其像为
+$u_i,u'_i\in|U_i|$。对每个 $i$，令 $T_i\subset|R_i|$ 为映到
+$(u_i,u'_i)\in|U_i|\times|U_i|$ 的点集。由良态空间的定义
+（《良态空间》定义 \ref{decent-spaces-definition-very-reasonable}），
+这是有限集。此外，由于假设 $x,x'$ 映到 $X_i$ 中同一点，$T_i$ 非空。
+故 $\lim T_i$ 非空，见《范畴》引理
+\ref{categories-lemma-nonempty-limit}。如前，令
+$r\in|R|=\lim|R_i|$ 为对应于 $\lim T_i$ 中一个元素的点。按构造，
+$r$ 在 $|U|\times|U|$ 中映到 $(u,u')$，从而如所需有
+$x=x'$ 于 $|X|$ 中。
+
+\medskip\noindent
+关于括号中的断言：拟分离代数空间是良态的，见《良态空间》第
+\ref{decent-spaces-section-reasonable-decent} 节（其中关键观察是
+《空间的性质》引理
+\ref{spaces-properties-lemma-finite-fibres-presentation}）。由《良态空间》
+引理 \ref{decent-spaces-lemma-locally-separated-decent}，局部分离
+代数空间也是良态的。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-topology-limit}
+在引理 \ref{spaces-limits-lemma-inverse-limit-sets} 的相同记号和假设下，作为拓扑空间
+有 $|X|=\lim_i|X_i|$。
+\end{lemma}
+
+\begin{proof}
+我们使用《拓扑》引理 \ref{topology-lemma-characterize-limit} 的判据。
+引理 \ref{spaces-limits-lemma-inverse-limit-sets} 已说明作为集合有
+$|X|=\lim_i|X_i|$。映射 $f_i:X\to X_i$ 是代数空间的态射，因而确定
+连续映射 $|X|\to|X_i|$。所以对每个开集 $U_i\subset|X_i|$，
+$f_i^{-1}(U_i)$ 都开。最后，设 $x\in|X|$，并设
+$x\in V\subset|X|$ 是一个开邻域。我们必须找到某个 $i$ 及 $x$ 的像的
+开邻域 $W_i\subset|X_i|$，使 $f_i^{-1}(W_i)\subset V$。
+% P09-ERR-0065
+选取 $0\in I$。选取概形 $U_0$ 和满平展态射 $U_0\to X_0$。令
+$U=X\times_{X_0}U_0$，并对 $i\geq0$ 令
+$U_i=X_i\times_{X_0}U_0$。由引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}，在概形范畴中
+$U=\lim_{i\geq0}U_i$。选取映到 $x$ 的 $u\in U$。由概形的相应结果
+（《极限》引理 \ref{limits-lemma-inverse-limit-top}），可以找到
+$i\geq0$ 和 $u$ 的像的开邻域 $E_i\subset U_i$，使其在 $U$ 中的逆像
+包含于 $V$ 在 $U$ 中的逆像。此时可令 $W_i\subset|X_i|$ 等于
+$E_i$ 的像。这是可行的，因为 $|U_i|\to|X_i|$ 是开映射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-limit-nonempty}
+设 $S$ 为概形，$X=\lim_{i\in I}X_i$ 是 $S$ 上代数空间的有向逆系统
+的极限，其转移态射仿射（引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。如果每个 $X_i$ 都拟紧且
+非空，那么 $|X|$ 非空。
+\end{lemma}
+
+\begin{proof}
+选取 $0\in I$。选取仿射概形 $U_0$ 和满平展态射 $U_0\to X_0$。
+令 $U_i=X_i\times_{X_0}U_0$ 及 $U=X\times_{X_0}U_0$。于是每个
+$U_i$ 都是非空仿射概形。因此 $U=\lim U_i$ 非空（《极限》引理
+\ref{limits-lemma-limit-nonempty}），从而 $X$ 非空。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-inverse-limit-irreducibles}
+设 $S$ 为概形，$X=\lim_{i\in I}X_i$ 是 $S$ 上代数空间的有向逆系统
+的极限，其转移态射仿射（引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。设 $x\in|X|$，其像为
+$x_i\in|X_i|$。如果每个 $X_i$ 都良态，那么作为集合有
+$\overline{\{x\}}=\lim_i\overline{\{x_i\}}$；赋予约化诱导概形结构后，
+作为代数空间也有此等式。% P09-ERR-0066
+\end{lemma}
+
+\begin{proof}
+令 $Z=\overline{\{x\}}\subset|X|$ 及
+$Z_i=\overline{\{x_i\}}\subset|X_i|$。由于 $|X|\to|X_i|$ 连续，
+对每个 $i$，$Z$ 都映入 $Z_i$。又因为作为集合有
+$|X|=\lim|X_i|$（引理 \ref{spaces-limits-lemma-inverse-limit-sets}），所以得到单射
+$Z\to\lim Z_i$。假设 $x'\in|X|$ 不属于 $Z$。则存在开子集
+$U\subset|X|$，使 $x'\in U$ 而 $x\notin U$。由于作为拓扑空间有
+$|X|=\lim|X_i|$（引理 \ref{spaces-limits-lemma-topology-limit}），可对某个子集
+$J\subset I$ 和开集 $U_j\subset|X_j|$ 写成
+$U=\bigcup_{j\in J}f_j^{-1}(U_j)$，见《拓扑》引理
+\ref{topology-lemma-describe-limits}。于是对某个 $j\in J$，有
+$f_j(x')\in U_j$ 且 $f_j(x)\notin U_j$。换言之，
+$f_j(x')\notin Z_j$。所以作为集合有 $Z=\lim Z_i$。
+
+\medskip\noindent
+接着赋予 $Z$ 和 $Z_i$ 各自的约化诱导概形结构，见《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}。转移态射
+$X_{i'}\to X_i$ 诱导仿射态射 $Z_{i'}\to Z_i$，投影 $X\to X_i$
+诱导相容态射 $Z\to Z_i$。因此得到代数空间的态射
+$Z\to\lim Z_i\to X$。由引理
+\ref{spaces-limits-lemma-directed-inverse-system-closed-immersions}，
+$\lim Z_i\to X$ 是闭浸入。由引理
+\ref{spaces-limits-lemma-directed-inverse-system-reduced}，代数空间 $\lim Z_i$ 既约。
+由上所述，$Z\to\lim Z_i$ 在点上是双射。由约化诱导闭子概形结构的
+唯一性，可知这个态射是代数空间的同构。% P09-ERR-0067
+\end{proof}
+
+\begin{situation}
+\label{spaces-limits-situation-descent}
+设 $S$ 为概形，$X=\lim_{i\in I}X_i$ 是 $S$ 上代数空间的有向逆系统
+的极限，其转移态射仿射（引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。假设对每个 $i\in I$，
+$X_i$ 都拟紧拟分离。再选取一个元素 $0\in I$。
+\end{situation}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-section}
+记号和假设如情形 \ref{spaces-limits-situation-descent}。设 $\mathcal F_0$ 是 $X_0$
+上的拟凝聚层。对 $i\geq0$，令
+$\mathcal F_i=f_{0i}^*\mathcal F_0$，并令
+$\mathcal F=f_0^*\mathcal F_0$。那么
+$$
+\Gamma(X, \mathcal{F}) = \colim_{i \geq 0} \Gamma(X_i, \mathcal{F}_i)
+$$
+\end{lemma}
+
+\begin{proof}
+选取满平展态射 $U_0\to X_0$，其中 $U_0$ 是仿射概形（《空间的性质》
+引理 \ref{spaces-properties-lemma-quasi-compact-affine-cover}）。令
+$U_i=X_i\times_{X_0}U_0$。令 $R_0=U_0\times_{X_0}U_0$ 及
+$R_i=R_0\times_{X_0}X_i$。在引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit} 的证明中，我们已经看到
+存在展示 $X=U/R$，满足 $U=\lim U_i$ 且 $R=\lim R_i$。注意 $U_i$
+和 $U$ 仿射，而 $R_i$ 和 $R$ 拟紧且分离（因为 $X_i$ 拟分离）。
+所以《极限》引理 \ref{limits-lemma-descend-section} 推出
+$$
+\mathcal{F}(U) = \colim \mathcal{F}_i(U_i)
+\quad\text{且}\quad
+\mathcal{F}(R) = \colim \mathcal{F}_i(R_i).
+$$
+由于 $\Gamma(X,\mathcal F)=\Ker(\mathcal F(U)\to\mathcal F(R))$，
+并且类似地
+$\Gamma(X_i, \mathcal{F}_i) =
+\Ker(\mathcal{F}_i(U_i) \to \mathcal{F}_i(R_i))$
+，引理随之成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-opens}
+记号和假设如情形 \ref{spaces-limits-situation-descent}。对任意拟紧开子空间
+$U\subset X$，存在某个 $i$ 及拟紧开集 $U_i\subset X_i$，使得
+$U_i$ 在 $X$ 中的逆像是 $U$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit} 中的极限构造
+以及概形的相应结果——《极限》引理
+\ref{limits-lemma-descend-opens}——形式地得出。
+\end{proof}
+
+\noindent
+下面的引理将被更强的引理 \ref{spaces-limits-lemma-descend-isomorphism} 取代。
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-equality}
+记号和假设如情形 \ref{spaces-limits-situation-descent}。设 $f_0:Y_0\to Z_0$ 为
+$X_0$ 上代数空间的态射。假设 (a) $Y_0\to X_0$ 和 $Z_0\to X_0$
+可表；(b) $Y_0,Z_0$ 拟紧拟分离；(c) $f_0$ 局部有限表示；并且
+(d) $Y_0\times_{X_0}X\to Z_0\times_{X_0}X$ 是同构。那么存在
+$i\geq0$，使 $Y_0\times_{X_0}X_i\to Z_0\times_{X_0}X_i$ 是同构。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $U_0$ 和满平展态射 $U_0\to X_0$。令
+$U_i=U_0\times_{X_0}X_i$ 及 $U=U_0\times_{X_0}X$。应用《极限》
+引理 \ref{limits-lemma-descend-isomorphism} 可知，对某个 $i\geq0$，
+$Y_0\times_{X_0}U_i\to Z_0\times_{X_0}U_i$ 是概形的同构（细节略）。
+由于 $U_i\to X_i$ 满且平展，因而
+$Y_0\times_{X_0}X_i\to Z_0\times_{X_0}X_i$ 是同构（细节略）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-separated}
+记号和假设如情形 \ref{spaces-limits-situation-descent}。如果 $X$ 分离，则对某个
+$i\in I$，$X_i$ 分离。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $U_0$ 和满平展态射 $U_0\to X_0$。对 $i\geq0$，令
+$U_i=U_0\times_{X_0}X_i$，并令 $U=U_0\times_{X_0}X$。注意，
+$U_i,U$ 是仿射概形，且配有满平展态射 $U_i\to X_i$ 和 $U\to X$。
+令 $R_i=U_i\times_{X_i}U_i$、$R=U\times_XU$，相应投影为
+$s_i,t_i:R_i\to U_i$ 及 $s,t:R\to U$。注意，$R_i,R$ 是拟紧分离
+概形（因为代数空间 $X_i,X$ 拟分离）。映射 $s_i:R_i\to U_i$ 和
+$s:R\to U$ 都有限型。
+
+按照定义，$X_i$ 分离当且仅当
+$(t_i,s_i):R_i\to U_i\times U_i$ 是闭浸入；而由于假设 $X$ 分离，
+态射 $(t,s):R\to U\times U$ 是闭浸入。由于 $R\to U$ 有限型，
+存在某个 $i$，使态射 $R\to U_i\times U$ 是闭浸入（《极限》引理
+\ref{limits-lemma-finite-type-eventually-closed}）。固定这样的 $i\in I$。
+对 $i'\geq i$ 的态射系统 $R_{i'}\to U_i\times U_{i'}$ 应用《极限》
+引理 \ref{limits-lemma-descend-closed-immersion-finite-presentation}
+（这是允许的，因为确有
+$R_{i'}=R_i\times_{U_i\times U_i}U_i\times U_{i'}$），可知当 $i'$
+充分大时，$R_{i'}\to U_i\times U_{i'}$ 是闭浸入。这立即推出
+$R_{i'}\to U_{i'}\times U_{i'}$ 是闭浸入，从而完成引理的证明。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-limit-is-affine}
+记号和假设如情形 \ref{spaces-limits-situation-descent}。如果 $X$ 仿射，则存在某个
+$i$，使 $X_i$ 仿射。
+\end{lemma}
+
+\begin{proof}
+选取 $0\in I$。选取仿射概形 $U_0$ 和满平展态射 $U_0\to X_0$。
+令 $U=U_0\times_{X_0}X$，并对 $i\geq0$ 令
+$U_i=U_0\times_{X_0}X_i$。由于转移态射仿射，代数空间 $U_i,U$
+都仿射。因此 $U\to X$ 是仿射概形之间的平展态射。于是可写
+$X=\Spec(A)$、$U=\Spec(B)$ 及
+$$
+B = A[x_1, \ldots, x_n]/(g_1, \ldots, g_n)
+$$
+使得 $\Delta=\det(\partial g_\lambda/\partial x_\mu)$ 在 $B$ 中可逆，
+见《代数》引理 \ref{algebra-lemma-etale-standard-smooth}。令
+$A_i=\mathcal O_{X_i}(X_i)$。由引理 \ref{spaces-limits-lemma-descend-section}，
+$A=\colim A_i$。增大 $0$ 后，可以假设存在
+$g_{1,i},\ldots,g_{n,i}\in A_i[x_1,\ldots,x_n]$ 映到
+$g_1,\ldots,g_n$。令
+$$
+B_i = A_i[x_1, \ldots, x_n]/(g_{1, i}, \ldots, g_{n, i})
+$$
+对所有 $i\geq0$ 如此定义。必要时增大 $0$，可以假设对所有 $i\geq0$，
+$\Delta_i=\det(\partial g_{\lambda,i}/\partial x_\mu)$ 在 $B_i$ 中可逆。
+所以 $A_i\to B_i$ 是平展环同态。再次增大 $0$，还可假设
+$\Spec(B_i)\to\Spec(A_i)$ 满，见《极限》引理
+\ref{limits-lemma-descend-surjective}。又一次增大 $0$ 后，可以选取元素
+$h_{1,i},\ldots,h_{n,i}\in\mathcal O_{U_i}(U_i)$，它们映到
+$B=\mathcal O_U(U)$ 中 $x_1,\ldots,x_n$ 的类，并使
+$g_{\lambda,i}(h_{\nu,i})=0$ 于 $\mathcal O_{U_i}(U_i)$ 中。
+% P09-ERR-0068
+于是得到交换图
+\begin{equation}
+\label{spaces-limits-equation-to-show-cartesian}
+\vcenter{
+\xymatrix{
+X_i \ar[d] & U_i \ar[l] \ar[d] \\
+\Spec(A_i) & \Spec(B_i) \ar[l]
+}
+}
+\end{equation}
+按构造，$B_i=B_0\otimes_{A_0}A_i$ 且
+$B=B_0\otimes_{A_0}A$。考虑态射
+$$
+f_0 : U_0 \longrightarrow X_0 \times_{\Spec(A_0)} \Spec(B_0)
+$$
+这是拟紧拟分离代数空间之间的态射，并且在 $X_0$ 上可表、分离且平展。
+按我们的选取，$f_0$ 到 $X$ 的基变换是同构。因此由引理
+\ref{spaces-limits-lemma-descend-equality}，存在某个 $i$，使 $f_0$ 到 $X_i$ 的
+基变换是同构；换言之，图 (\ref{spaces-limits-equation-to-show-cartesian}) 是笛卡尔图。
+于是，把《下降》引理 \ref{descent-lemma-descent-data-sheaves} 应用于
+fppf 覆盖 $\{\Spec(B_i)\to\Spec(A_i)\}$，并结合《下降》引理
+\ref{descent-lemma-affine}，可知 $X_i\to\Spec(A_i)$ 可由一个在
+$\Spec(A_i)$ 上仿射的概形表示，正合所需。（当然，这还推出
+$X_i=\Spec(A_i)$，但我们不需要这一点。）
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-limit-is-scheme}
+记号和假设如情形 \ref{spaces-limits-situation-descent}。如果 $X$ 是概形，则存在某个
+$i$，使 $X_i$ 是概形。
+\end{lemma}
+
+\begin{proof}
+选取有限仿射开覆盖 $X=\bigcup W_j$。由引理
+\ref{spaces-limits-lemma-descend-opens}，可以找到 $i\in I$ 及开子空间
+$W_{j,i}\subset X_i$，其到 $X$ 的基变换为 $W_j\to X$。由引理
+\ref{spaces-limits-lemma-limit-is-affine}，可假设每个 $W_{j,i}$ 都是仿射概形。
+这意味着 $X_i$ 是概形（例如见《空间的性质》第
+\ref{spaces-properties-section-schematic} 节）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-finite-type-eventually-closed}
+设 $S$ 为概形，$B$ 为 $S$ 上的代数空间。设 $X=\lim X_i$ 是 $B$
+上代数空间的有向极限，且转移态射仿射。设 $Y\to X$ 为 $B$ 上
+代数空间的态射。
+\begin{enumerate}
+\item 如果 $Y\to X$ 是闭浸入，$X_i$ 拟紧，且 $Y\to B$ 局部有限型，
+那么当 $i$ 充分大时，$Y\to X_i$ 是闭浸入。
+\item 如果 $Y\to X$ 是浸入，$X_i$ 拟分离，$Y\to B$ 局部有限型，
+且 $Y$ 拟紧，那么当 $i$ 充分大时，$Y\to X_i$ 是浸入。
+\item 如果 $Y\to X$ 是同构，$X_i$ 拟紧，$X_i\to B$ 局部有限型，
+转移态射 $X_{i'}\to X_i$ 是闭浸入，且 $Y\to B$ 局部有限表示，
+那么当 $i$ 充分大时，$Y\to X_i$ 是同构。
+\item 如果 $Y\to X$ 是单态射，$X_i$ 拟分离，$Y\to B$ 局部有限型，
+且 $Y$ 拟紧，那么当 $i$ 充分大时，$Y\to X_i$ 是单态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。选取 $0\in I$。由于 $X_0$ 拟紧，可以选取仿射概形 $W$
+和平展态射 $W\to B$，使 $|X_0|\to|B|$ 的像包含在
+$|W|\to|B|$ 的像中。选取仿射概形 $U_0$ 和平展态射
+$U_0\to X_0\times_BW$，使 $U_0\to X_0$ 满。（由 $W$ 的选取和
+$X_0$ 的拟紧性，这是可能的；细节略。）对 $i\geq0$，分别令
+$V\to Y$、$U\to X$、$U_i\to X_i$ 为 $U_0\to X_0$ 的基变换。
+只需证明当 $i$ 充分大时 $V\to U_i$ 是闭浸入。因此约化为在 $W$
+上证明 $V\to U=\lim U_i$ 的结果。这由概形的情形——《极限》引理
+\ref{limits-lemma-finite-type-eventually-closed}——得出。
+
+\medskip\noindent
+证明 (2)。选取 $0\in I$。选取拟紧开子空间 $X'_0\subset X_0$，使
+$Y\to X_0$ 通过 $X'_0$ 分解。对 $i\geq0$，用 $X'_0$ 的逆像替换
+$X_i$ 后，可以假设所有 $X_i'$ 都拟紧拟分离。% P09-ERR-0069
+设 $U\subset X$ 是拟紧开集，使 $Y\to X$ 通过闭浸入 $Y\to U$ 分解
+（这样的 $U$ 存在，因为 $Y$ 拟紧）。由引理
+\ref{spaces-limits-lemma-descend-opens}，可假设 $U=\lim U_i$，其中
+$U_i\subset X_i$ 是拟紧开集。由 (1)，对某个 $i$，$Y\to U_i$
+是闭浸入。所以 (2) 成立。
+
+\medskip\noindent
+证明 (3)。选取 $0\in I$。选取仿射概形 $U_0$ 和满平展态射
+$U_0\to X_0$。令 $U_i=X_i\times_{X_0}U_0$，
+$U=X\times_{X_0}U_0=Y\times_{X_0}U_0$。于是 $U=\lim U_i$ 是仿射
+概形的极限，该系统的转移映射是闭浸入，并且 $U\to U_0$ 有限表示
+（因为 $U\to B$ 局部有限表示，$U_0\to B$ 局部有限型，并应用
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-permanence}）。
+因此问题约化为下列代数事实：如果 $A=\lim A_i$ 是转移映射为满射的
+$R$-代数的有向余极限，且 $A$ 在 $A_0$ 上有限表示，那么对某个 $i$，
+$A=A_i$。事实上，写成 $A=A_0/(f_1,\ldots,f_n)$，再选取 $i$，使
+$f_1,\ldots,f_n$ 在满射 $A_0\to A_i$ 下映为零。
+
+\medskip\noindent
+证明 (4)。令 $Z_i=Y\times_{X_i}Y$。由于转移态射
+$X_{i'}\to X_i$ 仿射因而分离，转移态射 $Z_{i'}\to Z_i$ 是闭浸入，
+见《空间的态射》引理
+\ref{spaces-morphisms-lemma-fibre-product-after-map}。因为 $Y\to X$
+是单态射，所以 $\lim Z_i=Y\times_XY=Y$。选取 $0\in I$。由于
+$Y\to X_0$ 局部有限型（《空间的态射》引理
+\ref{spaces-morphisms-lemma-permanence-finite-type}），态射 $Y\to Z_0$
+局部有限表示（《空间的态射》引理
+\ref{spaces-morphisms-lemma-diagonal-morphism-finite-type}）。态射
+$Z_i\to Z_0$ 局部有限型（它们是闭浸入）。最后，因为 $X_i$ 拟分离
+且 $Y$ 拟紧，$Z_i=Y\times_{X_i}Y$ 拟紧。因此可把 (3) 应用于
+$Z_0$ 上的 $Y=\lim_{i\geq0}Z_i$，得到对某个 $i$ 有 $Y=Z_i$。
+这就证明了 (4) 以及整个引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-separated}
+设 $S$ 为概形，$Y$ 为 $S$ 上的代数空间。设 $X=\lim X_i$ 是 $Y$
+上代数空间的有向极限，且转移态射仿射。假设
+\begin{enumerate}
+\item $Y$ 拟分离；
+\item $X_i$ 拟紧拟分离；
+\item 态射 $X\to Y$ 分离。
+\end{enumerate}
+那么对所有充分大的 $i$，$X_i\to Y$ 分离。
+\end{lemma}
+
+\begin{proof}
+取 $0\in I$。选取仿射概形 $W$ 和平展态射 $W\to Y$，使
+$|W|\to|Y|$ 的像包含 $|X_0|\to|Y|$ 的像。由于 $X_0$ 拟紧，
+这是可能的。只需检验对某个 $i\geq0$，
+$W\times_YX_i\to W$ 分离；因为 $W\times_YX_i$ 在 $W$ 上的对角态射
+是 $X_i\to X_i\times_YX_i$ 沿满平展态射
+$(X_i\times_YX_i)\times_YW\to X_i\times_YX_i$ 的基变换。由于
+$Y$ 拟分离，代数空间 $W\times_YX_i$ 拟紧（也拟分离）。所以可作
+到 $W$ 的基变换，并假设 $Y$ 是仿射概形。当 $Y$ 是仿射概形时，
+我们必须证明对充分大的 $i$，$X_i$ 是分离代数空间，而已知 $X$
+是分离代数空间。因此这种情形由引理 \ref{spaces-limits-lemma-descend-separated}
+得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-affine}
+设 $S$ 为概形，$Y$ 为 $S$ 上的代数空间。设 $X=\lim X_i$ 是 $Y$
+上代数空间的有向极限，且转移态射仿射。假设
+\begin{enumerate}
+\item $Y$ 拟紧拟分离；
+\item $X_i$ 拟紧拟分离；
+\item $X\to Y$ 仿射。
+\end{enumerate}
+那么当 $i$ 充分大时，$X_i\to Y$ 仿射。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $W$ 和满平展态射 $W\to Y$。于是 $X\times_YW$ 仿射，
+并且只需检验对某个 $i$，$X_i\times_YW$ 仿射（《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-local}）。这由引理
+\ref{spaces-limits-lemma-limit-is-affine} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-finite}
+设 $S$ 为概形，$Y$ 为 $S$ 上的代数空间。设 $X=\lim X_i$ 是 $Y$
+上代数空间的有向极限，且转移态射仿射。假设
+\begin{enumerate}
+\item $Y$ 拟紧拟分离；
+\item $X_i$ 拟紧拟分离；
+\item 转移态射 $X_{i'}\to X_i$ 有限；
+\item $X_i\to Y$ 局部有限型；
+\item $X\to Y$ 整。
+\end{enumerate}
+那么当 $i$ 充分大时，$X_i\to Y$ 有限。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $W$ 和满平展态射 $W\to Y$。于是 $X\times_YW$ 在 $W$
+上有限；只需检验对某个 $i$，$X_i\times_YW$ 在 $W$ 上有限
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-integral-local}）。
+由引理 \ref{spaces-limits-lemma-limit-is-scheme}，这约化到概形的情形。对概形，
+结论由《极限》引理 \ref{limits-lemma-eventually-finite} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-closed-immersion}
+设 $S$ 为概形，$Y$ 为 $S$ 上的代数空间。设 $X=\lim X_i$ 是 $Y$
+上代数空间的有向极限，且转移态射仿射。假设
+\begin{enumerate}
+\item $Y$ 拟紧拟分离；
+\item $X_i$ 拟紧拟分离；
+\item 转移态射 $X_{i'}\to X_i$ 是闭浸入；
+\item $X_i\to Y$ 局部有限型；
+\item $X\to Y$ 是闭浸入。
+\end{enumerate}
+那么当 $i$ 充分大时，$X_i\to Y$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $W$ 和满平展态射 $W\to Y$。于是 $X\times_YW$ 是 $W$
+的闭子空间；只需检验对某个 $i$，$X_i\times_YW$ 是闭子空间 $W$。
+% P09-ERR-0071
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local}）。由引理
+\ref{spaces-limits-lemma-limit-is-scheme}，这约化到概形的情形。对概形，结论由
+《极限》引理 \ref{limits-lemma-eventually-closed-immersion} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{态射性质的下降}
+\label{spaces-limits-section-descent-of-properties}
+
+\noindent
+本节是第 \ref{spaces-limits-section-descent} 节针对态射性质的对应版本。我们将在如下情形中工作。
+
+\begin{situation}
+\label{spaces-limits-situation-descent-property}
+设 $S$ 为概形。设 $B = \lim B_i$ 是 $S$ 上代数空间的一个有向逆系统的极限，
+其转移态射均为仿射态射
+（引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。
+取 $0 \in I$，并设 $f_0 : X_0 \to Y_0$ 为 $B_0$ 上代数空间的一个态射。
+假设 $B_0$、$X_0$、$Y_0$ 均拟紧且拟分离。令
+$f_i : X_i \to Y_i$ 为 $f_0$ 到 $B_i$ 的基变换，并令
+$f : X \to Y$ 为 $f_0$ 到 $B$ 的基变换。
+\end{situation}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-etale}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 平展，
+\item $f_0$ 局部有限表示，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 平展。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射
+$V_0 \to Y_0$。再选取仿射概形 $U_0$ 以及满平展态射
+$U_0 \to V_0 \times_{Y_0} X_0$。图示为
+$$
+\xymatrix{
+U_0 \ar[d] \ar[r] & V_0 \ar[d] \\
+X_0 \ar[r] & Y_0
+}
+$$
+按构造，竖直箭头均满且平展。将此图基变换到 $B_i$ 或 $B$，得到
+$$
+\vcenter{
+\xymatrix{
+U_i \ar[d] \ar[r] & V_i \ar[d] \\
+X_i \ar[r] & Y_i
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+}
+$$
+注意 $U_i,V_i,U,V$ 均为仿射概形，竖直态射均为满平展态射，
+而态射 $U_i \to V_i$ 的极限是 $U \to V$。回忆
+$X_i \to Y_i$ 平展当且仅当 $U_i \to V_i$ 平展；类似地，
+$X \to Y$ 平展当且仅当 $U \to V$ 平展
+（《空间的态射》，引理 \ref{spaces-morphisms-lemma-etale-local}）。
+由于 $f_0$ 局部有限表示，态射 $U_0 \to V_0$ 也是如此。
+因此本引理由《极限》，引理 \ref{limits-lemma-descend-etale} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-smooth}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 光滑，
+\item $f_0$ 局部有限表示，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 光滑。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射
+$V_0 \to Y_0$。再选取仿射概形 $U_0$ 以及满平展态射
+$U_0 \to V_0 \times_{Y_0} X_0$。图示为
+$$
+\xymatrix{
+U_0 \ar[d] \ar[r] & V_0 \ar[d] \\
+X_0 \ar[r] & Y_0
+}
+$$
+按构造，竖直箭头均满且平展。将此图基变换到 $B_i$ 或 $B$，得到
+$$
+\vcenter{
+\xymatrix{
+U_i \ar[d] \ar[r] & V_i \ar[d] \\
+X_i \ar[r] & Y_i
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+}
+$$
+注意 $U_i,V_i,U,V$ 均为仿射概形，竖直态射均为满平展态射，
+而态射 $U_i \to V_i$ 的极限是 $U \to V$。回忆
+$X_i \to Y_i$ 光滑当且仅当 $U_i \to V_i$ 光滑；类似地，
+$X \to Y$ 光滑当且仅当 $U \to V$ 光滑
+（《空间的态射》，定义 \ref{spaces-morphisms-definition-smooth}）。
+由于 $f_0$ 局部有限表示，态射 $U_0 \to V_0$ 也是如此。
+因此本引理由《极限》，引理 \ref{limits-lemma-descend-smooth} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-surjective}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 满，
+\item $f_0$ 局部有限表示，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 满。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射
+$V_0 \to Y_0$。再选取仿射概形 $U_0$ 以及满平展态射
+$U_0 \to V_0 \times_{Y_0} X_0$。图示为
+$$
+\xymatrix{
+U_0 \ar[d] \ar[r] & V_0 \ar[d] \\
+X_0 \ar[r] & Y_0
+}
+$$
+按构造，竖直箭头均满且平展。将此图基变换到 $B_i$ 或 $B$，得到
+$$
+\vcenter{
+\xymatrix{
+U_i \ar[d] \ar[r] & V_i \ar[d] \\
+X_i \ar[r] & Y_i
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+}
+$$
+注意 $U_i,V_i,U,V$ 均为仿射概形，竖直态射均为满平展态射，
+态射 $U_i \to V_i$ 的极限是 $U \to V$，而且态射
+$U_i \to X_i \times_{Y_i} V_i$ 与
+$U \to X \times_Y V$ 均为满态射（它们是
+$U_0 \to X_0 \times_{Y_0} V_0$ 的基变换）。特别地，
+$X_i \to Y_i$ 满当且仅当 $U_i \to V_i$ 满；类似地，
+$X \to Y$ 满当且仅当 $U \to V$ 满。由于 $f_0$ 局部有限表示，
+态射 $U_0 \to V_0$ 也是如此。因此本引理由概形情形
+（《极限》，引理 \ref{limits-lemma-descend-surjective}）得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-universally-injective}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 普遍单射，
+\item $f_0$ 局部有限型，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 普遍单射。
+\end{lemma}
+
+\begin{proof}
+回忆，态射 $X \to Y$ 普遍单射，当且仅当对角态射
+$X \to X \times_Y X$ 为满态射
+（《空间的态射》，定义
+\ref{spaces-morphisms-definition-universally-injective} 及
+引理 \ref{spaces-morphisms-lemma-universally-injective}）。
+% P09-ERR-0072
+注意 $X_0 \to X_0 \times_{Y_0} X_0$ 局部有限表示
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-diagonal-morphism-finite-type}）。
+因此，将引理 \ref{spaces-limits-lemma-descend-surjective} 应用于态射
+$X_0 \to X_0 \times_{Y_0} X_0$ 即得本引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-affine}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+$f$ 仿射，则对某个 $i \geq 0$，$f_i$ 仿射。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射 $V_0 \to Y_0$。
+令 $V_i = V_0 \times_{Y_0} Y_i$ 且 $V = V_0 \times_{Y_0} Y$。
+由于 $f$ 仿射，$V \times_Y X = \lim V_i \times_{Y_i} X_i$ 仿射。
+由引理 \ref{spaces-limits-lemma-limit-is-affine}，对某个 $i \geq 0$，
+$V_i \times_{Y_i} X_i$ 仿射。对此 $i$，态射 $f_i$ 仿射
+（《空间的态射》，引理 \ref{spaces-morphisms-lemma-affine-local}）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-finite}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 有限，
+\item $f_0$ 局部有限型，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 有限。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射 $V_0 \to Y_0$。
+令 $V_i = V_0 \times_{Y_0} Y_i$ 且 $V = V_0 \times_{Y_0} Y$。
+由于 $f$ 有限，$V \times_Y X = \lim V_i \times_{Y_i} X_i$
+是 $V$ 上的有限概形。由引理 \ref{spaces-limits-lemma-limit-is-affine}，
+对某个 $i \geq 0$，$V_i \times_{Y_i} X_i$ 仿射。必要时增大 $i$，
+由《极限》，引理 \ref{limits-lemma-descend-finite-finite-presentation}，
+可使 $V_i \times_{Y_i} X_i \to V_i$ 有限。对此 $i$，态射 $f_i$ 有限
+（《空间的态射》，引理 \ref{spaces-morphisms-lemma-integral-local}）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-closed-immersion}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 为闭浸入，
+\item $f_0$ 局部有限型，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 为闭浸入。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射 $V_0 \to Y_0$。
+令 $V_i = V_0 \times_{Y_0} Y_i$ 且 $V = V_0 \times_{Y_0} Y$。
+由于 $f$ 为闭浸入，
+$V \times_Y X = \lim V_i \times_{Y_i} X_i$
+是仿射概形 $V$ 的闭子概形。由引理 \ref{spaces-limits-lemma-limit-is-affine}，
+对某个 $i \geq 0$，$V_i \times_{Y_i} X_i$ 仿射。必要时增大 $i$，
+由《极限》，引理
+\ref{limits-lemma-descend-closed-immersion-finite-presentation}，
+可使 $V_i \times_{Y_i} X_i \to V_i$ 为闭浸入。
+% P09-ERR-0073
+对此 $i$，态射 $f_i$ 为闭浸入
+（《空间的态射》，引理 \ref{spaces-morphisms-lemma-integral-local}）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-separated-morphism}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。
+若 $f$ 分离，则对某个 $i \geq 0$，$f_i$ 分离。
+\end{lemma}
+
+\begin{proof}
+将引理 \ref{spaces-limits-lemma-descend-closed-immersion} 应用于对角态射
+$\Delta_{X_0/Y_0} : X_0 \to X_0 \times_{Y_0} X_0$。
+（对角态射局部有限型，且纤维积
+$X_0 \times_{Y_0} X_0$ 拟紧且拟分离。略去若干细节。）
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-isomorphism}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 为同构，
+\item $f_0$ 局部有限表示，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 为同构。
+\end{lemma}
+
+\begin{proof}
+一个态射为同构，当且仅当它平展、普遍单射且满，参见
+《空间的态射》，引理
+\ref{spaces-morphisms-lemma-etale-universally-injective-open}。
+因此，本引理由引理 \ref{spaces-limits-lemma-descend-etale}、
+\ref{spaces-limits-lemma-descend-surjective} 及
+\ref{spaces-limits-lemma-descend-universally-injective} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-monomorphism}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。若
+\begin{enumerate}
+\item $f$ 为单态射，
+\item $f_0$ 局部有限型，
+\end{enumerate}
+则对某个 $i \geq 0$，$f_i$ 为单态射。
+\end{lemma}
+
+\begin{proof}
+回忆，一个态射为单态射，当且仅当其对角态射为同构。由
+《空间的态射》，引理
+\ref{spaces-morphisms-lemma-diagonal-morphism-finite-type}，
+态射 $X_0 \to X_0 \times_{Y_0} X_0$ 局部有限表示。
+由于 $X_0 \times_{Y_0} X_0$ 拟紧且拟分离，引理
+\ref{spaces-limits-lemma-descend-isomorphism} 表明，对某个 $i \geq 0$，
+$\Delta_i : X_i \to X_i \times_{Y_i} X_i$ 为同构。对此 $i$，
+态射 $f_i$ 为单态射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-flat}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的记号和假设。
+设 $\mathcal{F}_0$ 为拟凝聚 $\mathcal{O}_{X_0}$-模，
+并以 $\mathcal{F}_i$ 表示其到 $X_i$ 的拉回，以 $\mathcal{F}$
+表示其到 $X$ 的拉回。若
+\begin{enumerate}
+\item $\mathcal{F}$ 在 $Y$ 上平坦，
+\item $\mathcal{F}_0$ 有限表示，并且
+\item $f_0$ 局部有限表示，
+\end{enumerate}
+则对某个 $i \geq 0$，$\mathcal{F}_i$ 在 $Y_i$ 上平坦。
+特别地，若 $f_0$ 局部有限表示且 $f$ 平坦，则对某个
+$i \geq 0$，$f_i$ 平坦。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射
+$V_0 \to Y_0$。再选取仿射概形 $U_0$ 以及满平展态射
+$U_0 \to V_0 \times_{Y_0} X_0$。图示为
+$$
+\xymatrix{
+U_0 \ar[d] \ar[r] & V_0 \ar[d] \\
+X_0 \ar[r] & Y_0
+}
+$$
+按构造，竖直箭头均满且平展。将此图基变换到 $B_i$ 或 $B$，得到
+$$
+\vcenter{
+\xymatrix{
+U_i \ar[d] \ar[r] & V_i \ar[d] \\
+X_i \ar[r] & Y_i
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+}
+$$
+注意 $U_i,V_i,U,V$ 均为仿射概形，竖直态射均为满平展态射，
+而态射 $U_i \to V_i$ 的极限是 $U \to V$。回忆，
+$\mathcal{F}_i$ 在 $Y_i$ 上平坦，当且仅当
+$\mathcal{F}_i|_{U_i}$ 在 $V_i$ 上平坦；类似地，
+$\mathcal{F}$ 在 $Y$ 上平坦，当且仅当
+$\mathcal{F}|_U$ 在 $V$ 上平坦
+（《空间的态射》，定义 \ref{spaces-morphisms-definition-flat}）。
+由于 $f_0$ 局部有限表示，态射 $U_0 \to V_0$ 也是如此。
+因此本引理由《极限》，引理
+\ref{limits-lemma-descend-module-flat-finite-presentation} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-proper}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的假设和记号。若
+\begin{enumerate}
+\item $f$ 固有，并且
+\item $f_0$ 局部有限型，
+\end{enumerate}
+则存在 $i$，使得 $f_i$ 固有。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射 $V_0 \to Y_0$。
+令 $V_i = Y_i \times_{Y_0} V_0$ 且 $V = Y \times_{Y_0} V_0$。
+只需证明 $f_i$ 到 $V_i$ 的基变换固有，参见《空间的态射》，
+引理 \ref{spaces-morphisms-lemma-proper-local}。
+因此可以假设 $Y_0$ 仿射。
+
+\medskip\noindent
+由引理 \ref{spaces-limits-lemma-descend-separated-morphism}，对某个 $i \geq 0$，
+$f_i$ 分离。以 $i$ 代替 $0$，可以假设 $f_0$ 分离。
+注意 $f_0$ 拟紧。因此 $f_0$ 分离且有限型。由
+《空间的上同调》，引理 \ref{spaces-cohomology-lemma-weak-chow}，
+可以选取图
+$$
+\xymatrix{
+X_0 \ar[rd] & X_0' \ar[d] \ar[l]^\pi \ar[r] & \mathbf{P}^n_{Y_0} \ar[dl] \\
+& Y_0 &
+}
+$$
+其中 $X_0' \to \mathbf{P}^n_{Y_0}$ 为浸入，而
+$\pi : X_0' \to X_0$ 固有且满。引入
+$X' = X_0' \times_{Y_0} Y$ 及 $X_i' = X_0' \times_{Y_0} Y_i$。
+由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-composition-proper} 及
+\ref{spaces-morphisms-lemma-base-change-proper}，
+$X' \to Y$ 固有。因此 $X' \to \mathbf{P}^n_Y$ 为闭浸入
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence}）。
+由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-image-proper-is-proper}，
+只需证明对某个 $i$，$X'_i \to Y_i$ 固有。由引理
+\ref{spaces-limits-lemma-descend-closed-immersion}，当 $i$ 充分大时，
+$X'_i \to \mathbf{P}^n_{Y_i}$ 为闭浸入。于是
+$X'_i \to Y_i$ 固有，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-relative-dimension}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的假设和记号。
+设 $d \geq 0$。若
+\begin{enumerate}
+\item $f$ 的相对维数 $\leq d$
+（《空间的态射》，定义
+\ref{spaces-morphisms-definition-relative-dimension}），
+\item $f_0$ 局部有限型，
+\end{enumerate}
+则存在 $i$，使得 $f_i$ 的相对维数 $\leq d$。
+\end{lemma}
+
+\begin{proof}
+选取仿射概形 $V_0$ 以及满平展态射
+$V_0 \to Y_0$。再选取仿射概形 $U_0$ 以及满平展态射
+$U_0 \to V_0 \times_{Y_0} X_0$。图示为
+$$
+\xymatrix{
+U_0 \ar[d] \ar[r] & V_0 \ar[d] \\
+X_0 \ar[r] & Y_0
+}
+$$
+按构造，竖直箭头均满且平展。将此图基变换到 $B_i$ 或 $B$，得到
+$$
+\vcenter{
+\xymatrix{
+U_i \ar[d] \ar[r] & V_i \ar[d] \\
+X_i \ar[r] & Y_i
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+}
+$$
+注意 $U_i,V_i,U,V$ 均为仿射概形，竖直态射均为满平展态射，
+而态射 $U_i \to V_i$ 的极限是 $U \to V$。
+在此情形中，$X_i \to Y_i$ 的相对维数 $\leq d$，当且仅当
+$U_i \to V_i$ 的相对维数 $\leq d$
+（定义见《态射》，定义
+\ref{morphisms-definition-relative-dimension-d}）。
+为说明这一等价性，注意代数空间态射的定义用到
+《空间的态射》，定义
+\ref{spaces-morphisms-definition-dimension-fibre}，
+而后者使用平展局部化。$X \to Y$ 与 $U \to V$ 也是如此。
+由于 $f_0$ 局部有限型，态射 $U_0 \to V_0$ 也是如此。
+因此本引理由更一般的《极限》，引理
+\ref{limits-lemma-limit-dimension} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{相对对象的下降}
+\label{spaces-limits-section-descending-relative}
+
+\noindent
+下述引理是本节这类结果的典型例子。
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-finite-presentation}
+设 $S$ 为概形，$I$ 为有向集。设 $(X_i, f_{ii'})$ 是由 $S$ 上代数空间
+组成的、以 $I$ 为指标的逆系统。假设
+\begin{enumerate}
+\item 态射 $f_{ii'} : X_i \to X_{i'}$ 均为仿射态射，
+\item 空间 $X_i$ 均拟紧且拟分离。
+\end{enumerate}
+令 $X = \lim_i X_i$。则 $X$ 上有限表示代数空间的范畴，是
+$X_i$ 上有限表示代数空间范畴在 $I$ 上的余极限。
+\end{lemma}
+
+\begin{proof}
+取 $0 \in I$。选取满平展态射 $U_0 \to X_0$，其中 $U_0$ 为仿射概形
+（《空间的性质》，引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。
+令 $U_i = X_i \times_{X_0} U_0$。令
+$R_0 = U_0 \times_{X_0} U_0$ 且
+$R_i = R_0 \times_{X_0} X_i$。以
+$s_i,t_i : R_i \to U_i$ 及 $s,t : R \to U$ 表示两个投影。
+在引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit} 的证明中，我们已看到
+存在展示 $X = U/R$，其中 $U = \lim U_i$ 且 $R = \lim R_i$。
+注意 $U_i$ 与 $U$ 均仿射，而 $R_i$ 与 $R$ 均拟紧且分离
+（因为 $X_i$ 拟分离）。设 $Y$ 为 $S$ 上的代数空间，并设
+$Y \to X$ 为有限表示态射。令 $V = U \times_X Y$。
+这是 $U$ 上的有限表示代数空间。选取仿射概形 $W$ 及满平展态射
+$W \to V$。于是 $W \to Y$ 也满且平展。令
+$R' = W \times_Y W$，从而 $Y = W/R'$
+（参见《空间》，第 \ref{spaces-section-presentations} 节）。
+注意 $W$ 是 $U$ 上有限表示的概形，而 $R'$ 是 $R$ 上有限表示的概形
+（略去细节）。由《极限》，引理
+\ref{limits-lemma-descend-finite-presentation}，可以找到指标 $i$ 及
+有限表示的概形态射 $W_i \to U_i$，其到 $U$ 的基变换给出
+$W \to U$。类似地，必要时增大 $i$ 后，可以找到 $R_i$ 上有限表示的概形
+$R'_i$，其到 $R$ 的基变换为 $R'$。
+投影态射 $s',t' : R' \to W$ 分别位于投影态射
+$s,t : R \to U$ 之上。因此，可以把 $s'$（相应地 $t'$）
+视为 $U$ 上有限表示概形之间的态射（其中 $R' \to U$ 的结构态射
+由 $R' \to R$ 后接 $s$（相应地 $t$）给出）。于是再次应用
+《极限》，引理 \ref{limits-lemma-descend-finite-presentation} 可见，
+必要时增大 $i$ 后，存在态射 $s'_i,t'_i : R'_i \to W_i$，
+% P09-ERR-0074
+其到 $U$ 的基变换为 $S',t'$。由《极限》，引理
+\ref{limits-lemma-descend-etale} 及
+\ref{limits-lemma-descend-monomorphism}，可以假设
+$s'_i,t'_i$ 均平展，而且
+$j'_i : R'_i \to W_i \times_{X_i} W_i$ 为单态射（这里通过任一投影
+把 $j'_i$ 看作 $U_i$ 上有限表示概形之间的态射——选哪个投影无关紧要）。
+令 $Y_i = W_i/R'_i$（参见《空间》，定理
+\ref{spaces-theorem-presentation}），便得到 $X_i$ 上的有限表示代数空间，
+其到 $X$ 的基变换同构于 $Y$。
+
+\medskip\noindent
+这表明，$X$ 上的每个有限表示代数空间都来自某个 $X_i$ 上的有限表示
+代数空间；换言之，本引理中的函子本质满。为证明它全忠实，取指标
+$0 \in I$ 以及 $X_0$ 上两个有限表示代数空间 $Y_0,Z_0$。
+令 $Y_i = X_i \times_{X_0} Y_0$、$Y = X \times_{X_0} Y_0$、
+$Z_i = X_i \times_{X_0} Z_0$ 且 $Z = X \times_{X_0} Z_0$。
+设 $\alpha : Y \to Z$ 为 $X$ 上代数空间的态射。选取满平展态射
+$V_0 \to Y_0$，其中 $V_0$ 为仿射概形。令
+$V_i = V_0 \times_{Y_0} Y_i$ 且 $V = V_0 \times_{Y_0} Y$；
+它们是分别带有到 $Y_i$ 与 $Y$ 的满平展态射的仿射概形。
+% P09-ERR-0075
+由命题 \ref{spaces-limits-proposition-characterize-locally-finite-presentation}
+（应用于依假设有限表示的 $Z_0 \to X_0$），复合
+$V \to Y \to Z \to Z_0$ 来自某个 $i \geq 0$ 上一个（本质唯一的）态射
+$V_i \to Z_0$。增大 $i$ 后，两个复合
+$$
+V_i \times_{Y_i} V_i \to V_i \to Z_0
+$$
+相等，因为它们在极限中相等。因而得到一个（本质唯一的）态射
+$Y_i \to Z_0$。由于这是 $X_0$ 上的态射，它诱导出一个到
+$Z_i = Z_0 \times_{X_0} X_i$ 的态射，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-modules-finite-presentation}
+沿用引理 \ref{spaces-limits-lemma-descend-finite-presentation} 的记号和假设。
+有限表示 $\mathcal{O}_X$-模的范畴，是有限表示
+$\mathcal{O}_{X_i}$-模范畴在 $I$ 上的余极限。
+\end{lemma}
+
+\begin{proof}
+取 $0 \in I$。选取仿射概形 $U_0$ 及满平展态射
+$U_0 \to X_0$。令 $U_i = X_i \times_{X_0} U_0$。
+令 $R_0 = U_0 \times_{X_0} U_0$ 且
+$R_i = R_0 \times_{X_0} X_i$。以
+$s_i,t_i : R_i \to U_i$ 及 $s,t : R \to U$ 表示两个投影。
+在引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit} 的证明中，我们已看到
+存在展示 $X = U/R$，其中 $U = \lim U_i$ 且 $R = \lim R_i$。
+注意 $U_i$ 与 $U$ 均仿射，而 $R_i$ 与 $R$ 均拟紧且分离
+（因为 $X_i$ 拟分离）。此外，还有
+% P09-ERR-0076
+$R \times_{s, U, t} R = \colim R_i \times_{s_i, U_i, t_i} R_i$.
+因此我们知道
+$\QCoh(\mathcal{O}_U) = \colim \QCoh(\mathcal{O}_{U_i})$,
+$\QCoh(\mathcal{O}_R) = \colim \QCoh(\mathcal{O}_{R_i})$,
+以及
+$\QCoh(\mathcal{O}_{R \times_{s, U, t} R}) =
+\colim \QCoh(\mathcal{O}_{R_i \times_{s_i, U_i, t_i} R_i})$，由
+《极限》，引理 \ref{limits-lemma-descend-modules-finite-presentation}。
+我们有 $\QCoh(\mathcal{O}_X) = \QCoh(U, R, s, t, c)$ 及
+$\QCoh(\mathcal{O}_{X_i}) = \QCoh(U_i, R_i, s_i, t_i, c_i)$,
+参见《空间的性质》，命题
+\ref{spaces-properties-proposition-quasi-coherent}。
+因此形式地得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-descend-invertible-modules}
+沿用引理 \ref{spaces-limits-lemma-descend-finite-presentation} 的记号和假设。则
+\begin{enumerate}
+\item 任一有限局部自由 $\mathcal{O}_X$-模都是某个 $i$ 上一个有限局部自由
+$\mathcal{O}_{X_i}$-模的拉回，
+\item 任一可逆 $\mathcal{O}_X$-模都是某个 $i$ 上一个可逆
+$\mathcal{O}_{X_i}$-模的拉回。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (2)。设 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。
+由于可逆模有限表示，由引理
+\ref{spaces-limits-lemma-descend-modules-finite-presentation}，可以找到 $i$ 以及
+$X_i$ 上有限表示的模 $\mathcal{L}_i$ 与 $\mathcal{N}_i$，使得
+% P09-ERR-0077
+$f_i^*\mathcal{L}_i \cong \mathcal{L}$ 且
+$f_i^*\mathcal{N}_i \cong \mathcal{L}^{\otimes -1}$。
+由于拉回与张量积交换，
+$f_i^*(\mathcal{L}_i \otimes_{\mathcal{O}_{X_i}} \mathcal{N}_i)$
+同构于 $\mathcal{O}_X$。由于有限表示模的张量积仍有限表示，同一引理表明，
+$f_{i'i}^*\mathcal{L}_i
+\otimes_{\mathcal{O}_{X_{i'}}} f_{i'i}^*\mathcal{N}_i$
+对某个 $i' \geq i$ 同构于 $\mathcal{O}_{X_{i'}}$。
+从而 $f_{i'i}^*\mathcal{L}_i$ 可逆
+（《位点上的模》，引理 \ref{sites-modules-lemma-invertible}），
+证明完成。
+
+\medskip\noindent
+证明 (1)。略。提示：仿照 (2) 的证明，并使用如下事实：一个模
+（在局部赋环位点上）有限局部自由，当且仅当它具有对偶；参见
+《位点上的模》，第 \ref{sites-modules-section-duals} 节。
+也可以仿照概形情形的证明，参见《极限》，引理
+\ref{limits-lemma-descend-invertible-modules}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{绝对诺特逼近}
+\label{spaces-limits-section-approximation}
+
+\noindent
+下述结果见 \cite[Theorem 1.2.2]{CLO}。证明中的一个关键要素是
+《良态空间》，引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}。
+
+\begin{proposition}
+\label{spaces-limits-proposition-approximate}
+\begin{reference}
+我们的证明紧随 \cite[Theorem 1.2.2]{CLO} 中给出的证明。
+\end{reference}
+设 $X$ 为 $\Spec(\mathbf{Z})$ 上拟紧且拟分离的代数空间。
+则存在有向集 $I$ 以及以 $I$ 为指标的代数空间逆系统
+$(X_i, f_{ii'})$，使得
+\begin{enumerate}
+% P09-ERR-0078
+\item 转移态射 $f_{ii'}$ 均为仿射态射
+\item 每个 $X_i$ 均拟分离且在 $\mathbf{Z}$ 上有限型，并且
+\item $X = \lim X_i$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+应用《良态空间》，引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}
+可得开子空间 $U_p \subset X$、概形 $V_p$ 以及具有所述性质的态射
+$f_p : V_p \to U_p$。注意
+$f_n : V_n \to U_n$ 是代数空间的平展态射，并且它在
+$T_n = (V_n)_{red}$ 的逆像上的限制为同构。因而 $f_n$ 为同构，
+例如可由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-etale-universally-injective-open} 得到。
+特别地，$U_n$ 是拟紧分离概形。因此可将
+$U_n = \lim U_{n,i}$ 写成 $\mathbf{Z}$ 上有限型概形的有向极限，
+其转移态射均为仿射态射；参见《极限》，命题
+\ref{limits-proposition-approximate}。于是对 $p$ 作降归纳，
+便将问题归约为下一段所述问题。
+
+\medskip\noindent
+这里有 $U \subset X$、$U = \lim U_i$、$Z \subset X$ 以及
+$f : V \to X$，它们具有下列性质：
+\begin{enumerate}
+\item $X$ 是拟紧且拟分离的代数空间，
+\item $V$ 是拟紧分离概形，
+\item $U \subset X$ 是拟紧开子空间，
+\item $(U_i, g_{ii'})$ 是 $\mathbf{Z}$ 上有限型拟分离代数空间的
+有向逆系统，其转移态射均为仿射态射，且极限为 $U$，
+\item $Z \subset X$ 是闭子空间，满足 $|X| = |U| \amalg |Z|$，
+\item $f : V \to X$ 是满平展态射，且
+$f^{-1}(Z) \to Z$ 为同构。
+\end{enumerate}
+问题：证明本命题的结论对 $X$ 成立。
+
+\medskip\noindent
+注意 $W = f^{-1}(U) \subset V$ 是 $U$ 上平展的拟紧开子概形。
+因此可应用引理 \ref{spaces-limits-lemma-descend-finite-presentation} 及
+\ref{spaces-limits-lemma-descend-etale}，找到指标 $0 \in I$ 以及有限表示平展态射
+$W_0 \to U_0$，其到 $U$ 的基变换给出 $W$。令
+$W_i = W_0 \times_{U_0} U_i$，则 $W = \lim_{i \geq 0} W_i$。
+增大 $0$ 后，可以假设 $W_i$ 均为概形；参见引理
+\ref{spaces-limits-lemma-limit-is-scheme}。此外，$W_i$ 在 $\mathbf{Z}$ 上有限型。
+
+\medskip\noindent
+将《极限》，引理 \ref{limits-lemma-approximate} 应用于
+$W = \lim_{i \geq 0} W_i$ 及包含 $W \subset V$。以该引理中得到的
+有向集 $J$ 代替 $I$。这样便可将 $V$ 写成有向极限
+$V = \lim V_i$，其中 $V_i$ 是 $\mathbf{Z}$ 上有限型概形，
+转移映射均为仿射映射，并且每个 $V_i$ 都以 $W_i$ 为开子概形
+（与转移态射相容）。对每个 $i$，可以在概形范畴中作推出
+$$
+\xymatrix{
+W_i \ar[r] \ar[d]_\Delta & V_i \ar[d] \\
+W_i \times_{U_i} W_i \ar[r] & R_i
+}
+$$
+。事实上，左侧竖直箭头和上方水平箭头都是概形的开浸入。换言之，
+可沿公共开子概形 $W_i$ 黏合 $V_i$ 与
+$W_i \times_{U_i} W_i$ 来构造 $R_i$
+（参见《概形》，第 \ref{schemes-section-glueing-schemes} 节）。
+注意，平展投影 $W_i \times_{U_i} W_i \to W_i$ 延拓为平展态射
+$s_i,t_i : R_i \to V_i$。显然，态射
+$j_i = (t_i, s_i) : R_i \to V_i \times V_i$ 是 $V_i$ 上的
+平展等价关系。注意 $W_i \times_{U_i} W_i$ 拟紧
+（因为 $U_i$ 拟分离且 $W_i$ 拟紧），而 $V_i$ 拟紧，故 $R_i$ 拟紧。
+当 $i \geq i'$ 时，图
+\begin{equation}
+\label{spaces-limits-equation-cartesian}
+\vcenter{
+\xymatrix{
+R_i \ar[r] \ar[d]_{s_i} & R_{i'} \ar[d]^{s_{i'}} \\
+V_i \ar[r] & V_{i'}
+}
+}
+\end{equation}
+是笛卡尔图，因为
+$$
+(W_{i'} \times_{U_{i'}} W_{i'}) \times_{U_{i'}} U_i =
+W_{i'} \times_{U_{i'}} U_i \times_{U_i} U_i \times_{U_{i'}} W_{i'} =
+W_i \times_{U_i} W_i.
+$$
+考虑代数空间 $X_i = V_i/R_i$（参见《空间》，定理
+\ref{spaces-theorem-presentation}）。由于 $V_i$ 在 $\mathbf{Z}$ 上有限型
+且 $R_i$ 拟紧，可见 $X_i$ 拟分离且在 $\mathbf{Z}$ 上有限型
+（参见《空间的性质》，引理
+\ref{spaces-properties-lemma-quasi-separated}，以及《空间的态射》，引理
+\ref{spaces-morphisms-lemma-surjection-from-quasi-compact} 及
+\ref{spaces-morphisms-lemma-finite-type-local}）。
+由于上述 $R_i$ 的构造与转移态射相容，当 $i \geq i'$ 时，
+得到代数空间的态射 $X_i \to X_{i'}$。交换图
+$$
+\xymatrix{
+V_i \ar[r] \ar[d] & V_{i'} \ar[d] \\
+X_i \ar[r] & X_{i'}
+}
+$$
+是笛卡尔图，因为图 (\ref{spaces-limits-equation-cartesian}) 是笛卡尔图；参见
+《群胚》，引理 \ref{groupoids-lemma-criterion-fibre-product}。
+由于 $V_i \to V_{i'}$ 仿射，这蕴含 $X_i \to X_{i'}$ 仿射；参见
+《空间的态射》，引理 \ref{spaces-morphisms-lemma-affine-local}。
+因此，由引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}，
+可以形成极限 $X' = \lim X_i$。我们断言 $X \cong X'$；
+这将完成命题的证明。
+
+\medskip\noindent
+证明该断言。令 $R = \lim R_i$。按构造，代数空间 $X'$ 带有满平展态射
+$V \to X'$，使得
+$$
+V \times_{X'} V \cong R
+$$
+（使用引理 \ref{spaces-limits-lemma-directed-inverse-system-has-limit}）。
+按构造，$\lim W_i \times_{U_i} W_i = W \times_U W$ 且
+$V = \lim V_i$，所以 $R$ 是 $W \times_U W$ 与 $V$ 沿 $W$ 黏合所得的并。
+性质 (6) 蕴含投影 $V \times_X V \to V$ 在
+$f^{-1}(Z) \subset V$ 上为同构。因此，概形 $V \times_X V$
+是开子概形 $\Delta_{V/X}(V)$ 与 $W \times_U W$ 的并，二者沿
+$\Delta_{W/X}(W)$ 相交。由此得到唯一同构
+$R \cong V \times_X V$，且与到 $V$ 的投影相容。
+由于 $V \to X$ 与 $V \to X'$ 均满且平展，可见
+% P09-ERR-0079
+$$
+X = V/ V \times_X V = V/R = V/V \times_{X'} V = X'
+$$
+；由《空间》，引理 \ref{spaces-lemma-space-presentation}，结论得证。
+\end{proof}
+
+
+
+
+\section{应用}
+\label{spaces-limits-section-applications}
+
+\noindent
+下述引理也可以直接由《良态空间》，引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}
+得出，而不必经过绝对诺特逼近。
+
+\begin{lemma}
+\label{spaces-limits-lemma-colimit-finitely-presented}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+每个拟凝聚 $\mathcal{O}_X$-模都是有限表示
+$\mathcal{O}_X$-模的滤过余极限。
+\end{lemma}
+
+\begin{proof}
+可将 $X$ 视为 $\Spec(\mathbf{Z})$ 上的代数空间；参见《空间》，定义
+\ref{spaces-definition-base-change} 及《空间的性质》，定义
+\ref{spaces-properties-definition-separated}。因此可应用命题
+\ref{spaces-limits-proposition-approximate}，写成 $X = \lim X_i$，其中 $X_i$
+在 $\mathbf{Z}$ 上有限表示。于是 $X_i$ 是诺特代数空间；参见
+《空间的态射》，引理
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}。
+态射 $X \to X_i$ 仿射；参见引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}。结论由
+《空间的上同调》，引理
+\ref{spaces-cohomology-lemma-direct-colimit-finite-presentation} 得出。
+\end{proof}
+
+\noindent
+本节余下部分由引理 \ref{spaces-limits-lemma-colimit-finitely-presented} 的直接应用组成。
+
+\begin{lemma}
+\label{spaces-limits-lemma-directed-colimit-finite-type}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+则 $\mathcal{F}$ 是其有限型拟凝聚子模的有向余极限。
+\end{lemma}
+
+\begin{proof}
+若 $\mathcal{G},\mathcal{H} \subset \mathcal{F}$ 是有限型拟凝聚
+$\mathcal{O}_X$-子模，则 $\mathcal{G} \oplus \mathcal{H} \to \mathcal{F}$
+的像仍是有限型拟凝聚 $\mathcal{O}_X$-子模，并包含二者。
+由此可见该系统有向。为证明 $\mathcal{F}$ 是此系统的余极限，
+按引理 \ref{spaces-limits-lemma-colimit-finitely-presented} 写成
+$\mathcal{F} = \colim_i \mathcal{F}_i$，即有限表示拟凝聚层的有向余极限。
+则像 $\mathcal{G}_i = \Im(\mathcal{F}_i \to \mathcal{F})$
+是 $\mathcal{F}$ 的有限型拟凝聚子层。由于 $\mathcal{F}$
+是这些子层的余极限，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-finite-directed-colimit-surjective-maps}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模。则可以写成
+% P09-ERR-0080
+$\mathcal{F} = \lim \mathcal{F}_i$，其中每个 $\mathcal{F}_i$
+都是有限表示 $\mathcal{O}_X$-模，且所有转移映射
+$\mathcal{F}_i \to \mathcal{F}_{i'}$ 均满。
+\end{lemma}
+
+\begin{proof}
+将 $\mathcal{F} = \colim \mathcal{G}_i$ 写成有限表示
+$\mathcal{O}_X$-模的滤过余极限
+（引理 \ref{spaces-limits-lemma-colimit-finitely-presented}）。
+我们断言，对某个 $i$，$\mathcal{G}_i \to \mathcal{F}$ 为满态射。
+事实上，选取平展满射 $U \to X$，其中 $U$ 为仿射概形。
+选取有限多个生成 $\mathcal{F}|_U$ 的截面
+$s_k \in \mathcal{F}(U)$。由于 $U$ 仿射，当 $i$ 充分大时，
+$s_k$ 属于 $\mathcal{G}_i \to \mathcal{F}$ 的像。因此，当 $i$
+充分大时，$\mathcal{G}_i \to \mathcal{F}$ 为满态射。
+选取这样的 $i$，并令 $\mathcal{K} \subset \mathcal{G}_i$
+为映射 $\mathcal{G}_i \to \mathcal{F}$ 的核。写成
+$\mathcal{K} = \colim \mathcal{K}_a$，即其有限型拟凝聚子模的滤过余极限
+（引理 \ref{spaces-limits-lemma-directed-colimit-finite-type}）。于是
+$\mathcal{F} = \colim \mathcal{G}_i/\mathcal{K}_a$ 即为本引理所求。
+\end{proof}
+
+\noindent
+设 $X$ 为代数空间。在下述引理中，我们使用{\it 有限表示拟凝聚
+$\mathcal{O}_X$-代数 $\mathcal{A}$}这一概念。它是指：对每个
+$X$ 上平展的仿射概形 $U = \Spec(R)$，都有
+$\mathcal{A}|_U = \widetilde{A}$，其中 $A$ 是作为 $R$-代数有限表示的
+（交换）$R$-代数。
+
+\begin{lemma}
+\label{spaces-limits-lemma-algebra-directed-colimit-finite-presentation}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $\mathcal{A}$ 为拟凝聚 $\mathcal{O}_X$-代数。
+则 $\mathcal{A}$ 是有限表示拟凝聚 $\mathcal{O}_X$-代数的有向余极限。
+\end{lemma}
+
+\begin{proof}
+首先按引理 \ref{spaces-limits-lemma-colimit-finitely-presented}，将
+$\mathcal{A} = \colim_i \mathcal{F}_i$ 写成有限表示拟凝聚层的有向余极限。
+对每个 $i$，令 $\mathcal{B}_i = \text{Sym}(\mathcal{F}_i)$
+为 $\mathcal{F}_i$ 在 $\mathcal{O}_X$ 上的对称代数。写成
+$\mathcal{I}_i = \Ker(\mathcal{B}_i \to \mathcal{A})$。
+再写成 $\mathcal{I}_i = \colim_j \mathcal{F}_{i,j}$，其中
+$\mathcal{F}_{i,j}$ 是 $\mathcal{I}_i$ 的有限型拟凝聚子模；参见引理
+\ref{spaces-limits-lemma-directed-colimit-finite-type}。令
+$\mathcal{I}_{i,j} \subset \mathcal{I}_i$ 为由
+$\mathcal{F}_{i,j}$ 生成的 $\mathcal{B}_i$-理想。令
+$\mathcal{A}_{i,j} = \mathcal{B}_i/\mathcal{I}_{i,j}$。
+则 $\mathcal{A}_{i,j}$ 是有限表示拟凝聚 $\mathcal{O}_X$-代数。
+规定 $(i,j) \leq (i',j')$，当且仅当 $i \leq i'$ 且映射
+$\mathcal{B}_i \to \mathcal{B}_{i'}$ 将理想
+$\mathcal{I}_{i,j}$ 映入理想 $\mathcal{I}_{i',j'}$。
+于是显然 $\mathcal{A} = \colim_{i,j} \mathcal{A}_{i,j}$。
+\end{proof}
+
+\noindent
+设 $X$ 为代数空间。在下述引理中，我们使用{\it 有限型拟凝聚
+$\mathcal{O}_X$-代数 $\mathcal{A}$}这一概念。它是指：对每个
+$X$ 上平展的仿射概形 $U = \Spec(R)$，都有
+$\mathcal{A}|_U = \widetilde{A}$，其中 $A$ 是作为 $R$-代数有限型的
+（交换）$R$-代数。
+
+\begin{lemma}
+\label{spaces-limits-lemma-algebra-directed-colimit-finite-type}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $\mathcal{A}$ 为拟凝聚 $\mathcal{O}_X$-代数。
+则 $\mathcal{A}$ 是其有限型拟凝聚 $\mathcal{O}_X$-子代数的有向余极限。
+\end{lemma}
+
+\begin{proof}
+略。提示：与引理 \ref{spaces-limits-lemma-directed-colimit-finite-type} 的证明比较。
+\end{proof}
+
+\noindent
+设 $X$ 为代数空间。在下述引理中，我们使用{\it 有限（相应地，整）
+拟凝聚 $\mathcal{O}_X$-代数 $\mathcal{A}$}这一概念。它是指：
+对每个 $X$ 上平展的仿射概形 $U = \Spec(R)$，都有
+$\mathcal{A}|_U = \widetilde{A}$，其中 $A$ 是作为 $R$-代数有限
+（相应地，整）的（交换）$R$-代数。
+
+\begin{lemma}
+\label{spaces-limits-lemma-finite-algebra-directed-colimit-finite-finitely-presented}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $\mathcal{A}$ 为有限拟凝聚 $\mathcal{O}_X$-代数。则
+$\mathcal{A} = \colim \mathcal{A}_i$ 是有限且有限表示的拟凝聚
+$\mathcal{O}_X$-代数的有向余极限，其转移映射均满。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-finite-directed-colimit-surjective-maps}，
+存在有限表示 $\mathcal{O}_X$-模 $\mathcal{F}$ 及满射
+$\mathcal{F} \to \mathcal{A}$。利用代数结构，得到满射
+$$
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}) \longrightarrow \mathcal{A}
+$$
+。以 $\mathcal{J}$ 表示其核。将
+$\mathcal{J} = \colim \mathcal{E}_i$ 写成有限型
+$\mathcal{O}_X$-子模 $\mathcal{E}_i$ 的滤过余极限
+（引理 \ref{spaces-limits-lemma-directed-colimit-finite-type}）。令
+$$
+\mathcal{A}_i = \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F})/(\mathcal{E}_i)
+$$
+，其中 $(\mathcal{E}_i)$ 表示由
+$\mathcal{E}_i \to \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F})$ 的像生成的
+理想层。于是每个 $\mathcal{A}_i$ 都是有限表示
+$\mathcal{O}_X$-代数，转移映射均满，且
+$\mathcal{A} = \colim \mathcal{A}_i$。为完成证明，还须说明当 $i$
+充分大时，$\mathcal{A}_i$ 是有限 $\mathcal{O}_X$-代数。
+为此，选取平展满射 $U \to X$，其中 $U$ 为仿射概形。
+取生成元 $f_1,\ldots,f_m \in \Gamma(U,\mathcal{F})$。
+由于 $\mathcal{A}(U)$ 是有限 $\mathcal{O}_X(U)$-代数，对每个 $j$
+都存在首一多项式 $P_j \in \mathcal{O}(U)[T]$，使得
+$P_j(f_j)$ 在 $\mathcal{A}(U)$ 中为零。按构造
+$\mathcal{A} = \colim \mathcal{A}_i$，故当 $i$ 充分大时，
+$P_j(f_j) = 0$ 在 $\mathcal{A}_i(U)$ 中成立。对这样的 $i$，
+代数 $\mathcal{A}_i$ 有限。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-integral-algebra-directed-colimit-finite}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $\mathcal{A}$ 为整拟凝聚 $\mathcal{O}_X$-代数。则
+\begin{enumerate}
+\item $\mathcal{A}$ 是其有限拟凝聚 $\mathcal{O}_X$-子代数的有向余极限，
+\item $\mathcal{A}$ 是有限且有限表示 $\mathcal{O}_X$-代数的有向余极限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-algebra-directed-colimit-finite-type}，有
+$\mathcal{A} = \colim \mathcal{A}_i$，其中
+% P09-ERR-0081
+$\mathcal{A}_i \subset \mathcal{A}$ 遍历有限型拟凝聚
+$\mathcal{O}_X$-子代数。$\mathcal{A}$ 的任一有限型拟凝聚
+$\mathcal{O}_X$-子代数都是有限代数（在 $X$ 上平展的仿射概形上使用
+《代数》，引理
+\ref{algebra-lemma-characterize-finite-in-terms-of-integral}）。
+这证明了 (1)。
+
+\medskip\noindent
+为证明 (2)，使用引理 \ref{spaces-limits-lemma-colimit-finitely-presented}，
+将 $\mathcal{A} = \colim \mathcal{F}_i$ 写成有限表示
+$\mathcal{O}_X$-模的余极限。对每个 $i$，令 $\mathcal{J}_i$
+为映射
+$$
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i) \longrightarrow \mathcal{A}
+$$
+的核。当 $i' \geq i$ 时，有诱导映射
+$\mathcal{J}_i \to \mathcal{J}_{i'}$，并且
+$\mathcal{A} =
+\colim \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$.
+此外，拟凝聚 $\mathcal{O}_X$-代数
+$\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$
+都是有限代数（见上文）。将
+$\mathcal{J}_i = \colim \mathcal{E}_{ik}$ 写成有限表示
+$\mathcal{O}_X$-模的余极限。给定 $i' \geq i$ 与 $k$，存在 $k'$，
+使得有映射 $\mathcal{E}_{ik} \to \mathcal{E}_{i'k'}$，从而图
+$$
+\xymatrix{
+\mathcal{J}_i \ar[r] & \mathcal{J}_{i'} \\
+\mathcal{E}_{ik} \ar[u] \ar[r] & \mathcal{E}_{i'k'} \ar[u]
+}
+$$
+交换。这由《空间的上同调》，引理
+\ref{spaces-cohomology-lemma-finite-presentation-quasi-compact-colimit}
+得出。它诱导映射
+$$
+\mathcal{A}_{ik} =
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/(\mathcal{E}_{ik})
+\longrightarrow
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_{i'})/(\mathcal{E}_{i'k'}) =
+\mathcal{A}_{i'k'}
+$$
+，其中 $(\mathcal{E}_{ik})$ 表示由 $\mathcal{E}_{ik}$ 生成的理想。
+% P09-ERR-0082
+拟凝聚 $\mathcal{O}_X$-代数 $\mathcal{A}_{ki}$
+有限表示，并且当 $k$ 充分大时有限
+（参见引理
+\ref{spaces-limits-lemma-finite-algebra-directed-colimit-finite-finitely-presented}
+的证明）。最后，有
+$$
+\colim \mathcal{A}_{ik} = \colim \mathcal{A}_i = \mathcal{A}
+$$
+。其中第一个等式已在引理
+\ref{spaces-limits-lemma-finite-algebra-directed-colimit-finite-finitely-presented}
+的证明中给出，第二个等式则源于 $\mathcal{A}$ 是模
+$\mathcal{F}_i$ 的余极限。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-extend}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且拟分离的代数空间。
+设 $U \subset X$ 为拟紧开子空间。设 $\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。设
+$\mathcal{G} \subset \mathcal{F}|_U$ 为有限型拟凝聚
+$\mathcal{O}_U$-子模。则存在有限型拟凝聚子模
+$\mathcal{G}' \subset \mathcal{F}$，使得
+$\mathcal{G}'|_U = \mathcal{G}$。
+\end{lemma}
+
+\begin{proof}
+以 $j : U \to X$ 表示包含态射。由于 $X$ 拟分离且 $U$ 拟紧，
+态射 $j$ 拟紧。因此
+% P09-ERR-0083
+$j_*\mathcal{G} \subset j_*\mathcal{F}|_U$ 的两端都是 $X$ 上的拟凝聚模
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-pushforward}）。
+令 $\mathcal{H} =
+\Ker(j_*\mathcal{G} \oplus \mathcal{F} \to j_*\mathcal{F}|_U)$.
+则 $\mathcal{H}|_U = \mathcal{G}$。由引理
+\ref{spaces-limits-lemma-directed-colimit-finite-type}，可以找到有限型拟凝聚子模
+$\mathcal{H}' \subset \mathcal{H}$，使得
+$\mathcal{H}'|_U = \mathcal{H}|_U = \mathcal{G}$。
+令 $\mathcal{G}' = \Im(\mathcal{H}' \to \mathcal{F})$ 即得结论。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{相对逼近}
+\label{spaces-limits-section-relative-approximation}
+
+\noindent
+我们讨论命题 \ref{spaces-limits-proposition-approximate} 在一个基底上的变体。
+
+\begin{lemma}
+\label{spaces-limits-lemma-approximate-morphism}
+设 $f : X \to Y$ 为 $\mathbf{Z}$ 上拟紧且拟分离代数空间之间的态射。
+则存在
+% P09-ERR-0084
+有向集 $I$ 以及以 $I$ 为指标的态射逆系统
+% P09-ERR-0085
+$(f_i : X_i \to Y_i)$，使得转移态射
+$X_i \to X_{i'}$ 与 $Y_i \to Y_{i'}$ 均为仿射态射，
+$X_i$ 与 $Y_i$ 均拟分离且在 $\mathbf{Z}$ 上有限型，并且
+$(X \to Y) = \lim (X_i \to Y_i)$。
+\end{lemma}
+
+\begin{proof}
+按命题 \ref{spaces-limits-proposition-approximate}，写成
+$X = \lim_{a \in A} X_a$ 及 $Y = \lim_{b \in B} Y_b$；即
+$X_a$ 与 $Y_b$ 均拟分离且在 $\mathbf{Z}$ 上有限型，
+而转移态射均为仿射态射。
+
+\medskip\noindent
+固定 $b \in B$。将引理
+\ref{spaces-limits-lemma-better-characterize-relative-limit-preserving}
+应用于 $\mathbf{Z}$ 上的 $Y_b$ 与 $X = \lim X_a$，可知存在
+$a \in A$ 及态射 $f_{a,b} : X_a \to Y_b$，使图
+$$
+\xymatrix{
+X \ar[d] \ar[r] & Y \ar[d] \\
+X_a \ar[r] & Y_b
+}
+$$
+交换。令 $I$ 为以这种方式得到的三元组 $(a,b,f_{a,b})$ 的集合。
+
+\medskip\noindent
+设 $(a,b,f_{a,b})$ 与 $(a',b',f_{a',b'})$ 属于 $I$。令
+% P09-ERR-0086
+$b'' \leq \min(b,b')$。再次使用引理
+\ref{spaces-limits-lemma-better-characterize-relative-limit-preserving}，存在
+$a'' \geq \max(a,a')$，使两个复合
+$X_{a''} \to X_a \to Y_b \to Y_{b''}$ 与
+$X_{a''} \to X_{a'} \to Y_{b'} \to Y_{b''}$ 相等。
+在 $I$ 上赋予预序
+$$
+(a, b, f_{a, b}) \geq (a', b', f_{a', b'})
+\Leftrightarrow
+a \geq a',\ b \geq b',\text{ 且 }
+g_{b, b'} \circ f_{a, b} = f_{a', b'} \circ h_{a, a'}
+$$
+，其中 $h_{a,a'} : X_a \to X_{a'}$ 与
+$g_{b,b'} : Y_b \to Y_{b'}$ 为转移态射。上述讨论表明 $I$ 有向，
+而映射 $I \to A$、$(a,b,f_{a,b}) \mapsto a$ 与
+% P09-ERR-0087
+$I \to B$、$(a,b,f_{a,b})$ 都共尾。若对
+$i = (a,b,f_{a,b})$ 令 $X_i = X_a$、$Y_i = Y_b$ 且
+$f_i = f_{a,b}$，便得到以 $I$ 为指标的态射逆系统，并且
+$$
+\lim_{i \in I} X_i = \lim_{a \in A} X_a = X
+\quad\text{且}\quad
+% P09-ERR-0088
+\lim_{i \in I} S_i = \lim_{b \in B} Y_b = Y
+$$
+；这由《范畴》，引理 \ref{categories-lemma-initial} 得出
+（回忆，$I$ 上的极限其实是在与 $I$ 关联的对偶范畴上的极限，
+因而共尾变为始）。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-relative-approximation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设
+\begin{enumerate}
+\item $X$ 拟紧且拟分离，并且
+\item $Y$ 拟分离。
+\end{enumerate}
+则 $X = \lim X_i$ 是 $Y$ 上有限表示代数空间 $X_i$ 的一个有向逆系统
+在 $Y$ 上的极限，其转移态射均为仿射态射。
+\end{lemma}
+
+\begin{proof}
+由于 $|f|(|X|)$ 拟紧，可以将 $Y$ 替换为其点集包含
+$|f|(|X|)$ 的拟紧开子空间。因此也可以假设 $Y$ 拟紧。
+由引理 \ref{spaces-limits-lemma-approximate-morphism}，可将
+$(X \to Y) = \lim (X_i \to Y_i)$ 写成某个态射有向逆系统的极限，
+% P09-ERR-0089
+其中的态射是 $\mathbf{Z}$ 上有限型概形的态射，转移态射均为仿射态射。
+由于极限与极限交换
+（《范畴》，引理 \ref{categories-lemma-colimits-commute}），
+有 $X = \lim X_i \times_{Y_i} Y$。当 $i \geq i'$ 时，转移态射
+$X_i \times_{Y_i} Y \to X_{i'} \times_{Y_{i'}} Y$ 仿射，因为它是复合
+$$
+X_i \times_{Y_i} Y \to X_i \times_{Y_{i'}} Y \to X_{i'} \times_{Y_{i'}} Y
+$$
+；其中第一个态射为闭浸入（由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-fibre-product-after-map}），第二个态射是
+仿射态射的基变换（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-base-change-affine}），而仿射态射的复合仿射
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-composition-affine}）。
+态射 $f_i$ 有限表示（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-noetherian-finite-type-finite-presentation} 及
+\ref{spaces-morphisms-lemma-finite-presentation-permanence}），
+故基变换 $X_i \times_{f_i,Y_i} Y \to Y$ 有限表示
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-base-change-finite-presentation}）。
+\end{proof}
+
+
+
+
+
+
+\section{有限型对象嵌入有限表示对象}
+\label{spaces-limits-section-finite-type-closed-in-finite-presentation}
+
+\noindent
+本节是《极限》，第
+\ref{limits-section-finite-type-closed-in-finite-presentation} 节的对应版本。
+
+\begin{lemma}
+\label{spaces-limits-lemma-affine-morphism-is-limit}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的仿射态射。
+% P09-ERR-0090
+若 $Y$ 拟紧且拟分离，则 $X$ 是一个有向极限
+$X = \lim X_i$，其中每个 $X_i$ 在 $Y$ 上仿射且有限表示。
+\end{lemma}
+
+\begin{proof}
+考虑拟凝聚 $\mathcal{O}_Y$-模
+$\mathcal{A} = f_*\mathcal{O}_X$。由引理
+\ref{spaces-limits-lemma-algebra-directed-colimit-finite-presentation}，
+可将 $\mathcal{A} = \colim \mathcal{A}_i$ 写成有限表示
+$\mathcal{O}_Y$-代数 $\mathcal{A}_i$ 的有向余极限。
+令 $X_i = \underline{\Spec}_Y(\mathcal{A}_i)$；参见
+《空间的态射》，定义
+\ref{spaces-morphisms-definition-relative-spec}。
+按构造，$X_i \to Y$ 仿射且有限表示，并且 $X = \lim X_i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-integral-limit-finite-and-finite-presentation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的整态射。
+假设 $Y$ 拟紧且拟分离。则可以将 $X$ 写成有向极限
+$X = \lim X_i$，其中 $X_i$ 在 $Y$ 上有限且有限表示。
+\end{lemma}
+
+\begin{proof}
+考虑拟凝聚 $\mathcal{O}_Y$-模
+$\mathcal{A} = f_*\mathcal{O}_X$。由引理
+\ref{spaces-limits-lemma-integral-algebra-directed-colimit-finite}，
+可将 $\mathcal{A} = \colim \mathcal{A}_i$ 写成有限且有限表示的
+$\mathcal{O}_Y$-代数 $\mathcal{A}_i$ 的有向余极限。
+令 $X_i = \underline{\Spec}_Y(\mathcal{A}_i)$；参见
+《空间的态射》，定义
+\ref{spaces-morphisms-definition-relative-spec}。
+按构造，$X_i \to Y$ 有限且有限表示，并且 $X = \lim X_i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-finite-in-finite-and-finite-presentation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的有限态射。
+假设 $Y$ 拟紧且拟分离。则可以将 $X$ 写成有向极限
+$X = \lim X_i$，其中转移映射均为闭浸入，而对象
+$X_i$ 在 $Y$ 上有限且有限表示。
+\end{lemma}
+
+\begin{proof}
+考虑有限拟凝聚 $\mathcal{O}_Y$-模
+$\mathcal{A} = f_*\mathcal{O}_X$。由引理
+\ref{spaces-limits-lemma-finite-algebra-directed-colimit-finite-finitely-presented}，
+可将 $\mathcal{A} = \colim \mathcal{A}_i$ 写成有限且有限表示的
+$\mathcal{O}_Y$-代数 $\mathcal{A}_i$ 的有向余极限，
+其转移映射均满。令
+$X_i = \underline{\Spec}_Y(\mathcal{A}_i)$；参见《空间的态射》，定义
+\ref{spaces-morphisms-definition-relative-spec}。
+按构造，$X_i \to Y$ 有限且有限表示，转移映射均为闭浸入，
+并且 $X = \lim X_i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-closed-is-limit-closed-and-finite-presentation}
+\begin{slogan}
+拟紧拟分离代数空间的闭浸入可由有限表示闭浸入逼近。
+\end{slogan}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的闭浸入。
+假设 $Y$ 拟紧且拟分离。则可以将 $X$ 写成有向极限
+$X = \lim X_i$，其中转移映射均为闭浸入，而态射
+$X_i \to Y$ 均为有限表示闭浸入。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{I} \subset \mathcal{O}_Y$ 为将 $X$ 定义成 $Y$
+的闭子空间的拟凝聚理想层。由引理
+\ref{spaces-limits-lemma-directed-colimit-finite-type}，可将
+$\mathcal{I} = \colim \mathcal{I}_i$ 写成其有限型拟凝聚子模的滤过余极限。
+% P09-ERR-0091
+令 $X_i$ 为由 $\mathcal{I}_i$ 截出的 $X$ 的闭子空间。
+则 $X_i \to Y$ 为有限表示闭浸入，且 $X = \lim X_i$。略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-quasi-affine-closed-in-finite-presentation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设
+\begin{enumerate}
+\item $f$ 局部有限型且拟仿射，并且
+\item $Y$ 拟紧且拟分离。
+\end{enumerate}
+则存在有限表示态射 $f' : X' \to Y$，以及 $Y$ 上的闭浸入
+$X \to X'$。
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-characterize-quasi-affine}，可找到分解
+$X \to Z \to Y$，其中 $X \to Z$ 是拟紧开浸入，而
+$Z \to Y$ 仿射。写成 $Z = \lim Z_i$，其中 $Z_i$ 在 $Y$ 上仿射且
+有限表示（引理 \ref{spaces-limits-lemma-affine-morphism-is-limit}）。
+对某个 $0 \in I$，可找到拟紧开子空间 $U_0 \subset Z_0$，
+使 $X$ 同构于 $U_0$ 在 $Z$ 中的逆像
+（引理 \ref{spaces-limits-lemma-descend-opens}）。令 $U_i$ 为 $U_0$ 在 $Z_i$
+中的逆像，则
+% P09-ERR-0092
+$U = \lim U_i$。由引理 \ref{spaces-limits-lemma-finite-type-eventually-closed}，
+当某个 $i$ 充分大时，$X \to U_i$ 为闭浸入。令 $X'=U_i$ 即完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-finite-type-closed-in-finite-presentation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设：
+\begin{enumerate}
+% P09-ERR-0093
+\item $f$ 局部有限型。
+\item $X$ 拟紧且拟分离，并且
+\item $Y$ 拟紧且拟分离。
+\end{enumerate}
+则存在有限表示态射 $f' : X' \to Y$，以及 $Y$ 上代数空间的闭浸入
+$X \to X'$。
+\end{lemma}
+
+\begin{proof}
+由命题 \ref{spaces-limits-proposition-approximate}，可将 $X = \lim_i X_i$ 写成极限，
+其中 $X_i$ 拟分离且在 $\mathbf{Z}$ 上有限型，而转移态射
+$f_{ii'} : X_i \to X_{i'}$ 均为仿射态射。考虑交换图
+$$
+\xymatrix{
+X \ar[r] \ar[rd] & X_{i, Y} \ar[r] \ar[d] & X_i \ar[d] \\
+& Y \ar[r] & \Spec(\mathbf{Z})
+}
+$$
+注意 $X_i$ 在 $\Spec(\mathbf{Z})$ 上有限表示；参见《空间的态射》，引理
+\ref{spaces-morphisms-lemma-noetherian-finite-type-finite-presentation}。
+因此，由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-base-change-finite-presentation}，
+基变换 $X_{i,Y} \to Y$ 有限表示。注意
+% P09-ERR-0094
+$\lim X_{i,Y} = X \times Y$，并且 $X \to X \times Y$ 为单态射。
+由引理 \ref{spaces-limits-lemma-finite-type-eventually-closed}，当 $i$ 充分大时，
+$X \to X_{i,Y}$ 为单态射。固定这样的 $i$。注意
+$X \to X_{i,Y}$ 局部有限型（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-permanence-finite-type}），且为单态射，
+故分离且局部拟有限（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}）。
+因此 $X \to X_{i,Y}$ 可表。进而 $X \to X_{i,Y}$ 拟仿射，因为可以使用
+《空间》，引理
+\ref{spaces-lemma-representable-transformations-property-implication}
+中的原理，以及概形态射的相应结果《态射进阶》，引理
+\ref{more-morphisms-lemma-quasi-finite-separated-quasi-affine}。
+于是引理 \ref{spaces-limits-lemma-quasi-affine-closed-in-finite-presentation}
+给出分解 $X \to X' \to X_{i,Y}$，其中 $X \to X'$ 为闭浸入，
+$X' \to X_{i,Y}$ 有限表示。最后，$X' \to Y$ 作为有限表示态射的复合
+而有限表示（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-composition-finite-presentation}）。
+\end{proof}
+
+\begin{proposition}
+\label{spaces-limits-proposition-separated-closed-in-finite-presentation}
+设 $S$ 为概形。
+% P09-ERR-0095
+$f : X \to Y$ 为 $S$ 上代数空间的态射。假设
+\begin{enumerate}
+\item $f$ 有限型且分离，并且
+\item $Y$ 拟紧且拟分离。
+\end{enumerate}
+则存在有限表示分离态射 $f' : X' \to Y$，以及 $Y$ 上的闭浸入
+$X \to X'$。
+\end{proposition}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-finite-type-closed-in-finite-presentation}，
+存在闭浸入 $X \to Z$，其中 $Z/Y$ 有限表示。设
+$\mathcal{I} \subset \mathcal{O}_Z$ 为拟凝聚理想层，它将
+% P09-ERR-0096
+$X$ 定义成 $Y$ 的闭子概形。由引理
+\ref{spaces-limits-lemma-directed-colimit-finite-type}，可将 $\mathcal{I}$ 写成其
+有限型拟凝聚理想层的有向余极限
+$\mathcal{I} = \colim_{a \in A} \mathcal{I}_a$。
+令 $X_a \subset Z$ 为由 $\mathcal{I}_a$ 定义的闭子空间。
+它们组成以 $A$ 为指标的逆系统。转移态射
+$X_a \to X_{a'}$ 仿射，因为它们是闭浸入。每个 $X_a$ 都拟紧且
+拟分离，因为它是 $Z$ 的闭子空间，而依我们的假设，$Z$ 拟紧且拟分离。
+由 $\mathcal{I} = \colim_{a \in A} \mathcal{I}_a$ 立即得到
+$X = \lim_a X_a$。每个态射 $X_a \to Z$ 都有限表示；参见
+《态射》，引理 \ref{morphisms-lemma-closed-immersion-finite-presentation}。
+因此态射 $X_a \to Y$ 均有限表示。于是只需证明对某个
+$a \in A$，$X_a \to Y$ 分离。由于已经假设 $X \to Y$ 分离，
+这由引理 \ref{spaces-limits-lemma-eventually-separated} 得出。
+\end{proof}
+
+
+
+
+
+
+\section{固有态射的逼近}
+\label{spaces-limits-section-approximate-proper}
+
+\begin{lemma}
+\label{spaces-limits-lemma-proper-limit-of-proper-finite-presentation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的固有态射，
+且 $Y$ 拟紧且拟分离。则 $X = \lim X_i$ 是代数空间 $X_i$
+的有向极限，其中 $X_i$ 在 $Y$ 上固有且有限表示，而转移态射及态射
+$X \to X_i$ 均为闭浸入。
+\end{lemma}
+
+\begin{proof}
+由命题 \ref{spaces-limits-proposition-separated-closed-in-finite-presentation}，
+可找到闭浸入 $X \to X'$，其中 $X'$ 在 $Y$ 上分离且有限表示。
+由引理 \ref{spaces-limits-lemma-closed-is-limit-closed-and-finite-presentation}，
+可写成 $X = \lim X_i$，其中 $X_i \to X'$ 为有限表示闭浸入。
+我们断言，当所有 $i$ 充分大时，态射 $X_i \to Y$ 固有；
+这将完成证明。
+
+\medskip\noindent
+为证明该断言，可以假设 $Y$ 为仿射概形；参见《空间的态射》，引理
+\ref{spaces-morphisms-lemma-proper-local}。接着，使用 Chow 引理的弱版本；
+参见《空间的上同调》，引理
+\ref{spaces-cohomology-lemma-weak-chow}，得到图
+$$
+\xymatrix{
+X' \ar[rd] & X'' \ar[d] \ar[l]^\pi \ar[r] & \mathbf{P}^n_Y \ar[dl] \\
+& Y &
+}
+$$
+，其中 $X'' \to \mathbf{P}^n_Y$ 为浸入，而
+$\pi : X'' \to X'$ 固有且满。以
+$X'_i \subset X''$（相应地 $\pi^{-1}(X)$）表示
+$X_i \subset X'$（相应地 $X \subset X'$）的概形论逆像。
+则 $\lim X'_i = \pi^{-1}(X)$。由于 $\pi^{-1}(X) \to Y$ 固有
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-composition-proper}），
+$\pi^{-1}(X) \to \mathbf{P}^n_Y$ 为闭浸入
+（《空间的态射》，引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence} 及
+\ref{spaces-morphisms-lemma-immersion-when-closed}）。
+因此，由引理 \ref{spaces-limits-lemma-eventually-closed-immersion}，当 $i$ 充分大时，
+$X'_i \to \mathbf{P}^n_Y$ 为闭浸入。于是 $X'_i$ 在 $Y$ 上固有。
+对这样的 $i$，由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-image-proper-is-proper}，
+态射 $X_i \to Y$ 固有。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-proper-limit-of-proper-finite-presentation-noetherian}
+设 $f : X \to Y$ 为 $\mathbf{Z}$ 上代数空间的固有态射，且
+$Y$ 拟紧且拟分离。则存在有向集 $I$ 以及以 $I$ 为指标的代数空间
+态射逆系统 $(f_i : X_i \to Y_i)$，使得转移态射
+$X_i \to X_{i'}$ 与 $Y_i \to Y_{i'}$ 均为仿射态射，
+$f_i$ 固有且有限表示，$Y_i$ 在 $\mathbf{Z}$ 上有限表示，并且
+$(X \to Y) = \lim (X_i \to Y_i)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-proper-limit-of-proper-finite-presentation}，
+可写成 $X = \lim_{k \in K} X_k$，其中 $X_k \to Y$ 固有且有限表示。
+接着，由绝对诺特逼近（命题 \ref{spaces-limits-proposition-approximate}），
+可写成 $Y = \lim_{j \in J} Y_j$，其中 $Y_j$ 在 $\mathbf{Z}$
+上有限表示。对每个 $k$，存在 $j$ 以及有限表示态射
+$X_{k,j} \to Y_j$，使得作为 $Y$ 上的代数空间，
+$X_k \cong Y \times_{Y_j} X_{k,j}$；参见引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。增大 $j$ 后，可以假设
+$X_{k,j} \to Y_j$ 固有；参见引理 \ref{spaces-limits-lemma-eventually-proper}。
+% P09-ERR-0097
+集合 $I$ 将由这些序对 $(k,j)$ 组成，相应态射为
+$X_{k,j} \to Y_j$。对每个 $k' \geq k$，可以找到 $j' \geq j$
+及位于 $Y_{j'} \to Y_j$ 之上的态射
+% P09-ERR-0098
+$X_{j',k'} \to X_{j,k}$，其到 $Y$ 的基变换给出态射
+$X_{k'} \to X_k$（再次由引理
+\ref{spaces-limits-lemma-descend-finite-presentation} 得出）。
+这些态射构成该系统的转移态射。略去若干细节。
+\end{proof}
+
+\noindent
+回忆有限型拟凝聚模的概形论支撑；参见《空间的态射》，定义
+\ref{spaces-morphisms-definition-scheme-theoretic-support}。
+
+\begin{lemma}
+\label{spaces-limits-lemma-eventually-proper-support}
+沿用情形 \ref{spaces-limits-situation-descent-property} 的假设和记号。
+设 $\mathcal{F}_0$ 为拟凝聚 $\mathcal{O}_{X_0}$-模。
+以 $\mathcal{F}$ 与 $\mathcal{F}_i$ 表示 $\mathcal{F}_0$
+到 $X$ 与 $X_i$ 的拉回。假设
+\begin{enumerate}
+\item $f_0$ 局部有限型，
+\item $\mathcal{F}_0$ 有限型，
+\item $\mathcal{F}$ 的概形论支撑在 $Y$ 上固有。
+\end{enumerate}
+则对某个 $i$，$\mathcal{F}_i$ 的概形论支撑在 $Y_i$ 上固有。
+\end{lemma}
+
+\begin{proof}
+可以用 $\mathcal{F}_0$ 的概形论支撑替换 $X_0$。由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-support-finite-type}，这保证 $X_i$
+是 $\mathcal{F}_i$ 的支撑，而 $X$ 是 $\mathcal{F}$ 的支撑。
+于是，若 $Z \subset X$ 表示 $\mathcal{F}$ 的概形论支撑，则
+$Z \to X$ 为普遍同胚。由于依假设 $Z \to Y$ 固有，故
+$X \to Y$ 固有；参见《态射》，引理
+\ref{morphisms-lemma-image-proper-is-proper}。由引理
+\ref{spaces-limits-lemma-eventually-proper}，对某个 $i$，
+% P09-ERR-0099
+$X_i \to Y$ 固有。进而由《空间的态射》，引理
+\ref{spaces-morphisms-lemma-closed-immersion-proper} 及
+\ref{spaces-morphisms-lemma-composition-proper}，
+$\mathcal{F}_i$ 的概形论支撑 $Z_i$ 在 $Y$ 上固有。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{嵌入仿射空间}
+\label{spaces-limits-section-embedding}
+
+\noindent
+下面给出若干技术性引理，稍后证明 Chow 引理时将用到。
+
+\begin{lemma}
+\label{spaces-limits-lemma-embedding-into-affine-over-ls-qs}
+设 $S$ 为概形，$f : U \to X$ 为 $S$ 上代数空间的态射。假设 $U$
+是仿射概形，$f$ 局部有限型，并且 $X$ 拟分离且局部分离。那么存在
+$X$ 上的浸入 $U \to \mathbf{A}^n_X$。
+\end{lemma}
+
+\begin{proof}
+记 $U = \Spec(A)$。把 $A = \colim A_i$ 写成有限型
+$\mathbf{Z}$-子代数的滤过余极限。对每个 $i$，态射
+$U \to U_i = \Spec(A_i)$ 诱导一个态射
+$$
+U \longrightarrow X \times U_i
+$$
+于 $X$ 之上。在极限中，态射 $U \to X \times U$ 是浸入，因为
+$X$ 局部分离，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-semi-diagonal}。由引理
+\ref{spaces-limits-lemma-finite-type-eventually-closed}，对某个 $i$，
+$U \to X \times U_i$ 是浸入。由于 $U_i$ 同构于
+$\mathbf{A}^n_{\mathbf{Z}}$ 的一个闭子概形，引理得证。
+\end{proof}
+
+\begin{remark}
+\label{spaces-limits-remark-cannot-embed-in-general}
+我们已在《例》第 \ref{examples-section-embedding-affines} 节看到，
+若去掉 $X$ 局部分离的假设，引理
+\ref{spaces-limits-lemma-embedding-into-affine-over-ls-qs} 不再成立。这引出如下问题：
+若去掉 $X$ 拟分离的假设，引理
+\ref{spaces-limits-lemma-embedding-into-affine-over-ls-qs} 是否仍成立？如果你知道答案，
+请发送电子邮件至
+\href{mailto:stacks.project@gmail.com}{stacks.project@gmail.com}。
+\end{remark}
+
+\begin{lemma}
+\label{spaces-limits-lemma-embedding-into-affine-over-qs}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的态射。假设 $X$
+是诺特的，并且 $f$ 有限表示。那么存在稠密开集 $V \subset Y$ 以及浸入
+$V \to \mathbf{A}^n_X$。
+\end{lemma}
+
+\begin{proof}
+这些假设蕴含 $Y$ 是诺特的（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}）。因此 $Y$
+拟分离，从而有一个稠密开子概形（《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}）。
+于是可以假设 $Y$ 是诺特概形。去掉 $Y$ 的不可约分支之间的交（使用
+《拓扑》引理 \ref{topology-lemma-Noetherian} 和《性质》引理
+\ref{properties-lemma-Noetherian-topology}），可以假设 $Y$ 是若干不可约
+诺特概形的不交并。由于存在浸入
+$$
+\mathbf{A}^n_X \amalg \mathbf{A}^m_X
+\longrightarrow
+\mathbf{A}^{\max(n, m) + 1}_X
+$$
+（略去细节），只需在 $Y$ 不可约的情形证明结论。
+
+\medskip\noindent
+假设 $Y$ 是不可约概形。令 $T \subset |X|$ 为 $f : Y \to X$ 的像的闭包。
+注意，由于 $|Y|$ 和 $|X|$ 都是良态拓扑空间（《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-separated-sober}），$T$ 不可约，并且有
+唯一的泛点 $\xi$，它是 $Y$ 的泛点 $\eta$ 的像。
+% P09-ERR-0100
+设 $\mathcal{I} \subset X$ 为切出 $T$ 上约化诱导空间结构的拟凝聚理想层
+（《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}）。由于
+$\mathcal{O}_{Y, \eta}$ 是阿廷局部环，对某个 $n > 0$ 有
+$f^{-1}\mathcal{I}^n \mathcal{O}_{Y, \eta} = 0$。由于
+$f^{-1}\mathcal{I}\mathcal{O}_Y$ 是有限型拟凝聚理想，可知对某个非空开集
+$V \subset Y$，有 $f^{-1}\mathcal{I}^n\mathcal{O}_V = 0$。令
+$Z \subset X$ 为由 $\mathcal{I}^n$ 切出的闭子空间。按构造，
+$V \to Y \to X$ 通过 $Z$ 分解。由于
+$\mathbf{A}^n_Z \to \mathbf{A}^n_X$ 是浸入，可以用 $Z$ 代替 $X$、用
+$V$ 代替 $Y$。这样便归结到如下情形：$Y$ 和 $X$ 不可约，并且
+$Y \to X$ 把 $Y$ 的泛点映到 $X$ 的泛点。
+
+\medskip\noindent
+假设 $Y$ 和 $X$ 不可约，$Y$ 是概形，并且 $Y \to X$ 把 $Y$ 的泛点映到
+$X$ 的泛点。由《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}，
+$X$ 有一个稠密开子概形 $U \subset X$。选取非空仿射开集 $V \subset Y$，
+使其在 $X$ 中的像包含于 $U$。由《态射》引理
+\ref{morphisms-lemma-quasi-affine-finite-type-over-S}，可以把 $V \to U$
+分解为 $V \to \mathbf{A}^n_U \to U$。再与
+$\mathbf{A}^n_U \to \mathbf{A}^n_X$ 复合，便得到所需的浸入。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{支撑在闭子集上的截面}
+\label{spaces-limits-section-sections-with-support-in-closed}
+
+\noindent
+本节是《性质》第
+\ref{properties-section-sections-with-support-in-closed} 节的类似版本。
+
+\begin{lemma}
+\label{spaces-limits-lemma-quasi-coherent-finite-type-ideals}
+设 $S$ 为概形，$X$ 为拟紧拟分离代数空间，$U \subset X$ 为开子空间。
+下列条件等价：
+\begin{enumerate}
+\item $U \to X$ 拟紧；
+\item $U$ 拟紧；
+\item 存在有限型拟凝聚理想层
+$\mathcal{I} \subset \mathcal{O}_X$，使得
+$|X| \setminus |U| = |V(\mathcal{I})|$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $W$ 为仿射概形，$\varphi : W \to X$ 为满平展态射，见
+《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}。若 (1) 成立，则
+$\varphi^{-1}(U) \to W$ 拟紧，故 $\varphi^{-1}(U)$ 拟紧，进而 $U$
+拟紧（因为 $|\varphi^{-1}(U)| \to |U|$ 是满射）。若 (2) 成立，则
+$\varphi^{-1}(U)$ 拟紧；这是因为 $X$ 拟分离，故 $\varphi$ 拟紧
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}）。
+于是由《性质》引理
+\ref{properties-lemma-quasi-coherent-finite-type-ideals}，
+$\varphi^{-1}(U) \to W$ 是概形的拟紧态射。再由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-local}，$U \to X$ 拟紧。因此
+(1) 与 (2) 等价。
+
+\medskip\noindent
+假设 (1) 和 (2) 成立。由《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}，存在唯一的拟凝聚理想层
+$\mathcal{J}$，它切出 $|X| \setminus |U|$ 上的约化诱导闭子空间结构。
+% P09-ERR-0101
+注意，$\mathcal{J}|_U = \mathcal{O}_U$，它是有限型
+$\mathcal{O}_U$-模。由于 $U$ 拟紧，由引理
+\ref{spaces-limits-lemma-directed-colimit-finite-type}，存在有限型拟凝聚子层
+$\mathcal{I} \subset \mathcal{J}$，满足
+$\mathcal{I}|_U = \mathcal{J}|_U$。于是
+$|X| \setminus |U| = |V(\mathcal{I})|$，从而得到 (3)。反过来，若
+$\mathcal{I}$ 如 (3) 中所述，则把关于概形的引理（《性质》引理
+\ref{properties-lemma-quasi-coherent-finite-type-ideals}）应用于 $W$ 上的
+$\varphi^{-1}\mathcal{I}$，可知 $\varphi^{-1}(U) \subset W$ 是拟紧开集。
+因此 (2) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-sections-annihilated-by-ideal}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，
+$\mathcal{I} \subset \mathcal{O}_X$ 为拟凝聚理想层，$\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。考察如下 $\mathcal{O}_X$-模层 $\mathcal{F}'$：
+它把 $X_\etale$ 的每个对象 $U$ 映为模
+$$
+\mathcal{F}'(U)
+=
+\{s \in \mathcal{F}(U) \mid
+\mathcal{I}s = 0\}
+$$
+假设 $\mathcal{I}$ 有限型。那么
+\begin{enumerate}
+\item $\mathcal{F}'$ 是拟凝聚 $\mathcal{O}_X$-模层；
+\item 对 $X_\etale$ 中的仿射对象 $U$，有
+$\mathcal{F}'(U) = \{s \in \mathcal{F}(U) \mid \mathcal{I}(U)s = 0\}$；
+\item $\mathcal{F}'_x = \{s \in \mathcal{F}_x \mid \mathcal{I}_x s = 0\}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然，定义 $\mathcal{F}'$ 的规则给出 $\mathcal{F}$ 的子层。因此可以在
+$X$ 上平展局部地验证其余断言。这样便约化到关于概形的情形，即《性质》
+引理 \ref{properties-lemma-sections-annihilated-by-ideal}。
+\end{proof}
+
+\begin{definition}
+\label{spaces-limits-definition-subsheaf-sections-annihilated-by-ideal}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，
+$\mathcal{I} \subset \mathcal{O}_X$ 为有限型拟凝聚理想层，
+$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。上面引理
+\ref{spaces-limits-lemma-sections-annihilated-by-ideal} 中定义的子层
+$\mathcal{F}' \subset \mathcal{F}$ 称为{\it 被 $\mathcal{I}$ 零化的截面子层}。
+\end{definition}
+
+\begin{lemma}
+\label{spaces-limits-lemma-push-sections-annihilated-by-ideal}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的拟紧拟分离态射。
+设 $\mathcal{I} \subset \mathcal{O}_Y$ 为有限型拟凝聚理想层，
+$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模，并设
+$\mathcal{F}' \subset \mathcal{F}$ 为被
+$f^{-1}\mathcal{I}\mathcal{O}_X$ 零化的截面子层。那么
+$f_*\mathcal{F}' \subset f_*\mathcal{F}$ 是被 $\mathcal{I}$ 零化的截面子层。
+\end{lemma}
+
+\begin{proof}
+略。提示：$f$ 拟紧拟分离的假设蕴含 $f_*\mathcal{F}$ 拟凝聚
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-pushforward}），
+故引理 \ref{spaces-limits-lemma-sections-annihilated-by-ideal} 可应用于
+$\mathcal{I}$ 和 $f_*\mathcal{F}$。
+\end{proof}
+
+\noindent
+下面考察支撑在闭子集上的截面层。它同样未必总是拟凝聚层；但若该闭集的
+补集在给定代数空间中是``逆紧的''，它便是拟凝聚层。
+
+\begin{lemma}
+\label{spaces-limits-lemma-sections-supported-on-closed-subset}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $T \subset |X|$ 为闭子集，
+$U \subset X$ 为满足 $T \amalg |U| = |X|$ 的开子空间。设
+$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。考察如下
+$\mathcal{O}_X$-模层 $\mathcal{F}'$：它把 $X_\etale$ 的每个对象
+$\varphi : W \to X$ 映为模
+$$
+\mathcal{F}'(W)
+=
+\{s \in \mathcal{F}(W) \mid
+s\text{ 的支撑包含于 }|\varphi|^{-1}(T)\}
+$$
+若 $U \to X$ 拟紧，则
+\begin{enumerate}
+% P09-ERR-0102
+\item 当 $W$ 仿射时，存在有限生成理想
+$I \subset \mathcal{O}_X(W)$，使得 $|\varphi|^{-1}(T) = V(I)$；
+\item 对 (1) 中的 $W$ 和 $I$，有
+$\mathcal{F}'(W) = \{x \in \mathcal{F}(W) \mid
+I^nx = 0 \text{ 对某个 } n\}$；
+\item $\mathcal{F}'$ 是拟凝聚 $\mathcal{O}_X$-模层。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然，定义 $\mathcal{F}'$ 的规则给出 $\mathcal{F}$ 的子层。因此可以在
+$X$ 上平展局部地验证其余断言。这样便约化到关于概形的情形，即《性质》
+引理 \ref{properties-lemma-sections-supported-on-closed-subset}。
+\end{proof}
+
+\begin{definition}
+\label{spaces-limits-definition-subsheaf-sections-supported-on-closed}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $T \subset |X|$ 为闭子集，
+其补集对应于开子空间 $U \subset X$，并且包含态射 $U \to X$ 拟紧。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。上面引理
+\ref{spaces-limits-lemma-sections-supported-on-closed-subset} 中定义的拟凝聚子层
+$\mathcal{F}' \subset \mathcal{F}$ 称为{\it 支撑在 $T$ 上的截面子层}。
+\end{definition}
+
+\begin{lemma}
+\label{spaces-limits-lemma-push-sections-supported-on-closed-subset}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的拟紧拟分离态射，
+$T \subset |Y|$ 为闭子集。假设 $|Y| \setminus T$ 对应于开子空间
+$V \subset Y$，并且 $V \to Y$ 拟紧。设 $\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模，$\mathcal{F}' \subset \mathcal{F}$ 为支撑在
+$|f|^{-1}T$ 上的截面子层。那么
+$f_*\mathcal{F}' \subset f_*\mathcal{F}$ 是支撑在 $T$ 上的截面子层。
+\end{lemma}
+
+\begin{proof}
+略。提示：% P09-ERR-0103
+$|X| \setminus |f|^{-1}T$ 是开子空间 $U = f^{-1}V \subset X$ 的支撑。
+由于 $V \to Y$ 拟紧，其基变换 $U \to X$ 也拟紧。$f$ 拟紧拟分离的假设
+蕴含 $f_*\mathcal{F}$ 拟凝聚。因此，引理
+\ref{spaces-limits-lemma-sections-supported-on-closed-subset} 既可应用于 $T$ 和
+$f_*\mathcal{F}$，也可应用于 $|f|^{-1}T$ 和 $\mathcal{F}$。所述拟凝聚模的
+相等性由定义立即得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{仿射空间的刻画}
+\label{spaces-limits-section-affine}
+
+\noindent
+本节是《极限》第 \ref{limits-section-affine} 节的类似版本。
+
+\begin{lemma}
+\label{spaces-limits-lemma-affine}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 满且有限，
+并假设 $X$ 仿射。那么 $Y$ 仿射。
+\end{lemma}
+
+\begin{proof}
+我们可以且确实把 $f : X \to Y$ 看作 $\Spec(\mathbf{Z})$ 上代数空间的态射
+（见《空间》定义 \ref{spaces-definition-base-change}）。注意，有限态射是
+仿射且普遍闭的，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-closed}。由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-image-universally-closed-separated}，$Y$
+是分离代数空间。由于 $f$ 满且 $X$ 拟紧，$Y$ 也拟紧。
+
+\medskip\noindent
+由引理 \ref{spaces-limits-lemma-finite-in-finite-and-finite-presentation}，可以写成
+$X = \lim X_a$，其中每个 $X_a \to Y$ 都有限且有限表示。由引理
+\ref{spaces-limits-lemma-limit-is-affine}，当 $a$ 充分大时 $X_a$ 仿射。因此可以且确实
+假设 $f : X \to Y$ 有限、满且有限表示。
+
+\medskip\noindent
+由命题 \ref{spaces-limits-proposition-approximate}，可以把 $Y = \lim Y_i$ 写成
+$\mathbf{Z}$ 上有限表示代数空间的有向极限。由引理
+\ref{spaces-limits-lemma-descend-finite-presentation}，可以找到 $0 \in I$ 以及有限表示态射
+$X_0 \to Y_0$，使得当 $i \geq 0$ 时
+$X_i = X_0 \times_{Y_0} Y_i$，并且 $X = \lim_i X_i$。由引理
+\ref{spaces-limits-lemma-descend-finite}，当 $i$ 充分大时 $X_i \to Y_i$ 有限。由引理
+\ref{spaces-limits-lemma-descend-surjective}，当 $i$ 充分大时 $X_i \to Y_i$ 满。由引理
+\ref{spaces-limits-lemma-limit-is-affine}，当 $i$ 充分大时 $X_i$ 仿射。因此当 $i$
+充分大时，可以应用《空间的上同调》引理
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+得出 $Y_i$ 仿射。这蕴含 $Y$ 仿射，证明完成。
+\end{proof}
+
+\begin{proposition}
+\label{spaces-limits-proposition-affine}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $X$ 仿射，
+并且 $f$ 满且普遍闭\footnote{整态射是普遍闭的，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-closed}。}。那么 $Y$ 仿射。
+\end{proposition}
+
+\begin{proof}
+我们可以且确实把 $f : X \to Y$ 看作 $\Spec(\mathbf{Z})$ 上代数空间的态射
+（见《空间》定义 \ref{spaces-definition-base-change}）。由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-image-universally-closed-separated}，$Y$
+是分离代数空间。继而由《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-permanence}，$f$ 仿射。再由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-closed}，$f$ 是整态射。
+
+\medskip\noindent
+由上一段，可以假设 $f : X \to Y$ 满且整，$X$ 仿射，而 $Y$ 分离。
+由于 $f$ 满且 $X$ 拟紧，还可推出 $Y$ 拟紧。
+
+\medskip\noindent
+考察层 $\mathcal{A} = f_*\mathcal{O}_X$。这是拟凝聚
+$\mathcal{O}_Y$-代数层，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-pushforward}。由引理
+\ref{spaces-limits-lemma-colimit-finitely-presented}，可以把
+$\mathcal{A} = \colim_i \mathcal{F}_i$ 写成有限型
+$\mathcal{O}_Y$-模的滤过余极限。令
+$\mathcal{A}_i \subset \mathcal{A}$ 为由 $\mathcal{F}_i$ 生成的
+$\mathcal{O}_Y$-子代数。由于代数映射
+$\mathcal{O}_Y \to \mathcal{A}$ 是整的，每个 $\mathcal{A}_i$ 都是有限拟凝聚
+$\mathcal{O}_Y$-代数。因此
+$$
+X_i = \underline{\Spec}_Y(\mathcal{A}_i) \longrightarrow Y
+$$
+是代数空间的有限态射。这里 $\underline{\Spec}$ 是《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-equivalence-algebras} 的构造。显然
+$X = \lim_i X_i$。因此由引理 \ref{spaces-limits-lemma-limit-is-affine}，当 $i$
+充分大时，概形 $X_i$ 仿射。此外，由于 $X \to Y$ 通过每个 $X_i$ 分解，
+$X_i \to Y$ 满。于是由引理 \ref{spaces-limits-lemma-affine}，$Y$ 仿射。
+\end{proof}
+
+\noindent
+下面这个上述结果的推论可见于 \cite{CLO}。
+
+\begin{lemma}
+\label{spaces-limits-lemma-reduction-scheme}
+\begin{reference}
+\cite[3.1.12]{CLO}
+\end{reference}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。若 $X_{red}$ 是概形，
+则 $X$ 是概形。
+\end{lemma}
+
+\begin{proof}
+设 $U' \subset X_{red}$ 为仿射开子概形。令 $U \subset X$ 为对应于开子集
+$|U'| \subset |X_{red}| = |X|$ 的开子空间。那么 $U' \to U$ 满且整。
+因此由命题 \ref{spaces-limits-proposition-affine}，$U$ 仿射。这样，$X$ 的每个点都包含在
+$X$ 的一个开子概形中，即 $X$ 是概形。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-integral-universally-bijective-scheme}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 是整态射，
+并诱导双射 $|X| \to |Y|$。那么 $X$ 是概形当且仅当 $Y$ 是概形。
+\end{lemma}
+
+\begin{proof}
+按照定义，整态射可表。因此若 $Y$ 是概形，则 $X$ 也是概形。反过来，
+假设 $X$ 是概形。设 $U \subset X$ 为仿射开集。整态射是闭的，并且 $|f|$
+是双射，故 $|f|(|U|) \subset |Y|$ 是开集，因为它是
+$|f|(|X| \setminus |U|)$ 的补集。令 $V \subset Y$ 为满足
+$|V| = |f|(|U|)$ 的开子空间，见《空间的性质》引理
+\ref{spaces-properties-lemma-open-subspaces}。那么 $U \to V$ 整且满，
+所以由命题 \ref{spaces-limits-proposition-affine}，$V$ 是仿射概形。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-check-closed-infinitesimally}
+设 $S$ 为概形，$f : X \to B$ 和 $B' \to B$ 为 $S$ 上代数空间的态射。
+假设
+\begin{enumerate}
+\item $B' \to B$ 是闭浸入；
+\item $|B'| \to |B|$ 是双射；
+\item $X \times_B B' \to B'$ 是闭浸入；
+\item $X \to B$ 有限型，或者 $B' \to B$ 有限表示。
+\end{enumerate}
+那么 $f : X \to B$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+假设 (1) 和 (2) 蕴含 $B_{red} = B'_{red}$。置
+$X' = X \times_B B'$。那么 % P09-ERR-0104
+$X' \to X$ 是闭浸入，并且 $X'_{red} = X_{red}$。设 $U \to B$ 为平展态射，
+其中 $U$ 仿射。那么 $X' \times_B U \to X \times_B U$ 是代数空间的闭浸入，
+并在底层约化空间上诱导同构。由于 $X' \times_B U$ 是概形（因为
+$B' \to B$ 和 $X' \to B'$ 可表），由引理 \ref{spaces-limits-lemma-reduction-scheme}，
+$X \times_B U$ 也是概形。因此 $X \to B$ 也可表。这样便约化到概形的情形，
+见《态射》引理 \ref{morphisms-lemma-check-closed-infinitesimally}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{概形的有限覆盖}
+\label{spaces-limits-section-finite-cover}
+
+\noindent
+作为本章极限结果的一个应用，我们证明：对任意拟紧拟分离代数空间 $X$，
+存在概形 $Y$ 以及满有限态射 $Y \to X$。我们将依赖已经证明的如下结果：
+% P09-ERR-0105
+可以找到一个由概形给出的有限整覆盖；该结果在《良态空间》第
+\ref{decent-spaces-section-integral-cover} 节中证明。
+
+\begin{proposition}
+\label{spaces-limits-proposition-there-is-a-scheme-finite-over}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间。
+\begin{enumerate}
+\item 存在有限表示的满有限态射 $Y \to X$，其中 $Y$ 是概形；
+\item 给定满平展态射 $U \to X$，可以选取 $Y \to X$，使得对每个
+$y \in Y$，存在开邻域 $V \subset Y$，且 $V \to X$ 通过 $U$ 分解。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) 是 (2) 中 $U = X$ 的特殊情形。取《良态空间》引理
+\ref{decent-spaces-lemma-there-is-a-scheme-integral-over} 中的
+$Y \to X$。选取有限仿射开覆盖 $Y = \bigcup V_j$，使得 $V_j \to X$
+通过 $U$ 分解。可以写成 $Y = \lim Y_i$，其中 $Y_i \to X$ 有限且
+有限表示，见引理 \ref{spaces-limits-lemma-integral-limit-finite-and-finite-presentation}。
+当 $i$ 充分大时，代数空间 $Y_i$ 是概形，见引理
+\ref{spaces-limits-lemma-limit-is-scheme}。当 $i$ 充分大时，可以找到仿射开集
+$V_{i, j} \subset Y_i$，其在 $Y$ 中的逆像恢复 $V_j$，见引理
+\ref{spaces-limits-lemma-descend-opens}。进一步增大 $i$ 后，$X$ 上的态射
+$V_j \to U$ 来自 $X$ 上的态射 $V_{i, j} \to U$，见命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-integral-limit-finite-and-finite-presentation-refined}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的整态射。假设 $Y$ 拟紧且
+拟分离。设 $V \subset Y$ 为拟紧开子空间，使得 $f^{-1}(V) \to V$ 有限且
+有限表示。那么可以把 $X$ 写成有向极限 $X = \lim X_i$，其中
+$f_i : X_i \to Y$ 有限且有限表示，并且对所有 $i$，
+$f^{-1}(V) \to f_i^{-1}(V)$ 都是同构。
+\end{lemma}
+
+\begin{proof}
+本引理是命题 \ref{spaces-limits-proposition-there-is-a-scheme-finite-over} 的小幅加强。
+考察整拟凝聚 $\mathcal{O}_Y$-代数
+$\mathcal{A} = f_*\mathcal{O}_X$。下一段将把
+$\mathcal{A} = \colim \mathcal{A}_i$ 写成有限且有限表示的
+$\mathcal{O}_Y$-代数 $\mathcal{A}_i$ 的有向余极限，并使得
+$\mathcal{A}_i|_V = \mathcal{A}|_V$。完成这一步后，置
+$X_i = \underline{\Spec}_Y(\mathcal{A}_i)$，见《空间的态射》定义
+\ref{spaces-morphisms-definition-relative-spec}。按构造，$X_i \to Y$
+有限且有限表示，$X = \lim X_i$，并且
+$f_i^{-1}(V) = f^{-1}(V)$。
+
+\medskip\noindent
+关于代数的断言，其证明类似于引理
+\ref{spaces-limits-lemma-integral-algebra-directed-colimit-finite} 第 (2) 部分的证明。
+首先使用引理 \ref{spaces-limits-lemma-colimit-finitely-presented}，把
+$\mathcal{A} = \colim \mathcal{F}_i$ 写成有限表示
+$\mathcal{O}_Y$-模的余极限。由于 $\mathcal{A}|_V$ 是有限型
+$\mathcal{O}_V$-模，可以且确实假设对所有 $i$，
+$\mathcal{F}_i|_V \to \mathcal{A}|_V$ 都是满射。对每个 $i$，令
+$\mathcal{J}_i$ 为下列映射的核：
+% P09-ERR-0106
+$$
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i) \longrightarrow \mathcal{A}
+$$
+当 $i' \geq i$ 时，有诱导映射
+$\mathcal{J}_i \to \mathcal{J}_{i'}$。我们有
+$\mathcal{A} =
+\colim \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$。
+此外，拟凝聚 $\mathcal{O}_X$-代数
+$\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$ 是有限的
+（因为它们是整拟凝聚 $\mathcal{O}_Y$-代数 $\mathcal{A}$ 在
+$\mathcal{O}_X$ 上的有限型拟凝聚子代数）。由上述满性，
+$\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$ 在 $V$
+上的限制是 $\mathcal{A}|_V$。由于 $\mathcal{A}|_V$ 作为
+$\mathcal{O}_Y$-代数有限表示，$\mathcal{J}_i|_V$ 作为
+$\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)|_V$ 的理想层有限生成。
+把 $\mathcal{J}_i = \colim \mathcal{E}_{ik}$ 写成有限表示
+$\mathcal{O}_X$-模的余极限。由上面的有限生成断言，可以且确实假设
+$\mathcal{E}_{ik}|_V$ 作为
+% P09-ERR-0107
+$\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)|_V$ 的理想层生成
+$\mathcal{J}_i|_V$。给定 $i' \geq i$ 和 $k$，存在 $k'$，使得有映射
+$\mathcal{E}_{ik} \to \mathcal{E}_{i'k'}$，并使图
+$$
+\xymatrix{
+\mathcal{J}_i \ar[r] & \mathcal{J}_{i'} \\
+\mathcal{E}_{ik} \ar[u] \ar[r] & \mathcal{E}_{i'k'} \ar[u]
+}
+$$
+交换。这由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-finite-presentation-quasi-compact-colimit}
+推出。它诱导映射
+$$
+\mathcal{A}_{ik} =
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/(\mathcal{E}_{ik})
+\longrightarrow
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_{i'})/(\mathcal{E}_{i'k'}) =
+\mathcal{A}_{i'k'}
+$$
+其中 $(\mathcal{E}_{ik})$ 表示由 $\mathcal{E}_{ik}$ 生成的理想。
+% P09-ERR-0108
+当 $k$ 充分大时，拟凝聚 $\mathcal{O}_X$-代数 $\mathcal{A}_{ki}$
+有限表示且有限（见引理
+\ref{spaces-limits-lemma-finite-algebra-directed-colimit-finite-finitely-presented} 的证明）。
+此外，按构造有 $\mathcal{A}_{ik}|_V = \mathcal{A}|_V$。最后，
+$$
+\colim \mathcal{A}_{ik} = \colim \mathcal{A}_i = \mathcal{A}
+$$
+其中第一个等式已在引理
+\ref{spaces-limits-lemma-finite-algebra-directed-colimit-finite-finitely-presented} 的证明中
+给出；第二个等式成立是因为 $\mathcal{A}$ 是模 $\mathcal{F}_i$ 的余极限。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-there-is-a-scheme-finite-over-refined}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间，并且 $|X|$ 只有有限多个
+不可约分支。
+\begin{enumerate}
+\item 存在有限表示的满有限态射 $f : Y \to X$，其中 $Y$ 是概形，并且
+$f$ 在某个拟紧稠密开集 $U \subset X$ 上有限平展；
+\item 给定满平展态射 $V \to X$，可以选取 $Y \to X$，使得对每个
+$y \in Y$，存在开邻域 $W \subset Y$，且 $W \to X$ 通过 $V$ 分解。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 是 (2) 中 $V = X$ 的特殊情形。
+
+\medskip\noindent
+证明 (2)。取《良态空间》引理
+\ref{decent-spaces-lemma-there-is-a-scheme-integral-over-refined} 中的
+$\pi : Y \to X$，并令 $U \subset X$ 为拟紧稠密开集，使得
+$\pi^{-1}(U) \to U$ 有限平展。选取有限仿射开覆盖
+$Y = \bigcup W_j$，使得 $W_j \to X$ 通过 $V$ 分解。可以写成
+$Y = \lim Y_i$，其中 $\pi_i : Y_i \to X$ 有限且有限表示，并且
+$\pi^{-1}(U) \to \pi_i^{-1}(U)$ 是同构，见引理
+\ref{spaces-limits-lemma-integral-limit-finite-and-finite-presentation-refined}。当 $i$
+充分大时，代数空间 $Y_i$ 是概形，见引理 \ref{spaces-limits-lemma-limit-is-scheme}。
+当 $i$ 充分大时，可以找到仿射开集 $W_{i, j} \subset Y_i$，其在 $Y$
+中的逆像恢复 $W_j$，见引理 \ref{spaces-limits-lemma-descend-opens}。进一步增大 $i$ 后，
+$X$ 上的态射 $W_j \to V$ 来自 $X$ 上的态射
+% P09-ERR-0109
+$W_{i, j} \to U$，见命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-there-is-a-scheme-finite-over-filtered}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间。存在 $t \geq 0$ 以及
+闭子空间
+$$
+X \supset Z_0 \supset Z_1 \supset \ldots \supset Z_t = \emptyset
+$$
+使得 $Z_i \to X$ 有限表示，$Z_0 \subset X$ 是加厚，并且对每个
+$i = 0, \ldots t - 1$，存在概形 $Y_i$ 以及有限表示的满有限态射
+$Y_i \to Z_i$，该态射在 $Z_i \setminus Z_{i + 1}$ 上有限平展。
+\end{lemma}
+
+\begin{proof}
+可以把 $X$ 看作 $\Spec(\mathbf{Z})$ 上的代数空间，见《空间》定义
+\ref{spaces-definition-base-change} 和《空间的性质》定义
+\ref{spaces-properties-definition-separated}。因此可以应用命题
+\ref{spaces-limits-proposition-approximate}。由此可找到仿射态射 $X \to X_0$，其中
+$X_0$ 在 $\mathbf{Z}$ 上有限表示。若能对 $X_0$ 证明本引理，则把分层和
+态射拉回到 $X$，便得到 $X$ 的结论；略去一些细节。这样便约化到下一段
+讨论的情形。
+
+\medskip\noindent
+假设 $X$ 在 $\mathbf{Z}$ 上有限表示。那么 $X$ 是诺特的，而 $|X|$ 是
+有限维诺特拓扑空间（有有限多个不可约分支）。因此可以对
+$\dim(|X|)$ 作归纳。以 $X$ 为靶的任何有限态射都有限表示，所以在证明的
+其余部分可以忽略这一要求。由引理
+\ref{spaces-limits-lemma-there-is-a-scheme-finite-over-refined}，存在满有限态射
+$Y \to X$，它在某个稠密开集 $U \subset X$ 上有限平展。置 $Z_0 = X$，
+并令 $Z_1 \subset X$ 为满足 $|Z_1| = |X| \setminus |U|$ 的约化闭子空间。
+由归纳假设，存在整数 $t \geq 0$ 以及滤过
+$$
+Z_1 \supset Z_{1, 0} \supset Z_{1, 1} \supset \ldots
+\supset Z_{1, t} = \emptyset
+$$
+由闭子空间组成，其中 $Z_{1, 0} \to Z_1$ 是加厚，并且存在有限满态射
+$Y_{1, i} \to Z_{1, i}$，它们在
+$Z_{1, i} \setminus Z_{1, i + 1}$ 上有限平展。由于 $Z_1$ 约化，
+$Z_1 = Z_{1, 0}$。因此对 $i \geq 1$，可以置
+$Z_i = Z_{1, i - 1}$ 和 $Y_i = Y_{1, i - 1}$，引理得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{得到概形}
+\label{spaces-limits-section-representable}
+
+\noindent
+下面再给出几种证明代数空间是概形的技巧。第一种技巧基于如下事实：
+可以证明存在一个不是概形的极小闭子空间。
+
+\begin{lemma}
+\label{spaces-limits-lemma-minimal-closed-subspace}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间。若 $X$ 不是概形，
+则存在闭子空间 $Z \subset X$，使得 $Z$ 不是概形，但每个真闭子空间
+$Z' \subset Z$ 都是概形。
+\end{lemma}
+
+\begin{proof}
+使用佐恩引理证明。令 $\mathcal{Z}$ 为所有不是概形的闭子空间 $Z$ 所成的集，
+并按包含关系排序。由假设，$\mathcal{Z}$ 包含 $X$，故非空。若
+$Z_\alpha$ 是 $\mathcal{Z}$ 的一个全序子集，则
+$Z = \bigcap Z_\alpha$ 属于 $\mathcal{Z}$。事实上，
+$$
+Z = \lim Z_\alpha
+$$
+且转移态射仿射。因此可应用引理 \ref{spaces-limits-lemma-limit-is-scheme} 得出：若 $Z$
+是概形，则某个 $Z_\alpha$ 也是概形。（即使 $Z = \emptyset$，这一论证也
+成立；但注意，由引理 \ref{spaces-limits-lemma-limit-nonempty}，这种情形不会发生。）
+所以由佐恩引理，$\mathcal{Z}$ 有极小元。
+\end{proof}
+
+\noindent
+现在可以证明这些极小非概形的一些性质。
+
+\begin{lemma}
+\label{spaces-limits-lemma-minimal-nonscheme}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间。假设每个真闭子空间
+$Z \subset X$ 都是概形，但 $X$ 不是概形。那么 $X$ 约化且不可约。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-reduction-scheme}，$X$ 约化。选取闭子集
+$T_1 \subset |X|$ 和 $T_2 \subset |X|$，使得
+$|X| = T_1 \cup T_2$。若 $T_1$ 和 $T_2$ 都是真闭子集，则相应的约化诱导
+闭子空间 $Z_1, Z_2 \subset X$（《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}）都是概形；而
+$Z = Z_1 \times_X Z_2 = Z_1 \cap Z_2$ 作为 $Z_1$ 或 $Z_2$ 的闭子概形，
+也是概形。注意，推出 $Z_1 \amalg_Z Z_2$ 在概形范畴中存在，见
+《态射进阶》引理
+\ref{more-morphisms-lemma-pushout-along-closed-immersions}。
+% P09-ERR-0110
+一种做法是证明 $Z_1 \amalg_Z Z_2$ 同构于 $X$，但这里不能使用这一点，
+因为代数空间推出的材料在理论中稍后才出现。我们转而使用引理
+\ref{spaces-limits-lemma-affine}，为每个点找到仿射邻域。具体地，设 $x \in |X|$。
+若 $x \not \in Z_1$，则 $x$ 有一个是概形的邻域，即
+$X \setminus Z_1$；当 $x \not \in Z_2$ 时亦同。若
+$x \in Z = Z_1 \cap Z_2$，则选取包含 $z$ 的仿射开集
+% P09-ERR-0111
+$U \subset Z_1 \amalg_Z Z_2$。于是 $U_1 = Z_1 \cap U$ 和
+$U_2 = Z_2 \cap U$ 是仿射开集，并且它们与 $Z$ 的交相同。由于
+$|Z_1| = T_1$ 和 $|Z_2| = T_2$ 是 $|X|$ 的闭子集，且相交于 $|Z|$，
+可找到开集 $W \subset |X|$，使得 $W \cap T_1 = |U_1|$ 且
+$W \cap T_2 = |U_2|$。仍用 $W$ 表示 $X$ 中相应的开子空间。那么
+$x \in |W|$，并且态射 $U_1 \amalg U_2 \to W$ 满且有限，其源是仿射概形。
+因此由引理 \ref{spaces-limits-lemma-affine}，$W$ 是仿射概形。
+\end{proof}
+
+\noindent
+下一个引理的关键在于，只需在 $X$ 的各点的像处检验条件。
+
+\begin{lemma}
+\label{spaces-limits-lemma-enough-local}
+设 $f: X \to S$ 为从代数空间到概形 $S$ 的拟紧拟分离态射。若对每个
+$x \in |X|$，记其像为 $s = f(x) \in S$，代数空间
+$X \times_S \Spec(\mathcal{O}_{S,s})$ 都是概形，则 $X$ 是概形。
+\end{lemma}
+
+\begin{proof}
+设 $x \in |X|$。只需找到 $s = f(x)$ 的开邻域 $U$，使得
+$X \times_S U$ 是概形。由于 $X \times_S \Spec(\mathcal{O}_{S, s})$
+是概形，并且
+% P09-ERR-0112
+$\mathcal{O}_{S, s} = \colim \mathcal{O}_S(U)$，其中余极限遍历 $S$ 中
+$s$ 的仿射开邻域，所以
+$$
+X \times_S \Spec(\mathcal{O}_{S, s}) = \lim X \times_S U
+$$
+由引理 \ref{spaces-limits-lemma-limit-is-scheme}，对某个 $U$，$X \times_S U$ 是概形。
+\end{proof}
+
+\noindent
+除了像引理 \ref{spaces-limits-lemma-enough-local} 那样限制到局部环之外，还可以限制到
+基的闭子概形。
+
+\begin{lemma}
+\label{spaces-limits-lemma-maximal-ideal}
+设 $\varphi : X \to \Spec(A)$ 为从代数空间到仿射概形的拟紧拟分离态射。
+若 $X$ 不是概形，则存在理想 $I \subset A$，使得基变换 $X_{A/I}$
+不是概形，但对每个满足 $I \subset I'$ 且 $I \not = I'$ 的 $I'$，
+基变换 $X_{A/I'}$ 都是概形。
+\end{lemma}
+
+\begin{proof}
+使用佐恩引理证明。令 $\mathcal{I}$ 为满足 $X_{A/I}$ 不是概形的理想 $I$
+所成的集。由假设，$\mathcal{I}$ 包含 $(0)$。若 $I_\alpha$ 是
+$\mathcal{I}$ 中的一条理想链，则 $I = \bigcup I_\alpha$ 属于
+$\mathcal{I}$。事实上，$A/I = \colim A/I_\alpha$，从而
+$$
+X_{A/I} = \lim X_{A/I_\alpha}
+$$
+因此可应用引理 \ref{spaces-limits-lemma-limit-is-scheme} 得出：若 $X_{A/I}$ 是概形，
+% P09-ERR-0113
+则某个 $X_{A/I_\alpha}$ 也是概形。所以由佐恩引理，$\mathcal{I}$ 有极大元。
+\end{proof}
+
+
+
+
+
+
+\section{在闭纤维处黏合}
+\label{spaces-limits-section-change-over-closed-points}
+
+\noindent
+把上面的理论应用于局部环的谱，可得到几个关于相对代数空间的良好黏合结果。
+我们先证明一个辅助引理（它将在《自举》第
+\ref{bootstrap-section-applications} 节中得到大幅推广）。
+
+\begin{lemma}
+\label{spaces-limits-lemma-relative-glueing}
+设 $S = U \cup W$ 是概形的开覆盖。那么由基变换给出的函子
+$$
+FP_S \longrightarrow FP_U \times_{FP_{U \cap W}} FP_W
+$$
+是等价；其中 $FP_T$ 表示概形 $T$ 上有限表示代数空间的范畴。
+\end{lemma}
+
+\begin{proof}
+首先，由于 $S = U \cup W$ 是 Zariski 覆盖，$(\Sch/S)_{fppf}$ 上的层范畴
+等价于三元组 $(\mathcal{F}_U, \mathcal{F}_W, \varphi)$ 的范畴，其中
+$\mathcal{F}_U$ 是 $(\Sch/U)_{fppf}$ 上的层，$\mathcal{F}_W$ 是
+$(\Sch/W)_{fppf}$ 上的层，而
+$$
+\varphi :
+\mathcal{F}_U|_{(\Sch/U \cap W)_{fppf}}
+\longrightarrow
+\mathcal{F}_W|_{(\Sch/U \cap W)_{fppf}}
+$$
+是同构。见《位点》引理 \ref{sites-lemma-mapping-property-glue}。（注意，
+不需要其他黏合数据，因为 $U \times_S U = U$、$W \times_S W = W$；
+同理，余圈条件自动成立。）现在，若 $(\Sch/S)_{fppf}$ 上的层
+$\mathcal{F}$ 在此等价下映到
+$(\mathcal{F}_U, \mathcal{F}_W, \varphi)$，则 $\mathcal{F}$ 是代数空间
+当且仅当 $\mathcal{F}_U$ 和 $\mathcal{F}_W$ 都是代数空间。这由
+《代数空间》引理 \ref{spaces-lemma-glueing-algebraic-spaces} 立即得到，
+因为 $\mathcal{F}_U \to \mathcal{F}$ 和
+$\mathcal{F}_W \to \mathcal{F}$ 可由开浸入表示，并覆盖 $\mathcal{F}$。
+最后，在这种情形下，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-local},
+\ref{spaces-morphisms-lemma-separated-local}，以及
+\ref{spaces-morphisms-lemma-finite-presentation-local}，代数空间
+$\mathcal{F}$ 在 $S$ 上有限表示，当且仅当 $\mathcal{F}_U$ 在 $U$ 上
+有限表示且 $\mathcal{F}_W$ 在 $W$ 上有限表示。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-glueing-near-closed-point}
+设 $S$ 为概形，$s \in S$ 为闭点，并且
+$U = S \setminus \{s\} \to S$ 拟紧。置
+$V = \Spec(\mathcal{O}_{S, s}) \setminus \{s\}$，则有范畴等价
+$$
+FP_S \longrightarrow FP_U \times_{FP_V} FP_{\Spec(\mathcal{O}_{S, s})}
+$$
+其中 $FP_T$ 表示 $T$ 上有限表示代数空间的范畴。
+\end{lemma}
+
+\begin{proof}
+设 $W \subset S$ 为 $s$ 的开邻域。由引理 \ref{spaces-limits-lemma-relative-glueing}，函子
+$$
+FP_S \to FP_U \times_{FP_{W \setminus \{s\}}} FP_W
+$$
+是范畴等价。当 $W$ 遍历 $s$ 的仿射开邻域时，
+$\mathcal{O}_{S, s} = \colim \mathcal{O}_W(W)$，从而
+$\Spec(\mathcal{O}_{S, s}) = \lim W$。因此，
+% P09-ERR-0114
+$\Spec(\mathcal{O}_{S, s})$ 上有限表示代数空间的范畴，是 $W$ 上有限表示
+代数空间的范畴的极限，其中 $W$ 遍历 $s$ 的仿射开邻域；见引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。对每个仿射开集 $s \in W$，
+% P09-ERR-0115
+由于 $U \to S$ 拟紧，$U \cap W$ 拟紧。因此
+$V = \lim W \cap U = \lim W \setminus \{s\}$ 是拟紧拟分离概形的极限
+（见《极限》引理
+\ref{limits-lemma-directed-inverse-system-has-limit}）。因而 $V$ 上有限表示
+代数空间的范畴也是 $W \cap U$ 上有限表示代数空间的各范畴的极限，
+其中 $W$ 遍历 $s$ 的仿射开邻域。把这些结果结合起来即形式地得到本引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-glueing-near-point}
+设 $S$ 为概形，$U \subset S$ 为逆紧开集，$s \in S$ 为 $U$ 的补集中的点。
+置 $V = \Spec(\mathcal{O}_{S, s}) \cap U$，则有范畴等价
+$$
+\colim_{s \in U' \supset U\text{ 为开集}} FP_{U'}
+\longrightarrow
+FP_U \times_{FP_V} FP_{\Spec(\mathcal{O}_{S, s})}
+$$
+其中 $FP_T$ 表示 $T$ 上有限表示代数空间的范畴。
+\end{lemma}
+
+\begin{proof}
+设 $W \subset S$ 为 $s$ 的开邻域。由引理
+\ref{spaces-limits-lemma-relative-glueing}，函子
+$$
+FP_{U \cup W}
+\longrightarrow
+FP_U \times_{FP_{U \cap W}} FP_W
+$$
+是范畴等价。当 $W$ 遍历 $s$ 的仿射开邻域时，有
+$\mathcal{O}_{S, s} = \colim \mathcal{O}_W(W)$，从而
+$\Spec(\mathcal{O}_{S, s}) = \lim W$。因此，
+$\Spec(\mathcal{O}_{S, s})$ 上有限表示代数空间的范畴，是 $W$ 上有限表示
+代数空间的范畴的极限，其中 $W$ 遍历 $s$ 的仿射开邻域；见引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。对每个仿射开集 $s \in W$，
+由于 $U \to S$ 拟紧，$U \cap W$ 拟紧。因此
+$V = \lim W \cap U$ 是拟紧拟分离概形的极限（见《极限》引理
+\ref{limits-lemma-directed-inverse-system-has-limit}）。因而 $V$ 上有限表示
+代数空间的范畴也是 $W \cap U$ 上有限表示代数空间的各范畴的极限，
+其中 $W$ 遍历 $s$ 的仿射开邻域。把这些结果结合起来即形式地得到本引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-glueing-near-multiple-closed-points}
+设 $S$ 为概形，$s_1, \ldots, s_n \in S$ 为两两不同的闭点，并且
+$U = S \setminus \{s_1, \ldots, s_n\} \to S$ 拟紧。置
+$S_i = \Spec(\mathcal{O}_{S, s_i})$ 和 $U_i = S_i \setminus \{s_i\}$，
+则有范畴等价
+$$
+FP_S \longrightarrow
+FP_U \times_{(FP_{U_1} \times \ldots \times FP_{U_n})}
+(FP_{S_1} \times \ldots \times FP_{S_n})
+$$
+其中 $FP_T$ 表示 $T$ 上有限表示代数空间的范畴。
+\end{lemma}
+
+\begin{proof}
+当 $n = 1$ 时，这就是引理 \ref{spaces-limits-lemma-glueing-near-closed-point}。
+当 $n > 1$ 时，可以用完全相同的方法证明本引理，也可以从该引理推出。
+例如，假设 $f_i : X_i \to S_i$ 是 $FP_{S_i}$ 的对象，$f : X \to U$
+是 $FP_U$ 的对象，并给定同构
+$X_i \times_{S_i} U_i = X \times_U U_i$。由引理
+\ref{spaces-limits-lemma-glueing-near-closed-point}，可以找到有限表示态射
+$f' : X' \to U' = S \setminus \{s_1, \ldots, s_{n - 1}\}$，它在 $S_i$
+上同构于 $X_i$，在 $U$ 上同构于 $X$，并且这些同构与给定同构
+% P09-ERR-0116
+$X_i \times_{S_n} U_n = X \times_U U_n$ 相容。然后可以对
+$f_i : X_i \to S_i$（$i \leq n - 1$）、$f' : X' \to U'$ 以及诱导同构
+$X_i \times_{S_i} U_i = X' \times_{U'} U_i$（$i \leq n - 1$）应用归纳。
+这证明了本质满性。% P09-ERR-0117
+全忠实性的证明从略。
+\end{proof}
+
+
+
+
+
+
+
+\section{对修改的应用}
+\label{spaces-limits-section-modifications-at-a-point}
+
+\noindent
+利用极限，可以用亨泽尔局部环来描述良态代数空间在一个闭点之上的修改范畴。
+
+\begin{lemma}
+\label{spaces-limits-lemma-excision-modifications}
+设 $S$ 为概形。考察 $S$ 上代数空间的分离平展态射
+$f : V \to W$。假设存在闭子空间 $T \subset W$，使得
+$f^{-1}T \to T$ 是同构。置 $W^0 = W \setminus T$ 和
+$V^0 = f^{-1}W^0$，则基变换函子
+$$
+\left\{
+\begin{matrix}
+g : X \to W\text{ 为代数空间的态射} \\
+g^{-1}(W^0) \to W^0\text{ 是同构}
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+h : Y \to V\text{ 为代数空间的态射} \\
+h^{-1}(V^0) \to V^0\text{ 是同构}
+\end{matrix}
+\right\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+由于 $V \to W$ 分离，对 $V \times_W V$ 的某个开闭子空间 $U$，有
+$V \times_W V = \Delta(V) \amalg U$。由 $f^{-1}T \to T$ 是同构这一
+假设，$U \times_W T = \emptyset$；也就是说，% P09-ERR-0118
+两个投影 $U \to V$ 的像都包含于 $V^0$。
+
+\medskip\noindent
+给定右侧范畴中的 $h : Y \to V$，考察 $(\Sch/S)_{fppf}$ 上由下式定义的
+反变函子 $X$：
+$$
+X(T) = \{(w, y) \mid
+w :  T \to W,\ y : T \times_{w, W} V \to Y\text{ 为 }V\text{ 上的态射}\}
+$$
+% P09-ERR-0119
+用 $g : X \to W$ 表示把 $(w, y) \in X(T)$ 映到 $w \in W(T)$ 的映射。
+由于 $h^{-1}V^0 \to V^0$ 是同构，若 $w : T \to W$ 的像包含于 $W^0$，
+% P09-ERR-0120
+则 $h$ 有唯一选择。换言之，$X \times_{g, W} W^0 = W^0$。另一方面，
+考察 $X \times_{g, W, f} V$ 的一个 $T$-值点 $(w, y, v)$。那么
+$w = f \circ v$，并且
+% P09-ERR-0121
+$$
+y : T \times_{f \circ v, W} V \longrightarrow V
+$$
+是 $V$ 上的态射。考察态射
+$$
+T \times_{f \circ v, W} V \xrightarrow{(v, \text{id}_V)}
+V \times_W V = V \amalg U
+$$
+$V$ 的逆像是通过
+$(\text{id}_T, v) : T \to T \times_{f \circ v, W} V$ 嵌入的 $T$。
+复合 $y' = y \circ (\text{id}_T, v) : T \to Y$ 是满足
+$v = h \circ y'$ 的态射，并且它确定 $y$；这是因为第二个投影把 $U$
+映入 $V^0$，所以 $y$ 在另一部分上的限制被唯一确定。由此
+$X \times_{g, W, f} V \to Y$，$(w, y, v) \mapsto y'$ 是同构。
+
+\medskip\noindent
+所以只要证明 $X$ 是代数空间，就完成了证明。由于 $V \to W$ 分离且平展，
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}
+（以及《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-locally-quasi-finite}），它可表。当然，
+$W^0 \to W$ 作为开浸入可表且平展。因此
+$$
+W^0 \amalg Y = X \times_{g, W} W^0 \amalg X \times_{g, W, f} V
+= X \times_{g, W} (W^0 \amalg V) \longrightarrow X
+$$
+由《空间》引理 \ref{spaces-lemma-base-change-representable-transformations}
+和 \ref{spaces-lemma-base-change-representable-transformations-property}
+可表、满且平展。因此由《空间》引理
+\ref{spaces-lemma-etale-locally-representable-by-space-gives-space}，$X$
+是代数空间。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-excision-modifications-properties}
+记号和假设同引理 \ref{spaces-limits-lemma-excision-modifications}。设 $g : X \to W$
+与 $h : Y \to V$ 在该等价下对应。那么 $g$ 拟紧、拟分离、分离、
+局部有限表示、有限表示、局部有限型、有限型、固有、整、有限，
+% P09-ERR-0122
+以及在此添加更多性质，当且仅当 $h$ 具有相应性质。
+\end{lemma}
+
+\begin{proof}
+若 $g$ 拟紧、拟分离、分离、局部有限表示、有限表示、局部有限型、有限型、
+固有、有限，则作为 $g$ 的基变换，$h$ 也具有相应性质；见《空间的态射》
+引理
+\ref{spaces-morphisms-lemma-base-change-quasi-compact},
+\ref{spaces-morphisms-lemma-base-change-separated},
+\ref{spaces-morphisms-lemma-base-change-finite-presentation},
+\ref{spaces-morphisms-lemma-base-change-finite-type},
+\ref{spaces-morphisms-lemma-base-change-proper},
+% P09-ERR-0123
+\ref{spaces-morphisms-lemma-base-change-integral}。反过来，设 $P$ 是代数空间
+态射的一项性质，它在基上平展局部，并且任意代数空间的恒等态射都具有
+该性质。由于 $\{W^0 \to W, V \to W\}$ 是平展覆盖，要证明 $g$ 具有
+$P$，只需证明 $h$ 具有 $P$。因此使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-local},
+\ref{spaces-morphisms-lemma-separated-local},
+\ref{spaces-morphisms-lemma-finite-presentation-local},
+\ref{spaces-morphisms-lemma-finite-type-local},
+\ref{spaces-morphisms-lemma-proper-local},
+\ref{spaces-morphisms-lemma-integral-local}.
+即可得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-modifications}
+设 $S$ 为概形，$X$ 为 $S$ 上的良态代数空间。设 $x \in |X|$ 为闭点，
+并且 $U = X \setminus \{x\} \to X$ 拟紧。置
+$V = \Spec(\mathcal{O}_{X, x}^h) \setminus \{\mathfrak m_x^h\}$，
+则基变换函子
+$$
+\left\{
+\begin{matrix}
+f : Y \to X\text{ 有限表示} \\
+f^{-1}(U) \to U\text{ 是同构}
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+g : Y \to \Spec(\mathcal{O}_{X, x}^h)\text{ 有限表示} \\
+g^{-1}(V) \to V\text{ 是同构}
+\end{matrix}
+\right\}
+$$
+是范畴等价。
+\end{lemma}
+
+\begin{proof}
+取《良态空间》引理
+\ref{decent-spaces-lemma-decent-space-elementary-etale-neighbourhood} 中
+$x$ 的初等平展邻域 $a : (W, w) \to (X, x)$，其中 $W$ 仿射。由于 $x$
+是 $X$ 的闭点，而 $w$ 是 $W$ 中位于 $x$ 上方的唯一一点，$w$ 是 $W$
+的闭点。由于 $a$ 平展，并把 $x$ 和 $w$ 处的剩余域等同起来，$a$
+诱导同构 $a^{-1}x \to x$（视为 $X$ 和 $W$ 的闭子空间）。因此可以应用
+引理 \ref{spaces-limits-lemma-excision-modifications} 和
+\ref{spaces-limits-lemma-excision-modifications-properties}，把问题约化到 $X$ 是
+仿射概形的情形。
+
+\medskip\noindent
+假设 $X$ 是仿射概形。回忆，$\mathcal{O}_{X, x}^h$ 是
+$\Gamma(U, \mathcal{O}_U)$ 在仿射初等平展邻域
+$(U, u) \to (X, x)$ 上的余极限。还回忆，这些邻域所成的范畴是余滤过的，
+见《良态空间》引理
+\ref{decent-spaces-lemma-elementary-etale-neighbourhoods} 或《态射进阶》引理
+\ref{more-morphisms-lemma-elementary-etale-neighbourhoods}。于是
+$\Spec(\mathcal{O}_{X, x}^h) = \lim U$，且
+$V = \lim U \setminus \{u\}$（引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}），其中两个极限取自同一范畴。
+因此由引理 \ref{spaces-limits-lemma-descend-finite-presentation}，
+% P09-ERR-0124
+右侧范畴是各对 $(U, u)$ 所对应范畴的余极限。又由第一段的材料，
+这些范畴中的每一个都等价于对 $(X, x)$ 所对应的范畴。证明完成。
+\end{proof}
+
+
+
+
+
+
+\section{普遍闭态射}
+\label{spaces-limits-section-universally-closed}
+
+\noindent
+本节讨论拟紧（但未必分离）态射何时普遍闭。我们先证明一个引理，
+它使我们能够在局部有限表示的基变换之后检验普遍闭性。
+
+\begin{lemma}
+\label{spaces-limits-lemma-separate}
+设 $S$ 为概形，$f : X \to Y$ 和 $g : Z \to Y$ 为 $S$ 上代数空间的态射。
+设 $z \in |Z|$，并设 $T \subset |X \times_Y Z|$ 为闭子集，且
+$z \not \in \Im(T \to |Z|)$。若 $f$ 拟紧，则存在平展邻域
+$(V, v) \to (Z, z)$、交换图
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+以及闭子集 $T' \subset |X \times_Y Z'|$，使得
+\begin{enumerate}
+\item 态射 $b : Z' \to Y$ 局部有限表示；
+\item 置 $z' = a(v)$，有 $z' \not \in \Im(T' \to |Z'|)$；
+\item $T$ 在 $|X \times_Y V|$ 中的逆像经由
+$|X \times_Y V| \to |X \times_Y Z'|$ 映入 $T'$。
+\end{enumerate}
+此外，可以假设 $V$ 和 $Z'$ 是仿射概形；若 $Z$ 是概形，还可以假设
+$V$ 是 $z$ 的仿射开邻域。
+\end{lemma}
+
+\begin{proof}
+我们将从概形态射的相应结果推出本引理。设 $y \in |Y|$ 为 $z$ 的像。
+先选取仿射平展邻域 $(U, u) \to (Y, y)$，再选取仿射平展邻域
+$(V, v) \to (Z, z)$，使态射 $V \to Y$ 通过 $U$ 分解。于是可以作如下替换：
+\begin{enumerate}
+\item 用 $X \times_Y U \to U$ 代替 $X \to Y$；
+\item 用 $V \to U$ 代替 $Z \to Y$；
+\item 用 $v$ 代替 $z$；
+\item 用 $T$ 在
+$|(X \times_Y U) \times_U V| = |X \times_Y V|$ 中的逆像代替 $T$。
+\end{enumerate}
+事实上，下面将证明：用 $v$ 的一个仿射开邻域代替 $V$ 后，对某个有限表示的
+$Z' \to U$，存在态射 $a : V \to Z'$ 以及
+$|(X \times_Y U) \times_U Z'| = |X \times_Y Z'|$ 的闭子集 $T'$，使得
+$T$ 映入 $T'$ 且 $a(v) \not \in \Im(T' \to |Z'|)$。因此可以且确实
+假设 $Z$ 和 $Y$ 是仿射概形，但要求所找到的解中 $V$ 是 $z$ 的开邻域。
+
+\medskip\noindent
+由于 $f$ 拟紧且 $Y$ 仿射，代数空间 $X$ 拟紧。选取仿射概形 $W$ 以及
+满平展态射 $W \to X$。令 $T_W \subset |W \times_Y Z|$ 为 $T$ 的逆像。
+那么 $z$ 不属于 $T_W$ 的像。由概形情形（《极限》引理
+\ref{limits-lemma-separate}），可以找到 $z$ 的开邻域 $V \subset Z$、
+% P09-ERR-0125
+概形的交换图
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+以及闭子集 $T' \subset |W \times_Y Z'|$，使得
+\begin{enumerate}
+\item 态射 $b : Z' \to Y$ 局部有限表示；
+\item 置 $z' = a(z)$，有 % P09-ERR-0126
+$z' \not \in \Im(T' \to Z')$；
+\item $T_1 = T_W \cap |W \times_Y V|$ 经由
+$|W \times_Y V| \to |W \times_Y Z'|$ 映入 $T'$。
+\end{enumerate}
+交换图
+$$
+\xymatrix{
+W \times_Y Z \ar[d] &
+W \times_Y V \ar[l] \ar[rr]_{a_1} \ar[d]_c & &
+W \times_Y Z' \ar[d]^q \\
+X \times_Y Z &
+X \times_Y V \ar[l] \ar[rr]^{a_2} & &
+X \times_Y Z'
+}
+$$
+的方块是笛卡尔的，而竖直映射% P09-ERR-0127
+是满、平展的，因而尤其是开的。考察左侧方块可知，
+$T_1 = T_W \cap |W \times_Y V|$ 是
+$T_2 = T \cap |X \times_Y V|$ 在 $c$ 下的逆像。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，有
+$a_1(T_1) = q^{-1}(a_2(T_2))$。由《拓扑》引理
+\ref{topology-lemma-open-morphism-quotient-topology}，有
+$$
+q^{-1}\left(\overline{a_2(T_2)}\right) =
+\overline{q^{-1}(a_2(T_2))} =
+\overline{a_1(T_1)} \subset T'
+$$
+由于 $q$ 满，而 $T'$ 的像不包含 $z'$，
+$\overline{a_2(T_2)} \to |Z'|$ 的像也不包含 $z'$。因此可取上面含
+$Z', V, a, b$ 的图以及闭子集
+$\overline{a_2(T_2)} \subset |X \times_Y Z'|$ 作为引理所提问题的解。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-test-universally-closed}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的拟紧态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 普遍闭；
+\item 对每个局部有限表示态射 $Z \to Y$，映射
+$|X \times_Y Z| \to |Z|$ 都是闭的；
+\item 存在概形 $V$ 以及满平展态射 $V \to Y$，使得对所有 $n \geq 0$，
+$|\mathbf{A}^n \times (X \times_Y V)| \to |\mathbf{A}^n \times V|$
+都是闭的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然 (1) 蕴含 (2)。假设对 $S$ 上代数空间的某个态射 $Z \to Y$，映射
+$|X \times_Y Z| \to |Z|$ 不是闭的。这意味着存在闭子集
+$T \subset |X \times_Y Z|$，使得 $\Im(T \to |Z|)$ 不是闭集。选取
+$z \in |Z|$，使其属于 $T$ 的像的闭包但不属于该像。应用引理
+\ref{spaces-limits-lemma-separate}，可找到平展邻域 $(V, v) \to (Z, z)$、交换图
+$$
+\xymatrix{
+V \ar[d] \ar[r]_a & Z' \ar[d]^b \\
+Z \ar[r]^g & Y,
+}
+$$
+以及闭子集 $T' \subset |X \times_Y Z'|$，使得
+\begin{enumerate}
+\item 态射 $b : Z' \to Y$ 局部有限表示；
+\item 置 $z' = a(v)$，有 $z' \not \in \Im(T' \to |Z'|)$；
+\item $T$ 在 $|X \times_Y V|$ 中的逆像经由
+$|X \times_Y V| \to |X \times_Y Z'|$ 映入 $T'$。
+\end{enumerate}
+我们断言 $z'$ 属于 $\Im(T' \to |Z'|)$ 的闭包；这蕴含
+$|X \times_Y Z'| \to |Z'|$ 不是闭映射。该断言说明 (2) 蕴含 (1)。
+为验证该断言，考察% P09-ERR-0128
+如下交换图：
+$$
+\xymatrix{
+X \times_Y Z \ar[d] &
+X \times_Y V \ar[l] \ar[d] \ar[r] &
+X \times_Y Z' \ar[d] \\
+Z & V \ar[l] \ar[r]^a & Z'
+}
+$$
+令 $T_V \subset |X \times_Y V|$ 为 $T$ 的逆像。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，$T_V$ 在 $|V|$ 中的像是
+$T$ 在 $|Z|$ 中的像的逆像。由于 $z$ 属于 $T \to |Z|$ 的像的闭包，
+并且 $|V| \to |Z|$ 是开映射，$v$ 属于 $T_V \to |V|$ 的像的闭包。
+由于 $T_V$ 在 $|X \times_Y Z'|$ 中的像包含于 % P09-ERR-0129
+$|T'|$，立即可知 $z' = a(v)$ 属于 $T'$ 的像的闭包。
+
+\medskip\noindent
+显然 (1) 蕴含 (3)。取 (3) 中的 $V \to Y$。若能证明
+$X \times_Y V \to V$ 普遍闭，则由《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local}，$f$ 普遍闭。因此只需
+证明如下断言：若 $f : X \to Y$ 是代数空间的拟紧态射，$Y$ 是概形，
+并且对所有 $n$，$|\mathbf{A}^n \times X| \to
+|\mathbf{A}^n \times Y|$ 都是闭的，则 $f$ 满足 (2)。设 $Z \to Y$
+局部有限表示。我们要证明映射 $|X \times_Y Z| \to |Z|$ 是闭的。
+这个问题在 $Z$ 上平展局部，故可以假设 $Z$ 仿射（略去一些细节）。
+由于 $Y$ 是概形、$Z$ 仿射且 $Z \to Y$ 局部有限表示，可找到浸入
+$Z \to \mathbf{A}^n \times Y$，见《态射》引理
+\ref{morphisms-lemma-quasi-affine-finite-type-over-S}。考察笛卡尔图
+$$
+\vcenter{
+\xymatrix{
+X \times_Y Z \ar[d] \ar[r] & \mathbf{A}^n \times X \ar[d] \\
+Z \ar[r] & \mathbf{A}^n \times Y
+}
+}
+\quad
+\begin{matrix}
+\text{它诱导} \\
+\text{笛卡尔方块}
+\end{matrix}
+\quad
+\vcenter{
+\xymatrix{
+|X \times_Y Z| \ar[d] \ar[r] & |\mathbf{A}^n \times X| \ar[d] \\
+|Z| \ar[r] & |\mathbf{A}^n \times Y|
+}
+}
+$$
+这是拓扑空间的笛卡尔方块，其水平箭头是到局部闭子集的同胚
+（《空间的性质》引理
+\ref{spaces-properties-lemma-subspace-induced-topology}）。因此，
+% P09-ERR-0130
+$|X \times_Y Z|$ 的每个闭子集 $T$ 都是
+$|\mathbf{A}^n \times Y|$ 的某个闭子集 $T'$ 的拉回。由于假设断言
+$T'$ 在 $|\mathbf{A}^n \times X|$ 中的像是闭集，可知 $T$ 在 $|Z|$
+中的像是闭集，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-limited-base-change}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。
+% P09-ERR-0131
+假设 $f$ 分离且有限型。下列条件等价：
+\begin{enumerate}
+\item 态射 $f$ 固有；
+\item 对任意局部有限表示态射 % P09-ERR-0132
+$Y \to Z$，映射 $|X \times_Y Z| \to |Z|$ 是闭的；
+\item 存在概形 $V$ 以及满平展态射 $V \to Y$，使得对所有 $n \geq 0$，
+$|\mathbf{A}^n \times (X \times_Y V)| \to |\mathbf{A}^n \times V|$
+都是闭的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于固有态射恰好就是分离、有限型且普遍闭的态射，本引理是引理
+\ref{spaces-limits-lemma-test-universally-closed} 的特殊情形。
+\end{proof}
+
+
+\section{诺特赋值判据}
+\label{spaces-limits-section-Noetherian-valuative-criterion}
+
+\noindent
+我们已经在《空间的上同调》第
+\ref{spaces-cohomology-section-Noetherian-valuative-criterion}.
+节中证明了一些结果。概形的相应内容见《极限》第
+\ref{limits-section-Noetherian-valuative-criterion} 节。
+
+\medskip\noindent
+本节的许多结果都可以（或许也应当）通过引用下述引理来证明，
+尽管我们并非总是如此处理。
+
+\begin{lemma}
+\label{spaces-limits-lemma-reach-point-closure-Noetherian}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。
+% P09-ERR-0133
+假设 $f$ 有限型且 $Y$ 局部诺特。设 $y \in |Y|$ 是 $|f|$ 的像的闭包中的点。
+则存在交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d]^f \\
+\Spec(A) \ar[r] & Y
+}
+$$
+其中 $A$ 是离散赋值环，$K$ 是其分式域，并且 $\Spec(A)$ 的闭点映到 $y$。
+此外，可以假设与 $\Spec(K) \to X$ 对应的点 $x \in |X|$ 是余维 $0$ 的点
+\footnote{参见《空间的性质》第
+\ref{spaces-properties-section-generic-points} 节中的讨论。}，
+并且 $K$ 是某个在 $X$ 上平展的概形上的一点的剩余域。
+\end{lemma}
+
+\begin{proof}
+选择仿射概形 $V$、点 $v \in V$ 以及把 $v$ 映到 $y$ 的平展态射
+$V \to Y$。映射 $|V| \to |Y|$ 是开映射，而且由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，
+$|X \times_Y V| \to |V|$ 的像是 $|f|$ 的像的逆像。因此，点 $v$ 位于
+$|X \times_Y V| \to |V|$ 的像的闭包中。若能对
+$X \times_Y V \to V$ 和点 $v$ 证明本引理，那么关于 $f$ 和 $y$ 的结论
+也随之成立。这样便归约到下一段所述的情形。
+
+\medskip\noindent
+设有引理中那样的 $f : X \to Y$ 和 $y \in |Y|$，其中 $Y$ 是仿射概形。
+由于 $f$ 拟紧，可知 $X$ 拟紧。因此可以选择仿射概形 $W$ 和满平展态射
+$W \to X$。于是 $|f|$ 的像与 $W \to Y$ 的像相同。这样便归约到概形的情形，
+即《极限》引理 \ref{limits-lemma-reach-point-closure-Noetherian}。
+\end{proof}
+
+\noindent
+首先陈述关于分离性的结果。我们将经常使用如下形状的交换实线图，
+其中各箭头是基概形 $S$ 上代数空间的态射：
+\begin{equation}
+\label{spaces-limits-equation-valuative}
+\vcenter{
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+}
+\end{equation}
+这里 $A$ 是赋值环，$K$ 是其分式域。
+
+\begin{lemma}
+\label{spaces-limits-lemma-Noetherian-dvr-valuative-separation}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 拟分离且
+局部有限型，并且 $Y$ 局部诺特。下列条件等价：
+\begin{enumerate}
+\item 态射 $f$ 分离；
+\item 对任意图 (\ref{spaces-limits-equation-valuative})，至多存在一条虚线箭头；
+\item 对所有满足 $A$ 为离散赋值环的图 (\ref{spaces-limits-equation-valuative})，
+至多存在一条虚线箭头；
+\item 对所有满足 $A$ 为离散赋值环且 $\Spec(K) \to X$ 的像是 $X$ 上
+余维 $0$ 的点的图 (\ref{spaces-limits-equation-valuative})，至多存在一条虚线箭头。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-separated-implies-valuative}，有
+(1) $\Rightarrow$ (2)。(2) $\Rightarrow$ (3) 和
+(3) $\Rightarrow$ (4) 是立即的。只需证明 (4) 蕴含 (1)。
+
+\medskip\noindent
+假设 (4)。必须证明对角态射 $\Delta : X \to X \times_Y X$ 是闭浸入。
+我们已经知道 $\Delta$ 可表、分离、是单态射且局部有限型；参见
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-properties-diagonal}。
+选择仿射概形 $U$ 和平展态射 $U \to X \times_Y X$，并置
+$V = X \times_{\Delta, X \times_Y X} U$。只需证明 $V \to U$ 是闭浸入
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local}）。
+由于 $X \times_Y X$ 在 $Y$ 上局部有限型，可知 $U$ 诺特（使用
+《空间的态射》诸引理
+\ref{spaces-morphisms-lemma-composition-finite-type},
+\ref{spaces-morphisms-lemma-base-change-finite-type} 和
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}）。
+注意，由于 $\Delta$ 可表，$V$ 是概形；又由于 $f$ 拟分离，$V$ 拟紧。
+故 $V \to U$ 分离且有限型。考虑概形态射的交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & V \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & U
+}
+$$
+其中 $A$ 是以 $K$ 为分式域的离散赋值环，而 $K$ 是诺特概形 $V$ 的某个
+泛点的剩余域。由于 $V \to X$ 平展（它是平展态射
+$U \to X \times_Y X$ 的基变换），可知 $\Spec(K) \to V \to X$ 的像是
+余维 $0$ 的点；参见《空间的性质》第
+\ref{spaces-properties-section-dimension-local-ring} 节。
+可将复合 $\Spec(A) \to U \to X \times_Y X$ 解释为一对态射
+$a, b : \Spec(A) \to X$：它们作为到 $Y$ 的态射相同，在限制到
+$\Spec(K)$ 后也相同，并且该限制映到余维 $0$ 的点。因此假设 (4) 保证
+$a = b$，于是得到图中的虚线箭头。由《极限》引理
+\ref{limits-lemma-Noetherian-dvr-valuative-proper}，可知 $V \to U$ 固有。
+换言之，$\Delta$ 固有。由于 $\Delta$ 是单态射，遂知 $\Delta$ 是闭浸入
+（《平展态射》引理 \ref{etale-lemma-characterize-closed-immersion}），如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-Noetherian-dvr-valuative-proper}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 拟分离且
+有限型，并且 $Y$ 局部诺特。下列条件等价：
+\begin{enumerate}
+\item $f$ 固有；
+\item $f$ 满足赋值判据，参见《空间的态射》定义
+\ref{spaces-morphisms-definition-valuative-criterion}；
+\item 对任意图 (\ref{spaces-limits-equation-valuative})，恰有一条虚线箭头；
+\item 对所有满足 $A$ 为离散赋值环的图 (\ref{spaces-limits-equation-valuative})，
+恰有一条虚线箭头；并且
+\item 对所有满足 $A$ 为离散赋值环且 $\Spec(K) \to X$ 的像是 $X$ 上
+余维 $0$ 的点的图 (\ref{spaces-limits-equation-valuative})，恰有一条虚线箭头
+\footnote{还有一个更精细的表述：在存在性部分，只要求在扩张离散赋值环后
+存在虚线箭头。}。 % P09-ERR-0134
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-characterize-proper}，有
+(1) $\Leftrightarrow$ (2) $\Leftrightarrow$ (3)。显然
+(3) $\Rightarrow$ (4) $\Rightarrow$ (5)。最后证明 (5) 蕴含 (1)。
+
+\medskip\noindent
+假设 (5)。由引理 \ref{spaces-limits-lemma-Noetherian-dvr-valuative-separation}，可知
+$f$ 分离。只需进一步证明 $f$ 普遍闭。设 $V \to Y$ 是平展态射，其中
+$V$ 为仿射概形。只需证明基变换 $V \times_Y X \to V$ 普遍闭；参见
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local}。考虑交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & V \times_Y X \ar[d] \ar[r] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] \ar@{..>}[rru] & V \ar[r] & Y
+}
+$$
+其箭头均为 $S$ 上代数空间的态射，其中 $A$ 是以 $K$ 为分式域的离散赋值环，
+且 $\Spec(K) \to V \times_Y X$ 映到代数空间 $V \times_Y X$ 的余维 $0$
+的点。由于 $V \times_Y X \to X$ 平展，$\Spec(K) \to X$ 的像是 $X$ 的
+余维 $0$ 的点。因此由 (5)，得到图中两条虚线箭头中较长的一条，当然也就
+得到较短的一条。这说明我们的假设对态射 $V \times_Y X \to V$ 成立，
+从而归约到下一段所讨论的情形。
+
+\medskip\noindent
+% P09-ERR-0135
+假设 $Y$ 为诺特仿射概形。在此情形下，$X$ 是 $Y$ 上有限型的分离诺特代数空间
+（我们已经知道 $f$ 分离）。（特别地，由《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}，
+代数空间 $X$ 有一个为概形的稠密开子空间，不过严格说来我们不会用到这一点。）
+按照 Chow 引理的弱形式（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-weak-chow}），选择 $Y$ 上拟射影概形 $X'$ 和固有
+满态射 $X' \to X$。可以用支配 $X$ 的某个不可约分支的那些不可约分支的
+不交并替换 $X'$；细节从略。特别地，可以假设概形 $X'$ 的泛点映到 $X$ 的
+余维 $0$ 的点（在此情形下，这些恰是 $X$ 的泛点）。我们断言
+$X' \to Y$ 固有。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-image-proper-is-proper}，该断言蕴含 $X$ 在 $Y$
+上固有。为证明该断言，根据《极限》引理
+\ref{limits-lemma-Noetherian-dvr-valuative-proper}，只需证明在每个交换实线图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X' \ar[r] & X \ar[d] \\
+\Spec(A) \ar[rr] \ar@{-->}[ru]^a \ar@{-->}[rru]_b & & Y
+}
+$$
+中都能找到虚线箭头 $a$，其中 $A$ 是以 $K$ 为分式域的离散赋值环，且
+$K$ 是 $X'$ 的某个泛点的剩余域（由于 $X'$ 分离，我们已经知道唯一性）。
+由假设 (5)，可以找到虚线箭头 $b$。于是态射
+$X' \times_{X, b} \Spec(A) \to \Spec(A)$ 是概形的固有态射；由概形态射的
+赋值判据，可将 $b$ 提升为所需的态射 $a$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-check-universally-closed-Noetherian}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $Y$ 局部诺特且
+$f$ 有限型。则下列条件等价：
+\begin{enumerate}
+\item $f$ 普遍闭；
+\item $f$ 满足赋值判据的存在性部分；
+\item 存在概形 $V$ 和满平展态射 $V \to Y$，使得对所有 $n \geq 0$，
+$|\mathbf{A}^n \times X \times_Y V| \to |\mathbf{A}^n \times V|$ 都是闭映射；
+\item 对所有满足 $A$ 为离散赋值环的图 (\ref{spaces-limits-equation-valuative})，
+% P09-ERR-0136
+存在域的有限可分扩张 $K'/K$、支配 $A$ 的离散赋值环 $A' \subset K'$，
+以及态射 $\Spec(A') \to X$，使下图交换：
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & \Spec(K) \ar[r] & X \ar[d] \\
+\Spec(A') \ar[r] \ar[rru] & \Spec(A) \ar[r] & Y
+}
+$$
+\item 对所有满足 $A$ 为离散赋值环的图 (\ref{spaces-limits-equation-valuative})，
+% P09-ERR-0137
+存在域扩张 $K'/K$、支配 $A$ 的赋值环 $A' \subset K'$，以及态射
+$\Spec(A') \to X$，使下图交换：
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & \Spec(K) \ar[r] & X \ar[d] \\
+\Spec(A') \ar[r] \ar[rru] & \Spec(A) \ar[r] & Y
+}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-test-universally-closed} 和《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}，
+(1)、(2) 与 (3) 等价。这些等价条件蕴含 (4)，因为《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-separable-enough} 告诉我们，在赋值判据的
+存在性部分，总可以选择有限可分的 $K'/K$；而由 Krull--Akizuki 定理
+（《代数》引理 \ref{algebra-lemma-krull-akizuki}），这自动迫使 $A'$ 为
+离散赋值环。(4) $\Rightarrow$ (5) 是立即的。在余下的证明中，
+我们证明 (5) 蕴含 (1)。
+
+\medskip\noindent
+假设 (5)。% P09-ERR-0138
+选择仿射概形 $V$ 和平展态射 $V \to Y$。只需证明 $f$ 到 $V$ 的基变换
+普遍闭；参见《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local}。完全如同引理
+\ref{spaces-limits-lemma-Noetherian-dvr-valuative-proper} 的证明，可知假设 (5) 被此基变换
+继承；细节从略。这样便归约到下一段所讨论的情形。
+
+\medskip\noindent
+假设 $Y$ 为诺特仿射概形且 (5) 成立。为证明 $f$ 普遍闭，只需证明对所有 $n$，
+$|X \times \mathbf{A}^n| \to |Y \times \mathbf{A}^n|$ 都是闭映射
+（由上述讨论）。由于假设 (5) 被乘积态射
+$X \times \mathbf{A}^n \to Y \times \mathbf{A}^n$ 继承（细节从略），
+问题归约为证明 $|X| \to |Y|$ 是闭映射。
+
+\medskip\noindent
+假设 $Y$ 为诺特仿射概形且 (5) 成立。设 $T \subset |X|$ 为闭子集。
+必须证明 $T$ 在 $|Y|$ 中的像是闭集。可以用 $T$ 上的约化诱导闭子空间结构
+替换 $X$；关于性质 (5) 被此替换保持的验证从略。因此归约为证明
+$|X| \to |Y|$ 的像是闭集。
+
+\medskip\noindent
+设 $y \in |Y|$ 是 $|X| \to |Y|$ 的像的闭包中的点。由引理
+\ref{spaces-limits-lemma-reach-point-closure-Noetherian}，可以选择交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d]^f \\
+\Spec(A) \ar[r] & Y
+}
+$$
+其中 $A$ 是离散赋值环，$K$ 是其分式域，并且 $\Spec(A)$ 的闭点映到 $y$。
+由性质 (5) 立即可知，$y$ 位于 $|X| \to |Y|$ 的像中，证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{精细化的诺特赋值判据}
+\label{spaces-limits-section-refined-valuative-criteria}
+
+\noindent
+本节是《极限》第 \ref{limits-section-refined-valuative-criteria} 节的对应版本。
+在检验赋值判据时，通常不必考虑所有可能的赋值环图。
+
+\begin{lemma}
+\label{spaces-limits-lemma-refined-valuative-criterion-proper}
+设 $S$ 为概形，$f : X \to Y$ 和 $h : U \to X$ 为 $S$ 上代数空间的态射。
+假设 $Y$ 局部诺特，$f$ 与 $h$ 有限型，$f$ 分离，并且
+$|h| : |U| \to |X|$ 的像在 $|X|$ 中稠密。若对任意交换实线图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & U \ar[r]^h & X \ar[d]^f \\
+\Spec(A) \ar[rr] \ar@{-->}[rru] & & Y
+}
+$$
+（其中 $A$ 是以 $K$ 为分式域的离散赋值环），都存在使图交换的虚线箭头，
+则 $f$ 固有。
+\end{lemma}
+
+\begin{proof}
+只需证明 $f$ 普遍闭。设 $V \to Y$ 是平展态射，其中 $V$ 是仿射概形。
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local}，只需证明基变换
+$X \times_Y V \to V$ 普遍闭。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，
+$|U \times_Y V| \to |X \times_Y V|$ 的像 $I$ 是 $|h|$ 的像的逆像。
+由于 $|X \times_Y V| \to |X|$ 是开映射（《空间的性质》引理
+\ref{spaces-properties-lemma-etale-open}），可知 $I$ 在
+$|X \times_Y V|$ 中稠密。因此，态射
+$U \times_Y V \to X \times_Y V \to V$ 满足本引理的假设。故可以假设
+$Y$ 是仿射概形。
+
+\medskip\noindent
+假设 $Y$ 是仿射概形。于是 $U$ 拟紧。% P09-ERR-0139
+选择仿射概形以及满平展态射 $W \to U$。于是可以并且确实用 $W$ 替换 $U$，
+从而假设 $U$ 仿射。由 Chow 引理的弱版本（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-weak-chow}），可以选择满固有态射 $X' \to X$，
+其中 $X'$ 是概形。于是 $U' = X' \times_X U$ 是概形，且
+$U' \to X'$ 有限型。可以用 $h' : U' \to X'$ 的概形论像替换 $X'$；
+因而 $h'(U')$ 在 $X'$ 中稠密。我们断言，对于每个图
+$$
+\xymatrix{
+% P09-ERR-0140
+\Spec(K) \ar[r] \ar[d] & U' \ar[r]^h & X' \ar[d]^{f'} \\
+\Spec(A) \ar[rr] \ar@{-->}[rru] & & Y
+}
+$$
+（其中 $A$ 是以 $K$ 为分式域的离散赋值环），都存在使图交换的虚线箭头。
+事实上，先由本引理的假设得到箭头 $\Spec(A) \to X$，再利用固有性的赋值判据
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-characterize-proper}）
+将其提升为箭头 $\Spec(A) \to X'$。态射 $X' \to Y$ 是固有态射与分离态射
+的复合，因而分离。因此由概形的情形，态射 $X' \to Y$ 固有（《极限》引理
+\ref{limits-lemma-refined-valuative-criterion-proper}）。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-image-proper-is-proper}，可知 $X \to Y$ 固有。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-refined-valuative-criterion-separated}
+设 $S$ 为概形，$f : X \to Y$ 和 $h : U \to X$ 为 $S$ 上代数空间的态射。
+假设 $Y$ 局部诺特，$f$ 局部有限型且拟分离，$h$ 有限型，并且
+$|h| : |U| \to |X|$ 的像在 $|X|$ 中稠密。若对任意交换实线图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & U \ar[r]^h & X \ar[d]^f \\
+\Spec(A) \ar[rr] \ar@{-->}[rru] & & Y
+}
+$$
+（其中 $A$ 是以 $K$ 为分式域的离散赋值环），至多存在一条使图交换的
+虚线箭头，则 $f$ 分离。
+\end{lemma}
+
+\begin{proof}
+把引理 \ref{spaces-limits-lemma-refined-valuative-criterion-proper} 应用于态射
+$U \to X$ 和 $\Delta : X \to X \times_Y X$。来检验其条件。注意，
+由于 $f$ 拟分离，$\Delta$ 拟紧。当然，$\Delta$ 局部有限型且分离
+（这对任意对角态射都成立）。最后，设给定交换实线图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & U \ar[r]^h & X \ar[d]^\Delta \\
+\Spec(A) \ar[rr]^{(a, b)} \ar@{-->}[rru] & & X \times_Y X
+}
+$$
+其中 $A$ 是以 $K$ 为分式域的离散赋值环。于是 $a$ 和 $b$ 给出本引理图中的
+两条虚线箭头，因而必相等。因此可用 $a = b$ 作为虚线箭头，从而得到存在性。
+这就完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-refined-valuative-criterion-universally-closed}
+设 $S$ 为概形，$f : X \to Y$ 和 $h : U \to X$ 为 $S$ 上代数空间的态射。
+假设 $Y$ 局部诺特，$f$ 与 $h$ 有限型，$f$ 拟分离，并且 $h(U)$ 在 $X$
+中稠密。若对任意交换实线图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & U \ar[r]^h & X \ar[d]^f \\
+\Spec(A) \ar[rr] \ar@{-->}[rru] & & Y
+}
+$$
+（其中 $A$ 是以 $K$ 为分式域的离散赋值环），都存在唯一一条使图交换的
+虚线箭头，则 $f$ 固有。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{spaces-limits-lemma-refined-valuative-criterion-separated} 与
+\ref{spaces-limits-lemma-refined-valuative-criterion-proper} 即得。
+\end{proof}
+
+
+
+
+
+
+
+\section{下降有限型空间}
+\label{spaces-limits-section-finite-type-quasi-separated}
+
+\noindent
+本节继续第 \ref{spaces-limits-section-finite-type-closed-in-finite-presentation} 节的主题，
+并遵循第 \ref{spaces-limits-section-descending-relative} 节所讨论结果的思路。
+它也是《极限》第 \ref{limits-section-finite-type-quasi-separated} 节关于
+代数空间的对应版本。
+
+\begin{situation}
+\label{spaces-limits-situation-limit-noetherian}
+设 $S$ 为概形，例如 $\Spec(\mathbf{Z})$。设
+$B = \lim_{i \in I} B_i$ 是 $S$ 上诺特空间的有向逆系统的极限，
+其转移态射 $B_{i'} \to B_i$（$i' \geq i$）均为仿射态射。
+\end{situation}
+
+\begin{lemma}
+\label{spaces-limits-lemma-good-diagram}
+在情形 \ref{spaces-limits-situation-limit-noetherian} 中，设 $X \to B$ 是代数空间的
+拟分离有限型态射。则存在 $i \in I$ 及图
+\begin{equation}
+\label{spaces-limits-equation-good-diagram}
+\vcenter{
+\xymatrix{
+X \ar[r] \ar[d] & W \ar[d] \\
+B \ar[r] & B_i
+}
+}
+\end{equation}
+使得 $W \to B_i$ 有限型，并且诱导态射
+$X \to B \times_{B_i} W$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-finite-type-closed-in-finite-presentation}，可以找到
+$B$ 上的闭浸入 $X \to X'$，其中 $X'$ 是 $B$ 上有限表示的代数空间。
+由引理 \ref{spaces-limits-lemma-descend-finite-presentation}，可以找到 $i$ 和有限表示态射
+$X'_i \to B_i$，其拉回为 $X'$。置 $W = X'_i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-limit-from-good-diagram}
+在情形 \ref{spaces-limits-situation-limit-noetherian} 中，设 $X \to B$ 是代数空间的
+拟分离有限型态射。给定 $i \in I$ 及图
+$$
+\vcenter{
+\xymatrix{
+X \ar[r] \ar[d] & W \ar[d] \\
+B \ar[r] & B_i
+}
+}
+$$
+如 (\ref{spaces-limits-equation-good-diagram})。对 $i' \geq i$，令 $X_{i'}$ 为
+$X \to B_{i'} \times_{B_i} W$ 的概形论像。则
+$X = \lim_{i' \geq i} X_{i'}$。
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 拟紧且拟分离，$X \to B_{i'} \times_{B_i} W$ 的概形论像的形成
+与平展局部化交换（《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}）。
+因此，可以并且确实假设 $W$ 仿射，并映入一个在 $B_i$ 上平展的仿射
+$U_i$。于是
+$$
+B_{i'} \times_{B_i} W =
+B_{i'} \times_{B_i} U_i \times_{U_i} W =
+U_{i'} \times_{U_i} W
+$$
+其中 $U_{i'} = B_{i'} \times_{B_i} U_i$ 是仿射的，因为转移态射仿射。
+故本引理归结为概形的情形，即《极限》引理
+\ref{limits-lemma-limit-from-good-diagram}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-morphism-good-diagram}
+在情形 \ref{spaces-limits-situation-limit-noetherian} 中，设 $f : X \to Y$ 是 $B$ 上
+拟分离有限型代数空间的态射。设
+$$
+\vcenter{
+\xymatrix{
+X \ar[r] \ar[d] & W \ar[d] \\
+B \ar[r] & B_{i_1}
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+Y \ar[r] \ar[d] & V \ar[d] \\
+B \ar[r] & B_{i_2}
+}
+}
+$$
+为形如 (\ref{spaces-limits-equation-good-diagram}) 的图。设
+$X = \lim_{i \geq i_1} X_i$ 和 $Y = \lim_{i \geq i_2} Y_i$ 是引理
+\ref{spaces-limits-lemma-limit-from-good-diagram} 中相应的极限描述。则存在
+$i_0 \geq \max(i_1, i_2)$ 以及逆系统态射
+$$
+(f_i)_{i \geq i_0} : (X_i)_{i \geq i_0} \to (Y_i)_{i \geq i_0}
+$$
+它在 $(B_i)_{i \geq i_0}$ 上，并且 % P09-ERR-0141
+$f = \lim_{i \geq i_0} f_i$。若
+$(g_i)_{i \geq i_0} : (X_i)_{i \geq i_0} \to (Y_i)_{i \geq i_0}$
+是在 $(B_i)_{i \geq i_0}$ 上的第二个逆系统态射，并且 % P09-ERR-0142
+$f = \lim_{i \geq i_0} g_i$，则对所有 $i \gg i_0$ 都有 $f_i = g_i$。
+\end{lemma}
+
+\begin{proof}
+由于 $V \to B_{i_2}$ 有限表示且 $X = \lim_{i \geq i_1} X_i$，可以应用命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}（经引理
+\ref{spaces-limits-lemma-better-characterize-relative-limit-preserving} 加强），找到
+$i_0 \geq \max(i_1, i_2)$ 以及 $B_{i_2}$ 上的态射
+$h : X_{i_0} \to V$，使得 $X \to X_{i_0} \to V$ 等于
+$X \to Y \to V$。对 $i \geq i_0$，得到交换实线图
+$$
+\xymatrix{
+X \ar[d] \ar[r] &
+X_i \ar[r] \ar@{..>}[d] \ar@/_2pc/[dd] |!{[d];[ld]}\hole &
+X_{i_0} \ar[d]^h \\
+Y \ar[r] \ar[d] & Y_i \ar[r] \ar[d] & V \ar[d] \\
+B \ar[r] & B_i \ar[r] & B_{i_0}
+}
+$$
+由于 $X \to X_i$ 的像在概形论意义下稠密，而 $Y_i$ 是
+$Y \to B_i \times_{B_{i_2}} V$ 的概形论像，可知由该图诱导的态射
+$X_i \to B_i \times_{B_{i_2}} V$ 经由 $Y_i$ 分解（《空间的态射》引理
+\ref{spaces-morphisms-lemma-factor-factor}）。这就证明了存在性。
+
+\medskip\noindent
+唯一性。对 $i \geq i_0$，令 $E_i \to X_i$ 为 $f_i$ 与 $g_i$ 的等化子。
+有
+$E_i = Y_i \times_{\Delta, Y_i \times_{B_i} Y_i, (f_i, g_i)} X_i$.
+因此，作为 $Y_i$ 在 $B_i$ 上的对角态射的基变换，$E_i \to X_i$ 是有限表示
+单态射；参见《空间的态射》诸引理
+\ref{spaces-morphisms-lemma-properties-diagonal} 和
+\ref{spaces-morphisms-lemma-diagonal-morphism-finite-type}。由于 $X_i$ 是
+$B_i \times_{B_{i_0}} X_{i_0}$ 的闭子空间，而 $Y_i$ 也类似，可知
+$$
+E_i =
+X_i \times_{(B_i \times_{B_{i_0}} X_{i_0})} (B_i \times_{B_{i_0}} E_{i_0}) =
+X_i \times_{X_{i_0}} E_{i_0}
+$$
+类似地，有 $X = X \times_{X_{i_0}} E_{i_0}$。故由引理
+\ref{spaces-limits-lemma-descend-isomorphism}，对充分大的 $i$ 有 $E_i = X_i$。
+\end{proof}
+
+\begin{remark}
+\label{spaces-limits-remark-finite-type-gives-well-defined-system}
+在情形 \ref{spaces-limits-situation-limit-noetherian} 中，引理 \ref{spaces-limits-lemma-good-diagram}、
+\ref{spaces-limits-lemma-limit-from-good-diagram} 和 \ref{spaces-limits-lemma-morphism-good-diagram}
+告诉我们：$B$ 上拟分离有限型代数空间的范畴等价于 $(B_i)_{i \in I}$ 上
+某类代数空间逆系统，即把引理 \ref{spaces-limits-lemma-limit-from-good-diagram} 应用于
+形如 (\ref{spaces-limits-equation-good-diagram}) 的图所产生的那些逆系统。例如，给定
+有限型拟分离态射 $X \to B$，若选择两个形如
+(\ref{spaces-limits-equation-good-diagram}) 的不同图 $X \to V_1 \to B_{i_1}$ 与
+$X \to V_2 \to B_{i_2}$，则沿两个方向把引理
+\ref{spaces-limits-lemma-morphism-good-diagram} 应用于 $\text{id}_X$，可见 $X$ 的相应极限
+描述典范同构（至多需要缩小有向集 $I$）。其余依此类推。
+\end{remark}
+
+\begin{lemma}
+\label{spaces-limits-lemma-morphism-good-diagram-flat}
+记号与假设同引理 \ref{spaces-limits-lemma-morphism-good-diagram}。若 $f$ 平坦且有限表示，
+则存在 $i_3 > i_0$，使得对 $i \geq i_3$，$f_i$ 平坦，
+$X_i = Y_i \times_{Y_{i_3}} X_{i_3}$，且
+$X = Y \times_{Y_{i_3}} X_{i_3}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-limits-lemma-descend-finite-presentation}，可以选择 $i \geq i_2$ 以及
+有限表示态射 $U \to Y_i$，使得 $X = Y \times_{Y_i} U$
+（此处使用了 $f$ 有限表示）。增大 $i$ 后，可以假设 $U \to Y_i$ 平坦；
+参见引理 \ref{spaces-limits-lemma-descend-flat}。如注
+\ref{spaces-limits-remark-finite-type-gives-well-defined-system} 中所讨论，可以并且确实
+用与 $X \to U \to B_i$ 对应的系统替换用来定义系统
+$(X_i)_{i \geq i_1}$ 的初始图。因此，对 $i' \geq i$，$X_{i'}$ 被定义为
+$X \to B_{i'} \times_{B_i} U$ 的概形论像。
+
+\medskip\noindent
+由于 $U \to Y_i$ 平坦（此处使用了 $f$ 平坦），又由于
+$X = Y \times_{Y_i} U$，且 $Y \to Y_i$ 的概形论像为 $Y_i$，可知
+$X \to U$ 的概形论像为 $U$（《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-base-change-scheme-theoretic-image}）。
+注意，由系统 $Y_j$ 的构造，对 $i' \geq i$，
+$Y_{i'} \to B_{i'} \times_{B_i} Y_i$ 是闭浸入。于是与上述相同的论证表明，
+$X \to B_{i'} \times_{B_i} U$ 的概形论像等于闭子空间
+$Y_{i'} \times_{Y_i} U$。因此，对所有 $i' \geq i$，有
+$X_{i'} = Y_{i'} \times_{Y_i} U$，故取 $i_3 = i$ 即得本引理。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-morphism-good-diagram-smooth}
+记号与假设同引理 \ref{spaces-limits-lemma-morphism-good-diagram}。若 $f$ 光滑，
+则存在 $i_3 > i_0$，使得对 $i \geq i_3$，$f_i$ 光滑。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{spaces-limits-lemma-morphism-good-diagram-flat} 与
+\ref{spaces-limits-lemma-descend-smooth} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-morphism-good-diagram-proper}
+记号与假设同引理 \ref{spaces-limits-lemma-morphism-good-diagram}。若 $f$ 固有，
+则存在 $i_3 \geq i_0$，使得对 $i \geq i_3$，$f_i$ 固有。
+\end{lemma}
+
+\begin{proof}
+由注 \ref{spaces-limits-remark-finite-type-gives-well-defined-system} 中的讨论，
+选取适合形如 (\ref{spaces-limits-equation-good-diagram}) 的图的 $i_1$ 和 $W$，
+不影响本引理的真假。因此如下选择 $W$。首先选择闭浸入 $X \to X'$，
+使得 $X' \to Y$ 固有且有限表示；参见引理
+\ref{spaces-limits-lemma-proper-limit-of-proper-finite-presentation}。然后选择
+$i_3 \geq i_2$ 和固有态射 $W \to Y_{i_3}$，使得
+$X' = Y \times_{Y_{i_3}} W$。这是可能的，因为
+$Y = \lim_{i \geq i_2} Y_i$，以及 % P09-ERR-0143
+引理 \ref{spaces-limits-lemma-relative-approximation} 和 \ref{spaces-limits-lemma-eventually-proper}。
+按此选择 $W$ 后，由构造立即可知，对 $i \geq i_3$，代数空间 $X_i$ 是
+$Y_i \times_{Y_{i_3}} W \subset B_i \times_{B_{i_3}} W$ 的闭子空间，
+因而在 $Y_i$ 上固有。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-limits-lemma-good-diagram-fibre-product}
+在情形 \ref{spaces-limits-situation-limit-noetherian} 中，设有笛卡尔图
+$$
+\xymatrix{
+X^1 \ar[r]_p \ar[d]_q & X^3 \ar[d]^a \\
+X^2 \ar[r]^b & X^4
+}
+$$
+其中各代数空间在 $B$ 上拟分离且有限型。对每个 $j = 1, 2, 3, 4$，
+选择 $i_j \in I$ 及图
+$$
+\xymatrix{
+X^j \ar[r] \ar[d] & W^j \ar[d] \\
+B \ar[r] & B_{i_j}
+}
+$$
+形如 (\ref{spaces-limits-equation-good-diagram})。令
+$X^j = \lim_{i \geq i_j} X^j_i$ 为引理 % P09-ERR-0144
+\ref{spaces-limits-lemma-morphism-good-diagram} 中相应的极限描述。令
+$(a_i)_{i \geq i_5}$、$(b_i)_{i \geq i_6}$、$(p_i)_{i \geq i_7}$ 和
+$(q_i)_{i \geq i_8}$ 为引理 \ref{spaces-limits-lemma-morphism-good-diagram} 中构造的
+相应逆系统态射。则存在 $i_9 \geq \max(i_5, i_6, i_7, i_8)$，使得对
+$i \geq i_9$ 有 $a_i \circ p_i = b_i \circ q_i$，并且
+$$
+(q_i, p_i) : X^1_i \longrightarrow X^2_i \times_{b_i, X^4_i, a_i} X^3_i
+$$
+是闭浸入。若 $a$ 与 $b$ 平坦且有限表示，则存在
+$i_{10} \geq \max(i_5, i_6, i_7, i_8, i_9)$，使得对 $i \geq i_{10}$，
+最后显示的态射是同构。
+\end{lemma}
+
+\begin{proof}
+由注 \ref{spaces-limits-remark-finite-type-gives-well-defined-system} 中的讨论，
+选取适合形如 (\ref{spaces-limits-equation-good-diagram}) 的图的 $W^1$ 不影响本引理的真假。
+因此可以选择 $W^1 = W^2 \times_{W^4} W^3$。于是由 $X^1_i$ 的构造立即可知，
+$a_i \circ p_i = b_i \circ q_i$，并且
+$$
+(q_i, p_i) : X^1_i \longrightarrow X^2_i \times_{b_i, X^4_i, a_i} X^3_i
+$$
+是闭浸入。
+
+\medskip\noindent
+若 $a$ 与 $b$ 平坦且有限表示，则作为 $a$ 与 $b$ 的基变换，$p$ 与 $q$
+也如此。因此，可将引理 \ref{spaces-limits-lemma-morphism-good-diagram-flat} 分别应用于
+$a$、$b$、$p$、$q$ 以及 $a \circ p = b \circ q$。由此存在
+$i_9 \in I$，使得 % P09-ERR-0145
+$$
+(q_i, p_i) : X^1_i \to X^2_i \times_{X^4_i} X^3_i
+$$
+对所有 $i \geq i_9$ 都是 $(q_{i_9}, p_{i_9})$ 沿态射 % P09-ERR-0146
+$X^4_i \to X^4_{i_9}$ 的基变换。由引理 \ref{spaces-limits-lemma-descend-isomorphism}，
+可知对所有充分大的 $i$，$(q_i, p_i)$ 是同构。
+\end{proof}

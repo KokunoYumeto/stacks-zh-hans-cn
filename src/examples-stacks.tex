@@ -1,0 +1,1577 @@
+% Generated mechanically from the frozen examples-stacks.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{94}
+\chapter{叠的例子}
+
+
+
+\phantomsection
+\label{examples-stacks-section-phantom}
+
+
+\section{引言}
+\label{examples-stacks-section-introduction}
+
+\noindent
+本章讨论代数几何中叠的一些例子。其中有些是代数叠，有些则不是。
+我们将在后续章节讨论哪些例子是代数叠。因此，本章主要关注下降条件；
+例如可参见 \cite{Vis2}。
+
+\medskip\noindent
+本章中的某些记号、约定和术语并不自然，对经验丰富的读者而言甚至可能
+显得前后颠倒。这是有意为之。解释参见《Quot 空间与 Hilbert 空间》第
+\ref{quot-section-conventions} 节。
+
+
+
+
+\section{记号}
+\label{examples-stacks-section-notation}
+
+\noindent
+本章固定一个合适的大 fppf 位点 $\Sch_{fppf}$，如《概形上的拓扑》定义
+\ref{topologies-definition-big-fppf-site} 所述。因此，除非另有明示，
+所有概形都是 $\Sch_{fppf}$ 的对象。我们始终相对于包含在
+$\Sch_{fppf}$ 中的一个基 $S$ 工作，并使用大 fppf 位点
+$(\Sch/S)_{fppf}$；参见《概形上的拓扑》定义
+\ref{topologies-definition-big-small-fppf}。取
+$S = \Spec(\mathbf{Z})$ 即可恢复绝对情形。
+
+
+
+
+\section{叠的例子}
+\label{examples-stacks-section-examples-stacks}
+
+\noindent
+我们先给出 $(\Sch/S)_{fppf}$ 上叠的若干重要例子。
+
+
+
+
+
+\section{拟凝聚层}
+\label{examples-stacks-section-stack-of-quasi-coherent-sheaves}
+
+\noindent
+如下定义范畴 $\QCohstack$：
+\begin{enumerate}
+\item $\QCohstack$ 的对象是二元组 $(X, \mathcal{F})$，其中
+$X/S$ 是 $(\Sch/S)_{fppf}$ 的对象，而 $\mathcal{F}$ 是拟凝聚
+$\mathcal{O}_X$-模；
+\item 态射 $(f, \varphi) : (Y, \mathcal{G}) \to (X, \mathcal{F})$
+是一个二元组，由 $S$ 上概形的态射 $f : Y \to X$ 以及 $f$-映射
+（参见《空间上的层》第
+\ref{sheaves-section-ringed-spaces-functoriality-modules} 节）
+$\varphi : \mathcal{F} \to \mathcal{G}$ 组成；
+\item 态射
+$$
+(Z, \mathcal{H}) \xrightarrow{(g, \psi)}
+(Y, \mathcal{G}) \xrightarrow{(f, \phi)} (X, \mathcal{F})
+$$
+的复合是 $(f \circ g, \psi \circ \phi)$，其中 $\psi \circ \phi$
+是 $f$-映射的复合。
+\end{enumerate}
+于是 $\QCohstack$ 是一个范畴，并且
+$$
+p : \QCohstack \to (\Sch/S)_{fppf},
+\quad
+(X, \mathcal{F}) \mapsto X
+$$
+是函子。注意，$\QCohstack$ 在概形 $X$ 上的纤维范畴，是拟凝聚
+$\mathcal{O}_X$-模范畴 $\QCoh(\mathcal{O}_X)$ 的反范畴。
+为供后文使用，我们还指出：给定
+$(X, \mathcal{F}), (Y, \mathcal{G}) \in \Ob(\QCohstack)$
+，有
+\begin{equation}
+\label{examples-stacks-equation-morphisms-qcoh}
+\Mor_{\QCohstack}((Y, \mathcal{G}), (X, \mathcal{F}))
+=
+\coprod\nolimits_{f \in \Mor_S(Y, X)}
+\Mor_{\QCoh(\mathcal{O}_Y)}(f^*\mathcal{F}, \mathcal{G})
+\end{equation}
+关于模的 $f$-映射的讨论，参见《空间上的层》第
+\ref{sheaves-section-ringed-spaces-functoriality-modules} 节。
+
+\medskip\noindent
+范畴 $\QCohstack$ 不是 $(\Sch/S)_{fppf}$ 上的叠，因为它的对象全体
+是一个真类。另一方面，我们将看到它确实满足叠的全部公理。
+第 \ref{examples-stacks-section-stack-of-finitely-generated-quasi-coherent-sheaves} 节
+将规避这一集合论问题。
+
+\begin{lemma}
+\label{examples-stacks-lemma-quasi-coherent-strongly-cartesian}
+$\QCohstack$ 的态射
+$(f, \varphi) : (Y, \mathcal{G}) \to (X, \mathcal{F})$
+是强笛卡尔态射，当且仅当映射 $\varphi$ 诱导同构
+$f^*\mathcal{F} \to \mathcal{G}$。
+\end{lemma}
+
+\begin{proof}
+设 $(X, \mathcal{F}) \in \Ob(\QCohstack)$，并设
+$f : Y \to X$ 是 $(\Sch/S)_{fppf}$ 的态射。注意，存在典范的
+$f$-映射 $c : \mathcal{F} \to f^*\mathcal{F}$，因而得到态射
+$(f, c) : (Y, f^*\mathcal{F}) \to (X, \mathcal{F})$.
+我们断言 $(f, c)$ 是强笛卡尔态射。事实上，对 $\QCohstack$ 的任意对象
+$(Z, \mathcal{H})$，有
+\begin{align*}
+\Mor_{\QCohstack}((Z, \mathcal{H}), (Y, f^*\mathcal{F}))
+& =
+\coprod\nolimits_{g \in \Mor_S(Z, Y)}
+\Mor_{\QCoh(\mathcal{O}_Z)}(g^*f^*\mathcal{F}, \mathcal{H}) \\
+& =
+\coprod\nolimits_{g \in \Mor_S(Z, Y)}
+\Mor_{\QCoh(\mathcal{O}_Z)}((f \circ g)^*\mathcal{F}, \mathcal{H}) \\
+& =
+\Mor_{\QCohstack}((Z, \mathcal{H}), (X, \mathcal{F}))
+\times_{\Mor_S(Z, X)} \Mor_S(Z, Y)
+\end{align*}
+这里两次使用了式 (\ref{examples-stacks-equation-morphisms-qcoh})。这证明
+$(f, c)$ 满足《范畴》定义 \ref{categories-definition-cartesian-over-C}
+的条件，故断言成立。由《范畴》引理
+\ref{categories-lemma-composition-cartesian}，同构都是强笛卡尔态射，
+而强笛卡尔态射的复合仍是强笛卡尔态射；这证明了引理的充分性。
+反过来，给定 $(X, \mathcal{F})$ 与 $f : Y \to X$，若存在以
+$(X, \mathcal{F})$ 为目标、提升 $f$ 的强笛卡尔态射，则它必与
+$(f, c)$ 同构（参见《范畴》定义
+\ref{categories-definition-cartesian-over-C} 后的讨论）。因此引理的必要性也成立。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-stack-of-quasi-coherent-sheaves}
+函子 $p : \QCohstack \to (\Sch/S)_{fppf}$ 满足《叠》定义
+\ref{stacks-definition-stack} 的条件 (1)、(2) 与 (3)。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{examples-stacks-lemma-quasi-coherent-strongly-cartesian} 可知，
+$\QCohstack$ 是 $(\Sch/S)_{fppf}$ 上的纤维化范畴。给定
+$(\Sch/S)_{fppf}$ 的覆盖 $\mathcal{U} = \{X_i \to X\}_{i \in I}$，函子
+$$
+\QCoh(\mathcal{O}_X) \longrightarrow DD(\mathcal{U})
+$$
+是全忠实且本质满的；参见《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}。因此可应用《叠》引理
+\ref{stacks-lemma-stack-equivalences}，从而证明 $\QCohstack$
+满足叠的全部公理。
+\end{proof}
+
+
+
+
+
+\section{有限型拟凝聚层的叠}
+\label{examples-stacks-section-stack-of-finitely-generated-quasi-coherent-sheaves}
+
+\noindent
+事实证明，只考虑有限型拟凝聚模时，可以得到拟凝聚层的叠。用
+$$
+p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}
+$$
+表示 $\QCohstack$ 在 $(\Sch/S)_{fppf}$ 上的全子范畴，其对象是满足
+$\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_T$-模的二元组
+$(T, \mathcal{F})$。
+
+\begin{lemma}
+\label{examples-stacks-lemma-stack-of-finite-type-quasi-coherent-sheaves}
+函子 $p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}$ 满足《叠》定义
+\ref{stacks-definition-stack} 的条件 (1)、(2) 与 (3)。
+\end{lemma}
+
+\begin{proof}
+我们验证《叠》引理 \ref{stacks-lemma-substack} 的假设 (1)、(2)、(3)。
+由引理 \ref{examples-stacks-lemma-quasi-coherent-strongly-cartesian}，态射
+$(Y, \mathcal{G}) \to (X, \mathcal{F})$ 是强笛卡尔态射，当且仅当它诱导同构
+$f^*\mathcal{F} \to \mathcal{G}$。由《模层》引理
+\ref{modules-lemma-pullback-finite-type}，有限型 $\mathcal{O}_X$-模的拉回
+仍为有限型。因此，《叠》引理 \ref{stacks-lemma-substack} 的假设 (1)
+成立，而假设 (2) 显然成立。最后，为证明假设 (3)，需要证明：若
+$\mathcal{F}$ 是拟凝聚 $\mathcal{O}_X$-模，且
+$\{f_i : X_i \to X\}$ 是一个 fppf 覆盖，使每个
+$f_i^*\mathcal{F}$ 都为有限型，则 $\mathcal{F}$ 也是有限型。
+把 $\mathcal{F}$ 限制到 $X$ 的仿射开集后，问题归结为如下代数陈述：
+设 $R \to S$ 是有限表现忠实平坦环映射，$M$ 是 $R$-模。若
+$M \otimes_R S$ 是有限生成 $S$-模，则 $M$ 是有限生成 $R$-模。
+这一代数事实的更强形式见《交换代数》引理
+\ref{algebra-lemma-descend-properties-modules}。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-finite-type}
+设 $(X, \mathcal{O}_X)$ 是带环空间。
+\begin{enumerate}
+\item 有限型 $\mathcal{O}_X$-模范畴的同构类构成集合。
+\item 有限型拟凝聚 $\mathcal{O}_X$-模范畴的同构类构成集合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2) 中的范畴是 (1) 中范畴的全子范畴，故 (2) 由 (1) 得出。
+考虑任意开覆盖 $\mathcal{U} : X = \bigcup_{i \in I} U_i$，并用
+$j_i : U_i \to X$ 表示包含映射。再考虑任意映射
+$r : I \to \mathbf{N}$。若 $\mathcal{F}$ 是一个 $\mathcal{O}_X$-模，
+其在 $U_i$ 上的限制可由 $\mathcal{F}(U_i)$ 中至多 $r(i)$ 个截面生成，
+则 $\mathcal{F}$ 是下列层的商：
+$$
+\mathcal{H}_{\mathcal{U}, r} =
+\bigoplus\nolimits_{i \in I} j_{i, !}\mathcal{O}_{U_i}^{\oplus r(i)}
+$$
+按定义，若 $\mathcal{F}$ 为有限型，则存在一个指标集为 $I = X$ 的开覆盖
+$\mathcal{U}$，使上述条件成立。因此，只需说明 $\mathcal{U}$ 的可能选择构成
+集合（这是显然的），$r : I \to \mathbf{N}$ 的可能选择构成集合（也是显然的），
+并且对每个 $\mathcal{U}$ 与 $r$，$\mathcal{H}_{\mathcal{U}, r}$ 的商模的可能
+选择构成集合。换言之，只需证明：给定一个 $\mathcal{O}_X$-模
+$\mathcal{H}$，其商的同构类至多构成集合。最后这一点很清楚，因为商映射
+$\mathcal{H} \to \mathcal{F}$ 的核可由
+$\prod_{U \subset X\text{ 开}} \mathcal{H}(U)$ 的幂集的一个子集参数化。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-stack-fg-quasi-coherent}
+存在子范畴
+$\QCohstack_{fg, small} \subset \QCohstack_{fg}$
+，它具有如下性质：
+\begin{enumerate}
+\item 包含函子
+$\QCohstack_{fg, small} \to \QCohstack_{fg}$ 全忠实且本质满；
+\item 函子
+$p_{fg, small} : \QCohstack_{fg, small} \to (\Sch/S)_{fppf}$
+使 $\QCohstack_{fg, small}$ 成为 $(\Sch/S)_{fppf}$ 上的叠。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{examples-stacks-lemma-stack-of-finite-type-quasi-coherent-sheaves} 与
+\ref{examples-stacks-lemma-finite-type} 可知，
+$p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}$ 满足《叠》定义
+\ref{stacks-definition-stack} 的 (1)、(2)、(3)，并满足《叠》注
+\ref{stacks-remark-stack-make-small} 的附加条件 (4)。因此，该注中的讨论
+给出 $\QCohstack_{fg, small}$。
+\end{proof}
+
+\noindent
+我们以后常作替换
+$$
+\QCohstack_{fg} \leadsto \QCohstack_{fg, small}
+$$
+而不再说明，并且略用记号，仍以 $\QCohstack_{fg}$ 表示替换后的范畴。
+
+\begin{remark}
+\label{examples-stacks-remark-higher-rank}
+注意，对某个无限基数 $\kappa$，若只考虑局部可由至多 $\kappa$ 个截面生成的
+拟凝聚层，则本节的全部讨论仍然成立；例如可取 $\kappa = \aleph_0$。
+\end{remark}
+
+
+
+
+
+\section{有限 \'etale 覆盖}
+\label{examples-stacks-section-finite-etale}
+
+\noindent
+如下定义范畴 $\textit{F\'Et}$：
+\begin{enumerate}
+\item $\textit{F\'Et}$ 的对象是概形的有限 \'etale 态射 $Y \to X$
+（按我们的约定，这指 $(\Sch/S)_{fppf}$ 中的有限 \'etale 态射）；
+\item $\textit{F\'Et}$ 的态射
+$(b, a) : (Y \to X) \to (Y' \to X')$ 是交换图
+$$
+\xymatrix{
+Y \ar[d] \ar[r]_b & Y' \ar[d] \\
+X \ar[r]_a & X'
+}
+$$
+，其中该图位于概形范畴中。
+\end{enumerate}
+于是 $\textit{F\'Et}$ 是一个范畴，并且
+$$
+p : \textit{F\'Et} \to (\Sch/S)_{fppf},
+\quad
+(Y \to X) \mapsto X
+$$
+是函子。注意，$\textit{F\'Et}$ 在概形 $X$ 上的纤维范畴，正是
+《基本群》第 \ref{pione-section-finite-etale} 节所研究的范畴
+$\textit{F\'Et}_X$。
+
+\begin{lemma}
+\label{examples-stacks-lemma-finite-etale-stack}
+函子
+$$
+p : \textit{F\'Et} \longrightarrow (\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的叠。
+\end{lemma}
+
+\begin{proof}
+有限 \'etale 态射的 fppf 下降由《下降》引理 \ref{descent-lemma-affine}、
+\ref{descent-lemma-descending-property-finite} 以及
+\ref{descent-lemma-descending-property-etale} 得出。细节从略。
+\end{proof}
+
+
+
+
+
+
+\section{代数空间}
+\label{examples-stacks-section-stack-of-spaces}
+
+\noindent
+如下定义范畴 $\Spacesstack$：
+\begin{enumerate}
+\item $\Spacesstack$ 的对象是 $S$ 上代数空间的态射 $X \to U$，其中
+$U$ 可由 $(\Sch/S)_{fppf}$ 的一个对象表示；
+\item 态射 $(f, g) : (X \to U) \to (Y \to V)$ 是交换图
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+U \ar[r]^g & V
+}
+$$
+，其中各箭头都是 $S$ 上代数空间的态射。
+\end{enumerate}
+于是 $\Spacesstack$ 是一个范畴，并且
+$$
+p : \Spacesstack \to (\Sch/S)_{fppf},
+\quad
+(X \to U) \mapsto U
+$$
+是函子。注意，$\Spacesstack$ 在概形 $U$ 上的纤维范畴，正是 $U$ 上
+代数空间的范畴 $\textit{Spaces}/U$（参见《代数空间上的拓扑》第
+\ref{spaces-topologies-section-procedure} 节）。因此，有时把
+$\Spacesstack$ 的对象视为二元组 $X/U$，它由概形 $U$ 与 $U$ 上的
+代数空间 $X$ 组成。为供后文使用，我们指出：给定
+$(X/U), (Y/V) \in \Ob(\Spacesstack)$
+，有
+\begin{equation}
+\label{examples-stacks-equation-morphisms-spaces}
+\Mor_{\Spacesstack}(X/U, Y/V)
+=
+\coprod\nolimits_{g \in \Mor_S(U, V)}
+\Mor_{\textit{Spaces}/U}(X, U \times_{g, V} Y)
+\end{equation}
+范畴 $\Spacesstack$ 几乎是 $(\Sch/S)_{fppf}$ 上的叠，但还不完全是。
+问题出在集合论上，下面将予以说明。
+
+\begin{lemma}
+\label{examples-stacks-lemma-spaces-strongly-cartesian}
+$\Spacesstack$ 的态射 $(f, g) : X/U \to Y/V$ 是强笛卡尔态射，
+当且仅当映射 $f$ 诱导同构 $X \to U \times_{g, V} Y$。
+\end{lemma}
+
+\begin{proof}
+设 $Y/V \in \Ob(\Spacesstack)$，并设 $g : U \to V$ 是
+$(\Sch/S)_{fppf}$ 的态射。注意，投影 $p : U \times_{g, V} Y \to Y$
+给出态射
+% P11-E0082：冻结源此处的 “gives rise a morphism” 缺少介词 “to”。
+$(p, g) : U \times_{g, V} Y/U \to Y/V$，它是 $\Spacesstack$ 的态射。
+我们断言 $(p, g)$ 是强笛卡尔态射。事实上，对 $\Spacesstack$ 的任意对象
+$Z/W$，有
+\begin{align*}
+\Mor_{\Spacesstack}(Z/W, U \times_{g, V} Y/U)
+& =
+\coprod\nolimits_{h \in \Mor_S(W, U)}
+\Mor_{\textit{Spaces}/W}(Z, W \times_{h, U} U \times_{g, V} Y) \\
+& =
+\coprod\nolimits_{h \in \Mor_S(W, U)}
+\Mor_{\textit{Spaces}/W}(Z, W \times_{g \circ h, V} Y) \\
+& =
+\Mor_{\Spacesstack}(Z/W, Y/V)
+\times_{\Mor_S(W, V)} \Mor_S(W, U)
+\end{align*}
+这里两次使用了式 (\ref{examples-stacks-equation-morphisms-spaces})。这证明 $(p, g)$
+满足《范畴》定义 \ref{categories-definition-cartesian-over-C} 的条件，
+故断言成立。由《范畴》引理
+\ref{categories-lemma-composition-cartesian}，同构都是强笛卡尔态射，
+而强笛卡尔态射的复合仍是强笛卡尔态射；这证明了引理的充分性。
+反过来，给定 $Y/V$ 与 $g : U \to V$，若存在以 $Y/V$ 为目标、
+提升 $g$ 的强笛卡尔态射，则它必与 $(p, g)$ 同构（参见《范畴》定义
+\ref{categories-definition-cartesian-over-C} 后的讨论）。因此引理的必要性也成立。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-pre-stack-of-spaces}
+函子 $p : \Spacesstack \to (\Sch/S)_{fppf}$ 满足《叠》定义
+\ref{stacks-definition-stack} 的条件 (1) 与 (2)。
+\end{lemma}
+
+\begin{proof}
+% P11-E0081：冻结源此处写作 “It is follows from”；应删去 “is”。
+由引理 \ref{examples-stacks-lemma-spaces-strongly-cartesian} 可知，$\Spacesstack$ 是
+$(\Sch/S)_{fppf}$ 上的纤维化范畴，这证明了 (1)。设
+$\{U_i \to U\}_{i \in I}$ 是 $(\Sch/S)_{fppf}$ 的覆盖，设 $X, Y$
+是 $U$ 上的代数空间。最后，设
+$\varphi_i : X_{U_i} \to Y_{U_i}$ 是 $\textit{Spaces}/U_i$ 的态射，
+并且 $\varphi_i$ 与 $\varphi_j$ 在 $U_i \times_U U_j$ 上都限制为
+代数空间的同一态射 $X_{U_i \times_U U_j} \to Y_{U_i \times_U U_j}$。
+为证明 (2)，需要说明存在唯一的 $U$ 上态射 $\varphi  : X \to Y$，
+其到 $U_i$ 的基变换等于 $\varphi_i$。从 $X$ 到 $Y$ 的态射等同于层的映射，
+故这直接由《位点与层》引理 \ref{sites-lemma-glue-maps} 得出。
+\end{proof}
+
+\begin{remark}
+\label{examples-stacks-remark-stack-spaces}
+暂且忽略集合论困难\footnote{困难并不在于 $\Spacesstack$ 是真类；
+按我们对 $S$ 上代数空间的定义，$S$ 上代数空间的同构类只构成集合。
+真正的问题是：代数空间的任意不交并最终可能过大，因而落在我们所选集合
+“部分宇宙”之外。}，$\Spacesstack$ 也满足对象的下降，因而是叠。
+具体而言，需要证明：给定
+\begin{enumerate}
+\item 一个 fppf 覆盖 $\{U_i \to U\}_{i \in I}$；
+\item 对每个 $i \in I$，一个代数空间 $X_i/U_i$；
+\item 对每个 $i, j \in I$，一个代数空间的同构
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$
+，它位于 $U_i \times_U U_j$ 上，并在
+$U_i \times_U U_j \times_U U_k$ 上满足上链条件。
+\end{enumerate}
+则存在代数空间 $X/U$ 以及 $U_i$ 上的同构 $X_{U_i} \cong X_i$，
+它们恢复同构 $\varphi_{ij}$。首先，由《位点与层》引理
+\ref{sites-lemma-glue-sheaves}，存在 $(\Sch/U)_{fppf}$ 上的层 $X$，
+它恢复 $X_i$ 与 $\varphi_{ij}$。再由《自举》引理
+\ref{bootstrap-lemma-locally-algebraic-space}，$X$ 是代数空间
+（这里忽略该引理的集合论条件）。下一节将使用此论证证明：若只考虑
+有限型代数空间，就会得到一个叠。
+\end{remark}
+
+
+
+
+
+
+\section{有限型代数空间的叠}
+\label{examples-stacks-section-stack-of-finite-type-spaces}
+
+
+\noindent
+事实证明，只考虑有限型代数空间时，可以得到代数空间的叠。用
+$$
+p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}
+$$
+表示 $\Spacesstack$ 在 $(\Sch/S)_{fppf}$ 上的全子范畴，其对象是满足
+$X \to U$ 为有限型态射的二元组 $X/U$。
+
+\begin{lemma}
+\label{examples-stacks-lemma-stack-of-finite-type-spaces}
+函子
+$p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$
+满足《叠》定义 \ref{stacks-definition-stack} 的条件 (1)、(2) 与 (3)。
+\end{lemma}
+
+\begin{proof}
+下面将把论证写得极为琐细（这可能反而让人难以看清思路）。
+
+\medskip\noindent
+由引理 \ref{examples-stacks-lemma-spaces-strongly-cartesian} 已知：若诱导态射
+$f : X \to U \times_V Y$ 是同构，则 $\Spacesstack$ 的态射
+$(f, g) : X/U \to Y/V$ 是强笛卡尔态射。注意，若 $Y \to V$ 为有限型，
+则 $U \times_V Y \to U$ 也为有限型；参见《代数空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-type}。因此，若 $\Spacesstack$ 的态射
+$(f, g) : X/U \to Y/V$ 是 $\Spacesstack$ 中的强笛卡尔态射，且
+$Y/V$ 是 $\Spacesstack_{ft}$ 的对象，则 $X/U$ 自动也是
+$\Spacesstack_{ft}$ 的对象，当然 $(f, g)$ 在 $\Spacesstack_{ft}$ 中
+也为强笛卡尔态射。由此可知，$\Spacesstack_{ft}$ 是
+$(\Sch/S)_{fppf}$ 上的纤维化范畴。这证明了 (1)。
+
+\medskip\noindent
+上述论证还表明，包含函子 $\Spacesstack_{ft} \to \Spacesstack$
+把强笛卡尔态射变为强笛卡尔态射。换言之，
+$\Spacesstack_{ft} \to \Spacesstack$ 是 $(\Sch/S)_{fppf}$ 上
+纤维化范畴的一个 $1$-态射。
+
+\medskip\noindent
+设 $U \in \Ob((\Sch/S)_{fppf})$，并设 $X, Y$ 是 $U$ 上的有限型
+代数空间。由《叠》引理
+\ref{stacks-lemma-presheaf-mor-map-fibred-categories}，得到预层的映射
+$$
+\mathit{Mor}_{\Spacesstack_{ft}}(X, Y)
+\longrightarrow
+\mathit{Mor}_{\Spacesstack}(X, Y)
+$$
+由于 $\Spacesstack_{ft}$ 是 $\Spacesstack$ 的全子范畴，该映射是同构。
+引理 \ref{examples-stacks-lemma-pre-stack-of-spaces} 已证明右端是层，故左端也是层。
+这证明了 (2)。
+
+\medskip\noindent
+为证明《叠》定义 \ref{stacks-definition-stack} 的条件 (3)，需要证明：给定
+\begin{enumerate}
+\item $(\Sch/S)_{fppf}$ 的一个覆盖 $\{U_i \to U\}_{i \in I}$；
+\item 对每个 $i \in I$，一个 $U_i$ 上的有限型代数空间 $X_i$；
+\item 对每个 $i, j \in I$，一个代数空间的同构
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$
+，它位于 $U_i \times_U U_j$ 上，并在
+$U_i \times_U U_j \times_U U_k$ 上满足上链条件。
+\end{enumerate}
+则存在 $U$ 上的有限型代数空间 $X$，以及 $U_i$ 上的同构
+$X_{U_i} \cong X_i$，它们恢复同构 $\varphi_{ij}$。这由《自举》引理
+\ref{bootstrap-lemma-descend-algebraic-space} 的 (2) 得出。再由
+《下降与代数空间》引理
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}，
+$X \to U$ 是有限型态射，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-stack-ft-spaces}
+存在子范畴
+$\Spacesstack_{ft, small} \subset \Spacesstack_{ft}$
+，它具有如下性质：
+\begin{enumerate}
+\item 包含函子
+$\Spacesstack_{ft, small} \to \Spacesstack_{ft}$ 全忠实且本质满；
+\item 函子
+$p_{ft, small} : \Spacesstack_{ft, small} \to (\Sch/S)_{fppf}$
+使 $\Spacesstack_{ft, small}$ 成为 $(\Sch/S)_{fppf}$ 上的叠。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+% P11-E0083：冻结源在单个引理引用前误用复数 “Lemmas”。
+由引理 \ref{examples-stacks-lemma-stack-of-finite-type-spaces} 已知，
+$p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$ 满足《叠》定义
+\ref{stacks-definition-stack} 的 (1)、(2)、(3)。《叠》注
+\ref{stacks-remark-stack-make-small} 的附加条件 (4) 也成立，因为每个
+$S$ 上的代数空间 $X$ 都可写成 $U/R$，其中
+$U, R \in \Ob((\Sch/S)_{fppf})$；参见《代数空间》引理
+\ref{spaces-lemma-space-presentation}。因此，对象的同构类只构成集合。
+该注中的讨论于是给出 $\Spacesstack_{ft, small}$。
+\end{proof}
+
+\noindent
+我们以后常作替换
+$$
+\Spacesstack_{ft} \leadsto \Spacesstack_{ft, small}
+$$
+而不再说明，并且略用记号，仍以 $\Spacesstack_{ft}$ 表示替换后的范畴。
+
+\begin{remark}
+\label{examples-stacks-remark-higher-cardinality-spaces}
+注意，若只考虑如下代数空间 $X/U$，则本节的全部讨论仍然成立：它们局部
+为有限型，并且 $U$ 的每个仿射开集在 $X$ 中的原像可由可数多个仿射开集覆盖。
+如有需要，还可以对一个基数 $\kappa$ 引入 $\kappa$-型态射的概念
+（即对环扩张生成元的数目，以及基中给定仿射开集上方仿射开集的基数，
+分别施加某种界），于是可以完全依照上述方法构造叠
+$$
+\Spacesstack_\kappa \longrightarrow (\Sch/S)_{fppf}
+$$
+（但须确保 $\Sch$ 随 $\kappa$ 而取得足够大）。
+\end{remark}
+
+
+
+
+
+\section{群胚叠的例子}
+\label{examples-stacks-section-examples-stacks-in-groupoids}
+
+\noindent
+上面的例子都是并非群胚叠的叠。本章余下部分将给出群胚叠在代数几何中的例子。
+
+
+
+\section{与层相联系的叠}
+\label{examples-stacks-section-stack-associated-to-sheaf}
+
+\noindent
+设 $F : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ 是预层。由此得到集合纤维化范畴
+$$
+p_F : \mathcal{S}_F \to (\Sch/S)_{fppf},
+$$
+参见《范畴》例 \ref{categories-example-presheaf}。它是集合叠，当且仅当
+$F$ 是层；参见《叠》引理 \ref{stacks-lemma-stack-in-setoids-characterize}。
+
+
+
+\section{有限型拟凝聚层的群胚叠}
+\label{examples-stacks-section-stack-in-groupoids-of-quasi-coherent-sheaves}
+
+\noindent
+设 $p : \QCohstack_{fg} \to (\Sch/S)_{fppf}$ 是第
+\ref{examples-stacks-section-stack-of-finitely-generated-quasi-coherent-sheaves} 节引入的叠
+（沿用该处的略用记号）。按照《范畴》引理
+\ref{categories-lemma-fibred-gives-fibred-groupoids} 的步骤，可以把它变成群胚叠
+$p' : \QCohstack_{fg}' \to (\Sch/S)_{fppf}$；参见《叠》引理
+\ref{stacks-lemma-stack-gives-stack-groupoids}。在此特例中，这仅意味着
+$\QCohstack_{fg}'$ 与 $\QCohstack_{fg}$ 具有相同对象，但它的态射是二元组
+$(f, g) : (U, \mathcal{F}) \to (U', \mathcal{F}')$，其中 $g$ 是同构
+$g : f^*\mathcal{F}' \to \mathcal{F}$。
+
+
+\section{有限型代数空间的群胚叠}
+\label{examples-stacks-section-stack-in-groupoids-of-finite-type-spaces}
+
+\noindent
+设 $p : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$ 是第
+\ref{examples-stacks-section-stack-of-finite-type-spaces} 节引入的叠（沿用该处的略用记号）。
+按照《范畴》引理 \ref{categories-lemma-fibred-gives-fibred-groupoids} 的步骤，
+可以把它变成群胚叠 $p' : \Spacesstack_{ft}' \to (\Sch/S)_{fppf}$；
+参见《叠》引理 \ref{stacks-lemma-stack-gives-stack-groupoids}。
+在此特例中，这仅意味着 $\Spacesstack_{ft}'$ 与 $\Spacesstack_{ft}$ 具有
+相同对象，即有限型态射 $X \to U$，其中 $X$ 是 $S$ 上的代数空间，
+$U$ 是 $S$ 上的概形。但态射 $(f, g) : X/U \to Y/V$ 现在是交换图
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+U \ar[r]^g & V
+}
+$$
+，并且该图是笛卡尔的。
+
+
+
+\section{商叠}
+\label{examples-stacks-section-quotient-stacks}
+
+\noindent
+设 $(U, R, s, t, c)$ 是 $S$ 上代数空间中的群胚。此时商叠
+$$
+[U/R] \longrightarrow (\Sch/S)_{fppf}
+$$
+按构造是群胚叠；参见《代数空间中的群胚》定义
+\ref{spaces-groupoids-definition-quotient-stack}。甚至其
+$\mathit{Isom}$-层也可由代数空间表示；参见《自举》引理
+\ref{bootstrap-lemma-quotient-stack-isom}。这些商叠在代数叠理论中具有
+基础性的重要地位。
+
+\medskip\noindent
+上述构造的一个特例，是与数据 $(B, G/B, m, X/B, a)$ 相联系的商叠
+$$
+[X/G] \longrightarrow (\Sch/S)_{fppf}
+$$
+。这里
+\begin{enumerate}
+\item $B$ 是 $S$ 上的代数空间；
+\item $(G, m)$ 是 $B$ 上的群代数空间；
+\item $X$ 是 $B$ 上的代数空间；
+\item $a : G \times_B X \to X$ 是 $G$ 在 $X$ 上的 $B$-作用。
+\end{enumerate}
+具体而言，由《代数空间中的群胚》定义
+\ref{spaces-groupoids-definition-quotient-stack}，群胚叠 $[X/G]$
+就是上面给出的商叠 $[X/G \times_B X]$。有必要具体说明范畴 $[X/G]$
+究竟是什么样子；这将在第 \ref{examples-stacks-section-group-quotient-stacks} 节完成。
+
+
+
+\section{挠子的分类}
+\label{examples-stacks-section-torsors}
+
+\noindent
+我们将仔细说明：研究群代数空间 $G$ 或群层 $\mathcal{G}$ 的挠子叠，
+可以具有哪些不同含义。
+
+
+
+\subsection{群层的挠子}
+\label{examples-stacks-subsection-torsors-sheaf}
+
+\noindent
+设 $\mathcal{G}$ 是 $(\Sch/S)_{fppf}$ 上的群层。对
+$U \in \Ob((\Sch/S)_{fppf})$，用 $\mathcal{G}|_U$ 表示
+$\mathcal{G}$ 在 $(\Sch/U)_{fppf}$ 上的限制。如下定义范畴
+$\mathcal{G}\textit{-Torsors}$：
+\begin{enumerate}
+\item $\mathcal{G}\textit{-Torsors}$ 的对象是二元组
+$(U, \mathcal{F})$，其中 $U$ 是 $(\Sch/S)_{fppf}$ 的对象，而
+$\mathcal{F}$ 是一个 $\mathcal{G}|_U$-挠子；参见《位点上同调》定义
+\ref{sites-cohomology-definition-torsor}。
+\item 态射 $(U, \mathcal{F}) \to (V, \mathcal{H})$ 由二元组
+$(f, \alpha)$ 给出，其中 $f : U \to V$ 是 $S$ 上概形的态射，而
+$\alpha : f^{-1}\mathcal{H} \to \mathcal{F}$ 是
+$\mathcal{G}|_U$-挠子的同构。
+\end{enumerate}
+于是 $\mathcal{G}\textit{-Torsors}$ 是一个范畴，并且
+$$
+p : \mathcal{G}\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, \mathcal{F}) \longmapsto U
+$$
+是函子。注意，$\mathcal{G}\textit{-Torsors}$ 在 $U$ 上的纤维范畴，
+就是 $\mathcal{G}|_U$-挠子的范畴，而它是群胚。
+
+\begin{lemma}
+\label{examples-stacks-lemma-torsors-sheaf-stack-in-groupoids}
+在作《叠》注 \ref{stacks-remark-stack-make-small} 所述的替换后，函子
+$$
+p : \mathcal{G}\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+证明中最困难的部分是说明对象满足下降。设
+$\{U_i \to U\}_{i \in I}$ 是 $(\Sch/S)_{fppf}$ 的覆盖。假设对每个
+$i$ 给定一个 $\mathcal{G}|_{U_i}$-挠子 $\mathcal{F}_i$，并且对每个
+$i, j \in I$ 给定一个同构
+$\varphi_{ij} :
+\mathcal{F}_i|_{U_i \times_U U_j} \to \mathcal{F}_j|_{U_i \times_U U_j}$
+，它是 $\mathcal{G}|_{U_i \times_U U_j}$-挠子的同构，并在
+$U_i \times_U U_j \times_U U_k$ 上满足适当的上链条件。于是，由
+《位点与层》第 \ref{sites-section-glueing-sheaves} 节，得到
+$(\Sch/U)_{fppf}$ 上的层 $\mathcal{F}$；它在每个 $U_i$ 上的限制恢复
+$\mathcal{F}_i$，并恢复下降数据。由《位点与层》引理
+\ref{sites-lemma-mapping-property-glue} 中的范畴等价，作用映射
+$\mathcal{G}|_{U_i} \times \mathcal{F}_i \to \mathcal{F}_i$ 可黏合为映射
+$a : \mathcal{G}|_U \times \mathcal{F} \to \mathcal{F}$。现在需要证明
+$a$ 是作用，并且 $\mathcal{F}$ 成为 $\mathcal{G}|_U$-挠子。这两个性质
+都可局部检验，因而由各作用
+$\mathcal{G}|_{U_i} \times \mathcal{F}_i \to \mathcal{F}_i$ 的相应性质得出。
+这证明 $\mathcal{G}\textit{-Torsors}$ 中的对象满足下降。若干细节从略。
+\end{proof}
+
+
+
+\subsection{群层挠子的变体}
+\label{examples-stacks-subsection-variant-torsor-sheaf}
+
+\noindent
+小节 \ref{examples-stacks-subsection-torsors-sheaf} 的构造可以略作推广。具体而言，设
+$\mathcal{G} \to \mathcal{B}$ 是 $(\Sch/S)_{fppf}$ 上层的映射，并设
+$$
+m :
+\mathcal{G} \times_\mathcal{B} \mathcal{G}
+\longrightarrow
+\mathcal{G}
+$$
+是 $\mathcal{G}/\mathcal{B}$ 上的群律。换言之，二元组
+$(\mathcal{G}, m)$ 是拓扑斯 $\Sh((\Sch/S)_{fppf})/\mathcal{B}$ 中的群对象。
+关于拓扑斯的局部化，参见《位点与层》第
+\ref{sites-section-localize-topoi} 节。在此情形下，可以如下定义范畴
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$
+（这里通过 Yoneda 嵌入把概形视为层）：
+\begin{enumerate}
+\item $\mathcal{G}/\mathcal{B}\textit{-Torsors}$ 的对象是三元组
+$(U, b, \mathcal{F})$，其中
+\begin{enumerate}
+\item $U$ 是 $(\Sch/S)_{fppf}$ 的对象；
+\item $b : U \to \mathcal{B}$ 是 $\mathcal{B}$ 在 $U$ 上的截面；
+\item $\mathcal{F}$ 是 $U$ 上的
+$U \times_{b, \mathcal{B}}\mathcal{G}$-挠子。
+\end{enumerate}
+\item 态射 $(U, b, \mathcal{F}) \to (U', b', \mathcal{F}')$ 由二元组
+$(f, g)$ 给出，其中 $f : U \to U'$ 是 $S$ 上概形的态射，满足
+$b = b' \circ f$，而 $g : f^{-1}\mathcal{F}' \to \mathcal{F}$ 是
+$U \times_{b, \mathcal{B}} \mathcal{G}$-挠子的同构。
+\end{enumerate}
+于是 $\mathcal{G}/\mathcal{B}\textit{-Torsors}$ 是一个范畴，并且
+$$
+p :
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+\longrightarrow
+(\Sch/S)_{fppf},
+\quad
+(U, b, \mathcal{F}) \longmapsto U
+$$
+是函子。注意，$\mathcal{G}/\mathcal{B}\textit{-Torsors}$ 在 $U$ 上的
+纤维范畴，是遍历 $b : U \to \mathcal{B}$ 所得各
+$U \times_{b, \mathcal{B}} \mathcal{G}$-挠子范畴的不交并，因而是群胚。
+
+\medskip\noindent
+在特例 $\mathcal{B} = S$ 中，便恢复小节
+\ref{examples-stacks-subsection-torsors-sheaf} 引入的范畴 $\mathcal{G}\textit{-Torsors}$。
+
+\begin{lemma}
+\label{examples-stacks-lemma-variant-torsors-sheaf-stack-in-groupoids}
+在作《叠》注 \ref{stacks-remark-stack-make-small} 所述的替换后，函子
+$$
+p :
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+\longrightarrow
+(\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+本证明重复引理 \ref{examples-stacks-lemma-torsors-sheaf-stack-in-groupoids} 的证明。
+由于那里记号较为简洁，建议读者先阅读该证明。证明中最困难的部分是说明
+对象满足下降。设 $\{U_i \to U\}_{i \in I}$ 是
+$(\Sch/S)_{fppf}$ 的覆盖。假设对每个 $i$ 给定二元组
+$(b_i, \mathcal{F}_i)$，它由态射 $b_i : U_i \to \mathcal{B}$ 与
+$U_i \times_{b_i, \mathcal{B}} \mathcal{G}$-挠子 $\mathcal{F}_i$ 组成；
+并且对每个 $i, j \in I$，有
+$b_i|_{U_i \times_U U_j} = b_j|_{U_i \times_U U_j}$，且给定同构
+$\varphi_{ij} :
+\mathcal{F}_i|_{U_i \times_U U_j} \to \mathcal{F}_j|_{U_i \times_U U_j}$
+，它是 $(U_i \times_U U_j) \times_\mathcal{B} \mathcal{G}$-挠子的同构，
+并在 $U_i \times_U U_j \times_U U_k$ 上满足适当的上链条件。由
+《位点与层》第 \ref{sites-section-glueing-sheaves} 节，得到
+$(\Sch/U)_{fppf}$ 上的层 $\mathcal{F}$；它在每个 $U_i$ 上的限制恢复
+$\mathcal{F}_i$，并恢复下降数据。由 $\mathcal{B}$ 的层公理，各态射
+$b_i$ 来自唯一态射 $b : U \to \mathcal{B}$。由《位点与层》引理
+\ref{sites-lemma-mapping-property-glue} 中的范畴等价，各作用映射
+$(U_i \times_{b_i, \mathcal{B}} \mathcal{G}) \times_{U_i} \mathcal{F}_i
+\to \mathcal{F}_i$
+黏合为映射
+$(U \times_{b, \mathcal{B}} \mathcal{G}) \times \mathcal{F} \to \mathcal{F}$.
+现在需要证明这是一个作用，并且 $\mathcal{F}$ 成为
+$U \times_{b, \mathcal{B}} \mathcal{G}$-挠子。这两个性质都可局部检验，
+因而由各 $\mathcal{F}_i$ 上作用的相应性质得出。这证明
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$ 中的对象满足下降。若干细节从略。
+\end{proof}
+
+
+
+\subsection{主齐性空间}
+\label{examples-stacks-subsection-principal-homogeneous-spaces}
+
+\noindent
+设 $B$ 是 $S$ 上的代数空间，$G$ 是 $B$ 上的群代数空间。如下定义范畴
+$G\textit{-Principal}$：
+\begin{enumerate}
+\item $G\textit{-Principal}$ 的对象是三元组 $(U, b, X)$，其中
+\begin{enumerate}
+\item $U$ 是 $(\Sch/S)_{fppf}$ 的对象；
+\item $b : U \to B$ 是 $S$ 上的态射；
+\item $X$ 是 $U$ 上的主齐性 $G_U$-空间，其中
+$G_U = U \times_{b, B} G$。
+\end{enumerate}
+参见《代数空间中的群胚》定义
+\ref{spaces-groupoids-definition-principal-homogeneous-space}。
+\item 态射 $(U, b, X) \to (U', b', X')$ 由二元组 $(f, g)$ 给出，
+其中 $f : U \to U'$ 是 $B$ 上概形的态射，而
+$g : X \to U \times_{f, U'} X'$ 是主齐性 $G_U$-空间的同构。
+\end{enumerate}
+于是 $G\textit{-Principal}$ 是一个范畴，并且
+$$
+p : G\textit{-Principal} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, X) \longmapsto U
+$$
+是函子。注意，$G\textit{-Principal}$ 在 $U$ 上的纤维范畴，是遍历
+$b : U \to B$ 所得各主齐性 $U \times_{b, B} G$-空间范畴的不交并，
+因而是群胚。
+
+\medskip\noindent
+在特例 $S = B$ 中，对象就是二元组 $(U, X)$，其中 $U$ 是 $S$ 上的概形，
+$X$ 是 $U$ 上的主齐性 $G_U$-空间；态射就是笛卡尔图
+$$
+\xymatrix{
+X \ar[d] \ar[r]_g & X' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+，其中 $g$ 是 $G$-等变的。
+
+\begin{remark}
+\label{examples-stacks-remark-principal-stack-in-groupoids}
+我们猜想，在作《叠》注 \ref{stacks-remark-stack-make-small} 所述的替换后，函子
+$$
+p : G\textit{-Principal} \longrightarrow (\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。只要能证明如下命题，该猜想便成立：给定
+\begin{enumerate}
+\item $(\Sch/S)_{fppf}$ 的一个覆盖 $\{U_i \to U\}_{i \in I}$；
+% P11-E0084：冻结源此处写作 “an group algebraic space”；冠词应为 “a”。
+\item $U$ 上的一个群代数空间 $H$；
+\item 对每个 $i$，一个 $U_i$ 上的主齐性 $H_{U_i}$-空间 $X_i$；
+\item $H$-等变同构
+$\varphi_{ij} : X_{i, U_i \times_U U_j} \to X_{j, U_i \times_U U_j}$
+，它们满足上链条件。
+\end{enumerate}
+则存在 $U$ 上的主齐性 $H$-空间 $X$，它恢复 $(X_i, \varphi_{ij})$。
+《自举》引理 \ref{bootstrap-lemma-descent-torsor} 的证明方法把这个问题
+归结为集合论问题，所以忽略集合论问题的读者将“知道”结论为真。
+\url{https://math.columbia.edu/~dejong/wordpress/?p=591}
+给出了处理这一问题的一项建议。
+\end{remark}
+
+
+
+\subsection{主齐性空间的变体}
+\label{examples-stacks-subsection-variant-principal-homogeneous-spaces}
+
+\noindent
+设 $S$ 是概形，设 $B = S$，并设 $G$ 是 $B = S$ 上的群概形。
+在此情形下，可以定义全子范畴
+$G\textit{-Principal-Schemes} \subset G\textit{-Principal}$
+，其对象是二元组 $(U, X)$，其中 $U$ 是 $(\Sch/S)_{fppf}$ 的对象，
+而 $X \to U$ 是 $U$ 上可表的主齐性 $G$-空间，即一个概形。
+
+\medskip\noindent
+一般而言，$G\textit{-Principal-Schemes}$ 并不是 $(\Sch/S)_{fppf}$ 上的
+群胚叠。原因是确实存在并非概形的主齐性空间，所以对象的下降一般不成立。
+
+
+
+\subsection{fppf 拓扑中的挠子}
+\label{examples-stacks-subsection-fppf-torsors}
+
+\noindent
+设 $B$ 是 $S$ 上的代数空间，$G$ 是 $B$ 上的群代数空间。如下定义范畴
+$G\textit{-Torsors}$：
+\begin{enumerate}
+\item $G\textit{-Torsors}$ 的对象是三元组 $(U, b, X)$，其中
+\begin{enumerate}
+\item $U$ 是 $(\Sch/S)_{fppf}$ 的对象；
+\item $b : U \to B$ 是一个态射；
+\item $X$ 是 $U$ 上的 fppf $G_U$-挠子，其中
+$G_U = U \times_{b, B} G$。
+\end{enumerate}
+参见《代数空间中的群胚》定义
+\ref{spaces-groupoids-definition-principal-homogeneous-space}。
+\item 态射 $(U, b, X) \to (U', b', X')$ 由二元组 $(f, g)$ 给出，
+其中 $f : U \to U'$ 是 $B$ 上概形的态射，而
+$g : X \to U \times_{f, U'} X'$ 是 $G_U$-挠子的同构。
+\end{enumerate}
+于是 $G\textit{-Torsors}$ 是一个范畴，并且
+$$
+p : G\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf},
+\quad
+% P11-E0085：冻结源此处写成 (U,a,X)，但本小节对象三元组使用 b，而未定义 a。
+(U, a, X) \longmapsto U
+$$
+是函子。注意，$G\textit{-Torsors}$ 在 $U$ 上的纤维范畴，是遍历
+$b : U \to B$ 所得各 fppf $U \times_{b, B} G$-挠子范畴的不交并，
+因而是群胚。
+
+\medskip\noindent
+在特例 $S = B$ 中，对象就是二元组 $(U, X)$，其中 $U$ 是 $S$ 上的概形，
+$X$ 是 $U$ 上的 fppf $G_U$-挠子；态射就是笛卡尔图
+$$
+\xymatrix{
+X \ar[d] \ar[r]_g & X' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+，其中 $g$ 是 $G$-等变的。
+
+\begin{lemma}
+\label{examples-stacks-lemma-torsors-stack-in-groupoids}
+在作《叠》注 \ref{stacks-remark-stack-make-small} 所述的替换后，函子
+$$
+p : G\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+证明中最困难的部分是说明对象满足下降，这正是《自举》引理
+\ref{bootstrap-lemma-descent-torsor}。我们省略《叠》定义
+\ref{stacks-definition-stack-in-groupoids} 的公理 (1) 与 (2) 的证明。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-compare-torsors}
+设 $B$ 是 $S$ 上的代数空间，$G$ 是 $B$ 上的群代数空间。分别用
+$\mathcal{G}$、$\mathcal{B}$ 表示把代数空间 $G$、$B$ 视为
+$(\Sch/S)_{fppf}$ 上的层。函子
+$$
+G\textit{-Torsors} \longrightarrow \mathcal{G}/\mathcal{B}\textit{-Torsors}
+$$
+把三元组 $(U, b, X)$ 映到三元组 $(U, b, \mathcal{X})$，其中
+$\mathcal{X}$ 是视为层的 $X$；该函子是 $(\Sch/S)_{fppf}$ 上群胚叠的等价。
+\end{lemma}
+
+\begin{proof}
+使用《叠》引理
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff} 的结论。
+$S$ 上代数空间的范畴是 $(\Sch/S)_{fppf}$ 上层范畴的全子范畴，
+故该函子全忠实。此外，两边的所有对象都是局部平凡挠子，所以上述引理的
+条件 (2) 成立。因此该函子是等价。
+\end{proof}
+
+
+
+\subsection{fppf 拓扑中挠子的变体}
+\label{examples-stacks-subsection-variant-fppf-torsors}
+
+\noindent
+设 $S$ 是概形，设 $B = S$，并设 $G$ 是 $B = S$ 上的群概形。
+在此情形下，可以定义全子范畴
+$G\textit{-Torsors-Schemes} \subset G\textit{-Torsors}$
+，其对象是二元组 $(U, X)$，其中 $U$ 是 $(\Sch/S)_{fppf}$ 的对象，
+而 $X \to U$ 是 $U$ 上可表的 fppf $G$-挠子，即一个概形。
+
+\medskip\noindent
+一般而言，$G\textit{-Torsors-Schemes}$ 并不是 $(\Sch/S)_{fppf}$ 上的
+群胚叠。原因是确实存在并非概形的 fppf $G$-挠子，所以对象的下降一般不成立。
+
+
+
+
+
+
+\section{群作用的商}
+\label{examples-stacks-section-group-quotient-stacks}
+
+\noindent
+至此已经引入了足够的记号，可以更具体地说明第
+\ref{examples-stacks-section-quotient-stacks} 节的叠 $[X/G]$ 是什么样子。
+
+\begin{situation}
+\label{examples-stacks-situation-quotient-stack}
+这里
+\begin{enumerate}
+\item $S$ 是包含在 $\Sch_{fppf}$ 中的概形；
+\item $B$ 是 $S$ 上的代数空间；
+\item $(G, m)$ 是 $B$ 上的群代数空间；
+\item $\pi : X \to B$ 是 $B$ 上的代数空间；
+\item $a : G \times_B X \to X$ 是 $G$ 在 $X$ 上的 $B$-作用。
+\end{enumerate}
+\end{situation}
+
+\noindent
+在此情形下，如下构造范畴 $[[X/G]]$\footnote{双括号记号 $[[X/G]]$
+用于区分这一范畴与前面引入的叠 $[X/G]$。命题
+\ref{examples-stacks-proposition-equal-quotient-stacks} 将证明两者典范等价。此后，
+我们将用记号 $[X/G]$ 表示其中任意一个。}：
+\begin{enumerate}
+\item $[[X/G]]$ 的对象是四元组 $(U, b, P, \varphi : P \to X)$，其中
+\begin{enumerate}
+\item $U$ 是 $(\Sch/S)_{fppf}$ 的对象；
+\item $b : U \to B$ 是 $S$ 上的态射；
+\item $P$ 是 $U$ 上的 fppf $G_U$-挠子，其中
+$G_U = U \times_{b, B} G$；
+\item $\varphi : P \to X$ 是 $G$-等变态射，并嵌入交换图
+$$
+\xymatrix{
+P \ar[d] \ar[r]_{\varphi} & X \ar[d] \\
+U \ar[r]^b & B
+}
+$$
+\end{enumerate}
+\item $[[X/G]]$ 的态射是二元组
+$(f, g) : (U, b, P, \varphi) \to (U', b', P', \varphi')$
+，其中 $f : U \to U'$ 是 $B$ 上概形的态射，$g : P \to P'$ 是位于
+$f$ 上方的 $G$-等变态射，它诱导同构 $P \cong U \times_{f, U'} P'$，
+并满足 $\varphi = \varphi' \circ g$。换言之，$(f, g)$ 嵌入交换图
+$$
+\xymatrix{
+P \ar[d] \ar[rrrd]_\varphi \ar[r]^g & P' \ar[d] \ar[rrd]^{\varphi'} \\
+U \ar[rrrd]_b \ar[r]^f & U' \ar[rrd]^{b'} & & X \ar[d] \\
+& & & B
+}
+$$
+\end{enumerate}
+于是 $[[X/G]]$ 是一个范畴，并且
+$$
+p : [[X/G]] \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, P, \varphi) \longmapsto U
+$$
+是函子。注意，$[[X/G]]$ 在 $U$ 上的纤维范畴，是遍历
+$b \in \Mor_S(U, B)$ 所得如下对象范畴的不交并：配有到 $X$ 的
+$G$-等变态射的 fppf $U \times_{b, B} G$-挠子 $P$。因此，
+$[[X/G]]$ 的各纤维范畴都是群胚。
+
+\medskip\noindent
+注意，函子
+$$
+[[X/G]] \longrightarrow G\textit{-Torsors},
+\quad
+(U, b, P, \varphi) \longmapsto (U, b, P)
+$$
+是 $(\Sch/S)_{fppf}$ 上范畴的一个 $1$-态射。
+
+\begin{lemma}
+\label{examples-stacks-lemma-group-quotient-stack-in-groupoids}
+在作《叠》注 \ref{stacks-remark-stack-make-small} 所述的替换后，函子
+$$
+p : [[X/G]] \longrightarrow (\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+证明中最困难的部分是说明对象满足下降。设
+$\{U_i \to U\}_{i \in I}$ 是 $(\Sch/S)_{fppf}$ 中的覆盖。设
+$\xi_i = (U_i, b_i, P_i, \varphi_i)$ 是 $[[X/G]]$ 在 $U_i$ 上的对象，
+并设 $\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+是一项下降数据。把上面的函子 $[[X/G]] \to G\textit{-Torsors}$
+应用于它，特别得到群胚叠 $G\textit{-Torsors}$ 中三元组
+$(U_i, b_i, P_i)$ 的下降数据。已经知道 $G\textit{-Torsors}$ 是群胚叠
+（引理 \ref{examples-stacks-lemma-torsors-stack-in-groupoids}）。因此，可以假设对某个态射
+$b : U \to B$ 有 $b_i = b|_{U_i}$，并且对 $U$ 上的某个 fppf
+$G_U = U \times_{b, B} G$-挠子 $P$ 有 $P_i = U_i \times_U P$。
+态射 $\varphi_i$ 与各限制 $U_i \times_U P$ 上的典范下降数据相容，
+因而定义态射 $\varphi : P \to X$。（例如，可用《位点与层》引理
+\ref{sites-lemma-mapping-property-glue}，也可用《下降与代数空间》引理
+\ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms} 得到
+$\varphi$。）这证明了对象的下降。我们省略《叠》定义
+\ref{stacks-definition-stack-in-groupoids} 的公理 (1) 与 (2) 的证明。
+\end{proof}
+
+\begin{proposition}
+\label{examples-stacks-proposition-equal-quotient-stacks}
+在情形 \ref{examples-stacks-situation-quotient-stack} 中，存在典范等价
+$$
+[X/G] \longrightarrow [[X/G]]
+$$
+，它是 $(\Sch/S)_{fppf}$ 上群胚叠的等价。
+\end{proposition}
+
+\begin{proof}
+我们把细节完整写出，以确保所有定义恰好按正确方式配合。回忆，$[X/G]$
+是与代数空间中的群胚 $(X, G \times_B X, s, t, c)$ 相联系的商叠；
+参见《代数空间中的群胚》定义
+\ref{spaces-groupoids-definition-quotient-stack}。这意味着 $[X/G]$ 是与函子
+$$
+(\Sch/S)_{fppf} \longrightarrow \textit{Groupoids},
+\quad
+U \longmapsto (X(U), G(U) \times_{B(U)} X(U), s, t, c)
+$$
+相联系的群胚纤维化范畴 $[X/_{\!p}G]$ 的叠化；这里
+$s(g, x) = x$、$t(g, x) = a(g, x)$，并且
+$c((g, x), (g', x')) = (m(g, g'), x')$。按《范畴》例
+\ref{categories-example-functor-groupoids} 的构造，$[X/_{\!p}G]$ 的对象是
+二元组 $(U, x)$，其中 $x \in X(U)$；而 $[X/_{\!p}G]$ 的态射
+$(f, g) : (U, x) \to (U', x')$ 由概形态射 $f : U \to U'$ 与元素
+$g \in G(U)$ 给出，并满足 $a(g, x) = x' \circ f$。因此，可以按如下规则
+定义群胚叠的 $1$-态射
+$$
+F_p : [X/_{\!p}G] \longrightarrow [[X/G]]
+$$
+。在对象上令
+$$
+F_p(U, x) =
+(U, \pi \circ x, G \times_{B, \pi \circ x} U, a \circ (\text{id}_G \times x))
+$$
+这是有意义的，因为图
+$$
+\xymatrix{
+G \times_{B, \pi \circ x} U \ar[d] \ar[r]_{\text{id}_G \times x} &
+G \times_{B, \pi} X \ar[r]_-a &
+X \ar[d]^\pi \\
+U \ar[rr]^{\pi \circ x} & & B
+}
+$$
+交换；若把两个纤维积分别视为 $U$、$X$ 上的平凡 $G$-挠子，则两条水平箭头
+都是 $G$-等变的。在态射 $(f, g) : (U, x) \to (U', x')$ 上，令
+$F_p(f, g) = (f, R_{g^{-1}})$，其中 $R_{g^{-1}}$ 表示按 $g$ 的逆元作右平移。
+更精确地，态射 $F_p(f, g) : F_p(U, x) \to F_p(U', x')$ 由笛卡尔图给出：
+$$
+\xymatrix{
+G \times_{B, \pi \circ x} U \ar[d] \ar[r]_{R_{g^{-1}}} &
+G \times_{B, \pi \circ x'} U' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+其中 $R_{g^{-1}}$ 在 $T$-值点上由下式给出：
+$$
+R_{g^{-1}}(g', u) = (m(g', i(g(u))), f(u))
+$$
+为说明这一定义可行，需要验证
+$$
+a \circ (\text{id}_G \times x)
+=
+a \circ (\text{id}_G \times x') \circ R_{g^{-1}}
+$$
+。这确实成立，因为右端作用于 $T$-值点 $(g', u)$ 后，给出所需等式
+\begin{align*}
+a((\text{id}_G \times x')(m(g', i(g(u))), f(u)))
+& =
+a(m(g', i(g(u))), x'(f(u))) \\
+& =
+a(g', a(i(g(u)), x'(f(u)))) \\
+& =
+a(g', x(u))
+\end{align*}
+；这里使用了 $a(g, x) = x' \circ f$，从而
+$a(i(g), x' \circ f) = x$。
+
+\medskip\noindent
+由《叠》引理 \ref{stacks-lemma-stackify-groupoids-universal-property}
+所给叠化的泛性质，上述 $1$-态射 $F_p$ 具有典范延拓
+$F : [X/G] \to [[X/G]]$。先证明 $F$ 全忠实。由于源与目标都是群胚叠，
+只需证明 $F$ 识别各 $\mathit{Isom}$-层。选取概形 $U$ 以及 $[X/G]$
+在 $U$ 上的对象 $\xi, \xi'$。我们要证明
+$$
+F :
+\mathit{Isom}_{[X/G]}(\xi, \xi')
+\longrightarrow
+\mathit{Isom}_{[[X/G]]}(F(\xi), F(\xi'))
+$$
+是层的同构。只需在 $U$ 上局部地验证这一点，故可假设 $\xi, \xi'$ 来自
+$[X/_{\!p}G]$ 在 $U$ 上的对象 $(U, x)$、$(U, x')$；这直接由叠化的构造
+得出，《代数空间中的群胚》第
+\ref{spaces-groupoids-section-explicit-quotient-stacks} 节也给出了详细说明。
+直接使用上面对 $[X/_{\!p}G]$ 中态射的描述，或使用《代数空间中的群胚》引理
+\ref{spaces-groupoids-lemma-quotient-stack-morphisms}，都可看出此时
+$$
+\mathit{Isom}_{[X/G]}(\xi, \xi') =
+U \times_{(x, x'), X \times_S X, (s, t)} (G \times_B X)
+$$
+。这个纤维积的 $T$-值点对应于二元组 $(u, g)$，其中
+$u \in U(T)$、$g \in G(T)$，并满足
+$a(g, x \circ u) = x' \circ u$。（注意，这蕴含
+$\pi \circ x \circ u = \pi \circ x' \circ u$。）另一方面，按定义，
+$\mathit{Isom}_{[[X/G]]}(F(\xi), F(\xi'))$ 的 $T$-值点对应于满足
+$\pi \circ x \circ u = \pi \circ x' \circ u : T \to B$ 的态射
+$u : T \to U$，以及同构
+$$
+R :
+G \times_{B, \pi \circ x \circ u} T
+\longrightarrow
+G \times_{B, \pi \circ x' \circ u} T
+$$
+；它是平凡 $G_T$-挠子的同构，并与给定的到 $X$ 的映射相容。
+由于挠子平凡，存在某个 $g \in G(T)$，使
+$R = R_{g^{-1}}$（右乘）。它与映射
+$a \circ (1_G, x \circ u), a \circ (1_G, x' \circ u) : G \times_B T \to X$
+相容，当且仅当 $a(g, x \circ u) = x' \circ u$。因此得到所需的
+$\mathit{Isom}$-层相等性。
+
+\medskip\noindent
+既已知道 $F$ 全忠实，便可应用《叠》引理
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}。因此，为证明
+$F$ 是等价，只需说明 $[[X/G]]$ 的对象在 fppf 局部属于 $F$ 的本质像。
+这一点很清楚，因为 fppf 挠子在 fppf 局部平凡。结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{examples-stacks-lemma-classifying-stacks}
+\begin{slogan}
+群概形或群代数空间的分类叠。
+\end{slogan}
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间，$G$ 是 $B$ 上的群代数空间。
+则群胚叠
+$$
+[B/G],\quad
+[[B/G]],\quad
+G\textit{-Torsors},\quad
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+$$
+彼此典范等价。若 $G \to B$ 平坦且局部有限表现，则它们还与
+$G\textit{-Principal}$ 等价。
+\end{lemma}
+
+\begin{proof}
+等价
+$G\textit{-Torsors} \to \mathcal{G}/\mathcal{B}\textit{-Torsors}$
+由引理 \ref{examples-stacks-lemma-compare-torsors} 给出。等价 $[B/G] \to [[B/G]]$
+由命题 \ref{examples-stacks-proposition-equal-quotient-stacks} 给出。展开第
+\ref{examples-stacks-section-group-quotient-stacks} 节中 $[[B/G]]$ 的定义，可见
+% P11-E0086：冻结源此处写成 [[B//G]]；本段与定义所用记号均为 [[B/G]]。
+$[[B//G]] = G\textit{-Torsors}$。
+
+\medskip\noindent
+最后，假设 $G \to B$ 平坦且局部有限表现。为证明自然函子
+$G\textit{-Torsors} \to G\textit{-Principal}$ 是等价，只需说明：对
+$B$ 上的概形 $U$，主齐性 $G_U$-空间 $X \to U$ 在 fppf 局部平凡。
+按主齐性空间的定义（《代数空间中的群胚》定义
+\ref{spaces-groupoids-definition-principal-homogeneous-space}），存在 fpqc 覆盖
+$\{U_i \to U\}$，使得 $U_i \times_U X \cong G \times_B U_i$ 是
+$U_i$ 上代数空间的同构。这蕴含 $X \to U$ 满、平坦且局部有限表现；
+参见《下降与代数空间》引理
+\ref{spaces-descent-lemma-descending-property-surjective},
+\ref{spaces-descent-lemma-descending-property-flat} 以及
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}.
+选取概形 $W$ 与满 \'etale 态射 $W \to X$。由上可知，
+$\{W \to U\}$ 是 fppf 覆盖，并且 $X_W \to W$ 有截面。因此，
+$X$ 是 fppf $G_U$-挠子。
+\end{proof}
+
+\begin{remark}
+\label{examples-stacks-remark-X-mod-G-group}
+设 $S$ 是概形，$G$ 是抽象群，$X$ 是 $S$ 上的代数空间，并设
+$G \to \text{Aut}_S(X)$ 是群同态。在此情形下，可类似于上文如下定义
+$[[X/G]]$：
+\begin{enumerate}
+\item $[[X/G]]$ 的对象是三元组 $(U, P, \varphi : P \to X)$，其中
+\begin{enumerate}
+\item $U$ 是 $(\Sch/S)_{fppf}$ 的对象；
+\item $P$ 是 $(\Sch/U)_{fppf}$ 上的层，配有 $G$ 的作用，使它成为
+取值为 $G$ 的常值层下的挠子；
+\item $\varphi : P \to X$ 是 $G$-等变的层映射。
+\end{enumerate}
+\item 态射
+$(f, g) : (U, P, \varphi) \to (U', P', \varphi')$
+由概形态射
+% P11-E0087：冻结源此处写 f:T\to T'，但对象的基为 U 与 U'。
+$f : T \to T'$ 与 $G$-等变同构 $g : P \to f^{-1}P'$ 给出，
+并满足 $\varphi = \varphi' \circ g$。
+\end{enumerate}
+完全依照上文的方法，得到函子
+$$
+[[X/G]] \longrightarrow (\Sch/S)_{fppf}
+$$
+，它使 $[[X/G]]$ 成为 $(\Sch/S)_{fppf}$ 上的群胚叠。只要 $G$ 的基数
+不过大，常值层 $\underline{G}$ 就可由 $(\Sch/S)_{fppf}$ 上的 $G_S$ 表示；
+而这个版本的 $[[X/G]]$ 与上面引入的叠 $[[X/G_S]]$ 等价。
+\end{remark}
+
+
+
+
+
+
+\section{Picard 叠}
+\label{examples-stacks-section-picard-stack}
+
+\noindent
+本节在完全一般的情形下引入 Picard 叠。在《Quot 空间与 Hilbert 空间》一章中，
+我们将证明它在适当假设下是代数叠；参见该章第
+\ref{quot-section-picard-stack} 节。
+
+\medskip\noindent
+设 $S$ 是概形，并设 $\pi : X \to B$ 是 $S$ 上代数空间的态射。
+如下定义范畴 $\Picardstack_{X/B}$：
+\begin{enumerate}
+\item 对象是三元组 $(U, b, \mathcal{L})$，其中
+\begin{enumerate}
+\item $U$ 是 $(\Sch/S)_{fppf}$ 的对象；
+\item $b : U \to B$ 是 $S$ 上的态射；
+% P11-E0088：冻结源此处写作 “is in invertible sheaf”；介词应为冠词 “an”。
+\item $\mathcal{L}$ 是基变换 $X_U = U \times_{b, B} X$ 上的可逆层。
+\end{enumerate}
+\item 态射 $(f, g) : (U, b, \mathcal{L}) \to (U', b', \mathcal{L}')$
+由 $B$ 上的概形态射 $f : U \to U'$ 与同构
+$g : f^*\mathcal{L}' \to \mathcal{L}$ 给出。
+\end{enumerate}
+态射
+$(f, g) : (U, b, \mathcal{L}) \to (U', b', \mathcal{L}')$
+与
+$(f', g') : (U', b', \mathcal{L}') \to (U'', b'', \mathcal{L}'')$
+的复合由 $(f' \circ f, g \circ f^*(g'))$ 给出。这样得到范畴
+$\Picardstack_{X/B}$，并且
+$$
+p : \Picardstack_{X/B} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, \mathcal{L}) \longmapsto U
+$$
+是函子。注意，$\Picardstack_{X/B}$ 在 $U$ 上的纤维范畴，是遍历
+$b \in \Mor_S(U, B)$ 所得各 $X_U = U \times_{b, B} X$ 上可逆层范畴的
+不交并。因此，各纤维范畴都是群胚。
+
+\begin{lemma}
+\label{examples-stacks-lemma-picard-stack}
+在作《叠》注 \ref{stacks-remark-stack-make-small} 所述的替换后，函子
+$$
+\Picardstack_{X/B} \longrightarrow (\Sch/S)_{fppf}
+$$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+同往常一样，最困难的部分是说明对象满足下降。设
+$\{U_i \to U\}$ 是 $(\Sch/S)_{fppf}$ 的覆盖。设
+$\xi_i = (U_i, b_i, \mathcal{L}_i)$ 是 $\Picardstack_{X/B}$ 在 $U_i$
+上方的对象，并设
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+是一项下降数据。特别地，这蕴含各态射 $b_i$ 是某个态射
+$b : U \to B$ 的限制。记 $X_U = U \times_{b, B} X$ 以及
+$X_i = U_i \times_{b_i, B} X =
+U_i \times_U U \times_{b, B} X = U_i \times_U X_U$.
+注意，$\mathcal{L}_i$ 是可逆 $\mathcal{O}_{X_i}$-模，而
+$\{X_i \to X_U\}$ 也构成 fppf 覆盖。此外，下降数据
+$\varphi_{ij}$ 转化为可逆层 $\mathcal{L}_i$ 相对于 fppf 覆盖
+$\{X_i \to X_U\}$ 的下降数据。因此，由《下降与代数空间》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}，得到 $X_U$
+上的唯一可逆层 $\mathcal{L}$，它在 $X_i$ 上恢复 $\mathcal{L}_i$ 与下降数据。
+于是，三元组 $(U, b, \mathcal{L})$ 正是所求的
+$\Picardstack_{X/B}$ 在 $U$ 上的对象。细节从略。
+\end{proof}
+
+
+
+
+
+\section{惯性叠的例子}
+\label{examples-stacks-section-examples-inertia}
+
+\noindent
+下面给出一些惯性叠的例子。
+
+\begin{example}
+\label{examples-stacks-example-inertia-stack-of-X-mod-G}
+设 $S$ 是概形，$G$ 是交换群，$X \to S$ 是 $S$ 上的概形，并设
+$a : G \times X \to X$ 是 $G$ 在 $X$ 上的作用。对 $g \in G$，
+用 $g : X \to X$ 表示相应的自同构。此时，$[X/G]$ 的惯性叠
+（参见注 \ref{examples-stacks-remark-X-mod-G-group}）由下式给出：
+$$
+I_{[X/G]} = \coprod\nolimits_{g\in G} [X^g/G],
+$$
+其中，对 $G$ 的元素 $g$，记号 $X^g$ 表示概形
+$X^g = \{x \in X \mid g(x) = x\}$。用公式表达，$X^g$ 实际上是纤维积
+$$
+X^g =  X \times_{(1, 1), X \times_S X, (g, 1)} X.
+$$
+事实上，对任意 $S$-概形 $T$，$[X/G]$ 的惯性叠的一个 $T$-点由三元组
+$(P/T, \phi, \alpha)$ 构成：这里 $P \to T$ 是 fppf $G$-挠子，
+$\phi : P \to X$ 是 $G$-等变态射，而 $\alpha$ 是 $P$ 在 $T$ 上的自同构，
+满足 $\phi \circ \alpha = \phi$。由于 $G$ 是\emph{交换}群的层，
+在 $T$ 上的 fppf 拓扑中局部地，$\alpha$ 由乘以 $G$ 的某个元素 $g$ 给出。
+条件 $\phi \circ \alpha = \phi$ 意味着 $\phi$ 通过 $X^g$ 到 $X$ 的包含
+分解；也就是说，$\phi$ 由某个态射 $P \to X^g$ 与该包含复合而得。
+上述讨论允许定义纤维化范畴的态射
+$I_{[X/G]} \to \coprod_{g\in G} [X^g/G]$；它在 $T$-点上由上面的讨论给出。
+我们省略证明它是等价。
+\end{example}
+
+\begin{example}
+\label{examples-stacks-example-inertia-stack-of-picard}
+设 $f : X \to S$ 是概形的态射。假设对任意 $T \to S$，基变换
+$f_T : X_T \to T$ 都具有如下性质：映射
+$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ 是同构。（这强于
+$f$ {\it 在维数 $0$ 上上同调平坦}（此处插入未来的参考文献），并蕴含该性质。）
+考虑 Picard 叠 $\Picardstack_{X/S}$；参见第
+\ref{examples-stacks-section-picard-stack} 节。它的惯性叠在 $S$-概形 $T$ 上的点由二元组
+$(\mathcal{L}, \alpha)$ 构成，其中 $\mathcal{L}$ 是 $X_T$ 上的线丛，
+$\alpha$ 是该线丛的自同构。也就是说，由我们的条件，可以把 $\alpha$
+视为 $H^0(X_T, \mathcal{O}_{X_T})^\times = H^0(T, \mathcal{O}_T^*)$
+的元素。注意，$H^0(T, \mathcal{O}_T^*) = \mathbf{G}_{m, S}(T)$；
+参见《群胚概形》例 \ref{groupoids-example-multiplicative-group}。
+因此，$\Picardstack_{X/S}$ 的惯性叠为
+$$
+I_{\Picardstack_{X/S}} = \mathbf{G}_{m, S} \times_S \Picardstack_{X/S}.
+$$
+% P11-E0089：冻结源在显示公式后写作句首 “. as”，标点与大小写均不成立。
+，这是 $(\Sch/S)_{fppf}$ 上的叠。
+\end{example}
+
+
+
+
+
+
+\section{有限 Hilbert 叠}
+\label{examples-stacks-section-hilbert-d-stack}
+
+\noindent
+我们在比严格所需稍为一般的情形下表述这一构造。固定
+$(\Sch/S)_{fppf}$ 上群胚叠的一个 $1$-态射
+$$
+F : \mathcal{X} \longrightarrow \mathcal{Y}
+$$
+。对每个整数 $d \geq 1$，考虑如下定义的范畴
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$：
+\begin{enumerate}
+% P11-E0090：冻结源本项缺少 “is”，含 “objects of in”，且把有限局部自由性质误写成缺少态射的 “Z is a finite locally free”。
+\item 对象是五元组 $(U, Z, y, x, \alpha)$，其中 $U, Z$ 是
+$(\Sch/S)_{fppf}$ 的对象，而 $Z$ 是 $U$ 上次数 $d$ 的有限局部自由对象，并且
+$y \in \Ob(\mathcal{Y}_U)$, $x \in \Ob(\mathcal{X}_Z)$
+，$\alpha : y|_Z \to F(x)$ 是同构\footnote{这意味着，经由 $2$-Yoneda 引理
+（《范畴》引理 \ref{categories-lemma-yoneda-2category}），该数据给出
+$2$-交换图
+$$
+\xymatrix{
+(\Sch/Z)_{fppf} \ar[r]_-x \ar[d] & \mathcal{X} \ar[d]^F \\
+(\Sch/U)_{fppf} \ar[r]^-y & \mathcal{Y}
+}
+$$
+，其中各项是 $(\Sch/S)_{fppf}$ 上的群胚叠。或者，也可把 $\alpha$
+画成 $2$-态射
+$$
+\xymatrix{
+(\Sch/Z)_{fppf}
+\rrtwocell^{y \circ (Z \to U)}_{F \circ x}{\alpha} & &
+\mathcal{Y}.
+}
+$$
+}.
+\item 态射 $(U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$ 由概形态射
+$f : U \to U'$、概形态射 $g : Z \to Z'$ 以及同构
+$b : y \to f^*y'$、$a : x \to g^*x'$ 给出；其中该态射诱导同构
+% P11-E0091：冻结源的纤维积 Z'\times_U U' 无法由已给结构映射成型；沿 f 的基变换应位于 U 上。
+$Z \to Z' \times_U U'$，而这些同构诱导交换图
+$$
+\xymatrix{
+y|_Z \ar[rr]_\alpha \ar[d]_{b|_Z} & &
+F(x) \ar[d]^{F(a)} \\
+f^*y'|_Z \ar[rr]^{\alpha'} & &
+F(g^*x') \\
+}
+$$
+\end{enumerate}
+由定义显然存在典范遗忘函子
+$$
+p :
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+(\Sch/S)_{fppf}
+$$
+，它把五元组 $(U, Z, y, x, \alpha)$ 映到概形 $U$，并把态射
+$(f, g, b, a) : (U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$
+映到态射 $f : U \to U'$。
+
+\begin{lemma}
+\label{examples-stacks-lemma-hilbert-d-stack}
+配有上述函子 $p$ 的范畴 $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+定义了 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+同往常一样，最困难的部分是说明对象满足下降。设
+$\{U_i \to U\}$ 是 $(\Sch/S)_{fppf}$ 的覆盖。设
+$\xi_i = (U_i, Z_i, y_i, x_i, \alpha_i)$ 是
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ 在 $U_i$ 上方的对象，并设
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+是一项下降数据。首先，$\varphi_{ij}$ 诱导下降数据
+$(Z_i/U_i, \varphi_{ij})$；由《下降》引理 \ref{descent-lemma-affine}，
+它是有效的。再由《下降》引理
+\ref{descent-lemma-descending-property-finite-locally-free}，这产生
+次数 $d$ 的有限局部自由概形 $Z/U$。以下把 $Z_i$ 与
+$Z \times_U U_i$ 识别。其次，由于 $\mathcal{Y}$ 是群胚叠，各纤维范畴
+$\mathcal{Y}_{U_i}$ 中的对象 $y_i$ 下降为 $\mathcal{Y}_U$ 中的对象 $y$。
+类似地，由于 $\mathcal{X}$ 是群胚叠，各纤维范畴
+$\mathcal{X}_{Z_i}$ 中的对象 $x_i$ 下降为 $\mathcal{X}_Z$ 中的对象 $x$。
+最后，给定的同构
+$$
+\alpha_i :
+(y|_Z)_{Z_i} = y_i|_{Z_i}
+\longrightarrow
+F(x_i) = F(x|_{Z_i})
+$$
+可以黏合为态射 $\alpha : y|_Z \to F(x)$，因为
+% P11-E0092：冻结源此处写作 “as the \mathcal{Y} is a stack”；定冠词多余。
+$\mathcal{Y}$ 是叠，因而 $\mathit{Isom}_\mathcal{Y}(y|_Z, F(x))$ 是层。
+细节从略。
+\end{proof}
+
+\begin{definition}
+\label{examples-stacks-definition-hilbert-d-stack}
+% P11-E0093：冻结源的 “denote X the ...” 缺少介词 “by” 或需调换宾语次序。
+把上面构造的 $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ 称为
+{\it $\mathcal{X}$ 在 $\mathcal{Y}$ 上次数 $d$ 的有限 Hilbert 叠}。
+若 $\mathcal{Y} = S$，记
+$\mathcal{H}_d(\mathcal{X}) = \mathcal{H}_d(\mathcal{X}/\mathcal{Y})$.
+若 $\mathcal{X} = \mathcal{Y} = S$，则记为 $\mathcal{H}_d$。
+\end{definition}
+
+\noindent
+注意，给定上述 $F : \mathcal{X} \to \mathcal{Y}$，有如下
+$(\Sch/S)_{fppf}$ 上群胚叠的自然 $1$-态射：
+\begin{equation}
+\label{examples-stacks-equation-diagram-hilbert-d-stack}
+\vcenter{
+\xymatrix{
+\mathcal{H}_d(\mathcal{X}) \ar[rd] &
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \ar[d] \ar[l] \ar[r] &
+\mathcal{Y} \\
+& \mathcal{H}_d
+}
+}
+\end{equation}
+每条箭头都由一个“遗忘函子”给出。
+
+\begin{lemma}
+\label{examples-stacks-lemma-faithful-hilbert}
+$1$-态射
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{H}_d(\mathcal{X})$
+是忠实的。
+\end{lemma}
+
+\begin{proof}
+为验证
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{H}_d(\mathcal{X})$
+忠实，只需证明它在各纤维范畴上忠实。设
+$\xi = (U, Z, y, x, \alpha)$ 与 $\xi' = (U, Z', y', x', \alpha')$ 是
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ 在概形 $U$ 上的两个对象，并设
+$(g, b, a), (g', b', a') : \xi \to \xi'$ 是
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ 在 $U$ 上纤维范畴中的
+两个态射。这两个态射在 $\mathcal{H}_d(\mathcal{X})$ 中的像相等，
+当且仅当 $g = g'$ 且 $a = a'$。此时交换图
+$$
+\xymatrix{
+y|_Z \ar[rr]_\alpha \ar[d]_{b|_Z, \ b'|_Z} & &
+F(x) \ar[d]^{F(a) = F(a')} \\
+y'|_Z \ar[rr]^-{\alpha'} & &
+F(g^*x') = F((g')^*x') \\
+}
+$$
+蕴含 $b|_Z = b'|_Z$。由于 $Z \to U$ 是次数 $d$ 的有限局部自由态射，
+$\{Z \to U\}$ 是 fppf 覆盖，故 $b = b'$。
+\end{proof}

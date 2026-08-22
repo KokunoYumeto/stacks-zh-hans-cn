@@ -1,0 +1,2525 @@
+% Generated mechanically from the frozen spaces.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{64}
+\chapter{代数空间}
+
+
+
+\phantomsection
+\label{spaces-section-phantom}
+
+
+\section{引言}
+\label{spaces-section-introduction}
+
+\noindent
+代数空间最初由 Michael Artin 引入，
+见 \cite{ArtinI}、\cite{ArtinII}、
+\cite{Artin-Theorem-Representability},
+\cite{Artin-Construction-Techniques},
+\cite{Artin-Algebraic-Spaces},
+\cite{Artin-Algebraic-Approximation},
+\cite{Artin-Implicit-Function},
+以及 \cite{ArtinVersal}。
+其中一些基础材料由他与 Knutson 共同发展，
+后者写成了专著 \cite{Kn}。
+Artin 将代数空间定义为 \'etale 拓扑下的层，
+并要求它在 \'etale 拓扑下局部可表示
+（见 \cite[Definition 1.3]{Artin-Implicit-Function}）。
+在 Artin 的大部分工作中，所考虑的概形范畴
+由某个固定的优秀 Noether 基概形上的局部有限型概形组成。
+
+\medskip\noindent
+我们的定义与 Artin 的原始定义略有不同。
+具体而言，我们所称的代数空间是 fppf 拓扑下的层，
+其对角态射可表示，并且存在一个由概形给出的 \'etale “覆盖”。
+用 fppf 拓扑代替 \'etale 拓扑只是技术上的处理，
+几乎不产生实质差异；我们将在“自举”第
+\ref{bootstrap-section-spaces-etale} 节证明，
+若改用 \'etale 拓扑，所得代数空间范畴仍然相同。
+在同一章中，我们还会证明对角态射的条件在某种意义下可以去掉，
+见“自举”第 \ref{bootstrap-section-bootstrap} 节。
+
+\medskip\noindent
+定义代数空间之后，我们作若干基础性观察。
+本章的主要结果是：按我们的定义，代数空间与 \'etale 等价关系是同一回事；
+见第 \ref{spaces-section-presentations} 节的讨论以及定理
+\ref{spaces-theorem-presentation}。在 Artin 的框架中，对应结果为
+\cite[Theorem 1.5]{Artin-Implicit-Function} 或
+\cite[Proposition II.1.7]{Kn}。换言之，由 \'etale 等价关系定义的层
+具有可表示的对角态射。因此，我们的定义在广义上与 Artin 的原始定义一致。
+这还意味着，只需写出一个 \'etale 等价关系，便可给出代数空间的例子。
+
+\medskip\noindent
+在第 \ref{spaces-section-separation} 节中，我们介绍文献中出现的
+若干代数空间分离公理。最后，在第 \ref{spaces-section-examples} 节中，
+我们给出一些怪异以及不那么怪异的代数空间例子。
+
+
+
+
+
+
+\section{一般说明}
+\label{spaces-section-general}
+
+\noindent
+我们在一个合适的大 fppf 位点 $\Sch_{fppf}$ 上工作，
+如“拓扑”定义 \ref{topologies-definition-big-fppf-site} 所述。
+因此，除非另有明确说明，所有概形均指 $\Sch_{fppf}$ 的对象。
+第 \ref{spaces-section-change-big-site} 节讨论改变大 fppf 位点后会发生什么。
+
+\medskip\noindent
+我们总是相对于包含在 $\Sch_{fppf}$ 中的基概形 $S$ 工作，
+并使用大 fppf 位点 $(\Sch/S)_{fppf}$；
+见“拓扑”定义 \ref{topologies-definition-big-small-fppf}。
+取 $S = \Spec(\mathbf{Z})$ 即可恢复绝对情形。
+
+\medskip\noindent
+若 $U,T$ 是 $S$ 上的概形，则以 $U(T)$ 表示相对于 $S$ 的
+$T$-值点集。用公式表示即为 $U(T)=\Mor_S(T,U)$。
+
+\medskip\noindent
+注意，任意 fpqc 覆盖都是泛有效满态射；见“下降”引理
+\ref{descent-lemma-fpqc-universal-effective-epimorphisms}。
+因此，$\Sch_{fppf}$ 上的拓扑弱于典范拓扑，
+并且所有可表示预层都是层。
+
+
+
+
+
+
+
+\section{预层的可表示态射}
+\label{spaces-section-representable}
+
+\noindent
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F,G:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$。
+设 $a:F\to G$ 是可表示的函子变换；见“范畴”定义
+\ref{categories-definition-representable-map-presheaves}。
+这意味着，对每个 $U\in\Ob((\Sch/S)_{fppf})$ 以及任意
+$\xi\in G(U)$，纤维积 $h_U\times_{\xi,G}F$ 都可表示。
+选取一个表示对象 $V_\xi$ 和同构
+$h_{V_\xi}\to h_U\times_G F$。
+由 Yoneda 引理（见“范畴”引理 \ref{categories-lemma-yoneda}），
+投影 $h_{V_\xi}\to h_U\times_G F\to h_U$ 来自唯一的概形态射
+$a_\xi:V_\xi\to U$。这一情形可形象地表示为图表
+$$
+\xymatrix{
+V_\xi \ar@{~>}[r] \ar[d]_{a_\xi} & h_{V_\xi} \ar[d] \ar[r] & F \ar[d]^a \\
+U \ar@{~>}[r] & h_U \ar[r]^\xi & G
+}
+$$
+其中波形箭头表示 Yoneda 嵌入。下面给出关于这一概念的若干引理，
+它们在非常一般的情形下成立。
+
+\begin{lemma}
+\label{spaces-lemma-morphism-schemes-gives-representable-transformation}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$X$、$Y$ 是
+$(\Sch/S)_{fppf}$ 的对象，并设 $f:X\to Y$ 是概形态射。则
+$$
+h_f : h_X \longrightarrow h_Y
+$$
+是可表示的函子变换。
+\end{lemma}
+
+\begin{proof}
+这是形式的，只用到范畴 $(\Sch/S)_{fppf}$ 具有纤维积这一事实。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-composition-representable-transformations}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F,G,H:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$。
+若 $a:F\to G$ 与 $b:G\to H$ 是可表示的函子变换，则
+$$
+b \circ a : F \longrightarrow H
+$$
+是可表示的函子变换。
+\end{lemma}
+
+\begin{proof}
+这完全是形式的，并且在任意范畴中成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-base-change-representable-transformations}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F,G,H:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$。
+设 $a:F\to G$ 是可表示的函子变换，
+$b:H\to G$ 是任意函子变换。考虑纤维积图表
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+则基变换 $a'$ 是可表示的函子变换。
+\end{lemma}
+
+\begin{proof}
+这完全是形式的，并且在任意范畴中成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-product-representable-transformations}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形。对 $i = 1, 2$，设
+$F_i,G_i:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$；再对 $i = 1, 2$，设
+$a_i:F_i\to G_i$ 是可表示的函子变换。则
+$$
+a_1 \times a_2 : F_1 \times F_2 \longrightarrow G_1 \times G_2
+$$
+是可表示的函子变换。
+\end{lemma}
+
+\begin{proof}
+将 $a_1\times a_2$ 写成复合
+$F_1\times F_2\to G_1\times F_2\to G_1\times G_2$。
+第一支箭头是 $a_1$ 沿映射 $G_1\times F_2\to G_1$ 的基变换，
+第二支箭头是 $a_2$ 沿映射 $G_1\times G_2\to G_2$ 的基变换。
+因此，本引理是引理 \ref{spaces-lemma-composition-representable-transformations}
+与 \ref{spaces-lemma-base-change-representable-transformations} 的形式推论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-representable-transformation-to-sheaf}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F,G:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$。
+设 $a:F\to G$ 是可表示的函子变换。若 $G$ 是层，则 $F$ 也是层。
+\end{lemma}
+
+\begin{proof}
+设 $\{\varphi_i:T_i\to T\}$ 是位点 $(\Sch/S)_{fppf}$ 的一个覆盖，
+并设 $s_i\in F(T_i)$ 满足层条件。则
+$\sigma_i=a(s_i)\in G(T_i)$ 也满足层条件，故存在唯一的
+$\sigma\in G(T)$ 使得 $\sigma_i=\sigma|_{T_i}$。由假设，
+$F'=h_T\times_{\sigma,G,a}F$ 是可表示预层，因而是层
+（见第 \ref{spaces-section-general} 节的说明）。又注意到
+$(\varphi_i,s_i)\in F'(T_i)$ 也满足层条件，故它们来自唯一的
+$(\text{id}_T,s)\in F'(T)$。显然，$s$ 正是所需的 $F$ 的截面。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-representable-transformation-diagonal}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F,G:(\Sch/S)_{fppf}^{opp}\to\textit{Sets}$。
+设 $a:F\to G$ 是可表示的函子变换。则
+$\Delta_{F/G}:F\to F\times_G F$ 可表示。
+\end{lemma}
+
+\begin{proof}
+取 $U\in\Ob((\Sch/S)_{fppf})$，并设
+$\xi=(\xi_1,\xi_2)\in(F\times_G F)(U)$。
+令 $\xi'=a(\xi_1)=a(\xi_2)\in G(U)$。
+由假设，存在概形 $V$ 和态射 $V\to U$ 表示纤维积
+$h_U\times_{\xi',G}F$。特别地，元素 $\xi_1,\xi_2$ 给出 $U$ 上的态射
+$f_1,f_2:U\to V$。由于 $V$ 表示纤维积
+$h_U\times_{\xi',G}F$，并且
+$\xi'=a\circ\xi_1=a\circ\xi_2$，可见对任意态射 $g:U'\to U$ 有
+$$
+g^*\xi_1 = g^*\xi_2
+\Leftrightarrow
+f_1 \circ g = f_2 \circ g.
+$$
+换言之，$h_U\times_{\xi,F\times_G F}F$ 由概形
+$V\times_{\Delta,V\times V,(f_1,f_2)}U$ 表示。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{概形态射的若干常用性质列表}
+\label{spaces-section-lists}
+
+\noindent
+为便于引用，下面几则评注列出一些态射性质；
+它们具有后续结果所需的若干稳定性。
+
+\begin{remark}
+\label{spaces-remark-list-properties-stable-base-change}
+下列态射性质或类型在{\it 任意基变换下稳定}：
+\begin{enumerate}
+\item 闭浸入、开浸入和局部闭浸入，见“概形”引理
+\ref{schemes-lemma-base-change-immersion}；
+\item 拟紧，见“概形”引理
+\ref{schemes-lemma-quasi-compact-preserved-base-change}；
+\item 泛闭，见“概形”定义 \ref{schemes-definition-universally-closed}；
+\item （拟）分离，见“概形”引理 \ref{schemes-lemma-separated-permanence}；
+\item 单态射，见“概形”引理 \ref{schemes-lemma-base-change-monomorphism}；
+\item 满射，见“态射”引理 \ref{morphisms-lemma-base-change-surjective}；
+\item 泛单射，见“态射”引理 \ref{morphisms-lemma-universally-injective}；
+\item 仿射，见“态射”引理 \ref{morphisms-lemma-base-change-affine}；
+\item 拟仿射，见“态射”引理 \ref{morphisms-lemma-base-change-quasi-affine}；
+\item （局部）有限型，见“态射”引理 \ref{morphisms-lemma-base-change-finite-type}；
+\item （局部）拟有限，见“态射”引理 \ref{morphisms-lemma-base-change-quasi-finite}；
+\item （局部）有限表示，见“态射”引理
+\ref{morphisms-lemma-base-change-finite-presentation}；
+\item 相对维数为 $d$ 的局部有限型，见“态射”引理
+\ref{morphisms-lemma-base-change-relative-dimension-d}；
+\item 泛开，见“态射”定义 \ref{morphisms-definition-open}；
+\item 平坦，见“态射”引理 \ref{morphisms-lemma-base-change-flat}；
+\item syntomic，见“态射”引理 \ref{morphisms-lemma-base-change-syntomic}；
+\item 平滑，见“态射”引理 \ref{morphisms-lemma-base-change-smooth}；
+\item 非分歧（相应地，G-非分歧），见“态射”引理
+\ref{morphisms-lemma-base-change-unramified}；
+\item \'etale，见“态射”引理 \ref{morphisms-lemma-base-change-etale}；
+\item 固有，见“态射”引理 \ref{morphisms-lemma-base-change-proper}；
+\item H-射影，见“态射”引理 \ref{morphisms-lemma-H-projective-base-change}；
+\item （局部）射影，见“态射”引理 \ref{morphisms-lemma-base-change-projective}；
+\item 有限或整，见“态射”引理 \ref{morphisms-lemma-base-change-finite}；
+\item 有限局部自由，见“态射”引理
+\ref{morphisms-lemma-base-change-finite-locally-free}；
+\item 泛商，见“态射”引理
+\ref{morphisms-lemma-base-change-universally-submersive}；
+\item 泛同胚，见“态射”引理
+\ref{morphisms-lemma-base-change-universal-homeomorphism}。
+\end{enumerate}
+可按需要补充。
+\end{remark}
+
+\begin{remark}
+\label{spaces-remark-list-properties-stable-composition}
+在基变换下稳定的态射性质中
+（见评注 \ref{spaces-remark-list-properties-stable-base-change} 的列表），
+下列性质还{\it 对复合稳定}：
+\begin{enumerate}
+\item 闭浸入、开浸入和局部闭浸入，见“概形”引理
+\ref{schemes-lemma-composition-immersion}；
+\item 拟紧，见“概形”引理 \ref{schemes-lemma-composition-quasi-compact}；
+\item 泛闭，见“态射”引理 \ref{morphisms-lemma-composition-proper}；
+\item （拟）分离，见“概形”引理 \ref{schemes-lemma-separated-permanence}；
+\item 单态射，见“概形”引理 \ref{schemes-lemma-composition-monomorphism}；
+\item 满射，见“态射”引理 \ref{morphisms-lemma-composition-surjective}；
+\item 泛单射，见“态射”引理
+\ref{morphisms-lemma-composition-universally-injective}；
+\item 仿射，见“态射”引理 \ref{morphisms-lemma-composition-affine}；
+\item 拟仿射，见“态射”引理 \ref{morphisms-lemma-composition-quasi-affine}；
+\item （局部）有限型，见“态射”引理
+\ref{morphisms-lemma-composition-finite-type}；
+\item （局部）拟有限，见“态射”引理
+\ref{morphisms-lemma-composition-quasi-finite}；
+\item （局部）有限表示，见“态射”引理
+\ref{morphisms-lemma-composition-finite-presentation}；
+\item 泛开，见“态射”引理 \ref{morphisms-lemma-composition-open}；
+\item 平坦，见“态射”引理 \ref{morphisms-lemma-composition-flat}；
+\item syntomic，见“态射”引理 \ref{morphisms-lemma-composition-syntomic}；
+\item 平滑，见“态射”引理 \ref{morphisms-lemma-composition-smooth}；
+\item 非分歧（相应地，G-非分歧），见“态射”引理
+\ref{morphisms-lemma-composition-unramified}；
+\item \'etale，见“态射”引理 \ref{morphisms-lemma-composition-etale}；
+\item 固有，见“态射”引理 \ref{morphisms-lemma-composition-proper}；
+\item H-射影，见“态射”引理 \ref{morphisms-lemma-H-projective-composition}；
+\item 有限或整，见“态射”引理 \ref{morphisms-lemma-composition-finite}；
+\item 有限局部自由，见“态射”引理
+\ref{morphisms-lemma-composition-finite-locally-free}；
+\item 泛商，见“态射”引理
+\ref{morphisms-lemma-composition-universally-submersive}；
+\item 泛同胚，见“态射”引理
+\ref{morphisms-lemma-composition-universal-homeomorphism}。
+\end{enumerate}
+可按需要补充。
+\end{remark}
+
+\begin{remark}
+\label{spaces-remark-list-properties-fpqc-local-base}
+在上述基变换下稳定的性质中
+（见评注 \ref{spaces-remark-list-properties-stable-base-change}），
+下列性质还是{\it 基上的 fpqc 局部性质}
+（从而更是基上的 fppf 局部性质）：
+\begin{enumerate}
+\item 对浸入而言，下列情形成立：
+\begin{enumerate}
+\item 闭浸入，见“下降”引理
+\ref{descent-lemma-descending-property-closed-immersion}；
+\item 开浸入，见“下降”引理
+\ref{descent-lemma-descending-property-open-immersion}；
+\item 拟紧浸入，见“下降”引理
+\ref{descent-lemma-descending-property-quasi-compact-immersion}；
+\end{enumerate}
+\item 拟紧，见“下降”引理 \ref{descent-lemma-descending-property-quasi-compact}；
+\item 泛闭，见“下降”引理
+\ref{descent-lemma-descending-property-universally-closed}；
+\item （拟）分离，见“下降”引理
+\ref{descent-lemma-descending-property-quasi-separated} 以及
+\ref{descent-lemma-descending-property-separated}；
+\item 单态射，见“下降”引理 \ref{descent-lemma-descending-property-monomorphism}；
+\item 满射，见“下降”引理 \ref{descent-lemma-descending-property-surjective}；
+\item 泛单射，见“下降”引理
+\ref{descent-lemma-descending-property-universally-injective}；
+\item 仿射，见“下降”引理 \ref{descent-lemma-descending-property-affine}；
+\item 拟仿射，见“下降”引理 \ref{descent-lemma-descending-property-quasi-affine}；
+\item （局部）有限型，见“下降”引理
+\ref{descent-lemma-descending-property-locally-finite-type} 以及
+\ref{descent-lemma-descending-property-finite-type}；
+\item （局部）拟有限，见“下降”引理
+\ref{descent-lemma-descending-property-quasi-finite}；
+\item （局部）有限表示，见“下降”引理
+\ref{descent-lemma-descending-property-locally-finite-presentation} 以及
+\ref{descent-lemma-descending-property-finite-presentation}；
+\item 相对维数为 $d$ 的局部有限型，见“下降”引理
+\ref{descent-lemma-descending-property-relative-dimension-d}；
+\item 泛开，见“下降”引理 \ref{descent-lemma-descending-property-universally-open}；
+\item 平坦，见“下降”引理 \ref{descent-lemma-descending-property-flat}；
+\item syntomic，见“下降”引理 \ref{descent-lemma-descending-property-syntomic}；
+\item 平滑，见“下降”引理 \ref{descent-lemma-descending-property-smooth}；
+\item 非分歧（相应地，G-非分歧），见“下降”引理
+\ref{descent-lemma-descending-property-unramified}；
+\item \'etale，见“下降”引理 \ref{descent-lemma-descending-property-etale}；
+\item 固有，见“下降”引理 \ref{descent-lemma-descending-property-proper}；
+\item 有限或整，见“下降”引理 \ref{descent-lemma-descending-property-finite}；
+\item 有限局部自由，见“下降”引理
+\ref{descent-lemma-descending-property-finite-locally-free}；
+\item 泛商，见“下降”引理
+\ref{descent-lemma-descending-property-universally-submersive}；
+\item 泛同胚，见“下降”引理
+\ref{descent-lemma-descending-property-universal-homeomorphism}。
+\end{enumerate}
+注意，“浸入”这一性质未必是基上的 fpqc 局部性质；
+但我们已在“下降”引理
+\ref{descent-lemma-descending-fppf-property-immersion} 中证明，
+它是基上的 fppf 局部性质。
+\end{remark}
+
+
+
+
+
+
+
+
+\section{预层可表示态射的性质}
+\label{spaces-section-representable-properties}
+
+\noindent
+下面的定义使这一方法得以成立。
+
+\begin{definition}
+\label{spaces-definition-relative-representable-property}
+取如上所述的 $S$，并设 $a : F \to G$ 可表示。
+设 $\mathcal{P}$ 是概形态射的一个性质，满足
+\begin{enumerate}
+\item 在任意基变换下保持，见“概形”定义
+\ref{schemes-definition-preserved-by-base-change}；并且
+\item 是基上的 fppf 局部性质，见“下降”定义
+\ref{descent-definition-property-morphisms-local}。
+\end{enumerate}
+此时，若对每个 $U \in \Ob((\Sch/S)_{fppf})$ 和任意
+$\xi \in G(U)$，所得概形态射 $V_\xi \to U$ 都具有性质
+$\mathcal{P}$，则称 $a$ {\it 具有性质 $\mathcal{P}$}。
+\end{definition}
+
+\noindent
+需要强调的是，我们只将这个定义用于在基变换下稳定、
+且在基上关于 fppf 拓扑为局部的态射性质。
+这并不是因为其他情形下该定义没有意义；而是因为对于所考虑的性质，
+我们可能希望另给一个更合适的定义。
+
+\begin{remark}
+\label{spaces-remark-warning}
+考虑性质 $\mathcal{P}=$“满射”。此时，若说
+“设 $F \to G$ 是满映射”，可能会产生歧义。
+我们可能指上面定义 \ref{spaces-definition-relative-representable-property}
+给出的概念，也可能指预层的满映射，见“位点”定义
+\ref{sites-definition-presheaves-injective-surjective}；
+若 $F$ 与 $G$ 都是层，还可能指层的满映射，见“位点”定义
+\ref{sites-definition-sheaves-injective-surjective}。
+讨论代数空间的态射时，除非另有说明，我们总是取第一种含义。
+引理 \ref{spaces-lemma-surjective-flat-locally-finite-presentation}
+给出一个这里的满性蕴含作为层映射的满性的情形。
+\end{remark}
+
+\noindent
+下面作一个基本检验。
+
+\begin{lemma}
+\label{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+设 $S$、$X$、$Y$ 是 $\Sch_{fppf}$ 的对象，
+$f : X \to Y$ 是概形态射，并设 $\mathcal{P}$ 如定义
+\ref{spaces-definition-relative-representable-property} 所述。
+则 $h_X \longrightarrow h_Y$ 具有性质 $\mathcal{P}$，
+当且仅当 $f$ 具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-morphism-schemes-gives-representable-transformation}，
+本引理的陈述是有意义的。证明从略。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-composition-representable-transformations-property}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$。
+设 $\mathcal{P}$ 是定义 \ref{spaces-definition-relative-representable-property}
+所述且对复合稳定的性质。设 $a : F \to G$、$b : G \to H$
+是可表示的函子变换。若 $a$ 与 $b$ 具有性质 $\mathcal{P}$，则
+$b \circ a : F \longrightarrow H$ 也具有该性质。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-composition-representable-transformations}，
+本引理的陈述是有意义的。证明从略。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-base-change-representable-transformations-property}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$。
+设 $\mathcal{P}$ 是定义 \ref{spaces-definition-relative-representable-property}
+所述的性质。设 $a : F \to G$ 是可表示的函子变换，
+$b : H \to G$ 是任意函子变换。考虑纤维积图表
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+若 $a$ 具有性质 $\mathcal{P}$，则基变换 $a'$ 也具有性质
+$\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-base-change-representable-transformations}，
+本引理的陈述是有意义的。证明从略。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-descent-representable-transformations-property}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$。
+设 $\mathcal{P}$ 是定义 \ref{spaces-definition-relative-representable-property}
+所述的性质。设 $a : F \to G$ 是可表示的函子变换，
+$b : H \to G$ 是任意函子变换。考虑纤维积图表
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+假设 $b$ 诱导 fppf 层的满映射 $H^\# \to G^\#$。
+此时，若 $a'$ 具有性质 $\mathcal{P}$，则 $a$ 也具有性质
+$\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+首先，由引理 \ref{spaces-lemma-base-change-representable-transformations}，
+变换 $a'$ 可表示。取 $U \in \Ob((\Sch/S)_{fppf})$ 以及
+$\xi \in G(U)$。由假设，存在一个 fppf 覆盖
+$\{U_i \to U\}_{i \in I}$ 和元素 $\xi_i \in H(U_i)$，
+使其经 $b$ 映到 $\xi|_U$。由一般范畴论可知，对每个 $i$，
+都有纤维积图表
+$$
+\xymatrix{
+U_i \times_{\xi_i, H, a'} (H \times_{b, G, a} F) \ar[r] \ar[d] &
+U \times_{\xi, G, a} F \ar[d] \\
+U_i \ar[r] & U
+}
+$$
+由假设，左侧竖直箭头是具有性质 $\mathcal{P}$ 的概形态射。
+由于 $\mathcal{P}$ 关于 fppf 拓扑是局部的，右侧竖直箭头也具有
+性质 $\mathcal{P}$，这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-product-representable-transformations-property}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形。设
+$F_i, G_i : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$，
+$i = 1, 2$。设 $a_i : F_i \to G_i$，$i = 1, 2$，
+是可表示的函子变换。设 $\mathcal{P}$ 是定义
+\ref{spaces-definition-relative-representable-property} 所述且对复合稳定的性质。
+若 $a_1$ 与 $a_2$ 具有性质 $\mathcal{P}$，则
+$a_1 \times a_2 : F_1 \times F_2 \longrightarrow G_1 \times G_2$
+也具有该性质。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-product-representable-transformations}，
+本引理的陈述是有意义的。证明从略。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-representable-transformations-property-implication}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，并设
+$F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$。
+设 $a : F \to G$ 是可表示的函子变换，$\mathcal{P}$、
+$\mathcal{P}'$ 是定义 \ref{spaces-definition-relative-representable-property}
+所述的性质。假设对任意概形态射 $f : X \to Y$ 都有
+$\mathcal{P}(f) \Rightarrow \mathcal{P}'(f)$。
+若 $a$ 具有性质 $\mathcal{P}$，则 $a$ 具有性质 $\mathcal{P}'$。
+\end{lemma}
+
+\begin{proof}
+形式可得。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-surjective-flat-locally-finite-presentation}
+设 $S$ 是概形，$F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$
+是层。设 $a : F \to G$ 可表示、平坦、局部有限表示且为满射。
+则 $a : F \to G$ 作为层的映射是满射。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是 $S$ 上的概形，$g : T \to G$ 是 $G$ 的一个 $T$-值点。
+由假设，$T' = F \times_G T$（由）某个概形（表示），且态射
+$T' \to T$ 平坦、局部有限表示并为满射。因此
+$\{T' \to T\}$ 是一个 fppf 覆盖，并且 $g|_{T'} \in G(T')$
+来自 $F(T')$ 的元素，即映射 $T' \to F$。
+这证明该映射作为层的映射是满射；见“位点”定义
+\ref{sites-definition-sheaves-injective-surjective}。
+\end{proof}
+
+\noindent
+下面刻画对角态射可表示的那些函子。
+
+\begin{lemma}
+\label{spaces-lemma-representable-diagonal}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F$ 是
+$(\Sch/S)_{fppf}$ 上的集合预层。下列条件等价：
+\begin{enumerate}
+\item 对角态射 $F \to F \times F$ 可表示；
+\item 对 $U \in \Ob((\Sch/S)_{fppf})$ 及任意 $a \in F(U)$，
+映射 $a : h_U \to F$ 可表示；
+\item 对每一对 $U, V \in \Ob((\Sch/S)_{fppf})$ 及任意
+$a \in F(U)$、$b \in F(V)$，纤维积
+$h_U \times_{a, F, b} h_V$ 可表示。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这完全是形式的；见“范畴”引理
+\ref{categories-lemma-representable-diagonal}。
+它只依赖于范畴 $(\Sch/S)_{fppf}$ 具有对象对的积与纤维积这一事实；
+见“拓扑”引理 \ref{topologies-lemma-fibre-products-fppf}。
+\end{proof}
+
+\noindent
+在该引理的情形下，对于其中任意态射 $\xi : h_U \to F$，
+以及定义 \ref{spaces-definition-relative-representable-property} 所述的任意性质，
+说 $\xi$ 具有性质 $\mathcal{P}$ 是有意义的。
+特别地，这适用于 $\mathcal{P}=$“满射”以及
+$\mathcal{P}=$“\'etale”；见上面的评注
+\ref{spaces-remark-list-properties-fpqc-local-base}。
+下面定义代数空间时将使用这一评注。
+
+\begin{lemma}
+\label{spaces-lemma-transformation-diagonal-properties}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F$ 是
+$(\Sch/S)_{fppf}$ 上的集合预层，并设 $\mathcal{P}$ 是定义
+\ref{spaces-definition-relative-representable-property} 所述的性质。
+若对每个 $U, V \in \Ob((\Sch/S)_{fppf})$、$a \in F(U)$ 及
+$b \in F(V)$，都有
+\begin{enumerate}
+\item $h_U \times_{a, F, b} h_V$ 可表示，设其由概形 $W$ 表示；并且
+\item 与 $h_U \times_{a, F, b} h_V \to h_U \times h_V$
+对应的态射 $W \to U \times_S V$ 具有性质 $\mathcal{P}$，
+\end{enumerate}
+则 $\Delta : F \to F \times F$ 可表示并具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-representable-diagonal}，$\Delta$ 可表示。
+条件 (2) 可表述为变换
+$h_U \times_{a, F, b} h_V \to h_{U \times_S V}$
+具有性质 $\mathcal{P}$；见引理
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}。
+取 $T \in \Ob((\Sch/S)_{fppf})$ 及 $(a, b) \in (F \times F)(T)$。
+我们有交换图表
+$$
+\xymatrix{
+F \times_{\Delta, F \times F, (a, b)} h_T \ar[d] \ar[r] &
+h_T \ar[d]^{\Delta_{T/S}} \\
+h_T \times_{a, F, b} h_T \ar[r] \ar[d] &
+h_{T \times_S T} \ar[d]^{(a, b)} \\
+F \ar[r]^\Delta & F \times F
+}
+$$
+其中两个方块均为 Cartesian 方块。由此可见，态射
+$F \times_{F \times F} h_T \to h_T$ 是一个具有性质
+$\mathcal{P}$ 的态射沿 $\Delta_{T/S}$ 的基变换。
+由于 $\mathcal{P}$ 在基变换下保持，证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{代数空间}
+\label{spaces-section-algebraic-spaces}
+
+\noindent
+定义如下。
+
+\begin{definition}
+\label{spaces-definition-algebraic-space}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形。一个{\it $S$ 上的代数空间}
+是预层
+$$
+F : (\Sch/S)^{opp}_{fppf} \longrightarrow \textit{Sets}
+$$
+并满足下列性质：
+\begin{enumerate}
+\item 预层 $F$ 是层。
+\item 对角态射 $F  \to F \times F$ 可表示。
+\item 存在概形 $U \in \Ob((\Sch/S)_{fppf})$ 以及满且 \'etale 的映射
+$h_U \to F$\footnote{见引理 \ref{spaces-lemma-representable-diagonal}、
+定义 \ref{spaces-definition-relative-representable-property} 以及
+评注 \ref{spaces-remark-warning}。}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这与“通常”的定义（例如 Knutson 专著 \cite{Kn} 中的定义）
+有两处不同。
+
+\medskip\noindent
+第一处是我们要求 $F$ 为 fppf 拓扑下的层。
+这样做的一个理由是，代数空间的许多自然例子都满足 fppf 覆盖
+（甚至 fpqc 覆盖）的层条件。此外，代数空间之所以如此有用，
+部分原因在于 Michael Artin 关于代数空间的结果；
+他的方法内置了一个条件，保证所得对象在 $S$ 上局部有限表示。
+综合来看，fppf 拓扑似乎是自然的工作拓扑。
+最终所得代数空间范畴仍然相同；见“自举”第
+\ref{bootstrap-section-spaces-etale} 节。
+
+\medskip\noindent
+第二处是我们只要求 $F$ 的对角映射可表示，而 \cite{Kn}
+还要求它拟紧。若对某个 $S$ 上的概形 $U$ 有 $F = h_U$，
+这对应于 $U$ 拟分离这一条件。我们的观点是：先尝试仅在 $F$
+的对角态射可表示的假设下证明后续若干结果，只在必要处增加额外假设。
+无论如何，这带来一个令人满意的推论：下面的引理成立。
+
+\begin{lemma}
+\label{spaces-lemma-scheme-is-space}
+概形是代数空间。更准确地说，给定概形
+$T \in \Ob((\Sch/S)_{fppf})$，可表示函子 $h_T$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+由第 \ref{spaces-section-general} 节的说明，函子 $h_T$ 是层。
+由于 $(\Sch/S)_{fppf}$ 具有纤维积，对角态射
+$h_T \to h_T \times h_T = h_{T \times T}$ 可表示。
+恒等映射 $h_T \to h_T$ 满且 \'etale。
+\end{proof}
+
+\begin{definition}
+\label{spaces-definition-morphism-algebraic-spaces}
+设 $F$、$F'$ 是 $S$ 上的代数空间。一个{\it $S$ 上代数空间的态射
+$f : F \to F'$}，是从 $F$ 到 $F'$ 的函子变换。
+\end{definition}
+
+\noindent
+通过 Yoneda 嵌入 $T/S \mapsto h_T$，$S$ 上代数空间的范畴
+以 $(\Sch/S)_{fppf}$ 为满子范畴。此后，我们不再区分概形 $T/S$
+与它所表示的代数空间。因此，当我们说“设 $f : T \to F$
+是从概形 $T$ 到代数空间 $F$ 的态射”时，意思是
+$T \in \Ob((\Sch/S)_{fppf})$，$F$ 是 $S$ 上的代数空间，
+而 $f : h_T \to F$ 是 $S$ 上代数空间的态射。
+
+
+
+
+
+
+\section{代数空间的纤维积}
+\label{spaces-section-fibre-products}
+
+\noindent
+$S$ 上代数空间的范畴既有积，也有纤维积。
+
+\begin{lemma}
+\label{spaces-lemma-product-spaces}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F,G$ 是 $S$ 上的代数空间。
+则 $F \times G$ 是代数空间，并且是 $S$ 上代数空间范畴中的积。
+\end{lemma}
+
+\begin{proof}
+显然 $H = F \times G$ 是层。$H$ 的对角态射就是 $F$ 与 $G$
+的对角态射之积，故由引理
+\ref{spaces-lemma-product-representable-transformations} 可表示。
+最后，若 $U \to F$ 与 $V \to G$ 是满 \'etale 态射，且
+$U, V \in \Ob((\Sch/S)_{fppf})$，则由引理
+\ref{spaces-lemma-product-representable-transformations-property}，
+$U \times V \to F \times G$ 满且 \'etale。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-fibre-product-spaces-over-sheaf-with-representable-diagonal}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形。设 $H$ 是
+$(\Sch/S)_{fppf}$ 上对角态射可表示的层，$F,G$ 是 $S$ 上的代数空间，
+而 $F \to H$、$G \to H$ 是层的映射。则 $F \times_H G$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+我们验证定义 \ref{spaces-definition-algebraic-space} 的三个条件。
+层的纤维积是层，故 $F \times_H G$ 是层。
+$F \times_H G$ 的对角态射是下图中的左侧竖直箭头：
+$$
+\xymatrix{
+F \times_H G \ar[r] \ar[d]_\Delta &
+F \times G \ar[d]^{\Delta_F \times \Delta_G} \\
+(F \times F) \times_{(H \times H)} (G \times G) \ar[r] &
+(F \times F) \times (G \times G)
+}
+$$
+该图为 Cartesian 方块。右侧态射可表示，故其基变换 $\Delta$
+也可表示；见引理 \ref{spaces-lemma-product-representable-transformations} 以及
+\ref{spaces-lemma-base-change-representable-transformations}。
+最后，取 $U, V \in \Ob((\Sch/S)_{fppf})$，并设
+$a : U \to F$、$b : V \to G$ 满且 \'etale。
+由于 $\Delta_H$ 可表示，$U \times_H V$ 是概形。态射
+$$
+U \times_H V \longrightarrow F \times_H G
+$$
+是两个基变换 $U \times_H V \to U \times_H G$ 与
+$U \times_H G \to F \times_H G$ 的复合；它们分别来自满 \'etale 态射
+$U \to F$ 与 $V \to G$，因而该态射满且 \'etale。见引理
+\ref{spaces-lemma-composition-representable-transformations} 以及
+\ref{spaces-lemma-base-change-representable-transformations}。
+这证明定义 \ref{spaces-definition-algebraic-space} 的最后一个条件成立，
+从而 $F \times_H G$ 是代数空间。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-fibre-product-spaces}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F \to H$、$G \to H$
+是 $S$ 上代数空间的态射。则 $F \times_H G$ 是代数空间，
+并且是 $S$ 上代数空间范畴中的纤维积。
+\end{lemma}
+
+\begin{proof}
+由更强的引理
+\ref{spaces-lemma-fibre-product-spaces-over-sheaf-with-representable-diagonal}，
+$F \times_H G$ 是代数空间。又因为 $S$ 上代数空间的范畴是
+$(\Sch/S)_{fppf}$ 上集合（预）层范畴的满子范畴，显然
+$F \times_H G$ 是该代数空间范畴中的纤维积。
+\end{proof}
+
+
+
+
+
+
+\section{代数空间的黏合}
+\label{spaces-section-glueing-algebraic-spaces}
+
+\noindent
+从本节开始，我们将真正滥用记号，不再区分概形与其表示的空间。
+
+\begin{lemma}
+\label{spaces-lemma-coproduct-sheaves-open-and-closed}
+设 $S \in \Ob(\Sch_{fppf})$，$F$ 与 $G$ 是
+$(\Sch/S)_{fppf}^{opp}$ 上的层，并以 $F \amalg G$ 表示层范畴中的余积。
+映射 $F \to F \amalg G$ 由开浸入兼闭浸入表示。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 是概形，$\xi \in (F \amalg G)(U)$。回忆，层范畴中的余积
+是预层余积的层化（“位点”引理 \ref{sites-lemma-colimit-sheaves}）。
+因此，存在 fppf 覆盖 $\{g_i : U_i \to U\}_{i \in I}$ 和不交并分解
+$I = I' \amalg I''$，使得 $U_i \to U \to F \amalg G$ 经过 $F$
+（相应地，$G$）分解，当且仅当 $i \in I'$（相应地，$i \in I''$）。
+由于 $F$ 与 $G$ 在 $F \amalg G$ 中的交为空，若 $i \in I'$ 且
+$j \in I''$，则 $U_i \times_U U_j$ 为空。因此
+$U' = \bigcup_{i \in I'} g_i(U_i)$ 与
+$U'' = \bigcup_{i \in I''} g_i(U_i)$ 是 $U$ 的不交开子概形
+（“态射”引理 \ref{morphisms-lemma-fppf-open}），并且
+$U = U' \amalg U''$。我们略去 $U' = U \times_{F \amalg G} F$
+的验证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-representable-sheaf-coproduct-sheaves}
+设 $S \in \Ob(\Sch_{fppf})$、$U \in \Ob((\Sch/S)_{fppf})$。
+给定集合 $I$ 以及 $\Ob((\Sch/S)_{fppf})$ 上的层 $F_i$，
+若作为层有 $U \cong \coprod_{i\in I} F_i$，则每个 $F_i$
+均由某个开闭子概形 $U_i$ 表示，并且作为概形有
+$U \cong \coprod U_i$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-coproduct-sheaves-open-and-closed}，映射
+$F_i \to U$ 由开浸入兼闭浸入表示。因此 $F_i$ 由 $U$ 的某个开闭子概形
+$U_i$ 表示。由于作为层有 $U \cong \coprod F_i$，而该等式可在点上检验，
+故 $U = \coprod U_i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-algebraic-space-coproduct-sheaves}
+设 $S \in \Ob(\Sch_{fppf})$，$F$ 是 $S$ 上的代数空间。
+给定集合 $I$ 以及 $\Ob((\Sch/S)_{fppf})$ 上的层 $F_i$，
+若作为层有 $F \cong \coprod_{i\in I} F_i$，则每个 $F_i$
+都是 $S$ 上的代数空间。
+\end{lemma}
+
+\begin{proof}
+$F \to F \times F$ 的可表示性蕴含每个对角态射
+$F_i \to F_i \times F_i$ 可表示（由定义以及等式
+$F \times_{(F \times F)} (F_i \times F_i) = F_i$ 立即可得）。
+在 $(\Sch/S)_{fppf}$ 中选取概形 $U$ 以及满 \'etale 态射
+$U \to F$（由假设存在）。由引理
+\ref{spaces-lemma-base-change-representable-transformations-property}，
+基变换 $U \times_F F_i \to F_i$ 满且 \'etale。另一方面，由引理
+\ref{spaces-lemma-coproduct-sheaves-open-and-closed}，$U \times_F F_i$ 是概形。
+因此，我们已验证定义 \ref{spaces-definition-algebraic-space} 的全部条件，
+$F_i$ 是代数空间。
+\end{proof}
+
+\noindent
+不关心集合论问题的读者可以忽略下面引理中关于 $I$ 与 $F_i$ 大小的条件。
+
+\begin{lemma}
+\label{spaces-lemma-coproduct-algebraic-spaces}
+设 $S \in \Ob(\Sch_{fppf})$。给定集合 $I$ 和代数空间 $F_i$，
+$i \in I$。若 $I$ 与 $F_i$ 不太“大”，则
+$F = \coprod_{i \in I} F_i$ 是代数空间。例如，若可选取满 \'etale 态射
+$U_i \to F_i$，使 $\coprod_{i \in I} U_i$ 同构于
+$(\Sch/S)_{fppf}$ 的一个对象，则 $F$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+由构造，$F$ 是层。我们略去 $F$ 的对角态射可表示的验证。
+最后，若 $U$ 是 $(\Sch/S)_{fppf}$ 中与
+$\coprod_{i \in I} U_i$ 同构的对象，则容易验证所得映射
+$U \to \coprod F_i$ 满且 \'etale。
+\end{proof}
+
+\noindent
+下面是“概形”引理 \ref{schemes-lemma-glue-functors} 的对应结果。
+
+\begin{lemma}
+\label{spaces-lemma-glueing-algebraic-spaces}
+设 $S \in \Ob(\Sch_{fppf})$，$F$ 是 $(\Sch/S)_{fppf}$ 上的集合预层。
+假设
+\begin{enumerate}
+\item $F$ 是层；
+\item 存在指标集 $I$ 以及子函子 $F_i \subset F$，使得
+\begin{enumerate}
+\item 每个 $F_i$ 都是代数空间；
+\item 每个 $F_i \to F$ 都可表示；
+\item 每个 $F_i \to F$ 都是开浸入（见定义
+\ref{spaces-definition-relative-representable-property}）；
+\item 映射 $\coprod F_i \to F$ 作为层映射是满射；并且
+\item $\coprod F_i$ 是代数空间（集合论条件；见引理
+\ref{spaces-lemma-coproduct-algebraic-spaces}）。
+\end{enumerate}
+\end{enumerate}
+则 $F$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是 $(\Sch/S)_{fppf}$ 的对象，$T \to F$ 是态射。
+由假设 (2)(b) 与 (2)(c)，纤维积 $F_i \times_F T$
+由开子概形 $V_i \subset T$ 表示。因此
+$(\coprod F_i) \times_F T$ 由 $T$ 上的概形 $\coprod V_i$ 表示。
+由假设 (2)(d)，存在 fppf 覆盖 $\{T_j \to T\}_{j \in J}$，
+使 $T_j \to T \to F$ 经过 $F_i$ 分解，其中 $i = i(j)$。
+故 $T_j \to T$ 经过开子概形 $V_{i(j)} \subset T$ 分解。
+由于 $\{T_j \to T\}$ 联合满，$T = \bigcup V_i$ 是开覆盖。
+特别地，函子变换 $\coprod F_i \to F$ 可表示，并且在定义
+\ref{spaces-definition-relative-representable-property} 的意义下为满射
+（相关讨论见评注 \ref{spaces-remark-warning}）。
+
+\medskip\noindent
+其次，设 $T' \to F$ 是来自 $(\Sch/S)_{fppf}$ 中另一对象的态射。
+如上写成 $T' = \bigcup V'_i$，其中 $V'_i = T' \times_F F_i$。
+为证明对角态射 $F \to F \times F$ 可表示，只需证明
+$G = T \times_F T'$ 可表示；见引理 \ref{spaces-lemma-representable-diagonal}。
+考虑子函子 $G_i = G \times_F F_i$。注意
+$G_i = V_i \times_{F_i} V'_i$；由于 $F_i$ 是代数空间，故其可表示。
+由上所述，$G_i$ 构成 $G$ 的 Zariski 覆盖。因此，由“概形”引理
+\ref{schemes-lemma-glue-functors}，$G$ 可表示。
+
+\medskip\noindent
+选取概形 $U \in \Ob((\Sch/S)_{fppf})$ 和满 \'etale 态射
+$U \to \coprod F_i$（由假设存在）。可写 $U = \coprod U_i$，
+其中 $U_i$ 是 $F_i$ 的逆像；见引理
+\ref{spaces-lemma-representable-sheaf-coproduct-sheaves}。
+我们断言 $U \to F$ 满且 \'etale。由于 $\coprod F_i \to F$ 为满射
+（见证明的第一段），应用引理
+\ref{spaces-lemma-composition-representable-transformations-property} 即得满性。
+考虑上述 $T \to F$ 对应的纤维积 $U \times_F T$。
+我们必须证明 $U \times_F T \to T$ 为 \'etale。
+由于 $U \times_F T = \coprod U_i \times_F T$，只需证明每个
+$U_i \times_F T \to T$ 为 \'etale。又因
+$U_i \times_F T = U_i \times_{F_i} V_i$，这由 $U_i \to F_i$
+为 \'etale、$V_i \to T$ 为开浸入以及“态射”引理
+\ref{morphisms-lemma-open-immersion-etale} 和
+\ref{morphisms-lemma-composition-etale} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{代数空间的表示}
+\label{spaces-section-presentations}
+
+\noindent
+给定一个代数空间，我们可以找到它的一个“表示”。
+
+
+\begin{lemma}
+\label{spaces-lemma-space-presentation}
+设 $F$ 是 $S$ 上的代数空间，$f : U \to F$ 是从概形到 $F$
+的满 \'etale 态射。令 $R = U \times_F U$。则
+\begin{enumerate}
+\item $j : R \to U \times_S U$ 定义 $U$ 上相对于 $S$ 的等价关系
+（见“群胚”定义 \ref{groupoids-definition-equivalence-relation}）；
+\item 态射 $s, t : R \to U$ 为 \'etale；并且
+\item 图表
+$$
+\xymatrix{
+R \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \ar[r] &
+F
+}
+$$
+是 $\Sh((\Sch/S)_{fppf})$ 中的余等化子图表。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $T/S$ 是 $(\Sch/S)_{fppf}$ 的对象。则
+$R(T) = \{(a, b) \in U(T) \times U(T) \mid f \circ a = f \circ b\}$，
+它在 $U(T)$ 上定义等价关系。由于态射 $U \to F$ 为 \'etale，
+态射 $s, t : R \to U$ 也为 \'etale。
+
+\medskip\noindent
+为证明 (3)，先证明 $U \to F$ 是层的满射；见“位点”定义
+\ref{sites-definition-sheaves-injective-surjective}。
+对上述 $T$，取 $\xi \in F(T)$，并令 $V = T \times_{\xi, F, f}U$。
+由假设，$V$ 是概形且 $V \to T$ 满而 \'etale。因此
+$\{V \to T\}$ 是 fppf 拓扑的覆盖。由构造，$\xi|_V$ 经过 $U$ 分解，
+故 $U \to F$ 为满射。由“位点”引理
+\ref{sites-lemma-coequalizer-surjection}，满性蕴含 $F$ 是该图表的余等化子。
+\end{proof}
+
+\noindent
+该引理提示如下定义。
+
+\begin{definition}
+\label{spaces-definition-etale-equivalence-relation}
+设 $S$ 是概形，$U$ 是 $S$ 上的概形。$U$ 上相对于 $S$
+的一个{\it \'etale 等价关系}，是等价关系
+$j : R \to U \times_S U$，其中 $s, t : R \to U$ 是概形的
+\'etale 态射。
+\end{definition}
+
+\begin{definition}
+\label{spaces-definition-presentation}
+设 $F$ 是 $S$ 上的代数空间。$F$ 的一个{\it 表示}由以下数据给出：
+$S$ 上的概形 $U$、$U$ 上相对于 $S$ 的 \'etale 等价关系 $R$，
+以及满足 $R = U \times_F U$ 的满 \'etale 态射 $U \to F$。
+\end{definition}
+
+\noindent
+等价地，我们可以要求存在同构
+$$
+U/R \cong F
+$$
+其中商 $U/R$ 按“群胚”第 \ref{groupoids-section-quotient-sheaves} 节定义。
+为构造代数空间，我们将研究逆向问题：对于哪些等价关系，商层 $U/R$
+是代数空间。最终将证明，只要 $R$ 是 $U$ 上相对于 $S$ 的
+\'etale 等价关系，情形总是如此；见定理 \ref{spaces-theorem-presentation}。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{代数空间与等价关系}
+\label{spaces-section-spaces-from-equivalence-relations}
+
+\noindent
+设给定 $S$ 上的概形 $U$，以及 $U$ 上相对于 $S$ 的
+\'etale 等价关系 $R$。我们希望证明这定义了一个代数空间。
+下面将给出一系列引理，证明商层 $U/R$
+（见“群胚”定义 \ref{groupoids-definition-quotient-sheaf}）
+具备定义 \ref{spaces-definition-algebraic-space} 所要求的全部性质。
+
+\begin{lemma}
+\label{spaces-lemma-pullback-etale-equivalence-relation}
+设 $S$ 是概形，$U$ 是 $S$ 上的概形，并设
+$j = (s, t) : R \to U \times_S U$ 是 $U$ 上相对于 $S$ 的
+\'etale 等价关系。设 $U' \to U$ 为 \'etale 态射，$R'$ 为 $R$
+在 $U'$ 上的限制；见“群胚”定义
+\ref{groupoids-definition-restrict-relation}。
+则 $j' : R' \to U' \times_S U'$ 也是 \'etale 等价关系。
+\end{lemma}
+
+\begin{proof}
+由“群胚”引理 \ref{groupoids-lemma-restrict-groupoid}
+中对 $s',t'$ 的描述可见，$s' , t' : R' \to U'$ 是 \'etale 态射，
+因为它们是 \'etale 态射的基变换之复合
+（见“态射”引理 \ref{morphisms-lemma-base-change-etale} 以及
+\ref{morphisms-lemma-composition-etale}）。
+\end{proof}
+
+\noindent
+我们将经常使用下面的引理寻找代数空间的开子空间。
+该引理的一个略微加强版（假设更一般）是“自举”引理
+\ref{bootstrap-lemma-better-finding-opens}。
+
+\begin{lemma}
+\label{spaces-lemma-finding-opens}
+设 $S$ 是概形，$U$ 是 $S$ 上的概形，
+$j = (s, t) : R \to U \times_S U$ 是预关系，
+$g : U' \to U$ 是态射。假设
+\begin{enumerate}
+\item $j$ 是等价关系；
+\item $s, t : R \to U$ 满、平坦且局部有限表示；
+\item $g$ 平坦且局部有限表示。
+\end{enumerate}
+令 $R' = R|_{U'}$ 为 $R$ 在 $U'$ 上的限制。则
+$U'/R' \to U/R$ 可表示，并且是开浸入。
+\end{lemma}
+
+\begin{proof}
+由“群胚”引理 \ref{groupoids-lemma-restrict-relation}，态射
+$j' = (s', t') : R' \to U' \times_S U'$ 定义等价关系。
+由于 $g$ 平坦且局部有限表示，$g$ 还是泛开的
+（“态射”引理 \ref{morphisms-lemma-fppf-open}）。同理，$s,t$
+也泛开。令 $W^1 = g(U') \subset U$，并令
+$W = t(s^{-1}(W^1))$。则 $W^1$ 与 $W$ 是 $U$ 中的开集。
+此外，由于 $j$ 是等价关系，有 $t(s^{-1}(W)) = W$
+（例如见“群胚”引理
+\ref{groupoids-lemma-constructing-invariant-opens}）。
+
+\medskip\noindent
+由“群胚”引理
+\ref{groupoids-lemma-quotient-pre-equivalence-relation-restrict}，
+层映射 $F' = U'/R' \to F = U/R$ 是单射。
+设 $a : T \to F$ 是从概形到 $U/R$ 的态射。
+我们必须证明 $T \times_F F'$ 由 $T$ 的某个开子概形表示。
+
+\medskip\noindent
+态射 $a$ 由以下数据给出：$T$ 的 fppf 覆盖
+$\{\varphi_j : T_j \to T\}_{j \in J}$ 以及态射
+$a_j : T_j \to U$，使映射
+$$
+a_j \times a_{j'} :
+T_j \times_T T_{j'}
+\longrightarrow
+U \times_S U
+$$
+经某些（唯一的）映射 $r_{jj'} : T_j \times_T T_{j'} \to R$
+通过 $j : R \to U \times_S U$ 分解。系统 $(a_j)$ 在下述意义下对应于
+$a$：图表
+$$
+\xymatrix{
+T_j \ar[r]_{a_j} \ar[d] & U \ar[d] \\
+T \ar[r]^a & F
+}
+$$
+交换。
+
+\medskip\noindent
+考虑开子集 $W_j = a_j^{-1}(W) \subset T_j$。
+由于 $t(s^{-1}(W)) = W$，可见
+$$
+W_j \times_T T_{j'} =
+r_{jj'}^{-1}(t^{-1}(W)) = r_{jj'}^{-1}(s^{-1}(W)) =
+T_j \times_T W_{j'}.
+$$
+由“下降”引理 \ref{descent-lemma-open-fpqc-covering}，
+这意味着存在开集 $W_T \subset T$，使对所有 $j \in J$ 都有
+$\varphi_j^{-1}(W_T) = W_j$。我们断言 $W_T \to T$ 表示
+$T \times_F F' \to T$。
+
+\medskip\noindent
+首先证明 $W_T \to T \to F$ 是 $F'(W_T)$ 的元素。
+由于 $\{W_j \to W_T\}_{j \in J}$ 是 $W_T$ 的 fppf 覆盖，
+只需证明每个 $W_j \to U \to F$ 都是 $F'(W_j)$ 的元素
+（因为 $F'$ 是 fppf 拓扑下的层）。考虑交换图表
+$$
+\xymatrix{
+W'_j \ar[rr] \ar[dd] \ar[rd] & & U' \ar[d]^g \\
+& s^{-1}(W^1) \ar[r]_s \ar[d]^t & W^1 \ar[d] \\
+W_j \ar[r]^{a_j|_{W_j}} & W \ar[r] & F
+}
+$$
+其中 $W'_j = W_j \times_W s^{-1}(W^1) \times_{W^1} U'$。
+由于 $t$ 与 $g$ 满、平坦且局部有限表示，$W'_j \to W_j$
+也具有这些性质。因此，元素 $W_j \to U \to F$ 在 $W'_j$ 上的限制
+是 $F'$ 的元素，正如所需。
+
+\medskip\noindent
+设 $f : T' \to T$ 是满足 $a|_{T'} \in F'(T')$ 的概形态射。
+我们必须证明 $f$ 经过开集 $W_T$ 分解。由于
+$\{T' \times_T T_j \to T'\}$ 是 $T'$ 的 fppf 覆盖，
+只需证明每个 $T' \times_T T_j \to T$ 都经过 $W_T$ 分解。
+因此可假设对某个 $j$，$f$ 分解为
+$\varphi_j \circ f_j : T' \to T_j \to T$。此时，条件
+$a|_{T'} \in F'(T')$ 意味着存在某个 fppf 覆盖
+$\{\psi_i : T'_i \to T'\}_{i \in I}$ 以及某些态射
+$b_i : T'_i \to U'$，使得
+$$
+\xymatrix{
+T'_i \ar[r]_{b_i} \ar[d]_{f_j \circ \psi_i} & U' \ar[r]_g & U \ar[d] \\
+T_j \ar[r]^{a_j} & U \ar[r] & F
+}
+$$
+交换。该交换性意味着存在态射 $r'_i : T'_i \to R$，使得
+$t \circ r'_i = a_j \circ f_j \circ \psi_i$ 且
+$s \circ r'_i = g \circ b_i$。这蕴含
+$\Im(f_j \circ \psi_i) \subset W_j$，证明完成。
+\end{proof}
+
+\noindent
+下面的引理看起来理应平凡，但其实并非完全平凡。
+
+\begin{lemma}
+\label{spaces-lemma-when-it-works-it-works}
+设 $S$ 是概形，$U$ 是 $S$ 上的概形，并设
+$j = (s, t) : R \to U \times_S U$ 是 $U$ 上相对于 $S$ 的
+\'etale 等价关系。若商 $U/R$ 是代数空间，则
+$U \to U/R$ 为 \'etale 满射。因此
+$(U, R, U \to U/R)$ 是代数空间 $U/R$ 的一个表示。
+\end{lemma}
+
+\begin{proof}
+以 $c : U \to U/R$ 表示所论态射。设 $T$ 是概形，
+$a : T \to U/R$ 是态射。我们必须证明概形态射
+$\pi : T \times_{a, U/R, c} U \to T$ 为 \'etale 满射。
+态射 $a$ 对应于一个 fppf 覆盖 $\{\varphi_i : T_i \to T\}$
+以及态射 $a_i : T_i \to U$，使
+$a_i \times a_{i'} : T_i \times_T T_{i'} \to U \times_S U$
+经过 $R$ 分解，并且 $c \circ a_i = a \circ \varphi_i$。因此
+$$
+T_i \times_{\varphi_i, T} T \times_{a, U/R, c} U =
+T_i \times_{c \circ a_i, U/R, c} U =
+T_i \times_{a_i, U} U \times_{c, U/R, c} U = T_i \times_{a_i, U, t} R.
+$$
+由于 $t$ 为 \'etale 满射，$\pi$ 到 $T_i$ 的基变换也满而 \'etale。
+满且 \'etale 这一性质关于基上的 fpqc 拓扑是局部的
+（见评注 \ref{spaces-remark-list-properties-fpqc-local-base}），故结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-presentation-quasi-compact}
+设 $S$ 是概形，$U$ 是 $S$ 上的概形，并设
+$j = (s, t) : R \to U \times_S U$ 是 $U$ 上相对于 $S$ 的
+\'etale 等价关系。假设 $U$ 仿射。则商 $F = U/R$ 是代数空间，
+且 $U \to F$ 为 \'etale 满射。
+\end{lemma}
+
+\begin{proof}
+由于 $j : R \to U \times_S U$ 是单态射，$j$ 分离
+（见“概形”引理 \ref{schemes-lemma-monomorphism-separated}）。
+由于 $U$ 仿射，$U \times_S U$（它带有到仿射概形 $U \times U$
+的单态射）是分离的。因此 $R$ 分离；特别地，态射 $s,t$
+既分离又 \'etale。
+
+\medskip\noindent
+由于复合 $R \to U \times_S U \to U$ 局部有限型，
+$j$ 局部有限型（见“态射”引理
+\ref{morphisms-lemma-permanence-finite-type}）。又因 $j$ 是单态射，
+其纤维有限；由“态射”引理 \ref{morphisms-lemma-finite-fibre}，
+$j$ 局部拟有限。综上，$j$ 分离且局部拟有限。
+
+\medskip\noindent
+第一步证明商映射 $c : U \to F$ 可表示。
+取概形 $T$ 和态射 $a : T \to F$。我们必须证明层
+$G = T \times_{a, F, c} U$ 可表示。正如引理
+\ref{spaces-lemma-finding-opens} 与 \ref{spaces-lemma-when-it-works-it-works}
+的证明中所见，存在 fppf 覆盖
+$\{\varphi_i : T_i \to T\}_{i \in I}$ 和态射 $a_i : T_i \to U$，
+使 $a_i \times a_{i'} : T_i \times_T T_{i'} \to U \times_S U$
+经过 $R$ 分解，并且 $c \circ a_i = a \circ \varphi_i$。
+与引理 \ref{spaces-lemma-when-it-works-it-works} 的证明相同，有
+\begin{eqnarray*}
+T_i \times_{\varphi_i, T} G & = &
+T_i \times_{\varphi_i, T} T \times_{a, U/R, c} U \\
+& = & T_i \times_{c \circ a_i, U/R, c} U \\
+& = & T_i \times_{a_i, U} U \times_{c, U/R, c} U \\
+& = & T_i \times_{a_i, U, t} R
+\end{eqnarray*}
+由于 $t$ 分离且 \'etale，特别地，它分离且局部拟有限
+（由“态射”引理 \ref{morphisms-lemma-unramified-quasi-finite} 以及
+\ref{morphisms-lemma-flat-unramified-etale}），$G$ 在每个 $T_i$
+上的限制都由一个分离且局部拟有限的概形态射
+$X_i \to T_i$ 表示。由“下降”引理
+\ref{descent-lemma-descent-data-sheaves}，我们得到相对于 fppf 覆盖
+$\{T_i \to T\}$ 的下降数据 $(X_i, \varphi_{ii'})$。
+由于每个 $X_i \to T_i$ 分离且局部拟有限，由“态射续论”引理
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}，
+该下降数据有效。因此，由“下降”引理
+\ref{descent-lemma-descent-data-sheaves} (2)，$G$ 如所需可表示。
+
+\medskip\noindent
+证明的第二步是说明 $U \to F$ 满且 \'etale。这由上文立即可得：
+第一步中已见 $G = T \times_{a, F, c} U$ 是 $T$ 上的概形，
+其基变换是满 \'etale 的概形态射 $X_i \to T_i$。因此
+$G \to T$ 满且 \'etale（见评注
+\ref{spaces-remark-list-properties-fpqc-local-base}）。
+或者，也可在当前情形下重读引理
+\ref{spaces-lemma-when-it-works-it-works} 的证明。
+
+\medskip\noindent
+第三步也是最后一步，是证明对角映射 $F \to F \times F$ 可表示。
+首先注意图表
+$$
+\xymatrix{
+R \ar[r] \ar[d]_j & F \ar[d]^\Delta \\
+U \times_S U \ar[r] & F \times F
+}
+$$
+是纤维积方块。由引理
+\ref{spaces-lemma-product-representable-transformations}，态射
+$U \times_S U \to F \times F$ 可表示（注意
+$h_U \times h_U = h_{U \times_S U}$）。此外，由引理
+\ref{spaces-lemma-product-representable-transformations-property}，态射
+$U \times_S U \to F \times F$ 满且 \'etale（还要注意，\'etale 与满射
+都出现在评注 \ref{spaces-remark-list-properties-fpqc-local-base} 以及
+\ref{spaces-remark-list-properties-stable-composition} 的列表中）。
+由引理 \ref{spaces-lemma-base-change-representable-transformations} 与上图，
+或者将 $R \to F$ 写成 $R \to U \to F$ 并应用引理
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation} 和
+\ref{spaces-lemma-composition-representable-transformations}，可知
+$R \to F$ 也可表示。设 $T$ 是概形，$a : T \to F \times F$
+是态射。我们必须证明 $G = T \times_{a, F \times F, \Delta} F$
+可表示。由上文，概形态射
+$$
+T' = (U \times_S U) \times_{F \times F, a} T \longrightarrow T
+$$
+满且 \'etale。因此 $\{T' \to T\}$ 是 $T$ 的 \'etale 覆盖。
+还要注意
+$$
+T' \times_T G = T' \times_{U \times_S U, j} R
+$$
+这可由考察下列立方图看出：
+$$
+\xymatrix{
+& R \ar[rr] \ar[dd] & & F \ar[dd] \\
+T' \times_T G \ar[rr] \ar[dd] \ar[ru] & & G \ar[dd] \ar[ru] & \\
+& U \times_S U \ar'[r][rr] & & F \times F \\
+T' \ar[rr] \ar[ru] & & T \ar[ru]
+}
+$$
+因此，$G$ 在 $T'$ 上的限制由某个概形 $X$ 表示；而且态射
+$X \to T'$ 是态射 $j$ 的基变换。故 $X \to T'$ 分离且局部拟有限
+（见证明的第二段）。由“下降”引理
+\ref{descent-lemma-descent-data-sheaves}，得到相对于 fppf 覆盖
+$\{T' \to T\}$ 的下降数据 $(X, \varphi)$。由于 $X \to T'$
+分离且局部拟有限，由“态射续论”引理
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}，
+该下降数据有效。因此，由“下降”引理
+\ref{descent-lemma-descent-data-sheaves} (2)，$G$ 如所需可表示。
+\end{proof}
+
+\begin{theorem}
+\label{spaces-theorem-presentation}
+设 $S$ 是概形，$U$ 是 $S$ 上的概形，并设
+$j = (s, t) : R \to U \times_S U$ 是 $U$ 上相对于 $S$ 的
+\'etale 等价关系。则商 $U/R$ 是代数空间，且 $U \to U/R$
+为 \'etale 满射；换言之，$(U, R, U \to U/R)$ 是 $U/R$ 的一个表示。
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-when-it-works-it-works}，只需证明 $U/R$
+是代数空间。设 $U' \to U$ 为满 \'etale 态射，则
+$\{U' \to U\}$ 特别是 fppf 覆盖。令 $R'$ 为 $R$ 在 $U'$ 上的限制；
+见“群胚”定义 \ref{groupoids-definition-restrict-relation}。
+由“群胚”引理 \ref{groupoids-lemma-quotient-groupoid-restrict}，
+$U/R \cong U'/R'$。由引理
+\ref{spaces-lemma-pullback-etale-equivalence-relation}，$R'$ 是 $U'$ 上的
+\'etale 等价关系。因此，可用 $U'$ 代替 $U$。
+
+\medskip\noindent
+将前述说明应用于 $U' = \coprod U_i$，其中
+$U = \bigcup U_i$ 是 $U$ 的仿射开覆盖。因此，不妨假设
+$U = \coprod U_i$，其中每个 $U_i$ 都是仿射概形。
+
+\medskip\noindent
+考虑 $R$ 在 $U_i$ 上的限制 $R_i$。由引理
+\ref{spaces-lemma-pullback-etale-equivalence-relation}，这是 \'etale 等价关系。
+令 $F_i = U_i/R_i$ 且 $F = U/R$。显然 $\coprod F_i \to F$ 为满射。
+由引理 \ref{spaces-lemma-finding-opens}，每个 $F_i \to F$ 都可表示且为开浸入。
+将引理 \ref{spaces-lemma-presentation-quasi-compact} 应用于 $(U_i, R_i)$，
+可见 $F_i$ 是代数空间。再由引理
+\ref{spaces-lemma-when-it-works-it-works}，$U_i \to F_i$ 为 \'etale 满射。
+由引理 \ref{spaces-lemma-coproduct-algebraic-spaces}，$\coprod F_i$ 是代数空间。
+最后，我们已验证引理 \ref{spaces-lemma-glueing-algebraic-spaces} 的全部假设，
+故 $F = U/R$ 是代数空间。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{代数空间：补充整理}
+\label{spaces-section-algebraic-spaces-retrofitted}
+
+\noindent
+我们开始建立处理代数空间的引理库。第一个结果说明，
+定义 \ref{spaces-definition-algebraic-space} 中关于对角态射的条件可作如下弱化。
+
+\begin{lemma}
+\label{spaces-lemma-etale-locally-representable-gives-space}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形。设 $F$ 是
+$(\Sch/S)_{fppf}$ 上的层，并且存在 $U \in \Ob((\Sch/S)_{fppf})$
+以及可表示、满且 \'etale 的映射 $U \to F$。则 $F$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+令 $R = U \times_F U$。由于假设 $U \to F$ 可表示，所得对象是概形；
+由于假设 $U \to F$ 为 \'etale，投影 $s, t : R \to U$ 为 \'etale。
+因 $R = U \times_F U$，映射 $j = (t, s) : R \to U \times_S U$
+是单态射并定义等价关系。由定理 \ref{spaces-theorem-presentation}，
+商层 $F' = U/R$ 是代数空间，且 $U \to F'$ 为 \'etale 满射。
+仍因 $R = U \times_F U$，得到典范分解 $U \to F' \to F$，
+并且 $F' \to F$ 是层的单射。另一方面，由引理
+\ref{spaces-lemma-surjective-flat-locally-finite-presentation}，$U \to F$
+作为层的映射是满射。因此 $F' \to F$ 也满，故
+$F' = F$ 是代数空间。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-etale-locally-representable-by-space-gives-space}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$G$ 是 $S$ 上的代数空间，
+$F$ 是 $(\Sch/S)_{fppf}$ 上的层，并设 $G \to F$ 是可表示、满且
+\'etale 的函子变换。则 $F$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 和满 \'etale 态射 $U \to G$。
+由于 $G$ 是代数空间，$U \to G$ 可表示。因此复合
+$U \to G \to F$ 可表示、满且 \'etale；见引理
+\ref{spaces-lemma-composition-representable-transformations} 和
+\ref{spaces-lemma-composition-representable-transformations-property}。
+故由引理 \ref{spaces-lemma-etale-locally-representable-gives-space}，
+$F$ 是代数空间。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-representable-over-space}
+\begin{slogan}
+若一个函子存在到代数空间的可表示态射，则它是代数空间。
+\end{slogan}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F$ 是 $S$ 上的代数空间，
+$G \to F$ 是可表示的函子变换。则 $G$ 是代数空间。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-lemma-representable-transformation-to-sheaf}，$G$ 是层。
+图表
+$$
+\xymatrix{
+G \times_F G \ar[r] \ar[d] & F \ar[d]^{\Delta_F} \\
+G \times G \ar[r] & F \times F
+}
+$$
+是 Cartesian 方块。因此，由引理
+\ref{spaces-lemma-base-change-representable-transformations}，
+$G \times_F G \to G \times G$ 可表示。由引理
+\ref{spaces-lemma-representable-transformation-diagonal}，
+$G \to G \times_F G$ 可表示。因此，作为可表示变换的复合，
+$\Delta_G : G \to G \times G$ 可表示；见引理
+\ref{spaces-lemma-composition-representable-transformations}。
+最后，设 $U$ 是 $(\Sch/S)_{fppf}$ 的对象，且 $U \to F$ 满而
+\'etale。由假设，$U \times_F G$ 由概形 $U'$ 表示。由引理
+\ref{spaces-lemma-base-change-representable-transformations-property}，
+态射 $U' \to G$ 满且 \'etale。这验证了定义
+\ref{spaces-definition-algebraic-space} 的最后一个条件，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-representable-morphisms-spaces-property}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F$、$G$ 是 $S$ 上的代数空间，
+而 $G \to F$ 是可表示态射。设 $U \in \Ob((\Sch/S)_{fppf})$，
+$q : U \to F$ 满且 \'etale，并令 $V = G \times_F U$。
+最后，设 $\mathcal{P}$ 是定义
+\ref{spaces-definition-relative-representable-property} 所述的概形态射性质。
+则 $G \to F$ 具有性质 $\mathcal{P}$，当且仅当
+$V \to U$ 具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+（本引理可由引理
+\ref{spaces-lemma-base-change-representable-transformations-property} 与
+\ref{spaces-lemma-descent-representable-transformations-property} 推出，
+但这里也给出直接证明。）由定义显然可见，若 $G \to F$ 具有性质
+$\mathcal{P}$，则 $V \to U$ 具有性质 $\mathcal{P}$。
+反之，假设 $V \to U$ 具有性质 $\mathcal{P}$。
+设 $T \to F$ 是从概形到 $F$ 的态射。令
+$T' = T \times_F G$；由于 $G \to F$ 可表示，该纤维积是概形。
+我们必须证明 $T' \to T$ 具有性质 $\mathcal{P}$。考虑概形的交换图表
+$$
+\xymatrix{
+V \ar[d] & T \times_F V \ar[d] \ar[l] \ar[r] &
+T \times_F G \ar[d] \ar@{=}[r] & T' \\
+U & T \times_F U \ar[l] \ar[r] & T
+}
+$$
+其中两个方块均为纤维积方块。因此，中间的箭头作为 $V \to U$
+的基变换，具有性质 $\mathcal{P}$。最后，
+$\{T \times_F U \to T\}$ 是 fppf 覆盖，因为它满且 \'etale；
+而该性质关于基上的 fppf 拓扑是局部的，故 $T' \to T$
+具有性质 $\mathcal{P}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-morphism-sheaves-with-P-effective-descent-etale}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$G \to F$ 是
+$(\Sch/S)_{fppf}$ 上预层的变换，$\mathcal{P}$ 是概形态射的性质。
+假设
+\begin{enumerate}
+\item $\mathcal{P}$ 在任意基变换下保持，是基上的 fppf 局部性质，
+并且 $\mathcal{P}$ 型态射关于 fppf 覆盖满足下降；见“下降”定义
+\ref{descent-definition-descending-types-morphisms}；
+\item $G$ 是层；
+\item $F$ 是代数空间；
+\item 存在 $U \in \Ob((\Sch/S)_{fppf})$ 以及满 \'etale 态射
+$U \to F$，使 $V = G \times_F U$ 可表示；并且
+\item $V \to U$ 具有 $\mathcal{P}$。
+\end{enumerate}
+则 $G$ 是代数空间，$G \to F$ 可表示并具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是概形，$T \to F$ 是态射。则 $U \times_F T \to T$
+为 \'etale 满射，故 $\{U \times_F T \to T\}$ 是 \'etale 拓扑的覆盖。
+考虑
+$$
+W = G \times_F (U \times_F T) = V \times_F T = V \times_U (U \times_F T).
+$$
+由于 $F$ 是代数空间，它是概形。态射 $W \to U \times_F T$
+作为 $V \to U$ 的基变换，具有性质 $\mathcal{P}$。存在同构
+\begin{align*}
+W \times_T (U \times_F T) & =
+(G \times_F (U \times_F T)) \times_T (U \times_F T) \\
+& = (U \times_F T) \times_T (G \times_F (U \times_F T)) \\
+& = (U \times_F T) \times_T W
+\end{align*}
+它位于 $(U \times_F T) \times_T (U \times_F T)$ 上。
+中间的等式将 $((g, (u_1, t)), (u_2, t))$ 映到
+$((u_1, t), (g, (u_2, t)))$。这定义了
+$W/U \times_F T/T$ 的下降数据；见“下降”定义
+\ref{descent-definition-descent-datum}。这也可由“下降”引理
+\ref{descent-lemma-descent-data-sheaves} 看出。事实上，我们有层
+$G \times_F T$，它到 $U \times_F T$ 的基变换由 $W$ 表示，
+而上面的同构正是“下降”引理
+\ref{descent-lemma-descent-data-sheaves} 的证明中出现的同构。
+由关于 $\mathcal{P}$ 的假设，上述下降数据可表示。
+因此，由“下降”引理 \ref{descent-lemma-descent-data-sheaves}
+的最后一个陈述，$G \times_F T$ 可表示。这证明
+$G \to F$ 是可表示的函子变换。
+
+\medskip\noindent
+由于 $G \to F$ 可表示，由引理 \ref{spaces-lemma-representable-over-space}，
+$G$ 是代数空间。再由引理
+\ref{spaces-lemma-representable-morphisms-spaces-property}，
+$G \to F$ 具有性质 $\mathcal{P}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-lift-morphism-presentations}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F,G$ 是 $S$ 上的代数空间，
+$a : F \to G$ 是态射。给定任意 $V \in \Ob((\Sch/S)_{fppf})$
+以及满 \'etale 态射 $q : V \to G$，存在
+$U \in \Ob((\Sch/S)_{fppf})$ 以及交换图表
+$$
+\xymatrix{
+U \ar[d]_p \ar[r]_\alpha &
+V \ar[d]^q \\
+F \ar[r]^a & G
+}
+$$
+其中 $p$ 满且 \'etale。
+\end{lemma}
+
+\begin{proof}
+首先选取 $W \in \Ob((\Sch/S)_{fppf})$ 以及满 \'etale 态射
+$W \to F$。然后令 $U = W \times_G V$。由于 $G$ 是代数空间，
+$U$ 同构于 $(\Sch/S)_{fppf}$ 的一个对象。由于 $q$ 为 \'etale 满射，
+$U \to W$ 也为 \'etale 满射（见引理
+\ref{spaces-lemma-base-change-representable-transformations-property}）。
+因此，作为 \'etale 满射的复合，$U \to F$ 为 \'etale 满射
+（见引理 \ref{spaces-lemma-composition-representable-transformations-property}）。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{代数空间的浸入与 Zariski 覆盖}
+\label{spaces-section-Zariski}
+
+\noindent
+此处出现一个有趣现象。我们已经定义了代数空间开浸入的概念
+（通过定义 \ref{spaces-definition-relative-representable-property}），
+却尚未定义{\it 点}的概念\footnote{我们将在“空间的性质”第
+\ref{spaces-properties-section-points} 节为代数空间关联一个拓扑空间，
+其开集将恰好对应于下面定义的开子空间。}。
+因此，代数空间的{\it Zariski 拓扑}已经定义，但空间本身尚未出现！
+
+\medskip\noindent
+或许有些多余，我们仍正式引入如下浸入概念。
+
+\begin{definition}
+\label{spaces-definition-immersion}
+设 $S \in \Ob(\Sch_{fppf})$ 是概形，$F$ 是 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若 $S$ 上代数空间的态射可表示，并且在定义
+\ref{spaces-definition-relative-representable-property} 的意义下是开浸入，
+则称其为{\it 开浸入}。
+\item $F$ 的一个{\it 开子空间}是子函子 $F' \subset F$，
+其中 $F'$ 是代数空间且 $F' \to F$ 是开浸入。
+\item 若 $S$ 上代数空间的态射可表示，并且在定义
+\ref{spaces-definition-relative-representable-property} 的意义下是闭浸入，
+则称其为{\it 闭浸入}。
+\item $F$ 的一个{\it 闭子空间}是子函子 $F' \subset F$，
+其中 $F'$ 是代数空间且 $F' \to F$ 是闭浸入。
+\item 若 $S$ 上代数空间的态射可表示，并且在定义
+\ref{spaces-definition-relative-representable-property} 的意义下是浸入，
+则称其为{\it 浸入}。
+\item $F$ 的一个{\it 局部闭子空间}是子函子 $F' \subset F$，
+其中 $F'$ 是代数空间且 $F' \to F$ 是浸入。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这些定义是有意义的，因为浸入特别是单态射（见“概形”引理
+\ref{schemes-lemma-immersions-monomorphisms} 以及引理
+\ref{spaces-lemma-representable-transformations-property-implication}），
+所以代数空间浸入 $G \to F$ 的像是子函子 $F' \subset F$，
+且与 $G$（典范）同构。因此，“概形”第
+\ref{schemes-section-immersions} 节的部分讨论可移用于代数空间。
+
+\begin{lemma}
+\label{spaces-lemma-composition-immersions}
+设 $S \in \Ob(\Sch_{fppf})$ 是概形。$S$ 上代数空间的
+（闭，相应地开）浸入之复合，仍是 $S$ 上代数空间的
+（闭，相应地开）浸入。
+\end{lemma}
+
+\begin{proof}
+见引理 \ref{spaces-lemma-composition-representable-transformations-property}，
+以及评注 \ref{spaces-remark-list-properties-fpqc-local-base}
+（见该评注最后一行）和 \ref{spaces-remark-list-properties-stable-composition}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-base-change-immersions}
+设 $S \in \Ob(\Sch_{fppf})$ 是概形。$S$ 上代数空间的
+（闭，相应地开）浸入的基变换，仍是 $S$ 上代数空间的
+（闭，相应地开）浸入。
+\end{lemma}
+
+\begin{proof}
+见引理 \ref{spaces-lemma-base-change-representable-transformations-property}
+以及评注 \ref{spaces-remark-list-properties-fpqc-local-base}
+（见该评注最后一行）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-sub-subspaces}
+设 $S \in \Ob(\Sch_{fppf})$ 是概形，$F$ 是 $S$ 上的代数空间。
+设 $F_1$、$F_2$ 是 $F$ 的局部闭子空间。若作为 $F$ 的子函子有
+$F_1 \subset F_2$，则 $F_1$ 是 $F_2$ 的局部闭子空间。
+闭子空间和开子空间的情形同理。
+\end{lemma}
+
+\begin{proof}
+设 $T \to F_2$ 是态射，其中 $T$ 是概形。由于 $F_2 \to F$
+是单态射，有 $T \times_{F_2} F_1 = T \times_F F_1$。
+本引理由此形式地推出。
+\end{proof}
+
+\noindent
+下面正式定义代数空间的 Zariski 开覆盖。注意，在引理
+\ref{spaces-lemma-glueing-algebraic-spaces} 中，我们已经将这种开覆盖
+作为构造代数空间的方法。
+
+\begin{definition}
+\label{spaces-definition-Zariski-open-covering}
+设 $S \in \Ob(\Sch_{fppf})$ 是概形，$F$ 是 $S$ 上的代数空间。
+$F$ 的一个{\it Zariski 覆盖} $\{F_i \subset F\}_{i \in I}$，
+由集合 $I$ 以及一族开子空间 $F_i \subset F$ 给出，并要求
+$\coprod F_i \to F$ 是层的满映射。
+\end{definition}
+
+\noindent
+注意，若 $T$ 是概形且 $a : T \to F$ 是态射，则每个纤维积
+$T \times_F F_i$ 都等同于某个开子概形 $T_i \subset T$。
+定义的最后一个条件恰好表示 $T = \bigcup_{i \in I} T_i$。
+
+\medskip\noindent
+显然，$F$ 的开子空间之集 $F_{Zar}$ 是集合
+（因为 $(\Sch/S)_{fppf}$ 是位点，因而是集合）。
+此外，以子函子的包含为态射，可将 $F_{Zar}$ 组成范畴；
+由引理 \ref{spaces-lemma-sub-subspaces}，这些包含自动为开浸入。
+最后，定义 \ref{spaces-definition-Zariski-open-covering} 给出范畴
+$F_{Zar}$ 中 Zariski 覆盖 $\{F_i \to F'\}_{i \in I}$ 的概念。
+因此，正如拓扑空间的情形（见“位点”例
+\ref{sites-example-site-topological}），通过适当选取一组覆盖，
+可得到代数空间 $F$ 的一个 Zariski 位点。
+
+\begin{definition}
+\label{spaces-definition-small-Zariski-site}
+设 $S \in \Ob(\Sch_{fppf})$ 是概形，$F$ 是 $S$ 上的代数空间。
+代数空间 $F$ 的一个{\it 小 Zariski 位点 $F_{Zar}$}，
+是上述位点之一。
+\end{definition}
+
+\noindent
+这给出了某个陈述在代数空间上 Zariski 局部成立的含义，
+我们将如此使用该概念。一般而言，Zariski 拓扑对我们的目的不够细。
+例如，可以考虑代数空间上的 Zariski 层范畴；事实将表明，
+即使对拟凝聚层，这也不是正确的对象。只有使用 $F$ 的 \'etale
+或 fppf 位点定义拟凝聚层，才会得到所需结果。
+
+
+
+
+
+
+
+
+
+
+
+\section{代数空间的分离条件}
+\label{spaces-section-separation}
+
+\noindent
+代数空间 $F$ 的分离条件，是对角态射 $F \to F \times F$ 的条件。
+先列出对角态射自动具有的性质。由于按定义对角态射可表示，
+下面的引理（通过定义 \ref{spaces-definition-relative-representable-property}）
+是有意义的。
+
+\begin{lemma}
+\label{spaces-lemma-properties-diagonal}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F$ 是 $S$ 上的代数空间，
+$\Delta : F \to F \times F$ 是对角态射。则
+\begin{enumerate}
+\item $\Delta$ 局部有限型；
+\item $\Delta$ 是单态射；
+\item $\Delta$ 分离；并且
+\item $\Delta$ 局部拟有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $F = U/R$ 是 $F$ 的一个表示。与引理
+\ref{spaces-lemma-presentation-quasi-compact} 的证明相同，图表
+$$
+\xymatrix{
+R \ar[r] \ar[d]_j & F \ar[d]^\Delta \\
+U \times_S U \ar[r] & F \times F
+}
+$$
+是 Cartesian 方块。因此，由引理
+\ref{spaces-lemma-representable-morphisms-spaces-property}，只需证明 $j$
+具有本引理所列性质。（注意，性质 (1)--(4) 都出现在评注
+\ref{spaces-remark-list-properties-stable-base-change} 与
+\ref{spaces-remark-list-properties-fpqc-local-base} 的列表中。）
+由于 $j$ 是等价关系，它是单态射，故由“概形”引理
+\ref{schemes-lemma-monomorphism-separated} 分离。
+由于 $R$ 是 \'etale 等价关系，$s, t : R \to U$ 为 \'etale，
+因而 $s, t$ 局部有限型。于是由“态射”引理
+\ref{morphisms-lemma-permanence-finite-type}，$j$ 局部有限型。
+最后，因其为单态射，纤维有限；由“态射”引理
+\ref{morphisms-lemma-finite-fibre}，它局部拟有限。
+\end{proof}
+
+\noindent
+下面给出相对于基概形 $S$ 的若干常见分离条件。
+这些条件也有绝对版本，我们将在“空间的性质”第
+\ref{spaces-properties-section-separation} 节讨论。此外，
+“空间的态射”第 \ref{spaces-morphisms-section-separation-axioms} 节
+将讨论代数空间态射的分离条件。
+
+\begin{definition}
+\label{spaces-definition-separated}
+设 $S$ 是包含于 $\Sch_{fppf}$ 的概形，$F$ 是 $S$ 上的代数空间，
+$\Delta : F \to F \times F$ 是对角态射。
+\begin{enumerate}
+\item 若 $\Delta$ 是闭浸入，则称 $F$ {\it 在 $S$ 上分离}。
+\item 若 $\Delta$ 是浸入，则称 $F$
+{\it 在 $S$ 上局部分离}\footnote{文献中，这通常指拟分离且局部分离的代数空间。}。
+\item 若 $\Delta$ 拟紧，则称 $F$ {\it 在 $S$ 上拟分离}。
+\item 若存在 Zariski 覆盖 $F = \bigcup_{i \in I} F_i$，使每个
+$F_i$ 都拟分离，则称 $F$ {\it 在 $S$ 上 Zariski 局部拟分离}
+\footnote{该定义由 B.\ Conrad 建议。}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，若对角态射拟紧（即 $F$ 分离或拟分离时），则对角态射实际上
+拟有限且分离，因而拟仿射（由“态射续论”引理
+\ref{more-morphisms-lemma-quasi-finite-separated-quasi-affine}）。
+
+
+
+
+
+
+
+
+\section{代数空间的例子}
+\label{spaces-section-examples}
+
+\noindent
+本节构造若干代数空间的例子，其中一些由 B.\ Conrad 建议。
+由于我们尚无太多可用理论，部分讨论略显笨拙。
+
+\begin{example}
+\label{spaces-example-affine-line-involution}
+设 $k$ 是特征 $\not = 2$ 的域，$U = \mathbf{A}^1_k$。令
+$$
+j : R = \Delta \amalg \Gamma \longrightarrow U \times_k U
+$$
+其中 $\Delta = \{(x, x) \mid x \in \mathbf{A}^1_k\}$，而
+$\Gamma = \{(x, -x) \mid x \in \mathbf{A}^1_k, x \not = 0\}$。
+显然 $s, t : R \to U$ 为 \'etale，故 $j$ 是 \'etale 等价关系。
+由定理 \ref{spaces-theorem-presentation}，商 $X = U/R$ 是代数空间。
+由于 $R$ 拟紧，$X$ 拟分离。另一方面，由于态射 $j$ 不是浸入，
+$X$ 不局部分离。
+\end{example}
+
+\begin{example}
+\label{spaces-example-non-representable-descent}
+设 $k$ 是域，$k'/k$ 是 $2$ 次 Galois 扩张，且
+$\text{Gal}(k'/k) = \{1, \sigma\}$。令 $S = \Spec(k[x])$
+且 $U = \Spec(k'[x])$。注意
+$$
+U \times_S U =
+\Spec((k' \otimes_k k')[x]) =
+\Delta(U) \amalg \Delta'(U)
+$$
+其中 $\Delta' = (1, \sigma) : U \to U \times_S U$。取
+$$
+R = \Delta(U) \amalg \Delta'(U \setminus \{0_U\})
+$$
+其中 $0_U \in U$ 表示 $x$-坐标为零的 $k'$-有理点。
+容易看出，$R$ 是 $U$ 上相对于 $S$ 的 \'etale 等价关系，
+故由定理 \ref{spaces-theorem-presentation}，$X = U/R$ 是代数空间。
+$X$ 具有下列性质（其中一些要到后文才有意义）：
+\begin{enumerate}
+\item $X \to S$ 在 $S \setminus \{0_S\}$ 上是同构；
+\item 态射 $X \to S$ 为 \'etale（见“空间的性质”定义
+\ref{spaces-properties-definition-etale}）；
+\item $X \to S$ 在 $0_S$ 上的纤维 $0_X$ 同构于
+$\Spec(k') = 0_U$；
+\item $X$ 不是概形，因为若它是概形，则 $\mathcal{O}_{X, 0_X}$
+将是一个局部整环 $(\mathcal{O}, \mathfrak m, \kappa)$，其分式域为
+$k(x)$，满足 $x \in \mathfrak m$ 且剩余域 $\kappa = k'$，这是不可能的；
+\item $X$ 不分离，但局部分离且拟分离；
+\item 存在满、有限、\'etale 的态射 $S' \to S$，使基变换
+$X' = S' \times_S X$ 为概形（具体而言，基变换到
+$S' = \Spec(k'[x])$ 后，$U$ 分裂成 $S'$ 的两个副本，而 $X'$
+同构于 $0$ 加倍的仿射直线；见“概形”例
+\ref{schemes-example-affine-space-zero-doubled}）；并且
+\item 若把 $X$ 看作 $\Spec(k)$ 上的有限型代数空间，则类似地，
+基变换 $X_{k'}$ 是概形，但 $X$ 不是概形。
+\end{enumerate}
+特别地，这给出了一个相对于覆盖 $\{\Spec(k') \to \Spec(k)\}$
+而无效的概形下降数据的例子。
+\end{example}
+
+\noindent
+另见“例子”引理 \ref{examples-lemma-non-effective-descent-projective}；
+它说明，即使对概形的射影态射，下降数据也未必有效。
+该例给出 ${\mathbf C}$ 上一个不是概形的三维平滑分离代数空间。
+
+\medskip\noindent
+下面的引理提供一种方便的方法：将代数空间构造成概形对自由群作用的商。
+
+\begin{lemma}
+\label{spaces-lemma-quotient}
+设 $U \to S$ 是 $\Sch_{fppf}$ 中的态射，$G$ 是抽象群，
+$G \to \text{Aut}_S(U)$ 是群同态。假设
+\begin{itemize}
+\item[(*)] 若 $u \in U$ 是点，且对某个非恒等元素 $g \in G$
+有 $g(u) = u$，则 $g$ 诱导 $\kappa(u)$ 的非平凡自同构。
+\end{itemize}
+则
+$$
+j :
+R = \coprod\nolimits_{g \in G} U
+\longrightarrow
+U \times_S U,
+\quad
+(g, x) \longmapsto (g(x), x)
+$$
+是 \'etale 等价关系，因而
+$$
+F = U/R
+$$
+由定理 \ref{spaces-theorem-presentation} 是代数空间。
+\end{lemma}
+
+\begin{proof}
+在引理陈述中，$\text{Aut}_S(U)$ 表示 $U$ 在 $S$ 上的自同构群。
+假设 $(*)$ 成立。下面证明
+$$
+j :
+R = \coprod\nolimits_{g \in G} U
+\longrightarrow
+U \times_S U,
+\quad
+(g, x) \longmapsto (g(x), x)
+$$
+是单态射。这意味着：若 $T$ 是非空概形，$h : T \to U$
+是满足 $g \circ h = g' \circ h$ 的 $T$-值点，则 $g = g'$。
+设 $T \not = \emptyset$，$h : T \to U$ 且
+$g \circ h = g' \circ h$。取 $t \in T$，考虑复合
+$\Spec(\kappa(t)) \to \Spec(\kappa(h(t))) \to U$。
+于是 $g^{-1} \circ g'$ 固定 $u = h(t)$，并在其剩余域上恒等。
+由 $(*)$，$g = g'$。
+
+\medskip\noindent
+因此，若 $(*)$ 成立，则 $j$ 是关系（见“群胚”定义
+\ref{groupoids-definition-equivalence-relation}）。它还是等价关系，
+因为对连通概形 $T$ 的 $T$-值点，有
+$R(T) = G \times U(T) \to U(T) \times U(T)$
+（回忆我们始终在 $S$ 上工作）。此外，由于 $R$ 是 $U$ 的若干副本的
+不交积，态射 $s, t : R \to U$ 为 \'etale。这证明
+$j : R \to U \times_S U$ 是 \'etale 等价关系。
+\end{proof}
+
+\noindent
+给定概形 $U$ 以及群 $G$ 在 $U$ 上的作用，若引理
+\ref{spaces-lemma-quotient} 的条件 $(*)$ 成立，则称 $G$ 在 $U$ 上的作用
+为{\it 自由的}。这等价于“群胚”定义
+\ref{groupoids-definition-free-action} 中常群概形 $G_S$ 在 $U$ 上的
+自由作用概念。该引理可解释为：概形对群的自由作用之商在代数空间范畴中存在。
+
+\begin{definition}
+\label{spaces-definition-quotient}
+记号 $U \to S$、$G$、$R$ 如引理 \ref{spaces-lemma-quotient}。
+若 $G$ 在 $U$ 上的作用满足 $(*)$，则称 $G$ {\it 自由作用于}
+概形 $U$。此时，代数空间 $U/R$ 记作 $U/G$，称为
+{\it $U$ 对 $G$ 的商}。
+\end{definition}
+
+\noindent
+该记号与“群胚”定义 \ref{groupoids-definition-quotient-sheaf}
+中引入的 $U/G$ 一致。后文我们将在不对作用作任何假设的情况下，
+把该商理解为代数栈；届时使用记号 $[U/G]$。
+在讨论例子之前，再证明几个便于讨论的引理。下面的引理讨论 $G$
+有限时该商的各种分离条件。
+
+\begin{lemma}
+\label{spaces-lemma-quotient-finite-separated}
+记号与假设如引理 \ref{spaces-lemma-quotient}。假设 $G$ 有限。则
+\begin{enumerate}
+\item 若 $U \to S$ 拟分离，则 $U/G$ 在 $S$ 上拟分离；并且
+\item 若 $U \to S$ 分离，则 $U/G$ 在 $S$ 上分离。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在引理 \ref{spaces-lemma-properties-diagonal} 的证明中已见，只需对态射
+$j : R \to U \times_S U$ 证明相应性质。若 $U \to S$ 拟分离，
+则对每个映入 $S$ 中某个仿射开集的仿射开集 $V \subset U$，
+开集 $g(V) \cap V$ 拟紧。因此 $j$ 拟紧。
+若 $U \to S$ 分离，则对角态射 $\Delta_{U/S}$ 是闭浸入。
+故 $j : R \to U \times_S U$ 是像彼此不交的有限个闭浸入的余积，
+从而 $j$ 是闭浸入。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-lemma-quotient-field-map}
+记号与假设如引理 \ref{spaces-lemma-quotient}。若
+$\Spec(k) \to U/G$ 是态射，则存在
+\begin{enumerate}
+\item 有限 Galois 扩张 $k'/k$；
+\item 有限子群 $H \subset G$；
+\item 同构 $H \to \text{Gal}(k'/k)$；并且
+\item $H$-等变态射 $\Spec(k') \to U$。
+\end{enumerate}
+反之，这样的数据确定一个态射 $\Spec(k) \to U/G$。
+\end{lemma}
+
+\begin{proof}
+考虑纤维积 $V = \Spec(k) \times_{U/G} U$。有图表
+$$
+\xymatrix{
+V \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & U/G
+}
+$$
+于是 $V$ 是 $\Spec(k)$ 上的非空 \'etale 概形，因而是不交并
+$V = \coprod_{i \in I} \Spec(k_i)$，其中各 $k_i$ 是 $k$ 的有限可分扩张
+（“态射”引理 \ref{morphisms-lemma-etale-over-field}）。有
+\begin{align*}
+V \times_{\Spec(k)} V
+& =
+(\Spec(k) \times_{U/G} U) \times_{\Spec(k)}(\Spec(k) \times_{U/G} U) \\
+& = 
+\Spec(k) \times_{U/G} U \times_{U/G} U \\
+& =
+\Spec(k) \times_{U/G} U \times G \\
+& =
+V \times G
+\end{align*}
+$G$ 在 $U$ 上的作用诱导作用 $a : G \times V \to V$。
+上述等式意味着映射
+$G \times V \to V \times_{\Spec(k)} V$，
+$(g, v) \mapsto (a(g, v), v)$ 是同构。特别地，对每个 $i$ 都有同构
+$H_i \times \Spec(k_i) \to \Spec(k_i \otimes_k k_i)$，
+其中 $H_i \subset G$ 是固定 $i \in I$ 的元素组成的子群。
+因此 $H_i$ 有限，并且是 $k_i/k$ 的 Galois 群。
+逆向构造从略。
+\end{proof}
+
+\noindent
+例如，由该引理可知，若 $k'/k$ 是有限 Galois 扩张，则
+$\Spec(k')/\text{Gal}(k'/k) \cong \Spec(k)$。
+若扩张无限会怎样？下面给出一个例子。
+
+\begin{example}
+\label{spaces-example-Qbar}
+令 $S = \Spec(\mathbf{Q})$、$U = \Spec(\overline{\mathbf{Q}})$，
+并令 $G = \text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ 以显然方式作用于
+$U$。由构造，引理 \ref{spaces-lemma-quotient} 的性质 $(*)$ 成立，
+从而得到代数空间
+$$
+X = \Spec(\overline{\mathbf{Q}})/G
+\longrightarrow
+S = \Spec(\mathbf{Q}).
+$$
+当然，作为对 $S$ 的近似，这完全荒谬！事实上，由 Artin--Schreier 定理
+（见 \cite[Theorem 17, page 316]{JacobsonIII}），
+$\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ 的有限子群只有 $\{1\}$，
+以及二阶群
+$\text{Gal}(\overline{\mathbf{Q}}/\overline{\mathbf{Q}} \cap \mathbf{R})$
+的共轭。因此，若 $\Spec(k) \to X$ 是态射，且 $k$ 在
+$\mathbf{Q}$ 上代数，则由引理 \ref{spaces-lemma-quotient-field-map}
+与上述定理，$k$ 或为 $\overline{\mathbf{Q}}$，或同构于
+$\overline{\mathbf{Q}} \cap \mathbf{R}$。
+\end{example}
+
+\noindent
+上述例子的问题在于，Galois 群自带一个拓扑；构造
+$\Spec(\overline{\mathbf{Q}})$ 的任何商时，都应以某种方式纳入该拓扑。
+在我看来，下面的例子合理得多，而且可能确实会在“自然界”中出现。
+
+\begin{example}
+\label{spaces-example-affine-line-translation}
+设 $k$ 是特征零的域，$U = \mathbf{A}^1_k$ 且 $G = \mathbf{Z}$。
+取作用 $n(x) = x + n$，即 $\mathbf{Z}$ 通过平移作用于仿射直线。
+唯一的不动点是泛点，并且显然 $\mathbf{Z}$ 嵌入域 $k(x)$ 的自同构群。
+（这里用到了特征零假设。）考虑仿射直线的泛点到商的态射
+$$
+\gamma : \Spec(k(x)) \longrightarrow X = \mathbf{A}^1_k/\mathbf{Z}
+$$
+我们断言，该态射不经过任何从域的谱到 $X$ 的单态射
+$\Spec(L) \to X$ 分解。（这与概形的情形相反；见“概形”第
+\ref{schemes-section-points} 节。）事实上，由于 $\mathbf{Z}$
+没有非平凡有限子群，由引理 \ref{spaces-lemma-quotient-field-map} 可知，
+任何这样的分解都满足 $k(x) = L$。最后，$\gamma$ 不是单态射，因为
+$$
+\Spec(k(x)) \times_{\gamma, X, \gamma} \Spec(k(x))
+\cong
+\Spec(k(x)) \times \mathbf{Z}.
+$$
+\end{example}
+
+\noindent
+该例表明，为定义代数空间 $X$ 的点，我们应考虑从域的谱到 $X$
+的态射之等价类，而不是从域的谱出发的单态射之集。
+
+\medskip\noindent
+最后给出一个着实糟糕的例子。
+
+\begin{example}
+\label{spaces-example-infinite-product}
+设 $k$ 是域，令 $A = \prod_{n \in \mathbf{N}} k$ 为无限乘积。
+令 $U = \Spec(A)$，视为 $S = \Spec(k)$ 上的概形。
+注意，投影映射 $\text{pr}_n : A \to k$ 定义开浸入兼闭浸入
+$f_n : S \to U$。令
+$$
+R = U \amalg \coprod\nolimits_{(n, m) \in \mathbf{N}^2, \ n \not = m} S
+$$
+其中态射 $j$ 在分支 $U$ 上等于 $\Delta_{U/S}$，
+在与 $(n,m)$ 对应的分支 $S$ 上等于 $j = (f_n, f_m)$。
+由上面的评注，显然 $s,t$ 为 \'etale；也显然 $j$ 是等价关系。
+因此得到代数空间
+$$
+X = U/R.
+$$
+为理解其含义，专门考虑域 $k$ 为含 $q$ 个元素的有限域的情形。
+先简要讨论与概形 $U$ 关联的拓扑空间 $|U|$。
+$A$ 的所有元素都满足 $x^q = x$。因此 $A$ 的每个剩余域都同构于
+$k$，且 $U$ 的所有点都是闭点。但 $U$ 上的拓扑不是离散拓扑。
+设 $u_n \in |U|$ 是与 $f_n$ 对应的点。如上所述，点 $u_n$
+都是开点（因而是孤立点）。但必定还存在其他点，因为 $U$ 拟紧，
+见“代数”引理 \ref{algebra-lemma-quasi-compact}，
+所以它不可能等于一个无限离散集。另一种看法是，真理想
+$$
+I =
+\{x = (x_n) \in A \mid \text{除有限多个外的 }x_n\text{ 均为零}\}
+$$
+包含于某个极大理想。还要注意，$A$ 的每个元素 $x$ 都形如
+$x = ue$，其中 $u$ 是单位，$e$ 是幂等元。因此 $A$ 的拓扑有一个
+由开闭子集组成的基（见“代数”引理
+\ref{algebra-lemma-idempotent-spec}）。所以 $|U|$ 上的拓扑完全不连通，
+但并非平凡。最后，注意 $\{u_n\}$ 在 $|U|$ 中稠密。
+
+\medskip\noindent
+后文将定义与 $X$ 关联的拓扑空间 $|X|$；见“空间的性质”第
+\ref{spaces-properties-section-points} 节。关于 $|X|$ 能说什么？
+事实上，映射 $|U| \to |X|$ 满且连续。所有点 $u_n$ 都映到 $|X|$
+中的同一点 $x_0$，而其他点都不被等同。由于 $\{u_n\}$ 在 $|U|$
+中稠密，$x_0$ 在 $|X|$ 中的闭包就是 $|X|$。换言之，$|X|$ 不可约，
+且 $x_0$ 是 $|X|$ 的泛点。这似乎颇为怪异，因为 $x_0$ 还是结构态射
+$X \to S$ 的一个截面 $S \to X$ 的像（而在概形情形下，这将蕴含它是闭点；
+见“态射”引理
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}）。
+\end{example}
+
+\noindent
+无论你认为该例中实际发生了什么，它都清楚表明：
+定义代数空间的不可约分支、连通性等概念时必须谨慎。
+
+
+
+
+
+
+\section{大站点的变更}
+\label{spaces-section-change-big-site}
+
+\noindent
+本节简要讨论变更大站点时会发生什么。结论是，我们总可以任意扩大
+大站点；因此，可以假定我们所要考虑的任意一组概形，都包含在我们
+考察代数空间时所用的大 fppf 站点中。下面给出这一结论的精确表述。
+
+\begin{lemma}
+\label{spaces-lemma-change-big-site}
+设给定大站点 $\Sch_{fppf}$ 和 $\Sch'_{fppf}$。
+假定 $\Sch_{fppf}$ 包含于 $\Sch'_{fppf}$，参见
+拓扑，章节 \ref{topologies-section-change-alpha}。
+设 $S$ 是 $\Sch_{fppf}$ 的一个对象，并令
+\begin{align*}
+g : \Sh((\Sch/S)_{fppf})
+\longrightarrow
+\Sh((\Sch'/S)_{fppf}), \\
+f : \Sh((\Sch'/S)_{fppf})
+\longrightarrow
+\Sh((\Sch/S)_{fppf})
+\end{align*}
+为拓扑，引理 \ref{topologies-lemma-change-alpha}
+中的拓扑斯态射。设 $F$ 是 $(\Sch/S)_{fppf}$ 上的集合层。则
+\begin{enumerate}
+\item 若 $F$ 可由 $S$ 上的概形
+$X \in \Ob((\Sch/S)_{fppf})$ 表示，则 $f^{-1}F$ 也可表示；
+事实上，它由同一个概形 $X$ 表示，只是现在将该概形视为
+$(\Sch'/S)_{fppf}$ 的对象；并且
+\item 若 $F$ 是 $S$ 上的代数空间，则 $f^{-1}F$ 也是
+$S$ 上的代数空间。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $X \in \Ob((\Sch/S)_{fppf})$。以 $h_X$ 表示
+$(\Sch/S)_{fppf}$ 上与 $X$ 相伴的可表示层，以 $h'_X$
+表示 $(\Sch'/S)_{fppf}$ 上与 $X$ 相伴的可表示层。根据
+拓扑，章节 \ref{topologies-section-change-alpha}
+中对 $f^{-1}$ 的描述可知 $f^{-1}h_X = h'_X$。这证明了 (1)。
+
+\medskip\noindent
+再假定 $F$ 是 $S$ 上的代数空间。由引理
+\ref{spaces-lemma-space-presentation}，这意味着对
+$(\Sch/S)_{fppf}$ 中的某个 \'etale 等价关系
+$R \to U \times_S U$，有 $F = h_U/h_R$。由于 $f^{-1}$
+是正合函子，遂有 $f^{-1}F = h'_U/h'_R$。因此，由定理
+\ref{spaces-theorem-presentation}，$f^{-1}F$ 是 $S$ 上的代数空间。
+\end{proof}
+
+\noindent
+注意，此引理纯属集合论，几乎没有实质内容。此外，一般而言，大站点上
+代数空间的限制并不一定是小站点上的代数空间（原因仅在于基数）。
+因此，这类简单引理只能用来扩大基范畴，而不能用来缩小它。
+
+\begin{lemma}
+\label{spaces-lemma-fully-faithful}
+假定 $\Sch_{fppf}$ 包含于 $\Sch'_{fppf}$。设 $S$ 是
+$\Sch_{fppf}$ 的一个对象。以 $\textit{Spaces}/S$ 表示使用
+$\Sch_{fppf}$ 定义的 $S$ 上代数空间范畴；类似地，以
+$\textit{Spaces}'/S$ 表示使用 $\Sch'_{fppf}$ 定义的
+$S$ 上代数空间范畴。引理 \ref{spaces-lemma-change-big-site}
+的构造定义了全忠实函子
+$$
+\textit{Spaces}/S \longrightarrow \textit{Spaces}'/S
+$$
+其本质像由如下的 $X' \in \Ob(\textit{Spaces}'/S)$ 组成：存在
+$U, R \in \Ob((\Sch/S)_{fppf})$\footnote{必须要求 $R$ 存在，
+这是因为我们在集合，方程 (\ref{sets-equation-bound}) 中选择了函数
+$Bound$。就 $U$ 的大小而言，纤维积 $U \times_{X'} U$ 的大小可能
+增长得比 $Bound$ 更快。令 $S = \Spec(A)$、
+$U = \Spec(A[x_i, i \in I])$ 以及
+$R = \coprod_{(\lambda_i) \in A^I} \Spec(A[x_i, y_i]/(x_i - \lambda_i y_i))$
+即可说明这一点。在此情形中，$R$ 的大小按 $\kappa^\kappa$ 增长，
+其中 $\kappa$ 是 $U$ 的大小。}，以及态射
+$$
+U \longrightarrow X'
+\quad\text{且}\quad
+R \longrightarrow U \times_{X'} U
+$$
+它们位于 $\Sh((\Sch'/S)_{fppf})$ 中，并且作为层的映射是满射
+（例如，若所示态射为满 \'etale 态射）。
+\end{lemma}
+
+\begin{proof}
+由站点，引理 \ref{sites-lemma-bigger-site}，函子
+$f^{-1} : \Sh((\Sch/S)_{fppf}) \to \Sh((\Sch'/S)_{fppf})$
+是全忠实的（参见拓扑，章节
+\ref{topologies-section-change-alpha} 中的讨论）。
+因此，本引理所示的函子也是全忠实的。
+
+\medskip\noindent
+设 $X' \in \Ob(\textit{Spaces}'/S)$，并且存在
+$U \in \Ob((\Sch/S)_{fppf})$ 以及
+$\Sh((\Sch'/S)_{fppf})$ 中的映射 $U \to X'$，后者作为层的映射
+是满射。取满 \'etale 态射 $U' \to X'$，其中
+$U' \in \Ob((\Sch'/S)_{fppf})$。令
+$\kappa = \text{size}(U)$，参见集合，章节
+\ref{sets-section-categories-schemes}。
+则 $U$ 有仿射开覆盖 $U = \bigcup_{i \in I} U_i$，其中
+$|I| \leq \kappa$。注意，$U' \times_{X'} U \to U$ 是满
+\'etale 态射。对每个 $i$，可取拟紧开子集
+$U'_i \subset U'$，使得 $U'_i \times_{X'} U_i \to U_i$
+为满射（这是因为概形 $U' \times_{X'} U_i$ 是 Zariski 开集
+$W \times_{X'} U_i$ 的并，其中 $W \subset U'$ 为仿射开集；
+又因为 $U' \times_{X'} U_i \to U_i$ 是 \'etale 态射，因而是开映射）。
+于是 $\coprod_{i \in I} U'_i \to X$ 是满 \'etale 态射，
+因为我们假定 $U \to X$ 是层的满射，从而 $\coprod U_i \to X$
+也是层的满射（细节略）。
+由于 $U'_i \times_{X'} U \to U'_i$ 是层的满射，且
+$U'_i$ 拟紧，可找到拟紧开子集
+$W_i \subset U'_i \times_{X'} U$，使得 $W_i \to U'_i$
+作为层的映射是满射（细节略）。于是 $W_i \to U$ 是 \'etale
+态射，故由集合，引理 \ref{sets-lemma-bound-finite-type}，
+$\text{size}(W_i) \leq \text{size}(U)$。再由集合，引理
+\ref{sets-lemma-bound-by-covering}，可得
+$\text{size}(U'_i) \leq \text{size}(U)$。因此，由集合，引理
+\ref{sets-lemma-bound-size}，$\coprod_{i \in I} U'_i$
+同构于 $(\Sch/S)_{fppf}$ 的一个对象。
+
+\medskip\noindent
+现在令 $X'$、$U \to X'$ 和 $R \to U \times_{X'} U$ 如引理
+所述。上一段表明，可以找到 $U' \in \Ob((\Sch/S)_{fppf})$
+以及 $\Sh((\Sch'/S)_{fppf})$ 中的满 \'etale 态射
+$U' \to X'$。于是 $U' \times_{X'} U \to U'$ 是层的满射；
+换言之，可以找到 fppf 覆盖 $\{U'_i \to U'\}$，使
+$U'_i \to U'$ 经由 $U' \times_{X'} U \to U'$ 分解。
+由集合，引理 \ref{sets-lemma-bound-fppf-covering}，可以找到满、
+平坦且局部有限表示的态射 $\tilde U \to U'$，满足
+$\text{size}(\tilde U) \leq \text{size}(U')$，并且
+$\tilde U \to U'$ 经由 $U' \times_{X'} U \to U'$ 分解。
+于是考察
+$$
+\xymatrix{
+U' \times_{X'} U' \ar[d] &
+\tilde U \times_{X'} \tilde U  \ar[l] \ar[d] \ar[r] &
+U \times_{X'} U \ar[d] \\
+U' \times_S U' & \tilde U \times_S \tilde U \ar[l] \ar[r] & U \times_S U
+}
+$$
+其中两个方块均为笛卡尔方块。我们知道，底行的对象可由
+$(\Sch/S)_{fppf}$ 的对象表示。由上一段的论证，
+$U \times_{X'} U$ 也具有这一性质（因为按假定，我们有层的满射
+$R \to U \times_{X'} U$）。由于 $(\Sch/S)_{fppf}$
+按构造对纤维积封闭，可知 $\tilde U \times_{X'} \tilde U$
+可由 $(\Sch/S)_{fppf}$ 的一个对象表示。最后，因为
+$\tilde U \to U'$ 是 fppf 层的满射，所以
+$\tilde U \times_{X'} \tilde U \to U' \times_{X'} U'$
+也是 fppf 层的满射。因此再次应用上一段的结论，可得
+$R' = U' \times_{X'} U'$ 可由 $(\Sch/S)_{fppf}$ 的一个对象表示。
+此时，引理 \ref{spaces-lemma-space-presentation} 和定理
+\ref{spaces-theorem-presentation} 表明，
+$X = h_{U'}/h_{R'}$ 是 $\textit{Spaces}/S$ 的一个对象，并满足
+$f^{-1}X \cong X'$，正如所需。
+\end{proof}
+
+
+
+\section{基概形的变更}
+\label{spaces-section-change-base-scheme}
+
+\noindent
+本节简要讨论变更基概形时会发生什么。结论是，给定基概形的态射
+$S \to S'$，任何 $S$ 上的代数空间都可视为 $S'$ 上的代数空间。
+反之，给定 $S'$ 上的代数空间 $F'$，存在它的基变换 $F'_S$，
+这是 $S$ 上的代数空间。
+这里只说明 $S \to S'$ 是所考察的大 fppf 站点中的态射这一情形。
+若只有 $S$ 或 $S'$ 包含在大站点中，则先按章节
+\ref{spaces-section-change-big-site} 扩大该大站点。
+
+\begin{lemma}
+\label{spaces-lemma-change-base-scheme}
+设给定大站点 $\Sch_{fppf}$。令 $g : S \to S'$ 为
+$\Sch_{fppf}$ 的态射，并令
+$j : (\Sch/S)_{fppf} \to (\Sch/S')_{fppf}$
+为相应的局部化函子。设 $F$ 是 $(\Sch/S)_{fppf}$ 上的集合层。则
+\begin{enumerate}
+\item 对 $S'$ 上的概形 $T'$，有
+$j_!F(T'/S') =
+\coprod\nolimits_{\varphi : T' \to S} F(T' \xrightarrow{\varphi} S),$
+\item 若 $F$ 可由概形 $X \in \Ob((\Sch/S)_{fppf})$ 表示，
+则 $j_!F$ 可由 $j(X)$ 表示，而后者就是把 $X$
+视作 $S'$ 上的概形；并且
+\item 若 $F$ 是 $S$ 上的代数空间，则 $j_!F$ 是 $S'$
+上的代数空间；若 $F = U/R$ 是一个表示，则
+$j_!F = j(U)/j(R)$ 也是一个表示。
+\end{enumerate}
+设 $F'$ 是 $(\Sch/S')_{fppf}$ 上的集合层。则
+\begin{enumerate}
+\item[(4)] 对 $S$ 上的概形 $T$，有
+$j^{-1}F'(T/S) = F'(T/S')$；
+\item[(5)] 若 $F'$ 可由概形
+$X' \in \Ob((\Sch/S')_{fppf})$ 表示，则 $j^{-1}F'$ 可表示，
+具体由 $X'_S = S \times_{S'} X'$ 表示；并且
+\item[(6)] 若 $F'$ 是代数空间，则 $j^{-1}F'$ 是代数空间；
+若 $F' = U'/R'$ 是一个表示，则
+$j^{-1}F' = U'_S/R'_S$ 是一个表示。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+函子 $j_!$、$j_*$ 和 $j^{-1}$ 定义于站点，引理
+\ref{sites-lemma-relocalize}；那里还证明了
+$j = j_{S/S'}$ 是 $(\Sch/S')_{fppf}$ 在对象 $S/S'$
+处的局部化。因此，关于局部化函子的全部结果都适用于 $j$。
+(1) 中的公式即站点，引理
+\ref{sites-lemma-describe-j-shriek-good-site}。
+按定义，$j_!$ 是限制函子 $j^{-1}$ 的左伴随，故 $j_!$ 右正合。
+由站点，引理
+\ref{sites-lemma-j-shriek-commutes-equalizers-fibre-products}，
+它还与纤维积和等化子交换。由站点，引理
+\ref{sites-lemma-describe-j-shriek-representable} 可知
+$j_!h_X = h_{j(X)}$，故 (2) 成立。
+若 $F$ 是 $S$ 上的代数空间，则可写成 $F = U/R$
+（引理 \ref{spaces-lemma-space-presentation}），并且有
+$$
+j_!F = j(U)/j(R)
+$$
+这是因为 $j_!$ 右正合，因而与余等化子交换；此外，由于
+$j_!$ 与纤维积交换，有
+$j(R) = j(U) \times_{j_!F} j(U)$。态射
+$j(s), j(t) : j(R) \to j(U)$ 就是态射 $s, t : R \to U$
+（只是视作 $S'$ 上概形的态射），所以仍为 \'etale 态射。
+因此 $(j(U), j(R), s, t)$ 是一个 \'etale 等价关系。
+由定理 \ref{spaces-theorem-presentation} 可知 $j_!F$ 是代数空间。
+
+\medskip\noindent
+证明 (4)、(5) 和 (6)。站点，章节 \ref{sites-section-localize}
+给出了 $j^{-1}$ 的描述。由站点，引理
+\ref{sites-lemma-localize-given-products}，与 $X'/S'$ 相伴的
+可表示层的限制，是与
+$X'_S = S \times_{S'} Y'$ 相伴的可表示层。
+限制函子 $j^{-1}$ 正合，故 $j^{-1}F' = U'_S/R'_S$。
+再次由正合性，层 $R'_S$ 仍是 $U'_S$ 上的等价关系。
+最后，两个映射 $R'_S \to U'_S$ 是 \'etale 态射，因为它们是
+\'etale 态射 $R' \to U'$ 的基变换。因此，由定理
+\ref{spaces-theorem-presentation}，$j^{-1}F' = U'_S/R'_S$
+是代数空间，即得所证。
+\end{proof}
+
+\noindent
+注意，表示 $j_!F = j(U)/j(R)$ 正是 $F$ 的表示，只不过将其
+视作由 $S'$ 上概形给出的表示。因此，下面的定义是合理的。
+
+\begin{definition}
+\label{spaces-definition-base-change}
+设 $\Sch_{fppf}$ 为大 fppf 站点，并设 $S \to S'$ 为该站点的态射。
+\begin{enumerate}
+\item 若 $F'$ 是 $S'$ 上的代数空间，则
+{\it $F'$ 到 $S$ 的基变换}是引理
+\ref{spaces-lemma-change-base-scheme} 所述的代数空间 $j^{-1}F'$。
+我们将它记作 $F'_S$。
+\item 若 $F$ 是 $S$ 上的代数空间，则将 $F$
+{\it 视作 $S'$ 上的代数空间}，所得对象是引理
+\ref{spaces-lemma-change-base-scheme} 所述的 $S'$ 上代数空间
+$j_!F$。我们通常仍将它简记为 $F$；若不这样记，则写作 $j_!F$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+代数空间 $j_!F$ 带有 $S'$ 上代数空间的典范态射
+$j_!F \to S$。这是因为层 $j_!F$ 映到 $h_S$（例如参见引理
+\ref{spaces-lemma-change-base-scheme} 中的显式描述）。
+事实上，站点，引理 \ref{sites-lemma-essential-image-j-shriek}
+已经表明，$(\Sch/S)_{fppf}$ 上的层范畴等价于如下二元组
+$(\mathcal{F}', \mathcal{F}' \to h_S)$ 的范畴：其中的层是
+$(\Sch/S')_{fppf}$ 上的层，而
+$\mathcal{F}' \to h_S$ 是层的映射。此等价把层 $\mathcal{F}$
+送到二元组 $(j_!\mathcal{F}, j_!\mathcal{F} \to h_S)$。
+结合上面的结果，得到下述关于代数空间范畴的结论。
+
+\begin{lemma}
+\label{spaces-lemma-category-of-spaces-over-smaller-base-scheme}
+设 $\Sch_{fppf}$ 为大 fppf 站点，并设 $S \to S'$ 为该站点的态射。
+上述构造给出范畴的等价
+$$
+\left\{
+\begin{matrix}
+\text{代数空间范畴}\\
+\text{基概形为 }S
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{二元组范畴 }(F', F' \to S)\text{，其中}\\
+\text{含有代数空间 }F'\text{，基概形为 }S'\text{，以及}\\
+\text{代数空间态射 }F' \to S\text{，基概形为 }S'
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+设 $F$ 是 $S$ 上的代数空间。从左向右的函子把 $F$ 送到二元组
+$(j_!F, j_!F \to S)$；由引理 \ref{spaces-lemma-change-base-scheme}，
+这是右侧范畴的对象。根据站点，引理
+\ref{sites-lemma-essential-image-j-shriek}，该构造给出层范畴的等价，
+所以为完成证明，只需说明：若 $F$ 是层且 $j_!F$ 是代数空间，则
+$F$ 是代数空间。为此，按引理 \ref{spaces-lemma-space-presentation} 写成
+$j_!F = U'/R'$，其中
+$U', R' \in \Ob((\Sch/S')_{fppf})$。
+于是复合 $U' \to j_!F \to S$ 和 $R' \to j_!F \to S$
+是 $S'$ 上概形的态射。以 $U, R$ 表示 $(\Sch/S)_{fppf}$
+中的相应对象。两个态射 $R' \to U'$ 都是 $S$ 上的态射，因而对应于
+态射 $R \to U$。由于这些只是相同的态射（但视作 $S$ 上的态射），
+我们得到 $S$ 上的一个 \'etale 等价关系。由于 $j_!$ 给出层范畴的
+等价（见上述参考），可知 $F = U/R$；再由定理
+\ref{spaces-theorem-presentation}，可知 $F$ 是代数空间。
+\end{proof}
+
+\noindent
+下面的引理是对上述结论的略微改述。
+
+\begin{lemma}
+\label{spaces-lemma-rephrase}
+设 $\Sch_{fppf}$ 为大 fppf 站点，设 $S \to S'$ 为该站点的态射，
+并设 $F'$ 是 $(\Sch/S')_{fppf}$ 上的层。下列条件等价：
+\begin{enumerate}
+\item 限制 $F'|_{(\Sch/S)_{fppf}}$ 是 $S$ 上的代数空间；并且
+\item 层 $h_S \times F'$ 是 $S'$ 上的代数空间。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在站点，引理 \ref{sites-lemma-essential-image-j-shriek}
+的范畴等价之下，该限制与该乘积彼此对应，因此上述引理
+\ref{spaces-lemma-category-of-spaces-over-smaller-base-scheme} 给出结论。
+\end{proof}
+
+\noindent
+最后用一个关于相容性的引理结束本节。
+
+\begin{lemma}
+\label{spaces-lemma-viewed-as-properties}
+设 $\Sch_{fppf}$ 为大 fppf 站点，设 $S \to S'$ 为该站点的态射，
+并设 $F$ 是 $S$ 上的代数空间。设 $T$ 是 $S$ 上的概形，
+且 $f : T \to F$ 是 $S$ 上的态射。
+对 $f$ 应用引理
+\ref{spaces-lemma-category-of-spaces-over-smaller-base-scheme}
+所述的范畴等价，得到 $S'$ 上的态射 $f' : T' \to F'$。
+对定义 \ref{spaces-definition-relative-representable-property}
+中的任意性质 $\mathcal{P}$，都有
+$\mathcal{P}(f') \Leftrightarrow \mathcal{P}(f)$。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 是 $S$ 上的概形，且 $U \to F$ 是满 \'etale 态射。
+以 $U'$ 表示把概形 $U$ 视作 $S'$ 上概形所得的对象。引理
+\ref{spaces-lemma-change-base-scheme} 已表明 $U' \to F'$ 是满 \'etale
+态射。由于
+$$
+j(T \times_{f, F} U) = T' \times_{f', F'} U'
+$$
+概形态射 $T \times_{f, F} U \to U$ 与概形态射
+$T' \times_{f', F'} U' \to U'$ 相识别。它们是同一个态射，
+只是视作位于不同的基概形上。因此，本引理由引理
+\ref{spaces-lemma-representable-morphisms-spaces-property} 得出。
+\end{proof}

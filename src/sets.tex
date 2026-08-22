@@ -1,0 +1,1079 @@
+% Generated mechanically from the frozen sets.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{2}
+\chapter{集合论}
+
+
+
+\phantomsection
+\label{sets-section-phantom}
+
+
+\section{引言}
+\label{sets-section-introduction}
+
+\noindent
+我们不时需要用到一些集合论。我们采用 \cite{Kunen} 和 \cite{Jech}
+所述的带选择公理的 Zermelo--Fraenkel 集合论（ZFC）。
+
+\section{万物皆集合}
+\label{sets-section-sets-everything}
+
+\noindent
+大多数数学家都把集合论视为数学的基本基础。那么，这在实际中究竟如何运作？
+例如，怎样把“$X$ 是一个概形”这句话翻译成集合论语言？
+我们只需逐层展开定义：概形是一个局部环化空间，并且每一点都有一个本身为仿射概形的开邻域。
+局部环化空间是一个环化空间，其结构层的每个茎都是局部环。
+环化空间是一个序对 $(X, \mathcal{O}_X)$，其中 $X$ 是拓扑空间，
+$\mathcal{O}_X$ 是其上的环层。拓扑空间是一个序对 $(X, \tau)$，
+其中 $X$ 是集合，$\tau \subset \mathcal{P}(X)$ 是一个由该集合的子集组成并满足
+拓扑公理的集合。如此等等。
+
+\medskip\noindent
+那么，给定一个集合 $S$，我们怎样判断它是否为概形？
+首先要看集合 $S$ 是否为序对。按照定义（见 \cite{Jech} 第 7 页），
+这就是说存在集合 $a, b$，使得
+$S$ 具有形式 $(a, b) := \{\{a\}, \{a, b\}\}$。
+若是如此，再查看 $a$ 是否为某个序对 $(c, d)$。
+如果是，就检验 $d \subset \mathcal{P}(c)$，并进一步检验 $d$
+是否构成集合 $c$ 上的一个拓扑。如此等等。
+
+\medskip\noindent
+因此，虽然要在集合论中写出一个带单个自由变量 $x$ 的完整公式
+$\phi_{scheme}(x)$ 来表达“$x$ 是概形”这一概念，需要相当多的工作，
+但原则上确实可以做到。任何数学对象也都应当如此。
+
+\section{类}
+\label{sets-section-classes}
+
+\noindent
+我们非形式地使用{\it 类}这一概念。给定公式
+$\phi(x, p_1, \ldots, p_n)$，我们把
+$$
+C = \{x : \phi(x, p_1, \ldots, p_n)\}
+$$
+称为一个{\it 类}。类比定义它的公式更便于操作，但严格说来，类并不是一个数学对象。
+例如，若 $R$ 是环，我们可以考虑所有 $R$-模组成的类（毕竟，“$M$ 是一个
+$R$-模”这句话可以翻译成集合论中的公式，而该公式便定义了一个类）。
+不是集合的类称为{\it 真类}。
+
+\medskip\noindent
+这样，我们就可以考虑 $R$-模的范畴；它是一个“大”范畴，
+换言之，其对象组成一个真类。类似地，我们也可以考虑概形的“大”范畴、
+环的“大”范畴，等等。
+
+
+
+\section{序数}
+\label{sets-section-ordinals}
+
+\noindent
+若 $x\in T$ 蕴含 $x\subset T$，则集合 $T$ 称为{\it 传递的}。
+若集合 $\alpha$ 是传递的，并且由 $\in$ 良序化，则称 $\alpha$ 为{\it 序数}。
+在这种情形下，定义
+$\alpha + 1 = \alpha \cup \{\alpha\}$；这仍是一个序数，称为 $\alpha$ 的{\it 后继}。
+若存在序数 $\beta$ 使 $\alpha = \beta + 1$，则序数 $\alpha$
+称为{\it 后继序数}。最小的序数是 $\emptyset$，也记作 $0$。
+若 $\alpha$ 既不是 $0$，也不是后继序数，则称 $\alpha$ 为{\it 极限序数}，且有
+$$
+\alpha
+=
+\bigcup\nolimits_{\gamma \in \alpha} \gamma.
+$$
+第一个极限序数是 $\omega$，它也是第一个无限序数。
+第一个不可数序数 $\omega_1$ 是所有可数序数组成的集合。
+所有序数组成的族是一个真类。
+它在如下意义下由 $\in$ 良序化：任意非空的序数集合（甚至序数类）都有最小元。
+给定一个由序数组成的集合 $A$，定义 $A$ 的{\it 上确界}为
+$\sup_{\alpha \in A} \alpha = \bigcup_{\alpha \in A} \alpha$；
+它是不小于所有 $\alpha \in A$ 的最小序数。
+给定任意良序集 $(S, <)$，存在唯一序数 $\alpha$ 使得
+$(S, <) \cong (\alpha, \in)$；它称为该良序集的{\it 序型}。
+
+\section{集合的层级}
+\label{sets-section-sets-hierarchy}
+
+\noindent
+我们通过超限递归定义 $V_0 = \emptyset$、
+$V_{\alpha + 1} = P(V_\alpha)$（幂集），并且对于极限序数 $\alpha$，定义
+$$
+V_\alpha = \bigcup\nolimits_{\beta < \alpha} V_\beta.
+$$
+注意，每个 $V_\alpha$ 都是传递集。
+
+\begin{lemma}
+\label{sets-lemma-axiom-regularity}
+每个集合都属于某个序数 $\alpha$ 所对应的 $V_\alpha$。
+\end{lemma}
+
+\begin{proof}
+见 \cite[Lemma 6.3]{Jech}。
+\end{proof}
+
+\noindent
+\cite[Chapter III]{Kunen} 说明了该引理等价于基础公理。
+集合 $S$ 的{\it 秩}是满足 $S \in V_{\alpha + 1}$ 的最小序数 $\alpha$。
+所谓{\it 部分宇宙}，是指形如 $V_\alpha$、且大小适合当前语境的集合；
+其具体含义将由上下文说明。
+
+\section{基数}
+\label{sets-section-cardinals}
+
+\noindent
+集合 $A$ 的{\it 势}是满足 $A$ 与 $\alpha$ 之间存在双射的最小序数 $\alpha$。
+我们有时用记号 $\alpha = |A|$ 表示这一点。
+序数 $\alpha$ 称为{\it 基数}，当且仅当它是某个集合 $A$ 的势；
+换言之，当且仅当 $\alpha = |A|$。
+我们用希腊字母 $\kappa$, $\lambda$ 表示基数。
+第一个无限基数是 $\omega$；在基数的语境中，将它记作 $\aleph_0$。
+若一个集合的势为 $\leq \aleph_0$，则称其为{\it 可数的}。
+若 $\alpha$ 是序数，则用 $\alpha^+$ 表示满足 $> \alpha$ 的最小基数。
+由此可以定义 $\aleph_1 = \aleph_0^+$、$\aleph_2 = \aleph_1^+$ 等；
+事实上，对任意序数 $\alpha$，都可以通过超限递归定义 $\aleph_\alpha$。
+注意有等式 $\aleph_1 = \omega_1$。
+
+\medskip\noindent
+基数 $\kappa, \lambda$ 的{\it 加法}记作 $\kappa \oplus \lambda$；
+它是 $\kappa \amalg \lambda$ 的势。
+基数 $\kappa, \lambda$ 的{\it 乘法}记作 $\kappa \otimes \lambda$；
+它是 $\kappa \times \lambda$ 的势。
+若 $\kappa$ 与 $\lambda$ 是无限基数，则
+$\kappa \oplus \lambda = \kappa \otimes \lambda = \max(\kappa, \lambda)$。
+基数 $\kappa, \lambda$ 的{\it 幂}记作 $\kappa^\lambda$；
+它是从 $\lambda$ 到 $\kappa$ 的（集合）映射所成集合的势。
+给定任意由基数组成的集合 $K$，$K$ 的{\it 上确界}为
+$\sup_{\kappa \in K} \kappa = \bigcup_{\kappa \in K} \kappa$，
+而这仍是一个基数。
+
+\section{共尾性}
+\label{sets-section-cofinality}
+
+\noindent
+良序集 $T$ 的一个{\it 共尾子集}是满足下述条件的子集 $S \subset T$：
+$\forall t \in T \exists s\in S (t \leq s)$。
+注意，良序集的子集在诱导序下仍是良序集。
+给定序数 $\alpha$，其{\it 共尾性} $\text{cf}(\alpha)$
+是这样一个最小序数 $\beta$：它是 $\alpha$ 的某个共尾子集的序型。
+序数的共尾性总是基数。因此，也可以把 $\alpha$ 的共尾性定义为
+$\alpha$ 的共尾子集所能具有的最小势。
+
+\begin{lemma}
+\label{sets-lemma-map-from-set-lifts}
+设 $T = \colim_{\alpha < \beta} T_\alpha$ 是由小于给定序数 $\beta$
+的序数指标的集合余极限。设 $\varphi : S \to T$ 是集合映射。
+只要 $\beta$ 不是由 $S$ 指标的一族序数的极限，
+即只要 $\beta$ 满足 $\text{cf}(\beta) > |S|$，
+则 $\varphi$ 可提升为到某个 $T_\alpha$（其中 $\alpha < \beta$）的映射。
+\end{lemma}
+
+\begin{proof}
+对每个元素 $s \in S$，选取 $\alpha_s < \beta$ 以及一个映到
+$T$ 中 $\varphi(s)$ 的元素 $t_s \in T_{\alpha_s}$。
+由假设，$\alpha = \sup_{s \in S} \alpha_s$ 严格小于 $\beta$。
+于是，令 $\varphi_\alpha : S \to T_\alpha$ 把 $s$ 送到
+$t_s$ 在 $T_\alpha$ 中的像，就得到所需解。
+\end{proof}
+
+\noindent
+下面的论证实质上是 Grothendieck 关于存在任意大共尾性序数的论证；
+他曾用它证明某些阿贝尔范畴中有足够多的内射对象，见 \cite{Tohoku}。
+
+\begin{proposition}
+\label{sets-proposition-exist-ordinals-large-cofinality}
+设 $\kappa$ 为基数。则存在共尾性大于 $\kappa$ 的序数。
+\end{proposition}
+
+\begin{proof}
+若 $\kappa$ 有限，则 $\omega = \text{cf}(\omega)$ 即可。
+因此设 $\kappa$ 无限。
+考虑势严格大于 $\kappa$ 的最小序数 $\alpha$。
+我们声称 $\text{cf}(\alpha) > \kappa$。
+注意 $\alpha$ 是极限序数：若 $\alpha = \beta + 1$，则
+$|\alpha| = |\beta|$（因为 $\alpha$ 与 $\beta$ 都是无限的），
+这与 $\alpha$ 的极小性矛盾。（当然，$\alpha$ 本身也是基数，但这里并不需要这一点。）
+反设存在共尾子集 $S \subset \alpha$ 且 $|S| \leq \kappa$。
+对 $\beta \in S$，即 $\beta < \alpha$，由 $\alpha$ 的极小性有
+$|\beta| \leq \kappa$。
+由于 $\alpha$ 是极限序数且 $S$ 在 $\alpha$ 中共尾，得到
+$\alpha = \bigcup_{\beta \in S} \beta$。因此
+$|\alpha| \leq |S| \otimes \kappa \leq \kappa \otimes \kappa \leq \kappa$，
+这与 $\alpha$ 的选取矛盾。
+\end{proof}
+
+
+
+\section{反射原理}
+\label{sets-section-reflection-principle}
+
+\noindent
+这部分材料有一些见于 \cite{Kunen} 中题为“Easy consistency proofs”的一章。
+
+\medskip\noindent
+设 $\phi(x_1, \ldots, x_n)$ 是集合论公式。
+约定该记号表示 $\phi$ 的所有自由变量都包含在
+$x_1, \ldots, x_n$ 之中。设 $M$ 为集合。
+公式 $\phi^M(x_1, \ldots, x_n)$ 是把
+$\phi(x_1, \ldots, x_n)$ 中所有 $\forall x$ 与 $\exists x$
+分别替换为 $\forall x\in M$ 与 $\exists x\in M$ 所得到的公式。
+因此，公式
+$\phi(x_1, x_2) = \exists x (x\in x_1 \wedge x\in x_2)$
+被变为
+$\phi^M(x_1, x_2) = \exists x \in M (x\in x_1 \wedge x\in x_2)$。
+公式 $\phi^M$ 称为 $\phi$ {\it 对 $M$ 的相对化}。
+
+\begin{theorem}
+\label{sets-theorem-reflection-principle}
+给定集合论公式的一个{\bf 有限}族
+$\phi_1(x_1, \ldots, x_n), \ldots, \phi_m(x_1, \ldots, x_n)$。
+设 $M_0$ 为集合。则存在集合 $M$，使得
+$M_0 \subset M$，并且
+$\forall x_1, \ldots, x_n \in M$，都有
+$$
+\forall i = 1, \ldots, m, \ \phi_i^{M}(x_1, \ldots, x_n)
+\Leftrightarrow
+\forall i = 1, \ldots, m, \ \phi_i(x_1, \ldots, x_n).
+$$
+事实上，可以取 $M = V_\alpha$，其中 $\alpha$ 为某个极限序数。
+\end{theorem}
+
+\begin{proof}
+见 \cite[Theorem 12.14]{Jech} 或 \cite[Theorem 7.4]{Kunen}。
+\end{proof}
+
+\noindent
+我们把该定理解读如下：给定任意 $x_1, \ldots, x_n \in M$，
+若让有界变量遍历所有集合，诸公式成立，当且仅当让这些有界变量遍历
+$V_\alpha$ 的元素时诸公式成立。该定理直接处理集合论公式，因而是一个元定理。
+它实际说明：给定至多以 $x_1, \ldots, x_n$ 为自由变量的有限公式表
+$\phi_1, \ldots, \phi_m$，下列句子
+$$
+\begin{matrix}
+\forall M_0\ \exists M, \ M_0 \subset M\ \forall x_1, \ldots, x_n \in M \\
+\phi_1(x_1, \ldots, x_n) \wedge \ldots \wedge \phi_m(x_1, \ldots, x_n)
+\leftrightarrow
+\phi_1^M(x_1, \ldots, x_n) \wedge \ldots \wedge \phi_m^M(x_1, \ldots, x_n)
+\end{matrix}
+$$
+在 ZFC 中可证。换言之，每当我们实际写下一个有限公式表 $\phi_i$ 时，
+就得到一个定理。
+
+\medskip\noindent
+该定理在“普通数学”中有些难以直接使用，因为
+$\phi_i^M(x_1, \ldots, x_n)$ 的含义并不十分清楚！
+我们将改为利用反射原理证明中的思想，直接证明所需的存在性结果。
+
+\section{构造概形的范畴}
+\label{sets-section-categories-schemes}
+
+\noindent
+下面讨论如何运用上述思想：从一个初始概形集出发，构造一个在一系列自然运算下
+封闭的“小”概形范畴。在此之前，先引入概形的大小。给定概形 $S$，定义
+$$
+\text{size}(S) = \max(\aleph_0, \kappa_1, \kappa_2),
+$$
+其中基数 $\kappa_1$ 和 $\kappa_2$ 定义如下：
+\begin{enumerate}
+\item 令 $\kappa_1$ 为 $S$ 的仿射开集所成集合的势。
+\item 令 $\kappa_2$ 为所有 $\Gamma(U, \mathcal{O}_S)$ 的势的上确界，
+其中 $U \subset S$ 遍历仿射开集。
+\end{enumerate}
+
+\begin{lemma}
+\label{sets-lemma-bounded-size}
+对每个基数 $\kappa$，存在集合 $A$，使得 $A$ 的每个元素都是概形，
+并且对每个满足 $\text{size}(S) \leq \kappa$ 的概形 $S$，
+都存在 $X \in A$ 使得 $X \cong S$（概形同构）。
+\end{lemma}
+
+\begin{proof}
+略。提示：考虑任意概形如何同构于一个由仿射概形粘合而成的概形。
+\end{proof}
+
+\noindent
+用 $Bound$ 表示把每个基数 $\kappa$ 映到下式的函数：
+\begin{equation}
+\label{sets-equation-bound}
+Bound(\kappa) = \max\{\kappa^{\aleph_0}, \kappa^+\}.
+\end{equation}
+可以让这个函数增长得快得多，例如取
+$Bound(\kappa) = \kappa^\kappa$，下面的结果仍然成立。
+对任意序数 $\alpha$，用 $\Sch_\alpha$ 表示概形范畴中对象属于
+$V_\alpha$ 的全子范畴。下面给出要证明的结果。
+
+\begin{lemma}
+\label{sets-lemma-construct-category}
+沿用上述 $\text{size}$、$Bound$ 和 $\Sch_\alpha$ 的记号。
+设 $S_0$ 是概形的集合。则存在具有下列性质的极限序数 $\alpha$：
+\begin{enumerate}
+\item
+\label{sets-item-inclusion}
+有 $S_0 \subset V_\alpha$；换言之，
+$S_0 \subset \Ob(\Sch_\alpha)$。
+\item
+\label{sets-item-bounded}
+对任意 $S \in \Ob(\Sch_\alpha)$ 以及满足
+$\text{size}(T) \leq Bound(\text{size}(S))$ 的任意概形 $T$，
+存在概形 $S' \in \Ob(\Sch_\alpha)$ 使得 $T \cong S'$。
+\item
+\label{sets-item-limit}
+对任意可数\footnote{对象集与各态射集均可数。事实上，在 (3) 和 (4) 中，
+可以把 $\aleph_0$ 换成任意基数，所得引理仍可证明。}图式范畴
+$\mathcal{I}$ 及任意函子 $F : \mathcal{I} \to \Sch_\alpha$，
+极限 $\lim_\mathcal{I} F$ 在 $\Sch_\alpha$ 中存在，当且仅当它在
+$\Sch$ 中存在；而且在这种情形下，两者之间的自然态射是同构。
+\item
+\label{sets-item-colimit}
+对任意可数指标范畴 $\mathcal{I}$ 及任意函子
+$F : \mathcal{I} \to \Sch_\alpha$，
+余极限 $\colim_\mathcal{I} F$ 在 $\Sch_\alpha$ 中存在，当且仅当它在
+$\Sch$ 中存在；而且在这种情形下，两者之间的自然态射是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+通过超限归纳定义一个把每个序数映到一个序数的函数 $f$。
+令 $f(0) = 0$。给定 $f(\alpha)$，定义 $f(\alpha + 1)$ 为满足下列条件的
+最小序数 $\beta$：
+\begin{enumerate}
+\item 有 $\alpha + 1 \leq \beta$ 且 $f(\alpha) \leq \beta$。
+\item 对任意 $S \in \Ob(\Sch_{f(\alpha)})$ 以及满足
+$\text{size}(T) \leq Bound(\text{size}(S))$ 的任意概形 $T$，
+存在概形 $S' \in \Ob(\Sch_\beta)$ 使得 $T \cong S'$。
+\item 对任意可数指标范畴 $\mathcal{I}$ 以及任意函子
+$F : \mathcal{I} \to \Sch_{f(\alpha)}$，若极限
+$\lim_\mathcal{I} F$ 或余极限 $\colim_\mathcal{I} F$ 在 $\Sch$ 中存在，
+则它同构于 $\Sch_\beta$ 中的某个概形。
+\end{enumerate}
+为说明 $\beta$ 存在，论证如下。由于 $\Ob(\Sch_{f(\alpha)})$ 是集合，
+可知
+$\kappa =
+\sup_{S \in \Ob(\Sch_{f(\alpha)})} Bound(\text{size}(S))$
+存在且为基数。
+依照引理 \ref{sets-lemma-bounded-size}，从 $\kappa$ 出发取得一个概形集 $A$。
+存在一个由可数范畴组成的集合 $CountCat$，使每个可数范畴都同构于
+$CountCat$ 的某个元素。因此在上面的 (3) 中，可以设
+$\mathcal{I}$ 属于 $CountCat$。这意味着 (3) 中的序对
+$(\mathcal{I}, F)$ 遍历一个集合。
+于是存在一个以概形为元素的集合 $B$，使得对 (3) 中的每个
+$(\mathcal{I}, F)$，若其极限或余极限存在，则该极限或余极限同构于
+$B$ 中的一个元素。
+因此，只要选取任意满足 $A \cup B \subset V_\beta$ 且
+$\beta > \max\{\alpha + 1, f(\alpha)\}$ 的 $\beta$，条件 (1)--(3) 就成立。
+由于任意非空序数族都有最小元，$f(\alpha + 1)$ 定义良好。
+最后，若 $\alpha$ 为极限序数，则令
+$f(\alpha) = \sup_{\alpha' < \alpha} f(\alpha')$。
+
+\medskip\noindent
+选取 $\beta_0$ 使得 $S_0 \subset V_{\beta_0}$。
+由构造，$f(\beta) \geq \beta$，故也有
+$S_0 \subset V_{f(\beta_0)}$。又因 $f$ 单调不减，
+对任意 $\beta \geq \beta_0$ 都有 $S_0 \subset V_{f(\beta)}$。
+接着选取共尾性满足
+$\text{cf}(\beta_1) > \omega = \aleph_0$ 的任意序数
+$\beta_1 > \beta_0$。这样的序数存在，因为序数的共尾性可以任意大；
+见命题 \ref{sets-proposition-exist-ordinals-large-cofinality}。
+我们声称 $\alpha = f(\beta_1)$ 是引理中问题的一个解。
+
+\medskip\noindent
+由上面对 $\beta_1 > \beta_0$ 的选取，引理的第一条性质成立。
+
+\medskip\noindent
+由于 $\beta_1$ 是极限序数（其共尾性无限），有
+$f(\beta_1) = \sup_{\beta < \beta_1} f(\beta)$。
+因此
+$\{f(\beta) \mid \beta < \beta_1\} \subset f(\beta_1)$
+是共尾子集，从而
+$$
+V_\alpha = V_{f(\beta_1)} = \bigcup\nolimits_{\beta < \beta_1} V_{f(\beta)}.
+$$
+现在令 $S \in \Ob(\Sch_\alpha)$。
+定义 $\beta(S)$ 为满足
+$S \in \Ob(\Sch_{f(\beta)})$ 的最小序数 $\beta$。
+由上可知总有 $\beta(S) < \beta_1$。
+由于
+$\Ob(\Sch_{f(\beta + 1)}) \subset
+\Ob(\Sch_\alpha)$，
+由 $f$ 的上述构造可知引理的第二条性质成立。
+
+\medskip\noindent
+设 $\{S_1, S_2, \ldots\} \subset \Ob(\Sch_\alpha)$ 是一个可数族。
+考虑函数 $\omega \to \beta_1$，$n \mapsto \beta(S_n)$。
+由于 $\beta_1$ 的共尾性 $> \omega$，该函数的像不可能是共尾子集。
+因此存在 $\beta < \beta_1$ 使得
+$\{S_1, S_2, \ldots\} \subset \Ob(\Sch_{f(\beta)})$。
+于是任意函子 $F : \mathcal{I} \to \Sch_\alpha$
+都通过某个子范畴 $\Sch_{f(\beta)}$ 分解。
+因此，若存在作为图式 $F$ 的余极限或极限的概形 $X$，
+则由 $f$ 的构造，$X$ 同构于
+$\Sch_{f(\beta + 1)}$ 中的对象，而后者是 $\Sch_\alpha$ 的子范畴。
+这就证明了引理的最后两条断言。
+\end{proof}
+
+\begin{remark}
+\label{sets-remark-how-to-use-reflection}
+上面的引理也可以用反射原理证明，但必须谨慎。
+假设句子 $\phi_{scheme}(X)$ 表达“$X$ 是概形”这一性质，那么公式
+$\phi_{scheme}^{V_\alpha}(X)$ 究竟意味着什么？
+反射原理确实说明可以找到 $\alpha$，使得对所有
+$X \in V_\alpha$，都有
+$\phi_{scheme}(X) \leftrightarrow \phi_{scheme}^{V_\alpha}(X)$，
+但这本身毫无用处。只有把两个这样的陈述结合起来，才会得到有意义的结果。
+例如，设 $\phi_{red}(X, Y)$ 表达“$X$、$Y$ 是概形，且 $Y$ 是
+$X$ 的约化”这一性质（见《概形》定义
+\ref{schemes-definition-reduced-induced-scheme}）。
+对公式对
+$\phi_1(X, Y) = \phi_{red}(X, Y)$、
+$\phi_2(X) = \exists Y, \phi_1(X, Y)$
+应用反射原理。容易看出，反射原理产生的任意 $\alpha$ 都有如下性质：
+给定 $X \in \Ob(\Sch_\alpha)$，$X$ 的约化仍是 $\Sch_\alpha$ 的对象
+（留作练习）。
+\end{remark}
+
+\begin{lemma}
+\label{sets-lemma-bound-affine}
+设 $S$ 为仿射概形，令 $R = \Gamma(S, \mathcal{O}_S)$。
+则 $S$ 的大小等于 $\max\{ \aleph_0, |R|\}$。
+\end{lemma}
+
+\begin{proof}
+$\Spec(R)$ 的仿射开集至多有 $\max\{|R|, \aleph_0\}$ 个。
+这是显然的，因为任意仿射开集 $U \subset \Spec(R)$ 都是有限个主开集的并
+$D(f_1) \cup \ldots \cup D(f_n)$，所以仿射开集的数目至多为
+$\sup_n |R|^n = \max\{|R|, \aleph_0\}$；
+见 \cite[Ch. I, 10.13]{Kunen}。
+另一方面，
+$\Gamma(U, \mathcal{O}) \subset R_{f_1} \times \ldots \times R_{f_n}$，
+故
+$|\Gamma(U, \mathcal{O})| \leq
+\max\{\aleph_0, |R_{f_1}|, \ldots, |R_{f_n}|\}$。
+因此只需证明 $|R_f| \leq \max\{\aleph_0, |R|\}$；证明略。
+\end{proof}
+
+\begin{lemma}
+\label{sets-lemma-bound-size}
+设 $S$ 为概形，$S = \bigcup_{i \in I} S_i$ 为一个开覆盖。则
+$\text{size}(S) \leq \max\{|I|, \sup_i\{\text{size}(S_i)\}\}$。
+\end{lemma}
+
+\begin{proof}
+令 $U \subset S$ 为任意仿射开集。由于 $U$ 拟紧，存在有限多个元素
+$i_1, \ldots, i_n \in I$ 以及仿射开集
+$U_i \subset U \cap S_i$，使得
+$U = U_1 \cup U_2 \cup \ldots \cup U_n$。于是
+$$
+|\Gamma(U, \mathcal{O}_U)|
+\leq
+|\Gamma(U_1, \mathcal{O})|
+\otimes
+\ldots
+\otimes
+|\Gamma(U_n, \mathcal{O})|
+\leq \sup\nolimits_i\{\text{size}(S_i)\}
+$$
+此外，这说明 $S$ 的仿射开集所成集合的势不超过下列集合的势：
+$$
+\coprod_{n \in \omega}
+\coprod_{i_1, \ldots, i_n \in I}
+\{\text{仿射开集，取自 }S_{i_1}\}
+\times
+\ldots
+\times
+\{\text{仿射开集，取自 }S_{i_n}\}.
+$$
+不交并内部每个集合的势至多为
+$\sup_i\{\text{size}(S_i)\}$。
+指标集的势至多为 $\max\{|I|, \aleph_0\}$；
+见 \cite[Ch. I, 10.13]{Kunen}。
+因此，由 \cite[Lemma 5.8]{Jech}，该余积的势至多为
+$\max\{\aleph_0, |I|\}
+\otimes \sup_i\{\text{size}(S_i)\}$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{sets-lemma-bound-size-fibre-product}
+设 $f : X \to S$、$g : Y \to S$ 为概形态射。则
+$\text{size}(X \times_S Y) \leq \max\{\text{size}(X), \text{size}(Y)\}$。
+\end{lemma}
+
+\begin{proof}
+设 $S = \bigcup_{k \in K} S_k$ 为仿射开覆盖。
+设 $X = \bigcup_{i \in I} U_i$、$Y = \bigcup_{j \in J} V_j$
+为仿射开覆盖，并且 $I$、$J$ 的势分别
+$\leq \text{size}(X), \text{size}(Y)$。
+对每个 $i \in I$，存在由满足 $k \in K$ 的指标组成的有限集 $K_i$，使得
+$f(U_i) \subset \bigcup_{k \in K_i} S_k$。
+对每个 $j \in J$，存在由满足 $k \in K$ 的指标组成的有限集 $K_j$，使得
+$g(V_j) \subset \bigcup_{k \in K_j} S_k$。
+因此 $f(X), g(Y)$ 都包含在
+$S' = \bigcup_{k \in K'} S_k$ 中，其中
+$K' = \bigcup_{i \in I} K_i \cup \bigcup_{j \in J} K_j$。
+注意 $K'$ 的势至多为 $\max\{\aleph_0, |I|, |J|\}$。
+应用引理 \ref{sets-lemma-bound-size}，只需对 $k \in K'$ 证明
+$\text{size}(f^{-1}(S_k) \times_{S_k} g^{-1}(S_k))
+\leq \max\{\text{size}(X), \text{size}(Y)\}$。
+换言之，可以设 $S$ 为仿射概形。
+
+\medskip\noindent
+设 $S$ 仿射。
+令 $X = \bigcup_{i \in I} U_i$、$Y = \bigcup_{j \in J} V_j$
+为仿射开覆盖，并且 $I$、$J$ 的势分别
+$\leq \text{size}(X), \text{size}(Y)$。
+再次由引理 \ref{sets-lemma-bound-size}，只需对积
+$U_i \times_S V_j$ 证明本引理。
+由引理 \ref{sets-lemma-bound-affine}，只需证明
+$$
+|A \otimes_C B| \leq \max\{\aleph_0, |A|, |B|\}.
+$$
+该不等式的证明略。
+\end{proof}
+
+\begin{lemma}
+\label{sets-lemma-bound-finite-type}
+设 $S$ 为概形。设 $f : X \to S$ 局部为有限型，且 $X$ 拟紧。
+则 $\text{size}(X) \leq \text{size}(S)$。
+\end{lemma}
+
+\begin{proof}
+可以找到有限仿射开覆盖
+$X = \bigcup_{i = 1, \ldots n} U_i$，使每个 $U_i$
+都映入 $S$ 的某个仿射开集 $S_i$。
+因此由引理 \ref{sets-lemma-bound-size}，可约化到 $S$ 与 $X$ 都仿射的情形。
+在此情形下，由引理 \ref{sets-lemma-bound-affine}，只需证明
+$$
+|A[x_1, \ldots, x_n]| \leq \max\{\aleph_0, |A|\}.
+$$
+该不等式的证明略。
+\end{proof}
+
+\noindent
+在《代数》引理 \ref{algebra-lemma-epimorphism-cardinality} 中，
+我们将证明：若 $A \to B$ 是环满态射，则
+$|B| \leq \max(|A|, \aleph_0)$。
+其概形版本是下面的引理。
+
+\begin{lemma}
+\label{sets-lemma-bound-monomorphism}
+设 $f : X \to Y$ 为概形的单态射。
+若下列性质中至少一项成立，则
+$\text{size}(X) \leq \text{size}(Y)$：
+\begin{enumerate}
+\item $f$ 是拟紧的；
+\item $f$ 局部为有限表现；
+\item 可按需要在此增补更多条件。
+\end{enumerate}
+但对局部为有限型的单态射，该界一般不成立。
+\end{lemma}
+
+\begin{proof}
+设 $Y = \bigcup_{j \in J} V_j$ 为 $Y$ 的仿射开覆盖，且
+$|J| \leq \text{size}(Y)$。
+由引理 \ref{sets-lemma-bound-size}，只需控制 $V_j$ 在 $X$ 中的逆像的大小。
+因此可约化到 $Y$ 仿射的情形，设 $Y = \Spec(B)$。
+对任意仿射开集 $\Spec(A) \subset X$，由上面的评注和
+引理 \ref{sets-lemma-bound-affine} 有
+$|A| \leq \max(|B|, \aleph_0) = \text{size}(Y)$。
+因此只需证明 $X$ 的仿射开集至多有 $\text{size}(Y)$ 个。
+若 $X$ 拟紧，这是显然的，故情形 (1) 成立。
+在情形 (2) 中，可能出现的 $B$-代数 $A$ 的同构类数目由
+$\text{size}(B)$ 控制，因为每个 $A$ 都是有限型 $B$-代数，
+从而同构于某个
+$B[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$，
+其中 $n, m$ 为某些整数，$f_j \in B[x_1, \ldots, x_n]$。
+而 $X \to Y$ 是单态射，所以若存在定义在
+$Y = \Spec(B)$ 上的态射 $\Spec(A) \to X$，它就是唯一的。
+因此 $X$ 的仿射开集数目由上述同构类的数目控制。
+
+\medskip\noindent
+为证明引理的最后一句，考虑环
+$B = \prod_{n \in \mathbf{N}} \mathbf{F}_2$，并令 $Y = \Spec(B)$。
+对 $\mathbf{N}$ 上的每个超滤子 $\mathcal{U}$，得到一个剩余域为
+$\mathbf{F}_2$ 的极大理想 $\mathfrak m_\mathcal{U}$；
+映射 $B \to \mathbf{F}_2$ 把元素 $(x_n)$ 送到
+$\lim_\mathcal{U} x_n$。细节略。
+概形态射
+$X = \coprod_\mathcal{U} \Spec(\mathbf{F}_2) \to Y$
+是单态射，因为所有这些点彼此不同。
+然而，$X$ 的仿射开子概形所成集合的势等于
+$\mathbf{N}$ 上超滤子所成集合的势，即
+$2^{2^{\aleph_0}}$。
+由于 $|B| = 2^{\aleph_0} < 2^{2^{\aleph_0}}$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{sets-lemma-what-is-in-it}
+设 $\alpha$ 为上述引理 \ref{sets-lemma-construct-category} 中的序数。
+范畴 $\Sch_\alpha$ 满足下列性质：
+\begin{enumerate}
+\item 若 $X, Y, S \in \Ob(\Sch_\alpha)$，则对任意态射
+$f : X \to S$、$g : Y \to S$，
+纤维积 $X \times_S Y$ 在 $\Sch_\alpha$ 中存在，
+且也是概形范畴中的纤维积。
+\item 给定 $\Ob(\Sch_\alpha)$ 中任意至多可数的元素族
+$S_1, S_2, \ldots$，余积 $\coprod_i S_i$ 在
+$\Ob(\Sch_\alpha)$ 中存在，且也是概形范畴中的余积。
+\item 对任意 $S \in \Ob(\Sch_\alpha)$ 以及任意开浸入
+$U \to S$，存在 $V \in \Ob(\Sch_\alpha)$ 使 $V \cong U$。
+\item 对任意 $S \in \Ob(\Sch_\alpha)$ 以及任意闭浸入
+$T \to S$，存在 $S' \in \Ob(\Sch_\alpha)$ 使 $S' \cong T$。
+\item 对任意 $S \in \Ob(\Sch_\alpha)$ 以及任意有限型态射
+$T \to S$，存在 $S' \in \Ob(\Sch_\alpha)$ 使 $S' \cong T$。
+\item 设概形 $S$ 有开覆盖
+$S = \bigcup_{i \in I} S_i$，并且存在
+$T \in \Ob(\Sch_\alpha)$，使得
+(a) 对所有 $i \in I$ 都有
+$\text{size}(S_i) \leq \text{size}(T)^{\aleph_0}$，
+且 (b) $|I| \leq \text{size}(T)^{\aleph_0}$。
+则 $S$ 同构于 $\Sch_\alpha$ 的一个对象。
+\item 对任意 $S \in \Ob(\Sch_\alpha)$ 以及任意局部有限型态射
+$f : T \to S$，若 $T$ 可由至多
+$\text{size}(S)^{\aleph_0}$ 个仿射开集覆盖，
+则存在 $S' \in \Ob(\Sch_\alpha)$ 使 $S' \cong T$。
+例如，若 $T$ 可由至多
+$|\mathbf{R}| = 2^{\aleph_0} = \aleph_0^{\aleph_0}$
+个仿射开集覆盖，该结论成立。
+\item 对任意 $S \in \Ob(\Sch_\alpha)$ 以及任意单态射
+$T \to S$，若它局部为有限表现或拟紧，
+则存在 $S' \in \Ob(\Sch_\alpha)$ 使 $S' \cong T$。
+\item 设 $T \in \Ob(\Sch_\alpha)$ 为仿射概形，记
+$R = \Gamma(T, \mathcal{O}_T)$。则下列任一概形都同构于
+$\Sch_\alpha$ 中的某个概形：
+\begin{enumerate}
+\item 对任意理想 $I \subset R$，若完备化
+$R^* = \lim_n R/I^n$，则概形 $\Spec(R^*)$；
+\item 对任意有限型 $R$-代数 $R'$，概形 $\Spec(R')$；
+\item 对任意局部化 $S^{-1}R$，概形 $\Spec(S^{-1}R)$；
+\item 对任意素理想 $\mathfrak p \subset R$，概形
+$\Spec(\overline{\kappa(\mathfrak p)})$；
+\item 对任意子环 $R' \subset R$，概形 $\Spec(R')$；
+\item 定义在势至多为 $|R|^{\aleph_0}$ 的环上的任意有限型概形；
+\item 诸如此类。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+断言 (1) 和 (2) 直接由定义得到。
+断言 (3) 成立，因为 $S$ 的开子概形 $U$ 的大小显然不大于 $S$ 的大小。
+断言 (4) 由 (5) 得到，断言 (5) 由 (7) 得到。
+由引理 \ref{sets-lemma-bound-size}，
+$S$ 的大小
+$\leq \max\{|I|, \sup_i \text{size}(S_i)\}
+\leq \text{size}(T)^{\aleph_0}$，故断言 (6) 成立。
+断言 (7) 由 (6) 得到：对任意仿射开集 $V \subset T$，
+由引理 \ref{sets-lemma-bound-finite-type} 有
+$\text{size}(V) \leq \text{size}(S)$，
+所以 (7) 的情形适用 (6)。
+第 (8) 部分由引理 \ref{sets-lemma-bound-monomorphism} 得到。
+
+\medskip\noindent
+借助引理 \ref{sets-lemma-bound-affine}，断言 (9) 化为对环
+$R^*$、$S^{-1}R$、$\overline{\kappa(\mathfrak p)}$、$R'$ 等的势给出上界。
+其中最有意思的也许是环 $R^*$。
+作为集合，它是满射 $R^{\mathbf{N}} \to R^*$ 的像。
+由于 $|R^{\mathbf{N}}| = |R|^{\aleph_0}$，
+我们选取的 $Bound(\kappa)$ 至少为 $\kappa^{\aleph_0}$，故结论成立。
+总算如此！（域的代数闭包的势与该域的势相同，或者为 $\aleph_0$。）
+\end{proof}
+
+\begin{remark}
+\label{sets-remark-what-is-not-in-it}
+设 $R$ 为环，考虑环
+$\prod_{\mathfrak p \in \Spec(R)} \kappa(\mathfrak p)$。
+该环的势由 $|R|^{2^{|R|}}$ 控制，但一般不由
+$|R|^{\aleph_0}$ 控制。
+例如，若 $R = \mathbf{C}[x]$，则其势不由 $|R|^{\aleph_0}$ 控制；
+若 $R = \prod_{n \in \mathbf{N}} \mathbf{F}_2$，
+则其势不由 $|R|^{|R|}$ 控制。
+因此，对上面引理 \ref{sets-lemma-what-is-in-it} 中的“诸如此类”不可不加辨别。
+当然，如果在涉及 fppf/平展上同调的论证中确实需要考虑这些环，
+可以把上面的函数 $Bound$ 改成
+$\kappa \mapsto \kappa^{2^\kappa}$。
+\end{remark}
+
+\noindent
+下面的引理使用 fpqc 覆盖的概念；该概念见
+《概形上的拓扑》第 \ref{topologies-section-fpqc} 节。
+
+\begin{lemma}
+\label{sets-lemma-bound-by-covering}
+设 $f : X \to Y$ 为概形态射。假设存在 fpqc 覆盖
+$\{g_j : Y_j \to Y\}_{j \in J}$，使每个 $g_j$ 都通过 $f$ 分解。
+则 $\text{size}(Y) \leq \text{size}(X)$。
+\end{lemma}
+
+\begin{proof}
+令 $V \subset Y$ 为仿射开集。
+按定义，存在 $n \geq 0$、映射
+$a : \{1, \ldots, n\} \to J$ 以及仿射开集
+$V_i \subset Y_{a(i)}$，使得
+$V = g_{a(1)}(V_1) \cup \ldots \cup g_{a(n)}(V_n)$。
+记 $h_j : Y_j \to X$ 为满足 $f \circ h_j = g_j$ 的态射。
+则
+$h_{a(1)}(V_1) \cup \ldots \cup h_{a(n)}(V_n)$
+是 $f^{-1}(V)$ 的拟紧子集。
+因此可找到拟紧开集 $W \subset f^{-1}(V)$，使其包含
+$h_{a(i)}(V_i)$（$i = 1, \ldots, n$）。
+特别地，$V = f(W)$。
+
+\medskip\noindent
+一方面，这说明 $Y$ 的仿射开集所成集合的势至多为
+$X$ 的拟紧开集所成集合 $S$ 的势。
+由于 $X$ 的每个拟紧开集都是有限个仿射开集的并，
+该集合的势至多为
+$\sup |S|^n = \max(\aleph_0, |S|)$。
+另一方面，因为 $\{V_i \to V\}$ 是 fpqc 覆盖，有
+$\mathcal{O}_Y(V) \subset
+\prod_{i = 1, \ldots, n} \mathcal{O}_{Y_{a(i)}}(V_i)$。
+又因 $V_i \to V$ 通过 $W$ 分解，故
+$\mathcal{O}_Y(V) \subset \mathcal{O}_X(W)$。
+再由 $W$ 有 $X$ 中仿射开集组成的有限覆盖，可知
+$|\mathcal{O}_Y(V)|$ 由 $X$ 的大小控制。
+现在由概形大小的定义即得本引理。
+\end{proof}
+
+\noindent
+下面的引理使用 fppf 覆盖的概念；该概念见
+《概形上的拓扑》第 \ref{topologies-section-fppf} 节。
+
+\begin{lemma}
+\label{sets-lemma-bound-fppf-covering}
+设 $\{f_i : X_i \to X\}_{i \in I}$ 为一个概形的 fppf 覆盖。
+则存在 fppf 覆盖 $\{W_j \to X\}_{j \in J}$，
+它细化 $\{X_i \to X\}_{i \in I}$，并满足
+$\text{size}(\coprod W_j) \leq \text{size}(X)$。
+\end{lemma}
+
+\begin{proof}
+选取仿射开覆盖 $X = \bigcup_{a \in A} U_a$，使得
+$|A| \leq \text{size}(X)$。
+对每个 $a$，可以选取有限子集 $I_a \subset I$，
+并对 $i \in I_a$ 选取拟紧开集
+$W_{a, i} \subset X_i$，使得
+$U_a = \bigcup_{i \in I_a} f_i(W_{a, i})$。
+由引理 \ref{sets-lemma-bound-finite-type}，
+$\text{size}(W_{a, i}) \leq \text{size}(X)$。
+再由引理 \ref{sets-lemma-bound-size}，得到
+$\text{size}(\coprod_a \coprod_{i \in I_a} W_{i, a})
+\leq \text{size}(X)$。
+\end{proof}
+
+
+
+
+\section{带群作用的集合}
+\label{sets-section-sets-with-group-action}
+
+\noindent
+设 $G$ 为群。用 $G\textit{-Sets}$ 表示 $G$-集合的“大”范畴。
+对任意序数 $\alpha$，用 $G\textit{-Sets}_\alpha$ 表示
+$G\textit{-Sets}$ 中对象属于 $V_\alpha$ 的全子范畴。
+把 $G$-集合 $S$ 的大小定义为
+$\text{size}(S) = \max\{\aleph_0, |G|, |S|\}$（这里 $|G|$ 和
+$|S|$ 是底层集合的势）。同上，使用函数
+$Bound(\kappa) = \kappa^{\aleph_0}$。
+
+\begin{lemma}
+\label{sets-lemma-sets-with-group-action}
+沿用上述 $G$、$G\textit{-Sets}_\alpha$、$\text{size}$ 和
+$Bound$ 的记号。设 $S_0$ 为 $G$-集合的集合。
+则存在具有下列性质的极限序数 $\alpha$：
+\begin{enumerate}
+\item 有 $S_0 \cup \{{}_GG\} \subset \Ob(G\textit{-Sets}_\alpha)$。
+\item 对任意 $S \in \Ob(G\textit{-Sets}_\alpha)$ 以及满足
+$\text{size}(T) \leq Bound(\text{size}(S))$ 的任意 $G$-集合 $T$，
+存在 $S' \in \Ob(G\textit{-Sets}_\alpha)$ 同构于 $T$。
+\item 对任意可数指标范畴 $\mathcal{I}$ 以及任意函子
+$F : \mathcal{I} \to G\textit{-Sets}_\alpha$，
+极限 $\lim_\mathcal{I} F$ 与余极限
+$\colim_\mathcal{I} F$ 都在 $G\textit{-Sets}_\alpha$ 中存在，
+并且与 $G\textit{-Sets}$ 中的相同。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。证明与上述引理 \ref{sets-lemma-construct-category} 的证明相似，但更容易。
+\end{proof}
+
+\begin{lemma}
+\label{sets-lemma-what-is-in-it-G-sets}
+设 $\alpha$ 为上述引理 \ref{sets-lemma-sets-with-group-action} 中的序数。
+范畴 $G\textit{-Sets}_\alpha$ 满足下列性质：
+\begin{enumerate}
+\item $G$-集合 ${}_GG$ 是 $G\textit{-Sets}_\alpha$ 的对象。
+\item （余）积、纤维积和推出在 $G\textit{-Sets}_\alpha$ 中存在，
+并且与 $G\textit{-Sets}$ 中相应的对象相同。
+\item 给定 $G\textit{-Sets}_\alpha$ 的对象 $U$，
+任意 $G$-稳定子集 $O \subset U$ 都同构于
+$G\textit{-Sets}_\alpha$ 的某个对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\section{位点的覆盖}
+\label{sets-section-coverings-site}
+
+\noindent
+设 $\mathcal{C}$ 是一个范畴（如《范畴》定义
+\ref{categories-definition-category} 中），并设
+$\text{Cov}(\mathcal{C})$ 是由覆盖组成的真类，
+满足《位点与层》定义 \ref{sites-definition-site} 中的性质
+(1)、(2)、(3)。现将它们列出：
+\begin{enumerate}
+\item 若 $V \to U$ 为同构，则
+$\{V \to U\} \in \text{Cov}(\mathcal{C})$。
+\item 若
+$\{U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})$，
+并且对每个 $i$ 都有
+$\{V_{ij} \to U_i\}_{j\in J_i} \in \text{Cov}(\mathcal{C})$，
+则
+$\{V_{ij} \to U\}_{i \in I, j\in J_i}
+\in \text{Cov}(\mathcal{C})$。
+\item 若
+$\{U_i \to U\}_{i\in I}\in \text{Cov}(\mathcal{C})$，
+且 $V \to U$ 是 $\mathcal{C}$ 的态射，则对所有 $i$，
+$U_i \times_U V$ 都存在，并且
+$\{U_i \times_U V \to V \}_{i\in I}
+\in \text{Cov}(\mathcal{C})$。
+\end{enumerate}
+对序数 $\alpha$，令
+$\text{Cov}(\mathcal{C})_\alpha =
+\text{Cov}(\mathcal{C}) \cap V_\alpha$。
+给定序数 $\alpha$ 和基数 $\kappa$，令
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$ 为下列元素组成的集合：
+$\mathcal{U} =
+\{\varphi_i : U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_\alpha$
+且满足 $|I| \leq \kappa$。
+
+\medskip\noindent
+回顾下面的概念；见《位点与层》定义
+\ref{sites-definition-combinatorial-tautological}。
+设两族态射
+$\{\varphi_i : U_i \to U\}_{i\in I}$ 与
+$\{\psi_j : W_j \to U\}_{j\in J}$
+在 $\mathcal{C}$ 中有同一靶。
+若存在映射 $\alpha : I \to J$ 与 $\beta : J\to I$，
+使得 $\varphi_i = \psi_{\alpha(i)}$ 且
+$\psi_j = \varphi_{\beta(j)}$，则称这两族态射{\it 组合等价}。
+这在具有固定靶的态射族上定义了一个等价关系。
+
+\begin{lemma}
+\label{sets-lemma-coverings-site}
+沿用上述记号。设
+$\text{Cov}_0 \subset \text{Cov}(\mathcal{C})$
+是包含于 $\text{Cov}(\mathcal{C})$ 的一个集合。
+则存在基数 $\kappa$ 和极限序数 $\alpha$，满足：
+\begin{enumerate}
+\item 有
+$\text{Cov}_0 \subset
+\text{Cov}(\mathcal{C})_{\kappa, \alpha}$。
+\item 覆盖集
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$
+满足《位点与层》定义 \ref{sites-definition-site} 中的
+(1)、(2)、(3)（见上文）。换言之，
+$(\mathcal{C}, \text{Cov}(\mathcal{C})_{\kappa, \alpha})$
+是一个位点。
+\item $\text{Cov}(\mathcal{C})$ 中的每个覆盖都组合等价于
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$ 中的某个覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+首先考虑具有固定靶的 $\mathcal{C}$-态射集合所成集合
+$\mathcal{S}$。换言之，$\mathcal{S}$ 的元素是
+$\text{Arrows}(\mathcal{C})$ 的子集 $T$，并且 $T$ 的所有元素有同一靶。
+给定具有固定靶的态射族
+$\mathcal{U} = \{\varphi_i : U_i \to U\}_{i\in I}$，定义
+$Supp(\mathcal{U}) = \{ \varphi \in \text{Arrows}(\mathcal{C})
+\mid \exists i\in I, \varphi = \varphi_i\}$。
+注意，两族
+$\mathcal{U} =  \{\varphi_i : U_i \to U\}_{i\in I}$ 与
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+组合等价，当且仅当
+$Supp(\mathcal{U}) = Supp(\mathcal{V})$。
+接着定义子集
+$\mathcal{S}_\tau \subset \mathcal{S}$：
+$\mathcal{S}_\tau = \{ T \in \mathcal{S} \mid
+\exists\ \mathcal{U} \in \text{Cov}(\mathcal{C}) \
+T = Supp(\mathcal{U})\}$。
+对每个 $T \in \mathcal{S}_\tau$，令 $\beta(T)$ 为满足下列条件的
+最小序数 $\beta$：存在
+$\mathcal{U} \in \text{Cov}(\mathcal{C})_\beta$，
+使得 $T = \text{Supp}(\mathcal{U})$。
+最后，令
+$\beta_0 = \sup_{T \in S_\tau} \beta(T)$。
+由此可知，每个 $\mathcal{U} \in \text{Cov}(\mathcal{C})$
+都组合等价于
+$\text{Cov}(\mathcal{C})_{\beta_0}$ 中的某个元素。
+
+\medskip\noindent
+令 $\kappa$ 为下列各基数的最大值：
+$\aleph_0$、$|\text{Arrows}(\mathcal{C})|$，以及
+$$
+\sup\nolimits_{\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\beta_0}}
+|I|,
+\quad\text{与}\quad
+\sup\nolimits_{\{U_i \to U\}_{i\in I} \in \text{Cov}_0} |I|.
+$$
+由于 $\kappa$ 是无限基数，有
+$\kappa \otimes \kappa = \kappa$。
+显然
+$\text{Cov}(\mathcal{C})_{\beta_0} =
+\text{Cov}(\mathcal{C})_{\kappa, \beta_0}$。
+
+\medskip\noindent
+通过超限归纳定义一个把每个序数映到序数的函数 $f$。
+令 $f(0) = 0$。给定 $f(\alpha)$，定义 $f(\alpha + 1)$
+为满足下列条件的最小序数 $\beta$：
+\begin{enumerate}
+\item 有 $\alpha + 1 \leq \beta$ 且
+$f(\alpha) \leq \beta$。
+\item 若
+$\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$，
+并且对每个 $i$ 都有
+$\{W_{ij} \to U_i\}_{j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$，
+则
+$\{W_{ij} \to U\}_{i \in I, j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, \beta}$。
+\item 若
+$\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \alpha}$，
+且 $W \to U$ 是 $\mathcal{C}$ 的态射，则
+$\{U_i \times_U W \to W \}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \beta}$。
+\end{enumerate}
+为说明 $\beta$ 存在，只需注意 (2) 和 (3) 中出现的所有覆盖
+$\{W_{ij} \to U\}$ 与
+$\{U_i \times_U W \to W \}$ 显然组成一个集合。
+因此存在某个序数 $\beta$，使 $V_\beta$ 包含所有这些覆盖。
+此外，覆盖 $\{W_{ij} \to U\}$ 的指标集的势满足
+$\sum_{i \in I} |J_i|
+\leq \kappa \otimes \kappa = \kappa$，
+故这些覆盖属于
+$\text{Cov}(\mathcal{C})_{\kappa, \beta}$。
+由于任意非空序数族都有最小元，
+$f(\alpha + 1)$ 定义良好。
+最后，若 $\alpha$ 是极限序数，则令
+$f(\alpha) = \sup_{\alpha' < \alpha} f(\alpha')$。
+
+\medskip\noindent
+选取序数 $\beta_1$，使得
+$\text{Arrows}(\mathcal{C}) \subset V_{\beta_1}$、
+$\text{Cov}_0 \subset V_{\beta_0}$，并且
+$\beta_1 \geq \beta_0$。
+由构造，$f(\beta_1) \geq \beta_1$，可知对
+$V_{f(\beta_1)}$ 仍有相同性质。
+又因 $f$ 单调不减，对任意 $\beta \geq \beta_1$ 仍然如此。
+接着选取共尾性满足
+$\text{cf}(\beta_2) > \kappa$ 的任意序数
+$\beta_2 > \beta_1$。
+这样的序数存在，因为序数的共尾性可以任意大；
+见命题 \ref{sets-proposition-exist-ordinals-large-cofinality}。
+我们声称序对 $\kappa$、
+$\alpha = f(\beta_2)$ 是引理中问题的一个解。
+
+\medskip\noindent
+由上述对 $\kappa$、$\beta_2 > \beta_1 > \beta_0$ 的选取，
+引理的第一条和第三条性质成立。
+
+\medskip\noindent
+由于 $\beta_2$ 是极限序数（其共尾性无限），有
+$f(\beta_2) = \sup_{\beta < \beta_2} f(\beta)$。
+因此
+$\{f(\beta) \mid \beta < \beta_2\} \subset f(\beta_2)$
+是共尾子集，从而
+$$
+V_\alpha = V_{f(\beta_2)}
+= \bigcup\nolimits_{\beta < \beta_2} V_{f(\beta)}.
+$$
+现在令
+$\mathcal{U} \in \text{Cov}_{\kappa, \alpha}$。
+定义 $\beta(\mathcal{U})$ 为满足
+$\mathcal{U} \in \text{Cov}_{\kappa, f(\beta)}$
+的最小序数 $\beta$。由上可知总有
+$\beta(\mathcal{U}) < \beta_2$。
+
+\medskip\noindent
+需要证明定义位点的性质 (1)、(2)、(3) 对序对
+$(\mathcal{C}, \text{Cov}_{\kappa, \alpha})$ 成立。
+第一条成立，因为按照对 $\beta_2$ 的选取，
+$\mathcal{C}$ 的所有态射都属于 $V_{f(\beta_2)}$。
+为证第三条，给定覆盖
+$\mathcal{U} = \{U_i \to U\}_{i \in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \alpha}$，
+有 $\beta(\mathcal{U}) < \beta_2$；
+因此由 $f$ 的构造，$\mathcal{U}$ 的任意基变换都属于
+$\text{Cov}(\mathcal{C})_{\kappa, f(\beta + 1)}$，
+进而属于
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$。
+
+\medskip\noindent
+最后证明第二条。设
+$\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$，
+并且对每个 $i$ 都有
+$\mathcal{W}_i = \{W_{ij} \to U_i\}_{j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$。
+考虑函数
+$I \to \beta_2$，$i \mapsto \beta(\mathcal{W}_i)$。
+由于 $\beta_2$ 的共尾性
+$> \kappa \geq |I|$，该函数的像不可能是共尾子集。
+因此存在 $\beta < \beta_1$，使对所有 $i \in I$ 都有
+$\mathcal{W}_i \in \text{Cov}_{\kappa, f(\beta)}$。
+由此，覆盖
+$\{W_{ij} \to U\}_{i\in I, j \in J_i}$
+属于
+$\text{Cov}(\mathcal{C})_{\kappa, f(\beta + 1)}
+\subset \text{Cov}(\mathcal{C})_{\kappa, \alpha}$，
+如所要求。
+\end{proof}
+
+\begin{remark}
+\label{sets-remark-better}
+很可能存在某个极限序数 $\alpha$，使覆盖集
+$\text{Cov}(\mathcal{C})_\alpha$ 满足本引理的条件。
+毕竟，应用反射原理似乎正会给出这一结论
+（但须顾及第 \ref{sets-section-reflection-principle} 节末尾以及
+评注 \ref{sets-remark-how-to-use-reflection} 中所述的注意事项）。
+\end{remark}
+
+\section{阿贝尔范畴与内射对象}
+\label{sets-section-abelian-categories-injectives}
+
+\noindent
+下面的引理适用于位点上的环层之模所成的范畴。
+
+\begin{lemma}
+\label{sets-lemma-abelian-injectives}
+设给定一个大范畴 $\mathcal{A}$（见《范畴》评注
+\ref{categories-remark-big-categories}）。
+假设 $\mathcal{A}$ 是阿贝尔范畴，并且有足够多的内射对象。
+见《同调代数》定义
+\ref{homology-definition-abelian-category} 和
+\ref{homology-definition-enough-injectives}。
+则对 $\mathcal{A}$ 中任意给定的对象集
+$\{A_s\}_{s\in S}$，存在阿贝尔子范畴
+$\mathcal{A}' \subset \mathcal{A}$，满足：
+\begin{enumerate}
+\item 包含函子 $\mathcal{A}' \to \mathcal{A}$ 是正合的；
+\item $\Ob(\mathcal{A}')$ 是集合；
+\item 对每个 $s \in S$，$\Ob(\mathcal{A}')$ 都包含 $A_s$；
+\item $\mathcal{A}'$ 有足够多的内射对象；
+\item $\mathcal{A}'$ 的对象是内射对象，当且仅当它是
+$\mathcal{A}$ 的内射对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}

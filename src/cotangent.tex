@@ -1,0 +1,4238 @@
+% Generated mechanically from the frozen cotangent.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{91}
+\chapter{余切复形}
+
+
+
+\phantomsection
+\label{cotangent-section-phantom}
+
+
+\section{引言}
+\label{cotangent-section-introduction}
+
+\noindent
+本章的目标是构造环同态、概形态射以及代数空间态射的余切复形。
+可供参考的文献包括讲义 \cite{quillenhomology}、论文
+\cite{quillencohomology}，以及专著 \cite{Andre} 和 \cite{cotangent}。
+
+
+
+
+\section{给读者的建议}
+\label{cotangent-section-advice-reader}
+
+\noindent
+撰写本章时，我们尽量减少单纯形技巧的使用。对环 $A$ 上的环 $B$，
+我们把选择一个预解 $P_\bullet$ 看作计算范畴 $\mathcal{C}_{B/A}$
+上阿贝尔层同调的工具，见注 \ref{cotangent-remark-resolution}。这类似于用
+{\v C}ech 复形计算上同调时“良覆盖”所起的作用。若要简要了解
+范畴上的同调，请参阅《位点上的上同调》第
+\ref{sites-cohomology-section-homology} 节。对于同调而言，导出下惊叹号
+函子 $L\pi_!$ 所扮演的角色，正如
+$R\Gamma(\mathcal{C}_{B/A}, -)$ 对上同调所扮演的角色。第
+\ref{cotangent-section-compute-L-pi-shriek} 节研究的范畴
+$\mathcal{C}_{B/A}$，是由分解 $A \to P \to B$（其中 $P$ 是 $A$
+上的多项式代数）组成的范畴的反范畴。该范畴上有环层同态
+$$
+\underline{A} \longrightarrow \mathcal{O} \longrightarrow \underline{B}
+$$
+并且在对象 $U = (P \to B)$ 上有 $\mathcal{O}(U)=P$。最终可得 $B$
+在 $A$ 上的余切复形为
+$$
+L_{B/A} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{B})
+$$
+见引理 \ref{cotangent-lemma-compute-cotangent-complex}。我们始终尽力采用这一观点
+证明环同态余切复形的基本性质。尤其是，所有结果原则上都可在不依赖
+标准预解存在性的情况下证明，尽管我们并未这样做。这一理论相当令人
+满意；唯一可能的例外是基本三角（命题 \ref{cotangent-proposition-triangle}）
+的证明需要稍多一点关于导出下惊叹号函子的理论。为向读者提供另一种
+途径，我们在注 \ref{cotangent-remark-triangle} 和 \ref{cotangent-remark-explicit-map}
+中给出一种仅依赖标准预解简单性质的、相当完整的证明纲要。
+
+\medskip\noindent
+对于环化拓扑斯态射、概形态射、代数空间态射等的余切复形，我们的做法是
+尽可能从上面讨论的“普通环同态”情形推出结论。
+
+
+
+
+
+\section{环同态的余切复形}
+\label{cotangent-section-cotangent-ring-map}
+
+\noindent
+设 $A$ 为环，以 $\textit{Alg}_A$ 记 $A$-代数范畴。考虑一对伴随函子
+$(U,V)$，其中 $V:\textit{Alg}_A\to\textit{Sets}$ 是遗忘函子，
+$U:\textit{Sets}\to\textit{Alg}_A$ 则把集合 $E$ 送到 $A$ 上以
+$E$ 为变量集的多项式代数 $A[E]$。令 $X_\bullet$ 为《单纯形》第
+\ref{simplicial-section-standard} 节所构造的
+$\text{Fun}(\textit{Alg}_A,\textit{Alg}_A)$ 中的单纯形对象。
+
+\medskip\noindent
+取一个 $A$-代数 $B$，以 $P_\bullet=X_\bullet(B)$ 记所得的单纯形
+$A$-代数。回忆 $P_0=A[B]$、$P_1=A[A[B]]$，依此类推。特别地，
+每一项 $P_n$ 都是多项式 $A$-代数。还记得存在增广
+$$
+\epsilon : P_\bullet \longrightarrow B
+$$
+这里把 $B$ 看作常值单纯形 $A$-代数。
+
+\begin{definition}
+\label{cotangent-definition-standard-resolution}
+设 $A\to B$ 为环同态。$B$ 在 $A$ 上的{\it 标准预解}是增广
+$\epsilon:P_\bullet\to B$，其各项为
+$$
+P_0 = A[B],\quad P_1 = A[A[B]],\quad \ldots
+$$
+而同态按《单纯形》例 \ref{simplicial-example-polynomial-algebra-maps}
+中的方式构造。
+\end{definition}
+
+\noindent
+我们将看到，在某些情形下可以利用标准预解计算左导出函子。
+
+\begin{definition}
+\label{cotangent-definition-cotangent-complex-ring-map}
+环同态 $A\to B$ 的{\it 余切复形} $L_{B/A}$，是与单纯形
+$B$-模
+$$
+\Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} B
+$$
+相伴的 $B$-模复形，其中 $\epsilon:P_\bullet\to B$ 是 $B$
+在 $A$ 上的标准预解。
+\end{definition}
+
+\noindent
+在《单纯形》第 \ref{simplicial-section-complexes} 节中，我们为单纯形模
+配上链复形；但这里使用的是上链复形。因此，次数 $-n$ 上的项
+$L_{B/A}^{-n}$ 是 $B$-模
+$\Omega_{P_n/A}\otimes_{P_n,\epsilon_n}B$，且当 $m>0$ 时
+$L_{B/A}^m=0$。
+
+\begin{remark}
+\label{cotangent-remark-variant-cotangent-complex}
+设 $A\to B$ 为环同态。令 $\mathcal{A}$ 为 $A$-代数箭头
+$\psi:C\to B$ 所成的范畴，令 $\mathcal{S}$ 为同态 $E\to B$
+所成的范畴，其中 $E$ 是集合。存在伴随函子
+$V:\mathcal{A}\to\mathcal{S}$（遗忘函子）与
+$U:\mathcal{S}\to\mathcal{A}$；后者把 $E\to B$ 送到
+$A[E]\to B$。令 $X_\bullet$ 为《单纯形》第
+\ref{simplicial-section-standard} 节所构造的
+$\text{Fun}(\mathcal{A},\mathcal{A})$ 中的单纯形对象。图
+$$
+\xymatrix{
+\mathcal{A} \ar[d] \ar[r] & \mathcal{S} \ar@<1ex>[l] \ar[d] \\
+\textit{Alg}_A \ar[r] & \textit{Sets} \ar@<1ex>[l]
+}
+$$
+交换。因此，$X_\bullet(\text{id}_B:B\to B)$ 等于 $B$
+在 $A$ 上的标准预解。
+\end{remark}
+
+\begin{lemma}
+\label{cotangent-lemma-colimit-cotangent-complex}
+设 $A_i\to B_i$ 是有向指标集 $I$ 上的一族环同态。那么
+$\colim L_{B_i/A_i}=L_{\colim B_i/\colim A_i}$。
+\end{lemma}
+
+\begin{proof}
+这是因为遗忘函子 $V:A\textit{-Alg}\to\textit{Sets}$ 及其伴随函子
+$U:\textit{Sets}\to A\textit{-Alg}$ 都与滤余极限交换。此外，函子
+$B/A\mapsto\Omega_{B/A}$ 也具有这一性质（《交换代数》引理
+\ref{algebra-lemma-colimit-differentials}）。
+\end{proof}
+
+
+
+
+
+\section{单纯形预解与导出下惊叹号函子}
+\label{cotangent-section-compute-L-pi-shriek}
+
+\noindent
+设 $A\to B$ 为环同态。考虑如下范畴：其对象是 $A$-代数同态
+$\alpha:P\to B$，其中 $P$ 是 $A$ 上以某个集合\footnote{只需考虑
+基数不超过 $B$ 的基数的集合。}为变量集的多项式代数；其态射
+$s:(\alpha:P\to B)\to(\alpha':P'\to B)$ 是满足
+$\alpha'\circ s=\alpha$ 的 $A$-代数同态 $s:P\to P'$。以
+$\mathcal{C}=\mathcal{C}_{B/A}$ 记此范畴的{\bf 反范畴}。取反范畴的
+原因是，我们希望把对象 $(P,\alpha)$ 看作对应于仿射概形图
+$$
+\xymatrix{
+\Spec(B) \ar[d] \ar[r] & \Spec(P) \ar[ld] \\
+\Spec(A)
+}
+$$
+我们赋予 $\mathcal{C}$ 混沌拓扑（《位点》例
+\ref{sites-example-indiscrete}）；换言之，把 $\mathcal{C}$ 视为一个
+位点，其覆盖均由恒等态射给出，因而所有预层都是层。此外，在
+$\mathcal{C}$ 上赋予两个环层。第一个是把对象 $(P,\alpha)$ 送到 $P$
+的层 $\mathcal{O}$；第二个是常值层 $B$，记作 $\underline{B}$。
+于是得到如下环化拓扑斯态射图
+\begin{equation}
+\label{cotangent-equation-pi}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}), \underline{B}) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}), \mathcal{O}) \\
+(\Sh(*), B)
+}
+}
+\end{equation}
+态射 $i$ 在底层拓扑斯上是恒等态射，而
+$i^\sharp:\mathcal{O}\to\underline{B}$ 是显然的同态。同态 $\pi$
+如《位点上的上同调》例
+\ref{sites-cohomology-example-category-to-point} 所述。下列导出函子将在
+后文中起重要作用：
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{B})
+$
+它左伴随于 $Ri_*=i_*:D(\underline{B})\to D(\mathcal{O})$；以及
+$
+L\pi_! : D(\underline{B}) \longrightarrow D(B)
+$
+它左伴随于 $\pi^*=\pi^{-1}:D(B)\to D(\underline{B})$。
+
+\begin{lemma}
+\label{cotangent-lemma-identify-pi-shriek}
+沿用上述记号，设 $P_\bullet$ 是带有增广
+$\epsilon:P_\bullet\to B$ 的单纯形 $A$-代数。假设每个 $P_n$
+都是 $A$ 上的多项式代数，并且 $\epsilon$ 在底层单纯形集上是平凡
+Kan 纤维化。那么
+$$
+L\pi_!(\mathcal{F}) = \mathcal{F}(P_\bullet, \epsilon)
+$$
+在 $D(\textit{Ab})$ 或 $D(B)$ 中成立，并且分别关于
+$\textit{Ab}(\mathcal{C})$ 或 $\textit{Mod}(\underline{B})$ 中的
+$\mathcal{F}$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+我们将使用《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution} 的判据。
+给定 $\mathcal{C}$ 的对象 $U=(Q,\beta)$，须证明
+$$
+S_\bullet = \Mor_\mathcal{C}((P_\bullet, \epsilon), (Q, \beta))
+$$
+与单点集同伦等价。把 $Q$ 写成 $A[E]$，其中 $E$ 为某个集合（由
+$\mathcal{C}$ 的选取可如此表示）。于是
+$$
+S_\bullet = \Mor_{\textit{Sets}}((E, \beta|_E), (P_\bullet, \epsilon))
+$$
+令 $*$ 为单点集上的常值单纯形集。对 $b\in B$，以
+$F_{b,\bullet}$ 记由笛卡儿图
+$$
+\xymatrix{
+F_{b, \bullet} \ar[r] \ar[d] & P_\bullet \ar[d]_\epsilon \\
+{*} \ar[r]^b & B
+}
+$$
+定义的单纯形集。按此记号，
+$S_\bullet=\prod_{e\in E}F_{\beta(e),\bullet}$。由于假设
+$\epsilon$ 是平凡 Kan 纤维化，$F_{b,\bullet}\to *$ 也是平凡 Kan
+纤维化（《单纯形》引理
+\ref{simplicial-lemma-trivial-kan-base-change}）。因此
+$S_\bullet\to *$ 是平凡 Kan 纤维化（《单纯形》引理
+\ref{simplicial-lemma-product-trivial-kan}），从而 $S_\bullet$ 与 $*$
+同伦等价（《单纯形》引理
+\ref{simplicial-lemma-trivial-kan-homotopy}）。
+\end{proof}
+
+\noindent
+特别地，可以用 $B$ 在 $A$ 上的标准预解计算导出下惊叹号函子。
+
+\begin{lemma}
+\label{cotangent-lemma-pi-shriek-standard}
+设 $A\to B$ 为环同态，$\epsilon:P_\bullet\to B$ 为 $B$ 在 $A$
+上的标准预解，并令 $\pi$ 如 (\ref{cotangent-equation-pi}) 所示。那么
+$$
+L\pi_!(\mathcal{F}) = \mathcal{F}(P_\bullet, \epsilon)
+$$
+在 $D(\textit{Ab})$ 或 $D(B)$ 中成立，并且分别关于
+$\textit{Ab}(\mathcal{C})$ 或 $\textit{Mod}(\underline{B})$ 中的
+$\mathcal{F}$ 具有函子性。
+\end{lemma}
+
+\begin{proof}[第一种证明]
+应用引理 \ref{cotangent-lemma-identify-pi-shriek}。由于各项 $P_n$ 都是多项式
+代数，该引理的第一个假设成立。第二个假设证明如下。由《单纯形》引理
+\ref{simplicial-lemma-standard-simplicial-homotopy}，同态 $\epsilon$
+在底层单纯形集上是同伦等价。由《单纯形》引理
+\ref{simplicial-lemma-homotopy-equivalence}，这说明 $\epsilon$ 在相伴的
+阿贝尔群复形之间诱导拟同构。再由《单纯形》引理
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}，$\epsilon$
+在底层单纯形集上是平凡 Kan 纤维化。
+\end{proof}
+
+\begin{proof}[第二种证明]
+我们将使用《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution} 的判据。
+设 $U=(Q,\beta)$ 为 $\mathcal{C}$ 的对象。须证明
+$$
+S_\bullet = \Mor_\mathcal{C}((P_\bullet, \epsilon), (Q, \beta))
+$$
+与单点集同伦等价。把 $Q$ 写成 $A[E]$，其中 $E$ 是某个集合（由
+$\mathcal{C}$ 的选取可如此表示）。使用注
+\ref{cotangent-remark-variant-cotangent-complex} 的记号可得
+$$
+S_\bullet = \Mor_\mathcal{S}((E \to B), i(P_\bullet \to B))
+$$
+由《单纯形》引理
+\ref{simplicial-lemma-standard-simplicial-homotopy}，同态
+$i(P_\bullet\to B)\to i(B\to B)$ 在 $\mathcal{S}$ 中是同伦等价。
+因此 $S_\bullet$ 与
+$$
+\Mor_\mathcal{S}((E \to B), (B \to B)) = \{*\}
+$$
+同伦等价，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-compute-cotangent-complex}
+设 $A\to B$ 为环同态，并令 $\pi$ 与 $i$ 如 (\ref{cotangent-equation-pi})
+所示。存在典范同构
+$$
+L_{B/A} = L\pi_!(Li^*\Omega_{\mathcal{O}/A}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/A}) =
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+$$
+属于 $D(B)$。
+\end{lemma}
+
+\begin{proof}
+对范畴 $\mathcal{C}$ 的对象 $\alpha:P\to B$，模 $\Omega_{P/A}$
+是自由 $P$-模。因此 $\Omega_{\mathcal{O}/A}$ 是平坦
+$\mathcal{O}$-模。于是
+$Li^*\Omega_{\mathcal{O}/A}=i^*\Omega_{\mathcal{O}/A}$ 是这样的
+$\underline{B}$-模层：它把 $\alpha:P\to A$ 送到 $B$-模
+$\Omega_{P/A}\otimes_{P,\alpha}B$。
+% P11-E0018: the frozen source says alpha:P->A although objects of C are alpha:P->B; retained here. See control/ERRATA_CANDIDATES.jsonl.
+由引理 \ref{cotangent-lemma-pi-shriek-standard}，右端由该层在标准预解上的值
+计算；而依定义 \ref{cotangent-definition-cotangent-complex-ring-map}，这正是左端
+的定义。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-pi-lower-shriek-constant-sheaf}
+若 $A\to B$ 是环同态，且 $\pi$ 如 (\ref{cotangent-equation-pi}) 所示，则
+$L\pi_!(\pi^{-1}M)=M$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-identify-pi-shriek}，$L\pi_!(\pi^{-1}M)$ 可由
+$(\pi^{-1}M)(P_\bullet,\epsilon)$ 计算，而后者是 $M$ 上的常值
+单纯形对象。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-identify-H0}
+若 $A\to B$ 是环同态，则 $H^0(L_{B/A})=\Omega_{B/A}$。
+\end{lemma}
+
+\begin{proof}
+我们直接计算。使用引理 \ref{cotangent-lemma-compute-cotangent-complex} 中的等同。
+显然存在从 $\Omega_{\mathcal{O}/A}\otimes\underline{B}$ 到取值为
+$\Omega_{B/A}$ 的常值层的同态。因此，它诱导同态
+$$
+H^0(L_{B/A}) = H^0(L\pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B}))
+= \pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B}) \to \Omega_{B/A}
+$$
+在 $\mathcal{C}_{B/A}$ 中选取对象 $P\to B$，使 $P\to B$ 满射；
+由《交换代数》引理 \ref{algebra-lemma-differential-surjective} 可知上述
+同态满射。为证其单射，设 $P\to B$ 是 $\mathcal{C}_{B/A}$ 的对象，
+且 $\xi\in\Omega_{P/A}\otimes_PB$ 在 $\Omega_{B/A}$ 中的像为零。
+先选取分解 $P\to P'\to B$，使 $P'\to B$ 满射且 $P'$ 是 $A$
+上的多项式代数。可以用 $P'$ 替换 $P$。若 $B=P/I$，则
+$\Omega_{P/A}\otimes_PB\to\Omega_{B/A}$ 的核是 $I/I^2$ 的像
+（《交换代数》引理 \ref{algebra-lemma-differential-seq}）。设 $\xi$
+是 $f\in I$ 的像。考虑两个同态 $a,b:P'=P[x]\to P$：第一个把
+$x$ 映到 $0$，第二个把 $x$ 映到 $f$（在两种情形中，
+$P[x]\to B$ 都把 $x$ 映到零）。于是 $\xi$ 与 $0$ 都是
+$\text{d}x\otimes1$ 在 $\Omega_{P'/A}\otimes_{P'}B$ 中的像。
+故 $\xi$ 与 $0$ 在余极限
+$\pi_!(\Omega_{\mathcal{O}/A}\otimes\underline{B})$ 中有相同的像
+（见《位点上的上同调》例
+\ref{sites-cohomology-example-category-to-point}），正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-pi-lower-shriek-polynomial-algebra}
+若 $B$ 是环 $A$ 上的多项式代数，且 $\pi$ 如
+(\ref{cotangent-equation-pi}) 所示，则 $\pi_!$ 正合，且
+$\pi_!\mathcal{F}=\mathcal{F}(B\to B)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-identify-pi-shriek}，可用 $B$ 上的常值单纯形代数
+计算 $L\pi_!$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-cotangent-complex-polynomial-algebra}
+若 $B$ 是环 $A$ 上的多项式代数，则 $L_{B/A}$ 与
+$\Omega_{B/A}[0]$ 拟同构。
+\end{lemma}
+
+\begin{proof}
+立即由引理 \ref{cotangent-lemma-compute-cotangent-complex} 和
+\ref{cotangent-lemma-pi-lower-shriek-polynomial-algebra} 得出。
+\end{proof}
+
+
+
+
+
+\section{构造预解}
+\label{cotangent-section-polynomial}
+
+\noindent
+在诺特有限型情形下，可以为有限型环同态构造一个“小”的单纯形预解。
+
+\begin{lemma}
+\label{cotangent-lemma-polynomial}
+设 $A$ 是诺特环，$A\to B$ 是有限型环同态。令 $\mathcal{A}$ 为
+$A$-代数同态 $C\to B$ 所成的范畴。设 $n\geq0$，并设
+$P_\bullet$ 是 $\mathcal{A}$ 中满足下列条件的单纯形对象：
+\begin{enumerate}
+\item $P_\bullet\to B$ 是单纯形集的平凡 Kan 纤维化；
+\item 当 $k\leq n$ 时，$P_k$ 在 $A$ 上有限型；
+\item 作为 $\mathcal{A}$ 中的单纯形对象，
+$P_\bullet=\text{cosk}_n\text{sk}_nP_\bullet$。
+\end{enumerate}
+那么 $P_{n+1}$ 是有限型 $A$-代数。
+\end{lemma}
+
+\begin{proof}
+我们给出的证明虽然直接，却略显繁琐。为说明思路，先解释较小 $n$ 时的
+情形，再给出一般证明。例如，若 $n=0$，则 (3) 意味着
+$P_1=P_0\times_BP_0$。由于环同态 $P_0\to B$ 满射，由《更多交换代数》
+引理 \ref{more-algebra-lemma-fibre-product-finite-type}，该代数在 $A$
+上有限型。
+
+\medskip\noindent
+若 $n=1$，则 (3) 意味着
+$$
+P_2 = \{(f_0, f_1, f_2) \in P_1^3 \mid
+d_0f_0 = d_0f_1,\ d_1f_0 = d_0f_2,\ d_1f_1 = d_1f_2 \}
+$$
+其中各等式均在 $P_0$ 中成立。注意，三元组
+$$
+(d_0f_0, d_1f_0, d_1f_1) = (d_0f_1, d_0f_2, d_1f_2)
+$$
+是 $B$ 上纤维积 $P_0\times_BP_0\times_BP_0$ 的元素，因为同态
+$d_i:P_1\to P_0$ 都是 $B$ 上的态射。因此得到同态
+$$
+\psi : P_2 \longrightarrow P_0 \times_B P_0 \times_B P_0
+$$
+$\psi$ 在元素
+$(g_0,g_1,g_2)\in P_0\times_BP_0\times_BP_0$ 上的纤维，是满足
+$(d_0,d_1)(f_0)=(g_0,g_1)$、$(d_0,d_1)(f_1)=(g_0,g_2)$ 以及
+$(d_0,d_1)(f_2)=(g_1,g_2)$ 的 $1$-单形三元组
+$(f_0,f_1,f_2)$ 所成的集合。由于 $P_\bullet\to B$ 是平凡 Kan
+纤维化，同态 $(d_0,d_1):P_1\to P_0\times_BP_0$ 满射。因此
+$P_2$ 位于笛卡儿图
+$$
+\xymatrix{
+P_2 \ar[d] \ar[r] & P_1^3 \ar[d] \\
+P_0 \times_B P_0 \times_B P_0 \ar[r] & (P_0 \times_B P_0)^3
+}
+$$
+中。由《更多交换代数》引理
+\ref{more-algebra-lemma-formal-consequence} 即得结论。一般情形类似，
+但需要稍多一些记号。
+
+\medskip\noindent
+现在处理 $n>1$ 的情形。由《单纯形》引理
+\ref{simplicial-lemma-cosk-above-object}，条件
+$P_\bullet=\text{cosk}_n\text{sk}_nP_\bullet$ 蕴含同一等式在单纯形
+$A$-代数范畴中成立，因而也在集合范畴中成立（因为从 $A$-代数到集合
+的遗忘函子与极限交换）。所以
+$$
+P_{n + 1} =
+\Mor(\Delta[n + 1], P_\bullet) =
+\Mor(\text{sk}_n \Delta[n + 1], \text{sk}_n P_\bullet)
+$$
+这里使用了《单纯形》引理 \ref{simplicial-lemma-simplex-map} 和等式
+(\ref{simplicial-equation-cosk})。我们将对
+$1\leq k<m\leq n+1$ 归纳证明环
+$$
+Q_{k, m} = \Mor(\text{sk}_k \Delta[m], \text{sk}_k P_\bullet)
+$$
+在 $A$ 上有限型。当 $k=1$ 且 $1<m\leq n+1$ 时，这与上面对
+$n=1$ 的讨论完全类似。具体而言，存在笛卡儿图
+$$
+\xymatrix{
+Q_{1, m} \ar[d] \ar[r] & P_1^N \ar[d] \\
+P_0 \times_B \ldots \times_B P_0 \ar[r] & (P_0 \times_B P_0)^N
+}
+$$
+其中 $N={m+1\choose2}$。同前可得结论。
+
+\medskip\noindent
+设 $1\leq k_0\leq n$，并假设对所有满足
+$1\leq k\leq k_0$ 与 $k<m\leq n+1$ 的指标，$Q_{k,m}$ 在 $A$
+上有限型。对 $k_0+1<m\leq n+1$，我们断言存在笛卡儿方块
+$$
+\xymatrix{
+Q_{k_0 + 1, m} \ar[d] \ar[r] & P_{k_0 + 1}^N \ar[d] \\
+Q_{k_0, m} \ar[r] & Q_{k_0, k_0 + 1}^N
+}
+$$
+其中 $N$ 是 $\Delta[m]$ 的非退化 $(k_0+1)$-单形的个数。为看出这一点，
+把 $Q_{k_0+1,m}$ 的元素看作从 $\Delta[m]$ 的 $(k_0+1)$-骨架到
+$P_\bullet$ 的同态 $f$。把 $f$ 限制到 $k_0$-骨架，得到图中的左侧
+竖直同态；把它限制到每个非退化 $(k_0+1)$-单形，则得到上方水平
+同态。给定这样的 $f$，等价于给定它在 $k_0$-骨架和每个非退化
+$(k_0+1)$-面上的限制，并要求这些限制在交集上一致；这正是该图所
+表达的内容。此外，由 $P_\bullet\to B$ 是平凡 Kan 纤维化可知，同态
+$$
+P_{k_0} \to Q_{k_0, k_0 + 1} = \Mor(\partial \Delta[k_0 + 1], P_\bullet)
+$$
+满射，因为当 $k_0\geq1$ 时，每个同态
+$\partial\Delta[k_0+1]\to B$ 都可延拓为
+$\Delta[k_0+1]\to B$（这里略去关于常值单纯形集的一小段论证）。
+% P11-E0020: the frozen source uses P_{k_0} for the boundary-filling map; retained here. See control/ERRATA_CANDIDATES.jsonl.
+由归纳假设，环 $Q_{k_0,m}$ 和 $Q_{k_0,k_0+1}$ 都是有限型
+$A$-代数。再应用《更多交换代数》引理
+\ref{more-algebra-lemma-formal-consequence}，可知
+$Q_{k_0+1,m}$ 也如此。
+\end{proof}
+
+\begin{proposition}
+\label{cotangent-proposition-polynomial}
+设 $A$ 是诺特环，$A\to B$ 是有限型环同态。存在带有增广
+$\epsilon:P_\bullet\to B$ 的单纯形 $A$-代数 $P_\bullet$，使每个
+$P_n$ 都是 $A$ 上的有限型多项式代数，并且 $\epsilon$ 是单纯形集的
+平凡 Kan 纤维化。
+\end{proposition}
+
+\begin{proof}
+令 $\mathcal{A}$ 为 $A$-代数同态 $C\to B$ 所成的范畴。本证明中的
+单纯形对象、骨架函子和余骨架函子均取在此范畴中。
+
+\medskip\noindent
+选取 $A$ 上的有限型多项式代数 $P_0$ 以及满射 $P_0\to B$。作为
+第一次近似，取 $P_\bullet=\text{cosk}_0(P_0)$。换言之，
+$P_\bullet$ 是各项为
+$P_n=P_0\times_A\ldots\times_AP_0$ 的单纯形 $A$-代数。
+% P11-E0019: the frozen source uses fibre products over A in this coskeleton; retained here. See control/ERRATA_CANDIDATES.jsonl.
+（在证明的最后一段，这个单纯形对象将记作 $P^0_\bullet$。）由
+《单纯形》引理 \ref{simplicial-lemma-cosk-minus-one-equivalence}，同态
+$P_\bullet\to B$ 是单纯形集的平凡 Kan 纤维化。还要注意
+$P_\bullet=\text{cosk}_0\text{sk}_0P_\bullet$。
+
+\medskip\noindent
+假设对某个 $n\geq0$ 已构造出 $P_\bullet$（在证明的最后一段，它将
+记作 $P^n_\bullet$），满足
+\begin{enumerate}
+\item[(a)] $P_\bullet\to B$ 是单纯形集的平凡 Kan 纤维化；
+\item[(b)] 当 $0\leq k\leq n$ 时，$P_k$ 是有限生成多项式代数；
+以及
+\item[(c)] $P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$
+\end{enumerate}
+由引理 \ref{cotangent-lemma-polynomial}，可以找到 $A$ 上的有限生成多项式代数
+$Q$ 以及满射 $Q\to P_{n+1}$。由于 $P_n$ 是多项式代数，$A$-代数
+同态 $s_i:P_n\to P_{n+1}$ 可提升为同态 $s'_i:P_n\to Q$。令
+$d'_j:Q\to P_n$ 等于 $Q\to P_{n+1}$ 与
+$d_j:P_{n+1}\to P_n$ 的复合。规定当 $k\leq n$ 时
+$P'_k=P_k$，并令 $P'_{n+1}=Q$；在次数 $k\leq n-1$ 上取态射
+$d'_i=d_i$ 和 $s'_i=s_i$，在次数 $n$ 上使用态射 $d'_j$ 与
+$s'_i$，由此得到 $\mathcal{A}$ 中的截断单纯形对象 $P'_\bullet$。
+利用 $\text{cosk}_{n+1}$ 把它延拓为 $\mathcal{A}$ 中的完整单纯形
+对象。由余骨架函子的函子性，存在单纯形对象态射
+$P'_\bullet\to P_\bullet$，延拓给定的 $(n+1)$-截断单纯形对象态射。
+（在证明的最后一段，此态射将记作
+$P^{n+1}_\bullet\to P^n_\bullet$。）
+
+\medskip\noindent
+注意，把 $n$ 替换为 $n+1$ 后，$P'_\bullet$ 满足条件 (b) 与 (c)。
+我们断言同态 $P'_\bullet\to P_\bullet$ 满足《单纯形》引理
+\ref{simplicial-lemma-section} 中把 $n$ 替换为 $n+1$ 后的假设
+(1)、(2)、(3) 与 (4)。条件 (1) 和 (2) 由构造成立。由《单纯形》
+引理 \ref{simplicial-lemma-cosk-above-object}，有
+$P_\bullet = \text{cosk}_{n + 1}\text{sk}_{n + 1}P_\bullet$
+且
+$P'_\bullet = \text{cosk}_{n + 1}\text{sk}_{n + 1}P'_\bullet$
+这些等式不仅在 $\mathcal{A}$ 中成立，也在 $A$-代数范畴中成立，
+从而在集合范畴中成立（因为从 $A$-代数到集合的遗忘函子与所有极限
+交换）。这证明了 (3) 与 (4)。因此该引理可用，且
+$P'_\bullet\to P_\bullet$ 是平凡 Kan 纤维化。由《单纯形》引理
+\ref{simplicial-lemma-trivial-kan-composition}，可知
+$P'_\bullet\to B$ 是平凡 Kan 纤维化，故 (a) 也成立。
+
+\medskip\noindent
+为完成证明，取单纯形代数序列
+$$
+\ldots \to P^2_\bullet \to P^1_\bullet \to P^0_\bullet
+$$
+的逆极限 $P_\bullet=\lim P^n_\bullet$。由《单纯形》引理
+\ref{simplicial-lemma-limit-trivial-kan}，同态 $P_\bullet\to B$ 是
+平凡 Kan 纤维化。另一方面，上述构造在每个次数上最终稳定为一个固定的
+有限生成多项式代数，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-pi-shriek-finite}
+设 $A$ 是诺特环，$A\to B$ 是有限型环同态，并令 $\pi$、
+$\underline{B}$ 如 (\ref{cotangent-equation-pi}) 所示。若 $\mathcal{F}$ 是
+$\underline{B}$-模，并且对每个
+$\alpha:P=A[x_1,\ldots,x_n]\to B$，$\mathcal{F}(P,\alpha)$ 都是
+有限 $B$-模，则 $L\pi_!(\mathcal{F})$ 的各上同调模都是有限 $B$-模。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-identify-pi-shriek} 与命题
+\ref{cotangent-proposition-polynomial}，可以用一个由 $\mathcal{F}$ 在有限型
+多项式代数上的取值构成的复形来计算 $L\pi_!(\mathcal{F})$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-cotangent-finite}
+设 $A$ 是诺特环，$A\to B$ 是有限型环同态。那么对所有
+$n\in\mathbf{Z}$，$H^n(L_{B/A})$ 都是有限 $B$-模。
+\end{lemma}
+
+\begin{proof}
+应用引理 \ref{cotangent-lemma-compute-cotangent-complex} 和
+\ref{cotangent-lemma-pi-shriek-finite}。
+\end{proof}
+
+\begin{remark}[预解]
+\label{cotangent-remark-resolution}
+设 $A\to B$ 为任意环同态。若增广单纯形 $A$-代数
+$\epsilon:P_\bullet\to B$ 的每个 $P_n$ 都是多项式代数，并且
+$\epsilon$ 是单纯形集的平凡 Kan 纤维化，则称它为 $B$ 在 $A$ 上的
+{\it 预解}。若 $P_\bullet\to B$ 是单纯形 $A$-代数的增广，每个
+$P_n$ 都是满射到 $B$ 的多项式代数，则下列条件等价：
+\begin{enumerate}
+\item $\epsilon:P_\bullet\to B$ 是 $B$ 在 $A$ 上的预解；
+\item $\epsilon:P_\bullet\to B$ 在相伴复形上是拟同构；
+\item $\epsilon:P_\bullet\to B$ 诱导单纯形集的同伦等价。
+\end{enumerate}
+为此应用《单纯形》中的引理
+\ref{simplicial-lemma-trivial-kan-homotopy},
+\ref{simplicial-lemma-homotopy-equivalence}，以及
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}.
+$B$ 在 $A$ 上的预解 $P_\bullet$ 给出 $\mathcal{C}_{B/A}$ 中的余单纯形
+对象 $U_\bullet$，如《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution} 所述，
+并且
+$$
+L\pi_!\mathcal{F} = \mathcal{F}(P_\bullet)
+$$
+关于 $\mathcal{F}$ 具有函子性，见引理
+\ref{cotangent-lemma-identify-pi-shriek}。命题 \ref{cotangent-proposition-polynomial} 证明的
+形式部分表明预解存在。在引理 \ref{cotangent-lemma-pi-shriek-standard} 的第一种
+证明中，我们还看到 $B$ 在 $A$ 上的标准预解确实是一个预解（故此术语
+不会造成冲突）。不过，命题 \ref{cotangent-proposition-polynomial} 的证明无需
+借助《单纯形》第 \ref{simplicial-section-standard} 节中的单纯形计算，
+便已说明预解存在。而且，对{\it 任意}预解选择，均有典范同构
+$$
+L_{B/A} = \Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} B
+$$
+属于 $D(B)$；这是引理 \ref{cotangent-lemma-compute-cotangent-complex} 的结论。
+任意选择预解的自由往往很有用。
+\end{remark}
+
+\begin{lemma}
+\label{cotangent-lemma-O-homology-B-homology}
+设 $A\to B$ 为环同态，并令 $\pi$、$\mathcal{O}$、$\underline{B}$
+如 (\ref{cotangent-equation-pi}) 所示。对任意 $\mathcal{O}$-模 $\mathcal{F}$，有
+$$
+L\pi_!(\mathcal{F}) = L\pi_!(Li^*\mathcal{F}) =
+L\pi_!(\mathcal{F} \otimes_\mathcal{O}^\mathbf{L} \underline{B})
+$$
+属于 $D(\textit{Ab})$。
+\end{lemma}
+
+\begin{proof}
+只需验证《位点上的上同调》引理
+\ref{sites-cohomology-lemma-O-homology-qis} 的假设对
+$\mathcal{C}_{B/A}$ 上的 $\mathcal{O}\to\underline{B}$ 成立。以下不再
+另行说明地使用注 \ref{cotangent-remark-resolution} 的结果。选取 $B$ 在 $A$
+上的一个预解 $P_\bullet$，从而得到 $\mathcal{C}_{B/A}$ 中适当的余单纯形
+对象 $U_\bullet$。由于 $P_\bullet\to B$ 在相伴的阿贝尔群复形上诱导
+拟同构，故 $L\pi_!\mathcal{O}=B$。另一方面，
+$L\pi_!\underline{B}$ 由 $\underline{B}(U_\bullet)=B$ 计算。这验证了
+《位点上的上同调》引理
+\ref{sites-cohomology-lemma-O-homology-qis} 的第二个假设，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-apply-O-B-comparison}
+设 $A\to B$ 为环同态，并令 $\pi$、$\mathcal{O}$、$\underline{B}$
+如 (\ref{cotangent-equation-pi}) 所示。则
+$$
+L\pi_!(\mathcal{O}) = L\pi_!(\underline{B}) = B
+\quad\text{且}\quad
+L_{B/A} = L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}) =
+L\pi_!(\Omega_{\mathcal{O}/A})
+$$
+属于 $D(\textit{Ab})$。
+\end{lemma}
+
+\begin{proof}
+这只是引理 \ref{cotangent-lemma-O-homology-B-homology} 的应用（而右侧第一个
+等式是引理 \ref{cotangent-lemma-compute-cotangent-complex}）。
+\end{proof}
+
+\noindent
+下面是基本三角的一个容易证明的特例。
+
+\begin{lemma}
+\label{cotangent-lemma-special-case-triangle}
+设 $A\to B\to C$ 为环同态。若 $B$ 是 $A$ 上的多项式代数，则
+$D(C)$ 中存在可区别三角
+$L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]$。
+\end{lemma}
+
+\begin{proof}
+以下不再另行说明地使用注 \ref{cotangent-remark-resolution} 的观察。选取 $C$
+在 $B$ 上的预解 $\epsilon:P_\bullet\to C$（例如标准预解）。因为
+$B$ 是 $A$ 上的多项式代数，$P_\bullet$ 也是 $C$ 在 $A$ 上的预解。
+因此 $L_{C/A}$ 由
+$\Omega_{P_\bullet/A}\otimes_{P_\bullet,\epsilon}C$ 计算，而
+$L_{C/B}$ 由 $\Omega_{P_\bullet/B}\otimes_{P_\bullet,\epsilon}C$
+计算。对每个 $n$ 都有短正合列
+$0 \to \Omega_{B/A} \otimes_B P_n \to \Omega_{P_n/A} \to \Omega_{P_n/B} \to 0$
+（《交换代数》引理 \ref{algebra-lemma-ses-formally-smooth}），并且
+$L_{B/A}=\Omega_{B/A}[0]$（引理
+\ref{cotangent-lemma-cotangent-complex-polynomial-algebra}），故结论成立。
+\end{proof}
+
+\begin{example}
+\label{cotangent-example-resolution-length-two}
+设 $A\to B$ 为环同态。本例构造一个“显式”的、长度为 $2$ 的 $B$
+在 $A$ 上的预解 $P_\bullet$。我们遵循命题
+\ref{cotangent-proposition-polynomial} 证明中的步骤；另见注
+\ref{cotangent-remark-resolution} 的讨论。
+
+\medskip\noindent
+选取满射 $P_0=A[u_i]\to B$，其中 $u_i$ 是一族变量。选取理想
+$\Ker(P_0\to B)$ 的生成元 $f_t\in P_0$，$t\in T$。令
+$P_1=A[u_i,x_t]$；面同态 $d_0$ 和 $d_1$ 是满足
+$d_j(u_i)=u_i$、$d_0(x_t)=0$ 以及 $d_1(x_t)=f_t$ 的唯一
+$A$-代数同态。同态 $s_0:P_0\to P_1$ 是满足 $s_0(u_i)=u_i$
+的唯一 $A$-代数同态。显然
+$$
+P_1 \xrightarrow{d_0 - d_1} P_0 \to B \to 0
+$$
+正合；特别地，同态 $(d_0,d_1):P_1\to P_0\times_BP_0$ 满射。因此，
+若以 $P_\bullet$ 记由 $P_0$、$P_1$、$d_0$、$d_1$ 与 $s_0$ 给出的
+$1$-截断单纯形 $A$-代数，则增广
+$\text{cosk}_1(P_\bullet)\to B$ 是平凡 Kan 纤维化。命题
+\ref{cotangent-proposition-polynomial} 证明步骤的下一步，是选取多项式代数
+$P_2$ 以及满射
+$$
+P_2 \longrightarrow \text{cosk}_1(P_\bullet)_2
+$$
+回忆
+$$
+\text{cosk}_1(P_\bullet)_2 =
+\{(g_0, g_1, g_2) \in P_1^3 \mid d_0(g_0) = d_0(g_1),
+d_1(g_0) = d_0(g_2), d_1(g_1) = d_1(g_2)\}
+$$
+把 $g_i\in P_1$ 看作关于 $x_t$ 的多项式，则这些条件为
+$$
+g_0(0) = g_1(0),\quad
+g_0(f_t) = g_2(0),\quad
+g_1(f_t) = g_2(f_t)
+$$
+因此 $\text{cosk}_1(P_\bullet)_2$ 包含元素
+$y_t=(x_t,x_t,f_t)$ 和 $z_t=(0,x_t,x_t)$。
+$\text{cosk}_1(P_\bullet)_2$ 中每个元素 $G$ 都可写成
+$G=H+(0,0,g)$，其中 $H$ 属于同态
+$A[u_i,y_t,z_t]\to\text{cosk}_1(P_\bullet)_2$ 的像，而
+$g\in P_1$ 是常数项为零且在 $P_0$ 中满足 $g(f_t)=0$ 的多项式。
+注意，
+\begin{enumerate}
+\item $g = x_t x_{t'} - f_t x_{t'}$；以及
+\item 若 $r_t \in P_0$ 且 $P_0$ 中有 $\sum r_t f_t = 0$，则
+$g = \sum r_t x_t$。
+\end{enumerate}
+都是 $P_1$ 中具有所需形式的元素。令
+$$
+Rel = \Ker(\bigoplus\nolimits_{t \in T} P_0 \longrightarrow P_0),\quad
+(r_t) \longmapsto \sum r_tf_t
+$$
+令 $P_2=A[u_i,y_t,z_t,v_r,w_{t,t'}]$，其中 $r=(r_t)\in Rel$，
+并取同态
+$$
+P_2 \longrightarrow \text{cosk}_1(P_\bullet)_2
+$$
+它由下列各式给出：$y_t\mapsto(x_t,x_t,f_t)$、
+$z_t\mapsto(0,x_t,x_t)$、$v_r\mapsto(0,0,\sum r_tx_t)$，以及
+$w_{t,t'}\mapsto(0,0,x_tx_{t'}-f_tx_{t'})$。一次计算（略去）表明
+该同态满射。上面显示的同态选择确定了
+$d_0,d_1,d_2:P_2\to P_1$。最后，命题
+\ref{cotangent-proposition-polynomial} 证明中的步骤要求我们选取同态
+$s_0,s_1:P_1\to P_2$，它们提升两个同态
+$P_1\to\text{cosk}_1(P_\bullet)_2$。显然，可以取 $s_i$ 为由
+$s_0(x_t)=y_t$ 与 $s_1(x_t)=z_t$ 确定的唯一 $A$-代数同态。
+\end{example}
+
+
+
+
+
+
+
+
+\section{函子性}
+\label{cotangent-section-functoriality}
+
+\noindent
+本节考虑环同态的交换方块
+\begin{equation}
+\label{cotangent-equation-commutative-square}
+\vcenter{
+\xymatrix{
+B \ar[r] & B' \\
+A \ar[u] \ar[r] & A' \ar[u]
+}
+}
+\end{equation}
+我们断言，与此图相伴有典范的 $B$-线性复形同态
+$$
+L_{B/A} \longrightarrow L_{B'/A'}
+$$
+事实上，若 $P_\bullet\to B$ 是 $B$ 在 $A$ 上的标准预解，且
+$P'_\bullet\to B'$ 是 $B'$ 在 $A'$ 上的标准预解，则存在与增广
+$P_\bullet\to B$ 和 $P'_\bullet\to B'$ 相容的典范单纯形
+$A$-代数同态 $P_\bullet\to P'_\bullet$。这可从《单纯形》第
+\ref{simplicial-section-standard} 节对标准预解的构造看出；不过在当前
+特例中，只需指出同态
+$$
+P_0 = A[B] \longrightarrow A'[B'] = P'_0,\quad
+P_1 = A[A[B]] \longrightarrow A'[A'[B']] = P'_1,
+$$
+等等均由给定同态 $A\to A'$ 和 $B\to B'$ 给出。所需同态
+$L_{B/A}\to L_{B'/A'}$ 随即来自相伴同态
+$\Omega_{P_n/A}\to\Omega_{P'_n/A'}$。
+
+\medskip\noindent
+函子性同态还可描述如下。令
+$\mathcal{C}=\mathcal{C}_{B/A}$ 与
+$\mathcal{C}'=\mathcal{C}_{B'/A}'$ 为第
+\ref{cotangent-section-compute-L-pi-shriek} 节所考虑的范畴。
+% P11-E0021: the frozen source places the prime outside the B'/A subscript; retained here. See control/ERRATA_CANDIDATES.jsonl.
+存在函子
+$$
+u : \mathcal{C} \longrightarrow \mathcal{C}',\quad
+(P, \alpha) \longmapsto (P \otimes_A A', c \circ (\alpha \otimes 1))
+$$
+其中 $c:B\otimes_AA'\to B'$ 是显然的同态。按《位点上的上同调》例
+\ref{sites-cohomology-example-morphism-categories} 的讨论，得到拓扑斯态射
+$g:\Sh(\mathcal{C})\to\Sh(\mathcal{C}')$ 以及环化拓扑斯态射的交换图
+\begin{equation}
+\label{cotangent-equation-double-square}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}'), \underline{B}) \ar[d]_{\pi'} &
+(\Sh(\mathcal{C}'), \underline{B'}) \ar[d]_{\pi'} \ar[l]^h &
+(\Sh(\mathcal{C}), \underline{B'}) \ar[d]_\pi \ar[l]^g \\
+(\Sh(*), B) &
+(\Sh(*), B') \ar[l]_f &
+(\Sh(*), B') \ar[l]
+}
+}
+\end{equation}
+这里 $h$ 在底层拓扑斯上是恒等态射，并在环层上由环同态 $B\to B'$
+给出。由《位点上的上同调》注
+\ref{sites-cohomology-remark-morphism-fibred-categories}，给定
+$\mathcal{C}$ 上的 $\mathcal{F}$、$\mathcal{C}'$ 上的
+$\mathcal{F}'$ 以及变换 $t:\mathcal{F}\to g^{-1}\mathcal{F}'$，
+便得到典范同态
+$L\pi_!(\mathcal{F})\to L\pi'_!(\mathcal{F}')$。把它应用于层
+$$
+\mathcal{F} : (P, \alpha) \mapsto \Omega_{P/A} \otimes_P B,\quad
+\mathcal{F}' : (P', \alpha') \mapsto \Omega_{P'/A'} \otimes_{P'} B',
+$$
+以及由典范同态
+$$
+\Omega_{P/A} \otimes_P B \longrightarrow
+\Omega_{P \otimes_A A'/A'} \otimes_{P \otimes_A A'} B'
+$$
+给出的变换 $t$，得到典范同态
+$$
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+\longrightarrow
+L\pi'_!(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})
+$$
+由引理 \ref{cotangent-lemma-compute-cotangent-complex}，这给出
+$L_{B/A}\to L_{B'/A'}$。我们略去对此同态与上面通过单纯形预解定义的
+同态一致性的验证。
+
+\begin{lemma}
+\label{cotangent-lemma-flat-base-change}
+假设 (\ref{cotangent-equation-commutative-square}) 诱导拟同构
+$B\otimes_A^\mathbf{L}A'=B'$。沿用
+(\ref{cotangent-equation-double-square}) 的记号，并设
+$\mathcal{F}'\in\textit{Ab}(\mathcal{C}')$，则
+$L\pi_!(g^{-1}\mathcal{F}')=L\pi'_!(\mathcal{F}')$。
+\end{lemma}
+
+\begin{proof}
+以下不再另行说明地使用注 \ref{cotangent-remark-resolution} 的结果。应用
+《位点上的上同调》引理 \ref{sites-cohomology-lemma-get-it-now}。
+设 $P_\bullet\to B$ 为预解。只要证明
+$u(P_\bullet)=P_\bullet\otimes_AA'\to B'$ 是拟同构，结论即成立。
+把 $P_\bullet$ 看作单纯形 $A$-模，则其相伴 $A$-模复形
+$s(P_\bullet)$ 是 $B$ 的自由 $A$-模预解：确实，每个 $P_n$ 都是
+自由 $A$-模，且 $s(P_\bullet)\to B$ 是拟同构。因此
+$B\otimes_A^\mathbf{L}A'$ 由
+$s(P_\bullet)\otimes_AA'=s(P_\bullet\otimes_AA')$ 计算。故本引理的
+假设意味着 $\epsilon':P_\bullet\otimes_AA'\to B'$ 是拟同构。
+\end{proof}
+
+\noindent
+特别地，当 $A\to A'$ 平坦且 $B'=B\otimes_AA'$ 时（平坦基变换），
+下述引理适用。
+
+\begin{lemma}
+\label{cotangent-lemma-flat-base-change-cotangent-complex}
+若 (\ref{cotangent-equation-commutative-square}) 诱导拟同构
+$B\otimes_A^\mathbf{L}A'=B'$，则函子性同态诱导同构
+$$
+L_{B/A} \otimes_B^\mathbf{L} B' \longrightarrow L_{B'/A'}
+$$
+\end{lemma}
+
+\begin{proof}
+使用等式 (\ref{cotangent-equation-double-square}) 中引入的记号。我们有
+$$
+L_{B/A} \otimes_B^\mathbf{L} B' =
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+\otimes_B^\mathbf{L} B' =
+L\pi_!(Lh^*(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}))
+$$
+第一个等式来自引理 \ref{cotangent-lemma-compute-cotangent-complex}，第二个来自
+《位点上的上同调》引理 \ref{sites-cohomology-lemma-change-of-rings}。
+由于 $\Omega_{\mathcal{O}/A}$ 是平坦 $\mathcal{O}$-模，
+$\Omega_{\mathcal{O}/A}\otimes_\mathcal{O}\underline{B}$ 是平坦
+$\underline{B}$-模。因此
+$Lh^*(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}) =
+\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B'}$
+它等于
+$g^{-1}(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})$
+这可直接检验。再由引理 \ref{cotangent-lemma-flat-base-change}，并利用
+$L_{B'/A'}$ 由
+$L\pi'_!(\Omega_{\mathcal{O}'/A'}\otimes_{\mathcal{O}'}\underline{B'})$
+计算，即得结论。
+\end{proof}
+
+\begin{remark}
+\label{cotangent-remark-homotopy-triangle}
+设给定方块 (\ref{cotangent-equation-commutative-square})，且存在使下图交换的
+箭头 $\kappa:B\to A'$：
+$$
+\xymatrix{
+B \ar[r]_\beta \ar[rd]_\kappa & B' \\
+A \ar[u] \ar[r]^\alpha & A' \ar[u]
+}
+$$
+我们断言，在此情形函子性同态 $P_\bullet\to P'_\bullet$ 与复合
+$P_\bullet\to B\to A'\to P'_\bullet$ 同伦。事实上，利用 $\kappa$，
+函子性同态分解为
+$$
+P_\bullet \to P_{A'/A', \bullet} \to P'_\bullet
+$$
+其中 $P_{A'/A',\bullet}$ 是 $A'$ 在 $A'$ 上的标准预解。由于 $A'$
+是 $A'$ 上以空集为变量集的多项式代数，由《单纯形》引理
+\ref{simplicial-lemma-standard-simplicial-homotopy} 可知，增广
+$\epsilon_{A'/A'}:P_{A'/A',\bullet}\to A'$ 是单纯形环的同伦等价。
+注意，该引理证明中构造的同伦逆同态
+$c:A'\to P_{A'/A',\bullet}$ 正是结构同态。因此，下列两个复合
+$$
+\xymatrix{
+P_\bullet \ar[r] &
+P_{A'/A', \bullet} \ar@<1ex>[rr]^{\text{id}}
+\ar@<-1ex>[rr]_{c \circ \epsilon_{A'/A'}} & &
+P_{A'/A', \bullet} \ar[r] &
+P'_\bullet
+}
+$$
+就是上面讨论的两个同态，并且二者同伦（《单纯形》注
+\ref{simplicial-remark-homotopy-pre-post-compose}），故得到所需结论。
+由于第二个同态 $P_\bullet\to P'_\bullet$ 在
+$\Omega_{P_\bullet/A}\to\Omega_{P'_\bullet/A'}$ 上诱导零同态，
+可知在此情形函子性同态 $L_{B/A}\to L_{B'/A'}$ 零同伦。
+\end{remark}
+
+\begin{lemma}
+\label{cotangent-lemma-cotangent-complex-product}
+设 $A\to B$ 与 $A\to C$ 为环同态。那么同态
+$L_{B\times C/A}\to L_{B/A}\oplus L_{C/A}$ 在
+$D(B\times C)$ 中是同构。
+\end{lemma}
+
+\begin{proof}
+虽然本引理可由基本三角推出，我们仍给出一个直接且初等的证明。把环同态
+$A\to B\times C$ 分解为 $A\to A[x]\to B\times C$，其中
+$x\mapsto(1,0)$。由引理 \ref{cotangent-lemma-special-case-triangle}，有可区别三角
+$$
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} (B \times C) \to L_{B \times C/A} \to
+L_{B \times C/A[x]} \to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} (B \times C)[1]
+$$
+属于 $D(B\times C)$。类似地，有可区别三角
+$$
+\begin{matrix}
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} B \to L_{B/A} \to L_{B/A[x]}
+\to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} B[1] \\
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} C \to L_{C/A} \to L_{C/A[x]}
+\to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} C[1]
+\end{matrix}
+$$
+因此，只需证明 $A[x]$ 上的 $B\times C$ 的结论。注意，
+$A[x]\to A[x,x^{-1}]$ 平坦，且
+$(B\times C)\otimes_{A[x]}A[x,x^{-1}]
+=B\otimes_{A[x]}A[x,x^{-1}]$，并且
+$C\otimes_{A[x]}A[x,x^{-1}]=0$。所以由基变换（引理
+\ref{cotangent-lemma-flat-base-change-cotangent-complex}），同态
+$L_{B\times C/A[x]}\to L_{B/A[x]}\oplus L_{C/A[x]}$ 在逆转 $x$
+后成为同构。同理可证，该同态在逆转 $x-1$ 后也成为同构。
+本引理得证。
+\end{proof}
+
+
+
+
+\section{基本三角}
+\label{cotangent-section-triangle}
+
+\noindent
+本节考虑一列环同态 $A\to B\to C$。我们的目标是证明，该三角诱导
+可区别三角
+\begin{equation}
+\label{cotangent-equation-triangle}
+L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]
+\end{equation}
+属于 $D(C)$。这将在命题 \ref{cotangent-proposition-triangle} 中证明。另一种方法
+见注 \ref{cotangent-remark-triangle}。
+
+\medskip\noindent
+考虑范畴 $\mathcal{C}_{C/B/A}$，它是如下范畴的{\bf 反范畴}：其对象
+是 $(P\to B,Q\to C)$，其中
+\begin{enumerate}
+\item $P$ 是 $A$ 上的多项式代数；
+\item $P\to B$ 是 $A$-代数同态；
+\item $Q$ 是 $P$ 上的多项式代数；
+\item $Q\to C$ 是 $P$-代数同态。
+\end{enumerate}
+取反范畴是因为我们希望把 $(P\to B,Q\to C)$ 看作对应于交换图
+$$
+\xymatrix{
+\Spec(C) \ar[d] \ar[r] & \Spec(Q) \ar[d] \\
+\Spec(B) \ar[d] \ar[r] & \Spec(P) \ar[dl] \\
+\Spec(A)
+}
+$$
+令 $\mathcal{C}_{B/A}$、$\mathcal{C}_{C/A}$、$\mathcal{C}_{C/B}$
+为第 \ref{cotangent-section-compute-L-pi-shriek} 节所考虑的范畴。存在函子
+$$
+\begin{matrix}
+u_1 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{B/A}, &
+(P \to B, Q \to C) \mapsto (P \to B) \\
+u_2 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/A}, &
+(P \to B, Q \to C) \mapsto (Q \to C) \\
+u_3 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/B}, &
+(P \to B, Q \to C) \mapsto (Q \otimes_P B \to C)
+\end{matrix}
+$$
+这些函子诱导相应的拓扑斯态射 $g_i$。记
+$\mathcal{O}_i=g_i^{-1}\mathcal{O}$，从而得到环化拓扑斯态射
+\begin{equation}
+\label{cotangent-equation-three-maps}
+\begin{matrix}
+g_1 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_1)
+\longrightarrow (\Sh(\mathcal{C}_{B/A}), \mathcal{O}) \\
+g_2 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_2)
+\longrightarrow (\Sh(\mathcal{C}_{C/A}), \mathcal{O}) \\
+g_3 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_3)
+\longrightarrow (\Sh(\mathcal{C}_{C/B}), \mathcal{O})
+\end{matrix}
+\end{equation}
+记
+$\pi : \Sh(\mathcal{C}_{C/B/A}) \to \Sh(*)$,
+$\pi_1 : \Sh(\mathcal{C}_{B/A}) \to \Sh(*)$,
+$\pi_2 : \Sh(\mathcal{C}_{C/A}) \to \Sh(*)$，以及
+$\pi_3 : \Sh(\mathcal{C}_{C/B}) \to \Sh(*)$,
+于是 $\pi=\pi_i\circ g_i$。利用引理
+\ref{cotangent-lemma-compute-cotangent-complex} 中对余切复形的等同以及下列
+引理，我们将得到所需的可区别三角。
+
+\begin{lemma}
+\label{cotangent-lemma-triangle-ses}
+沿用 (\ref{cotangent-equation-three-maps}) 的记号，令
+$$
+\begin{matrix}
+\Omega_1 = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}
+\text{，定义在 }\mathcal{C}_{B/A}\text{ 上} \\
+\Omega_2 = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{C}
+\text{，定义在 }\mathcal{C}_{C/A}\text{ 上} \\
+\Omega_3 = \Omega_{\mathcal{O}/B} \otimes_\mathcal{O} \underline{C}
+\text{，定义在 }\mathcal{C}_{C/B}\text{ 上}
+\end{matrix}
+$$
+那么在 $\mathcal{C}_{C/B/A}$ 上存在典范的 $\underline{C}$-模层短正合列
+$$
+0 \to g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C} \to
+g_2^{-1}\Omega_2 \to
+g_3^{-1}\Omega_3 \to 0
+$$
+它位于 $\mathcal{C}_{C/B/A}$ 上。
+\end{lemma}
+
+\begin{proof}
+回忆 $g_i^{-1}$ 只需与 $u_i$ 预复合即可得到。给定对象
+$U=(P\to B,Q\to C)$，有分裂短正合列
+$$
+0 \to \Omega_{P/A} \otimes Q \to \Omega_{Q/A} \to \Omega_{Q/P} \to 0
+$$
+例如这可由《交换代数》引理
+\ref{algebra-lemma-ses-formally-smooth} 得出。在 $Q$ 上与 $C$
+作张量积，得到短正合列
+$$
+0 \to \Omega_{P/A} \otimes C \to \Omega_{Q/A} \otimes C \to
+\Omega_{Q/P} \otimes C \to 0
+$$
+有 $\Omega_{P/A}\otimes C=\Omega_{P/A}\otimes B\otimes C$，故这是
+$g_1^{-1}\Omega_1\otimes_{\underline{B}}\underline{C}$ 在 $U$ 上的值。
+模 $\Omega_{Q/A}\otimes C$ 是 $g_2^{-1}\Omega_2$ 在 $U$ 上的值。
+由《交换代数》引理 \ref{algebra-lemma-differentials-base-change}，有
+$\Omega_{Q/P}\otimes C=\Omega_{Q\otimes_PB/B}\otimes C$，故这是
+$g_3^{-1}\Omega_3$ 在 $U$ 上的值。因此，本引理的短正合列来自把
+最后显示的短正合列赋给每个 $U$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-polynomial-on-top}
+沿用 (\ref{cotangent-equation-three-maps}) 的记号，假设 $C$ 是 $B$ 上的
+多项式代数。那么对 $\mathcal{C}_{C/B}$ 上任意阿贝尔层
+$\mathcal{F}$，有
+$L\pi_!(g_3^{-1}\mathcal{F}) = L\pi_{3, !}\mathcal{F} = \pi_{3, !}\mathcal{F}$
+\end{lemma}
+
+\begin{proof}
+把 $C$ 写成 $B[E]$，其中 $E$ 为某个集合。选取 $B$ 在 $A$ 上的
+预解 $P_\bullet\to B$。对每个 $n$，考虑
+$\mathcal{C}_{C/B/A}$ 的对象
+$U_n=(P_n\to B,P_n[E]\to C)$。那么 $U_\bullet$ 是
+$\mathcal{C}_{C/B/A}$ 中的余单纯形对象。注意，
+$u_3(U_\bullet)$ 是 $\mathcal{C}_{C/B}$ 中取值为 $(C\to C)$ 的常值
+余单纯形对象。我们将证明 $\mathcal{C}_{C/B/A}$ 的对象 $U_\bullet$
+满足《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution} 的假设。
+这便蕴含本引理，因为它说明 $L\pi_!(g_3^{-1}\mathcal{F})$ 由取值为
+$\mathcal{F}(C\to C)$ 的常值单纯形阿贝尔群计算；而由引理
+\ref{cotangent-lemma-pi-lower-shriek-polynomial-algebra}，这正是
+$L\pi_{3,!}\mathcal{F}=\pi_{3,!}\mathcal{F}$ 的值。
+
+\medskip\noindent
+设 $U=(\beta:P\to B,\gamma:Q\to C)$ 为 $\mathcal{C}_{C/B/A}$ 的
+对象。由此范畴的定义，可把 $P$ 写成 $A[S]$，把 $Q$ 写成
+$A[S\amalg T]$。须证明
+$$
+\Mor_{\mathcal{C}_{C/B/A}}(U_\bullet, U)
+$$
+与单点单纯形集 $*$ 同伦等价。注意，该单纯形集是乘积
+$$
+\prod\nolimits_{s \in S} F_s \times \prod\nolimits_{t \in T} F'_t
+$$
+其中 $F_s$ 是对应于
+$U_s = (A[\{s\}] \to B, A[\{s\}] \to C)$
+的单纯形集，$F'_t$ 是对应于
+$U_t=(A\to B,A[\{t\}]\to C)$ 的单纯形集。确实，在
+$\mathcal{C}_{C/B/A}$ 中，对象 $U$ 是乘积
+$\prod U_s\times\prod U_t$。只需每个 $F_s$ 与 $F'_t$ 都与 $*$
+同伦等价，见《单纯形》引理
+\ref{simplicial-lemma-products-homotopy}。对 $F_s$，结论来自
+$P_\bullet\to B$ 作为预解是平凡 Kan 纤维化，而 $F_s$ 是该同态在
+$\beta(s)$ 上的纤维。（使用《单纯形》引理
+\ref{simplicial-lemma-trivial-kan-base-change} 和
+\ref{simplicial-lemma-trivial-kan-homotopy}。）$F'_t$ 的情形更有意思。
+这里须说明同态
+$$
+P_\bullet[E] \longrightarrow C = B[E]
+$$
+在 $\gamma(t)\in C$ 上的纤维与一点同伦等价。事实上，我们将证明该
+同态是平凡 Kan 纤维化。确实，$P_\bullet\to B$ 是平凡 Kan 纤维化。
+% P11-E0022: the frozen English source says “trivial can fibration”; Chinese renders the standard term Kan and the defect is logged. See control/ERRATA_CANDIDATES.jsonl.
+对任意环 $R$，有
+$$
+R[E] =
+\colim_{\Sigma \subset \text{Map}(E, \mathbf{Z}_{\geq 0})\text{ 有限}}
+\prod\nolimits_{I \in \Sigma} R
+$$
+（滤余极限）。所以，上面显示的单纯形集同态是平凡 Kan 纤维化的滤余
+极限；由《单纯形》引理
+\ref{simplicial-lemma-filtered-colimit-trivial-kan}，它仍是平凡 Kan
+纤维化。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-triangle-compute-lower-shriek}
+沿用 (\ref{cotangent-equation-three-maps}) 的记号，对 $i=1,2,3$ 有
+$Lg_{i,!}\circ g_i^{-1}=\text{id}$，因而对 $i=1,2,3$ 也有
+$L\pi_!\circ g_i^{-1}=L\pi_{i,!}$。
+\end{lemma}
+
+\begin{proof}
+先证 $i=1$。我们断言函子 $\mathcal{C}_{C/B/A}$ 是
+$\mathcal{C}_{B/A}$ 上的纤维化范畴。设给定
+$(P\to B,Q\to C)$ 以及 $\mathcal{C}_{B/A}$ 中的态射
+$(P'\to B)\to(P\to B)$。回忆，这意味着存在与到 $B$ 的同态相容的
+$A$-代数同态 $P\to P'$。令 $Q'=Q\otimes_PP'$，并赋予其诱导的到
+$C$ 的同态。于是态射
+$$
+(P' \to B, Q' \to C) \longrightarrow (P \to B, Q \to C)
+$$
+在 $\mathcal{C}_{C/B/A}$ 中（再次注意箭头反向），并且它是
+$\mathcal{C}_{C/B/A}$ 中位于 $\mathcal{C}_{B/A}$ 上的强笛卡儿态射。
+还要注意，$u_1$ 在 $P\to B$ 上的纤维范畴是
+$\mathcal{C}_{C/P}$。令 $\mathcal{F}$ 为 $\mathcal{C}_{B/A}$ 上的
+阿贝尔层。由于这是纤维化范畴，可以应用《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}。因此，
+$L_ng_{1,!}g_1^{-1}\mathcal{F}$ 是把
+$U\in\Ob(\mathcal{C}_{B/A})$ 送到 $g_1^{-1}\mathcal{F}$ 在 $U$
+上纤维范畴的限制之第 $n$ 个同调的（预）层。由于这些限制均为常值，
+结合上面对纤维范畴的等同，所需结论由引理
+\ref{cotangent-lemma-pi-lower-shriek-constant-sheaf} 得出。
+
+\medskip\noindent
+现在处理 $i=2$。我们断言 $\mathcal{C}_{C/B/A}$ 是
+$\mathcal{C}_{C/A}$ 上的纤维化范畴。设给定
+$(P\to B,Q\to C)$ 以及 $\mathcal{C}_{C/A}$ 中的态射
+$(Q'\to C)\to(Q\to C)$。回忆，这意味着存在与到 $C$ 的同态相容的
+$B$-代数同态 $Q\to Q'$。于是
+% P11-E0023: the frozen source calls Q->Q' a B-algebra map although C_{C/A} morphisms are A-algebra maps; retained here. See control/ERRATA_CANDIDATES.jsonl.
+$$
+(P \to B, Q' \to C) \longrightarrow (P \to B, Q \to C)
+$$
+是 $\mathcal{C}_{C/B/A}$ 中位于 $\mathcal{C}_{C/A}$ 上的强笛卡儿
+态射。注意，$u_2$ 在 $Q\to C$ 上的纤维范畴有终对象（留意箭头反向），
+即 $(A\to B,Q\to C)$。令 $\mathcal{F}$ 为
+$\mathcal{C}_{C/A}$ 上的阿贝尔层。由于这是纤维化范畴，可以应用
+《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}。因此，
+$L_ng_{2,!}g_2^{-1}\mathcal{F}$ 是把
+$U\in\Ob(\mathcal{C}_{C/A})$ 送到 $g_1^{-1}\mathcal{F}$ 在 $U$
+上纤维范畴的限制之第 $n$ 个同调的（预）层。
+% P11-E0024: frozen source uses g_1^{-1} in the i=2 case; retained here. See control/ERRATA_CANDIDATES.jsonl.
+由于这些限制均为常值，且所有纤维范畴都有终对象，所需结论由
+《位点上的上同调》引理 \ref{sites-cohomology-lemma-initial-final} 得出。
+
+\medskip\noindent
+最后处理 $i=3$。在此情形，把《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-left-derived-g-shriek} 应用于
+$u=u_3:\mathcal{C}_{C/B/A}\to\mathcal{C}_{C/B}$ 以及
+$\mathcal{F}'=g_3^{-1}\mathcal{F}$，其中 $\mathcal{F}$ 是
+$\mathcal{C}_{C/B}$ 上的阿贝尔层。设
+$U=(\overline{Q}\to C)$ 为 $\mathcal{C}_{C/B}$ 的对象。那么
+$\mathcal{I}_U=\mathcal{C}_{\overline{Q}/B/A}$（再次留意箭头反向）。
+层 $\mathcal{F}'_U$ 由规则
+$(P\to B,Q\to\overline{Q})\mapsto
+\mathcal{F}(Q\otimes_PB\to C)$ 给出。换言之，该层是
+$\mathcal{C}_{\overline{Q}/C}$ 上一个层沿态射
+$\Sh(\mathcal{C}_{\overline{Q}/B/A})
+\to\Sh(\mathcal{C}_{\overline{Q}/B})$ 的拉回。
+% P11-E0025: frozen source says the sheaf is on C_{Qbar/C} although the displayed morphism and application require C_{Qbar/B}; retained here. See control/ERRATA_CANDIDATES.jsonl.
+因此，引理 \ref{cotangent-lemma-polynomial-on-top} 表明，当 $n>0$ 时
+$H_n(\mathcal{I}_U,\mathcal{F}'_U)=0$，而当 $n=0$ 时它等于
+$\mathcal{F}(\overline{Q}\to C)$。上述《位点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-left-derived-g-shriek} 蕴含
+$Lg_{3,!}(g_3^{-1}\mathcal{F})=\mathcal{F}$，证明完成。
+\end{proof}
+
+\begin{proposition}
+\label{cotangent-proposition-triangle}
+设 $A\to B\to C$ 为环同态。存在典范可区别三角
+$$
+L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]
+$$
+属于 $D(C)$。
+\end{proposition}
+
+\begin{proof}
+考虑引理 \ref{cotangent-lemma-triangle-ses} 的层短正合列，并应用导出函子
+$L\pi_!$，得到可区别三角
+$$
+L\pi_!(g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C}) \to
+L\pi_!(g_2^{-1}\Omega_2) \to
+L\pi_!(g_3^{-1}\Omega_3) \to
+L\pi_!(g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C})[1]
+$$
+属于 $D(C)$。由引理 \ref{cotangent-lemma-triangle-compute-lower-shriek} 和
+\ref{cotangent-lemma-compute-cotangent-complex}，第二项与第三项分别等于
+$L_{C/A}$ 与 $L_{C/B}$，而第一项等于
+$$
+L\pi_{1, !}(\Omega_1 \otimes_{\underline{B}} \underline{C}) =
+L\pi_{1, !}(\Omega_1) \otimes_B^\mathbf{L} C =
+L_{B/A} \otimes_B^\mathbf{L} C
+$$
+第一个等式来自《位点上的上同调》引理
+\ref{sites-cohomology-lemma-change-of-rings}（以及 $\Omega_1$ 作为
+$\underline{B}$-模层的平坦性），第二个等式来自引理
+\ref{cotangent-lemma-compute-cotangent-complex}。
+\end{proof}
+
+\begin{remark}
+\label{cotangent-remark-triangle}
+下面概述基本三角存在性的另一种、或许更简单的证明。设
+$A\to B\to C$ 为环同态，并假设 $B\to C$ 单射。令
+$P_\bullet\to B$ 为 $B$ 在 $A$ 上的标准预解，令
+$Q_\bullet\to C$ 为 $C$ 在 $B$ 上的标准预解。图示如下：
+% P11-E0026: the frozen Q-row below uses A-polynomial towers although Q is declared the standard resolution over B; retained here. See control/ERRATA_CANDIDATES.jsonl.
+$$
+\xymatrix{
+P_\bullet : &
+A[A[A[B]]] \ar[d]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[B]] \ar[d]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[B] \ar[d] \ar@<0ex>[l] \ar[r] &
+B \\
+Q_\bullet : &
+A[A[A[C]]]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[C]]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[C] \ar@<0ex>[l] \ar[r] &
+C
+}
+$$
+注意，由于 $B\to C$ 单射，对每个 $n$，环 $Q_n$ 都是 $P_n$ 上的
+多项式代数。因此得到 $\mathcal{C}_{C/B/A}$ 中的余单纯形对象（留意
+箭头反向）。现在令
+$\overline{Q}_\bullet=Q_\bullet\otimes_{P_\bullet}B$。命题
+\ref{cotangent-proposition-triangle} 证明的关键，是说明
+$\overline{Q}_\bullet$ 是 $C$ 在 $B$ 上的预解。把《位点上的上同调》
+引理 \ref{sites-cohomology-lemma-O-homology-qis} 应用于
+$\mathcal{C}=\Delta$、$\mathcal{O}=P_\bullet$、
+$\mathcal{O}'=B$ 与 $\mathcal{F}=Q_\bullet$，即可得到此结论（这里
+用到 $Q_n$ 在 $P_n$ 上平坦；关于单纯形模与层的关系，见《位点上的
+上同调》注 \ref{sites-cohomology-remark-simplicial-modules}）。这一关键
+事实表明，命题 \ref{cotangent-proposition-triangle} 的可区别三角，就是与下列
+单纯形 $C$-模短正合列相伴的可区别三角：
+$$
+0 \to
+\Omega_{P_\bullet/A} \otimes_{P_\bullet} C \to
+\Omega_{Q_\bullet/A} \otimes_{Q_\bullet} C \to
+\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C \to 0
+$$
+该短正合列由短正合列
+$0 \to \Omega_{P_n/A} \otimes_{P_n} Q_n \to \Omega_{Q_n/A} \to
+\Omega_{Q_n/P_n} \to 0$ 得到，见《交换代数》引理
+\ref{algebra-lemma-ses-formally-smooth}。具体地，由注
+\ref{cotangent-remark-resolution} 及上述关键事实，右端复形在 $D(C)$ 中表示
+$L_{C/B}$。
+
+\medskip\noindent
+若 $B\to C$ 不单射，则可用上述方法为
+$A\to B\to B\times C$ 得到基本三角。由于
+$L_{B \times C/B} \to L_{B/B} \oplus L_{C/B}$ 以及
+$L_{B \times C/A} \to L_{B/A} \oplus L_{C/A}$
+在 $D(B\times C)$ 中都是拟同构（引理
+\ref{cotangent-lemma-cotangent-complex-product}），再与平坦环同态
+$B\times C\to C$ 作张量积，便在 $D(C)$ 中诱导所需的可区别三角。
+\end{remark}
+
+\begin{remark}
+\label{cotangent-remark-explicit-map}
+设 $A\to B\to C$ 为环同态，且 $B\to C$ 单射。回忆注
+\ref{cotangent-remark-triangle} 中的记号
+$P_\bullet$、$Q_\bullet$、$\overline{Q}_\bullet$。令
+$R_\bullet$ 为 $C$ 在 $B$ 上的标准预解。本注说明如何得到
+$\Omega_{\overline{Q}_\bullet/B}
+\otimes_{\overline{Q}_\bullet}C$ 与
+$L_{C/B}=\Omega_{R_\bullet/B}\otimes_{R_\bullet}C$ 的典范等同。
+令 $S_\bullet\to B$ 为 $B$ 在 $B$ 上的标准预解。注意，由于
+$B\to C$ 单射，函子性同态 $S_\bullet\to R_\bullet$ 把 $R_n$
+表为 $S_n$ 上的多项式代数。例如，在次数 $0$ 上有同态
+$B[B]\to B[C]$，在次数 $1$ 上有同态
+$B[B[B]]\to B[B[C]]$，依此类推。因此
+$\overline{R}_\bullet=R_\bullet\otimes_{S_\bullet}B$ 也是 $B$
+上的单纯形多项式代数。与注 \ref{cotangent-remark-triangle} 中相同，由
+《位点上的上同调》引理
+\ref{sites-cohomology-lemma-O-homology-qis} 可知
+$\overline{R}_\bullet\to C$ 是预解。由于存在交换图
+$$
+\xymatrix{
+Q_\bullet \ar[r] & R_\bullet \\
+P_\bullet \ar[u] \ar[r] & S_\bullet \ar[u] \ar[r] & B
+}
+$$
+得到典范同态
+$\overline{Q}_\bullet = Q_\bullet \otimes_{P_\bullet} B \to
+\overline{R}_\bullet$。所以，同态
+$$
+L_{C/B} = \Omega_{R_\bullet/B} \otimes_{R_\bullet} C
+\longrightarrow
+\Omega_{\overline{R}_\bullet/B} \otimes_{\overline{R}_\bullet} C
+\longleftarrow
+\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C
+$$
+都是拟同构（注 \ref{cotangent-remark-resolution}）；把其中一个与另一个的逆
+复合，便得到所需等同。
+\end{remark}
+
+
+
+
+
+\section{局部化与 \'etale 环同态}
+\label{cotangent-section-localization}
+
+\noindent
+本节研究环局部化后的情形。设 $A\to A'\to B$ 为环同态，满足
+$B=B\otimes_A^\mathbf{L}A'$。例如，当 $A'=S^{-1}A$ 是 $A$ 关于
+乘法子集 $S\subset A$ 的局部化时，这一条件成立。在此情形，对
+$\mathcal{C}_{B/A'}$ 上的阿贝尔层 $\mathcal{F}'$，
+$g^{-1}\mathcal{F}'$ 在 $\mathcal{C}_{B/A}$ 上的同调，与
+$\mathcal{F}'$ 在 $\mathcal{C}_{B/A'}$ 上的同调一致；精确陈述见
+引理 \ref{cotangent-lemma-flat-base-change}。
+
+\begin{lemma}
+\label{cotangent-lemma-localize-at-bottom}
+设 $A\to A'\to B$ 为环同态，满足
+$B=B\otimes_A^\mathbf{L}A'$。那么在 $D(B)$ 中有
+$L_{B/A}=L_{B/A'}$。
+\end{lemma}
+
+\begin{proof}
+根据上面的讨论（即应用引理 \ref{cotangent-lemma-flat-base-change}）以及引理
+\ref{cotangent-lemma-compute-cotangent-complex}，须证明
+$\mathcal{C}_{B/A}$ 上由规则
+$(P\to B)\mapsto\Omega_{P/A}\otimes_PB$ 给出的层，是由规则
+$(P\to B)\mapsto\Omega_{P/A'}\otimes_PB$ 给出的层的拉回。拉回函子
+$g^{-1}$ 由预复合函子
+$u:\mathcal{C}_{B/A}\to\mathcal{C}_{B/A'}$ 给出，其中
+$(P\to B)\mapsto(P\otimes_AA'\to B)$。因此只须证明
+$$
+\Omega_{P/A} \otimes_P B =
+\Omega_{P \otimes_A A'/A'} \otimes_{(P \otimes_A A')} B
+$$
+由《交换代数》引理 \ref{algebra-lemma-differentials-base-change}，右端等于
+$$
+(\Omega_{P/A} \otimes_A A') \otimes_{(P \otimes_A A')} B
+$$
+由于 $P$ 是 $A$ 上的多项式代数，模 $\Omega_{P/A}$ 自由，故此等式
+显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-derived-diagonal}
+设 $A\to B$ 为环同态，满足 $B=B\otimes_A^\mathbf{L}B$。那么在
+$D(B)$ 中有 $L_{B/A}=0$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-localize-at-bottom} 和
+\ref{cotangent-lemma-cotangent-complex-polynomial-algebra}，有
+$L_{B/A}=L_{B/B}=0$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-bootstrap}
+设 $A\to B$ 为环同态，且当 $i>0$ 时
+$\text{Tor}^A_i(B,B)=0$，并且 $L_{B/B\otimes_AB}=0$。那么在
+$D(B)$ 中有 $L_{B/A}=0$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-flat-base-change-cotangent-complex}，有
+$L_{B/A}\otimes_B^\mathbf{L}(B\otimes_AB)=L_{B\otimes_AB/B}$。
+现在对环同态 $B\to B\otimes_AB\to B$ 使用可区别三角
+(\ref{cotangent-equation-triangle})：
+$$
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B \to
+L_{B/B} \to L_{B/B \otimes_A B} \to
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B[1]
+$$
+再利用 $L_{B/B}$ 的消失（引理
+\ref{cotangent-lemma-cotangent-complex-polynomial-algebra}）以及假设中的
+$L_{B/B\otimes_AB}$ 的消失，可得
+$$
+0 =
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B =
+L_{B/A} \otimes_B^\mathbf{L} (B \otimes_A B)
+\otimes^\mathbf{L}_{(B \otimes_A B)} B = L_{B/A}
+$$
+正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-when-zero}
+在下列每种情形中，余切复形 $L_{B/A}$ 均为零：
+\begin{enumerate}
+\item $A\to B$ 与 $B\otimes_AB\to B$ 均平坦，即 $A\to B$ 弱
+\'etale（《更多交换代数》定义
+\ref{more-algebra-definition-weakly-etale}）；
+\item $A\to B$ 是环的平坦满态射；
+\item 对某个乘法子集 $S\subset A$，有 $B=S^{-1}A$；
+\item $A\to B$ 非分歧且平坦；
+\item $A\to B$ 是 \'etale 同态；
+\item $A\to B$ 是一族余切复形消失的环同态的滤余极限；
+\item $B$ 是 $A$ 的某个局部环的 Hensel 化；
+\item $B$ 是 $A$ 的某个局部环的严格 Hensel 化；以及
+\item 在此增加更多情形。
+% P11-E0027: frozen source contains the editorial placeholder “add more here”; retained here. See control/ERRATA_CANDIDATES.jsonl.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在情形 (1) 中，把引理 \ref{cotangent-lemma-derived-diagonal} 应用于满射平坦
+环同态 $B\otimes_AB\to B$，得到 $L_{B/B\otimes_AB}=0$；再应用
+引理 \ref{cotangent-lemma-bootstrap} 即得结论。情形 (2)--(5) 都是 (1) 的
+特例。(6) 来自引理 \ref{cotangent-lemma-colimit-cotangent-complex}。(7) 与
+(8) 来自如下事实：严格或非严格 Hensel 化是 $A$ 的 \'etale 环扩张
+的滤余极限；见《交换代数》引理
+\ref{algebra-lemma-henselization-different} 和
+\ref{algebra-lemma-strict-henselization-different}。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-localize-on-top}
+设 $A\to B\to C$ 为环同态，且 $L_{C/B}=0$。那么
+$L_{C/A}=L_{B/A}\otimes_B^\mathbf{L}C$。
+\end{lemma}
+
+\begin{proof}
+这是可区别三角 (\ref{cotangent-equation-triangle}) 的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-localize}
+设 $A\to B$ 为环同态，$S\subset A$ 与 $T\subset B$ 为乘法子集，
+且 $S$ 的像包含在 $T$ 中。那么在 $D(T^{-1}B)$ 中有
+$L_{T^{-1}B/S^{-1}A}=L_{B/A}\otimes_BT^{-1}B$。
+\end{lemma}
+
+\begin{proof}
+引理 \ref{cotangent-lemma-localize-on-top} 给出
+$L_{T^{-1}B/A}=L_{B/A}\otimes_BT^{-1}B$，引理
+\ref{cotangent-lemma-localize-at-bottom} 给出
+$L_{T^{-1}B/A}=L_{T^{-1}B/S^{-1}A}$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-cotangent-complex-henselization}
+设 $A\to B$ 是局部环之间的局部同态。令 $A^h\to B^h$ 以及
+$A^{sh}\to B^{sh}$ 分别为诱导的 Hensel 化同态与严格 Hensel 化同态。
+那么
+$$
+L_{B^h/A^h} = L_{B^h/A} = L_{B/A} \otimes_B^\mathbf{L} B^h
+\quad\text{分别}\quad
+L_{B^{sh}/A^{sh}} = L_{B^{sh}/A} = L_{B/A} \otimes_B^\mathbf{L} B^{sh}
+$$
+分别在 $D(B^h)$ 与 $D(B^{sh})$ 中成立。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-when-zero}，复形 $L_{A^h/A}$、$L_{A^{sh}/A}$、
+$L_{B^h/B}$ 与 $L_{B^{sh}/B}$ 均为零。对
+$A\to B\to B^h$ 使用基本可区别三角
+(\ref{cotangent-equation-triangle})，得到
+$L_{B^h/A}=L_{B/A}\otimes_B^\mathbf{L}B^h$。再对
+$A\to A^h\to B^h$ 使用基本三角，得到
+$L_{B^h/A^h}=L_{B^h/A}$。严格 Hensel 化的情形同理。
+\end{proof}
+
+
+
+
+\section{光滑环同态}
+\label{cotangent-section-smooth}
+
+\noindent
+设 $C\to B$ 为核是 $I$ 的环满射。若 $I/I^2$ 是平坦 $B$-模，且
+$\text{Tor}_*^C(B,B)$ 是 $I/I^2$ 上的外代数，则称这样的环同态
+“弱拟正则”。若要把引理 \ref{cotangent-lemma-when-zero} 对“\'etale 环同态”
+所作的事情推广到“光滑环同态”，应考察满足乘法同态
+$B\otimes_AB\to B$ 弱拟正则的平坦环同态 $A\to B$。目前我们只处理
+光滑环同态。
+
+\begin{lemma}
+\label{cotangent-lemma-when-projective}
+若 $A\to B$ 是光滑环同态，则 $L_{B/A}=\Omega_{B/A}[0]$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-identify-H0}，次数 $0$ 的上同调已经一致。因此只需
+证明其余上同调群均为零。由引理 \ref{cotangent-lemma-localize-on-top}，对
+$g\in B$ 有 $L_{B_g/A}=(L_{B/A})_g$，故只需在 $\Spec(B)$ 上局部地
+证明。于是可假设 $A\to B$ 标准光滑（《交换代数》引理
+\ref{algebra-lemma-smooth-syntomic}），即可以把 $A\to B$ 分解为
+$A\to A[x_1,\ldots,x_n]\to B$，其中
+$A[x_1,\ldots,x_n]\to B$ 是 \'etale 同态。在此情形，引理
+\ref{cotangent-lemma-when-zero} 与 \ref{cotangent-lemma-localize-on-top} 给出
+$L_{B/A}=L_{A[x_1,\ldots,x_n]/A}\otimes B$，再由引理
+\ref{cotangent-lemma-cotangent-complex-polynomial-algebra} 得出结论。
+\end{proof}
+
+
+
+
+
+\section{正特征}
+\label{cotangent-section-positive-characteristic}
+
+\noindent
+本节固定一个素数 $p$。若环 $A$ 中 $p=0$，则以 $F_A:A\to A$
+记 Frobenius 自同态 $a\mapsto a^p$。
+
+\begin{lemma}
+\label{cotangent-lemma-frobenius-homotopy}
+设 $A\to B$ 为环同态，且在 $A$ 中 $p=0$。令 $P_\bullet$ 为 $B$
+在 $A$ 上的标准预解。由图
+$$
+\xymatrix{
+B \ar[r]_{F_B} & B \\
+A \ar[u] \ar[r]^{F_A} & A \ar[u]
+}
+$$
+按第 \ref{cotangent-section-functoriality} 节的方式诱导的同态
+$P_\bullet\to P_\bullet$，与在每个 $P_n$ 上由 Frobenius 给出的自同态
+$P_\bullet\to P_\bullet$ 同伦。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{A}$ 为 $\mathbf{F}_p$-代数同态 $A\to B$ 所成的范畴。
+令 $\mathcal{S}$ 为二元组 $(A,E)$ 所成的范畴，其中 $A$ 是
+$\mathbf{F}_p$-代数，$E$ 是集合。考虑伴随函子
+$$
+V : \mathcal{A} \to \mathcal{S}, \quad (A \to B) \mapsto (A, B)
+$$
+以及
+$$
+U : \mathcal{S} \to \mathcal{A}, \quad (A, E) \mapsto (A \to A[E])
+$$
+令 $X$ 为《单纯形》第 \ref{simplicial-section-standard} 节所构造的、
+从 $\mathcal{A}$ 到 $\mathcal{A}$ 的函子范畴中的单纯形对象。
+显然 $P_\bullet=X(A\to B)$，因为若固定 $A$，则……。
+% P11-E0028: frozen source contains duplicated “in” and an incomplete sentence ending “because if we fix A then.”; retained as an explicit ellipsis. See control/ERRATA_CANDIDATES.jsonl.
+
+\medskip\noindent
+令 $Y=U\circ V$。回忆 $X$ 由 $Y$ 及若干同态构造，其各项
+$X_n=Y\circ\ldots\circ Y$ 含 $n+1$ 个因子；该构造见《单纯形》例
+\ref{simplicial-example-godement}，细节见《单纯形》引理
+\ref{simplicial-lemma-standard-simplicial} 的证明。
+
+\medskip\noindent
+令 $f:\text{id}_\mathcal{A}\to\text{id}_\mathcal{A}$ 为恒等函子的
+Frobenius 自同态。换言之，令
+$f_{A\to B}=(F_A,F_B):(A\to B)\to(A\to B)$。于是
+$X(A\to B)$ 上的两个同态分别由自然变换
+$f\star1_X$ 与 $1_X\star f$ 给出。细节略去。结论遂由《单纯形》引理
+\ref{simplicial-lemma-godement-before-after} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-frobenius-acts-as-zero}
+设 $p$ 为素数，$A\to B$ 为环同态，并假设在 $A$ 中 $p=0$。由
+Frobenius 同态 $F_A$ 与 $F_B$ 按第 \ref{cotangent-section-functoriality} 节
+诱导的同态 $L_{B/A}\to L_{B/A}$ 零同伦。
+\end{lemma}
+
+\begin{proof}
+令 $P_\bullet$ 为 $B$ 在 $A$ 上的标准预解。由引理
+\ref{cotangent-lemma-frobenius-homotopy}，$F_A$ 与 $F_B$ 诱导的同态
+$P_\bullet\to P_\bullet$，与在每一项上由 Frobenius 给出的同态
+$F_{P_\bullet}:P_\bullet\to P_\bullet$ 同伦。显然
+$F_{P_\bullet}$ 在 $\Omega_{P_n/A}\to\Omega_{P_n/A}$ 上诱导零同态
+（因为 $p$ 次幂的导数为零），故得到所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-perfect-zero}
+设 $p$ 为素数，$A\to B$ 为环同态，并假设在 $A$ 中 $p=0$。若
+$A$ 与 $B$ 都是完美环，则 $L_{B/A}$ 在 $D(B)$ 中为零。
+\end{lemma}
+
+\begin{proof}
+同态 $(F_A,F_B):(A\to B)\to(A\to B)$ 是同构，故在 $L_{B/A}$
+上诱导同构；另一方面，由引理 \ref{cotangent-lemma-frobenius-acts-as-zero}，
+它在 $L_{B/A}$ 上诱导零同态。
+\end{proof}
+
+
+
+
+
+\section{与朴素余切复形的比较}
+\label{cotangent-section-surjections}
+
+\noindent
+朴素余切复形已在《代数》第 \ref{algebra-section-netherlander} 节中引入。
+
+\begin{remark}
+\label{cotangent-remark-make-map}
+设 $A \to B$ 为环同态。依照第 \ref{cotangent-section-compute-L-pi-shriek} 节，
+在 $\mathcal{C}_{B/A}$ 上工作，并令
+$\mathcal{J} \subset \mathcal{O}$ 为
+$\mathcal{O} \to \underline{B}$ 的核。由引理
+\ref{cotangent-lemma-apply-O-B-comparison}，注意到 $L\pi_!(\mathcal{J}) = 0$。令
+$\Omega =  \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$
+，则由引理 \ref{cotangent-lemma-compute-cotangent-complex}，
+$L_{B/A} = L\pi_!(\Omega)$。于是
+$L\pi_!(\mathcal{J} \to \Omega) = L\pi_!(\Omega) = L_{B/A}$。
+因此，对 $\mathcal{C}_{B/A}$ 的任一对象 $U = (P \to B)$，我们得到态射
+\begin{equation}
+\label{cotangent-equation-comparison-map-A}
+(J \to \Omega_{P/A} \otimes_P B) \longrightarrow L_{B/A}
+\end{equation}
+其中 $J = \Ker(P \to B)$；这是 $D(A)$ 中的态射，参见
+《站点上的上同调》评注
+\ref{sites-cohomology-remark-map-evaluation-to-derived}。
+继续以此方式进行。由引理
+\ref{cotangent-lemma-O-homology-B-homology}，注意到
+$L\pi_!(\mathcal{J} \otimes_\mathcal{O}^\mathbf{L} \underline{B}) =
+L\pi_!(\mathcal{J}) = 0$。由于 $\text{Tor}_0^\mathcal{O}(\mathcal{J}, \underline{B}) =
+\mathcal{J}/\mathcal{J}^2$
+，谱序列
+$$
+H_p(\mathcal{C}_{B/A}, \text{Tor}_q^\mathcal{O}(\mathcal{J}, \underline{B}))
+\Rightarrow 
+H_{p + q}(\mathcal{C}_{B/A},
+\mathcal{J} \otimes_\mathcal{O}^\mathbf{L} \underline{B}) = 0
+$$
+（《导出范畴》引理 \ref{derived-lemma-two-ss-complex-functor} 的对偶）
+蕴含
+$H_0(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) = 0$
+且 $H_1(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) = 0$。
+由此，$\underline{B}$-模复形
+$\mathcal{J}/\mathcal{J}^2 \to \Omega$ 满足
+$\tau_{\geq -1}L\pi_!(\mathcal{J}/\mathcal{J}^2 \to \Omega) =
+\tau_{\geq -1}L_{B/A}$。
+因此，对 $\mathcal{C}_{B/A}$ 的任一对象 $U = (P \to B)$，我们得到态射
+\begin{equation}
+\label{cotangent-equation-comparison-map}
+(J/J^2 \to \Omega_{P/A} \otimes_P B) \longrightarrow \tau_{\geq -1}L_{B/A}
+\end{equation}
+；这是 $D(B)$ 中的态射，参见《站点上的上同调》评注
+\ref{sites-cohomology-remark-map-evaluation-to-derived}。
+\end{remark}
+
+\noindent
+第一种情形是环的满射。
+
+\begin{lemma}
+\label{cotangent-lemma-surjection}
+\begin{slogan}
+满环同态的余切复形在零次的上同调为零；其 $-1$ 次上同调是核模去其平方。
+\end{slogan}
+设 $A \to B$ 为核是 $I$ 的满环同态。则
+$H^0(L_{B/A}) = 0$ 且 $H^{-1}(L_{B/A}) = I/I^2$。
+此同构来自 $\mathcal{C}_{B/A}$ 的对象 $(A \to B)$ 所对应的态射
+(\ref{cotangent-equation-comparison-map})。
+\end{lemma}
+
+\begin{proof}
+我们将在下文利用 $A \to B$ 的满射性证明：在 $\mathcal{C}_{B/A}$ 上
+存在短正合层列
+$$
+0 \to \pi^{-1}(I/I^2) \to \mathcal{J}/\mathcal{J}^2 \to \Omega \to 0
+$$
+。取 $L\pi_!$ 及其相应的同调长正合列，并使用评注
+\ref{cotangent-remark-make-map} 所示的
+$H_1(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)$ 与
+$H_0(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)$ 的消失，再由引理
+\ref{cotangent-lemma-pi-lower-shriek-constant-sheaf} 即得所需结论。
+
+\medskip\noindent
+剩下的是验证上面提到的局部陈述。对 $\mathcal{C}_{B/A}$ 的每个对象
+$U = (P \to B)$，我们可以选取同构 $P = A[E]$，使得同态
+$P \to B$ 将每个 $e \in E$ 映到零。于是
+$J = \mathcal{J}(U) \subset P = \mathcal{O}(U)$
+等于 $J = IP + (e; e \in E)$。上述短层列在 $U$ 上的值为
+$$
+0 \to I/I^2 \to J/J^2 \to \Omega_{P/A} \otimes_P B \to 0
+$$
+验证从略（提示：唯一棘手之处是 $IP \cap J^2 = IJ$；例如可由
+《代数续篇》引理 \ref{more-algebra-lemma-conormal-sequence-H1-regular} 推出）。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-relation-with-naive-cotangent-complex}
+设 $A \to B$ 为环同态。则 $\tau_{\geq -1}L_{B/A}$
+与朴素余切复形典范拟同构。
+\end{lemma}
+
+\begin{proof}
+考虑核为 $I$ 的 $P = A[B] \to B$。$B$ 在 $A$ 上的朴素余切复形
+$\NL_{B/A}$ 是复形 $I/I^2 \to \Omega_{P/A} \otimes_P B$，参见
+《代数》定义 \ref{algebra-definition-naive-cotangent-complex}。
+注意，我们已在 (\ref{cotangent-equation-comparison-map}) 中构造了典范态射
+$$
+c : \NL_{B/A} \longrightarrow \tau_{\geq -1}L_{B/A}
+$$
+考虑与环同态 $A \to A[B] \to B$ 相关的可区别三角
+(\ref{cotangent-equation-triangle})
+$$
+L_{P/A} \otimes_P^\mathbf{L} B \to L_{B/A} \to L_{B/P} \to 
+(L_{P/A} \otimes_P^\mathbf{L} B)[1]
+$$
+。我们知道
+$L_{P/A} = \Omega_{P/A}[0] = \NL_{P/A}$ 在 $D(P)$ 中成立
+（引理 \ref{cotangent-lemma-cotangent-complex-polynomial-algebra} 与
+《代数》引理 \ref{algebra-lemma-NL-polynomial-algebra}），并且
+$\tau_{\geq -1}L_{B/P} = I/I^2[1] = \NL_{B/P}$ 在 $D(B)$ 中成立
+（引理 \ref{cotangent-lemma-surjection} 与
+《代数》引理 \ref{algebra-lemma-NL-surjection}）。由
+《代数》引理 \ref{algebra-lemma-exact-sequence-NL}
+及与该可区别三角相关的上同调长正合列，要证明 $c$ 是拟同构，
+只需证明态射 $L_{P/A} \to L_{B/A} \to L_{B/P}$ 在上同调群上
+与朴素余切复形的相应态射
+$\NL_{P/A} \to \NL_{B/A} \to \NL_{B/P}$
+相容。验证从略。
+\end{proof}
+
+\begin{remark}
+\label{cotangent-remark-explicit-comparison-map}
+我们可以如下明确写出引理
+\ref{cotangent-lemma-relation-with-naive-cotangent-complex} 的比较态射。
+令 $P_\bullet$ 为 $B$ 在 $A$ 上的标准预解，并令
+$I = \Ker(A[B] \to B)$。回忆 $P_0 = A[B]$。该引理中的态射
+由交换图
+$$
+\xymatrix{
+L_{B/A} \ar[d] & \ldots \ar[r] &
+\Omega_{P_2/A} \otimes_{P_2} B
+\ar[r] \ar[d] &
+\Omega_{P_1/A} \otimes_{P_1} B
+\ar[r] \ar[d] &
+\Omega_{P_0/A} \otimes_{P_0} B
+\ar[d] \\
+\NL_{B/A} & \ldots \ar[r] &
+0 \ar[r] & 
+I/I^2 \ar[r] &
+\Omega_{P_0/A} \otimes_{P_0} B
+}
+$$
+给出。我们通过将 $\text{d}f \otimes b$ 映到
+$(d_0(f) - d_1(f))b$ 在 $I/I^2$ 中的类，构造以 $I/I^2$ 为靶的向下箭头。
+这里 $d_i : P_1 \to P_0$（$i = 0, 1$）是单纯形结构的两个面态射。
+这是有意义的，因为 $d_0 - d_1$ 将 $P_1$ 映入
+$I = \Ker(P_0 \to B)$。此规则良定义的验证从略。
+我们的态射与微分
+$\Omega_{P_1/A} \otimes_{P_1} B \to \Omega_{P_0/A} \otimes_{P_0} B$
+相容，因为该微分将 $\text{d}f \otimes b$ 映到
+$\text{d}(d_0(f) - d_1(f)) \otimes b$。此外，微分
+$\Omega_{P_2/A} \otimes_{P_2} B \to \Omega_{P_1/A} \otimes_{P_1} B$
+将 $\text{d}f \otimes b$ 映到
+$\text{d}(d_0(f) - d_1(f) + d_2(f)) \otimes b$，后者被我们的向下箭头
+消去。因此得到了复形态射。它与引理
+\ref{cotangent-lemma-relation-with-naive-cotangent-complex} 中的态射相同这一验证从略。
+\end{remark}
+
+\begin{remark}
+\label{cotangent-remark-surjection}
+采用评注 \ref{cotangent-remark-make-map} 的记号。那里给出的论证表明，谱序列的微分
+$$
+H_2(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)
+\longrightarrow
+H_0(\mathcal{C}_{B/A}, \text{Tor}_1^\mathcal{O}(\mathcal{J}, \underline{B}))
+$$
+是同构。令 $\mathcal{C}'_{B/A}$ 表示 $\mathcal{C}_{B/A}$ 中由满射
+$P \to B$ 构成的全子范畴。余切复形与朴素余切复形相一致（引理
+\ref{cotangent-lemma-relation-with-naive-cotangent-complex}），这表明我们在
+$\mathcal{C}'_{B/A}$ 上有正合层列
+$$
+0 \to \underline{H_1(L_{B/A})} \to
+\mathcal{J}/\mathcal{J}^2 \xrightarrow{\text{d}} \Omega \to
+\underline{H_2(L_{B/A})} \to 0
+$$
+。由此，整个范畴 $\mathcal{C}_{B/A}$ 上的 $\Ker(d)$ 与 $\Coker(d)$
+具有消失的高阶同调群，因为由引理 \ref{cotangent-lemma-identify-pi-shriek}，
+这些群由常值单纯形阿贝尔群的同调群计算。因此我们推出
+$$
+H_n(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) \to H_n(L_{B/A})
+$$
+对一切 $n \geq 2$ 都是同构。结合上面的评注，我们得到公式
+$H_2(L_{B/A}) =
+H_0(\mathcal{C}_{B/A}, \text{Tor}_1^\mathcal{O}(\mathcal{J}, \underline{B}))$。
+\end{remark}
+
+
+
+
+
+\section{Quillen 谱序列}
+\label{cotangent-section-spectral-sequence}
+
+\noindent
+本节讨论一个联系导出张量积与余切复形的谱序列。
+
+\begin{lemma}
+\label{cotangent-lemma-vanishing-symmetric-powers}
+记号和假设同《站点上的上同调》例
+\ref{sites-cohomology-example-category-to-point}。假设 $\mathcal{C}$
+具有《站点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}
+中的余单纯形对象。设 $\mathcal{F}$ 为满足
+$H_0(\mathcal{C}, \mathcal{F}) = 0$ 的平坦 $\underline{B}$-模。
+则当 $l < k$ 时，
+$H_l(\mathcal{C}, \text{Sym}_{\underline{B}}^k(\mathcal{F})) = 0$。
+\end{lemma}
+
+\begin{proof}
+在张量积、外幂和对称幂中省略下标 ${}_{\underline{B}}$。
+我们对 $k$ 归纳证明该引理。$k = 0, 1$ 的情形由假设即得。
+若 $k > 1$，考虑正合复形
+$$
+\ldots \to
+\wedge^2\mathcal{F} \otimes \text{Sym}^{k - 2}\mathcal{F} \to
+\mathcal{F} \otimes \text{Sym}^{k - 1}\mathcal{F} \to
+\text{Sym}^k\mathcal{F} \to 0
+$$
+，其微分如 Koszul 复形中所定义。若将其视为
+$\text{Sym}^k\mathcal{F}$ 的预解，便得到第一象限谱序列
+$$
+E_1^{p, q} =
+H_p(\mathcal{C},
+\wedge^{q + 1}\mathcal{F} \otimes \text{Sym}^{k - q - 1}\mathcal{F})
+\Rightarrow
+H_{p + q}(\mathcal{C}, \text{Sym}^k(\mathcal{F}))
+$$
+由《站点上的上同调》引理 \ref{sites-cohomology-lemma-eilenberg-zilber}，有
+$$
+L\pi_!(\wedge^{q + 1}\mathcal{F} \otimes \text{Sym}^{k - q - 1}\mathcal{F}) =
+L\pi_!(\wedge^{q + 1}\mathcal{F}) \otimes_B^\mathbf{L}
+L\pi_!(\text{Sym}^{k - q - 1}\mathcal{F}))
+$$
+% P11-E0029：冻结源在上一公式末尾保留一个疑似多余的右圆括号。
+由导出张量积的构造可知，将归纳假设与
+$H_0(\mathcal{C}, \wedge^{q + 1}(\mathcal{F})) = 0$ 的消失结合起来，
+便可证明所需结论。该消失成立，是因为
+$\wedge^{q + 1}(\mathcal{F})$ 是 $\mathcal{F}^{\otimes q + 1}$ 的商，且
+$H_0(\mathcal{C}, \mathcal{F}^{\otimes q + 1})$ 是
+$H_0(\mathcal{C}, \mathcal{F})^{\otimes q + 1}$ 的商，而后者为零。
+\end{proof}
+
+\begin{remark}
+\label{cotangent-remark-first-homology-symmetric-power}
+在引理 \ref{cotangent-lemma-vanishing-symmetric-powers} 的情形下，可以证明
+$H_k(\mathcal{C}, \text{Sym}^k(\mathcal{F})) =
+\wedge^k_B(H_1(\mathcal{C}, \mathcal{F}))$。事实上，从证明可以推出，
+$H_k(\mathcal{C}, \text{Sym}^k(\mathcal{F}))$ 是下式的 $S_k$-余不变量：
+$$
+H^{-k}(L\pi_!(\mathcal{F}) \otimes_B^\mathbf{L}
+L\pi_!(\mathcal{F}) \otimes_B^\mathbf{L}
+\ldots \otimes_B^\mathbf{L} L\pi_!(\mathcal{F})) =
+H_1(\mathcal{C}, \mathcal{F})^{\otimes k}
+$$
+因此，我们的断言是：这一作用由 $S_k$ 在张量积上的通常作用乘以符号特征给出。
+要证明这一点，必须逐一核查与多重复形相关的全复形定义中的符号约定。
+验证从略。
+\end{remark}
+
+\begin{lemma}
+\label{cotangent-lemma-map-tors-zero}
+设 $A$ 为环，$P = A[E]$ 为多项式环。令
+$I = (e; e \in E) \subset P$。则态射
+$\text{Tor}_i^P(A, I^{n + 1}) \to \text{Tor}_i^P(A, I^n)$
+对一切 $i$ 和 $n$ 都为零。
+\end{lemma}
+
+\begin{proof}
+以 $x_e \in P$ 表示对应于 $e \in E$ 的变量。$A$ 在 $P$ 上的一个自由预解
+由 $x_e$ 上的 Koszul 复形 $K_\bullet$ 给出。这里 $K_i$ 的基由外积
+$e_1 \wedge \ldots \wedge e_i$（$e_1, \ldots, e_i \in E$）给出，且
+$d(e) = x_e$。因此 $K_\bullet \otimes_P I^n = I^nK_\bullet$ 计算
+$\text{Tor}_i^P(A, I^n)$。注意一切均分次，其中
+$\deg(x_e) = 1$、$\deg(e) = 1$，而对 $a \in A$ 有 $\deg(a) = 0$。
+设 $\xi \in I^{n + 1}K_i$ 是次数为 $m$ 的齐次余圈。注意
+$m \geq i + 1 + n$。由于 $K_\bullet$ 在次数 $>0$ 正合，存在
+$\eta \in K_{i + 1}$ 使 $\xi = \text{d}\eta$（$i = 0$ 的情形留给读者）。
+现在 $\deg(\eta) = m \geq i + 1 + n$。因而用上述基展开 $\eta$，
+可见各坐标都属于 $I^n$。所以 $\xi$ 在 $I^nK_\bullet$ 的同调中映为零，
+正如所需。
+\end{proof}
+
+\begin{theorem}[Quillen 谱序列]
+\label{cotangent-theorem-quillen-spectral-sequence}
+设 $A \to B$ 为满环同态。考虑 $\mathcal{C}_{B/A}$ 上的
+$\underline{B}$-模层
+$\Omega = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$，
+参见第 \ref{cotangent-section-compute-L-pi-shriek} 节。则存在 $E_1$ 页为
+$$
+E_1^{p, q} =
+H_{- p - q}(\mathcal{C}_{B/A}, \text{Sym}^p_{\underline{B}}(\Omega))
+\Rightarrow \text{Tor}^A_{- p - q}(B, B)
+$$
+的谱序列，其中 $d_r$ 的双次数为 $(r, -r + 1)$。此外，当 $i < k$ 时，
+$H_i(\mathcal{C}_{B/A}, \text{Sym}^k_{\underline{B}}(\Omega)) = 0$。
+\end{theorem}
+
+\begin{proof}
+令 $I \subset A$ 为 $A \to B$ 的核，并令
+$\mathcal{J} \subset \mathcal{O}$ 为
+$\mathcal{O} \to \underline{B}$ 的核。于是
+$I\mathcal{O} \subset \mathcal{J}$。令
+$\mathcal{K} = \mathcal{J}/I\mathcal{O}$ 且
+$\overline{\mathcal{O}} = \mathcal{O}/I\mathcal{O}$。
+
+\medskip\noindent
+对 $\mathcal{C}_{B/A}$ 的每个对象 $U = (P \to B)$，我们可以选取同构
+$P = A[E]$，使同态 $P \to B$ 将每个 $e \in E$ 映到零。于是
+$J = \mathcal{J}(U) \subset P = \mathcal{O}(U)$
+等于 $J = IP + (e; e \in E)$。此外，
+$\overline{\mathcal{O}}(U) = B[E]$ 且 $K = \mathcal{K}(U) = (e; e \in E)$
+，而且 $K$ 是多项式环 $B[E]$ 中由这些变量生成的理想。特别地，显然
+$$
+K/K^2 \xrightarrow{\text{d}} \Omega_{P/A} \otimes_P B
+$$
+是双射。换言之，
+$\Omega = \mathcal{K}/\mathcal{K}^2$ 且
+$\text{Sym}_B^k(\Omega) = \mathcal{K}^k/\mathcal{K}^{k + 1}$。
+注意到 $\pi_!(\Omega) = \Omega_{B/A} = 0$（引理
+\ref{cotangent-lemma-identify-H0}），因为 $A \to B$ 是满射（《代数》引理
+\ref{algebra-lemma-trivial-differential-surjective}）。
+由引理 \ref{cotangent-lemma-vanishing-symmetric-powers}，我们推出
+$$
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^k/\mathcal{K}^{k + 1}) =
+H_i(\mathcal{C}_{B/A}, \text{Sym}^k_{\underline{B}}(\Omega)) = 0
+$$
+对 $i < k$ 成立。这证明了定理的最后一个陈述。
+
+\medskip\noindent
+证明该定理的方法是注意到
+$$
+B \otimes_A^\mathbf{L} B = L\pi_!(\mathcal{O}) \otimes_A^\mathbf{L} B =
+L\pi_!(\mathcal{O} \otimes_{\underline{A}}^\mathbf{L} \underline{B}) =
+L\pi_!(\overline{\mathcal{O}})
+$$
+第一个等号由引理 \ref{cotangent-lemma-apply-O-B-comparison} 得到，第二个等号由
+《站点上的上同调》引理 \ref{sites-cohomology-lemma-change-of-rings} 得到，
+第三个等号则因为 $\mathcal{O}$ 在 $\underline{A}$ 上平坦。层
+$\overline{\mathcal{O}}$ 有滤过
+$$
+\ldots \subset
+\mathcal{K}^3 \subset
+\mathcal{K}^2 \subset
+\mathcal{K} \subset
+\overline{\mathcal{O}}
+$$
+。这在表示 $L\pi_!(\overline{\mathcal{O}})$ 的复形 $C$ 上诱导滤过
+$F$，其中 $F^pC$ 表示 $L\pi_!(\mathcal{K}^p)$（$C$ 与 $F$ 的构造从略）。
+考虑《同调》第 \ref{homology-section-filtered-complex} 节中与
+$(C, F)$ 相关的谱序列。其 $E_1$ 页为
+$$
+E_1^{p, q} = H_{- p - q}(\mathcal{C}_{B/A}, \mathcal{K}^p/\mathcal{K}^{p + 1})
+\quad\Rightarrow\quad
+H_{- p - q}(\mathcal{C}_{B/A}, \overline{\mathcal{O}}) = 
+\text{Tor}_{- p - q}^A(B, B)
+$$
+，微分为 $E_r^{p, q} \to E_r^{p + r, q - r + 1}$。为了证明收敛性，
+我们将证明：对每个 $k$，存在 $c$ 使得
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^n) = 0$
+对 $i < k$ 与 $n > c$ 成立\footnote{事后可以推出“正确的”消失：
+当 $i < n$ 时，$H_i(\mathcal{C}_{B/A}, \mathcal{K}^n) = 0$。}。
+
+\medskip\noindent
+给定 $k \geq 0$，令 $c = k^2$。我们断言
+$$
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) \to
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^n)
+$$
+对 $i < k$ 及一切 $n \geq 0$ 都是零。注意
+$\mathcal{K}^n/\mathcal{K}^{n + c}$ 有有限滤过，其相继商为
+$\mathcal{K}^m/\mathcal{K}^{m + 1}$（$n \leq m < n + c$），且当
+$i < n$ 时，
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^m/\mathcal{K}^{m + 1}) = 0$
+（见上文）。因此，该断言蕴含：对 $i < k$ 及一切 $n \geq k$，
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) = 0$，这正是我们需要证明的。
+
+\medskip\noindent
+证明该断言。回忆，对任一 $\mathcal{O}$-模 $\mathcal{F}$，态射
+$\mathcal{F} \to \mathcal{F} \otimes_\mathcal{O}^\mathbf{L} B$
+在施用 $L\pi_!$ 后诱导同构，参见引理
+\ref{cotangent-lemma-O-homology-B-homology}。考虑态射
+$$
+\mathcal{K}^{n + k} \otimes_\mathcal{O}^\mathbf{L} B
+\longrightarrow
+\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B
+$$
+我们断言，此态射在次数 $0, -1, \ldots, - k + 1$ 的上同调层上诱导零态射。
+若这一第二断言成立，则 $k$ 重复合
+$$
+\mathcal{K}^{n + c} \otimes_\mathcal{O}^\mathbf{L} B
+\longrightarrow
+\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B
+$$
+分解经过
+$\tau_{\leq -k}\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B$，从而当
+$i < k$ 时在 $H_i(\mathcal{C}_{B/A}, -) = L_i\pi_!( - )$ 上诱导零，
+参见《导出范畴》引理
+\ref{derived-lemma-trick-vanishing-composition}。由上面的评注，这意味着
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) \to
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^n)$
+同样为零，因而证明了第一个断言。
+
+\medskip\noindent
+证明第二个断言。该陈述是局部的，故可在上述对象
+$U = (P \to B)$ 上工作。我们必须证明态射
+$$
+\text{Tor}_i^P(B, K^{n + k}) \to \text{Tor}_i^P(B, K^n)
+$$
+当 $i < k$ 时为零。存在谱序列
+$$
+\text{Tor}_a^P(P/IP, \text{Tor}_b^{P/IP}(B, K^n))
+\Rightarrow
+\text{Tor}_{a + b}^P(B, K^n),
+$$
+，参见《代数续篇》例 \ref{more-algebra-example-tor-change-rings}。
+因此，只需证明态射
+$$
+\text{Tor}_i^{P/IP}(B, K^{n + 1}) \to \text{Tor}_i^{P/IP}(B, K^n)
+$$
+对一切 $i$ 都为零。这正是引理 \ref{cotangent-lemma-map-tors-zero}。
+\end{proof}
+
+\begin{remark}
+\label{cotangent-remark-elucidate-ss}
+在定理 \ref{cotangent-theorem-quillen-spectral-sequence} 的情形下，令
+$I = \Ker(A \to B)$。则
+$H^{-1}(L_{B/A}) = H_1(\mathcal{C}_{B/A}, \Omega) = I/I^2$，参见
+引理 \ref{cotangent-lemma-surjection}。因此由评注
+\ref{cotangent-remark-first-homology-symmetric-power}，
+$H_k(\mathcal{C}_{B/A}, \text{Sym}^k(\Omega)) = \wedge^k_B(I/I^2)$。
+于是 $E_1$ 页形如
+$$
+\begin{matrix}
+B \\
+0 \\
+0 & I/I^2 \\
+0 & H^{-2}(L_{B/A}) \\
+0 & H^{-3}(L_{B/A}) & \wedge^2(I/I^2) \\
+0 & H^{-4}(L_{B/A}) & H_3(\mathcal{C}_{B/A}, \text{Sym}^2(\Omega)) \\
+0 & H^{-5}(L_{B/A}) & H_4(\mathcal{C}_{B/A}, \text{Sym}^2(\Omega)) &
+\wedge^3(I/I^2)
+\end{matrix}
+$$
+，其微分沿水平方向。因此得到边缘态射
+$\text{Tor}_i^A(B, B) \to H^{-i}(L_{B/A})$（$i > 0$）及
+$\wedge^i_B(I/I^2) \to \text{Tor}_i^A(B, B)$。最后，
+$\text{Tor}_1^A(B, B) = I/I^2$，并且有五项正合列
+$$
+\text{Tor}_3^A(B, B) \to H^{-3}(L_{B/A}) \to \wedge^2_B(I/I^2) \to
+\text{Tor}_2^A(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+，它由低次数项组成。
+\end{remark}
+
+\begin{remark}
+\label{cotangent-remark-elucidate-degree-two}
+设 $A \to B$ 为环同态，$P_\bullet$ 为 $B$ 在 $A$ 上的预解
+（评注 \ref{cotangent-remark-resolution}）。令
+$J_n = \Ker(P_n \to B)$。注意到
+$$
+\text{Tor}_2^{P_n}(B, B) = 
+\text{Tor}_1^{P_n}(J_n, B) =
+\Ker(J_n \otimes_{P_n} J_n \to J_n^2).
+$$
+因此，由评注 \ref{cotangent-remark-surjection}，$H_2(L_{B/A})$ 典范地等于
+$$
+\Coker(\text{Tor}_2^{P_1}(B, B) \to \text{Tor}_2^{P_0}(B, B))
+$$
+。为使其更为明确，我们依照例 \ref{cotangent-example-resolution-length-two}
+选取 $P_2$、$P_1$、$P_0$。我们断言
+$$
+\text{Tor}_2^{P_1}(B, B) =
+\wedge^2(\bigoplus\nolimits_{t \in T} B)\ \oplus
+\ \bigoplus\nolimits_{t \in T} J_0\ \oplus
+\ \text{Tor}_2^{P_0}(B, B)
+$$
+确切地说，第一直和项的基元素 $x_t \wedge x_{t'}$ 对应于
+$J_1 \otimes_{P_1} J_1$ 的元素
+$x_t \otimes x_{t'} - x_{t'} \otimes x_t$。对 $f \in J_0$，
+第二直和项的元素 $x_t \otimes f$ 对应于
+$J_1 \otimes_{P_1} J_1$ 的元素
+$x_t \otimes s_0(f) - s_0(f) \otimes x_t$。最后，态射
+$\text{Tor}_2^{P_0}(B, B) \to \text{Tor}_2^{P_1}(B, B)$ 由 $s_0$ 给出。
+态射
+$d_0 - d_1 : \text{Tor}_2^{P_1}(B, B) \to \text{Tor}_2^{P_0}(B, B)$
+在最后一个直和项上为零，将 $x_t \otimes f$ 映到
+$f \otimes f_t - f_t \otimes f$，并将 $x_t \wedge x_{t'}$ 映到
+$f_t \otimes f_{t'} - f_{t'} \otimes f_t$。综上，我们推出有正合列
+$$
+\wedge^2_B(J_0/J_0^2) \to \text{Tor}_2^{P_0}(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+这样，我们便直接证明了评注 \ref{cotangent-remark-elucidate-ss}
+中所讨论的 Quillen 谱序列的一个推论。
+\end{remark}
+
+
+
+
+
+
+\section{与 Lichtenbaum--Schlessinger 复形的比较}
+\label{cotangent-section-compare-higher}
+
+\noindent
+设 $A \to B$ 为环同态。文献 \cite{Lichtenbaum-Schlessinger}
+对 $\tau_{\geq -2}L_{B/A}$ 给出了相当明确的刻画；它常用于计算奇点的
+半普遍形变空间。其构造如下。选取 $A$ 上的多项式代数 $P$ 以及核为
+$I$ 的满射 $P \to B$。选取 $I$ 的生成元 $f_t$（$t \in T$），
+从而诱导满射 $F = \bigoplus_{t \in T} P \to I$，其中 $F$ 是自由
+$P$-模。令 $Rel \subset F$ 为 $F \to I$ 的核；换言之，$Rel$ 是
+$f_t$ 之间的关系之集。令 $TrivRel \subset Rel$ 为平凡关系的子模，
+即 $Rel$ 中由元素
+$(\ldots, f_{t'}, 0, \ldots, 0, -f_t, 0, \ldots)$ 生成的子模。
+考虑 $B$-模复形
+\begin{equation}
+\label{cotangent-equation-lichtenbaum-schlessinger}
+Rel/TrivRel \longrightarrow
+F \otimes_P B \longrightarrow
+\Omega_{P/A} \otimes_P B
+\end{equation}
+，其中最后一项置于次数 $0$。第一个态射是显然的，第二个态射将对应于
+$t \in T$ 的基元素映到 $\text{d}f_t \otimes 1$。
+
+\begin{definition}
+\label{cotangent-definition-biderivation}
+设 $A \to B$ 为环同态，$M$ 为 $A$ 上的 $(B, B)$-双模。
+所谓 {\it $A$-双导子}，是指满足
+$\lambda(xy) = x\lambda(y) + \lambda(x)y$ 的 $A$-线性映射
+$\lambda : B \to M$。
+\end{definition}
+
+\noindent
+多项式代数上的双导子很容易描述。
+
+\begin{lemma}
+\label{cotangent-lemma-polynomial-ring-unique}
+设 $P = A[S]$ 为 $A$ 上的多项式环，$M$ 为 $A$ 上的 $(P, P)$-双模。
+给定每个 $s \in S$ 所对应的 $m_s \in M$，存在唯一的 $A$-双导子
+$\lambda : P \to M$，它将 $s$ 映到 $m_s$。
+\end{lemma}
+
+\begin{proof}
+我们在 $M$ 中令
+$$
+\lambda(s_1 \ldots s_t) =
+\sum s_1 \ldots s_{i - 1} m_{s_i} s_{i + 1} \ldots s_t
+$$
+。按 $A$-线性延拓便得到一个双导子。
+\end{proof}
+
+\noindent
+下面是比较陈述。读者也可参阅
+\cite[page 206, Proposition 12]{Andre-Homologie}，或参阅文献
+\cite{Doncel}；后者将复形 (\ref{cotangent-equation-lichtenbaum-schlessinger})
+扩充一项，并将比较推广到 $\tau_{\geq -3}$。
+
+\begin{lemma}
+\label{cotangent-lemma-compare-higher}
+在上述情形中，以 $L$ 表示复形
+(\ref{cotangent-equation-lichtenbaum-schlessinger})。在 $D(B)$ 中存在典范态射
+$L_{B/A} \to L$，它在 $D(B)$ 中诱导同构
+$\tau_{\geq -2}L_{B/A} \to L$。
+\end{lemma}
+
+\begin{proof}
+令 $P_\bullet \to B$ 为 $B$ 在 $A$ 上的预解（评注
+\ref{cotangent-remark-resolution}）。我们将 $L_{B/A}$ 与
+$\Omega_{P_\bullet/A} \otimes B$ 等同。为了构造该态射，需要作出若干选择。
+
+\medskip\noindent
+选取与给定态射 $P_0 \to B$ 和 $P \to B$ 相容的 $A$-代数同态
+$\psi : P_0 \to P$。
+
+\medskip\noindent
+对某个集合 $S$ 写成 $P_1 = A[S]$。对 $s \in S$，可写成
+$$
+\psi(d_0(s) - d_1(s)) = \sum p_{s, t} f_t
+$$
+，其中 $p_{s, t} \in P$。通过态射
+$(\psi \circ d_0, \psi \circ d_1)$，将
+$F = \bigoplus_{t \in T} P$ 视为 $(P_1, P_1)$-双模。
+由引理 \ref{cotangent-lemma-polynomial-ring-unique}，得到唯一的 $A$-双导子
+$\lambda : P_1 \to F$，它将 $s$ 映到坐标为 $p_{s,t}$ 的向量。
+按构造，复合
+$$
+P_1 \longrightarrow F \longrightarrow P
+$$
+将 $f \in P_1$ 映到 $\psi(d_0(f) - d_1(f))$，因为映射
+$f \mapsto \psi(d_0(f) - d_1(f))$ 是一个 $A$-双导子，且在生成元上
+与该复合一致。
+
+\medskip\noindent
+对 $g \in P_2$，我们断言
+$\lambda(d_0(g) - d_1(g) + d_2(g))$ 是 $Rel$ 的元素。事实上，由上一段
+最后的说明，它在 $P$ 中的像为
+$$
+\psi((d_0 - d_1)(d_0(g) - d_1(g) + d_2(g)))
+$$
+；由《单纯形》第 \ref{simplicial-section-complexes} 节，它为零）。
+% P11-E0030：冻结源在上一句末尾保留一个疑似无匹配的右圆括号。
+
+\medskip\noindent
+$\psi$ 的选择确定态射
+$$
+\text{d}\psi \otimes 1 :
+\Omega_{P_0/A} \otimes B
+\longrightarrow
+\Omega_{P/A} \otimes B
+$$
+将 $\lambda$ 与态射 $F \to F \otimes B$ 复合，得到通常的
+$A$-导子，因为 $F \otimes B$ 上的两个 $P_1$-模结构相同。因此
+$\lambda$ 确定态射
+$$
+\overline{\lambda} :
+\Omega_{P_1/A} \otimes B
+\longrightarrow
+F \otimes B
+$$
+最后，我们得到 $B$-线性态射
+$$
+q :
+\Omega_{P_2/A} \otimes B
+\longrightarrow
+Rel/TrivRel
+$$
+，它将 $\text{d}g$ 映到
+$\lambda(d_0(g) - d_1(g) + d_2(g))$ 在该商中的类。
+
+\medskip\noindent
+图
+$$
+\xymatrix{
+\Omega_{P_3/A} \otimes B \ar[r] \ar[d] &
+\Omega_{P_2/A} \otimes B \ar[r] \ar[d]_q &
+\Omega_{P_1/A} \otimes B \ar[r] \ar[d]_{\overline{\lambda}} &
+\Omega_{P_0/A} \otimes B \ar[d]_{\text{d}\psi \otimes 1} \\
+0 \ar[r] &
+Rel/TrivRel \ar[r] &
+F \otimes B \ar[r] &
+\Omega_{P/A} \otimes B
+}
+$$
+交换（计算从略），从而得到该引理的态射。由评注
+\ref{cotangent-remark-explicit-comparison-map} 和引理
+\ref{cotangent-lemma-relation-with-naive-cotangent-complex}，可见此态射诱导同构
+$H_1(L_{B/A}) \to H_1(L)$ 与 $H_0(L_{B/A}) \to H_0(L)$。
+
+\medskip\noindent
+还须证明态射 $L_{B/A} \to L$ 诱导同构
+$H_2(L_{B/A}) \to H_2(L)$。选取 $B$ 在 $A$ 上的预解，其中
+$P_0 = P = A[u_i]$，再依照例 \ref{cotangent-example-resolution-length-two}
+选取 $P_1$ 和 $P_2$。在评注 \ref{cotangent-remark-elucidate-degree-two}
+中，我们构造了正合列
+$$
+\wedge^2_B(J_0/J_0^2) \to \text{Tor}_2^{P_0}(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+，其中 $P_0 = P$ 且 $J_0 = \Ker(P \to B) = I$。利用短正合列
+$0 \to I \to P \to B \to 0$ 与
+$0 \to Rel \to F \to I \to 0$ 计算 Tor 群，得到
+$\text{Tor}_2^P(B, B) = \Ker(Rel \otimes B \to F \otimes B)$。
+在这一等同下，态射
+$\wedge^2_B(I/I^2) \to \text{Tor}_2^P(B, B)$ 的像恰好是
+$TrivRel \otimes B$ 的像。因此 $H_2(L_{B/A}) \cong H_2(L)$。
+
+\medskip\noindent
+最后还须核查，我们的态射 $L_{B/A} \to L$ 确实诱导上述同构。
+以下将直接使用例 \ref{cotangent-example-resolution-length-two} 及评注
+\ref{cotangent-remark-elucidate-degree-two}、\ref{cotangent-remark-surjection}
+中讨论的记号和结果，不再另行说明。在
+$\text{Tor}_2^{P_0}(B, B) = \Ker(I \otimes_P I \to I^2)$
+中选取元素 $\xi$。对某些 $h_{t',t} \in P$，写成
+$\xi = \sum h_{t', t}f_{t'} \otimes f_t$。沿上述正合列追踪可知，
+$\xi$ 对应于元素
+$r \in Rel \subset F = \bigoplus_{t \in T} P$ 在 $Rel \otimes B$
+中的像，其中第 $t$ 个坐标为
+$r_t = \sum_{t' \in T} h_{t', t}f_{t'}$。另一方面，$\xi$ 对应于
+$H_2(L_{B/A}) = H_2(\Omega)$ 的如下元素：在二重扩张
+$$
+0 \to
+\text{Tor}_2^\mathcal{O}(\underline{B}, \underline{B})
+\to 
+\mathcal{J} \otimes_\mathcal{O} \mathcal{J} \to \mathcal{J}
+\to
+\mathcal{J}/\mathcal{J}^2 \to 0
+$$
+下取 $\xi$ 的边界，再经
+$\text{d} : H_2(\mathcal{J}/\mathcal{J}^2) \to H_2(\Omega)$
+所得的像。我们计算该元素的相继超越映射。首先有
+$$
+\xi = (d_0 - d_1)(- \sum s_0(h_{t', t} f_{t'}) \otimes x_t)
+$$
+，接着有
+$$
+\sum s_0(h_{t', t} f_{t'}) x_t = d_0(v_r) - d_1(v_r) + d_2(v_r)
+$$
+，这是由于我们在例 \ref{cotangent-example-resolution-length-two} 中对变量 $v$
+所作的选择。可以选取上面的态射 $\lambda$，使
+$\lambda(u_i) = 0$ 且 $\lambda(x_t) = - e_t$，其中 $e_t \in F$
+表示对应于 $t \in T$ 的基向量。因此，上述态射 $q$ 的构造将
+$\text{d}v_r$ 映到
+$$
+\lambda(\sum s_0(h_{t', t} f_{t'}) x_t) =
+\sum\nolimits_t \left(\sum\nolimits_{t'} h_{t', t}f_{t'}\right) e_t
+$$
+，这与 $\xi$ 在 $Rel \otimes B$ 中的像相符（上面出现的两个负号相消）。
+这一相符性完成了证明。
+\end{proof}
+
+\begin{remark}[Lichtenbaum--Schlessinger 复形的函子性]
+\label{cotangent-remark-functoriality-lichtenbaum-schlessinger}
+考虑环同态的交换方块
+$$
+\xymatrix{
+A' \ar[r] & B' \\
+A \ar[u] \ar[r] & B \ar[u]
+}
+$$
+。选取分解
+$$
+\xymatrix{
+A' \ar[r] & P' \ar[r] & B' \\
+A \ar[u] \ar[r] & P \ar[u] \ar[r] & B \ar[u]
+}
+$$
+，其中 $P$ 是 $A$ 上的多项式代数，$P'$ 是 $A'$ 上的多项式代数。
+选取 $\Ker(P \to B)$ 的生成元 $f_t$（$t \in T$）。
+对 $t \in T$，以 $f'_t$ 表示 $f_t$ 在 $P'$ 中的像。选取
+$f'_s \in P'$，使得当 $t \in T' = T \amalg S$ 时，元素 $f'_t$
+生成 $P' \to B'$ 的核。令
+$F = \bigoplus_{t \in T} P$ 且
+$F' = \bigoplus_{t' \in T'} P'$。令
+$Rel = \Ker(F \to P)$ 与 $Rel' = \Ker(F' \to P')$，其中各坐标上的
+态射分别由乘以 $f_t$ 和 $f'_t$ 给出。最后，分别令 $TrivRel$ 与
+$TrivRel'$ 等于 $Rel$ 与 $TrivRel$ 中由元素
+% P11-E0031：冻结源把第二个承载子模写成 TrivRel，而不是 Rel'。
+$(\ldots, f_{t'}, 0, \ldots, 0, -f_t, 0, \ldots)$
+生成的子模，其中 $t,t'$ 分别取自 $T$ 与 $T'$。作出这些选择后，得到典范交换图
+$$
+\xymatrix{
+L' : &
+Rel'/TrivRel' \ar[r] &
+F' \otimes_{P'} B' \ar[r] &
+\Omega_{P'/A'} \otimes_{P'} B' \\
+L : \ar[u] &
+Rel/TrivRel \ar[r] \ar[u] &
+F \otimes_P B \ar[r] \ar[u] &
+\Omega_{P/A} \otimes_P B \ar[u]
+}
+$$
+此外，追踪引理 \ref{cotangent-lemma-compare-higher} 的证明中所作的选择，
+读者可见会得到交换图
+$$
+\xymatrix{
+L_{B'/A'} \ar[r] & L' \\
+L_{B/A} \ar[r] \ar[u] & L \ar[u]
+}
+$$
+\end{remark}
+
+
+
+
+
+\section{局部完全交的余切复形}
+\label{cotangent-section-lci}
+
+\noindent
+若 $A \to B$ 是局部完全交同态，则 $L_{B/A}$ 是完美复形。
+证明这一点的关键是下面的引理。
+
+\begin{lemma}
+\label{cotangent-lemma-special-case}
+设 $A = \mathbf{Z}[x_1, \ldots, x_n] \to B = \mathbf{Z}$ 为将
+$x_i$ 映到 $0$（$i = 1, \ldots, n$）的环同态。令
+$I = (x_1, \ldots, x_n) \subset A$。则 $L_{B/A}$ 与 $I/I^2[1]$
+拟同构。
+\end{lemma}
+
+\begin{proof}
+有若干种证明方法。例如，可以明确构造 $B$ 在 $A$ 上的预解并作计算。
+我们将使用 (\ref{cotangent-equation-triangle})。确切地说，考虑可区别三角
+$$
+L_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}
+\otimes_{\mathbf{Z}[x_1, \ldots, x_n]} \mathbf{Z} \to
+L_{\mathbf{Z}/\mathbf{Z}} \to
+L_{\mathbf{Z}/\mathbf{Z}[x_1, \ldots, x_n]}\to
+L_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}
+\otimes_{\mathbf{Z}[x_1, \ldots, x_n]} \mathbf{Z}[1]
+$$
+由引理 \ref{cotangent-lemma-cotangent-complex-polynomial-algebra}，复形
+$L_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}$ 与
+$\Omega_{\mathbf{Z}[x_1, \ldots, x_n]/\mathbf{Z}}$ 拟同构。
+由引理 \ref{cotangent-lemma-when-zero}，复形 $L_{\mathbf{Z}/\mathbf{Z}}$
+在 $D(\mathbf{Z})$ 中为零。因此，$L_{B/A}$ 只有一个非零上同调群；
+由引理 \ref{cotangent-lemma-surjection}，它正如引理中所描述。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-mod-regular-sequence}
+设 $A \to B$ 为满环同态，其核 $I$ 由 Koszul 正则序列（例如正则序列）
+生成。则 $L_{B/A}$ 与 $I/I^2[1]$ 拟同构。
+\end{lemma}
+
+\begin{proof}
+设 $f_1, \ldots, f_r \in I$ 是生成 $I$ 的 Koszul 正则序列。
+考虑将 $x_i$ 映到 $f_i$ 的环同态
+$\mathbf{Z}[x_1, \ldots, x_r] \to A$。由于
+$x_1, \ldots, x_r$ 是 $\mathbf{Z}[x_1, \ldots, x_r]$ 中的正则序列，
+可见 $x_1, \ldots, x_r$ 上的 Koszul 复形是
+$\mathbf{Z} = \mathbf{Z}[x_1, \ldots, x_r]/(x_1, \ldots, x_r)$
+在 $\mathbf{Z}[x_1, \ldots, x_r]$ 上的自由预解（参见《代数续篇》引理
+\ref{more-algebra-lemma-regular-koszul-regular}）。因此，
+$f_1, \ldots, f_r$ 为 Koszul 正则序列这一假设恰好意味着
+$B = A \otimes_{\mathbf{Z}[x_1, \ldots, x_r]}^\mathbf{L} \mathbf{Z}$。
+所以，由引理 \ref{cotangent-lemma-flat-base-change-cotangent-complex} 与
+\ref{cotangent-lemma-special-case}，
+$L_{B/A} = L_{\mathbf{Z}/\mathbf{Z}[x_1, \ldots, x_r]}
+\otimes_\mathbf{Z}^\mathbf{L} B$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-mod-Koszul-regular-ideal}
+设 $A \to B$ 为满环同态，其核 $I$ 是 Koszul 理想。
+则 $L_{B/A}$ 与 $I/I^2[1]$ 拟同构。
+\end{lemma}
+
+\begin{proof}
+在 $\Spec(A)$ 上局部地，理想 $I$ 由 Koszul 正则序列生成，参见
+《代数续篇》定义 \ref{more-algebra-definition-regular-ideal}。
+因此结论由引理 \ref{cotangent-lemma-flat-base-change-cotangent-complex} 得到。
+\end{proof}
+
+\begin{proposition}
+\label{cotangent-proposition-cotangent-complex-local-complete-intersection}
+设 $A \to B$ 为局部完全交同态。则 $L_{B/A}$ 是 Tor 振幅位于
+$[-1, 0]$ 的完美复形。
+\end{proposition}
+
+\begin{proof}
+选取核为 $J$ 的满射 $P = A[x_1, \ldots, x_n] \to B$。
+由引理 \ref{cotangent-lemma-relation-with-naive-cotangent-complex}，可见
+$J/J^2 \to \bigoplus B\text{d}x_i$ 与
+$\tau_{\geq -1}L_{B/A}$ 拟同构。注意 $J/J^2$ 是有限投射模
+（《代数续篇》引理
+\ref{more-algebra-lemma-quasi-regular-ideal-finite-projective}），
+故 $\tau_{\geq -1}L_{B/A}$ 是 Tor 振幅位于 $[-1, 0]$ 的完美复形。
+因此只须证明当 $i \not \in [-1, 0]$ 时 $H^i(L_{B/A}) = 0$。
+这由 (\ref{cotangent-equation-triangle})
+$$
+L_{P/A} \otimes_P^\mathbf{L} B \to L_{B/A} \to L_{B/P} \to
+L_{P/A} \otimes_P^\mathbf{L} B[1]
+$$
+及引理 \ref{cotangent-lemma-mod-Koszul-regular-ideal} 得到：除非
+$i \in \{-1, 0\}$，否则 $H^i(L_{B/P})$ 为零。（对左端项还使用了
+引理 \ref{cotangent-lemma-cotangent-complex-polynomial-algebra}。）
+\end{proof}
+
+
+
+
+
+
+
+
+\section{张量积与余切复形}
+\label{cotangent-section-tensor-product}
+
+\noindent
+设 $R$ 为环，$A$、$B$ 为 $R$-代数。本节讨论
+$L_{A \otimes_R B/R}$。我们所需的大部分信息都包含在下图中：
+\begin{equation}
+\label{cotangent-equation-tensor-product}
+\vcenter{
+\xymatrix{
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \ar[r] &
+L_{A \otimes_R B/B} \ar[r] &
+E \\
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \ar[r] \ar@{=}[u] &
+L_{A \otimes_R B/R} \ar[r] \ar[u] &
+L_{A \otimes_R B/A} \ar[u] \\
+ &
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \ar[u] \ar@{=}[r] &
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \ar[u]
+}
+}
+\end{equation}
+说明：中间一行是环同态 $R \to A \to A \otimes_R B$ 的基本三角
+(\ref{cotangent-equation-triangle})。中间一列是环同态
+$R \to B \to A \otimes_R B$ 的基本三角
+(\ref{cotangent-equation-triangle})。其次，$E$ 是 $D(A \otimes_R B)$ 中
+“嵌入”右上角的对象，也就是说，它使最上面一行和最右边一列都成为
+可区别三角。将《导出范畴》命题 \ref{derived-proposition-9}
+应用于左下方块（在缺失位置放置 $0$），可知这样的 $E$ 存在。
+更明确地说，例如可以把 $E$ 定义为复形态射
+$$
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \oplus
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B)
+\longrightarrow
+L_{A \otimes_R B/R}
+$$
+的锥（《导出范畴》定义 \ref{derived-definition-cone}），再应用 TR3
+得到以 $E$ 为靶的两个态射。在 Tor 独立的情形下，对象 $E$ 为零。
+
+\begin{lemma}
+\label{cotangent-lemma-tensor-product-tor-independent}
+若 $A$ 与 $B$ 是 Tor 独立的 $R$-代数，则
+(\ref{cotangent-equation-tensor-product}) 中的对象 $E$ 为零。在此情形下有
+$$
+L_{A \otimes_R B/R} =
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \oplus
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B)
+$$
+，它由 $A \otimes_R B$-模复形
+$L_{A/R} \otimes_R B \oplus L_{B/R} \otimes_R A $
+表示。
+\end{lemma}
+
+\begin{proof}
+前两个陈述直接由引理 \ref{cotangent-lemma-flat-base-change-cotangent-complex} 得到。
+最后一个陈述成立，是因为 $L_{A/R}$ 是自由 $A$-模的复形，故
+$L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B)$ 由
+$L_{A/R} \otimes_A (A \otimes_R B) = L_{A/R} \otimes_R B$
+表示。
+\end{proof}
+
+\noindent
+一般地，对象 $E$ 有如下性质。
+
+\begin{lemma}
+\label{cotangent-lemma-tensor-product}
+设 $R$ 为环，$A$、$B$ 为 $R$-代数。对象 $E$ 在
+(\ref{cotangent-equation-tensor-product}) 中满足
+$$
+H^i(E) =
+\left\{
+\begin{matrix}
+0 & \text{若} & i \geq -1 \\
+\text{Tor}_1^R(A, B) & \text{若} & i = -2
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+我们采用 $E$ 是态射
+$L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \to L_{A \otimes_R B/A}$
+之锥的描述。由引理 \ref{cotangent-lemma-compare-higher}，典范截断
+$\tau_{\geq -2}L_{B/R}$ 与 $\tau_{\geq -2}L_{A \otimes_R B/A}$
+由 Lichtenbaum--Schlessinger 复形
+(\ref{cotangent-equation-lichtenbaum-schlessinger}) 计算。这些同构与函子性相容
+（评注 \ref{cotangent-remark-functoriality-lichtenbaum-schlessinger}）。
+因此，本证明使用 Lichtenbaum--Schlessinger 复形。
+
+\medskip\noindent
+选取 $R$ 上的多项式代数 $P$ 和满射 $P \to B$。选取该满射之核的
+生成元 $f_t \in P$（$t \in T$）。令
+$Rel \subset F = \bigoplus_{t \in T} P$ 为态射 $F \to P$ 的核，
+该态射将对应于 $t$ 的基向量映到 $f_t$。令
+$P_A = A \otimes_R P$ 且
+$F_A = A \otimes_R F = P_A \otimes_P F$。令 $Rel_A$ 为
+$F_A \to P_A$ 的核。利用正合列
+$$
+0 \to Rel \to F \to P \to B \to 0
+$$
+及 Tor 的标准短正合列，得到正合列
+$$
+A \otimes_R Rel \to Rel_A \to \text{Tor}_1^R(A, B) \to 0
+$$
+注意 $P_A \to A \otimes_R B$ 是满射，其核由 $P_A$ 中的元素
+$1 \otimes f_t$ 生成。以 $TrivRel_A \subset Rel_A$ 表示由元素
+$(\ldots, 1 \otimes f_{t'}, 0, \ldots,
+0, - 1 \otimes f_t \otimes 1, 0, \ldots)$
+% P11-E0032：冻结源在上一坐标中保留疑似多余的 \otimes 1。
+生成的 $P_A$-子模。由于
+$TrivRel \otimes_R A \to TrivRel_A$ 是满射，得到典范正合列
+$$
+A \otimes_R (Rel/TrivRel) \to Rel_A/TrivRel_A \to \text{Tor}_1^R(A, B) \to 0
+$$
+Lichtenbaum--Schlessinger 复形之间的态射由下图给出：
+$$
+\xymatrix{
+Rel_A/TrivRel_A \ar[r] &
+F_A \otimes_{P_A} (A \otimes_R B) \ar[r] &
+\Omega_{P_A/A \otimes_R B} \otimes_{P_A} (A \otimes_R B) \\
+Rel/TrivRel \ar[r] \ar[u]_{-2} &
+F \otimes_P B \ar[r] \ar[u]_{-1} &
+\Omega_{P/A} \otimes_P B \ar[u]_0
+}
+$$
+% P11-E0033：冻结源在上图右上项保留与该复形基环不符的微分模下标。
+注意，对源施用函子 $A \otimes_R - = P_A \otimes_P -$ 后，纵向态射
+$-1$ 与 $-0$ 诱导同构，而纵向态射 $-2$ 恰好给出以上所见的那个态射，
+它的余核就是所需的 Tor 模。
+% P11-E0034：冻结源把图中标为 0 的纵向态射称作 -0。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{环同态的形变与余切复形}
+\label{cotangent-section-deformations}
+
+\noindent
+本节续接《形变理论》第 \ref{defos-section-deformations} 节，
+我们强烈建议读者先阅读该节。首先取满环同态 $A' \to A$，其核是平方为零的
+理想 $I$。再假设给定环同态 $A \to B$、$B$-模 $N$ 以及 $A$-模态射
+$c : I \to N$。本节要问的是，能否找到适合下图中问号位置的对象：
+\begin{equation}
+\label{cotangent-equation-to-solve}
+\vcenter{
+\xymatrix{
+0 \ar[r] & N \ar[r] & {?} \ar[r] & B \ar[r] & 0 \\
+0 \ar[r] & I \ar[u]^c \ar[r] & A' \ar[u] \ar[r] & A \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+并且还要问该解（若存在）在何种意义下唯一。更确切地说，我们寻找
+$A'$-代数的满射 $B' \to B$，其核为平方零理想并与 $N$ 等同，且
+$A' \to B'$ 诱导给定态射 $c$。我们称 $B'$ 是
+(\ref{cotangent-equation-to-solve}) 的一个{\it 解}。
+
+\begin{lemma}
+\label{cotangent-lemma-find-obstruction}
+在上述情形中，有：
+\begin{enumerate}
+\item 存在典范元素 $\xi \in \Ext^2_B(L_{B/A}, N)$；它为零是
+(\ref{cotangent-equation-to-solve}) 存在解的充分必要条件。
+\item 若存在解，则解的同构类之集在 $\Ext^1_B(L_{B/A}, N)$
+的作用下为主齐性空间。
+\item 给定一个解 $B'$，所有适合 (\ref{cotangent-equation-to-solve}) 的
+$B'$ 自同构之集典范同构于 $\Ext^0_B(L_{B/A}, N)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+借助等同 $\NL_{B/A} = \tau_{\geq -1}L_{B/A}$（引理
+\ref{cotangent-lemma-relation-with-naive-cotangent-complex}）与
+$H^0(L_{B/A}) = \Omega_{B/A}$（引理 \ref{cotangent-lemma-identify-H0}），
+我们已在《形变理论》引理 \ref{defos-lemma-huge-diagram} 与
+\ref{defos-lemma-choices} 中见过第 (2)、(3) 项。
+
+\medskip\noindent
+证明 (1)。粗略地说，将朴素余切复形替换为完整余切复形后，结论便由
+《形变理论》评注 \ref{defos-remark-parametrize-solutions} 中的讨论得到。
+下面给出更详细的说明。由《形变理论》引理
+\ref{defos-lemma-parametrize-solutions} 和评注
+\ref{defos-remark-parametrize-solutions}，存在元素
+$$
+\xi' \in
+\Ext^1_A(\NL_{A/A'}, N) =
+\Ext^1_B(\NL_{A/A'} \otimes_A^\mathbf{L} B, N) =
+\Ext^1_B(L_{A/A'} \otimes_A^\mathbf{L} B, N)
+$$
+（关于这些等号，参见《形变理论》评注
+\ref{defos-remark-parametrize-solutions}，并使用
+$\NL_{A'/A} = \tau_{\geq -1} L_{A'/A}$）
+% P11-E0035：冻结源在上一等式中把 A/A' 反写为 A'/A。
+，使得存在解当且仅当此元素属于态射
+$$
+\Ext^1_B(\NL_{B/A'}, N) = \Ext^1_B(L_{B/A'}, N)
+\longrightarrow
+\Ext^1_B(L_{A/A'} \otimes_A^\mathbf{L} B, N)
+$$
+的像。$A' \to A \to B$ 的可区别三角
+(\ref{cotangent-equation-triangle}) 给出长正合列
+$$
+\ldots \to
+\Ext^1_B(L_{B/A'}, N) \to
+\Ext^1_B(L_{A/A'} \otimes_A^\mathbf{L} B, N) \to
+\Ext^2_B(L_{B/A}, N) \to \ldots
+$$
+因此，取 $\xi$ 为 $\xi'$ 的像即可。
+\end{proof}
+
+
+
+
+
+\section{模的 Atiyah 类}
+\label{cotangent-section-atiyah}
+
+\noindent
+设 $A \to B$ 为环同态，$M$ 为 $B$-模。设 $P \to B$ 为
+$\mathcal{C}_{B/A}$ 的对象（第 \ref{cotangent-section-compute-L-pi-shriek} 节）。
+考虑主部的扩张
+$$
+0 \to \Omega_{P/A} \otimes_P M \to P^1_{P/A}(M) \to M \to 0
+$$
+，参见《代数》引理 \ref{algebra-lemma-sequence-of-principal-parts}。
+由《代数》评注 \ref{algebra-remark-functoriality-principal-parts}，
+此列对 $P$ 具有函子性。因此在 $\mathcal{C}_{B/A}$ 上得到
+$\mathcal{O}$-模层的短正合列
+$$
+0 \to \Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{M} \to
+P^1_{\mathcal{O}/\underline{A}}(M) \to \underline{M} \to 0
+$$
+。由引理 \ref{cotangent-lemma-pi-shriek-standard} 及 $L_{B/A}$ 各项的平坦性，有
+$L\pi_!(\Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{M})
+= L_{B/A} \otimes_B M = L_{B/A} \otimes_B^\mathbf{L} M$
+。由引理 \ref{cotangent-lemma-pi-lower-shriek-constant-sheaf}，有
+$L\pi_!(\underline{M}) = M$。因此得到可区别三角
+\begin{equation}
+\label{cotangent-equation-atiyah}
+L_{B/A} \otimes_B^\mathbf{L} M \to
+L\pi_!\left(P^1_{\mathcal{O}/\underline{A}}(M)\right) \to M
+\to L_{B/A} \otimes_B^\mathbf{L} M [1]
+\end{equation}
+；它位于 $D(B)$ 中。这里使用《站点上的上同调》评注
+\ref{sites-cohomology-remark-O-homology-B-homology-general}，
+以便在 $D(B)$ 中而不只是在 $D(A)$ 中得到可区别三角。
+
+\begin{definition}
+\label{cotangent-definition-atiyah-class}
+设 $A \to B$ 为环同态，$M$ 为 $B$-模。
+(\ref{cotangent-equation-atiyah}) 中的态射
+$M \to L_{B/A} \otimes_B^\mathbf{L} M[1]$
+称为 $M$ 的{\it Atiyah 类}。
+\end{definition}
+
+
+
+
+\section{余切复形}
+\label{cotangent-section-cotangent-complex}
+
+\noindent
+本节讨论站点上环层同态的余切复形。在后续各节中，我们将其特殊化，
+得到赋环拓扑斯态射、赋环空间态射、概形态射、代数空间态射等的余切复形。
+
+\medskip\noindent
+设 $\mathcal{C}$ 为站点，以 $\Sh(\mathcal{C})$ 表示相应的拓扑斯。
+设 $\mathcal{A}$ 为 $\mathcal{C}$ 上的环层，以
+$\mathcal{A}\textit{-Alg}$ 表示 $\mathcal{A}$-代数范畴。
+考虑一对伴随函子 $(U, V)$，其中
+$V : \mathcal{A}\textit{-Alg} \to \Sh(\mathcal{C})$ 是遗忘函子，而
+$U : \Sh(\mathcal{C}) \to \mathcal{A}\textit{-Alg}$ 将集合层
+$\mathcal{E}$ 送到 $\mathcal{A}$ 上以 $\mathcal{E}$ 为变量集的多项式代数
+$\mathcal{A}[\mathcal{E}]$。令 $X_\bullet$ 为
+$\text{Fun}(\mathcal{A}\textit{-Alg}, \mathcal{A}\textit{-Alg})$
+中的单纯形对象，它构造于《单纯形》第 \ref{simplicial-section-standard} 节。
+
+\medskip\noindent
+现在假设 $\mathcal{A} \to \mathcal{B}$ 是环层同态。于是
+$\mathcal{B}$ 是范畴 $\mathcal{A}\textit{-Alg}$ 的对象。以
+$\mathcal{P}_\bullet = X_\bullet(\mathcal{B})$ 表示所得的单纯形
+$\mathcal{A}$-代数。回忆
+$\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]$,
+$\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]]$，依此类推。
+还要回忆，存在增广
+$$
+\epsilon : \mathcal{P}_\bullet \longrightarrow \mathcal{B}
+$$
+，其中把 $\mathcal{B}$ 视为常值单纯形 $\mathcal{A}$-代数。
+
+\begin{definition}
+\label{cotangent-definition-standard-resolution-sheaves-rings}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为
+$\mathcal{C}$ 上的环层同态。$\mathcal{B}$ 在 $\mathcal{A}$ 上的
+{\it 标准预解}是增广
+$\epsilon : \mathcal{P}_\bullet \to \mathcal{B}$
+，其各项为
+$$
+\mathcal{P}_0 = \mathcal{A}[\mathcal{B}],\quad
+\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]],\quad \ldots
+$$
+，态射如上所构造。
+\end{definition}
+
+\noindent
+有了这一定义，环层同态的余切复形定义如下。我们将使用《站点上的模》
+第 \ref{sites-modules-section-differentials} 节中定义的微分模。
+
+\begin{definition}
+\label{cotangent-definition-cotangent-complex-morphism-sheaves-rings}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为
+$\mathcal{C}$ 上的环层同态。{\it 余切复形}
+$L_{\mathcal{B}/\mathcal{A}}$ 是与单纯形模
+$$
+\Omega_{\mathcal{P}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{P}_\bullet, \epsilon} \mathcal{B}
+$$
+相伴的 $\mathcal{B}$-模复形，其中
+$\epsilon : \mathcal{P}_\bullet \to \mathcal{B}$ 是
+$\mathcal{B}$ 在 $\mathcal{A}$ 上的标准预解。我们通常把
+$L_{\mathcal{B}/\mathcal{A}}$ 看作 $D(\mathcal{B})$ 的对象。
+\end{definition}
+
+\noindent
+这些构造满足与第 \ref{cotangent-section-functoriality} 节所讨论者类似的函子性。
+确切地说，给定 $\mathcal{C}$ 上环层的交换图
+\begin{equation}
+\label{cotangent-equation-commutative-square-sheaves}
+\vcenter{
+\xymatrix{
+\mathcal{B} \ar[r] & \mathcal{B}' \\
+\mathcal{A} \ar[u] \ar[r] & \mathcal{A}' \ar[u]
+}
+}
+\end{equation}
+，存在典范的 $\mathcal{B}$-线性复形态射
+$$
+L_{\mathcal{B}/\mathcal{A}} \longrightarrow L_{\mathcal{B}'/\mathcal{A}'}
+$$
+，其构造如下。若 $\mathcal{P}_\bullet \to \mathcal{B}$ 是
+$\mathcal{B}$ 在 $\mathcal{A}$ 上的标准预解，而
+$\mathcal{P}'_\bullet \to \mathcal{B}'$ 是
+$\mathcal{B}'$ 在 $\mathcal{A}'$ 上的标准预解，则存在单纯形
+$\mathcal{A}$-代数的典范态射
+$\mathcal{P}_\bullet \to \mathcal{P}'_\bullet$，它与增广
+$\mathcal{P}_\bullet \to \mathcal{B}$ 与
+$\mathcal{P}'_\bullet \to \mathcal{B}'$ 相容。态射
+$$
+\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]
+\longrightarrow
+\mathcal{A}'[\mathcal{B}'] = \mathcal{P}'_0,
+\quad
+\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]]
+\longrightarrow
+\mathcal{A}'[\mathcal{A}'[\mathcal{B}']] = \mathcal{P}'_1
+$$
+等由给定态射 $\mathcal{A} \to \mathcal{A}'$ 与
+$\mathcal{B} \to \mathcal{B}'$ 给出。所需态射
+$L_{\mathcal{B}/\mathcal{A}} \to L_{\mathcal{B}'/\mathcal{A}'}$
+便来自微分层上的相伴态射。
+
+\begin{lemma}
+\label{cotangent-lemma-pullback-cotangent-morphism-topoi}
+设 $f : \Sh(\mathcal{D}) \to \Sh(\mathcal{C})$ 为拓扑斯态射，
+$\mathcal{A} \to \mathcal{B}$ 为 $\mathcal{C}$ 上的环层同态。则
+$f^{-1}L_{\mathcal{B}/\mathcal{A}} = L_{f^{-1}\mathcal{B}/f^{-1}\mathcal{A}}$。
+\end{lemma}
+
+\begin{proof}
+图
+$$
+\xymatrix{
+\mathcal{A}\textit{-Alg} \ar[d]_{f^{-1}} \ar[r] &
+\Sh(\mathcal{C}) \ar@<1ex>[l] \ar[d]^{f^{-1}} \\
+f^{-1}\mathcal{A}\textit{-Alg} \ar[r] & \Sh(\mathcal{D}) \ar@<1ex>[l]
+}
+$$
+交换。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-compute-L-morphism-sheaves-rings}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为
+$\mathcal{C}$ 上的环层同态。则
+$H^i(L_{\mathcal{B}/\mathcal{A}})$ 是与预层
+$U \mapsto H^i(L_{\mathcal{B}(U)/\mathcal{A}(U)})$ 相伴的层。
+\end{lemma}
+
+\begin{proof}
+在 $\mathcal{C}$ 上赋予混沌拓扑（此时预层都是层），所得站点记为
+$\mathcal{C}'$。存在拓扑斯态射
+$f : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$，其中 $f_*$
+是层到预层的包含，而 $f^{-1}$ 是层化。由引理
+\ref{cotangent-lemma-pullback-cotangent-morphism-topoi}，只须对
+$\mathcal{C}'$ 证明结论，也就是只须处理 $\mathcal{C}$ 具有混沌拓扑的情形。
+
+\medskip\noindent
+若 $\mathcal{C}$ 带有混沌拓扑，则
+$L_{\mathcal{B}/\mathcal{A}}(U)$ 等于
+$L_{\mathcal{B}(U)/\mathcal{A}(U)}$，因为图
+$$
+\xymatrix{
+\mathcal{A}\textit{-Alg} \ar[d]_{\text{$U$ 上的截面}} \ar[r] &
+\Sh(\mathcal{C}) \ar@<1ex>[l] \ar[d]^{\text{$U$ 上的截面}} \\
+\mathcal{A}(U)\textit{-Alg} \ar[r] & \textit{Sets} \ar@<1ex>[l]
+}
+$$
+交换。
+\end{proof}
+
+\begin{remark}
+\label{cotangent-remark-map-sections-over-U}
+由引理 \ref{cotangent-lemma-compute-L-morphism-sheaves-rings} 的证明显然可知，
+对任意 $U \in \Ob(\mathcal{C})$，存在 $\mathcal{B}(U)$-模复形的典范态射
+$L_{\mathcal{B}(U)/\mathcal{A}(U)} \to L_{\mathcal{B}/\mathcal{A}}(U)$
+。此外，这些态射与限制态射相容，而复形
+$L_{\mathcal{B}/\mathcal{A}}$ 是规则
+$U \mapsto L_{\mathcal{B}(U)/\mathcal{A}(U)}$ 的层化。
+\end{remark}
+
+\begin{lemma}
+\label{cotangent-lemma-H0-L-morphism-sheaves-rings}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为
+$\mathcal{C}$ 上的环层同态。则
+$H^0(L_{\mathcal{B}/\mathcal{A}}) = \Omega_{\mathcal{B}/\mathcal{A}}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-compute-L-morphism-sheaves-rings}、
+\ref{cotangent-lemma-identify-H0} 及《站点上的模》引理
+\ref{sites-modules-lemma-differentials-sheafify} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-compute-L-product-sheaves-rings}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 与
+$\mathcal{A} \to \mathcal{B}'$ 为 $\mathcal{C}$ 上的环层同态。则
+$$
+L_{\mathcal{B} \times \mathcal{B}'/\mathcal{A}}
+\longrightarrow
+L_{\mathcal{B}/\mathcal{A}} \oplus L_{\mathcal{B}'/\mathcal{A}}
+$$
+在 $D(\mathcal{B} \times \mathcal{B}')$ 中是同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{cotangent-lemma-compute-L-morphism-sheaves-rings}，只须对环同态证明。
+对环而言，这正是引理 \ref{cotangent-lemma-cotangent-complex-product}。
+\end{proof}
+
+\noindent
+环层余切复形的基本三角是环同态情形之结果的直接推论。
+
+\begin{lemma}
+\label{cotangent-lemma-triangle-sheaves-rings}
+设 $\mathcal{D}$ 为站点，$\mathcal{A} \to \mathcal{B} \to \mathcal{C}$
+为 $\mathcal{D}$ 上的环层同态。存在典范可区别三角
+$$
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{C}
+\to L_{\mathcal{C}/\mathcal{A}} \to L_{\mathcal{C}/\mathcal{B}} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{C}[1]
+$$
+；它位于 $D(\mathcal{C})$ 中。
+\end{lemma}
+
+\begin{proof}
+我们将使用评注 \ref{cotangent-remark-triangle} 与 \ref{cotangent-remark-explicit-map}
+中描述的方法构造该三角，并直接使用其中提到的结果。依照这些评注，
+先在 $\mathcal{B} \to \mathcal{C}$ 是环层单射的情形下构造三角。
+在此情形下，令
+\begin{enumerate}
+\item $\mathcal{P}_\bullet$ 为 $\mathcal{B}$ 在 $\mathcal{A}$ 上的标准预解；
+\item $\mathcal{Q}_\bullet$ 为 $\mathcal{C}$ 在 $\mathcal{A}$ 上的标准预解；
+\item $\mathcal{R}_\bullet$ 为 $\mathcal{C}$ 在 $\mathcal{B}$ 上的标准预解；
+\item $\mathcal{S}_\bullet$ 为 $\mathcal{B}$ 在 $\mathcal{B}$ 上的标准预解；
+\item $\overline{\mathcal{Q}}_\bullet =
+\mathcal{Q}_\bullet \otimes_{\mathcal{P}_\bullet} \mathcal{B}$；并且
+\item $\overline{\mathcal{R}}_\bullet =
+\mathcal{R}_\bullet \otimes_{\mathcal{S}_\bullet} \mathcal{B}$。
+\end{enumerate}
+所求可区别三角是与单纯形 $\mathcal{C}$-模的短正合列
+$$
+0 \to
+\Omega_{\mathcal{P}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{P}_\bullet} \mathcal{C} \to
+\Omega_{\mathcal{Q}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{Q}_\bullet} \mathcal{C} \to
+\Omega_{\overline{\mathcal{Q}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{Q}}_\bullet} \mathcal{C} \to 0
+$$
+相伴的可区别三角。前两项等于引理陈述中三角的前两项。
+将最后一项与 $L_{\mathcal{C}/\mathcal{B}}$ 等同，使用复形的拟同构
+$$
+L_{\mathcal{C}/\mathcal{B}} =
+\Omega_{\mathcal{R}_\bullet/\mathcal{B}}
+\otimes_{\mathcal{R}_\bullet} \mathcal{C}
+\longrightarrow
+\Omega_{\overline{\mathcal{R}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{R}}_\bullet} \mathcal{C}
+\longleftarrow
+\Omega_{\overline{\mathcal{Q}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{Q}}_\bullet} \mathcal{C}
+$$
+上述所有构造都可以先在预层层次完成，再进行层化。因此，要证明列正合，
+或证明态射是拟同构，只须对环同态
+% P11-E0036：冻结源英文把复数主语 maps 误写为单数 map。
+$\mathcal{A}(U) \to \mathcal{B}(U) \to \mathcal{C}(U)$
+证明相应陈述；这些结论已经知道。这样便完成了
+$\mathcal{B} \to \mathcal{C}$ 为单射时的证明。
+
+\medskip\noindent
+一般地，必要时以 $\mathcal{B} \times \mathcal{C}$ 替换
+$\mathcal{C}$，从而归约到 $\mathcal{B} \to \mathcal{C}$ 为单射的情形。
+由评注 \ref{cotangent-remark-triangle} 中的论证和引理
+\ref{cotangent-lemma-compute-L-product-sheaves-rings}，这是可行的。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-stalk-cotangent-complex}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为
+$\mathcal{C}$ 上的环层同态。若 $p$ 是 $\mathcal{C}$ 的点，则
+$(L_{\mathcal{B}/\mathcal{A}})_p = L_{\mathcal{B}_p/\mathcal{A}_p}$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{cotangent-lemma-pullback-cotangent-morphism-topoi} 的特殊情形。
+\end{proof}
+
+\noindent
+关于朴素余切复形的构造及其性质，参见《站点上的模》
+第 \ref{sites-modules-section-netherlander} 节。
+
+\begin{lemma}
+\label{cotangent-lemma-compare-cotangent-complex-with-naive}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为
+$\mathcal{C}$ 上的环层同态。存在典范态射
+$L_{\mathcal{B}/\mathcal{A}} \to \NL_{\mathcal{B}/\mathcal{A}}$
+，它将朴素余切复形与截断
+$\tau_{\geq -1}L_{\mathcal{B}/\mathcal{A}}$ 等同。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{P}_\bullet$ 为 $\mathcal{B}$ 在 $\mathcal{A}$ 上的标准预解，
+并令 $\mathcal{I} = \Ker(\mathcal{A}[\mathcal{B}] \to \mathcal{B})$。
+回忆 $\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]$。该引理中的态射
+由交换图
+$$
+\xymatrix{
+L_{\mathcal{B}/\mathcal{A}} \ar[d] & \ldots \ar[r] &
+\Omega_{\mathcal{P}_2/\mathcal{A}} \otimes_{\mathcal{P}_2} \mathcal{B}
+\ar[r] \ar[d] &
+\Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}
+\ar[r] \ar[d] &
+\Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}
+\ar[d] \\
+\NL_{\mathcal{B}/\mathcal{A}} & \ldots \ar[r] &
+0 \ar[r] & 
+\mathcal{I}/\mathcal{I}^2 \ar[r] &
+\Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}
+}
+$$
+给出。我们将局部截面 $\text{d}f \otimes b$ 映到
+$(d_0(f) - d_1(f))b$ 在 $\mathcal{I}/\mathcal{I}^2$ 中的类，
+由此构造以 $\mathcal{I}/\mathcal{I}^2$ 为靶的向下箭头。
+这里 $d_i : \mathcal{P}_1 \to \mathcal{P}_0$（$i = 0, 1$）
+是单纯形结构的两个面态射。这是有意义的，因为 $d_0-d_1$ 将
+$\mathcal{P}_1$ 映入
+$\mathcal{I} = \Ker(\mathcal{P}_0 \to \mathcal{B})$。
+此规则良定义的验证从略。我们的态射与微分
+$\Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}
+\to \Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}$
+相容，因为该微分将局部截面 $\text{d}f \otimes b$ 映到
+$\text{d}(d_0(f) - d_1(f)) \otimes b$。此外，微分
+$\Omega_{\mathcal{P}_2/\mathcal{A}} \otimes_{\mathcal{P}_2} \mathcal{B}
+\to \Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}$
+将局部截面 $\text{d}f \otimes b$ 映到
+$\text{d}(d_0(f) - d_1(f) + d_2(f)) \otimes b$，后者被我们的向下箭头
+消去。因此得到了复形态射。
+
+\medskip\noindent
+为了证明我们的态射在上同调层 $H^0$ 与 $H^{-1}$ 上诱导同构，
+作如下论证。令 $\mathcal{C}'$ 为与 $\mathcal{C}$ 具有相同底范畴、
+但赋予混沌拓扑的站点。令
+$f : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$ 为拉回函子是层化的
+拓扑斯态射。把给定态射 $\mathcal{A}' \to \mathcal{B}'$
+看作 $\mathcal{C}'$ 上的环层同态。上述构造在 $\mathcal{C}'$ 上给出态射
+$L_{\mathcal{B}'/\mathcal{A}'} \to \NL_{\mathcal{B}'/\mathcal{A}'}$，
+它在 $\mathcal{C}'$ 任一对象 $U$ 上的值正是态射
+$$
+L_{\mathcal{B}(U)/\mathcal{A}(U)} \to \NL_{\mathcal{B}(U)/\mathcal{A}(U)}
+$$
+；这是评注 \ref{cotangent-remark-explicit-comparison-map} 中的态射，并在
+$H^0$ 与 $H^{-1}$ 上诱导同构。由于
+$f^{-1}L_{\mathcal{B}'/\mathcal{A}'} = L_{\mathcal{B}/\mathcal{A}}$
+（引理 \ref{cotangent-lemma-pullback-cotangent-morphism-topoi}），且
+$f^{-1}\NL_{\mathcal{B}'/\mathcal{A}'} = \NL_{\mathcal{B}/\mathcal{A}}$
+（《站点上的模》引理 \ref{sites-modules-lemma-pullback-NL}），
+该引理得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{模层的 Atiyah 类}
+\label{cotangent-section-atiyah-general}
+
+\noindent
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为环层同态，
+$\mathcal{F}$ 为 $\mathcal{B}$-模层。令
+$\mathcal{P}_\bullet \to \mathcal{B}$ 为 $\mathcal{B}$ 在
+$\mathcal{A}$ 上的标准预解（第 \ref{cotangent-section-cotangent-complex} 节）。
+对每个 $n \geq 0$，考虑主部的扩张
+\begin{equation}
+\label{cotangent-equation-atiyah-extension}
+0 \to
+\Omega_{\mathcal{P}_n/\mathcal{A}} \otimes_{\mathcal{P}_n} \mathcal{F} \to
+\mathcal{P}^1_{\mathcal{P}_n/\mathcal{A}}(\mathcal{F}) \to
+\mathcal{F} \to 0
+\end{equation}
+，参见《站点上的模》引理
+\ref{sites-modules-lemma-sequence-of-principal-parts}。此构造的函子性
+（《站点上的模》评注
+\ref{sites-modules-remark-functoriality-principal-parts}）告诉我们，
+(\ref{cotangent-equation-atiyah-extension}) 是单纯形
+$\mathcal{P}_\bullet$-模短正合列的第 $n$ 次部分（《站点上的上同调》
+第 \ref{sites-cohomology-section-simplicial-modules} 节）。
+使用《站点上的上同调》评注
+\ref{sites-cohomology-remark-homology-augmentation} 中的函子
+$L\pi_! : D(\mathcal{P}_\bullet) \to D(\mathcal{B})$
+（这里使用 $\mathcal{P}_\bullet \to \mathcal{A}$ 是预解），
+% P11-E0037：冻结源把标准预解的增广靶写成 A，而不是 B。
+得到可区别三角
+\begin{equation}
+\label{cotangent-equation-atiyah-general}
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F} \to
+L\pi_!\left(\mathcal{P}^1_{\mathcal{P}_\bullet/\mathcal{A}}(\mathcal{F})\right)
+\to \mathcal{F} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F} [1]
+\end{equation}
+；它位于 $D(\mathcal{B})$ 中。
+
+\begin{definition}
+\label{cotangent-definition-atiyah-class-general}
+设 $\mathcal{C}$ 为站点，$\mathcal{A} \to \mathcal{B}$ 为环层同态，
+$\mathcal{F}$ 为 $\mathcal{B}$-模层。
+(\ref{cotangent-equation-atiyah-general}) 中的态射 $\mathcal{F} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F}[1]$
+称为 $\mathcal{F}$ 的{\it Atiyah 类}。
+\end{definition}
+
+
+
+
+
+
+
+
+
+\section{赋环空间态射的余切复形}
+\label{cotangent-section-cotangent-morphism-ringed-spaces}
+
+\noindent
+赋环空间态射的余切复形用上面定义的余切复形来定义。
+
+\begin{definition}
+\label{cotangent-definition-cotangent-complex-morphism-ringed-spaces}
+设 $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ 为赋环空间态射。
+$f$ 的{\it 余切复形} $L_f$ 是
+$L_f = L_{\mathcal{O}_X/f^{-1}\mathcal{O}_S}$。
+我们也使用记号
+$L_f = L_{X/S} = L_{\mathcal{O}_X/\mathcal{O}_S}$。
+\end{definition}
+
+\noindent
+更确切地说，这意味着考虑环层同态
+$f^\sharp : f^{-1}\mathcal{O}_S \to \mathcal{O}_X$ 的余切复形
+（定义 \ref{cotangent-definition-cotangent-complex-morphism-sheaves-rings}）；
+这些环层位于拓扑空间 $X$ 所对应的站点上（《站点》例
+\ref{sites-example-site-topological}）。
+
+\begin{lemma}
+\label{cotangent-lemma-H0-L-morphism-ringed-spaces}
+设 $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ 为赋环空间态射。
+则 $H^0(L_{X/S}) = \Omega_{X/S}$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{cotangent-lemma-H0-L-morphism-sheaves-rings} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-triangle-ringed-spaces}
+设 $f : X \to Y$ 与 $g : Y \to Z$ 为赋环空间态射。则存在典范可区别三角
+$$
+Lf^* L_{Y/Z} \to L_{X/Z} \to L_{X/Y} \to Lf^*L_{Y/Z}[1]
+$$
+；它位于 $D(\mathcal{O}_X)$ 中。
+\end{lemma}
+
+\begin{proof}
+令 $h = g \circ f$，于是
+$h^{-1}\mathcal{O}_Z = f^{-1}g^{-1}\mathcal{O}_Z$。由引理
+\ref{cotangent-lemma-pullback-cotangent-morphism-topoi}，有
+$f^{-1}L_{Y/Z} = L_{f^{-1}\mathcal{O}_Y/h^{-1}\mathcal{O}_Z}$
+，且这是平坦 $f^{-1}\mathcal{O}_Y$-模的复形。因此，上述可区别三角
+是引理 \ref{cotangent-lemma-triangle-sheaves-rings} 中可区别三角的一个实例，
+其中 $\mathcal{A} = h^{-1}\mathcal{O}_Z$、
+$\mathcal{B} = f^{-1}\mathcal{O}_Y$，且 $\mathcal{C} = \mathcal{O}_X$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-compare-cotangent-complex-with-naive-ringed-spaces}
+设 $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ 为赋环空间态射。
+存在典范态射 $L_{X/Y} \to \NL_{X/Y}$，它将朴素余切复形与截断
+$\tau_{\geq -1}L_{X/Y}$ 等同。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{cotangent-lemma-compare-cotangent-complex-with-naive} 的特殊情形。
+\end{proof}
+
+
+
+
+
+
+\section{赋环空间的形变与余切复形}
+\label{cotangent-section-deformations-ringed-spaces}
+
+\noindent
+本节续接《形变理论》第
+\ref{defos-section-deformations-ringed-spaces} 节，我们强烈建议读者先阅读该节。
+先简要回顾设置。给定赋环空间的一阶加厚
+$t : (S, \mathcal{O}_S) \to (S', \mathcal{O}_{S'})$，其中
+$\mathcal{J} = \Ker(t^\sharp)$；给定赋环空间态射
+$f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$、$\mathcal{O}_X$-模
+$\mathcal{G}$，以及模层的 $f$-态射
+$c : \mathcal{J} \to \mathcal{G}$。我们要问的是，能否找到适合下图问号位置的对象：
+\begin{equation}
+\label{cotangent-equation-to-solve-ringed-spaces}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & \mathcal{J} \ar[u]^c \ar[r] & \mathcal{O}_{S'} \ar[u] \ar[r] &
+\mathcal{O}_S \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+并且还要问该解（若存在）在何种意义下唯一。更确切地说，我们寻找一阶加厚
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+和《形变理论》方程 (\ref{defos-equation-morphism-thickenings})
+中的加厚态射 $(f, f')$，其中 $\Ker(i^\sharp)$ 与 $\mathcal{G}$ 等同，
+且 $(f')^\sharp$ 诱导给定态射 $c$。我们称 $X'$ 是
+(\ref{cotangent-equation-to-solve-ringed-spaces}) 的一个{\it 解}。
+
+\begin{lemma}
+\label{cotangent-lemma-find-obstruction-ringed-spaces}
+在上述情形中，有：
+\begin{enumerate}
+\item 存在典范元素
+$\xi \in \Ext^2_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$
+；它为零是 (\ref{cotangent-equation-to-solve-ringed-spaces}) 存在解的充分必要条件。
+\item 若存在解，则解的同构类之集在
+$\Ext^1_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$ 的作用下为主齐性空间。
+\item 给定一个解 $X'$，所有适合
+(\ref{cotangent-equation-to-solve-ringed-spaces}) 的 $X'$ 自同构之集典范同构于
+$\Ext^0_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+借助等同 $\NL_{X/S} = \tau_{\geq -1}L_{X/S}$（引理
+\ref{cotangent-lemma-compare-cotangent-complex-with-naive-ringed-spaces}）与
+$H^0(L_{X/S}) = \Omega_{X/S}$（引理
+\ref{cotangent-lemma-H0-L-morphism-ringed-spaces}），我们已在《形变理论》引理
+\ref{defos-lemma-huge-diagram-ringed-spaces} 与
+\ref{defos-lemma-choices-ringed-spaces} 中见过第 (2)、(3) 项。
+
+\medskip\noindent
+证明 (1)。粗略地说，将朴素余切复形替换为完整余切复形后，结论便由
+《形变理论》评注 \ref{defos-remark-parametrize-solutions-ringed-spaces}
+中的讨论得到。下面给出更详细的说明。由《形变理论》引理
+\ref{defos-lemma-parametrize-solutions-ringed-spaces}，存在元素
+$$
+\xi' \in
+\Ext^1_{\mathcal{O}_X}(Lf^*\NL_{S/S'}, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/S'}, \mathcal{G})
+$$
+，使得存在解当且仅当此元素属于态射
+$$
+\Ext^1_{\mathcal{O}_X}(NL_{X/S'}, \mathcal{G}) =
+% P11-E0038：冻结源在上一项用普通字母 NL，而不是本章宏 \NL。
+\Ext^1_{\mathcal{O}_X}(L_{X/S'}, \mathcal{G})
+\longrightarrow
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/S'}, \mathcal{G})
+$$
+的像。引理 \ref{cotangent-lemma-triangle-ringed-spaces} 中
+$X \to S \to S'$ 的可区别三角给出长正合列
+$$
+\ldots \to
+\Ext^1_{\mathcal{O}_X}(L_{X/S'}, \mathcal{G}) \to
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/S'}, \mathcal{G}) \to
+\Ext^2_{\mathcal{O}_X}(L_{X/S}, \mathcal{G}) \to \ldots
+$$
+因此，取 $\xi$ 为 $\xi'$ 的像即可。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{赋环拓扑斯态射的余切复形}
+\label{cotangent-section-cotangent-morphism-ringed-topoi}
+
+\noindent
+赋环拓扑斯态射的余切复形用上面定义的余切复形来定义。
+
+\begin{definition}
+\label{cotangent-definition-cotangent-complex-morphism-ringed-topoi}
+设 $(f, f^\sharp) : (\Sh(\mathcal{C}), \mathcal{O}_\mathcal{C}) \to
+(\Sh(\mathcal{D}), \mathcal{O}_\mathcal{D})$ 为赋环拓扑斯态射。
+$f$ 的{\it 余切复形} $L_f$ 是
+$L_f = L_{\mathcal{O}_\mathcal{C}/f^{-1}\mathcal{O}_\mathcal{D}}$。
+有时也写作 $L_f = L_{\mathcal{O}_\mathcal{C}/\mathcal{O}_\mathcal{D}}$。
+\end{definition}
+
+\noindent
+此定义适用于许多情形，但并不总能给出预期的对象。例如，若
+$f : X \to Y$ 是概形态射，则 $f$ 诱导大 \'etale 站点的态射
+$f_{big} : (\Sch/X)_\etale \to (\Sch/Y)_\etale$
+，后者是赋环拓扑斯态射（《下降》评注
+\ref{descent-remark-change-topologies-ringed}）。然而，由于
+$(f_{big})^\sharp$ 是同构，$L_{f_{big}} = 0$。另一方面，若在把 $f$
+看作底层 Zariski 赋环拓扑斯之间态射的意义下取 $L_f$，那么 $L_f$
+确实与余切复形 $L_{X/Y}$（定义见下文）一致，其零次上同调层为
+$\Omega_{X/Y}$。
+
+\begin{lemma}
+\label{cotangent-lemma-H0-L-morphism-ringed-topoi}
+设 $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ 为赋环拓扑斯态射。
+则 $H^0(L_f) = \Omega_f$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{cotangent-lemma-H0-L-morphism-sheaves-rings} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-triangle-ringed-topoi}
+设 $f : (\Sh(\mathcal{C}_1), \mathcal{O}_1) \to
+(\Sh(\mathcal{C}_2), \mathcal{O}_2)$ 与
+$g : (\Sh(\mathcal{C}_2), \mathcal{O}_2) \to
+(\Sh(\mathcal{C}_3), \mathcal{O}_3)$ 为赋环拓扑斯态射。
+则存在典范可区别三角
+$$
+Lf^* L_g \to L_{g \circ f} \to L_f \to Lf^*L_g[1]
+$$
+；它位于 $D(\mathcal{O}_1)$ 中。
+\end{lemma}
+
+\begin{proof}
+令 $h = g \circ f$，于是
+$h^{-1}\mathcal{O}_3 = f^{-1}g^{-1}\mathcal{O}_3$。由引理
+\ref{cotangent-lemma-pullback-cotangent-morphism-topoi}，有
+$f^{-1}L_g = L_{f^{-1}\mathcal{O}_2/h^{-1}\mathcal{O}_3}$
+，且这是平坦 $f^{-1}\mathcal{O}_2$-模的复形。因此，上述可区别三角
+是引理 \ref{cotangent-lemma-triangle-sheaves-rings} 中可区别三角的一个实例，
+其中 $\mathcal{A} = h^{-1}\mathcal{O}_3$、
+$\mathcal{B} = f^{-1}\mathcal{O}_2$，且 $\mathcal{C} = \mathcal{O}_1$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-compare-cotangent-complex-with-naive-ringed-topoi}
+设 $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ 为赋环拓扑斯态射。
+存在典范态射 $L_f \to \NL_f$，它将朴素余切复形与截断
+$\tau_{\geq -1}L_f$ 等同。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{cotangent-lemma-compare-cotangent-complex-with-naive} 的特殊情形。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{赋环拓扑斯的形变与余切复形}
+\label{cotangent-section-deformations-ringed-topoi}
+
+\noindent
+本节续接《形变理论》第
+\ref{defos-section-deformations-ringed-topoi} 节，我们强烈建议读者先阅读该节。
+先简要回顾设置。给定赋环拓扑斯的一阶加厚
+$t : (\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \to
+(\Sh(\mathcal{B}'), \mathcal{O}_{\mathcal{B}'})$，其中
+$\mathcal{J} = \Ker(t^\sharp)$；给定赋环拓扑斯态射
+$f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$、$\mathcal{O}$-模
+$\mathcal{G}$，以及 $f^{-1}\mathcal{O}_\mathcal{B}$-模层的态射
+$f^{-1}\mathcal{J} \to \mathcal{G}$。我们要问的是，能否找到适合下图问号位置的对象：
+\begin{equation}
+\label{cotangent-equation-to-solve-ringed-topoi}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O} \ar[r] & 0 \\
+0 \ar[r] & f^{-1}\mathcal{J} \ar[u]^c \ar[r] &
+f^{-1}\mathcal{O}_{\mathcal{B}'} \ar[u] \ar[r] &
+f^{-1}\mathcal{O}_\mathcal{B} \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+并且还要问该解（若存在）在何种意义下唯一。更确切地说，我们寻找一阶加厚
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{C}'), \mathcal{O}')$
+和《形变理论》方程
+(\ref{defos-equation-morphism-thickenings-ringed-topoi}) 中的加厚态射
+$(f,f')$，其中 $\Ker(i^\sharp)$ 与 $\mathcal{G}$ 等同，且
+$(f')^\sharp$ 诱导给定态射 $c$。我们称
+$(\Sh(\mathcal{C}'), \mathcal{O}')$ 是
+(\ref{cotangent-equation-to-solve-ringed-topoi}) 的一个{\it 解}。
+
+\begin{lemma}
+\label{cotangent-lemma-find-obstruction-ringed-topoi}
+在上述情形中，有：
+\begin{enumerate}
+\item 存在典范元素
+$\xi \in \Ext^2_\mathcal{O}(L_f, \mathcal{G})$
+；它为零是 (\ref{cotangent-equation-to-solve-ringed-topoi}) 存在解的充分必要条件。
+\item 若存在解，则解的同构类之集在
+$\Ext^1_\mathcal{O}(L_f, \mathcal{G})$ 的作用下为主齐性空间。
+\item 给定一个解 $X'$，所有适合
+(\ref{cotangent-equation-to-solve-ringed-topoi}) 的 $X'$ 自同构之集典范同构于
+$\Ext^0_\mathcal{O}(L_f, \mathcal{G})$。
+% P11-E0039：冻结源在拓扑斯情形中沿用了未定义的 X' 记号。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+借助等同 $\NL_f = \tau_{\geq -1}L_f$（引理
+\ref{cotangent-lemma-compare-cotangent-complex-with-naive-ringed-topoi}）与
+$H^0(L_f) = \Omega_f$（引理 \ref{cotangent-lemma-H0-L-morphism-ringed-topoi}），
+我们已在《形变理论》引理 \ref{defos-lemma-huge-diagram-ringed-topoi}
+与 \ref{defos-lemma-choices-ringed-topoi} 中见过第 (2)、(3) 项。
+
+\medskip\noindent
+证明 (1)。为使记号与《形变理论》第
+\ref{defos-section-deformations-ringed-topoi} 节一致，我们写
+$\NL_f = \NL_{\mathcal{O}/\mathcal{O}_\mathcal{B}}$ 及
+$L_f = L_{\mathcal{O}/\mathcal{O}_\mathcal{B}}$，并对态射 $t$ 与
+$t \circ f$ 使用类似记号。由《形变理论》引理
+\ref{defos-lemma-parametrize-solutions-ringed-topoi}，存在元素
+$$
+\xi' \in
+\Ext^1_\mathcal{O}(
+Lf^*\NL_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G}) =
+\Ext^1_\mathcal{O}(
+Lf^*L_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+$$
+，使得存在解当且仅当此元素属于态射
+$$
+\Ext^1_\mathcal{O}(
+\NL_{\mathcal{O}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G}) =
+\Ext^1_\mathcal{O}(
+L_{\mathcal{O}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+\longrightarrow
+\Ext^1_\mathcal{O}(
+Lf^*L_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+$$
+的像。引理 \ref{cotangent-lemma-triangle-ringed-topoi} 中 $f$ 与 $t$
+的可区别三角给出长正合列
+$$
+\ldots \to
+\Ext^1_\mathcal{O}(
+L_{\mathcal{O}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G}) \to
+\Ext^1_\mathcal{O}(
+Lf^*L_{\mathcal{O}_\mathcal{B}/\mathcal{O}_{\mathcal{B}'}}, \mathcal{G})
+\to
+\Ext^1_\mathcal{O}(
+L_{\mathcal{O}/\mathcal{O}_\mathcal{B}}, \mathcal{G})
+% P11-E0040：冻结源把障碍项的次数写成 Ext^1，而不是 Ext^2。
+$$
+因此，取 $\xi$ 为 $\xi'$ 的像即可。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{概形态射的余切复形}
+\label{cotangent-section-cotangent-morphism-schemes}
+
+\noindent
+如上所述，我们如下定义概形态射的余切复形。
+
+\begin{definition}
+\label{cotangent-definition-cotangent-morphism-schemes}
+设 $f : X \to Y$ 为概形态射。$X$ 在 $Y$ 上的{\it 余切复形
+$L_{X/Y}$} 是把 $f$ 视为赋环空间态射时的余切复形
+（定义 \ref{cotangent-definition-cotangent-complex-morphism-ringed-spaces}）。
+\end{definition}
+
+\noindent
+特别地，第 \ref{cotangent-section-cotangent-morphism-ringed-spaces} 节的结果
+适用于概形态射的余切复形。下一个引理表明，此定义与环同态的定义相容，
+并且还蕴含 $L_{X/Y}$ 是 $D_\QCoh(\mathcal{O}_X)$ 的对象。
+
+\begin{lemma}
+\label{cotangent-lemma-morphism-affine-schemes}
+设 $f : X \to Y$ 为概形态射。设 $U = \Spec(B) \subset X$ 与
+$V = \Spec(A) \subset Y$ 为满足 $f(U) \subset V$ 的仿射开集。
+存在复形的典范态射
+$$
+\widetilde{L_{B/A}} \longrightarrow L_{X/Y}|_U
+$$
+，它在 $D(\mathcal{O}_U)$ 中是同构。此态射与限制到
+$X$ 和 $Y$ 中更小的仿射开集相容。
+\end{lemma}
+
+\begin{proof}
+由评注 \ref{cotangent-remark-map-sections-over-U}，存在 $B=\mathcal{O}_X(U)$-模
+复形的典范态射
+$L_{\mathcal{O}_X(U)/f^{-1}\mathcal{O}_Y(U)} \to L_{X/Y}(U)$
+，它与进一步的限制相容。利用典范态射
+$A \to f^{-1}\mathcal{O}_Y(U)$，得到 $B$-模复形的典范态射
+$L_{B/A} \to L_{\mathcal{O}_X(U)/f^{-1}\mathcal{O}_Y(U)}$
+。利用 $\widetilde{\ }$ 函子的泛性质（参见《概形》引理
+\ref{schemes-lemma-compare-constructions}），得到引理陈述中的态射。
+要检验此态射在上同调层上为同构，只须检验它在茎上诱导同构。
+这立即由引理 \ref{cotangent-lemma-stalk-cotangent-complex} 与
+\ref{cotangent-lemma-localize} 得到（还使用了如下茎的描述：
+$\mathcal{O}_X$ 与 $f^{-1}\mathcal{O}_Y$
+在点 $\mathfrak p \in \Spec(B)$ 处分别为 $B_\mathfrak p$ 与
+$A_\mathfrak q$，其中 $\mathfrak q = A \cap \mathfrak p$；
+所用参考结果为《概形》引理 \ref{schemes-lemma-spec-sheaves} 和
+《层》引理 \ref{sheaves-lemma-stalk-pullback}）。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-scheme-over-ring}
+设 $\Lambda$ 为环，$X$ 为 $\Lambda$ 上的概形。则
+$$
+L_{X/\Spec(\Lambda)} = L_{\mathcal{O}_X/\underline{\Lambda}}
+$$
+，其中 $\underline{\Lambda}$ 是 $X$ 上取值为 $\Lambda$ 的常值层。
+\end{lemma}
+
+\begin{proof}
+令 $p : X \to \Spec(\Lambda)$ 为结构态射，并令
+$q : \Spec(\Lambda) \to (*, \Lambda)$ 为显然态射。由引理
+\ref{cotangent-lemma-triangle-ringed-spaces} 的可区别三角，只须证明 $L_q=0$。
+为此，只须对 $\mathfrak p \in \Spec(\Lambda)$ 证明
+$$
+(L_q)_\mathfrak p =
+L_{\mathcal{O}_{\Spec(\Lambda), \mathfrak p}/\Lambda} =
+L_{\Lambda_\mathfrak p/\Lambda}
+$$
+为零（引理 \ref{cotangent-lemma-stalk-cotangent-complex}），而这由引理
+\ref{cotangent-lemma-when-zero} 得到。
+\end{proof}
+
+
+
+
+
+
+\section{环上概形的余切复形}
+\label{cotangent-section-cotangent-schemes-variant}
+
+\noindent
+设 $\Lambda$ 为环，$X$ 为 $\Lambda$ 上的概形。写作
+$L_{X/\Spec(\Lambda)} = L_{X/\Lambda}$，其合理性由引理
+\ref{cotangent-lemma-scheme-over-ring} 保证。本节给出一个类似于引理
+\ref{cotangent-lemma-compute-cotangent-complex} 的 $L_{X/\Lambda}$ 描述。
+确切地说，我们构造纤维化于 $X_{Zar}$ 上的范畴
+$\mathcal{C}_{X/\Lambda}$，并在其上赋予一个（多项式）
+$\Lambda$-代数层 $\mathcal{O}$，使得
+$$
+L_{X/\Lambda} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}} \otimes_\mathcal{O}
+\underline{\mathcal{O}}_X).
+$$
+稍后将利用范畴 $\mathcal{C}_{X/\Lambda}$ 构造凝聚层叠的朴素障碍理论。
+
+\medskip\noindent
+设 $\Lambda$ 为环，$X$ 为 $\Lambda$ 上的概形。令
+$\mathcal{C}_{X/\Lambda}$ 为以下交换图所构成的范畴：
+\begin{equation}
+\label{cotangent-equation-object}
+\vcenter{
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \\
+\Spec(\Lambda) & \mathbf{A} \ar[l]
+}
+}
+\end{equation}
+，其中
+\begin{enumerate}
+\item $U$ 是 $X$ 的开子概形；
+\item 存在同构 $\mathbf{A} = \Spec(P)$，其中 $P$ 是 $\Lambda$
+上以某个集合为变量集的多项式代数。
+\end{enumerate}
+换言之，$\mathbf{A}$ 是 $\Spec(\Lambda)$ 上的（无限维）仿射空间。
+态射由交换图给出。回忆 $X_{Zar}$ 表示 $X$ 的小 Zariski 站点。
+存在遗忘函子
+$$
+u : \mathcal{C}_{X/\Lambda} \to X_{Zar},\ (U \to \mathbf{A}) \mapsto U
+$$
+注意，$U$ 上的纤维范畴典范等价于第
+\ref{cotangent-section-compute-L-pi-shriek} 节引入的范畴
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$。
+
+\begin{lemma}
+\label{cotangent-lemma-category-fibred}
+在上述情形中，范畴 $\mathcal{C}_{X/\Lambda}$ 纤维化于 $X_{Zar}$ 上。
+\end{lemma}
+
+\begin{proof}
+给定 $\mathcal{C}_{X/\Lambda}$ 的对象 $U \to \mathbf{A}$ 和
+$X_{Zar}$ 的态射 $U' \to U$，考虑 $\mathcal{C}_{X/\Lambda}$ 的对象
+$U' \to \mathbf{A}$，其中 $U' \to \mathbf{A}$ 是
+$U' \to U$ 与 $U \to \mathbf{A}$ 的复合。$\mathcal{C}_{X/\Lambda}$ 中的态射
+$(U' \to \mathbf{A}) \to (U \to \mathbf{A})$
+在 $X_{Zar}$ 上是强笛卡儿的。
+\end{proof}
+
+\noindent
+在 $\mathcal{C}_{X/\Lambda}$ 上赋予从 $X_{Zar}$ 继承的拓扑
+（参见《叠》第 \ref{stacks-section-topology} 节）。函子 $u$ 定义拓扑斯态射
+$\pi : \Sh(\mathcal{C}_{X/\Lambda}) \to \Sh(X_{Zar})$。
+站点 $\mathcal{C}_{X/\Lambda}$ 带有若干环层：
+\begin{enumerate}
+\item 由规则
+$(U \to \mathbf{A}) \mapsto \Gamma(\mathbf{A}, \mathcal{O}_\mathbf{A})$。
+给出的层 $\mathcal{O}$；
+\item 由规则 $(U \to \mathbf{A}) \mapsto \mathcal{O}_X(U)$ 给出的层
+$\underline{\mathcal{O}}_X = \pi^{-1}\mathcal{O}_X$；
+\item 常值层 $\underline{\Lambda}$。
+\end{enumerate}
+得到赋环拓扑斯态射
+\begin{equation}
+\label{cotangent-equation-pi-schemes}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}_{X/\Lambda}), \underline{\mathcal{O}}_X) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}_{X/\Lambda}), \mathcal{O}) \\
+(\Sh(X_{Zar}), \mathcal{O}_X)
+}
+}
+\end{equation}
+态射 $i$ 在底层拓扑斯上是恒等态射，而
+$i^\sharp : \mathcal{O} \to \underline{\mathcal{O}}_X$ 是显然同态。
+态射 $\pi$ 是《站点上的上同调》情形
+\ref{sites-cohomology-situation-fibred-category} 的特殊情形。
+以下导出函子将在后文发挥重要作用：
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{\mathcal{O}}_X)
+$
+左伴随于 $Ri_* = i_* : D(\underline{\mathcal{O}}_X) \to D(\mathcal{O})$；以及
+$
+L\pi_! : D(\underline{\mathcal{O}}_X) \longrightarrow D(\mathcal{O}_X)
+$
+左伴随于
+$\pi^* = \pi^{-1} : D(\mathcal{O}_X) \to D(\underline{\mathcal{O}}_X)$。
+借助前面的工作，可以计算 $L\pi_!$。
+
+\begin{remark}
+\label{cotangent-remark-compute-L-pi-shriek}
+在上述情形中，对每个开集 $U \subset X$，令 $P_{\bullet,U}$ 为
+$\mathcal{O}_X(U)$ 在 $\Lambda$ 上的标准预解，并令
+$\mathbf{A}_{n,U}=\Spec(P_{n,U})$。于是
+$\mathbf{A}_{\bullet, U}$
+是 $\mathcal{C}_{X/\Lambda}$ 在 $U$ 上的纤维范畴
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ 的余单纯形对象。此外，
+如评注 \ref{cotangent-remark-resolution} 所讨论，
+$\mathbf{A}_{\bullet,U}$ 是《站点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}
+中那样的 $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ 余单纯形对象。
+由于构造 $U \mapsto \mathbf{A}_{\bullet,U}$ 对 $U$ 具有函子性，
+给定 $\mathcal{C}_{X/\Lambda}$ 上的任一（阿贝尔）层 $\mathcal{F}$，
+得到预层复形
+$$
+U \longmapsto \mathcal{F}(\mathbf{A}_{\bullet, U})
+$$
+，其上同调群计算 $\mathcal{F}$ 在该纤维范畴上的同调。由
+《站点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}，可知其层化
+计算 $L_n\pi_!(\mathcal{F})$。换言之，若一个层复形在次数 $-n$ 的项
+是 $U \mapsto \mathcal{F}(\mathbf{A}_{n,U})$ 的层化，则该复形计算
+$L\pi_!(\mathcal{F})$。
+\end{remark}
+
+\noindent
+有了这一评注，现在可以陈述本节的主要结果。
+
+\begin{lemma}
+\label{cotangent-lemma-cotangent-morphism-schemes}
+在上述情形中，$D(\mathcal{O}_X)$ 中存在典范同构
+$$
+L_{X/\Lambda} = 
+L\pi_!(Li^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)
+$$
+\end{lemma}
+
+\begin{proof}
+首先注意，对 $\mathcal{C}_{X/\Lambda}$ 的任一对象
+$(U \to \mathbf{A})$，层 $\mathcal{O}$ 的值都是 $\Lambda$ 上的多项式代数。
+因此 $\Omega_{\mathcal{O}/\underline{\Lambda}}$ 是平坦
+$\mathcal{O}$-模，从而引理陈述中的第二、第三个等号成立。
+
+\medskip\noindent
+由评注 \ref{cotangent-remark-compute-L-pi-shriek}，对象
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+由预层复形
+$$
+U \mapsto
+\left(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X\right)(\mathbf{A}_{\bullet, U})
+=
+\Omega_{P_{\bullet, U}/\Lambda} \otimes_{P_{\bullet, U}} \mathcal{O}_X(U) =
+L_{\mathcal{O}_X(U)/\Lambda}
+$$
+的层化计算，其中使用评注 \ref{cotangent-remark-compute-L-pi-shriek} 的记号。
+现在评注 \ref{cotangent-remark-map-sections-over-U} 表明
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+计算 $X$ 上环层同态
+$\underline{\Lambda} \to \mathcal{O}_X$ 的余切复形。
+由引理 \ref{cotangent-lemma-scheme-over-ring}，这正是所需结论。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{代数空间态射的余切复形}
+\label{cotangent-section-cotangent-morphism-spaces}
+
+\noindent
+我们利用相应的小 \'etale 站点之间的态射定义代数空间态射的余切复形。
+
+\begin{definition}
+\label{cotangent-definition-cotangent-morphism-spaces}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。
+$X$ 在 $Y$ 上的{\it 余切复形 $L_{X/Y}$}，是 $X$ 与 $Y$ 的小
+\'etale 站点之间赋环拓扑斯态射 $f_{small}$ 的余切复形
+（参见《空间的性质》引理
+\ref{spaces-properties-lemma-morphism-ringed-topoi} 及定义
+\ref{cotangent-definition-cotangent-complex-morphism-ringed-topoi}）。
+\end{definition}
+
+\noindent
+特别地，第 \ref{cotangent-section-cotangent-morphism-ringed-topoi} 节的结果
+适用于代数空间态射的余切复形。以下引理表明，此定义与环同态及概形的定义
+相容，并且 $L_{X/Y}$ 是 $D_\QCoh(\mathcal{O}_X)$ 的对象。
+
+\begin{lemma}
+\label{cotangent-lemma-etale-localization}
+设 $S$ 为概形。考虑 $S$ 上代数空间的交换图
+$$
+\xymatrix{
+U \ar[d]_p \ar[r]_g & V \ar[d]^q \\
+X \ar[r]^f & Y
+}
+$$
+，其中 $p$ 与 $q$ 是 \'etale 的。则在 $D(\mathcal{O}_U)$ 中有典范等同
+$L_{X/Y}|_{U_\etale} = L_{U/V}$。
+\end{lemma}
+
+\begin{proof}
+余切复形的形成与拉回交换（引理
+\ref{cotangent-lemma-pullback-cotangent-morphism-topoi}），并且
+$p_{small}^{-1}\mathcal{O}_X = \mathcal{O}_U$，且
+$g_{small}^{-1}\mathcal{O}_{V_\etale} =
+p_{small}^{-1}f_{small}^{-1}\mathcal{O}_{Y_\etale}$
+，因为 $q_{small}^{-1}\mathcal{O}_{Y_\etale} =
+\mathcal{O}_{V_\etale}$
+（《空间的性质》引理
+\ref{spaces-properties-lemma-etale-exact-pullback}）。追踪各定义即得
+$L_{X/Y}|_{U_\etale} = L_{U/V}$。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-compare-spaces-schemes}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $X$ 与
+$Y$ 可分别由概形 $X_0$ 与 $Y_0$ 表示。则在 $D(\mathcal{O}_X)$ 中
+有典范等同 $L_{X/Y} = \epsilon^*L_{X_0/Y_0}$，其中 $\epsilon$
+如《空间的导出范畴》第
+\ref{spaces-perfect-section-derived-quasi-coherent-etale} 节所定义，而
+$L_{X_0/Y_0}$ 如定义 \ref{cotangent-definition-cotangent-morphism-schemes} 所定义。
+% P11-E0041：冻结源英文在 representable 前遗漏系动词 are。
+\end{lemma}
+
+\begin{proof}
+令 $f_0 : X_0 \to Y_0$ 为对应于 $f$ 的概形态射。存在典范态射
+$\epsilon^{-1}f_0^{-1}\mathcal{O}_{Y_0} \to f_{small}^{-1}\mathcal{O}_Y$
+，它与
+$\epsilon^\sharp : \epsilon^{-1}\mathcal{O}_{X_0} \to \mathcal{O}_X$
+相容，因为有交换图
+$$
+\xymatrix{
+X_{0, Zar} \ar[d]_{f_0} & X_\etale \ar[l]^\epsilon \ar[d]^f \\
+Y_{0, Zar} & Y_\etale \ar[l]_\epsilon
+}
+$$
+，参见《空间的导出范畴》评注
+\ref{spaces-perfect-remark-match-total-direct-images}。因此，由第
+\ref{cotangent-section-cotangent-complex} 节所讨论的函子性及引理
+\ref{cotangent-lemma-pullback-cotangent-morphism-topoi}，得到典范态射
+$$
+\epsilon^{-1}L_{X_0/Y_0} =
+\epsilon^{-1}L_{\mathcal{O}_{X_0}/f_0^{-1}\mathcal{O}_{Y_0}} =
+L_{\epsilon^{-1}\mathcal{O}_{X_0}/\epsilon^{-1}f_0^{-1}\mathcal{O}_{Y_0}}
+\longrightarrow
+L_{\mathcal{O}_X/f^{-1}_{small}\mathcal{O}_Y} = L_{X/Y}
+$$
+。为证明诱导态射 $\epsilon^*L_{X_0/Y_0} \to L_{X/Y}$ 是同构，
+可以在几何点处的茎上检验（《空间的性质》定理
+\ref{spaces-properties-theorem-exactness-stalks}）。我们将用引理
+\ref{cotangent-lemma-stalk-cotangent-complex} 计算各茎。设
+$\overline{x} : \Spec(k) \to X_0$ 为位于 $x \in X_0$ 上方的几何点，
+并设 $\overline{y} = f \circ \overline{x}$ 位于 $y \in Y_0$ 上方。则
+$$
+L_{X/Y, \overline{x}} =
+L_{\mathcal{O}_{X, \overline{x}}/\mathcal{O}_{Y, \overline{y}}}
+$$
+且
+$$
+(\epsilon^*L_{X_0/Y_0})_{\overline{x}} =
+L_{X_0/Y_0, x} \otimes_{\mathcal{O}_{X_0, x}}
+\mathcal{O}_{X, \overline{x}} =
+L_{\mathcal{O}_{X_0, x}/\mathcal{O}_{Y_0, y}}
+\otimes_{\mathcal{O}_{X_0, x}} \mathcal{O}_{X, \overline{x}}
+$$
+省略一些细节（提示：使用拉回的茎等于在像点处的茎，参见《站点》引理
+\ref{sites-lemma-point-morphism-sites}；还要使用模的相应结果，参见
+《站点上的模》引理 \ref{sites-modules-lemma-pullback-stalk}）。
+注意，$\mathcal{O}_{X,\overline{x}}$ 是
+$\mathcal{O}_{X_0,x}$ 的严格 Hensel 化；对
+$\mathcal{O}_{Y,\overline{y}}$ 亦然（《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring}）。
+因此结论由引理 \ref{cotangent-lemma-cotangent-complex-henselization} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{cotangent-lemma-space-over-ring}
+设 $\Lambda$ 为环，$X$ 为 $\Lambda$ 上的代数空间。则
+$$
+L_{X/\Spec(\Lambda)} = L_{\mathcal{O}_X/\underline{\Lambda}}
+$$
+，其中 $\underline{\Lambda}$ 是 $X_\etale$ 上取值为 $\Lambda$ 的常值层。
+\end{lemma}
+
+\begin{proof}
+令 $p : X \to \Spec(\Lambda)$ 为结构态射，并令
+$q : \Spec(\Lambda)_\etale \to (*, \Lambda)$ 为显然态射。由引理
+\ref{cotangent-lemma-triangle-ringed-topoi} 的可区别三角，只须证明 $L_q=0$。
+为此，根据《空间的性质》定理
+\ref{spaces-properties-theorem-exactness-stalks}，只须对几何点
+$\overline{t} : \Spec(k) \to \Spec(\Lambda)$ 证明
+$$
+(L_q)_{\overline{t}} =
+L_{\mathcal{O}_{\Spec(\Lambda)_\etale, \overline{t}}/\Lambda}
+$$
+为零（引理 \ref{cotangent-lemma-stalk-cotangent-complex}）。由于
+$\mathcal{O}_{\Spec(\Lambda)_\etale, \overline{t}}$ 是
+$\Lambda$ 的某个局部环的严格 Hensel 化（《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring}），
+结论由引理 \ref{cotangent-lemma-when-zero} 得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{环上代数空间的余切复形}
+\label{cotangent-section-cotangent-spaces-variant}
+
+\noindent
+设 $\Lambda$ 为环，$X$ 为 $\Lambda$ 上的代数空间。写作
+$L_{X/\Spec(\Lambda)} = L_{X/\Lambda}$，其合理性由引理
+\ref{cotangent-lemma-space-over-ring} 保证。本节给出一个类似于引理
+\ref{cotangent-lemma-compute-cotangent-complex} 的 $L_{X/\Lambda}$ 描述。
+确切地说，我们构造纤维化于 $X_\etale$ 上的范畴
+$\mathcal{C}_{X/\Lambda}$，并在其上赋予一个（多项式）
+$\Lambda$-代数层 $\mathcal{O}$，使得
+$$
+L_{X/\Lambda} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}} \otimes_\mathcal{O}
+\underline{\mathcal{O}}_X).
+$$
+稍后将利用范畴 $\mathcal{C}_{X/\Lambda}$ 构造凝聚层叠的朴素障碍理论。
+
+\medskip\noindent
+设 $\Lambda$ 为环，$X$ 为 $\Lambda$ 上的代数空间。令
+$\mathcal{C}_{X/\Lambda}$ 为以下交换图所构成的范畴：
+\begin{equation}
+\label{cotangent-equation-object-space}
+\vcenter{
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \\
+\Spec(\Lambda) & \mathbf{A} \ar[l]
+}
+}
+\end{equation}
+，其中
+\begin{enumerate}
+\item $U$ 是概形；
+\item $U \to X$ 是 \'etale 态射；
+\item 存在同构 $\mathbf{A}=\Spec(P)$，其中 $P$ 是 $\Lambda$
+上以某个集合为变量集的多项式代数。
+\end{enumerate}
+换言之，$\mathbf{A}$ 是 $\Spec(\Lambda)$ 上的（无限维）仿射空间。
+态射由交换图给出。回忆 $X_\etale$ 表示 $X$ 的小 \'etale 站点，
+其对象是 \'etale 于 $X$ 的概形。存在遗忘函子
+$$
+u : \mathcal{C}_{X/\Lambda} \to X_\etale,
+\quad
+(U \to \mathbf{A}) \mapsto U
+$$
+注意，$U$ 上的纤维范畴典范等价于第
+\ref{cotangent-section-compute-L-pi-shriek} 节引入的范畴
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$。
+
+\begin{lemma}
+\label{cotangent-lemma-category-fibred-space}
+在上述情形中，范畴 $\mathcal{C}_{X/\Lambda}$ 纤维化于 $X_\etale$ 上。
+\end{lemma}
+
+\begin{proof}
+给定 $\mathcal{C}_{X/\Lambda}$ 的对象 $U \to \mathbf{A}$ 和
+$X_\etale$ 的态射 $U' \to U$，考虑 $\mathcal{C}_{X/\Lambda}$ 的对象
+$U' \to \mathbf{A}$，其中 $U' \to \mathbf{A}$ 是
+$U' \to U$ 与 $U \to \mathbf{A}$ 的复合。态射
+$(U' \to \mathbf{A}) \to (U \to \mathbf{A})$
+在 $X_\etale$ 上是强笛卡儿的。
+\end{proof}
+
+\noindent
+在 $\mathcal{C}_{X/\Lambda}$ 上赋予从 $X_\etale$ 继承的拓扑
+（参见《叠》第 \ref{stacks-section-topology} 节）。函子 $u$ 定义拓扑斯态射
+$\pi : \Sh(\mathcal{C}_{X/\Lambda}) \to \Sh(X_\etale)$。
+站点 $\mathcal{C}_{X/\Lambda}$ 带有若干环层：
+\begin{enumerate}
+\item 由规则
+$(U \to \mathbf{A}) \mapsto \Gamma(\mathbf{A}, \mathcal{O}_\mathbf{A})$。
+给出的层 $\mathcal{O}$；
+\item 由规则 $(U \to \mathbf{A}) \mapsto \mathcal{O}_X(U)$ 给出的层
+$\underline{\mathcal{O}}_X = \pi^{-1}\mathcal{O}_X$；
+\item 常值层 $\underline{\Lambda}$。
+\end{enumerate}
+得到赋环拓扑斯态射
+\begin{equation}
+\label{cotangent-equation-pi-spaces}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}_{X/\Lambda}), \underline{\mathcal{O}}_X) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}_{X/\Lambda}), \mathcal{O}) \\
+(\Sh(X_\etale), \mathcal{O}_X)
+}
+}
+\end{equation}
+态射 $i$ 在底层拓扑斯上是恒等态射，而
+$i^\sharp : \mathcal{O} \to \underline{\mathcal{O}}_X$ 是显然同态。
+态射 $\pi$ 是《站点上的上同调》情形
+\ref{sites-cohomology-situation-fibred-category} 的特殊情形。
+以下导出函子将在后文发挥重要作用：
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{\mathcal{O}}_X)
+$
+左伴随于 $Ri_* = i_* : D(\underline{\mathcal{O}}_X) \to D(\mathcal{O})$；以及
+$
+L\pi_! : D(\underline{\mathcal{O}}_X) \longrightarrow D(\mathcal{O}_X)
+$
+左伴随于
+$\pi^* = \pi^{-1} : D(\mathcal{O}_X) \to D(\underline{\mathcal{O}}_X)$。
+借助前面的工作，可以计算 $L\pi_!$。
+
+\begin{remark}
+\label{cotangent-remark-compute-L-pi-shriek-spaces}
+在上述情形中，对 $X_\etale$ 的每个对象 $U \to X$，令
+$P_{\bullet,U}$ 为 $\mathcal{O}_X(U)$ 在 $\Lambda$ 上的标准预解，并令
+$\mathbf{A}_{n,U}=\Spec(P_{n,U})$。于是 $\mathbf{A}_{\bullet,U}$
+是 $\mathcal{C}_{X/\Lambda}$ 在 $U$ 上的纤维范畴
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ 的余单纯形对象。此外，
+如评注 \ref{cotangent-remark-resolution} 所讨论，
+$\mathbf{A}_{\bullet,U}$ 是《站点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}
+中那样的 $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ 余单纯形对象。
+由于构造 $U \mapsto \mathbf{A}_{\bullet,U}$ 对 $U$ 具有函子性，
+给定 $\mathcal{C}_{X/\Lambda}$ 上的任一（阿贝尔）层 $\mathcal{F}$，
+得到预层复形
+$$
+U \longmapsto \mathcal{F}(\mathbf{A}_{\bullet, U})
+$$
+，其上同调群计算 $\mathcal{F}$ 在该纤维范畴上的同调。由
+《站点上的上同调》引理
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}，可知其层化
+计算 $L_n\pi_!(\mathcal{F})$。换言之，若一个层复形在次数 $-n$ 的项
+是 $U \mapsto \mathcal{F}(\mathbf{A}_{n,U})$ 的层化，则该复形计算
+$L\pi_!(\mathcal{F})$。
+\end{remark}
+
+\noindent
+有了这一评注，现在可以陈述本节的主要结果。
+
+\begin{lemma}
+\label{cotangent-lemma-cotangent-morphism-spaces}
+在上述情形中，$D(\mathcal{O}_X)$ 中存在典范同构
+$$
+L_{X/\Lambda} = 
+L\pi_!(Li^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)
+$$
+\end{lemma}
+
+\begin{proof}
+首先注意，对 $\mathcal{C}_{X/\Lambda}$ 的任一对象
+$(U \to \mathbf{A})$，层 $\mathcal{O}$ 的值都是 $\Lambda$ 上的多项式代数。
+因此 $\Omega_{\mathcal{O}/\underline{\Lambda}}$ 是平坦
+$\mathcal{O}$-模，从而引理陈述中的第二、第三个等号成立。
+
+\medskip\noindent
+由评注 \ref{cotangent-remark-compute-L-pi-shriek-spaces}，对象
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+由预层复形
+$$
+U \mapsto
+\left(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X\right)(\mathbf{A}_{\bullet, U})
+=
+\Omega_{P_{\bullet, U}/\Lambda} \otimes_{P_{\bullet, U}} \mathcal{O}_X(U) =
+L_{\mathcal{O}_X(U)/\Lambda}
+$$
+的层化计算，其中使用评注 \ref{cotangent-remark-compute-L-pi-shriek-spaces} 的记号。
+现在评注 \ref{cotangent-remark-map-sections-over-U} 表明
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+计算 $X_\etale$ 上环层同态
+$\underline{\Lambda} \to \mathcal{O}_X$ 的余切复形。
+由引理 \ref{cotangent-lemma-space-over-ring}，这正是所需结论。
+\end{proof}
+
+
+
+
+
+
+\section{代数空间的纤维积与余切复形}
+\label{cotangent-section-fibre-product}
+
+\noindent
+设 $S$ 为概形，$X \to B$ 与 $Y \to B$ 为 $S$ 上代数空间的态射。
+考虑纤维积 $X \times_B Y$，其投影态射为
+$p : X \times_B Y \to X$ 与 $q : X \times_B Y \to Y$。
+本节讨论 $L_{X \times_B Y/B}$。我们所需的大部分信息都包含在下图中：
+\begin{equation}
+\label{cotangent-equation-fibre-product}
+\vcenter{
+\xymatrix{
+Lp^*L_{X/B} \ar[r] &
+L_{X \times_B Y/Y} \ar[r] &
+E \\
+Lp^*L_{X/B} \ar[r] \ar@{=}[u] &
+L_{X \times_B Y/B} \ar[r] \ar[u] &
+L_{X \times_B Y/X} \ar[u] \\
+ &
+Lq^*L_{Y/B} \ar[u] \ar@{=}[r] &
+Lq^*L_{Y/B} \ar[u]
+}
+}
+\end{equation}
+说明：中间一行是引理 \ref{cotangent-lemma-triangle-ringed-topoi} 中态射
+$X \times_B Y \to X \to B$ 的基本三角。中间一列是态射
+$X \times_B Y \to Y \to B$ 的基本三角。其次，$E$ 是
+$D(\mathcal{O}_{X \times_B Y})$ 中“嵌入”右上角的对象，也就是说，
+它使最上面一行和最右边一列都成为可区别三角。将《导出范畴》命题
+\ref{derived-proposition-9} 应用于左下方块（在缺失位置放置 $0$），
+可知这样的 $E$ 存在。更明确地说，例如可以把 $E$ 定义为复形态射
+$$
+Lp^*L_{X/B} \oplus Lq^*L_{Y/B} \longrightarrow L_{X \times_B Y/B}
+$$
+的锥（《导出范畴》定义 \ref{derived-definition-cone}），再应用 TR3
+得到以 $E$ 为靶的两个态射。在 Tor 独立的情形下，对象 $E$ 为零。
+
+\begin{lemma}
+\label{cotangent-lemma-fibre-product-tor-independent}
+在上述情形中，若 $X$ 与 $Y$ 在 $B$ 上 Tor 独立，则
+(\ref{cotangent-equation-fibre-product}) 中的对象 $E$ 为零。在此情形下有
+$$
+L_{X \times_B Y/B} = Lp^*L_{X/B} \oplus Lq^*L_{Y/B}
+$$
+\end{lemma}
+
+\begin{proof}
+选取概形 $W$ 和满 \'etale 态射 $W \to B$；选取概形 $U$ 和满
+\'etale 态射 $U \to X \times_B W$；选取概形 $V$ 和满
+\'etale 态射 $V \to Y \times_B W$。则
+$U \times_W V \to X \times_B Y$ 也是满 \'etale 态射。
+因此只须证明 $E$ 在 $U \times_W V$ 上的限制为零。由引理
+\ref{cotangent-lemma-compare-spaces-schemes} 及《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-tor-independent}，归约到概形情形。
+取适当的仿射开集后，进一步归约到仿射概形情形。再利用引理
+\ref{cotangent-lemma-morphism-affine-schemes}，归约到环的张量积情形，
+也就是引理 \ref{cotangent-lemma-tensor-product-tor-independent}。
+\end{proof}
+
+\noindent
+一般地，对象 $E$ 有如下性质。
+
+\begin{lemma}
+\label{cotangent-lemma-fibre-product}
+设 $S$ 为概形，$X \to B$ 与 $Y \to B$ 为 $S$ 上代数空间的态射。
+(\ref{cotangent-equation-fibre-product}) 中的对象 $E$ 对 $i=0,-1$ 满足
+$H^i(E)=0$，而对几何点
+$(\overline{x}, \overline{y}) : \Spec(k) \to X \times_B Y$ 有
+$$
+H^{-2}(E)_{(\overline{x}, \overline{y})} =
+\text{Tor}_1^R(A, B) \otimes_{A \otimes_R B} C
+$$
+，其中 $R = \mathcal{O}_{B, \overline{b}}$、
+$A = \mathcal{O}_{X, \overline{x}}$、
+$B = \mathcal{O}_{Y, \overline{y}}$，且
+$C = \mathcal{O}_{X \times_B Y, (\overline{x}, \overline{y})}$。
+\end{lemma}
+
+\begin{proof}
+余切复形的形成与取茎及拉回交换，参见引理
+\ref{cotangent-lemma-stalk-cotangent-complex} 与
+\ref{cotangent-lemma-pullback-cotangent-morphism-topoi}。注意，$C$ 是
+$A \otimes_R B$ 的 Hensel 化。由第 \ref{cotangent-section-localization} 节的结果，
+$L_{C/R} = L_{A \otimes_R B/R} \otimes_{A \otimes_R B} C$
+。因此，$E$ 在该几何点处的茎是态射
+$L_{A/R} \otimes C \to L_{A \otimes_R B/R} \otimes C$ 的锥。
+所以，引理的结论由环的情形，即引理 \ref{cotangent-lemma-tensor-product} 得到。
+\end{proof}

@@ -1,0 +1,3847 @@
+% Generated mechanically from the frozen trace.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{63}
+\chapter{迹公式}
+
+
+
+\phantomsection
+\label{trace-section-phantom}
+
+
+
+\section{引言}
+\label{trace-section-introduction}
+
+\noindent
+这是 Johan de Jong 于 2009 年秋季在哥伦比亚大学讲授的
+\'etale 上同调课程第二部分的讲义。最初的笔记记录者是
+Thibaut Pugin、Zachary Maddock 和 Min Lee。我们将逐步补充对
+Stacks Project 其余部分中背景材料的引用，并为所有陈述给出严格证明。
+
+
+
+
+
+
+
+
+
+\section{迹公式}
+\label{trace-section-trace-formula}
+
+\noindent
+典型的 \'etale 上同调课程通常会陈述并证明固有基变换定理、
+光滑基变换定理、纯性以及 Poincar\'e 对偶；这些内容都可见
+\cite[Arcata]{SGA4.5}。我们在此改而按照 Deligne 在
+\cite[Rapport]{SGA4.5} 中的论述，研究 Frobenius 的迹公式。
+我们只考察维数 1 的情形，但借助固有基变换，这已足以处理一般情形。
+由于所考虑的所有上同调群都是 \'etale 上同调，我们省略下标
+$_\etale$。下面描述所要得到的公式。设 $X$ 是有限域 $k$ 上维数为
+1 的有限型概形，$\ell$ 是素数，而 $\mathcal{F}$ 是可构造平坦
+$\mathbf{Z}/\ell^n\mathbf{Z}$-层。则
+\begin{equation}
+\label{trace-equation-trace-formula-initial}
+\sum\nolimits_{x \in X(k)}
+\text{Tr}(\text{Frob} | \mathcal{F}_{\bar x}) =
+\sum\nolimits_{i = 0}^2
+(-1)^i \text{Tr}(\pi_X^* | H^i_c(X \otimes_k \bar k, \mathcal{F}))
+\end{equation}
+是 $\mathbf{Z}/\ell^n\mathbf{Z}$ 中的等式。正如后文将看到的，这一表述
+按其当前写法略有不当。不过，我们仍先说明其中出现的各个符号。
+
+
+
+
+\section{Frobenius 态射}
+\label{trace-section-frobenii}
+
+\noindent
+本节将证明一个“令人费解的”定理。该定理的拓扑类比如下。
+
+\begin{exercise}
+\label{trace-exercise-baffling}
+设 $X$ 是拓扑空间，$g : X \to X$ 是连续映射，并且对 $X$ 的每个开集
+$U$ 都有 $g^{-1}(U) = U$。则 $g$ 在 $X$ 的上同调上诱导恒等映射
+（对任意系数均成立）。
+\end{exercise}
+
+\noindent
+现在转向 \'etale 位点上的陈述。
+
+\begin{lemma}
+\label{trace-lemma-baffling}
+设 $X$ 是概形，$g : X \to X$ 是态射。假设对每个 \'etale 态射
+$\varphi : U \to X$，都存在同构
+$$
+\xymatrix{
+U \ar[rd]_\varphi \ar[rr]^-\sim & & {U
+\times_{\varphi, X, g} X} \ar[ld]^{\text{pr}_2} \\
+& X
+}
+$$
+，且它关于 $U$ 具有函子性。则 $g$ 在上同调上诱导恒等映射
+（对任意层均成立）。
+\end{lemma}
+
+\begin{proof}
+证明是形式的，并无困难。
+\end{proof}
+
+\noindent
+关于 Frobenius 态射的不同变体，见“代数簇”第
+\ref{varieties-section-frobenius} 节。
+
+\begin{theorem}[令人费解定理]
+\label{trace-theorem-baffling}
+设 $X$ 是特征 $p > 0$ 的概形。则绝对 Frobenius 通过拉回在上同调上
+诱导平凡映射；换言之，对每个整数 $j\geq 0$，
+$$
+F_X^* : H^j (X, \underline{\mathbf{Z}/n\mathbf{Z}}) \longrightarrow H^j (X,
+\underline{\mathbf{Z}/n\mathbf{Z}})
+$$
+是恒等映射。
+\end{theorem}
+
+\noindent
+该定理完全是形式的。不过，回顾如何计算上同调类的拉回仍很有益。
+这里只说明：当上同调与 {\v C}ech 上同调一致时，只需利用位点上的
+纤维积拉回 {\v C}ech 上闭链即可。一般情形相当技术性，见“超覆叠”
+定理 \ref{hypercovering-theorem-cohomology-hypercoverings}。为证明该定理，
+只须验证 Frobenius 满足引理 \ref{trace-lemma-baffling} 的假设。
+
+\begin{proof}[定理 \ref{trace-theorem-baffling} 的证明]
+须验证上述函子性同构的存在性。对 \'etale 态射
+$\varphi : U \to X$，考虑图
+$$
+\xymatrix{
+U \ar@{-->}[rd] \ar@/^1pc/[rrd]^{F_U}
+\ar@/_1pc/[rdd]_\varphi \\
+& {U \times_{\varphi, X, F_X} X} \ar[r]_-{\text{pr}_1}
+\ar[d]^{\text{pr}_2} & U \ar[d]^\varphi \\
+& X \ar[r]^{F_X} & X.
+}
+$$
+虚箭头既是 \'etale 态射又是泛同胚，因而是同构；见“\'Etale 态射”
+引理 \ref{etale-lemma-relative-frobenius-etale}。
+\end{proof}
+
+%10.22.09
+
+\begin{definition}
+\label{trace-definition-geometric-frobenius}
+设 $k$ 是含 $q = p^f$ 个元素的有限域，$X$ 是 $k$ 上概形。
+$X$ 的{\it 几何 Frobenius} 是 $\Spec(k)$ 上的态射
+$\pi_X : X \to X$，它等于 $F_X^f$。
+\end{definition}
+
+\noindent
+由于 $\pi_X$ 是 $k$ 上态射，可将它基变换到任意 $k$-概形。特别地，
+可将它基变换到代数闭包 $\bar k$，得到态射
+$\pi_X : X_{\bar k} \to X_{\bar k}$。仍用 $\pi_X$ 表示这一基变换
+不会造成混淆，因为 $X_{\bar k}$ 本身并没有自己的几何 Frobenius。
+
+\begin{lemma}
+\label{trace-lemma-sheaf-over-finite-field-has-frobenius-descent}
+设 $\mathcal{F}$ 是 $X_\etale$ 上的层。则存在典范同构
+$\pi_X^{-1} \mathcal{F} \cong \mathcal{F}$ 与
+$\mathcal{F} \cong {\pi_X}_*\mathcal{F}$。
+\end{lemma}
+
+\noindent
+这对 fppf 位点不成立。
+
+\begin{proof}
+设 $\varphi : U \to X$ 是 \'etale 态射。回忆
+${\pi_X}_* \mathcal{F} (U) = \mathcal{F} (U \times_{\varphi, X, \pi_X} X)$。
+由于 $\pi_X = F_X^f$，由定理 \ref{trace-theorem-baffling} 的证明可知，
+存在函子性同构
+$$
+\xymatrix{
+U \ar[rd]_{\varphi} \ar[rr]_-{\gamma_U}
+& & U \times_{\varphi, X, \pi_X} X \ar[ld]^{\text{pr}_2} \\
+& X
+}
+$$
+，其中 $\gamma_U = (\varphi, F_U^f)$。现在定义同构
+$$
+\mathcal{F} (U) \longrightarrow {\pi_X}_* \mathcal{F} (U) =
+\mathcal{F} (U \times_{\varphi, X, \pi_X} X)
+$$
+为 $\mathcal{F}$ 沿 $\gamma_U^{-1}$ 的限制映射。另一个同构类似。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-may-be-confusing}
+$F^f_U$ 可能等于 $\pi_U$，也可能不等于。
+\end{remark}
+
+\noindent
+继续讨论含 $q = p^f$ 个元素的有限域 $k$ 上概形 $X$ 的层上同调。
+固定 $k$ 的代数闭包 $\bar k$，并以
+$G_k = \text{Gal}(\bar k/k)$ 表示 $k$ 的绝对 Galois 群。
+设 $\mathcal{F}$ 是 $X_\etale$ 上的阿贝尔层。如下在上同调群
+$H^j (X_{\bar k}, \mathcal{F}|_{X_{\bar k}})$ 上定义左
+$G_k$-模结构：若 $\sigma \in G_k$，则图
+$$
+\xymatrix{
+X_{\bar k} \ar[rd] \ar[rr]^{\Spec(\sigma) \times \text{id}_X} & &
+X_{\bar k} \ar[ld] \\
+& X
+}
+$$
+交换。因此，对 $\xi \in H^j (X_{\bar k}, \mathcal{F}|_{X_{\bar k}})$，
+可令
+$$
+\sigma \cdot \xi := (\Spec(\sigma) \times \text{id}_X)^*\xi \in
+H^j(X_{\bar k}, (\Spec(\sigma) \times \text{id}_X)^{-1}
+\mathcal{F}|_{X_{\bar k}})
+= H^j (X_{\bar k}, \mathcal{F}|_{X_{\bar k}}),
+$$
+，其中最后一个等号来自前图的交换性。由此，后一个群成为
+$G_k$-模。
+
+\begin{lemma}
+\label{trace-lemma-two-actions-agree}
+在上述情形中，以 $\alpha : X \to \Spec(k)$ 表示结构态射。考虑茎
+$(R^j\alpha_*\mathcal{F})_{\Spec(\bar k)}$，并赋予它“\'Etale 上同调”
+第 \ref{etale-cohomology-section-galois-action-stalks} 节所述的自然
+Galois 作用。则同一
+$$
+(R^j\alpha_*\mathcal{F})_{\Spec(\bar k)} \cong H^j (X_{\bar k},
+\mathcal{F}|_{X_{\bar k}})
+$$
+由“\'Etale 上同调”定理
+\ref{etale-cohomology-theorem-higher-direct-images} 给出，并且是
+$G_k$-模同构。
+\end{lemma}
+
+\noindent
+把
+$(R^j\alpha_!\mathcal{F})_{\Spec(\bar k)}$
+与 $H^j_c (X_{\bar k}, \mathcal{F}|_{X_{\bar k}})$ 相比较时，也有类似结论。
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{trace-definition-arithmetic-frobenius}
+{\it 算术 Frobenius} 是 $G_k$ 中的映射
+$\text{frob}_k : \bar k \to \bar k$，$x \mapsto x^q$。
+\end{definition}
+
+\begin{theorem}
+\label{trace-theorem-geometric-arithmetic-inverse}
+设 $\mathcal{F}$ 是 $X_\etale$ 上的阿贝尔层。则对每个
+$j\geq 0$，$\text{frob}_k$ 在上同调群 $H^j(X_{\bar k},
+\mathcal{F}|_{X_{\bar k}})$ 上的作用等于映射 $\pi_X^*$ 的逆。
+\end{theorem}
+
+\noindent
+映射 $\pi_X^*$ 定义为复合
+$$
+H^j(X_{\bar k}, \mathcal{F}|_{X_{\bar k}}) \xrightarrow{{\pi_X}_{\bar k}^*}
+H^j(X_{\bar k}, (\pi_X^{-1} \mathcal{F})|_{X_{\bar k}}) \cong
+H^j(X_{\bar k}, \mathcal{F}|_{X_{\bar k}}).
+$$
+，其中最后一个同构来自引理
+\ref{trace-lemma-sheaf-over-finite-field-has-frobenius-descent} 的典范同构
+$\pi_X^{-1} \mathcal{F} \cong \mathcal{F}$。
+
+\begin{proof}
+复合 $X_{\bar k} \xrightarrow{\Spec(\text{frob}_k)} X_{\bar k}
+\xrightarrow{\pi_X} X_{\bar k}$ 等于 $F_{X_{\bar k}}^f$，所以结论来自
+适当推广到非平凡系数的令人费解定理。注意，上述复合在如下意义下交换：
+$F_{X_{\bar k}}^f = \pi_X \circ \Spec(\text{frob}_k) =
+\Spec(\text{frob}_k) \circ \pi_X$.
+\end{proof}
+
+\begin{definition}
+\label{trace-definition-geometric-frobenius-on-stalk}
+若 $x \in X(k)$ 是有理点，$\bar x : \Spec(\bar k) \to X$ 是位于 $x$
+上方的几何点，则以 $\pi_x : \mathcal{F}_{\bar x} \to
+\mathcal{F}_{\bar x}$ 表示 $\text{frob}_k^{-1}$ 的作用，并称之为
+{\it 几何 Frobenius}\footnote{该记号并非标准记号。在 \cite{SGA4.5}
+中，此算子记为 $F_x$。我们将来很可能会更改这里的记号。}
+\end{definition}
+
+\noindent
+现在可对迹公式 (\ref{trace-equation-trace-formula-initial}) 作出更精确的陈述
+（尽管它仍是错误的）。设 $X$ 是有限域 $k$ 上维数为 1 的有限型概形，
+$\ell$ 是素数，而 $\mathcal{F}$ 是可构造平坦
+$\mathbf{Z}/\ell^n\mathbf{Z}$-层。则
+\begin{equation}
+\label{trace-equation-trace-formula-second}
+\sum\nolimits_{x \in X(k)}
+\text{Tr}(\pi_x | \mathcal{F}_{\bar x})
+=
+\sum\nolimits_{i = 0}^2
+(-1)^i \text{Tr}(\pi_X^* | H^i_c(X_{\bar k}, \mathcal{F}))
+\end{equation}
+是 $\mathbf{Z}/\ell^n\mathbf{Z}$ 中的等式。该等式之所以错误，是因为
+右端的迹对这里所考虑的这类层没有意义。在处理这一问题之前，我们先说明
+为何会出现几何 Frobenius（除了它本身是一个自然态射这一事实之外）。
+
+\medskip\noindent
+先考虑 $X = \mathbf{P}^1_k$ 且
+$\mathcal{F} = \underline{\mathbf{Z}/\ell\mathbf{Z}}$ 的情形。对任意点，
+Galois 模 $\mathcal{F}_{\bar x}$ 都是平凡的。因此，对任意作用于
+$\mathcal{F}_{\bar x}$ 的态射 $\varphi$，左端为
+$$
+\sum\nolimits_{x \in X(k)} \text{Tr}(\varphi | \mathcal{F}_{\bar x}) =
+\#\mathbf{P}^1_k(k) = q+1.
+$$
+由于 $\mathbf{P}^1_k$ 是固有的，紧支撑上同调等于通常上同调，故对态射
+$\pi : \mathbf{P}^1_k \to \mathbf{P}^1_k$，右端等于
+$$
+\text{Tr}(\pi^* | H^0 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}})) + \text{Tr}(\pi^* | H^2
+(\mathbf{P}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}})).
+$$
+Galois 模 $H^0 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}}) = \mathbf{Z}/\ell\mathbf{Z}$ 是平凡的，
+因为恒等的拉回仍是恒等。因此，无论 $\pi$ 如何，第一个迹都是 1。
+对第二个迹，须计算映射 $\pi : \mathbf{P}^1_{\bar k} \to
+\mathbf{P}^1_{\bar k}$ 所诱导的拉回
+$\pi^* : H^2(\mathbf{P}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}}))$
+。这是一个很好的练习，答案是乘以 $\pi$ 的次数（证明见“\'Etale 上同调”
+引理 \ref{etale-cohomology-lemma-pullback-on-h2-curve}）。换言之，
+其行为与熟悉的复上同调情形相同。特别地，若 $\pi$ 是几何 Frobenius，
+则得到
+$$
+\text{Tr}(\pi_X^* | H^2 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}})) = q
+$$
+；若 $\pi$ 是算术 Frobenius，则得到
+$$
+\text{Tr}(\text{frob}_k^* | H^2 (\mathbf{P}^1_{\bar k},
+\underline{\mathbf{Z}/\ell\mathbf{Z}})) = q^{-1}.
+$$
+后一种选择显然不对。
+
+\begin{remark}
+\label{trace-remark-compute-degree-lifting}
+次数可通过提升到特征 0（以某种显然的意义），再考察复系数情形来计算。
+这种方法几乎从不适用，因为对并非射影空间的概形，提升通常是不可能的。
+\end{remark}
+
+\noindent
+尚须解释为何必须考虑紧支撑上同调。事实上，由 Poincar\'e 对偶可知，
+对光滑代数簇而言这并非严格必要，但此时须添入 $q$ 的某些幂。例如，
+考虑 $X = \mathbf{A}^1_k$ 且
+$\mathcal{F} = \underline{\mathbf{Z}/\ell\mathbf{Z}}$ 的情形。
+茎上的作用仍是平凡的，故只须考察上同调上的作用。此时 $\pi_X^*$ 在
+$H^0(\mathbf{A}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}})$
+上作为恒等映射，而在
+$H^2_c(\mathbf{A}^1_{\bar k}, \underline{\mathbf{Z}/\ell\mathbf{Z}})$
+上作为乘以 $q$ 的映射。
+
+
+
+
+\section{迹}
+\label{trace-section-traces}
+
+\noindent
+现在说明如何取非交换环上模的自同态之迹。固定一个有限环 $\Lambda$，
+其基数与 $p$ 互素。典型地，对某个有限群 $G$，$\Lambda$ 是群环
+$(\mathbf{Z}/\ell^n\mathbf{Z})[G]$。约定所考虑的所有 $\Lambda$-模
+都是左 $\Lambda$-模。
+
+\medskip\noindent
+引入如下记号：令 $\Lambda^\natural$ 为 $\Lambda$ 关于由交换子生成的
+加法子群之商（即由形如 $ab-ba$、$a,b\in\Lambda$ 的元素生成的子群）。
+注意，$\Lambda^\natural$ 并不是环。
+
+\medskip\noindent
+例如，模 $(\mathbf{Z}/\ell^n\mathbf{Z})[G]^\natural$ 是类函数模的对偶，
+故
+$$
+(\mathbf{Z}/\ell^n\mathbf{Z})[G]^\natural
+=
+\bigoplus\nolimits_{\text{各共轭类，所取群为 }G}
+\mathbf{Z}/\ell^n\mathbf{Z}.
+$$
+对自由 $\Lambda$-模，有 $\text{End}_\Lambda(\Lambda^{\oplus m}) =
+\text{Mat}_m(\Lambda)$。注意，由于这些模是左模，以矩阵表示自同态给出的是
+右作用：若 $a \in \text{End}(\Lambda^{\oplus m})$ 的矩阵为 $A$，且
+$v \in \Lambda$，则 $a(v) = v A$。
+
+\begin{definition}
+\label{trace-definition-trace}
+自同态 $a$ 的{\it 迹}是表示它的矩阵之对角元之和。这定义了加法映射
+$\text{Tr} :
+\text{End}_\Lambda(\Lambda^{\oplus m}) \to \Lambda^\natural$.
+\end{definition}
+
+\begin{exercise}
+\label{trace-exercise-trace-is-trace}
+给定映射
+$$
+\Lambda^{\oplus m} \xrightarrow{a} \Lambda^{\oplus n}
+\quad\text{与}\quad
+\Lambda^{\oplus n} \xrightarrow{b} \Lambda^{\oplus m}
+$$
+证明 $\text{Tr}(ab) = \text{Tr}(ba)$。
+\end{exercise}
+
+\noindent
+如下把迹的定义推广到有限射影 $\Lambda$-模 $P$ 及 $P$ 的自同态 $\varphi$。
+把 $P$ 写成自由 $\Lambda$-模的直和项；即考虑映射
+$P \xrightarrow{a} \Lambda^{\oplus n} \xrightarrow{b} P$，满足
+\begin{enumerate}
+\item
+$\Lambda^{\oplus n} = \Im(a) \oplus \Ker(b)$；并且
+\item
+$b\circ a = \text{id}_P$.
+\end{enumerate}
+令 $\text{Tr}(\varphi) = \text{Tr}(a\varphi b)$。利用上一练习，容易验证
+该定义是良定的。
+
+
+
+
+
+
+
+
+\section{为何需要导出范畴？}
+\label{trace-section-derived-categories-why}
+
+\noindent
+有了上述迹的定义，现在讨论该公式按当前写法所面临的另一个问题。
+设 $C$ 是 $k$ 上的光滑射影曲线。一方面，考虑 $C_\etale$ 上茎同构于
+${(\mathbf{Z}/\ell^n\mathbf{Z})}^{\oplus m}$ 的有限局部常值层
+$\mathcal{F}$；另一方面，在固定选择 $\bar c$ 后，考虑连续表示
+$\rho : \pi_1 (C, \bar c) \to
+\text{GL}_m(\mathbf{Z}/\ell^n\mathbf{Z}))$。两者之间存在对应。
+以 $\mathcal{F}_\rho$ 表示对应于 $\rho$ 的层。此时
+$H^2 (C_{\bar k}, \mathcal{F}_\rho)$ 是
+$\rho(\pi_1 (C, \bar c))$ 在
+${(\mathbf{Z}/\ell^n\mathbf{Z})}^{\oplus m}$ 上作用的余不变量群，并且有
+短正合列
+$$
+0 \longrightarrow \pi_1 (C_{\bar k}, \bar c) \longrightarrow \pi_1 (C, \bar c)
+\longrightarrow G_k \longrightarrow 0.
+$$
+例如，令 $\mathbf{Z} = \mathbf{Z} \sigma$ 通过
+$\sigma(x) = (1+\ell) x$ 作用于 $\mathbf{Z}/\ell^2\mathbf{Z}$。
+其余不变量为
+$(\mathbf{Z}/\ell^2\mathbf{Z})_{\sigma} = \mathbf{Z}/\ell\mathbf{Z}$，
+这不是平坦 $\mathbf{Z}/\ell^2\mathbf{Z}$-模。因此，至少在上一节的
+意义下，我们无法取 $H^2(C_{\bar k}, \mathcal{F}_\rho)$ 上某个作用的迹。
+
+\medskip\noindent
+事实上，我们的目标是考察 $\ell$-进系数的迹公式。但
+$\mathbf{Q}_\ell = \mathbf{Z}_\ell[1/\ell]$ 且
+$\mathbf{Z}_\ell = \lim \mathbf{Z}/\ell^n\mathbf{Z}$；即使层是平坦
+$\mathbf{Z}/\ell^n\mathbf{Z}$-层，各个上同调群也未必平坦，因而无法
+计算迹。一种可能的补救办法，是在导出范畴
+$D(\mathbf{Z}/\ell^n\mathbf{Z})$ 中考察全导出复形
+$R\Gamma(C_{\bar k}, \mathcal{F}_\rho)$，并证明它是完美对象；这意味着
+它拟同构于有限自由模组成的有限复形。对这类复形可以定义迹，但为此须先
+介绍导出范畴。
+
+
+
+
+
+
+\section{导出范畴}
+\label{trace-section-derived-categories}
+
+\noindent
+先规定记号。设 $\mathcal{A}$ 是阿贝尔范畴，以
+$\text{Comp}(\mathcal{A})$ 表示 $\mathcal{A}$ 中复形组成的阿贝尔范畴。
+以 $K(\mathcal{A})$ 表示复形关于同伦所得的范畴：其对象是
+$\mathcal{A}$ 中的复形，而态射是复形态射的同伦类。它不是阿贝尔范畴。
+粗略地说，$D(A)$ 定义为把 $\text{Comp}(\mathcal{A})$ 中的全部拟同构
+求逆所得的范畴；等价地，也可从 $K(\mathcal{A})$ 出发。还可只使用
+下有界复形，类似地定义
+$\text{Comp}^+(\mathcal{A}), K^+(\mathcal{A}), D^+(\mathcal{A})$。
+同样地，使用上有界复形定义
+$\text{Comp}^-(\mathcal{A}), K^-(\mathcal{A}), D^-(\mathcal{A})$，
+使用有界复形定义
+$\text{Comp}^b(\mathcal{A}), K^b(\mathcal{A}), D^b(\mathcal{A})$。
+
+\begin{remark}
+\label{trace-remarks-derived-categories}
+关于导出范畴的几点说明。
+\begin{enumerate}
+\item
+当 $\mathcal{A}$ 相当任意时，会出现一些集合论问题；我们欣然将其略去。
+\item
+范畴 $K(A)$ 与 $D(A)$ 都带有三角范畴结构。
+\item
+当 $\mathcal{A}$ 是加法范畴时，也可定义范畴
+$\text{Comp}(\mathcal{A})$ 与 $K(\mathcal{A})$。
+\end{enumerate}
+\end{remark}
+
+\noindent
+把复形 $K^\bullet \mapsto H^i(K^\bullet)$ 的上同调函子
+$H^i : \text{Comp}(\mathcal{A}) \to \mathcal{A}$ 可延拓为函子
+$H^i : K(\mathcal{A}) \to \mathcal{A}$ 与
+$H^i : D(\mathcal{A}) \to \mathcal{A}$。
+
+\begin{lemma}
+\label{trace-lemma-when-in-bounded}
+$D(\mathcal{A})$ 的对象 $E$ 属于 $D^+(\mathcal{A})$，当且仅当对所有
+$i \ll 0$ 都有 $H^i(E) =0 $。对 $D^-$ 与 $D^b$ 也有类似陈述。
+\end{lemma}
+
+\begin{proof}
+提示：使用截断函子。见“导出范畴”引理
+\ref{derived-lemma-complex-cohomology-bounded}。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-derived-categories}
+导出范畴中对象之间的态射。
+\begin{enumerate}
+\item
+设 $I^\bullet \in \text{Comp}^+(\mathcal{A})$，并且对每个
+$n \in \mathbf{Z}$，$I^n$ 都是内射的。则
+$$
+\Hom_{D(\mathcal{A})}(K^\bullet, I^\bullet)
+=
+\Hom_{K(\mathcal{A})}(K^\bullet, I^\bullet).
+$$
+\item
+设 $P^\bullet \in \text{Comp}^-(\mathcal{A})$，并且对每个
+$n \in \mathbf{Z}$，$P^n$ 都是射影的。则
+$$
+\Hom_{D(\mathcal{A})}(P^\bullet, K^\bullet)
+=
+\Hom_{K(\mathcal{A})}(P^\bullet, K^\bullet).
+$$
+\item
+若 $\mathcal{A}$ 有足够多内射对象，且
+$\mathcal{I} \subset \mathcal{A}$ 是内射对象组成的加法子范畴，则
+$
+D^+(\mathcal{A})\cong K^+(\mathcal{I})
+$
+（作为三角范畴）。
+\item
+若 $\mathcal{A}$ 有足够多射影对象，且
+$\mathcal{P} \subset \mathcal{A}$ 是射影对象组成的加法子范畴，则
+$
+D^-(\mathcal{A}) \cong K^-(\mathcal{P}).
+$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{trace-definition-derived-functor}
+设 $F: \mathcal{A} \to \mathcal{B}$ 是左正合函子，并假设
+$\mathcal{A}$ 有足够多内射对象。把{\it $F$ 的全右导出函子}定义为使下图
+交换的函子 $RF: D^+(\mathcal{A}) \to D^+(\mathcal{B})$：
+$$
+\xymatrix{
+D^+(\mathcal{A}) \ar[r]^{RF} & D^+(\mathcal{B}) \\
+K^+(\mathcal I) \ar[u] \ar[r]^F & K^+(\mathcal{B}). \ar[u]
+}
+$$
+这是可行的，因为由上一引理，左边的竖直箭头可逆。类似地，设
+$G: \mathcal{A} \to \mathcal{B}$ 是右正合函子，并假设 $\mathcal{A}$
+有足够多射影对象。把{\it $G$ 的全左导出函子}定义为使下图交换的函子
+$LG: D^-(\mathcal{A}) \to D^-(\mathcal{B})$：
+$$
+\xymatrix{
+D^-(\mathcal{A}) \ar[r]^{LG} & D^-(\mathcal{B}) \\
+K^-(\mathcal{P}) \ar[u] \ar[r]^G & K^-(\mathcal{B}). \ar[u]
+}
+$$
+这也是可行的，因为由上一引理，左边的竖直箭头可逆。
+\end{definition}
+
+\begin{remark}
+\label{trace-remark-cohomology-of-derived-functor}
+在这些情形下，有 $R^iF(K^\bullet) = H^i(RF(K^\bullet))$；其中左端定义为
+复形 $F(K^\bullet)$ 的第 $i$ 个同调。
+\end{remark}
+
+
+
+
+\section{滤过导出范畴}
+\label{trace-section-filtered-derived-category}
+
+\noindent
+原来还得把所有内容再做一遍，并构造滤过导出范畴。
+
+\begin{definition}
+\label{trace-definition-filtered}
+设 $\mathcal{A}$ 是阿贝尔范畴。
+\begin{enumerate}
+\item 以 $\text{Fil}(\mathcal{A})$ 表示 $\mathcal{A}$ 的滤过对象
+$(A, F)$ 组成的范畴，其中 $F$ 是如下形式的滤过：
+$$
+A \supset \ldots \supset F^n A \supset F^{n+1}A \supset \ldots
+\supset 0.
+$$
+这是一个加法范畴。
+\item 以 $\text{Fil}^f(\mathcal{A})$ 表示 $\text{Fil}(\mathcal{A})$ 的
+全子范畴，其对象 $(A, F)$ 具有有限滤过。它也是加法范畴。
+\item 若对每个 $p$，
+$\text{gr}^p(I) = \text{gr}_F^p(I) = F^pI/F^{p+1}I$ 都是
+$\mathcal{A}$ 中的内射（相应地，射影）对象，则称对象
+$I \in \text{Fil}^f(\mathcal{A})$ 是{\it 滤过内射的}（相应地，
+{\it 滤过射影的}）。
+\item 复形范畴
+$\text{Comp}(\text{Fil}^f(\mathcal{A})) \supset
+\text{Comp}^+(\text{Fil}^f(\mathcal{A}))$
+及其同伦范畴
+$K(\text{Fil}^f(\mathcal{A})) \supset K^+(\text{Fil}^f(\mathcal A))$
+均如前定义。
+\item 若 $\text{Comp}(\text{Fil}^f(\mathcal{A}))$ 中复形的态射
+$\alpha : K^\bullet \to L^\bullet$ 满足
+$$
+\text{gr}^p(\alpha): \text{gr}^p(K^\bullet) \to \text{gr}^p(L^\bullet)
+$$
+对每个 $p \in \mathbf{Z}$ 都是拟同构，则称该态射为
+{\it 滤过拟同构}。
+\item 在 $K(\text{Fil}^f(\mathcal{A}))$（相应地，
+$K^+(\text{Fil}^f(\mathcal{A}))$）中把滤过拟同构求逆，由此定义
+$DF(\mathcal{A})$（相应地，$DF^+(\mathcal{A})$）。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{trace-lemma-filtered-derived-category}
+若 $\mathcal{A}$ 有足够多内射对象，则
+$DF^+(\mathcal{A}) \cong K^+(\mathcal{I})$，其中 $\mathcal{I}$ 是
+$\text{Fil}^f(\mathcal{A})$ 中由滤过内射对象组成的全加法子范畴。
+类似地，若 $\mathcal{A}$ 有足够多射影对象，则
+$DF^-(\mathcal{A}) \cong K^-(\mathcal{P})$，其中 $\mathcal P$ 是
+$\text{Fil}^f(\mathcal{A})$ 中由滤过射影对象组成的全加法子范畴。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+\section{滤过导出函子}
+\label{trace-section-filtered-derived-functors}
+
+\noindent
+接下来还有滤过导出函子。
+
+\begin{definition}
+\label{trace-definition-filtered-derived-functors}
+设 $T: \mathcal{A} \to \mathcal{B}$ 是左正合函子，并假设
+$\mathcal{A}$ 有足够多内射对象。把 $RT: DF^+(\mathcal{A}) \to D
+F^+(\mathcal{B})$ 定义为使下图交换的函子：
+$$
+\xymatrix{
+DF^+(\mathcal{A}) \ar[r]^{RT} & DF^+(\mathcal{B}) \\
+K^+(\mathcal{I}) \ar[u] \ar[r]^{T \quad} & K^+(\text{Fil}^f(\mathcal{B})).
+\ar[u]}
+$$
+由上一引理，这是良定义的。设 $G: \mathcal{A} \to \mathcal{B}$ 是右正合
+函子，并假设 $\mathcal{A}$ 有足够多射影对象。把
+$LG: DF^-(\mathcal{A}) \to DF^-(\mathcal{B})$ 定义为使下图交换的函子：
+$$
+\xymatrix{
+DF^-(\mathcal{A}) \ar[r]^{LG} & DF^-(\mathcal{B}) \\
+K^-(\mathcal{P}) \ar[u] \ar[r]^{G \quad} & K^-(\text{Fil}^f(\mathcal{B})).
+\ar[u]}
+$$
+同样，由上一引理，这是良定义的。函子 $RT$（相应地，$LG$）称为
+$T$（相应地，$G$）的{\it 滤过导出函子}。
+\end{definition}
+
+\begin{proposition}
+\label{trace-proposition-compare-filtered-graded}
+在上述情形下，有
+$$
+\text{gr}^p \circ RT = RT \circ \text{gr}^p
+$$
+其中左边的 $RT$ 是滤过导出函子，而右边的同名函子是全导出函子。换言之，
+有交换图
+$$
+\xymatrix{
+DF^+(\mathcal{A}) \ar[r]^{RT} \ar[d]_{\text{gr}^p} & DF^+(\mathcal{B})
+\ar[d]^{\text{gr}^p}\\
+D^+(\mathcal{A}) \ar[r]^{RT} & D^+(\mathcal{B}).}
+$$
+\end{proposition}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+给定 $K^\bullet \in DF^+(\mathcal{B})$，得到谱序列
+$$
+ E_1^{p, q} = H^{p+q}(\text{gr}^p K^\bullet) \Rightarrow H^{p+q}(\text{忘却
+滤过}(K^\bullet)).
+$$
+
+
+
+
+
+
+\section{滤过复形的应用}
+\label{trace-section-applications-filtered}
+
+\noindent
+设 $\mathcal{A}$ 是有足够多内射对象的阿贝尔范畴，并设
+$0 \to L \to M \to N \to 0$ 是 $\mathcal{A}$ 中的短正合列。令
+$\widetilde M \in \text{Fil}^f(\mathcal{A})$ 为带有下述滤过的 $M$：
+$$
+F^1M = L, \ F^nM = M
+\text{ 当 }n \leq 0\text{，且 }F^nM = 0\text{ 当 }n \geq 2.
+$$
+由定义，有
+$$
+\text{忘却滤过}(\widetilde M) = M, \quad
+\text{gr}^0(\widetilde M) = N, \quad
+\text{gr}^1(\widetilde M) = L
+$$
+并且对其余所有 $n \neq 0, 1$，都有 $\text{gr}^n(\widetilde M) = 0$。
+设 $T: \mathcal{A} \to \mathcal{B}$ 是左正合函子，并假设
+$\mathcal{A}$ 有足够多内射对象。则
+$RT(\widetilde M) \in DF^+(\mathcal{B})$ 是满足下式的滤过复形：
+$$
+\text{gr}^p(RT(\widetilde M))
+\stackrel{\text{拟同构}}{=}
+\left\{
+\begin{matrix}
+0 & \text{若} & p \neq 0, 1, \\
+RT(N) & \text{若} & p = 0, \\
+RT(L) & \text{若} & p = 1.
+\end{matrix}
+\right.
+$$
+并且
+$\text{忘却滤过}(RT(\widetilde M))\stackrel{\text{拟同构}}{ = } RT(M)$。
+对 $RT(\widetilde M)$ 应用谱序列，得到
+$$
+E_1^{p, q} = R^{p+q}T(\text{gr}^p(\widetilde M)) \Rightarrow
+R^{p+q}T(\text{忘却滤过}(\widetilde M)).
+$$
+展开该谱序列，得到长正合列
+$$
+\xymatrix{
+0 \ar[r] & T(L) \ar[r] & T(M) \ar[r] & T(N) \ar@(rd, ul)[rdllllr] \\
+& R^1T(L) \ar[r] & R^1T(M) \ar[r] & \ldots
+}
+$$
+下面将如下使用这一点。设 $X/k$ 是有限型概形，并设 $\mathcal{F}$ 是平坦
+可构造 $\mathbf{Z}/\ell^n \mathbf{Z}$-模。我们要证明迹
+$$
+\text{Tr}( \pi_X^\ast | R\Gamma_c(X_{\bar k}, \mathcal{F})) \in
+\mathbf{Z}/\ell^n \mathbf{Z}
+$$
+对短正合列具有可加性。为此，仅使用
+$R\Gamma_c(X_{\bar k}, -) \in D^+(\mathbf{Z}/\ell^n \mathbf{Z})$ 还不够；
+我们必须使用滤过导出范畴。
+
+
+
+
+
+
+
+%10.29.09
+\section{完美性}
+\label{trace-section-perfect}
+
+\noindent
+设 $\Lambda$ 是一个（可能非交换的）环，$\text{Mod}_{\Lambda}$ 是左
+$\Lambda$-模范畴，$K(\Lambda) = K(\text{Mod}_\Lambda)$ 是其同伦范畴，
+而 $D(\Lambda)= D(\text{Mod}_\Lambda)$ 是其导出范畴。
+
+\begin{definition}
+\label{trace-definition-perfect}
+以 $K_{perf}(\Lambda)$ 表示如下范畴：对象是有限射影 $\Lambda$-模的
+有界复形，态射是复形态射关于同伦所得的类。函子
+$K_{perf}(\Lambda)\to D(\Lambda)$ 是全忠实的（见“导出范畴”引理
+\ref{derived-lemma-morphisms-from-projective-complex}）。以
+$D_{perf}(\Lambda)$ 表示它的本质像。若 $D(\Lambda)$ 的对象属于
+$D_{perf}(\Lambda)$，则称其为{\it 完美的}。
+\end{definition}
+
+\begin{proposition}
+\label{trace-proposition-trace-well-defined}
+设 $K\in D_{perf}(\Lambda)$ 且 $f\in \text{End}_{D(\Lambda)}(K)$。则迹
+$\text{Tr}(f)\in \Lambda^\natural$ 是良定义的。
+\end{proposition}
+
+\begin{proof}
+本证明中将反复使用“导出范畴”引理
+\ref{derived-lemma-morphisms-from-projective-complex}
+而不再说明。设 $P^\bullet$ 是有限射影 $\Lambda$-模的有界复形，并设
+$\alpha : P^\bullet \to K$ 是 $D(\Lambda)$ 中的同构。则
+$\alpha^{-1}\circ f\circ \alpha$ 对应于复形态射
+$f^\bullet : P^\bullet \to P^\bullet$，且后者在同伦意义下良定义。令
+$$
+\text{Tr}(f) = \sum_i (-1)^i \text{Tr}(f^i : P^i \to P^i) \in \Lambda^\natural.
+$$
+给定 $P^\bullet$ 与 $\alpha$，该值与 $f^\bullet$ 的选择无关。事实上，
+任一其他选择均有形式
+$\tilde{f}^\bullet = f^\bullet + dh +hd$，其中某个同伦由
+$h^i : P^i \to P^{i-1}(i\in \mathbf{Z})$ 给出。但
+\begin{eqnarray*}
+\text{Tr}(dh) & = & \sum_i (-1)^i \text{Tr}(P^i\xrightarrow{dh} P^i) \\
+& = & \sum_i (-1)^i \text{Tr}(P^{i-1}\xrightarrow{hd} P^{i-1}) \\
+& = & -\sum_i (-1)^{i-1}\text{Tr}(P^{i-1}\xrightarrow{hd} P^{i-1}) \\
+& = & - \text{Tr}(hd)
+\end{eqnarray*}
+因此 $\sum_i (-1)^i \text{Tr} ((dh+hd)|_{P^i})=0$。此外，该值也与
+$(P^\bullet , \alpha)$ 的选择无关。设 $(Q^\bullet, \beta)$ 是另一选择。
+复合
+$$
+Q^\bullet \xrightarrow{\beta} K \xrightarrow{\alpha^{-1}} P^\bullet
+\quad\text{与}\quad
+P^\bullet \xrightarrow{\alpha} K \xrightarrow{\beta^{-1}} Q^\bullet
+$$
+分别可由复形态射 $\gamma_1^\bullet$ 与 $\gamma_2^\bullet$ 表示，并且
+$\gamma_1^\bullet \circ \gamma_2^\bullet$ 同伦于恒等。因此，复形态射
+$\gamma_2^\bullet\circ f^\bullet\circ \gamma_1^\bullet : Q^\bullet\to Q^\bullet$
+表示 $D(\Lambda)$ 中的态射 $\beta^{-1}\circ f\circ\beta$。现有
+\begin{eqnarray*}
+\text{Tr}(\gamma_2^\bullet\circ f^\bullet\circ\gamma_1^\bullet|_{Q^\bullet}) &
+= & \text{Tr}(\gamma_1^\bullet \circ\gamma_2^\bullet \circ
+f^\bullet|_{P^\bullet})\\
+& = & \text{Tr}(f^\bullet|_{P^\bullet})
+\end{eqnarray*}
+这是因为 $\gamma_1^\bullet \circ \gamma_2^\bullet$ 同伦于恒等，且我们已证明
+该值与 $f^\bullet$ 的选择无关。
+\end{proof}
+
+
+
+
+\section{滤过与完美复形}
+\label{trace-section-filtrations-perfect}
+
+\noindent
+现在给出完美复形范畴的滤过版本。若对每个 $p$，
+$\text{gr}^p_F (M)$ 都是有限射影的，则称
+$\text{Fil}^f(\text{Mod}_\Lambda)$ 的对象 $(M, F)$ 是
+{\it 滤过有限射影的}。接着考虑由
+$\text{Fil}^f(\text{Mod}_\Lambda)$ 中滤过有限射影对象的有界复形组成的
+同伦范畴 $KF_{\text{perf}}(\Lambda)$。有范畴图
+$$
+\begin{matrix}
+KF(\Lambda) & \supset & KF_{\text{perf}}(\Lambda)\\
+\downarrow & & \downarrow\\
+DF(\Lambda) & \supset & DF_{\text{perf}}(\Lambda)
+\end{matrix}
+$$
+其中右边的竖直函子是全忠实的，而与前面一样，范畴
+$DF_{\text{perf}}(\Lambda)$ 是它的本质像。
+
+\begin{lemma}[可加性]
+\label{trace-lemma-additivity}
+设 $K\in DF_{\text{perf}}(\Lambda)$ 且 $f\in
+\text{End}_{DF}(K)$。则
+$$
+\text{Tr}(f|_K) =
+\sum\nolimits_{p\in \mathbf{Z}} \text{Tr}(f|_{\text{gr}^p K}).
+$$
+\end{lemma}
+
+\begin{proof}
+由命题 \ref{trace-proposition-trace-well-defined}，可以假设我们有
+$\text{Fil}^f(\text{Mod}_\Lambda)$ 中滤过有限射影对象的一个有界复形
+$P^\bullet$，以及 $\text{Comp}(\text{Fil}^f(\text{Mod}_\Lambda))$ 中的映射
+$f^\bullet : P^\bullet\to P^\bullet$。于是本引理由下述结果推出；其证明
+留给读者。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-additive-filtered-finite-projective}
+设 $P \in \text{Fil}^f(\text{Mod}_\Lambda)$ 是滤过有限射影对象，并设
+$f : P \to P$ 是 $\text{Fil}^f(\text{Mod}_\Lambda)$ 中的自同态。则
+$$
+\text{Tr}(f|_P) =
+\sum\nolimits_p \text{Tr}(f|_{\text{gr}^p(P)}).
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+\section{完美对象的刻画}
+\label{trace-section-characterizing-perfect}
+
+\noindent
+交换情形见“代数续篇”第
+\ref{more-algebra-section-pseudo-coherent},
+\ref{more-algebra-section-tor} 以及
+\ref{more-algebra-section-perfect} 节。
+
+\begin{definition}
+\label{trace-definition-finite-tor-dimension}
+设 $\Lambda$ 是一个（可能非交换的）环。若存在 $a, b \in \mathbf{Z}$，
+使得对任意右 $\Lambda$-模 $N$ 以及所有 $i \not \in [a, b]$，均有
+$H^i(N \otimes_{\Lambda}^\mathbf{L} K) = 0$，则称对象
+$K\in D(\Lambda)$ 具有{\it 有限 $\text{Tor}$-维数}。
+\end{definition}
+
+\noindent
+特别地，取 $N = \Lambda$ 即知这蕴含 $K \in D^b(\Lambda)$。
+
+\begin{lemma}
+\label{trace-lemma-characterize-perfect}
+设 $\Lambda$ 是左 Noether 环，且 $K\in D(\Lambda)$。则 $K$ 完美，当且仅当
+下列两个条件成立：
+\begin{enumerate}
+\item
+$K$ 具有有限 $\text{Tor}$-维数；并且
+\item
+对所有 $i \in \mathbf{Z}$，$H^i(K)$ 都是有限 $\Lambda$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+交换情形的证明见“代数续篇”引理 \ref{more-algebra-lemma-perfect}。
+\end{proof}
+
+\noindent
+强烈建议读者尝试证明这一点。该证明依赖如下事实：有限左表现环上的有限模
+平坦，当且仅当它是射影模。
+
+\begin{remark}
+\label{trace-remark-variant}
+该引理的一个变式是考虑 Noether 概形 $X$，以及如下复形组成的范畴
+$D_{perf}(\mathcal{O}_X)$：这些复形局部拟同构于有限局部自由
+$\mathcal{O}_X$-模的有限复形。$D_{perf}(\mathcal{O}_X)$ 的对象 $K$
+可由具有凝聚上同调层和有界 tor 维数来刻画。
+\end{remark}
+
+
+
+
+
+
+
+
+\section{良好复形的上同调}
+\label{trace-section-cohomology-ctf}
+
+\noindent
+下述命题是关于 $D_{ctf}(X, \Lambda)$ 中对象之紧支撑上同调的一个更一般结果
+的特殊情形。
+
+\begin{proposition}
+\label{trace-proposition-projective-curve-constructible-cohomology}
+设 $X$ 是域 $k$ 上的射影曲线，$\Lambda$ 是有限环，且
+$K\in D_{ctf}(X, \Lambda)$。则
+$R\Gamma(X_{\bar k}, K)\in D_{perf}(\Lambda)$。
+\end{proposition}
+
+\begin{proof}[证明概要。]
+第一步是证明：
+\begin{enumerate}
+\item[(1)]
+{\it $R\Gamma(X_{\bar k}, K)$ 的上同调是有界的。}
+\end{enumerate}
+考虑谱序列
+$$
+H^i(X_{\bar k}, \underline H^j(K))
+\Rightarrow
+H^{i+j} (R\Gamma(X_{\bar k}, K)).
+$$
+由于 $K$ 有界且 $\Lambda$ 有限，各层 $\underline H^j(K)$ 都是挠层。此外，
+$X_{\bar k}$ 具有有限上同调维数，所以左端只有对有限多个 $i$ 与 $j$ 才
+非零。因此右端也只有有限多个非零项。
+\begin{enumerate}
+\item[(2)]
+{\it 上同调群 $H^{i+j} (R\Gamma(X_{\bar k}, K))$ 是有限的。}
+\end{enumerate}
+由于各层 $\underline H^j(K)$ 可构造，各群
+$H^i(X_{\bar k}, \underline H^j(K))$ 均有限（见“\'Etale 上同调”第
+\ref{etale-cohomology-section-vanishing-torsion} 节），故再次由该谱序列即得。
+\begin{enumerate}
+\item[(3)]
+{\it $R\Gamma(X_{\bar k}, K)$ 具有有限 $\text{Tor}$-维数。}
+\end{enumerate}
+设 $N$ 是右 $\Lambda$-模（事实上，由于 $\Lambda$ 有限，只需假设 $N$
+有限）。由投影公式（模的变换），
+$$
+N \otimes^\mathbf{L}_\Lambda R \Gamma(X_{\bar k}, K) = R\Gamma(X_{\bar k},
+N \otimes^\mathbf{L}_\Lambda K).
+$$
+因此
+$$
+H^i (N \otimes^\mathbf{L}_\Lambda R\Gamma(X_{\bar k}, K)) = H^i(R\Gamma(X_{\bar
+k}, N \otimes_{\Lambda}^\mathbf{L} K)).
+$$
+现在考虑谱序列
+$$
+H^i (X_{\bar k}, \underline H^j (N \otimes_{\Lambda}^\mathbf{L} K))
+\Rightarrow
+H^{i+j}(R\Gamma(X_{\bar k}, N \otimes_{\Lambda}^\mathbf{L} K)).
+$$
+由于 $K$ 具有有限 $\text{Tor}$-维数，当 $j$ 充分小时，
+$\underline H^j(N \otimes_{\Lambda}^\mathbf{L} K)$ 一律为零；而当 $i < 0$
+时，左端为零。因此正如所断言的，$R\Gamma(X_{\bar k}, K)$ 具有有限
+$\text{Tor}$-维数。故由引理 \ref{trace-lemma-characterize-perfect}，它是完美复形。
+\end{proof}
+
+
+
+
+
+\section{Lefschetz 数}
+\label{trace-section-lefschetz-numbers}
+
+\noindent
+有限 tor 维数可构造复形的总上同调是完美复形；这一事实是上同调具有良好
+性质的关键技术原因，也使我们能够严格定义迹公式中出现的迹。
+
+\begin{definition}
+\label{trace-definition-global-lefschetz-number}
+设 $\Lambda$ 是有限环，$X$ 是有限域 $k$ 上的射影曲线，且
+$K \in D_{ctf}(X, \Lambda)$（例如 $K = \underline\Lambda$）。有典范映射
+$c_K : \pi_X^{-1}K \to K$，其基变换 $c_K|_{X_{\bar k}}$ 在完美复形
+$R\Gamma(X_{\bar k}, K|_{X_{\bar k}})$ 上诱导一个记为 $\pi_X^*$ 的作用。
+$K$ 的{\it 全局 Lefschetz 数}是该作用的迹
+$\text{Tr}(\pi_X^* |_{R\Gamma(X_{\bar k}, K)})$。它是
+$\Lambda^\natural$ 的元素。
+\end{definition}
+
+\begin{definition}
+\label{trace-definition-local-lefschetz-number}
+设 $\Lambda, X, k, K$ 如定义 \ref{trace-definition-global-lefschetz-number}。
+由于 $K\in D_{ctf}(X, \Lambda)$，对 $X$ 的任意几何点 $\bar x$，复形
+$K_{\bar x}$ 都是完美复形（属于 $D_{perf}(\Lambda)$）。如第
+\ref{trace-section-frobenii} 节所见，Frobenius $\pi_X$ 作用于 $K_{\bar x}$。
+$K$ 的{\it 局部 Lefschetz 数}是总和
+$$
+\sum\nolimits_{x\in X(k)} \text{Tr}(\pi_x |_{K_{\overline{x}}})
+$$
+它同样是 $\Lambda^\natural$ 的元素。
+\end{definition}
+
+\noindent
+现在终于可以精确表述迹公式。
+
+\begin{theorem}[Lefschetz 迹公式]
+\label{trace-theorem-trace}
+设 $X$ 是有限域 $k$ 上的射影曲线，$\Lambda$ 是有限环，且
+$K \in D_{ctf}(X, \Lambda)$。则 $K$ 的全局与局部 Lefschetz 数相等，即
+\begin{equation}
+\label{trace-equation-trace-formula}
+\text{Tr}(\pi^*_X |_{R\Gamma(X_{\bar k}, K)})
+=
+\sum\nolimits_{x\in X(k)} \text{Tr}(\pi_X |_{K_{\bar x}})
+\end{equation}
+是 $\Lambda^\natural$ 中的等式。
+\end{theorem}
+
+\begin{proof}
+见下文讨论。
+\end{proof}
+
+%11.5.09
+\noindent
+我们将使用迹公式而不加证明。不过，我们会相当详细地介绍
+\cite{SGA4.5} 给出的定理证明（其中一些未得到充分说明的事项列在第
+\ref{trace-section-list-skipped} 节）。
+
+\medskip\noindent
+我们只对曲线陈述了该公式；在某种较弱的意义下，它是下述结果的推论。
+
+\begin{theorem}[Weil]
+\label{trace-theorem-weil-trace-formula}
+设 $C$ 是代数闭域 $k$ 上的非奇异射影曲线，并设
+$\varphi : C \to C$ 是不同于恒等的 $C$ 的 $k$-自同态。令
+$V(\varphi) = \Delta_C \cdot \Gamma_\varphi$，其中 $\Delta_C$ 是对角，
+$\Gamma_\varphi$ 是 $\varphi$ 的图，而交数在 $C \times C$ 上取得。令
+$J = \underline{\Picardfunctor}^0_{C/k}$ 为 $C$ 的雅可比簇，并以
+$\varphi^* : J \to J$ 表示 $\varphi$ 通过拉回诱导的作用。则
+$$
+V(\varphi) = 1 - \text{Tr}_J(\varphi^*) + \deg \varphi.
+$$
+\end{theorem}
+
+\begin{proof}
+数 $V(\varphi)$ 是 $\varphi$ 的不动点数；它等于
+$$
+V(\varphi) =
+\sum\nolimits_{c \in |C| : \varphi(c) = c} m_{\text{Fix}(\varphi)} (c)
+$$
+其中 $m_{\text{Fix}(\varphi)} (c)$ 是 $c$ 作为 $\varphi$ 不动点的重数，
+即局部一致化参数在 $\varphi - \text{id}_C$ 下之像的阶或消没。该定理的
+证明可见 \cite{Lang} 与 \cite{Weil}。
+\end{proof}
+
+\begin{example}
+\label{trace-example-elliptic-curve}
+设 $C = E$ 是椭圆曲线，且 $\varphi = [n]$ 是乘以 $n$。则在雅可比簇上，
+$\varphi^* = \varphi^t$ 是乘以 $n$，故其迹为 $2n$、次数为 $n^2$。
+另一方面，$\varphi$ 的不动点是满足 $n p = p$ 的点 $p \in E$，即
+$(n-1)$-挠点；其基数为 $(n-1)^2$。因此该定理在此写成
+$$
+(n-1)^2 = 1 - 2n + n^2.
+$$
+\end{example}
+
+\noindent
+{\bf 雅可比簇。}
+现在不加证明地讨论 Weil 证明中所用的曲线与其雅可比簇之间的对应。设
+$C$ 是代数闭域 $k$ 上的非奇异射影曲线，并选取基点 $c_0 \in C(k)$。
+以 $A^1(C \times C)$（或 $\Pic(C \times C)$，或
+$\text{CaCl}(C \times C)$）表示 $C \times C$ 上余维 1 除子组成的阿贝尔群。
+则
+$$
+A^1(C \times C) = \text{pr}_1^* (A^1(C)) \oplus \text{pr}_2^* (A^1(C)) \oplus R
+$$
+其中
+$$
+R = \{ Z \in A^1(C \times C) \ |
+\ Z|_{C \times \{c_0\}} \sim_\text{rat} 0
+\text{ 且 }
+Z|_{\{c_0\} \times C} \sim_\text{rat} 0 \}.
+$$
+换言之，$R$ 是如下线丛组成的子群：沿任一投影拉回后都成为平凡线丛。
+于是有阿贝尔群的典范同构 $R \cong \text{End}(J)$，它把 $R$ 中的除子
+$Z$ 送到自同态
+$$
+\begin{matrix}
+J & \to & J \\
+\left[ \mathcal{O}_C(D) \right] & \mapsto & (\text{pr}_1 |_Z)_* (\text{pr}_2
+|_Z)^* (D).
+\end{matrix}
+$$
+上述对应如下。以 $\sigma$ 表示交换 $C \times C$ 两个因子的自同构。
+$$
+\begin{matrix}
+\hline & \\
+\text{End}(J) & R \\
+& \\
+\hline & \\
+\text{复合 }\alpha, \beta &
+{\text{pr}_{13}}_* ({\text{pr}_{12}}^*(\alpha) \circ {\text{pr}_{23}}^*(\beta))
+\\
+& \\
+\text{id}_J &
+\Delta_C - \{c_0\} \times C - C \times \{c_0\} \\
+& \\
+\varphi^* &
+\Gamma_\varphi - C \times \{\varphi(c_0)\}
+- \sum_{\varphi(c) = c_0} \{c\} \times C \\
+& \\
+{
+\begin{matrix}
+\text{迹形式} \\
+\alpha, \beta \mapsto \text{Tr}(\alpha \beta)
+\end{matrix}
+}
+&
+\alpha, \beta \mapsto - \int_{C \times C} \alpha . \sigma^*\beta
+\\
+& \\
+{
+\begin{matrix}
+\text{Rosati 对合} \\
+\alpha \mapsto \alpha^\dagger
+\end{matrix}
+}
+&
+\alpha \mapsto \sigma^*\alpha
+\\
+& \\
+{
+\begin{matrix}
+\text{Rosati 正性} \\
+\text{Tr}(\alpha\alpha^\dagger) > 0
+\end{matrix}
+}
+&
+{
+\begin{matrix}
+\text{Hodge 指数定理，作用于 }C \times C \\
+- \int_{C \times C} \alpha \sigma^*\alpha > 0.
+\end{matrix}
+}
+\\
+& \\
+\hline 
+\end{matrix}
+$$
+事实上，由 Kunneth 公式，子群 $R$ 对应于
+$H^1(C)\otimes H^1(C)$ 中的 $1, 1$ hodge 类。
+
+\medskip\noindent
+{\bf Weil 的证明。}利用上述对应，可以证明迹公式。我们有
+\begin{eqnarray*}
+V(\varphi) & = & \int_{C \times C} \Gamma_\varphi.\Delta \\
+& = & \int_{C \times C} \Gamma_\varphi. \left(\Delta_C - \{c_0\} \times C - C
+\times \{c_0\}\right) + \int_{C \times C} \Gamma_\varphi. \left(\{c_0\} \times C
++ C \times \{c_0\}\right).
+\end{eqnarray*}
+一方面，
+$$
+\int_{C \times C} \Gamma_\varphi. \left(\{c_0\} \times C + C \times
+\{c_0\}\right)
+=
+1 + \deg \varphi
+$$
+另一方面，由于 $R$ 是丰沛除子
+$\{c_0\} \times C + C \times \{c_0\}$ 的正交，
+\begin{eqnarray*}
+& &
+\int_{C \times C} \Gamma_\varphi. \left(\Delta_C - \{c_0\} \times C - C \times
+\{c_0\}\right) \\
+& = &
+\int_{C \times C} \left(\Gamma_\varphi - C \times \{\varphi(c_0)\} -
+\sum_{\varphi(c) = c_0} \{c\} \times C \right). \left(\Delta_C - \{c_0\} \times
+C - C \times \{c_0\}\right) \\
+& = & - \text{Tr}_J (\varphi^* \circ \text{id}_J).
+\end{eqnarray*}
+综上，
+$$
+V(\varphi) = 1 - \text{Tr}_J (\varphi^*) + \deg \varphi
+$$
+这就是迹公式。
+
+\begin{lemma}
+\label{trace-lemma-weil-mod}
+考虑定理 \ref{trace-theorem-weil-trace-formula} 的情形，并设 $\ell$ 是在 $k$ 中
+可逆的素数。则
+$$
+\sum\nolimits_{i = 0}^2
+(-1)^i
+\text{Tr}(\varphi^* |_{H^i (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})})
+=
+V(\varphi) \mod \ell^n.
+$$
+\end{lemma}
+
+\begin{proof}[证明概要]
+先注意，该假设是有意义的，因为对所有 $i$，
+$H^i(C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})$ 都是自由
+$\mathbf{Z}/\ell^n \mathbf{Z}$-模。$\varphi^*$ 在第 0 次上同调上的迹为
+1。在 $k$ 中选择一个本原 $\ell^n$ 次单位根，便给出同构
+$$
+H^i(C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}}) \cong H^i(C, \mu_{\ell^n})
+$$
+且它与几何 Frobenius 的作用相容。另一方面，
+$H^1(C, \mu_{\ell^n}) = J[\ell^n]$。因此
+\begin{eqnarray*}
+\text{Tr}(\varphi^* |_{H^1 (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})})) & =
+& \text{Tr}_J (\varphi^*) \mod \ell^n \\
+& = & \text{Tr}_{\mathbf{Z}/\ell^n \mathbf{Z}} (\varphi^* : J[\ell^n] \to
+J[\ell^n]).
+\end{eqnarray*}
+此外，$H^2(C, \mu_{\ell^n}) = \Pic(C)/\ell^n\Pic(C) \cong
+\mathbf{Z}/\ell^n \mathbf{Z}$，而在这里 $\varphi^*$ 是乘以 $\deg \varphi$。
+故
+$$
+\text{Tr} (\varphi^*|_{H^2 (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})}) =
+\deg \varphi.
+$$
+于是
+$$
+\sum_{i = 0}^2 (-1)^i
+\text{Tr}(\varphi^* |_{H^i (C, \underline{\mathbf{Z}/\ell^n \mathbf{Z}})}) =
+1 - \text{Tr}_J(\varphi^*) + \deg \varphi \mod \ell^n
+$$
+而本推论由定理 \ref{trace-theorem-weil-trace-formula} 得出。
+\end{proof}
+
+\noindent
+证明该推论的另一种方法是证明
+$$
+X \mapsto H^* (X, \mathbf{Q}_\ell) =
+\mathbf{Q}_\ell \otimes
+\lim_n H^*(X, \mathbf{Z}/\ell^n\mathbf{Z})
+$$
+在 $k$ 上光滑射影簇上定义了 Weil 上同调理论。于是迹公式
+$$
+V(\varphi) = \sum_{i = 0}^2 (-1)^i
+\text{Tr}(\varphi^* |_{H^i(C, \mathbf{Q}_\ell)})
+$$
+是这些公理的形式推论（这是一个线性代数练习，其证明与拓扑情形相同）。
+
+
+
+
+%11.10.09
+\section{预备知识与命题链}
+\label{trace-section-preliminaries}
+
+\noindent
+记号：
+固定本节所用记号。以 $A$ 表示交换环，以 $\Lambda$ 表示一个（可能
+非交换的）环，并给定环映射 $A\to \Lambda$，其像包含于 $\Lambda$ 的中心。
+令 $G$ 为有限群，令 $\Gamma$ 为一个{\it $G$ 被 $\mathbf{N}$ 的幺半群
+扩张}，意思是存在正合列
+$$
+1\to G\to \tilde\Gamma\to \mathbf{Z}\to 1
+$$
+且 $\Gamma$ 由 $\tilde\Gamma$ 中像非负的那些元素组成。最后，令 $P$ 是
+$A[\Gamma]$-模，并且作为 $A[G]$-模是有限射影的；令 $M$ 是
+$\Lambda[\Gamma]$-模，并且作为 $\Lambda$-模是有限射影的。
+
+\medskip\noindent
+我们的目标是计算 $1 \in \mathbf{N}$ 在 $P \otimes_A M$ 关于 $G$ 的
+余不变量上作为 $\Lambda$-线性作用的迹，即数
+$$
+\text{Tr}_{\Lambda}\left(1; \left(P \otimes_A M\right)_G\right) \in
+\Lambda^\natural.
+$$
+元素 $1\in \mathbf{N}$ 将对应于 Frobenius。
+
+\begin{lemma}
+\label{trace-lemma-epsilon}
+以 $e\in G$ 表示单位元。映射
+$$
+\begin{matrix}
+\Lambda[G] & \longrightarrow & \Lambda^{\natural}\\
+\sum \lambda_g\cdot g & \longmapsto & \lambda_e
+\end{matrix}
+$$
+经由 $\Lambda[G]^\natural$ 分解。以
+$\varepsilon : \Lambda[G]^\natural\to \Lambda^\natural$ 表示所诱导的映射。
+\end{lemma}
+
+\begin{proof}
+只需证明该映射消去换位子。有
+$$
+\left(\sum\lambda_g g\right)\left(\sum\mu_g g\right)-\left(\sum \mu_g
+g\right)\left(\sum\lambda_g g\right)
+= \sum_g\left(\sum_{g_1g_2=g}
+\lambda_{g_1}\mu_{g_2}-\mu_{g_1}\lambda_{g_2}\right)g
+$$
+$e$ 的系数为
+$$
+\sum_g\left(\lambda_g\mu_{g^{-1}}-\mu_g\lambda_{g^{-1}}\right) =
+\sum_g\left(\lambda_g\mu_{g^{-1}}-\mu_{g^{-1}}\lambda_g\right)
+$$
+它是换位子之和，故在 $\Lambda^\natural$ 中为零。
+\end{proof}
+
+\begin{definition}
+\label{trace-definition-trace-G}
+设 $f : P\to P$ 是有限射影 $\Lambda[G]$-模 $P$ 的自同态。定义
+$$
+\text{Tr}_{\Lambda}^G(f; P) := \varepsilon\left(\text{Tr}_{\Lambda[G]}(f;
+P)\right)
+$$
+并称其为{\it $f$ 在 $P$ 上的 $G$-迹}。
+\end{definition}
+
+\begin{lemma}
+\label{trace-lemma-lambda-trace}
+设 $f : P\to P$ 是有限射影 $\Lambda[G]$-模 $P$ 的自同态。则
+$$
+\text{Tr}_{\Lambda}(f; P) = \# G \cdot \text{Tr}_\Lambda^G(f; P).
+$$
+\end{lemma}
+
+\begin{proof}
+由可加性，归约到 $P = \Lambda[G]$ 的情形。此时，$f$ 由右乘
+$\Lambda[G]$ 的某个元素 $\sum\lambda_g\cdot g$ 给出。在基
+$(g)_{g \in G}$ 下，$f$ 的矩阵在位置 $(g_1, g_2)$ 的系数是
+$\lambda_{g_2^{-1}g_1}$。特别地，所有对角系数都是 $\lambda_e$，这样的
+系数共有 $\# G$ 个。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-A-module-structure}
+映射 $A\to \Lambda$ 在 $\Lambda^\natural$ 上定义了 $A$-模结构。
+\end{lemma}
+
+\begin{proof}
+这是显然的。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-diagonal-action-projective-module}
+设 $P$ 是有限射影 $A[G]$-模，$M$ 是作为 $\Lambda$-模有限射影的
+$\Lambda[G]$-模。则对角 $G$-作用所诱导的结构使 $P \otimes_A M$ 成为
+有限射影 $\Lambda[G]$-模。
+\end{lemma}
+
+\noindent
+注意，由于 $M$ 是 $\Lambda$-模，$P \otimes_A M$ 自然也具有这种模结构。
+把此结构与对角作用合在一起，明确写成
+$$
+\left(\sum\lambda_g g\right)\left(p \otimes m\right)
+=
+\sum g p \otimes \lambda_g g m.
+$$
+
+\begin{proof}
+对任意 $\Lambda[G]$-模 $N$，有
+$$
+\Hom_{\Lambda[G]}\left(P \otimes_A M, N\right)= \Hom_{A[G]}\left(P,
+\Hom_{\Lambda}(M, N)\right)
+$$
+其中 $G$ 在 $\Hom_{\Lambda}(M, N)$ 上的作用由 $(g\cdot
+\varphi)(m) = g \varphi (g^{-1} m) $ 给出。现在只需注意，由于 $P$ 与 $M$
+的射影性，右端是正合函子的复合。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-multiplicative-trace}
+在引理 \ref{trace-lemma-diagonal-action-projective-module} 的假设下，设
+$u\in \text{End}_{A[G]}(P)$ 且 $v\in \text{End}_{\Lambda[G]}(M)$。则
+$$
+\text{Tr}_\Lambda^G \left(u \otimes v; P \otimes_A M\right) = \text{Tr}_A^G(u;
+P)\cdot \text{Tr}_\Lambda(v;M).
+$$
+\end{lemma}
+
+\begin{proof}[证明概要]
+归约到 $P=A[G]$ 的情形。此时，$u$ 是右乘 $A[G]$ 的某个元素
+$a = \sum a_gg$；把它记作 $u = R_a$。有 $\Lambda[G]$-模的同构
+$$
+\begin{matrix}
+\varphi : & A[G]\otimes_A M & \cong & \left(A[G]\otimes_A M\right)'\\
+& g \otimes m & \longmapsto & g \otimes g^{-1}m
+\end{matrix}
+$$
+其中 $\left(A[G]\otimes_A M\right)'$ 的模结构由左 $G$-作用与 $M$ 上的
+$\Lambda$-线性结构共同给出。这一结构转移把 $u \otimes v$ 变成
+$\sum_ga_gR_g \otimes g^{-1}v$。换言之，
+$$
+\varphi \circ (u \otimes v) \circ \varphi^{-1}
+=
+\sum_ga_gR_g \otimes g^{-1}v.
+$$
+明确展开等式两端后，只须证明
+$$
+\text{Tr}_\Lambda^G\left(\sum_g a_gR_g \otimes g^{-1}v\right) = a_e\cdot
+\text{Tr}_\Lambda(v; M).
+$$
+为此，只须证明
+$$
+\text{Tr}_\Lambda^G\left(a_gR_g \otimes g^{-1}v\right) =
+\left\{
+\begin{matrix}
+0 & \text{ 若 } g\neq e\\
+a_e\text{Tr}_\Lambda\left(v; M\right) & \text{ 若 }g = e
+\end{matrix}
+\right.
+$$
+这又可归约到 $M=\Lambda$。
+\end{proof}
+
+\noindent
+记号：
+考虑幺半群扩张 $1 \to G\to \Gamma\to \mathbf{N} \to 1$，并设
+$\gamma\in \Gamma$。记 $Z_\gamma = \{g\in G | g\gamma = \gamma g\}$。
+
+\begin{lemma}
+\label{trace-lemma-gamma-z-gamma-trace}
+设 $P$ 是 $\Lambda[\Gamma]$-模，并且作为 $\Lambda[G]$-模有限射影；另设
+$\gamma \in \Gamma$。则
+$$
+\text{Tr}_{\Lambda}(\gamma, P) =
+\# Z_\gamma \cdot \text{Tr}_\Lambda^{Z_\gamma}\left(\gamma, P\right).
+$$
+\end{lemma}
+
+\begin{proof}
+这直接由引理 \ref{trace-lemma-lambda-trace} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-weak-trace}
+设 $P$ 是 $A[\Gamma]$-模，并且作为 $A[G]$-模有限射影。设 $M$ 是
+$\Lambda[\Gamma]$-模，并且作为 $\Lambda$-模有限射影。则
+$$
+\text{Tr}_{\Lambda}^{Z_\gamma}(\gamma, P \otimes_A M) =
+\text{Tr}_A^{Z_\gamma}(\gamma, P)\cdot \text{Tr}_\Lambda(\gamma, M).
+$$
+\end{lemma}
+
+\begin{proof}
+这直接由引理 \ref{trace-lemma-multiplicative-trace} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-trivial-trace}
+设 $P$ 是 $\Lambda[\Gamma]$-模，并且作为 $\Lambda[G]$-模有限射影。则余不变量
+$P_G = \Lambda \otimes_{\Lambda[G]} P$
+构成有限射影 $\Lambda$-模，并带有 $\Gamma/G = \mathbf{N}$ 的作用。此外，
+$$
+\text{Tr}_\Lambda(1; P_G) =
+\sum\nolimits'_{\gamma \mapsto 1} \text{Tr}_\Lambda^{Z_\gamma}(\gamma, P)
+$$
+其中 $\sum_{\gamma\mapsto 1}'$ 表示对 $\Gamma$ 中的 $G$-共轭类求和。
+\end{lemma}
+
+\begin{proof}[证明概要]
+先在两端乘以 $\# G$ 后证明此式。
+$$
+\# G\cdot \text{Tr}_\Lambda(1; P_G)
+= \text{Tr}_\Lambda(\sum\nolimits_{\gamma\mapsto 1} \gamma, P_G)
+= \text{Tr}_\Lambda(\sum\nolimits_{\gamma\mapsto 1} \gamma, P)
+$$
+第二个等式由考察交换三角形
+$$
+\xymatrix{
+P^G \ar[rd]_a & & P_G \ar[ll]^c \\
+& P \ar[ur]_b
+}
+$$
+得出，其中 $a$ 是典范包含，$b$ 是典范满射，且
+$c = \sum_{\gamma \mapsto 1} \gamma$。于是
+$$
+(\sum\nolimits_{\gamma \mapsto 1} \gamma) |_P = a \circ c \circ b
+\quad\text{且}\quad
+(\sum\nolimits_{\gamma \mapsto 1} \gamma) |_{P_G} = b \circ a \circ c
+$$
+故二者具有相同的迹。于是
+$$
+\# G\cdot \text{Tr}_\Lambda(1; P_G)
+=
+{\sum_{\gamma\mapsto 1}}'
+\frac{\# G}{\# Z_\gamma}\text{Tr}_\Lambda(\gamma, P)
+= \# G{\sum_{\gamma\mapsto 1}}' \text{Tr}_\Lambda^{Z_\gamma}(\gamma, P).
+$$
+最后，通过某个泛性论证归约到 $\Lambda$ 无挠的情形。细节见
+\cite{SGA4.5}。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-content-trivial-trace}
+我们试着说明引理 \ref{trace-lemma-weak-trace} 中公式的内容。假设把 $\Lambda$
+看作平凡 $\Gamma$-模时，它具有有限消解
+$
+0\to P_r\to \ldots \to P_1 \to P_0\to \Lambda\to 0
+$
+其中各 $\Lambda[\Gamma]$-模 $P_i$ 作为 $\Lambda[G]$-模都是有限射影的。
+在这种情形下，
+$$
+H_*\left(\left(P_\bullet\right)_G\right) =
+\text{Tor}_*^{\Lambda[G]}\left(\Lambda, \Lambda\right) = H_*(G, \Lambda)
+$$
+且
+$$
+\text{Tr}_\Lambda^{Z_\gamma}\left(\gamma, P_\bullet\right) =\frac{1}{\#
+Z_\gamma}\text{Tr}_\Lambda(\gamma, P_\bullet)=\frac{1}{\#
+Z_\gamma}\text{Tr}(\gamma, \Lambda) = \frac{1}{\# Z_\gamma}.
+$$
+因此，引理 \ref{trace-lemma-weak-trace} 给出
+$$
+\text{Tr}_\Lambda (1 , P_G)
+= \text{Tr}\left(1 |_{H_*(G, \Lambda)}\right)
+= {\sum_{\gamma\mapsto 1}}'\frac{1}{\# Z_\gamma}.
+$$
+这可解释为栈 $BG$ 上的点计数。若 $\Lambda = \mathbf{F}_\ell$，其中
+$\ell$ 与 $\# G$ 互素，则 $H_*(G, \Lambda)$ 在次数 0 为
+$\mathbf{F}_\ell$（在其他次数为 $0$），而公式写成
+$$
+1 =
+\sum\nolimits_{
+\frac{\sigma\text{-共轭}}{\text{类}\langle\gamma\rangle}
+}
+\frac{1}{\# Z_\gamma} \mod \ell.
+$$
+在某种意义下，这是 $G$ 的一个“平凡”迹公式。稍后将看到，在某些情形下，
+(\ref{trace-equation-trace-formula}) 可视为某类群的一个高度非平凡的迹公式，见第
+\ref{trace-section-abstract-trace-formula} 节。
+\end{remark}
+
+
+
+
+
+%11.12.09
+\section{迹公式的证明}
+\label{trace-section-proof-trace-formula}
+
+\begin{theorem}
+\label{trace-theorem-trace-formula-again}
+设 $k$ 是有限域，$X$ 是 $k$ 上维数至多为 1 的分离有限型概形。设
+$\Lambda$ 是基数与 $k$ 的基数互素的有限环，且
+$K\in D_{ctf}(X, \Lambda)$。则
+\begin{equation}
+\label{trace-equation-trace-formula-again}
+\text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, K)})
+=
+\sum\nolimits_{x\in X(k)}
+\text{Tr}(\pi_x |_{K_{\bar x}})
+\end{equation}
+是 $\Lambda^{\natural}$ 中的等式。
+\end{theorem}
+
+\noindent
+关于该陈述的一些说明见评注 \ref{trace-remark-on-trace-formula-again}。记号：简记
+$$
+T'(X, K) =
+\sum\nolimits_{x\in X(k)}
+\text{Tr}(\pi_x |_{K_{\bar x}})
+$$
+为 (\ref{trace-equation-trace-formula-again}) 的右端，并简记
+$$
+T''(X, K)
+=\text{Tr}(\pi_x^* |_{R\Gamma_c(X_{\bar k}, K)})
+$$
+为其左端。
+
+\begin{proof}[定理 \ref{trace-theorem-trace-formula-again} 的证明]
+证明分若干步进行。
+
+\medskip\noindent
+第 1 步。{\it 设 $j : \mathcal{U}\hookrightarrow X$ 是开浸入，其补集为
+$Y = X - \mathcal{U}$，并设 $i : Y \hookrightarrow X$。则
+$T''(X, K) = T''(\mathcal{U}, j^{-1} K)+ T''(Y, i^{-1}K)$，且
+$T'(X, K) = T'(\mathcal{U}, j^{-1} K)+ T'(Y, i^{-1}K)$.}
+
+\medskip\noindent
+对 $T'$，这是显然的。对 $T''$，使用正合列
+$$
+0\to j_!j^{-1} K \to K \to i_* i^{-1} K \to 0
+$$
+在 $K$ 上得到一个滤过。由此产生对象 $\widetilde K \in DF(X, \Lambda)$，
+其分次片为 $j_!j^{-1}K$ 与 $i_*i^{-1}K$，二者均属于
+$D_{ctf}(X, \Lambda)$。于是，由滤过导出的抽象形式论证（待插入引用），
+$R\Gamma_c(X_{\bar k}, K)\in DF_{perf}(\Lambda)$，并且它在
+$DF_{perf}(\Lambda)$ 中带有 $\pi_x^*$。由关于滤过复形之迹的讨论
+（待插入引用），得到
+\begin{eqnarray*}
+\text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, K)})
+& = & \text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, j_!j^{-1}K)}) +
+\text{Tr}(\pi_X^* |_{R\Gamma_c(X_{\bar k}, i_*i^{-1}K)}) \\
+& = & T''(U, i^{-1}K) + T''(Y, i^{-1}K).
+\end{eqnarray*}
+
+\noindent
+第 2 步。{\it 若 $\dim X\leq 0$，则定理成立。}
+
+\medskip\noindent
+事实上，在这种情形下，
+$$
+R\Gamma_c(X_{\bar k}, K) = R\Gamma(X_{\bar k}, K) = \Gamma(X_{\bar k}, K) =
+\bigoplus\nolimits_{\bar x \in X_{\bar k}} K_{\bar x}
+$$
+且它带有自同态 $\pi_X^*$。由于 $\pi_X : X_{\bar k}\to X_{\bar k}$ 的
+不动点恰为位于某个 $k$-有理点 $x \in X(k)$ 上方的点
+$\bar x \in X_{\bar k}$，故
+$$
+\text{Tr}\big(\pi_X^*|_{R\Gamma_c(X_{\bar k}, K)}\big) =
+\sum\nolimits_{x \in X(k)} \text{Tr}(\pi_x|_{K_{\bar x}}).
+$$
+正如所需。
+
+\medskip\noindent
+第 3 步。{\it 只须在下列情形证明等式
+$T'(\mathcal{U}, \mathcal{F}) = T''(\mathcal{U}, \mathcal{F})$
+：
+\begin{itemize}
+\item $\mathcal{U}$ 是 $k$ 上光滑不可约仿射曲线；
+\item $\mathcal{U}(k) = \emptyset$；
+\item $K=\mathcal{F}$ 是 $\mathcal{U}$ 上有限局部常值的 $\Lambda$-模层，
+其茎为有限射影 $\Lambda$-模；并且
+\item $\Lambda$ 被素数 $\ell$ 的某个幂消去，且 $\ell \in k^*$。
+\end{itemize}
+}
+
+\medskip\noindent
+事实上，由第 2 步，可以丢掉任意有限点集。但有理点只有有限多个，故可假设
+一个也没有\footnote{此处背景中应当响起邪恶的笑声。}。通过转到不可约分支，
+并在必要时丢掉坏点，可以假设 $\mathcal{U}$ 光滑、不可约且仿射。关于
+$\mathcal{F}$ 的假设来自展开 $D_{ctf}(X, \Lambda)$ 的定义，关于
+$\Lambda$ 的假设则来自考察其准素分解。
+
+\medskip\noindent
+在证明的其余部分，考虑情形
+$$
+\xymatrix{
+\mathcal{V} \ar[d]_f \ar[r] & Y \ar[d]^{\bar f} \\
+\mathcal{U} \ar[r] & X
+}
+$$
+其中 $\mathcal{U}$ 如上，$f$ 是有限 \'etale Galois 覆盖，$\mathcal{V}$
+连通，而水平箭头是射影完备化。记
+$G=\text{Aut}(\mathcal{V}|\mathcal{U})$；还可假设
+$f^{-1}\mathcal{F} =\underline M$ 是常值的，其中模
+$M = \Gamma(\mathcal{V}, f^{-1}\mathcal{F})$ 是在 $\Lambda$ 上有限射影的
+$\Lambda[G]$-模。这对应于平凡幺半群扩张
+$$
+1\to G\to \Gamma = G \times \mathbf{N}\to \mathbf{N}\to 1.
+$$
+在此背景下，利用上述归约，只须证明
+$T''(\mathcal{U}, \mathcal{F}) = 0$。
+
+\medskip\noindent
+第 4 步。{\it $G$ 在 $f_*f^{-1}\mathcal{F}$ 上有自然作用，而迹映射
+$f_*f^{-1}\mathcal{F}\to \mathcal{F}$ 定义同构}
+$$
+(f_*f^{-1}\mathcal{F})\otimes_{\Lambda[G]} \Lambda =
+(f_*f^{-1}\mathcal{F})_G \cong \mathcal{F}.
+$$
+
+\medskip\noindent
+为证明这一点，只须在一个几何点处展开所有定义。
+
+\medskip\noindent
+第 5 步。{\it 令 $A = \mathbf{Z}/\ell^n \mathbf{Z}$，其中 $n\gg 0$。则
+$f_*f^{-1}\mathcal{F} \cong (f_*\underline A)
+\otimes_{\underline A} \underline M$，并取对角 $G$-作用。}
+
+\medskip\noindent
+第 6 步。{\it 有典范同构
+$(f_*\underline A \otimes_{\underline A} \underline M)
+\otimes_{\Lambda[G]} \underline \Lambda \cong \mathcal{F}$.
+}
+
+\medskip\noindent
+事实上，由于关于 $\mathcal{F}$ 的射影性假设，这里是导出张量积。
+
+\medskip\noindent
+第 7 步。{\it 有典范同构
+$$
+R\Gamma_c(\mathcal{U}_{\bar k}, \mathcal{F})
+= (R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)\otimes_A^\mathbf{L}
+M)\otimes_{\Lambda[G]}^\mathbf{L} \Lambda,
+$$
+且与 $\pi^*_\mathcal{U}$ 的作用相容。
+}
+
+\medskip\noindent
+这来自普遍系数定理，即 $R\Gamma_c$ 与 $\otimes^\mathbf{L}$ 交换这一事实，
+以及 $\mathcal{F}$ 作为 $\Lambda$-模的平坦性。
+
+\medskip\noindent
+有
+\begin{eqnarray*}
+\text{Tr}(
+\pi_\mathcal{U}^* |_{R\Gamma_c(\mathcal{U}_{\bar k}, \mathcal{F})})
+& = &
+{\sum_{g \in G}}'
+\text{Tr}_{\Lambda}^{Z_g}
+\left(
+(g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)\otimes_A^\mathbf{L} M}
+\right) \\
+& = &
+{\sum_{g\in G}}'
+\text{Tr}_A^{Z_g}
+(
+(g, \pi_\mathcal{U}^*) |_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)}
+)
+\cdot
+\text{Tr}_\Lambda(g|_M)
+\end{eqnarray*}
+其中 $\Gamma$ 通过 $G$ 作用于
+$R\Gamma_c(\mathcal{U}_{\bar k}, \mathcal{F})$，而 $(e, 1)$ 通过
+$\pi_\mathcal{U}^*$ 作用。因此幺半群扩张由
+$\Gamma = G \times \mathbf{N} \to \mathbf{N}$，$\gamma \mapsto 1$ 给出。
+第一个等式来自引理 \ref{trace-lemma-trivial-trace}，第二个来自引理
+\ref{trace-lemma-weak-trace}。
+
+\medskip\noindent
+第 8 步。{\it 只须证明
+$\text{Tr}_A^{Z_g}((g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)}) \in A$
+在 $\Lambda$ 中的像为零。
+}
+
+\medskip\noindent
+回忆
+\begin{eqnarray*}
+\# Z_g \cdot \text{Tr}_A^{Z_g}((g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)})
+& = & \text{Tr}_A((g, \pi_\mathcal{U}^*)
+|_{R\Gamma_c(\mathcal{U}_{\bar k}, f_*A)})\\
+& = &
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}_{\bar k}, A)}).
+\end{eqnarray*}
+第一个等式是引理 \ref{trace-lemma-gamma-z-gamma-trace}，第二个来自 Leray
+谱序列，其中使用了 $f$ 的有限性以及我们只在 $A$ 上取迹这一事实。现在，
+由于 $A=\mathbf{Z}/\ell^n\mathbf{Z}$ 且 $n \gg 0$，并且对某个（固定的）
+$a$ 有 $\# Z_g = \ell^a$，只须证明下述结果。
+
+\medskip\noindent
+第 9 步。{\it 有
+$\text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}, A)}) = 0$
+于 $A$。}
+
+\medskip\noindent
+再次由可加性，有
+\begin{eqnarray*}
+& \text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}_{\bar k} A)})
++
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^*
+|_{R\Gamma_c(Y-\mathcal {V})_{\bar k}, A)}) \\
+& =
+\text{Tr}_A((g^{-1}\pi_Y)^* |_{R\Gamma(Y_{\bar k}, A)})
+\end{eqnarray*}
+由 Weil 迹公式定理 \ref{trace-theorem-weil-trace-formula}，后一个迹是
+$g^{-1}\pi_Y$ 在 $Y$ 上的不动点数。此外，由第 2 步已经证明的 0 维情形，
+$$
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^*|_{R\Gamma_c(Y-\mathcal{V})_{\bar k}, A)})
+$$
+是 $g^{-1}\pi_Y$ 在 $(Y-\mathcal{V})_{\bar k}$ 上的不动点数。因此，
+$$
+\text{Tr}_A((g^{-1}\pi_\mathcal{V})^* |_{R\Gamma_c(\mathcal{V}_{\bar k}, A)})
+$$
+是 $g^{-1}\pi_Y$ 在 $\mathcal{V}_{\bar k}$ 上的不动点数。但不存在这样的
+点：若 $\bar y\in Y_{\bar k}$ 在 $g^{-1}\pi_Y$ 下不动，则
+$\bar f(\bar y) \in X_{\bar k}$ 在 $\pi_X$ 下不动。然而 $\mathcal{U}$
+没有 $k$-有理点，所以必有
+$\bar f(\bar y)\in (X-\mathcal{U})_{\bar k}$，从而
+$\bar y\notin \mathcal{V}_{\bar k}$，矛盾。
+证明完毕。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-on-trace-formula-again}
+关于定理 \ref{trace-theorem-trace-formula-again} 的几点说明。
+\begin{enumerate}
+\item
+该公式在任意维数都成立。由一个 d\'evissage 引理（它使用固有基变换等），
+在那样的一般性下可将其归约到当前陈述。
+\item
+复形 $R\Gamma_c(X_{\bar k}, K)$ 的定义如下：选择开浸入
+$j : X \hookrightarrow \bar X$，其中 $\bar X$ 是 $k$ 上维数至多为 1 的
+射影概形，并令
+$$
+R\Gamma_c(X_{\bar k}, K) := R\Gamma(\bar X_{\bar k}, j_!K).
+$$
+它与 $\bar X$ 的选择无关，这由（在此插入引用）得出。把
+$H^i_c(X_{\bar k}, K)$ 定义为 $R\Gamma_c(X_{\bar k}, K)$ 的第 $i$ 个
+上同调群。
+\end{enumerate}
+\end{remark}
+
+\begin{remark}
+\label{trace-remark-stronger}
+尽管我们所做的都是归约，而且主要是代数，但迹公式定理
+\ref{trace-theorem-trace-formula-again} 比 Weil 几何迹公式（定理
+\ref{trace-theorem-weil-trace-formula}）强得多，因为它适用于系数系统（层），
+而不仅仅适用于常系数。
+\end{remark}
+
+
+%11.17.09
+\section{应用}
+\label{trace-section-applications}
+
+\noindent
+好了，既然已经说明了迹公式的证明，就来尝试用它做些事情。
+
+
+
+
+
+\section{关于 l-进层}
+\label{trace-section-l-adic-sheaves}
+
+\begin{definition}
+\label{trace-definition-l-adic-sheaf}
+设 $X$ 是 Noether 概形。$X$ 上的一个{\it $\mathbf{Z}_\ell$-层}，或简称
+{\it $\ell$-进层} $\mathcal{F}$，是逆系统
+$\left\{\mathcal{F}_n\right\}_{n\geq 1}$，其中
+\begin{enumerate}
+\item
+$\mathcal{F}_n$ 是 $X_\etale$ 上的可构造
+$\mathbf{Z}/\ell^n\mathbf{Z}$-模；并且
+\item
+转移映射 $\mathcal{F}_{n+1}\to \mathcal{F}_n$ 诱导同构
+$\mathcal{F}_{n+1} \otimes_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z} \cong \mathcal{F}_n$.
+\end{enumerate}
+若每个 $\mathcal{F}_n$ 都是局部常值的，则称 $\mathcal{F}$ 是
+{\it lisse 的}。这类对象之间的{\it 态射}就是逆系统之间的态射。
+\end{definition}
+
+\begin{lemma}
+\label{trace-lemma-eventually-constant}
+设 $\{\mathcal{G}_n\}_{n\geq 1}$ 是可构造
+$\mathbf{Z}/\ell^n\mathbf{Z}$-模组成的逆系统。假设对所有 $k\geq 1$，映射
+$$
+\mathcal{G}_{n+1}/\ell^k \mathcal{G}_{n+1}\to \mathcal{G}_n /\ell^k
+\mathcal{G}_n
+$$
+对所有 $n\gg 0$ 都是同构（界可能依赖于 $k$）。换言之，假设系统
+$\{\mathcal{G}_n/\ell^k\mathcal{G}_n\}_{n\geq 1}$
+最终常值，并把相应的层记作 $\mathcal{F}_k$。则系统
+$\left\{\mathcal{F}_k\right\}_{k\geq 1}$ 构成 $X$ 上的
+$\mathbf{Z}_\ell$-层。
+\end{lemma}
+
+\begin{proof}
+证明是显然的。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-l-adic-abelian}
+$X$ 上的 $\mathbf{Z}_\ell$-层所成的范畴是阿贝尔范畴。
+\end{lemma}
+
+\begin{proof}
+设
+$\Phi = \left\{\varphi_n\right\}_{n\geq 1} :
+\left\{\mathcal{F}_n\right\}
+\to
+\left\{\mathcal{G}_n\right\}$
+是 $\mathbf{Z}_\ell$-层的态射。令
+$$
+\Coker(\Phi) =
+\left\{
+\Coker\left(\mathcal{F}_n \xrightarrow{\varphi_n} \mathcal{G}_n\right)
+\right\}_{n\geq 1}
+$$
+而 $\Ker(\Phi)$ 是把引理 \ref{trace-lemma-eventually-constant} 应用于逆系统
+$$
+\left\{
+\bigcap_{m\geq n}
+\Im\left(\Ker(\varphi_m) \to \Ker(\varphi_n)\right)
+\right\}_{n \geq 1}.
+$$
+由此定义出阿贝尔范畴这一点留给读者。
+\end{proof}
+
+\begin{example}
+\label{trace-example-kernel}
+设 $X=\Spec(\mathbf{C})$，并令
+$\Phi : \mathbf{Z}_\ell\to \mathbf{Z}_\ell$ 为乘以 $\ell$。更精确地，
+$$
+\Phi = \left\{ \mathbf{Z}/\ell^n\mathbf{Z} \xrightarrow{\ell}
+\mathbf{Z}/\ell^n\mathbf{Z}\right\}_{n \geq 1}.
+$$
+为计算核，考虑逆系统
+$$
+\ldots\to \mathbf{Z}/\ell\mathbf{Z}\xrightarrow{0}
+\mathbf{Z}/\ell\mathbf{Z}\xrightarrow{0}\mathbf{Z}/\ell\mathbf{Z}.
+$$
+由于这些像总为零，$\Ker(\Phi)$ 作为系统为零。
+\end{example}
+
+\begin{remark}
+\label{trace-remark-stalk-l-adic-sheaf}
+若 $\mathcal{F} = \left\{\mathcal{F}_n\right\}_{n\geq 1}$ 是 $X$ 上的
+$\mathbf{Z}_\ell$-层，且 $\bar x$ 是几何点，则
+$M_n = \left\{\mathcal{F}_{n, \bar x}\right\}$ 是有限
+$\mathbf{Z}/\ell^n\mathbf{Z}$-模组成的逆系统，使得
+$M_{n+1}\to M_n$ 是满射，且 $M_n = M_{n+1}/\ell^n M_{n+1}$。由此
+$$
+M = \lim_n M_n = \lim \mathcal{F}_{n, \bar x}
+$$
+是有限 $\mathbf{Z}_\ell$-模。这由“代数”引理
+\ref{algebra-lemma-limit-complete}、
+\ref{algebra-lemma-finite-over-complete-ring} 以及
+$M/\ell M = M_1$ 是有限 $\mathbf{F}_\ell$-模这一事实得出。因此，对某些
+$r, t\geq 0$、$e_i\geq 1$，有
+$M\cong \mathbf{Z}_\ell^{\oplus r} \oplus \oplus_{i = 1}^t
+\mathbf{Z}_\ell/\ell^{e_i}\mathbf{Z}_\ell$。模
+$M = \mathcal{F}_{\bar x}$ 称为 $\mathcal{F}$ 在 $\bar x$ 处的{\it 茎}。
+\end{remark}
+
+\begin{definition}
+\label{trace-definition-torsion-l-adic-sheaf}
+若对某个 $n$，$\ell^n : \mathcal{F} \to \mathcal{F}$ 是零映射，则称
+$\mathbf{Z}_\ell$-层 $\mathcal{F}$ 是{\it 挠的}。$X$ 上
+$\mathbf{Q}_\ell$-层所成的阿贝尔范畴，是 $\mathbf{Z}_\ell$-层的阿贝尔
+范畴关于挠层所成 Serre 子范畴的商。换言之，其对象是 $X$ 上的
+$\mathbf{Z}_\ell$-层；若 $\mathcal{F}, \mathcal{G}$ 是两个这样的对象，则
+$$
+\Hom_{\mathbf{Q}_\ell} \left(\mathcal{F}, \mathcal{G} \right) =
+\Hom_{\mathbf{Z}_\ell} \left(\mathcal{F}, \mathcal{G}\right)
+\otimes_{\mathbf{Z}_\ell} \mathbf{Q}_\ell.
+$$
+以 $\mathcal{F} \mapsto \mathcal{F} \otimes \mathbf{Q}_\ell$ 表示商函子
+（它是包含函子的右伴随）。若 $\mathcal{F} =
+\mathcal{F}' \otimes \mathbf{Q}_\ell$，其中 $\mathcal{F}'$ 是
+$\mathbf{Z}_\ell$-层，且 $\bar x$ 是几何点，则 $\mathcal{F}$ 在
+$\bar x$ 处的{\it 茎}为 $\mathcal{F}_{\bar x} =
+\mathcal{F}'_{\bar x} \otimes \mathbf{Q}_\ell$。
+\end{definition}
+
+\begin{remark}
+\label{trace-remark-torsion-stalks}
+由于 $\mathbf{Z}_\ell$-层只在 Noether 概形上定义，它是挠的，当且仅当其
+各茎都是挠的。
+\end{remark}
+
+\begin{definition}
+\label{trace-definition-cohomology-l-adic}
+若 $X$ 是代数闭域 $k$ 上的分离有限型概形，且
+$\mathcal{F} = \left\{\mathcal{F}_n\right\}_{n\geq 1}$ 是 $X$ 上的
+$\mathbf{Z}_\ell$-层，则定义
+$$
+H^i(X, \mathcal{F}) := \lim_n H^i(X, \mathcal{F}_n)
+\quad\text{且}\quad
+H_c^i(X, \mathcal{F}) := \lim_n H_c^i(X, \mathcal{F}_n).
+$$
+若对某个 $\mathbf{Z}_\ell$-层 $\mathcal{F}'$，有
+$\mathcal{F} = \mathcal{F}'\otimes \mathbf{Q}_\ell$，则令
+$$
+H_c^i(X , \mathcal{F}) := H_c^i(X,
+\mathcal{F}')\otimes_{\mathbf{Z}_\ell}\mathbf{Q}_\ell.
+$$
+称它们为 $X$ 取系数于 $\mathcal{F}$ 的{\it $\ell$-进上同调}。
+\end{definition}
+
+
+
+
+
+\section{L-函数}
+\label{trace-section-L-function}
+
+\begin{definition}
+\label{trace-definition-L-function-finite-ring}
+设 $X$ 是有限域 $k$ 上的有限型概形。设 $\Lambda$ 是阶与 $k$ 的特征互素的
+有限环，且 $\mathcal{F}$ 是 $X_\etale$ 上可构造平坦的 $\Lambda$-模。令
+$$
+L(X, \mathcal{F}) :=
+\prod\nolimits_{x\in |X|}
+\det(1 - \pi_x^*T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1} \in \Lambda [[ T ]]
+$$
+其中 $|X|$ 是 $X$ 的闭点集，$\deg x = [\kappa(x): k]$，而 $\bar x$ 是位于
+$x$ 上方的几何点。显然，这一定义可推广到以
+$K \in D_{ctf}(X, \Lambda)$ 代替 $\mathcal{F}$ 的情形。称它为
+{\it $\mathcal{F}$ 的 $L$-函数}。
+\end{definition}
+
+\begin{remark}
+\label{trace-remark-T}
+直观地，应把 $T$ 看成 $T = t^f$，其中 $p^f = \# k$。于是这些定义与基域
+的大小无关。
+\end{remark}
+
+\begin{definition}
+\label{trace-definition-L-function-l-adic}
+现在假设 $\mathcal{F}$ 是 $X$ 上的 $\mathbf{Q}_\ell$-层。在此情形定义
+$$
+L(X, \mathcal{F}) :=
+\prod\nolimits_{x \in |X|}
+\det(1 - \pi_x^*T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1}
+\in \mathbf{Q}_\ell[[T]].
+$$
+注意，该乘积收敛，因为每个给定次数的点只有有限多个。称它为
+{\it $\mathcal{F}$ 的 $L$-函数}。
+\end{definition}
+
+
+
+
+\section{上同调解释}
+\label{trace-section-L-cohomological}
+
+\noindent
+Grothendieck 如下解释 $L$-函数。
+
+\begin{theorem}[有限系数]
+\label{trace-theorem-A}
+设 $X$ 是有限域 $k$ 上的有限型概形。设 $\Lambda$ 是阶与 $k$ 的特征互素的
+有限环，且 $\mathcal{F}$ 是 $X_\etale$ 上可构造平坦的 $\Lambda$-模。则
+$$
+L(X, \mathcal{F}) =
+\det(1 - \pi_X^*\ T |_{R\Gamma_c(X_{\bar k}, \mathcal{F})})^{-1}
+\in \Lambda[[T]].
+$$
+\end{theorem}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+到目前为止，我们甚至还不知道每个上同调群
+$H^i_c(X_{\bar k}, \mathcal{F})$ 是否自由。
+
+\begin{theorem}[进层]
+\label{trace-theorem-B}
+设 $X$ 是有限域 $k$ 上的有限型概形，且 $\mathcal{F}$ 是 $X$ 上的
+$\mathbf{Q}_\ell$-层。则
+$$
+L(X, \mathcal{F}) =
+\prod\nolimits_i
+\det(1 - \pi_X^*T |_{H_c^i(X_{\bar k} , \mathcal{F})})^{(-1)^{i + 1}}
+\in \mathbf{Q}_\ell[[T]].
+$$
+\end{theorem}
+
+\begin{proof}
+下文将概述其证明。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-which-is-harder}
+由于我们只发展了一些迹理论，而没有发展行列式理论，定理
+\ref{trace-theorem-A} 比定理 \ref{trace-theorem-B} 更难证明。我们只证明后者；前者见
+\cite{SGA4.5}。还要注意，对 $\mathbf{Z}_\ell$ 系数不存在该定理的更一般
+版本，因为没有 $\ell$-挠。
+\end{remark}
+
+\noindent
+把定理 \ref{trace-theorem-B} 的证明归约为迹公式。由于 $\mathbf{Q}_\ell$ 的特征
+为 0，只需证明取对数导数后的等式。更精确地，对两端应用
+$T\frac{d}{dT} \log$。一方面，有
+\begin{align*}
+T \frac{d}{dT} \log L(X, \mathcal{F})
+& =
+T\frac{d}{dT} \log
+\prod_{x \in |X|} \det(1 - \pi_x^* T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1} \\
+& =
+\sum_{x \in |X|} T \frac{d}{dT} \log
+( \det(1 - \pi_x^* T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1}) \\
+& =
+\sum_{x \in |X|} \deg x
+\sum_{n \geq 1} \text{Tr}((\pi_x^n)^* |_{\mathcal{F}_{\bar x}}) T^{n\deg x}
+\end{align*}
+最后一个等式来自公式
+$$
+T\frac{d}{dT}\log\left(\det\left(1-fT|_M\right)^{-1}\right) = \sum_{n\geq 1}
+\text{Tr}(f^n|_M)T^n
+$$
+它对任意交换环 $\Lambda$ 以及有限射影 $\Lambda$-模 $M$ 的任意自同态 $f$
+都成立。另一方面，有
+\begin{align*}
+& T\frac{d}{dT} \log\left(
+\prod\nolimits_i
+\det(1-\pi_X^*T |_{H_c^i\left(X_{\bar k} , \mathcal{F}\right)})^{(-1)^{i+1}}
+\right) \\
+& =
+\sum\nolimits_i (-1)^i \sum\nolimits_{n \geq 1}
+\text{Tr}\left((\pi_X^n)^* |_{H_c^i(X_{\bar k},\mathcal{F})}\right) T^n
+\end{align*}
+这里再次使用了同一公式。现在比较 $T$ 的各次幂并使用 M\"obius 反演公式，
+可见定理 \ref{trace-theorem-B} 是下述等式的推论：
+$$
+\sum_{d | n} d \sum_{x \in |X| \atop \deg x = d}
+\text{Tr}((\pi_X^{n/d})^* |_{\mathcal{F}_{\bar x}}) =
+\sum_i (-1)^i \text{Tr}((\pi^n_X)^* |_{H^i_c(X_{\bar k}, \mathcal{F})}).
+$$
+以 $k_n$ 表示 $k$ 的 $n$ 次扩张，并令
+$X_n = X \times_{\Spec k} \Spec(k_n)$、
+$_n\mathcal{F} = \mathcal{F}|_{X_n}$，则这归结为
+$$
+\sum_{x \in X_n(k_n)} \text{Tr}(\pi_X^* |_{_n\mathcal{F}_{\bar x}})
+=
+\sum_i (-1)^i \text{Tr}((\pi^n_X)^* |_{H^i_c({(X_n)}_{\bar k}, _n\mathcal{F})})
+$$
+而这由定理 \ref{trace-theorem-C} 得出。
+
+%11.19.09
+
+
+\begin{theorem}
+\label{trace-theorem-D}
+设 $X/k$ 如上，$\Lambda$ 是满足 $\#\Lambda \in k^*$ 的有限环，且
+$K\in D_{ctf}(X, \Lambda)$。则
+$R\Gamma_c(X_{\bar k}, K)\in D_{perf}(\Lambda)$，并且
+$$
+\sum_{x\in X(k)}\text{Tr}\left(\pi_x |_{K_{\bar x}}\right) =
+\text{Tr}\left(\pi_X^* |_{R\Gamma_c(X_{\bar k}, K )}\right).
+$$
+\end{theorem}
+
+\begin{proof}
+注意，当 $\dim X \leq 1$ 时，我们已经证明了这一点（引用）。一般情形容易
+由该情形与固有基变换定理推出。
+\end{proof}
+
+\begin{theorem}
+\label{trace-theorem-C}
+设 $X$ 是有限域 $k$ 上的分离有限型概形，且 $\mathcal{F}$ 是 $X$ 上的
+$\mathbf{Q}_\ell$-层。则对所有 $i$，
+$\dim_{\mathbf{Q}_\ell}H_c^i(X_{\bar k}, \mathcal{F})$ 都是有限的，而且
+只有在 $0\leq i \leq 2 \dim X$ 时才可能非零。此外，有
+$$
+\sum_{x\in X(k)} \text{Tr}\left(\pi_x |_{\mathcal{F}_{\bar x}}\right) =
+\sum_i (-1)^i\text{Tr}\left(\pi_X^* |_{H_c^i(X_{\bar k}, \mathcal{F})}\right).
+$$
+\end{theorem}
+
+\begin{proof}
+说明如何从定理 \ref{trace-theorem-D} 推出此结论。先用若干 \'etale 上同调论证，
+把证明归约为随后要证明的一个代数陈述。
+
+\medskip\noindent
+设 $\mathcal{F}$ 如定理所述。可把 $\mathcal{F}$ 写成
+$\mathcal{F}'\otimes \mathbf{Q}_\ell$，其中
+$\mathcal{F}' = \left\{\mathcal{F}'_n\right\}$ 是无挠
+$\mathbf{Z}_\ell$-层；也就是说，在 $\mathbf{Z}_\ell$-层范畴中，
+$\ell : \mathcal{F}'\to \mathcal{F}'$ 的核为零。于是每个
+$\mathcal{F}_n'$ 都是 $X_\etale$ 上平坦可构造的
+$\mathbf{Z}/\ell^n\mathbf{Z}$-模，故
+$\mathcal{F}'_n \in D_{ctf}(X, \mathbf{Z}/\ell^n\mathbf{Z})$，并且
+$\mathcal{F}_{n+1}'
+\otimes^{\mathbf{L}}_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z} = \mathcal{F}_n'$.
+注意，由于 $\mathcal{F}'_n$ 平坦，最后一个等式对通常的（非导出）张量积
+也成立（这是同一个等式）。因此，
+\begin{enumerate}
+\item
+复形 $K_n = R\Gamma_c\left(X_{\bar k}, \mathcal{F}_n'\right)$ 是完美的，
+且在 $D(\mathbf{Z}/\ell^n\mathbf{Z})$ 中带有自同态
+$\pi_n : K_n\to K_n$；
+\item
+有识别
+$$
+K_{n+1}
+\otimes^{\mathbf{L}}_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z}
+=
+K_n
+$$
+位于 $D_{perf}(\mathbf{Z}/\ell^n\mathbf{Z})$ 中，并与自同态
+$\pi_{n+1}$ 和 $\pi_n$ 相容（见 \cite[Rapport 4.12]{SGA4.5}）；
+\item
+等式 $\text{Tr}\left(\pi_X^* |_{K_n}\right) =
+\sum_{x\in X(k)} \text{Tr}\left(\pi_x |_{(\mathcal{F}'_n)_{\bar x}}\right)$
+成立；并且
+\item
+对每个 $x\in X(k)$，各元素
+$\text{Tr}(\pi_x |_{\mathcal{F}'_{n, \bar x}}) \in \mathbf{Z}/\ell^n\mathbf{Z}$
+构成 $\mathbf{Z}_\ell$ 的一个元素，它等于
+$\text{Tr}(\pi_x |_{\mathcal{F}_{\bar x}}) \in \mathbf{Q}_\ell$。
+\end{enumerate}
+所以只需证明下述代数引理。
+\end{proof}
+
+\begin{lemma}
+\label{trace-lemma-piece-together}
+假设给定
+$K_n\in D_{perf}(\mathbf{Z}/\ell^n\mathbf{Z})$, $\pi_n : K_n\to K_n$
+以及同构
+$\varphi_n :
+K_{n+1} \otimes^\mathbf{L}_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z}
+\to K_n$
+与 $\pi_{n+1}$ 和 $\pi_n$ 相容。则
+\begin{enumerate}
+\item
+各元素 $t_n = \text{Tr}(\pi_n |_{K_n})\in \mathbf{Z}/\ell^n\mathbf{Z}$
+构成 $\mathbf{Z}_\ell$ 的一个元素 $t_\infty = \{t_n\}$；
+\item
+$\mathbf{Z}_\ell$-模 $H_\infty^i = \lim_n H^i(k_n)$ 是有限的，并且只有
+有限多个 $i$ 对应非零模；并且
+\item
+各算子 $H^i(\pi_n): H^i(K_n)\to H^i(K_n)$ 彼此相容，并定义满足下式的
+$\pi_\infty^i : H_\infty^i\to H_\infty^i$：
+$$
+\sum (-1)^i \text{Tr}(
+\pi_\infty^i |_{H_\infty^i \otimes_{\mathbf{Z}_\ell}\mathbf{Q}_\ell}) =
+t_\infty.
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $\mathbf{Z}/\ell^n\mathbf{Z}$ 是局部环且 $K_n$ 完美，每个 $K_n$ 都可由
+有限自由 $\mathbf{Z}/\ell^n \mathbf{Z}$-模的有限复形 $K_n^\bullet$ 表示，
+并且映射 $K_n^p \to K_n^{p+1}$ 的像包含于 $\ell K_n^{p+1}$。这样的复形在
+同构意义下是唯一的。此外，$\pi_n$ 可由复形态射
+$\pi_n^\bullet : K_n^\bullet\to K_n^\bullet$ 表示（它在同伦意义下唯一）。
+同理，同构
+$\varphi_n : K_{n+1} \otimes_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}^{\mathbf{L}}
+\mathbf{Z}/\ell^n\mathbf{Z}\to K_n$ 由复形态射表示：
+$$
+\varphi_n^\bullet :
+K_{n+1}^\bullet
+\otimes_{\mathbf{Z}/\ell^{n+1}\mathbf{Z}}
+\mathbf{Z}/\ell^n\mathbf{Z} \to K_n^\bullet.
+$$
+事实上，$\varphi_n^\bullet$ 是复形同构，因而可见
+\begin{itemize}
+\item
+存在与 $n$ 无关的 $a, b\in \mathbf{Z}$，使得对所有
+$i\notin[a, b]$，都有 $K_n^i = 0$；并且
+\item
+$K_n^i$ 的秩与 $n$ 无关。
+\end{itemize}
+因此，模 $K_\infty^i = \lim_n \{K_n^i, \varphi_n^i\}$ 是有限自由
+$\mathbf{Z}_\ell$-模，而 $K_\infty^\bullet$ 是有限自由
+$\mathbf{Z}_\ell$-模的有限复形。对非零项数归纳，可以证明
+$H^i\left(K_\infty^\bullet\right) = \lim_n H^i\left(K_n^\bullet\right)$
+（对无界复形这并不成立）。由此得出
+$H_\infty^i = H^i\left(K_\infty^\bullet\right)$ 是有限
+$\mathbf{Z}_\ell$-模。这证明了 {\it ii}。为证明引理的其余部分，必须处理
+下列诸图可能不交换的问题：
+$$
+\xymatrix{
+{K_{n+1}^\bullet} \ar[d]_{\pi_{n+1}^\bullet} \ar[r]^{\varphi_n^\bullet} &
+{K_n^\bullet} \ar[d]^{\pi_n^\bullet} \\
+{K_{n+1}^\bullet} \ar[r]_{\varphi_n^\bullet} & {K_n^\bullet.}
+}
+$$
+不过，该图在导出范畴中确实交换，因而在同伦意义下交换。对 $n\geq 2$
+归纳地把 $\pi_n^\bullet$ 换成与之同伦的复形态射，使这些图交换。具体地，
+若 $h^i : K_{n+1}^i \to K_n^{i-1}$ 是一个同伦，即
+$$
+\pi_n^\bullet \circ \varphi_n^\bullet -
+\varphi_n^\bullet \circ \pi_{n + 1}^\bullet = dh + hd,
+$$
+则选择提升 $h^i$ 的 $\tilde h^i : K_{n+1}^i\to K_{n+1}^{i-1}$。这是可行的，
+因为 $K_{n+1}^i$ 自由且 $K_{n+1}^{i-1}\to K_n^{i-1}$ 为满射。然后把
+$\pi_n^\bullet$ 换成由下式定义的 $\tilde\pi_n^\bullet$：
+$$
+\tilde\pi_{n+1}^\bullet = \pi_{n+1}^\bullet + d\tilde h+\tilde hd.
+$$
+作此 $\{\pi_n^\bullet\}$ 选择后，上述诸图交换，而这些映射拼合成
+$K_\infty^\bullet$ 的自同态
+$\pi_\infty^\bullet = \lim_n\pi_n^\bullet$。于是 {\it i} 是显然的：
+各元素 $t_n = \sum(-1)^i \text{Tr}\left(\pi_n^i |_{K_n^i}\right)$ 拼合为
+$\mathbf{Z}_\ell$ 的一个元素 $t_\infty$。此外，
+\begin{align*}
+t_\infty
+& =
+\sum (-1)^i \text{Tr}_{\mathbf{Z}_\ell}(\pi_\infty^i |_{K_\infty^i}) \\
+& =
+\sum (-1)^i \text{Tr}_{\mathbf{Q}_\ell}(
+\pi_\infty^i |_{K_\infty^i \otimes_{\mathbf{Z}_\ell}\mathbf{Q}_\ell}) \\
+& =
+\sum (-1)^i \text{Tr}(
+\pi_\infty |_{H^i(K_\infty^\bullet \otimes \mathbf{Q}_\ell)})
+\end{align*}
+最后一个等式来自如下事实：$\mathbf{Q}_\ell$ 是域，所以复形
+$K_\infty^\bullet \otimes \mathbf{Q}_\ell$ 拟同构于其上同调
+$H^i(K_\infty^\bullet \otimes \mathbf{Q}_\ell)$。后者又等于
+$H^i(K_\infty^\bullet)\otimes_{\mathbf{Z}}\mathbf{Q}_\ell = H_\infty^i \otimes
+\mathbf{Q}_\ell$。这就完成了该引理以及定理 \ref{trace-theorem-C} 的证明。
+\end{proof}
+
+
+
+
+\section{上文应补充的事项清单}
+\label{trace-section-list-skipped}
+
+\noindent
+到目前为止，讲课中略去了下列内容的证明：
+\begin{enumerate}
+\item 曲线及其雅可比簇；
+\item 固有基变换定理；
+\item 对 $R\Gamma_c$ 的讨论不充分；
+\item 更一般地，给定有限型态射 $f : X \to S$，其中源是分离的
+$S$-拟射影概形，讨论 \'etale 层上的 $Rf_!$；
+\item 对 $\otimes^{\mathbf{L}}$ 的讨论；
+\item 关于 $R\Gamma_c$ 为何与 $\otimes^{\mathbf{L}}$ 交换的讨论。
+\end{enumerate}
+
+
+
+
+
+
+%11.24.09
+\section{L-函数的例子}
+\label{trace-section-examples-L-functions}
+
+\noindent
+利用曲线情形的定理 \ref{trace-theorem-B} 给出若干 $L$-函数的例子。
+
+
+
+
+
+\section{常值层}
+\label{trace-section-L-function-constant-sheaf}
+
+\noindent
+设 $k$ 是有限域，$X$ 是 $k$ 上光滑且几何不可约的曲线，并设
+$\mathcal{F} = \underline{\mathbf{Q}_\ell}$ 为常值层。若 $\bar x$ 是 $X$
+的几何点，则 Galois 模 $\mathcal{F}_{\bar x} = \mathbf{Q}_\ell$ 是平凡的，
+故
+$$
+\det(1-\pi_x^*\ T^{\deg x} |_{\mathcal{F}_{\bar x}})^{-1} =
+\frac{1}{1-T^{\deg x}}.
+$$
+应用定理 \ref{trace-theorem-B}，得到
+\begin{align*}
+L(X, \mathcal{F})
+& =
+\prod_{i = 0}^2
+\det(1 - \pi_X^*T |_{H_c^i(X_{\bar k}, \mathbf{Q}_\ell)})^{(-1)^{i+1}} \\
+& =
+\frac{\det(1 - \pi_X^*T |_{H_c^1(X_{\bar k}, \mathbf{Q}_\ell)})}{
+\det(1 - \pi_X^*T |_{H_c^0(X_{\bar k}, \mathbf{Q}_\ell)})
+\cdot \det(1 - \pi_X^*T |_{H_c^2(X_{\bar k}, \mathbf{Q}_\ell)})}.
+\end{align*}
+为计算后一个式子，分两种情形。
+
+
+\medskip\noindent
+{\bf 射影情形。}
+假设 $X$ 是射影的，则 $H_c^i(X_{\bar k}, \mathbf{Q}_\ell) =
+H^i(X_{\bar k}, \mathbf{Q}_\ell)$，并且
+$$
+H^i(X_{\bar k}, \mathbf{Q}_\ell) =
+\left\{
+\begin{matrix}
+\mathbf{Q}_\ell & \pi_X^* = 1 & \text{若 }i = 0, \\
+\mathbf{Q}_\ell^{2g} & \pi_X^* = ? & \text{若 }i = 1, \\
+\mathbf{Q}_\ell & \pi_X^* = q & \text{若 }i = 2.
+\end{matrix}
+\right.
+$$
+$\pi_X^*$ 在 $H^2$ 上作用的上述识别来自“\'Etale 上同调”引理
+\ref{etale-cohomology-lemma-pullback-on-h2-curve}，以及 $\pi_X$ 的次数为
+$q = \#(k)$ 这一事实。关于 $\pi_X^*$ 在第 1 次上同调上的作用，我们所知
+不多。把它在 $\bar{\mathbf{Q}}_\ell$ 中的特征值记为
+$\alpha_1, \ldots, \alpha_{2g}$。综合起来，定理 \ref{trace-theorem-B} 给出等式
+$$
+\prod\nolimits_{x \in |X|} \frac{1}{1 - T^{\deg x}} =
+\frac{\det(1- \pi_X^* T|_{H^1(X_{\bar k}, \mathbf{Q}_\ell)})}{(1-T)(1-qT)} =
+\frac{(1 - \alpha_1 T) \ldots (1 - \alpha_{2g}T)}{(1-T)(1-qT)}
+$$
+由此推出下述结果。
+
+\begin{lemma}
+\label{trace-lemma-count-points-projective}
+设 $X$ 是有限域 $k$ 上光滑、射影且几何不可约的曲线。则
+\begin{enumerate}
+\item $L$-函数 $L(X, \mathbf{Q}_\ell)$ 是有理函数；
+\item $\pi_X^*$ 在 $H^1(X_{\bar k}, \mathbf{Q}_\ell)$ 上的特征值
+$\alpha_1, \ldots, \alpha_{2g}$ 是与 $\ell$ 无关的代数整数；
+\item $X$ 在 $k_n$ 上的有理点数（其中 $[k_n : k] = n$）为
+$$
+\# X(k_n) = 1 - \sum\nolimits_{i = 1}^{2g}\alpha_i^n + q^n,
+$$
+\item 对每个 $i$，$|\alpha_i| < q$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (3) 项是把定理 \ref{trace-theorem-C} 应用于 $X \otimes k_n$ 上的
+$\mathcal{F} = \underline{\mathbf{Q}_\ell}$。对第 (4) 项，使用下述结果。
+\end{proof}
+
+\begin{exercise}
+\label{trace-exercise-powers}
+设 $\alpha_1, \ldots, \alpha_n \in \mathbf{C}$。对任意包含正实轴、形如
+$C_\varepsilon = \{ z \in \mathbf{C} \ | \ |\arg z| < \varepsilon \}$ 的
+圆锥扇形（其中 $\varepsilon > 0$），存在整数 $k \geq 1$，使得
+$\alpha_1^k, \ldots, \alpha_n^k \in C_\varepsilon$。
+\end{exercise}
+
+\noindent
+然后证明对所有 $i$，都有 $|\alpha_i| \leq q$。再用关于复数的初等论证
+（如素数定理的证明中那样）证明 $|\alpha_i| < q$。事实上，Riemann 假设
+断言对所有 $i$ 都有 $|\alpha_i| = \sqrt{q}$。稍后还会回到这一点。
+
+\medskip\noindent
+{\bf 仿射情形。}
+现在假设 $X$ 是仿射的，比如
+$X= \bar X-\left\{x_1, \ldots, x_n\right\}$，其中
+$j : X \hookrightarrow \bar X$ 是非奇异射影完备化。于是
+$H_c^0(X_{\bar k}, \mathbf{Q}_\ell) = 0$ 且
+$H_c^2(X_{\bar k}, \mathbf{Q}_\ell) = H^2(\bar X_{\bar k}, \mathbf{Q}_\ell)$，
+故定理 \ref{trace-theorem-B} 写成
+$$
+L(X, \mathbf{Q}_\ell) = \prod_{x \in |X|}\frac{1}{1 - T^{\deg x}} =
+\frac{\det(1-\pi_X^*T |_{H_c^1(X_{\bar k}, \mathbf{Q}_\ell)})}{1 - qT}.
+$$
+另一方面，前一种情形给出
+\begin{eqnarray*}
+L(X, \mathbf{Q}_\ell) & = & L(\bar X,
+\mathbf{Q}_\ell)\prod_{i = 1}^n\left(1-T^{\deg x_i}\right) \\
+& = & \frac{\prod_{i = 1}^n(1-T^{\deg
+x_i})\prod_{j = 1}^{2g}(1-\alpha_jT)}{(1-T)(1-qT)}.
+\end{eqnarray*}
+因此可见
+$\dim H_c^1(X_{\bar k}, \mathbf{Q}_\ell) =
+2g+\sum_{i = 1}^n \deg(x_i)-1$，而 $\pi_{\bar X}^*$ 在第 1 次上同调上
+作用的特征值 $\alpha_1, \ldots, \alpha_{2g}$ 都是单位根。更精确地，每个
+$x_i$ 给出全体 $\deg(x_i)$ 次单位根，并删去一次 1。为利用凝聚层直接看出
+这一点，考虑 $\bar X$ 上的短正合列
+$$
+0\to j_!\mathbf{Q}_\ell\to \mathbf{Q}_\ell\to\bigoplus_{i = 1}^n
+\mathbf{Q}_{\ell, x_i}\to 0.
+$$
+上同调长正合列写成
+$$
+0\to \mathbf{Q}_\ell \to \bigoplus_{i = 1}^n \mathbf{Q}_\ell^{\oplus \deg x_i}
+\to H_c^1(X_{\bar k}, \mathbf{Q}_\ell) \to H_c^1(\bar X_{\bar k},
+\mathbf{Q}_\ell)\to 0
+$$
+其中 Frobenius 在 $\bigoplus_{i = 1}^n \mathbf{Q}_\ell^{\oplus
+\deg x_i}$ 上的作用是逐项循环置换；并且
+$H_c^2(X_{\bar k}, \mathbf{Q}_\ell) = H_c^2(\bar X_{\bar k}, \mathbf{Q}_\ell)$。
+
+
+
+
+
+
+\section{Legendre 族}
+\label{trace-section-legendre-family}
+
+\noindent
+设 $k$ 是奇特征有限域，
+$X = \Spec(k[\lambda, \frac{1}{\lambda(\lambda - 1)}])$，并考虑
+$\mathbf{P}^2_X$ 上的椭圆曲线族 $f : E \to X$，其仿射方程为
+$y^2 = x(x - 1)(x - \lambda)$。令
+$\mathcal{F} = Rf_*^1\mathbf{Q}_\ell =
+\left\{R^1f_*\mathbf{Z}/\ell^n\mathbf{Z}\right\}_{n\geq 1} \otimes
+\mathbf{Q}_\ell$。在此情形下，下列陈述成立：
+\begin{itemize}
+\item 对每个 $n \geq 1$，层 $R^1f_*(\mathbf{Z}/\ell^n\mathbf{Z})$ 都是
+有限局部常值的；事实上，它是在 $\mathbf{Z}/\ell^n\mathbf{Z}$ 上秩为 2
+的自由模；
+\item 系统 $\{R^1f_*\mathbf{Z}/\ell^n\mathbf{Z}\}_{n\geq 1}$ 是 lisse
+$\ell$-进层；并且
+\item 对所有 $x\in |X|$，
+$\det(1 - \pi_x\ T^{\deg x} |_{\mathcal{F}_{\bar x}}) =
+(1 - \alpha_x T^{\deg x})(1 - \beta_x T^{\deg x})$
+，其中 $\alpha_x, \beta_x$ 是 $E_x$ 的几何 Frobenius 在
+$H^1(E_{\bar x}, \mathbf{Q}_\ell)$ 上作用的特征值。
+\end{itemize}
+注意，$E_x$ 只在 $\kappa(x)$ 上定义，而不在 $k$ 上定义。这些事实的证明
+使用固有基变换定理与光滑态射的局部无圈性。细节见 \cite{SGA4.5}。由此
+$$
+L(E/X) := L(X, \mathcal{F}) = \prod_{x\in |X|}
+\frac{1}{(1-\alpha_xT^{\deg x})(1-\beta_xT^{\deg x })} .
+$$
+应用定理 \ref{trace-theorem-B}，得到
+$$
+L(E/X) =
+\prod_{i = 0}^2
+\det\left(1 - \pi_X^*T |_{H_c^i(X_{\bar k}, \mathcal{F})}\right)^{(-1)^{i+1}},
+$$
+特别可见这是一个有理函数。此外，不难证明
+$H_c^0(X_{\bar k}, \mathcal{F}) = H_c^2(X_{\bar k}, \mathcal{F}) = 0$，故只有
+$$
+L(E/X) = \det(1 - \pi_X^*T |_{H_c^1(X, \mathcal{F})}).
+$$
+为明确计算该行列式，考虑固有态射 $f : E \to X$ 关于
+$\mathbf{Q}_\ell$ 的 Leray 谱序列，即
+$$
+H_c^i(X_{\bar k}, R^jf_*\mathbf{Q}_\ell) \Rightarrow H_c^{i+j}(E_{\bar
+k}, \mathbf{Q}_\ell)
+$$
+该谱序列退化。有 $f_*\mathbf{Q}_\ell = \mathbf{Q}_\ell$ 且
+$R^1f_*\mathbf{Q}_\ell = \mathcal{F}$。层
+$R^2f_*\mathbf{Q}_\ell = \mathbf{Q}_\ell(-1)$ 是 $\mathbf{Q}_\ell$ 的
+{\it Tate 扭曲}；也就是说，它是如下 $\mathbf{Q}_\ell$-层：Galois 在
+$\bar x$ 处茎上的作用由乘以 $\#\kappa(x)$ 给出。因此，对所有
+$n\geq 1$，
+\begin{align*}
+\# E(k_n)
+& =
+\sum\nolimits_i (-1)^i
+\text{Tr}({\pi_E^n}^* |_{H_c^i(E_{\bar k}, \mathbf{Q}_\ell)}) \\
+& =
+\sum\nolimits_{i, j} (-1)^{i+j}
+\text{Tr}({\pi^n_X}^* |_{H_c^i(X_{\bar k}, R^jf_*\mathbf{Q}_\ell)}) \\
+& =
+(q^n - 2) +
+\text{Tr}({\pi_X^n}^* |_{H_c^1(X_{\bar k}, \mathcal{F})}) + q^n(q^n - 2) \\
+& =
+q^{2n} - q^n - 2 +
+\text{Tr}({\pi_X^n}^* |_{H_c^1(X_{\bar k}, \mathcal{F})})
+\end{align*}
+其中第一个等式来自定理 \ref{trace-theorem-C}，第二个来自 Leray 谱序列，
+第三个则由写出 $\mathbf{Q}_\ell$ 在 $f$ 下的高阶直像而得。也可以写成
+$$
+\# E(k_n) = \sum_{x \in X(k_n)} \# E_x(k_n)
+$$
+并对每条曲线使用迹公式。也可直接计数求得 $k_n$-有理点数。零截面贡献
+$q^n -2$ 个点（略去 $\lambda = 0, 1$ 的点），因此
+$$
+\# E(k_n) =
+q^n - 2 + \# \{y^2 = x(x - 1)(x - \lambda), \lambda\neq 0, 1\}.
+$$
+现在有
+$$
+\begin{matrix}
+\# \{y^2 = x(x - 1)(x - \lambda),\ \lambda\neq 0, 1\} \\
+\\
+\quad =
+\# \{y^2 = x(x - 1)(x - \lambda)\text{ 位于 }\mathbf{A}^3\}
+- \# \{y^2 = x^2(x - 1)\} - \# \{y^2 = x(x - 1)^2\}\\
+\\
+\quad = \# \{\lambda = \frac{-y^2}{x(x - 1)} + x,\ x\neq 0, 1\} +
+\# \{y^2 = x(x - 1)(x - \lambda), x = 0, 1\} - 2(q^n - \varepsilon_n) \\
+\\
+\quad = q^n(q^n - 2)+2q^n - 2(q^n - \varepsilon_n)\\
+\\
+\quad = q^{2n}-2q^n+2\varepsilon_n
+\end{matrix}
+$$
+其中当 $-1$ 在 $k_n$ 中是平方时 $\varepsilon_n = 1$，否则为 0；即
+$$
+\varepsilon_n = \frac{1}{2}\left(1+\left(\frac{-1}{k_n}\right)\right) =
+\frac{1}{2}\left(1+(-1)^{\frac{q^n - 1}{2}}\right).
+$$
+于是 $ \# E(k_n) = q^{2n} - q^n - 2+ 2\varepsilon_n$。与前一公式比较，得到
+$$
+\text{Tr}({\pi_X^n}^* |_{H_c^1(X_{\bar k}, \mathcal{F})}) =
+2 \varepsilon_n = 1 + (-1)^{\frac{q^n - 1}{2}},
+$$
+由复数的初等代数可知，若 $-1$ 在 $k_n^*$ 中是平方，则
+$\dim H_c^1(X_{\bar k}, \mathcal{F}) = 2$，且特征值为 $1$ 和 $1$。因此，
+在这种情形下，
+$$
+L(E/X) = (1 - T)^2.
+$$
+
+
+
+
+\section{指数和}
+\label{trace-section-exponential-sums}
+
+\noindent
+数论中的一个标准问题是求如下形式的和：
+$$
+S_{a, b}(p) = \sum_{x\in \mathbf{F}_p - \left\{0, 1\right\}} e^{\frac{2\pi
+ix^a(x - 1)^b}{p}}.
+$$
+在我们的语境中，这可如下解释为上同调和。考虑基概形
+$S = \Spec(\mathbf{F}_p[x, \frac{1}{x(x - 1)}])$，以及 $S$ 上由方程
+$y^{p - 1} = x^a(x - 1)^b$ 给出的仿射曲线
+$f : X \to \mathbf{P}^1-\{0, 1, \infty\}$。这是群为 $\mathbf{F}_p^*$ 的
+有限 \'etale Galois 覆盖，并有分解
+$$
+f_*(\bar{\mathbf{Q}}_\ell^*) =
+\bigoplus_{\chi : \mathbf{F}_p^*\to \bar{\mathbf{Q}}_\ell^*} \mathcal{F}_\chi
+$$
+其中 $\chi$ 遍历 $\mathbf{F}_p^*$ 的特征标，而 $\mathcal{F}_\chi$ 是秩为 1
+的 lisse $\mathbf{Q}_\ell$-层，$\mathbf{F}_p^*$ 在其各茎上通过 $\chi$
+作用。相应地得到分解
+$$
+H_c^1(X_{\bar k}, \mathbf{Q}_\ell) = \bigoplus_\chi H^1(\mathbf{P}_{\bar
+k}^1-\{0, 1, \infty\}, \mathcal{F}_\chi)
+$$
+而指数和的上同调解释，是对某个合适的 $\chi$，在
+$\mathbf{P}^1 - \{0, 1, \infty\}$ 上把迹公式应用于 $\mathcal{F}_\chi$。
+它写成
+$$
+S_{a, b}(p) =
+-\text{Tr}(\pi_X^*
+|_{H^1(\mathbf{P}_{\bar k}^1-\{0, 1, \infty\}, \mathcal{F}_\chi)}).
+$$
+Weil 的一般形式论证表明该和中应当有某种消去。粗略应用 Riemann--Hurwitz
+公式，可见
+$$
+2g_X-2 \approx -2 (p-1) + 3(p-2) \approx p
+$$
+故 $g_X\approx p/2$，这也表明各 $\chi$-部分很小。
+
+
+
+%12.01.09
+\section{用基本群表述的迹公式}
+\label{trace-section-trace-formula-fundamental-group}
+
+\noindent
+在以下各节中，我们将完全用曲线的基本群重新表述迹公式，曲线碰巧是
+$\mathbf{P}^1$ 的情形除外。
+
+
+
+
+\section{基本群}
+\label{trace-section-fundamental-groups}
+
+\noindent
+这些材料在基本群一章中有更详细的讨论，见“基本群”第
+\ref{pione-section-introduction} 节。设 $X$ 是连通概形，并设
+$\overline{x}\to X$ 是几何点。考虑函子
+$$
+\begin{matrix}
+F_{\overline{x}}: &
+\text{有限 \'etale} \atop \text{概形，基为 } X &
+\longrightarrow & \text{有限集合} \\
+&
+Y/X &
+\longmapsto &
+F_{\overline{x}}(Y) =
+\left\{\text{几何点 }\overline y \atop \text{属于 } Y
+\text{ 且上方是 }\overline{x}\right\} = Y_{\overline{x}}
+\end{matrix}
+$$
+令
+$$
+\pi_1(X, \overline{x})
+=
+Aut(F_{\overline{x}})
+=
+\text{下述函子的自同构集合：}F_{\overline{x}}
+$$
+注意，对每个有限 \'etale 态射 $Y \to X$，都有作用
+$$
+\pi_1(X, \overline{x}) \times F_{\overline{x}}(Y) \to F_{\overline{x}}(Y)
+$$
+
+\begin{definition}
+\label{trace-definition-open}
+形如
+$\text{Stab}(\overline y\in F_{\overline{x}}(Y))\subset \pi_1(X, \overline{x})$
+的子群称为{\it 开的}。
+\end{definition}
+
+\begin{theorem}[Grothendieck]
+\label{trace-theorem-fundamental-group}
+设 $X$ 是连通概形。
+\begin{enumerate}
+\item $\pi_1(X, \overline{x})$ 上存在一个拓扑，使开子群组成
+$e\in \pi_1(X, \overline x)$ 的开邻域基本系。
+\item 对于第 (1) 项的拓扑，群 $\pi_1(X, \overline{x})$ 是预有限群。
+\item 函子
+$$
+\begin{matrix}
+\text{有限的概形} \atop \text{且在其上 \'etale：}X & \to &
+\text{有限离散连续的} \atop \pi_1(X, \overline{x})\text{-集合}\\
+Y / X& \mapsto & F_{\overline{x}}(Y) \text{，带自然作用}
+\end{matrix}
+$$
+是范畴等价。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+见 \cite{SGA1}。
+\end{proof}
+
+\begin{proposition}
+\label{trace-proposition-integral-normal-fundamental-group}
+设 $X$ 是整的正规 Noether 概形。设 $\overline y\to X$ 是位于一般点
+$\eta\in X$ 上方的代数几何点。则
+$$
+\pi_x(X, \overline \eta) = Gal(M/\kappa(\eta))
+$$
+（$\kappa(\eta)$ 是 $X$ 的函数域），其中
+$$
+\kappa(\overline \eta)\supset M\supset \kappa(\eta) = k(X)
+$$
+是满足下述条件的最大子扩张：对每个有限子扩张
+$M\supset L\supset \kappa(\eta)$，$X$ 在 $L$ 中的正规化在 $X$ 上有限
+\'etale。
+\end{proposition}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+{\bf 基点变换。}对 $X$ 的任意几何点 $\overline{x}_1, \overline{x}_2$，
+存在纤维函子的同构
+$$
+\mathcal{F}_{\overline{x}_1} \cong \mathcal{F}_{\overline{x}_2}
+$$
+（这是从 $\overline{x}_1$ 到 $\overline{x}_2$ 的一条道路。）由这条道路共轭
+给出同构
+$$
+\pi_1(X, \overline{x}_1) \cong \pi_1(X, \overline{x}_2)
+$$
+它在内作用意义下良定义。
+
+\medskip\noindent
+{\bf 函子性。}对连通概形的任意态射 $X_1\to X_2$ 以及任意
+$\overline{x}\in X_1$，有典范映射
+$$
+\pi_1(X_1, \overline{x}) \to \pi_1(X_2, \overline{x})
+$$
+（为什么？因为纤维函子……）
+
+\medskip\noindent
+{\bf 基域。}设 $X$ 是域 $k$ 上的簇。则得到
+$$
+\pi_1(X, \overline{x}) \to
+\pi_1(Spec(k), \overline{x}) =^{\text{prop}} Gal(k^{\text{sep}}/k)
+$$
+该映射为满射，当且仅当 $X$ 在 $k$ 上几何连通。因此在几何连通情形，
+得到预有限群的短正合列
+$$
+1 \to \pi_1(X_{\overline{k}}, \overline{x}) \to
+\pi_1(X, \overline{x}) \to
+Gal(k^{\text{sep}}/k) \to 1
+$$
+（$\pi_1(X_{\overline{k}}, \overline{x})$：$X$ 的几何基本群；
+$\pi_1(X, \overline{x})$：$X$ 的算术基本群。）
+
+\medskip\noindent
+{\bf 比较。}若 $X$ 是 $\mathbf{C}$ 上的簇，则
+$$
+\pi_1(X, \overline{x}) =
+\text{预有限完备化：}
+\pi_1(X(\mathbf{C})(\text{通常拓扑}), x)
+$$
+（这里 $x\in X(\mathbf{C})$。）
+
+\medskip\noindent
+{\bf Frobenius 元。}设 $X$ 是 $k$ 上的簇，且 $\# k < \infty$。对任意闭点
+$x \in X$，令
+$$
+F_x\in \pi_1(x, \overline{x}) =
+\text{Gal}(\kappa(x)^{\text{sep}}/\kappa(x))
+$$
+为几何 Frobenius。设 $\overline\eta$ 是代数几何一般点。则
+$$
+\pi_1(X, \overline\eta) \leftarrow^{\cong}
+\pi_1(X, \overline{x})
+{\text{函子性} \atop \leftarrow} \pi_1(x, \overline{x})
+$$
+
+\noindent
+易知：
+$$
+\begin{matrix}
+\pi_1(X, \overline \eta) & \to^{\deg} \pi_1(\Spec(k), \overline \eta) * &
+= Gal(k^{sep}/k) \\
+& & || \\
+& & \widehat{\mathbf{Z}}\cdot F_{\Spec(k)} \\
+F_x & \mapsto & \deg(x)\cdot F_{\Spec(k)}
+\end{matrix}
+$$
+回忆：$\deg(x) = [\kappa(x):k]$。
+
+\medskip\noindent
+{\bf 基本群与 lisse 层。}
+设 $X$ 是连通概形，$\overline{x}$ 是几何点。有范畴等价
+$$
+\begin{matrix}
+(\Lambda\text{ 为有限环}) &
+\text{有限局部常值的层，类型为 }
+\atop \Lambda\text{-模，定义于 }X_\etale & \leftrightarrow &
+\text{有限离散的 }\Lambda\text{-模}
+\atop \text{，带连续 }\pi_1(X, \overline{x})\text{-作用}\\
+\\
+(\ell\text{ 为素数}) & \text{lisse }\ell\text{-进} \atop \text{层} &
+\leftrightarrow &
+\text{有限生成 }\mathbf{Z}_\ell
+\text{-模 }M\text{，带连续}
+\atop \pi_1(X, \overline{x})\text{-作用，并在下述模上取 }
+\ell\text{-进拓扑：}M
+\end{matrix}
+$$
+特别地，lisse $\mathbf{Q}_l$-层对应于连续同态
+$$
+\pi_1(X, \overline{x}) \to \text{GL}_r(\mathbf{Q}_l), \quad r\geq 0
+$$
+
+\noindent
+记号：带作用的模 $(M, \rho)$ 对应于层 $\mathcal{F}_\rho$。
+
+\medskip\noindent
+{\bf 迹公式。}设 $X$ 是 $k$ 上的簇，且 $\# k < \infty$。
+\begin{enumerate}
+\item $\Lambda$ 为有限环，$(\# \Lambda, \# k)=1$，
+$$
+\rho : \pi_1(X, \overline{x})\to \text{GL}_r(\Lambda)
+$$
+且该同态连续。对每个 $n\geq 1$，有
+$$
+\sum_{d|n}d\left(
+\sum_{x\in |X|, \atop \deg(x)=d}
+\text{Tr}(\rho(F_x^{n/d}))\right) =
+\text{Tr}\left(
+(\pi_x^n)^* |_{R\Gamma_c(X_{\overline{k}}, \mathcal{F}_\rho)}\right)
+$$
+\item $l\neq char(k)$ 为素数，且 $\rho : \pi_1(X, \overline{x})\to
+\text{GL}_r(\mathbf{Q}_l)$。对任意 $n\geq 1$，
+$$
+\sum_{d|n} d\left(
+\sum_{x\in |X| \atop \deg(x)=d}
+\text{Tr}
+\left(
+\rho(F_x^{n/d})
+\right)
+\right) =
+\sum_{i = 0}^{2\dim X}
+(-1)^i
+\text{Tr}\left(
+\pi_X^* |_{H_c^i(X_{\overline{k}}, \mathcal{F}_\rho)}\right)
+$$
+\end{enumerate}
+
+\noindent
+{\bf Weil 猜想。}（Deligne--Weil I，1974）若 $X$ 在 $k$ 上光滑射影，且
+$\# k = q$，则 $\pi_X^*$ 在 $H^i(X_{\overline{k}}, \mathbf{Q}_l)$ 上的
+特征值是满足 $|\alpha|=q^{1/2}$ 的代数整数 $\alpha$。
+
+\medskip\noindent
+{\bf Deligne 猜想。}（几乎已由 Lafforgue 加上 $\ldots$ 完全证明。）设 $X$ 是有限域
+$k$ 上的正规簇，
+$$
+\rho : \pi_1(X, \overline{x}) \longrightarrow \text{GL}_r(\mathbf{Q}_l)
+$$
+且该同态连续。假设 $\rho$ 不可约，$\det(\rho)$ 具有有限阶。则
+\begin{enumerate}
+\item 存在数域 $E$，使得对所有 $x\in |X|$（闭点），$\rho(F_x)$ 的特征
+多项式的系数都在 $E$ 中。
+\item 对任意 $x\in |X|$，$\rho(F_x)$ 的特征值
+$\alpha_{x, i}$，$i = 1, \ldots, r$，其复绝对值为 $1$。
+（这些是代数数，但不必是代数整数。）
+\item 对 $E$ 的每个不整除 $p$ 的有限素位 $\lambda$（也许要先把 $E$
+稍微扩大），存在
+$$
+\rho\lambda : \pi_1(X, \overline{x}) \to \text{GL}_r(E_\lambda)
+$$
+与 $\rho$ 相容。（即若干 $F_x$ 的特征多项式相同。）
+\end{enumerate}
+
+\begin{theorem}[Deligne, Weil II]
+\label{trace-theorem-weil-II}
+若层 $\mathcal{F}_\rho$ 所对应的 $\rho$ 满足上述猜想的结论，则
+$\pi_X^*$ 在 $H_c^i(X_{\overline{k}}, \mathcal{F}_{\rho})$ 上的特征值是
+代数数 $\alpha$，其绝对值满足
+$$
+|\alpha|=q^{w/2}, \text{ 其中 }w\in \mathbf{Z},\ w\leq i
+$$
+此外，若 $X$ 光滑且射影，则 $w = i$。
+\end{theorem}
+
+\begin{proof}
+见 \cite{WeilII}。
+\end{proof}
+
+
+
+
+%12.03.09
+\section{预有限群、上同调与同调}
+\label{trace-section-profinite-cohomology}
+
+\noindent
+设 $G$ 是预有限群。
+
+\medskip\noindent
+{\bf 上同调。}
+考虑具有连续 $G$-作用的离散模范畴。
+这个范畴有足够多的内射对象，因而可以定义
+$$
+H^i(G, M) = R^iH^0(G, M) = R^i(M\mapsto M^G)
+$$
+此外还有导出版本 $RH^0(G, -)$。
+
+\medskip\noindent
+{\bf 同调。}
+考虑具有连续 $G$-作用的紧阿贝尔群范畴。
+这个范畴有足够多的投射对象，因而可以定义
+$$
+H_i(G, M) = L_iH_0(G, M)=L_i(M\mapsto M_G)
+$$
+并且也有导出版本。
+
+\medskip\noindent
+{\bf 平凡对偶。}
+函子 $M\mapsto M^\wedge = \Hom_{cont}(M, S^1)$
+互换上述两个范畴，并且
+$$
+H^i(G, M)^\wedge = H_i(G, M^\wedge)
+$$
+此外，该函子把挠离散 $G$-模映为具有连续 $G$-作用的预有限模，
+反之亦然；若 $M$ 是具有连续 $G$-作用的离散模或预有限模，则
+$M^\wedge = \Hom(M, \mathbf{Q}/\mathbf{Z})$。
+
+\medskip\noindent
+{\bf 同调补注。}
+\begin{enumerate}
+\item 对有限环 $\Lambda$ 考虑 $\Lambda$-模时，有等同
+$$
+H_i(G, M)=Tor_i^{\Lambda[[G]]}(M, \Lambda)
+$$
+其中 $\Lambda[[G]]$ 是 $G$ 的各有限商的群代数之极限。
+\item 若 $G$ 是 $\Gamma$ 的正规子群，且 $\Gamma$ 也是预有限群，则
+\begin{itemize}
+\item $H^0(G, -)$：离散 $\Gamma$-模$\to$ 离散
+$\Gamma/G$-模
+\item $H_0(G, -)$：紧 $\Gamma$-模 $\to$ 紧
+$\Gamma/G$-模
+\end{itemize}
+因此预有限群 $\Gamma/G$ 作用于以 $\Gamma$-模为系数的
+$G$ 的上同调群。换言之，存在导出函子
+$$
+RH^0(G, -) :
+D^{+}(\text{离散 }\Gamma\text{-模})
+\longrightarrow
+D^{+}(\text{离散 }\Gamma/G\text{-模})
+$$
+对 $LH_0(G, -)$ 亦然。
+\end{enumerate}
+
+
+
+
+
+
+
+
+\section{再论曲线的上同调}
+\label{trace-section-cohomology-curves-revisited}
+
+\noindent
+设 $k$ 为域，$X$ 为 $k$ 上几何连通的光滑曲线。
+我们有基本短正合列
+$$
+1 \to
+\pi_1(X_{\overline{k}}, \overline \eta) \to
+\pi_1(X, \overline\eta) \to
+\text{Gal}(k^{^{sep}}/k) \to 1
+$$
+若 $\Lambda$ 是满足 $\#\Lambda\in k^*$ 的有限环，$M$ 是有限
+$\Lambda$-模，并给定连续同态
+$$
+\rho : \pi_1(X, \overline\eta) \to \text{Aut}_{\Lambda}(M)
+$$
+则以 $\mathcal{F}_\rho$ 表示 $X_\etale$ 上相应的层。
+
+\begin{lemma}
+\label{trace-lemma-identify-h2c}
+存在典范同构
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)=(M)_{\pi_1(X_{\overline{k}},
+\overline\eta)}(-1)
+$$
+作为 $\text{Gal}(k^{^{sep}}/k)$-模成立。
+\end{lemma}
+
+\noindent
+这里，下标 ${}_{\pi_1(X_{\overline{k}}, \overline\eta)}$
+表示余不变量，而 $(-1)$ 表示 Tate 扭曲，即
+$\sigma\in \text{Gal}(k^{^{sep}}/k)$ 通过下式作用：
+$$
+\chi_{cycl}(\sigma)^{-1}.\sigma\text{ 于右端的作用}
+$$
+其中
+$$
+\chi_{cycl} :
+\text{Gal}(k^{^{sep}}/k)
+\to
+\prod\nolimits_{l\neq char(k)}\mathbf{Z}_l^*
+$$
+是分圆特征标。
+
+\medskip\noindent
+改述（Deligne，Weil II，第 338 页）。对 $X$ 上任意有限局部常值层
+$\mathcal{F}$，存在最大商 $\mathcal{F}\to
+\mathcal{F}''$，使得 $\mathcal{F}''/X_{\overline{k}}$ 为常值层，因而
+$$
+\mathcal{F}'' = (X\to \Spec(k))^{-1}F''
+$$
+其中 $F''$ 是 $\Spec(k)$ 上的层，即一个
+$\text{Gal}(k^{^{sep}}/k)$-模。于是
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F})\to H_c^2(X_{\overline{k}},
+\mathcal{F}'')\to F''(-1)
+$$
+是同构。
+
+\begin{proof}[引理 \ref{trace-lemma-identify-h2c} 的证明]
+令 $Y\to^{\varphi}X$ 为与
+$\Ker(\rho) \subset \pi_1(X, \overline\eta)$ 对应的有限 \'etale Galois 覆叠。于是
+$$
+\text{Aut}(Y/X)=Ind(\rho)
+$$
+是 Galois 群。此时 $\varphi^*\mathcal{F}_\rho =\underline M_Y$，并且
+$$
+\varphi_*\varphi^*\mathcal{F}_\rho\to \mathcal{F}_\rho
+$$
+给出
+\begin{align*}
+& H_c^2(X_{\overline{k}}, \varphi_*\varphi^*\mathcal{F}_\rho) \to
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)\\
+& =H_c^2(Y_{\overline{k}}, \varphi^*\mathcal{F}_\rho)\\
+& =H_c^2(Y_{\overline{k}}, \underline M) = \oplus_{\text{不可约
+分支 } \atop Y_{\overline{k}}}M
+\end{align*}
+$$
+\Im(\rho) \to H_c^2(Y_{\overline{k}}, \underline M) =
+\oplus_{\text{不可约分支 } \atop Y_{\overline{k}}}
+M \to_{\Im(\rho) \text{等变}} H_c^2(X_{\overline{k}},
+\mathcal{F}_{\rho}) \to^{\text{平凡的 }
+\Im(\rho) \atop \text{作用}}
+$$
+对不可约曲线 $C/\overline{k}$，有 $H_c^2(C, \underline M)=M$。
+
+\medskip\noindent
+由于
+$$
+{\text{不可约分支的 } \atop \text{集合 }Y_k} =
+\frac{Im(\rho)}{Im(\rho|_{\pi_1(X_{\overline{k}}, \overline \eta)})}
+$$
+可知 $H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)$ 是
+$M_{\pi_1(X_{\overline{k}}, \overline \eta)}$ 的一个商。另一方面，
+存在满射
+$$
+\mathcal{F}_\rho\to \mathcal{F}'' = {\text{层，其在 }
+X\text{ 上与下式相伴 } \atop (M)_{\pi_1(X_{\overline{k}}, \overline
+\eta)}\leftarrow\pi_1(X, \overline \eta)}
+$$
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)\to
+M_{\pi_1(X_{\overline{k}}, \overline\eta)}
+$$
+Galois 作用中的扭曲来自如下事实：
+$H_c^2(X_{\overline{k}}, \mu_n)=^{\text{典范}} \mathbf{Z}/n\mathbf{Z}$。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-projective}
+因此可知，若 $X$ 还是投射的，则关于表示 $\rho$ 函子性地有等同
+$$
+H^0(X_{\overline{k}}, \mathcal{F}_\rho) =
+M^{\pi_1(X_{\overline{k}}, \overline\eta)}
+$$
+以及
+$$
+H_c^2(X_{\overline{k}}, \mathcal{F}_\rho) =
+M_{\pi_1(X_{\overline{k}}, \overline \eta)}(-1)
+$$
+当然，若 $X$ 非投射，则
+$H^0_c(X_{\overline{k}}, \mathcal{F}_\rho) = 0$。
+\end{remark}
+
+
+\begin{proposition}
+\label{trace-proposition-curve-kpi1}
+设 $X/k$ 如前，但 $X_{\overline{k}}\neq \mathbf{P}^1_{\overline{k}}$。
+诸函子
+$
+(M, \rho)\mapsto H_c^{2-i}(X_{\overline{k}}, \mathcal{F}_\rho)
+$
+是
+$(M, \rho)\mapsto H_c^2(X_{\overline{k}}, \mathcal{F}_\rho)$
+的左导出函子，故
+$$
+H_c^{2-i}(X_{\overline{k}}, \mathcal{F}_\rho) =
+H_i(\pi_1(X_{\overline{k}}, \overline \eta), M)(-1)
+$$
+此外，还有如下导出版本：
+$$
+R\Gamma_c(X_{\overline{k}}, \mathcal{F}_\rho)
+=
+LH_0(\pi_1(X_{\overline{k}}, \overline \eta), M(-1))
+=
+M(-1)
+\otimes_{\Lambda[[\pi_1(X_{\overline{k}}, \overline \eta)]]}^\mathbf{L}
+\Lambda
+$$
+其成立于 $D(\Lambda[[\widehat{\mathbf{Z}}]])$ 中。
+类似地，诸函子
+$(M, \rho)\mapsto H^i(X_{\overline{k}}, \mathcal{F}_\rho)$
+是
+$(M, \rho)\mapsto M^{\pi_1(X_{\overline{k}}, \overline \eta)}$
+的右导出函子，故
+$$
+H^i(X_{\overline{k}}, \mathcal{F}_\rho) =
+H^i(\pi_1(X_{\overline{k}}, \overline \eta), M)
+$$
+在此情形下也有导出版本。
+\end{proposition}
+
+\begin{proof}
+（思路）证明两端都是泛 $\delta$-函子。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-poincare-groups}
+由该命题及平凡对偶可得
+$$
+H^{2-i}_c(X_{\overline{k}}, \mathcal{F}_\rho)
+\times
+H^i(X_{\overline{k}}, \mathcal{F}_\rho^\wedge(1))
+\to
+\mathbf{Q}/\mathbf{Z}
+$$
+这一完美配对。若 $X$ 是投射的，这就是 Poincare 对偶。
+\end{remark}
+
+
+
+
+
+\section{抽象迹公式}
+\label{trace-section-abstract-trace-formula}
+
+\noindent
+设给定预有限群的扩张
+$$
+1 \to G \to \Gamma \xrightarrow{\deg} \widehat{\mathbf{Z}} \to 1
+$$
+我们称 $\Gamma$ {\it 具有抽象迹公式}，当且仅当存在
+\begin{enumerate}
+\item 整数 $q\geq 1$；以及
+\item 对每个 $d\geq 1$，有有限集 $S_d$，并且对每个 $x\in S_d$，
+有满足 $\deg(F_x) = d$ 的共轭类 $F_x \in \Gamma$
+\end{enumerate}
+使得下列条件成立：
+\begin{enumerate}
+\item 对每个不整除 $q$ 的 $\ell$，有 $\text{cd}_\ell(G)<\infty$；并且
+\item 对每个满足 $q\in \Lambda^*$ 的有限环 $\Lambda$、每个带连续
+$\Gamma$-作用的有限投射 $\Lambda$-模 $M$ 以及每个 $n > 0$，有
+$$
+\sum\nolimits_{d|n}d \left(
+\sum\nolimits_{x \in S_d}
+\text{Tr}( F_x^{n/d} |_M)
+\right)
+=
+q^n \text{Tr}(F^n|_{M \otimes_{\Lambda[[G]]}^{\mathbf{L}}\Lambda})
+$$
+其成立于 $\Lambda^\natural$ 中。
+\end{enumerate}
+这里，$M \otimes_{\Lambda[[G]]}^{\mathbf{L}}\Lambda = LH_0(G, M)$ 表示
+导出同调，而 $F=1$ 于 $\Gamma/G = \widehat{\mathbf{Z}}$ 中。
+
+\begin{remark}
+\label{trace-remark-abstract-trace-formula}
+关于这一概念，有如下几点观察。
+\begin{enumerate}
+\item 若所模拟的是投射曲线，则可以使用上同调，并且不需要因子 $q^n$。
+\item 我所知道的例子只有 $\Gamma = \pi_1(X, \overline \eta)$，
+其中 $X$ 是有限域上的光滑、几何不可约的 $K(\pi, 1)$。在此情形下，
+$q = (\# k)^{\dim X}$。取上述命题为前提，我们已在本课程中对曲线证明了这一点。
+\item 给定整数 $q$ 后，诸集合 $S_d$ 唯一确定。（可以把 $q$ 乘以整数
+$m$，再以 $S_d$ 的 $m^d$ 份副本替换 $S_d$，公式不变。）
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+\label{trace-example-commutative}
+固定整数 $q\geq 1$，
+$$
+\begin{matrix}
+1 &
+\to &
+G = \widehat{\mathbf{Z}}^{(q)} &
+\to &
+\Gamma &
+\to &
+\widehat{\mathbf{Z}} &
+\to &
+1 \\
+&
+&
+= \prod_{l\not \mid q} \mathbf{Z}_l &
+&
+F &
+\mapsto &
+1
+\end{matrix}
+$$
+并令 $FxF^{-1} = ux$，其中 $u \in (\widehat{\mathbf{Z}}^{(q)})^*$。
+只需使用平凡模 $\mathbf{Z}/m\mathbf{Z}$，便可看出
+$$
+q^n - (qu)^n \equiv \sum\nolimits_{d|n} d\# S_d
+$$
+对所有 $(m, q)=1$ 均成立于 $\mathbf{Z}/m\mathbf{Z}$ 中（容许
+$u \to u^{-1}$）；这蕴含 $qu = a\in \mathbf{Z}$ 且
+$|a| < q$。特殊情形 $a = 1$ 确实出现于
+$$
+\Gamma = \pi_1^t(\mathbf{G}_{m, \mathbf{F}_p}, \overline \eta),
+\quad
+\# S_1 = q - 1,
+\quad\text{且}\quad
+\# S_2 = \frac{(q^2-1)-(q-1)}{2}
+$$
+\end{example}
+
+
+
+%12.08.09
+\section{自守形式与层}
+\label{trace-section-automorphic}
+
+\noindent
+参考文献：尤其参见 Drinfeld 的杰出论文
+\cite{D1}、\cite{D2} 和 \cite{D0}。
+
+\medskip\noindent
+{\bf 非分歧尖点形式。}
+设 $k$ 为特征 $p$ 的有限域。
+设 $X$ 为 $k$ 上几何不可约的投射光滑曲线。
+令 $K = k(X)$ 为 $X$ 的函数域。
+设 $v$ 为 $K$ 的一个位点，这等价于取闭点 $x\in X$。
+令 $K_v$ 为 $K$ 在 $v$ 处的完备化；这也等价于取
+$X$ 在 $x$ 处局部环之完备化的分式域。
+以 $O_v\subset K_v$ 表示整数环。进一步令
+$$
+O = \prod\nolimits_v O_v \subset \mathbf{A} = \prod_v' K_v
+$$
+并令 $\Lambda$ 为任意满足 $p$ 在 $\Lambda$ 中可逆的环。
+
+\begin{definition}
+\label{trace-definition-unramified}
+一个{\it 取值于 $\Lambda$ 的 $\text{GL}_2(\mathbf{A})$ 上非分歧尖点形式}
+\footnote{这很可能不是标准记号。}
+是一个函数
+$$
+f : \text{GL}_2(\mathbf{A}) \to \Lambda
+$$
+并满足
+\begin{enumerate}
+\item 对所有 $x\in \text{GL}_2(\mathbf{A})$ 及所有
+$\gamma\in \text{GL}_2(K)$，有 $f(x\gamma) = f(x)$；
+\item 对所有 $x\in \text{GL}_2(\mathbf{A})$ 及所有
+$u\in \text{GL}_2(O)$，有 $f(ux) = f(x)$；
+\item 对所有 $x\in \text{GL}_2(\mathbf{A})$，有
+$$
+\int_{\mathbf{A} \mod K} f
+\left(x
+\left(
+\begin{matrix}
+1 & z \\
+0 & 1
+\end{matrix}
+\right)
+\right) dz = 0
+$$
+关于当 $\Lambda$ 为使 $p$ 可逆的一般环时如何解释此式，
+参见 \cite[Section 4.1]{dJ-conjecture}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+{\bf Hecke 算子。}
+对 $K$ 的一个位点 $v$ 及一个非分歧尖点形式 $f$，令
+$$
+T_v(f)(x) =
+\int_{g\in M_v}f(g^{-1}x)dg,
+$$
+并令
+$$
+U_v(f)(x) =
+f\left(
+\left(
+\begin{matrix}
+\pi_v^{-1} & 0 \\
+0 & \pi_v^{-1}
+\end{matrix}
+\right)x\right)
+$$
+这里使用如下记号：$\pi_v \in O_v$ 是一致化元，
+$$
+M_v =
+\left\{
+h\in Mat(2\times 2, O_v) | \det h = \pi_vO_v^*\right\}
+$$
+而 $dg = $ 是 $\text{GL}_2(K_v)$ 上满足
+$\int_{\text{GL}_2(O_v)} dg = 1$ 的 Haar 测度。明确地，有
+$$
+T_v(f)(x) =
+f\left(
+\left(
+\begin{matrix}
+\pi_v^{-1}& 0 \\
+0 & 1
+\end{matrix}
+\right)
+x\right) +
+\sum_{i = 1}^{q_v}
+f\left(\left(
+\begin{matrix}
+1 & 0 \\
+-\pi_v^{-1}\lambda_i
+& \pi_v^{-1}
+\end{matrix}
+\right) x\right)
+$$
+其中 $\lambda_i\in O_v$ 构成
+$O_v/(\pi_v)=\kappa_v$ 的一组代表元，$q_v = \#\kappa_v$。
+
+\medskip\noindent
+{\bf 特征形式。} 一个{\it 特征形式} $f$ 是满足如下条件的非分歧尖点形式：
+$f$ 的某个值是单位元，并且对某些（唯一确定的）
+$t_v, u_v \in \Lambda$，有 $T_vf = t_vf$ 及 $U_vf = u_vf$。
+
+\begin{theorem}
+\label{trace-theorem-drinfeld-make-rho}
+给定取值于 $\overline{\mathbf{Q}}_l$ 且特征值满足
+$u_v\in \overline{\mathbf{Z}}_l^*$ 的特征形式 $f$，则存在
+$$
+\rho : \pi_1(X)\to \text{GL}_2(E)
+$$
+连续绝对不可约表示，其中 $E$ 是包含于
+$\overline{\mathbf{Q}}_l$ 中的 $\mathbf{Q}_\ell$ 的有限扩张，并且
+对所有位点 $v$，均有 $t_v = \text{Tr}(\rho(F_v))$ 以及
+$u_v = q_v^{-1}\det\left(\rho(F_v)\right)$。
+\end{theorem}
+
+\begin{proof}
+见 \cite{D0}。
+\end{proof}
+
+\begin{theorem}
+\label{trace-theorem-drinfeld-make-f}
+设 $\mathbf{Q}_l \subset E$ 为有限扩张，并且
+$$
+\rho : \pi_1(X)\to \text{GL}_2(E)
+$$
+是绝对不可约连续表示。则存在取值于
+$\overline{\mathbf{Q}}_l$ 的特征形式 $f$，其特征值 $t_v$、$u_v$
+满足等式
+$t_v = \text{Tr}(\rho(F_v))$ 及 $u_v = q_v^{-1}\det(\rho(F_v))$。
+\end{theorem}
+
+\begin{proof}
+见 \cite{D1}。
+\end{proof}
+
+\begin{remark}
+\label{trace-remark-lafforgue}
+由于 Lafforgue 及许多其他数学家的工作，我们现在对
+$\text{GL}_n$ 已有允许分歧的、类似上述两个定理的完整结果！
+换言之，对有限域上曲线的函数域，$\text{GL}_n$ 的完整整体
+Langlands 对应已经为人所知。同时，这并不意味着关于有限域上曲线的
+基本群不再有大量有趣问题有待回答，正如下文将看到的那样。
+\end{remark}
+
+\noindent
+{\bf 中心特征标。} 若 $f$ 是特征形式，则
+$$
+\begin{matrix}
+\chi_f : &
+O^*\backslash \mathbf{A}^*/K^* &
+\to &
+\Lambda^* \\
+&
+(1, \ldots, \pi_v, 1, \ldots, 1) &
+\mapsto &
+u_v^{-1}
+\end{matrix}
+$$
+称为{\it 中心特征标}。按照上述规范化，它对应于 $\rho$ 的行列式。令
+$$
+C(\Lambda) =
+\left\{
+{\text{非分歧尖点形式 } f \text{，其系数在 }\Lambda}
+\atop {\text{ 满足 } U_v f = \varphi_v^{-1}f\forall v}
+\right\}
+$$
+
+\begin{proposition}
+\label{trace-proposition-cusp-forms-finite}
+若 $\Lambda$ 是 Noether 环，则 $C(\Lambda)$ 是有限生成
+$\Lambda$-模。此外，若 $\Lambda$ 是以
+$\mathbf{F} \subset \Lambda$ 为素子域的域，则
+$$
+C(\Lambda)=(C(\mathbf{F}))\otimes_{\mathbf{F}}\Lambda
+$$
+并与 $T_v$ 的作用相容。
+\end{proposition}
+
+\begin{proof}
+见 \cite[Proposition 4.7]{dJ-conjecture}。
+\end{proof}
+
+\noindent
+该命题立即蕴含下列引理。
+
+\begin{lemma}
+\label{trace-lemma-eigenvalues-algebraic}
+特征值的代数性。
+若 $\Lambda$ 是域，则对 $f\in C(\Lambda)$，其特征值 $t_v$
+在素子域 $\mathbf{F} \subset \Lambda$ 上是代数的。
+\end{lemma}
+
+\begin{proof}
+由命题 \ref{trace-proposition-cusp-forms-finite} 得出。
+\end{proof}
+
+\noindent
+综合以上结果，可以施行下列十分有用的技巧。
+
+\begin{lemma}
+\label{trace-lemma-switch-l}
+更换 $l$。设 $E$ 为数域。
+从绝对不可约连续表示
+$$
+\rho : \pi_1(X)\to SL_2(E_\lambda)
+$$
+出发，其中 $\lambda$ 是 $E$ 的一个不位于 $p$ 之上的位点。
+则对 $E$ 的任意另一个不位于 $p$ 之上的位点 $\lambda'$，
+存在有限扩张 $E'_{\lambda'}$ 及绝对不可约连续表示
+$$
+\rho': \pi_1(X)\to SL_2(E'_{\lambda'})
+$$
+它与 $\rho$ 相容，即所有 Frobenius 元的特征多项式均相同。
+\end{lemma}
+
+\noindent
+注意，这是 Deligne 猜想的一个实例！
+
+\begin{proof}
+为证明更换引理，应用定理 \ref{trace-theorem-drinfeld-make-f}，
+得到与 $\rho$ 相伴的特征形式
+$f\in C(\overline{\mathbf{Q}}_l)$。
+再由命题 \ref{trace-proposition-cusp-forms-finite} 可知，可以选择
+$f\in C(E')$，其中 $E \subset E'$ 为有限扩张。
+接着完备化 $E'$，得到特征形式 $f\in C(E'_{\lambda'})$，
+其中 $E'_{\lambda'}$ 是 $E_{\lambda'}$ 的有限扩张。
+最后应用定理 \ref{trace-theorem-drinfeld-make-rho}，并在必要时再次稍微扩大
+$E'_{\lambda'}$，便得到绝对不可约连续表示
+$\rho': \pi_1(X) \to SL_2(E_{\lambda'}')$。
+\end{proof}
+
+\noindent
+推测：若对某个（拓扑）环 $\Lambda$ 有
+$$
+\left(
+{\rho : \pi_1(X)\to SL_2(\Lambda) \atop \text{ 绝对不可约}}
+\right)
+\leftrightarrow
+\text{属于下式的特征形式 } C(\Lambda)
+$$
+则 $\rho(F_v)$ 的所有特征值都是代数的（当 $\Lambda$ 是有限环时，
+这不会以一种简单方式成立）。基于 Langlands 对应不仅对域成立、
+而且在更一般情形下也成立这一推测，可以得到下列猜想。
+
+\medskip\noindent
+{\bf 猜想。}
+（见 \cite{dJ-conjecture}）
+对任意连续表示
+$$
+\rho : \pi_1(X)\to \text{GL}_n(\mathbf{F}_l[[t]])
+$$
+均有 $\# \rho(\pi_1(X_{\overline{k}}))<\infty$。
+
+\medskip\noindent
+用层的语言改述如下：
+“对任意 $\overline{\mathbf{F}_l((t))}$-模的光滑层，其几何
+单值群都是有限的。”
+
+\begin{theorem}
+\label{trace-theorem-conjecture-n-2}
+若 $n\leq 2$，该猜想成立。
+\end{theorem}
+
+\begin{proof}
+见 \cite{dJ-conjecture}。
+\end{proof}
+
+\begin{theorem}
+\label{trace-theorem-conjecture-l-bigger-2n}
+在若干尚未证明的结果的条件下，若 $l > 2n$，该猜想成立。
+\end{theorem}
+
+\begin{proof}
+见 \cite{Gaitsgory}。
+\end{proof}
+
+\noindent
+事实证明，这一猜想确有用途。
+参见 Drinfeld 关于 Kashiwara 猜想的工作。除此之外，还有如下
+更为具体的应用。
+
+\begin{theorem}
+\label{trace-theorem-deformation-rings}
+（见 \cite[Theorem 3.5]{dJ-conjecture}）
+设
+$$
+\rho_0: \pi_1(X)\to \text{GL}_n(\mathbf{F}_l)
+$$
+连续，且 $l\neq p$。假设
+\begin{enumerate}
+\item 对 $X$，该猜想成立；
+\item $\rho_0 |_{\pi_1(X_{\overline{k}})}$ 绝对不可约；并且
+\item $l$ 不整除 $n$。
+\end{enumerate}
+则 $\rho_0$ 的泛形变环 $R_{\text{univ}}$ 在 $\mathbf{Z}_l$ 上有限平坦。
+\end{theorem}
+
+\noindent
+说明：存在表示 $\rho_{\text{univ}}:
+\pi_1(X)\to \text{GL}_n(R_{\text{univ}})$（泛形变环），其中
+$R_{\text{univ}}$ 是完备局部环，剩余域为 $\mathbf{F}_l$，且
+$(R_{\text{univ}}\to
+\mathbf{F}_l)\circ\rho_{\text{univ}}\cong\rho_0$。
+给定任意 $R\to \mathbf{F}_l$，其中 $R$ 是完备局部环，并给定
+$\rho : \pi_1(X)\to \text{GL}_n(R)$，则存在
+$\psi : R_{\text{univ}}\to R$，使得
+$\psi\circ\rho_{\text{univ}}\cong \rho$。定理断言态射
+$$
+\Spec(R_{\text{univ}})
+\longrightarrow
+\Spec(\mathbf{Z}_l)
+$$
+是有限平坦的。特别地，这样的 $\rho_0$ 可提升为
+$\rho : \pi_1(X) \to \text{GL}_n(\overline{\mathbf{Q}}_l)$。
+
+\medskip\noindent
+补注：
+\begin{enumerate}
+\item 关于形变的定理很容易。
+\item 朝该猜想迈进的任何结果看来都很困难。
+\item 若能有更多关于 $\pi_1(X)$ 的猜想，将会很有趣！
+\end{enumerate}
+
+
+
+
+%12.10.09
+\section{计数点}
+\label{trace-section-counting}
+
+\noindent
+设 $X$ 为 $k$ 上光滑、几何不可约的投射曲线，且
+$q = \# k$。迹公式给出：存在代数整数
+$w_1, \ldots, w_{2g}$，使得
+$$
+\# X(k_n) = q^n - \sum\nolimits_{i = 1}^{2g_X} w_i^n + 1.
+$$
+若 $\sigma\in \text{Aut}(X)$，则对每个 $i$，存在 $j$ 使得
+$\sigma(w_i)=w_j$。
+
+\medskip\noindent
+{\bf Riemann 假设。} 对所有 $i$，有 $|\omega_i| = \sqrt{q}$。
+
+\medskip\noindent
+Emil Artin 于 1924 年对超椭圆曲线提出了这一命题。
+Weil 于 1940 年证明了它。Weil 给出了两个证明：
+\begin{itemize}
+\item 使用 $X \times X$ 上的相交理论及 Hodge 指数定理；以及
+\item 使用 $X$ 的 Jacobian。
+\end{itemize}
+另有一个由 Bombieri 给出的证明，其最初思想源自 Stephanov：
+它使用函数域 $k(X)$ 及其 Frobenius 算子（1969）。出发点是，
+给定 $f\in k(X)$，可观察到 $f^q - f$ 是一个在 $X$ 的所有
+$\mathbf{F}_q$-有理点处消失的有理函数，并可尝试用这一思想给出
+点数的上界。
+
+
+\section{Chebotarev 的精确形式}
+\label{trace-section-chebotarev}
+
+\noindent
+作为第一个应用，我们来证明曲线的有限 \'etale Galois 覆叠所对应的
+Chebotarev 定理之精确形式。
+设 $\varphi : Y \to X$ 为群为 $G$ 的有限 \'etale Galois 覆叠。
+它对应于同态
+$$
+\pi_1(X) \longrightarrow G = \text{Aut}(Y/X)
+$$
+假设 $Y_{\overline{k}} = $ 不可约。若 $C\subset G$ 是共轭类，
+则对所有 $n > 0$，有
+$$
+| \# \{x \in X(k_n) \mid F_x \in C\} - \frac{\# C}{\# G} \cdot \# X(k_n) |
+\leq
+(\# C)(2g - 2) \sqrt{q^n}
+$$
+（警告：使用前请仔细核对右端的系数 $\# C$。）
+
+\begin{proof}[略证]
+写成
+$$
+\varphi_*(\overline{\mathbf{Q}_l}) =
+\oplus_{\pi \in \widehat{G}} \mathcal{F}_{\pi}
+$$
+其中 $\widehat{G}$ 是 $G$ 在 $\overline{\mathbf{Q}}_l$ 上
+不可约表示的同构类之集合。对 $\pi \in \widehat{G}$，
+令 $\chi_{\pi}: G \to \overline{\mathbf{Q}}_l$
+为 $\pi$ 的特征标。于是
+$$
+H^*(Y_{\overline{k}}, \overline{\mathbf{Q}}_l) =
+\oplus_{\pi\in \widehat{G}}
+H^*(Y_{\overline{k}}, \overline{\mathbf{Q}}_l)_\pi
+=_{(\varphi\text{ 有限 })}
+\oplus_{\pi\in \widehat{G}}
+H^*(X_{\overline{k}}, \mathcal{F}_\pi)
+$$
+若 $\pi\neq 1$，则
+$$
+H^0(X_{\overline{k}}, \mathcal{F}_\pi) =
+H^2(X_{\overline{k}}, \mathcal{F}_\pi) = 0,\quad
+\dim H^1(X_{\overline{k}}, \mathcal{F}_\pi) = (2g_X - 2)d_\pi^2
+$$
+（可由作用于……的迹公式得到），由此看出
+$$
+|\sum_{x \in X(k_n)} \chi_\pi(\mathcal{F}_x)| \leq
+(2g_X - 2) d_\pi^2\sqrt{q^n}
+$$
+写 $1_C = \sum_\pi a_\pi \chi_\pi$，则
+$a_\pi = \langle 1_C, \chi_\pi\rangle$，且
+$a_1 = \langle 1_C, \chi_1\rangle = \frac{\# C}{\# G}$，其中
+$$
+\langle f, h\rangle = \frac{1}{\# G}\sum_{g \in G} f(g)\overline{h(g)}
+$$
+因此有关系式
+$$
+\frac{\# C}{\# G} = ||1_C||^2 = \sum|a_\pi|^2
+$$
+最后一步：
+\begin{align*}
+\#\left\{x \in X(k_n) \mid F_x \in C\right\}
+& =
+\sum_{x \in X(k_n)} 1_C(x) \\
+& =
+\sum_{x \in X(k_n)} \sum_\pi a_\pi \chi_\pi(F_x) \\
+& =
+\underbrace{\frac{\# C}{\# G} \# X(k_n)}_{
+\text{对应于 }\pi = 1}
++
+\underbrace{\sum_{\pi\neq 1}a_\pi\sum_{x\in X(k_n)}\chi_\pi(F_x)}_{
+\text{误差项（界为 }E)}
+\end{align*}
+误差项可估计为
+\begin{align*}
+|E|
+& \leq
+\sum_{\pi \in \widehat{G}, \atop \pi \neq 1}
+|a_\pi| (2g - 2) d_\pi^2 \sqrt{q^n} \\
+& \leq
+\sum_{\pi \neq 1} \frac{\# C}{\# G} (2g_X - 2) d_\pi^3 \sqrt{q^n}
+\end{align*}
+由 Weil 猜想，$\# X(k_n)\sim q^n$。
+\end{proof}
+
+
+
+\section{有多少素点完全分解？}
+\label{trace-section-how-many}
+
+\noindent
+本节给出有限域上曲线的 Riemann 假设的第二个应用。对数论学家而言，
+Ihara 的论文《整体域的无限非分歧 Galois 扩张中有多少素点完全分解？》
+或许值得一读，见 \cite{Ihara}。
+考虑基本正合列
+$$
+1 \to
+\pi_1(X_{\overline{k}}) \to
+\pi_1(X) \xrightarrow{\deg}
+\widehat{\mathbf{Z}} \to 1
+$$
+
+\begin{proposition}
+\label{trace-proposition-finite-set-frobenii-generate-topologically}
+存在由 $X$ 的闭点组成的有限集 $x_1, \ldots, x_n$，
+使得与这些点对应的{\bf 所有} Frobenius 元在拓扑意义下生成
+$\pi_1(X)$。
+\end{proposition}
+
+\noindent
+另一种表述是：存在 $x_1, \ldots, x_n\in |X|$，使得
+$\pi_1(X)$ 中包含每个 $x_i$ 所对应的 $1$ 个 Frobenius 元的最小正规闭子群
+$\Gamma$ 就是整个 $\pi_1(X)$，即 $\Gamma = \pi_1(X)$。
+
+\begin{proof}
+取 $N\gg 0$，并令
+$$
+\{x_1, \ldots, x_n\} =
+{\text{所有闭点的集合，其位于}
+\atop X \text{ 且次数} \leq N\text{（相对于 } k}
+$$
+令 $\Gamma\subset \pi_1(X)$ 为上述等价表述中与这些点对应的子群。
+假设 $\Gamma \neq \pi_1(X)$。于是可以选取 $\pi_1(X)$ 的一个正规开子群
+$U$，使其包含 $\Gamma$ 且 $U \neq \pi_1(X)$。由 $X$ 的 Riemann 假设，
+我们的点集中将有某个次数为 $N$ 的 $x_{i_1}$，以及某个次数为
+$N - 1$ 的 $x_{i_2}$。这表明
+$\deg : \Gamma \to \widehat{\mathbf{Z}}$ 是满射，
+故对 $U$ 亦然。这恰好意味着：若 $Y \to X$ 是与 $U$ 对应的有限
+\'etale Galois 覆叠，则 $Y_{\overline{k}}$ 不可约。
+令 $G = \text{Aut}(Y/X)$。图示为
+$$
+Y \to^G X,\quad G = \pi_1(X)/U
+$$
+由构造，$X$ 中所有次数 $\leq N$ 的点都在 $Y$ 中完全分解。因此特别有
+$$
+\# Y(k_N)\geq (\# G)\# X(k_N)
+$$
+对两端应用 Riemann 假设，得到
+$$
+q^N+1+2g_Yq^{N/2}\geq \# G\# X(k_N)\geq \#
+G(q^N+1-2g_Xq^{N/2})
+$$
+由于 $2g_Y-2 = (\# G)(2g_X-2)$，这意味着
+$$
+q^N + 1 + (\# G)(2g_X - 1) + 1)q^{N/2}\geq
+\# G (q^N + 1 - 2g_Xq^{N/2})
+$$
+由此可见，当 $N$ 足够大时，$G$ 必须是平凡群。
+\end{proof}
+
+\noindent
+{\bf 奇怪的问题。}
+令 $W_X = \deg^{-1}(\mathbf{Z})\subset \pi_1(X)$。
+是否存在由 $X$ 的闭点组成的某个有限集 $x_1, \ldots, x_n$，
+使得与这些点对应的所有 Frobenius 元在{\it 代数意义下}生成 $W_X$？
+
+\medskip\noindent
+由 Baire 纲论证，这等价于对所有 Frobenius 元提出同一问题。
+
+
+
+
+
+\section{实际上究竟有多少个点？}
+\label{trace-section-really}
+
+\noindent
+若曲线的亏格相对于 $q$ 很大，则公式
+$\# X(k) = q - \sum \omega_i + 1$ 中的主项并非 $q$，
+而是第二项 $\sum \omega_i$；后者先验地可以具有约
+$2g_X\sqrt{q}$ 的大小。在论文 \cite{Drinfeld-number} 中，
+Drinfeld 和 Vladut 证明，该最大值实际上至多约为
+$g\sqrt{q}$，这正是 Ihara 此前所预言的。
+
+\medskip\noindent
+固定 $q$，并令 $k$ 为具有 $k$ 个元素的域。令
+$$
+A(q) = \limsup_{g_X \to \infty} \frac{\# X(k)}{g_X}
+$$
+其中 $X$ 遍历 $k$ 上所有几何不可约的光滑投射曲线。按此定义，
+有下列结果：
+\begin{itemize}
+\item RH $\Rightarrow A(q)\leq 2\sqrt{q}$
+\item Ihara $\Rightarrow A(q)\leq \sqrt{2q}$
+\item DV $\Rightarrow A(q)\leq \sqrt{q}-1$（事实上，若 $q$
+是平方数，则此界精确）
+\end{itemize}
+
+\begin{proof}
+给定 $X$，令 $w_1, \ldots, w_{2g}$ 如前，并令 $g = g_X$。
+置 $\alpha_i = \frac{w_i}{\sqrt{q}}$，于是 $|\alpha_i| = 1$。
+若出现 $\alpha_i$，则 $\overline{\alpha}_i = \alpha_i^{-1}$ 也出现。于是
+$$
+N = \# X(k) \leq X(k_r) = q^r + 1 - (\sum_i \alpha_i^r) q^{r/2}
+$$
+改写后可见，对每个 $r \geq 1$，
+$$
+-\sum_i \alpha_i^r \geq Nq^{-r/2} - q^{r/2} - q^{-r/2}
+$$
+注意到
+$$
+0 \leq |\alpha_i^n +\alpha_i^{n-1} +\ldots +\alpha_i +1|^2
+= (n + 1) + \sum_{j = 1}^n (n + 1 - j) (\alpha_i^j + \alpha_i^{-j})
+$$
+因此
+\begin{align*}
+2g(n+1) & \geq - \sum_i \left(\sum_{j = 1}^n (n+1-j)(\alpha_i^j
++\alpha_i^{-j})\right)\\
+& =-\sum_{j = 1}^n (n+1-j)\left(\sum_i\alpha_i^j
++\sum_i\alpha_i^{-j}\right)
+\end{align*}
+取此式的一半，得到
+\begin{align*}
+g(n+1)& \geq - \sum_{j = 1}^n (n+1-j)(\sum_i\alpha_i^j)\\
+& \geq N\sum_{j = 1}^n (n+1-j)q^{-j/2}-\sum_{j = 1}^n
+(n+1-j)(q^{j/2}+q^{-j/2})
+\end{align*}
+这给出
+$$
+\frac{N}{g}\leq \left(\sum_{j = 1}^n \frac{n+1-j}{n+1}q^{-j/2} \right)^{-1}
+\cdot
+\left(
+1 + \frac{1}{g} \sum_{j = 1}^n \frac{n + 1 - j}{n + 1}(q^{j/2} + q^{-j/2})
+\right)
+$$
+固定 $n$，令 $g\to \infty$，
+$$
+A(q)\leq \left(\sum_{j = 1}^n \frac{n+1-j}{n+1}q^{-j/2}\right)^{-1}
+$$
+于是
+$$
+A(q)\leq \lim_{n\to\infty}(\ldots) = \left(\sum_{j = 1}^\infty
+q^{-j/2}\right)^{-1}=\sqrt{q}-1
+$$
+\end{proof}

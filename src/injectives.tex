@@ -1,0 +1,2413 @@
+% Generated mechanically from the frozen injectives.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{18}
+\chapter{内射对象}
+
+
+
+\phantomsection
+\label{injectives-section-phantom}
+
+
+\section{引言}
+\label{injectives-section-introduction}
+
+\noindent
+在后续各章中，我们将利用内射对象与 K-内射复形的存在性，研究环站点上
+模层的上同调。本章说明如何构造内射对象与 K-内射复形：先讨论站点上的模，
+随后更一般地讨论 Grothendieck 阿贝尔范畴。
+
+\medskip\noindent
+我们注意到，阿贝尔群范畴以及环上模范畴均有足够多的内射对象；见《代数详论》，
+第
+\ref{more-algebra-section-abelian-groups} 与
+\ref{more-algebra-section-injectives-modules} 节。
+
+
+
+
+
+\section{模的 Baer 论证}
+\label{injectives-section-baer}
+
+\noindent
+还有一种更具集合论色彩的方法，可以证明任意 $R$-模 $M$ 都能嵌入一个内射模。
+该方法借助推出的超限余极限来构造内射模。虽然这种方法比《代数详论》第
+\ref{more-algebra-section-injectives-modules} 节中的方法更为抽象且更复杂，
+但它也更为一般。这个方法似乎源自 Baer，后来 Cartan 与 Eilenberg 在
+\cite{Cartan-Eilenberg} 中、Grothendieck 在 \cite{Tohoku} 中重新讨论了它。
+Grothendieck 在后一文中用它证明许多其他阿贝尔范畴也有足够多的内射对象。
+稍后我们将回到一般情形（第 \ref{injectives-section-grothendieck-categories} 节）。
+
+\medskip\noindent
+先作几条集合论方面的说明。设 $\{B_{\beta}\}_{\beta \in \alpha}$ 是某范畴
+$\mathcal{C}$ 中由序数 $\alpha$ 指标的对象归纳系统。假设
+$\colim_{\beta \in \alpha} B_\beta$ 在 $\mathcal{C}$ 中存在。
+若 $A$ 是 $\mathcal{C}$ 的对象，则有自然映射
+\begin{equation}
+\label{injectives-equation-compare}
+\colim_{\beta \in \alpha} \Mor_\mathcal{C}(A, B_\beta)
+\longrightarrow
+\Mor_\mathcal{C}(A, \colim_{\beta \in \alpha} B_\beta).
+\end{equation}
+这是因为，若给定某个 $\beta$ 以及映射 $A \to B_\beta$，将它与
+$B_\beta \to \colim_{\beta \in \alpha} B_\alpha$ 复合，便自然得到从
+$A$ 到该余极限的映射。注意，左侧是集合的余极限！一般而言，
+(\ref{injectives-equation-compare}) 既不是单射，也不是满射。
+
+\begin{example}
+\label{injectives-example-not-surjective}
+考虑集合范畴。令 $A = \mathbf{N}$，并令
+$B_n = \{1, \ldots, n\}$ 为由自然数指标的归纳系统，其中当
+$n \leq m$ 时，$B_n \to B_m$ 是显然映射。此时
+$\colim B_n = \mathbf{N}$，因而存在映射 $A \to \colim B_n$，
+但对任意 $m$，它都不能分解为 $A \to B_m$。因此，
+$\colim \Mor(A, B_n) \to \Mor(A, \colim B_n)$
+不是满射。
+\end{example}
+
+\begin{example}
+\label{injectives-example-not-injective}
+下面给出该映射不是单射的例子。令
+$B_n = \mathbf{N}/\{1,  2, \ldots, n\}$，即把 $\mathbf{N}$ 的前
+$n$ 个元素压缩为一个元素所得的商集。当 $n \leq m$ 时有自然映射
+$B_n \to B_m$，故 $\{B_n\}$ 构成 $\mathbf{N}$ 上的集合系统。
+容易看出 $\colim B_n = \{*\}$，即单点集。因此，对任意集合 $A$，
+$\Mor(A, \colim B_n)$ 都是单元素集。然而，
+$\colim \Mor(A , B_n)$ {\bf 不是}单元素集。考虑两族映射
+$A \to B_n$：第一族就是自然投影
+$\mathbf{N} \to \mathbf{N}/\{1, 2, \ldots, n\}$；第二族把整个
+$A$ 映到 $1$ 的等价类。这两族映射在每一步都不同，因而在
+$\colim \Mor(A, B_n)$ 中也不同，但它们诱导出相同的映射
+$A \to \colim B_n$。
+\end{example}
+
+\noindent
+不过，若映射从有限集出发，则 (\ref{injectives-equation-compare}) 总是同构。
+
+\begin{lemma}
+\label{injectives-lemma-out-of-finite}
+在 (\ref{injectives-equation-compare}) 中，若 $\mathcal{C}$ 是集合范畴且
+$A$ 是{\it 有限集}，则该映射是双射。
+\end{lemma}
+
+\begin{proof}
+设 $f : A \to \colim B_\beta$。$f$ 的像有限；设它包含余极限中的元素
+$c_1, \ldots, c_r \in \colim B_\beta$。由余极限的定义，当
+$\beta \in \alpha$ 足够大时，这些元素都来自 $B_\beta$ 中的某些元素。
+因此可以定义 $\widetilde{f} : A \to B_\beta$，在某个有限阶段提升
+$f$。这证明了 (\ref{injectives-equation-compare}) 是满射。
+
+接下来，假设两个映射 $f : A \to B_\gamma$ 与
+$f' : A \to B_{\gamma'}$ 定义了相同的映射
+$A \to \colim B_\beta$。于是 $A$ 的每个元素在余极限中的像都相同。
+由集合余极限的定义，存在 $\beta \geq \gamma, \gamma'$，使得在
+$f$ 与 $f'$ 下，$A$ 的有限多个元素在 $B_\beta$ 中分别映到相同的点。
+这证明了 (\ref{injectives-equation-compare}) 是单射。
+\end{proof}
+
+\noindent
+该引理最有趣的情形是 $\alpha = \omega$，也就是说，系统
+$\{B_\beta\}$ 是例 \ref{injectives-example-not-surjective} 与
+\ref{injectives-example-not-injective} 中那样由自然数指标的系统
+$\{B_n\}_{n \in \mathbf{N}}$。核心思想是，相对于长复合链
+$B_1 \to B_2 \to \ldots$，$A$ 是“小”的，因而它必定分解通过某个
+有限阶段。该引理的更一般版本见《集合》，引理
+\ref{sets-lemma-map-from-set-lifts}。下面把它推广到模范畴。
+
+\begin{definition}
+\label{injectives-definition-small}
+设 $\mathcal{C}$ 为范畴，$I \subset \text{Arrows}(\mathcal{C})$，
+$\alpha$ 为序数。若对任意以 $\alpha$ 为指标且转移映射均属于 $I$
+的系统 $\{B_\beta\}$，映射 (\ref{injectives-equation-compare}) 都是同构，
+则称 $\mathcal{C}$ 的对象 $A$ {\it 相对于 $I$ 为 $\alpha$-小的}。
+\end{definition}
+
+\noindent
+本节以下固定一个交换环 $R$，并只考虑 $R$-模范畴。我们还令 $I$
+为单射的集合，即 $R$-模范畴中的{\it 单态射}集合。在这种情形下，
+对定义中任意系统 $\{B_\beta\}$，每个映射
+$$
+B_\beta \to \colim_{\beta \in \alpha} B_\beta
+$$
+都是单射。因此映射 (\ref{injectives-equation-compare}) 是{\it 单射}。事实上，
+可以把各 $B_\beta$ 视为模
+$B = \colim_{\beta \in \alpha} B_\beta$ 的子模，此时
+$B = \bigcup_{\beta \in \alpha} B_\beta$。若把 $B_\alpha$
+与它在余极限中的像认同，这并非记号的滥用。下面证明：对“足够大”的序数
+$\alpha$，模总是小的。
+
+\begin{proposition}
+\label{injectives-proposition-modules-are-small}
+设 $R$ 为环，$M$ 为 $R$-模。设 $\kappa$ 为 $M$ 的子模集合的基数。
+若序数 $\alpha$ 的共尾数大于 $\kappa$，则 $M$ 相对于单射为
+$\alpha$-小的。
+\end{proposition}
+
+\begin{proof}
+证明是直接的，不过先考虑一个特殊情形。若 $M$ 有限，则断言是：对任意由极限序数
+指标、转移映射均为单射的归纳系统 $\{B_\beta\}$，任意映射
+$M \to \colim B_\beta$ 都分解通过某个 $B_\beta$。这已在引理
+\ref{injectives-lemma-out-of-finite} 中证明。
+
+\medskip\noindent
+现在证明一般情形。只需证明映射 (\ref{injectives-equation-compare}) 是满射。
+设 $f : M \to \colim B_\beta$ 为映射。把 $B_\beta$ 看作余极限
+$B = \bigcup_\beta B_\beta$ 的子对象，并考虑 $M$ 的子对象
+$\{f^{-1}(B_\beta)\}$。若其中某个子对象（比如
+$f^{-1}(B_\beta)$）等于 $M$，则该映射分解通过 $B_\beta$。
+
+\medskip\noindent
+反设所有 $f^{-1}(B_\beta)$ 都是 $M$ 的真子对象。但我们知道
+$$
+\bigcup f^{-1}(B_\beta) = f^{-1}\left(\bigcup B_\beta\right) = M.
+$$
+由假设，在各 $f^{-1}(B_\alpha)$ 中至多出现 $\kappa$ 个不同的 $M$
+的子对象。因此可以找到基数至多为 $\kappa$ 的子集
+$S \subset \alpha$，使得当 $\beta'$ 遍历 $S$ 时，
+$f^{-1}(B_{\beta'})$ 恰好遍历\emph{所有} $f^{-1}(B_\alpha)$。
+
+\medskip\noindent
+由于 $\alpha$ 的共尾数大于 $\kappa$，$S$ 有一个上界
+$\widetilde{\alpha} < \alpha$。特别地，对所有 $\beta' \in S$，
+$f^{-1}(B_{\beta'})$ 都包含于
+$f^{-1}(B_{\widetilde{\alpha}})$。因此
+$f^{-1}(B_{\widetilde{\alpha}}) = M$，从而映射 $f$ 分解通过
+$B_{\widetilde{\alpha}}$。
+\end{proof}
+
+\noindent
+由此引理可以推出大量内射对象的存在性。先回顾 Baer 判别法。
+
+\begin{lemma}[Baer 判别法]
+\label{injectives-lemma-criterion-baer}
+\begin{reference}
+\cite[Theorem 1]{Baer}
+\end{reference}
+设 $R$ 为环。$R$-模 $Q$ 是内射模，当且仅当在每个交换图
+$$
+\xymatrix{
+\mathfrak{a} \ar[d] \ar[r] &  Q \\
+R \ar@{-->}[ru]
+}
+$$
+中虚线箭头都存在，其中 $\mathfrak{a} \subset R$ 为理想。
+\end{lemma}
+
+\begin{proof}
+这就是《代数详论》，引理
+\ref{more-algebra-lemma-characterize-injective-bis} 中 (1) 与 (3)
+的等价性。请注意，那里给出的证明是初等的（既不使用 $\text{Ext}$ 群，
+也不使用 $R$-模范畴中内射对象或投射对象的存在性）。
+\end{proof}
+
+\noindent
+若 $M$ 是 $R$-模，则一般可能有一个如引理
+\ref{injectives-lemma-criterion-baer} 中那样尚缺一箭头的图。在其中可以形成\emph{推出}
+$$
+\xymatrix{
+\mathfrak{a} \ar[d]  \ar[r] &  M \ar[d] \\
+R \ar[r] &  R \oplus_{\mathfrak{a}} M.
+}
+$$
+这里的竖直映射是单射，且该图交换。要点是：只要把 $M$ 扩大为更大的模
+$R \oplus_{\mathfrak{a}} M$，就\emph{可以}把
+$\mathfrak{a} \to M$ 延拓到 $R$。
+
+\medskip\noindent
+Baer 论证的关键是超限多次地重复这个过程。为此，对给定的 $R$-模 $M$，
+先定义如下（巨大）推出
+\begin{equation}
+\label{injectives-equation-huge-diagram}
+\vcenter{
+\xymatrix{
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+\mathfrak{a} \ar[r] \ar[d] & M \ar[d] \\
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+R \ar[r] &  \mathbf{M}(M).
+}
+}
+\end{equation}
+上方水平箭头把与 $\varphi$ 对应的直和项中元素
+$a \in \mathfrak a$ 映到 $\varphi(a) \in M$。左侧竖直箭头则把与
+$\varphi$ 对应的直和项中的 $a \in \mathfrak a$ 直接映到与
+$\varphi$ 对应的直和项中的 $a \in R$。该构造的基本性质表述于下一个引理。
+
+\begin{lemma}
+\label{injectives-lemma-construction}
+设 $R$ 为环。
+\begin{enumerate}
+\item 构造 $M \mapsto (M \to \mathbf{M}(M))$ 关于 $M$ 具有函子性。
+\item 映射 $M \to \mathbf{M}(M)$ 是单射。
+\item 对任意理想 $\mathfrak{a}$ 以及任意 $R$-模同态
+$\varphi : \mathfrak a \to M$，存在 $R$-模同态
+$\varphi' : R \to \mathbf{M}(M)$，使得
+$$
+\xymatrix{
+\mathfrak{a} \ar[d] \ar[r]_\varphi &  M \ar[d] \\
+R \ar[r]^{\varphi'} & \mathbf{M}(M)
+}
+$$
+交换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2) 与 (3) 由构造立即得到。为证明 (1)，设
+$\chi : M \to N$ 为 $R$-模同态。我们断言存在典范交换图
+$$
+\xymatrix{
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+\mathfrak{a} \ar[r] \ar[d] \ar[rrd] & M \ar[rrd]^\chi \\
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+R \ar[rrd] & &
+\bigoplus_{\mathfrak a}
+\bigoplus_{\psi \in \Hom_R(\mathfrak a, N)}
+\mathfrak{a} \ar[r] \ar[d] & N \\
+& & \bigoplus_{\mathfrak a}
+\bigoplus_{\psi \in \Hom_R(\mathfrak a, N)}
+R
+}
+$$
+它诱导出所需映射 $\mathbf{M}(M) \to \mathbf{M}(N)$。
+中间那条东南向箭头通过 $\text{id}_{\mathfrak a}$，把与 $\varphi$
+对应的直和项 $\mathfrak a$ 映到与
+$\psi = \chi \circ \varphi$ 对应的直和项 $\mathfrak a$。
+下方东南向箭头同理。略去细节。
+\end{proof}
+
+\noindent
+现在的思路是超限多次地应用函子 $\mathbf{M}$。对每个序数 $\alpha$，
+我们将在 $R$-模范畴上定义函子 $\mathbf{M}_\alpha$，并同时给出自然单射
+$N \to \mathbf{M}_\alpha(N)$。用超限递归完成此事。首先，令
+$\mathbf{M}_1 = \mathbf{M}$，即上述函子。现在设给定序数 $\alpha$，
+并且对所有 $\alpha' < \alpha$ 都已定义 $\mathbf{M}_{\alpha'}$。
+若 $\alpha$ 有直接前驱 $\widetilde{\alpha}$，则令
+$$
+\mathbf{M}_\alpha = \mathbf{M} \circ \mathbf{M}_{\widetilde{\alpha}}.
+$$
+否则，即若 $\alpha$ 是极限序数，则令
+$$
+\mathbf{M}_{\alpha}(N) =
+\colim_{\alpha' < \alpha} \mathbf{M}_{\alpha'}(N).
+$$
+显然（例如通过归纳），各 $\mathbf{M}_{\alpha}(N)$ 构成序数上的归纳系统，
+故这个定义是合理的。
+
+\begin{theorem}
+\label{injectives-theorem-baer-grothendieck}
+设 $\kappa$ 为 $R$ 的理想集合的基数，$\alpha$ 为共尾数大于
+$\kappa$ 的序数。则 $\mathbf{M}_\alpha(N)$ 是内射 $R$-模，且
+$N \to \mathbf{M}_\alpha(N)$ 是函子性的内射嵌入。
+\end{theorem}
+
+\begin{proof}
+由 Baer 判别法（引理 \ref{injectives-lemma-criterion-baer}），只需证明：
+若 $\mathfrak{a} \subset R$ 为理想，则任意映射
+$f : \mathfrak{a} \to \mathbf{M}_\alpha(N)$ 都可延拓为
+$R \to \mathbf{M}_\alpha(N)$。由于 $\alpha$ 是极限序数，我们有
+$$
+\mathbf{M}_{\alpha}(N) =
+\colim_{\beta < \alpha} \mathbf{M}_{\beta}(N),
+$$
+因此由命题 \ref{injectives-proposition-modules-are-small} 得到
+$$
+\Hom_R(\mathfrak{a}, \mathbf{M}_{\alpha}(N)) =
+\colim_{\beta < \alpha} \Hom_R(\mathfrak a, \mathbf{M}_{\beta}(N)).
+$$
+特别地，存在某个 $\beta' < \alpha$，使得 $f$ 分解通过子模
+$\mathbf{M}_{\beta'}(N)$，即
+$$
+f : \mathfrak{a} \to \mathbf{M}_{\beta'}(N) \to
+\mathbf{M}_{\alpha}(N).
+$$
+然而，由函子 $\mathbf{M}$ 的基本性质（见引理
+\ref{injectives-lemma-construction} 的 (3)），映射
+$\mathfrak{a} \to \mathbf{M}_{\beta'}(N)$ 可以延拓为
+$$
+R \to \mathbf{M}( \mathbf{M}_{\beta'}(N)) =
+\mathbf{M}_{\beta' + 1}(N),
+$$
+而最后一个对象嵌入 $\mathbf{M}_{\alpha}(N)$（因为 $\alpha$
+是极限序数，所以 $\beta' + 1 < \alpha$）。特别地，$f$ 可以延拓到
+$\mathbf{M}_{\alpha}(N)$。
+\end{proof}
+
+
+
+
+\section{$G$-模}
+\label{injectives-section-G-modules}
+
+\noindent
+稍后我们将看到（《微分分次代数》，第
+\ref{dga-section-modules-noncommutative} 节），代数上模的范畴具有函子性的
+内射嵌入。该构造与《代数详论》，第
+\ref{more-algebra-section-injectives-modules} 节中的构造完全相同。
+
+\begin{lemma}
+\label{injectives-lemma-G-modules}
+设 $G$ 为拓扑群，$R$ 为环。$R\text{-}G$-模的范畴
+$\text{Mod}_{R, G}$（见《平展上同调》，定义
+\ref{etale-cohomology-definition-G-module-continuous}）具有函子性的内射嵌入。
+特别地，离散 $G$-模范畴也具有此性质。
+\end{lemma}
+
+\begin{proof}
+由引理之前的说明，范畴 $\text{Mod}_{R[G]}$ 具有函子性的内射嵌入。
+考虑遗忘函子
+$v : \text{Mod}_{R, G} \to \text{Mod}_{R[G]}$。
+该函子全忠实，把单射变为单射，并且具有右伴随，即
+$$
+u : M \mapsto u(M) = \{x \in M \mid x\text{ 的稳定子是开子群}\}
+$$
+由于 $v(M) = 0 \Rightarrow M = 0$，由《同调代数》，引理
+\ref{homology-lemma-adjoint-functorial-injectives} 得到结论。
+\end{proof}
+
+
+
+\section{空间上的阿贝尔层}
+\label{injectives-section-abelian-sheaves-space}
+
+
+\begin{lemma}
+\label{injectives-lemma-abelian-sheaves-space}
+设 $X$ 为拓扑空间。$X$ 上阿贝尔层的范畴有足够多的内射对象。
+事实上，它具有函子性的内射嵌入。
+\end{lemma}
+
+\begin{proof}
+对阿贝尔群 $A$，记 $j : A \to J(A)$ 为《代数详论》，第
+\ref{more-algebra-section-injectives-modules} 节中构造的函子性内射嵌入。
+设 $\mathcal{F}$ 为 $X$ 上的阿贝尔层。由《层论》，例
+\ref{sheaves-example-sheaf-product-pointwise}，赋值
+$$
+\mathcal{I} : U \mapsto
+\mathcal{I}(U) = \prod\nolimits_{x\in U} J(\mathcal{F}_x)
+$$
+是阿贝尔层。存在典范映射 $\mathcal{F} \to \mathcal{I}$，它把
+$s \in \mathcal{F}(U)$ 映到 $\prod_{x \in U} j(s_x)$，其中
+$s_x \in \mathcal{F}_x$ 表示 $s$ 在 $x$ 处的芽。这个映射是单射；
+例如见《层论》，引理 \ref{sheaves-lemma-sheaf-subset-stalks}。
+
+\medskip\noindent
+还需证明如下断言：给定规则 $x \mapsto I_x$，它为每个点 $x \in X$
+指定一个内射阿贝尔群，则层
+$\mathcal{I} : U \mapsto \prod_{x \in U} I_x$ 是内射的。注意
+$$
+\mathcal{I} = \prod\nolimits_{x \in X} i_{x, *}I_x
+$$
+是摩天楼层 $i_{x, *}I_x$ 的积（记号见《层论》，第
+\ref{sheaves-section-skyscraper-sheaves} 节）。我们有
+$$
+\Mor_{\textit{Ab}}(\mathcal{F}_x, I_x)
+=
+\Mor_{\textit{Ab}(X)}(\mathcal{F}, i_{x, *}I_x).
+$$
+见《层论》，引理 \ref{sheaves-lemma-stalk-skyscraper-adjoint}。因此显然
+每个 $i_{x, *}I_x$ 都是内射的。于是 $\mathcal{I}$ 的内射性由
+《同调代数》，引理 \ref{homology-lemma-product-injectives} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{环空间上的模层}
+\label{injectives-section-sheaves-modules-space}
+
+
+\begin{lemma}
+\label{injectives-lemma-sheaves-modules-space}
+设 $(X, \mathcal{O}_X)$ 为环空间，见《层论》，第
+\ref{sheaves-section-ringed-spaces} 节。$X$ 上 $\mathcal{O}_X$-模层的范畴
+有足够多的内射对象。事实上，它具有函子性的内射嵌入。
+\end{lemma}
+
+\begin{proof}
+对任意环 $R$ 和任意 $R$-模 $M$，记 $j : M \to J_R(M)$ 为
+《代数详论》，第 \ref{more-algebra-section-injectives-modules} 节中构造的
+函子性内射嵌入。设 $\mathcal{F}$ 为 $X$ 上的 $\mathcal{O}_X$-模层。
+由《层论》，例 \ref{sheaves-example-sheaf-product-pointwise} 和
+\ref{sheaves-example-sheaf-product-pointwise-algebraic-structure}，赋值
+$$
+\mathcal{I} : U \mapsto
+\mathcal{I}(U) = \prod\nolimits_{x\in U} J_{\mathcal{O}_{X, x}}(\mathcal{F}_x)
+$$
+是阿贝尔层。存在典范映射 $\mathcal{F} \to \mathcal{I}$，它把
+$s \in \mathcal{F}(U)$ 映到 $\prod_{x \in U} j(s_x)$，其中
+$s_x \in \mathcal{F}_x$ 表示 $s$ 在 $x$ 处的芽。这个映射是单射；
+例如见《层论》，引理 \ref{sheaves-lemma-sheaf-subset-stalks}。
+
+\medskip\noindent
+还需证明如下断言：给定规则 $x \mapsto I_x$，它为每个点 $x \in X$
+指定一个内射 $\mathcal{O}_{X, x}$-模，则层
+$\mathcal{I} : U \mapsto \prod_{x \in U} I_x$ 是内射的。注意
+$$
+\mathcal{I} = \prod\nolimits_{x \in X} i_{x, *}I_x
+$$
+是摩天楼层 $i_{x, *}I_x$ 的积（记号见《层论》，第
+\ref{sheaves-section-skyscraper-sheaves} 节）。我们有
+$$
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, I_x)
+=
+\Hom_{\mathcal{O}_X}(\mathcal{F}, i_{x, *}I_x).
+$$
+见《层论》，引理 \ref{sheaves-lemma-stalk-skyscraper-adjoint}。因此显然
+每个 $i_{x, *}I_x$ 都是内射 $\mathcal{O}_X$-模（见《同调代数》，引理
+\ref{homology-lemma-adjoint-preserve-injectives}，或直接论证）。于是
+$\mathcal{I}$ 的内射性由《同调代数》，引理
+\ref{homology-lemma-product-injectives} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{范畴上的阿贝尔预层}
+\label{injectives-section-injectives-presheaves}
+
+\noindent
+设 $\mathcal{C}$ 为范畴。回忆，这意味着 $\Ob(\mathcal{C})$ 是集合。
+一方面，考虑 $\mathcal{C}$ 上的阿贝尔预层，见《站点》，第
+\ref{sites-section-presheaves} 节。另一方面，考虑由
+$\Ob(\mathcal{C})$ 的元素作指标的阿贝尔群族；换言之，考虑对象集为
+$\Ob(\mathcal{C})$ 的离散范畴上的预层。我们把这个离散范畴简称为
+$\Ob(\mathcal{C})$。存在自然函子
+$$
+i : \Ob(\mathcal{C}) \longrightarrow \mathcal{C}
+$$
+因而存在自然的限制函子（或遗忘函子）
+$$
+v = i^p :
+\textit{PAb}(\mathcal{C})
+\longrightarrow
+\textit{PAb}(\Ob(\mathcal{C}))
+$$
+比较《站点》，第 \ref{sites-section-functoriality-PSh} 节。我们用 $B$
+表示 $\mathcal{C}$ 上的预层，用 $A$ 表示 $\Ob(\mathcal{C})$ 上的预层。
+
+\medskip\noindent
+还有两个函子，即 $i_p$ 和 ${}_pi$；它们给 $\Ob(\mathcal{C})$ 上的
+阿贝尔预层指派 $\mathcal{C}$ 上的阿贝尔预层，见《站点》，第
+\ref{sites-section-functoriality-PSh} 节和第
+\ref{sites-section-more-functoriality-PSh} 节。这里我们将使用
+$u = {}_pi$；在当前情形下，它定义如下：
+$$
+uA(U) = \prod\nolimits_{U' \to U} A(U').
+$$
+因此，一个元素是族 $(a_\phi)_\phi$，其中 $\phi$ 遍历
+$\mathcal{C}$ 中所有以 $U$ 为目标的态射。$uA$ 上对应于
+$g : V \to U$ 的限制映射把元素 $(a_\phi)_\phi$ 映到元素
+$(a_{g \circ \psi})_\psi$。
+
+\medskip\noindent
+存在典范满射 $vuA \to A$ 和典范单射 $B \to uvB$。留给读者证明
+$$
+\Mor_{\textit{PAb}(\mathcal{C})}(B, uA)
+=
+\Mor_{\textit{PAb}(\Ob(\mathcal{C}))}(vB, A).
+$$
+在这个简单情形下成立；一般情形见《站点》，第
+\ref{sites-section-functoriality-PSh} 节。因此，$(u, v)$ 是一对伴随函子的
+例子，见《范畴》，第 \ref{categories-section-adjoint} 节。
+
+\medskip\noindent
+此时可以列出关于上述情形的如下事实。
+\begin{enumerate}
+\item 函子 $u$ 和 $v$ 是正合的。这由上面对这些函子的显式描述得出。
+\item 特别地，函子 $v$ 把单射变为单射。
+\item 范畴 $\textit{PAb}(\Ob(\mathcal{C}))$ 有足够多的内射对象。
+\item 事实上，存在如《同调代数》，定义
+\ref{homology-definition-functorial-injective-embedding} 中所述的函子性内射嵌入
+$A \mapsto \big(A \to J(A)\big)$。具体地，可以取 $J(A)$ 为预层
+$U\mapsto J(A(U))$，其中 $J(-)$ 是《代数详论》，第
+\ref{more-algebra-section-injectives-modules} 节中对环 $\mathbf{Z}$ 构造的函子。
+\end{enumerate}
+综合以上各点，得到把 $\textit{PAb}(\mathcal{C})$ 的对象 $B$ 嵌入内射对象的
+如下方法：$B \to uJ(vB)$。见《同调代数》，引理
+\ref{homology-lemma-adjoint-functorial-injectives}。
+
+\begin{proposition}
+\label{injectives-proposition-presheaves-injectives}
+对范畴上的阿贝尔预层，存在函子性的内射嵌入。
+\end{proposition}
+
+\begin{proof}
+见以上讨论。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{站点上的阿贝尔层}
+\label{injectives-section-injectives-sheaves}
+
+\noindent
+设 $\mathcal{C}$ 为站点。本节证明 $\mathcal{C}$ 上的阿贝尔层有足够多的
+内射对象。
+
+\medskip\noindent
+记
+$i : \textit{Ab}(\mathcal{C}) \longrightarrow \textit{PAb}(\mathcal{C})$
+为从阿贝尔层到阿贝尔预层的遗忘函子。令
+${}^\# : \textit{PAb}(\mathcal{C}) \longrightarrow \textit{Ab}(\mathcal{C})$
+表示层化函子。回忆，${}^\#$ 是 $i$ 的左伴随，${}^\#$ 是正合的，并且对
+任意阿贝尔层 $\mathcal{F}$ 都有 $i\mathcal{F}^\# = \mathcal{F}$。最后，
+记 $\mathcal{G} \to J(\mathcal{G})$ 为第
+\ref{injectives-section-injectives-presheaves} 节中得到的嵌入内射预层的典范嵌入。
+
+\medskip\noindent
+对 $\textit{Ab}(\mathcal{C})$ 中的任意层 $\mathcal{F}$ 和任意序数
+$\beta$，通过超限递归定义层 $J_\beta(\mathcal{F})$。置
+$J_0(\mathcal{F}) = \mathcal{F}$，并定义
+$J_1(\mathcal{F}) = J(i\mathcal{F})^\#$。对典范映射
+$i\mathcal{F} \to J(i\mathcal{F})$ 作层化，得到函子性映射
+$$
+\mathcal{F} \longrightarrow J_1(\mathcal{F})
+$$
+由于 $\#$ 正合，该映射是单射。置
+$J_{\alpha + 1}(\mathcal{F}) = J_1(J_\alpha(\mathcal{F}))$。于是存在典范单射
+$J_\alpha(\mathcal{F}) \to J_{\alpha + 1}(\mathcal{F})$。对极限序数
+$\beta$，定义
+$$
+J_\beta(\mathcal{F}) = \colim_{\alpha < \beta} J_\alpha(\mathcal{F}).
+$$
+注意，这是有向余极限。因此，对任意序数 $\alpha < \beta$，都有单射
+$J_\alpha(\mathcal{F}) \to J_\beta(\mathcal{F})$。
+
+\begin{lemma}
+\label{injectives-lemma-map-into-next-one}
+采用上述记号。设 $\mathcal{G}_1 \to \mathcal{G}_2$ 是
+$\mathcal{C}$ 上阿贝尔层的单射。设 $\alpha$ 为序数，并设
+$\mathcal{G}_1 \to J_\alpha(\mathcal{F})$ 为层的态射。存在态射
+$\mathcal{G}_2 \to J_{\alpha + 1}(\mathcal{F})$，使下图交换：
+$$
+\xymatrix{
+\mathcal{G}_1 \ar[d] \ar[r] & \mathcal{G}_2 \ar[d] \\
+J_{\alpha}(\mathcal{F}) \ar[r] & J_{\alpha + 1}(\mathcal{F}) }
+$$
+\end{lemma}
+
+\begin{proof}
+这是因为映射 $i\mathcal{G}_1 \to i\mathcal{G}_2$ 是单射，因而
+$i\mathcal{G}_1 \to iJ_\alpha(\mathcal{F})$ 可以延拓为
+$i\mathcal{G}_2 \to J(iJ_\alpha(\mathcal{F}))$；应用层化函子后，便得到
+所需映射。
+\end{proof}
+
+\noindent
+这个引理表明，在某种意义下，系统 $\{J_{\alpha}(\mathcal{F})\}$ 是
+$\mathcal{F}$ 的内射嵌入。当然，我们不能对所有 $\alpha$ 取极限，因为
+它们构成类而非集合。不过，结合下一个引理，现有思路是不必对所有单射
+$\mathcal{G}_1 \to \mathcal{G}_2$ 检验内射性。
+
+\begin{lemma}
+\label{injectives-lemma-map-into-smaller}
+设 $\mathcal{G}_i$（$i\in I$）是 $\mathcal{C}$ 上阿贝尔层的一个集合。
+存在序数 $\beta$，使得对任意层 $\mathcal{F}$、任意 $i\in I$ 及任意映射
+$\varphi : \mathcal{G}_i \to J_\beta(\mathcal{F})$，都存在
+$\alpha < \beta$，使 $ \varphi $ 通过 $J_\alpha(\mathcal{F})$ 分解。
+\end{lemma}
+
+\begin{proof}
+取所有 $\mathcal{G}_i$ 的直和，即可将问题约化到单个层
+$\mathcal{G}$ 的情形。
+
+\medskip\noindent
+考虑集合
+$$
+S = \coprod\nolimits_{U \in \Ob(\mathcal{C})} \mathcal{G}(U).
+$$
+以及
+$$
+T_\beta
+=
+\coprod\nolimits_{U \in \Ob(\mathcal{C})} J_\beta(\mathcal{F})(U)
+$$
+集合 $T_\beta$ 之间的转移映射都是单射。如果 $\beta$ 的共尾数足够大，
+则 $T_\beta = \colim_{\alpha < \beta} T_\alpha$，见《站点》，引理
+\ref{sites-lemma-colimit-over-ordinal-sections}。态射
+$\mathcal{G} \to J_\beta(\mathcal{F})$ 通过
+$J_\alpha(\mathcal{F})$ 分解，当且仅当相应映射 $S \to T_\beta$ 通过
+$T_\alpha$ 分解。由《集合论》，引理
+\ref{sets-lemma-map-from-set-lifts}，如果 $\beta$ 的共尾数大于 $S$ 的基数，
+则本引理的结论成立。因此，本引理由存在共尾数任意大的序数这一事实得出；
+见《集合论》，命题 \ref{sets-proposition-exist-ordinals-large-cofinality}。
+\end{proof}
+
+\noindent
+回忆，对 $\mathcal{C}$ 的对象 $X$，记 $\mathbf{Z}_X$ 为阿贝尔群预层
+$\Gamma(U, \mathbf{Z}_X) = \oplus_{U \to X} \mathbf{Z}$；见
+《站点上的模》，第 \ref{sites-modules-section-free-abelian-presheaf} 节。
+与这个预层相伴的层记为 $\mathbf{Z}_X^\#$；见《站点上的模》，第
+\ref{sites-modules-section-free-abelian-sheaf} 节。它可由如下性质刻画：
+\begin{equation}
+\label{injectives-equation-free-sheaf-on}
+\Mor_{\textit{Ab}(\mathcal{C})}(\mathbf{Z}_X^\#, \mathcal{G})
+=
+\mathcal{G}(X)
+\end{equation}
+其中，左端的元素 $\varphi$ 映到右端的
+$\varphi(1 \cdot \text{id}_X)$。可以用这些层刻画内射阿贝尔层。
+
+\begin{lemma}
+\label{injectives-lemma-characterize-injectives}
+设 $\mathcal{J}$ 是具有如下性质的阿贝尔群层：对所有
+$X\in \Ob(\mathcal{C})$、任意阿贝尔子层
+$\mathcal{S} \subset \mathbf{Z}_X^\#$ 和任意态射
+$\varphi : \mathcal{S} \to \mathcal{J}$，都存在延拓 $\varphi$ 的态射
+$\mathbf{Z}_X^\# \to \mathcal{J}$。则 $\mathcal{J}$ 是内射阿贝尔群层。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F} \to \mathcal{G}$ 为阿贝尔层的单射，并设
+$\varphi : \mathcal{F} \to \mathcal{J}$ 为态射。仿照《代数详论》，引理
+\ref{more-algebra-lemma-injective-abelian} 的证明，只需证明：如果
+$\mathcal{F} \not = \mathcal{G}$，则可以找到阿贝尔层
+$\mathcal{F}'$，满足 $\mathcal{F} \subset \mathcal{F}' \subset \mathcal{G}$，
+使得 (a) 包含 $\mathcal{F} \subset \mathcal{F}'$ 是严格的，并且
+(b) $\varphi$ 可以延拓到 $\mathcal{F}'$。为寻找 $\mathcal{F}'$，取
+$\mathcal{C}$ 的对象 $X$，使包含
+$\mathcal{F}(X) \subset \mathcal{G}(X)$ 是严格的。选取
+$s \in \mathcal{G}(X)$，且 $s \not \in \mathcal{F}(X)$。令
+$\psi : \mathbf{Z}_X^\# \to \mathcal{G}$ 为通过
+(\ref{injectives-equation-free-sheaf-on}) 与截面 $s$ 对应的态射，并置
+$\mathcal{S} = \psi^{-1}(\mathcal{F})$。由假设，态射
+$$
+\mathcal{S} \xrightarrow{\psi} \mathcal{F} \xrightarrow{\varphi} \mathcal{J}
+$$
+可以延拓为态射 $\varphi' : \mathbf{Z}_X^\# \to \mathcal{J}$。注意，
+$\varphi'$ 零化 $\psi$ 的核（因为 $\varphi$ 具有这一性质）。因此，
+$\varphi'$ 诱导态射 $\varphi'' : \Im(\psi) \to \mathcal{J}$；按构造，
+它在交 $\mathcal{F} \cap \Im(\psi)$ 上与 $\varphi$ 一致。于是可以粘合
+$\varphi$ 和 $\varphi''$，得到 $\varphi$ 到严格更大的子层
+$\mathcal{F}' = \mathcal{F} + \Im(\psi)$ 上的延拓。
+\end{proof}
+
+\begin{theorem}
+\label{injectives-theorem-sheaves-injectives}
+站点上的阿贝尔群层范畴有足够多的内射对象。事实上，存在函子性的内射嵌入；
+见《同调代数》，定义
+\ref{homology-definition-functorial-injective-embedding}。
+\end{theorem}
+
+\begin{proof}
+取一组阿贝尔层 $\mathcal{G}_i$（$i \in I$），使每个
+$\mathbf{Z}_X^\#$ 的每个子层都作为某个 $\mathcal{G}_i$ 出现。对这个集合
+应用引理 \ref{injectives-lemma-map-into-smaller}，得到序数 $\beta$。我们断言，对任意
+阿贝尔群层 $\mathcal{F}$，映射
+$\mathcal{F} \to J_\beta(\mathcal{F})$ 都是把 $\mathcal{F}$ 嵌入某个
+内射对象的单射。注意，按构造，赋值
+$\mathcal{F} \mapsto \big(\mathcal{F} \to J_\beta(\mathcal{F})\big)$
+确实是函子性的。
+
+\medskip\noindent
+该断言的证明如下。由引理 \ref{injectives-lemma-characterize-injectives}，只需把从某个
+$\mathbf{Z}_X^\#$ 的子层 $\mathcal{G}$ 出发的任意态射
+$\gamma : \mathcal{G} \to J_\beta(\mathcal{F})$ 延拓到整个
+$\mathbf{Z}_X^\#$。由引理 \ref{injectives-lemma-map-into-smaller}，映射 $\gamma$
+可提升到某个 $J_\alpha(\mathcal{F})$，其中 $\alpha < \beta$。最后，
+应用引理 \ref{injectives-lemma-map-into-next-one}，得到所需的 $\gamma$ 的延拓，
+它取值于 $J_{\alpha + 1}(\mathcal{F}) \to J_\beta(\mathcal{F})$。
+\end{proof}
+
+
+
+
+
+
+\section{环站点上的模}
+\label{injectives-section-sheaves-modules}
+
+\noindent
+设 $\mathcal{C}$ 为站点，$\mathcal{O}$ 为 $\mathcal{C}$ 上的环层。
+仿照《代数详论》，第 \ref{more-algebra-section-injectives-modules} 节，
+我们尝试证明有足够多的内射 $\mathcal{O}$-模。首先选取内射嵌入
+$$
+\bigoplus\nolimits_{U, \mathcal{I}}
+j_{U!}\mathcal{O}_U/\mathcal{I}
+\longrightarrow
+\mathcal{J}
+$$
+其中 $\mathcal{J}$ 是内射阿贝尔层（其存在性由上一节得出）。这里的直和
+遍历 $\mathcal{C}$ 的所有对象 $U$ 及所有 $\mathcal{O}$-子模
+$\mathcal{I} \subset j_{U!}\mathcal{O}_U$。关于局部化函子
+$j_U : \mathcal{C}/U \to \mathcal{C}$ 的限制函子和以 $0$ 延拓函子，
+见《站点上的模》，第 \ref{sites-modules-section-localize} 节。
+
+\medskip\noindent
+对任意 $\mathcal{O}$-模层 $\mathcal{F}$，记
+$$
+\mathcal{F}^\vee
+=
+\SheafHom(\mathcal{F}, \mathcal{J})
+$$
+并赋予其自然的 $\mathcal{O}$-模结构。
+在此插入关于内 Hom 的未来参考文献。
+我们还需要 $\mathcal{O}$-模层的一个典范平坦消解。可作如下构造：
+对任意 $\mathcal{O}$-模 $\mathcal{F}$，记
+$$
+F(\mathcal{F})
+=
+\bigoplus\nolimits_{U \in \Ob(\mathcal{C}), s \in \mathcal{F}(U)}
+j_{U!}\mathcal{O}_U.
+$$
+这是平坦 $\mathcal{O}$-模层，并带有典范满射
+$F(\mathcal{F}) \to \mathcal{F}$；见《站点上的模》，引理
+\ref{sites-modules-lemma-module-quotient-flat}。此外，构造
+$\mathcal{F} \mapsto F(\mathcal{F})$ 关于 $\mathcal{F}$ 是函子性的。
+
+\begin{lemma}
+\label{injectives-lemma-vee-exact-sheaves}
+函子 $\mathcal{F} \mapsto \mathcal{F}^\vee$ 是正合的。
+\end{lemma}
+
+\begin{proof}
+这是因为 $\mathcal{J}$ 是内射阿贝尔层。
+\end{proof}
+
+\noindent
+存在由求值给出的典范映射
+$ev : \mathcal{F} \to (\mathcal{F}^\vee)^\vee$：给定
+$x \in \mathcal{F}(U)$，令
+$ev(x) \in (\mathcal{F}^\vee)^\vee =
+\SheafHom(\mathcal{F}^\vee, \mathcal{J})$ 为映射
+$\varphi \mapsto \varphi(x)$。
+
+\begin{lemma}
+\label{injectives-lemma-ev-injective-sheaves}
+对任意 $\mathcal{O}$-模 $\mathcal{F}$，求值映射
+$ev : \mathcal{F} \to (\mathcal{F}^\vee)^\vee$ 是单射。
+\end{lemma}
+
+\begin{proof}
+这可由 $\mathcal{J}$ 的定义检验。具体地，如果
+$s \in \mathcal{F}(U)$ 非零，则令
+$j_{U!}\mathcal{O}_U \to \mathcal{F}$ 为它通过伴随对应的
+$\mathcal{O}$-模映射，并令 $\mathcal{I}$ 为这个映射的核。存在不零化
+$s$ 的非零映射
+$\mathcal{F} \supset j_{U!}\mathcal{O}_U/\mathcal{I}
+\to \mathcal{J}$。由于 $\mathcal{J}$ 是内射 $\mathcal{O}$-模，该映射可延拓为
+$\varphi : \mathcal{F} \to \mathcal{J}$。于是
+$ev(s)(\varphi) = \varphi(s) \not = 0$，这正是所要证明的。
+\end{proof}
+
+\noindent
+上述 $\mathcal{O}$-模的典范满射
+$F(\mathcal{F}) \to \mathcal{F}$ 变为如下 $\mathcal{O}$-模的典范单射：
+$$
+(\mathcal{F}^\vee)^\vee \longrightarrow (F(\mathcal{F}^\vee))^\vee.
+$$
+置 $J(\mathcal{F}) = (F(\mathcal{F}^\vee))^\vee$。将 $ev$ 与这个
+显示映射复合，得到关于 $\mathcal{F}$ 函子性的映射
+$\mathcal{F} \to J(\mathcal{F})$。
+
+\begin{lemma}
+\label{injectives-lemma-JM-injective-sheaves}
+设 $\mathcal{O}$ 为环层。对每个 $\mathcal{O}$-模 $\mathcal{F}$，
+$\mathcal{O}$-模 $J(\mathcal{F})$ 是内射的。
+\end{lemma}
+
+\begin{proof}
+需要证明函子 $\Hom_\mathcal{O}(\mathcal{G}, J(\mathcal{F}))$ 是正合的。
+注意
+\begin{eqnarray*}
+\Hom_\mathcal{O}(\mathcal{G}, J(\mathcal{F}))
+& = &
+\Hom_\mathcal{O}(\mathcal{G}, (F(\mathcal{F}^\vee))^\vee) \\
+& = &
+\Hom_\mathcal{O}
+(\mathcal{G}, \SheafHom(F(\mathcal{F}^\vee), \mathcal{J})) \\
+& = &
+\Hom(\mathcal{G} \otimes_\mathcal{O} F(\mathcal{F}^\vee), \mathcal{J})
+\end{eqnarray*}
+因此，所需结论由 $F(\mathcal{F}^\vee)$ 平坦且 $\mathcal{J}$ 内射这一事实得出。
+\end{proof}
+
+\begin{theorem}
+\label{injectives-theorem-sheaves-modules-injectives}
+设 $\mathcal{C}$ 为站点，$\mathcal{O}$ 为 $\mathcal{C}$ 上的环层。
+站点上的 $\mathcal{O}$-模层范畴有足够多的内射对象。事实上，存在函子性的
+内射嵌入；见《同调代数》，定义
+\ref{homology-definition-functorial-injective-embedding}。
+\end{theorem}
+
+\begin{proof}
+由本节的讨论即得。
+\end{proof}
+
+\begin{proposition}
+\label{injectives-proposition-presheaves-modules}
+设 $\mathcal{C}$ 为范畴，$\mathcal{O}$ 为 $\mathcal{C}$ 上的环预层。
+$\mathcal{O}$-模预层的范畴 $\textit{PMod}(\mathcal{O})$ 具有函子性的
+内射嵌入。
+\end{proposition}
+
+\begin{proof}
+可以沿用第 \ref{injectives-section-injectives-presheaves} 节的讨论证明此命题，
+但这里改用上面的定理。赋予 $\mathcal{C}$ 如下站点结构：对象 $U$ 的覆盖
+集合由所有单元素集 $\{f : V \to U\}$ 构成，其中 $f$ 是同构。略去它确实
+定义站点的验证。对这个拓扑，层与预层相同（略去证明）。故上面的定理适用。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{阿贝尔范畴的嵌入}
+\label{injectives-section-embedding}
+
+\noindent
+本节证明，阿贝尔范畴可嵌入某个有足够多点的站点上的阿贝尔层范畴。
+该站点由下一个引理描述。
+
+\begin{lemma}
+\label{injectives-lemma-site-abelian-category}
+设 $\mathcal{A}$ 为阿贝尔范畴。令
+$$
+\text{Cov} = \{\{f : V \to U\} \mid f\text{ 为满射}\}.
+$$
+则 $(\mathcal{A}, \text{Cov})$ 是站点；见《站点》，定义
+\ref{sites-definition-site}。
+\end{lemma}
+
+\begin{proof}
+注意，按我们关于范畴的约定，$\Ob(\mathcal{A})$ 是集合。同构是满射态射，
+满射态射的复合仍为满射态射，而 $\mathcal{A}$ 中满射态射的基变换仍为
+满射态射；见《同调代数》，引理
+\ref{homology-lemma-epimorphism-universal-abelian-category}。
+\end{proof}
+
+\noindent
+设 $\mathcal{A}$ 为预加性范畴。在此情形下，Yoneda 嵌入
+$\mathcal{A} \to \textit{PSh}(\mathcal{A})$，$X \mapsto h_X$，通过函子
+$\mathcal{A} \to \textit{PAb}(\mathcal{A})$ 分解。
+
+\begin{lemma}
+\label{injectives-lemma-embedding}
+设 $\mathcal{A}$ 为阿贝尔范畴，并令
+$\mathcal{C} = (\mathcal{A}, \text{Cov})$ 为引理
+\ref{injectives-lemma-site-abelian-category} 中定义的站点。则 $X \mapsto h_X$ 定义
+全忠实正合函子
+$$
+\mathcal{A} \longrightarrow \textit{Ab}(\mathcal{C}).
+$$
+此外，站点 $\mathcal{C}$ 有足够多的点。
+\end{lemma}
+
+\begin{proof}
+设 $f : V \to U$ 是 $\mathcal{A}$ 的满射态射，并令
+$K = \Ker(f)$。回忆，
+$V \times_U V = \Ker((f, -f) : V \oplus V \to U)$；见《同调代数》，
+例 \ref{homology-example-fibre-product-pushouts}。特别地，存在单射
+$K \oplus K \to V \times_U V$。令
+$p, q : V \times_U V \to V$ 为两个投影态射。注意，
+$p - q : V \times_U V \to V$ 满足 $f \circ (p  - q) = 0$。因此
+$p - q$ 通过 $K \to V$ 分解。将这个态射记为
+$c : V \times_U V \to K$。由于复合
+$K \oplus K \to V \times_U V \to K$ 是满射，故 $c$ 是满射。于是
+$$
+V \times_U V \xrightarrow{p - q} V \to U \to 0
+$$
+是 $\mathcal{A}$ 中的正合列。因此，对 $\mathcal{A}$ 的对象 $X$，序列
+$$
+0 \to
+\Hom_\mathcal{A}(U, X) \to
+\Hom_\mathcal{A}(V, X) \to
+\Hom_\mathcal{A}(V \times_U V, X)
+$$
+是阿贝尔群的正合列；见《同调代数》，引理
+\ref{homology-lemma-check-exactness}。这意味着 $h_X$ 满足
+$\mathcal{C}$ 上的层条件。
+
+\medskip\noindent
+由《范畴》，引理 \ref{categories-lemma-yoneda}，该函子全忠实。
+由《同调代数》，引理 \ref{homology-lemma-check-exactness}，它是阿贝尔
+范畴之间的左正合函子。为证明它右正合，设 $X \to Y$ 是
+$\mathcal{A}$ 的满射态射。设 $U$ 为 $\mathcal{A}$ 的对象，并设
+$s \in h_Y(U) = \Mor_\mathcal{A}(U, Y)$ 为 $h_Y$ 在 $U$ 上的截面。
+由《同调代数》，引理
+\ref{homology-lemma-epimorphism-universal-abelian-category}，投影
+$U \times_Y X \to U$ 是满射。因此，
+$\{V = U \times_Y X \to U\}$ 是 $U$ 的覆盖，并且 $s|_V$ 可提升为
+$h_X$ 的截面。这证明 $h_X \to h_Y$ 是阿贝尔层的满射；见《站点》，
+引理 \ref{sites-lemma-mono-epi-sheaves}。
+
+\medskip\noindent
+由《站点》，命题 \ref{sites-proposition-criterion-points}，站点
+$\mathcal{C}$ 有足够多的点。
+\end{proof}
+
+\begin{remark}
+\label{injectives-remark-embedding}
+Freyd--Mitchell 嵌入定理断言，从任意阿贝尔范畴 $\mathcal{A}$ 到某个环上
+模范畴存在全忠实正合函子。引理 \ref{injectives-lemma-embedding} 的结论没有这么强。
+不过，这个结果适合 Stacks 项目，因为无论如何我们都必须详细理解站点上的
+阿贝尔群层。此外，在 $\mathcal{C}$ 上阿贝尔层的范畴中可以进行“追图”；
+例如，可以使用对象上的截面，也可以利用 $\mathcal{C}$ 有足够多的点而在茎
+的层面工作。关于如何由引理 \ref{injectives-lemma-embedding} 推出 Freyd--Mitchell
+嵌入定理，见注 \ref{injectives-remark-embedding-freyd}。
+\end{remark}
+
+\begin{remark}
+\label{injectives-remark-embedding-big}
+如果 $\mathcal{A}$ 是“大”阿贝尔范畴，即 $\mathcal{A}$ 的对象构成类，
+则引理 \ref{injectives-lemma-embedding} 不适用。在这种情形下，给定任意对象集
+$E \subset \Ob(\mathcal{A})$，存在阿贝尔全子范畴
+$\mathcal{A}' \subset \mathcal{A}$，使得 $\Ob(\mathcal{A}')$ 是集合且
+$E \subset \Ob(\mathcal{A}')$。于是可以对 $\mathcal{A}'$ 应用引理
+\ref{injectives-lemma-embedding}。由此可证明，依赖追图的结果在 $\mathcal{A}$ 中成立。
+\end{remark}
+
+\begin{remark}
+\label{injectives-remark-embedding-freyd}
+设 $\mathcal{C}$ 为站点。注意，$\textit{Ab}(\mathcal{C})$ 有足够多的
+内射对象；见定理 \ref{injectives-theorem-sheaves-injectives}。（当
+$\mathcal{C}$ 有足够多的点时，这是直接的：如果 $I$ 是内射
+$\mathbf{Z}$-模而 $p$ 是一个点，则 $p_*I$ 是内射层。）此外，
+$\textit{Ab}(\mathcal{C})$ 有余生成元（略去细节）。因此，引理
+\ref{injectives-lemma-embedding} 证明存在全忠实正合嵌入
+$\mathcal{A} \to \mathcal{B}$，其中 $\mathcal{B}$ 有余生成元和足够多的
+内射对象。把此结论应用于 $\mathcal{A}^{opp}$，得到全忠实正合函子
+$i : \mathcal{A} \to \mathcal{D} = \mathcal{B}^{opp}$，其中
+$\mathcal{D}$ 有足够多的投射对象和一个生成元。因此，$\mathcal{D}$ 有
+投射生成元 $P$。置 $R = \Mor_\mathcal{D}(P, P)$。则
+$$
+\mathcal{A} \longrightarrow \text{Mod}_R, \quad
+X \longmapsto \Hom_\mathcal{D}(P, X).
+$$
+可以检验这是全忠实正合函子。换言之，我们重新得到上面注
+\ref{injectives-remark-embedding} 中提到的 Freyd--Mitchell 定理。
+\end{remark}
+
+\begin{remark}
+\label{injectives-remark-embed-exact-category}
+证明引理 \ref{injectives-lemma-site-abelian-category} 和
+\ref{injectives-lemma-embedding} 的论证也适用于{\it 正合范畴}；见
+\cite[Appendix A]{Buhler} 和 \cite[1.1.4]{BBD}。这里作简要回顾；
+若 Stacks 项目以后需要，我们再补充更多细节。
+
+\medskip\noindent
+设 $\mathcal{A}$ 为加性范畴。一个{\it 核—余核对}是
+$\mathcal{A}$ 的态射对 $(i, p)$，其中 $i : A \to B$、
+$p : B \to C$，且 $i$ 是 $p$ 的核、$p$ 是 $i$ 的余核。给定核—余核对的
+集合 $\mathcal{E}$，如果对某个态射 $p$ 有
+$(i, p) \in \mathcal{E}$，则称 $i : A \to B$ 为{\it 容许单态射}。
+类似地，如果对某个态射 $i$ 有 $(i, p) \in \mathcal{E}$，则称态射
+$p : B \to C$ 为{\it 容许满态射}。如果下列公理成立，则称
+$(\mathcal{A}, \mathcal{E})$ 为{\it 正合范畴}：
+\begin{enumerate}
+\item $\mathcal{E}$ 对核—余核对的同构封闭；
+\item 对任意对象 $A$，态射 $1_A$ 既是容许满态射又是容许单态射；
+\item 容许单态射在复合下稳定；
+\item 容许满态射在复合下稳定；
+\item 容许单态射 $i : A \to B$ 沿任意态射 $A \to A'$ 的推出存在，
+且诱导态射 $i' : A' \to B'$ 是容许单态射；以及
+\item 容许满态射 $p : B \to C$ 沿任意态射 $C' \to C$ 的基变换存在，
+且诱导态射 $p' : B' \to C'$ 是容许满态射。
+\end{enumerate}
+给定这样的结构，令 $\mathcal{C} = (\mathcal{A}, \text{Cov})$，其中覆盖
+（即 $\text{Cov}$ 的元素）由容许满态射给出。上述公立即刻蕴含这是站点。
+考虑函子
+$$
+F : \mathcal{A} \longrightarrow \textit{Ab}(\mathcal{C}), \quad
+X \longmapsto h_X
+$$
+正如引理 \ref{injectives-lemma-embedding} 中一样。可以证明，这个函子全忠实、正合，
+并且反映正合性。此外，$F$ 的本质像中对象的任意扩张仍在 $F$ 的本质像中。
+\end{remark}
+
+
+
+
+
+
+\section{Grothendieck 的 AB 条件}
+\label{injectives-section-grothendieck-conditions}
+
+\noindent
+本节及接下来的几节主要与“大”阿贝尔范畴有关，即《范畴》，注
+\ref{categories-remark-big-categories} 中列出的那些范畴。一个值得牢记的
+例子是环站点上的模层范畴。
+
+\medskip\noindent
+Grothendieck 在论文 \cite{Tohoku} 中以极大的一般性证明了内射对象的存在性。
+他用下列条件挑出具有特殊性质的阿贝尔范畴。
+
+\begin{definition}
+\label{injectives-definition-grothendieck-conditions}
+设 $\mathcal{A}$ 为阿贝尔范畴。列出如下条件：
+\begin{enumerate}
+\item[AB3] $\mathcal{A}$ 有直和；
+\item[AB4] $\mathcal{A}$ 满足 AB3，并且直和正合；
+\item[AB5] $\mathcal{A}$ 满足 AB3，并且滤过余极限正合。
+\end{enumerate}
+下面是对偶概念：
+\begin{enumerate}
+\item[AB3*] $\mathcal{A}$ 有积；
+\item[AB4*] $\mathcal{A}$ 满足 AB3*，并且积正合；
+\item[AB5*] $\mathcal{A}$ 满足 AB3*，并且余滤过极限正合。
+\end{enumerate}
+如果对 $\mathcal{A}$ 中每个 $N \subset M$、$N \not = M$，都存在不通过
+$N$ 分解的态射 $U \to M$，则称 $\mathcal{A}$ 的对象 $U$ 为{\it 生成元}。
+如果 $\mathcal{A}$ 满足 AB5 且有生成元，则称其为
+{\it Grothendieck 阿贝尔范畴}。
+\end{definition}
+
+\noindent
+讨论：阿贝尔范畴中的直和就是余积。如果阿贝尔范畴有直和（即满足 AB3），
+则它有余极限；见《范畴》，引理
+\ref{categories-lemma-colimits-coproducts-coequalizers}。类似地，如果
+$\mathcal{A}$ 满足 AB3*，则它有极限；见《范畴》，引理
+\ref{categories-lemma-limits-products-equalizers}。直和的正合性意指如下性质：
+给定指标集 $I$ 和短正合列
+$$
+0 \to A_i \to B_i \to C_i \to 0,\quad i \in I
+$$
+于 $\mathcal{A}$ 中，则序列
+$$
+0 \to
+\bigoplus\nolimits_{i \in I} A_i \to
+\bigoplus\nolimits_{i \in I} B_i \to
+\bigoplus\nolimits_{i \in I} C_i \to 0
+$$
+也正合。不假设 AB4 时，一般只能断言这个序列右端正合（即若直和存在，
+取直和是右正合函子）。类似地，滤过余极限的正合性意指如下性质：给定有向集
+$I$ 及 $\mathcal{A}$ 中定义在 $I$ 上的一族短正合列
+$$
+0 \to A_i \to B_i \to C_i \to 0
+$$
+则序列
+$$
+0 \to
+\colim_{i \in I} A_i \to
+\colim_{i \in I} B_i \to
+\colim_{i \in I} C_i \to 0
+$$
+也正合。不假设 AB5 时，一般只能断言这个序列右端正合（即若余极限存在，
+取余极限是右正合函子）。AB4* 和 AB5* 有类似解释。
+
+
+
+\section{Grothendieck 范畴中的内射对象}
+\label{injectives-section-grothendieck-categories}
+
+\noindent
+生成元的存在性蕴含：给定 Grothendieck 阿贝尔范畴 $\mathcal{A}$ 的对象
+$M$，其子对象构成集合。（对一般的“大”阿贝尔范畴，这未必成立。）
+
+\begin{lemma}
+\label{injectives-lemma-set-of-subobjects}
+设 $\mathcal{A}$ 为有生成元 $U$ 的阿贝尔范畴，$X$ 为
+$\mathcal{A}$ 的对象。如果 $\kappa$ 是 $\Mor(U, X)$ 的基数，则
+\begin{enumerate}
+\item 不存在由大于 $\kappa$ 的基数作指标的 $X$ 的严格递增（或严格递减）
+子对象链；
+\item 如果 $\alpha$ 是共尾数 $> \kappa$ 的序数，则由 $\alpha$ 作指标的
+$X$ 的任意递增（或递减）子对象列最终为常值；
+\item $X$ 的子对象集的基数 $\leq 2^\kappa$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对 (1)，设 $\kappa' > \kappa$ 为基数，并设 $X_i$（$i \in \kappa'$）
+严格递增。于是，对每个 $i$，取 $\phi_i \in \Mor(U, X)$，使
+$\phi_i$ 通过 $X_{i + 1}$ 分解但不通过 $X_i$ 分解。则态射
+$\phi_i$ 两两不同，这与 $\kappa$ 的定义矛盾。
+
+\medskip\noindent
+(2) 由共尾数的定义和 (1) 得出。
+
+\medskip\noindent
+证明 (3)。对任意子对象 $Y \subset X$，定义
+$S_Y \in \mathcal{P}(\Mor(U, X))$（幂集）为
+$S_Y = \{\phi \in \Mor(U,X) : \phi)\text{ 通过 }Y\text{ 分解}\}$.
+则 $Y = Y'$ 当且仅当 $S_Y = S_{Y'}$。因此，子对象集的基数至多是这个
+幂集的基数。
+\end{proof}
+
+\noindent
+由引理 \ref{injectives-lemma-set-of-subobjects}，下述定义是有意义的。
+
+\begin{definition}
+\label{injectives-definition-size}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$M$ 为 $\mathcal{A}$ 的对象。
+$M$ 的{\it 大小} $|M|$ 是 $M$ 的子对象集的基数。
+\end{definition}
+
+\begin{lemma}
+\label{injectives-lemma-size-goes-down}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。如果
+$0 \to M' \to M \to M'' \to 0$ 是 $\mathcal{A}$ 中的短正合列，则
+$|M'|, |M''| \leq |M|$。
+\end{lemma}
+
+\begin{proof}
+由定义立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-set-iso-classes-bounded-size}
+设 $\mathcal{A}$ 为有生成元 $U$ 的 Grothendieck 阿贝尔范畴。
+\begin{enumerate}
+\item 如果 $|M| \leq \kappa$，则 $M$ 是至多 $\kappa$ 个 $U$ 的副本的
+直和的商；
+\item 对每个基数 $\kappa$，满足 $|M| \leq \kappa$ 的对象 $M$ 的同构类
+构成集合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对 (1)，为每个真子对象 $M' \subset M$ 选取态射
+$\varphi_{M'} : U \to M$，使其像不包含在 $M'$ 中。于是
+$\bigoplus_{M' \subset M} \varphi_{M'} : \bigoplus_{M' \subset M} U \to M$
+是满射。显然，(1) 蕴含 (2)。
+\end{proof}
+
+\begin{proposition}
+\label{injectives-proposition-objects-are-small}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$M$ 为
+$\mathcal{A}$ 的对象，并令 $\kappa = |M|$。如果 $\alpha$ 是共尾数大于
+$\kappa$ 的序数，则 $M$ 相对于单射为 $\alpha$-小的。
+\end{proposition}
+
+\begin{proof}
+比较命题 \ref{injectives-proposition-modules-are-small}。只需证明映射
+(\ref{injectives-equation-compare}) 是满射。设
+$f : M \to \colim B_\beta$ 为映射。考虑 $M$ 的子对象
+$\{f^{-1}(B_\beta)\}$，其中把 $B_\beta$ 看作余极限
+$B = \bigcup_\beta B_\beta$ 的子对象。如果其中某个子对象，例如
+$f^{-1}(B_\beta)$，等于 $M$，则该映射通过 $B_\beta$ 分解。
+
+\medskip\noindent
+由于 $\mathcal{A}$ 满足 AB5，我们有
+$$
+\colim f^{-1}(B_\beta) = f^{-1}\left(\colim B_\beta\right) = M.
+$$
+由假设，在 $f^{-1}(B_\alpha)$ 中出现的 $M$ 的不同子对象至多有
+$\kappa$ 个。因此，可以找到基数至多为 $\kappa$ 的子集
+$S \subset \alpha$，使得当 $\beta'$ 遍历 $S$ 时，
+$f^{-1}(B_{\beta'})$ 遍历\emph{所有} $f^{-1}(B_\alpha)$。
+
+\medskip\noindent
+由于 $\alpha$ 的共尾数大于 $\kappa$，$S$ 有上界
+$\widetilde{\alpha} < \alpha$。特别地，所有
+$f^{-1}(B_{\beta'})$（$\beta' \in S$）都包含在
+$f^{-1}(B_{\widetilde{\alpha}})$ 中。因此
+$f^{-1}(B_{\widetilde{\alpha}}) = M$。特别地，映射 $f$ 通过
+$B_{\widetilde{\alpha}}$ 分解。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-characterize-injective}
+\begin{slogan}
+要检验一个对象是内射的，只需对生成元的子对象检验提升性质。
+\end{slogan}
+设 $\mathcal{A}$ 为有生成元 $U$ 的 Grothendieck 阿贝尔范畴。
+$\mathcal{A}$ 的对象 $I$ 是内射的，当且仅当在每个交换图
+$$
+\xymatrix{
+M \ar[d] \ar[r] &  I \\
+U \ar@{-->}[ru]
+}
+$$
+中，只要 $M \subset U$ 是子对象，虚线箭头就存在。
+\end{lemma}
+
+\begin{proof}
+模的情形见引理 \ref{injectives-lemma-criterion-baer}。选取单射
+$A \subset B$ 和态射 $\varphi : A \to I$。考虑由如下对
+$(A', \varphi')$ 构成的集合 $S$：$A \subset A' \subset B$ 为子对象，
+$\varphi' : A' \to I$ 为 $\varphi$ 的延拓。以显然的方式在这个集合上
+定义偏序。选取全序子集 $T \subset S$。则
+$$
+A' = \colim_{t \in T} A_t \xrightarrow{\colim_{t \in T} \varphi_t} I
+$$
+是上界。因此，由 Zorn 引理，集合 $S$ 有极大元 $(A', \varphi')$。
+我们断言 $A' = B$。否则，选取不通过 $A'$ 分解的态射
+$\psi : U \to B$。置 $N = A' \cap \psi(U)$ 和
+$M = \psi^{-1}(N)$。则映射
+$$
+M \to N \to A' \xrightarrow{\varphi'} I
+$$
+可延拓为态射 $\chi : U \to I$。由于
+$\chi|_{\Ker(\psi)} = 0$，$\chi$ 分解为
+$$
+U \to \Im(\psi) \xrightarrow{\varphi''} I
+$$
+由于 $\varphi'$ 和 $\varphi''$ 在 $N = A' \cap \Im(\psi)$ 上一致，
+它们合起来定义态射 $A' + \Im(\psi) \to I$，这与 $A'$ 的极大性矛盾。
+\end{proof}
+
+\begin{theorem}
+\label{injectives-theorem-injective-embedding-grothendieck}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。则 $\mathcal{A}$ 具有
+函子性的内射嵌入。
+\end{theorem}
+
+\begin{proof}
+比较定理 \ref{injectives-theorem-baer-grothendieck} 的证明。选取
+$\mathcal{A}$ 的生成元 $U$。对对象 $M$，用如下推出图定义
+$\mathbf{M}(M)$：
+$$
+\xymatrix{
+\bigoplus_{N \subset U}
+\bigoplus_{\varphi \in \Hom(N, M)}
+N \ar[r] \ar[d] & M \ar[d] \\
+\bigoplus_{N \subset U}
+\bigoplus_{\varphi \in \Hom(N, M)}
+U \ar[r] &  \mathbf{M}(M).
+}
+$$
+注意，$M \mapsto \mathbf{M}(M)$ 是函子，且存在函子性单射
+$M \to \mathbf{M}(M)$。通过超限归纳，对每个序数 $\alpha$ 定义函子
+$\mathbf{M}_\alpha(M)$。具体地，置 $\mathbf{M}_0(M) = M$；给定
+$\mathbf{M}_\alpha(M)$，置
+$\mathbf{M}_{\alpha + 1}(M) = \mathbf{M}(\mathbf{M}_\alpha(M))$。
+对极限序数 $\beta$，置
+$$
+\mathbf{M}_\beta(M) = \colim_{\alpha < \beta} \mathbf{M}_\alpha(M).
+$$
+最后，选取任意共尾数大于 $|U|$ 的序数 $\alpha$。这样的序数存在；见
+《集合论》，命题 \ref{sets-proposition-exist-ordinals-large-cofinality}。
+我们断言，$M \to \mathbf{M}_\alpha(M)$ 是所需的函子性内射嵌入。
+事实上，如果 $N \subset U$ 是子对象，且
+$\varphi : N \to \mathbf{M}_\alpha(M)$ 是态射，则由命题
+\ref{injectives-proposition-objects-are-small}，$\varphi$ 通过某个
+$\mathbf{M}_{\alpha'}(M)$ 分解，其中 $\alpha' < \alpha$。由
+$\mathbf{M}(-)$ 的构造，$\varphi$ 可延拓为从 $U$ 到
+$\mathbf{M}_{\alpha' + 1}(M)$ 的态射，因而也延拓到
+$\mathbf{M}_\alpha(M)$。由引理 \ref{injectives-lemma-characterize-injective}，
+得出 $\mathbf{M}_\alpha(M)$ 是内射的。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Grothendieck 范畴中的 K-内射对象}
+\label{injectives-section-K-injective}
+
+\noindent
+本节材料取自 Serpé 的论文 \cite{serpe}。该论文把 Spaltenstein 的
+\cite{Spaltenstein} 中的一些结果推广到一般 Grothendieck 阿贝尔范畴。
+我们的引理 \ref{injectives-lemma-characterize-K-injective} 只隐含在 Serpé 的论文中。
+这里的方法是仿照 Grothendieck 对定理
+\ref{injectives-theorem-injective-embedding-grothendieck} 的证明。
+
+\begin{lemma}
+\label{injectives-lemma-surjection-bounded-size}
+设 $\mathcal{A}$ 为有生成元 $U$ 的 Grothendieck 阿贝尔范畴。令 $c$ 为
+基数上的函数，定义为
+$c(\kappa) = |\bigoplus_{\alpha \in \kappa} U|$。如果
+$\pi : M \to N$ 是满射，则存在满射到 $N$ 的子对象 $M' \subset M$，
+且 $|M'| \leq c(|N|)$。
+\end{lemma}
+
+\begin{proof}
+对每个真子对象 $N' \subset N$，选取态射
+$\varphi_{N'} : U \to M$，使 $U \to M \to N$ 不通过 $N'$ 分解。置
+$$
+M' = \Im\left(
+\bigoplus\nolimits_{N' \subset N} \varphi_{N'} :
+\bigoplus\nolimits_{N' \subset N} U \longrightarrow M\right)
+$$
+则 $M'$ 满足要求。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-acyclic-quotient-complexes-bounded-size}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。存在基数 $\kappa$，使得对
+任意无环复形 $M^\bullet$，都有
+\begin{enumerate}
+\item 如果 $M^\bullet$ 非零，则存在非零子复形 $N^\bullet$，它有上界、
+无环，且 $|N^n| \leq \kappa$；
+\item 存在复形的满射
+$$
+\bigoplus\nolimits_{i \in I} M_i^\bullet \longrightarrow M^\bullet
+$$
+其中 $M_i^\bullet$ 有上界、无环，且 $|M_i^n| \leq \kappa$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取 $\mathcal{A}$ 的生成元 $U$。记 $c$ 为引理
+\ref{injectives-lemma-surjection-bounded-size} 中的函数。置
+$\kappa = \sup \{c^n(|U|), n = 1, 2, 3, \ldots\}$。设
+$n \in \mathbf{Z}$，并设 $\psi : U \to M^n$ 为态射。为证明 (1) 和 (2)，
+只需证明存在子复形 $N^\bullet \subset M^\bullet$，它有上界、无环且
+$|N^m| \leq \kappa$，并使 $\psi$ 通过 $N^n$ 分解。为此，置
+$N^n = \Im(\psi)$，
+$N^{n + 1} = \Im(U \to M^n \to M^{n + 1})$，并对
+$m \geq n + 2$ 置 $N^m = 0$。设对某个 $k \leq n$，我们已经对所有
+$n > m \geq k$ 构造了 $N^m \subset M^m$，使得
+\begin{enumerate}
+\item 对所有 $m \geq k$，$\text{d}(N^m) \subset N^{m + 1}$；
+\item 对所有 $m \geq k + 1$，
+$\Im(N^{m - 1} \to N^m) = \Ker(N^m \to N^{m + 1})$；以及
+\item 对所有 $m \geq k$，
+$|N^m| \leq c^{\max\{n - m, 0\}}(|U|)$。
+\end{enumerate}
+由于 $M^\bullet$ 无环，子对象
+$\text{d}^{-1}(\Ker(N^k \to N^{k + 1})) \subset M^{k - 1}$ 满射到
+$\Ker(N^k \to N^{k + 1})$。因此，由引理
+\ref{injectives-lemma-surjection-bounded-size}，可以选取满射到
+$\Ker(N^k \to N^{k + 1})$ 的 $N^{k - 1} \subset M^{k - 1}$，且
+$|N^{k - 1}| \leq c^{n - k + 1}(|U|)$。对 $k$ 归纳即完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-characterize-K-injective}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$\kappa$ 为引理
+\ref{injectives-lemma-acyclic-quotient-complexes-bounded-size} 中的基数。设
+$I^\bullet$ 是满足下列条件的复形：
+\begin{enumerate}
+\item 每个 $I^j$ 都是内射的；并且
+\item 对每个有上界的无环复形 $M^\bullet$，如果
+$|M^n| \leq \kappa$，则
+$\Hom_{K(\mathcal{A})}(M^\bullet, I^\bullet) = 0$。
+\end{enumerate}
+则 $I^\bullet$ 是 K-内射复形。
+\end{lemma}
+
+\begin{proof}
+设 $M^\bullet$ 为无环复形。按如下方式对序数 $\alpha$ 归纳构造无环子复形
+$K_\alpha^\bullet \subset M^\bullet$。对 $\alpha = 0$，置
+$K_0^\bullet = 0$。对 $\alpha > 0$，作如下处理：
+\begin{enumerate}
+\item 如果 $\alpha = \beta + 1$ 且 $K_\beta^\bullet = M^\bullet$，
+则取 $K_\alpha^\bullet = K_\beta^\bullet$；
+\item 如果 $\alpha = \beta + 1$ 且
+$K_\beta^\bullet \not = M^\bullet$，则
+$M^\bullet/K_\beta^\bullet$ 是非零无环复形。按引理
+\ref{injectives-lemma-acyclic-quotient-complexes-bounded-size} 选取子复形
+$N_\alpha^\bullet \subset M^\bullet/K_\beta^\bullet$。最后，令
+$K_\alpha^\bullet \subset M^\bullet$ 为 $N_\alpha^\bullet$ 的逆像；
+\item 如果 $\alpha$ 是极限序数，则置
+$K_\beta^\bullet = \colim K_\alpha^\bullet$.
+\end{enumerate}
+显然，对充分大的序数 $\alpha$，有
+$M^\bullet = K_\alpha^\bullet$。我们将对 $\alpha$ 作超限归纳，证明
+$$
+\Hom_{K(\mathcal{A})}(K_\alpha^\bullet, I^\bullet)
+$$
+为零。对 $\alpha = 0$，由于 $K_0^\bullet$ 为零，结论成立。设结论对
+$\beta$ 成立，且 $\alpha = \beta + 1$。在上面列表的情形 (1) 中，
+结论显然；在情形 (2) 中，存在复形的短正合列
+$$
+0 \to K_\beta^\bullet \to K_\alpha^\bullet \to N_\alpha^\bullet \to 0
+$$
+由于 $I^\bullet$ 的每个分量都是内射的，我们得到正合列
+$$
+\Hom_{K(\mathcal{A})}(K_\beta^\bullet, I^\bullet) \leftarrow
+\Hom_{K(\mathcal{A})}(K_\alpha^\bullet, I^\bullet) \leftarrow
+\Hom_{K(\mathcal{A})}(N_\alpha^\bullet, I^\bullet)
+$$
+由归纳假设，左端项为零；由关于 $I^\bullet$ 的假设，右端项为零。因此，
+中间群也为零。最后，设 $\alpha$ 为极限序数。则
+$$
+\Hom^\bullet(K_\alpha^\bullet, I^\bullet) =
+\lim_{\beta < \alpha} \Hom^\bullet(K_\beta^\bullet, I^\bullet)
+$$
+其中记号见《代数详论》，第
+\ref{more-algebra-section-hom-complexes} 节。由《代数详论》，等式
+(\ref{more-algebra-equation-cohomology-hom-complex})，这些复形计算
+$K(\mathcal{A})$ 中的态射。注意，因为每个 $I^j$ 都是内射的，系统中的
+转移映射都是满射。此外，对极限序数 $\alpha$，极限等于其值（见上面的
+显示公式）。因此，可应用《同调代数》，引理
+\ref{homology-lemma-ML-over-ordinals} 得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-functorial-homotopies}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，并设
+$(K_i^\bullet)_{i \in I}$ 为一组无环复形。存在函子
+$M^\bullet \mapsto \mathbf{M}^\bullet(M^\bullet)$ 和自然变换
+$j_{M^\bullet} : M^\bullet \to \mathbf{M}^\bullet(M^\bullet)$，使得
+\begin{enumerate}
+\item $j_{M^\bullet}$ 是（逐项）单射的拟同构；并且
+\item 对每个 $i \in I$ 和 $w : K_i^\bullet \to M^\bullet$，态射
+$j_{M^\bullet} \circ w$ 零伦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对每个 $i \in I$，选取复形的（逐项）单射
+$K_i^\bullet \to L_i^\bullet$，它零伦，且 $L_i^\bullet$ 拟同构于零。
+例如，可取 $L_i^\bullet$ 为 $K_i^\bullet$ 的恒等态射的锥。用如下推出图
+定义 $\mathbf{M}^\bullet(M^\bullet)$：
+$$
+\xymatrix{
+\bigoplus_{i \in I}
+\bigoplus_{w : K_i^\bullet \to M^\bullet}
+K_i^\bullet \ar[r] \ar[d] & M^\bullet \ar[d] \\
+\bigoplus_{i \in I}
+\bigoplus_{w : K_i^\bullet \to M^\bullet}
+L_i^\bullet \ar[r] &  \mathbf{M}^\bullet(M^\bullet).
+}
+$$
+于是 $M^\bullet \mapsto \mathbf{M}^\bullet(M^\bullet)$ 是函子。右侧竖直箭头
+定义函子性单射 $j_{M^\bullet}$。$j_{M^\bullet}$ 的余核同构于映射
+$K_i^\bullet \to L_i^\bullet$ 的余核的直和，因而无环。因此，
+$j_{M^\bullet}$ 是拟同构。(2) 由构造成立。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-functorial-injective}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。存在函子
+$M^\bullet \mapsto \mathbf{N}^\bullet(M^\bullet)$ 和自然变换
+$j_{M^\bullet} : M^\bullet \to \mathbf{N}^\bullet(M^\bullet)$，使得
+\begin{enumerate}
+\item $j_{M^\bullet}$ 是（逐项）单射的拟同构；并且
+\item 对每个 $n \in \mathbf{Z}$，映射
+$M^n \to \mathbf{N}^n(M^\bullet)$ 通过子对象
+$I^n \subset \mathbf{N}^n(M^\bullet)$ 分解，其中 $I^n$ 是
+$\mathcal{A}$ 的内射对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取函子性内射嵌入 $i_M : M \to I(M)$；见定理
+\ref{injectives-theorem-injective-embedding-grothendieck}。对每个复形
+$M^\bullet$，记 $J^\bullet(M^\bullet)$ 为各项
+$J^n(M^\bullet) = I(M^n) \oplus I(M^{n + 1})$、微分为
+$$
+d_{J^\bullet(M^\bullet)} =
+\left(
+\begin{matrix}
+0 & 1 \\
+0 & 0
+\end{matrix}
+\right)
+$$
+的复形。存在复形的典范单射
+$u_{M^\bullet} : M^\bullet \to J^\bullet(M^\bullet)$：通过映射
+$i_{M^n} : M^n \to I(M^n)$ 和
+$i_{M^{n + 1}} \circ d : M^n \to M^{n + 1} \to I(M^{n + 1})$，
+把 $M^n$ 映到 $I(M^n) \oplus I(M^{n + 1})$。因此，得到关于
+$M^\bullet$ 函子性的复形短正合列
+$$
+0 \to M^\bullet \xrightarrow{u_{M^\bullet}}
+J^\bullet(M^\bullet) \xrightarrow{v_{M^\bullet}}
+Q^\bullet(M^\bullet) \to 0
+$$
+置
+$$
+\mathbf{N}^\bullet(M^\bullet) = C(v_{M^\bullet})^\bullet[-1].
+$$
+注意
+$$
+\mathbf{N}^n(M^\bullet) = Q^{n - 1}(M^\bullet) \oplus J^n(M^\bullet)
+$$
+其微分为
+$$
+\left(
+\begin{matrix}
+- d^{n - 1}_{Q^\bullet(M^\bullet)} & - v^n_{M^\bullet} \\
+0 & d^n_{J^\bullet(M)}
+\end{matrix}
+\right)
+$$
+因此，由 $u$ 诱导复形映射
+$j_{M^\bullet} : M^\bullet \to \mathbf{N}^\bullet(M^\bullet)$。按构造，
+它是单射并通过内射子对象分解。考察与上述复形短正合列相伴的上同调长正合列，
+可证明映射 $j_{M^\bullet}$ 是拟同构。
+\end{proof}
+
+\begin{theorem}
+\label{injectives-theorem-K-injective-embedding-grothendieck}
+\begin{slogan}
+Grothendieck 阿贝尔范畴中 K-内射复形的存在性。
+\end{slogan}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。对每个复形
+$M^\bullet$，存在拟同构 $M^\bullet \to I^\bullet$，使得对所有 $n$，
+$M^n \to I^n$ 是单射，$I^n$ 是 $\mathcal{A}$ 的内射对象，且
+$I^\bullet$ 是 K-内射复形。此外，该构造关于 $M^\bullet$ 是函子性的。
+\end{theorem}
+
+\begin{proof}
+比较定理 \ref{injectives-theorem-baer-grothendieck} 和定理
+\ref{injectives-theorem-injective-embedding-grothendieck} 的证明。选取引理
+\ref{injectives-lemma-acyclic-quotient-complexes-bounded-size} 和
+\ref{injectives-lemma-characterize-K-injective} 中的基数 $\kappa$。选取一组有上界的
+无环复形 $(K_i^\bullet)_{i \in I}$，使每个满足
+$|K^n| \leq \kappa$ 的有上界无环复形 $K^\bullet$ 都同构于某个
+$K_i^\bullet$。由引理 \ref{injectives-lemma-set-iso-classes-bounded-size}，这是可能的。
+记 $\mathbf{M}^\bullet(-)$ 为引理
+\ref{injectives-lemma-functorial-homotopies} 中构造的函子，记
+$\mathbf{N}^\bullet(-)$ 为引理 \ref{injectives-lemma-functorial-injective} 中构造的
+函子。这两个函子都带有单射变换
+$\text{id} \to \mathbf{M}$ 和 $\text{id} \to \mathbf{N}$。
+
+\medskip\noindent
+通过超限递归，定义一列函子 $\mathbf{T}_\alpha(-)$ 及相应变换
+$\text{id} \to \mathbf{T}_\alpha$。具体地，置
+$\mathbf{T}_0(M^\bullet) = M^\bullet$。给定 $\mathbf{T}_\alpha$ 后，置
+$$
+\mathbf{T}_{\alpha + 1}(M^\bullet) =
+\mathbf{N}^\bullet(\mathbf{M}^\bullet(\mathbf{T}_\alpha(M^\bullet)))
+$$
+如果 $\beta$ 是极限序数，则置
+$$
+\mathbf{T}_\beta(M^\bullet) =
+\colim_{\alpha < \beta} \mathbf{T}_\alpha(M^\bullet)
+$$
+这个系统的转移映射是单射拟同构。由 AB5，余极限仍拟同构于
+$M^\bullet$。我们断言，如果 $\alpha$ 的共尾数大于
+$\max(\kappa, |U|)$，其中 $U$ 是 $\mathcal{A}$ 的生成元，则
+$M^\bullet \to \mathbf{T}_\alpha(M^\bullet)$ 满足要求。事实上，只需检验
+引理 \ref{injectives-lemma-characterize-K-injective} 的条件 (1) 和 (2)。
+
+\medskip\noindent
+对 (1)，使用引理 \ref{injectives-lemma-characterize-injective} 的判据。设
+$M \subset U$，且对某个 $n \in \mathbf{Z}$，
+$\varphi : M \to \mathbf{T}^n_\alpha(M^\bullet)$ 为态射。由命题
+\ref{injectives-proposition-objects-are-small}，$\varphi$ 通过某个
+$\mathbf{T}^n_{\alpha'}(M^\bullet)$ 分解，其中
+$\alpha' < \alpha$。特别地，由函子 $\mathbf{N}^\bullet(-)$ 的构造，
+$\varphi$ 通过 $\mathcal{A}$ 的内射对象分解。这表明 $\varphi$ 可提升为
+$U$ 上的态射。
+
+\medskip\noindent
+对 (2)，设 $w : K^\bullet  \to \mathbf{T}_\alpha(M^\bullet)$ 为复形态射，
+其中 $K^\bullet$ 是满足 $|K^n| \leq \kappa$ 的有上界无环复形。则对某个
+$i \in I$，有 $K^\bullet \cong K_i^\bullet$。此外，再次由命题
+\ref{injectives-proposition-objects-are-small}，$w$ 通过某个
+$\mathbf{T}^n_{\alpha'}(M^\bullet)$ 分解，其中
+$\alpha' < \alpha$。特别地，由函子 $\mathbf{M}^\bullet(-)$ 的构造，
+$w$ 零伦。证明完成。
+\end{proof}
+
+
+
+
+
+
+
+\section{Grothendieck 阿贝尔范畴的补充说明}
+\label{injectives-section-additional-Grothendieck}
+
+\noindent
+本节给出一些关于 Grothendieck 阿贝尔范畴的流传已久的结果。
+
+\begin{lemma}
+\label{injectives-lemma-grothendieck-brown}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，并设
+$F : \mathcal{A}^{opp} \to \textit{Sets}$ 为函子。则 $F$ 可表当且仅当
+$F$ 与余极限交换，即
+$$
+F(\colim_i N_i) = \lim F(N_i)
+$$
+对任意图式 $\mathcal{I} \to \mathcal{A}$，$i \in \mathcal{I}$，均有上式。
+\end{lemma}
+
+\begin{proof}
+若 $F$ 可表，则由余极限的定义，它与余极限交换。
+
+\medskip\noindent
+现设 $F$ 与余极限交换。于是
+$F(M \oplus N) = F(M) \times F(N)$，可据此在 $F(M)$ 上定义群结构。
+从而得到加性且右正合的函子 $F : \mathcal{A} \to \textit{Ab}$；也就是说，
+它把短正合列 $0 \to K \to L \to M \to 0$ 变为正合列
+$F(K) \leftarrow F(L) \leftarrow F(M) \leftarrow 0$（比较《同调代数》
+第 \ref{homology-section-functors} 节）。
+
+\medskip\noindent
+设 $U$ 为 $\mathcal{A}$ 的生成元。置
+$A = \bigoplus_{s \in F(U)} U$，并令
+$s_{univ} = (s)_{s \in F(U)} \in F(A) = \prod_{s \in F(U)} F(U)$。
+设 $A' \subset A$ 为使 $s_{univ}$ 在其上限制为零的最大子对象。
+由于 $\mathcal{A}$ 是 Grothendieck 范畴且 $F$ 与余极限交换，这一对象存在。
+又因 $F$ 与余极限交换，存在唯一元素
+$\overline{s}_{univ} \in F(A/A')$，其在 $F(A)$ 中的像为 $s_{univ}$。
+我们断言 $A/A'$ 表示 $F$；换言之，Yoneda 映射
+$$
+\overline{s}_{univ} : h_{A/A'} \longrightarrow F
+$$
+是同构。设 $M \in \Ob(\mathcal{A})$ 且 $s \in F(M)$。考虑满射
+$$
+c_M :
+A_M = \bigoplus\nolimits_{\varphi \in \Hom_\mathcal{A}(U, M)} U
+\longrightarrow
+M.
+$$
+它给出 $F(c_M)(s) = (s_\varphi) \in \prod_\varphi F(U)$。考虑映射
+$$
+\psi :
+A_M = \bigoplus\nolimits_{\varphi \in \Hom_\mathcal{A}(U, M)} U
+\longrightarrow
+\bigoplus\nolimits_{s \in F(U)} U = A
+$$
+它借助 $U$ 上的恒等映射，将对应于 $\varphi$ 的直和项映至对应于
+$s_\varphi$ 的直和项。由构造，$s_{univ}$ 映至
+$(s_\varphi)_\varphi$。换言之，下图右方块交换：
+$$
+\xymatrix{
+A' \ar[r] &
+A \ar@{..>}[r]_{s_{univ}} & F \\
+K \ar[r] \ar[u]^{?} & A_M \ar[u]^\psi \ar[r] &
+M \ar@{..>}[u]_s
+}
+$$
+令 $K = \Ker(A_M \to M)$。由于 $s$ 在 $K$ 上限制为零，由 $A'$ 的定义有
+$\psi(K) \subset A'$。因此诱导出态射 $M \to A/A'$。此构造给出映射
+$h_{A/A'}(M) \to F(M)$ 的逆（略去细节）。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-grothendieck-products}
+Grothendieck 阿贝尔范畴满足 Ab3*。
+\end{lemma}
+
+\begin{proof}
+设 $M_i$（$i \in I$）为以集合 $I$ 为指标的 $\mathcal{A}$ 中对象族。
+函子 $F = \prod_{i \in I} h_{M_i}$ 与余极限交换，故引理
+\ref{injectives-lemma-grothendieck-brown} 适用。
+\end{proof}
+
+\begin{remark}
+\label{injectives-remark-existence-D}
+在导出范畴一章中，我们始终处理“小”阿贝尔范畴（Stacks 项目惯例如此）。
+对“大”阿贝尔范畴 $\mathcal{A}$，导出范畴 $D(\mathcal{A})$ 是否存在
+并不显然，因为导出范畴中的态射是否构成集合并不显然。一般而言这并不成立，
+见《例》引理 \ref{examples-lemma-big-abelian-category}。不过，若
+$\mathcal{A}$ 是 Grothendieck 阿贝尔范畴，且给定
+$K^\bullet, L^\bullet \in K(\mathcal{A})$，则由定理
+\ref{injectives-theorem-K-injective-embedding-grothendieck}，存在到 K-内射复形
+$I^\bullet$ 的拟同构 $L^\bullet \to I^\bullet$，而《导出范畴》引理
+\ref{derived-lemma-K-injective} 表明
+$$
+\Hom_{D(\mathcal{A})}(K^\bullet, L^\bullet) =
+\Hom_{K(\mathcal{A})}(K^\bullet, I^\bullet)
+$$
+这是一个集合。Grothendieck 阿贝尔范畴的例子包括环上的模范畴；更一般地，
+还包括环站点上的模层范畴。
+\end{remark}
+
+\begin{lemma}
+\label{injectives-lemma-derived-products}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。则
+\begin{enumerate}
+\item $D(\mathcal{A})$ 既有直和也有积；
+\item 直和可由任意复形的逐项直和得到；
+\item 积可由 K-内射复形的逐项积得到。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $K^\bullet_i$（$i \in I$）为以集合 $I$ 为指标的
+$D(\mathcal{A})$ 中对象族。我们断言逐项直和
+$\bigoplus_{i \in I} K^\bullet_i$ 是 $D(\mathcal{A})$ 中的直和。
+事实上，设 $I^\bullet$ 为 K-内射复形，则
+\begin{align*}
+\Hom_{D(\mathcal{A})}(\bigoplus\nolimits_{i \in I} K^\bullet_i, I^\bullet)
+& =
+\Hom_{K(\mathcal{A})}(\bigoplus\nolimits_{i \in I} K^\bullet_i, I^\bullet) \\
+& =
+\prod\nolimits_{i \in I} \Hom_{K(\mathcal{A})}(K^\bullet_i, I^\bullet) \\
+& =
+\prod\nolimits_{i \in I} \Hom_{D(\mathcal{A})}(K^\bullet_i, I^\bullet)
+\end{align*}
+正合所需。由定理 \ref{injectives-theorem-K-injective-embedding-grothendieck}，
+任意复形均可由 K-内射复形表示，故这已经足够。为构造积，对每个 $i$
+选取 K-内射消解 $K_i^\bullet \to I_i^\bullet$。我们断言
+$\prod_{i \in I} I_i^\bullet$ 是 $D(\mathcal{A})$ 中的积。
+这由《导出范畴》引理 \ref{derived-lemma-product-K-injective} 得出。
+\end{proof}
+
+\begin{remark}
+\label{injectives-remark-direct-sum-product-derived}
+设 $R$ 为环，并设 $M_n$（$n \in \mathbf{Z}$）为 $R$-模。记
+$E_n = M_n[-n] \in D(R)$。我们断言 $E = \bigoplus M_n[-n]$
+{\it 同时}是 $D(R)$ 中对象 $E_n$ 的直和与积。要看它是直和，只须查看引理
+\ref{injectives-lemma-derived-products} 的证明。要看它是积，取内射消解
+$M_n \to I_n^\bullet$。由引理 \ref{injectives-lemma-derived-products} 的证明，有
+$$
+\prod E_n = \prod I_n^\bullet[-n]
+$$
+在 $D(R)$ 中成立。由于 $\text{Mod}_R$ 中的积正合，
+$\prod I_n^\bullet[-n]$ 与 $E$ 拟同构。更一般地，对满足 Ab4* 的
+Grothendieck 阿贝尔范畴 $\mathcal{A}$，此论证在 $D(\mathcal{A})$ 中同样成立。
+\end{remark}
+
+\begin{lemma}
+\label{injectives-lemma-RF-commutes-with-Rlim}
+设 $F : \mathcal{A} \to \mathcal{B}$ 为阿贝尔范畴间的加性函子。假设
+\begin{enumerate}
+\item $\mathcal{A}$ 是 Grothendieck 阿贝尔范畴；
+\item $\mathcal{B}$ 的可数积正合；
+\item $F$ 与可数积交换。
+\end{enumerate}
+则 $RF : D(\mathcal{A}) \to D(\mathcal{B})$ 与导出极限交换。
+\end{lemma}
+
+\begin{proof}
+注意，因 $\mathcal{A}$ 有足够多的 K-内射对象，$RF$ 存在（定理
+\ref{injectives-theorem-K-injective-embedding-grothendieck} 与《导出范畴》引理
+\ref{derived-lemma-K-injective-defined}）。断言的含义是：若
+$K = R\lim K_n$，则 $RF(K) = R\lim RF(K_n)$；记号见《导出范畴》定义
+\ref{derived-definition-derived-limit}。由于 $RF$ 是三角范畴间的正合函子，
+只须证明 $RF$ 与 $D(\mathcal{A})$ 中对象的可数积交换。引理
+\ref{injectives-lemma-derived-products} 的证明表明，$D(\mathcal{A})$ 中的积通过
+K-内射复形的积计算，而且 K-内射复形的积仍为 K-内射复形。此外，
+《导出范畴》引理 \ref{derived-lemma-products} 表明，$D(\mathcal{B})$
+中的积通过逐项积计算。$RF$ 由在 K-内射代表上施用 $F$ 计算，而我们假设
+$F$ 与可数积交换，故引理成立。
+\end{proof}
+
+\noindent
+以下引理可看作 Cartan--Eilenberg 消解存在性（《导出范畴》第
+\ref{derived-section-cartan-eilenberg} 节）的某种推广。
+
+\begin{lemma}
+\label{injectives-lemma-K-injective-embedding-filtration}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$K^\bullet$ 为
+$\mathcal{A}$ 的滤过复形，见《同调代数》定义
+\ref{homology-definition-filtered-complex}。则存在 $\mathcal{A}$
+的滤过复形态射 $j : K^\bullet \to J^\bullet$，使得
+\begin{enumerate}
+\item $J^n$、$F^pJ^n$、$J^n/F^pJ^n$ 与 $F^pJ^n/F^{p'}J^n$
+均为 $\mathcal{A}$ 的内射对象；
+\item $J^\bullet$、$F^pJ^\bullet$、$J^\bullet/F^pJ^\bullet$ 与
+$F^pJ^\bullet/F^{p'}J^\bullet$ 均为 K-内射复形；
+\item $j$ 诱导拟同构
+$K^\bullet \to J^\bullet$,
+$F^pK^\bullet \to F^pJ^\bullet$,
+$K^\bullet/F^pK^\bullet \to J^\bullet/F^pJ^\bullet$，以及
+$F^pK^\bullet/F^{p'}K^\bullet \to F^pJ^\bullet/F^{p'}J^\bullet$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定理 \ref{injectives-theorem-K-injective-embedding-grothendieck}，得到拟同构
+$i : K^\bullet \to I^\bullet$ 与
+$i^p : F^pK^\bullet \to I^{p, \bullet}$，以及交换图
+$$
+\vcenter{
+\xymatrix{
+K^\bullet \ar[d]_i & F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^\bullet & I^{p, \bullet} \ar[l]_{\alpha^p}
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+F^{p'}K^\bullet \ar[d]_{i^{p'}} &
+F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^{p', \bullet} &
+I^{p, \bullet} \ar[l]_{\alpha^{p p'}}
+}
+}
+\quad\text{其中 }p' \leq p
+$$
+并满足 $\alpha^p \circ \alpha^{p' p} = \alpha^{p'}$ 及
+$\alpha^{p'p''} \circ \alpha^{pp'} = \alpha^{pp''}$。问题在于映射
+$\alpha^p : I^{p, \bullet} \to I^\bullet$ 未必是单射。对每个 $p$，
+选取到无环 K-内射复形 $J^{p, \bullet}$ 的单射
+$t^p : I^{p, \bullet} \to J^{p, \bullet}$，其中
+$J^{p, \bullet}$ 各项均为 $\mathcal{A}$ 的内射对象（先映至恒等映射的锥，
+再使用该定理）。选取复形映射
+$s^p : I^\bullet \to J^{p, \bullet}$，使下图交换：
+$$
+\xymatrix{
+K^\bullet \ar[d]_i & F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^\bullet \ar[rd]_{s^p} & I^{p, \bullet} \ar[d]^{t^p} \\
+& J^{p, \bullet}
+}
+$$
+这是可能的：因 $J^{p, \bullet}$ 无环且 K-内射，复合
+$F^pK^\bullet \to J^{p, \bullet}$ 零伦（《导出范畴》引理
+\ref{derived-lemma-K-injective}）。对象 $J^{p, n - 1}$ 内射，且
+$F^pK^n \to K^n \to I^n$ 为单态射，故可将给出该同伦的映射
+$F^pK^n \to J^{p, n - 1}$ 延拓为映射
+$h^n : I^n \to J^{p, n - 1}$。然后置
+$s^p = h \circ \text{d} + \text{d} \circ h$。
+（警告：并不一定有 $t^p = s^p \circ \alpha^p$，故下文须注意不要使用此式。）
+
+\medskip\noindent
+考虑
+$$
+J^\bullet = I^\bullet \times \prod\nolimits_p J^{p, \bullet}
+$$
+由于 $D(\mathcal{A})$ 中的积由 K-内射复形的积给出（引理
+\ref{injectives-lemma-derived-products}），且 $J^{p, \bullet}$ 在
+$D(\mathcal{A})$ 中同构于 $0$，可见
+$J^\bullet \to I^\bullet$ 是 $D(\mathcal{A})$ 中的同构。考虑映射
+$$
+j = i \times (s^p \circ i)_{p \in \mathbf{Z}} :
+K^\bullet
+\longrightarrow
+I^\bullet \times \prod\nolimits_p J^{p, \bullet} = J^\bullet
+$$
+由上述说明，这是拟同构；它也是单射。对 $p \in \mathbf{Z}$，令
+$F^pJ^\bullet \subset J^\bullet$ 为
+$$
+\Im\left(
+\alpha^p \times (t^{p'} \circ \alpha^{pp'})_{p' \leq p} :
+I^{p, \bullet}
+\to
+I^\bullet \times \prod\nolimits_{p' \leq p} J^{p', \bullet}
+\right)
+\times \prod\nolimits_{p' > p} J^{p', \bullet}
+$$
+此复形同构于复形
+$I^{p, \bullet} \times \prod_{p' > p} J^{p, \bullet}$
+，因为 $\alpha^{pp} = \text{id}$ 且 $t^p$ 为单射。因此
+$F^pJ^\bullet$ 与 $I^{p, \bullet}$ 拟同构（论证同上）。由上图的交换性，
+有 $j(F^pK^\bullet) \subset F^pJ^\bullet$。由刚才所述，对应的复形映射
+$F^pK^\bullet \to F^pJ^\bullet$ 是拟同构。最后，为证明
+$F^{p + 1}J^\bullet \subset F^pJ^\bullet$
+，使用 $\alpha^{p + 1p} \circ \alpha^{pp'} = \alpha^{p + 1p'}$
+以及本证明第一段中第一个陈列图的交换性。
+
+\medskip\noindent
+我们断言 $j : K^\bullet \to J^\bullet$ 正是引理所求。事实上，
+$F^pJ^n$ 同构于 $I^{p, n} \times \prod_{p' > p} J^{p', n}$，而内射对象的积
+仍内射，故 $F^pJ^n$ 是 $\mathcal{A}$ 的内射对象。于是单态射
+$F^pJ^n \to J^n$ 分裂，所以商 $J^n/F^pJ^n$ 作为内射对象 $J^n$
+的直和因子也是内射的。对 $F^pJ^n/F^{p'}J^n$ 同理。特别地，这意味着
+$0 \to F^pJ^\bullet \to J^\bullet \to J^\bullet/F^pJ^\bullet \to 0$
+是逐项分裂的复形短正合列，故按约定在 $K(\mathcal{A})$ 中定义一个特异三角。
+由于 $J^\bullet$ 与 $F^pJ^\bullet$ 均为 K-内射复形，由《导出范畴》引理
+\ref{derived-lemma-triangle-K-injective}，$J^\bullet/F^pJ^\bullet$
+也如此。类似论证表明 $F^pJ^\bullet/F^{p'}J^\bullet$ 为 K-内射复形。
+由构造，$j : K^\bullet \to J^\bullet$ 以及诱导映射
+$F^pK^\bullet \to F^pJ^\bullet$ 均为拟同构。利用所涉及复形的上同调长正合列，
+可知 $K^\bullet/F^pK^\bullet \to J^\bullet/F^pJ^\bullet$ 以及
+$F^pK^\bullet/F^{p'}K^\bullet \to F^pJ^\bullet/F^{p'}J^\bullet$
+也具有相同性质。
+\end{proof}
+
+\begin{remark}
+\label{injectives-remark-ext-into-filtered-complex}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$K^\bullet$ 为
+$\mathcal{A}$ 的滤过复形，见《同调代数》定义
+\ref{homology-definition-filtered-complex}。为简化记号，分别以
+$K$、$F^pK$、$\text{gr}^pK$ 表示由 $K^\bullet$、$F^pK^\bullet$、
+$\text{gr}^pK^\bullet$ 表示的 $D(\mathcal{A})$ 中对象。设
+$M \in D(\mathcal{A})$。利用引理
+\ref{injectives-lemma-K-injective-embedding-filtration}，可构造由 $\mathcal{A}$
+中双分次对象组成的谱序列 $(E_r, d_r)_{r \geq 1}$，其中 $d_r$
+的双次数为 $(r, -r + 1)$，并且
+$$
+E_1^{p, q} = \Ext^{p + q}(M, \text{gr}^pK)
+$$
+若对每个 $n$ 均有
+$$
+\Ext^n(M, F^pK) = 0 \text{ 当 } p \gg 0
+\quad\text{且}\quad
+\Ext^n(M, F^pK) = \Ext^n(M, K) \text{ 当 } p \ll 0
+$$
+，则此谱序列有界并收敛于 $\Ext^{p + q}(M, K)$。事实上，任取表示 $M$
+的复形 $M^\bullet$，选取引理中的 $j : K^\bullet \to J^\bullet$，并考虑复形
+$$
+\Hom^\bullet(M^\bullet, J^\bullet)
+$$
+，其定义与《代数详论》第 \ref{more-algebra-section-hom-complexes} 节完全相同。
+置 $F^p\Hom^\bullet(M^\bullet, J^\bullet) =
+\Hom^\bullet(M^\bullet, F^pJ^\bullet)$，便得到一个滤过复形。
+《同调代数》第 \ref{homology-section-filtered-complex} 节的谱序列具有上述
+微分与各项；细节从略。有界性与收敛性由《同调代数》引理
+\ref{homology-lemma-ss-converges-trivial} 得出。
+\end{remark}
+
+\begin{remark}
+\label{injectives-remark-spectral-sequences-ext}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$M,K$ 为
+$D(\mathcal{A})$ 的对象。任取表示 $K$ 的复形 $K^\bullet$，利用滤过
+$F^pK^\bullet = \tau_{\leq -p}K^\bullet$ 以及评注
+\ref{injectives-remark-ext-into-filtered-complex} 中的讨论，可得到满足
+$$
+E_1^{p, q} = \Ext^{2p + q}(M, H^{-p}(K))
+$$
+的谱序列。它不依赖于表示 $K$ 的复形 $K^\bullet$ 的选择。重新编号
+$p = -j$、$q = i + 2j$ 后，得到谱序列
+$(E'_r, d'_r)_{r \geq 2}$，其中 $d'_r$ 的双次数为 $(r, -r + 1)$，并且
+$$
+(E'_2)^{i, j} = \Ext^i(M, H^j(K))
+$$
+若 $M \in D^-(\mathcal{A})$ 且 $K \in D^+(\mathcal{A})$，则
+$E_r$ 与 $E'_r$ 均有界并收敛于 $\Ext^{p + q}(M, K)$。若使用滤过
+$F^pK^\bullet = \sigma_{\geq p}K^\bullet$，则得到
+$$
+E_1^{p, q} = \Ext^q(M, K^p)
+$$
+若 $M \in D^-(\mathcal{A})$ 且 $K^\bullet$ 下有界，则此谱序列有界并收敛于
+$\Ext^{p + q}(M, K)$。
+\end{remark}
+
+\begin{remark}
+\label{injectives-remark-ext-from-filtered-complex}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$K \in D(\mathcal{A})$。
+设 $M^\bullet$ 为 $\mathcal{A}$ 的滤过复形，见《同调代数》定义
+\ref{homology-definition-filtered-complex}。为简化记号，分别以
+$M$、$M/F^pM$、$\text{gr}^pM$ 表示由 $M^\bullet$、
+$M^\bullet/F^pM^\bullet$、$\text{gr}^pM^\bullet$ 表示的
+$D(\mathcal{A})$ 中对象。与评注 \ref{injectives-remark-ext-into-filtered-complex}
+对偶地，可构造由 $\mathcal{A}$ 中双分次对象组成的谱序列
+$(E_r, d_r)_{r \geq 1}$，其中 $d_r$ 的双次数为 $(r, -r + 1)$，并且
+$$
+E_1^{p, q} = \Ext^{p + q}(\text{gr}^{-p}M, K)
+$$
+若对每个 $n$ 均有
+$$
+\Ext^n(M/F^pM, K) = 0 \text{ 当 } p \ll 0
+\quad\text{且}\quad
+\Ext^n(M/F^pM, K) = \Ext^n(M, K) \text{ 当 } p \gg 0
+$$
+，则此谱序列有界并收敛于 $\Ext^{p + q}(M, K)$。事实上，选取表示 $K$
+且各项内射的 K-内射复形 $I^\bullet$，见定理
+\ref{injectives-theorem-K-injective-embedding-grothendieck}。考虑复形
+$$
+\Hom^\bullet(M^\bullet, I^\bullet)
+$$
+，其定义与《代数详论》第 \ref{more-algebra-section-hom-complexes} 节完全相同。
+置
+$$
+F^p\Hom^\bullet(M^\bullet, I^\bullet) =
+\Hom^\bullet(M^\bullet/F^{-p + 1}M^\bullet, I^\bullet)
+$$
+，便得到一个滤过复形（注意滤过中的符号与移位）。《同调代数》第
+\ref{homology-section-filtered-complex} 节的谱序列具有上述微分与各项；
+细节从略。有界性与收敛性由《同调代数》引理
+\ref{homology-lemma-ss-converges-trivial} 得出。
+\end{remark}
+
+\begin{remark}
+\label{injectives-remark-spectral-sequences-ext-variant}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$M,K$ 为
+$D(\mathcal{A})$ 的对象。任取表示 $M$ 的复形 $M^\bullet$，利用滤过
+$F^pM^\bullet = \tau_{\leq -p}M^\bullet$ 以及评注
+\ref{injectives-remark-ext-into-filtered-complex} 中的讨论，可得到满足
+$$
+E_1^{p, q} = \Ext^{2p + q}(H^p(M), K)
+$$
+的谱序列。它不依赖于表示 $M$ 的复形 $M^\bullet$ 的选择。重新编号
+$p = -j$、$q = i + 2j$ 后，得到谱序列
+$(E'_r, d'_r)_{r \geq 2}$，其中 $d'_r$ 的双次数为
+$(r, -r + 1)$，并且
+$$
+(E'_2)^{i, j} = \Ext^i(H^{-j}(M), K)
+$$
+若 $M \in D^-(\mathcal{A})$ 且 $K \in D^+(\mathcal{A})$，则
+$E_r$ 与 $E'_r$ 均有界并收敛于 $\Ext^{p + q}(M, K)$。若使用滤过
+$F^pM^\bullet = \sigma_{\geq p}M^\bullet$，则得到
+$$
+E_1^{p, q} = \Ext^q(M^{-p}, K)
+$$
+若 $K \in D^+(\mathcal{A})$ 且 $M^\bullet$ 上有界，则此谱序列有界并收敛于
+$\Ext^{p + q}(M, K)$。
+\end{remark}
+
+\begin{lemma}
+\label{injectives-lemma-represent-by-filtered-complex}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。给定对象
+$E \in D(\mathcal{A})$、以 $\mathbf{Z}$ 为指标的 $D(\mathcal{A})$
+中对象的逆系统 $\{E^i\}_{i \in \mathbf{Z}}$，以及相容的映射系
+$E^i \to E$。图示为
+$$
+\ldots \to E^{i + 1} \to E^i \to E^{i - 1} \to \ldots \to E
+$$
+则存在 $\mathcal{A}$ 的滤过复形 $K^\bullet$（《同调代数》定义
+\ref{homology-definition-filtered-complex}），使 $K^\bullet$ 表示 $E$，
+而 $F^iK^\bullet$ 以与给定映射相容的方式表示 $E^i$。
+\end{lemma}
+
+\begin{proof}
+由定理 \ref{injectives-theorem-K-injective-embedding-grothendieck}，可选取表示 $E$
+的 K-内射复形 $I^\bullet$，其每一项 $I^n$ 均为 $\mathcal{A}$ 的内射对象。
+选取表示 $E^0$ 的复形 $G^{0, \bullet}$，再选取表示 $E^0 \to E$
+的复形映射 $\varphi^0 : G^{0, \bullet} \to I^\bullet$。对 $i > 0$，
+归纳地用复形映射 $\delta : G^{i, \bullet} \to G^{i - 1, \bullet}$
+表示 $E^i \to E^{i - 1}$，并置
+$\varphi^i = \delta \circ \varphi^{i - 1}$。对 $i < 0$，归纳地用逐项单射的
+复形映射
+$\delta : G^{i + 1, \bullet} \to G^{i, \bullet}$
+表示 $E^{i + 1} \to E^i$（例如可用《导出范畴》引理
+\ref{derived-lemma-make-injective}）。我们断言可找到复形映射
+$\varphi^i : G^{i, \bullet} \to I^\bullet$
+，它表示映射 $E^i \to E$，并使下图交换：
+$$
+\xymatrix{
+G^{i + 1, \bullet} \ar[r]_\delta \ar[d]_{\varphi^{i + 1}} &
+G^{i, \bullet} \ar[ld]^{\varphi^i} \\
+I^\bullet
+}
+$$
+中。事实上，先任取表示映射 $E^i \to E$ 的复形映射
+$\varphi : G^{i, \bullet} \to I^\bullet$。于是
+$\varphi \circ \delta$ 与 $\varphi^{i + 1}$ 通过某个同伦
+$h^p : G^{i + 1, p} \to I^{p - 1}$ 同伦。由于 $I^\bullet$ 的各项内射，
+且 $\delta$ 逐项单射，可将 $h^p$ 延拓为
+$(h')^p : G^{i, p} \to I^{p - 1}$。置
+$\varphi^i = \varphi + h' \circ d + d \circ h'$，便得到所断言的映射。
+
+\medskip\noindent
+接着，对每个 $i$ 选取逐项单射的复形映射
+$a^i : G^{i, \bullet} \to J^{i, \bullet}$，其中 $J^{i, \bullet}$
+无环且 K-内射，而 $J^{i, p}$ 为 $\mathcal{A}$ 的内射对象。为此，先将
+$G^{i, \bullet}$ 映至恒等映射的锥，再应用上述定理。与上面相同地论证，
+可找到复形映射 $\delta' : J^{i, \bullet} \to J^{i - 1, \bullet}$，使图
+$$
+\xymatrix{
+G^{i, \bullet} \ar[r]_\delta \ar[d]_{a^i} &
+G^{i - 1, \bullet} \ar[d]^{a^{i - 1}} \\
+J^{i, \bullet} \ar[r]^{\delta'} &
+J^{i - 1, \bullet}
+}
+$$
+交换。（也可利用锥的函子性以及该定理中的函子性得到这一点。）然后考虑映射
+$$
+\xymatrix{
+G^{i + 1, \bullet} \times \prod\nolimits_{p > i + 1} J^{p, \bullet}
+\ar[r] \ar[rd] &
+G^{i, \bullet} \times \prod\nolimits_{p > i} J^{p, \bullet}
+\ar[r] \ar[d] &
+G^{i - 1, \bullet} \times \prod\nolimits_{p > i - 1} J^{p, \bullet}
+\ar[ld] \\
+& I^\bullet \times \prod\nolimits_p J^{p, \bullet}
+}
+$$
+此处 $J^{p, \bullet}$ 上的箭头是显然的箭头（恒等映射或零映射）。在因子
+$G^{i, \bullet}$ 上，使用
+$\delta : G^{i, \bullet} \to G^{i - 1, \bullet}$、映射
+$\varphi^i : G^{i, \bullet} \to I^\bullet$、当 $p > i$ 时的零映射
+$0 : G^{i, \bullet} \to J^{p, \bullet}$、当 $p = i$ 时的映射
+$a^i : G^{i, \bullet} \to J^{p, \bullet}$，以及当 $p < i$ 时的映射
+$(\delta')^{i - p} \circ a^i = a^p \circ \delta^{i - p} :
+G^{i, \bullet} \to J^{p, \bullet}$。略去图中所有箭头均逐项单射的验证。
+这样便得到一个滤过复形。由于 $D(\mathcal{A})$ 中的积由 K-内射复形的积给出
+（引理 \ref{injectives-lemma-derived-products}），且 $J^{p, \bullet}$ 在
+$D(\mathcal{A})$ 中为零，可知此图在导出范畴中表示给定的图。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-represent-by-filtered-complex-bis}
+在引理 \ref{injectives-lemma-represent-by-filtered-complex} 的情形中，进一步假设有第二个
+逆系统 $\{(E')^i\}_{i \in \mathbf{Z}}$ 以及相容的映射系
+$(E')^i \to E$。则存在 $\mathcal{A}$ 的双滤过复形 $K^\bullet$，使
+$K^\bullet$ 表示 $E$，$F^iK^\bullet$ 表示 $E^i$，而
+$(F')^iK^\bullet$ 以与给定映射相容的方式表示 $(E')^i$。
+\end{lemma}
+
+\begin{proof}
+先利用该引理选取 $K^\bullet$ 与 $F$，再为
+$\{(E')^i\}_{i \in \mathbf{Z}}$ 及映射 $(E')^i \to E$ 选取适用的
+$(K')^\bullet$ 与 $F'$。利用引理
+\ref{injectives-lemma-K-injective-embedding-filtration}，可假设 $K^\bullet$
+为 K-内射复形。于是可选取对应于给定认同
+$(K')^\bullet \cong E \cong K^\bullet$ 的复形映射
+$(K')^\bullet \to K^\bullet$。还可选取逐项单射的映射
+$(K')^\bullet \to J^\bullet$，其中 $J^\bullet$ 无环且 K-内射。
+（为此先将 $(K')^\bullet$ 映至恒等映射的锥，再应用定理
+\ref{injectives-theorem-K-injective-embedding-grothendieck}。）于是
+$(K')^\bullet \to K^\bullet \times J^\bullet$ 与
+$K^\bullet \to K^\bullet \times J^\bullet$ 均逐项单射且为拟同构
+（由引理 \ref{injectives-lemma-derived-products}，该积表示 $E$）。只须取
+$K^\bullet$ 与 $(K')^\bullet$ 上的滤过在这些映射下的像，即得结论。
+\end{proof}
+
+
+
+
+
+\section{Gabriel--Popescu 定理}
+\label{injectives-section-gabriel-popescu}
+
+\noindent
+本节讨论 \cite{GP} 的主定理。证明方法遵循 Jacob Lurie 的一份讲义以及
+Akhil Mathew 的另一份讲义；两者又都遵循 \cite{Kuhn} 中 Kuhn 的陈述。
+另见 \cite{Takeuchi}。
+
+\medskip\noindent
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$U$ 为 $\mathcal{A}$ 的生成元，
+见定义 \ref{injectives-definition-grothendieck-conditions}。令
+$R = \Hom_\mathcal{A}(U, U)$。考虑由
+$$
+G(A) = \Hom_\mathcal{A}(U, A)
+$$
+给出的函子 $G : \mathcal{A} \to \text{Mod}_R$，其中 $G(A)$ 带有典范的右
+$R$-模结构。
+
+\begin{lemma}
+\label{injectives-lemma-gabriel-popescu-left-adjoint}
+上述函子 $G$ 有左伴随函子 $F : \text{Mod}_R \to \mathcal{A}$。
+\end{lemma}
+
+\begin{proof}
+我们给出此引理的两个证明。
+
+\medskip\noindent
+第一个证明使用伴随函子定理，见《范畴》定理
+\ref{categories-theorem-adjoint-functor}。注意
+$G : \mathcal{A} \to \text{Mod}_R$ 左正合，并把积映为积，故 $G$ 与极限交换。
+为验证该定理中的集合论条件，设 $M$ 为 $\text{Mod}_R$ 的对象。选取充分大的
+基数 $\kappa$，并以 $E$ 表示 $\mathcal{A}$ 中对象的一个集合，使每个满足
+$|A| \leq \kappa$ 的对象 $A$ 均同构于 $E$ 的某个元素。由引理
+\ref{injectives-lemma-set-iso-classes-bounded-size}，这是可能的。置
+$I = \coprod_{A \in E} \Hom_R(M, G(A))$。把元素 $i \in I$ 看作一对
+$(A_i, f_i)$。最后，任取 $\mathcal{A}$ 的对象 $A$ 与映射
+$f : M \to G(A)$。我们把
+$\Im(f) \subset G(A) = \Hom_\mathcal{A}(U, A)$ 中的元素看作映射
+$u : U \to A$。置
+$$
+A' = \Im(\bigoplus\nolimits_{u \in \Im(f)} U \xrightarrow{u} A)
+$$
+由于 $G$ 左正合，$G(A') \subset G(A)$ 包含 $\Im(f)$，并得到使 $f$ 分解的
+$f' : M \to G(A')$。另一方面，对象 $A'$ 是至多 $|M|$ 份 $U$ 的直和的商。
+因此，若 $\kappa = |\bigoplus_{|M|} U|$，则 $(A', f')$ 同构于 $E$ 的某个元素
+$(A_i, f_i)$，从而 $f$ 按所需方式分解为
+$M \xrightarrow{f_i} G(A_i) \to G(A)$。
+
+\medskip\noindent
+第二个证明将构造 $F$，并表明在某种意义下“$F(M) = M \otimes_R U$”。
+具体地，对任意 $R$-模 $M$，可选取消解
+$$
+\bigoplus\nolimits_{j \in J} R \to
+\bigoplus\nolimits_{i \in I} R \to
+M \to 0
+$$
+然后用相应的正合列定义 $F(M)$：
+$$
+\bigoplus\nolimits_{j \in J} U \to
+\bigoplus\nolimits_{i \in I} U \to
+F(M) \to 0
+$$
+此构造不依赖于消解的选择，并且是函子性的；细节从略。对
+$\mathcal{A}$ 中任意 $A$，得到正合列
+$$
+0 \to \Hom_\mathcal{A}(F(M), A) \to
+\prod\nolimits_{i \in I} G(A) \to
+\prod\nolimits_{j \in J} G(A)
+$$
+，它同构于正合列
+$$
+0 \to \Hom_R(M, G(A)) \to
+\Hom_R(\bigoplus\nolimits_{i \in I} R, G(A)) \to
+\Hom_R(\bigoplus\nolimits_{j \in J} R, G(A))
+$$
+。这表明 $F$ 是 $G$ 的左伴随函子。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-F-G-monos}
+设 $f : M \to G(A)$ 为 $\text{Mod}_R$ 中的单射，则伴随映射
+$f' : F(M) \to A$ 也是单射。
+\end{lemma}
+
+\begin{proof}
+选取映射 $R^{\oplus n} \to M$，并考虑相应的映射
+$U^{\oplus n} \to F(M)$。考虑映射 $v : U \to U^{\oplus n}$，使复合
+$U \to U^{\oplus n} \to F(M) \to A$ 为 $0$。于是箭头
+$v : U \to U^{\oplus n}$ 是 $R^{\oplus n}$ 中的元素 $v$，且它在
+$G(A)$ 中映为零。由于 $f$ 为单射，$v$ 在 $M$ 中映为零；由引理
+\ref{injectives-lemma-gabriel-popescu-left-adjoint} 的证明中 $F(M)$ 的构造，这意味着
+$U \to U^{\oplus n} \to F(M)$ 为零。由于 $U$ 是生成元，可得
+$$
+\Ker(U^{\oplus n} \to F(M) \to A) = \Ker(U^{\oplus n} \to F(M))
+$$
+为完成证明，选取满射 $\bigoplus_{i \in I} R \to M$，并考虑相应的满射
+$$
+\pi : \bigoplus\nolimits_{i \in I} U \longrightarrow F(M)
+$$
+要证明 $f'$ 为单射，只须证明作为 $\bigoplus_{i \in I} U$ 的子对象有
+$\Ker(\pi) = \Ker(f' \circ \pi)$。现在可将 $\bigoplus_{i \in I} U$
+写成其子对象 $\bigoplus_{i \in I'} U$ 的滤过余极限，其中
+$I' \subset I$ 遍历有限子集。由于 $\mathcal{A}$ 满足 AB5，滤过余极限正合，
+故
+$$
+\Ker(\pi) =
+\colim_{I' \subset I\text{ 有限}}
+\left(\bigoplus\nolimits_{i \in I'} U\right)
+\bigcap \Ker(\pi)
+$$
+并且
+$$
+\Ker(f' \circ \pi) =
+\colim_{I' \subset I\text{ 有限}}
+\left(\bigoplus\nolimits_{i \in I'} U\right)
+\bigcap \Ker(f' \circ \pi)
+$$
+。由上面第一个陈列等式，对每个 $I'$ 两者均相等，故得到所需等式。
+\end{proof}
+
+\begin{theorem}
+\label{injectives-theorem-gabriel-popescu}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴。则存在一个（非交换）环 $R$
+以及函子 $G : \mathcal{A} \to \text{Mod}_R$ 与
+$F : \text{Mod}_R \to \mathcal{A}$，使得
+\begin{enumerate}
+\item $F$ 是 $G$ 的左伴随函子；
+\item $G$ 为全忠实函子；
+\item $F$ 正合。
+\end{enumerate}
+而且，这些函子正是上面构造的函子。
+\end{theorem}
+
+\begin{proof}
+先证明 $G$ 全忠实，等价地，证明 $F \circ G \to \text{id}$ 是同构；见《范畴》
+引理 \ref{categories-lemma-adjoint-fully-faithful}。首先，给定对象 $A$，
+映射 $F(G(A)) \to A$ 为满射，因为由构造，每个映射 $U \to A$ 均通过
+$F(G(A))$ 分解。另一方面，映射 $F(G(A)) \to A$ 伴随于映射
+$\text{id} : G(A) \to G(A)$，故由引理 \ref{injectives-lemma-F-G-monos} 它为单射。
+
+\medskip\noindent
+由于 $F$ 是左伴随函子，它右正合。$\text{Mod}_R$ 有足够多的投射对象，
+故要证明 $F$ 正合，只须证明第一左导出函子 $L_1F$ 为零。为对某个 $R$-模
+$M$ 证明 $L_1F(M) = 0$，选取 $R$-模的正合列
+$0 \to K \to P \to M \to 0$，其中 $P$ 自由。只须证明
+$F(K) \to F(P)$ 为单射。可将此列写成正合列
+$0 \to K_i \to P_i \to M_i \to 0$ 的滤过余极限，其中 $P_i$ 为有限自由
+$R$-模：只须以这种方式写出 $P$，并置
+$K_i = K \cap P_i$ 与 $M_i = \Im(P_i \to M)$。由于 $F$ 是左伴随函子，
+它与余极限交换；又因 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，若每个
+$F(K_i) \to F(P_i)$ 都是单射，则 $F(K) \to F(P)$ 也是单射。因此只须在
+$K \subset P = R^{\oplus n}$ 时验证 $F(K) \to F(P)$ 为单射。
+此时应用引理 \ref{injectives-lemma-F-G-monos}，便知
+$F(K) \to U^{\oplus n}$ 为单射。
+\end{proof}
+
+\begin{lemma}
+\label{injectives-lemma-gabriel-popescu}
+\begin{reference}
+\cite[Corollary 4.1]{serpe}
+\end{reference}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$R$、$F$、$G$ 如
+Gabriel--Popescu 定理（定理 \ref{injectives-theorem-gabriel-popescu}）中所述。
+则得到导出函子
+$$
+RG : D(\mathcal{A}) \to D(\text{Mod}_R)
+\quad\text{且}\quad
+F : D(\text{Mod}_R) \to D(\mathcal{A})
+$$
+，其中 $F$ 是 $RG$ 的左伴随函子，$RG$ 全忠实，并且
+$F \circ RG = \text{id}$。
+\end{lemma}
+
+\begin{proof}
+这些函子的存在性与伴随性由定理 \ref{injectives-theorem-gabriel-popescu}、
+\ref{injectives-theorem-K-injective-embedding-grothendieck} 以及《导出范畴》引理
+\ref{derived-lemma-K-injective-defined}、
+\ref{derived-lemma-right-derived-exact-functor}、
+\ref{derived-lemma-derived-adjoint-functors} 得出。等式
+$F \circ RG = \text{id}$ 的理由如下：在 $D(\mathcal{A})$ 的对象上，
+可通过对适当的代表复形 $I^\bullet$（例如 K-内射代表）施用 $G$ 来计算
+$RG$；而由 $F \circ G = \text{id}$，有
+$F(G(I^\bullet)) = I^\bullet$。再由《范畴》引理
+\ref{categories-lemma-adjoint-fully-faithful}，可知 $RG$ 全忠实。
+\end{proof}
+
+
+
+
+
+\section{Brown 可表性与 Grothendieck 阿贝尔范畴}
+\label{injectives-section-brown}
+
+\noindent
+本节快速证明一个关于 Grothendieck 阿贝尔范畴之导出范畴的可表性定理。
+读者应先阅读《导出范畴》第 \ref{derived-section-brown} 节中紧生成三角范畴
+的情形。之后，与其阅读本节，不如查阅文献中这类更一般的结果；例如见
+\cite{Franke}、\cite{Neeman}、\cite{Krause}，或参看《导出范畴》第
+\ref{derived-section-brown-bis} 节。
+
+\begin{lemma}
+\label{injectives-lemma-brown}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，并设
+$H : D(\mathcal{A}) \to \textit{Ab}$ 为把直和变为积的反变上同调函子。
+则 $H$ 可表。
+\end{lemma}
+
+\begin{proof}
+设 $R,F,G,RG$ 如引理 \ref{injectives-lemma-gabriel-popescu} 中所述，并考虑函子
+$H \circ F : D(\text{Mod}_R) \to \textit{Ab}$。由于 $F$ 是左伴随函子，
+它把直和映为直和，故 $H \circ F$ 把直和变为积。另一方面，导出范畴
+$D(\text{Mod}_R)$ 由单个紧对象 $R$ 生成。由《导出范畴》引理
+\ref{derived-lemma-brown}，$H \circ F$ 可表；设其由
+$L \in D(\text{Mod}_R)$ 表示。选取特异三角
+$$
+M \to L \to RG(F(L)) \to M[1]
+$$
+于 $D(\text{Mod}_R)$ 中。因 $F \circ RG = \text{id}$，有 $F(M) = 0$。
+从而 $H(F(M)) = 0$，进而 $\Hom(M, L) = 0$。因此
+$L \to RG(F(L))$ 是一个直和因子的嵌入；见《导出范畴》引理
+\ref{derived-lemma-split}。对 $D(\mathcal{A})$ 中的 $A$，得到
+\begin{align*}
+H(A)
+& =
+H(F(RG(A)) \\
+& =
+\Hom(RG(A), L) \\
+& \to
+\Hom(RG(A), RG(F(L))) \\
+& =
+\Hom(F(RG(A)), F(L)) \\
+& =
+\Hom(A, F(L))
+\end{align*}
+，其中箭头有一个关于 $A$ 函子性的左逆。换言之，$H$ 是某个可表函子的直和
+因子。由于 $D(\mathcal{A})$ 是 Karoubi 完备的（《导出范畴》引理
+\ref{derived-lemma-projectors-have-images-triangulated}），结论成立。
+\end{proof}
+
+\begin{proposition}
+\label{injectives-proposition-brown}
+设 $\mathcal{A}$ 为 Grothendieck 阿贝尔范畴，$\mathcal{D}$ 为三角范畴。
+设 $F : D(\mathcal{A}) \to \mathcal{D}$ 为把直和映为直和的三角范畴间正合
+函子。则 $F$ 有正合的右伴随函子。
+\end{proposition}
+
+\begin{proof}
+对 $\mathcal{D}$ 的对象 $Y$，考虑反变函子
+$$
+D(\mathcal{A}) \to \textit{Ab},\quad
+W \mapsto \Hom_\mathcal{D}(F(W), Y)
+$$
+由于 $F$ 正合，这是上同调函子；又因 $F$ 把直和映为直和，该反变函子把直和
+变为积。
+故由引理 \ref{injectives-lemma-brown}，存在 $D(\mathcal{A})$ 的对象 $X$，使
+$\Hom_{D(\mathcal{A})}(W, X) = \Hom_\mathcal{D}(F(W), Y)$。
+伴随函子的存在性由《范畴》引理 \ref{categories-lemma-adjoint-exists} 得出；
+其正合性由《导出范畴》引理 \ref{derived-lemma-adjoint-is-exact} 得出。
+\end{proof}

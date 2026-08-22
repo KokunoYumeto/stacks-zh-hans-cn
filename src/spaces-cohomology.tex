@@ -1,0 +1,3905 @@
+% Generated mechanically from the frozen spaces-cohomology.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{68}
+\chapter{代数空间的上同调}
+
+
+\phantomsection
+\label{spaces-cohomology-section-phantom}
+
+
+
+
+
+\section{引言}
+\label{spaces-cohomology-section-introduction}
+
+\noindent
+本章讨论代数空间的上同调。虽然我们会证明一些关于阿贝尔层上同调的结果，
+但重点是拟凝聚层的上同调；换言之，我们将证明“概形的上同调”一章中
+若干结果的类似命题。本章的一些结果可见 \cite{Kn}。
+
+\medskip\noindent
+本章缺少的一项重要工具是{\it 归纳原理}，也就是“概形的上同调”中
+引理 \ref{coherent-lemma-induction-principle} 对拟紧拟分离代数空间的类似形式。
+“空间的导出范畴”第 \ref{spaces-perfect-section-induction} 节对它作了精确表述并给出了详细证明。
+本章不用归纳原理，而采用交错 {\v C}ech 复形，见
+第 \ref{spaces-cohomology-section-alternating-cech} 节。这个复形旨在证明
+命题 \ref{spaces-cohomology-proposition-vanishing} 一类的消失性命题；不过在某些情形下，
+归纳原理更为有力，而且或许也更为“标准”。我们建议读者在读完本节的
+部分内容之后，再去了解这一归纳原理。
+
+
+
+\section{约定}
+\label{spaces-cohomology-section-conventions}
+
+\noindent
+我们始终假设所有概形都包含在一个大 fppf 位点 $\Sch_{fppf}$ 中，
+并且所考虑的每个环 $A$ 都满足：$\Spec(A)$（同构于）这个大位点的一个对象。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。在本章及后续各章中，
+我们把 $X$ 与自身的积（取于 $S$ 上代数空间的范畴中）记作
+$X \times_S X$，而不记作 $X \times X$。
+
+
+
+
+
+
+
+
+\section{高阶正像}
+\label{spaces-cohomology-section-higher-direct-image}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的可表代数空间，并设 $\mathcal{F}$ 为 $X$ 上的
+拟凝聚模（见“代数空间的性质”第
+\ref{spaces-properties-section-quasi-coherent} 节）。由“下降”命题
+\ref{descent-proposition-same-cohomology-quasi-coherent}，上同调群
+$H^i(X, \mathcal{F})$ 与通常的上同调群一致；后者是在表示 $X$ 的概形上，
+对相应拟凝聚模按 Zariski 拓扑计算得到的。
+
+\medskip\noindent
+更一般地，设 $f : X \to Y$ 是可表代数空间 $X$ 与 $Y$ 之间的拟紧拟分离态射，
+$\mathcal{F}$ 是 $X$ 上的拟凝聚模。由“下降”引理
+\ref{descent-lemma-higher-direct-images-small-etale}，层
+$R^if_*\mathcal{F}$ 与通常的高阶正像一致；后者是在表示 $X$ 的概形到表示
+$Y$ 的概形的态射上，对拟凝聚模按 Zariski 拓扑计算得到的。
+
+\medskip\noindent
+再一般些，设 $f : X \to Y$ 是 $S$ 上代数空间之间的可表、拟紧且拟分离的态射。
+设 $V$ 为概形，$V \to Y$ 为平展满态射。令 $U = V \times_Y X$，并以
+$f' : U \to V$ 表示 $f$ 的基变换。于是对任意拟凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$，有
+\begin{equation}
+\label{spaces-cohomology-equation-representable-higher-direct-image}
+R^if'_*(\mathcal{F}|_U) = (R^if_*\mathcal{F})|_V,
+\end{equation}
+见“代数空间的性质”引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}。
+又因为 $f' : U \to V$ 是概形之间的拟紧拟分离态射，根据上一段的说明，
+我们可以把 $\mathcal{F}|_U$ 看成概形 $U$ 上的拟凝聚层，把 $f'$ 看成概形之间
+的态射，从而计算 $R^if'_*(\mathcal{F}|_U)$。下文将反复使用这一事实而不再说明。
+
+\medskip\noindent
+下面证明：对于代数空间的任意拟紧拟分离态射，拟凝聚层的高阶正像仍为拟凝聚层。
+证明中会用到一个技巧；另一种“更好”的证明会使用相对 {\v C}ech 复形，
+参见“代数栈上的层”第 \ref{stacks-sheaves-section-cech} 节、
+第 \ref{stacks-sheaves-section-sheaf-cech-complex} 节及其后各节。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-higher-direct-image}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。若 $f$ 拟紧且拟分离，
+则 $R^if_*$ 把拟凝聚 $\mathcal{O}_X$-模变为拟凝聚 $\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+取平展态射 $V \to Y$，其中 $V$ 为仿射概形。令 $U = V \times_Y X$，并以
+$f' : U \to V$ 表示诱导态射。设 $\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。由“代数空间的性质”引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}，有
+$R^if'_*(\mathcal{F}|_U) = (R^if_*\mathcal{F})|_V$.
+由于“是拟凝聚模”这一性质对于 $Y$ 上的平展拓扑是局部的（见“代数空间的性质”
+引理 \ref{spaces-properties-lemma-characterize-quasi-coherent}），
+我们可以用 $V$ 代替 $Y$；也就是说，可以假设 $Y$ 是仿射概形。
+
+\medskip\noindent
+假设 $Y$ 仿射。由于 $f$ 拟紧，$X$ 也是拟紧的。因此可以选取一个仿射概形
+$U$ 以及一个平展满态射 $g : U \to X$，见“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}。图示如下：
+$$
+\xymatrix{
+U \ar[r]_g \ar[rd]_{f \circ g} & X \ar[d]^f \\
+& Y
+}
+$$
+因为 $X$ 拟分离，态射 $g : U \to X$ 可表、分离且拟紧。因此本引理对 $g$
+成立（由引理前的讨论）。它对 $f \circ g : U \to Y$ 也成立，因为这是仿射概形
+之间的态射。
+
+\medskip\noindent
+在上一段所述情形中，我们将对 $n$ 作归纳，证明命题 $IH_n$：对 $X$ 上任意
+拟凝聚层 $\mathcal{F}$，当 $i \leq n$ 时，层 $R^if\mathcal{F}$ 拟凝聚。
+$n = 0$ 的情形由“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-pushforward} 得到。假设 $IH_n$ 成立；以下证明
+$IH_{n + 1}$。
+
+\medskip\noindent
+设 $\mathcal{H}$ 为拟凝聚 $\mathcal{O}_U$-模。考虑 Leray 谱序列
+$$
+E_2^{p, q} = R^pf_* R^qg_* \mathcal{H}
+\Rightarrow
+R^{p + q}(f \circ g)_*\mathcal{H}
+$$
+见“位点上的上同调”引理 \ref{sites-cohomology-lemma-relative-Leray}。
+由 $IH_n$，$R^qg_*\mathcal{H}$ 拟凝聚，因而当 $p \leq n$ 时，所有层
+$R^pf_*R^qg_*\mathcal{H}$ 都拟凝聚。各层
+$R^{p + q}(f \circ g)_*\mathcal{H}$ 也都拟凝聚（事实上，当
+$p + q > 0$ 时它们为零，但这里不需要这一点）。在总次数不超过
+$n + 1$ 的项中，唯一尚不知是否拟凝聚的模是
+$E_2^{n + 1, 0} = R^{n + 1}f_*g_*\mathcal{H}$。此外，微分
+$d_r^{n + 1, 0} : E_r^{n + 1, 0} \to E_r^{n + 1 + r, 1 - r}$
+为零，因为其目标为零。再利用 $\QCoh(\mathcal{O}_X)$ 是
+$\textit{Mod}(\mathcal{O}_X)$ 的弱 Serre 子范畴（“代数空间的性质”引理
+\ref{spaces-properties-lemma-properties-quasi-coherent}），可知
+$R^{n + 1}f_*g_*\mathcal{H}$ 拟凝聚（细节从略）。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模，并令
+$\mathcal{H} = g^*\mathcal{F}$。由于 $U \to X$ 是平展满态射，伴随映射
+$\mathcal{F} \to g_*g^*\mathcal{F} = g_*\mathcal{H}$ 为单射。考虑正合列
+$$
+0 \to \mathcal{F} \to g_*\mathcal{H} \to \mathcal{G} \to 0
+$$
+其中 $\mathcal{G}$ 是第一个映射的余核，因而是拟凝聚的。应用上同调长正合列，得到
+$$
+R^nf_*g_*\mathcal{H} \to
+R^nf_*\mathcal{G} \to
+R^{n + 1}f_*\mathcal{F} \to
+R^{n + 1}f_*g_*\mathcal{H} \to
+R^{n + 1}f_*\mathcal{G}
+$$
+第一个箭头的余核拟凝聚，而上面已经证明
+$R^{n + 1}f_*g_*\mathcal{H}$ 拟凝聚。因此 $R^{n + 1}f_*\mathcal{F}$
+有一个两步滤过，其中第一步拟凝聚，第二步是某个拟凝聚层的子模。
+由于 $\mathcal{F}$ 是任意拟凝聚 $\mathcal{O}_X$-模，这个结论也适用于
+$\mathcal{G}$。所以可以选取正合列
+$0 \to \mathcal{A} \to R^{n + 1}f_*\mathcal{G} \to \mathcal{B}$
+其中 $\mathcal{A}$、$\mathcal{B}$ 都是拟凝聚 $\mathcal{O}_Y$-模。
+于是复合映射
+$R^{n + 1}f_*g_*\mathcal{H} \to R^{n + 1}f_*\mathcal{G}
+\to \mathcal{B}$ 的核 $\mathcal{K}$ 拟凝聚，并得到映射
+$\mathcal{K} \to \mathcal{A}$；其核 $\mathcal{K}'$ 也拟凝聚。因此
+$R^{n + 1}f_*\mathcal{F}$ 位于正合列
+$$
+R^nf_*g_*\mathcal{H} \to
+R^nf_*\mathcal{G} \to
+R^{n + 1}f_*\mathcal{F} \to \mathcal{K}' \to 0
+$$
+中；其中除 $R^{n + 1}f_*\mathcal{F}$ 外，其余各模均拟凝聚。由此得出
+$R^{n + 1}f_*\mathcal{F}$ 拟凝聚，即 $IH_{n + 1}$ 如期成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-quasi-coherence-higher-direct-images-application}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的拟分离拟紧态射。
+对任意拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$ 以及 $Y_\etale$ 的任意仿射对象
+$V$，有
+$$
+H^q(V \times_Y X, \mathcal{F}) = H^0(V, R^qf_*\mathcal{F})
+$$
+其中 $q \in \mathbf{Z}$ 任意。
+\end{lemma}
+
+\begin{proof}
+由于 $Rf_*$ 的形成与平展局部化可交换（“代数空间的性质”引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}），
+我们可以用 $V$ 代替 $Y$，并假设 $Y = V$ 仿射。考虑 Leray 谱序列
+$E_2^{p, q} = H^p(Y, R^qf_*\mathcal{F})$
+它收敛到 $H^{p + q}(X, \mathcal{F})$，见“位点上的上同调”引理
+\ref{sites-cohomology-lemma-Leray}。由引理
+\ref{spaces-cohomology-lemma-higher-direct-image}，各层 $R^qf_*\mathcal{F}$ 均拟凝聚。
+再由“概形的上同调”引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}，当 $p > 0$ 时
+$E_2^{p, q} = 0$。所以该谱序列在 $E_2$ 页退化，结论成立。
+\end{proof}
+
+
+
+
+\section{有限态射}
+\label{spaces-cohomology-section-finite-morphisms}
+
+\noindent
+下面给出若干对所有阿贝尔层都成立的结果（特别地，也适用于拟凝聚模）。
+我们要{\bf 提醒}读者：对于概形的有限态射和 Zariski 拓扑，以下引理并不成立。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-finite-higher-direct-image-zero}
+设 $S$ 为概形，$f : X \to Y$ 为代数空间的整态射（例如有限态射）。则
+$f_* : \textit{Ab}(X_\etale) \to \textit{Ab}(Y_\etale)$
+是正合函子，并且当 $p > 0$ 时 $R^pf_* = 0$。
+\end{lemma}
+
+\begin{proof}
+由“代数空间的性质”引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change}，
+可以在 $Y$ 的一个平展覆盖上计算高阶正像。因此可以假设 $Y$ 是概形，
+进而 $X$ 也是概形（见“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-integral-local}）。此时可应用“平展上同调”引理
+\ref{etale-cohomology-lemma-what-integral}。对于有限情形，读者也可以参阅
+技术性较弱的“平展上同调”命题
+\ref{etale-cohomology-proposition-finite-higher-direct-image-zero}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-stalk-push-finite}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的有限态射。设
+$\overline{y}$ 是 $Y$ 的一个几何点，并且它在 $X$ 中的提升为
+$\overline{x}_1, \ldots, \overline{x}_n$。则
+$$
+(f_*\mathcal{F})_{\overline{y}} =
+\prod\nolimits_{i = 1, \ldots, n}
+\mathcal{F}_{\overline{x}_i}
+$$
+对 $X_\etale$ 上任意层 $\mathcal{F}$ 都成立。
+\end{lemma}
+
+\begin{proof}
+选取 $\overline{y}$ 的一个平展邻域 $(V, \overline{v})$。于是茎
+$(f_*\mathcal{F})_{\overline{y}}$ 就是 $f_*\mathcal{F}|_V$ 在
+$\overline{v}$ 处的茎。由“代数空间的性质”引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change}，
+可以用 $V$ 代替 $Y$，并用 $X \times_Y V$ 代替 $X$。
+% P09-ERR-0001: frozen source literally has Z -> X here; see corrections.md.
+于是 $Z \to X$ 是概形之间的有限态射，而所需结论就是“平展上同调”命题
+\ref{etale-cohomology-proposition-finite-higher-direct-image-zero}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-finite-rings}
+设 $S$ 为概形，$\pi : X \to Y$ 为 $S$ 上代数空间的有限态射。设
+$\mathcal{A}$ 是 $X_\etale$ 上的环层，$\mathcal{B}$ 是 $Y_\etale$ 上的环层，
+并设 $\varphi : \mathcal{B} \to \pi_*\mathcal{A}$ 为环层同态，从而得到
+带环拓扑斯的态射
+$$
+f = (\pi, \varphi) :
+(\Sh(X_\etale), \mathcal{A})
+\longrightarrow
+(\Sh(Y_\etale), \mathcal{B}).
+$$
+若 $\mathcal{F}$ 是 $\mathcal{A}$-模层，$\mathcal{G}$ 是 $\mathcal{B}$-模层，
+则典范映射
+$$
+\mathcal{G} \otimes_\mathcal{B} f_*\mathcal{F}
+\longrightarrow
+f_*(f^*\mathcal{G} \otimes_\mathcal{A} \mathcal{F}).
+$$
+是同构。
+\end{lemma}
+
+\begin{proof}
+这个映射是下列映射的伴随映射：
+$$
+f^*\mathcal{G} \otimes_\mathcal{A}
+f^* f_*\mathcal{F} =
+f^*(\mathcal{G} \otimes_\mathcal{B} f_*\mathcal{F})
+\longrightarrow
+f^*\mathcal{G} \otimes_\mathcal{A} \mathcal{F}
+$$
+它由 $\text{id} : f^*\mathcal{G} \to f^*\mathcal{G}$ 和伴随映射
+$f^* f_*\mathcal{F} \to \mathcal{F}$ 给出。要证明它是同构，只需在茎上检验
+（见“代数空间的性质”定理
+\ref{spaces-properties-theorem-exactness-stalks}）。设 $\overline{y}$ 为 $Y$
+的几何点，$\overline{x}_1, \ldots, \overline{x}_n$ 为位于
+$\overline{y}$ 上方的 $X$ 的几何点。把这些映射在茎上的作用写出后，只需证明
+$$
+\mathcal{G}_{\overline{y}}
+\otimes_{\mathcal{B}_{\overline{y}}}
+\left(
+\bigoplus\nolimits_{i = 1, \ldots, n} \mathcal{F}_{\overline{x}_i}
+\right) =
+\bigoplus\nolimits_{i = 1, \ldots, n}
+% P09-ERR-0002: frozen source literally has B_{xbar}; see corrections.md.
+(\mathcal{G}_{\overline{y}}
+\otimes_{\mathcal{B}_{\overline{x}}}
+\mathcal{A}_{\overline{x}_i}) \otimes_{\mathcal{A}_{\overline{x}_i}}
+\mathcal{F}_{\overline{x}_i}
+$$
+确实成立。这里使用了张量积与取茎可交换，以及“代数空间的性质”引理
+\ref{spaces-properties-lemma-stalk-pullback} 所述拉回下茎的行为；还使用了
+% P09-ERR-0003: frozen source says closed immersion; see corrections.md.
+引理 \ref{spaces-cohomology-lemma-stalk-push-finite} 所述沿闭浸入作正像时茎的行为。
+\end{proof}
+
+\noindent
+最后给出一个对有限态射而言极其一般的投影公式。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-projection-formula-finite}
+沿用引理 \ref{spaces-cohomology-lemma-finite-rings} 中的
+$S$、$X$、$Y$、$\pi$、$\mathcal{A}$、$\mathcal{B}$、$\varphi$ 和 $f$，则
+$$
+K \otimes_\mathcal{B}^\mathbf{L} Rf_*M =
+Rf_*(Lf^*K \otimes_\mathcal{A}^\mathbf{L} M)
+$$
+对任意 $K \in D(\mathcal{B})$ 和 $M \in D(\mathcal{A})$，上述等式在
+$D(\mathcal{B})$ 中成立。
+\end{lemma}
+
+\begin{proof}
+由于 $f_*$ 正合（引理 \ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}），
+对任意代表复形逐项应用 $f_*$ 即可计算函子 $Rf_*$。选取一个代表 $K$ 的
+$\mathcal{B}$-模复形 $\mathcal{K}^\bullet$，使其 K-平坦且各项平坦；见
+“位点上的上同调”引理 \ref{sites-cohomology-lemma-K-flat-resolution}。
+于是 $f^*\mathcal{K}^\bullet$ 也 K-平坦且各项平坦；见“位点上的上同调”引理
+\ref{sites-cohomology-lemma-pullback-K-flat}。任取一个代表 $M$ 的
+$\mathcal{A}$-模复形 $\mathcal{M}^\bullet$。现在只需证明
+$$
+\text{Tot}(\mathcal{K}^\bullet \otimes_\mathcal{B} f_*\mathcal{M}^\bullet)
+=
+f_*\text{Tot}(f^*\mathcal{K}^\bullet \otimes_\mathcal{A} \mathcal{M}^\bullet)
+$$
+因为按照上述选择，这两个复形分别代表引理中公式的右端和左端。
+又因为 $f_*$ 与直和可交换（例如由引理
+\ref{spaces-cohomology-lemma-stalk-push-finite} 中对茎的描述可知），问题归结为等式
+$$
+\mathcal{K}^n \otimes_\mathcal{B} f_*\mathcal{M}^m
+=
+f_*(f^*\mathcal{K}^n \otimes_\mathcal{A} \mathcal{M}^m)
+$$
+而这些等式由引理 \ref{spaces-cohomology-lemma-finite-rings} 成立。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{余极限与上同调}
+\label{spaces-cohomology-section-colimits}
+
+\noindent
+下面的引理特别适用于拟凝聚层的图式。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-colimits}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。若 $X$ 拟紧且拟分离，则
+$$
+\colim_i H^p(X, \mathcal{F}_i)
+\longrightarrow
+H^p(X, \colim_i \mathcal{F}_i)
+$$
+对 $X_\etale$ 上阿贝尔层的每个滤过图式都是同构。
+\end{lemma}
+
+\begin{proof}
+这由“位点上的上同调”引理
+\ref{sites-cohomology-lemma-colim-works-over-collection} 得到。具体而言，
+令 $\mathcal{B} \subset \Ob(X_{spaces, \etale})$ 为所有在 $X$ 上平展、
+拟紧且拟分离的空间组成的集合。注意，若 $U \in \mathcal{B}$，则由于 $U$
+拟紧，由 $U_i \in \mathcal{B}$ 构成的有限覆盖 $\{U_i \to U\}$ 的全体，
+在 $X_{spaces, \etale}$ 中 $U$ 的所有覆盖组成的集合里是共尾的。由
+“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}，
+集合 $\mathcal{B}$ 满足“位点上的上同调”引理
+\ref{sites-cohomology-lemma-colim-works-over-collection} 的全部假设。
+因为 $X \in \mathcal{B}$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-colimit-cohomology}
+\begin{slogan}
+拟紧拟分离态射的高阶正像与层的滤过余极限可交换。
+\end{slogan}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的拟紧拟分离态射。设
+$\mathcal{F} = \colim \mathcal{F}_i$ 是 $X_\etale$ 上阿贝尔层的滤过余极限。
+则对任意 $p \geq 0$，有
+$$
+R^pf_*\mathcal{F} = \colim R^pf_*\mathcal{F}_i.
+$$
+\end{lemma}
+
+\begin{proof}
+我们要用到如下事实：拓扑斯态射 $f_{small} : X_{small} \to Y_{small}$
+来自位点态射
+$f_{spaces, \etale} : X_{spaces, \etale} \to Y_{spaces, \etale}$
+它对应于连续函子 $V \longmapsto X \times_Y V$；见“代数空间的性质”引理
+\ref{spaces-properties-lemma-functoriality-etale-site}。我们将对这个位点态射
+应用“位点上的上同调”引理
+\ref{sites-cohomology-lemma-higher-direct-image-colimit}。由于
+$Y_{spaces, \etale}$ 的每个对象都有一个由仿射对象组成的覆盖，只需证明：
+当 $V$ 仿射且在 $Y$ 上平展时，有
+$H^p(X \times_Y V, \mathcal{F}) = \colim H^p(X \times_Y V, \mathcal{F}_i)$.
+由于 $V$ 仿射，代数空间 $X \times_Y V$ 拟紧且拟分离。因此应用引理
+\ref{spaces-cohomology-lemma-colimits} 即得结论。
+\end{proof}
+
+\noindent
+下面的引理说明，有限表示模在拟紧拟分离代数空间上具有预期的性质。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-finite-presentation-quasi-compact-colimit}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧拟分离的代数空间。设 $I$ 为有向集，
+$(\mathcal{F}_i, \varphi_{ii'})$ 为由 $I$ 索引的 $\mathcal{O}_X$-模系统，
+并设 $\mathcal{G}$ 为有限表示的 $\mathcal{O}_X$-模。则
+$$
+\colim_i \Hom_X(\mathcal{G}, \mathcal{F}_i)
+=
+\Hom_X(\mathcal{G}, \colim_i \mathcal{F}_i).
+$$
+特别地，$\Hom_X(\mathcal{G}, -)$ 在 $\QCoh(\mathcal{O}_X)$ 中与滤过余极限可交换。
+\end{lemma}
+
+\begin{proof}
+所示等式是“位点上的模”引理
+\ref{sites-modules-lemma-finite-presentation-quasi-compact-colimit}
+的一个特例。为应用该引理，需要对位点 $X_\etale$ 验证“位点”引理
+\ref{sites-lemma-directed-colimits-global-sections} 第 (4) 部分的假设。
+为此，我们验证“位点”注记 \ref{sites-remark-stronger-conditions}
+中的假设 (2)(a)、(2)(b)、(2)(c)。令
+$\mathcal{B} \subset \Ob(X_\etale)$ 为仿射对象的集合，则：
+\begin{enumerate}
+\item 由于 $X$ 拟紧，存在 $U \in \mathcal{B}$，使 $U \to X$ 为满射
+（见“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}），
+所以 $h_U^\# \to *$ 为满射。
+\item 对 $U \in \mathcal{B}$，$U$ 的每个平展覆盖
+$\{U_i \to U\}_{i \in I}$ 都可由一个有限平展覆盖
+$\{U_j \to U\}_{j = 1, \ldots, m}$ 加细，其中 $U_j \in \mathcal{B}$
+（见“拓扑”引理 \ref{topologies-lemma-etale-affine}）。
+\item 对 $U, U' \in \Ob(X_\etale)$，有
+$h_U^\# \times h_{U'}^\# = h_{U \times_X U'}^\#$.
+若 $U, U' \in \mathcal{B}$，则因为 $X$ 拟分离，$U \times_X U'$ 拟紧；
+例如见“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}。
+因此可找到平展满态射 $U'' \to U \times_X U'$，其中
+$U'' \in \mathcal{B}$（见“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。换言之，存在态射
+$U'' \to U$ 和 $U'' \to U'$，使得
+% P09-ERR-0004: frozen source literally has lower-case u'; see corrections.md.
+$h_{U''}^\# \to h_U^\# \times h_{u'}^\#$ 为满射。
+\end{enumerate}
+关于最后一个断言，注意包含函子
+$\QCoh(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$ 与余极限可交换，
+且有限表示模拟凝聚。参见“代数空间的性质”引理
+\ref{spaces-properties-lemma-properties-quasi-coherent}。
+\end{proof}
+
+
+
+
+
+\section{交错 {\v C}ech 复形}
+\label{spaces-cohomology-section-alternating-cech}
+
+\noindent
+设 $S$ 为概形，$f : U \to X$ 为 $S$ 上代数空间的平展态射。函子
+$$
+j : U_{spaces, \etale} \longrightarrow X_{spaces, \etale},\quad
+V/U \longmapsto V/X
+$$
+诱导出 $U_{spaces, \etale}$ 与局部化 $X_{spaces, \etale}/U$ 之间的等价；
+见“代数空间的性质”第 \ref{spaces-properties-section-localize} 节。因此存在函子
+$$
+f_! : \textit{Ab}(U_\etale) \longrightarrow
+\textit{Ab}(X_\etale),\quad
+f_! : \textit{Mod}(\mathcal{O}_U) \longrightarrow \textit{Mod}(\mathcal{O}_X),
+$$
+它们分别左伴随于
+$$
+f^{-1} : \textit{Ab}(X_\etale) \longrightarrow
+\textit{Ab}(U_\etale),\quad
+f^* : \textit{Mod}(\mathcal{O}_X) \longrightarrow \textit{Mod}(\mathcal{O}_U)
+$$
+见“位点上的模”第 \ref{sites-modules-section-localize} 节。
+注意：先验地说，这个函子与紧支撑上同调毫无关系！在上述文献中，
+我们把它称为“零延拓”函子。还要注意，对 $\mathcal{O}_X$-模层有
+$f^* = f^{-1}$，所以 $f_!$ 的两个版本彼此一致。
+
+\medskip\noindent
+下面会用到这个构造，先回顾它的若干性质。给定 $U_\etale$ 上的阿贝尔层
+$\mathcal{G}$，
+% P09-ERR-0005: frozen source literally omits G after f_!; see ERRATA_CANDIDATES.jsonl.
+层 $f_!$ 是下列预层的层化：
+$$
+V/X \longmapsto
+f_!\mathcal{G}(V) =
+\bigoplus\nolimits_{\varphi \in \Mor_X(V, U)}
+\mathcal{G}(V \xrightarrow{\varphi} U),
+$$
+见“位点上的模”引理 \ref{sites-modules-lemma-extension-by-zero}。
+此外，若 $\mathcal{G}$ 是 $\mathcal{O}_U$-模，则 $f_!\mathcal{G}$ 是同一个
+阿贝尔群预层的层化，而该预层以显然的方式带有 $\mathcal{O}_X$-模结构
+（见同处）。设 $\overline{x} : \Spec(k) \to X$ 为几何点，则有典范等同
+$$
+(f_!\mathcal{G})_{\overline{x}} =
+\bigoplus\nolimits_{\overline{u}} \mathcal{G}_{\overline{u}}
+$$
+其中直和遍历所有满足 $f \circ \overline{u} = \overline{x}$ 的
+$\overline{u} : \Spec(k) \to U$；见“位点上的模”引理
+\ref{sites-modules-lemma-stalk-j-shriek} 和“代数空间的性质”引理
+\ref{spaces-properties-lemma-points-small-etale-site}。下文将研究层
+$f_!\underline{\mathbf{Z}}$。这里 $\underline{\mathbf{Z}}$ 表示
+$X_\etale$ 或 $U_\etale$ 上的常值层。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-product-is-tensor-product}
+设 $S$ 为概形，$f_i : U_i \to X$ 为 $S$ 上代数空间的平展态射。则有同构
+$$
+f_{1, !}\underline{\mathbf{Z}} \otimes_{\mathbf{Z}}
+f_{2, !}\underline{\mathbf{Z}}
+\longrightarrow
+f_{12, !}\underline{\mathbf{Z}}
+$$
+其中 $f_{12} : U_1 \times_X U_2 \to X$ 是结构态射；并且有
+$$
+(f_1 \amalg f_2)_! \underline{\mathbf{Z}}
+\longrightarrow
+f_{1, !}\underline{\mathbf{Z}} \oplus
+f_{2, !}\underline{\mathbf{Z}}
+$$
+\end{lemma}
+
+\begin{proof}
+一旦定义了这个映射，由上面对茎的描述可知它是同构。定义该映射时，
+只需在预层层次上工作。因此需要定义映射
+$$
+\left(\bigoplus\nolimits_{\varphi_1 \in \Mor_X(V, U_1)} \mathbf{Z}\right)
+\otimes_{\mathbf{Z}}
+\left(\bigoplus\nolimits_{\varphi_2 \in \Mor_X(V, U_2)} \mathbf{Z}\right)
+\longrightarrow
+\bigoplus\nolimits_{\varphi \in \Mor_X(V, U_1 \times_X U_2)}
+\mathbf{Z}
+$$
+使用显然的记号，把元素 $1_{\varphi_1} \otimes 1_{\varphi_2}$ 映到元素
+$1_{\varphi_1 \times \varphi_2}$。第二个等式的证明从略。
+\end{proof}
+
+\noindent
+另一个重要性质是迹映射
+$$
+\text{Tr}_f : f_!\underline{\mathbf{Z}} \longrightarrow \underline{\mathbf{Z}}.
+$$
+迹映射伴随于映射 $\mathbf{Z} \to f^{-1}\underline{\mathbf{Z}}$
+（后者是同构）。若 $\overline{x}$ 如上，则 $\text{Tr}_f$ 在
+$\overline{x}$ 处的茎上是映射
+$$
+(\text{Tr}_f)_{\overline{x}} :
+(f_!\underline{\mathbf{Z}})_{\overline{x}} =
+\bigoplus\nolimits_{\overline{u}} \mathbf{Z}
+\longrightarrow
+\mathbf{Z} = \underline{\mathbf{Z}}_{\overline{x}}
+$$
+它把给定的整数相加。这是因为它伴随于映射
+$1 : \mathbf{Z} \to f^{-1}\underline{\mathbf{Z}}$。特别地，若 $f$ 既平展又
+为满射，则 $\text{Tr}_f$ 也是满射。
+
+\medskip\noindent
+假设 $f : U \to X$ 是代数空间的平展满态射。考虑与上述迹映射相伴的
+{\it Koszul 复形}
+$$
+\ldots \to \wedge^3f_!\underline{\mathbf{Z}} \to
+\wedge^2f_!\underline{\mathbf{Z}} \to f_!\underline{\mathbf{Z}} \to
+\underline{\mathbf{Z}} \to 0
+$$
+这里的外幂取在环层 $\underline{\mathbf{Z}}$ 上。映射由规则
+$$
+e_1 \wedge \ldots \wedge e_n \longmapsto
+\sum\nolimits_{i = 1, \ldots, n} (-1)^{i + 1}
+\text{Tr}_f(e_i)
+e_1 \wedge \ldots \wedge \widehat{e_i} \wedge \ldots \wedge e_n
+$$
+定义，其中 $e_1, \ldots, e_n$ 是 $f_!\underline{\mathbf{Z}}$ 的局部截面。
+设 $\overline{x}$ 为 $X$ 的几何点，并令
+$M_{\overline{x}} = (f_!\underline{\mathbf{Z}})_{\overline{x}} =
+\bigoplus_{\overline{u}} \mathbf{Z}$。则上述复形在 $\overline{x}$ 处的茎为复形
+$$
+\ldots \to \wedge^3 M_{\overline{x}} \to \wedge^2 M_{\overline{x}}
+\to M_{\overline{x}} \to \mathbf{Z} \to 0
+$$
+它是正合的，因为 $M_{\overline{x}} \to \mathbf{Z}$ 为满射；见
+“关于代数的更多内容”引理
+\ref{more-algebra-lemma-homotopy-koszul-abstract}。因此，若以
+$K^\bullet = K^\bullet(f)$ 表示满足
+$K^i = \wedge^{i + 1}f_!\underline{\mathbf{Z}}$ 的复形，就得到拟同构
+\begin{equation}
+\label{spaces-cohomology-equation-quasi-isomorphism}
+K^\bullet \longrightarrow \underline{\mathbf{Z}}[0]
+\end{equation}
+我们用复形 $K^\bullet$ 定义与 $f : U \to X$ 相伴的所谓交错 {\v C}ech 复形。
+
+\begin{definition}
+\label{spaces-cohomology-definition-alternating-cech-complex}
+设 $S$ 为概形，$f : U \to X$ 为 $S$ 上代数空间的平展满态射，并设
+$\mathcal{F}$ 为 $\textit{Ab}(X_\etale)$ 的对象。与 $\mathcal{F}$ 和 $f$
+相伴的{\it 交错 {\v C}ech 复形}\footnote{这可能不是标准记号}
+$\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F})$ 是复形
+$$
+\Hom(K^0, \mathcal{F}) \to \Hom(K^1, \mathcal{F}) \to
+\Hom(K^2, \mathcal{F}) \to \ldots
+$$
+其中 Hom 群在 $\textit{Ab}(X_\etale)$ 中计算。
+\end{definition}
+
+\noindent
+读者可以验证：若 $U = \coprod U_i$，且 $f|_{U_i} : U_i \to X$ 是某个子空间
+的开浸入，则 $\check{\mathcal{C}}_{alt}^\bullet(f, \mathcal{F})$ 与“上同调”
+第 \ref{cohomology-section-alternating-cech} 节针对 Zariski 覆盖
+$X = \bigcup U_i$ 及 $\mathcal{F}$ 在 $X$ 的 Zariski 位点上的限制所引入的
+复形一致。不过更重要的是，把交错 {\v C}ech 复形的上同调与层上同调联系起来。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-alternating-cech-to-cohomology}
+设 $S$ 为概形，$f : U \to X$ 为 $S$ 上代数空间的平展满态射，并设
+$\mathcal{F}$ 为 $\textit{Ab}(X_\etale)$ 的对象。则在 $D(\textit{Ab})$ 中
+存在典范映射
+$$
+\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F})
+\longrightarrow
+R\Gamma(X, \mathcal{F})
+$$
+此外，存在一个 $E_1$ 页为
+$$
+E_1^{p, q} =
+\Ext_{\textit{Ab}(X_\etale)}^q(K^p, \mathcal{F})
+$$
+的谱序列，它收敛到 $H^{p + q}(X, \mathcal{F})$，其中
+$K^p = \wedge^{p + 1}f_!\underline{\mathbf{Z}}$。
+\end{lemma}
+
+\begin{proof}
+回顾拟同构 $K^\bullet \to \underline{\mathbf{Z}}[0]$，见
+(\ref{spaces-cohomology-equation-quasi-isomorphism})。在 $\textit{Ab}(X_\etale)$ 中选取单射
+消解 $\mathcal{F} \to \mathcal{I}^\bullet$。考虑二重复形
+$\Hom(K^\bullet, \mathcal{I}^\bullet)$，其项为
+$\Hom(K^p, \mathcal{I}^q)$。微分
+$d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$
+来自微分 $K^{p + 1} \to K^p$，而微分
+$d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ 来自微分
+$\mathcal{I}^q \to \mathcal{I}^{q + 1}$。以
+$\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))$ 表示相应的全复形；见
+“同调代数”第 \ref{homology-section-double-complexes} 节。我们将使用与这个
+二重复形相伴的两个谱序列 $({}'E_r, {}'d_r)$ 和 $({}''E_r, {}''d_r)$；见
+“同调代数”第 \ref{homology-section-double-complex} 节。
+
+\medskip\noindent
+因为 $K^\bullet$ 是 $\underline{\mathbf{Z}}$ 的消解，复形
+$$
+\Hom(K^\bullet, \mathcal{I}^q) :
+\Hom(K^0, \mathcal{I}^q) \to
+\Hom(K^1, \mathcal{I}^q) \to
+\Hom(K^2, \mathcal{I}^q) \to \ldots
+$$
+在正次数上无上同调，并且其 $H^0$ 等于 $\Gamma(X, \mathcal{I}^q)$。
+因此由“同调代数”引理
+\ref{homology-lemma-double-complex-gives-resolution}，自然映射
+$$
+\mathcal{I}^\bullet(X) \longrightarrow
+\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))
+$$
+是阿贝尔群复形的拟同构。特别地，有
+$H^n(\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))) = H^n(X, \mathcal{F})$.
+
+\medskip\noindent
+本引理中的映射 $\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F}) \to
+R\Gamma(X, \mathcal{F})$，是映射
+$\check{\mathcal{C}}^\bullet_{alt}(f, \mathcal{F}) \to
+\text{Tot}(\Hom(K^\bullet, \mathcal{I}^\bullet))$ 与上述拟同构之逆的复合。
+
+\medskip\noindent
+最后考虑谱序列 $({}'E_r, {}'d_r)$。有
+$$
+E_1^{p, q} = q\text{次上同调，属于 }
+\Hom(K^p, \mathcal{I}^0) \to
+\Hom(K^p, \mathcal{I}^1) \to
+\Hom(K^p, \mathcal{I}^2) \to \ldots
+$$
+这就证明了引理。
+\end{proof}
+
+\noindent
+由该引理可见，理解 Ext 群
+$\Ext_{\textit{Ab}(X_\etale)}(K^p, \mathcal{F})$ 很重要；也就是说，
+要理解函子 $\mathcal{F} \mapsto \Hom(K^p, \mathcal{F})$ 的右导出函子。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-compute}
+设 $S$ 为概形，$f : U \to X$ 为 $S$ 上代数空间的满、平展且分离的态射。
+对 $p \geq 0$，令
+$$
+W_p = U \times_X \ldots \times_X U \setminus \text{所有对角线}
+$$
+其中纤维积有 $p + 1$ 个因子。在 $X$ 上，$S_{p + 1}$ 自由作用于 $W_p$，并且
+$$
+\Hom(K^p, \mathcal{F}) = S_{p + 1}\text{-反不变元，属于 }
+\mathcal{F}(W_p)
+$$
+这一等式关于 $\mathcal{F}$ 函子性地成立，其中
+$K^p = \wedge^{p + 1}f_!\underline{\mathbf{Z}}$。
+\end{lemma}
+
+\begin{proof}
+因为 $U \to X$ 分离，对角态射 $U \to U \times_X U$ 是闭浸入。又因为
+$U \to X$ 平展，该对角态射也是开浸入；见“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-etale-unramified} 和
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}。因此 $W_p$ 是
+$U^{p + 1} = U \times_X \ldots \times_X U$ 的既开又闭子空间。我们已经删去
+这个作用的所有不动点，所以 $S_{p + 1}$ 在 $W_p$ 上的作用是自由的。
+由引理 \ref{spaces-cohomology-lemma-product-is-tensor-product}，有
+$$
+(f_!\underline{\mathbf{Z}})^{\otimes p + 1} =
+f^{p + 1}_!\underline{\mathbf{Z}} = (W_p \to X)_!\underline{\mathbf{Z}}
+\oplus Rest
+$$
+其中 $f^{p + 1} : U^{p + 1} \to X$ 是结构态射。考察 $X$ 的几何点
+$\overline{x}$ 上方的茎，可见
+$$
+\left(
+\bigoplus\nolimits_{\overline{u} \mapsto \overline{x}} \mathbf{Z}
+\right)^{\otimes p + 1}
+\longrightarrow
+(W_p \to X)_!\underline{\mathbf{Z}}_{\overline{x}}
+$$
+是一个商映射，其核由所有满足某个 $i \not = j$ 时
+$\overline{u}_i = \overline{u}_j$ 的张量
+$1_{\overline{u}_0} \otimes \ldots \otimes 1_{\overline{u}_p}$ 生成。
+因此商映射
+$$
+(f_!\underline{\mathbf{Z}})^{\otimes p + 1}
+\longrightarrow
+\wedge^{p + 1}f_!\underline{\mathbf{Z}}
+$$
+经由 $(W_p \to X)_!\underline{\mathbf{Z}}$ 分解；也就是说，得到
+$$
+(f_!\underline{\mathbf{Z}})^{\otimes p + 1}
+\longrightarrow
+(W_p \to X)_!\underline{\mathbf{Z}}
+\longrightarrow
+\wedge^{p + 1}f_!\underline{\mathbf{Z}}
+$$
+这已经证明 $\Hom(K^p, \mathcal{F})$ 函子性地是下列群的子群：
+$$
+\Hom((W_p \to X)_!\underline{\mathbf{Z}}, \mathcal{F}) = \mathcal{F}(W_p)
+$$
+要把它认作 $S_{p + 1}$-反不变元，需要证明满射
+$(W_p \to X)_!\underline{\mathbf{Z}}
+\to \wedge^{p + 1}f_!\underline{\mathbf{Z}}$ 给出最大的
+$S_{p + 1}$-反不变商。换言之，需要证明
+$\wedge^{p + 1}f_!\underline{\mathbf{Z}}$ 是
+$(W_p \to X)_!\underline{\mathbf{Z}}$ 对下述子层的商：该子层由局部截面
+$s - \text{符号}(\sigma)\sigma(s)$ 生成，其中 $s$ 是
+$(W_p \to X)_!\underline{\mathbf{Z}}$ 的局部截面。这可以在茎上检验，
+而在茎上结论显然。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-twist}
+设 $S$ 为概形，$W$ 为 $S$ 上的代数空间，并设有限群 $G$ 自由作用于 $W$。
+令 $U = W/G$，见“代数空间的性质”引理
+\ref{spaces-properties-lemma-quotient}。设
+$\chi : G \to \{+1, -1\}$ 为特征标。则 $U_\etale$ 上存在秩为 $1$ 的局部自由
+$\mathbf{Z}$-模层 $\underline{\mathbf{Z}}(\chi)$，使得对 $U_\etale$ 上任意
+阿贝尔层 $\mathcal{F}$ 都有
+$$
+H^0(W, \mathcal{F}|_W)^\chi =
+H^0(U, \mathcal{F} \otimes_{\mathbf{Z}} \underline{\mathbf{Z}}(\chi))
+$$
+\end{lemma}
+
+\begin{proof}
+商态射 $q : W \to U$ 是 $G$-挠子；也就是说，存在平展满态射 $U' \to U$，
+使得作为 $U'$ 上带 $G$-作用的空间，有
+$W \times_U U' = \coprod_{g \in G} U'$（取 $U' = W$ 即可）。因此
+$q_*\underline{\mathbf{Z}}$ 是带 $G$-作用的有限局部自由 $\mathbf{Z}$-模。
+对 $U$ 的任意几何点 $\overline{u}$，得到 $G$-等变同构
+$$
+(q_*\underline{\mathbf{Z}})_{\overline{u}}
+= \bigoplus\nolimits_{\overline{w} \mapsto \overline{u}} \mathbf{Z}
+= \bigoplus\nolimits_{g \in G} \mathbf{Z} = \mathbf{Z}[G]
+$$
+第二个等号用到位于 $\overline{u}$ 上方的一个几何点 $\overline{w}_0$，
+它把对应于 $g \in G$ 的直和项映到对应于 $g(\overline{w}_0)$ 的直和项。有
+$$
+H^0(W, \mathcal{F}|_W) =
+H^0(U, \mathcal{F} \otimes_\mathbf{Z} q_*\underline{\mathbf{Z}})
+$$
+这是因为
+$q_*\mathcal{F}|_W = \mathcal{F} \otimes_\mathbf{Z} q_*\underline{\mathbf{Z}}$；
+限制到 $U'$ 后即可检验。令
+$$
+\underline{\mathbf{Z}}(\chi) =
+(q_*\underline{\mathbf{Z}})^\chi \subset
+q_*\underline{\mathbf{Z}}
+$$
+为按 $\chi$ 变换的截面所成的子层。对 $U$ 的任意几何点 $\overline{u}$，有
+$$
+\underline{\mathbf{Z}}(\chi)_{\overline{u}} =
+\mathbf{Z} \cdot \sum\nolimits_g \chi(g) g
+\subset
+\mathbf{Z}[G] = (q_*\underline{\mathbf{Z}})_{\overline{u}}
+$$
+由此可知 $\underline{\mathbf{Z}}(\chi)$ 是秩为 $1$ 的局部自由层
+（更确切地说，应限制到 $U'$ 后检验）。注意，对任意 $\mathbf{Z}$-模 $M$，
+$M[G]$ 的 $\chi$-半不变元恰为形如
+$m \cdot \sum\nolimits_g \chi(g) g$ 的元素。因此，对 $U$ 上任意阿贝尔层
+$\mathcal{F}$，有
+$$
+\left(\mathcal{F} \otimes_\mathbf{Z} q_*\underline{\mathbf{Z}}\right)^\chi
+=
+\mathcal{F} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi)
+$$
+因为该等式在所有茎上成立。取整体截面即得引理结论。
+\end{proof}
+
+\noindent
+现在把上述结果汇集起来，得到下面这个优美的结论。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-alternating-spectral-sequence}
+设 $S$ 为概形，$f : U \to X$ 为 $S$ 上代数空间的满、平展且分离的态射。
+对 $p \geq 0$，令
+$$
+W_p = U \times_X \ldots \times_X U \setminus \text{所有对角线}
+$$
+如引理 \ref{spaces-cohomology-lemma-compute}，其中有 $p + 1$ 个因子。设
+$\chi_p : S_{p + 1} \to \{+1, -1\}$ 为符号特征标，并令
+$U_p = W_p/S_{p + 1}$；$\underline{\mathbf{Z}}(\chi_p)$ 的含义同引理
+\ref{spaces-cohomology-lemma-twist}。则引理 \ref{spaces-cohomology-lemma-alternating-cech-to-cohomology}
+中的谱序列，其 $E_1$ 页为
+$$
+E_1^{p, q} =
+H^q(U_p, \mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+$$
+并收敛到 $H^{p + q}(X, \mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+注意，$S_{p + 1}$ 在 $W_p$ 上的作用是 $X$ 上的作用，所以确实得到态射
+$U_p \to X$。由于 $W_p \to X$ 平展，且 $W_p \to U_p$ 是平展满态射，
+$U_p \to X$ 也平展；见“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-etale-local}。因此
+$\textit{Ab}(X_\etale)$ 的单射对象限制为
+$\textit{Ab}(U_{p, \etale})$ 的单射对象；见“位点上的上同调”引理
+\ref{sites-cohomology-lemma-cohomology-of-open}。此外，函子
+$\mathcal{G} \mapsto
+% P09-ERR-0006: frozen source has an extra closing parenthesis; see ERRATA_CANDIDATES.jsonl.
+\mathcal{G} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+% P09-ERR-0007: frozen source writes Ab(U_p), unlike the surrounding etale categories.
+是 $\textit{Ab}(U_p)$ 的自等价，因而把单射对象变为单射对象，并且是正合的
+（因为 $\underline{\mathbf{Z}}(\chi_p)$ 是可逆
+$\underline{\mathbf{Z}}$-模）。因此，给定 $\textit{Ab}(X_\etale)$ 中的单射
+消解 $\mathcal{F} \to \mathcal{I}^\bullet$，复形
+$$
+\Gamma(U_p,
+\mathcal{I}^0|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\to
+\Gamma(U_p,
+\mathcal{I}^1|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\to
+\Gamma(U_p,
+\mathcal{I}^2|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\to \ldots
+$$
+计算
+$H^*(U_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$.
+另一方面，由引理 \ref{spaces-cohomology-lemma-twist}，它等于下列复形中
+$S_{p + 1}$-反不变元所成的复形：
+$$
+\Gamma(W_p, \mathcal{I}^0) \to
+\Gamma(W_p, \mathcal{I}^1) \to
+\Gamma(W_p, \mathcal{I}^2) \to \ldots
+$$
+由引理 \ref{spaces-cohomology-lemma-compute}，后者又等于复形
+$$
+\Hom(K^p, \mathcal{I}^0) \to
+\Hom(K^p, \mathcal{I}^1) \to
+\Hom(K^p, \mathcal{I}^2) \to \ldots
+$$
+它计算
+$\Ext^*_{\textit{Ab}(X_\etale)}(K^p, \mathcal{F})$.
+汇总以上各点即得结论。
+\end{proof}
+
+
+
+
+
+\section{拟凝聚层的高阶消失性}
+\label{spaces-cohomology-section-higher-vanishing}
+
+\noindent
+本节证明：给定拟紧拟分离代数空间 $X$，存在整数 $n = n(X)$，使得 $X$ 上
+任意拟凝聚层的上同调在次数超过 $n$ 时消失。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-quasi-coherent-twist}
+沿用引理 \ref{spaces-cohomology-lemma-twist} 中的 $S$、$W$、$G$、$U$、$\chi$。
+若 $\mathcal{F}$ 是拟凝聚 $\mathcal{O}_U$-模，则
+$\mathcal{F} \otimes_{\mathbf{Z}} \underline{\mathbf{Z}}(\chi)$ 也是。
+\end{lemma}
+
+\begin{proof}
+$\mathcal{O}_U$-模结构是显然的。要检验
+$\mathcal{F} \otimes_{\mathbf{Z}} \underline{\mathbf{Z}}(\chi)$ 拟凝聚，
+只需平展局部地检验。由于 $\underline{\mathbf{Z}}(\chi)$ 作为
+$\underline{\mathbf{Z}}$-模是有限局部自由的，引理随即成立。
+\end{proof}
+
+\noindent
+即使 $X$ 是概形，下面的命题也很有意义。它是“概形的上同调”引理
+\ref{coherent-lemma-vanishing-nr-affines} 的自然推广。在陈述之前先注意：
+给定从仿射概形到拟分离代数空间 $X$ 的平展态射 $f : U \to X$，$f$ 的纤维
+普遍有界。特别地，存在整数 $d$，使得 $|U| \to |X|$ 的每个纤维至多有
+$d$ 个点；这就是“合宜代数空间”引理
+\ref{decent-spaces-lemma-bounded-fibres} 中的蕴含
+$(\eta) \Rightarrow (\delta)$。
+
+\begin{proposition}
+\label{spaces-cohomology-proposition-vanishing}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧且分离的代数空间。设 $U$ 为仿射概形，
+$f : U \to X$ 为平展满态射，并设 $d$ 是 $|U| \to |X|$ 各纤维大小的上界。
+则对任意拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，当 $q \geq d$ 时有
+$H^q(X, \mathcal{F}) = 0$。
+\end{proposition}
+
+\begin{proof}
+使用引理 \ref{spaces-cohomology-lemma-alternating-spectral-sequence} 的谱序列。由于 $U$ 分离，
+$f$ 也分离，所以该引理适用；见“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-compose-after-separated}。因为 $X$ 分离，概形
+$U \times_X \ldots \times_X U$ 是
+$U \times_{\Spec(\mathbf{Z})} \ldots \times_{\Spec(\mathbf{Z})} U$ 的闭子概形，
+因而仿射。所以 $W_p$ 仿射。进而由“群胚”命题
+\ref{groupoids-proposition-finite-flat-equivalence}，
+$U_p = W_p/S_{p + 1}$ 是仿射概形。
+% P09-ERR-0008: frozen source switches from U_p to W_p in the next three loci.
+第 \ref{spaces-cohomology-section-higher-direct-image} 节的讨论说明，$W_p$ 上拟凝聚层的上同调
+（把 $W_p$ 看作代数空间）与底层仿射概形上相应拟凝聚层的上同调一致；
+所以由“概形的上同调”引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}，它在正次数上消失。
+由引理 \ref{spaces-cohomology-lemma-quasi-coherent-twist}，层
+$\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p)$
+拟凝聚。因此
+$H^q(W_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+在 $q > 0$ 时为零。由整数 $d$ 的定义，当 $p \geq d$ 时
+$W_p = \emptyset$。所以
+$H^0(W_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+在 $p \geq d$ 时也为零。这就证明了命题。
+\end{proof}
+
+\noindent
+下面的引理证明：拟紧拟分离代数空间对于拟凝聚模具有有限上同调维数。
+我们明确写出这个界，只是因为稍后要用它证明高阶正像的类似结果。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-quasi-separated}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧拟分离的代数空间。则可以选取：
+\begin{enumerate}
+\item 一个仿射概形 $U$；
+\item 一个平展满态射 $f : U \to X$；
+\item 一个整数 $d$，它界定 $U \to X$ 各纤维的次数；
+\item 对每个 $p = 0, 1, \ldots, d$，从仿射概形 $V_p$ 出发的平展满态射
+$V_p \to U_p$，其中 $U_p$ 的含义同引理
+\ref{spaces-cohomology-lemma-alternating-spectral-sequence}；以及
+\item 一个整数 $d_p$，它界定 $V_p \to U_p$ 各纤维的次数。
+\end{enumerate}
+此外，只要有 (1)--(5)，则对任意拟凝聚 $\mathcal{O}_X$-模
+$\mathcal{F}$，当 $q \geq \max(d_p + p)$ 时有
+$H^q(X, \mathcal{F}) = 0$。
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 拟紧，可以找到平展满态射 $U \to X$，其中 $U$ 仿射；见
+“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}。由“合宜代数空间”引理
+\ref{decent-spaces-lemma-bounded-fibres}，$f$ 的纤维普遍有界，故可找到 $d$。
+有 $U_p = W_p/S_{p + 1}$，且
+$W_p \subset U \times_X \ldots \times_X U$ 既开又闭。由于 $X$ 拟分离，
+概形 $W_p$ 拟紧，因此 $U_p$ 拟紧。由于 $U$ 分离，概形 $W_p$ 分离，
+所以由“代数空间”引理 \ref{spaces-lemma-quotient-finite-separated}
+的绝对形式，$U_p$ 分离。由“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}，
+% P09-ERR-0009: frozen source says V_p -> W_p, contrary to the lemma statement.
+可以找到态射 $V_p \to W_p$。再由“合宜代数空间”引理
+\ref{decent-spaces-lemma-bounded-fibres}，可以找到各整数 $d_p$。
+
+\medskip\noindent
+此时，证明使用谱序列
+$$
+E_1^{p, q} =
+H^q(U_p, \mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))
+\Rightarrow
+H^{p + q}(X, \mathcal{F})
+$$
+见引理 \ref{spaces-cohomology-lemma-alternating-spectral-sequence}。由整数 $d$ 的定义，
+% P09-ERR-0010: frozen source writes U_p = 0 for a space.
+当 $p \geq d$ 时 $U_p = 0$。由命题 \ref{spaces-cohomology-proposition-vanishing} 和引理
+\ref{spaces-cohomology-lemma-quasi-coherent-twist}，可知
+$H^q(U_p,
+\mathcal{F}|_{U_p} \otimes_\mathbf{Z} \underline{\mathbf{Z}}(\chi_p))$
+当 $p = 0, \ldots, d$ 且 $q \geq d_p$ 时为零。引理随之成立。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{高阶正像的消失性}
+\label{spaces-cohomology-section-vanishing-higher-direct-images}
+
+\noindent
+应用第 \ref{spaces-cohomology-section-higher-vanishing} 节的结果，可得拟紧拟分离态射下
+拟凝聚层高阶正像的消失性。这很有用，因为在某些情形下，它允许我们对上同调
+次数作降归纳。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-higher-direct-images}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设：
+\begin{enumerate}
+\item $f$ 拟紧且拟分离；
+\item $Y$ 拟紧。
+\end{enumerate}
+则存在整数 $n(X \to Y)$，使得对任意代数空间 $Y'$、任意态射
+$Y' \to Y$，以及 $X' = Y' \times_Y X$ 上任意拟凝聚层
+$\mathcal{F}'$，当 $i \geq n(X \to Y)$ 时，高阶正像
+$R^if'_*\mathcal{F}'$ 为零。
+\end{lemma}
+
+\begin{proof}
+取平展满态射 $V \to Y$，其中 $V$ 是仿射概形；见“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}。假设已经对基变换
+$f_V : V \times_Y X \to V$ 证明了结论，那么结论对 $f$ 也成立，并可取
+$n(X \to Y) = n(X_V \to V)$。事实上，若 $Y' \to Y$ 与
+$\mathcal{F}'$ 如引理所述，则 $R^if'_*\mathcal{F}'|_{V \times_Y Y'}$
+等于 $R^if'_{V, *}\mathcal{F}'|_{X'_V}$，其中
+$f'_V : X'_V = V \times_Y Y' \times_Y X \to V \times_Y Y' = Y'_V$；
+见“代数空间的性质”引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}。
+因此可以假设 $Y$ 是仿射概形。
+
+\medskip\noindent
+此外，要对所有 $Y' \to Y$ 与 $\mathcal{F}'$ 证明消失性，只需处理 $Y'$
+为仿射概形的情形。此时由引理 \ref{spaces-cohomology-lemma-higher-direct-image}，
+$R^if'_*\mathcal{F}'$ 拟凝聚。因此只需证明
+$H^i(X', \mathcal{F}') = 0$；因为由“位点上的上同调”引理
+\ref{sites-cohomology-lemma-apply-Leray} 以及仿射代数空间上拟凝聚层高阶
+上同调的消失性（命题 \ref{spaces-cohomology-proposition-vanishing}），有
+$H^i(X', \mathcal{F}') = H^0(Y', R^if'_*\mathcal{F}')$。
+
+\medskip\noindent
+按引理 \ref{spaces-cohomology-lemma-vanishing-quasi-separated} 选取
+$U \to X$、$d$、$V_p \to U_p$ 与 $d_p$。对任意仿射概形 $Y'$ 及态射
+$Y' \to Y$，记
+$X' = Y' \times_Y X$、$U' = Y' \times_Y U$、
+$V'_p = Y' \times_Y V_p$。则
+% P09-ERR-0011: frozen source sets d'_p = d instead of d_p.
+$U' \to X'$、$d' = d$、$V'_p \to U'_p$ 以及 $d'_p = d$，构成代数空间
+$X'$ 的一组如引理 \ref{spaces-cohomology-lemma-vanishing-quasi-separated} 所述的选择
+（细节从略）。所以当 $i \geq \max(p + d_p)$ 时，
+$H^i(X', \mathcal{F}') = 0$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-affine-vanishing-higher-direct-images}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的仿射态射。则对任意拟凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$，当 $i > 0$ 时
+$R^if_*\mathcal{F} = 0$。
+\end{lemma}
+
+\begin{proof}
+回顾代数空间的仿射态射是可表的。因此结论由
+(\ref{spaces-cohomology-equation-representable-higher-direct-image}) 和“概形的上同调”引理
+\ref{coherent-lemma-relative-affine-vanishing} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-relative-affine-cohomology}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的仿射态射，并设
+$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。则对所有 $i \geq 0$，有
+$H^i(X, \mathcal{F}) = H^i(Y, f_*\mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images} 和 Leray 谱序列得到。
+参见“位点上的上同调”引理 \ref{sites-cohomology-lemma-apply-Leray}。
+\end{proof}
+
+
+
+
+
+
+\section{支撑在闭子空间上的上同调}
+\label{spaces-cohomology-section-cohomology-support}
+
+\noindent
+本节是“上同调”第 \ref{cohomology-section-cohomology-support}、
+\ref{cohomology-section-cohomology-support-bis} 节以及“平展上同调”第
+\ref{etale-cohomology-section-cohomology-support} 节针对代数空间上阿贝尔层的
+类似形式。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，$Z \subset X$ 为闭子空间，并设
+$\mathcal{F}$ 为 $X_\etale$ 上的阿贝尔层。令
+$$
+\Gamma_Z(X, \mathcal{F}) =
+\{s \in \mathcal{F}(X) \mid \text{Supp}(s) \subset Z\}
+$$
+为支撑在 $Z$ 中的截面（见“代数空间的性质”定义
+\ref{spaces-properties-definition-support}）。这是一个左正合函子，但一般并不
+正合。因此得到导出函子
+$$
+R\Gamma_Z(X, -) : D(X_\etale) \longrightarrow D(\textit{Ab})
+$$
+并把支撑在 $Z$ 中的上同调群定义为
+$H^q_Z(X, \mathcal{F}) = R^q\Gamma_Z(X, \mathcal{F})$。
+
+\medskip\noindent
+设 $\mathcal{I}$ 为 $X_\etale$ 上的单射阿贝尔层，$U \subset X$ 为 $Z$ 的补
+开子空间。则限制映射 $\mathcal{I}(X) \to \mathcal{I}(U)$ 为满射
+（见“位点上的上同调”引理
+\ref{sites-cohomology-lemma-restriction-along-monomorphism-surjective}），
+其核为 $\Gamma_Z(X, \mathcal{I})$。立即可得：对 $K \in D(X_\etale)$，
+在 $D(\textit{Ab})$ 中有区分三角
+$$
+R\Gamma_Z(X, K) \to R\Gamma(X, K) \to R\Gamma(U, K) \to R\Gamma_Z(X, K)[1]
+$$
+从而得到上同调长正合列
+$$
+\ldots \to H^i_Z(X, K) \to H^i(X, K) \to H^i(U, K) \to
+H^{i + 1}_Z(X, K) \to \ldots
+$$
+其中 $K$ 是 $D(X_\etale)$ 的任意对象。
+
+\medskip\noindent
+对 $X_\etale$ 上的阿贝尔层 $\mathcal{F}$，可以考虑{\it 支撑在 $Z$ 中的截面
+所成的子层}，记为 $\mathcal{H}_Z(\mathcal{F})$，其定义规则为
+$$
+\mathcal{H}_Z(\mathcal{F})(U) =
+\{s \in \mathcal{F}(U) \mid \text{Supp}(s) \subset U \times_X Z\}
+$$
+这里使用“代数空间的性质”定义
+\ref{spaces-properties-definition-support} 中的截面支撑。利用“代数空间的态射”
+引理 \ref{spaces-morphisms-lemma-closed-immersion-push-pull} 的等价，
+可把 $\mathcal{H}_Z(\mathcal{F})$ 看成 $Z_\etale$ 上的阿贝尔层。因此得到函子
+$$
+\textit{Ab}(X_\etale) \longrightarrow \textit{Ab}(Z_\etale),\quad
+\mathcal{F} \longmapsto \mathcal{H}_Z(\mathcal{F})
+$$
+它左正合，但一般并不正合。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-sections-with-support-acyclic}
+设 $S$ 为概形，$i : Z \to X$ 为 $S$ 上代数空间的闭浸入，并设
+$\mathcal{I}$ 为 $X_\etale$ 上的单射阿贝尔层。则
+$\mathcal{H}_Z(\mathcal{I})$ 是 $Z_\etale$ 上的单射阿贝尔层。
+\end{lemma}
+
+\begin{proof}
+注意，对 $Z_\etale$ 上任意阿贝尔层 $\mathcal{G}$，有
+$$
+\Hom_Z(\mathcal{G}, \mathcal{H}_Z(\mathcal{F})) =
+\Hom_X(i_*\mathcal{G}, \mathcal{F})
+$$
+因为 $i_*\mathcal{G}$ 的任意截面终究都支撑在 $Z$ 中。由于 $i_*$ 正合
+（引理 \ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}），且 $\mathcal{I}$ 在
+$X_\etale$ 上单射，可知 $\mathcal{H}_Z(\mathcal{I})$ 在 $Z_\etale$ 上单射。
+\end{proof}
+
+\noindent
+以
+$$
+R\mathcal{H}_Z : D(X_\etale) \longrightarrow D(Z_\etale)
+$$
+表示导出函子。令
+$\mathcal{H}^q_Z(\mathcal{F}) = R^q\mathcal{H}_Z(\mathcal{F})$，从而
+$\mathcal{H}^0_Z(\mathcal{F}) = \mathcal{H}_Z(\mathcal{F})$。
+由上面的引理，有 Grothendieck 谱序列
+$$
+E_2^{p, q} = H^p(Z, \mathcal{H}^q_Z(\mathcal{F}))
+\Rightarrow H^{p + q}_Z(X, \mathcal{F})
+$$
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-cohomology-with-support-sheaf-on-support}
+设 $S$ 为概形，$i : Z \to X$ 为 $S$ 上代数空间的闭浸入，并设
+$\mathcal{G}$ 为 $Z_\etale$ 上的单射阿贝尔层。则当 $p > 0$ 时，
+$\mathcal{H}^p_Z(i_*\mathcal{G}) = 0$。
+\end{lemma}
+
+\begin{proof}
+这是因为函子 $i_*$ 正合（引理
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}），并把单射阿贝尔层变为单射
+阿贝尔层（见“位点上的上同调”引理
+\ref{sites-cohomology-lemma-pushforward-injective-flat}）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-etale-localization-sheaf-with-support}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的平展态射。设
+$Z \subset Y$ 为闭子空间，且 $f^{-1}(Z) \to Z$ 是代数空间的同构。
+% P09-ERR-0012: frozen source places F on X although it is then pulled back from Y.
+设 $\mathcal{F}$ 为 $X$ 上的阿贝尔层。则
+$$
+\mathcal{H}^q_Z(\mathcal{F}) = \mathcal{H}^q_{f^{-1}(Z)}(f^{-1}\mathcal{F})
+$$
+作为 $Z = f^{-1}(Z)$ 上的阿贝尔层有上述等式，并且
+$H^q_Z(Y, \mathcal{F}) = H^q_{f^{-1}(Z)}(X, f^{-1}\mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+因为 $f$ 平展，$\mathcal{F}$ 的单射消解拉回为 $f^{-1}\mathcal{F}$ 的单射
+消解。因此只需对 $\mathcal{H}_Z(-)$ 检验等式，而这由定义直接得到。
+支撑上同调的证明相同。若干细节从略。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，$T \subset |X|$ 为闭子集。
+以 $D_T(X_\etale)$ 表示 $D(X_\etale)$ 的严格满且饱和的三角子范畴，
+其对象的上同调层都支撑在 $T$ 上。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-complexes-with-support-on-closed}
+设 $S$ 为概形，$i : Z \to X$ 为 $S$ 上代数空间的闭浸入。映射
+$Ri_* = i_* : D(Z_\etale) \to D(X_\etale)$ 诱导等价
+$D(Z_\etale) \to D_{|Z|}(X_\etale)$，其拟逆为
+$$
+% P09-ERR-0013: frozen source alternates D_Z and the defined D_|Z| notation.
+i^{-1}|_{D_Z(X_\etale)} = R\mathcal{H}_Z|_{D_{|Z|}(X_\etale)}
+$$
+\end{lemma}
+
+\begin{proof}
+回顾 $i^{-1}$ 与 $i_*$ 是一对正合伴随函子，并且
+% P09-ERR-0014: frozen source says identify functor; see ERRATA_CANDIDATES.jsonl.
+$i^{-1}i_*$ 同构于阿贝尔层上的 identify 函子。见“代数空间的性质”引理
+\ref{spaces-properties-lemma-stalk-pullback} 和“代数空间的态射”引理
+\ref{spaces-morphisms-lemma-closed-immersion-push-pull}。因此
+$i_* : D(Z_\etale) \to D_Z(X_\etale)$ 全忠实，而 $i^{-1}$ 给出左逆。
+另一方面，设 $K$ 为 $D_Z(X_\etale)$ 的对象，并考虑伴随映射
+$K \to i_*i^{-1}K$.
+由 $i_*$ 与 $i^{-1}$ 的正合性，它在上同调层上诱导伴随映射
+$H^n(K) \to i_*i^{-1}H^n(K)$。由于这些上同调层支撑在 $Z$ 上，
+这些伴随映射是同构，从而 $D(Z_\etale) \to D_Z(X_\etale)$ 是等价。
+
+\medskip\noindent
+最后还要证明：若 $K$ 是 $D_Z(X_\etale)$ 的对象，则
+$R\mathcal{H}_Z(K) = i^{-1}K$。可以使用刚刚证明的
+$K = i_*i^{-1}K$。为 $i^{-1}K$ 选取一个 K-单射代表
+$\mathcal{I}^\bullet$。由于 $i_*$ 是正合函子 $i^{-1}$ 的右伴随，复形
+$i_*\mathcal{I}^\bullet$ 是 K-单射的（见“导出范畴”引理
+\ref{derived-lemma-adjoint-preserve-K-injectives}）。于是
+$R\mathcal{H}_Z(K)$ 由
+$\mathcal{H}_Z(i_*\mathcal{I}^\bullet) = \mathcal{I}^\bullet$ 计算，
+正合所需。
+\end{proof}
+
+
+
+
+
+
+\section{维数以上的消失性}
+\label{spaces-cohomology-section-vanishing-above-dimension}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧拟分离的代数空间。此时 $|X|$ 是谱空间；
+见“代数空间的性质”引理
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral}。
+此外，$X$ 的维数（定义见“代数空间的性质”定义
+\ref{spaces-properties-definition-dimension}）等于 $|X|$ 的 Krull 维数；
+见“合宜代数空间”引理
+\ref{decent-spaces-lemma-dimension-decent-space}。我们将证明：$X$ 上拟凝聚层
+的上同调在超过维数的次数上消失。即便只考虑域上有限型的拟分离代数空间，
+这个结果也已经很有意义。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-above-dimension}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧拟分离的代数空间，并假设对某个整数 $d$ 有
+$\dim(X) \leq d$。
+% P09-ERR-0015: frozen source repeats F in the noun phrase; see ERRATA_CANDIDATES.jsonl.
+设 $\mathcal{F}$ 为 $X$ 上的拟凝聚层 $\mathcal{F}$。
+\begin{enumerate}
+\item $H^q(X, \mathcal{F}) = 0$ for $q > d$,
+\item 对任意拟紧开子空间 $U \subset X$，
+$H^d(X, \mathcal{F}) \to H^d(U, \mathcal{F})$ 为满射；
+\item 对任意补集拟紧的闭子空间 $Z \subset X$，当 $q > d$ 时
+$H^q_Z(X, \mathcal{F}) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由“代数空间的性质”引理
+\ref{spaces-properties-lemma-dimension-decent-invariant-under-etale}，
+每个在 $X$ 上平展的代数空间 $Y$ 都满足维数 $\leq d$。若 $Y$ 拟分离，
+则由“合宜代数空间”引理
+\ref{decent-spaces-lemma-dimension-decent-space}，$Y$ 的维数等于 $|Y|$ 的
+Krull 维数。此外，若 $Y$ 是概形，则 $\mathcal{F}$ 在 $Y$ 上的平展上同调
+（相应地，支撑在闭子概形上的平展上同调）与 $\mathcal{F}$ 的通常上同调
+（相应地，支撑在该闭子概形上的通常上同调）一致。见“下降”命题
+\ref{descent-proposition-same-cohomology-quasi-coherent} 和“平展上同调”引理
+\ref{etale-cohomology-lemma-cohomology-with-support-quasi-coherent}。
+下文将不加说明地使用这些事实。
+
+\medskip\noindent
+由“合宜代数空间”引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}，
+存在整数 $n$ 以及开子空间
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+它们具有如下性质：令 $T_p = U_p \setminus U_{p + 1}$，赋予其诱导的既约
+子空间结构；则存在拟紧分离概形 $V_p$ 以及平展满态射
+$f_p : V_p \to U_p$，使 $f_p^{-1}(T_p) \to T_p$ 为同构。
+
+\medskip\noindent
+由于 $U_n = V_n$ 是概形，由开头的说明和“上同调”命题
+\ref{cohomology-proposition-cohomological-dimension-spectral}，
+$\mathcal{F}$ 在 $U_n$ 上的上同调在次数 $> d$ 时消失。归纳地假设已经证明：
+当 $q > d$ 时，$H^q(U_{p + 1}, \mathcal{F}|_{U_{p + 1}}) = 0$。
+要推出 $\mathcal{F}$ 在 $U_p$ 上的上同调在次数 $> d$ 时消失，只需证明
+当 $q > d$ 时 $H_{T_p}^q(U_p, \mathcal{F})$ 为零。而由引理
+\ref{spaces-cohomology-lemma-etale-localization-sheaf-with-support}，有
+$$
+H^q_{T_p}(U_p, \mathcal{F}) = H^q_{f_p^{-1}(T_p)}(V_p, \mathcal{F})
+$$
+又因为 $V_p$ 是概形，所需消失性由“上同调”命题
+\ref{cohomology-proposition-cohomological-dimension-spectral} 得到。
+由此证明了 (1)。
+
+\medskip\noindent
+为证明 (2)，设 $U \subset X$ 为拟紧开子空间。考虑开子空间
+$U' = U \cup U_n$，并令 $Z = U' \setminus U$。则
+$g : U_n \to U'$ 是平展态射，且 $g^{-1}(Z) \to Z$ 为同构。因此由引理
+\ref{spaces-cohomology-lemma-etale-localization-sheaf-with-support}，有
+$H^q_Z(U', \mathcal{F}) = H^q_Z(U_n, \mathcal{F})$。由于 $U_n$ 是概形，
+可应用“上同调”命题
+\ref{cohomology-proposition-cohomological-dimension-spectral}，所以它在次数
+$> d$ 时消失。于是 $H^d(U', \mathcal{F}) \to H^d(U, \mathcal{F})$
+为满射。归纳地假设问题已经归结到 $U$ 包含 $U_{p + 1}$ 的情形。
+令 $U' = U \cup U_p$、$Z = U' \setminus U$，并使用平展态射
+$f_p : V_p \to U'$；它满足 $f_p^{-1}(Z) \to Z$ 为同构。换言之，再次有
+$$
+H^q_Z(U', \mathcal{F}) = H^q_{f_p^{-1}(Z)}(V_p, \mathcal{F})
+$$
+它在次数 $> d$ 时消失。因此
+$H^d(U', \mathcal{F}) \to H^d(U, \mathcal{F})$ 为满射。最终到达
+$U_1 = X \subset U$ 的阶段，证明完成。
+
+\medskip\noindent
+形式论证说明 (2) 蕴含 (3)。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{上同调与基变换（一）}
+\label{spaces-cohomology-section-cohomology-and-base-change}
+
+\noindent
+设 $S$ 为一个概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射，
+并设 $\mathcal{F}$ 为 $X$ 上的拟凝聚层。再设 $g : Y' \to Y$ 为
+$S$ 上代数空间之间的态射。记 $X' = X_{Y'} = Y' \times_Y X$ 为
+$X$ 的基变换，并记 $f' : X' \to Y'$ 为 $f$ 的基变换。
+还把投影记为 $g' : X' \to X$，并令
+$\mathcal{F}' = (g')^*\mathcal{F}$。下图表示这一情形：
+\begin{equation}
+\label{spaces-cohomology-equation-base-change-diagram}
+\vcenter{
+\xymatrix{
+\mathcal{F}' = (g')^*\mathcal{F} &
+X' \ar[r]_{g'} \ar[d]_{f'} &
+X \ar[d]^f &
+\mathcal{F} \\
+Rf'_*\mathcal{F}' &
+Y' \ar[r]^g &
+Y &
+Rf_*\mathcal{F}
+}
+}
+\end{equation}
+下面是我们所考虑的基变换性质最简单的情形。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-affine-base-change}
+设 $S$ 为一个概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的仿射态射，
+并设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。此时
+$f_*\mathcal{F} \cong Rf_*\mathcal{F}$ 是拟凝聚层，而且对于每个图
+(\ref{spaces-cohomology-equation-base-change-diagram})，都有
+$$
+g^*f_*\mathcal{F} = f'_*(g')^*\mathcal{F}.
+$$
+\end{lemma}
+
+\begin{proof}
+由 (\ref{spaces-cohomology-equation-representable-higher-direct-image}) 附近的讨论，
+问题归结为概形之间仿射态射的情形；该情形已在《概形的上同调》引理
+\ref{coherent-lemma-affine-base-change} 中处理。
+\end{proof}
+
+\begin{lemma}[平坦基变换]
+\label{spaces-cohomology-lemma-flat-base-change-cohomology}
+设 $S$ 为一个概形。考虑 $S$ 上代数空间的笛卡尔图
+$$
+\xymatrix{
+X' \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模，其拉回为
+$\mathcal{F}' = (g')^*\mathcal{F}$。假设 $g$ 平坦，且 $f$ 拟紧、拟分离。
+对于任意 $i \geq 0$，
+\begin{enumerate}
+\item 《站点上的上同调》引理
+\ref{sites-cohomology-lemma-base-change-map-flat-case}
+中的基变换映射
+$$
+g^*R^if_*\mathcal{F} \longrightarrow R^if'_*\mathcal{F}',
+$$
+是同构；
+\item 如果 $Y = \Spec(A)$ 且 $Y' = \Spec(B)$，则
+$H^i(X, \mathcal{F}) \otimes_A B = H^i(X', \mathcal{F}')$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-base-change-flat}，
+态射 $g'$ 平坦。注意，$g$ 和 $g'$ 的平坦性等价于相应小 \'etale 带环站点
+之间态射的平坦性，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-morphism-sites}。因此可以应用
+《站点上的上同调》引理
+\ref{sites-cohomology-lemma-base-change-map-flat-case}
+得到基变换映射
+$$
+g^*R^pf_*\mathcal{F} \longrightarrow R^pf'_*\mathcal{F}'
+$$
+为了证明此映射是同构，可以在 $Y'$ 的 \'etale 拓扑下局部地验证。
+因此可以假设 $Y$ 和 $Y'$ 都是仿射概形。不妨写成
+$Y = \Spec(A)$ 和 $Y' = \Spec(B)$。此时真正要证明的是映射
+$$
+H^p(X, \mathcal{F}) \otimes_A B \longrightarrow H^p(X_B, \mathcal{F}_B)
+$$
+是同构，其中 $X_B = \Spec(B) \times_{\Spec(A)} X$，而
+$\mathcal{F}_B$ 是 $\mathcal{F}$ 在 $X_B$ 上的拉回。换言之，只需证明 (2)。
+
+\medskip\noindent
+固定一个平坦环同态 $A \to B$，并设 $X$ 为 $A$ 上拟紧且拟分离的代数空间。
+注意，$g' : X_B \to X$ 是 $\Spec(B) \to \Spec(A)$ 的基变换，因而是仿射的。
+故由引理 \ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images}，
+高阶正像 $R^i(g')_*\mathcal{F}_B$ 均为零。因此
+$H^p(X_B, \mathcal{F}_B) = H^p(X, g'_*\mathcal{F}_B)$，见
+《站点上的上同调》引理 \ref{sites-cohomology-lemma-apply-Leray}。
+此外，有
+$$
+g'_*\mathcal{F}_B = \mathcal{F} \otimes_{\underline{A}} \underline{B}
+$$
+其中 $\underline{A}$、$\underline{B}$ 表示取值分别为 $A$、$B$ 的常值环层。
+事实上，显然存在一个从右端到左端的映射。对于任意 \'etale 于 $X$ 的
+仿射概形 $U$，有
+\begin{align*}
+g'_*\mathcal{F}_B(U) & = \mathcal{F}_B(\Spec(B) \times_{\Spec(A)} U) \\
+& =
+\Gamma(\Spec(B) \times_{\Spec(A)} U,
+(\Spec(B) \times_{\Spec(A)} U \to U)^*\mathcal{F}|_U) \\
+& =
+B \otimes_A \mathcal{F}(U)
+\end{align*}
+所以该映射是同构。利用 Lazard 定理，把 $B = \colim M_i$ 写成有限自由
+$A$-模 $M_i$ 的滤过余极限，见《代数》定理
+\ref{algebra-theorem-lazard}。由此得到
+\begin{align*}
+H^p(X, g'_*\mathcal{F}_B) &
+= H^p(X, \mathcal{F} \otimes_{\underline{A}} \underline{B}) \\
+& = H^p(X, \colim_i \mathcal{F} \otimes_{\underline{A}} \underline{M_i}) \\
+& = \colim_i H^p(X, \mathcal{F} \otimes_{\underline{A}} \underline{M_i}) \\
+& = \colim_i H^p(X, \mathcal{F}) \otimes_A M_i \\
+& = H^p(X, \mathcal{F}) \otimes_A \colim_i M_i \\
+& = H^p(X, \mathcal{F}) \otimes_A B
+\end{align*}
+第一个等式来自上面已经证明的
+$g'_*\mathcal{F}_B = \mathcal{F} \otimes_{\underline{A}} \underline{B}$。
+第二个等式是因为 $\otimes$ 与余极限交换。第三个等式是因为 $X$ 上的
+上同调与余极限交换（见引理 \ref{spaces-cohomology-lemma-colimits}）。第四个等式是因为
+$M_i$ 有限自由（也就是说，上同调与有限直和交换）。第五个等式是因为
+$\otimes$ 与余极限交换。第六个等式来自我们对该系统的选取。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-etale-pull-push-split}
+设 $f : X \to Y$ 为代数空间之间拟紧、分离的 \'etale 态射。则对于任意
+拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，映射
+$f^*f_*\mathcal{F} \to \mathcal{F}$ 是分裂的。
+\end{lemma}
+
+\begin{proof}
+考虑笛卡尔图
+$$
+\xymatrix{
+X \times_Y X \ar[r]_-p \ar[d]_q & X \ar[d]^f \\
+X \ar[r]^f & Y
+}
+$$
+由引理 \ref{spaces-cohomology-lemma-affine-base-change}，有
+$f^*f_*\mathcal{F} = q_*p^*\mathcal{F}$。态射
+$\Delta : X \to X \times_Y X$ 是开的（因为它是两个 \'etale 于 $Y$ 的
+代数空间之间的态射），又因 $f$ 分离而是闭的。因此可见，
+$p^*\mathcal{F}$ 是 $\Delta_*\mathcal{F}$ 与一个支撑在
+$\Delta(X)$ 的（开闭）补集上的拟凝聚模的直和。追踪这些映射，读者可验证
+$$
+\mathcal{F} = q_*\Delta_*\mathcal{F} \to
+q_*p^*\mathcal{F} = f^*f_*\mathcal{F} \to
+\mathcal{F}
+$$
+是恒等映射。细节从略。
+\end{proof}
+
+
+
+\section{局部 Noether 代数空间上的凝聚模}
+\label{spaces-cohomology-section-coherent}
+
+\noindent
+本节对应于《概形的上同调》\ref{coherent-section-coherent-sheaves} 节。
+在《站点上的模》定义 \ref{sites-modules-definition-site-local} 中，
+我们已经定义了任意带环拓扑斯上的凝聚模。这里用这一概念定义局部
+Noether 代数空间上的凝聚模。虽然也可以在更一般的情形下研究凝聚模，
+但我们不打算这样做。
+
+\begin{definition}
+\label{spaces-cohomology-definition-coherent}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的局部 Noether 代数空间。如果 $X$ 上的
+拟凝聚模 $\mathcal{F}$ 按照《站点上的模》定义
+\ref{sites-modules-definition-site-local} 的意义，是站点 $X_\etale$ 上的
+凝聚 $\mathcal{O}_X$-模，则称 $\mathcal{F}$ 是{\it 凝聚的}。
+\end{definition}
+
+\noindent
+这一定义与局部 Noether 概形上已有的凝聚模概念相容；见《空间的性质》
+\ref{spaces-properties-section-properties-modules} 节中的断言 (5)（或更直接地，
+见《下降》引理 \ref{descent-lemma-equivalence-quasi-coherent-properties}）。
+因此，从现在起，如果 $X$ 是 $S$ 上的局部 Noether 概形，我们将不再区分
+把 $X$ 看作概形时的凝聚模与把 $X$ 看作代数空间时的凝聚模；这与
+《空间的性质》\ref{spaces-properties-section-quasi-coherent} 节所讨论的
+拟凝聚模范畴的相应等同相容。
+
+\medskip\noindent
+在上述约定下，下面的引理给出了局部 Noether 代数空间上凝聚模的一种
+直观刻画。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-coherent-Noetherian}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的局部 Noether 代数空间，并设
+$\mathcal{F}$ 为一个 $\mathcal{O}_X$-模。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{F}$ 是凝聚的；
+\item $\mathcal{F}$ 是有限型拟凝聚 $\mathcal{O}_X$-模；
+\item $\mathcal{F}$ 是有限表示的 $\mathcal{O}_X$-模；
+\item 对于任意 \'etale 态射 $\varphi : U \to X$，其中 $U$ 是概形，
+拉回 $\varphi^*\mathcal{F}$ 是 $U$ 上的凝聚模；
+\item 存在满 \'etale 态射 $\varphi : U \to X$，其中 $U$ 是概形，
+使得拉回 $\varphi^*\mathcal{F}$ 是 $U$ 上的凝聚模。
+\end{enumerate}
+特别地，$\mathcal{O}_X$ 是凝聚的，任意可逆 $\mathcal{O}_X$-模是凝聚的；
+更一般地，任意有限局部自由 $\mathcal{O}_X$-模都是凝聚的。
+\end{lemma}
+
+\begin{proof}
+首先，如果 $X$ 是局部 Noether 代数空间，而 $U \to X$ 是 \'etale 态射，
+则 $U$ 是局部 Noether 的，见《空间的性质》
+\ref{spaces-properties-section-types-properties} 节。于是本引理由
+《空间的性质》\ref{spaces-properties-section-properties-modules} 节中的
+(1)--(5) 以及局部 Noether 概形上凝聚模的相应结论推出；后者见
+《概形的上同调》引理 \ref{coherent-lemma-coherent-Noetherian}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-coherent-abelian-Noetherian}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的局部 Noether 代数空间。
+凝聚 $\mathcal{O}_X$-模所成的范畴是 Abel 范畴。更确切地说，凝聚
+$\mathcal{O}_X$-模之间态射的核与余核都是凝聚的。凝聚层的任意扩张也是
+凝聚的。
+\end{lemma}
+
+\begin{proof}
+选取一个概形 $U$ 和满 \'etale 态射 $f : U \to X$。拉回 $f^*$ 等于限制函子，
+因而是正合函子，见《空间的性质》公式
+(\ref{spaces-properties-equation-restrict-modules})。由引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}，可以通过检验 $f^*\mathcal{F}$ 是否凝聚来
+检验 $\mathcal{O}_X$-模 $\mathcal{F}$ 是否凝聚。因此本引理由概形的情形
+推出；该情形即《概形的上同调》引理
+\ref{coherent-lemma-coherent-abelian-Noetherian}。
+\end{proof}
+
+\noindent
+凝聚模构成拟凝聚 $\mathcal{O}_X$-模范畴的一个 Serre 子范畴。对于一般
+带环拓扑斯上的模，这一结论并不成立。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的局部 Noether 代数空间，并设
+$\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。$\mathcal{F}$ 的任意拟凝聚子模
+都是凝聚的，$\mathcal{F}$ 的任意拟凝聚商模也都是凝聚的。
+\end{lemma}
+
+\begin{proof}
+选取一个概形 $U$ 和满 \'etale 态射 $f : U \to X$。拉回 $f^*$ 等于限制函子，
+因而是正合函子，见《空间的性质》公式
+(\ref{spaces-properties-equation-restrict-modules})。由引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}，可以通过检验 $f^*\mathcal{H}$ 是否凝聚来
+检验 $\mathcal{O}_X$-模 $\mathcal{G}$ 是否凝聚。% P09-ERR-0016
+因此本引理由概形的情形推出；该情形即《概形的上同调》引理
+\ref{coherent-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-tensor-hom-coherent}
+设 $S$ 为一个概形。设 $X$ 为 $S$ 上的局部 Noether 代数空间，。% P09-ERR-0017
+设 $\mathcal{F}$、$\mathcal{G}$ 为凝聚 $\mathcal{O}_X$-模。则
+$\mathcal{O}_X$-模 $\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}$ 和
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ 都是凝聚的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-cohomology-lemma-coherent-Noetherian}，这可由概形的相应结论推出，见
+《概形的上同调》引理 \ref{coherent-lemma-tensor-hom-coherent}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-local-isomorphism}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的局部 Noether 代数空间。设
+$\mathcal{F}$、$\mathcal{G}$ 为凝聚 $\mathcal{O}_X$-模，且
+$\varphi : \mathcal{G} \to \mathcal{F}$ 为 $\mathcal{O}_X$-模同态。
+设 $\overline{x}$ 为 $X$ 上位于 $x \in |X|$ 之上的几何点。
+\begin{enumerate}
+\item 如果 $\mathcal{F}_{\overline{x}} = 0$，则存在 $x$ 的开邻域
+$X' \subset X$，使得 $\mathcal{F}|_{X'} = 0$。
+\item 如果 $\varphi_{\overline{x}} : \mathcal{G}_{\overline{x}} \to
+\mathcal{F}_{\overline{x}}$ 是单射，则存在 $x$ 的开邻域 $X' \subset X$，
+使得 $\varphi|_{X'}$ 是单射。
+\item 如果 $\varphi_{\overline{x}} : \mathcal{G}_{\overline{x}} \to
+\mathcal{F}_{\overline{x}}$ 是满射，则存在 $x$ 的开邻域 $X' \subset X$，
+使得 $\varphi|_{X'}$ 是满射。
+\item 如果 $\varphi_{\overline{x}} : \mathcal{G}_{\overline{x}} \to
+\mathcal{F}_{\overline{x}}$ 是双射，则存在 $x$ 的开邻域 $X' \subset X$，
+使得 $\varphi|_{X'}$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\varphi : U \to X$ 为 \'etale 态射，其中 $U$ 是概形，并设 $u \in U$
+为映到 $x$ 的点。由《空间的性质》引理
+\ref{spaces-properties-lemma-stalk-quasi-coherent} 及
+\ref{spaces-properties-lemma-describe-etale-local-ring}
+以及《代数进阶》引理
+\ref{more-algebra-lemma-dumb-properties-henselization}，可见
+$\varphi_{\overline{x}}$ 是单射、满射或双射，当且仅当
+$\varphi_u : \varphi^*\mathcal{F}_u \to \varphi^*\mathcal{G}_u$
+具有相应性质。% P09-ERR-0018
+因此可以应用本引理的概形版本，得到（必要时缩小 $U$ 后）映射
+$\varphi^*\mathcal{F} \to \varphi^*\mathcal{G}$ 是单射、满射或同构。
+设 $X' \subset X$ 为与 $|\varphi|(|U|) \subset |X|$ 对应的开子空间，见
+《空间的性质》引理 \ref{spaces-properties-lemma-open-subspaces}。由于
+$\{U \to X'\}$ 是 \'etale 拓扑的覆盖，便得到 $\varphi|_{X'}$ 如所要求地
+为单射、满射或同构。最后，考察映射 $\mathcal{F} \to 0$ 即可看出 (1)
+由 (2) 推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-coherent-support-closed}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的局部 Noether 代数空间。设
+$\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模，$i : Z \to X$ 为
+$\mathcal{F}$ 的概形论支撑，并设 $\mathcal{G}$ 为满足
+$i_*\mathcal{G} = \mathcal{F}$ 的拟凝聚 $\mathcal{O}_Z$-模，见
+《空间的态射》定义
+\ref{spaces-morphisms-definition-scheme-theoretic-support}。则
+$\mathcal{G}$ 是凝聚 $\mathcal{O}_Z$-模。
+\end{lemma}
+
+\begin{proof}
+本引理的陈述是有意义的，因为凝聚模尤其是有限型的。此外，$Z \to X$
+是闭浸入，因而是局部有限型的，所以 $Z$ 局部 Noether；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-immersion-locally-finite-type} 及
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}。
+最后，由于 $\mathcal{G}$ 是有限型的，引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian} 表明它是凝聚 $\mathcal{O}_Z$-模。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-i-star-equivalence}
+设 $S$ 为一个概形，$i : Z \to X$ 为 $S$ 上局部 Noether 代数空间之间的
+闭浸入。设 $\mathcal{I} \subset \mathcal{O}_X$ 为定义 $Z$ 的拟凝聚理想层。
+函子 $i_*$ 在被 $\mathcal{I}$ 零化的凝聚 $\mathcal{O}_X$-模范畴与
+凝聚 $\mathcal{O}_Z$-模范畴之间诱导一个等价。
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-i-star-equivalence}，
+此函子全忠实。设 $\mathcal{F}$ 为被 $\mathcal{I}$ 零化的凝聚
+$\mathcal{O}_X$-模。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-i-star-equivalence}，可将
+$\mathcal{F}$ 写成 $i_*\mathcal{G}$，其中 $\mathcal{G}$ 是 $Z$ 上的某个
+拟凝聚层。为了检验 $\mathcal{G}$ 凝聚，可以在 \'etale 拓扑下局部地验证
+（引理 \ref{spaces-cohomology-lemma-coherent-Noetherian}）。选取一个由概形给出的 \'etale
+覆盖后，概形的情形（《概形的上同调》引理
+\ref{coherent-lemma-i-star-equivalence}）表明 $\mathcal{G}$ 凝聚。
+因此该函子全忠实，证明完成。% P09-ERR-0019
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-finite-pushforward-coherent}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的有限态射，且
+$Y$ 局部 Noether。设 $\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。假设 $f$
+有限且 $Y$ 局部 Noether。% P09-ERR-0020
+则当 $p > 0$ 时 $R^pf_*\mathcal{F} = 0$，并且 $f_*\mathcal{F}$ 凝聚。
+\end{lemma}
+
+\begin{proof}
+选取一个概形 $V$ 和满 \'etale 态射 $V \to Y$。则
+$V \times_Y X \to V$ 是局部 Noether 概形之间的有限态射。由
+(\ref{spaces-cohomology-equation-representable-higher-direct-image})，问题归结为概形的情形；
+该情形即《概形的上同调》引理
+\ref{coherent-lemma-finite-pushforward-coherent}。
+\end{proof}
+
+
+
+
+
+
+\section{Noether 空间上的凝聚层}
+\label{spaces-cohomology-section-coherent-quasi-compact}
+
+\noindent
+本节介绍 Noether 代数空间上凝聚层的一些性质。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-acc-coherent}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设
+$\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。$\mathcal{F}$ 的拟凝聚子模满足
+升链条件。换言之，给定任意拟凝聚子模序列
+$$
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \ldots \subset \mathcal{F}
+$$
+则存在某个 $n \geq 0$，使得
+$\mathcal{F}_n = \mathcal{F}_{n + 1} = \ldots $。
+\end{lemma}
+
+\begin{proof}
+选取一个仿射概形 $U$ 和满 \'etale 态射 $U \to X$（见《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}，
+$U$ 是 Noether 概形。如果
+$\mathcal{F}_n|_U = \mathcal{F}_{n + 1}|_U = \ldots$，则
+$\mathcal{F}_n = \mathcal{F}_{n + 1} = \ldots$。因此结论可由概形的情形
+推出，见《概形的上同调》引理 \ref{coherent-lemma-acc-coherent}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-power-ideal-kills-sheaf}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间。设 $\mathcal{F}$ 为
+$X$ 上的凝聚层，并设 $\mathcal{I} \subset \mathcal{O}_X$ 为与闭子空间
+$Z \subset X$ 对应的拟凝聚理想层。存在某个 $n \geq 0$ 使
+$\mathcal{I}^n\mathcal{F} = 0$，当且仅当（在集合论意义下）
+$\text{Supp}(\mathcal{F}) \subset Z$。
+\end{lemma}
+
+\begin{proof}
+选取一个仿射概形 $U$ 和满 \'etale 态射 $U \to X$（见《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}，
+$U$ 是 Noether 概形。注意，$\mathcal{I}^n\mathcal{F}|_U = 0$ 当且仅当
+$\mathcal{I}^n\mathcal{F} = 0$，支撑的条件也同样如此。因此结论可由概形
+的情形推出，见《概形的上同调》引理
+\ref{coherent-lemma-power-ideal-kills-sheaf}。
+\end{proof}
+
+\begin{lemma}[Artin-Rees]
+\label{spaces-cohomology-lemma-Artin-Rees}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间。设 $\mathcal{F}$ 为
+$X$ 上的凝聚层，$\mathcal{G} \subset \mathcal{F}$ 为拟凝聚子层，并设
+$\mathcal{I} \subset \mathcal{O}_X$ 为拟凝聚理想层。则存在 $c \geq 0$，
+使得对于所有 $n \geq c$，都有
+$$
+\mathcal{I}^{n - c}(\mathcal{I}^c\mathcal{F} \cap \mathcal{G})
+=
+\mathcal{I}^n\mathcal{F} \cap \mathcal{G}
+$$
+\end{lemma}
+
+\begin{proof}
+选取一个仿射概形 $U$ 和满 \'etale 态射 $U \to X$（见《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}，
+$U$ 是 Noether 概形。本引理中的等式成立，当且仅当把它限制到 $U$ 后
+成立。因此结论可由概形的情形推出，见《概形的上同调》引理
+\ref{coherent-lemma-Artin-Rees}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-homs-over-open}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间。设 $\mathcal{F}$ 为
+拟凝聚 $\mathcal{O}_X$-模，$\mathcal{G}$ 为凝聚 $\mathcal{O}_X$-模，并设
+$\mathcal{I} \subset \mathcal{O}_X$ 为拟凝聚理想层。记 $Z \subset X$ 为
+相应的闭子空间，并令 $U = X \setminus Z$。存在典范同构
+$$
+\colim_n \Hom_{\mathcal{O}_X}(\mathcal{I}^n\mathcal{G}, \mathcal{F})
+\longrightarrow
+\Hom_{\mathcal{O}_U}(\mathcal{G}|_U, \mathcal{F}|_U).
+$$
+特别地，有同构
+$$
+\colim_n \Hom_{\mathcal{O}_X}(\mathcal{I}^n, \mathcal{F})
+\longrightarrow
+\Gamma(U, \mathcal{F}).
+$$
+\end{lemma}
+
+\begin{proof}
+设 $W$ 为仿射概形，并设 $W \to X$ 为满 \'etale 态射（见《空间的性质》
+引理 \ref{spaces-properties-lemma-quasi-compact-affine-cover}）。令
+$R = W \times_X W$。则 $W$ 和 $R$ 都是 Noether 概形，见《空间的态射》
+引理 \ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}。
+因此，由《概形的上同调》引理 \ref{coherent-lemma-homs-over-open}，
+该结论对于 $\mathcal{F}$、$\mathcal{G}$、$\mathcal{I}$、$U$、$Z$ 在
+$W$ 和 $R$ 上的限制成立。% P09-ERR-0021
+由此形式地推出该结论在 $X$ 上成立。
+\end{proof}
+
+
+
+
+
+
+\section{凝聚层的逐层剥离}
+\label{spaces-cohomology-section-devissage}
+
+\noindent
+本节对应于《概形的上同调》\ref{coherent-section-devissage} 节。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-prepare-filter-support}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设 $\mathcal{F}$
+为 $X$ 上的凝聚层。假设
+$\text{Supp}(\mathcal{F}) = Z \cup Z'$，其中 $Z$、$Z'$ 都是闭集。
+则存在凝聚层的短正合列
+$$
+0 \to \mathcal{G}' \to \mathcal{F} \to \mathcal{G} \to 0
+$$
+满足 $\text{Supp}(\mathcal{G}') \subset Z'$ 且
+$\text{Supp}(\mathcal{G}) \subset Z$。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{I} \subset \mathcal{O}_X$ 为定义 $Z$ 上约化诱导闭子空间结构的
+理想层，见《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}。考虑子层
+$\mathcal{G}'_n = \mathcal{I}^n\mathcal{F}$ 以及商层
+$\mathcal{G}_n = \mathcal{F}/\mathcal{I}^n\mathcal{F}$。对于每个 $n$，都有
+短正合列
+$$
+0 \to \mathcal{G}'_n \to \mathcal{F} \to \mathcal{G}_n \to 0
+$$
+对于 $Z' \setminus Z$ 的每个几何点 $\overline{x}$，有
+$\mathcal{I}_{\overline{x}} = \mathcal{O}_{X, \overline{x}}$，因而
+$\mathcal{G}_{n, \overline{x}} = 0$。所以
+$\text{Supp}(\mathcal{G}_n) \subset Z$。注意，$X \setminus Z'$ 是 Noether
+代数空间。因此由引理 \ref{spaces-cohomology-lemma-power-ideal-kills-sheaf}，存在 $n$ 使得
+$\mathcal{G}'_n|_{X \setminus Z'} =
+\mathcal{I}^n\mathcal{F}|_{X \setminus Z'} = 0$。对于这样的 $n$，有
+$\text{Supp}(\mathcal{G}'_n) \subset Z'$。取
+$\mathcal{G}' = \mathcal{G}'_n$ 和 $\mathcal{G} = \mathcal{G}_n$ 即可。
+\end{proof}
+
+\noindent
+下文将自由使用《空间的态射》定义
+\ref{spaces-morphisms-definition-scheme-theoretic-support} 中所定义的
+有限型模的概形论支撑。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-prepare-filter-irreducible}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设 $\mathcal{F}$
+为 $X$ 上的凝聚层。假设 $\mathcal{F}$ 的概形论支撑是约化的
+$Z \subset X$，且 $|Z|$ 不可约。则存在整数 $r > 0$、非零理想层
+$\mathcal{I} \subset \mathcal{O}_Z$，以及凝聚层之间的单射
+$$
+i_*\left(\mathcal{I}^{\oplus r}\right) \to \mathcal{F}
+$$
+其余核支撑在 $Z$ 的一个真闭子空间上。% P09-ERR-0022
+\end{lemma}
+
+\begin{proof}
+由假设，存在支撑为 $Z$ 的凝聚 $\mathcal{O}_Z$-模 $\mathcal{G}$，使得
+$\mathcal{F} \cong i_*\mathcal{G}$，见引理
+\ref{spaces-cohomology-lemma-coherent-support-closed}。因此只需在 $Z = X$ 且
+$i = \text{id}$ 的情形下证明本引理。
+
+\medskip\noindent
+由《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}
+存在一个稠密开子空间 $U \subset X$，且 $U$ 是概形。注意，$U$ 是 Noether
+整概形。缩小 $U$ 后，可以假设
+$\mathcal{F}|_U \cong \mathcal{O}_U^{\oplus r}$（例如由《概形的上同调》
+引理 \ref{coherent-lemma-prepare-filter-irreducible}，或由直接的代数论证）。
+设 $\mathcal{I} \subset \mathcal{O}_X$ 为拟凝聚理想层，其相应闭子空间是
+$U$ 在 $X$ 中的补集（例如见《空间的性质》
+\ref{spaces-properties-section-reduced} 节）。由引理
+\ref{spaces-cohomology-lemma-homs-over-open}，存在 $n \geq 0$ 以及态射
+$\mathcal{I}^n(\mathcal{O}_X^{\oplus r}) \to \mathcal{F}$，它在 $U$ 上恢复
+上述同构。由于
+$\mathcal{I}^n(\mathcal{O}_X^{\oplus r}) = (\mathcal{I}^n)^{\oplus r}$，
+便得到引理所述的映射。该映射是单射：事实上，若 $\sigma$ 是某个概形
+$W$ 上 $\mathcal{I}^{\oplus r}$ 的非零截面，其中 $W$ \'etale 于 $X$，
+则由于 $X$ 约化，从而 $W$ 约化，$\sigma$ 的支撑包含 $W$ 的一个非空开集。
+然而，$(\mathcal{I}^n)^{\oplus r} \to \mathcal{F}$ 的核在一个稠密开集上
+为零，所以 $\sigma$ 不可能是该核的截面。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-coherent-filter}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设 $\mathcal{F}$
+为 $X$ 上的凝聚层。存在由凝聚子层组成的滤过
+$$
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\ldots \subset \mathcal{F}_m = \mathcal{F}
+$$
+使得对于每个 $j = 1, \ldots, m$，存在约化闭子空间 $Z_j \subset X$，
+其中 $|Z_j|$ 不可约，并存在理想层
+$\mathcal{I}_j \subset \mathcal{O}_{Z_j}$，使得
+$$
+\mathcal{F}_j/\mathcal{F}_{j - 1}
+\cong (Z_j \to X)_* \mathcal{I}_j
+$$
+\end{lemma}
+
+\begin{proof}
+考虑集合
+$$
+\mathcal{T} =
+\left\{
+\begin{matrix}
+T \subset |X|
+\text{ 为闭集，且存在凝聚层 }
+\mathcal{F} \\
+\text{ 满足 }
+\text{Supp}(\mathcal{F}) = T
+\text{，而本引理对它不成立}
+\end{matrix}
+\right\}
+$$
+我们要证明 $\mathcal{T}$ 为空。否则，由于 $|X|$ 是 Noether 的（《空间的性质》
+引理 \ref{spaces-properties-lemma-Noetherian-topology}），可以选取
+$\mathcal{T}$ 的极小元 $T$。这意味着存在 $X$ 上支撑为 $T$ 的凝聚层
+$\mathcal{F}$，而本引理对它不成立。显然 $T \not = \emptyset$，因为支撑
+为空的层只能是零层，而本引理对零层成立（取 $m = 0$）。
+
+\medskip\noindent
+如果 $T$ 可约，则可写成 $T = Z_1 \cup Z_2$，其中 $Z_1$、$Z_2$ 都是
+严格小于 $T$ 的闭集。于是可以应用引理
+\ref{spaces-cohomology-lemma-prepare-filter-support}，得到凝聚层的短正合列
+$$
+0 \to
+\mathcal{G}_1 \to
+\mathcal{F} \to
+\mathcal{G}_2 \to 0
+$$
+满足 $\text{Supp}(\mathcal{G}_i) \subset Z_i$。由 $T$ 的极小性，每个
+$\mathcal{G}_i$ 都有引理陈述中的滤过。考察 $\mathcal{F}$ 上诱导的滤过，
+便得到矛盾。因此 $T$ 不可约。
+
+\medskip\noindent
+假设 $T$ 不可约。设 $\mathcal{J}$ 为定义 $T$ 上约化诱导闭子空间结构的
+理想层，见《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}。由引理
+\ref{spaces-cohomology-lemma-power-ideal-kills-sheaf}，存在 $n \geq 0$ 使得
+$\mathcal{J}^n\mathcal{F} = 0$。因而得到滤过
+$$
+0 = \mathcal{I}^n\mathcal{F} \subset \mathcal{I}^{n - 1}\mathcal{F}
+\subset \ldots \subset \mathcal{I}\mathcal{F} \subset \mathcal{F}
+$$
+其每个相继次商都被 $\mathcal{J}$ 零化。% P09-ERR-0023
+因此，如果这些次商中的每一个都有引理陈述中的滤过，那么
+$\mathcal{F}$ 也有。换言之，可以假设 $\mathcal{J}$ 零化 $\mathcal{F}$。
+
+\medskip\noindent
+假设 $T$ 不可约，且 $\mathcal{J}\mathcal{F} = 0$，其中 $\mathcal{J}$ 如上。
+则 $\mathcal{F}$ 的概形论支撑为 $T$，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-i-star-equivalence}。因此可以应用引理
+\ref{spaces-cohomology-lemma-prepare-filter-irreducible}，得到短正合列
+$$
+0 \to
+i_*(\mathcal{I}^{\oplus r}) \to
+\mathcal{F} \to
+\mathcal{Q} \to 0
+$$
+其中 $\mathcal{Q}$ 的支撑是 $T$ 的真闭子集。由 $T$ 的极小性，
+$\mathcal{Q}$ 有所需类型的滤过。于是显然 $\mathcal{F}$ 也有这样的滤过，
+这给出最终的矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-property-initial}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设
+$\mathcal{P}$ 为 $X$ 上凝聚层的一条性质。假设：
+\begin{enumerate}
+\item 对于凝聚层的任意短正合列
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F} \to \mathcal{F}_2 \to 0
+$$
+如果 $\mathcal{F}_i$（$i = 1, 2$）具有性质 $\mathcal{P}$，则
+$\mathcal{F}$ 也具有性质 $\mathcal{P}$；
+\item 对于每个满足 $|Z|$ 不可约的约化闭子空间 $Z \subset X$，以及每个
+拟凝聚理想层 $\mathcal{I} \subset \mathcal{O}_Z$，$i_*\mathcal{I}$
+都具有性质 $\mathcal{P}$。
+\end{enumerate}
+则 $X$ 上的每个凝聚层都具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+首先注意，如果凝聚层 $\mathcal{F}$ 有由凝聚子层组成的滤过
+$$
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\ldots \subset \mathcal{F}_m = \mathcal{F}
+$$
+并且每个 $\mathcal{F}_i/\mathcal{F}_{i - 1}$ 都具有性质 $\mathcal{P}$，
+则 $\mathcal{F}$ 也具有性质 $\mathcal{P}$。这由 $\mathcal{P}$ 的性质 (1)
+推出。另一方面，由引理 \ref{spaces-cohomology-lemma-coherent-filter}，可以为任意
+$\mathcal{F}$ 构造滤过，使其相继次商如 (2) 所述。因此本引理成立。
+\end{proof}
+
+\noindent
+下面给出上述引理的一个更实用的变体。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-property-higher-rank-cohomological}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设
+$\mathcal{P}$ 为 $X$ 上凝聚层的一条性质。假设：
+\begin{enumerate}
+\item 对于凝聚层的任意短正合列
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F} \to \mathcal{F}_2 \to 0
+$$
+如果 $\mathcal{F}_i$（$i = 1, 2$）具有性质 $\mathcal{P}$，则
+$\mathcal{F}$ 也具有性质 $\mathcal{P}$；
+\item 如果对于某个 $r \geq 1$，$\mathcal{F}^{\oplus r}$ 具有性质
+$\mathcal{P}$，则 $\mathcal{F}$ 也具有性质 $\mathcal{P}$；
+\item 对于每个满足 $|Z|$ 不可约的约化闭子空间 $i : Z \to X$，
+存在 $Z$ 上的凝聚层 $\mathcal{G}$，使得
+\begin{enumerate}
+\item $\text{Supp}(\mathcal{G}) = Z$；
+\item 对于每个非零拟凝聚理想层
+$\mathcal{I} \subset \mathcal{O}_Z$，存在拟凝聚子层
+$\mathcal{G}' \subset \mathcal{I}\mathcal{G}$，使得
+$\text{Supp}(\mathcal{G}/\mathcal{G}')$ 是 $|Z|$ 中的真闭集，并且
+$i_*\mathcal{G}'$ 具有性质 $\mathcal{P}$。
+\end{enumerate}
+\end{enumerate}
+则 $X$ 上的每个凝聚层都具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+考虑集合
+$$
+\mathcal{T} =
+\left\{
+\begin{matrix}
+T \subset |X|
+\text{ 为非空闭集，且存在凝聚层 } \\
+\mathcal{F}
+\text{ 满足 }
+\text{Supp}(\mathcal{F}) = T
+\text{，而本引理对它不成立}
+\end{matrix}
+\right\}
+$$
+我们要证明 $\mathcal{T}$ 为空。否则，由于 $|X|$ 是 Noether 的（《空间的性质》
+引理 \ref{spaces-properties-lemma-Noetherian-topology}），可以选取
+$\mathcal{T}$ 的极小元 $T$。这意味着存在 $X$ 上支撑为 $T$ 的凝聚层
+$\mathcal{F}$，而本引理对它不成立。
+
+\medskip\noindent
+如果 $T$ 可约，则可写成 $T = Z_1 \cup Z_2$，其中 $Z_1$、$Z_2$ 都是
+严格小于 $T$ 的闭集。于是可以应用引理
+\ref{spaces-cohomology-lemma-prepare-filter-support}，得到凝聚层的短正合列
+$$
+0 \to
+\mathcal{G}_1 \to
+\mathcal{F} \to
+\mathcal{G}_2 \to 0
+$$
+满足 $\text{Supp}(\mathcal{G}_i) \subset Z_i$。由 $T$ 的极小性，每个
+$\mathcal{G}_i$ 都具有性质 $\mathcal{P}$。于是由 (1)，$\mathcal{F}$
+具有性质 $\mathcal{P}$，这给出矛盾。
+
+\medskip\noindent
+假设 $T$ 不可约。设 $\mathcal{J}$ 为定义 $T$ 上约化诱导闭子空间结构的
+理想层，见《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}。由引理
+\ref{spaces-cohomology-lemma-power-ideal-kills-sheaf}，存在 $n \geq 0$ 使得
+$\mathcal{J}^n\mathcal{F} = 0$。因而得到滤过
+$$
+0 = \mathcal{J}^n\mathcal{F} \subset \mathcal{J}^{n - 1}\mathcal{F}
+\subset \ldots \subset \mathcal{J}\mathcal{F} \subset \mathcal{F}
+$$
+其每个相继次商都被 $\mathcal{J}$ 零化。因此，如果这些次商中的每一个
+都有本引理陈述中的滤过，那么由 (1)，$\mathcal{F}$ 也有。% P09-ERR-0025
+换言之，可以假设 $\mathcal{J}$ 零化 $\mathcal{F}$。
+
+\medskip\noindent
+假设 $T$ 不可约，且 $\mathcal{J}\mathcal{F} = 0$，其中 $\mathcal{J}$ 如上。
+记 $i : Z \to X$ 为与 $\mathcal{J}$ 对应的闭子空间。则对某个凝聚
+$\mathcal{O}_Z$-模 $\mathcal{H}$，有 $\mathcal{F} = i_*\mathcal{H}$；见
+《空间的态射》引理 \ref{spaces-morphisms-lemma-i-star-equivalence} 以及
+引理 \ref{spaces-cohomology-lemma-coherent-support-closed}。设 $\mathcal{G}$ 为满足
+(3)(a) 和 (3)(b) 的 $Z$ 上凝聚层。应用引理
+\ref{spaces-cohomology-lemma-prepare-filter-irreducible}，得到单射
+$$
+\mathcal{I}_1^{\oplus r_1} \to \mathcal{H}
+\quad\text{以及}\quad
+\mathcal{I}_2^{\oplus r_2} \to \mathcal{G}
+$$
+其余核的支撑是 $Z$ 中的真闭集。因此存在非空开集 $V \subset Z$，使得
+$$
+\mathcal{H}^{\oplus r_2}_V \cong \mathcal{G}^{\oplus r_1}_V
+$$
+设 $\mathcal{I} \subset \mathcal{O}_Z$ 为定义 $Z \setminus V$ 的拟凝聚
+理想层，我们得到（引理 \ref{spaces-cohomology-lemma-homs-over-open}）映射
+$$
+\mathcal{I}^n\mathcal{G}^{\oplus r_1} \longrightarrow \mathcal{H}^{\oplus r_2}
+$$
+它在 $V$ 上是同构。其核支撑在 $Z \setminus V$ 上，因而被
+$\mathcal{I}$ 的某个幂零化，见引理
+\ref{spaces-cohomology-lemma-power-ideal-kills-sheaf}。因此增大 $n$ 后，可以假设所示映射
+是单射，见引理 \ref{spaces-cohomology-lemma-Artin-Rees}。应用 (3)(b)，可找到
+$\mathcal{G}' \subset \mathcal{I}^n\mathcal{G}$，使得
+$$
+(i_*\mathcal{G}')^{\oplus r_1} \longrightarrow
+i_*\mathcal{H}^{\oplus r_2} = \mathcal{F}^{\oplus r_2}
+$$
+是单射，其余核支撑在 $Z$ 的真闭子集上，并且 $i_*\mathcal{G}'$ 具有性质
+$\mathcal{P}$。由 (1)，$(i_*\mathcal{G}')^{\oplus r_1}$ 具有性质
+$\mathcal{P}$。再由 (1) 以及 $T = |Z|$ 的极小性，
+$\mathcal{F}^{\oplus r_2}$ 具有性质 $\mathcal{P}$。最后由 (2)，
+$\mathcal{F}$ 具有性质 $\mathcal{P}$，这正是所需的矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设
+$\mathcal{P}$ 为 $X$ 上凝聚层的一条性质。假设：
+\begin{enumerate}
+\item 对于 $X$ 上凝聚层的任意短正合列，如果其中三个层中的两个具有
+性质 $\mathcal{P}$，则第三个也具有性质 $\mathcal{P}$；
+\item 如果对于某个 $r \geq 1$，$\mathcal{F}^{\oplus r}$ 具有性质
+$\mathcal{P}$，则 $\mathcal{F}$ 也具有性质 $\mathcal{P}$；
+\item 对于每个满足 $|Z|$ 不可约的约化闭子空间 $i : Z \to X$，
+存在 $X$ 上概形论支撑为 $Z$ 的凝聚层 $\mathcal{G}$，并且
+$\mathcal{G}$ 具有性质 $\mathcal{P}$。
+\end{enumerate}
+则 $X$ 上的每个凝聚层都具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+我们将证明引理 \ref{spaces-cohomology-lemma-property-initial} 的条件 (1) 和 (2) 成立。
+条件 (1) 显然成立。为证明 (2)，令
+$$
+\mathcal{T} =
+\left\{
+\begin{matrix}
+i : Z \to X \text{ 为满足 }|Z|\text{ 不可约的约化闭子空间，并且}\\
+\text{ 对某个拟凝聚 }\mathcal{I} \subset \mathcal{O}_Z\text{，}
+i_*\mathcal{I}\text{ 不具有 }\mathcal{P}
+\end{matrix}
+\right\}
+$$
+如果 $\mathcal{T}$ 非空，则由于 $X$ 是 Noether 的，可以在
+$\mathcal{T}$ 中找到极小的 $i : Z \to X$。下面证明这会导致矛盾。
+
+\medskip\noindent
+设 $\mathcal{G}$ 为假设 (3) 中假定存在的、概形论支撑为 $Z$ 的层。% P09-ERR-0026
+设 $\varphi : i_*\mathcal{I}^{\oplus r} \to \mathcal{G}$ 如引理
+\ref{spaces-cohomology-lemma-prepare-filter-irreducible} 所述。设
+$$
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset
+\ldots \subset \mathcal{F}_m = \Coker(\varphi)
+$$
+为引理 \ref{spaces-cohomology-lemma-coherent-filter} 所述的滤过。由 $Z$ 的极小性和假设 (1)，
+$\Coker(\varphi)$ 具有性质 $\mathcal{P}$。由于 $\varphi$ 是单射，再次使用
+假设 (1) 可知 $i_*\mathcal{I}^{\oplus r}$ 具有性质 $\mathcal{P}$。
+使用假设 (2)，便得到 $i_*\mathcal{I}$ 具有性质 $\mathcal{P}$。
+
+\medskip\noindent
+最后，若 $\mathcal{J} \subset \mathcal{O}_Z$ 是另一个拟凝聚理想层，令
+$\mathcal{K} = \mathcal{I} \cap \mathcal{J}$，并考虑短正合列
+$$
+0 \to \mathcal{K} \to \mathcal{I} \to \mathcal{I}/\mathcal{K} \to 0
+\quad
+\text{以及}
+\quad
+0 \to \mathcal{K} \to \mathcal{J} \to \mathcal{J}/\mathcal{K} \to 0
+$$
+沿用上述论证并使用 $Z$ 的极小性，可见
+$i_*\mathcal{I}/\mathcal{K}$ 和 $i_*\mathcal{J}/\mathcal{K}$
+具有性质 $\mathcal{P}$。% P09-ERR-0027
+因此由假设 (1)，先得到 $i_*\mathcal{K}$ 具有性质 $\mathcal{P}$，再得到
+$i_*\mathcal{J}$ 具有性质 $\mathcal{P}$。换言之，$Z$ 不是
+$\mathcal{T}$ 的元素，这正是所需的矛盾。
+\end{proof}
+
+
+
+
+
+
+\section{凝聚模的极限}
+\label{spaces-cohomology-section-limits}
+
+\noindent
+（局部 Noether 代数空间上的）凝聚模的余极限通常并不凝聚。但它是拟凝聚的，
+因为代数空间上拟凝聚模的任意余极限都是拟凝聚的，见《空间的性质》引理
+\ref{spaces-properties-lemma-properties-quasi-coherent}。反过来，如果该
+代数空间是 Noether 的，那么每个拟凝聚模都是凝聚模的滤过余极限。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-directed-colimit-coherent}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间。每个拟凝聚
+$\mathcal{O}_X$-模都是其凝聚子模的滤过余极限。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。如果
+$\mathcal{G}, \mathcal{H} \subset \mathcal{F}$ 是凝聚
+$\mathcal{O}_X$-子模，则 $\mathcal{G} \oplus \mathcal{H} \to \mathcal{F}$
+的像是另一个同时包含二者的凝聚 $\mathcal{O}_X$-子模（见引理
+\ref{spaces-cohomology-lemma-coherent-abelian-Noetherian} 和
+\ref{spaces-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}）。由此可见，
+该系统是有向的。因此现在只需证明 $\mathcal{F}$ 可以写成凝聚模的滤过
+余极限；一旦如此，取这些模在 $\mathcal{F}$ 中的像，便可断定这样的
+凝聚子模足够多。
+
+\medskip\noindent
+设 $U$ 为仿射概形，$U \to X$ 为满 \'etale 态射。令
+$R = U \times_X U$，从而照例有 $X = U/R$。由《空间的性质》命题
+\ref{spaces-properties-proposition-quasi-coherent}
+可见 $\QCoh(\mathcal{O}_X) = \QCoh(U, R, s, t, c)$。因此问题归结为证明
+$\QCoh(U, R, s, t, c)$ 的相应结论。于是本结论由更一般的《群胚》引理
+\ref{groupoids-lemma-colimit-coherent} 推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-direct-colimit-finite-presentation}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的仿射态射，且
+$Y$ 是 Noether 的。则每个拟凝聚 $\mathcal{O}_X$-模都是有限表示
+$\mathcal{O}_X$-模的滤过余极限。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。写成
+$f_*\mathcal{F} = \colim \mathcal{H}_i$，其中 $\mathcal{H}_i$ 是凝聚
+$\mathcal{O}_Y$-模；见引理 \ref{spaces-cohomology-lemma-directed-colimit-coherent}。由引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}，各 $\mathcal{H}_i$ 都是有限表示的
+$\mathcal{O}_Y$-模。因此 $f^*\mathcal{H}_i$ 是有限表示的
+$\mathcal{O}_X$-模，见《空间的性质》
+\ref{spaces-properties-section-properties-modules} 节。我们断言映射
+$$
+\colim f^*\mathcal{H}_i = f^*f_*\mathcal{F} \to \mathcal{F}
+$$
+是满射，因为已假设 $f$ 仿射，即，选取一个概形 $V$ 和满 \'etale 态射
+$V \to Y$。% P09-ERR-0030
+令 $U = X \times_Y V$。则 $U$ 是概形，$f' : U \to V$ 仿射，且
+$U \to X$ 是满 \'etale 态射。由《空间的性质》引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}
+可见 $f'_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$，拉回也同样如此。因此
+$f^*f_*\mathcal{F} \to \mathcal{F}$ 在 $U$ 上的限制是映射
+$$
+f^*f_*\mathcal{F}|_U = (f')^*(f_*\mathcal{F})|_V) =
+(f')^*f'_*(\mathcal{F}|_U) \to \mathcal{F}|_U
+$$
+它是满射，因为 $f'$ 是概形之间的仿射态射。% P09-ERR-0031
+所以该断言成立。
+
+\medskip\noindent
+由此得出，$X$ 上每个拟凝聚模都是有限表示模的某个滤过余极限的商。
+特别地，$\mathcal{F}$ 是某个映射的余核
+$$
+\colim_{j \in J} \mathcal{G}_j \longrightarrow \colim_{i \in I} \mathcal{H}_i
+$$
+其中 $\mathcal{G}_j$ 和 $\mathcal{H}_i$ 都有限表示。注意，对于每个
+$j \in I$，存在 $i \in I$ 以及态射
+$\alpha : \mathcal{G}_j \to \mathcal{H}_i$，使得% P09-ERR-0032
+$$
+\xymatrix{
+\mathcal{G}_j \ar[r]_\alpha \ar[d] & \mathcal{H}_i \ar[d] \\
+\colim_{j \in J} \mathcal{G}_j \ar[r] &
+\colim_{i \in I} \mathcal{H}_i
+}
+$$
+交换，见引理 \ref{spaces-cohomology-lemma-finite-presentation-quasi-compact-colimit}。
+在这种情形下，$\Coker(\alpha)$ 是有限表示的 $\mathcal{O}_X$-模，并带有
+一个映射 $\Coker(\alpha) \to \mathcal{F}$。考虑由上述三元组
+$(i, j, \alpha)$ 组成的集合 $K$。规定
+$(i, j, \alpha) \leq (i', j', \alpha')$，当且仅当
+$i \leq i'$、$j \leq j'$，且下图
+$$
+\xymatrix{
+\mathcal{G}_j \ar[r]_\alpha \ar[d] & \mathcal{H}_i \ar[d] \\
+\mathcal{G}_{j'} \ar[r]^{\alpha'} &
+\mathcal{H}_{i'}
+}
+$$
+交换。由上可知，$K$ 是有向偏序集，
+$$
+\mathcal{F} = \colim_{(i, j, \alpha) \in K} \Coker(\alpha),
+$$
+于是结论得证。
+\end{proof}
+
+
+
+
+
+
+\section{上同调的消失性}
+\label{spaces-cohomology-section-vanishing}
+
+\noindent
+本节证明：如果一个拟紧且拟分离的代数空间上所有拟凝聚层的高阶上同调
+都消失，则该代数空间仿射。我们将通过一系列引理来证明；一旦命题
+\ref{spaces-cohomology-proposition-vanishing-affine} 得证，这些引理便都会失去独立作用。
+
+\begin{situation}
+\label{spaces-cohomology-situation-vanishing}
+这里 $S$ 是一个概形，$X$ 是 $S$ 上拟紧且拟分离的代数空间，并满足下述
+性质：对于每个拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，都有
+$H^1(X, \mathcal{F}) = 0$。令 $A = \Gamma(X, \mathcal{O}_X)$。
+\end{situation}
+
+\noindent
+我们希望证明典范态射
+$$
+p : X \longrightarrow \Spec(A)
+$$
+（见《空间的性质》引理
+\ref{spaces-properties-lemma-morphism-to-affine-scheme}）是同构。
+如果 $M$ 是 $A$-模，我们用 $M \otimes_A \mathcal{O}_X$ 表示拟凝聚模
+$p^*\tilde M$。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-compute}
+在情形 \ref{spaces-cohomology-situation-vanishing} 中，对于 $A$-模 $M$，有
+$p_*(M \otimes_A \mathcal{O}_X) = \widetilde{M}$ 且
+$\Gamma(X, M \otimes_A \mathcal{O}_X) = M$。
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-pushforward}，
+$p_*(M \otimes_A \mathcal{O}_X)$ 是 $\Spec(A)$ 上的拟凝聚模，故等式
+$p_*(M \otimes_A \mathcal{O}_X) = \widetilde{M}$ 可由等式
+$\Gamma(X, M \otimes_A \mathcal{O}_X) = M$ 推出。由引理
+\ref{spaces-cohomology-lemma-colimits}，注意到
+$\Gamma(X, \bigoplus_{i \in I} \mathcal{O}_X) =
+\bigoplus_{i \in I} A$。因此本引理对自由模成立。选取短正合列
+$F_1 \to F_0 \to M$，其中 $F_0,F_1$ 是自由 $A$-模。由于
+$H^1(X, -)$ 为零，全局截面函子右正合。此外，拉回 $p^*$ 也右正合。
+所以
+$$
+\Gamma(X, F_1 \otimes_A \mathcal{O}_X) \to
+\Gamma(X, F_0 \otimes_A \mathcal{O}_X) \to
+\Gamma(X, M \otimes_A \mathcal{O}_X) \to 0
+$$
+正合。结论随即成立。
+\end{proof}
+
+\noindent
+下面的引理表明，对 $X \to \Spec(A)$ 沿
+$\Spec(A') \to \Spec(A)$ 作基变换后，情形 \ref{spaces-cohomology-situation-vanishing}
+仍然保持。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-base-change}
+在情形 \ref{spaces-cohomology-situation-vanishing} 中。
+\begin{enumerate}
+\item 给定代数空间之间的仿射态射 $X' \to X$，对于每个拟凝聚
+$\mathcal{O}_{X'}$-模 $\mathcal{F}'$，都有
+$H^1(X', \mathcal{F}') = 0$。
+\item 给定 $A$-代数 $A'$，令 $X' = X \times_{\Spec(A)} \Spec(A')$，
+则态射 $X' \to X$ 仿射，且 $\Gamma(X', \mathcal{O}_{X'}) = A'$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由引理 \ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images} 以及 Leray
+谱序列（《站点上的上同调》引理 \ref{sites-cohomology-lemma-Leray}）推出。
+设 $A \to A'$ 如 (2) 所述。由于仿射态射在基变换下保持（《空间的态射》
+引理 \ref{spaces-morphisms-lemma-base-change-affine}），且仿射概形之间的
+态射是仿射的，所以 $X' \to X$ 仿射。由引理
+\ref{spaces-cohomology-lemma-affine-base-change}，有
+$(X' \to X)_*\mathcal{O}_{X'} = A' \otimes_A \mathcal{O}_X$，因此
+$$
+\Gamma(X', \mathcal{O}_{X'}) =
+\Gamma(X, (X' \to X)_*\mathcal{O}_{X'}) =
+\Gamma(X, A' \otimes_A \mathcal{O}_X) = A'
+$$
+由引理 \ref{spaces-cohomology-lemma-vanishing-compute} 可得所需等式。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-separate-closed}
+在情形 \ref{spaces-cohomology-situation-vanishing} 中，设 $Z_0, Z_1 \subset |X|$ 为不交的
+闭子集。则存在 $a \in A$，使得 $Z_0 \subset V(a)$ 且
+$Z_1 \subset V(a - 1)$。
+\end{lemma}
+
+\begin{proof}
+赋予 $Z_0$、$Z_1$ 约化诱导子空间结构（《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}），并将相应闭浸入
+记为 $i_0 : Z_0 \to X$ 和 $i_1 : Z_1 \to X$。由于
+$Z_0 \cap Z_1 = \emptyset$，可见拟凝聚 $\mathcal{O}_X$-模的典范映射
+$$
+\mathcal{O}_X
+\longrightarrow
+i_{0, *}\mathcal{O}_{Z_0} \oplus i_{1, *}\mathcal{O}_{Z_1}
+$$
+是满射（考察几何点处的茎即可）。由于 $H^1(X, -)$ 在此映射的核上为零，
+所诱导的全局截面映射是满射。因此可以找到 $a \in A$，它映到右端的
+全局截面 $(0, 1)$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-injective}
+在情形 \ref{spaces-cohomology-situation-vanishing} 中，态射 $p : X \to \Spec(A)$ 是泛单的。
+\end{lemma}
+
+\begin{proof}
+设 $A \to k$ 为环同态，其中 $k$ 是域。只需证明
+$\Spec(k) \times_{\Spec(A)} X$ 至多有一个点（见《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-injective-local}）。利用引理
+\ref{spaces-cohomology-lemma-vanishing-base-change}，可以假设 $A$ 是域，而我们必须证明
+$|X|$ 至多有一个点。
+
+\medskip\noindent
+把 $X$ 看作 $\Spec(k)$ 上的代数空间，并对任意扩张 $K/k$，用 $X(K)$
+表示 $X$ 的 $K$-值点，见《空间的态射》
+\ref{spaces-morphisms-section-points-fields} 节。如果 $K/k$ 是超越次数
+足够大的代数闭域扩张，则 $X(K) \to |X|$ 是满射，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-large-enough}。因此用 $K$ 替换 $k$ 后，只需证明
+（在 $A = k$ 的情形下）$X(k)$ 是单点集。
+
+\medskip\noindent
+设 $x, x' \in X(k)$。由《良态空间》引理
+\ref{decent-spaces-lemma-algebraic-residue-field-extension-closed-point}，
+$x$ 和 $x'$ 是 $|X|$ 的闭点。因此，如果 $x \not = x'$，由引理
+\ref{spaces-cohomology-lemma-vanishing-separate-closed}，$x$ 和 $x'$ 映到 $\Spec(k)$ 的不同点。
+% P09-ERR-0034
+由此得到 $x = x'$，如所要求。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanishing-separated}
+在情形 \ref{spaces-cohomology-situation-vanishing} 中，态射 $p : X \to \Spec(A)$ 是分离的。
+\end{lemma}
+
+\begin{proof}
+由《良态空间》引理
+\ref{decent-spaces-lemma-there-is-a-scheme-integral-over}
+可以找到一个概形 $Y$ 和满整态射 $Y \to X$。整态射是仿射的，所以可以
+应用引理 \ref{spaces-cohomology-lemma-vanishing-base-change}，得到对于每个拟凝聚
+$\mathcal{O}_Y$-模 $\mathcal{G}$，都有 $H^1(Y, \mathcal{G}) = 0$。
+由于 $Y \to X$ 拟紧且 $X$ 拟紧，$Y$ 也拟紧。由于 $Y$ 是概形，可以应用
+《概形的上同调》引理
+\ref{coherent-lemma-quasi-compact-h1-zero-covering}，得到 $Y$ 仿射，因而
+$Y$ 分离。注意，整态射是仿射且泛闭的，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-closed}。由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-image-universally-closed-separated}，
+可见 $X$ 是分离代数空间。
+\end{proof}
+
+\begin{proposition}
+\label{spaces-cohomology-proposition-vanishing-affine}
+\begin{slogan}
+代数空间情形下的 Serre 仿射性判别法。
+\end{slogan}
+一个拟紧且拟分离的代数空间仿射，当且仅当拟凝聚层的所有高阶上同调群
+都消失。更确切地说，情形 \ref{spaces-cohomology-situation-vanishing} 中的任意代数空间
+都是仿射概形。
+\end{proposition}
+
+\begin{proof}
+选取一个仿射概形 $U = \Spec(B)$ 和满 \'etale 态射
+$\varphi : U \to X$。令 $R = U \times_X U$。由于 $p$ 分离（引理
+\ref{spaces-cohomology-lemma-vanishing-separated}），$R$ 是
+$U \times_{\Spec(A)} U = \Spec(B \otimes_A B)$ 的闭子概形。因此
+$R = \Spec(C)$ 也是仿射的，而且环同态
+$$
+B \otimes_A B \longrightarrow C
+$$
+是满射。照例把两个映射记为 $s, t : B \to C$。选取
+$g_1, \ldots, g_m \in B$，使得 $s(g_1), \ldots, s(g_m)$ 在
+$t : B \to C$ 上生成 $C$（这是可能的，因为 $t : B \to C$ 有限表示，
+且所示映射是满射）。于是 $g_1, \ldots, g_m$ 给出
+$\varphi_*\mathcal{O}_U$ 的全局截面，并且映射
+$$
+\mathcal{O}_X[z_1, \ldots, z_n] \longrightarrow \varphi_*\mathcal{O}_U,
+\quad
+z_j \longmapsto g_j
+$$
+是满射：限制到 $U$ 上即可检验。% P09-ERR-0033
+事实上，由引理 \ref{spaces-cohomology-lemma-flat-base-change-cohomology}，
+$\varphi^*\varphi_*\mathcal{O}_U = t_*\mathcal{O}_R$，因此恰好得到
+$s(g_i)$ 在 $t : B \to C$ 上生成 $C$ 的条件。由于该映射的核的
+$H^1$ 消失，可见
+$$
+\Gamma(X, \mathcal{O}_X[x_1, \ldots, x_n]) =
+A[x_1, \ldots, x_n] \longrightarrow
+\Gamma(X, \varphi_*\mathcal{O}_U) = \Gamma(U, \mathcal{O}_U) = B
+$$
+是满射。因此 $B$ 是有限型 $A$-代数，从而 $X \to \Spec(A)$ 有限型且分离。
+由引理 \ref{spaces-cohomology-lemma-vanishing-injective} 以及《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite}，它还是局部拟有限的。
+于是由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}，
+$X \to \Spec(A)$ 可表，从而 $X$ 是概形。最后，应用《概形的上同调》引理
+\ref{coherent-lemma-quasi-compact-h1-zero-covering}，可知 $X$ 仿射，
+因而等于 $\Spec(A)$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-Noetherian-h1-zero}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间。假设对于每个凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$，都有 $H^1(X, \mathcal{F}) = 0$。
+则 $X$ 是仿射概形。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-cohomology-lemma-directed-colimit-coherent} 和 \ref{spaces-cohomology-lemma-colimits}，
+该假设推出对于每个拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，都有
+$H^1(X, \mathcal{F}) = 0$。于是由命题
+\ref{spaces-cohomology-proposition-vanishing-affine}，$X$ 仿射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-Noetherian-h1-zero-invertible}
+设 $S$ 为一个概形，$X$ 为 $S$ 上的 Noether 代数空间，并设
+$\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。假设对于每个凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$，存在 $n \geq 1$ 使得
+$H^1(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}) = 0$。
+则 $X$ 是概形，而且 $\mathcal{L}$ 在 $X$ 上是丰沛的。
+\end{lemma}
+
+\begin{proof}
+设 $s \in H^0(X, \mathcal{L}^{\otimes d})$ 为全局截面。设 $U \subset X$
+为 $s$ 生成 $\mathcal{L}^{\otimes d}$ 的开子空间。特别地，有
+$\mathcal{L}^{\otimes d}|_U \cong \mathcal{O}_U$。我们断言 $U$ 仿射。
+
+\medskip\noindent
+断言的证明。我们将证明，对于每个拟凝聚 $\mathcal{O}_U$-模
+$\mathcal{F}$，都有 $H^1(U, \mathcal{F}) = 0$。由命题
+\ref{spaces-cohomology-proposition-vanishing-affine}，这将证明该断言。记
+$j : U \to X$ 为包含态射。由于 $j$ 在 \'etale 拓扑下局部仿射（由
+《态射》引理 \ref{morphisms-lemma-affine-s-open}），《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-local} 表明 $j$ 仿射。因此
+$$
+H^1(U, \mathcal{F}) = H^1(X, j_*\mathcal{F})
+$$
+由引理 \ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images}（以及《站点上的
+上同调》引理 \ref{sites-cohomology-lemma-apply-Leray}）成立。把
+$j_*\mathcal{F} = \colim \mathcal{F}_i$ 写成凝聚 $\mathcal{O}_X$-模的
+滤过余极限，见引理 \ref{spaces-cohomology-lemma-directed-colimit-coherent}。则
+$$
+H^1(X, j_*\mathcal{F}) = \colim H^1(X, \mathcal{F}_i)
+$$
+由引理 \ref{spaces-cohomology-lemma-colimits} 成立。因此只需证明 $H^1(X, \mathcal{F}_i)$
+在 $H^1(U, j^*\mathcal{F}_i)$ 中的像为零。由假设，存在 $n \geq 1$，使得
+$$
+H^1(X,
+\mathcal{F}_i \otimes_{\mathcal{O}_X}
+(\mathcal{O}_X \oplus \mathcal{L} \oplus \ldots
+\oplus \mathcal{L}^{\otimes d - 1})
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}) = 0
+$$
+因此存在 $a \geq 0$，使得
+$H^1(X, \mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}) = 0$。
+另一方面，映射
+$$
+s^a : \mathcal{F}_i \longrightarrow
+\mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}
+$$
+限制到 $U$ 后是同构。考察交换图
+$$
+\xymatrix{
+H^1(X, \mathcal{F}_i) \ar[r] \ar[d]_{s^a} & H^1(U, j^*\mathcal{F}_i)
+\ar[d]^{\cong} \\
+H^1(X, \mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}) \ar[r] &
+H^1(U,
+j^*(\mathcal{F}_i \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes ad}))
+}
+$$
+可知映射 $H^1(X, \mathcal{F}_i) \to H^1(U, j^*\mathcal{F}_i)$ 为零，
+断言得证。
+
+\medskip\noindent
+设 $x \in |X|$ 为闭点。由《良态空间》引理
+\ref{decent-spaces-lemma-decent-space-closed-point}，可以用闭浸入
+$i : \Spec(k) \to X$ 表示 $x$（这里还用到了拟分离代数空间是良态的，
+见《良态空间》\ref{decent-spaces-section-reasonable-decent} 节）。因此
+$\mathcal{O}_X \to i_*\mathcal{O}_{\Spec(k)}$ 是满射。设
+$\mathcal{I} \subset \mathcal{O}_X$ 为其核，并选取 $d \geq 1$，使得
+$H^1(X, \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0$。
+则
+$$
+H^0(X, \mathcal{L}^{\otimes d}) \to
+H^0(X,
+i_*\mathcal{O}_{\Spec(k)} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) =
+H^0(\Spec(k), i^*\mathcal{L}^{\otimes d}) \cong k
+$$
+由上同调长正合列，该映射是满射。因此存在
+$s \in H^0(X, \mathcal{L}^{\otimes d})$，使得 $x \in U$，其中 $U$ 是上面
+与 $s$ 对应的开子空间。由上述断言，$x$ 位于 $X$ 的概形轨迹中
+（见《空间的性质》引理 \ref{spaces-properties-lemma-subscheme}）。
+
+\medskip\noindent
+为了得出 $X$ 是概形，只需证明 $|X|$ 中任何包含所有闭点的开子集都等于
+$|X|$。这由 $|X|$ 是 Noether 拓扑空间这一事实推出，见《空间的性质》
+引理 \ref{spaces-properties-lemma-Noetherian-sober}。最后，当 $X$ 是概形时，
+可以应用《概形的上同调》引理
+\ref{coherent-lemma-quasi-compact-h1-zero-invertible}，得到
+$\mathcal{L}$ 是丰沛的。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{有限态射与仿射性}
+\label{spaces-cohomology-section-finite-affine}
+
+\noindent
+本节对应于《概形的上同调》\ref{coherent-section-finite-affine} 节。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-finite-morphism-Noetherian}
+设 $S$ 为一个概形，$f : Y \to X$ 为 $S$ 上代数空间之间的态射。假设
+$f$ 有限且为满射，并且 $X$ 局部 Noether。设 $i : Z \to X$ 为闭浸入。
+记 $i' : Z' \to Y$ 为 $Z$ 的逆像（《空间的态射》
+\ref{spaces-morphisms-section-closed-immersions} 节），并记
+$f' : Z' \to Z$ 为诱导态射。则
+$\mathcal{G} = f'_*\mathcal{O}_{Z'}$ 是支撑为 $Z$ 的凝聚
+$\mathcal{O}_Z$-模。
+\end{lemma}
+
+\begin{proof}
+注意，$f'$ 是 $f$ 的基变换，因而由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-surjective} 和
+\ref{spaces-morphisms-lemma-base-change-integral}，它有限且为满射。
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}（以及闭浸入
+和有限态射都是有限型的这一事实），$Y$、$Z$、$Z'$ 都局部 Noether。
+由引理 \ref{spaces-cohomology-lemma-finite-pushforward-coherent}，$\mathcal{G}$ 是凝聚
+$\mathcal{O}_Z$-模。$\mathcal{G}$ 的支撑在 $|Z|$ 中闭，见《空间的态射》
+引理 \ref{spaces-morphisms-lemma-support-finite-type}。因此，如果
+$\mathcal{G}$ 的支撑不等于 $|Z|$，则用一个开子空间替换 $X$ 后，可以
+假设 $\mathcal{G} = 0$ 而 $Z \not = \emptyset$。这将意味着
+$f'_*\mathcal{O}_{Z'} = 0$。特别地，截面
+$1 \in \Gamma(Z', \mathcal{O}_{Z'}) = \Gamma(Z, f'_*\mathcal{O}_{Z'})$
+将为零，从而 $Z' = \emptyset$ 是空代数空间。这不可能，因为
+$Z' \to Z$ 是满射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-affine-morphism-projection-ideal}
+设 $S$ 为一个概形，$f : Y \to X$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为 $Y$ 上的拟凝聚层，$\mathcal{I}$ 为 $X$ 上的拟凝聚
+理想层。如果 $f$ 仿射，则
+$\mathcal{I}f_*\mathcal{F} = f_*(f^{-1}\mathcal{I}\mathcal{F})$
+（记号的含义见证明）。
+\end{lemma}
+
+\begin{proof}
+上述记号的含义如下。由于 $f^{-1}$ 是正合函子，
+$f^{-1}\mathcal{I}$ 是 $f^{-1}\mathcal{O}_X$ 的理想层。通过
+$Y_\etale$ 上的映射
+$f^\sharp : f^{-1}\mathcal{O}_X \to \mathcal{O}_Y$，它作用在
+$\mathcal{F}$ 上。于是 $f^{-1}\mathcal{I}\mathcal{F}$ 是由形如 $as$ 的
+局部截面的和生成的子层，其中 $a$ 是 $f^{-1}\mathcal{I}$ 的局部截面，
+$s$ 是 $\mathcal{F}$ 的局部截面。它是 $\mathcal{F}$ 的拟凝聚
+$\mathcal{O}_Y$-子模，因为它也等于自然映射
+$f^*\mathcal{I} \otimes_{\mathcal{O}_Y} \mathcal{F} \to \mathcal{F}$ 的像。
+
+\medskip\noindent
+说明这些记号后，证明便很直接。事实上，该问题在 $X$ 上是 \'etale 局部的，
+因而可以假设 $X$ 是仿射概形。在这种情形下，结论由概形的相应结论推出，
+见《概形的上同调》引理
+\ref{coherent-lemma-affine-morphism-projection-ideal}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+设 $S$ 为一个概形，$f : Y \to X$ 为 $S$ 上代数空间之间的态射。假设：
+\begin{enumerate}
+\item $f$ 有限；
+\item $f$ 为满射；
+\item $Y$ 仿射；
+\item $X$ 是 Noether 的。
+\end{enumerate}
+则 $X$ 仿射。
+\end{lemma}
+
+\begin{proof}
+我们将证明，在本引理的假设下，对于任意凝聚 $\mathcal{O}_X$-模
+$\mathcal{F}$，都有 $H^1(X, \mathcal{F}) = 0$。由引理
+\ref{spaces-cohomology-lemma-directed-colimit-coherent} 和 \ref{spaces-cohomology-lemma-colimits}，这又推出
+对于每个拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，都有
+$H^1(X, \mathcal{F}) = 0$。于是由命题
+\ref{spaces-cohomology-proposition-vanishing-affine}，$X$ 仿射。
+
+\medskip\noindent
+设 $\mathcal{P}$ 为 $X$ 上凝聚层 $\mathcal{F}$ 的下述性质：
+$$
+\mathcal{P}(\mathcal{F}) \Leftrightarrow H^1(X, \mathcal{F}) = 0.
+$$
+我们将应用引理 \ref{spaces-cohomology-lemma-property-higher-rank-cohomological}，因此必须为
+$\mathcal{P}$ 验证该引理的 (1)、(2)、(3)。性质 (1) 由与层的短正合列
+相伴的上同调长正合列推出。性质 (2) 来自 $H^1(X, -)$ 是可加函子。
+为证明 (3)，设 $i : Z \to X$ 为满足 $|Z|$ 不可约的约化闭子空间。
+设 $i' : Z' \to Y$ 和 $f' : Z' \to Z$ 如引理
+\ref{spaces-cohomology-lemma-finite-morphism-Noetherian} 中所述，并令
+$\mathcal{G} = f'_*\mathcal{O}_{Z'}$。我们断言 $\mathcal{G}$ 满足引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological} 的性质 (3)(a) 和 (3)(b)，
+这将完成证明。性质 (3)(a) 已在引理
+\ref{spaces-cohomology-lemma-finite-morphism-Noetherian} 中证明。为证明 (3)(b)，设
+$\mathcal{I}$ 为 $Z$ 上的非零拟凝聚理想层。记
+$\mathcal{I}' \subset \mathcal{O}_{Z'}$ 为拟凝聚理想
+$(f')^{-1}\mathcal{I} \mathcal{O}_{Z'}$，也就是
+$(f')^*\mathcal{I} \to \mathcal{O}_{Z'}$ 的像。由引理
+\ref{spaces-cohomology-lemma-affine-morphism-projection-ideal}，有
+$f_*\mathcal{I}' = \mathcal{I} \mathcal{G}$。% P09-ERR-0035
+我们断言其共同值
+$\mathcal{G}' = \mathcal{I} \mathcal{G} = f'_*\mathcal{I}'$
+满足 (3)(b) 中的条件。首先，显然 $\mathcal{G}/\mathcal{G}'$ 的支撑包含在
+$\mathcal{O}_Z/\mathcal{I}$ 的支撑中；后者是 $|Z|$ 的真子空间，因为
+$\mathcal{I}$ 是约化不可约代数空间 $Z$ 上的非零理想层。态射 $f'$ 仿射，
+故由引理 \ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images}，
+$R^1f'_*\mathcal{I}' = 0$。由于 $Z'$ 仿射（它是仿射概形的闭子概形），
+有 $H^1(Z', \mathcal{I}') = 0$。因此 Leray 谱序列（取《站点上的上同调》
+引理 \ref{sites-cohomology-lemma-apply-Leray} 的形式）推出
+$H^1(Z, f'_*\mathcal{I}') = 0$。由于 $i : Z \to X$ 仿射，
+$R^1i_*f'_*\mathcal{I}' = 0$；再次应用 Leray，得到
+$H^1(X, i_*f'_*\mathcal{I}') = 0$。换言之，如所要求，有
+$H^1(X, i_*\mathcal{G}') = 0$。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Chow 引理的弱形式}
+\label{spaces-cohomology-section-weak-chow}
+
+\noindent
+本节快速证明下面的引理，以帮助我们证明恰当代数空间上凝聚模上同调的
+基本结果。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-weak-chow}
+设 $A$ 为一个环，$X$ 为 $\Spec(A)$ 上的代数空间，其结构态射
+$X \to \Spec(A)$ 分离且为有限型。则存在恰当满态射 $X' \to X$，
+其中 $X'$ 是 $\Spec(A)$ 上 H-拟射影的概形。
+\end{lemma}
+
+\begin{proof}
+设 $W$ 为仿射概形，$f : W \to X$ 为满 \'etale 态射。存在整数 $d$，使得
+$f$ 的所有几何纤维都至多有 $d$ 个点（因为 $X$ 是分离代数，因而合理，
+见《良态空间》引理 \ref{decent-spaces-lemma-bounded-fibres}）。
+% P09-ERR-0036
+取最小的 $d$，便得到非空开集 $U \subset X$，使得
+$f^{-1}(U) \to U$ 是次数为 $d$ 的有限 \'etale 态射，见《良态空间》引理
+\ref{decent-spaces-lemma-quasi-compact-reasonable-stratification}。令
+$$
+V \subset W \times_X W \times_X \ldots \times_X W
+$$
+为所有对角线的补集（纤维积中有 $d$ 个因子）。由于 $W \to X$ 分离，
+对角态射 $W \to W \times_X W$ 是闭浸入。由于 $W \to X$ 是 \'etale 的，
+该对角态射也是开浸入，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-unramified} 和
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}。因此这些对角线是
+拟紧概形 $W \times_X \ldots \times_X W$ 的开闭子概形。特别地，$V$
+是拟紧概形。选取开浸入 $W \subset Y$，其中 $Y$ 在 $A$ 上 H-射影
+（这是可能的，因为 $W$ 仿射且在 $A$ 上为有限型；例如可以使用《态射》引理
+\ref{morphisms-lemma-quasi-affine-finite-type-over-S} 和
+\ref{morphisms-lemma-H-quasi-projective-open-H-projective}）。令
+$$
+Z \subset Y \times_A Y \times_A \ldots \times_A Y
+$$
+为复合态射
+$V \to W \times_X \ldots \times_X W \to Y \times_A \ldots \times_A Y$
+的概形论像。由于 $V$ 拟紧且 $Y \times_A \ldots \times_A Y$ 分离，
+该态射拟紧。注意，$V \to Y \times_A \ldots \times_A Y$ 是浸入，故
+$V \to Z$ 是开浸入，见《态射》引理
+\ref{morphisms-lemma-quasi-compact-immersion}。投影态射给出 $d$ 个态射
+$g_i : Z \to Y$。由于 $Y$ 在 $A$ 上射影，这些态射 $g_i$ 都是射影的，
+见《态射》\ref{morphisms-section-projective} 节中的材料。令
+$$
+X' = \bigcup g_i^{-1}(W) \subset Z
+$$
+存在态射 $X' \to X$，它在 $g_i^{-1}(W)$ 上的限制是复合态射
+$g_i^{-1}(W) \to W \to X$。事实上，这些态射在 $V$ 上相同，因而由
+《空间的态射》引理 \ref{spaces-morphisms-lemma-equality-of-morphisms}，
+它们在 $g_i^{-1}(W) \cap g_j^{-1}(W)$ 上相同。断言：态射
+$X' \to X$ 恰当。
+
+\medskip\noindent
+如果断言成立，则对 $d$ 归纳即可证明本引理。事实上，按构造，$X'$ 在
+$\Spec(A)$ 上 H-拟射影。由于 $V$ 满射到 $U$，$X' \to X$ 的像包含开集
+$U$。记 $T$ 为 $X \setminus U$ 上的约化诱导代数空间结构。则
+$T \times_X W$ 是 $W$ 的闭子概形，因而仿射。此外，态射
+$T \times_X W \to T$ 是 \'etale 的，且每个几何纤维少于 $d$ 个点。
+由归纳假设，存在恰当满态射 $T' \to T$，其中 $T'$ 是
+$\Spec(A)$ 上 H-拟射影的概形。由于 $T$ 是 $X$ 的闭子空间，
+$T' \to X$ 是恰当态射。因此取恰当满态射
+$X' \amalg T' \to X$ 即得本引理。
+
+\medskip\noindent
+断言的证明。按构造，态射 $X' \to X$ 分离且为有限型。我们将为态射
+$V \to X'$ 和 $X' \to X$ 验证《空间的态射》引理
+\ref{spaces-morphisms-lemma-refined-valuative-criterion-universally-closed}
+的条件 (1)--(4)。条件 (1) 和 (2) 已在上面验证。条件 (3) 成立，因为
+$X' \to X$ 分离（其源是分离代数空间）。因此只需对图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & V \ar[d] \\
+\Spec(R) \ar[r] & X
+}
+$$
+检验到 $X'$ 的可提升性，其中 $R$ 是分式域为 $K$ 的赋值环。注意，上方
+水平态射由 $W$ 的 $d$ 个两两不同的 $K$-值点
+$w_1, \ldots, w_d$ 给出。事实上，它们恰好是该图所给点
+$x \in X(K)$ 的全部逆像。由于 $W \to X$ 为满射，必要时用赋值环扩张
+替换 $R$ 后，可以把态射 $\Spec(R) \to X$ 提升为态射
+$w : \Spec(R) \to W$，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-lift-valuation-ring-through-flat-morphism}。
+由于 $w_1, \ldots, w_d$ 是 $x$ 的全部逆像，我们看到
+$w|_{\Spec(K)}$ 等于其中某一个，比如 $w_i$。% P09-ERR-0037
+于是得到交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] &  Z \ar[d]_{g_i}\\
+\Spec(R) \ar[r]^w & Y
+}
+$$
+由射影态射 $g_i$ 的恰当性赋值判别法，可以把 $w$ 提升为
+$z : \Spec(R) \to Z$，见《态射》引理
+\ref{morphisms-lemma-locally-projective-proper} 以及《概形》命题
+\ref{schemes-proposition-characterize-universally-closed}。$z$ 的像位于
+$g_i^{-1}(W) \subset X'$ 中，证明完成。
+\end{proof}
+
+
+
+
+
+
+
+\section{Noether 赋值判别法}
+\label{spaces-cohomology-section-Noetherian-valuative-criterion}
+
+\noindent
+我们使用离散赋值环证明恰当性赋值判别法的一个版本。更精确（因而也更
+技术化）的版本见《空间的极限》
+\ref{spaces-limits-section-Noetherian-valuative-criterion} 节。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-check-separated-dvr}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射。假设：
+\begin{enumerate}
+\item $Y$ 局部 Noether；
+\item $f$ 局部有限型且拟分离；
+\item 对于每个交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+其中 $A$ 是离散赋值环，$K$ 是其分式域，使该图交换的虚线箭头至多有一个。
+\end{enumerate}
+则 $f$ 分离。
+\end{lemma}
+
+\begin{proof}
+必须证明对角态射 $\Delta : X \to X \times_Y X$ 是闭浸入。我们已经知道
+$\Delta$ 可表、分离，是单态射且局部有限型，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-properties-diagonal}。选取仿射概形 $U$ 和
+\'etale 态射 $U \to X \times_Y X$。令
+$V = X \times_{\Delta, X \times_Y X} U$。只需证明 $V \to U$ 是闭浸入
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-closed-immersion-local}）。
+由于 $X \times_Y X$ 在 $Y$ 上局部有限型，$U$ 是 Noether 的（使用
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-type},
+\ref{spaces-morphisms-lemma-base-change-finite-type} 和
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}）。
+由于 $\Delta$ 可表，$V$ 是概形。此外，因为 $f$ 拟分离，$V$ 拟紧。
+所以 $V \to U$ 为有限型。考虑概形态射的交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & V \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & U
+}
+$$
+其中 $A$ 是分式域为 $K$ 的离散赋值环。可以把复合态射
+$\Spec(A) \to U \to X \times_Y X$ 解释为一对态射
+$a, b : \Spec(A) \to X$；它们复合到 $Y$ 后相同，且限制到
+$\Spec(K)$ 后相等。因此假设 (3) 保证 $a = b$，从而得到图中的虚线箭头。
+由《极限》引理 \ref{limits-lemma-Noetherian-dvr-valuative-proper}，
+$V \to U$ 恰当。换言之，$\Delta$ 恰当。由于 $\Delta$ 是单态射，
+《\'Etale 态射》引理 \ref{etale-lemma-characterize-closed-immersion}
+表明 $\Delta$ 是闭浸入，如所要求。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-check-proper-dvr}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射。假设：
+\begin{enumerate}
+\item $Y$ 局部 Noether；
+\item $f$ 有限型且拟分离；
+\item 对于每个交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+其中 $A$ 是离散赋值环，$K$ 是其分式域，存在唯一的虚线箭头使该图交换。
+\end{enumerate}
+则 $f$ 恰当。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-cohomology-lemma-check-separated-dvr}，$f$ 分离，所以只需证明 $f$ 泛闭。
+为此可以在 $Y$ 上 \'etale 局部地验证（《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local}）。因此可以假设
+$Y = \Spec(A)$ 是 Noether 仿射概形。按照 Chow 引理的弱形式（引理
+\ref{spaces-cohomology-lemma-weak-chow}）选取 $X' \to X$。我们断言
+$X' \to \Spec(A)$ 泛闭。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-image-proper-is-proper}，该断言蕴含本引理。
+为证明该断言，根据《极限》引理
+\ref{limits-lemma-check-universally-closed-Noetherian}，只需证明在每个实线
+部分交换的图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X' \ar[r] & X \ar[d] \\
+\Spec(A) \ar[rr] \ar@{-->}[ru]^a \ar@{-->}[rru]_b & & Y
+}
+$$
+中，可以找到虚线箭头 $a$，其中 $A$ 是分式域为 $K$ 的离散赋值环。
+% P09-ERR-0038
+由假设可以找到虚线箭头 $b$。于是态射
+$X' \times_{X, b} \Spec(A) \to \Spec(A)$ 是概形之间的恰当态射；
+由概形态射的赋值判别法，可以把 $b$ 提升为所需态射 $a$。
+\end{proof}
+
+\begin{remark}[完备离散赋值环的变体]
+\label{spaces-cohomology-remark-variant}
+在引理 \ref{spaces-cohomology-lemma-check-separated-dvr} 和 \ref{spaces-cohomology-lemma-check-proper-dvr} 中，
+只需考虑完备离散赋值环。确切地说，在引理
+\ref{spaces-cohomology-lemma-check-separated-dvr} 中，可以把条件 (3) 替换为下述条件：
+给定任意交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & Y
+}
+$$
+其中 $A$ 是分式域为 $K$ 的完备离散赋值环，使该图交换的虚线箭头至多
+有一个。事实上，给定引理 \ref{spaces-cohomology-lemma-check-separated-dvr} (3) 中的任意图，
+其完备化 $A^\wedge$ 是离散赋值环（《代数进阶》引理
+\ref{more-algebra-lemma-completion-dvr}），而箭头
+$\Spec(A^\wedge) \to X$ 的唯一性蕴含箭头 $\Spec(A) \to X$ 的唯一性；
+例如这由《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc} 推出。
+类似地，在引理 \ref{spaces-cohomology-lemma-check-proper-dvr} 中，可以把条件 (3) 替换为
+下述条件：给定任意交换图
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] & Y
+}
+$$
+其中 $A$ 是分式域为 $K$ 的完备离散赋值环，则存在完备离散赋值环的扩张
+$A \subset A'$，诱导分式域扩张 $K \subset K'$，并存在唯一箭头
+$\Spec(A') \to X$ 使图
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & \Spec(K) \ar[r] & X \ar[d] \\
+\Spec(A') \ar[r] \ar[rru] & \Spec(A) \ar[r] & Y
+}
+$$
+交换。事实上，给定引理 \ref{spaces-cohomology-lemma-check-proper-dvr} (3) 中的任意图，
+只要对于离散赋值环的{\it 任意}扩张 $A \subset B$，存在交换图
+$$
+\xymatrix{
+\Spec(L) \ar[r] \ar[d] & \Spec(K) \ar[r] & X \ar[d] \\
+\Spec(B) \ar[r] \ar[rru] & \Spec(A) \ar[r] & Y
+}
+$$
+就能推出存在箭头 $\Spec(A) \to X$ 嵌入该图。这已在《空间的态射》引理
+\ref{spaces-morphisms-lemma-push-down-solution} 中证明。事实上，从这些考察
+可以看出，只要某类离散赋值环满足：任给一个离散赋值环，都有它的一个
+扩张属于该类，那么只在该类离散赋值环上的图中寻找虚线箭头就已足够。
+例如，可以取剩余域代数闭的完备离散赋值环。
+\end{remark}
+
+
+
+
+
+
+
+\section{凝聚层的高阶正像}
+\label{spaces-cohomology-section-proper-pushforward}
+
+\noindent
+本节证明一个基本事实：凝聚层在恰当态射下的高阶正像是凝聚的。首先证明
+一个辅助引理。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-kill-by-twisting}
+设 $S$ 为一个概形。考虑 $S$ 上代数空间的交换图
+$$
+\xymatrix{
+X \ar[r]_i \ar[rd]_f & \mathbf{P}^n_Y \ar[d] \\
+& Y
+}
+$$
+假设 $i$ 是闭浸入，且 $Y$ 是 Noether 的。令
+$\mathcal{L} = i^*\mathcal{O}_{\mathbf{P}^n_Y}(1)$。设 $\mathcal{F}$ 为
+$X$ 上的凝聚模。则存在整数 $d_0$，使得对于所有 $d \geq d_0$ 和
+所有 $p > 0$，都有
+$R^pf_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0$。
+\end{lemma}
+
+\begin{proof}
+可以在 $Y$ 上 \'etale 局部地检验
+$R^pf_*(\mathcal{F} \otimes \mathcal{L}^{\otimes d})$ 是否为零，见公式
+(\ref{spaces-cohomology-equation-representable-higher-direct-image})。因此可以假设 $Y$ 是
+Noether 环的谱。在这种情形下，$X$ 是概形，结论由《概形的上同调》引理
+\ref{coherent-lemma-kill-by-twisting} 推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-proper-pushforward-coherent}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的恰当态射，
+且 $Y$ 局部 Noether。设 $\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。
+则对于所有 $i \geq 0$，$R^if_*\mathcal{F}$ 都是凝聚
+$\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+首先，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}，
+$X$ 是局部 Noether 代数空间，故引理的陈述有意义。此外，计算
+$R^if_*\mathcal{F}$ 与 $Y$ 上的 \'etale 局部化交换（《空间的性质》引理
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}），而且
+可以在 $Y$ 上 \'etale 局部地检验 $R^if_*\mathcal{F}$ 是否凝聚（引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}）。因此可以假设
+$Y = \Spec(A)$ 是 Noether 仿射概形。
+
+\medskip\noindent
+假设 $Y = \Spec(A)$ 是仿射概形。注意，$f$ 局部有限表示（《空间的态射》
+引理 \ref{spaces-morphisms-lemma-noetherian-finite-type-finite-presentation}）。
+因此它有限表示，从而 $X$ 是 Noether 的（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}）。于是引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant} 可应用于 $X$ 的
+凝聚模范畴。对于 $X$ 上的凝聚层 $\mathcal{F}$，规定：$\mathcal{P}$
+成立，当且仅当 $R^if_*\mathcal{F}$ 是 $\Spec(A)$ 上的凝聚模。
+下面证明引理 \ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant} 的
+条件 (1)、(2)、(3) 对此性质成立，从而完成本引理的证明。
+
+\medskip\noindent
+验证条件 (1)。设
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+为 $X$ 上凝聚层的短正合列。考虑高阶正像的长正合列
+$$
+R^{p - 1}f_*\mathcal{F}_3 \to
+R^pf_*\mathcal{F}_1 \to
+R^pf_*\mathcal{F}_2 \to
+R^pf_*\mathcal{F}_3 \to
+R^{p + 1}f_*\mathcal{F}_1
+$$
+显然，如果三个层 $\mathcal{F}_i$ 中的两个具有性质 $\mathcal{P}$，
+则第三个的高阶正像在这个正合复形中夹在两个凝聚层之间。因此由引理
+\ref{spaces-cohomology-lemma-coherent-abelian-Noetherian} 和
+\ref{spaces-cohomology-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}，这些高阶正像
+也凝聚。所以第三个层也具有性质 $\mathcal{P}$。
+
+\medskip\noindent
+验证条件 (2)。这立即来自等式
+$R^if_*(\mathcal{F}_1 \oplus \mathcal{F}_2) =
+R^if_*\mathcal{F}_1 \oplus R^if_*\mathcal{F}_2$，以及凝聚模的直和项凝聚
+这一事实（见上面引用的引理）。
+
+\medskip\noindent
+验证条件 (3)。设 $i : Z \to X$ 为闭浸入，其中 $Z$ 约化且 $|Z|$ 不可约。
+令 $g = f \circ i : Z \to \Spec(A)$。设 $\mathcal{G}$ 为 $Z$ 上概形论
+支撑等于 $Z$ 的凝聚模，并且对于所有 $p$，$R^pg_*\mathcal{G}$ 凝聚。
+则 $\mathcal{F} = i_*\mathcal{G}$ 是 $X$ 上概形论支撑为 $Z$ 的凝聚模，
+且 $R^pf_*\mathcal{F} = R^pg_*\mathcal{G}$。为看出这一点，使用 Leray
+谱序列（《站点上的上同调》引理
+\ref{sites-cohomology-lemma-relative-Leray}），并使用引理
+\ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images} 以及闭浸入仿射这一事实
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-closed-immersion-affine}），
+得到当 $q > 0$ 时 $R^qi_*\mathcal{G} = 0$。因此问题归结为寻找
+$Z$ 上支撑等于 $Z$ 的凝聚层
+$\mathcal{G}$，使得对于所有 $p$，$R^pg_*\mathcal{G}$ 凝聚。
+
+\medskip\noindent
+对态射 $Z \to \Spec(A)$ 应用引理 \ref{spaces-cohomology-lemma-weak-chow}，得到图
+$$
+\xymatrix{
+Z \ar[rd]_g & Z' \ar[d]^-{g'} \ar[l]^\pi \ar[r]_i & \mathbf{P}^n_A \ar[dl] \\
+& \Spec(A) &
+}
+$$
+其中 $\pi : Z' \to Z$ 恰当且为满射，$i$ 是浸入。由于
+$Z \to \Spec(A)$ 恰当，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-proper}，$g'$ 恰当。因此 $i$ 是
+闭浸入（《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence} 和
+\ref{spaces-morphisms-lemma-immersion-when-closed}）。由此可知态射
+$i' = (i, \pi) : \mathbf{P}^n_A \times_{\Spec(A)} Z' = \mathbf{P}^n_Z$ 为
+闭浸入（《空间的态射》引理
+\ref{spaces-morphisms-lemma-semi-diagonal}）。% P09-ERR-0039
+令
+$$
+\mathcal{L} =
+i^*\mathcal{O}_{\mathbf{P}^n_A}(1) =
+(i')^*\mathcal{O}_{\mathbf{P}^n_Z}(1)
+$$
+可以分别对 $\mathcal{L}$ 与 $\pi$、$\mathcal{L}$ 与 $g'$ 应用引理
+\ref{spaces-cohomology-lemma-kill-by-twisting}。因此对于所有 $d \gg 0$ 和 $p > 0$，有
+$R^p\pi_*\mathcal{L}^{\otimes d} = 0$ 且
+$R^p(g')_*\mathcal{L}^{\otimes d} = 0$。令
+$\mathcal{G} = \pi_*\mathcal{L}^{\otimes d}$。由 Leray 谱序列（《站点上的
+上同调》引理 \ref{sites-cohomology-lemma-relative-Leray}），有
+$$
+E_2^{p, q} = R^pg_* R^q\pi_*\mathcal{L}^{\otimes d}
+\Rightarrow
+R^{p + q}(g')_*\mathcal{L}^{\otimes d}
+$$
+按 $d$ 的选取，$E_2^{p, q}$ 中仅 $q = 0$ 的项可能非零，而
+$R^{p + q}(g')_*\mathcal{L}^{\otimes d}$ 中仅 $p = q = 0$ 的项可能非零。
+这推出当 $p > 0$ 时 $R^pg_*\mathcal{G} = 0$，并且
+$g_*\mathcal{G} = (g')_*\mathcal{L}^{\otimes d}$。应用《概形的上同调》
+引理 \ref{coherent-lemma-locally-projective-pushforward}，可知
+$g_*\mathcal{G} = (g')_*\mathcal{L}^{\otimes d}$ 凝聚。
+
+\medskip\noindent
+还必须检验 $\mathcal{G}$ 的支撑是 $Z$。这来自
+$\mathcal{L}^{\otimes d}$ 有许多全局截面这一事实。下面详述。由于
+$\mathcal{O}_{\mathbf{P}^n}(d)$ 对所有 $d \geq 0$ 都由全局截面生成，
+$\mathcal{L}^{\otimes d}$ 也如此。选取 $z \in Z'$，使它映到 $Z$ 的一般点
+$\xi$；由于 $\pi$ 为满射，这是可以做到的。（注意，$Z$ 确实有一般点：
+$|Z|$ 不可约，且 $Z$ 是 Noether 的，因而拟分离；所以由《空间的性质》
+引理 \ref{spaces-properties-lemma-quasi-separated-sober}，$|Z|$ 是 sober
+拓扑空间。）选取在 $z$ 处不消失的
+$s \in \Gamma(Z', \mathcal{L}^{\otimes d})$。由于
+$\Gamma(Z, \mathcal{G}) = \Gamma(Z', \mathcal{L}^{\otimes d})$，可以把
+$s$ 看作 $\mathcal{G}$ 的全局截面。选取 $Z'$ 上位于 $z$ 之上的几何点
+$\overline{z}$，并把 $Z$ 上相应的几何点记为
+$\overline{\xi} = g' \circ \overline{z}$。% P09-ERR-0040
+伴随映射
+$$
+(g')^*\mathcal{G} =
+(g')^*g'_*\mathcal{L}^{\otimes d} \longrightarrow \mathcal{L}^{\otimes d}
+$$
+诱导茎之间的映射
+$\mathcal{G}_{\overline{\xi}} \to \mathcal{L}_{\overline{z}}$，见
+《空间的性质》引理
+\ref{spaces-properties-lemma-stalk-pullback-quasi-coherent}。此外，该伴随
+映射把 $s$ 的拉回（把 $s$ 看作 $\mathcal{G}$ 的截面）送到 $s$
+（把 $s$ 看作 $\mathcal{L}^{\otimes d}$ 的截面）。因此，$s$ 在下列箭头
+源端向量空间中的像
+$$
+\mathcal{G}_{\overline{\xi}} \otimes \kappa(\overline{\xi})
+\longrightarrow
+\mathcal{L}^{\otimes d}_{\overline{z}} \otimes \kappa(\overline{z})
+$$
+非零，因为按 $s$ 的选取，它在箭头目标端的像非零。因此 $\xi$ 位于
+$\mathcal{G}$ 的支撑中（《空间的态射》引理
+\ref{spaces-morphisms-lemma-support-finite-type}）。由于 $|Z|$ 不可约且
+$Z$ 约化，可知 $\mathcal{G}$ 的概形论支撑是整个 $Z$，如所要求。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}
+设 $A$ 为 Noether 环，$f : X \to \Spec(A)$ 为代数空间的恰当态射，
+并设 $\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。则对于所有 $i \geq 0$，
+$H^i(X, \mathcal{F})$ 是有限 $A$-模。
+\end{lemma}
+
+\begin{proof}
+这正是引理 \ref{spaces-cohomology-lemma-proper-pushforward-coherent} 的仿射情形。事实上，
+由引理 \ref{spaces-cohomology-lemma-higher-direct-image}，$R^if_*\mathcal{F}$ 是拟凝聚层，
+因而是与 $A$-模
+$\Gamma(\Spec(A), R^if_*\mathcal{F}) = H^i(X, \mathcal{F})$ 相伴的拟凝聚层。
+该等式由《站点上的上同调》引理
+\ref{sites-cohomology-lemma-apply-Leray} 以及仿射概形上拟凝聚模的高阶
+上同调群消失（《概形的上同调》引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}）推出。由引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}，$R^if_*\mathcal{F}$ 是凝聚层，当且仅当
+$H^i(X, \mathcal{F})$ 是有限型 $A$-模。因此引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent} 给出结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-graded-finiteness}
+设 $A$ 为 Noether 环，$B$ 为有限生成的分次 $A$-代数，
+$f : X \to \Spec(A)$ 为代数空间的恰当态射。令
+$\mathcal{B} = f^*\widetilde B$。设 $\mathcal{F}$ 为有限型拟凝聚分次
+$\mathcal{B}$-模。对于每个 $p \geq 0$，分次 $B$-模
+$H^p(X, \mathcal{F})$ 都是有限 $B$-模。
+\end{lemma}
+
+\begin{proof}
+为证明这一点，考虑纤维积图
+$$
+\xymatrix{
+X' = \Spec(B) \times_{\Spec(A)} X
+\ar[r]_-\pi \ar[d]_{f'} &
+X \ar[d]^f \\
+\Spec(B) \ar[r] &
+\Spec(A)
+}
+$$
+注意，$f'$ 是恰当态射，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-proper}。此外，$B$ 是有限生成
+$A$-代数，因而是 Noether 的（《代数》引理
+\ref{algebra-lemma-Noetherian-permanence}）。这推出 $X'$ 是 Noether
+代数空间（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}）。由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-affine-equivalence-algebras}，$X'$ 是拟凝聚
+$\mathcal{O}_X$-代数 $\mathcal{B}$ 的相对谱。由于 $\mathcal{F}$ 是拟凝聚
+$\mathcal{B}$-模，存在唯一的拟凝聚 $\mathcal{O}_{X'}$-模
+$\mathcal{F}'$，使得 $\pi_*\mathcal{F}' = \mathcal{F}$，见《空间的态射》
+引理 \ref{spaces-morphisms-lemma-affine-equivalence-modules}。由于
+$\mathcal{F}$ 作为 $\mathcal{B}$-模是有限型的，$\mathcal{F}'$ 是有限型
+$\mathcal{O}_{X'}$-模（细节从略）。换言之，$\mathcal{F}'$ 是凝聚
+$\mathcal{O}_{X'}$-模（引理 \ref{spaces-cohomology-lemma-coherent-Noetherian}）。由于态射
+$\pi : X' \to X$ 仿射，有
+$$
+H^p(X, \mathcal{F}) = H^p(X', \mathcal{F}')
+$$
+这由引理 \ref{spaces-cohomology-lemma-affine-vanishing-higher-direct-images} 和《站点上的上同调》
+引理 \ref{sites-cohomology-lemma-apply-Leray} 推出。因此本引理由引理
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite} 推出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{丰沛可逆层与上同调}
+\label{spaces-cohomology-section-ample-cohomology}
+
+\noindent
+下面用扭转后的上同调消失性，给出仿射基上恰当代数空间的丰沛性判别法。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-vanshing-gives-ample}
+设 $R$ 为 Noether 环，$X$ 为 $R$ 上的恰当代数空间，并设 $\mathcal{L}$
+为可逆 $\mathcal{O}_X$-模。下列条件等价：
+\begin{enumerate}
+\item $X$ 是概形，且 $\mathcal{L}$ 在 $X$ 上丰沛；
+\item 对于每个凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，存在
+$n_0 \geq 0$，使得对于所有 $n \geq n_0$ 和 $p > 0$，都有
+$H^p(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$；
+\item 对于每个凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，存在
+$n \geq 1$，使得
+$H^1(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) $\Rightarrow$ (2) 由《概形的上同调》引理
+\ref{coherent-lemma-vanshing-gives-ample} 推出。(2) $\Rightarrow$ (3) 显然。
+(3) $\Rightarrow$ (1) 即引理 \ref{spaces-cohomology-lemma-Noetherian-h1-zero-invertible}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-surjective-finite-morphism-ample}
+设 $R$ 为 Noether 环，$f : Y \to X$ 为 $R$ 上恰当代数空间之间的态射。
+设 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。假设 $f$ 有限且为满射。
+下列条件等价：
+\begin{enumerate}
+\item $X$ 是概形且 $\mathcal{L}$ 丰沛；
+\item $Y$ 是概形且 $f^*\mathcal{L}$ 丰沛。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。有限态射（由概形）可表，所以 $Y$ 是概形，见《空间的态射》
+引理 \ref{spaces-morphisms-lemma-integral-local}。于是 (2) 由
+《概形的上同调》引理
+\ref{coherent-lemma-surjective-finite-morphism-ample} 推出。
+
+\medskip\noindent
+假设 (2) 成立。对凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，定义下述性质
+$P$：存在 $n_0$，使得对于所有 $n \geq n_0$ 和 $p > 0$，都有
+$H^p(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$。我们将证明
+任意凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$ 都具有 $P$；由引理
+\ref{spaces-cohomology-lemma-vanshing-gives-ample}，这蕴含 $\mathcal{L}$ 丰沛。我们将应用
+引理 \ref{spaces-cohomology-lemma-property-higher-rank-cohomological}，因此必须为 $P$ 验证
+该引理的 (1)、(2)、(3)。性质 (1) 来自与层的短正合列相伴的上同调
+长正合列，以及与可逆层作张量积是正合函子这一事实。性质 (2) 来自
+$H^p(X, -)$ 是可加函子。
+
+\medskip\noindent
+为证明 (3)，设 $i : Z \to X$ 为满足 $|Z|$ 不可约的约化闭子空间。
+设 $i' : Z' \to Y$ 和 $f' : Z' \to Z$ 如引理
+\ref{spaces-cohomology-lemma-finite-morphism-Noetherian} 中所述，并令
+$\mathcal{G} = f'_*\mathcal{O}_{Z'}$。我们断言 $\mathcal{G}$ 满足引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological} 的性质 (3)(a) 和 (3)(b)，
+这将完成证明。性质 (3)(a) 已在引理
+\ref{spaces-cohomology-lemma-finite-morphism-Noetherian} 中证明。为证明 (3)(b)，设
+$\mathcal{I}$ 为 $Z$ 上的非零拟凝聚理想层。记
+$\mathcal{I}' \subset \mathcal{O}_{Z'}$ 为拟凝聚理想
+$(f')^{-1}\mathcal{I} \mathcal{O}_{Z'}$，也就是
+$(f')^*\mathcal{I} \to \mathcal{O}_{Z'}$ 的像。由引理
+\ref{spaces-cohomology-lemma-affine-morphism-projection-ideal}，有
+$f_*\mathcal{I}' = \mathcal{I} \mathcal{G}$。% P09-ERR-0041
+我们断言其共同值
+$\mathcal{G}' = \mathcal{I} \mathcal{G} = f'_*\mathcal{I}'$ 满足 (3)(b)
+中的条件。首先，显然 $\mathcal{G}/\mathcal{G}'$ 的支撑包含在
+$\mathcal{O}_Z/\mathcal{I}$ 的支撑中；后者是 $|Z|$ 的真子空间，因为
+$\mathcal{I}$ 是约化不可约代数空间 $Z$ 上的非零理想层。回忆 $f'_*$、
+$i_*$、$i'_*$ 把凝聚模变为凝聚模，见引理
+\ref{spaces-cohomology-lemma-finite-pushforward-coherent} 和 \ref{spaces-cohomology-lemma-i-star-equivalence}。
+由于 $Y$ 是概形且 $\mathcal{L}$ 丰沛，由引理
+\ref{spaces-cohomology-lemma-vanshing-gives-ample}，存在 $n_0$ 使得% P09-ERR-0042
+$$
+H^p(Y, i'_*\mathcal{I}' \otimes_{\mathcal{O}_Y} f^*\mathcal{L}^{\otimes n}) = 0
+$$
+对于 $n \geq n_0$ 和 $p > 0$ 成立。于是得到
+\begin{align*}
+H^p(X, i_*\mathcal{G}' \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+& =
+H^p(Z, \mathcal{G'} \otimes_{\mathcal{O}_Z} i^*\mathcal{L}^{\otimes n}) \\
+& =
+H^p(Z,
+f'_*\mathcal{I}' \otimes_{\mathcal{O}_Z} i^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Z, f'_*(\mathcal{I}' \otimes_{\mathcal{O}_{Z'}}
+(f')^*i^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Z, f'_*(\mathcal{I}' \otimes_{\mathcal{O}_{Z'}}
+(i')^*f^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Z',
+\mathcal{I}' \otimes_{\mathcal{O}_{Z'}} (i')^*f^*\mathcal{L}^{\otimes n})) \\
+& =
+H^p(Y, i'_*\mathcal{I}' \otimes_{\mathcal{O}_Y} f^*\mathcal{L}^{\otimes n}) = 0
+\end{align*}
+% P09-ERR-0043
+这里使用了投影公式和 Leray 谱序列（见《站点上的上同调》
+\ref{sites-cohomology-section-projection-formula} 节和
+\ref{sites-cohomology-section-leray} 节），以及引理
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}。这验证了引理
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological} 的性质 (3)(b)，如所要求。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{形式函数定理}
+\label{spaces-cohomology-section-theorem-formal-functions}
+
+\noindent
+本节对应于《概形的上同调》
+\ref{coherent-section-theorem-formal-functions} 节。建议读者先阅读该节。
+
+\begin{situation}
+\label{spaces-cohomology-situation-formal-functions}
+这里 $A$ 是 Noether 环，$I \subset A$ 是理想。此外，
+$f : X \to \Spec(A)$ 是代数空间的恰当态射，$\mathcal{F}$ 是 $X$ 上的
+凝聚层。
+\end{situation}
+
+\noindent
+在这一情形下，用 $I^n\mathcal{F}$ 表示 $\mathcal{F}$ 的拟凝聚子模：
+它作为 $\mathcal{O}_X$-模由 $\mathcal{F}$ 的局部截面与 $I^n$ 中元素的
+乘积生成。换言之，它是映射
+$f^*\widetilde{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{F}$ 的像。
+% P09-ERR-0044
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-cohomology-powers-ideal-times-F}
+在情形 \ref{spaces-cohomology-situation-formal-functions} 中。令
+$B = \bigoplus_{n \geq 0} I^n$。则对于每个 $p \geq 0$，分次 $B$-模
+$\bigoplus_{n \geq 0} H^p(X, I^n\mathcal{F})$ 是有限 $B$-模。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{B} = \bigoplus I^n\mathcal{O}_X = f^*\widetilde{B}$。
+则 $\bigoplus I^n\mathcal{F}$ 是有限型分次 $\mathcal{B}$-模。因此结论由
+引理 \ref{spaces-cohomology-lemma-graded-finiteness} 推出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-cohomology-powers-ideal-application}
+在情形 \ref{spaces-cohomology-situation-formal-functions} 中。对于每个 $p \geq 0$，
+存在整数 $c \geq 0$，使得：
+\begin{enumerate}
+\item 对于所有 $n \geq c$，乘法映射
+$I^{n - c} \otimes H^p(X, I^c\mathcal{F}) \to H^p(X, I^n\mathcal{F})$
+是满射；
+\item 对于所有 $n \geq 0$、$m \geq c$，映射
+$H^p(X, I^{n + m}\mathcal{F}) \to H^p(X, I^n\mathcal{F})$ 的像包含在
+子模 $I^{m - c} H^p(X, I^n\mathcal{F})$ 中。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-cohomology-lemma-cohomology-powers-ideal-times-F}，可以找到
+$d_1, \ldots, d_t \geq 0$ 以及
+$x_i \in H^p(X, I^{d_i}\mathcal{F})$，使得
+$\bigoplus_{n \geq 0} H^p(X, I^n\mathcal{F})$ 作为
+$B = \bigoplus_{n \geq 0} I^n$-模由 $x_1, \ldots, x_t$ 生成。取
+$c = \max\{d_i\}$。(1) 显然成立。对于 (2)，令
+$b = \max(0, n - c)$。考虑 $A$-模的交换图
+$$
+\xymatrix{
+I^{n + m - c - b} \otimes I^b \otimes
+H^p(X, I^c\mathcal{F}) \ar[r] \ar[d] &
+I^{n + m - c} \otimes H^p(X, I^c\mathcal{F}) \ar[r] &
+H^p(X, I^{n + m}\mathcal{F}) \ar[d] \\
+I^{n + m - c - b} \otimes H^p(X, I^n\mathcal{F}) \ar[rr] & &
+H^p(X, I^n\mathcal{F})
+}
+$$
+由本引理的 (1)，当 $n + m \geq c$ 时，水平箭头的复合是满射。
+另一方面，显然 $n + m - c - b \geq m - c$。所以 (2) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-ML-cohomology-powers-ideal}
+在情形 \ref{spaces-cohomology-situation-formal-functions} 中。固定 $p \geq 0$。
+\begin{enumerate}
+\item 存在 $c_1 \geq 0$，使得对于所有 $n \geq c_1$，有
+$$
+\Ker(
+H^p(X, \mathcal{F}) \to H^p(X, \mathcal{F}/I^n\mathcal{F})
+)
+\subset
+I^{n - c_1}H^p(X, \mathcal{F}).
+$$
+\item 逆系统
+$$
+\left(H^p(X, \mathcal{F}/I^n\mathcal{F})\right)_{n \in \mathbf{N}}
+$$
+满足 Mittag-Leffler 条件（见《同调》定义
+\ref{homology-definition-Mittag-Leffler}）。
+\item 事实上，对于任意 $p$ 和 $n$，存在 $c_2(n) \geq n$，使得
+$$
+\Im(H^p(X, \mathcal{F}/I^k\mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+=
+\Im(H^p(X, \mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+$$
+对于所有 $k \geq c_2(n)$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $c_1 = \max\{c_p, c_{p + 1}\}$，其中 $c_p,c_{p +1}$ 是引理
+\ref{spaces-cohomology-lemma-cohomology-powers-ideal-application} 分别对 $H^p$ 和
+$H^{p + 1}$ 给出的整数。我们将在 (1)、(2)、(3) 的证明中使用这个常数。
+
+\medskip\noindent
+先证明 (1)。考虑短正合列
+$$
+0 \to I^n\mathcal{F} \to \mathcal{F} \to \mathcal{F}/I^n\mathcal{F} \to 0
+$$
+由上同调长正合列可见
+$$
+\Ker(
+H^p(X, \mathcal{F}) \to H^p(X, \mathcal{F}/I^n\mathcal{F})
+)
+=
+\Im(
+H^p(X, I^n\mathcal{F}) \to H^p(X, \mathcal{F})
+)
+$$
+因此按 $c_1$ 的选取，当 $n \geq c_1$ 时，它包含在
+$I^{n - c_1}H^p(X, \mathcal{F})$ 中。
+
+\medskip\noindent
+注意，按 Mittag-Leffler 条件的定义，(3) 蕴含 (2)。
+
+\medskip\noindent
+下面证明 (3)。在余下的证明中固定 $n$。考虑交换图
+$$
+\xymatrix{
+0 \ar[r] &
+I^n\mathcal{F} \ar[r] &
+\mathcal{F} \ar[r] &
+\mathcal{F}/I^n\mathcal{F} \ar[r] &
+0 \\
+0 \ar[r] &
+I^{n + m}\mathcal{F} \ar[r] \ar[u] &
+\mathcal{F} \ar[r] \ar[u] &
+\mathcal{F}/I^{n + m}\mathcal{F} \ar[r] \ar[u] &
+0
+}
+$$
+它诱导出下面的交换图
+$$
+\xymatrix{
+H^p(X, I^n\mathcal{F}) \ar[r] &
+H^p(X, \mathcal{F}) \ar[r] &
+H^p(X, \mathcal{F}/I^n\mathcal{F}) \ar[r]_\delta &
+H^{p + 1}(X, I^n\mathcal{F}) \\
+H^p(X, I^{n + m}\mathcal{F}) \ar[r] \ar[u] &
+H^p(X, \mathcal{F}) \ar[r] \ar[u]^1 &
+H^p(X, \mathcal{F}/I^{n + m}\mathcal{F}) \ar[r] \ar[u] &
+H^{p + 1}(X, I^{n + m}\mathcal{F}) \ar[u]^a
+}
+$$
+如果 $m \geq c_1$，则 $a$ 的像包含在
+$I^{m - c_1} H^{p + 1}(X, I^n\mathcal{F})$ 中。由 Artin--Rees 引理
+（见《代数》引理 \ref{algebra-lemma-map-AR}），存在整数 $c_3(n)$，使得
+$$
+I^N H^{p + 1}(X, I^n\mathcal{F}) \cap \Im(\delta)
+\subset
+\delta\left(I^{N - c_3(n)}H^p(X, \mathcal{F}/I^n\mathcal{F})\right)
+$$
+对于所有 $N \geq c_3(n)$ 成立。由于
+$H^p(X, \mathcal{F}/I^n\mathcal{F})$ 被 $I^n$ 零化，可见如果
+$m \geq c_3(n) + c_1 + n$，则
+$$
+\Im(H^p(X, \mathcal{F}/I^{n + m}\mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+=
+\Im(H^p(X, \mathcal{F})
+\to H^p(X, \mathcal{F}/I^n\mathcal{F}))
+$$
+换言之，取 $c_2(n) = c_3(n) + c_1 + n$，(3) 成立。
+\end{proof}
+
+\begin{theorem}[形式函数定理]
+\label{spaces-cohomology-theorem-formal-functions}
+在情形 \ref{spaces-cohomology-situation-formal-functions} 中，固定 $p \geq 0$。映射系统
+$$
+H^p(X, \mathcal{F})/I^nH^p(X, \mathcal{F})
+\longrightarrow
+H^p(X, \mathcal{F}/I^n\mathcal{F})
+$$
+诱导极限之间的同构
+$$
+H^p(X, \mathcal{F})^\wedge
+\longrightarrow
+\lim_n H^p(X, \mathcal{F}/I^n\mathcal{F})
+$$
+其中左端是 $A$-模 $H^p(X, \mathcal{F})$ 关于理想 $I$ 的完备化，见
+《代数》\ref{algebra-section-completion} 节。此外，对于极限拓扑，
+这实际上是同胚。
+\end{theorem}
+
+\begin{proof}
+事实上，这立即由引理 \ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal} 推出。
+下面写出细节。令 $M = H^p(X, \mathcal{F})$ 且
+$M_n = H^p(X, \mathcal{F}/I^n\mathcal{F})$，并记
+$N_n = \Im(M \to M_n)$。由《同调》
+\ref{homology-section-inverse-systems} 节对极限的描述，有
+$$
+\lim_n M_n
+=
+\{(x_n) \in \prod M_n \mid \varphi_i(x_n) = x_{n - 1}, \ n = 2, 3, \ldots\}
+$$
+选取元素 $x = (x_n) \in \lim_n M_n$。% P09-ERR-0045
+由引理 \ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal} (3)，对于所有 $n$ 都有
+$x_n \in N_n$，因为按定义，对于所有 $m$，$x_n$ 是某个
+$x_{n + m} \in M_{n + m}$ 的像。由引理
+\ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal} (1)，约化映射存在分解
+$$
+M \to N_n \to M/I^{n - c_1}M
+$$
+对于 $n \geq c_1$，记 $y_n \in M/I^{n - c_1}M$ 为 $x_n$ 的像。
+当 $n' \geq n$ 时，复合映射 $M \to M_{n'} \to M_n$ 是给定的映射
+$M \to M_n$，所以在典范映射
+$M/I^{n' - c_1}M \to M/I^{n - c_1}M$ 下，$y_{n'}$ 映到 $y_n$。
+因此 $y = (y_{n + c_1})$ 定义了 $\lim_n M/I^nM$ 的一个元素。
+我们略去验证 $y$ 在本引理的映射
+$$
+M^\wedge = \lim_n M/I^nM \longrightarrow \lim_n M_n
+$$
+下映到 $x$，也略去关于拓扑的验证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-spell-out-theorem-formal-functions}
+设 $A$ 为一个环，$I \subset A$ 为理想。假设 $A$ 是 Noether 的并关于
+$I$ 完备。设 $f : X \to \Spec(A)$ 为代数空间的恰当态射，
+$\mathcal{F}$ 为 $X$ 上的凝聚层。则
+$$
+H^p(X, \mathcal{F}) = \lim_n H^p(X, \mathcal{F}/I^n\mathcal{F})
+$$
+对于所有 $p \geq 0$ 成立。
+\end{lemma}
+
+\begin{proof}
+这是形式函数定理（定理 \ref{spaces-cohomology-theorem-formal-functions}）在完备 Noether
+基环情形下的改述。事实上，在这种情形下，$A$-模
+$H^p(X, \mathcal{F})$ 是有限的（引理
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}），因而是 $I$-进完备的
+（《代数》引理 \ref{algebra-lemma-completion-tensor}）。所以左端不必再
+作完备化。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-formal-functions-stalk}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射，
+$\mathcal{F}$ 为 $X$ 上的拟凝聚层。假设：
+\begin{enumerate}
+\item $Y$ 局部 Noether；
+\item $f$ 恰当；
+\item $\mathcal{F}$ 凝聚。
+\end{enumerate}
+设 $\overline{y}$ 为 $Y$ 的几何点。考虑纤维
+$X_1 = X_{\overline{y}}$ 的“无穷小邻域”
+$$
+\xymatrix{
+X_n =
+\Spec(\mathcal{O}_{Y, \overline{y}}/\mathfrak m_{\overline{y}}^n) \times_Y X
+\ar[r]_-{i_n} \ar[d]_{f_n} &
+X \ar[d]^f \\
+\Spec(\mathcal{O}_{Y, \overline{y}}/\mathfrak m_{\overline{y}}^n)
+\ar[r]^-{c_n} & Y
+}
+$$
+并令 $\mathcal{F}_n = i_n^*\mathcal{F}$。则有
+$$
+\left(R^pf_*\mathcal{F}\right)_{\overline{y}}^\wedge
+\cong
+\lim_n H^p(X_n, \mathcal{F}_n)
+$$
+作为 $\mathcal{O}_{Y, \overline{y}}^\wedge$-模的同构。
+\end{lemma}
+
+\begin{proof}
+这只是形式函数定理（定理 \ref{spaces-cohomology-theorem-formal-functions}）一个特殊情形的
+改述。下面详述。注意，$\mathcal{O}_{Y, \overline{y}}$ 是 Noether 局部环，
+见《空间的性质》引理
+\ref{spaces-properties-lemma-Noetherian-local-ring-Noetherian}。考虑典范态射
+$c : \Spec(\mathcal{O}_{Y, \overline{y}}) \to Y$。它等同局部环，因而是
+平坦态射。记 $f' : X' \to \Spec(\mathcal{O}_{Y, \overline{y}})$ 为 $f$
+到这个局部环上的基变换。由引理 \ref{spaces-cohomology-lemma-flat-base-change-cohomology}，
+有 $c^*R^pf_*\mathcal{F} = R^pf'_*\mathcal{F}'$。此外，对于所有
+$n \geq 1$，有典范等同 $X_n = X'_n$。
+
+\medskip\noindent
+因此可以假设 $Y = \Spec(A)$，其中 $A$ 是极大理想为 $\mathfrak m$ 的
+严格 Hensel Noether 局部环，并且 $\overline{y} \to Y$ 等于
+$\Spec(A/\mathfrak m) \to Y$。于是
+$$
+\left(R^pf_*\mathcal{F}\right)_{\overline{y}} =
+\Gamma(Y, R^pf_*\mathcal{F}) =
+H^p(X, \mathcal{F})
+$$
+因为 $(Y, \overline{y})$ 是 $\overline{y}$ 的 \'etale 邻域范畴中的始对象。
+各态射 $c_n$ 都是闭浸入，所以其基变换 $i_n$ 也都是闭浸入。注意
+$i_{n, *}\mathcal{F}_n = i_{n, *}i_n^*\mathcal{F}
+= \mathcal{F}/\mathfrak m^n\mathcal{F}$。由 $i_n$ 的 Leray 谱序列以及
+引理 \ref{spaces-cohomology-lemma-finite-pushforward-coherent}，可见
+$$
+H^p(X_n, \mathcal{F}_n) =
+H^p(X, i_{n, *}\mathcal{F}) =
+H^p(X, \mathcal{F}/\mathfrak m^n\mathcal{F})
+$$
+% P09-ERR-0046
+因此确实可以应用形式函数定理来计算引理陈述中的极限，结论得证。
+\end{proof}
+
+\noindent
+下面的引理将在后一个引理中推广到维数 $>0$ 的纤维。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-higher-direct-images-zero-finite-fibre}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射，
+$\overline{y}$ 为 $Y$ 的几何点。假设：
+\begin{enumerate}
+\item $Y$ 局部 Noether；
+\item $f$ 恰当；
+\item $X_{\overline{y}}$ 的底拓扑空间是离散的。
+\end{enumerate}
+则对于 $X$ 上的任意凝聚层 $\mathcal{F}$ 和所有 $p > 0$，都有
+$(R^pf_*\mathcal{F})_{\overline{y}} = 0$。
+\end{lemma}
+
+\begin{proof}
+设 $\kappa(\overline{y})$ 为局部环 $\mathcal{O}_{Y, \overline{y}}$ 的剩余域。
+如引理 \ref{spaces-cohomology-lemma-formal-functions-stalk} 中那样，令
+$X_{\overline{y}} = X_1 = \Spec(\kappa(\overline{y})) \times_Y X$。
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-quasi-finite-at-point}，
+态射 $f : X \to Y$ 在 $X \to Y$ 位于 $\overline{y}$ 上的纤维的每个点处
+拟有限。因此 $X_{\overline{y}} \to \overline{y}$ 分离且拟有限。于是由
+《空间的态射》命题
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}，
+$X_{\overline{y}}$ 是概形。由于它拟紧，其底拓扑空间是有限离散空间。
+再由《概形》引理 \ref{schemes-lemma-scheme-finite-discrete-affine}，它是
+仿射概形。由引理
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}，各代数空间
+$X_n$ 也都是仿射概形。此外，每个 $X_n$ 的底拓扑与 $X_1$ 的相同。
+% P09-ERR-0047
+因此对于所有 $p > 0$，有 $H^p(X_n, \mathcal{F}_n) = 0$。由引理
+\ref{spaces-cohomology-lemma-formal-functions-stalk}，可见
+$(R^pf_*\mathcal{F})_{\overline{y}}^\wedge = 0$。由引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}，$R^pf_*\mathcal{F}$ 凝聚，因而
+$R^pf_*\mathcal{F}_{\overline{y}}$ 是有限
+$\mathcal{O}_{Y, \overline{y}}$-模。% P09-ERR-0048
+由《代数》引理 \ref{algebra-lemma-completion-tensor}，这推出
+$(R^pf_*\mathcal{F})_{\overline{y}} = 0$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-higher-direct-images-zero-above-dimension-fibre}
+\begin{slogan}
+对于恰当映射，次数大于纤维维数的高阶正像之茎为零。
+\end{slogan}
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射，
+$\overline{y}$ 为 $Y$ 的几何点。假设：
+\begin{enumerate}
+\item $Y$ 局部 Noether；
+\item $f$ 恰当；
+\item $\dim(X_{\overline{y}}) = d$.
+\end{enumerate}
+则对于 $X$ 上的任意凝聚层 $\mathcal{F}$ 和所有 $p > d$，都有
+$(R^pf_*\mathcal{F})_{\overline{y}} = 0$。
+\end{lemma}
+
+\begin{proof}
+设 $\kappa(\overline{y})$ 为局部环 $\mathcal{O}_{Y, \overline{y}}$ 的剩余域。
+如引理 \ref{spaces-cohomology-lemma-formal-functions-stalk} 中那样，令
+$X_{\overline{y}} = X_1 = \Spec(\kappa(\overline{y})) \times_Y X$。
+此外，每个无穷小邻域 $X_n$ 的底拓扑空间都与 $X_{\overline{y}}$ 的相同。
+因此由引理 \ref{spaces-cohomology-lemma-vanishing-above-dimension}，对于所有 $p > d$，有
+$H^p(X_n, \mathcal{F}_n) = 0$。进而由引理
+\ref{spaces-cohomology-lemma-formal-functions-stalk}，当 $p > d$ 时
+$(R^pf_*\mathcal{F})_{\overline{y}}^\wedge = 0$。由引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}，$R^pf_*\mathcal{F}$ 凝聚，因而
+$R^pf_*\mathcal{F}_{\overline{y}}$ 是有限
+$\mathcal{O}_{Y, \overline{y}}$-模。% P09-ERR-0048
+由《代数》引理 \ref{algebra-lemma-completion-tensor}，这推出
+$(R^pf_*\mathcal{F})_{\overline{y}} = 0$。
+\end{proof}
+
+
+
+
+
+
+\section{形式函数定理的应用}
+\label{spaces-cohomology-section-applications-formal-functions}
+
+\noindent
+我们将在需要时在这里加入更多内容。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-characterize-finite}
+（更一般的版本见《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-characterize-finite}。）
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+假设 $Y$ 局部 Noether。下列条件等价：
+\begin{enumerate}
+\item $f$ 有限；
+\item $f$ 恰当，并且对于每个态射 $\Spec(k) \to Y$，其中 $k$ 是域，
+$|X_k|$ 都是离散空间。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-finite-proper}，有限态射
+恰当。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-quasi-finite}，有限态射拟有限。
+拟有限态射的纤维 $X_k$ 离散，见《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite}。因此有限态射恰当且具有
+离散纤维 $X_k$。
+
+\medskip\noindent
+假设 $f$ 恰当且具有离散纤维 $X_k$。我们要证明 $f$ 有限。事实上，只需
+证明 $f$ 仿射。如果 $f$ 仿射，则由《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-closed}，$f$ 是整态射；
+随后由《空间的态射》引理 \ref{spaces-morphisms-lemma-finite-integral}，
+$f$ 有限。
+
+\medskip\noindent
+为证明 $f$ 仿射，可以假设 $Y$ 仿射；目标是证明 $X$ 也仿射。由于 $f$
+恰当，$X$ 分离且拟紧。我们将证明，对于任意凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$，都有 $H^1(X, \mathcal{F}) = 0$。
+由引理 \ref{spaces-cohomology-lemma-directed-colimit-coherent} 和 \ref{spaces-cohomology-lemma-colimits}，
+这推出对于每个拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，都有
+$H^1(X, \mathcal{F}) = 0$。进而由命题
+\ref{spaces-cohomology-proposition-vanishing-affine}，$X$ 仿射。由引理
+\ref{spaces-cohomology-lemma-higher-direct-images-zero-finite-fibre}，对于 $Y$ 的所有几何点，
+$R^1f_*\mathcal{F}$ 的茎都为零。换言之，$R^1f_*\mathcal{F} = 0$。
+因此由 $f$ 的 Leray 谱序列，
+$H^1(X , \mathcal{F}) = H^1(Y, f_*\mathcal{F})$。由于 $Y$ 仿射且
+$f_*\mathcal{F}$ 拟凝聚（《空间的态射》引理
+\ref{spaces-morphisms-lemma-pushforward}），《概形的上同调》引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero} 给出
+$H^1(Y, f_*\mathcal{F}) = 0$。所以 $H^1(X, \mathcal{F}) = 0$，如所要求。
+\end{proof}
+
+\noindent
+作为推论，得到下面的有用结果。
+
+\begin{lemma}
+\label{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+（更一般的版本见《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}。）
+设 $S$ 为一个概形，$f : X \to Y$ 为 $S$ 上代数空间之间的态射，
+$\overline{y}$ 为 $Y$ 的几何点。假设：
+\begin{enumerate}
+\item $Y$ 局部 Noether；
+\item $f$ 恰当；
+\item $|X_{\overline{y}}|$ 有限。
+\end{enumerate}
+则存在 $\overline{y}$ 的开邻域 $V \subset Y$，使得
+$f|_{f^{-1}(V)} : f^{-1}(V) \to V$ 有限。
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-quasi-finite-at-point}，
+态射 $f$ 在 $X$ 中位于 $\overline{y}$ 上的所有几何点处拟有限。由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}，$f$
+拟有限的点所成集合是开子空间 $U \subset X$。令 $Z = X \setminus U$。
+则 $\overline{y} \not \in f(Z)$。由于 $f$ 恰当，集合 $f(Z) \subset Y$ 闭。
+选取 $\overline{y}$ 的任意开邻域 $V \subset Y$，使得
+$Z \cap V = \emptyset$。% P09-ERR-0049
+则 $f^{-1}(V) \to V$ 局部拟有限且恰当。因此
+$f^{-1}(V) \to V$ 具有离散纤维 $X_k$（《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite}），这些纤维拟紧，因而有限。
+所以由引理 \ref{spaces-cohomology-lemma-characterize-finite}，$f^{-1}(V) \to V$ 有限。
+\end{proof}

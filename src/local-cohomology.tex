@@ -1,0 +1,4646 @@
+% Generated mechanically from the frozen local-cohomology.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{50}
+\chapter{局部上同调}
+
+
+
+\phantomsection
+\label{local-cohomology-section-phantom}
+
+
+\section{引言}
+\label{local-cohomology-section-introduction}
+
+\noindent
+本章继续研究局部上同调。参考文献之一是 \cite{SGA2}。
+局部上同调的定义见《对偶复形》，第
+\ref{dualizing-section-local-cohomology} 节。对诺特环而言，取局部上同调
+等同于导出某个适当的挠函子；见《对偶复形》，第
+\ref{dualizing-section-local-cohomology-noetherian} 节。
+它与深度的关系见《对偶复形》，第
+\ref{dualizing-section-depth} 节。
+
+\medskip\noindent
+我们将讨论局部上同调的有限性，从而证明 Grothendieck 有限性定理的一个相当一般的
+版本；见定理 \ref{local-cohomology-theorem-finiteness} 和引理 \ref{local-cohomology-lemma-finiteness-Rjstar}
+（凝聚模沿开浸入的高阶正像）。所用方法吸收了 Faltings 论文中的若干精妙论证；
+见 \cite{Faltings-annulators} 和 \cite{Faltings-finiteness}。
+
+\medskip\noindent
+作为应用，我们将讨论 Hartshorne--Lichtenbaum 消失，还将讨论 Frobenius 与微分算子
+在局部上同调上的作用。
+
+
+
+
+\section{一般性质}
+\label{local-cohomology-section-generalities}
+
+\noindent
+下一个引理说明函子 $R\Gamma_Z$ 与带支撑上同调之间的关系。
+
+\begin{lemma}
+\label{local-cohomology-lemma-local-cohomology-is-local-cohomology}
+设 $A$ 是环，$I$ 是有限生成理想。置 $Z = V(I) \subset X = \Spec(A)$。
+对 $K \in D(A)$，经由《概形的导出范畴》，引理
+\ref{perfect-lemma-affine-compare-bounded}，它对应于
+$\widetilde{K} \in D_\QCoh(\mathcal{O}_X)$；此时存在函子性同构
+$$
+R\Gamma_Z(K) = R\Gamma_Z(X, \widetilde{K})
+$$
+其中左边采用《对偶复形》中的等式
+(\ref{dualizing-equation-local-cohomology})，右边采用《上同调》，第
+\ref{cohomology-section-cohomology-support-bis} 节中的函子。
+\end{lemma}
+
+\begin{proof}
+由《上同调》，引理
+\ref{cohomology-lemma-triangle-sections-with-support}，存在可区别三角
+$$
+R\Gamma_Z(X, \widetilde{K})
+\to R\Gamma(X, \widetilde{K})
+\to R\Gamma(U, \widetilde{K})
+\to R\Gamma_Z(X, \widetilde{K})[1]
+$$
+，其中 $U = X \setminus Z$。由《概形的导出范畴》，引理
+\ref{perfect-lemma-affine-compare-bounded}，我们知道
+$R\Gamma(X, \widetilde{K}) = K$。设 $I = (f_1, \ldots, f_r)$，便得到有限仿射开覆盖
+$\mathcal{U} : U = D(f_1) \cup \ldots \cup D(f_r)$。由《概形的导出范畴》，
+引理 \ref{perfect-lemma-alternating-cech-complex-complex-computes-cohomology}，
+交错 {\v C}ech 复形
+$\text{Tot}(\check{\mathcal{C}}_{alt}^\bullet(\mathcal{U},
+\widetilde{K^\bullet}))$
+计算 $R\Gamma(U, \widetilde{K})$，其中 $K^\bullet$ 是任意的 $A$-模复形，
+它表示 $K$。逐一展开定义可得
+$$
+R\Gamma(U, \widetilde{K}) =
+\text{Tot}\left(
+K^\bullet \otimes_A
+(\prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r})\right)
+$$
+显然，
+$K^\bullet = R\Gamma(X, \widetilde{K^\bullet}) \to
+R\Gamma(U, \widetilde{K}^\bullet)$
+由从 $A$ 到 $\prod A_{f_i}$ 的对角映射诱导。因此得到
+$$
+R\Gamma_Z(X, \widetilde{K}) =
+\text{Tot}\left(
+K^\bullet \otimes_A
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r})\right)
+$$
+由《对偶复形》，引理 \ref{dualizing-lemma-local-cohomology-adjoint}，
+右边的复形计算 $R\Gamma_Z(K)$，故本引理对给定的 $K$ 成立。
+
+\medskip\noindent
+最后证明可以使该同构关于 $K$ 具有函子性。考虑 $A$-模复形的映射
+$$
+M^\bullet = \text{Tot}\left(
+K^\bullet \otimes_A
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r})\right)
+\longrightarrow
+K^\bullet
+$$
+上述论证表明，对该箭头作用函子 $R\Gamma_Z(X, \widetilde{\ })$ 后得到同构，
+并且 $R\Gamma(U, \widetilde{M}^\bullet) = 0$（细节从略）。于是有
+$$
+R\Gamma_Z(X, \widetilde{K}^\bullet)
+\leftarrow
+R\Gamma_Z(X, \widetilde{M}^\bullet)
+\rightarrow
+R\Gamma(X, \widetilde{M}^\bullet) = M^\bullet = R\Gamma_Z(K^\bullet)
+$$
+，其中所有映射都是 $D(A)$ 中的同构，并且关于 $K^\bullet$ 具有函子性，
+正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-local-cohomology}
+设 $A$ 是环，$I \subset A$ 是有限生成理想。置
+$X = \Spec(A)$、$Z = V(I)$、$U = X \setminus Z$，并令 $j : U \to X$
+为包含态射。设 $\mathcal{F}$ 是拟凝聚 $\mathcal{O}_U$-模。则：
+\begin{enumerate}
+\item 存在 $A$-模 $M$，使得 $\mathcal{F}$ 是 $\widetilde{M}$ 在 $U$ 上的限制；
+\item 给定 $M$，有正合列
+$$
+0 \to H^0_Z(M) \to M \to H^0(U, \mathcal{F}) \to H^1_Z(M) \to 0
+$$
+以及同构 $H^p(U, \mathcal{F}) = H^{p + 1}_Z(M)$，其中 $p \geq 1$；
+\item 可以取 $M = H^0(U, \mathcal{F})$，此时
+$H^0_Z(M) = H^1_Z(M) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$M$ 的存在性由《性质》，引理 \ref{properties-lemma-extend-trivial}
+以及 $X$ 上的拟凝聚层与 $A$-模对应这一事实得出（《概形》，引理
+\ref{schemes-lemma-equivalence-quasi-coherent}）。接着考察可区别三角
+$$
+R\Gamma_Z(X, \widetilde{M}) \to R\Gamma(X, \widetilde{M}) \to
+R\Gamma(U, \widetilde{M}|_U) \to R\Gamma_Z(X, \widetilde{M})[1]
+$$
+，它来自《上同调》，引理
+\ref{cohomology-lemma-triangle-sections-with-support}。由于 $X$ 仿射，
+由《概形的上同调》，引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}，有
+$R\Gamma(X, \widetilde{M}) = M$。按 $M$ 的选择，
+$\mathcal{F} = \widetilde{M}|_U$，因而得到正合列
+$$
+0 \to H^0_Z(X, \widetilde{M}) \to M \to H^0(U, \mathcal{F}) \to
+H^1_Z(X, \widetilde{M}) \to 0
+$$
+以及同构 $H^p(U, \mathcal{F}) = H^{p + 1}_Z(X, \widetilde{M})$，其中
+$p \geq 1$。由引理 \ref{local-cohomology-lemma-local-cohomology-is-local-cohomology}，
+有 $H^i_Z(M) = H^i_Z(X, \widetilde{M})$，对所有 $i$ 均成立。故 (1) 与 (2) 成立。
+最后，置 $M' = H^0(U, \mathcal{F})$，可见 $M \to M'$ 的核与余核均为
+$I$-幂挠模。因此 $\widetilde{M}|_U \to \widetilde{M'}|_U$ 是同构，
+确实可以像 (3) 所述那样使用 $M'$。不言而喻，$H^0_Z(M')$ 与
+$H^0_Z(M')$ 二者均为零。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-already-torsion}
+设 $I, J \subset A$ 是环 $A$ 的有限生成理想。若 $M$ 是 $I$-幂挠模，则典范映射
+$$
+H^i_{V(I) \cap V(J)}(M) \to H^i_{V(J)}(M)
+$$
+对所有 $i$ 都是同构。
+\end{lemma}
+
+\begin{proof}
+利用《对偶复形》，引理 \ref{dualizing-lemma-local-cohomology-ss} 的谱序列，
+可归约为陈述 $R\Gamma_I(M) = M$；它立即由《对偶复形》，第
+\ref{dualizing-section-local-cohomology} 节中的局部上同调构造得出。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-multiplicative}
+设 $S \subset A$ 是环 $A$ 的乘法集。设 $M$ 是 $A$-模，并满足
+$S^{-1}M = 0$。则 $\colim_{f \in S} H^0_{V(f)}(M) = M$ 且
+$\colim_{f \in S} H^1_{V(f)}(M) = 0$。
+\end{lemma}
+
+\begin{proof}
+关于 $H^0$ 的陈述直接由定义得出。为证明关于 $H^1$ 的陈述，注意
+$R\Gamma_{V(f)}$ 与 $H^1_{V(f)}$ 都和余极限交换。因此可假设 $M$
+被某个 $f \in S$ 零化。于是 $H^1_{V(ff')}(M) = 0$，对所有
+$f' \in S$ 均成立（例如由引理 \ref{local-cohomology-lemma-already-torsion}）。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-elements-come-from-bigger}
+设 $I \subset A$ 是环 $A$ 的有限生成理想。设 $\mathfrak p$ 是素理想，
+$M$ 是 $A$-模。设 $i \geq 0$ 是整数，并考虑映射
+$$
+\Psi :
+\colim_{f \in A, f \not \in \mathfrak p} H^i_{V((I, f))}(M)
+\longrightarrow
+H^i_{V(I)}(M)
+$$
+则：
+\begin{enumerate}
+\item $\Im(\Psi)$ 是在 $H^i_{V(I)}(M)_\mathfrak p$ 中映为零的元素全体；
+\item 若 $H^{i - 1}_{V(I)}(M)_\mathfrak p = 0$，则 $\Psi$ 是单射；
+\item 若 $H^{i - 1}_{V(I)}(M)_\mathfrak p = H^i_{V(I)}(M)_\mathfrak p = 0$，
+则 $\Psi$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对 $f \in A$ 且 $f \not \in \mathfrak p$，《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-ss} 的谱序列退化并给出短正合列
+$$
+0 \to H^1_{V(f)}(H^{i - 1}_{V(I)}(M)) \to
+H^i_{V((I, f))}(M) \to H^0_{V(f)}(H^i_{V(I)}(M)) \to 0
+$$
+这证明了 (1)，而 (2) 由此及引理 \ref{local-cohomology-lemma-multiplicative} 得出。
+(3) 是形式推论。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-isomorphism}
+设 $I \subset I' \subset A$ 是诺特环 $A$ 的有限生成理想。设 $M$ 是
+$A$-模，$i \geq 0$ 是整数。考虑映射
+$$
+\Psi : H^i_{V(I')}(M) \to H^i_{V(I)}(M)
+$$
+下列陈述成立：
+\begin{enumerate}
+\item 若 $H^i_{\mathfrak pA_\mathfrak p}(M_\mathfrak p) = 0$ 对所有
+$\mathfrak p \in V(I) \setminus V(I')$ 均成立，则 $\Psi$ 是满射；
+\item 若 $H^{i - 1}_{\mathfrak pA_\mathfrak p}(M_\mathfrak p) = 0$ 对所有
+$\mathfrak p \in V(I) \setminus V(I')$ 均成立，则 $\Psi$ 是单射；
+\item 若 $H^i_{\mathfrak pA_\mathfrak p}(M_\mathfrak p) =
+H^{i - 1}_{\mathfrak pA_\mathfrak p}(M_\mathfrak p) = 0$ 对所有
+$\mathfrak p \in V(I) \setminus V(I')$ 均成立，则 $\Psi$ 是同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。取 $\xi \in H^i_{V(I)}(M)$。由于 $A$ 诺特，存在最大的理想
+$I \subset I'' \subset I'$，使得 $\xi$ 是某个
+$\xi'' \in H^i_{V(I'')}(M)$ 的像。若 $V(I'') = V(I')$，则证明完毕。
+否则，选择一般点 $\mathfrak p \in V(I'')$，它不属于 $V(I')$。
+由假设，有 $H^i_{V(I'')}(M)_\mathfrak p =
+H^i_{\mathfrak pA_\mathfrak p}(M_\mathfrak p) = 0$。由引理
+\ref{local-cohomology-lemma-elements-come-from-bigger} 可以增大 $I''$，这与其极大性矛盾。
+
+\medskip\noindent
+(2) 的证明。设 $\xi' \in H^i_{V(I')}(M)$ 属于 $\Psi$ 的核。
+由于 $A$ 诺特，存在最大的理想 $I \subset I'' \subset I'$，使得 $\xi'$
+在 $H^i_{V(I'')}(M)$ 中映为零。若 $V(I'') = V(I')$，则证明完毕。
+否则，选择一般点 $\mathfrak p  \in V(I'')$，它不属于 $V(I')$。
+由假设，有 $H^{i - 1}_{V(I'')}(M)_\mathfrak p =
+H^{i - 1}_{\mathfrak pA_\mathfrak p}(M_\mathfrak p) = 0$。由引理
+\ref{local-cohomology-lemma-elements-come-from-bigger} 可以增大 $I''$，这与其极大性矛盾。
+
+\medskip\noindent
+(3) 由 (1) 和 (2) 形式地得出。
+\end{proof}
+
+
+
+
+
+\section{Hartshorne 连通性引理}
+\label{local-cohomology-section-hartshorne-connectedness}
+
+\noindent
+本节标题指的是下面这个结果。
+
+\begin{lemma}
+\label{local-cohomology-lemma-depth-2-connected-punctured-spectrum}
+\begin{reference}
+\cite[Proposition 2.1]{Hartshorne-connectedness}
+\end{reference}
+\begin{slogan}
+Hartshorne 连通性
+\end{slogan}
+设 $A$ 是深度 $\geq 2$ 的诺特局部环。则 $A$、$A^h$ 和 $A^{sh}$ 的
+穿孔谱均连通。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 是 $A$ 的穿孔谱。若 $U$ 不连通，则
+$\Gamma(U, \mathcal{O}_U)$ 有非平凡幂等元。但 $A$ 是局部环，因而没有非平凡
+幂等元。因此 $A \to \Gamma(U, \mathcal{O}_U)$ 不是同构。由引理
+\ref{local-cohomology-lemma-local-cohomology}，可知 $H^0_\mathfrak m(A)$ 或
+$H^1_\mathfrak m(A)$ 中至少一个非零。于是由《对偶复形》，引理
+\ref{dualizing-lemma-depth}，有 $\text{depth}(A) \leq 1$。
+关于 $A^h$ 与 $A^{sh}$ 的结论使用《代数进阶》，引理
+\ref{more-algebra-lemma-henselization-depth}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-catenary-S2-equidimensional}
+\begin{reference}
+\cite[IV Corollary 5.10.9]{EGA}
+\end{reference}
+设 $A$ 是链状且满足 $(S_2)$ 的诺特局部环。则 $\Spec(A)$ 等维。
+\end{lemma}
+
+\begin{proof}
+置 $X = \Spec(A)$，并记 $d = \dim(A) = \dim(X)$。在 $X$ 中，考虑不可约分支之并
+$X_1$，其中各分支的维数为 $d$；以及不可约分支之并 $X_2$，其中各分支的维数
+$< d$。
+当然 $X = X_1 \cup X_2$。若 $X_2 = \emptyset$，则本引理成立。否则，
+$Z = X_1 \cap X_2$ 是 $X$ 的非空闭子集，因为它至少包含 $X$ 的闭点。
+因此可以选取一般点 $z \in Z$，它属于 $Z$ 的某个不可约分支。回忆，
+$\mathcal{O}_{Z, z}$ 的谱是 $X$ 中特化到 $z$ 的点所成的集合。由于 $z$
+既属于一个维数为 $d$ 的不可约分支，也属于一个维数 $< d$ 的不可约分支，
+便得到非平凡特化 $x_1 \leadsto z$ 和 $x_2 \leadsto z$，使得 $x_1$ 与 $x_2$
+的闭包具有不同维数。由于 $X$ 链状，只有当特化 $x_1 \leadsto z$ 与
+$x_2 \leadsto z$ 中至少一个不是直接特化时，这种情形才可能发生！因此
+$\dim(\mathcal{O}_{Z, z}) \geq 2$。因此
+$\text{depth}(\mathcal{O}_{Z, z}) \geq 2$，因为 $A$ 满足 $(S_2)$。然而，穿孔谱
+$U$（属于 $\mathcal{O}_{Z, z}$）不连通，因为闭子集
+$U \cap X_1$ 与 $U \cap X_2$ 不相交
+（由 $z$ 的选择），且二者覆盖 $U$。这与引理
+\ref{local-cohomology-lemma-depth-2-connected-punctured-spectrum} 矛盾，证明完毕。
+\end{proof}
+
+
+
+\section{上同调维数}
+\label{local-cohomology-section-cd}
+
+\noindent
+本节简要讨论上同调维数。
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd}
+设 $I \subset A$ 是环 $A$ 的一个有限生成理想。
+置 $Y = V(I) \subset X = \Spec(A)$。设 $d \geq -1$ 是整数。
+下列条件等价：
+\begin{enumerate}
+\item $H^i_Y(A) = 0$ 对所有 $i > d$ 成立；
+\item $H^i_Y(M) = 0$ 对所有 $i > d$ 以及每个 $A$-模 $M$ 成立；以及
+\item 若 $d = -1$，则 $Y = \emptyset$；若 $d = 0$，则
+$Y$ 在 $X$ 中既开又闭；若 $d > 0$，则
+$H^i(X \setminus Y, \mathcal{F}) = 0$ 对所有 $i \geq d$ 以及每个拟凝聚
+$\mathcal{O}_{X \setminus Y}$-模 $\mathcal{F}$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意到 $R\Gamma_Y(-)$ 具有有限的上同调维数，例如可由《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-adjoint} 看出。因此存在整数 $i_0$，
+使得 $H^i_Y(M) = 0$ 对所有 $A$-模 $M$ 以及所有 $i \geq i_0$ 成立。
+
+\medskip\noindent
+先证明 (1) 与 (2) 等价。(2) 蕴含 (1) 是显然的。假设 (1) 成立。
+我们对 $i > d$ 作降归纳，证明 $H^i_Y(M) = 0$ 对所有 $A$-模 $M$ 成立。
+当 $i \geq i_0$ 时，上面已经证明了这一点。
+为完成归纳步骤，设 $i_0 > i > d$。任取一个 $A$-模 $M$，并将其嵌入短正合列
+$0 \to N \to F \to M \to 0$，其中 $F$ 是自由 $A$-模。由于
+$R\Gamma_Y$ 是右伴随函子，$H^i_Y(-)$ 与直和交换。因此由假设 (1) 有
+$H^i_Y(F) = 0$，这是因为 $i > d$。于是如所需，有
+$H^i_Y(M) = H^{i + 1}_Y(N) = 0$。
+
+\medskip\noindent
+假设 $d = -1$ 且 (2) 成立。于是 $0 = H^0_Y(A/I) = A/I \Rightarrow A = I
+\Rightarrow Y = \emptyset$，故 (3) 成立。反向蕴含的证明从略。
+
+\medskip\noindent
+假设 $d = 0$ 且 (2) 成立。置
+$J = H^0_I(A) = \{x \in A \mid I^nx = 0 \text{ 对某个 }n > 0\}$.
+则
+$$
+H^1_Y(A) = \Coker(A \to \Gamma(X \setminus Y, \mathcal{O}_{X \setminus Y}))
+\quad\text{且}\quad
+H^1_Y(I) = \Coker(I \to \Gamma(X \setminus Y, \mathcal{O}_{X \setminus Y}))
+$$
+且第一个映射的核等于 $J$；见引理 \ref{local-cohomology-lemma-local-cohomology}。
+由 (2) 可得 $I(A/J) = A/J$。因此可以选取 $f \in I$，使其像为 $1$；
+这里的像位于 $A/J$ 中。于是 $1 - f \in J$，故
+$I^n(1 - f) = 0$ 对某个 $n > 0$ 成立。
+从而 $f^n = f^{n + 1}$，所以 $e = f^n \in I$ 是幂等元。再考虑互补幂等元
+$e' = 1 - f^n \in J$。对任意元素 $g \in I$，等式 $g^m e' = 0$
+对某个 $m > 0$ 成立。因此 $I$ 包含于理想 $(e) \subset I$ 的根中。这说明
+$Y = V(I) = V(e)$ 在 $X$ 中既开又闭，正如 (3) 所述。反过来，若
+$Y = V(I)$ 既开又闭，则函子 $H^0_Y(-)$ 正合，且其高阶导出函子均消失。
+
+\medskip\noindent
+若 $d > 0$，则由引理 \ref{local-cohomology-lemma-local-cohomology} 立即可见 (2) 与 (3) 等价。
+\end{proof}
+
+\begin{definition}
+\label{local-cohomology-definition-cd}
+设 $I \subset A$ 是环 $A$ 的一个有限生成理想。满足上述等价条件的最小整数
+$d \geq -1$（这些条件见引理 \ref{local-cohomology-lemma-cd}），称为
+{\it $I$ 在 $A$ 中的上同调维数}，记为 $\text{cd}(A, I)$。
+\end{definition}
+
+\noindent
+因此，$\text{cd}(A, I) = -1$ 当 $I = A$；而 $\text{cd}(A, I) = 0$
+当 $I$ 局部幂零或由一个幂等元生成。下一个引理说明
+$\text{cd}(A, I)$ 总是存在。
+
+\begin{lemma}
+\label{local-cohomology-lemma-bound-cd}
+设 $I \subset A$ 是环 $A$ 的一个有限生成理想。则
+\begin{enumerate}
+\item $\text{cd}(A, I)$ 不超过 $I$ 的生成元个数；
+\item $\text{cd}(A, I) \leq r$，只要存在 $f_1, \ldots, f_r \in A$
+使得 $V(f_1, \ldots, f_r) = V(I)$；
+\item $\text{cd}(A, I) \leq c$，只要 $\Spec(A) \setminus V(I)$
+可由 $c$ 个仿射开集覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+关于 $R\Gamma_Y(-)$ 的显式描述（见《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-adjoint}）表明 (1) 成立。为由 (1) 推出
+(2)，使用如下事实：$R\Gamma_Z$ 只依赖于闭子集 $Z$，而不依赖于有限生成理想
+$I \subset A$ 的选取，其中 $V(I) = Z$。这个事实或者由《对偶复形》，第
+\ref{dualizing-section-local-cohomology} 节中的局部上同调构造与《代数进阶》，
+引理 \ref{more-algebra-lemma-local-cohomology-closed} 结合而得，或者由引理
+\ref{local-cohomology-lemma-local-cohomology-is-local-cohomology} 得出。为证明 (3)，使用引理
+\ref{local-cohomology-lemma-cd} 以及《概形的上同调》，引理
+\ref{coherent-lemma-vanishing-nr-affines} 的消失结果。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-sum}
+设 $I, J \subset A$ 是环 $A$ 的有限生成理想。则
+$\text{cd}(A, I + J) \leq \text{cd}(A, I) + \text{cd}(A, J)$。
+\end{lemma}
+
+\begin{proof}
+使用定义以及《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-ss}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-change-rings}
+设 $A \to B$ 是环映射，$I \subset A$ 是有限生成理想。则
+$\text{cd}(B, IB) \leq \text{cd}(A, I)$。若 $A \to B$ 忠实平坦，则等号成立。
+\end{lemma}
+
+\begin{proof}
+使用定义以及《对偶复形》，引理
+\ref{dualizing-lemma-torsion-change-rings}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-local}
+设 $I \subset A$ 是环 $A$ 的有限生成理想。则
+$\text{cd}(A, I) = \max \text{cd}(A_\mathfrak p, I_\mathfrak p)$。
+\end{lemma}
+
+\begin{proof}
+置 $Y = V(I)$，并置 $Y' = V(I_\mathfrak p) \subset \Spec(A_\mathfrak p)$。
+回忆，
+$R\Gamma_Y(A) \otimes_A A_\mathfrak p = R\Gamma_{Y'}(A_\mathfrak p)$
+由《对偶复形》，引理 \ref{dualizing-lemma-torsion-change-rings} 成立。
+因此由《代数》，引理 \ref{algebra-lemma-characterize-zero-local} 得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-dimension}
+设 $I \subset A$ 是环 $A$ 的有限生成理想。若 $M$ 是有限 $A$-模，则
+$H^i_{V(I)}(M) = 0$ 对所有 $i > \dim(\text{Supp}(M))$ 成立。
+特别地，有 $\text{cd}(A, I) \leq \dim(A)$。
+\end{lemma}
+
+\begin{proof}
+先证明第二个断言。回忆，$\dim(A)$ 表示 Krull 维数。由引理
+\ref{local-cohomology-lemma-cd-local}，可以假设 $A$ 是局部环。若 $V(I) = \emptyset$，则结论成立。
+若 $V(I) \not = \emptyset$，则由于缺少闭点，有
+$\dim(\Spec(A) \setminus V(I)) < \dim(A)$。注意到
+$U = \Spec(A) \setminus V(I)$ 是谱空间 $\Spec(A)$ 的拟紧开子集，因而其本身也是
+谱空间；见《代数》，引理 \ref{algebra-lemma-spec-spectral} 与《拓扑》，引理
+\ref{topology-lemma-spectral-sub}。因此《上同调》，命题
+\ref{cohomology-proposition-cohomological-dimension-spectral} 蕴含
+$H^i(U, \mathcal{F}) = 0$ 对所有 $i \geq \dim(A)$ 成立，再由引理
+\ref{local-cohomology-lemma-cd} 即得所需结论。在诺特情形，读者也可使用《Grothendieck 上同调》，
+命题 \ref{cohomology-proposition-vanishing-Noetherian}。
+
+\medskip\noindent
+下面由第二个断言推出第一个断言。设 $\mathfrak a$ 是有限 $A$-模 $M$ 的零化子。
+置 $B = A/\mathfrak a$。回忆，$\Spec(B) = \text{Supp}(M)$；见《代数》，引理
+\ref{algebra-lemma-support-closed}。置 $J = IB$。则 $M$ 是 $B$-模，且
+$H^i_{V(I)}(M) = H^i_{V(J)}(M)$；见《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-and-restriction}。由于第一部分给出
+$\text{cd}(B, J) \leq \dim(B) = \dim(\text{Supp}(M))$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-is-one}
+设 $I \subset A$ 是环 $A$ 的有限生成理想。若
+$\text{cd}(A, I) = 1$，则 $\Spec(A) \setminus V(I)$ 是非空仿射概形。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{local-cohomology-lemma-cd} 与《概形的上同调》，引理
+\ref{coherent-lemma-quasi-compact-h1-zero-covering} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-maximal}
+设 $(A, \mathfrak m)$ 是维数为 $d$ 的诺特局部环。则
+$H^d_\mathfrak m(A)$ 非零，且 $\text{cd}(A, \mathfrak m) = d$。
+\end{lemma}
+
+\begin{proof}
+由维数的一种刻画，$A$ 存在一个由 $d$ 个元素生成的定义理想；见《代数》，命题
+\ref{algebra-proposition-dimension}。因此，由引理 \ref{local-cohomology-lemma-bound-cd}，
+$\text{cd}(A, \mathfrak m) \leq d$。所以 $H^d_\mathfrak m(A)$ 非零，当且仅当
+$\text{cd}(A, \mathfrak m) = d$，又当且仅当
+$\text{cd}(A, \mathfrak m) \geq d$。
+
+\medskip\noindent
+设 $A \to A^\wedge$ 是从 $A$ 到其完备化的映射。注意到 $A^\wedge$
+是与 $A$ 同维的诺特局部环，其极大理想为 $\mathfrak m A^\wedge$。见《代数》，
+各引理
+\ref{algebra-lemma-completion-Noetherian-Noetherian}、
+\ref{algebra-lemma-completion-complete}、
+\ref{algebra-lemma-completion-faithfully-flat}，以及
+《代数进阶》，引理 \ref{more-algebra-lemma-completion-dimension}。
+由引理 \ref{local-cohomology-lemma-cd-change-rings}，只需对 $A^\wedge$ 证明本引理。
+
+\medskip\noindent
+由上一段，可以假设 $A$ 是完备局部环。于是 $A$ 有一个规范化对偶复形
+$\omega_A^\bullet$（《对偶复形》，引理
+\ref{dualizing-lemma-ubiquity-dualizing}）。局部对偶定理（取《对偶复形》，引理
+\ref{dualizing-lemma-special-case-local-duality} 的形式）说明
+$H^d_\mathfrak m(A)$ 与
+$\text{Ext}^{-d}(A, \omega_A^\bullet) = H^{-d}(\omega_A^\bullet)$
+Matlis 对偶；后者非零，例如可由《对偶复形》，引理
+\ref{dualizing-lemma-nonvanishing-generically-local} 看出。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-bound-dim-local}
+设 $(A, \mathfrak m)$ 是诺特局部环，$I \subset A$ 是真理想。设
+$\mathfrak p \subset A$ 是满足
+$V(\mathfrak p) \cap V(I) = \{\mathfrak m\}$ 的素理想。则
+$\dim(A/\mathfrak p) \leq \text{cd}(A, I)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{local-cohomology-lemma-cd-change-rings}，有
+$\text{cd}(A, I) \geq \text{cd}(A/\mathfrak p, I(A/\mathfrak p))$.
+由于 $V(I) \cap V(\mathfrak p) = \{\mathfrak m\}$，有
+$\text{cd}(A/\mathfrak p, I(A/\mathfrak p)) =
+\text{cd}(A/\mathfrak p, \mathfrak m/\mathfrak p)$.
+由引理 \ref{local-cohomology-lemma-cd-maximal}，这等于 $\dim(A/\mathfrak p)$。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-blowup}
+设 $A$ 是诺特环，$I \subset A$ 是理想。设
+$b : X' \to X = \Spec(A)$ 是沿 $I$ 的吹起。若 $b$ 的纤维维数
+$\leq d - 1$，则 $\text{cd}(A, I) \leq d$。
+\end{lemma}
+
+\begin{proof}
+置 $U = X \setminus V(I)$。记 $j : U \to X'$ 为典范开浸入；见《除子》，第
+\ref{divisors-section-blowing-up} 节。由于例外除子是有效 Cartier 除子
+（《除子》，引理
+\ref{divisors-lemma-blowing-up-gives-effective-Cartier-divisor}），可知 $j$
+是仿射态射；见《除子》，引理
+\ref{divisors-lemma-complement-locally-principal-closed-subscheme}。设
+$\mathcal{F}$ 是拟凝聚 $\mathcal{O}_U$-模。则
+$R^pj_*\mathcal{F} = 0$ 对所有 $p > 0$ 成立；见《概形的上同调》，引理
+\ref{coherent-lemma-relative-affine-vanishing}。另一方面，由《极限》，引理
+\ref{limits-lemma-higher-direct-images-zero-above-dimension-fibre}，有
+$R^qb_*(j_*\mathcal{F}) = 0$ 对所有 $q \geq d$ 成立。因此，由 Leray 谱序列
+（《上同调》，引理 \ref{cohomology-lemma-relative-Leray}），可得当
+$R^n(b \circ j)_*\mathcal{F} = 0$ 对所有 $n \geq d$ 成立。于是
+$H^n(U, \mathcal{F}) = 0$ 对所有 $n \geq d$ 成立（由《上同调》，引理
+\ref{cohomology-lemma-apply-Leray}）。按照定义，这意味着
+$\text{cd}(A, I) \leq d$。
+\end{proof}
+
+
+
+
+
+
+
+\section{更一般的支撑}
+\label{local-cohomology-section-supports}
+
+\noindent
+设 $A$ 是诺特环，$M$ 是 $A$-模。设 $T \subset \Spec(A)$ 是在特化下稳定的
+子集（《拓扑》，定义 \ref{topology-definition-specialization}）。定义
+$$
+H^0_T(M) = \colim_{Z \subset T} H^0_Z(M)
+$$
+其中余极限取遍由闭子集 $Z$ 构成的有向偏序集；这些闭子集位于
+$\Spec(A)$ 中并包含于 $T$\footnote{由于 $T$ 在特化下稳定，有
+$T = \bigcup_{Z \subset T} Z$；见《拓扑》，引理
+\ref{topology-lemma-stable-specialization}。}。换言之，元素 $m$（属于 $M$）
+属于 $H^0_T(M) \subset M$，当且仅当支撑
+$V(\text{Ann}_R(m))$（即元素 $m$ 的支撑）包含于 $T$。
+
+\begin{lemma}
+\label{local-cohomology-lemma-support}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。对 $A$-模 $M$，
+下列条件等价：
+\begin{enumerate}
+\item $H^0_T(M) = M$；以及
+\item $\text{Supp}(M) \subset T$.
+\end{enumerate}
+这类 $A$-模组成的范畴是 $A$-模范畴的 Serre 子范畴，并且在直和下封闭。
+\end{lemma}
+
+\begin{proof}
+上述等价性成立，因为 $M$ 中每个元素的支撑都包含于 $M$ 的支撑；反过来，
+$M$ 的支撑是其各元素支撑之并。由《同调》，定义
+\ref{homology-definition-serre-subcategory} 与《代数》，引理
+\ref{algebra-lemma-support-quotient}，这些模所成的范畴是
+$\text{Mod}_A$ 的 Serre 子范畴。关于直和的断言，证明从略。
+\end{proof}
+
+\noindent
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。用
+$\text{Mod}_{A, T} \subset \text{Mod}_A$ 表示引理 \ref{local-cohomology-lemma-support}
+所述的 Serre 子范畴。用 $D_T(A) \subset D(A)$ 表示 $D(A)$ 的严格全饱和
+三角子范畴（《导出范畴》，引理
+\ref{derived-lemma-cohomology-in-serre-subcategory}）；它由如下复形组成：
+这些复形由 $A$-模构成，且其上同调模属于 $\text{Mod}_{A, T}$。于是得到函子
+$$
+D(\text{Mod}_{A, T}) \to D_T(A) \to D(A)
+$$
+见《导出范畴》，第 \ref{derived-section-triangulated-sub} 节中的讨论。
+用 $RH^0_T : D(A) \to D(\text{Mod}_{A, T})$ 表示 $H^0_T$ 的右导出延拓。用
+$$
+R\Gamma_T : D^+(A) \to D^+_T(A),
+$$
+表示 $RH^0_T : D^+(A) \to D^+(\text{Mod}_{A, T})$ 与
+$D^+(\text{Mod}_{A, T}) \to D^+_T(A)$ 的复合。若 $A$ 的维数有限
+\footnote{若 $\dim(A) = \infty$，这个构造在无界复形上可能具有预料之外的性质。}，
+则用
+$$
+R\Gamma_T : D(A) \to D_T(A)
+$$
+表示 $RH^0_T$ 与 $D(\text{Mod}_{A, T}) \to D_T(A)$ 的复合。
+
+\begin{lemma}
+\label{local-cohomology-lemma-adjoint}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。函子
+$RH^0_T$ 是函子 $D(\text{Mod}_{A, T}) \to D(A)$ 的右伴随。
+\end{lemma}
+
+\begin{proof}
+这是因为函子 $H^0_T(-)$ 是嵌入函子
+$\text{Mod}_{A, T} \to \text{Mod}_A$ 的右伴随；见《导出范畴》，引理
+\ref{derived-lemma-derived-adjoint-functors}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-adjoint-ext}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。对任意对象
+$K$（属于 $D(A)$），有
+$$
+H^i(RH^0_T(K)) = \colim_{Z \subset T\text{ 闭}} H^i_Z(K)
+$$
+\end{lemma}
+
+\begin{proof}
+设 $J^\bullet$ 是表示 $K$ 的 K-内射复形。按照定义，$RH^0_T$ 由复形
+$$
+H^0_T(J^\bullet) = \colim H^0_Z(J^\bullet)
+$$
+表示，其中等号来自 $H^0_T$ 的定义。由于滤过余极限正合，此复形的 $i$ 次上同调为
+$\colim H^i(H^0_Z(J^\bullet)) = \colim H^i_Z(K)$
+，正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-equal-plus}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。函子
+$D^+(\text{Mod}_{A, T}) \to D^+_T(A)$ 是等价。
+\end{lemma}
+
+\begin{proof}
+设 $M$ 是 $\text{Mod}_{A, T}$ 的对象。选取嵌入 $M \to J$，其目标是内射
+$A$-模。由《对偶复形》，命题
+\ref{dualizing-proposition-structure-injectives-noetherian}，模 $J$ 是剩余域
+内射包的直和。设 $E$ 是 $\mathfrak p$ 的剩余域的内射包。由于 $E$ 是
+$\mathfrak p$-幂挠模，可知 $H^0_T(E) = 0$ 当 $\mathfrak p \not \in T$，而
+$H^0_T(E) = E$ 当 $\mathfrak p \in T$。因此，作为内射包的
+直和，$H^0_T(J)$ 是内射的（由该命题），并且有嵌入
+$M \to H^0_T(J)$。所以每个对象 $M$（属于 $\text{Mod}_{A, T}$）都有内射消解
+$M \to J^\bullet$，其中 $J^n$ 也属于 $\text{Mod}_{A, T}$。由此可得
+$RH^0_T(M) = M$。
+
+\medskip\noindent
+接着，假设 $K \in D_T^+(A)$。则谱序列
+$$
+R^qH^0_T(H^p(K)) \Rightarrow R^{p + q}H^0_T(K)
+$$
+收敛（《导出范畴》，引理
+\ref{derived-lemma-two-ss-complex-functor}），而上面已经看到，只有 $q = 0$
+的项可能非零。因此 $RH^0_T(K) \to K$ 是同构。所以函子
+$D^+(\text{Mod}_{A, T}) \to D^+_T(A)$ 是等价，其拟逆由 $RH^0_T$ 给出。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-equal-full}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。若
+$\dim(A) < \infty$，则函子 $D(\text{Mod}_{A, T}) \to D_T(A)$ 是等价。
+\end{lemma}
+
+\begin{proof}
+记 $\dim(A) = d$。于是 $H^i_Z(M) = 0$ 对所有 $i > d$ 以及每个闭子集
+$Z$（位于 $\Spec(A)$）成立；见引理
+\ref{local-cohomology-lemma-cd-dimension}。由引理 \ref{local-cohomology-lemma-adjoint-ext} 可知，$H^0_T$
+具有有界的上同调维数。
+
+\medskip\noindent
+设 $K \in D_T(A)$。我们断言 $RH^0_T(K) \to K$ 是同构。当 $K$ 下有界时，
+这一点已经成立；见引理 \ref{local-cohomology-lemma-equal-plus}。不过，由于 $H^0_T$ 具有有界的
+上同调维数，第 $i$ 个上同调（属于 $RH_T^0(K)$）只依赖于
+$\tau_{\geq -d + i}K$，故结论成立。因此
+$D(\text{Mod}_{A, T}) \to D_T(A)$ 是等价，其拟逆为 $RH^0_T$。
+\end{proof}
+
+\begin{remark}
+\label{local-cohomology-remark-upshot}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。上述讨论的结论是：
+$R\Gamma_T : D^+(A) \to D_T^+(A)$ 是嵌入函子
+$D_T^+(A) \to D^+(A)$ 的右伴随。若 $\dim(A) < \infty$，则
+$R\Gamma_T : D(A) \to D_T(A)$ 是嵌入函子 $D_T(A) \to D(A)$ 的右伴随。
+在两种情形中都有
+$$
+H^i_T(K) = H^i(R\Gamma_T(K)) = R^iH^0_T(K) =
+\colim_{Z \subset T\text{ 闭}} H^i_Z(K)
+$$
+这由引理 \ref{local-cohomology-lemma-adjoint}、\ref{local-cohomology-lemma-adjoint-ext}、
+\ref{local-cohomology-lemma-equal-plus} 及 \ref{local-cohomology-lemma-equal-full} 结合得出。
+\end{remark}
+
+\begin{lemma}
+\label{local-cohomology-lemma-torsion-change-rings}
+设 $A \to B$ 是诺特环之间的平坦同态。设 $T \subset \Spec(A)$ 是在特化下稳定的
+子集，并设 $T' \subset \Spec(B)$ 是 $T$ 的逆像。则典范映射
+$$
+R\Gamma_T(K) \otimes_A^\mathbf{L} B
+\longrightarrow
+R\Gamma_{T'}(K \otimes_A^\mathbf{L} B)
+$$
+对 $K \in D^+(A)$ 是同构。若 $A$ 与 $B$ 都具有有限维数，则该结论对
+$K \in D(A)$ 也成立。
+\end{lemma}
+
+\begin{proof}
+从映射 $R\Gamma_T(K) \to K$ 得到映射
+$R\Gamma_T(K) \otimes_A^\mathbf{L} B \to K \otimes_A^\mathbf{L} B$。
+$R\Gamma_T(K) \otimes_A^\mathbf{L} B$ 的各上同调模支撑于 $T'$，因而得到本引理中的
+箭头。若 $T$ 是 $\Spec(A)$ 的闭子集，则由《对偶复形》，引理
+\ref{dualizing-lemma-torsion-change-rings}，该箭头是同构。回忆，
+$H^i_T(K)$ 是 $H^i_Z(K)$ 的余极限，其中 $Z$ 取遍 $T$ 的闭子集所成的有向集；
+见引理 \ref{local-cohomology-lemma-adjoint-ext}。相应地，
+$H^i_{T'}(K \otimes_A^\mathbf{L} B) =
+\colim H^i_{Z'}(K \otimes_A^\mathbf{L} B)$，其中 $Z'$ 是 $Z$ 的逆像。由于
+$\otimes_A B$ 与滤过余极限交换，且不存在高阶 Tor，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-local-cohomology-ss}
+设 $A$ 是环，并设 $T, T' \subset \Spec(A)$ 是在特化下稳定的子集。对
+$K \in D^+(A)$，存在谱序列
+$$
+E_2^{p, q} = H^p_T(H^p_{T'}(K)) \Rightarrow H^{p + q}_{T \cap T'}(K)
+$$
+，如《导出范畴》，引理
+\ref{derived-lemma-grothendieck-spectral-sequence} 所述。
+\end{lemma}
+
+\begin{proof}
+设 $E$ 是 $D_{T \cap T'}(A)$ 的对象。则有
+$$
+\Hom(E, R\Gamma_T(R\Gamma_{T'}(K))) =
+\Hom(E, R\Gamma_{T'}(K)) =
+\Hom(E, K)
+$$
+第一个等号来自 $R\Gamma_T$ 的伴随性质，第二个等号来自 $R\Gamma_{T'}$ 的伴随性质。
+另一方面，若 $J^\bullet$ 是表示 $K$ 的下有界内射复形，则
+$H^0_{T'}(J^\bullet)$ 是由内射 $A$-模构成并表示 $R\Gamma_{T'}(K)$ 的复形，因而
+$H^0_T(H^0_{T'}(J^\bullet))$ 是表示 $R\Gamma_T(R\Gamma_{T'}(K))$ 的复形。所以
+$R\Gamma_T(R\Gamma_{T'}(K))$ 是 $D^+_{T \cap T'}(A)$ 的对象。结合这两个事实，
+得到 $R\Gamma_{T \cap T'} = R\Gamma_T \circ R\Gamma_{T'}$。由陈述中引用的引理，
+这便产生上述谱序列。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-torsion-tensor-product}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。假设 $A$ 具有有限维数。
+则
+$$
+R\Gamma_T(K) = R\Gamma_T(A) \otimes_A^\mathbf{L} K
+$$
+对 $K \in D(A)$ 成立。对 $K, L \in D(A)$，有
+$$
+R\Gamma_T(K \otimes_A^\mathbf{L} L) =
+K \otimes_A^\mathbf{L} R\Gamma_T(L) =
+R\Gamma_T(K) \otimes_A^\mathbf{L} L =
+R\Gamma_T(K) \otimes_A^\mathbf{L} R\Gamma_T(L)
+$$
+若 $K$ 或 $L$ 属于 $D_T(A)$，则 $K \otimes_A^\mathbf{L} L$ 也属于其中。
+\end{lemma}
+
+\begin{proof}
+按照构造，对象 $R\Gamma_T(A)$ 可以由复形 $J^\bullet$ 表示，该复形位于
+$\text{Mod}_{A, T}$ 中。因此，若对象 $K$ 由 K-平坦复形 $K^\bullet$ 表示，则
+$R\Gamma_T(A) \otimes_A^\mathbf{L} K$ 由复形
+$\text{Tot}(J^\bullet \otimes_A K^\bullet)$ 表示，该复形位于
+$\text{Mod}_{A, T}$ 中。利用映射
+$R\Gamma_T(A) \to A$，得到映射
+$R\Gamma_T(A) \otimes_A^\mathbf{L} K\to K$。于是由 $R\Gamma_T$ 的伴随性质，
+得到典范映射
+$$
+R\Gamma_T(A) \otimes_A^\mathbf{L} K \longrightarrow R\Gamma_T(K)
+$$
+，它分解刚刚构造的映射。注意到 $R\Gamma_T$ 与 $D(A)$ 中的直和交换；例如，
+这可由引理 \ref{local-cohomology-lemma-adjoint-ext}、有向余极限与直和交换这一事实，以及通常的
+局部上同调与直和交换这一事实得出（例如由《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-adjoint}）。因此，由《代数进阶》，注记
+\ref{more-algebra-remark-P-resolution}，只需检验当 $K = A[k]$ 且
+$k \in \mathbf{Z}$ 时该映射为同构。这是显然的。
+
+\medskip\noindent
+最后几个断言由刚刚证明的结果以及导出张量积的传递性得出。
+\end{proof}
+
+
+
+
+
+\section{局部上同调的滤过}
+\label{local-cohomology-section-filter-local-cohomology}
+
+\noindent
+本节介绍一些与引理 \ref{local-cohomology-lemma-local-cohomology-ss} 的谱序列有关的技巧。
+
+\begin{lemma}
+\label{local-cohomology-lemma-filter-local-cohomology}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。设
+$T' \subset T$ 是 $T$ 中非极小素理想所成的集合。则 $T'$ 是
+$\Spec(A)$ 的在特化下稳定的子集，并且对每个 $A$-模 $M$ 都有正合列
+$$
+0 \to
+\colim_{Z, f} H^1_f(H^{i - 1}_Z(M)) \to
+H^i_{T'}(M) \to H^i_T(M) \to
+\bigoplus\nolimits_{\mathfrak p \in T \setminus T'}
+H^i_{\mathfrak p A_\mathfrak p}(M_\mathfrak p)
+$$
+其中余极限取遍闭子集 $Z \subset T$ 以及 $f \in A$，并要求
+$V(f) \cap Z \subset T'$。
+\end{lemma}
+
+\begin{proof}
+对每个 $Z$ 和 $f$，《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-ss} 的谱序列退化，从而给出短正合列
+$$
+0 \to H^1_f(H^{i - 1}_Z(M)) \to
+H^i_{Z \cap V(f)}(M) \to H^0_f(H^i_Z(M)) \to 0
+$$
+下文将直接使用这一点，不再另行说明。
+
+\medskip\noindent
+设 $\xi \in H^i_T(M)$ 在该直和中映为零。先把 $\xi$ 写成某个
+$\xi' \in H^i_Z(M)$ 的像，其中 $Z \subset T$ 是闭子集；见引理
+\ref{local-cohomology-lemma-adjoint-ext}。于是 $\xi'$ 在
+$H^i_{\mathfrak p A_\mathfrak p}(M_\mathfrak p)$ 中映为零，对每个
+$\mathfrak p \in Z$ 且 $\mathfrak p \not \in T'$ 都如此。这样的素理想只有有限个，
+所以可以选取 $f \in A$，使其不属于其中任何一个，并且 $f$ 零化 $\xi'$。于是
+$\xi'$ 是某个 $\xi'' \in H^i_{Z'}(M)$ 的像，其中
+$Z' = Z \cap V(f)$。由 $f$ 的选取，有 $Z' \subset T'$，从而在倒数第二项处正合。
+
+\medskip\noindent
+设 $\xi \in H^i_{T'}(M)$ 在 $H^i_T(M)$ 中映为零。选取闭子集
+$Z' \subset Z$，使得 $Z' \subset T'$ 且 $Z \subset T$，并使 $\xi$ 来自
+$\xi' \in H^i_{Z'}(M)$，而后者在 $H^i_Z(M)$ 中映为零。于是可以找到
+$f \in A$，使得 $V(f) \cap Z = Z'$，结论随即得出。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-zero}
+设 $A$ 是有限维诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。设
+$\{M_n\}_{n \geq 0}$ 是 $A$-模的逆系，并设 $i \geq 0$ 是整数。假设对每个
+$m$ 都存在整数 $m'(m) \geq m$，使得对所有 $\mathfrak p \in T$，诱导映射
+$$
+H^i_{\mathfrak p A_\mathfrak p}(M_{k, \mathfrak p})
+\longrightarrow
+H^i_{\mathfrak p A_\mathfrak p}(M_{m, \mathfrak p})
+$$
+对 $k \geq m'(m)$ 为零。设 $m'' : \mathbf{N} \to \mathbf{N}$ 是
+$2^{\dim(T)}$ 次自复合，其中参与复合的映射为 $m'$。则映射
+$H^i_T(M_k) \to H^i_T(M_m)$ 对所有
+$k \geq m''(m)$ 为零。
+\end{lemma}
+
+\begin{proof}
+先作一个一般性的说明。假设有逆阿贝尔群系的正合列
+$$
+(A_n) \to (B_n) \to (C_n)
+$$
+，并假设对每个 $m$ 都存在整数 $m'(m) \geq m$，使得
+$$
+A_k \to A_m
+\quad\text{且}\quad
+C_k \to C_m
+$$
+对 $k \geq m'(m)$ 为零。则当 $k \geq m'(m'(m))$ 时，映射
+$B_k \to B_m$ 为零。
+
+\medskip\noindent
+对 $\dim(T)$ 作归纳来证明本引理；由于 $\dim(A)$ 有限，它也是有限的。设
+$T' \subset T$ 是 $T$ 中非极小素理想所成的集合。则 $T'$ 是
+$\Spec(A)$ 的在特化下稳定的子集，而且本引理的假设适用于 $T'$。由于
+$\dim(T') < \dim(T)$，已知本引理对 $T'$ 成立。对每个 $A$-模 $M$，都有正合列
+$$
+H^i_{T'}(M) \to H^i_T(M) \to
+\bigoplus\nolimits_{\mathfrak p \in T \setminus T'}
+H^i_{\mathfrak p A_\mathfrak p}(M_\mathfrak p)
+$$
+，这是引理 \ref{local-cohomology-lemma-filter-local-cohomology} 的结论。因此由证明开头的一般性说明
+即可得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-essential-image}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集。设
+$\{M_n\}_{n \geq 0}$ 是 $A$-模的逆系，并设 $i \geq 0$ 是整数。假设 $A$ 的维数
+有限，而且对每个 $m$ 都存在整数 $m'(m) \geq m$，使得对所有
+$\mathfrak p \in T$ 有
+\begin{enumerate}
+\item $H^{i - 1}_{\mathfrak p A_\mathfrak p}(M_{k, \mathfrak p})
+\to H^{i - 1}_{\mathfrak p A_\mathfrak p}(M_{m, \mathfrak p})$
+对 $k \geq m'(m)$ 为零；以及
+\item $ H^i_{\mathfrak p A_\mathfrak p}(M_{k, \mathfrak p}) \to
+H^i_{\mathfrak p A_\mathfrak p}(M_{m, \mathfrak p})$
+的像 $G(\mathfrak p, m)$ 与 $k \geq m'(m)$ 的选取无关，并且
+$G(\mathfrak p, m)$ 单射地映入
+$H^i_{\mathfrak p A_\mathfrak p}(M_{0, \mathfrak p})$。
+\end{enumerate}
+则存在整数 $m_0$，使得对每个 $m \geq m_0$，都存在整数
+$m''(m) \geq m$，且对 $k \geq m''(m)$，映射
+$H^i_T(M_k) \to H^i_T(M_m)$ 的像单射地映入 $H^i_T(M_{m_0})$。
+\end{lemma}
+
+\begin{proof}
+先作一个一般性的说明。假设有逆阿贝尔群系的正合列
+$$
+(A_n) \to (B_n) \to (C_n) \to (D_n)
+$$
+。假设存在整数 $m_0$，使得对每个 $m \geq m_0$，都存在整数
+$m'(m) \geq m$，使得映射
+$$
+\Im(B_k \to B_m) \longrightarrow B_{m_0}
+\quad\text{且}\quad
+\Im(D_k \to D_m) \longrightarrow D_{m_0}
+$$
+对 $k \geq m'(m)$ 是单射，并且 $A_k \to A_m$ 对 $k \geq m'(m)$ 为零。
+那么，对 $m \geq m'(m_0)$ 和 $k \geq m'(m'(m))$，映射
+$$
+\Im(C_k \to C_m) \to C_{m'(m_0)}
+$$
+是单射。事实上，设 $c_0 \in C_m$ 是 $c_3 \in C_k$ 的像，并假设 $c_0$
+在 $C_{m'(m_0)}$ 中映为零。图示为
+$$
+C_k \to C_{m'(m'(m))} \to C_{m'(m)} \to C_m \to C_{m'(m_0)},\quad
+c_3 \mapsto c_2 \mapsto c_1 \mapsto c_0 \mapsto 0
+$$
+需要证明 $c_0 = 0$。像 $d_3$（它是 $c_3$ 的像）在 $C_{m_0}$ 中映为零，因而其像
+$d_1 \in D_{m'(m)}$ 为零。因此可以选取 $b_1 \in B_{m'(m)}$，使其映为
+$c_1$ 的像。由于 $c_3$ 在 $C_{m'(m_0)}$ 中映为零，可以找到元素
+$a_{-1} \in A_{m'(m_0)}$，它映为像
+$b_{-1} \in B_{m'(m_0)}$；后者是 $b_1$ 的像。由于 $a_{-1}$ 在
+$A_{m_0}$ 中映为零，可得
+$b_1$ 在 $B_{m_0}$ 中映为零。因此像 $b_0 \in B_m$ 为零，这当然蕴含所需的
+$c_0 = 0$。
+
+\medskip\noindent
+对 $\dim(T)$ 作归纳来证明本引理；由于 $\dim(A)$ 有限，它也是有限的。设
+$T' \subset T$ 是 $T$ 中非极小素理想所成的集合。则 $T'$ 是 $\Spec(A)$ 的
+在特化下稳定的子集，而且本引理的假设适用于 $T'$。由于
+$\dim(T') < \dim(T)$，已知本引理对 $T'$ 成立。对每个 $A$-模 $M$，都有正合列
+$$
+0 \to \colim_{Z, f} H^1_f(H^{i - 1}_Z(M)) \to
+H^i_{T'}(M) \to H^i_T(M) \to
+\bigoplus\nolimits_{\mathfrak p \in T \setminus T'}
+H^i_{\mathfrak p A_\mathfrak p}(M_\mathfrak p)
+$$
+，这是引理 \ref{local-cohomology-lemma-filter-local-cohomology} 的结论。因此由证明开头的一般性说明
+以及下面这个已知事实即可得出结论：群系
+$$
+\left\{\colim_{Z, f} H^1_f(H^{i - 1}_Z(M_n))\right\}_{n \geq 0}
+$$
+在引理 \ref{local-cohomology-lemma-zero} 中是本质为零的逆系；这里使用了函数
+$m''(m)$（该引理中针对 $H^{i - 1}_Z(M)$ 的函数）与 $Z$ 无关这一点。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{局部上同调的有限性，I}
+\label{local-cohomology-section-finiteness}
+
+\noindent
+我们将沿用 Faltings 处理局部上同调模有限性的方法；见
+\cite{Faltings-annulators} 与 \cite{Faltings-finiteness}。下面的引理表明，
+为证明局部上同调模是有限模，只需证明它们具有零化理想。
+
+\begin{lemma}
+\label{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator}
+\begin{reference}
+\cite[Lemma 3]{Faltings-annulators}
+\end{reference}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集，$M$ 是有限
+$A$-模，并设 $n \geq 0$。下列条件等价：
+\begin{enumerate}
+\item $H^i_T(M)$ 对 $i \leq n$ 是有限的；
+\item 存在理想 $J \subset A$，满足 $V(J) \subset T$，使得 $J$ 对
+$H^i_T(M)$ 起零化作用，对所有 $i \leq n$ 都如此。
+\end{enumerate}
+若 $T = V(I) = Z$ 对某个理想 $I \subset A$ 成立，则上述条件还等价于
+\begin{enumerate}
+\item[(3)] 存在 $e \geq 0$，使得 $I^e$ 零化 $H^i_Z(M)$，对所有
+$i \leq n$ 都如此。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对 $n$ 作归纳，证明 (1) 与 (2) 等价。当 $n = 0$ 时，
+$H^0_T(M) \subset M$ 是有限的，故 (1) 成立。由于
+$H^0_T(M) = \colim H^0_{V(J)}(M)$，其中 $J$ 如 (2) 所述，(2) 也成立。
+假设 $n > 0$。
+
+\medskip\noindent
+假设 (1) 成立。回忆，$H^i_J(M) = H^i_{V(J)}(M)$；见《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-noetherian}。因此
+$H^i_T(M) = \colim H^i_J(M)$，其中余极限取遍理想 $J \subset A$，并要求
+$V(J) \subset T$；见引理 \ref{local-cohomology-lemma-adjoint-ext}。由于 $H^i_T(M)$ 对
+$i \leq n$ 是有限生成的，可以找到 (2) 中的某个 $J \subset A$，使得
+$H^i_J(M) \to H^i_T(M)$ 对 $i \leq n$ 满射。因此有限个生成元都是 $J$-幂挠元，
+从而把 $J$ 替换成某个幂后，(2) 成立。
+
+\medskip\noindent
+假设有 (2) 中的 $J$。置 $N = H^0_T(M)$ 以及 $M' = M/N$。由 $R\Gamma_T$ 的构造，
+可知 $H^i_T(N) = 0$ 对 $i > 0$ 成立，且 $H^0_T(N) = N$；见注记
+\ref{local-cohomology-remark-upshot}。因此 $H^0_T(M') = 0$，并且
+$H^i_T(M') = H^i_T(M)$ 对 $i > 0$ 成立。由此可以把 $M$ 替换为 $M'$。
+
+所以可以假设 $H^0_T(M) = 0$。这意味着 $M$ 的有限个伴随素理想均不属于 $T$。
+由素避（《代数》，引理 \ref{algebra-lemma-silly}），可以找到 $f \in J$，它不属于
+$M$ 的任何伴随素理想。于是与短正合列
+$$
+0 \to M \to M \to M/fM \to 0
+$$
+相伴的局部上同调长正合列化为短正合列
+$$
+0 \to H^i_T(M) \to H^i_T(M/fM) \to H^{i + 1}_T(M) \to 0
+$$
+，其中 $i < n$。由此可得 $J^2$ 零化 $H^i_T(M/fM)$，对所有
+$i < n$ 都如此。
+由归纳假设，$H^i_T(M/fM)$ 对 $i < n$ 是有限的。再次使用该短正合列，可知
+$H^{i + 1}_T(M)$ 对 $i < n$ 是有限的，正是所需结论。
+
+\medskip\noindent
+当 $T = V(I)$ 时，(2) 与 (3) 等价的证明从略。
+\end{proof}
+
+\noindent
+下面这个 Faltings 的结果使我们能够在局部环层面证明局部上同调的有限性。
+
+\begin{lemma}
+\label{local-cohomology-lemma-check-finiteness-local-cohomology-locally}
+\begin{reference}
+这是 \cite[Satz 1]{Faltings-finiteness} 的一个特殊情形。
+\end{reference}
+设 $A$ 是诺特环，$I \subset A$ 是理想，$M$ 是有限 $A$-模，并且 $n \geq 0$
+是整数。置 $Z = V(I)$。下列条件等价：
+\begin{enumerate}
+\item 模 $H^i_Z(M)$ 对 $i \leq n$ 是有限的；以及
+\item 对所有 $\mathfrak p \in \Spec(A)$，模 $H^i_Z(M)_\mathfrak p$
+在 $i \leq n$ 时是有限 $A_\mathfrak p$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) $\Rightarrow$ (2) 是显然的。对 $n$ 作归纳来证明反向蕴含。$n = 0$ 的情形
+很清楚，因为此时 (1) 与 (2) 总是成立。
+
+\medskip\noindent
+假设 $n > 0$ 且 (2) 成立。置 $N = H^0_Z(M)$ 以及 $M' = M/N$。由《对偶复形》，
+引理 \ref{dualizing-lemma-divide-by-torsion}，可以把 $M$ 替换为 $M'$。
+因此可以假设 $H^0_Z(M) = 0$。这意味着 $\text{depth}_I(M) > 0$
+（《对偶复形》，引理 \ref{dualizing-lemma-depth}）。选取 $f \in I$，使其为
+$M$ 上的非零因子，并考虑短正合列
+$$
+0 \to M \to M \to M/fM \to 0
+$$
+，它产生长正合列
+$$
+0 \to H^0_Z(M/fM) \to H^1_Z(M) \to H^1_Z(M) \to H^1_Z(M/fM) \to
+H^2_Z(M) \to \ldots
+$$
+，局部化后亦然。因此假设 (2) 蕴含模 $H^i_Z(M/fM)_\mathfrak p$ 对
+$i < n$ 是有限的。于是由归纳假设，$H^i_Z(M/fM)$ 对 $i < n$ 是有限的。
+
+\medskip\noindent
+设 $\mathfrak p$ 是 $A$ 的素理想，并且它是 $H^i_Z(M)$ 的伴随素理想，其中
+$i \leq n$。设 $\mathfrak p$ 是元素 $x \in H^i_Z(M)$ 的零化子。
+则 $\mathfrak p \in Z$，因而 $f \in \mathfrak p$。所以 $fx = 0$，进而 $x$
+来自 $H^{i - 1}_Z(M/fM)$ 的某个元素；所用映射是上述长正合列中的边界映射
+$\delta$。由此可知，$\mathfrak p$ 是有限模
+$\Im(\delta)$ 的伴随素理想。因此 $\text{Ass}(H^i_Z(M))$ 对 $i \leq n$ 是有限的；
+见《代数》，引理 \ref{algebra-lemma-finite-ass}。
+
+\medskip\noindent
+回忆，
+$$
+H^i_Z(M) \subset
+\prod\nolimits_{\mathfrak p \in \text{Ass}(H^i_Z(M))}
+H^i_Z(M)_\mathfrak p
+$$
+，这是《代数》，引理 \ref{algebra-lemma-zero-at-ass-zero} 的结论。按照假设，
+右端各模均为有限的 $I$-幂挠模，故可以找到整数
+$e_{\mathfrak p, i} \geq 0$，其中 $i \leq n$ 且
+$\mathfrak p \in \text{Ass}(H^i_Z(M))$，使得 $I^{e_{\mathfrak p, i}}$ 零化
+$H^i_Z(M)_\mathfrak p$。由此可得 $I^e$（其中
+$e = \max\{e_{\mathfrak p, i}\}$）零化 $H^i_Z(M)$，对所有 $i \leq n$ 都如此。
+由引理 \ref{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator} 可知，
+$H^i_Z(M)$ 对 $i \leq n$ 是有限的。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilate-local-cohomology}
+设 $A$ 是环，$J \subset I \subset A$ 是有限生成理想，并设 $i \geq 0$ 是整数。
+置 $Z = V(I)$。若 $H^i_Z(A)$ 被某个 $J^n$ 零化，其中 $n$ 是某个整数，则
+$H^i_Z(M)$ 被某个 $J^m$ 零化，其中 $m = m(M)$；这里的结论适用于每个有限呈示
+$A$-模 $M$；这里要求 $M_f$ 是有限局部自由 $A_f$-模，对所有 $f \in I$
+都如此。
+\end{lemma}
+
+\begin{proof}
+考虑零化子 $\mathfrak a$，它是 $H^i_Z(M)$ 的零化子。设 $\mathfrak p \subset A$ 且
+$\mathfrak p \not \in Z$。按照假设，存在 $f \in I$，满足
+$f \not \in \mathfrak p$，并存在同构
+$\varphi : A_f^{\oplus r} \to M_f$；这是 $A_f$-模的同构。消去分母
+（并使用 $M$ 为有限呈示这一事实），
+得到映射
+$$
+a : A^{\oplus r} \longrightarrow M
+\quad\text{且}\quad
+b : M \longrightarrow A^{\oplus r}
+$$
+，使得 $a_f = f^N \varphi$ 且 $b_f = f^N \varphi^{-1}$，其中 $N$ 是某个整数。
+此外，可以假设 $a \circ b$ 与 $b \circ a$ 都等于乘以 $f^{2N}$ 的映射。因此
+$H^i_Z(M)$ 被 $f^{2N}J^n$ 零化，即 $f^{2N}J^n \subset \mathfrak a$。
+
+\medskip\noindent
+由于 $U = \Spec(A) \setminus Z$ 拟紧，可以找到有限多个
+$f_1, \ldots, f_t$ 与 $N_1, \ldots, N_t$，使得 $U = \bigcup D(f_j)$ 且
+$f_j^{2N_j}J^n \subset \mathfrak a$。于是 $V(I) = V(f_1, \ldots, f_t)$。
+由于 $I$ 有限生成，可得 $I^M \subset (f_1, \ldots, f_t)$ 对某个 $M$ 成立。
+综上可知，$J^m \subset \mathfrak a$ 对 $m \gg 0$ 成立；例如取
+$m = M (2N_1 + \ldots + 2N_t) n$ 即可。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-local-finiteness-for-finite-locally-free}
+设 $A$ 是诺特环，$I \subset A$ 是理想。置 $Z = V(I)$。设 $n \geq 0$ 是整数。
+若 $H^i_Z(A)$ 对 $0 \leq i \leq n$ 是有限的，则同样的结论对
+$H^i_Z(M)$ 以及 $0 \leq i \leq n$ 成立，其中涉及任意有限 $A$-模 $M$；
+这里要求 $M_f$ 是有限局部自由 $A_f$-模，对所有 $f \in I$ 都如此。
+\end{lemma}
+
+\begin{proof}
+假设 $H^i_Z(A)$ 对 $0 \leq i \leq n$ 是有限的。由此存在 $e \geq 0$，使得
+$I^e$ 零化 $H^i_Z(A)$，对所有 $0 \leq i \leq n$ 都如此；见引理
+\ref{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator}。于是引理
+\ref{local-cohomology-lemma-annihilate-local-cohomology} 蕴含 $H^i_Z(M)$ 在
+$0 \leq i \leq n$ 时被某个 $I^m$ 零化，其中 $m = m(M, i)$。可以取同一个
+$m$，并让它对所有 $0 \leq i \leq n$ 都适用。再由引理
+\ref{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator}，可知
+$H^i_Z(M)$ 对 $0 \leq i \leq n$ 是有限的，正是所需结论。
+\end{proof}
+
+
+
+
+
+\section{推前的有限性，I}
+\label{local-cohomology-section-finiteness-pushforward}
+
+\noindent
+本节讨论有限性定理中最简单的非平凡情形，即第一局部上同调的有限性；等价地，
+讨论 $j_*\mathcal{F}$ 的有限性，其中 $j : U \to X$ 是开浸入，$X$ 局部诺特，
+而 $\mathcal{F}$ 是 $U$ 上的凝聚层。沿用 Koll\'ar 的方法
+（\cite{Kollar-variants} 与 \cite{Kollar-local-global-hulls}），我们得到一个
+充要条件；见命题 \ref{local-cohomology-proposition-kollar}。对高阶直接像或高阶局部上同调群感兴趣的
+读者，可直接跳到第 \ref{local-cohomology-section-finiteness-pushforward-II} 节或第
+\ref{local-cohomology-section-finiteness-II} 节（它们独立于本节其余内容展开）。
+
+\begin{lemma}
+\label{local-cohomology-lemma-check-finiteness-pushforward-on-associated-points}
+设 $X$ 是局部诺特概形，$j : U \to X$ 是开子概形的嵌入，其补集为 $Z$。对
+$x \in U$，设 $i_x : W_x \to U$ 是以 $x$ 为一般点的整闭子概形。设
+$\mathcal{F}$ 是凝聚 $\mathcal{O}_U$-模。下列条件等价：
+\begin{enumerate}
+\item 对所有 $x \in \text{Ass}(\mathcal{F})$，$\mathcal{O}_X$-模
+$j_*i_{x, *}\mathcal{O}_{W_x}$ 都是凝聚的；
+\item $j_*\mathcal{F}$ 是凝聚的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证明 (1) 蕴含 (2)。假设 (1) 成立。该断言在 $X$ 上是局部的，故可假设 $X$
+仿射。于是 $U$ 拟紧，因而 $\text{Ass}(\mathcal{F})$ 有限（《除子》，引理
+\ref{divisors-lemma-finite-ass}）。所以可以对伴随点的个数作归纳。设 $x \in U$
+是 $\mathcal{F}$ 的支撑的某个不可约分支的一般点。由《除子》，引理
+\ref{divisors-lemma-finite-ass}，有 $x \in \text{Ass}(\mathcal{F})$。由 $x$ 的
+选取，$\dim(\mathcal{F}_x) = 0$，这里将其视为 $\mathcal{O}_{X, x}$-模。因此
+$\mathcal{F}_x$ 作为 $\mathcal{O}_{X, x}$-模具有有限长度（《代数》，引理
+\ref{algebra-lemma-support-point}）。所以可以对这个长度作归纳。
+
+\medskip\noindent
+置 $\mathcal{G} = j_*i_{x, *}\mathcal{O}_{W_x}$。按照假设，这是凝聚
+$\mathcal{O}_X$-模。我们有 $\mathcal{G}_x = \kappa(x)$。选取非零映射
+$\varphi_x : \mathcal{F}_x \to \kappa(x) = \mathcal{G}_x$。由《概形的上同调》，
+引理 \ref{coherent-lemma-map-stalks-local-map}，存在开集 $x \in V \subset U$
+以及映射 $\varphi_V : \mathcal{F}|_V \to \mathcal{G}|_V$，其在 $x$ 处的茎为
+$\varphi_x$。选取 $f \in \Gamma(X, \mathcal{O}_X)$，使其在 $x$ 处不消失且
+$D(f) \subset V$。例如由《概形的上同调》，引理
+\ref{coherent-lemma-homs-over-open}，可知 $\varphi_V$ 延拓为
+$f^n\mathcal{F} \to \mathcal{G}|_U$，其中 $n$ 是某个整数。与乘以 $f^n$ 前复合，
+得到映射 $\mathcal{F} \to \mathcal{G}|_U$，其在 $x$ 处的茎非零。设
+$\mathcal{F}' \subset \mathcal{F}$ 为其核。注意到
+$\text{Ass}(\mathcal{F}') \subset \text{Ass}(\mathcal{F})$；见《除子》，引理
+\ref{divisors-lemma-ses-ass}。由于
+$\text{length}_{\mathcal{O}_{X, x}}(\mathcal{F}'_x) =
+\text{length}_{\mathcal{O}_{X, x}}(\mathcal{F}_x) - 1$
+，可使用归纳假设，得出 $j_*\mathcal{F}'$ 凝聚。由于
+$\mathcal{G} = j_*(\mathcal{G}|_U) = j_*i_{x, *}\mathcal{O}_{W_x}$ 凝聚，
+可以考虑正合列
+$$
+0 \to j_*\mathcal{F}' \to j_*\mathcal{F} \to \mathcal{G}
+$$
+由《概形》，引理 \ref{schemes-lemma-push-forward-quasi-coherent}，层
+$j_*\mathcal{F}$ 拟凝聚。因此，由《概形的上同调》，引理
+\ref{coherent-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}，
+$j_*\mathcal{F}$ 在 $j_*(\mathcal{G}|_U)$ 中的像凝聚。最后，由《概形的上同调》，
+引理 \ref{coherent-lemma-coherent-abelian-Noetherian}，$j_*\mathcal{F}$ 凝聚。
+
+\medskip\noindent
+假设 (2) 成立。完全按照上述方式，可归约到 $X$ 仿射的情形。选取
+$x \in \text{Ass}(\mathcal{F})$，并置
+$\mathcal{G} = j_*i_{x, *}\mathcal{O}_{W_x}$。然后选取非零映射
+$\varphi_x : \mathcal{G}_x = \kappa(x) \to \mathcal{F}_x$；它之所以存在，
+恰是因为 $x$ 是 $\mathcal{F}$ 的伴随点。完全按照上述论证，可以假设
+$\varphi_x$ 延拓为 $\mathcal{O}_U$-模映射
+$\varphi : \mathcal{G}|_U \to \mathcal{F}$。于是 $\varphi$ 是单射（例如由
+《除子》，引理 \ref{divisors-lemma-check-injective-on-ass}），从而得到单射
+$\mathcal{G} = j_*(\mathcal{G}|_V) \to j_*\mathcal{F}$。因此 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-finiteness-pushforwards-and-H1-local}
+设 $A$ 是诺特环，$I \subset A$ 是理想。置 $X = \Spec(A)$、$Z = V(I)$、
+$U = X \setminus Z$，并以 $j : U \to X$ 表示嵌入态射。设 $\mathcal{F}$ 是凝聚
+$\mathcal{O}_U$-模。则
+\begin{enumerate}
+\item 存在有限 $A$-模 $M$，使得 $\mathcal{F}$ 是 $\widetilde{M}$ 在 $U$ 上的限制；
+\item 给定 $M$ 后，有正合列
+$$
+0 \to H^0_Z(M) \to M \to H^0(U, \mathcal{F}) \to H^1_Z(M) \to 0
+$$
+以及同构 $H^p(U, \mathcal{F}) = H^{p + 1}_Z(M)$，其中 $p \geq 1$；
+\item 给定 $M$ 与 $p \geq 0$ 后，下列条件等价：
+\begin{enumerate}
+\item $R^pj_*\mathcal{F}$ 凝聚；
+\item $H^p(U, \mathcal{F})$ 是有限 $A$-模；
+\item $H^{p + 1}_Z(M)$ 是有限 $A$-模；
+\end{enumerate}
+\item 若 (3) 中的等价条件对 $p = 0$ 成立，则可以取
+$M = \Gamma(U, \mathcal{F})$；此时 $H^0_Z(M) = H^1_Z(M) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《性质》，引理 \ref{properties-lemma-lift-finite-presentation}，存在凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}'$，其在 $U$ 上的限制同构于 $\mathcal{F}$。
+设 $\mathcal{F}'$ 对应于 (1) 中的有限 $A$-模 $M$。注意到
+$R^pj_*\mathcal{F}$ 拟凝聚（《概形的上同调》，引理
+\ref{coherent-lemma-quasi-coherence-higher-direct-images}），并对应于 $A$-模
+$H^p(U, \mathcal{F})$。由引理
+\ref{local-cohomology-lemma-local-cohomology-is-local-cohomology} 以及《上同调》第
+\ref{cohomology-section-cohomology-support} 节和第
+\ref{cohomology-section-cohomology-support-bis} 节中的讨论，得到正合列
+$$
+0 \to H^0_Z(M) \to M \to H^0(U, \mathcal{F}) \to H^1_Z(M) \to 0
+$$
+以及同构 $H^p(U, \mathcal{F}) = H^{p + 1}_Z(M)$，其中 $p \geq 1$。这里使用了
+$H^j(X, \mathcal{F}') = 0$ 对 $j > 0$ 成立这一事实，因为 $X$ 仿射且
+$\mathcal{F}'$ 拟凝聚（《概形的上同调》，引理
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}）。这就证明了 (2)。
+(3) 和 (4) 直接由 (2) 得出；另见引理 \ref{local-cohomology-lemma-local-cohomology}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-finiteness-pushforward}
+设 $X$ 是局部诺特概形，$j : U \to X$ 是开子概形的嵌入，其补集为 $Z$。设
+$\mathcal{F}$ 是凝聚 $\mathcal{O}_U$-模。假设
+\begin{enumerate}
+\item $X$ 是 Nagata 概形；
+\item $X$ 是普遍链状的；以及
+\item 对 $x \in \text{Ass}(\mathcal{F})$ 和
+$z \in Z \cap \overline{\{x\}}$，有
+$\dim(\mathcal{O}_{\overline{\{x\}}, z}) \geq 2$.
+\end{enumerate}
+则 $j_*\mathcal{F}$ 凝聚。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{local-cohomology-lemma-check-finiteness-pushforward-on-associated-points}，只需证明
+$j_*i_{x, *}\mathcal{O}_{W_x}$ 对 $x \in \text{Ass}(\mathcal{F})$ 凝聚。设
+$\pi : Y \to X$ 是 $X$ 在 $\Spec(\kappa(x))$ 中的正规化；见《态射》，第
+\ref{morphisms-section-normalization} 节。由《态射》，引理
+\ref{morphisms-lemma-nagata-normalization-finite-general}，态射 $\pi$ 有限。由于
+$\pi$ 有限，由《概形的上同调》，引理
+\ref{coherent-lemma-finite-pushforward-coherent}，可知
+$\mathcal{G} = \pi_*\mathcal{O}_Y$ 是凝聚 $\mathcal{O}_X$-模。注意到
+$W_x = U \cap \pi(Y)$。因此
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ 通过 $i_x : W_x \to U$ 分解，
+从而得到典范映射
+$$
+i_{x, *}\mathcal{O}_{W_x}
+\longrightarrow
+(\pi|_{\pi^{-1}(U)})_*(\mathcal{O}_{\pi^{-1}(U)}) =
+(\pi_*\mathcal{O}_Y)|_U = \mathcal{G}|_U
+$$
+该映射是单射（例如由《除子》，引理
+\ref{divisors-lemma-check-injective-on-ass}）。因此
+$j_*i_{x, *}\mathcal{O}_{W_x} \subset j_*\mathcal{G}|_U$
+，而只需证明 $j_*\mathcal{G}|_U$ 凝聚。
+
+\medskip\noindent
+还需证明 $j_*(\mathcal{G}|_U)$ 凝聚。我们断言《除子》，引理
+\ref{divisors-lemma-depth-2-hartog} 适用于
+$$
+\mathcal{G} \longrightarrow j_*(\mathcal{G}|_U)
+$$
+，这便完成证明。只需证明 $\text{depth}(\mathcal{G}_z) \geq 2$ 对
+$z \in Z$ 成立。设 $y_1, \ldots, y_n \in Y$ 是映到 $z$ 的各点。由《代数》，引理
+\ref{algebra-lemma-depth-goes-down-finite}，只需证明
+$\text{depth}(\mathcal{O}_{Y, y_i}) \geq 2$ 对 $i = 1, \ldots, n$ 成立。
+若非如此，则由《性质》，引理 \ref{properties-lemma-criterion-normal}，有
+$\dim(\mathcal{O}_{Y, y_i}) = 1$ 对某个 $i$ 成立。这与态射
+$\pi : Y \to \overline{\{x\}}$ 的维数公式（《态射》，引理
+\ref{morphisms-lemma-dimension-formula}）以及假设 (3) 矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-sharp-finiteness-pushforward}
+设 $X$ 是整的局部诺特概形，$j : U \to X$ 是非空开子概形的嵌入，其补集为 $Z$。
+假设对所有 $z \in Z$ 以及任意伴随素理想 $\mathfrak p$（属于完备化
+$\mathcal{O}_{X, z}^\wedge$），都有
+$\dim(\mathcal{O}_{X, z}^\wedge/\mathfrak p) \geq 2$。
+则 $j_*\mathcal{O}_U$ 凝聚。
+\end{lemma}
+
+\begin{proof}
+可以假设 $X$ 仿射。使用引理
+\ref{local-cohomology-lemma-check-finiteness-local-cohomology-locally} 与
+\ref{local-cohomology-lemma-finiteness-pushforwards-and-H1-local}，可归约到
+$X = \Spec(A)$，其中 $(A, \mathfrak m)$ 是诺特局部整环且
+$\mathfrak m \in Z$。然后可以对 $d = \dim(A)$ 作归纳。（基始情形为
+$d = 0, 1$；按照我们对局部环的假设，这些情形不会发生。）置
+$V = \Spec(A) \setminus \{\mathfrak m\}$。注意到 $V$ 的各局部环维数严格小于
+$d$。对 $j' : U \to V$ 重复上述论证并使用归纳，可得
+$j'_*\mathcal{O}_U$ 是凝聚 $\mathcal{O}_V$-模。选取非零元素
+$f \in A$，它在 $Z$ 上消失。由于 $D(f) \cap V \subset U$，可以找到 $n$，使得
+乘以 $f^n$ 的映射（位于 $U$ 上）延拓为映射
+$f^n : j'_*\mathcal{O}_U \to \mathcal{O}_V$；该映射位于 $V$ 上（例如由《概形的上同调》，引理
+\ref{coherent-lemma-homs-over-open}）。该映射是单射，因而存在单射
+$$
+j_*\mathcal{O}_U = j''_* j'_* \mathcal{O}_U \to j''_*\mathcal{O}_V
+$$
+位于 $X$ 上，其中 $j'' : V \to X$ 是嵌入态射。因此只需证明
+$j''_*\mathcal{O}_V$ 凝聚。换言之，可以假设 $X$ 是某个诺特局部整环的谱，
+而 $Z$ 仅由闭点组成。
+
+\medskip\noindent
+假设 $X = \Spec(A)$，其中 $(A, \mathfrak m)$ 是局部环且
+$Z = \{\mathfrak m\}$。设 $A^\wedge$ 为 $A$ 的完备化。置
+$X^\wedge = \Spec(A^\wedge)$、$Z^\wedge = \{\mathfrak m^\wedge\}$、
+$U^\wedge = X^\wedge \setminus Z^\wedge$，并置
+$\mathcal{F}^\wedge = \mathcal{O}_{U^\wedge}$。环 $A^\wedge$ 普遍链状且为 Nagata 环
+（《代数》，注记
+\ref{algebra-remark-Noetherian-complete-local-ring-universally-catenary} 与引理
+\ref{algebra-lemma-Noetherian-complete-local-Nagata}）。此外，按照假设，引理
+\ref{local-cohomology-lemma-finiteness-pushforward} 的条件 (3) 对
+$X^\wedge, Z^\wedge, U^\wedge, \mathcal{F}^\wedge$ 成立！因此
+$(U^\wedge \to X^\wedge)_*\mathcal{O}_{U^\wedge}$ 凝聚。由于态射
+$c : X^\wedge \to X$ 平坦，可得 $j_*\mathcal{O}_U$ 的拉回为
+$(U^\wedge \to X^\wedge)_*\mathcal{O}_{U^\wedge}$（《概形的上同调》，引理
+\ref{coherent-lemma-flat-base-change-cohomology}）。最后，由于 $c$ 忠实平坦，
+由《下降》，引理 \ref{descent-lemma-finite-type-descends}，可得
+$j_*\mathcal{O}_U$ 凝聚。
+\end{proof}
+
+\begin{remark}
+\label{local-cohomology-remark-closure}
+设 $j : U \to X$ 是局部诺特概形之间的开浸入，且 $x \in U$。设
+$i_x : W_x \to U$ 是以 $x$ 为一般点的整闭子概形，并设 $\overline{\{x\}}$
+是其在 $X$ 中的闭包。则有交换图
+$$
+\xymatrix{
+W_x \ar[d]_{i_x} \ar[r]_{j'} & \overline{\{x\}} \ar[d]^i \\
+U \ar[r]^j & X
+}
+$$
+我们有 $j_*i_{x, *}\mathcal{O}_{W_x} = i_*j'_*\mathcal{O}_{W_x}$。由于左侧竖直
+箭头是闭浸入，可知 $j_*i_{x, *}\mathcal{O}_{W_x}$ 凝聚，当且仅当
+$j'_*\mathcal{O}_{W_x}$ 凝聚。
+\end{remark}
+
+\begin{remark}
+\label{local-cohomology-remark-no-finiteness-pushforward}
+设 $X$ 是局部诺特概形，$j : U \to X$ 是开子概形的嵌入，其补集为 $Z$。设
+$\mathcal{F}$ 是凝聚 $\mathcal{O}_U$-模。若存在
+$x \in \text{Ass}(\mathcal{F})$ 以及 $z \in Z \cap \overline{\{x\}}$，使得
+$\dim(\mathcal{O}_{\overline{\{x\}}, z}) \leq 1$，则 $j_*\mathcal{F}$ 不凝聚。
+为证明这一点，可以作平坦基变换到 $\mathcal{O}_{X, z}$ 的谱。置
+$X' = \overline{\{x\}}$。假设蕴含
+$\mathcal{O}_{X' \cap U} \subset \mathcal{F}$。因此只需说明
+$j_*\mathcal{O}_{X' \cap U}$ 不凝聚。这是显然的，因为 $X' = \{x, z\}$，所以
+$j_*\mathcal{O}_{X' \cap U}$ 对应于 $\kappa(x)$，这里将其视为
+$\mathcal{O}_{X, z}$-模；
+由于 $x$ 不是闭点，它不可能是有限模。
+
+\medskip\noindent
+事实上，引理 \ref{local-cohomology-lemma-sharp-finiteness-pushforward} 的逆命题也成立：给定整诺特概形
+之间的开浸入 $j : U \to X$，若存在 $z \in X \setminus U$ 以及伴随素理想
+$\mathfrak p$（属于完备化 $\mathcal{O}_{X, z}^\wedge$），满足
+$\dim(\mathcal{O}_{X, z}^\wedge/\mathfrak p) = 1$，则
+$j_*\mathcal{O}_U$ 不凝聚。事实上，可以转到局部环，把 $U$ 扩大为穿孔谱，再转到
+完备化；随后上述论证便给出非有限性。
+\end{remark}
+
+\begin{proposition}[Koll\'ar]
+\label{local-cohomology-proposition-kollar}
+\begin{reference}
+见 \cite{k-coherent}；特殊情形见 \cite[IV, Proposition 7.2.2]{EGA}。
+\end{reference}
+\begin{slogan}
+Hartogs 定理的弱类似：在诺特概形上，若一个开集的补集在层的支撑中余维为 2，
+则凝聚层在该开集上的限制凝聚。
+\end{slogan}
+设 $j : U \to X$ 是局部诺特概形之间的开浸入，其补集为 $Z$。设 $\mathcal{F}$
+是凝聚 $\mathcal{O}_U$-模。下列条件等价：
+\begin{enumerate}
+\item $j_*\mathcal{F}$ 凝聚；
+\item 对 $x \in \text{Ass}(\mathcal{F})$、
+$z \in Z \cap \overline{\{x\}}$，以及任意伴随素理想
+$\mathfrak p$（属于完备化 $\mathcal{O}_{\overline{\{x\}}, z}^\wedge$），都有
+$\dim(\mathcal{O}_{\overline{\{x\}}, z}^\wedge/\mathfrak p) \geq 2$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+若 (2) 成立，则结合引理
+\ref{local-cohomology-lemma-check-finiteness-pushforward-on-associated-points}、注记
+\ref{local-cohomology-remark-closure} 与引理 \ref{local-cohomology-lemma-sharp-finiteness-pushforward}，可得 (1)。
+若 (2) 不成立，则由注记 \ref{local-cohomology-remark-no-finiteness-pushforward} 中的讨论
+（以及注记 \ref{local-cohomology-remark-closure}），$j_*i_{x, *}\mathcal{O}_{W_x}$ 对某个
+$x \in \text{Ass}(\mathcal{F})$ 不是有限的。因此由引理
+\ref{local-cohomology-lemma-check-finiteness-pushforward-on-associated-points}，
+$j_*\mathcal{F}$ 不凝聚。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-kollar-finiteness-H1-local}
+设 $A$ 是诺特环，$I \subset A$ 是理想。置 $Z = V(I)$。设 $M$ 是有限 $A$-模。
+下列条件等价：
+\begin{enumerate}
+\item $H^1_Z(M)$ 是有限 $A$-模；以及
+\item 对所有 $\mathfrak p \in \text{Ass}(M)$，若 $\mathfrak p \not \in Z$，
+则对所有 $\mathfrak q \in V(\mathfrak p + I)$，$(A/\mathfrak p)_\mathfrak q$
+的完备化均不具有维数为 $1$ 的伴随素理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这立即由命题 \ref{local-cohomology-proposition-kollar} 经引理
+\ref{local-cohomology-lemma-finiteness-pushforwards-and-H1-local} 得出。
+\end{proof}
+
+\noindent
+下一个引理的表述有一个优点：条件 (1) 和 (2) 可由 $X$ 上的有限型概形继承。
+此外，这正是我们将在第 \ref{local-cohomology-section-finiteness-pushforward-II} 节推广到高阶直接像的
+有限性形式。
+
+\begin{lemma}
+\label{local-cohomology-lemma-finiteness-pushforward-general}
+设 $X$ 是局部诺特概形，$j : U \to X$ 是开子概形的嵌入，其补集为 $Z$。设
+$\mathcal{F}$ 是凝聚 $\mathcal{O}_U$-模。假设
+\begin{enumerate}
+\item $X$ 普遍链状；
+\item 对每个 $z \in Z$，$\mathcal{O}_{X, z}$ 的形式纤维满足 $(S_1)$。
+\end{enumerate}
+在这种情形下，下列条件等价：
+\begin{enumerate}
+\item[(a)] 对 $x \in \text{Ass}(\mathcal{F})$ 以及
+$z \in Z \cap \overline{\{x\}}$，有
+$\dim(\mathcal{O}_{\overline{\{x\}}, z}) \geq 2$；以及
+\item[(b)] $j_*\mathcal{F}$ 凝聚。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $x \in \text{Ass}(\mathcal{F})$。由命题 \ref{local-cohomology-proposition-kollar}，只需检验
+$A = \mathcal{O}_{\overline{\{x\}}, z}$ 满足该命题中关于其完备化的伴随素理想的
+条件，当且仅当 $\dim(A) \geq 2$。注意到 $A$ 普遍链状（这是显然的），并且其形式
+纤维满足 $(S_1)$；这由《代数进阶》，引理
+\ref{more-algebra-lemma-formal-fibres-normal} 与命题
+\ref{more-algebra-proposition-finite-type-over-P-ring} 得出。设
+$\mathfrak p' \subset A^\wedge$ 是伴随素理想。由于 $A \to A^\wedge$ 平坦，
+由《代数》，引理 \ref{algebra-lemma-bourbaki}，可知 $\mathfrak p'$ 位于
+$(0) \subset A$ 之上。形式纤维 $A^\wedge \otimes_A F$ 满足 $(S_1)$，其中 $F$
+是 $A$ 的分式域。因此 $\mathfrak p'$ 是极小素理想；见《代数》，引理
+\ref{algebra-lemma-criterion-no-embedded-primes}。由于 $A$ 普遍链状，由《代数进阶》，
+命题 \ref{more-algebra-proposition-ratliff}，它形式链状。因此
+$\dim(A^\wedge/\mathfrak p') = \dim(A)$，这就证明了所述等价性。
+\end{proof}
+
+
+
+
+
+
+\section{深度与维数}
+\label{local-cohomology-section-dept-dimension}
+
+\noindent
+先给出若干辅助引理。
+
+\begin{lemma}
+\label{local-cohomology-lemma-ideal-depth-function}
+设 $A$ 是诺特环，$I \subset A$ 是理想，$M$ 是有限 $A$-模。设
+$\mathfrak p \in V(I)$ 是素理想，并假设
+$e = \text{depth}_{IA_\mathfrak p}(M_\mathfrak p) < \infty$.
+则存在非空开子集 $U \subset V(\mathfrak p)$，使得
+$\text{depth}_{IA_\mathfrak q}(M_\mathfrak q) \geq e$
+对所有 $\mathfrak q \in U$ 都成立。
+\end{lemma}
+
+\begin{proof}
+由深度的定义，$IM_\mathfrak p \not = M_\mathfrak p$，且存在
+$M_\mathfrak p$-正则序列
+$f_1, \ldots, f_e \in IA_\mathfrak p$。将 $A$ 换成某个主局部化后，可以假设
+$f_1, \ldots, f_e \in I$ 构成 $M$-正则序列；见
+《代数》，引理 \ref{algebra-lemma-regular-sequence-in-neighbourhood}。
+考虑模 $M' = M/IM$。由于 $\mathfrak p \in \text{Supp}(M')$，且有限模的支撑是闭集，
+可得 $V(\mathfrak p) \subset \text{Supp}(M')$。因此，对
+$\mathfrak q \in V(\mathfrak p)$，有 $IM_\mathfrak q \not = M_\mathfrak q$。
+再利用局部化的正合性，由深度的定义可知
+$\text{depth}_{IA_\mathfrak q}(M_\mathfrak q) \geq e$
+对任意 $\mathfrak q \in V(I)$ 都成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-depth-function}
+设 $A$ 是诺特环，$M$ 是有限 $A$-模，$\mathfrak p$ 是素理想。假设
+$e = \text{depth}_{A_\mathfrak p}(M_\mathfrak p) < \infty$.
+则存在非空开子集 $U \subset V(\mathfrak p)$，使得
+$\text{depth}_{A_\mathfrak q}(M_\mathfrak q) \geq e$
+对所有 $\mathfrak q \in U$ 都成立，且除有限多个 $\mathfrak q \in U$ 外均有
+$\text{depth}_{A_\mathfrak q}(M_\mathfrak q) > e$。
+\end{lemma}
+
+\begin{proof}
+由深度的定义，$\mathfrak p M_\mathfrak p \not = M_\mathfrak p$，且存在
+$M_\mathfrak p$-正则序列
+$f_1, \ldots, f_e \in \mathfrak p A_\mathfrak p$。将 $A$ 换成某个主局部化后，
+可以假设 $f_1, \ldots, f_e \in \mathfrak p$ 构成 $M$-正则序列；见
+《代数》，引理 \ref{algebra-lemma-regular-sequence-in-neighbourhood}。
+考虑模 $M' = M/(f_1, \ldots, f_e)M$。由于
+$\mathfrak p \in \text{Supp}(M')$，且有限模的支撑是闭集，
+可得 $V(\mathfrak p) \subset \text{Supp}(M')$。因此，对
+$\mathfrak q \in V(\mathfrak p)$，有
+$\mathfrak q M_\mathfrak q \not = M_\mathfrak q$。再利用局部化的正合性，
+由深度的定义可知
+$\text{depth}_{A_\mathfrak q}(M_\mathfrak q) \geq e$
+对任意 $\mathfrak q \in V(I)$ 都成立。此外，只要 $\mathfrak q$ 不是模 $M'$ 的伴随素理想，深度就会增大。
+于是最后一个断言由《代数》，引理 \ref{algebra-lemma-finite-ass} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-finite-nr-points-next-S}
+设 $X$ 是具有对偶复形 $\omega_X^\bullet$ 的诺特概形，
+$\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模，$k \geq 0$ 是整数。假设
+$\mathcal{F}$ 满足 $(S_k)$。则满足下式的点 $x \in X$ 只有有限多个：
+$$
+\text{depth}(\mathcal{F}_x) = k
+\quad\text{且}\quad
+\dim(\text{Supp}(\mathcal{F}_x)) > k
+$$
+\end{lemma}
+
+\begin{proof}
+对 $k$ 作归纳来证明。基础情形 $k = 0$ 断言 $\mathcal{F}$
+只有有限多个嵌入伴随点；这由《除子》，引理
+\ref{divisors-lemma-finite-ass} 得出。
+
+\medskip\noindent
+假设 $k > 0$，且结论对所有更小的 $k$ 都成立。
+可以用有限多个仿射开集覆盖 $X$，故可假设 $X = \Spec(A)$ 是仿射的。
+于是 $\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模；它对应于有限 $A$-模 $M$，
+且该模满足 $(S_k)$。下文将直接使用《代数》，引理
+\ref{algebra-lemma-one-equation-module} 和
+\ref{algebra-lemma-depth-drops-by-one}，不再另行说明。
+
+\medskip\noindent
+设 $f \in A$ 是 $M$ 上的非零因子。则 $M/fM$ 满足 $(S_{k - 1})$。
+由归纳假设，满足下列条件的素理想 $\mathfrak p \in V(f)$ 只有有限多个：
+$\text{depth}((M/fM)_\mathfrak p) = k - 1$，且
+$\dim(\text{Supp}((M/fM)_\mathfrak p)) > k - 1$.
+这些恰好是满足下列条件的素理想 $\mathfrak p \in V(f)$：
+$\text{depth}(M_\mathfrak p) = k$，且
+$\dim(\text{Supp}(M_\mathfrak p)) > k$.
+因此，在证明该有限性断言时，可以将 $A$ 换成 $A_f$，将 $M$ 换成 $M_f$。
+
+\medskip\noindent
+由于 $M$ 满足 $(S_k)$ 且 $k > 0$，可知 $M$ 没有嵌入伴随素理想
+（《代数》，引理 \ref{algebra-lemma-criterion-no-embedded-primes}）。
+因此 $\text{Ass}(M)$ 是 $M$ 的支撑的泛点集。于是《对偶复形》，引理
+\ref{dualizing-lemma-CM-open} 表明集合
+$U = \{\mathfrak q \mid M_\mathfrak q\text{ 为 Cohen--Macaulay}\}$
+是包含 $\text{Ass}(M)$ 的开集。由素避（《代数》，引理
+\ref{algebra-lemma-silly}），可以选取 $f \in A$，使得
+$f \not \in \mathfrak p$ 对所有 $\mathfrak p \in \text{Ass}(M)$ 成立，并且
+$D(f) \subset U$。于是 $f$ 是 $M$ 上的非零因子
+（《代数》，引理 \ref{algebra-lemma-ass-zero-divisors}）。
+如上将 $A$ 换成 $A_f$、将 $M$ 换成 $M_f$ 后，可知 $M$ 是
+Cohen--Macaulay 模。因此，对所有 $\mathfrak q \subset A$，有
+$\dim(M_\mathfrak q) = \text{depth}(M_\mathfrak q)$
+，故引理所述集合为空，因而当然是有限的。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-sitting-in-degrees}
+设 $(A, \mathfrak m)$ 是具有规范化对偶复形
+$\omega_A^\bullet$ 的诺特局部环，$M$ 是有限 $A$-模。
+记 $E^i = \text{Ext}_A^{-i}(M, \omega_A^\bullet)$。则
+\begin{enumerate}
+\item $E^i$ 是有限 $A$-模，并且仅在
+$0 \leq i \leq \dim(\text{Supp}(M))$,
+时可能非零；
+\item $\dim(\text{Supp}(E^i)) \leq i$；
+\item $\text{depth}(M)$ 是满足下列条件的最小整数 $\delta \geq 0$：
+$E^\delta \not = 0$；
+\item $\mathfrak p \in \text{Supp}(E^0 \oplus \ldots \oplus E^i)
+\Leftrightarrow
+\text{depth}_{A_\mathfrak p}(M_\mathfrak p) + \dim(A/\mathfrak p) \leq i$；
+\item $E^i$ 的零化理想等于 $H^i_\mathfrak m(M)$ 的零化理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1)、(2)、(3) 项即《对偶复形》，引理
+\ref{dualizing-lemma-sitting-in-degrees} 中的断言。
+对素理想 $\mathfrak p$（属于 $A$），复形
+$(\omega_A^\bullet)_\mathfrak p[-\dim(A/\mathfrak p)]$
+是 $A_\mathfrak p$ 的规范化对偶复形；见《对偶复形》，引理
+\ref{dualizing-lemma-dimension-function}。因此
+$$
+E^i_\mathfrak p =
+\text{Ext}^{-i}_A(M, \omega_A^\bullet)_\mathfrak p =
+\text{Ext}^{-i + \dim(A/\mathfrak p)}_{A_\mathfrak p}
+(M_\mathfrak p, (\omega_A^\bullet)_\mathfrak p[-\dim(A/\mathfrak p)])
+$$
+在
+$i - \dim(A/\mathfrak p) < \text{depth}_{A_\mathfrak p}(M_\mathfrak p)$
+时为零，而在
+$i = \dim(A/\mathfrak p) + \text{depth}_{A_\mathfrak p}(M_\mathfrak p)$
+时非零；这是把第 (3) 项用于 $A_\mathfrak p$ 所得。因此第 (4) 项成立。
+若 $E$ 是 $A$ 的剩余域的内射包，则
+$$
+\Hom_A(H^i_\mathfrak m(M), E) =
+\text{Ext}^{-i}_A(M, \omega_A^\bullet)^\wedge =
+(E^i)^\wedge =
+E^i \otimes_A A^\wedge
+$$
+；这由局部对偶定理得出（采用《对偶复形》，引理
+\ref{dualizing-lemma-special-case-local-duality} 的形式）。
+由于 $A \to A^\wedge$ 忠实平坦，第 (5) 项由 Matlis 对偶性得出
+（《对偶复形》，命题 \ref{dualizing-proposition-matlis}）。
+\end{proof}
+
+
+
+
+
+
+\section{局部上同调的零化理想，I}
+\label{local-cohomology-section-annihilators}
+
+\noindent
+本节讨论 Faltings 的一个结果；见 \cite{Faltings-annulators}。
+
+\begin{proposition}
+\label{local-cohomology-proposition-annihilator}
+\begin{reference}
+\cite{Faltings-annulators}.
+\end{reference}
+设 $A$ 是具有对偶复形的诺特环。设
+$T \subset T' \subset \Spec(A)$ 是在特化下稳定的子集。
+设 $s \geq 0$ 是整数，$M$ 是有限 $A$-模。下列条件等价：
+\begin{enumerate}
+\item 存在理想 $J \subset A$，满足 $V(J) \subset T'$，且
+$J$ 将 $H^i_T(M)$ 对所有 $i \leq s$ 零化；
+\item 对所有满足 $\mathfrak p \not \in T'$、
+$\mathfrak q \in T$ 以及 $\mathfrak p \subset \mathfrak q$ 的情形，都有
+$$
+\text{depth}_{A_\mathfrak p}(M_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q) > s
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+设 $\omega_A^\bullet$ 是对偶复形，$\delta$ 是其维数函数；见《对偶复形》，
+第 \ref{dualizing-section-dimension-function} 节。下列有限 $A$-模将起重要作用：
+$$
+E^i = \Ext_A^i(M, \omega_A^\bullet)
+$$
+对 $\mathfrak p \subset A$，记 $H^i_\mathfrak p$ 为 $A_\mathfrak p$-模关于
+$\mathfrak pA_\mathfrak p$ 的局部上同调。于是下式的
+$\mathfrak pA_\mathfrak p$-进完备化
+$$
+(E^i)_\mathfrak p =
+\Ext^{\delta(\mathfrak p) + i}_{A_\mathfrak p}(M_\mathfrak p,
+(\omega_A^\bullet)_\mathfrak p[-\delta(\mathfrak p)])
+$$
+与下式 Matlis 对偶：
+$$
+H^{-\delta(\mathfrak p) - i}_{\mathfrak p}(M_\mathfrak p)
+$$
+这由《对偶复形》，引理 \ref{dualizing-lemma-special-case-local-duality} 得出。
+特别地，由此得到如下事实：理想 $J \subset A$ 将
+$(E^i)_\mathfrak p$ 零化，当且仅当 $J$ 将
+$H^{-\delta(\mathfrak p) - i}_{\mathfrak p}(M_\mathfrak p)$ 零化。
+
+\medskip\noindent
+置 $T_n = \{\mathfrak p \in T \mid \delta(\mathfrak p) \leq n\}$。
+由于 $\delta$ 是有界函数，可知 $T_a = \emptyset$ 在 $a \ll 0$ 时成立，
+而 $T_b = T$ 在 $b \gg 0$ 时成立。
+
+\medskip\noindent
+假设 (2) 成立。来证明 (1) 中 $J$ 的存在性。为此使用双重归纳。
+对 $i \leq s$，考虑归纳假设 $IH_i$：$H^a_T(M)$ 被某个满足
+$J \subset A$ 与 $V(J) \subset T'$ 的理想零化，其中
+$0 \leq a \leq i$。情形 $IH_0$ 是显然的，
+因为 $H^0_T(M)$ 是 $M$ 的子模，从而是有限的；因此它被某个满足
+$J$ 及 $V(J) \subset T$ 的理想零化。
+
+\medskip\noindent
+归纳步骤。假设 $IH_{i - 1}$ 对某个 $0 < i \leq s$ 成立。
+选取 $J'$，满足 $V(J') \subset T'$，使其将 $H^a_T(M)$
+在 $0 \leq a \leq i - 1$ 时零化（归纳假设保证可以如此选取）。
+将对 $n$ 作降归纳，证明存在理想 $J$，满足 $V(J) \subset T'$，
+使 $J H^i_T(M)$ 的伴随素理想都属于 $T_n$。
+当 $n \ll 0$ 时，这蕴含 $JH^i_T(M) = 0$
+（《代数》，引理 \ref{algebra-lemma-ass-zero}），因而 $IH_i$ 成立。
+基础情形 $n \gg 0$ 是显然的，因为此时 $T = T_n$，而
+$H^i_T(M)$ 的所有伴随素理想都属于 $T$。
+
+\medskip\noindent
+于是设已给定 $J$，它对 $n$ 具有上述性质。取 $\mathfrak q \in T_n$。
+令 $T_\mathfrak q \subset \Spec(A_\mathfrak q)$ 为 $T$ 的逆像。我们有
+$H^j_T(M)_\mathfrak q = H^j_{T_\mathfrak q}(M_\mathfrak q)$
+；见引理 \ref{local-cohomology-lemma-torsion-change-rings}。考虑谱序列
+$$
+H_\mathfrak q^p(H^q_{T_\mathfrak q}(M_\mathfrak q))
+\Rightarrow
+H^{p + q}_\mathfrak q(M_\mathfrak q)
+$$
+，它来自引理 \ref{local-cohomology-lemma-local-cohomology-ss}。下文将找到理想
+$J'' \subset A$，满足 $V(J'') \subset T'$，使得
+$H^i_\mathfrak q(M_\mathfrak q)$ 被 $J''$ 零化；这对所有
+$\mathfrak q \in T_n \setminus T_{n - 1}$ 都成立。
+断言：$J (J')^i J''$ 对 $n - 1$ 可行。事实上，取
+$\mathfrak q \in T_n \setminus T_{n - 1}$。上述谱序列给出滤过
+$$
+E_\infty^{0, i} = E_{i + 2}^{0, i} \subset \ldots \subset E_3^{0, i} \subset
+E_2^{0, i} = H^0_\mathfrak q(H^i_{T_\mathfrak q}(M_\mathfrak q))
+$$
+。模 $E_\infty^{0, i}$ 被 $J''$ 零化。子商
+$E_j^{0, i}/E_{j + 1}^{0, i}$ 在 $i + 1 \geq j \geq 2$ 时被 $J'$ 零化，
+因为 $d_j^{0, i}$ 的靶是下式的一个子商：
+$$
+H^j_\mathfrak q(H^{i - j + 1}_{T_\mathfrak q}(M_\mathfrak q)) =
+H^j_\mathfrak q(H^{i - j + 1}_T(M)_\mathfrak q)
+$$
+，而 $H^{i - j + 1}_T(M)_\mathfrak q$ 被 $J'$ 零化；这是由 $J'$ 的选取得出的。
+最后，由 $J$ 的选取，有
+$J H^i_T(M)_\mathfrak q \subset H^0_\mathfrak q(H^i_T(M)_\mathfrak q)$
+，因为 $\Spec(A_\mathfrak q)$ 的非闭点具有更大的 $\delta$ 值。因此
+$\mathfrak q$ 不可能是 $J(J')^iJ'' H^i_T(M)$ 的伴随素理想，正如所需。
+
+\medskip\noindent
+由开头的讨论可知，$J''$ 应将
+$$
+(E^{-\delta(\mathfrak q) - i})_\mathfrak q =
+(E^{-n - i})_\mathfrak q
+$$
+对所有 $\mathfrak q \in T_n \setminus T_{n - 1}$ 零化。
+但若 $J''$ 对某个 $\mathfrak q$ 可行，则它对 $\mathfrak q$ 的一个开邻域中的所有
+$\mathfrak q$ 都可行，因为模 $E^{-n - i}$ 是有限的。
+由于 $\Spec(A)$ 的每个子集在诱导拓扑下都是诺特的（《拓扑》，引理
+\ref{topology-lemma-Noetherian}），可知只需证明 $J''$ 对某个
+$\mathfrak q$ 的存在性。
+
+\medskip\noindent
+由于这些 Ext 模是有限的，$J''$ 的存在性等价于
+$$
+\text{Supp}(E^{-n - i}) \cap \Spec(A_\mathfrak q) \subset T'.
+$$
+。这又等价于证明 $E^{-n - i}$ 在每个满足
+$\mathfrak p \subset \mathfrak q$、$\mathfrak p \not \in T'$ 的点处的局部化为零。
+在 $A_\mathfrak p$ 上使用局部对偶性，可知需要证明
+$$
+H^{i + n - \delta(\mathfrak p)}_\mathfrak p(M_\mathfrak p) =
+H^{i - \dim((A/\mathfrak p)_\mathfrak q)}_\mathfrak p(M_\mathfrak p)
+$$
+为零（这里用到 $\delta$ 是维数函数）。由命题中的假设、$i \leq s$ 以及
+《对偶复形》，引理 \ref{dualizing-lemma-depth}，它确实为零。
+
+\medskip\noindent
+为证明逆向蕴含，假设 (2) 不成立，并反向使用上述论证。首先选取
+$\mathfrak q \in T$、$\mathfrak p \subset \mathfrak q$，满足
+$\mathfrak p \not \in T'$，使得
+$$
+i = \text{depth}_{A_\mathfrak p}(M_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q) \leq s
+$$
+取最小值。于是
+$H^{i - \dim((A/\mathfrak p)_\mathfrak q)}_\mathfrak p(M_\mathfrak p)$
+非零；这由《对偶复形》，引理 \ref{dualizing-lemma-depth} 中的非消失性得出。
+置 $n = \delta(\mathfrak q)$。此时不存在满足
+$J \subset A$ 与 $V(J) \subset T'$ 的理想，使得
+$J(E^{-n - i})_\mathfrak q = 0$。因此 $H^i_\mathfrak q(M_\mathfrak q)$
+不被任何满足 $J \subset A$ 与 $V(J) \subset T'$ 的理想零化。
+由 $i$ 的极小性和上面展示的谱序列，模 $H^i_T(M)_\mathfrak q$
+不被任何满足 $J \subset A$ 与 $V(J) \subset T'$ 的理想零化。
+因此 $H^i_T(M)$ 不被任何满足 $J \subset A$ 与 $V(J) \subset T'$
+的理想零化。命题得证。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-kill-local-cohomology-at-prime}
+设 $I$ 是诺特环 $A$ 的理想，$M$ 是有限 $A$-模，
+$\mathfrak p \subset A$ 是素理想，$s \geq 0$ 是整数。假设
+\begin{enumerate}
+\item $A$ 具有对偶复形；
+\item $\mathfrak p \not \in V(I)$；
+\item 对所有素理想 $\mathfrak p' \subset \mathfrak p$ 以及
+$\mathfrak q \in V(I)$，若 $\mathfrak p' \subset \mathfrak q$，则有
+$$
+\text{depth}_{A_{\mathfrak p'}}(M_{\mathfrak p'}) +
+\dim((A/\mathfrak p')_\mathfrak q) > s
+$$
+\end{enumerate}
+则存在 $f \in A$，满足 $f \not \in \mathfrak p$，并将
+$H^i_{V(I)}(M)$ 对所有 $i \leq s$ 零化。
+\end{lemma}
+
+\begin{proof}
+考虑集合
+$$
+T = V(I)
+\quad\text{且}\quad
+T' = \bigcup\nolimits_{f \in A, f \not \in \mathfrak p} V(f)
+$$
+它们是在特化下稳定的 $\Spec(A)$ 的子集。注意
+$T \subset T'$ 且 $\mathfrak p \not \in T'$。假设 (3) 表明命题
+\ref{local-cohomology-proposition-annihilator} 的条件 (2) 成立。因此可找到
+$J \subset A$，满足 $V(J) \subset T'$，使得
+$J H^i_{V(I)}(M) = 0$ 对所有 $i \leq s$ 成立。选取
+$f \in A$，满足 $f \not \in \mathfrak p$ 与 $V(J) \subset V(f)$。
+$f$ 的某个幂将 $H^i_{V(I)}(M)$ 对所有 $i \leq s$ 零化。
+\end{proof}
+
+
+
+
+
+\section{局部上同调的有限性，II}
+\label{local-cohomology-section-finiteness-II}
+
+\noindent
+继续第 \ref{local-cohomology-section-finiteness} 节开始的局部上同调有限性讨论。
+利用 Faltings 零化理想定理，很容易证明下列基本结果。
+
+\begin{proposition}
+\label{local-cohomology-proposition-finiteness}
+\begin{reference}
+\cite{Faltings-annulators}.
+\end{reference}
+设 $A$ 是具有对偶复形的诺特环，
+$T \subset \Spec(A)$ 是在特化下稳定的子集。
+设 $s \geq 0$ 是整数，$M$ 是有限 $A$-模。下列条件等价：
+\begin{enumerate}
+\item $H^i_T(M)$ 是有限 $A$-模，其中 $i \leq s$；
+\item 对所有满足 $\mathfrak p \not \in T$、$\mathfrak q \in T$ 以及
+$\mathfrak p \subset \mathfrak q$ 的情形，都有
+$$
+\text{depth}_{A_\mathfrak p}(M_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q) > s
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+这是命题 \ref{local-cohomology-proposition-annihilator} 和引理
+\ref{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator} 的形式推论。
+\end{proof}
+
+\noindent
+除给出一些供后文使用的引理外，本节余下部分研究命题
+\ref{local-cohomology-proposition-finiteness} 中 $A$ 具有对偶复形这一条件能够弱化到何种程度。
+粗略地说，答案是必须假设 $A$ 的形式纤维满足 $(S_n)$，其中 $n$ 充分大。
+
+\medskip\noindent
+设 $A$ 是诺特环，$I \subset A$ 是理想。置
+$X = \Spec(A)$ 以及 $Z = V(I) \subset X$，并设 $M$ 是有限 $A$-模。定义
+\begin{equation}
+\label{local-cohomology-equation-cutoff}
+s_{A, I}(M) =
+\min \{
+\text{depth}_{A_\mathfrak p}(M_\mathfrak p) + \dim((A/\mathfrak p)_\mathfrak q)
+\mid
+\mathfrak p \in X \setminus Z, \mathfrak q \in Z,
+\mathfrak p \subset \mathfrak q
+\}
+\end{equation}
+关于深度，我们约定 $0$ 的深度为 $\infty$；因此只需考虑素理想
+$\mathfrak p$，且它属于 $M$ 的支撑。可以看出，$s_{A, I}(M)$
+是这一情形的一个重要不变量。
+
+\begin{lemma}
+\label{local-cohomology-lemma-cutoff}
+设 $A \to B$ 是诺特环之间的有限同态，$I \subset A$ 是理想，并置
+$J = IB$。设 $M$ 是有限 $B$-模。若 $A$ 普遍链状，则
+$s_{B, J}(M) = s_{A, I}(M)$.
+\end{lemma}
+
+\begin{proof}
+设 $\mathfrak p \subset \mathfrak q \subset A$ 是满足
+$I \subset \mathfrak q$ 和 $I \not \subset \mathfrak p$ 的素理想。
+由于 $A \to B$ 是有限的，素理想 $\mathfrak p_i$（位于
+$\mathfrak p$ 上方）只有有限多个。由《代数》，引理
+\ref{algebra-lemma-depth-goes-down-finite}，有
+$$
+\text{depth}(M_\mathfrak p) = \min \text{depth}(M_{\mathfrak p_i})
+$$
+设 $\mathfrak p_i \subset \mathfrak q_{ij}$ 是位于 $\mathfrak q$ 上方的素理想。
+由 $A \to B$ 的上升定理（《代数》，引理
+\ref{algebra-lemma-integral-going-up}），至少存在一个 $\mathfrak q_{ij}$；
+这对每个 $i$ 都成立。于是
+$$
+\dim((B/\mathfrak p_i)_{\mathfrak q_{ij}}) =
+\dim((A/\mathfrak p)_\mathfrak q)
+$$
+；这由维数公式得出，见《代数》，引理
+\ref{algebra-lemma-dimension-formula}。因此，用于定义
+$s_{B, J}(M)$ 的量在各对 $(\mathfrak p_i, \mathfrak q_{ij})$ 上的最小值，
+等于该量在数对 $(\mathfrak p, \mathfrak q)$ 上的值。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-change-completion}
+设 $A$ 是具有对偶复形的诺特环，$I \subset A$ 是理想，
+$M$ 是有限 $A$-模。设 $A', M'$ 是 $I$-进完备化，分别对应于 $A, M$。
+设 $\mathfrak p' \subset \mathfrak q'$ 是 $A'$ 的素理想，其中
+$\mathfrak q' \in V(IA')$，并且它们位于
+$\mathfrak p \subset \mathfrak q$（在 $A$ 中）上方。则
+$$
+\text{depth}_{A_{\mathfrak p'}}(M'_{\mathfrak p'})
+\geq
+\text{depth}_{A_\mathfrak p}(M_\mathfrak p)
+$$
+并且
+$$
+\text{depth}_{A_{\mathfrak p'}}(M'_{\mathfrak p'}) +
+\dim((A'/\mathfrak p')_{\mathfrak q'}) =
+\text{depth}_{A_\mathfrak p}(M_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q)
+$$
+\end{lemma}
+
+\begin{proof}
+我们有
+$$
+\text{depth}(M'_{\mathfrak p'}) =
+\text{depth}(M_\mathfrak p) +
+\text{depth}(A'_{\mathfrak p'}/\mathfrak p A'_{\mathfrak p'})
+\geq \text{depth}(M_\mathfrak p)
+$$
+；这由 $A \to A'$ 的平坦性得出，见《代数》，引理
+\ref{algebra-lemma-apply-grothendieck-module}。由于 $A \to A'$ 的纤维是
+Cohen--Macaulay 的（《对偶复形》，引理
+\ref{dualizing-lemma-dualizing-gorenstein-formal-fibres} 以及
+《代数进阶》，第 \ref{more-algebra-section-properties-formal-fibres} 节），可知
+$\text{depth}(A'_{\mathfrak p'}/\mathfrak p A'_{\mathfrak p'}) =
+\dim(A'_{\mathfrak p'}/\mathfrak p A'_{\mathfrak p'})$.
+因此得到
+\begin{align*}
+\text{depth}(M'_{\mathfrak p'}) +
+\dim((A'/\mathfrak p')_{\mathfrak q'})
+& =
+\text{depth}(M_\mathfrak p) +
+\dim(A'_{\mathfrak p'}/\mathfrak p A'_{\mathfrak p'}) +
+\dim((A'/\mathfrak p')_{\mathfrak q'}) \\
+& =
+\text{depth}(M_\mathfrak p) +
+\dim((A'/\mathfrak p A')_{\mathfrak q'}) \\
+& =
+\text{depth}(M_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q)
+\end{align*}
+第二个等号成立是因为 $A'$ 链状；第三个等号由《代数进阶》，引理
+\ref{more-algebra-lemma-completion-dimension} 得出，因为
+$(A/\mathfrak p)_\mathfrak q$ 与 $(A'/\mathfrak p A')_{\mathfrak q'}$
+具有相同的 $I$-进完备化。
+\end{proof}
+
+
+
+
+
+\begin{lemma}
+\label{local-cohomology-lemma-cutoff-completion}
+设 $A$ 是普遍链状诺特局部环，$I \subset A$ 是理想，
+$M$ 是有限 $A$-模。则
+$$
+s_{A, I}(M) \geq s_{A^\wedge, I^\wedge}(M^\wedge)
+$$
+若 $A$ 的形式纤维满足 $(S_n)$，则
+$\min(n + 1, s_{A, I}(M)) \leq s_{A^\wedge, I^\wedge}(M^\wedge)$.
+\end{lemma}
+
+\begin{proof}
+记 $X = \Spec(A)$、$X^\wedge = \Spec(A^\wedge)$、$Z = V(I) \subset X$ 以及
+$Z^\wedge = V(I^\wedge)$。设
+$\mathfrak p' \subset \mathfrak q' \subset A^\wedge$ 是满足
+$\mathfrak p' \not \in Z^\wedge$ 与 $\mathfrak q' \in Z^\wedge$ 的素理想。
+设 $\mathfrak p \subset \mathfrak q$ 是 $A$ 中相应的素理想。于是
+$\mathfrak p \not \in Z$ 且 $\mathfrak q \in Z$。图示为
+$$
+\xymatrix{
+\mathfrak p' \ar[r] & \mathfrak q' \ar[r] & A^\wedge \\
+\mathfrak p \ar[r] \ar@{-}[u] &
+\mathfrak q \ar[r] \ar@{-}[u] & A \ar[u]
+}
+$$
+记
+\begin{align*}
+a & = \dim(A/\mathfrak p) = \dim(A^\wedge/\mathfrak pA^\wedge),\\
+b & = \dim(A/\mathfrak q) = \dim(A^\wedge/\mathfrak qA^\wedge),\\
+a' & = \dim(A^\wedge/\mathfrak p'),\\
+b' & = \dim(A^\wedge/\mathfrak q')
+\end{align*}
+这些等式由《代数进阶》，引理
+\ref{more-algebra-lemma-completion-dimension} 得出。再记
+\begin{align*}
+p & = \dim(A^\wedge_{\mathfrak p'}/\mathfrak p A^\wedge_{\mathfrak p'}) =
+\dim((A^\wedge/\mathfrak p A^\wedge)_{\mathfrak p'}) \\
+q & = \dim(A^\wedge_{\mathfrak q'}/\mathfrak p A^\wedge_{\mathfrak q'}) =
+\dim((A^\wedge/\mathfrak q A^\wedge)_{\mathfrak q'})
+\end{align*}
+由于 $A$ 普遍链状，可知
+$A^\wedge/\mathfrak pA^\wedge = (A/\mathfrak p)^\wedge$
+是维数为 $a$ 的等维环（《代数进阶》，命题
+\ref{more-algebra-proposition-ratliff}）。因此 $a = a' + p$；类似地，
+$b = b' + q$。将《代数》，引理
+\ref{algebra-lemma-apply-grothendieck-module} 用于平坦局部环同态
+$A_\mathfrak p \to A^\wedge_{\mathfrak p'}$
+，可得
+$$
+\text{depth}(M^\wedge_{\mathfrak p'})
+=
+\text{depth}(M_\mathfrak p) +
+\text{depth}(A^\wedge_{\mathfrak p'} / \mathfrak p A^\wedge_{\mathfrak p'})
+$$
+定义 $s_{A, I}(M)$ 时所取最小值的量是
+$$
+s(\mathfrak p, \mathfrak q) =
+\text{depth}(M_\mathfrak p) + \dim((A/\mathfrak p)_\mathfrak q) =
+\text{depth}(M_\mathfrak p) + a - b
+$$
+（最后一个等号成立是因为 $A$ 链状）。定义
+$s_{A^\wedge, I^\wedge}(M^\wedge)$ 时所取最小值的量是
+$$
+s(\mathfrak p', \mathfrak q') =
+\text{depth}(M^\wedge_{\mathfrak p'}) +
+\dim((A^\wedge/\mathfrak p')_{\mathfrak q'}) =
+\text{depth}(M^\wedge_{\mathfrak p'}) + a' - b'
+$$
+（最后一个等号成立是因为 $A^\wedge$ 链状）。现在记号已经足够，可以开始证明。
+
+\medskip\noindent
+设 $\mathfrak p \subset \mathfrak q \subset A$ 是满足
+$\mathfrak p \not \in Z$ 与 $\mathfrak q \in Z$ 的素理想，并且
+$s_{A, I}(M) = s(\mathfrak p, \mathfrak q)$.
+可以选取 $\mathfrak q'$，使其在 $\mathfrak q A^\wedge$ 上方极小；再选取
+$\mathfrak p' \subset \mathfrak q'$，使其在 $\mathfrak p A^\wedge$ 上方极小
+（这里使用 $A \to A^\wedge$ 的下降定理）。于是得到如上的四个素理想，并且
+$p = 0$、$q = 0$。此外，
+$\text{depth}(A^\wedge_{\mathfrak p'} / \mathfrak p A^\wedge_{\mathfrak p'})=0$
+也成立，因为 $p = 0$。这意味着
+$s(\mathfrak p', \mathfrak q') = s(\mathfrak p, \mathfrak q)$.
+从而得到第一个不等式。
+
+\medskip\noindent
+假设 $A$ 的形式纤维满足 $(S_n)$。则
+$\text{depth}(A^\wedge_{\mathfrak p'} / \mathfrak p A^\wedge_{\mathfrak p'})
+\geq \min(n, p)$.
+因此
+$$
+s(\mathfrak p', \mathfrak q') \geq
+s(\mathfrak p, \mathfrak q) + q + \min(n, p) - p \geq
+s_{A, I}(M) + q + \min(n, p) - p
+$$
+因此，唯一可能出现问题的情形是 $p > n$。若果真如此，则
+\begin{align*}
+s(\mathfrak p', \mathfrak q')
+& =
+\text{depth}(M^\wedge_{\mathfrak p'}) +
+\dim((A^\wedge/\mathfrak p')_{\mathfrak q'}) \\
+& =
+\text{depth}(M_\mathfrak p) +
+\text{depth}(A^\wedge_{\mathfrak p'} / \mathfrak p A^\wedge_{\mathfrak p'}) +
+\dim((A^\wedge/\mathfrak p')_{\mathfrak q'}) \\
+& \geq
+0 + n + 1
+\end{align*}
+，因为 $(A^\wedge/\mathfrak p')_{\mathfrak q'}$ 至少含有两个素理想。
+这就证明了第二个不等式。
+\end{proof}
+
+\noindent
+下述引理的证明方法适用于更一般的情形，不过所得更强结果将包含在后面的定理
+\ref{local-cohomology-theorem-finiteness} 中。
+
+\begin{lemma}
+\label{local-cohomology-lemma-local-annihilator}
+\begin{reference}
+这是 \cite[Satz 1]{Faltings-annulators} 的一个特殊情形。
+\end{reference}
+设 $A$ 是 Gorenstein 诺特局部环，$I \subset A$ 是理想，并置
+$Z = V(I) \subset \Spec(A)$。设 $M$ 是有限 $A$-模。令
+$s = s_{A, I}(M)$ 如式 (\ref{local-cohomology-equation-cutoff}) 所示。则
+$H^i_Z(M)$ 在 $i < s$ 时是有限的，但 $H^s_Z(M)$ 不是有限的。
+\end{lemma}
+
+\begin{proof}
+由于 Gorenstein 局部环具有对偶复形，这是命题
+\ref{local-cohomology-proposition-finiteness} 的一个特殊情形。若能给出该特殊情形的简短证明将很有帮助，
+因为后面一般有限性定理的证明会用到它。
+\end{proof}
+
+\noindent
+注意，下述定理的假设对优良诺特环成立（由定义），对具有对偶复形的诺特环成立
+（《对偶复形》，引理 \ref{dualizing-lemma-universally-catenary} 以及
+《对偶复形》，引理 \ref{dualizing-lemma-dualizing-gorenstein-formal-fibres}），
+也对正则诺特环的商成立。
+
+\begin{theorem}
+\label{local-cohomology-theorem-finiteness}
+\begin{reference}
+这是 \cite[Satz 2]{Faltings-finiteness} 的一个特殊情形。
+\end{reference}
+设 $A$ 是诺特环，$I \subset A$ 是理想。置
+$Z = V(I) \subset \Spec(A)$。设 $M$ 是有限 $A$-模。
+令 $s = s_{A, I}(M)$ 如式 (\ref{local-cohomology-equation-cutoff}) 所示。假设
+\begin{enumerate}
+\item $A$ 普遍链状；
+\item $A$ 的各局部环的形式纤维都是 Cohen--Macaulay 的。
+\end{enumerate}
+则 $H^i_Z(M)$ 在 $0 \leq i < s$ 时是有限的，而
+$H^s_Z(M)$ 不是有限的。
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{local-cohomology-lemma-check-finiteness-local-cohomology-locally}，可以假设
+$A$ 是局部环。
+
+\medskip\noindent
+若 $A$ 是诺特完备局部环，则由 Cohen 结构定理，可将 $A$ 写成正则完备局部环
+$B$ 的商（《代数》，定理 \ref{algebra-theorem-cohen-structure-theorem}）。
+使用引理 \ref{local-cohomology-lemma-cutoff} 和《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-and-restriction}，可归约到正则局部环的情形。
+这一情形由引理 \ref{local-cohomology-lemma-local-annihilator} 得出，因为正则局部环是 Gorenstein 的
+（《对偶复形》，引理 \ref{dualizing-lemma-regular-gorenstein}）。
+
+\medskip\noindent
+设 $A$ 是诺特局部环，$\mathfrak m$ 是其极大理想。可以假设
+$I \subset \mathfrak m$，否则结论显然。设 $A^\wedge$ 是 $A$ 的完备化，
+$Z^\wedge = V(IA^\wedge)$，并设 $M^\wedge = M \otimes_A A^\wedge$
+是 $M$ 的完备化（《代数》，引理 \ref{algebra-lemma-completion-tensor}）。则
+$H^i_Z(M) \otimes_A A^\wedge = H^i_{Z^\wedge}(M^\wedge)$；这由《对偶复形》，引理
+\ref{dualizing-lemma-torsion-change-rings} 和 $A \to A^\wedge$ 的平坦性得出
+（《代数》，引理 \ref{algebra-lemma-completion-flat}）。因此只需证明
+$H^i_{Z^\wedge}(M^\wedge)$ 在 $i < s$ 时有限、在 $i = s$ 时不有限；见
+《代数》，引理 \ref{algebra-lemma-descend-properties-modules}。既然已知结论对
+$A^\wedge$ 成立，只需证明
+$s_{A, I}(M) = s_{A^\wedge, I^\wedge}(M^\wedge)$。这由引理
+\ref{local-cohomology-lemma-cutoff-completion} 得出。
+\end{proof}
+
+\begin{remark}
+\label{local-cohomology-remark-astute-reader}
+细心的读者会注意到，可以对 $A$ 的各局部环的形式纤维施加稍弱的条件。
+具体而言，在定理 \ref{local-cohomology-theorem-finiteness} 的情形下，假设 $A$ 普遍链状，
+但不对形式纤维作任何假设。设给定 $n$，并希望证明 $H^i_Z(M)$
+在 $i \leq n$ 时有限。完全相同的证明表明，只需
+$s_{A, I}(M) > n$，且 $A$ 的各局部环的形式纤维满足 $(S_n)$。
+另一方面，若希望证明 $H^s_Z(M)$ 不有限，其中 $s = s_{A, I}(M)$，
+则上述论证表明，只要形式纤维满足 $(S_{s - 1})$ 即可。
+\end{remark}
+
+
+
+
+
+
+
+\section{推前的有限性，II}
+\label{local-cohomology-section-finiteness-pushforward-II}
+
+\noindent
+本节延续第 \ref{local-cohomology-section-finiteness-pushforward} 节的内容，并利用
+第 \ref{local-cohomology-section-finiteness-II} 节中工作的成果。
+
+\begin{lemma}
+\label{local-cohomology-lemma-finiteness-Rjstar}
+设 $X$ 是局部诺特概形，$j : U \to X$ 是开子概形的嵌入，其补集为 $Z$。
+设 $\mathcal{F}$ 是凝聚 $\mathcal{O}_U$-模，$n \geq 0$ 是整数。假设
+\begin{enumerate}
+\item $X$ 普遍链状；
+\item 对每个 $z \in Z$，$\mathcal{O}_{X, z}$ 的形式纤维满足 $(S_n)$。
+\end{enumerate}
+在这种情形下，下列条件等价：
+\begin{enumerate}
+\item[(a)] 对 $x \in \text{Supp}(\mathcal{F})$ 和
+$z \in Z \cap \overline{\{x\}}$，有
+$\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}_x) +
+\dim(\mathcal{O}_{\overline{\{x\}}, z}) > n$,
+\item[(b)] $R^pj_*\mathcal{F}$ 在 $0 \leq p < n$ 时凝聚。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+该断言在 $X$ 上是局部的，故可假设 $X$ 仿射。记
+$X = \Spec(A)$ 与 $Z = V(I)$。设 $M$ 是有限 $A$-模，使得与它对应的凝聚
+$\mathcal{O}_X$-模限制为 $\mathcal{F}$（在 $U$ 上）；见引理
+\ref{local-cohomology-lemma-finiteness-pushforwards-and-H1-local}。该引理还表明，
+$R^pj_*\mathcal{F}$ 凝聚，当且仅当 $H^{p + 1}_Z(M)$ 是有限 $A$-模。
+注意，下列表达式的最小值
+$\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}_x) +
+\dim(\mathcal{O}_{\overline{\{x\}}, z})$
+就是式 (\ref{local-cohomology-equation-cutoff}) 中的数 $s_{A, I}(M)$。于是引理由定理
+\ref{local-cohomology-theorem-finiteness} 得出，正如注记 \ref{local-cohomology-remark-astute-reader} 所阐明的那样。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-finiteness-for-finite-locally-free}
+设 $X$ 是局部诺特概形，$j : U \to X$ 是开子概形的嵌入，其补集为 $Z$。
+设 $n \geq 0$ 是整数。若 $R^pj_*\mathcal{O}_U$ 在
+$0 \leq p < n$ 时凝聚，则 $R^pj_*\mathcal{F}$ 在
+$0 \leq p < n$ 时也凝聚；这里取任意有限局部自由 $\mathcal{O}_U$-模
+$\mathcal{F}$。
+\end{lemma}
+
+\begin{proof}
+该问题在 $X$ 上是局部的，故可假设 $X$ 仿射。记
+$X = \Spec(A)$ 与 $Z = V(I)$。由引理
+\ref{local-cohomology-lemma-finiteness-pushforwards-and-H1-local}，本引理归结为引理
+\ref{local-cohomology-lemma-local-finiteness-for-finite-locally-free}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilate-Hp}
+\begin{reference}
+\cite[Lemma 1.9]{Bhatt-local}
+\end{reference}
+设 $A$ 是环，$J \subset I \subset A$ 是有限生成理想，$p \geq 0$ 是整数。
+置 $U = \Spec(A) \setminus V(I)$。若 $H^p(U, \mathcal{O}_U)$
+被 $J^n$ 零化（对某个 $n$），则 $H^p(U, \mathcal{F})$ 被
+$J^m$ 零化（对某个 $m = m(\mathcal{F})$）；这对每个有限局部自由
+$\mathcal{O}_U$-模 $\mathcal{F}$ 都成立。
+\end{lemma}
+
+\begin{proof}
+考虑零化理想 $\mathfrak a$，它对应于 $H^p(U, \mathcal{F})$。取 $u \in U$。
+存在开邻域 $u \in U' \subset U$ 以及同构
+$\varphi : \mathcal{O}_{U'}^{\oplus r} \to \mathcal{F}|_{U'}$。
+选取 $f \in A$，使得 $u \in D(f) \subset U'$。存在映射
+$$
+a : \mathcal{O}_U^{\oplus r} \longrightarrow \mathcal{F}
+\quad\text{且}\quad
+b : \mathcal{F} \longrightarrow \mathcal{O}_U^{\oplus r}
+$$
+，它们在 $D(f)$ 上的限制分别等于 $f^N \varphi$ 和
+$f^N \varphi^{-1}$，其中 $N$ 适当。还可以假设
+$a \circ b$ 与 $b \circ a$ 都等于乘以 $f^{2N}$ 的映射。
+这由《性质》，引理 \ref{properties-lemma-section-maps-backwards} 得出，因为
+$U$ 拟紧（$I$ 有限生成）且可分离，并且 $\mathcal{F}$ 与
+$\mathcal{O}_U^{\oplus r}$ 都是有限呈示的。因此 $H^p(U, \mathcal{F})$
+被 $f^{2N}J^n$ 零化，即 $f^{2N}J^n \subset \mathfrak a$。
+
+\medskip\noindent
+由于 $U$ 拟紧，可以找到有限多个 $f_1, \ldots, f_t$ 以及
+$N_1, \ldots, N_t$，使得 $U = \bigcup D(f_i)$ 且
+$f_i^{2N_i}J^n \subset \mathfrak a$。于是 $V(I) = V(f_1, \ldots, f_t)$；
+由于 $I$ 有限生成，可知 $I^M \subset (f_1, \ldots, f_t)$
+对某个 $M$ 成立。综上，$J^m \subset \mathfrak a$ 对
+$m \gg 0$ 成立；例如取 $m = M (2N_1 + \ldots + 2N_t) n$ 即可。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{局部上同调的零化理想，II}
+\label{local-cohomology-section-annihilators-II}
+
+\noindent
+把第 \ref{local-cohomology-section-annihilators} 节关于局部上同调零化理想的讨论，
+推广到上同调模有限的下有界复形。
+
+\begin{definition}
+\label{local-cohomology-definition-depth-complex}
+设 $I$ 是诺特环 $A$ 的理想，并设 $K \in D^+_{\textit{Coh}}(A)$。
+定义所谓{\it $I$-深度}（针对 $K$），记作 $\text{depth}_I(K)$，为最大
+$m \in \mathbf{Z} \cup \{\infty\}$，使得 $H^i_I(K) = 0$
+对所有 $i < m$ 成立。若 $A$ 是极大理想为 $\mathfrak m$
+的局部环，则简称 $\text{depth}_\mathfrak m(K)$ 为 $K$ 的{\it 深度}。
+\end{definition}
+
+\noindent
+该定义与《代数》，定义 \ref{algebra-definition-depth} 不冲突；这由《对偶复形》，引理
+\ref{dualizing-lemma-depth} 得出。
+
+\begin{proposition}
+\label{local-cohomology-proposition-annihilator-complex}
+设 $A$ 是具有对偶复形的诺特环，
+$T \subset T' \subset \Spec(A)$ 是在特化下稳定的子集。
+设 $s \in \mathbf{Z}$，并设 $K$ 是 $D_{\textit{Coh}}^+(A)$ 的对象。
+下列条件等价：
+\begin{enumerate}
+\item 存在理想 $J \subset A$，满足 $V(J) \subset T'$，且
+$J$ 将 $H^i_T(K)$ 对所有 $i \leq s$ 零化；
+\item 对所有满足 $\mathfrak p \not \in T'$、
+$\mathfrak q \in T$ 以及 $\mathfrak p \subset \mathfrak q$ 的情形，都有
+$$
+\text{depth}_{A_\mathfrak p}(K_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q) > s
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+这是命题 \ref{local-cohomology-proposition-annihilator} 的自然推广；读者应先阅读该命题的证明。
+设 $\omega_A^\bullet$ 是对偶复形，$\delta$ 是其维数函数；见《对偶复形》，
+第 \ref{dualizing-section-dimension-function} 节。下列有限 $A$-模将起重要作用：
+$$
+E^i = \Ext_A^i(K, \omega_A^\bullet)
+$$
+对 $\mathfrak p \subset A$，记 $H^i_\mathfrak p$ 为 $D(A_\mathfrak p)$
+中对象关于 $\mathfrak pA_\mathfrak p$ 的局部上同调。于是下式的
+$\mathfrak pA_\mathfrak p$-进完备化
+$$
+(E^i)_\mathfrak p =
+\Ext^{\delta(\mathfrak p) + i}_{A_\mathfrak p}(K_\mathfrak p,
+(\omega_A^\bullet)_\mathfrak p[-\delta(\mathfrak p)])
+$$
+与下式 Matlis 对偶：
+$$
+H^{-\delta(\mathfrak p) - i}_{\mathfrak p}(K_\mathfrak p)
+$$
+这由《对偶复形》，引理 \ref{dualizing-lemma-special-case-local-duality} 得出。
+特别地，由此得到如下事实：理想 $J \subset A$ 将
+$(E^i)_\mathfrak p$ 零化，当且仅当 $J$ 将
+$H^{-\delta(\mathfrak p) - i}_{\mathfrak p}(K_\mathfrak p)$ 零化。
+
+\medskip\noindent
+置 $T_n = \{\mathfrak p \in T \mid \delta(\mathfrak p) \leq n\}$。
+由于 $\delta$ 是有界函数，可知 $T_a = \emptyset$ 在 $a \ll 0$ 时成立，
+而 $T_b = T$ 在 $b \gg 0$ 时成立。
+
+\medskip\noindent
+假设 (2) 成立。来证明 (1) 中 $J$ 的存在性。为此使用双重归纳。
+对 $i \leq s$，考虑归纳假设 $IH_i$：$H^a_T(K)$ 被某个满足
+$J \subset A$ 与 $V(J) \subset T'$ 的理想零化，其中 $a \leq i$。
+情形 $IH_i$ 在 $i$ 充分小时是显然的，因为 $K$ 下有界。
+
+\medskip\noindent
+归纳步骤。假设 $IH_{i - 1}$ 对某个 $i \leq s$ 成立。选取 $J'$，满足
+$V(J') \subset T'$，使其将 $H^a_T(K)$ 在 $a \leq i - 1$ 时零化
+（归纳假设保证可以如此选取）。将对 $n$ 作降归纳，证明存在理想 $J$，
+满足 $V(J) \subset T'$，使 $J H^i_T(K)$ 的伴随素理想都属于 $T_n$。
+当 $n \ll 0$ 时，这蕴含 $JH^i_T(K) = 0$
+（《代数》，引理 \ref{algebra-lemma-ass-zero}），因而 $IH_i$ 成立。
+基础情形 $n \gg 0$ 是显然的，因为此时 $T = T_n$，而
+$H^i_T(K)$ 的所有伴随素理想都属于 $T$。
+
+\medskip\noindent
+于是设已给定 $J$，它对 $n$ 具有上述性质。取 $\mathfrak q \in T_n$。
+令 $T_\mathfrak q \subset \Spec(A_\mathfrak q)$ 为 $T$ 的逆像。我们有
+$H^j_T(K)_\mathfrak q = H^j_{T_\mathfrak q}(K_\mathfrak q)$
+；见引理 \ref{local-cohomology-lemma-torsion-change-rings}。考虑谱序列
+$$
+H_\mathfrak q^p(H^q_{T_\mathfrak q}(K_\mathfrak q))
+\Rightarrow
+H^{p + q}_\mathfrak q(K_\mathfrak q)
+$$
+，它来自引理 \ref{local-cohomology-lemma-local-cohomology-ss}。下文将找到理想
+$J'' \subset A$，满足 $V(J'') \subset T'$，使得
+$H^i_\mathfrak q(K_\mathfrak q)$ 被 $J''$ 零化；这对所有
+$\mathfrak q \in T_n \setminus T_{n - 1}$ 都成立。
+断言：$J (J')^i J''$ 对 $n - 1$ 可行。事实上，取
+$\mathfrak q \in T_n \setminus T_{n - 1}$。上述谱序列给出滤过
+$$
+E_\infty^{0, i} = E_{i + 2}^{0, i} \subset \ldots \subset E_3^{0, i} \subset
+E_2^{0, i} = H^0_\mathfrak q(H^i_{T_\mathfrak q}(K_\mathfrak q))
+$$
+。模 $E_\infty^{0, i}$ 被 $J''$ 零化。子商
+$E_j^{0, i}/E_{j + 1}^{0, i}$ 在 $i + 1 \geq j \geq 2$ 时被 $J'$ 零化，
+因为 $d_j^{0, i}$ 的靶是下式的一个子商：
+$$
+H^j_\mathfrak q(H^{i - j + 1}_{T_\mathfrak q}(K_\mathfrak q)) =
+H^j_\mathfrak q(H^{i - j + 1}_T(K)_\mathfrak q)
+$$
+，而 $H^{i - j + 1}_T(K)_\mathfrak q$ 被 $J'$ 零化；这是由 $J'$ 的选取得出的。
+最后，由 $J$ 的选取，有
+$J H^i_T(K)_\mathfrak q \subset H^0_\mathfrak q(H^i_T(K)_\mathfrak q)$
+，因为 $\Spec(A_\mathfrak q)$ 的非闭点具有更大的 $\delta$ 值。因此
+$\mathfrak q$ 不可能是 $J(J')^iJ'' H^i_T(K)$ 的伴随素理想，正如所需。
+
+\medskip\noindent
+由开头的讨论可知，$J''$ 应将
+$$
+(E^{-\delta(\mathfrak q) - i})_\mathfrak q =
+(E^{-n - i})_\mathfrak q
+$$
+对所有 $\mathfrak q \in T_n \setminus T_{n - 1}$ 零化。
+但若 $J''$ 对某个 $\mathfrak q$ 可行，则它对 $\mathfrak q$ 的一个开邻域中的所有
+$\mathfrak q$ 都可行，因为模 $E^{-n - i}$ 是有限的。
+由于 $\Spec(A)$ 的每个子集在诱导拓扑下都是诺特的（《拓扑》，引理
+\ref{topology-lemma-Noetherian}），可知只需证明 $J''$ 对某个
+$\mathfrak q$ 的存在性。
+
+\medskip\noindent
+由于这些 Ext 模是有限的，$J''$ 的存在性等价于
+$$
+\text{Supp}(E^{-n - i}) \cap \Spec(A_\mathfrak q) \subset T'.
+$$
+。这又等价于证明 $E^{-n - i}$ 在每个满足
+$\mathfrak p \subset \mathfrak q$、$\mathfrak p \not \in T'$ 的点处的局部化为零。
+在 $A_\mathfrak p$ 上使用局部对偶性，可知需要证明
+$$
+H^{i + n - \delta(\mathfrak p)}_\mathfrak p(K_\mathfrak p) =
+H^{i - \dim((A/\mathfrak p)_\mathfrak q)}_\mathfrak p(K_\mathfrak p)
+$$
+为零（这里用到 $\delta$ 是维数函数）。由命题中的假设、$i \leq s$ 以及
+定义 \ref{local-cohomology-definition-depth-complex} 中的深度定义，它确实为零。
+
+\medskip\noindent
+为证明逆向蕴含，假设 (2) 不成立，并反向使用上述论证。首先选取
+$\mathfrak q \in T$、$\mathfrak p \subset \mathfrak q$，满足
+$\mathfrak p \not \in T'$，使得
+$$
+i = \text{depth}_{A_\mathfrak p}(K_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q) \leq s
+$$
+取最小值。于是
+$H^{i - \dim((A/\mathfrak p)_\mathfrak q)}_\mathfrak p(K_\mathfrak p)$
+非零；这由定义 \ref{local-cohomology-definition-depth-complex} 中的深度定义得出。
+置 $n = \delta(\mathfrak q)$。此时不存在满足
+$J \subset A$ 与 $V(J) \subset T'$ 的理想，使得
+$J(E^{-n - i})_\mathfrak q = 0$。因此 $H^i_\mathfrak q(K_\mathfrak q)$
+不被任何满足 $J \subset A$ 与 $V(J) \subset T'$ 的理想零化。
+由 $i$ 的极小性和上面展示的谱序列，模 $H^i_T(K)_\mathfrak q$
+不被任何满足 $J \subset A$ 与 $V(J) \subset T'$ 的理想零化。
+因此 $H^i_T(K)$ 不被任何满足 $J \subset A$ 与 $V(J) \subset T'$
+的理想零化。命题得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{局部上同调的有限性，III}
+\label{local-cohomology-section-finiteness-III}
+
+\noindent
+把第 \ref{local-cohomology-section-finiteness} 节和第 \ref{local-cohomology-section-finiteness-II} 节中
+关于局部上同调有限性的讨论，推广到上同调模有限的下有界复形。
+
+\begin{lemma}
+\label{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator-complex}
+设 $A$ 是诺特环，$T \subset \Spec(A)$ 是在特化下稳定的子集，
+$K$ 是 $D_{\textit{Coh}}^+(A)$ 的对象。设 $n \in \mathbf{Z}$。
+下列条件等价：
+\begin{enumerate}
+\item $H^i_T(K)$ 在 $i \leq n$ 时有限；
+\item 存在理想 $J \subset A$，满足 $V(J) \subset T$，且
+$J$ 将 $H^i_T(K)$ 对所有 $i \leq n$ 零化。
+\end{enumerate}
+若 $T = V(I) = Z$，其中 $I \subset A$ 是理想，则它们还等价于
+\begin{enumerate}
+\item[(3)] 存在 $e \geq 0$，使得 $I^e$ 将 $H^i_Z(K)$
+对所有 $i \leq n$ 零化。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+本引理是引理 \ref{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator}
+的自然推广；读者应先阅读后者的证明。假设 (1) 成立。回忆
+$H^i_J(K) = H^i_{V(J)}(K)$；见《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-noetherian}。因此
+$H^i_T(K) = \colim H^i_J(K)$，其中余极限遍历满足
+$J \subset A$ 与 $V(J) \subset T$ 的理想；见引理
+\ref{local-cohomology-lemma-adjoint-ext}。由于 $H^i_T(K)$ 在 $i \leq n$ 时有限生成，
+可以找到 (2) 中的 $J \subset A$，使得
+$H^i_J(K) \to H^i_T(K)$ 在 $i \leq n$ 时满射。
+因此这有限组生成元都是 $J$-幂挠元，从而将 $J$ 换成某个幂后 (2) 成立。
+
+\medskip\noindent
+取整数 $a \in \mathbf{Z}$，使得 $H^i(K) = 0$ 对 $i < a$ 成立。
+证明 (2) $\Rightarrow$ (1)，方法是对 $a$ 作降归纳。若 $a > n$，则
+$H^i_T(K) = 0$ 对 $i \leq n$ 成立，因而 (1) 与 (2) 都成立，无须再证。
+
+\medskip\noindent
+假设已有 (2) 中的 $J$。注意 $N = H^a_T(K) = H^0_T(H^a(K))$ 是有限
+$A$-模 $H^a(K)$ 的子模，因而有限。若 $n = a$，则已经完成；故以下假设
+$a < n$。由 $R\Gamma_T$ 的构造，有 $H^i_T(N) = 0$ 对 $i > 0$ 成立，且
+$H^0_T(N) = N$；见注记 \ref{local-cohomology-remark-upshot}。选取特异三角
+$$
+N[-a] \to K \to K' \to N[-a + 1]
+$$
+。于是 $H^a_T(K') = 0$，且 $H^i_T(K) = H^i_T(K')$ 对 $i > a$ 成立。
+因此可以将 $K$ 换成 $K'$，从而可假设 $H^a_T(K) = 0$。
+这意味着 $H^a(K)$ 的有限伴随素理想集与 $T$ 不交。由素避
+（《代数》，引理 \ref{algebra-lemma-silly}），可找到 $f \in J$，
+它不属于 $H^a(K)$ 的任何伴随素理想。选取特异三角
+$$
+L \to K \xrightarrow{f} K \to L[1]
+$$
+。由构造可知 $H^i(L) = 0$ 对 $i \leq a$ 成立。另一方面，有上同调长正合列
+$$
+0 \to H^{a + 1}_T(L) \to H^{a + 1}_T(K) \xrightarrow{f}
+H^{a + 1}_T(K) \to H^{a + 2}_T(L) \to H^{a + 2}_T(K) \xrightarrow{f} \ldots
+$$
+，它分解为恒等式 $H^{a + 1}_T(L) = H^{a + 1}_T(K)$ 和短正合列
+$$
+0 \to H^{i - 1}_T(K) \to H^i_T(L) \to H^i_T(K) \to 0
+$$
+；这里 $i \leq n$，且使用了 $f \in J$。由此可知 $J^2$ 将
+$H^i_T(L)$ 对所有 $i \leq n$ 零化。把归纳假设用于 $L$，可知
+$H^i_T(L)$ 在 $i \leq n$ 时有限。再次使用短正合列，可知
+$H^i_T(K)$ 在 $i \leq n$ 时有限，正如所需。
+
+\medskip\noindent
+在 $T = V(I)$ 的情形下，省略 (2) 与 (3) 等价性的证明。
+\end{proof}
+
+\begin{proposition}
+\label{local-cohomology-proposition-finiteness-complex}
+设 $A$ 是具有对偶复形的诺特环，
+$T \subset \Spec(A)$ 是在特化下稳定的子集。
+设 $s \in \mathbf{Z}$，$K \in D_{\textit{Coh}}^+(A)$。下列条件等价：
+\begin{enumerate}
+\item $H^i_T(K)$ 是有限 $A$-模，其中 $i \leq s$；
+\item 对所有满足 $\mathfrak p \not \in T$、$\mathfrak q \in T$ 以及
+$\mathfrak p \subset \mathfrak q$ 的情形，都有
+$$
+\text{depth}_{A_\mathfrak p}(K_\mathfrak p) +
+\dim((A/\mathfrak p)_\mathfrak q) > s
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+这是命题 \ref{local-cohomology-proposition-annihilator-complex} 和引理
+\ref{local-cohomology-lemma-check-finiteness-local-cohomology-by-annihilator-complex} 的形式推论。
+\end{proof}
+
+
+
+
+
+
+\section{改进凝聚模}
+\label{local-cohomology-section-improve}
+
+\noindent
+类似的构造可见于 \cite{EGA}，以及较近期的
+\cite{Kollar-local-global-hulls} 和 \cite{Kollar-variants}。
+
+\begin{lemma}
+\label{local-cohomology-lemma-get-depth-1-along-Z}
+设 $X$ 是诺特概形，$T \subset X$ 是在特化下稳定的子集，
+$\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模。则存在唯一同态
+$\mathcal{F} \to \mathcal{F}'$，它是凝聚 $\mathcal{O}_X$-模之间的同态，并且
+\begin{enumerate}
+\item $\mathcal{F} \to \mathcal{F}'$ 是满射；
+\item $\mathcal{F}_x \to \mathcal{F}'_x$ 对 $x \not \in T$ 是同构；
+\item $\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}'_x) \geq 1$ 对 $x \in T$ 成立。
+\end{enumerate}
+若 $f : Y \to X$ 是平坦态射且 $Y$ 诺特，则
+$f^*\mathcal{F} \to f^*\mathcal{F}'$ 是相对于
+$f^{-1}(T) \subset Y$ 和 $f^*\mathcal{F}$ 的相应商。
+\end{lemma}
+
+\begin{proof}
+条件 (3) 恰好意味着 $\text{Ass}(\mathcal{F}') \cap T = \emptyset$。
+因此，$\mathcal{F} \to \mathcal{F}'$ 是 $\mathcal{F}$ 对支集包含于
+$T$ 的截面所成子层取商而得的商。这证明了唯一性。关于拉回的陈述由
+《除子》，引理 \ref{divisors-lemma-bourbaki} 及唯一性得出。
+
+\medskip\noindent
+$\mathcal{F} \to \mathcal{F}'$ 的存在性。
+由唯一性，只需在 $X$ 上局部证明存在性与唯一性；略去一个小细节。
+因此可以假设 $X = \Spec(A)$ 是仿射的，且 $\mathcal{F}$ 是由有限
+$A$-模 $M$ 所伴随的凝聚模。令 $M' = M / H^0_T(M)$，其中
+$H^0_T(M)$ 如第 \ref{local-cohomology-section-supports} 节所定义。于是
+$M_\mathfrak p = M'_\mathfrak p$ 对 $\mathfrak p \not \in T$ 成立，
+这证明了 (1)。另一方面，$H^0_T(M) = \colim H^0_Z(M)$，其中 $Z$
+遍历 $X$ 的、包含于 $T$ 的闭子集。因此，由《对偶复形》，引理
+\ref{dualizing-lemma-divide-by-torsion}，有 $H^0_T(M') = 0$；也就是说，
+$M'$ 的任何伴随素理想均不在 $T$ 中。因此，
+$\text{depth}(M'_\mathfrak p) \geq 1$ 对 $\mathfrak p \in T$ 成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-get-depth-2-along-Z}
+设 $j : U \to X$ 是诺特概形间的开浸入，$\mathcal{F}$ 是凝聚
+$\mathcal{O}_X$-模。假设 $\mathcal{F}' = j_*(\mathcal{F}|_U)$ 是凝聚的。
+则 $\mathcal{F} \to \mathcal{F}'$ 是唯一满足下列条件的凝聚
+$\mathcal{O}_X$-模同态：
+\begin{enumerate}
+\item $\mathcal{F}|_U \to \mathcal{F}'|_U$ 是同构；
+\item $\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}'_x) \geq 2$
+对 $x \in X$ 且 $x \not \in U$ 成立。
+\end{enumerate}
+若 $f : Y \to X$ 是平坦态射且 $Y$ 诺特，则
+$f^*\mathcal{F} \to f^*\mathcal{F}'$ 是相对于
+$f^{-1}(U) \subset Y$ 的相应同态。
+\end{lemma}
+
+\begin{proof}
+由《除子》，引理 \ref{divisors-lemma-depth-pushforward} 的第 (3) 部分，
+有 $\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}'_x) \geq 2$。
+$\mathcal{F} \to \mathcal{F}'$ 的唯一性来自《除子》，引理
+\ref{divisors-lemma-depth-2-hartog}。与平坦拉回的相容性来自平坦基变换；
+见《概形的上同调》，引理
+\ref{coherent-lemma-flat-base-change-cohomology}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-make-S2-along-Z}
+设 $X$ 是诺特概形，$Z \subset X$ 是闭子概形，$\mathcal{F}$ 是凝聚
+$\mathcal{O}_X$-模。假设 $X$ 普遍链状，且其局部环的形式纤维满足 $(S_1)$。
+则存在唯一同态 $\mathcal{F} \to \mathcal{F}''$，它是凝聚
+$\mathcal{O}_X$-模之间的同态，并且
+\begin{enumerate}
+\item $\mathcal{F}_x \to \mathcal{F}''_x$ 对 $x \in X \setminus Z$ 是同构；
+\item $\mathcal{F}_x \to \mathcal{F}''_x$ 是满射，且
+$\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}''_x) = 1$，其中 $x \in Z$
+满足存在直接特化 $x' \leadsto x$，并且 $x' \not \in Z$、
+$x' \in \text{Ass}(\mathcal{F})$；
+\item $\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}''_x) \geq 2$
+对其余 $x \in Z$ 成立。
+\end{enumerate}
+若 $f : Y \to X$ 是 Cohen--Macaulay 态射且 $Y$ 诺特，则
+$f^*\mathcal{F} \to f^*\mathcal{F}''$ 对
+$f^{-1}(Z) \subset Y$ 满足同样的性质。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{F} \to \mathcal{F}'$ 为引理
+\ref{local-cohomology-lemma-get-depth-1-along-Z} 针对 $Z$（$X$ 的子集）所构造的同态。
+回顾 $\mathcal{F}'$ 是 $\mathcal{F}$ 对支集在 $Z$ 上的截面所成子层取商而得的商。
+
+\medskip\noindent
+先证明唯一性。设 $\mathcal{F} \to \mathcal{F}''$ 如本引理所述。
+得到分解 $\mathcal{F} \to \mathcal{F}' \to \mathcal{F}''$，因为由条件
+(2) 与 (3)，有 $\text{Ass}(\mathcal{F}'') \cap Z = \emptyset$。
+令 $U \subset X$ 为使得
+$\mathcal{F}'|_U \to \mathcal{F}''|_U$ 是同构的极大开子概形。
+可以看出，$U$ 包含 (2) 中所述的所有点。于是由《除子》，引理
+\ref{divisors-lemma-depth-2-hartog}，可知
+$\mathcal{F}'' = j_*(\mathcal{F}'|_U)$。这便给出唯一性
+（一个小细节是：若有两个这样的 $\mathcal{F}''$，则取分别所得开集 $U$ 的交）。
+
+\medskip\noindent
+证明存在性。回顾
+$\text{Ass}(\mathcal{F}') = \{x_1, \ldots, x_n\}$ 是有限集，且
+$x_i \not \in Z$。令 $Y_i$ 为 $\{x_i\}$ 的闭包，并令 $Z_{i, j}$ 为
+$Z \cap Y_i$ 的不可约分支。注意
+$\text{Supp}(\mathcal{F}') \cap Z = \bigcup Z_{i, j}$。
+令 $z_{i, j} \in Z_{i, j}$ 为泛点，并令
+$$
+d_{i, j} = \dim(\mathcal{O}_{\overline{\{x_i\}}, z_{i, j}})
+$$
+若 $d_{i, j} = 1$，则 $z_{i, j}$ 是 (2) 中所述的点之一，故无须在这些点处
+修改 $\mathcal{F}'$。此外，仍假设 $d_{i, j} = 1$，利用引理
+\ref{local-cohomology-lemma-depth-function}，可以找到开邻域
+$z_{i, j} \in V_{i, j} \subset X$，使得
+$\text{depth}_{\mathcal{O}_{X, z}}(\mathcal{F}'_z) \geq 2$
+对 $z \in Z_{i, j} \cap V_{i, j}$ 且 $z \not = z_{i, j}$ 成立。
+令
+$$
+Z' = X \setminus
+\left(
+X \setminus Z \cup \bigcup\nolimits_{d_{i, j} = 1} V_{i, j})
+\right)
+$$
+记 $j' : X \setminus Z' \to X$。由我们对 $Z'$ 的选择，引理
+\ref{local-cohomology-lemma-finiteness-pushforward-general} 的假设均得到满足。
+令 $\mathcal{F}'' = j'_*(\mathcal{F}'|_{X \setminus Z'})$，并应用引理
+\ref{local-cohomology-lemma-get-depth-2-along-Z}，即可得出结论。
+
+\medskip\noindent
+最后一个陈述来自深度沿平坦局部同态的变化公式（见《代数》，引理
+\ref{algebra-lemma-apply-grothendieck-module}），以及 $f$ 为
+Cohen--Macaulay 态射这一条件中所包含的对 $f$ 的纤维的假设。略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-make-S2-along-T-simple}
+设 $X$ 是局部具有对偶复形的诺特概形，$T' \subset X$ 是在特化下稳定的
+子集，$\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模。假设只要
+$x \leadsto x'$ 是 $X$ 中点的直接特化，且 $x' \in T'$、
+$x \not \in T'$，就有 $\text{depth}(\mathcal{F}_x) \geq 1$。
+则存在唯一同态 $\mathcal{F} \to \mathcal{F}''$，它是凝聚
+$\mathcal{O}_X$-模之间的同态，并且
+\begin{enumerate}
+\item $\mathcal{F}_x \to \mathcal{F}''_x$ 对 $x \not \in T'$ 是同构；
+\item $\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}''_x) \geq 2$
+对 $x \in T'$ 成立。
+\end{enumerate}
+若 $f : Y \to X$ 是 Cohen--Macaulay 态射且 $Y$ 诺特，则
+$f^*\mathcal{F} \to f^*\mathcal{F}''$ 对
+$f^{-1}(T') \subset Y$ 满足同样的性质。
+\end{lemma}
+
+\begin{proof}
+证明唯一性。设 $\mathcal{F} \to \mathcal{F}''$ 如本引理所述。
+令 $U \subset X$ 为使得 $\mathcal{F}|_U \to \mathcal{F}''|_U$
+是同构的极大开子概形。由 (1)，可见 $U$ 包含集合 $X \setminus T'$。
+由 (2) 以及《除子》，引理 \ref{divisors-lemma-depth-2-hartog}，可知
+$\mathcal{F}'' = j_*(\mathcal{F}|_U)$，其中 $j : U \to X$ 是包含态射。
+这便给出唯一性（一个小细节是：若有两个这样的 $\mathcal{F}''$，
+则取分别所得开集 $U$ 的交）。
+
+\medskip\noindent
+证明存在性。令 $\mathcal{F} \to \mathcal{F}'$ 为 $\mathcal{F}$ 的商，
+它由引理 \ref{local-cohomology-lemma-get-depth-1-along-Z} 利用 $T'$ 构造。
+回顾 $\mathcal{F}'$ 是 $\mathcal{F}$ 对支集在 $T'$ 上的截面所成子层取商而得的商。
+定义
+$$
+\mathcal{F}'' = \colim j_*(\mathcal{F}'|_V)
+$$
+其中 $j : V \to X$ 遍历满足 $X \setminus V \subset T'$ 的开子概形。
+由于 $T'$ 在特化下稳定，注意此余极限是滤过的。每个同态
+$\mathcal{F}' \to j_*(\mathcal{F}'|_V)$ 都是单射，因为
+$\text{Ass}(\mathcal{F}')$ 与 $T'$ 不交。因此
+$\mathcal{F}' \to \mathcal{F}''$ 是单射。
+
+\medskip\noindent
+假设 $X = \Spec(A)$ 是仿射的，且 $\mathcal{F}$ 对应于有限
+$A$-模 $M$。则 $\mathcal{F}'$ 对应于
+$M' = M / H^0_{T'}(M)$；见引理 \ref{local-cohomology-lemma-get-depth-1-along-Z} 的证明。
+应用引理 \ref{local-cohomology-lemma-local-cohomology} 与 \ref{local-cohomology-lemma-adjoint-ext}，
+可见 $\mathcal{F}''$ 对应于一个 $A$-模 $M''$，它位于短正合列
+$$
+0 \to M' \to M'' \to H^1_{T'}(M') \to 0
+$$
+中。由命题 \ref{local-cohomology-proposition-finiteness} 以及本引理陈述中对直接特化的条件，
+可见 $M''$ 是有限 $A$-模。由此可见 $\mathcal{F}''$ 是凝聚的。
+
+\medskip\noindent
+由 $\mathcal{F}''$ 的凝聚性以及上述滤过余极限中转移同态的单射性，
+可知 $\mathcal{F}'' = j_*(\mathcal{F}'|_V)$ 对任意如上足够小的 $V$
+都成立。于是条件 (1) 与 (2) 由引理
+\ref{local-cohomology-lemma-get-depth-2-along-Z} 得出。
+
+\medskip\noindent
+最后一个陈述来自深度沿平坦局部同态的变化公式（见《代数》，引理
+\ref{algebra-lemma-apply-grothendieck-module}），以及 $f$ 为
+Cohen--Macaulay 态射这一条件中所包含的对 $f$ 的纤维的假设。略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-make-S2-along-T}
+设 $X$ 是局部具有对偶复形的诺特概形。设
+$T' \subset T \subset X$ 是在特化下稳定的子集，并且只要
+$x \leadsto x'$ 是 $X$ 中点的直接特化且 $x' \in T'$，就有
+$x \in T$。设 $\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模。
+则存在唯一同态 $\mathcal{F} \to \mathcal{F}''$，它是凝聚
+$\mathcal{O}_X$-模之间的同态，并且
+\begin{enumerate}
+\item $\mathcal{F}_x \to \mathcal{F}''_x$ 对 $x \not \in T$ 是同构；
+\item $\mathcal{F}_x \to \mathcal{F}''_x$ 是满射，并且
+$\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}''_x) \geq 1$
+对 $x \in T$ 且 $x \not \in T'$ 成立；
+\item $\text{depth}_{\mathcal{O}_{X, x}}(\mathcal{F}''_x) \geq 2$
+对 $x \in T'$ 成立。
+\end{enumerate}
+若 $f : Y \to X$ 是 Cohen--Macaulay 态射且 $Y$ 诺特，则
+$f^*\mathcal{F} \to f^*\mathcal{F}''$ 对
+$f^{-1}(T') \subset f^{-1}(T) \subset Y$ 满足同样的性质。
+\end{lemma}
+
+\begin{proof}
+首先，令 $\mathcal{F} \to \mathcal{F}'$ 为 $\mathcal{F}$ 的商，
+它由引理 \ref{local-cohomology-lemma-get-depth-1-along-Z} 利用 $T$ 构造。
+其次，令 $\mathcal{F}' \to \mathcal{F}''$ 为引理
+\ref{local-cohomology-lemma-make-S2-along-T-simple} 利用 $T'$ 所构造的唯一凝聚模同态。
+于是 $\mathcal{F} \to \mathcal{F}''$ 正是所求。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Hartshorne--Lichtenbaum 消失定理}
+\label{local-cohomology-section-Hartshorne-Lichtenbaum-vanishing}
+
+\noindent
+这一消失结果是 Lichtenbaum 定理的局部对应；读者可在《概形的对偶性》，
+第 \ref{duality-section-lichtenbaum} 节中找到该定理。
+这一结果以及其他许多内容可见于 \cite{CD}。
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-top-vanishing}
+设 $A$ 是维数为 $d$ 的诺特环，$I \subset I' \subset A$ 是理想。
+若 $I'$ 包含于 $A$ 的 Jacobson 根，并且
+$\text{cd}(A, I') < d$，则 $\text{cd}(A, I) < d$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{local-cohomology-lemma-cd-dimension}，已知 $\text{cd}(A, I) \leq d$。
+我们将利用引理 \ref{local-cohomology-lemma-isomorphism} 证明
+$$
+H^d_{V(I')}(A) \to H^d_{V(I)}(A)
+$$
+是满射，这将完成证明。取
+$\mathfrak p \in V(I) \setminus V(I')$。由对 $I'$ 的假设，可见
+$\mathfrak p$ 不是 $A$ 的极大理想。因此
+$\dim(A_\mathfrak p) < d$。于是由引理 \ref{local-cohomology-lemma-cd-dimension}，
+$H^d_{\mathfrak pA_\mathfrak p}(A_\mathfrak p) = 0$。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-top-vanishing-some-module}
+设 $A$ 是维数为 $d$ 的诺特环，$I \subset A$ 是理想。若
+$H^d_{V(I)}(M) = 0$ 对某个有限 $A$-模成立，且该模的支集包含所有维数为
+$d$ 的不可约分支，则 $\text{cd}(A, I) < d$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{local-cohomology-lemma-cd-dimension}，已知 $\text{cd}(A, I) \leq d$。
+因此，对任意有限 $A$-模 $N$，都有 $H^i_{V(I)}(N) = 0$，其中
+$i > d$。我们约定：性质 $\mathcal{P}$ 对有限 $A$-模 $N$ 成立，是指
+$H^d_{V(I)}(N) = 0$。
+我们的一个假设是 $\mathcal{P}(M)$ 成立。注意
+$\mathcal{P}(N_1 \oplus N_2)
+\Leftrightarrow (\mathcal{P}(N_1) \wedge \mathcal{P}(N_2))$。
+还要注意，若 $N \to N'$ 是满射，则
+$\mathcal{P}(N) \Rightarrow \mathcal{P}(N')$，因为
+$H^{d + 1}_{V(I)}$ 消失（见上文）。令
+$\mathfrak p_1, \ldots, \mathfrak p_n$ 为 $A$ 的满足
+$\dim(A/\mathfrak p_i) = d$ 的极小素理想。注意，由维数原因，
+$\mathcal{P}(N)$ 在 $N$ 的支集与
+$\{\mathfrak p_1, \ldots, \mathfrak p_n\}$ 不交时成立；见引理
+\ref{local-cohomology-lemma-cd-dimension}。
+对每个 $i$，令 $M_i = M/\mathfrak p_i M$。这是一个有限 $A$-模，
+被 $\mathfrak p_i$ 零化，其支集等于
+$V(\mathfrak p_i)$（这里使用了对 $M$ 的支集的假设）。最后，若
+$J \subset A$ 是理想，则 $\mathcal{P}(JM_i)$ 成立，因为 $JM_i$
+是若干个 $M$ 的直和的商。因此，由《概形的上同调》，引理
+\ref{coherent-lemma-property-higher-rank-cohomological}，性质
+$\mathcal{P}$ 对每个有限 $A$-模均成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-top-coh-divisible}
+设 $A$ 是维数为 $d$ 的诺特局部环。设 $f \in A$ 不包含于任何维数为
+$d$ 的极小素理想。则同态
+$f : H^d_{V(I)}(M) \to H^d_{V(I)}(M)$ 对任意有限 $A$-模 $M$
+以及任意理想 $I \subset A$ 都是满射。
+\end{lemma}
+
+\begin{proof}
+$M/fM$ 的支集维数 $< d$，这是由我们对 $f$ 的假设得出的。因此，由引理
+\ref{local-cohomology-lemma-cd-dimension}，$H^d_{V(I)}(M/fM) = 0$。从而
+$H^d_{V(I)}(fM) \to H^d_{V(I)}(M)$ 是满射。又因由引理
+\ref{local-cohomology-lemma-cd-dimension} 已知 $\text{cd}(A, I) \leq d$，还可看出满射
+$M \to fM$，$x \mapsto fx$ 诱导出满射
+$H^d_{V(I)}(M) \to H^d_{V(I)}(fM)$。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-bound-dualizing}
+设 $A$ 是具有规范化对偶复形 $\omega_A^\bullet$ 的诺特局部环。
+设 $I \subset A$ 是理想。若 $H^0_{V(I)}(\omega_A^\bullet) = 0$，则
+$\text{cd}(A, I) < \dim(A)$。
+\end{lemma}
+
+\begin{proof}
+令 $d = \dim(A)$。设 $\mathfrak p_1, \ldots, \mathfrak p_n \subset A$
+为维数为 $d$ 的极小素理想。回顾有限 $A$-模
+$H^{-i}(\omega_A^\bullet)$ 仅当 $i \in \{0, \ldots, d\}$ 时可能非零，
+而且 $H^{-i}(\omega_A^\bullet)$ 的支集维数 $\leq i$；见引理
+\ref{local-cohomology-lemma-sitting-in-degrees}。令 $\omega_A = H^{-d}(\omega_A^\bullet)$。
+由素避（《代数》，引理 \ref{algebra-lemma-silly}），可以找到
+$f \in A$，$f \not \in \mathfrak p_i$，它零化
+$H^{-i}(\omega_A^\bullet)$，其中 $i < d$。考虑特异三角
+$$
+\omega_A[d] \to \omega_A^\bullet \to
+\tau_{\geq -d + 1}\omega_A^\bullet \to \omega_A[d + 1]
+$$
+见《导出范畴》，评注
+\ref{derived-remark-truncation-distinguished-triangle}。
+由《导出范畴》，引理 \ref{derived-lemma-trick-vanishing-composition}，
+可见 $f^d$ 在 $\tau_{\geq -d + 1}\omega_A^\bullet$ 上诱导零自同态。
+利用三角范畴的公理，可以找到一个同态
+$$
+\omega_A^\bullet \to \omega_A[d]
+$$
+它与 $\omega_A[d] \to \omega_A^\bullet$ 的复合是乘以 $f^d$，
+这一乘法作用在 $\omega_A[d]$ 上。因此可知 $f^d$ 零化
+$H^d_{V(I)}(\omega_A)$。由引理 \ref{local-cohomology-lemma-top-coh-divisible}，可知
+$H^d_{V(I)}(\omega_A) = 0$。再结合引理
+\ref{local-cohomology-lemma-cd-top-vanishing-some-module} 以及
+$(\omega_A)_{\mathfrak p_i}$ 非零这一事实（例如见《对偶复形》，引理
+\ref{dualizing-lemma-nonvanishing-generically-local}），便得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-inverse-system-symbolic-powers}
+设 $(A, \mathfrak m)$ 是完备诺特局部整环，
+$\mathfrak p \subset A$ 是维数为 $1$ 的素理想。对每个 $n \geq 1$，
+都存在 $m \geq n$，使得 $\mathfrak p^{(m)} \subset \mathfrak p^n$。
+\end{lemma}
+
+\begin{proof}
+回顾符号幂 $\mathfrak p^{(m)}$ 定义为
+$A \to A_\mathfrak p/\mathfrak p^mA_\mathfrak p$ 的核。
+由于局部化是正合的，可知在短正合列
+$$
+0 \to \mathfrak a_n \to A/\mathfrak p^n \to A/\mathfrak p^{(n)} \to 0
+$$
+中，$\mathfrak a_n$ 的支集包含于 $\{\mathfrak m\}$。特别地，逆系统
+$(\mathfrak a_n)$ 满足 Mittag--Leffler 条件，因为每个 $\mathfrak a_n$
+都是阿廷 $A$-模。由此可知，本引理等价于要求
+$\lim \mathfrak a_n = 0$。设 $f \in \lim \mathfrak a_n$。则 $f$ 是
+$A = \lim A/\mathfrak p^n$ 的元素（这里使用了 $A$ 的完备性），
+它在完备化 $A_\mathfrak p^\wedge$（即 $A_\mathfrak p$ 的完备化）中映为零。
+由于 $A_\mathfrak p \to A_\mathfrak p^\wedge$ 忠实平坦，可见 $f$
+在 $A_\mathfrak p$ 中映为零。由于 $A$ 是整环，可见 $f$ 如所需为零。
+\end{proof}
+
+\begin{proposition}
+\label{local-cohomology-proposition-Hartshorne-Lichtenbaum-vanishing}
+\begin{reference}
+\cite[Theorem 3.1]{CD}
+\end{reference}
+设 $A$ 是诺特局部环，其完备化为 $A^\wedge$。设 $I \subset A$ 是理想，
+并且
+$$
+\dim V(IA^\wedge + \mathfrak p) \geq 1
+$$
+对每个极小素理想 $\mathfrak p \subset A^\wedge$ 都成立，其中该素理想的维数为
+$\dim(A)$。则 $\text{cd}(A, I) < \dim(A)$。
+\end{proposition}
+
+\begin{proof}
+由于 $A \to A^\wedge$ 忠实平坦，由《对偶复形》，引理
+\ref{dualizing-lemma-torsion-change-rings}，有
+$H^d_{V(I)}(A) \otimes_A A^\wedge = H^d_{V(IA^\wedge)}(A^\wedge)$
+。因此可以假设 $A$ 是完备的。
+
+\medskip\noindent
+假设 $A$ 完备。设 $\mathfrak p_1, \ldots, \mathfrak p_n \subset A$
+为维数为 $d$ 的极小素理想。考虑完备局部环 $A_i = A/\mathfrak p_i$。
+由《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-and-restriction}，有
+$H^d_{V(I)}(A_i) = H^d_{V(IA_i)}(A_i)$。由引理
+\ref{local-cohomology-lemma-cd-top-vanishing-some-module}，只需对 $(A_i, IA_i)$ 证明本引理。
+因此可以假设 $A$ 是完备局部整环。
+
+\medskip\noindent
+假设 $A$ 是完备局部整环。可以选取素理想 $\mathfrak p \supset I$，使得
+$\dim(A/\mathfrak p) = 1$。由引理 \ref{local-cohomology-lemma-cd-top-vanishing}，
+只需对 $\mathfrak p$ 证明本引理。
+
+\medskip\noindent
+由引理 \ref{local-cohomology-lemma-cd-bound-dualizing}，只需证明
+$H^0_{V(\mathfrak p)}(\omega_A^\bullet) = 0$。回顾
+$$
+H^0_{V(\mathfrak p)}(\omega_A^\bullet) =
+\colim \text{Ext}^0_A(A/\mathfrak p^n, \omega_A^\bullet)
+$$
+由引理 \ref{local-cohomology-lemma-inverse-system-symbolic-powers}，可见此余极限等于
+$$
+\colim \text{Ext}^0_A(A/\mathfrak p^{(n)}, \omega_A^\bullet)
+$$
+由于 $\text{depth}(A/\mathfrak p^{(n)}) = 1$，由引理
+\ref{local-cohomology-lemma-sitting-in-degrees}，可见这些 Ext 群为零，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-affine-complement}
+设 $(A, \mathfrak m)$ 是诺特局部环，$I \subset A$ 是理想。假设 $A$
+优良且正规，并且 $\dim V(I) \geq 1$。则
+$\text{cd}(A, I) < \dim(A)$。特别地，若 $\dim(A) = 2$，则
+$\Spec(A) \setminus V(I)$ 是仿射的。
+\end{lemma}
+
+\begin{proof}
+由《代数进阶》，引理
+\ref{more-algebra-lemma-completion-normal-local-ring}，完备化
+$A^\wedge$ 是正规的，因而是整环。因此，命题
+\ref{local-cohomology-proposition-Hartshorne-Lichtenbaum-vanishing} 的假设成立，结论随之得出。
+关于仿射性的陈述来自引理 \ref{local-cohomology-lemma-cd-is-one}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Frobenius 作用}
+\label{local-cohomology-section-frobenius}
+
+\noindent
+设 $p$ 是素数，$A$ 是使得 $p = 0$ 在 $A$ 中成立的环。
+$A$ 的{\it Frobenius 自同态}是同态
+$$
+F : A \longrightarrow A,
+\quad
+a \longmapsto a^p
+$$
+本节证明若干关于具有 Frobenius 作用的模的引理。
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilator-frobenius-module}
+设 $p$ 是素数。设 $(A, \mathfrak m, \kappa)$ 是诺特局部环，
+且 $p = 0$ 在 $A$ 中成立。设 $M$ 是有限 $A$-模，并且
+$M \otimes_{A, F} A \cong M$。则 $M$ 是有限自由模。
+\end{lemma}
+
+\begin{proof}
+选取一个展示 $A^{\oplus m} \to A^{\oplus n} \to M$，它诱导同构
+$\kappa^{\oplus n} \to M/\mathfrak m M$。令 $T = (a_{ij})$ 为同态
+$A^{\oplus m} \to A^{\oplus n}$ 的矩阵。注意 $a_{ij} \in \mathfrak m$。
+沿 $F$ 作基变换，并利用基变换的右正合性，得到一个展示
+$A^{\oplus m} \to A^{\oplus n} \to M$，其中矩阵为
+$T = (a_{ij}^p)$。因此，我们得到一个满足
+$a_{ij} \in \mathfrak m^p$ 的展示。重复这一构造，可知对每个
+$e \geq 1$，都存在满足 $a_{ij} \in \mathfrak m^e$ 的展示。这意味着
+Fitting 理想（《代数进阶》，定义
+\ref{more-algebra-definition-fitting-ideal}）$\text{Fit}_k(M)$ 在 $k < n$ 时包含于
+$\bigcap_{e \geq 1} \mathfrak m^e$。由 Krull 交定理
+（《代数》，引理 \ref{algebra-lemma-intersect-powers-ideal-module-zero}），
+后者为零，因此由《代数进阶》，引理
+\ref{more-algebra-lemma-fitting-ideal-finite-locally-free}，可知
+$M$ 是秩为 $n$ 的自由模。
+\end{proof}
+
+\noindent
+在本节中，称元素 $f_1, \ldots, f_r$（属于环 $A$）是{\it 独立的}，如果
+$\sum a_if_i = 0$ 蕴含 $a_i \in (f_1, \ldots, f_r)$。换言之，令
+$I = (f_1, \ldots, f_r)$，则 $I/I^2$ 是自由 $A/I$-模，其基为
+$f_1, \ldots, f_r$。
+
+\begin{lemma}
+\label{local-cohomology-lemma-1}
+\begin{reference}
+见 \cite{Lech-inequalities} 以及 \cite[Lemma 1 page 299]{MatCA}。
+\end{reference}
+设 $A$ 是环。若 $f_1, \ldots, f_{r - 1}, f_rg_r$ 独立，则
+$f_1, \ldots, f_r$ 独立。
+\end{lemma}
+
+\begin{proof}
+设 $\sum a_if_i = 0$。则 $\sum a_ig_rf_i = 0$。因此
+$a_r \in (f_1, \ldots, f_{r - 1}, f_rg_r)$。写成
+$a_r = \sum_{i < r} b_i f_i + b f_rg_r$。于是
+$0 = \sum_{i < r} (a_i + b_if_r)f_i + bf_r^2g_r$。从而
+$a_i + b_i f_r \in (f_1, \ldots, f_{r - 1}, f_rg_r)$，这蕴含
+$a_i \in (f_1, \ldots, f_r)$，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-2}
+\begin{reference}
+见 \cite{Lech-inequalities} 以及 \cite[Lemma 2 page 300]{MatCA}。
+\end{reference}
+设 $A$ 是环。若 $f_1, \ldots, f_{r - 1}, f_rg_r$ 独立，且 $A$-模
+$A/(f_1, \ldots, f_{r - 1}, f_rg_r)$ 具有有限长度，则
+\begin{align*}
+& \text{length}_A(A/(f_1, \ldots, f_{r - 1}, f_rg_r)) \\
+& =
+\text{length}_A(A/(f_1, \ldots, f_{r - 1}, f_r)) +
+\text{length}_A(A/(f_1, \ldots, f_{r - 1}, g_r))
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+我们断言存在正合列
+$$
+0 \to
+A/(f_1, \ldots, f_{r - 1}, g_r) \xrightarrow{f_r}
+A/(f_1, \ldots, f_{r - 1}, f_rg_r) \to
+A/(f_1, \ldots, f_{r - 1}, f_r) \to 0
+$$
+事实上，若 $a f_r \in (f_1, \ldots, f_{r - 1}, f_rg_r)$，则
+$\sum_{i < r} a_i f_i + (a + bg_r)f_r = 0$ 对某些 $b, a_i \in A$ 成立。因此
+$\sum_{i < r} a_i g_r f_i + (a + bg_r)g_rf_r = 0$，这蕴含
+$a + bg_r \in (f_1, \ldots, f_{r - 1}, f_rg_r)$，也就是说，$a$ 在
+$A/(f_1, \ldots, f_{r - 1}, g_r)$ 中映为零。这证明了断言。
+最后使用长度的可加性（《代数》，引理
+\ref{algebra-lemma-length-additive}）。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-3}
+\begin{reference}
+见 \cite{Lech-inequalities} 以及 \cite[Lemma 3 page 300]{MatCA}。
+\end{reference}
+设 $(A, \mathfrak m)$ 是局部环。若 $\mathfrak m = (x_1, \ldots, x_r)$，
+并且 $x_1^{e_1}, \ldots, x_r^{e_r}$ 对某些 $e_i > 0$ 独立，则
+$\text{length}_A(A/(x_1^{e_1}, \ldots, x_r^{e_r})) = e_1\ldots e_r$。
+\end{lemma}
+
+\begin{proof}
+使用引理 \ref{local-cohomology-lemma-1}、引理 \ref{local-cohomology-lemma-2} 以及归纳法。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-flat-extension-independent}
+设 $\varphi : A \to B$ 是平坦环同态。若
+$f_1, \ldots, f_r \in A$ 独立，则
+$\varphi(f_1), \ldots, \varphi(f_r) \in B$ 独立。
+\end{lemma}
+
+\begin{proof}
+令 $I = (f_1, \ldots, f_r)$ 且 $J = \varphi(I)B$。由平坦性，有
+$I/I^2 \otimes_A B = J/J^2$。因此，$I/I^2$ 作为 $A/I$-模的自由性
+蕴含 $J/J^2$ 作为 $B/J$-模的自由性。
+\end{proof}
+
+\begin{lemma}[Kunz]
+\label{local-cohomology-lemma-frobenius-flat-regular}
+\begin{reference}
+\cite{Kunz-flat}
+\end{reference}
+设 $p$ 是素数。设 $A$ 是满足 $p = 0$ 的诺特环。下列条件等价：
+\begin{enumerate}
+\item $A$ 是正则的；
+\item $F : A \to A$，$a \mapsto a^p$，是平坦的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意 $\Spec(F) : \Spec(A) \to \Spec(A)$ 是恒等映射。
+正则性由局部环定义，而平坦性也是局部环的性质；见《代数》，引理
+\ref{algebra-lemma-flat-localization}。因此可以并且确实假设 $A$
+是以 $\mathfrak m$ 为极大理想的诺特局部环。
+
+\medskip\noindent
+假设 $A$ 正则。设 $x_1, \ldots, x_d$ 是 $A$ 的一组参数系。
+应用 $F$，得到
+$F(x_1), \ldots, F(x_d) = x_1^p, \ldots, x_d^p$，
+它也是 $A$ 的一组参数系。因此 $F$ 平坦；见《代数》，引理
+\ref{algebra-lemma-CM-over-regular-flat} 与
+\ref{algebra-lemma-regular-ring-CM}。
+
+\medskip\noindent
+反之，假设 $F$ 平坦。写成 $\mathfrak m = (x_1, \ldots, x_r)$，其中
+$r$ 极小。则 $x_1, \ldots, x_r$ 在上述意义下独立。由于 $F$ 平坦，
+可见 $x_1^p, \ldots, x_r^p$ 独立；见引理
+\ref{local-cohomology-lemma-flat-extension-independent}。因此，由引理 \ref{local-cohomology-lemma-3}，
+$\text{length}_A(A/(x_1^p, \ldots, x_r^p)) = p^r$。
+令 $\chi(n) = \text{length}_A(A/\mathfrak m^n)$，并回顾这是一个次数为
+$\dim(A)$ 的数值多项式；见《代数》，命题
+\ref{algebra-proposition-dimension}。选取 $n \gg 0$。注意
+$$
+\mathfrak m^{pn + pr} \subset F(\mathfrak m^n)A \subset \mathfrak m^{pn}
+$$
+这一点可通过考察 $x_1, \ldots, x_r$ 中的单项式看出。我们有
+$$
+A/F(\mathfrak m^n)A = A/\mathfrak m^n \otimes_{A, F} A
+$$
+由 $F$ 的平坦性，它的长度为
+$\chi(n) \text{length}_A(A/F(\mathfrak m)A)$
+（《代数》，引理 \ref{algebra-lemma-pullback-module}），
+而由上文，这等于 $p^r\chi(n)$。所以
+$$
+\chi(pn + pr) \geq p^r\chi(n) \geq \chi(pn)
+$$
+考察首项可知这蕴含 $r = \dim(A)$，也就是说，$A$ 是正则的。
+\end{proof}
+
+
+
+
+\section{某些模的结构}
+\label{local-cohomology-section-structure}
+
+\noindent
+这里给出若干关于正则局部环上某些类型模的结构的结果。这类结果以及更多内容
+可见于 \cite{Huneke-Sharp}、\cite{Lyubeznik}、\cite{Lyubeznik2}。
+
+\begin{lemma}
+\label{local-cohomology-lemma-structure-torsion-D-module-regular}
+\begin{reference}
+\cite[Theorem 2.4]{Lyubeznik} 的特殊情形
+\end{reference}
+设 $k$ 是特征为 $0$ 的域，$d \geq 1$。设
+$A = k[[x_1, \ldots, x_d]]$，其极大理想为 $\mathfrak m$。
+设 $M$ 是 $\mathfrak m$-幂挠 $A$-模，并赋有满足 Leibniz 法则的加性算子
+$D_1, \ldots, D_d$：
+$$
+D_i(fz) = \partial_i(f) z + f D_i(z)
+$$
+其中 $f \in A$ 且 $z \in M$。这里，$\partial_i$ 是关于 $x_i$ 的微分。
+则 $M$ 同构于若干个单射包 $E$（即 $k$ 的单射包）的直和。
+\end{lemma}
+
+\begin{proof}
+选取集合 $J$ 以及同构 $M[\mathfrak m] \to \bigoplus_{j \in J} k$。
+由于 $\bigoplus_{j \in J} E$ 是单射的
+（《对偶复形》，引理 \ref{dualizing-lemma-sum-injective-modules}），
+可以将此同构延拓为 $A$-模同态
+$\varphi : M \to \bigoplus_{j \in J} E$。
+我们断言 $\varphi$ 是同构，也就是说，是双射。
+
+\medskip\noindent
+单射性。设 $z \in M$ 非零。由于 $M$ 是 $\mathfrak m$-幂挠的，
+可以选取元素 $f \in A$，使得 $fz \in M[\mathfrak m]$ 且
+$fz \not = 0$。于是 $\varphi(fz) = f\varphi(z)$ 非零，故
+$\varphi(z)$ 非零。
+
+\medskip\noindent
+满射性。设 $z \in M$。则 $x_1^n z = 0$ 对某个 $n \geq 0$ 成立。
+我们将证明 $z \in x_1M$，方法是对 $n$ 归纳。若 $n = 0$，则 $z = 0$，结论成立。
+若 $n > 0$，则应用 $D_1$，得到
+$0 = n x_1^{n - 1} z + x_1^nD_1(z)$。因此
+$x_1^{n - 1}(nz + x_1D_1(z)) = 0$。由归纳假设，
+$nz + x_1D_1(z) \in x_1M$。由于 $n$ 可逆，可知 $z \in x_1M$。
+因此 $M$ 是 $x_1$-可除的。若 $\varphi$ 不是满射，则可选取
+$e \in \bigoplus_{j \in J} E$，使其不在 $M$ 中。与上面类似地论证，
+可以假设 $\mathfrak m e \subset M$；特别地，$x_1 e \in M$。
+存在元素 $z_1 \in M$，满足 $x_1 z_1 = x_1 e$。因此
+$x_1(z_1 - e) = 0$。把 $e$ 替换为 $e - z_1$，可以假设 $e$ 被 $x_1$ 零化。
+所以只需证明
+$$
+\varphi[x_1] :
+M[x_1]
+\longrightarrow
+\left(\bigoplus\nolimits_{j \in J} E\right)[x_1] =
+\bigoplus\nolimits_{j \in J} E[x_1]
+$$
+是满射。若 $d = 1$，则由 $\varphi$ 的构造，这一点成立。
+若 $d > 1$，则注意 $E[x_1]$ 是 $k[[x_2, \ldots, x_d]]$
+的剩余域的单射包；见《对偶复形》，引理
+\ref{dualizing-lemma-quotient}。注意，$M[x_1]$ 作为
+$k[[x_2, \ldots, x_d]]$-模是 $\mathfrak m/(x_1)$-幂挠的，并赋有满足上述
+Leibniz 法则的算子 $D_2, \ldots, D_d$。因此，对 $d$ 作归纳，可知
+$\varphi[x_1]$ 如所需为满射。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-structure-torsion-Frobenius-regular}
+\begin{reference}
+经过少量工作可由 \cite[Corollary 3.6]{Huneke-Sharp} 推出，
+也可直接由 \cite[Theorem 1.4]{Lyubeznik2} 推出。
+\end{reference}
+设 $p$ 是素数。设 $(A, \mathfrak m, k)$ 是满足 $p = 0$ 的正则局部环。
+记 $F : A \to A$，$a \mapsto a^p$，为 Frobenius 自同态。设 $M$ 是
+$\mathfrak m$-幂挠模，并且 $M \otimes_{A, F} A \cong M$。则 $M$
+同构于若干个单射包 $E$（即 $k$ 的单射包）的直和。
+\end{lemma}
+
+\begin{proof}
+选取集合 $J$ 以及 $A$-模同态
+$\varphi : M \to \bigoplus_{j \in J} E$，它将
+$M[\mathfrak m]$ 同构地映到
+$(\bigoplus_{j \in J} E)[\mathfrak m] = \bigoplus_{j \in J} k$ 上。
+我们断言 $\varphi$ 是同构，也就是说，是双射。
+
+\medskip\noindent
+单射性。设 $z \in M$ 非零。由于 $M$ 是 $\mathfrak m$-幂挠的，
+可以选取元素 $f \in A$，使得 $fz \in M[\mathfrak m]$ 且
+$fz \not = 0$。于是 $\varphi(fz) = f\varphi(z)$ 非零，故
+$\varphi(z)$ 非零。
+
+\medskip\noindent
+满射性。回顾 $F$ 是平坦的；见引理
+\ref{local-cohomology-lemma-frobenius-flat-regular}。设 $x_1, \ldots, x_d$ 是
+$\mathfrak m$ 的一个极小生成系。记
+$$
+M_n = M[x_1^{p^n}, \ldots, x_d^{p^n}]
+$$
+为 $M$ 的由被 $x_1^{p^n}, \ldots, x_d^{p^n}$ 零化的元素所成的子模。
+因此 $M_0 = M[\mathfrak m]$ 是 $k$ 上的向量空间。此外，
+$M = \bigcup M_n$；这是由 $M$ 是 $\mathfrak m$-幂挠的这一假设得出的。由于 $F^n$ 平坦，且
+$F^n(x_i) = x_i^{p^n}$，有
+$$
+M_n \cong (M \otimes_{A, F^n} A)[x_1^{p^n}, \ldots, x_d^{p^n}] =
+M[x_1, \ldots, x_d] \otimes_{A, F^n} A =
+M_0 \otimes_k A/(x_1^{p^n}, \ldots, x_d^{p^n})
+$$
+因此 $M_n$ 是自由 $A/(x_1^{p^n}, \ldots, x_d^{p^n})$-模。
+计算表明，$A/(x_1^{p^n}, \ldots, x_d^{p^n})$ 中每个被
+$x_1^{p^n - 1}$ 零化的元素都可被 $x_1$ 整除；例如，可使用由《代数》，
+引理 \ref{algebra-lemma-regular-complete-containing-coefficient-field} 得到的同构
+$A/(x_1^{p^n}, \ldots, x_d^{p^n}) \cong
+k[x_1, \ldots, x_d]/(x_1^{p^n}, \ldots, x_d^{p^n})$。
+因此，同一结论对 $M_n$ 的每个元素成立。由于 $M$ 的每个元素都属于
+$M_n$，而这对所有 $n \gg 0$ 成立，而且 $M$ 的每个元素都被 $x_1$ 的某个幂零化，
+可知 $M$ 是 $x_1$-可除的。
+
+\medskip\noindent
+令 $x = x_1$。上面已经看到 $M$ 是 $x$-可除的。若 $\varphi$ 不是满射，
+则可选取 $e \in \bigoplus_{j \in J} E$，使其不在 $M$ 中。
+与上面类似地论证，可以假设 $\mathfrak m e \subset M$；特别地，
+$x e \in M$。存在元素 $z_1 \in M$，满足 $x z_1 = x e$。因此
+$x(z_1 - e) = 0$。把 $e$ 替换为 $e - z_1$，可以假设 $e$ 被 $x$ 零化。
+所以只需证明
+$$
+\varphi[x] :
+M[x]
+\longrightarrow
+\left(\bigoplus\nolimits_{j \in J} E\right)[x] =
+\bigoplus\nolimits_{j \in J} E[x]
+$$
+是满射。若 $d = 1$，则由 $\varphi$ 的构造，这一点成立。若 $d > 1$，
+则注意 $E[x]$ 是正则环 $A/xA$ 的剩余域的单射包；见《对偶复形》，引理
+\ref{dualizing-lemma-quotient}。注意，$M[x]$ 作为 $A/xA$-模是
+$\mathfrak m/(x)$-幂挠的，并且有
+\begin{align*}
+M[x] \otimes_{A/xA, F} A/xA
+& = M[x] \otimes_{A, F} A \otimes_A A/xA \\
+& = (M \otimes_{A, F} A)[x^p] \otimes_A A/xA \\
+& \cong M[x^p] \otimes_A A/xA
+\end{align*}
+如前一样利用 $F$ 的平坦性论证。我们断言
+$M[x^p] \otimes_A A/xA \to M[x]$，
+$z \otimes 1 \mapsto x^{p - 1}z$，是同构。只需对上面定义的每个模
+$M_n$，$n > 0$，证明这一点；而在这种情形下，它由
+$A/(x_1^{p^n}, \ldots, x_d^{p^n})$ 与 $x = x_1$ 的相同结论得出。
+因此，对 $\dim(A)$ 作归纳，可知 $\varphi[x]$ 如所需为满射。
+\end{proof}
+
+
+
+
+
+\section{局部上同调上的附加结构}
+\label{local-cohomology-section-additional}
+
+\noindent
+下面给出一个示例性结果。
+
+\begin{lemma}
+\label{local-cohomology-lemma-derivation}
+设 $A$ 是环，$I \subset A$ 是有限生成理想。令 $Z = V(I)$。
+对每个导子 $\theta : A \to A$，都存在一个典范加性算子 $D$，它作用于
+局部上同调模 $H^i_Z(A)$，并满足关于 $\theta$ 的 Leibniz 法则。
+\end{lemma}
+
+\begin{proof}
+设 $f_1, \ldots, f_r$ 是生成 $I$ 的元素。回顾 $R\Gamma_Z(A)$ 由复形
+$$
+A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}}
+\to \ldots \to A_{f_1\ldots f_r}
+$$
+计算；见《对偶复形》，引理 \ref{dualizing-lemma-local-cohomology-adjoint}。
+由于 $\theta$ 唯一延拓为 $A$ 的任意局部化上的加性算子，并且该算子满足
+关于 $\theta$ 的 Leibniz 法则，本引理显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-frobenius}
+设 $p$ 是素数。设 $A$ 是满足 $p = 0$ 的环。记
+$F : A \to A$，$a \mapsto a^p$，为 Frobenius 自同态。
+设 $I \subset A$ 是有限生成理想。令 $Z = V(I)$。存在同构
+$R\Gamma_Z(A) \otimes_{A, F}^\mathbf{L} A \cong R\Gamma_Z(A)$.
+\end{lemma}
+
+\begin{proof}
+这由《对偶复形》，引理
+\ref{dualizing-lemma-torsion-change-rings}，以及
+$Z = V(f_1^p, \ldots, f_r^p)$ 这一事实得出，其中
+$I = (f_1, \ldots, f_r)$。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-etale-derivation}
+设 $A$ 是环。设 $V \to \Spec(A)$ 是拟紧、拟分离且 \'etale 的。
+对每个导子 $\theta : A \to A$，都存在一个典范加性算子 $D$，它作用于
+$H^i(V, \mathcal{O}_V)$，并满足关于 $\theta$ 的 Leibniz 法则。
+\end{lemma}
+
+\begin{proof}
+若 $V$ 分离，则可使用仿射开覆盖
+$V = \bigcup_{j = 1, \ldots m} V_j$ 来论证。事实上，由于 $V$ 分离，
+可以写成 $V_{j_0 \ldots j_p} = \Spec(B_{j_0 \ldots j_p})$；见《概形》，
+引理 \ref{schemes-lemma-characterize-separated}。于是可知 $A$-模
+$H^i(V, \mathcal{O}_V)$ 是 {\v C}ech 复形的第 $i$ 个上同调群：
+$$
+\prod B_{j_0} \to
+\prod B_{j_0j_1} \to
+\prod B_{j_0j_1j_2} \to \ldots
+$$
+见《概形的上同调》，引理
+\ref{coherent-lemma-cech-cohomology-quasi-coherent}。
+每个 $B = B_{j_0 \ldots j_p}$ 都是 \'etale $A$-代数。因此
+$\Omega_B = \Omega_A \otimes_A B$，由此可知 $\theta$ 唯一延拓为导子
+$\theta_B : B \to B$。这些同态定义了 {\v C}ech 复形的一个自同态，
+并在上同调群上定义了所需算子。
+
+\medskip\noindent
+在一般情形下，使用 $V$ 的由仿射开集组成的超覆盖，恰如《概形的上同调》，
+引理 \ref{coherent-lemma-hypercoverings} 的证明第一部分所做的那样。
+略去细节。
+\end{proof}
+
+\begin{remark}
+\label{local-cohomology-remark-higher-order-operators}
+可以加强引理 \ref{local-cohomology-lemma-derivation} 和引理 \ref{local-cohomology-lemma-etale-derivation}，
+使其包含高阶微分算子；为此使用《代数》，引理
+\ref{algebra-lemma-formally-etale-principal-parts} 与评注
+\ref{algebra-remark-formally-etale-differential-operators}。
+若以后需要这一点，我们将在此陈述并证明一个精确的引理。
+\end{remark}
+
+\begin{lemma}
+\label{local-cohomology-lemma-etale-frobenius}
+设 $p$ 是素数。设 $A$ 是满足 $p = 0$ 的环。记
+$F : A \to A$，$a \mapsto a^p$，为 Frobenius 自同态。
+若 $V \to \Spec(A)$ 是拟紧、拟分离且 \'etale 的，则存在同构
+$R\Gamma(V, \mathcal{O}_V) \otimes_{A, F}^\mathbf{L} A \cong
+R\Gamma(V, \mathcal{O}_V)$。
+\end{lemma}
+
+\begin{proof}
+注意，相对 Frobenius 态射
+$$
+V \longrightarrow V \times_{\Spec(A), \Spec(F)} \Spec(A)
+$$
+是 $V$ 在 $A$ 上的一个同构；见《\'Etale 态射》，引理
+\ref{etale-lemma-relative-frobenius-etale}。因此，本引理由上同调与基变换得出；
+见《概形的导出范畴》，引理
+\ref{perfect-lemma-compare-base-change}。注意，由于 $V$ 在 $A$ 上 \'etale，
+它在 $A$ 上平坦。
+\end{proof}
+
+
+
+
+
+\section{某种一致性，I}
+\label{local-cohomology-section-uniform-vanishing}
+
+\noindent
+本节的主要任务是陈述并证明引理
+\ref{local-cohomology-lemma-characterize-vanishing-tor-ext-above-e}。
+
+\begin{lemma}
+\label{local-cohomology-lemma-map-tor-1-zero}
+设 $R$ 是环。设 $M \to M'$ 是 $R$-模同态，其中 $M$ 有限展示，并且同态
+$\text{Tor}_1^R(M, N) \to \text{Tor}_1^R(M', N)$ 对所有 $R$-模 $N$
+均为零。则 $M \to M'$ 经由一个自由 $R$-模分解。
+\end{lemma}
+
+\begin{proof}
+可以选取短正合列之间的同态
+$$
+\xymatrix{
+0 \ar[r] &
+K \ar[r] \ar[d] &
+R^{\oplus r} \ar[r] \ar[d] &
+M \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+K' \ar[r] &
+\bigoplus_{i \in I} R \ar[r] &
+M' \ar[r] &
+0
+}
+$$
+使其右侧竖直箭头为给定同态。可以让此同态经由短正合列
+\begin{equation}
+\label{local-cohomology-equation-pushout}
+0 \to K' \to E \to M \to 0
+\end{equation}
+分解；该列是第一个短正合列沿 $K \to K'$ 的推出。追图可见，本引理的假设
+蕴含由 (\ref{local-cohomology-equation-pushout}) 诱导的连接同态
+$\text{Tor}_1^R(M, N) \to K' \otimes_R N$ 为零；也就是说，序列
+(\ref{local-cohomology-equation-pushout}) 普遍正合。由《代数》，引理
+\ref{algebra-lemma-universally-exact-split}，这蕴含
+(\ref{local-cohomology-equation-pushout}) 分裂（这里用到了 $M$ 有限展示）。因此，同态
+$M \to M'$ 经由 $\bigoplus_{i \in I} R$ 分解，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-characterize-vanishing-tor-ext-above-e}
+设 $R$ 是环。设 $\alpha : M \to M'$ 是 $R$-模同态。设
+$P_\bullet \to M$ 与 $P'_\bullet \to M'$ 是由投射 $R$-模组成的解消。
+设 $e \geq 0$ 是整数。考虑下列条件：
+\begin{enumerate}
+\item 可以找到复形同态 $a_\bullet : P_\bullet \to P'_\bullet$，
+它在上同调上诱导 $\alpha$，且 $a_i = 0$ 对 $i > e$ 成立。
+\item 可以找到复形同态 $a_\bullet : P_\bullet \to P'_\bullet$，
+它在上同调上诱导 $\alpha$，且 $a_{e + 1} = 0$。
+\item 同态 $\Ext^i_R(M', N) \to \Ext^i_R(M, N)$ 对所有
+$R$-模 $N$ 以及 $i > e$ 均为零。
+\item 同态 $\Ext^{e + 1}_R(M', N) \to \Ext^{e + 1}_R(M, N)$
+对所有 $R$-模 $N$ 均为零。
+\item 令 $N = \Im(P'_{e + 1} \to P'_e)$，并以
+$\xi \in \Ext^{e + 1}_R(M', N)$ 表示典范元素（见证明）。则 $\xi$
+在 $\Ext^{e + 1}_R(M, N)$ 中映为零。
+\item 同态 $\text{Tor}_i^R(M, N) \to \text{Tor}_i^R(M', N)$
+对所有 $R$-模 $N$ 以及 $i > e$ 均为零。
+\item 同态 $\text{Tor}_{e + 1}^R(M, N) \to \text{Tor}_{e + 1}^R(M', N)$
+对所有 $R$-模 $N$ 均为零。
+\end{enumerate}
+则始终有蕴含关系
+$$
+(1) \Leftrightarrow (2) \Leftrightarrow (3) \Leftrightarrow (4)
+\Leftrightarrow (5) \Rightarrow (6) \Leftrightarrow (7)
+$$
+若 $M$ 是 $(-e - 1)$-伪凝聚的（例如，若 $R$ 诺特且 $M$ 是有限
+$R$-模），则所有条件等价。
+\end{lemma}
+
+\begin{proof}
+显然，(2) 蕴含 (1)。若 $a_\bullet$ 如 (1) 所述，则可考虑复形同态
+$a'_\bullet : P_\bullet \to P'_\bullet$，其中 $a'_i = a_i$ 对
+$i \leq e + 1$ 成立，而 $a'_i = 0$ 对 $i \geq e + 1$ 成立，从而得到如 (2)
+所述的复形同态。因此，(1) 等价于 (2)。
+
+\medskip\noindent
+由使用解消构造 $\Ext$ 与 $\text{Tor}$ 函子的方法（《代数》，
+第 \ref{algebra-section-ext} 节与第 \ref{algebra-section-tor} 节），
+可见 (1) 和 (2) 蕴含所有其他条件。
+
+\medskip\noindent
+显然，(3) 蕴含 (4)，而 (4) 蕴含 (5)。设 $N$ 如 (5) 所述。
+典范同态 $\tilde \xi : P'_{e + 1} \to N$ 与
+$P'_{e + 2} \to P'_{e + 1}$ 的预复合为零。因此，可以在下式中考虑类
+$\xi$，即 $\tilde \xi$ 的类：
+$$
+\Ext^{e + 1}_R(M', N) =
+\frac{\Ker(\Hom(P'_{e + 1}, N \to \Hom(P'_{e + 2}, N)}{
+\Im(\Hom(P'_e, N \to \Hom(P'_{e + 1}, N)}
+$$
+选取复形同态 $a_\bullet : P_\bullet \to P'_\bullet$，它提升 $\alpha$；
+见《导出范畴》，引理 \ref{derived-lemma-morphisms-lift-projective}。
+若 $\xi$ 在 $\Ext^{e + 1}_R(M', N)$ 中映为零，则可找到同态
+$\varphi : P_e \to N$，使得
+$\tilde \xi  \circ a_{e + 1} = \varphi \circ d$。从而得到复形同态
+$$
+\xymatrix{
+\ldots \ar[r] &
+P_{e + 1} \ar[r] \ar[d]^0 &
+P_e \ar[r] \ar[d]^{a_e - \varphi} &
+P_{e - 1} \ar[r] \ar[d]^{a_{e - 1}} &
+\ldots \\
+\ldots \ar[r] &
+P'_{e + 1} \ar[r] &
+P'_e \ar[r] &
+P'_{e - 1} \ar[r] &
+\ldots
+}
+$$
+如 (2) 所述。因此，(1)--(5) 等价。
+
+\medskip\noindent
+(6) 与 (7) 的等价性来自维数平移；略去细节。
+
+\medskip\noindent
+假设 $M$ 是 $(-e - 1)$-伪凝聚的。（本引理括号内的陈述来自
+《代数进阶》，引理
+\ref{more-algebra-lemma-Noetherian-pseudo-coherent}。）
+我们将证明 (7) 蕴含 (4)，这将完成证明。对 $e$ 作归纳。基础情形为
+$e = 0$。此时，由《代数进阶》，引理
+\ref{more-algebra-lemma-n-pseudo-module}，$M$ 有限展示；再由引理
+\ref{local-cohomology-lemma-map-tor-1-zero}，可知 $M \to M'$ 经由一个自由模分解。
+当然，若 $M \to M'$ 经由一个自由模分解，则
+$\Ext^i_R(M', N) \to \Ext^i_R(M, N)$ 对所有 $i > 0$ 均为零，正如所需。
+假设 $e > 0$。可以选取短正合列之间的同态
+$$
+\xymatrix{
+0 \ar[r] &
+K \ar[r] \ar[d] &
+R^{\oplus r} \ar[r] \ar[d] &
+M \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+K' \ar[r] &
+\bigoplus_{i \in I} R \ar[r] &
+M' \ar[r] &
+0
+}
+$$
+使其右侧竖直箭头为给定同态。我们得到
+$\text{Tor}_{i + 1}^R(M, N) = \text{Tor}^R_i(K, N)$
+以及 $\Ext^{i + 1}_R(M, N) = \Ext^i_R(K, N)$，其中 $i \geq 1$，
+且对所有 $R$-模 $N$ 都成立；对 $M', K'$ 也有类似结论。因此可见，同态
+$\text{Tor}_e^R(K, N) \to \text{Tor}_e^R(K', N)$ 对所有 $R$-模
+$N$ 均为零。由《代数进阶》，引理
+\ref{more-algebra-lemma-cone-pseudo-coherent}，可见 $K$ 是
+$(-e)$-伪凝聚的。由归纳假设，可知同态
+$\Ext^e(K', N) \to \Ext^e(K, N)$ 对所有 $R$-模 $N$ 均为零，
+这便给出所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-cd-sequence-Koszul}
+设 $I$ 是诺特环 $A$ 的理想。对所有 $n \geq 1$，都存在 $m > n$，
+使得同态 $A/I^m \to A/I^n$ 满足引理
+\ref{local-cohomology-lemma-characterize-vanishing-tor-ext-above-e} 中的等价条件，其中
+$e = \text{cd}(A, I)$。
+\end{lemma}
+
+\begin{proof}
+设 $\xi \in \Ext^{e + 1}_A(A/I^n, N)$ 为引理
+\ref{local-cohomology-lemma-characterize-vanishing-tor-ext-above-e} 第 (5) 部分所构造的元素。
+由于 $e = \text{cd}(A, I)$，有
+$0 = H^{e + 1}_Z(N) = H^{e + 1}_I(N) = \colim \Ext^{e + 1}(A/I^m, N)$
+；这是由《对偶复形》，引理
+\ref{dualizing-lemma-local-cohomology-noetherian} 与
+\ref{dualizing-lemma-local-cohomology-ext} 得出的。因此，可以选取
+$m \geq n$，使得 $\xi$ 在 $\Ext^{e + 1}_A(A/I^m, N)$ 中映为零，正如所需。
+\end{proof}
+
+
+
+
+
+
+\section{某种一致性，II}
+\label{local-cohomology-section-uniform-vanishing-bis}
+
+\noindent
+设 $I$ 是诺特环 $A$ 的理想，$M$ 是有限 $A$-模，且 $i > 0$。
+由《代数进阶》，引理
+\ref{more-algebra-lemma-tor-strictly-pro-zero}，存在
+$c = c(A, I, M, i)$，使得
+$\text{Tor}^A_i(M, A/I^n) \to \text{Tor}^A_i(M, A/I^{n - c})$
+对所有 $n \geq c$ 均为零。本节讨论若干结果，它们表明有时可以选取一个常数
+$c$，使其同时适用于所有 $A$-模 $M$（以及某个范围内的指标 $i$）。
+这些材料与 \cite{Huneke-uniform} 和 \cite{AHS} 中讨论的一致
+Artin--Rees 性质有关。
+
+\medskip\noindent
+在评注 \ref{local-cohomology-remark-strict-pro-isomorphism} 中，我们将应用这一点来说明
+与导出完备化有关的若干 pro-系统严格 pro-同构（或者并非如此）。
+
+\medskip\noindent
+下面的引理可以显著加强。
+
+\begin{lemma}
+\label{local-cohomology-lemma-maps-zero-fixed-torsion}
+设 $I$ 是诺特环 $A$ 的理想。对每个 $m \geq 0$ 和 $i > 0$，都存在
+$c = c(A, I, m, i) \geq 0$，使得对每个 $A$-模 $M$（被 $I^m$ 零化），同态
+$$
+\text{Tor}^A_i(M, A/I^n) \to \text{Tor}^A_i(M, A/I^{n - c})
+$$
+对所有 $n \geq c$ 均为零。
+\end{lemma}
+
+\begin{proof}
+对 $i$ 作归纳。基础情形是 $i = 1$。短正合列
+$0 \to I^n \to A \to A/I^n \to 0$ 给出单射
+$\text{Tor}_1^A(M, A/I^n) \subset I^n \otimes_A M$；见《代数》，评注
+\ref{algebra-remark-Tor-ring-mod-ideal}。由于 $M$ 被 $I^m$ 零化，可见同态
+$I^n \otimes_A M \to I^{n - m} \otimes_A M$ 对 $n \geq m$ 为零。
+因此，取 $c = m$ 时结论成立。
+
+\medskip\noindent
+归纳步骤。设 $i > 1$，并假设 $c$ 对 $i - 1$ 有效。将《代数进阶》，引理
+\ref{more-algebra-lemma-tor-strictly-pro-zero} 应用于 $M = A/I^m$，
+可以选取 $c' \geq 0$，使得
+$\text{Tor}_i(A/I^m, A/I^n) \to \text{Tor}_i(A/I^m, A/I^{n - c'})$
+对 $n \geq c'$ 为零。设 $M$ 被 $I^m$ 零化。选取短正合列
+$$
+0 \to S \to \bigoplus\nolimits_{i \in I} A/I^m \to M \to 0
+$$
+相应的 Tor 长正合列给出正合列
+$$
+\text{Tor}_i^A(\bigoplus\nolimits_{i \in I} A/I^m, A/I^n) \to
+\text{Tor}_i^A(M, A/I^n) \to
+\text{Tor}_{i - 1}^A(S, A/I^n)
+$$
+对所有整数 $n \geq 0$ 均成立。若 $n \geq c + c'$，则同态
+$\text{Tor}_{i - 1}^A(S, A/I^n) \to \text{Tor}_{i - 1}^A(S, A/I^{n - c})$
+为零，并且同态 $\text{Tor}_i^A(A/I^m, A/I^{n - c}) \to 
+\text{Tor}_i^A(A/I^m, A/I^{n - c - c'})$ 为零。结合这些短正合列，
+可知结论对 $i$ 成立，其常数为 $c + c'$。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilates-affine}
+设 $I = (a_1, \ldots, a_t)$ 是诺特环 $A$ 的理想。令 $a = a_1$，
+并以 $B = A[\frac{I}{a}]$ 表示仿射爆破代数。存在 $c > 0$，使得
+$\text{Tor}_i^A(B, M)$ 被 $I^c$ 零化；这对所有 $A$-模 $M$ 以及
+$i \geq t$ 均成立。
+\end{lemma}
+
+\begin{proof}
+回顾 $B$ 是
+$A[x_2, \ldots, x_t]/(a_1x_2 - a_2, \ldots, a_1x_t - a_t)$
+对其 $a_1$-挠子模取商所得的商；见《代数》，引理
+\ref{algebra-lemma-affine-blowup-quotient-description}。令
+$$
+B_\bullet = \text{关于下列元素的 Koszul 复形： }a_1x_2 - a_2, \ldots, a_1x_t - a_t
+\text{ 相对于 }A[x_2, \ldots, x_t]
+$$
+并将其视为位于次数 $(t - 1), \ldots, 0$ 的链复形。复形
+$B_\bullet[1/a_1]$ 同构于由
+$x_2 - a_2/a_1, \ldots, x_t - a_t/a_1$ 构成的 Koszul 复形；该序列是
+$A[1/a_1][x_2, \ldots, x_t]$ 中的正则序列。由于正则序列是 Koszul 正则的，
+可知增广
+$$
+\epsilon : B_\bullet \longrightarrow B
+$$
+在逆转 $a_1$ 后是拟同构。由于锥 $C_\bullet$（$\epsilon$ 的锥）的同调模是有限
+$A[x_2, \ldots, x_n]$-模，且 $C_\bullet$ 有界，可知存在 $c \geq 0$，
+使得 $a_1^c$ 将它们全部零化。由《导出范畴》，引理
+\ref{derived-lemma-trick-vanishing-composition}，这蕴含在必要时将 $c$
+替换为更大的整数后，$a_1^c$ 作用于 $C_\bullet$ 的同态在 $D(A)$ 中为零。
+考察特异三角即可完成证明：
+$$
+B_\bullet \otimes_A^\mathbf{L} M \to
+B \otimes_A^\mathbf{L} M \to
+C_\bullet \otimes_A^\mathbf{L} M
+$$
+事实上，第一项由 $B_\bullet \otimes_A M$ 表示，它位于同调次数
+$(t - 1), \ldots, 0$，因为 Koszul 复形 $B_\bullet$ 的各项都是自由
+（因而平坦）$A$-模。因此
+$\text{Tor}_i^A(B, M) = H_i(C_\bullet \otimes_A^\mathbf{L} M)$
+对 $i > t - 1$ 成立，并且它被 $a_1^c$ 零化。由于
+$a_1^cB = I^cB$，且该 Tor 模是 $B$-模，结论随之得出。
+\end{proof}
+
+\noindent
+在本节余下的讨论中，固定诺特环 $A$ 和理想 $I \subset A$。以
+$$
+p : X \to \Spec(A)
+$$
+表示 $\Spec(A)$ 沿理想 $I$ 的爆破。换言之，$X$ 是 $\text{Proj}$；
+这里使用的 Rees 代数为 $\bigoplus_{n \geq 0} I^n$。由《概形的上同调》，引理
+\ref{coherent-lemma-coherent-on-proj} 与
+\ref{coherent-lemma-recover-tail-graded-module}，可以选取整数
+$q(A, I) \geq 0$，使得对所有 $q \geq q(A, I)$，都有
+$H^i(X, \mathcal{O}_X(q)) = 0$（当 $i > 0$），并且
+$H^0(X, \mathcal{O}_X(q)) = I^q$。
+
+\begin{lemma}
+\label{local-cohomology-lemma-compute-tor-Iq}
+在上述情形下，对 $q \geq q(A, I)$ 以及任意 $A$-模 $M$，都有
+$$
+R\Gamma(X, Lp^*\widetilde{M}(q)) \cong M \otimes_A^\mathbf{L} I^q
+$$
+该同构成立于 $D(A)$ 中。
+\end{lemma}
+
+\begin{proof}
+选取自由解消 $F_\bullet \to M$。则 $\widetilde{F}_\bullet$ 是
+$\widetilde{M}$ 的平坦解消。因此，$Lp^*\widetilde{M}$ 由复形
+$p^*\widetilde{F}_\bullet$ 给出，从而 $Lp^*\widetilde{M}(q)$ 由复形
+$p^*\widetilde{F}_\bullet(q)$ 给出。$p^*\widetilde{F}_i(q)$ 关于
+$\Gamma(X, -)$ 右无环，这是由我们对 $q \geq q(A, I)$ 的选择得出的；
+并且我们有 $\Gamma(X, p^*\widetilde{F}_i(q)) = I^qF_i$，这也由我们对
+$q \geq q(A, I)$ 的选择得出。于是，由《概形的导出范畴》，引理
+\ref{perfect-lemma-acyclicity-lemma-global}，
+$R\Gamma(X, Lp^*\widetilde{M}(q))$ 由各项为 $I^qF_i$ 的复形给出。
+依定义，复形 $I^qF_\bullet$ 计算 $M \otimes_A^\mathbf{L} I^q$，故结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilates}
+在上述情形下，设 $t$ 是 $I$ 的生成元个数的一个上界。存在整数
+$c = c(A, I) \geq 0$，使得对任意 $A$-模 $M$，上同调层
+$H^j(Lp^*\widetilde{M})$ 被 $I^c$ 零化，其中 $j \leq -t$。
+\end{lemma}
+
+\begin{proof}
+写成 $I = (a_1, \ldots, a_t)$。该问题在 $X$ 上是仿射局部的。
+对 $1 \leq i \leq t$，令 $B_i = A[\frac{I}{a_i}]$ 为仿射爆破代数。
+则 $X$ 有一个仿射开覆盖，它由环 $B_i$ 的谱构成；见《除子》，引理
+\ref{divisors-lemma-blowing-up-affine}。由《概形的导出范畴》，引理
+\ref{perfect-lemma-quasi-coherence-pullback} 所给出的导出拉回描述，
+只需证明对每个 $i$，都存在 $c \geq 0$，使得
+$$
+\text{Tor}_j^A(B_i, M)
+$$
+被 $I^c$ 零化，其中 $j \geq t$。这正是引理
+\ref{local-cohomology-lemma-annihilates-affine}。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilates-tors}
+在上述情形下，设 $t$ 是 $I$ 的生成元个数的一个上界。存在整数
+$c = c(A, I) \geq 0$，使得对任意 $A$-模 $M$，Tor 模
+$\text{Tor}_i^A(M, A/I^q)$ 被 $I^c$ 零化，其中 $i > t$，且
+$q \geq 0$ 任意。
+\end{lemma}
+
+\begin{proof}
+令 $q(A, I)$ 如上。对 $q \geq q(A, I)$，有
+$$
+R\Gamma(X, Lp^*\widetilde{M}(q)) = M \otimes_A^\mathbf{L} I^q
+$$
+，这是由引理 \ref{local-cohomology-lemma-compute-tor-Iq} 得出的。我们有有界收敛谱序列
+$$
+H^a(X, H^b(Lp^*\widetilde{M}(q))) \Rightarrow
+\text{Tor}_{-a - b}^A(M, I^q)
+$$
+；见《概形的导出范畴》，引理 \ref{perfect-lemma-spectral-sequence}。
+设 $d$ 是《概形的上同调》，引理
+\ref{coherent-lemma-vanishing-nr-affines-quasi-separated}
+中所述的整数（事实上可以取 $d = t$；见《概形的上同调》，引理
+\ref{coherent-lemma-vanishing-nr-affines}）。于是可见
+$H^{-i}(X, Lp^*\widetilde{M}(q)) = \text{Tor}_i^A(M, I^q)$
+具有至多 $d$ 步的有限滤过，其分次对象是下列模的子商：
+$$
+H^a(X, H^{- i - a}(Lp^*\widetilde{M})(q)),\quad
+a = 0, 1, \ldots, d - 1
+$$
+若 $i \geq t$，则所有这些模都被 $I^c$ 零化，其中
+$c = c(A, I)$ 如引理 \ref{local-cohomology-lemma-annihilates} 所述；这是因为由该引理，
+上同调层 $H^{- i - a}(Lp^*\widetilde{M})$ 均被 $I^c$ 零化。因此可见，
+$\text{Tor}_i^A(M, I^q)$ 被 $I^{dc}$ 零化，其中 $q \geq q(A, I)$ 且
+$i \geq t$。利用短正合列 $0 \to I^q \to A \to A/I^q \to 0$，
+可知 $\text{Tor}_i(M, A/I^q)$ 被 $I^{dc}$ 零化，其中
+$q \geq q(A, I)$ 且 $i > t$。于是可知 $I^m$（其中
+$m = \max(dc, q(A, I) - 1)$）零化 $\text{Tor}_i^A(M, A/I^q)$，
+这对所有 $q \geq 0$ 且 $i > t$ 成立，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-tor-maps-vanish}
+设 $I$ 是诺特环 $A$ 的理想。设 $t \geq 0$ 是 $I$ 的生成元个数的一个上界。
+存在 $N, c \geq 0$，使得同态
+$$
+\text{Tor}_{t + 1}^A(M, A/I^n) \to \text{Tor}_{t + 1}^A(M, A/I^{n - c})
+$$
+对任意 $A$-模 $M$ 以及所有 $n \geq N$ 均为零。
+\end{lemma}
+
+\begin{proof}
+令 $c_1$ 为引理 \ref{local-cohomology-lemma-annihilates-tors} 中得到的常数。
+请注意，此常数 $c_1$ 对 $\text{Tor}_i$ 同时有效，其中 $i > t$ 任意。
+
+\medskip\noindent
+写成 $I = (a_1, \ldots, a_t)$。对 $A$-模 $M$，令
+$$
+\ell(M) =
+\#\{i \mid 1 \leq i \leq t,\ a_i^{c_1}\text{ 在下列对象上为零： }M\}
+$$
+这是 $\{0, 1, \ldots, t\}$ 的一个元素。我们将对 $0 \leq s \leq t$
+作降归纳，证明下列陈述 $H_s$：存在 $N, c \geq 0$，使得对每个模
+$M$（满足 $\ell(M) \geq s$），同态
+$$
+\text{Tor}_{t + 1 + i}^A(M, A/I^n) \to \text{Tor}_{t + 1 + i}^A(M, A/I^{n - c})
+$$
+对 $i = 0, \ldots, s$ 以及所有 $n \geq N$ 均为零。
+
+\medskip\noindent
+基础情形：$s = t$。若 $\ell(M) = t$，则 $M$ 被
+$(a_1^{c_1}, \ldots, a_t^{c_1}\}$ 零化，因而被
+$I^{t(c_1 - 1) + 1}$ 零化。由引理
+\ref{local-cohomology-lemma-maps-zero-fixed-torsion}，可知 $H_t$ 成立：令 $c = N$ 为该引理中
+得到的整数 $c(A, I, t(c_1 - 1) + 1, t + 1), \ldots, c(A, I, t(c_1 - 1) + 1, 2t + 1)$
+的最大值即可。
+
+\medskip\noindent
+归纳步骤。设 $0 \leq s < t$，并设已有 $N, c$，如 $H_{s + 1}$ 所述。
+考虑模 $M$，它满足 $\ell(M) = s$。可以选取 $i$，使得 $a_i^{c_1}$
+在 $M$ 上不为零。于是 $\ell(M[a_i^c]) \geq s + 1$ 且
+$\ell(M/a_i^{c_1}M) \geq s + 1$，归纳假设适用于这两个模。考虑正合列
+$$
+0 \to M[a_i^{c_1}] \to M \xrightarrow{a_i^{c_1}} M \to M/a_i^{c_1}M \to 0
+$$
+以 $E \subset M$ 表示中间箭头的像。考虑相应的 Tor 模图表
+$$
+\xymatrix{
+&
+&
+\text{Tor}_{i + 1}(M/a_i^{c_1}M, A/I^q) \ar[d] \\
+\text{Tor}_i(M[a_i^{c_1}], A/I^q) \ar[r] &
+\text{Tor}_i(M, A/I^q) \ar[r] \ar[rd]^0 &
+\text{Tor}_i(E, A/I^q) \ar[d] \\
+&
+&
+\text{Tor}_i(M, A/I^q)
+}
+$$
+其行与列均正合（对每个 $q$）。由我们对 $c_1$ 的选择，东南方向的箭头为零。
+由此可知，模 $\text{Tor}_i(M, A/I^q)$ 夹在
+$\text{Tor}_i(M[a_i^{c_1}], A/I^q)$ 的一个商模与
+$\text{Tor}_{i + 1}(M/a_i^{c_1}M, A/I^q)$ 的一个子模之间。因此可知，
+$H_s$ 成立，其中将 $N$ 替换为 $N + c$，并将 $c$ 替换为 $2c$。
+略去一些细节。
+\end{proof}
+
+\begin{proposition}
+\label{local-cohomology-proposition-uniform-artin-rees}
+设 $I$ 是诺特环 $A$ 的理想。设 $t \geq 0$ 是 $I$ 的生成元个数的一个上界。
+存在 $N, c \geq 0$，使得当 $n \geq N$ 时，同态
+$$
+A/I^n \to A/I^{n - c}
+$$
+满足引理 \ref{local-cohomology-lemma-characterize-vanishing-tor-ext-above-e} 中的等价条件，
+其中 $e = t$。
+\end{proposition}
+
+\begin{proof}
+这是引理
+\ref{local-cohomology-lemma-tor-maps-vanish} 与
+\ref{local-cohomology-lemma-characterize-vanishing-tor-ext-above-e} 的直接推论。
+\end{proof}
+
+\begin{remark}
+\label{local-cohomology-remark-better-bound}
+论文 \cite{AHS} 除了许多其他结果外，还证明了：若 $A$ 是局部的，
+则命题 \ref{local-cohomology-proposition-uniform-artin-rees} 在将 $e = t$ 替换为
+$e = \dim(A)$ 后仍成立。考察引理 \ref{local-cohomology-lemma-cd-sequence-Koszul}，
+自然会问命题 \ref{local-cohomology-proposition-uniform-artin-rees} 在将 $e = t$ 替换为
+$e = \text{cd}(A, I)$ 后是否成立。我们不知道答案。
+\end{remark}
+
+\begin{remark}
+\label{local-cohomology-remark-strict-pro-isomorphism}
+设 $I$ 是诺特环 $A$ 的理想。写成 $I = (f_1, \ldots, f_r)$。
+以 $K_n^\bullet$ 表示《代数进阶》，情形
+\ref{more-algebra-situation-koszul} 中由 $f_1^n, \ldots, f_r^n$
+构成的 Koszul 复形，并以 $K_n \in D(A)$ 表示相应对象。
+设 $M^\bullet$ 是由有限 $A$-模组成的有界复形，并以 $M \in D(A)$
+表示相应对象。考虑 $D(A)$ 中的下列逆系统：
+\begin{enumerate}
+\item $M^\bullet/I^nM^\bullet$，即各项为 $M^i/I^nM^i$ 的复形；
+\item $M \otimes_A^\mathbf{L} A/I^n$；
+\item $M \otimes_A^\mathbf{L} K_n$；
+\item $M \otimes_P^\mathbf{L} P/J^n$（见下文）。
+\end{enumerate}
+所有这些逆系统作为 pro-对象同构：(2) 与 (3) 之间的同构来自《代数进阶》，
+引理 \ref{more-algebra-lemma-sequence-Koszul-complexes}；(1) 与 (2)
+之间的同构由《代数进阶》，引理
+\ref{more-algebra-lemma-derived-completion-plain-completion} 给出。
+最后一个见下文。
+
+\medskip\noindent
+不过，可以询问这些 pro-系统的同构是否“严格”；这一术语与问题同
+\cite[pages 61, 62]{quillenhomology} 中的讨论有关。具体而言，给定范畴
+$\mathcal{C}$，可以定义一个“严格 pro-范畴”：其对象是逆系统 $(X_n)$，
+而态射 $(X_n) \to (Y_n)$ 由二元组 $(c, \varphi_n)$ 给出；该二元组由
+$c \geq 0$ 以及态射 $\varphi_n : X_n \to Y_{n - c}$ 组成，后者对所有
+$n \geq c$ 给定；它们满足显然的相容条件，并且还要模去
+某种等价关系（本质上由增大 $c$ 给出）。于是可以询问上述逆系统在这个严格
+pro-范畴中是否同构。
+
+\medskip\noindent
+显然，即使 $M = A[0]$，(1) 与 (3) 也不可能如此。事实上，一般而言，
+系统 $H^0(K_n) = A/(f_1^n, \ldots, f_r^n)$ 在模范畴中与系统 $A/I^n$
+并非严格 pro-同构。例如，若取 $A = \mathbf{Z}[x_1, \ldots, x_r]$ 且
+$f_i = x_i$，则 $H^0(K_n)$ 不被 $I^{r(n - 1)}$ 零化。\footnote{当然，
+可以询问这些 pro-系统在如下范畴中是否同构：其对象为逆系统，而态射由三元组
+$(r, c, \varphi_n)$ 给出；该三元组由 $r \geq 1$、$c \geq 0$ 以及态射
+$\varphi_n : X_{rn} \to Y_{n - c}$ 组成，后者对 $n \geq c$ 给定。}
+
+\medskip\noindent
+事实上，上述结果表明，《代数进阶》，引理
+\ref{more-algebra-lemma-derived-completion-plain-completion} 中讨论的从 (2)
+到 (1) 的自然同态是严格 pro-同构。下面概述证明。先利用涉及朴素截断的标准论证，
+约化到 $M^\bullet$ 由单个有限 $A$-模 $M$ 给出的情形，其中该模置于次数
+$0$。选取命题 \ref{local-cohomology-proposition-uniform-artin-rees} 中的
+$N, c \geq 0$。该命题蕴含：对 $n \geq N$，存在分解
+$$
+M \otimes_A^\mathbf{L} A/I^n
+\to
+\tau_{\geq -t}(M \otimes_A^\mathbf{L} A/I^n)
+\to
+M \otimes_A^\mathbf{L} A/I^{n - c}
+$$
+，它们是系统 (2) 中转移同态的分解。另一方面，由《代数进阶》，引理
+\ref{more-algebra-lemma-tor-strictly-pro-zero}，可以找到另一个常数
+$c' = c'(M) \geq 0$，使得同态
+$\text{Tor}_i^A(M, A/I^{n'}) \to \text{Tor}_i(M, A/I^{n' - c'})$
+对 $i = 1, 2, \ldots, t$ 以及 $n' \geq c'$ 均为零。于是由《导出范畴》，
+引理 \ref{derived-lemma-trick-vanishing-composition}，同态
+$$
+\tau_{\geq -t}(M \otimes_A^\mathbf{L} A/I^{n + tc'})
+\to
+\tau_{\geq -t}(M \otimes_A^\mathbf{L} A/I^n)
+$$
+经由 $M \otimes_A^\mathbf{L}A/I^{n + tc'} \to M/I^{n + tc'}M$ 分解。
+结合前一结果，得到分解
+$$
+M \otimes_A^\mathbf{L}A/I^{n + tc'} \to M/I^{n + tc'}M
+\to M \otimes_A^\mathbf{L} A/I^{n - c}
+$$
+，这便给出所需结论。若以后需要这一结果，我们将仔细陈述并给出详细证明。
+
+\medskip\noindent
+对第 (4) 项，假设有诺特环 $P$、环同态 $P \to A$ 以及理想
+$J \subset P$，并且 $I = JA$。由《代数进阶》，第
+\ref{more-algebra-section-derived-base-change} 节，得到函子
+$M \otimes_P^\mathbf{L} - : D(P) \to D(A)$，并得到如 (4) 中的逆系统
+$M \otimes_P^\mathbf{L} P/J^n$，它位于 $D(A)$ 中。若 $P$ 诺特，
+则 (4) 中的系统与 (1) 中的系统 pro-同构，因为可以用 Koszul 复形作比较。
+若 $P \to A$ 有限，则系统 (4) 与系统 (2) 严格 pro-同构，因为逆系统
+$A \otimes_P^\mathbf{L} P/J^n$ 与逆系统 $A/I^n$ 严格 pro-同构
+（由上面的讨论），并且有
+$$
+M \otimes_P^\mathbf{L} P/J^n = M \otimes_A^\mathbf{L}
+(A \otimes_P^\mathbf{L} P/J^n)
+$$
+；见《代数进阶》，引理 \ref{more-algebra-lemma-derived-base-change}。
+
+\medskip\noindent
+(4) 中的一个标准例子是取 $P = \mathbf{Z}[x_1, \ldots, x_r]$，
+取同态 $P \to A$，它将 $x_i$ 映到 $f_i$，并取 $J = (x_1, \ldots, x_r)$。
+在此情形下，可以证明
+$$
+M \otimes_P^\mathbf{L} P/J^n =
+M \otimes_{A[x_1, \ldots, x_r]}^\mathbf{L}
+A[x_1, \ldots, x_r]/(x_1, \ldots, x_r)^n
+$$
+并约化到上面讨论过的情形之一（不过，此情形严格更容易，因为
+$A[x_1, \ldots, x_r]/(x_1, \ldots, x_r)^n$ 的 Tor 维数至多为
+$r$，这对所有 $n$ 成立，因而可以省去使用命题
+\ref{local-cohomology-proposition-uniform-artin-rees} 的步骤）。
+\cite[Proposition 3.5.1]{BS} 的证明讨论了此情形。
+\end{remark}
+
+
+
+
+
+
+
+
+\section{某种一致性，III}
+\label{local-cohomology-section-uniform}
+
+\noindent
+本节中，我们固定一个诺特环 $A$ 和一个理想 $I \subset A$。
+我们的目标是证明引理 \ref{local-cohomology-lemma-bound-two-term-complex}；在后面的章节中，
+我们将用它解决一个提升问题，见
+形式空间的代数化，引理
+\ref{restricted-lemma-get-morphism-general-better}.
+
+\medskip\noindent
+在本节中，我们始终以
+$$
+p : X \to \Spec(A)
+$$
+表示 $\Spec(A)$ 沿理想 $I$ 的爆破。换言之，$X$ 是 $\text{Proj}$，
+所用的 Rees 代数为 $\bigoplus_{n \geq 0} I^n$。我们还考虑纤维积
+$$
+\xymatrix{
+Y \ar[r] \ar[d] & X \ar[d]^p \\
+\Spec(A/I) \ar[r] & \Spec(A)
+}
+$$
+于是 $Y$ 是该爆破的例外除子，从而是 $X$ 上的一个有效 Cartier 除子，且
+$\mathcal{O}_X(-1) = \mathcal{O}_X(Y)$。由于取 $\text{Proj}$ 与基变换可交换，
+我们有
+$$
+Y = \text{Proj}(\bigoplus\nolimits_{n \geq 0} I^n/I^{n + 1}) = \text{Proj}(S)
+$$
+其中 $S = \text{Gr}_I(A) = \bigoplus_{n \geq 0} I^n/I^{n + 1}$。
+
+\medskip\noindent
+我们以
+$d = d(S) = d(\text{Gr}_I(A)) = d(\bigoplus_{n \geq 0} I^n/I^{n + 1})$
+表示 $p$ 的各纤维维数的最大值
+（并把它定义为 $0$，若 $X = \emptyset$）。
+这是良定义的。事实上，
+\begin{enumerate}
+\item $d \leq t - 1$，如果 $I = (a_1, \ldots, a_t)$，因为此时
+$X \subset \mathbf{P}^{t - 1}_A$；
+\item $d$ 也是 $\text{Proj}(S) \to \Spec(S_0)$ 的各纤维维数的最大值，
+只要 $Y$ 非空；且 $d = 0$，若 $Y = \emptyset$
+（等价地，$S = 0$；等价地，$I = A$）。
+\end{enumerate}
+因此 $d$ 仅依赖于 $S = \text{Gr}_I(A)$ 的同构类。注意，
+$H^i(X, \mathcal{F}) = 0$ 对每个凝聚 $\mathcal{O}_X$-模
+$\mathcal{F}$ 以及 $i > d$ 都成立；这是由概形上同调，引理
+\ref{coherent-lemma-higher-direct-images-zero-above-dimension-fibre} 和
+\ref{coherent-lemma-quasi-coherence-higher-direct-images-application} 得到的。
+当然，对 $Y$ 上的凝聚模也有同样的结论。
+
+\medskip\noindent
+我们以
+$q = q(S) = q(\text{Gr}_I(A)) = q(\bigoplus_{n \geq 0} I^n/I^{n + 1})$
+表示如下定义的整数。注意，代数
+$S = \bigoplus_{n \geq 0} I^n/I^{n + 1}$
+是由次数 $1$ 部分在次数 $0$ 部分上生成的诺特分次环。因此由
+概形上同调，引理 \ref{coherent-lemma-coherent-on-proj} 和
+\ref{coherent-lemma-recover-tail-graded-module}，我们可以把 $q(S)$ 定义为满足
+如下性质的最小整数 $q(S) \geq 0$：对所有 $q \geq q(S)$，有
+$H^i(Y, \mathcal{O}_Y(q)) = 0$，其中 $1 \leq i \leq d$，并且
+$H^0(Y, \mathcal{O}_Y(q)) = I^q/I^{q + 1}$。
+（若 $S = 0$，则 $q(S) = 0$。）
+
+\medskip\noindent
+对 $n \geq 1$，我们可以考虑有效 Cartier 除子 $nY$，并将其记为 $Y_n$。
+
+\begin{lemma}
+\label{local-cohomology-lemma-bound-q-and-d}
+取如上的 $q_0 = q(S)$ 和 $d = d(S)$。则
+\begin{enumerate}
+\item 对 $n \geq 1$、$q \geq q_0$ 和 $i > 0$，有
+$H^i(X, \mathcal{O}_{Y_n}(q)) = 0$,
+\item 对 $n \geq 1$ 和 $q \geq q_0$，有
+$H^0(X, \mathcal{O}_{Y_n}(q)) = I^q/I^{q + n}$,
+\item 对 $q \geq q_0$ 和 $i > 0$，有
+$H^i(X, \mathcal{O}_X(q)) = 0$,
+\item 对 $q \geq q_0$，有
+$H^0(X, \mathcal{O}_X(q)) = I^q$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $I = A$，则 $X$ 是仿射的，所有断言都是平凡的。因此我们可以并且确实假设
+$I \not = A$。于是 $Y$ 和 $X$ 都是非空概形。
+
+\medskip\noindent
+我们对 $n$ 归纳证明 (1) 和 (2)。基础情形 $n = 1$ 正是我们对
+$q_0$ 的定义，因为 $Y_1 = Y$。回忆 $\mathcal{O}_X(1) = \mathcal{O}_X(-Y)$。
+因此有短正合列
+$$
+0 \to \mathcal{O}_{Y_n}(1) \to \mathcal{O}_{Y_{n + 1}} \to \mathcal{O}_Y \to 0
+$$
+故对 $i > 0$，得到
+$$
+H^i(X, \mathcal{O}_{Y_n}(q + 1)) \to
+H^i(X, \mathcal{O}_{Y_{n + 1}}(q)) \to
+H^i(X, \mathcal{O}_{Y}(q))
+$$
+由两端项的已知消没，即得中间项所需的消没。对 $i = 0$，得到交换图
+$$
+\xymatrix{
+0 \ar[r] &
+I^{q + 1}/I^{q + 1 + n} \ar[d] \ar[r] &
+I^q/I^{q + 1 + n} \ar[d] \ar[r] &
+I^q/I^{q + 1} \ar[d] \ar[r] &
+0 \\
+0 \ar[r] &
+H^0(X, \mathcal{O}_{Y_n}(q + 1)) \ar[r] &
+H^0(X, \mathcal{O}_{Y_{n + 1}}(q)) \ar[r] &
+H^0(Y, \mathcal{O}_Y(q)) \ar[r] &
+0
+}
+$$
+当 $q \geq q_0$ 时两行均正合（对下行，只需注意长上同调正合列的下一项在
+$q \geq q_0$ 时消没）。由于 $q \geq q_0$，左、右两个竖直箭头都是同构，
+因而中间的竖直箭头也是同构。
+
+\medskip\noindent
+(3) 和 (4) 的证明类似，我们略去。事实上，可以利用形式函子定理从 (1) 和 (2)
+推出 (3) 和 (4)（但这未免大材小用）。
+\end{proof}
+
+\noindent
+引入如下记号：给定 $n \geq c \geq 0$，所谓
+{\it 一个 $(A, n, c)$-模}，是指一个有限 $A$-模 $M$，它被 $I^n$ 零化，
+且将它视为 $A/I^n$-模时，它是 $I^c/I^n$-投射的；见
+更多代数，\ref{more-algebra-section-near-projective} 节。
+
+\medskip\noindent
+我们将采用如下记号滥用：给定 $A$-模 $M$，以 $p^*M$ 表示沿 $p$
+拉回拟凝聚模 $\widetilde{M}$ 所得的拟凝聚模；这里后者是在 $\Spec(A)$
+上与 $M$ 关联的模。例如，$\mathcal{O}_{Y_n} = p^*(A/I^n)$。
+对短正合列 $0 \to K \to L \to M \to 0$，若其各项都是 $A$-模，
+我们得到正合列
+$$
+p^*K \to p^*L \to p^*M \to 0
+$$
+因为 $\widetilde{\ }$ 是正合函子，而 $p^*$ 是右正合函子。
+
+\begin{lemma}
+\label{local-cohomology-lemma-almost-exactness}
+设 $0 \to K \to L \to M \to 0$ 是 $A$-模的短正合列，其中 $K$ 和 $L$
+都被 $I^n$ 零化，且 $M$ 是一个 $(A, n, c)$-模。则
+$p^*K \to p^*L$ 的核在概形意义下支撑于 $Y_c$。
+\end{lemma}
+
+\begin{proof}
+设 $\Spec(B) \subset X$ 是一个仿射开集。该正合列在 $\Spec(B)$ 上的限制
+对应于 $B$-模序列
+$$
+K \otimes_A B \to L \otimes_A B \to M \otimes_A B \to 0
+$$
+它同构于序列
+$$
+K \otimes_{A/I^n} B/I^nB \to
+L \otimes_{A/I^n} B/I^nB \to
+M \otimes_{A/I^n} B/I^nB \to 0
+$$
+因此第一个映射的核是模 $\text{Tor}_1^{A/I^n}(M, B/I^nB)$ 的像。
+回忆例外除子 $Y$ 由 $I\mathcal{O}_X$ 切出。因此，只需证明
+$\text{Tor}_1^{A/I^n}(M, B/I^nB)$ 被 $I^c$ 零化。由于任意
+$a \in I^c$ 在 $M$ 上的乘法都经由某个有限自由 $A/I^n$-模分解，这是显然的。
+\end{proof}
+
+\noindent
+我们有典范映射 $\mathcal{O}_X \to \mathcal{O}_X(1)$，它恰在 $Y$ 上消没。
+因此，对每个凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，总有典范映射
+$\mathcal{F}(q) \to \mathcal{F}(q + n)$，其中 $q \in \mathbf{Z}$ 任意且
+$n \geq 0$。
+
+\begin{lemma}
+\label{local-cohomology-lemma-annihilated}
+设 $\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模。则 $\mathcal{F}$
+在概形意义下支撑于 $Y_c$，当且仅当典范映射
+$\mathcal{F} \to \mathcal{F}(c)$ 为零。
+\end{lemma}
+
+\begin{proof}
+这是因为 $\mathcal{O}_X \to \mathcal{O}_X(1)$ 恰在 $Y$ 上消没。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-vanishing-coh-almost-projective}
+取如上的 $q_0 = q(S)$ 和 $d = d(S)$。设有整数
+$n \geq c \geq 0$、一个 $(A, n, c)$-模 $M$、一个指标
+$i \in \{0, 1, \ldots, d\}$ 以及一个整数 $q$。则分为如下情形：
+\begin{enumerate}
+\item 在 $i = d \geq 1$ 且 $q \geq q_0$ 的情形，有
+$H^d(X, p^*M(q)) = 0$.
+\item 在 $i = d - 1 \geq 1$ 且 $q \geq q_0$ 的情形，有
+$H^{d - 1}(X, p^*M(q)) = 0$.
+\item 在 $d - 1 > i > 0$ 且 $q \geq q_0 + (d - 1 - i)c$ 的情形，映射
+$H^i(X, p^*M(q)) \to H^i(X, p^*M(q - (d - 1 - i)c))$
+为零。
+\item 在 $i = 0$、$d \in \{0, 1\}$ 且 $q \geq q_0$ 的情形，有满射
+$$
+I^qM \longrightarrow H^0(X, p^*M(q))
+$$
+\item 在 $i = 0$、$d > 1$ 且 $q \geq q_0 + (d - 1)c$ 的情形，映射
+$$
+H^0(X, p^*M(q)) \to H^0(X, p^*M(q - (d - 1)c))
+$$
+的像包含于典范映射
+$I^{q - (d - 1)c}M \to H^0(X, p^*M(q - (d - 1)c))$.
+的像中。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $M$ 是一个 $(A, n, c)$-模。选择短正合列
+$$
+0 \to K \to (A/I^n)^{\oplus r} \to M \to 0
+$$
+下文将用到 $K$ 是一个 $(A, n, c)$-模这一事实，见更多代数，
+引理 \ref{more-algebra-lemma-ses-near-projective}。考虑相应的正合列
+$$
+p^*K \to (\mathcal{O}_{Y_n})^{\oplus r} \to p^*M \to 0
+$$
+将其拆成两个短正合列
+$$
+0 \to \mathcal{F} \to p^*K \to \mathcal{G} \to 0
+\quad\text{且}\quad
+0 \to \mathcal{G} \to (\mathcal{O}_{Y_n})^{\oplus r} \to p^*M \to 0
+$$
+由引理 \ref{local-cohomology-lemma-almost-exactness}，凝聚模 $\mathcal{F}$ 在概形意义下
+支撑于 $Y_c$。
+
+\medskip\noindent
+(1) 的证明。设 $d > 0$。我们要证明 $H^d(X, p^*M(q)) = 0$，其中
+$q \geq q_0$。利用 $\mathcal{G}$ 的扭曲在次数 $> d$ 中的
+上同调消没，以及与上面第二个短正合列相伴的长上同调正合列，只需证明
+$H^d(X, \mathcal{O}_{Y_n}(q)) = 0$。这由引理
+\ref{local-cohomology-lemma-bound-q-and-d} 成立。
+
+\medskip\noindent
+(2) 的证明。设 $d > 1$。我们要证明 $H^{d - 1}(X, p^*M(q)) = 0$，其中
+$q \geq q_0$。如上一段论证可知，只需证明
+$H^d(X, \mathcal{G}(q)) = 0$。利用第一个短正合列以及
+$\mathcal{F}$ 的扭曲在次数 $> d$ 中的上同调消没，又只需证明
+$H^d(X, p^*K(q))$ 为零。由 (1) 以及 $K$ 是一个 $(A, n, c)$-模
+这一事实（见上）即得此结论。
+
+\medskip\noindent
+(3) 的证明。设 $0 < i < d - 1$，并假设该断言对 $i + 1$ 成立；
+在 $i = d - 2$ 的情形，则使用断言 (2)。利用与上面第二个短正合列相伴的
+长上同调正合列，我们得到单射
+$$
+H^i(X, p^*M(q - (d - 1 - i)c)) \subset
+H^{i + 1}(X, \mathcal{G}(q - (d - 1 - i)c))
+$$
+因为 $q - (d - 1 - i)c \geq q_0$ 给出
+$H^i(X, \mathcal{O}_{Y_n}(q - (d - 1 - i)c))$
+的消没（见上）。因此，只需证明映射
+$H^{i + 1}(X, \mathcal{G}(q)) \to H^{i + 1}(X, \mathcal{G}(q - (d - 1 - i)c))$
+为零。为研究这一点，考虑如下正合列之间的映射：
+$$
+\xymatrix{
+H^{i + 1}(X, p^*K(q)) \ar[r] \ar[d] &
+H^{i + 1}(X, \mathcal{G}(q)) \ar[r] \ar[d] \ar@{..>}[ld] &
+H^{i + 2}(X, \mathcal{F}(q)) \ar[d] \\
+H^{i + 1}(X, p^*K(q - c)) \ar[r] \ar[d] &
+H^{i + 1}(X, \mathcal{G}(q - c)) \ar[r] \ar[d] &
+H^{i + 2}(X, \mathcal{F}(q - c)) \\
+H^{i + 1}(X, p^*K(q - (d - 1 - i)c)) \ar[r] &
+H^{i + 1}(X, \mathcal{G}(q - (d - 1 - i)c))
+}
+$$
+由于 $\mathcal{F}$ 在概形意义下支撑于 $Y_c$，由引理
+\ref{local-cohomology-lemma-annihilated} 可知，典范映射
+$\mathcal{G}(q) \to \mathcal{G}(q - c)$ 经由
+$p^*K(q - c)$ 分解。这给出图中的虚线箭头。（事实上，为了证明，只需注意
+最右端的竖直箭头为零，即可得到作为集合映射的虚线箭头。）因此，只需证明
+$H^{i + 1}(X, p^*K(q - c)) \to
+H^{i + 1}(X, p^*K(q - (d - 1 - i)c))$
+为零。若 $i = d - 2$，则由于 $q - c \geq q_0$ 且 $K$ 是一个
+$(A, n, c)$-模，由 (2) 可知此箭头的源为零。若 $i < d - 2$，则由于
+$K$ 是一个 $(A, n, c)$-模，由归纳假设可知该映射确实为零，因为
+$q - c - (q - (d - 1 - i)c) = (d - 2 - i)c = (d - 1 - (i + 1))c$，并且
+$q - c \geq q_0 + (d - 1 - (i + 1))c$。由此完成 (3) 的证明。
+
+\medskip\noindent
+(4) 的证明。设 $d \in \{0, 1\}$ 且 $q \geq q_0$。
+于是第一个短正合列给出满射
+$H^1(X, p^*K(q)) \to H^1(X, \mathcal{G}(q))$
+而由情形 (1)，此箭头的源为零。因此，对所有 $q \in \mathbf{Z}$，映射
+$$
+H^0(X, (\mathcal{O}_{Y_n})^{\oplus r}(q))
+\longrightarrow
+H^0(X, p^*M(q))
+$$
+都是满射。当 $q \geq q_0$ 时，由引理 \ref{local-cohomology-lemma-bound-q-and-d}，
+其源等于 $(I^q/I^{q + n})^{\oplus r}$，这就容易证明该断言。
+
+\medskip\noindent
+(5) 的证明。设 $d > 1$。如 (4) 的证明中那样论证可知，只需证明
+$$
+H^0(X, p^*M(q))
+\longrightarrow
+H^0(X, p^*M(q - (d - 1)c))
+$$
+的像包含于
+$$
+H^0(X, (\mathcal{O}_{Y_n})^{\oplus r}(q - (d - 1)c))
+\longrightarrow
+H^0(X, p^*M(q - (d - 1)c))
+$$
+的像中。为证明上述包含关系，只需证明：对
+$\sigma \in H^0(X, p^*M(q))$，若其边界为
+$\xi \in H^1(X, \mathcal{G}(q))$，则 $\xi$ 在
+$H^1(X, \mathcal{G}(q - (d - 1)c))$ 中的像为零。这由 (3) 的证明中
+完全相同的论证得到。
+\end{proof}
+
+\begin{remark}
+\label{local-cohomology-remark-duals}
+给定一对 $(M, n)$，其中 $n \geq 0$ 是整数，并有一个有限
+$A/I^n$-模 $M$，我们置 $M^\vee = \Hom_{A/I^n}(M, A/I^n)$。
+给定一对 $(\mathcal{F}, n)$，其中 $n$ 是整数，并有一个凝聚
+$\mathcal{O}_{Y_n}$-模 $\mathcal{F}$，我们置
+$$
+\mathcal{F}^\vee =
+\SheafHom_{\mathcal{O}_{Y_n}}(\mathcal{F}, \mathcal{O}_{Y_n})
+$$
+对如上的 $(M, n)$，有典范映射
+$$
+can : p^*(M^\vee) \longrightarrow (p^*M)^\vee
+$$
+事实上，若选择一个展示
+$(A/I^n)^{\oplus s} \to (A/I^n)^{\oplus r} \to M \to 0$
+则得到一个展示
+$\mathcal{O}_{Y_n}^{\oplus s} \to \mathcal{O}_{Y_n}^{\oplus r} \to
+p^*M \to 0$。取对偶后，得到正合列
+$$
+0 \to M^\vee \to (A/I^n)^{\oplus r} \to (A/I^n)^{\oplus s}
+$$
+以及
+$$
+0 \to (p^*M)^\vee \to
+\mathcal{O}_{Y_n}^{\oplus r} \to
+\mathcal{O}_{Y_n}^{\oplus s}
+$$
+沿 $p$ 拉回第一个序列，就得到所需的映射 $can$。这个映射的构造关于有限
+$A/I^n$-模 $M$ 是函子性的。$can$ 的核与余核在概形意义下支撑于
+$Y_c$，如果 $M$ 是一个 $(A, n, c)$-模。事实上，在这种情况下，对
+$a \in I^c$，映射 $a : M \to M$ 经由某个有限自由 $A/I^n$-模分解，
+而对后者 $can$ 是同构。因此 $a$ 零化 $can$ 的核与余核。
+\end{remark}
+
+\begin{lemma}
+\label{local-cohomology-lemma-factor-hom}
+取如上的 $q_0 = q(S)$ 和 $d = d(S)$。设 $M$ 是一个 $(A, n, c)$-模，
+并设 $\varphi : M \to I^n/I^{2n}$ 是一个 $A$-线性映射。假设
+$n \geq \max(q_0 + (1 + d)c, (2 + d)c)$；若 $d = 0$，还假设
+$n \geq q_0 + 2c$。则复合映射
+$$
+M \xrightarrow{\varphi} I^n/I^{2n} \to
+I^{n - (1 + d)c}/I^{2n - (1 + d)c}
+$$
+具有形式 $\sum a_i \psi_i$，其中 $a_i \in I^c$ 且
+$\psi_i : M \to I^{n - (2 + d)c}/I^{2n - (2 + d)c}$。
+\end{lemma}
+
+\begin{proof}
+$d > 1$ 的情形。由于我们有相容的映射系统
+$p^*(I^q) \to \mathcal{O}_X(q)$，其中 $q \geq 0$，故有典范映射
+$p^*(I^q/I^{q + \nu}) \to \mathcal{O}_{Y_\nu}(q)$，其中 $\nu \geq 0$。
+利用这一点并拉回
+$\varphi$，得到映射
+$$
+\chi : p^*M \longrightarrow \mathcal{O}_{Y_n}(n)
+$$
+使得复合映射
+$M \to H^0(X, p^*M) \to H^0(X, \mathcal{O}_{Y_n}(n))$
+等于给定同态 $\varphi$ 与映射
+$I^n/I^{2n} \to H^0(X, \mathcal{O}_{Y_n}(n))$ 的复合。由于
+$\mathcal{O}_{Y_n}(n)$ 在 $Y_n$ 上可逆，线性映射 $\chi$ 决定一个截面
+$$
+\sigma \in \Gamma(X, (p^*M)^\vee(n))
+$$
+这里采用注记 \ref{local-cohomology-remark-duals} 中的记号。注记 \ref{local-cohomology-remark-duals} 中的讨论说明，
+$can : p^*(M^\vee) \to (p^*M)^\vee$ 的余核和核在概形意义下支撑于 $Y_c$。
+由引理 \ref{local-cohomology-lemma-annihilated}，映射
+$(p^*M)^\vee(n) \to (p^*M)^\vee(n - 2c)$ 经由
+$p^*(M^\vee)(n - 2c)$ 分解；略去一个小细节。因此，$\sigma$ 在
+$\Gamma(X, (p^*M)^\vee(n - 2c))$ 中的像来自一个元素
+$$
+\sigma' \in \Gamma(X, p^*(M^\vee)(n - 2c))
+$$
+由引理 \ref{local-cohomology-lemma-vanishing-coh-almost-projective} 的 (5)，再利用
+$M^\vee$ 是一个 $(A, n, c)$-模这一事实（见更多代数，引理
+\ref{more-algebra-lemma-dual-near-projective}），以及
+$n \geq q_0 + (1 + d)c$ 从而 $n - 2c \geq q_0 + (d - 1)c$ 这一事实，
+可知 $\sigma'$ 在 $H^0(X, p^*M^\vee(n - (1 + d)c))$ 中的像，是某个元素
+$\tau$ 在 $I^{n - (1 + d)c}M^\vee$ 中的像。写成
+$\tau = \sum a_i \tau_i$，其中 $\tau_i \in I^{n - (2 + d)c}M^\vee$；
+这是有意义的，因为 $n - (2 + d)c \geq 0$。于是 $\tau_i$ 决定模同态
+$\psi_i : M \to I^{n - (2 + d)c}/I^{2n - (2 + d)c}$
+其中使用了求值映射 $M \otimes M^\vee \to A/I^n$。
+
+\medskip\noindent
+下面证明这确实可行\footnote{我们希望有读者能为此提出一个不那么笨拙的证明。}。
+取 $z \in M$，并证明 $\varphi(z)$ 与 $\sum a_i \psi_i(z)$ 在
+$I^{n - (1 + d)c}/I^{2n - (1 + d)c}$ 中有相同的像。首先，元素 $z$ 决定映射
+$p^*z : \mathcal{O}_{Y_n} \to p^*M$；它与 $\chi$ 的复合等于映射
+$\mathcal{O}_{Y_n} \to \mathcal{O}_{Y_n}(n)$，后者对应于 $\varphi(z)$，
+所经的映射为 $I^n/I^{2n} \to \Gamma(\mathcal{O}_{Y_n}(n))$。
+其次，$z$ 与 $p^*z$ 决定求值映射
+$e_z : M^\vee \to A/I^n$ 和 $e_{p^*z} : (p^*M)^\vee \to \mathcal{O}_{Y_n}$。
+由于 $\chi(p^*z)$ 是对应于 $\varphi(z)$ 的截面，可知
+$e_{p^*z}(\sigma)$ 是对应于 $\varphi(z)$ 的截面。这里以及下文都滥用记号：
+对于模的映射 $a : \mathcal{F} \to \mathcal{G}$，若它定义在 $X$ 上，也以
+$a : \mathcal{F}(t) \to \mathcal{F}(t)$ 表示相应的扭曲模映射。图
+$$
+\xymatrix{
+p^*(M^\vee) \ar[d]_{can} \ar[r]_{p^*e_z} & \mathcal{O}_{Y_n} \ar@{=}[d] \\
+(p^*M)^\vee \ar[r]^{e_{p^*z}} & \mathcal{O}_{Y_n}
+}
+$$
+由于构造 $can$ 的函子性而交换。因此，$(p^*e_z)(\sigma')$ 作为
+$\Gamma(Y_n, \mathcal{O}_{Y_n}(n - 2c))$ 中的元素，是对应于 $\varphi(z)$ 在
+$I^{n - 2c}/I^{2n - 2c}$ 中之像的截面。下一步，$\sigma'$ 映到
+$\sum a_i \tau_i$ 在 $H^0(X, p^*M^\vee(n - (1 + d)c))$ 中的像。这说明
+$(p^*e_z)(\sum a_i \tau_i) = \sum a_i p^*e_z(\tau_i)$ 在
+$\Gamma(Y_n, \mathcal{O}_{Y_n}(n - (1 + d)c))$ 中，是对应于
+$\varphi(z)$ 在 $I^{n - (1 + d)c}/I^{2n - (1 + d)c}$ 中之像的截面。
+回忆 $\psi_i$ 是利用一个求值映射从 $\tau_i$ 定义的。因此，若以
+$$
+\chi_i : p^*M \longrightarrow \mathcal{O}_{Y_n}(n - (2 + d)c)
+$$
+表示从 $\psi_i$ 得到的映射，则由与上面相同的论证可知，对应于
+$\psi_i(z)$ 的截面是
+$\chi_i(p^*z) = e_{p^*z}(\chi_i) = p^*e_z(\tau_i)$。因此可知，
+$\varphi(z)$ 在 $\Gamma(Y_n, \mathcal{O}_{Y_n}(n - (1 + d)c))$ 中的像，
+等于 $\sum a_i\psi_i(z)$ 的像。由于 $n - (1 + d)c \geq q_0$，由引理
+\ref{local-cohomology-lemma-bound-q-and-d} 有
+$\Gamma(Y_n, \mathcal{O}_{Y_n}(n - (1 + d)c)) =
+I^{n - (1 + d)c}/I^{2n - (1 + d)c}$，故所需的相容性成立。
+
+\medskip\noindent
+$d = 1$ 的情形。像上面那样论证，得到
+$$
+\chi : p^*M \longrightarrow \mathcal{O}_{Y_n}(n),\quad
+\sigma \in \Gamma(X, (p^*M)^\vee(n)),\quad
+\sigma' \in \Gamma(X, p^*(M^\vee)(n - 2c)),
+$$
+然后利用引理 \ref{local-cohomology-lemma-vanishing-coh-almost-projective} 的 (4)，可知
+$\sigma'$ 是某个元素 $\tau \in I^{n - 2c}M^\vee$ 的像。其余论证相同。
+
+\medskip\noindent
+$d = 0$ 的情形。论证与 $d = 1$ 的情形完全相同。
+\end{proof}
+
+\begin{lemma}
+\label{local-cohomology-lemma-bound-two-term-complex}
+取如上的 $d = d(S)$ 和 $q_0 = q(S)$。则
+\begin{enumerate}
+\item 对满足
+$n \geq c \geq 0$ 且
+$n \geq \max(q_0 + (1 + d)c, (2 + d)c)$,
+的整数；
+\item 对 $K$，它是 $D(A/I^n)$ 中的对象，且 $H^i(K) = 0$ 当
+$i \not = -1, 0$，而 $H^i(K)$ 在 $i = -1, 0$ 时有限，并且满足
+$\Ext^1_{A/I^c}(K, N)$ 被 $I^c$ 零化，对所有有限 $A/I^n$-模 $N$，
+\end{enumerate}
+映射
+$$
+\Ext^1_{A/I^n}(K, I^n/I^{2n})
+\longrightarrow
+\Ext^1_{A/I^n}(K, I^{n - (1 + d)c}/I^{2n - 2(1 + d)c})
+$$
+为零。
+\end{lemma}
+
+\begin{proof}
+$d > 0$ 的情形。令 $K^{-1} \to K^0$ 是一个表示 $K$ 的复形；它是按照
+更多代数，引理 \ref{more-algebra-lemma-ext-1-annihilated-definite} 的 (5)，
+相对于理想 $I^c/I^n$ 选取的；该理想位于环 $A/I^n$ 中。特别地，$K^{-1}$ 是
+$I^c/I^n$-投射的，因为 $I^c/I^n$ 中元素的乘法甚至经由 $K^0$ 分解。
+由更多代数，引理 \ref{more-algebra-lemma-map-out-of-almost-free} 的 (1)，有
+$$
+\Ext^1_{A/I^n}(K, I^n/I^{2n}) =
+\Coker(\Hom_{A/I^n}(K^0, I^n/I^{2n}) \to \Hom_{A/I^n}(K^{-1}, I^n/I^{2n}))
+$$
+其他 Ext 群也同样。因此，任何类 $\xi$，若它属于
+$\Ext^1_{A/I^n}(K, I^n/I^{2n})$
+都来自一个元素 $\varphi \in \Hom_{A/I^n}(K^{-1}, I^n/I^{2n})$。
+以 $\varphi'$ 表示 $\varphi$ 在
+$\Hom_{A/I^n}(K^{-1}, I^{n - (1 + d)c}/I^{2n - (1 + d)c})$.
+中的像。由引理 \ref{local-cohomology-lemma-factor-hom}，可写成
+$\varphi' = \sum a_i \psi_i$，其中 $a_i \in I^c$ 且
+$\psi_i \in \Hom_{A/I^n}(M, I^{n - (2 + d)c}/I^{2n - (2 + d)c})$。
+选择 $h_i : K^0 \to K^{-1}$，使得
+$a_i \text{id}_{K^{-1}} = h_i \circ d_K^{-1}$。置
+$\psi = \sum \psi_i \circ h_i : K^0 \to I^{n - (2 + d)c}/I^{2n - (2 + d)c}$.
+则 $\varphi' = \psi \circ \text{d}_K^{-1}$，从而 $\xi$ 已经在
+$\Ext^1_{A/I^n}(K, I^{n - (1 + d)c}/I^{2n - (1 + d)c})$
+中映为零，因而更在
+$\Ext^1_{A/I^n}(K, I^{n - (1 + d)c}/I^{2n - 2(1 + d)c})$.
+中映为零。
+
+\medskip\noindent
+$d = 0$ 的情形\footnote{对 $d > 0$ 给出的论证也适用，但所得结果稍弱。}。
+取如上的 $\xi$ 和 $\varphi$。考虑图
+$$
+\xymatrix{
+K^0 \\
+K^{-1} \ar[u] \ar[r]^\varphi & I^n/I^{2n} \ar[r] & I^{n - c}/I^{2n - c}
+}
+$$
+拉回到 $X$，并利用映射
+$p^*(I^n/I^{2n}) \to \mathcal{O}_{Y_n}(n)$
+得到实线图
+$$
+\xymatrix{
+p^*K^0 \ar@{..>}[rrd] \\
+p^*K^{-1} \ar[u] \ar[r] &
+\mathcal{O}_{Y_n}(n) \ar[r] &
+\mathcal{O}_{Y_n}(n - c)
+}
+$$
+可以覆盖 $X$，所用仿射开集 $U = \Spec(B)$ 具有如下性质：存在一个 $a \in I$，
+满足如下性质：$IB = aB$，且 $a$ 是 $B$ 上的非零因子。事实上，可以用
+仿射爆破代数的谱覆盖 $X$；见除子，引理
+\ref{divisors-lemma-blowing-up-affine}。映射
+$\mathcal{O}_{Y_n}(n) \to \mathcal{O}_{Y_n}(n - c)$ 在 $U$ 上的限制，
+同构于拟凝聚 $\mathcal{O}_U$-模的映射；后者对应于 $B$-模映射
+$a^c : B/a^nB \to B/a^nB$。由于 $a^c : K^{-1} \to K^{-1}$ 经由
+$K^0$ 分解，可知虚线箭头在 $U$ 上存在。换言之，在 $X$ 上局部地，
+我们可以找到虚线箭头！现在，与该图适配的虚线箭头所成的层，是在下述层作用下
+主齐性的：
+$$
+\mathcal{F} = \SheafHom_{\mathcal{O}_X}(
+\Coker(p^*K^{-1} \to p^*K^0), \mathcal{O}_{Y_n}(n - c))
+$$
+这是一个凝聚 $\mathcal{O}_X$-模。因此，寻找虚线箭头的障碍是
+$H^1(X, \mathcal{F})$ 中的一个元素。由于 $1 > d = 0$，该上同调群为零；
+见 $d = d(S)$ 的定义之后的讨论。这就证明了可以找到虚线箭头
+$\psi : p^*K^0 \to \mathcal{O}_{Y_n}(n - c)$
+与该图适配。由于 $n - c \geq q_0$，可知 $\psi$ 诱导映射
+$K^0 \to I^{n - c}/I^{2n - c}$。追图得到
+$\varphi' = \psi \circ \text{d}_K^{-1}$，证明如前完成。
+\end{proof}

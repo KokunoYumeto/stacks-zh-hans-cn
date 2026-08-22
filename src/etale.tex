@@ -1,0 +1,2347 @@
+% Generated mechanically from the frozen etale.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{40}
+\chapter{概形的平展（\'Etale）态射}
+
+
+\phantomsection
+\label{etale-section-phantom}
+
+
+
+
+\section{引言}
+\label{etale-section-introduction}
+
+\noindent
+本章讨论概形的平展（\'etale）态射。我们通过研究诺特情形来阐明其中若干较为重要的概念。
+主要目标是为读者汇集足够的交换代数结果，使其能够开始阅读平展（\'etale）上同调的专著。
+另一个辅助目标，则是给出足够的证据，使那些竟把“概形的平展（\'etale）拓扑”称作一般性
+胡言乱语的读者停止这种亵渎。
+
+\medskip\noindent
+对于代数几何中的标准结果（包括概形与交换代数方面的结果），我们将引用
+Stacks project 的其他章节。对于本章陈述的新结果，我们会给出详细证明。
+
+
+
+
+\section{约定}
+\label{etale-section-conventions}
+
+\noindent
+本章常常假设概形为局部诺特概形，也常常假设环为诺特环。不过，在每一项陈述中，
+我们都会在必要时重申这些假设，并确保列出全部条件。另一方面，下面是一些经常
+使用、值得牢记的一般事实：
+\begin{enumerate}
+\item 若 $A$ 为诺特环，则有限型环同态 $A \to B$ 是有限呈示的。见 Algebra,
+Lemma \ref{algebra-lemma-Noetherian-finite-type-is-finite-presentation}。
+\item 局部诺特概形之间（局部）有限型的态射自动是（局部）有限呈示的。
+见 Morphisms,
+Lemma \ref{morphisms-lemma-noetherian-finite-type-finite-presentation}。
+\item 此处还应增列更多类似事实。
+\end{enumerate}
+
+
+
+
+\section{非分歧态射}
+\label{etale-section-unramified-definition}
+
+\noindent
+我们先为诺特局部环定义“局部环的非分歧同态”。这里不能简单沿用“非分歧”
+一词，因为 Algebra, Section \ref{algebra-section-unramified} 中已经有非分歧
+环同态的概念，而两者并不相同。稍作讨论之后，我们将把这一概念整体化，
+以描述局部诺特概形之间的非分歧态射。
+
+\begin{definition}
+\label{etale-definition-unramified-rings}
+设 $A$、$B$ 为诺特局部环。若局部同态 $A \to B$ 满足
+\begin{enumerate}
+\item $\mathfrak m_AB = \mathfrak m_B$；
+\item $\kappa(\mathfrak m_B)$ 是 $\kappa(\mathfrak m_A)$ 的有限可分扩张；且
+\item $B$ 本质上是 $A$ 上的有限型代数（即 $B$ 是某个有限型
+$A$-代数在一个素理想处的局部化），
+\end{enumerate}
+则称它为{\it 局部环的非分歧同态}。
+\end{definition}
+
+\noindent
+这是 Algebra, Section \ref{algebra-section-unramified} 中定义的局部版本。
+该节把环同态 $R \to S$ 定义为非分歧的，当且仅当它是有限型的且
+$\Omega_{S/R} = 0$。若存在 $g \in S$、$g \not \in \mathfrak q$，
+使得 $R \to S_g$ 是非分歧环同态，则称 $R \to S$ 在素理想
+$\mathfrak q \subset S$ 处非分歧。Algebra, Lemmas
+\ref{algebra-lemma-unramified-at-prime} 和
+\ref{algebra-lemma-characterize-unramified} 证明了：给定有限型环同态
+$R \to S$，以及 $S$ 的素理想 $\mathfrak q$，它位于
+$\mathfrak p \subset R$ 之上，则有
+$$
+R \to S\text{ 在下列点非分歧： }\mathfrak q
+\Leftrightarrow
+\mathfrak pS_{\mathfrak q} = \mathfrak q S_{\mathfrak q}
+\text{ 且 }
+\kappa(\mathfrak p) \subset \kappa(\mathfrak q)\text{ 有限可分}
+$$
+因此，对于局部环之间的局部同态，上述定义中的性质与非分歧性密切相关。
+事实上，我们已经证明了下述引理。
+
+\begin{lemma}
+\label{etale-lemma-characterize-unramified-Noetherian}
+\begin{slogan}
+非分歧性是茎上的局部条件。
+\end{slogan}
+设 $A$ 为诺特环，且 $A \to B$ 为有限型同态。设 $\mathfrak q$ 是
+$B$ 的素理想，并位于 $\mathfrak p \subset A$ 之上。则
+$A \to B$ 在 $\mathfrak q$ 处非分歧，当且仅当
+$A_{\mathfrak p} \to B_{\mathfrak q}$ 是局部环的非分歧同态。
+\end{lemma}
+
+\begin{proof}
+见上面的讨论。
+\end{proof}
+
+\noindent
+下面用完备化刻画非分歧性。对于诺特局部环 $A$，以 $A^\wedge$
+表示 $A$ 关于其极大理想的完备化。它仍是诺特局部环，见 Algebra,
+Lemma \ref{algebra-lemma-completion-Noetherian-Noetherian}。
+
+\begin{lemma}
+\label{etale-lemma-unramified-completions}
+设 $A$、$B$ 为诺特局部环，且 $A \to B$ 为局部同态。
+\begin{enumerate}
+\item 若 $A \to B$ 是局部环的非分歧同态，则 $B^\wedge$ 是有限
+$A^\wedge$-模；
+\item 若 $A \to B$ 是局部环的非分歧同态，且
+$\kappa(\mathfrak m_A) = \kappa(\mathfrak m_B)$，则
+$A^\wedge \to B^\wedge$ 满射；
+\item 若 $A \to B$ 是局部环的非分歧同态，且
+$\kappa(\mathfrak m_A)$ 可分闭，则 $A^\wedge \to B^\wedge$ 满射；
+\item 若 $A$ 和 $B$ 是完备离散赋值环，则 $A \to B$ 是局部环的
+非分歧同态，当且仅当 $A$ 的一致化参数映为 $B$ 的一致化参数，
+剩余域扩张为有限可分扩张（并且 $B$ 本质上是 $A$ 上的有限型代数）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 是 Algebra, Lemma \ref{algebra-lemma-finite-after-completion}
+的特例。对于 (2)，注意 $\kappa(\mathfrak m_A)$-向量空间
+$B^\wedge/\mathfrak m_{A^\wedge}B^\wedge$ 由 $1$ 生成。
+因此，由 Nakayama 引理（Algebra, Lemma \ref{algebra-lemma-NAK}），
+映射 $A^\wedge \to B^\wedge$ 满射。(3) 是 (2) 的特例。
+(4) 直接由定义得到。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-characterize-unramified-completions}
+设 $A$、$B$ 为诺特局部环，并设 $A \to B$ 为局部同态，其中
+$B$ 本质上是 $A$ 上的有限型代数。下列条件等价：
+\begin{enumerate}
+\item $A \to B$ 是局部环的非分歧同态；
+\item $A^\wedge \to B^\wedge$ 是局部环的非分歧同态；且
+\item $A^\wedge \to B^\wedge$ 是非分歧环同态。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性来自如下事实：$\mathfrak m_AA^\wedge$ 是
+$A^\wedge$ 的极大理想（$B$ 也类似），而 $B \to B^\wedge$ 忠实平坦。
+例如，若 $A^\wedge \to B^\wedge$ 非分歧，则
+$\mathfrak m_AB^\wedge = (\mathfrak m_AB)B^\wedge = \mathfrak m_BB^\wedge$，
+因而 $\mathfrak m_AB = \mathfrak m_B$。
+
+\medskip\noindent
+假设等价条件 (1) 和 (2) 成立。由 Lemma
+\ref{etale-lemma-unramified-completions}，可知 $A^\wedge \to B^\wedge$
+是有限的。因此 $A^\wedge \to B^\wedge$ 是有限呈示的；再由
+Algebra, Lemma \ref{algebra-lemma-characterize-unramified}，可知
+$A^\wedge \to B^\wedge$ 在 $\mathfrak m_{B^\wedge}$ 处非分歧。
+由于 $B^\wedge$ 是局部环，可知 $A^\wedge \to B^\wedge$ 非分歧。
+
+\medskip\noindent
+假设 (3) 成立。由 Algebra, Lemma
+\ref{algebra-lemma-unramified-at-prime}，$A^\wedge \to B^\wedge$
+是局部环的非分歧同态，即 (2) 成立。
+\end{proof}
+
+\begin{definition}
+\label{etale-definition-unramified-schemes}
+（一般情形的定义见 Morphisms, Definition
+\ref{morphisms-definition-unramified}。）
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 为局部有限型态射，并设
+$x \in X$。
+\begin{enumerate}
+\item 若 $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ 是局部环的
+非分歧同态，则称 $f$ {\it 在 $x$ 处非分歧}。
+\item 若这一态射在 $X$ 的每一点都非分歧，则称态射
+$f : X \to Y$ {\it 非分歧}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面证明此定义与概形态射一章中的定义一致。特别地，这保证了一个态射的
+非分歧点所成集合是开集。
+
+\begin{lemma}
+\label{etale-lemma-unramified-definition}
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 为局部有限型态射，并设
+$x \in X$。则 $f$ 按 Definition
+\ref{etale-definition-unramified-schemes} 在 $x$ 处非分歧，当且仅当它按
+Morphisms, Definition \ref{morphisms-definition-unramified} 非分歧。
+\end{lemma}
+
+\begin{proof}
+这由 Lemma \ref{etale-lemma-characterize-unramified-Noetherian} 和定义得到。
+\end{proof}
+
+\noindent
+下面列出非分歧态射的一些结果。此处的表述仅适用于局部诺特概形之间的
+局部有限型态射。每一项都引用本项目先前证明的一般结果，不过其中一些结果
+在诺特情形下可以更容易地证明：
+\begin{enumerate}
+\item 非分歧性在源和目标上对于 Zariski 拓扑都是局部的。
+\item 非分歧态射在基变换与复合下稳定。见 Morphisms, Lemmas
+\ref{morphisms-lemma-base-change-unramified} 和
+\ref{morphisms-lemma-composition-unramified}。
+\item 概形的非分歧态射是局部拟有限的；拟紧的非分歧态射是拟有限的。
+见 Morphisms, Lemma \ref{morphisms-lemma-unramified-quasi-finite}。
+\item 非分歧态射的相对维数为 $0$。见 Morphisms, Definition
+\ref{morphisms-definition-relative-dimension-d} 和 Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}。
+\item 一个态射非分歧，当且仅当它的所有纤维均非分歧。换言之，
+可以在概形论纤维上检验非分歧性。见 Morphisms, Lemma
+\ref{morphisms-lemma-unramified-etale-fibres}。
+\item 设 $X$ 和 $Y$ 在基概形 $S$ 上非分歧。则从 $X$ 到 $Y$ 的任意
+$S$-态射都非分歧。见 Morphisms, Lemma
+\ref{morphisms-lemma-unramified-permanence}。
+\end{enumerate}
+
+\section{非分歧态射的另外三种刻画}
+\label{etale-section-three-other}
+
+\noindent
+下述定理给出态射在一点处非分歧的三种等价刻画。一般概形情形的（部分）陈述见
+Morphisms, Lemma \ref{morphisms-lemma-unramified-at-point}。
+
+\begin{theorem}
+\label{etale-theorem-unramified-equivalence}
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 为局部有限型概形态射，并设
+$x$ 为 $X$ 的一点。下列条件等价：
+\begin{enumerate}
+\item $f$ 在 $x$ 处非分歧；
+\item 相对微分模在 $x$ 处的茎 $\Omega_{X/Y, x}$ 为零；
+\item 存在 $x$ 的开邻域 $U$、$f(x)$ 的开邻域 $V$，以及交换图
+$$
+\xymatrix{
+U \ar[rr]_i \ar[rd] & & \mathbf{A}^n_V \ar[ld] \\
+& V
+}
+$$
+其中 $i$ 是由拟凝聚理想层 $\mathcal{I}$ 定义的闭浸入，并且
+$g \in \mathcal{I}_{i(x)}$ 的微分 $\text{d}g$ 生成
+$\Omega_{\mathbf{A}^n_V/V, i(x)}$；且
+\item 对角态射 $\Delta_{X/Y} : X \to X \times_Y X$ 在 $x$ 处为局部同构。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) 与 (2) 的等价性已在 Morphisms, Lemma
+\ref{morphisms-lemma-unramified-at-point} 中证明。
+
+\medskip\noindent
+若 $f$ 在 $x$ 处非分歧，则 $f$ 在 $x$ 的某个开邻域上非分歧；
+这一点不能直接由本章 Definition \ref{etale-definition-unramified-schemes}
+推出，但可以由 Morphisms, Definition
+\ref{morphisms-definition-unramified} 推出，而我们已在 Lemma
+\ref{etale-lemma-unramified-definition} 中证明两种定义等价。选取仿射开集
+$V \subset Y$、$U \subset X$，使得 $f(U) \subset V$、$x \in U$，
+并使 $f$ 在 $U$ 上非分歧，即 $f|_U : U \to V$ 非分歧。
+由 Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}，
+态射 $U \to U \times_V U$ 是开浸入。这证明了 (1) 蕴含 (4)。
+
+\medskip\noindent
+若 $\Delta_{X/Y}$ 在 $x$ 处为局部同构，则由 Morphisms, Lemma
+\ref{morphisms-lemma-differentials-diagonal}，
+$\Omega_{X/Y, x} = 0$。因此 (4) 蕴含 (2)。至此，(1)、(2) 与 (4)
+彼此等价。
+
+\medskip\noindent
+假设 (3) 成立。图表条件与 Morphisms, Lemma
+\ref{morphisms-lemma-differentials-relative-immersion} 一起表明
+$\Omega_{U/V, x} = 0$。由于 $\Omega_{U/V, x} = \Omega_{X/Y, x}$，
+可知 (2) 成立。
+
+\medskip\noindent
+最后假设 (2) 成立。为证明 (3)，可在 $X$ 和 $Y$ 上局部化，并假设
+$X$ 和 $Y$ 均为仿射概形。记 $X = \Spec(B)$、$Y = \Spec(A)$。
+点 $x \in X$ 对应于素理想 $\mathfrak q \subset B$。我们的假设为
+$\Omega_{B/A, \mathfrak q} = 0$（概形上的微分与交换代数中的微分模
+之间的关系见 Morphisms, Lemma
+\ref{morphisms-lemma-differentials-affine}）。由于 $Y$ 局部诺特且
+$f$ 局部有限型，可知 $A$ 是诺特环，并且
+$B \cong A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$；见 Properties,
+Lemma \ref{properties-lemma-locally-Noetherian} 和 Morphisms,
+Lemma \ref{morphisms-lemma-locally-finite-type-characterize}。
+特别地，$\Omega_{B/A}$ 是有限 $B$-模。因此可以找到一个
+$g \in B$、$g \not \in \mathfrak q$，使得主局部化
+$(\Omega_{B/A})_g$ 为零。于是用 $B_g$ 代替 $B$ 后，有
+$\Omega_{B/A} = 0$（微分模的形成与局部化交换，见 Algebra, Lemma
+\ref{algebra-lemma-differentials-localize}）。这意味着
+$\text{d}(f_j)$ 生成典范映射
+$\Omega_{A[x_1, \ldots, x_n]/A} \otimes_A B \to \Omega_{B/A}$
+的核。因此，$A$-代数的满射 $A[x_1, \ldots, x_n] \to B$
+给出 (3) 中的交换图，定理得证。
+\end{proof}
+
+\noindent
+这个定理如何使用？下面给出几点说明：
+\begin{enumerate}
+\item 设 $f : X \to Y$ 和 $g : Y \to Z$ 是局部诺特概形之间的两个
+局部有限型态射。存在典范短正合列
+$$
+f^*(\Omega_{Y/Z}) \to \Omega_{X/Z} \to \Omega_{X/Y} \to 0
+$$
+见 Morphisms, Lemma \ref{morphisms-lemma-triangle-differentials}。
+因此，该定理说明：若 $g \circ f$ 非分歧，则 $f$ 也非分歧。
+这正是 Morphisms, Lemma \ref{morphisms-lemma-unramified-permanence}。
+\item 由于 $\Omega_{X/Y}$ 同构于对角态射的余法层
+（Morphisms, Lemma \ref{morphisms-lemma-differentials-diagonal}），
+若 $X \to Y$ 是局部诺特概形之间的局部有限型单态射，则
+$X \to Y$ 非分歧。特别地，局部诺特概形的开浸入和闭浸入均非分歧。
+见 Morphisms, Lemmas
+\ref{morphisms-lemma-open-immersion-unramified} 和
+\ref{morphisms-lemma-closed-immersion-unramified}。
+\item 该定理还说明，局部诺特概形之间的局部有限型态射
+$f : X \to Y$ 的非非分歧点集合，正是凝聚层 $\Omega_{X/Y}$ 的支集。
+这使我们能够给“分歧轨迹”给出概形论定义。
+\end{enumerate}
+
+\section{非分歧态射的函子性刻画}
+\label{etale-section-functorial-unramified}
+
+\noindent
+在基础代数几何中，我们知道某些态射类可以通过函子性质来刻画，
+而且这类描述十分有用。非分歧态射也有这样的刻画。
+
+\begin{theorem}
+\label{etale-theorem-formally-unramified}
+设 $f : X \to S$ 为概形态射。假设 $S$ 是局部诺特概形，且 $f$
+局部有限型。则下列条件等价：
+\begin{enumerate}
+\item $f$ 非分歧；
+\item 态射 $f$ 形式非分歧：对于任意仿射 $S$-概形 $T$，以及由一个
+平方为零的理想定义的 $T$ 的子概形 $T_0$，自然映射
+$$
+\Hom_S(T, X) \longrightarrow \Hom_S(T_0, X)
+$$
+是单射。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+更一般的陈述与证明见 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-unramified-formally-unramified}。
+下面概述当前情形的证明。
+
+\medskip\noindent
+首先检验这两个性质在源和目标上都是局部的。因此可假设 $S$ 和 $X$
+均为仿射概形。记 $X = \Spec(B)$、$S = \Spec(R)$，并记
+$T = \Spec(C)$。设 $J$ 为 $C$ 的平方为零的理想，且
+$T_0 = \Spec(C/J)$。假设给定图表
+$$
+\xymatrix{
+& B \ar[d]^\phi \ar[rd]^{\bar{\phi}}
+& \\
+R \ar[r] \ar[ur] & C \ar[r]
+& C/J
+}
+$$
+其次，检验对应 $\phi' \mapsto \phi' - \phi$ 给出
+$\bar{\phi}$ 的提升集合与模 $\text{Der}_R(B, J)$ 之间的双射。
+由非分歧态射的微分模为零这一刻画，可得 (1) $\Rightarrow$ (2)；
+见 Theorem \ref{etale-theorem-unramified-equivalence}。
+
+\medskip\noindent
+为得到反向蕴含，考虑由平方为零的理想 $J = I/I^2$ 定义的满射
+$q : C = (B \otimes_R B)/I^2 \to B = C/J$，其中 $I$ 是乘法映射
+$B \otimes_R B \to B$ 的核。我们已有一个提升 $B \to C$，例如由
+$b \mapsto b \otimes 1$ 给出。于是，按照上面的同一论证，
+$\text{id} : B \to C/J$ 的提升与 $\text{Der}_R(B, J)$ 之间存在双射。
+因此假设蕴含后一模为零。但我们知道 $J \cong \Omega_{B/R}$。
+所以 $B/R$ 非分歧。
+\end{proof}
+
+
+
+\section{非分歧态射的拓扑性质}
+\label{etale-section-topological-unramified}
+
+\noindent
+第一个对我们有用的拓扑结果是：非分歧且分离的态射具有性质良好的截面。
+本节材料不需要任何诺特性假设。
+
+\begin{proposition}
+\label{etale-proposition-properties-sections}
+非分歧态射的截面。
+\begin{enumerate}
+\item 非分歧态射的任意截面都是开浸入。
+\item 分离态射的任意截面都是闭浸入。
+\item 非分歧分离态射的任意截面既开又闭。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+固定基概形 $S$。若 $f : X' \to X$ 是任意 $S$-态射，则图态射
+$\Gamma_f : X' \to X' \times_S X$ 是对角态射
+$\Delta_{X/S} : X \to X \times_S X$ 沿投影
+$X' \times_S X \to X \times_S X$ 的基变换。若
+$g : X \to S$ 分离（相应地，\ 非分歧），则由 Schemes, Definition
+\ref{schemes-definition-separated}（相应地，由 Morphisms, Lemma
+\ref{morphisms-lemma-diagonal-unramified-morphism}），对角态射是闭浸入
+（相应地，开浸入）。因此，作为基变换，图态射也是如此（见 Schemes,
+Lemma \ref{schemes-lemma-base-change-immersion}）。在特例
+$X' = S$ 中，分别得到 (1)，相应地\ 得到 (2)。结合 (1) 和 (2) 即得 (3)。
+\end{proof}
+
+\noindent
+现在可以明确描述非分歧态射的截面。
+
+\begin{theorem}
+\label{etale-theorem-sections-unramified-maps}
+设 $Y$ 为连通概形，且 $f : X \to Y$ 非分歧并分离。
+$f$ 的每个截面都给出到某个连通分支的同构。存在双射对应
+$$
+\text{下列对象的截面： }f
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{连通分支 }X'\text{ 属于 }X\text{ 使得}\\
+\text{诱导映射 }X' \to Y\text{ 为同构}
+\end{matrix}
+\right\}
+$$
+特别地，给定 $x \in X$，至多存在一个经过 $x$ 的截面。
+\end{theorem}
+
+\begin{proof}
+直接由 Proposition \ref{etale-proposition-properties-sections} 的 (3) 得到。
+\end{proof}
+
+\noindent
+上一定理让我们初步看到非分歧态射的“刚性”。下述命题提供了进一步说明；
+它本身很有意义，并且也用于代数基本群理论（见
+\cite[Expos\'e V]{SGA1}）。另见更一般的 Morphisms, Lemma
+\ref{morphisms-lemma-value-at-one-point}。
+
+\begin{proposition}
+\label{etale-proposition-equality}
+设 $S$ 为概形。设 $\pi : X \to S$ 非分歧并分离。设 $Y$ 为
+$S$-概形，$y \in Y$ 为一点。设 $f, g : Y \to X$ 为两个
+$S$-态射，并假设
+\begin{enumerate}
+\item $Y$ 连通；
+\item $x = f(y) = g(y)$；且
+\item 剩余域上的诱导映射
+$f^\sharp, g^\sharp : \kappa(x) \to \kappa(y)$ 相等。
+\end{enumerate}
+则 $f = g$。
+\end{proposition}
+
+\begin{proof}
+映射 $f, g : Y \to X$ 定义了映射
+$f', g' : Y \to X_Y = Y \times_S X$，它们都是结构映射
+$X_Y \to Y$ 的截面。注意 $f = g$ 当且仅当 $f' = g'$。
+结构映射 $X_Y \to Y$ 是 $\pi$ 的基变换，因而仍非分歧且分离
+（见 Morphisms, Lemmas \ref{morphisms-lemma-base-change-unramified}
+和 Schemes, Lemma \ref{schemes-lemma-separated-permanence}）。
+因此，由 Theorem \ref{etale-theorem-sections-unramified-maps}，只需证明
+$f'$ 与 $g'$ 经过 $X_Y$ 的同一点。这恰由假设 (2) 和 (3) 保证，
+即 $f'(y) = g'(y) \in X_Y$。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-finitely-many-maps-to-unramified}
+设 $S$ 为诺特概形。设 $X \to S$ 为拟紧非分歧态射。设
+$Y \to S$ 为态射，其中 $Y$ 诺特。则 $\Mor_S(Y, X)$ 是有限集。
+\end{lemma}
+
+\begin{proof}
+先假设 $X \to S$ 分离（实践中通常如此）。由于 $Y$ 诺特，
+它只有有限多个连通分支，故可假设 $Y$ 连通。选取点 $y \in Y$，
+其像为 $s \in S$。由于 $X \to S$ 非分歧且拟紧，纤维 $X_s$
+是有限的；记 $X_s = \{x_1, \ldots, x_n\}$，并且
+$\kappa(x_i)/\kappa(s)$ 是有限域扩张。见 Morphisms, Lemma
+\ref{morphisms-lemma-unramified-quasi-finite}、
+\ref{morphisms-lemma-residue-field-quasi-finite} 和
+\ref{morphisms-lemma-quasi-finite}。对于每个 $i$，
+$\kappa(s)$-代数同态 $\kappa(x_i) \to \kappa(y)$ 至多只有有限多个
+（由初等域论）。因此，由 Proposition \ref{etale-proposition-equality}，
+$\Mor_S(Y, X)$ 有限。
+
+\medskip\noindent
+一般情形。存在非空开集 $U \subset S$，使得 $X_U \to U$ 有限
+（特别地，分离）；见 Morphisms, Lemma
+\ref{morphisms-lemma-generically-finite}（该引理适用，因为我们已经
+看到拟紧非分歧态射是拟有限的，而且由 Morphisms, Lemma
+\ref{morphisms-lemma-finite-type-Noetherian-quasi-separated}，
+$X \to S$ 拟分离）。设 $Z \subset S$ 为支集等于 $U$ 的补集的
+既约闭子概形。由诺特归纳，$\Mor_Z(Y_Z, X_Z)$ 有限（略去细节）。
+由第一段的结果，集合 $\Mor_U(Y_U, X_U)$ 也有限。因此只需证明映射
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_Z(Y_Z, X_Z) \times \Mor_U(Y_U, X_U)
+$$
+是单射。两个态射 $a, b : Y \to X$ 相等的点集在 $Y$ 中是开集，
+因为 $\Delta : X \to X \times_S X$ 是开态射；见 Morphisms, Lemma
+\ref{morphisms-lemma-diagonal-unramified-morphism}。由此得到所需结论。
+\end{proof}
+
+
+
+
+
+
+
+\section{泛单射的非分歧态射}
+\label{etale-section-universally-injective-unramified}
+
+\noindent
+回忆：若概形态射 $f : X \to Y$ 的任意基变换在底拓扑空间上都是单射，
+则称 $f$ 泛单射；见 Morphisms, Definition
+\ref{morphisms-definition-universally-injective}。泛单射的非分歧态射
+可刻画如下。
+
+\begin{lemma}
+\label{etale-lemma-universally-injective-unramified}
+设 $f : X \to S$ 为概形态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 非分歧且为单态射；
+\item $f$ 非分歧且泛单射；
+\item $f$ 局部有限型且为单态射；
+\item $f$ 泛单射、局部有限型且形式非分歧；
+\item $f$ 局部有限型，并且对所有 $s \in S$，$X_s$ 或为空，
+或 $X_s \to s$ 为同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-unramified-formally-unramified} 已表明：
+形式非分歧且局部有限型等价于非分歧。因此 (4) 等价于 (2)。
+单态射显然泛单射且形式非分歧，故 (3) 蕴含 (4)。(1) 蕴含 (3)
+也很清楚。最后，若 (2) 成立，则
+$\Delta : X \to X \times_S X$ 既是开浸入
+（Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}）
+又是满射（Morphisms, Lemma
+\ref{morphisms-lemma-universally-injective}），因而是同构；也就是说，
+$f$ 是单态射。因此 (2) 蕴含 (1)。
+
+\medskip\noindent
+条件 (3) 蕴含 (5)，因为单态射在基变换下保持（Schemes, Lemma
+\ref{schemes-lemma-base-change-monomorphism}），并且 Schemes, Lemma
+\ref{schemes-lemma-mono-towards-spec-field} 描述了到域的谱的单态射。
+由 Morphisms, Lemmas \ref{morphisms-lemma-universally-injective} 和
+\ref{morphisms-lemma-unramified-etale-fibres}，条件 (5) 蕴含 (4)。
+\end{proof}
+
+\noindent
+由此得到闭浸入的如下有用刻画。
+
+\begin{lemma}
+\label{etale-lemma-characterize-closed-immersion}
+设 $f : X \to S$ 为概形态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 是闭浸入；
+\item $f$ 是固有单态射；
+\item $f$ 固有、非分歧且泛单射；
+\item $f$ 泛闭、非分歧且为单态射；
+\item $f$ 泛闭、非分歧且泛单射；
+\item $f$ 泛闭、局部有限型且为单态射；
+\item $f$ 泛闭、泛单射、局部有限型且形式非分歧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(4)--(7) 的等价性直接由 Lemma
+\ref{etale-lemma-universally-injective-unramified} 得到。
+
+\medskip\noindent
+设 $f : X \to S$ 满足 (6)。则 $f$ 分离，见 Schemes, Lemma
+\ref{schemes-lemma-monomorphism-separated}，并且其纤维有限。
+因此 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-characterize-finite} 表明 $f$ 有限。
+于是 Morphisms, Lemma \ref{morphisms-lemma-finite-monomorphism-closed}
+蕴含 $f$ 是闭浸入，即 (1) 成立。
+
+\medskip\noindent
+注意 (1) $\Rightarrow$ (2)，因为闭浸入是固有单态射
+（Morphisms, Lemma \ref{morphisms-lemma-closed-immersion-proper}
+及 Schemes, Lemma \ref{schemes-lemma-immersions-monomorphisms}）。
+由 Lemma \ref{etale-lemma-universally-injective-unramified} 可知 (2) 蕴含
+(3)，而 (3) 蕴含 (5) 是显然的。
+\end{proof}
+
+\noindent
+下面是另一个性质相近的结果。
+
+\begin{lemma}
+\label{etale-lemma-finite-unramified-one-point}
+设 $\pi : X \to S$ 为概形态射，$s \in S$。假设
+\begin{enumerate}
+\item $\pi$ 有限；
+\item $\pi$ 非分歧；
+\item $\pi^{-1}(\{s\}) = \{x\}$；且
+\item $\kappa(s) \subset \kappa(x)$ 为纯不可分扩张
+\footnote{由条件 (2)，这等价于 $\kappa(s) = \kappa(x)$。}。
+\end{enumerate}
+则存在 $s$ 的开邻域 $U$，使得
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+这一问题在 $S$ 上是局部的，故可假设 $S = \Spec(A)$。由有限态射的定义，
+这蕴含 $X = \Spec(B)$。注意，定义 $\pi$ 的环同态
+$\varphi : A \to B$ 是有限非分歧环同态。设
+$\mathfrak p \subset A$ 为对应于 $s$ 的素理想，设
+$\mathfrak q \subset B$ 为对应于 $x$ 的素理想。条件 (2)、(3) 和 (4)
+蕴含 $B_{\mathfrak q}/\mathfrak pB_{\mathfrak q} = \kappa(\mathfrak p)$。
+由 Algebra, Lemma \ref{algebra-lemma-unique-prime-over-localize-below}，
+$B_{\mathfrak q} = B_{\mathfrak p}$（注意有限环同态满足上升性质，见
+Algebra, Section \ref{algebra-section-going-up}）。因此
+$B_{\mathfrak p}/\mathfrak pB_{\mathfrak p} = \kappa(\mathfrak p)$。
+由于 $B$ 是有限 $A$-模，由 Nakayama 引理（见 Algebra, Lemma
+\ref{algebra-lemma-NAK}）可知
+$B_{\mathfrak p} = \varphi(A_{\mathfrak p})$。再次利用 $B$ 作为
+$A$-模的有限性，存在 $f \in A$、$f \not \in \mathfrak p$，使得
+$B_f = \varphi(A_f)$，如所需。
+\end{proof}
+
+\noindent
+以上拓扑结果将用于给出平展（\'etale）态射的函子性刻画，
+类似于 Theorem \ref{etale-theorem-formally-unramified}。
+
+
+
+
+\section{非分歧态射的例子}
+\label{etale-section-examples}
+
+\noindent
+下面给出几个例子。
+
+\begin{example}
+\label{etale-example-etale-field-extensions}
+设 $k$ 为域。拟紧非分歧态射 $X \to \Spec(k)$ 是仿射的。
+这是因为 $X$ 维数为 $0$ 且诺特，因而是有限离散集；每一点都给出一个
+仿射开集，所以 $X$ 是有限多个仿射概形的不交并，故为仿射概形。
+诺特正规化迫使 $X$ 成为有限 $k$-代数 $A$ 的谱。该代数是 $k$ 的
+有限可分域扩张的乘积。因此，到 $\Spec(k)$ 的拟紧非分歧态射对应于
+有限多个 $k$ 的有限可分域扩张。特别地，源连通而目标只有一点的
+非分歧态射必为有限可分域扩张。稍后将看到，
+$X \to \Spec(k)$ 平展（\'etale）当且仅当它非分歧。因此至少在此情形，
+我们得到概形平展（\'etale）拓扑的极为简单的描述。当然，该拓扑的上同调
+则是另一回事。
+\end{example}
+
+\begin{example}
+\label{etale-example-standard-etale}
+Theorem \ref{etale-theorem-unramified-equivalence} 中的性质 (3)
+为非分歧态射提供了一类典范例子。固定环 $R$ 与整数 $n$。
+设 $I = (g_1, \ldots, g_m)$ 是 $R[x_1, \ldots, x_n]$ 中的理想。
+设 $\mathfrak q \subset R[x_1, \ldots, x_n]$ 为素理想。假设
+$I \subset \mathfrak q$，且矩阵
+$$
+\left(\frac{\partial g_i}{\partial x_j}\right) \bmod \mathfrak q
+\quad\in\quad
+\text{Mat}(n \times m, \kappa(\mathfrak q))
+$$
+的秩为 $n$。则态射
+$f : Z = \Spec(R[x_1, \ldots, x_n]/I) \to \Spec(R)$
+在对应于 $\mathfrak q$ 的点 $x \in Z \subset \mathbf{A}^n_R$
+处非分歧。显然必须有 $m \geq n$。在极端情形 $m = n$ 下，
+即由各 $g_i$ 定义的映射
+$\mathbf{A}^n_R \to \mathbf{A}^n_R$ 的微分给出切空间的同构时，
+$f$ 在 $x$ 处也平坦，因而是平展（\'etale）态射（见 Algebra,
+Definition \ref{algebra-definition-standard-smooth}、Lemma
+\ref{algebra-lemma-standard-smooth} 和 Example
+\ref{algebra-example-make-standard-smooth}）。
+\end{example}
+
+\begin{example}
+\label{etale-example-number-theory-etale}
+固定数域扩张 $L/K$，其整数环分别为 $\mathcal{O}_L$ 与
+$\mathcal{O}_K$。嵌入 $K \to L$ 定义态射
+$f : \Spec(\mathcal{O}_L) \to \Spec(\mathcal{O}_K)$。
+如上所述，按本章意义 $f$ 非分歧的点，恰对应于按经典意义 $f$
+非分歧的点。按经典意义，$\Spec(\mathcal{O}_L)$ 中的分歧轨迹可由
+不同理想的零点集定义；它是 $\mathcal{O}_L$ 中的理想。事实上，
+不同理想正是模 $\Omega_{\mathcal{O}_L/\mathcal{O}_K}$ 的零化子。
+类似地，判别式是 $\mathcal{O}_K$ 中的理想，即不同理想的范数。
+判别式的零点集恰为 $K$ 中在 $L$ 内分歧的点集。因此，记 $X$
+为 $\Spec(\mathcal{O}_L)$ 中由不同理想定义的闭子集之补，
+便得到非分歧态射 $X \to \Spec(\mathcal{O}_K)$。此外，该态射也平坦，
+因为离散赋值环之间的任意局部同态都是平坦的，所以它实际上平展
+（\'etale）。若 $L/K$ 为有限 Galois 扩张，并记 $Y$ 为
+$\Spec(\mathcal{O}_K)$ 中由判别式定义的闭子集之补，则甚至得到有限
+平展（\'etale）态射 $X \to Y$。因此，这是有限平展（\'etale）覆盖的例子。
+\end{example}
+
+
+
+
+
+\section{平坦态射}
+\label{etale-section-flat-morphisms}
+
+\noindent
+本节只用于汇总后文所需的平坦性性质。因此，我们满足于精确陈述各定理，
+并给出证明的参考文献。
+
+\medskip\noindent
+先简要回顾诺特环上平坦模的必要事实，随后陈述 Grothendieck 的一个定理；
+它给出某些模的“超平面截面”平坦的充分条件。
+
+\begin{definition}
+\label{etale-definition-flat-rings}
+模与环的平坦性。
+\begin{enumerate}
+\item 设 $N$ 是环 $A$ 上的模。若函子 $M \mapsto M \otimes_A N$
+正合，则称该模{\it 平坦}。
+\item 若该函子还忠实，则称 $N$ 在 $A$ 上{\it 忠实平坦}。
+\item 若环同态 $f : A \to B$ 所定义的函子
+$M \mapsto M \otimes_A B$ 正合（相应地，忠实且正合），则称
+该同态{\it 平坦（相应地，忠实平坦）}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面列出若干事实，并给出代数一章中的参考文献。
+\begin{enumerate}
+\item 自由模与投射模都是平坦模。对于自由模这是显然的；对于投射模，
+这来自它们是自由模的直和因子，以及 $\otimes$ 与直和交换。
+\item 平坦性是局部性质；也就是说，$M$ 在 $A$ 上平坦，当且仅当对所有
+$\mathfrak p \in \Spec(A)$，$M_{\mathfrak p}$ 在
+$A_{\mathfrak p}$ 上平坦。见 Algebra, Lemma
+\ref{algebra-lemma-flat-localization}。
+\item 若 $M$ 是平坦 $A$-模，且 $A \to B$ 是环同态，则
+$M \otimes_A B$ 是平坦 $B$-模。见 Algebra, Lemma
+\ref{algebra-lemma-flat-base-change}。
+\item 局部环上的有限平坦模是自由模。见 Algebra, Lemma
+\ref{algebra-lemma-finite-flat-local}。
+\item 若 $f : A \to B$ 是任意环之间的同态，则 $f$ 平坦，当且仅当
+对所有 $\mathfrak q \in \Spec(B)$，诱导映射
+$A_{f^{-1}(\mathfrak q)} \to B_{\mathfrak q}$ 平坦。见 Algebra,
+Lemma \ref{algebra-lemma-flat-localization}。
+\item 若 $f : A \to B$ 是局部环之间的局部同态，则 $f$ 平坦，当且仅当
+它忠实平坦。见 Algebra, Lemma \ref{algebra-lemma-local-flat-ff}。
+\item 环同态 $A \to B$ 忠实平坦，当且仅当它平坦且诱导的谱上态射满射。
+见 Algebra, Lemma \ref{algebra-lemma-ff-rings}。
+\item 若 $A$ 是诺特局部环，则完备化 $A^\wedge$ 在 $A$ 上忠实平坦。
+见 Algebra, Lemma \ref{algebra-lemma-completion-faithfully-flat}。
+\item 设 $A$ 为诺特局部环，$M$ 为 $A$-模。则 $M$ 在 $A$ 上平坦，
+当且仅当 $M \otimes_A A^\wedge$ 在 $A^\wedge$ 上平坦。
+（结合上一项与 Algebra, Lemma \ref{algebra-lemma-flatness-descends}。）
+\end{enumerate}
+在转向几何范畴之前，先给出 Grothendieck 定理；它提供了一种构造平坦模的
+便利方法。
+
+\begin{theorem}
+\label{etale-theorem-flatness-grothendieck}
+设 $A$、$B$ 为诺特局部环，$f : A \to B$ 为局部同态。
+设 $M$ 为有限 $B$-模，并且作为 $A$-模是平坦的。若
+$t \in \mathfrak m_B$，且乘以 $t$ 在 $M/\mathfrak m_AM$ 上是单射，
+则 $M/tM$ 也是平坦 $A$-模。
+\end{theorem}
+
+\begin{proof}
+见 Algebra, Lemma \ref{algebra-lemma-mod-injective}。另见
+\cite[Section 20]{MatCA}。
+\end{proof}
+
+\begin{definition}
+\label{etale-definition-flat-schemes}
+（见 Morphisms, Definition \ref{morphisms-definition-flat}。）
+设 $f : X \to Y$ 为概形态射，$\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。
+\begin{enumerate}
+\item 设 $x \in X$。若 $\mathcal{F}_x$ 是平坦
+$\mathcal{O}_{Y, f(x)}$-模，则称 $\mathcal{F}$
+{\it 在 $x \in X$ 处关于 $Y$ 平坦}。这里借助映射
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$，把
+$\mathcal{F}_x$ 看作 $\mathcal{O}_{Y, f(x)}$-模。
+\item 设 $x \in X$。若
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ 平坦，则称 $f$
+{\it 在 $x \in X$ 处平坦}。
+\item 若该态射在 $X$ 的所有点处平坦，则称 $f$ {\it 平坦}。
+\item 平坦且满射的态射 $f : X \to Y$ 有时称为{\it 忠实平坦}态射。
+\end{enumerate}
+\end{definition}
+
+\noindent
+再列出若干结果：
+\begin{enumerate}
+\item 按定义，态射的平坦性在源和目标上对于 Zariski 拓扑都是局部性质。
+\item 开浸入平坦（这是显然的，因为它在局部环上诱导同构）。
+\item 平坦态射在基变换与复合下稳定。见 Morphisms, Lemmas
+\ref{morphisms-lemma-base-change-flat} 和
+\ref{morphisms-lemma-composition-flat}。
+\item 若 $f : X \to Y$ 平坦，则拉回函子
+$\QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_X)$ 正合。
+考察各茎即可立即得到这一点。
+\item 设 $f : X \to Y$ 为概形态射，并假设 $Y$ 拟紧且拟分离。
+在此情形，若函子 $f^*$ 正合，则 $f$ 平坦。（略去证明。提示：
+利用 Properties, Lemma \ref{properties-lemma-extend-trivial}
+说明 $Y$ 有“足够多”的理想层，再使用 Algebra, Lemma
+\ref{algebra-lemma-flat} 中的平坦性刻画。）
+\end{enumerate}
+
+
+
+\section{平坦态射的拓扑性质}
+\label{etale-section-topological-flat}
+
+\noindent
+下面“回顾”平坦态射所具有的一些开性性质。
+
+\begin{theorem}
+\label{etale-theorem-flat-open}
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 为局部有限型态射，
+$\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。则 $X$ 中
+$\mathcal{F}$ 关于 $Y$ 平坦的点所成集合是开集。特别地，
+$f$ 的平坦点集在 $X$ 中是开集。
+\end{theorem}
+
+\begin{proof}
+见 More on Morphisms, Theorem
+\ref{more-morphisms-theorem-openness-flatness}。
+\end{proof}
+
+\begin{theorem}
+\label{etale-theorem-flat-map-open}
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 为平坦局部有限型态射。
+则 $f$ 泛开。
+\end{theorem}
+
+\begin{proof}
+见 Morphisms, Lemma \ref{morphisms-lemma-fppf-open}。
+\end{proof}
+
+\begin{theorem}
+\label{etale-theorem-flat-is-quotient}
+忠实平坦拟紧态射对于 Zariski 拓扑是商映射。
+\end{theorem}
+
+\begin{proof}
+见 Morphisms, Lemma \ref{morphisms-lemma-fpqc-quotient-topology}。
+\end{proof}
+
+\noindent
+研究平坦态射的一个重要原因是：它们为刻画由另一概形的点参数化的概形族
+提供了适当框架。朴素地看，任意态射 $f : X \to S$ 都可视为由 $S$ 的点
+参数化的族。然而，若不要求 $f$ 平坦，这个所谓的族可能出现非常反常的现象。
+例如，族中的相对维数（纤维的维数）未必恒定；Hilbert 多项式等其他数值不变量
+也可能随纤维而改变。平坦性排除了这类现象，从而赋予纤维某种“连续性”。
+
+
+\section{平展（\'Etale）态射}
+\label{etale-section-etale-morphisms}
+
+\noindent
+本节定义平展（\'etale）态射，并证明它们的一系列重要性质。其中无疑最重要的
+是 Theorem \ref{etale-theorem-formally-etale} 中的函子性刻画。随后还将讨论若干
+对平展（\'etale）扩张不敏感的环性质（即一个环具有这些性质，当且仅当其所有
+平展（\'etale）扩张都具有这些性质），以说明平展（\'etale）上同调的基本信条：
+平展（\'etale）态射是局部同构的代数对应物。
+
+\medskip\noindent
+如标题所示，我们将定义平展（\'etale）态射类。为了定义基概形 $S$ 上概形范畴
+中的平展（\'etale）站点 $S_\etale$，我们把这类态射的满射族视为覆盖。
+直观上，平展（\'etale）态射应当表达覆盖空间的观念，因此应接近局部同构。
+对于代数闭域上的簇，只要把“局部同构”替换为“形式局部同构”（即完备化后的
+同构），这一说法就可作为定义。随后可对任意基域规定：到代数闭包的基变换按
+上述意义平展（\'etale）。不过，我们不采用这种审美上不尽如人意的构造，
+而采用更简洁、虽略为抽象的代数方法。
+
+\medskip\noindent
+首先为诺特局部环定义“局部环的平展（\'etale）同态”。这里不能直接使用
+“平展（\'etale）”一词，因为 Algebra, Section
+\ref{algebra-section-etale} 中已有平展（\'etale）环同态的概念，
+而两者并不相同。
+
+\begin{definition}
+\label{etale-definition-etale-ring}
+设 $A$、$B$ 为诺特局部环。若局部同态 $f : A \to B$ 平坦，
+并且是局部环的非分歧同态（见 Definition
+\ref{etale-definition-unramified-rings}），则称它为
+{\it 局部环的平展（\'etale）同态}。
+\end{definition}
+
+\noindent
+这是 Algebra, Section \ref{algebra-section-etale} 中平展（\'etale）
+环同态定义的局部版本。该节的精确定义是相对维数为 $0$ 的光滑环同态。
+Algebra, Lemma \ref{algebra-lemma-etale-standard-smooth} 证明：
+平展（\'etale）$R$-代数 $S$ 总有呈示
+$$
+S = R[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+使得
+$$
+g =
+\det
+\left(
+\begin{matrix}
+\partial f_1/\partial x_1 &
+\partial f_2/\partial x_1 &
+\ldots &
+\partial f_n/\partial x_1 \\
+\partial f_1/\partial x_2 &
+\partial f_2/\partial x_2 &
+\ldots &
+\partial f_n/\partial x_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+\partial f_1/\partial x_n &
+\partial f_2/\partial x_n &
+\ldots &
+\partial f_n/\partial x_n
+\end{matrix}
+\right)
+$$
+在 $S$ 中的像可逆。下面两个引理联系这两种概念。
+
+\begin{lemma}
+\label{etale-lemma-characterize-etale-Noetherian}
+设 $A$ 为诺特环，$A \to B$ 为有限型同态。设 $\mathfrak q$ 为
+$B$ 的素理想，并位于 $\mathfrak p \subset A$ 之上。则
+$A \to B$ 在 $\mathfrak q$ 处平展（\'etale），当且仅当
+$A_{\mathfrak p} \to B_{\mathfrak q}$ 是局部环的平展（\'etale）同态。
+\end{lemma}
+
+\begin{proof}
+见 Algebra, Lemmas \ref{algebra-lemma-etale}（平展（\'etale）同态平坦）、
+\ref{algebra-lemma-etale-at-prime}（平展（\'etale）同态非分歧）和
+\ref{algebra-lemma-characterize-etale}（平坦非分歧同态平展（\'etale））。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-characterize-etale-completions}
+设 $A$、$B$ 为诺特局部环。设 $A \to B$ 为局部同态，并且 $B$
+本质上是 $A$ 上的有限型代数。下列条件等价：
+\begin{enumerate}
+\item $A \to B$ 是局部环的平展（\'etale）同态；
+\item $A^\wedge \to B^\wedge$ 是局部环的平展（\'etale）同态；且
+\item $A^\wedge \to B^\wedge$ 是平展（\'etale）环同态。
+\end{enumerate}
+此外，在此情形，对某个 $n \geq 1$，作为 $A^\wedge$-模有
+$B^\wedge \cong (A^\wedge)^{\oplus n}$。
+\end{lemma}
+
+\begin{proof}
+关于非分歧环同态，我们已有对应结果（Lemma
+\ref{etale-lemma-characterize-unramified-completions}）。因此，为证明
+(1)、(2)、(3) 等价，只需证明 $A \to B$ 平坦，当且仅当
+$A^\wedge \to B^\wedge$ 平坦。根据上面列出的平坦同态性质，这是显然的，
+因为环同态 $A \to A^\wedge$ 和 $B \to B^\wedge$ 都忠实平坦。
+对于最后一项陈述，由 Lemma \ref{etale-lemma-unramified-completions}，
+$B^\wedge$ 是有限平坦 $A^\wedge$-模。因此，根据 Section
+\ref{etale-section-flat-morphisms} 中列出的平坦模性质，它是有限自由模。
+\end{proof}
+
+\noindent
+上引理中的整数 $n$ 正是剩余域扩张的次数
+$[\kappa(\mathfrak m_B) : \kappa(\mathfrak m_A)]$。特别地，若
+$\kappa(\mathfrak m_A)$ 可分闭，则 $A^\wedge \to B^\wedge$
+是同构，这也证实了前面的说法。
+
+\begin{definition}
+\label{etale-definition-etale-schemes-1}
+（见 Morphisms, Definition \ref{morphisms-definition-etale}。）
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 为局部有限型概形态射。
+\begin{enumerate}
+\item 设 $x \in X$。若
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ 是局部环的
+平展（\'etale）同态，则称 $f$ {\it 在 $x \in X$ 处平展（\'etale）}。
+\item 若该态射在所有点处都平展（\'etale），则称它{\it 平展（\'etale）}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面证明此定义与概形态射一章中的定义一致。特别地，这保证了一个态射的
+平展（\'etale）点所成集合是开集。
+
+\begin{lemma}
+\label{etale-lemma-etale-definition}
+设 $Y$ 为局部诺特概形，$f : X \to Y$ 局部有限型，并设
+$x \in X$。则态射 $f$ 按 Definition \ref{etale-definition-etale-schemes-1}
+在 $x$ 处平展（\'etale），当且仅当它按 Morphisms, Definition
+\ref{morphisms-definition-etale} 在 $x$ 处平展（\'etale）。
+\end{lemma}
+
+\begin{proof}
+这由 Lemma \ref{etale-lemma-characterize-etale-Noetherian} 和定义得到。
+\end{proof}
+
+\noindent
+下面列出平展（\'etale）态射的一些结果。此处表述仅适用于局部诺特概形之间的
+局部有限型态射。每一项都给出本项目先前证明的一般结果作为参考，不过其中
+一些结果在诺特情形下可更容易地证明：
+\begin{enumerate}
+\item 平展（\'etale）态射非分歧（由定义即得）。
+\item 平展（\'Etale）性在源和目标上对于 Zariski 拓扑都是局部的。
+\item 平展（\'Etale）态射在基变换与复合下稳定。见 Morphisms, Lemmas
+\ref{morphisms-lemma-base-change-etale} 和
+\ref{morphisms-lemma-composition-etale}。
+\item 概形的平展（\'Etale）态射局部拟有限；拟紧平展（\'etale）态射
+拟有限（因为前面已知非分歧态射具有这一性质）。
+\item 平展（\'Etale）态射的相对维数为 $0$。见 Morphisms, Definition
+\ref{morphisms-definition-relative-dimension-d} 和 Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}。
+\item 一个态射平展（\'etale），当且仅当它平坦且所有纤维都平展
+（\'etale）。见 Morphisms, Lemma
+\ref{morphisms-lemma-etale-flat-etale-fibres}。
+\item 平展（\'Etale）态射是开态射。这是因为平展（\'etale）态射平坦，
+再应用 Theorem \ref{etale-theorem-flat-map-open}。
+\item 设 $X$ 和 $Y$ 在基概形 $S$ 上平展（\'etale）。
+则从 $X$ 到 $Y$ 的任意 $S$-态射都平展（\'etale）。见 Morphisms,
+Lemma \ref{morphisms-lemma-etale-permanence}。
+\end{enumerate}
+
+
+
+
+
+
+\section{结构定理}
+\label{etale-section-structure-etale-map}
+
+\noindent
+下面给出描述平展（\'etale）态射与非分歧态射局部结构的定理。
+除其本身显然重要外，这一定理还使我们能够转向平展（\'etale）态射的
+另一种定义；与目前使用的定义相比，它更能体现几何直观。
+
+\medskip\noindent
+为陈述定理，需要{\it 标准平展（\'etale）环同态}的概念，见 Algebra,
+Definition \ref{algebra-definition-standard-etale}。具体地，设 $R$ 为环，
+$f, g \in R[t]$ 为多项式，并满足
+\begin{enumerate}
+\item[(a)] $f$ 为首一多项式；且
+\item[(b)] $f' = \text{d}f/\text{d}t$ 在局部化 $R[t]_g/(f)$ 中可逆。
+\end{enumerate}
+则同态
+$$
+R \longrightarrow R[t]_g/(f) = R[t, 1/g]/(f)
+$$
+给出标准平展（\'etale）代数；任意标准平展（\'etale）代数都同构于这种
+代数之一。证明这类环同态平坦、非分歧，因而平展（\'etale），是一个愉快的
+练习（这当然正如所料）。标准平展（\'etale）环同态的一个特例是任意同态
+$$
+R \longrightarrow R[t]_{f'}/(f) = R[t, 1/f']/(f)
+$$
+其中 $f$ 为首一多项式；任意标准平展（\'etale）代数都同构于其中某个代数的
+主局部化。
+
+\begin{theorem}
+\label{etale-theorem-structure-etale}
+设 $f : A \to B$ 为局部环的平展（\'etale）同态。则存在
+$f, g \in A[t]$，使得
+\begin{enumerate}
+\item $B' = A[t]_g/(f)$ 是标准平展（\'etale）代数，见上面的 (a)、(b)；且
+\item $B$ 同构于 $B'$ 在某个素理想处的局部化。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+取某个有限型 $A$-代数 $B'$，使其在素理想处的局部化为
+$B = B'_{\mathfrak q}$（这是因为 $B$ 本质上是 $A$ 上的有限型代数）。
+由 Lemma \ref{etale-lemma-characterize-etale-Noetherian}，$A \to B'$
+在 $\mathfrak q$ 处平展（\'etale）。应用 Algebra, Proposition
+\ref{algebra-proposition-etale-locally-standard}，可知 $B'$ 的某个
+主局部化是标准平展（\'etale）代数。
+\end{proof}
+
+\noindent
+下面是局部环的非分歧同态版本。
+
+\begin{theorem}
+\label{etale-theorem-structure-unramified}
+设 $f : A \to B$ 为局部环的非分歧态射。则存在 $f, g \in A[t]$，使得
+\begin{enumerate}
+\item $B' = A[t]_g/(f)$ 是标准平展（\'etale）代数，见上面的 (a)、(b)；且
+\item $B$ 同构于 $B'$ 在某个素理想处局部化所得环的商。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+取某个有限型 $A$-代数 $B'$，使其在素理想处的局部化为
+$B = B'_{\mathfrak q}$（这是因为 $B$ 本质上是 $A$ 上的有限型代数）。
+由 Lemma \ref{etale-lemma-characterize-unramified-Noetherian}，$A \to B'$
+在 $\mathfrak q$ 处非分歧。应用 Algebra, Proposition
+\ref{algebra-proposition-unramified-locally-standard}，可知 $B'$
+的某个主局部化是标准平展（\'etale）$A$-代数的商。
+\end{proof}
+
+\noindent
+再通过标准提升论证，得到下面这个对后文至关重要的几何陈述。
+
+\begin{theorem}
+\label{etale-theorem-geometric-structure}
+设 $\varphi : X \to Y$ 为概形态射，$x \in X$。设 $V \subset Y$
+为 $\varphi(x)$ 的仿射开邻域。若 $\varphi$ 在 $x$ 处平展
+（\'etale），则存在仿射开集 $U \subset X$，满足 $x \in U$ 与
+$\varphi(U) \subset V$，并有图表
+$$
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \ar[r]_-j & \Spec(R[t]_{f'}/(f)) \ar[d] \\
+Y & V \ar[l] \ar@{=}[r] & \Spec(R)
+}
+$$
+其中 $j$ 是开浸入，$f \in R[t]$ 为首一多项式。
+\end{theorem}
+
+\begin{proof}
+这等价于 Morphisms, Lemma
+\ref{morphisms-lemma-etale-locally-standard-etale}，尽管两个陈述略有差异。
+另见 Varieties, Lemma
+\ref{varieties-lemma-geometric-structure-unramified} 中非分歧态射的变体。
+\end{proof}
+
+
+\section{平展（\'Etale）态射与光滑态射}
+\label{etale-section-etale-smooth}
+
+\noindent
+平展（\'etale）态射是相对维数为零的光滑态射。投影
+$\mathbf{A}^n_S \to S$ 是相对维数为 $n$ 的光滑态射的标准例子。
+事实上，任意光滑态射在平展（\'etale）局部都具有这种形式。
+精确陈述如下。
+
+\begin{theorem}
+\label{etale-theorem-smooth-etale-over-n-space}
+设 $\varphi : X \to Y$ 为概形态射，$x \in X$。若 $\varphi$
+在 $x$ 处光滑，则存在整数 $n \geq 0$ 以及仿射开集
+$V \subset Y$、$U \subset X$，满足 $x \in U$ 与
+$\varphi(U) \subset V$，并存在交换图
+$$
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \ar[r]_-\pi &
+\mathbf{A}^n_R \ar[d] \ar@{=}[r] &  \Spec(R[x_1, \ldots, x_n]) \ar[dl] \\
+Y & V \ar[l] \ar@{=}[r] & \Spec(R)
+}
+$$
+其中 $\pi$ 平展（\'etale）。
+\end{theorem}
+
+\begin{proof}
+见 Morphisms, Lemma
+\ref{morphisms-lemma-smooth-etale-over-affine-space}。
+\end{proof}
+
+
+
+
+\section{平展（\'Etale）态射的拓扑性质}
+\label{etale-section-topological-etale}
+
+\noindent
+下面给出平展（\'etale）态射与非分歧态射的一些拓扑性质。首先给出
+Grothendieck 所称的{\it 平展（\'etale）态射的基本性质}，见
+\cite[Expos\'e I.5]{SGA1}。
+
+\begin{theorem}
+\label{etale-theorem-etale-radicial-open}
+设 $f : X \to Y$ 为概形态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 是开浸入；
+\item $f$ 泛单射且平展（\'etale）；且
+\item $f$ 是局部有限呈示的平坦单态射。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+开浸入泛单射，因为开浸入的任意基变换仍是开浸入。此外，由 Morphisms,
+Lemma \ref{morphisms-lemma-open-immersion-etale}，它平展
+（\'etale）。故 (1) 蕴含 (2)。
+
+\medskip\noindent
+假设 $f$ 泛单射且平展（\'etale）。由于 $f$ 平展（\'etale），
+它平坦且局部有限呈示；见 Morphisms, Lemmas
+\ref{morphisms-lemma-etale-flat} 和
+\ref{morphisms-lemma-etale-locally-finite-presentation}。
+由 Lemma \ref{etale-lemma-universally-injective-unramified}，$f$ 是单态射。
+故 (2) 蕴含 (3)。
+
+\medskip\noindent
+假设 $f$ 平坦、局部有限呈示且为单态射。由 Morphisms, Lemma
+\ref{morphisms-lemma-fppf-open}，$f$ 是开态射。因此可用 $f(X)$
+代替 $Y$，并假设 $f$ 满射。此时 $f$ 既开又双射，因而是同胚；
+于是 $f$ 拟紧。Descent, Lemma
+\ref{descent-lemma-flat-surjective-quasi-compact-monomorphism-isomorphism}
+表明 $f$ 是同构，结论得证。
+\end{proof}
+
+\noindent
+下面是另一个性质相近的结果。
+
+\begin{lemma}
+\label{etale-lemma-finite-etale-one-point}
+设 $\pi : X \to S$ 为概形态射，$s \in S$。假设
+\begin{enumerate}
+\item $\pi$ 有限；
+\item $\pi$ 平展（\'etale）；
+\item $\pi^{-1}(\{s\}) = \{x\}$；且
+\item $\kappa(s) \subset \kappa(x)$ 为纯不可分扩张
+\footnote{由条件 (2)，这等价于 $\kappa(s) = \kappa(x)$。}。
+\end{enumerate}
+则存在 $s$ 的开邻域 $U$，使得
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ 是同构。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{etale-lemma-finite-unramified-one-point}，存在 $s$ 的开邻域
+$U$，使得 $\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ 是闭浸入。
+但平展（\'etale）的闭浸入是开浸入（例如由 Theorem
+\ref{etale-theorem-etale-radicial-open}）。因此缩小 $U$ 后得到同构。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-relative-frobenius-etale}
+设 $U \to X$ 为平展（\'etale）概形态射，其中 $X$ 是特征 $p$
+的概形。则相对 Frobenius 态射
+$F_{U/X} : U \to U \times_{X, F_X} X$ 是同构。
+\end{lemma}
+
+\begin{proof}
+由 Varieties, Lemma \ref{varieties-lemma-relative-frobenius}，
+态射 $F_{U/X}$ 是泛同胚。作为 $X$ 上两个平展（\'etale）概形之间的态射，
+$F_{U/X}$ 平展（\'etale）（Morphisms, Lemma
+\ref{morphisms-lemma-etale-permanence}）。因此，由 Theorem
+\ref{etale-theorem-etale-radicial-open}，$F_{U/X}$ 是同构。
+\end{proof}
+
+
+
+
+
+
+\section{平展（\'etale）拓扑的拓扑不变性}
+\label{etale-section-topological-invariance}
+
+\noindent
+下面给出一个极其关键的定理；粗略地说，它断言平展（\'etale）性是一种拓扑性质。
+
+\begin{theorem}
+\label{etale-theorem-etale-topological}
+设 $X$ 与 $Y$ 是基概形 $S$ 上的两个概形。设 $S_0$ 是 $S$ 的闭子概形，
+且二者具有相同的底拓扑空间（例如，若 $S_0$ 在 $S$ 中的理想层的平方为零）。
+记 $X_0$（相应地为\ $Y_0$）为基变换 $S_0 \times_S X$
+（相应地为\ $S_0 \times_S Y$）。
+若 $X$ 在 $S$ 上平展（\'etale），则映射
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_{S_0}(Y_0, X_0)
+$$
+是双射。
+\end{theorem}
+
+\begin{proof}
+经由 $Y \to S$ 作基变换后，可假设 $Y = S$。在此情形，定理断言：
+任意 $S$-态射 $\sigma_0 : S_0 \to X$ 都唯一地经由平展（\'etale）
+结构态射 $f : X \to S$ 的一个截面 $S \to X$ 分解。
+
+\medskip\noindent
+唯一性。假设有两个使 $\sigma_0$ 经其分解的截面 $\sigma, \sigma'$。
+由于 $X \to S$ 平展（\'etale），
+$\Delta : X \to X \times_S X$ 是开浸入
+（Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}）。
+态射 $(\sigma, \sigma') : S \to X \times_S X$ 经由这个开子概形分解，
+因为对任意 $s \in S$ 都有
+$(\sigma, \sigma')(s) = (\sigma_0(s), \sigma_0(s))$。故
+$\sigma = \sigma'$。
+
+\medskip\noindent
+为证明存在性，先将问题约化到仿射情形
+（建议读者略过这一步）。
+取仿射开覆盖 $X = \bigcup X_i$，使每个 $X_i$ 都映入 $S$ 的某个
+仿射开集 $S_i$。对每个 $s \in S$，可选取 $i$ 使得
+$\sigma_0(s) \in X_i$。
+选取 $s$ 的仿射开邻域 $U \subset S_i$，使得
+$\sigma_0(U_0) \subset X_{i, 0}$。注意
+$X' = X_i \times_S U = X_i \times_{S_i} U$ 是仿射的。
+若能将 $\sigma_0|_{U_0} : U_0 \to X'_0$ 提升为
+$U \to X'$，则由唯一性，这些局部提升可黏合成整体态射
+$S \to X$。因此可假设 $S$ 与 $X$ 均为仿射概形。
+
+\medskip\noindent
+$S$ 与 $X$ 均仿射时的存在性。写成 $S = \Spec(A)$ 与
+$X = \Spec(B)$。于是 $A \to B$ 平展（\'etale），特别地，
+它光滑（相对维数为 $0$）。由 $|S_0| = |S|$ 可知
+$S_0 = \Spec(A/I)$，其中 $I \subset A$ 局部幂零。
+故存在性由 Algebra, Lemma \ref{algebra-lemma-smooth-strong-lift} 得出。
+\end{proof}
+
+\noindent
+由前一定理的证明，还可得到所许诺的平展（\'etale）态射函子刻画的
+一个方向。下述定理将在
+\'Etale Cohomology,
+Theorem \ref{etale-cohomology-theorem-topological-invariance}
+中得到加强。
+
+\begin{theorem}[范畴的非凡等价（Une equivalence remarquable de cat\'egories）]
+\label{etale-theorem-remarkable-equivalence}
+\begin{reference}
+\cite[IV, Theorem 18.1.2]{EGA}
+\end{reference}
+设 $S$ 为概形。设 $S_0 \subset S$ 为具有相同底拓扑空间的闭子概形
+（例如，若 $S_0$ 在 $S$ 中的理想层的平方为零）。函子
+$$
+X \longmapsto X_0 = S_0 \times_S X
+$$
+给出范畴等价
+$$
+\{
+X\text{ 是在 }S\text{ 上的平展概形}
+\}
+\leftrightarrow
+\{
+X_0\text{ 是在 }S_0\text{ 上的平展概形}
+\}
+$$
+\end{theorem}
+
+\begin{proof}
+由 Theorem \ref{etale-theorem-etale-topological}，该函子是全忠实的。
+尚需证明它本质满。设 $Y \to S_0$ 是平展（\'etale）概形态射。
+
+\medskip\noindent
+先假设当 $S$ 与 $Y$ 均仿射时结论成立。此时选取仿射开覆盖
+$Y = \bigcup V_j$，使每个 $V_j$ 都映入 $S$ 的某个仿射开集。
+由仿射情形的假设，可找到平展（\'etale）态射 $W_j \to S$，
+使 $W_{j, 0} \cong V_j$（作为 $S_0$ 上的概形）。
+令 $W_{j, j'} \subset W_j$ 为这样的开子概形：其底拓扑空间对应于
+$V_j \cap V_{j'}$。由于存在 $S_0$ 上的概形同构
+$$
+W_{j, j', 0} \cong V_j \cap V_{j'} \cong W_{j', j, 0}
+$$
+由全忠实性可得 $S$ 上的概形同构
+$\theta_{j, j'} : W_{j, j'} \to W_{j', j}$。
+这里略去验证这些同构满足 Schemes, Section
+\ref{schemes-section-glueing-schemes} 中的余圈条件。
+应用 Schemes, Lemma \ref{schemes-lemma-glue-schemes}，
+沿着同一化 $\theta_{j, j'}$ 黏合诸概形 $W_j$，得到概形
+$X \to S$。由构造显然可知 $X \to S$ 平展（\'etale），且
+$X_0 \cong Y$。
+
+\medskip\noindent
+因此，只需证明 $S$ 与 $Y$ 均仿射的情形。记
+$S = \Spec(R)$，$S_0 = \Spec(R/I)$，其中 $I$ 局部幂零。
+由 Algebra, Lemma \ref{algebra-lemma-etale-standard-smooth}，
+$Y$ 是某个环 $\overline{A}$ 的谱，并且
+$$
+\overline{A} = (R/I)[x_1, \ldots, x_n]/(\overline{f}_1, \ldots, \overline{f}_n)
+$$
+且
+$$
+\overline{g} =
+\det
+\left(
+\begin{matrix}
+\partial \overline{f}_1/\partial x_1 &
+\partial \overline{f}_2/\partial x_1 &
+\ldots &
+\partial \overline{f}_n/\partial x_1 \\
+\partial \overline{f}_1/\partial x_2 &
+\partial \overline{f}_2/\partial x_2 &
+\ldots &
+\partial \overline{f}_n/\partial x_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+\partial \overline{f}_1/\partial x_n &
+\partial \overline{f}_2/\partial x_n &
+\ldots &
+\partial \overline{f}_n/\partial x_n
+\end{matrix}
+\right)
+$$
+在 $\overline{A}$ 中的像可逆。任取提升
+$f_i \in R[x_1, \ldots, x_n]$，并令
+$$
+A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+由于 $I$ 局部幂零，理想 $IA$ 也局部幂零
+（Algebra, Lemma \ref{algebra-lemma-locally-nilpotent}）。
+注意 $\overline{A} = A/IA$。由 Algebra, Lemma
+\ref{algebra-lemma-locally-nilpotent-unit}，$f_i$ 的偏导数矩阵之
+行列式在代数 $A$ 中可逆。故 $R \to A$ 平展（\'etale），证明完成。
+\end{proof}
+
+
+
+\section{函子刻画}
+\label{etale-section-functorial-etale}
+
+\noindent
+最后给出所许诺的函子刻画。因此，可以用四种方式理解概形的平展
+（\'etale）态射：
+\begin{enumerate}
+\item 将其视为相对维数为 $0$ 的光滑态射；
+\item 将其视为局部有限呈示、平坦且非分歧的态射；
+\item 使用结构定理；以及
+\item 使用函子刻画。
+\end{enumerate}
+
+\begin{theorem}
+\label{etale-theorem-formally-etale}
+设 $f : X \to S$ 是局部有限呈示的态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 平展（\'etale）；
+\item 对所有仿射 $S$-概形 $Y$ 以及由平方零理想定义的闭子概形
+$Y_0 \subset Y$，自然映射
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_S(Y_0, X)
+$$
+是双射。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+这正是 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-etale-formally-etale}。
+\end{proof}
+
+\noindent
+这一刻画表明，定义 $X$ 的方程组的解可以唯一地穿过幂零增厚而提升。
+
+
+
+\section{非分歧态射的平展（\'Etale）局部结构}
+\label{etale-section-unramified-etale-local}
+
+\noindent
+在 More on Morphisms, Section
+\ref{more-morphisms-section-etale-localization} 中，读者可以找到一些关于
+拟有限态射之平展（\'etale）局部结构的结果。本节要把这些结果与本章已经
+得到的非分歧态射的拓扑性质结合起来。应当记住的基本整体图景是
+$$
+\xymatrix{
+V \ar[r] \ar[dr] & X_U \ar[d] \ar[r] & X \ar[d]^f \\
+& U \ar[r] & S
+}
+$$
+见 More on Morphisms, Equation
+(\ref{more-morphisms-equation-basic-diagram})。先从一个非常一般的情形开始。
+
+\begin{lemma}
+\label{etale-lemma-unramified-etale-local}
+设 $f : X \to S$ 为概形态射。设
+$x_1, \ldots, x_n \in X$ 是在 $S$ 中具有同一像 $s$ 的点。
+假设 $f$ 在每个 $x_i$ 处非分歧。则存在平展（\'etale）邻域
+$(U, u) \to (S, s)$ 以及开子概形
+$V_{i, j} \subset X_U$，$i = 1, \ldots, n$，$j = 1, \ldots, m_i$，
+使得
+\begin{enumerate}
+\item $V_{i, j} \to U$ 是经过 $u$ 的闭浸入；
+\item 除非 $i = i'$ 且 $j = j'$，否则 $u$ 不在
+$V_{i, j} \cap V_{i', j'}$ 的像中；且
+\item $(X_U)_u$ 中映到 $x_i$ 的任意点都属于某个 $V_{i, j}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由 Morphisms, Definition \ref{morphisms-definition-unramified}，
+每个 $x_i$ 都有一个在 $S$ 上局部有限型的开邻域。以
+$\{x_1, \ldots, x_n\}$ 的某个开邻域代替 $X$，可假设 $f$
+局部有限型。应用 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-etale-makes-quasi-finite-finite-multiple-points-var}，
+得到平展（\'etale）邻域 $(U, u)$ 以及在 $U$ 上有限的开子概形
+$V_{i, j}$。由 Lemma \ref{etale-lemma-finite-unramified-one-point}，
+必要时缩小 $U$ 后可使 $V_{i, j} \to U$ 成为闭浸入。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-unramified-etale-local-technical}
+设 $f : X \to S$ 为概形态射。设
+$x_1, \ldots, x_n \in X$ 是在 $S$ 中具有同一像 $s$ 的点。
+假设 $f$ 分离，并且 $f$ 在每个 $x_i$ 处非分歧。则存在平展
+（\'etale）邻域 $(U, u) \to (S, s)$ 以及不交并分解
+$$
+X_U =
+W \amalg \coprod\nolimits_{i, j} V_{i, j}
+$$
+使得
+\begin{enumerate}
+\item $V_{i, j} \to U$ 是经过 $u$ 的闭浸入；
+\item 纤维 $W_u$ 不含映到任意 $x_i$ 的点。
+\end{enumerate}
+特别地，若 $f^{-1}(\{s\}) = \{x_1, \ldots, x_n\}$，则纤维
+$W_u$ 为空。
+\end{lemma}
+
+\begin{proof}
+应用 Lemma \ref{etale-lemma-unramified-etale-local}。可假设 $U$ 仿射，
+因而 $X_U$ 分离。于是 $V_{i, j} \to X_U$ 是闭映射，见
+Morphisms, Lemma \ref{morphisms-lemma-image-proper-scheme-closed}。
+假设 $(i, j) \not = (i', j')$。则
+$V_{i, j} \cap V_{i', j'}$ 是 $V_{i, j}$ 中的闭集，而且其在
+$U$ 中的像不含 $u$。故缩小 $U$ 后，可假设
+$V_{i, j} \cap V_{i', j'} = \emptyset$。此外，
+$\bigcup V_{i, j}$ 是 $X_U$ 的开闭子概形，因而具有开闭补子概形
+$W$。证明完成。
+\end{proof}
+
+\noindent
+下述引理在某种意义上比前一引理弱得多，但在这里把它明确陈述出来可能
+很有用。它断言：有限非分歧态射在基上平展（\'etale）局部地是闭浸入。
+
+\begin{lemma}
+\label{etale-lemma-finite-unramified-etale-local}
+设 $f : X \to S$ 为有限非分歧概形态射，$s \in S$。
+存在平展（\'etale）邻域 $(U, u) \to (S, s)$ 以及有限不交并分解
+$$
+X_U = \coprod\nolimits_j V_j
+$$
+使得每个 $V_j \to U$ 都是闭浸入。
+\end{lemma}
+
+\begin{proof}
+由于 $X \to S$ 有限，$s$ 上的纤维是由 $X$ 中的点组成的有限集
+$\{x_1, \ldots, x_n\}$。对该集合应用 Lemma
+\ref{etale-lemma-unramified-etale-local-technical}（有限态射分离，见
+Morphisms, Section \ref{morphisms-section-integral}）。
+$W$ 在 $U$ 中的像是闭子集（因为 $X_U \to U$ 有限，因而固有），
+且不含 $u$。从 $U$ 中删去该像后，便有 $W = \emptyset$，如所需。
+\end{proof}
+
+
+
+
+\section{平展（\'Etale）态射的平展（\'etale）局部结构}
+\label{etale-section-etale-local-etale}
+
+\noindent
+这看起来有些多余，但也许有助于形成对平展（\'etale）态射的直观认识。
+只需照搬 Section \ref{etale-section-unramified-etale-local} 的结果，
+并把``闭浸入''改成``同构''。
+
+\begin{lemma}
+\label{etale-lemma-etale-etale-local}
+设 $f : X \to S$ 为概形态射。设
+$x_1, \ldots, x_n \in X$ 是在 $S$ 中具有同一像 $s$ 的点。
+假设 $f$ 在每个 $x_i$ 处平展（\'etale）。则存在平展
+（\'etale）邻域 $(U, u) \to (S, s)$ 以及开子概形
+$V_{i, j} \subset X_U$，$i = 1, \ldots, n$，$j = 1, \ldots, m_i$，
+使得
+\begin{enumerate}
+\item $V_{i, j} \to U$ 是同构；
+\item 除非 $i = i'$ 且 $j = j'$，否则 $u$ 不在
+$V_{i, j} \cap V_{i', j'}$ 的像中；且
+\item $(X_U)_u$ 中映到 $x_i$ 的任意点都属于某个 $V_{i, j}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+平展（\'etale）态射是非分歧态射，故可应用 Lemma
+\ref{etale-lemma-unramified-etale-local}。此时 $V_{i, j} \to U$
+既是闭浸入又平展（\'etale），因而是开浸入，例如可由 Theorem
+\ref{etale-theorem-etale-radicial-open} 得出。用诸
+$V_{i, j} \to U$ 的像的交代替 $U$，即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-etale-etale-local-technical}
+设 $f : X \to S$ 为概形态射。设
+$x_1, \ldots, x_n \in X$ 是在 $S$ 中具有同一像 $s$ 的点。
+假设 $f$ 分离，且 $f$ 在每个 $x_i$ 处平展（\'etale）。则存在平展
+（\'etale）邻域 $(U, u) \to (S, s)$ 以及概形的有限不交并分解
+$$
+X_U =
+W \amalg \coprod\nolimits_{i, j} V_{i, j}
+$$
+使得
+\begin{enumerate}
+\item $V_{i, j} \to U$ 是同构；
+\item 纤维 $W_u$ 不含映到任意 $x_i$ 的点。
+\end{enumerate}
+特别地，若 $f^{-1}(\{s\}) = \{x_1, \ldots, x_n\}$，则纤维
+$W_u$ 为空。
+\end{lemma}
+
+\begin{proof}
+平展（\'etale）态射是非分歧态射，故可应用 Lemma
+\ref{etale-lemma-unramified-etale-local-technical}。与 Lemma
+\ref{etale-lemma-etale-etale-local} 的证明一样，诸态射
+$V_{i, j} \to U$ 均为开浸入；用它们的像的交代替 $U$ 后即得结论。
+\end{proof}
+
+\noindent
+下述引理在某种意义上比前一引理弱得多，但在这里把它明确陈述出来可能
+很有用。它断言：有限平展（\'etale）态射在基上平展（\'etale）局部地
+是一个``拓扑覆盖空间''，即基的若干个副本的有限乘积。
+
+\begin{lemma}
+\label{etale-lemma-finite-etale-etale-local}
+设 $f : X \to S$ 为有限平展（\'etale）概形态射，$s \in S$。
+存在平展（\'etale）邻域 $(U, u) \to (S, s)$ 以及有限不交并分解
+$$
+X_U = \coprod\nolimits_j V_j
+$$
+使得每个 $V_j \to U$ 都是同构。
+\end{lemma}
+
+\begin{proof}
+平展（\'etale）态射是非分歧态射，故可应用 Lemma
+\ref{etale-lemma-finite-unramified-etale-local}。与 Lemma
+\ref{etale-lemma-etale-etale-local} 的证明一样，可知
+$V_{i, j} \to U$ 是开浸入；用它们的像的交代替 $U$ 后即得结论。
+\end{proof}
+
+
+
+
+\section{保持性质}
+\label{etale-section-properties-permanence}
+
+\noindent
+下面给出 Noether 局部环的平展（\'etale）同态（定义见 Definition
+\ref{etale-definition-etale-ring}）的若干``保持''性质。关于 Noether
+局部环的完备化与 Hensel 化的相应材料，见 More on Algebra, Sections
+\ref{more-algebra-section-permanence-completion} 与
+\ref{more-algebra-section-permanence-henselization}。
+
+\begin{lemma}
+\label{etale-lemma-etale-dimension}
+设 $A$, $B$ 为 Noether 局部环，且 $A \to B$ 为局部环的平展
+（\'etale）同态。则 $\dim(A) = \dim(B)$。
+\end{lemma}
+
+\begin{proof}
+例如见 Algebra, Lemma
+\ref{algebra-lemma-dimension-base-fibre-equals-total}。
+\end{proof}
+
+\begin{proposition}
+\label{etale-proposition-etale-depth}
+设 $A$, $B$ 为 Noether 局部环，且 $f : A \to B$ 为局部环的平展
+（\'etale）同态。则 $\text{depth}(A) = \text{depth}(B)$。
+\end{proposition}
+
+\begin{proof}
+见 Algebra, Lemma \ref{algebra-lemma-apply-grothendieck}。
+\end{proof}
+
+\begin{proposition}
+\label{etale-proposition-etale-CM}
+\begin{slogan}
+Cohen-Macaulay 性质沿平展（\'etale）映射上升且下降。
+\end{slogan}
+设 $A$, $B$ 为 Noether 局部环，且 $f : A \to B$ 为局部环的平展
+（\'etale）同态。则 $A$ 是 Cohen-Macaulay 环，当且仅当 $B$ 也是。
+\end{proposition}
+
+\begin{proof}
+局部环 $A$ 是 Cohen-Macaulay 环，当且仅当
+$\dim(A) = \text{depth}(A)$。由于这两个不变量在平展（\'etale）
+扩张下均保持不变，结论随即成立。
+\end{proof}
+
+\begin{proposition}
+\label{etale-proposition-etale-regular}
+设 $A$, $B$ 为 Noether 局部环，且 $f : A \to B$ 为局部环的平展
+（\'etale）同态。则 $A$ 正则，当且仅当 $B$ 正则。
+\end{proposition}
+
+\begin{proof}
+若 $B$ 正则，则由 Algebra, Lemma
+\ref{algebra-lemma-flat-under-regular}，$A$ 正则。反过来假设 $A$
+正则。令 $\mathfrak m$ 为 $A$ 的极大理想。于是
+$\dim_{\kappa(\mathfrak m)} \mathfrak m/\mathfrak m^2 =
+\dim(A) = \dim(B)$（见 Lemma \ref{etale-lemma-etale-dimension}）。
+另一方面，$\mathfrak mB$ 是 $B$ 的极大理想，因而
+$\mathfrak m_B/\mathfrak m_B = \mathfrak mB/\mathfrak m^2B$
+至多由 $\dim(B)$ 个元素生成。因此 $B$ 正则。
+（也可使用稍一般的 Algebra, Lemma
+\ref{algebra-lemma-flat-over-regular-with-regular-fibre}。）
+\end{proof}
+
+
+\begin{proposition}
+\label{etale-proposition-etale-reduced}
+设 $A$, $B$ 为 Noether 局部环，且 $f : A \to B$ 为局部环的平展
+（\'etale）同态。则 $A$ 约化，当且仅当 $B$ 约化。
+\end{proposition}
+
+\begin{proof}
+由 $A \to B$ 忠实平坦可立即看出：若 $B$ 约化，则 $A$ 也约化。
+另见 Algebra, Lemma \ref{algebra-lemma-descent-reduced}。
+反过来假设 $A$ 约化。由假设，$B$ 是某个有限型 $A$-代数 $B'$
+在素理想 $\mathfrak q$ 处的局部化。以一个局部化代替 $B'$ 后，
+可假设 $B'$ 在 $A$ 上平展（\'etale），见 Lemma
+\ref{etale-lemma-characterize-etale-Noetherian}。于是 Algebra, Lemma
+\ref{algebra-lemma-reduced-goes-up} 可用于 $A \to B'$，从而 $B'$
+约化。因此 $B$ 约化。
+\end{proof}
+
+\begin{remark}
+\label{etale-remark-technicality-needed}
+如果采用更弱的平展（\'etale）局部环映射 $A \to B$ 定义，即去掉
+$B$ 在 $A$ 上本质有限型这一假设，则上述关于``约化性''的结论不再成立。
+确实，某个 Noether 局部整环 $A$ 可能具有非约化的完备化
+$A^\wedge$，见 Examples, Section
+\ref{examples-section-local-completion-nonreduced}。但环映射
+$A \to A^\wedge$ 平坦，$\mathfrak m_AA^\wedge$ 是
+$A^\wedge$ 的极大理想，而且 $A$ 与 $A^\wedge$ 当然具有相同的
+剩余域。这就是为什么必须只对本质有限型的环扩张考虑这个概念
+（若 $A$ 非 Noether，则应为本质有限呈示）。
+\end{remark}
+
+\begin{proposition}
+\label{etale-proposition-etale-normal}
+\begin{reference}
+\cite[Expose I, Theorem 9.5 part (i)]{SGA1}
+\end{reference}
+设 $A$, $B$ 为 Noether 局部环，且 $f : A \to B$ 为局部环的平展
+（\'etale）同态。则 $A$ 是整闭整环，当且仅当 $B$ 也是。
+\end{proposition}
+
+\begin{proof}
+关于整闭性的下降，见 Algebra, Lemma
+\ref{algebra-lemma-descent-normal}。反过来假设 $A$ 整闭。由假设，
+$B$ 是某个有限型 $A$-代数 $B'$ 在素理想 $\mathfrak q$ 处的局部化。
+以一个局部化代替 $B'$ 后，可假设 $B'$ 在 $A$ 上平展
+（\'etale），见 Lemma \ref{etale-lemma-characterize-etale-Noetherian}。
+于是 Algebra, Lemma \ref{algebra-lemma-normal-goes-up} 可用于
+$A \to B'$，从而 $B'$ 整闭。因此 $B$ 是整闭整环。
+\end{proof}
+
+\noindent
+以上命题说明了为什么我们希望把平展（\'etale）映射理解为``局部同构''。
+还有一项性质极好地说明了这个定义确实是``正确''的：对于有限型
+$\mathbf{C}$-概形，一个态射平展（\'etale），当且仅当相应解析空间上的
+态射（即赋予复拓扑的 $\mathbf{C}$-值点之间的态射）在解析意义下为
+局部同构（即在源上局部地为开嵌入）。这可借助结构定理以及解析化与
+完备局部环的形成相交换这一事实来证明——细节留给读者。
+
+
+
+
+
+
+
+
+\section{平展（\'etale）态射的下降}
+\label{etale-section-descending-etale}
+
+\noindent
+为理解本节所用语言，建议读者先参阅 Descent, Section
+\ref{descent-section-descent-datum}。设 $f : X \to S$ 为概形态射。
+考虑拉回函子
+\begin{equation}
+\label{etale-equation-descent-etale}
+U\text{ 是在 }S\text{ 上的平展概形} \longrightarrow
+\begin{matrix}
+\text{下降数据 }(V, \varphi)\text{ 相对于 }X/S \\
+\text{ 其中 }V\text{ 在 }X\text{ 上平展}
+\end{matrix}
+\end{equation}
+它把 $U$ 送到典范下降数据 $(X \times_S U, can)$。
+
+\begin{lemma}
+\label{etale-lemma-faithful}
+若 $f : X \to S$ 满射，则函子
+(\ref{etale-equation-descent-etale}) 忠实。
+\end{lemma}
+
+\begin{proof}
+设 $a, b : U_1 \to U_2$ 是两个 $S$ 上平展（\'etale）概形之间的
+态射，并假设 $a$ 与 $b$ 到 $X$ 的基变换相同。须证 $a = b$。
+由 Proposition \ref{etale-proposition-equality}，只需证明 $a$ 与 $b$
+在点和剩余域上相同。这是显然的，因为对每个 $u \in U_1$，
+都可找到映到 $u$ 的点 $v \in X \times_S U_1$。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-fully-faithful}
+假设 $f : X \to S$ 是商映射，且 $f$ 的任意平展（\'etale）基变换
+也是商映射。则函子 (\ref{etale-equation-descent-etale}) 全忠实。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{etale-lemma-faithful}，该函子忠实。设 $U_1 \to S$ 与
+$U_2 \to S$ 为平展（\'etale）态射，并设
+$a : X \times_S U_1 \to X \times_S U_2$ 是与典范下降数据相容的
+态射。我们将证明 $a$ 是某个态射 $U_1 \to U_2$ 的基变换。
+
+\medskip\noindent
+设 $U'_2 \subset U_2$ 为开子概形，并考虑
+$W = a^{-1}(X \times_S U'_2)$。这是 $X \times_S U_1$ 的开子概形，
+且与 $V_1 = X \times_S U_1$ 上的典范下降数据相容。这意味着，
+$W$ 在两个投影 $V_1 \times_{U_1} V_1 \to V_1$ 下的逆像相同。
+由于 $V_1 \to U_1$ 满射（它是 $X \to S$ 的基变换），
+$W$ 是某个子集 $U'_1 \subset U_1$ 的逆像。又因 $W$ 开，
+对 $f$ 的假设蕴含 $U'_1 \subset U_1$ 也开。
+
+\medskip\noindent
+设 $U_2 = \bigcup U_{2, i}$ 是仿射开覆盖。由上一段得到开覆盖
+$U_1 = \bigcup U_{1, i}$，使得
+$X \times_S U_{1, i} = a^{-1}(X \times_S U_{2, i})$。
+若能证明存在态射 $U_{1, i} \to U_{2, i}$，其基变换是
+$a_i : X \times_S U_{1, i} \to X \times_S U_{2, i}$，
+则可利用忠实性把这些态射黏合成 $U_1 \to U_2$。这样便约化到
+$U_2$ 仿射的情形。特别地，$U_2 \to S$ 分离
+（Schemes, Lemma \ref{schemes-lemma-compose-after-separated}）。
+
+\medskip\noindent
+假设 $U_2 \to S$ 分离。由 Schemes, Lemma
+\ref{schemes-lemma-semi-diagonal}，$a$ 的图 $\Gamma_a$ 是
+$$
+V = (X \times_S U_1) \times_X (X \times_S U_2) = X \times_S U_1 \times_S U_2
+$$
+的闭子概形。另一方面，该图也是开的，例如因为它是某个平展
+（\'etale）态射的截面（Proposition
+\ref{etale-proposition-properties-sections}）。由于 $a$ 是下降数据的态射，
+$\Gamma_a \subset V$ 在两个投影
+$V \times_{U_1 \times_S U_2} V \to V$ 下的逆像相同。
+因此，与证明第二段中的论证相同，可以找到开闭子概形
+$\Gamma \subset U_1 \times_S U_2$，其到 $X$ 的基变换为
+$\Gamma_a$。于是 $\Gamma \to U_1$ 是平展（\'etale）态射，
+且到 $X$ 的基变换是同构。这意味着 $\Gamma \to U_1$ 泛双射，
+故由 Theorem \ref{etale-theorem-etale-radicial-open} 可知它是同构。
+因此 $\Gamma$ 是某个态射 $U_1 \to U_2$ 的图，而该态射的基变换
+正是 $a$，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-fully-faithful-cases}
+设 $f : X \to S$ 为概形态射。在下列情形中，函子
+(\ref{etale-equation-descent-etale}) 全忠实：
+\begin{enumerate}
+\item $f$ 满射且泛闭（例如有限、整或固有）；
+\item $f$ 满射且泛开（例如局部有限呈示且平坦、光滑或平展）；
+\item $f$ 满射、拟紧且平坦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由 Lemma \ref{etale-lemma-fully-faithful} 得出。例如，拓扑空间的闭满射是
+商映射（Topology, Lemma
+\ref{topology-lemma-closed-morphism-quotient-topology}）。
+有限、整和固有态射都是泛闭的；见 Morphisms, Lemmas
+\ref{morphisms-lemma-integral-universally-closed}、
+\ref{morphisms-lemma-finite-proper} 以及 Definition
+\ref{morphisms-definition-proper}。另一方面，拓扑空间的开满射是商映射
+（Topology, Lemma \ref{topology-lemma-open-morphism-quotient-topology}）。
+平坦且局部有限呈示的态射、光滑态射和平展（\'etale）态射都是泛开的；
+见 Morphisms, Lemmas \ref{morphisms-lemma-fppf-open}、
+\ref{morphisms-lemma-smooth-open} 与
+\ref{morphisms-lemma-etale-open}。满射、拟紧、平坦态射的情形由
+Morphisms, Lemma \ref{morphisms-lemma-fpqc-quotient-topology} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-reduce-to-affine}
+设 $f : X \to S$ 为概形态射，$(V, \varphi)$ 为相对于 $X/S$ 的
+下降数据，其中 $V \to X$ 平展（\'etale）。设
+$S = \bigcup S_i$ 为开覆盖。假设
+\begin{enumerate}
+\item 下降数据 $(V, \varphi)$ 到 $X \times_S S_i/S_i$ 的拉回有效；
+\item 对 $X \times_S (S_i \cap S_j) \to (S_i \cap S_j)$，
+函子 (\ref{etale-equation-descent-etale}) 全忠实；且
+\item 对 $X \times_S (S_i \cap S_j \cap S_k) \to (S_i \cap S_j \cap S_k)$，
+函子 (\ref{etale-equation-descent-etale}) 忠实。
+\end{enumerate}
+则 $(V, \varphi)$ 有效。
+\end{lemma}
+
+\begin{proof}
+（回忆：下降数据的拉回定义于 Descent, Definition
+\ref{descent-definition-pullback-functor}。）
+令 $X_i = X \times_S S_i$，并记 $(V_i, \varphi_i)$ 为
+$(V, \varphi)$ 到 $X_i/S_i$ 的拉回。由假设 (1)，可找到平展
+（\'etale）态射 $U_i \to S_i$ 以及同构
+$X_i \times_{S_i} U_i \to V_i$，它与 $can$ 和 $\varphi_i$ 相容。
+由假设 (2)，得到同构
+$\psi_{ij} : U_i \times_{S_i} (S_i \cap S_j) \to
+U_j \times_{S_j} (S_i \cap S_j)$。由假设 (3)，这些同构满足余圈条件，
+故 $(U_i, \psi_{ij})$ 是 Zariski 覆盖 $\{S_i \to S\}$ 的下降数据。
+于是 Descent, Lemma
+\ref{descent-lemma-Zariski-refinement-coverings-equivalence}
+（本质上只是 Schemes, Section
+\ref{schemes-section-glueing-schemes} 的重述）表明：存在概形态射
+$U \to S$ 以及与 $\psi_{ij}$ 相容的同构
+$U \times_S S_i \to U_i$。这些同构 $U \times_S S_i \to U_i$ 确定相应的同构
+$X_i \times_S U \to V_i$；后者黏合成与典范下降数据和
+$\varphi$ 相容的态射 $X \times_S U \to V$。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-split-henselian}
+设 $(A, I)$ 为 Hensel 对。设 $U \to \Spec(A)$ 为拟紧、分离且平展
+（\'etale）的态射，并且
+$U \times_{\Spec(A)} \Spec(A/I) \to \Spec(A/I)$ 有限。则
+$$
+U = U_{fin} \amalg U_{away}
+$$
+其中 $U_{fin} \to \Spec(A)$ 有限，而 $U_{away}$ 不含位于 $Z$
+上方的点。
+\end{lemma}
+
+\begin{proof}
+由 Zariski 主定理，概形 $U$ 拟仿射。事实上，可以找到开浸入
+$U \to T$，其中 $T$ 仿射且 $T \to \Spec(A)$ 有限；见
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}。
+写 $Z = \Spec(A/I)$，并记 $U_Z \to T_Z$ 为其基变换。
+由于 $U_Z \to Z$ 有限，$U_Z \to T_Z$ 既闭又开。因此，由
+More on Algebra, Lemma
+\ref{more-algebra-lemma-characterize-henselian-pair}，得到唯一分解
+$T = T' \amalg T''$，其中 $T'_Z = U_Z$。令
+$U_{fin} = U \cap T'$ 与 $U_{away} = U \cap T''$。由于
+$T'_Z \subset U_Z$，$T'$ 的所有闭点都在 $U$ 中，故
+$T' \subset U$，从而 $U_{fin} = T'$，于是
+$U_{fin} \to \Spec(A)$ 有限。这里略去该分解唯一性的证明。
+\end{proof}
+
+\begin{proposition}
+\label{etale-proposition-effective}
+设 $f : X \to S$ 为满的整态射。函子
+(\ref{etale-equation-descent-etale}) 诱导等价
+$$
+\begin{matrix}
+\text{拟紧概形，}\\
+\text{分离且在 }S\text{ 上平展}
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{下降数据 }(V, \varphi)\text{ 相对于 }X/S\text{ 其中}\\
+V\text{ 拟紧、分离且在 }X\text{ 上平展}
+\end{matrix}
+$$
+\end{proposition}
+
+\begin{proof}
+由 Lemma \ref{etale-lemma-fully-faithful-cases}，函子
+(\ref{etale-equation-descent-etale}) 全忠实，而且在任意基变换
+$S \to S'$ 后仍然如此。设 $(V, \varphi)$ 是相对于 $X/S$ 的下降数据，
+其中 $V \to X$ 拟紧、分离且平展（\'etale）。由 Lemma
+\ref{etale-lemma-reduce-to-affine} 可知，只需在 $S$ 上 Zariski 局部地证明
+有效性。特别地，可以并且确实假设 $S$ 仿射。
+
+\medskip\noindent
+若 $S$ 仿射，则存在有向集 $\Lambda$ 以及有限型
+$\Spec(\mathbf{Z})$-仿射概形之间有限态射所成的逆系统
+$X_\lambda \to S_\lambda$，使得
+$(X \to S) = \lim (X_\lambda \to S_\lambda)$；见 Algebra, Lemma
+\ref{algebra-lemma-limit-integral}。由于极限与极限交换，可得
+$X \times_S X = \lim X_\lambda \times_{S_\lambda} X_\lambda$
+以及
+$X \times_S X \times_S X = \lim
+X_\lambda \times_{S_\lambda} X_\lambda \times_{S_\lambda} X_\lambda$。
+注意 $V \to X$ 是有限呈示态射。使用 Limits, Lemmas
+\ref{limits-lemma-descend-finite-presentation}，可找到
+$\lambda$ 以及相对于 $X_\lambda/S_\lambda$ 的下降数据
+$(V_\lambda, \varphi_\lambda)$，其到 $X/S$ 的拉回为
+$(V, \varphi)$。当然，只需证明 $(V_\lambda, \varphi_\lambda)$ 有效。
+由构造，$V_\lambda$ 拟紧。必要时增大 $\lambda$ 后，可假设
+$V_\lambda \to X_\lambda$ 分离且平展（\'etale）；见 Limits, Lemma
+\ref{limits-lemma-descend-separated-finite-presentation} 与
+\ref{limits-lemma-descend-etale}。因此，可假设 $f$ 有限且满，
+而 $S$ 是有限型 $\mathbf{Z}$-仿射概形。
+
+\medskip\noindent
+考虑开子集 $S' \subset S$，使得 $(V, \varphi)$ 到
+$X' = X \times_S S'$ 的拉回 $(V', \varphi')$ 有效。下面将证明：
+若 $S' \not = S$，则存在一个严格更大的开集，使下降数据在其上有效。
+由于 $S$ 是 Noether 概形（因而其底拓扑空间也是 Noether 的），
+这将完成证明。设 $\xi \in S$ 是闭子集 $Z = S \setminus S'$
+某个不可约分支的一般点。若 $\xi \in S'' \subset S$ 是一个使下降数据
+在其上有效的开集，则由第一段的黏合论证，下降数据在
+$S' \cup S''$ 上有效。因此，在证明余下部分中，可以用 $\xi$ 的
+一个仿射开邻域代替 $S$。
+
+\medskip\noindent
+第一次这样代替后，可假设 $Z$ 不可约，且以 $Z$ 为一般点。赋予 $Z$
+约化的诱导闭子概形结构。再次缩小后，可假设
+$X_Z = X \times_S Z = f^{-1}(Z) \to Z$ 平坦，见 Morphisms,
+Proposition \ref{morphisms-proposition-generic-flatness}。
+令 $(V_Z, \varphi_Z)$ 为下降数据到 $X_Z/Z$ 的拉回。由
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}，
+该下降数据有效，并得到平展（\'etale）态射 $U_Z \to Z$，
+其基变换以与下降数据相容的方式同构于 $V_Z$。当然，
+$U_Z \to Z$ 拟紧且分离（Descent, Lemmas
+\ref{descent-lemma-descending-property-quasi-compact} 与
+\ref{descent-lemma-descending-property-separated}）。因此，再次缩小后，
+可假设 $U_Z \to Z$ 有限，见 Morphisms, Lemma
+\ref{morphisms-lemma-generically-finite}。
+
+\medskip\noindent
+设 $S = \Spec(A)$，并设 $I \subset A$ 是与 $Z \subset S$ 对应的
+素理想。令 $(A^h, IA^h)$ 为对 $(A, I)$ 的 Hensel 化。记
+$S^h = \Spec(A^h)$，$Z^h = V(IA^h) \cong Z$。我们断言，只需在
+基变换到 $S^h$ 后证明有效性。事实上，
+$\{S^h \to S, S' \to S\}$ 是 fpqc 覆盖（由 More on Algebra,
+Lemma \ref{more-algebra-lemma-henselization-flat}，
+$A \to A^h$ 平坦），而由 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}，
+分离平展（\'etale）态射满足 fpqc 下降。具体地，若
+$U^h \to S^h$ 与 $U' \to S'$ 分别是对应于拉回
+$(V^h, \varphi^h)$ 与 $(V', \varphi')$ 的对象，则所需同构
+$$
+U^h \times_S S^h \to S^h \times_S V^h
+\quad\text{且}\quad
+U^h \times_S S' \to S^h \times_S U'
+$$
+由第一段指出的全忠实性得到。这样便约化到下一段所述情形。
+
+\medskip\noindent
+现在 $S = \Spec(A)$，$Z = V(I)$，$S' = S \setminus Z$，其中
+$(A, I)$ 为 Hensel 对；存在与下降数据 $(V', \varphi')$ 对应的
+$U' \to S'$，以及与下降数据 $(V_Z, \varphi_Z)$ 对应的有限平展
+（\'etale）态射 $U_Z \to Z$。此时不再有 $A$ 在
+$\mathbf{Z}$ 上有限型这一条件，但余下论证甚至不会用到 $A$
+是 Noether 环。由 More on Algebra, Lemma
+\ref{more-algebra-lemma-finite-etale-equivalence}，可找到有限平展
+（\'etale）态射 $U_{fin} \to S$，其在 $Z$ 上的限制同构于
+$U_Z \to Z$。写 $X = \Spec(B)$ 和 $Y = V(IB)$。由于 $(B, IB)$
+为 Hensel 对（More on Algebra, Lemma
+\ref{more-algebra-lemma-integral-over-henselian-pair}），且
+$V \to X$ 到 $Y$ 的限制有限（因为它是 $U_Z \to Z$ 的基变换），
+可知存在典范不交并分解
+$$
+V = V_{fin} \amalg V_{away}
+$$
+其中 $V_{fin} \to X$ 有限，而 $V_{away}$ 不含位于 $Y$ 上方的点；
+见 Lemma \ref{etale-lemma-split-henselian}。利用该分解在
+$X \times_S X$ 上的唯一性，可知 $\varphi$ 保持此分解，从而在
+下降数据范畴中有
+$$
+(V, \varphi) = (V_{fin}, \varphi_{fin}) \amalg (V_{away}, \varphi_{away})
+$$
+。由 More on Algebra, Lemma
+\ref{more-algebra-lemma-finite-etale-equivalence}，存在唯一同构
+$$
+X \times_S U_{fin} \longrightarrow V_{fin}
+$$
+与 $Y$ 上给定的同构 $Y \times_Z U_Z \to V \times_X Y$ 相容。
+由唯一性可知，该同构与下降数据相容，即
+$(X \times_S U_{fin}, can) \cong (V_{fin}, \varphi_{fin})$。
+记 $U'_{fin} = U_{fin} \times_S S'$。由全忠实性，得到态射
+$U'_{fin} \to U'$，它是一个开闭子概形的嵌入。然后令
+$U = U_{fin} \amalg_{U'_{fin}} U'$（按 Schemes, Section
+\ref{schemes-section-glueing-schemes} 黏合概形）。
+态射 $X \times_S U_{fin} \to V$ 与 $X \times_S U' \to V$
+黏合成态射 $X \times_S U \to V$，它正是所需同构。
+\end{proof}
+
+
+
+
+
+\section{正规交叉除子}
+\label{etale-section-normal-crossings}
+
+\noindent
+先给出定义。
+
+\begin{definition}
+\label{etale-definition-strict-normal-crossings}
+设 $X$ 为局部 Noether 概形。$X$ 上的{\it 严格正规交叉除子}是一个
+有效 Cartier 除子 $D \subset X$，使得对每个 $p \in D$，
+局部环 $\mathcal{O}_{X, p}$ 正则，并且存在正则参数系
+$x_1, \ldots, x_d \in \mathfrak m_p$ 以及 $1 \leq r \leq d$，
+使 $D$ 在 $\mathcal{O}_{X, p}$ 中由 $x_1 \ldots x_r$ 截出。
+\end{definition}
+
+\noindent
+我们经常遇到局部 Noether 概形 $X$ 上的有效 Cartier 除子 $E$，
+其满足：存在严格正规交叉除子 $D$，使得在集合意义下
+$E \subset D$。此时有
+$E = \sum a_i D_i$，其中 $a_i \geq 0$，而
+$D = \bigcup_{i \in I} D_i$ 是 $D$ 的不可约分支分解。
+注意 $D' = \bigcup_{a_i > 0} D_i$ 是严格正规交叉除子，且在集合
+意义下 $E = D'$。出现上述情形时，称 $E$
+{\it 支撑于一个严格正规交叉除子上}。
+
+\begin{lemma}
+\label{etale-lemma-strict-normal-crossings}
+设 $X$ 为局部 Noether 概形，$D \subset X$ 为有效 Cartier 除子。
+设 $D_i \subset D$，$i \in I$，为其不可约分支，并把它们视为
+$X$ 的约化闭子概形。下列条件等价：
+\begin{enumerate}
+\item $D$ 是严格正规交叉除子；且
+\item $D$ 约化，每个 $D_i$ 都是有效 Cartier 除子，并且对有限子集
+$J \subset I$，概形论交
+$D_J = \bigcap_{j \in J} D_j$ 是正则概形，其每个不可约分支在
+$X$ 中的余维数均为 $|J|$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $D$ 是严格正规交叉除子。取 $p \in D$，并按 Definition
+\ref{etale-definition-strict-normal-crossings} 选取正则参数系
+$x_1, \ldots, x_d \in \mathfrak m_p$ 以及
+$1 \leq r \leq d$。由于 $\mathcal{O}_{X, p}/(x_i)$ 是正则局部环
+（特别地，是整环），穿过 $p$ 的 $D$ 的不可约分支
+$D_1, \ldots, D_r$ 与 $\mathcal{O}_{X, p}$ 的高为一的素理想
+$(x_1), \ldots, (x_r)$ 按 $1$ 对 $1$ 对应。由 Algebra, Lemma
+\ref{algebra-lemma-regular-ring-CM}，诸交
+$D_{i_1} \cap \ldots \cap D_{i_s}$ 在 $p$ 的某个开邻域中余维数为
+$s$，而且该交在 $p$ 处具有正则局部环。由于这对每个
+$p \in D$ 都成立，故条件 (2) 成立。
+
+\medskip\noindent
+反过来假设 (2)。设 $p \in D$。由于 $\mathcal{O}_{X, p}$
+有限维，点 $p$ 至多属于 $\dim(\mathcal{O}_{X, p})$ 个分支
+$D_i$。设对某个 $r \geq 1$ 有 $p \in D_1, \ldots, D_r$。
+令 $x_1, \ldots, x_r \in \mathfrak m_p$ 分别为
+$D_1, \ldots, D_r$ 的局部方程。则 $x_1$ 是
+$\mathcal{O}_{X, p}$ 中的非零因子，且
+$\mathcal{O}_{X, p}/(x_1) = \mathcal{O}_{D_1, p}$ 正则。
+因此 $\mathcal{O}_{X, p}$ 正则，见 Algebra, Lemma
+\ref{algebra-lemma-regular-mod-x}。由于
+$D_1 \cap \ldots \cap D_r$ 是正则（因而整闭）概形，它是其不可约
+分支的不交并（Properties, Lemma
+\ref{properties-lemma-normal-Noetherian}）。令
+$Z \subset D_1 \cap \ldots \cap D_r$ 为含 $p$ 的不可约分支。
+于是 $\mathcal{O}_{Z, p} = \mathcal{O}_{X, p}/(x_1, \ldots, x_r)$
+正则且余维数为 $r$（注意，已经知道 $\mathcal{O}_{X, p}$ 正则，
+从而是 Cohen-Macaulay 环；又因为该环链状，余维数没有歧义，见
+Algebra, Lemmas \ref{algebra-lemma-regular-ring-CM} 与
+\ref{algebra-lemma-CM-dim-formula}）。因此
+$\dim(\mathcal{O}_{Z, p}) = \dim(\mathcal{O}_{X, p}) - r$。
+再选取 $x_{r + 1}, \ldots, x_n \in \mathfrak m_p$，使其像构成
+$\mathfrak m_{Z, p}$ 的极小生成系。由 Nakayama 引理，
+$\mathfrak m_p = (x_1, \ldots, x_n)$，从而 $D$ 是正规交叉除子。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-smooth-pullback-strict-normal-crossings}
+\begin{slogan}
+严格正规交叉除子沿光滑态射的拉回仍是严格正规交叉除子。
+\end{slogan}
+设 $X$ 为局部 Noether 概形，$D \subset X$ 为严格正规交叉除子。
+若 $f : Y \to X$ 是光滑概形态射，则拉回 $f^*D$ 是 $Y$ 上的
+严格正规交叉除子。
+\end{lemma}
+
+\begin{proof}
+由于 $f$ 平坦，拉回由 Divisors, Lemma
+\ref{divisors-lemma-pullback-effective-Cartier-defined} 定义，
+故该陈述有意义。设 $q \in f^*D$ 映到 $p \in D$。按 Definition
+\ref{etale-definition-strict-normal-crossings} 选取正则参数系
+$x_1, \ldots, x_d \in \mathfrak m_p$ 以及
+$1 \leq r \leq d$。由于 $f$ 光滑，局部环同态
+$\mathcal{O}_{X, p} \to \mathcal{O}_{Y, q}$ 平坦，而且纤维环
+$$
+\mathcal{O}_{Y, q}/\mathfrak m_p \mathcal{O}_{Y, q} =
+\mathcal{O}_{Y_p, q}
+$$
+是正则局部环（例如见 Algebra, Lemma
+\ref{algebra-lemma-characterize-smooth-over-field}）。选取
+$y_1, \ldots, y_n \in \mathfrak m_q$，使其像构成
+$\mathcal{O}_{Y_p, q}$ 的正则参数系。于是
+$x_1, \ldots, x_d, y_1, \ldots, y_n$ 生成极大理想
+$\mathfrak m_q$。由 Algebra, Lemma
+\ref{algebra-lemma-dimension-base-fibre-equals-total}，
+$\mathcal{O}_{Y, q}$ 是维数为 $d + n$ 的正则局部环，而
+$x_1, \ldots, x_d, y_1, \ldots, y_n$ 是其正则参数系。由于
+$f^*D$ 在 $\mathcal{O}_{Y, q}$ 中由 $x_1 \ldots x_r$ 截出，
+引理得证。
+\end{proof}
+
+\noindent
+下面定义正规交叉除子。
+
+\begin{definition}
+\label{etale-definition-normal-crossings}
+设 $X$ 为局部 Noether 概形。$X$ 上的{\it 正规交叉除子}是一个
+有效 Cartier 除子 $D \subset X$，使得对每个 $p \in D$，
+都存在像中含 $p$ 的平展（\'etale）态射 $U \to X$，并且
+$D \times_X U$ 是 $U$ 上的严格正规交叉除子。
+\end{definition}
+
+\noindent
+例如，$D = V(x^2 + y^2)$ 是 $\Spec(\mathbf{R}[x, y])$ 上的
+正规交叉除子（但不是严格正规交叉除子），因为拉回到平展
+（\'etale）覆盖 $\Spec(\mathbf{C}[x, y])$ 后得到
+$(x - iy)(x + iy) = 0$。
+
+\begin{lemma}
+\label{etale-lemma-smooth-pullback-normal-crossings}
+\begin{slogan}
+正规交叉除子沿光滑态射的拉回仍是正规交叉除子。
+\end{slogan}
+设 $X$ 为局部 Noether 概形，$D \subset X$ 为正规交叉除子。
+若 $f : Y \to X$ 是光滑概形态射，则拉回 $f^*D$ 是 $Y$ 上的
+正规交叉除子。
+\end{lemma}
+
+\begin{proof}
+由于 $f$ 平坦，拉回由 Divisors, Lemma
+\ref{divisors-lemma-pullback-effective-Cartier-defined} 定义，
+故该陈述有意义。设 $q \in f^*D$ 映到 $p \in D$。
+按 Definition \ref{etale-definition-normal-crossings}，选取像中含 $p$ 的
+平展（\'etale）态射 $U \to X$，使得
+$D \times_X U \subset U$ 为严格正规交叉除子。
+令 $V = Y \times_X U$。于是 $V \to Y$ 是 $U \to X$ 基变换所得
+的平展（\'etale）态射（Morphisms, Lemma
+\ref{morphisms-lemma-base-change-etale}），而由 Lemma
+\ref{etale-lemma-smooth-pullback-strict-normal-crossings}，
+拉回 $D \times_X V$ 是 $V$ 上的严格正规交叉除子。
+因此已对 $q \in f^*D$ 验证 Definition
+\ref{etale-definition-normal-crossings} 的条件，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-characterize-normal-crossings-normalization}
+设 $X$ 为局部 Noether 概形，$D \subset X$ 为闭子概形。下列条件等价：
+\begin{enumerate}
+\item $D$ 是 $X$ 中的正规交叉除子；
+\item $D$ 约化，正规化 $\nu : D^\nu \to D$ 非分歧，并且对任意
+$n \geq 1$，概形
+$$
+Z_n = D^\nu \times_D \ldots \times_D D^\nu
+\setminus \{(p_1, \ldots, p_n) \mid p_i = p_j\text{ 对某个 }i\not = j\}
+$$
+正则，而态射 $Z_n \to X$ 是局部完全交态射，其余法层局部自由且
+秩为 $n$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先说明如何理解条件 (2)。非分歧态射的对角态射是开的
+（Morphisms, Lemma
+\ref{morphisms-lemma-diagonal-unramified-morphism}）。
+另一方面，$D^\nu \to D$ 分离，故对角态射
+$D^\nu \to D^\nu \times_D D^\nu$ 是闭的。因此 $Z_n$ 是
+$D^\nu \times_D \ldots \times_D D^\nu$ 的开闭子概形。
+另一方面，$Z_n \to X$ 非分歧，因为它是复合
+$$
+Z_n \to D^\nu \times_D \ldots \times_D D^\nu \to \ldots \to
+D^\nu \times_D D^\nu \to D^\nu \to D \to X
+$$
+而其中每个箭头都非分歧。由于非分歧态射形式非分歧
+（More on Morphisms, Lemma
+\ref{more-morphisms-lemma-unramified-formally-unramified}），
+$Z_n \to X$ 具有余法层
+$\mathcal{C}_n = \mathcal{C}_{Z_n/X}$，见 More on Morphisms,
+Definition \ref{more-morphisms-definition-universal-thickening}。
+
+\medskip\noindent
+由 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-normalization-and-smooth}，正规化的形成与
+平展（\'etale）局部化交换。以下性质都可以平展（\'etale）局部地
+检验：局部环正则；态射非分歧；态射为局部完全交；或者态射非分歧且
+具有给定秩的局部自由余法层（见 More on Algebra, Lemma
+\ref{more-algebra-lemma-regular-etale-extension}，Descent, Lemma
+\ref{descent-lemma-descending-property-unramified}，More on Morphisms,
+Lemma \ref{more-morphisms-lemma-descending-property-lci}，以及 Descent,
+Lemma \ref{descent-lemma-finite-locally-free-descends}）。
+
+\medskip\noindent
+由上一段的说明和正规交叉除子的定义，只需证明严格正规交叉除子
+$D = \bigcup_{i \in I} D_i$ 满足 (2)。在此情形，
+$D^\nu = \coprod D_i$，且 $D^\nu \to D$ 非分歧（非分歧性在源上
+是局部的，而 $D_i \to D$ 是非分歧的闭浸入）。类似地，
+$Z_1 = D^\nu \to X$ 是局部完全交态射，因为这可以在源上局部检验，
+而每个态射 $D_i \to X$ 都是正则浸入：它是 Cartier 除子的包含
+（见 Lemma \ref{etale-lemma-strict-normal-crossings} 与 More on Morphisms,
+Lemma \ref{more-morphisms-lemma-regular-immersion-lci}）。
+由于有效 Cartier 除子的余法层可逆，余法层的要求得以满足。
+同样，对 $n \geq 2$，概形 $Z_n$ 是诸概形
+$D_J = \bigcap_{j \in J} D_j$ 的不交并，其中 $J \subset I$
+遍历所有基数为 $n$ 的子集。由于 $D_J \to X$ 是余维数为 $n$
+的正则浸入（由严格正规交叉的定义，以及可通过 Divisors, Lemma
+\ref{divisors-lemma-Noetherian-scheme-regular-ideal} 在茎上检验
+这一事实），同理可知 $Z_n \to X$ 具有所需性质。略去若干细节。
+
+\medskip\noindent
+假设 (2)。设 $p \in D$。由于 $D^\nu \to D$ 非分歧，它是有限的
+（由 Morphisms, Lemma \ref{morphisms-lemma-finite-integral}）。
+故 $D^\nu \to X$ 有限且非分歧。由 Lemma
+\ref{etale-lemma-finite-unramified-etale-local} 和平展（\'etale）局部化
+（根据第二段的讨论和正规交叉除子的定义，这是允许的），可约化到如下
+情形：
+$D^\nu = \coprod_{i \in I} D_i$，其中 $I$ 有限，且
+$D_i \to U$ 为闭浸入。必要时缩小 $X$ 后，可假设对所有
+$i \in I$ 都有 $p \in D_i$。条件
+$Z_1 =  D^\nu \to X$ 是非分歧局部完全交态射，且其余法层局部自由、
+秩为 $1$；这蕴含 $D_i \subset X$ 是有效 Cartier 除子，见
+More on Morphisms, Lemma \ref{more-morphisms-lemma-lci} 与 Divisors,
+Lemma \ref{divisors-lemma-regular-immersion-noetherian}。
+为完成证明，可假设 $X = \Spec(A)$ 仿射，且 $D_i = V(f_i)$，
+其中 $f_i \in A$ 是非零因子。若 $I = \{1, \ldots, r\}$，则
+$p \in Z_r = V(f_1, \ldots, f_r)$。上面所引的同一结果表明，
+$(f_1, \ldots, f_r)$ 是 $A$ 中的 Koszul 正则理想。由于余法层
+秩为 $r$，$f_1, \ldots, f_r$ 是定义
+$\mathcal{O}_{X, p}$ 中 $Z_r$ 之理想的极小生成系。这蕴含
+$f_1, \ldots, f_r$ 是 $\mathcal{O}_{X, p}$ 中的正则序列，且
+$\mathcal{O}_{X, p}/(f_1, \ldots, f_r)$ 正则。因此，由 Algebra,
+Lemma \ref{algebra-lemma-regular-mod-x}，
+$f_1, \ldots, f_r$ 可扩充成 $\mathcal{O}_{X, p}$ 的正则参数系，
+证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{etale-lemma-characterize-normal-crossings}
+设 $X$ 为局部 Noether 概形，$D \subset X$ 为闭子概形。若 $X$
+是 J-2 或 Nagata 概形，则下列条件等价：
+\begin{enumerate}
+\item $D$ 是 $X$ 中的正规交叉除子；
+\item 对每个 $p \in D$，$D$ 到严格 Hensel 化
+$\mathcal{O}_{X, p}^{sh}$ 的谱的拉回是严格正规交叉除子。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+蕴含 (1) $\Rightarrow$ (2) 是直接的，而且不需要 $X$ 为 J-2 或
+Nagata 概形这一假设。事实上，设 $p \in D$，选取平展（\'etale）
+邻域 $(U, u) \to (X, p)$，使得 $D$ 的拉回是 $U$ 上的严格正规
+交叉除子。于是 $\mathcal{O}_{X, p}^{sh} = \mathcal{O}_{U, u}^{sh}$；
+由于在 $\mathcal{O}_{U, u}$ 中已经如此，可知 $D$ 在
+$\Spec(\mathcal{O}_{U, u}^{sh})$ 上的迹由某个正则参数系的一部分截出。
+
+\medskip\noindent
+为证明反向蕴含，将使用 Lemma
+\ref{etale-lemma-characterize-normal-crossings-normalization} 的判据。
+注意正规化 $D^\nu \to D$ 的形成与严格 Hensel 化交换，见
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-normalization-and-henselization}。
+若能证明 $D^\nu \to D$ 有限，则 $D^\nu \to D$ 和诸概形
+$Z_n$ 都满足所需性质，因为这些性质都可以在局部环层面检验
+（但态射 $D^\nu \to D$ 的有限性不能在局部环上检验）。
+略去详细验证。
+
+\medskip\noindent
+若 $X$ 为 Nagata 概形，则由 Morphisms, Lemma
+\ref{morphisms-lemma-nagata-normalization}，
+$D^\nu \to D$ 有限。
+
+\medskip\noindent
+假设 $X$ 是 J-2 概形。选取点 $p \in D$。我们将证明
+$D^\nu \to D$ 在 $p$ 的某个邻域上有限。由假设，
+$\mathcal{O}_{X, p}^{sh}$ 存在正则参数系
+$f_1, \ldots, f_d$ 以及 $1 \leq r \leq d$，使得 $D$ 在
+$\Spec(\mathcal{O}_{X, p}^{sh})$ 上的迹由 $f_1 \ldots f_r$ 截出。
+于是
+$$
+D^\nu \times_X \Spec(\mathcal{O}_{X, p}^{sh}) = 
+\coprod\nolimits_{i = 1, \ldots, r} V(f_i)
+$$
+选取仿射平展（\'etale）邻域 $(U, u) \to (X, p)$，使得 $f_i$
+来自 $f_i \in \mathcal{O}_U(U)$。令 $D_i = V(f_i) \subset U$。
+$\mathcal{O}_{D_i, u}$ 的严格 Hensel 化为
+$\mathcal{O}_{X, p}^{sh}/(f_i)$，而后者正则。因此
+$\mathcal{O}_{D_i, u}$ 正则（例如由 More on Algebra, Lemma
+\ref{more-algebra-lemma-henselization-regular}）。由于 $X$ 是 J-2
+概形，正则轨迹在 $D_i$ 中开。因此，以某个 Zariski 开集代替
+$U$ 后，可假设对每个 $i$，$D_i$ 都正则。于是
+$$
+\coprod\nolimits_{i = 1, \ldots, r} D_i = D^\nu \times_X U
+\longrightarrow D \times_X U
+$$
+是正规化态射，并且显然有限。换言之，已经找到 $(X, p)$ 的平展
+（\'etale）邻域 $(U, u)$，使得 $D^\nu \to D$ 到该邻域的基变换
+有限。由下降（Descent, Lemma
+\ref{descent-lemma-descending-property-finite}），这蕴含
+$D^\nu \to D$ 有限，证明完成。
+\end{proof}

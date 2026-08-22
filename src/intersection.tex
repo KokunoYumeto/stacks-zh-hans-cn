@@ -1,0 +1,2713 @@
+% Generated mechanically from the frozen intersection.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{42}
+\chapter{相交理论}
+
+
+
+\phantomsection
+\label{intersection-section-phantom}
+
+
+
+\section{引言}
+\label{intersection-section-introduction}
+
+\noindent
+本章在代数闭域上的非奇异射影簇上，构造模有理等价的 Chow 群上的交积。
+我们采用的工具是 Serre 的 Tor 公式
+（见 \cite[Chapter V]{Serre_algebre_locale}）、化归到对角线以及移动引理。
+
+\medskip\noindent
+我们先回顾循环，并说明如何构造循环的固有推前与平坦拉回。随后引入循环的有理等价，
+由此得到 Chow 群 $\CH_*(X)$。固有推前与平坦拉回均可通过有理等价下降，从而给出
+Chow 群上的运算。这些内容见第
+\ref{intersection-section-cycles}、
+\ref{intersection-section-cycle-of-closed}、
+\ref{intersection-section-cycle-of-coherent-sheaf}、
+\ref{intersection-section-pushforward}、
+\ref{intersection-section-flat-pullback}、
+\ref{intersection-section-rational-equivalence}、
+\ref{intersection-section-alternative}、
+\ref{intersection-section-pushforward-and-rational-equivalence} 及
+\ref{intersection-section-flat-pullback-and-rational-equivalence} 节。
+证明主要引用 Chow 同调一章；其中已在泛链状诺特基上局部有限型概形的框架下证明这些结果，
+见 Chow 同调，第 \ref{chow-section-setup} 节及以下各节。
+
+\medskip\noindent
+由于我们研究的是非奇异射影簇 $X$，两个不可约闭子簇之交 $V \cap W$ 的任一不可约分支
+的维数至少为 $\dim(V) + \dim(W) - \dim(X)$。若对每个不可约分支 $Z$ 都取等号，
+则称 $V$ 与 $W$ 正常相交。在此情形下，用公式
+$$
+e_Z = \sum\nolimits_i
+(-1)^i
+\text{length}_{\mathcal{O}_{X, Z}}
+\text{Tor}_i^{\mathcal{O}_{X, Z}}(\mathcal{O}_{W, Z}, \mathcal{O}_{V, Z})
+$$
+定义交重数 $e_Z = e(X, V \cdot W, Z)$。
+我们需要运用少量交换代数来证明，在简单情形下这些交重数符合直观；具体而言，有时
+$$
+e_Z = \text{length}_{\mathcal{O}_{X, Z}} \mathcal{O}_{V \cap W, Z},
+$$
+也就是说，只有 $\text{Tor}_0$ 有贡献。当 $V$ 与 $W$ 在 $Z$ 的泛点处均为
+Cohen-Macaulay，或当 $W$ 在 $\mathcal{O}_{X, Z}$ 中由一个正则序列截出，
+且该序列在 $\mathcal{O}_{V, Z}$ 上也为正则序列时，便是如此。不过，
+例 \ref{intersection-example-naive-multiplicity-wrong} 表明一般情形确实需要高阶 Tor。
+此外，这与 Samuel 重数之间还有联系。这些内容见第
+\ref{intersection-section-intersect-properly}、
+\ref{intersection-section-tor-formula}、
+\ref{intersection-section-multiplicities}、
+\ref{intersection-section-computing-intersection-multiplicities} 及
+\ref{intersection-section-intersection-product} 节。
+
+\medskip\noindent
+化归到对角线是指：可以通过让 $V \times W$ 与 $X \times X$ 中的对角线相交，
+来求 $V$ 与 $W$ 的交。在概形论意义的交这一层面上，这个看似平淡的说法是显然的；
+它把一般一对子概形的相交问题化归为其中一个子概形局部由正则序列截出的情形。
+我们依照 Serre 的方法，由此得到交重数的正性。此外，化归到对角线还导出交重数的
+可加性、结合律以及投影公式。这些内容见第
+\ref{intersection-section-exterior-product}、
+\ref{intersection-section-reduction-diagonal}、
+\ref{intersection-section-associative}、
+\ref{intersection-section-flat-pullback-and-intersection-products} 及
+\ref{intersection-section-projection-formula-flat} 节。
+
+\medskip\noindent
+最后讨论移动引理及其应用。移动引理由两部分组成。第一部分说，给定闭子簇
+$$
+Z \subset X \subset \mathbf{P}^N
+$$
+且 $X$ 非奇异，可以找到与 $X$ 正常相交的子簇 $C \subset \mathbf{P}^N$，使得
+$$
+C \cdot X = [Z] + \sum m_j [Z_j]
+$$
+并且其余分支 $Z_j$ 比 $Z$ “更一般”。第二部分说，可以沿一条有理曲线移动
+$C \subset \mathbf{P}^N$，使其移到相对于任意给定子簇列表处于一般位置的子簇。
+两部分合在一起表明，只须对 $X$ 上正常相交的循环定义交积；上文已经完成这一步。
+当然，只有证明这些乘积能通过有理等价下降，才能得到 $\CH_*(X)$ 上的交积；
+正文将证明这一点。这些结果及若干应用见第
+\ref{intersection-section-projection}、
+\ref{intersection-section-moving-lemma}、
+\ref{intersection-section-intersections-and-rational-equivalence}、
+\ref{intersection-section-chow-rings}、
+\ref{intersection-section-general-pullback} 及
+\ref{intersection-section-pullback-cycles} 节。
+
+
+
+\section{约定}
+\label{intersection-section-conventions}
+
+\noindent
+固定任意特征的代数闭基域 $\mathbf{C}$。所有概形与簇均定义在 $\mathbf{C}$ 上，
+所有态射也都是 $\mathbf{C}$ 上的态射。若簇 $X$ 是正则概形，则称 $X$
+{\it 非奇异}（见《性质》，定义 \ref{properties-definition-regular}）。
+在当前情形下，这等价于态射 $X \to \Spec(\mathbf{C})$ 光滑
+（见《簇》，引理 \ref{varieties-lemma-geometrically-regular-smooth}）。
+
+
+\section{循环}
+\label{intersection-section-cycles}
+
+\noindent
+设 $X$ 为簇。$X$ 的一个{\it 闭子簇}是整闭子概形 $Z \subset X$。
+$X$ 上的一个{\it $k$-循环}是有限形式和 $\sum n_i [Z_i]$，其中每个 $Z_i$
+都是维数为 $k$ 的闭子簇。每当以 $\alpha = \sum n_i[Z_i]$ 表示一个
+$k$-循环时，总假设各 $Z_i$ 两两不同，且对所有 $i$ 都有 $n_i \not = 0$。
+此时，$\alpha$ 的{\it 支撑}是维数为 $k$ 的闭子集
+$$
+\text{Supp}(\alpha) = \bigcup Z_i \subset X
+$$
+$k$-循环群记为 $Z_k(X)$。见《Chow 同调》，第 \ref{chow-section-cycles} 节。
+
+
+\section{闭子概形所对应的循环}
+\label{intersection-section-cycle-of-closed}
+
+\noindent
+设 $X$ 为簇，$Z \subset X$ 为满足 $\dim(Z) \leq k$ 的闭子概形。
+设 $Z_i$ 为 $Z$ 中维数为 $k$ 的不可约分支，并定义 $n_i$ 为
+{\it $Z_i$ 在 $Z$ 中的重数}：
+$$
+n_i = \text{length}_{\mathcal{O}_{X, Z_i}} \mathcal{O}_{Z, Z_i}
+$$
+这里 $\mathcal{O}_{X, Z_i}$ 与 $\mathcal{O}_{Z, Z_i}$ 分别表示
+\ $X$ 与\ $Z$ 在 $Z_i$ 的泛点处的局部环。把如下 $k$-循环定义为
+$Z$ 所对应的 $k$-循环：
+$$
+[Z]_k = \sum n_i [Z_i].
+$$
+见《Chow 同调》，第 \ref{chow-section-cycle-of-closed-subscheme} 节。
+
+
+\section{凝聚层所对应的循环}
+\label{intersection-section-cycle-of-coherent-sheaf}
+
+\noindent
+设 $X$ 为簇，$\mathcal{F}$ 为满足
+$\dim(\text{Supp}(\mathcal{F})) \leq k$ 的凝聚 $\mathcal{O}_X$-模。
+设 $Z_i$ 为 $\text{Supp}(\mathcal{F})$ 中维数为 $k$ 的不可约分支，并定义
+$n_i$ 为{\it $Z_i$ 在 $\mathcal{F}$ 中的重数}：
+$$
+n_i = \text{length}_{\mathcal{O}_{X, Z_i}} \mathcal{F}_{\xi_i}
+$$
+这里 $\mathcal{O}_{X, Z_i}$ 是 $X$ 在 $Z_i$ 的泛点 $\xi_i$ 处的局部环，
+$\mathcal{F}_{\xi_i}$ 是 $\mathcal{F}$ 在该点的茎。把如下 $k$-循环定义为
+$\mathcal{F}$ 所对应的 $k$-循环：
+$$
+[\mathcal{F}]_k = \sum n_i [Z_i].
+$$
+见《Chow 同调》，第 \ref{chow-section-cycle-of-coherent-sheaf} 节。
+注意，若 $Z \subset X$ 是满足 $\dim(Z) \leq k$ 的闭子概形，则按定义有
+$[Z]_k = [\mathcal{O}_Z]_k$。
+
+
+\section{固有推前}
+\label{intersection-section-pushforward}
+
+\noindent
+设 $f : X \to Y$ 为簇之间的固有态射，$Z \subset X$ 为 $k$ 维闭子簇。
+若 $\dim(f(Z)) < k$，定义 $f_*[Z]$ 为 $0$；若 $\dim(f(Z)) = k$，则定义
+其为 $d \cdot [f(Z)]$，其中
+$$
+d = [\mathbf{C}(Z) : \mathbf{C}(f(Z))] = \deg(Z/f(Z))
+$$
+是支配态射 $Z \to f(Z)$ 的次数；见《态射》，定义
+\ref{morphisms-definition-degree}。设 $\alpha = \sum n_i [Z_i]$
+为 $X$ 上的 $k$-循环。定义 $\alpha$ 的{\it 推前}为
+$f_* \alpha = \sum n_i f_*[Z_i]$，其中每个 $f_*[Z_i]$ 如上定义。
+这给出群同态
+$$
+f_* : Z_k(X) \longrightarrow Z_k(Y)
+$$
+见《Chow 同调》，第 \ref{chow-section-proper-pushforward} 节。
+
+\begin{lemma}
+\label{intersection-lemma-push-coherent}
+\begin{reference}
+见 \cite[Chapter V]{Serre_algebre_locale}。
+\end{reference}
+设 $f : X \to Y$ 为簇之间的固有态射。若 $\mathcal{F}$ 为满足
+$\dim(\text{Supp}(\mathcal{F})) \leq k$ 的凝聚层，则
+$f_*[\mathcal{F}]_k = [f_*\mathcal{F}]_k$。特别地，若
+$Z \subset X$ 为维数 $\leq k$ 的闭子概形，则
+$f_*[Z]_k = [f_*\mathcal{O}_Z]_k$。
+\end{lemma}
+
+\begin{proof}
+见《Chow 同调》，引理 \ref{chow-lemma-cycle-push-sheaf}。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-compose-pushforward}
+设 $f : X \to Y$ 与 $g : Y \to Z$ 为簇之间的固有态射。
+则作为映射 $Z_k(X) \to Z_k(Z)$，有 $g_* \circ f_* = (g \circ f)_*$。
+\end{lemma}
+
+\begin{proof}
+这是《Chow 同调》引理 \ref{chow-lemma-compose-pushforward} 的特例。
+\end{proof}
+
+
+
+\section{平坦拉回}
+\label{intersection-section-flat-pullback}
+
+\noindent
+设 $f : X \to Y$ 为簇之间的平坦态射。由《态射》引理
+\ref{morphisms-lemma-dimension-fibre-at-a-point-additive}，
+$f$ 的每个纤维都具有维数 $r = \dim(X) - \dim(Y)$\footnote{反过来，
+若 $f : X \to Y$ 是簇之间的支配态射，$X$ 为 Cohen-Macaulay，$Y$ 非奇异，
+且所有纤维都具有相同维数 $r$，则 $f$ 平坦。这由《代数》引理
+\ref{algebra-lemma-CM-over-regular-flat} 与《簇》引理
+\ref{varieties-lemma-dimension-fibres-locally-algebraic} 得出；
+后者给出 $\dim(X) = \dim(Y) + r$。}。
+设 $Z \subset Y$ 为 $k$ 维闭子簇。定义 $f^*[Z]$ 为概形论逆像所对应的
+$(k + r)$-循环，即 $f^*[Z] = [f^{-1}(Z)]_{k + r}$。设
+$\alpha = \sum n_i [Z_i]$ 为 $Y$ 上的 $k$-循环。定义 $\alpha$ 的
+{\it 拉回}为和 $f^* \alpha = \sum n_i f^*[Z_i]$，其中每个 $f^*[Z_i]$
+如上定义。这给出群同态
+$$
+f^* : Z_k(Y) \longrightarrow Z_{k + r}(X)
+$$
+见《Chow 同调》，第 \ref{chow-section-flat-pullback} 节。
+
+\begin{lemma}
+\label{intersection-lemma-pullback}
+设 $f : X \to Y$ 为簇之间的平坦态射，并置 $r = \dim(X) - \dim(Y)$。
+则 $f^*[\mathcal{F}]_k = [f^*\mathcal{F}]_{k + r}$，其中
+$\mathcal{F}$ 是 $Y$ 上的凝聚层，且 $\mathcal{F}$ 的支撑维数至多为 $k$。
+\end{lemma}
+
+\begin{proof}
+见《Chow 同调》，引理 \ref{chow-lemma-pullback-coherent}。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-compose-flat-pullback}
+设 $f : X \to Y$ 与 $g : Y \to Z$ 为簇之间的平坦态射。
+则 $g \circ f$ 平坦，并且作为映射
+$Z_k(Z) \to Z_{k + \dim(X) - \dim(Z)}(X)$，有
+$f^* \circ g^* = (g \circ f)^*$。
+\end{lemma}
+
+\begin{proof}
+这是《Chow 同调》引理 \ref{chow-lemma-compose-flat-pullback} 的特例。
+\end{proof}
+
+
+\section{有理等价}
+\label{intersection-section-rational-equivalence}
+
+\noindent
+下面给出的有理等价定义，乍看之下可能不同于读者熟悉的定义，也不同于
+\cite[Chapter I]{F} 或《Chow 同调》第
+\ref{chow-section-rational-equivalence} 节中的表述。不过，我们将在第
+\ref{intersection-section-alternative} 节证明这两个概念一致。
+
+\medskip\noindent
+设 $X$ 为簇，$W \subset X \times \mathbf{P}^1$ 为维数 $k + 1$
+的闭子簇，$a, b$ 为 $\mathbf{P}^1$ 上两个不同的闭点。假设
+$X \times a$、$X \times b$ 与 $W$ 正常相交，即
+$$
+\dim (W \cap X \times a) \leq k,\quad
+\dim (W \cap X \times b) \leq k.
+$$
+只要 $W \to \mathbf{P}^1$ 是支配的，或者 $W$ 包含在投影位于某个不同于
+$a$、$b$ 的闭点之上的纤维中，这一条件便成立（后一种是将被舍弃的无趣情形）。
+此时，态射 $W \to \mathbf{P}^1$ 的概形论纤维 $W_a$ 等于
+$X \times \mathbf{P}^1$ 中的概形论交 $W \cap X \times a$。
+把 $X \times a$ 与 $X \times b$ 认同于 $X$，便可把纤维 $W_a$ 与 $W_b$
+看成 $X$ 中维数 $\leq k$ 的闭子概形\footnote{有时把 $W_a$ 看成
+$X \times \mathbf{P}^1$ 的闭子概形，有时把它看成 $X$ 的闭子概形；
+所取观点应总能由上下文辨明。}。有理等价的一个基本例子是
+$$
+[W_a]_k \sim_{rat} [W_b]_k
+$$
+在给定 $W$ 时，循环 $[W_a]_k$ 与 $[W_b]_k$ 在实际中很容易计算，
+因为它们由同一个 Cartier 除子的正常相交得到（见第
+\ref{intersection-section-intersection-product} 节）。由于 $\mathbf{P}^1$ 的自同构群
+是 $2$-重传递的，可以把闭点对 $a, b$ 移到任意希望的位置。传统选择是
+$a = 0$ 与 $b = \infty$。
+
+\medskip\noindent
+更一般地，设 $\alpha = \sum n_i [W_i]$ 为
+$X \times \mathbf{P}^1$ 上的 $(k + 1)$-循环，并在
+$\mathbf{P}^1$ 上取不同闭点对 $a_i, b_i$。假设
+$X \times a_i$、$X \times b_i$ 与 $W_i$ 正常相交；换言之，每组
+$W_i, a_i, b_i$ 都满足上面的条件。所谓{\it 有理等价于零的循环}，
+是指任意形如
+$$
+\sum n_i([W_{i, a_i}]_k - [W_{i, b_i}]_k).
+$$
+的循环。这确实是一个 $k$-循环。有理等价于零的 $k$-循环全体构成
+$k$-循环群的一个加法子群。若 $\alpha - \alpha'$ 有理等价于零，
+则称两个 $k$-循环{\it 有理等价}，记作
+$\alpha \sim_{rat} \alpha'$。
+
+\medskip\noindent
+定义
+$$
+\CH_k(X) = Z_k(X)/ \sim_{rat}
+$$
+称其为{\it $X$ 上 $k$-循环的 Chow 群}。引理
+\ref{intersection-lemma-rational-equivalence} 将表明，这与《Chow 同调》定义
+\ref{chow-definition-rational-equivalence} 中的 Chow 群一致。
+
+
+\section{有理等价与有理函数}
+\label{intersection-section-alternative}
+
+\noindent
+设 $X$ 为簇，$W \subset X$ 为维数 $k + 1$ 的子簇，
+$f \in \mathbf{C}(W)^*$ 为 $W$ 上的非零有理函数。对任意维数为 $k$ 的
+子簇 $Z \subset W$，可定义 $f$ 在 $Z$ 上的消失阶
+$\text{ord}_{W, Z}(f)$。若 $f$ 是局部环 $\mathcal{O}_{W, Z}$ 的元，则
+$$
+\text{ord}_{W, Z}(f) =
+\text{length}_{\mathcal{O}_{X, Z}} \mathcal{O}_{W, Z}/f\mathcal{O}_{W, Z}
+$$
+其中\ $\mathcal{O}_{X, Z}$ 与\ $\mathcal{O}_{W, Z}$ 分别是 $X$ 与 $W$ 在 $Z$
+的泛点处的局部环。一般情形下，由乘法性将此定义延拓。与 $f$
+相关联的{\it 主除子}为
+$$
+\text{div}_W(f) = \sum \text{ord}_{W, Z}(f)[Z]
+$$
+它属于 $Z_k(W)$。因为 $W \subset X$ 是闭子簇，可以把
+$\text{div}_W(f)$ 看作 $X$ 上的循环。
+见《Chow 同调》第 \ref{chow-section-principal-divisors} 节。
+
+\begin{lemma}
+\label{intersection-lemma-rational-equivalence}
+设 $X$ 为簇，$W \subset X$ 为维数 $k + 1$ 的子簇，
+$f \in \mathbf{C}(W)^*$ 为 $W$ 上的非零有理函数。则
+$\text{div}_W(f)$ 在 $X$ 上有理等价于零。反之，这些主除子生成
+$X$ 上有理等价于零的循环所构成的阿贝尔群。
+\end{lemma}
+
+\begin{proof}
+第一个断言由《Chow 同调》引理
+\ref{chow-lemma-rational-function} 得出。更确切地，设
+$W' \subset X \times \mathbf{P}^1$ 为 $f$ 的图像的闭包。则
+$\text{div}_W(f) = [W'_0]_k - [W'_\infty]$ 在
+$Z_k(W) \subset Z_k(X)$ 中成立；见《Chow 同调》引理
+\ref{chow-lemma-rational-function} 的第 (6) 部分。
+
+\medskip\noindent
+对于第二个断言，设 $W' \subset X \times \mathbf{P}^1$ 是一个维数为
+$k + 1$ 且支配 $\mathbf{P}^1$ 的闭子簇。我们将证明
+$[W'_0]_k - [W'_\infty]_k$ 是主除子，从而完成证明。设
+$W \subset X$ 为 $W'$ 在到 $X$ 的投影下的像。则
+$W \subset X$ 是闭子簇，$W' \to W$ 是固有支配的，其纤维数为
+$0$ 或 $1$。若 $\dim(W) = k$，则 $W' = W \times \mathbf{P}^1$，且
+$[W'_0]_k - [W'_\infty]_k = [W] - [W] = 0$。
+若 $\dim(W) = k + 1$，则
+$W' \to W$ 在一般点上是有限的\footnote{若 $W' \to W$ 是双有理的，
+则结论由《Chow 同调》引理
+\ref{chow-lemma-rational-function} 得出。我们需要证明，即使 $W' \to W$
+的次数 $> 1$，基本有理等价
+$[W'_0]_k \sim_{rat} [W'_\infty]_k$ 仍来自 $X$ 的某个子簇上的主除子。}。
+以 $f$ 表示投影 $W' \to \mathbf{P}^1$，并把它视为
+$\mathbf{C}(W')^*$ 的元。令 $g = \text{Nm}(f) \in \mathbf{C}(W)^*$ 为范数。由
+《Chow 同调》引理 \ref{chow-lemma-proper-pushforward-alteration}，有
+$$
+\text{div}_W(g) = \text{pr}_{X, *}\text{div}_{W'}(f)
+$$
+再由《Chow 同调》引理 \ref{chow-lemma-rational-function}，
+$\text{div}_{W'}(f) = [W'_0]_k - [W'_\infty]_k$，证明完毕。
+\end{proof}
+
+
+\section{固有推前与有理等价}
+\label{intersection-section-pushforward-and-rational-equivalence}
+
+\noindent
+设 $f : X \to Y$ 为簇之间的固有态射，$\alpha \sim_{rat} 0$ 为
+$X$ 上有理等价于 $0$ 的 $k$-循环。则 $\alpha$ 的{推前}也有理等价于零：
+$f_* \alpha \sim_{rat} 0$。见 \cite{F} 第 I 章或《Chow 同调》引理
+\ref{chow-lemma-proper-pushforward-rational-equivalence}。
+
+\medskip\noindent
+因此得到交换图
+$$
+\xymatrix{
+Z_k(X) \ar[r] \ar[d]_{f_*} & \CH_k(X) \ar[d]^{f_*} \\
+Z_k(Y) \ar[r] & \CH_k(Y)
+}
+$$
+其中各项均为 $k$-循环群。
+
+
+\section{平坦拉回与有理等价}
+\label{intersection-section-flat-pullback-and-rational-equivalence}
+
+\noindent
+设 $f : X \to Y$ 为簇之间的平坦态射，并置 $r = \dim(X) - \dim(Y)$。
+设 $\alpha \sim_{rat} 0$ 为 $Y$ 上有理等价于 $0$ 的 $k$-循环。则
+$\alpha$ 的拉回也有理等价于零：$f^* \alpha \sim_{rat} 0$。
+见 \cite{F} 第 I 章或《Chow 同调》引理
+\ref{chow-lemma-flat-pullback-rational-equivalence}。
+
+\medskip\noindent
+因此得到交换图
+$$
+\xymatrix{
+Z_{k + r}(X) \ar[r] & \CH_{k + r}(X) \\
+Z_k(Y) \ar[r] \ar[u]^{f^*} & \CH_k(Y) \ar[u]_{f^*}
+}
+$$
+其中各项均为 $k$-循环群。
+
+
+\section{开子簇的短正合列}
+\label{intersection-section-ses}
+
+\noindent
+设 $X$ 为簇，$U \subset X$ 为开子簇。将
+$X \setminus U = \bigcup Z_i$ 分解为不可约分支\footnote{本章只考虑簇的
+Chow 群，因而不能直接取 $Z_k(X \setminus U)$ 与
+$\CH_k(X \setminus U)$，故采用各簇 $Z_i$ 来表述。}。则对每个
+$k \geq 0$ 都存在交换图
+$$
+\xymatrix{
+\bigoplus Z_k(Z_i) \ar[r] \ar[d] &
+Z_k(X) \ar[r] \ar[d] &
+Z_k(U) \ar[d] \ar[r] &
+0 \\
+\bigoplus \CH_k(Z_i) \ar[r] &
+\CH_k(X) \ar[r] &
+\CH_k(U) \ar[r] &
+0
+}
+$$
+它的两行均正合。竖直箭头是典范商映射。左侧水平箭头由沿闭浸入
+$Z_i \to X$ 的固有推前给出；右侧水平箭头由沿开浸入
+$j : U \to X$ 的平坦拉回给出。既然已知这些映射可以经过有理等价分解，
+方块的交换性随即得出。上行正合，是因为 $X$ 的每个子簇要么包含在某个
+$Z_i$ 中，要么它与 $U$ 的交不可约。下行正合，是因为 $U$ 上的每个主除子
+$\text{div}_W(f)$ 都是 $X$ 上某个主除子的限制。更确切地，若
+$W \subset U$ 是维数为 $(k + 1)$ 的闭子簇，且
+$f \in \mathbf{C}(W)^*$，以 $\overline{W}$ 表示 $W$ 在 $X$ 中的闭包。则
+$W \subset \overline{W}$ 是开浸入，故
+$\mathbf{C}(W) = \mathbf{C}(\overline{W})$，可把 $f$ 看作 $\overline{W}$ 上的非常值有理函数。
+于是显然有
+$$
+j^*\text{div}_{\overline{W}}(f) = \text{div}_W(f)
+$$
+该等式在 $Z_k(X)$ 中成立。由此容易得到下行的正合性。详情见《Chow 同调》引理
+\ref{chow-lemma-restrict-to-open}。
+
+
+\section{正常相交}
+\label{intersection-section-intersect-properly}
+
+\noindent
+先给出几个用于估计维数的引理。
+
+\begin{lemma}
+\label{intersection-lemma-dimension-product-varieties}
+设 $X$ 与 $Y$ 为簇。则 $X \times Y$ 也是簇，且
+$\dim(X \times Y) = \dim(X) + \dim(Y)$。
+\end{lemma}
+
+\begin{proof}
+由《簇》引理 \ref{varieties-lemma-product-varieties}，概形
+$X \times Y = X \times_{\Spec(\mathbf{C})} Y$ 是簇。维数断言是《簇》引理
+\ref{varieties-lemma-dimension-product-locally-algebraic}。
+\end{proof}
+
+\noindent
+回忆，概形的正则浸入 $i : X \to Y$ 是一个闭浸入，其对应理想层在局部
+由正则序列生成；见《除子》第 \ref{divisors-section-regular-immersions} 节。
+此外，余法层 $\mathcal{C}_{X/Y}$ 有限局部自由，其秩等于该正则序列的长度。
+若 $\mathcal{C}_{X/Y}$ 是秩为 $c$ 的局部自由层，就称 $i$ 是
+{\it 余维数为 $c$ 的正则浸入}。
+
+\medskip\noindent
+更一般地，回忆《态射进阶》第 \ref{more-morphisms-section-lci} 节中的定义：
+若可以用开集 $U$ 覆盖 $X$，使 $f|_U$ 都能分解为
+$$
+\xymatrix{
+U \ar[rr]_i \ar[rd] & & \mathbf{A}^n_Y \ar[ld] \\
+& Y
+}
+$$
+其中 $i$ 是 Koszul 正则浸入，则称 $f : X \to Y$ 为局部完全交态射。
+当 $Y$ 局部 Noether 时，这等价于要求 $i$ 为正则浸入；见《除子》引理
+\ref{divisors-lemma-regular-immersion-noetherian}。若对任意上述分解，闭浸入 $i$
+的余法层秩都为 $n - r$，就称 $f$ 是{\it 相对维数为 $r$ 的局部完全交态射}。
+换言之，$i$ 是余维数为 $n - r$ 的 Koszul-正则浸入；在 Noether 情形下，
+这就是余维数为 $n - r$ 的正则浸入。
+
+\begin{lemma}
+\label{intersection-lemma-pullback-by-regular-immersion}
+设 $f : X \to Y$ 为簇之间的态射。
+\begin{enumerate}
+\item 若 $Z \subset Y$ 是维数为 $d$ 的子簇，且 $f$ 是余维数为 $c$ 的正则浸入，则
+$f^{-1}(Z)$ 的每个不可约分支的维数都 $\geq d - c$。
+\item 若 $Z \subset Y$ 是维数为 $d$ 的子簇，且
+$f$ 是相对维数为 $r$ 的局部完全交态射，则 $f^{-1}(Z)$ 的每个不可约分支
+的维数都 $\geq d + r$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。可以局部地工作，故可设
+$Y = \Spec(A)$ 且 $X = V(f_1, \ldots, f_c)$，其中 $f_1, \ldots, f_c$
+是 $A$ 中的正则序列。若 $Z = \Spec(A/\mathfrak p)$，则
+$f^{-1}(Z) = \Spec(A/\mathfrak p + (f_1, \ldots, f_c))$。
+若 $V$ 是 $f^{-1}(Z)$ 的一个不可约分支，则可选取一个不属于
+$f^{-1}(Z)$ 其他任何不可约分支的闭点 $v \in V$。于是
+$$
+\dim(Z) = \dim \mathcal{O}_{Z, v}
+\quad\text{且}\quad
+\dim(V) = \dim \mathcal{O}_{V, v} = \dim \mathcal{O}_{Z, v}/(f_1, \ldots, f_c)
+$$
+第一个等式例如由《代数》引理
+\ref{algebra-lemma-dimension-prime-polynomial-ring} 得出，第二个等式则由闭点的选取得出。
+最后，由极大理想中的一个元作商至多使维数减少 $1$，即得结论；见《代数》引理
+\ref{algebra-lemma-one-equation}。
+
+\medskip\noindent
+证明 (2)。按局部完全交的定义选取一个分解，然后应用 (1)。略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-diagonal-regular-immersion}
+设 $X$ 为非奇异簇。则对角态射
+$\Delta : X \to X \times X$ 是余维数为 $\dim(X)$ 的正则浸入。
+\end{lemma}
+
+\begin{proof}
+事实上，非奇异射影簇之间的任意闭浸入都是正则浸入；见《除子》引理
+\ref{divisors-lemma-immersion-smooth-into-smooth-regular-immersion}。
+\end{proof}
+
+\noindent
+下一引理说明如何进行化归到对角线。
+
+\begin{lemma}
+\label{intersection-lemma-intersect-in-smooth}
+设 $X$ 为非奇异簇，$W,V \subset X$ 为闭子簇，且
+$\dim(W) = s$、$\dim(V) = r$。则 $V \cap W$ 的每个不可约分支 $Z$
+的维数都 $\geq r + s - \dim(X)$。
+\end{lemma}
+
+\begin{proof}
+由于在概形论意义下 $V \cap W = \Delta^{-1}(V \times W)$，结论由引理
+\ref{intersection-lemma-diagonal-regular-immersion} 与
+\ref{intersection-lemma-pullback-by-regular-immersion} 得出。
+\end{proof}
+
+\noindent
+这一引理引出下列定义。
+
+\begin{definition}
+\label{intersection-definition-proper-intersection}
+设 $X$ 为非奇异簇。
+\begin{enumerate}
+\item 设 $W,V \subset X$ 为闭子簇，且
+$\dim(W) = s$、$\dim(V) = r$。若
+$\dim(V \cap W) \leq r + s - \dim(X)$，就称 $W$ 与 $V$ {\it 正常相交}。
+\item 设 $\alpha = \sum n_i [W_i]$ 为 $s$-循环，
+$\beta = \sum_j m_j [V_j]$ 为 $X$ 上的 $r$-循环。若对所有 $i$ 与 $j$，
+$W_i$ 与 $V_j$ 都正常相交，就称 $\alpha$ 与 $\beta$ {\it 正常相交}。
+\end{enumerate}
+\end{definition}
+
+
+\section{用 Tor 公式定义相交重数}
+\label{intersection-section-tor-formula}
+
+\noindent
+我们将频繁使用如下基本事实。给定带环空间 $(X, \mathcal{O}_X)$ 上的模层
+$\mathcal{F}$、$\mathcal{G}$ 以及一点 $x \in X$，有
+$$
+\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x =
+\text{Tor}_p^{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+$$
+它们是 $\mathcal{O}_{X, x}$-模。这一事实可以从《上同调》第
+\ref{cohomology-section-flat} 节中对导出张量积的构造以多种方式看出；例如它由
+《上同调》引理 \ref{cohomology-lemma-check-K-flat-stalks} 得出。
+此外，若 $X$ 是概形，而 $\mathcal{F}$ 与 $\mathcal{G}$ 拟凝聚，则模
+$\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ 也拟凝聚；见《概形的导出范畴》引理
+\ref{perfect-lemma-quasi-coherence-tensor-product}。对我们的用途更重要的是下列结果。
+
+\begin{lemma}
+\label{intersection-lemma-tensor-coherent}
+设 $X$ 为局部 Noether 概形。
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 与 $\mathcal{G}$ 是凝聚 $\mathcal{O}_X$-模，则
+$\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ 也是凝聚的。
+\item 若 $L$ 与 $K$ 属于 $D^-_{\textit{Coh}}(\mathcal{O}_X)$，则
+$L \otimes_{\mathcal{O}_X}^\mathbf{L} K$ 也属于该范畴。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们用较为初等的方法证明 (1)，并用先前建立的一般理论证明 (2)。
+
+\medskip\noindent
+证明 (1)。由于 $\text{Tor}$ 的形成与局部化可交换，可以设 $X$ 为仿射概形。
+于是对某个 Noether 环 $A$，有 $X = \Spec(A)$，且 $\mathcal{F}$、$\mathcal{G}$
+分别对应于有限 $A$-模 $M$ 与 $N$；见《概形的上同调》引理
+\ref{coherent-lemma-coherent-Noetherian}。由《概形的导出范畴》引理
+\ref{perfect-lemma-quasi-coherence-tensor-product}，可以先在 $A$ 上计算 $M$ 与 $N$
+的 $\text{Tor}$，再取其所关联的 $\mathcal{O}_X$-模，以此计算 $\text{Tor}$。由《代数》引理
+\ref{algebra-lemma-tor-noetherian}，模 $\text{Tor}_p^A(M, N)$ 都是有限的，因而结论成立。
+
+\medskip\noindent
+由《概形的导出范畴》引理
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian}，所设条件等价于要求 $L$ 与 $K$
+都（局部地）拟凝聚。再由《上同调》引理
+\ref{cohomology-lemma-tensor-pseudo-coherent}，
+$L \otimes_{\mathcal{O}_X}^\mathbf{L} K$ 也拟凝聚。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-compute-tor-nonsingular}
+设 $X$ 为非奇异簇，$\mathcal{F}$、$\mathcal{G}$ 为凝聚 $\mathcal{O}_X$-模。则
+$\mathcal{O}_X$-模 $\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$
+是凝聚的，它在 $x$ 处的茎等于
+$\text{Tor}_p^{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)$，其支撑包含于
+$\text{Supp}(\mathcal{F}) \cap \text{Supp}(\mathcal{G})$，并且它只可能在
+$p \in \{0, \ldots, \dim(X)\}$ 时非零。
+\end{lemma}
+
+\begin{proof}
+上文已讨论茎的断言，它也蕴含了支撑条件。由引理
+\ref{intersection-lemma-tensor-coherent}，各 $\text{Tor}$ 都是凝聚的。负次 $\text{Tor}$
+的消失直接来自构造。对 $p > \dim(X)$，$\text{Tor}_p$ 的消失可见如下：
+局部环 $\mathcal{O}_{X, x}$ 因 $X$ 非奇异而正则，且其维数
+$\leq \dim(X)$；见《代数》引理
+\ref{algebra-lemma-dimension-prime-polynomial-ring}。因此 $\mathcal{O}_{X, x}$ 的有限整体维数
+$\leq \dim(X)$；见《代数》引理
+\ref{algebra-lemma-finite-gl-dim-finite-dim-regular}。这蕴含模的 $\text{Tor}$-群在超过此维数后消失；
+见《代数进阶》引理 \ref{more-algebra-lemma-finite-gl-dim-tor-dimension}。
+\end{proof}
+
+\noindent
+设 $X$ 为非奇异簇，$W, V \subset X$ 为闭子簇，且
+$\dim(W) = s$、$\dim(V) = r$。假设 $V$ 与 $W$ 正常相交。
+此时引理 \ref{intersection-lemma-intersect-in-smooth} 告诉我们，$V \cap W$ 的所有不可约分支
+的维数都等于 $r + s - \dim(X)$。层
+$\text{Tor}_j^{\mathcal{O}_X}(\mathcal{O}_W, \mathcal{O}_V)$ 是凝聚的，支撑于 $V \cap W$，
+并且当 $j < 0$ 或 $j > \dim(X)$ 时为零；见引理
+\ref{intersection-lemma-compute-tor-nonsingular}。定义{\it 交积}为
+$$
+W \cdot V = \sum\nolimits_i (-1)^i
+[\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_W, \mathcal{O}_V)]_{r + s - \dim(X)}.
+$$
+强调一下，这一定义只因我们假设 $V$ 与 $W$ 正常相交才有意义。
+为了在一般情形下定义交积，这一事实将迫使我们使用移动引理。
+
+\medskip\noindent
+在此记号下，循环 $V \cdot W$ 是交 $V \cap W$ 的不可约分支 $Z$
+的形式线性组合 $\sum e_Z Z$。整数 $e_Z$ 称为{\it 相交重数}：
+$$
+e_Z = e(X, V \cdot W, Z) =
+\sum\nolimits_i
+(-1)^i
+\text{length}_{\mathcal{O}_{X, Z}}
+\text{Tor}_i^{\mathcal{O}_{X, Z}}(\mathcal{O}_{W, Z}, \mathcal{O}_{V, Z})
+$$
+其中\ $\mathcal{O}_{X, Z}$、\ $\mathcal{O}_{W, Z}$ 与\ $\mathcal{O}_{V, Z}$ 分别表示 $X$、$W$ 与 $V$
+在\ $Z$ 的泛点处的局部环。正如后文将看到的，这些 $\text{Tor}$ 的长度交错和
+具有许多良好性质。
+
+\medskip\noindent
+在横截相交的情形下，相交数为 $1$。
+
+\begin{lemma}
+\label{intersection-lemma-transversal}
+设 $X$ 为非奇异簇，$V, W \subset X$ 为正常相交的闭子簇。设 $Z$ 为
+$V \cap W$ 的一个不可约分支，并假设闭子概形 $V \cap W$ 中 $Z$ 的重数
+（按第 \ref{intersection-section-cycle-of-closed} 节的意义）为 $1$。则
+$e(X, V \cdot W, Z) = 1$，且 $V$ 与 $W$ 在 $Z$ 的一般点处光滑。
+\end{lemma}
+
+\begin{proof}
+设 $(A, \mathfrak m, \kappa) =
+(\mathcal{O}_{X, \xi}, \mathfrak m_\xi, \kappa(\xi))$，其中 $\xi \in Z$ 是泛点。则
+$\dim(A) = \dim(X) - \dim(Z)$；见《簇》引理
+\ref{varieties-lemma-dimension-locally-algebraic}。设 $I, J \subset A$ 分别截出 $V$ 与 $W$
+在 $\Spec(A)$ 中的迹。置 $\overline{I} = I + \mathfrak m^2/\mathfrak m^2$。则
+$\dim_\kappa \overline{I} \leq \dim(X) - \dim(V)$，且等号成立当且仅当
+$A/I$ 正则。这由上述引理与正则环的定义得出；见《代数》定义
+\ref{algebra-definition-regular-local} 及其前的讨论。对 $\overline{J}$ 亦然。
+若重数为 $1$，则 $\text{length}_A(A/I + J) = 1$，因而
+$I + J = \mathfrak m$，从而 $\overline{I} + \overline{J} = \mathfrak m/\mathfrak m^2$。
+于是，由于交是正常的，上述各不等式处处取等号。因此可找到
+$f_1, \ldots, f_a \in I$ 与 $g_1, \ldots g_b \in J$，使
+$\overline{f}_1, \ldots, \overline{g}_b$ 是 $\mathfrak m/\mathfrak m^2$ 的一组基。于是
+$f_1, \ldots, g_b$ 是一组正则参数系，也是正则序列；见《代数》引理
+\ref{algebra-lemma-regular-ring-CM}。同一引理说明
+$A/(f_1, \ldots, f_a)$ 是维数为 $\dim(X) - \dim(V)$ 的正则局部环，故
+$A/(f_1, \ldots, f_a) \to A/I$ 是同构。事实上，若核非零，则 $A/I$
+的维数严格更小；见《代数》引理
+\ref{algebra-lemma-regular-domain} 与 \ref{algebra-lemma-one-equation}。
+利用对称性，得到 $I = (f_1, \ldots, f_a)$ 与 $J = (g_1, \ldots, g_b)$。
+因此，关于 $f_1, \ldots, f_a$ 的 Koszul 复形
+$K_\bullet(A, f_1, \ldots, f_a)$ 是 $A/I$ 的一个解析；见《代数进阶》引理
+\ref{more-algebra-lemma-regular-koszul-regular}。从而
+\begin{align*}
+\text{Tor}_p^A(A/I, A/J)
+& =
+H_p(K_\bullet(A, f_1, \ldots, f_a) \otimes_A A/J) \\
+& =
+H_p(K_\bullet(A/J, f_1 \bmod J, \ldots, f_a \bmod J))
+\end{align*}
+上文已证明 $f_1 \bmod J, \ldots, f_a \bmod J$ 是正则局部环 $A/J$
+中的一组正则参数系，故只有一个非零同调群，即
+$H_0 = A/(I + J) = \kappa$。证明完毕。
+\end{proof}
+
+\begin{example}
+\label{intersection-example-naive-multiplicity-wrong}
+本例表明，在上述相交重数公式中有必要使用高次 tors。
+设 $X$ 为维数 $4$ 的非奇异簇，$p \in X$ 为闭点，
+$V, W \subset X$ 为 $X$ 中的闭子簇。假设存在同构
+$$
+\mathcal{O}_{X, p}^\wedge \cong \mathbf{C}[[x, y, z, w]]
+$$
+使 $V$ 的理想为 $(xz, xw, yz, yw)$，而 $W$ 的理想为
+$(x - z, y - w)$。计算表明
+$$
+\text{length}\ \mathbf{C}[[x, y, z, w]]/
+(xz, xw, yz, yw, x - z, y - w) = 3
+$$
+另一方面，重数 $e(X, V \cdot W, p) = 2$。这可从下述事实看出：在 $p$
+的形式局部范围内，$V$ 是两个光滑平面 $x = y = 0$ 与 $z = w = 0$
+的并，它们各自与平面 $x - z = y - w = 0$ 的相交重数都为 $1$；见引理
+\ref{intersection-lemma-transversal}。为了得到一个实际例子，取由 $5$ 个次数 $> 1$
+的齐次多项式给出的一般态射 $f : \mathbf{P}^2 \to \mathbf{P}^4$。其像
+$V \subset \mathbf{P}^4 = X$ 将具有上述类型的奇点，因为将有
+$p_1, p_2 \in \mathbf{P}^2$ 使 $f(p_1) = f(p_2)$。要得到 $W$，只需取一个经过这样一点的一般平面。
+\end{example}
+
+
+
+
+
+
+\section{代数重数}
+\label{intersection-section-multiplicities}
+
+\noindent
+设 $(A, \mathfrak m, \kappa)$ 为 Noether 局部环，$M$ 为有限 $A$-模，
+$I \subset A$ 为定义理想；见《代数》定义
+\ref{algebra-definition-ideal-definition}。回忆，函数
+$$
+\chi_{I, M}(n) = \text{length}_A(M/I^nM) =
+\sum\nolimits_{p = 0, \ldots, n - 1} \text{length}_A(I^pM/I^{p + 1}M)
+$$
+是数值多项式；见《代数》命题
+\ref{algebra-proposition-hilbert-function-polynomial}。由《代数》引理
+\ref{algebra-lemma-support-dimension-d}，这个多项式的次数等于
+$\dim(\text{Supp}(M))$。
+
+\begin{definition}
+\label{intersection-definition-multiplicity}
+在上述情形中，假设 $d \geq \dim(\text{Supp}(M))$。若
+$d > \dim(\text{Supp}(M))$，则置 $e_I(M, d) = 0$；若
+$d = \dim(\text{Supp}(M))$，则将 $e_I(M, d)$ 定义为数值多项式
+$\chi_{I, M}$ 的首项系数的 $d!$ 倍。因此在两种情形下都有
+$$
+\chi_{I, M}(n) \sim e_I(M, d) \frac{n^d}{d!} + \text{低阶项}
+$$
+$M$ 对于定义理想 $I$ 的{\it 重数}是
+$e_I(M) = e_I(M, \dim(\text{Supp}(M)))$。
+\end{definition}
+
+\noindent
+这些重数具有下列性质。
+
+\begin{lemma}
+\label{intersection-lemma-multiplicity-ses}
+设 $A$ 为 Noether 局部环，$I \subset A$ 为定义理想，
+$0 \to M' \to M \to M'' \to 0$ 为有限 $A$-模的短正合列。若
+$d \geq \dim(\text{Supp}(M))$，则
+$$
+e_I(M, d) = e_I(M', d) + e_I(M'', d)
+$$
+\end{lemma}
+
+\begin{proof}
+立即由定义与《代数》引理 \ref{algebra-lemma-hilbert-ses-chi} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-multiplicity-as-a-sum}
+设 $A$ 为 Noether 局部环，$I \subset A$ 为定义理想，$M$ 为有限 $A$-模。
+若 $d \geq \dim(\text{Supp}(M))$，则
+$$
+e_I(M, d) =
+\sum \text{length}_{A_\mathfrak p}(M_\mathfrak p) e_I(A/\mathfrak p, d)
+$$
+其中对所有满足 $\dim(A/\mathfrak p) = d$ 的素理想
+$\mathfrak p \subset A$ 求和。
+\end{lemma}
+
+\begin{proof}
+对于维数 $\leq d$ 的模的短正合列，等式左边与右边都具有可加性；见引理
+\ref{intersection-lemma-multiplicity-ses} 与《代数》引理
+\ref{algebra-lemma-length-additive}。因此，由《代数》引理
+\ref{algebra-lemma-filter-Noetherian-module}，只需证明 $M = A/\mathfrak q$ 的情形，其中
+$\mathfrak q$ 是 $A$ 的素理想，且 $\dim(A/\mathfrak q) \leq d$。此时结论显然。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-leading-coefficient}
+设 $P$ 为次数为 $r$、首项系数为 $a$ 的多项式。则对任意 $t$，有
+$$
+r! a = \sum\nolimits_{i = 0, \ldots, r} (-1)^i{r \choose i} P(t - i)
+$$
+\end{lemma}
+
+\begin{proof}
+以 $\Delta$ 表示把多项式 $P$ 映为多项式
+$\Delta(P) = P(t) - P(t - 1)$ 的算子。断言
+$$
+\Delta^r(P) = \sum\nolimits_{i = 0, \ldots, r} (-1)^i {r \choose i} P(t - i)
+$$
+当 $r = 0, 1$ 时直接验证即可。假设它对 $r$ 成立，则计算得
+\begin{align*}
+\Delta^{r + 1}(P)
+& =
+\sum\nolimits_{i = 0, \ldots, r} (-1)^i {r \choose i} \Delta(P)(t - i) \\
+& =
+\sum\nolimits_{n = -r, \ldots, 0} (-1)^i {r \choose i}
+(P(t - i) - P(t - i - 1))
+\end{align*}
+所以断言由等式
+$$
+{r + 1 \choose i} = {r \choose i} + {r \choose i - 1}
+$$
+得出。当 $P$ 的次数为 $r$ 时，$\Delta(P)$ 的次数为 $r - 1$，
+首项系数为 $ra$，故引理成立。
+\end{proof}
+
+\noindent
+一个重要事实是，重数可以用 Koszul 复形计算。回忆，若 $R$ 是环，且
+$f_1, \ldots, f_r \in R$，则 $K_\bullet(f_1, \ldots, f_r)$ 表示 Koszul 复形；见
+《代数进阶》第 \ref{more-algebra-section-koszul} 节。
+
+\begin{theorem}
+\label{intersection-theorem-multiplicity-with-koszul}
+\begin{reference}
+\cite[Theorem 1 in part B of Chapter IV]{Serre_algebre_locale}
+\end{reference}
+设 $A$ 为 Noether 局部环，$I = (f_1, \ldots, f_r) \subset A$ 为定义理想，
+$M$ 为有限 $A$-模。则
+$$
+e_I(M, r) = \sum
+(-1)^i\text{length}_A H_i(K_\bullet(f_1, \ldots, f_r) \otimes_A M)
+$$
+\end{theorem}
+
+\begin{proof}
+通过置 $K^n = K_{-n}(f_1, \ldots, f_r)$，把 Koszul 复形
+$K_\bullet(f_1, \ldots, f_r)$ 改写为上链复形 $K^\bullet$。则 $K^\bullet$
+位于次数 $-r, \ldots, 0$，且
+$H^i(K^\bullet \otimes_A M) = H_{-i}(K_\bullet(f_1, \ldots, f_r) \otimes_A M)$。
+定理的断言是有意义的，因为模 $H^i(K^\bullet \otimes M)$ 均被
+$f_1, \ldots, f_r$ 零化；见《代数进阶》引理
+\ref{more-algebra-lemma-homotopy-koszul}，因此它们具有有限长度。
+在复形 $K^\bullet$ 上定义滤过：
+$$
+F^p(K^n \otimes_A M) =
+I^{\max(0, p + n)}(K^n \otimes_A M),\quad p \in \mathbf{Z}
+$$
+由于 $f_i I^p \subset I^{p + 1}$，这是由子复形给出的滤过。因此得到一个滤过复形及其谱序列；
+见《同调》第 \ref{homology-section-filtered-complex} 节。有
+$$
+E_0 = \bigoplus\nolimits_{p, q} E_0^{p, q} =
+\bigoplus\nolimits_{p, q} \text{gr}^p(K^{p + q} \otimes_A M) =
+\text{Gr}_I(K^\bullet \otimes_A M)
+$$
+因为 $K^n$ 有限自由，有
+$$
+\text{Gr}_I(K^\bullet \otimes_A M) =
+\text{Gr}_I(K^\bullet) \otimes_{\text{Gr}_I(A)} \text{Gr}_I(M)
+$$
+注意，$\text{Gr}_I(K^\bullet)$ 是环 $\text{Gr}_I(A)$ 上关于各元
+$\overline{f}_1, \ldots, \overline{f}_r \in I/I^2$ 的 Koszul 复形。一个简单计算（略去）表明，
+$E_0$ 上的微分 $d_0$ 与来自 Koszul 复形的微分一致。由于
+$\text{Gr}_I(M)$ 是有限 $\text{Gr}_I(A)$-模，而 $\text{Gr}_I(A)$ 是 Noether 环：它是
+$A/I[x_1, \ldots, x_r]$ 在 $x_i \mapsto \overline{f}_i$ 下的商，故同调模
+$E_1 = \bigoplus E_1^{p, q}$ 是有限 $\text{Gr}_I(A)$-模。然而与上文一样，
+$E_1$ 被 $\overline{f}_1, \ldots, \overline{f}_r$ 零化，因而 $E_1$ 具有有限长度。
+特别地，当 $p \gg 0$ 时，$\text{Gr}^p_F(K^\bullet \otimes M)$ 无同调。
+
+\medskip\noindent
+下面使用《同调》引理 \ref{homology-lemma-filtered-complex-ss-converges}
+验证上述谱序列收敛。所需等式容易由 Artin--Rees 引理得出，其形式见《代数》引理
+\ref{algebra-lemma-map-AR}。于是
+\begin{align*}
+\sum (-1)^i\text{length}_A(H^i(K^\bullet \otimes_A M))
+& =
+\sum (-1)^{p + q} \text{length}_A(E_\infty^{p, q}) \\
+& =
+\sum (-1)^{p + q} \text{length}_A(E_1^{p, q})
+\end{align*}
+因为上文已证明 $E_1$ 的长度有限（当然，这里使用了长度的可加性）。选取足够大的 $t$，
+使得当 $p \geq t$ 时 $\text{Gr}^p_F(K^\bullet \otimes M)$ 无同调（见上文）。再次使用可加性得
+$$
+\sum (-1)^{p + q} \text{length}_A(E_1^{p, q}) =
+\sum\nolimits_n \sum\nolimits_{p \leq t}
+(-1)^n \text{length}_A(\text{gr}^p(K^n \otimes_A M))
+$$
+根据上述滤过的选取，以及《代数》第
+\ref{algebra-section-Noetherian-local} 节中 $\chi_{I, M}$ 的定义，这等于
+$$
+\sum\nolimits_{n = -r, \ldots, 0} (-1)^n{r \choose |n|} \chi_{I, M}(t + n)
+$$
+定理由引理 \ref{intersection-lemma-leading-coefficient} 与 $e_I(M, r)$ 的定义得出。
+\end{proof}
+
+\begin{remark}[平凡推广]
+\label{intersection-remark-trivial-generalization}
+设 $(A, \mathfrak m, \kappa)$ 为 Noether 局部环，$M$ 为有限 $A$-模，$I \subset A$ 为理想。
+下列条件等价：
+\begin{enumerate}
+\item $I' = I + \text{Ann}(M)$ 是定义理想；见《代数》定义
+\ref{algebra-definition-ideal-definition}；
+\item $I$ 在 $\overline{A} = A/\text{Ann}(M)$ 中的像 $\overline{I}$ 是定义理想；
+\item $\text{Supp}(M/IM) \subset \{\mathfrak m\}$；
+\item $\dim(\text{Supp}(M/IM)) \leq 0$；以及
+\item $\text{length}_A(M/IM) < \infty$。
+\end{enumerate}
+这由《代数》引理 \ref{algebra-lemma-support-point} 得出（略去细节）。若这些条件成立，
+则对所有 $n$ 都有 $M/I^nM = M/(I')^nM$；而当把 $M$ 看作 $\overline{A}$-模时，
+对所有 $n$ 都有 $M/I^nM = M/\overline{I}^nM$。因此可定义
+$$
+\chi_{I, M}(n) = \text{length}_A(M/I^nM) =
+\sum\nolimits_{p = 0, \ldots, n - 1} \text{length}_A(I^pM/I^{p + 1}M)
+$$
+并且由上述等式，对所有 $n$ 都有
+$$
+\chi_{I, M}(n) = \chi_{I', M}(n) = \chi_{\overline{I}, M}(n)
+$$
+《代数》第 \ref{algebra-section-Noetherian-local} 节的所有结果以及本节的所有结果，
+在此设定中都有对应形式。特别地，对 $d \geq \dim(\text{Supp}(M))$，可以定义重数
+$e_I(M, d)$，并且如 $I$ 为定义理想时一样，有
+$$
+\chi_{I, M}(n) \sim e_I(M, d) \frac{n^d}{d!} + \text{低阶项}
+$$
+\end{remark}
+
+
+
+\section{相交重数的计算}
+\label{intersection-section-computing-intersection-multiplicities}
+
+\noindent
+本节讨论若干可以用其他方法计算相交重数的情形。先看第一个例子。
+
+\begin{lemma}
+\label{intersection-lemma-intersection-multiplicity-CM}
+设 $X$ 为非奇异簇，$W, V \subset X$ 为正常相交的闭子簇。设 $Z$ 为
+$V \cap W$ 的一个不可约分支，其泛点为 $\xi$。假设 $\mathcal{O}_{W, \xi}$
+与 $\mathcal{O}_{V, \xi}$ 均为 Cohen-Macaulay。则
+$$
+e(X, V \cdot W, Z) =
+\text{length}_{\mathcal{O}_{X, \xi}}(\mathcal{O}_{V \cap W, \xi})
+$$
+其中 $V \cap W$ 是概形论之交。特别地，若 $V$ 与 $W$ 都是 Cohen-Macaulay，则
+$V \cdot W = [V \cap W]_{\dim(V) + \dim(W) - \dim(X)}$。
+\end{lemma}
+
+\begin{proof}
+置 $A = \mathcal{O}_{X, \xi}$、$B = \mathcal{O}_{V, \xi}$ 与
+$C = \mathcal{O}_{W, \xi}$。由 Auslander--Buchsbaum 定理（《代数》命题
+\ref{algebra-proposition-Auslander-Buchsbaum}），可找到它的一个有限自由解析
+$F_\bullet \to B$，其长度为
+$$
+\text{depth}(A) - \text{depth}(B) =
+\dim(A) - \dim(B) = \dim(C)
+$$
+第一个等式是因为 $A$ 与 $B$ 为 Cohen-Macaulay，第二个等式是因为
+$V$ 与 $W$ 正常相交。于是 $F_\bullet \otimes_A C$ 是代表
+$B \otimes_A^\mathbf{L} C$ 的有限自由模复形，故其同调模的支撑包含于
+$\{\mathfrak m_A\}$。由于 $C$ 是 Cohen-Macaulay，可以应用无同调引理（《代数》引理
+\ref{algebra-lemma-acyclic}），得到 $F_\bullet \otimes_A C$ 只在次数 $0$ 上有非零同调。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-one-ideal-ci}
+设 $A$ 为 Noether 局部环，$I = (f_1, \ldots, f_r)$ 为由正则序列生成的理想，
+$M$ 为有限 $A$-模。假设 $\dim(\text{Supp}(M/IM)) = 0$。则
+$$
+e_I(M, r) = \sum (-1)^i\text{length}_A(\text{Tor}_i^A(A/I, M))
+$$
+这里 $e_I(M, r)$ 如注 \ref{intersection-remark-trivial-generalization} 中所定义。
+\end{lemma}
+
+\begin{proof}
+由于 $f_1, \ldots, f_r$ 是正则序列，Koszul 复形
+$K_\bullet(f_1, \ldots, f_r)$ 是 $A/I$ 在 $A$ 上的一个解析；见《代数进阶》引理
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}。因此等式右边等于
+$$
+\sum (-1)^i\text{length}_A H_i(K_\bullet(f_1, \ldots, f_r) \otimes_A M)
+$$
+若 $I$ 是定义理想，结论立即由定理 \ref{intersection-theorem-multiplicity-with-koszul} 得出。
+在一般情形下，以 $\overline{A} = A/\text{Ann}(M)$ 取代 $A$，并以
+$\overline{f}_1, \ldots, \overline{f}_r$ 取代 $f_1, \ldots, f_r$。这是允许的，因为
+$$
+K_\bullet(f_1, \ldots, f_r) \otimes_A M =
+K_\bullet(\overline{f}_1, \ldots, \overline{f}_r) \otimes_{\overline{A}} M
+$$
+又因为 $e_I(M, r) = e_{\overline{I}}(M, r)$，其中
+$\overline{I} = (\overline{f}_1, \ldots, \overline{f}_r) \subset \overline{A}$ 是定义理想，
+在这种情形下再次应用定理 \ref{intersection-theorem-multiplicity-with-koszul} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-multiplicity-with-lci}
+设 $X$ 为非奇异簇，$W,V \subset X$ 为正常相交的闭子簇。设 $Z$ 为
+$V \cap W$ 的一个不可约分支，其泛点为 $\xi$。假设 $V$ 在
+$\mathcal{O}_{X, \xi}$ 中的理想由正则序列
+$f_1, \ldots, f_c \in \mathcal{O}_{X, \xi}$ 截出。则 $e(X, V\cdot W, Z)$ 等于下列 Hilbert 多项式
+的首项系数的 $c!$ 倍：
+$$
+t \mapsto \text{length}_{\mathcal{O}_{X, \xi}}
+\mathcal{O}_{W, \xi}/(f_1, \ldots, f_c)^t,\quad t \gg 0.
+$$
+特别地，该系数 $> 0$。
+\end{lemma}
+
+\begin{proof}
+等式
+$$
+e(X, V\cdot W, Z) = e_{(f_1, \ldots, f_c)}(\mathcal{O}_{W, \xi}, c)
+$$
+由更一般的引理 \ref{intersection-lemma-one-ideal-ci} 得出。为了证明
+$e_{(f_1, \ldots, f_c)}(\mathcal{O}_{W, \xi}, c)$ 为 $> 0$，或者等价地，为了证明
+$e_{(f_1, \ldots, f_c)}(\mathcal{O}_{W, \xi}, c)$ 是 Hilbert 多项式的首项系数，
+只需证明 $\mathcal{O}_{W, \xi}$ 的维数是 $c$，因为由《代数》命题
+\ref{algebra-proposition-dimension}，Hilbert 多项式的次数等于该维数。设
+$\dim(V) = r$、$\dim(W) = s$ 且 $\dim(X) = n$。由交的正常性，
+$\dim(Z) = r + s - n$。因此 $\kappa(\xi)$ 对 $\mathbf{C}$ 的超越次数为
+$r + s - n$；见《代数》引理 \ref{algebra-lemma-dimension-prime-polynomial-ring}。
+由于 $V$ 在 $\xi$ 的一个邻域中由正则序列截出，有 $r + c = n$；见《除子》引理
+\ref{divisors-lemma-Noetherian-scheme-regular-ideal}，此后例如可应用引理
+\ref{intersection-lemma-pullback-by-regular-immersion}。因此
+$$
+\dim(\mathcal{O}_{W, \xi}) = s - (r + s - n) = s - ((n - c) + s - n) = c
+$$
+其中第一个等式由《代数》引理
+\ref{algebra-lemma-dimension-at-a-point-finite-type-field} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-multiplicity-with-effective-Cartier-divisor}
+在引理 \ref{intersection-lemma-multiplicity-with-lci} 中假设 $c = 1$，即 $V$ 是有效 Cartier 除子。则
+$$
+e(X, V \cdot W, Z) =
+\text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{W, \xi}/f_1\mathcal{O}_{W, \xi}).
+$$
+\end{lemma}
+
+\begin{proof}
+此时，由交的正常性，$f_1$ 在 $\mathcal{O}_{W, \xi}$ 中的像非零，因而是非零因子。
+此外，$\mathcal{O}_{W, \xi}$ 是维数为 $1$ 的 Noether 局部整环。所以对所有
+$t \geq 1$，有
+$$
+\text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{W, \xi}/f_1^t\mathcal{O}_{W, \xi}) =
+t \text{length}_{\mathcal{O}_{X, \xi}}
+(\mathcal{O}_{W, \xi}/f_1\mathcal{O}_{W, \xi})
+$$
+见《代数》引理 \ref{algebra-lemma-ord-additive}。这就证明了引理。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-multiplicity-lci-CM}
+在引理 \ref{intersection-lemma-multiplicity-with-lci} 中，假设局部环
+$\mathcal{O}_{W, \xi}$ 是 Cohen-Macaulay。则
+$$
+e(X, V \cdot W, Z) =
+\text{length}_{\mathcal{O}_{X, \xi}} (\mathcal{O}_{W, \xi}/
+f_1\mathcal{O}_{W, \xi} + \ldots + f_c\mathcal{O}_{W, \xi}).
+$$
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{intersection-lemma-intersection-multiplicity-CM} 得出。另一种方法是从引理
+\ref{intersection-lemma-multiplicity-with-lci} 推导。事实上，由《代数》引理
+\ref{algebra-lemma-reformulate-CM}，$f_1, \ldots, f_c$ 是 $\mathcal{O}_{W, \xi}$ 中的正则序列。
+再由《代数》引理 \ref{algebra-lemma-regular-quasi-regular}，
+$f_1, \ldots, f_c$ 是拟正则序列。这容易蕴含
+$\mathcal{O}_{W, \xi}/(f_1, \ldots, f_c)^t$ 的长度等于
+$$
+{c + t \choose c}
+\text{length}_{\mathcal{O}_{X, \xi}} (\mathcal{O}_{W, \xi}/
+f_1\mathcal{O}_{W, \xi} + \ldots + f_c\mathcal{O}_{W, \xi}).
+$$
+比较首项系数即得结论。
+\end{proof}
+
+
+\section{用 Tor 公式定义交积}
+\label{intersection-section-intersection-product}
+
+\noindent
+设 $X$ 为非奇异簇，$\alpha = \sum n_i [W_i]$ 为 $r$-循环，
+$\beta = \sum_j m_j [V_j]$ 为 $X$ 上的 $s$-循环。假设 $\alpha$ 与 $\beta$ 正常相交；
+见定义 \ref{intersection-definition-proper-intersection}。此时定义
+$$
+\alpha \cdot \beta = \sum\nolimits_{i,j} n_i m_j W_i \cdot V_j.
+$$
+其中 $W_i \cdot V_j$ 如第 \ref{intersection-section-tor-formula} 节中所定义。若
+$\beta = [V]$，其中 $V$ 是维数为 $s$ 的闭子簇，则有时将
+$\alpha \cdot \beta = \alpha \cdot V$ 记作这一形式。
+
+\begin{lemma}
+\label{intersection-lemma-rational-equivalence-and-intersection}
+设 $X$ 为非奇异簇，$a, b \in \mathbf{P}^1$ 为不同的闭点，且 $k \geq 0$。
+\begin{enumerate}
+\item 若 $W \subset X \times \mathbf{P}^1$ 是维数为 $k + 1$ 且与 $X \times a$ 正常相交的闭子簇，则
+\begin{enumerate}
+\item 作为 $X \times \mathbf{P}^1$ 上的循环，$[W_a]_k = W \cdot X \times a$；以及
+\item 作为 $X$ 上的循环，$[W_a]_k = \text{pr}_{X, *}(W \cdot X \times a)$。
+\end{enumerate}
+\item 设 $\alpha$ 为 $X \times \mathbf{P}^1$ 上的 $(k + 1)$-循环，它与
+$X \times a$ 及 $X \times b$ 都正常相交。则
+$pr_{X,*}( \alpha \cdot X \times a - \alpha \cdot X \times b)$ 有理等价于零。
+\item 反之，任意有理等价于 $0$ 的 $k$-循环都具有这种形式。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+首先注意，$X \times a$ 是 $X \times \mathbf{P}^1$ 中的有效 Cartier 除子，而 $W_a$
+是 $W$ 与 $X \times a$ 的概形论之交。因此，(1)(a) 中的等式立即由定义以及引理
+\ref{intersection-lemma-multiplicity-with-effective-Cartier-divisor} 中对 Cartier 除子情形的相交重数计算得出。
+(1)(b) 成立，是因为 $W_a \to X \times \mathbf{P}^1 \to X$ 同构地映到其像上；
+在第 \ref{intersection-section-rational-equivalence} 节中，我们正是以这种方式把 $W_a$ 看作 $X$ 的闭子概形。
+(2) 与 (3) 是 (1) 与各定义的形式推论。
+\end{proof}
+
+\noindent
+对于闭子概形的横截相交，相交重数为 $1$。
+
+\begin{lemma}
+\label{intersection-lemma-transversal-subschemes}
+设 $X$ 为非奇异簇，$r, s \geq 0$，并设 $Y, Z \subset X$ 为闭子概形，其满足
+$\dim(Y) \leq r$ 与 $\dim(Z) \leq s$。假设
+$[Y]_r = \sum n_i[Y_i]$ 与 $[Z]_s = \sum m_j[Z_j]$ 正常相交。设 $T$ 是对某些
+$i_0$ 与 $j_0$ 而言 $Y_{i_0} \cap Z_{j_0}$ 的一个不可约分支，并假设闭子概形
+$Y \cap Z$ 中 $T$ 的重数（按第 \ref{intersection-section-cycle-of-closed} 节的意义）为 $1$。则
+\begin{enumerate}
+\item $[Y]_r \cdot [Z]_s$ 中 $T$ 的系数为 $1$；
+\item $Y$ 与 $Z$ 在 $T$ 的泛点处非奇异；
+\item $n_{i_0} = 1$、$m_{j_0} = 1$；以及
+\item 当 $i \not = i_0$ 且 $j \not = j_0$ 时，$T$ 不包含于 $Y_i$ 或 $Z_j$ 中。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+置 $n = \dim(X)$、$a = n - r$、$b = n - s$。由交的正常性，注意到
+$\dim(T) = r + s - n = n - a - b$。设 $(A, \mathfrak m, \kappa) =
+(\mathcal{O}_{X, \xi}, \mathfrak m_\xi, \kappa(\xi))$，其中 $\xi \in T$ 是泛点。则
+$\dim(A) = a + b$；见《簇》引理
+\ref{varieties-lemma-dimension-locally-algebraic}。设 $I_0, I, J_0, J \subset A$ 分别截出
+$Y_{i_0}$、$Y$、$Z_{j_0}$、$Z$ 在 $\Spec(A)$ 中的迹。由同一引用，
+$\dim(A/I) = \dim(A/I_0) = b$ 且 $\dim(A/J) = \dim(A/J_0) = a$。
+置 $\overline{I} = I + \mathfrak m^2/\mathfrak m^2$。则
+$I \subset I_0 \subset \mathfrak m$、$J \subset J_0 \subset \mathfrak m$，且 $I + J = \mathfrak m$。
+由引理 \ref{intersection-lemma-transversal} 及其证明，
+$I_0 = (f_1, \ldots, f_a)$ 且 $J_0 = (g_1, \ldots, g_b)$，其中
+$f_1, \ldots, g_b$ 是正则局部环 $A$ 的一组正则参数系。由于
+$I + J = \mathfrak m$，映射
+$$
+I \oplus J \to
+\mathfrak m/\mathfrak m^2 =
+\kappa f_1
+\oplus \ldots \oplus
+\kappa f_a
+\oplus
+\kappa g_1
+\oplus \ldots \oplus
+\kappa g_b
+$$
+是满的。因此可找到
+$f_1', \ldots, f_a' \in I$ 与 $g'_1, \ldots, g_b' \in J$，使它们在
+$\mathfrak m/\mathfrak m^2$ 中的剩余类分别等于 $f_1, \ldots, f_a$ 与
+$g_1, \ldots, g_b$ 的剩余类。于是 $f'_1, \ldots, g'_b$ 是 $A$ 的一组正则参数系。
+由《代数》引理 \ref{algebra-lemma-regular-ring-CM}，
+$A/(f'_1, \ldots, f'_a)$ 是维数为 $b$ 的正则局部环。因此
+$A/(f'_1, \ldots, f'_a)$ 的任何非平凡商环
+都具有严格更小的维数；见《代数》引理
+\ref{algebra-lemma-regular-domain} 与 \ref{algebra-lemma-one-equation}。故
+$I = (f'_1, \ldots, f'_a) = I_0$。由对称性，$J = J_0$。这证明了 (2)、(3) 与 (4)。
+最后，$[Y]_r \cdot [Z]_s$ 中 $T$ 的系数等于
+$Y_{i_0} \cdot Z_{j_0}$ 中 $T$ 的系数，由引理 \ref{intersection-lemma-transversal} 它等于 $1$。
+\end{proof}
+
+
+
+\section{外积}
+\label{intersection-section-exterior-product}
+
+\noindent
+设 $X$ 与 $Y$ 为簇，而 $V$、\ $W$ 分别为 $X$、\ $Y$ 的闭子簇。
+乘积 $V\times W$ 是 $X\times Y$ 的闭子簇；见引理
+\ref{intersection-lemma-dimension-product-varieties}。对 $k$-循环
+$\alpha = \sum n_i [V_i]$ 和 $Y$ 上的 $l$-循环 $\beta = \sum m_j [V_j]$，
+定义 $\alpha$ 与 $\beta$ 的{\it 外积}为循环
+$\alpha \times \beta = \sum n_i m_j [V_i \times W_j]$。外积定义了一个 $\mathbf{Z}$-线性映射
+$$
+Z_r(X) \otimes_\mathbf{Z} Z_s(Y) \longrightarrow Z_{r + s}(X \times Y)
+$$
+下面证明外积可以经过有理等价分解。
+
+\begin{lemma}
+\label{intersection-lemma-exterior-product-rational-equivalence}
+设 $X$ 与 $Y$ 为簇，$\alpha \in Z_r(X)$、$\beta \in Z_s(Y)$。若
+$\alpha \sim_{rat} 0$ 或 $\beta \sim_{rat} 0$，则 $\alpha \times \beta \sim_{rat} 0$。
+\end{lemma}
+
+\begin{proof}
+由线性以及 $X$ 与 $Y$ 之间的对称性，只需证明如下情形：
+$\alpha = [V]$，其中 $V \subset X$ 是维数为 $r$ 的子簇；并且
+$\beta = [W_a]_s - [W_b]_s$，其中 $W \subset Y \times \mathbf{P}^1$ 是维数为
+$s + 1$ 的闭子簇，且与 $Y \times a$、$Y \times b$ 均正常相交。此时，只要证明
+$$
+[(V \times W)_a]_{r + s} = [V] \times [W_a]_s
+$$
+以及将 $a$ 换为 $b$ 后的同类等式，引理就成立。事实上，此时
+$\alpha \times \beta = [(V \times W)_a]_{r + s} - [(V \times W)_b]_{r + s}$，正如所需。
+为证明上述显示等式，注意到概形的等式
+$$
+V \times W_a = (V \times W)_a
+$$
+投影 $V \times W_a \to W_a$ 诱导不可约分支之间的双射；例如见《簇》引理
+\ref{varieties-lemma-bijection-irreducible-components}。设 $W' \subset W_a$ 是泛点为 $\zeta$
+的不可约分支。则 $V \times W'$ 是 $V \times W_a$ 的对应不可约分支；见引理
+\ref{intersection-lemma-dimension-product-varieties}。设 $\xi$ 为 $V \times W'$ 的泛点。我们需要证明
+$$
+\text{length}_{\mathcal{O}_{Y, \zeta}}(\mathcal{O}_{W_a, \zeta}) =
+\text{length}_{\mathcal{O}_{X \times Y, \xi}}(
+\mathcal{O}_{V \times W_a, \xi})
+$$
+在该公式中，可用 $\mathcal{O}_{W_a, \zeta}$ 取代 $\mathcal{O}_{Y, \zeta}$，并用
+$\mathcal{O}_{V \times W_a, \zeta}$ 取代 $\mathcal{O}_{X \times Y, \zeta}$；见《代数》引理
+\ref{algebra-lemma-length-independent}。由于
+$\mathcal{O}_{W_a, \zeta} \to \mathcal{O}_{V \times W_a, \xi}$ 平坦，根据《代数》引理
+\ref{algebra-lemma-pullback-module}，只需证明
+$$
+\text{length}_{\mathcal{O}_{V \times W_a, \xi}}(
+\mathcal{O}_{V \times W_a, \xi}/
+\mathfrak m_\zeta\mathcal{O}_{V \times W_a, \xi}) = 1
+$$
+这是正确的，因为右边的商是簇在一个泛点处的局部环
+$\mathcal{O}_{V \times W', \xi}$，因而等于 $\kappa(\xi)$。
+\end{proof}
+
+\noindent
+由此得出，对任意一对簇 $X$ 与 $Y$，外积定义交换图
+$$
+\xymatrix{
+Z_r(X) \otimes_\mathbf{Z} Z_s(Y) \ar[r] \ar[d] &
+Z_{r + s}(X \times Y) \ar[d] \\
+\CH_r(X) \otimes_\mathbf{Z} \CH_s(Y) \ar[r] &
+\CH_{r + s}(X \times Y)
+}
+$$
+对于非奇异簇，可将外积视为若干拉回的交积。
+
+\begin{lemma}
+\label{intersection-lemma-exterior-product}
+设 $X$ 与 $Y$ 为非奇异簇，$\alpha \in Z_r(X)$、$\beta \in Z_s(Y)$。则
+\begin{enumerate}
+\item $\text{pr}_Y^*(\beta) = [X] \times \beta$ 且
+$\text{pr}_X^*(\alpha) = \alpha \times [Y]$；
+\item $\alpha \times [Y]$ 与 $[X]\times \beta$ 在 $X\times Y$ 上正常相交；以及
+\item 在 $Z_{r + s}(X \times Y)$ 中有
+$\alpha \times \beta =
+(\alpha \times [Y])\cdot ([X]\times\beta) =
+pr_Y^*(\alpha) \cdot pr_X^*(\beta)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由线性，可以假设 $\alpha = [V]$ 且 $\beta = [W]$。此时 (1) 说的是
+$\text{pr}_Y^{-1}(W) = X \times W$ 与 $\text{pr}_X^{-1}(V) = V \times Y$，这是显然的。
+(2) 成立，因为 $X \times W \cap V \times Y = V \times W$，而由引理
+\ref{intersection-lemma-dimension-product-varieties}，$\dim(V \times W) = r + s$。
+
+\medskip\noindent
+证明 (3)。设 $\xi$ 为 $V \times W$ 的泛点。投影 $X \times W \to W$ 是
+$X \to \Spec(\mathbf{C})$ 的基变换，因而光滑。所以 $X \times W$ 在位于 $W$
+的泛点之上的每个点处都非奇异，特别是在 $\xi$ 处。对 $V \times Y$ 亦然。因此
+$\mathcal{O}_{X \times W, \xi}$ 与 $\mathcal{O}_{V \times Y, \xi}$ 是 Cohen-Macaulay 局部环，可应用引理
+\ref{intersection-lemma-intersection-multiplicity-CM}。由于在概形论意义下
+$V \times Y \cap X \times W = V \times W$，证明完毕。
+\end{proof}
+
+
+
+\section{化归到对角线}
+\label{intersection-section-reduction-diagonal}
+
+\noindent
+设 $X$ 为非奇异簇。我们用 $\Delta$ 既表示对角态射
+$\Delta : X \to X \times X$，也表示其像 $\Delta \subset X \times X$。
+所谓化归到对角线，是指 $X$ 上的交积可化为 $X \times X$ 上外积与对角线的交积。
+
+\begin{lemma}
+\label{intersection-lemma-tor-and-diagonal}
+设 $X$ 为非奇异簇。
+\begin{enumerate}
+\item 若 $\mathcal{F}$ 与 $\mathcal{G}$ 是凝聚 $\mathcal{O}_X$-模，则有典范同构
+$$
+\text{Tor}_i^{\mathcal{O}_{X \times X}}(\mathcal{O}_\Delta,
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times X}}
+\text{pr}_2^*\mathcal{G})
+=
+\Delta_*\text{Tor}_i^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+$$
+\item 若 $K$ 与 $M$ 属于 $D_\QCoh(\mathcal{O}_X)$，则在 $D_\QCoh(\mathcal{O}_X)$ 中有典范同构
+$$
+L\Delta^* \left(
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} L\text{pr}_2^*M
+\right)
+= K \otimes_{\mathcal{O}_X}^\mathbf{L} M
+$$
+并且在 $D_\QCoh(X \times X)$ 中有典范同构
+$$
+\mathcal{O}_\Delta \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} L\text{pr}_2^*M
+= \Delta_*(K \otimes_{\mathcal{O}_X}^\mathbf{L} M)
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们用较为初等的方法证明 (1)，并用更一般的理论证明 (2)。由于 (2) 蕴含 (1)，
+读者可以跳过 (1) 的证明。
+
+\medskip\noindent
+证明 (1)。选取仿射开集 $\Spec(A) \subset X$。则 $A$ 是 Noether $\mathbf{C}$-代数，
+$\mathcal{F}$、$\mathcal{G}$ 分别对应于有限 $A$-模 $M$ 与 $N$；见《概形的上同调》引理
+\ref{coherent-lemma-coherent-Noetherian}。由《概形的导出范畴》引理
+\ref{perfect-lemma-quasi-coherence-tensor-product}，可以先在 $A$ 上计算 $M$ 与 $N$
+的 $\text{Tor}$，再取其关联 $\mathcal{O}_X$-模，从而计算 $\mathcal{O}_X$ 上的 $\text{Tor}_i$。
+对于 $\mathcal{O}_{X \times X}$ 上的 $\text{Tor}_i$，我们在 $A \otimes_\mathbf{C} A$ 上计算
+$A$ 与 $M \otimes_\mathbf{C} N$ 的 tor，再取其关联 $\mathcal{O}_{X \times X}$-模。
+因此，在这个仿射片上需证明
+$$
+\text{Tor}_i^{A \otimes_\mathbf{C} A}(A, M \otimes_\mathbf{C} N) =
+\text{Tor}_i^A(M, N)
+$$
+为此，选取由有限自由 $A$-模组成的解析
+$F_\bullet \to M$ 与 $G_\bullet \to M$；见《代数》引理
+\ref{algebra-lemma-resolution-by-finite-free}。注意，
+$\text{Tot}(F_\bullet \otimes_\mathbf{C} G_\bullet)$ 是 $M \otimes_\mathbf{C} N$ 的解析，因为它计算
+$\mathbf{C}$ 上的 Tor 群。当然，$F_\bullet \otimes_\mathbf{C} G_\bullet$ 的各项都是有限自由
+$A \otimes_\mathbf{C} A$-模。因此，显示等式的左边是模
+$$
+H_i(A \otimes_{A \otimes_\mathbf{C} A}
+\text{Tot}(F_\bullet \otimes_\mathbf{C} G_\bullet))
+$$
+而右边是模
+$$
+H_i(\text{Tot}(F_\bullet \otimes_A G_\bullet))
+$$
+由于 $A \otimes_{A \otimes_\mathbf{C} A} (F_p \otimes_\mathbf{C} G_q)
+= F_p \otimes_A G_q$，这些模相等。这在仿射开集
+$\Spec(A) \times \Spec(A)$ 上定义了同构，对应用于相交数相等性而言这已经足够。
+略去这些同构可粘合的证明。
+
+\medskip\noindent
+证明 (2)。由《概形的导出范畴》引理
+\ref{perfect-lemma-cohomology-base-change} 中的投影公式，第二个断言由第一个断言得出。
+为证明第一个断言，用 K-平坦复形 $\mathcal{K}^\bullet$ 与 $\mathcal{M}^\bullet$
+分别代表 $K$ 与 $M$。由于拉回和张量积保持 K-平坦复形；见《上同调》引理
+\ref{cohomology-lemma-tensor-product-K-flat} 与
+\ref{cohomology-lemma-pullback-K-flat}，只需证明
+$$
+\Delta^*\text{Tot}(
+\text{pr}_1^*\mathcal{K}^\bullet
+\otimes_{\mathcal{O}_{X \times X}} \text{pr}_2^*\mathcal{M}^\bullet)
+=
+\text{Tot}(
+\mathcal{K}^\bullet \otimes_{\mathcal{O}_X} \mathcal{M}^\bullet)
+$$
+因此，只需说明当 $\mathcal{K}$ 与 $\mathcal{M}$ 是 $\mathcal{O}_X$-模时，
+无论它们是否拟凝聚或平坦，都有典范同构
+$$
+\Delta^*(\text{pr}_1^*\mathcal{K}
+\otimes_{\mathcal{O}_{X \times X}} \text{pr}_2^*\mathcal{M})
+\longrightarrow
+\mathcal{K} \otimes_{\mathcal{O}_X} \mathcal{M}
+$$
+略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-reduction-diagonal}
+设 $X$ 为非奇异簇。设 $\alpha$、\ $\beta$ 分别为 $X$ 上的 $r$-循环与\ $s$-循环。
+假设 $\alpha$ 与 $\beta$ 正常相交。则
+\begin{enumerate}
+\item $\alpha \times \beta$ 与 $[\Delta]$ 正常相交；
+\item 作为 $X \times X$ 上的循环，有
+$\Delta_*(\alpha \cdot \beta) = [\Delta] \cdot \alpha\times\beta$；
+\item 若 $X$ 是固有的，则
+$\text{pr}_{1, *}([\Delta] \cdot \alpha\times\beta) = \alpha\cdot\beta$，
+其中 $pr_1 : X\times X \to X$ 是投影。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由线性，只需证明 $\alpha = [V]$ 且 $\beta = [W]$ 的情形，其中
+$V \subset X$ 与 $W \subset Y$ 是正常相交的闭子簇。回忆，$V \times W$ 是维数为
+$r + s$ 的闭子簇。注意，在概形论意义下既有
+$V \cap W = \Delta^{-1}(V \times W)$，也有
+$\Delta(V \cap W) = \Delta \cap V \times W$。这证明了 (1)。
+
+\medskip\noindent
+证明 (2)。设 $Z \subset V \cap W$ 是泛点为 $\xi$ 的不可约分支。
+我们需要证明，$\alpha \cdot \beta$ 中 $Z$ 的系数等于
+$[\Delta] \cdot \alpha \times \beta$ 中 $\Delta(Z)$ 的系数。前者是整数
+$$
+\sum (-1)^i
+\text{length}_{\mathcal{O}_{X, \xi}}
+\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V, \mathcal{O}_W)_\xi
+$$
+后者是整数
+$$
+\sum (-1)^i
+\text{length}_{\mathcal{O}_{X \times Y, \Delta(\xi)}}
+\text{Tor}_i^{\mathcal{O}_{X \times Y}}(
+\mathcal{O}_\Delta, \mathcal{O}_{V \times W})_{\Delta(\xi)}
+$$
+然而，由引理 \ref{intersection-lemma-tor-and-diagonal}，有
+$$
+\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V, \mathcal{O}_W)_\xi \cong
+\text{Tor}_i^{\mathcal{O}_{X \times Y}}(
+\mathcal{O}_\Delta, \mathcal{O}_{V \times W})_{\Delta(\xi)}
+$$
+它们是 $\mathcal{O}_{X \times X, \Delta(\xi)}$-模。因此两者的长度相等；更确切地说，这里使用《代数》引理
+\ref{algebra-lemma-length-independent}。
+
+\medskip\noindent
+(2) 蕴含 (3)，因为由引理 \ref{intersection-lemma-compose-pushforward}，有
+$\text{pr}_{1, *} \circ \Delta_* = \text{id}$。
+\end{proof}
+
+\begin{proposition}
+\label{intersection-proposition-positivity}
+\begin{reference}
+这是 \cite{Serre_algebre_locale} 的主要结果之一。
+\end{reference}
+设 $X$ 为非奇异簇，$V \subset X$ 与 $W \subset Y$ 为正常相交的闭子簇。
+设 $Z \subset V \cap W$ 为不可约分支。则 $e(X, V \cdot W, Z) > 0$。
+\end{proposition}
+
+\begin{proof}
+由引理 \ref{intersection-lemma-reduction-diagonal}，有
+$$
+e(X, V \cdot W, Z) = e(X \times X, \Delta \cdot V \times W, \Delta(Z))
+$$
+由于 $\Delta : X \to X \times X$ 是正则浸入（见引理
+\ref{intersection-lemma-diagonal-regular-immersion}），根据引理
+\ref{intersection-lemma-multiplicity-with-lci}，
+$e(X \times X, \Delta \cdot V \times W, \Delta(Z))$ 是正整数。
+\end{proof}
+
+\noindent
+下一引理是本章建立该理论时的一个关键引理。它本质上告诉我们，相交数具有适当的可加性。
+
+\begin{lemma}
+\label{intersection-lemma-tor-sheaf}
+\begin{reference}
+\cite[Chapter V]{Serre_algebre_locale}
+\end{reference}
+设 $X$ 为非奇异簇，$\mathcal{F}$ 与 $\mathcal{G}$ 为 $X$ 上的凝聚层，并满足
+$\dim(\text{Supp}(\mathcal{F})) \leq r$、
+$\dim(\text{Supp}(\mathcal{G})) \leq s$ 以及
+$\dim(\text{Supp}(\mathcal{F}) \cap \text{Supp}(\mathcal{G}) )
+\leq r + s - \dim X$。此时 $[\mathcal{F}]_r$ 与 $[\mathcal{G}]_s$ 正常相交，且
+$$
+[\mathcal{F}]_r \cdot [\mathcal{G}]_s =
+\sum (-1)^p
+[\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})]_{r + s - \dim(X)}.
+$$
+\end{lemma}
+
+\begin{proof}
+$[\mathcal{F}]_r$ 与 $[\mathcal{G}]_s$ 正常相交的断言是立即的。我们证明的是循环等式，
+故可在 $X$ 上局部地工作。注意，循环交积、$\text{Tor}$-层以及凝聚层所关联的循环的形成，
+都与限制到开子概形可交换。因此可以并且就假设 $X$ 仿射。
+
+\medskip\noindent
+记
+$$
+RHS(\mathcal{F}, \mathcal{G}) = [\mathcal{F}]_r \cdot [\mathcal{G}]_s
+\quad\text{且}\quad
+LHS(\mathcal{F}, \mathcal{G}) = \sum (-1)^p
+[\text{Tor}_p^{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})]_{r + s - \dim(X)}
+$$
+考虑 $X$ 上凝聚层的短正合列
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+并假设 $\text{Supp}(\mathcal{F}_i) \subset \text{Supp}(\mathcal{F})$。则对
+$i = 1, 2, 3$，$LHS(\mathcal{F}_i, \mathcal{G})$ 与
+$RHS(\mathcal{F}_i, \mathcal{G})$ 都有定义，且
+$$
+RHS(\mathcal{F}_2, \mathcal{G}) =
+RHS(\mathcal{F}_1, \mathcal{G}) + RHS(\mathcal{F}_3, \mathcal{G})
+$$
+LHS 亦然。具体地，支撑条件保证一切均有定义；短正合列与长度的可加性给出
+$$
+[\mathcal{F}_2]_r = [\mathcal{F}_1]_r  + [\mathcal{F}_3]_r
+$$
+见《Chow 同调》引理 \ref{chow-lemma-additivity-sheaf-cycle}，这蕴含 RHS 的可加性。
+$\text{Tor}$ 的长正合列
+$$
+\ldots \to \text{Tor}_1(\mathcal{F}_3, \mathcal{G}) \to
+\text{Tor}_0(\mathcal{F}_1, \mathcal{G}) \to
+\text{Tor}_0(\mathcal{F}_2, \mathcal{G}) \to
+\text{Tor}_0(\mathcal{F}_3, \mathcal{G}) \to 0
+$$
+以及长度的可加性，如上蕴含 LHS 的可加性。
+
+\medskip\noindent
+由《代数》引理 \ref{algebra-lemma-filter-Noetherian-module} 及 $X$ 的仿射性，
+可找到 $\mathcal{F}$ 的一个滤过，其分次片是 $\text{Supp}(\mathcal{F})$ 的闭子簇的结构层。
+由上段所证的可加性，只需在以 $\mathcal{O}_V$ 取代 $\mathcal{F}$ 时证明
+$LHS = RHS$，其中 $V \subset \text{Supp}(\mathcal{F})$。由对称性，可对 $\mathcal{G}$ 作同样处理。
+因而问题化为证明
+$$
+LHS(\mathcal{O}_V, \mathcal{O}_W) = RHS(\mathcal{O}_V, \mathcal{O}_W)
+$$
+其中 $W \subset \text{Supp}(\mathcal{G})$ 是闭子簇。若 $\dim(V) = r$ 且
+$\dim(W) = s$，则该等式就是 $V \cdot W$ 的{\bf 定义}。另一方面，若
+$\dim(V) < r$ 或 $\dim(W) < s$，即 $[V]_r = 0$ 或 $[W]_s = 0$，
+则需证明 $RHS(\mathcal{O}_V, \mathcal{O}_W) = 0$
+\footnote{取 $r = s = 1$，令 $X$ 为非奇异曲面，而 $V = W$ 为 $X$ 的一个闭点 $x$，
+读者即可看出这并非平凡事实。此时在 $x$ 处有 $3$ 个非零 $\text{Tor}$，其长度分别为
+$1, 2, 1$。}。
+
+\medskip\noindent
+设 $Z \subset V \cap W$ 为维数 $r + s - \dim(X)$ 的不可约分支。这是一个分支可能的最大维数，
+因而只需证明 $RHS$ 中 $Z$ 的系数为零。设 $\xi \in Z$ 为泛点。记
+$A = \mathcal{O}_{X, \xi}$、$B = \mathcal{O}_{X \times X, \Delta(\xi)}$ 与
+$C = \mathcal{O}_{V \times W, \Delta(\xi)}$。由引理 \ref{intersection-lemma-tor-and-diagonal}，有
+$$
+\text{下列对象的系数： }Z\text{ 于 }
+RHS(\mathcal{O}_V, \mathcal{O}_W) = 
+\sum (-1)^i
+\text{length}_B \text{Tor}_i^B(A, C)
+$$
+由于 $\dim(V) < r$ 或 $\dim(W) < s$，有 $\dim(V \times W) < r + s$，这蕴含
+$\dim(C) < \dim(X)$（略去一个小细节）。此外，$B \to A$ 的核 $I$ 由长度为
+$\dim(X)$ 的正则序列生成；见引理 \ref{intersection-lemma-diagonal-regular-immersion}。
+由引理 \ref{intersection-lemma-one-ideal-ci} 可得消失，因为根据《代数》命题
+\ref{algebra-proposition-dimension}，$C$ 对 $I$ 的 Hilbert 函数的次数为
+$\dim(C) < n$。
+\end{proof}
+
+\begin{remark}
+\label{intersection-remark-Serre-conjectures}
+设 $(A, \mathfrak m, \kappa)$ 为正则局部环，$M$ 与 $N$ 为非零有限 $A$-模，且
+$M \otimes_A N$ 支撑于 $\{\mathfrak m\}$。则
+$$
+\chi(M, N) = \sum (-1)^i \text{length}_A \text{Tor}_i^A(M, N)
+$$
+是有限的。置 $r = \dim(\text{Supp}(M))$ 与 $s = \dim(\text{Supp}(N))$。
+\cite{Serre_algebre_locale} 证明了 $r + s \leq \dim(A)$，并提出下列猜想：
+\begin{enumerate}
+\item 若 $r + s < \dim(A)$，则 $\chi(M, N) = 0$；以及
+\item 若 $r + s = \dim(A)$，则 $\chi(M, N) > 0$。
+\end{enumerate}
+证明引理 \ref{intersection-lemma-tor-sheaf} 与命题 \ref{intersection-proposition-positivity} 的论证可用于证明：
+若 $A$ 包含一个域，则 (1) 与 (2) 成立，正如 Serre 的文本中所做的那样。
+目前，猜想 (1) 在一般情形下已知，且已知一般地有 $\chi(M, N) \geq 0$（Gabber）。
+据我们所知，正性仍是开放问题。
+\end{remark}
+
+
+
+\section{交的结合性}
+\label{intersection-section-associative}
+
+\noindent
+显然，上面定义的正常相交具有交换性。利用关键引理
+\ref{intersection-lemma-tor-sheaf}，可以证明（正常）交积具有结合性。
+
+\begin{lemma}
+\label{intersection-lemma-associative}
+设 $X$ 为非奇异簇，$U, V, W$ 为闭子簇。假设 $U, V, W$ 两两正常相交，且
+$\dim(U \cap V \cap W) \leq \dim(U) + \dim(V) + \dim(W) - 2\dim(X)$。则作为 $X$ 上的循环，有
+$$
+U \cdot (V \cdot W) = (U \cdot V) \cdot W
+$$
+\end{lemma}
+
+\begin{proof}
+下面不再特别说明地使用引理 \ref{intersection-lemma-tor-sheaf}。它给出
+\begin{align*}
+V \cdot W
+& =
+\sum (-1)^i [\text{Tor}_i(\mathcal{O}_V, \mathcal{O}_W)]_{b + c - n} \\
+U \cdot (V \cdot W)
+& =
+\sum (-1)^{i + j}
+[
+\text{Tor}_j(\mathcal{O}_U, \text{Tor}_i(\mathcal{O}_V, \mathcal{O}_W))
+]_{a + b + c - 2n} \\
+U \cdot V
+& =
+\sum (-1)^i [\text{Tor}_i(\mathcal{O}_U, \mathcal{O}_V)]_{a + b - n} \\
+(U \cdot V) \cdot W
+& =
+\sum (-1)^{i + j}
+[
+\text{Tor}_j(\text{Tor}_i(\mathcal{O}_U, \mathcal{O}_V), \mathcal{O}_W))
+]_{a + b + c - 2n}
+\end{align*}
+其中 $\dim(U) = a$、$\dim(V) = b$、$\dim(W) = c$、$\dim(X) = n$。
+引理中的假设保证上述公式中的凝聚层满足所需的支撑维数界，因而这些公式有意义。
+现在考虑导出范畴 $D_{\textit{Coh}}(\mathcal{O}_X)$ 中的对象
+$$
+K =
+\mathcal{O}_U \otimes^\mathbf{L}_{\mathcal{O}_X} \mathcal{O}_V
+\otimes^\mathbf{L}_{\mathcal{O}_X} \mathcal{O}_W
+$$
+我们断言，上面得到的 $U \cdot (V \cdot W)$ 与 $(U \cdot V) \cdot W$ 的表达式都等于
+$$
+\sum (-1)^k [H^k(K)]_{a + b + c - 2n}
+$$
+这将证明引理。由对称性，只需证明其中一个等式。为此，用 K-平坦复形
+$M^\bullet$ 与 $L^\bullet$ 分别代表 $\mathcal{O}_U$ 与
+$\mathcal{O}_V \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_W$，并使用《同调》第
+\ref{homology-section-double-complex} 节中与双复形
+$M^\bullet \otimes_{\mathcal{O}_X} L^\bullet$ 相关联的谱序列。该谱序列的 $E_2$ 页为
+$$
+E_2^{p, q} =
+\text{Tor}_{-p}(\mathcal{O}_U, \text{Tor}_{-q}(\mathcal{O}_V, \mathcal{O}_W))
+$$
+并收敛到 $H^{p + q}(K)$（略去细节；可与《代数进阶》例
+\ref{more-algebra-example-tor} 比较）。由于长度对短正合列具有可加性，结论成立。
+\end{proof}
+
+
+
+
+\section{平坦拉回与交积}
+\label{intersection-section-flat-pullback-and-intersection-products}
+
+\noindent
+简要讨论交与平坦拉回之间的相互作用。
+
+\begin{lemma}
+\label{intersection-lemma-flat-pull-back-and-intersections-sheaves}
+设 $f : X \to Y$ 为非奇异簇之间的平坦态射。置 $e = \dim(X) - \dim(Y)$。
+设 $\mathcal{F}$ 与 $\mathcal{G}$ 为 $Y$ 上的凝聚层，并满足
+$\dim(\text{Supp}(\mathcal{F})) \leq r$、
+$\dim(\text{Supp}(\mathcal{G})) \leq s$ 以及
+$\dim(\text{Supp}(\mathcal{F}) \cap \text{Supp}(\mathcal{G}) )
+\leq r + s - \dim(Y)$。此时循环
+$[f^*\mathcal{F}]_{r + e}$ 与 $[f^*\mathcal{G}]_{s + e}$ 正常相交，且
+$$
+f^*([\mathcal{F}]_r \cdot [\mathcal{G}]_s) =
+[f^*\mathcal{F}]_{r + e} \cdot [f^*\mathcal{G}]_{s + e}
+$$
+\end{lemma}
+
+\begin{proof}
+由 $f$ 的相对维数为 $e$ 这一假设，$[f^*\mathcal{F}]_{r + e}$ 与
+$[f^*\mathcal{G}]_{s + e}$ 正常相交的断言是立即的。由引理
+\ref{intersection-lemma-tor-sheaf} 与 \ref{intersection-lemma-pullback}，只需证明
+$$
+f^*\text{Tor}_i^{\mathcal{O}_Y}(\mathcal{F}, \mathcal{G}) =
+\text{Tor}_i^{\mathcal{O}_X}(f^*\mathcal{F}, f^*\mathcal{G})
+$$
+它们是 $\mathcal{O}_X$-模。这由《上同调》引理
+\ref{cohomology-lemma-pullback-tensor-product} 以及 $f^*$ 的正合性得出；因此
+$Lf^*\mathcal{F} = f^*\mathcal{F}$，对 $\mathcal{G}$ 亦然。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-flat-pullback-and-intersections}
+设 $f : X \to Y$ 为非奇异簇之间的平坦态射。设 $\alpha$ 为 $Y$ 上的 $r$-循环，
+$\beta$ 为 $Y$ 上的 $s$-循环。假设 $\alpha$ 与 $\beta$ 正常相交。则 $f^*\alpha$
+与 $f^*\beta$ 正常相交，且 $f^*( \alpha \cdot \beta ) = f^*\alpha \cdot f^*\beta$。
+\end{lemma}
+
+\begin{proof}
+由线性，可以假设 $\alpha = [V]$ 且 $\beta = [W]$，其中 $V, W \subset Y$ 是维数为 $r, s$
+的闭子簇。设 $f$ 的相对维数为 $e$。则引理是引理
+\ref{intersection-lemma-flat-pull-back-and-intersections-sheaves} 的特例，因为
+$[V] = [\mathcal{O}_V]_r$、$[W] = [\mathcal{O}_W]_r$、
+$f^*[V] = [f^{-1}(V)]_{r + e} = [f^*\mathcal{O}_V]_{r + e}$，以及
+$f^*[W] = [f^{-1}(W)]_{s + e} = [f^*\mathcal{O}_W]_{s + e}$。
+\end{proof}
+
+
+\section{平坦固有态射的投影公式}
+\label{intersection-section-projection-formula-flat}
+
+\noindent
+简要讨论平坦固有态射的投影公式。
+
+\begin{lemma}
+\label{intersection-lemma-projection-formula-flat}
+\begin{reference}
+更一般的公式见 \cite[Chapter V, C), Section 7, formula (10)]{Serre_algebre_locale}。
+\end{reference}
+设 $f : X \to Y$ 为非奇异簇之间的平坦固有态射，并置
+$e = \dim(X) - \dim(Y)$。设 $\alpha$ 为 $X$ 上的 $r$-循环，$\beta$ 为 $Y$ 上的 $s$-循环。
+假设 $\alpha$ 与 $f^*(\beta)$ 正常相交。则 $f_*(\alpha)$ 与 $\beta$ 正常相交，且
+$$
+f_*(\alpha) \cdot \beta = f_*( \alpha \cdot f^*\beta)
+$$
+\end{lemma}
+
+\begin{proof}
+由线性，化归到 $\alpha = [V]$ 且 $\beta = [W]$ 的情形，其中
+$V \subset X$ 与 $W \subset Y$ 是分别为维数 $r$ 与 $s$ 的闭子簇。则
+$f^{-1}(W)$ 具有纯维数 $s + e$。假设循环 $[V]$ 与 $f^*[W]$ 正常相交。
+下文不再特别说明地使用事实：$V \cap f^{-1}(W) \to f(V) \cap W$ 是满的。
+
+\medskip\noindent
+设 $a$ 为 $V \to f(V)$ 的一般纤维的维数。若 $a > 0$，则 $f_*[V] = 0$。
+特别地，$f_*\alpha$ 与 $\beta$ 正常相交。为完成这种情形，需证明
+$f_*([V] \cdot f^*[W]) = 0$。然而，$V \to f(V)$ 的每个纤维维数都 $\geq a$；见《态射》引理
+\ref{morphisms-lemma-openness-bounded-dimension-fibres}。所以 $V \cap f^{-1}(W)$ 的每个不可约分支 $Z$
+在 $f(Z)$ 上的纤维维数都 $\geq a$。这当然蕴含所需结论。
+
+\medskip\noindent
+现假设 $V \to f(V)$ 在一般点上有限。设 $Z \subset f(V) \cap W$ 为不可约分支，而
+$Z_i \subset V \cap f^{-1}(W)$、$i = 1, \ldots, t$ 为 $V \cap f^{-1}(W)$ 中支配 $Z$ 的不可约分支。
+根据假设，每个 $Z_i$ 的维数为
+$r + s + e - \dim(X) = r + s - \dim(Y)$。因此
+$\dim(Z) \leq r + s - \dim(Y)$。所以 $f(V)$ 与 $W$ 正常相交，
+$\dim(Z) = r + s - \dim(Y)$，且每个 $Z_i \to Z$ 在一般点上有限。
+特别地，$V \to f(V)$ 在 $Z$ 的泛点 $\xi$ 之上有有限纤维。因此 $V \to Y$
+在 $\xi$ 的一个开邻域中有限；见《概形的上同调》引理
+\ref{coherent-lemma-proper-finite-fibre-finite-in-neighbourhood}。
+使用导出张量积的一个非常一般的投影公式，得到
+$$
+Rf_*(\mathcal{O}_V \otimes_{\mathcal{O}_X}^\mathbf{L} Lf^*\mathcal{O}_W) =
+Rf_*\mathcal{O}_V \otimes_{\mathcal{O}_Y}^\mathbf{L} \mathcal{O}_W
+$$
+见《概形的导出范畴》引理 \ref{perfect-lemma-cohomology-base-change}。
+由于 $f$ 平坦，有 $Lf^*\mathcal{O}_W = f^*\mathcal{O}_W$。由于 $f|_V$ 在 $\xi$ 的一个开邻域中有限，
+对任意支撑包含于 $V$ 的 $X$ 上凝聚层，有
+$$
+(Rf_*\mathcal{F})_\xi = (f_*\mathcal{F})_\xi
+$$
+见《概形的上同调》引理
+\ref{coherent-lemma-higher-direct-images-zero-finite-fibre}。所以对所有 $i$，有
+\begin{equation}
+\label{intersection-equation-stalks}
+\left(
+f_*\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V, f^*\mathcal{O}_W)
+\right)_\xi =
+\left(\text{Tor}_i^{\mathcal{O}_Y}(f_*\mathcal{O}_V, \mathcal{O}_W)\right)_\xi
+\end{equation}
+由引理 \ref{intersection-lemma-pullback}，$f^*[W] = [f^*\mathcal{O}_W]_{s + e}$，因而由引理
+\ref{intersection-lemma-tor-sheaf}，有
+$$
+[V] \cdot f^*[W] =
+\sum (-1)^i
+[\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V,
+f^*\mathcal{O}_W)]_{r + s - \dim(Y)}
+$$
+应用引理 \ref{intersection-lemma-push-coherent} 得
+$$
+f_*([V] \cdot f^*[W]) =
+\sum (-1)^i
+[f_*\text{Tor}_i^{\mathcal{O}_X}(\mathcal{O}_V,
+f^*\mathcal{O}_W)]_{r + s - \dim(Y)}
+$$
+由引理 \ref{intersection-lemma-push-coherent}，$f_*[V] = [f_*\mathcal{O}_V]_r$，因而再次由引理
+\ref{intersection-lemma-tor-sheaf}，有
+$$
+[f_*V] \cdot [W] =
+\sum (-1)^i
+[\text{Tor}_i^{\mathcal{O}_X}(f_*\mathcal{O}_V,
+\mathcal{O}_W)]_{r + s - \dim(Y)}
+$$
+比较 $f_*([V] \cdot f^*[W])$ 与 $f_*[V] \cdot [W]$ 的公式，并通过取在 $\xi$ 处的茎的长度
+来考察 $Z$ 的系数，可见等式 (\ref{intersection-equation-stalks}) 完成了证明。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-transfer}
+设 $X \to P$ 为非奇异簇之间的闭浸入，$C' \subset P \times \mathbf{P}^1$ 为维数
+$r + 1$ 的闭子簇。假设
+\begin{enumerate}
+\item 纤维 $C = C'_0$ 的维数为 $r$，即 $C' \to \mathbf{P}^1$ 是支配的；
+\item $C'$ 与 $X \times \mathbf{P}^1$ 正常相交；
+\item $[C]_r$ 与 $X$ 正常相交。
+\end{enumerate}
+把 $\alpha = [C]_r \cdot X$ 视为 $X$ 上的循环，并把
+$\beta = C' \cdot X \times \mathbf{P}^1$ 视为 $X \times \mathbf{P}^1$ 上的循环。则作为 $X$ 上的循环，有
+$$
+\alpha = \text{pr}_{X, *}(\beta \cdot X \times 0)
+$$
+其中 $\text{pr}_X : X \times \mathbf{P}^1 \to X$ 是投影。
+\end{lemma}
+
+\begin{proof}
+设 $\text{pr} : P \times \mathbf{P}^1 \to P$ 为投影。由于我们证明的是循环的等式，
+只需把 $\alpha$、\ $\beta$ 分别看作 $P$、\ $P \times \mathbf{P}^1$ 上的循环，并对沿
+$\text{pr}$ 的推前证明结论。因为
+$\text{pr}^*X = X \times \mathbf{P}^1$，且 $\text{pr}$ 定义了 $C'_0$ 到 $C$ 的同构，
+投影公式（引理 \ref{intersection-lemma-projection-formula-flat}）给出
+$$
+\text{pr}_*([C'_0]_r \cdot X \times \mathbf{P}^1) = [C]_r \cdot X = \alpha
+$$
+另一方面，由引理 \ref{intersection-lemma-rational-equivalence-and-intersection}，
+作为 $P \times \mathbf{P}^1$ 上的循环，有 $[C'_0]_r = C' \cdot P \times 0$。因此
+$$
+[C'_0]_r \cdot X \times \mathbf{P}^1 =
+(C' \cdot P \times 0) \cdot X \times \mathbf{P}^1 =
+(C' \cdot X \times \mathbf{P}^1) \cdot P \times 0
+$$
+这里使用了结合性（引理 \ref{intersection-lemma-associative}）以及交积的交换性。
+仍需证明：在 $P \times \mathbf{P}^1$ 上，$C' \cdot X \times \mathbf{P}^1$ 与 $P \times 0$
+的交积，作为循环，等于在 $X \times \mathbf{P}^1$ 上 $\beta$ 与 $X \times 0$ 的交积。写成
+$C' \cdot X \times \mathbf{P}^1 = \sum n_k[E_k]$，从而
+$\beta = \sum n_k[E_k]$，其中 $E_k \subset X \times \mathbf{P}^1 \subset P \times \mathbf{P}^1$ 为子簇。
+两次应用引理 \ref{intersection-lemma-rational-equivalence-and-intersection}，可知两个交都等于
+$\sum m_k[E_{k, 0}]$。证明完毕。
+\end{proof}
+
+
+
+
+\section{投影}
+\label{intersection-section-projection}
+
+\noindent
+回顾一下，我们始终在一个固定的代数闭基域 $\mathbf{C}$ 上工作。若 $V$ 是
+$\mathbf{C}$ 上的有限维向量空间，则置
+$$
+\mathbf{P}(V) = \text{Proj}(\text{Sym}(V))
+$$
+其中 $\text{Sym}(V)$ 是 $V$ 在 $\mathbf{C}$ 上的对称代数。见《构造》例
+\ref{constructions-example-projective-space}。这里采用的规范化使得
+$V = \Gamma(\mathbf{P}(V), \mathcal{O}_{\mathbf{P}(V)}(1))$。
+当然，若 $\dim(V) = n + 1$，则 $\mathbf{P}(V) \cong \mathbf{P}^n_{\mathbf{C}}$。
+注意，$\mathbf{P}(V)$ 是非奇异射影簇。
+
+\medskip\noindent
+设 $p \in \mathbf{P}(V)$ 为闭点。点 $p$ 对应于向量空间的一个满射
+$V \to L_p$，其中 $\dim(L_p) = 1$；见《构造》引理
+\ref{constructions-lemma-apply}。记 $W_p = \Ker(V \to L_p)$。
+{\it 以 $p$ 为中心的投影}是《构造》引理
+\ref{constructions-lemma-morphism-proj} 中的态射
+$$
+r_p : \mathbf{P}(V) \setminus \{p\} \longrightarrow \mathbf{P}(W_p)
+$$
+先看下面这个预备引理。
+
+\begin{lemma}
+\label{intersection-lemma-projection-generically-finite}
+设 $V$ 是维数为 $n + 1$ 的向量空间，$X \subset \mathbf{P}(V)$ 是闭子概形。
+若 $X \not = \mathbf{P}(V)$，则存在非空 Zariski 开集
+$U \subset \mathbf{P}(V)$，使得对每个闭点 $p \in U$，投影 $r_p$ 的限制定义有限态射
+$r_p|_X : X \to \mathbf{P}(W_p)$。
+\end{lemma}
+
+\begin{proof}
+我们断言取 $U = \mathbf{P}(V) \setminus X$ 即可。对 $U$ 的闭点 $p$，确实得到态射
+$r_p|_X : X \to \mathbf{P}(W_p)$。由于 $X$ 是固有概形，这个态射是固有的
+（《态射》引理 \ref{morphisms-lemma-locally-projective-proper} 和
+\ref{morphisms-lemma-image-proper-scheme-closed}）。另一方面，直接计算可见 $r_p$ 的纤维是仿射直线。
+因此 $r_p|X$ 的纤维既固有又仿射，从而是有限的
+（《态射》引理 \ref{morphisms-lemma-finite-proper}）。最后，具有有限纤维的固有态射是有限态射
+（《概形的上同调》引理 \ref{coherent-lemma-characterize-finite}）。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-projection-generically-immersion}
+设 $V$ 是维数为 $n + 1$ 的向量空间，$X \subset \mathbf{P}(V)$ 是闭子簇，
+$x \in X$ 是非奇异点。
+\begin{enumerate}
+\item 若 $\dim(X) < n - 1$，则存在非空 Zariski 开集
+$U \subset \mathbf{P}(V)$，使得对每个闭点 $p \in U$，态射
+$r_p|_X : X \to r_p(X)$ 在 $r_p(x)$ 的某个开邻域上是同构。
+\item 若 $\dim(X) = n - 1$，则存在非空 Zariski 开集
+$U \subset \mathbf{P}(V)$，使得对每个闭点 $p \in U$，态射
+$r_p|_X : X \to \mathbf{P}(W_p)$ 在 $x$ 处为 \'etale 态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证明 (1)。注意，若 $x, y \in X$ 在 $r_p$ 下有相同的像，则 $p$ 位于直线
+$\overline{xy}$ 上。考虑有限型概形
+$$
+T = \{(y, p) \mid
+y \in X \setminus \{x\},\ p \in \mathbf{P}(V),\ p \in \overline{xy}\}
+$$
+以及由 $(y, p) \mapsto y$ 和 $(y, p) \mapsto p$ 给出的态射
+$T \to X$ 和 $T \to \mathbf{P}(V)$。由于 $T \to X$ 的每个纤维都是一条直线，
+可见 $T$ 的维数为 $\dim(X) + 1 < \dim(\mathbf{P}(V))$。因此
+$T \to \mathbf{P}(V)$ 不是满射。另一方面，考虑有限型概形
+$$
+T' = \{p \mid
+p \in \mathbf{P}(V) \setminus \{x\},
+\ \overline{xp}\text{ 相切于 }X\text{ 在 }x\}
+$$
+此时 $T'$ 的维数为 $\dim(X) < \dim(\mathbf{P}(V))$，所以态射
+$T' \to \mathbf{P}(V)$ 也不是满射。取非空开集
+$U \subset \mathbf{P}(V) \setminus X$，使它与上述两个像均不相交。这样的 $U$ 存在，
+因为由《态射》引理 \ref{morphisms-lemma-chevalley}，$T$ 和 $T'$ 在
+$\mathbf{P}(V)$ 中的像都是可构造集。于是对闭点 $p \in U$，投影
+$r_p|_X : X \to \mathbf{P}(W_p)$ 在 $x$ 的切空间上是单射，并且
+$r_p^{-1}(\{r_p(x)\}) = \{x\}$。这说明 $r_p$ 在 $x$ 处非分歧
+（《簇》引理 \ref{varieties-lemma-injective-tangent-spaces-unramified}）；
+由引理 \ref{intersection-lemma-projection-generically-finite}，它是有限态射；又有
+$r_p^{-1}(\{r_p(x)\}) = \{x\}$。因此可应用《\'Etale 态射》引理
+\ref{etale-lemma-finite-unramified-one-point}：在 $\mathbf{P}(W_p)$ 中存在
+$r_p(x)$ 的开邻域 $R$，使得 $(r_p|_X)^{-1}(R) \to R$ 是闭浸入。这证明了 (1)。
+
+\medskip\noindent
+再证明 (2)。在这种情形下，我们仍可断定态射
+$T' \to \mathbf{P}(V)$ 不是满射。与上面相同地论证可知，若
+$U \subset \mathbf{P}(V)$ 避开 $X$ 和 $T'$ 的像，则投影
+$r_p|_X : X \to \mathbf{P}(W_p)$ 在 $x$ 处为 \'etale 态射且为有限态射。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-projection-generically-immersion-refined}
+设 $V$ 是向量空间，$Z \subset X \subset \mathbf{P}(V)$ 是闭子簇，且
+$Z \not = X \not = \mathbf{P}(V)$。设 $x \in Z$ 是 $X$ 上的非奇异点。
+则存在非空 Zariski 开集 $U \subset \mathbf{P}(V)$，使得对每个闭点 $p \in U$，态射
+$r_p|_Z : Z \to r_p(Z)$ 在 $r_p(x)$ 的某个开邻域上是同构。
+\end{lemma}
+
+\begin{proof}
+仿照引理 \ref{intersection-lemma-projection-generically-immersion} 的证明，可找到非空 Zariski 开集
+$U$，使得对 $p \in U$，映射 $r_p|_X : X \to r_p(X)$ 在 $x$ 处为 \'etale 态射，且
+$r_p^{-1}(r_p(\{x\})) \cap Z = \{x\}$。细节从略。令 $Z' = r_p(Z)$，把它看作
+$\mathbf{P}(W_p)$ 的闭子簇。则态射 $\pi : Z \to Z'$ 是有限的
+（引理 \ref{intersection-lemma-projection-generically-finite}），在 $x$ 处非分歧（略去一个小细节），并且
+$\pi^{-1}(\pi(\{x\})) = \{x\}$。结论由《\'Etale 态射》引理
+\ref{etale-lemma-finite-unramified-one-point} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-projection-injective}
+设 $V$ 是维数为 $n + 1$ 的向量空间，$Y, Z \subset \mathbf{P}(V)$ 是闭子簇。
+则存在非空 Zariski 开集 $U \subset \mathbf{P}(V)$，使得对每个闭点 $p \in U$，有
+$$
+Y \cap r_p^{-1}(r_p(Z)) = (Y \cap Z) \cup E
+$$
+其中 $E \subset Y$ 是闭集，并且
+$\dim(E) \leq \dim(Y) + \dim(Z) + 1 - n$。
+\end{lemma}
+
+\begin{proof}
+令 $Y' = Y \setminus Y \cap Z$。设 $y \in Y'$、$z \in Z$ 是满足
+$r_p(y) = r_p(z)$ 的闭点。于是 $p$ 位于通过 $y$ 和 $z$ 的直线 $\overline{yz}$ 上。
+考虑有限型概形
+$$
+T = \{(y, z, p) \mid y \in Y', z \in Z, p \in \overline{yz}\}
+$$
+以及由 $(y, z, p) \mapsto p$ 给出的态射 $T \to \mathbf{P}(V)$。
+注意，$T$ 不可约，且 $\dim(T) = \dim(Y) + \dim(Z) + 1$。
+因此 $T \to \mathbf{P}(V)$ 的一般纤维维数至多为
+$\dim(Y) + \dim(Z) + 1 - n$。更精确地说，存在非空开集
+$U \subset \mathbf{P}(V) \setminus (Y \cup Z)$，使得其上的纤维维数至多为
+$\dim(Y) + \dim(Z) + 1 - n$
+（《簇》引理 \ref{varieties-lemma-dimension-fibres-locally-algebraic}）。
+设 $p \in U$ 为闭点，$F \subset T$ 是 $T \to \mathbf{P}(V)$ 在 $p$ 上的纤维。则
+$$
+(Y \cap r_p^{-1}(r_p(Z))) \setminus (Y \cap Z)
+$$
+是 $F \to Y$ 在映射 $(y, z, p) \mapsto y$ 下的像。再次由《簇》引理
+\ref{varieties-lemma-dimension-fibres-locally-algebraic}，$F \to Y$ 的像的闭包维数至多为
+$\dim(Y) + \dim(Z) + 1 - n$。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-find-lines}
+设 $V$ 是向量空间，$B \subset \mathbf{P}(V)$ 是余维 $\geq 2$ 的闭子簇。
+设 $p \in \mathbf{P}(V)$ 是闭点，且 $p \not \in B$。则存在直线
+$\ell \subset \mathbf{P}(V)$，使得 $p \in \ell$ 且 $\ell \cap B = \emptyset$。
+此外，这些直线扫过 $\mathbf{P}(V)$ 的一个开子集。
+\end{lemma}
+
+\begin{proof}
+考虑 $B$ 在投影 $r_p : \mathbf{P}(V) \to \mathbf{P}(W_p)$ 下的像。
+由于 $\dim(W_p) = \dim(V) - 1$，可见 $r_p(B)$ 在 $\mathbf{P}(W_p)$ 中的余维
+$\geq 1$。对任意满足 $r_p(q) \not \in r_p(B)$ 的 $q \in \mathbf{P}(V)$，
+连接 $p$ 与 $q$ 的直线 $\ell = \overline{pq}$ 都满足要求。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-doubly-transitive}
+设 $V$ 是向量空间，$G = \text{PGL}(V)$。则
+$G \times \mathbf{P}(V) \to \mathbf{P}(V)$ 是双重传递的。
+\end{lemma}
+
+\begin{proof}
+从略。提示：这可由 $\text{GL}(V)$ 在所有线性无关向量对上的作用是双重传递的这一事实推出。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-determinant}
+设 $k$ 是域，$n \geq 1$ 是整数，$x_{ij}, 1 \leq i, j \leq n$ 是变元。则
+$$
+\det
+\left(
+\begin{matrix}
+x_{11} & x_{12} & \ldots & x_{1n} \\
+x_{21} & \ldots & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots \\
+x_{n1} & \ldots & \ldots & x_{nn}
+\end{matrix}
+\right)
+$$
+是多项式环 $k[x_{ij}]$ 中的不可约元。
+\end{lemma}
+
+\begin{proof}
+设 $V$ 是 $n$ 维向量空间。将引理翻译成几何语言，它断言不可逆线性映射
+$V \to V$ 的轨迹 $C$ 不可约（注意，由于行列式关于每个变元的次数都是 $1$，它是无平方因子的）。
+设 $W$ 是维数为 $n - 1$ 的向量空间。由初等线性代数，态射
+$$
+\Hom(W, V) \times \Hom(V, W) \longrightarrow \Hom(V, V),\quad
+(\psi, \varphi) \longmapsto \psi \circ \varphi
+$$
+的像为 $C$。由于源不可约，像也不可约。细节从略。
+\end{proof}
+
+\noindent
+设 $V$ 是维数为 $n + 1$ 的向量空间。令 $E = \text{End}(V)$，并令
+$E^\vee = \Hom(E, \mathbf{C})$ 为其对偶向量空间。记
+$\mathbf{P} = \mathbf{P}(E^\vee)$。存在典范线性映射
+$$
+V \longrightarrow V \otimes_\mathbf{C} E^\vee = \Hom(E, V)
+$$
+它把 $v \in V$ 送到 $\Hom(E, V)$ 中的映射 $g \mapsto g(v)$。
+回顾，存在典范映射
+$E^\vee \to \Gamma(\mathbf{P}, \mathcal{O}_\mathbf{P}(1))$，且它是同构。
+因此得到 $\mathbf{P}$ 上模层的典范映射
+$$
+\psi : V \otimes \mathcal{O}_\mathbf{P} \to V \otimes \mathcal{O}_\mathbf{P}(1)
+$$
+它在整体截面上恢复上述映射。回顾，射影丛 $\mathbf{P}(\mathcal{E})$ 定义为
+$\mathcal{E}$ 的对称代数的相对 Proj；见《构造》定义
+\ref{constructions-definition-projective-bundle}。我们要研究与 $\psi$ 相伴的、
+$\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}(1))$ 与
+$\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P})$ 之间的有理映射。
+由《构造》引理 \ref{constructions-lemma-relative-proj-base-change}，存在典范同构
+$$
+\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}) = \mathbf{P} \times \mathbf{P}(V)
+$$
+由《构造》引理 \ref{constructions-lemma-twisting-and-proj}，可见
+$$
+\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}(1)) =
+\mathbf{P}(V \otimes \mathcal{O}_\mathbf{P}) = \mathbf{P} \times \mathbf{P}(V)
+$$
+再结合《构造》引理 \ref{constructions-lemma-morphism-relative-proj}，得到
+\begin{equation}
+\label{intersection-equation-r-psi}
+\mathbf{P} \times \mathbf{P}(V) \supset
+U(\psi) \xrightarrow{r_\psi} \mathbf{P} \times \mathbf{P}(V)
+\end{equation}
+为了更好地理解它，我们考察 $\mathbf{P}$ 上各纤维中的情形。设 $g \in E$ 非零。
+它定义非零映射 $E^\vee \to \mathbf{C}$，从而定义一点 $[g] \in \mathbf{P}$。
+另一方面，$g$ 定义 $\mathbf{C}$-线性映射 $g : V \to V$。因此由《构造》引理
+\ref{constructions-lemma-morphism-proj} 得到映射
+$$
+\mathbf{P}(V) \supset U(g) \xrightarrow{r_g} \mathbf{P}(V)
+$$
+下面将用到：$U(g)$ 是纤维 $U(\psi)_{[g]}$，而 $r_g$ 是 $r_\psi$ 在点 $[g]$ 上的纤维。
+我们还将用到另一个观察：$U(g)$ 在 $\mathbf{P}(V)$ 中的补集是闭浸入
+$$
+\mathbf{P}(\Coker(g)) \longrightarrow \mathbf{P}(V)
+$$
+的像，而 $r_g$ 的像是闭浸入
+$$
+\mathbf{P}(\Im(g)) \longrightarrow \mathbf{P}(V)
+$$
+的像。
+
+\begin{lemma}
+\label{intersection-lemma-make-family}
+沿用上述记号。设 $X, Y$ 是 $\mathbf{P}(V)$ 中正常相交的闭子簇，并且
+$X \not = \mathbf{P}(V)$ 且 $X \cap Y \not = \emptyset$。对满足
+$[\text{id}_V] \in \ell$ 的一般直线 $\ell \subset \mathbf{P}$，有
+\begin{enumerate}
+\item 对所有 $[g] \in \ell$，都有 $X \subset U_g$；
+\item 对所有 $[g] \in \ell$，$g(X)$ 与 $Y$ 正常相交。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $B \subset \mathbf{P}$ 为“坏”点的集合，即违反 (1) 或 (2) 中任一项的点 $[g]$。
+注意，由假设 $[\text{id}_V] \not \in B$。此外，$B$ 是闭集。因此只需证明
+$\dim(B) \leq \dim(\mathbf{P}) - 2$（引理 \ref{intersection-lemma-find-lines}）。
+
+\medskip\noindent
+首先，考虑由使 $g : V \to V$ 可逆的点 $[g]$ 组成的开集
+$G = \text{PGL}(V) \subset \mathbf{P}$。由于 $G$ 在 $\mathbf{P}(V)$ 上双重传递
+（引理 \ref{intersection-lemma-doubly-transitive}），可见
+$$
+T = \{(x, y, [g]) \mid x \in X, y \in Y, [g] \in G, r_g(x) = y\}
+$$
+是 $X \times Y$ 上的局部平凡纤维化，其纤维等于 $G$ 中一点的稳定子。因此 $T$ 是簇。
+注意，$T \to G$ 在 $[g]$ 上的纤维是 $r_g(X) \cap Y$。态射 $T \to G$ 是满射，
+因为 $X$ 的任意平移都与 $Y$ 相交（事实上，由 $X$ 与 $Y$ 正常相交且
+$X \cap Y \not = \emptyset$，可知
+$\dim(X) + \dim(Y) \geq \dim(\mathbf{P}(V))$；于是《簇》引理
+\ref{varieties-lemma-intersection-in-projective-space} 蕴含 $X$ 的所有平移都与 $Y$ 相交）。
+由于簇之间支配态射的纤维维数不会在余维 $1$ 处跳跃
+（《簇》引理 \ref{varieties-lemma-dimension-fibres-locally-algebraic}），
+我们得到 $B \cap G$ 的余维 $\geq 2$。
+
+\medskip\noindent
+接着考察补集 $Z = \mathbf{P} \setminus G$。由于行列式是不可约多项式
+（引理 \ref{intersection-lemma-determinant}），它是不可约簇。因此只需证明 $B$ 不包含 $Z$ 的泛点。
+对一般点 $[g] \in Z$，余核 $V \to \Coker(g)$ 的维数为 $1$，所以 $U(g)$ 是一点的补集。
+由于 $X \not = \mathbf{P}(V)$，可见对一般的 $[g] \in Z$ 有 $X \subset U(g)$。
+此外，态射 $r_g|_X : X \to r_g(X)$ 是有限的，因而
+$\dim(r_g(X)) = \dim(X)$。另一方面，对这样的 $g$，$r_g$ 的像是余维为 $1$ 的闭子空间
+$H = \mathbf{P}(\Im(g)) \subset \mathbf{P}(V)$。对 $Z$ 的一般点，
+$H \cap Y$ 的维数比 $Y$ 小 $1$（比较《簇》引理
+\ref{varieties-lemma-exact-sequence-induction}）。所以我们需要证明 $r_g(X)$ 与
+$H \cap Y$ 在 $H$ 中正常相交。固定 $H$ 后，通过在 $g$ 后复合一个自同构，
+可以用 $H = \mathbf{P}(\Im(g))$ 的任意自同构移动 $r_g(X)$。因此可仿照上面的论证得出：
+对满足给定 $H = \mathbf{P}(\Im(g))$ 的一般 $g$，$H \cap Y$ 与 $r_g(X)$ 正常相交。
+略去一些细节。
+\end{proof}
+
+
+
+
+
+
+
+\section{移动引理}
+\label{intersection-section-moving-lemma}
+
+\noindent
+移动引理断言：给定一个 $r$-循环 $\alpha$ 和一个 $s$-循环 $\beta$，存在
+$\alpha'$，满足 $\alpha' \sim_{rat} \alpha$，且 $\alpha'$ 与 $\beta$ 正常相交
+（引理 \ref{intersection-lemma-moving-move}）。见 \cite{Samuel}、\cite{ChevalleyI}、
+\cite{ChevalleyII}。其中的关键是引理 \ref{intersection-lemma-moving}；读者可在
+\cite[Example 11.4.1]{F} 中找到该引理的这一表述，并在 \cite{Roberts} 中找到证明。
+
+\begin{lemma}
+\label{intersection-lemma-moving}
+\begin{reference}
+见 \cite{Roberts}。
+\end{reference}
+设 $X \subset \mathbf{P}^N$ 是非奇异闭子簇。令 $n = \dim(X)$，且
+$0 \leq d, d' < n$。设 $Z \subset X$ 是维数为 $d$ 的闭子簇，并设
+$T_i \subset X$（$i \in I$）是有限多个维数为 $d'$ 的闭子簇。则存在子簇
+$C \subset \mathbf{P}^N$，$C$ 与 $X$ 正常相交，并且
+$$
+C \cdot X = Z + \sum\nolimits_{j \in J} m_j Z_j
+$$
+其中 $Z_j \subset X$ 是维数为 $d$、彼此不同于 $Z$ 的不可约子簇，并且
+$$
+\dim(Z_j \cap T_i) \leq \dim(Z \cap T_i)
+$$
+若 $Z$ 与 $T_i$ 在 $X$ 中不正常相交，则此不等式严格成立。
+\end{lemma}
+
+\begin{proof}
+写成 $\mathbf{P}^N = \mathbf{P}(V_N)$，于是 $\dim(V_N) = N + 1$。
+我们要依次选取以下以点为中心的投影：
+\begin{align*}
+& r_N : 
+\mathbf{P}(V_N) \setminus \{p_N\} \to \mathbf{P}(V_{N - 1}), \\
+& r_{N - 1} :
+\mathbf{P}(V_{N - 1}) \setminus \{p_{N - 1}\} \to \mathbf{P}(V_{N - 2}), \\
+& \ldots,\\
+& r_{n + 1} :
+\mathbf{P}(V_{n + 1}) \setminus \{p_{n + 1}\} \to \mathbf{P}(V_n)
+\end{align*}
+如第 \ref{intersection-section-projection} 节所述。在每一步，我们都从一个适当的 Zariski 开集中选取
+$p_N, p_{N - 1}, \ldots, p_{n + 1}$。选取闭点 $x \in Z \subset X$。
+对每个 $i$，选取闭点 $x_{it} \in T_i \cap Z$，并在 $T_i \cap Z$ 的每个不可约分支中至少选取一个。
+取这些投影的复合，得到态射
+$$
+\pi = (r_{n + 1} \circ \ldots \circ r_N)|_X :
+X \longrightarrow \mathbf{P}(V_n)
+$$
+它具有以下性质：
+\begin{enumerate}
+\item $\pi$ 是有限态射；
+\item $\pi$ 在 $x$ 以及所有 $x_{it}$ 处为 \'etale 态射；
+\item $\pi|_Z : Z \to \pi(Z)$ 在 $\pi(x_{it})$ 的某个开邻域上是同构；
+\item $T_i \cap \pi^{-1}(\pi(Z)) = (T_i \cap Z) \cup E_i$，其中
+$E_i \subset T_i$ 是闭集，并且
+$\dim(E_i) \leq d + d' + 1 - (n + 1) = d + d' - n$。
+\end{enumerate}
+由引理 \ref{intersection-lemma-projection-generically-finite}、
+\ref{intersection-lemma-projection-generically-immersion}、
+\ref{intersection-lemma-projection-generically-immersion-refined}、
+\ref{intersection-lemma-projection-injective} 以及归纳法，直接可知可以如此选取。
+注意，最后一次投影以 $\mathbf{P}(V_{n + 1})$ 中的点为中心，且
+$\dim(V_{n + 1}) = n + 2$，这解释了 (4) 中的不等式。稍作展开，令
+$X_j, Z_j, T_{i, j} \subset \mathbf{P}(V_j)$ 为 $X$、$Z$、$T_i$ 的像，其中
+$j = N, \ldots, n$。则
+$T_{i, j + 1} \cap r_{j + 1}^{-1}(Z_j) = (T_{i, j + 1} \cap Z_{j + 1})
+\cup E_{i, j + 1}$，而引理 \ref{intersection-lemma-projection-injective} 给出了
+$E_{i, j + 1}$ 的维数界。再注意，$T_i \cap \pi^{-1}(\pi(Z))$ 是
+$T_i \cap Z$ 与各 $E_{i, j}$ 的逆像之并。由于各 $X_j$ 之间的过渡态射都是有限态射，
+便得到所需的维数界。
+
+\medskip\noindent
+令 $C \subset \mathbf{P}(V_N)$ 为
+$(r_{n + 1} \circ \ldots \circ r_N)^{-1}(\pi(Z))$ 的概形论闭包。
+由于 $\pi$ 在 $Z$ 的点 $x$ 处为 \'etale 态射，可见闭子概形
+$C \cap X = \pi^{-1}(\pi(Z))$ 以重数 $1$ 包含 $Z$（略去局部计算）。
+因此由引理 \ref{intersection-lemma-transversal-subschemes}，得到
+$$
+C \cdot X = [Z] + \sum m_j[Z_j]
+$$
+其中 $Z_j \subset X$ 是一些维数为 $d$ 的子簇。注意，在集合论意义下
+$$
+C \cap X = \pi^{-1}(\pi(Z))
+$$
+因此
+$T_i \cap Z_j \subset T_i \cap \pi^{-1}(\pi(Z)) \subset (T_i \cap Z) \cup E_i$。
+对 $T_i \cap Z_j$ 中包含于 $E_i$ 的任一不可约分支，已经有了所需的维数界。
+最后，设 $V$ 是 $T_i \cap Z_j$ 中包含于 $T_i \cap Z$ 的一个不可约分支。
+为了完成证明，只需说明 $V$ 不包含任何点 $x_{it}$，因为这时
+$\dim(V) < \dim(Z \cap T_i)$。为此，只需对所有 $i, t, j$ 证明
+$x_{it} \not \in Z_j$。
+
+\medskip\noindent
+令 $Z' = \pi(Z)$，并在概形论意义下令 $Z'' = \pi^{-1}(Z')$。
+由条件 (3)，可找到包含 $\pi(x_{it})$ 的开集 $U \subset \mathbf{P}(V_n)$，使得
+$\pi^{-1}(U) \cap Z \to U \cap Z'$ 是同构。特别地，$Z \to Z'$ 在 $x_{it}$ 处是局部同构。
+另一方面，由条件 (2)，$Z'' \to Z'$ 在 $x_{it}$ 处为 \'etale 态射。因此闭浸入
+$Z \to Z''$ 在 $x_{it}$ 处为 \'etale 态射
+（《态射》引理 \ref{morphisms-lemma-etale-permanence}）。
+所以在 $x_{it}$ 的一个 Zariski 邻域内有 $Z = Z''$，这就证明了断言。
+\end{proof}
+
+\noindent
+实际的移动由下面的引理完成。
+
+\begin{lemma}
+\label{intersection-lemma-move}
+设 $C \subset \mathbf{P}^N$ 是闭子簇，$X \subset \mathbf{P}^N$ 是子簇，且
+$T_i \subset X$ 是有限多个闭子簇。假设 $C$ 与 $X$ 正常相交。则存在闭子簇
+$C' \subset \mathbf{P}^N \times \mathbf{P}^1$，使得
+\begin{enumerate}
+\item $C' \to \mathbf{P}^1$ 是支配的；
+\item 在概形论意义下 $C'_0 = C$；
+\item $C'$ 与 $X \times \mathbf{P}^1$ 正常相交；
+\item $C'_\infty$ 与给定的每个 $T_i$ 正常相交。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $C \cap X = \emptyset$，则取常值族 $C' = C \times \mathbf{P}^1$。
+所以不妨并且确实假设 $C \cap X \not = \emptyset$。
+
+\medskip\noindent
+写成 $\mathbf{P}^N = \mathbf{P}(V)$，于是 $\dim(V) = N + 1$。令
+$E = \text{End}(V)$，$E^\vee = \Hom(E, \mathbf{C})$，并如引理
+\ref{intersection-lemma-make-family} 中那样置 $\mathbf{P} = \mathbf{P}(E^\vee)$。
+选取通过 $\text{id}_V$ 的一般直线 $\ell \subset \mathbf{P}$。
+令 $C' \subset \ell \times \mathbf{P}(V)$ 为在 $[g] \in \ell$ 上具有纤维
+$r_g(C)$ 的闭子概形。更精确地说，$C'$ 是
+$$
+\ell \times C \subset \mathbf{P} \times \mathbf{P}(V)
+$$
+在态射 (\ref{intersection-equation-r-psi}) 下的像。由引理 \ref{intersection-lemma-make-family}，
+这是有意义的，即 $\ell \times C \subset U(\psi)$。态射
+$\ell \times C \to C'$ 是有限的，并且对所有 $[g] \in \ell$，在集合论意义下有
+$C'_{[g]} = r_g(C)$。取 $0 = [\text{id}_V] \in \ell$ 时，(1) 与 (2) 显然成立。
+(3) 来自如下事实：对所有 $[g] \in \ell$，$r_g(C)$ 与 $X$ 正常相交。
+(4) 来自如下事实：一般点 $\infty = [g] \in \ell$ 是 $\mathbf{P}$ 的一般点，
+而对这样的点以及 $\mathbf{P}(V)$ 的任意闭子簇 $T$，$r_g(C) \cap T$ 都是正常相交。
+细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{intersection-lemma-moving-move}
+设 $X$ 是非奇异射影簇，$\alpha$ 是一个 $r$-循环，$\beta$ 是 $X$ 上的
+$s$-循环。则存在 $r$-循环 $\alpha'$，使得 $\alpha' \sim_{rat} \alpha$，且
+$\alpha'$ 与 $\beta$ 正常相交。
+\end{lemma}
+
+\begin{proof}
+对某些维数为 $s$ 的子簇 $T_i \subset X$，写成 $\beta = \sum n_i[T_i]$。
+由线性性，可假设 $\alpha = [Z]$，其中 $Z \subset X$ 是维数为 $r$ 的不可约闭子簇。
+我们对下列各整数的最大值 $e$ 作归纳：
+$$
+\dim(Z \cap T_i)
+$$
+基本情形是 $e = r + s - \dim(X)$。此时 $Z$ 与 $\beta$ 正常相交，引理显然成立。
+
+\medskip\noindent
+归纳步骤。假设 $e > r + s - \dim(X)$。选取嵌入
+$X \subset \mathbf{P}^N$，应用引理 \ref{intersection-lemma-moving} 找到闭子簇
+$C \subset \mathbf{P}^N$，使得 $C \cdot X = [Z] + \sum m_j[Z_j]$，且归纳假设适用于每个
+$Z_j$。接着，对 $C$、$X$、$T_i$ 应用引理 \ref{intersection-lemma-move}，得到
+$C' \subset \mathbf{P}^N \times \mathbf{P}^1$。把
+$\gamma = C' \cdot X \times \mathbf{P}^1$ 看作 $X \times \mathbf{P}^1$ 上的循环。
+由引理 \ref{intersection-lemma-transfer}，有
+$$
+[Z] + \sum m_j[Z_j] = \text{pr}_{X, *}(\gamma \cdot X \times 0)
+$$
+另一方面，循环
+$\gamma_\infty = \text{pr}_{X, *}(\gamma \cdot X \times \infty)$
+支撑于 $C'_\infty \cap X$，因而与 $\beta$ 正常相交。由引理
+\ref{intersection-lemma-rational-equivalence-and-intersection}，可见
+$[Z] \sim_{rat} - \sum m_j[Z_j] + \gamma_\infty$。
+归纳假设说明每个 $[Z_j]$ 都有理等价于一个与 $\beta$ 正常相交的循环，故证明完毕。
+\end{proof}
+
+
+
+\section{交积与有理等价}
+\label{intersection-section-intersections-and-rational-equivalence}
+
+\noindent
+沿用上述定义，我们证明交积模有理等价是良定义的。先处理一个特殊情形。
+
+\begin{lemma}
+\label{intersection-lemma-well-defined-special-case}
+设 $X$ 是非奇异簇，$W \subset X \times \mathbf{P}^1$ 是一个支配
+$\mathbf{P}^1$ 的 $(s + 1)$ 维子簇。设 $W_a$、\ $W_b$ 分别是
+$W \to \mathbf{P}^1$ 在 $a$、\ $b$ 上的纤维。设 $V$ 是 $X$ 的 $r$ 维子簇，
+且 $V$ 与 $W_a$、$W_b$ 都正常相交。则
+$[V] \cdot [W_a]_r \sim_{rat} [V] \cdot [W_b]_r$。
+\end{lemma}
+
+\begin{proof}
+有 $[W_a]_r = \text{pr}_{X,*}(W \cdot X \times a)$，对 $[W_b]_r$ 也类似；
+见引理 \ref{intersection-lemma-rational-equivalence-and-intersection}。因此问题化为证明
+$$
+V \cdot \text{pr}_{X,*}( W \cdot X \times a) \sim_{rat} V \cdot
+\text{pr}_{X,*}( W \cdot X\times b).
+$$
+应用投影公式引理 \ref{intersection-lemma-projection-formula-flat}，得到
+$$
+V \cdot \text{pr}_{X,*}( W \cdot X\times a) =
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times a))
+$$
+对 $b$ 也类似。因此问题化为证明
+$$
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times a))
+\sim_{rat}
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times b))
+$$
+若 $V \times \mathbf{P}^1$ 与 $W$ 正常相交，则交重数的结合性
+（引理 \ref{intersection-lemma-associative}）给出
+$V \times \mathbf{P}^1 \cdot (W \cdot X\times a) =
+(V \times \mathbf{P}^1 \cdot W) \cdot X \times a$，对 $b$ 亦然。
+于是问题化为证明
+$$
+\text{pr}_{X,*}((V \times \mathbf{P}^1 \cdot W) \cdot X\times a)
+\sim_{rat}
+\text{pr}_{X,*}((V \times \mathbf{P}^1 \cdot W) \cdot X\times b)
+$$
+这由引理 \ref{intersection-lemma-rational-equivalence-and-intersection} 成立。
+
+\medskip\noindent
+上面的论证并不完全成立。障碍在于，我们不知道 $V \times \mathbf{P}^1$ 与 $W$ 正常相交；
+只知道 $V$ 与 $W_a$、以及 $V$ 与 $W_b$ 正常相交。令 $Z_i$（$i \in I$）为
+$V \times \mathbf{P}^1 \cap W$ 的不可约分支。由引理
+\ref{intersection-lemma-intersect-in-smooth}，若 $n = \dim(X)$，则
+$\dim(Z_i) \geq r + 1 + s + 1 - n - 1 = r + s + 1 - n$。
+由于假设了 $V$ 与 $W_a$ 正常相交，可知
+$\dim(Z_{i, a}) = r + s - n$ 或 $Z_{i, a} = \emptyset$。
+另一方面，若 $Z_{i, a} \not = \emptyset$，则
+$\dim(Z_{i, a}) \geq \dim(Z_i) - 1 = r + s - n$。
+所以，若 $Z_i$ 与 $X \times a$ 相交，则
+$\dim(Z_i) = r + s + 1 - n$，并且此时 $Z_i \to \mathbf{P}^1$ 是满射。
+于是可写 $I = I' \amalg I''$，其中 $I'$ 是使 $Z_i \to \mathbf{P}^1$ 为满射的
+$i \in I$ 的集合，而 $I''$ 是使 $Z_i$ 位于某个闭点
+$t_i \in \mathbf{P}^1$ 上方的 $i \in I$ 的集合；这里 $t_i \not = a$ 且 $t_i \not = b$。
+考虑循环
+$$
+\gamma = \sum\nolimits_{i \in I'} e_i [Z_i]
+$$
+其中取
+$$
+e_i = \sum\nolimits_p (-1)^p
+\text{length}_{\mathcal{O}_{X \times \mathbf{P}^1, Z_i}}
+\text{Tor}_p^{\mathcal{O}_{X \times \mathbf{P}^1, Z_i}}(
+\mathcal{O}_{V \times \mathbf{P}^1, Z_i}, \mathcal{O}_{W, Z_i})
+$$
+我们将证明，$\gamma$ 可以代替 $V \times \mathbf{P}^1$ 与 $W$ 的交积。
+
+\medskip\noindent
+与上面完全相同，我们利用交积的结合性来证明这一点。令
+$U = \mathbf{P}^1 \setminus \{t_i, i \in I''\}$。注意，$X \times a$ 和
+$X \times b$ 都包含于 $X \times U$。由 $U$ 的选取，子簇
+$$
+V \times U,\quad W_U,\quad X \times a\quad\text{属于}\quad X \times U
+$$
+两两横截相交；此外，$\dim(V \times U \cap W_U \cap X \times a) = \dim(V \cap W_a)$
+具有预期维数。因此由引理 \ref{intersection-lemma-associative}，作为 $X \times U$ 上的循环，有
+$$
+V \times U \cdot (W_U \cdot X \times a) =
+(V \times U \cdot W_U) \cdot X \times a
+$$
+由构造，$\gamma$ 在 $X \times U$ 上的限制是循环 $V \times U \cdot W_U$。
+显然，$V \times \mathbf{P}^1 \cdot (W \times X \times a)$ 在 $X \times U$ 上的限制是
+$V \times U \cdot (W_U \cdot X \times a)$。故
+$$
+V \times \mathbf{P}^1 \cdot (W \cdot X \times a) =
+\gamma \cdot X \times a
+$$
+作为 $X \times \mathbf{P}^1$ 上的循环成立（因为等式两边都包含于 $X \times U$，
+且根据前述结论，它们限制到 $X \times U$ 后相等）。对 $b$ 也有相同结论，于是
+\begin{align*}
+V \cdot [W_a]
+& =
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times a)) \\
+& =
+\text{pr}_{X, *}(\gamma \cdot X \times a) \\
+& \sim_{rat} 
+\text{pr}_{X, *}(\gamma \cdot X \times b) \\
+& =
+\text{pr}_{X,*}(V \times \mathbf{P}^1 \cdot (W \cdot X\times b)) \\
+& =
+V \cdot [W_b]
+\end{align*}
+第一个和最后一个等号来自证明的第一段，第二个和倒数第二个等号已在本段中证明，
+中间的等价关系就是引理 \ref{intersection-lemma-rational-equivalence-and-intersection}。
+\end{proof}
+
+\begin{theorem}
+\label{intersection-theorem-well-defined}
+设 $X$ 是非奇异射影簇，$\alpha$、\ $\beta$ 分别是 $X$ 上的 $r$、\ $s$-循环。
+假设 $\alpha$ 与 $\beta$ 正常相交，因而 $\alpha \cdot \beta$ 有定义。
+再假设 $\alpha \sim_{rat} 0$。则 $\alpha \cdot \beta \sim_{rat} 0$。
+\end{theorem}
+
+\begin{proof}
+选取闭浸入 $X \subset \mathbf{P}^N$。由线性性，只需证明如下情形：
+$\beta = [Z]$，其中 $Z \subset X$ 是一个与 $\alpha$ 正常相交的 $s$ 维闭子簇。
+条件 $\alpha \sim_{rat} 0$ 意味着存在有限多个 $(r + 1)$ 维闭子簇
+$W_i \subset X \times \mathbf{P}^1$，使得
+$$
+\alpha = \sum [W_{i, a_i}]_r - [W_{i, b_i}]_r
+$$
+其中 $a_i, b_i$ 是 $\mathbf{P}^1$ 中的若干点对。令
+$W_{i, a_i}^t$ 与 $W_{i, b_i}^t$ 分别为 $W_{i, a_i}$ 与 $W_{i, b_i}$ 的不可约分支。
+我们将对下列各整数的最大值 $d$ 作归纳：
+$$
+\dim(Z \cap W_{i, a_i}^t),\quad \dim(Z \cap W_{i, b_i}^t)
+$$
+证明余下部分的主要困难在于：尽管已知 $Z$ 与 $\alpha$ 正常相交，
+$Z$ 却未必与“中间”簇 $W_{i, a_i}^t$ 和 $W_{i, b_i}^t$ 正常相交；
+也就是说，可能有 $d >  r + s - \dim(X)$。
+
+\medskip\noindent
+基本情形：$d = r + s - \dim(X)$。此时 $Z$ 与所有 $W_{i, a_i}^t$、
+$W_{i, b_i}^t$ 的交都是正常相交。所需结论由引理
+\ref{intersection-lemma-well-defined-special-case} 得出，因为对每个 $i$，该引理给出
+$[Z] \cdot [W_{i, a_i}]_r \sim_{rat} [Z] \cdot [W_{i, b_i}]_r$。
+
+\medskip\noindent
+归纳步骤：$d >  r + s - \dim(X)$。对 $Z \subset X$ 以及子簇族
+$\{W_{i, a_i}^t, W_{i, b_i}^t\}$ 应用引理 \ref{intersection-lemma-moving}。
+由此找到与 $X$ 正常相交的闭子簇 $C \subset \mathbf{P}^N$，使得
+$$
+C \cdot X = [Z] + \sum m_j [Z_j]
+$$
+并且
+$$
+\dim(Z_j \cap W_{i, a_i}^t) \leq \dim(Z \cap W_{i, a_i}^t),\quad
+\dim(Z_j \cap W_{i, b_i}^t) \leq \dim(Z \cap W_{i, b_i}^t)
+$$
+当右端 $> r + s - \dim(X)$ 时，不等式严格成立。这蕴含两点：
+(a) 归纳假设适用于每个 $Z_j$；(b) $C \cdot X$ 与 $\alpha$ 正常相交
+（因为 $\alpha$ 是那些与 $Z$ 正常相交的 $[W_{i, a_i}^t]$ 和
+$[W_{i, a_i}^t]$ 的线性组合）。
+接着，按照引理 \ref{intersection-lemma-move}，对 $C$、$X$、$W_{i, a_i}^t$、
+$W_{i, b_i}^t$ 选取 $C' \subset \mathbf{P}^N \times \mathbf{P}^1$。
+对某些维数为 $s + 1$ 的子簇 $E_k \subset X \times \mathbf{P}^1$，写成
+$C' \cdot X \times \mathbf{P}^1 = \sum n_k [E_k]$。
+由命题 \ref{intersection-proposition-positivity}，对所有 $k$ 都有 $n_k > 0$。
+由引理 \ref{intersection-lemma-transfer}，有
+$$
+[Z] + \sum m_j [Z_j] = \sum n_k[E_{k, 0}]_s
+$$
+由于 $E_{k, 0} \subset C \cap X$，可见 $[E_{k, 0}]_s$ 与 $\alpha$ 正常相交。
+另一方面，循环
+$$
+\gamma = \sum n_k[E_{k, \infty}]_s
+$$
+支撑于 $C'_\infty \cap X$，因而与每个 $W_{i, a_i}^t$、$W_{i, b_i}^t$ 正常相交。
+所以由基本情形和线性性，有
+$$
+\gamma \cdot \alpha \sim_{rat} 0
+$$
+我们已经看到 $E_{k, 0}$ 与 $E_{k, \infty}$ 都同 $\alpha$ 正常相交，
+故把引理 \ref{intersection-lemma-well-defined-special-case} 应用于
+$E_k \subset X \times \mathbf{P}^1$ 和 $\alpha$，得到
+$$
+[E_{k, 0}] \cdot \alpha \sim_{rat} [E_{k, \infty}] \cdot \alpha
+$$
+综上，有
+\begin{align*}
+[Z] \cdot \alpha
+& =
+(\sum n_k[E_{k, 0}]_r - \sum m_j[Z_j]) \cdot \alpha \\
+& \sim_{rat}
+\sum n_k [E_{k, 0}] \cdot \alpha \quad (\text{由归纳假设})\\
+& \sim_{rat}
+\sum n_k [E_{k, \infty}] \cdot \alpha \quad (\text{由该引理})\\
+& =
+\gamma \cdot \alpha \\
+& \sim_{rat}
+0 \quad (\text{由基础情形})
+\end{align*}
+证明完毕。
+\end{proof}
+
+\begin{remark}
+\label{intersection-remark-quasi-projective}
+引理 \ref{intersection-lemma-moving-move} 和定理 \ref{intersection-theorem-well-defined} 对非奇异拟射影簇也成立，
+证明相同。唯一的变化是需要证明移动引理 \ref{intersection-lemma-moving} 的下述版本：
+设 $X \subset \mathbf{P}^N$ 是闭子簇。令 $n = \dim(X)$，且
+$0 \leq d, d' < n$。设 $X^{reg} \subset X$ 为非奇异点组成的开子集。
+设 $Z \subset X^{reg}$ 是维数为 $d$ 的闭子簇，并设
+$T_i \subset X^{reg}$（$i \in I$）是有限多个维数为 $d'$ 的闭子簇。
+则存在子簇 $C \subset \mathbf{P}^N$，使得 $C$ 与 $X$ 正常相交，并且
+$$
+(C \cdot X)|_{X^{reg}} = Z + \sum\nolimits_{j \in J} m_j Z_j
+$$
+其中 $Z_j \subset X^{reg}$ 是维数为 $d$、彼此不同于 $Z$ 的不可约子簇，并且
+$$
+\dim(Z_j \cap T_i) \leq \dim(Z \cap T_i)
+$$
+若 $Z$ 与 $T_i$ 在 $X^{reg}$ 中不正常相交，则不等式严格成立。
+\end{remark}
+
+
+
+\section{Chow 环}
+\label{intersection-section-chow-rings}
+
+\noindent
+设 $X$ 是非奇异射影簇。如下定义交积
+$$
+\CH_r(X) \times \CH_s(X) \longrightarrow \CH_{r + s - \dim(X)}(X),\quad
+(\alpha, \beta) \longmapsto \alpha \cdot \beta
+$$
+设 $\alpha \in Z_r(X)$ 且 $\beta \in Z_s(X)$。若 $\alpha$ 与 $\beta$ 正常相交，
+则采用第 \ref{intersection-section-intersection-product} 节给出的定义。否则，按照引理
+\ref{intersection-lemma-moving-move} 选取 $\alpha \sim_{rat} \alpha'$，并令
+$$
+\alpha \cdot \beta =
+\text{下列对象的类： }\alpha' \cdot \beta \in \CH_{r + s - \dim(X)}(X)
+$$
+由定理 \ref{intersection-theorem-well-defined}，这是良定义的，并且可下降到有理等价类。
+$\CH_*(X)$ 上的交积是交换的（这一点显然）、结合的
+（引理 \ref{intersection-lemma-associative}），且有单位元 $[X] \in \CH_{\dim(X)}(X)$。
+
+\medskip\noindent
+我们常用 $\CH^c(X) = \CH_{\dim X - c}(X)$ 表示余维为 $c$ 的循环的 Chow 群；
+见《Chow 同调》第 \ref{chow-section-cycles-codimension} 节。交积定义了乘法
+$$
+\CH^k(X) \times \CH^l(X) \longrightarrow \CH^{k + l}(X)
+$$
+它是交换的、结合的，并且有单位元 $1 = [X] \in \CH^0(X)$。
+
+
+\section{一般态射的拉回}
+\label{intersection-section-general-pullback}
+
+\noindent
+设 $f : X \to Y$ 是非奇异射影簇之间的态射。定义
+$$
+f^* : \CH_k(Y) \to \CH_{k+\dim X - \dim Y}(X)
+$$
+其规则为
+$$
+f^*(\alpha) = pr_{X, *}(\Gamma_f \cdot pr_Y^*(\alpha))
+$$
+其中 $\Gamma_f \subset X\times Y$ 是 $f$ 的图。注意，在这种一般情形下，
+它只定义在循环类上，而不定义在循环本身上。采用第 \ref{intersection-section-chow-rings} 节引入的
+$\CH^*$ 记号，可以把拉回看作映射
+$$
+f^* : \CH^*(Y) \to \CH^*(X)
+$$
+换言之，这是分次 Abel 群之间的映射。
+
+\begin{lemma}
+\label{intersection-lemma-pullback-and-intersection-product}
+设 $f : X \to Y$ 是非奇异射影簇之间的态射。Chow 群上的拉回映射满足：
+\begin{enumerate}
+\item $f^* : \CH^*(Y) \to \CH^*(X)$ 是环同态；
+\item 对可复合的一对态射 $f, g$，有 $(g \circ f)^* = f^* \circ g^*$；
+\item 投影公式成立：$f_*(\alpha) \cdot \beta =
+f_*( \alpha \cdot f^*\beta)$；
+\item 若 $f$ 平坦，则它与此前的定义一致。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这些结论都容易由上面的结果推出。
+
+\medskip\noindent
+对 (1)，只需对 $X \times Y$ 上的循环 $\alpha$、$\beta$ 证明
+$\text{pr}_{X,*}( \Gamma_f \cdot \alpha \cdot \beta) =
+\text{pr}_{X,*}(\Gamma_f \cdot \alpha) \cdot
+\text{pr}_{X,*}(\Gamma_f \cdot \beta)$。若 $\alpha$ 是 $X \times Y$ 上与
+$\Gamma_f$ 正常相交的循环，则由于 $\Gamma_f$ 是图，容易看出作为循环有
+$$
+\Gamma_f \cdot \alpha =
+\Gamma_f \cdot \text{pr}_X^*(\text{pr}_{X,*}(\Gamma_f \cdot \alpha))
+$$
+因此得到下列计算中的第一个等号：
+\begin{align*}
+\text{pr}_{X,*}(\Gamma_f \cdot \alpha \cdot \beta)
+& =
+\text{pr}_{X,*}(
+\Gamma_f \cdot
+\text{pr}_X^*(\text{pr}_{X,*}(\Gamma_f \cdot \alpha)) \cdot \beta) \\
+& =
+\text{pr}_{X,*}(\text{pr}_X^*(\text{pr}_{X,*}(\Gamma_f \cdot \alpha))
+\cdot (\Gamma_f \cdot \beta)) \\
+& =
+\text{pr}_{X,*}(\Gamma_f \cdot \alpha) \cdot
+\text{pr}_{X,*}(\Gamma_f \cdot \beta)
+\end{align*}
+最后一步使用了平坦情形下的投影公式
+（引理 \ref{intersection-lemma-projection-formula-flat}）。
+
+\medskip\noindent
+若 $g : Y \to Z$，则性质 (2) 形式地由下述观察推出：
+$$
+\Gamma =
+\text{pr}_{X \times Y}^*\Gamma_f \cdot
+\text{pr}_{Y \times Z}^*\Gamma_g
+$$
+在 $Z_*(X \times Y \times Z)$ 中成立，其中
+$\Gamma = \{(x, f(x), g(f(x))\}$，并且它同构地映到 $X \times Z$ 中的
+$\Gamma_{g \circ f}$。该等式由概形论等式和引理 \ref{intersection-lemma-transversal} 得出。
+
+\medskip\noindent
+对 (3)，两次使用平坦映射的投影公式：
+\begin{align*}
+f_*(\alpha \cdot pr_{X, *}(\Gamma_f \cdot pr_Y^*(\beta)))
+& =
+f_*(pr_{X, *}(pr_X^*\alpha \cdot \Gamma_f \cdot pr_Y^*(\beta))) \\
+& =
+pr_{Y, *}(pr_X^*\alpha \cdot \Gamma_f \cdot pr_Y^*(\beta))) \\
+& =
+pt_{Y, *}(pr_X^*\alpha \cdot \Gamma_f) \cdot \beta \\
+& =
+f_*(\alpha) \cdot \beta
+\end{align*}
+在最后一个等式中使用了上面对图所作的观察。这证明了 (3)。
+
+\medskip\noindent
+性质 (4) 依赖于在 $f$ 平坦时识别交积
+$\Gamma_f \cdot pr_Y^*\alpha$。具体地，在这种情形下，若 $V \subset Y$ 是闭子簇，
+则概形 $f^{-1}(V) \cong \Gamma_f \cap pr_Y^{-1}(V)$ 的每个泛点 $\xi$
+都位于 $V$ 的泛点之上。因此，$pr_Y^{-1}(V) = X \times V$ 在 $\xi$ 处的局部环是
+Cohen--Macaulay 的。由于 $\Gamma_f \subset X \times Y$ 是正则浸入
+（作为光滑射影簇之间的态射），可得
+$$
+\Gamma_f \cdot pr_Y^*[V] = [\Gamma_f \cap pr_Y^{-1}(V)]_d
+$$
+其中 $d$ 是 $\Gamma_f \cap pr_Y^{-1}(V)$ 的维数；见引理
+\ref{intersection-lemma-multiplicity-lci-CM}。由于 $\Gamma_f \cap pr_Y^{-1}(V)$
+同构地映到 $f^{-1}(V)$，结论得证。
+\end{proof}
+
+
+\section{循环的拉回}
+\label{intersection-section-pullback-cycles}
+
+\noindent
+设 $X$ 和 $Y$ 是非奇异射影簇，$f : X \to Y$ 是态射。
+设 $Z \subset Y$ 是闭子簇，并令 $f^{-1}(Z)$ 为概形论逆像：
+$$
+\xymatrix{
+f^{-1}(Z) \ar[r] \ar[d] & Z \ar[d] \\
+X \ar[r] & Y
+}
+$$
+这是概形的纤维积图。特别地，$f^{-1}(Z) \subset X$ 是 $X$ 的闭子概形。
+在这种情形下，总有
+$$
+\dim f^{-1}(Z) \geq \dim Z + \dim X - \dim Y.
+$$
+若上式取等号，并且概形 $Z$ 在 $f^{-1}(Z)$ 各泛点的像处都是 Cohen--Macaulay 的，
+则
+$f^*[Z] = [f^{-1}(Z)]_{\dim Z + \dim X - \dim Y}$。
+这是因为可以把 $f^{-1}(Z)$ 识别为 $\Gamma_f$ 与 $X \times Z$ 的概形论交，
+再应用引理 \ref{intersection-lemma-multiplicity-lci-CM}。细节与上面引理
+\ref{intersection-lemma-pullback-and-intersection-product} 第 (4) 部分的证明相似。

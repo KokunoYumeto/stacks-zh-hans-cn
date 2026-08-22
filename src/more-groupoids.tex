@@ -1,0 +1,2968 @@
+% Generated mechanically from the frozen more-groupoids.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{39}
+\chapter{群胚概形进阶}
+
+
+
+\phantomsection
+\label{more-groupoids-section-phantom}
+
+
+\section{引言}
+\label{more-groupoids-section-introduction}
+
+\noindent
+本章讨论群胚概形的若干进阶论题。尽管各项结果都以群胚概形来表述，
+读者仍应始终将如下 $2$-笛卡尔图牢记在心：
+\begin{equation}
+\label{more-groupoids-equation-quotient-stack}
+\vcenter{
+\xymatrix{
+R \ar[r] \ar[d] & U \ar[d] \\
+U \ar[r] & [U/R]
+}
+}
+\end{equation}
+其中 $[U/R]$ 是商叠，见 Groupoids in Spaces, Remark
+\ref{spaces-groupoids-remark-fundamental-square}。
+许多结果的动机都来自对这一图表的思考。例如，可参阅
+Keel 和 Mori 的优美论文 \cite{K-M}。
+
+
+
+
+
+\section{记号}
+\label{more-groupoids-section-notation}
+
+\noindent
+我们继续沿用 Groupoids, Section
+\ref{groupoids-section-notation} 中引入的约定与记号。
+
+
+
+
+
+
+\section{若干常用图}
+\label{more-groupoids-section-diagrams}
+
+\noindent
+为便于本章引用，我们简要重述 Groupoids, Lemmas
+\ref{groupoids-lemma-diagram} 与
+\ref{groupoids-lemma-diagram-pull} 的结果。
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+在交换图
+\begin{equation}
+\label{more-groupoids-equation-diagram}
+\vcenter{
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+}
+\end{equation}
+中，下方两个方块都是纤维积方块。此外，上方的三角形
+（实际上是一个方块）也是笛卡尔的。
+
+\medskip\noindent
+图
+\begin{equation}
+\label{more-groupoids-equation-pull}
+\vcenter{
+\xymatrix{
+R \times_{t, U, t} R
+\ar@<1ex>[r]^-{\text{pr}_1} \ar@<-1ex>[r]_-{\text{pr}_0}
+\ar[d]_{\text{pr}_0 \times c \circ (i, 1)} &
+R \ar[r]^t \ar[d]^{\text{id}_R} &
+U \ar[d]^{\text{id}_U} \\
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+}
+\end{equation}
+交换。由给定的竖直映射，上方两行彼此同构；
+左下方的两个方块均为笛卡尔方块。
+
+
+
+
+
+\section{微分层}
+\label{more-groupoids-section-differentials}
+
+\noindent
+下面的引理对应于 Groupoids, Lemma
+\ref{groupoids-lemma-group-scheme-module-differentials}。
+
+\begin{lemma}
+\label{more-groupoids-lemma-sheaf-differentials}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+经 $t$ 把 $R$ 看成 $U$ 上的概形，则其微分层是浸入
+$e : U \to R$ 的余法层经 $t$ 拉回所得层的商。换言之，
+存在标准满射 $t^*\mathcal{C}_{U/R} \to \Omega_{R/U}$。
+若 $s$ 平坦，则该映射为同构。
+\end{lemma}
+
+\begin{proof}
+注意，$e : U \to R$ 是态射 $s$ 的截面，因而是浸入；
+见 Schemes, Lemma \ref{schemes-lemma-section-immersion}。
+考虑图
+$$
+\xymatrix{
+R \ar[r]_-{(1, i)} \ar[d]_t &
+R \times_{s, U, t} R \ar[d]^c \ar[rr]_{(\text{pr}_0, i \circ \text{pr}_1)} & &
+R \times_{t, U, t} R \\
+U \ar[r]^e &
+R
+}
+$$
+左侧方块是笛卡尔的，因为若 $a \circ b = e$，则
+$b = i(a)$。两个水平映射的复合是 $t : R \to U$ 的对角态射，
+而右上方的水平箭头是同构。因此，由于 $\Omega_{R/U}$
+是该复合的余法层，它同构于 $(1, i)$ 的余法层。
+由 Morphisms, Lemma
+\ref{morphisms-lemma-conormal-functorial-flat}，得到满射
+$t^*\mathcal{C}_{U/R} \to \Omega_{R/U}$；若 $c$ 平坦，
+该映射即为同构。根据图 (\ref{more-groupoids-equation-pull}) 的性质，
+$c$ 是 $s$ 的基变换。因此若 $s$ 平坦，则 $c$ 平坦；
+见 Morphisms, Lemma \ref{morphisms-lemma-base-change-flat}。
+\end{proof}
+
+
+
+
+
+
+\section{局部结构}
+\label{more-groupoids-section-local}
+
+\noindent
+设 $S$ 为概形，$(U, R, s, t, c, e, i)$ 为 $S$ 上的群胚概形，
+并设 $u \in U$ 为一点。本节说明局部环
+$$
+A = \mathcal{O}_{U, u}
+\quad\text{且}\quad
+B = \mathcal{O}_{R, e(u)}
+$$
+上得到的结构。约定仍以相应字母表示由态射
+$s, t, c, e, i$ 诱导的局部环同态。特别地，有局部环的交换图
+$$
+\xymatrix{
+A \ar[rd]_t \ar[rrd]^1 \\
+& B \ar[r]^e & A \\
+A \ar[ru]^s \ar[rru]_1
+}
+$$
+因此，若 $I \subset B$ 表示 $e : B \to A$ 的核，则
+$B = s(A) \oplus I = t(A) \oplus I$。记
+$$
+C = \mathcal{O}_{R \times_{s, U, t} R, (e(u), e(u))}
+$$
+则
+$$
+C = (B \otimes_{s, A, t} B)_{\mathfrak m_B \otimes B + B \otimes \mathfrak m_B}
+$$
+令 $J \subset C$ 为 $C$ 中由 $I \otimes B + B \otimes I$
+生成的理想。于是 $J$ 也是局部环同态
+$$
+(e, e) : C \longrightarrow A
+$$
+的核。合成律 $c : R \times_{s, U, t} R \to R$ 对应于环映射
+$$
+c : B \longrightarrow C
+$$
+且该映射把 $I$ 映入 $J$。
+
+\begin{lemma}
+\label{more-groupoids-lemma-first-order-structure-c}
+由 $c$ 诱导的映射 $I/I^2 \to J/J^2$ 是复合
+$$
+I/I^2 \xrightarrow{(1, 1)} I/I^2 \oplus I/I^2 \to J/J^2
+$$
+其中第二个箭头来自等式 $J = (I \otimes B + B \otimes I)C$。
+映射 $i : B \to B$ 诱导映射 $-1 : I/I^2 \to I/I^2$。
+\end{lemma}
+
+\begin{proof}
+要描述从 $C$ 到另一局部环的局部同态，只需说明它在
+$b_1 \otimes b_2$ 形元素上的作用。依此观察，有两个标准映射
+$$
+e_2 : C \to B,\ b_1 \otimes b_2 \mapsto b_1s(e(b_2)),\quad
+e_1 : C \to B,\ b_1 \otimes b_2 \mapsto t(e(b_1))b_2
+$$
+它们对应于嵌入
+$R \to R \times_{s, U, t} R$，分别由
+$r \mapsto (r, e(s(r)))$ 与 $r \mapsto (e(t(r)), r)$ 给出。
+这些映射诱导 $J/J^2 \to I/I^2$，合在一起给出引理中映射
+$I/I^2 \oplus I/I^2 \to J/J^2$ 的逆。因此，只需证明
+$e_1 \circ c : B \to B$ 与 $e_2 \circ c : B \to B$
+均为恒等映射。这是因为两个复合
+$R \to R \times_{s, U, t} R \to R$ 都是恒等映射。
+
+\medskip\noindent
+关于 $i$ 的断言由关于 $c$ 的断言以及等式
+$c \circ (1, i) = e \circ t$ 得出。其余细节从略。
+\end{proof}
+
+
+
+
+
+
+\section{群胚的性质}
+\label{more-groupoids-section-technical-lemma}
+
+\noindent
+设 $(U, R, s, t, c)$ 为群胚概形。本节结果背后的思路是：
+$s: R \to U$ 应当是态射 $U \to [U/R]$ 的基变换
+（见图 (\ref{more-groupoids-equation-quotient-stack})）。因此，
+$s : R \to U$ 的局部性质应当反映态射 $U \to [U/R]$ 的局部性质。
+这一思路不能直接照搬，因为 $[U/R]$ 未必是代数叠，
+从而无法谈论 $U \to [U/R]$ 的几何或代数性质。
+不过，即使完全不提商叠，仍可实现其中的一部分。
+
+\medskip\noindent
+下面是此类结果的第一个例子。粗略地说，引理中得到的开集
+$W \subset U'$ 是态射 $U' \to [U/R]$ 具有性质
+$\mathcal{P}$ 的轨迹。
+
+\begin{lemma}
+\label{more-groupoids-lemma-local-source}
+设 $S$ 为概形，$(U, R, s, t, c, e, i)$ 为 $S$ 上的群胚，
+且 $g : U' \to U$ 为概形态射。记 $h$ 为复合
+$$
+\xymatrix{
+h : U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} & R \ar[r]_s & U.
+}
+$$
+设 $\mathcal{P}, \mathcal{Q}, \mathcal{R}$ 为概形态射的性质。
+假设
+\begin{enumerate}
+\item $\mathcal{R} \Rightarrow \mathcal{Q}$；
+\item $\mathcal{Q}$ 在基变换与复合下保持；
+\item 对任意具有 $\mathcal{Q}$ 的态射 $f : X \to Y$，
+存在最大的开集 $W(\mathcal{P}, f) \subset X$，使得
+$f|_{W(\mathcal{P}, f)}$ 具有 $\mathcal{P}$；且
+\item 对任意具有 $\mathcal{Q}$ 的态射 $f : X \to Y$
+以及任意具有 $\mathcal{R}$ 的态射 $Y' \to Y$，有
+$Y' \times_Y W(\mathcal{P}, f) = W(\mathcal{P}, f')$，
+其中 $f' : X_{Y'} \to Y'$ 是 $f$ 的基变换。
+\end{enumerate}
+若 $s, t$ 具有 $\mathcal{R}$，且 $g$ 具有 $\mathcal{Q}$，
+则存在开子概形 $W \subset U'$，使得
+$W \times_{g, U, t} R = W(\mathcal{P}, h)$。
+\end{lemma}
+
+\begin{proof}
+注意下图交换：
+$$
+\xymatrix{
+U' \times_{g, U, t} R \times_{t, U, t} R
+\ar[rr]_-{\text{pr}_{12}}
+\ar@<1ex>[d]^-{\text{pr}_{02}} \ar@<-1ex>[d]_-{\text{pr}_{01}} & &
+R \times_{t, U, t} R
+\ar@<1ex>[d]^-{\text{pr}_1} \ar@<-1ex>[d]_-{\text{pr}_0}
+\\
+U' \times_{g, U, t} R \ar[rr]^{\text{pr}_1} & & R
+}
+$$
+且两个方块均为笛卡尔方块（这里用到了两个映射
+$t \circ \text{pr}_i : R \times_{t, U, t} R \to U$ 相等）。
+将此事实与图 (\ref{more-groupoids-equation-pull}) 的性质结合，得到交换图
+$$
+\xymatrix{
+U' \times_{g, U, t} R \times_{t, U, t} R
+\ar[rr]_-{c \circ (i, 1)}
+\ar@<1ex>[d]^-{\text{pr}_{02}} \ar@<-1ex>[d]_-{\text{pr}_{01}} & &
+R
+\ar@<1ex>[d]^-{s} \ar@<-1ex>[d]_-{t}
+\\
+U' \times_{g, U, t} R \ar[rr]^h & & U
+}
+$$
+其中两个方块均为笛卡尔方块。
+
+\medskip\noindent
+假设 $s, t$ 具有 $\mathcal{R}$，且 $g$ 具有 $\mathcal{Q}$。
+态射 $h$ 是 $s$（它具有 $\mathcal{R}$，因而具有
+$\mathcal{Q}$）与 $g$ 的一个基变换（它具有
+$\mathcal{Q}$）的复合，故该态射具有 $\mathcal{Q}$。
+因此 $W(\mathcal{P}, h) \subset U' \times_{g, U, t} R$ 存在。
+由假设，
+$\text{pr}_{01}^{-1}(W(\mathcal{P}, h)) =
+\text{pr}_{02}^{-1}(W(\mathcal{P}, h))$，
+因为二者都是使 $c \circ (i, 1)$ 具有 $\mathcal{P}$ 的最大开集。
+注意投影 $U' \times_{g, U, t} R \to U'$ 有截面
+$\sigma : U' \to U' \times_{g, U, t} R$，
+$u' \mapsto (u', e(g(u')))$。此外，在同构
+$$
+(U' \times_{g, U, t} R) \times_{U'} (U' \times_{g, U, t} R)
+=
+U' \times_{g, U, t} R \times_{t, U, t} R
+$$
+下，左侧的两个投影到 $U' \times_{g, U, t} R$
+分别与右侧的态射 $\text{pr}_{01}$ 和 $\text{pr}_{02}$ 一致。
+由于
+$\text{pr}_{01}^{-1}(W(\mathcal{P}, h)) =
+\text{pr}_{02}^{-1}(W(\mathcal{P}, h))$，
+可知 $W(\mathcal{P}, h)$ 是 $U$ 的某个子集的逆像；
+这个子集必为开集
+$W = \sigma^{-1}(W(\mathcal{P}, h))$。
+\end{proof}
+
+\begin{remark}
+\label{more-groupoids-remark-local-source-warning}
+警告：使用 Lemma \ref{more-groupoids-lemma-local-source} 时必须谨慎。
+例如，它适用于 $\mathcal{P}=$“平坦”、$\mathcal{Q}=$“空条件”，
+以及 $\mathcal{R}=$“平坦且局部有限表示”。然而，
+给定概形态射 $f : X \to Y$，使 $f|_W$ 平坦的最大开集
+$W \subset X$ {\it 并不是} $f$ 平坦的点所成的集合！
+\end{remark}
+
+\begin{remark}
+\label{more-groupoids-remark-local-source-apply}
+尽管有 Remark \ref{more-groupoids-remark-local-source-warning} 中的警告，
+在某些情形下仍可使用 Lemma \ref{more-groupoids-lemma-local-source}，
+而不会造成太大歧义。下面列出这些情形。每种情形中，
+我们略去假设 (1) 与 (2) 的验证，并给出蕴含 (3) 与 (4)
+的参考文献：
+\begin{enumerate}
+\item $\mathcal{Q} = \mathcal{R} =$“局部有限型”，且
+$\mathcal{P} =$“相对维数 $\leq d$”。
+见 Morphisms, Definition
+\ref{morphisms-definition-relative-dimension-d} 以及
+Morphisms, Lemmas
+\ref{morphisms-lemma-openness-bounded-dimension-fibres} 和
+\ref{morphisms-lemma-dimension-fibre-after-base-change}。
+\item $\mathcal{Q} = \mathcal{R} =$“局部有限型”，且
+$\mathcal{P} =$“局部拟有限”。
+这是上一项中 $d = 0$ 的情形，见 Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}。
+\item $\mathcal{Q} = \mathcal{R} =$“局部有限型”，且
+$\mathcal{P} =$“非分歧”。
+见 Morphisms, Lemmas
+\ref{morphisms-lemma-unramified-characterize} 和
+\ref{morphisms-lemma-set-points-where-fibres-unramified}。
+\end{enumerate}
+上述情形的有趣之处在于：无需假设 $s, t$ 平坦，
+便可对态射 $h$ 具有性质 $\mathcal{P}$ 的轨迹作出结论。
+继续列举：
+\begin{enumerate}
+\item[(4)] $\mathcal{Q} =$“局部有限表示”，
+$\mathcal{R} =$“平坦且局部有限表示”，且
+$\mathcal{P} =$“平坦”。见 More on Morphisms, Theorem
+\ref{more-morphisms-theorem-openness-flatness} 和
+Lemma \ref{more-morphisms-lemma-flat-locus-base-change}。
+\item[(5)] $\mathcal{Q} =$“局部有限表示”，
+$\mathcal{R} =$“平坦且局部有限表示”，且
+$\mathcal{P}=$“Cohen--Macaulay”。见 More on Morphisms, Definition
+\ref{more-morphisms-definition-CM} 以及 More on Morphisms, Lemmas
+\ref{more-morphisms-lemma-base-change-CM} 和
+\ref{more-morphisms-lemma-flat-finite-presentation-CM-open}。
+\item[(6)] $\mathcal{Q} =$“局部有限表示”，
+$\mathcal{R} =$“平坦且局部有限表示”，且
+$\mathcal{P}=$“syntomic”。使用 Morphisms, Lemma
+\ref{morphisms-lemma-set-points-where-fibres-lci}
+（该轨迹自动为开集）。
+\item[(7)] $\mathcal{Q} =$“局部有限表示”，
+$\mathcal{R} =$“平坦且局部有限表示”，且
+$\mathcal{P}=$“光滑”。见 Morphisms, Lemma
+\ref{morphisms-lemma-set-points-where-fibres-smooth}
+（该轨迹自动为开集）。
+\item[(8)] $\mathcal{Q} =$“局部有限表示”，
+$\mathcal{R} =$“平坦且局部有限表示”，且
+$\mathcal{P}=$“\'etale”。见 Morphisms, Lemma
+\ref{morphisms-lemma-set-points-where-fibres-etale}
+（该轨迹自动为开集）。
+\end{enumerate}
+\end{remark}
+
+\noindent
+下面是第二个结果。应把 $R$-不变开集 $W \subset U$
+看作 $[U/R]$ 的最大开集的逆像；在该开集上，
+态射 $U \to [U/R]$ 具有性质 $\mathcal{P}$。
+
+\begin{lemma}
+\label{more-groupoids-lemma-property-invariant}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚。
+令 $\tau \in \{Zariski, \linebreak[0] fppf,
+\linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic\}$\footnote{$fpqc$ 未列入其中并非排印错误。}。
+设 $\mathcal{P}$ 为概形态射的一项性质，且它在目标上关于
+$\tau$ 为局部的（Descent, Definition
+\ref{descent-definition-property-morphisms-local}）。
+假设 $\{s : R \to U\}$ 与 $\{t : R \to U\}$
+都是 $\tau$-拓扑的覆盖。令 $W \subset U$ 为最大的开子概形，
+使 $s|_{s^{-1}(W)} : s^{-1}(W) \to W$ 具有性质
+$\mathcal{P}$。则 $W$ 是 $R$-不变的，见 Groupoids, Definition
+\ref{groupoids-definition-invariant-open}。
+\end{lemma}
+
+\begin{proof}
+开集 $W \subset U$ 的存在性与性质见 Descent, Lemma
+\ref{descent-lemma-largest-open-of-the-base}。
+在图 (\ref{more-groupoids-equation-diagram}) 中，令 $W_1 \subset R$
+为最大的开子概形，使态射
+$\text{pr}_1 : R \times_{s, U, t} R \to R$
+在其上具有性质 $\mathcal{P}$。由上述 Descent, Lemma
+\ref{descent-lemma-largest-open-of-the-base} 以及
+$\{s : R \to U\}$ 和 $\{t : R \to U\}$
+都是 $\tau$-拓扑覆盖这一假设，得到所需等式
+$t^{-1}(W) = W_1 = s^{-1}(W)$。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-property-G-invariant}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚，
+并设 $G \to U$ 为其稳定子群概形。
+令 $\tau \in \{fppf, \linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic\}$。
+设 $\mathcal{P}$ 为在目标上关于 $\tau$ 为局部的态射性质。
+假设 $\{s : R \to U\}$ 与 $\{t : R \to U\}$
+都是 $\tau$-拓扑的覆盖。令 $W \subset U$ 为最大的开子概形，
+使 $G_W \to W$ 具有性质 $\mathcal{P}$。则 $W$ 是
+$R$-不变的（见 Groupoids, Definition
+\ref{groupoids-definition-invariant-open}）。
+\end{lemma}
+
+\begin{proof}
+开集 $W \subset U$ 的存在性与性质见 Descent, Lemma
+\ref{descent-lemma-largest-open-of-the-base}。态射
+$$
+G \times_{U, t} R \longrightarrow R \times_{s, U} G, \quad
+(g, r) \longmapsto (r, r^{-1} \circ g \circ r)
+$$
+是 $R$ 上的同构（其中 $\circ$ 表示群胚中的合成）。
+因此，由上述 Descent, Lemma
+\ref{descent-lemma-largest-open-of-the-base} 所证明的
+$W$ 的性质，得到 $s^{-1}(W) = t^{-1}(W)$。
+\end{proof}
+
+
+
+\section{纤维的比较}
+\label{more-groupoids-section-fibres}
+
+\noindent
+设 $(U, R, s, t, c, e, i)$ 为 $S$ 上的群胚概形。
+图 (\ref{more-groupoids-equation-diagram}) 提供了比较群胚中映射
+$s : R \to U$ 的各纤维的方法。对点 $u \in U$，
+以 $F_u = s^{-1}(u)$ 表示 $s : R \to U$ 在 $u$ 上方的概形论纤维。
+例如，该图说明：若 $u, u' \in U$ 为满足
+$s(r) = u$ 且 $t(r) = u'$ 的点，则
+$(F_u)_{\kappa(r)} \cong (F_{u'})_{\kappa(r)}$。
+这是下面更一般且更精确的 Lemma \ref{more-groupoids-lemma-two-fibres}
+的特殊情形；取 $r' = i(r)$ 即可看出。
+
+\medskip\noindent
+由概形 $X$ 与点 $x \in X$ 组成的一对 $(X, x)$，
+有时称为{\it $X$ 在 $x$ 处的芽}。
+一个{\it 芽的态射} $f : (X, x) \to (S, s)$
+是定义在 $x$ 的某个开邻域上的态射 $f : U \to S$，
+并满足 $f(x) = s$。称两个这样的 $f$, $f'$
+给出同一个芽态射，当且仅当 $f$ 与 $f'$
+在 $x$ 的某个开邻域上一致。
+令 $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$。
+我们暂时引入如下概念：称两个芽态射
+$f : (X, x) \to (S, s)$ 与 $f' : (X', x') \to (S', s')$
+{\it 在基底上关于 $\tau$-拓扑局部同构}，若存在带基点概形
+$(S'', s'')$ 及芽态射
+$g : (S'', s'') \to (S, s)$、$g' : (S'', s'') \to (S', s')$，
+使得
+\begin{enumerate}
+\item $g$ 与 $g'$ 在 $s''$ 处为开浸入（相应地为\ \'etale、光滑、
+syntomic，或平坦且局部有限表示）；
+\item 对位于 $(s'', x)$ 与 $(s'', x')$ 上方的某些点
+$\tilde x$ 与 $\tilde x'$，存在 $(S'', s'')$ 上的芽同构
+$$
+(S'' \times_{g, S, f} X, \tilde x)
+\cong
+(S'' \times_{g', S', f'} X', \tilde  x')
+$$
+。
+\end{enumerate}
+最后，若存在如上的 $S'', s'', g, g'$，但把 (1) 换成
+$g$ 与 $g'$ 在 $s''$ 处平坦这一条件，则简称芽态射
+$f : (X, x) \to (S, s)$ 与 $f' : (X', x') \to (S', s')$
+{\it 在基底上平坦局部同构}。这比上面的任何
+$\tau$ 条件都弱得多，因为平坦态射未必是开映射。
+
+\begin{lemma}
+\label{more-groupoids-lemma-two-fibres}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚。
+设 $r, r' \in R$ 且在 $U$ 中有 $t(r) = t(r')$。
+令 $u = s(r)$、$u' = s(r')$，并以
+$F_u = s^{-1}(u)$ 与 $F_{u'} = s^{-1}(u')$ 表示概形论纤维。
+\begin{enumerate}
+\item 存在公共域扩张 $\kappa(u) \subset k$、
+$\kappa(u') \subset k$ 以及同构
+$(F_u)_k \cong (F_{u'})_k$。
+\item 可选取 (1) 中的同构，使得 $r$ 上方的某个点映到
+$r'$ 上方的某个点。
+\item 若态射 $s$, $t$ 平坦，则芽态射
+$s : (R, r) \to (U, u)$ 与 $s : (R, r') \to (U, u')$
+在基底上平坦局部同构。
+\item 若态射 $s$, $t$ 为 \'etale
+（相应地为\ 光滑、syntomic，或平坦且局部有限表示），则芽态射
+$s : (R, r) \to (U, u)$ 与 $s : (R, r') \to (U, u')$
+在基底上关于 \'etale（相应地为\ 光滑、syntomic 或 fppf）
+拓扑局部同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们反复使用图 (\ref{more-groupoids-equation-diagram}) 的存在性与性质。
+由该图的性质以及 Schemes, Lemma
+\ref{schemes-lemma-points-fibre-product}，存在
+$R \times_{s, U, t} R$ 的一点 $\xi$，使
+$\text{pr}_0(\xi) = r$ 且 $c(\xi) = r'$。令
+$\tilde r = \text{pr}_1(\xi) \in R$。
+
+\medskip\noindent
+证明 (1)。令 $k = \kappa(\tilde r)$。由于
+$t(\tilde r) = u$ 且 $s(\tilde r) = u'$，
+$k$ 是 $\kappa(u)$ 与 $\kappa(u')$ 的公共扩张；
+事实上，$(F_u)_k$ 与 $(F_{u'})_k$ 都同构于
+$\text{pr}_1 : R \times_{s, U, t} R \to R$
+在 $\tilde r$ 上方的纤维。因此 (1) 得证。
+
+\medskip\noindent
+(2) 由点 $\xi$ 映到 $r$，\ 相应地映到 $r'$ 立即得出。
+
+\medskip\noindent
+(3) 由上述结论与定义显然成立（以点 $\xi$
+选取 $\tilde u$ 与 $\tilde u'$）。
+
+\medskip\noindent
+若 $s$ 与 $t$ 平坦且有限表示，则它们是开态射
+（Morphisms, Lemma \ref{morphisms-lemma-fppf-open}）。
+因此，$\tilde r$ 的某个仿射开邻域 $V''$ 的像覆盖
+$u$ 的某个开邻域 $V$，相应地\ 覆盖 $u'$ 的某个开邻域 $V'$。
+利用这些邻域即可验证“在基底上关于
+$\tau$-拓扑局部同构”定义中的性质 (1) 与 (2)。
+\end{proof}
+
+
+
+
+
+
+
+\section{Cohen--Macaulay 呈示}
+\label{more-groupoids-section-CM}
+
+\noindent
+给定任意满足 $s, t$ 平坦且局部有限表示的群胚
+$(U, R, s, t, c)$，存在一个“等价”的群胚
+$(U', R', s', t', c')$，使 $s'$ 与 $t'$ 都是
+Cohen--Macaulay 态射（并且局部有限表示）。
+关于 Cohen--Macaulay 态射的更多内容，见
+More on Morphisms, Section \ref{more-morphisms-section-CM}。
+这里的“等价”可以理解为商叠 $[U/R]$ 与 $[U'/R']$
+等价；见 Groupoids in Spaces, Section
+\ref{spaces-groupoids-section-stacks} 以及 Section
+\ref{spaces-groupoids-section-quotient-stack-restrict}。
+
+\begin{lemma}
+\label{more-groupoids-lemma-make-CM}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚。
+假设 $s$ 与 $t$ 平坦且局部有限表示。则存在开集
+$U' \subset U$，使得
+\begin{enumerate}
+\item $t^{-1}(U') \subset R$ 是 $R$ 中使态射 $s$
+为 Cohen--Macaulay 的最大开子概形；
+\item $s^{-1}(U') \subset R$ 是 $R$ 中使态射 $t$
+为 Cohen--Macaulay 的最大开子概形；
+\item 态射 $t|_{s^{-1}(U')} : s^{-1}(U') \to U$ 满；
+\item 态射 $s|_{t^{-1}(U')} : t^{-1}(U') \to U$ 满；且
+\item $R$ 在 $U'$ 上的限制
+$R' = s^{-1}(U') \cap t^{-1}(U')$ 定义一个群胚
+$(U', R', s', t', c')$，其态射 $s'$ 与 $t'$
+均为 Cohen--Macaulay 且局部有限表示。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在 Lemma \ref{more-groupoids-lemma-local-source} 中取
+$g = \text{id}$、
+$\mathcal{Q} =$“局部有限表示”、
+$\mathcal{R} =$“平坦且局部有限表示”，以及
+$\mathcal{P}=$“Cohen--Macaulay”；见 Remark
+\ref{more-groupoids-remark-local-source-apply}。由此得到开集 $U' \subset U$，
+使 $t^{-1}(U') \subset R$ 是 $R$ 中使态射 $s$
+为 Cohen--Macaulay 的最大开子概形。这证明了 (1)。
+令 $i : R \to R$ 为群胚的取逆映射。由于 $i$ 是同构，
+且 $s \circ i = t$、$t \circ i = s$，可知
+$s^{-1}(U')$ 也是 $R$ 中使 $t$ 为 Cohen--Macaulay
+的最大开集。这证明了 (2)。
+由 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-flat-finite-presentation-CM-open}，
+开子集 $t^{-1}(U')$ 在 $s : R \to U$ 的每个纤维中稠密。
+这证明了 (3)；(4) 同理。(5) 是 (1)、(2) 以及 Groupoids, Section
+\ref{groupoids-section-restrict-groupoid} 中关于限制的讨论
+的形式推论。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{群胚的限制}
+\label{more-groupoids-section-restricting-groupoids}
+
+\noindent
+本节汇集若干引理，讨论群胚的哪些性质会由限制继承。
+这些引理大多可由考察限制的定义图
+\begin{equation}
+\label{more-groupoids-equation-restriction}
+\vcenter{
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'}&
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d]^g \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r]^g &
+U
+}
+}
+\end{equation}
+证明。见 Groupoids, Lemma
+\ref{groupoids-lemma-restrict-groupoid}。
+
+\begin{lemma}
+\label{more-groupoids-lemma-restrict-preserves-type}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形，
+$g : U' \to U$ 为概形态射，并设
+$(U', R', s', t', c')$ 为 $(U, R, s, t, c)$ 经 $g$ 的限制。
+\begin{enumerate}
+\item 若 $s, t$ 局部有限型，且 $g$ 局部有限型，则
+$s', t'$ 局部有限型。
+\item 若 $s, t$ 局部有限表示，且 $g$ 局部有限表示，则
+$s', t'$ 局部有限表示。
+\item 若 $s, t$ 平坦，且 $g$ 平坦，则 $s', t'$ 平坦。
+\item 此处再添加若干条目。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+局部有限型这一性质在复合与任意基变换下稳定，见
+Morphisms, Lemmas \ref{morphisms-lemma-composition-finite-type}
+和 \ref{morphisms-lemma-base-change-finite-type}。
+因此 (1) 由图 (\ref{more-groupoids-equation-restriction}) 立即得出。
+其余情形见 Morphisms, Lemmas
+\ref{morphisms-lemma-composition-finite-presentation}、
+\ref{morphisms-lemma-base-change-finite-presentation}、
+\ref{morphisms-lemma-composition-flat} 和
+\ref{morphisms-lemma-base-change-flat}。
+\end{proof}
+
+\noindent
+下面的引理本可用来以更统一的方式证明上一引理的结果。
+
+\begin{lemma}
+\label{more-groupoids-lemma-restrict-property}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形，
+$g : U' \to U$ 为概形态射。设
+$(U', R', s', t', c')$ 为 $(U, R, s, t, c)$ 经 $g$ 的限制，并令
+$h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \to U$。
+若 $\mathcal{P}$ 是概形态射的一项性质，且
+\begin{enumerate}
+\item $h$ 具有性质 $\mathcal{P}$；并且
+\item $\mathcal{P}$ 在基变换下保持，
+\end{enumerate}
+则 $s', t'$ 具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+由图 (\ref{more-groupoids-equation-restriction})，$s'$ 是 $h$ 的基变换；
+而 $t'$ 作为概形态射同构于 $s'$，故结论显然。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-double-restrict}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+设 $g : U' \to U$ 与 $g' : U'' \to U'$ 为概形态射，
+并令 $g'' = g \circ g'$。设 $(U', R', s', t', c')$
+为 $R$ 在 $U'$ 上的限制。令
+$h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \to U$、
+$h' = s' \circ \text{pr}_1 : U'' \times_{g', U', t} R \to U'$，以及
+$h'' = s \circ \text{pr}_1 : U'' \times_{g'', U, t} R \to U$。
+下图交换：
+$$
+\xymatrix{
+U'' \times_{g', U', t} R' \ar[d]^{h'} &
+(U' \times_{g, U, t} R) \times_U (U'' \times_{g'', U, t} R)
+\ar[l] \ar[r] \ar[d] &
+U'' \times_{g'', U, t} R \ar[d]_{h''} \\
+U' &
+U' \times_{g, U, t} R \ar[l]_{\text{pr}_0} \ar[r]^h &
+U
+}
+$$
+其中两个方块均为笛卡尔方块，而左上方的水平箭头由规则
+$$
+\begin{matrix}
+(U' \times_{g, U, t} R) \times_U (U'' \times_{g'', U, t} R) &
+\longrightarrow &
+U'' \times_{g', U', t} R' \\
+((u', r_0), (u'', r_1)) &
+\longmapsto &
+(u'', (c(r_1, i(r_0)), (g'(u''), u')))
+\end{matrix}
+$$
+给出；记号在证明中解释。
+\end{lemma}
+
+\begin{proof}
+我们利用函子观点作出具体计算，把引理归约为群胚范畴限制中
+关于箭头的断言。在引理最后的公式中，记号
+$((u', r_0), (u'', r_1))$ 表示
+$(U' \times_{g, U, t} R) \times_U (U'' \times_{g'', U, t} R)$
+的一个 $T$-值点。这意味着 $u', u'', r_0, r_1$ 分别是
+$U', U'', R, R$ 的 $T$-值点，并且
+$g(u') = t(r_0)$、$g(g'(u'')) = g''(u'') = t(r_1)$，以及
+$s(r_0) = s(r_1)$。严格地说，这里应写
+$g \circ u' = t \circ r_0$ 等式，但那会使记号更难阅读。
+若把 $r_1$ 与 $r_0$ 看作群胚范畴中的箭头，则可用下图表示：
+$$
+\xymatrix{
+t(r_0) = g(u') &
+s(r_0) = s(r_1) \ar[l]_{r_0} \ar[r]^-{r_1} &
+t(r_1) = g(g'(u''))
+}
+$$
+该图尤其表明复合 $c(r_1, i(r_0))$ 有定义。回忆
+$$
+R' = R \times_{(t, s), U \times_S U, g \times g} U' \times_S U'
+$$
+因此，$R'$ 的一个 $T$-值点形如 $(r, (u'_0, u'_1))$，
+且 $t(r) = g(u'_0)$、$s(r) = g(u'_1)$。特别地，
+给定如上的 $((u', r_0), (u'', r_1))$，便得到 $R'$ 的
+$T$-值点 $(c(r_1, i(r_0)), (g'(u''), u'))$，因为
+$t(c(r_1, i(r_0))) = t(r_1) = g(g'(u''))$ 且
+$s(c(r_1, i(r_0))) = s(i(r_0)) = t(r_0) = g(u')$。
+由读者按此定义验证左侧方块交换。
+
+\medskip\noindent
+为证明左侧方块是笛卡尔的，设给定 $(v'', p')$ 与 $(v', p)$，
+它们分别是 $U'' \times_{g', U', t} R'$ 与
+$U' \times_{g, U, t} R$ 的 $T$-值点，并满足
+$v' = s'(p')$。这还意味着 $g'(v'') = t'(p')$
+且 $g(v') = t(p)$。由以上讨论，可写
+$p' = (r, (u_0', u_1'))$，其中 $t(r) = g(u'_0)$ 且
+$s(r) = g(u'_1)$。因而
+$v' = s'(p') = u_1'$ 且 $g'(v'') = t'(p') = u_0'$。
+图示如下：
+$$
+\xymatrix{
+s(p) \ar[r]^-p &
+g(v') = g(u'_1) \ar[r]^-r &
+g(u'_0) = g(g'(v''))
+}
+$$
+我们必须证明存在唯一的上述 $T$-值点
+$((u', r_0), (u'', r_1))$，使
+$v' = u'$、$p = r_0$、$v'' = u''$ 且
+$p' = (c(r_1, i(r_0)), (g'(u''), u'))$。
+比较上面的两个图可知，只能取
+$$
+((u', r_0), (u'', r_1)) = ((v', p), (v'', c(r, p))
+$$
+其余细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-double-restrict-property}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+设 $g : U' \to U$ 与 $g' : U'' \to U'$ 为概形态射，
+令 $g'' = g \circ g'$，并设 $(U', R', s', t', c')$
+为 $R$ 在 $U'$ 上的限制。令
+$h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \to U$、
+$h' = s' \circ \text{pr}_1 : U'' \times_{g', U', t} R \to U'$，以及
+$h'' = s \circ \text{pr}_1 : U'' \times_{g'', U, t} R \to U$。
+令 $\tau \in \{Zariski, \linebreak[0] \etale, \linebreak[0]
+smooth, \linebreak[0] syntomic, \linebreak[0] fppf, \linebreak[0] fpqc\}$。
+设 $\mathcal{P}$ 为概形态射的一项性质，它在基变换下保持，
+并且在目标上关于 $\tau$-拓扑为局部的。若
+\begin{enumerate}
+\item $h(U' \times_U R)$ 在 $U$ 中为开集；
+\item $\{h : U' \times_U R \to h(U' \times_U R)\}$
+是一个 $\tau$-覆盖；
+\item $h'$ 具有性质 $\mathcal{P}$，
+\end{enumerate}
+则 $h''$ 具有性质 $\mathcal{P}$。反之，若
+\begin{enumerate}
+\item[(a)] $\{t : R \to U\}$ 是一个 $\tau$-覆盖；
+\item[(d)] $h''$ 具有性质 $\mathcal{P}$，
+\end{enumerate}
+则 $h'$ 具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+这由 Lemma \ref{more-groupoids-lemma-double-restrict} 中图的性质形式地得出。
+在第一种情形中，由于 $g'' = g \circ g'$，态射 $h''$ 的像
+包含于 $h$ 的像。因此，可把图右下角的 $U$ 替换为
+$h(U' \times_U R)$；这解释了引理中条件 (1) 与 (2) 的作用。
+在第二种情形中，注意
+$\{\text{pr}_0 : U' \times_{g, U, t} R \to U'\}$
+作为 $\tau$ 的基变换，并由条件 (a)，是一个 $\tau$-覆盖。
+\end{proof}
+
+
+
+
+
+
+\section{域上群胚的性质}
+\label{more-groupoids-section-properties-groupoids-on-fields}
+
+\noindent
+“域上的群胚”是指群胚概形 $(U, R, s, t, c)$，其中
+$U$ 是某个域的谱。它{\bf 并不}表示
+$(U, R, s, t, c)$ 定义在某个域上；更确切地说，
+它{\bf 并不}表示态射 $s, t : R \to U$ 相等。
+给定任意域 $k$、抽象群 $G$ 以及群同态
+$\varphi : G \to \text{Aut}(k)$，令
+\begin{align*}
+U & = \Spec(k) \\
+R & = \coprod\nolimits_{g \in G} \Spec(k) \\
+s & = \coprod\nolimits_{g \in G} \Spec(\text{id}_k) \\
+t & = \coprod\nolimits_{g \in G} \Spec(\varphi(g)) \\
+c & = \text{下列范畴中的复合： }G
+\end{align*}
+便得到 $\mathbf{Z}$ 上的群胚概形 $(U, R, s, t, c)$。
+这个例子仍是 $\Spec(k^G)$ 上的群胚概形。因此，若 $G$ 有限，
+则 $U = \Spec(k)$ 在 $\Spec(k^G)$ 上有限。
+在某种意义上，本节的目标是证明：对 $s, t$ 施加适当的有限性条件，
+会迫使任意域上群胚定义在一个有限指数子域 $k' \subset k$ 上。
+
+\medskip\noindent
+若 $k$ 为域，$(G, m)$ 是 $k$ 上的群概形，结构态射为
+$p : G \to \Spec(k)$，则 $(\Spec(k), G, p, p, m)$
+是域上群胚的一个例子（在这种情形中，整个结构当然定义在域上）。
+因此，本节可视为 Groupoids, Section
+\ref{groupoids-section-properties-group-schemes-field} 的对应版本。
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-open-multiplication}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+若 $U$ 是某个域的谱，则合成态射
+$c : R \times_{s, U, t} R \to R$ 是开映射。
+\end{lemma}
+
+\begin{proof}
+由图 (\ref{more-groupoids-equation-pull})，合成态射同构于投影
+$\text{pr}_1 : R \times_{t, U, t} R \to R$。
+该投影是开映射，见 Morphisms, Lemma
+\ref{morphisms-lemma-scheme-over-field-universally-open}。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-separated}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+若 $U$ 是某个域的谱，则 $R$ 是分离概形。
+\end{lemma}
+
+\begin{proof}
+由 Groupoids, Lemma
+\ref{groupoids-lemma-group-scheme-over-field-separated}，
+稳定子群概形 $G \to U$ 分离。由 Groupoids, Lemma
+\ref{groupoids-lemma-diagonal}，态射
+$j = (t, s) : R \to U \times_S U$ 分离。
+由于 $U$ 是域的谱，概形 $U \times_S U$ 仿射
+（见 Schemes, Section \ref{schemes-section-fibre-products}
+中纤维积的构造）。因此 $R$ 分离，见 Schemes, Lemma
+\ref{schemes-lemma-separated-permanence}。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-homogeneous}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域。对任意点
+$r, r' \in R$，存在域扩张 $k'/k$、点
+$r_1, r_2 \in R \times_{s, \Spec(k)} \Spec(k')$ 以及图
+$$
+\xymatrix{
+R &
+R \times_{s, \Spec(k)} \Spec(k')
+\ar[l]_-{\text{pr}_0} \ar[r]^\varphi &
+R \times_{s, \Spec(k)} \Spec(k')
+\ar[r]^-{\text{pr}_0} &
+R
+}
+$$
+使得 $\varphi$ 是 $\Spec(k')$ 上的概形同构，并且
+$\varphi(r_1) = r_2$、$\text{pr}_0(r_1) = r$、以及
+$\text{pr}_0(r_2) = r'$。
+\end{lemma}
+
+\begin{proof}
+这是 Lemma \ref{more-groupoids-lemma-two-fibres} 的 (1)、(2) 两项的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-restrict-groupoid-on-field}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域。设 $k'/k$ 为域扩张，
+$U' = \Spec(k')$，并设 $(U', R', s', t', c')$
+为 $(U, R, s, t, c)$ 经 $U' \to U$ 的限制。在定义图
+$$
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'} \ar@{..>}[rd] &
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d] \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r] &
+U
+}
+$$
+中，所有态射均满、平坦且普遍开；虚线箭头
+$R' \to R$ 还仿射。
+\end{lemma}
+
+\begin{proof}
+态射 $U' \to U$ 等于 $\Spec(k') \to \Spec(k)$，
+因而仿射、满且平坦。由 Morphisms, Lemma
+\ref{morphisms-lemma-scheme-over-field-universally-open}，
+态射 $s, t : R \to U$ 与 $U' \to U$ 均普遍开。
+由于 $R$ 非空且 $U$ 是域的谱，态射 $s, t : R \to U$
+满且平坦。最后应用 Morphisms, Lemmas
+\ref{morphisms-lemma-base-change-surjective}、
+\ref{morphisms-lemma-composition-surjective}、
+\ref{morphisms-lemma-composition-open}、
+\ref{morphisms-lemma-base-change-affine}、
+\ref{morphisms-lemma-composition-affine}、
+\ref{morphisms-lemma-base-change-flat} 和
+\ref{morphisms-lemma-composition-flat} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-explain-points}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域。
+对任意点 $r \in R$，存在
+\begin{enumerate}
+\item 域扩张 $k'/k$，其中 $k'$ 代数闭；
+\item 点 $r' \in R'$，其中 $(U', R', s', t', c')$ 是
+$(U, R, s, t, c)$ 经 $\Spec(k') \to \Spec(k)$ 的限制，
+\end{enumerate}
+使得
+\begin{enumerate}
+\item 点 $r'$ 在态射 $R' \to R$ 下映到 $r$；并且
+\item 映射 $s', t' : R' \to \Spec(k')$ 诱导同构
+$k' \to \kappa(r')$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+将这个几何陈述转写为域上的陈述，就是说我们可以找到图
+$$
+\xymatrix{
+k' & k' \ar[l]^1 & \\
+k' \ar[u]^\tau & \kappa(r) \ar[lu]^\sigma & k \ar[l]^-s \ar[lu]_i \\
+& k \ar[lu]^i \ar[u]_t
+}
+$$
+其中 $i : k \to k'$ 是 $k$ 到 $k'$ 的嵌入，
+映射 $s, t : k \to \kappa(r)$ 由 $s, t : R \to U$ 诱导，
+而映射 $\tau : k' \to k'$ 是一个自同构。为构造这样的图，
+可以按如下步骤进行：
+\begin{enumerate}
+\item 选取域映射 $i : k \to k'$，其中 $k'$ 代数闭，
+且在 $k$ 上的超越次数非常大。
+\item 选取嵌入 $\sigma : \kappa(r) \to k'$，使得
+$\sigma \circ s = i$。这样的 $\sigma$ 确实存在：
+只需选取 $\kappa(r)$ 在 $k$ 上的一组超越基
+$\{x_\alpha\}_{\alpha \in A}$，并找到在 $i(k)$ 上代数无关的
+$y_\alpha \in k'$（$\alpha \in A$），再按如下规则将
+$s(k)(\{x_\alpha\})$ 映入 $k'$：
+对 $\lambda \in k$ 令 $s(\lambda) \mapsto i(\lambda)$，
+并对 $\alpha \in A$ 令 $x_\alpha \mapsto y_\alpha$。
+然后利用 $k'$ 代数闭，将其延拓为
+$\tau : \kappa(\alpha) \to k'$。
+\item 选取自同构 $\tau : k' \to k'$，使得
+$\tau \circ i = \sigma \circ t$。为此，选取 $k$ 在其素域上的
+一组超越基 $\{x_\alpha\}_{\alpha \in A}$。
+一方面，向 $\{i(x_\alpha)\}$ 添加
+$\{y_\beta\}_{\beta \in B}$，将其扩充为 $k'$ 的一组超越基；
+另一方面，向 $\{\sigma(t(x_\alpha))\}$ 添加
+$\{z_\gamma\}_{\gamma \in C}$，将其扩充为 $k'$ 的一组超越基。
+由于 $k'$ 代数闭，我们可以把同构
+$\sigma \circ t \circ i^{-1} : i(k) \to \sigma(t(k))$
+延拓为它们在 $k'$ 中的代数闭包之间的同构
+$\tau' : \overline{i(k)} \to \overline{\sigma(t(k))}$。
+因为 $k'$ 的超越次数很大，可见集合 $B$ 和 $C$ 具有相同基数。
+因此可利用一个双射 $B \to C$，将 $\tau'$ 延拓为同构
+$$
+\overline{i(k)}(\{y_\beta\})
+\longrightarrow
+\overline{\sigma(t(k))}(\{z_\gamma\})
+$$
+又因为 $k'$ 是等号两边的代数闭包，可见该同构进一步延拓为
+自同构 $\tau : k' \to k'$，正合所需。
+\end{enumerate}
+这就证明了引理。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-move-point}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域。
+若 $r \in R$ 是一点，并且 $s, t$ 均诱导同构
+$k \to \kappa(r)$，则映射
+$$
+R \longrightarrow R, \quad
+x \longmapsto c(r, x)
+$$
+（精确记号见证明）是一个将 $e$ 映到 $r$ 的自同构 $R \to R$。
+\end{lemma}
+
+\begin{proof}
+若从函子角度思考群胚，这一点完全显然。不过我们也把细节完整写出。
+记 $a : U \to R$ 为像为 $r$ 且满足
+$s \circ a = \text{id}_U$ 的态射；这样的态射由
+$s : k \to \kappa(r)$ 是同构这一假设而存在。
+类似地，记 $b : U \to R$ 为像为 $r$ 且满足
+$t \circ b = \text{id}_U$ 的态射。注意
+$b = a \circ (t \circ a)^{-1}$，特别地
+$a \circ s \circ b = b$。
+
+\medskip\noindent
+考虑态射 $\Psi : R \to R$，它在 $T$ 值点上由
+$$
+(f : T \to R) \longmapsto (c(a \circ t \circ f, f) : T \to R)
+$$
+给出。要看它确有定义，需要验证
+$s \circ a \circ t \circ f = t \circ f$；这由 $s \circ a = 1$
+显然成立。注意 $\Phi(e) = a$，因此要证明该引理，只需证明
+$\Phi$ 是 $R$ 的自同构。令 $\Phi : R \to R$ 为在 $T$ 值点上由
+$$
+(g : T \to R) \longmapsto (c(i \circ b \circ t \circ g, g) : T \to R).
+$$
+给出的态射。它确有定义，因为
+$s \circ i \circ b \circ t \circ g = t \circ b \circ t \circ g =
+t \circ g$。我们断言 $\Phi$ 与 $\Psi$ 互为逆。为此计算
+\begin{align*}
+& c(a \circ t \circ c(i \circ b \circ t \circ g, g),
+c(i \circ b \circ t \circ g, g)) \\
+& =
+c(a \circ t \circ i \circ b \circ t \circ g,
+c(i \circ b \circ t \circ g, g)) \\
+& =
+c(a \circ s \circ b \circ t \circ g,
+c(i \circ b \circ t \circ g, g)) \\
+& =
+c(b \circ t \circ g, c(i \circ b \circ t \circ g, g)) \\
+& =
+c(c(b \circ t \circ g, i \circ b \circ t \circ g), g)) \\
+& =
+c(e, g) \\
+& = g
+\end{align*}
+其中使用了上面得到的关系 $a \circ s \circ b = b$。
+反过来，
+\begin{align*}
+& c(i \circ b \circ t \circ c(a \circ t \circ f, f), c(a \circ t \circ f, f)) \\
+& =
+c(i \circ b \circ t \circ a \circ t \circ f, c(a \circ t \circ f, f)) \\
+& =
+c(i \circ a \circ (t \circ a)^{-1} \circ t \circ a \circ t \circ f,
+c(a \circ t \circ f, f)) \\
+& =
+c(i \circ a \circ t \circ f, c(a \circ t \circ f, f)) \\
+& =
+c(c(i \circ a \circ t \circ f, a \circ t \circ f), f) \\
+& =
+c(e, f) \\
+& = f
+\end{align*}
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-translate-open}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+若 $U$ 是一个域的谱，$W \subset R$ 是开集，
+且 $Z \to R$ 是概形态射，则复合
+$Z \times_{s, U, t} W \to R \times_{s, U, t} R \to R$
+的像是开集。
+\end{lemma}
+
+\begin{proof}
+写成 $U = \Spec(k)$。考虑域扩张 $k'/k$，并记
+$U' = \Spec(k')$。设 $R'$ 为 $R$ 经 $U' \to U$ 的限制。
+令 $Z' = Z \times_R R'$ 及 $W' = R' \times_R W$。
+考虑 $Z \times_{s, U, t} W$ 的一点 $\xi = (z, w)$。
+令 $r \in R$ 为 $z$ 在 $Z \to R$ 下的像。
+按引理 \ref{more-groupoids-lemma-groupoid-on-field-explain-points} 选取
+$k' \supset k$ 及 $r' \in R'$。可以选取映到 $z$ 和 $r'$ 的
+$z' \in Z'$。于是可以找到
+$\xi' \in Z' \times_{s', U', t'} W'$，它映到 $z'$ 和 $\xi$。
+开集 $c(r', W')$（引理
+\ref{more-groupoids-lemma-groupoid-on-field-move-point}）包含在
+$Z' \times_{s', U', t'} W' \to R'$ 的像中。注意
+$Z' \times_{s', U', t'} W' = (Z \times_{s, U, t} W)
+\times_{R \times_{s, U, t} R} (R' \times_{s', U', t'} R')$。
+因此 $Z' \times_{s', U', t'} W' \to R' \to R$ 的像包含在
+$Z \times_{s, U, t} W \to R$ 的像中。由于 $R' \to R$
+是开映射（引理 \ref{more-groupoids-lemma-restrict-groupoid-on-field}），
+可知该像包含 $\xi$ 的像的一个开邻域，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-geometrically-irreducible}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域。滥用记号，以 $e \in R$
+表示恒等态射 $e : U \to R$ 的像。则
+\begin{enumerate}
+\item $R$ 的每个局部环 $\mathcal{O}_{R, r}$ 都有唯一的极小素理想；
+\item 恰有一个经过 $e$ 的 $R$ 的不可约分支 $Z$；并且
+\item 无论经由 $s$ 还是 $t$，$Z$ 在 $k$ 上都几何不可约。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $r \in R$ 为一点。在本证明中，我们将直接使用经过点 $r$
+的 $R$ 的不可约分支与局部环 $\mathcal{O}_{R, r}$ 的极小素理想
+之间的对应，而不再另行说明。按引理
+\ref{more-groupoids-lemma-groupoid-on-field-explain-points} 选取
+$k \subset k'$ 和 $r' \in R'$。注意
+$\mathcal{O}_{R, r} \to \mathcal{O}_{R', r'}$ 忠实平坦且为局部同态，
+见引理 \ref{more-groupoids-lemma-restrict-groupoid-on-field}。
+因此对 $r' \in R'$ 的结论蕴含对 $r \in R$ 的结论。
+换言之，可以假设 $s, t : k \to \kappa(r)$ 是同构。
+由引理 \ref{more-groupoids-lemma-groupoid-on-field-move-point}，存在一个把 $e$
+移到 $r$ 的自同构。因此可以假设 $r = e$，也就是说，
+(1) 由 (2) 推出。
+
+\medskip\noindent
+先在 $k$ 可分代数闭的情形证明 (2)。设 $X, Y \subset R$
+是经过 $e$ 的不可约分支。由 Varieties, Lemma
+\ref{varieties-lemma-bijection-irreducible-components} 和
+\ref{varieties-lemma-separably-closed-irreducible}，
+概形 $X \times_{s, U, t} Y$ 也不可约。
+因此 $c(X \times_{s, U, t} Y) \subset R$ 是不可约子集。
+我们断言它同时包含 $X$ 和 $Y$（作为 $R$ 的子集）。
+确实，设 $T$ 为一个域的谱。若 $x : T \to X$ 是 $X$ 的一个
+$T$ 值点，则 $c(x, e \circ s \circ x) = x$；又因为 $e \in Y$，
+故 $e \circ s \circ x$ 经过 $Y$ 分解。对 $Y$ 的点也类似。
+这显然蕴含 $X = Y$，即恰有一个经过 $e$ 的 $R$ 的不可约分支。
+
+\medskip\noindent
+现在一般地证明 (2) 和 (3)。设 $k \subset k'$ 为一个可分代数闭包，
+并令 $(U', R', s', t', c')$ 为 $(U, R, s, t, c)$
+经 $\Spec(k') \to \Spec(k)$ 的限制。由上一段，恰有一个经过 $e'$
+的 $R'$ 的不可约分支 $Z'$。记 $e'' \in R \times_{s, U} U'$
+为 $e$ 的基变换。由于
+$R' \to R \times_{s, U} U'$ 忠实平坦，见引理
+\ref{more-groupoids-lemma-restrict-groupoid-on-field}，且 $e' \mapsto e''$，
+可见恰有一个经过 $e''$ 的
+$R \times_{s, k} k'$ 的不可约分支 $Z''$。
+又因 $R \times_k k' \to R$ 忠实平坦，这蕴含恰有一个经过 $e$
+的 $R$ 的不可约分支 $Z$。这证明了 (2)。
+
+\medskip\noindent
+为证明 (3)，设 $Z''' \subset R \times_k k'$ 是
+$Z \times_k k'$ 的任意不可约分支。由 Varieties, Lemma
+\ref{varieties-lemma-orbit-irreducible-components}，
+对某个 $\sigma \in \text{Gal}(k'/k)$ 有
+$Z''' = \sigma(Z'')$。由于 $\sigma(e'') = e''$，
+可见 $e'' \in Z'''$，从而 $Z''' = Z''$。
+这说明经由态射 $s$，$Z$ 在 $\Spec(k)$ 上几何不可约。
+同样的论证说明，经由态射 $t$，$Z$ 在 $\Spec(k)$ 上也几何不可约。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-locally-finite-type-dimension}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域，并假设 $s, t$ 局部有限型。则
+\begin{enumerate}
+\item $R$ 等维；
+\item 对所有 $r \in R$，有 $\dim(R) = \dim_r(R)$；
+\item 对任意 $r \in R$，有
+$\text{trdeg}_{s(k)}(\kappa(r)) = \text{trdeg}_{t(k)}(\kappa(r))$；并且
+\item 对任意闭点 $r \in R$，有
+$\dim(R) = \dim(\mathcal{O}_{R, r})$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $r, r' \in R$。由引理
+\ref{more-groupoids-lemma-groupoid-on-field-homogeneous} 及
+Morphisms, Lemma
+\ref{morphisms-lemma-dimension-fibre-after-base-change}，
+有 $\dim_r(R) = \dim_{r'}(R)$。由 Morphisms, Lemma
+\ref{morphisms-lemma-dimension-fibre-at-a-point}，
+$$
+\dim_r(R) =
+\dim(\mathcal{O}_{R, r}) + \text{trdeg}_{s(k)}(\kappa(r)) =
+\dim(\mathcal{O}_{R, r}) + \text{trdeg}_{t(k)}(\kappa(r)).
+$$
+另一方面，$R$（或 $R$ 的任意开子集）的维数是 $R$ 的局部环维数的
+上确界，见 Properties, Lemma
+\ref{properties-lemma-codimension-local-ring}。
+显然，该值在闭点 $r$ 处达到最大；在这种情形，
+$\text{trdeg}_k(\kappa(r)) = 0$（由希尔伯特零点定理，见
+Morphisms, Section \ref{morphisms-section-points-finite-type}）。
+引理由此得证。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-dimension-equal-stabilizer}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U = \Spec(k)$，其中 $k$ 为域，并假设 $s, t$ 局部有限型。
+则 $\dim(R) = \dim(G)$，其中 $G$ 是 $R$ 的稳定子群概形。
+\end{lemma}
+
+\begin{proof}
+设 $Z \subset R$ 为经过 $e$ 的不可约分支（见引理
+\ref{more-groupoids-lemma-groupoid-on-field-geometrically-irreducible}），
+并把它视为 $R$ 的一个整闭子概形。令 $k'_s$，相应地，\ $k'_t$
+为 $s(k)$，相应地，\ $t(k)$ 在 $\Gamma(Z, \mathcal{O}_Z)$ 中的整闭包。
+回忆 $k'_s$ 和 $k'_t$ 都是域，见 Varieties, Lemma
+\ref{varieties-lemma-integral-closure-ground-field}。
+由 Varieties, Proposition
+\ref{varieties-proposition-unique-base-field}，
+作为 $\Gamma(Z, \mathcal{O}_Z)$ 的子环有 $k'_s = k'_t$。
+由于 $e$ 经过 $Z$ 分解，得到交换图
+$$
+\xymatrix{
+k \ar[rd]_t \ar[rrd]^1 \\
+& \Gamma(Z, \mathcal{O}_Z) \ar[r]^e & k \\
+k \ar[ru]^s \ar[rru]_1
+}
+$$
+一方面，这说明 $k'_s = s(k)$、$k'_t = t(k)$，故
+$s(k) = t(k)$；结合上图，这竟蕴含 $s = t$！
+换言之，我们得出 $Z$ 是
+$G = R \times_{(t, s), U \times_S U, \Delta} U$ 的闭子概形。
+由于 $G$ 和 $R$ 都等维，引理随即成立；见引理
+\ref{more-groupoids-lemma-groupoid-on-field-locally-finite-type-dimension} 及
+Groupoids, Lemma
+\ref{groupoids-lemma-group-scheme-finite-type-field}。
+\end{proof}
+
+\begin{remark}
+\label{more-groupoids-remark-warn-dimension-groupoid-on-field}
+警告：若不要求 $s$ 和 $t$ 局部有限型，引理
+\ref{more-groupoids-lemma-groupoid-on-field-dimension-equal-stabilizer}
+便是错误的。一个简单例子是从作用
+$$
+\mathbf{G}_{m, \mathbf{Q}} \times_{\mathbf{Q}} \mathbf{A}^1_{\mathbf{Q}}
+\to \mathbf{A}^1_{\mathbf{Q}}
+$$
+出发，把相应的群胚概形限制到
+$\mathbf{A}^1_{\mathbf{Q}}$ 的一般点上。换言之，经由态射
+$\Spec(\mathbf{Q}(x)) \to
+\Spec(\mathbf{Q}[x]) = \mathbf{A}^1_{\mathbf{Q}}$
+作限制。于是得到群胚概形 $(U, R, s, t, c)$，其中
+$U = \Spec(\mathbf{Q}(x))$ 且
+$$
+R = \Spec\left(
+\mathbf{Q}(x)[y]\left[
+\frac{1}{P(xy)}, P \in \mathbf{Q}[T], P \not = 0
+\right]
+\right)
+$$
+。
+在这种情形，$\dim(R) = 1$ 而 $\dim(G) = 0$。
+\end{remark}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-characteristic-zero-smooth}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。假设
+\begin{enumerate}
+\item $U = \Spec(k)$，其中 $k$ 为域；
+\item $s, t$ 局部有限型；并且
+\item $k$ 的特征为零。
+\end{enumerate}
+则 $s, t : R \to U$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{more-groupoids-lemma-sheaf-differentials}，
+$R \to U$ 的微分层自由。因此光滑性由 Varieties, Lemma
+\ref{varieties-lemma-char-zero-differentials-free-smooth} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-reduced-group-scheme-perfect-field-characteristic-p-smooth}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。假设
+\begin{enumerate}
+\item $U = \Spec(k)$，其中 $k$ 为域；
+\item $s, t$ 局部有限型；
+\item $R$ 既约；并且
+\item $k$ 完美。
+\end{enumerate}
+则 $s, t : R \to U$ 光滑。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{more-groupoids-lemma-sheaf-differentials}，
+层 $\Omega_{R/U}$ 自由。因此引理由 Varieties, Lemma
+\ref{varieties-lemma-char-p-differentials-free-smooth} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{域上群胚的态射}
+\label{more-groupoids-section-morphisms-groupoids-on-fields}
+
+\noindent
+本节研究域上群胚之间的态射。这比研究域上的群概形的态射稍为一般，
+但二者非常相近。
+
+\begin{situation}
+\label{more-groupoids-situation-morphism-groupoids-on-field}
+设 $S$ 为概形。设 $U = \Spec(k)$ 是 $S$ 上的概形，其中 $k$ 为域。
+设 $(U, R_1, s_1, t_1, c_1)$、
+$(U, R_2, s_2, t_2, c_2)$ 为 $S$ 上具有相同第一分量的群胚概形。
+设 $a : R_1 \to R_2$ 为一个态射，使得 $(\text{id}_U, a)$
+定义 $S$ 上群胚概形的态射，见 Groupoids, Definition
+\ref{groupoids-definition-groupoid}。特别地，下列图交换：
+$$
+\vcenter{
+\xymatrix{
+R_1 \ar[rrd]^{t_1} \ar[rdd]_{s_1} \ar[rd]_a \\
+& R_2 \ar[d]^{t_2} \ar[r]_{s_2} & U \\
+& U
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+R_1 \times_{s_1, U, t_1} R_1 \ar[r]_-{c_1} \ar[d]_{a \times a} &
+R_1 \ar[d]^a \\
+R_2 \times_{s_2, U, t_2} R_2 \ar[r]^-{c_2} &
+R_2
+}
+}
+$$
+\end{situation}
+
+\noindent
+下一个引理是 Groupoids, Lemma
+\ref{groupoids-lemma-open-subgroup-closed-over-field} 的推广。
+
+\begin{lemma}
+\label{more-groupoids-lemma-open-image-is-closed}
+记号和假设同情形 \ref{more-groupoids-situation-morphism-groupoids-on-field}。
+若 $a(R_1)$ 在 $R_2$ 中开，则 $a(R_1)$ 在 $R_2$ 中闭。
+\end{lemma}
+
+\begin{proof}
+设 $r_2 \in R_2$ 为 $a(R_1)$ 的闭包中的一点。我们要证明
+$r_2 \in a(R_1)$。按引理
+\ref{more-groupoids-lemma-groupoid-on-field-explain-points}，选取适配于
+$(U, R_2, s_2, t_2, c_2)$ 和 $r_2$ 的
+$k \subset k'$ 与 $r_2' \in R'_2$。
+设 $R_i'$ 为 $R_i$ 经态射
+$U' = \Spec(k') \to U = \Spec(k)$ 的限制。
+设 $a' : R'_1 \to R_2'$ 为 $a$ 的基变换。图
+$$
+\xymatrix{
+R'_1 \ar[r]_{a'} \ar[d]_{p_1} & R'_2 \ar[d]^{p_2} \\
+R_1 \ar[r]^a & R_2
+}
+$$
+是纤维方形。因此 $a'$ 的像是 $a$ 的像在态射
+$p_2 : R'_2 \to R_2$ 下的逆像。由引理
+\ref{more-groupoids-lemma-restrict-groupoid-on-field}，映射 $p_2$ 满且开。
+所以由 Topology, Lemma
+\ref{topology-lemma-open-morphism-quotient-topology}，
+可见 $r_2'$ 属于 $a'(R'_1)$ 的闭包。
+这意味着可以假设 $r_2 \in R_2$ 具有如下性质：
+$s_2$ 和 $t_2$ 诱导的映射
+$k \to \kappa(r_2)$ 都是同构。
+
+\medskip\noindent
+在这种情形可以使用引理
+\ref{more-groupoids-lemma-groupoid-on-field-move-point}。
+该引理说明 $c(r_2, a(R_1))$ 是 $r_2$ 的一个开邻域。
+由于假设 $r_2$ 属于 $a(R_1)$ 的闭包，故
+$a(R_1) \cap c(r_2, a(R_1)) \not = \emptyset$。
+利用 $R_2$ 和 $R_1$ 中的逆，可见这意味着
+$c_2(a(R_1), a(R_1))$ 包含 $r_2$。
+而 $c_2(a(R_1), a(R_1)) \subset a(c_1(R_1, R_1)) = a(R_1)$，
+故如欲证地得到 $r_2 \in a(R_1)$。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-map-groupoids-on-field-image}
+记号和假设同情形 \ref{more-groupoids-situation-morphism-groupoids-on-field}。
+设 $Z \subset R_2$ 为约化闭子概形（见 Schemes, Definition
+\ref{schemes-definition-reduced-induced-scheme}），其底拓扑空间是
+$a : R_1 \to R_2$ 的像的闭包。则在集合论意义下，
+$c_2(Z \times_{s_2, U, t_2} Z) \subset Z$。
+\end{lemma}
+
+\begin{proof}
+考虑交换图
+$$
+\xymatrix{
+R_1 \times_{s_1, U, t_1} R_1 \ar[r] \ar[d] & R_1 \ar[d] \\
+R_2 \times_{s_2, U, t_2} R_2 \ar[r] & R_2
+}
+$$
+由 Varieties, Lemma
+\ref{varieties-lemma-closure-image-product-map}，
+左侧竖直箭头之像的闭包在集合论意义下是
+$Z \times_{s_2, U, t_2} Z$。结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-map-groupoids-on-perfect-field-image}
+记号和假设同情形 \ref{more-groupoids-situation-morphism-groupoids-on-field}。
+假设 $k$ 完美。设 $Z \subset R_2$ 为约化闭子概形（见
+Schemes, Definition
+\ref{schemes-definition-reduced-induced-scheme}），
+其底拓扑空间是 $a : R_1 \to R_2$ 的像的闭包。则
+$$
+(U, Z, s_2|_Z, t_2|_Z, c_2|_Z)
+$$
+是 $S$ 上的群胚概形。
+\end{lemma}
+
+\begin{proof}
+先说明该陈述为何有意义。由于 $U$ 是完美域 $k$ 的谱，
+无论经哪个投影，概形 $Z$ 在 $k$ 上都几何约化，见
+Varieties, Lemma \ref{varieties-lemma-perfect-reduced}。
+因此概形 $Z \times_{s_2, U, t_2} Z \subset Z$ 约化，见
+Varieties, Lemma
+\ref{varieties-lemma-geometrically-reduced-any-base-change}。
+于是由引理 \ref{more-groupoids-lemma-map-groupoids-on-field-image}，
+$c$ 诱导态射 $Z \times_{s_2, U, t_2} Z \to Z$。
+最后，显然 $e_2$ 经过 $Z$ 分解，而且映射
+$i_2 : R_2 \to R_2$ 保持 $Z$。由于七元组
+$(U, R_2, s_2, t_2, c_2, e_2, i_2)$ 的态射满足群胚公理，
+限制到 $Z$ 后仍满足这些公理。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-locally-closed-image-is-closed}
+记号和假设同情形 \ref{more-groupoids-situation-morphism-groupoids-on-field}。
+若像 $a(R_1)$ 是 $R_2$ 的局部闭子集，则它是闭子集。
+\end{lemma}
+
+\begin{proof}
+设 $k \subset k'$ 为域 $k$ 的一个完美闭包。
+设 $R_i'$ 为 $R_i$ 经态射
+$U' = \Spec(k') \to \Spec(k)$ 的限制。注意，态射
+$R_i' \to R_i$ 是普遍同胚，因为它们是普遍同胚
+$U' \to U$ 的基变换的复合（见引理
+\ref{more-groupoids-lemma-restrict-groupoid-on-field} 陈述中的图）。
+因此只需证明 $a'(R_1')$ 在 $R_2'$ 中闭。换言之，可以假设 $k$ 完美。
+
+\medskip\noindent
+若 $k$ 完美，则由引理
+\ref{more-groupoids-lemma-map-groupoids-on-perfect-field-image}，
+像的闭包是群胚概形 $Z \subset R_2$。
+把同一引理应用于
+$\text{id}_{R_1} : R_1 \to R_1$，可见
+$(R_2)_{red}$ 是群胚概形。因此可以把引理
+\ref{more-groupoids-lemma-open-image-is-closed} 应用于态射
+$a|_{(R_2)_{red}} : (R_2)_{red} \to Z$，
+从而得到 $Z$ 等于 $a$ 的像。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-quasi-compact-map-groupoids-on-field-image}
+记号和假设同情形 \ref{more-groupoids-situation-morphism-groupoids-on-field}。
+假设 $a : R_1 \to R_2$ 是拟紧态射。设 $Z \subset R_2$ 为
+$a : R_1 \to R_2$ 的概形论像（见 Morphisms, Definition
+\ref{morphisms-definition-scheme-theoretic-image}）。则
+$$
+(U, Z, s_2|_Z, t_2|_Z, c_2|_Z)
+$$
+是 $S$ 上的群胚概形。
+\end{lemma}
+
+\begin{proof}
+主要困难是证明
+$c_2|_{Z \times_{s_2, U, t_2} Z}$ 映入 $Z$。考虑交换图
+$$
+\xymatrix{
+R_1 \times_{s_1, U, t_1} R_1 \ar[r] \ar[d]^{a \times a} & R_1 \ar[d] \\
+R_2 \times_{s_2, U, t_2} R_2 \ar[r] & R_2
+}
+$$
+由 Varieties, Lemma
+\ref{varieties-lemma-scheme-theoretic-image-product-map}，
+$a \times a$ 的概形论像是
+$Z \times_{s_2, U, t_2} Z$。由图的交换性可知，
+底部水平箭头把 $Z \times_{s_2, U, t_2} Z$ 映入 $Z$。
+与引理 \ref{more-groupoids-lemma-map-groupoids-on-perfect-field-image}
+的证明相同，还有 $i_2(Z) \subset Z$，且 $e_2$ 经过 $Z$ 分解。
+因此可同该引理的证明一样得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-field-image}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U$ 是一个域的谱。设 $Z \subset U \times_S U$
+为约化闭子概形（见 Schemes, Definition
+\ref{schemes-definition-reduced-induced-scheme}），其底拓扑空间是
+$j = (t, s) : R \to U \times_S U$ 的像的闭包。则在集合论意义下，
+$\text{pr}_{02}(Z \times_{\text{pr}_1, U, \text{pr}_0} Z) \subset Z$。
+\end{lemma}
+
+\begin{proof}
+由于 $(U, U \times_S U, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$
+是 $S$ 上的群胚概形，这是引理
+\ref{more-groupoids-lemma-map-groupoids-on-field-image} 的特殊情形。
+不过也可如下直接证明。
+
+\medskip\noindent
+写成 $U = \Spec(k)$。记
+$R_s$（相应地，\ $Z_s$；相应地，\ $U^2_s$）为概形
+$R$（相应地，\ $Z$；相应地，\ $U \times_S U$），
+把它经由 $s$（相应地，\ $\text{pr}_1|_Z$；相应地，\ 
+$\text{pr}_1$）视为 $k$ 上的概形。类似地，记
+${}_tR$（相应地，\ ${}_tZ$；相应地，\ ${}_tU^2$）为概形
+$R$（相应地，\ $Z$；相应地，\ $U \times_S U$），
+把它经由 $t$（相应地，\ $\text{pr}_0|_Z$；相应地，\ 
+$\text{pr}_0$）视为 $k$ 上的概形。
+态射 $j$ 诱导 $k$ 上的概形态射
+$j_s : R_s \to U^2_s$ 和 ${}_tj : {}_tR \to {}_tU^2$。
+考虑交换图
+$$
+\xymatrix{
+R_s \times_k {}_tR \ar[r]^c \ar[d]_{j_s \times {}_tj} &  R \ar[d]^j \\
+U^2_s \times_k {}_tU^2 \ar[r] & U \times_S U
+}
+$$
+由 Varieties, Lemma
+\ref{varieties-lemma-closure-image-product-map}，
+$j_s \times {}_tj$ 之像的闭包是 $Z_s \times_k {}_tZ$。
+由图的交换性可知，底部水平箭头把
+$Z_s \times_k {}_tZ$ 映入 $Z$。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-groupoid-on-perfect-field-image}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U$ 是一个完美域的谱。设 $Z \subset U \times_S U$
+为约化闭子概形（见 Schemes, Definition
+\ref{schemes-definition-reduced-induced-scheme}），其底拓扑空间是
+$j = (t, s) : R \to U \times_S U$ 的像的闭包。则
+$$
+(U, Z, \text{pr}_0|_Z, \text{pr}_1|_Z,
+\text{pr}_{02}|_{Z \times_{\text{pr}_1, U, \text{pr}_0} Z})
+$$
+是 $S$ 上的群胚概形。
+\end{lemma}
+
+\begin{proof}
+由于 $(U, U \times_S U, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$
+是 $S$ 上的群胚概形，这是引理
+\ref{more-groupoids-lemma-map-groupoids-on-perfect-field-image} 的特殊情形。
+不过也可如下直接证明。
+
+\medskip\noindent
+先说明该陈述为何有意义。由于 $U$ 是完美域 $k$ 的谱，
+无论经哪个投影，概形 $Z$ 在 $k$ 上都几何约化，见
+Varieties, Lemma \ref{varieties-lemma-perfect-reduced}。
+因此概形
+$Z \times_{\text{pr}_1, U, \text{pr}_0} Z \subset Z$
+约化，见 Varieties, Lemma
+\ref{varieties-lemma-geometrically-reduced-any-base-change}。
+于是由引理 \ref{more-groupoids-lemma-groupoid-on-field-image}，
+$\text{pr}_{02}$ 诱导态射
+$Z \times_{\text{pr}_1, U, \text{pr}_0} Z \to Z$。
+最后，显然 $\Delta_{U/S}$ 经过 $Z$ 分解，而且映射
+$\sigma : U \times_S U \to U \times_S U$、
+$(x, y) \mapsto (y, x)$ 保持 $Z$。由于
+$(U, U \times_S U, \text{pr}_0, \text{pr}_1, \text{pr}_{02},
+\Delta_{U/S}, \sigma)$
+满足群胚公理，限制到 $Z$ 后仍满足这些公理。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-quasi-compact-groupoid-on-field-image}
+设 $S$ 为概形，$(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+假设 $U$ 是一个域的谱，并假设 $R$ 拟紧
+（等价地，$s, t$ 拟紧）。设 $Z \subset U \times_S U$
+为 $j = (t, s) : R \to U \times_S U$ 的概形论像
+（见 Morphisms, Definition
+\ref{morphisms-definition-scheme-theoretic-image}）。则
+$$
+(U, Z, \text{pr}_0|_Z, \text{pr}_1|_Z,
+\text{pr}_{02}|_{Z \times_{\text{pr}_1, U, \text{pr}_0} Z})
+$$
+是 $S$ 上的群胚概形。
+\end{lemma}
+
+\begin{proof}
+由于 $(U, U \times_S U, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$
+是 $S$ 上的群胚概形，这是引理
+\ref{more-groupoids-lemma-quasi-compact-map-groupoids-on-field-image} 的特殊情形。
+不过也可如下直接证明。
+
+\medskip\noindent
+主要困难是证明
+$\text{pr}_{02}|_{Z \times_{\text{pr}_1, U, \text{pr}_0} Z}$
+映入 $Z$。写成 $U = \Spec(k)$。记
+$R_s$（相应地，\ $Z_s$；相应地，\ $U^2_s$）为概形
+$R$（相应地，\ $Z$；相应地，\ $U \times_S U$），
+把它经由 $s$（相应地，\ $\text{pr}_1|_Z$；相应地，\ 
+$\text{pr}_1$）视为 $k$ 上的概形。类似地，记
+${}_tR$（相应地，\ ${}_tZ$；相应地，\ ${}_tU^2$）为概形
+$R$（相应地，\ $Z$；相应地，\ $U \times_S U$），
+把它经由 $t$（相应地，\ $\text{pr}_0|_Z$；相应地，\ 
+$\text{pr}_0$）视为 $k$ 上的概形。
+态射 $j$ 诱导 $k$ 上的概形态射
+$j_s : R_s \to U^2_s$ 和 ${}_tj : {}_tR \to {}_tU^2$。
+考虑交换图
+$$
+\xymatrix{
+R_s \times_k {}_tR \ar[r]^c \ar[d]_{j_s \times {}_tj} &  R \ar[d]^j \\
+U^2_s \times_k {}_tU^2 \ar[r] & U \times_S U
+}
+$$
+由 Varieties, Lemma
+\ref{varieties-lemma-scheme-theoretic-image-product-map}，
+$j_s \times {}_tj$ 的概形论像是 $Z_s \times_k {}_tZ$。
+由图的交换性可知，底部水平箭头把
+$Z_s \times_k {}_tZ$ 映入 $Z$。
+与引理 \ref{more-groupoids-lemma-groupoid-on-perfect-field-image} 的证明相同，
+还有 $\sigma(Z) \subset Z$，且 $\Delta_{U/S}$ 经过 $Z$ 分解。
+因此可同该引理的证明一样得出结论。
+\end{proof}
+
+
+
+
+
+
+
+\section{群胚的切片}
+\label{more-groupoids-section-slicing}
+
+\noindent
+下一个引理表明，只要稳定子的维数足够小，就可以对一个
+Cohen--Macaulay 群胚概形作切片，以降低纤维的维数。
+这是改进商叠的给定表现过程中的关键一步。
+
+\begin{situation}
+\label{more-groupoids-situation-slice}
+设 $S$ 为概形。设 $(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+设 $g : U' \to U$ 为概形态射。设 $u \in U$ 为一点，
+并设 $u' \in U'$ 为满足 $g(u') = u$ 的一点。
+给定这些数据，记 $(U', R', s', t', c')$ 为
+$(U, R, s, t, c)$ 经态射 $g$ 的限制。
+记 $G \to U$ 为 $R$ 的稳定子群概形；它是 $R$ 的局部闭子概形。
+记 $h$ 为复合
+$$
+h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \longrightarrow U.
+$$
+记 $F_u = s^{-1}(u)$（概形论纤维），并记 $G_u$ 为 $G$ 在 $u$
+上的概形论纤维。类似地，对 $R'$ 记
+$F'_{u'} = (s')^{-1}(u')$。由于 $g(u') = u$，有
+$$
+F'_{u'} = h^{-1}(u) \times_{\Spec(\kappa(u))} \Spec(\kappa(u')).
+$$
+点 $e(u) \in R$ 也可视为 $G_u$ 和 $F_u$ 上的点；
+而 $e'(u')$ 是 $R'$（相应地，\ $G'_{u'}$；相应地，\ 
+$F'_{u'}$）的一点，它映到 $R$（相应地，\ $G_u$；相应地，\ 
+$F_u$）中的 $e(u)$。
+\end{situation}
+
+\begin{lemma}
+\label{more-groupoids-lemma-slice}
+设 $S$ 为概形。设 $(U, R, s, t, c, e, i)$ 为 $S$ 上的群胚概形。
+设 $G \to U$ 为稳定子群概形。假设 $s$ 和 $t$ 是
+Cohen--Macaulay 且局部有限表现的。设 $u \in U$ 是概形 $U$
+的有限型点，见 Morphisms, Definition
+\ref{morphisms-definition-finite-type-point}。采用情形
+\ref{more-groupoids-situation-slice} 的记号，令
+$$
+d_1 = \dim(G_u), \quad
+d_2 = \dim_{e(u)}(F_u).
+$$
+若 $d_2 > d_1$，则存在仿射概形 $U'$ 和态射 $g : U' \to U$，
+使得（采用情形 \ref{more-groupoids-situation-slice} 的记号）
+\begin{enumerate}
+\item $g$ 是浸入；
+\item $u \in U'$；
+\item $g$ 局部有限表现；
+\item 态射 $h : U' \times_{g, U, t} R \longrightarrow U$
+在 $(u, e(u))$ 处是 Cohen--Macaulay 的；并且
+\item $\dim_{e'(u)}(F'_u) = d_2 - 1$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+取 $u$ 的仿射邻域 $\Spec(A) \subset U$，使得 $u$ 对应于 $U$
+的闭点，见 Morphisms, Lemma
+\ref{morphisms-lemma-identify-finite-type-points}。
+取 $e(u)$ 的仿射邻域 $\Spec(B) \subset R$，使其在 $j$ 下映入开集
+$\Spec(A) \times_S \Spec(A) \subset U \times_S U$。
+设 $\mathfrak m \subset A$ 为对应于 $u$ 的极大理想，
+并设 $\mathfrak q \subset B$ 为对应于 $e(u)$ 的素理想。图示为
+$$
+\vcenter{
+\xymatrix{
+B & A \ar[l]^s \\
+A \ar[u]^t
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+B_{\mathfrak q} & A_{\mathfrak m} \ar[l]^s \\
+A_{\mathfrak m} \ar[u]^t
+}
+}
+$$
+注意，两个诱导映射
+$s, t : \kappa(\mathfrak m) \to \kappa(\mathfrak q)$
+相等且均为同构，因为
+$s \circ e = t \circ e = \text{id}_U$。
+特别地，$\mathfrak q$ 也是极大理想。
+环同态 $s, t : A \to B$ 有限表现且平坦。由假设，环
+$$
+\mathcal{O}_{F_u, e(u)} = B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q}
+$$
+是维数为 $d_2$ 的 Cohen--Macaulay 环。该维数等式由
+Morphisms, Lemma
+\ref{morphisms-lemma-dimension-fibre-at-a-point} 给出。
+
+
+\medskip\noindent
+设 $R''$ 为 $R$ 经态射
+$\Spec(\kappa(u)) \to U$ 向
+$u = \Spec(\kappa(u))$ 的限制。由于 $u \to U$ 局部有限型，
+可见 $(\Spec(\kappa(u)), R'', s'', t'', c'')$
+是一个 $s'', t''$ 局部有限型的群胚概形，见引理
+\ref{more-groupoids-lemma-restrict-preserves-type}。
+由引理 \ref{more-groupoids-lemma-groupoid-on-field-dimension-equal-stabilizer}，
+这蕴含 $\dim(G'') = \dim(R'')$。又由引理
+\ref{more-groupoids-lemma-groupoid-on-field-locally-finite-type-dimension}，
+有 $\dim(R'') = \dim_{e''}(R'') = \dim(\mathcal{O}_{R'', e''})$。
+由 Groupoids, Lemma
+\ref{groupoids-lemma-restrict-stabilizer}，有 $G'' = G_u$。
+因此得到 $\dim(\mathcal{O}_{R'', e''}) = d_1$。
+
+\medskip\noindent
+作为概形，$R''$ 为
+$$
+R'' =
+R \times_{(U \times_S U)}
+\Big(
+\Spec(\kappa(\mathfrak m)) \times_S \Spec(\kappa(\mathfrak m))
+\Big)
+$$
+因此 $e''$ 的一个仿射开邻域是下列环的谱：
+$$
+B \otimes_{(A \otimes A)} (\kappa(\mathfrak m) \otimes \kappa(\mathfrak m))
+=
+B/s(\mathfrak m)B + t(\mathfrak m)B
+$$
+由此得到
+$$
+\mathcal{O}_{R'', e''} =
+B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q} + t(\mathfrak m)B_{\mathfrak q}
+$$
+于是现在知道此环的维数为 $d_1$。
+
+\medskip\noindent
+我们断言，这蕴含可以找到元素 $f \in \mathfrak m$，使得
+$$
+\dim(B_{\mathfrak q}/(s(\mathfrak m)B_{\mathfrak q} + fB_{\mathfrak q}) < d_2
+$$
+确实，设 $\mathfrak n_j \supset s(\mathfrak m)B_{\mathfrak q}$，
+$j = 1, \ldots, m$，对应于局部环
+$B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q}$ 的极小素理想。
+这样的理想只有有限多个，因为该环是 Noether 环
+（它本质上是域上的有限型环；也可因为 Cohen--Macaulay 环是
+Noether 环）。由 Cohen--Macaulay 条件，
+$\dim(B_{\mathfrak q}/\mathfrak n_j) = d_2$，例如可见
+Algebra, Lemma \ref{algebra-lemma-CM-dim-formula}。注意
+$\dim(B_{\mathfrak q}/(\mathfrak n_j + t(\mathfrak m)B_{\mathfrak q}))
+\leq d_1$，
+因为它是环
+$\mathcal{O}_{R'', e''} =
+B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q} + t(\mathfrak m)B_{\mathfrak q}$
+的商，而后者维数为 $d_1$。由于 $d_1 < d_2$，这蕴含
+$\mathfrak m \not \subset t^{-1}(\mathfrak n_i)$。
+由素理想回避，见 Algebra, Lemma \ref{algebra-lemma-silly}，
+可以找到 $f \in \mathfrak m$，使得对
+$j = 1, \ldots, m$ 都有 $t(f) \not \in \mathfrak n_j$。
+对这样选取的 $f$，上述显示不等式成立，见
+Algebra, Lemma \ref{algebra-lemma-one-equation}。
+
+
+\medskip\noindent
+令 $A' = A/fA$、$U' = \Spec(A')$。显然 $U' \to U$ 是浸入，
+局部有限表现，且 $u \in U'$。因此引理的 (1)、(2)、(3) 成立。
+态射
+$$
+U' \times_{g, U, t} R \longrightarrow U
+$$
+经过 $\Spec(A)$ 分解，并对应于环同态
+$$
+\xymatrix{
+B/t(f)B \ar@{=}[r] & A/(f) \otimes_{A, t} B & A \ar[l]_-s
+}
+$$
+现在，由于
+$B_{\mathfrak q}/s(\mathfrak m)B_{\mathfrak q}$
+是正维 Cohen--Macaulay 环，且 $f$ 不属于任何极小素理想，
+可见 $t(f)$ 在其上不是零因子；例如见 Algebra, Lemma
+\ref{algebra-lemma-reformulate-CM}。因此由 Algebra, Lemma
+\ref{algebra-lemma-grothendieck-general}，可知
+$s : A_{\mathfrak m} \to B_{\mathfrak q}/t(f)B_{\mathfrak q}$
+平坦，其纤维环为
+$B_{\mathfrak q}/(s(\mathfrak m)B_{\mathfrak q} + t(f)B_{\mathfrak q})$；
+由 Algebra, Lemma \ref{algebra-lemma-reformulate-CM}，
+该环仍为 Cohen--Macaulay。这蕴含引理的 (4)。
+为看出 (5)，注意由图 (\ref{more-groupoids-equation-restriction})，
+纤维 $F'_u$ 等于 $h$ 在 $u$ 上的纤维。因此由
+Morphisms, Lemma \ref{morphisms-lemma-dimension-fibre-at-a-point}，
+$\dim_{e'(u)}(F'_u) =
+\dim(B_{\mathfrak q}/(s(\mathfrak m)B_{\mathfrak q} + t(f)B_{\mathfrak q}))$
+而由 Algebra, Lemma \ref{algebra-lemma-reformulate-CM}，
+此环的维数为 $d_2 - 1$。这证明了引理的最后一个断言，证明完成。
+\end{proof}
+
+\noindent
+既然已经知道如何作切片，就可以把它同前面的材料结合起来，
+得到下列“最优”结论。这里所谓最优，是因为 $G_u$ 是 $F_u$
+的局部闭子概形，总有不等式
+$\dim(G_u) = \dim_{e(u)}(G_u) \leq \dim_{e(u)}(F_u)$，
+所以不可能比引理所给出的切片更进一步。
+
+\begin{lemma}
+\label{more-groupoids-lemma-max-slice}
+设 $S$ 为概形。设 $(U, R, s, t, c, e, i)$ 为 $S$ 上的群胚概形。
+设 $G \to U$ 为稳定子群概形。假设 $s$ 和 $t$ 是
+Cohen--Macaulay 且局部有限表现的。设 $u \in U$ 是概形 $U$
+的有限型点，见 Morphisms, Definition
+\ref{morphisms-definition-finite-type-point}。
+采用情形 \ref{more-groupoids-situation-slice} 的记号，存在仿射概形 $U'$
+和态射 $g : U' \to U$，使得
+\begin{enumerate}
+\item $g$ 是浸入；
+\item $u \in U'$；
+\item $g$ 局部有限表现；
+\item 态射 $h : U' \times_{g, U, t} R \longrightarrow U$
+是 Cohen--Macaulay 且局部有限表现的；
+\item 态射 $s', t' : R' \to U'$ 是 Cohen--Macaulay
+且局部有限表现的；并且
+\item $\dim_{e(u)}(F'_u) = \dim(G'_u)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $s$ 局部有限表现，概形 $F_u$ 在 $\kappa(u)$ 上局部有限型。
+因此 $\dim_{e(u)}(F_u) < \infty$，可以对
+$\dim_{e(u)}(F_u)$ 作归纳。
+
+\medskip\noindent
+若 $\dim_{e(u)}(F_u) = \dim(G_u)$，则无事可证。
+假设 $\dim_{e(u)}(F_u) > \dim(G_u)$。这意味着可以应用引理
+\ref{more-groupoids-lemma-slice}，从而得到态射 $g : U' \to U$，它满足
+(1)、(2)、(3)；以
+$\dim_{e(u)}(F'_u) < \dim_{e(u)}(F_u)$ 代替 (6)；
+并以复合
+$$
+h = s \circ \text{pr}_1 : U' \times_{g, U, t} R \longrightarrow U
+$$
+在点 $(u, e(u))$ 处为 Cohen--Macaulay 来代替 (4) 和 (5)。
+应用注 \ref{more-groupoids-remark-local-source-apply}，得到开子概形
+$U'' \subset U'$，使得
+$U'' \times_{g, U, t} R \subset U' \times_{g, U, t} R$
+是 $h$ 为 Cohen--Macaulay 的最大开子概形。
+由于 $(u, e(u)) \in U'' \times_{g, U, t} R$，可见
+$u \in U''$。因此可以用 $U''$ 代替 $U'$，并假设 $h$
+处处为 Cohen--Macaulay！由引理 \ref{more-groupoids-lemma-restrict-property}，
+可知 $s', t'$ 局部有限表现且为 Cohen--Macaulay
+（使用 Morphisms, Lemma
+\ref{morphisms-lemma-base-change-finite-presentation} 及
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-base-change-CM}）。
+
+\medskip\noindent
+由构造，$\dim_{e'(u)}(F'_u) < \dim_{e(u)}(F_u)$，
+故可将归纳假设应用于 $(U', R', s', t', c')$ 及点 $u \in U'$。
+注意 $u$ 也是 $U'$ 的有限型点（例如可使用 Morphisms, Lemma
+\ref{morphisms-lemma-identify-finite-type-points}
+对有限型点的刻画看出这一点）。设
+$g' : U'' \to U'$ 和 $(U'', R'', s'', t'', c'')$
+是从 $(U', R', s', t', c')$ 及点 $u \in U'$ 出发所得相应问题的解。
+我们断言复合
+$$
+g'' = g \circ g' : U'' \longrightarrow U
+$$
+是原问题的一个解。性质 (1)、(2)、(3)、(5)、(6) 显然成立。
+为看出 (4)，注意态射
+$$
+h'' = s \circ \text{pr}_1 : U'' \times_{g'', U, t} R \longrightarrow U
+$$
+局部有限表现且为 Cohen--Macaulay；这可应用引理
+\ref{more-groupoids-lemma-double-restrict-property} 得出
+（使用 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-CM-local-source-and-target}
+来说明 Cohen--Macaulay 态射在目标上是 fppf 局部的）。
+\end{proof}
+
+\noindent
+当稳定子群概形的纤维维数为 0 时，这给出下列切片引理。
+
+\begin{lemma}
+\label{more-groupoids-lemma-max-slice-quasi-finite}
+设 $S$ 为概形。设 $(U, R, s, t, c, e, i)$ 为 $S$ 上的群胚概形。
+设 $G \to U$ 为稳定子群概形。假设 $s$ 和 $t$ 是
+Cohen--Macaulay 且局部有限表现的。设 $u \in U$ 是概形 $U$
+的有限型点，见 Morphisms, Definition
+\ref{morphisms-definition-finite-type-point}。
+假设 $G \to U$ 局部拟有限。采用情形
+\ref{more-groupoids-situation-slice} 的记号，存在仿射概形 $U'$
+和态射 $g : U' \to U$，使得
+\begin{enumerate}
+\item $g$ 是浸入；
+\item $u \in U'$；
+\item $g$ 局部有限表现；
+\item 态射 $h : U' \times_{g, U, t} R \longrightarrow U$
+平坦、局部有限表现且局部拟有限；并且
+\item 态射 $s', t' : R' \to U'$ 平坦、局部有限表现且局部拟有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+取引理 \ref{more-groupoids-lemma-max-slice} 中的 $g : U' \to U$。
+由于 $h^{-1}(u) = F'_u$，可见 $h$ 在 $(u, e(u))$ 处相对维数
+$\leq 0$。因此由注 \ref{more-groupoids-remark-local-source-apply}，
+得到开子概形 $U'' \subset U'$，使得 $u \in U''$，且
+$U'' \times_{g, U, t} R$ 是
+$U' \times_{g, U, t} R$ 中 $h$ 相对维数 $\leq 0$ 的最大开子概形。
+用 $U''$ 代替 $U'$ 后，可见 $h$ 的相对维数 $\leq 0$。
+由 Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}，
+这蕴含 $h$ 局部拟有限。由于它仍局部有限表现且为
+Cohen--Macaulay，可见它平坦、局部有限表现且局部拟有限，
+即上面的 (4) 成立。这蕴含 $s'$ 作为 $h$ 的基变换也平坦、
+局部有限表现且局部拟有限，见引理 \ref{more-groupoids-lemma-restrict-property}。
+\end{proof}
+
+
+
+
+
+
+
+\section{群胚的平展（\'Etale）局部化}
+\label{more-groupoids-section-etale-localize}
+
+\noindent
+本节开始把 More on Morphisms, Section
+\ref{more-morphisms-section-etale-localization}
+中的平展（\'etale）局部化技术应用于群胚概形。
+这方面更深入的材料见 More on Groupoids in Spaces,
+Section \ref{spaces-more-groupoids-section-etale-localize}。
+引理 \ref{more-groupoids-lemma-quasi-finite-over-base-j-proper}
+将用于证明关于在一个概形上分离且拟有限的代数空间的结果，
+即 Morphisms of Spaces, Proposition
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}
+及其推论 Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}。
+
+\begin{lemma}
+\label{more-groupoids-lemma-quasi-finite-over-base}
+设 $S$ 为概形。设 $(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+设 $p \in S$ 为一点，并设 $u \in U$ 为位于 $p$ 上方的一点。假设
+\begin{enumerate}
+\item $U \to S$ 局部有限型；
+\item $U \to S$ 在 $u$ 处拟有限；
+\item $U \to S$ 分离；
+\item $R \to S$ 分离；
+\item $s$, $t$ 平坦且局部有限表现；并且
+\item $s^{-1}(\{u\})$ 有限。
+\end{enumerate}
+则存在平展（\'etale）邻域 $(S', p') \to (S, p)$，满足
+$\kappa(p) = \kappa(p')$，并有基变换图
+$$
+\xymatrix{
+R' \amalg W'
+\ar@{=}[r] &
+S' \times_S R
+\ar[r] \ar@<2ex>[d]^{s'} \ar@<-2ex>[d]_{t'} &
+R \ar@<1ex>[d]^s \ar@<-1ex>[d]_t \\
+U' \amalg W
+\ar@{=}[r] &
+S' \times_S U
+\ar[r] \ar[d] &
+U \ar[d] \\
+ &
+S' \ar[r] &
+S
+}
+$$
+其中等号表示分解为开闭子概形，并满足
+\begin{enumerate}
+\item[(a)] 存在 $U'$ 的一点 $u'$，它在 $U$ 中映到 $u$；
+\item[(b)] 在集合论意义下，纤维
+$(U')_{p'}$ 等于 $t'\big((s')^{-1}(\{u'\})\big)$；
+\item[(c)] 在集合论意义下，纤维
+$(R')_{p'}$ 等于 $(s')^{-1}\big((U')_{p'}\big)$；
+\item[(d)] 概形 $U'$ 和 $R'$ 在 $S'$ 上有限；
+\item[(e)] 有 $s'(R') \subset U'$ 和 $t'(R') \subset U'$；
+\item[(f)] 有
+$c'(R' \times_{s', U', t'} R') \subset R'$，
+其中 $c'$ 是 $c$ 的基变换；并且
+\item[(g)] 态射 $s', t', c'$ 通过系统
+$(U', R', s'|_{R'}, t'|_{R'}, c'|_{R' \times_{s', U', t'} R'})$
+确定一个群胚结构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+记 $f : U \to S$ 为 $U$ 的结构态射。由假设 (6)，可写
+$s^{-1}(\{u\}) = \{r_1, \ldots, r_n\}$。
+由于该集合有限，可见 $s$ 在这有限多个逆像中的每一个处拟有限，
+见 Morphisms, Lemma \ref{morphisms-lemma-finite-fibre}。
+因此 $f \circ s : R \to S$ 在每个 $r_i$ 处拟有限
+（Morphisms, Lemma
+\ref{morphisms-lemma-composition-quasi-finite}）。
+所以 $r_i$ 在纤维 $R_p$ 中是孤立点，见 Morphisms, Lemma
+\ref{morphisms-lemma-quasi-finite-at-point-characterize}。
+写成 $t(\{r_1, \ldots, r_n\}) = \{u_1, \ldots, u_m\}$。
+注意可能有 $m < n$，并且
+$u \in \{u_1, \ldots, u_m\}$。
+由于 $t$ 平坦且局部有限表现，纤维态射
+$t_p : R_p \to U_p$ 平坦且局部有限表现
+（Morphisms, Lemmas \ref{morphisms-lemma-base-change-flat} 和
+\ref{morphisms-lemma-base-change-finite-presentation}），
+因而为开映射（Morphisms, Lemma
+\ref{morphisms-lemma-fppf-open}）。
+每个 $r_i$ 在 $R_p$ 中孤立这一事实蕴含每个
+$u_j = t(r_i)$ 在 $U_p$ 中孤立。再次使用 Morphisms, Lemma
+\ref{morphisms-lemma-quasi-finite-at-point-characterize}，
+可见 $f$ 在 $u_1, \ldots, u_m$ 处拟有限。
+
+
+\medskip\noindent
+记 $F_u = s^{-1}(u)$ 和 $F_{u_j} = s^{-1}(u_j)$ 为概形论纤维。
+注意 $F_u$ 在 $\kappa(u)$ 上有限，因为它在 $\kappa(u)$ 上局部有限型
+且只有有限多个点（例如，这可由远为一般的 Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+得出）。由引理 \ref{more-groupoids-lemma-two-fibres}，
+$F_u$ 和 $F_{u_j}$ 在 $\kappa(u)$ 与 $\kappa(u_j)$ 的某个公共域扩张上
+变为同构。因此 $F_{u_j}$ 在 $\kappa(u_j)$ 上有限。特别地，
+对每个 $j = 1, \ldots, m$，集合 $s^{-1}(\{u_j\})$ 有限。
+于是对每个 $u_j$，假设 (2) 和 (6) 也成立
+（上面已看到 $U \to S$ 在 $u_j$ 处拟有限）。
+因此第一段的论证适用于每个 $u_j$，从而 $R \to U$
+在下列集合的每个点处拟有限：
+$$
+\{r_1, \ldots, r_N\} = s^{-1}(\{u_1, \ldots, u_m\})
+$$
+注意
+$t(\{r_1, \ldots, r_N\}) = \{u_1, \ldots, u_m\}$ 且
+$t^{-1}(\{u_1, \ldots, u_m\}) = \{r_1, \ldots, r_N\}$，
+因为 $R$ 是群胚\footnote{用群胚语言解释：
+原集合 $\{r_1, \ldots, r_n\}$ 是以 $u$ 为源的箭头集合；
+集合 $\{u_1, \ldots, u_m\}$ 是与 $u$ 同构的对象集合；
+而 $\{r_1, \ldots, r_N\}$ 是所有与 $u$ 等价的对象之间的全部箭头集合。}。
+此外，
+$\text{pr}_0(c^{-1}(\{r_1, \ldots, r_N\})) = \{r_1, \ldots, r_N\}$
+且
+$\text{pr}_1(c^{-1}(\{r_1, \ldots, r_N\})) = \{r_1, \ldots, r_N\}$。
+类似地，还得到
+$e(\{u_1, \ldots, u_m\}) \subset \{r_1, \ldots, r_N\}$
+以及
+$i(\{r_1, \ldots, r_N\}) = \{r_1, \ldots, r_N\}$。
+
+
+\medskip\noindent
+可以把 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-etale-splits-off-quasi-finite-part-technical}
+应用于两对
+$(U \to S, \{u_1, \ldots, u_m\})$ 和
+$(R \to S, \{r_1, \ldots, r_N\})$，
+从而得到一个平展（\'etale）邻域
+$(S', p') \to (S, p)$，它诱导等同
+$\kappa(p) = \kappa(p')$，并使 $S' \times_S U$ 和
+$S' \times_S R$ 分解为
+$$
+S' \times_S U = U' \amalg W, \quad
+S' \times_S R = R' \amalg W'
+$$
+其中 $U' \to S'$ 有限，且 $(U')_{p'}$ 双射地映到
+$\{u_1, \ldots, u_m\}$；$R' \to S'$ 有限，且
+$(R')_{p'}$ 双射地映到 $\{r_1, \ldots, r_N\}$。
+此外，$W_{p'}$（相应地，\ $(W')_{p'}$）的任何点都不映到
+任何 $u_j$（相应地，\ $r_i$）。此时，引理的 (a)、(b)、(c)、(d)
+均已满足。此外，(e) 和 (f) 中的包含关系在 $p'$ 上的纤维上成立，
+即 $s'((R')_{p'}) \subset (U')_{p'}$、
+$t'((R')_{p'}) \subset (U')_{p'}$，以及
+$c'((R' \times_{s', U', t'} R')_{p'}) \subset (R')_{p'}$。
+
+
+\medskip\noindent
+我们断言，可以把 $S'$ 换成 $p'$ 的一个 Zariski 开邻域，
+使 (e) 和 (f) 中的包含关系成立。例如，考虑集合
+$E = (s'|_{R'})^{-1}(W)$。这是 $R'$ 的开闭子集，且不包含
+$R'$ 中位于 $p'$ 上方的任何点。由于 $R' \to S'$ 是闭映射，
+用 $S' \setminus (R' \to S')(E)$ 代替 $S'$ 后，
+就得到 $E$ 为空的情形。换言之，$s'$ 把 $R'$ 映入 $U'$。
+注意，进一步缩小 $S'$ 时此性质仍然保持。
+类似地，可以安排使 $t'$ 把 $R'$ 映入 $U'$。此时 (e) 成立。
+以同样方式考虑集合
+$E = (c'|_{R' \times_{s', U', t'} R'})^{-1}(W')$。
+它是概形 $R' \times_{s', U', t'} R'$ 的开闭子集；
+该概形在 $S'$ 上有限，而且它不包含位于 $p'$ 上方的任何点。
+因此，用
+$S' \setminus (R' \times_{s', U', t'} R' \to S')(E)$
+代替 $S'$ 后，就得到 $E$ 为空的情形。换言之，得到 (f) 中的包含关系。
+还可以对恒等态射
+$e' : S' \times_S U \to S' \times_S R$
+和逆态射 $i' : S' \times_S R \to S' \times_S R$
+重复此论证，从而可以假设（再把 $S'$ 缩小一些后）
+$(e'|_{U'})^{-1}(W') = \emptyset$ 且
+$(i'|_{R'})^{-1}(W') = \emptyset$。
+
+\medskip\noindent
+此时可以考虑结构
+$$
+(U', R', s'|_{R'}, t'|_{R'}, c'|_{R' \times_{t', U', s'} R'},
+e'|_{U'}, i'|_{R'}).
+$$
+$S'$ 上群胚概形的公理成立，因为这些公理对群胚概形
+$(S' \times_S U, S' \times_S R, s', t', c', e', i')$
+成立。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-quasi-finite-over-base-j-proper}
+设 $S$ 为概形。设 $(U, R, s, t, c)$ 为 $S$ 上的群胚概形。
+设 $p \in S$ 为一点，并设 $u \in U$ 为位于 $p$ 上方的一点。
+假设引理 \ref{more-groupoids-lemma-quasi-finite-over-base} 的假设 (1) -- (6)
+成立，并且还有
+\begin{enumerate}
+\item[(7)] $j : R \to U \times_S U$ 普遍闭\footnote{
+鉴于其余条件，这等价于要求 $j$ 为固有态射。}。
+\end{enumerate}
+则可以选取 $(S', p') \to (S, p)$、分解
+$S' \times_S U = U' \amalg W$ 和
+$S' \times_S R = R' \amalg W'$，以及 $u' \in U'$，
+使引理 \ref{more-groupoids-lemma-quasi-finite-over-base} 的 (a) -- (g) 成立，
+并且还有
+\begin{enumerate}
+\item[(h)] $R'$ 是 $S' \times_S R$ 向 $U'$ 的限制。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+把引理 \ref{more-groupoids-lemma-quasi-finite-over-base} 应用于概形 $S$ 上的群胚
+$(U, R, s, t, c)$ 及点 $p$、$u$。由此得到平展（\'etale）邻域
+$(S', p') \to (S, p)$、不交并分解
+$$
+S' \times_S U = U' \amalg W, \quad
+S' \times_S R = R' \amalg W'
+$$
+以及满足结论 (a)、(b)、(c)、(d)、(e)、(f)、(g) 的 $u' \in U'$。
+可以把 $S'$ 缩小为 $p'$ 的更小邻域，而不影响结论 (a) -- (g)。
+下面证明适当缩小后结论 (h) 也成立。记 $j'$ 为 $j$ 到 $S'$ 的基变换。
+由结论 (e)，显然
+$$
+j'^{-1}(U' \times_{S'} U') = R' \amalg Rest
+$$
+其中 $Rest$ 是某个开闭部分。由结论 (d)，$U' \to S'$ 有限，
+故 $U' \times_{S'} U'$ 在 $S'$ 上有限。
+由于 $j$ 普遍闭，$j'$ 也普遍闭，从而 $j'|_{Rest}$
+也普遍闭。由结论 (b) 和 (c)，可见态射
+$$
+(U' \times_{S'} U' \to S') \circ j'|_{Rest} :
+Rest
+\longrightarrow
+S'
+$$
+在 $p'$ 上的纤维为空。因此，由于 $Rest \to S'$ 是闭态射的复合，
+故为闭态射；用
+$S' \setminus \Im(Rest \to S')$ 代替 $S'$ 后，
+可以假设 $Rest = \emptyset$。这恰好是说 $R'$ 是
+$S' \times_S R$ 向开子概形 $U' \subset S' \times_S U$ 的限制，
+见 Groupoids, Lemma
+\ref{groupoids-lemma-restrict-groupoid-relation} 及其证明。
+\end{proof}
+
+
+
+
+
+
+\section{有限群胚}
+\label{more-groupoids-section-finite-groupoids}
+
+\noindent
+若态射 $s$ 和 $t$ 有限，群胚概形 $(U, R, s, t, c)$
+有时称为{\it 有限的}。这个说法可能造成混淆，因为它并不蕴含
+$U$、$R$ 或商层 $U/R$ 在任何对象上有限。
+
+\begin{lemma}
+\label{more-groupoids-lemma-finite-stratify}
+设 $(U, R, s, t, c)$ 为概形 $S$ 上的群胚概形，并假设 $s, t$ 有限。
+存在一列 $R$-不变闭子概形
+$$
+U = Z_0 \supset Z_1 \supset Z_2 \supset \ldots
+$$
+使得 $\bigcap Z_r = \emptyset$，并且
+$s^{-1}(Z_{r - 1}) \setminus s^{-1}(Z_r) \to Z_{r - 1} \setminus Z_r$
+有限局部自由，秩为 $r$。
+\end{lemma}
+
+\begin{proof}
+设 $\{Z_r\}$ 为有限型拟凝聚模
+$s_*\mathcal{O}_R$ 的 Fitting 理想在 $U$ 上给出的分层，见
+Divisors, Lemma
+\ref{divisors-lemma-locally-free-rank-r-pullback}。
+由于恒等态射 $e : U \to R$ 是 $s$ 的截面，可见
+$s_*\mathcal{O}_R$ 以 $\mathcal{O}_S$ 为直和项。
+因此 $U = Z_{-1} = Z_0$（略去细节）。
+由于 Fitting 理想的形成与基变换交换
+（More on Algebra, Lemma
+\ref{more-algebra-lemma-fitting-ideal-basics}），
+并且图 (\ref{more-groupoids-equation-diagram}) 的右下方块为 Cartesian 方块，
+可见 $s^{-1}(Z_r)$ 对应于
+$\text{pr}_{1, *}\mathcal{O}_{R \times_{s, U, t} R}$
+的第 $r$ 个 Fitting 理想。再利用左下方块也为 Cartesian 方块，
+得到 $s^{-1}(Z_r) = t^{-1}(Z_r)$；换言之，$Z_r$ 为 $R$-不变。
+态射
+$s^{-1}(Z_{r - 1}) \setminus s^{-1}(Z_r) \to Z_{r - 1} \setminus Z_r$
+有限局部自由且秩为 $r$，因为由 Divisors, Lemma
+\ref{divisors-lemma-locally-free-rank-r-pullback}，
+模 $s_*\mathcal{O}_R$ 在 $Z_{r - 1} \setminus Z_r$ 上拉回为
+秩 $r$ 的有限局部自由模。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme}
+设 $(U, R, s, t, c)$ 为概形 $S$ 上的群胚概形，并假设 $s, t$ 有限。
+存在开子概形 $W \subset U$ 和闭子概形 $W' \subset W$，使得
+\begin{enumerate}
+\item $W$ 和 $W'$ 均为 $R$-不变；
+\item 在集合论意义下，$U = t(s^{-1}(\overline{W}))$；
+\item $W$ 是 $W'$ 的加厚；并且
+\item 限制 $(W', R', s', t', c')$ 的映射 $s'$, $t'$
+有限局部自由。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+考虑引理 \ref{more-groupoids-lemma-finite-stratify} 的分层
+$U = Z_0 \supset Z_1 \supset Z_2 \supset \ldots$。
+
+\medskip\noindent
+我们将构造不交并
+$W = \coprod_{r \geq 1} W_r$ 和
+$W' = \coprod_{r \geq 1} W'_r$，使每个
+$W'_r \to W_r$ 都是 $U$ 的 $R$-不变子概形的加厚，
+且限制 $(W_r', R_r', s_r', t_r', c_r')$ 的态射
+$s_r', t_r'$ 有限局部自由，秩为 $r$。
+首先令 $W_1 = W'_1 = U \setminus Z_1$。
+这是 $U$ 的 $R$-不变开子概形；$W_0$ 确实是 $W'_0$ 的加厚；
+而限制 $(W_1', R_1', s_1', t_1', c_1')$ 的映射
+$s_1'$, $t_1'$ 为同构，也就是秩 $1$ 的有限局部自由态射。
+此外，$U \setminus Z_1$ 的每个点都属于
+$t(s^{-1}(\overline{W_1}))$。
+
+\medskip\noindent
+假设对 $r \leq n$ 已找到子概形 $W'_r \subset W_r \subset U$，使得
+\begin{enumerate}
+\item $W_1, \ldots, W_n$ 两两不交；
+\item $W_r$ 和 $W_r'$ 为 $R$-不变；
+\item 在集合论意义下，
+$U \setminus Z_n \subset \bigcup_{r \leq n} t(s^{-1}(\overline{W_r}))$；
+\item $W_r$ 是 $W'_r$ 的加厚；
+\item 限制 $(W_r', R_r', s_r', t_r', c_r')$ 的映射
+$s_r'$, $t_r'$ 有限局部自由，秩为 $r$。
+\end{enumerate}
+然后在集合论意义下令
+$$
+W_{n + 1} = Z_n \setminus
+\left(
+Z_{n + 1} \cup \bigcup\nolimits_{r \leq n} t(s^{-1}(\overline{W_r}))
+\right)
+$$
+而在概形论意义下令
+$$
+W'_{n + 1} = Z_n \setminus
+\left(
+Z_{n + 1} \cup \bigcup\nolimits_{r \leq n} t(s^{-1}(\overline{W_r}))
+\right)
+$$
+则 $W_{n + 1}$ 是 $U$ 的 $R$-不变开子概形。事实上，
+$Z_{n + 1} \setminus \overline{U \setminus Z_{n + 1}}$ 在 $U$ 中开，
+而由性质 (3) 及 $t$ 为闭态射这一事实，
+$\overline{U \setminus Z_{n + 1}}$ 包含于我们所删去的闭子集
+$\bigcup\nolimits_{r \leq n} t(s^{-1}(\overline{W_r}))$。
+显然，$W'_{n + 1}$ 是 $W_{n + 1}$ 中具有相同底拓扑空间的闭子概形。
+最后，性质 (1)、(2)、(3) 显然，而性质 (5) 由引理
+\ref{more-groupoids-lemma-finite-stratify} 得出。
+
+\medskip\noindent
+由引理 \ref{more-groupoids-lemma-finite-stratify}，有
+$\bigcap Z_r = \emptyset$。因此 $U$ 的每个点都属于
+$U \setminus Z_n$，其中 $n$ 适当选取。所以在集合论意义下
+$U = \bigcup_{r \geq 1} t(s^{-1}(\overline{W_r}))$，
+从而 (2) 成立。于是 $W' \subset W$ 满足 (1)、(2)、(3)、(4)。
+\end{proof}
+
+\noindent
+设 $(U, R, s, t, c)$ 为群胚概形。给定点 $u \in U$，
+$u$ 的{\it $R$-轨道}是 $U$ 的子集 $t(s^{-1}(\{u\}))$。
+
+\begin{lemma}
+\label{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme-addendum}
+在引理 \ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme} 中，
+再假设 $s$ 和 $t$ 有限表现。则
+\begin{enumerate}
+\item 态射 $W' \to W$ 有限表现；并且
+\item 若 $u \in U$ 是一点，其 $R$-轨道由 $U$ 的不可约分支的一般点
+组成，则 $u \in W$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在这种情形，引理 \ref{more-groupoids-lemma-finite-stratify} 的分层
+$U = Z_0 \supset Z_1 \supset Z_2 \supset \ldots$
+由有限表现的闭浸入 $Z_k \to U$ 给出，见 Divisors, Lemma
+\ref{divisors-lemma-locally-free-rank-r-pullback}。
+由此立即得到 (1)，因为 $W' \to W$ 局部由开集 $W$ 与 $Z_r$
+相交给出。为证明 (2)，设 $\{u_1, \ldots, u_n\}$ 为 $u$ 的轨道。
+由于闭子概形 $Z_k$ 为 $R$-不变且
+$\bigcap Z_k = \emptyset$，可以找到 $k$，使所有 $i$ 均满足
+$u_i \in Z_k$ 且 $u_i \not \in Z_{k + 1}$。
+$Z_k \to U$ 和 $Z_{k + 1} \to U$ 的像局部可构造
+（Morphisms, Theorem \ref{morphisms-theorem-chevalley}）。
+由于 $u_i \in U$ 是 $U$ 的一个不可约分支的一般点，
+存在 $u_i$ 的开邻域 $U_i$，它在集合论意义下包含于
+$Z_k \setminus Z_{k + 1}$（Properties, Lemma
+\ref{properties-lemma-generic-point-in-constructible}）。
+在引理 \ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme} 的证明中，
+我们把 $W$ 构造为不交并 $\coprod W_r$，其中
+$W_r \subset Z_{r - 1} \setminus Z_r$，且
+$U = \bigcup t(s^{-1}(\overline{W_r}))$。
+由于 $\{u_1, \ldots, u_n\}$ 是一个 $R$-轨道，
+若 $u \in t(s^{-1}(\overline{W_r}))$，则对某个 $i$ 有
+$u_i \in \overline{W_r}$，从而
+$U_i \cap W_r \not = \emptyset$，继而 $r = k$。
+因此如欲证地得到 $u$ 属于
+$$
+W_{k + 1} = Z_k \setminus
+\left(
+Z_{k + 1} \cup \bigcup\nolimits_{r \leq k} t(s^{-1}(\overline{W_r}))
+\right)
+$$
+。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-invariant-affine-open-around-generic-point}
+设 $(U, R, s, t, c)$ 为概形 $S$ 上的群胚概形。假设 $s, t$
+有限且有限表现，并且 $U$ 拟分离。设
+$u_1, \ldots, u_m \in U$ 为若干点，它们的轨道均由 $U$
+的不可约分支的一般点组成。则存在 $R$-不变子概形
+$V' \subset V \subset U$，使得
+\begin{enumerate}
+\item $u_1, \ldots, u_m \in V'$；
+\item $V$ 在 $U$ 中开；
+\item $V'$ 和 $V$ 均仿射；
+\item $V' \subset V$ 是有限表现的加厚；
+\item 限制 $(V', R', s', t', c')$ 的态射 $s', t'$ 有限局部自由。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+取引理 \ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme} 中的
+$W' \subset W \subset U$。由引理
+\ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme-addendum}，
+有 $u_j \in W$，且 $W' \to W$ 是有限表现的加厚。
+由 Limits, Lemma \ref{limits-lemma-affines-glued-in-closed-affine}，
+只需找到 $W'$ 的一个包含 $u_j$ 的 $R$-不变仿射开子概形 $V'$
+（因为这时可令 $V \subset W$ 为对应的开子概形，而它将是仿射的）。
+因此可以用向 $W'$ 的限制
+$(W', R', s', t', c')$ 代替 $(U, R, s, t, c)$。
+换言之，可以假设群胚概形 $(U, R, s, t, c)$ 的态射 $s$、$t$
+有限局部自由。由 Properties, Lemma
+\ref{properties-lemma-maximal-points-affine}，
+可以找到一个包含 $u_1, \ldots, u_m$ 各轨道之并的仿射开集。
+最后应用 Groupoids, Lemma
+\ref{groupoids-lemma-find-invariant-affine} 即得结论。
+\end{proof}
+
+\noindent
+下一个引理是引理
+\ref{more-groupoids-lemma-invariant-affine-open-around-generic-point} 的特殊情形，
+但在本情形论证稍为容易，因此我们重作证明
+（这样可避免使用引理
+\ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme-addendum}）。
+
+\begin{lemma}
+\label{more-groupoids-lemma-invariant-affine-open-around-generic-point-Noetherian}
+设 $(U, R, s, t, c)$ 为概形 $S$ 上的群胚概形。
+假设 $s, t$ 有限，$U$ 局部 Noether，并且
+$u_1, \ldots, u_m \in U$ 的轨道均由 $U$ 的不可约分支的一般点组成。
+则存在 $R$-不变子概形 $V' \subset V \subset U$，使得
+\begin{enumerate}
+\item $u_1, \ldots, u_m \in V'$；
+\item $V$ 在 $U$ 中开；
+\item $V'$ 和 $V$ 均仿射；
+\item $V' \subset V$ 是加厚；
+\item 限制 $(V', R', s', t', c')$ 的态射 $s', t'$ 有限局部自由。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\{u_{j1}, \ldots, u_{jn_j}\}$ 为 $u_j$ 的轨道。
+取引理 \ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme} 中的
+$W' \subset W \subset U$。由于
+$U = t(s^{-1}(\overline{W}))$，可见至少有一个
+$u_{ji} \in \overline{W}$。由于 $u_{ji}$ 是不可约分支的一般点，
+且 $U$ 局部 Noether，这蕴含 $u_{ji} \in W$。
+又因 $W$ 为 $R$-不变，得到 $u_j \in W$，事实上整个轨道都包含于 $W$。
+由 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-image-affine-finite-morphism-affine-Noetherian}，
+只需找到 $W'$ 的一个包含 $u_1, \ldots, u_m$ 的
+$R$-不变仿射开子概形 $V'$
+（因为这时可令 $V \subset W$ 为对应的开子概形，而它将是仿射的）。
+因此可以用向 $W'$ 的限制
+$(W', R', s', t', c')$ 代替 $(U, R, s, t, c)$。
+换言之，可以假设群胚概形 $(U, R, s, t, c)$ 的态射 $s$、$t$
+有限局部自由。由 Properties, Lemma
+\ref{properties-lemma-maximal-points-affine}，
+可以找到包含 $\{u_{ij}\}$ 的仿射开集
+（由 Properties, Lemma
+\ref{properties-lemma-locally-Noetherian-quasi-separated}，
+局部 Noether 概形拟分离）。
+最后应用 Groupoids, Lemma
+\ref{groupoids-lemma-find-invariant-affine} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-find-affine-integral}
+设 $(U, R, s, t, c)$ 为概形 $S$ 上的群胚概形，其中 $s, t$ 整。
+设 $g : U' \to U$ 为整态射，并使 $U$ 中的每个 $R$-轨道都与
+$g(U')$ 相交。设 $(U', R', s', t', c')$ 为 $R$ 向 $U'$ 的限制。
+若 $u' \in U'$ 包含于一个 $R'$-不变仿射开集中，则其像
+$u \in U$ 包含于 $U$ 的一个 $R$-不变仿射开集中。
+\end{lemma}
+
+\begin{proof}
+设 $W' \subset U'$ 为 $R'$-不变仿射开集。令
+$\tilde R = U' \times_{g, U, t} R$，并带有映射
+$\text{pr}_0 : \tilde R \to U'$ 及
+$h = s \circ \text{pr}_1 : \tilde R \to U$。
+注意 $\text{pr}_0$ 和 $h$ 都是整态射。
+因此 $\tilde W = \text{pr}_0^{-1}(W')$ 仿射。
+由于 $W'$ 为 $R'$-不变，像 $W = h(\tilde W)$
+在集合论意义下为 $R$-不变，并且在集合论意义下
+$\tilde W = h^{-1}(W)$（略去细节）。
+所以，若能证明 $W$ 为开集，则 $W$ 是概形，且态射
+$\tilde W \to W$ 整且满；由 Limits, Proposition
+\ref{limits-proposition-affine}，这蕴含 $W$ 仿射。
+然而，每个轨道与 $U'$ 相交这一假设蕴含
+$h : \tilde R \to U$ 满。整满态射为商映射
+（Topology, Lemma
+\ref{topology-lemma-closed-morphism-quotient-topology} 及
+Morphisms, Lemma
+\ref{morphisms-lemma-integral-universally-closed}），
+所以 $W$ 为开集。
+\end{proof}
+
+\noindent
+下一个技术引理在拟仿射概形上的有限群胚情形中构造“几乎”不变函数。
+
+\begin{lemma}
+\label{more-groupoids-lemma-find-almost-invariant-function}
+设 $(U, R, s, t, c)$ 为群胚概形，其中 $s, t$ 有限且有限表现。
+设 $u_1, \ldots, u_m \in U$ 为若干点，其 $R$-轨道均由 $U$
+的不可约分支的一般点组成。设
+$j : U \to \Spec(A)$ 为浸入。设 $I \subset A$ 为理想，使得
+$j(U) \cap V(I) = \emptyset$ 且
+$V(I) \cup j(U)$ 在 $\Spec(A)$ 中闭。则存在 $h \in I$，使
+$j^{-1}D(h)$ 是 $U$ 的一个包含 $u_1, \ldots, u_m$ 的
+$R$-不变仿射开子概形。
+\end{lemma}
+
+\begin{proof}
+取引理 \ref{more-groupoids-lemma-invariant-affine-open-around-generic-point} 中的
+$u_1, \ldots, u_m \in V' \subset V \subset U$。
+由于 $U \setminus V$ 在 $U$ 中闭，$j$ 为浸入，且
+$V(I) \cup j(U)$ 在 $\Spec(A)$ 中闭，可以找到理想
+$J \subset I$，使
+$V(J) = V(I) \cup j(U \setminus V)$。
+例如，可以取 $I$ 中在 $j(U \setminus V)$ 上消失的元素所成的理想。
+因此可以用 $(V', R', s', t', c')$、
+$j|_{V'} : V' \to \Spec(A)$ 以及 $J$ 分别代替
+$(U, R, s, t, c)$、$j : U \to \Spec(A)$ 以及 $I$。
+换言之，可以假设 $U$ 仿射且 $s$、$t$ 有限局部自由。
+取任意 $f \in I$，使其在 $u_1, \ldots, u_m$ 的各个
+$R$-轨道的所有点处均不消失
+（Algebra, Lemma \ref{algebra-lemma-silly}）。考虑
+$$
+g = \text{Norm}_s(t^\sharp(j^\sharp(f))) \in \Gamma(U, \mathcal{O}_U)
+$$
+由于 $f \in I$，且 $V(I) \cup j(U)$ 闭，可见
+$U \cap D(f) \to D(f)$ 为闭浸入。因此对某个 $n > 0$，
+$f^ng$ 是某个元素 $h \in I$ 的像。我们断言 $h$ 合用。
+确实，在 Groupoids, Lemma
+\ref{groupoids-lemma-determinant-trick} 中已经看到，
+$g$ 是 $R$-不变函数，故 $D(g) \subset U$ 为 $R$-不变。
+由于 $f$ 在 $u_j$ 的轨道上不消失，函数 $g$ 在 $u_j$ 处不消失。
+此外，$V(g) \supset V(j^\sharp(f))$，故
+$j^{-1}D(h) = D(g)$。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-no-specializations-map-to-same-point}
+设 $(U, R, s, t, c)$ 为群胚概形。若 $s, t$ 有限，且
+$u, u' \in R$ 是同一轨道中的不同点，则 $u'$ 不是 $u$ 的特殊化。
+\end{lemma}
+
+\begin{proof}
+取 $r \in R$，使 $s(r) = u$ 且 $t(r) = u'$。
+若 $u \leadsto u'$，则可以找到非平凡特殊化
+$r \leadsto r'$，满足 $s(r') = u'$，见 Schemes, Lemma
+\ref{schemes-lemma-quasi-compact-closed}。
+令 $u'' = t(r')$。注意 $u'' \not = u'$，因为有限态射的纤维中
+不存在特殊化。因此可以继续，找到非平凡特殊化
+$r' \leadsto r''$，满足 $s(r'') = u''$，如此等等。
+这表明 $u$ 的轨道包含特殊化的无穷序列
+$u \leadsto u' \leadsto u'' \leadsto \ldots$；
+但这是荒谬的，因为轨道 $t(s^{-1}(\{u\}))$ 有限。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-get-affine}
+设 $j : V \to \Spec(A)$ 为概形的拟紧浸入。
+设 $f \in A$，使 $j^{-1}D(f)$ 仿射，且
+$j(V) \cap V(f)$ 闭。则 $V$ 仿射。
+\end{lemma}
+
+\begin{proof}
+这可由 Morphisms, Lemma
+\ref{morphisms-lemma-get-affine} 得出，但我们也给出直接证明。
+令 $A' = \Gamma(V, \mathcal{O}_V)$。则
+$j' : V \to \Spec(A')$ 是拟紧开浸入，见 Properties, Lemma
+\ref{properties-lemma-quasi-affine}。设 $f' \in A'$ 为 $f$ 的像。
+则 $(j')^{-1}D(f') = j^{-1}D(f)$ 仿射。另一方面，
+$j'(V) \cap V(f')$ 是 $\Spec(A')$ 的子概形，它同
+$\Spec(A)$ 的闭子概形 $j(V) \cap V(f)$ 同构。
+因此它在 $\Spec(A')$ 中闭，例如可见 Schemes, Lemma
+\ref{schemes-lemma-section-immersion}。
+故可以用 $A'$ 代替 $A$，并假设 $j$ 为开浸入且
+$A = \Gamma(V, \mathcal{O}_V)$。
+
+\medskip\noindent
+在这种情形，我们断言 $j(V) = \Spec(A)$，这将完成证明。
+否则，可以找到主仿射开集 $D(g) \subset \Spec(A)$，
+它同补集相交而避开闭子集 $j(V) \cap V(f)$。
+注意 $j$ 把 $j^{-1}D(f)$ 同构地映到 $D(f)$，见
+Properties, Lemma \ref{properties-lemma-invert-f-affine}。
+因此 $D(g)$ 同 $V(f)$ 相交。另一方面，$j^{-1}D(g)$ 是仿射开集
+$j^{-1}D(f)$ 的主开集，因而仿射。于是再次由 Properties, Lemma
+\ref{properties-lemma-invert-f-affine}，可见 $D(g)$ 同构于
+$j^{-1}D(g) \subset j^{-1}D(f)$，这蕴含
+$D(g) \subset D(f)$。这一矛盾完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-find-affine-codimension-1}
+设 $(U, R, s, t, c)$ 为群胚概形，并设 $u \in U$。假设
+\begin{enumerate}
+\item $s, t$ 是有限态射；
+\item $U$ 分离且局部 Noether；
+\item 对 $u$ 的轨道中的每个点 $u'$，有
+$\dim(\mathcal{O}_{U, u'}) \leq 1$。
+\end{enumerate}
+则 $u$ 包含于 $U$ 的一个 $R$-不变仿射开集中。
+\end{lemma}
+
+\begin{proof}
+$u$ 的 $R$-轨道有限。由条件 (2) 和 (3)，它包含于 $U$
+的一个仿射开集 $U'$，见 Varieties, Proposition
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}。
+于是 $t(s^{-1}(U \setminus U'))$ 是 $U$ 的不包含 $u$
+的 $R$-不变闭子集。因此
+$U \setminus t(s^{-1}(U \setminus U'))$ 是 $U'$ 中包含 $u$
+的 $R$-不变开集。用这个开集代替 $U$ 后，可以假设 $U$ 拟仿射。
+
+\medskip\noindent
+由引理 \ref{more-groupoids-lemma-find-affine-integral}，可以用其约化代替 $U$，
+并假设 $U$ 约化。这意味着引理
+\ref{more-groupoids-lemma-finite-flat-over-almost-dense-subscheme} 的
+$R$-不变子概形 $W' \subset W \subset U$ 相等，即 $W' = W$。
+由于 $U = t(s^{-1}(\overline{W}))$，$u$ 的 $R$-轨道中的某点
+$u'$ 包含于 $\overline{W}$；再由引理
+\ref{more-groupoids-lemma-find-affine-integral}，可以用 $\overline{W}$ 代替 $U$，
+并用 $u'$ 代替 $u$。因此可以假设存在稠密开 $R$-不变子概形
+$W \subset U$，使限制 $(W, R_W, s_W, t_W, c_W)$ 的态射
+$s_W, t_W$ 有限局部自由。
+
+\medskip\noindent
+若 $u \in W$，则由 Groupoids, Lemma
+\ref{groupoids-lemma-find-invariant-affine} 已得结论
+（因为 $W$ 拟仿射，所以 $W$ 的任意有限点集都包含于仿射开集中，
+见 Properties, Lemma
+\ref{properties-lemma-ample-finite-set-in-affine}）。
+故假设 $u \not \in W$，于是 $u$ 的轨道中没有点属于 $W$。
+设 $\xi \in U$ 是一个具有非平凡特殊化到 $u$ 的轨道中某点
+$u'$ 的点。由于 $u$ 的轨道内的点之间不存在特殊化
+（引理 \ref{more-groupoids-lemma-no-specializations-map-to-same-point}），
+可见 $\xi$ 不在该轨道中。由假设 (3)，$\xi$ 是 $U$ 的一般点，
+因而 $\xi \in W$。由于 $U$ 为 Noether 概形，这样的点只有有限多个，
+记为 $\xi_1, \ldots, \xi_m \in W$。由于 $s_W, t_W$ 平坦，
+每个 $\xi_j$ 的轨道都由 $W$（因而也由 $U$）的不可约分支的一般点组成。
+
+\medskip\noindent
+设 $j : U \to \Spec(A)$ 为 $U$ 到一个仿射概形的浸入
+（这是可能的，因为 $U$ 拟仿射）。设 $J \subset A$ 为理想，使
+$V(J) \cap j(W) = \emptyset$ 且
+$V(J) \cup j(W)$ 闭。把引理
+\ref{more-groupoids-lemma-find-almost-invariant-function}
+应用于群胚概形 $(W, R_W, s_W, t_W, c_W)$、态射
+$j|_W : W \to \Spec(A)$、诸点 $\xi_j$ 以及理想 $J$，
+得到 $f \in J$，使 $(j|_W)^{-1}D(f)$ 是包含 $\xi_j$（对所有
+$j$）的 $R_W$-不变仿射开集。由于 $f \in J$，可见
+$j^{-1}D(f) \subset W$；也就是说，$j^{-1}D(f)$ 是
+$U$ 的包含所有 $\xi_j$ 且包含于 $W$ 的 $R$-不变仿射开集。
+
+\medskip\noindent
+在
+$$
+U \setminus j^{-1}D(f) = j^{-1}V(f).
+$$
+上赋予约化诱导闭子概形结构，并记为 $Z$。
+则 $Z$ 在集合论意义下为 $R$-不变
+（但在概形论意义下未必为 $R$-不变）。
+设 $(Z, R_Z, s_Z, t_Z, c_Z)$ 为 $R$ 向 $Z$ 的限制。
+由于 $Z \to U$ 有限，可知 $s_Z$ 和 $t_Z$ 有限。
+由于 $u \in Z$，$u$ 的轨道包含于 $Z$，并且它与把 $u$ 视为 $Z$
+的一点所得的 $R_Z$-轨道一致。由于
+$\dim(\mathcal{O}_{U, u'}) \leq 1$，且所有 $j$ 均有
+$\xi_j \not \in Z$，可见对 $u$ 的轨道中的所有 $u'$，
+有 $\dim(\mathcal{O}_{Z, u'}) \leq 0$。
+换言之，$u$ 的 $R_Z$-轨道由 $Z$ 的不可约分支的一般点组成。
+
+\medskip\noindent
+设 $I \subset A$ 为理想，使 $V(I) \cap j(U) =\emptyset$
+且 $V(I) \cup j(U)$ 闭。把引理
+\ref{more-groupoids-lemma-find-almost-invariant-function} 应用于群胚概形
+$(Z, R_Z, s_Z, t_Z, c_Z)$、限制 $j|_Z$、理想 $I$
+以及点 $u \in Z$，得到 $h \in I$，使
+$j^{-1}D(h) \cap Z$ 是包含 $u$ 的 $R_Z$-不变仿射开集。
+
+
+\medskip\noindent
+考虑 $R_W$-不变函数（Groupoids, Lemma
+\ref{groupoids-lemma-determinant-trick}）
+$$
+g = 
+\text{Norm}_{s_W}(t_W^\sharp(j^\sharp(h)|_W)) \in \Gamma(W, \mathcal{O}_W)
+$$
+（下文只需要 $g$ 在 $j^{-1}D(f)$ 上的限制；在这种情形，
+范数沿仿射概形之间的有限局部自由态射取得。）
+我们断言
+$$
+V = (W_g \cap j^{-1}D(f)) \cup (j^{-1}D(h) \cap Z)
+$$
+是 $U$ 的 $R$-不变仿射开集，这将完成引理的证明。
+由构造，它在集合论意义下为 $R$-不变。
+由于 $V$ 是可构造集，要证明它开，只需证明它在 $U$ 中对一般化封闭
+（Topology, Lemma
+\ref{topology-lemma-characterize-closed-Noetherian}，
+或更一般的 Topology, Lemma
+\ref{topology-lemma-constructible-stable-specialization-closed}）。
+由于 $W_g \cap j^{-1}D(f)$ 在 $U$ 中开，只需考虑 $U$ 中的特殊化
+$u_1 \leadsto u_2$，其中 $u_2 \in j^{-1}D(h) \cap Z$。
+这意味着 $h$ 在 $j(u_2)$ 中非零，且 $u_2 \in Z$。
+若 $u_1 \in Z$，则 $j(u_1) \leadsto j(u_2)$；由于 $h$
+在 $j(u_2)$ 中非零，它在 $j(u_1)$ 中也非零，从而 $u_1 \in V$。
+若 $u_1 \not \in Z$ 且也不属于
+$W_g \cap j^{-1}D(f)$，则 $u_1 \in W$、$u_1 \not \in W_g$，
+因为 $Z = j^{-1}V(f)$ 的补集包含于 $W \cap j^{-1}D(f)$。
+因此存在点 $r_1 \in R$，使 $s(r_1) = u_1$，且 $h$
+在 $t(r_1)$ 中为零。由于 $s$ 有限，可以找到特殊化
+$r_1 \leadsto r_2$，满足 $s(r_2) = u_2$。
+但这时可知 $h$ 在 $u'_2 = t(r_2)$ 中为零，
+这同 $j^{-1}D(h) \cap Z$ 为 $R$-不变且 $u_2$ 属于其中相矛盾。
+因此 $V$ 为开集。
+
+
+\medskip\noindent
+注意，对于函数 $h \in I$，有 $V \subset j^{-1}D(h)$。
+因此得到浸入
+$$
+j' : V \longrightarrow \Spec(A_h)
+$$
+设 $f' \in A_h$ 为 $f$ 的像。则 $(j')^{-1}D(f')$
+是 $U$ 的仿射开集 $j^{-1}D(f)$ 中由 $g$ 确定的主开集。
+因此 $(j')^{-1}D(f)$ 仿射。最后，由 $h \in I$ 及理想 $I$ 的选取，
+$j'(V) \cap V(f') = j'(j^{-1}D(h) \cap Z)$
+在
+$\Spec(A_h/(f')) = \Spec((A/f)_h) = D(h) \cap V(f)$ 中闭。
+故可应用引理 \ref{more-groupoids-lemma-get-affine}，得出如上所断言的 $V$ 仿射。
+\end{proof}
+
+
+
+
+
+
+
+\section{ind-拟仿射态射的下降}
+\label{more-groupoids-section-ind-quasi-affine}
+
+\noindent
+ind-拟仿射态射定义于 More on Morphisms, Section
+\ref{more-morphisms-section-ind-quasi-affine}。
+本节是 Descent, Section
+\ref{descent-section-quasi-affine} 对 ind-拟仿射态射的对应版本。
+
+\medskip\noindent
+设 $X$ 为拟分离概形。设 $E \subset X$ 为 $X$ 的某个非空族拟紧开集
+之交。写成 $E = \bigcap_{i \in I} U_i$，其中
+$U_i \subset X$ 是拟紧开集且 $I$ 非空。
+加入有限交后，可以假设对 $i, j \in I$，存在 $k \in I$，使
+$U_k \subset U_i \cap U_j$。在这种情形，对定义于 $X$ 上的任意层
+$\mathcal{F}$，有
+\begin{equation}
+\label{more-groupoids-equation-sections-of-intersection}
+\Gamma(E, \mathcal{F}|_E) = \colim \Gamma(U_i, \mathcal{F}|_{U_i})
+\end{equation}
+确实，固定 $i_0 \in I$，并分别用 $U_{i_0}$ 和
+$\{i \in I \mid U_i \subset U_{i_0}\}$ 代替 $X$ 和 $I$。
+于是 $X$ 拟紧且拟分离，因而是谱空间，见 Properties, Lemma
+\ref{properties-lemma-quasi-compact-quasi-separated-spectral}。
+再由 Topology, Lemma
+\ref{topology-lemma-make-spectral-space} 及 Sheaves, Lemma
+\ref{sheaves-lemma-descend-opens} 可见该等式成立。
+（事实上，若 $\mathcal{F}$ 为 Abel 层，该公式对高阶上同调群也成立；
+见 Cohomology, Lemma \ref{cohomology-lemma-colimit}。）
+
+
+\begin{lemma}
+\label{more-groupoids-lemma-sits-in-functions}
+设 $X$ 为 ind-拟仿射概形。设 $E \subset X$ 为 $X$
+的某个非空族拟紧开集之交。令
+$A = \Gamma(E, \mathcal{O}_X|_E)$、$Y = \Spec(A)$。
+则 Schemes, Lemma
+\ref{schemes-lemma-morphism-into-affine} 的典范态射
+$$
+j : (E, \mathcal{O}_X|_E) \longrightarrow (Y, \mathcal{O}_Y)
+$$
+确定同构
+$(E, \mathcal{O}_X|_E) \to (E', \mathcal{O}_Y|_{E'})$，
+其中 $E' \subset Y$ 是若干拟紧开集之交。
+若 $W \subset E$ 在 $X$ 中开，则 $j(W)$ 在 $Y$ 中开。
+\end{lemma}
+
+\begin{proof}
+注意 $(E, \mathcal{O}_X|_E)$ 是局部环化空间，所以 Schemes, Lemma
+\ref{schemes-lemma-morphism-into-affine}
+可应用于 $A \to \Gamma(E, \mathcal{O}_X|_E)$。
+写成 $E = \bigcap_{i \in I} U_i$，其中 $I \not = \emptyset$，
+且 $U_i \subset X$ 为拟紧开集。可以且确实假设，对
+$i, j \in I$，存在 $k \in I$，使 $U_k \subset U_i \cap U_j$。
+令 $A_i = \Gamma(U_i, \mathcal{O}_{U_i})$。得到交换图
+$$
+\xymatrix{
+(E, \mathcal{O}_X|_E) \ar[r] \ar[d] &
+(\Spec(A), \mathcal{O}_{\Spec(A)}) \ar[d] \\
+(U_i, \mathcal{O}_{U_i}) \ar[r] &
+(\Spec(A_i), \mathcal{O}_{\Spec(A_i)})
+}
+$$
+由于 $U_i$ 拟仿射，可见 $U_i \to \Spec(A_i)$ 是拟紧开浸入。
+另一方面，$A = \colim A_i$。因此作为拓扑空间，
+$\Spec(A) = \lim \Spec(A_i)$（Limits, Lemma
+\ref{limits-lemma-topology-limit}）。由于
+$E = \lim U_i$（由 Topology, Lemma
+\ref{topology-lemma-make-spectral-space}），可见
+$E \to \Spec(A)$ 是到其像 $E'$ 的同胚，而且 $E'$ 是
+$\Spec(A)$ 中各开集 $U_i \subset \Spec(A_i)$ 的逆像之交。
+对任意 $e \in E$，局部环 $\mathcal{O}_{X, e}$
+是 $\mathcal{O}_{U_i, e}$ 的值，而后者与 $\Spec(A)$ 上的值相同。
+
+\medskip\noindent
+为证明引理的最后一个断言，论证如下。选取
+$i, j \in I$，使 $U_i \subset U_j$。考虑交换图
+$$
+\xymatrix{
+U_i \ar[r] \ar[d] & \Spec(A_i) \ar[d] \\
+U_i \ar[r] & \Spec(A_j)
+}
+\quad\quad
+\xymatrix{
+W \ar[r] \ar[d] & \Spec(A_i) \ar[d] \\
+W \ar[r] & \Spec(A_j)
+}
+\quad\quad
+\xymatrix{
+W \ar[r] \ar[d] & \Spec(A) \ar[d] \\
+W \ar[r] & \Spec(A_j)
+}
+$$
+由 Properties, Lemma
+\ref{properties-lemma-cartesian-diagram-quasi-affine}，
+第一个图为 Cartesian 方块。因此第二个图也为 Cartesian 方块。
+取极限后，得到第三个图为 Cartesian 方块，所以该图的顶部水平箭头
+是开浸入。
+\end{proof}
+
+\begin{lemma}
+\label{more-groupoids-lemma-affine-base-change}
+设给定概形的 Cartesian 方块
+$$
+\xymatrix{
+X \ar[d]_f \ar[r] & \Spec(B) \ar[d] \\
+Y \ar[r] & \Spec(A)
+}
+$$
+设 $E \subset Y$ 为 $Y$ 的某个非空族拟紧开集之交。若 $Y$ 拟分离，
+且 $A \to B$ 平坦，则
+$$
+\Gamma(f^{-1}(E), \mathcal{O}_X|_{f^{-1}(E)}) =
+\Gamma(E, \mathcal{O}_Y|_E) \otimes_A B
+$$
+\end{lemma}
+
+\begin{proof}
+写成 $E = \bigcap_{i \in I} V_i$，其中 $V_i \subset Y$ 为拟紧开集。
+可以且确实假设，对 $i, j \in I$，存在 $k \in I$，使
+$V_k \subset V_i \cap V_j$。于是类似地，在 $X$ 中有
+$f^{-1}(E) = \bigcap_{i \in I} f^{-1}(V_i)$。
+所以结论由等式 (\ref{more-groupoids-equation-sections-of-intersection})
+及其对 $V_i$、$f^{-1}(V_i)$ 的相应结论得出；后者即
+Cohomology of Schemes, Lemma
+\ref{coherent-lemma-flat-base-change-cohomology}。
+\end{proof}
+
+\begin{lemma}[Gabber]
+\label{more-groupoids-lemma-ind-quasi-affine}
+设 $S$ 为概形。设 $\{X_i \to S\}_{i\in I}$ 为 fpqc 覆盖。
+设 $(V_i/X_i, \varphi_{ij})$ 为关于
+$\{X_i \to S\}$ 的下降数据，见 Descent, Definition
+\ref{descent-definition-descent-datum-for-family-of-morphisms}。
+若每个态射 $V_i \to X_i$ 都 ind-拟仿射，则该下降数据有效。
+\end{lemma}
+
+\begin{proof}
+ind-拟仿射是概形态射的一项性质，且在任意基变换下保持，见
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-base-change-ind-quasi-affine}。
+因此 Descent, Lemma
+\ref{descent-lemma-descending-types-morphisms} 适用；
+只需在 fpqc 覆盖由单个仿射概形之间的平坦满态射
+$\{X \to S\}$ 给出时证明该引理。写成
+$X = \Spec(A)$、$S = \Spec(R)$，于是
+$R \to A$ 是忠实平坦环同态。设 $(V, \varphi)$ 为 $X$ 在 $S$
+上的下降数据，并假设 $V \to X$ ind-拟仿射；换言之，
+$V$ ind-拟仿射。
+
+\medskip\noindent
+设 $(U, R, s, t, c)$ 为 $S$ 上的群胚概形，其中
+$U = X$、$R = X \times_S X$，而 $s$、$t$、$c$ 取通常的定义。
+由 Groupoids, Lemma
+\ref{groupoids-lemma-cartesian-equivalent-descent-datum}，
+二元组 $(V, \varphi)$ 对应于群胚概形的 Cartesian 态射
+$(U', R', s', t', c') \to (U, R, s, t, c)$。
+任取一点 $u' \in U'$。由 Groupoids, Lemmas
+\ref{groupoids-lemma-constructing-invariant-opens}、
+\ref{groupoids-lemma-first-observation} 和
+\ref{groupoids-lemma-second-observation}，
+可以选取 $u' \in W \subset E \subset U'$，其中
+$W$ 开且为 $R'$-不变，而 $E$ 在集合论意义下为 $R'$-不变，
+并且是某个非空族拟紧开集之交。
+
+\medskip\noindent
+转回 $(V, \varphi)$ 的语言，对任意 $v \in V$，可以找到
+$v \in W \subset E \subset V$，满足以下性质：
+(a) $W$ 开，且 $\varphi(W \times_S X) = X \times_S W$；
+(b) $E$ 是若干拟紧开集之交，且在集合论意义下
+$\varphi(E \times_S X) = X \times_S E$。
+这里用 $E \times_S X$ 表示 $E$ 在 $V \times_S X$
+中关于投影态射的逆像，并对 $X \times_S E$ 使用类似记号。
+由引理 \ref{more-groupoids-lemma-affine-base-change}，这蕴含
+$\varphi$ 定义 $A \otimes_R A$-代数的同构
+\begin{align*}
+\Gamma(E, \mathcal{O}_V|_E) \otimes_R A
+& =
+\Gamma(E \times_S X, \mathcal{O}_{V \times_S X}|_{E \times_S X}) \\
+& \to
+\Gamma(X \times_S E, \mathcal{O}_{X \times_S V}|_{X \times_S E}) \\
+& =
+A \otimes_R \Gamma(E, \mathcal{O}_V|_E)
+\end{align*}
+称之为 $\psi$。$\varphi$ 的余圈条件转化为
+$\psi$ 的余圈条件，如 Descent, Definition
+\ref{descent-definition-descent-datum-modules} 所述
+（略去细节）。由 Descent, Proposition
+\ref{descent-proposition-descent-module}，得到 $R$-代数 $R'$
+及 $A$-代数同构
+$\chi : R' \otimes_R A \to \Gamma(E, \mathcal{O}_V|_E)$，
+它与 $\psi$ 以及 $R' \otimes_R A$ 上的典范下降数据相容。
+
+\medskip\noindent
+由引理 \ref{more-groupoids-lemma-sits-in-functions}，得到局部环化空间的典范“嵌入”
+$$
+j : (E, \mathcal{O}_V|_E) \longrightarrow
+\Spec(\Gamma(E, \mathcal{O}_V|_E)) = \Spec(R' \otimes_R A)
+$$
+该映射的构造是典范的，并得到交换图
+$$
+\xymatrix{
+& E \times_S X \ar[rr]_\varphi \ar[ld] \ar[rd]^{j'} & &
+X \times_S E \ar[rd] \ar[ld]_{j''} \\
+E \ar[rd]^j  & &
+\Spec(R' \otimes_R A \otimes_R A) \ar[ld] \ar[rd] & &
+E \ar[ld]_j \\
+& \Spec(R' \otimes_R A) \ar[rd] && \Spec(R' \otimes_R A) \ar[ld] \\
+& & \Spec(R')
+}
+$$
+其中 $j'$ 和 $j''$ 来自把同一构造分别应用于
+$E \times_S X \subset V \times_S X$ 和
+$X \times_S E \subset X \times_S V$，并使用 $\chi$
+以及构造 $\psi$ 时所用的等同。于是 $j(W)$ 是
+$\Spec(R' \otimes_R A)$ 的开子概形，而且它在两个投影
+$\Spec(R' \otimes_R A \otimes_R A) \to \Spec(R' \otimes_R A)$
+下的逆像相等。由 Descent, Lemma
+\ref{descent-lemma-open-fpqc-covering}，得到开集
+$W_0 \subset \Spec(R')$，其向 $\Spec(A)$ 的基变换为 $j(W)$。
+考察上图，可见下降数据
+$(W, \varphi|_{W \times_S X})$ 有效。
+由 Descent, Lemma
+\ref{descent-lemma-effective-for-fpqc-is-local-upstairs}，
+可见原下降数据有效。
+\end{proof}

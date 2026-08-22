@@ -1,0 +1,3731 @@
+% Generated mechanically from the frozen stacks.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{7}
+\chapter{栈}
+
+
+
+\phantomsection
+\label{stacks-section-phantom}
+
+
+\section{引言}
+\label{stacks-section-introduction}
+
+\noindent
+在这一很短的章中，我们引入栈与群胚栈。见 \cite{DM} 与 \cite{Vis2}。
+
+
+\section{与纤维化范畴相关的态射预层}
+\label{stacks-section-morphisms}
+
+\noindent
+令 $\mathcal{C}$ 为范畴。令 $p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴，
+见 Categories, Section \ref{categories-section-fibred-categories}。
+设 $x, y\in \Ob(\mathcal{S}_U)$ 是 $U$ 上方纤维范畴中的对象。
+我们将定义函子
+$$
+\mathit{Mor}(x, y) : (\mathcal{C}/U)^{opp} \longrightarrow \textit{Sets}.
+$$
+换言之，这是 $\mathcal{C}/U$ 上的预层，见
+Sites, Definition \ref{sites-definition-presheaf}。
+依照 Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}
+选定拉回。对 $f : V \to U$，置
+$$
+\mathit{Mor}(x, y)(f : V \to U) =
+\Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y).
+$$
+令 $f' : V' \to U$ 为 $\mathcal{C}/U$ 的第二个对象。
+还需定义与 $\mathcal{C}/U$ 中态射
+$g : V'/U  \to V/U$ 对应的限制映射；换言之，
+$g : V' \to V$ 且 $f' = f \circ g$。该映射为
+$$
+\Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y)
+\longrightarrow
+\Mor_{\mathcal{S}_{V'}}({f'}^\ast x, {f'}^\ast y), \quad
+\phi \longmapsto \phi|_{V'}
+$$
+它基本上就是 $g^\ast$，但这会把左边的元素 $\phi$
+变为
+$\Mor_{\mathcal{S}_{V'}}(g^\ast f^\ast x, g^\ast f^\ast y)$
+中的元素 $g^\ast \phi$。此时使用 Categories,
+Lemma \ref{categories-lemma-fibred} 中的变换 $\alpha_{g, f}$。
+用公式表示，该限制映射为
+$$
+\phi|_{V'} =
+(\alpha_{g, f})_y^{-1} \circ
+g^\ast \phi \circ
+(\alpha_{g, f})_x.
+$$
+当然，实际使用时没有人会以这种方式思考该限制映射。
+我们只在此处这样做一次，以验证下列引理。
+
+\begin{lemma}
+\label{stacks-lemma-painful}
+上述构造确实给出一个预层。
+\end{lemma}
+
+\begin{proof}
+令 $g : V'/U \to V/U$ 如上，并令
+$g' : V''/U \to V'/U$ 同样为 $\mathcal{C}/U$ 中的态射。
+于是 $f' = f \circ g$，且
+$f'' = f' \circ g' = f \circ g \circ g'$。
+令 $\phi \in \Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y)$。则
+\begin{eqnarray*}
+& &
+(\alpha_{g \circ g', f})_y^{-1} \circ
+(g \circ g')^\ast \phi \circ
+(\alpha_{g \circ g', f})_x
+\\
+& = &
+(\alpha_{g \circ g', f})_y^{-1} \circ
+(\alpha_{g', g})_{f^*y}^{-1} \circ
+(g')^*g^\ast \phi \circ
+(\alpha_{g', g})_{f^*x} \circ
+(\alpha_{g \circ g', f})_x
+\\
+& = &
+(\alpha_{g', f'})_y^{-1} \circ
+(g')^*(\alpha_{g, f})_y^{-1} \circ
+(g')^* g^\ast \phi \circ
+(g')^*(\alpha_{g, f})_x
+\circ
+(\alpha_{g', f'})_x
+\\
+& = &
+(\alpha_{g', f'})_y^{-1} \circ
+(g')^*\Big(
+(\alpha_{g, f})_y^{-1} \circ
+g^\ast \phi \circ
+(\alpha_{g, f})_x
+\Big) \circ
+(\alpha_{g', f'})_x
+\end{eqnarray*}
+这正是所需的等式
+$\phi|_{V''} = (\phi|_{V'})|_{V''}$。
+第一个等式成立，是因为 $\alpha_{g', g}$ 是函子之间的变换，因而
+$$
+\xymatrix{
+(g \circ g')^*f^*x
+\ar[rr]_{(g \circ g')^\ast \phi}
+\ar[d]_{(\alpha_{g', g})_{f^*x}} & &
+(g \circ g')^*f^*y
+\ar[d]^{(\alpha_{g', g})_{f^*y}} \\
+(g')^*g^*f^*x
+\ar[rr]^{(g')^*g^\ast \phi} & &
+(g')^*g^*f^*y
+}
+$$
+交换。第二个等式由伪函子的性质 (d) 得出，因为
+$f' = f \circ g$（见 Categories,
+Definition \ref{categories-definition-functor-into-2-category}）。
+最后一个等式来自 $(g')^*$ 是函子这一事实。
+\end{proof}
+
+\noindent
+从现在起，我们常常不再明说变换 $\alpha_{g, f}$，而直接等同函子
+$g^* \circ f^*$ 与 $(f \circ g)^*$。特别地，给定
+$g : V'/U \to V/U$，预层 $\mathit{Mor}(x, y)$ 的限制映射
+有时记作 $\phi \mapsto g^*\phi$。我们用一个定义形式化该构造。
+
+\begin{definition}
+\label{stacks-definition-mor-presheaf}
+令 $\mathcal{C}$ 为范畴。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴，见
+Categories, Section \ref{categories-section-fibred-categories}。
+给定 $\mathcal{C}$ 的对象 $U$ 以及纤维范畴的对象
+$x$、$y$，
+所谓{\it 从 $x$ 到 $y$ 的态射预层}，是上面描述的预层
+$$
+(f : V \to U) \longmapsto \Mor_{\mathcal{S}_V}(f^*x, f^*y)
+$$
+记为 $\mathit{Mor}(x, y)$。其子预层 $\mathit{Isom}(x, y)$
+在 $V$ 上的值是纤维范畴 $\mathcal{S}_V$ 中所有同构
+$f^*x \to f^*y$ 所成的集合，称为{\it 从 $x$ 到 $y$ 的同构预层}。
+\end{definition}
+
+\noindent
+若 $\mathcal{S}$ 以群胚为纤维，则当然有
+$\mathit{Isom}(x, y) = \mathit{Mor}(x, y)$，并且通常使用
+$\mathit{Isom}$ 这一记号。
+
+\begin{lemma}
+\label{stacks-lemma-presheaf-mor-map-fibred-categories}
+令 $F : \mathcal{S}_1 \to \mathcal{S}_2$ 为范畴 $\mathcal{C}$
+上纤维化范畴的 $1$-态射。令
+$U \in \Ob(\mathcal{C})$ 且
+$x, y\in \Ob((\mathcal{S}_1)_U)$。则 $F$ 在
+$\mathcal{C}/U$ 上定义预层的典范态射
+$$
+\mathit{Mor}_{\mathcal{S}_1}(x, y)
+\longrightarrow
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))
+$$
+\end{lemma}
+
+\begin{proof}
+由 Categories,
+Definition \ref{categories-definition-fibred-categories-over-C}，
+函子 $F$ 把强笛卡尔态射映为强笛卡尔态射。因此，若
+$f : V \to U$ 是 $\mathcal{C}$ 中的态射，则存在典范同构
+$\alpha_V : f^*F(x) \to F(f^*x)$ 与
+$\beta_V : f^*F(y) \to F(f^*y)$，使得
+$f^*F(x) \to F(f^*x) \to F(x)$ 是典范态射
+$f^*F(x) \to F(x)$；对 $\beta_V$ 亦然。因此可用
+$\phi \mapsto \beta_V^{-1} \circ F(\phi) \circ \alpha_V$
+定义
+$$
+\xymatrix{
+\mathit{Mor}_{\mathcal{S}_1}(x, y)(f : V \to U) \ar@{=}[r] &
+\Mor_{\mathcal{S}_{1, V}}(f^\ast x, f^\ast y) \ar[d] \\
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))(f : V \to U) \ar@{=}[r] &
+\Mor_{\mathcal{S}_{2, V}}(f^\ast F(x), f^\ast F(y))
+}
+$$
+略去其与限制映射相容的验证。
+\end{proof}
+
+\begin{remark}
+\label{stacks-remark-alternative}
+设 $p : \mathcal{S} \to \mathcal{C}$ 以群胚为纤维。
+此时可证明 Lemma \ref{stacks-lemma-painful}；所用的是 Categories,
+Lemma \ref{categories-lemma-fibred-strict}，后者说明，
+$\mathcal{S} \to \mathcal{C}$ 等价于反变函子
+$F : \mathcal{C} \to \textit{Groupoids}$ 所对应的范畴。
+对与 $F$ 对应的纤维化范畴，严格地有
+$g^* \circ f^* = (f \circ g)^*$，无需使用映射
+$\alpha_{g, f}$。此时该引理（更为）平凡。
+当然，这还用到了：换成等价的纤维化范畴时，
+$\mathit{Mor}(x, y)$ 预层不变；这由
+Lemma \ref{stacks-lemma-presheaf-mor-map-fibred-categories} 得出。
+\end{remark}
+
+\begin{lemma}
+\label{stacks-lemma-isom-as-2-fibre-product}
+令 $\mathcal{C}$ 为范畴。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴，见
+Categories, Section \ref{categories-section-fibred-categories}。
+令 $U \in \Ob(\mathcal{C})$ 且
+$x, y \in \Ob(\mathcal{S}_U)$。
+% P01-ERRATA: P01-E0178 -- "Denote x, y ... also the corresponding 1-morphisms" needs "also by" or recasting.
+仍以 $x, y : \mathcal{C}/U \to \mathcal{S}$ 记相应的 $1$-态射，
+见 Categories, Lemma \ref{categories-lemma-yoneda-2category}。则
+\begin{enumerate}
+\item $2$-纤维积
+$\mathcal{S} \times_{\mathcal{S} \times \mathcal{S}, (x, y)} \mathcal{C}/U$
+在 $\mathcal{C}/U$ 上以集合胚为纤维；并且
+\item $\mathit{Isom}(x, y)$ 是与该集合胚纤维化范畴对应的集合预层，
+见 Categories, Lemma \ref{categories-lemma-2-category-fibred-setoids}。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：该 $2$-纤维积的对象是
+$(a : V \to U, z, (\alpha, \beta))$，其中
+$\alpha : z \to a^*x$ 与 $\beta : z \to a^*y$
+是 $\mathcal{S}_V$ 中的同构。因此，把这样的对象指派给同构
+$\beta \circ \alpha^{-1}$，便得到它与
+$\mathit{Isom}(x, y)$ 之间的关系。
+\end{proof}
+
+
+
+
+
+\section{纤维化范畴中的下降数据}
+\label{stacks-section-descent-data}
+
+\noindent
+本节在纤维化范畴的抽象框架中定义下降数据的概念。
+在此之前先指出，这与拟凝聚层的下降数据
+（Descent, Section \ref{descent-section-equivalence}）
+以及概形之上的概形的下降数据
+（Descent, Section \ref{descent-section-descent-datum}）
+完全类似。
+
+\medskip\noindent
+我们采用如下约定：投影映射
+$\text{pr}_i : X \times \ldots \times X \to X$
+的下标从 $i = 0$ 开始。因此有
+$\text{pr}_0, \text{pr}_1 : X \times X  \to X$、
+$\text{pr}_0, \text{pr}_1, \text{pr}_2 : X \times X \times X  \to X$
+等等。
+
+\begin{definition}
+\label{stacks-definition-descent-data}
+令 $\mathcal{C}$ 为范畴。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴。
+依照 Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}
+选定拉回。令
+$\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+为 $\mathcal{C}$ 中的态射族。假设所有纤维积
+$U_i \times_U U_j$ 与
+$U_i \times_U U_j \times_U U_k$ 均存在。
+\begin{enumerate}
+\item 所谓 $\mathcal{S}$ 中{\it 相对于族
+$\{f_i : U_i \to U\}$ 的下降数据
+$(X_i, \varphi_{ij})$}，由下列资料给出：对每个 $i \in I$，
+给定 $\mathcal{S}_{U_i}$ 的对象 $X_i$；对每对
+$(i, j) \in I^2$，给定 $\mathcal{S}_{U_i \times_U U_j}$
+中的同构
+$\varphi_{ij} : \text{pr}_0^*X_i \to \text{pr}_1^*X_j$；
+并要求对每组三个下标 $(i, j, k) \in I^3$，图表
+$$
+\xymatrix{
+\text{pr}_0^*X_i \ar[rd]_{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} & &
+\text{pr}_2^*X_k \\
+& \text{pr}_1^*X_j \ar[ru]_{\text{pr}_{12}^*\varphi_{jk}} &
+}
+$$
+在范畴
+$\mathcal{S}_{U_i \times_U U_j \times_U U_k}$ 中交换。
+这称为{\it 余循环条件}。
+\item 所谓{\it 下降数据的态射
+$\psi : (X_i, \varphi_{ij}) \to
+(X'_i, \varphi'_{ij})$}，由态射族
+$\psi = (\psi_i)_{i\in I}$ 给出，其中
+$\psi_i : X_i \to X'_i$ 是 $\mathcal{S}_{U_i}$ 中的态射，
+并且所有图表
+$$
+\xymatrix{
+\text{pr}_0^*X_i \ar[r]_{\varphi_{ij}} \ar[d]_{\text{pr}_0^*\psi_i}
+& \text{pr}_1^*X_j \ar[d]^{\text{pr}_1^*\psi_j} \\
+\text{pr}_0^*X'_i \ar[r]^{\varphi'_{ij}} &
+\text{pr}_1^*X'_j \\
+}
+$$
+在范畴 $\mathcal{S}_{U_i \times_U U_j}$ 中交换。
+\item 相对于 $\mathcal{U}$ 的下降数据所成的范畴记作
+$DD(\mathcal{U})$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+如果每个态射 $f_i : U_i \to U$ 都是{\it 可表的}，则纤维积
+$U_i \times_U U_j$ 与
+$U_i \times_U U_j \times_U U_k$ 存在；见 Categories,
+Definition \ref{categories-definition-representable-morphism}。
+回忆，在位点中，覆盖 $\{U_i \to U\}$ 的条件之一是每个态射均可表，
+见 Sites, Definition \ref{sites-definition-site} 第 (3) 部分。
+事实上，上述定义主要用于 $\mathcal{C}$ 是位点且
+$\{U_i \to U\}$ 是 $\mathcal{C}$ 的覆盖的情形。
+不过，下降数据只是可以如上定义的抽象构造。这一点很有用：
+例如，给定 $\mathcal{C}$ 上的纤维化范畴，可以考察下降数据对哪些族有效，
+并尝试把这些族用作位点的覆盖族。
+
+\begin{remarks}
+\label{stacks-remarks-definition-descent-datum}
+关于 Definition \ref{stacks-definition-descent-data} 有两点说明。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴，并令
+$\{f_i : U_i \to U\}_{i \in I}$ 与
+$(X_i, \varphi_{ij})$ 如
+Definition \ref{stacks-definition-descent-data} 中所述。
+\begin{enumerate}
+\item 存在对角态射
+$\Delta : U_i \to U_i \times_U U_i$。
+沿该态射拉回 $\varphi_{ii}$，得到自同构
+$\Delta^\ast \varphi_{ii} \in \text{Aut}_{U_i}(X_i)$。
+把三元组 $(i, i, i)$ 的余循环条件沿
+$\Delta_{123} : U_i \to U_i \times_U U_i \times_U U_i$
+拉回，可推出
+$\Delta^\ast \varphi_{ii} \circ \Delta^\ast \varphi_{ii} =
+\Delta^\ast \varphi_{ii}$；因而
+$\Delta^\ast \varphi_{ii} = \text{id}_{X_i}$。
+\item 存在态射
+$\Delta_{13}: U_i \times_U U_j \to U_i \times_U U_j \times_U U_i$。
+把三元组 $(i, j, i)$ 的余循环条件沿该态射拉回，得到恒等式
+$(\sigma^\ast \varphi_{ji}) \circ \varphi_{ij} =
+\text{id}_{\text{pr}_0^\ast X_i}$，其中
+$\sigma : U_i \times_U U_j \to U_j \times_U U_i$
+是交换态射。
+\end{enumerate}
+\end{remarks}
+
+\begin{lemma}
+\label{stacks-lemma-pullback}
+（下降数据的拉回。）
+令 $\mathcal{C}$ 为范畴。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴。
+% P01-ERRATA: P01-E0179 -- "Make a choice pullbacks" is missing "of".
+依照 Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}
+选定拉回。令
+$\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ 与
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+为 $\mathcal{C}$ 中具有固定目标的态射族。
+% P01-ERRATA: P01-E0180 -- the source says "be a families"; the plural subject requires "be families".
+假设所有纤维积
+$U_i \times_U U_{i'}$、
+$U_i \times_U U_{i'} \times_U U_{i''}$、
+$V_j \times_V V_{j'}$ 与
+$V_j \times_V V_{j'} \times_V V_{j''}$ 均存在。
+令 $\alpha : I \to J$、$h : U \to V$ 以及
+$g_i : U_i \to V_{\alpha(i)}$ 给出具有固定目标的映射族之间的态射，
+见 Sites, Definition \ref{sites-definition-morphism-coverings}。
+\begin{enumerate}
+\item 令 $(Y_j, \varphi_{jj'})$ 为相对于族
+$\{V_j \to V\}$ 的下降数据。系统
+$$
+\left(
+g_i^*Y_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')}
+\right)
+$$
+是相对于 $\mathcal{U}$ 的下降数据。
+\item 该构造定义从相对于 $\mathcal{V}$ 的下降数据到相对于
+$\mathcal{U}$ 的下降数据的函子。
+\item 再给定 $\alpha' : I \to J$、$h' : U \to V$ 以及
+$g'_i : U_i \to V_{\alpha'(i)}$ 所给出的具有固定目标的映射族之间的态射；
+% P01-ERRATA: P01-E0181 -- the source omits an article before "morphism of families" in the second choice.
+若 $h = h'$，则由两组资料所得的下降数据函子典范同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{definition}
+\label{stacks-definition-pullback-functor}
+令 $\mathcal{U} = \{U_i \to U\}_{i \in I}$、
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$、
+$\alpha : I \to J$、$h : U \to V$ 以及
+$g_i : U_i \to V_{\alpha(i)}$ 如
+Lemma \ref{stacks-lemma-pullback} 中所述。该引理中构造的函子
+$$
+(Y_j, \varphi_{jj'}) \longmapsto
+(g_i^*Y_{\alpha(i)}, (g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')})
+$$
+称为下降数据上的{\it 拉回函子}。
+\end{definition}
+
+\noindent
+给定 $h : U \to V$，若存在覆盖 $h$ 的态射
+$\tilde h : \mathcal{U} \to \mathcal{V}$，则由
+Lemma \ref{stacks-lemma-pullback}，$\tilde h^*$ 与
+$\tilde h$ 的选择无关。因此，我们有时直接以 $h^*$ 表示拉回函子。
+
+\begin{definition}
+\label{stacks-definition-effective-descent-datum}
+令 $\mathcal{C}$ 为范畴。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴。
+依照 Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}
+选定拉回。令
+$\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+为目标为 $U$ 的态射族。假设所有纤维积
+$U_i \times_U U_j$ 与
+$U_i \times_U U_j \times_U U_k$ 均存在。
+\begin{enumerate}
+\item 给定 $\mathcal{S}_U$ 的对象 $X$，所谓{\it 平凡下降数据}，
+是相对于族 $\{\text{id}_U : U \to U\}$ 的下降数据
+$(X, \text{id}_X)$。
+\item 给定 $\mathcal{S}_U$ 的对象 $X$，把平凡下降数据
+$(X, \text{id}_X)$ 沿显然的映射
+$\{f_i : U_i \to U\} \to \{\text{id}_U : U \to U\}$
+拉回，就在对象族 $f_i^*X$ 上得到一个{\it 典范下降数据}。
+记该下降数据为 $(f_i^*X, can)$。
+\item 相对于 $\{f_i : U_i \to U\}$ 的下降数据
+$(X_i, \varphi_{ij})$ 称为{\it 有效的}，如果存在
+$\mathcal{S}_U$ 的对象 $X$，使
+$(X_i, \varphi_{ij})$ 同构于 $(f_i^*X, can)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，把 $X \in \mathcal{S}_U$ 指派到它相对于
+$\mathcal{U}$ 的典范下降数据，这一规则定义函子
+$$
+\mathcal{S}_U \longrightarrow DD(\mathcal{U}).
+$$
+下降数据有效，当且仅当它属于该函子的本质像。
+下面具体写出典范下降数据。
+
+\begin{lemma}
+\label{stacks-lemma-trivial-cocycle}
+在 Definition \ref{stacks-definition-effective-descent-datum} 第 (2) 部分的情形下，
+映射 $can_{ij} : \text{pr}_0^*f_i^*X \to \text{pr}_1^*f_j^*X$
+等于
+$(\alpha_{\text{pr}_1, f_j})_X \circ
+(\alpha_{\text{pr}_0, f_i})_X^{-1}$，其中
+$\alpha_{\cdot, \cdot}$ 如 Categories,
+Lemma \ref{categories-lemma-fibred} 中所述，并且我们使用映射
+$U_i \times_U U_j \to U$ 之间的等式
+$f_i \circ \text{pr}_0 = f_j \circ \text{pr}_1$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-compare-descent-condition}
+令 $\mathcal{C}$ 为范畴。令
+$
+\mathcal{V} = \{V_j \to U\}_{j \in J} \to
+\mathcal{U} = \{U_i \to U\}_{i \in I}
+$
+为 $\mathcal{C}$ 中具有固定目标的映射族之间的态射，它由
+$\text{id} : U \to U$、
+$\alpha : J \to I$ 以及
+$f_j : V_j \to U_{\alpha(j)}$ 给出。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴。若
+\begin{enumerate}
+\item 对 $0 \leq p \leq 3$ 与 $0 \leq q \leq 3$，当
+$p + q \geq 2$，并且
+$i_1, \ldots, i_p \in I$、$j_1, \ldots, j_q \in J$ 时，纤维积
+$U_{i_1} \times_U \ldots \times_U U_{i_p} \times_U
+V_{j_1} \times_U \ldots \times_U V_{j_q}$ 存在；
+\item 函子 $\mathcal{S}_U \to DD(\mathcal{V})$ 是等价；
+\item 对每个 $i \in I$，函子
+$\mathcal{S}_{U_i} \to DD(\mathcal{V}_i)$ 是全忠实的；且
+\item 对每个 $i, i' \in I$，函子
+$\mathcal{S}_{U_i \times_U U_{i'}} \to DD(\mathcal{V}_{ii'})$
+是忠实的。
+\end{enumerate}
+这里
+$\mathcal{V}_i = \{U_i \times_U V_j \to U_i\}_{j \in J}$，而
+$\mathcal{V}_{ii'} =
+\{U_i \times_U U_{i'} \times_U V_j \to
+U_i \times_U U_{i'}\}_{j \in J}$。
+则 $\mathcal{S}_U \to DD(\mathcal{U})$ 是等价。
+\end{lemma}
+
+\begin{proof}
+条件 (1) 保证有足够的纤维积可供使用，从而上述陈述有意义。
+我们先证明函子 $\mathcal{S}_U \to DD(\mathcal{U})$
+本质满射。设给定相对于 $\mathcal{U}$ 的下降数据
+$(X_i, \varphi_{ii'})$。
+由引理 \ref{stacks-lemma-pullback}，可将其拉回为相对于
+$\mathcal{V}$ 的下降数据 $(X_j, \varphi_{jj'})$。
+由假设 (2)，该下降数据有效，因而存在
+$\mathcal{S}_U$ 中的对象 $X$，使得平凡下降数据
+$(X, \text{id}_X)$ 沿态射
+$\mathcal{V} \to \{U \to U\}$ 的拉回同构于
+$(X_j, \varphi_{jj'})$。其次，注意有图式
+$$
+\xymatrix{
+\mathcal{V}_i \ar[r] \ar[d] &
+\mathcal{V} \ar[r] &
+\mathcal{U} \ar[d] \\
+\{U_i \to U_i\} \ar[rr] \ar[rru] & &
+\{U \to U\}
+}
+$$
+其箭头是 $\mathcal{C}$ 中具有固定目标的映射族之间的态射。
+这个图式并不交换，但由引理 \ref{stacks-lemma-pullback}，
+由此得到的下降数据拉回函子典范同构。因此，
+$(X, \text{id}_X)$ 与 $(X_i, \text{id}_{X_i})$
+在 $DD(\mathcal{V}_i)$ 中的拉回是同构对象。
+由假设 (3)，遂得到范畴 $\mathcal{S}_{U_i}$ 中的同构
+$(U_i \to U)^*X \to X_i$。
+我们略去验证这些箭头与态射 $\varphi_{ii'}$ 相容；
+提示：使用条件 (4) 中函子的忠实性。
+我们也略去验证函子
+$\mathcal{S}_U \to DD(\mathcal{U})$ 全忠实。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{栈}
+\label{stacks-section-definition}
+
+\noindent
+下面给出栈的定义。它把纤维化范畴的概念与下降的概念结合起来。
+
+\begin{definition}
+\label{stacks-definition-stack}
+令 $\mathcal{C}$ 为位点。$\mathcal{C}$ 上的一个{\it 栈}
+是 $\mathcal{C}$ 上的范畴 $p : \mathcal{S} \to \mathcal{C}$，
+并满足下列条件：
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ 是纤维化范畴，见
+Categories, Definition \ref{categories-definition-fibred-category}；
+\item 对任意 $U \in \Ob(\mathcal{C})$ 及任意
+$x, y \in \mathcal{S}_U$，预层 $\mathit{Mor}(x, y)$（见
+Definition \ref{stacks-definition-mor-presheaf}）是位点
+$\mathcal{C}/U$ 上的层；且
+\item 对位点 $\mathcal{C}$ 的任意覆盖
+$\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$，
+$\mathcal{S}$ 中相对于 $\mathcal{U}$ 的任意下降数据都是有效的。
+\end{enumerate}
+\end{definition}
+
+\noindent
+我们认为，上述表述是理解栈最方便的方式。具体而言，给定
+$\mathcal{C}$ 上的一个范畴，要验证它是栈，就依次检验性质
+(1)、(2) 与 (3)。如果该范畴不是纤维化的，性质 (2) 和 (3)
+当然没有意义。没有 (2)，就无法证明 (3) 中的下降在唯一同构意义下唯一，
+也无法证明其函子性。
+
+\medskip\noindent
+下一个引理给出一个等价定义。
+
+\begin{lemma}
+\label{stacks-lemma-stack-equivalences}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上的纤维化范畴。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{S}$ 是 $\mathcal{C}$ 上的栈；且
+\item 对位点 $\mathcal{C}$ 的任意覆盖
+$\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$，将对象送到其
+典范下降数据的函子
+$$
+\mathcal{S}_U \longrightarrow DD(\mathcal{U})
+$$
+是等价。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-substack}
+令 $p : \mathcal{S} \to \mathcal{C}$ 为位点
+$\mathcal{C}$ 上的栈。令 $\mathcal{S}'$ 为
+$\mathcal{S}$ 的子范畴。假设
+\begin{enumerate}
+\item 若 $\varphi : y \to x$ 是 $\mathcal{S}$ 的强笛卡尔态射，
+且 $x$ 是 $\mathcal{S}'$ 的对象，则 $y$ 同构于
+$\mathcal{S}'$ 的某个对象；
+\item $\mathcal{S}'$ 是 $\mathcal{S}$ 的满子范畴；且
+\item 若 $\{f_i : U_i \to U\}$ 是 $\mathcal{C}$ 的覆盖，
+$x$ 是 $\mathcal{S}$ 中位于 $U$ 上的对象，并且对每个 $i$，
+$f_i^*x$ 都同构于 $\mathcal{S}'$ 的某个对象，则
+$x$ 同构于 $\mathcal{S}'$ 的某个对象。
+\end{enumerate}
+那么 $\mathcal{S}' \to \mathcal{C}$ 是栈。
+\end{lemma}
+
+\begin{proof}
+略。提示：
+第一个条件保证 $\mathcal{S}'$ 是纤维化范畴。
+% P01-E0182: source-side wording candidate; canonical meaning is preserved.
+第二个条件保证 $\mathcal{S}'$ 的 $\mathit{Isom}$-预层都是层
+（因为它们与 $\mathcal{S}$ 中相应的预层相同）。
+第三个条件保证 $\mathcal{S}'$ 中满足下降条件：我们可先在
+$\mathcal{S}$ 中下降，再由 (3) 得知所得对象同构于
+$\mathcal{S}'$ 的某个对象。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-equivalent}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}_1$、$\mathcal{S}_2$ 为
+$\mathcal{C}$ 上的范畴。假设 $\mathcal{S}_1$ 与 $\mathcal{S}_2$ 作为
+$\mathcal{C}$ 上的范畴彼此等价。那么
+$\mathcal{S}_1$ 是 $\mathcal{C}$ 上的栈，当且仅当
+$\mathcal{S}_2$ 是 $\mathcal{C}$ 上的栈。
+\end{lemma}
+
+\begin{proof}
+令 $F : \mathcal{S}_1 \to \mathcal{S}_2$、
+$G : \mathcal{S}_2 \to \mathcal{S}_1$ 为
+$\mathcal{C}$ 上的函子，并令
+$i : F \circ G \to \text{id}_{\mathcal{S}_2}$、
+$j : G \circ F \to \text{id}_{\mathcal{S}_1}$ 为
+$\mathcal{C}$ 上函子的同构。由
+Categories, Lemma \ref{categories-lemma-fibred-equivalent}，
+$\mathcal{S}_1$ 纤维化，当且仅当
+$\mathcal{S}_2$ 在 $\mathcal{C}$ 上纤维化。因此可假设
+$\mathcal{S}_1$ 与 $\mathcal{S}_2$ 均纤维化。
+此外，Categories, Lemma
+\ref{categories-lemma-fibred-equivalent} 的证明表明，
+$F$ 与 $G$ 把强笛卡尔态射映为强笛卡尔态射；换言之，
+$F$ 与 $G$ 是 $\mathcal{C}$ 上纤维化范畴的 $1$-态射。
+这意味着，给定 $U \in \Ob(\mathcal{C})$ 及
+$x, y \in \mathcal{S}_{1, U}$，下列预层可相互识别：
+% P01-E0183: source-side category-subscript candidate; frozen display preserved.
+$$
+\mathit{Mor}_{\mathcal{S}_1}(x, y),
+\mathit{Mor}_{\mathcal{S}_1}(F(x), F(y)) :
+(\mathcal{C}/U)^{opp} \longrightarrow \textit{Sets}.
+$$
+见引理 \ref{stacks-lemma-presheaf-mor-map-fibred-categories}。因此，
+第一个是层，当且仅当第二个是层。
+最后还需证明：若 $\mathcal{S}_1$ 中的每个下降数据都有效，
+则 $\mathcal{S}_2$ 中的每个下降数据也都有效。
+为此，令 $(X_i, \varphi_{ii'})$ 为 $\mathcal{S}_2$ 中
+相对于位点 $\mathcal{C}$ 的覆盖 $\{U_i \to U\}$ 的下降数据。
+% P01-E0184: source-side missing-preposition candidate; meaning preserved.
+那么 $(G(X_i), G(\varphi_{ii'}))$ 是 $\mathcal{S}_1$ 中
+相对于覆盖 $\{U_i \to U\}$ 的下降数据。
+令 $X$ 为 $\mathcal{S}_{1, U}$ 的对象，使下降数据
+$(f_i^*X, can)$ 同构于 $(G(X_i), G(\varphi_{ii'}))$。
+于是 $F(X)$ 是 $\mathcal{S}_{2, U}$ 的对象，使下降数据
+$(f_i^*F(X), can)$ 同构于
+$(F(G(X_i)), F(G(\varphi_{ii'})))$；后者又利用 $i$
+同构于原下降数据 $(X_i, \varphi_{ii'})$。
+\end{proof}
+
+\noindent
+$\mathcal{C}$ 上栈的 $2$-范畴定义如下。
+
+\begin{definition}
+\label{stacks-definition-stacks-over-C}
+令 $\mathcal{C}$ 为位点。{\it $\mathcal{C}$ 上栈的
+$2$-范畴}是 $\mathcal{C}$ 上纤维化范畴的
+$2$-范畴（见 Categories, Definition
+\ref{categories-definition-fibred-categories-over-C}）的如下子
+$2$-范畴：
+\begin{enumerate}
+\item 其对象为栈 $p : \mathcal{S} \to \mathcal{C}$。
+\item 其 $1$-态射
+$(\mathcal{S}, p) \to (\mathcal{S}', p')$ 为函子
+$G : \mathcal{S} \to \mathcal{S}'$，满足
+$p' \circ G = p$，且 $G$ 把强笛卡尔态射映为强笛卡尔态射。
+\item 对
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$，
+其 $2$-态射 $t : G \to H$ 为函子之间的态射，并且对所有
+$x \in \Ob(\mathcal{S})$ 都有
+$p'(t_x) = \text{id}_{p(x)}$。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{stacks-lemma-2-product-stacks}
+令 $\mathcal{C}$ 为位点。$\mathcal{C}$ 上栈的
+$(2, 1)$-范畴具有 2-纤维积，其描述与
+Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C} 中相同。
+\end{lemma}
+
+\begin{proof}
+令 $f : \mathcal{X} \to \mathcal{S}$ 与
+$g : \mathcal{Y} \to \mathcal{S}$ 为上述意义下
+$\mathcal{C}$ 上栈之间的 $1$-态射。由
+Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C} 描述的范畴
+$\mathcal{X} \times_\mathcal{S} \mathcal{Y}$，依
+Categories, Lemma
+\ref{categories-lemma-2-product-fibred-categories-over-C} 是纤维化范畴。
+（这里用到了 $f$ 与 $g$ 保持强笛卡尔态射。）
+还需证明态射预层是层，并且相对于 $\mathcal{C}$ 的覆盖的下降是有效的。
+
+\medskip\noindent
+回忆，$\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ 的对象
+由四元组 $(U, x, y, \phi)$ 给出，它位于
+$\mathcal{C}$ 的对象 $U$ 上。再令
+% P01-E0185: source-side missing-article candidate; meaning preserved.
+$(U, x', y', \phi')$ 为位于 $U$ 上的第二个对象。
+回忆，$\phi : f(x) \to g(y)$ 与
+$\phi' : f(x') \to g(y')$ 是范畴 $\mathcal{S}_U$ 中的同构。
+用这些同构来识别
+$z = f(x) = g(y)$ 与 $z' = f(x') = g(y')$。
+% P01-E0186: source-side agreement candidate; meaning preserved.
+在这些识别下，显然作为预层有
+$$
+\mathit{Mor}((U, x, y, \phi), (U, x', y', \phi'))
+=
+\mathit{Mor}(x, x')
+\times_{\mathit{Mor}(z, z')}
+\mathit{Mor}(y, y')
+$$
+然而，预层范畴中的纤维积保持层（Sites, Lemma
+\ref{sites-lemma-limit-sheaf}），故这是一个层。
+
+\medskip\noindent
+令 $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ 为位点
+$\mathcal{C}$ 的覆盖。令 $(X_i, \chi_{ij})$ 为
+$\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ 中相对于
+$\mathcal{U}$ 的下降数据。按上述方式写
+$X_i = (U_i, x_i, y_i, \phi_i)$，并依范畴
+$\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ 的定义写
+$\chi_{ij} = (\varphi_{ij}, \psi_{ij})$（见
+Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C}）。
+显然，$(x_i, \varphi_{ij})$ 是 $\mathcal{X}$ 中的下降数据，
+而 $(y_i, \psi_{ij})$ 是 $\mathcal{Y}$ 中的下降数据。
+由于 $\mathcal{X}$ 与 $\mathcal{Y}$ 都是栈，这些下降数据有效。
+于是得到 $x \in \Ob(\mathcal{X}_U)$ 与
+$y \in \Ob(\mathcal{Y}_U)$，它们与下降数据相容，并满足
+$x_i = x|_{U_i}$ 及 $y_i = y|_{U_i}$。
+令 $z = f(x)$、$z' = g(y)$；二者都是 $\mathcal{S}_U$ 的对象。
+态射 $\phi_i$ 是 $\mathit{Isom}(z, z')(U_i)$ 的元素，并满足
+$\phi_i|_{U_i \times_U U_j} = \phi_j|_{U_i \times_U U_j}$。
+因此，由 $\mathit{Isom}(z, z')$ 的层性质，得到同构
+$\phi : z = f(x) \to z' = g(y)$。
+我们略去验证，与
+$(\mathcal{X} \times_\mathcal{S} \mathcal{Y})_U$ 的对象
+$(U, x, y, \phi)$ 相联系的典范下降数据同构于起初给定的下降数据。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-characterize-ff}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}_1$、$\mathcal{S}_2$ 为
+$\mathcal{C}$ 上的栈。令
+$F : \mathcal{S}_1 \to \mathcal{S}_2$ 为 $1$-态射。
+下列条件等价：
+\begin{enumerate}
+\item $F$ 全忠实；
+\item 对每个 $U \in \Ob(\mathcal{C})$ 以及每个
+$x, y \in \Ob(\mathcal{S}_{1, U})$，映射
+$$
+F :
+\mathit{Mor}_{\mathcal{S}_1}(x, y)
+\longrightarrow
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))
+$$
+是位点 $\mathcal{C}/U$ 上层之间的同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1)。对 (2) 中的 $U, x, y$，上述映射 $F$
+在位于 $U$ 上的 $\mathcal{C}$ 的对象 $V$ 处取值为如下映射：
+$$
+\begin{aligned}
+F : \Mor_{\mathcal{S}_{1, V}}(x|_V, y|_V) &\to \\
+& \Mor_{\mathcal{S}_{2, V}}(F(x|_V), F(y|_V))
+\end{aligned}
+$$
+由于 $F$ 全忠实，相应映射
+$\Mor_{\mathcal{S}_1}(x|_V, y|_V) \to
+\Mor_{\mathcal{S}_2}(F(x|_V), F(y|_V))$
+为双射。纤维范畴 $\mathcal{S}_{1, V}$ 中的态射，恰为
+$\mathcal{S}_1$ 中 $x|_V$ 与 $y|_V$ 之间位于
+$\text{id}_V$ 上的态射。类似地，纤维范畴
+$\mathcal{S}_{2, V}$ 中的态射，恰为 $\mathcal{S}_2$ 中
+$F(x|_V)$ 与 $F(y|_V)$ 之间位于 $\text{id}_V$ 上的态射。
+因此，$F$ 也在这两者之间诱导双射，故 (2) 成立。
+
+\medskip\noindent
+假设 (2)。设给定 $\mathcal{C}$ 的对象 $U$、$V$，
+以及 $x \in \Ob(\mathcal{S}_{1, U})$ 和
+$y \in \Ob(\mathcal{S}_{1, V})$。要证明 $F$ 全忠实，
+只需证明它在位于某个固定 $f : U \to V$ 上的态射之间诱导双射。
+在 $\mathcal{S}_1$ 中选取位于 $f$ 上的强笛卡尔态射
+$f^*y \to y$。于是，$\mathcal{S}_1$ 中位于 $f$ 上的
+态射 $x \to y$ 的集合与
+$\Mor_{\mathcal{S}_{1, U}}(x, f^*y)$ 之间有双射。
+由于 $F$ 作为 $\mathcal{C}$ 上栈的 $2$-范畴中的
+$1$-态射保持强笛卡尔态射，$\mathcal{S}_2$ 中位于
+$f$ 上的态射 $F(x) \to F(y)$ 的集合与
+$\Mor_{\mathcal{S}_{2, U}}(F(x), F(f^*y))$ 之间也有双射。
+又因 $F$ 诱导双射
+$\Mor_{\mathcal{S}_{1, U}}(x, f^*y) \to
+\Mor_{\mathcal{S}_{2, U}}(F(x), F(f^*y))$，
+可知 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-characterize-essentially-surjective-when-ff}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}_1$、$\mathcal{S}_2$ 为
+$\mathcal{C}$ 上的栈。令
+$F : \mathcal{S}_1 \to \mathcal{S}_2$ 为全忠实的
+$1$-态射。下列条件等价：
+\begin{enumerate}
+\item $F$ 是等价；
+\item 对每个 $U \in \Ob(\mathcal{C})$ 及每个
+$x \in \Ob(\mathcal{S}_{2, U})$，存在覆盖
+$\{f_i : U_i \to U\}$，使得 $f_i^*x$ 属于函子
+$F : \mathcal{S}_{1, U_i} \to \mathcal{S}_{2, U_i}$
+的本质像。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) $\Rightarrow$ (2) 是立即的。
+为证明 (2) 蕴含 (1)，需证明 (2) 中的每个
+$x$ 均属于函子 $F$ 的本质像。
+为此，选取 (2) 中的覆盖、对象
+$x_i \in \Ob(\mathcal{S}_{1, U_i})$ 以及同构
+$\varphi_i : F(x_i) \to f_i^*x$。由下式取箭头
+$$
+\varphi_{ij} :
+x_i|_{U_i \times_U U_j}
+\longrightarrow
+x_j|_{U_i \times_U U_j}
+$$
+使 $F(\varphi_{ij}) = \varphi_j^{-1} \circ \varphi_i$，
+便得到 $\mathcal{S}_1$ 中相对于
+$\{f_i : U_i \to U\}$ 的下降数据。
+由栈的公理，该下降数据有效，故得到
+$\mathcal{S}_1$ 中位于 $U$ 上的对象 $x_1$。
+我们略去验证 $F(x_1)$ 在 $U$ 上同构于 $x$。
+\end{proof}
+
+\begin{remark}
+\label{stacks-remark-stack-make-small}
+（缩减一个“大的”栈以得到栈。）
+令 $\mathcal{C}$ 为位点。假设
+% P01-E0187: source-side missing-article candidate; meaning preserved.
+$p : \mathcal{S} \to \mathcal{C}$ 是从一个“大的”范畴到
+$\mathcal{C}$ 的函子，也就是说，假设
+$\mathcal{S}$ 的对象构成真类。最后，假设
+$p : \mathcal{S} \to \mathcal{C}$ 满足
+Definition \ref{stacks-definition-stack} 的条件 (1)、(2)、(3)。
+一般而言，无法用一个等价范畴替换
+% P01-E0188: source-side article candidate; meaning preserved.
+$p : \mathcal{S} \to \mathcal{C}$ 而得到一个栈。原因是，
+% P01-E0189: source-side number-agreement candidate; meaning preserved.
+纤维范畴 $\mathcal{S}_U$ 的对象同构类可能构成真类。
+另一方面，假设
+\begin{enumerate}
+\item[(4)] 对每个 $U \in \Ob(\mathcal{C})$，存在集合
+$S_U \subset \Ob(\mathcal{S}_U)$，使得
+$\mathcal{S}_U$ 的每个对象都在 $\mathcal{S}_U$ 中同构于
+$S_U$ 的某个元素。
+\end{enumerate}
+在这种情况下，可找到 $\mathcal{S}$ 的满子范畴
+$\mathcal{S}_{small}$，并令
+$p_{small} = p|_{\mathcal{S}_{small}}$，使得
+\begin{enumerate}
+\item[(a)] 函子
+$p_{small} : \mathcal{S}_{small} \to \mathcal{C}$ 定义一个栈；且
+\item[(b)] 嵌入 $\mathcal{S}_{small} \to \mathcal{S}$
+全忠实且本质满射。
+\end{enumerate}
+（提示：对每个 $U \in \Ob(\mathcal{C})$，令
+$\alpha(U)$ 表示满足
+$\Ob(\mathcal{S}_U) \cap V_{\alpha(U)}$ 满射到
+$\mathcal{S}_U$ 的对象同构类集合的最小序数，并令
+$\alpha = \sup_{U \in \Ob(\mathcal{C})} \alpha(U)$。
+然后取
+$\Ob(\mathcal{S}_{small}) = \Ob(\mathcal{S}) \cap V_\alpha$。
+所用记号见 Sets, Section \ref{sets-section-sets-hierarchy}。）
+\end{remark}
+
+
+
+
+
+
+
+\section{群胚中的栈}
+\label{stacks-section-stacks-in-groupoids}
+
+\noindent
+在各类栈中，纤维化于群胚的栈稍易理解。我们如下重新定义它们。
+
+\begin{definition}
+\label{stacks-definition-stack-in-groupoids}
+位点 $\mathcal{C}$ 上的一个{\it 群胚中的栈}，是
+$\mathcal{C}$ 上的范畴 $p : \mathcal{S} \to \mathcal{C}$，
+并满足：
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ 在
+$\mathcal{C}$ 上纤维化于群胚（见
+Categories, Definition \ref{categories-definition-fibred-groupoids}）；
+\item 对所有 $U \in \Ob(\mathcal{C})$ 及所有
+$x, y\in \Ob(\mathcal{S}_U)$，预层
+$\mathit{Isom}(x, y)$ 是位点 $\mathcal{C}/U$ 上的层；且
+\item 对 $\mathcal{C}$ 中的所有覆盖
+$\mathcal{U} = \{U_i \to U\}$，相对于
+$\mathcal{U}$ 的所有下降数据 $(x_i, \phi_{ij})$ 都有效。
+\end{enumerate}
+\end{definition}
+
+\noindent
+通常最难检验的是第三个条件。下面的引理将此定义与栈的概念作比较。
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-groupoids-stack}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上的范畴。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{S}$ 是 $\mathcal{C}$ 上的群胚中的栈；
+\item $\mathcal{S}$ 是 $\mathcal{C}$ 上的栈，且所有纤维范畴均为群胚；且
+\item $\mathcal{S}$ 在 $\mathcal{C}$ 上纤维化于群胚，
+并且是 $\mathcal{C}$ 上的栈。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略；不过可参见 Categories, Lemma
+\ref{categories-lemma-fibred-groupoids}。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-gives-stack-groupoids}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为栈。
+令 $p' : \mathcal{S}' \to \mathcal{C}$ 为与
+$\mathcal{S}$ 相联系、由
+Categories, Lemma
+\ref{categories-lemma-fibred-gives-fibred-groupoids}
+构造的纤维化于群胚的范畴。那么
+$p' : \mathcal{S}' \to \mathcal{C}$ 是群胚中的栈。
+\end{lemma}
+
+\begin{proof}
+回忆，$\mathcal{S}'$ 中的态射恰为 $\mathcal{S}$ 的强笛卡尔态射，
+而 $\mathcal{S}$ 的任何同构都是这样的态射。因此，
+$\mathcal{S}'$ 中的下降数据与 $\mathcal{S}$ 中的下降数据
+完全相同。现在应用引理 \ref{stacks-lemma-stack-equivalences}。
+若干细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-groupoids-equivalent}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}_1$、$\mathcal{S}_2$ 为
+$\mathcal{C}$ 上的范畴。假设 $\mathcal{S}_1$ 与
+$\mathcal{S}_2$ 作为 $\mathcal{C}$ 上的范畴彼此等价。
+那么 $\mathcal{S}_1$ 是 $\mathcal{C}$ 上的群胚中的栈，
+当且仅当 $\mathcal{S}_2$ 是 $\mathcal{C}$ 上的群胚中的栈。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{stacks-lemma-stack-in-groupoids-stack} 与
+\ref{stacks-lemma-stack-equivalent} 合并即得。
+\end{proof}
+
+\noindent
+$\mathcal{C}$ 上群胚中的栈的 $2$-范畴定义如下。
+
+\begin{definition}
+\label{stacks-definition-stacks-in-groupoids-over-C}
+令 $\mathcal{C}$ 为位点。
+{\it $\mathcal{C}$ 上群胚中的栈的 $2$-范畴}
+是 $\mathcal{C}$ 上栈的 $2$-范畴（见
+Definition \ref{stacks-definition-stacks-over-C}）的如下子
+$2$-范畴：
+\begin{enumerate}
+\item 其对象为群胚中的栈
+$p : \mathcal{S} \to \mathcal{C}$。
+\item 其 $1$-态射
+$(\mathcal{S}, p) \to (\mathcal{S}', p')$ 为满足
+$p' \circ G = p$ 的函子
+$G : \mathcal{S} \to \mathcal{S}'$。
+（由于每个态射都是强笛卡尔的，每个函子都保持它们。）
+\item 对
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$，
+其 $2$-态射 $t : G \to H$ 为函子之间的态射，并且对所有
+$x \in \Ob(\mathcal{S})$ 都有
+$p'(t_x) = \text{id}_{p(x)}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，任意 $2$-态射自动为同构，因而
+$\mathcal{C}$ 上群胚中的栈的 $2$-范畴实际上是一个
+（严格）$(2, 1)$-范畴。
+
+\begin{lemma}
+\label{stacks-lemma-2-product-stacks-in-groupoids}
+% P01-E0190: source says category although the object was defined over a site.
+令 $\mathcal{C}$ 为范畴。
+$\mathcal{C}$ 上群胚中的栈的 $2$-范畴具有 2-纤维积，
+其描述与 Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C} 中相同。
+\end{lemma}
+
+\begin{proof}
+由 Categories, Lemma
+\ref{categories-lemma-2-product-fibred-categories}
+以及引理 \ref{stacks-lemma-stack-in-groupoids-stack}、
+\ref{stacks-lemma-2-product-stacks} 立即可得。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{类集合中的栈}
+\label{stacks-section-stacks-in-setoids}
+
+\noindent
+本节仅简要说明：集合中的栈与集合层是同一回事。
+记号请参见 Categories, Section
+\ref{categories-section-fibred-in-setoids}。
+
+\begin{definition}
+\label{stacks-definition-stack-in-sets}
+令 $\mathcal{C}$ 为位点。
+\begin{enumerate}
+\item $\mathcal{C}$ 上的一个{\it 类集合（setoid）中的栈}，
+是 $\mathcal{C}$ 上所有纤维范畴均为类集合的栈。
+\item 一个{\it 集合中的栈}，或{\it 离散范畴中的栈}，
+是 $\mathcal{C}$ 上所有纤维范畴均为离散范畴的栈。
+\end{enumerate}
+\end{definition}
+
+\noindent
+由 Section \ref{stacks-section-stacks-in-groupoids} 中的讨论，
+这等同于纤维范畴为类集合（相应地，为离散范畴）的群胚中的栈。
+此外，它也等同于一个纤维化于类集合（相应地，集合）且本身为栈的范畴。
+
+\begin{lemma}
+\label{stacks-lemma-when-stack-in-sets}
+令 $\mathcal{C}$ 为位点。在
+$$
+\left\{
+\begin{matrix}
+\text{预层范畴}\\
+\text{集合范畴，位于 }\mathcal{C}
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{范畴的范畴}\\
+\text{在下列对象之上以集合为纤维： }\mathcal{C}
+\end{matrix}
+\right\}
+$$
+这一 Categories, Lemma
+\ref{categories-lemma-2-category-fibred-sets} 的等价之下，
+集合中的栈恰好对应于层。
+\end{lemma}
+
+\begin{proof}
+略。提示：证明下降的有效性恰好对应于层条件。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-setoids-characterize}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}$ 为 $\mathcal{C}$ 上纤维化于类集合的范畴。
+那么 $\mathcal{S}$ 是类集合中的栈，当且仅当唯一的、
+纤维化于集合的等价范畴 $\mathcal{S}'$（见
+Categories, Lemma \ref{categories-lemma-setoid-fibres}）
+是集合中的栈。换言之，当且仅当预层
+$$
+U \longmapsto \Ob(\mathcal{S}_U)/\!\!\cong
+$$
+是层。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-setoids-equivalent}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}_1$、$\mathcal{S}_2$ 为
+$\mathcal{C}$ 上的范畴。假设 $\mathcal{S}_1$ 与
+$\mathcal{S}_2$ 作为 $\mathcal{C}$ 上的范畴彼此等价。
+那么 $\mathcal{S}_1$ 是 $\mathcal{C}$ 上的类集合中的栈，
+当且仅当 $\mathcal{S}_2$ 是 $\mathcal{C}$ 上的类集合中的栈。
+\end{lemma}
+
+\begin{proof}
+由 Categories, Lemma
+\ref{categories-lemma-setoid-fibres} 可知，
+$\mathcal{C}$ 上的范畴 $\mathcal{S}$ 在
+$\mathcal{C}$ 上纤维化于类集合，当且仅当它在
+$\mathcal{C}$ 上等价于某个纤维化于集合的范畴。
+因此，$\mathcal{S}_1$ 在 $\mathcal{C}$ 上纤维化于类集合，
+当且仅当 $\mathcal{S}_2$ 在 $\mathcal{C}$ 上纤维化于类集合。
+现在由引理 \ref{stacks-lemma-stack-in-setoids-characterize} 即得结论。
+\end{proof}
+
+\noindent
+$\mathcal{C}$ 上类集合中的栈的 $2$-范畴定义如下。
+
+\begin{definition}
+\label{stacks-definition-stacks-in-setoids-over-C}
+令 $\mathcal{C}$ 为位点。
+{\it $\mathcal{C}$ 上类集合中的栈的 $2$-范畴}
+是 $\mathcal{C}$ 上栈的 $2$-范畴（见
+Definition \ref{stacks-definition-stacks-over-C}）的如下子
+$2$-范畴：
+\begin{enumerate}
+\item 其对象为类集合中的栈
+$p : \mathcal{S} \to \mathcal{C}$。
+\item 其 $1$-态射
+$(\mathcal{S}, p) \to (\mathcal{S}', p')$ 为满足
+$p' \circ G = p$ 的函子
+$G : \mathcal{S} \to \mathcal{S}'$。
+（由于每个态射都是强笛卡尔的，每个函子都保持它们。）
+\item 对
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$，
+其 $2$-态射 $t : G \to H$ 为函子之间的态射，并且对所有
+$x \in \Ob(\mathcal{S})$ 都有
+$p'(t_x) = \text{id}_{p(x)}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，任意 $2$-态射自动为同构，因而
+$\mathcal{C}$ 上类集合中的栈的 $2$-范畴实际上是一个
+（严格）$(2, 1)$-范畴。
+
+\begin{lemma}
+\label{stacks-lemma-2-product-stacks-in-setoids}
+令 $\mathcal{C}$ 为位点。
+$\mathcal{C}$ 上类集合中的栈的 $2$-范畴具有 2-纤维积，
+其描述与 Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C} 中相同。
+\end{lemma}
+
+\begin{proof}
+由 Categories, Lemmas
+\ref{categories-lemma-2-product-fibred-categories} 与
+\ref{categories-lemma-2-product-categories-fibred-setoids}
+以及引理 \ref{stacks-lemma-stack-in-groupoids-stack} 与
+\ref{stacks-lemma-2-product-stacks} 立即可得。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-2-fibre-product-gives-stack-in-setoids}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}, \mathcal{T}$ 为 $\mathcal{C}$ 上
+群胚中的栈，并令 $\mathcal{R}$ 为 $\mathcal{C}$ 上
+类集合中的栈。令
+$f : \mathcal{T} \to \mathcal{S}$ 与
+$g : \mathcal{R} \to \mathcal{S}$ 为 $1$-态射。
+若 $f$ 忠实，则 $2$-纤维积
+$$
+\mathcal{T} \times_{f, \mathcal{S}, g} \mathcal{R}
+$$
+是 $\mathcal{C}$ 上类集合中的栈。
+\end{lemma}
+
+\begin{proof}
+由 Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C}
+中对 $2$-纤维积的显式描述立即可得。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}$ 为 $\mathcal{C}$ 上群胚中的栈，并令
+$\mathcal{S}_i$，$i = 1, 2$ 为 $\mathcal{C}$ 上
+类集合中的栈。令 $f_i : \mathcal{S}_i \to \mathcal{S}$
+为 $1$-态射。那么 $2$-纤维积
+$$
+\mathcal{S}_1 \times_{f_1, \mathcal{S}, f_2} \mathcal{S}_2
+$$
+是 $\mathcal{C}$ 上类集合中的栈。
+\end{lemma}
+
+\begin{proof}
+这是引理
+\ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids}
+在 $f_2$ 忠实时的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-faithful-descent}
+令 $\mathcal{C}$ 为位点。令
+$$
+\xymatrix{
+\mathcal{T}_2 \ar[r] \ar[d]_{G'} & \mathcal{T}_1 \ar[d]^G \\
+\mathcal{S}_2 \ar[r]^F & \mathcal{S}_1
+}
+$$
+为 $\mathcal{C}$ 上群胚中的栈所组成的 $2$-笛卡尔图式。假设
+\begin{enumerate}
+\item 对每个 $U \in \Ob(\mathcal{C})$ 和
+$x \in \Ob((\mathcal{S}_1)_U)$，存在覆盖
+$\{U_i \to U\}$，使得 $x|_{U_i}$ 属于
+$F : (\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$
+的本质像；且
+\item $G'$ 忠实。
+\end{enumerate}
+那么 $G$ 忠实。
+\end{lemma}
+
+\begin{proof}
+可假设 $\mathcal{T}_2$ 就是由
+Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C}
+描述的范畴
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$。
+由 Categories, Lemma
+\ref{categories-lemma-equivalence-fibred-categories}，
+$G, G'$ 的忠实性可在纤维范畴上检验。
+设 $y, y'$ 为 $\mathcal{T}_1$ 中位于
+$\mathcal{C}$ 的对象 $U$ 上的对象。令
+$\alpha, \beta : y \to y'$ 为 $(\mathcal{T}_1)_U$ 中满足
+$G(\alpha) = G(\beta)$ 的态射。我们的目标是证明
+$\alpha = \beta$。转而考虑
+$\gamma = \alpha^{-1} \circ \beta$，可知
+$G(\gamma) = \text{id}_{G(y)}$，而我们必须证明
+$\gamma = \text{id}_y$。由假设，可找到覆盖
+$\{U_i \to U\}$，使 $G(y)|_{U_i}$ 属于
+$F :(\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$
+的本质像。因为只需对每个 $i$ 证明
+$\gamma|_{U_i} = \text{id}$，故可假设对
+$\mathcal{S}_2$ 中位于 $U$ 上的某个对象 $x$，有
+% P01-E0191: source calls the already displayed f “morphisms”; it is the
+% isomorphism supplied by essential-image membership.
+$f : F(x) \to G(y)$，且 $f$ 是
+$(\mathcal{S}_1)_U$ 中的同构。在这种情况下，得到纤维范畴
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+中位于 $U$ 上的态射
+$$
+(1, \gamma) : (U, x, y, f) \longrightarrow (U, x, y, f)
+$$
+它在 $G'$ 下于 $\mathcal{S}_1$ 中的像是
+$\text{id}_x$。由于 $G'$ 忠实，遂有
+$\gamma = \text{id}_y$，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-setoids-descent}
+令 $\mathcal{C}$ 为位点。令
+$$
+\xymatrix{
+\mathcal{T}_2 \ar[r] \ar[d] & \mathcal{T}_1 \ar[d]^G \\
+\mathcal{S}_2 \ar[r]^F & \mathcal{S}_1
+}
+$$
+为 $\mathcal{C}$ 上群胚中的栈所组成的 $2$-笛卡尔图式。若
+\begin{enumerate}
+\item $F : \mathcal{S}_2 \to \mathcal{S}_1$ 全忠实；
+\item 对每个 $U \in \Ob(\mathcal{C})$ 和
+$x \in \Ob((\mathcal{S}_1)_U)$，存在覆盖
+$\{U_i \to U\}$，使得 $x|_{U_i}$ 属于
+$F : (\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$
+的本质像；且
+\item $\mathcal{T}_2$ 是类集合中的栈，
+\end{enumerate}
+那么 $\mathcal{T}_1$ 是类集合中的栈。
+\end{lemma}
+
+\begin{proof}
+可假设 $\mathcal{T}_2$ 就是由
+Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C}
+描述的范畴
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$。
+选取 $U \in \Ob(\mathcal{C})$ 与
+$y \in \Ob((\mathcal{T}_1)_U)$。
+我们必须证明 $\mathcal{C}/U$ 上的层
+$\mathit{Aut}(y)$ 是平凡的。
+% P01-E0192: source has duplicated “To to”.
+为此可以用 $U$ 的一个覆盖的各成员替换 $U$。
+因此，由假设 (2)，可假设存在对象
+$x \in \Ob((\mathcal{S}_2)_U)$ 与同构
+$f : F(x) \to G(y)$。
+于是 $y' = (U, x, y, f)$ 是 $\mathcal{T}_2$
+中位于 $U$ 上的对象，它在投影
+$\mathcal{T}_2 \to \mathcal{T}_1$ 下映到 $y$。
+由 (1) 中 $F$ 全忠实，映射
+$\mathit{Aut}(y') \to \mathit{Aut}(y)$ 是满射；
+这里使用 Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C}
+中对 $\mathcal{T}_2$ 的态射的显式描述。
+由 (3)，层 $\mathit{Aut}(y')$ 是平凡的，故得引理结论。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-relative-sheaf-over-stack-is-stack}
+令 $\mathcal{C}$ 为位点。令
+$F : \mathcal{S} \to \mathcal{T}$ 为
+$\mathcal{C}$ 上纤维化于群胚的范畴之间的 $1$-态射。假设：
+\begin{enumerate}
+\item $\mathcal{T}$ 是 $\mathcal{C}$ 上群胚中的栈；
+\item 对每个 $U \in \Ob(\mathcal{C})$，纤维范畴之间的函子
+$\mathcal{S}_U \to \mathcal{T}_U$ 忠实；
+\item 对每个 $U$ 与每个 $y \in \Ob(\mathcal{T}_U)$，预层
+$$
+(h : V \to U)
+\longmapsto
+\{(x, f) \mid x \in \Ob(\mathcal{S}_V), f : F(x) \to f^*y\text{ 相对于 }V\}/\cong
+$$
+是 $\mathcal{C}/U$ 上的层。
+\end{enumerate}
+那么 $\mathcal{S}$ 是 $\mathcal{C}$ 上群胚中的栈。
+\end{lemma}
+
+\begin{proof}
+我们必须证明态射的下降与对象的下降。
+
+\medskip\noindent
+态射的下降。令 $\{U_i \to U\}$ 为 $\mathcal{C}$ 的覆盖。
+令 $x, x'$ 为 $\mathcal{S}$ 中位于 $U$ 上的对象。
+对每个 $i$，令
+$\alpha_i : x|_{U_i} \to x'|_{U_i}$ 为位于 $U_i$ 上的态射，
+使得 $\alpha_i$ 与 $\alpha_j$ 限制为同一个态射
+$x|_{U_i \times_U U_j} \to x'|_{U_i \times_U U_j}$。
+由于 $\mathcal{T}$ 是群胚中的栈，存在位于 $U$ 上的态射
+$\beta : F(x) \to F(x')$，其在 $U_i$ 上的限制为
+$F(\alpha_i)$。于是可把
+$\xi = (x, \beta)$ 与
+$\xi' = (x', \text{id}_{F(x')})$
+视为假设 (3) 中与 $y = F(x')$ 相联系的预层在
+$U$ 上的截面。另一方面，$\xi$ 与 $\xi'$ 在
+$U_i$ 上的限制分别为
+$(x|_{U_i}, F(\alpha_i))$ 与
+$(x'|_{U_i}, \text{id}_{F(x'|_{U_i})})$。
+态射 $\alpha_i$ 给出这两者之间的同构。
+因此，由假设 (3)，$\xi$ 与 $\xi'$ 同构。
+这意味着存在位于 $U$ 上的态射
+$\alpha : x \to x'$，使 $F(\alpha) = \beta$。
+由于 $F$ 在纤维范畴上忠实，得到
+$\alpha|_{U_i} = \alpha_i$。
+
+\medskip\noindent
+对象的下降。令 $\{U_i \to U\}$ 为 $\mathcal{C}$ 的覆盖。
+令 $(x_i, \varphi_{ij})$ 为 $\mathcal{S}$ 中相对于该覆盖的
+下降数据。由于 $\mathcal{T}$ 是群胚中的栈，存在
+$\mathcal{T}_U$ 中的对象 $y$ 以及同构
+$\beta_i : F(x_i) \to y|_{U_i}$，使得
+$F(\varphi_{ij}) = \beta_j|_{U_i \times_U U_j} \circ
+(\beta_i|_{U_i \times_U U_j})^{-1}$。
+于是 $(x_i, \beta_i)$ 是假设 (3) 中定义的、与
+$y$ 相联系的预层在 $U$ 上的截面。
+此外，$\varphi_{ij}$ 定义从
+$(x_i, \beta_i)|_{U_i \times_U U_j}$ 到
+$(x_j, \beta_j)|_{U_i \times_U U_j}$ 的同构。
+因此，由假设 (3)，存在 $U$ 上的偶对 $(x, \beta)$，
+其在 $U_i$ 上的限制同构于 $(x_i, \beta_i)$。
+这意味着存在态射
+$\alpha_i : x_i \to x|_{U_i}$，满足
+$\beta_i = \beta|_{U_i} \circ F(\alpha_i)$。
+由于 $F$ 在纤维范畴上忠实，计算表明
+$\varphi_{ij} = \alpha_j|_{U_i \times_U U_j} \circ
+(\alpha_i|_{U_i \times_U U_j})^{-1}$。证明完毕。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{惯性栈}
+\label{stacks-section-the-inertia-stack}
+
+\noindent
+令 $p : \mathcal{S} \to \mathcal{C}$ 与
+$p' : \mathcal{S}' \to \mathcal{C}$ 为范畴
+$\mathcal{C}$ 上的纤维化范畴。
+令 $F : \mathcal{S} \to \mathcal{S}'$ 为
+$\mathcal{C}$ 上纤维化范畴之间的 $1$-态射。
+回忆，我们在 Categories, Definition
+\ref{categories-definition-inertia-fibred-category} 中定义了一个
+{\it 相对惯性纤维化范畴}
+$\mathcal{I}_{\mathcal{S}/\mathcal{S}'} \to \mathcal{C}$：
+其对象为偶对 $(x , \alpha)$，其中
+$x \in \Ob(\mathcal{S})$ 且 $\alpha : x \to x$ 满足
+$F(\alpha) = \text{id}_{F(x)}$。还有一个绝对版本，即
+$\mathcal{S}$ 的{\it 惯性} $\mathcal{I}_\mathcal{S}$。
+若 $\mathcal{S}$ 与 $\mathcal{S}'$ 都是栈，则这些惯性范畴
+实际上是 $\mathcal{C}$ 上的栈。
+
+\begin{lemma}
+\label{stacks-lemma-inertia}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{S} \to \mathcal{C}$ 与
+$p' : \mathcal{S}' \to \mathcal{C}$ 为位点
+$\mathcal{C}$ 上的栈。令
+$F : \mathcal{S} \to \mathcal{S}'$ 为
+$\mathcal{C}$ 上栈之间的 $1$-态射。
+\begin{enumerate}
+\item 惯性 $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ 与
+$\mathcal{I}_\mathcal{S}$ 是 $\mathcal{C}$ 上的栈。
+\item 若 $\mathcal{S}, \mathcal{S}'$ 是
+$\mathcal{C}$ 上群胚中的栈，则
+$\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ 与
+$\mathcal{I}_\mathcal{S}$ 亦然。
+\item 若 $\mathcal{S}, \mathcal{S}'$ 是
+$\mathcal{C}$ 上类集合中的栈，则
+$\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ 与
+$\mathcal{I}_\mathcal{S}$ 亦然。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+前三个断言由引理 \ref{stacks-lemma-2-product-stacks}、
+\ref{stacks-lemma-2-product-stacks-in-groupoids}、
+\ref{stacks-lemma-2-product-stacks-in-setoids} 以及
+Categories, Lemma
+\ref{categories-lemma-inertia-fibred-category} (1)
+中的等价得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-characterize-stack-in-setoids}
+令 $\mathcal{C}$ 为位点。
+若 $\mathcal{S}$ 是群胚中的栈，则典范 $1$-态射
+$\mathcal{I}_\mathcal{S} \to \mathcal{S}$ 是等价，
+当且仅当 $\mathcal{S}$ 是类集合中的栈。
+\end{lemma}
+
+\begin{proof}
+直接由 Categories, Lemma
+\ref{categories-lemma-characterize-fibred-setoids-inertia} 得出。
+\end{proof}
+
+
+
+
+\section{纤维化范畴的栈化}
+\label{stacks-section-stackify}
+
+\noindent
+下一个引理中过程的结果称为位点上纤维化范畴的{\it 栈化}。
+
+\begin{lemma}
+\label{stacks-lemma-stackify}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上的纤维化范畴。存在栈
+$p' : \mathcal{S}' \to \mathcal{C}$ 以及
+$\mathcal{C}$ 上纤维化范畴之间的 $1$-态射
+$G : \mathcal{S} \to \mathcal{S}'$（见
+Categories, Definition
+\ref{categories-definition-fibred-categories-over-C}），满足：
+\begin{enumerate}
+\item 对每个 $U \in \Ob(\mathcal{C})$ 以及任意
+$x, y \in \Ob(\mathcal{S}_U)$，由 $G$ 诱导的映射
+$$
+\mathit{Mor}(x, y) \longrightarrow \mathit{Mor}(G(x), G(y))
+$$
+把右端识别为左端的层化；且
+\item 对每个 $U \in \Ob(\mathcal{C})$ 及任意
+$x' \in \Ob(\mathcal{S}'_U)$，存在覆盖
+$\{U_i \to U\}_{i \in I}$，使得对每个
+$i \in I$，对象 $x'|_{U_i}$ 属于函子
+$G : \mathcal{S}_{U_i} \to \mathcal{S}'_{U_i}$ 的本质像。
+\end{enumerate}
+此外，这些条件在唯一 $2$-同构意义下确定栈 $\mathcal{S}'$。
+\end{lemma}
+
+\begin{proof}[朴素方法的证明]
+在这种证明方法中，我们分阶段进行。
+
+\medskip\noindent
+首先，给定 $U$ 上的 $x$ 与 $\mathcal{S}$ 的任意对象
+$y$，若 $\mathcal{S}$ 的两个态射
+$a, b : x \to y$ 位于 $\mathcal{C}$ 的同一个箭头上，
+并且存在 $\mathcal{C}$ 的覆盖
+$\{f_i : U_i \to U\}$，使得复合
+$$
+f_i^*x \to x \xrightarrow{a} y,
+\quad
+f_i^*x \to x \xrightarrow{b} y
+$$
+相等，则称它们{\it 局部相等}。这在 $\mathcal{S}$ 的箭头上
+给出等价关系 $\sim$。若 $b \sim b'$，则
+$a \circ b \circ c \sim a \circ b' \circ c$（验证从略）。
+因此可对该等价关系取商，得到 $\mathcal{C}$ 上的新范畴
+$\mathcal{S}^1$，以及态射
+$G^1 : \mathcal{S} \to \mathcal{S}^1$。
+
+\medskip\noindent
+可验证 $G^1$ 保持强笛卡尔态射，并且
+$\mathcal{S}^1$ 是 $\mathcal{C}$ 上的纤维化范畴。
+验证从略。于是问题归约到局部相等的态射彼此相等的情形。
+
+\medskip\noindent
+其次，我们如下加入态射。给定 $U$ 上的 $x$ 与
+% P01-E0193: source has “any object y of lying over V”.
+位于 $V$ 上的任意对象 $y$，一个{\it 从 $x$ 到 $y$
+的局部定义态射}由下列资料给出：
+\begin{enumerate}
+\item 态射 $f : U \to V$；
+\item $U$ 的覆盖 $\{f_i : U_i \to U\}$；以及
+\item 满足 $p(a_i) = f \circ f_i$ 的态射
+$a_i : f_i^*x \to y$，
+\end{enumerate}
+并要求复合
+$$
+(f_i \times f_j)^*x \to f_i^*x \xrightarrow{a_i} y,
+\quad
+(f_i \times f_j)^*x \to f_j^*x \xrightarrow{a_j} y
+$$
+相等。注意，通常的态射 $a : x \to y$ 给出局部定义态射
+$(p(a) : U \to V, \{\text{id}_U\}, a)$。
+称两个局部定义态射
+$(f, \{f_i : U_i \to U\}, a_i)$ 与
+$(g, \{g_j : U'_j \to U\}, b_j)$ {\it 相等}，如果
+$f = g$，且复合
+$$
+(f_i \times g_j)^*x \to f_i^*x \xrightarrow{a_i} y,
+\quad
+(f_i \times g_j)^*x \to g_j^*x \xrightarrow{b_j} y
+$$
+相等（这是正确的条件，因为我们处在局部相等态射彼此相等的情形）。
+要复合从 $x$ 到 $y$ 的局部定义态射
+$(f, \{f_i : U_i \to U\}, a_i)$ 与从 $y$ 到位于
+$W$ 上的 $z$ 的局部定义态射
+$(g, \{g_j : V_j \to V\}, b_j)$，只需取
+$g \circ f : U \to W$、覆盖
+$\{U_i \times_V V_j \to U\}$，并以复合
+$$
+x|_{U_i \times_V V_j}
+\xrightarrow{\text{pr}_0^*a_i}
+y|_{V_j}
+\xrightarrow{b_j}
+z
+$$
+为映射。我们略去验证这是局部定义态射。
+
+\medskip\noindent
+可验证，以与 $\mathcal{S}$ 相同的对象为对象、以局部定义态射为态射的
+$\mathcal{S}^2$ 是 $\mathcal{C}$ 上的范畴，存在
+$\mathcal{C}$ 上的函子
+$G^2 : \mathcal{S} \to \mathcal{S}^2$，
+% P01-E0194: source says “strongly cartesian objects”; frozen wording retained.
+该函子保持强笛卡尔对象，并且 $\mathcal{S}^2$ 是
+$\mathcal{C}$ 上的纤维化范畴。验证从略。
+通过检验使用局部定义态射的效果是对（分离的）态射预层取层化，
+问题便归约到 $\mathcal{S}$ 的态射预层全为层的情形。
+
+\medskip\noindent
+最后，在态射预层全为层的情形，为保证最终结果中下降条件有效，
+必须加入对象。最简单的做法是考虑范畴 $\mathcal{S}'$，
+其对象为偶对 $(\mathcal{U}, \xi)$，其中
+$\mathcal{U} = \{U_i \to U\}$ 是 $\mathcal{C}$ 的覆盖，而
+% P01-E0195: source omits “to” in “relative U”.
+$\xi = (X_i, \varphi_{ii'})$ 是相对于 $\mathcal{U}$ 的下降数据。
+设给定两组这样的资料
+$(\mathcal{U}, \xi) = (\{f_i : U_i \to U\},  x_i, \varphi_{ii'})$ 与
+$(\mathcal{V}, \eta) = (\{g_j : V_j \to V\},  y_j, \psi_{jj'})$。
+我们把
+$$
+\Mor_{\mathcal{S}'}((\mathcal{U}, \xi), (\mathcal{V}, \eta))
+$$
+定义为所有 $(f, a_{ij})$ 组成的集合，其中
+$f : U \to V$，且
+$$
+a_{ij} :
+x_i|_{U_i \times_V V_j}
+\longrightarrow
+y_j
+$$
+是 $\mathcal{S}$ 中位于 $U_i \times_V V_j \to V_j$
+上的态射。它们须满足下列条件：对任意
+$i, i' \in I$ 与 $j, j' \in J$，令
+$W = (U_i \times_U U_{i'}) \times_V (V_j \times_V V_{j'})$。
+则图式
+$$
+\xymatrix{
+x_i|_W \ar[r]_{a_{ij}|_W} \ar[d]_{\varphi_{ii'}|_W} &
+y_j|_W \ar[d]^{\psi_{jj'}|_W} \\
+x_{i'}|_W \ar[r]^{a_{i'j'}|_W} &
+y_{j'}|_W
+}
+$$
+交换。此时必须验证：
+\begin{enumerate}
+\item 上述态射有定义良好的复合；
+\item 这使 $\mathcal{S}'$ 成为 $\mathcal{C}$ 上的范畴；
+\item 存在 $\mathcal{C}$ 上的函子
+$G : \mathcal{S} \to \mathcal{S}'$；
+\item 对 $\mathcal{S}$ 的对象 $x, y$，有
+$\Mor_\mathcal{S}(x, y) = \Mor_{\mathcal{S}'}(G(x), G(y))$；
+\item $\mathcal{S}'$ 的任意对象局部地来自
+$\mathcal{S}$ 的对象，即引理的 (2) 成立；
+\item $G$ 保持强笛卡尔态射；
+\item $\mathcal{S}'$ 是 $\mathcal{C}$ 上的纤维化范畴；且
+\item $\mathcal{S}'$ 是 $\mathcal{C}$ 上的栈。
+\end{enumerate}
+这些都不困难，只是事项很多。细节从略。
+\end{proof}
+
+\begin{proof}[较不朴素的证明]
+下面给出一个较不朴素的证明。
+由 Categories, Lemma
+\ref{categories-lemma-fibred-strict}，存在纤维化范畴之间的等价
+$\mathcal{S} \to \mathcal{S}'$，其中
+$\mathcal{S}'$ 是分裂纤维化范畴，即其拉回函子严格地复合。
+显然，对 $\mathcal{S}'$ 成立的引理蕴含对
+$\mathcal{S}$ 成立的引理。因此，可把 $\mathcal{S}$
+看作取值于范畴的预层。
+
+\medskip\noindent
+暂时忘掉 $2$-态射，把 $2$-范畴 $\textit{Cat}$
+看成一个范畴。按照 Categories, Section
+\ref{categories-section-definition-categories}，把范畴看成五元组
+$(\text{Ob}, \text{Arrows}, s, t, \circ)$。
+考虑遗忘函子
+$$
+forget : \textit{Cat} \to \textit{Sets} \times \textit{Sets}, \quad
+(\text{Ob}, \text{Arrows}, s, t, \circ)
+\mapsto
+(\text{Ob}, \text{Arrows}).
+$$
+那么 $forget$ 忠实，$\textit{Cat}$ 有极限且
+$forget$ 与极限交换，$\textit{Cat}$ 有有向余极限且
+$forget$ 与之交换，并且 $forget$ 反映同构。
+可以对取值于 $\textit{Cat}$ 的预层作层化；通过与
+Sites, Section \ref{sites-section-sheaves-algebraic-structures}
+第一部分中类似的论证，所得构造与 $forget$ 交换。
+将此应用于 $\mathcal{S}$，得到层化
+$\mathcal{S}^\#$；它有对象层与态射层，二者分别为
+$\mathcal{S}$ 相应预层的层化。在这种情况下，很容易看出映射
+$\mathcal{S} \to \mathcal{S}^\#$ 具有引理中的性质 (1) 与 (2)。
+
+\medskip\noindent
+然而，范畴 $\mathcal{S}^\#$ 可能还不是栈，因为尽管对象预层是层，
+下降条件仍可能不成立。为补救这一点，必须加入更多对象。
+不过，上述论证确实把问题归约到
+$\mathcal{S} = \mathcal{S}_F$ 的情形，其中
+$F : \mathcal{C}^{opp} \to \textit{Cat}$ 是取值于范畴的某个层（！）。
+在此情形，考虑如下定义的函子
+$F' : \mathcal{C}^{opp} \to \textit{Cat}$：
+\begin{enumerate}
+\item 集合 $\Ob(F'(U))$ 是所有偶对
+$(\mathcal{U}, \xi)$ 组成的集合，其中
+$\mathcal{U} = \{U_i \to U\}$ 是 $U$ 的覆盖，而
+$\xi = (x_i, \varphi_{ii'})$ 是相对于
+$\mathcal{U}$ 的下降数据。
+\item $F'(U)$ 中从 $(\mathcal{U}, \xi)$ 到
+$(\mathcal{V}, \eta)$ 的态射，是
+$$
+\colim \Mor_{DD(\mathcal{W})}(a^*\xi, b^*\eta)
+$$
+的一个元素；这里余极限遍历所有共同加细
+$a : \mathcal{W} \to \mathcal{U}$、
+$b : \mathcal{W} \to \mathcal{V}$。
+该余极限是滤过的（验证从略）。
+% P01-E0196: source says F(U); the category being defined is F'(U).
+因此，$F(U)$ 中态射的复合可通过寻找共同加细并在
+$DD(\mathcal{W})$ 中复合来定义。
+\item 给定 $h : V \to U$ 以及 $F'(U)$ 的对象
+$(\mathcal{U}, \xi)$，令 $F'(h)(\mathcal{U}, \xi)$
+等于 $(V \times_U \mathcal{U}, \text{pr}_1^*\xi)$。
+更确切地，若 $\mathcal{U} = \{U_i \to U\}$ 且
+$\xi = (x_i, \varphi_{ii'})$，则
+$V \times_U \mathcal{U} = \{V \times_U U_i \to V\}$；
+它带有典范态射
+$\text{pr}_1 : V \times_U \mathcal{U} \to \mathcal{U}$，而
+$\text{pr}_1^*\xi$ 是 $\xi$ 沿该态射的拉回
+（见 Definition \ref{stacks-definition-pullback-functor}）。
+\item 给定 $h : V \to U$、对象
+$(\mathcal{U}, \xi)$ 与 $(\mathcal{V}, \eta)$，
+以及它们之间由
+$a : \mathcal{W} \to \mathcal{U}$、
+$b : \mathcal{W} \to \mathcal{V}$ 和
+$\alpha : a^*\xi \to b^*\eta$ 表示的态射，则
+$F'(h)(\alpha)$ 由
+$a' : V \times_U\mathcal{W} \to V \times_U\mathcal{U}$、
+$b' : V \times_U\mathcal{W} \to V \times_U\mathcal{V}$，
+以及态射 $\alpha$ 沿映射
+$V \times_U \mathcal{W} \to \mathcal{W}$ 的拉回
+$\alpha'$ 表示。由于 $\mathcal{S}_F$ 中的拉回严格交换，
+这一构造成立。
+\end{enumerate}
+存在映射 $F \to F'$，它把 $F(U)$ 的对象 $x$
+送到 $F'(U)$ 的对象
+$(\{U \to U\}, (x, triv))$。
+此时必须检验相应函子
+$\mathcal{S}_F \to \mathcal{S}_{F'}$
+具有引理中的性质 (1)、(2)，并最终检验
+$\mathcal{S}_{F'}$ 是栈。细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stackify-universal-property}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上的纤维化范畴。令
+% P01-E0197: source omits “be” before “the stack and 1-morphism”.
+$p' : \mathcal{S}' \to \mathcal{C}$ 与
+$G : \mathcal{S} \to \mathcal{S}'$ 为引理
+\ref{stacks-lemma-stackify} 中构造的栈与 $1$-态射。
+该构造具有如下泛性质：给定栈
+$q : \mathcal{X} \to \mathcal{C}$ 以及
+$\mathcal{C}$ 上纤维化范畴之间的 $1$-态射
+$F : \mathcal{S} \to \mathcal{X}$，存在
+$1$-态射 $H : \mathcal{S}' \to \mathcal{X}$，使图式
+$$
+\xymatrix{
+\mathcal{S} \ar[rr]_F \ar[rd]_G & & \mathcal{X} \\
+& \mathcal{S}' \ar[ru]_H
+}
+$$
+为 $2$-交换的。
+\end{lemma}
+
+\begin{proof}
+略。提示：假设 $x' \in \Ob(\mathcal{S}'_U)$。
+由引理 \ref{stacks-lemma-stackify} 的结论，存在覆盖
+$\{U_i \to U\}_{i \in I}$，使得对某些
+$x_i \in \Ob(\mathcal{S}_{U_i})$ 有
+$x'|_{U_i} = G(x_i)$。此外，存在覆盖
+$\{U_{ijk} \to U_i \times_U U_j\}$ 与同构
+$\alpha_{ijk} : x_i|_{U_{ijk}} \to x_j|_{U_{ijk}}$，
+满足 $G(\alpha_{ijk}) = \text{id}_{x'|_{U_{ijk}}}$。
+令 $y_i = F(x_i)$。可以检验
+$$
+F(\alpha_{ijk}) : y_i|_{U_{ijk}} \to y_j|_{U_{ijk}}
+$$
+在交叠处一致，因而（由于 $\mathcal{X}$ 是栈）定义态射
+$\beta_{ij} : y_i|_{U_i \times_U U_j} \to
+y_j|_{U_i \times_U U_j}$。
+其次，检验 $\beta_{ij}$ 定义下降数据。
+由于 $\mathcal{X}$ 是栈，这些下降数据有效，因而找到
+% P01-E0198: source says G(x_i), while this proof set y_i = F(x_i).
+$\mathcal{X}_U$ 的对象 $y$，它在 $U_i$ 上与
+$G(x_i)$ 一致。提示是令 $H(x') = y$。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stackify-universal-property-more}
+记号与假设同引理
+\ref{stacks-lemma-stackify-universal-property}。
+由上述引理证明中的构造，得到范畴之间的典范等价
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, \mathcal{X})
+=
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}', \mathcal{X})
+$$
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stackification-fibre-product-fibred-categories}
+令 $\mathcal{C}$ 为位点。
+令 $f : \mathcal{X} \to \mathcal{Y}$ 与
+$g : \mathcal{Z} \to \mathcal{Y}$ 为
+$\mathcal{C}$ 上纤维化范畴之间的态射。
+在这种情况下，$2$-纤维积的栈化是各栈化的
+$2$-纤维积。
+\end{lemma}
+
+\begin{proof}
+以 $\mathcal{X}', \mathcal{Y}', \mathcal{Z}'$
+表示相应栈化，并以 $\mathcal{W}$ 表示
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ 的栈化。
+由 $2$-纤维积的构造，存在典范 $1$-态射
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$。
+由于第二个 $2$-纤维积是栈（见引理
+\ref{stacks-lemma-2-product-stacks}），由栈化的泛性质
+（见引理 \ref{stacks-lemma-stackify-universal-property}），
+这个 $1$-态射诱导 $1$-态射
+$h : \mathcal{W} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$。
+现在 $h$ 是栈之间的态射；应用引理
+\ref{stacks-lemma-characterize-ff} 与
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}，
+可检验它是等价。
+
+\medskip\noindent
+因此，先证明 $h$ 在 $\mathit{Mor}$-层上诱导同构。
+令 $\xi, \xi'$ 为 $\mathcal{W}$ 中位于
+$U \in \Ob(\mathcal{C})$ 上的对象。我们要证明
+$$
+h : \mathit{Mor}(\xi, \xi') \longrightarrow \mathit{Mor}(h(\xi), h(\xi'))
+$$
+是同构。为此，可在 $U$ 上局部地工作（见
+Sites, Section \ref{sites-section-glueing-sheaves}）。
+因此，由 $\mathcal{W}$ 的构造（见引理
+\ref{stacks-lemma-stackify}），可假设 $\xi, \xi'$
+确实来自 $\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$
+中位于 $U$ 上的对象
+$(x, z, \alpha)$ 与 $(x', z', \alpha')$。
+再次由同一引理可知，在此情形，
+$\mathit{Mor}(\xi, \xi')$ 是下列预层的层化：
+$$
+V/U \longmapsto
+\Mor_{\mathcal{X}_V}(x|_V, x'|_V)
+\times_{\Mor_{\mathcal{Y}_V}(f(x)|_V, f(x')|_V)}
+\Mor_{\mathcal{Z}_V}(z|_V, z'|_V)
+$$
+而 $\mathit{Mor}(h(\xi), h(\xi'))$ 等于纤维积
+% P01-E0199: frozen source display lacks the closing parenthesis after j(f(x')).
+$$
+\mathit{Mor}(i(x), i(x'))
+\times_{\mathit{Mor}(j(f(x)), j(f(x'))}
+\mathit{Mor}(k(z), k(z'))
+$$
+其中 $i : \mathcal{X} \to \mathcal{X}'$、
+$j : \mathcal{Y} \to \mathcal{Y}'$ 与
+$k : \mathcal{Z} \to \mathcal{Z}'$ 是典范函子。
+因此，本段第一个显示映射是同构，因为层化是正合的
+（从而预层的纤维积的层化，就是各层化的纤维积）。
+
+\medskip\noindent
+最后，必须检验
+$\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+中位于 $U$ 上的任意对象，在 $U$ 上局部地属于 $h$
+的本质像。把这样的对象写成三元组
+$(x', z', \alpha)$。那么 $x'$ 局部地来自
+$\mathcal{X}$ 的对象，$z'$ 局部地来自
+$\mathcal{Z}$ 的对象；在对 $x'$、$z'$ 作适当替换后，
+$\mathcal{Y}'_U$ 的态射 $\alpha$ 局部地来自
+$\mathcal{Y}$ 的态射。换言之，我们已经证明，
+$\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+中位于 $U$ 上的任意对象，在 $U$ 上局部地属于
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+的本质像，因此更属于 $h$ 的局部本质像。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stackification-inertia}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{X}$ 为 $\mathcal{C}$ 上的纤维化范畴。
+惯性纤维化范畴 $\mathcal{I}_\mathcal{X}$ 的栈化，
+% P01-E0200: source omits the article in “is inertia of”.
+是 $\mathcal{X}$ 的栈化的惯性。
+\end{lemma}
+
+\begin{proof}
+这是因为，由引理
+\ref{stacks-lemma-stackification-fibre-product-fibred-categories}，
+栈化与 $2$-纤维积相容；并且范畴在
+$\mathcal{C}$ 上的惯性可用 $2$-纤维积表示，见
+Categories, Lemma \ref{categories-lemma-inertia-fibred-category}。
+\end{proof}
+
+
+
+
+
+\section{纤维化于群胚的范畴的栈化}
+\label{stacks-section-stackify-groupoids}
+
+\noindent
+结论如下。
+
+\begin{lemma}
+\label{stacks-lemma-stackify-groupoids}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上纤维化于群胚的范畴。
+存在群胚中的栈
+$p' : \mathcal{S}' \to \mathcal{C}$，以及
+$\mathcal{C}$ 上纤维化于群胚的范畴之间的 $1$-态射
+$G : \mathcal{S} \to \mathcal{S}'$（见
+Categories, Definition
+\ref{categories-definition-categories-fibred-in-groupoids-over-C}），满足：
+\begin{enumerate}
+\item 对每个 $U \in \Ob(\mathcal{C})$ 以及任意
+$x, y \in \Ob(\mathcal{S}_U)$，由 $G$ 诱导的映射
+$$
+\mathit{Mor}(x, y) \longrightarrow \mathit{Mor}(G(x), G(y))
+$$
+把右端识别为左端的层化；且
+\item 对每个 $U \in \Ob(\mathcal{C})$ 及任意
+$x' \in \Ob(\mathcal{S}'_U)$，存在覆盖
+$\{U_i \to U\}_{i \in I}$，使得对每个
+$i \in I$，对象 $x'|_{U_i}$ 属于函子
+$G : \mathcal{S}_{U_i} \to \mathcal{S}'_{U_i}$ 的本质像。
+\end{enumerate}
+此外，这些条件在唯一 $2$-同构意义下确定群胚中的栈
+$\mathcal{S}'$。
+\end{lemma}
+
+\begin{proof}
+应用引理 \ref{stacks-lemma-stackify}。再应用引理
+\ref{stacks-lemma-stack-in-groupoids-stack}，所得结果是群胚中的栈。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stackify-groupoids-universal-property}
+令 $\mathcal{C}$ 为位点。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上纤维化于群胚的范畴。令
+% P01-E0201: source omits “be” before the predicate.
+$p' : \mathcal{S}' \to \mathcal{C}$ 与
+$G : \mathcal{S} \to \mathcal{S}'$ 为引理
+\ref{stacks-lemma-stackify-groupoids} 中构造的群胚中的栈与 $1$-态射。
+该构造具有如下泛性质：给定群胚中的栈
+$q : \mathcal{X} \to \mathcal{C}$，以及
+$\mathcal{C}$ 上范畴之间的 $1$-态射
+$F : \mathcal{S} \to \mathcal{X}$，存在
+$1$-态射 $H : \mathcal{S}' \to \mathcal{X}$，使图式
+$$
+\xymatrix{
+\mathcal{S} \ar[rr]_F \ar[rd]_G & & \mathcal{X} \\
+& \mathcal{S}' \ar[ru]_H
+}
+$$
+为 $2$-交换的。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{stacks-lemma-stackify-universal-property} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stackification-fibre-product-categories-fibred-in-groupoids}
+令 $\mathcal{C}$ 为位点。
+令 $f : \mathcal{X} \to \mathcal{Y}$ 与
+$g : \mathcal{Z} \to \mathcal{Y}$ 为
+$\mathcal{C}$ 上纤维化于群胚的范畴之间的态射。
+在这种情况下，$2$-纤维积的栈化是各栈化的
+$2$-纤维积。
+\end{lemma}
+
+\begin{proof}
+这是引理
+\ref{stacks-lemma-stackification-fibre-product-fibred-categories}
+的特殊情形。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{继承拓扑}
+\label{stacks-section-topology}
+
+\noindent
+事实证明，位点上的纤维化范畴从底位点继承一个典范拓扑。
+
+\begin{lemma}
+\label{stacks-lemma-topology-inherited}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴。
+令 $\text{Cov}(\mathcal{S})$ 为 $\mathcal{S}$ 中具有固定目标的
+态射族 $\{x_i \to x\}_{i \in I}$ 的集合，并要求：
+(a) 每个 $x_i \to x$ 都是强笛卡尔的；且
+(b) $\{p(x_i) \to p(x)\}_{i \in I}$ 是
+$\mathcal{C}$ 的覆盖。那么
+$(\mathcal{S}, \text{Cov}(\mathcal{S}))$ 是位点。
+\end{lemma}
+
+\begin{proof}
+需检验 Sites, Definition \ref{sites-definition-site} 的三个条件。
+\begin{enumerate}
+\item 若 $x \to y$ 是 $\mathcal{S}$ 的同构，则由
+Categories, Lemma \ref{categories-lemma-composition-cartesian}，
+它是强笛卡尔的，而 $p(x) \to p(y)$ 是
+$\mathcal{C}$ 的同构。因此
+$\{p(x) \to p(y)\}$ 是 $\mathcal{C}$ 的覆盖，从而
+$\{x \to y\} \in \text{Cov}(\mathcal{S})$。
+\item 若
+$\{x_i \to x\}_{i\in I} \in \text{Cov}(\mathcal{S})$，
+并且对每个 $i$ 都有
+$\{y_{ij} \to x_i\}_{j\in J_i} \in \text{Cov}(\mathcal{S})$，
+则由 Categories, Lemma
+\ref{categories-lemma-composition-cartesian}，
+每个复合 $y_{ij} \to x$ 都是强笛卡尔的，而且
+$\{p(y_{ij}) \to p(x)\}_{i \in I, j\in J_i}
+\in \text{Cov}(\mathcal{C})$。故也有
+$\{y_{ij} \to x\}_{i \in I, j\in J_i}
+\in \text{Cov}(\mathcal{S})$。
+\item 假设
+$\{x_i \to x\}_{i\in I}\in \text{Cov}(\mathcal{S})$，
+且 $y \to x$ 是 $\mathcal{S}$ 的态射。
+由于 $\{p(x_i) \to p(x)\}$ 是 $\mathcal{C}$ 的覆盖，
+$p(x_i) \times_{p(x)} p(y)$ 存在。因此
+Categories, Lemma
+\ref{categories-lemma-fibred-category-representable-goes-up}
+蕴含 $x_i \times_x y$ 存在、
+$p(x_i \times_x y) = p(x_i) \times_{p(x)} p(y)$，
+且 $x_i \times_x y \to y$ 是强笛卡尔的。
+又因为
+$\{p(x_i) \times_{p(x)} p(y) \to p(y) \}_{i\in I}
+\in \text{Cov}(\mathcal{C})$，所以
+$\{x_i \times_x y \to y \}_{i\in I}
+\in \text{Cov}(\mathcal{S})$。
+\end{enumerate}
+证明完毕。
+\end{proof}
+
+\noindent
+注意，若 $p : \mathcal{S} \to \mathcal{C}$ 纤维化于群胚，
+则引理 \ref{stacks-lemma-topology-inherited} 中位点
+$\mathcal{S}$ 的覆盖可刻画为
+$$
+\{x_i \to x\} \in \text{Cov}(\mathcal{S})
+\Leftrightarrow
+\{p(x_i) \to p(x)\} \in \text{Cov}(\mathcal{C})
+$$
+因为 $\mathcal{S}$ 的每个态射都是强笛卡尔的。
+
+\begin{definition}
+\label{stacks-definition-topology-inherited}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{S} \to \mathcal{C}$ 为纤维化范畴。
+% P01-E0202: source omits “that” in “We say ... is”.
+称引理 \ref{stacks-lemma-topology-inherited} 中的
+$(\mathcal{S}, \text{Cov}(\mathcal{S}))$ 为
+{\it $\mathcal{S}$ 上从 $\mathcal{C}$ 继承的位点结构}。
+有时也把这表述为：{\it $\mathcal{S}$ 配备从
+$\mathcal{C}$ 继承的拓扑}。
+\end{definition}
+
+\noindent
+特别地，在这种情形得到层托扑斯 $\Sh(\mathcal{S})$。
+事实证明，这个托扑斯关于纤维化范畴的 $1$-态射具有函子性。
+
+\begin{lemma}
+\label{stacks-lemma-topology-inherited-functorial}
+令 $\mathcal{C}$ 为位点。令
+$F : \mathcal{X} \to \mathcal{Y}$ 为
+$\mathcal{C}$ 上纤维化范畴之间的 $1$-态射。
+那么，在从 $\mathcal{C}$ 继承的位点结构之间，
+$F$ 是连续且余连续的函子。因此，$F$ 诱导托扑斯之间的态射
+$f : \Sh(\mathcal{X}) \to \Sh(\mathcal{Y})$，满足
+$f_* = {}_sF = {}_pF$ 与 $f^{-1} = F^s = F^p$。
+特别地，对 $\mathcal{Y}$ 上的层 $\mathcal{G}$
+与 $\mathcal{X}$ 的对象 $x$，有
+$f^{-1}(\mathcal{G})(x) = \mathcal{G}(F(x))$。
+\end{lemma}
+
+\begin{proof}
+先证明 $F$ 连续。令
+$\{x_i \to x\}_{i \in I}$ 为 $\mathcal{X}$ 的覆盖。
+由 Categories, Definition
+\ref{categories-definition-fibred-categories-over-C}，
+函子 $F$ 把强笛卡尔态射映为强笛卡尔态射，故
+$\{F(x_i) \to F(x)\}_{i \in I}$ 是 $\mathcal{Y}$ 的覆盖。
+这证明了 Sites, Definition
+\ref{sites-definition-continuous} 的 (1)。
+此外，令 $x' \to x$ 为 $\mathcal{X}$ 的态射。
+由 Categories, Lemma
+\ref{categories-lemma-fibred-category-representable-goes-up}，
+纤维积 $x_i \times_x x'$ 存在，且
+$x_i \times_x x' \to x'$ 是强笛卡尔的。
+因此 $F(x_i \times_x x') \to F(x')$ 是强笛卡尔的。
+对 $\mathcal{Y}$ 应用 Categories, Lemma
+\ref{categories-lemma-fibred-category-representable-goes-up}，
+这意味着
+$F(x_i \times_x x') = F(x_i) \times_{F(x)} F(x')$。
+这证明了 Sites, Definition
+\ref{sites-definition-continuous} 的 (2)，故 $F$ 连续。
+
+\medskip\noindent
+其次证明 $F$ 余连续。令 $x \in \Ob(\mathcal{X})$，并令
+$\{y_i \to F(x)\}_{i \in I}$ 为 $\mathcal{Y}$ 中的覆盖。
+以 $\{U_i \to U\}_{i \in I}$ 表示 $\mathcal{C}$
+中相应的覆盖。对每个 $i$，选取 $\mathcal{X}$ 中位于
+$U_i \to U$ 上的强笛卡尔态射 $x_i \to x$。
+% P01-E0203: source has “both a strongly cartesian morphisms”.
+那么 $F(x_i) \to F(x)$ 与 $y_i \to F(x)$ 都是
+$\mathcal{Y}$ 中位于 $U_i \to U$ 上的强笛卡尔态射。
+因此，在 $\mathcal{Y}_{U_i}$ 中存在唯一的同构
+$F(x_i) \to y_i$，并与到 $F(x)$ 的映射相容。
+所以 $\{x_i \to x\}_{i \in I}$ 是 $\mathcal{X}$ 的覆盖，
+而 $\{F(x_i) \to F(x)\}_{i \in I}$ 同构于
+$\{y_i \to F(x)\}_{i \in I}$。故 $F$ 余连续，见
+Sites, Definition \ref{sites-definition-cocontinuous}。
+
+\medskip\noindent
+最后一个断言由前两个断言得出，见 Sites, Lemmas
+\ref{sites-lemma-cocontinuous-morphism-topoi}、
+\ref{sites-lemma-pu-sheaf} 与
+\ref{sites-lemma-when-shriek}。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-localizing}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{X} \to \mathcal{C}$ 为纤维化于群胚的范畴。
+令 $x \in \Ob(\mathcal{X})$ 位于
+$U = p(x)$ 上。函子 $p$ 诱导位点之间的等价
+$\mathcal{X}/x \to \mathcal{C}/U$，其中
+$\mathcal{X}$ 配备从 $\mathcal{C}$ 继承的拓扑。
+\end{lemma}
+
+\begin{proof}
+这里，$\mathcal{C}/U$ 是位点 $\mathcal{C}$ 在对象
+$U$ 处的局部化，$\mathcal{X}/x$ 亦然。
+由 Categories, Definition
+\ref{categories-definition-fibred-groupoids} 可知，规则
+$x'/x \mapsto p(x')/p(x)$ 定义范畴之间的等价
+$\mathcal{X}/x \to \mathcal{C}/U$。于是，由
+Definition \ref{stacks-definition-topology-inherited}，
+$\mathcal{X}/x$ 中 $x'$ 的覆盖与
+$\mathcal{C}/U$ 中 $p(x')$ 的覆盖一一对应。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-groupoids-over-stack-in-groupoids}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{X} \to \mathcal{C}$ 与
+$q : \mathcal{Y} \to \mathcal{C}$ 为群胚中的栈。
+令 $F : \mathcal{X} \to \mathcal{Y}$ 为
+$\mathcal{C}$ 上范畴之间的 $1$-态射。
+若 $F$ 使 $\mathcal{X}$ 成为
+$\mathcal{Y}$ 上纤维化于群胚的范畴，则
+$\mathcal{X}$ 是 $\mathcal{Y}$ 上群胚中的栈
+（配备从 $\mathcal{C}$ 继承的拓扑）。
+\end{lemma}
+
+\begin{proof}
+来证明对象的下降。令 $\{y_i \to y\}$ 为
+$\mathcal{Y}$ 的覆盖。令 $(x_i, \varphi_{ij})$ 为
+$\mathcal{X}$ 中相对于该覆盖的下降数据。
+那么 $(x_i, \varphi_{ij})$ 也是相对于
+$\mathcal{C}$ 的覆盖 $\{q(y_i) \to q(y)\}$ 的下降数据。
+由于 $\mathcal{X}$ 是群胚中的栈，得到位于
+$q(y)$ 上的对象 $x$ 以及位于 $q(y_i)$ 上、与
+$\varphi_{ij}$ 相容的同构
+$\psi_i : x|_{q(y_i)} \to x_i$；也就是说，
+$$
+\varphi_{ij} = \psi_j|_{q(y_i) \times_{q(y)} q(y_j)}
+\circ \psi_i^{-1}|_{q(y_i) \times_{q(y)} q(y_j)}.
+$$
+考虑 $\mathcal{C}/p(x)$ 上的层
+$\mathit{I} = \mathit{Isom}_\mathcal{Y}(F(x), y)$。
+% P01-E0204: q is not defined on x_i; p(x_i)=q(y_i) is the typed base.
+注意，$s_i = F(\psi_i) \in \mathit{I}(q(x_i))$，
+因为 $F(x_i) = y_i$。由于
+$F(\varphi_{ij}) = \text{id}$（因为我们从
+$\{y_i \to y\}$ 上的下降数据出发），上述公式表明
+$s_i|_{q(y_i) \times_{q(y)} q(y_j)}
+= s_j|_{q(y_i) \times_{q(y)} q(y_j)}$。
+因此局部截面 $s_i$ 黏合为 $s : F(x) \to y$。
+由于 $F$ 纤维化于群胚，$x$ 同构于某个满足
+$F(x') = y$ 的对象 $x'$。
+我们略去验证，$\mathcal{X}$ 在 $y$ 上的纤维范畴中的
+$x'$ 是由下降数据 $(x_i, \varphi_{ij})$ 提出的下降问题的解。
+还略去证明 $\mathcal{X}/\mathcal{Y}$ 的
+$\mathit{Isom}$-预层具有层性质。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-over-stack}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{X} \to \mathcal{C}$ 为栈。
+为 $\mathcal{X}$ 配备从 $\mathcal{C}$ 继承的拓扑，
+并令 $q : \mathcal{Y} \to \mathcal{X}$ 为栈。
+那么 $\mathcal{Y}$ 是 $\mathcal{C}$ 上的栈。
+若 $p$ 与 $q$ 定义群胚中的栈，则
+$\mathcal{Y}$ 是 $\mathcal{C}$ 上群胚中的栈。
+\end{lemma}
+
+\begin{proof}
+检验 Definition \ref{stacks-definition-stack} 的三个条件，以证明
+$\mathcal{Y}$ 是 $\mathcal{C}$ 上的栈。
+由 Categories, Lemma
+\ref{categories-lemma-fibred-over-fibred} 可知，
+$\mathcal{Y}$ 是 $\mathcal{C}$ 上的纤维化范畴。
+所以条件 (1) 成立。
+
+\medskip\noindent
+令 $U$ 为 $\mathcal{C}$ 的对象，并令
+$y_1, y_2$ 为 $\mathcal{Y}$ 中位于 $U$ 上的对象。
+在 $\mathcal{X}$ 中记 $x_i = q(y_i)$。
+考虑 $\mathcal{C}/U$ 上的预层映射
+$$
+q : \mathit{Mor}_{\mathcal{Y}/\mathcal{C}}(y_1, y_2)
+\longrightarrow
+\mathit{Mor}_{\mathcal{X}/\mathcal{C}}(x_1, x_2)
+$$
+见引理 \ref{stacks-lemma-presheaf-mor-map-fibred-categories}。
+令 $\{U_i \to U\}$ 为覆盖，并令 $\varphi_i$
+为左侧预层在 $U_i$ 上的截面，使 $\varphi_i$ 与
+$\varphi_j$ 在 $U_i \times_U U_j$ 上限制为同一截面。
+需找到限制为 $\varphi_i$ 的态射
+$\varphi : y_1 \to y_2$。
+注意，由于第二个预层是层（根据假设），对某个
+位于 $U$ 上的态射 $\psi : x_1 \to x_2$，有
+$q(\varphi_i) = \psi|_{U_i}$。
+令 $y_{12} \to y_2$ 为 $\mathcal{Y}$ 中位于
+$\psi$ 上的强 $\mathcal{X}$-笛卡尔态射。
+那么 $\varphi_i$ 对应于位于 $x_1|_{U_i}$ 上的态射
+$\varphi'_i : y_1|_{U_i} \to y_{12}|_{U_i}$。
+换言之，$\varphi'_i$ 现在定义预层
+$$
+\mathit{Mor}_{\mathcal{Y}/\mathcal{X}}(y_1, y_{12})
+$$
+在覆盖 $\{x_1|_{U_i} \to x_1\}$ 各成员上的局部截面。
+由假设，它们黏合为唯一的态射
+$y_1 \to y_{12}$；将其与给定态射
+$y_{12} \to y_2$ 复合，便得到所需态射
+$y_1 \to y_2$。
+
+\medskip\noindent
+最后，证明下降数据有效。令
+$\{f_i : U_i \to U\}$ 为 $\mathcal{C}$ 的覆盖，并令
+$(y_i, \varphi_{ij})$ 为相对于该覆盖的下降数据
+（Definition \ref{stacks-definition-descent-data}）。
+令 $x_i = q(y_i)$、$\psi_{ij} = q(\varphi_{ij})$，
+便得到 $\mathcal{X}$ 中相对于该覆盖的下降数据
+$(x_i, \psi_{ij})$。由对 $\mathcal{X}$ 的假设，
+可假设 $x_i = x|_{U_i}$，而 $\psi_{ij}$ 等于典范下降数据
+（Definition \ref{stacks-definition-effective-descent-datum}）。
+在此情形，$\{x|_{U_i} \to x\}$ 是覆盖，并可把
+$(y_i, \varphi_{ij})$ 看作相对于该覆盖的下降数据。
+% P01-E0205: source says Y is a stack over C, which is the conclusion;
+% the standing hypothesis is that q:Y→X is a stack over X.
+由 $\mathcal{Y}$ 是 $\mathcal{C}$ 上栈这一假设，
+可知该下降数据有效，从而完成条件 (3) 的证明。
+
+\medskip\noindent
+最后一个断言成立，是因为 $\mathcal{Y}$ 是
+$\mathcal{C}$ 上的栈，并由 Categories, Lemma
+\ref{categories-lemma-fibred-in-groupoids-over-fibred-in-groupoids}
+纤维化于群胚。
+\end{proof}
+
+
+
+
+
+\section{Gerbe（胚）}
+\label{stacks-section-gerbes}
+
+\noindent
+Gerbe（胚）是群胚中的栈的一种特殊类型。
+
+\begin{definition}
+\label{stacks-definition-gerbe}
+位点 $\mathcal{C}$ 上的一个{\it Gerbe（胚）}，是
+$\mathcal{C}$ 上的范畴
+$p : \mathcal{S} \to \mathcal{C}$，满足：
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ 是
+$\mathcal{C}$ 上群胚中的栈（见
+Definition \ref{stacks-definition-stack-in-groupoids}）；
+\item 对 $U \in \Ob(\mathcal{C})$，存在
+$\mathcal{C}$ 中的覆盖 $\{U_i \to U\}$，使
+$\mathcal{S}_{U_i}$ 非空；且
+\item 对 $U \in \Ob(\mathcal{C})$ 与
+$x, y \in \Ob(\mathcal{S}_U)$，存在
+$\mathcal{C}$ 中的覆盖 $\{U_i \to U\}$，使得在
+$\mathcal{S}_{U_i}$ 中有
+$x|_{U_i} \cong y|_{U_i}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+换言之，胚是这样的群胚中的栈：任意两个对象局部同构，
+并且对象局部存在。
+
+\begin{lemma}
+\label{stacks-lemma-gerbe-equivalent}
+令 $\mathcal{C}$ 为位点。
+令 $\mathcal{S}_1$、$\mathcal{S}_2$ 为
+$\mathcal{C}$ 上的范畴。假设 $\mathcal{S}_1$ 与
+$\mathcal{S}_2$ 作为 $\mathcal{C}$ 上的范畴彼此等价。
+那么 $\mathcal{S}_1$ 是 $\mathcal{C}$ 上的胚，
+当且仅当 $\mathcal{S}_2$ 是 $\mathcal{C}$ 上的胚。
+\end{lemma}
+
+\begin{proof}
+假设 $\mathcal{S}_1$ 是 $\mathcal{C}$ 上的胚。
+由引理 \ref{stacks-lemma-stack-in-groupoids-equivalent} 可知，
+$\mathcal{S}_2$ 是 $\mathcal{C}$ 上群胚中的栈。
+令 $F : \mathcal{S}_1 \to \mathcal{S}_2$、
+$G : \mathcal{S}_2 \to \mathcal{S}_1$ 为
+$\mathcal{C}$ 上范畴之间的等价。
+给定 $U \in \Ob(\mathcal{C})$，存在覆盖
+$\{U_i \to U\}$，使 $(\mathcal{S}_1)_{U_i}$ 非空。
+应用 $F$ 可知 $(\mathcal{S}_2)_{U_i}$ 非空。
+给定 $U \in \Ob(\mathcal{C})$ 与
+$x, y \in \Ob((\mathcal{S}_2)_U)$，存在
+$\mathcal{C}$ 中的覆盖 $\{U_i \to U\}$，使得在
+$(\mathcal{S}_1)_{U_i}$ 中有
+$G(x)|_{U_i} \cong G(y)|_{U_i}$。
+由 Categories, Lemma
+\ref{categories-lemma-equivalence-fibred-categories}，
+这蕴含在 $(\mathcal{S}_2)_{U_i}$ 中有
+$x|_{U_i} \cong y|_{U_i}$。
+\end{proof}
+
+\noindent
+我们希望稍微推广胚的定义。具体地，令
+$F : \mathcal{X} \to \mathcal{Y}$ 为位点
+$\mathcal{C}$ 上群胚中的栈之间的 $1$-态射。
+我们想说明 $\mathcal{X}$ 是 $\mathcal{Y}$ 上的胚
+意味着什么。由 Section \ref{stacks-section-topology}，
+范畴 $\mathcal{Y}$ 从 $\mathcal{C}$ 继承位点结构。
+一个朴素的猜测是：只要求
+$\mathcal{X} \to \mathcal{Y}$ {\it 是}上述意义下的胚。
+可是，如此得到的概念在用 $\mathcal{C}$ 上群胚中的等价栈替换
+$\mathcal{X}$ 时并不保持不变；即使只是
+$\mathcal{Y}$ 上纤维化于群胚这一性质，也会如此。
+不过，事实证明，可以用一个在 $\mathcal{Y}$ 上纤维化于群胚的、
+$\mathcal{C}$ 上群胚中的等价栈替换 $\mathcal{X}$；
+此时，在 $\mathcal{Y}$ 上为胚这一性质与替换的选择无关。
+精确表述如下。
+
+\begin{lemma}
+\label{stacks-lemma-when-gerbe}
+令 $\mathcal{C}$ 为位点。令
+$p : \mathcal{X} \to \mathcal{C}$ 与
+$q : \mathcal{Y} \to \mathcal{C}$ 为群胚中的栈。
+令 $F : \mathcal{X} \to \mathcal{Y}$ 为
+$\mathcal{C}$ 上范畴之间的 $1$-态射。下列条件等价：
+\begin{enumerate}
+\item 对某个（等价地，任意）分解
+$F = F' \circ a$，其中
+$a : \mathcal{X} \to \mathcal{X}'$ 是
+$\mathcal{C}$ 上范畴之间的等价，而 $F'$ 纤维化于群胚，
+映射 $F' : \mathcal{X}' \to \mathcal{Y}$ 是胚
+（$\mathcal{Y}$ 配备从 $\mathcal{C}$ 继承的拓扑）。
+\item 满足下列两个条件：
+\begin{enumerate}
+\item 对位于 $U \in \Ob(\mathcal{C})$ 上的
+$y \in \Ob(\mathcal{Y})$，存在
+$\mathcal{C}$ 中的覆盖 $\{U_i \to U\}$ 以及
+$\mathcal{X}$ 中位于 $U_i$ 上的对象 $x_i$，
+使得在 $\mathcal{Y}_{U_i}$ 中有
+$F(x_i) \cong y|_{U_i}$；且
+\item 对 $U \in \Ob(\mathcal{C})$、
+$x, x' \in \Ob(\mathcal{X}_U)$ 以及
+$\mathcal{Y}_U$ 中的 $b : F(x) \to F(x')$，
+存在 $\mathcal{C}$ 中的覆盖 $\{U_i \to U\}$
+以及 $\mathcal{X}_{U_i}$ 中的态射
+$a_i : x|_{U_i} \to x'|_{U_i}$，满足
+$F(a_i) = b|_{U_i}$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由 Categories, Lemma
+\ref{categories-lemma-ameliorate-morphism-categories-fibred-groupoids}，
+存在分解 $F = F' \circ a$，其中
+$a : \mathcal{X} \to \mathcal{X}'$ 是
+$\mathcal{C}$ 上范畴之间的等价，而 $F'$ 纤维化于群胚。
+由 Categories, Lemma
+\ref{categories-lemma-amelioration-unique}，
+给定任意两个这样的分解
+$F = F' \circ a = F'' \circ b$，
+$\mathcal{X}'$ 与 $\mathcal{X}''$ 作为
+$\mathcal{Y}$ 上的范畴彼此等价。
+因此，引理 \ref{stacks-lemma-gerbe-equivalent} 保证条件 (1)
+与分解的选择无关。此外，这意味着可以假设
+$\mathcal{X}' =
+\mathcal{X} \times_{F, \mathcal{Y}, \text{id}} \mathcal{Y}$，
+如 Categories, Lemma
+\ref{categories-lemma-ameliorate-morphism-categories-fibred-groupoids}
+的证明中所述。
+
+\medskip\noindent
+来证明 (a)、(b) 蕴含
+$\mathcal{X}' \to \mathcal{Y}$ 是胚。
+首先，由引理
+\ref{stacks-lemma-stack-in-groupoids-over-stack-in-groupoids} 可知，
+$\mathcal{X}' \to \mathcal{Y}$ 是群胚中的栈。
+其次，令 $y$ 为 $\mathcal{Y}$ 中位于
+$U \in \Ob(\mathcal{C})$ 上的对象。
+由 (a)，可找到 $\mathcal{C}$ 中的覆盖
+$\{U_i \to U\}$、$\mathcal{X}$ 中位于 $U_i$
+上的对象 $x_i$，以及 $\mathcal{Y}_{U_i}$ 中的同构
+$f_i : F(x_i) \to y|_{U_i}$。
+那么 $(U_i, x_i, y|_{U_i}, f_i)$ 是
+$\mathcal{X}'_{U_i}$ 的对象；即 Definition
+\ref{stacks-definition-gerbe} 的第二个条件成立。
+最后，令 $(U, x, y, f)$ 与 $(U, x', y, f')$
+为 $\mathcal{X}'$ 中位于同一对象
+$y \in \Ob(\mathcal{Y})$ 上的对象。
+令 $b = (f')^{-1} \circ f$。
+由条件 (b)，可找到覆盖 $\{U_i \to U\}$ 以及
+$\mathcal{X}_{U_i}$ 中满足
+$F(a_i) = b|_{U_i}$ 的同构
+$a_i : x|_{U_i} \to x'|_{U_i}$。
+那么
+$$
+(a_i, \text{id}) : (U, x, y, f)|_{U_i} \to (U, x', y, f')|_{U_i}
+$$
+是 $\mathcal{X}'_{U_i}$ 中所需的态射。
+这证明 (2) 蕴含 (1)。
+
+\medskip\noindent
+为证明 (1) 蕴含 (2)，反向阅读上一段的论证即可。细节从略。
+\end{proof}
+
+\begin{definition}
+\label{stacks-definition-gerbe-over-stack-in-groupoids}
+令 $\mathcal{C}$ 为位点。令 $\mathcal{X}$ 与
+$\mathcal{Y}$ 为 $\mathcal{C}$ 上群胚中的栈。
+令 $F : \mathcal{X} \to \mathcal{Y}$ 为
+$\mathcal{C}$ 上范畴之间的 $1$-态射。
+若满足引理 \ref{stacks-lemma-when-gerbe} 中的等价条件，
+则称 $\mathcal{X}$ 是 $\mathcal{Y}$ {\it 上的胚}。
+\end{definition}
+
+\noindent
+当 $\mathcal{Y} = \mathcal{C}$ 时，这一定义与
+Definition \ref{stacks-definition-gerbe} 不冲突，因为在
+Lemma \ref{stacks-lemma-when-gerbe} 的 (1) 中可取
+$\mathcal{X}' = \mathcal{X}$。
+注意，Lemma \ref{stacks-lemma-when-gerbe} 的条件 (2)(a)、(2)(b)
+在精神上非常接近 Definition \ref{stacks-definition-gerbe} 的
+条件 (2)、(3)。具体而言，(2)(a) 说对象同构类的预层之间的映射
+在层化后成为满射。此外，(2)(b) 说
+$$
+\mathit{Isom}_\mathcal{X}(x, x')
+\longrightarrow
+\mathit{Isom}_\mathcal{Y}(F(x), F(x'))
+$$
+对任意 $U$ 与 $x, x' \in \Ob(\mathcal{X}_U)$，
+都是 $\mathcal{C}/U$ 上层之间的满射。
+
+\begin{lemma}
+\label{stacks-lemma-base-change-gerbe}
+令 $\mathcal{C}$ 为位点。令
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{G'} \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^G & \mathcal{Y}
+}
+$$
+为 $\mathcal{C}$ 上群胚中的栈所组成的 $2$-纤维积。
+若 $\mathcal{X}$ 是 $\mathcal{Y}$ 上的胚，则
+$\mathcal{X}'$ 是 $\mathcal{Y}'$ 上的胚。
+\end{lemma}
+
+\begin{proof}
+% P01-E0206: source omits “we” before “may assume”.
+由 $2$-纤维积的唯一性性质，可假设
+$\mathcal{X}' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$，
+如 Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C} 中所述。
+来证明引理 \ref{stacks-lemma-when-gerbe} 的性质 (2)(a)、(2)(b)
+对 $\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}
+\to \mathcal{Y}'$ 成立。
+
+\medskip\noindent
+令 $y'$ 为 $\mathcal{Y}'$ 中位于
+$\mathcal{C}$ 的对象 $U$ 上的对象。
+由假设，存在 $U$ 的覆盖 $\{U_i \to U\}$
+以及对象 $x_i \in \mathcal{X}_{U_i}$，并有同构
+$\alpha_i : G(y')|_{U_i} \to F(x_i)$。
+那么 $(U_i, y'|_{U_i}, x_i, \alpha_i)$ 是
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$ 中位于
+$U_i$ 上的对象，其在 $\mathcal{Y}'$ 中的像为
+$y'|_{U_i}$。因此 (2)(a) 成立。
+
+\medskip\noindent
+令 $U \in \Ob(\mathcal{C})$，令
+$x'_1, x'_2$ 为
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+中位于 $U$ 上的对象，并令
+$b' : F'(x'_1) \to F'(x'_2)$ 为
+$\mathcal{Y}'_U$ 中的态射。写
+$x'_i = (U, y'_i, x_i, \alpha_i)$。
+% P01-E0208: the source reverses the two projections F' and G'.
+注意，$F'(x'_i) = x_i$ 且 $G'(x'_i) = y'_i$。
+由假设，存在 $\mathcal{C}$ 中的覆盖
+$\{U_i \to U\}$，以及 $\mathcal{X}_{U_i}$ 中满足
+$F(a_i) = G(b')|_{U_i}$ 的态射
+$a_i : x_1|_{U_i} \to x_2|_{U_i}$。
+那么 $(b'|_{U_i}, a_i)$ 是 (2)(b) 所要求的态射
+$x'_1|_{U_i} \to x'_2|_{U_i}$。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-composition-gerbe}
+令 $\mathcal{C}$ 为位点。令
+$F : \mathcal{X} \to \mathcal{Y}$ 与
+$G : \mathcal{Y} \to \mathcal{Z}$ 为
+$\mathcal{C}$ 上群胚中的栈之间的 $1$-态射。
+若 $\mathcal{X}$ 是 $\mathcal{Y}$ 上的胚，且
+$\mathcal{Y}$ 是 $\mathcal{Z}$ 上的胚，则
+$\mathcal{X}$ 是 $\mathcal{Z}$ 上的胚。
+\end{lemma}
+
+\begin{proof}
+来证明引理 \ref{stacks-lemma-when-gerbe} 的性质 (2)(a)、(2)(b)
+对 $\mathcal{X} \to \mathcal{Z}$ 成立。
+
+\medskip\noindent
+令 $z$ 为 $\mathcal{Z}$ 中位于
+$\mathcal{C}$ 的对象 $U$ 上的对象。
+由对 $G$ 的假设，存在 $U$ 的覆盖
+$\{U_i \to U\}$ 与对象
+$y_i \in \mathcal{Y}_{U_i}$，使
+$G(y_i) \cong z|_{U_i}$。
+由对 $F$ 的假设，存在覆盖
+$\{U_{ij} \to U_i\}$ 与对象
+$x_{ij} \in \mathcal{X}_{U_{ij}}$，使
+$F(x_{ij}) \cong y_i|_{U_{ij}}$。
+那么 $\{U_{ij} \to U\}$ 是 $\mathcal{C}$ 的覆盖，且
+$(G \circ F)(x_{ij}) \cong z|_{U_{ij}}$。
+因此 (2)(a) 成立。
+
+\medskip\noindent
+令 $U \in \Ob(\mathcal{C})$，令 $x_1, x_2$
+为 $\mathcal{X}$ 中位于 $U$ 上的对象，并令
+$c : (G \circ F)(x_1) \to (G \circ F)(x_2)$ 为
+$\mathcal{Z}_U$ 中的态射。由对 $G$ 的假设，
+存在 $U$ 的覆盖 $\{U_i \to U\}$ 以及
+$\mathcal{Y}_{U_i}$ 中满足
+$G(b_i) = c|_{U_i}$ 的态射
+$b_i : F(x_1)|_{U_i} \to F(x_2)|_{U_i}$。
+由对 $F$ 的假设，存在覆盖
+$\{U_{ij} \to U_i\}$ 以及
+$\mathcal{X}_{U_{ij}}$ 中满足
+$F(a_{ij}) = b_i|_{U_{ij}}$ 的态射
+$a_{ij} : x_1|_{U_{ij}} \to x_2|_{U_{ij}}$。
+那么 $\{U_{ij} \to U\}$ 是 $\mathcal{C}$ 的覆盖，且
+$(G \circ F)(a_{ij}) = c|_{U_{ij}}$，正如 (2)(b) 所要求。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-gerbe-descent}
+令 $\mathcal{C}$ 为位点。令
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{G'} \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^G & \mathcal{Y}
+}
+$$
+为 $\mathcal{C}$ 上群胚中的栈所组成的 $2$-笛卡尔图式。
+若对每个 $U \in \Ob(\mathcal{C})$ 与
+$x \in \Ob(\mathcal{Y}_U)$，都存在覆盖
+$\{U_i \to U\}$，使得 $x|_{U_i}$ 属于
+$G : \mathcal{Y}'_{U_i} \to \mathcal{Y}_{U_i}$
+的本质像，并且 $\mathcal{X}'$ 是
+$\mathcal{Y}'$ 上的胚，则 $\mathcal{X}$ 是
+$\mathcal{Y}$ 上的胚。
+\end{lemma}
+
+\begin{proof}
+% P01-E0207: source omits “we” before “may assume”.
+由 $2$-纤维积的唯一性性质，可假设
+$\mathcal{X}' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$，
+如 Categories, Lemma
+\ref{categories-lemma-2-product-categories-over-C} 中所述。
+来证明引理 \ref{stacks-lemma-when-gerbe} 的性质 (2)(a)、(2)(b)
+对 $\mathcal{X} \to \mathcal{Y}$ 成立。
+
+\medskip\noindent
+令 $y$ 为 $\mathcal{Y}$ 中位于
+$\mathcal{C}$ 的对象 $U$ 上的对象。
+由假设，存在 $U$ 的覆盖 $\{U_i \to U\}$ 与对象
+$y'_i \in \mathcal{Y}'_{U_i}$，使
+$G(y'_i) \cong y|_{U_i}$。
+由 $\mathcal{X}' \to \mathcal{Y}'$ 的 (2)(a)，
+存在覆盖 $\{U_{ij} \to U_i\}$ 以及
+$\mathcal{X}'$ 中位于 $U_{ij}$ 上的对象 $x'_{ij}$，
+% P01-E0209: source uses the ungrammatical “with ... isomorphic”.
+使 $F'(x'_{ij})$ 同构于 $y'_i$ 在
+$U_{ij}$ 上的限制。那么
+$\{U_{ij} \to U\}$ 是 $\mathcal{C}$ 的覆盖，
+而 $G'(x'_{ij})$ 是 $\mathcal{X}$ 中位于
+$U_{ij}$ 上的对象，其在 $\mathcal{Y}$ 中的像同构于
+$y|_{U_{ij}}$。这证明了
+$\mathcal{X} \to \mathcal{Y}$ 的 (2)(a)。
+
+\medskip\noindent
+令 $U \in \Ob(\mathcal{C})$，令 $x_1, x_2$
+为 $\mathcal{X}$ 中位于 $U$ 上的对象，并令
+$b : F(x_1) \to F(x_2)$ 为 $\mathcal{Y}_U$ 中的态射。
+由假设，可选取覆盖 $\{U_i \to U\}$ 以及
+$\mathcal{Y}'$ 中位于 $U_i$ 上的对象 $y'_i$，
+使存在同构
+$\alpha_i : G(y'_i) \to F(x_1)|_{U_i}$。
+于是得到 $\mathcal{X}'$ 中位于 $U_i$ 上的对象
+$$
+x'_{1i} = (U_i, y'_i, x_1|_{U_i}, \alpha_i)
+\quad\text{且}\quad
+x'_{2i} = (U_i, y'_i, x_2|_{U_i}, b|_{U_i} \circ \alpha_i)
+$$
+$y'_i$ 上的恒等态射是态射
+$F'(x'_{1i}) \to F'(x'_{2i})$。
+由 $\mathcal{X}' \to \mathcal{Y}'$ 的 (2)(b)，
+存在覆盖 $\{U_{ij} \to U_i\}$ 与满足
+$F'(a'_{ij}) = \text{id}_{y'_i}|_{U_{ij}}$ 的态射
+$a'_{ij} : x'_{1i}|_{U_{ij}} \to x'_{2i}|_{U_{ij}}$。
+展开 $\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+中态射的定义，可知
+$G'(a'_{ij}) : x_1|_{U_{ij}} \to x_2|_{U_{ij}}$
+正是所求态射；即
+$\mathcal{X} \to \mathcal{Y}$ 的 (2)(b) 成立。
+\end{proof}
+
+\noindent
+所有自同构层均为阿贝尔层的胚在代数几何中发挥重要作用。
+
+\begin{lemma}
+\label{stacks-lemma-gerbe-abelian-auts}
+令 $p : \mathcal{S} \to \mathcal{C}$ 为位点
+$\mathcal{C}$ 上的胚。假设对所有
+$U \in \Ob(\mathcal{C})$ 与
+$x \in \Ob(\mathcal{S}_U)$，$\mathcal{C}/U$
+上的群层
+$\mathit{Aut}(x) = \mathit{Isom}(x, x)$ 都是阿贝尔的。
+那么存在
+\begin{enumerate}
+\item $\mathcal{C}$ 上的阿贝尔群层 $\mathcal{G}$；
+\item 对每个 $U \in \Ob(\mathcal{C})$ 与每个
+$x \in \Ob(\mathcal{S}_U)$，一个同构
+$\mathcal{G}|_U \to \mathit{Aut}(x)$，
+\end{enumerate}
+使得对每个 $U$ 以及 $\mathcal{S}_U$ 中的每个态射
+$\varphi : x \to y$，图式
+$$
+\xymatrix{
+\mathcal{G}|_U \ar[d] \ar@{=}[rr] & & \mathcal{G}|_U \ar[d] \\
+\mathit{Aut}(x)
+\ar[rr]^{\alpha \mapsto \varphi \circ \alpha \circ \varphi^{-1}} & &
+\mathit{Aut}(y)
+}
+$$
+交换。
+\end{lemma}
+
+\begin{proof}
+令 $x, y$ 为 $\mathcal{S}$ 的两个对象，且
+$U = p(x) = p(y)$。
+
+\medskip\noindent
+若存在位于 $U$ 上的态射 $\varphi : x \to y$，
+则它是同构，因而确实得到同构
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$，它把
+$\alpha$ 送到
+$\varphi \circ \alpha \circ \varphi^{-1}$。
+此外，因为假设 $\mathit{Aut}(x)$ 可交换，
+一个简单计算表明该同构与 $\varphi$ 的选择无关：
+若 $\psi$ 是第二个这样的映射，则
+$$
+\varphi \circ \alpha \circ \varphi^{-1} =
+\psi \circ \psi^{-1} \circ \varphi \circ \alpha \circ \varphi^{-1} =
+\psi \circ \alpha \circ \psi^{-1} \circ \varphi \circ \varphi^{-1} =
+\psi \circ \alpha \circ \psi^{-1}
+$$
+其结果是层之间的典范同构
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$。
+再者，若有第三个对象 $z$ 以及态射 $y \to z$
+（因而也有态射 $x \to z$），则典范同构
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$、
+$\mathit{Aut}(y) \to \mathit{Aut}(z)$ 与
+$\mathit{Aut}(x) \to \mathit{Aut}(z)$ 相容，其意义是图式
+$$
+\xymatrix{
+\mathit{Aut}(x) \ar[rd] \ar[rr] & &  \mathit{Aut}(z) \\
+& \mathit{Aut}(y) \ar[ru]
+}
+$$
+交换。
+
+\medskip\noindent
+若不存在位于 $U$ 上从 $x$ 到 $y$ 的态射，
+则可选取覆盖 $\{U_i \to U\}$，使得存在态射
+$x|_{U_i} \to y|_{U_i}$。这给出典范同构
+$$
+\mathit{Aut}(x)|_{U_i} \longrightarrow \mathit{Aut}(y)|_{U_i}
+$$
+它们在 $U_i \times_U U_j$ 上一致（由典范性）。
+由层的黏合（Sites, Lemma \ref{sites-lemma-glue-maps}），
+得到唯一同构
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$，其在任意
+$U_i$ 上的限制均为上一段的典范同构。
+与上面类似，若有位于 $U$ 上的第三个对象，
+这些典范同构满足相容性。
+
+\medskip\noindent
+如果 $\mathcal{S}$ 在 $U$ 上的纤维范畴为空，怎么办？
+在这种情况下，可以找到覆盖 $\{U_i \to U\}$
+以及 $\mathcal{S}$ 中位于 $U_i$ 上的对象 $x_i$。
+令 $\mathcal{G}_i = \mathit{Aut}(x_i)$。
+由上述论证，得到典范同构
+$$
+\varphi_{ij} :
+\mathcal{G}_i|_{U_i \times_U U_j}
+\longrightarrow
+\mathcal{G}_j|_{U_i \times_U U_j}
+$$
+它们在 $U_i \times_U U_j \times_U U_k$ 上的限制满足
+Sites, Section \ref{sites-section-glueing-sheaves}
+中说明的余圈条件。
+由 Sites, Lemma \ref{sites-lemma-glue-sheaves}，
+得到 $U$ 上的层 $\mathcal{G}$；它在 $U_i$ 上的限制
+以与黏合映射 $\varphi_{ij}$ 相容的方式给出
+$\mathcal{G}_i$。
+
+\medskip\noindent
+若 $\mathcal{C}$ 有终对象 $U$，证明便告完成，
+因为可以取 $\mathcal{G}$ 为刚才构造的层。
+在一般情形，还需验证在不同 $U$ 上构造的层
+$\mathcal{G}$ 以典范方式相容。此验证从略。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{栈的函子性}
+\label{stacks-section-inverse-image}
+
+\noindent
+本节研究改变栈的基位点时会发生什么。初次阅读时可以跳过本节。
+
+\medskip\noindent
+令 $u : \mathcal{C} \to \mathcal{D}$ 为范畴之间的函子。
+令 $p : \mathcal{S} \to \mathcal{D}$ 为
+$\mathcal{D}$ 上的范畴。在这种情况下，以
+$u^p\mathcal{S}$ 表示如下定义的 $\mathcal{C}$ 上的范畴：
+\begin{enumerate}
+\item $u^p\mathcal{S}$ 的对象是偶对 $(U, y)$，其中
+$U$ 是 $\mathcal{C}$ 的对象，而
+$y$ 是 $\mathcal{S}_{u(U)}$ 的对象。
+\item 态射 $(a, \beta) : (U, y) \to (U', y')$ 由
+$\mathcal{C}$ 的态射 $a : U \to U'$ 与
+$\mathcal{S}$ 的态射 $\beta : y \to y'$ 给出，并满足
+$p(\beta) = u(a)$。
+\end{enumerate}
+注意，按这些定义，$u^p\mathcal{S}$ 在 $U$ 上的纤维范畴
+等于 $\mathcal{S}$ 在 $u(U)$ 上的纤维范畴。
+
+\begin{lemma}
+\label{stacks-lemma-fibred-category-pushforward}
+在上述情形中，若 $\mathcal{S}$ 是 $\mathcal{D}$ 上的纤维化范畴，
+则 $u^p\mathcal{S}$ 是 $\mathcal{C}$ 上的纤维化范畴。
+\end{lemma}
+
+\begin{proof}
+在阅读此证明前，请先参阅 Categories, Definitions
+\ref{categories-definition-cartesian-over-C} 与
+\ref{categories-definition-fibred-category} 周围的讨论。
+令 $(a, \beta) : (U, y) \to (U', y')$ 为
+$u^p\mathcal{S}$ 的态射。我们断言，
+$(a, \beta)$ 是强笛卡尔的，当且仅当 $\beta$ 是强笛卡尔的。
+先假设 $\beta$ 强笛卡尔。考虑
+$u^p\mathcal{S}$ 的任意第二个态射
+$(a_1, \beta_1) : (U_1, y_1) \to (U', y')$。
+那么
+\begin{align*}
+& \Mor_{u^p\mathcal{S}}((U_1, y_1), (U, y)) \\
+& =
+\Mor_\mathcal{C}(U_1, U)
+\times_{\Mor_\mathcal{D}(u(U_1), u(U))}
+\Mor_\mathcal{S}(y_1, y) \\
+& =
+\Mor_\mathcal{C}(U_1, U)
+\times_{\Mor_\mathcal{D}(u(U_1), u(U))}
+\Mor_\mathcal{S}(y_1, y')
+\times_{\Mor_\mathcal{D}(u(U_1), u(U'))}
+\Mor_\mathcal{D}(u(U_1), u(U)) \\
+& =
+\Mor_\mathcal{S}(y_1, y')
+\times_{\Mor_\mathcal{D}(u(U_1), u(U'))}
+\Mor_\mathcal{C}(U_1, U) \\
+& =
+\Mor_{u^p\mathcal{S}}((U_1, y_1), (U', y'))
+\times_{\Mor_\mathcal{C}(U_1, U')}
+\Mor_\mathcal{C}(U_1, U)
+\end{align*}
+其中第二个等号来自 $\beta$ 强笛卡尔。因此，确实可知
+$(a, \beta)$ 强笛卡尔。反之，假设 $(a, \beta)$ 强笛卡尔。
+在 $\mathcal{S}$ 中选取满足
+$p(\beta') = u(a)$ 的强笛卡尔态射
+$\beta' : y'' \to y'$。
+% P01-E0210: source has the typo “bot” for “both”.
+% P01-E0211: source's two displayed source/target pairs are internally
+% inconsistent with the original morphism and the common lift of a.
+那么 $(a, \beta) : (U, y) \to (U, y')$ 与
+$(a, \beta') : (U, y'') \to (U, y)$ 均为强笛卡尔态射，
+并提升 $a$。因此，由强笛卡尔态射的唯一性（见
+Categories, Section \ref{categories-section-fibred-categories}
+中的讨论），存在 $\mathcal{S}_{u(U)}$ 中的同构
+$\iota : y \to y''$，满足
+$\beta = \beta' \circ \iota$；由 Categories, Lemma
+\ref{categories-lemma-composition-cartesian}，这蕴含
+$\beta$ 在 $\mathcal{S}$ 中强笛卡尔。
+
+\medskip\noindent
+最后还须证明：给定 $(U', y')$ 与 $U \to U'$，
+可以在 $u^p\mathcal{S}$ 中找到提升态射
+$U \to U'$ 的强笛卡尔态射
+$(U, y) \to (U', y')$。由上述结论及假设，这可由选取提升
+$u(U) \to u(U')$ 的强笛卡尔态射 $y \to y'$ 得到。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-pushforward}
+令 $u : \mathcal{C} \to \mathcal{D}$ 为位点之间的连续函子。
+令 $p : \mathcal{S} \to \mathcal{D}$ 为
+$\mathcal{D}$ 上的栈。那么 $u^p\mathcal{S}$
+是 $\mathcal{C}$ 上的栈。
+\end{lemma}
+
+\begin{proof}
+引理 \ref{stacks-lemma-fibred-category-pushforward} 已说明
+$u^p\mathcal{S}$ 是 $\mathcal{C}$ 上的纤维化范畴。
+此外，该引理的证明说明：
+$u^p\mathcal{S}$ 的态射 $(a, \beta)$ 强笛卡尔，
+当且仅当 $\beta$ 在 $\mathcal{S}$ 中强笛卡尔。
+因此，给定 $\mathcal{C}$ 的态射 $a : U \to U'$，
+我们不仅有等式
+% P01-E0212: source omits u on the fibre indices; compare source line 2695.
+$(u^p\mathcal{S})_U = \mathcal{S}_U$ 与
+$(u^p\mathcal{S})_{U'} = \mathcal{S}_{U'}$，
+而且在这些等式之下拉回函子一致；写成公式即
+$a^*(U', y') = (U, u(a)^*y')$。
+
+\medskip\noindent
+说明这些后，令
+$\mathcal{U} = \{U_i \to U\}$ 为 $\mathcal{C}$ 的覆盖。
+由于 $u$ 连续，
+$\mathcal{V} = \{u(U_i) \to u(U)\}$ 是
+$\mathcal{D}$ 的覆盖，并且
+$u(U_i \times_U U_j) = u(U_i) \times_{u(U)} u(U_j)$；
+三重纤维积
+$U_i \times_U U_j \times_U U_k$ 也同样。
+由于我们有纤维范畴与拉回的这些识别，可知
+% P01-E0213: source twice says “descend data” instead of “descent data”.
+相对于 $\mathcal{U}$ 的下降数据与相对于
+$\mathcal{V}$ 的下降数据完全相同。
+根据假设，$\mathcal{S}$ 中下降有效，故
+$u^p\mathcal{S}$ 中也如此。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-stack-in-groupoids-pushforward}
+令 $u : \mathcal{C} \to \mathcal{D}$ 为位点之间的连续函子。
+令 $p : \mathcal{S} \to \mathcal{D}$ 为
+$\mathcal{D}$ 上群胚中的栈。那么
+$u^p\mathcal{S}$ 是 $\mathcal{C}$ 上群胚中的栈。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{stacks-lemma-stack-pushforward}
+以及所有纤维范畴均为群胚这一事实得出。
+\end{proof}
+
+\begin{definition}
+\label{stacks-definition-pushforward-stack}
+令 $f : \mathcal{D} \to \mathcal{C}$ 为由连续函子
+$u : \mathcal{C} \to \mathcal{D}$ 给出的位点态射。
+令 $\mathcal{S}$ 为 $\mathcal{D}$ 上的纤维化范畴。
+在这种情况下，以{\it $f_*\mathcal{S}$} 表示上面定义的
+纤维化范畴 $u^p\mathcal{S}$。称
+$f_*\mathcal{S}$ 为 $\mathcal{S}$ {\it 沿 $f$ 的推前}。
+\end{definition}
+
+\noindent
+由上述结论可知，若 $\mathcal{S}$ 是栈（群胚中的栈），则
+$f_*\mathcal{S}$ 是栈（群胚中的栈）。
+栈的拉回较难定义（我们的这个特定构造还需要额外假设——
+欢迎写出并提交更一般的构造）。我们分几步完成。
+
+\medskip\noindent
+令 $u : \mathcal{C} \to \mathcal{D}$ 为范畴之间的函子。
+令 $p : \mathcal{S} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上的范畴。在这种情况下，定义范畴
+$u_{pp}\mathcal{S}$ 如下：
+\begin{enumerate}
+\item $u_{pp}\mathcal{S}$ 的对象是三元组
+$(U, \phi : V \to u(U), x)$，其中
+$U \in \Ob(\mathcal{C})$，映射
+$\phi : V \to u(U)$ 是 $\mathcal{D}$ 的态射，而
+$x \in \Ob(\mathcal{S}_U)$。
+\item $u_{pp}\mathcal{S}$ 的态射
+$$
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U_2, \phi_2 : V_2 \to u(U_2), x_2)
+$$
+由 $(a, b, \alpha)$ 给出，其中
+$a : U_1 \to U_2$ 是 $\mathcal{C}$ 的态射，
+$b : V_1 \to V_2$ 是 $\mathcal{D}$ 的态射，而
+% P01-E0214: source omits the article in “is morphism”.
+$\alpha : x_1 \to x_2$ 是 $\mathcal{S}$ 的态射，
+满足 $p(\alpha) = a$，并且图式
+$$
+\xymatrix{
+V_1 \ar[d]_{\phi_1} \ar[r]_b & V_2 \ar[d]^{\phi_2} \\
+u(U_1) \ar[r]^{u(a)} & u(U_2)
+}
+$$
+在 $\mathcal{D}$ 中交换。
+\end{enumerate}
+通过
+$$
+p_{pp} : u_{pp}\mathcal{S} \longrightarrow \mathcal{D},
+\quad
+(U, \phi : V \to u(U), x) \longmapsto V.
+$$
+把 $u_{pp}\mathcal{S}$ 看作 $\mathcal{D}$ 上的范畴。
+$u_{pp}\mathcal{S}$ 在 $\mathcal{D}$ 的对象 $V$
+上的纤维范畴没有简单描述。
+
+\begin{lemma}
+\label{stacks-lemma-right-multiplicative-system}
+在上述情形中，假设：
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ 是纤维化范畴；
+\item $\mathcal{C}$ 有非空有限极限；且
+\item $u : \mathcal{C} \to \mathcal{D}$ 与非空有限极限交换。
+\end{enumerate}
+考虑由形如
+$$
+(a, \text{id}_V, \alpha) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+且 $\alpha$ 强笛卡尔的态射组成的集合
+$R \subset \text{Arrows}(u_{pp}\mathcal{S})$。
+那么 $R$ 是右乘法系。
+\end{lemma}
+
+\begin{proof}
+按照 Categories, Definition
+\ref{categories-definition-multiplicative-system}，
+需检验 RMS1、RMS2、RMS3。
+条件 RMS1 成立，因为强笛卡尔态射的复合仍为强笛卡尔态射，
+见 Categories, Lemma
+\ref{categories-lemma-composition-cartesian}。
+
+\medskip\noindent
+为检验 RMS2，假设有 $u_{pp}\mathcal{S}$ 的态射
+$$
+(a, b, \alpha) :
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+以及 $R$ 中的态射
+$$
+(c, \text{id}_V, \gamma) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+其中 $\gamma$ 强笛卡尔。在这种情况下，令
+$U'_1 = U_1 \times_U U'$，并以
+$a' : U'_1 \to U'$ 与
+$c' : U'_1 \to U_1$ 表示投影。
+因为 $u(U'_1) = u(U_1) \times_{u(U)} u(U')$，
+$\phi'_1 = (\phi_1, \phi') : V_1 \to u(U'_1)$
+是 $\mathcal{D}$ 中的态射。
+令 $\gamma_1 : x_1' \to x_1$ 为 $\mathcal{S}$
+中满足
+% P01-E0215: p(gamma_1) is C-valued but source sets it equal to
+% the D-morphism phi'_1; the typed projection is c'.
+$p(\gamma_1) = \phi'_1$ 的强笛卡尔态射
+（它存在，因为 $\mathcal{S}$ 是 $\mathcal{C}$ 上的纤维化范畴）。
+由于 $\gamma : x' \to x$ 强笛卡尔，存在唯一态射
+$\alpha' : x'_1 \to x'$，满足 $p(\alpha') = a'$。
+此时可知
+% P01-E0216: the source display has inconsistent U/U' and phi/phi' entries.
+$$
+(a', b, \alpha') :
+(U_1, \phi_1 : V_1 \to u(U'_1), x'_1)
+\longrightarrow
+(U, \phi : V \to u(U'), x')
+$$
+是态射，并且
+% P01-E0217: source writes phi instead of phi_1 in the codomain tuple.
+$$
+(c', \text{id}_{V_1}, \gamma_1) :
+(U'_1, \phi'_1 : V_1 \to u(U'_1), x'_1)
+\longrightarrow
+(U_1, \phi : V_1 \to u(U_1), x_1)
+$$
+是 $R$ 的元素；它
+% P01-E0218: source has singular “which form”.
+构成 RMS2 所提出存在性问题的一个解。
+
+\medskip\noindent
+最后，假设
+$$
+(a, b, \alpha), (a', b', \alpha') :
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+是 $u_{pp}\mathcal{S}$ 的两个态射，并假设
+$$
+(c, \text{id}_V, \gamma) :
+(U, \phi : V \to u(U), x)
+\longrightarrow
+(U', \phi : V \to u(U'), x')
+$$
+是 $R$ 中使态射 $(a, b, \alpha)$ 与
+$(a', b', \alpha')$ 相等的元素。
+特别地，这蕴含 $b = b'$。令 $d : U_2 \to U_1$
+为 $a, a'$ 的等化子；它存在（见
+Categories, Lemma
+\ref{categories-lemma-almost-finite-limits-exist}）。
+此外，$u(d) : u(U_2) \to u(U_1)$ 是
+$u(a), u(a')$ 的等化子；故（因为 $b = b'$）
+存在态射 $\phi_2 : V_1 \to u(U_2)$，使得
+% P01-E0219: source repeats phi_1 on both sides; the factorization
+% should use phi_2 on the right.
+$\phi_1 = u(d) \circ \phi_1$。
+令 $\delta : x_2 \to x_1$ 为 $\mathcal{S}$ 中满足
+% P01-E0220: p(delta) is C-valued, while u(d) lies in D; d is typed.
+$p(\delta) = u(d)$ 的强笛卡尔态射。
+现在断言 $\alpha \circ \delta = \alpha' \circ \delta$。
+这是因为 $\gamma$ 强笛卡尔、
+$\gamma \circ \alpha \circ \delta
+= \gamma \circ \alpha' \circ \delta$，且
+$p(\alpha \circ \delta) = p(\alpha' \circ \delta)$。
+因此箭头
+$$
+(d, \text{id}_{V_1}, \delta) :
+(U_2, \phi_2 : V_1 \to u(U_2), x_2)
+\longrightarrow
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+$$
+是 $R$ 的元素，并使
+$(a, b, \alpha)$ 与 $(a', b', \alpha')$ 相等。
+所以 $R$ 也满足 RMS3。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-fibred-category-pullback}
+记号与假设同引理
+\ref{stacks-lemma-right-multiplicative-system}。
+令 $u_p\mathcal{S} = R^{-1}u_{pp}\mathcal{S}$，见
+Categories, Section \ref{categories-section-localization}。
+那么 $u_p\mathcal{S}$ 是 $\mathcal{D}$ 上的纤维化范畴。
+\end{lemma}
+
+\begin{proof}
+使用 Categories, Lemma
+\ref{categories-lemma-right-localization} 正上方给出的
+$u_p\mathcal{S}$ 的描述。注意，函子
+$p_{pp} : u_{pp}\mathcal{S} \to \mathcal{D}$
+把 $R$ 的每个元素都映为恒等态射。
+因此，由 Categories, Lemma
+\ref{categories-lemma-properties-right-localization}，
+得到延拓给定函子的典范函子
+$p_p : u_p\mathcal{S} \to \mathcal{D}$。
+我们就是这样把 $u_p\mathcal{S}$ 看作
+$\mathcal{D}$ 上的范畴。
+
+\medskip\noindent
+首先刻画 $u_p\mathcal{S}$ 中的
+$\mathcal{D}$-强笛卡尔态射。
+$u_p\mathcal{S}$ 的态射 $f : X \to Y$ 是偶对
+$(f' : X' \to Y, r : X' \to X)$ 的等价类，其中
+$r \in R$。事实上，在 $u_p\mathcal{S}$ 中，采用显然的记号，
+有 $f = (f', 1) \circ (r, 1)^{-1}$。
+注意，同构总是强笛卡尔的，强笛卡尔态射的复合也如此，见
+Categories, Lemma \ref{categories-lemma-composition-cartesian}。
+故 $f$ 强笛卡尔，当且仅当 $(f', 1)$ 强笛卡尔。
+因此，下面的断言完全刻画强笛卡尔态射。断言：
+$u_{pp}\mathcal{S}$ 的态射
+$$
+(a, b, \alpha) :
+X_1 = (U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U_2, \phi_2 : V_2 \to u(U_2), x_2) = X_2
+$$
+的像 $f = ((a, b, \alpha), 1)$ 在
+$u_p\mathcal{S}$ 中强笛卡尔，当且仅当
+$\alpha$ 是 $\mathcal{S}$ 的强笛卡尔态射。
+
+\medskip\noindent
+假设 $\alpha$ 强笛卡尔。
+令 $X = (U, \phi : V \to u(U), x)$ 为另一个对象，并令
+$f_2 : X \to X_2$ 为 $u_p\mathcal{S}$ 的态射，满足
+% P01-E0221: b_1 is D-valued here; source types it as U→U_1 in C.
+$p_p(f_2) = b \circ b_1$，其中
+$b_1 : U \to U_1$。
+要证明 $f$ 强笛卡尔，需证明在 $u_p\mathcal{S}$ 中存在唯一态射
+$f_1 : X \to X_1$，使得
+$p_p(f_1) = b_1$，并且在 $u_p\mathcal{S}$ 中有
+$f_2 = f \circ f_1$。
+写 $f_2 = (f'_2 : X' \to X_2, r : X' \to X)$。
+仍可在 $u_p\mathcal{S}$ 中写成
+$f_2 = (f'_2, 1) \circ (r, 1)^{-1}$。
+由于 $(r, 1)$ 是在 $\mathcal{D}$ 中的像为恒等态射的同构，
+寻找具有所需性质的态射 $f_1 : X \to X_1$，
+等同于寻找 $u_p\mathcal{S}$ 中的态射
+$f'_1 : X' \to X_1$，满足
+% P01-E0222: source uses p instead of the localization's base functor p_p.
+$p(f'_1) = b_1$ 与 $f'_2 = f \circ f'_1$。
+因此，可假设 $f_2$ 形如
+$f_2 = ((a_2, b_2, \alpha_2), 1)$，其中
+$b_2 = b \circ b_1$。图示如下：
+$$
+\xymatrix{
+& & (U_1, V_1 \to u(U_1), x_1) \ar[d]^{(a, b, \alpha)} \\
+(U, V \to u(U), x) \ar[rr]^{(a_2, b_2, \alpha_2)} & &
+(U_2, V_2 \to u(U_2), x_2)
+}
+$$
+现在容易构造态射 $f_1$。
+具体地，令 $U' = U \times_{U_2} U_1$，投影为
+$c : U' \to U$ 与 $a_1 : U' \to U_1$。
+选取提升态射 $c$ 的强笛卡尔态射
+$\gamma : x' \to x$。由于 $b_2 = b \circ b_1$，并且
+$u(U') = u(U) \times_{u(U_2)} u(U_1)$，可知
+$\phi' = (\phi, \phi_1 \circ b_1) : V \to u(U')$。
+由于 $\alpha$ 强笛卡尔，且
+$a \circ a_1 = a_2 \circ c = p(\alpha_2 \circ \gamma)$，
+存在提升 $a_1$ 的态射
+$\alpha_1 : x' \to x_1$，满足
+$\alpha \circ \alpha_1 = \alpha_2 \circ \gamma$。
+令 $X' = (U', \phi' : V \to u(U'), x')$。
+于是可知
+$$
+f_1 =
+((a_1, b_1, \alpha_1) : X' \to X_1, (c, \text{id}_V, \gamma) : X' \to X) :
+X \longrightarrow X_1
+$$
+可行；事实上，图式
+$$
+\xymatrix{
+(U', \phi' : V \to u(U'), x')
+\ar[d]_{(c, \text{id}_V, \gamma)}
+\ar[rr]_{(a_1, b_1, \alpha_1)}
+& & (U_1, V_1 \to u(U_1), x_1) \ar[d]^{(a, b, \alpha)} \\
+(U, V \to u(U), x) \ar[rr]^{(a_2, b_2, \alpha_2)} & &
+(U_2, V_2 \to u(U_2), x_2)
+}
+$$
+由构造交换。这证明了存在性。
+
+\medskip\noindent
+接下来证明唯一性；仍处于
+$f = ((a, b, \alpha), 1)$ 与
+$f_2 = ((a_2, b_2, \alpha_2), 1)$ 的特殊情形。
+我们强烈建议读者跳过这一部分。
+假设 $g_1, g'_1 : X \to X_1$ 是
+$u_p\mathcal{S}$ 的两个态射，满足
+$p_p(g_1) = p_p(g'_1) = b_1$ 与
+$f_2 = f \circ g_1 = f \circ g'_1$。
+目标是证明 $g_1 = g'_1$。由 Categories, Lemma
+\ref{categories-lemma-morphisms-right-localization}，
+可把 $g_1$ 与 $g'_1$ 分别表示为
+$(f_1 : X' \to X_1, r : X' \to X)$ 与
+$(f'_1 : X' \to X_1, r : X' \to X)$ 的等价类，
+其中 $r \in R$。由 Categories, Lemma
+\ref{categories-lemma-equality-morphisms-right-localization}，
+$f_2 = f \circ g_1 = f \circ g'_1$ 意味着存在
+$u_{pp}\mathcal{S}$ 中的态射 $r' : X'' \to X'$，
+使 $r' \circ r \in R$，并且
+$$
+(a, b, \alpha) \circ f_1 \circ r' =
+(a, b, \alpha) \circ f'_1 \circ r' =
+(a_2, b_2, \alpha_2) \circ r'
+$$
+在 $u_{pp}\mathcal{S}$ 中成立。
+注意，此时 $g_1$ 由 $(f_1 \circ r', r \circ r')$ 表示，
+$g'_1$ 也类似。因此，可假设
+$$
+(a, b, \alpha) \circ f_1 =
+(a, b, \alpha) \circ f'_1 =
+(a_2, b_2, \alpha_2).
+$$
+写
+$r = (c, \text{id}_V, \gamma) :
+(U', \phi' : V \to u(U'), x')$、
+$f_1 = (a_1, b_1, \alpha_1)$ 与
+$f'_1 = (a'_1, b_1, \alpha'_1)$。
+这里使用了条件 $p_p(g_1) = p_p(g'_1)$。
+上述等式现在等价于
+$a \circ a_1 = a \circ a'_1 = a_2 \circ c$ 与
+$\alpha \circ \alpha_1
+= \alpha \circ \alpha'_1 = \alpha_2 \circ \gamma$。
+在这种情形，未必有 $a_1 = a'_1$。
+所以还须再与一个来自 $R$ 的态射预复合。
+具体地，令 $U'' = \text{Eq}(a_1, a'_1)$ 为
+$a_1$ 与 $a'_1$ 的等化子；它是 $U'$ 的子对象。
+以 $c' : U'' \to U'$ 表示典范单态射。
+由上述态射之间的关系可知，$V \to u(U')$ 分解经过
+$u(U'') = u(\text{Eq}(a_1, a'_1))
+= \text{Eq}(u(a_1), u(a'_1))$。
+因而得到新对象
+$(U'', \phi'' : V \to u(U''), x'')$，其中
+% P01-E0223: source says gamma' lifts gamma; gamma is not a base arrow.
+$\gamma' : x'' \to x'$ 是提升 $\gamma$ 的强笛卡尔态射。
+于是，可用 $R$ 的元素
+$(c', \text{id}_V, \gamma')$ 与 $f_1$、$f'_1$ 预复合。
+这样做后，即用
+$(U'', \phi'' : V \to u(U''), x'')$ 替换
+$(U', \phi' : V \to u(U'), x')$ 后，回到先前的情形，
+并且现在还有 $a_1 = a'_1$。
+此时，由 $\alpha$ 强笛卡尔这一事实（！）形式地推出
+$\alpha_1 = \alpha'_1$。因此，正如所需，
+$g_1 = g'_1$。
+
+\medskip\noindent
+我们略去证明如下事实：对
+$u_p\mathcal{S}$ 中形如 $((a, b, \alpha), 1)$
+的任意强笛卡尔态射，态射 $\alpha$ 在
+$\mathcal{S}$ 中强笛卡尔。
+（在证明的其余部分不需要强笛卡尔态射的这一刻画，
+尽管本节后面会使用它。）
+
+\medskip\noindent
+令 $(U, \phi : V \to u(U), x)$ 为
+$u_p\mathcal{S}$ 的对象。令 $b : V' \to V$
+为 $\mathcal{D}$ 的态射。那么态射
+$$
+(\text{id}_U, b, \text{id}_x) :
+(U, \phi \circ b : V' \to u(U), x)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+由前面各段的结论强笛卡尔，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-fibred-groupoids-category-pullback}
+记号与假设同引理
+\ref{stacks-lemma-fibred-category-pullback}。
+若 $\mathcal{S}$ 纤维化于群胚，则
+$u_p\mathcal{S}$ 纤维化于群胚。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{stacks-lemma-fibred-category-pullback} 可知，
+$u_p\mathcal{S}$ 是纤维化范畴。
+令 $f : X \to Y$ 为 $u_p\mathcal{S}$ 的态射，并满足
+$p_p(f) = \text{id}_V$。若能证明 $f$ 可逆，便告完成；见
+Categories, Lemma \ref{categories-lemma-fibred-groupoids}。
+把 $f$ 写成偶对 $((a, b, \alpha), r)$ 的等价类，
+其中 $r \in R$。那么 $p_p(r) = \text{id}_V$，
+故 $p_{pp}((a, b, \alpha)) = \text{id}_V$，从而
+$b = \text{id}_V$。但 $\mathcal{S}$ 的任意态射均为强笛卡尔态射，
+见 Categories, Lemma
+\ref{categories-lemma-fibred-groupoids}；因此
+$(a, b, \alpha) \in R$ 在 $u_p\mathcal{S}$ 中可逆，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-adjointness-pullback-pushforward}
+令 $u : \mathcal{C} \to \mathcal{D}$ 为函子。
+令 $p : \mathcal{S} \to \mathcal{C}$ 与
+$q : \mathcal{T} \to \mathcal{D}$ 分别为
+$\mathcal{C}$ 与 $\mathcal{D}$ 上的范畴。假设：
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ 是纤维化范畴；
+\item $q : \mathcal{T} \to \mathcal{D}$ 是纤维化范畴；
+\item $\mathcal{C}$ 有非空有限极限；且
+\item $u : \mathcal{C} \to \mathcal{D}$ 与非空有限极限交换。
+\end{enumerate}
+那么，态射范畴之间有典范等价
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+=
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+\end{lemma}
+
+\begin{proof}
+在此证明中，以记号 $x/U$ 表示
+$\mathcal{S}$ 中位于 $\mathcal{C}$ 的 $U$ 上的对象 $x$。
+类似地，$y/V$ 表示 $\mathcal{T}$ 中位于
+$\mathcal{D}$ 的 $V$ 上的对象 $y$。
+同理，$\alpha/a : x/U \to x'/U'$ 表示态射
+$\alpha : x \to x'$，它在 $\mathcal{C}$ 中的像为
+$a : U \to U'$。
+
+\medskip\noindent
+令 $G : u_p\mathcal{S} \to \mathcal{T}$ 为
+$\mathcal{D}$ 上纤维化范畴之间的 $1$-态射。
+% P01-E0224: source omits “by” in “Denote G' ... the composition”.
+以 $G' : u_{pp}\mathcal{S} \to \mathcal{T}$ 表示
+$G$ 与典范（局部化）函子
+$u_{pp}\mathcal{S} \to u_p\mathcal{S}$ 的复合。
+考虑由如下规则给出的函子
+$H : \mathcal{S} \to u^p\mathcal{T}$：
+在对象上，
+$$
+H(x/U) = (U, G'(U, \text{id}_{u(U)} : u(U) \to u(U), x))
+$$
+而在态射上，
+% P01-E0225: source's displayed morphism uses the tuple order (alpha,a),
+% whereas objects of u^pT were defined with morphisms (a,beta).
+$$
+H((\alpha, a) : x/U \to x'/U') = G'(a, u(a), \alpha)
+$$
+由于 $G$ 把强笛卡尔态射变为强笛卡尔态射，可知若
+$\alpha$ 强笛卡尔，则 $H(\alpha)$ 强笛卡尔。
+事实上，引理 \ref{stacks-lemma-fibred-category-pullback} 的证明已说明，
+在这种情况下，映射 $(a, u(a), \alpha)$ 在
+$u_p\mathcal{S}$ 中成为强笛卡尔态射。
+显然，该构造关于 $G$ 具有函子性，于是得到函子
+$$
+A :
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+\longrightarrow
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+$$
+
+\medskip\noindent
+反之，令 $H : \mathcal{S} \to u^p\mathcal{T}$
+为纤维化范畴之间的 $1$-态射。
+回忆，$u^p\mathcal{T}$ 的对象是偶对 $(U, y)$，其中
+$y \in \Ob(\mathcal{T}_{u(U)})$。
+% P01-E0226: source omits “by” in “We denote pr ... the functor”.
+以 $\text{pr} : u^p\mathcal{T} \to \mathcal{T}$
+表示函子 $(U, y) \mapsto y$。
+在这种情况下，按如下规则定义函子
+$G' : u_{pp}\mathcal{S} \to \mathcal{T}$。
+在对象上，
+$$
+G'(U, \phi : V \to u(U), x) = \phi^*\text{pr}(H(x))
+$$
+而令
+$$
+G'((a, b, \alpha) : (U, \phi : V \to u(U), x)
+\to (U', \phi' : V' \to u(U'), x'))
+=
+\beta
+$$
+为满足 $q(\beta) = b$ 且使图式
+$$
+\xymatrix{
+\phi^*\text{pr}(H(x)) \ar[d] \ar[r]_-{\beta} &
+(\phi')^*\text{pr}(H(x')) \ar[d] \\
+\text{pr}(H(x)) \ar[r]^{\text{pr}(H(a, \alpha))} & \text{pr}(H(x'))
+}
+$$
+交换的唯一态射
+$\beta : \phi^*\text{pr}(H(x))
+\to (\phi')^*\text{pr}(H(x'))$。
+这样的态射存在且唯一，因为 $\mathcal{T}$ 是纤维化范畴。
+
+\medskip\noindent
+检验若 $r \in R$，则 $G'(r)$ 是同构。
+具体地，若
+$$
+(a, \text{id}_V, \alpha) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+是引理 \ref{stacks-lemma-right-multiplicative-system} 的右乘法系
+$R$ 中的元素，且 $\alpha$ 强笛卡尔，则
+$H(\alpha)$ 强笛卡尔，而
+$\text{pr}(H(\alpha))$ 强笛卡尔；见引理
+\ref{stacks-lemma-fibred-category-pushforward} 的证明。
+因此，此时态射 $\beta$ 满足
+$q(\beta) = \text{id}_V$ 且强笛卡尔。
+所以，由 Categories, Lemma
+\ref{categories-lemma-composition-cartesian}，
+$\beta$ 是同构。于是，由 Categories, Lemma
+\ref{categories-lemma-properties-right-localization}，
+得到典范延拓 $G : u_p\mathcal{S} \to \mathcal{T}$。
+
+\medskip\noindent
+接下来证明 $G$ 把强笛卡尔态射变为强笛卡尔态射。
+% P01-E0227: source has the extraneous article in “is a strongly cartesian”.
+假设 $f : X \to Y$ 是强笛卡尔态射。
+由 $u_p\mathcal{S}$ 中强笛卡尔态射的刻画，可把
+$f$ 写成
+% P01-E0228: source makes the roof arrow r land in Y; it should land in X.
+$((a, b, \alpha) : X' \to Y, r : X' \to Y)$，
+其中 $r \in R$，且 $\alpha$ 在 $\mathcal{S}$ 中强笛卡尔。
+由上述结论，只需证明
+% P01-E0229: source omits the comma between b and alpha.
+$G'(a, b \alpha)$ 强笛卡尔。
+和之前一样，$\alpha$ 强笛卡尔这一条件蕴含
+$\text{pr}(H(a, \alpha)) :
+\text{pr}(H(x)) \to \text{pr}(H(x'))$
+在 $\mathcal{T}$ 中强笛卡尔。
+% P01-E0230: source has number disagreement in “all arrows ... is”.
+由于上面的交换方块中除 $\beta$ 外的所有箭头现在都强笛卡尔，
+$\beta$ 也强笛卡尔，正如所需。
+显然，构造 $H \mapsto G$ 关于 $H$ 具有函子性，
+于是得到函子
+$$
+B :
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+\longrightarrow
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+为完成引理证明，还须证明函子 $A$ 与 $B$ 互为拟逆。
+验证从略。
+\end{proof}
+
+\begin{definition}
+\label{stacks-definition-pullback-stack}
+令 $f : \mathcal{D} \to \mathcal{C}$ 为由连续函子
+$u : \mathcal{C} \to \mathcal{D}$ 给出的位点态射，
+并假设它满足 Sites, Proposition
+\ref{sites-proposition-get-morphism} 的假设与结论。
+令 $\mathcal{S}$ 为 $\mathcal{C}$ 上的栈。
+在这种情况下，以{\it $f^{-1}\mathcal{S}$} 表示
+上面构造的 $\mathcal{D}$ 上纤维化范畴
+$u_p\mathcal{S}$ 的栈化。称
+$f^{-1}\mathcal{S}$ 为 $\mathcal{S}$ {\it 沿 $f$ 的拉回}。
+\end{definition}
+
+\noindent
+当然，若 $\mathcal{S}$ 是群胚中的栈，则由引理
+\ref{stacks-lemma-stackify-groupoids} 与
+\ref{stacks-lemma-fibred-groupoids-category-pullback}，
+$f^{-1}\mathcal{S}$ 是群胚中的栈。
+
+\begin{lemma}
+\label{stacks-lemma-adjointness-pullback-pushforward-stacks}
+令 $f : \mathcal{D} \to \mathcal{C}$ 为由连续函子
+$u : \mathcal{C} \to \mathcal{D}$ 给出的位点态射，
+并假设它满足 Sites, Proposition
+\ref{sites-proposition-get-morphism} 的假设与结论。
+令 $p : \mathcal{S} \to \mathcal{C}$ 与
+$q : \mathcal{T} \to \mathcal{D}$ 为栈。
+那么，态射范畴之间有典范等价
+$$
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}, f_*\mathcal{T})
+=
+\Mor_{\textit{Stacks}/\mathcal{D}}(f^{-1}\mathcal{S}, \mathcal{T})
+$$
+\end{lemma}
+
+\begin{proof}
+对 $i = 1, 2$，栈的 $i$-态射与纤维化范畴的
+$i$-态射相同；见 Definition \ref{stacks-definition-stacks-over-C}。
+由引理 \ref{stacks-lemma-adjointness-pullback-pushforward} 已有
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+=
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+又因 $u^p\mathcal{T} = f_*\mathcal{T}$，而
+$f^{-1}\mathcal{S}$ 是 $u_p\mathcal{S}$ 的栈化，
+结论由引理
+\ref{stacks-lemma-stackify-universal-property-more} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{stacks-lemma-technical-up}
+令 $f : \mathcal{D} \to \mathcal{C}$ 为由连续函子
+$u : \mathcal{C} \to \mathcal{D}$ 给出的位点态射，
+并假设它满足 Sites, Proposition
+\ref{sites-proposition-get-morphism} 的假设与结论。
+令 $\mathcal{S} \to \mathcal{C}$ 为纤维化范畴，并令
+$\mathcal{S} \to \mathcal{S}'$ 为 $\mathcal{S}$ 的栈化。
+那么 $f^{-1}\mathcal{S}'$ 是
+$u_p\mathcal{S}$ 的栈化。
+\end{lemma}
+
+\begin{proof}
+略。提示：这是 Sites, Lemma
+\ref{sites-lemma-technical-up} 的类似结论。
+\end{proof}
+
+\noindent
+下面的引理告诉我们：只要
+$\Sch'_{fppf}$ 包含 $\Sch_{fppf}$（见
+Topologies, Section \ref{topologies-section-change-alpha}），
+$\Sch_{fppf}$ 上栈的 $2$-范畴就是
+$\Sch'_{fppf}$ 上栈的 $2$-范畴的一个“满 2-子范畴”。
+
+\begin{lemma}
+\label{stacks-lemma-bigger-site}
+令 $\mathcal{C}$ 与 $\mathcal{D}$ 为位点。
+令 $u : \mathcal{C} \to \mathcal{D}$ 为满足
+Sites, Lemma \ref{sites-lemma-bigger-site} 的假设的函子。
+令 $f : \mathcal{D} \to \mathcal{C}$ 为相应的位点态射。
+那么：
+\begin{enumerate}
+\item 对每个栈
+$p : \mathcal{S} \to \mathcal{C}$，典范函子
+$\mathcal{S} \to f_*f^{-1}\mathcal{S}$ 是栈之间的等价；
+\item 给定 $\mathcal{C}$ 上的栈
+$\mathcal{S}, \mathcal{S}'$，构造 $f^{-1}$ 诱导态射范畴之间的等价
+$$
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}, \mathcal{S}')
+\longrightarrow
+\Mor_{\textit{Stacks}/\mathcal{D}}(f^{-1}\mathcal{S}, f^{-1}\mathcal{S}')
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意，由引理
+\ref{stacks-lemma-adjointness-pullback-pushforward-stacks}，
+有范畴之间的等价
+$$
+\Mor_{\textit{Stacks}/\mathcal{D}}(f^{-1}\mathcal{S}, f^{-1}\mathcal{S}')
+=
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}, f_*f^{-1}\mathcal{S}')
+$$
+所以 (2) 由 (1) 得出。
+
+\medskip\noindent
+为证明 (1)，将使用引理
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}。
+该引理说明，必须证明
+$can : \mathcal{S} \to f_*f^{-1}\mathcal{S}$
+全忠实，并且 $f_*f^{-1}\mathcal{S}$ 的所有对象
+局部地属于本质像。
+
+\medskip\noindent
+我们快速描述函子 $can$；见引理
+\ref{stacks-lemma-adjointness-pullback-pushforward} 的证明。
+为此，引入函子
+$c'' : \mathcal{S} \to u_{pp}\mathcal{S}$，定义为
+$c''(x/U) = (U, \text{id} : u(U) \to u(U), x)$ 与
+$c''(\alpha/a) = (a, u(a), \alpha)$。
+令 $c' : \mathcal{S} \to u_p\mathcal{S}$ 为
+$c''$ 与典范函子
+$u_{pp}\mathcal{S} \to u_p\mathcal{S}$ 的复合。
+令 $c : \mathcal{S} \to f^{-1}\mathcal{S}$ 为
+$c'$ 与典范函子
+$u_p\mathcal{S} \to f^{-1}\mathcal{S}$ 的复合。
+那么 $can : \mathcal{S} \to f_*f^{-1}\mathcal{S}$
+是这样的函子：它把 $x/U$ 送到偶对
+$(U, c(x))$，把 $\alpha/a$ 送到态射
+$(a, c(\alpha))$。
+
+\medskip\noindent
+% P01-E0231: source uses “Fully faithfulness” instead of “Full faithfulness”.
+全忠实性。为证明这一点，将使用引理
+\ref{stacks-lemma-characterize-ff}。
+令 $U \in \Ob(\mathcal{C})$。
+令 $x, y \in \mathcal{S}_U$。
+首先，由于 $u$ 全忠实，直接从 $f_*$ 的定义得到
+$$
+\Mor_{(f_*f^{-1}\mathcal{S})_U}(can(x), can(y))
+=
+\Mor_{(f^{-1}\mathcal{S})_{u(U)}}(c(x), c(y))
+$$
+% P01-E0232: source has “Similar holds” rather than “Similarly”.
+拉回到任意 $U'/U$ 后，类似结论也成立。
+由于 $f^{-1}\mathcal{S}$ 是 $u_p\mathcal{S}$ 的栈化，
+且 $u$ 连续并余连续，预层
+$$
+U'/U \longmapsto
+\Mor_{(f^{-1}\mathcal{S})_{u(U')}}(c(x|_{U'}), c(y|_{U'}))
+$$
+是预层
+$$
+U'/U \longmapsto
+\Mor_{(u_p\mathcal{S})_{u(U')}}(c'(x|_{U'}), c'(y|_{U'}))
+$$
+的层化。因此，为完成全忠实性的证明，只需证明对任意
+$U$ 与 $x, y$，映射
+% P01-E0233: source indexes the D-fibre of u_pS by U instead of u(U).
+$$
+\Mor_{\mathcal{S}_U}(x, y)
+\longrightarrow
+\Mor_{(u_p\mathcal{S})_U}(c'(x), c'(y))
+$$
+是双射。$u_p\mathcal{S}$ 中位于 $u(U)$ 上的态射
+$f : x \to y$ 由如下图式的一个等价类给出：
+$$
+\xymatrix{
+(U', \phi : u(U) \to u(U'), x')
+\ar[d]_{(c, \text{id}_{u(U)}, \gamma)}
+\ar[r]_{(a, b, \alpha)} &
+(U, \text{id} : u(U) \to u(U), y)
+\\
+(U, \text{id} : u(U) \to u(U), x)
+}
+$$
+其中 $\gamma$ 强笛卡尔，且
+$b = \text{id}_{u(U)}$。
+由于 $u$ 全忠实，可对某个态射
+$c' : U \to U'$ 写成 $\phi = u(c')$；
+此时可知 $a \circ c' = \text{id}_U$，且
+% P01-E0234: c:U'→U, so c∘c' is id_U, not id_{U'}.
+$c \circ c' = \text{id}_{U'}$。
+由于 $\gamma$ 强笛卡尔，可以找到提升 $c'$ 的态射
+$\gamma' : x \to x'$，满足
+$\gamma \circ \gamma' = \text{id}_x$。
+由 $u_p\mathcal{S}$ 中态射等价类的定义可知，
+$u_{pp}\mathcal{S}$ 的态射
+$$
+\xymatrix{
+(U, \text{id} : u(U) \to u(U), x)
+\ar[rr]_{(\text{id}, \text{id}, \alpha \circ \gamma')} & &
+(U, \text{id} : u(U) \to u(U), y)
+}
+$$
+在 $u_p\mathcal{S}$ 中诱导态射 $f$。
+这证明该映射满射。单射性的证明从略。
+
+\medskip\noindent
+最后，必须证明 $f_*f^{-1}\mathcal{S}$ 的任意对象
+局部地来自 $\mathcal{S}$ 的对象。这由各构造显然成立
+（细节从略）。
+\end{proof}
+
+
+
+
+\section{栈与局部化}
+\label{stacks-section-localize}
+
+\noindent
+令 $\mathcal{C}$ 为位点。
+令 $U$ 为 $\mathcal{C}$ 的对象。
+我们想把 $\mathcal{C}/U$ 上的栈理解为
+$\mathcal{C}$ 上的栈连同一个到 $U$ 的态射。
+下一个引理说明，当预层 $h_U$ 是层时，为何这更容易做到。
+
+\begin{lemma}
+\label{stacks-lemma-when-localization-stack}
+令 $\mathcal{C}$ 为位点。令
+$U \in \Ob(\mathcal{C})$。
+那么 $j_U : \mathcal{C}/U \to \mathcal{C}$
+是 $\mathcal{C}$ 上的栈，当且仅当 $h_U$ 是层。
+\end{lemma}
+
+\begin{proof}
+结合引理 \ref{stacks-lemma-stack-in-setoids-characterize} 与
+Categories, Example
+\ref{categories-example-fibred-category-from-functor-of-points}。
+\end{proof}
+
+\noindent
+假设 $\mathcal{C}$ 为位点，$U$ 是 $\mathcal{C}$ 的对象，
+且与其相联系的可表预层是层。以
+$j : \mathcal{C}/U \to \mathcal{C}$ 表示局部化函子。
+
+\medskip\noindent
+{\bf 构造 A。} 令
+$p : \mathcal{S} \to \mathcal{C}/U$ 为位点
+$\mathcal{C}/U$ 上的栈。如下定义栈
+$j_!p : j_!\mathcal{S} \to \mathcal{C}$：
+\begin{enumerate}
+\item 作为范畴，$j_!\mathcal{S} = \mathcal{S}$；且
+\item 函子 $j_!p : j_!\mathcal{S} \to \mathcal{C}$
+就是复合 $j \circ p$。
+\end{enumerate}
+我们略去验证这是栈（提示：使用 $h_U$ 是层来黏合到
+$U$ 的态射）。存在典范函子
+$$
+j_!\mathcal{S} \longrightarrow \mathcal{C}/U
+$$
+即函子 $p$；它是 $\mathcal{C}$ 上栈之间的 $1$-态射。
+
+\medskip\noindent
+{\bf 构造 B。}
+令 $q : \mathcal{T} \to \mathcal{C}$ 为
+$\mathcal{C}$ 上的栈，并配备 $\mathcal{C}$ 上栈之间的态射
+$p : \mathcal{T} \to \mathcal{C}/U$。
+在这种情况下，$p : \mathcal{T} \to \mathcal{C}/U$
+自动为 $\mathcal{C}/U$ 上的栈。
+
+\begin{lemma}
+\label{stacks-lemma-localize-stacks}
+假设 $\mathcal{C}$ 为位点，$U$ 是 $\mathcal{C}$ 的对象，
+且与其相联系的可表预层是层。上述构造 A、B 定义
+$2$-范畴之间互逆（！）的函子
+$$
+\left\{
+\begin{matrix}
+2\text{-范畴，其对象为}\\
+\text{下列对象上的叠： }\mathcal{C}/U
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+2\text{-二元组范畴 }(\mathcal{T}, p)
+\text{ 由下列对象组成：} \\
+\text{叠 }\mathcal{T}\text{ 相对于 }\mathcal{C}\text{ 以及一个态射} \\
+p : \mathcal{T} \to \mathcal{C}/U\text{ 叠范畴，位于 }\mathcal{C}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+这是显然的。
+\end{proof}

@@ -1,0 +1,500 @@
+% Generated mechanically from the frozen stacks-introduction.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{104}
+\chapter{代数叠导论}
+
+
+\phantomsection
+\label{stacks-introduction-section-phantom}
+
+
+
+
+
+\section{为什么阅读本章？}
+\label{stacks-introduction-section-introduction}
+
+\noindent
+我们非正式地介绍代数叠。目标是迅速引入一套简单语言，
+使你能够用它思考自己所关心的模问题的局部与整体性质。
+做到这一点以后，在假定一般理论已经存在的前提下，你应当能够
+对模问题提出适定的问题并开始求解。如果最终得到一个有趣的结果，
+便可以回到 Stacks Project 其他部分的一般理论中，按需补齐细节。
+
+\medskip\noindent
+这里采用的观点接近 \cite{KatzMazur} 和 \cite{mumford_picard}
+所采用的观点。
+
+
+
+
+
+
+\section{预备知识}
+\label{stacks-introduction-section-preliminary}
+
+\noindent
+设 $S$ 为概形。$S$ 上的一个{\it 椭圆曲线}是一个三元组
+$(E, f, 0)$，其中 $E$ 是概形，且 $f : E \to S$ 和 $0 : S \to E$
+是概形态射，并满足
+\begin{enumerate}
+\item $f : E \to S$ 是固有、光滑且相对维数为 $1$ 的态射，
+\item 对每个 $s \in S$，纤维 $E_s$ 是亏格为 $1$ 的连通曲线，
+即 $H^0(E_s, \mathcal{O})$ 和 $H^1(E_s, \mathcal{O})$
+都是 $1$-维 $\kappa(s)$-向量空间，并且
+\item $0$ 是 $f$ 的一个截面。
+\end{enumerate}
+给定椭圆曲线 $(E, f, 0)/S$ 和 $(E', f', 0')/S'$，
+一个{\it 位于 $a : S \to S'$ 之上的椭圆曲线态射}
+是态射 $\alpha : E \to E'$，使得图表
+$$
+\xymatrix{
+E \ar[rr]_\alpha \ar[d]^f & & E' \ar[d]_{f'}  \\
+S \ar@/^5ex/[u]^0 \ar[rr]^a & & S' \ar@/_5ex/[u]_{0'}
+}
+$$
+交换且其中的方形为笛卡儿方形；换言之，态射 $\alpha$
+诱导一个同构 $E \to S \times_{S'} E'$。
+我们将定义椭圆曲线叠 $\mathcal{M}_{1, 1}$。
+在 Stacks Project 的其余部分中，我们完整展开 Deligne 与 Mumford
+在论文 \cite{DM} 中引入的方法：把 $\mathcal{M}_{1, 1}$ 表示为
+一个带有函子的范畴
+$$
+p : \mathcal{M}_{1, 1} \longrightarrow \Sch, \quad
+(E, f, 0)/S \longmapsto S
+$$
+% P12-ERR-0053: see ../control/ERRATA_CANDIDATES.jsonl
+这意味着要使用概形范畴上的纤维化范畴、拓扑、群胚纤维化叠、
+覆盖等等。在本章中，我们暂且把这些全部搁置，以稍微不同的方式
+思考问题——这种方式或许更接近该理论创立者最初的思路。
+
+
+\section{椭圆曲线的模叠}
+\label{stacks-introduction-section-moduli-elliptic-curves}
+
+\noindent
+我们将做如下事情：
+\begin{enumerate}
+\item 从你所偏好的概形范畴 $\Sch$ 出发。
+\item 加入一个新符号 $\mathcal{M}_{1, 1}$。
+\item 一个态射 $S \to \mathcal{M}_{1, 1}$ {\bf 就是} $S$ 上的一条椭圆曲线
+$(E, f, 0)$。
+% P12-ERR-0054: see ../control/ERRATA_CANDIDATES.jsonl
+\item 图表
+$$
+\xymatrix{
+S \ar[rr]_a \ar[rd]_{(E, f, 0)} & & S' \ar[ld]^{(E', F', 0')} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+{\bf 交换}，当且仅当存在一个位于 $a : S \to S'$ 之上的椭圆曲线态射
+$\alpha : E \to E'$。我们称 $\alpha$ {\it 见证}了该图表的交换性。
+\item 注意，交换图表按如下方式粘合：
+$$
+\xymatrix{
+S \ar[rrr]_a \ar[rrrd]_{(E, f, 0)} & & &
+S' \ar[d]_{(E', F', 0')} \ar[rrr]_{a'} & & &
+S'' \ar[llld]^{(E'', F'', 0'')}
+\\
+& & & \mathcal{M}_{1, 1}
+}
+$$
+因为若 $\alpha$ 和 $\alpha'$ 分别见证左、右三角形的交换性，
+则 $\alpha' \circ \alpha$ 见证外侧三角形的交换性。
+\item 复合
+$$
+S \xrightarrow{a} S' \xrightarrow{(E', f', 0')} \mathcal{M}_{1, 1}
+$$
+由 $(E' \times_{S'} S, f' \times_{S'} S, 0' \times_{S'} S)$ 给出。
+\end{enumerate}
+完成这一过程后，我们恰好用一个对象扩充了概形范畴 $\Sch$……
+
+\medskip\noindent
+不过，我们还没有定义从 $\mathcal{M}_{1, 1}$ 到概形 $T$ 的态射是什么。
+答案是：采用使复合有意义的最弱概念。因此，态射
+$F : \mathcal{M}_{1, 1} \to T$ 是一条规则，它为每条椭圆曲线
+$(E, f, 0)/S$ 指定一个态射 $F(E, f, 0) : S \to T$，并且对任意交换图表
+$$
+\xymatrix{
+S \ar[rr]_a \ar[rd]_{(E, f, 0)} & & S' \ar[ld]^{(E', F', 0')} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+图表
+$$
+\xymatrix{
+S \ar[rr]_a \ar[rd]_{F(E, f, 0)} & & S' \ar[ld]^{F(E', F', 0')} \\
+& T
+}
+$$
+也交换。你或许听说过的 $j$-不变量
+$$
+j : \mathcal{M}_{1, 1} \longrightarrow \mathbf{A}^1_{\mathbf{Z}}
+$$
+就是一个例子。这样看来，我们已经完成了……
+
+\medskip\noindent
+然而还没有！我们仍需定义态射
+$\mathcal{M}_{1, 1} \to \mathcal{M}_{1, 1}$ 的概念。
+做法与之前完全相同：态射
+$F : \mathcal{M}_{1, 1} \to \mathcal{M}_{1, 1}$
+是一条规则，它为每条椭圆曲线 $(E, f, 0)/S$ 指定另一条椭圆曲线
+$F(E, f, 0)$，并保持上述图表的交换性。不过，由于我不知道
+这种函子的非平凡例子，眼下就把从 $\mathcal{M}_{1, 1}$ 到自身的
+态射集合定义为只含恒等态射。
+
+\medskip\noindent
+希望你已经看出怎样向这个扩充后的范畴加入其他对象。
+直观上似乎很清楚：对任意“性态良好”的模问题，都可以执行上述构造，
+向我们的范畴加入一个对象。事实上，现代代数几何的很大一部分
+% P12-ERR-0055: see ../control/ERRATA_CANDIDATES.jsonl
+正发生在这样一个世界中：$\Sch$ 被可数多个（明确构造的）模叠所扩充。
+
+\medskip\noindent
+你也许会反对说，由此得到的并不是范畴，因为我们必须给出交换性的见证，
+所以对于图表何时交换、哪些图表的组合仍然交换，存在某种“含混性”。
+然而事实证明，这种为交换性配备见证的想法正是处理 $2$-范畴的
+一种有效方式！因此我们继续采用它。
+
+
+
+
+
+
+\section{纤维积}
+\label{stacks-introduction-section-fibre-products}
+
+\noindent
+这里要问的是，下面的纤维积应当是什么：
+$$
+\xymatrix{
+& ? \ar@{..>}[rd] \ar@{..>}[ld] \\
+S \ar[rd]_{(E, f, 0)} & & S' \ar[ld]^{(E', f', 0')} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+答案是：从概形 $T$ 到 $? $ 的一个态射应当是三元组
+$(a, a', \alpha)$，其中 $a : T \to S$、$a' : T \to S'$
+是概形态射，而
+$\alpha : E \times_{S, a} T \to E' \times_{S', a'} T$
+是 $T$ 上椭圆曲线的一个同构。根据前面对复合与交换图表的定义，
+这确实有意义。
+
+\begin{lemma}[关键事实]
+\label{stacks-introduction-lemma-key-fact}
+函子 $\Sch^{opp} \to \textit{Sets}$，
+$T \mapsto \{(a, a', \alpha)\text{ 如上所述}\}$
+可由一个概形 $S \times_{\mathcal{M}_{1, 1}} S'$ 表示。
+\end{lemma}
+
+\begin{proof}
+证明思路。把这个函子与
+$$
+\mathit{Isom}_{S \times S'}(E \times S', S \times E')
+$$
+联系起来，并使用 Grothendieck 的 Hilbert 概形理论。
+\end{proof}
+
+\begin{remark}
+\label{stacks-introduction-remark-diagonal}
+我们有公式
+$S \times_{\mathcal{M}_{1, 1}} S' =
+(S \times S')
+\times_{\mathcal{M}_{1, 1} \times \mathcal{M}_{1, 1}}
+\mathcal{M}_{1, 1}$。
+因此，关键事实是 $\mathcal{M}_{1, 1}$ 的对角态射
+$\Delta_{\mathcal{M}_{1, 1}}$ 的一个性质。
+\end{remark}
+
+\noindent
+无论如何，关键事实使我们能够作如下定义。
+
+\begin{definition}
+\label{stacks-introduction-definition-smooth}
+若对每个态射 $S' \to \mathcal{M}_{1, 1}$，投影态射
+$$
+S \times_{\mathcal{M}_{1, 1}} S' \longrightarrow S'
+$$
+都是光滑的，则称态射 $S \to \mathcal{M}_{1, 1}$ {\it 光滑}。
+\end{definition}
+
+\noindent
+这与概形之间光滑态射的概念相容，因为光滑态射的基变换仍然光滑。
+此外，很清楚怎样把这个定义推广到以 $\mathcal{M}_{1, 1}$
+（或你所偏好的模叠）为靶的态射的其他性质。特别地，下面还会将它
+用于{\it 满射}。
+
+
+
+
+
+\section{定义}
+\label{stacks-introduction-section-definition}
+
+\noindent
+我们把它表述为定义而不是结论，因为希望读者尝试其他情形
+（不只是叠 $\mathcal{M}_{1, 1}$，也不只是全体概形的范畴 $\Sch$）。
+
+\begin{definition}
+\label{stacks-introduction-definition-algebraic-stack}
+称 $\mathcal{M}_{1, 1}$ 为一个{\it 代数叠}，当且仅当
+\begin{enumerate}
+\item 对 $\Sch$ 上的 \'etale 拓扑，对象满足下降；
+\item 关键事实成立；
+% P12-ERR-0056: see ../control/ERRATA_CANDIDATES.jsonl
+\item 存在满且光滑的态射 $S \to \mathcal{M}_{1, 1}$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+第一个条件是一种“层性质”。这里把它详细写出，因为有一个技术点
+需要说明。设给定概形 $S$、一个 \'etale 覆盖 $\{S_i \to S\}$，
+以及态射 $e_i : S_i \to \mathcal{M}_{1, 1}$，使图表
+$$
+\xymatrix{
+S_i \times_S S_j \ar[rd]_{e_i \circ \text{pr}_1} \ar[rr]_{\text{id}} & &
+S_i \times_S S_j \ar[ld]^{e_j \circ \text{pr}_2} \\
+& \mathcal{M}_{1, 1}
+}
+$$
+交换。在这种情形下，层条件{\it 并不}保证存在态射
+$e : S \to \mathcal{M}_{1, 1}$。事实上，我们还需为上述图表选取见证
+$\alpha_{ij}$，并要求在 $S_i \times_S S_j \times_S S_k$ 上，作为见证有
+$$
+\text{pr}_{02}^*\alpha_{ik} =
+\text{pr}_{12}^*\alpha_{jk} \circ \text{pr}_{01}^*\alpha_{ij}
+$$
+我想这是什么意思应当很清楚……若仍不清楚，恐怕就得阅读一些
+关于群胚纤维化范畴等内容。无论如何，上式通常称为{\it 余圈条件}。
+“层性质”的更精确表述是：给定 $\{S_i \to S\}$、
+$e_i : S_i \to \mathcal{M}_{1, 1}$ 以及满足余圈条件的见证
+$\alpha_{ij}$，存在一个在唯一同构意义下唯一的
+$e : S \to \mathcal{M}_{1, 1}$，使得 $e_i \cong e|_{S_i}$，
+并可恢复各 $\alpha_{ij}$。
+
+\medskip\noindent
+可以看到，即使精确表述这个命题也要花些工夫。
+这种“层性质”的证明依赖于代数几何的一项基本技术，即下降理论。
+我的建议是先直接接受“层性质”成立，再观察它在实际中蕴含什么。
+事实上，要把“层性质”提炼成一个可以写在餐巾纸上的可操作命题，
+需要相当的思维灵活性。也许最简单且已经颇有意思的变体如下：
+设 $L/K$ 是域的有限伽罗瓦扩张，伽罗瓦群为
+$G = \text{Gal}(L/K)$。令 $T = \Spec(L)$、$S = \Spec(K)$。
+则 $\{T \to S\}$ 是一个 \'etale 覆盖。
+令 $(E, f, 0)$ 为 $L$ 上的一条椭圆曲线。（是的，这只意味着
+$E \subset \mathbf{P}^2_L$ 由一个 Weierstrass 方程给出，
+而 $0$ 是通常的无穷远点。）记
+$E_\sigma = E \times_{T, \Spec(\sigma)} T$ 为该基变换。
+（是的，这对应于把 $\sigma$ 作用到 Weierstrass 方程的系数上，
+还是应当用 $\sigma^{-1}$？）进一步设对每个 $\sigma \in G$，
+给定 $T$ 上的同构
+$$
+\alpha_\sigma : E \longrightarrow E_\sigma
+$$
+此时，上述余圈条件意味着
+$$
+(\alpha_\tau)^\sigma \circ \alpha_\sigma = \alpha_{\tau\sigma}
+$$
+对所有 $\sigma, \tau \in G$ 成立。如果你学过群上同调，
+这应当十分熟悉。无论如何，$\mathcal{M}_{1, 1}$ 上的“粘合”条件说，
+若这一方程组有解，则存在 $S$ 上的一条椭圆曲线 $E'$，使得
+$E \cong E' \times_S T$（实际上还说得更多，因为它也告诉你
+怎样恢复各 $\alpha_\sigma$）。
+
+\medskip\noindent
+挑战：你能否完全只用 Weierstrass 方程所定义的椭圆曲线来证明这一点？
+
+
+
+
+\section{一个光滑覆盖}
+\label{stacks-introduction-section-smooth}
+
+\noindent
+最后要做的是找出 $\mathcal{M}_{1, 1}$ 的一个光滑覆盖。
+事实上，在某种意义下，光滑覆盖的存在{\it 蕴含}
+\footnote{这里稍有取巧，因为检验光滑性时必须证明与关键事实
+非常接近的结论——毕竟光滑性是用纤维积定义的。好处是，
+只需在纤维积一侧是你试图证明给出光滑覆盖的那个态射时，
+证明这些纤维积存在。}关键事实！
+对椭圆曲线，我们用 Weierstrass 方程来构造一个。
+
+\medskip\noindent
+令
+$$
+W = \Spec(\mathbf{Z}[a_1, a_2, a_3, a_4, a_6, 1/\Delta])
+$$
+其中 $\Delta \in \mathbf{Z}[a_1, a_2, a_3, a_4, a_6]$
+是某个多项式（见下文）。令
+$$
+\mathbf{P}_W^2 \supset E_W :
+zy^2 + a_1 xyz + a_3 yz^2 = x^3 + a_2x^2z + a_4xz^2 + a_6z^3.
+$$
+以 $f_W : E_W \to W$ 记投影。最后，以 $0_W : W \to E_W$
+记由 $(0 : 1 : 0)$ 给出的 $f_W$ 的截面。事实证明，在赋权
+$\deg(a_i) = i$ 下，存在一个关于 $a_i$ 的加权次数为 $12$ 的齐次多项式 $\Delta$，
+使 $E_W \to W$ 光滑。可以通过计算 Weierstrass 方程的偏导数
+显式求出它——当然也可以直接查表。还可以让 pari/gp 替你计算。
+它就是
+\begin{align*}
+\Delta & = -a_6a_1^6 + a_4a_3a_1^5 + ((-a_3^2 - 12a_6)a_2 + a_4^2)a_1^4 + \\
+& (8a_4a_3a_2 + (a_3^3 + 36a_6a_3))a_1^3 + \\
+& ((-8a_3^2 - 48a_6)a_2^2 + 8a_4^2a_2 + (-30a_4a_3^2 + 72a_6a_4))a_1^2 + \\
+& (16a_4a_3a_2^2 + (36a_3^3 + 144a_6a_3)a_2 - 96a_4^2a_3)a_1 + \\
+& (-16a_3^2 - 64a_6)a_2^3 + 16a_4^2a_2^2 + (72a_4a_3^2 + 288a_6a_4)a_2 + \\
+& -27a_3^4 - 216a_6a_3^2  -64a_4^3 - 432a_6^2
+\end{align*}
+你或许认得最后两项：在
+$y^2 = x^3 + Ax + B$ 的情形，判别式为
+$-64A^3 - 432B^2 = -16(4A^3 + 27B^2)$。
+
+\begin{lemma}
+\label{stacks-introduction-lemma-Weierstrass-smooth-cover}
+态射 $W \xrightarrow{(E_W, f_W, 0_W)} \mathcal{M}_{1, 1}$
+光滑且满。
+\end{lemma}
+
+\begin{proof}
+满性来自每条域上的椭圆曲线都有 Weierstrass 方程这一事实。
+% P12-ERR-0057: see ../control/ERRATA_CANDIDATES.jsonl
+下面粗略说明一种证明光滑性的方法。考虑子群概形
+$$
+H =
+\left\{
+\left(
+\begin{matrix}
+u^2 & s & 0 \\
+0 & u^3 & 0 \\
+r & t & 1
+\end{matrix}
+\right)
+\middle|
+\begin{matrix}
+u\text{ 为可逆元} \\
+s, r, t\text{ 任意}
+\end{matrix}
+\right\}
+\subset
+\text{GL}_{3, \mathbf{Z}}
+$$
+$H$ 在 Weierstrass 概形 $W$ 上有作用 $H \times W \to W$。
+为求出这一作用的方程，只需写出由 $H$ 中矩阵给出的坐标变换
+如何作用于一般 Weierstrass 方程。随后可证明下列命题成立：
+\begin{enumerate}
+\item 任意椭圆曲线 $(E, f, 0)/S$ 在 $S$ 上 Zariski 局部地
+都有一个 Weierstrass 方程；
+\item $(E, f, 0)$ 的任意两个 Weierstrass 方程在 Zariski 局部
+相差 $H$ 的一个元素。
+\end{enumerate}
+考察纤维积
+$S \times_{\mathcal{M}_{1, 1}} W =
+\mathit{Isom}_{S \times W}(E \times W, S \times E_W)$，
+由此得出：这意味着态射 $W \to \mathcal{M}_{1, 1}$
+是一个 $H$-挠子（即主齐性空间）。由于 $H \to \Spec(\mathbf{Z})$ 光滑，
+而光滑群概形上的挠子也是光滑的，结论即得。
+\end{proof}
+
+\begin{remark}
+\label{stacks-introduction-remark-quotient-stack}
+上面概述的论证实际上表明
+$\mathcal{M}_{1, 1} = [W/H]$ 是一个全局商叠。
+证明一个模叠为代数叠的论证，约有 50\% 的时候还会表明
+它是一个全局商叠。
+\end{remark}
+
+
+
+\section{代数叠的性质}
+\label{stacks-introduction-section-properties}
+
+\noindent
+好，现在我们知道 $\mathcal{M}_{1, 1}$ 是代数叠了。
+这能用来做什么？这里真正有帮助的，与其说是它为代数叠这一事实，
+不如说是这样一种观点：$\mathcal{M}_{1, 1}$ 的性质应编码在态射
+$S \to \mathcal{M}_{1, 1}$ 的性质中，也就是编码在椭圆曲线族中。
+下面列出若干例子。
+
+\medskip\noindent
+{\bf 局部性质：}
+$$
+\mathcal{M}_{1, 1} \to \Spec(\mathbf{Z})\text{ 是光滑的}
+\Leftrightarrow
+W \to \Spec(\mathbf{Z})\text{ 是光滑的}
+$$
+{\bf 思路}。代数叠的局部性质编码在其光滑覆盖的局部性质中。
+
+\medskip\noindent
+{\bf 整体性质：}
+$$
+\begin{matrix}
+\mathcal{M}_{1, 1}\text{ 是拟紧的} \Leftarrow W\text{ 是拟紧的}
+\\
+\mathcal{M}_{1, 1}\text{ 是不可约的} \Leftarrow W\text{ 是不可约的}
+\end{matrix}
+$$
+{\bf 思路}。代数叠的某些整体性质可以从其一个{\it 合适的}
+% P12-ERR-0058: see ../control/ERRATA_CANDIDATES.jsonl
+\footnote{我猜想可能存在没有不可约光滑覆盖的不可约代数叠——
+但如果确实存在，它一定相当糟糕！}光滑覆盖的相应性质读出。
+
+\medskip\noindent
+{\bf 拟凝聚层：}
+$$
+\QCoh(\mathcal{O}_{\mathcal{M}_{1, 1}}) =
+H\text{-等变拟凝聚模，定义于 }W
+$$
+{\bf 思路}。一方面，$\mathcal{M}_{1, 1}$ 上的一个拟凝聚模
+应当对应于：对每个态射 $e : S \to \mathcal{M}_{1, 1}$，
+在 $S$ 上给定一个拟凝聚层 $\mathcal{F}_{S, e}$。
+特别地，可取态射 $(E_W, f_W, 0_W) :  W \to \mathcal{M}_{1, 1}$。
+由于这个态射是 $H$-等变的，所得拟凝聚模 $\mathcal{F}_W$
+也是 $H$-等变的。反过来，给定一个 $H$-等变模，从
+$S \times_{e, \mathcal{M}_{1, 1}} W$ 是 $H$-挠子这一观察出发，
+% P12-ERR-0059: see ../control/ERRATA_CANDIDATES.jsonl
+可以通过下降理论恢复各层 $\mathcal{F}_{S, e}$。
+
+\medskip\noindent
+{\bf Picard 群：}
+$$
+\Pic(\mathcal{M}_{1, 1}) = \Pic_H(W) = \mathbf{Z}/12\mathbf{Z}
+$$
+{\bf 思路}。第一个等式已在上面看到。注意 $\Pic(W) = 0$，
+因为环 $\mathbf{Z}[a_1, a_2, a_3, a_4, a_6, 1/\Delta]$
+的类群平凡。存在正合序列
+$$
+\mathbf{Z}\Delta \to
+\Pic_H(\mathbf{A}^5_{\mathbf{Z}}) \to
+\Pic_H(W) \to 0
+$$
+中间的群等于 $\Hom(H, \mathbf{G}_m) = \mathbf{Z}$。
+% P12-ERR-0060: see ../control/ERRATA_CANDIDATES.jsonl
+$\Delta$ 的像为 $12$，因为 $\Delta$ 的次数是 $12$。
+这个论证大致正确，见 \cite{PicM11}。
+
+\medskip\noindent
+{\bf \'Etale 上同调：}设 $\Lambda$ 为环。
+% P12-ERR-0061: see ../control/ERRATA_CANDIDATES.jsonl
+存在一个第一象限谱序列，收敛到
+$H^{p + q}_\etale(\mathcal{M}_{1, 1}, \Lambda)$，其 $E_2$-页为
+$$
+E_2^{p, q} = H_\etale^q(W \times H \times \ldots \times H, \Lambda)
+\quad(p\text{ 个因子，每个均为 }H)
+$$
+{\bf 思路}。注意
+$$
+W \times_{\mathcal{M}_{1, 1}} W \times_{\mathcal{M}_{1, 1}}
+\ldots \times_{\mathcal{M}_{1, 1}} W
+= W \times H \times \ldots \times H
+$$
+因为 $W \to \mathcal{M}_{1, 1}$ 是一个 $H$-挠子。
+这个谱序列是光滑覆盖 $\{W \to \mathcal{M}_{1, 1}\}$ 的
+{\v C}ech-上同调谱序列。例如，由于 $W$ 连通，我们看到
+$H^0_\etale(\mathcal{M}_{1, 1}, \Lambda) = \Lambda$；
+又因为 $H^1_\etale(W, \Lambda) = 0$，所以
+$H^1_\etale(\mathcal{M}_{1, 1}, \Lambda) = 0$
+（当然，这需要证明）。当然，光滑覆盖
+$W \to \mathcal{M}_{1, 1}$ 对计算 \'etale 上同调而言未必“最优”。

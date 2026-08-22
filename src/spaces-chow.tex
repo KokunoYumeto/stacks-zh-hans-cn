@@ -1,0 +1,4563 @@
+% Generated mechanically from the frozen spaces-chow.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{81}
+\chapter{代数空间的周群}
+
+
+\phantomsection
+\label{spaces-chow-section-phantom}
+
+
+
+
+\section{引言}
+\label{spaces-chow-section-introduction}
+
+\noindent
+本章先讨论代数空间的周群。定义这些群之后，我们把向量丛的陈类
+定义为作用于这些周群的算子。所用策略与概形情形完全相同。因此，
+我们建议读者先阅读概形相应章节的引言
+（《Chow 同调》第 \ref{chow-section-introduction} 节）。
+
+\medskip\noindent
+相关论文有 \cite{edidin-graham} 和 \cite{kresch_cycle}。
+
+
+
+\section{设定}
+\label{spaces-chow-section-setup}
+
+\noindent
+我们先固定所要使用的代数空间范畴。请在本章始终注意，根据
+《合宜空间》引理
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}，
+“合宜 $+$ 局部诺特”等价于“拟分离 $+$ 局部诺特”。
+
+\begin{situation}
+\label{spaces-chow-situation-setup}
+这里 $S$ 是概形，$B$ 是 $S$ 上的代数空间。假设 $B$ 拟分离、
+局部诺特且普遍链状（《合宜空间》定义
+\ref{decent-spaces-definition-universally-catenary}）。此外，假设给定维数函数
+$\delta : |B| \longrightarrow \mathbf{Z}$。
+若 $X$ 是 $B$ 上的代数空间，且其结构态射 $f:X\to B$ 拟分离并局部有限型，
+则称 $X/B$ 是{\it 良好的}。在这种情况下，定义
+$$
+\delta = \delta_{X/B} : |X| \longrightarrow \mathbf{Z}
+$$
+为把 $x$ 映到 $\delta(f(x))$ 与 $x/f(x)$ 的超越次数之和的映射
+（《空间的态射》定义
+\ref{spaces-morphisms-definition-dimension-fibre}）。由《空间的态射续篇》引理
+\ref{spaces-more-morphisms-lemma-universally-catenary-dimension-function}，
+这是一个维数函数。
+\end{situation}
+
+\noindent
+一个特殊情形是 $S=B$ 为概形，且 $(S,\delta)$ 如《Chow 同调》情形
+\ref{chow-situation-setup} 中所述。因此，$B$ 可以是一个域的谱
+（《Chow 同调》例 \ref{chow-example-field}），也可以是
+$B=\Spec(\mathbf{Z})$
+（《Chow 同调》例 \ref{chow-example-domain-dimension-1}）。
+
+\medskip\noindent
+许多关于代数空间的引理、命题、定理和定义，在情形
+\ref{spaces-chow-situation-setup} 的设定下更容易处理，因为我们所用的代数空间拟分离
+（从而更是合宜的）且局部诺特。本章将穿插如下评注来指出这一点。% P10-E0036
+
+\begin{remark}
+\label{spaces-chow-remark-sober}
+在情形 \ref{spaces-chow-situation-setup} 中，若 $X/B$ 良好，则 $|X|$ 是清醒拓扑空间；
+见《空间的性质》引理 \ref{spaces-properties-lemma-quasi-separated-sober}
+或《合宜空间》命题 \ref{decent-spaces-proposition-reasonable-sober}。
+下文选取 $|X|$ 中不可约闭子集的泛点时，将直接使用这一事实而不再说明。
+\end{remark}
+
+\begin{remark}
+\label{spaces-chow-remark-integral}
+在情形 \ref{spaces-chow-situation-setup} 中，若 $X/B$ 良好，则 $X$ 为整代数空间
+（《域上的空间》定义
+\ref{spaces-over-fields-definition-integral-algebraic-space}）当且仅当 $X$ 既约且
+$|X|$ 不可约。此外，对任意点 $\xi\in|X|$，存在唯一的整闭子空间
+$Z\subset X$，使得 $\xi$ 是闭子集 $|Z|\subset|X|$ 的泛点；见
+《域上的空间》引理
+\ref{spaces-over-fields-lemma-decent-irreducible-closed}。
+\end{remark}
+
+\noindent
+若 $B$ 是 Jacobson 的，并且 $\delta$ 把闭点映到零，则 $\delta$ 正是把每一点
+映到其闭包之维数的函数。
+
+\begin{lemma}
+\label{spaces-chow-lemma-delta-is-dimension}
+在情形 \ref{spaces-chow-situation-setup} 中，假设 $B$ 是 Jacobson 的，并且对 $|B|$ 的
+每个闭点 $b$ 都有 $\delta(b)=0$。令 $X/B$ 良好。若 $Z\subset X$ 是
+泛点为 $\xi\in|Z|$ 的整闭子空间，则下列整数相等：
+\begin{enumerate}
+\item $\delta(\xi) = \delta_{X/B}(\xi)$,
+\item $\dim(|Z|)$,
+\item $\text{codim}(\{z\}, |Z|)$ for $z \in |Z|$ closed,
+\item 对任意闭点 $z\in|Z|$，$Z$ 在 $z$ 处局部环的维数；以及
+\item $\dim(\mathcal{O}_{Z, \overline{z}})$ for $z \in |Z|$ closed.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $X,Z,\xi$ 如引理所述。由于 $X$ 在 $B$ 上局部有限型，$X$ 是 Jacobson 的；
+见《合宜空间》引理
+\ref{decent-spaces-lemma-Jacobson-universally-Jacobson}。
+于是，由《合宜空间》引理
+\ref{decent-spaces-lemma-decent-Jacobson-ft-pts}，
+$X_{\text{ft-pts}}\subset|X|$ 是闭点集。给定 $|Z|$ 中不可约闭子集的链
+$T_0\supset\ldots\supset T_e$，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-enough-finite-type-points}，
+$T_e\cap X_{\text{ft-pts}}$ 非空。因此，总可以假设这样的链终止于
+$T_e=\{z\}$，其中 $z\in|Z|$ 为闭点。于是
+$\dim(Z)=\sup_z\text{codim}(\{z\},|Z|)$，其中 $z$ 遍历 $|Z|$ 的闭点。
+由《拓扑学》引理 \ref{topology-lemma-dimension-function-catenary}，有
+$\text{codim}(\{z\},Z)=\delta(\xi)-\delta(z)$。
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-type-points-morphism}，
+$z$ 的像是 $B$ 的有限型点，即 $|B|$ 的闭点。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-jacobson-finite-type-points}，
+$z/b$ 的超越次数为 $0$。结合假设，得到
+$\delta(z)=\delta(b)=0$。因此有等式
+$$
+\dim(|Z|) = \text{codim}(\{z\}, Z) = \delta(\xi)
+$$
+对每个闭点 $z\in|Z|$ 都成立。最后，由《合宜空间》引理
+\ref{decent-spaces-lemma-codimension-local-ring}，
+$\text{codim}(\{z\},Z)$ 等于 $Z$ 在 $z$ 处局部环的维数；再由
+《空间的性质》引理 \ref{spaces-properties-lemma-dimension-local-ring}，
+后者等于 $\dim(\mathcal{O}_{Z,\overline{z}})$。
+\end{proof}
+
+\noindent
+在上面引理的情形中，$\delta$ 在一个不可约闭子集之泛点处的值，
+就是该不可约闭子集的维数。这引出如下定义。
+
+\begin{definition}
+\label{spaces-chow-definition-delta-dimension}
+在情形 \ref{spaces-chow-situation-setup} 中，对任意良好的 $X/B$ 以及任意不可约闭子集
+$T\subset|X|$，定义
+$$
+\dim_\delta(T) = \delta(\xi)
+$$
+其中 $\xi\in T$ 是 $T$ 的泛点。称它为 $T$ 的{\it $\delta$-维数}。
+若 $T\subset|X|$ 是任意闭子集，则定义 $\dim_\delta(T)$ 为 $T$ 的各个
+不可约分支之 $\delta$-维数的上确界。若 $Z$ 是 $X$ 的闭子空间，则置
+$\dim_\delta(Z) = \dim_\delta(|Z|)$.
+\end{definition}
+
+\noindent
+当然，这恰好意味着
+$\dim_\delta(T) = \sup \{\delta(t) \mid t \in T\}$.
+
+
+
+
+
+
+
+\section{代数闭链}
+\label{spaces-chow-section-cycles}
+
+\noindent
+本节是《Chow 同调》第 \ref{chow-section-cycles} 节的代数空间版本。
+
+\medskip\noindent
+由于并未假设所考虑的空间拟紧，定义闭链时必须稍加小心。例如，
+一个有理函数可能有无穷多个极点，因此必须允许无穷和。无论如何，
+若 $X$ 拟紧，则闭链仍像通常那样是有限和。
+
+\begin{definition}
+\label{spaces-chow-definition-cycles}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，并令
+$k\in\mathbf{Z}$。
+\begin{enumerate}
+\item $X$ 上的{\it 闭链}是形式和
+$$
+\alpha = \sum n_Z [Z]
+$$
+其中求和遍历整闭子空间 $Z\subset X$，每个 $n_Z\in\mathbf{Z}$，并且
+$\{|Z|;n_Z\not=0\}$ 是 $|X|$ 的局部有限子集族
+（《拓扑学》定义 \ref{topology-definition-locally-finite}）。
+\item $X$ 上的{\it $k$ 维闭链}是形如
+$$
+\alpha = \sum n_Z [Z]
+$$
+的闭链，其中 $n_Z\not=0\Rightarrow\dim_\delta(Z)=k$。
+\item $X$ 上全体 $k$ 维闭链组成的阿贝尔群记为 $Z_k(X)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+换言之，$X$ 上的 $k$ 维闭链，是由 $\delta$-维数为 $k$ 的整闭子空间
+（评注 \ref{spaces-chow-remark-integral}）组成的局部有限形式
+$\mathbf{Z}$-线性组合。$k$ 维闭链 $\alpha=\sum n_Z[Z]$ 与
+$\beta=\sum m_Z[Z]$ 的和定义为
+$$
+\alpha + \beta = \sum (n_Z + m_Z)[Z],
+$$
+即逐项相加系数。
+
+
+
+
+\section{重数}
+\label{spaces-chow-section-multiplicities}
+
+\noindent
+本节给出几个关于长度与重数的简单结果。
+
+\begin{lemma}
+\label{spaces-chow-lemma-length}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，$\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。令 $x\in|X|$，并令
+$d\in\{0,1,2,\ldots,\infty\}$。下列条件等价：
+\begin{enumerate}
+\item
+$\text{length}_{\mathcal{O}_{X, \overline{x}}} \mathcal{F}_{\overline{x}} = d$
+\item 存在平展态射 $U\to X$，其中 $U$ 是概形，并存在映到 $x$ 的
+$u\in U$，使得
+$\text{length}_{\mathcal{O}_{U, u}} (\mathcal{F}|_U)_u = d$
+\item 对任意平展态射 $U\to X$，其中 $U$ 是概形，以及任意映到 $x$ 的
+$u\in U$，都有
+$\text{length}_{\mathcal{O}_{U, u}} (\mathcal{F}|_U)_u = d$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $U\to X$ 与 $u\in U$ 如 (2) 或 (3) 所述。于是
+$\mathcal{O}_{X,\overline{x}}$ 是 $\mathcal{O}_{U,u}$ 的严格 Hensel 化，并且
+$$
+\mathcal{F}_{\overline{x}} =
+(\mathcal{F}|_U)_u \otimes_{\mathcal{O}_{U, u}} \mathcal{O}_{X, \overline{x}}
+$$
+见《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring} 和
+\ref{spaces-properties-lemma-stalk-quasi-coherent}。
+由《代数学》引理 \ref{algebra-lemma-pullback-module}、
+$\mathcal{O}_{U,u}\to\mathcal{O}_{X,\overline{x}}$ 的平坦性，以及
+$\mathcal{O}_{X,\overline{x}}/\mathfrak m_u\mathcal{O}_{X,\overline{x}}$
+等于 $\mathcal{O}_{X,\overline{x}}$ 的剩余域，便得到所需的长度相等。
+关于严格 Hensel 化的这些事实见《代数续篇》引理
+\ref{more-algebra-lemma-dumb-properties-henselization}。
+\end{proof}
+
+\begin{definition}
+\label{spaces-chow-definition-length-at-x}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，$\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。令 $x\in|X|$，并令
+$d\in\{0,1,2,\ldots,\infty\}$。若引理 \ref{spaces-chow-lemma-length} 中的
+等价条件成立，则称{\it $\mathcal{F}$ 在 $x$ 处的长度为 $d$}。
+\end{definition}
+
+\begin{lemma}
+\label{spaces-chow-lemma-length-closed-immersion}
+设 $S$ 为概形，$i:Y\to X$ 为 $S$ 上代数空间的闭浸入，
+$\mathcal{G}$ 为拟凝聚 $\mathcal{O}_Y$-模。令 $y\in|Y|$ 的像为
+$x\in|X|$，并令 $d\in\{0,1,2,\ldots,\infty\}$。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{G}$ 在 $y$ 处的长度为 $d$；
+\item $i_*\mathcal{G}$ 在 $x$ 处的长度为 $d$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取平展态射 $f:U\to X$，其中 $U$ 为概形，并选取映到 $x$ 的
+$u\in U$。置 $V=Y\times_XU$，并把投影记为 $g:V\to Y$ 和
+$j:V\to U$。那么 $j:V\to U$ 是闭浸入，并存在唯一的点 $v\in V$
+同时映到 $y\in|Y|$ 与 $u\in U$（使用《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian} 和《空间》引理
+\ref{spaces-lemma-base-change-immersions}）。作为概形 $V$ 上的模，% P10-E0037
+有 $j_*(\mathcal{G}|_V)=(i_*\mathcal{G})|_U$，而 $j_*$ 是概形态射
+$j$ 的“通常”模推出；见《空间的上同调》式
+(\ref{spaces-cohomology-equation-representable-higher-direct-image})
+附近的讨论。这样便约化到概形情形：若 $i:Y\to X$ 是概形的闭浸入，则
+$$
+(i_*\mathcal{G})_x = \mathcal{G}_y
+$$
+这是 $\mathcal{O}_{X,x}$-模的等式，其中右端的模结构由满射
+$i_y^\sharp:\mathcal{O}_{X,x}\to\mathcal{O}_{Y,y}$ 给出。
+于是由《代数学》引理 \ref{algebra-lemma-length-independent} 得到长度相等。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-length-finite}
+设 $S$ 为概形，$X$ 为 $S$ 上局部诺特的代数空间，$\mathcal{F}$ 为凝聚
+$\mathcal{O}_X$-模，并令 $x\in|X|$。下列条件等价：
+\begin{enumerate}
+\item 存在平展态射 $U\to X$，其中 $U$ 为概形，并存在映到 $x$ 的
+$u\in U$，使得 $u$ 是 $\text{Supp}(\mathcal{F}|_U)$ 的某个不可约分支的泛点；
+\item 对任意平展态射 $U\to X$，其中 $U$ 为概形，以及任意映到 $x$ 的
+$u\in U$，点 $u$ 都是 $\text{Supp}(\mathcal{F}|_U)$ 的某个不可约分支的泛点；
+\item $\mathcal{F}$ 在 $x$ 处的长度有限且非零。
+\end{enumerate}
+若 $X$ 合宜（等价地，拟分离），则这些条件还等价于
+\begin{enumerate}
+\item[(4)] $x$ 是 $\text{Supp}(\mathcal{F})$ 的某个不可约分支的泛点。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $f:U\to X$ 是平展态射，$U$ 为概形，并且 $u\in U$ 映到 $x$。
+那么 $\mathcal{F}|_U=f^*\mathcal{F}$ 是局部诺特概形 $U$ 上的凝聚
+$\mathcal{O}_U$-模，特别地，$(\mathcal{F}|_U)_u$ 是有限
+$\mathcal{O}_{U,u}$-模；见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian} 与《概形的上同调》引理
+\ref{coherent-lemma-coherent-Noetherian}。回忆 $\mathcal{F}|_U$ 的支集是
+$U$ 的闭子集（《态射》引理 \ref{morphisms-lemma-support-finite-type}），而
+$(\mathcal{F}|_U)_u$ 的支集是 $\mathcal{F}|_U$ 的支集沿态射
+$\Spec(\mathcal{O}_{U,u})\to U$ 的拉回。因此，$u$ 是
+$\text{Supp}(\mathcal{F}|_U)$ 的某个不可约分支的泛点，当且仅当
+$(\mathcal{F}|_U)_u$ 的支集等于 $\mathcal{O}_{U,u}$ 的极大理想。
+现在，(1)、(2)、(3) 的等价性由《代数学》引理
+\ref{algebra-lemma-support-point} 得出。% P10-E0038
+
+\medskip\noindent
+若 $X$ 合宜，则选取平展态射 $f:U\to X$ 以及映到 $x$ 的点
+$u\in U$。$\mathcal{F}$ 的支集拉回为 $\mathcal{F}|_U$ 的支集；见
+《空间的态射》引理 \ref{spaces-morphisms-lemma-support-finite-type}。
+此外，$|X|$ 中的特化 $x'\leadsto x$ 可提升为 $U$ 中的特化
+$u'\leadsto u$，而 $U$ 中任意非平凡特化 $u'\leadsto u$ 都映到
+$|X|$ 中的非平凡特化 $f(u')\leadsto f(u)$；见《合宜空间》引理
+\ref{decent-spaces-lemma-decent-specialization} 和
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}。
+利用 $|X|$ 和 $U$ 都是清醒拓扑空间这一事实（《合宜空间》命题
+\ref{decent-spaces-proposition-reasonable-sober} 与《概形》引理
+\ref{schemes-lemma-scheme-sober}），可知 $x$ 是 $\mathcal{F}$ 支集的泛点，
+当且仅当 $u$ 是 $\mathcal{F}|_U$ 支集的泛点。因此，(4) 等价于 (1)。
+
+\medskip\noindent
+括号中的陈述来自《合宜空间》引理
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-point-of-max-dimension}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，$T\subset|X|$ 为闭子集，
+且 $t\in T$。若 $\dim_\delta(T)\leq k$ 且 $\delta(t)=k$，则 $t$ 是
+$T$ 的某个不可约分支的泛点。
+\end{lemma}
+
+\begin{proof}
+点 $t$ 包含在某个不可约分支 $T'\subset T$ 中。令 $t'\in T'$ 为其泛点。
+那么 $k\geq\delta(t')\geq\delta(t)$。由于 $\delta$ 是维数函数，
+必有 $t=t'$。
+\end{proof}
+
+
+
+\section{闭子空间的伴随闭链}
+\label{spaces-chow-section-cycle-of-closed-subscheme}
+
+\noindent
+本节是《Chow 同调》第
+\ref{chow-section-cycle-of-closed-subscheme} 节的代数空间版本。
+
+\begin{remark}
+\label{spaces-chow-remark-irreducible-component}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，并令 $Y\subset X$ 为
+闭子空间。由评注 \ref{spaces-chow-remark-sober} 和 \ref{spaces-chow-remark-integral}，
+下列三者之间存在一一对应：
+\begin{enumerate}
+\item $|Y|$ 的不可约分支 $T$；
+\item $|Y|$ 的不可约分支的泛点；
+\item 整闭子空间 $Z\subset Y$，满足 $|Z|$ 是 $|Y|$ 的不可约分支。
+\end{enumerate}
+本章称 (3) 中的 $Z$ 为 $Y$ 的{\it 不可约分支}，并称
+$\xi\in|Z|$ 为该分支的{\it 泛点}。
+\end{remark}
+
+\begin{definition}
+\label{spaces-chow-definition-cycle-associated-to-closed-subscheme}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，并令
+$Y\subset X$ 为闭子空间。
+\begin{enumerate}
+\item 对泛点为 $\xi$ 的不可约分支 $Z\subset Y$，称 $\mathcal{O}_Y$
+在 $\xi$ 处的长度（定义 \ref{spaces-chow-definition-length-at-x}）为
+{\it $Z$ 在 $Y$ 中的重数}。把引理 \ref{spaces-chow-lemma-length-finite}
+应用于 $Y$ 上的 $\mathcal{O}_Y$，可知这是正整数。
+\item 假设 $\dim_\delta(Y)\leq k$。定义{\it $Y$ 的伴随 $k$ 维闭链}为
+$$
+[Y]_k = \sum m_{Z, Y}[Z]
+$$
+其中求和遍历 $Y$ 的所有 $\delta$-维数为 $k$ 的不可约分支 $Z$，而
+$m_{Z,Y}$ 是 $Z$ 在 $Y$ 中的重数。由《域上的空间》引理
+\ref{spaces-over-fields-lemma-components-locally-finite}，
+这是一个 $k$ 维闭链。
+\end{enumerate}
+\end{definition}
+
+\noindent
+务必注意，只有当 $Y$ 的 $\delta$-维数不超过 $k$ 时，我们才定义
+$[Y]_k$。换言之，按照约定，一旦写出 $[Y]_k$，就隐含
+$\dim_\delta(Y)\leq k$。
+
+
+
+
+
+
+
+\section{凝聚层的伴随闭链}
+\label{spaces-chow-section-cycle-of-coherent-sheaf}
+
+\noindent
+本节是《Chow 同调》第
+\ref{chow-section-cycle-of-coherent-sheaf} 节的代数空间版本。
+
+\begin{definition}
+\label{spaces-chow-definition-cycle-associated-to-coherent-sheaf}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，并令 $\mathcal{F}$ 为
+凝聚 $\mathcal{O}_X$-模。
+\begin{enumerate}
+\item 设整闭子空间 $Z\subset X$ 的泛点为 $\xi$，并且 $|Z|$ 是
+$\text{Supp}(\mathcal{F})$ 的不可约分支。称 $\mathcal{F}$ 在 $\xi$ 处的长度
+（定义 \ref{spaces-chow-definition-length-at-x}）为{\it $Z$ 在 $\mathcal{F}$ 中的重数}。
+由引理 \ref{spaces-chow-lemma-length-finite}，这是正整数。
+\item 假设 $\dim_\delta(\text{Supp}(\mathcal{F}))\leq k$。定义
+{\it $\mathcal{F}$ 的伴随 $k$ 维闭链}为
+$$
+[\mathcal{F}]_k = \sum m_{Z, \mathcal{F}}[Z]
+$$
+其中求和遍历整闭子空间 $Z\subset X$，它们对应于
+$\text{Supp}(\mathcal{F})$ 中 $\delta$-维数为 $k$ 的不可约分支，而
+$m_{Z,\mathcal{F}}$ 是 $Z$ 在 $\mathcal{F}$ 中的重数。由《域上的空间》引理
+\ref{spaces-over-fields-lemma-components-locally-finite}，
+这是一个 $k$ 维闭链。
+\end{enumerate}
+\end{definition}
+
+\noindent
+务必注意，只有当 $\mathcal{F}$ 凝聚且
+$\text{Supp}(\mathcal{F})$ 的 $\delta$-维数不超过 $k$ 时，我们才定义
+$[\mathcal{F}]_k$。换言之，按照约定，一旦写出 $[\mathcal{F}]_k$，就隐含
+$\mathcal{F}$ 是 $X$ 上的凝聚模，并且
+$\dim_\delta(\text{Supp}(\mathcal{F}))\leq k$。
+
+\begin{lemma}
+\label{spaces-chow-lemma-reformulate-coeff-coherent}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好。设 $\mathcal{F}$ 为凝聚
+$\mathcal{O}_X$-模，且
+$\dim_\delta(\text{Supp}(\mathcal{F}))\leq k$。令 $Z$ 为 $X$ 的整闭子空间，
+满足 $\dim_\delta(Z)=k$，并令 $\xi\in|Z|$ 为其泛点。那么，
+$[\mathcal{F}]_k$ 中 $Z$ 的系数等于 $\mathcal{F}$ 在 $\xi$ 处的长度。
+\end{lemma}
+
+\begin{proof}
+注意，$|Z|$ 是 $\text{Supp}(\mathcal{F})$ 的不可约分支，当且仅当
+$\xi\in\text{Supp}(\mathcal{F})$；见引理
+\ref{spaces-chow-lemma-point-of-max-dimension}。此外，若
+$\xi\not \in\text{Supp}(\mathcal{F})$，则 $\mathcal{F}$ 在 $\xi$ 处的长度为零。
+结合定义 \ref{spaces-chow-definition-cycle-associated-to-coherent-sheaf} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-cycle-closed-coherent}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，并令 $Y\subset X$ 为
+闭子空间。若 $\dim_\delta(Y)\leq k$，则
+$[Y]_k=[i_*\mathcal{O}_Y]_k$，其中 $i:Y\to X$ 为包含态射。
+\end{lemma}
+
+\begin{proof}
+令 $Z$ 为 $X$ 的整闭子空间，且 $\dim_\delta(Z)=k$。若
+$Z\not\subset Y$，则 $Z$ 在 $[Y]_k$ 和 $[i_*\mathcal{O}_Y]_k$ 中的系数
+都为零。% P10-E0039
+若 $Z\subset Y$，则可把 $Z$ 的泛点视为 $y\in|Y|$，其像为
+$x\in|X|$。于是，$[Y]_k$ 中 $Z$ 的系数是 $\mathcal{O}_Y$ 在 $y$ 处的
+长度，而 $[i_*\mathcal{O}_Y]_k$ 中 $Z$ 的系数是
+$i_*\mathcal{O}_Y$ 在 $x$ 处的长度。系数相等便由引理
+\ref{spaces-chow-lemma-length-closed-immersion} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-additivity-sheaf-cycle}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好。设
+$0\to\mathcal{F}\to\mathcal{G}\to\mathcal{H}\to0$ 为凝聚
+$\mathcal{O}_X$-模的短正合列。假设 $\mathcal{F},\mathcal{G},\mathcal{H}$
+的支集之 $\delta$-维数都不超过 $k$。那么
+$[\mathcal{G}]_k=[\mathcal{F}]_k+[\mathcal{H}]_k$。
+\end{lemma}
+
+\begin{proof}
+令 $Z$ 为 $X$ 的整闭子空间，且 $\dim_\delta(Z)=k$。只需证明 $Z$ 在
+$[\mathcal{G}]_k,[\mathcal{F}]_k,[\mathcal{H}]_k$ 中的系数满足相应的
+可加性。由引理 \ref{spaces-chow-lemma-reformulate-coeff-coherent}，只需证明
+$$
+\mathcal{G}\text{ 在 }x\text{ 处的长度} =
+\mathcal{F}\text{ 在 }x\text{ 处的长度} +
+\mathcal{H}\text{ 在 }x\text{ 处的长度}
+$$
+对任意 $x\in|X|$ 成立。根据定义 \ref{spaces-chow-definition-length-at-x}，
+这立即来自长度的可加性；见《代数学》引理
+\ref{algebra-lemma-length-additive}。
+\end{proof}
+
+
+
+
+
+\section{固有推出的准备}
+\label{spaces-chow-section-preparation-pushforward}
+
+\noindent
+本节是《Chow 同调》第
+\ref{chow-section-preparation-pushforward} 节的代数空间版本。
+
+\begin{lemma}
+\label{spaces-chow-lemma-proper-image}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X,Y/B$ 良好，并令 $f:X\to Y$
+为 $B$ 上的态射。若 $Z\subset X$ 为整闭子空间，则存在唯一的整闭子空间
+$Z'\subset Y$，使得存在交换图表
+$$
+\xymatrix{
+Z \ar[r] \ar[d] & X \ar[d]^f \\
+Z' \ar[r] & Y
+}
+$$
+且 $Z\to Z'$ 支配。若 $f$ 固有，则 $Z\to Z'$ 固有且满射。
+\end{lemma}
+
+\begin{proof}
+令 $\xi\in|Z|$ 为泛点，并令 $Z'\subset Y$ 为泛点
+$\xi'=f(\xi)$ 的整闭子空间；见评注 \ref{spaces-chow-remark-integral}。由
+《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}，有
+$\xi\in|f^{-1}(Z')|=|f|^{-1}(|Z'|)$；又由于 $Z$ 既约且
+$|Z|=\overline{\{\xi\}}$，% P10-E0040
+可知 $Z\subset f^{-1}(Z')$ 是 $X$ 的闭子空间（见《空间的性质》引理
+\ref{spaces-properties-lemma-map-into-reduction}）。于是得到态射 $Z\to Z'$。
+该态射支配，因为 $Z$ 的泛点映到 $Z'$ 的泛点。$Z'$ 的唯一性显然。
+若 $f$ 固有，则 $Z\to Y$ 作为固有态射的复合而固有（《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-proper} 和
+\ref{spaces-morphisms-lemma-closed-immersion-proper}）。再由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence}，
+$Z\to Z'$ 固有。由于固有态射的像是闭集，随即得到满射性。
+\end{proof}
+
+\begin{remark}
+\label{spaces-chow-remark-residue-field}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好。每个 $x\in|X|$ 都可由
+一个（唯一的）单态射 $\Spec(k)\to X$ 表示，其中 $k$ 为域；见
+《合宜空间》引理 \ref{decent-spaces-lemma-decent-points-monomorphism}。
+此时，$k$ 称为 $x$ 的{\it 剩余域}，记为 $\kappa(x)$。回忆 $X$ 有一个
+稠密开子概形 $U\subset X$（《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}）。
+若 $x\in U$，则 $\kappa(x)$ 与把 $U$ 视为概形时 $x$ 的剩余域一致。
+见《合宜空间》第
+\ref{decent-spaces-section-residue-fields-henselian-local-rings} 节。
+\end{remark}
+
+\begin{remark}
+\label{spaces-chow-remark-function-field}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X/B$ 良好，并假设 $X$ 为整空间。
+在这种情况下，$X$ 的{\it 函数域} $R(X)$ 有定义，并等于 $X$ 在其泛点处的
+剩余域。
+见《域上的空间》定义
+\ref{spaces-over-fields-definition-function-field}。
+结合评注 \ref{spaces-chow-remark-integral} 可知，对任意 $x\in X$，剩余域
+$\kappa(x)$ 是以 $x$ 为泛点的唯一整闭子空间 $Z\subset X$ 的函数域。
+\end{remark}
+
+\begin{lemma}
+\label{spaces-chow-lemma-equal-dimension}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X,Y/B$ 良好，并令 $f:X\to Y$
+为 $B$ 上的态射。假设 $X,Y$ 都是整空间且
+$\dim_\delta(X)=\dim_\delta(Y)$。那么，或者 $f$ 通过 $Y$ 的某个真闭子空间
+分解，或者 $f$ 支配且函数域扩张 $R(X)/R(Y)$ 有限。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-chow-lemma-proper-image}，存在唯一的整闭子空间 $Z\subset Y$，
+使得 $f$ 通过支配态射 $X\to Z$ 分解。此时，$Z=Y$ 当且仅当
+$\dim_\delta(Z)=\dim_\delta(Y)$。另一方面，由维数函数的构造（见情形
+\ref{spaces-chow-situation-setup}），有
+$\dim_\delta(X)=\dim_\delta(Z)+r$，其中 $r$ 是扩张 $R(X)/R(Z)$ 的
+超越次数。% P10-E0041
+结合《域上的空间》引理 \ref{spaces-over-fields-lemma-finite-degree} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-quasi-compact-locally-finite}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X,Y/B$ 良好，并令 $f:X\to Y$
+为 $B$ 上的态射。假设 $f$ 拟紧，且 $\{T_i\}_{i\in I}$ 是 $|X|$ 中闭子集的
+局部有限族。那么，$\{\overline{|f|(T_i)}\}_{i\in I}$ 是 $|Y|$ 中闭子集的
+局部有限族。
+\end{lemma}
+
+\begin{proof}
+令 $V\subset|Y|$ 为拟紧开子集。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-is-quasi-compact}，
+$|f|^{-1}(V)\subset|X|$ 拟紧。因此，集合
+$\{i \in I : T_i \cap |f|^{-1}(V) \not = \emptyset \}$
+由一个略去的简单拓扑论证可知是有限的。由于它与下列集合相同：
+$$
+\{i \in I : |f|(T_i) \cap V \not = \emptyset \} =
+\{i \in I : \overline{|f|(T_i)} \cap V \not = \emptyset \}
+$$
+引理得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{固有推出}
+\label{spaces-chow-section-proper-pushforward}
+
+\noindent
+本节是《Chow 同调》第
+\ref{chow-section-proper-pushforward} 节的代数空间版本。
+
+\begin{definition}
+\label{spaces-chow-definition-proper-pushforward}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X,Y/B$ 良好，并令 $f:X\to Y$
+为 $B$ 上的态射。假设 $f$ 固有。
+\begin{enumerate}
+\item 令 $Z\subset X$ 为整闭子空间，且 $\dim_\delta(Z)=k$。
+令 $Z'\subset Y$ 为引理 \ref{spaces-chow-lemma-proper-image} 意义下 $Z$ 的像。定义
+$$
+f_*[Z] =
+\left\{
+\begin{matrix}
+0 & \text{若} & \dim_\delta(Z')< k, \\
+\deg(Z/Z') [Z'] & \text{若} & \dim_\delta(Z') = k.
+\end{matrix}
+\right.
+$$
+由引理 \ref{spaces-chow-lemma-equal-dimension} 和《域上的空间》定义
+\ref{spaces-over-fields-definition-degree}，若
+$\dim_\delta(Z')=\dim_\delta(Z)$，则 $Z$ 在 $Z'$ 上的次数有定义且有限。
+\item 令 $\alpha=\sum n_Z[Z]$ 为 $X$ 上的 $k$ 维闭链。定义 $\alpha$ 的
+{\it 推出}为下列和：% P10-E0042
+$$
+f_* \alpha = \sum n_Z f_*[Z]
+$$
+其中每个 $f_*[Z]$ 均如上定义。由引理
+\ref{spaces-chow-lemma-quasi-compact-locally-finite}，该和局部有限。
+\end{enumerate}
+\end{definition}
+
+\noindent
+按照定义，闭链的固有推出
+$$
+f_* : Z_k(X) \longrightarrow Z_k(Y)
+$$
+是阿贝尔群同态。它使 $X\mapsto Z_k(X)$ 成为如下范畴上的协变函子：
+对象是 $B$ 上良好的代数空间，态射是 $B$ 上的固有态射。% P10-E0043
+
+\begin{lemma}
+\label{spaces-chow-lemma-compose-pushforward}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $X,Y,Z/B$ 良好，并令
+$f:X\to Y$ 与 $g:Y\to Z$ 为 $B$ 上的固有态射。那么，作为映射
+$Z_k(X)\to Z_k(Z)$，有 $g_*\circ f_*=(g\circ f)_*$。
+\end{lemma}
+
+\begin{proof}
+令 $W\subset X$ 为维数 $k$ 的整闭子空间。先把引理
+\ref{spaces-chow-lemma-proper-image} 应用于 $f$ 与 $W$，再应用于 $g$ 与所得的 $W'$，
+得到整闭子空间 $W'\subset Y$ 和 $W''\subset Z$。那么
+$W\to W'$ 与 $W'\to W''$ 都是固有满射。需要证明
+$g_*(f_*[W])=(f\circ g)_*[W]$。% P10-E0044
+若 $\dim_\delta(W'')<k$，则两端都为零。若
+$\dim_\delta(W'')=k$，则 $W\to W'$ 和 $W'\to W''$ 都满足引理
+\ref{spaces-chow-lemma-equal-dimension} 的假设。因此
+$$
+g_*(f_*[W]) = \deg(W/W')\deg(W'/W'')[W''],
+\quad
+(f \circ g)_*[W] = \deg(W/W'')[W''].
+$$
+应用《域上的空间》引理
+\ref{spaces-over-fields-lemma-degree-composition} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-cycle-push-sheaf}
+在情形 \ref{spaces-chow-situation-setup} 中，令 $f:X\to Y$ 为 $B$ 上良好代数空间的
+固有态射。
+\begin{enumerate}
+\item 令 $Z\subset X$ 为闭子空间，且 $\dim_\delta(Z)\leq k$。那么
+$$
+f_*[Z]_k = [f_*{\mathcal O}_Z]_k.
+$$
+\item 令 $\mathcal{F}$ 为 $X$ 上的凝聚层，且
+$\dim_\delta(\text{Supp}(\mathcal{F}))\leq k$。那么
+$$
+f_*[\mathcal{F}]_k = [f_*{\mathcal F}]_k.
+$$
+\end{enumerate}
+注意，该陈述有意义，因为由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}，
+$f_*\mathcal{F}$ 和 $f_*\mathcal{O}_Z$ 都是凝聚 $\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+(1) 由 (2) 与引理 \ref{spaces-chow-lemma-cycle-closed-coherent} 得出。令
+$\mathcal{F}$ 为 $X$ 上的凝聚层，并假设
+$\dim_\delta(\text{Supp}(\mathcal{F}))\leq k$。由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-support-closed}，
+存在闭浸入 $i:Z\to X$ 和凝聚 $\mathcal{O}_Z$-模 $\mathcal{G}$，使得
+$i_*\mathcal{G}\cong\mathcal{F}$，且 $\mathcal{F}$ 的支集为 $Z$。
+令 $Z'\subset Y$ 为 $f|_Z:Z\to Y$ 的概形论像；见《空间的态射》定义
+\ref{spaces-morphisms-definition-scheme-theoretic-image}。考虑交换图表
+$$
+\xymatrix{
+Z \ar[r]_i \ar[d]_{f|_Z} &
+X \ar[d]^f \\
+Z' \ar[r]^{i'} & Y
+}
+$$
+这是 $B$ 上代数空间的图表。注意，$f|_Z$ 满射（由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}
+及 $|f|$ 为闭映射得出）且固有（由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-proper}、
+\ref{spaces-morphisms-lemma-closed-immersion-proper} 和
+\ref{spaces-morphisms-lemma-universally-closed-permanence} 得出）。
+沿图表的两条路径计算，得到
+$f_*\mathcal{F}=f_*i_*\mathcal{G}=i'_*(f|_Z)_*\mathcal{G}$。
+假设已经知道结论对闭浸入以及对 $f|_Z$ 成立。那么
+$$
+f_*[\mathcal{F}]_k = f_*i_*[\mathcal{G}]_k
+= (i')_*(f|_Z)_*[\mathcal{G}]_k =
+(i')_*[(f|_Z)_*\mathcal{G}]_k =
+[(i')_*(f|_Z)_*\mathcal{G}]_k = [f_*\mathcal{F}]_k
+$$
+正是所需等式。闭浸入情形由引理
+\ref{spaces-chow-lemma-length-closed-immersion} 和各定义得出。因此，问题约化为
+$\dim_\delta(X)\leq k$ 且 $f:X\to Y$ 为固有满射的情形。
+
+\medskip\noindent
+假设 $\dim_\delta(X)\leq k$，且 $f:X\to Y$ 固有满射。对每个泛点为
+$\eta$ 的不可约分支 $Z\subset Y$，存在 $\xi\in X$ 使得
+$f(\xi)=\eta$。因此 $\delta(\eta)\leq\delta(\xi)\leq k$。所以在表达式
+$$
+f_*[\mathcal{F}]_k = \sum n_Z[Z],
+\quad
+\text{且}
+\quad
+[f_*\mathcal{F}]_k = \sum m_Z[Z].
+$$
+中，只要 $n_Z\not=0$ 或 $m_Z\not=0$，整闭子空间 $Z$ 实际上就是 $Y$
+的一个 $\delta$-维数为 $k$ 的不可约分支（见引理
+\ref{spaces-chow-lemma-point-of-max-dimension}）。选取这样的整闭子空间
+$Z\subset Y$，并把其泛点记为 $\eta$。注意，对任意满足
+$f(\xi)=\eta$ 的 $\xi\in X$，都有 $\delta(\xi)\geq k$，从而 $\xi$ 也是
+$X$ 的某个 $\delta$-维数为 $k$ 的不可约分支的泛点（见引理
+\ref{spaces-chow-lemma-point-of-max-dimension}）。由《域上的空间》引理
+\ref{spaces-over-fields-lemma-finite-in-codim-1}，存在开子空间
+$\eta\in V\subset Y$，使得 $f^{-1}(V)\to V$ 有限。由于 $\eta$ 是
+$|Y|$ 某个不可约分支的泛点，可以假设 $V$ 为仿射概形；见
+《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}。
+以 $V$ 代替 $Y$、以 $f^{-1}(V)$ 代替 $X$，便约化到 $Y$ 仿射且 $f$ 有限的
+情形。特别地，$X$ 与 $Y$ 都是概形，于是约化到概形的相应结果；见
+《Chow 同调》引理 \ref{chow-lemma-cycle-push-sheaf}
+（取 $S=Y$）。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{平坦拉回的准备}
+\label{spaces-chow-section-preparation-flat-pullback}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-preparation-flat-pullback} 节。
+
+\medskip\noindent
+回顾：若在源与目标上平展局部地得到一个相对维数为 $r$ 的概形态射，
+则称一个代数空间态射具有相对维数 $r$。精确定义与此等价，但实际上稍有不同；
+见《空间的态射》定义
+\ref{spaces-morphisms-definition-relative-dimension}。
+
+\begin{lemma}
+\label{spaces-chow-lemma-flat-inverse-image-dimension}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $f:X\to Y$ 是 $B$ 上的态射，并假设 $f$ 平坦且相对维数为 $r$。
+对任意闭子集 $T\subset |Y|$，只要 $|f|^{-1}(T)$ 非空，就有
+$$
+\dim_\delta(|f|^{-1}(T)) = \dim_\delta(T) + r.
+$$
+若 $Z\subset Y$ 是整闭子概形，且 $Z'\subset f^{-1}(Z)$ 是一个不可约分支，
+则 $Z'$ 支配 $Z$，并且
+$\dim_\delta(Z')=\dim_\delta(Z)+r$。
+\end{lemma}
+
+\begin{proof}
+闭子集的 $\delta$-维数是其各不可约分支的 $\delta$-维数的上确界，
+故只需证明最后一个断言。可以用整闭子概形 $Z$ 代替 $Y$，并用
+$f^{-1}(Z)=Z\times_YX$ 代替 $X$。因而可以假设 $Z=Y$ 是整的，
+且 $f$ 是相对维数为 $r$ 的平坦态射。由于 $Y$ 局部诺特，局部有限型的
+态射 $f$ 实际上局部有限呈示。因此《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open} 适用，从而 $f$ 是开的。
+
+设 $\xi\in X$ 是 $X$ 的某个不可约分支的泛点。由 $f$ 的开性可知，
+$f(\xi)$ 是 $Z=Y$ 的泛点 $\eta$。因此 $Z'$ 支配 $Z=Y$。
+最后，由《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}
+可知 $\xi$ 与 $\eta$ 分别位于 $X$ 与 $Y$ 的概形轨迹中。
+由于 $\xi$ 是 $X$ 的一个泛点，
+$\mathcal{O}_{X,\xi}=\mathcal{O}_{X_\eta,\xi}$ 只有一个素理想，
+故其维数为 $0$（由于 $\xi$ 与 $\eta$ 位于 $X$ 与 $Y$ 的概形轨迹中，
+这里可以使用通常的局部环）。于是由《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-fibre-at-a-point}
+（以及给定相对维数之态射的定义）可知，$\kappa(\xi)$ 在
+$\kappa(\eta)$ 上的超越次数为 $r$。换言之，
+$\delta(\xi)=\delta(\eta)+r$，这正是所需结论。
+\end{proof}
+
+\noindent
+下面的引理将用来证明：闭子概形的局部有限族在平坦拉回后仍局部有限。
+
+\begin{lemma}
+\label{spaces-chow-lemma-inverse-image-locally-finite}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的，
+且 $f:X\to Y$ 是 $B$ 上的态射。假设
+$\{T_i\}_{i\in I}$ 是 $|Y|$ 的闭子集的一个局部有限族。
+则 $\{|f|^{-1}(T_i)\}_{i\in I}$ 是 $X$ 的闭子集的一个局部有限族。
+\end{lemma}
+
+\begin{proof}
+设 $U\subset |X|$ 是拟紧开子集。由于像
+$|f|(U)\subset |Y|$ 是拟紧子集，存在拟紧开集 $V\subset |Y|$，
+使得 $|f|(U)\subset V$。注意
+$$
+\{i \in I : |f|^{-1}(T_i) \cap U \not = \emptyset \}
+\subset
+\{i \in I : T_i \cap V \not = \emptyset \}.
+$$
+依假设，右端集合是有限的，故得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{平坦拉回}
+\label{spaces-chow-section-flat-pullback}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-flat-pullback} 节。
+
+\medskip\noindent
+设 $S$ 是概形，且 $f:X\to Y$ 是 $S$ 上代数空间的态射。
+设 $Z\subset Y$ 是闭子空间。本章有时把《空间的态射》定义
+\ref{spaces-morphisms-definition-inverse-image-closed-subspace}
+中构造的 $Z$ 的逆像 $f^{-1}(Z)$ 称为
+{\it 概形论逆像}。这一概形论逆像是纤维积
+$$
+\xymatrix{
+f^{-1}(Z) \ar[r] \ar[d] & X \ar[d] \\
+Z \ar[r] & Y
+}
+$$
+若 $\mathcal{I}\subset\mathcal{O}_Y$ 是 $Y$ 中与 $Z$ 对应的拟凝聚理想层，
+则 $f^{-1}(\mathcal{I})\mathcal{O}_X$ 是 $X$ 中与 $f^{-1}(Z)$ 对应的
+拟凝聚理想层。
+
+\begin{definition}
+\label{spaces-chow-definition-flat-pullback}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的，
+且 $f:X\to Y$ 是 $B$ 上的态射。假设 $f$ 平坦且相对维数为 $r$。
+\begin{enumerate}
+\item 设 $Z\subset Y$ 是 $\delta$-维数为 $k$ 的整闭子空间。
+把 $f^*[Z]$ 定义为 $X$ 上与概形论逆像相伴的 $(k+r)$-闭链：
+$$
+f^*[Z] = [f^{-1}(Z)]_{k+r}.
+$$
+由引理 \ref{spaces-chow-lemma-flat-inverse-image-dimension}，
+$\dim_\delta(f^{-1}(Z))=k+r$，故此定义有意义。
+\item 设 $\alpha=\sum n_i[Z_i]$ 是 $Y$ 上的 $k$-闭链。
+把和式
+$$
+f^* \alpha = \sum n_i f^*[Z_i]
+$$
+称为 $\alpha$ 沿 $f$ 的{\it 平坦拉回}，其中每个 $f^*[Z_i]$ 如上定义。
+由引理 \ref{spaces-chow-lemma-inverse-image-locally-finite}，这个和式局部有限。
+\item 由此得到的阿贝尔群同态记作
+$f^*:Z_k(Y)\to Z_{k+r}(X)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+开浸入是平坦的。这是平坦态射的一个虽平凡却重要的特例。
+若 $U\subset X$ 是开的，则闭链沿 $j:U\to X$ 的拉回有时称为该闭链
+在 $U$ 上的{\it 限制}。注意在此情形中，所有映射
+$$
+j^* : Z_k(X) \longrightarrow Z_k(U)
+$$
+都是{\it 满射}。事实上，给定任意整闭子空间 $Z'\subset U$，
+可以取 $Z'$ 在 $X$ 中的闭包 $Z$，并把它看作 $X$ 的既约闭子空间
+（见《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}）。
+% P10-E0046
+显然 $Z\cap U=Z'$，换言之 $j^*[Z]=[Z']$，从而得到满射性。
+事实上还有稍强的结论。
+
+\begin{lemma}
+\label{spaces-chow-lemma-exact-sequence-open}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且 $U\subset X$
+是开子空间。设 $Y$ 是满足 $|Y|=|X|\setminus |U|$ 的 $X$ 的既约闭子空间，
+并以 $i:Y\to X$ 表示包含态射。对每个 $k\in\mathbf{Z}$，序列
+$$
+\xymatrix{
+Z_k(Y) \ar[r]^{i_*} & Z_k(X) \ar[r]^{j^*} & Z_k(U) \ar[r] & 0
+}
+$$
+是阿贝尔群的正合复形。
+\end{lemma}
+
+\begin{proof}
+上面已经证明了 $j^*$ 的满射性。先假设 $X$ 拟紧。
+此时 $Z_k(X)$ 是自由 $\mathbf{Z}$-模，其基由元素 $[Z]$ 给出，
+其中 $Z\subset X$ 是 $\delta$-维数为 $k$ 的整闭子空间。
+这样的基元素或者映到 $Z_k(U)$ 的基元素 $[Z\cap U]$，
+或者在 $Z\subset Y$ 时映到零。因此在这种情形中引理显然成立。
+一般情形类似，略去证明。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-etale-pullback}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X\to Y$ 是 $B$ 上良好代数空间之间的
+平展态射。若 $Z\subset Y$ 是整闭子空间，则
+$f^*[Z]=\sum[Z']$，其中求和遍历 $f^{-1}(Z)$ 的各不可约分支
+（注 \ref{spaces-chow-remark-irreducible-component}）。
+\end{lemma}
+
+\begin{proof}
+引理的含义是 $[Z']$ 的系数为 $1$。这是因为 $f^{-1}(Z)$ 在整代数空间
+$Z$ 上平展，因而是既约代数空间。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-compose-flat-pullback}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y,Z/B$ 是良好的。
+设 $f:X\to Y$ 与 $g:Y\to Z$ 是 $B$ 上相对维数分别为 $r$ 与 $s$
+的平坦态射。则 $g\circ f$ 平坦且相对维数为 $r+s$，并且
+$$
+f^* \circ g^* = (g \circ f)^*
+$$
+作为映射 $Z_k(Z)\to Z_{k+r+s}(X)$ 相等。
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-fibre-at-a-point-additive} 与
+\ref{spaces-morphisms-lemma-composition-flat}，复合态射平坦且相对维数为
+$r+s$。假设
+\begin{enumerate}
+\item $A\subset Z$ 是 $\delta$-维数为 $k$ 的整闭子空间；
+\item $A'\subset Y$ 是 $\delta$-维数为 $k+s$ 的整闭子空间，且
+$A'\subset g^{-1}(A)$；以及
+\item $A''\subset Y$ 是 $\delta$-维数为 $k+s+r$ 的整闭子空间，且
+$A''\subset f^{-1}(W')$。
+% P10-E0047
+% P10-E0048
+\end{enumerate}
+必须证明 $[A'']$ 在 $(g\circ f)^*[A]$ 中的系数 $n$ 等于
+$[A'']$ 在 $f^*(g^*[A])$ 中的系数 $m$。可以选取交换图
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \ar[r] & W \ar[d] \\
+X \ar[r] & Y \ar[r] & Z
+}
+$$
+其中 $U,V,W$ 是概形，竖直箭头均平展，并且存在点
+$u\in U$、$v\in V$、$w\in W$，使得 $u\mapsto v\mapsto w$，
+且 $u,v,w$ 分别映到 $A'',A',A$ 的泛点。（略去细节。）
+于是有平坦局部环同态
+% P10-E0049
+$\mathcal{O}_{W, w} \to \mathcal{O}_{V, v}$,
+$\mathcal{O}_{V, v} \to \mathcal{O}_{U, u}$,
+并且反复使用引理 \ref{spaces-chow-lemma-length} 得到
+$$
+n = \text{length}_{\mathcal{O}_{U, u}}(
+\mathcal{O}_{U, u}/\mathfrak m_w\mathcal{O}_{U, u})
+$$
+以及
+$$
+m =
+\text{length}_{\mathcal{O}_{V, v}}(
+\mathcal{O}_{V, v}/\mathfrak m_w\mathcal{O}_{V, v})
+\text{length}_{\mathcal{O}_{U, u}}(
+\mathcal{O}_{U, u}/\mathfrak m_v\mathcal{O}_{U, u})
+$$
+因此所需等式由《代数》引理
+\ref{algebra-lemma-pullback-transitive} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-pullback-coherent}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的，并设
+$f:X\to Y$ 是相对维数为 $r$ 的平坦态射。
+\begin{enumerate}
+\item 设 $Z\subset Y$ 是满足 $\dim_\delta(Z)\leq k$ 的闭子空间。
+则 $\dim_\delta(f^{-1}(Z))\leq k+r$，且在 $Z_{k+r}(X)$ 中有
+$[f^{-1}(Z)]_{k+r}=f^*[Z]_k$。
+\item 设 $\mathcal{F}$ 是 $Y$ 上满足
+$\dim_\delta(\text{Supp}(\mathcal{F}))\leq k$ 的凝聚层。
+则 $\dim_\delta(\text{Supp}(f^*\mathcal{F}))\leq k+r$，且
+$$
+f^*[{\mathcal F}]_k = [f^*{\mathcal F}]_{k+r}
+$$
+在 $Z_{k+r}(X)$ 中成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-chow-lemma-cycle-closed-coherent} 以及
+$f^*\mathcal{O}_Z=\mathcal{O}_{f^{-1}(Z)}$，(1) 可由 (2) 推出。
+
+\medskip\noindent
+证明 (2)。由于 $X,Y$ 局部诺特，可以应用《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian} 得知 $\mathcal{F}$ 有限型；
+于是 $f^*\mathcal{F}$ 有限型（《位点上的模》引理
+\ref{sites-modules-lemma-local-pullback}），从而 $f^*\mathcal{F}$ 凝聚
+（再次使用《空间的上同调》引理
+\ref{spaces-cohomology-lemma-coherent-Noetherian}）。
+因此引理中的表达式确有意义。设 $W\subset Y$ 是 $\delta$-维数为 $k$
+的整闭子空间，并设 $W'\subset X$ 是维数为 $k+r$ 且在 $f$ 下映入
+$W$ 的整闭子空间。必须证明 $[W']$ 在 $f^*[{\mathcal F}]_k$ 中的系数
+$n$ 等于 $[W']$ 在 $[f^*{\mathcal F}]_{k+r}$ 中的系数 $m$。可以选取交换图
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是概形，竖直箭头均平展，并且存在点 $u\in U$、$v\in V$，
+使得 $u\mapsto v$，且 $u,v$ 分别映到 $W',W$ 的泛点。（略去细节。）
+把茎 $M=(\mathcal{F}|_V)_v$ 看作 $\mathcal{O}_{V,v}$-模。
+（注意，由维数假设，$M$ 的长度有限，但实际上无须验证这一点；
+见引理 \ref{spaces-chow-lemma-length-finite}。）有
+$(f^*\mathcal{F}|_U)_u = \mathcal{O}_{U, u} \otimes_{\mathcal{O}_{V, v}} M$.
+因此
+$$
+n = \text{length}_{\mathcal{O}_{U, u}}
+(\mathcal{O}_{U, u} \otimes_{\mathcal{O}_{V, v}} M)
+\quad
+\text{且}
+\quad
+m = \text{length}_{\mathcal{O}_{V, v}}(M)
+\text{length}_{\mathcal{O}_{V, v}}(
+\mathcal{O}_{U, u}/\mathfrak m_v \mathcal{O}_{U, u})
+$$
+故所需等式由《代数》引理 \ref{algebra-lemma-pullback-module} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{推出与拉回}
+\label{spaces-chow-section-push-pull}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-push-pull} 节。
+
+\medskip\noindent
+本节验证：在有意义时，固有推出与平坦拉回相容。由上面的工作，
+这是上同调与基变换的一个推论。
+
+\begin{lemma}
+\label{spaces-chow-lemma-flat-pullback-proper-pushforward}
+在情形 \ref{spaces-chow-situation-setup} 中，设
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+是 $B$ 上良好代数空间的纤维积图。假设 $f:X\to Y$ 固有，
+且 $g:Y'\to Y$ 平坦、相对维数为 $r$。则 $f'$ 也固有，
+$g'$ 也平坦且相对维数为 $r$。对 $X$ 上任意 $k$-闭链 $\alpha$，有
+$$
+g^*f_*\alpha = f'_*(g')^*\alpha
+$$
+在 $Z_{k+r}(Y')$ 中成立。
+\end{lemma}
+
+\begin{proof}
+关于 $f'$ 固有的断言由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-proper} 得出。
+关于 $g'$ 平坦且相对维数为 $r$ 的断言由《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}
+与 \ref{spaces-morphisms-lemma-base-change-flat} 得出。
+只需在 $\alpha=[W]$ 时证明闭链的等式，其中 $W\subset X$ 是
+$\delta$-维数为 $k$ 的某个整闭子空间。注意在此情形中
+$\alpha=[\mathcal{O}_W]_k$；见引理 \ref{spaces-chow-lemma-cycle-closed-coherent}。
+因此由引理 \ref{spaces-chow-lemma-cycle-push-sheaf} 与
+\ref{spaces-chow-lemma-pullback-coherent}，只需证明
+$f'_*(g')^*\mathcal{O}_W$ 与 $g^*f_*\mathcal{O}_W$ 同构。
+这由上同调与基变换得出；见《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-finite-flat}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $f:X\to Y$ 是次数为 $d$ 的有限局部自由态射（见《空间的态射》定义
+\ref{spaces-morphisms-definition-finite-locally-free}）。
+则 $f$ 既固有又平坦，且相对维数为 $0$；并且对每个
+$\alpha\in Z_k(Y)$ 有
+$$
+f_*f^*\alpha = d\alpha
+$$
+\end{lemma}
+
+\begin{proof}
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-finite-flat}，
+有限局部自由态射平坦且有限；又由《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-proper}，有限态射固有。
+略去有限态射相对维数为 $0$ 的证明。因此公式有意义。
+为证明该公式，设 $Z\subset Y$ 是 $\delta$-维数为 $k$ 的整闭子概形。
+只需对 $\alpha=[Z]$ 证明公式。由于有限局部自由态射的基变换仍有限局部自由
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-locally-free}），
+$f_*f^*\mathcal{O}_Z$ 是 $Z$ 上秩为 $d$ 的有限局部自由层。
+故 $f_*f^*\mathcal{O}_Z$ 在 $Z$ 的泛点处显然具有长度 $d$。因此
+$$
+f_*f^*[Z] = f_*f^*[\mathcal{O}_Z]_k =
+[f_*f^*\mathcal{O}_Z]_k = d[Z]
+$$
+其中使用了引理 \ref{spaces-chow-lemma-pullback-coherent} 与
+\ref{spaces-chow-lemma-cycle-push-sheaf}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{主因子的准备}
+\label{spaces-chow-section-preparation-principal-divisors}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-preparation-principal-divisors} 节。
+本节的一些材料与《域上的空间》第
+\ref{spaces-over-fields-section-Weil-divisors} 节中的讨论部分重叠。
+
+\begin{lemma}
+\label{spaces-chow-lemma-divisor-delta-dimension}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，并假设 $X$ 整。
+\begin{enumerate}
+\item 若 $Z\subset X$ 是整闭子空间，则下列条件等价：
+\begin{enumerate}
+\item $Z$ 是素因子；
+\item $|Z|$ 在 $|X|$ 中的余维为 $1$；
+\item $\dim_\delta(Z)=\dim_\delta(X)-1$。
+\end{enumerate}
+\item 若 $Z$ 是 $X$ 上某个有效 Cartier 因子的不可约分支，则
+$\dim_\delta(Z)=\dim_\delta(X)-1$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由素因子的定义（《域上的空间》定义
+\ref{spaces-over-fields-definition-Weil-divisor}）、《合宜空间》引理
+\ref{decent-spaces-lemma-codimension-local-ring} 以及维数函数的定义
+（《拓扑学》定义 \ref{topology-definition-dimension-function}）得出。
+
+\medskip\noindent
+设 $D\subset X$ 是有效 Cartier 因子，$Z\subset D$ 是一个不可约分支，
+且 $\xi\in|Z|$ 是泛点。选取平展邻域
+$(U,u)\to(X,\xi)$，其中 $U=\Spec(A)$，且 $D\times_XU$ 由非零因子
+$f\in A$ 截出；见《空间上的因子》引理
+\ref{spaces-divisors-lemma-characterize-effective-Cartier-divisor}。
+由《合宜空间》引理 \ref{decent-spaces-lemma-decent-generic-points}，
+$u$ 是 $V(f)$ 的泛点。因此由 Krull 主理想定理（《代数》引理
+\ref{algebra-lemma-minimal-over-1}），$\mathcal{O}_{U,u}$ 的维数为 $1$。
+所以 $\xi$ 是 $X$ 上余维为 $1$ 的点，$Z$ 是素因子，正合所需。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{主因子}
+\label{spaces-chow-section-principal-divisors}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-principal-divisors} 节。
+下面的定义是在当前设定下与《域上的空间》定义
+\ref{spaces-over-fields-definition-principal-divisor} 对应的版本。
+
+\begin{definition}
+\label{spaces-chow-definition-principal-divisor}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，并假设 $X$ 整且
+$\dim_\delta(X)=n$。设 $f\in R(X)^*$。与 $f$ 相伴的{\it 主因子}
+是 $(n-1)$-闭链
+$$
+\text{div}(f) = \text{div}_X(f) = \sum \text{ord}_Z(f) [Z]
+$$
+（定义见《域上的空间》定义
+\ref{spaces-over-fields-definition-principal-divisor}）。
+由引理 \ref{spaces-chow-lemma-divisor-delta-dimension}，素因子的 $\delta$-维数为
+$n-1$，故此定义有意义。
+\end{definition}
+
+\noindent
+在上述定义的情形中，对 $f,g\in R(X)^*$ 有
+$$
+\text{div}_X(fg) = \text{div}_X(f) + \text{div}_X(g)
+$$
+在 $Z_{n-1}(X)$ 中成立；见《域上的空间》引理
+\ref{spaces-over-fields-lemma-div-additive}。
+下面的引理使我们能把关于主因子的陈述约化到概形情形。
+
+\begin{lemma}
+\label{spaces-chow-lemma-etale-pullback-principal-divisor}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X\to Y$ 是 $B$ 上良好代数空间之间的
+平展态射，并假设 $Y$ 整。设 $g\in R(Y)^*$。作为 $X$ 上的闭链，有
+$$
+f^*(\text{div}_Y(g)) =
+\sum\nolimits_{X'} (X' \to X)_*\text{div}_{X'}(g \circ f|_{X'})
+$$
+其中求和遍历 $X$ 的各不可约分支
+（注 \ref{spaces-chow-remark-irreducible-component}）。
+\end{lemma}
+
+\begin{proof}
+映射 $|X|\to|Y|$ 是开的。$|X|$ 的不可约分支族在 $|X|$ 中局部有限。
+因此对每个不可约分支 $X'\subset X$，$f|_{X'}:X'\to Y$ 都是支配的。
+于是 $g\circ f|_{X'}$ 有定义（《空间的态射》第
+\ref{spaces-morphisms-section-rational-maps} 节），从而
+$\text{div}_{X'}(g\circ f|_{X'})$ 有定义。此外，该和式局部有限，
+所以右端确实是 $X$ 上的闭链。左端由定义
+\ref{spaces-chow-definition-flat-pullback} 以及平展态射平坦且相对维数为 $0$
+这一事实定义。
+
+\medskip\noindent
+由于 $f$ 平展，对所有 $x\in|X|$ 有
+$\delta_X(x)=\delta_y(f(x))$。因此若 $\dim_\delta(Y)=n$，则 $X$ 的每个
+不可约分支 $X'$ 都满足 $\dim_\delta(X')=n$（因为 $X$ 的各泛点映到
+$Y$ 的泛点，见上）。所以等式两端都是 $(n-1)$-闭链。
+
+\medskip\noindent
+设 $Z\subset X$ 是满足 $\dim_\delta(Z)=n-1$ 的整闭子空间。
+为证明等式，需要证明 $Z$ 的系数相同。设 $Z'\subset Y$ 是引理
+\ref{spaces-chow-lemma-proper-image} 中构造的整闭子空间。此时也有
+$\dim_\delta(Z')=n-1$。设 $\xi\in|Z|$ 是泛点，则
+$\xi'=f(\xi)\in|Z'|$ 是泛点。考虑交换图
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \xi}^h) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(\mathcal{O}_{Y, \xi'}^h) \ar[r] & Y
+}
+$$
+（见《合宜空间》注
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}）。
+需要稍加小心，因为既约诺特局部环
+$\mathcal{O}_{X,\xi}^h$ 与 $\mathcal{O}_{Y,\xi'}^h$ 未必是整环。
+因此我们使用全分式环 $Q(-)$ 而不是分式域。依定义，为得到 $Z'$ 在
+$\text{div}_Y(g)$ 中的系数，把 $g$ 在
+$Q(\mathcal{O}_{Y,\xi'}^h)$ 中的像写成 $a/b$，其中
+$a,b\in\mathcal{O}_{Y,\xi'}^h$ 是非零因子，并取
+$$
+\text{ord}_{Z'}(g) =
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/a \mathcal{O}_{Y, \xi'}^h) -
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/b \mathcal{O}_{Y, \xi'}^h)
+$$
+注意，$Z$ 在 $f^*\text{div}_Y(G)$ 中的系数是同一个整数；见引理
+\ref{spaces-chow-lemma-etale-pullback}。
+% P10-E0050
+假设 $\xi\in X'$。于是可以考虑映射
+$$
+\mathcal{O}_{Y, \xi'}^h \to
+\mathcal{O}_{X, \xi}^h \to
+\mathcal{O}_{X', \xi}^h
+$$
+第一个箭头平坦，第二个箭头是维数为 $1$ 的既约诺特局部环之间的满射。
+因此这两个映射都把非零因子映到非零因子，从而 $Z'$ 在
+$\text{div}_{X'}(g\circ f|_{X'})$ 中的系数为
+% P10-E0051
+$$
+\text{ord}_Z(g \circ f|_{X'}) =
+\text{length}_{\mathcal{O}_{X', \xi}^h}
+(\mathcal{O}_{X', \xi}^h/a \mathcal{O}_{X', \xi}^h) -
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{X', \xi}^h/b \mathcal{O}_{X', \xi}^h)
+$$
+其定义方式与上面相同。
+% P10-E0052
+因此只需证明
+$$
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/a \mathcal{O}_{Y, \xi'}^h) =
+\sum\nolimits_{\xi \in |X'|}
+\text{length}_{\mathcal{O}_{X', \xi}^h}
+(\mathcal{O}_{X', \xi}^h/a \mathcal{O}_{X', \xi}^h)
+$$
+% P10-E0053
+首先，由于环同态 $\mathcal{O}_{Y,\xi'}^h\to
+\mathcal{O}_{X,\xi}^h$ 平坦且非分歧，故
+$$
+\text{length}_{\mathcal{O}_{Y, \xi'}^h}
+(\mathcal{O}_{Y, \xi'}^h/a \mathcal{O}_{Y, \xi'}^h) =
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h)
+$$
+（由《代数》引理 \ref{algebra-lemma-pullback-module}）。
+设 $\mathfrak q_1,\ldots,\mathfrak q_t$ 是
+$\mathcal{O}_{X,\xi}^h$ 的非极大素理想，并令
+$R_j=\mathcal{O}_{X,\xi}^h/\mathfrak q_j$。
+对上述 $X'$，以 $J(X')\subset\{1,\ldots,t\}$ 表示满足下列条件的指标集：
+$\mathfrak q_j$ 对应于 $X'$ 的一个点；亦即在满射
+$\mathcal{O}_{X,\xi}^h\to\mathcal{O}_{X',\xi}$ 下，
+素理想 $\mathfrak q_j$ 对应于 $\mathcal{O}_{X',\xi}$ 的一个素理想。
+% P10-E0054
+由《Chow 同调》引理 \ref{chow-lemma-additivity-divisors-restricted} 得到
+$$
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/a \mathcal{O}_{X, \xi}^h) =
+\sum\nolimits_j \text{length}_{R_j}(R_j/a R_j)
+$$
+and
+$$
+\text{length}_{\mathcal{O}_{X', \xi}^h}
+(\mathcal{O}_{X', \xi}^h/a \mathcal{O}_{X', \xi}^h) =
+\sum\nolimits_{j \in J(X')} \text{length}_{R_j}(R_j/a R_j)
+$$
+故引理的结论成立，因为 $\{1,\ldots,t\}$ 是各集合 $J(X')$ 的不交并：
+$X$ 上每个余维为 $0$ 的点都位于唯一的 $X'$ 上。
+\end{proof}
+
+
+
+
+
+
+
+\section{主因子与推出}
+\label{spaces-chow-section-two-fun}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-two-fun} 节。
+
+\begin{lemma}
+\label{spaces-chow-lemma-proper-pushforward-alteration}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+假设 $X,Y$ 整，且 $n=\dim_\delta(X)=\dim_\delta(Y)$。
+设 $p:X\to Y$ 是支配固有态射，并设 $f\in R(X)^*$。令
+$$
+g = \text{Nm}_{R(X)/R(Y)}(f).
+$$
+则 $p_*\text{div}(f)=\text{div}(g)$。
+\end{lemma}
+
+\begin{proof}
+我们将通过平展局部化，从概形情形推出此结论。设 $Z\subset Y$ 是
+$\delta$-维数为 $n-1$ 的整闭子空间。要证明 $[Z]$ 在
+$p_*\text{div}(f)$ 与 $\text{div}(g)$ 中的系数相等。
+把《域上的空间》引理 \ref{spaces-over-fields-lemma-finite-in-codim-1}
+应用于态射 $p:X\to Y$ 及泛点 $\xi\in|Z|$。由此可以用包含 $\xi$
+的开子空间代替 $Y$，并假设 $p:X\to Y$ 有限。选取平展邻域
+$(V,v)\to(Y,\xi)$，其中 $V$ 是仿射概形。由引理
+\ref{spaces-chow-lemma-etale-pullback}，只需在拉回到 $V$ 后证明闭链相等。
+令 $U=V\times_YX$，并考虑交换图
+$$
+\xymatrix{
+U \ar[r]_a \ar[d]_{p'} & X \ar[d]^p \\
+V \ar[r]^b & Y
+}
+$$
+设 $V_j\subset V$（$j=1,\ldots,m$）是 $V$ 的不可约分支。
+对每个 $i$，设 $U_{j,i}$（$i=1,\ldots,n_j$）是 $U$ 中支配
+$V_j$ 的各不可约分支。
+% P10-E0055
+以 $p'_{j,i}:U_{j,i}\to V_j$ 表示 $p':U\to V$ 的限制。
+由概形情形（《Chow 同调》引理
+\ref{chow-lemma-proper-pushforward-alteration}）可知
+$$
+p'_{j, i, *}\text{div}_{U_{j, i}}(f_{j, i}) = \text{div}_{V_j}(g_{j, i})
+$$
+其中 $f_{j,i}$ 是 $f$ 在 $U_{j,i}$ 上的限制，而 $g_{j,i}$ 是
+$f_{j,i}$ 沿有限扩张 $R(U_{j,i})/R(V_j)$ 的范数。有
+\begin{align*}
+b^* p_*\text{div}_X(f)
+& =
+p'_* a^* \text{div}_X(f) \\
+& =
+p'_*\left(\sum\nolimits_{j, i}
+(U_{j, i} \to U)_*\text{div}_{U_{j, i}}(f_{j, i})\right) \\
+& =
+\sum\nolimits_{j, i}
+(V_j \to V)_*p'_{j, i, *}\text{div}_{U_{j, i}}(f_{j, i}) \\
+& =
+\sum\nolimits_j
+(V_j \to V)_*\left(\sum\nolimits_i \text{div}_{V_j}(g_{j, i})\right) \\
+& =
+\sum\nolimits_j (V_j \to V)_*\text{div}_{V_j}(\prod\nolimits_i g_{j, i})
+\end{align*}
+这里使用了引理
+\ref{spaces-chow-lemma-flat-pullback-proper-pushforward},
+\ref{spaces-chow-lemma-etale-pullback-principal-divisor} 以及
+\ref{spaces-chow-lemma-compose-pushforward}。
+为完成证明，再次使用引理 \ref{spaces-chow-lemma-etale-pullback-principal-divisor}，
+只需证明
+$$
+g \circ b|_{V_j} = \prod\nolimits_i g_{j, i}
+$$
+作为 $V_j$ 的函数域中的元素相等。用域来表述，这就是下列命题：
+设 $L/K$ 是有限扩张，$M/K$ 是有限可分扩张，并写成
+$M\otimes_KL=\prod M_i$。若 $t\in L$ 在各 $M_i$ 中的像为
+$t_i$，则 $\text{Norm}_{L/K}(t)$ 在 $M$ 中的像为
+$\prod\text{Norm}_{M_i/M}(t_i)$。略去证明。
+\end{proof}
+
+
+
+
+
+
+
+\section{有理等价}
+\label{spaces-chow-section-rational-equivalence}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-rational-equivalence} 节。
+本节定义 $k$-闭链上的{\it 有理等价}。我们允许主因子在闭浸入下之像的
+局部有限和。这会导致一些颇为奇特的现象（见概形一章中的例子）。
+然而，若不允许这些和式，我们便不知道如何证明与线丛的陈类作帽积
+可通过有理等价分解。
+
+\begin{definition}
+\label{spaces-chow-definition-rational-equivalence}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，并设
+$k\in\mathbf{Z}$。
+\begin{enumerate}
+\item 给定任意局部有限族 $\{W_j\subset X\}$，其中各 $W_j$ 是满足
+$\dim_\delta(W_j)=k+1$ 的整闭子空间，并给定任意
+$f_j\in R(W_j)^*$，可以考虑
+$$
+\sum (i_j)_*\text{div}(f_j) \in Z_k(X)
+$$
+其中 $i_j:W_j\to X$ 是包含态射。由于态射
+$\coprod i_j:\coprod W_j\to X$ 固有，这一定义有意义。
+\item 若 $\alpha\in Z_k(X)$ 是上述形式的闭链，则称 $\alpha$
+{\it 有理等价于零}。
+\item 若 $\alpha-\beta$ 有理等价于零，则称
+$\alpha,\beta\in Z_k(X)$ {\it 有理等价}，并记作
+$\alpha\sim_{rat}\beta$。
+\item 定义
+$$
+\CH_k(X) = Z_k(X) / \sim_{rat}
+$$
+为{\it $X$ 上 $k$-闭链的周群}。它有时也称为
+{\it $X$ 上模有理等价的 $k$-闭链周群}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+还有许多其他有趣的等价关系。有理等价是其中最粗的。
+下面是一个十分简单但很重要的引理。
+
+\begin{lemma}
+\label{spaces-chow-lemma-restrict-to-open}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $U\subset X$ 是开子空间，$Y$ 是满足
+$|Y|=|X|\setminus|U|$ 的 $X$ 的既约闭子空间，并以
+$i:Y\to X$ 表示包含态射。设 $k\in\mathbf{Z}$，并假设
+$\alpha,\beta\in Z_k(X)$。若 $\alpha|_U\sim_{rat}\beta|_U$，
+则存在闭链 $\gamma\in Z_k(Y)$，使得
+$$
+\alpha \sim_{rat} \beta + i_*\gamma.
+$$
+换言之，序列
+$$
+\xymatrix{
+\CH_k(Y) \ar[r]^{i_*} & \CH_k(X) \ar[r]^{j^*} & \CH_k(U) \ar[r] & 0
+}
+$$
+是阿贝尔群的正合复形。
+\end{lemma}
+
+\begin{proof}
+设 $\{W_j\}_{j\in J}$ 是 $U$ 中 $\delta$-维数为 $k+1$ 的整闭子空间
+的局部有限族，并设 $f_j\in R(W_j)^*$ 满足定义中的等式
+$(\alpha-\beta)|_U=\sum(i_j)_*\text{div}(f_j)$。
+设 $W_j'\subset X$ 是相应的整闭子空间，即它与 $W_j$ 有同一个泛点。
+假设 $V\subset X$ 是拟紧开集。由于 $V$ 诺特，$V\cap U$ 也是 $U$
+中的拟紧开集。于是，由 $\{W_j\}$ 的局部有限性，集合
+$\{j\in J\mid W_j\cap V\not=\emptyset\}
+=\{j\in J\mid W'_j\cap V\not=\emptyset\}$ 有限。
+换言之，$\{W'_j\}$ 也局部有限。由于 $R(W_j)=R(W'_j)$，可知
+$$
+\alpha - \beta - \sum (i'_j)_*\text{div}(f_j)
+$$
+是 $X$ 上的闭链，且其在 $U$ 上的限制为零。
+应用引理 \ref{spaces-chow-lemma-exact-sequence-open} 即得结论。
+\end{proof}
+
+\begin{remark}
+\label{spaces-chow-remark-infinite-sums-rational-equivalences}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+假设有 $X$ 上 $k$-闭链的无限族
+$\alpha_i,\beta_i\in Z_k(X)$（$i\in I$）。假设 $\alpha_i$ 与
+$\beta_i$ 的支撑分别构成 $X$ 的闭子集的局部有限族，从而
+$\sum\alpha_i$ 与 $\sum\beta_i$ 都定义为闭链。再假设对每个 $i$
+都有 $\alpha_i\sim_{rat}\beta_i$。这时并不显然有
+$\sum\alpha_i\sim_{rat}\sum\beta_i$。问题在于，这些有理等价可能由
+局部有限族
+$\{W_{i,j},f_{i,j}\in R(W_{i,j})^*\}_{j\in J_i}$ 给出，
+但其并族 $\{W_{i,j}\}_{i\in I,j\in J_i}$ 未必局部有限。
+
+\medskip\noindent
+实践中经常有 $|X|$ 的闭子集的局部有限族
+$\{T_i\}_{i\in I}$，使得 $\alpha_i,\beta_i$ 支撑在 $T_i$ 上，
+并在 $T_i$ “上”满足 $\alpha_i\sim_{rat}\beta_i$。
+更精确地说，各族
+$\{W_{i,j},f_{i,j}\in R(W_{i,j})^*\}_{j\in J_i}$
+由满足 $|W_{i,j}|\subset T_i$ 的整闭子空间 $W_{i,j}$ 构成。
+在这种情形中，$X$ 上确实有
+$\sum\alpha_i\sim_{rat}\sum\beta_i$，因为族
+$\{W_{i,j}\}_{i\in I,j\in J_i}$ 此时自动局部有限。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+\section{有理等价与推出、拉回}
+\label{spaces-chow-section-properties-rational-equivalence}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-properties-rational-equivalence} 节。
+本节证明平坦拉回与固有推出同有理等价相容。
+
+\begin{lemma}
+\label{spaces-chow-lemma-prepare-flat-pullback-rational-equivalence}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+假设 $Y$ 整且 $\dim_\delta(Y)=k$。设 $f:X\to Y$ 是相对维数为
+$r$ 的平坦态射。则对 $g\in R(Y)^*$ 有
+$$
+f^*\text{div}_Y(g) =
+\sum m_{X', X} (X' \to X)_*\text{div}_{X'}(g \circ f|_{X'})
+$$
+作为 $X$ 上的 $(k+r-1)$-闭链相等，其中求和遍历 $X$ 的各不可约分支
+$X'$，而 $m_{X',X}$ 是 $X'$ 在 $X$ 中的重数。
+\end{lemma}
+
+\begin{proof}
+注意，$X$ 的任意不可约分支都支配 $Y$
+（引理 \ref{spaces-chow-lemma-flat-inverse-image-dimension}），因而复合
+$g\circ f|_{X'}$ 有定义（《空间的态射》第
+\ref{spaces-morphisms-section-rational-maps} 节）。
+我们把问题约化到概形情形。选取概形 $V$ 和满平展态射 $V\to Y$，
+再选取概形 $U$ 和满平展态射 $U\to V\times_YX$。图示为
+$$
+\xymatrix{
+U \ar[r]_a \ar[d]_h & X \ar[d]^f \\
+V \ar[r]^b & Y
+}
+$$
+由于 $a$ 满且平展，由引理 \ref{spaces-chow-lemma-etale-pullback}，只需在沿 $a$
+拉回后证明闭链相等。由引理
+\ref{spaces-chow-lemma-etale-pullback-principal-divisor}，可以写成
+$$
+b^*\text{div}_Y(g) = \sum (V' \to V)_*\text{div}_{V'}(g \circ b|_{V'})
+$$
+其中求和遍历 $V$ 的各不可约分支 $V'$。使用引理
+\ref{spaces-chow-lemma-flat-pullback-proper-pushforward} 得
+$$
+h^*b^*\text{div}_Y(g) =
+\sum (V' \times_V U \to U)_*(h')^*\text{div}_{V'}(g \circ b|_{V'})
+$$
+其中 $h':V'\times_VU\to V'$ 是投影。把概形情形中的引理
+（《Chow 同调》引理
+\ref{chow-lemma-prepare-flat-pullback-rational-equivalence}）
+应用于态射 $h':V'\times_VU\to V'$，得到
+$$
+(h')^*\text{div}_{V'}(g \circ b|_{V'}) =
+\sum
+m_{U', V' \times_V U}
+(U' \to V' \times_V U)_*\text{div}_{U'}(g \circ b|_{V'} \circ h'|_{U'})
+$$
+其中求和遍历 $V'\times_VU$ 的各不可约分支 $U'$。
+此和式中出现的每个 $U'$ 都是 $U$ 的不可约分支；反过来，$U$ 的每个
+不可约分支 $U'$ 都是某个唯一不可约分支 $V'\subset V$ 所对应的
+$V'\times_VU$ 的不可约分支。
+给定不可约分支 $U'\subset U$，以 $\overline{a(U')}\subset X$
+表示其在 $X$ 中的“像”（引理 \ref{spaces-chow-lemma-proper-image}）；
+例如由引理 \ref{spaces-chow-lemma-flat-inverse-image-dimension}，它是 $X$
+的不可约分支。重数 $m_{U',V'\times_VU}$ 等于重数
+$m_{\overline{a(U')},X}$。
+% P10-E0056
+这由等式 $h^*a^*[Y]=b^*f^*[Y]$（引理
+\ref{spaces-chow-lemma-compose-flat-pullback}）、定义以及引理
+\ref{spaces-chow-lemma-etale-pullback} 得出。综合以上结论，得到
+$$
+a^*f^*\text{div}_Y(g) =
+h^*b^*\text{div}_Y(g) =
+\sum m_{\overline{a(U')}, X}
+(U' \to U)_*\text{div}_{U'}(g \circ (f \circ a)|_{U'})
+$$
+接下来分析引理陈述中公式右端沿 $a$ 拉回后的情形。
+首先使用引理 \ref{spaces-chow-lemma-flat-pullback-proper-pushforward} 得到
+$$
+a^*\sum m_{X', X} (X' \to X)_*\text{div}_{X'}(g \circ f|_{X'}) =
+\sum m_{X', X} (X' \times_X U \to U)_*(a')^*\text{div}_{X'}(g \circ f|_{X'})
+$$
+其中 $a':X'\times_XU\to X'$ 是投影。由引理
+\ref{spaces-chow-lemma-etale-pullback-principal-divisor} 得
+$$
+(a')^*\text{div}_{X'}(g \circ f|_{X'}) =
+\sum (U' \to X' \times_X U)_*\text{div}_{U'}(g \circ (f \circ a)|_{U'})
+$$
+其中求和遍历 $X'\times_XU$ 的各不可约分支 $U'$。
+这些 $U'$ 是 $U$ 的不可约分支，并且恰好是满足
+$\overline{a(U')}=X'$ 的那些 $U$ 的不可约分支。
+与上面所得公式比较即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-flat-pullback-rational-equivalence}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $f:X\to Y$ 是相对维数为 $r$ 的平坦态射，并设
+$\alpha\sim_{rat}\beta$ 是 $Y$ 上有理等价的 $k$-闭链。
+则作为 $X$ 上的 $(k+r)$-闭链，有
+$f^*\alpha\sim_{rat}f^*\beta$。
+\end{lemma}
+
+\begin{proof}
+需要证明什么？假设给定一族闭浸入
+$$
+i_j : W_j \longrightarrow Y
+$$
+其中每个 $W_j$ 整且 $\delta$-维数为 $k+1$，并给定有理函数
+$g_j\in R(W_j)^*$。再假设族
+$\{|i_j|(|W_j|)\}_{j\in J}$ 在 $|Y|$ 中局部有限。
+那么需要证明
+$$
+f^*(\sum i_{j, *}\text{div}(g_j)) = \sum f^*i_{j, *}\text{div}(g_j)
+$$
+在 $X$ 上有理等价于零。由引理
+\ref{spaces-chow-lemma-inverse-image-locally-finite}，右端的和有意义。
+
+\medskip\noindent
+考虑纤维积
+$$
+i'_j : W'_j = W_j \times_Y X \longrightarrow X.
+$$
+并以 $f_j:W'_j\to W_j$ 表示第一投影。
+由引理 \ref{spaces-chow-lemma-flat-pullback-proper-pushforward}，上述和式可写成
+$$
+\sum i'_{j, *}(f_j^*\text{div}(g_j))
+$$
+由引理 \ref{spaces-chow-lemma-prepare-flat-pullback-rational-equivalence}，
+每个 $f_j^*\text{div}(g_j)$ 都在 $W'_j$ 上有理等价于零。
+因此每个 $i'_{j,*}(f_j^*\text{div}(g_j))$ 都有理等价于零。
+再由注 \ref{spaces-chow-remark-infinite-sums-rational-equivalences} 中的讨论，
+所显示的和式也有理等价于零。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-proper-pushforward-rational-equivalence}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $p:X\to Y$ 是固有态射。假设
+$\alpha,\beta\in Z_k(X)$ 有理等价。则 $p_*\alpha$ 与 $p_*\beta$
+有理等价。
+\end{lemma}
+
+\begin{proof}
+需要证明什么？假设给定一族闭浸入
+$$
+i_j : W_j \longrightarrow X
+$$
+其中每个 $W_j$ 整且 $\delta$-维数为 $k+1$，并给定有理函数
+$f_j\in R(W_j)^*$。再假设族 $\{i_j(W_j)\}_{j\in J}$ 在 $X$
+上局部有限。那么需要证明
+$$
+p_*\left(\sum i_{j, *}\text{div}(f_j)\right)
+$$
+在 $X$ 上有理等价于零。
+% P10-E0057
+
+\medskip\noindent
+注意该和式等于
+$$
+\sum p_*i_{j, *}\text{div}(f_j).
+$$
+设 $W'_j\subset Y$ 是 $p\circ i_j$ 的像这一整闭子空间；见引理
+\ref{spaces-chow-lemma-proper-image}。由引理
+\ref{spaces-chow-lemma-quasi-compact-locally-finite}，族 $\{W'_j\}$ 在 $Y$
+中局部有限。因此，只需对给定的 $j$ 证明：
+$p_*i_{j,*}\text{div}(f_j)=0$，或者它等于某个
+$g_j\in R(W'_j)^*$ 所对应的 $i'_{j,*}\text{div}(g_j)$。
+
+\medskip\noindent
+因此上述论证把我们约化到单个 $\delta$-维数为 $k+1$ 的整闭子空间
+$W\subset X$ 的情形。
+% P10-E0058
+设 $f\in R(W)^*$，并令 $W'=p(W)$ 如上。得到态射的交换图
+$$
+\xymatrix{
+W \ar[r]_i \ar[d]_{p'} & X \ar[d]^p \\
+W' \ar[r]^{i'} & Y
+}
+$$
+由引理 \ref{spaces-chow-lemma-compose-pushforward}，注意
+$p_*i_*\text{div}(f)=i'_*(p')_*\text{div}(f)$。
+如上所述，必须证明 $(p')_*\text{div}(f)$ 是 $W'$ 上某个有理函数的
+因子，或者为零。分三种情形。
+
+\medskip\noindent
+情形 $\dim_\delta(W')<k$。此时自动有
+$(p')_*\text{div}(f)=0$，无需证明。
+
+\medskip\noindent
+情形 $\dim_\delta(W')=k$。我们证明此时
+$(p')_*\text{div}(f)=0$。由于 $(p')_*\text{div}(f)$ 是 $k$-闭链，
+存在 $n\in\mathbf{Z}$ 使得 $(p')_*\text{div}(f)=n[W']$。
+为证明 $n=0$，可以用非空开子空间代替 $W'$。特别地，可以并且确实
+假设 $W'$ 是概形。设 $\eta\in W'$ 是泛点，并令函数域
+$K=\kappa(\eta)=R(W')$。考虑基变换图
+$$
+\xymatrix{
+W_\eta \ar[r] \ar[d]_c & W \ar[d]^{p'} \\
+\Spec(K) \ar[r]^\eta & W'
+}
+$$
+注意 $c$ 固有，而且 $|W_\eta|$ 的维数为 $1$：使用《合宜空间》引理
+\ref{decent-spaces-lemma-topology-fibre}，把 $|W_\eta|$ 识别为
+$|W|$ 中映到 $\eta$ 的点所成的子空间；又由于
+$\dim_\delta(W)=k+1$ 且 $\delta(\eta)=k$，$W_\eta$ 中的点的
+$\delta$-值只能是 $k$ 或 $k+1$。于是由《合宜空间》引理
+\ref{decent-spaces-lemma-codimension-local-ring}，各局部环的维数
+$\leq1$。由《域上的空间》引理
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}，
+$W_\eta$ 是概形。由于 $\Spec(K)$ 是 $W'$ 的各非空仿射开子概形的极限，
+由《空间的极限》引理 \ref{spaces-limits-lemma-limit-is-scheme}，
+可以假设 $W$ 是概形。最后，由概形情形（《Chow 同调》引理
+\ref{chow-lemma-proper-pushforward-rational-equivalence}）得 $n=0$。
+
+\medskip\noindent
+情形 $\dim_\delta(W')=k+1$。此时引理
+\ref{spaces-chow-lemma-proper-pushforward-alteration} 适用，因而确有某个
+$g\in R(W')^*$ 使得
+$p'_*\text{div}(f)=\text{div}(g)$，正合所需。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{与可逆层相伴的因子}
+\label{spaces-chow-section-divisor-invertible-sheaf}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-divisor-invertible-sheaf} 节。
+下面的定义是在当前设定下与《域上的空间》定义
+\ref{spaces-over-fields-definition-divisor-invertible-sheaf} 对应的版本。
+
+\begin{definition}
+\label{spaces-chow-definition-divisor-invertible-sheaf}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+假设 $X$ 整且 $n=\dim_\delta(X)$。设 $\mathcal{L}$ 是可逆
+$\mathcal{O}_X$-模。
+\begin{enumerate}
+\item 对 $\mathcal{L}$ 的任意非零亚纯截面 $s$，定义
+{\it 与 $s$ 相伴的 Weil 因子}为 $(n-1)$-闭链
+% P10-E0059
+$$
+\text{div}_\mathcal{L}(s) =
+\sum \text{ord}_{Z, \mathcal{L}}(s) [Z]
+$$
+（定义见《域上的空间》定义
+\ref{spaces-over-fields-definition-divisor-invertible-sheaf}）。
+由引理 \ref{spaces-chow-lemma-divisor-delta-dimension}，Weil 因子的
+$\delta$-维数为 $n-1$，故此定义有意义。
+\item 定义{\it 与 $\mathcal{L}$ 相伴的 Weil 因子}为
+$$
+c_1(\mathcal{L}) \cap [X] =
+\text{div}_\mathcal{L}(s)\text{ 的类} \in \CH_{n - 1}(X)
+$$
+其中 $s$ 是 $\mathcal{L}$ 在 $X$ 上的任意非零亚纯截面。
+由《域上的空间》引理
+\ref{spaces-over-fields-lemma-divisor-meromorphic-well-defined}，
+这一定义良好。
+\end{enumerate}
+\end{definition}
+
+\noindent
+非零截面的零概形是有效 Cartier 因子，其 Weil 因子类给出与该可逆模
+相伴的 Weil 因子。
+
+\begin{lemma}
+\label{spaces-chow-lemma-compute-c1}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+假设 $X$ 整且 $n=\dim_\delta(X)$。设 $\mathcal{L}$ 是可逆
+$\mathcal{O}_X$-模，并设 $s\in\Gamma(X,\mathcal{L})$ 是非零整体截面。
+则
+$$
+\text{div}_\mathcal{L}(s) = [Z(s)]_{n - 1}
+$$
+在 $Z_{n-1}(X)$ 中成立，并且
+$$
+c_1(\mathcal{L}) \cap [X] = [Z(s)]_{n - 1}
+$$
+在 $\CH_{n-1}(X)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+设 $Z\subset X$ 是 $\delta$-维数为 $n-1$ 的整闭子空间，
+并设 $\xi\in|Z|$ 是其泛点。为证明第一个等式，比较两端 $Z$ 的系数。
+选取初等平展邻域 $(U,u)\to(X,\xi)$；见《合宜空间》第
+\ref{decent-spaces-section-residue-fields-henselian-local-rings} 节。
+回顾在此情形中
+$\mathcal{O}_{X,\xi}^h=\mathcal{O}_{U,u}^h$。
+用 $u$ 的一个开邻域代替 $U$ 后，可以假设 $\mathcal{L}|_U$
+有平凡化截面 $s_U$。对某个 $f\in\Gamma(U,\mathcal{O}_U)$ 写成
+$s|_U=fs_U$。则作为 $U$ 的闭子概形，$Z\times_XU$ 等于 $V(f)$；
+见《空间上的因子》定义
+\ref{spaces-divisors-definition-zero-scheme-s}。
+如《域上的空间》第 \ref{spaces-over-fields-section-c1} 节，以
+$\mathcal{L}_\xi$ 表示 $\mathcal{L}$ 沿典范态射
+$c_\xi:\Spec(\mathcal{O}_{X,\xi}^h)\to X$ 的拉回。
+以 $s_\xi$ 表示 $s_U$ 的拉回；它是 $\mathcal{L}_\xi$ 的一个平凡化。
+于是 $c_\xi^*(s)=fs_\xi$。依定义，$Z$ 在
+$[Z(s)]_{n-1}$ 中的系数为
+$$
+\text{length}_{\mathcal{O}_{U, u}}(\mathcal{O}_{U, u}/f\mathcal{O}_{U, u})
+$$
+由于 $\mathcal{O}_{U,u}\to\mathcal{O}_{X,\xi}^h$ 平坦且诱导剩余域
+同构，这等于
+$$
+\text{length}_{\mathcal{O}_{X, \xi}^h}
+(\mathcal{O}_{X, \xi}^h/f\mathcal{O}_{X, \xi}^h)
+$$
+（由《代数》引理 \ref{algebra-lemma-pullback-module}）。
+由《域上的空间》定义
+\ref{spaces-over-fields-definition-order-vanishing-meromorphic}，
+最后这个量等于 $\text{ord}_{Z,\mathcal{L}}(s)$，亦即 $Z$ 在
+$\text{div}_\mathcal{L}(s)$ 中的系数，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-Gm-torsor}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且
+$\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。态射
+$$
+q :
+T = \underline{\Spec}\left(
+\bigoplus\nolimits_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n}\right)
+\longrightarrow
+X
+$$
+具有下列性质：
+\begin{enumerate}
+\item $q$ 满、光滑、仿射，且相对维数为 $1$；
+\item 存在同构 $\alpha:q^*\mathcal{L}\cong\mathcal{O}_T$；
+\item $(q:T\to X,\alpha)$ 的构造与基变换相容；
+\item $q^*:Z_k(X)\to Z_{k+1}(T)$ 是单射；
+\item 若 $Z\subset X$ 是整闭子空间，则
+$q^{-1}(Z)\subset T$ 是整闭子空间；
+\item 若 $Z\subset X$ 是 $\delta$-维数 $\leq k$ 的闭子空间，
+则 $q^{-1}(Z)$ 是 $T$ 中 $\delta$-维数 $\leq k+1$ 的闭子空间，且
+$q^*[Z]_k=[q^{-1}(Z)]_{k+1}$；
+\item 若 $\xi'\in|T|$ 是 $|T|\to|X|$ 在 $\xi$ 上的纤维的泛点，
+则环同态 $\mathcal{O}_{X,\xi}^h\to\mathcal{O}_{T,\xi'}^h$ 平坦，
+有 $\mathfrak m_{\xi'}^h=\mathfrak m_\xi^h\mathcal{O}_{T,\xi'}^h$，
+且剩余域扩张是超越次数为 $1$ 的纯超越扩张；以及
+\item 按需在此增补。
+% P10-E0061
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $U\to X$ 是使 $\mathcal{L}|_U$ 平凡的平展态射。
+则 $T\times_XU\to U$ 同构于投影态射
+$\mathbf{G}_m\times U\to U$，其中 $\mathbf{G}_m$ 是乘法群概形；
+见《群胚》例 \ref{groupoids-example-multiplicative-group}。
+% P10-E0060
+因此 (1) 显然。
+
+\medskip\noindent
+为证明 (2)，注意
+$q_*q^*\mathcal{L} =
+\bigoplus_{n \in \mathbf{Z}} \mathcal{L}^{\otimes n + 1}$.
+因此存在显然的 $q_*\mathcal{O}_T$-模同构
+$q_*q^*\mathcal{L}\to q_*\mathcal{O}_T$。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-equivalence-modules}，
+它确定一个同构 $q^*\mathcal{L}\to\mathcal{O}_T$。
+
+\medskip\noindent
+(3) 成立，因为相对谱的构造与任意基变换相容，而同构 $\alpha$
+显然也有同样的性质。
+
+\medskip\noindent
+(4) 立即由 (1) 与定义得出。
+
+\medskip\noindent
+(5) 由下述事实得出：若 $Z$ 是整代数空间，则
+$\mathbf{G}_m\times Z$ 是整代数空间。
+
+\medskip\noindent
+(6) 由长度保持这一事实得出：若 $(A,\mathfrak m)$ 是局部环，
+$B=A[x]_{\mathfrak m A[x]}$，且 $M$ 是 $A$-模，则
+$\text{length}_A(M) = \text{length}_B(M \otimes_A B)$.
+这蕴含：若 $\mathcal{F}$ 是凝聚 $\mathcal{O}_X$-模，
+$\xi\in|X|$，且 $\xi'\in|T|$ 是 $\xi$ 上纤维的泛点，
+则 $\mathcal{F}$ 在 $\xi$ 处的长度等于 $q^*\mathcal{F}$
+在 $\xi'$ 处的长度。追溯各定义即可得到 (6)，以及更多结论。
+
+\medskip\noindent
+(7) 中的映射来自《合宜空间》注
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}。
+不过在本情形中有
+$$
+\Spec(\mathcal{O}_{X, \xi}^h) \times_X T =
+\mathbf{G}_m \times \Spec(\mathcal{O}_{X, \xi}^h) =
+\Spec(\mathcal{O}_{X, \xi}^h[t, t^{-1}])
+$$
+且 $\xi'$ 对应于它在 $\Spec(\mathcal{O}_{X,\xi}^h)$ 上特殊纤维的泛点。
+因此 $\mathcal{O}_{T,\xi'}^h$ 是
+$\mathcal{O}_{X,\xi}^h[t,t^{-1}]$ 在相应素理想处的局部化之 Hensel 化。
+(7) 由此及一些交换代数结论得出；略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-Gm-torsor-divisor-meromorphic-section}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且
+$\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。假设 $X$ 整，并设 $s$
+是 $\mathcal{L}$ 的非零亚纯截面。设 $q:T\to X$ 是引理
+\ref{spaces-chow-lemma-Gm-torsor} 中的态射。则
+$$
+q^*\text{div}_\mathcal{L}(s) = \text{div}_T(q^*(s))
+$$
+其中利用同构 $q^*\mathcal{L}\to\mathcal{O}_T$，把拉回 $q^*(s)$
+视为 $T$ 上的非零亚纯函数。
+\end{lemma}
+
+\begin{proof}
+由《域上的空间》第
+\ref{spaces-over-fields-section-Weil-divisors} 节与
+\ref{spaces-over-fields-section-c1} 节中各构造的相容性，注意
+$\text{div}_T(q^*(s))=\text{div}_{\mathcal{O}_T}(q^*(s))$。
+本证明将说明它与 $\text{div}_{\mathcal{O}_T}(q^*(s))$ 一致。
+下文将直接使用引理 \ref{spaces-chow-lemma-Gm-torsor} 中所述的
+$q:T\to X$ 的全部性质，不再另行说明。设 $Z\subset T$ 是素因子。
+那么或者 $Z\to X$ 支配，或者对某个素因子 $Z'\subset X$ 有
+$Z=q^{-1}(Z')$。若 $Z\to X$ 支配，则 $Z$ 在引理等式两端的系数
+均为零。因此可以假设 $Z=q^{-1}(Z')$，其中 $Z'\subset X$ 是素因子。
+设 $\xi'\in|Z'|$ 与 $\xi\in|Z|$ 分别是泛点。于是得到交换图
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{T, \xi}^h) \ar[r]_-{c_\xi} \ar[d]_h & T \ar[d]^q \\
+\Spec(\mathcal{O}_{X, \xi'}^h) \ar[r]^-{c_{\xi'}} & X
+}
+$$
+；见《合宜空间》注
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}。
+选取 $\mathcal{L}_{\xi'}=c_{\xi'}^*\mathcal{L}$ 的平凡化
+$s_{\xi'}$。于是可以用 $s_{\xi'}$ 沿 $h$ 的拉回 $s_\xi$
+作为 $\mathcal{L}_\xi=c_\xi^*q^*\mathcal{L}$ 的平凡化。
+对非零因子 $a,b\in\mathcal{O}_{X,\xi'}$，写成
+$s/s_{\xi'}=a/b$。依定义，$Z'$ 在
+$\text{div}_\mathcal{L}(s)$ 中的系数为
+$$
+\text{length}_{\mathcal{O}_{X, \xi'}^h}(
+\mathcal{O}_{X, \xi'}^h/a \mathcal{O}_{X, \xi'}^h)
+-
+\text{length}_{\mathcal{O}_{X, \xi'}^h}(
+\mathcal{O}_{X, \xi'}^h/b \mathcal{O}_{X, \xi'}^h)
+$$
+由于 $Z=q^{-1}(Z')$，这也是 $Z$ 在
+$q^*\text{div}_\mathcal{L}(s)$ 中的系数。由于
+$\mathcal{O}_{X,\xi'}^h\to\mathcal{O}_{T,\xi}^h$ 平坦，元素 $a,b$
+在 $\mathcal{O}_{T,\xi}^h$ 中的像是非零因子。因此在
+$\mathcal{O}_{T,\xi}^h$ 的全商环中有
+$q^*(s)/s_\xi=a/b$。依定义，$Z$ 在
+$\text{div}_T(q^*(s))$ 中的系数为
+$$
+\text{length}_{\mathcal{O}_{T, \xi}^h}(
+\mathcal{O}_{T, \xi}^h/a \mathcal{O}_{T, \xi}^h)
+-
+\text{length}_{\mathcal{O}_{T, \xi}^h}(
+\mathcal{O}_{T, \xi}^h/b \mathcal{O}_{T, \xi}^h)
+$$
+由《代数》引理 \ref{algebra-lemma-pullback-module} 以及引理
+\ref{spaces-chow-lemma-Gm-torsor} 中证明的
+$\mathfrak m_\xi^h=\mathfrak m_{\xi'}^h\mathcal{O}_{T,\xi}^h$，
+这些长度与前面相同，证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{与可逆层相交}
+\label{spaces-chow-section-intersecting-with-divisors}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-intersecting-with-divisors} 节。
+本节研究下列构造。
+
+\begin{definition}
+\label{spaces-chow-definition-cap-c1}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且
+$\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。对每个整数 $k$，定义运算
+$$
+c_1(\mathcal{L}) \cap - :
+Z_{k + 1}(X) \to \CH_k(X)
+$$
+称为{\it 与 $\mathcal{L}$ 的第一陈类相交}。
+\begin{enumerate}
+\item 给定满足 $\dim_\delta(W)=k+1$ 的整闭子空间
+$i:W\to X$，定义
+$$
+c_1(\mathcal{L}) \cap [W] = i_*(c_1({i^*\mathcal{L}}) \cap [W])
+$$
+其中右端定义见定义 \ref{spaces-chow-definition-divisor-invertible-sheaf}。
+\item 对一般的 $(k+1)$-闭链 $\alpha=\sum n_i[W_i]$，令
+$$
+c_1(\mathcal{L}) \cap \alpha = \sum n_i c_1(\mathcal{L}) \cap [W_i]
+$$
+\end{enumerate}
+\end{definition}
+
+\noindent
+把每个 $c_1(\mathcal{L})\cap W_i=\sum_jn_{i,j}[Z_{i,j}]$ 写出，
+其中 $\{Z_{i,j}\}_j$ 是 $W_i$
+的整闭子空间的局部有限和。
+% P10-E0062
+由于 $\{W_i\}$ 是 $X$ 上整闭子空间的局部有限族，容易看出
+$\{Z_{i,j}\}_{i,j}$ 是 $X$ 的闭子空间的局部有限族。因此
+$c_1(\mathcal{L})\cap\alpha=\sum n_in_{i,j}[Z_{i,j}]$ 是闭链。
+% P10-E0063
+另一种通常更方便的理解方式是注意态射 $\coprod W_i\to X$ 固有。
+所以 $c_1(\mathcal{L})\cap\alpha$ 可以看作
+$\CH_k(\coprod W_i)=\prod\CH_k(W_i)$ 中某个类的推出。
+这也解释了为什么所得结果在 $X$ 上模有理等价是良定义的。
+
+\medskip\noindent
+接下来几节的主要目标是证明，与 $c_1(\mathcal{L})$ 相交可通过
+有理等价分解。这并不是显然的。
+
+\begin{lemma}
+\label{spaces-chow-lemma-c1-cap-additive}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{L},\mathcal{N}$ 是 $X$ 上的可逆层。则
+% P10-E0065
+$$
+c_1(\mathcal{L}) \cap \alpha  + c_1(\mathcal{N}) \cap \alpha =
+c_1(\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N}) \cap \alpha
+$$
+对每个 $\alpha\in Z_{k-1}(X)$ 在 $\CH_k(X)$ 中成立。此外，
+对所有 $\alpha$ 都有 $c_1(\mathcal{O}_X)\cap\alpha=0$。
+% P10-E0064
+\end{lemma}
+
+\begin{proof}
+可加性直接由《域上的空间》引理
+\ref{spaces-over-fields-lemma-c1-additive} 与各定义得出。
+为证明 $c_1(\mathcal{O}_X)\cap\alpha=0$，考虑截面
+$1\in\Gamma(X,\mathcal{O}_X)$。它在任意整闭子空间
+$W\subset X$ 上的限制处处非零。因此
+$c_1(\mathcal{O}_X)\cap[W]=0$，正合所需。
+\end{proof}
+
+\noindent
+回顾：$Z(s)\subset X$ 表示代数空间 $X$ 上可逆层的整体截面 $s$
+的零概形；见《空间上的因子》定义
+\ref{spaces-divisors-definition-zero-scheme-s}。
+
+\begin{lemma}
+\label{spaces-chow-lemma-prepare-geometric-cap}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $Y/B$ 是良好的，且
+$\mathcal{L}$ 是可逆 $\mathcal{O}_Y$-模。设
+$s\in\Gamma(Y,\mathcal{L})$ 是正则截面，并假设
+$\dim_\delta(Y)\leq k+1$。写成
+$[Y]_{k+1}=\sum n_i[Y_i]$，其中 $Y_i\subset Y$ 是 $Y$ 中
+$\delta$-维数为 $k+1$ 的各不可约分支。令
+$s_i=s|_{Y_i}\in\Gamma(Y_i,\mathcal{L}|_{Y_i})$。则
+\begin{equation}
+\label{spaces-chow-equation-equal-as-cycles}
+[Z(s)]_k =  \sum n_i[Z(s_i)]_k
+\end{equation}
+作为 $Y$ 上的 $k$-闭链相等。
+\end{lemma}
+
+\begin{proof}
+设 $\varphi:V\to Y$ 是满平展态射，其中 $V$ 是概形。
+只需在沿 $\varphi$ 拉回后证明等式；见引理
+\ref{spaces-chow-lemma-etale-pullback}。同一引理还给出
+$\varphi^*[Y_i]=[\varphi^{-1}(Y_i)]=\sum[V_{i,j}]$，
+其中 $V_{i,j}$ 是 $V$ 中位于 $Y_i$ 上方的各不可约分支。
+因此，先把概形情形（《Chow 同调》引理
+\ref{chow-lemma-prepare-geometric-cap}）应用于
+$Y_i\times_YV$ 上的 $\varphi^*s_i$，得到
+$\varphi^*[Z(s_i)]_k=[Z(\varphi^*s_i)]=\sum[Z(s_{i,j})]_k$，
+其中 $s_{i,j}$ 是 $s$ 在 $V_{i,j}$ 上的拉回。
+再把概形情形应用于 $\varphi^*s$，得到
+$$
+\varphi^*[Z(s)]_k =
+[Z(\varphi^*s)]_k =
+\sum n_i[Z(s_{i, j})]_k
+$$
+（使用了上面关于重数的说明）。综合以上各式即完成证明。
+\end{proof}
+
+\noindent
+下面的引理是计算可逆层的 $c_1$ 与闭子概形所伴闭链之交积的一个
+有用结果。回顾：$Z(s)\subset X$ 表示概形 $X$ 上可逆层的整体截面
+$s$ 的零概形；见《因子》定义
+\ref{divisors-definition-zero-scheme-s}。
+
+\begin{lemma}
+\label{spaces-chow-lemma-geometric-cap}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且
+$\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。设 $Y\subset X$
+是满足 $\dim_\delta(Y)\leq k+1$ 的闭子概形，并设
+$s\in\Gamma(Y,\mathcal{L}|_Y)$ 是正则截面。则
+$$
+c_1(\mathcal{L}) \cap [Y]_{k + 1} = [Z(s)]_k
+$$
+在 $\CH_k(X)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+写成
+$$
+[Y]_{k + 1} = \sum n_i[Y_i]
+$$
+其中 $Y_i\subset Y$ 是 $Y$ 中 $\delta$-维数为 $k+1$ 的各不可约分支，
+且 $n_i>0$。依假设，限制
+$s_i=s|_{Y_i}\in\Gamma(Y_i,\mathcal{L}|_{Y_i})$ 非零，因而是正则截面。
+由引理 \ref{spaces-chow-lemma-compute-c1}，$[Z(s_i)]_k$ 表示
+$c_1(\mathcal{L}|_{Y_i})$。所以依定义
+$$
+c_1(\mathcal{L}) \cap [Y]_{k + 1} = \sum n_i[Z(s_i)]_k
+$$
+结论遂由引理 \ref{spaces-chow-lemma-prepare-geometric-cap} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{与可逆层相交及推出、拉回}
+\label{spaces-chow-section-intersecting-with-divisors-push-pull}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-intersecting-with-divisors-push-pull} 节。
+本节证明运算 $c_1(\mathcal{L})\cap-$ 与平坦拉回及固有推出相容。
+
+\begin{lemma}
+\label{spaces-chow-lemma-prepare-flat-pullback-cap-c1}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $f:X\to Y$ 是相对维数为 $r$ 的平坦态射，且 $\mathcal{L}$
+是 $Y$ 上的可逆层。假设 $Y$ 整且 $n=\dim_\delta(Y)$。
+设 $s$ 是 $\mathcal{L}$ 的非零亚纯截面。则
+$$
+f^*\text{div}_\mathcal{L}(s) = \sum n_i\text{div}_{f^*\mathcal{L}|_{X_i}}(s_i)
+$$
+在 $Z_{n+r-1}(X)$ 中成立。这里求和遍历 $X$ 中 $\delta$-维数为
+$n+r$ 的各不可约分支 $X_i\subset X$；截面
+$s_i=f|_{X_i}^*(s)$ 是 $s$ 的拉回；而
+$n_i=m_{X_i,X}$ 是 $X_i$ 在 $X$ 中的重数。
+\end{lemma}
+
+\begin{proof}
+我们用一个技巧从引理
+\ref{spaces-chow-lemma-prepare-flat-pullback-rational-equivalence} 推出结论。
+（另一种做法是在可逆模的亚纯截面的设定下重做该引理的证明。）
+具体地，设 $q:T\to Y$ 是用 $Y$ 上的 $\mathcal{L}$ 按引理
+\ref{spaces-chow-lemma-Gm-torsor} 构造的态射。我们将使用该引理中所述的
+$T$ 的全部性质。考虑纤维积图
+$$
+\xymatrix{
+T' \ar[r]_{q'} \ar[d]_h & X \ar[d]^f \\
+T \ar[r]^q & Y
+}
+$$
+则 $q':T'\to X$ 是用 $X$ 上的 $f^*\mathcal{L}$ 构造的态射。
+只需证明
+$$
+(q')^*f^*\text{div}_\mathcal{L}(s) =
+\sum n_i (q')^*\text{div}_{f^*\mathcal{L}|_{X_i}}(s_i)
+$$
+注意 $T'_i=q^{-1}(X_i)$ 是 $T'$ 的各不可约分支，且 $n_i$ 是
+$T'_i$ 在 $T'$ 中的重数。
+% P10-E0066
+左端等于
+$$
+h^*q^*\text{div}_\mathcal{L}(s) = h^*\text{div}_T(q^*(s))
+$$
+（由引理 \ref{spaces-chow-lemma-Gm-torsor-divisor-meromorphic-section}
+以及引理 \ref{spaces-chow-lemma-compose-flat-pullback}）。
+另一方面，以 $q'_i:T'_i\to X_i$ 表示 $q'$ 的限制，则引理
+\ref{spaces-chow-lemma-Gm-torsor-divisor-meromorphic-section} 还说明右端等于
+$$
+\sum n_i \text{div}_{T_i}((q'_i)^*(s_i))
+$$
+% P10-E0067
+在这两个公式中，表达式 $q^*(s)$ 与 $(q'_i)^*(s_i)$ 分别表示：
+通过同构 $\alpha:q^*\mathcal{L}\to\mathcal{O}_T$ 及其到 $T$
+上方各空间的拉回，与 $q^*\mathcal{L}$ 和
+$(q'_i)^*f^*\mathcal{L}|_{X_i}$ 的拉回亚纯截面相对应的有理函数。
+按此约定，$(q'_i)^*(s_i)$ 显然是 $T$ 上的有理函数 $q^*(s)$
+与态射 $h|_{T'_i}:T'_i\to T$ 的复合。因此引理
+\ref{spaces-chow-lemma-prepare-flat-pullback-rational-equivalence} 恰好说明
+$$
+h^*\text{div}_T(q^*(s)) = \sum n_i \text{div}_{T_i}((q'_i)^*(s_i))
+$$
+正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-flat-pullback-cap-c1}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $f:X\to Y$ 是相对维数为 $r$ 的平坦态射，$\mathcal{L}$ 是
+$Y$ 上的可逆层，且 $\alpha$ 是 $Y$ 上的 $k$-闭链。则
+$$
+f^*(c_1(\mathcal{L}) \cap \alpha) = c_1(f^*\mathcal{L}) \cap f^*\alpha
+$$
+在 $\CH_{k+r-1}(X)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+写成 $\alpha=\sum n_i[W_i]$。我们将通过在 $X$ 的闭子空间
+$f^{-1}(W_i)$ 上构造有理等价，证明
+$$
+f^*(c_1(\mathcal{L}) \cap [W_i]) = c_1(f^*\mathcal{L}) \cap f^*[W_i]
+$$
+在 $\CH_{k+r-1}(X)$ 中成立。由注
+\ref{spaces-chow-remark-infinite-sums-rational-equivalences} 中的讨论，
+这便能证明引理中的等式。
+
+\medskip\noindent
+设 $W\subset Y$ 是 $\delta$-维数为 $k$ 的整闭子空间。
+考虑闭子空间 $W'=f^{-1}(W)=W\times_YX$，于是有纤维积图
+$$
+\xymatrix{
+W' \ar[r] \ar[d]_h & X \ar[d]^f \\
+W \ar[r] & Y
+}
+$$
+必须证明
+$f^*(c_1(\mathcal{L})\cap[W])
+=c_1(f^*\mathcal{L})\cap f^*[W]$。
+选取 $\mathcal{L}|_W$ 的非零亚纯截面 $s$。设 $W'_i\subset W'$
+是 $\delta$-维数为 $k+r$ 的各不可约分支。写成
+$[W']_{k+r}=\sum n_i[W'_i]$，其中依定义 $n_i$ 是 $W'_i$
+在 $W'$ 中的重数。因此在 $Z_{k+r}(X)$ 中
+$f^*[W]=\sum n_i[W'_i]$。由于每个 $W'_i\to W$ 都支配，
+对每个 $i$，$s_i=s|_{W'_i}$ 都是非零亚纯截面。
+由引理 \ref{spaces-chow-lemma-prepare-flat-pullback-cap-c1}，有闭链等式
+$$
+h^*\text{div}_{\mathcal{L}|_W}(s) =
+\sum n_i\text{div}_{f^*\mathcal{L}|_{W'_i}}(s_i)
+$$
+在 $Z_{k+r-1}(W')$ 中成立。左端是 $W'$ 上的闭链，其推出在
+$\CH_{k+r-1}(X)$ 中为 $f^*(c_1(\mathcal{L})\cap[W])$；
+右端是 $W'$ 上的闭链，其推出在 $\CH_{k+r-1}(X)$ 中为
+$c_1(f^*\mathcal{L})\cap f^*[W]$。故证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-equal-c1-as-cycles}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $f:X\to Y$ 是固有态射，且 $\mathcal{L}$ 是 $Y$ 上的可逆层。
+假设 $X,Y$ 整、$f$ 支配且 $\dim_\delta(X)=\dim_\delta(Y)$。
+设 $s$ 是 $\mathcal{L}$ 在 $Y$ 上的非零亚纯截面。则
+$$
+f_*\left(\text{div}_{f^*\mathcal{L}}(f^*s)\right) =
+[R(X) : R(Y)]\text{div}_\mathcal{L}(s).
+$$
+作为 $Y$ 上的闭链相等。特别地，
+$$
+f_*(c_1(f^*\mathcal{L}) \cap [X]) = c_1(\mathcal{L}) \cap f_*[Y].
+$$
+% P10-E0068
+\end{lemma}
+
+\begin{proof}
+依定义 $f_*[X]=[R(X):R(Y)][Y]$，故最后一个等式由第一个等式得出。
+现在证明第一个等式。
+% P10-E0069
+设 $q:T\to Y$ 是用 $Y$ 上的 $\mathcal{L}$ 按引理
+\ref{spaces-chow-lemma-Gm-torsor} 构造的态射。我们将使用该引理中所述的
+$T$ 的全部性质。考虑纤维积图
+$$
+\xymatrix{
+T' \ar[r]_{q'} \ar[d]_h & X \ar[d]^f \\
+T \ar[r]^q & Y
+}
+$$
+则 $q':T'\to X$ 是用 $X$ 上的 $f^*\mathcal{L}$ 构造的态射。
+只需在拉回到 $T'$ 后证明等式。
+% P10-E0070
+左端拉回为
+\begin{align*}
+q^*f_*\left(\text{div}_{f^*\mathcal{L}}(f^*s)\right)
+& =
+h_*(q')^*\text{div}_{f^*\mathcal{L}}(f^*s) \\
+& =
+h_*\text{div}_{(q')^*f^*\mathcal{L}}((q')^*f^*s) \\
+& =
+h_*\text{div}_{h^*q^*\mathcal{L}}(h^*q^*s)
+\end{align*}
+第一个等式由引理 \ref{spaces-chow-lemma-flat-pullback-proper-pushforward} 得出。
+第二个等式使用 $T'$ 整这一事实及引理
+\ref{spaces-chow-lemma-prepare-flat-pullback-cap-c1}。第三个等式来自所示图的交换性。
+右端拉回为
+$$
+[R(X) : R(Y)]q^*\text{div}_\mathcal{L}(s) =
+[R(T') : R(T)]\text{div}_{q^*\mathcal{L}}(q^*s)
+$$
+这由引理 \ref{spaces-chow-lemma-prepare-flat-pullback-cap-c1}、$T$ 整这一事实，
+以及等式 $[R(T'):R(T)]=[R(X):R(Y)]$ 得出；略去后一等式的证明
+（它可由引理 \ref{spaces-chow-lemma-flat-pullback-proper-pushforward} 得出，
+但那将是一种很笨拙的证明方式）。
+因此只需对 $h:T'\to T$、可逆模 $q^\mathcal{L}$ 及截面 $q^*s$
+证明引理。
+% P10-E0071
+由于 $q^*\mathcal{L}=\mathcal{O}_T$，问题约化到下一段讨论的
+$\mathcal{L}\cong\mathcal{O}$ 情形。
+
+\medskip\noindent
+假设 $\mathcal{L}=\mathcal{O}_Y$。此时 $s$ 对应于有理函数
+$g\in R(Y)$。利用嵌入 $R(Y)\subset R(X)$，可以把 $g$ 看作 $X$
+上的有理函数，而我们只需证明
+$$
+f_*\left(\text{div}_X(g)\right) = [R(X) : R(Y)]\text{div}_Y(g).
+$$
+与引理 \ref{spaces-chow-lemma-proper-pushforward-alteration} 的结论比较可知，
+这确实成立，因为对 $g\in R(Y)^*$ 有
+$\text{Nm}_{R(X)/R(Y)}(g)=g^{[R(X):R(Y)]}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-pushforward-cap-c1}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。
+设 $p:X\to Y$ 是固有态射，$\alpha\in Z_{k+1}(X)$，且
+$\mathcal{L}$ 是 $Y$ 上的可逆层。则
+$$
+p_*(c_1(p^*\mathcal{L}) \cap \alpha) = c_1(\mathcal{L}) \cap p_*\alpha
+$$
+在 $\CH_k(Y)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+先假设 $p$ 具有下列性质：对每个整闭子空间 $W\subset X$，
+映射 $p|_W:W\to Y$ 都是闭浸入。此时由与 $c_1(\mathcal{L})$
+作帽积的定义，引理成立。
+
+\medskip\noindent
+我们用这个说明约化到一个特殊情形。写成
+$\alpha=\sum n_i[W_i]$，其中 $n_i\not=0$，且各 $W_i$ 两两不同。
+设 $W'_i\subset Y$ 是引理 \ref{spaces-chow-lemma-proper-image} 意义下
+$W_i$ 的“像”。考虑图
+$$
+\xymatrix{
+X' = \coprod W_i \ar[r]_-q \ar[d]_{p'} & X \ar[d]^p \\
+Y' = \coprod W'_i \ar[r]^-{q'} & Y.
+}
+$$
+由于 $\{W_i\}$ 在 $X$ 上局部有限且 $p$ 固有，可知
+$\{W'_i\}$ 在 $Y$ 上局部有限，并且 $q,q',p'$ 也都是固有态射。
+还可以把 $\sum n_i[W_i]$ 看作 $k$-闭链
+$\alpha'\in Z_k(X')$。显然 $q_*\alpha'=\alpha$。
+% P10-E0072
+我们有
+$q_*(c_1(q^*p^*\mathcal{L}) \cap \alpha')
+= c_1(p^*\mathcal{L}) \cap q_*\alpha'$
+以及
+$(q')_*(c_1((q')^*\mathcal{L}) \cap p'_*\alpha') =
+c_1(\mathcal{L}) \cap q'_*p'_*\alpha'$，
+这是由证明开头的说明得出的。因此，只需对态射 $p'$ 与闭链
+$\sum n_i[W_i]$ 证明引理。显然，这意味着可以假设 $X,Y$ 整、
+$f:X\to Y$ 支配且 $\alpha=[X]$。
+% P10-E0073
+此时结论由引理 \ref{spaces-chow-lemma-equal-c1-as-cycles} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{关键公式}
+\label{spaces-chow-section-key}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-key} 节。
+我们强烈建议读者先阅读该处的证明。
+
+\medskip\noindent
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。假设 $X$ 整且
+$\dim_\delta(X)=n$。设 $\mathcal{L}$ 与 $\mathcal{N}$ 是可逆
+$\mathcal{O}_X$-模，$s$ 是 $\mathcal{L}$ 的非零亚纯截面，而
+$t$ 是 $\mathcal{N}$ 的非零亚纯截面。设 $Z\subset X$ 是素因子，
+其泛点为 $\xi\in|Z|$。考虑《域上的空间》第
+\ref{spaces-over-fields-section-c1} 节中使用的态射
+$$
+c_\xi : \Spec(\mathcal{O}_{X, \xi}^h) \longrightarrow X
+$$
+。以 $\mathcal{L}_\xi$ 与 $\mathcal{N}_\xi$ 分别表示
+$\mathcal{L}$ 与 $\mathcal{N}$ 沿 $c_\xi$ 的拉回；我们常把
+$\mathcal{L}_\xi$ 与 $\mathcal{N}_\xi$ 看作由此得到的秩 $1$ 自由
+$\mathcal{O}_{X,\xi}^h$-模。注意 $s$（相应地 $t$）的拉回是
+$\mathcal{L}_\xi$（相应地 $\mathcal{N}_\xi$）的正则亚纯截面。
+
+\medskip\noindent
+设 $Z_i\subset X$（$i\in I$）是满足下列性质的素因子的局部有限集：
+若 $Z\not \in\{Z_i\}$，则 $s$ 是 $\mathcal{L}_\xi$ 的生成元，
+且 $t$ 是 $\mathcal{N}_\xi$ 的生成元。由《域上的空间》引理
+\ref{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}，
+这样的集合存在。于是
+$$
+\text{div}_\mathcal{L}(s) = \sum \text{ord}_{Z_i, \mathcal{L}}(s) [Z_i]
+$$
+，类似地
+$$
+\text{div}_\mathcal{N}(t) = \sum \text{ord}_{Z_i, \mathcal{N}}(t) [Z_i]
+$$
+进一步展开定义，对每个 $i$ 选取生成元
+$s_i\in\mathcal{L}_{\xi_i}$ 与 $t_i\in\mathcal{N}_{\xi_i}$，
+其中 $\xi_i$ 是 $Z_i$ 的泛点。于是可以写成
+$$
+s = f_i s_i
+\quad\text{且}\quad
+t = g_i t_i
+$$
+其中 $f_i,g_i$ 是全分式环
+$Q(\mathcal{O}_{X,\xi_i}^h)$ 中的可逆元素。简记
+$B_i=\mathcal{O}_{X,\xi_i}^h$。记
+$$
+\text{ord}_{B_i} : Q(B_i)^* \longrightarrow \mathbf{Z},\quad
+a/b \longmapsto
+\text{length}_{B_i}(B_i/aB_i) - \text{length}_{B_i}(B_i/bB_i)
+$$
+。换言之，暂把《代数》定义 \ref{algebra-definition-ord}
+推广到这些维数为 $1$ 的既约诺特局部环。于是依定义
+$$
+\text{ord}_{Z_i, \mathcal{L}}(s) = \text{ord}_{B_i}(f_i)
+\quad\text{且}\quad
+\text{ord}_{Z_i, \mathcal{N}}(t) = \text{ord}_{B_i}(g_i)
+$$
+。由于 $\xi_i$ 是 $Z_i$ 的泛点，剩余域 $\kappa(\xi_i)$ 是 $Z_i$
+的函数域。此外，$\kappa(\xi_i)$ 是 $B_i$ 的剩余域；见《合宜空间》引理
+\ref{decent-spaces-lemma-residue-field-henselian-local-ring}。
+由于 $t_i$ 是 $\mathcal{N}_{\xi_i}$ 的生成元，它在纤维
+$\mathcal{N}_{\xi_i}\otimes_{B_i}\kappa(\xi_i)$ 中的像是
+$\mathcal{N}|_{Z_i}$ 的非零亚纯截面。把这个像记作 $t_i|_{Z_i}$。
+由定义可得
+$$
+c_1(\mathcal{N}) \cap \text{div}_\mathcal{L}(s) =
+\sum \text{ord}_{B_i}(f_i)
+(Z_i \to X)_*\text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i})
+$$
+以及类似的等式
+$$
+c_1(\mathcal{L}) \cap \text{div}_\mathcal{N}(t) =
+\sum \text{ord}_{B_i}(g_i)
+(Z_i \to X)_*\text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i})
+$$
+，它们位于 $\CH_{n-2}(X)$ 中。我们将找出这两个闭链之间的有理等价。
+为此考虑驯顺符号
+$$
+\partial_{B_i}(f_i, g_i) \in \kappa(\xi_i)^* = R(Z_i)^*
+$$
+；见《Chow 同调》第 \ref{chow-section-tame-symbol} 节。
+
+\begin{lemma}[关键公式]
+\label{spaces-chow-lemma-key-formula}
+在上述情形中，闭链
+$$
+\sum
+(Z_i \to X)_*\left(
+\text{ord}_{B_i}(f_i) \text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i}) -
+\text{ord}_{B_i}(g_i) \text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) \right)
+$$
+等于闭链
+$$
+\sum (Z_i \to X)_*\text{div}(\partial_{B_i}(f_i, g_i))
+$$
+\end{lemma}
+
+\begin{proof}
+证明策略如下：先约化到 $\mathcal{L}$ 与 $\mathcal{N}$ 都是平凡可逆模
+的情形；再改变局部平凡化的选取；最后用平展局部化约化到概形情形
+\footnote{也许可以通过立即应用平展局部化给出更短的证明。}。
+
+\medskip\noindent
+第一步。设 $q:T\to X$ 是引理 \ref{spaces-chow-lemma-Gm-torsor} 中构造的态射。
+下文将直接使用该引理所述的全部性质，不再另行说明。特别地，只需证明
+闭链沿 $q$ 拉回后相等。以 $s'$ 与 $t'$ 分别表示 $s$ 与 $t$
+拉回得到的 $q^*\mathcal{L}$ 与 $q^*\mathcal{N}$ 的亚纯截面。
+记 $Z'_i=q^{-1}(Z_i)$；以 $\xi'_i\in|Z'_i|$ 表示泛点；
+记 $B'_i=\mathcal{O}_{T,\xi'_i}^h$；并以
+$\mathcal{L}_{\xi'_i}$ 与 $\mathcal{N}_{\xi'_i}$ 表示
+$\mathcal{L}$ 与 $\mathcal{N}$ 到 $\Spec(B'_i)$ 的拉回。
+回顾有交换图
+$$
+\xymatrix{
+\Spec(B'_i) \ar[r]_-{c_{\xi'_i}} \ar[d] & T \ar[d]^q \\
+\Spec(B_i) \ar[r]^-{c_{\xi_i}} & X
+}
+$$
+；见《合宜空间》注
+\ref{decent-spaces-remark-functoriality-henselian-local-ring}。
+以 $s'_i$ 与 $t'_i$ 表示 $s_i$ 与 $t_i$ 的拉回；它们分别是
+$\mathcal{L}_{\xi'_i}$ 与 $\mathcal{N}_{\xi'_i}$ 的生成元。于是
+$$
+s' = f'_i s'_i
+\quad\text{且}\quad
+t' = g'_i t'_i
+$$
+其中 $f'_i$ 与 $g'_i$ 是 $f_i,g_i$ 在 $B_i\to B'_i$ 所诱导的
+映射 $Q(B_i)\to Q(B'_i)$ 下的像。由《代数》引理
+\ref{algebra-lemma-pullback-module} 有
+$$
+\text{ord}_{B_i}(f_i) = \text{ord}_{B'_i}(f'_i)
+\quad\text{且}\quad
+\text{ord}_{B_i}(g_i) = \text{ord}_{B'_i}(g'_i)
+$$
+把引理 \ref{spaces-chow-lemma-prepare-flat-pullback-cap-c1} 应用于
+$q:Z'_i\to Z_i$，得到
+$$
+q^*\text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i}) =
+\text{div}_{q^*\mathcal{N}|_{Z'_i}}(t'_i|_{Z'_i})
+\quad\text{且}\quad
+q^*\text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) =
+\text{div}_{q^*\mathcal{L}|_{Z'_i}}(s'_i|_{Z'_i})
+$$
+这已经说明，引理陈述中的第一个闭链拉回为与
+$s',t',Z'_i,s'_i,t'_i$ 相对应的闭链。为说明第二个闭链也如此，
+注意由《Chow 同调》引理
+\ref{chow-lemma-tame-symbol-formally-smooth} 有
+$$
+\partial_{B_i}(f_i, g_i) \mapsto
+\partial_{B'_i}(f'_i, g'_i)
+\quad\text{经由}\quad
+\kappa(\xi_i) \to \kappa(\xi'_i)
+$$
+因此与前面相同的引理说明
+$$
+q^*\text{div}(\partial_{B_i}(f_i, g_i)) =
+\text{div}(\partial_{B'_i}(f'_i, g'_i))
+$$
+由于 $q^*\mathcal{L}\cong\mathcal{O}_T$，只需在 $\mathcal{L}$
+平凡时证明等式。交换 $\mathcal{L}$ 与 $\mathcal{N}$ 的角色，
+同理还可假设 $\mathcal{N}$ 平凡。第一步完成。
+
+\medskip\noindent
+第二步。假设 $\mathcal{L}=\mathcal{O}_X$ 且
+$\mathcal{N}=\mathcal{O}_X$。以 $1$ 表示 $\mathcal{L}$ 的平凡化截面。
+则对某个单位 $u\in B_i$ 有 $s_i=u\cdot1$。考察用 $1$ 代替
+$s_i$ 后的情形。此时 $f_i$ 被 $uf_i$ 代替。因此，引理第一个表达式
+的第一部分不变，而在第二部分中增加
+$$
+\text{ord}_{B_i}(g_i)\text{div}(u|_{Z_i})
+$$
+，其中由《域上的空间》引理
+\ref{spaces-over-fields-lemma-divisor-meromorphic-well-defined}，
+$u|_{Z_i}$ 是 $u$ 在剩余域中的像；而在第二个表达式中增加
+$$
+\text{div}(\partial_{B_i}(u, g_i))
+$$
+，这是由驯顺符号的双线性得到的。这两项由《Chow 同调》公式
+(\ref{chow-item-normalization}) 中给出的驯顺符号性质而相等。
+
+\medskip\noindent
+设 $Y\subset X$ 是满足 $\dim_\delta(Y)=n-2$ 的整闭子空间。
+为说明 $Y$ 在引理两个闭链中的系数相同，可以像上一段一样用 $1$
+代替 $s_i$。完全相同的论证说明也可以用 $1$ 代替 $t_i$。
+% P10-E0074
+由于只有有限多个 $Z_i$ 满足 $Y\subset Z_i$，可以对所有这些
+$Z_i$ 假设 $s_i=1$ 且 $t_i=1$。
+
+\medskip\noindent
+第三步。设 $Y$ 是满足 $\dim_\delta(Y)=n-2$ 的整闭子空间，并且
+$\mathcal{L}=\mathcal{O}_X$、$\mathcal{N}=\mathcal{O}_X$，而对所有
+满足 $Y\subset Z_i$ 的 $Z_i$ 都有 $s_i=1$、$t_i=1$。
+我们证明 $Y$ 在引理两个闭链中的系数相等。用更小的开子空间代替
+$X$ 后，事实上可以假设对所有 $i$，$s_i$ 与 $t_i$ 都等于 $1$。
+此时第一个闭链为零。我们的任务是证明 $Y$ 在第二个闭链中的系数也为零。
+
+\medskip\noindent
+首先，由于 $\mathcal{L}=\mathcal{O}_X$ 且
+$\mathcal{N}=\mathcal{O}_X$，可以并且确实把 $s,t$ 看作 $X$ 上的
+有理函数 $f,g$。由于 $s_i,t_i$ 都等于 $1$，对所有 $i$，
+$f_i$（相应地 $g_i$）就是 $f$（相应地 $g$）在 $Q(B_i)$ 中的像。
+设 $\zeta\in|Y|$ 是泛点。选取平展邻域
+$$
+(U, u) \longrightarrow (X, \zeta)
+$$
+并记 $Y'=\overline{\{u\}}\subset U$。由于平展态射平坦，可以把
+$f,g$ 拉回为 $U$ 上的正则亚纯函数，仍分别记作 $f,g$。
+对每个素因子 $Y\subset Z\subset X$，概形 $Z\times_XU$
+是 $U$ 的若干素因子的并。反过来，给定素因子
+$Y'\subset Z'\subset U$，存在素因子 $Y\subset Z\subset X$，
+使得 $Z'$ 是 $Z\times_XU$ 的一个分支。对这样的偶 $(Z,Z')$，
+环同态
+$$
+\mathcal{O}_{X, \xi}^h \to \mathcal{O}_{U, \xi'}^h
+$$
+平展（事实上有限平展）。因此由《Chow 同调》引理
+\ref{chow-lemma-tame-symbol-formally-smooth} 得
+$$
+\partial_{\mathcal{O}_{X, \xi}^h}(f, g) \mapsto
+\partial_{\mathcal{O}_{U, \xi'}^h}(f, g)
+\quad\text{经由}\quad
+\kappa(\xi) \to \kappa(\xi')
+$$
+于是引理 \ref{spaces-chow-lemma-etale-pullback-principal-divisor} 适用，并给出
+$$
+(Z \times_X U \to Z)^*\text{div}_Z(\partial_{\mathcal{O}_{X, \xi}^h}(f, g))
+=
+\sum\nolimits_{Z' \subset Z \times_X U}
+\text{div}_{Z'}(\partial_{\mathcal{O}_{U, \xi'}^h}(f, g))
+$$
+由于平坦拉回与沿闭浸入的推出相容（引理
+\ref{spaces-chow-lemma-flat-pullback-proper-pushforward}），只需证明
+$Y'$ 在
+$$
+\sum\nolimits_{Z' \subset U} 
+(Z' \to U)_*\text{div}_{Z'}(\partial_{\mathcal{O}_{U, \xi'}^h}(f, g))
+$$
+中的系数为零。
+
+\medskip\noindent
+令 $A=\mathcal{O}_{U,u}$。则 $f,g\in Q(A)^*$。
+因而可写成 $f=a/b$、$g=c/d$，其中 $a,b,c,d\in A$ 都是非零因子。
+上述表达式中 $Y'$ 的系数为
+$$
+\sum\nolimits_{\mathfrak q \subset A\text{ 高度 }1}
+\text{ord}_{A/\mathfrak q}(\partial_{A_\mathfrak q}(f, g))
+$$
+% P10-E0075
+由 $\partial_A$ 的双线性，只需证明
+$$
+\sum\nolimits_{\mathfrak q \subset A\text{ 高度 }1}
+\text{ord}_{A/\mathfrak q}(\partial_{A_\mathfrak q}(a, c))
+$$
+为零；对其他各偶 $(a,d)$、$(b,c)$ 与 $(b,d)$ 也同样如此。
+这由《Chow 同调》引理
+\ref{chow-lemma-key-nonzerodivisors} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{与可逆层相交及有理等价}
+\label{spaces-chow-section-commutativity}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-commutativity} 节。
+应用关键引理，我们得到与可逆层相交的基本性质。特别地，将会看到
+$c_1(\mathcal{L})\cap-$ 可通过有理等价分解，并且不同可逆层所对应的
+这些运算彼此交换。
+
+\begin{lemma}
+\label{spaces-chow-lemma-commutativity-on-integral}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+假设 $X$ 整且 $\dim_\delta(X)=n$。设
+$\mathcal{L},\mathcal{N}$ 是 $X$ 上的可逆层。选取
+$\mathcal{L}$ 的非零亚纯截面 $s$ 与 $\mathcal{N}$ 的非零亚纯截面
+$t$。令 $\alpha=\text{div}_\mathcal{L}(s)$，
+$\beta=\text{div}_\mathcal{N}(t)$。则
+$$
+c_1(\mathcal{N}) \cap \alpha
+=
+c_1(\mathcal{L}) \cap \beta
+$$
+在 $\CH_{n-2}(X)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+立即由关键引理 \ref{spaces-chow-lemma-key-formula} 及其前面的讨论得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-factors}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且
+$\mathcal{L}$ 是 $X$ 上的可逆层。运算
+$\alpha\mapsto c_1(\mathcal{L})\cap\alpha$ 可通过有理等价分解，
+从而给出运算
+$$
+c_1(\mathcal{L}) \cap - : \CH_{k + 1}(X) \to \CH_k(X)
+$$
+\end{lemma}
+
+\begin{proof}
+设 $\alpha\in Z_{k+1}(X)$ 且 $\alpha\sim_{rat}0$。
+必须证明定义 \ref{spaces-chow-definition-cap-c1} 中所定义的
+$c_1(\mathcal{L})\cap\alpha$ 为零。由定义
+\ref{spaces-chow-definition-rational-equivalence}，存在满足
+$\dim_\delta(W_j)=k+2$ 的整闭子空间的局部有限族 $\{W_j\}$
+及有理函数 $f_j\in R(W_j)^*$，使得
+$$
+\alpha = \sum (i_j)_*\text{div}_{W_j}(f_j)
+$$
+注意 $p:\coprod W_j\to X$ 是固有态射，故
+$\alpha=p_*\alpha'$，其中 $\alpha'\in Z_{k+1}(\coprod W_j)$
+是各主因子 $\text{div}_{W_j}(f_j)$ 的和。由引理
+\ref{spaces-chow-lemma-pushforward-cap-c1}，
+$c_1(\mathcal{L})\cap\alpha
+=p_*(c_1(p^*\mathcal{L})\cap\alpha')$。
+所以只需证明每个
+$c_1(\mathcal{L}|_{W_j})\cap\text{div}_{W_j}(f_j)$ 都为零。
+换言之，可以假设 $X$ 整且
+$\alpha=\text{div}_X(f)$，其中 $f\in R(X)^*$。
+
+\medskip\noindent
+假设 $X$ 整，且对某个 $f\in R(X)^*$ 有
+$\alpha=\text{div}_X(f)$。可以把 $f$ 看作可逆层
+$\mathcal{N}=\mathcal{O}_X$ 的正则亚纯截面。选取 $\mathcal{L}$
+的一个亚纯截面 $s$，并记
+$\beta=\text{div}_\mathcal{L}(s)$。
+% P10-E0077
+由引理 \ref{spaces-chow-lemma-commutativity-on-integral} 得
+$$
+c_1(\mathcal{L}) \cap \alpha = c_1(\mathcal{O}_X) \cap \beta.
+$$
+但由引理 \ref{spaces-chow-lemma-c1-cap-additive}，右端在 $\CH_k(X)$ 中为零，
+正合所需。
+\end{proof}
+
+\noindent
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，且
+$\mathcal{L}$ 是 $X$ 上的可逆层。记
+$$
+c_1(\mathcal{L})^s \cap - : \CH_{k + s}(X) \to \CH_k(X)
+$$
+为运算 $c_1(\mathcal{L})\cap-$。由引理 \ref{spaces-chow-lemma-factors}，
+这有意义。对所有 $s\geq0$，以
+$c_1(\mathcal{L}^s\cap-$ 表示该运算的 $s$ 次迭代。
+% P10-E0076
+
+\begin{lemma}
+\label{spaces-chow-lemma-cap-commutative}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{L},\mathcal{N}$ 是 $X$ 上的可逆层。
+对任意 $\alpha\in\CH_{k+2}(X)$，有
+$$
+c_1(\mathcal{L}) \cap c_1(\mathcal{N}) \cap \alpha
+=
+c_1(\mathcal{N}) \cap c_1(\mathcal{L}) \cap \alpha
+$$
+作为 $\CH_k(X)$ 的元素相等。
+\end{lemma}
+
+\begin{proof}
+对某个满足 $\dim_\delta(Z_j)=k+2$ 的整闭子空间
+$Z_j\subset X$ 的局部有限族，写成
+$\alpha=\sum m_j[Z_j]$。考虑固有态射
+$p:\coprod Z_j\to X$。把
+$\alpha'=\sum m_j[Z_j]$ 看作 $\coprod Z_j$ 上的 $(k+2)$-闭链。
+多次应用引理 \ref{spaces-chow-lemma-pushforward-cap-c1}，可知
+$c_1(\mathcal{L}) \cap c_1(\mathcal{N}) \cap \alpha
+= p_*(c_1(p^*\mathcal{L}) \cap c_1(p^*\mathcal{N}) \cap \alpha')$
+以及
+$c_1(\mathcal{N}) \cap c_1(\mathcal{L}) \cap \alpha
+= p_*(c_1(p^*\mathcal{N}) \cap c_1(p^*\mathcal{L}) \cap \alpha')$.
+因此只需在 $X$ 整且 $\alpha=[X]$ 时证明公式。
+此时结论由引理 \ref{spaces-chow-lemma-commutativity-on-integral} 与各定义得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{与有效 Cartier 因子相交}
+\label{spaces-chow-section-intersecting-effective-Cartier}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-intersecting-effective-Cartier} 节。
+请阅读该节的导言以了解动机。% P10-E0078
+
+\medskip\noindent
+回顾，有效 Cartier 因子与二元组 $(\mathcal{L},s)$ 的同构类一一对应，
+其中 $\mathcal{L}$ 是可逆层，$s$ 是整体截面；见《空间上的因子》引理
+\ref{spaces-divisors-lemma-characterize-OD}。若 $D$ 对应于
+$(\mathcal{L},s)$，则 $\mathcal{L}=\mathcal{O}_X(D)$。
+阅读本节时请始终记住这一点。
+
+\begin{definition}
+\label{spaces-chow-definition-gysin-homomorphism}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $(\mathcal{L},s)$ 是由可逆层与整体截面
+$s\in\Gamma(X,\mathcal{L})$ 组成的二元组。
+令 $D=Z(s)$ 为 $s$ 的零化轨迹，并以 $i:D\to X$ 表示闭浸入。
+对每个整数 $k$，定义一个（精细）{\it Gysin 同态}
+$$
+i^* : Z_{k + 1}(X) \to \CH_k(D).
+$$
+规则如下：
+\begin{enumerate}
+\item 给定整闭子空间 $W\subset X$，其中
+$\dim_\delta(W)=k+1$，定义
+\begin{enumerate}
+\item 若 $W\not\subset D$，则令 $i^*[W]=[D\cap W]_k$，
+视为 $D$ 上的 $k$-闭链；
+\item 若 $W\subset D$，则令
+$i^*[W] = i'_*(c_1(\mathcal{L}|_W) \cap [W])$,
+其中 $i':W\to D$ 是诱导的闭浸入。
+\end{enumerate}
+\item 对一般的 $(k+1)$-闭链 $\alpha=\sum n_j[W_j]$，令
+$$
+i^*\alpha = \sum n_j i^*[W_j]
+$$
+\item 若 $D$ 是有效 Cartier 因子，则以
+$D\cdot\alpha=i_*i^*\alpha$ 表示把该类推出为 $X$ 上的类。
+\end{enumerate}
+\end{definition}
+
+\noindent
+事实上，后文将看到，这个 Gysin 同态 $i^*$ 可视为非平坦拉回的一例。
+因此，我们有时会非正式地把类 $i^*\alpha$ 称为类 $\alpha$ 的
+{\it 拉回}。
+
+\begin{remark}
+\label{spaces-chow-remark-on-cycles}
+设 $S$、$B$、$X$、$\mathcal{L}$、$s$、$i:D\to X$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}，并假设
+$\mathcal{L}|_D\cong\mathcal{O}_D$。此时可以在闭链上定义典范映射
+$i^*:Z_{k+1}(X)\to Z_k(D)$，方法是要求每当 $W\subset D$ 时都有
+$i^*[W]=0$。以后会用到这种做法。
+\end{remark}
+
+\begin{remark}
+\label{spaces-chow-remark-pullback-pairs}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X'\to X$ 是 $B$ 上良好代数空间
+之间的态射。设 $(\mathcal{L},s,i:D\to X)$ 是定义
+\ref{spaces-chow-definition-gysin-homomorphism} 中的三元组。令
+$\mathcal{L}'=f^*\mathcal{L}$、$s'=f^*s$ 以及
+$D'=X'\times_XD=Z(s')$，便得到交换图
+$$
+\xymatrix{
+D' \ar[d]_g \ar[r]_{i'} & X' \ar[d]^f \\
+D \ar[r]^i & X
+}
+$$
+于是可以讨论 $i^*$ 与 $(i')^*$ 之间的各种相容性。
+\end{remark}
+
+\begin{lemma}
+\label{spaces-chow-lemma-support-cap-effective-Cartier}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。设
+$(\mathcal{L},s,i:D\to X)$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}，并设 $\alpha$ 是 $X$ 上的
+$(k+1)$-闭链。则在 $\CH_k(X)$ 中有
+$i_*i^*\alpha=c_1(\mathcal{L})\cap\alpha$。特别地，若 $D$ 是有效
+Cartier 因子，则
+$D\cdot\alpha=c_1(\mathcal{O}_X(D))\cap\alpha$。
+\end{lemma}
+
+\begin{proof}
+写成 $\alpha=\sum n_j[W_j]$，其中 $i_j:W_j\to X$ 是
+$\dim_\delta(W_j)=k$ 的整闭子空间。% P10-E0079
+由于 $D$ 是 $s$ 的零化轨迹，$D\cap W_j$ 是限制
+$s|_{W_j}$ 的零化轨迹。因此，对每个满足 $W_j\not\subset D$ 的 $j$，
+由引理 \ref{spaces-chow-lemma-geometric-cap} 有
+$c_1(\mathcal{L})\cap[W_j]=[D\cap W_j]_k$。从而
+% P10-E0080
+$$
+c_1(\mathcal{L}) \cap \alpha
+=
+\sum\nolimits_{W_j \not \subset D} n_j[D \cap W_j]_k
++
+\sum\nolimits_{W_j \subset D}
+n_j i_{j, *}(c_1(\mathcal{L})|_{W_j}) \cap [W_j])
+$$
+在 $\CH_k(X)$ 中成立，这是由定义 \ref{spaces-chow-definition-cap-c1} 得到的。
+右端逐项等于定义 \ref{spaces-chow-definition-gysin-homomorphism} 中 $D$ 上的类
+$i^*\alpha$ 的推出。因此结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-closed-in-X-gysin}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X'\to X$ 是 $B$ 上良好代数空间
+之间的固有态射。设 $(\mathcal{L},s,i:D\to X)$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}。作图
+$$
+\xymatrix{
+D' \ar[d]_g \ar[r]_{i'} & X' \ar[d]^f \\
+D \ar[r]^i & X
+}
+$$
+如注 \ref{spaces-chow-remark-pullback-pairs}。对 $X'$ 上任意 $(k+1)$-闭链
+$\alpha'$，在 $\CH_k(D)$ 中有
+$i^*f_*\alpha'=g_*(i')^*\alpha'$（这是有意义的，因为 $f_*$
+在闭链层次上已有定义）。
+\end{lemma}
+
+\begin{proof}
+设 $\alpha=[W']$，其中 $W'\subset X'$ 是某个整闭子空间。% P10-E0081
+令 $W\subset X$ 为引理 \ref{spaces-chow-lemma-proper-image} 意义下 $W'$ 的“像”。
+若 $W'\not\subset D'$，则 $W\not\subset D$，并且
+$$
+[W' \cap D']_k = \text{div}_{\mathcal{L}'|_{W'}}({s'|_{W'}})
+\quad\text{且}\quad
+[W \cap D]_k = \text{div}_{\mathcal{L}|_W}(s|_W)
+$$
+故由引理 \ref{spaces-chow-lemma-equal-c1-as-cycles}，第一个闭链在 $f_*$ 下的像
+等于第二个闭链。因此等式在闭链层次成立。若 $W'\subset D'$，则
+$W\subset D$，并且由引理 \ref{spaces-chow-lemma-equal-c1-as-cycles} 的第二个断言，
+$f_*(c_1(\mathcal{L}|_{W'})\cap[W'])$ 在 $\CH_k(W)$ 中等于
+$c_1(\mathcal{L}|_W)\cap[W]$。
+由注 \ref{spaces-chow-remark-infinite-sums-rational-equivalences}，结论对一般的
+$\alpha'$ 也成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-gysin-flat-pullback}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X'\to X$ 是 $B$ 上良好代数空间
+之间相对维数为 $r$ 的平坦态射。设
+$(\mathcal{L},s,i:D\to X)$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}。作图
+$$
+\xymatrix{
+D' \ar[d]_g \ar[r]_{i'} & X' \ar[d]^f \\
+D \ar[r]^i & X
+}
+$$
+如注 \ref{spaces-chow-remark-pullback-pairs}。对 $X$ 上任意 $(k+1)$-闭链
+$\alpha$，有
+% P10-E0082
+% P10-E0083
+在 $\CH_{k + r}(D)$ 中有
+$(i')^*f^*\alpha = g^*i^*\alpha'$
+（这是有意义的，因为 $f^*$ 在闭链层次上已有定义）。
+\end{lemma}
+
+\begin{proof}
+设 $\alpha=[W]$，其中 $W\subset X$ 是某个整闭子空间。
+令 $W'=f^{-1}(W)\subset X'$。若 $W\not\subset D$，则
+$W'\not\subset D'$，并且
+$$
+W' \cap D' = g^{-1}(W \cap D)
+$$
+作为 $D'$ 的闭子空间相等。因此由引理
+\ref{spaces-chow-lemma-pullback-coherent}，等式在闭链层次成立。
+若 $W\subset D$，则 $W'\subset D'$ 且 $W'=g^{-1}(W)$，并有
+$[W']_{k+1+r}=g^*[W]$；由引理 \ref{spaces-chow-lemma-flat-pullback-cap-c1}，
+等式在 $\CH_{k+r}(D')$ 中成立。
+由注 \ref{spaces-chow-remark-infinite-sums-rational-equivalences}，结论对一般的
+$\alpha'$ 也成立。% P10-E0082
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-easy-gysin}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。设
+$(\mathcal{L},s,i:D\to X)$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}。设 $Z\subset X$ 是闭子概形，
+满足 $\dim_\delta(Z)\leq k+1$，且 $D\cap Z$ 是 $Z$ 上的有效
+Cartier 因子。则
+$i^*([Z]_{k+1})=[D\cap Z]_k$。
+\end{lemma}
+
+\begin{proof}
+该假设意味着 $s|_Z$ 是 $\mathcal{L}|_Z$ 的正则截面。
+因此 $D\cap Z=Z(s)$，并有
+$$
+[D \cap Z]_k = \sum n_i [Z(s_i)]_k
+$$
+作为闭链相等；这里 $s_i=s|_{Z_i}$，$Z_i$ 是 $\delta$-维数为
+$k+1$ 的不可约分支，并且 $[Z]_{k+1}=\sum n_i[Z_i]$。
+见引理 \ref{spaces-chow-lemma-prepare-geometric-cap}。又有
+$D\cap Z_i=Z(s_i)$。与 Gysin 映射的定义比较即得结论。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Gysin 同态}
+\label{spaces-chow-section-gysin}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-gysin} 节。
+本节利用关键公式证明 Gysin 同态可通过有理等价因子化。% P10-E0084
+
+\begin{lemma}
+\label{spaces-chow-lemma-gysin-factors-general}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+假设 $X$ 整且 $n=\dim_\delta(X)$。设 $i:D\to X$ 是有效
+Cartier 因子。设 $\mathcal{N}$ 是可逆 $\mathcal{O}_X$-模，
+$t$ 是 $\mathcal{N}$ 的非零亚纯截面。则在 $\CH_{n-2}(D)$ 中有
+$i^*\text{div}_\mathcal{N}(t)=c_1(\mathcal{N})\cap[D]_{n-1}$。
+\end{lemma}
+
+\begin{proof}
+写成
+$\text{div}_\mathcal{N}(t)=\sum\text{ord}_{Z_i,\mathcal{N}}(t)[Z_i]$，
+其中 $Z_i\subset X$ 是一些 $\delta$-维数为 $n-1$ 的整闭子空间。
+不妨假设族 $\{Z_i\}$ 局部有限，$t\in\Gamma(U,\mathcal{N}|_U)$
+是生成元，其中 $U=X\setminus\bigcup Z_i$，并且 $D$ 的每个不可约分支
+都是某个 $Z_i$；见《域上的空间》引理
+\ref{spaces-over-fields-lemma-components-locally-finite}、
+\ref{spaces-over-fields-lemma-divisor-locally-finite} 以及
+\ref{spaces-over-fields-lemma-divisor-meromorphic-locally-finite}。
+
+\medskip\noindent
+令 $\mathcal{L}=\mathcal{O}_X(D)$，并以
+$s\in\Gamma(X,\mathcal{O}_X(D))=\Gamma(X,\mathcal{L})$
+表示典范截面。我们把第 \ref{spaces-chow-section-key} 节的讨论用于当前情形。
+对每个 $i$，令 $\xi_i\in|Z_i|$ 为其一般点，并令
+$B_i=\mathcal{O}_{X,\xi_i}^h$。对每个 $i$，选取
+$\mathcal{L}_{\xi_i}$ 的生成元 $s_i$ 和 $\mathcal{N}_{\xi_i}$ 的
+生成元 $t_i$；二者均作为 $B_i$-模的生成元，但当
+$Z_i\not\subset D$ 时，要求选取 $s_i=s$。写成
+$s=f_is_i$、$t=g_it_i$，其中 $f_i,g_i\in B_i$。% P10-E0085
+于是 $\text{ord}_{Z_i,\mathcal{N}}(t)=\text{ord}_{B_i}(g_i)$。
+另一方面，$f_i\in B_i$，并且
+$$
+[D]_{n - 1} = \sum \text{ord}_{B_i}(f_i)[Z_i]
+$$
+这是由 $s_i$ 的选取方式得到的。我们断言
+$$
+i^*\text{div}_\mathcal{N}(t) =
+\sum \text{ord}_{B_i}(g_i) \text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i})
+$$
+在闭链层次成立。更确切地说，右端是代表左端的一个闭链。
+这由 $\text{div}_\mathcal{N}(t)$ 的公式以及以下事实立即得到：当
+$Z_i\not\subset D$ 时，
+$\text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) = [Z(s_i|_{Z_i})]_{n - 2} =
+[Z_i \cap D]_{n - 2}$，因为此时 $s_i|_{Z_i}=s|_{Z_i}$ 是正则截面；
+见引理 \ref{spaces-chow-lemma-compute-c1}。类似地，
+$$
+c_1(\mathcal{N}) \cap [D]_{n - 1} =
+\sum \text{ord}_{B_i}(f_i) \text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i})
+$$
+关键公式（引理 \ref{spaces-chow-lemma-key-formula}）给出闭链等式
+$$
+\sum \left(
+\text{ord}_{B_i}(f_i) \text{div}_{\mathcal{N}|_{Z_i}}(t_i|_{Z_i}) -
+\text{ord}_{B_i}(g_i) \text{div}_{\mathcal{L}|_{Z_i}}(s_i|_{Z_i}) \right) =
+\sum \text{div}_{Z_i}(\partial_{B_i}(f_i, g_i))
+$$
+若 $Z_i\not\subset D$，则 $f_i=1$，从而
+$\text{div}_{Z_i}(\partial_{B_i}(f_i,g_i))=0$。因此，在 $D$ 上，
+代表 $i^*\text{div}_\mathcal{N}(t)$ 与
+$c_1(\mathcal{N})\cap[D]_{n-1}$ 的上述具体闭链彼此有理等价。
+证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-gysin-factors}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。设
+$(\mathcal{L},s,i:D\to X)$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}。Gysin 同态通过有理等价因子化，
+从而给出映射 $i^*:\CH_{k+1}(X)\to\CH_k(D)$。
+\end{lemma}
+
+\begin{proof}
+设 $\alpha\in Z_{k+1}(X)$，并假设 $\alpha\sim_{rat}0$。
+这意味着存在一族局部有限的、$\delta$-维数为 $k+2$ 的整闭子空间
+$W_j\subset X$，以及 $f_j\in R(W_j)^*$，使得
+$\alpha=\sum i_{j,*}\text{div}_{W_j}(f_j)$。令
+$X'=\coprod W_i$，并考虑图% P10-E0086
+$$
+\xymatrix{
+D' \ar[d]_q \ar[r]_{i'} & X' \ar[d]^p \\
+D \ar[r]^i & X
+}
+$$
+它来自注 \ref{spaces-chow-remark-pullback-pairs}。由于 $X'\to X$ 固有，由引理
+\ref{spaces-chow-lemma-closed-in-X-gysin} 有 $i^*p_*=q_*(i')^*$。
+又已知 $q_*$ 通过有理等价因子化（引理
+\ref{spaces-chow-lemma-proper-pushforward-rational-equivalence}），故只需对 $X'$ 上
+$\alpha'=\sum\text{div}_{W_j}(f_j)$ 证明结论。显然，这把我们约化到
+$X$ 整且 $\alpha=\text{div}(f)$ 的情形，其中 $f\in R(X)^*$。
+
+\medskip\noindent
+假设 $X$ 整，且对某个 $f\in R(X)^*$ 有
+$\alpha=\text{div}(f)$。若 $X=D$，则 $i^*\alpha$ 等于
+$c_1(\mathcal{L})\cap\alpha$；由引理 \ref{spaces-chow-lemma-factors}，它有理等价于零。
+若 $D\not = X$，则由引理 \ref{spaces-chow-lemma-gysin-factors-general}，
+$i^*\text{div}_X(f)$ 在 $\CH_k(D)$ 中等于
+$c_1(\mathcal{O}_D)\cap[D]_{n-1}$。% P10-E0087
+当然，与 $c_1(\mathcal{O}_D)$ 相交是零映射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-gysin-commutes-cap-c1}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。设
+$(\mathcal{L},s,i:D\to X)$ 是定义
+\ref{spaces-chow-definition-gysin-homomorphism} 中的三元组。
+设 $\mathcal{N}$ 是可逆 $\mathcal{O}_X$-模。则对所有
+$\alpha\in\CH_k(Z)$，在 $\CH_{k-2}(D)$ 中有% P10-E0088
+$i^*(c_1(\mathcal{N})\cap\alpha)=c_1(i^*\mathcal{N})\cap i^*\alpha$。
+\end{lemma}
+
+\begin{proof}
+采用与引理 \ref{spaces-chow-lemma-gysin-factors} 完全相同的证明，由引理
+\ref{spaces-chow-lemma-pushforward-cap-c1}、
+\ref{spaces-chow-lemma-cap-commutative} 以及
+\ref{spaces-chow-lemma-gysin-factors-general} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-gysin-commutes-gysin}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。设
+$(\mathcal{L},s,i:D\to X)$ 和
+$(\mathcal{L}',s',i':D'\to X)$ 是定义
+\ref{spaces-chow-definition-gysin-homomorphism} 中的两个三元组。则图
+$$
+\xymatrix{
+\CH_k(X) \ar[r]_{i^*} \ar[d]_{(i')^*} & \CH_{k - 1}(D) \ar[d] \\
+\CH_{k - 1}(D') \ar[r] & \CH_{k - 2}(D \cap D')
+}
+$$
+交换，其中每个映射都是 Gysin 映射。
+\end{lemma}
+
+\begin{proof}
+以 $j:D\cap D'\to D$ 和 $j':D\cap D'\to D'$ 表示分别对应于
+$(\mathcal{L}|_{D'},s|_{D'}$ 与
+$(\mathcal{L}'_D,s|_D)$ 的闭浸入。% P10-E0089
+需要证明，对所有 $\alpha\in\CH_k(X)$ 都有
+$(j')^*i^*\alpha=j^*(i')^*\alpha$。设 $W\subset X$ 是维数为 $k$ 的
+整闭子概形。% P10-E0090
+我们先对 $\alpha=[W]$ 证明该等式。一般情形随后由注
+\ref{spaces-chow-remark-infinite-sums-rational-equivalences} 中的观察
+（以及下文构造的有理等价的具体形式）得出。
+我们将从关键公式推出 $\alpha=[W]$ 时的等式。
+
+\medskip\noindent
+令 $\sigma$ 是 $\mathcal{L}|_W$ 的非零亚纯截面；当
+$W\not\subset D$ 时，要求它等于 $s|_W$。令 $\sigma'$ 是
+$\mathcal{L}'|_W$ 的非零亚纯截面；当 $W\not\subset D'$ 时，
+要求它等于 $s'|_W$。写成
+$$
+\text{div}_{\mathcal{L}|_W}(\sigma) =
+\sum \text{ord}_{Z_i, \mathcal{L}|_W}(\sigma)[Z_i] = \sum n_i[Z_i]
+$$
+以及类似的
+$$
+\text{div}_{\mathcal{L}'|_W}(\sigma') =
+\sum \text{ord}_{Z_i, \mathcal{L}'|_W}(\sigma')[Z_i] = \sum n'_i[Z_i]
+$$
+如第 \ref{spaces-chow-section-key} 节的讨论。于是，当 $n_i\not =0$ 时有
+$Z_i\subset D$；当 $n'_i\not =0$ 时有 $Z'_i\subset D'$。% P10-E0091
+对每个 $i$，令 $\xi_i\in|Z_i|$ 为一般点。如第
+\ref{spaces-chow-section-key} 节那样，对每个 $i$ 选取元素
+$\sigma_i\in\mathcal{L}_{\xi_i}$ 和
+$\sigma'_i\in\mathcal{L}'_{\xi_i}$，它们分别生成
+$B_i=\mathcal{O}_{W,\xi_i}^h$ 上的相应模；并且当
+$Z_i\not\subset D$ 时，前者等于 $s$ 的像，而当
+$Z_i\not\subset D'$ 时，后者等于 $s'$ 的像。
+写成 $\sigma=f_i\sigma_i$、$\sigma'=f'_i\sigma'_i$，于是
+$n_i=\text{ord}_{B_i}(f_i)$ 且
+$n'_i=\text{ord}_{B_i}(f'_i)$。由定义可得闭链等式
+$$
+(j')^*i^*[W] =
+\sum \text{ord}_{B_i}(f_i) \text{div}_{\mathcal{L}'|_{Z_i}}(\sigma'_i|_{Z_i})
+$$
+以及
+$$
+j^*(i')^*[W] =
+\sum \text{ord}_{B_i}(f'_i) \text{div}_{\mathcal{L}|_{Z_i}}(\sigma_i|_{Z_i})
+$$
+关键公式（引理 \ref{spaces-chow-lemma-key-formula}）现在给出闭链等式
+$$
+\sum \left(
+\text{ord}_{B_i}(f_i) \text{div}_{\mathcal{L}'|_{Z_i}}(\sigma'_i|_{Z_i}) -
+\text{ord}_{B_i}(f'_i) \text{div}_{\mathcal{L}|_{Z_i}}(\sigma_i|_{Z_i})
+\right) =
+\sum \text{div}_{Z_i}(\partial_{B_i}(f_i, f'_i))
+$$
+注意，若 $Z_i\not\subset D\cap D'$，则
+$\text{div}_{Z_i}(\partial_{B_i}(f_i,f'_i))=0$，因为此时
+$f_i=1$ 或 $f'_i=1$。因此，在 $D\cap D'\cap W$ 上，代表
+$(j')^*i^*[W]$ 与 $j^*(i')^*[W]$ 的上述具体闭链彼此有理等价。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{相对有效 Cartier 因子}
+\label{spaces-chow-section-relative-effective-cartier}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-relative-effective-cartier} 节。
+相对有效 Cartier 因子定义于《空间上的因子》第
+\ref{spaces-divisors-section-effective-Cartier-morphisms} 节。
+为了建立向量丛陈类的基本结果，我们只需要环境概形与有效 Cartier 因子
+都在基上平坦的情形。% P10-E0092
+
+\begin{lemma}
+\label{spaces-chow-lemma-relative-effective-cartier}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。设
+$p:X\to Y$ 是相对维数为 $r$ 的平坦态射。设 $i:D\to X$ 是相对
+有效 Cartier 因子（《空间上的因子》定义
+\ref{spaces-divisors-definition-relative-effective-Cartier-divisor}）。
+令 $\mathcal{L}=\mathcal{O}_X(D)$。对任意
+$\alpha\in\CH_{k+1}(Y)$，在 $\CH_{k+r}(D)$ 中有
+$$
+i^*p^*\alpha = (p|_D)^*\alpha
+$$
+并且在 $\CH_{k+r}(X)$ 中有
+$$
+c_1(\mathcal{L}) \cap p^*\alpha = i_* ((p|_D)^*\alpha)
+$$
+\end{lemma}
+
+\begin{proof}
+设 $W\subset Y$ 是 $\delta$-维数为 $k+1$ 的整闭子空间。
+由《空间上的因子》引理
+\ref{spaces-divisors-lemma-relative-Cartier}，
+$D\cap p^{-1}W$ 是 $p^{-1}W$ 上的有效 Cartier 因子。
+由引理 \ref{spaces-chow-lemma-easy-gysin}，下式的第一个等号成立：
+$$
+i^*[p^{-1}W]_{k + r + 1} =
+[D \cap p^{-1}W]_{k + r} =
+[(p|_D)^{-1}(W)]_{k + r}.
+$$
+第二个等号成立，是因为作为代数空间有
+$D\cap p^{-1}(W)=(p|_D)^{-1}(W)$。由定义，
+$p^*[W]=[p^{-1}W]_{k+r+1}$，故在闭链层次有
+$i^*p^*[W]=(p|_D)^*[W]$。若
+$\alpha=\sum m_j[W_j]$ 是一般的 $(k+1)$-闭链，则在闭链层次有
+$i^*\alpha=\sum m_j i^*p^*[W_j]=\sum m_j(p|_D)^*[W_j]$。% P10-E0093
+这证明了第一个等式。% P10-E0094
+对第一个等式应用引理 \ref{spaces-chow-lemma-support-cap-effective-Cartier}，
+即可推出第二个等式。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{仿射丛}
+\label{spaces-chow-section-affine-vector}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-affine-vector} 节。
+对仿射丛而言，周群上的拉回映射是满射。
+
+\begin{lemma}
+\label{spaces-chow-lemma-pullback-affine-fibres-surjective}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X,Y/B$ 是良好的。设
+$f:X\to Y$ 是 $B$ 上相对维数为 $r$ 的拟紧平坦态射。
+假设对每个 $y\in Y$ 都有 $X_y\cong\mathbf{A}^r_{\kappa(y)}$。
+则对所有 $k\in\mathbf{Z}$，
+$f^*:\CH_k(Y)\to\CH_{k+r}(X)$ 都是满射。
+\end{lemma}
+
+\begin{proof}
+设 $\alpha\in\CH_{k+r}(X)$。写成 $\alpha=\sum m_j[W_j]$，其中
+$m_j\not =0$，且 $W_j$ 是两两不同的、$\delta$-维数为 $k+r$ 的
+整闭子空间。于是族 $\{W_j\}$ 在 $X$ 中局部有限。
+如引理 \ref{spaces-chow-lemma-proper-image}，令 $Z_j\subset Y$ 为使我们得到
+支配态射 $W_j\to Z_j$ 的整闭子空间。对 $Y$ 中任意拟紧开集
+$V\subset Y$，只有有限多个 $j$ 使 $f^{-1}(V)\cap W_j$ 非空。
+因此，作为这些像之闭包的 $Z_j$ 构成 $Y$ 中一族局部有限的整闭子空间。
+
+\medskip\noindent
+考虑纤维积图
+$$
+\xymatrix{
+f^{-1}(Z_j) \ar[r] \ar[d]_{f_j} & X \ar[d]^f \\
+Z_j \ar[r] & Y
+}
+$$
+假设对某个 $k$-闭链 $\beta_j\in\CH_k(Z_j)$，
+$[W_j]\in Z_{k+r}(f^{-1}(Z_j))$ 有理等价于 $f_j^*\beta_j$。
+那么 $\beta=\sum m_j\beta_j$ 是 $Y$ 上的 $k$-闭链，且
+$f^*\beta=\sum m_jf_j^*\beta_j$ 与 $\alpha$ 有理等价
+（见注 \ref{spaces-chow-remark-infinite-sums-rational-equivalences}）。
+这把我们约化到 $Y$ 整，且 $\alpha=[W]$ 的情形，其中 $W$ 是
+$X$ 中支配 $Y$ 的某个整闭子概形。% P10-E0095
+特别地，不妨假设 $d=\dim_\delta(Y)<\infty$。
+
+\medskip\noindent
+因此可以对 $d=\dim_\delta(Y)$ 作归纳。若 $d<k$，则
+$\CH_{k+r}(X)=0$，引理成立；这是归纳的起始情形。
+取非空开集 $V\subset Y$。假设可以证明，对某个
+$\beta\in Z_k(V)$ 有 $\alpha|_{f^{-1}(V)}=f^*\beta$。
+由引理 \ref{spaces-chow-lemma-exact-sequence-open}，存在
+$\beta'\in Z_k(Y)$ 使得 $\beta=\beta'|_V$。
+由引理 \ref{spaces-chow-lemma-restrict-to-open} 的正合列
+$\CH_k(f^{-1}(Y\setminus V))\to\CH_k(X)\to\CH_k(f^{-1}(V))$，% P10-E0096
+$\alpha-f^*\beta'$ 来自某个闭链
+$\alpha'\in\CH_{k+r}(f^{-1}(Y\setminus V))$。
+由于 $\dim_\delta(Y\setminus V)<d$，对 $d$ 使用归纳假设即得结论。
+
+\medskip\noindent
+特别地，以适当开子空间替换 $Y$ 后，可以假设 $Y$ 是一般点为
+$\eta$ 的概形。同构 $Y_\eta\cong\mathbf{A}^r_\eta$ 可延拓为
+$Y$ 中某个非空开集 $V$ 上的同构；见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation}。% P10-E0097
+这把我们约化到概形情形，即《Chow 同调》引理
+\ref{chow-lemma-pullback-affine-fibres-surjective}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-linebundle}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。令
+$$
+p :
+L = \underline{\Spec}(\text{Sym}^*(\mathcal{L}))
+\longrightarrow
+X
+$$
+为 $X$ 上的相伴向量丛。则对所有 $k$，
+$p^*:\CH_k(X)\to\CH_{k+1}(L)$ 都是同构。
+\end{lemma}
+
+\begin{proof}
+满射性见引理 \ref{spaces-chow-lemma-pullback-affine-fibres-surjective}。
+令 $o:X\to L$ 为 $L\to X$ 的零截面，即对应于满射
+$\text{Sym}^*(\mathcal{L})\to\mathcal{O}_X$ 的态射；该满射把所有
+$n>0$ 的 $\mathcal{L}^{\otimes n}$ 都映为零。于是
+$p\circ o=\text{id}_X$，且 $o(X)$ 是 $L$ 上的有效 Cartier 因子。
+因此由引理 \ref{spaces-chow-lemma-relative-effective-cartier}，
+$o^*\circ p^*=\text{id}$，从而 $p^*$ 也是单射。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{双变相交理论}
+\label{spaces-chow-section-bivariant}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-bivariant} 节。
+为了恰当地讨论向量丛的高阶陈类，我们依照 \cite{FM} 引入下述概念。
+由 \cite[Theorem 17.1]{F} 可知，除去我们所处背景不同这一点外，
+这里的定义与 \cite{F} 中的定义一致。
+
+\begin{definition}
+\label{spaces-chow-definition-bivariant-class}
+\begin{reference}
+类似于 \cite[Definition 17.1]{F}
+\end{reference}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X\to Y$ 是 $B$ 上良好代数空间
+之间的态射，并设 $p\in\mathbf{Z}$。一个{\it 关于 $f$ 的 $p$ 次
+双变类 $c$}，是这样一条规则：对 $B$ 上良好代数空间的每个态射
+$Y'\to Y$ 及每个 $k$，指定一个映射
+$$
+c \cap - : \CH_k(Y') \longrightarrow \CH_{k - p}(X')
+$$
+其中 $X'=Y'\times_YX$，并满足下列条件：
+\begin{enumerate}
+\item 若 $Y''\to Y'$ 是固有态射，则
+$c \cap (Y'' \to Y')_*\alpha'' = (X'' \to X')_*(c \cap \alpha'')$
+对 $Y''$ 上所有 $\alpha''$ 都成立；
+\item 若 $Y''\to Y'$ 是 $B$ 上良好代数空间之间相对维数为 $r$ 的
+平坦态射，% P10-E0098
+则
+$c \cap (Y'' \to Y')^*\alpha' = (X'' \to X')^*(c \cap \alpha')$
+对 $Y'$ 上所有 $\alpha'$ 都成立；
+\item 若 $(\mathcal{L}',s',i':D'\to Y')$ 如定义
+\ref{spaces-chow-definition-gysin-homomorphism}，而其到 $X'$ 的拉回为
+$(\mathcal{N}',t',j':E'\to X')$，则
+$c\cap(i')^*\alpha'=(j')^*(c\cap\alpha')$
+对 $Y'$ 上所有 $\alpha'$ 都成立。
+\end{enumerate}
+关于 $f$ 的所有 $p$ 次双变类的集合记作 $A^p(X\to Y)$。
+\end{definition}
+
+\noindent
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X\to Y$ 和 $Y\to Z$ 是 $B$ 上
+良好代数空间之间的态射，并设 $p\in\mathbf{Z}$。显然，
+$A^p(X\to Y)$ 是阿贝尔群。此外，显然存在双线性复合
+$$
+A^p(X \to Y) \times A^q(Y \to Z) \to A^{p + q}(X \to Z)
+$$
+且它满足结合律。我们最关注 $A^p(X)=A^p(X\to X)$；它始终表示关于
+$\text{id}_X$ 的双变上同调类。陈类正是位于这里。
+
+\begin{definition}
+\label{spaces-chow-definition-chow-cohomology}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。$X$ 的
+{\it Chow 上同调}是分次 $\mathbf{Z}$-代数 $A^*(X)$，其 $p$ 次分量为
+$A^p(X\to X)$。
+\end{definition}
+
+\noindent
+警告：尚不清楚 $A^*(X)$ 的 $\mathbf{Z}$-代数结构是否交换，
+但我们将看到陈类位于它的中心。
+
+\begin{remark}
+\label{spaces-chow-remark-pullback-cohomology}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X\to Y$ 是 $B$ 上良好代数空间
+之间的态射。则存在典范的 $\mathbf{Z}$-代数映射
+$A^*(Y)\to A^*(X)$。具体地，给定 $c\in A^p(Y)$ 与 $X'\to X$，
+把 $X'$ 视为 $Y$ 上的代数空间，由映射
+$c\cap-:\CH_k(X')\to\CH_{k-p}(X')$ 定义 $f^*c$。
+\end{remark}
+
+\begin{lemma}
+\label{spaces-chow-lemma-cap-c1-bivariant}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。对 $f:X'\to X$ 指定
+$c_1(f^*\mathcal{L})\cap-:\CH_k(X')\to\CH_{k-1}(X')$
+的规则是 $1$ 次双变类。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-chow-lemma-factors}、
+\ref{spaces-chow-lemma-pushforward-cap-c1}、
+\ref{spaces-chow-lemma-flat-pullback-cap-c1} 以及
+\ref{spaces-chow-lemma-gysin-commutes-cap-c1} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-flat-pullback-bivariant}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X\to Y$ 是 $B$ 上良好代数空间
+之间相对维数为 $r$ 的平坦态射。对 $Y'\to Y$ 指定
+$(f')^*:\CH_k(Y')\to\CH_{k+r}(X')$ 的规则是 $-r$ 次双变类，
+其中 $X'=X\times_YY'$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-chow-lemma-flat-pullback-rational-equivalence}、
+\ref{spaces-chow-lemma-compose-flat-pullback}、
+\ref{spaces-chow-lemma-flat-pullback-proper-pushforward} 以及
+\ref{spaces-chow-lemma-gysin-flat-pullback} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-gysin-bivariant}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。设
+$(\mathcal{L},s,i:D\to X)$ 是定义
+\ref{spaces-chow-definition-gysin-homomorphism} 中的三元组。对 $f:X'\to X$
+指定 $(i')^*:\CH_k(X')\to\CH_{k-1}(D')$ 的规则是 $1$ 次双变类，
+其中 $D'=D\times_XX'$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-chow-lemma-gysin-factors}、
+\ref{spaces-chow-lemma-closed-in-X-gysin}、
+\ref{spaces-chow-lemma-gysin-flat-pullback} 以及
+\ref{spaces-chow-lemma-gysin-commutes-gysin} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-push-proper-bivariant}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $f:X\to Y$ 和 $g:Y\to Z$ 是
+$B$ 上良好代数空间之间的态射。设 $c\in A^p(X\to Z)$，并假设
+$f$ 固有。对 $X'\to X$ 指定% P10-E0099
+$\alpha\longmapsto f_*(c\cap\alpha)$ 的规则是 $p$ 次双变类。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-chow-lemma-compose-pushforward}、
+\ref{spaces-chow-lemma-flat-pullback-proper-pushforward} 以及
+\ref{spaces-chow-lemma-closed-in-X-gysin} 得到。
+\end{proof}
+
+\noindent
+下面说明 $c_1(\mathcal{L})$ 位于 $A^*(X)$ 的中心。
+
+\begin{lemma}
+\label{spaces-chow-lemma-c1-center}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。则
+$c_1(\mathcal{L})\in A^1(X)$ 与每个元素 $c\in A^p(X)$ 交换。
+\end{lemma}
+
+\begin{proof}
+令 $p:L\to X$ 如引理 \ref{spaces-chow-lemma-linebundle}，并令 $o:X\to L$ 为零截面。
+注意，$p^*\mathcal{L}^{\otimes-1}$ 有一个典范截面，其零化轨迹恰为
+有效 Cartier 因子 $o(X)$。设 $\alpha\in\CH_k(X)$。则
+$$
+p^*(c_1(\mathcal{L}^{\otimes -1}) \cap \alpha) =
+c_1(p^*\mathcal{L}^{\otimes -1}) \cap p^*\alpha =
+o_* o^* p^*\alpha
+$$
+这是由引理 \ref{spaces-chow-lemma-flat-pullback-cap-c1} 和
+\ref{spaces-chow-lemma-relative-effective-cartier} 得到的。由于 $c$ 是双变类，故
+\begin{align*}
+p^*(c \cap c_1(\mathcal{L}^{\otimes -1}) \cap \alpha)
+& =
+c \cap p^*(c_1(\mathcal{L}^{\otimes -1}) \cap \alpha) \\
+& =
+c \cap o_* o^* p^*\alpha \\
+& =
+o_* o^* p^*(c \cap \alpha) \\
+& =
+p^*(c_1(\mathcal{L}^{\otimes -1}) \cap c \cap \alpha)
+\end{align*}
+（最后一个等号来自把上式用于 $c\cap\alpha$）。
+由上文所引引理，$p^*$ 是单射，故
+$c_1(\mathcal{L}^{\otimes-1})$ 位于 $A^*(X)$ 的中心。引理得证。
+\end{proof}
+
+\noindent
+下面给出双变类为零的一个判据。% P10-E0100
+
+\begin{lemma}
+\label{spaces-chow-lemma-bivariant-zero}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的，并设
+$c\in A^p(X)$。则 $c=0$，当且仅当对每个在 $X$ 上局部有限型的
+整代数空间 $Y$，都有 $c\cap[Y]=0$ 于 $\CH_*(Y)$ 中。
+\end{lemma}
+
+\begin{proof}
+一个方向是显然的。反之，假设对每个在 $X$ 上局部有限型的整代数空间
+$Y$，都有 $c\cap[Y]=0$ 于 $\CH_*(Y)$ 中。
+设 $X'\to X$ 局部有限型，并设 $\alpha\in\CH_k(X')$。
+写成 $\alpha=\sum n_i[Y_i]$，其中 $Y_i\subset X'$ 是一族局部有限的、
+$\delta$-维数为 $k$ 的整闭子概形。% P10-E0101
+于是，$\alpha$ 是 $X''=\coprod Y_i$ 上闭链
+$\alpha'=\sum n_i[Y_i]$ 沿固有态射 $X''\to X'$ 的推出。
+由双变类的性质，只需证明
+$c\cap\alpha'=0$ 于 $\CH_{k-p}(X'')$ 中。
+由定义立即有
+$\CH_{k-p}(X'')=\prod\CH_{k-p}(Y_i)$。投影映射
+$\CH_{k-p}(X'')\to\CH_{k-p}(Y_i)$ 由平坦拉回给出。
+由于与 $c$ 相交同平坦拉回交换，只需证明
+$c\cap[Y_i]$ 在 $\CH_{k-p}(Y_i)$ 中为零，而这正是我们的假设。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{射影空间丛公式}
+\label{spaces-chow-section-projective-space-bundle-formula}
+
+\noindent
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+取秩为 $r$ 的有限局部自由 $\mathcal{O}_X$-模 $\mathcal{E}$。
+我们的约定是，{\it 与 $\mathcal{E}$ 相伴的射影丛}指态射
+$$
+\xymatrix{
+\mathbf{P}(\mathcal{E}) =
+\underline{\text{Proj}}_X(\text{Sym}^*(\mathcal{E}))
+\ar[r]^-\pi
+& X
+}
+$$
+并把 $\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$ 规范化为满足
+$\pi_*(\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1))=\mathcal{E}$。
+特别地，存在满射
+$\pi^*\mathcal{E}\to\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$。
+我们将非正式地用“设 $(\pi:P\to X,\mathcal{O}_P(1))$ 是与
+$\mathcal{E}$ 相伴的射影丛”表示如下情形：
+$P=\mathbf{P}(\mathcal{E})$ 且
+$\mathcal{O}_P(1)=\mathcal{O}_{\mathbf{P}(\mathcal{E})}(1)$。
+
+\begin{lemma}
+\label{spaces-chow-lemma-cap-projective-bundle}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是秩为 $r$ 的有限局部自由 $\mathcal{O}_X$-模
+$\mathcal{E}$。% P10-E0102
+设 $(\pi:P\to X,\mathcal{O}_P(1))$ 是与 $\mathcal{E}$ 相伴的射影丛。
+对任意 $\alpha\in\CH_k(X)$，元素
+$$
+\pi_*\left(
+c_1(\mathcal{O}_P(1))^s \cap \pi^*\alpha
+\right)
+\in
+\CH_{k + r - 1 - s}(X)
+$$
+在 $s<r-1$ 时为 $0$，在 $s=r-1$ 时等于 $\alpha$。
+\end{lemma}
+
+\begin{proof}
+设 $Z\subset X$ 是 $\delta$-维数为 $k$ 的整闭子空间。
+我们对 $\alpha=[Z]$ 证明引理。省略由这一特殊情形推出一般情形的论证；
+提示：仿照注 \ref{spaces-chow-remark-infinite-sums-rational-equivalences} 论证。
+
+\medskip\noindent
+令 $P_Z=P\times_XZ$ 为基变换。显然，
+$\pi_Z:P_Z\to Z$ 是与 $\mathcal{E}|_Z$ 相伴的射影丛，而
+$\mathcal{O}_P(1)$ 拉回为 $P_Z$ 上相应的可逆模。
+由引理 \ref{spaces-chow-lemma-cap-c1-bivariant} 和
+\ref{spaces-chow-lemma-flat-pullback-bivariant}，
+$c_1(\mathcal{O}_P(1)\cap-$ 与 $\pi^*$ 都是双变类，% P10-E0103
+故
+$$
+\pi_*\left(
+c_1(\mathcal{O}_P(1))^s \cap \pi^*[Z]
+\right)
+=
+(Z \to X)_*\pi_{Z, *}\left(
+c_1(\mathcal{O}_{P_Z}(1))^s \cap \pi_Z^*[Z]
+\right)
+$$
+因此只需在 $X$ 整且 $\alpha=[X]$ 时证明引理。
+
+\medskip\noindent
+假设 $X$ 整、$\dim_\delta(X)=k$ 且 $\alpha=[X]$。
+注意，$\pi^*[X]=[P]$，因为 $P$ 整且 $\delta$-维数为 $r-1$。% P10-E0104
+若 $s<r-1$，则依构造，
+$c_1(\mathcal{O}_P(1))^s\cap[P]$ 一个
+$(k+r-1-s)$-闭链。% P10-E0105
+因此，由维数原因，该闭链的推出为零。
+
+\medskip\noindent
+令 $s=r-1$。由上述论证，对某个 $n\in\mathbf{Z}$ 有
+$\pi_*(c_1(\mathcal{O}_P(1))^s\cap[P])=n[X]$。我们要证明 $n=1$。
+由与上面相同的维数理由，只需在以某个稠密开子空间替换 $X$ 后证明。
+因此可以假设 $X$ 是概形，此时结论由《Chow 同调》引理
+\ref{chow-lemma-cap-projective-bundle} 得到。
+\end{proof}
+
+\begin{lemma}[射影空间丛公式]
+\label{spaces-chow-lemma-chow-ring-projective-bundle}
+设 $(S,\delta)$ 如情形 \ref{spaces-chow-situation-setup}，并设 $X$ 在 $S$ 上
+局部有限型。设 $\mathcal{E}$ 是秩为 $r$ 的有限局部自由
+$\mathcal{O}_X$-模 $\mathcal{E}$。% P10-E0106
+设 $(\pi:P\to X,\mathcal{O}_P(1))$ 是与 $\mathcal{E}$ 相伴的射影丛。
+映射
+$$
+\bigoplus\nolimits_{i = 0}^{r - 1}
+\CH_{k + i}(X)
+\longrightarrow
+\CH_{k + r - 1}(P),
+$$
+$$
+(\alpha_0, \ldots, \alpha_{r-1})
+\longmapsto
+\pi^*\alpha_0 +
+c_1(\mathcal{O}_P(1)) \cap \pi^*\alpha_1
++ \ldots +
+c_1(\mathcal{O}_P(1))^{r - 1} \cap \pi^*\alpha_{r-1}
+$$
+是同构。
+\end{lemma}
+
+\begin{proof}
+固定 $k\in\mathbf{Z}$。先证明该映射是单射。
+假设左端的元素 $(\alpha_0,\ldots,\alpha_{r-1})$ 映为零。
+由引理 \ref{spaces-chow-lemma-cap-projective-bundle}，
+$$
+0 = \pi_*(\pi^*\alpha_0 +
+c_1(\mathcal{O}_P(1)) \cap \pi^*\alpha_1
++ \ldots +
+c_1(\mathcal{O}_P(1))^{r - 1} \cap \pi^*\alpha_{r-1})
+= \alpha_{r - 1}
+$$
+其次，
+$$
+0 = \pi_*(c_1(\mathcal{O}_P(1)) \cap (\pi^*\alpha_0 +
+c_1(\mathcal{O}_P(1)) \cap \pi^*\alpha_1
++ \ldots +
+c_1(\mathcal{O}_P(1))^{r - 2} \cap \pi^*\alpha_{r - 2}))
+= \alpha_{r - 2}
+$$
+依此类推。因此该映射是单射。
+
+\medskip\noindent
+为证明该映射是满射，我们将完全仿照引理
+\ref{spaces-chow-lemma-pullback-affine-fibres-surjective} 的证明，约化到概形情形。
+我们建议读者跳过这个证明。
+
+\medskip\noindent
+设 $\beta\in\CH_{k+r-1}(P)$。写成 $\beta=\sum m_j[W_j]$，其中
+$m_j\not =0$，且 $W_j$ 是两两不同的、$\delta$-维数为 $k+r$ 的
+整闭子空间。% P10-E0107
+于是族 $\{W_j\}$ 在 $P$ 中局部有限。令 $Z_j\subset X$ 为引理
+\ref{spaces-chow-lemma-proper-image} 意义下 $W_j$ 的“像”。对任意拟紧开集
+$U\subset X$，只有有限多个 $j$ 使 $\pi^{-1}(U)\cap W_j$ 非空。
+因此，像 $Z_j$ 构成 $X$ 中一族局部有限的整闭子空间。
+
+\medskip\noindent
+考虑纤维积图
+$$
+\xymatrix{
+P_j \ar[r] \ar[d]_{\pi_j} & P \ar[d]^\pi \\
+Z_j \ar[r] & X
+}
+$$
+假设 $[W_j]\in Z_{k+r-1}(P_j)$ 有理等价于
+$$
+\pi_j^*\alpha_{j, 0} +
+c_1(\mathcal{O}(1)) \cap \pi_j^*\alpha_{j, 1} +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi_j^*\alpha_{j, r - 1}
+$$
+其中 $\alpha_{j,i}\in\CH_{k+i}(Z_j)$ 是某个 $(k+i)$-闭链。
+那么 $\alpha_i=\sum m_j\beta_{j,i}$ 是 $X$ 上的 $(k+i)$-闭链，% P10-E0108
+并且
+$$
+\pi^*\alpha_0 +
+c_1(\mathcal{O}(1)) \cap \pi^*\alpha_1 +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi^*\alpha_{r - 1}
+$$
+与 $\beta$ 有理等价（见注
+\ref{spaces-chow-remark-infinite-sums-rational-equivalences}）。
+这把我们约化到 $X$ 整且 $\alpha=[W]$ 的情形，% P10-E0109
+其中 $W$ 是 $P$ 中支配 $X$ 的某个整闭子概形。% P10-E0110
+特别地，不妨假设 $d=\dim_\delta(X)<\infty$。
+
+\medskip\noindent
+因此可以对 $d=\dim_\delta(X)$ 作归纳。若 $d<k$，则
+$\CH_{k+r-1}(X)=0$，引理成立；这是归纳的起始情形。% P10-E0111
+取非空开集 $U\subset X$。假设可以证明
+$$
+\beta|_{\pi^{-1}(U)} =
+\pi^*\alpha_0 +
+c_1(\mathcal{O}(1)) \cap \pi^*\alpha_1 +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi^*\alpha_{r - 1}
+$$
+其中 $\alpha_i\in Z_{k+i}(U)$。由引理
+\ref{spaces-chow-lemma-exact-sequence-open}，存在
+$\alpha'_i\in Z_{k+i}(X)$ 使得 $\alpha_i=\alpha'_i|_U$。
+由引理 \ref{spaces-chow-lemma-restrict-to-open} 的正合列
+% P10-E0112
+$\CH_{k + i}(\pi^{-1}(X \setminus U)) \to \CH_{k + i}(P) \to
+\CH_{k + i}(\pi^{-1}(U))$
+可知
+$$
+\beta -
+\left(\pi^*\alpha'_0 +
+c_1(\mathcal{O}(1)) \cap \pi^*\alpha'_1 +
+\ldots +
+c_1(\mathcal{O}(1))^{r - 1} \cap \pi^*\alpha'_{r - 1}\right)
+$$
+来自某个闭链
+$\beta'\in\CH_{k+r}(\pi^{-1}(X\setminus U))$。% P10-E0113
+由于 $\dim_\delta(X\setminus U)<d$，对 $d$ 使用归纳假设即得结论。
+
+\medskip\noindent
+特别地，以适当开子空间替换 $X$ 后，可以假设 $X$ 是概形，
+从而已把问题约化到《Chow 同调》引理
+\ref{chow-lemma-chow-ring-projective-bundle}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-vectorbundle}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是 $X$ 上秩为 $r$ 的有限局部自由层。令
+$$
+p :
+E = \underline{\Spec}(\text{Sym}^*(\mathcal{E}))
+\longrightarrow
+X
+$$
+为 $X$ 上的相伴向量丛。则对所有 $k$，
+$p^*:\CH_k(X)\to\CH_{k+r}(E)$ 都是同构。
+\end{lemma}
+
+\begin{proof}
+（线丛情形见引理 \ref{spaces-chow-lemma-linebundle}。）
+满射性见引理 \ref{spaces-chow-lemma-pullback-affine-fibres-surjective}。
+设 $(\pi:P\to X,\mathcal{O}_P(1))$ 是与有限局部自由层
+$\mathcal{E}\oplus\mathcal{O}_X$ 相伴的射影空间丛。
+设 $s\in\Gamma(P,\mathcal{O}_P(1))$ 对应于整体截面
+$(0,1)\in\Gamma(X,\mathcal{E}\oplus\mathcal{O}_X)$。
+令 $D=Z(s)\subset P$。注意，
+$(\pi|_D : D \to X , \mathcal{O}_P(1)|_D)$
+是与 $\mathcal{E}$ 相伴的射影空间丛。记
+$\pi_D=\pi|_D$ 以及 $\mathcal{O}_D(1)=\mathcal{O}_P(1)|_D$。
+此外，$D$ 是 $P$ 上的有效 Cartier 因子。因此
+$\mathcal{O}_P(D)=\mathcal{O}_P(1)$（见《空间上的因子》引理
+\ref{spaces-divisors-lemma-characterize-OD}）。
+还有同构 $E\cong P\setminus D$。以 $j:E\to P$ 表示相应的开浸入。
+为证明单射性，我们使用如下事实：映射
+$$
+j^* :
+\CH_{k + r}(P)
+\longrightarrow
+\CH_{k + r}(E)
+$$
+的核是支集于有效 Cartier 因子 $D$ 的闭链；见引理
+\ref{spaces-chow-lemma-restrict-to-open}。所以若 $p^*\alpha=0$，则对某个
+$\beta\in\CH_{k+r}(D)$ 有
+$\pi^*\alpha=i_*\beta$。% P10-E0114
+由引理 \ref{spaces-chow-lemma-chow-ring-projective-bundle}，可写成
+$$
+\beta = \pi_D^*\beta_0 +
+\ldots + c_1(\mathcal{O}_D(1))^{r - 1} \cap \pi_D^* \beta_{r - 1}.
+$$
+其中 $\beta_i\in\CH_{k+i}(X)$。% P10-E0115
+由引理 \ref{spaces-chow-lemma-relative-effective-cartier} 和
+\ref{spaces-chow-lemma-pushforward-cap-c1}，这推出
+$$
+\pi^*\alpha = i_*\beta =
+c_1(\mathcal{O}_P(1)) \cap \pi^*\beta_0 +
+\ldots +
+c_1(\mathcal{O}_D(1))^r \cap \pi^*\beta_{r - 1}.
+$$
+% P10-E0116
+由于 $\mathcal{E}\oplus\mathcal{O}_X$ 的秩为 $r+1$，除非所有
+$\alpha$ 和所有 $\beta_i$ 都为零，否则这与引理
+\ref{spaces-chow-lemma-pushforward-cap-c1} 矛盾。% P10-E0117
+\end{proof}
+
+
+
+
+
+
+
+
+\section{向量丛的陈类}
+\label{spaces-chow-section-chern-classes-vector-bundles}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-chern-classes-vector-bundles} 节和第
+\ref{chow-section-intersecting-chern-classes} 节。
+不过，与那里的做法不同，我们直接把向量丛的陈类定义为双变类。
+这样可以省去大量工作。
+
+\begin{lemma}
+\label{spaces-chow-lemma-segre-classes}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是 $X$ 上秩为 $r$ 的有限局部自由层，并设
+$(\pi:P\to X,\mathcal{O}_P(1))$ 是与 $\mathcal{E}$ 相伴的射影空间丛。
+对 $B$ 上良好代数空间的每个态射 $X'\to X$，存在唯一的映射
+$$
+c_i(\mathcal{E}) \cap - : \CH_k(X') \longrightarrow \CH_{k - i}(X'),\quad
+i = 0, \ldots, r
+$$
+使得对 $\alpha\in\CH_k(X')$ 有
+$c_0(\mathcal{E})\cap\alpha=\alpha$，并且
+% P10-E0118
+$$
+\sum\nolimits_{i = 0, \ldots, r}
+(-1)^i c_1(\mathcal{O}_{P'}(1))^i \cap
+(\pi')^*\left(c_{r - i}(\mathcal{E}) \cap \alpha\right) = 0
+$$
+其中 $\pi':P'\to X'$ 是 $\pi$ 的基变换。此外，这些映射定义了
+$X$ 上的 $i$ 次双变类 $c_i(\mathcal{E})$。
+\end{lemma}
+
+\begin{proof}
+映射 $c_i(\mathcal{E})\cap-$ 的唯一性与存在性，立即由引理
+\ref{spaces-chow-lemma-chow-ring-projective-bundle} 以及给定的
+$c_0(\mathcal{E})$ 描述得到。% P10-E0122
+对每个 $i\in\mathbf{Z}$，给 $B$ 上良好代数空间的每个态射
+$X'\to X$ 指定映射
+% P10-E0119
+$$
+t_i(\mathcal{E}) \cap - :
+\CH_k(X') \longrightarrow \CH_{k - i}(X'),\quad
+\alpha \longmapsto
+\pi'_*(c_1(\mathcal{O}_{P'}(1))^{r - 1 + i} \cap (\pi')^*\alpha)
+$$
+的规则是双变类\footnote{不计符号时，它们就是 $\mathcal{E}$ 的
+Segre 类。}；这是由引理 \ref{spaces-chow-lemma-cap-c1-bivariant}、
+\ref{spaces-chow-lemma-flat-pullback-bivariant} 以及
+\ref{spaces-chow-lemma-push-proper-bivariant} 得到的。
+由引理 \ref{spaces-chow-lemma-cap-projective-bundle}，当 $i<0$ 时有
+$t_i(\mathcal{E})=0$，且 $t_0(\mathcal{E})=1$。
+对引理陈述中的等式施行推出，再由引理
+\ref{spaces-chow-lemma-cap-projective-bundle} 得到
+$$
+(-1)^r t_1(\mathcal{E}) + (-1)^{r - 1}c_1(\mathcal{E}) = 0
+$$
+特别地，$c_1(\mathcal{E})$ 是双变类。若把引理陈述中的等式乘以
+$c_1(\mathcal{O}_{P'}(1))$，再把结果推出到 $X'$，便得到
+$$
+(-1)^r t_2(\mathcal{E}) +
+(-1)^{r - 1} t_1(\mathcal{E}) \cap c_1(\mathcal{E}) +
+(-1)^{r - 2} c_2(\mathcal{E}) = 0
+$$
+与前面一样，由此可知 $c_2(\mathcal{E})$ 是双变类。依此类推。
+\end{proof}
+
+\begin{definition}
+\label{spaces-chow-definition-chern-classes}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是 $X$ 上秩为 $r$ 的有限局部自由层。
+对 $i=0,\ldots,r$，$\mathcal{E}$ 的{\it 第 $i$ 陈类}是引理
+\ref{spaces-chow-lemma-segre-classes} 中构造的 $i$ 次双变类
+$c_i(\mathcal{E})\in A^i(X)$。$\mathcal{E}$ 的{\it 总陈类}是形式和
+$$
+c(\mathcal{E}) =
+c_0(\mathcal{E}) + c_1(\mathcal{E}) + \ldots + c_r(\mathcal{E})
+$$
+并把它视为 $X$ 上的非齐次双变类。
+\end{definition}
+
+\noindent
+为方便起见，当 $i>r$ 或 $i<0$ 时，我们常令
+$c_i(\mathcal{E})=0$。依定义，
+$c_0(\mathcal{E})=1\in A^0(X)$。下面作一个相容性检验。
+
+\begin{lemma}
+\label{spaces-chow-lemma-first-chern-class}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。定义
+\ref{spaces-chow-definition-chern-classes} 中 $\mathcal{L}$ 在 $X$ 上的第一陈类，
+等于引理 \ref{spaces-chow-lemma-cap-c1-bivariant} 中的双变类。
+\end{lemma}
+
+\begin{proof}
+事实上，在此情形下，由我们对射影丛所作的规范化，
+$P=\mathbf{P}(\mathcal{L})=X$ 且
+$\mathcal{O}_P(1)=\mathcal{L}$；见第
+\ref{spaces-chow-section-projective-space-bundle-formula} 节。
+因此，引理 \ref{spaces-chow-lemma-segre-classes} 中的等式变为
+$$
+(-1)^0 c_1(\mathcal{L})^0 \cap c^{new}_1(\mathcal{L}) \cap \alpha +
+(-1)^1 c_1(\mathcal{L})^1 \cap c^{new}_0(\mathcal{L}) \cap \alpha = 0
+$$
+其中 $c_i^{new}(\mathcal{L})$ 如定义
+\ref{spaces-chow-definition-chern-classes}。由于
+$c_0^{new}(\mathcal{L})=1$ 且 $c_1(\mathcal{L})^0=1$，结论成立。
+\end{proof}
+
+\noindent
+下面说明陈类位于双变 Chow 上同调环 $A^*(X)$ 的中心。
+
+\begin{lemma}
+\label{spaces-chow-lemma-cap-commutative-chern}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是秩为 $r$ 的局部自由 $\mathcal{O}_X$-模。
+则 $c_j(\mathcal{L})\in A^j(X)$ 与每个元素 $c\in A^p(X)$ 交换。% P10-E0120
+特别地，若 $\mathcal{F}$ 是 $X$ 上另一个秩为 $s$ 的局部自由
+$\mathcal{O}_X$-模，则对所有 $\alpha\in\CH_k(X)$，
+$$
+c_i(\mathcal{E}) \cap c_j(\mathcal{F}) \cap \alpha
+=
+c_j(\mathcal{F}) \cap c_i(\mathcal{E}) \cap \alpha
+$$
+在 $\CH_{k-i-j}(X)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+设 $X'\to X$ 是 $B$ 上良好代数空间之间的态射，并设
+$\alpha\in\CH_k(X')$。写成
+$\alpha_j=c_j(\mathcal{E})\cap\alpha$，于是 $\alpha_0=\alpha$。
+由引理 \ref{spaces-chow-lemma-segre-classes}，
+$$
+\sum\nolimits_{i = 0}^r
+(-1)^i c_1(\mathcal{O}_{P'}(1))^i \cap
+(\pi')^*(\alpha_{r - i}) = 0
+$$
+在与 $(X'\to X)^*\mathcal{E}$ 相伴的射影丛
+$(\pi':P'\to X',\mathcal{O}_{P'}(1))$ 的周群中成立。
+施行 $c\cap-$，再利用引理 \ref{spaces-chow-lemma-c1-center} 与双变类的性质，得到
+% P10-E0121
+$$
+\sum\nolimits_{i = 0}^r
+(-1)^i c_1(\mathcal{O}_{P'}(1))^i \cap
+\pi^*(c \cap \alpha_{r - i}) = 0
+$$
+在 $P'$ 的周群中成立。因此，由引理 \ref{spaces-chow-lemma-segre-classes} 中的
+唯一性，$c\cap\alpha_j$ 等于
+$c_j(\mathcal{E})\cap(c\cap\alpha)$。引理得证。
+\end{proof}
+
+\begin{remark}
+\label{spaces-chow-remark-extend-to-finite-locally-free}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是有限局部自由 $\mathcal{O}_X$-模。
+若 $\mathcal{E}$ 的秩不是常数，仍可定义 $\mathcal{E}$ 的陈类。
+具体地，此时可以写成
+$$
+X = X_0 \amalg X_1 \amalg X_2 \amalg \ldots
+$$
+其中 $X_r\subset X$ 是 $\mathcal{E}$ 的秩为 $r$ 的开闭子空间。
+若 $X'\to X$ 是 $B$ 上良好代数空间之间的态射，则拉回给出
+$X'$ 的相应分解，并且由我们的定义有
+$$
+\CH_*(X') = \prod\nolimits_{r \geq 0} \CH_*(X'_r)
+$$
+于是把 $c_i(\mathcal{E})$ 定义为保持这些直积分解的双变类，
+并使它在各因子上的作用为已经定义的运算
+$c_i(\mathcal{E}|_{X_r})\cap-$。注意，在这一背景下，可能有无穷多个
+$i$ 使 $c_i(\mathcal{E})$ 非零。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{陈类之间的多项式关系}
+\label{spaces-chow-section-relations-chern-classes}
+
+\noindent
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}_i$ 是有限多个有限局部自由 $\mathcal{O}_X$-模。
+由引理 \ref{spaces-chow-lemma-cap-commutative-chern}，陈类
+$$
+c_j(\mathcal{E}_i) \in A^*(X)
+$$
+生成 Chow 上同调 $A^*(X)$ 的一个交换（甚至是中心的）
+$\mathbf{Z}$-子代数。因此，可以谈论这些陈类的一个多项式为零，
+或两个多项式相等的含义。例如，等式
+$c_1(\mathcal{E}_1)^5 + c_2(\mathcal{E}_2)c_3(\mathcal{E}_3) = 0$
+表示对 $B$ 上良好代数空间的所有态射 $f:Y\to X$，运算
+$$
+\CH_k(Y) \longrightarrow \CH_{k - 5}(Y), \quad
+\alpha \longmapsto
+c_1(\mathcal{E}_1)^5 \cap \alpha +
+c_2(\mathcal{E}_2) \cap c_3(\mathcal{E}_3) \cap \alpha
+$$
+均为零。由引理 \ref{spaces-chow-lemma-bivariant-zero}，这等价于要求：
+给定任意态射 $f:Y\to X$，其中 $Y$ 是在 $X$ 上局部有限型的
+整代数空间，闭链
+$$
+c_1(\mathcal{E}_1)^5 \cap [Y] +
+c_2(\mathcal{E}_2) \cap c_3(\mathcal{E}_3) \cap [Y]
+$$
+在 $\CH_{\dim(Y)-5}(Y)$ 中为零。% P10-E0123
+
+\medskip\noindent
+一个具体例子是关系
+$$
+c_1(\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N})
+=
+c_1(\mathcal{L}) + c_1(\mathcal{N})
+$$
+它已在引理 \ref{spaces-chow-lemma-c1-cap-additive} 中得到证明。
+更一般地，任意局部自由层与一个可逆层作张量积时有如下结果。
+
+\begin{lemma}
+\label{spaces-chow-lemma-chern-classes-E-tensor-L}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是 $X$ 上秩为 $r$ 的有限局部自由层，
+$\mathcal{L}$ 是 $X$ 上的可逆层。则在 $A^*(X)$ 中有
+\begin{equation}
+\label{spaces-chow-equation-twist}
+c_i({\mathcal E} \otimes {\mathcal L})
+=
+\sum\nolimits_{j = 0}^i
+\binom{r - i + j}{j} c_{i - j}({\mathcal E}) c_1({\mathcal L})^j
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+证明与《Chow 同调》引理
+\ref{chow-lemma-chern-classes-E-tensor-L} 的证明相同，
+只需把其中使用的引理换成引理 \ref{spaces-chow-lemma-bivariant-zero} 和
+\ref{spaces-chow-lemma-segre-classes}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{陈类的可加性}
+\label{spaces-chow-section-additivity-chern-classes}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-additivity-chern-classes} 节。
+
+\begin{lemma}
+\label{spaces-chow-lemma-get-rid-of-trivial-subbundle}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$、$\mathcal{F}$ 分别是 $X$ 上秩为 $r$、$r-1$ 的
+有限局部自由层，并且它们嵌入短正合列
+$$
+0 \to \mathcal{O}_X \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+则在 $A^*(X)$ 中有
+$$
+c_r(\mathcal{E}) = 0, \quad
+c_j(\mathcal{E}) = c_j(\mathcal{F}), \quad j = 0, \ldots, r - 1
+$$
+\end{lemma}
+
+\begin{proof}
+证明与《Chow 同调》引理
+\ref{chow-lemma-get-rid-of-trivial-subbundle} 的证明相同，
+只需把其中使用的引理换成引理
+\ref{spaces-chow-lemma-bivariant-zero}、
+\ref{spaces-chow-lemma-relative-effective-cartier}、
+\ref{spaces-chow-lemma-pushforward-cap-c1} 以及
+\ref{spaces-chow-lemma-segre-classes}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-additivity-invertible-subsheaf}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$、$\mathcal{F}$ 分别是 $X$ 上秩为 $r$、$r-1$ 的
+有限局部自由层，并且它们嵌入短正合列
+$$
+0 \to \mathcal{L} \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+其中 $\mathcal{L}$ 是可逆层。则在 $A^*(X)$ 中有
+$$
+c(\mathcal{E}) = c(\mathcal{L}) c(\mathcal{F})
+$$
+\end{lemma}
+
+\begin{proof}
+证明与《Chow 同调》引理
+\ref{chow-lemma-additivity-invertible-subsheaf} 的证明相同，
+只需把其中使用的引理换成引理
+\ref{spaces-chow-lemma-get-rid-of-trivial-subbundle} 和
+\ref{spaces-chow-lemma-chern-classes-E-tensor-L}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-additivity-chern-classes}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+假设 $\mathcal{E}$ 位于有限局部自由层的正合列
+$$
+0
+\to
+\mathcal{E}_1
+\to
+\mathcal{E}
+\to
+\mathcal{E}_2
+\to
+0
+$$
+中，其中 $\mathcal{E}_i$ 的秩为 $r_i$。则总陈类在 $A^*(X)$ 中满足
+$$
+c(\mathcal{E}) = c(\mathcal{E}_1) c(\mathcal{E}_2)
+$$
+\end{lemma}
+
+\begin{proof}
+证明与《Chow 同调》引理
+\ref{chow-lemma-additivity-chern-classes} 的证明相同，
+只需把其中使用的引理换成引理
+\ref{spaces-chow-lemma-bivariant-zero}、
+\ref{spaces-chow-lemma-additivity-invertible-subsheaf} 以及
+\ref{spaces-chow-lemma-segre-classes}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-chern-filter-by-linebundles}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 ${\mathcal L}_i$（$i=1,\ldots,r$）是可逆
+$\mathcal{O}_X$-模。设 $\mathcal{E}$ 是一个局部自由秩
+$\mathcal{O}_X$-模，并带有滤过% P10-E0124
+$$
+0 = \mathcal{E}_0 \subset \mathcal{E}_1 \subset \mathcal{E}_2
+\subset \ldots \subset \mathcal{E}_r = \mathcal{E}
+$$
+使得 $\mathcal{E}_i/\mathcal{E}_{i-1}\cong\mathcal{L}_i$。
+令 $c_1({\mathcal L}_i)=x_i$。则在 $A^*(X)$ 中有
+$$
+c(\mathcal{E})
+=
+\prod\nolimits_{i = 1}^r (1 + x_i)
+$$
+\end{lemma}
+
+\begin{proof}
+应用引理 \ref{spaces-chow-lemma-additivity-invertible-subsheaf} 并作归纳。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{分裂原理}
+\label{spaces-chow-section-splitting-principle}
+
+\noindent
+本节对应于《Chow 同调》第
+\ref{chow-section-additivity-chern-classes} 节。
+
+\begin{lemma}
+\label{spaces-chow-lemma-splitting-principle}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}_i$ 是有限多个秩为 $r_i$ 的局部自由
+$\mathcal{O}_X$-模。存在相对维数为 $d$ 的射影平坦态射
+$\pi:P\to X$，使得
+\begin{enumerate}
+\item 对 $B$ 上良好代数空间的任意态射 $f:Y\to X$，映射
+$\pi_Y^*:\CH_*(Y)\to\CH_{*+d}(Y\times_XP)$ 是单射；
+\item 每个 $\pi^*\mathcal{E}_i$ 都有一个滤过，其逐次商
+$\mathcal{L}_{i,1},\ldots,\mathcal{L}_{i,r_i}$ 是可逆
+${\mathcal O}_P$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对整数 $r=\sum r_i$ 作归纳。若 $r=0$，可取
+$\pi=\text{id}_X$。若所有 $i$ 都有 $r_i=1$，也可取
+$\pi=\text{id}_X$。假设对某个 $i_0$ 有 $r_{i_0}>1$。
+设 $(\pi:P\to X,\mathcal{O}_P(1))$ 是与
+$\mathcal{E}_{i_0}$ 相伴的射影丛。典范映射
+$\pi^*\mathcal{E}_{i_0}\to\mathcal{O}_P(1)$ 是满射，故其核
+$\mathcal{E}'_{i_0}$ 是秩为 $r_{i_0}-1$ 的有限局部自由层。
+注意，对 $B$ 上良好代数空间的任意态射 $f:Y\to X$，
+$\pi_Y^*$ 都是单射；见引理
+\ref{spaces-chow-lemma-chow-ring-projective-bundle}。因此，只需对 $P$ 以及局部自由层
+$\pi^*\mathcal{E}_i$ 证明引理。不过，由于存在具有可逆商的子丛
+$\mathcal{E}_{i_0}\subset\pi^*\mathcal{E}_{i_0}$，% P10-E0125
+现在只需对族
+$\{\mathcal{E}_i\}_{i\not = i_0}\cup\{\mathcal{E}'_{i_0}\}$
+证明引理。这样使 $r$ 减少 $1$，归纳假设给出结论。
+\end{proof}
+
+\noindent
+与其解释分裂原理的含义，不如直接在若干引理的证明中使用它。
+
+\begin{lemma}
+\label{spaces-chow-lemma-chern-classes-dual}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 是有限局部自由 $\mathcal{O}_X$-模，
+其对偶为 $\mathcal{E}^\vee$。则在 $A^i(X)$ 中有
+$$
+c_i(\mathcal{E}^\vee) = (-1)^i c_i(\mathcal{E})
+$$
+\end{lemma}
+
+\begin{proof}
+选取引理 \ref{spaces-chow-lemma-splitting-principle} 中的态射
+$\pi:P\to X$。由于 $\pi^*$（在任意基变换后）是单射，
+只需在拉回到 $P$ 后证明 $\mathcal{E}$ 与 $\mathcal{E}^\vee$
+的陈类之间的关系。因此，可以假设存在可逆
+$\mathcal{O}_X$-模 ${\mathcal L}_i$（$i=1,\ldots,r$）以及滤过
+$$
+0 = \mathcal{E}_0 \subset \mathcal{E}_1 \subset \mathcal{E}_2
+\subset \ldots \subset \mathcal{E}_r = \mathcal{E}
+$$
+使得 $\mathcal{E}_i/\mathcal{E}_{i-1}\cong\mathcal{L}_i$。
+于是得到对偶滤过
+% P10-E0126
+$$
+0 = \mathcal{E}_r^\perp \subset \mathcal{E}_1^\perp \subset \mathcal{E}_2^\perp
+\subset \ldots \subset \mathcal{E}_0^\perp = \mathcal{E}^\vee
+$$
+满足 $\mathcal{E}_{i-1}^\perp/\mathcal{E}_i^\perp\cong
+\mathcal{L}_i^{\otimes-1}$。令 $x_i=c_1(\mathcal{L}_i)$。
+由引理 \ref{spaces-chow-lemma-c1-cap-additive}，
+$c_1(\mathcal{L}_i^{\otimes-1})=-x_i$。
+由引理 \ref{spaces-chow-lemma-chern-filter-by-linebundles}，在 $A^*(X)$ 中有
+$$
+c(\mathcal{E}) = \prod\nolimits_{i = 1}^r (1 + x_i)
+\quad\text{且}\quad
+c(\mathcal{E}^\vee) = \prod\nolimits_{i = 1}^r (1 - x_i)
+$$
+结论由一个形式计算得出，略去该计算。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-chern-classes-tensor-product}
+在情形 \ref{spaces-chow-situation-setup} 中，设 $X/B$ 是良好的。
+设 $\mathcal{E}$ 和 $\mathcal{F}$ 是秩分别为 $r$ 和 $s$ 的一个有限
+局部自由 $\mathcal{O}_X$-模。% P10-E0127
+则有
+$$
+c_1(\mathcal{E} \otimes \mathcal{F})
+=
+r c_1(\mathcal{F}) + s c_1(\mathcal{E})
+$$
+$$
+c_2(\mathcal{E} \otimes \mathcal{F})
+=
+r^2 c_2(\mathcal{F}) +
+rs c_1(\mathcal{F})c_1(\mathcal{E}) +
+s^2 c_2(\mathcal{E})
+$$
+等等（见证明）。% P10-E0128
+\end{lemma}
+
+\begin{proof}
+完全仿照引理 \ref{spaces-chow-lemma-chern-classes-dual} 的证明，可以假设有可逆
+$\mathcal{O}_X$-模
+${\mathcal L}_i$（$i=1,\ldots,r$）、
+${\mathcal N}_i$（$i=1,\ldots,s$）以及滤过
+$$
+0 = \mathcal{E}_0 \subset \mathcal{E}_1 \subset \mathcal{E}_2
+\subset \ldots \subset \mathcal{E}_r = \mathcal{E}
+\quad\text{且}\quad
+0 = \mathcal{F}_0 \subset \mathcal{F}_1 \subset \mathcal{F}_2
+\subset \ldots \subset \mathcal{F}_s = \mathcal{F}
+$$
+使得 $\mathcal{E}_i/\mathcal{E}_{i-1}\cong\mathcal{L}_i$，且
+$\mathcal{F}_j/\mathcal{F}_{j-1}\cong\mathcal{N}_j$。
+按字典序排列二元组 $(i,j)$，得到滤过
+$$
+0 \subset \ldots \subset
+\mathcal{E}_i \otimes \mathcal{F}_j
++
+\mathcal{E}_{i - 1} \otimes \mathcal{F}
+\subset \ldots \subset \mathcal{E} \otimes \mathcal{F}
+$$
+其逐次商为
+$$
+\mathcal{L}_1 \otimes \mathcal{N}_1,
+\mathcal{L}_1 \otimes \mathcal{N}_2,
+\ldots,
+\mathcal{L}_1 \otimes \mathcal{N}_s,
+\mathcal{L}_2 \otimes \mathcal{N}_1,
+\ldots,
+\mathcal{L}_r \otimes \mathcal{N}_s
+$$
+由引理 \ref{spaces-chow-lemma-chern-filter-by-linebundles}，在 $A^*(X)$ 中有
+% P10-E0129
+$$
+c(\mathcal{E}) = \prod (1 + x_i),
+\quad
+c(\mathcal{F}) = \prod (1 + y_j),
+\quad\text{且}\quad
+c(\mathcal{F}) = \prod (1 + x_i + y_j),
+$$
+结论由一个形式计算得出，略去该计算。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{零维闭链的次数}
+\label{spaces-chow-section-degree-zero-cycles}
+
+\noindent
+本节对应于《Chow 同调》第 \ref{chow-section-degree-zero-cycles} 节。
+先定义域上固有代数空间中零维闭链的次数。
+
+\begin{definition}
+\label{spaces-chow-definition-degree-zero-cycle}
+设 $k$ 是域，$p:X\to\Spec(k)$ 是代数空间的固有态射。
+$X$ 上{\it 零维闭链的次数}由固有推出
+$$
+p_* : \CH_0(X) \longrightarrow \CH_0(\Spec(k)) \longrightarrow \mathbf{Z}
+$$
+（引理 \ref{spaces-chow-lemma-proper-pushforward-rational-equivalence}）与典范同构
+$\CH_0(\Spec(k))\to\mathbf{Z}$ 的复合给出；该同构把
+$[\Spec(k)]$ 映为 $1$。记作 $\deg(\alpha)$。
+\end{definition}
+
+\noindent
+下面把定义写得更明确。
+
+\begin{lemma}
+\label{spaces-chow-lemma-spell-out-degree-zero-cycle}
+设 $k$ 是域，$X$ 是 $k$ 上的固有代数空间。
+设 $\alpha=\sum n_i[Z_i]\in Z_0(X)$。则
+$$
+\deg(\alpha) = \sum n_i\deg(Z_i)
+$$
+其中 $\deg(Z_i)$ 是 $Z_i\to\Spec(k)$ 的次数，即
+$\deg(Z_i)=\dim_k\Gamma(Z_i,\mathcal{O}_{Z_i})$。
+\end{lemma}
+
+\begin{proof}
+这正是固有推出的定义（定义 \ref{spaces-chow-definition-proper-pushforward}）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-chow-lemma-degrees-and-numerical-intersections}
+设 $k$ 是域，$X$ 是 $k$ 上的固有代数空间。
+设 $Z\subset X$ 是维数为 $d$ 的闭子空间，并设
+$\mathcal{L}_1,\ldots,\mathcal{L}_d$ 是可逆 $\mathcal{O}_X$-模。则
+% P10-E0130
+$$
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot Z) =
+\deg(
+c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_1) \cap [Z]_d)
+$$
+其中左端定义于《域上的空间》定义
+\ref{spaces-over-fields-definition-intersection-number}。
+\end{lemma}
+
+\begin{proof}
+设 $Z_i\subset Z$（$i=1,\ldots,t$）是维数为 $d$ 的不可约分支，
+$m_i$ 是 $Z_i$ 在 $Z$ 中的重数。则
+$[Z]_d=\sum m_i[Z_i]$，并且
+$c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_d) \cap [Z]_d$
+是闭链
+$m_i c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_d) \cap [Z_i]$.
+之和。由《域上的空间》引理
+\ref{spaces-over-fields-lemma-numerical-polynomial-leading-term}，
+$(\mathcal{L}_1\cdots\mathcal{L}_d\cdot Z)$ 也有类似分解，
+故只需在 $Z=X$ 是 $k$ 上固有整代数空间时证明引理。
+
+\medskip\noindent
+由 Chow 引理，存在固有态射 $f:X'\to X$，它在某个稠密开子空间
+$U\subset X$ 上是同构，且 $X'$ 是概形。见《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-chow-noetherian-separated}。
+于是 $X'$ 是 $k$ 上的固有概形。以 $f^{-1}(U)$ 的概形论闭包替换
+$X'$ 后，可以假设 $X'$ 整。此时
+$$
+(f^*\mathcal{L}_1 \cdots f^*\mathcal{L}_d \cdot X') =
+(\mathcal{L}_1 \cdots \mathcal{L}_d \cdot X)
+$$
+这是由《域上的空间》引理
+\ref{spaces-over-fields-lemma-intersection-number-and-pullback} 得到的，
+并且
+% P10-E0131
+$$
+f_*(c_1(f^*\mathcal{L}_1) \cap \ldots \cap c_1(f^*\mathcal{L}_d) \cap [Y]) =
+c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_d) \cap [X]
+$$
+这是由引理 \ref{spaces-chow-lemma-pushforward-cap-c1} 得到的。因此可以用 $X'$
+替换 $X$，并假设 $X$ 是 $k$ 上的固有概形。此情形已在
+《Chow 同调》引理 \ref{chow-lemma-degrees-and-numerical-intersections}
+中得到证明。
+\end{proof}
