@@ -1,0 +1,124 @@
+% Generated mechanically from the frozen coding.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{113}
+\chapter{编码风格}
+
+
+
+\phantomsection
+\label{coding-section-phantom}
+
+
+\section{风格说明清单}
+\label{coding-section-style}
+
+\noindent
+这些说明会随时间改变，但现在先列出一些，希望能够促进 LaTeX 风格的一致性。
+我们把源文件的内容称为“代码\footnote{这全是 Knuth 的责任。见 \cite{Knuth}。}”。
+
+\begin{enumerate}
+\item 所有 tex 文件中的每一行最多 80 个字符。
+\item tex 文件中不要使用缩进。使用编辑器的语法高亮，而不是缩进，来直观显示
+环境等结构。
+\item 使用
+\begin{verbatim}
+\medskip\noindent
+\end{verbatim}
+开始一个新段落；环境之后紧接着开始新段落时，使用
+\begin{verbatim}
+\noindent
+\end{verbatim}
+。
+\item 如果可能，不要把数学公式的代码跨行拆开。如果包含美元符号的完整代码
+无法放在一行中，那么就在下一行的第一个字符处开始第一个美元符号。如果这样
+仍然放不下，就在数学上合理的位置拆分代码。
+\item 陈列的数学公式应按如下方式编码：
+\begin{verbatim}
+$$
+...
+...
+$$
+\end{verbatim}
+换句话说，在单独一行上以双美元符号开始，并以同样方式结束。
+\item {\it 不要使用任何宏}。理由是：这样更容易阅读 tex 文件，也更容易开始编辑
+任意部分，而不必先学会无数宏；并且这不会使书写变得更困难或更耗时。
+当然，其缺点是同一个数学对象在文本的不同位置可能采用不同的 TeX 写法，
+但这应当很容易发现。
+\item 我们使用的定理环境包括：
+“theorem”、“proposition”、“lemma”（plain），
+“definition”、“example”、“exercise”、“situation”（definition），
+“remark”、“remarks”（remark）。当然也有“proof”环境。
+\item 环境 “foo” 应按如下方式编码：
+\begin{verbatim}
+\begin{foo}
+...
+...
+\end{foo}
+\end{verbatim}
+其方式与陈列公式的编码方式类似。
+\item 不使用 “corollary”，而只使用 “lemma” 环境，因为该结果很可能会被用来
+证明下一个更大的定理。
+\item 每个引理、命题或定理之后都直接给出该引理、命题或定理的证明。请不要
+使用嵌套证明。
+\item 文件 preamble.tex、chapters.tex 和 fdl.tex 是特殊的 tex 文件。除此之外，
+每个 tex 文件都具有如下结构：
+\begin{verbatim}
+\title{Title}
+...
+...
+\end{verbatim}
+\item 尽量给引理、命题、定理，甚至注记、练习和其他环境添加标签。
+如果给引理加标签，可以使用如下形式：
+\begin{verbatim}
+\begin{lemma}
+\label{coding-lemma-bar}
+...
+\end{lemma}
+\end{verbatim}
+其他环境同理。换句话说，名为 “foo” 的环境的标签以 “foo-” 开头。
+此外，请使所有标签只由小写字母、数字和符号 “-” 构成。
+\item 永远不要称某个结果为“上面的引理”（或命题等）。应改为使用：
+\begin{verbatim}
+Lemma \ref{coding-lemma-bar} above
+\end{verbatim}
+这样以后移动引理基本上不会造成问题。
+\item 跨文件引用。要引用文件 foo.tex 中标签为 “lemma-bar” 的引理，而该文件
+标题为 “Foo”，请使用如下代码：
+\begin{verbatim}
+Foo, Lemma \ref{foo-lemma-bar}
+\end{verbatim}
+如果这不起作用，请查看文件 preamble.tex，找出应使用的正确表达式。
+这样输出文件中会出现 “Foo, Lemma $<$link$>$”，从而清楚表明该链接指向文件外部。
+\item 如果可能，避免在证明环境中使用前向引用。（应当可以为此编写自动化测试。）
+\item 不要以数学符号开始任何句子。
+\item 不要在引理、命题或定理之前紧接着写“这由下面内容推出”之类的句子。
+每个句子都以句号结束。
+\item 在每个引理、命题和定理中陈述全部假设。这样读者更容易判断某个引理、
+命题或定理是否适用于自己的具体问题。
+\item 保持证明简短；在 pdf 或 dvi 中少于 1 页。总可以通过把证明拆分到引理等
+环境中来做到这一点。
+\item 在定义性质 foobar 时，在 definition 环境内部的代码中使用
+\begin{verbatim}
+{\it foobar}
+\end{verbatim}
+。定义出现在文档正文中时也同样处理。这样读者就能更容易看出正在定义的对象。
+\item 把将在所在章节之外使用的定义放入它自己的 definition 环境中。临时定义
+可以写在正文中。数学构造是一个棘手的情形（它们往往是涉及相互关联引理的定义）。
+一个可能的好办法是把它们放在自己的短章节中，使用户可以引用该章节，而不是
+引用某个定义。
+\item 除非公式确实会在正文中被引用，否则不要给公式编号。以后总可以添加标签。
+\item 在引理、命题和定理的陈述及证明中保持句子简短。例如，与其写
+“设 $R$ 是一个环，且设 $M$ 是一个 $R$-模。”，不如写
+“设 $R$ 是一个环。设 $M$ 是一个 $R$-模。”理由是：这会使证明和陈述中较难
+解析的部分更容易理解。
+\item 使用
+\begin{verbatim}
+\section
+\end{verbatim}
+命令创建章节，但尽量避免使用小节和小小节。
+\item 避免使用复杂的 latex 构造。
+\end{enumerate}

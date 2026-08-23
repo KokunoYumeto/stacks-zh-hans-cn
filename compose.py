@@ -46,7 +46,19 @@ MANUAL_REFERENCE_FALLBACKS = {
             "more-morphisms.tex"
         ),
         "text": "英文源码",
-    }
+    },
+    # coding.tex intentionally contains a verbatim cross-file reference as a
+    # reader-facing example; it is not an actual target in the frozen tag
+    # registry.  Account for the literal token without changing the verbatim
+    # example or pretending that a Stacks tag exists.
+    "foo-lemma-bar": {
+        "url": (
+            "https://github.com/stacks/stacks-project/blob/"
+            "a04446e57ec1fbc252a871afcec7752fb2807b14/"
+            "coding.tex"
+        ),
+        "text": "源码示例",
+    },
 }
 STANDALONE_LINES = {
     r"\input{preamble}",
@@ -521,7 +533,11 @@ def transform_standalone(
         if stripped in STANDALONE_LINES:
             continue
         title_match = TITLE_RE.match(line)
-        if title_match:
+        # A few frozen chapters contain literal LaTeX examples such as
+        # ``\\title{Title}`` after their real chapter title.  Only the first
+        # title command is the chapter heading; later title commands are code
+        # content and must remain byte-faithful in the generated reader.
+        if title_match and not title_seen:
             title = title_match.group(1)
             if title != expected_title:
                 raise RuntimeError(
@@ -531,6 +547,9 @@ def transform_standalone(
                 output_lines.append(f"\\setcounter{{chapter}}{{{chapter - 1}}}")
             output_lines.append(f"\\chapter{{{title}}}")
             title_seen = True
+            continue
+        if title_match and title_seen:
+            output_lines.append(line)
             continue
         output_lines.append(line)
 
