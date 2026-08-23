@@ -1,0 +1,4659 @@
+% Generated mechanically from the frozen weil.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{44}
+\chapter{Weil 上同调理论}
+
+
+
+\phantomsection
+\label{weil-section-phantom}
+
+
+
+
+\section{引言}
+\label{weil-section-introduction}
+
+\noindent
+本章讨论基域上光滑射影概形的 Weil 上同调理论。简言之，这里的上同调理论
+$H^*$ 具有 K\"unneth 公式、Poincar\'e 对偶和周期类，并满足适当的相容性。
+需要提醒读者，文献中对于何者构成“Weil 上同调理论”并无普遍一致的约定。
+
+\medskip\noindent
+阅读本章之前，读者应先参阅《范畴》第 \ref{categories-section-monoidal} 节和
+《同调代数》第 \ref{homology-section-monoidal} 节；其中定义了（对称）幺半范畴，
+并发展了本章所需的基本语言。借助这些语言，我们在第
+\ref{weil-section-correspondences} 节构造一个对称幺半分次范畴，其对象是光滑射影概形，
+态射是对应。在第 \ref{weil-section-chow-motives} 节加入投影算子的像并将 Lefschetz
+动机可逆化，从而得到 Chow 动机的对称幺半 Karoubian 范畴 $M_k$。该范畴配有反变函子
+$$
+h : \{\text{smooth projective schemes over }k\} \longrightarrow M_k
+$$
+如下文所见，Weil 上同调理论的一个关键性质是它通过 $h$ 分解。
+
+\medskip\noindent
+首先，在基域代数闭的情形下，定义所谓“经典 Weil 上同调理论”；见第
+\ref{weil-section-axioms-classical} 节。这个概念与
+\cite[Section 1.2]{Kleiman-cycles} 中引入的概念相同，也与
+\cite[page 65]{Kleiman-motives} 中引入的概念一致。不过，它并不先验地与
+\cite[page 10]{Kleiman-standard} 中引入的概念一致，因为该处作者添加了两个
+Lefschetz 型公理，而尚不知道本章所定义的任一经典 Weil 上同调理论是否满足这些公理。
+在第 \ref{weil-section-axioms-classical} 节末，将证明经典 Weil 上同调理论具有形式
+$H^* = G \circ h$，其中 $G$ 是从 $M_k$ 到 $H^*$ 的系数域上分次向量空间范畴的
+对称幺半函子。
+
+\medskip\noindent
+在第 \ref{weil-section-cycles-nonclosed} 节证明若干关于非闭域上周期群的引理；
+讨论任意域上光滑射影概形的 Weil 上同调理论时将会用到它们。
+
+\medskip\noindent
+在一般基域 $k$ 上，对 Weil 上同调理论 $H^*$ 采用这些公理的动机如下：
+\begin{enumerate}
+\item 对某个从 $M_k$ 到 $H^*$ 的系数域 $F$ 上分次向量空间范畴的对称幺半函子
+$G$，有 $H^* = G \circ h$；
+\item $G$ 应把 Tate 动机（Lefschetz 动机的逆）送到位于次数 $-2$ 的 $1$ 维向量空间
+$F(1)$；
+\item 当 $k$ 代数闭时，在选定 $F(1)$ 的一个基元素后，应恢复第
+\ref{weil-section-axioms-classical} 节所讨论的概念。
+\end{enumerate}
+首先在第 \ref{weil-section-axioms} 节分析前两个条件。在第
+\ref{weil-section-further} 节发展若干进一步结果后，于第 \ref{weil-section-old} 节加入
+得到性质 (3) 所需的公理。
+
+\medskip\noindent
+最后在第 \ref{weil-section-c1} 节详述 Weil 上同调理论的另一种处理方式：使用第一
+Chern 类映射代替周期类。后续章节中要证明某些上同调理论是 Weil 上同调理论时，
+这种方式最为适用；见《de Rham 上同调》第 \ref{derham-section-weil} 节。
+
+
+
+
+
+\section{约定与记号}
+\label{weil-section-conventions}
+
+\noindent
+设 $F$ 是域。本章把 $F$-分次向量空间范畴视为 $F$-线性对称幺半范畴，
+其结合约束取通常形式，交换约束则含有符号。参见《同调代数》例
+\ref{homology-example-graded-vector-spaces}。
+
+\medskip\noindent
+设 $R$ 是环。本章所谓{\it 分次交换 $R$-代数} $A$，是微分为零的交换微分分次
+$R$-代数（《微分分次代数》定义 \ref{dga-definition-dga} 和
+\ref{dga-definition-cdga}）。因此，$A$ 是一个 $R$-模，并由 $R$-子模赋予分次
+$A = \bigoplus_{n \in \mathbf{Z}} A^n$。本章把 $R$-双线性乘法
+$$
+A^n \times A^m \longrightarrow A^{n + m},\quad
+\alpha \times \beta \longmapsto \alpha \cup \beta
+$$
+称为{\it 杯积}。当 $\alpha \in A^n$ 且 $\beta \in A^m$ 时，交换约束为
+$\alpha \cup \beta = (-1)^{nm} \beta \cup \alpha$。最后，存在乘法单位元
+$1 \in A^0$；等价地，存在与 $A$ 上 $R$-模结构相容的加性及乘性映射
+$R \to A^0$。
+
+\medskip\noindent
+设 $k$ 是域，$X$ 是 $k$ 上有限型概形。《Chow 同调》定义
+\ref{chow-definition-rational-equivalence} 已定义 $X$ 上 $k$ 维周期模有理等价所得的
+Chow 群 $\CH_k(X)$。若 $X$ 正规或 Cohen--Macaulay，还可考虑余维数为 $p$ 的
+周期所成的 Chow 群 $\CH^p(X)$（《Chow 同调》第
+\ref{chow-section-cycles-codimension} 节）；此时 $[X] \in \CH^0(X)$ 表示
+$X$ 的“基本类”，见《Chow 同调》注 \ref{chow-remark-fundamental-class}。
+若 $X$ 光滑，且 $\alpha$、$\beta$ 是 $X$ 上周期，则
+$\alpha \cdot \beta$ 表示 $\alpha$ 与 $\beta$ 的交积；见《Chow 同调》第
+\ref{chow-section-intersection-product} 节。
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{对应}
+\label{weil-section-correspondences}
+
+\noindent
+设 $k$ 是域。对 $k$ 上概形 $X$、$Y$，以 $X \times Y$ 表示 $X$ 与 $Y$ 在 $k$ 上概形范畴
+中的积。本节构造一个 $\mathbf{Q}$ 上分次范畴，其对象是 $k$ 上光滑射影概形，
+态射是对应。
+
+\medskip\noindent
+设 $X$、$Y$ 是 $k$ 上光滑射影概形。设 $X = \coprod X_d$ 是 $X$ 分解为等维开闭
+子概形的分解，并满足 $\dim(X_d) = d$。定义{\it 从 $X$ 到 $Y$ 的 $r$ 次对应}
+所成的 $\mathbf{Q}$-向量空间为
+$$
+\text{Corr}^r(X, Y) =
+\bigoplus\nolimits_d \CH^{d + r}(X_d \times Y) \otimes \mathbf{Q}
+\subset
+\CH^*(X \times Y) \otimes \mathbf{Q}
+$$
+给定 $c \in \text{Corr}^r(X, Y)$ 和 $\beta \in \CH_j(Y) \otimes \mathbf{Q}$，
+可用公式
+$$
+c^*(\beta) = \text{pr}_{1, *}(c \cdot \text{pr}_2^*\beta)
+\quad\text{于}\quad
+\CH_{j - r}(X) \otimes \mathbf{Q}
+$$
+定义 $\beta$ 沿 $c$ 的{\it 拉回}。这是有意义的：$\text{pr}_2$ 在
+$X_d \times Y$ 上平坦且相对维数为 $d$，所以 $\text{pr}_2^*\beta$ 是
+$X_d \times Y$ 上维数为 $d + j$ 的周期；于是
+$c \cdot \text{pr}_2^*\beta$ 是 $X_d \times Y$ 上维数为 $j - r$ 的周期，而沿固有态射
+$\text{pr}_1$ 的推前仍是同维数周期。类似地，改用余维数分次后，给定
+$\alpha \in \CH^i(X) \otimes \mathbf{Q}$，可用公式
+$$
+c_*(\alpha) = \text{pr}_{2, *}(c \cdot \text{pr}_1^*\alpha)
+\quad\text{于}\quad
+\CH^{i + r}(Y) \otimes \mathbf{Q}
+$$
+定义 $\alpha$ 沿 $c$ 的{\it 推前}。这是有意义的：$\text{pr}_1^*\alpha$ 是
+$X \times Y$ 上余维数为 $i$ 的周期，故 $c \cdot \text{pr}_1^*\alpha$
+是 $X_d \times Y$ 上余维数为 $i + d + r$ 的周期，其推前是 $Y$ 上余维数为
+$i + r$ 的周期。
+
+\medskip\noindent
+给定 $k$ 上三个光滑射影概形 $X, Y, Z$，定义{\it 对应的复合}
+$$
+\text{Corr}^s(Y, Z)
+\times
+\text{Corr}^r(X, Y)
+\longrightarrow
+\text{Corr}^{r + s}(X, Z)
+$$
+为
+$$
+(c', c)
+\longmapsto
+c' \circ c =
+\text{pr}_{13, *}(\text{pr}_{12}^*c \cdot \text{pr}_{23}^*c')
+$$
+其中 $\text{pr}_{12} : X \times Y \times Z \to X \times Y$ 是投影，
+$\text{pr}_{13}$、$\text{pr}_{23}$ 类似。
+
+\begin{lemma}
+\label{weil-lemma-composition-correspondences}
+对应具有以下性质：
+\begin{enumerate}
+\item 对应的复合是 $\mathbf{Q}$-双线性的，并满足结合律；
+\item 存在典范同构
+$$
+\CH_{-r}(X) \otimes \mathbf{Q} = \text{Corr}^r(X, \Spec(k))
+$$
+使沿对应的拉回对应于复合；
+\item 存在典范同构
+$$
+\CH^r(X) \otimes \mathbf{Q} = \text{Corr}^r(\Spec(k), X)
+$$
+使沿对应的推前对应于复合；
+\item 对应的复合与周期的推前和拉回相容。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+双线性立即来自推前与拉回的线性以及交积的双线性。为证明结合律，设有
+$X, Y, Z, W$ 以及 $c \in \text{Corr}(X, Y)$、$c' \in \text{Corr}(Y, Z)$、
+$c'' \in \text{Corr}(Z, W)$。则
+\begin{align*}
+c'' \circ (c' \circ c)
+& =
+\text{pr}^{134}_{14, *}(
+\text{pr}^{134, *}_{13}
+\text{pr}^{123}_{13, *}(\text{pr}^{123, *}_{12}c \cdot
+\text{pr}^{123, *}_{23}c')
+\cdot \text{pr}^{134, *}_{34}c'') \\
+& =
+\text{pr}^{134}_{14, *}(
+\text{pr}^{1234}_{134, *}
+\text{pr}^{1234, *}_{123}(\text{pr}^{123, *}_{12}c \cdot
+\text{pr}^{123, *}_{23}c')
+\cdot \text{pr}^{134, *}_{34}c'') \\
+& =
+\text{pr}^{134}_{14, *}(
+\text{pr}^{1234}_{134, *}
+(\text{pr}^{1234, *}_{12}c \cdot
+\text{pr}^{1234, *}_{23}c')
+\cdot \text{pr}^{134, *}_{34}c'') \\
+& =
+\text{pr}^{134}_{14, *}
+\text{pr}^{1234}_{134, *}
+((\text{pr}^{1234, *}_{12}c \cdot
+\text{pr}^{1234, *}_{23}c')
+\cdot \text{pr}^{1234, *}_{34}c'') \\
+& =
+\text{pr}^{1234}_{14, *}(
+(\text{pr}^{1234, *}_{12}c \cdot
+\text{pr}^{1234, *}_{23}c') \cdot
+\text{pr}^{1234, *}_{34}c'')
+\end{align*}
+这里用记号
+$$
+p^{1234}_{134} : X \times Y \times Z \times W \to X \times Z \times W
+\quad\text{且}\quad
+p^{134}_{14} : X \times Z \times W \to X \times W
+$$
+表示投影，其他指标同理。第一个等式是复合的定义。第二个等式来自
+$\text{pr}^{134, *}_{13} \text{pr}^{123}_{13, *} =
+\text{pr}^{1234}_{134, *} \text{pr}^{1234, *}_{123}$，见《Chow 同调》引理
+\ref{chow-lemma-flat-pullback-proper-pushforward}。第三个等式成立，是因为交积与
+$p^{1234}_{123}$ 的 Gysin 映射（即平坦拉回）交换；见《Chow 同调》引理
+\ref{chow-lemma-lci-gysin-product}。第四个等式来自 $p^{1234}_{134}$ 的投影公式；
+见《Chow 同调》引理 \ref{chow-lemma-projection-formula}。第四个等式表示固有推前
+与复合相容；见《Chow 同调》引理 \ref{chow-lemma-compose-pushforward}。
+又由《Chow 同调》引理 \ref{chow-lemma-associative}，交积满足结合律，
+故对应复合的结合律得证。
+
+\medskip\noindent
+略去 (2)、(3) 的证明；其实质只是仔细记录各周期所在之处及其（余）维数。
+
+\medskip\noindent
+周期推前、拉回的断言意指
+$(c' \circ c)^*(\alpha) = c^*((c')^*(\alpha))$ 和
+$(c' \circ c)_*(\alpha) = (c')_*(c_*(\alpha))$。合并 (1)、(2)、(3) 即得。
+\end{proof}
+
+\begin{example}
+\label{weil-example-graph-correspondence}
+设 $f : Y \to X$ 是 $k$ 上光滑射影概形之间的态射。记
+$\Gamma_f \subset X \times Y$ 为 $f$ 的图。更确切地，$\Gamma_f$ 是闭浸入
+$$
+(f, \text{id}_Y) : Y \longrightarrow X \times Y
+$$
+的像。设 $X = \coprod X_d$ 是 $X$ 分解为等维且维数为 $d$ 的开闭部分
+$X_d$ 的分解。于是 $\Gamma_f \cap (X_d \times Y)$ 的纯余维数为 $d$。因此
+$[\Gamma_f] \in \CH^*(X \times Y) \otimes \mathbf{Q}$ 属于
+$\text{Corr}^0(X \times Y)$；换言之，$[\Gamma_f]$ 是从 $X$ 到 $Y$ 的
+$0$ 次对应。
+\end{example}
+
+\begin{lemma}
+\label{weil-lemma-category-correspondences}
+$k$ 上光滑射影概形，以对应为态射、以上述对应复合为复合，构成一个
+$\mathbf{Q}$ 上分次范畴
+（《微分分次代数》定义 \ref{dga-definition-graded-category}）。
+\end{lemma}
+
+\begin{proof}
+除恒等态射的存在性外，一切均由构造及引理
+\ref{weil-lemma-composition-correspondences} 显然可得。给定光滑射影概形 $X$，
+考虑对角线 $\Delta \subset X \times X$ 的类 $[\Delta]$，它属于
+$\text{Corr}^0(X, X)$。注意，$\Delta$ 等于恒等态射
+$\text{id}_X : X \to X$ 的图；下文将用到这一事实。
+
+\medskip\noindent
+为证明 $[\Delta]$ 可充当恒等态射，须对任意对应
+$c \in \text{Corr}^r(Y, X)$ 和 $c' \in \text{Corr}^s(X, Y)$ 证明
+$[\Delta] \circ c = c$ 以及 $c' \circ [\Delta] = c'$。对于后一等式，须证明
+$$
+c' = \text{pr}_{13, *}(\text{pr}_{12}^*[\Delta] \cdot \text{pr}_{23}^*c')
+$$
+其中 $\text{pr}_{12} : X \times X \times Y \to X \times X$ 是投影，
+$\text{pr}_{13}$、$\text{pr}_{23}$ 类似。可将
+$c' = \sum a_i [Z_i]$，其中 $Z_i \subset X \times Y$ 是整闭子概形，
+$a_i$ 是有理数。因此，只需对 $X \times Y$ 的任意整闭子概形 $Z$，在
+$X \times Y$ 的 Chow 群中证明
+$$
+[Z] = \text{pr}_{13, *}(\text{pr}_{12}^*[\Delta] \cdot \text{pr}_{23}^*[Z])
+$$
+将 $X$、$Y$ 分别替换为包含 $Z$ 在两个投影下之像的不可约分支后，可再假设
+$X$、$Y$ 都是整概形。此时须证明
+$$
+[Z] = \text{pr}_{13, *}([\Delta \times Y] \cdot [X \times Z])
+$$
+记 $Z' \subset X \times X \times Y$ 为 $Z$ 在态射
+$(\Delta, 1) : X \times Y \to X \times X \times Y$ 下的像。则 $Z'$ 是
+$X \times X \times Y$ 的闭子概形，与 $Z$ 同构，并且按概形论意义有
+$Z' = \Delta \times Y \cap X \times Z$。由《Chow 同调》引理
+\ref{chow-lemma-intersect-properly}\footnote{读者可验证
+$\dim(Z') = \dim(\Delta \times Y) + \dim(X \times Z) -
+\dim(X \times X \times Y)$，并且 $Z'$ 有唯一泛点，它映到 $Z$ 的泛点
+（该处局部环为 CM）以及 $X$ 的某一点（该处局部环为 CM）。因此，该引理的
+全部假设确已满足。}
+可得
+$$
+[Z'] = [\Delta \times Y] \cdot [X \times Z]
+$$
+又因 $Z'$ 沿 $\text{pr}_{13}$ 同构地映到 $Z$，结论随即成立。
+$[\Delta] \circ c = c$ 的验证相同，故略去。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-contravariant-functor}
+从 $k$ 上光滑射影概形范畴到对应范畴存在一个反变函子；它在对象上恒等，
+并把 $f : Y \to X$ 送到元素 $[\Gamma_f] \in \text{Corr}^0(X, Y)$。
+\end{lemma}
+
+\begin{proof}
+在引理 \ref{weil-lemma-category-correspondences} 的证明中已经看到，该构造把恒等态射
+送到恒等态射。为完成证明，还须说明：若 $g : Z \to Y$ 是 $k$ 上光滑射影概形
+之间的另一态射，则在 $\text{Corr}^0(X, Z)$ 中有
+$[\Gamma_g] \circ [\Gamma_f] = [\Gamma_{f \circ g}]$。仿照引理
+\ref{weil-lemma-category-correspondences} 的证明可知，当 $X$、$Y$、$Z$ 都是整概形时，
+只需在 $\CH^*(X \times Z)$ 中证明
+$$
+[\Gamma_{f \circ g}] =
+\text{pr}_{13, *}([\Gamma_f \times Z] \cdot [X \times \Gamma_g])
+$$
+记 $Z' \subset X \times Y \times Z$ 为闭浸入
+$(f \circ g, g, 1) : Z \to X \times Y \times Z$ 的像。按概形论意义有
+$Z' = \Gamma_f \times Z \cap X \times \Gamma_g$，故由《Chow 同调》引理
+\ref{chow-lemma-intersect-properly} 得
+$$
+[Z'] = [\Gamma_f \times Z] \cdot [X \times \Gamma_g]
+$$
+而 $\text{pr}_{13, *}([Z']) = [\Gamma_{f \circ g}]$ 显然成立，证明完成。
+\end{proof}
+
+\begin{remark}
+\label{weil-remark-transpose}
+设 $X$、$Y$ 是 $k$ 上光滑射影概形，并假设 $X$ 是维数为 $d$ 的等维概形，
+$Y$ 是维数为 $e$ 的等维概形。则交换因子的同构
+$X \times Y \to Y \times X$ 决定同构
+$$
+\text{Corr}^r(X, Y) \longrightarrow \text{Corr}^{d - e + r}(Y, X),\quad
+c \longmapsto c^t
+$$
+称为{\it 转置}。它既作用于周期，也作用于周期类。有时有用的一个例子是态射
+$f : Y \to X$ 之图的转置 $[\Gamma_f]^t = [\Gamma_f^t]$。
+\end{remark}
+
+\begin{lemma}
+\label{weil-lemma-functor-and-cycles}
+设 $f : Y \to X$ 是 $k$ 上光滑射影概形之间的态射，并令
+$[\Gamma_f] \in \text{Corr}^0(X, Y)$ 如例
+\ref{weil-example-graph-correspondence}。则
+\begin{enumerate}
+\item 沿对应 $[\Gamma_f]$ 的周期推前与 Gysin 映射
+$f^! : \CH^*(X) \to \CH^*(Y)$ 一致；
+\item 沿对应 $[\Gamma_f]$ 的周期拉回与推前映射
+$f_* : \CH_*(Y) \to \CH_*(X)$ 一致；
+\item 若 $X$、$Y$ 分别是维数为 $d$、$e$ 的等维概形，则
+\begin{enumerate}
+\item 沿注 \ref{weil-remark-transpose} 中对应 $[\Gamma_f^t]$ 的周期推前，
+对应于沿 $f$ 的周期推前；
+\item 沿注 \ref{weil-remark-transpose} 中对应 $[\Gamma_f^t]$ 的周期拉回，
+对应于 Gysin 映射 $f^!$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证 (1)。回忆
+$[\Gamma_f]_*(\alpha) =
+\text{pr}_{2, *}([\Gamma_f] \cdot \text{pr}_1^*\alpha)$。
+有
+$$
+[\Gamma_f] \cdot \text{pr}_1^*\alpha =
+(f, 1)_*((f, 1)^! \text{pr}_1^*\alpha) =
+(f, 1)_*((f, 1)^! \text{pr}_1^!\alpha) =
+(f, 1)_*(f^!\alpha)
+$$
+第一个等式由《Chow 同调》引理
+\ref{chow-lemma-intersect-regularly-embedded} 得到。第二个等式由《Chow 同调》
+引理 \ref{chow-lemma-lci-gysin-flat} 得到。第三个等式来自
+$\text{pr}_1 \circ (f, 1) = f$ 以及《Chow 同调》引理
+\ref{chow-lemma-lci-gysin-composition}。最后，由
+$\text{pr}_{2, *} \circ (f, 1)_* = 1_*$ 及《Chow 同调》引理
+\ref{chow-lemma-compose-pushforward} 即得结论。
+
+\medskip\noindent
+再证 (2)。回忆
+$[\Gamma_f]_*(\beta) =
+\text{pr}_{1, *}([\Gamma_f] \cdot \text{pr}_2^*\beta)$。
+完全仿照上面的论证可得
+$$
+[\Gamma_f] \cdot \text{pr}_2^*\beta = (f, 1)_*\beta
+$$
+故结论如前成立。
+
+\medskip\noindent
+(3) 也以完全相同的方式证明。
+\end{proof}
+
+\begin{example}
+\label{weil-example-decompose-P1}
+设 $X = \mathbf{P}^1_k$。则
+$$
+\text{Corr}^0(X, X) = \CH^1(X \times X) \otimes \mathbf{Q} =
+\CH_1(X \times X) \otimes \mathbf{Q}
+$$
+选取一个 $k$-有理点 $x \in X$，并考虑周期
+$c_0 = [x \times X]$ 和 $c_2 = [X \times x]$。计算表明，在
+$\text{Corr}^0(X, X)$ 中有 $1 = [\Delta] = c_0 + c_2$，而复合法则为
+$c_0 \circ c_0 = c_0$、
+$c_0 \circ c_2 = 0$、
+$c_2 \circ c_0 = 0$ 以及
+$c_2 \circ c_2 = c_2$。
+换言之，$c_0$、$c_2$ 是代数 $\text{Corr}^0(X, X)$ 中相互正交的幂等元；
+事实上，作为 $\mathbf{Q}$-代数有
+$$
+\text{Corr}^0(X, X) = \mathbf{Q} \times \mathbf{Q}
+$$
+\end{example}
+
+\noindent
+对应范畴是一个对称幺半范畴。给定 $k$ 上光滑射影概形 $X$、$Y$，定义
+$X \otimes Y = X \times Y$。给定 $k$ 上四个光滑射影概形
+$X, X', Y, Y'$，定义张量积
+$$
+\otimes :
+\text{Corr}^r(X, Y) \times \text{Corr}^{r'}(X', Y')
+\longrightarrow
+\text{Corr}^{r + r'}(X \times X', Y \times Y')
+$$
+如下：
+$$
+(c, c') \longmapsto
+c \otimes c' = \text{pr}_{13}^*c \cdot \text{pr}_{24}^*c'
+$$
+其中 $\text{pr}_{13} : X \times X' \times Y \times Y' \to X \times Y$
+和 $\text{pr}_{24} : X \times X' \times Y \times Y' \to X' \times Y'$
+是投影。对于结合约束
+$$
+X \otimes (Y \otimes Z) = (X \otimes Y) \otimes Z
+$$
+采用概形之积的通常结合约束；交换约束则由交换因子的同构
+$X \times Y \to Y \times X$ 给出。
+
+\begin{lemma}
+\label{weil-lemma-tensor-product}
+上述对应张量积使对应范畴成为以 $\Spec(k)$ 为单位对象的对称幺半范畴。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-prep-dual}
+设 $f : Y \to X$ 是 $k$ 上光滑射影概形之间的态射。假设 $X$、$Y$ 分别是
+维数为 $d$、$e$ 的等维概形。记
+$a = [\Gamma_f] \in \text{Corr}^0(X, Y)$ 及
+$a^t = [\Gamma_f^t] \in \text{Corr}^{d - e}(Y, X)$。置
+$\eta_X = [\Gamma_{X \to X \times X}] \in \text{Corr}^0(X \times X, X)$、
+$\eta_Y = [\Gamma_{Y \to Y \times Y}] \in \text{Corr}^0(Y \times Y, Y)$、
+$[X] \in \text{Corr}^{-d}(X, \Spec(k))$ 以及
+$[Y] \in \text{Corr}^{-e}(Y, \Spec(k))$。下图在对应范畴中交换：
+$$
+\xymatrix{
+X \otimes Y \ar[r]_{a \otimes \text{id}} \ar[d]_{\text{id} \otimes a^t} &
+Y \otimes Y \ar[r]_{\eta_Y} &
+Y \ar[d]^{[Y]} \\
+X \otimes X \ar[r]^{\eta_X} &
+X \ar[r]^{[X]} &
+\Spec(k)
+}
+$$
+\end{lemma}
+
+\begin{proof}
+回忆，对任意 $k$ 上光滑射影概形 $W$，有
+$\text{Corr}^r(W, \Spec(k)) = \CH_{-r}(W)$；给定
+$c \in \text{Corr}^s(W', W)$，与 $c$ 复合等同于沿 $c$ 的拉回映射
+$\CH_{-r}(W) \to \CH_{-r - s}(W')$
+（引理 \ref{weil-lemma-composition-correspondences}）。最后，引理
+\ref{weil-lemma-functor-and-cycles} 说明如何将此转化为通常的周期推前与拉回。
+有
+$$
+(a \otimes \text{id})^* \eta_Y^* [Y] =
+(a \otimes \text{id})^* [\Delta_Y] =
+(f \times \text{id})_*\Delta_Y = [\Gamma_f]
+$$
+沿图的另一条路径则得到
+$$
+(\text{id} \otimes a^t)^* \eta_X^* [X] =
+(\text{id} \otimes a^t)^* [\Delta_X] =
+(\text{id} \times f)^![\Delta_X] = [\Gamma_f]
+$$
+最后一个等式由《Chow 同调》引理
+\ref{chow-lemma-lci-gysin-easy} 得到。换言之，沿图的任一路径都得到
+$\text{Corr}^d(X \times Y, \Spec(k))$ 中与周期
+$\Gamma_f \subset X \times Y$ 对应的元素。
+\end{proof}
+
+
+
+
+
+
+
+\section{Chow 动机}
+\label{weil-section-chow-motives}
+
+\noindent
+固定一个基域 $k$。本节构造一个带对称幺半结构的加性 Karoubian
+$\mathbf{Q}$-线性范畴 $M_k$，以及一个反变函子
+$$
+h : \{\text{smooth projective schemes over }k\} \longrightarrow M_k
+$$
+它把积映到张量积，把不交并映到直和。这个构造由下述性质刻画：$h$ 通过这样一个
+对称幺半范畴分解，其对象是光滑射影簇，态射是 $0$ 次对应，并且例
+\ref{weil-example-decompose-P1} 中 $h(\mathbf{P}^1_k)$ 上投影算子 $c_2$ 的像在
+$M_k$ 中可逆；见引理 \ref{weil-lemma-characterize-motives}。本节末将证明每个动机，
+即 $M_k$ 的每个对象，都有一个（左）对偶；见引理 \ref{weil-lemma-dual-general}。
+
+\medskip\noindent
+$k$ 上的一个{\it 动机}或{\it Chow 动机}是三元组 $(X, p, m)$，其中
+\begin{enumerate}
+\item $X$ 是 $k$ 上光滑射影概形；
+\item $p \in \text{Corr}^0(X, X)$ 满足 $p \circ p = p$；
+\item $m \in \mathbf{Z}$。
+\end{enumerate}
+给定另一个动机 $(Y, q, n)$，定义一个{\it 动机态射}或{\it Chow 动机态射}
+为下式中的一个元素：
+$$
+\Hom((X, p, m), (Y, q, n)) =
+q \circ \text{Corr}^{n - m}(X, Y) \circ p \subset \text{Corr}^{n - m}(X, Y)
+$$
+动机态射的复合用上面定义的对应复合来定义。
+
+\begin{lemma}
+\label{weil-lemma-motives}
+以 $k$ 上动机为对象、以 $k$ 上动机态射为态射的范畴 $M_k$ 是
+$\mathbf{Q}$-线性范畴。存在反变函子
+$$
+h : \{\text{smooth projective schemes over }k\} \longrightarrow M_k
+$$
+其定义为 $h(X) = (X, 1, 0)$ 和 $h(f) = [\Gamma_f]$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-contravariant-functor} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-Karoubian}
+范畴 $M_k$ 是 Karoubian 范畴。
+\end{lemma}
+
+\begin{proof}
+设 $M = (X, p, m)$ 是动机，$a \in \Mor(M, M)$ 是投影算子。则无论在
+$\Mor(M, M)$ 还是在 $\text{Corr}^0(X, X)$ 中，均有
+$a = a \circ a$。置 $N = (X, a, m)$。由于在
+$\text{Corr}^0(X, X)$ 中有 $a = p \circ a \circ a$，可知
+$a : N \to M$ 是 $M_k$ 中的态射。再设
+$b : (Y, q, n) \to M$ 是满足 $(1 - a) \circ b = 0$ 的态射。则既有
+$b = a \circ b$，又有 $b = b \circ q$，故 $b$ 是态射
+$b : (Y, q, n) \to N$。因此，投影算子 $1 - a$ 有核 $N$，从而
+$M_k$ 是 Karoubian 范畴；见《同调代数》定义
+\ref{homology-definition-karoubian}。
+\end{proof}
+
+\noindent
+定义函子
+$$
+\otimes : M_k \times M_k \longrightarrow M_k
+$$
+在对象上采用公式
+$$
+(X, p, m) \otimes (Y, q, n) = (X \times Y, p \otimes q, m + n)
+$$
+在态射上，采用映射
+$$
+\xymatrix{
+\Mor((X, p, m), (Y, q, n)) \times
+\Mor((X', p', m'), (Y', q', n')) \ar[d] \\
+\Mor(
+(X \times X', p \otimes p', m + m'),
+(Y \times Y', q \otimes q', n + n'))
+}
+$$
+其法则为 $(a, a') \longmapsto a \otimes a'$，其中对应上的
+$\otimes$ 如第 \ref{weil-section-correspondences} 节所定义。这一定义有意义：
+按动机态射的定义，可写
+$a = q \circ c \circ p$、$a' = q' \circ c' \circ p'$，其中
+$c \in \text{Corr}^{n - m}(X, Y)$ 且
+$c' \in \text{Corr}^{n' - m'}(X', Y')$；于是
+$$
+a \otimes a' =
+(q \circ c \circ p) \otimes (q' \circ c' \circ p') =
+(q \otimes q') \circ (c \otimes c') \circ (p \otimes p')
+$$
+它确为从 $(X \times X', p \otimes p', m + m')$ 到
+$(Y \times Y', q \otimes q', n + n')$ 的动机态射。
+
+\begin{lemma}
+\label{weil-lemma-motives-monoidal}
+赋予上述张量积后，范畴 $M_k$ 连同显然的结合约束、交换约束及单位对象
+$\mathbf{1} = (\Spec(k), 1, 0)$ 成为对称幺半范畴。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-tensor-product} 立即得到。细节略。
+\end{proof}
+
+\noindent
+动机 $\mathbf{1}(n) = (\Spec(k), 1, n)$ 很有用。注意
+$$
+\mathbf{1} = \mathbf{1}(0)
+\quad\text{且}\quad
+\mathbf{1}(n + m) = \mathbf{1}(n) \otimes \mathbf{1}(m)
+$$
+因此，与 $\mathbf{1}(1)$ 作张量积给出动机范畴的一个自等价。给定动机 $M$，
+有时记 $M(n) = M \otimes \mathbf{1}(n)$。注意，若 $M = (X, p, m)$，则
+$M(n) = (X, p, m + n)$。
+
+\begin{lemma}
+\label{weil-lemma-inverse-h2}
+采用例 \ref{weil-example-decompose-P1} 的记号，有
+\begin{enumerate}
+\item 动机 $(X, c_0, 0)$ 与动机
+$\mathbf{1} = (\Spec(k), 1, 0)$ 同构；
+\item 动机 $(X, c_2, 0)$ 与动机
+$\mathbf{1}(-1) = (\Spec(k), 1, -1)$ 同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下不再特别说明地使用引理 \ref{weil-lemma-contravariant-functor}。结构态射
+$X \to \Spec(k)$ 给出对应 $a \in \text{Corr}^0(\Spec(k), X)$。另一方面，
+有理点 $x$ 是态射 $\Spec(k) \to X$，它给出对应
+$b \in \text{Corr}^0(X, \Spec(k))$。作为 $\Spec(k)$ 上对应，有
+$b \circ a = 1$。复合 $a \circ b$ 对应于复合 $X \to x \to X$ 的图，即
+$c_0 = [x \times X]$。因此
+$a = a \circ b \circ a = c_0 \circ a$ 且
+$b = b \circ a \circ b = b \circ c_0$。展开定义可见，$a$、$b$ 是互逆态射
+$a : (\Spec(k), 1, 0) \to (X, c_0, 0)$ 和
+$b : (X, c_0, 0) \to (\Spec(k), 1, 0)$。
+
+\medskip\noindent
+完全仿照上述论证证明第二个断言。记
+$$
+a' \in \text{Corr}^1(\Spec(k), X) = \CH^1(X)
+$$
+为点 $x$ 的类，并记
+$$
+b' \in \text{Corr}^{-1}(X, \Spec(k)) = \CH_1(X)
+$$
+为 $[X]$ 的类。由于在
+$X = \Spec(k) \times X \times \Spec(k)$ 上有
+$[x] \cdot [X] = [x]$，故作为 $\Spec(k)$ 上对应有
+$b' \circ a' = 1$。在 $X \times \Spec(k) \times X$ 上计算交积
+$\text{pr}_{12}^*b' \cdot \text{pr}_{23}^*a'$，所得周期为
+$X \times \Spec(k) \times x$。因此，作为 $X$ 上对应，复合
+$a' \circ b'$ 等于 $c_2$。于是
+$a' = a' \circ b \circ a' = c_2 \circ a'$ 且
+$b' = b' \circ a' \circ b' = b' \circ c_2$。回忆
+$$
+\Mor((\Spec(k), 1, -1), (X, c_2, 0)) =
+c_2 \circ \text{Corr}^1(\Spec(k), X)
+\subset
+\text{Corr}^1(\Spec(k), X)
+$$
+以及
+$$
+\Mor((X, c_2, 0), (\Spec(k), 1, -1)) =
+\text{Corr}^{-1}(X, \Spec(k)) \circ c_2
+\subset
+\text{Corr}^{-1}(X, \Spec(k))
+$$
+故 $a'$、$b'$ 是互逆态射
+$a' : (\Spec(k), 1, -1) \to (X, c_2, 0)$ 和
+$b' : (X, c_2, 0) \to (\Spec(k), 1, -1)$。
+\end{proof}
+
+\begin{remark}[Lefschetz 动机与 Tate 动机]
+\label{weil-remark-lefschetz-tate}
+设 $X = \mathbf{P}^1_k$，并令 $c_2$ 如例
+\ref{weil-example-decompose-P1}。文献中有时把动机 $(X, c_2, 0)$ 称为
+{\it Lefschetz 动机}；依参考文献不同，也可能用
+$L$、$\mathbf{L}$、$\mathbf{Q}(-1)$ 或 $h^2(\mathbf{P}^1_k)$ 表示它。
+由引理 \ref{weil-lemma-inverse-h2}，Lefschetz 动机同构于
+$\mathbf{1}(-1)$。因此 Lefschetz 动机可逆（《范畴》定义
+\ref{categories-definition-invertible}），其逆为
+$\mathbf{1}(1)$。动机 $\mathbf{1}(1)$ 有时称为{\it Tate 动机}；依参考文献不同，
+也可能用 $L^{-1}$、$\mathbf{L}^{-1}$、$\mathbf{T}$ 或
+$\mathbf{Q}(1)$ 表示它。
+\end{remark}
+
+\begin{lemma}
+\label{weil-lemma-additive}
+范畴 $M_k$ 是加性范畴。
+\end{lemma}
+
+\begin{proof}
+设 $(Y, p, m)$、$(Z, q, n)$ 是动机。若 $n = m$，则在显然的记号下，
+直和由 $(Y \amalg Z, p + q, m)$ 给出。细节略。
+
+\medskip\noindent
+设 $n < m$。令 $X$、$c_2$ 如例 \ref{weil-example-decompose-P1}。考虑
+\begin{align*}
+(Z, q, n)
+& =
+(Z, q, m) \otimes (\Spec(k), 1, -1) \otimes \ldots \otimes
+(\Spec(k), 1, -1) \\
+& \cong
+(Z, q, m) \otimes (X, c_2, 0) \otimes \ldots \otimes (X, c_2, 0) \\
+& \cong
+(Z \times X^{m - n}, q \otimes c_2 \otimes \ldots \otimes c_2, m)
+\end{align*}
+这里使用了引理 \ref{weil-lemma-inverse-h2}，从而归约到第一段所讨论的情形。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-decompose-P1}
+在 $M_k$ 中有 $h(\mathbf{P}^1_k) \cong \mathbf{1} \oplus \mathbf{1}(-1)$。
+\end{lemma}
+
+\begin{proof}
+由例 \ref{weil-example-decompose-P1} 和引理 \ref{weil-lemma-inverse-h2} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-characterize-motives}
+令 $X$、$c_2$ 如例 \ref{weil-example-decompose-P1}，并设
+$\mathcal{C}$ 是一个 $\mathbf{Q}$-线性 Karoubian 对称幺半范畴。若对称幺半范畴
+之间的任意 $\mathbf{Q}$-线性函子
+$$
+F :
+\left\{
+\begin{matrix}
+\text{smooth projective schemes over }k\\
+\text{morphisms are correspondences of degree }0
+\end{matrix}
+\right\}
+\longrightarrow
+\mathcal{C}
+$$
+满足 $F(c_2)$ 在 $F(X)$ 上的像是可逆对象，则它唯一地通过对称幺半范畴之间的函子
+$F : M_k \to \mathcal{C}$ 分解。
+\end{lemma}
+
+\begin{proof}
+以 $U$ 表示引理陈述中假定存在的 $\mathcal{C}$ 中可逆对象。规定
+$$
+F(X, p, m) = \left(\text{the image of
+the projector }F(p)\text{ 于 }F(X)\right) \otimes U^{\otimes -m}
+$$
+从而把 $F$ 延拓到动机。由于 $U$ 可逆且 $\mathcal{C}$ 是 Karoubian 范畴，
+这一定义有意义。这个选择的一个重要性质是 $F(X, c_2, 0) = U$。注意
+\begin{align*}
+F((X, p, m) \otimes (Y, q, n))
+& =
+F(X \times Y, p \otimes q, m + n) \\
+& =
+\left(\text{the image of }F(p \otimes q)\text{ 于 }F(X \times Y)\right)
+\otimes U^{\otimes -m - n} \\
+& =
+F(X, p, m) \otimes F(Y, q, n)
+\end{align*}
+因此，该法则在对象层面与张量积相容（细节略）。
+
+\medskip\noindent
+下面把 $F$ 延拓到动机态射。设
+$$
+a \in
+\Hom((Y, p, m), (Z, q, n)) =
+q \circ \text{Corr}^{n - m}(Y, Z) \circ p \subset \text{Corr}^{n - m}(Y, Z)
+$$
+是一个态射。若 $n = m$，则 $a$ 是 $0$ 次对应，可以使用
+$F(a) : F(Y) \to F(Z)$ 得到所需映射
+$F(Y, p, m) \to F(Z, q, n)$。若 $n < m$，则得到典范等同
+\begin{align*}
+s : F((Z, q, n))
+& \to
+F(Z, q, m) \otimes U^{m - n} \\
+& \to
+F(Z, q, m) \otimes F(X, c_2, 0) \otimes \ldots \otimes F(X, c_2, 0) \\
+& \to
+F((Z, q, m) \otimes (X, c_2, 0) \otimes \ldots \otimes (X, c_2, 0)) \\
+& \to
+F((Z \times X^{m - n}, q \otimes c_2 \otimes \ldots \otimes c_2, m))
+\end{align*}
+具体而言，第一个同构使用上面对动机上 $F$ 的定义；第二个使用 $U$ 的选择；
+第三个使用 $F$ 与动机张量积的相容性；第四个是动机张量积的定义。另一方面，
+类似地有同构
+$$
+\sigma : (Z, q, n) \to
+(Z \times X^{m - n}, q \otimes c_2 \otimes \ldots \otimes c_2, m)
+$$
+（见引理 \ref{weil-lemma-additive} 的证明）。将 $a$ 与此同构复合得到
+$$
+\sigma \circ a \in
+\Hom((Y, p, m),
+(Z \times X^{m - n}, q \otimes c_2 \otimes \ldots \otimes c_2, m))
+$$
+综合以上构造，得到
+$$
+s^{-1} \circ F(\sigma \circ a) :
+F(Y, p, m) \to
+F(Z, q, n)
+$$
+若 $n > m$，类似地定义同构
+$$
+t : F((Y, p, m)) \to
+F((Y \times X^{n - m}, p \otimes c_2 \otimes \ldots \otimes c_2, n))
+$$
+以及
+$$
+\tau : (Y, p, m)) \to
+(Y \times X^{n - m}, p \otimes c_2 \otimes \ldots \otimes c_2, n)
+$$
+并置 $F(a) = F(a \circ \tau^{-1}) \circ t$。略去验证该构造定义了对称幺半范畴
+之间函子的过程。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-dual}
+设 $X$ 是 $k$ 上维数为 $d$ 的等维光滑射影概形。则在 $M_k$ 中，
+$h(X)(d)$ 是 $h(X)$ 的左对偶。
+\end{lemma}
+
+\begin{proof}
+以下不再特别说明地使用引理 \ref{weil-lemma-composition-correspondences}。计算得
+$$
+\Hom(\mathbf{1}, h(X) \otimes h(X)(d)) =
+\text{Corr}^d(\Spec(k), X \times X) = \CH^d(X \times X)
+$$
+此处取 $\eta = [\Delta]$。另一方面，
+$$
+\Hom(h(X)(d) \otimes h(X), \mathbf{1}) =
+\text{Corr}^{-d}(X \times X, \Spec(k)) = \CH_d(X \times X)
+$$
+此处同样取对角线的类 $\epsilon = [\Delta]$。对应
+$[\Delta] \otimes 1$ 与 $1 \otimes [\Delta]$ 按任一顺序复合，均为
+$\text{Corr}^0(X, X)$ 中的对应 $[\Delta] = 1$；这就证明《范畴》定义
+\ref{categories-definition-dual} 所要求的图交换。具体地，注意
+$$
+[\Delta] \otimes 1 \in \text{Corr}^d(X, X \times X \times X) =
+\CH^{2d}(X \times X \times X \times X)
+$$
+在显然的记号下由周期
+$\text{pr}^{1234, -1}_{23}(\Delta) \cap \text{pr}^{1234, -1}_{14}(\Delta)$
+的类给出。类似地，类
+$$
+1 \otimes [\Delta] \in \text{Corr}^{-d}(X \times X \times X, X) =
+\CH^{2d}(X \times X \times X \times X)
+$$
+由周期
+$\text{pr}^{1234, -1}_{23}(\Delta) \cap \text{pr}^{1234, -1}_{14}(\Delta)$
+的类给出。按定义，复合
+$(1 \otimes [\Delta]) \circ ([\Delta] \otimes 1)$ 是交积
+$$
+[\text{pr}^{12345, -1}_{23}(\Delta) \cap \text{pr}^{12345, -1}_{14}(\Delta)]
+\cdot
+[\text{pr}^{12345, -1}_{34}(\Delta) \cap \text{pr}^{12345, -1}_{15}(\Delta)]
+=
+[\text{small diagonal in } X^5]
+$$
+沿 $\text{pr}^{12345}_{15, *}$ 的推前，结果正是所需的 $\Delta$。
+另一复合顺序的公式证明略去。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-dual-general}
+$M_k$ 的每个对象都有左对偶。
+\end{lemma}
+
+\begin{proof}
+设 $M = (X, p, m)$ 是 $M_k$ 的对象，则 $M$ 是
+$(X, 1, m) = h(X)(m)$ 的直和项。由《同调代数》引理
+\ref{homology-lemma-Karoubian-dual}，只需证明
+$h(X)(m) = h(X) \otimes \mathbf{1}(m)$ 有对偶。按构造，
+$\mathbf{1}(-m)$ 是 $\mathbf{1}(m)$ 的左对偶。因此，只需证明
+$h(X)$ 有左对偶；见《范畴》引理 \ref{categories-lemma-tensor-dual}。
+设 $X = \coprod X_i$ 是 $X$ 的不可约分支分解。则
+$h(X) = \bigoplus h(X_i)$，只需证明每个 $h(X_i)$ 有左对偶；见《同调代数》
+引理 \ref{homology-lemma-additive-dual}。这由引理 \ref{weil-lemma-dual} 得到。
+\end{proof}
+
+
+
+
+
+
+\section{动机的 Chow 群}
+\label{weil-section-chow-groups-motives}
+
+\noindent
+如下定义动机的 Chow 群。
+
+\begin{definition}
+\label{weil-definition-chow-group-motives}
+设 $k$ 是基域，$M = (X, p, m)$ 是 $k$ 上 Chow 动机。对
+$i \in \mathbf{Z}$，用公式
+$$
+\CH^i(M) = p\left(\CH^{i + m}(X) \otimes \mathbf{Q}\right)
+$$
+定义{\it $M$ 的第 $i$ 个 Chow 群}。
+\end{definition}
+
+\noindent
+若 $X$ 是 $k$ 上光滑射影概形，则
+$\CH^i(h(X)) = \CH^i(X) \otimes \mathbf{Q}$。
+
+\medskip\noindent
+注意，$\CH^i(-)$ 是从 $M_k$ 到 $\mathbf{Q}$-向量空间的函子。事实上，若
+$c : M \to N$ 是动机 $M = (X, p, m)$ 与 $N = (Y, q, n)$ 之间的态射，
+则 $c$ 是从 $X$ 到 $Y$ 的 $n - m$ 次对应；故沿 $c$ 的推前
+（第 \ref{weil-section-correspondences} 节）是一族映射
+$$
+c_* :
+\CH^{i + m}(X) \otimes \mathbf{Q}
+\longrightarrow
+\CH^{i + n}(Y) \otimes \mathbf{Q}
+$$
+按动机态射的定义，有 $c = q \circ c \circ p$，故对所有
+$i \in \mathbf{Z}$ 确实得到
+$$
+c_* : \CH^i(M) \to \CH^i(N)
+$$
+由引理 \ref{weil-lemma-composition-correspondences}，这与动机态射的复合相容。
+Chow 群的这一函子性也可由下述引理推出。
+
+\begin{lemma}
+\label{weil-lemma-chow-groups-representable}
+设 $k$ 是基域。动机范畴 $M_k$ 上的函子 $\CH^i(-)$ 由
+$\mathbf{1}(-i)$ 表示；换言之，在 $M_k$ 中关于 $M$ 函子性地有
+$$
+\CH^i(M) = \Hom_{M_k}(\mathbf{1}(-i), M)
+$$
+\end{lemma}
+
+\begin{proof}
+由定义和引理 \ref{weil-lemma-composition-correspondences} 立即得到。
+\end{proof}
+
+\noindent
+由引理 \ref{weil-lemma-chow-groups-representable}、Yoneda 引理和引理
+\ref{weil-lemma-dual} 中的对偶性，读者不难设想可得下述结果。
+
+\begin{lemma}[Manin]
+\label{weil-lemma-manin}
+设 $k$ 是基域，$c : M \to N$ 是动机态射。若对每个 $k$ 上光滑射影概形 $X$，
+映射 $c \otimes 1 : M \otimes h(X) \to N \otimes h(X)$ 在 Chow 群上诱导同构，
+则 $c$ 是同构。
+\end{lemma}
+
+\begin{proof}
+$M_k$ 的任一对象 $L$ 都是某个 $h(X)(m)$ 的直和项，其中 $X$ 是 $k$ 上光滑射影
+概形，$m \in \mathbf{Z}$。注意，$M \otimes h(X)(m)$ 的 Chow 群与
+$M \otimes h(X)$ 的 Chow 群仅相差次数平移。因此，假设蕴含：对 $M_k$ 的每个对象
+$L$，映射 $c \otimes 1 : M \otimes L \to N \otimes L$ 在 Chow 群上诱导同构。
+由引理 \ref{weil-lemma-chow-groups-representable} 可知，对每个 $L$，
+$$
+\Hom_{M_k}(\mathbf{1}, M \otimes L) \to
+\Hom_{M_k}(\mathbf{1}, N \otimes L)
+$$
+是同构。由于 $M_k$ 的每个对象都有左对偶（引理
+\ref{weil-lemma-dual-general}），故对 $M_k$ 的每个对象 $K$，
+$$
+\Hom_{M_k}(K, M) \to \Hom_{M_k}(K, N)
+$$
+是同构；见《范畴》引理 \ref{categories-lemma-left-dual}。最后由 Yoneda 引理
+（《范畴》引理 \ref{categories-lemma-yoneda}）得出结论。
+\end{proof}
+
+
+
+
+\section{射影空间丛公式}
+\label{weil-section-projective-space-bundle}
+
+\noindent
+设 $k$ 是基域，$X$ 是 $k$ 上光滑射影概形，$\mathcal{E}$ 是秩为 $r$ 的局部自由
+$\mathcal{O}_X$-模。约定与 $\mathcal{E}$ {\it 相伴的射影丛}是 $X$ 上态射
+$$
+\xymatrix{
+P = \mathbf{P}(\mathcal{E}) =
+\underline{\text{Proj}}_X(\text{Sym}^*(\mathcal{E}))
+\ar[r]^-p
+& X
+}
+$$
+并将 $\mathcal{O}_P(1)$ 规范化为满足
+$p_*(\mathcal{O}_P(1)) = \mathcal{E}$。回忆
+$$
+[\Gamma_p] \in \text{Corr}^0(X, P) \subset \CH^*(X \times P) \otimes \mathbf{Q}
+$$
+参见例 \ref{weil-example-graph-correspondence}。对
+$i = 0, \ldots, r - 1$，考虑对应
+$$
+c_i = c_1(\text{pr}_2^*\mathcal{O}_P(1))^i \cap [\Gamma_p]
+\in \text{Corr}^i(X, P)
+$$
+可将且确将 $c_i$ 视为态射 $h(X)(-i) \to h(P)$。
+
+\begin{lemma}[射影空间丛公式]
+\label{weil-lemma-projective-space-bundle-formula}
+在上述情形中，映射
+$$
+\sum\nolimits_{i = 0, \ldots, r - 1} c_i :
+\bigoplus\nolimits_{i = 0, \ldots, r - 1} h(X)(-i)
+\longrightarrow
+h(P)
+$$
+是动机范畴中的同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-manin}，只需证明：与任意光滑射影概形 $Z$ 取积后，该映射在
+动机的 Chow 群上给出同构。注意，$P \times Z \to X \times Z$ 是与
+$\mathcal{E}$ 到 $X \times Z$ 的拉回相伴的射影丛。因此，Chow 群上的断言由
+《Chow 同调》引理 \ref{chow-lemma-chow-ring-projective-bundle} 中的射影空间丛
+公式成立。具体而言，由引理 \ref{weil-lemma-functor-and-cycles} 和《Chow 同调》引理
+\ref{chow-lemma-lci-gysin-flat}，沿 $[\Gamma_p]$ 的周期推前由沿 $p$ 的周期拉回
+给出。因此，沿 $c_i$ 的推前把 $\alpha$ 送到
+$c_1(\mathcal{O}_P(1))^i \cap p^*\alpha$。略去若干细节。
+\end{proof}
+
+\noindent
+在上述情形中，对 $j = 0, \ldots, r - 1$ 考虑对应
+$$
+c'_j = c_1(\text{pr}_1^*\mathcal{O}_P(1))^{r - 1 - j} \cap [\Gamma_p^t] \in
+\text{Corr}^{-j}(P, X)
+$$
+对 $i, j \in \{0, \ldots, r - 1\}$，有
+$$
+c'_j \circ c_i =
+\text{pr}_{13, *}\left(
+c_1(\text{pr}_2^*\mathcal{O}_P(1))^{i + r - 1 - j} \cap
+(\text{pr}_{12}^*[\Gamma_p] \cdot \text{pr}_{23}^*[\Gamma_p^t])
+\right)
+$$
+周期 $\text{pr}_{12}^{-1}\Gamma_p$ 与
+$\text{pr}_{23}^{-1}\Gamma_p^t$ 横截相交，其交为
+$(p, 1, p) : P \to X \times P \times X$ 的像。注意，
+$(p, p) = \text{pr}_{13} \circ (p, 1, p) : P \to X \times X$ 的纤维维数为
+$r - 1$。由此立即可得，当 $i + r - 1 - j < r - 1$，亦即 $i < j$ 时，
+$c'_j \circ c_i = 0$。另一方面，由射影空间丛公式
+（《Chow 同调》引理 \ref{chow-lemma-chow-ring-projective-bundle}），周期
+$c_1(\mathcal{O}_P(1))^{r - 1} \cap [P]$ 在 $X$ 中映到 $[X]$。因此，当
+$i = j$ 时，上述推前给出对角线的类，从而对所有
+$i \in \{0, \ldots, r - 1\}$ 都有
+$$
+c'_i \circ c_i = 1 \in \text{Corr}^0(X, X)
+$$
+于是复合
+$$
+\bigoplus h(X)(-i)
+\xrightarrow{\bigoplus c_i}
+h(P)
+\xrightarrow{\bigoplus c'_j}
+\bigoplus h(X)(-j)
+$$
+的矩阵可逆（它是对角元均为 $1$ 的上三角矩阵）。由射影空间丛公式
+（引理 \ref{weil-lemma-projective-space-bundle-formula}）可知，反向复合也可逆，
+但直接证明这一点似乎稍难。
+
+\begin{lemma}
+\label{weil-lemma-diagonal-projective-bundle}
+令 $p : P \to X$ 如引理 \ref{weil-lemma-projective-space-bundle-formula}。
+$P$ 的对角线在 $\CH^*(P \times P)$ 中的类 $[\Delta_P]$ 可写为
+$$
+[\Delta_P] =
+\left(\sum\nolimits_{i = 0, \ldots, r - 1}
+{r - 1 \choose i} c_{r - 1 - i}(\text{pr}_1^*\mathcal{S}^\vee) \cap
+c_1(\text{pr}_2^*\mathcal{O}_P(1))^i\right)
+\cap
+(p \times p)^*[\Delta_X]
+$$
+其中 $\mathcal{S}$ 是典范满射
+$p^*\mathcal{E} \to \mathcal{O}_P(1)$ 的核。
+\end{lemma}
+
+\begin{proof}
+注意 $(p \times p)^*[\Delta_X] = [P \times_X P]$。由于
+$\Delta_P \subset P \times_X P \subset P \times P$，且与 Chern 类作帽积同固有推前
+交换（《Chow 同调》引理 \ref{chow-lemma-pushforward-cap-cj}），只需证明
+$\Delta_P \subset P \times_X P$ 在 $\CH^*(P \times_X P)$ 中的类等于
+$$
+\left(\sum\nolimits_{i = 0, \ldots, r - 1}
+{r - 1 \choose i} c_{r - 1 - i}(q_1^*\mathcal{S}^\vee) \cap
+c_1(q_2^*\mathcal{O}_P(1))^i\right)
+\cap
+[P \times_X P]
+$$
+其中 $q_i : P \times_X P \to P$（$i = 1, 2$）是投影。置
+$q = p \circ q_1 = p \circ q_2 : P \times_X P \to X$。考虑映射
+$$
+q_1^*\mathcal{S} \otimes q_2^*\mathcal{O}_P(-1) \to
+q^*\mathcal{E} \otimes q^*\mathcal{E}^\vee \to
+\mathcal{O}_{P \times_X P}
+$$
+其中最后一个箭头是评价映射
+$\mathcal{E} \otimes_{\mathcal{O}_X} \mathcal{E}^\vee \to \mathcal{O}_X$
+沿 $q$ 的拉回。该复合的源是秩为 $r - 1$ 的局部自由模；局部计算表明，此映射
+恰在 $\Delta_P$ 上消失。由《Chow 同调》引理
+\ref{chow-lemma-top-chern-class}，类 $[\Delta_P]$ 是对偶
+$$
+q_1^*\mathcal{S}^\vee \otimes q_2^*\mathcal{O}_P(1)
+$$
+的最高 Chern 类。所求结论由《Chow 同调》引理
+\ref{chow-lemma-chern-classes-E-tensor-L} 得到。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{经典 Weil 上同调理论}
+\label{weil-section-axioms-classical}
+
+\noindent
+本节定义所谓经典 Weil 上同调理论。这恰是
+\cite[Section 1.2]{Kleiman-cycles} 中所谓的 Weil 上同调理论。
+
+\medskip\noindent
+固定一个代数闭域 $k$（基域）。本节所谓{\it 簇}均指 $k$ 上簇；见《簇》第
+\ref{varieties-section-varieties} 节。再固定一个特征为 $0$ 的域 $F$（系数域）。
+Weil 上同调理论由数据 (D1)、(D2)、(D3) 给出，并须满足公理 (A)、(B)、(C)。
+
+\medskip\noindent
+数据如下：
+\begin{enumerate}
+\item[(D1)] 从光滑射影簇范畴到分次交换 $F$-代数范畴的反变函子 $H^*$。
+\item[(D2)] 对每个光滑射影簇 $X$，一个群同态
+$\gamma : \CH^i(X) \to H^{2i}(X)$。
+\item[(D3)] 对每个维数为 $d$ 的光滑射影簇 $X$，一个映射
+$\int_X : H^{2d}(X) \to F$。
+\end{enumerate}
+下面作若干说明，以解释这些数据的含义并引入有关术语。
+
+\medskip\noindent
+关于 (D1)。给定光滑射影簇 $X$，称 $H^*(X)$ 为 $X$ 的{\it 上同调}。给定光滑
+射影簇之间的态射 $f : X \to Y$，以
+$f^* : H^*(Y) \to H^*(X)$ 表示映射 $H^*(f)$，并称其为{\it 拉回映射}。
+
+\medskip\noindent
+关于 (D2)。映射 $\gamma$ 称为{\it 周期类映射}，并称
+$\gamma(\alpha)$ 为 $\alpha$ 的{\it 上同调类}。若
+$Z \subset Y \subset X$ 是闭子概形，其中 $Y$、$X$ 是光滑射影簇而 $Z$ 是整概形，
+则 $[Z]$ 既可能表示 $\CH^*(Y)$ 中周期 $[Z]$ 的类，也可能表示其在
+$\CH^*(X)$ 中的类。在这种情形下，记号 $\gamma([Z])$ 有歧义，须由上下文判断
+其含义。
+
+\medskip\noindent
+关于 (D3)。映射 $\int_X$ 有时称为{\it 迹映射}，也有时记作
+$\text{Tr}_X$。
+
+\medskip\noindent
+第一个公理通常称为{\it Poincar\'e 对偶}：
+\begin{enumerate}
+\item[(A)] 设 $X$ 是维数为 $d$ 的光滑射影簇。则
+\begin{enumerate}
+\item 对所有 $i$，有 $\dim_F H^i(X) < \infty$；
+\item 对所有 $i$，
+$H^i(X) \times H^{2d - i}(X) \rightarrow H^{2d}(X) \rightarrow F$
+是完美配对，其中最后的映射是迹映射 $\int_X$；
+\item 除非 $i \in [0, 2d]$，否则 $H^i(X) = 0$；
+\item $\int_X : H^{2d}(X) \to F$ 是同构。
+\end{enumerate}
+\end{enumerate}
+设 $f : X \to Y$ 是光滑射影簇之间的态射，且
+$\dim(X) = d$、$\dim(Y) = e$。利用 Poincar\'e 对偶，可把{\it 推前}
+$$
+f_* : H^{2d - i}(X) \longrightarrow H^{2e - i}(Y)
+$$
+定义为线性映射 $f^* : H^i(Y) \to H^i(X)$ 的对偶映射。用公式表述：对
+$a \in H^{2d - i}(X)$，元素 $f_*a \in H^{2e - i}(Y)$ 由下式刻画：
+$$
+\int_X f^*b \cup a = \int_Y b \cup f_*a
+$$
+其中 $b \in H^i(Y)$ 任意。
+
+\begin{lemma}
+\label{weil-lemma-pushforward-classical}
+假设给定满足 (A) 的 (D1)、(D3)。对光滑射影簇之间的态射
+$f : X \to Y$，有 $f_*(f^*b \cup a) = b \cup f_*a$。若
+$g : Y \to Z$ 是光滑射影簇之间的另一态射，则
+$g_* \circ f_* = (g \circ f)_*$。
+\end{lemma}
+
+\begin{proof}
+第一个等式成立，因为
+$$
+\int_Y c \cup b \cup f_*a =
+\int_X f^*c \cup f^*b \cup a =
+\int_Y c \cup f_*(f^*b \cup a).
+$$
+第二个等式成立，因为
+$$
+\int_Z c \cup (g \circ f)_*a = \int_X (g \circ f)^*c \cup a =
+\int_X f^* g^* c \cup a = \int_Y g^*c \cup f_*a = \int_Z c \cup g_*f_*a
+$$
+证明完毕。
+\end{proof}
+
+\noindent
+第二个公理通过{\it K\"unneth 公式}断言 $H^*$ 保持由积给出的幺半结构：
+\begin{enumerate}
+\item[(B)] 设 $X$、$Y$ 是光滑射影簇。映射
+$$
+H^*(X) \otimes_F H^*(Y) \to H^*(X \times Y),\quad
+a \otimes b \mapsto \text{pr}_1^*a \cup \text{pr}_2^*b
+$$
+是同构。
+\end{enumerate}
+第三个公理涉及周期类映射：
+\begin{enumerate}
+\item[(C)] 周期类映射满足下列规则：
+\begin{enumerate}
+\item 对光滑射影簇之间的态射 $f : X \to Y$ 及
+$\beta \in \CH^*(Y)$，有 $\gamma(f^!\beta) = f^*\gamma(\beta)$；
+\item 对光滑射影簇之间的态射 $f : X \to Y$ 及
+$\alpha \in \CH^*(X)$，有 $\gamma(f_*\alpha) = f_*\gamma(\alpha)$；
+\item 对任意光滑射影簇 $X$ 及 $\alpha, \beta \in \CH^*(X)$，有
+$\gamma(\alpha \cdot \beta) = \gamma(\alpha) \cup \gamma(\beta)$；
+\item $\int_{\Spec(k)} \gamma([\Spec(k)]) = 1$。
+\end{enumerate}
+\end{enumerate}
+
+\begin{remark}
+\label{weil-remark-replace-cup-product-classical}
+设 $X$ 是光滑射影簇。得到映射
+$$
+H^*(X) \otimes_F H^*(X) \longrightarrow H^*(X \times X)
+\xrightarrow{\Delta^*} H^*(X)
+$$
+其中第一个箭头如公理 (B)，而 $\Delta^*$ 是沿对角态射
+$\Delta : X \to X \times X$ 的拉回。由于拉回是代数同态且
+$\text{pr}_i \circ \Delta = \text{id}$，该复合即杯积。另一方面，给定
+$X$ 上周期 $\alpha, \beta$，交积由公式
+$$
+\alpha \cdot \beta =
+\Delta^!(\alpha \times \beta)
+$$
+定义。换言之，$\alpha \cdot \beta$ 是 $X \times X$ 上外积
+$\alpha \times \beta$ 沿对角线的拉回。还要注意，在
+$\CH^*(X \times X)$ 中有
+$\alpha \times \beta = \text{pr}_1^*\alpha \cdot \text{pr}_2^*\beta$
+（证明略）。因此，在给定公理 (C)(a) 的前提下，公理 (C)(c) 等价于
+$\gamma$ 与外积相容，即 $\gamma(\alpha \times \beta)$ 等于
+$\text{pr}_1^*\gamma(\alpha) \cup \text{pr}_2^*\gamma(\beta)$。
+\cite{Kleiman-cycles} 正是这样表述公理 (C)(c) 的。
+\end{remark}
+
+\begin{definition}
+\label{weil-definition-weil-cohomology-theory-classical}
+设 $k$ 是代数闭域，$F$ 是特征为 $0$ 的域。系数在 $F$ 中的 $k$ 上一个
+{\it 经典 Weil 上同调理论}，是满足 Poincar\'e 对偶、K\"unneth 公式及与周期类
+相容性的数据 (D1)、(D2)、(D3)；更确切地说，它们满足 (A)、(B)、(C)。
+\end{definition}
+
+\noindent
+下面作少量准备工作。
+
+\begin{lemma}
+\label{weil-lemma-degrees-cycles-classical}
+设 $H^*$ 是经典 Weil 上同调理论
+（定义 \ref{weil-definition-weil-cohomology-theory-classical}），$X$ 是维数为
+$d$ 的光滑射影簇。则图
+$$
+\xymatrix{
+\CH^d(X) \ar[r]_-\gamma \ar@{=}[d] &
+H^{2d}(X) \ar[d]^{\int_X} \\
+\CH_0(X) \ar[r]^\deg & F
+}
+$$
+交换，其中 $\deg : \CH_0(X) \to \mathbf{Z}$ 是《Chow 同调》第
+\ref{chow-section-degree-zero-cycles} 节讨论的零维周期的次数。
+\end{lemma}
+
+\begin{proof}
+由公理 (C)(d)，结论对 $\Spec(k)$ 成立。设
+$x : \Spec(k) \to X$ 是 $X$ 的闭点。由公理 (C)(b)，在
+$H^{2d}(X)$ 中有 $\gamma([x]) = x_*\gamma([\Spec(k)])$。于是由 $x_*$ 的定义，
+$\int_X \gamma([x]) = 1$。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-trace-product-classical}
+设 $H^*$ 是经典 Weil 上同调理论
+（定义 \ref{weil-definition-weil-cohomology-theory-classical}），$X$、$Y$ 是光滑
+射影簇。则 $\int_{X \times Y} = \int_X \otimes \int_Y$。
+\end{lemma}
+
+\begin{proof}
+设 $\dim(X) = d$、$\dim(Y) = e$。由公理 (B)，
+$H^{2d + 2e}(X \times Y) = H^{2d}(X) \otimes H^{2e}(Y)$；由公理 (A)(d)，
+此空间为 $1$ 维。由引理 \ref{weil-lemma-degrees-cycles-classical}，这个 $1$ 维
+向量空间由闭点 $(x, y)$ 的类 $\gamma([x \times y])$ 生成，并且
+$\int_{X \times Y} \gamma([x \times y]) = 1$。由公理 (C)(a)、(C)(c)，
+$\gamma([x \times y]) = \gamma([x]) \otimes \gamma([y])$；又有
+$\int_X \gamma([x]) = 1$ 和 $\int_Y \gamma([y]) = 1$，故结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-pr2star-classical}
+设 $H^*$ 是经典 Weil 上同调理论
+（定义 \ref{weil-definition-weil-cohomology-theory-classical}），$X$、$Y$ 是光滑
+射影簇。则 $\text{pr}_{2, *} : H^*(X \times Y) \to H^*(Y)$ 把
+$a \otimes b$ 送到 $(\int_X a) b$。
+\end{lemma}
+
+\begin{proof}
+这等价于引理 \ref{weil-lemma-trace-product-classical} 的结论。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-class-diagonal-classical}
+设 $H^*$ 是经典 Weil 上同调理论
+（定义 \ref{weil-definition-weil-cohomology-theory-classical}），$X$ 是维数为
+$d$ 的光滑射影簇。选取 $H^i(X)$ 在 $F$ 上的基
+$e_{i, j}, j = 1, \ldots, \beta_i$。利用 K\"unneth 公式写成
+$$
+\gamma([\Delta]) =
+\sum\nolimits_{i = 0, \ldots, 2d}
+\sum\nolimits_j e_{i, j} \otimes e'_{2d - i , j}
+\quad\text{于}\quad
+\bigoplus\nolimits_i H^i(X) \otimes_F H^{2d - i}(X)
+$$
+其中 $e'_{2d - i, j} \in H^{2d - i}(X)$。则
+$\int_X e_{i, j} \cup e'_{2d - i, j'} = (-1)^i\delta_{jj'}$。
+\end{lemma}
+
+\begin{proof}
+回忆，$\Delta^* : H^*(X \times X) \to H^*(X)$ 等于杯积映射
+$H^*(X) \otimes_F H^*(X) \to H^*(X)$；见注
+\ref{weil-remark-replace-cup-product-classical}。另一方面，由公理 (C)(b) 及
+$\gamma([X]) = 1$，有
+$\gamma([\Delta]) = \Delta_*\gamma([X]) = \Delta_*1$。事实上，
+$[X] \cdot [X] = [X]$，故由公理 (C)(c)，上同调类 $\gamma([X])$ 在
+$1$ 维 $F$-代数 $H^0(X)$ 中等于 $0$ 或 $1$；这里还使用了公理 (A)(d)、
+(A)(b)。但 $\gamma([X])$ 不可能为零：对 $X$ 的闭点 $x$，有
+$[X] \cdot [x] = [x]$，而引理 \ref{weil-lemma-degrees-cycles-classical} 给出
+$\gamma([x])$ 非零。因此，由 $\Delta_*$ 的定义，
+$$
+\int_{X \times X} \gamma([\Delta]) \cup a \otimes b =
+\int_{X \times X} \Delta_*1 \cup a \otimes b =
+\int_X a \cup b
+$$
+另一方面，由引理 \ref{weil-lemma-trace-product-classical}，
+$$
+\int_{X \times X} (\sum e_{i, j} \otimes e'_{2d -i , j}) \cup a \otimes b =
+\sum (\int_X a \cup e_{i, j})(\int_X e'_{2d - i, j} \cup b)
+$$
+注意，这里进行了两次顺序交换，故符号为 $1$。于是，若选取 $a$ 使得
+$\int_X a \cup e_{i, j} = 1$ 而其他所有配对均为零，则对所有 $b$ 有
+$\int_X e'_{2d - i, j} \cup b = \int_X a \cup b$；亦即
+$e'_{2d - i, j} = a$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-square-diagonal-classical}
+设 $H^*$ 是经典 Weil 上同调理论
+（定义 \ref{weil-definition-weil-cohomology-theory-classical}），$X$ 是光滑射影簇。
+则
+$$
+\sum\nolimits_{i = 0, \ldots, 2\dim(X)} (-1)^i\dim_F H^i(X) =
+\deg([\Delta] \cdot [\Delta]) = \deg(c_d(\mathcal{T}_X) \cap [X])
+$$
+\end{lemma}
+
+\begin{proof}
+先证右侧等式。由《Chow 同调》引理
+\ref{chow-lemma-intersect-regularly-embedded}，
+$[\Delta] \cdot [\Delta] = \Delta_*(\Delta^![\Delta])$。由于
+$\Delta_*$ 保持 $0$-维周期的次数，只需计算 $\Delta^![\Delta]$ 的次数。类
+$\Delta^![\Delta]$ 由 $[\Delta]$ 与
+$\Delta \subset X \times X$ 的法层之最高 Chern 类作帽积给出（《Chow 同调》
+引理 \ref{chow-lemma-gysin-fundamental}）。由于 $\Delta$ 的余法层是
+$\Omega_{X/k}$（《态射》引理
+\ref{morphisms-lemma-differentials-diagonal}），可知法层正是切层
+$\mathcal{T}_X = \SheafHom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X)$，
+如所需。
+
+\medskip\noindent
+再证左侧等式。由引理 \ref{weil-lemma-degrees-cycles-classical}，
+\begin{align*}
+\deg([\Delta] \cdot [\Delta])
+& =
+\int_{X \times X} \gamma([\Delta]) \cup \gamma([\Delta]) \\
+& =
+\int_{X \times X} \Delta_*1 \cup \gamma([\Delta]) \\
+& =
+\int_{X \times X} \Delta_*(\Delta^*\gamma([\Delta])) \\
+& =
+\int_X \Delta^*\gamma([\Delta])
+\end{align*}
+按引理 \ref{weil-lemma-class-diagonal-classical} 写
+$\gamma([\Delta]) = \sum  e_{i, j} \otimes e'_{2d - i , j}$。
+回忆 $\Delta^*$ 由杯积给出，得到
+$$
+\int_X \sum\nolimits_{i, j} e_{i, j} \cup e'_{2d - i, j} =
+\sum\nolimits_{i, j} \int_X e_{i, j} \cup e'_{2d - i, j} =
+\sum\nolimits_{i, j} (-1)^i = \sum (-1)^i\beta_i
+$$
+正是所求。
+\end{proof}
+
+
+
+
+\noindent
+现在如下把经典 Weil 上同调理论与动机联系起来。
+
+\begin{lemma}
+\label{weil-lemma-from-functor-to-weil-classical}
+设 $k$ 是代数闭域，$F$ 是特征为 $0$ 的域。考虑对称幺半范畴之间的
+$\mathbf{Q}$-线性函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+并假设 $G(\mathbf{1}(1))$ 仅在次数 $-2$ 非零。则得到数据
+(D1)、(D2)、(D3)，它们满足 (A)、(B)、(C) 的全部条件，唯有 (A)(c)、
+(A)(d) 可能除外。
+\end{lemma}
+
+\begin{proof}
+置 $H^*(X) = G(h(X))$，从而得到从光滑射影簇范畴到分次 $F$-向量空间范畴的
+反变函子。由假设，存在与拉回相容的典范同构
+$$
+H^*(X \times Y) = G(h(X \times Y)) = G(h(X) \otimes h(Y)) =
+G(h(X)) \otimes G(h(Y)) = H^*(X) \otimes H^*(Y)
+$$
+利用沿对角线 $\Delta : X \to X \times X$ 的拉回，得到与拉回相容的分次向量
+空间典范映射
+$$
+H^*(X) \otimes H^*(X) = H^*(X \times X) \to H^*(X)
+$$
+这在 $H^*(X)$ 上定义了函子性的分次 $F$-代数结构。由于 $\Delta$ 与交换约束
+$h(X) \otimes h(X) \to h(X) \otimes h(X)$（交换两个因子）交换，而 $G$ 是
+对称幺半范畴之间的函子（故与交换约束相容），再由《同调代数》例
+\ref{homology-example-graded-vector-spaces} 中的约定，可知 $H^*(X)$ 是分次交换
+代数。因此得到数据 (D1)。
+
+\medskip\noindent
+由于 $\mathbf{1}(1)$ 在动机范畴中可逆，$G(\mathbf{1}(1))$ 在分次
+$F$-向量空间范畴中也可逆。因此
+$\sum_i \dim_F G^i(\mathbf{1}(1)) = 1$。按假设，它仅在次数 $-2$ 非零，故可选取
+分次 $F$-向量空间的同构 $F[2] \to G(\mathbf{1}(1))$。这里及下文，
+$F[n]$ 表示在次数 $-n$ 为 $F$、其他次数为零的分次 $F$-向量空间。利用与
+张量积的相容性，对每个 $n \in \mathbf{Z}$ 得到与张量积相容的同构
+$F[2n] \to G(\mathbf{1}(n))$。
+
+\medskip\noindent
+设 $X$ 是光滑射影簇。由引理 \ref{weil-lemma-composition-correspondences}，
+$$
+\CH^r(X) \otimes \mathbf{Q} = \text{Corr}^r(\Spec(k), X) =
+\Hom(\mathbf{1}(-r), h(X))
+$$
+施用函子 $G$，得到
+$$
+\gamma :
+\CH^r(X) \otimes \mathbf{Q} \longrightarrow
+\Hom(G(\mathbf{1}(-r)), H^*(X)) = H^{2r}(X)
+$$
+这就是数据 (D2)。
+
+\medskip\noindent
+设 $X$ 是维数为 $d$ 的光滑射影簇。由引理
+\ref{weil-lemma-composition-correspondences}，
+$$
+\Mor(h(X)(d), \mathbf{1}) = \Mor((X, 1, d), (\Spec(k), 1, 0)) =
+\text{Corr}^{-d}(X, \Spec(k)) = \CH_d(X)
+$$
+因此，$\CH_d(X)$ 中周期 $[X]$ 的类定义态射
+$h(X)(d) \to \mathbf{1}$。施用 $G$，得到
+$$
+H^*(X) \otimes F[-2d] = G(h(X)(d)) \longrightarrow G(\mathbf{1}) = F
+$$
+此映射除次数 $0$ 外均为零；在该次数上得到
+$\int_X : H^{2d}(X) \to F$。这就是数据 (D3)。
+
+\medskip\noindent
+设 $X$ 是维数为 $d$ 的光滑射影簇。由引理 \ref{weil-lemma-dual}，
+$h(X)(d)$ 是 $h(X)$ 的左对偶。因此，在分次 $F$-向量空间范畴中，
+$G(h(X)(d)) = H^*(X) \otimes F[-2d]$ 是 $H^*(X)$ 的左对偶。由《同调代数》
+引理 \ref{homology-lemma-left-dual-graded-vector-spaces}，
+$\sum_i \dim_F H^i(X) < \infty$，且
+$\epsilon : h(X)(d) \otimes h(X) \to \mathbf{1}$ 给出非退化配对
+$H^{2d - i}(X) \otimes_F H^i(X) \to F$。在引理 \ref{weil-lemma-dual} 的证明中，
+已经看到在等同
+$$
+\Hom(h(X)(d) \otimes h(X), \mathbf{1}) =
+\text{Corr}^{-d}(X \times X, \Spec(k)) =
+\CH_d(X \times X)
+$$
+下，$\epsilon$ 由 $[\Delta]$ 给出。因此，$\epsilon$ 是
+$h(\Delta)(d) : h(X)(d) \otimes h(X) \to h(X)(d)$ 与
+$[X] : h(X)(d) \to \mathbf{1}$ 的复合。故上述配对由杯积后接
+$\int_X$ 给出。这证明了公理 (A) 的 (a)、(b)。
+
+\medskip\noindent
+公理 (B) 来自 $G$ 与张量结构相容的假设以及上面对杯积的构造。
+
+\medskip\noindent
+现在验证公理 (C)。构造 $\gamma$ 时，把 $X$ 上周期 $\alpha$ 解释为从
+$\Spec(k)$ 到 $X$ 的某次对应 $a$，再施用 $G$。若
+$f : Y \to X$ 是光滑射影簇之间的态射，则 $f^!\alpha$ 是 $\alpha$ 沿从
+$X$ 到 $Y$ 的对应 $[\Gamma_f]$ 的推前（注意方向）；见引理
+\ref{weil-lemma-functor-and-cycles}。因此，把 $f^!\alpha$ 视为从 $\Spec(k)$ 到
+$Y$ 的对应时，它等于 $a \circ [\Gamma_f]$；见引理
+\ref{weil-lemma-composition-correspondences}。由于 $G$ 是函子，可知 $\gamma$ 与
+拉回相容，即公理 (C)(a) 成立。
+
+\medskip\noindent
+设 $f : Y \to X$ 是光滑射影簇之间的态射，
+$\beta \in \CH^r(Y)$ 是 $Y$ 上周期。须对所有 $c \in H^*(X)$ 证明
+$$
+\int_Y \gamma(\beta) \cup f^*c = \int_X \gamma(f_*\beta) \cup c
+$$
+令 $a, a^t, \eta_X, \eta_Y, [X], [Y]$ 如引理
+\ref{weil-lemma-prep-dual}。把 $\beta$ 视为从 $\Spec(k)$ 到 $Y$ 的 $r$ 次对应，
+记为 $b$。由引理 \ref{weil-lemma-functor-and-cycles} 和
+\ref{weil-lemma-composition-correspondences}，把 $f_*\beta$ 视为从
+$\Spec(k)$ 到 $X$ 的对应时，它等于 $a^t \circ b$。若能证明复合
+$$
+h(X) = \mathbf{1} \otimes h(X)
+\xrightarrow{b \otimes 1}
+h(Y)(r) \otimes h(X)
+\xrightarrow{1 \otimes a}
+h(Y)(r) \otimes h(Y)
+\xrightarrow{\eta_Y}
+h(Y)(r)
+\xrightarrow{[Y]}
+\mathbf{1}(r - e)
+$$
+等于复合
+$$
+h(X) = \mathbf{1} \otimes h(X)
+\xrightarrow{a^t \circ b \otimes 1}
+h(X)(r + d - e) \otimes h(X)
+\xrightarrow{\eta_X}
+h(X)(r + d - e)
+\xrightarrow{[X]}
+\mathbf{1}(r - e)
+$$
+则上述等式成立。这立即来自引理 \ref{weil-lemma-prep-dual}。因此公理 (C)(b) 成立。
+
+\medskip\noindent
+为证明公理 (C)(c)，使用注
+\ref{weil-remark-replace-cup-product-classical} 中的讨论。因此，只需证明
+$\gamma$ 与外积相容。设 $X$、$Y$ 是光滑射影簇，$\alpha$、$\beta$ 分别是
+其上的周期。以 $a$、$b$ 表示从 $\Spec(k)$ 到 $X$、$Y$ 的相应对应。则
+$\alpha \times \beta$ 对应于从 $\Spec(k)$ 到
+$X \otimes Y = X \times Y$ 的对应 $a \otimes b$。所求相容性因此来自 $G$ 与
+两边张量结构的相容性。
+
+\medskip\noindent
+公理 (C)(d) 成立，因为周期 $[\Spec(k)]$ 对应于 $h(\Spec(k))$ 上恒等态射。
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-from-weil-to-functor-classical}
+设 $k$ 是代数闭域，$F$ 是特征为 $0$ 的域，$H^*$ 是经典 Weil 上同调理论。
+则可构造对称幺半范畴之间的 $\mathbf{Q}$-线性函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+使得 $H^*(X) = G(h(X))$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-characterize-motives}，只需在 $k$ 上光滑射影概形所成的范畴上
+构造函子 $G$，其中态射为 $0$ 次对应，并使 $G(c_2)$ 在
+$G(\mathbf{P}^1)$ 上的像是可逆分次 $F$-向量空间。由于每个光滑射影概形都典范地
+分解为光滑射影簇的不交并，只需在以光滑射影簇为对象、以 $0$ 次对应为态射的范畴
+上构造 $G$（略去若干细节）。
+
+\medskip\noindent
+给定光滑射影簇 $X$，置 $G(X) = H^*(X)$。
+
+\medskip\noindent
+给定光滑射影簇之间的对应 $c \in \text{Corr}^0(X, Y)$，考虑按下述法则定义的映射
+$G(c) : G(X) = H^*(X) \to G(Y) = H^*(Y)$：
+$$
+a \longmapsto
+G(c)(a) = \text{pr}_{2, *}(\gamma(c) \cup \text{pr}_1^*a)
+$$
+显然，$G(c)$ 关于 $c$ 加性，故为 $\mathbf{Q}$-线性。公理 (C)(a)、(C)(b)、
+(C)(c) 所给出的 $\gamma$ 与拉回、推前、交积的相容性表明：若
+$c' \in \text{Corr}^0(Y, Z)$，则
+$G(c' \circ c) = G(c') \circ G(c)$。具体地，对 $a \in H^*(X)$ 有
+\begin{align*}
+(G(c') \circ G(c))(a)
+& =
+\text{pr}^{23}_{3, *}(\gamma(c') \cup
+\text{pr}^{23, *}_2(\text{pr}^{12}_{2, *}(\gamma(c) \cup
+\text{pr}^{12, *}_1a))) \\
+& =
+\text{pr}^{23}_{3, *}(\gamma(c') \cup
+\text{pr}^{123}_{23, *}(\text{pr}^{123, *}_{12}(\gamma(c) \cup
+\text{pr}^{12, *}_1 a))) \\
+& =
+\text{pr}^{23}_{3, *}
+\text{pr}^{123}_{23, *}(
+\text{pr}^{123, *}_{23}\gamma(c') \cup
+\text{pr}^{123, *}_{12}\gamma(c) \cup
+\text{pr}^{123, *}_1 a) \\
+& =
+\text{pr}^{23}_{3, *}
+\text{pr}^{123}_{23, *}(
+\gamma(\text{pr}^{123, *}_{23}c') \cup
+\gamma(\text{pr}^{123, *}_{12}c) \cup
+\text{pr}^{123, *}_1 a) \\
+& =
+\text{pr}^{13}_{3, *}
+\text{pr}^{123}_{13, *}(
+\gamma(\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c) \cup
+\text{pr}^{123, *}_1 a) \\
+& =
+\text{pr}^{13}_{3, *}(
+\gamma(\text{pr}^{123}_{13, *}(
+\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c)) \cup
+\text{pr}^{13, *}_1 a) \\
+& =
+G(c' \circ c)(a)
+\end{align*}
+其中使用显然的记号。第一个等式来自定义。第二个等式成立，因为
+$\text{pr}^{23, *}_2 \circ \text{pr}^{12}_{2, *} =
+\text{pr}^{123}_{23, *} \circ \text{pr}^{123, *}_{12}$；这立即来自引理
+\ref{weil-lemma-pr2star-classical} 对沿投影推前的描述。第三个等式来自引理
+\ref{weil-lemma-pushforward-classical} 以及 $H^*$ 的函子性。第四个等式来自公理
+(C)(a)，以及平坦态射的 Gysin 映射与平坦拉回一致这一事实（《Chow 同调》引理
+\ref{chow-lemma-lci-gysin-flat}）。第五个等式使用公理 (C)(c) 及引理
+\ref{weil-lemma-pushforward-classical}，从而得到
+$\text{pr}^{23}_{3, *} \circ \text{pr}^{123}_{23, *} =
+\text{pr}^{13}_{3, *} \circ \text{pr}^{123}_{13, *}$。
+第六个等式使用引理 \ref{weil-lemma-pushforward-classical} 中的投影公式及公理
+(C)(b)，从而有 $
+\text{pr}^{123}_{13, *}
+\gamma(\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c) =
+\gamma(\text{pr}^{123}_{13, *}(
+\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c))$。
+最后一个等式即定义。
+
+\medskip\noindent
+为完成 $G$ 是函子的证明，还须说明它保持恒等态射。换言之，若
+$1 = [\Delta] \in \text{Corr}^0(X, X)$ 是对应范畴中的恒等态射
+（见引理 \ref{weil-lemma-category-correspondences} 及其证明），则须证明
+$G([\Delta]) = \text{id}$。这由引理
+\ref{weil-lemma-class-diagonal-classical} 对 $\gamma([\Delta])$ 的确定以及引理
+\ref{weil-lemma-pr2star-classical} 得到。至此完成在光滑射影簇及 $0$ 次对应上函子
+$G$ 的构造。
+
+\medskip\noindent
+由公理 (A)(c)、(A)(d)，$G(\Spec(k)) = H^*(\Spec(k))$ 作为
+$F$-代数典范同构于 $F$。K\"unneth 公理 (B) 表明该函子与张量积相容。因此，
+它是对称幺半范畴之间的函子。
+
+\medskip\noindent
+还须验证 $G(c_2)$ 在 $G(\mathbf{P}^1)$ 上的像是可逆分次 $F$-向量空间
+（特别地，此时尚不知道 $G$ 可延拓到 $M_k$）。由公理 (A)(d)，映射
+$\int_{\mathbf{P}^1} : H^2(\mathbf{P}^1) \to F$ 是同构。由公理 (A)(b)，
+$\dim_F H^0(\mathbf{P}^1) = 1$。由引理
+\ref{weil-lemma-square-diagonal-classical} 和公理 (A)(c)，
+$2 - \dim_F H^1(\mathbf{P}^1) = c_1(T_{\mathbf{P}^1}) = 2$，故
+$H^1(\mathbf{P}^1) = 0$。因此
+$$
+G(\mathbf{P}^1) = H^0(\mathbf{P}^1) \oplus H^2(\mathbf{P}^1)
+$$
+回忆，$1 = c_0 + c_2$ 是 $\text{Corr}^0(\mathbf{P}^1, \mathbf{P}^1)$
+中恒等元分解为两个正交幂等元之和；见例
+\ref{weil-example-decompose-P1}。由引理 \ref{weil-lemma-inverse-h2} 的证明，有
+$c_0 = a \circ b$，其中
+$a \in \text{Corr}^0(\Spec(k), \mathbf{P}^1)$、
+$b \in \text{Corr}^0(\mathbf{P}^1, \Spec(k))$，且在
+$\text{Corr}^0(\Spec(k), \Spec(k))$ 中有 $b \circ a = 1$。由于
+$F = G(\Spec(k))$，由函子性可知 $G(c_0)$ 是到直和项
+$H^0(\mathbf{P}^1) \subset G(\mathbf{P}^1)$ 的投影算子。因此，
+$G(c_2)$ 必为到 $H^2(\mathbf{P}^1)$ 的投影，证明完成。
+\end{proof}
+
+\begin{proposition}
+\label{weil-proposition-weil-cohomology-theory-classical}
+设 $k$ 是代数闭域，$F$ 是特征为 $0$ 的域。一个经典 Weil 上同调理论等价于
+下述数据：对称幺半范畴之间的 $\mathbf{Q}$-线性函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+连同分次 $F$-向量空间的同构
+$F[2] \to G(\mathbf{1}(1))$，并且对任意光滑射影簇 $X$ 还满足
+\begin{enumerate}
+\item $G(h(X))$ 集中在非负次数；
+\item $\dim_F G^0(h(X)) = 1$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+给定 $G$ 和 $F[2] \to G(\mathbf{1}(1))$，置
+$H^*(X) = G(h(X))$，得到数据 (D1)、(D2)、(D3)，它们满足 (A)、(B)、(C)
+的全部条件，唯有 (A)(c)、(A)(d) 可能除外；见引理
+\ref{weil-lemma-from-functor-to-weil-classical} 及其证明。注意，在已知公理
+(A)(a)、(A)(b) 的前提下，假设 (1)、(2) 蕴含公理 (A)(c)、(A)(d)。
+
+\medskip\noindent
+反之，给定 $H^*$，由引理
+\ref{weil-lemma-from-weil-to-functor-classical} 的构造得到函子 $G$。令
+$X = \mathbf{P}^1, c_0, c_2$ 如例 \ref{weil-example-decompose-P1}。引理
+\ref{weil-lemma-inverse-h2} 已构造动机同构
+$1(-1) \to (X, c_2, 0)$。在引理
+\ref{weil-lemma-from-weil-to-functor-classical} 的证明中已经看到
+$G(1(-1)) = G(X, c_2, 0) = H^2(\mathbf{P}^1)[-2]$。因此，公理 (A)(d)
+中的同构 $\int_{\mathbf{P}^1} : H^2(\mathbf{P}^1) \to F$ 给出同构
+$G(1(-1)) \to F[-2]$，从而确定同构
+$F[2] \to G(\mathbf{1}(1))$。最后，由
+$G(h(X)) = H^*(X)$，假设 (1)、(2) 来自公理 (A)。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{非闭域上的周期}
+\label{weil-section-cycles-nonclosed}
+
+\noindent
+下面给出若干引理，以用于研究非代数闭基域上的动机。
+
+\begin{lemma}
+\label{weil-lemma-generated-by-separable}
+设 $k$ 是域，$X$ 是 $k$ 上光滑射影概形。则 $\CH_0(X)$ 由剩余域在 $k$ 上
+可分的闭点之类生成。
+\end{lemma}
+
+\begin{proof}
+若 $k$ 的特征为 $0$ 或为完美域，结论立即成立。因此可设 $k$ 是特征
+$p > 0$ 的无限域。
+
+\medskip\noindent
+可设 $X$ 是维数为 $d$ 的不可约概形。于是
+$k' = H^0(X, \mathcal{O}_X)$ 是 $k$ 的有限可分域扩张，且 $X$ 在 $k'$ 上
+几何整。见《簇》引理 \ref{varieties-lemma-smooth-geometrically-normal}、
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections} 和
+\ref{varieties-lemma-baby-stein}。以 $k'$ 替换 $k$，从而可且确可假设
+$X$ 几何整。
+
+\medskip\noindent
+设 $x \in X$ 是闭点。为证明引理，将说明 $[x] \in \CH_0(X)$ 有理等价于
+若干剩余域在 $k$ 上可分的闭点之类的整数线性组合。选取一个丰沛可逆
+$\mathcal{O}_X$-模 $\mathcal{L}$，置
+$$
+V = \{s \in H^0(X, \mathcal{L}) \mid s(x) = 0 \}
+$$
+用 $\mathcal{L}$ 的某个幂替换它后，可假设：(a) $\mathcal{L}$ 非常丰沛；
+(b) $V$ 在 $X \setminus x$ 上生成 $\mathcal{L}$；(c) 态射
+$X \setminus x \to \mathbf{P}(V)$ 是浸入；(d) 映射
+$V \to \mathfrak m_x\mathcal{L}_x/\mathfrak m_x^2\mathcal{L}_x$
+满射。见《态射》引理
+\ref{morphisms-lemma-finite-type-ample-very-ample}、《簇》引理
+\ref{varieties-lemma-generate-over-complement} 以及《性质》命题
+\ref{properties-proposition-characterize-ample}。考虑集合
+$$
+V^d \supset U =
+\{
+(s_1, \ldots, s_d) \in V^d \mid s_1, \ldots, s_d
+\text{ generate }
+\mathfrak m_x\mathcal{L}_x/\mathfrak m_x^2\mathcal{L}_x
+\text{ 相对于 }\kappa(x)
+\}
+$$
+由于 $\mathcal{O}_{X, x}$ 是维数为 $d$ 的正则局部环，有
+$\dim_{\kappa(x)}(\mathfrak m_x/\mathfrak m_x^2) = d$；故 $U$ 是 $V^d$
+的非空（Zariski）开集。对 $(s_1, \ldots, s_d) \in U$，置
+$H_i = Z(s_i)$。由于 $s_1, \ldots, s_d$ 生成
+$\mathfrak m_x\mathcal{L}_x$，存在闭子概形 $Z \subset X$，使得按概形论意义有
+$$
+H_1 \cap \ldots \cap H_d = x \amalg Z
+$$
+由 Bertini 定理（取《簇》引理 \ref{varieties-lemma-bertini} 的形式），对一般的
+$s_1 \in V$，概形 $H_1 \cap (X \setminus x)$ 在 $k$ 上光滑且维数为
+$d - 1$。选定 $s_1$ 后，对一般的 $s_2 \in V$，概形
+$H_1 \cap H_2 \cap (X \setminus x)$ 在 $k$ 上光滑且维数为
+$d - 2$；依此继续。因此，对充分一般的
+$(s_1, \ldots, s_d) \in U$，概形 $Z$ 在 $\Spec(k)$ 上 \'etale。特别地，
+$H_1 \cap \ldots \cap H_d$ 的维数为 $0$，从而反复应用《Chow 同调》引理
+\ref{chow-lemma-intersect-properly}（细节略）可得，在 $\CH_0(X)$ 中
+$$
+[H_1] \cdot \ldots \cdot [H_d] = [x] + [Z]
+$$
+这说明 $[x] \sim_{rat} - [Z] + [Z']$，故证明完成；其中
+$Z' = H'_1 \cap \ldots \cap H'_d$ 是 $\mathcal{L}$ 的充分一般截面之消失轨迹的
+一般完全交，按同样论证它在 $k$ 上 \'etale。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-chow-limit}
+设 $K/k$ 是代数域扩张，$X$ 是 $k$ 上有限型概形。则
+$\CH_i(X_K) = \colim \CH_i(X_{k'})$，其中余极限取遍满足 $k'/k$ 有限的子扩张
+$K/k'/k$。
+\end{lemma}
+
+\begin{proof}
+这是《Chow 同调》引理 \ref{chow-lemma-chow-limit} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-divide-difference-points}
+设 $k$ 是域，$X$ 是 $k$ 上几何不可约光滑射影概形，
+$x, x' \in X$ 是 $k$-有理点，$n$ 是在 $k$ 中可逆的整数。则存在有限可分扩张
+$k'/k$，使 $[x] - [x']$ 到 $X_{k'}$ 的拉回在
+$\CH_0(X_{k'})$ 中可被 $n$ 整除。
+\end{lemma}
+
+\begin{proof}
+设 $k'$ 是 $k$ 的可分代数闭包。若能证明 $[x] - [x']$ 到 $X_{k'}$ 的拉回在
+$\CH_0(X_{k'})$ 中可被 $n$ 整除，则由引理 \ref{weil-lemma-chow-limit} 即得结论。
+因此，可且确可假设 $k$ 可分闭。
+
+\medskip\noindent
+假设 $\dim(X) > 1$。设 $\mathcal{L}$ 是 $X$ 上丰沛可逆层，置
+$$
+V = \{s \in H^0(X, \mathcal{L}) \mid s(x) = 0\text{ 且 }s(x') = 0 \}
+$$
+以 $\mathcal{L}$ 的某个幂替换它后，由《簇》引理
+\ref{varieties-lemma-generate-over-complement} 和
+\ref{varieties-lemma-bertini}，对一般的 $v \in V$，相应除子
+$H_v \subset X$ 在 $x$、$x'$ 之外光滑。为找到 $v$，使用 $k$ 为无限域这一事实
+（因其可分闭）。若选取一般的 $s$，则 $s$ 在
+$\mathfrak m_x\mathcal{L}_x/\mathfrak m_x^2\mathcal{L}_x$ 中的像非零，
+这蕴含 $H_v$ 在 $x$ 处光滑（细节略）；对 $x'$ 同理。因此 $H_v$ 光滑。
+将一切基变换到 $k$ 的代数闭包后应用《簇》引理
+\ref{varieties-lemma-connectedness-ample-divisor}，可知 $H_v$ 几何连通。
+只需把 $[x] - [x']$ 视为 $\CH_0(H_v)$ 的元素来证明结论。这样就归约到曲线情形。
+
+\medskip\noindent
+假设 $X$ 是曲线。则 $\mathcal{O}_X(x - x')$ 定义
+$J = \underline{\Pic}^0_{X/k}$ 的一个 $k$-有理点 $g$；见《曲线的 Picard 概形》
+引理 \ref{pic-lemma-picard-pieces}。回忆，$J$ 是 $k$ 上固有光滑簇，同时也是
+$k$ 上群概形（同一引文），故 $J$ 几何整（见《簇》引理
+\ref{varieties-lemma-geometrically-connected-criterion} 和
+\ref{varieties-lemma-smooth-geometrically-normal}）。换言之，$J$ 是阿贝尔簇；
+见《群胚》定义 \ref{groupoids-definition-abelian-variety}。由《群胚》命题
+\ref{groupoids-proposition-review-abelian-varieties}，
+$[n] : J \to J$ 有限 \'etale（这里使用了 $n$ 在 $k$ 中可逆）。由于 $k$ 可分闭，
+存在 $g' \in J(k)$ 使 $g = [n](g')$。若 $\mathcal{L}$ 是与 $g'$ 对应的
+$X$ 上次数为 $0$ 的可逆模，则
+$\mathcal{O}_X(x - x') \cong \mathcal{L}^{\otimes n}$，正是所求。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-kernel-to-closure}
+设 $K/k$ 是代数域扩张，$X$ 是 $k$ 上有限型概形。引理
+\ref{weil-lemma-chow-limit} 所构造映射
+$\CH_i(X) \to \CH_i(X_K)$ 的核是挠群。
+\end{lemma}
+
+\begin{proof}
+显然，只需对任意有限扩张 $k'/k$ 证明：沿
+$\pi : X_{k'} \to X$ 的平坦拉回
+$\CH_i(X) \to \CH_i(X_{k'})$ 之核为挠群。由《Chow 同调》引理
+\ref{chow-lemma-finite-flat}，
+$\pi_* \pi^* \alpha = [k' : k] \alpha$，故结论显然。
+\end{proof}
+
+\begin{lemma}[Voevodsky]
+\label{weil-lemma-smash-nilpotence}
+\begin{reference}
+\cite{nilpotence}
+\end{reference}
+设 $k$ 是域，$X$ 是 $k$ 上几何不可约光滑射影概形，
+$x, x' \in X$ 是 $k$-有理点。当 $n$ 充分大时，零维周期
+$$
+([x] - [x']) \times \ldots \times ([x] - [x']) \in
+\CH_0(X^n)
+$$
+的类是挠元。
+\end{lemma}
+
+\begin{proof}
+若能在基变换到 $k$ 的代数闭包后证明此结论，则由引理
+\ref{weil-lemma-kernel-to-closure}，拉回之核为挠群，故原域 $k$ 上的结论随之成立。
+因此可且确可假设 $k$ 代数闭。
+
+\medskip\noindent
+利用 Bertini 定理，可选取一条经过 $x$、$x'$ 的光滑曲线
+$C \subset X$；见引理 \ref{weil-lemma-divide-difference-points} 的证明。因此可假设
+$X$ 是曲线。
+
+\medskip\noindent
+设 $X$ 是曲线且 $k$ 代数闭。采用《曲线的 Picard 概形》第
+\ref{pic-section-hilbert-scheme-points}、\ref{pic-section-divisors} 节的记号，
+写 $S^n(X) = \underline{\Hilbfunctor}^n_{X/k}$。存在典范态射
+$$
+\pi : X^n \longrightarrow S^n(X)
+$$
+它把 $k$-有理点 $(x_1, \ldots, x_n)$ 送到与 $X$ 上除子
+$[x_1] + \ldots + [x_n]$ 对应的 $k$-有理点。对称群 $S_n$ 忠实地作用在
+$X^n$ 上。态射 $\pi$ 是 $S_n$-不变的，且 $\pi$ 的纤维在集合论意义下是
+$S_n$-轨道。最后，$\pi$ 是次数为 $n!$ 的有限平坦态射；见《曲线的 Picard 概形》
+引理 \ref{pic-lemma-universal-object}。
+
+\medskip\noindent
+设 $\alpha_n$ 是引理陈述中公式给出的 $X^n$ 上零维周期，并令
+$\mathcal{L} = \mathcal{O}_X(x - x')$。则
+$c_1(\mathcal{L}) \cap [X] = [x] - [x']$，故
+$$
+\alpha_n = c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_n) \cap [X^n]
+$$
+其中 $\mathcal{L}_i = \text{pr}_i^*\mathcal{L}$，而
+$\text{pr}_i : X^n \to X$ 是第 $i$ 个投影。由《除子》引理
+\ref{divisors-lemma-finite-locally-free-has-norm} 或
+\ref{divisors-lemma-norm-in-normal-case}，$\pi$ 有范数。置
+$\mathcal{N} = \text{Norm}_\pi(\mathcal{L}_1)$；见《除子》引理
+\ref{divisors-lemma-norm-invertible}。计算表明，在 $\Pic(X^n)$ 中有
+$$
+\pi^*\mathcal{N} =
+(\mathcal{L}_1 \otimes \ldots \otimes \mathcal{L}_n)^{\otimes (n - 1)!}
+$$
+细节略；提示：这是因为
+$\text{Norm}_\pi : \pi_*\mathcal{O}_{X^n} \to \mathcal{O}_{S^n(X)}$
+与自然映射 $\pi_*\mathcal{O}_{S^n(X)} \to \mathcal{O}_{X^n}$ 的复合，等于
+遍历所有 $\sigma \in S_n$ 后，$\sigma$ 在
+$\pi_*\mathcal{O}_{X^n}$ 上作用的乘积。考虑 $\CH_0(S^n(X))$ 中的
+$$
+\beta_n = c_1(\mathcal{N})^n \cap [S^n(X)]
+$$
+注意，$c_1(\mathcal{L}_i) \cap c_1(\mathcal{L}_i) = 0$，因为
+$\mathcal{L}_i$ 从曲线拉回；见《Chow 同调》引理
+\ref{chow-lemma-vanish-above-dimension}。于是
+\begin{align*}
+\pi^*\beta_n
+& =
+((n - 1)!)^n
+(\sum\nolimits_{i = 1, \ldots, n} c_1(\mathcal{L}_i))^n \cap [X^n] \\
+& =
+((n - 1)!)^n n^n 
+c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_n) \cap [X^n] \\
+& =
+(n!)^n \alpha_n
+\end{align*}
+因此只需证明 $\beta_n$ 是挠元。
+
+\medskip\noindent
+存在典范态射
+$$
+f : S^n(X) \longrightarrow \underline{\Picardfunctor}^n_{X/k}
+$$
+见《曲线的 Picard 概形》引理 \ref{pic-lemma-picard-pieces}。当
+$n \geq 2g - 1$ 时，该态射是射影空间丛（细节略；比较《曲线的 Picard 概形》
+引理 \ref{pic-lemma-picard-pieces} 的证明）。如下文所证，可逆层
+$\mathcal{N}$ 在 $f$ 的纤维上平凡。因此，由射影空间丛公式（《Chow 同调》引理
+\ref{chow-lemma-chow-ring-projective-bundle}），存在
+$\underline{\Picardfunctor}^n_{X/k}$ 上可逆模 $\mathcal{M}$，使
+$\mathcal{N} = f^*\mathcal{M}$。于是显然
+$$
+c_1(\mathcal{N})^n = f^*(c_1(\mathcal{M})^n)
+$$
+为零，因为 $n > g = \dim(\underline{\Picardfunctor}^n_{X/k})$，并可如前使用
+《Chow 同调》引理 \ref{chow-lemma-vanish-above-dimension}。
+
+\medskip\noindent
+还须证明 $\mathcal{N}$ 在 $f$ 的一个纤维 $F$ 上平凡。由于 $f$ 的纤维是
+射影空间，且 $\Pic(\mathbf{P}^m_k) = \mathbf{Z}$（《除子》引理
+\ref{divisors-lemma-Pic-projective-space-UFD}），可通过计算
+$\mathcal{N}$ 在纤维内一条直线上的次数来证明。这里改为证明
+$\mathcal{N}$ 代数等价于零。首先断言：存在 $k$ 上连通有限型概形 $T$、
+$T \times X$ 上可逆模 $\mathcal{L}'$ 以及 $k$-有理点
+$p, q \in T$，使得
+$\mathcal{M}_p \cong \mathcal{O}_X$ 且 $\mathcal{M}_q = \mathcal{L}$。
+事实上，由于 $\mathcal{L} = \mathcal{O}_X(x - x')$，可取
+$T = X$、$p = x'$、$q = x$ 以及
+$\mathcal{L}' = \mathcal{O}_{X \times X}(\Delta)
+\otimes \text{pr}_2^*\mathcal{O}_X(-x')$。
+对 $i = 1, \ldots, n$，令 $T \times X^n$ 上的 $\mathcal{L}'_i$ 为
+$\mathcal{L}'$ 沿
+$\text{id}_T \times \text{pr}_i : T \times X^n \to T \times X$
+的拉回。最后，令 $T \times S^n(X)$ 上
+$\mathcal{N}' = \text{Norm}_{\text{id}_T \times \pi}(\mathcal{L}'_1)$。
+按构造，有 $\mathcal{N}'_p = \mathcal{O}_{S^n(X)}$ 及
+$\mathcal{N}'_q = \mathcal{N}$。由此
+$$
+\mathcal{N}'|_{T \times F}
+$$
+是 $T \times F \cong T \times \mathbf{P}^m_k$ 上可逆模，其在 $p$ 上的纤维
+是平凡可逆模，在 $q$ 上的纤维为 $\mathcal{N}|_F$。平凡丛的欧拉示性数为
+$1$，且该欧拉示性数在族中局部常值（《概形的导出范畴》引理
+\ref{perfect-lemma-chi-locally-constant-geometric}），故对所有
+$s \in \mathbf{Z}$，有 $\chi(F, \mathcal{N}^{\otimes s}|_F) = 1$。
+这只有在 $\mathcal{N}|_F \cong \mathcal{O}_F$ 时才可能（见《概形上同调》引理
+\ref{coherent-lemma-cohomology-projective-space-over-ring}），证明完成。
+略去若干细节。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Weil 上同调理论（一）}
+\label{weil-section-axioms}
+
+\noindent
+本节给出第 \ref{weil-section-axioms-classical} 节在任意域上的对应形式。换言之，
+我们要确定怎样的数据与公理对应于从动机范畴到分次向量空间范畴的对称幺半函子
+$G$，并要求 $G(\mathbf{1}(1))$ 集中在次数 $-2$。在第 \ref{weil-section-old} 节中，
+我们将再加入一个附加条件，从而定义 Weil 上同调理论。
+
+\medskip\noindent
+固定一个域 $k$（基域）。
+固定一个特征为 $0$ 的域 $F$（系数域）。
+所需数据如下：
+\begin{enumerate}
+\item[(D0)] 一个 $1$ 维 $F$-向量空间 $F(1)$。
+\item[(D1)] 从 $k$ 上光滑射影概形范畴到分次交换 $F$-代数范畴的反变函子 $H^*$。
+\item[(D2)] 对每个 $k$ 上光滑射影概形 $X$，一个群同态
+$\gamma : \CH^i(X) \to H^{2i}(X)(i)$。
+\item[(D3)] 对每个 $k$ 上非空、等维且维数为 $d$ 的光滑射影概形 $X$，一个映射
+$\int_X : H^{2d}(X)(d) \to F$。
+\end{enumerate}
+下面作若干说明，以阐明这些数据的含义并引入相关术语。
+
+\medskip\noindent
+关于 (D0) 的说明。
+向量空间 $F(1)$ 在 $F$-向量空间范畴上给出 {\it Tate 扭转}。具体地，
+对 $n \in \mathbf{Z}$，若 $n \geq 0$，置 $F(n) = F(1)^{\otimes n}$；
+置 $F(-1) = \Hom_F(F(1), F)$；若 $n < 0$，则置
+$F(n) = F(-1)^{\otimes - n}$。请与《进一步的代数》第
+\ref{more-algebra-section-picard} 节比较。对 $F$-向量空间 $V$，定义其
+{\it 第 $n$ 个 Tate 扭转}为
+$$
+V(n) = V \otimes_F F(n)
+$$
+下文采用自明的记号。例如，给定 $F$-向量空间 $U$、$V$、$W$ 以及线性映射
+$U \otimes_F V \to W$，对 $n, m \in \mathbf{Z}$ 可得线性映射
+$U(n) \otimes_F V(m) \to W(n + m)$。
+
+\medskip\noindent
+关于 (D1) 的说明。
+给定 $k$ 上光滑射影概形 $X$，称 $H^*(X)$ 为 $X$ 的{\it 上同调}。
+给定 $k$ 上光滑射影概形之间的态射 $f : X \to Y$，将映射 $H^*(f)$ 记为
+$f^* : H^*(Y) \to H^*(X)$，并称之为{\it 拉回映射}。
+
+\medskip\noindent
+关于 (D2) 的说明。映射 $\gamma$ 称为{\it 周期类映射}，
+$\gamma(\alpha)$ 称为 $\alpha$ 的{\it 上同调类}。
+若 $Z \subset Y \subset X$ 是闭子概形，$Y$ 与 $X$ 均为 $k$ 上光滑射影概形，
+且 $Z$ 整，则 $[Z]$ 既可能表示周期 $[Z]$ 在 $\CH^*(Y)$ 中的类，
+也可能表示其在 $\CH^*(X)$ 中的类。此时记号 $\gamma([Z])$ 有歧义，
+其含义须由上下文判定。
+
+\medskip\noindent
+关于 (D3) 的说明。映射 $\int_X$ 有时称为{\it 迹映射}，
+也记作 $\text{Tr}_X$。
+
+\medskip\noindent
+第一条公理通常称为 {\it Poincar\'e 对偶}：
+\begin{enumerate}
+\item[(A)] 设 $X$ 是 $k$ 上非空、等维且维数为 $d$ 的光滑射影概形。则
+\begin{enumerate}
+\item 对所有 $i$，均有 $\dim_F H^i(X) < \infty$；
+\item 对所有 $i$，配对
+$H^i(X) \times H^{2d - i}(X)(d) \rightarrow
+H^{2d}(X)(d) \rightarrow F$
+是完美配对，其中最后一个映射是迹映射 $\int_X$。
+\end{enumerate}
+\end{enumerate}
+设 $f : X \to Y$ 是非空光滑射影概形之间的态射，其中 $X$ 等维且维数为 $d$，
+$Y$ 等维且维数为 $e$。利用 Poincar\'e 对偶，可把{\it 推前}
+$$
+f_* : H^{2d - i}(X)(d) \longrightarrow H^{2e - i}(Y)(e)
+$$
+定义为线性映射 $f^* : H^i(Y) \to H^i(X)$ 的对偶映射。用公式说，
+对 $a \in H^{2d - i}(X)(d)$，元素 $f_*a \in H^{2e - i}(Y)(e)$ 由下式刻画：
+$$
+\int_X f^*b \cup a = \int_Y b \cup f_*a
+$$
+其中 $b \in H^i(Y)$ 任意。
+
+\begin{lemma}
+\label{weil-lemma-pushforward}
+设给定满足 (A) 的数据 (D0)、(D1) 与 (D3)。若 $f : X \to Y$ 是
+$k$ 上非空等维光滑射影概形之间的态射，则
+$f_*(f^*b \cup a) = b \cup f_*a$。若 $g : Y \to Z$ 是第二个态射，且
+$Z$ 非空、光滑、射影并等维，则 $g_* \circ f_* = (g \circ f)_*$。
+\end{lemma}
+
+\begin{proof}
+第一个等式成立，因为
+$$
+\int_Y c \cup b \cup f_*a =
+\int_X f^*c \cup f^*b \cup a =
+\int_Y c \cup f_*(f^*b \cup a).
+$$
+第二个等式成立，因为
+$$
+\int_Z c \cup (g \circ f)_*a = \int_X (g \circ f)^*c \cup a =
+\int_X f^* g^* c \cup a = \int_Y g^*c \cup f_*a = \int_Z c \cup g_*f_*a
+$$
+证明完毕。
+\end{proof}
+
+\noindent
+第二条公理通过 {\it K\"unneth 公式}说明，$H^*$ 保持由乘积给出的幺半结构：
+\begin{enumerate}
+\item[(B)] 设 $X$ 与 $Y$ 是 $k$ 上光滑射影概形。
+\begin{enumerate}
+\item 映射
+$H^*(X) \otimes_F H^*(Y) \to H^*(X \times Y)$，
+$\alpha \otimes \beta \mapsto \text{pr}_1^*\alpha \cup \text{pr}_2^*\beta$
+是同构；
+\item 若 $X$ 与 $Y$ 非空且等维，则经由 (a) 有
+$\int_{X \times Y} = \int_X \otimes \int_Y$。
+\end{enumerate}
+\end{enumerate}
+利用公理 (B)(b)，可以计算沿投影的推前。
+
+\begin{lemma}
+\label{weil-lemma-pr2star}
+设给定满足 (A) 与 (B) 的数据 (D0)、(D1) 与 (D3)。
+设 $X$ 与 $Y$ 是 $k$ 上非空等维光滑射影概形，维数分别为 $d$ 与 $e$。则
+$\text{pr}_{2, *} : H^*(X \times Y)(d + e) \to H^*(Y)(e)$ 把
+$a \otimes b$ 送到 $(\int_X a) b$。
+\end{lemma}
+
+\begin{proof}
+这由公理 (B)(a) 与 (B)(b) 立即得到。
+\end{proof}
+
+\noindent
+第三条公理涉及周期类映射：
+\begin{enumerate}
+\item[(C)] 周期类映射满足下列规则：
+\begin{enumerate}
+\item 对 $k$ 上光滑射影概形之间的态射 $f : X \to Y$ 及
+$\beta \in \CH^*(Y)$，有 $\gamma(f^!\beta) = f^*\gamma(\beta)$；
+\item 对 $k$ 上非空等维光滑射影概形之间的态射 $f : X \to Y$ 及
+$\alpha \in \CH^*(X)$，有 $\gamma(f_*\alpha) = f_*\gamma(\alpha)$；
+\item 对任意 $k$ 上光滑射影概形 $X$ 及
+$\alpha, \beta \in \CH^*(X)$，有
+$\gamma(\alpha \cdot \beta) = \gamma(\alpha) \cup \gamma(\beta)$；以及
+\item $\int_{\Spec(k)} \gamma([\Spec(k)]) = 1$。
+\end{enumerate}
+\end{enumerate}
+下面说明公理 (C)(b)。设 $f : X \to Y$ 如 (C)(b)，且
+$\dim(X) = d$、$\dim(Y) = e$。Chow 群上的推前给出
+$$
+f_* : \CH^{d - i}(X) = \CH_i(X) \to \CH_i(Y) = \CH^{e - i}(Y)
+$$
+设 $\alpha \in \CH^{d - i}(X)$。一方面，
+$f_*\alpha \in \CH^{e - i}(Y)$，因而
+$\gamma(f_*\alpha) \in H^{2e - 2i}(Y)(e - i)$。
+另一方面，
+$\gamma(\alpha) \in H^{2d - 2i}(X)(d - i)$，因而同样有
+$f_*\gamma(\alpha) \in H^{2e - 2i}(Y)(e - i)$。
+所以条件 $\gamma(f_*\alpha) = f_*\gamma(\alpha)$ 确有意义。
+
+\begin{remark}
+\label{weil-remark-replace-cup-product}
+设给定满足 (A)、(B) 与 (C)(a) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+设 $X$ 是 $k$ 上光滑射影概形。得到映射
+$$
+H^*(X) \otimes_F H^*(X) \longrightarrow H^*(X \times X)
+\xrightarrow{\Delta^*} H^*(X)
+$$
+其中第一支箭头如公理 (B)，而 $\Delta^*$ 是沿对角态射
+$\Delta : X \to X \times X$ 的拉回。由于拉回是代数同态，且
+$\text{pr}_i \circ \Delta = \text{id}$，这一复合就是杯积。
+另一方面，给定 $X$ 上的周期 $\alpha, \beta$，相交积由公式
+$$
+\alpha \cdot \beta =
+\Delta^!(\alpha \times \beta)
+$$
+定义。换言之，$\alpha \cdot \beta$ 是把 $X \times X$ 上的外积
+$\alpha \times \beta$ 沿对角线拉回所得。还要注意，
+$\CH^*(X \times X)$ 中有
+$\alpha \times \beta = \text{pr}_1^*\alpha \cdot \text{pr}_2^*\beta$
+（证明略）。因此，在公理 (C)(a) 成立时，公理 (C)(c) 等价于
+$\gamma$ 与外积相容，即 $\gamma(\alpha \times \beta)$ 等于
+$\text{pr}_1^*\gamma(\alpha) \cup \text{pr}_2^*\gamma(\beta)$。
+\end{remark}
+
+\begin{lemma}
+\label{weil-lemma-base}
+设给定满足 (A)、(B) 与 (C) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+则当 $i \not = 0$ 时 $H^i(\Spec(k)) = 0$，且存在唯一的 $F$-代数同构
+$F = H^0(\Spec(k))$。此外，$\gamma([\Spec(k)]) = 1$ 且
+$\int_{\Spec(k)} 1 = 1$。
+\end{lemma}
+
+\begin{proof}
+由公理 (C)(d)，$H^0(\Spec(k))$ 非零，甚至 $\gamma([\Spec(k)])$ 也非零。
+由于 $\Spec(k) \times \Spec(k) = \Spec(k)$，公理 (B)(a) 给出
+$$
+H^*(\Spec(k)) \otimes_F H^*(\Spec(k)) = H^*(\Spec(k))
+$$
+比较维数可知，只有 $H^0$ 非零，且其维数为 $1$。于是存在唯一的
+$F$-代数同构 $F = H^0(\Spec(k))$，它把 $1 \in F$ 送到
+$1 \in H^0(\Spec(k))$。在 $\Spec(k)$ 的 Chow 环中，
+$[\Spec(k)] \cdot [\Spec(k)] = [\Spec(k)]$，故由公理 (C)(c) 得
+$\gamma([\Spec(k)) \cup \gamma([\Spec(k)]) = \gamma([\Spec(k)])$。
+既已知道 $\gamma([\Spec(k)])$ 非零，它就必等于 $1$。最后，公理 (C)(d) 给出
+$\int_{\Spec(k)} \gamma([\Spec(k)]) = 1$，故
+$\int_{\Spec(k)} 1 = 1$。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-unit}
+设给定满足 (A)、(B) 与 (C) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+设 $X$ 是 $k$ 上光滑射影概形。若 $X = \emptyset$，则 $H^*(X) = 0$。
+若 $X$ 非空，则 $\gamma([X]) = 1$，且在 $H^0(X)$ 中 $1 \not = 0$。
+\end{lemma}
+
+\begin{proof}
+先设 $X$ 非空。注意，$[X]$ 是 $[\Spec(k)]$ 沿结构态射
+$p : X \to \Spec(k)$ 的拉回。因此，由公理 (C)(a) 与引理
+\ref{weil-lemma-base}，有 $\gamma([X]) = 1$。设 $X' \subset X$ 是一个不可约分支。
+由函子性，只需证明 $H^0(X')$ 中 $1 \not = 0$。所以可且确可假设
+$X$ 不可约；特别地，它非空且等维，设其维数为 $d$。
+要证明 $1 \not = 0$，只需证明 $H^*(X)$ 非零。
+
+\medskip\noindent
+取闭点 $x \in X$，使其剩余域 $k'$ 在 $k$ 上可分；见《簇》引理
+\ref{varieties-lemma-smooth-separable-closed-points-dense}。
+设 $i : \Spec(k') \to X$ 为包含态射，并记结构态射为
+$p : X \to \Spec(k)$。注意，在 $\CH_0(\Spec(k))$ 中有
+$p_*i_*[\Spec(k')] = [k' : k][\Spec(k)]$。两次使用公理 (C)(b)，再用引理
+\ref{weil-lemma-base}，得到
+$$
+p_*i_*\gamma([\Spec(k')]) = \gamma([k' : k][\Spec(k)]) = [k' : k]
+\in F = H^0(\Spec(k))
+$$
+非零。因此 $i_*\gamma([\Spec(k)]) \in H^{2d}(X)(d)$ 非零
+（因为它经 $p_*$ 映到非零元素）。这就证明了 $X$ 非空的情形。
+
+\medskip\noindent
+最后考虑空概形。公理 (B)(a) 给出
+$H^*(\emptyset) \otimes H^*(\emptyset) = H^*(\emptyset)$，从而
+$H^*(\emptyset)$ 要么为零，要么在次数 $0$ 上为 $1$ 维。再次使用公理 (B)(a)，
+可知对所有 $k$ 上光滑射影概形 $X$，均有
+$H^*(\emptyset) \otimes H^*(X) = H^*(\emptyset)$。由公理 (A)(b) 及上面已经证明的
+$H^0(X)$ 非零可知，当 $\dim(X) > 0$ 时，$H^*(X)$ 至少在两个次数上非零。
+这迫使 $H^*(\emptyset)$ 为零。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-push-unit}
+设给定满足 (A)、(B) 与 (C) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+设 $i : X \to Y$ 是 $k$ 上非空等维光滑射影概形之间的闭浸入。则在
+$H^{2c}(Y)(c)$ 中有 $\gamma([X]) = i_*1$，其中
+$c = \dim(Y) - \dim(X)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-unit}，在 $H^0(X)$ 中有 $1 = \gamma([X])$；
+再应用公理 (C)(b) 即得。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-class-diagonal}
+设给定满足 (A)、(B) 与 (C) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+设 $X$ 是 $k$ 上非空等维光滑射影概形，维数为 $d$。选取
+$H^i(X)$ 在 $F$ 上的一组基 $e_{i, j}, j = 1, \ldots, \beta_i$。
+利用 K\"unneth 公式写成
+$$
+\gamma([\Delta]) =
+\sum\nolimits_i
+\sum\nolimits_j e_{i, j} \otimes e'_{2d - i , j}
+\quad\text{于}\quad
+\bigoplus\nolimits_i H^i(X) \otimes_F H^{2d - i}(X)(d)
+$$
+其中 $e'_{2d - i, j} \in H^{2d - i}(X)(d)$。则
+$\int_X e_{i, j} \cup e'_{2d - i, j'} = (-1)^i\delta_{jj'}$。
+\end{lemma}
+
+\begin{proof}
+回忆，$\Delta^* : H^*(X \times X) \to H^*(X)$ 等于杯积映射
+$H^*(X) \otimes_F H^*(X) \to H^*(X)$；见注记
+\ref{weil-remark-replace-cup-product}。另一方面，由引理 \ref{weil-lemma-push-unit}，
+$\gamma([\Delta]) = \Delta_*1$，所以引理 \ref{weil-lemma-pushforward} 给出
+$$
+\int_{X \times X} \gamma([\Delta]) \cup a \otimes b =
+\int_{X \times X} \Delta_*1 \cup a \otimes b =
+\int_X a \cup b
+$$
+另一方面，由公理 (B)(b)，
+$$
+\int_{X \times X} (\sum e_{i, j} \otimes e'_{2d -i , j}) \cup a \otimes b =
+\sum (\int_X a \cup e_{i, j})(\int_X e'_{2d - i, j} \cup b)
+$$
+这里交换了两次次序，故每一项的符号均为 $1$。于是，若选取 $a$，使
+$\int_X a \cup e_{i, j} = 1$，而所有其他配对均为零，则对所有 $b$ 有
+$\int_X e'_{2d - i, j} \cup b = \int_X a \cup b$；也就是说，
+$e'_{2d - i, j} = a$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-cohomology-P1}
+设给定满足 (A)、(B) 与 (C) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+则 $H^*(\mathbf{P}^1_k)$ 在次数 $0$ 与 $2$ 上均为 $1$ 维，在其他次数上为零。
+\end{lemma}
+
+\begin{proof}
+设 $x \in \mathbf{P}^1_k$ 是一个 $k$-有理点。注意，在
+$\mathbf{P}^1_k \times \mathbf{P}^1_k$ 上作为除子有
+$\Delta = \text{pr}_1^*x + \text{pr}_2^*x$。利用公理 (C)(a) 与
+$\gamma$ 的可加性，得到
+$$
+\gamma([\Delta]) =
+\text{pr}_1^*\gamma([x]) +
+\text{pr}_2^*\gamma([x]) =
+\gamma([x]) \otimes 1 + 1 \otimes \gamma([x])
+$$
+其位于
+$H^*(\mathbf{P}^1_k \times \mathbf{P}^1_k) =
+H^*(\mathbf{P}^1_k) \otimes_F H^*(\mathbf{P}^1_k)$ 中。
+然而，由引理 \ref{weil-lemma-class-diagonal}，$\gamma([\Delta])$ 不可能写成少于
+$\sum \beta_i$ 个纯张量之和，其中
+$\beta_i = \dim_F H^i(\mathbf{P}^1_k)$。因此
+$\sum \beta_i \leq 2$。由引理 \ref{weil-lemma-unit}，有
+$H^0(\mathbf{P}^1_k) \not = 0$。由 Poincar\'e 对偶，更准确地说由公理 (A)(b)，
+$\beta_0 = \beta_2$。故结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-weil-additive}
+设给定满足 (A)、(B) 与 (C) 的数据 (D0)、(D1)、(D2) 与 (D3)。
+若 $X$ 与 $Y$ 是 $k$ 上光滑射影概形，则
+$H^*(X \amalg Y) \to H^*(X) \times H^*(Y)$，
+$a \mapsto (i^*a, j^*a)$ 是同构，其中 $i$、$j$ 是余积注入。
+\end{lemma}
+
+\begin{proof}
+若 $X$ 或 $Y$ 为空，则由引理 \ref{weil-lemma-unit} 的
+$H^*(\emptyset) = 0$，结论成立。因此可假设 $X$ 与 $Y$ 均非空。
+
+\medskip\noindent
+先证该映射为单射。注意，可以找到光滑射影概形的态射
+$X' \to X$ 与 $Y' \to Y$，使 $X'$ 与 $Y'$ 等维且维数相同，并且
+$X' \to X$ 与 $Y' \to Y$ 各有一个截面。事实上，把
+$X = \coprod X_d$ 与 $Y = \coprod Y_e$ 分解为等维数 $d$ 与 $e$ 的开闭子概形，
+再对某个充分大的 $n$ 取
+$X' = \coprod X_d \times \mathbf{P}^{n - d}$ 和
+$Y' = \coprod Y_e \times \mathbf{P}^{n - e}$。于是，沿
+$X' \amalg Y' \to X \amalg Y$ 的拉回为单射（因为该态射有截面），
+故只需对 $X', Y'$ 证明单射性；下一段正是如此处理。
+
+\medskip\noindent
+现在设 $X$ 与 $Y$ 等维且维数同为 $d$，证明该映射为单射。
+在 $\CH^0(X \amalg Y)$ 中有 $[X \amalg Y] = [X] + [Y]$，且
+$[X]$ 与 $[Y]$ 是 $\CH^0(X \amalg Y)$ 中的正交幂等元。因此
+$$
+1 = \gamma([X \amalg Y] = \gamma([X]) + \gamma([Y]) = i_*1 + j_*1
+$$
+是分解为正交幂等元。这里使用了引理 \ref{weil-lemma-unit}、
+\ref{weil-lemma-push-unit} 以及公理 (C)(c)。由投影公式（引理
+\ref{weil-lemma-pushforward}），
+$$
+a = a \cup 1 = a \cup i_*1 + a \cup j_*1 =
+i_*(i^*a) + j_*(j^*a)
+$$
+所以该映射为单射。
+
+\medskip\noindent
+下面证明满射性。把 $e = \gamma([X])$ 与 $f = \gamma([Y])$ 视为
+$H^0(X \amalg Y)$ 中的元素。由公理 (C)(a)，有
+$i^*e = 1$、$i^*f = 0$、$j^*e = 0$、$j^*f = 1$。
+所以，若 $i^* : H^*(X \amalg Y) \to  H^*(X)$ 与
+$j^* : H^*(X \amalg Y) \to H^*(Y)$ 均为满射，则
+$(i^*, j^*)$ 也是满射。事实上，对 $a, a' \in H^*(X \amalg Y)$ 有
+$$
+(i^*a, j^*a') = (i^*(a \cup e + a' \cup f), j^*(a \cup e + a' \cup f))
+$$
+由对称性，只需证明 $i^* : H^*(X \amalg Y) \to  H^*(X)$ 为满射。
+若存在态射 $Y \to X$，则存在态射 $g : X \amalg Y \to X$，满足
+$g \circ i = \text{id}_X$，从而结论成立。最后注意，要证明
+$i^*$ 为满射，只需在张量上一个非零分次 $F$-向量空间后证明。于是，由公理 (B)(b)
+以及上同调的非零性（引理 \ref{weil-lemma-unit}），只需对某个有限可分扩张
+$k'/k$，把 $X$、$Y$ 分别换为 $X \times \Spec(k')$、
+$Y \times \Spec(k')$ 后证明 $i^*$ 为满射。选取 $k'$，使存在闭点
+$x \in X$ 满足 $\kappa(x) = k'$；这由《簇》引理
+\ref{varieties-lemma-smooth-separable-closed-points-dense} 可行。此时存在态射
+$Y \times \Spec(k') \to X \times \Spec(k')$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-from-functor-to-weil}
+设 $k$ 是域，$F$ 是特征为 $0$ 的域。设给定对称幺半范畴之间的
+$\mathbf{Q}$-线性函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+并且 $G(\mathbf{1}(1))$ 仅在次数 $-2$ 上非零。则可得到满足上述
+(A)、(B)、(C) 全部公理的数据 (D0)、(D1)、(D2)、(D3)。
+\end{lemma}
+
+\begin{proof}
+本证明与引理 \ref{weil-lemma-from-functor-to-weil-classical} 的证明相同；
+我们建议读者改读该引理的证明。
+
+\medskip\noindent
+置 $H^*(X) = G(h(X))$，便得到从 $k$ 上光滑射影概形范畴到分次
+$F$-向量空间范畴的反变函子。由假设，存在与拉回相容的典范同构
+$$
+H^*(X \times Y) = G(h(X \times Y)) = G(h(X) \otimes h(Y)) =
+G(h(X)) \otimes G(h(Y)) = H^*(X) \otimes H^*(Y)
+$$
+沿对角态射 $\Delta : X \to X \times X$ 拉回，得到与拉回相容的分次向量空间典范映射
+$$
+H^*(X) \otimes H^*(X) = H^*(X \times X) \to H^*(X)
+$$
+这在 $H^*(X)$ 上定义了函子性的分次 $F$-代数结构。由于 $\Delta$ 与交换约束
+$h(X) \otimes h(X) \to h(X) \otimes h(X)$（交换两个因子）相容，
+$G$ 又是对称幺半范畴之间的函子（因而与交换约束相容），结合《同调》例
+\ref{homology-example-graded-vector-spaces} 中的约定，可知 $H^*(X)$ 是分次交换代数。
+由此得到数据 (D1)。
+
+\medskip\noindent
+由于 $\mathbf{1}(1)$ 在动机范畴中可逆，$G(\mathbf{1}(1))$ 在分次
+$F$-向量空间范畴中也可逆。因此
+$\sum_i \dim_F G^i(\mathbf{1}(1)) = 1$。根据假设，它仅在次数 $-2$ 上非零。
+数据 (D0) 取为向量空间 $F(1) = G^{-2}(\mathbf{1}(1))$。
+由于 $G$ 是对称幺半函子，对所有 $n \in \mathbf{Z}$ 有
+$F(n) = G^{-2n}(\mathbf{1}(n))$。于是
+$$
+H^{2r}(X)(r) = G^{2r}(h(X)) \otimes G^{-2r}(\mathbf{1}(r)) =
+G^0(h(X)(r))
+$$
+这个公式下文将反复使用。
+
+\medskip\noindent
+设 $X$ 是 $k$ 上光滑射影概形。由引理
+\ref{weil-lemma-composition-correspondences}，
+$$
+\CH^r(X) \otimes \mathbf{Q} = \text{Corr}^r(\Spec(k), X) =
+\Hom(\mathbf{1}(-r), h(X)) = \Hom(\mathbf{1}, h(X)(r))
+$$
+应用函子 $G$，得到到 $\Hom(G(\mathbf{1}), G(h(X)(r)))$ 的映射。
+取 $G^0(\mathbf{1}) = F$ 中 $1$ 在
+$G^0(h(X)(r)) = H^{2r}(X)(r)$ 中的像，便得到
+$$
+\gamma :
+\CH^r(X) \otimes \mathbf{Q} \longrightarrow H^{2r}(X)(r)
+$$
+这就是数据 (D2)。
+
+\medskip\noindent
+设 $X$ 是 $k$ 上非空等维光滑射影概形，维数为 $d$。由引理
+\ref{weil-lemma-composition-correspondences}，
+$$
+\Mor(h(X)(d), \mathbf{1}) = \Mor((X, 1, d), (\Spec(k), 1, 0)) =
+\text{Corr}^{-d}(X, \Spec(k)) = \CH_d(X)
+$$
+因此，$\CH_d(X)$ 中周期 $[X]$ 的类定义态射
+$h(X)(d) \to \mathbf{1}$。应用 $G$ 并取次数 $0$ 部分，得到
+$$
+H^{2d}(X)(d) = G^0(h(X)(d)) \longrightarrow G^0(\mathbf{1}) = F
+$$
+此映射 $\int_X : H^{2d}(X)(d) \to F$ 就是数据 (D3)。
+
+\medskip\noindent
+设 $X$ 是 $k$ 上非空等维光滑射影概形，维数为 $d$。由引理
+\ref{weil-lemma-dual}，$h(X)(d)$ 是 $h(X)$ 的左对偶。因此
+$G(h(X)(d)) = H^*(X) \otimes_F F(d)[2d]$ 是分次 $F$-向量空间范畴中
+$H^*(X)$ 的左对偶。这里 $[n]$ 表示分次向量空间上的平移函子。
+由《同调》引理 \ref{homology-lemma-left-dual-graded-vector-spaces}，
+$\sum_i \dim_F H^i(X) < \infty$，并且
+$\epsilon : h(X)(d) \otimes h(X) \to \mathbf{1}$ 给出非退化配对
+$H^{2d - i}(X)(d) \otimes_F H^i(X) \to F$。
+在引理 \ref{weil-lemma-dual} 的证明中已经看到，经由同一
+$$
+\Hom(h(X)(d) \otimes h(X), \mathbf{1}) =
+\text{Corr}^{-d}(X \times X, \Spec(k)) =
+\CH_d(X \times X)
+$$
+$\epsilon$ 由 $[\Delta]$ 给出。因此，$\epsilon$ 是
+$[X] : h(X)(d) \to \mathbf{1}$ 与
+$h(\Delta)(d) : h(X)(d) \otimes h(X) \to h(X)(d)$ 的复合。
+所以，上述配对就是先作杯积，再应用 $\int_X$。这证明了公理 (A)。
+
+\medskip\noindent
+公理 (B) 由 $G$ 与张量结构相容的假设以及上面对杯积的构造立即得到。
+
+\medskip\noindent
+公理 (C)。在我们对 $\gamma$ 的构造中，把 $X$ 上的周期 $\alpha$ 视为从
+$\Spec(k)$ 到 $X$ 的某一次数的对应 $a$，然后应用 $G$。若
+$f : Y \to X$ 是 $k$ 上非空等维光滑射影概形之间的态射，则
+$f^!\alpha$ 是由从 $X$ 到 $Y$ 的对应 $[\Gamma_f]$ 对 $\alpha$ 所作的推前（！）；
+见引理 \ref{weil-lemma-functor-and-cycles}。因此，把 $f^!\alpha$ 视为从
+$\Spec(k)$ 到 $Y$ 的对应时，它等于 $a \circ [\Gamma_f]$；见引理
+\ref{weil-lemma-composition-correspondences}。由于 $G$ 是函子，可知 $\gamma$ 与拉回相容，
+即公理 (C)(a) 成立。
+
+\medskip\noindent
+设 $f : Y \to X$ 是 $k$ 上非空等维光滑射影概形之间的态射，并设
+$\beta \in \CH^r(Y)$ 是 $Y$ 上的周期。须证明对所有 $c \in H^*(X)$ 均有
+$$
+\int_Y \gamma(\beta) \cup f^*c = \int_X \gamma(f_*\beta) \cup c
+$$
+令 $a, a^t, \eta_X, \eta_Y, [X], [Y]$ 如引理 \ref{weil-lemma-prep-dual}。
+把 $b$ 取为视作从 $\Spec(k)$ 到 $Y$ 的次数为 $r$ 的对应的 $\beta$。
+由引理 \ref{weil-lemma-functor-and-cycles} 与
+\ref{weil-lemma-composition-correspondences}，把 $f_*\beta$ 视为从
+$\Spec(k)$ 到 $X$ 的对应时，它等于 $a^t \circ b$。若能证明
+$$
+h(X) = \mathbf{1} \otimes h(X)
+\xrightarrow{b \otimes 1}
+h(Y)(r) \otimes h(X)
+\xrightarrow{1 \otimes a}
+h(Y)(r) \otimes h(Y)
+\xrightarrow{\eta_Y}
+h(Y)(r)
+\xrightarrow{[Y]}
+\mathbf{1}(r - e)
+$$
+等于
+$$
+h(X) = \mathbf{1} \otimes h(X)
+\xrightarrow{a^t \circ b \otimes 1}
+h(X)(r + d - e) \otimes h(X)
+\xrightarrow{\eta_X}
+h(X)(r + d - e)
+\xrightarrow{[X]}
+\mathbf{1}(r - e)
+$$
+则上面的等式成立。这立即由引理 \ref{weil-lemma-prep-dual} 得到。
+因此公理 (C)(b) 成立。
+
+\medskip\noindent
+为证明公理 (C)(c)，使用注记 \ref{weil-remark-replace-cup-product-classical} 中的讨论。
+所以只需证明 $\gamma$ 与外积相容。设 $X$、$Y$ 是 $k$ 上非空光滑射影概形，
+$\alpha$、$\beta$ 分别是其上的周期。以 $a$、$b$ 表示相应的从
+$\Spec(k)$ 到 $X$、$Y$ 的对应。则 $\alpha \times \beta$ 对应于从
+$\Spec(k)$ 到 $X \otimes Y = X \times Y$ 的对应 $a \otimes b$。
+所需结论遂由 $G$ 与两侧的张量结构相容得到。
+
+\medskip\noindent
+公理 (C)(d) 成立，是因为周期 $[\Spec(k)]$ 对应于 $h(\Spec(k))$ 上的恒等态射。
+引理证毕。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-from-weil-to-functor}
+设 $k$ 是域，$F$ 是特征为 $0$ 的域。给定满足 (A)、(B)、(C) 的数据
+(D0)、(D1)、(D2)、(D3)，可以构造对称幺半范畴之间的 $\mathbf{Q}$-线性函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+使得 $H^*(X) = G(h(X))$。
+\end{lemma}
+
+\begin{proof}
+本引理的证明与引理 \ref{weil-lemma-from-weil-to-functor-classical} 的证明相同；
+我们建议读者改读该引理的证明。
+
+\medskip\noindent
+由引理 \ref{weil-lemma-characterize-motives}，只需在以 $k$ 上光滑射影概形为对象、
+以次数为 $0$ 的对应为态射的范畴上构造函子 $G$，并使 $G(c_2)$ 在
+$G(\mathbf{P}^1_k)$ 上的像为可逆分次 $F$-向量空间。
+
+\medskip\noindent
+设 $X$ 是 $k$ 上光滑射影概形。存在典范分解
+$$
+X = \coprod\nolimits_{0 \leq d \le \dim(X)} X_d
+$$
+为开闭子概形，其中 $X_d$ 等维且维数为 $d$。相应地，由引理
+\ref{weil-lemma-weil-additive} 有
+$$
+H^*(X) \longrightarrow \prod\nolimits_{0 \leq d \le \dim(X)} H^*(X_d)
+$$
+若 $Y$ 是另一个 $k$ 上光滑射影概形，并同样分解
+$Y = \coprod Y_e$，则
+$$
+\text{Corr}^0(X, Y) = \bigoplus \text{Corr}^0(X_d, Y_e)
+$$
+在对应范畴中还有 $X \otimes Y = \coprod X_d \otimes Y_e$。
+由这些观察可知，只需在以 $k$ 上等维光滑射影概形为对象、
+以次数为 $0$ 的对应为态射的范畴上构造 $G$。（略去若干细节。）
+
+\medskip\noindent
+给定 $k$ 上等维光滑射影概形 $X$，置 $G(X) = H^*(X)$。
+若 $X = \emptyset$，则 $G(X) = 0$（引理 \ref{weil-lemma-unit}）。
+所以从或到 $G(\emptyset)$ 的映射均为零，下文可且确可假设所讨论的概形非空。
+
+\medskip\noindent
+给定 $k$ 上非空等维光滑射影概形之间的对应
+$c \in \text{Corr}^0(X, Y)$，考虑映射
+$G(c) : G(X) = H^*(X) \to G(Y) = H^*(Y)$，其规则为
+$$
+a \longmapsto
+G(c)(a) = \text{pr}_{2, *}(\gamma(c) \cup \text{pr}_1^*a)
+$$
+显然，$G(c)$ 关于 $c$ 可加，因而是 $\mathbf{Q}$-线性的。
+公理 (C)(a)、(C)(b)、(C)(c) 分别给出的 $\gamma$ 与拉回、推前、相交积的相容性表明，
+若 $c' \in \text{Corr}^0(Y, Z)$，则
+$G(c' \circ c) = G(c') \circ G(c)$。事实上，对 $a \in H^*(X)$ 有
+\begin{align*}
+(G(c') \circ G(c))(a)
+& =
+\text{pr}^{23}_{3, *}(\gamma(c') \cup
+\text{pr}^{23, *}_2(\text{pr}^{12}_{2, *}(\gamma(c) \cup
+\text{pr}^{12, *}_1a))) \\
+& =
+\text{pr}^{23}_{3, *}(\gamma(c') \cup
+\text{pr}^{123}_{23, *}(\text{pr}^{123, *}_{12}(\gamma(c) \cup
+\text{pr}^{12, *}_1 a))) \\
+& =
+\text{pr}^{23}_{3, *}
+\text{pr}^{123}_{23, *}(
+\text{pr}^{123, *}_{23}\gamma(c') \cup
+\text{pr}^{123, *}_{12}\gamma(c) \cup
+\text{pr}^{123, *}_1 a) \\
+& =
+\text{pr}^{23}_{3, *}
+\text{pr}^{123}_{23, *}(
+\gamma(\text{pr}^{123, *}_{23}c') \cup
+\gamma(\text{pr}^{123, *}_{12}c) \cup
+\text{pr}^{123, *}_1 a) \\
+& =
+\text{pr}^{13}_{3, *}
+\text{pr}^{123}_{13, *}(
+\gamma(\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c) \cup
+\text{pr}^{123, *}_1 a) \\
+& =
+\text{pr}^{13}_{3, *}(
+\gamma(\text{pr}^{123}_{13, *}(\text{pr}^{123, *}_{23}c' \cdot
+\text{pr}^{123, *}_{12}c)) \cup
+\text{pr}^{13, *}_1 a) \\
+& =
+G(c' \circ c)(a)
+\end{align*}
+这里采用自明的记号。第一个等式来自定义。第二个等式成立，是因为
+$\text{pr}^{23, *}_2 \circ \text{pr}^{12}_{2, *} =
+\text{pr}^{123}_{23, *} \circ \text{pr}^{123, *}_{12}$；
+这立即由引理 \ref{weil-lemma-pr2star} 中沿投影推前的描述得到。
+第三个等式来自引理 \ref{weil-lemma-pushforward} 以及 $H^*$ 是函子这一事实。
+第四个等式来自公理 (C)(a)，以及对平坦态射 Gysin 映射与平坦拉回一致这一事实
+（《Chow 同调》引理 \ref{chow-lemma-lci-gysin-flat}）。
+第五个等式使用公理 (C)(c)，并由引理 \ref{weil-lemma-pushforward} 得到
+$\text{pr}^{23}_{3, *} \circ \text{pr}^{123}_{23, *} =
+\text{pr}^{13}_{3, *} \circ \text{pr}^{123}_{13, *}$。
+第六个等式使用引理 \ref{weil-lemma-pushforward} 的投影公式以及公理 (C)(b)，从而有 $
+\text{pr}^{123}_{13, *}
+\gamma(\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c) =
+\gamma(\text{pr}^{123}_{13, *}(
+\text{pr}^{123, *}_{23}c' \cdot \text{pr}^{123, *}_{12}c))$。
+最后一个等式就是定义。
+
+\medskip\noindent
+为完成 $G$ 为函子的证明，还须验证恒等态射得到保持。换言之，若
+$1 = [\Delta] \in \text{Corr}^0(X, X)$ 是对应范畴中的恒等态射
+（引理 \ref{weil-lemma-category-correspondences}），则须证明
+$G([\Delta]) = \text{id}$。这由引理 \ref{weil-lemma-class-diagonal} 对
+$\gamma([\Delta])$ 的确定以及引理 \ref{weil-lemma-pr2star} 得到。
+至此，$G$ 已构造为以 $k$ 上光滑射影概形为对象、以次数为 $0$ 的对应为态射之范畴上的函子。
+
+\medskip\noindent
+由引理 \ref{weil-lemma-base}，$G(\Spec(k)) = H^*(\Spec(k))$ 作为
+$F$-代数典范同构于 $F$。K\"unneth 公理 (B)(a) 表明该函子与张量积相容。
+因此，它是对称幺半范畴之间的函子。
+
+\medskip\noindent
+还须验证 $G(c_2)$ 在 $G(\mathbf{P}^1_k) = H^*(\mathbf{P}^1_k)$ 上的像是
+可逆分次 $F$-向量空间（特别地，此时尚不知道 $G$ 能延拓到 $M_k$）。
+由引理 \ref{weil-lemma-cohomology-P1}，上同调仅在次数 $0$ 与 $2$ 上非零，且两者维数均为
+$1$。由例 \ref{weil-example-decompose-P1}，$1 = c_0 + c_2$ 是
+$\text{Corr}^0(\mathbf{P}^1_k, \mathbf{P}^1_k)$ 中恒等态射分解为正交幂等元之和。
+此外，$c_0 = a \circ b$，其中
+$a \in \text{Corr}^0(\Spec(k), \mathbf{P}^1_k)$、
+$b \in \text{Corr}^0(\mathbf{P}^1_k, \Spec(k))$，且
+$b \circ a = 1$ 在 $\text{Corr}^0(\Spec(k), \Spec(k))$ 中成立；
+见引理 \ref{weil-lemma-inverse-h2} 的证明。因此，$G(c_0)$ 是到次数 $0$ 部分的投影算子，
+从而 $G(c_2)$ 必为到次数 $2$ 部分的投影算子。证明完成。
+\end{proof}
+
+\begin{proposition}
+\label{weil-proposition-weil-cohomology-theory}
+设 $k$ 是域，$F$ 是特征为 $0$ 的域。下列两者之间存在 $1$ 对 $1$ 的对应：
+\begin{enumerate}
+\item 满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)；以及
+\item $\mathbf{Q}$-线性对称幺半函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+且 $G(\mathbf{1}(1))$ 仅在次数 $-2$ 上非零。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+给定 (2) 中的 $G$，置 $H^*(X) = G(h(X))$，便得到满足 (A)、(B)、(C) 的数据
+(D0)、(D1)、(D2)、(D3)；见引理 \ref{weil-lemma-from-functor-to-weil} 及其证明。
+
+\medskip\noindent
+反之，给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)，
+由引理 \ref{weil-lemma-from-weil-to-functor} 证明中的构造，得到 (2) 中的函子 $G$。
+
+\medskip\noindent
+略去验证这两个构造互逆的详细证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{进一步的性质}
+\label{weil-section-further}
+
+\noindent
+本节证明若给定第 \ref{weil-section-axioms} 节中满足 (A)、(B)、(C) 的数据
+(D0)、(D1)、(D2)、(D3)，还可得到的若干结果。
+
+\begin{lemma}
+\label{weil-lemma-trace-disjoint-union}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设 $X, Y$ 是
+$k$ 上非空光滑射影概形，二者均等维且维数为 $d$。则
+$\int_{X \amalg Y} = \int_X + \int_Y$。
+\end{lemma}
+
+\begin{proof}
+以 $i : X \to X \amalg Y$ 和 $j : Y \to X \amalg Y$ 表示余积注入。
+由引理 \ref{weil-lemma-weil-additive}，映射
+$(i^*, j^*) : H^*(X \amalg Y) \to H^*(X) \times H^*(Y)$ 是同构。
+引理的断言是说，在同构
+$(i^*, j^*) : H^{2d}(X \amalg Y)(d) \to H^{2d}(X)(d) \oplus H^{2d}(Y)(d)$
+之下，映射 $\int_X + \int_Y$ 变为 $\int_{X \amalg Y}$。这是因为
+$$
+\int_{X \amalg Y} a =
+\int_{X \amalg Y} i_*(i^*a) + j_*(j^*a) =
+\int_X i^*a + \int_Y j^*a
+$$
+其中等式 $a = i_*(i^*a) + j_*(j^*a)$ 已在引理
+\ref{weil-lemma-weil-additive} 的证明中得到。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-dim-0}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。
+设 $X$ 是 $k$ 上零维光滑射影概形。则
+\begin{enumerate}
+\item 当 $i \not = 0$ 时，$H^i(X) = 0$；
+\item $H^0(X)$ 是 $F$ 上有限可分代数；
+\item $\dim_F H^0(X) = \deg(X \to \Spec(F))$；
+\item $\int_X : H^0(X) \to F$ 是迹映射；
+\item $\gamma([X]) = 1$；以及
+\item $\int_X \gamma([X]) = \deg(X \to \Spec(k))$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+可写 $X = \Spec(k')$，其中 $k'$ 是 $k$ 上有限可分代数。注意，
+$\deg(X \to \Spec(k)) = [k' : k]$。选取有限 Galois 扩张 $k''/k$，
+使其包含 $k'$ 的每个因子。（回忆，有限可分 $k$-代数是 $k$ 的有限可分域扩张之积。）
+置 $\Sigma = \Hom_k(k', k'')$。于是
+$$
+k' \otimes_k k'' = \prod\nolimits_{\sigma \in \Sigma} k''
+$$
+置 $Y = \Spec(k'')$，公理 (B)(a) 与引理 \ref{weil-lemma-weil-additive} 给出分次交换
+$F$-代数的等式
+$$
+H^*(X) \otimes_F H^*(Y) =
+\prod\nolimits_{\sigma \in \Sigma} H^*(Y)
+$$
+由引理 \ref{weil-lemma-unit}，$F$-代数 $H^*(Y)$ 非零。比较上述等式两侧的维数，
+可知 $H^*(X)$ 仅集中在次数 $0$，且 $\dim_F H^0(X) = [k' : k]$。
+把此结论用于 $Y$，得到 $H^*(Y) = H^0(Y)$。由于作为 $F$-代数有
+$$
+H^0(X) \otimes_F H^0(Y) = H^0(Y) \times \ldots \times H^0(Y)
+$$
+而可在忠实平坦基变换 $F \to H^0(Y)$ 后检验可分性，故 $H^0(X)$ 是可分
+$F$-代数。
+
+\medskip\noindent
+上述同构由映射
+$$
+H^0(X) \otimes_F H^0(Y) \longrightarrow
+\prod\nolimits_{\sigma \in \Sigma} H^0(Y),\quad
+a \otimes b \longmapsto \prod\nolimits_\sigma \Spec(\sigma)^*a \cup b
+$$
+给出。经此同构，由引理 \ref{weil-lemma-trace-disjoint-union} 有
+$\int_{X \times Y} = \sum_\sigma \int_Y$。因此，在 $H^0(Y)$ 中有
+$$
+\int_X a = \text{pr}_{1, *}(a \otimes 1) = \sum \Spec(\sigma)^*a
+$$
+第一个等式来自引理 \ref{weil-lemma-pr2star}，第二个等式来自刚才的观察。
+选取代数闭包 $\overline{F}$ 以及 $F$-代数映射
+$\tau : H^0(Y) \to \overline{F}$。上述同构经基变换成为同构
+$$
+H^0(X) \otimes_F \overline{F} \longrightarrow
+\prod\nolimits_{\sigma \in \Sigma} \overline{F},\quad
+a \otimes b \longmapsto \prod\nolimits_\sigma \tau(\Spec(\sigma)^*a) b
+$$
+由此，$a \mapsto \tau(\Spec(\sigma)^*a)$ 构成 $H^0(X)$ 到
+$\overline{F}$ 的全部嵌入。把 $\tau$ 应用于上面得到的 $\int_X a$ 公式，
+可知 $\int_X$ 是迹映射。由引理 \ref{weil-lemma-unit}，有
+$\gamma([X]) = 1$。最后，
+$\int_X \gamma([X]) = \deg(X \to \Spec(k))$，因为
+$\gamma([X]) = 1$，而 $1$ 的迹等于 $[k' : k]$。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-degrees-cycles}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设 $X$ 是
+$k$ 上非空等维光滑射影概形，维数为 $d$。则图表
+$$
+\xymatrix{
+\CH^d(X) \ar[r]_-\gamma \ar@{=}[d] &
+H^{2d}(X)(d) \ar[d]^{\int_X} \\
+\CH_0(X) \ar[r]^\deg & F
+}
+$$
+交换，其中 $\deg : \CH_0(X) \to \mathbf{Z}$ 是《Chow 同调》第
+\ref{chow-section-degree-zero-cycles} 节所讨论的零维周期次数。
+\end{lemma}
+
+\begin{proof}
+设 $x$ 是 $X$ 的闭点，其剩余域在 $k$ 上可分。把 $x$ 视为概形，并以
+$i : x \to X$ 表示包含态射。为避免混淆，以
+$\gamma' : \CH_0(x) \to H^0(x)$ 表示 $x$ 的周期类映射。则
+$$
+\int_X \gamma([x]) = \int_X \gamma(i_*[x]) =
+\int_X i_*\gamma'([x]) = \int_x \gamma'([x]) = \deg(x \to \Spec(k))
+$$
+第二个等式是公理 (C)(b)，第三个等式是上同调上 $i_*$ 的定义，最后一个等式来自引理
+\ref{weil-lemma-dim-0}。由引理 \ref{weil-lemma-generated-by-separable}，
+$\CH_0(X)$ 由上述点 $x$ 的类生成，故引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-square-diagonal}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设 $X$ 是
+$k$ 上非空等维光滑射影概形，维数为 $d$。则
+$$
+\sum\nolimits_i (-1)^i\dim_F H^i(X) =
+\deg(\Delta \cdot \Delta) = \deg(c_d(\mathcal{T}_{X/k}))
+$$
+\end{lemma}
+
+\begin{proof}
+先证右边的等式。由《Chow 同调》引理
+\ref{chow-lemma-intersect-regularly-embedded}，有
+$[\Delta] \cdot [\Delta] = \Delta_*(\Delta^![\Delta])$。
+由于 $\Delta_*$ 保持 $0$-维周期的次数，只需计算 $\Delta^![\Delta]$ 的次数。
+类 $\Delta^![\Delta]$ 由 $[\Delta]$ 与
+$\Delta \subset X \times X$ 的法层之最高 Chern 类作帽积给出
+（《Chow 同调》引理 \ref{chow-lemma-gysin-fundamental}）。
+由于 $\Delta$ 的余法层是 $\Omega_{X/k}$（《态射》引理
+\ref{morphisms-lemma-differentials-diagonal}），法层正是切层
+$\mathcal{T}_{X/k} = \SheafHom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X)$，
+这就得到所需结论。
+
+\medskip\noindent
+再证左边的等式。由引理 \ref{weil-lemma-degrees-cycles}，
+\begin{align*}
+\deg([\Delta] \cdot [\Delta])
+& =
+\int_{X \times X} \gamma([\Delta]) \cup \gamma([\Delta]) \\
+& =
+\int_{X \times X} \Delta_*1 \cup \gamma([\Delta]) \\
+& =
+\int_{X \times X} \Delta_*(\Delta^*\gamma([\Delta])) \\
+& =
+\int_X \Delta^*\gamma([\Delta])
+\end{align*}
+这里使用了引理 \ref{weil-lemma-push-unit} 与 \ref{weil-lemma-pushforward}。
+如引理 \ref{weil-lemma-class-diagonal}，写
+$\gamma([\Delta]) = \sum  e_{i, j} \otimes e'_{2d - i , j}$。
+回忆，$\Delta^*$ 由杯积给出（注记 \ref{weil-remark-replace-cup-product}），于是
+$$
+\int_X \sum\nolimits_{i, j} e_{i, j} \cup e'_{2d - i, j} =
+\sum\nolimits_{i, j} \int_X e_{i, j} \cup e'_{2d - i, j} =
+\sum\nolimits_{i, j} (-1)^i = \sum (-1)^i\beta_i
+$$
+如所需。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-algebra-relations}
+设 $F$ 是特征为 $0$ 的域。设 $F'$ 以及 $F_i$、$i = 1, \ldots, r$ 是有限可分
+$F$-代数，$A$ 是有限 $F$-代数。设
+$\sigma, \sigma' : A \to F'$ 与 $\sigma_i : A \to F_i$ 是 $F$-代数映射，
+且 $\sigma$、$\sigma'$ 均为满射。若存在关系
+$$
+\text{Tr}_{F'/F} \circ \sigma - \text{Tr}_{F'/F} \circ \sigma' =
+n(\sum m_i \text{Tr}_{F_i/F} \circ \sigma_i)
+$$
+其中 $n > 1$，而 $m_i$ 为整数，则 $\sigma = \sigma'$。
+\end{lemma}
+
+\begin{proof}
+可以把 $A = \prod A_j$ 写成局部 Artin $F$-代数
+$(A_j, \mathfrak m_j, \kappa_j)$ 的有限积；见《代数》引理
+\ref{algebra-lemma-finite-dimensional-algebra} 与命题
+\ref{algebra-proposition-dimension-zero-ring}。以 $A' = \prod \kappa_j$ 表示对所有满足
+$\kappa_j/k$ 可分的 $j$ 所取之积。于是映射 $\sigma, \sigma', \sigma_i$
+全都经由 $A \to A'$ 分解。用 $A'$ 代替 $A$ 后，可假设 $A$ 是有限可分
+$F$-代数。
+
+\medskip\noindent
+选取代数闭包 $\overline{F}$。置
+$\overline{A} = A \otimes_F \overline{F}$、
+$\overline{F}' = F' \otimes_F \overline{F}$ 以及
+$\overline{F}_i = F_i \otimes_F \overline{F}$。
+把 $\sigma$、$\sigma'$、$\sigma_i$ 作基变换，得到 $\overline{F}$-代数映射
+$\overline{A} \to \overline{F}'$ 与 $\overline{A} \to \overline{F}_i$。
+此外，$\text{Tr}_{\overline{F}'/\overline{F}}$ 是
+$\text{Tr}_{F'/F}$ 的基变换，$\text{Tr}_{F_i/F}$ 亦然。因此可用
+$\overline{F}$ 代替 $F$，归结到下一段讨论的情形。
+
+\medskip\noindent
+假设 $F$ 代数闭，且 $A$ 是有限可分 $F$-代数。则 $A$、$F'$、$F_i$
+各自都是若干个 $F$ 的直积。称 $F$ 的若干副本之积
+$F \times \ldots \times F$ 中的元素 $e$ 为最小幂等元，如果它生成其中一个因子，
+即 $e = (0, \ldots, 0, 1, 0, \ldots, 0)$。设 $e \in A$ 是最小幂等元。
+由于 $\sigma$ 与 $\sigma'$ 为满射，$\sigma(e)$ 与 $\sigma'(e)$ 各自要么是最小幂等元，
+要么为零。若 $\sigma \not = \sigma'$，则可选取最小幂等元 $e \in A$，使
+$\sigma(e) = 0$ 且 $\sigma'(e) \not = 0$，或反之。于是
+$\text{Tr}_{F'/F}(\sigma(e)) = 0$ 且
+$\text{Tr}_{F'/F}(\sigma'(e)) = 1$，或反之。
+另一方面，$\sigma_i(e)$ 是幂等元，故
+$\text{Tr}_{F_i/F}(\sigma_i(e)) = r_i$ 是整数。于是
+$$
+-1 = \sum n m_i r_i = n (\sum m_i r_i)
+\quad\text{或}\quad
+1 = \sum n m_i r_i = n (\sum m_i r_i)
+$$
+这不可能。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-relations-classes-points}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设
+$k'/k$ 是有限可分扩张，$X$ 是 $k'$ 上光滑射影概形，
+$x, x' \in X$ 是 $k'$-有理点。若 $\gamma(x) \not = \gamma(x')$，则在
+$\CH_0(X)$ 中，$[x] - [x']$ 不能被任何整数 $n > 1$ 整除。
+\end{lemma}
+
+\begin{proof}
+若 $x$ 与 $x'$ 位于 $X$ 的不同不可约分支上，结论显然成立。因此可假设
+$X$ 不可约，维数为 $d$。反设 $[x] - [x']$ 在 $\CH_0(X)$ 中能被
+$n > 1$ 整除。由引理 \ref{weil-lemma-generated-by-separable}，可在
+$\CH_0(X)$ 中写成 $[x] - [x'] = n(\sum m_i [x_i])$，其中
+$x_i \in X$ 是剩余域在 $k$ 上可分的闭点。于是，在 $H^{2d}(X)(d)$ 中有
+$$
+\gamma([x]) - \gamma([x']) = n (\sum m_i \gamma([x_i]))
+$$
+以 $i^*, (i')^*, i_i^*$ 分别表示拉回映射
+$H^0(X) \to H^0(x)$、$H^0(X) \to H^0(x')$、$H^0(X) \to H^0(x_i)$。
+回忆，$H^0(x)$ 是有限可分 $F$-代数，而
+$\int_x : H^0(x) \to F$ 是迹映射（引理 \ref{weil-lemma-dim-0}），记为
+$\text{Tr}_x$。对 $x'$ 与 $x_i$ 亦然。于是，由公理 (A)(b) 形式的
+Poincar\'e 对偶，上述等式对偶于
+$$
+\text{Tr}_x \circ i^* - \text{Tr}_{x'} \circ (i')^* =
+n(\sum m_i \text{Tr}_{x_i} \circ i_i^*)
+$$
+此等式位于 $\Hom_F(H^0(X), F)$ 中。最后，由于 $x$ 与 $x'$ 是
+$k'$-有理点，$i^*$ 与 $(i')^*$ 均为满射；事实上，复合
+$H^0(\Spec(k')) \to H^0(X) \to H^0(x)$ 及
+$H^0(\Spec(k')) \to H^0(X) \to H^0(x')$ 都是同构。
+由引理 \ref{weil-lemma-algebra-relations}，得到 $i^* = (i')^*$，
+这与 $\gamma([x]) \not = \gamma([x'])$ 的假设矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-classes-points}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设
+$k'/k$ 是有限可分扩张，$X$ 是 $k'$ 上维数为 $d$ 的几何不可约光滑射影概形。
+则 $\gamma : \CH_0(X) \to H^{2d}(X)(d)$ 经由
+$\deg : \CH_0(X) \to \mathbf{Z}$ 分解。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-generated-by-separable}，只需证明：若闭点
+$x, x' \in X$ 的剩余域在 $k$ 上可分，则
+$\deg(x') \gamma([x]) = \deg(x) \gamma([x'])$。
+
+\medskip\noindent
+先归结到 $k'$-有理点的情形。取 Galois 扩张 $k''/k'$，使
+$\kappa(x)$ 与 $\kappa(x')$ 均可在 $k$ 上嵌入 $k''$。置
+$Y = X \times_{\Spec(k')} \Spec(k'')$，并以 $p : Y \to X$ 表示投影。
+由 $k''/k'$ 的选取，$Y$ 上存在分别映到 $x$、\ $x'$ 的 $k''$-有理点
+$y$、\ $y'$。在 $\CH_0(X)$ 中有
+$p_*[y] = [k'' : \kappa(x)][x]$ 以及
+$p_*[y'] = [k'' : \kappa(x')][x']$。由公理 (C)(b) 给出的推前相容性，
+只需在 $\CH^{2d}(Y)(d)$ 中证明 $\gamma([y]) = \gamma([y'])$。
+这就归结到下一段的讨论。
+
+\medskip\noindent
+假设 $x$ 与 $x'$ 是 $k'$-有理点。由引理
+\ref{weil-lemma-divide-difference-points}，存在有限可分域扩张 $k''/k'$，
+使差 $[x] - [x']$ 的拉回 $[y] - [y']$ 在
+$Y = X \times_{\Spec(k')} \Spec(k'')$ 上能被某个整数 $n > 1$ 整除。
+（注意，$y, y' \in Y$ 是 $k''$-有理点。）由引理
+\ref{weil-lemma-relations-classes-points}，在 $H^{2d}(Y)(d)$ 中有
+$\gamma([y]) = \gamma([y'])$。再由公理 (C)(b) 中与推前的相容性，
+对 $x$ 与 $x'$ 得到同一结论。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-injective}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设
+$f : X \to Y$ 是 $k$ 上不可约光滑射影概形之间的支配态射。则
+$H^*(Y) \to H^*(X)$ 是单射。
+\end{lemma}
+
+\begin{proof}
+存在整闭子概形 $Z \subset X$，其维数与 $Y$ 相同，且映满 $Y$。
+所以对某个 $m > 0$ 有 $f_*[Z] = m[Y]$。由引理 \ref{weil-lemma-unit}，
+在 $H^*(Y)$ 中有 $f_* \gamma([Z]) = m \gamma([Y]) = m$。
+因此，由投影公式（引理 \ref{weil-lemma-pushforward}），
+$f_*(f^*a \cup \gamma([Z])) = m a$，结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-otimes}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设
+$k''/k'/k$ 是有限可分代数，$X$ 是 $k'$ 上光滑射影概形。则
+$$
+H^*(X) \otimes_{H^0(\Spec(k'))} H^0(\Spec(k'')) =
+H^*(X \times_{\Spec(k')} \Spec(k''))
+$$
+\end{lemma}
+
+\begin{proof}
+下文直接使用引理 \ref{weil-lemma-dim-0} 的结果而不再说明。对某个有限可分
+$k'$-代数 $l$，写成
+$$
+k' \otimes_k k'' = k'' \times l
+$$
+并记 $F' = H^0(\Spec(k'))$、$F'' = H^0(\Spec(k''))$、
+$G = H^0(\Spec(l))$。由于
+$\Spec(k') \times \Spec(k'') = \Spec(k'') \amalg \Spec(l)$，
+由公理 (B)(a) 与引理 \ref{weil-lemma-weil-additive} 得到
+$$
+F' \otimes_F F'' = F'' \times G
+$$
+从左到右的映射把 $F''$ 认同为 $F' \otimes_{F'} F''$。同理，作为
+$F' \otimes_F F'' = F'' \times G$ 上的模，有
+$$
+H^*(X) \otimes_F F'' = H^*(X \times_{\Spec(k')} \Spec(k''))
+\times H^*(X \times_{\Spec(k')} \Spec(l))
+$$
+引理得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Weil 上同调理论（二）}
+\label{weil-section-old}
+
+\noindent
+对我们而言，当基域 $k$ 不代数闭时，Weil 上同调理论应是经典 Weil 上同调理论
+（第 \ref{weil-section-axioms-classical} 节）的对应形式。在第 \ref{weil-section-axioms} 节中，
+我们列出了保证上同调理论来自 $k$ 上动机范畴的一个对称幺半函子的公理。
+迄今为止，公理中尚缺少条件：当 $i < 0$ 时 $H^i(X) = 0$；还缺少关于
+$H^{2d}(X)(d)$ 的一个条件，其中 $X$ 等维且维数为 $d$，该条件对应于经典公理
+(A)(c) 与 (A)(d)。先来说明为何必须施加这些条件。
+
+\begin{example}
+\label{weil-example-weird-weil}
+设 $k = \mathbf{C}$ 与 $F = \mathbf{C}$ 均为复数域。对 $k$ 上光滑射影概形
+$X$，记 $H^{p, q}(X) = H^q(X, \Omega^p_{X/k})$。设 $(H')^*$ 是把
+$X$ 送到带通常杯积的 $(H')^*(X) = \bigoplus H^{p, q}(X)$ 的函子。
+这是一个经典 Weil 上同调理论（此处待插入将来的引用）。由命题
+\ref{weil-proposition-weil-cohomology-theory-classical}，得到从 $M_k$ 到分次
+$F$-向量空间范畴的 $\mathbf{Q}$-线性对称幺半函子 $G'$。当然，在此情形下，
+对 $M_k$ 中每个 $M$，$G'(M)$ 自然带双分次，即
+$$
+(G')(M) = \bigoplus (G')^{p, q}(M),\quad
+(G')^n = \bigoplus\nolimits_{n = p + q} (G')^{p, q}(M)
+$$
+其中如式中所示，$(G')^{p, q}$ 位于总次数 $p + q$。现在置
+$$
+G^n(M) = \bigoplus\nolimits_{n = 3p - q} (G')^{p, q}(M)
+$$
+以构造到分次 $F$-向量空间范畴的 $\mathbf{Q}$-线性对称幺半函子 $G$。
+略去验证这确实定义对称幺半函子；其中一个技术要点是，由于上面选取了奇数
+$3$ 与 $-1$，函子 $G$ 与交换约束相容。注意，
+$G(\mathbf{1}(1))$ 仍集中在次数 $-2$。因此，由引理
+\ref{weil-lemma-from-functor-to-weil-classical}，得到函子 $H^*$、周期类 $\gamma$ 与迹映射，
+它们满足经典公理 (A)、(B)、(C)，可能例外的只有经典公理 (A)(a) 与 (A)(d)。
+然而，若 $E$ 是 $k$ 上椭圆曲线，则 $\dim H^{-1}(E) = 1$；
+也就是说，公理 (A)(a) 的确不成立。
+\end{example}
+
+\begin{lemma}
+\label{weil-lemma-H-0-separable}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。设 $X$ 是
+$k$ 上光滑射影概形，并置 $k' = \Gamma(X, \mathcal{O}_X)$。下列条件等价：
+\begin{enumerate}
+\item 存在有限多个闭点 $x_1, \ldots, x_r \in X$，其剩余域在 $k$ 上可分，
+使 $H^0(X) \to H^0(x_1) \oplus \ldots \oplus H^0(x_r)$ 为单射；
+\item 映射 $H^0(\Spec(k')) \to H^0(X)$ 是同构。
+\end{enumerate}
+若这些条件成立，则 $H^0(X)$ 是 $F$ 上有限可分代数。若 $X$ 等维且维数为
+$d$，则 (1)、(2) 还等价于：
+\begin{enumerate}
+\item[(3)] 闭点的类作为 $H^0(X)$-模生成 $H^{2d}(X)(d)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+此断言确有意义，因为 $k'$ 是 $k$ 上有限可分代数（《簇》引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}），
+因而 $\Spec(k')$ 在 $k$ 上光滑且射影。由 $H^*$ 与直和的相容性
+（引理 \ref{weil-lemma-weil-additive} 与 \ref{weil-lemma-trace-disjoint-union}），
+只需在 $X$ 连通时证明引理。因此可假设 $X$ 不可约，并须证明 (1)、(2)、(3) 等价。
+置 $d = \dim(X)$。这意味着 $k'$ 是 $k$ 上有限可分域，而 $X$ 在 $k'$ 上几何不可约；
+见《簇》引理 \ref{varieties-lemma-proper-geometrically-reduced-global-sections} 与
+\ref{varieties-lemma-baby-stein}。
+
+\medskip\noindent
+由引理 \ref{weil-lemma-generated-by-separable}，可假设 (3) 中闭点的剩余域在 $k$ 上可分。
+由公理 (A)(a) 与 (A)(b)，条件 (1) 与 (3) 等价。
+
+\medskip\noindent
+若 (2) 成立，任取闭点 $x \in X$，使其剩余域在 $k'$ 上有限可分。则例如由引理
+\ref{weil-lemma-injective}，$H^0(\Spec(k')) = H^0(X) \to H^0(x)$ 为单射。
+
+\medskip\noindent
+假设等价条件 (1)、(3) 成立。按 (1) 选取 $x_1, \ldots, x_r \in X$，
+再选取有限可分扩张 $k''/k'$。由引理 \ref{weil-lemma-otimes}，
+$$
+H^0(X) \otimes_{H^0(\Spec(k'))} H^0(\Spec(k'')) =
+H^0(X \times_{\Spec(k')} \Spec(k''))
+$$
+因此，为证明 $H^0(\Spec(k')) \to H^0(X)$ 是同构，可以用 $k''$ 代替 $k'$。
+于是可假设 $x_1, \ldots, x_r$ 都是 $k'$-有理点（此步骤把每个 $x_i$ 替换为多个点，
+所以 $r$ 会增大）。由引理 \ref{weil-lemma-classes-points}，
+$\gamma(x_1) = \gamma(x_2) = \ldots = \gamma(x_r)$。
+由公理 (A)(b)，所有映射 $H^0(X) \to H^0(x_i)$ 均相同。这就证明了 (2)。
+
+\medskip\noindent
+最后，由引理 \ref{weil-lemma-dim-0}，若 (1) 成立，则 $H^0(X)$ 是可分 $F$-代数。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-negative-cohomology}
+设给定满足 (A)、(B)、(C) 的数据 (D0)、(D1)、(D2)、(D3)。若存在
+$k$ 上光滑射影概形 $Y$，使某个 $i < 0$ 的 $H^i(Y)$ 非零，则存在
+$k$ 上等维光滑射影概形 $X$，使引理 \ref{weil-lemma-H-0-separable} 的等价条件对
+$X$ 不成立。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-weil-additive}，可假设 $Y$ 不可约，因而更是等维的。
+若 $i$ 为奇数，则用 $Y \times Y$ 代替 $Y$ 后，得到一个 $Y$ 等维且
+$i = -2l$ 的例子，其中 $l > 0$。置 $X = Y \times (\mathbf{P}^1_k)^l$。
+利用公理 (B)(a)，得到
+$$
+H^0(X) \supset H^0(Y) \oplus
+H^i(Y) \otimes_F H^2(\mathbf{P}^1_k)^{\otimes_F l}
+$$
+两个直和项都非零。因此，$H^0(X)$ 显然不可能同构于
+$\Gamma(X, \mathcal{O}_X) = \Gamma(Y, \mathcal{O}_Y)$ 的谱的 $H^0$，
+因为后者落在第一个直和项中。
+\end{proof}
+
+\noindent
+因此，现在作出如下定义是合理的。
+
+\begin{definition}
+\label{weil-definition-weil-cohomology-theory}
+设 $k$ 是域，$F$ 是特征为 $0$ 的域。以 $F$ 为系数的 $k$ 上
+{\it Weil 上同调理论}由满足 Poincar\'e 对偶、K\"unneth 公式以及与周期类相容性的
+数据 (D0)、(D1)、(D2)、(D3) 给出；更准确地说，它满足第
+\ref{weil-section-axioms} 节的公理 (A)、(B)、(C)，并且对每个 $k$ 上光滑射影概形
+$X$，引理 \ref{weil-lemma-H-0-separable} 的等价条件 (1)、(2) 都成立。
+\end{definition}
+
+\noindent
+由引理 \ref{weil-lemma-negative-cohomology}，这还意味着不存在非零的负次数上同调群。
+特别地，若 $k$ 代数闭，则上述 Weil 上同调理论连同一个同构
+$F \to F(1)$，等同于一个经典 Weil 上同调理论。
+
+\begin{remark}
+\label{weil-remark-betti-numbers-in-some-sense}
+设 $H^*$ 是 Weil 上同调理论（定义 \ref{weil-definition-weil-cohomology-theory}）。
+设 $k'/k$ 是有限可分域扩张，$X$ 是 $k'$ 上维数为 $d$ 的几何不可约光滑射影概形。
+假设对某些域 $F_i$ 有
+$$
+H^0(\Spec(k')) = F_1 \times \ldots \times F_r
+$$
+相应地，可以写成
+$$
+H^*(X) = \prod\nolimits_{i = 1, \ldots, r}
+H^*(X) \otimes_{H^0(\Spec(k'))} F_i
+$$
+定义 \ref{weil-definition-weil-cohomology-theory} 中最后一个假设表明，
+$H^0(X)$ 是 $\prod F_i$ 上秩为 $1$ 的自由模。换言之，每个因子
+$H^0(X) \otimes_{H^0(\Spec(k'))} F_i$ 在 $F_i$ 上维数为 $1$。
+Poincar\'e 对偶于是表明，次数 $2d$ 的上同调也具有相同性质。
+然而，尚不清楚其他次数上是否也成立。具体而言，给定
+$0 < n < \dim(X)$，我们不知道整数
+$$
+\dim_{F_i} H^n(X) \otimes_{H^0(\Spec(k'))} F_i
+$$
+是否与 $i$ 无关。这个问题与下述公开问题密切相关：给定代数闭基域
+$\overline{k}$、特征为零的域 $F$、$\overline{k}$ 上系数域为 $F$ 的经典 Weil
+上同调理论 $H^*$，以及 $\overline{k}$ 上光滑射影簇 $X$，$X$ 的 Betti 数
+$$
+\beta_i = \dim_F H^i(X)
+$$
+是否与 $F$ 及 Weil 上同调理论 $H^*$ 无关？
+\end{remark}
+
+\begin{proposition}
+\label{weil-proposition-weil-cohomology-theory-again}
+设 $k$ 是域，$F$ 是特征为 $0$ 的域。Weil 上同调理论等同于一个
+$\mathbf{Q}$-线性对称幺半函子
+$$
+G : M_k \longrightarrow \text{graded }F\text{-向量空间}
+$$
+并满足：
+\begin{enumerate}
+\item $G(\mathbf{1}(1))$ 仅在次数 $-2$ 上非零；以及
+\item 对每个 $k$ 上光滑射影概形 $X$，若
+$k' = \Gamma(X, \mathcal{O}_X)$，则分次 $F$-向量空间的同态
+$G(h(\Spec(k'))) \to G(h(X))$ 在次数 $0$ 上是同构。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+这立即由命题 \ref{weil-proposition-weil-cohomology-theory} 与定义
+\ref{weil-definition-weil-cohomology-theory} 得到。当然，也可把 (2) 换成如下条件：
+存在剩余域在 $k$ 上可分的闭点 $x_1, \ldots, x_r \in X$，使
+$G(h(X)) \to \bigoplus G(h(x_i))$ 在次数 $0$ 上为单射。
+\end{proof}
+
+
+
+
+
+
+
+\section{Chern 类}
+\label{weil-section-chern}
+
+\noindent
+本节讨论如何从第一 Chern 类与射影空间丛公式得到全部 Chern 类。
+本节可参见 \cite{Grothendieck-chern}，不过我们的公理略有不同。
+
+\medskip\noindent
+设 $\mathcal{C}$ 是满足下列性质的概形范畴：
+\begin{enumerate}
+\item 每个 $X \in \Ob(\mathcal{C})$ 都拟紧且拟分离。
+\item 若 $X \in \Ob(\mathcal{C})$，而 $U \subset X$ 开且闭，则
+$U \to X$ 是 $\mathcal{C}$ 的态射。若 $\mathcal{C}$ 的态射
+$X' \to X$ 经由 $U$ 分解，则 $X' \to U$ 是 $\mathcal{C}$ 的态射。
+\item 若 $X \in \Ob(\mathcal{C})$，而 $\mathcal{E}$ 是有限局部自由
+$\mathcal{O}_X$-模，则：
+\begin{enumerate}
+\item $p : \mathbf{P}(\mathcal{E}) \to X$ 是 $\mathcal{C}$ 的态射；
+\item 对 $\mathcal{C}$ 中的态射 $f : X' \to X$，诱导态射
+$\mathbf{P}(f^*\mathcal{E}) \to \mathbf{P}(\mathcal{E})$ 是 $\mathcal{C}$ 的态射；
+\item 若 $\mathcal{E} \to \mathcal{F}$ 是到另一个有限局部自由
+$\mathcal{O}_X$-模的满射，则闭浸入
+$\mathbf{P}(\mathcal{F}) \to \mathbf{P}(\mathcal{E})$ 是 $\mathcal{C}$ 的态射。
+\end{enumerate}
+\end{enumerate}
+再设给定从范畴 $\mathcal{C}$ 到分次代数范畴的反变函子 $A$。
+这里，分次代数 $A$ 是带幺、结合、不必交换的 $\mathbf{Z}$-代数 $A$，并带有分次
+$A = \bigoplus_{i \geq 0} A^i$。给定 $\mathcal{C}$ 的态射
+$f : X' \to X$，以 $f^* : A(X) \to A(X')$ 表示诱导的代数映射。
+以 $a \cup b$ 表示 $a, b \in A(X)$ 的乘积。最后，假设对 $\mathcal{C}$ 的每个对象
+$X$，给定可加映射
+$$
+c_1^A : \Pic(X) \longrightarrow A^1(X)
+$$
+并假设满足下列公理：
+\begin{enumerate}
+\item 给定 $X \in \Ob(\mathcal{C})$ 与 $\mathcal{L} \in \Pic(X)$，元素
+$c_1^A(\mathcal{L})$ 位于代数 $A(X)$ 的中心。
+\item 若 $X \in \Ob(\mathcal{C})$ 且 $X = U \amalg V$，其中 $U$、$V$ 开且闭，
+则经诱导映射 $A(X) \to A(U)$ 与 $A(X) \to A(V)$ 有
+$A(X) = A(U) \times A(V)$。
+\item 若 $f : X' \to X$ 是 $\mathcal{C}$ 的态射，而 $\mathcal{L}$ 是可逆
+$\mathcal{O}_X$-模，则 $f^*c_1^A(\mathcal{L}) =
+c_1^A(f^*\mathcal{L})$。
+\item 给定 $X \in \Ob(\mathcal{C})$ 及常秩为 $r$ 的局部自由
+$\mathcal{O}_X$-模 $\mathcal{E}$，考虑 $\mathcal{C}$ 的态射
+$p : P = \mathbf{P}(\mathcal{E}) \to X$。则映射
+$$
+\bigoplus\nolimits_{i = 0, \ldots, r - 1} A(X)
+\longrightarrow A(P),\quad
+(a_0, \ldots, a_{r - 1}) \longmapsto
+\sum c_1^A(\mathcal{O}_P(1))^i \cup p^*(a_i)
+$$
+是双射。
+\item 设 $X \in \Ob(\mathcal{C})$，而 $\mathcal{E} \to \mathcal{F}$ 是秩分别为
+$r + 1$、$r$ 的有限局部自由 $\mathcal{O}_X$-模之间的满射。以
+$i : P' = \mathbf{P}(\mathcal{F}) \to \mathbf{P}(\mathcal{E}) = P$
+表示相应的包含态射。它是 $\mathcal{C}$ 的态射，并把 $P'$ 实现为 $P$ 上有效
+Cartier 除子。若 $a \in A(P)$ 且 $i^*a = 0$，则
+$a \cup c_1^A(\mathcal{O}_P(P')) = 0$。
+\end{enumerate}
+为叙述结果，回忆 $\textit{Vect}(X)$ 表示有限局部自由 $\mathcal{O}_X$-模的
+（正合）范畴。在《概形的导出范畴》第 \ref{perfect-section-K-groups} 节中，
+我们定义了该范畴的第零 $K$-群 $K_0(\textit{Vect}(X))$。此外，已经看到
+$K_0(\textit{Vect}(X))$ 是环；见《概形的导出范畴》注记
+\ref{perfect-remark-K-ring}。
+
+\begin{proposition}
+\label{weil-proposition-chern-class}
+在上述情形中，存在唯一规则，对每个 $X \in \Ob(\mathcal{C})$ 指定一个“全 Chern 类”
+$$
+c^A : K_0(\textit{Vect}(X)) \longrightarrow  \prod\nolimits_{i \geq 0} A^i(X)
+$$
+并满足下列性质：
+\begin{enumerate}
+\item 对 $X \in \Ob(\mathcal{C})$，有
+$c^A(\alpha + \beta) = c^A(\alpha) c^A(\beta)$ 及 $c^A(0) = 1$。
+\item 若 $f : X' \to X$ 是 $\mathcal{C}$ 的态射，则
+$f^* \circ c^A =  c^A \circ f^*$。
+\item 给定 $X \in \Ob(\mathcal{C})$ 与 $\mathcal{L} \in \Pic(X)$，有
+$c^A([\mathcal{L}]) = 1 + c_1^A(\mathcal{L})$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+设 $X \in \Ob(\mathcal{C})$，而 $\mathcal{E}$ 是有限局部自由
+$\mathcal{O}_X$-模。先说明如何定义元素 $c^A(\mathcal{E}) \in A(X)$。
+
+\medskip\noindent
+第一步，设 $X = \bigcup X_r$ 是开闭子概形的分解，使
+$\mathcal{E}|_{X_r}$ 常秩为 $r$。由于 $X$ 拟紧，此分解有限，故
+$A(X) = \prod A(X_r)$。所以，只需在 $\mathcal{E}$ 常秩为 $r$ 时定义
+$c^A(\mathcal{E})$。此时，设 $p : P \to X$ 是 $\mathcal{E}$ 的射影丛。
+可以唯一地定义元素 $c_i^A(\mathcal{E}) \in A^i(X)$（$i \geq 0$），
+使 $c_0^A(\mathcal{E}) = 1$，且等式
+\begin{equation}
+\label{weil-equation-chern-classes}
+\sum\nolimits_{i = 0}^r
+(-1)^i c_1(\mathcal{O}_P(1))^i \cup p^*c^A_{r - i}(\mathcal{E})
+= 0
+\end{equation}
+成立。照例，在 $A(X)$ 中置
+$c^A(\mathcal{E}) = c_0^A(\mathcal{E}) + c_1^A(\mathcal{E}) + \ldots
++ c_r^A(\mathcal{E})$。
+
+\medskip\noindent
+若 $\mathcal{E}$ 可逆，则 $c^A(\mathcal{E}) = 1 + c_1^A(\mathcal{L})$。
+这立即由上述构造得到。
+
+\medskip\noindent
+元素 $c_i^A(\mathcal{E})$ 位于 $A(X)$ 的中心。为证明这一点，可假设
+$\mathcal{E}$ 常秩为 $r$。设 $p : P \to X$ 是相应的射影丛。若
+$a \in A(X)$，则
+$p^*a \cup (-1)^r c_1(\mathcal{O}_P(1))^r =
+(-1)^r c_1(\mathcal{O}_P(1))^r \cup p^*a$；因此，定义
+$c_i^A(\mathcal{E})$ 的表达式中其他各项也必具有相同性质，结论得证。
+
+\medskip\noindent
+若 $f : X' \to X$ 是 $\mathcal{C}$ 的态射，则
+$f^*c_i^A(\mathcal{E}) = c_i^A(f^*\mathcal{E})$。为证明这一点，可假设
+$\mathcal{E}$ 常秩为 $r$。设 $p : P \to X$ 与 $p' : P' \to X'$ 分别为
+$\mathcal{E}$ 与 $f^*\mathcal{E}$ 对应的射影丛。诱导态射
+$g : P' \to P$ 是 $\mathcal{C}$ 的态射。把定义 $c_i^A(\mathcal{E})$ 的等式沿
+$g$ 拉回，便得到 $f^*\mathcal{E}$ 的相应等式，结论随即成立。
+
+\medskip\noindent
+设 $X \in \Ob(\mathcal{C})$。考虑有限局部自由 $\mathcal{O}_X$-模的短正合列
+$$
+0 \to \mathcal{L} \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+其中 $\mathcal{L}$ 可逆。则
+$$
+c^A(\mathcal{E}) = c^A(\mathcal{L}) c^A(\mathcal{F})
+$$
+事实上，由 $c^A_i$ 的构造，可假设 $\mathcal{E}$ 常秩为 $r + 1$，
+$\mathcal{F}$ 常秩为 $r$。包含
+$$
+i : P' = \mathbf{P}(\mathcal{F}) \longrightarrow \mathbf{P}(\mathcal{E}) = P
+$$
+是 $\mathcal{C}$ 的态射，并且是可逆模
+$\mathcal{L}^{\otimes -1} \otimes \mathcal{O}_P(1)$ 的一个正则截面之零概形。
+按定义，元素
+$$
+\sum\nolimits_{i = 0}^r (-1)^i c_1^A(\mathcal{O}_P(1))^i \cup
+p^*c^A_i(\mathcal{F})
+$$
+在 $P'$ 上的拉回为零。因此，由关于上同调 $A$ 的假设 (5)，在 $A^*(P)$ 中有
+$$
+\left(c_1^A(\mathcal{O}_P(1)) - c_1^A(\mathcal{L})\right) \cup
+\left(\sum\nolimits_{i = 0}^r (-1)^i c_1^A(\mathcal{O}_P(1))^i \cup
+p^*c^A_i(\mathcal{F})\right) = 0
+$$
+由 $c_1^A(\mathcal{E})$ 的定义，这就给出所需等式。
+
+\medskip\noindent
+设 $X \in \Ob(\mathcal{C})$。考虑有限局部自由 $\mathcal{O}_X$-模的短正合列
+$$
+0 \to \mathcal{E} \to \mathcal{F} \to \mathcal{G} \to 0
+$$
+则
+$$
+c^A(\mathcal{F}) = c^A(\mathcal{E}) c^A(\mathcal{G})
+$$
+事实上，由 $c^A_i$ 的构造，可假设 $\mathcal{E}$、$\mathcal{F}$、
+$\mathcal{G}$ 分别常秩为 $r$、$s$、$t$。对 $r$ 作归纳。
+$r = 1$ 的情形已在上面处理。若 $r > 1$，只需在沿态射
+$\mathbf{P}(\mathcal{E}^\vee) \to X$ 拉回后验证。因此可假设存在可逆子模
+$\mathcal{L} \subset \mathcal{E}$，使
+$\mathcal{E}' = \mathcal{E}/\mathcal{L}$ 与
+$\mathcal{F}' = \mathcal{E}/\mathcal{L}$ 都有限局部自由
+（秩分别为 $s - 1$ 与 $t - 1$）。于是
+$$
+c^A(\mathcal{E}) = c^A(\mathcal{L}) c^A(\mathcal{E}')
+\quad\text{且}\quad
+c^A(\mathcal{F}) = c^A(\mathcal{L}) c^A(\mathcal{F}')
+$$
+又有短正合列
+$$
+0 \to \mathcal{E}' \to \mathcal{F}' \to \mathcal{G} \to 0
+$$
+由归纳假设，
+$$
+c^A(\mathcal{F}') = c^A(\mathcal{E}') c^A(\mathcal{G})
+$$
+故结论由形式计算得到。
+
+\medskip\noindent
+至此，对 $X \in \Ob(\mathcal{C})$，可以定义
+$c^A : K_0(\textit{Vect}(X)) \to A(X)$。具体地，把生成元
+$[\mathcal{E}]$ 送到 $c^A(\mathcal{E})$，并乘法延拓。例如，
+$c^A(-[\mathcal{E}]) = c^A(\mathcal{E})^{-1}$ 是
+$a^A([\mathcal{E}])$ 的形式逆元。上面证明的短正合列上的乘法性保证此定义有效。
+
+\medskip\noindent
+唯一性。设 $X \in \Ob(\mathcal{C})$，而 $\mathcal{E}$ 是有限局部自由
+$\mathcal{O}_X$-模。要证明引理的条件 (1)、(2)、(3) 唯一确定
+$c^A([\mathcal{E}])$。可假设 $\mathcal{E}$ 常秩为 $r$；此处已经使用 (2)。
+再对 $r$ 作归纳。若 $r = 1$，唯一性由 (3) 得到。若 $r > 1$，使用 (2)
+拉回到射影丛 $p : P \to X$，从而可假设存在短正合列
+$0 \to \mathcal{E}' \to \mathcal{E} \to \mathcal{E}'' \to 0$，
+其中 $\mathcal{E}'$ 与 $\mathcal{E}''$ 的秩都较低。由归纳假设，
+$c^A(\mathcal{E}')$ 与 $c^A(\mathcal{E}'')$ 都被唯一确定。
+于是 $\mathcal{E}$ 的唯一性由公理 (1) 得到。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-splitting-principle}
+在上述情形中，设 $X \in \Ob(\mathcal{C})$，而 $\mathcal{E}_i$ 是有限多个秩为
+$r_i$ 的局部自由 $\mathcal{O}_X$-模。则存在 $\mathcal{C}$ 中的态射
+$p : P \to X$，使得：
+\begin{enumerate}
+\item $p^* : A(X) \to A(P)$ 为单射；
+\item 每个 $p^*\mathcal{E}_i$ 都有一个滤过，其逐次商
+$\mathcal{L}_{i, 1}, \ldots, \mathcal{L}_{i, r_i}$ 是可逆
+$\mathcal{O}_P$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+可假设对所有 $i$ 均有 $r_i \geq 1$。对 $\sum (r_i - 1)$ 作归纳。
+若此整数为 $0$，则对所有 $i$，$\mathcal{E}_i$ 都可逆，取
+$\pi = \text{id}_X$ 即得结论。否则，可选取满足 $r_i > 1$ 的一个 $i$，
+并考虑与 $\mathcal{E}_i$ 对应的射影丛 $p : P \to X$。存在有限局部自由
+$\mathcal{O}_P$-模的短正合列
+$$
+0 \to \mathcal{F} \to p^*\mathcal{E}_i \to \mathcal{O}_P(1) \to 0
+$$
+三者的秩分别为 $r_i - 1$、$r_i$、$1$。由假设，
+$p^* : A(X) \to A(P)$ 为单射。把归纳假设用于有限局部自由
+$\mathcal{O}_P$-模 $\mathcal{F}$ 以及所有满足 $i' \not = i$ 的
+$p^*\mathcal{E}_{i'}$，得到满足引理所述性质的态射 $p' : P' \to P$。
+于是复合 $p \circ p' : P' \to X$ 满足要求。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-chern-classes-E-tensor-L}
+设 $X \in \Ob(\mathcal{C})$。设 $\mathcal{E}$ 是有限局部自由
+$\mathcal{O}_X$-模，$\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模。则
+$$
+c^A_i({\mathcal E} \otimes {\mathcal L})
+=
+\sum\nolimits_{j = 0}^i
+\binom{r - i + j}{j} c^A_{i - j}({\mathcal E}) \cup c^A_1({\mathcal L})^j
+$$
+\end{lemma}
+
+\begin{proof}
+由 $c^A_i$ 的构造，可假设 $\mathcal{E}$ 常秩为 $r$。设
+$p : P \to X$ 与 $p' : P' \to X$ 分别为 $\mathcal{E}$ 和
+$\mathcal{E} \otimes \mathcal{L}$ 对应的射影丛。存在同构
+$g : P \to P'$，满足
+$g^*\mathcal{O}_{P'}(1) = \mathcal{O}_P(1) \otimes p^*\mathcal{L}$；
+见《构造》引理 \ref{constructions-lemma-twisting-and-proj}。因此
+$$
+g^*c_1^A(\mathcal{O}_{P'}(1)) =
+c_1^A(\mathcal{O}_P(1)) + p^*c_1^A(\mathcal{L})
+$$
+所需等式由此以及用等式 (\ref{weil-equation-chern-classes}) 给出的 Chern 类定义形式地推出。
+\end{proof}
+
+\begin{proposition}
+\label{weil-proposition-chern-character}
+在上述情形中，假设对所有 $X \in \Ob(\mathcal{C})$，$A(X)$ 都是
+$\mathbf{Q}$-代数。则存在唯一规则，对每个 $X \in \Ob(\mathcal{C})$ 指定一个
+“Chern 特征”
+$$
+ch^A : K_0(\textit{Vect}(X)) \longrightarrow
+\prod\nolimits_{i \geq 0} A^i(X)
+$$
+并满足：
+\begin{enumerate}
+\item 对所有 $X \in \Ob(\mathcal{C})$，$ch^A$ 是环映射。
+\item 若 $f : X' \to X$ 是 $\mathcal{C}$ 的态射，则
+$f^* \circ ch^A =  ch^A \circ f^*$。
+\item 给定 $X \in \Ob(\mathcal{C})$ 与 $\mathcal{L} \in \Pic(X)$，有
+$ch^A([\mathcal{L}]) = \exp(c_1^A(\mathcal{L}))$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+设 $X \in \Ob(\mathcal{C})$，而 $\mathcal{E}$ 是有限局部自由
+$\mathcal{O}_X$-模。先说明如何定义秩 $r^A(\mathcal{E}) \in A^0(X)$。
+设 $X = \bigcup X_r$ 是开闭子概形的分解，使
+$\mathcal{E}|_{X_r}$ 常秩为 $r$。由于 $X$ 拟紧，此分解有限，设为
+$X = X_0 \amalg X_1 \amalg \ldots \amalg X_n$。于是
+$A(X) = A(X_0) \times A(X_1) \times \ldots \times A(X_n)$，故可定义
+$r^A(\mathcal{E}) = (0, 1, \ldots, n) \in A^0(X)$。
+
+\medskip\noindent
+设 $P_p(c_1, \ldots, c_p)$ 是《Chow 同调》例
+\ref{chow-example-power-sum} 中构造的多项式。定义
+$$
+ch^A(\mathcal{E}) = r^A(\mathcal{E}) +
+\sum\nolimits_{i \geq 1} (1/i!)
+P_i(c^A_1(\mathcal{E}), \ldots, c^A_i(\mathcal{E}))
+\in \prod\nolimits_{i \geq 0} A^i(X)
+$$
+其中 $ci^A$ 是命题 \ref{weil-proposition-chern-class} 的 Chern 类。
+由此立即得到引理的性质 (2)、(3)。
+
+\medskip\noindent
+还须证明以下三个断言：
+\begin{enumerate}
+\item 若 $0 \to \mathcal{E}_1 \to \mathcal{E} \to \mathcal{E}_2 \to 0$
+是 $X \in \Ob(\mathcal{C})$ 上有限局部自由 $\mathcal{O}_X$-模的短正合列，则
+$ch^A(\mathcal{E}) = ch^A(\mathcal{E}_1) + ch^A(\mathcal{E}_2)$。
+\item 若 $\mathcal{E}_1$ 与 $\mathcal{E}_2 \to 0$ 是
+$X \in \Ob(\mathcal{C})$ 上有限局部自由 $\mathcal{O}_X$-模，则
+$ch^A(\mathcal{E}_1 \otimes \mathcal{E}_2) =
+ch^A(\mathcal{E}_1) ch^A(\mathcal{E}_2)$。
+\end{enumerate}
+第一个断言将证明 $ch^A$ 经由 $K_0(\textit{Vect}(X))$ 分解；
+第一、第二个断言合在一起则表明 $ch^A$ 是环映射。
+
+\medskip\noindent
+为证明这些断言，可归结到 $\mathcal{E}_1$、$\mathcal{E}_2$ 分别常秩为
+$r_1$、$r_2$ 的情形。此时，$A^0(X)$ 中的等式立即成立。为证明更高次数中的等式，
+由引理 \ref{weil-lemma-splitting-principle}，可假设 $\mathcal{E}_1$ 与
+$\mathcal{E}_2$ 有滤过，其分次部分是可逆模
+$\mathcal{L}_{1, j}$、$j = 1, \ldots, r_1$ 以及
+$\mathcal{L}_{2, j}$、$j = 1, \ldots, r_2$。
+利用 Chern 类的乘法性，得到
+$$
+c_i^A(\mathcal{E}_1) =
+s_i(c_1^A(\mathcal{L}_{1, 1}), \ldots, c_1^A(\mathcal{L}_{1, r_1}))
+$$
+其中 $s_i$ 是《Chow 同调》例 \ref{chow-example-power-sum} 中的第 $i$ 个初等对称函数。
+对 $c_i^A(\mathcal{E}_2)$ 亦然。在情形 (1) 中，得到
+$$
+c_i^A(\mathcal{E}) =
+s_i(c_1^A(\mathcal{L}_{1, 1}), \ldots, c_1^A(\mathcal{L}_{1, r_1}),
+c_1^A(\mathcal{L}_{2, 1}), \ldots, c_1^A(\mathcal{L}_{2, r_2}))
+$$
+而在情形 (2) 中，得到
+$$
+c_i^A(\mathcal{E}_1 \otimes \mathcal{E}_2) =
+s_i(c_1^A(\mathcal{L}_{1, 1}) + c_1^A(\mathcal{L}_{2, 1}),
+\ldots, c_1^A(\mathcal{L}_{1, r_1}) + c_1^A(\mathcal{L}_{2, r_2}))
+$$
+由多项式 $P_i$ 的定义，这意味着
+$$
+P_i(c^A_1(\mathcal{E}_1), \ldots, c^A_i(\mathcal{E}_1)) =
+\sum\nolimits_{j = 1, \ldots, r_1} c_1^A(\mathcal{L}_{1, j})^i
+$$
+对 $\mathcal{E}_2$ 亦然。在情形 (1) 中还有
+$$
+P_i(c^A_1(\mathcal{E}), \ldots, c^A_i(\mathcal{E})) =
+\sum\nolimits_{j = 1, \ldots, r_1} c_1^A(\mathcal{L}_{1, j})^i +
+\sum\nolimits_{j = 1, \ldots, r_2} c_1^A(\mathcal{L}_{2, j})^i
+$$
+在情形 (2) 中，相应地得到
+$$
+P_i(c^A_1(\mathcal{E}_1 \otimes \mathcal{E}_2), \ldots,
+c^A_i(\mathcal{E}_1 \otimes \mathcal{E}_2)) =
+\sum\nolimits_{j = 1, \ldots, r_1}
+\sum\nolimits_{j' = 1, \ldots, r_2}
+(c_1^A(\mathcal{L}_{1, j}) + c_1^A(\mathcal{L}_{2, j'}))^i
+$$
+所以，所需等式现在由对称多项式之间的初等恒等式推出。
+
+\medskip\noindent
+略去唯一性的证明。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-adams-and-chern}
+在上述情形中，设 $X \in \Ob(\mathcal{C})$。若 $\psi^2$ 如《Chow 同调》引理
+\ref{chow-lemma-second-adams-operator}，而 $c^A$、$ch^A$ 如命题
+\ref{weil-proposition-chern-class}、\ref{weil-proposition-chern-character}，则对所有
+$\alpha \in K_0(\textit{Vect}(X))$ 有
+$c^A_i(\psi^2(\alpha)) = 2^i c^A_i(\alpha)$ 以及
+$ch^A_i(\psi^2(\alpha)) = 2^i ch^A_i(\alpha)$。
+\end{lemma}
+
+\begin{proof}
+注意，映射 $\prod_{i \geq 0} A^i(X) \to \prod_{i \geq 0} A^i(X)$，
+其在 $A^i(X)$ 上乘以 $2^i$，是环映射。由于 $\psi^2$ 也是环映射，
+只需对 $K_0(\textit{Vect}(X))$ 的加法生成元证明这些公式。因此，可假设
+$\alpha = [\mathcal{E}]$，其中 $\mathcal{E}$ 是某个有限局部自由
+$\mathcal{O}_X$-模。由 $\mathcal{E}$ 的 Chern 类的构造，立即归结到
+$\mathcal{E}$ 常秩为 $r$ 的情形。此时，可以选取射影光滑态射
+$p : P \to X$，使限制映射 $A^*(X) \to A^*(P)$ 为单射，并使
+$p^*\mathcal{E}$ 有有限滤过，其分次部分是可逆 $\mathcal{O}_P$-模
+$\mathcal{L}_j$；见引理 \ref{weil-lemma-splitting-principle}。于是
+$[p^*\mathcal{E}] = \sum [\mathcal{L}_j]$，从而由 $\psi^2$ 的定义，
+$\psi^2([p^*\mathcal{E}]) = \sum [\mathcal{L}_j^{\otimes 2}]$。
+置 $x_j  = c^A_1(\mathcal{L}_j)$，则在 $\prod A^i(P)$ 中有
+$$
+c^A(\alpha) = \prod (1 + x_j)
+\quad\text{且}\quad
+c^A(\psi^2(\alpha)) = \prod (1 + 2 x_j)
+$$
+并且在 $\prod A^i(P)$ 中有
+$$
+ch^A(\alpha) = \sum \exp(x_j)
+\quad\text{且}\quad
+ch^A(\psi^2(\alpha)) = \sum \exp(2 x_j)
+$$
+所需结论由这些公式推出。
+\end{proof}
+
+
+
+
+
+
+
+\section{外幂与 K-群}
+\label{weil-section-lambda-operations}
+
+\noindent
+下面只作定义 lambda 算子所需的最低限度工作。设 $X$ 是概形。回忆，
+$\textit{Vect}(X)$ 表示有限局部自由 $\mathcal{O}_X$-模的范畴。此外，在
+《概形的导出范畴》第 \ref{perfect-section-K-groups} 节中，已经构造了与此范畴相关的
+第零 $K$-群 $K_0(\textit{Vect}(X))$。最后，$K_0(\textit{Vect}(X))$ 是环；
+见《概形的导出范畴》注记 \ref{perfect-remark-K-ring}。
+
+\begin{lemma}
+\label{weil-lemma-lambda-operations}
+设 $X$ 是概形。存在映射
+$$
+\lambda^r : K_0(\textit{Vect}(X)) \longrightarrow K_0(\textit{Vect}(X))
+$$
+当 $\mathcal{E}$ 是有限局部自由 $\mathcal{O}_X$-模时，它把
+$[\mathcal{E}]$ 送到 $[\wedge^r(\mathcal{E})]$，并且这些映射与拉回相容。
+\end{lemma}
+
+\begin{proof}
+考虑环 $R = K_0(\textit{Vect}(X))[[t]]$，其中 $t$ 是变量。
+对有限局部自由 $\mathcal{O}_X$-模 $\mathcal{E}$，在 $R$ 中置
+$$
+c(\mathcal{E}) = \sum\nolimits_{i = 0}^\infty [\wedge^i(\mathcal{E})] t^i
+$$
+断言：给定有限局部自由 $\mathcal{O}_X$-模的短正合列
+$$
+0 \to \mathcal{E}' \to \mathcal{E} \to \mathcal{E}'' \to 0
+$$
+有 $c(\mathcal{E}) = c(\mathcal{E}') c(\mathcal{E}'')$。
+该断言表明，$c$ 延拓为映射
+$$
+c :  K_0(\textit{Vect}(X)) \longrightarrow R
+$$
+并把 $K_0(\textit{Vect}(X))$ 中的加法变为 $R$ 中的乘法。
+写 $c(\alpha) = \sum \lambda^i(\alpha) t^i$，便得到所需算子
+$\lambda^i$。
+
+\medskip\noindent
+为证明断言，把短正合列视为 $\mathcal{E}$ 上有 $2$ 步的滤过。
+它在 $\wedge^r(\mathcal{E})$ 上诱导一个有 $r + 1$ 步的滤过，其子商为
+$$
+\wedge^r(\mathcal{E}'),
+\wedge^{r - 1}(\mathcal{E}') \otimes \mathcal{E}'',
+\wedge^{r - 2}(\mathcal{E}') \otimes \wedge^2(\mathcal{E}''), \ldots
+\wedge^r(\mathcal{E}'')
+$$
+因此，$[\wedge^r(\mathcal{E})]$ 等于
+$$
+\sum\nolimits_{i = 0}^r
+[\wedge^{r - i}(\mathcal{E}')] [\wedge^i(\mathcal{E}'')]
+$$
+结论容易由此及初等代数得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Weil 上同调理论，III}
+\label{weil-section-c1}
+
+\noindent
+设 $k$ 是域，$F$ 是特征为零的域。假设给定下列数据：
+\begin{enumerate}
+\item[(D0)] 一个 $1$ 维 $F$-向量空间 $F(1)$。
+\item[(D1)] 从 $k$ 上光滑射影概形范畴到分次交换 $F$-代数范畴的反变函子
+$H^*(-)$。
+\item[(D2')] 对每个 $k$ 上光滑射影概形 $X$，一个阿贝尔群同态
+$c_1^H : \Pic(X) \to H^2(X)(1)$。
+\end{enumerate}
+关于 (D0) 与 (D1)，采用第 \ref{weil-section-axioms} 节所述的术语、记号与约定。
+给定 $k$ 上光滑射影概形 $X$ 及可逆 $\mathcal{O}_X$-模 $\mathcal{L}$，
+(D2') 中的上同调类 $c_1^H(\mathcal{L}) \in H^2(X)(1)$ 有时称为
+{\it $\mathcal{L}$ 在上同调中的第一 Chern 类}。
+
+\medskip\noindent
+公理如下。
+\begin{enumerate}
+\item[(A1)] $H^*$ 与有限余积相容。
+\item[(A2)] $c_1^H$ 与拉回相容。
+\item[(A3)] 设 $X$ 是 $k$ 上光滑射影概形，$\mathcal{E}$ 是秩为
+$r \geq 1$ 的局部自由 $\mathcal{O}_X$-模。考虑态射
+$p : P = \mathbf{P}(\mathcal{E}) \to X$。则映射
+$$
+\bigoplus\nolimits_{i = 0, \ldots, r - 1} H^*(X)(-i)
+\longrightarrow H^*(P),\quad
+(a_0, \ldots, a_{r - 1}) \longmapsto
+\sum c_1^H(\mathcal{O}_P(1))^i \cup p^*(a_i)
+$$
+是 $F$-向量空间同构。
+\item[(A4)] 设 $i : Y \to X$ 是 $k$ 上有效 Cartier 除子的包含，且
+$X$ 与 $Y$ 都是 $k$ 上光滑射影概形。若 $a \in H^*(X)$ 且
+$i^*a = 0$，则 $a \cup c_1^H(\mathcal{O}_X(Y)) = 0$。
+\item[(A5)] $H^*$ 与有限积相容。
+\item[(A6)] 设 $X$ 是 $k$ 上非空、光滑、射影且维数为 $d$ 的等维概形。
+则存在 $F$-线性映射 $\lambda : H^{2d}(X)(d) \to F$，使得
+$(\text{id} \otimes \lambda) \gamma([\Delta]) =  1$ 在 $H^*(X)$ 中成立。
+\item[(A7)] 若 $b : X' \to X$ 是 $k$ 上光滑射影概形 $X$ 沿光滑中心的
+爆破\footnote{此时 $X'$ 也在 $k$ 上光滑且射影；见《态射进阶》引理
+\ref{more-morphisms-lemma-blowup}。}，则
+$b^* : H^*(X) \to H^*(X')$ 是单射。
+\item[(A8)] 若 $X$ 是 $k$ 上光滑射影概形，且
+$k' = \Gamma(X, \mathcal{O}_X)$，则映射 $H^0(\Spec(k')) \to H^0(X)$
+是同构。
+\item[(A9)] 设 $X$ 是 $k$ 上非空光滑射影、维数为 $d$ 的等维概形。
+设 $i : Y \to X$ 是在 $k$ 上光滑的非空有效 Cartier 除子。对
+$a \in H^{2d - 2}(X)(d - 1)$，有
+$\lambda_Y(i^*(a)) = \lambda_X(a \cup c_1^H(\mathcal{O}_X(Y))$，其中
+$\lambda_Y$ 与 $\lambda_X$ 分别是公理 (A6) 对 $X$ 与 $Y$ 给出的映射。
+\end{enumerate}
+下面更精确地说明各条公理的含义。公理 (A3)、(A4) 与 (A7) 按照其陈述已经清楚。
+
+\medskip\noindent
+关于 (A1)。这意味着 $H^*(\emptyset) = 0$，并且
+$(i^*, j^*) : H^*(X \amalg Y) \to H^*(X) \times H^*(Y)$
+是同构，其中 $i$ 与 $j$ 是余投射。
+
+\medskip\noindent
+关于 (A2)。这意味着：给定 $k$ 上光滑射影概形之间的态射
+$f : X \to Y$ 及可逆 $\mathcal{O}_Y$-模 $\mathcal{N}$，有
+$f^*c_1^H(\mathcal{L}) = c_1^H(f^*\mathcal{L})$。
+
+\medskip\noindent
+关于 (A5)。这意味着 $H^*(\Spec(k)) = F$，并且对 $k$ 上光滑射影的
+$X$ 与 $Y$，映射 $H^*(X) \otimes_F H^*(Y) \to H^*(X \times Y)$，
+$a \otimes b \mapsto p^*(a) \cup q^*(b)$ 是同构，其中 $p$ 与 $q$ 是投射。
+
+\medskip\noindent
+关于 (A6)。设 $X$ 是 $k$ 上非空光滑射影、维数为 $d$ 的等维概形。
+若已有公理 (A1)--(A4)，则由引理 \ref{weil-lemma-cycle-classes} 可考虑对角线的类
+$$
+\gamma([\Delta]) \in
+H^{2d}(X \times X)(d) = \bigoplus\nolimits_i H^i(X) \otimes_F H^{2d - i}(X)(d)
+$$
+其中张量分解来自公理 (A5)。给定 $F$-线性映射
+$\lambda : H^{2d}(X)(d) \to F$，也可先投射到 $H^{2d}(X)(d)$，从而把
+$\lambda$ 看作 $F$-线性映射 $\lambda : H^*(X)(d) \to F$。
+如此，公理 (A6) 便有意义。
+
+\medskip\noindent
+关于 (A8)。设 $X$ 是 $k$ 上光滑射影概形。则
+$k' = \Gamma(X, \mathcal{O}_X)$ 是有限可分 $k$-代数（《簇》引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}），
+因而 $\Spec(k')$ 在 $k$ 上光滑且射影。因此可以把 $H^*$ 应用于
+$\Spec(k')$，公理 (A8) 也就有意义。
+
+\medskip\noindent
+关于 (A9)。由注记 \ref{weil-remark-trace} 将会看到，若公理 (A1)--(A7)
+成立，则公理 (A6) 中的映射 $\lambda$ 是唯一的。
+
+\begin{lemma}
+\label{weil-lemma-chern-classes}
+假设给定满足公理 (A1)、(A2)、(A3) 与 (A4) 的数据 (D0)、(D1) 与 (D2')。
+则存在唯一规则，对每个 $k$ 上光滑射影概形 $X$ 指定一个环同态
+$$
+ch^H :
+K_0(\textit{Vect}(X))
+\longrightarrow
+\prod\nolimits_{i \geq 0} H^{2i}(X)(i)
+$$
+它与拉回相容，并且对任意可逆 $\mathcal{O}_X$-模 $\mathcal{L}$ 有
+$ch^H(\mathcal{L}) = \exp(c_1^H(\mathcal{L}))$。
+\end{lemma}
+
+\begin{proof}
+把命题 \ref{weil-proposition-chern-character} 应用于 $k$ 上光滑射影概形范畴、
+函子 $A : X \mapsto \bigoplus_{i \geq 0} H^{2i}(X)(i)$ 以及映射
+$c_1^H$，立即得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-cycle-classes}
+假设给定满足公理 (A1)、(A2)、(A3) 与 (A4) 的数据 (D0)、(D1) 与 (D2')。
+则存在唯一规则，对每个 $k$ 上光滑射影概形 $X$ 指定一个分次环同态
+$$
+\gamma : \CH^*(X) \longrightarrow \bigoplus\nolimits_{i \geq 0} H^{2i}(X)(i)
+$$
+它与拉回相容，并且对 $K_0(\textit{Vect}(X))$ 中的 $\alpha$ 有
+$ch^H(\alpha) = \gamma(ch(\alpha))$。
+\end{lemma}
+
+\begin{proof}
+回忆有同构
+$$
+K_0(\textit{Vect}(X)) \otimes \mathbf{Q}
+\longrightarrow \CH^*(X) \otimes \mathbf{Q},\quad
+\alpha \longmapsto ch(\alpha) \cap [X]
+$$
+见《Chow 同调》引理 \ref{chow-lemma-K-tensor-Q}。由《Chow 同调》注记
+\ref{chow-remark-chern-character-K}，这是环同构。如下定义 $\gamma$：
+$\gamma(\alpha) = ch^H(\alpha')$，其中 $ch^H$ 如引理
+\ref{weil-lemma-chern-classes}，而 $\alpha' \in K_0(\textit{Vect}(X))$ 满足
+$ch(\alpha') \cap [X] = \alpha$ 在 $\CH^*(X) \otimes \mathbf{Q}$ 中成立。
+
+\medskip\noindent
+构造 $\alpha \mapsto \gamma(\alpha)$ 与拉回相容，因为 $ch^H$ 与取 Chern 类
+都与拉回相容；见引理 \ref{weil-lemma-chern-classes} 及《Chow 同调》注记
+\ref{chow-remark-gysin-chern-classes}。
+
+\medskip\noindent
+还须证明 $\gamma$ 是分次的。令
+$\psi^2 : K_0(\textit{Vect}(X)) \to K_0(\textit{Vect}(X))$ 为第二 Adams
+算子；见《Chow 同调》引理 \ref{chow-lemma-second-adams-operator}。
+若 $\alpha \in \CH^i(X)$，且
+$\alpha' \in K_0(\textit{Vect}(X)) \otimes \mathbf{Q}$ 是满足
+$ch(\alpha') \cap [X] = \alpha$ 的唯一元素，则在《Chow 同调》第
+\ref{chow-section-intersection-regular} 节已经看到
+$\psi^2(\alpha') = 2^i \alpha'$。因此由引理 \ref{weil-lemma-adams-and-chern}
+可得 $ch^H(\alpha') \in H^{2i}(X)(i)$，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-divide-pullback-good-blowing-up}
+设 $b : X' \to X$ 是 $k$ 上光滑射影概形沿光滑闭子概形
+$Z \subset X$ 的爆破。考虑图表
+$$
+\xymatrix{
+E \ar[r]_j \ar[d]_\pi & X' \ar[d]^b \\
+Z \ar[r]^i & X
+}
+$$
+假设存在 $K_0(X)$ 中的元素，其在 $Z$ 上的限制等于
+$K_0(Z)$ 中 $\mathcal{C}_{Z/X}$ 的类。再假设 $Z$ 的每个不可约分支在
+$X$ 中的余维都是 $r$。则存在周期 $\theta \in \CH^{r - 1}(X')$，使得
+$b^![Z] = [E] \cdot \theta$ 在 $\CH^r(X')$ 中成立，并且
+$\pi_*j^!(\theta) = [Z]$ 在 $\CH^r(Z)$ 中成立。
+\end{lemma}
+
+\begin{proof}
+概形 $X$ 在 $k$ 上光滑且射影，故
+$K_0(X) = K_0(\textit{Vect}(X))$。见《概形的导出范畴》引理
+\ref{perfect-lemma-resolution-property-ample} 与
+\ref{perfect-lemma-K-is-old-K}。取 $\alpha \in K_0(\text{Vect}(X))$，
+使其在 $Z$ 上的限制为 $\mathcal{C}_{Z/X}$。由《Chow 同调》引理
+\ref{chow-lemma-minus-adams-operator}，存在元素 $\alpha^\vee$，其限制为
+$\mathcal{C}_{Z/X}^\vee$。由爆破公式（《Chow 同调》引理
+\ref{chow-lemma-blow-up-formula}），有
+$$
+b^![Z] = b^!i_*[Z] = j_* res(b^!)([Z]) =
+j_*(c_{r - 1}(\mathcal{F}^\vee) \cap \pi^*[Z]) =
+j_*(c_{r - 1}(\mathcal{F}^\vee) \cap [E])
+$$
+其中 $\mathcal{F}$ 是满射
+$\pi^*\mathcal{C}_{Z/X} \to \mathcal{C}_{E/X'}$ 的核。注意
+$b^*\alpha^\vee - [\mathcal{O}_{X'}(E)]$ 是
+$K_0(\text{Vect}(X'))$ 的元素，其在 $E$ 上的限制为
+$[\pi^*\mathcal{C}_{Z/X}^\vee] - [\mathcal{C}_{E/X'}^\vee] =
+[\mathcal{F}^\vee]$。由于以 Chern 类作帽积与 $j_*$ 可交换，上式等于
+$$
+c_{r - 1}(b^*\alpha^\vee - [\mathcal{O}_{X'}(E)]) \cap [E]
+$$
+作为 $X'$ 的 Chow 群中的元素。因此令
+$$
+\theta = c_{r - 1}(b^*\alpha^\vee - [\mathcal{O}_{X'}(E)]) \cap [X']
+$$
+便得到第一个关系 $\theta \cdot [E] = b^![Z]$；例如可用《Chow 同调》引理
+\ref{chow-lemma-identify-chow-for-smooth}。对第二个关系，注意
+$$
+j^!\theta = j^!(c_{r - 1}(b^*\alpha^\vee - [\mathcal{O}_{X'}(E)]) \cap [X'])
+= c_{r - 1}(\mathcal{F}^\vee) \cap j^![X'] =
+c_{r - 1}(\mathcal{F}^\vee) \cap [E]
+$$
+在 $E$ 的 Chow 群中成立。要证明其 $\pi_*$ 等于 $[Z]$，只需证明
+余维 $r - 1$ 的周期
+$(-1)^{r - 1}c_{r - 1}(\mathcal{F}) \cap [E]$ 在 $\pi$ 的纤维上的次数为
+$1$。略去这一计算。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-A5-A6-imply}
+假设给定满足公理 (A1)--(A4) 与 (A7) 的数据 (D0)、(D1) 与 (D2')。
+设 $X$ 是 $k$ 上光滑射影概形，$Z \subset X$ 是光滑闭子概形，且
+$Z$ 的每个不可约分支在 $X$ 中的余维都是 $r$。假设
+$K_0(Z)$ 中 $\mathcal{C}_{Z/X}$ 的类是 $K_0(X)$ 中某元素的限制。
+若 $a \in H^*(X)$ 且 $a|_Z = 0$ 在 $H^*(Z)$ 中成立，则
+$\gamma([Z]) \cup a = 0$。
+\end{lemma}
+
+\begin{proof}
+令 $b : X' \to X$ 为该爆破。由 (A7)，只需证明
+$$
+b^*(\gamma([Z]) \cup a) = b^*\gamma([Z]) \cup b^*a = 0
+$$
+由引理 \ref{weil-lemma-divide-pullback-good-blowing-up}，有
+$$
+b^*\gamma([Z]) = \gamma(b^*[Z]) =
+\gamma([E] \cdot \theta) =
+\gamma([E]) \cup \gamma(\theta)
+$$
+由于 $b^*a$ 在 $E$ 上限制为零，且
+$\gamma([E]) = c^H_1(\mathcal{O}_{X'}(E))$，所需结论由 (A4) 得到。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-poincare-duality}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+则第 \ref{weil-section-axioms} 节的公理 (A) 成立，其中
+$\int_X = \lambda$ 如公理 (A6)。
+\end{lemma}
+
+\begin{proof}
+设 $X$ 是 $k$ 上非空光滑射影、维数为 $d$ 的等维概形。将证明分次
+$F$-向量空间 $H^*(X)(d)[2d]$ 是 $H^*(X)$ 的左对偶。由《同调》引理
+\ref{homology-lemma-left-dual-graded-vector-spaces}，这将证明所需结论。
+我们将使用公理 (A5)，它特别给出
+$$
+H^*(X \times X)(d) =
+\bigoplus H^i(X) \otimes H^j(X)(d) =
+\bigoplus H^i(X)(d) \otimes H^j(X)
+$$
+定义映射
+$$
+\eta : F \longrightarrow H^*(X \times X)(d)
+$$
+为乘以 $\gamma([\Delta]) \in H^{2d}(X \times X)(d)$。另一方面，定义映射
+$$
+\epsilon :
+H^*(X \times X)(d) \longrightarrow H^*(X)(d) \xrightarrow{\lambda} F
+$$
+如下：先沿对角态射 $\Delta : X \to X \times X$ 作拉回 $\Delta^*$，
+再应用公理 (A6) 中的 $F$-线性映射
+$\lambda : H^{2d}(X)(d) \to F$，这里预先与投射
+$H^*(X)(d) \to H^{2d}(X)(d)$ 复合。
+
+为证明 $H^*(X)(d)$ 是 $H^*(X)$ 的左对偶，须证明映射
+$$
+\eta \otimes 1 :
+H^*(X) \longrightarrow H^*(X \times X \times X)(d)
+$$
+与
+$$
+1 \otimes \epsilon : H^*(X \times X \times X)(d) \longrightarrow H^*(X)
+$$
+的复合是恒等映射。若 $a \in H^*(X)$，则该复合把 $a$ 映到
+$$
+(1 \otimes \lambda)(\Delta_{23}^*(q_{12}^*\gamma([\Delta]) \cup q_3^*a)) =
+(1 \otimes \lambda)(\gamma([\Delta]) \cup p_2^*a)
+$$
+其中 $q_i : X \times X \times X \to X$ 与
+$q_{ij} : X \times X \times X \to X \times X$ 是投射，
+$\Delta_{23} : X \times X \to X \times X \times X$ 是对角态射，而
+$p_i : X \times X \to X$ 是投射。等式成立，是因为
+$\Delta_{23}^*(q_{12}^*\gamma([\Delta]) =
+\Delta_{23}^*\gamma([\Delta \times X]) = \gamma([\Delta])$，并且
+$\Delta_{23}^* q_3^*a = p_2^*a$。由于
+$\gamma([\Delta]) \cup p_1^*a = \gamma([\Delta]) \cup p_2^*a$（见下文），
+上式化为
+$$
+(1 \otimes \lambda)(\gamma([\Delta]) \cup p_1^*a) = a
+$$
+这正是对 $\lambda$ 的选择所保证的。《范畴》定义
+\ref{categories-definition-dual} 中的第二个条件
+$(\epsilon \otimes 1) \circ (1 \otimes \eta) = \text{id}$ 以完全相同的方式证明。
+
+\medskip\noindent
+注意 $p_1^*a$ 与 $\text{pr}_2^*a$ 在
+$\Delta \subset X \times X$ 上限制为同一个上同调类。此外，
+$\mathcal{C}_{\Delta/X \times X} = \Omega^1_\Delta$ 是
+$p_1^*\Omega^1_X$ 的限制。因此引理 \ref{weil-lemma-A5-A6-imply} 给出
+$\gamma([\Delta]) \cup p_1^*a = \gamma([\Delta]) \cup p_2^*a$，证明完成。
+\end{proof}
+
+\begin{remark}[迹映射的唯一性]
+\label{weil-remark-trace}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+设 $X$ 是 $k$ 上非空光滑射影、维数为 $d$ 的等维概形。结合引理
+\ref{weil-lemma-poincare-duality} 与《同调》引理
+\ref{homology-lemma-left-dual-graded-vector-spaces} 的证明可见，
+$$
+\gamma([\Delta]) \in \bigoplus\nolimits_i H^i(X) \otimes H^{2d - i}(X)(d)
+$$
+对每个 $i$ 都在 $H^i(X)$ 与 $H^{2d - i}(X)(d)$ 之间定义完美对偶。
+特别地，公理 (A6) 中的线性映射
+$\int_X = \lambda : H^{2d}(X)(d) \to F$ 是唯一的！从现在起，把
+$\int_X$ 称为 $X$ 的迹映射。
+\end{remark}
+
+\begin{lemma}
+\label{weil-lemma-trace-product}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+则第 \ref{weil-section-axioms} 节的公理 (B) 成立。
+\end{lemma}
+
+\begin{proof}
+公理 (B)(a) 由公理 (A5) 立即得到。设 $X$ 与 $Y$ 是 $k$ 上非空光滑射影概形，
+其维数分别为 $d$ 与 $e$。为证明公理 (B)(b)，注意 $X \times Y$ 的对角线
+$\Delta_{X \times Y}$ 是以下两个对角线之拉回的交积：$X$ 的
+$\Delta_X$ 与 $Y$ 的 $\Delta_Y$，相应投射为
+$p : X \times Y \times X \times Y \to X \times X$ 及
+$q : X \times Y \times X \times Y \to Y \times Y$。
+$\gamma$ 与交积的相容性于是给出
+$$
+\gamma([\Delta_{X \times Y}]) \in
+H^{2d + 2e}(X \times Y \times X \times Y)(d + e)
+$$
+是 $\gamma([\Delta_X])$ 与 $\gamma([\Delta_Y])$ 分别沿 $p$ 与 $q$ 拉回后的杯积。
+写
+$$
+\gamma([\Delta_{X \times Y}]) = \sum \eta_{X \times Y, i}
+\text{ 其中 }
+\eta_{X \times Y, i} \in
+H^i(X \times Y) \otimes H^{2d + 2e - i}(X \times Y)(d + e)
+$$
+并类似地写 $\gamma([\Delta_X]) = \sum \eta_{X, i}$ 及
+$\gamma([\Delta_Y]) = \sum \eta_{Y, i}$。上述观察表明
+$$
+\eta_{X \times Y, 0} =
+\sum\nolimits_{i \in \mathbf{Z}} p^*\eta_{X, i} \cup q^*\eta_{Y, -i}
+$$
+（若该上同调理论在负次数消失——几乎所有情形都如此——则只有 $i = 0$ 项有贡献，
+而 $\eta_{X \times Y, 0}$ 如预期位于
+$H^0(X) \otimes H^0(Y) \otimes H^{2d}(X)(d) \otimes H^{2e}(Y)(e)$；
+但这里不需要这一点。）由于 $\lambda_X : H^{2d}(X)(d) \to F$ 与
+$\lambda_Y : H^{2e}(Y)(e) \to F$ 分别把 $\eta_{X, 0}$ 与 $\eta_{Y, 0}$
+送到 $H^*(X)$ 与 $H^*(Y)$ 中的 $1$，可见 $\lambda_X \otimes \lambda_Y$
+把 $\eta_{X \times Y, 0}$ 送到
+$H^*(X) \otimes H^*(Y) = H^*(X \times Y)$ 中的 $1$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-trace-base}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+则第 \ref{weil-section-axioms} 节的公理 (C)(d) 成立。
+\end{lemma}
+
+\begin{proof}
+由构造，$\gamma([\Spec(k)]) = 1 \in H^*(\Spec(k))$。由于
+$$
+H^0(\Spec(k)) = F,\quad
+H^0(\Spec(k) \times \Spec(k)) = H^0(\Spec(k)) \otimes_F H^0(\Spec(k))
+$$
+公理 (A6) 中的映射 $\int_{\Spec(k)} = \lambda$ 必把 $1$ 送到 $1$，
+因为引理 \ref{weil-lemma-trace-product} 已经给出
+$\int_{\Spec(k) \times \Spec(k)} = \int_{\Spec(k)} \int_{\Spec(k)}$。
+\end{proof}
+
+\noindent
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+于是得到第 \ref{weil-section-axioms} 节中的数据 (D0)、(D1)、(D2) 与 (D3)，
+并满足第 \ref{weil-section-axioms} 节的公理 (A)、(B)、(C)(a)、(C)(c) 与 (C)(d)；见引理
+\ref{weil-lemma-poincare-duality}、\ref{weil-lemma-trace-product} 与
+\ref{weil-lemma-trace-base}。此外，还有第 \ref{weil-section-axioms} 节中构造的推前
+$f_* : H^*(X) \to H^*(Y)$。第 \ref{weil-section-axioms} 节尚未明确的唯一公理是 (C)(b)。
+
+\begin{lemma}
+\label{weil-lemma-ok-for-projective-bundle}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+设 $p : P \to X$ 如公理 (A3)，其中 $X$ 非空且等维。则 $\gamma$ 与沿
+$p$ 的推前可交换。
+\end{lemma}
+
+\begin{proof}
+只需在 $\CH_*(P)$ 的生成元上证明。因而只需对形如
+$\xi^i \cdot p^*\alpha$ 的周期类证明，其中 $0 \leq i \leq r - 1$ 且
+$\alpha \in \CH_*(X)$。注意，若 $i < r - 1$，则
+$p_*(\xi^i \cdot p^*\alpha) = 0$；而
+$p_*(\xi^{r - 1} \cdot p^*\alpha) = \alpha$。另一方面，
+$\gamma(\xi^i \cdot p^*\alpha) = c^i \cup p^*\gamma(\alpha)$；由投影公式
+（引理 \ref{weil-lemma-pushforward}），有
+$$
+p_*\gamma(\xi^i \cdot p^*\alpha) = p_*(c^i) \cup \gamma(\alpha)
+$$
+所以只需证明：当 $i < r - 1$ 时 $p_*c^i = 0$，且
+$p_*c^{r - 1} = 1$。等价地，只需证明由下列规则定义的
+$\lambda_P : H^{2d + 2r - 2}(P)(d + r - 1) \to F$
+$$
+\lambda_P(c^i \cup p^*(a)) =
+\left\{
+\begin{matrix}
+0 & \text{若} & i < r - 1 \\
+\int_X(a) & \text{若} & i = r - 1
+\end{matrix}
+\right.
+$$
+满足公理 (A5) 的条件。这由引理 \ref{weil-lemma-diagonal-projective-bundle}
+中对 $P$ 的对角线类的计算得出。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-integrate-1}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+若 $k'/k$ 是 Galois 扩张，则
+$\int_{\Spec(k')} 1 = [k' : k]$。
+\end{lemma}
+
+\begin{proof}
+注意，作为 $\Spec(k') \times \Spec(k')$ 上的周期，有
+$$
+\Spec(k') \times \Spec(k') =
+\coprod\nolimits_{\sigma \in \text{Gal}(k'/k)}
+(\Spec(\sigma) \times \text{id})^{-1} \Delta
+$$
+对 $\gamma$ 的构造总是把 $[X]$ 送到 $H^0(X)$ 中的 $1$。因此
+$1 \otimes 1 = 1 = \sum (\Spec(\sigma) \times \text{id})^*\gamma([\Delta])$。
+以 $\lambda : H^0(\Spec(k')) \to F$ 表示公理 (A6) 给出的映射；换言之，
+$(\text{id} \otimes \lambda)(\gamma(\Delta)) = 1$ 在
+$H^0(\Spec(k'))$ 中成立。于是
+\begin{align*}
+\lambda(1) 1
+& =
+(\text{id} \otimes \lambda)(1 \otimes 1) \\
+& =
+(\text{id} \otimes \lambda)(
+\sum (\Spec(\sigma) \times \text{id})^*\gamma([\Delta])) \\
+& =
+\sum (\Spec(\sigma) \times \text{id})^*(
+(\text{id} \otimes \lambda)(\gamma([\Delta])) \\
+& =
+\sum (\Spec(\sigma) \times \text{id})^*(1) \\
+& =
+[k' : k]
+\end{align*}
+由于 $\lambda$ 是 $\int_{\Spec(k')}$ 的另一个名称（注记
+\ref{weil-remark-trace}），证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-enough}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+为证明 $\gamma$ 与推前可交换，只需证明：若
+$i : Z \to X$ 是 $k$ 上非空光滑射影等维概形之间的闭浸入，则
+$i_*(1) = \gamma([Z])$。
+\end{lemma}
+
+\begin{proof}
+下面不再另行说明地使用这些事实：引理 \ref{weil-lemma-cycle-classes} 中构造的
+周期类映射 $\gamma$ 与交积及拉回相容；并且第 \ref{weil-section-axioms} 节的公理
+(A)、(B)、(C)(a)、(C)(c) 与 (C)(d) 已经成立，见引理
+\ref{weil-lemma-poincare-duality}、注记 \ref{weil-remark-trace} 以及引理
+\ref{weil-lemma-trace-product} 与 \ref{weil-lemma-trace-base}。特别地，例如可用引理
+\ref{weil-lemma-pushforward} 看出 $H^*$ 上的推前与复合相容并满足投影公式。
+
+\medskip\noindent
+设 $f : X \to Y$ 是 $k$ 上非空等维光滑射影概形之间的态射。
+目标是对 $X$ 上任意周期类 $\alpha$ 证明
+$f_*\gamma(\alpha) = \gamma(f_*\alpha)$。可把 $\alpha$ 写成局部自由
+$\mathcal{O}_X$-模的 Chern 类之乘积的 $\mathbf{Q}$-线性组合
+（《Chow 同调》引理 \ref{chow-lemma-K-tensor-Q}）。因此可假设
+$\alpha$ 是有限局部自由 $\mathcal{O}_X$-模
+$\mathcal{E}_1, \ldots, \mathcal{E}_r$ 的 Chern 类之乘积。
+按分裂原理（《Chow 同调》引理 \ref{chow-lemma-splitting-principle}）选择
+$p : P \to X$。由《Chow 同调》注记
+\ref{chow-remark-the-proof-shows-more}，$p$ 是若干射影空间丛的复合，并且
+$\alpha = p_*(\xi_1 \cap \ldots \cap \xi_d \cap \cdot p^*\alpha)$，其中
+$\xi_i$ 是可逆模的第一 Chern 类。由引理
+\ref{weil-lemma-ok-for-projective-bundle}，$p_*$ 与周期类可交换。因此只需对复合
+$f \circ p$ 证明此性质。由于
+$p^*\mathcal{E}_1, \ldots, p^*\mathcal{E}_r$ 都有逐次商为可逆模的滤过，
+问题化归到 $\alpha$ 形如
+$\xi_1 \cap \ldots \cap \xi_t \cap [X]$ 的情形，其中 $\xi_i$ 是可逆模
+$\mathcal{L}_i$ 的第一 Chern 类。
+
+\medskip\noindent
+假设
+$\alpha = c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_t) \cap [X]$，
+其中 $\mathcal{L}_i$ 是 $X$ 上可逆模。令 $\mathcal{L}$ 为一个丰沛可逆
+$\mathcal{O}_X$-模。当 $n \gg 0$ 时，可逆 $\mathcal{O}_X$-模
+$\mathcal{L}^{\otimes n}$ 与 $\mathcal{L}_1 \otimes \mathcal{L}^{\otimes n}$
+在 $k$ 上的 $X$ 上都非常丰沛；见《态射》引理
+\ref{morphisms-lemma-invertible-add-enough-ample-very-ample}。由于
+$c_1(\mathcal{L}_1) = c_1(\mathcal{L}_1 \otimes \mathcal{L}^{\otimes n})
+- c_1(\mathcal{L}^{\otimes n})$，问题化归到 $\mathcal{L}_1$ 非常丰沛的情形。
+对 $i = 2, \ldots, t$ 的 $\mathcal{L}_i$ 重复此过程，便可假设所有
+$i = 1, \ldots, t$ 的 $\mathcal{L}_i$ 都在 $k$ 上的 $X$ 上非常丰沛。
+
+\medskip\noindent
+假设 $k$ 无限，且
+$\alpha = 
+c_1(\mathcal{L}_1) \cap \ldots \cap c_1(\mathcal{L}_t) \cap [X]$，
+其中 $\mathcal{L}_i$ 是 $X$ 上相对于 $k$ 的非常丰沛可逆模。利用《簇》引理
+\ref{varieties-lemma-bertini} 形式的 Bertini 定理，可以逐次找到
+$\mathcal{L}_i$ 的正则截面 $s_i$，使概形
+$Z(s_1) \cap \ldots \cap Z(s_i)$ 在 $k$ 上光滑且在 $X$ 中余维为 $i$。
+由以可逆模的第一类作帽积的构造（追溯至《Chow 同调》定义
+\ref{chow-definition-divisor-invertible-sheaf}），问题化归到
+$\alpha = [Z]$ 的情形，其中 $Z \subset X$ 是非空、光滑、等维的闭子概形。
+
+\medskip\noindent
+假设 $\alpha = [Z]$，其中 $Z \subset X$ 是光滑闭子概形。选择闭嵌入
+$X \to \mathbf{P}^n$。可将 $f$ 分解为
+$$
+X \to Y \times \mathbf{P}^n \to Y
+$$
+由引理 \ref{weil-lemma-ok-for-projective-bundle}，第二个态射的结论已知；所以只需处理
+$\alpha = [Z]$、$i : Z \to X$ 为闭浸入且 $f$ 也为闭浸入的情形。
+此时 $j = f \circ i$ 也是闭嵌入。对 $i$ 与 $j$ 使用假设即得结论。
+
+\medskip\noindent
+还须在 $k$ 为有限域时证明本引理。建议读者跳过余下证明。以上论证仍然成立，
+唯一例外是：由于 $k$ 有限，不知道能否在 $k$ 上选择截面 $s_i$ 截出
+$Z$。然而，由同一引理可知，在 $k$ 的代数闭包 $\overline{k}$ 上可以找到
+$s_i$。因此存在有限扩张 $k'/k$，使这些截面 $s_i$ 定义在 $k'$ 上。
+以 $\pi : X_{k'} \to X$ 表示投射。上述论证表明，由引理中的假设，
+对周期 $\pi^*\alpha$ 及态射 $f \circ \pi : X_{k'} \to Y$ 可得所需结论。
+又有 $\pi_*\pi^*\alpha = [k' : k] \alpha$；见《Chow 同调》引理
+\ref{chow-lemma-finite-flat}。另一方面，
+$$
+\pi_*\gamma(\pi^*\alpha) = \pi_*\pi^*\gamma(\alpha) =
+\gamma(\alpha) \pi_*1
+$$
+由该上同调理论的投影公式成立。注意 $\pi$ 是一个投射（！），所以由引理
+\ref{weil-lemma-pr2star} 有 $\pi_*(1) = \int_{\Spec(k')}(1) 1$。
+因此，要完成有限域情形的证明，只需证明
+$\int_{\Spec(k')}(1) = [k' : k]$；这在引理
+\ref{weil-lemma-integrate-1} 中完成。
+\end{proof}
+
+\noindent
+以下引理使用《构造》第 \ref{constructions-section-grassmannian} 节中定义并构造的
+Grassmann 簇。
+
+\begin{lemma}
+\label{weil-lemma-grassmanian}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+给定整数 $0 < l < n$ 以及 $k$ 上非空等维光滑射影概形 $X$，考虑投射态射
+$p : X \times \mathbf{G}(l, n) \to X$。则 $\gamma$ 与沿 $p$ 的推前可交换。
+\end{lemma}
+
+\begin{proof}
+若 $l = 1$ 或 $l = n - 1$，则 $p$ 是射影丛，结论由引理
+\ref{weil-lemma-ok-for-projective-bundle} 得到。一般而言，存在态射
+$$
+h : Y \to X \times \mathbf{G}(l, n)
+$$
+使 $h$ 与 $p \circ h$ 都是若干射影空间丛的复合。具体而言，以
+$\mathbf{G}(1, 2, \ldots, l; n)$ 表示部分旗簇。则态射
+$$
+\mathbf{G}(1, 2, \ldots, l; n) \to \mathbf{G}(l, n)
+$$
+是若干射影空间丛的复合，结构态射
+$\mathbf{G}(1, 2, \ldots, l; n) \to \Spec(k)$ 亦然。因此可令
+$Y = X \times \mathbf{G}(1, 2, \ldots, l; n)$。由于
+$X \times \mathbf{G}(l, n)$ 上每个周期都是 $Y$ 上某周期的推前，
+$Y \to X$ 的结论与 $Y \to X \times \mathbf{G}(l, n)$ 的结论共同推出
+$p$ 的结论。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-enough-better}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+为证明 $\gamma$ 与推前可交换，只需证明：若
+$i : Z \to X$ 是 $k$ 上非空光滑射影等维概形之间的闭浸入，且
+$K_0(Z)$ 中 $\mathcal{C}_{Z/X}$ 的类是 $K_0(X)$ 中某个类的拉回，则
+$i_*(1) = \gamma([Z])$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{weil-lemma-enough}，只需对 $k$ 上非空光滑射影等维概形之间的闭浸入
+$i : Z \to X$ 证明 $i_*(1) = \gamma([Z])$。设 $Z$ 在 $X$ 中余维为
+$r$。令 $\mathcal{L}$ 是 $X$ 上充分丰沛的可逆模。选择 $n > 0$ 及满射
+$$
+\mathcal{O}_Z^{\oplus n} \to \mathcal{C}_{Z/X} \otimes \mathcal{L}|_Z
+$$
+这给出到 $k$ 上 Grassmann 簇的态射
+$g : Z \to \mathbf{G}(n - r, n)$；见《构造》第
+\ref{constructions-section-grassmannian} 节。考虑复合
+$$
+Z \to X \times \mathbf{G}(n - r, n) \to X
+$$
+由引理 \ref{weil-lemma-grassmanian}，沿第二个态射的推前与周期类相容。
+闭浸入 $Z \to X \times \mathbf{G}(n - r, n)$ 的余法层 $\mathcal{C}$
+位于短正合列
+$$
+0 \to \mathcal{C}_{Z/X} \to \mathcal{C} \to
+g^*\Omega_{\mathbf{G}(n - r, n)} \to 0
+$$
+中。见《态射进阶》引理
+\ref{more-morphisms-lemma-two-unramified-morphisms-formally-smooth}。
+由于 $\mathcal{C}_{Z/X} \otimes \mathcal{L}|_Z$ 是
+$\mathbf{G}(n - r, n)$ 上某个有限局部自由层的拉回，可知
+$K_0(Z)$ 中 $\mathcal{C}$ 的类是
+$K_0(X \times \mathbf{G}(n - r, n))$ 中某个类的拉回。因此，对于
+$Z \to X \times \mathbf{G}(n - r, n)$ 已有该性质，结论随即得到。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-injective-H0}
+假设给定满足公理 (A1)--(A7) 的数据 (D0)、(D1) 与 (D2')。
+若 $k''/k'/k$ 是有限可分域扩张，则
+$H^0(\Spec(k')) \to H^0(\Spec(k''))$ 是单射。
+\end{lemma}
+
+\begin{proof}
+可用 $k''$ 在 $k$ 上的正规闭包作替换；该闭包在 $k$ 上是 Galois 的，
+见《域》引理 \ref{fields-lemma-normal-closure-galois}。于是 $k''$ 在 $k'$ 上也
+是 Galois 的；见《域》引理 \ref{fields-lemma-galois-goes-up}。由此得到同构
+$$
+k' \otimes_k k'' \longrightarrow
+\prod\nolimits_{\sigma \in \text{Gal}(k''/k')} k'',\quad
+\eta \otimes \zeta \longmapsto (\eta \sigma(\zeta))_\sigma
+$$
+它给出同构
+$\coprod_\sigma \Spec(k'') \to \Spec(k') \times \Spec(k'')$，
+而在上同调上给出同构
+$$
+H^*(\Spec(k')) \otimes_F H^*(\Spec(k''))
+\to
+\prod\nolimits_\sigma H^*(\Spec(k'')),\quad
+a' \otimes a'' \longmapsto (\pi^*a' \cup \Spec(\sigma)^*a'')_\sigma
+$$
+其中 $\pi : \Spec(k'') \to \Spec(k')$ 是由 $k'$ 到 $k''$ 的包含对应的态射。
+取 $a'' = 1$ 即得本引理。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-pushforward-blowup}
+假设给定满足公理 (A1)--(A8) 的数据 (D0)、(D1) 与 (D2')。
+设 $b : X' \to X$ 是 $k$ 上非空等维、维数为 $d$ 的光滑射影概形
+$X$ 沿无处稠密光滑中心 $Z$ 的爆破。则 $b_*(1) = 1$。
+\end{lemma}
+
+\begin{proof}
+可用 $X$ 的一个连通分支替换 $X$（略去一些细节）。因此可假设 $X$ 连通，
+从而不可约。置
+$k' = \Gamma(X, \mathcal{O}_X) = \Gamma(X', \mathcal{O}_{X'})$；
+略去该等式的证明。选择不在例外除子中且剩余域 $k''$ 在 $k$ 上可分的闭点
+$x' \in X'$；这可由《簇》引理
+\ref{varieties-lemma-smooth-separable-closed-points-dense} 实现。以
+$x \in X$ 表示其像（其剩余域当然也等于 $k''$）。考虑图表
+$$
+\xymatrix{
+x' \times X' \ar[r] \ar[d] & X' \times X' \ar[d] \\
+x \times X \ar[r] & X \times X
+}
+$$
+对角线 $\Delta = \Delta_X$ 的类拉回为“对角点”
+$\delta_x : x \to x \times X$ 的类；对角线 $\Delta'$ 的类亦然。
+另一方面，对角点 $\delta_x$ 沿左侧竖直箭头拉回为对角点 $\delta_{x'}$。
+写 $\gamma([\Delta]) = \sum \eta_i$，其中
+$\eta_i \in H^i(X) \otimes H^{2d - i}(X)(d)$；并写
+$\gamma([\Delta']) = \sum \eta'_i$，其中
+$\eta'_i \in H^i(X') \otimes H^{2d - i}(X')(d)$。以上论证表明，
+$\eta_0$ 与 $\eta'_0$ 映到
+$$
+H^0(x') \otimes_F H^{2d}(X')(d)
+$$
+中的同一个类。由公理 (A8)，
+$H^0(\Spec(k')) = H^0(X) = H^0(X')$。由引理
+\ref{weil-lemma-injective-H0}，这个公共值单射地映入 $H^0(x')$。因而
+$\eta_0$ 通过映射
+$$
+H^0(X) \otimes_F H^{2d}(X)(d)
+\longrightarrow
+H^0(X') \otimes_F H^{2d}(X')(d)
+$$
+映到 $\eta'_0$。这意味着 $\int_X$ 等于 $\int_{X'}$ 与拉回映射的复合，
+故本引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{weil-lemma-done}
+假设给定满足公理 (A1)--(A8) 的数据 (D0)、(D1) 与 (D2')。
+则周期类映射 $\gamma$ 与推前可交换。
+\end{lemma}
+
+\begin{proof}
+令 $i : Z \to X$ 如引理 \ref{weil-lemma-enough-better}。考虑图表
+$$
+\xymatrix{
+E \ar[r]_j \ar[d]_\pi & X' \ar[d]^b \\
+Z \ar[r]^i & X
+}
+$$
+令 $\theta \in \CH^{r - 1}(X')$ 如引理
+\ref{weil-lemma-divide-pullback-good-blowing-up}。因为 $\pi$ 是射影空间丛，
+由引理 \ref{weil-lemma-ok-for-projective-bundle}，关系
+$\pi_*j^!\theta = [Z]$ 在 $\CH_*(Z)$ 中成立蕴含
+$\pi_*\gamma(j^!\theta) = 1$。因此
+$$
+i_*(1) = i_*(\pi_*(\gamma(j^!\theta))) =
+b_*j_*(j^*\gamma(\theta)) =
+b_*(j_*(1) \cup \gamma(\theta))
+$$
+由 (A9)，$j_*(1) = \gamma([E])$。所以这等于
+$$
+b_*(\gamma([E]) \cup \gamma(\theta)) =
+b_*(\gamma([E] \cdot \theta)) =
+b_*(\gamma(b^*[Z])) =
+b_*b^*\gamma([Z]) = b_*(1) \cup \gamma([Z])
+$$
+由引理 \ref{weil-lemma-pushforward-blowup}，$b_*(1) = 1$，证明完成。
+\end{proof}
+
+\begin{proposition}
+\label{weil-proposition-get-weil}
+假设给定满足公理 (A1)--(A8) 的数据 (D0)、(D1) 与 (D2')。
+则得到一个 Weil 上同调理论。
+\end{proposition}
+
+\begin{proof}
+第 \ref{weil-section-axioms} 节的公理 (A)、(B)、(C)(a)、(C)(c) 与 (C)(d)
+由引理 \ref{weil-lemma-poincare-duality}、\ref{weil-lemma-trace-product} 与
+\ref{weil-lemma-trace-base} 得到。由引理 \ref{weil-lemma-done}，
+公理 (C)(b) 成立。最后，定义 \ref{weil-definition-weil-cohomology-theory}
+中的附加条件成立，因为它与公理 (A8) 相同。
+\end{proof}
+
+\noindent
+下面的引理有时可用于把问题化归到闭域，从而证明在非闭域上得到 Weil 上同调理论。
+
+\begin{lemma}
+\label{weil-lemma-check-over-extension}
+设 $k'/k$ 是域扩张，$F'/F$ 是特征为 $0$ 的域扩张。假设给定：
+\begin{enumerate}
+\item 对 $k$ 与 $F$ 的数据 (D0)、(D1)、(D2')，记为
+$F(1), H^*, c_1^H$；
+\item 对 $k'$ 与 $F'$ 的数据 (D0)、(D1)、(D2')，记为
+$F'(1), (H')^*, c_1^{H'}$；以及
+\item 一个同构 $F(1) \otimes_F F' \to F'(1)$，以及在 $k$ 上光滑射影概形
+$X$ 的范畴上的函子性同构
+$H^*(X) \otimes_F F' \to (H')^*(X_{k'})$，使图表
+$$
+\xymatrix{
+\Pic(X) \ar[r]_{c_1^H} \ar[d] & H^2(X)(1) \ar[d] \\
+\Pic(X_{k'}) \ar[r]^{c_1^{H'}} & (H')^2(X_{k'})(1)
+}
+$$
+交换。
+\end{enumerate}
+在此情形下，若 $F'(1), (H')^*, c_1^{H'}$ 满足公理 (A1)--(A9)，
+则 $F(1), H^*, c_1^H$ 也满足这些公理。
+\end{lemma}
+
+\begin{proof}
+逐条验证各公理。
+
+\medskip\noindent
+公理 (A1)。须证明 $H^*(\emptyset) = 0$，并且
+$(i^*, j^*) : H^*(X \amalg Y) \to H^*(X) \times H^*(Y)$
+是同构，其中 $i$ 与 $j$ 是余投射。由同构
+$H^*(X) \otimes_F F' \to (H')^*(X_{k'})$ 的函子性，这归结为如下线性代数事实：
+若 $\varphi : V \to W$ 是 $F$-向量空间之间的 $F$-线性映射，则
+$\varphi$ 是同构，当且仅当
+$\varphi_{F'} : V \otimes_F F' \to W \otimes_F F'$ 是同构。
+
+\medskip\noindent
+公理 (A2)。这意味着：给定 $k$ 上光滑射影概形之间的态射
+$f : X \to Y$ 及可逆 $\mathcal{O}_Y$-模 $\mathcal{N}$，有
+$f^*c_1^H(\mathcal{L}) = c_1^H(f^*\mathcal{L})$。这立即由
+$c_1^{H'}$ 的相应性质、本引理中的交换图表以及如下事实得到：对任意
+$F$-向量空间 $V$，典范映射 $V \to V \otimes_F F'$ 是单射。
+
+\medskip\noindent
+公理 (A3)。这由公理 (A1) 的证明中所述原理以及 $c_1^H$ 与
+$c_1^{H'}$ 的相容性得到。
+
+\medskip\noindent
+公理 (A4)。设 $i : Y \to X$ 是 $k$ 上有效 Cartier 除子的包含，且
+$X$ 与 $Y$ 都在 $k$ 上光滑且射影。对满足 $i^*a = 0$ 的
+$a \in H^*(X)$，须证明 $a \cup c_1^H(\mathcal{O}_X(Y)) = 0$。
+以 $a' \in (H')^*(X_{k'})$ 表示 $a$ 的像。该假设蕴含
+$(i')^*a' = 0$，其中 $i' : Y_{k'} \to X_{k'}$ 是 $i$ 的基变换。
+因此由 $(H')^*$ 的公理可得
+$a' \cup c_1^{H'}(\mathcal{O}_{X_{k'}}(Y_{k'})) = 0$。由于
+$a' \cup c_1^{H'}(\mathcal{O}_{X_{k'}}(Y_{k'}))$ 是
+$a \cup c_1^H(\mathcal{O}_X(Y))$ 的像，结论由公理 (A2) 的证明中所述原理得到。
+
+\medskip\noindent
+公理 (A5)。这意味着 $H^*(\Spec(k)) = F$，并且对 $k$ 上光滑射影的
+$X$ 与 $Y$，映射 $H^*(X) \otimes_F H^*(Y) \to H^*(X \times Y)$，
+$a \otimes b \mapsto p^*(a) \cup q^*(b)$ 是同构，其中 $p$ 与 $q$ 是投射。
+这由公理 (A1) 的证明中所述原理得到。
+
+\medskip\noindent
+暂时中断逐条论证，先证明对每个 $k$ 上光滑射影概形 $X$，图表
+$$
+\xymatrix{
+\CH^*(X) \ar[r]_-\gamma \ar[d]_{g^*} & \bigoplus H^{2i}(X)(i) \ar[d] \\
+\CH^*(X_{k'}) \ar[r]^-{\gamma'} & \bigoplus (H')^{2i}(X_{k'})(i)
+}
+$$
+交换。注意公理 (A1)--(A4) 已知，故已有 $\gamma$；见引理
+\ref{weil-lemma-cycle-classes}。左侧竖直箭头是《Chow 同调》第
+\ref{chow-section-change-base} 节对基概形态射
+$g : \Spec(k') \to \Spec(k)$ 讨论的映射。更确切地说，它是《Chow 同调》引理
+\ref{chow-lemma-pullback-base-change} 给出的映射。取
+$\alpha \in \CH^*(X)$。在 $\CH^*(X) \otimes \mathbf{Q}$ 中写
+$\alpha = ch(\beta) \cap [X]$，其中
+$\beta \in K_0(\textit{Vect}(X)) \otimes \mathbf{Q}$，从而
+$\gamma(\alpha) = ch^{H}(\beta)$；这正是对 $\gamma$ 的构造。
+《Chow 同调》引理 \ref{chow-lemma-pullback-base-change} 中的映射由引理
+\ref{chow-lemma-pullback-base-change-chern-classes} 可知与以 Chern 类作帽积相容，
+所以 $g^*\alpha = ch((X_{k'} \to X)^*\beta) \cap [X_{k'}]$。于是
+$\gamma'(g^*\alpha) = ch^{H'}((X_{k'} \to X)^*\beta)$。
+
+因此，只要对任意秩为 $r$ 的局部自由 $\mathcal{O}_X$-模
+$\mathcal{E}$ 及 $0 \leq i \leq r$，$H^{2i}(X)(i)$ 中的元素
+$c_i^H(\mathcal{E})$ 映到 $(H')^{2i}(X_{k'})(i)$ 中的元素
+$c_i^{H'}(\mathcal{E}_{k'})$，图表便交换。由于对 $X$ 与 $X'$ 都有射影空间丛公式，
+可用 $X$ 上的射影空间丛有限次替换 $X$ 来证明此事。因此可假设
+$\mathcal{E}$ 有一个滤过，其分次片是可逆 $\mathcal{O}_X$-模
+$\mathcal{L}_1, \ldots, \mathcal{L}_r$。见《Chow 同调》引理
+\ref{chow-lemma-splitting-principle} 与注记
+\ref{chow-remark-the-proof-shows-more}。此时 $c^H_i(\mathcal{E}$ 是
+$c^H_1(\mathcal{L}_1), \ldots, c^H_1(\mathcal{L}_r)$ 的第 $i$ 个初等对称多项式；
+由第一 Chern 类的一致性假设即得结论。
+
+\medskip\noindent
+公理 (A6)。设给定 $F$-向量空间 $V$、$W$，元素 $v \in V$ 以及张量
+$\xi \in V \otimes_F W$。记 $V' = V \otimes_F F'$、
+$W' = W \otimes_F F'$，并以 $v'$、$\xi'$ 表示 $v$、$\xi$ 在
+$V'$、$V' \otimes_{F'} W'$ 中的像。证明公理 (A6) 所用的线性代数原理如下：
+存在满足 $(1 \otimes \lambda)\xi = v$ 的 $F$-线性映射
+$\lambda : W \to F$，当且仅当存在满足
+$(1 \otimes \lambda')\xi' = v'$ 的 $F'$-线性映射
+$\lambda' : W \otimes_F F' \to F'$。
+
+\medskip\noindent
+设 $X$ 是 $k$ 上非空等维光滑射影、维数为 $d$ 的概形。以
+$\gamma = \gamma([\Delta])$ 表示 $H^{2d}(X \times X)(d)$ 中的元素
+（未标注的纤维积均取在 $k$ 上）。回忆，公理 (A1)--(A4) 已知，故这有意义；
+见引理 \ref{weil-lemma-cycle-classes}。在 K\"unneth 分解中可写
+$$
+\gamma = \sum \gamma_i, \quad
+\gamma_i \in H^i(X) \otimes_F H^{2d - i}(X)(d)
+$$
+类似地，在 $(H')^{2d}(X_{k'} \times_{k'} X_{k'})(d)$ 中写
+$\gamma' = \gamma([\Delta']) = \sum \gamma'_i$。由上述线性代数原理，只需证明
+$\gamma_0$ 在 $(H')^0(X) \otimes_{F'} (H')^{2d}(X')(d)$ 中映到
+$\gamma'_0$。由 K\"unneth 分解的相容性，只需证明 $\gamma$ 在
+$$
+(H')^{2d}(X_{k'} \times_{k'} X_{k'})(d) = (H')^{2d}((X \times X)_{k'})(d)
+$$
+中映到 $\gamma'$。由于 $\Delta_{k'} = \Delta'$，这由上面的讨论得到。
+
+\medskip\noindent
+公理 (A7)。这由如下线性代数事实得到：$F$-向量空间之间的线性映射
+$V \to W$ 是单射，当且仅当
+$V \otimes_F F' \to W \otimes_F F'$ 是单射。
+
+\medskip\noindent
+公理 (A8)。这由公理 (A1) 的证明中使用的线性代数事实得到。
+
+\medskip\noindent
+公理 (A9)。设 $X$ 是 $k$ 上非空光滑射影、维数为 $d$ 的等维概形。
+设 $i : Y \to X$ 是在 $k$ 上光滑的非空有效 Cartier 除子。
+令 $\lambda_Y$ 与 $\lambda_X$ 分别如公理 (A6) 对 $X$ 与 $Y$ 所给。
+须证明：对 $a \in H^{2d - 2}(X)(d - 1)$，有
+$\lambda_Y(i^*(a)) = \lambda_X(a \cup c_1^H(\mathcal{O}_X(Y))$。
+由注记 \ref{weil-remark-trace}，映射
+$\lambda_X : H^{2d}(X)(d) \to F$ 与
+$\lambda_Y : H^{2d - 2}(Y)(d - 1)$ 由公理 (A6) 的要求唯一确定。
+由上面对 $H^*$ 证明公理 (A6) 的过程可知，经给定的识别
+$H^{2d}(X)(d) \otimes_F F' = H^{2d}(X_{k'})(d)$，
+$\lambda_X \otimes \text{id}_{F'}$ 对应于 $\lambda_{X_{k'}}$。
+因此，已知 $F'(1), (H')^*, c_1^{H'}$ 满足公理 (A9)，作图追踪便推出
+$F(1), H^*, c_1^H$ 满足该公理。本引理证毕。
+\end{proof}

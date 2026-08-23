@@ -1,0 +1,1247 @@
+% Generated mechanically from the frozen pic.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{43}
+\chapter{曲线的 Picard 概形}
+
+
+
+\phantomsection
+\label{pic-section-phantom}
+
+
+
+\section{引言}
+\label{pic-section-introduction}
+
+\noindent
+本章完成构造代数闭域上非奇异射影曲线的 Picard 概形所必需的工作。
+更详尽的讨论和历史背景见 \cite{Kleiman-Picard}。
+
+\medskip\noindent
+在 Stacks 项目的后续部分，我们将在远为一般的情形下讨论 Hilbert 函子与 Quot 函子。
+
+
+\section{点的 Hilbert 概形}
+\label{pic-section-hilbert-scheme-points}
+
+\noindent
+设 $X \to S$ 是概形态射，$d \geq 0$ 是整数。对 $S$ 上的概形 $T$，令
+$$
+\Hilbfunctor^d_{X/S}(T) =
+\left\{
+\begin{matrix}
+Z \subset X_T\text{ closed subscheme such that }\\
+Z \to T\text{ is finite locally free of degree }d
+\end{matrix}
+\right\}
+$$
+若 $T' \to T$ 是 $S$ 上概形之间的态射，且
+$Z \in \Hilbfunctor^d_{X/S}(T)$，则基变换
+$Z_{T'} \subset X_{T'}$ 是 $\Hilbfunctor^d_{X/S}(T')$ 的一个元素。
+由此得到函子
+$$
+\Hilbfunctor^d_{X/S} :
+(\Sch/S)^{opp} \longrightarrow \textit{Sets},\quad
+T \longrightarrow \Hilbfunctor^d_{X/S}(T)
+$$
+一般而言，$\Hilbfunctor^d_{X/S}$ 是代数空间（此处将来插入引用）。
+本节将证明：若 $X \to S$ 的任一纤维中的任意有限多个点都包含于某个仿射开集中，
+则 $\Hilbfunctor^d_{X/S}$ 可由概形表示。若 $\Hilbfunctor^d_{X/S}$ 可由概形表示，
+我们常把这个概形记作 $\underline{\Hilbfunctor}^d_{X/S}$。
+
+\begin{lemma}
+\label{pic-lemma-hilb-d-sheaf}
+设 $X \to S$ 是概形态射。函子 $\Hilbfunctor^d_{X/S}$ 满足 fpqc 拓扑的层性质
+（《拓扑》定义 \ref{topologies-definition-sheaf-property-fpqc}）。
+\end{lemma}
+
+\begin{proof}
+设 $\{T_i \to T\}_{i \in I}$ 是 $S$ 上概形的一个 fpqc 覆盖。令
+$X_i = X_{T_i} = X \times_S T_i$。注意，$\{X_i \to X_T\}_{i \in I}$ 是
+$X_T$ 的 fpqc 覆盖（《拓扑》引理 \ref{topologies-lemma-fpqc}），并且
+$X_{T_i \times_T T_{i'}} = X_i \times_{X_T} X_{i'}$。
+假设给定一族元素 $Z_i \in \Hilbfunctor^d_{X/S}(T_i)$，使得 $Z_i$ 与 $Z_{i'}$
+映到 $\Hilbfunctor^d_{X/S}(T_i \times_T T_{i'})$ 中的同一元素。
+由闭浸入的有效下降（《下降》引理 \ref{descent-lemma-closed-immersion}），
+存在闭浸入 $Z \to X_T$，其沿 $X_i \to X_T$ 的基变换等于 $Z_i \to X_i$。
+于是态射 $Z \to T$ 沿 $T_i$ 的基变换为 $Z_i \to T_i$。因此由《下降》引理
+\ref{descent-lemma-descending-property-finite-locally-free}，$Z \to T$ 是次数为 $d$ 的局部自由有限态射。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-hilb-d-limit-preserving}
+设 $X \to S$ 是概形态射。若 $X \to S$ 是有限表现的，则函子
+$\Hilbfunctor^d_{X/S}$ 保持极限（《极限》注 \ref{limits-remark-limit-preserving}）。
+\end{lemma}
+
+\begin{proof}
+设 $T = \lim T_i$ 是 $S$ 上仿射概形的一个极限。需要证明
+$\Hilbfunctor^d_{X/S}(T) = \colim \Hilbfunctor^d_{X/S}(T_i)$。
+注意，若 $Z \to X_T$ 是 $\Hilbfunctor^d_{X/S}(T)$ 的一个元素，则
+$Z \to T$ 是有限表现的。因此由《极限》引理
+\ref{limits-lemma-descend-finite-presentation}，存在某个 $i$、一个在 $T_i$ 上有限表现的概形
+$Z_i$，以及 $T_i$ 上的态射 $Z_i \to X_{T_i}$，使其基变换到 $T$ 后给出
+$Z \to X_T$。应用《极限》引理
+\ref{limits-lemma-descend-closed-immersion-finite-presentation} 可知，增大 $i$ 后可假设
+$Z_i \to X_{T_i}$ 是闭浸入。再应用《极限》引理
+\ref{limits-lemma-descend-finite-locally-free} 可知，必要时再次增大 $i$ 后，
+$Z_i \to T_i$ 是次数为 $d$ 的局部自由有限态射。因此如愿有
+$Z_i \in \Hilbfunctor^d_{X/S}(T_i)$。
+\end{proof}
+
+\noindent
+设 $S$ 是概形，$i : X \to Y$ 是 $S$ 上概形之间的闭浸入。则存在函子变换
+$$
+\Hilbfunctor^d_{X/S} \longrightarrow \Hilbfunctor^d_{Y/S}
+$$
+它把元素 $Z \in \Hilbfunctor^d_{X/S}(T)$ 映到
+$\Hilbfunctor^d_{Y/S}$ 中的 $i_T(Z) \subset Y_T$。这里
+$i_T : X_T \to Y_T$ 是 $i$ 的基变换。
+
+\begin{lemma}
+\label{pic-lemma-hilb-d-of-closed}
+设 $S$ 是概形，$i : X \to Y$ 是概形的闭浸入。若
+$\Hilbfunctor^d_{Y/S}$ 可由概形表示，则 $\Hilbfunctor^d_{X/S}$ 也可由概形表示，
+并且相应的概形态射
+$\underline{\Hilbfunctor}^d_{X/S} \to \underline{\Hilbfunctor}^d_{Y/S}$
+是闭浸入。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是 $S$ 上的概形，且 $Z \in \Hilbfunctor^d_{Y/S}(T)$。
+断言：存在闭子概形 $T_X \subset T$，使得概形态射 $T' \to T$ 经由 $T_X$ 分解，
+当且仅当 $Z_{T'} \to Y_{T'}$ 经由 $X_{T'}$ 分解。
+把这一断言应用于表示 $\Hilbfunctor^d_{Y/S}$ 的概形 $T_{univ}$ 及其泛对象\footnote{见
+《范畴》第 \ref{categories-section-opposite} 节}
+$Z_{univ} \in \Hilbfunctor^d_{Y/S}(T_{univ})$，得到闭子概形
+$T_{univ, X} \subset T_{univ}$，使得
+$Z_{univ, X} = Z_{univ} \times_{T_{univ}} T_{univ, X}$
+是 $X \times_S T_{univ, X}$ 的闭子概形，从而定义
+$\Hilbfunctor^d_{X/S}(T_{univ, X})$ 的一个元素。形式论证随即表明，
+$T_{univ, X}$ 是表示 $\Hilbfunctor^d_{X/S}$ 的概形，其泛对象为 $Z_{univ, X}$。
+
+\medskip\noindent
+证明该断言。考虑 $Z' = X_T \times_{Y_T} Z$。给定 $T' \to T$，可见
+$Z_{T'} \to Y_{T'}$ 经由 $X_{T'}$ 分解，当且仅当
+$Z'_{T'} \to Z_{T'}$ 是同构。因此该断言由非常一般的《平坦性的进一步内容》引理
+\ref{flat-lemma-Weil-restriction-closed-subschemes} 得出。
+不过，在本特殊情形下也可以直接证明如下：先化归到
+$T = \Spec(A)$ 且 $Z = \Spec(B)$ 的情形。进一步缩小 $T$ 后，
+可假设作为 $A$-模存在同构 $\varphi : B \to A^{\oplus d}$。
+于是对某个理想 $J \subset B$，有 $Z' = \Spec(B/J)$。取一组生成元
+$g_\beta \in J$，并写成 $\varphi(g_\beta) = (g_\beta^1, \ldots, g_\beta^d)$。
+显然，$T_X$ 由 $\Spec(A/(g_\beta^j))$ 给出。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-hilb-d-separated}
+设 $X \to S$ 是概形态射。若 $X \to S$ 是分离的，且
+$\Hilbfunctor^d_{X/S}$ 可表示，则
+$\underline{\Hilbfunctor}^d_{X/S} \to S$ 是分离的。
+\end{lemma}
+
+\begin{proof}
+本证明中所有未标明基底的积都取在 $S$ 上。令
+$H = \underline{\Hilbfunctor}^d_{X/S}$，并令
+$Z \in \Hilbfunctor^d_{X/S}(H)$ 为泛对象。沿两个投影
+$H \times H \to H$ 拉回 $Z$，得到两个对象
+$Z_1, Z_2 \in \Hilbfunctor^d_{X/S}(H \times H)$。于是
+$Z_1 = Z \times H \subset X_{H \times H}$，且
+$Z_2 = H \times Z
+\subset X_{H \times H}$。由于 $H$ 表示函子
+$\Hilbfunctor^d_{X/S}$，对角态射 $\Delta : H \to H \times H$ 具有如下泛性质：
+概形态射 $T \to H \times H$ 经由 $\Delta$ 分解，当且仅当作为
+$\Hilbfunctor^d_{X/S}(T)$ 的元素有 $Z_{1, T} = Z_{2, T}$。
+令 $Z = Z_1 \times_{X_{H \times H}} Z_2$。于是可见，
+$T \to H \times H$ 经由 $\Delta$ 分解，当且仅当态射
+$Z_T \to Z_{1, T}$ 和 $Z_T \to Z_{2, T}$ 都是同构。
+由非常一般的《平坦性的进一步内容》引理
+\ref{flat-lemma-Weil-restriction-closed-subschemes}，$\Delta$ 是闭浸入。
+在引理 \ref{pic-lemma-hilb-d-of-closed} 的证明中，读者可以找到适用于本特殊情形的、
+所需结论的另一种更简单证明。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-hilb-d-An}
+设 $X \to S$ 是仿射概形之间的态射，且 $d \geq 0$。则
+$\Hilbfunctor^d_{X/S}$ 可表示。
+\end{lemma}
+
+\begin{proof}
+设 $S = \Spec(R)$。对某个基数充分大的集合 $I$，可以选取 $X$ 到
+$R[x_i; i \in I]$ 的谱中的闭浸入。因此由引理 \ref{pic-lemma-hilb-d-of-closed}，
+可假设 $X = \Spec(A)$，其中 $A = R[x_i; i \in I]$。
+在这种情形下，我们用《概形》引理 \ref{schemes-lemma-glue-functors} 证明本引理。
+
+\medskip\noindent
+该引理的条件 (1) 由引理 \ref{pic-lemma-hilb-d-sheaf} 得出。
+
+\medskip\noindent
+对每个基数为 $d$ 的子集 $W \subset A$，构造 $\Hilbfunctor^d_{X/S}$ 的子函子
+$F_W$。（只考虑 $W$ 由 $x_i$ 中的一族单项式组成的情形已经足够，但这里并不需要这一点。）
+具体地说，规定 $Z \in \Hilbfunctor^d_{X/S}(T)$ 属于 $F_W(T)$，当且仅当
+$\mathcal{O}_T$-线性映射
+$$
+\bigoplus\nolimits_{f \in W} \mathcal{O}_T
+\longrightarrow
+(Z \to T)_*\mathcal{O}_Z,\quad
+(g_f) \longmapsto \sum g_f f|_Z
+$$
+是满射（等价地，是同构）。这里，对 $f \in A$ 和
+$Z \in \Hilbfunctor^d_{X/S}(T)$，用 $f|_Z$ 表示 $f$ 沿态射
+$Z \to X_T \to X$ 的拉回。
+
+\medskip\noindent
+开性，即该引理的条件 (2)(b)。它由《代数》引理
+\ref{algebra-lemma-cokernel-flat} 得出。
+
+\medskip\noindent
+覆盖性，即该引理的条件 (2)(c)。由于
+$$
+A \otimes_R \mathcal{O}_T =
+(X_T \to T)_*\mathcal{O}_{X_T} \to (Z \to T)_*\mathcal{O}_Z
+$$
+是满射，且 $(Z \to T)_*\mathcal{O}_Z$ 是秩为 $d$ 的局部自由有限模，
+所以对每个点 $t \in T$，可以找到一个基数为 $d$ 的有限子集 $W \subset A$，
+其像构成 $d$ 维 $\kappa(t)$-向量空间
+$((Z \to T)_*\mathcal{O}_Z)_t \otimes_{\mathcal{O}_{T, t}} \kappa(t)$ 的一组基。
+由 Nakayama 引理，存在 $t$ 的开邻域 $V \subset T$，使得 $Z_V \in F_W(V)$。
+
+\medskip\noindent
+可表示性，即该引理的条件 (2)(a)。设 $W \subset A$ 的基数为 $d$。
+我们断言，$F_W$ 可由 $R$ 上的一个仿射概形表示。这里将构造这个仿射概形，
+不过也建议读者自行完成这一推演。把 $W$ 的元素编号为
+$f_1, \ldots, f_d$。如下构造 $T_{univ} = \Spec(R_{univ})$ 上
+$F_W$ 的泛元素 $Z_{univ} = \Spec(B_{univ})$。首先令
+$$
+R_{univ} = R[c_{kl}^m, b^l, b_i^l]/\mathfrak a_{univ}
+$$
+其中理想 $\mathfrak a_{univ}$ 将在下面描述。这里指标 $k, l, m, i$ 都遍历
+$\{1, \ldots, d\}$。然后令
+$$
+B_{univ} = R_{univ}e_1 \oplus R_{univ}e_2 \oplus \ldots \oplus R_{univ}e_d
+$$
+作为 $R_{univ}$-模，并按下列规则赋予代数结构：
+$$
+e_ke_l = \sum c_{kl}^m e_m
+$$
+闭浸入 $Z_{univ} \to X_{T_{univ}}$ 由 $R_{univ}$-代数映射
+$$
+\Psi : A \otimes_R R_{univ} \longrightarrow B_{univ}
+$$
+给出；它把 $1 \otimes 1$ 映到 $\sum b^le_l$，把 $x_i$ 映到
+$\sum b_i^le_l$（存在性见下文）。理想 $\mathfrak a_{univ}$ 按以下条件规定：
+\begin{enumerate}
+\item $B_{univ}$ 上的乘法是交换的，即应有
+$c_{lk}^m - c_{kl}^m \in \mathfrak a_{univ}$；
+\item $B_{univ}$ 上的乘法是结合的，即应有
+$c_{lk}^m c_{m n}^p - c_{lq}^p c_{kn}^q \in \mathfrak a_{univ}$；
+\item $\sum b^le_l$ 是 $B_{univ}$ 中的乘法单位元 $1$，换言之，对所有 $k$，
+应有 $(\sum b^le_l)e_k = e_k$；这意味着
+$\sum b^lc_{lk}^m - \delta_{km} \in \mathfrak a_{univ}$
+（Kronecker delta）。
+\end{enumerate}
+既然已保证 $B_{univ}$ 是交换 $R_{univ}$-代数，且由 $\sum b^le_l$ 给出单位元 $1$，
+同态 $\Psi$ 便存在。最后一个条件是：
+\begin{enumerate}
+\item[(5)] $f_l$ 映到 $B_{univ}$ 中的 $e_l$。对某些
+$h_l^m \in R[c_{kl}^m, b^l, b_i^l]$，写成
+$\Psi(f_l) - e_l \equiv \sum h_l^me_m$，则应有
+$h_l^m \in \mathfrak a_{univ}$。
+\end{enumerate}
+令 $\mathfrak a_{univ} \subset R[c_{kl}^m, b^l, b_i^l]$ 由 (1) -- (5)
+中列出的元素生成，则显然 $F_W$ 由 $\Spec(R_{univ})$ 表示。
+\end{proof}
+
+\begin{proposition}
+\label{pic-proposition-hilb-d-representable}
+设 $X \to S$ 是概形态射，且 $d \geq 0$。假设对所有
+$(s, x_1, \ldots, x_d)$，其中 $s \in S$ 且 $x_1, \ldots, x_d \in X_s$，
+都存在仿射开集 $U \subset X$，使得 $x_1, \ldots, x_d \in U$。
+则 $\Hilbfunctor^d_{X/S}$ 可由概形表示。
+\end{proposition}
+
+\begin{proof}
+使用相对粘合（《构造》第 \ref{constructions-section-relative-glueing} 节）或函子观点
+（《概形》引理 \ref{schemes-lemma-glue-functors}），可化归到 $S$ 仿射的情形。
+细节从略。
+
+\medskip\noindent
+假设 $S$ 仿射。对仿射开集 $U \subset X$，用
+$F_U \subset \Hilbfunctor^d_{X/S}$ 表示如下子函子：对概形 $T/S$，元素
+$Z \in \Hilbfunctor^d_{X/S}(T)$ 属于 $F_U(T)$，当且仅当 $Z \subset U_T$。
+我们将应用《概形》引理 \ref{schemes-lemma-glue-functors} 和这些子函子 $F_U$ 得出结论。
+
+\medskip\noindent
+条件 (1) 即引理 \ref{pic-lemma-hilb-d-sheaf}。
+
+\medskip\noindent
+条件 (2)(a) 来自 $F_U = \Hilbfunctor^d_{U/S}$，以及后者由引理
+\ref{pic-lemma-hilb-d-An} 可表示这一事实。具体地，若 $Z \in F_U(T)$，
+则可把 $Z$ 看作 $U_T$ 的闭子概形；它在 $T$ 上是次数为 $d$ 的局部自由有限概形，
+因而 $Z \in \Hilbfunctor^d_{U/S}(T)$。反过来，若
+$Z \in \Hilbfunctor^d_{U/S}(T)$，则 $Z \to U_T \to X_T$ 是闭浸入\footnote{若
+$X \to S$ 分离，这一点显然：在这种情形下，《态射》引理
+\ref{morphisms-lemma-image-proper-scheme-closed} 告诉我们浸入
+$\varphi : Z \to X_T$ 具有闭像，因而由《概形》引理
+\ref{schemes-lemma-immersion-when-closed}，它是闭浸入。建议读者略过本脚注的其余部分，
+因为我们不知道存在任何满足 $X \to S$ 的上述假设但 $X \to S$ 不分离的实例。
+在一般情形下，设 $x \in X_T$ 是 $\varphi(Z)$ 的闭包中的一点。需要证明
+$x \in \varphi(Z)$。设 $t \in T$ 为 $x$ 的像。由关于 $X \to S$ 的假设，
+可以选取包含 $x$ 和 $\varphi(Z_t)$ 的仿射开集 $W \subset X_T$。
+于是 $\varphi^{-1}(W)$ 是包含整个纤维 $Z_t$ 的开集；由于 $Z \to T$ 是闭态射，
+把 $T$ 替换为 $t$ 的一个开邻域后，可以假设 $Z = \varphi^{-1}(W)$。
+这时由分离情形（因为 $W \to T$ 分离），$\varphi(Z) \subset W$ 是闭集，
+所以 $x \in \varphi(Z)$。}，从而可以把 $Z$ 看作 $F_U(T)$ 的元素。
+
+\medskip\noindent
+设对 $S$ 上的某个概形 $T$，有 $Z \in \Hilbfunctor^d_{X/S}(T)$。令
+$$
+B = (Z \to T)\left((Z \to X_T \to X)^{-1}(X \setminus U)\right)
+$$
+这是 $T$ 的闭子集，并且显然在开集 $T_{Z, U} = T \setminus B$ 上，
+限制 $Z_{t'}$ 映入 $U_{T'}$。另一方面，对任意 $b \in B$，纤维 $Z_b$ 不映入 $U$。
+所以对给定态射 $T' \to T$，有
+$Z_{T'} \in F_U(T')$ $\Leftrightarrow$ $T' \to T$ 经由开集 $T_{Z, U}$ 分解。
+这证明了条件 (2)(b)。
+
+\medskip\noindent
+条件 (2)(c) 来自关于 $X/S$ 的假设。只需证明如下事实：若 $T$ 是一个域的谱，
+$Z \subset X_T$ 是在 $T$ 上次数为 $d$ 的有限平坦闭子概形，则
+$Z \to X_T \to X$ 经由 $X$ 的某个仿射开集 $U$ 分解。
+这一点显然，因为 $Z$ 至多有 $d$ 个点，而这些点都映入 $T \to S$ 的像点上方的 $X$ 的纤维中。
+\end{proof}
+
+\begin{remark}
+\label{pic-remark-when-proposition-applies}
+设 $f : X \to S$ 是概形态射。在下列每种情形下，命题
+\ref{pic-proposition-hilb-d-representable} 的假设、因而其结论都成立：
+\begin{enumerate}
+\item $X$ 是拟仿射的；
+\item $f$ 是拟仿射态射；
+\item $f$ 是拟射影态射；
+\item $f$ 是局部射影态射；
+\item $X$ 上存在充足可逆层；
+\item $X$ 上存在 $f$-充足可逆层；
+\item $X$ 上存在 $f$-很充足可逆层。
+\end{enumerate}
+事实上，在每种情形下，纤维 $X_s$ 中的任意有限点集都包含于 $X$ 的某个拟紧开集 $U$；
+该开集带有充足可逆层，或同构于某个仿射概形的开子集，或同构于某个分次环的
+$\text{Proj}$ 的开子集（每种情形都可由展开定义得到）。因此由《性质》引理
+\ref{properties-lemma-ample-finite-set-in-affine}，存在所需的仿射开集。
+\end{remark}
+
+
+
+
+\section{光滑曲线上的除子模空间}
+\label{pic-section-divisors}
+
+\noindent
+对相对维数为 $1$ 的光滑态射 $X \to S$，函子 $\Hilbfunctor^d_{X/S}$ 参数化
+《除子》第 \ref{divisors-section-effective-Cartier-morphisms} 节中定义的相对有效 Cartier 除子。
+
+\begin{lemma}
+\label{pic-lemma-divisors-on-curves}
+设 $X \to S$ 是相对维数为 $1$ 的光滑概形态射，$D \subset X$ 是闭子概形。
+考虑以下条件：
+\begin{enumerate}
+\item $D \to S$ 是局部自由有限态射；
+\item $D$ 是 $X/S$ 上的相对有效 Cartier 除子；
+\item $D \to S$ 是局部拟有限、平坦且局部有限表现的态射；
+\item $D \to S$ 是局部拟有限且平坦的态射。
+\end{enumerate}
+总有蕴含关系
+$$
+(1) \Rightarrow (2) \Leftrightarrow (3) \Rightarrow (4)
+$$
+若 $S$ 局部 Noether，则最后一个箭头也是等价。若 $X \to S$ 固有
+（而 $S$ 任意），则第一个箭头也是等价。
+\end{lemma}
+
+\begin{proof}
+先证 (2) 与 (3) 等价。由《除子》引理 \ref{divisors-lemma-fibre-Cartier}，
+只需在 $S$ 是域 $k$ 的谱时证明 (2) 与 (3) 等价。设 $x \in X$ 是闭点。
+由于 $X$ 在 $k$ 上光滑且相对维数为 $1$，可见 $\mathcal{O}_{X, x}$ 是维数为 $1$ 的正则局部环
+（见《簇》引理 \ref{varieties-lemma-smooth-regular}）。因此
+$\mathcal{O}_{X, x}$ 是离散赋值环（《代数》引理
+\ref{algebra-lemma-characterize-dvr}），从而是主理想整环。于是，任何在 $X$ 的所有泛点处均不为零的理想层
+$\mathcal{I} \subset \mathcal{O}_X$ 都是可逆的
+（《除子》引理 \ref{divisors-lemma-effective-Cartier-in-points}）。
+换言之，$X$ 的任何不包含泛点的闭子概形都是有效 Cartier 除子。
+由此 (2) 与 (3) 等价。
+
+\medskip\noindent
+若 $S$ 是 Noether 概形，则任意局部拟有限态射 $D \to S$ 都是局部有限表现的
+（《态射》引理 \ref{morphisms-lemma-noetherian-finite-type-finite-presentation}），
+故 (3) 与 (4) 等价。
+
+\medskip\noindent
+若 $X \to S$ 固有（且 $S$ 任意），则 $D \to S$ 也固有。
+由于固有的局部拟有限态射是有限态射（《态射的进一步内容》引理
+\ref{more-morphisms-lemma-characterize-finite}），而有限、平坦且有限表现的态射是局部自由有限态射
+（《态射》引理 \ref{morphisms-lemma-finite-flat}），可见 (1) 与 (2) 等价。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-sum-divisors-on-curves}
+设 $X \to S$ 是相对维数为 $1$ 的光滑概形态射，$D_1, D_2 \subset X$ 是
+$S$ 上次数分别为 $d_1$、$d_2$ 的局部自由有限闭子概形。则 $D_1 + D_2$ 是
+$S$ 上次数为 $d_1 + d_2$ 的局部自由有限概形。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{pic-lemma-divisors-on-curves}，$D_1$ 与 $D_2$ 是 $X/S$ 上的相对有效 Cartier 除子。
+因此由《除子》引理 \ref{divisors-lemma-sum-relative-effective-Cartier-divisor}，
+$D = D_1 + D_2$ 是 $X/S$ 上的相对有效 Cartier 除子。
+再由引理 \ref{pic-lemma-divisors-on-curves}，$D \to S$ 是局部拟有限、平坦且局部有限表现的态射。
+把《态射》引理 \ref{morphisms-lemma-image-universally-closed-separated}
+应用于满的整态射 $D_1 \amalg D_2 \to D$，可知 $D \to S$ 分离。
+于是《态射》引理 \ref{morphisms-lemma-image-proper-is-proper} 蕴含 $D \to S$ 固有。
+这又蕴含 $D \to S$ 有限（《态射的进一步内容》引理
+\ref{more-morphisms-lemma-characterize-finite}），进而可知 $D \to S$ 局部自由有限
+（《态射》引理 \ref{morphisms-lemma-finite-flat}）。
+所以只需证明 $D \to S$ 的次数为 $d_1 + d_2$。为此，可以基变换到 $X \to S$ 的一个纤维，
+因而可假设对某个域 $k$ 有 $S = \Spec(k)$。在这种情形下，存在有限多个闭点
+$x_1, \ldots, x_n \in X$，使 $D_1$ 与 $D_2$ 都支撑于
+$\{x_1, \ldots, x_n\}$。事实上，存在非零因子
+$f_{i, j} \in \mathcal{O}_{X, x_i}$，使得
+$$
+D_1 = \coprod \Spec(\mathcal{O}_{X, x_i}/(f_{i, 1}))
+\quad\text{且}\quad
+D_2 = \coprod \Spec(\mathcal{O}_{X, x_i}/(f_{i, 2}))
+$$
+于是
+$$
+D = \coprod \Spec(\mathcal{O}_{X, x_i}/(f_{i, 1}f_{i, 2}))
+$$
+由此容易看出，$D$ 在 $k$ 上的次数为 $d_1 + d_2$
+（必要时使用《代数》引理 \ref{algebra-lemma-ord-additive}）。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-difference-divisors-on-curves}
+设 $X \to S$ 是相对维数为 $1$ 的光滑概形态射，$D_1, D_2 \subset X$ 是
+$S$ 上次数分别为 $d_1$、$d_2$ 的局部自由有限闭子概形。若
+$D_1 \subset D_2$（作为闭子概形），则存在闭子概形 $D \subset X$，
+它在 $S$ 上局部自由有限且次数为 $d_2 - d_1$，并满足 $D_2 = D_1 + D$。
+\end{lemma}
+
+\begin{proof}
+本证明几乎与引理 \ref{pic-lemma-sum-divisors-on-curves} 的证明完全相同。
+由引理 \ref{pic-lemma-divisors-on-curves}，$D_1$ 与 $D_2$ 是 $X/S$ 上的相对有效 Cartier 除子。
+由《除子》引理 \ref{divisors-lemma-difference-relative-effective-Cartier-divisor}，
+存在相对有效 Cartier 除子 $D \subset X$，使得 $D_2 = D_1 + D$。
+所以由引理 \ref{pic-lemma-divisors-on-curves}，$D \to S$ 局部拟有限、平坦且局部有限表现。
+由于 $D$ 是 $D_2$ 的闭子概形，$D \to S$ 是有限态射。因此 $D \to S$ 局部自由有限
+（《态射》引理 \ref{morphisms-lemma-finite-flat}）。
+所以只需证明 $D \to S$ 的次数为 $d_2 - d_1$，而这由引理
+\ref{pic-lemma-sum-divisors-on-curves} 得出。
+\end{proof}
+
+\noindent
+设 $X \to S$ 是相对维数为 $1$ 的光滑概形态射。由引理
+\ref{pic-lemma-divisors-on-curves}，对 $S$ 上的概形 $T$ 以及
+$D \in \Hilbfunctor^d_{X/S}(T)$，可以把 $D$ 看作 $X_T/T$ 上的相对有效 Cartier 除子，
+使得 $D \to T$ 是次数为 $d$ 的局部自由有限态射。因此由引理
+\ref{pic-lemma-sum-divisors-on-curves}，得到函子变换
+$$
+\Hilbfunctor^{d_1}_{X/S} \times \Hilbfunctor^{d_2}_{X/S}
+\longrightarrow
+\Hilbfunctor^{d_1 + d_2}_{X/S},\quad
+(D_1, D_2) \longmapsto D_1 + D_2
+$$
+若对所有次数 $d$，$\Hilbfunctor^d_{X/S}$ 都可表示，则这个函子变换对应于
+$S$ 上的概形态射
+$$
+\underline{\Hilbfunctor}^{d_1}_{X/S}
+\times_S
+\underline{\Hilbfunctor}^{d_2}_{X/S}
+\longrightarrow
+\underline{\Hilbfunctor}^{d_1 + d_2}_{X/S}
+$$
+注意，$\underline{\Hilbfunctor}^0_{X/S} = S$ 且
+$\underline{\Hilbfunctor}^1_{X/S} = X$。上述态射的一个特殊情形是
+$$
+\underline{\Hilbfunctor}^d_{X/S} \times_S X
+\longrightarrow
+\underline{\Hilbfunctor}^{d + 1}_{X/S},\quad
+(D, x) \longmapsto D + x
+$$
+
+\begin{lemma}
+\label{pic-lemma-universal-object}
+设 $X \to S$ 是相对维数为 $1$ 的光滑概形态射，并且函子
+$\Hilbfunctor^d_{X/S}$ 都可表示。则态射
+$\underline{\Hilbfunctor}^d_{X/S} \times_S X \to
+\underline{\Hilbfunctor}^{d + 1}_{X/S}$
+是次数为 $d + 1$ 的局部自由有限态射。
+\end{lemma}
+
+\begin{proof}
+令 $D_{univ} \subset X \times_S \underline{\Hilbfunctor}^{d + 1}_{X/S}$
+为泛对象。存在交换图
+$$
+\xymatrix{
+\underline{\Hilbfunctor}^d_{X/S} \times_S X \ar[rr] \ar[rd] & &
+D_{univ} \ar[ld] \ar@{^{(}->}[r] &
+\underline{\Hilbfunctor}^{d + 1}_{X/S} \times_S X \\
+& \underline{\Hilbfunctor}^{d + 1}_{X/S}
+}
+$$
+其中上方的水平箭头把 $(D', x)$ 映到 $(D' + x, x)$。
+我们断言该态射是同构，这当然证明了引理。具体地，给定 $S$ 上概形 $T$，
+$D_{univ}$ 的一个 $T$-值点 $\xi$ 由一对 $\xi = (D, x)$ 给出，其中
+$D \subset X_T$ 是在 $T$ 上次数为 $d + 1$ 的局部自由有限闭子概形，而
+$x : T \to X$ 是其图 $x : T \to X_T$ 经由 $D$ 分解的态射。
+于是由引理 \ref{pic-lemma-difference-divisors-on-curves}，可对某个在 $T$ 上次数为 $d$ 的
+局部自由有限子概形 $D' \subset X_T$ 写成 $D = D' + x$。
+把 $\xi = (D, x)$ 送到 $(D', x)$，便得到所需的逆映射。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-hilb-d-smooth}
+设 $X \to S$ 是相对维数为 $1$ 的光滑概形态射，并且函子
+$\Hilbfunctor^d_{X/S}$ 都可表示。则概形
+$\underline{\Hilbfunctor}^d_{X/S}$ 在 $S$ 上光滑，且相对维数为 $d$。
+\end{lemma}
+
+\begin{proof}
+有 $\underline{\Hilbfunctor}^0_{X/S} = S$ 且
+$\underline{\Hilbfunctor}^1_{X/S} = X$，所以结论对 $d = 0, 1$ 成立。
+假设结论对 $d$ 成立，则 $\underline{\Hilbfunctor}^d_{X/S} \times_S X$ 在 $S$ 上光滑
+（《态射》引理 \ref{morphisms-lemma-base-change-smooth} 和
+\ref{morphisms-lemma-composition-smooth}）。由引理 \ref{pic-lemma-universal-object}，
+$\underline{\Hilbfunctor}^d_{X/S} \times_S X \to
+\underline{\Hilbfunctor}^{d + 1}_{X/S}$
+是次数为 $d + 1$ 的局部自由有限态射，所以结论由《下降》引理
+\ref{descent-lemma-smooth-permanence} 得出。我们略去相对维数确如所述的验证
+（可以考察纤维，也可以在上面的论证中逐步追踪维数）。
+\end{proof}
+
+\noindent
+现在汇总域上固有光滑曲线情形中迄今所得的全部信息。
+
+\begin{proposition}
+\label{pic-proposition-hilb-d}
+设 $X$ 是域 $k$ 上几何不可约的光滑固有曲线。
+\begin{enumerate}
+\item 函子 $\Hilbfunctor^d_{X/k}$ 由 $k$ 上维数为 $d$ 的光滑固有簇
+$\underline{\Hilbfunctor}^d_{X/k}$ 表示。
+\item 对域扩张 $k'/k$，$\underline{\Hilbfunctor}^d_{X/k}$ 的 $k'$-有理点
+与 $X_{k'}$ 上次数为 $d$ 的有效 Cartier 除子成 $1$ 对 $1$ 的双射。
+\item 对 $d_1, d_2 \geq 0$，存在态射
+$$
+\underline{\Hilbfunctor}^{d_1}_{X/k}
+\times_k
+\underline{\Hilbfunctor}^{d_2}_{X/k}
+\longrightarrow
+\underline{\Hilbfunctor}^{d_1 + d_2}_{X/k}
+$$
+它是次数为 ${d_1 + d_2 \choose d_1}$ 的局部自由有限态射。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+由命题 \ref{pic-proposition-hilb-d-representable}（另见注
+\ref{pic-remark-when-proposition-applies}）以及 $X$ 射影这一事实
+（《簇》引理 \ref{varieties-lemma-dim-1-proper-projective}），
+函子 $\Hilbfunctor^d_{X/k}$ 可表示。由引理 \ref{pic-lemma-hilb-d-separated}，
+概形 $\underline{\Hilbfunctor}^d_{X/k}$ 在 $k$ 上分离。由引理
+\ref{pic-lemma-hilb-d-smooth}，概形 $\underline{\Hilbfunctor}^d_{X/k}$ 在 $k$ 上光滑。从
+$X = \underline{\Hilbfunctor}^1_{X/k}$ 出发，利用引理
+\ref{pic-lemma-universal-object} 中的态射和归纳法，得到态射
+$$
+X^d = X \times_k X \times_k \ldots \times_k X \longrightarrow
+\underline{\Hilbfunctor}^d_{X/k},\quad
+(x_1, \ldots, x_d) \longrightarrow x_1 + \ldots + x_d
+$$
+它是次数为 $d!$ 的局部自由有限态射。由于 $X$ 在 $k$ 上固有，$X^d$ 也固有，
+所以由《态射》引理 \ref{morphisms-lemma-image-proper-is-proper}，
+$\underline{\Hilbfunctor}^d_{X/k}$ 在 $k$ 上固有。由于 $X$ 在 $k$ 上几何不可约，
+积 $X^d$ 不可约（《簇》引理
+\ref{varieties-lemma-bijection-irreducible-components}），因而其像不可约
+（事实上几何不可约）。这证明了 (1)。(2) 由定义得出。(3) 由交换图
+$$
+\xymatrix{
+X^{d_1} \times_k X^{d_2} \ar[d] \ar@{=}[r] & X^{d_1 + d_2} \ar[d] \\
+\underline{\Hilbfunctor}^{d_1}_{X/k}
+\times_k
+\underline{\Hilbfunctor}^{d_2}_{X/k}
+\ar[r] &
+\underline{\Hilbfunctor}^{d_1 + d_2}_{X/k}
+}
+$$
+以及局部自由有限态射次数的乘法性得出。
+\end{proof}
+
+\begin{remark}
+\label{pic-remark-universal-object-hilb-d}
+设 $X$ 如命题 \ref{pic-proposition-hilb-d}，是域 $k$ 上几何不可约的光滑固有曲线，
+并令 $d \geq 0$。由引理 \ref{pic-lemma-divisors-on-curves}，泛闭对象是在
+$\underline{\Hilbfunctor}^{d + 1}_{X/k}$ 上的相对有效除子
+$$
+D_{univ} \subset \underline{\Hilbfunctor}^{d + 1}_{X/k} \times_k X
+$$
+事实上，作为概形，$D_{univ}$ 同构于
+$\underline{\Hilbfunctor}^d_{X/k} \times_k X$；见引理
+\ref{pic-lemma-universal-object} 的证明。特别地，$D_{univ}$ 是有效 Cartier 除子，
+从而得到可逆模 $\mathcal{O}(D_{univ})$。若
+$[D] \in \underline{\Hilbfunctor}^{d + 1}_{X/k}$ 表示与次数为 $d + 1$ 的有效
+Cartier 除子 $D \subset X$ 对应的 $k$-有理点，则 $\mathcal{O}(D_{univ})$
+在纤维 $[D] \times X$ 上的限制为 $\mathcal{O}_X(D)$。
+\end{remark}
+
+
+\section{Picard 函子}
+\label{pic-section-picard-functor}
+
+\noindent
+对任意概形 $X$，以 $\Pic(X)$ 表示可逆 $\mathcal{O}_X$-模的同构类所成的集合。
+参见《模》定义 \ref{modules-definition-pic}。给定概形态射 $f : X \to Y$，
+拉回给出群同态 $\Pic(Y) \to \Pic(X)$。对应
+$X \leadsto \Pic(X)$ 是从概形范畴到阿贝尔群范畴的反变函子。
+这个函子不可表示，但这一构造的相对版本有时可表示。
+
+\medskip\noindent
+现在为概形态射 $f : X \to S$ 定义 Picard 函子。构造背后的想法是取层
+$R^1f_*\mathbf{G}_m$，其中用 fppf 拓扑计算高阶直像。展开这些定义，便得到
+如下更直接的定义。
+
+\begin{definition}
+\label{pic-definition-picard-functor}
+设 $\Sch_{fppf}$ 是《拓扑》定义
+\ref{topologies-definition-big-small-fppf} 中的大站点。设 $f : X \to S$
+是该站点中的态射。{\it Picard 函子} $\Picardfunctor_{X/S}$ 定义为函子
+$$
+(\Sch/S)_{fppf} \longrightarrow \textit{Sets},\quad
+T \longmapsto \Pic(X_T)
+$$
+的 fppf 层化。若此函子可表示，则以 $\underline{\Picardfunctor}_{X/S}$
+表示一个表示它的概形。
+\end{definition}
+
+\noindent
+一个常用的观察是：若 $T \in \Ob((\Sch/S)_{fppf})$，则
+$\Picardfunctor_{X_T/T}$ 是 $\Picardfunctor_{X/S}$ 在
+$(\Sch/T)_{fppf}$ 上的限制。要确定 $\Picardfunctor_{X/S}$ 在 $S$ 上概形
+$T$ 处的取值并非平凡；下面的引理对此有所帮助。
+
+\begin{lemma}
+\label{pic-lemma-flat-geometrically-connected-fibres}
+设 $f : X \to S$ 如定义 \ref{pic-definition-picard-functor}。若对所有
+$T \in \Ob((\Sch/S)_{fppf})$，$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+均为同构，则对所有 $T$，序列
+$$
+0 \to \Pic(T) \to \Pic(X_T) \to \Picardfunctor_{X/S}(T)
+$$
+正合。
+\end{lemma}
+
+\begin{proof}
+为简化记号，可以用 $T$ 代替 $S$、用 $X_T$ 代替 $X$，并假设 $S = T$。
+设 $\mathcal{N}$ 是可逆 $\mathcal{O}_S$-模。若
+$f^*\mathcal{N} \cong \mathcal{O}_X$，则由假设有
+$f_*f^*\mathcal{N} \cong f_*\mathcal{O}_X \cong \mathcal{O}_S$。
+由于 $\mathcal{N}$ 局部平凡，典范映射
+$\mathcal{N} \to f_*f^*\mathcal{N}$ 局部为同构（因为由假设，
+$\mathcal{O}_S \to f_*f^*\mathcal{O}_S$ 是同构）。因此
+$\mathcal{N} \to f_*f^*\mathcal{N} \to \mathcal{O}_S$ 是同构，故
+$\mathcal{N}$ 平凡。这证明了第一个箭头是单射。
+
+\medskip\noindent
+设 $\mathcal{L}$ 是位于 $\Pic(X) \to \Picardfunctor_{X/S}(S)$ 核中的可逆
+$\mathcal{O}_X$-模。于是存在 fppf 覆盖 $\{S_i \to S\}$，使得
+$\mathcal{L}$ 在 $X_{S_i}$ 上的拉回是平凡可逆层。选取一个平凡化截面
+$s_i$。此时 $\text{pr}_0^*s_i$ 和 $\text{pr}_1^*s_j$ 都是
+$X_{S_i \times_S S_j}$ 上 $\mathcal{L}$ 的平凡化截面，因而二者相差一个乘法可逆元
+$$
+f_{ij} \in
+\Gamma(X_{S_i \times_S S_j}, \mathcal{O}_{X_{S_i \times_S S_j}}^*) =
+\Gamma(S_i \times_S S_j, \mathcal{O}_{S_i \times_S S_j}^*)
+$$
+（等式来自关于结构层推前的假设）。这些元素当然在
+$S_i \times_S S_j \times_S S_k$ 上满足余圈条件，从而给出 fppf 覆盖
+$\{S_i \to S\}$ 下可逆层的下降数据。由《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}，存在可逆
+$\mathcal{O}_S$-模 $\mathcal{N}$ 及其在 $S_i$ 上的平凡化，其相应下降数据为
+$\{f_{ij}\}$。由于从下降数据到模的函子是全忠实的（见上引命题），故
+$f^*\mathcal{N} \cong \mathcal{L}$。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-flat-geometrically-connected-fibres-with-section}
+设 $f : X \to S$ 如定义 \ref{pic-definition-picard-functor}。假设 $f$ 有截面
+$\sigma$，且对所有 $T \in \Ob((\Sch/S)_{fppf})$，
+$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ 均为同构。则
+$$
+0 \to \Pic(T) \to \Pic(X_T) \to \Picardfunctor_{X/S}(T) \to 0
+$$
+是分裂正合序列，其分裂由 $\sigma_T^* : \Pic(X_T) \to \Pic(T)$ 给出。
+\end{lemma}
+
+\begin{proof}
+记 $K(T) = \Ker(\sigma_T^* : \Pic(X_T) \to \Pic(T))$。由于 $\sigma$ 是
+$f$ 的截面，$\Pic(X_T)$ 是 $\Pic(T)$ 与 $K(T)$ 的直和。因此由引理
+\ref{pic-lemma-flat-geometrically-connected-fibres}，对所有 $T$ 均有
+$K(T) \subset \Picardfunctor_{X/S}(T)$。此外，由构造显然可见，
+$\Picardfunctor_{X/S}$ 是预层 $K$ 的层化。为完成证明，只需说明 $K$
+对 fppf 覆盖满足层条件；这在下一段完成。
+
+\medskip\noindent
+设 $\{T_i \to T\}$ 是 fppf 覆盖。设 $\mathcal{L}_i$ 是 $K(T_i)$ 中的元素，
+并且对所有 $i$ 和 $j$，它们在 $K(T_i \times_T T_j)$ 中的像相同。
+对每个 $i$ 选取同构
+$\alpha_i : \mathcal{O}_{T_i} \to \sigma_{T_i}^*\mathcal{L}_i$，
+并选取同构
+$$
+\varphi_{ij} :
+\mathcal{L}_i|_{X_{T_i \times_T T_j}}
+\longrightarrow
+\mathcal{L}_j|_{X_{T_i \times_T T_j}}
+$$
+若映射
+$$
+\alpha_j|_{T_i \times_T T_j} \circ
+\sigma_{T_i \times_T T_j}^*\varphi_{ij} \circ
+\alpha_i|_{T_i \times_T T_j} :
+\mathcal{O}_{T_i \times_T T_j} \to \mathcal{O}_{T_i \times_T T_j}
+$$
+不是乘以 $1$，而是乘以某个 $u_{ij}$，则可将 $\varphi_{ij}$ 乘以
+$u_{ij}^{-1}$ 来修正。完成此修正后，考虑自映射
+$$
+\varphi_{ki}|_{X_{T_i \times_T T_j \times_T T_k}} \circ
+\varphi_{jk}|_{X_{T_i \times_T T_j \times_T T_k}} \circ
+\varphi_{ij}|_{X_{T_i \times_T T_j \times_T T_k}}
+\quad\text{定义于}\quad
+\mathcal{L}_i|_{X_{T_i \times_T T_j \times_T T_k}}
+$$
+它由概形 $X_{T_i \times_T T_j \times_T T_k}$ 上某个正则函数 $f_{ijk}$
+的乘法给出。由对 $\varphi_{ij}$ 的选择，此映射沿 $\sigma$ 的拉回等于
+乘以 $1$。再由关于 $X$ 上函数的假设，有 $f_{ijk} = 1$。于是得到 fppf 覆盖
+$\{X_{T_i} \to X\}$ 的下降数据。由《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}，存在可逆
+$\mathcal{O}_{X_T}$-模 $\mathcal{L}$ 以及同构
+$\alpha : \mathcal{O}_T \to \sigma_T^*\mathcal{L}$，其向 $X_{T_i}$ 的拉回
+恢复 $(\mathcal{L}_i, \alpha_i)$（略去一个小细节）。因此
+$\mathcal{L}$ 如所需地定义了 $K(T)$ 的一个对象。
+\end{proof}
+
+
+
+\section{一个可表示性判据}
+\label{pic-section-representability}
+
+\noindent
+为证明 Picard 函子可表示，将使用以下判据。
+
+\begin{lemma}
+\label{pic-lemma-criterion}
+设 $k$ 是域，$G : (\Sch/k)^{opp} \to \textit{Groups}$ 是函子。采用
+《概形》定义 \ref{schemes-definition-representable-by-open-immersions}
+中的术语，假设：
+\begin{enumerate}
+\item $G$ 对 Zariski 拓扑满足层性质；
+\item 存在子函子 $F \subset G$，使得
+\begin{enumerate}
+\item $F$ 可表示；
+\item $F \subset G$ 由开浸入表示；
+\item 对 $k$ 的每个域扩张 $K$ 及 $g \in G(K)$，存在 $g' \in G(k)$，
+使得 $g'g \in F(K)$。
+\end{enumerate}
+\end{enumerate}
+则 $G$ 由 $k$ 上的群概形表示。
+\end{lemma}
+
+\begin{proof}
+这由《概形》引理 \ref{schemes-lemma-glue-functors} 得出。具体地，取
+$I = G(k)$；对 $i = g' \in I$，令 $F_i \subset G$ 为如下子函子：它把
+$k$ 上的 $T$ 对应到满足 $g'g \in F(T)$ 的元素 $g \in G(T)$ 所成的集合。
+乘以 $g'$ 给出 $F_i \cong F$。在乘以 $g'$ 给出的同构下，映射
+$F_i \to G$ 与映射 $F \to G$ 同构，故由开浸入表示。最后，由假设 (2)(c)，
+族 $(F_i)_{i \in I}$ 覆盖 $G$。因此上述引理适用，证明完成。
+\end{proof}
+
+
+
+\section{曲线的 Picard 概形}
+\label{pic-section-picard-curve}
+
+\noindent
+本节将在 $k$ 为代数闭域、$X$ 为 $k$ 上光滑射影曲线时应用引理
+\ref{pic-lemma-criterion}，证明 $\Picardfunctor_{X/k}$ 可表示。为此要用到
+《概形的导出范畴》一章中发展的少量上同调与基变换理论。
+
+\begin{lemma}
+\label{pic-lemma-check-conditions}
+设 $k$ 是域，$X$ 是 $k$ 上具有 $k$-有理点的光滑射影曲线。则引理
+\ref{pic-lemma-flat-geometrically-connected-fibres-with-section} 的假设成立。
+\end{lemma}
+
+\begin{proof}
+“具有 $k$-有理点”恰好意味着结构态射 $f : X \to \Spec(k)$ 有截面，
+这验证了第一个条件。由《簇》引理
+\ref{varieties-lemma-regular-functions-proper-variety}，
+$k' = H^0(X, \mathcal{O}_X)$ 是 $k$ 的域扩张。由于 $X$ 有 $k$-有理点，
+存在 $k$-代数同态 $k' \to k$，从而 $k' = k$。因为 $k$ 是域，任意态射
+$T \to \Spec(k)$ 都平坦。因此由上同调与基变换（《概形上同调》引理
+\ref{coherent-lemma-flat-base-change-cohomology}），
+$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ 是同构。证明完成。
+\end{proof}
+
+\noindent
+设 $X$ 是域 $k$ 上的光滑射影曲线，并有一个 $k$-有理点 $\sigma$。则由引理
+\ref{pic-lemma-check-conditions} 和
+\ref{pic-lemma-flat-geometrically-connected-fibres-with-section}，函子
+$$
+\Picardfunctor_{X/k, \sigma} : (\Sch/k)^{opp} \longrightarrow \textit{Ab},\quad
+T \longmapsto \Ker(\Pic(X_T) \xrightarrow{\sigma_T^*} \Pic(T))
+$$
+在 $(\Sch/k)_{fppf}$ 上同构于 $\Picardfunctor_{X/k}$。因此只需证明
+$\Picardfunctor_{X/k, \sigma}$ 可表示。以后用记号
+“$\mathcal{L} \in \Picardfunctor_{X/k, \sigma}(T)$”表示：$T$ 是 $k$ 上概形，
+$\mathcal{L}$ 是可逆 $\mathcal{O}_{X_T}$-模，并且它通过 $\sigma_T$ 在 $T$
+上的限制同构于 $\mathcal{O}_T$。
+
+\begin{lemma}
+\label{pic-lemma-define-open}
+设 $k$ 是域，$X$ 是 $k$ 上带 $k$-有理点 $\sigma$ 的光滑射影曲线。
+对 $k$ 上概形 $T$，考虑由如下 $\mathcal{L}$ 组成的子集
+$F(T) \subset \Picardfunctor_{X/k, \sigma}(T)$：
+$Rf_{T, *}\mathcal{L}$ 同构于置于次数 $0$ 的可逆 $\mathcal{O}_T$-模。
+则 $F \subset \Picardfunctor_{X/k, \sigma}$ 是子函子，且该包含由开浸入表示。
+\end{lemma}
+
+\begin{proof}
+将《概形的导出范畴》引理
+\ref{perfect-lemma-open-where-cohomology-in-degree-i-rank-r-geometric}
+用于 $i = 0$ 和 $r = 1$，再结合《概形》定义
+\ref{schemes-definition-representable-by-open-immersions}，即得结论。
+\end{proof}
+
+\noindent
+为便于继续，作如下定义。
+
+\begin{definition}
+\label{pic-definition-genus}
+设 $k$ 是域，$X$ 是 $k$ 上光滑射影几何不可约曲线。$X$ 的{\it 亏格}定义为
+$g = \dim_k H^1(X, \mathcal{O}_X)$。
+\end{definition}
+
+\begin{lemma}
+\label{pic-lemma-open-representable}
+设 $k$ 是域，$X$ 是 $k$ 上亏格为 $g$、带 $k$-有理点 $\sigma$ 的光滑射影曲线。
+引理 \ref{pic-lemma-define-open} 中定义的开子函子 $F$ 由
+$\underline{\Hilbfunctor}^g_{X/k}$ 的一个开子概形表示。
+\end{lemma}
+
+\begin{proof}
+本证明中未注明底的积均取在 $\Spec(k)$ 上。由命题
+\ref{pic-proposition-hilb-d}，概形 $H = \underline{\Hilbfunctor}^g_{X/k}$ 存在。
+考虑泛除子 $D_{univ} \subset H \times X$ 及相应的可逆层
+$\mathcal{O}(D_{univ})$；见注 \ref{pic-remark-universal-object-hilb-d}。
+再张量上经 $\sigma_H : H \to H \times X$ 的拉回来作归一化，得到
+$$
+\mathcal{L}_H =
+\mathcal{O}(D_{univ})
+\otimes_{\mathcal{O}_{H \times X}}
+\text{pr}_H^*\sigma_H^*\mathcal{O}(D_{univ})^{\otimes -1}
+\in
+\Picardfunctor_{X/k, \sigma}(H)
+$$
+由 Yoneda 引理（《范畴》引理 \ref{categories-lemma-yoneda}），可逆层
+$\mathcal{L}_H$ 定义自然变换
+$$
+h_H \longrightarrow \Picardfunctor_{X/k, \sigma}
+$$
+由于 $F$ 是开子函子，存在极大开集 $W \subset H$，使得
+$\mathcal{L}_H|_{W \times X}$ 属于 $F(W)$。这个开集恰好是把《概形的导出范畴》
+引理 \ref{perfect-lemma-open-where-cohomology-in-degree-i-rank-r-geometric}
+以 $i = 0$、$r = 1$ 应用于态射 $H \times X \to H$ 和层
+$\mathcal{F} = \mathcal{O}(D_{univ})$ 所构造的开子概形。再次应用 Yoneda 引理，
+得到交换图
+$$
+\xymatrix{
+h_W \ar[d] \ar[r] & F \ar[d] \\
+h_H \ar[r] & \Picardfunctor_{X/k, \sigma}
+}
+$$
+为完成证明，将说明上方水平箭头是同构。
+
+\medskip\noindent
+设 $\mathcal{L} \in F(T) \subset \Picardfunctor_{X/k, \sigma}(T)$。
+设 $\mathcal{N}$ 是满足 $Rf_{T, *}\mathcal{L} \cong \mathcal{N}[0]$ 的可逆
+$\mathcal{O}_T$-模。伴随映射
+$$
+f_T^*\mathcal{N} \longrightarrow \mathcal{L}
+\quad\text{corresponds to a section }s\text{ 属于}\quad
+\mathcal{L} \otimes f_T^*\mathcal{N}^{\otimes -1}
+$$
+在 $X_T$ 上给出一个截面。断言：$s$ 的零点概形是 $(T \times X)/T$ 上的
+相对有效 Cartier 除子 $D$，并且在 $T$ 上是次数为 $g$ 的局部自由有限态射。
+
+\medskip\noindent
+先假定断言成立并完成引理的证明。$D$ 定义态射 $m : T \to H$，使 $D$ 是
+$D_{univ}$ 的拉回。于是
+$$
+(m \times \text{id}_X)^*\mathcal{O}(D_{univ}) \cong
+\mathcal{O}_{T \times X}(D)
+$$
+由于 $\mathcal{O}_{T \times X}(D) \cong
+\mathcal{L} \otimes f_T^*\mathcal{N}^{\otimes -1}$，可知
+$(m \times \text{id}_X)^*\mathcal{L}_H$ 与 $\mathcal{L}$ 相差一个 $T$ 上可逆模的拉回。
+这说明 $m : T \to H$ 通过上述开集 $W \subset H$ 分解。此外，按上法以经
+$\sigma_T$ 的拉回来调整后，这些可逆模定义 $\Picardfunctor_{X/k, \sigma}(T)$
+中的同一元素。利用 Yoneda 引理追图可见，$m \in h_W(T)$ 映到
+$\mathcal{L} \in F(T)$。略去如下验证：规则 $F(T) \to h_W(T)$、
+$\mathcal{L} \mapsto m$ 给出上述函子变换的逆。
+
+\medskip\noindent
+现在证明断言。由于 $D$ 是 $T \times X$ 的局部主闭子概形，只需证明 $D$
+在 $T$ 上的各纤维是有效 Cartier 除子；参见引理
+\ref{pic-lemma-divisors-on-curves} 和《除子》引理
+\ref{divisors-lemma-fibre-Cartier}。由于取 $\mathcal{L}$ 的上同调与基变换交换
+（《概形的导出范畴》引理
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}），可归约到
+$T = \Spec(K)$，其中 $K/k$ 是域扩张。此时 $\mathcal{L}$ 是 $X_K$ 上的可逆层，
+并满足 $H^0(X_K, \mathcal{L}) = K$ 和 $H^1(X_K, \mathcal{L}) = 0$。因此
+$$
+\deg(\mathcal{L}) = \chi(X_K, \mathcal{L}) - \chi(X_K, \mathcal{O}_{X_K})
+= 1 - (1 - g) = g
+$$
+参见《簇》定义 \ref{varieties-definition-degree-invertible-sheaf}。最后只须说明
+$\mathcal{L}$ 的非零截面在 $X_K$ 上定义有效 Cartier 除子；这是显然的。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-twist-with-general-divisor}
+设 $k$ 是可分闭域，$X$ 是 $k$ 上亏格为 $g$ 的光滑射影曲线。设 $K/k$ 是域扩张，
+$\mathcal{L}$ 是 $X_K$ 上的可逆层。则存在 $X$ 上的可逆层 $\mathcal{L}_0$，使得
+$\dim_K H^0(X_K,
+\mathcal{L} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}_0|_{X_K}) = 1$ 且
+$\dim_K H^1(X_K,
+\mathcal{L} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}_0|_{X_K}) = 0$。
+\end{lemma}
+
+\begin{proof}
+本证明是《簇》引理 \ref{varieties-lemma-general-degree-g-line-bundle}
+证明的一个变式。建议读者先阅读该证明。
+
+\medskip\noindent
+先选取充足可逆层 $\mathcal{L}_0$，并对某个 $n \gg 0$，以
+$\mathcal{L} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}_0^{\otimes n}|_{X_K}$
+代替 $\mathcal{L}$。这样便可假设
+$H^0(X_K, \mathcal{L}) \not = 0$ 且 $H^1(X_K, \mathcal{L}) = 0$。
+事实上，消灭性来自《概形上同调》引理
+\ref{coherent-lemma-vanshing-gives-ample}，而非零性来自张量积的次数为
+$\gg 0$。最后对 $t = \dim_K H^0(X_K, \mathcal{L})$ 作降阶归纳。
+基本情形 $t = 1$ 显然。假设 $t > 1$。
+
+\medskip\noindent
+注意，对 $X$ 的 $k$-有理点 $x$，逆像 $x_K$ 是 $X_K$ 的 $K$-有理点。
+此外，由《簇》引理 \ref{varieties-lemma-smooth-separable-closed-points-dense}，
+$k$-有理点有无穷多个。因此各点 $x_K$ 在 $X_K$ 中构成 Zariski 稠密的点集。
+
+\medskip\noindent
+取非零 $s \in H^0(X_K, \mathcal{L})$。由上一段，存在 $k$-有理点 $x$，
+使 $s$ 在 $x_K$ 处不消失。设 $\mathcal{I}$ 是
+$i : x_K \to X_K$ 的理想层，如《簇》引理
+\ref{varieties-lemma-regular-point-on-curve}。考察短正合序列
+$$
+0 \to \mathcal{I} \otimes_{\mathcal{O}_{X_K}} \mathcal{L} \to
+\mathcal{L} \to i_*i^*\mathcal{L} \to 0
+$$
+注意 $H^0(X_K, i_*i^*\mathcal{L}) = H^0(x_K, i^*\mathcal{L})$ 在 $K$ 上维数为
+$1$。由于 $s$ 在 $x$ 处不消失，映射
+$$
+H^0(X_K, \mathcal{L}) \longrightarrow H^0(X, i_*i^*\mathcal{L})
+$$
+是满射。因此
+$\dim_K H^0(X_K, \mathcal{I} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}) = t - 1$。
+最后，上同调长正合序列还给出
+$H^1(X_K, \mathcal{I} \otimes_{\mathcal{O}_{X_K}} \mathcal{L}) = 0$，
+从而完成归纳步骤。
+\end{proof}
+
+\begin{proposition}
+\label{pic-proposition-pic-curve}
+设 $k$ 是可分闭域，$X$ 是 $k$ 上光滑射影曲线。Picard 函子
+$\Picardfunctor_{X/k}$ 可表示。
+\end{proposition}
+
+\begin{proof}
+由于 $k$ 可分闭，$X$ 有 $k$-有理点 $\sigma$；见《簇》引理
+\ref{varieties-lemma-smooth-separable-closed-points-dense}。如上所述，只需证明
+对沿 $\sigma$ 平凡的可逆模进行分类的函子 $\Picardfunctor_{X/k, \sigma}$
+可表示。为此验证引理 \ref{pic-lemma-criterion} 的条件 (1)、(2)(a)、(2)(b)
+和 (2)(c)。
+
+\medskip\noindent
+函子 $\Picardfunctor_{X/k, \sigma}$ 同构于 $\Picardfunctor_{X/k}$，故对 fppf
+拓扑满足层条件。更准确地说，我们已在引理
+\ref{pic-lemma-flat-geometrically-connected-fibres-with-section} 的证明中证明了
+$\Picardfunctor_{X/k, \sigma}$ 的层条件；由引理
+\ref{pic-lemma-check-conditions}，该证明适用。这就证明了条件 (1)。
+
+\medskip\noindent
+取引理 \ref{pic-lemma-define-open} 中定义的 $F$ 为子函子。条件 (2)(b) 随即成立；
+条件 (2)(a) 是引理 \ref{pic-lemma-open-representable}；条件 (2)(c) 是引理
+\ref{pic-lemma-twist-with-general-divisor}。
+\end{proof}
+
+\noindent
+事实上，上述证明还给出更多信息，现汇总如下。
+
+\begin{lemma}
+\label{pic-lemma-picard-pieces}
+设 $k$ 是可分闭域，$X$ 是 $k$ 上亏格为 $g$ 的光滑射影曲线。
+\begin{enumerate}
+\item $\underline{\Picardfunctor}_{X/k}$ 是一族 $g$ 维光滑固有簇
+$\underline{\Picardfunctor}^d_{X/k}$ 的不交并；
+\item $\underline{\Picardfunctor}^d_{X/k}$ 的 $k$-点对应于次数为 $d$ 的可逆
+$\mathcal{O}_X$-模；
+\item $\underline{\Picardfunctor}^0_{X/k}$ 是开闭子群概形；
+\item 对 $d \geq 0$，存在典范态射
+$\gamma_d :
+\underline{\Hilbfunctor}^d_{X/k} \to \underline{\Picardfunctor}^d_{X/k}$；
+\item 态射 $\gamma_d$ 在 $d \geq g$ 时满，在 $d \geq 2g - 1$ 时光滑；
+\item 态射
+$\underline{\Hilbfunctor}^g_{X/k} \to \underline{\Picardfunctor}^g_{X/k}$
+是双有理的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取 $X$ 的 $k$-有理点 $\sigma$。回忆 $\Picardfunctor_{X/k}$ 同构于函子
+$\Picardfunctor_{X/k, \sigma}$。由《概形的导出范畴》引理
+\ref{perfect-lemma-chi-locally-constant-geometric}，对每个
+$d \in \mathbf{Z}$，存在开子函子
+$$
+\Picardfunctor^d_{X/k, \sigma} \subset \Picardfunctor_{X/k, \sigma}
+$$
+它在 $k$ 上概形 $T$ 处的取值由满足
+$\chi(X_t, \mathcal{L}_t) = d + 1 - g$ 的
+$\mathcal{L} \in \Picardfunctor_{X/k, \sigma}(T)$ 组成；而且作为 fppf 层有
+$$
+\Picardfunctor_{X/k, \sigma} =
+\coprod\nolimits_{d \in \mathbf{Z}} \Picardfunctor^d_{X/k, \sigma}
+$$
+因此，概形 $\underline{\Picardfunctor}_{X/k}$（它由命题
+\ref{pic-proposition-pic-curve} 存在）有相应分解
+$$
+\underline{\Picardfunctor}_{X/k, \sigma} =
+\coprod\nolimits_{d \in \mathbf{Z}} \underline{\Picardfunctor}^d_{X/k, \sigma}
+$$
+其中 $\underline{\Picardfunctor}^d_{X/k, \sigma}$ 的点对应于 $X$ 上次数为 $d$
+的可逆模的同构类。
+
+\medskip\noindent
+固定 $d \geq 0$。由 $\underline{\Hilbfunctor}^d_{X/k} \times_k X$ 上的可逆层
+$\mathcal{O}(D_{univ})$（注 \ref{pic-remark-universal-object-hilb-d}），再由 Yoneda
+引理（《范畴》引理 \ref{categories-lemma-yoneda}），得到态射
+$$
+\gamma_d :
+\underline{\Hilbfunctor}^d_{X/k}
+\longrightarrow
+\underline{\Picardfunctor}^d_{X/k}
+$$
+命题 \ref{pic-proposition-pic-curve} 和引理 \ref{pic-lemma-open-representable}
+中对 $X/k$ 的 Picard 函子可表示性的证明表明，$\gamma_g$ 在
+$\underline{\Hilbfunctor}^g_{X/k}$ 的一个非空开集上诱导开浸入。此外，该证明还表明，
+此开集在群概形 $\underline{\Picardfunctor}_{X/k}$ 的 $k$-有理点作用下的平移构成
+开覆盖。由于 $\underline{\Hilbfunctor}^g_{X/K}$ 在 $k$ 上光滑且维数为 $g$
+（命题 \ref{pic-proposition-hilb-d}），可知群概形
+$\underline{\Picardfunctor}_{X/k}$ 在 $k$ 上光滑且维数为 $g$。
+
+\medskip\noindent
+由《群胚》引理 \ref{groupoids-lemma-group-scheme-over-field-separated}，
+$\underline{\Picardfunctor}_{X/k}$ 是分离的。因此对每个 $d \geq 0$，
+$\gamma_d$ 的像是 $k$ 上固有簇（《态射》引理
+\ref{morphisms-lemma-scheme-theoretic-image-is-proper}）。
+
+\medskip\noindent
+设 $d \geq g$。对任意域扩张 $K/k$ 以及任意次数为 $d$ 的可逆
+$\mathcal{O}_{X_K}$-模 $\mathcal{L}$，有
+$\chi(X_K, \mathcal{L}) = d + 1 - g > 0$。故 $\mathcal{L}$ 有非零截面，
+从而对某个次数为 $d$ 的除子 $D \subset X_K$，有
+$\mathcal{L} = \mathcal{O}_{X_K}(D)$。因此 $\gamma_d$ 是满射。
+
+\medskip\noindent
+综合上述事实可见，当 $d \geq g$ 时，
+$\underline{\Picardfunctor}^d_{X/k}$ 固有。这完成了 (2) 的证明，因为现在已知
+$d \geq g$ 时 $\underline{\Picardfunctor}^d_{X/k}$ 固有，而通过平移可知所有
+$\underline{\Picardfunctor}^d_{X/k}$ 都固有。
+
+\medskip\noindent
+还须证明 $d \geq 2g - 1$ 时 $\gamma_d$ 光滑。取次数为 $d$ 的可逆
+$\mathcal{O}_X$-模 $\mathcal{L}$。与 $\mathcal{L}$ 对应的点的纤维是
+$$
+Z = \{D \subset X \mid \mathcal{O}_X(D) \cong \mathcal{L}\} \subset
+\underline{\Hilbfunctor}^d_{X/k}
+$$
+并带有其自然概形结构。任意同构 $\mathcal{O}_X(D) \to \mathcal{L}$ 只在乘以
+非零标量的意义下唯一，故典范截面 $1 \in \mathcal{O}_X(D)$ 映到截面
+$s \in \Gamma(X, \mathcal{L})$，后者也只在乘以非零标量的意义下唯一。由此得到态射
+$$
+Z \longrightarrow
+\text{Proj}(\text{Sym}(\Gamma(X, \mathcal{L})^*))
+$$
+（由于我们的约定，这里出现对偶）。此态射是同构，因为给定
+$\mathcal{L}$ 的截面，可以取相应的有效 Cartier 除子；换言之，可以构造所示态射的逆。
+略去精确表述与证明。对每个次数为 $d \geq 2g - 1$ 的 $\mathcal{L}$，由《簇》引理
+\ref{varieties-lemma-vanishing-degree-2g-and-1-line-bundle} 有
+$\dim H^0(X, \mathcal{L}) = d + 1 - g$，故
+$\text{Proj}(\text{Sym}(\Gamma(X, \mathcal{L})^*))
+\cong \mathbf{P}^{d - g}_k$。于是
+$\dim(Z) = \dim(\mathbf{P}^{d - g}_k) = d - g$。因此态射 $\gamma_d$ 的所有纤维
+的维数都等于 $\underline{\Hilbfunctor}^d_{X/k}$ 与
+$\underline{\Picardfunctor}^d_{X/k}$ 的维数之差。由《代数》引理
+\ref{algebra-lemma-CM-over-regular-flat}，$\gamma_d$ 平坦。又因其纤维光滑，
+由《态射》引理 \ref{morphisms-lemma-smooth-flat-smooth-fibres}，
+$\gamma_d$ 光滑。
+\end{proof}
+
+
+
+
+
+\section{关于 Picard 群的一些注记}
+\label{pic-section-remarks-picard}
+
+\noindent
+本节继续《簇》第 \ref{varieties-section-picard-groups} 节的讨论；这一讨论还将在
+《代数曲线》第 \ref{curves-section-torsion-in-pic} 节继续。
+
+\begin{lemma}
+\label{pic-lemma-pic-descends}
+设 $k$ 是域，$X$ 是 $k$ 上拟紧且拟分离的概形，并满足
+$H^0(X, \mathcal{O}_X) = k$。若 $X$ 有 $k$-有理点，则对任意 Galois 扩张
+$k'/k$ 均有
+$$
+\Pic(X) = \Pic(X_{k'})^{\text{Gal}(k'/k)}
+$$
+此外，$\text{Gal}(k'/k)$ 在 $\Pic(X_{k'})$ 上的作用连续。
+\end{lemma}
+
+\begin{proof}
+由于 $\text{Gal}(k'/k) = \text{Aut}(k'/k)$，它右作用于 $\Spec(k')$，从而右作用于
+$X_{k'} = X \times_{\Spec(k)} \Spec(k')$；又因 $\Pic(-)$ 是反变函子，它左作用于
+$\Pic(X_{k'})$。若 $k'/k$ 是无限 Galois 扩张，则把它写成有限 Galois 扩张的滤过余极限
+$k' = \colim k'_\lambda$；见《域》引理
+\ref{fields-lemma-infinite-galois-limit}。此时
+$X_{k'} = \lim X_{k_\lambda}$（如《极限》第 \ref{limits-section-limits} 节），
+并由《极限》引理 \ref{limits-lemma-descend-invertible-modules} 得到
+$$
+\Pic(X_{k'}) = \colim \Pic(X_{k_\lambda})
+$$
+此外，由《簇》引理 \ref{varieties-lemma-change-fields-pic}，这个阿贝尔群系统中的
+过渡映射都是单射。因此 $\Pic(X_{k'})$ 的每个元素都被某个开子群
+$\text{Gal}(k'/k_\lambda)$ 固定，这恰好说明作用连续。过渡映射的单射性还表明，
+为证明关于不动点的断言，只需处理 $k'/k$ 为有限 Galois 扩张的情形。
+
+\medskip\noindent
+假设 $k'/k$ 是有限 Galois 扩张，Galois 群为
+$G = \text{Gal}(k'/k)$。设 $\mathcal{L}$ 是 $\Pic(X_{k'})$ 中被 $G$ 固定的元素。
+将用 Galois 下降（《下降》引理 \ref{descent-lemma-galois-descent}）证明
+$\mathcal{L}$ 是 $X$ 上可逆层的拉回。回忆
+$f_\sigma = \text{id}_X \times \Spec(\sigma) : X_{k'} \to X_{k'}$，并且
+$\sigma$ 通过沿 $f_\sigma$ 拉回来作用于 $\Pic(X_{k'})$。由于 $\mathcal{L}$
+被 $G$ 的作用固定，对每个 $\sigma \in G$ 可选取同构
+$\varphi_\sigma : \mathcal{L} \to f_\sigma^*\mathcal{L}$。问题在于，尚不清楚能否选择
+$\varphi_\sigma$ 使余圈条件
+$\varphi_{\sigma\tau} = f_\sigma^*\varphi_\tau \circ \varphi_\sigma$
+成立。为说明这是可能的，利用 $X$ 有 $k$-有理点 $x \in X(k)$。当然，$x$
+相应地确定一个 $k'$-有理点 $x' \in X_{k'}$，且对所有 $\sigma$，$f_\sigma$
+都固定它。在 $x'$ 处 $\mathcal{L}$ 的纤维中取非零元素 $s$；该纤维是
+$1$ 维 $k' = \kappa(x')$-向量空间
+$$
+\mathcal{L}_{x'} \otimes_{\mathcal{O}_{X_{k'}, x'}} \kappa(x').
+$$
+于是 $f_\sigma^*s$ 是 $x'$ 处 $f_\sigma^*\mathcal{L}$ 的纤维中的非零元素。
+由于可以把 $\varphi_\sigma$ 乘以 $(k')^*$ 中的元素，可假设
+$\varphi_\sigma$ 把 $s$ 映到 $f_\sigma^*s$。此时
+$\varphi_{\sigma\tau}$ 与 $f_\sigma^*\varphi_\tau \circ \varphi_\sigma$
+都把 $s$ 映到 $f_{\sigma\tau}^*s = f_\tau^*f_\sigma^*s$。由于
+$H^0(X_{k'}, \mathcal{O}_{X_{k'}}) = k'$，这两个同构必相同（一个是另一个乘以
+全局可逆元，而它们在 $x'$ 处相同）。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{pic-lemma-torsion-descends}
+设 $k$ 是特征 $p > 0$ 的域，$X$ 是 $k$ 上拟紧且拟分离的概形，并满足
+$H^0(X, \mathcal{O}_X) = k$。设整数 $n$ 与 $p$ 互素。则对任意纯不可分扩张
+$k'/k$，映射
+$$
+\Pic(X)[n] \longrightarrow \Pic(X_{k'})[n]
+$$
+为双射。
+\end{lemma}
+
+\begin{proof}
+首先，由《簇》引理 \ref{varieties-lemma-change-fields-pic}，映射
+$\Pic(X) \to \Pic(X_{k'})$ 是单射。因此只须证明引理中的映射满。设
+$\mathcal{L}$ 是可逆 $\mathcal{O}_{X_{k'}}$-模，并且它在
+$\Pic(X_{k'})$ 中的阶整除 $n$。选取可逆模同构
+$\alpha : \mathcal{L}^{\otimes n} \to \mathcal{O}_{X_{k'}}$。
+将证明偶对 $(\mathcal{L}, \alpha)$ 可下降到 $X$。
+
+\medskip\noindent
+置 $A = k' \otimes_k k'$。由于 $k'/k$ 纯不可分，乘法映射 $A \to k'$
+的核是 $A$ 的局部幂零理想 $I$。注意
+$$
+X_A = X \times_{\Spec(k)} \Spec(A) = X_{k'} \times_X X_{k'}
+$$
+带有两个投影 $\text{pr}_i : X_A \to X_{k'}$，$i = 0, 1$；它们在 $A/I$
+上相同。因此，可逆模 $\mathcal{L}_i = \text{pr}_i^*\mathcal{L}$
+在闭子概形 $X_{A/I} = X_{k'}$ 上相同。由于 $X_{A/I} \to X_A$ 是加厚，
+且 $\mathcal{L}_i$ 是 $n$-挠的，由《态射进阶》引理
+\ref{more-morphisms-lemma-torsion-pic-thickening}，存在同构
+$\varphi : \mathcal{L}_0 \to \mathcal{L}_1$。可以选择 $\varphi$ 使其模 $I$
+约化为恒等映射。事实上，由《概形上同调》引理
+\ref{coherent-lemma-flat-base-change-cohomology}，
+$H^0(X, \mathcal{O}_X) = k$ 蕴含
+$H^0(X_{k'}, \mathcal{O}_{X_{k'}}) = k'$；又因 $A \to k'$ 满，可以把
+$\varphi$ 乘以 $A$ 中适当元素来调整。考虑映射
+$$
+\lambda : \mathcal{O}_{X_A}
+\xrightarrow{\text{pr}_0^*\alpha^{-1}}
+\mathcal{L}_0^{\otimes n}
+\xrightarrow{\varphi^{\otimes n}}
+\mathcal{L}_1^{\otimes n}
+\xrightarrow{\text{pr}_0^*\alpha}
+\mathcal{O}_{X_A}
+$$
+由于 $H^0(X_A, \mathcal{O}_{X_A}) = A$（同一引理），可把 $\lambda$
+视为 $A$ 的元素。因为 $\varphi$ 模 $I$ 约化为恒等映射，所以
+$\lambda = 1 \bmod I$。于是 $\lambda$ 在 $1 + I$ 中有唯一的 $n$ 次方根
+（《代数》引理 \ref{algebra-lemma-lift-nth-roots}）；把 $\varphi$ 乘以该根的逆，
+便得到 $\lambda = 1$。断言 $(\mathcal{L}, \varphi)$ 是 fpqc 覆盖
+$\{X_{k'} \to X\}$ 的下降数据（《下降》定义
+\ref{descent-definition-descent-datum-quasi-coherent}）。若断言成立，则由《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}，$\mathcal{L}$ 是某个可逆
+$\mathcal{O}_X$-模 $\mathcal{N}$ 的拉回。Picard 群间映射的单射性表明，
+$\mathcal{N}$ 是 $\Pic(X)$ 中与 $\mathcal{L}$ 同阶的挠元素。
+
+\medskip\noindent
+证明断言。须验证
+$$
+\text{pr}_{12}^*\varphi \circ
+\text{pr}_{01}^*\varphi =
+\text{pr}_{02}^*\varphi
+\quad\text{定义于}\quad
+X_{k'} \times_X X_{k'} \times_X X_{k'} = X_{k' \otimes_k k' \otimes_k k'}
+$$
+与前面一样，对角态射
+$\Delta : X_{k'} \to X_{k' \otimes_k k' \otimes_k k'}$ 是加厚。等式的左右两边
+是映射 $a, b : p_0^*\mathcal{L} \to p_2^*\mathcal{L}$，并分别与
+$p_0^*\alpha$ 和 $p_2^*\alpha$ 相容；这里
+$p_i : X_{k' \otimes_k k' \otimes_k k'} \to X_{k'}$ 是投影态射。
+最后，$a, b$ 沿 $\Delta$ 的拉回是同一映射。仿射局部地（在局部平凡化中），
+这意味着 $a, b$ 由乘以可逆函数给出；这些函数模某个局部幂零理想约化为同一函数，
+并且有相同的 $n$ 次幂。于是由《代数》引理
+\ref{algebra-lemma-lift-nth-roots}，这些函数相同。
+\end{proof}
