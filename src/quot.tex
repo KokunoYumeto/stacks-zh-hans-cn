@@ -1,0 +1,5149 @@
+% Generated mechanically from the frozen quot.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{98}
+\chapter{Quot 空间与 Hilbert 空间}
+
+
+\phantomsection
+\label{quot-section-phantom}
+
+
+\section{引言}
+\label{quot-section-introduction}
+
+\noindent
+本章最初设想的目的，是讨论 Quot 与 Hilbert 函子，并证明在满足若干技术条件时，
+它们是代数空间。对概形而言，这些材料见于 Grothendieck 在 Bourbaki 讨论班的讲义；
+% P11-E0340: the frozen source misspells the French word "séminaire" as "séminair".
+参见
+\cite{Gr-I},
+\cite{Gr-II},
+\cite{Gr-III},
+\cite{Gr-IV},
+\cite{Gr-V}，以及
+\cite{Gr-VI}。对射影概形，Quot 概形与 Hilbert 概形位于适当很充足可逆层的
+截面空间的 Grassmann 簇中，这给出了构造这些概形的方法。我们采用不同的路径：
+利用 Artin 公理证明 Quot 与 Hilb 函子是代数空间。
+
+\medskip\noindent
+进一步考虑后发现，为了发展 Stacks Project 中的理论，从
+\cite{lieblich_remarks} 引入的凝聚层叠 $\Cohstack_{X/B}$
+（其支撑在基底上为真）开始讨论更为便利。这里，$f : X \to B$
+是满足适当技术条件的代数空间态射，不过这一点可以推广（见下文）。
+给定 $X$ 上的模 $\mathcal{F}$ 和 $\mathcal{G}$，在适当假设下，函子
+% P11-E0341: the frozen source says "under suitably hypotheses" instead of "under suitable hypotheses".
+$T/B \mapsto \Hom_{X_T}(\mathcal{F}_T, \mathcal{G}_T)$
+是 $B$ 上的代数空间 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$；
+见一节 \ref{quot-section-hom}。在一节 \ref{quot-section-isom} 中，我们证明由同构组成的
+子函子 $\mathit{Isom}(\mathcal{F}, \mathcal{G})$ 是代数空间。随后几节利用这一点
+证明叠 $\Cohstack_{X/B}$ 的对角态射可表示。当 $X \to B$ 平坦时，我们在一节
+\ref{quot-section-stack-coherent-sheaves} 中证明 $\Cohstack_{X/B}$ 是代数叠；
+一般情形见一节 \ref{quot-section-not-flat}。文献指引见该节的引言。
+
+\medskip\noindent
+证明这一点后，不难进一步证明
+$\Quotfunctor_{\mathcal{F}/X/B}$、$\Hilbfunctor_{X/B}$ 和
+$\Picardfunctor_{X/B}$ 是代数空间，而 $\Picardstack_{X/B}$ 是代数叠；
+见诸节 \ref{quot-section-quot}、\ref{quot-section-hilb}、
+\ref{quot-section-picard-functor} 和 \ref{quot-section-picard-stack}。
+
+\medskip\noindent
+用通常的方法，我们在一节 \ref{quot-section-relative-morphisms} 中推出：
+在适当假设下，相对态射函子 $\mathit{Mor}_B(Z, X)$ 是代数空间。
+
+\medskip\noindent
+在一节 \ref{quot-section-stack-of-spaces} 中，我们证明参数化真代数空间平坦族的群胚叠
+$$
+\Spacesstack'_{fp, flat, proper}
+$$
+满足除形式有效性以外的所有 Artin 公理（包括通用性的开性）。我们有意为这个叠
+选用非常笨拙的记号，因为读者使用其性质时应当谨慎。
+
+\medskip\noindent
+在一节 \ref{quot-section-polarized} 中，我们证明参数化极化真代数空间平坦族的叠
+$\Polarizedstack$ 是代数叠。由于已经处理了真代数空间的平坦族，这归结为证明
+极化概形的形式有效性；该结果通常称为 Grothendieck 代数化定理。
+
+\medskip\noindent
+在一节 \ref{quot-section-curves} 中，我们证明参数化曲线族的叠
+$\Curvesstack$ 是代数的。
+
+\medskip\noindent
+在一节 \ref{quot-section-moduli-complexes} 中，我们研究真态射上复形的模，
+并得到代数叠 $\Complexesstack_{X/B}$。陈述与证明的思路取自
+\cite{lieblich-complexes}。
+
+\medskip\noindent
+本章不包含什么？对于所得模空间和模叠所具有的性质（除代数性以外），本章几乎
+不作讨论；相关内容参见《模叠》一节 \ref{moduli-section-introduction}。
+% P11-E0342: the frozen source omits "that" in "the properties the resulting moduli spaces ... possess".
+在所讨论的大多数结果中，可以用代数叠的态射
+$\mathcal{X} \to \mathcal{B}$ 代替代数空间的态射 $X \to B$，从而推广这些构造。
+% P11-E0343: the frozen source has the singular phrase "a morphism ... of algebraic space".
+我们将在别处讨论这一点（此处插入未来引用）。
+% P11-E0344: the frozen source retains the unresolved placeholder "(insert future reference here)".
+对 Hilbert 空间还有更一般的“Hilbert 叠”概念，我们将在单独的一章中讨论；参见
+（此处插入未来引用）。
+% P11-E0345: the frozen source retains a second unresolved future-reference placeholder.
+
+
+
+
+\section{约定}
+\label{quot-section-conventions}
+
+\noindent
+我们有意把本章以及《叠的例子》《代数叠上的层》《可表示性判据》和《Artin 公理》
+诸章放在代数叠理论的一般发展之前。原因是，从下一章开始（见《代数叠的性质》一节
+\ref{stacks-properties-section-conventions}），我们不再区分概形与它所产生的代数叠。
+因此，我们的语言将变得更灵活、更便于人理解，但也不那么精确。开头这几章——包括
+最初的《代数叠》一章——奠定了基础，使我们以后可以忽略理解代数叠的不同方式之间
+某些非常技术性的区别。
+% P11-E0346: the frozen source has "groundwork that later allow us" instead of "groundwork that later allows us".
+不过，特别是在《Artin 公理》和《可表示性判据》两章中，我们必须非常精确地说明
+自己究竟处理哪些对象，因为我们正试图证明某些构造会产生代数叠或代数空间。
+% P11-E0347: the frozen source calls the chapter "Criteria of Representability", inconsistent with its title "Criteria for Representability".
+
+\medskip\noindent
+遗憾的是，这意味着有些记号、约定和术语颇为别扭，在经验较丰富的读者看来甚至可能
+前后颠倒。希望读者谅解！
+
+\medskip\noindent
+始终假设所有概形都包含在一个大 fppf 站点 $\Sch_{fppf}$ 中，并且所考虑的每个环
+$A$ 都满足：$\Spec(A)$ 同构于该大站点的某个对象。
+
+\medskip\noindent
+设 $S$ 是概形，$X$ 是 $S$ 上的代数空间。在本章及下一章中，我们用
+$X \times_S X$ 表示 $X$ 与自身的积（在 $S$ 上代数空间的范畴中），
+而不用 $X \times X$。
+\section{Hom 函子}
+\label{quot-section-hom}
+
+\noindent
+本节研究下面定义的同态函子。
+
+\begin{situation}
+\label{quot-situation-hom}
+设 $S$ 是概形，$f : X \to B$ 是 $S$ 上代数空间的态射。设
+$\mathcal{F}$、$\mathcal{G}$ 是拟凝聚 $\mathcal{O}_X$-模。
+对任意 $B$ 上的概形 $T$，把 $\mathcal{F}$ 和 $\mathcal{G}$ 到 $T$ 的基变换
+记为 $\mathcal{F}_T$ 和 $\mathcal{G}_T$；换言之，它们是经由投影态射
+$X_T = X \times_B T \to X$ 的拉回。
+% P11-E0348: the frozen source uses the incomplete construction "denote F_T and G_T the base changes".
+考虑函子
+\begin{equation}
+\label{quot-equation-hom}
+\mathit{Hom}(\mathcal{F}, \mathcal{G}) :
+(\Sch/B)^{opp}
+\longrightarrow
+\textit{Sets},\quad
+T
+\longrightarrow
+\Hom_{\mathcal{O}_{X_T}}(\mathcal{F}_T, \mathcal{G}_T)
+\end{equation}
+\end{situation}
+
+\noindent
+在情形 \ref{quot-situation-hom} 中，有时把
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 看作配有态射
+$\mathit{Hom}(\mathcal{F}, \mathcal{G}) \to B$ 的函子
+$(\Sch/S)^{opp} \to \textit{Sets}$。
+具体地，若 $T$ 是 $S$ 上的概形，则
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})(T)$ 的一个元素由一对
+$(h, u)$ 组成，其中 $h$ 是态射 $h : T \to B$，而
+$u : \mathcal{F}_T \to \mathcal{G}_T$ 是 $\mathcal{O}_{X_T}$-模同态；
+这里 $X_T = T \times_{h, B} X$，且 $\mathcal{F}_T$ 和 $\mathcal{G}_T$
+是到 $X_T$ 的拉回。特别地，当我们说
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{quot-lemma-hom-sheaf}
+在情形 \ref{quot-situation-hom} 中，函子
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$
+满足 fpqc 拓扑的层条件。
+\end{lemma}
+
+\begin{proof}
+设 $\{T_i \to T\}_{i \in I}$ 是 $B$ 上概形的 fpqc 覆盖。令
+$X_i = X_{T_i} = X \times_S T_i$、$\mathcal{F}_i = u_{T_i}$
+和 $\mathcal{G}_i = \mathcal{G}_{T_i}$。
+% P11-E0349: the frozen source writes X times_S T_i although Situation situation-hom defines X_{T_i} as X times_B T_i.
+% P11-E0350: the frozen source sets F_i = u_{T_i}; no u is defined here and the intended module is F_{T_i}.
+注意，$\{X_i \to X_T\}_{i \in I}$ 是 $X_T$ 的 fpqc 覆盖；参见
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}。
+因此，若映射族 $u_i : \mathcal{F}_i \to \mathcal{G}_i$ 满足
+$u_i$ 和 $u_j$ 在 $X_{T_i \times_T T_j}$ 上限制为同一个映射，则由下降
+（《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}），它唯一地来自映射
+$u : \mathcal{F}_T \to \mathcal{G}_T$。
+\end{proof}
+
+\noindent
+一致性检验：$\mathit{Hom}$ 层在 $S$ 上代数空间之间起着同样的作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-hom-to-spaces}
+在情形 \ref{quot-situation-hom} 中，设 $T$ 是 $S$ 上的代数空间。则
+% P11-E0351: the frozen source leaves "In Situation ..." as a sentence fragment.
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \mathit{Hom}(\mathcal{F}, \mathcal{G})) =
+\{(h, u) \mid h : T \to B, u : \mathcal{F}_T \to \mathcal{G}_T\}
+$$
+其中 $\mathcal{F}_T,\mathcal{G}_T$ 表示 $\mathcal{F}$ 和 $\mathcal{G}$
+到代数空间 $X \times_{B, h} T$ 的拉回。
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 和满的 \'etale 态射 $p : U \to T$。令
+$R = U \times_T U$，其投影为 $t, s : R \to U$。
+
+\medskip\noindent
+设 $v : T \to \mathit{Hom}(\mathcal{F}, \mathcal{G})$
+是自然变换。则 $v(p)$ 对应于 $U$ 上的一对 $(h_U, u_U)$。
+由于 $v$ 是函子变换，$(h_U, u_U)$ 沿 $s$ 与 $t$ 的拉回相同。
+因为 $T = U/R$（《空间》引理 \ref{spaces-lemma-space-presentation}），
+得到态射 $h : T \to B$，使得 $h_U = h \circ p$。于是
+$\mathcal{F}_U$ 是 $\mathcal{F}_T$ 到 $X_U$ 的拉回，
+$\mathcal{G}_U$ 亦然。因此，由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}，
+$u_U$ 下降为 $\mathcal{O}_{X_T}$-模同态
+$u : \mathcal{F}_T \to \mathcal{G}_T$。
+
+\medskip\noindent
+反之，设 $(h, u)$ 是 $T$ 上的一对。对概形 $T'$ 的每个态射
+$a : T' \to T$，令其对应于 $(h \circ a, a^*u)$，便得到自然变换
+$v : T \to \mathit{Hom}(\mathcal{F}, \mathcal{G})$。
+略去验证本段与上一段的构造互为逆构造。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-hom-base-change}
+在情形 \ref{quot-situation-hom} 中，设 $B' \to B$ 是 $S$ 上代数空间的态射。
+令 $X' = X \times_B B'$，并把 $\mathcal{F}$、$\mathcal{G}$ 到 $X'$
+的拉回记为 $\mathcal{F}'$、$\mathcal{G}'$。
+% P11-E0352: the frozen source uses the incomplete construction "denote F', G' the pullback".
+于是，与基变换 $f' : X' \to B'$ 相联系，得到函子
+$\mathit{Hom}(\mathcal{F}', \mathcal{G}') : (\Sch/B')^{opp} \to \textit{Sets}$。
+对 $B'$ 上的概形 $T$，显然有
+$$
+\mathit{Hom}(\mathcal{F}', \mathcal{G}')(T) =
+\mathit{Hom}(\mathcal{F}, \mathcal{G})(T)
+$$
+其中右边经由复合 $T \to B' \to B$ 把 $T$ 看作 $B$ 上的概形。
+这个平凡的注记有时可用于改变基代数空间。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-hom-sheaf-in-X}
+在情形 \ref{quot-situation-hom} 中，设 $\{X_i \to X\}_{i \in I}$ 是 fppf 覆盖，
+并对每个 $i, j \in I$ 设
+$\{X_{ijk} \to X_i \times_X X_j\}$ 是 fppf 覆盖。
+把 $\mathcal{F}$ 到 $X_i$、$X_{ijk}$ 的拉回分别记为
+$\mathcal{F}_i$、$\mathcal{F}_{ijk}$；类似地定义
+$\mathcal{G}_i$ 和 $\mathcal{G}_{ijk}$。
+% P11-E0353: the frozen source uses the incomplete "Denote ..., resp. ... the pullback" construction.
+对每个 $B$ 上的概形 $T$，图
+$$
+\xymatrix{
+\mathit{Hom}(\mathcal{F}, \mathcal{G})(T) \ar[r] &
+\prod\nolimits_i
+\mathit{Hom}(\mathcal{F}_i, \mathcal{G}_i)(T)
+\ar@<1ex>[r]^-{\text{pr}_0^*} \ar@<-1ex>[r]_-{\text{pr}_1^*}
+&
+\prod\nolimits_{i, j, k}
+\mathit{Hom}(\mathcal{F}_{ijk}, \mathcal{G}_{ijk})(T)
+}
+$$
+把第一个箭头表示为后两个箭头的等化子。
+\end{lemma}
+
+\begin{proof}
+设 $u_i : \mathcal{F}_{i, T} \to \mathcal{G}_{i, T}$ 是
+$\text{pr}_0^*$ 与 $\text{pr}_1^*$ 的等化子中的元素。由于 fppf 覆盖的基变换
+仍是 fppf 覆盖（《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-fppf}），可知
+$\{X_{i, T} \to X_T\}_{i \in I}$ 和
+$\{X_{ijk, T} \to X_{i, T} \times_{X_T} X_{j, T}\}$ 都是 fppf 覆盖。
+应用《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}，
+先得 $u_i$ 和 $u_j$ 在 $X_{i, T} \times_{X_T} X_{j, T}$ 上限制为同一个态射；
+再应用一次该命题，得到唯一态射 $u : \mathcal{F}_T \to \mathcal{G}_T$，
+其在每个 $i$ 上限制为 $u_i$。证毕。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-hom-limits}
+在情形 \ref{quot-situation-hom} 中，若 $\mathcal{F}$ 有限表示，且 $f$ 拟紧、拟分离，
+则 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 保极限。
+\end{lemma}
+
+\begin{proof}
+设 $T = \lim_{i \in I} T_i$ 是仿射 $B$-概形的有向极限。需要证明
+$$
+\mathit{Hom}(\mathcal{F}, \mathcal{G})(T) =
+\colim \mathit{Hom}(\mathcal{F}, \mathcal{G})(T_i).
+$$
+选取 $0 \in I$。可以把 $B$ 替换为 $T_0$，把 $X$ 替换为 $X_{T_0}$，
+把 $\mathcal{F}$、$\mathcal{G}$ 分别替换为 $\mathcal{F}_{T_0}$、
+$\mathcal{G}_{T_0}$，并把 $I$ 替换为 $\{i \in I \mid i \geq 0\}$；
+参见注记 \ref{quot-remark-hom-base-change}。因此可假设
+$B = \Spec(R)$ 为仿射的。
+
+\medskip\noindent
+当 $B$ 仿射时，$X$ 拟紧且拟分离。选取满的 \'etale 态射 $U \to X$，
+其中 $U$ 是仿射概形（《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。
+因为 $X$ 拟分离，概形 $U \times_X U$ 拟紧，故可选取满的 \'etale 态射
+$V \to U \times_X U$，其中 $V$ 是仿射概形。应用引理
+\ref{quot-lemma-hom-sheaf-in-X}，可知
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 是下列两个对象之间两个映射的等化子：
+$$
+\mathit{Hom}(\mathcal{F}|_U, \mathcal{G}|_U)
+\quad\text{与}\quad
+\mathit{Hom}(\mathcal{F}|_V, \mathcal{G}|_V).
+$$
+这把问题约化到 $X$ 仿射的情形。
+
+\medskip\noindent
+在仿射情形，引理的陈述归结为如下问题：给定环同态 $R \to A$、两个
+$A$-模 $M$、$N$，以及 $R$-代数的有向系统 $C = \colim C_i$，何时映射
+$$
+\colim \Hom_{A \otimes_R C_i}(M \otimes_R C_i, N \otimes_R C_i)
+\longrightarrow
+\Hom_{A \otimes_R C}(M \otimes_R C, N \otimes_R C)
+$$
+为双射？由《代数》引理
+\ref{algebra-lemma-module-map-property-in-colimit}，若
+$M \otimes_R C$ 作为 $A \otimes_R C$-模有限表示，则确实如此；
+这等价于 $M$ 作为 $A$-模有限表示。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-hom-closed}
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间。设
+$i : X' \to X$ 是 $B$ 上代数空间的闭浸入。设 $\mathcal{F}$ 是拟凝聚
+$\mathcal{O}_X$-模，$\mathcal{G}'$ 是拟凝聚 $\mathcal{O}_{X'}$-模。则
+$$
+\mathit{Hom}(\mathcal{F}, i_*\mathcal{G}') =
+\mathit{Hom}(i^*\mathcal{F}, \mathcal{G}')
+$$
+作为 $(\Sch/B)$ 上的函子相等。
+\end{lemma}
+
+\begin{proof}
+设 $g : T \to B$ 是态射，其中 $T$ 是概形。把 $i$ 的基变换记为
+$i_T : X'_T \to X_T$，并把投影记为
+$h : X_T \to X$ 和 $h' : X'_T \to X'$。
+% P11-E0354: the frozen source uses the incomplete construction "Denote i_T ... the base change".
+% P11-E0355: the frozen source uses the incomplete construction "Denote h ... and h' ... the projections".
+注意，$(h')^*i^*\mathcal{F} = i_T^*h^*\mathcal{F}$。
+由于闭浸入是仿射的（《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-affine}），由
+《空间的上同调》引理 \ref{spaces-cohomology-lemma-affine-base-change} 有
+$h^*i_*\mathcal{G} = i_{T, *}(h')^*\mathcal{G}$。
+% P11-E0356: the frozen proof switches from the stated module G' to an undefined unprimed G in the base-change identity and the middle three Hom terms.
+因此
+\begin{align*}
+\mathit{Hom}(\mathcal{F}, i_*\mathcal{G}')(T)
+& =
+\Hom_{\mathcal{O}_{X_T}}(h^*\mathcal{F}, h^*i_*\mathcal{G}') \\
+& =
+\Hom_{\mathcal{O}_{X_T}}(h^*\mathcal{F}, i_{T, *}(h')^*\mathcal{G}) \\
+& =
+\Hom_{\mathcal{O}_{X'_T}}(i_T^*h^*\mathcal{F}, (h')^*\mathcal{G}) \\
+& =
+\Hom_{\mathcal{O}_{X'_T}}((h')^*i^*\mathcal{F}, (h')^*\mathcal{G}) \\
+& =
+\mathit{Hom}(i^*\mathcal{F}, \mathcal{G}')(T),
+\end{align*}
+正如所需。中间的等号来自函子 $i_{T, *}$ 与 $i_T^*$ 的伴随性。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-cohomology-perfect-complex}
+设 $S$ 是概形，$B$ 是 $S$ 上的代数空间，$K$ 是
+$D(\mathcal{O}_B)$ 的伪凝聚对象。
+\begin{enumerate}
+\item 若对 $(\Sch/B)$ 中所有 $g : T \to B$，上同调层
+$H^{-1}(Lg^*K)$ 都为零，则函子
+$$
+(\Sch/B)^{opp} \longrightarrow \textit{Sets},\quad
+(g : T \to B) \longmapsto H^0(T, H^0(Lg^*K))
+$$
+是 $B$ 上仿射且有限表示的代数空间。
+\item 若对 $(\Sch/B)$ 中所有 $g : T \to B$，上同调层
+$H^i(Lg^*K)$ 对 $i < 0$ 都为零，则 $K$ 完美，$K$ 局部具有
+$[0, b]$ 中的 Tor 振幅，而且函子
+$$
+(\Sch/B)^{opp} \longrightarrow \textit{Sets},\quad
+(g : T \to B) \longmapsto H^0(T, Lg^*K)
+$$
+是 $B$ 上仿射且有限表示的代数空间。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在 (2) 的假设下，有
+$H^0(T, Lg^*K) = H^0(T, H^0(Lg^*K))$。
+先证明规则 $T \mapsto H^0(T, H^0(Lg^*K))$ 满足 fppf 拓扑的层条件。
+为此，设 $\{h_i : T_i \to T\}$ 是 $B$ 上概形
+$g : T \to B$ 的 fppf 覆盖。令 $g_i = g \circ h_i$。
+注意，因为 $h_i$ 平坦，故 $Lh_i^* = h_i^*$，且 $h_i^*$ 与取上同调可交换。因此
+$$
+H^0(T_i, H^0(Lg_i^*K)) =
+H^0(T_i, H^0(h_i^*Lg^*K)) =
+H^0(T, h_i^*H^0(Lg^*K)).
+$$
+% P11-E0357: the frozen third term uses H^0(T, ...) although h_i^*H^0(Lg^*K) is a sheaf on T_i and both preceding terms use T_i.
+拉回到 $T_i \times_T T_j$ 时同样如此。
+由于 $Lg^*K$ 是 $T$ 上的伪凝聚复形（《站点上的上同调》引理
+\ref{sites-cohomology-lemma-pseudo-coherent-pullback}），上同调层
+$\mathcal{F} = H^0(Lg^*K)$ 是拟凝聚的（《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-pseudo-coherent}）。因此，由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent} 可知
+$$
+H^0(T, \mathcal{F}) = \Ker(
+\prod H^0(T_i, h_i^*\mathcal{F}) \to
+\prod H^0(T_i \times_T T_j, (T_i \times_T T_j \to T)^*\mathcal{F})).
+$$
+由此可见，(1) 与 (2) 中的规则满足 fppf 覆盖的层条件。这意味着可以应用
+《构造代数空间》引理
+\ref{bootstrap-lemma-locally-algebraic-space-finite-type}，
+把可表示性的证明约化为 $B$ 上 \'etale 局部的证明。此外，结果是否仿射且有限表示
+也可在 $B$ 上 \'etale 局部检验；参见《空间的态射》诸引理
+\ref{spaces-morphisms-lemma-affine-local} 和
+\ref{spaces-morphisms-lemma-finite-presentation-local}。
+因此可假设 $B$ 是仿射概形。
+
+\medskip\noindent
+设 $B = \Spec(A)$ 是仿射概形。由《空间的导出范畴》诸引理
+\ref{spaces-perfect-lemma-pseudo-coherent}、
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site} 和
+\ref{spaces-perfect-lemma-descend-pseudo-coherent}，可知在余下证明中，
+可把 $K$ 看作 Zariski 拓扑下 $B$ 上模复形导出范畴的完美对象。
+由《概形的导出范畴》诸引理
+\ref{perfect-lemma-pseudo-coherent}、
+\ref{perfect-lemma-affine-compare-bounded} 和
+\ref{perfect-lemma-pseudo-coherent-affine}，可找到 $A$-模的伪凝聚复形
+$M^\bullet$，使得 $K$ 是 $D(\mathcal{O}_B)$ 中的相应对象。
+关于拉回的假设蕴含：对每个素理想 $\mathfrak p \subset A$，
+$M^\bullet \otimes^\mathbf{L}_A \kappa(\mathfrak p)$ 的 $H^{-1}$ 为零。
+由《代数续篇》引理 \ref{more-algebra-lemma-cut-complex-in-two}，可写成
+$$
+M^\bullet =
+\tau_{\geq 0}M^\bullet \oplus \tau_{\leq - 1}M^\bullet,
+$$
+其中对某个 $b \geq 0$，$\tau_{\geq 0}M^\bullet$ 是 Tor 振幅位于
+$[0, b]$ 的完美复形（这里还使用了《代数续篇》诸引理
+\ref{more-algebra-lemma-glue-perfect} 和
+\ref{more-algebra-lemma-glue-tor-amplitude}）。
+注意，在情形 (2) 中还可看出
+$\tau_{\leq - 1}M^\bullet = 0$ 于 $D(A)$ 中，因而
+$M^\bullet$ 和 $K$ 完美且 Tor 振幅位于 $[0, b]$。
+对任意 $B$-概形 $g : T \to B$，有
+$$
+H^0(T, H^0(Lg^*K)) = H^0(T, H^0(Lg^*\tau_{\geq 0}K))
+$$
+（由《导出范畴》引理 \ref{derived-lemma-negative-vanishing} 的对偶）。
+因此可以把 $K$ 替换为 $\tau_{\geq 0}K$，相应地把
+$M^\bullet$ 替换为 $\tau_{\geq 0}M^\bullet$。换言之，可假设
+$M^\bullet$ 的 Tor 振幅位于 $[0, b]$。
+
+\medskip\noindent
+设 $M^\bullet$ 的 Tor 振幅位于 $[0, b]$。可以假设 $M^\bullet$
+是有限自由 $A$-模的上有界复形（由伪凝聚复形的定义；参见《代数续篇》定义
+\ref{more-algebra-definition-pseudo-coherent} 及该定义之后的讨论）。
+由《代数续篇》引理 \ref{more-algebra-lemma-last-one-flat}，
+$M = \Coker(M^{- 1} \to M^0)$ 平坦。再由《代数》引理
+\ref{algebra-lemma-finite-projective}，$M$ 有限局部自由。因此，
+$M^\bullet$ 拟同构于
+$$
+M \to M^1 \to M^2 \to \ldots \to M^d \to 0 \ldots.
+$$
+注意，这是 K-平坦复形（《上同调》引理
+\ref{cohomology-lemma-bounded-flat-K-flat}），所以经态射 $T \to B$
+对 $K$ 作导出拉回可由复形
+$$
+g^*\widetilde{M} \to g^*\widetilde{M^1} \to \ldots
+$$
+计算。因此，只需证明函子
+$$
+(g : T \to B) \longmapsto
+\Ker(
+\Gamma(T,g^*\widetilde{M})
+\to
+\Gamma(T, g^*(\widetilde{M^1})
+)
+$$
+可由 $B$ 上有限表示的仿射概形表示。
+
+\medskip\noindent
+为了证明最后的陈述，仍可把 $B$ 替换为某个仿射开覆盖的各成员。因此可假设
+$M$ 有限自由（回忆，$M^1$ 原本就是有限自由的）。写
+$M = A^{\oplus n}$ 和 $M^1 = A^{\oplus m}$。设映射 $M \to M^1$
+由系数在 $A$ 中的 $m \times n$ 矩阵 $(a_{ij})$ 给出。于是
+$\widetilde{M} = \mathcal{O}_B^{\oplus n}$ 且
+$\widetilde{M^1} = \mathcal{O}_B^{\oplus m}$。上面的函子等于
+$$
+(g : T \to B) \longmapsto
+\{(f_1, \ldots, f_n) \in \Gamma(T, \mathcal{O}_T) \mid
+\sum g^\sharp(a_{ij})f_i = 0,\ j = 1, \ldots, m\}.
+$$
+显然，它可由仿射概形
+$$
+\Spec\left(A[x_1, \ldots, x_n]/(\sum a_{ij}x_i; j = 1, \ldots, m)\right)
+$$
+表示。引理得证。
+\end{proof}
+
+\noindent
+函子 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 在许多情形中可表示。
+我们的所有结果都以如下基本情形为基础。下面给出的引理证明，在某种意义下是
+\cite[III, Cor 7.7.8]{EGA} 的证明的自然推广。
+% P11-E0358: the frozen source says "the natural generalization to the proof" rather than "of the proof".
+
+\begin{lemma}
+\label{quot-lemma-noetherian-hom}
+在情形 \ref{quot-situation-hom} 中，假设
+\begin{enumerate}
+\item $B$ 是 Noether 代数空间；
+\item $f$ 局部有限型且拟分离；
+\item $\mathcal{F}$ 是有限型 $\mathcal{O}_X$-模；以及
+\item $\mathcal{G}$ 是有限型 $\mathcal{O}_X$-模，在 $B$ 上平坦，且其支撑在
+$B$ 上真。
+\end{enumerate}
+则函子 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 是
+$B$ 上仿射且有限表示的代数空间。
+\end{lemma}
+
+\begin{proof}
+可以把 $X$ 替换为 $\mathcal{G}$ 的支撑的一个拟紧开邻域，因而可假设
+$X$ 为 Noether 的。在这种情形，$X$ 与 $f$ 均拟紧且拟分离。
+选取三元组 $(X, \mathcal{F}, -1)$ 的一个由完美复形 $P$ 给出的逼近
+$P \to \mathcal{F}$；参见《空间的导出范畴》定义
+\ref{spaces-perfect-definition-approximation-holds} 和定理
+\ref{spaces-perfect-theorem-approximation}。
+% P11-E0359: the frozen source closes this reference sentence with an unmatched parenthesis.
+于是诱导映射
+$$
+\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+\longrightarrow
+\Hom_{D(\mathcal{O}_X)}(P, \mathcal{G})
+$$
+为同构，因为 $P \to \mathcal{F}$ 诱导同构
+$H^0(P) \to \mathcal{F}$，且对 $i > 0$ 有 $H^i(P) = 0$。
+此外，对任意态射 $g : T \to B$，把投影
+$h : X_T = T \times_B X \to X$ 记下，并令 $P_T = Lh^*P$。
+% P11-E0360: the frozen source uses the incomplete naming construction "denote h ... the projection".
+同样有同构
+$$
+\Hom_{\mathcal{O}_{X_T}}(\mathcal{F}_T, \mathcal{G}_T)
+\longrightarrow
+\Hom_{D(\mathcal{O}_{X_T})}(P_T, \mathcal{G}_T),
+$$
+因为 $P_T = Lh^*P \to Lh^*\mathcal{F} \to \mathcal{F}_T$
+诱导同构 $H^0(P_T) \to \mathcal{F}_T$（这是因为 $h^*$ 右正合，且对
+$i > 0$ 有 $H^i(P) = 0$）。因此，只需对函子
+$$
+T \longmapsto \Hom_{D(\mathcal{O}_{X_T})}(P_T, \mathcal{G}_T)
+$$
+证明结论。由 Leray 谱序列（见《站点上的上同调》注记
+\ref{sites-cohomology-remark-before-Leray}），有
+$$
+\Hom_{D(\mathcal{O}_{X_T})}(P_T, \mathcal{G}_T) =
+H^0(X_T, R\SheafHom(P_T, \mathcal{G}_T)) =
+H^0(T, Rf_{T, *}R\SheafHom(P_T, \mathcal{G}_T)),
+$$
+其中 $f_T : X_T \to T$ 是 $f$ 的基变换。由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-base-change-RHom}，有
+$$
+Rf_{T, *}R\SheafHom(P_T, \mathcal{G}_T) = Lg^*Rf_*R\SheafHom(P, \mathcal{G}).
+$$
+由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-ext-perfect}，
+$D(\mathcal{O}_B)$ 的对象
+$K = Rf_*R\SheafHom(P, \mathcal{G})$ 是完美的。因此，只要能证明对上述每个
+$g : T \to B$ 及所有 $i < 0$，上同调层 $H^i(Lg^*K)$ 都为 $0$，
+便可应用引理 \ref{quot-lemma-cohomology-perfect-complex}。
+由最后一个显示公式，这一点很清楚：$Rf_{T, *}R\SheafHom(P_T, \mathcal{G}_T)$
+在负次数的上同调层为零，因为 $P_T$ 完美且正次数上同调层为零，所以
+$R\SheafHom(P_T, \mathcal{G}_T)$ 的负次数上同调层为零。
+\end{proof}
+
+\noindent
+下面是引理 \ref{quot-lemma-noetherian-hom} 的一个直接推论。
+
+\begin{proposition}
+\label{quot-proposition-hom}
+在情形 \ref{quot-situation-hom} 中，假设
+\begin{enumerate}
+\item $f$ 有限表示；以及
+\item $\mathcal{G}$ 是有限表示 $\mathcal{O}_X$-模，在 $B$ 上平坦，且其支撑在
+$B$ 上真。
+\end{enumerate}
+则函子 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 是
+$B$ 上的仿射代数空间。若 $\mathcal{F}$ 有限表示，则
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 在 $B$ 上有限表示。
+\end{proposition}
+
+\begin{proof}
+由引理 \ref{quot-lemma-hom-sheaf}，函子
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 满足 fppf 覆盖的层条件。
+这意味着可以\footnote{略去验证所引用引理的集合论条件 (3)。}应用
+% P11-E0361: the frozen source says "This mean we may" instead of "This means we may".
+% P11-E0362: the frozen footnote uses the open compound "set theoretical" rather than "set-theoretical".
+《构造代数空间》引理 \ref{bootstrap-lemma-locally-algebraic-space}，
+在 $B$ 上 \'etale 局部检验可表示性。此外，结果是否仿射或有限表示
+也可在 $B$ 上 \'etale 局部检验；参见《空间的态射》诸引理
+\ref{spaces-morphisms-lemma-affine-local} 和
+\ref{spaces-morphisms-lemma-finite-presentation-local}。
+因此可假设 $B$ 是仿射概形。
+
+\medskip\noindent
+假设 $B$ 是仿射概形。由于 $f$ 有限表示，可知 $X$ 拟紧且拟分离。
+% P11-E0363: the frozen source omits "that" in "it follows X is quasi-compact".
+因此，可把 $\mathcal{F} = \colim \mathcal{F}_i$ 写成有限表示
+$\mathcal{O}_X$-模的滤过余极限（《空间的极限》引理
+\ref{spaces-limits-lemma-colimit-finitely-presented}）。显然
+$$
+\mathit{Hom}(\mathcal{F}, \mathcal{G}) =
+\lim \mathit{Hom}(\mathcal{F}_i, \mathcal{G}).
+$$
+因此，若每个 $\mathit{Hom}(\mathcal{F}_i, \mathcal{G})$
+都可由仿射概形表示，则 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 亦然。
+使用《极限》一节 \ref{limits-section-limits} 与《空间的极限》一节
+\ref{spaces-limits-section-limits} 的材料。于是可假设
+$\mathcal{F}$ 有限表示。
+
+\medskip\noindent
+写 $B = \Spec(R)$。把 $R = \colim R_i$ 写成极限，其中每个 $R_i$
+是有限型 $\mathbf{Z}$-代数。令 $B_i = \Spec(R_i)$。
+由《空间的极限》诸引理
+\ref{spaces-limits-lemma-descend-finite-presentation} 和
+\ref{spaces-limits-lemma-descend-modules-finite-presentation}，
+可找到 $i$、代数空间的态射 $X_i \to B_i$，以及有限表示
+$\mathcal{O}_{X_i}$-模 $\mathcal{F}_i$ 和 $\mathcal{G}_i$，使得
+$(X_i, \mathcal{F}_i, \mathcal{G}_i)$ 到 $B$ 的基变换恢复
+$(X, \mathcal{F}, \mathcal{G})$。由《空间的极限》引理
+\ref{spaces-limits-lemma-descend-flat}，增大 $i$ 后可假设
+$\mathcal{G}_i$ 在 $B_i$ 上平坦。类似地，由《空间的极限》引理
+\ref{spaces-limits-lemma-eventually-proper-support}，可假设
+$\mathcal{G}_i$ 的概形论支撑在 $B_i$ 上真。此时可应用引理
+\ref{quot-lemma-noetherian-hom}，得到
+$H_i = \mathit{Hom}(\mathcal{F}_i, \mathcal{G}_i)$ 是
+$B_i$ 上仿射且有限表示的代数空间。把它拉回到 $B$（使用注记
+\ref{quot-remark-hom-base-change}），得到
+$H_i \times_{B_i} B = \mathit{Hom}(\mathcal{F}, \mathcal{G})$，证毕。
+\end{proof}
+
+
+
+
+
+
+\section{Isom 函子}
+\label{quot-section-isom}
+
+\noindent
+在情形 \ref{quot-situation-hom} 中，可以考虑子函子
+$$
+\mathit{Isom}(\mathcal{F}, \mathcal{G}) \subset
+\mathit{Hom}(\mathcal{F}, \mathcal{G}),
+$$
+它在 $B$ 上概形 $T$ 处的值，是所有{\it 可逆}
+$\mathcal{O}_{X_T}$-同态 $u : \mathcal{F}_T \to \mathcal{G}_T$ 所成的集合。
+
+\medskip\noindent
+有时把 $\mathit{Isom}(\mathcal{F}, \mathcal{G})$ 看作配有态射
+$\mathit{Isom}(\mathcal{F}, \mathcal{G}) \to B$ 的函子
+$(\Sch/S)^{opp} \to \textit{Sets}$。
+具体地，若 $T$ 是 $S$ 上的概形，则
+$\mathit{Isom}(\mathcal{F}, \mathcal{G})(T)$ 的一个元素由一对
+$(h, u)$ 组成，其中 $h$ 是态射 $h : T \to B$，而
+$u : \mathcal{F}_T \to \mathcal{G}_T$ 是 $\mathcal{O}_{X_T}$-模同构；
+这里 $X_T = T \times_{h, B} X$，且 $\mathcal{F}_T$ 和 $\mathcal{G}_T$
+是到 $X_T$ 的拉回。特别地，当我们说
+$\mathit{Isom}(\mathcal{F}, \mathcal{G})$ 是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{quot-lemma-isom-sheaf}
+在情形 \ref{quot-situation-hom} 中，函子
+$\mathit{Isom}(\mathcal{F}, \mathcal{G})$
+满足 fpqc 拓扑的层条件。
+\end{lemma}
+
+\begin{proof}
+已经看到 $\mathit{Hom}(\mathcal{F}, \mathcal{G})$ 满足层条件。
+因此只需证明：给定 $B$ 上概形的 fpqc 覆盖
+$\{T_i \to T\}_{i \in I}$ 和 $\mathcal{O}_{X_T}$-线性映射
+$u : \mathcal{F}_T \to \mathcal{G}_T$，若对每个 $i$，
+$u_{T_i}$ 都是同构，则 $u$ 是同构。由于
+$\{X_i \to X_T\}_{i \in I}$ 是 $X_T$ 的 fpqc 覆盖（见
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}），
+结论由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent} 得出。
+\end{proof}
+
+\noindent
+一致性检验：$\mathit{Isom}$ 层在 $S$ 上代数空间之间起着同样的作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-isom-to-spaces}
+在情形 \ref{quot-situation-hom} 中，设 $T$ 是 $S$ 上的代数空间。则
+% P11-E0364: the frozen source leaves "In Situation ..." as a sentence fragment.
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \mathit{Isom}(\mathcal{F}, \mathcal{G})) =
+\{(h, u) \mid
+h : T \to B, u : \mathcal{F}_T \to \mathcal{G}_T\text{ 为同构}\},
+$$
+其中 $\mathcal{F}_T,\mathcal{G}_T$ 表示 $\mathcal{F}$ 和 $\mathcal{G}$
+到代数空间 $X \times_{B, h} T$ 的拉回。
+\end{lemma}
+
+\begin{proof}
+注意，该等式的左右两边分别是引理
+\ref{quot-lemma-extend-hom-to-spaces} 中等式左右两边的子集。
+% P11-E0365: the frozen source twice uses singular "hand side" for the paired left and right sides.
+略去验证在该引理证明给出的对应下，这两个子集彼此对应。
+\end{proof}
+
+\begin{proposition}
+\label{quot-proposition-isom}
+在情形 \ref{quot-situation-hom} 中，假设
+\begin{enumerate}
+\item $f$ 有限表示；以及
+\item $\mathcal{F}$ 和 $\mathcal{G}$ 是有限表示
+$\mathcal{O}_X$-模，在 $B$ 上平坦，且其支撑在 $B$ 上真。
+\end{enumerate}
+则函子 $\mathit{Isom}(\mathcal{F}, \mathcal{G})$ 是
+$B$ 上仿射且有限表示的代数空间。
+\end{proposition}
+
+\begin{proof}
+采用缩写
+$H = \mathit{Hom}(\mathcal{F}, \mathcal{G})$、
+$I = \mathit{Hom}(\mathcal{F}, \mathcal{F})$、
+$H' = \mathit{Hom}(\mathcal{G}, \mathcal{F})$ 和
+$I' = \mathit{Hom}(\mathcal{G}, \mathcal{G})$。
+由命题 \ref{quot-proposition-hom}，函子 $H$、$I$、$H'$、$I'$ 是代数空间，
+而态射 $H \to B$、$I \to B$、$H' \to B$ 和 $I' \to B$
+都是仿射且有限表示的。映射的复合给出 $B$ 上代数空间的态射
+$$
+c : H' \times_B H \longrightarrow I \times_B I',\quad
+(u', u) \longmapsto (u \circ u', u' \circ u).
+$$
+% P11-E0366: the frozen ordered pair reverses the two composites relative to I = Hom(F,F) and I' = Hom(G,G).
+由于 $I \times_B I' \to B$ 分离，对应于
+$(\text{id}_\mathcal{F}, \text{id}_\mathcal{G})$ 的截面
+$\sigma : B \to I \times_B I'$ 是闭浸入
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-section-immersion}）。
+此外，$\sigma$ 有限表示（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-permanence}）。
+因此
+$$
+\mathit{Isom}(\mathcal{F}, \mathcal{G}) =
+(H' \times_B H) \times_{c, I \times_B I', \sigma} B
+$$
+也是 $B$ 上仿射且有限表示的代数空间。略去若干细节。
+\end{proof}
+
+
+
+
+
+
+\section{凝聚层叠}
+\label{quot-section-stack-coherent-sheaves}
+
+\noindent
+本节证明：在适当假设下，$X/B$ 上的凝聚层叠是代数的。
+这是 \cite[定理 2.1.1]{lieblich_remarks} 的一个特例；
+该定理处理基底上 Artin 叠的凝聚层叠。
+
+\begin{situation}
+\label{quot-situation-coherent}
+设 $S$ 是概形，$f : X \to B$ 是 $S$ 上代数空间的态射。
+假设 $f$ 有限表示。用 $\Cohstack_{X/B}$ 表示如下范畴，
+其对象是三元组 $(T, g, \mathcal{F})$，其中
+\begin{enumerate}
+\item $T$ 是 $S$ 上的概形；
+\item $g : T \to B$ 是 $S$ 上的态射，并记
+$X_T = T \times_{g, B} X$
+\item $\mathcal{F}$ 是有限表示的拟凝聚 $\mathcal{O}_{X_T}$-模，
+在 $T$ 上平坦，且其支撑在 $T$ 上真。
+\end{enumerate}
+态射 $(T, g, \mathcal{F}) \to (T', g', \mathcal{F}')$
+由一对 $(h, \varphi)$ 给出，其中
+\begin{enumerate}
+\item $h : T \to T'$ 是 $B$ 上概形的态射
+（即 $g' \circ h = g$）；以及
+\item $\varphi : (h')^*\mathcal{F}' \to \mathcal{F}$ 是
+$\mathcal{O}_{X_T}$-模同构，其中 $h' : X_T \to X_{T'}$
+是 $h$ 的基变换。
+\end{enumerate}
+\end{situation}
+
+\noindent
+于是 $\Cohstack_{X/B}$ 是范畴，而规则
+$$
+p : \Cohstack_{X/B} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(T, g, \mathcal{F}) \longmapsto T
+$$
+是函子。对 $S$ 上概形 $T$，用 $\Cohstack_{X/B, T}$ 表示
+$p$ 在 $T$ 上的纤维范畴。这些纤维范畴都是群胚。
+
+\begin{lemma}
+\label{quot-lemma-coherent-fibred-in-groupoids}
+在情形 \ref{quot-situation-coherent} 中，函子
+$p : \Cohstack_{X/B} \longrightarrow (\Sch/S)_{fppf}$
+是群胚纤维化范畴。
+\end{lemma}
+
+\begin{proof}
+验证《范畴论》定义 \ref{categories-definition-fibred-groupoids}
+的条件 (1) 和 (2)，即可证明 $p$ 是群胚纤维化范畴。
+给定 $\Cohstack_{X/B}$ 的对象 $(T', g', \mathcal{F}')$ 和
+$S$ 上概形的态射 $h : T \to T'$，可以令
+% P11-E0367: the frozen source writes the composition in the ill-typed order h \circ g'.
+$g = h \circ g'$ 以及 $\mathcal{F} = (h')^*\mathcal{F}'$，
+其中 $h' : X_T \to X_{T'}$ 是 $h$ 的基变换。显然，这给出
+$\Cohstack_{X/B}$ 中位于 $h$ 上方的态射
+$(T, g, \mathcal{F}) \to (T', g', \mathcal{F}')$。这证明了 (1)。
+为证明 (2)，设给定态射
+$$
+(h_1, \varphi_1) : (T_1, g_1, \mathcal{F}_1) \to (T, g, \mathcal{F})
+\quad\text{和}\quad
+(h_2, \varphi_2) : (T_2, g_2, \mathcal{F}_2) \to (T, g, \mathcal{F})
+$$
+属于 $\Cohstack_{X/B}$，并设有态射 $h : T_1 \to T_2$ 满足
+$h_2 \circ h = h_1$。令 $\varphi$ 为复合
+$$
+(h')^*\mathcal{F}_2
+\xrightarrow{(h')^*\varphi_2^{-1}}
+(h')^*(h_2)^*\mathcal{F} = (h_1)^*\mathcal{F}
+\xrightarrow{\varphi_1}
+\mathcal{F}_1
+$$
+便得到态射
+$(h, \varphi) : (T_1, g_1, \mathcal{F}_1) \to (T_2, g_2, \mathcal{F}_2)$
+，从而验证条件 (2)。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-diagonal}
+在情形 \ref{quot-situation-coherent} 中，记
+% P11-E0368: the frozen source punctuates "In Situation ..." as a sentence fragment.
+$\mathcal{X} = \Cohstack_{X/B}$。则
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+可由代数空间表示。
+\end{lemma}
+
+\begin{proof}
+考虑概形 $T$ 上 $\mathcal{X}$ 的两个对象
+$x = (T, g, \mathcal{F})$ 和 $y = (T, h, \mathcal{G})$。
+必须证明 $\mathit{Isom}_\mathcal{X}(x, y)$ 是 $T$ 上的代数空间，
+见《代数叠》引理 \ref{algebraic-lemma-representable-diagonal}。
+若对 $a : T' \to T$，限制 $x|_{T'}$ 和 $y|_{T'}$ 在纤维范畴
+$\mathcal{X}_{T'}$ 中同构，则 $g \circ a = h \circ a$。
+因此有预层的自然变换
+$$
+\mathit{Isom}_\mathcal{X}(x, y) \longrightarrow \text{等化子}(g, h)
+$$
+由于 $B$ 的对角态射可表示（由概形表示），该等化子是概形。
+于是可以用此等化子替换 $T$，并用相应拉回替换层
+$\mathcal{F}$ 和 $\mathcal{G}$。因而可以假设 $g = h$。此时
+$\mathit{Isom}_\mathcal{X}(x, y) = \mathit{Isom}(\mathcal{F}, \mathcal{G})$
+，结论由命题 \ref{quot-proposition-isom} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-stack}
+在情形 \ref{quot-situation-coherent} 中，函子
+$p : \Cohstack_{X/B} \longrightarrow (\Sch/S)_{fppf}$
+是群胚叠。
+\end{lemma}
+
+\begin{proof}
+为证明 $\Cohstack_{X/B}$ 是群胚叠，必须证明预层
+$\mathit{Isom}$ 都是层，且下降数据有效。关于 $\mathit{Isom}$ 的断言
+由引理 \ref{quot-lemma-coherent-diagonal} 得出；见《代数叠》引理
+\ref{algebraic-lemma-representable-diagonal}。下面证明关于下降数据的断言。
+设 $\{a_i : T_i \to T\}$ 是 $S$ 上概形的 fppf 覆盖，
+而 $(\xi_i, \varphi_{ij})$ 是 $\{T_i \to T\}$ 关于
+$\Cohstack_{X/B}$ 的下降数据。对每个 $i$，可写
+$\xi_i = (T_i, g_i, \mathcal{F}_i)$。用
+$\text{pr}_0 : T_i \times_T T_j \to T_i$ 和
+$\text{pr}_1 : T_i \times_T T_j \to T_j$ 表示投影。
+条件 $\xi_i|_{T_i \times_T T_j} = \xi_j|_{T_i \times_T T_j}$
+特别蕴含 $g_i \circ \text{pr}_0 = g_j \circ \text{pr}_1$。
+故存在唯一态射 $g : T \to B$ 使得 $g_i = g \circ a_i$；见
+《空间上的下降》引理
+\ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}.
+记 $X_T = T \times_{g, B} X$，并置
+$X_i = X_{T_i} = T_i \times_{g_i, B} X = T_i \times_{a_i, T} X_T$
+以及
+$$
+X_{ij} = X_{T_i} \times_{X_T} X_{T_j} = X_i \times_{X_T} X_j
+$$
+，其到 $X_i$ 和 $X_j$ 的投影分别记为 $\text{pr}_i$ 和
+$\text{pr}_j$。注意，$(T_i, g_i, \mathcal{F}_i)$ 沿
+$\text{pr}_0 : T_i \times_T T_j \to T_i$ 的拉回为
+$(T_i \times_T T_j, g_i \circ \text{pr}_0, \text{pr}_i^*\mathcal{F}_i)$.
+因此，$\Cohstack_{X/B}$ 中关于 $\{T_i \to T\}$ 的下降数据
+由对象 $(T_i, g \circ a_i, \mathcal{F}_i)$ 以及对每一对 $i,j$
+给出的 $\mathcal{O}_{X_{ij}}$-模同构
+$$
+\varphi_{ij} :
+\text{pr}_i^*\mathcal{F}_i \longrightarrow \text{pr}_j^*\mathcal{F}_j
+$$
+组成；它们在 $T_i \times_T T_j \times_T T_k$（上面 $X$ 的拉回）
+上满足上闭链条件。现在只需利用 $\{X_i \to X_T\}$ 是 fppf 覆盖，
+从而可将 $(\mathcal{F}_i, \varphi_{ij})$ 视为该覆盖的下降数据。
+由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+，此下降数据有效，因而得到 $X_T$ 上的拟凝聚层 $\mathcal{F}$，
+它在 $X_i$ 上的限制是 $\mathcal{F}_i$。
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-flat-permanence}，
+$\mathcal{F}$ 在 $T$ 上平坦；《空间上的下降》引理
+\ref{spaces-descent-lemma-finite-presentation-descends}
+保证 $\mathcal{F}$ 作为 $\mathcal{O}_{X_T}$-模有限表示。最后，
+由《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-proper}，
+$\mathcal{F}$ 的概形论支撑在 $T$ 上真，因为已假设
+$\mathcal{F}_i$ 的概形论支撑在 $T_i$ 上真（注意，由
+《空间的态射》引理 \ref{spaces-morphisms-lemma-flat-pullback-support}，
+取概形论支撑与平坦基变换可交换）。这样便得到所需的 $T$ 上对象。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-coherent-base-change}
+在情形 \ref{quot-situation-coherent} 中，规则
+$(T, g, \mathcal{F}) \mapsto (T, g)$ 定义群胚叠的 $1$-态射
+$$
+\Cohstack_{X/B} \longrightarrow \mathcal{S}_B
+$$
+（见引理 \ref{quot-lemma-coherent-stack}、《代数叠》第
+\ref{algebraic-section-split} 节和《叠的例子》第
+\ref{examples-stacks-section-stack-associated-to-sheaf} 节）。
+设 $B' \to B$ 是 $S$ 上代数空间的态射，并设
+$\mathcal{S}_{B'} \to \mathcal{S}_B$ 是相应的集合纤维化叠的
+$1$-态射。置 $X' = X \times_B B'$。与基变换
+$f' : X' \to B'$ 相联系，得到群胚叠
+$\Cohstack_{X'/B'} \to (\Sch/S)_{fppf}$。在此情形下，图
+$$
+\vcenter{
+\xymatrix{
+\Cohstack_{X'/B'} \ar[r] \ar[d] & \Cohstack_{X/B} \ar[d] \\
+\mathcal{S}_{B'} \ar[r] & \mathcal{S}_B
+}
+}
+\quad
+\begin{matrix}
+\text{或用} \\
+\text{另一种} \\
+\text{记号}
+\end{matrix}
+\quad
+\vcenter{
+\xymatrix{
+\Cohstack_{X'/B'} \ar[r] \ar[d] & \Cohstack_{X/B} \ar[d] \\
+\Sch/B' \ar[r] & \Sch/B
+}
+}
+$$
+% P11-E0369: the frozen source omits the article before "2-fibre product square".
+是 $2$-纤维积方块。这个简单评注有时可用于更换基代数空间。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-coherent-limits}
+在情形 \ref{quot-situation-coherent} 中，假设 $B \to S$ 局部有限表示。
+则 $p : \Cohstack_{X/B} \to (\Sch/S)_{fppf}$ 保极限
+（《Artin 公理》定义 \ref{artin-definition-limit-preserving}）。
+\end{lemma}
+
+\begin{proof}
+用 $B(T)$ 表示以 $S$-态射 $T \to B$ 为对象的离散范畴。
+设 $T = \lim T_i$ 是 $S$ 上仿射概形的滤过极限。
+把 $\Cohstack_{X/B, T}$ 的对象 $(T, h, \mathcal{F})$ 映到
+$B(T)$ 的对象 $h$，得到纤维范畴的交换图
+$$
+\xymatrix{
+\colim \Cohstack_{X/B, T_i} \ar[r] \ar[d] &
+\Cohstack_{X/B, T} \ar[d] \\
+\colim B(T_i) \ar[r] & B(T)
+}
+$$
+必须证明上方水平箭头是等价。由于已假设 $B$ 在 $S$ 上局部有限表示，
+由《空间的极限》评注 \ref{spaces-limits-remark-limit-preserving}，
+下方水平箭头是等价。这意味着可以假设 $T = \lim T_i$ 是
+$B$ 上仿射概形的滤过极限。用 $g_i : T_i \to B$ 和
+$g : T \to B$ 表示相应态射。置
+$X_i = T_i \times_{g_i, B} X$ 和 $X_T = T \times_{g, B} X$。
+% P11-E0370: for inverse-limit base change, the frozen source writes X_T = \colim X_i.
+注意，$X_T = \colim X_i$，并且代数空间 $X_i$ 和 $X_T$
+拟分离且拟紧（因为它们分别在仿射概形 $T_i$ 和 $T$ 上有限表示）。
+由《空间的极限》引理
+\ref{spaces-limits-lemma-descend-modules-finite-presentation}
+可知
+$$
+\colim \textit{FP}(X_i) = \textit{FP}(X_T).
+$$
+，其中 $\textit{FP}(W)$ 是有限表示 $\mathcal{O}_W$-模范畴的简写。
+《空间的极限》引理 \ref{spaces-limits-lemma-descend-flat} 和
+\ref{spaces-limits-lemma-eventually-proper-support}
+表明：若将 $\textit{FP}(X_i)$ 和 $\textit{FP}(X_T)$ 分别换成
+在 $T_i$ 和 $T$ 上平坦、且概形论支撑分别在 $T_i$ 和 $T$ 上真的
+对象所成的全子范畴，同一结论仍成立。这证明了引理。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-RS-star}
+在情形 \ref{quot-situation-coherent} 中，设
+$$
+\xymatrix{
+Z \ar[r] \ar[d] & Z' \ar[d] \\
+Y \ar[r] & Y'
+}
+$$
+是 $S$ 上概形范畴中的推出，其中 $Z \to Z'$ 是加厚，
+$Z \to Y$ 是仿射态射；见《态射进阶》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}。则纤维范畴间的函子
+$$
+\Cohstack_{X/B, Y'}
+\longrightarrow
+\Cohstack_{X/B, Y} \times_{\Cohstack_{X/B, Z}} \Cohstack_{X/B, Z'}
+$$
+是等价。
+\end{lemma}
+
+\begin{proof}
+注意，相应映射
+$$
+B(Y') \longrightarrow B(Y) \times_{B(Z)} B(Z')
+$$
+是双射；见《空间的推出》引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}。
+于是利用交换图
+$$
+\xymatrix{
+\Cohstack_{X/B, Y'} \ar[r] \ar[d] &
+\Cohstack_{X/B, Y} \times_{\Cohstack_{X/B, Z}} \Cohstack_{X/B, Z'}
+\ar[d] \\
+B(Y') \ar[r] & B(Y) \times_{B(Z)} B(Z')
+}
+$$
+% P11-E0371: the frozen source introduces an undefined B' in "Y' is a scheme over B'".
+可知可以假设 $Y'$ 是 $B'$ 上的概形。由评注
+\ref{quot-remark-coherent-base-change}，可以用 $Y'$ 替换 $B$，
+用 $X \times_B Y'$ 替换 $X$。故可假设 $B = Y'$。
+此时断言由《空间的推出》引理
+\ref{spaces-pushouts-lemma-space-over-pushout-flat-modules} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-over-first-order-thickening}
+设
+$$
+\xymatrix{
+X \ar[d] \ar[r]_i & X' \ar[d] \\
+T \ar[r] & T'
+}
+$$
+是代数空间的笛卡儿方块，其中 $T \to T'$ 是一阶加厚。
+设 $\mathcal{F}'$ 是在 $T'$ 上平坦的 $\mathcal{O}_{X'}$-模，
+并置 $\mathcal{F} = i^*\mathcal{F}'$。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{F}'$ 是有限表示的拟凝聚 $\mathcal{O}_{X'}$-模；
+\item $\mathcal{F}'$ 是有限表示的 $\mathcal{O}_{X'}$-模；
+\item $\mathcal{F}$ 是有限表示的拟凝聚 $\mathcal{O}_X$-模；
+\item $\mathcal{F}$ 是有限表示的 $\mathcal{O}_X$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆有限表示模是拟凝聚的，故 (1) 与 (2) 等价，(3) 与 (4) 等价。
+(2) 与 (4) 的等价性是《形变理论》引理
+\ref{defos-lemma-deform-fp-module-ringed-topoi} 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-tangent-space}
+在情形 \ref{quot-situation-coherent} 中，假设 $S$ 是局部 Noether 概形，
+且 $B \to S$ 局部有限表示。设 $k$ 是 $S$ 上有限型的域，并设
+$x_0 = (\Spec(k), g_0, \mathcal{G}_0)$
+是 $k$ 上 $\mathcal{X} = \Cohstack_{X/B}$ 的对象。则空间
+$T\mathcal{F}_{\mathcal{X}, k, x_0}$ 和
+$\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})$
+（《Artin 公理》第 \ref{artin-section-tangent-spaces} 节）都是有限维的。
+\end{lemma}
+
+\begin{proof}
+注意，由引理 \ref{quot-lemma-coherent-RS-star}，群胚叠 $\mathcal{X}$
+满足《Artin 公理》第 \ref{artin-section-inf} 节定义的性质 (RS*)。
+特别地，$\mathcal{X}$ 满足 (RS)。因此所有相联系的预形变范畴都是
+形变范畴（《Artin 公理》引理
+\ref{artin-lemma-deformation-category}），所述断言有意义。
+
+\medskip\noindent
+本段说明可归约到 $B = \Spec(k)$ 的情形。置
+$X_0 = \Spec(k) \times_{g_0, B} X$，并记
+$\mathcal{X}_0 = \Cohstack_{X_0/k}$。在评注
+\ref{quot-remark-coherent-base-change} 中已经看到：作为
+$(\Sch/S)_{fppf}$ 上的群胚纤维化范畴，$\mathcal{X}_0$ 是
+$\mathcal{X}$ 与 $\Spec(k)$ 在 $B$ 上的 $2$-纤维积。因此由
+《Artin 公理》引理 \ref{artin-lemma-fibre-product-tangent-spaces}，
+问题归结为证明 $B$、$\Spec(k)$ 和 $\mathcal{X}_0$ 的切空间与
+无穷小自同构空间有限维。由《Artin 公理》引理
+\ref{artin-lemma-finite-dimension}，$B$ 和 $\Spec(k)$ 的切空间
+有限维；当然，它们的 $\text{Inf}$ 为零。因此只需处理
+$\mathcal{X}_0$。
+
+\medskip\noindent
+设 $k[\epsilon]$ 是 $k$ 上的对偶数。令
+$\Spec(k[\epsilon]) \to B$ 为 $g_0 : \Spec(k) \to B$ 与由包含
+$k \to k[\epsilon]$ 所诱导态射
+$\Spec(k[\epsilon]) \to \Spec(k)$ 的复合。置
+$X_0 = \Spec(k) \times_B X$ 和
+$X_\epsilon = \Spec(k[\epsilon]) \times_B X$。注意，$X_\epsilon$
+是 $X_0$ 的一阶加厚，并在一阶加厚
+$\Spec(k) \to \Spec(k[\epsilon])$ 上平坦。展开定义并应用引理
+\ref{quot-lemma-coherent-over-first-order-thickening}，可知
+$T\mathcal{F}_{\mathcal{X}_0, k, x_0}$ 是将 $\mathcal{G}_0$
+提升为 $X_\epsilon$ 上平坦模的所有方式所成的集合。由
+《形变理论》引理 \ref{defos-lemma-flat-ringed-topoi}，得到
+$$
+T\mathcal{F}_{\mathcal{X}_0, k, x_0} =
+\Ext^1_{\mathcal{O}_{X_0}}(\mathcal{G}_0, \mathcal{G}_0)
+$$
+这里使用了 $k[\epsilon]$-模的同一
+$\epsilon k[\epsilon] \cong k$。再次应用《形变理论》引理
+\ref{defos-lemma-flat-ringed-topoi}，可知
+$$
+\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0}) =
+\Ext^0_{\mathcal{O}_{X_0}}(\mathcal{G}_0, \mathcal{G}_0)
+$$
+% P11-E0372: after reducing to X_0, the frozen source changes the Inf subscript back from X_0 to X.
+由于 $\mathcal{G}_0$ 的支撑在 $\Spec(k)$ 上真，这些空间在 $k$ 上
+有限维。事实上，$X_0$ 在 $\Spec(k)$ 上有限表示，因而是 Noether 的。
+由于 $\mathcal{G}_0$ 有限表示，它是凝聚 $\mathcal{O}_{X_0}$-模。
+于是应用《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-ext-finite}，便得到所需的有限性。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-existence}
+在情形 \ref{quot-situation-coherent} 中，假设 $S$ 是局部 Noether 概形，
+且 $f : X \to B$ 分离。令 $\mathcal{X} = \Cohstack_{X/B}$。
+则《Artin 公理》公式 (\ref{artin-equation-approximation}) 中的函子
+是等价。
+\end{lemma}
+
+\begin{proof}
+设 $A$ 是 $S$-代数，同时也是极大理想为 $\mathfrak m$ 的完备局部
+Noether 环，其剩余域 $k$ 在 $S$ 上有限型。必须证明 $A$ 上对象的
+范畴等价于 $A$ 上形式对象的范畴。由《Artin 公理》引理
+\ref{artin-lemma-effective}，这对与 $B$ 相联系的集合纤维化范畴
+$\mathcal{S}_B$ 已经成立，故只需对位于给定态射
+$\Spec(A) \to B$ 上方的对象证明此事。
+
+\medskip\noindent
+置 $X_A = \Spec(A) \times_B X$ 和
+$X_n = \Spec(A/\mathfrak m^n) \times_B X$。由 Grothendieck 存在定理
+（《空间的态射进阶》定理
+\ref{spaces-more-morphisms-theorem-grothendieck-existence}），
+$X_A$ 上支撑在 $\Spec(A)$ 上真的凝聚模 $\mathcal{F}$ 所成范畴，
+等价于系统 $(\mathcal{F}_n)$ 所成的范畴；这里 $\mathcal{F}_n$
+是 $X_n$ 上支撑在 $\Spec(A/\mathfrak m^n)$ 上真的凝聚模。
+该等价把 $\mathcal{F}$ 映到系统
+$(\mathcal{F} \otimes_A A/\mathfrak m^n)$。参见《空间的态射进阶》
+评注 \ref{spaces-more-morphisms-remark-reformulate-existence-theorem}
+中的讨论。为完成引理的证明，只需证明：$\mathcal{F}$ 在 $A$ 上
+平坦，当且仅当所有 $\mathcal{F} \otimes_A A/\mathfrak m^n$
+都在 $A/\mathfrak m^n$ 上平坦。这由《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-flatness-over-Noetherian-ring} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-coherent-defo-thy}
+在情形 \ref{quot-situation-coherent} 中，假设 $S$ 是局部 Noether 概形，
+$S = B$，且 $f : X \to B$ 平坦。令
+$\mathcal{X} = \Cohstack_{X/B}$。则 $\mathcal{X}$ 满足通用性的开性
+（见《Artin 公理》定义 \ref{artin-definition-openness-versality}）。
+\end{lemma}
+
+\begin{proof}[第一种证明]
+本证明基于《Artin 公理》引理 \ref{artin-lemma-dual-openness} 的判据。
+设 $U \to S$ 是概形的有限型态射，$x$ 是 $U$ 上 $\mathcal{X}$
+的对象，$u_0 \in U$ 是有限型点，并且 $x$ 在 $u_0$ 处通用。
+缩小 $U$ 后，可以假设 $u_0$ 是闭点（《态射》引理
+\ref{morphisms-lemma-point-finite-type}），并且 $U = \Spec(A)$，
+而 $U \to S$ 的像包含在 $S$ 的某个仿射开集
+$\Spec(\Lambda)$ 中。设 $\mathcal{F}$ 是与给定对象 $x$ 相应的
+$X_A = \Spec(A) \times_S X$ 上凝聚模，它在 $A$ 上平坦。
+
+\medskip\noindent
+由《形变理论》引理 \ref{defos-lemma-flat-ringed-topoi}，
+有函子同构
+$$
+T_x(M) = \Ext^1_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)
+$$
+并且，对任意核 $I$ 的平方为零的 $\Lambda$-代数满射
+$A' \to A$，有障碍类
+$$
+\xi_{A'} \in \Ext^2_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A I)
+$$
+这里用到了：对上述任意 $A' \to A$，基变换
+$X_{A'} = \Spec(A') \times_B X$ 在 $A'$ 上平坦。此外，由
+《形变理论》引理 \ref{defos-lemma-functorial-ringed-topoi}，
+障碍类的构造关于满射 $A' \to A$（固定 $A$）具有函子性。
+把《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-compute-ext} 应用于 Ext 群
+$\Ext^i_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)$
+在 $i \leq m$、$m = 2$ 时的计算。得到完美对象 $K \in D(A)$
+和函子同构
+$$
+H^i(K \otimes_A^\mathbf{L} M)
+\longrightarrow
+\Ext^i_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)
+$$
+，它们对 $i \leq m$ 成立并与边缘映射相容。此对象 $K$ 与上述同一
+一起给出《Artin 公理》情形 \ref{artin-situation-dual} 中的数据。
+最后，《Artin 公理》引理
+\ref{artin-lemma-dual-obstruction} 的条件 (iv) 由《形变理论》引理
+\ref{defos-lemma-verify-iv-ringed-topoi} 得出。
+所以确实可以应用《Artin 公理》引理
+\ref{artin-lemma-dual-openness}，引理得证。
+\end{proof}
+
+\begin{proof}[第二种证明]
+本证明基于《Artin 公理》引理
+\ref{artin-lemma-get-openness-obstruction-theory}。该引理的条件
+(1)、(2)、(3) 分别对应于引理 \ref{quot-lemma-coherent-diagonal}、
+\ref{quot-lemma-coherent-RS-star} 和
+\ref{quot-lemma-coherent-limits}。
+
+\medskip\noindent
+我们已在形变理论一章中构造了障碍理论。具体地，给定 $S$-代数
+$A$，以及由 $X_A$ 上 $\mathcal{F}$ 给出的 $\Spec(A)$ 上
+$\Cohstack_{X/B}$ 的对象 $x$，置
+$\mathcal{O}_x(M) = \Ext^2_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)$
+；若 $A' \to A$ 是核为 $I$ 的满射，则取障碍元
+$$
+o_x(A') = o(\mathcal{F}, \mathcal{F} \otimes_A I, 1) \in
+\mathcal{O}_x(I) = \Ext^2_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A I)
+$$
+，即《形变理论》引理 \ref{defos-lemma-flat-ringed-topoi} 中的元素。
+除该定义的条件 (ii) 所述障碍类函子性之外，《Artin 公理》定义
+\ref{artin-definition-obstruction-theory} 中障碍理论的所有性质
+均由该引理得出。不过，正如《Artin 公理》引理
+\ref{artin-lemma-get-openness-obstruction-theory} 的假设 (4) 脚注所述，
+只需对固定的 $A$ 验证障碍类的函子性；这由《形变理论》引理
+\ref{defos-lemma-functorial-ringed-topoi} 得出。《形变理论》引理
+\ref{defos-lemma-flat-ringed-topoi} 还表明，对任意 $A$-模 $M$，
+$T_x(M) = \Ext^1_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)$
+。
+
+\medskip\noindent
+为完成证明，只需说明
+$T_x(\prod M_n) = \prod T_x(M_n)$ 以及
+$\mathcal{O}_x(\prod M_n) = \prod \mathcal{O}_x(M)$.
+% P11-E0373: the frozen source drops the subscript n in the final product O_x(M).
+把《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-compute-ext}
+应用于 Ext 群
+$\Ext^i_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)$
+在 $i \leq m$、$m = 2$ 时的计算。得到完美对象 $K \in D(A)$
+和函子同构
+$$
+H^i(K \otimes_A^\mathbf{L} M)
+\longrightarrow
+\Ext^i_{X_A}(\mathcal{F}, \mathcal{F} \otimes_A M)
+$$
+，其中 $i = 1, 2$。直接论证表明
+$$
+H^i(K \otimes_A^\mathbf{L} \prod M_n) =
+\prod H^i(K \otimes_A^\mathbf{L} M_n)
+$$
+，只要 $K$ 是 $D(A)$ 的伪凝聚对象。事实上，这一性质（对所有 $i$）
+刻画伪凝聚复形；见《代数进阶》引理
+\ref{more-algebra-lemma-pseudo-coherent-tensor}。
+\end{proof}
+
+\begin{theorem}[凝聚层叠的代数性：平坦情形]
+\label{quot-theorem-coherent-algebraic}
+设 $S$ 是概形，$f : X \to B$ 是 $S$ 上代数空间的态射。
+假设 $f$ 有限表示、分离且平坦\footnote{这个假设并非必要；
+见第 \ref{quot-section-not-flat} 节。}。则 $\Cohstack_{X/B}$ 是
+$S$ 上的代数叠。
+\end{theorem}
+
+\begin{proof}
+置 $\mathcal{X} = \Cohstack_{X/B}$。已经看到 $\mathcal{X}$ 是
+$(\Sch/S)_{fppf}$ 上的群胚叠，其对角态射可由代数空间表示
+（引理 \ref{quot-lemma-coherent-stack} 和
+\ref{quot-lemma-coherent-diagonal}）。因此只需找到概形 $W$ 和满且光滑的
+态射 $W \to \mathcal{X}$。
+
+\medskip\noindent
+设 $B'$ 是概形，且 $B' \to B$ 是满的 \'etale 态射。置
+$X' = B' \times_B X$，并用 $f' : X' \to B'$ 表示投影。
+则 $\mathcal{X}' = \Cohstack_{X'/B'}$ 等于 $\mathcal{X}$ 与
+同 $B'$ 相联系的集合纤维化范畴，在同 $B$ 相联系的集合纤维化
+范畴上的 $2$-纤维积（评注 \ref{quot-remark-coherent-base-change}）。
+由《代数叠》第 \ref{algebraic-section-representable-properties} 节，
+态射 $\mathcal{X}' \to \mathcal{X}$ 满且 \'etale。因此只需对
+$\mathcal{X}'$ 证明结论。换言之，可以假设 $B$ 是概形。
+
+\medskip\noindent
+假设 $B$ 是概形。此时可以用 $B$ 替换 $S$；见《代数叠》第
+\ref{algebraic-section-change-base-scheme} 节。故可假设 $S = B$。
+
+\medskip\noindent
+假设 $S = B$。选取仿射开覆盖 $S = \bigcup U_i$。用
+$\mathcal{X}_i$ 表示 $\mathcal{X}$ 在 $(\Sch/U_i)_{fppf}$ 上的限制。
+若能找到 $U_i$ 上的概形 $W_i$ 和满光滑态射
+$W_i \to \mathcal{X}_i$，则置 $W = \coprod W_i$，便得到满光滑态射
+$W \to \mathcal{X}$。因此可以假设 $S = B$ 是仿射的。
+
+\medskip\noindent
+假设 $S = B$ 是仿射的，记 $S = \Spec(\Lambda)$。把
+$\Lambda = \colim \Lambda_i$ 写成滤过余极限，其中每个 $\Lambda_i$
+都是 $\mathbf{Z}$ 上有限型的。对某个 $i$，可找到代数空间的态射
+$X_i \to \Spec(\Lambda_i)$，它有限表示、分离且平坦，其到
+$\Lambda$ 的基变换为 $X$。见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation}、
+\ref{spaces-limits-lemma-descend-separated-morphism} 和
+\ref{spaces-limits-lemma-descend-flat}。
+若证明 $\Cohstack_{X_i/\Spec(\Lambda_i)}$ 是代数叠，则由基变换
+（评注 \ref{quot-remark-coherent-base-change} 和《代数叠》第
+\ref{algebraic-section-change-base-scheme} 节）可知
+$\mathcal{X}$ 是代数叠。因此可以假设 $\Lambda$ 是有限型
+$\mathbf{Z}$-代数。
+
+\medskip\noindent
+假设 $S = B = \Spec(\Lambda)$ 是 $\mathbf{Z}$ 上有限型的仿射概形。
+此时验证《Artin 公理》引理
+\ref{artin-lemma-diagonal-representable} 的条件 (1)、(2)、(3)、(4)、
+(5)，即可断定 $\mathcal{X}$ 是代数叠。注意，$\Lambda$ 是 G-环；
+见《代数进阶》命题 \ref{more-algebra-proposition-ubiquity-G-ring}。
+因此 $S$ 的所有局部环都是 G-环，故 (5) 成立。由引理
+\ref{quot-lemma-coherent-defo-thy}，$\mathcal{X}$ 满足通用性的开性，
+所以 (4) 成立。为验证 (2)，必须验证《Artin 公理》第
+\ref{artin-section-axioms} 节的公理 [-1]、[0]、[1]、[2]、[3]。
+略去 [-1] 的验证；公理 [0]、[1]、[2]、[3] 分别对应于引理
+\ref{quot-lemma-coherent-stack}、
+\ref{quot-lemma-coherent-limits},
+\ref{quot-lemma-coherent-RS-star},
+\ref{quot-lemma-coherent-tangent-space}.
+条件 (3) 由引理 \ref{quot-lemma-coherent-existence} 得出。
+最后，条件 (1) 即引理 \ref{quot-lemma-coherent-diagonal}。
+这就完成了定理的证明。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{非平坦情形下的凝聚层叠}
+\label{quot-section-not-flat}
+
+\noindent
+定理 \ref{quot-theorem-coherent-algebraic} 中关于 $f : X \to B$ 平坦的
+假设并非必要。本节给出另一种证明：利用《空间上的平坦性》第
+\ref{spaces-flat-section-existence} 节和《Artin 公理》第
+\ref{artin-section-strong-formal-effectiveness} 节的结果，
+既避开平坦性假设，也无需验证通用性的开性。
+
+\medskip\noindent
+关于此问题的另一种处理方法，读者可参阅 \cite{ArtinI}，并沿用论文
+\cite{olsson-starr}、\cite{lieblich_remarks}、\cite{olsson_proper}、
+\cite{Hall-Rydh}、\cite{Hall-Rydh-Hilbert}、\cite{rydh_representability}
+中讨论的方法。其中一些论文处理代数叠上代数叠的凝聚层叠这一更一般的
+情形，另一些则处理 Hilbert 叠或 Quot 函子情形下的类似问题。
+我们的策略是从凝聚层叠的代数性推出某些 Hilbert 叠和 Quot 函子的
+代数性。
+
+\begin{theorem}[凝聚层叠的代数性：一般情形]
+\label{quot-theorem-coherent-algebraic-general}
+设 $S$ 是概形，$f : X \to B$ 是 $S$ 上代数空间的态射。
+% P11-E0374: the frozen source omits the article in "be morphism".
+假设 $f$ 有限表示且分离。则 $\Cohstack_{X/B}$ 是 $S$ 上的代数叠。
+\end{theorem}
+
+\begin{proof}
+只有证明的最后一步与平坦情形不同，不过这里重述全部论证，
+以确保每一步都成立。
+
+\medskip\noindent
+置 $\mathcal{X} = \Cohstack_{X/B}$。已经看到 $\mathcal{X}$ 是
+$(\Sch/S)_{fppf}$ 上的群胚叠，其对角态射可由代数空间表示
+（引理 \ref{quot-lemma-coherent-stack} 和
+\ref{quot-lemma-coherent-diagonal}）。因此只需找到概形 $W$ 和满光滑态射
+$W \to \mathcal{X}$。
+
+\medskip\noindent
+设 $B'$ 是概形，且 $B' \to B$ 是满的 \'etale 态射。置
+$X' = B' \times_B X$，并用 $f' : X' \to B'$ 表示投影。
+则 $\mathcal{X}' = \Cohstack_{X'/B'}$ 等于 $\mathcal{X}$ 与
+同 $B'$ 相联系的集合纤维化范畴，在同 $B$ 相联系的集合纤维化
+范畴上的 $2$-纤维积（评注 \ref{quot-remark-coherent-base-change}）。
+由《代数叠》第 \ref{algebraic-section-representable-properties} 节，
+态射 $\mathcal{X}' \to \mathcal{X}$ 满且 \'etale。因此只需对
+$\mathcal{X}'$ 证明结论。换言之，可以假设 $B$ 是概形。
+
+\medskip\noindent
+假设 $B$ 是概形。此时可以用 $B$ 替换 $S$；见《代数叠》第
+\ref{algebraic-section-change-base-scheme} 节。故可假设 $S = B$。
+
+\medskip\noindent
+假设 $S = B$。选取仿射开覆盖 $S = \bigcup U_i$。用
+$\mathcal{X}_i$ 表示 $\mathcal{X}$ 在 $(\Sch/U_i)_{fppf}$ 上的限制。
+若能找到 $U_i$ 上的概形 $W_i$ 和满光滑态射
+$W_i \to \mathcal{X}_i$，则置 $W = \coprod W_i$，便得到满光滑态射
+$W \to \mathcal{X}$。因此可以假设 $S = B$ 是仿射的。
+
+\medskip\noindent
+假设 $S = B$ 是仿射的，记 $S = \Spec(\Lambda)$。把
+$\Lambda = \colim \Lambda_i$ 写成滤过余极限，其中每个 $\Lambda_i$
+都是 $\mathbf{Z}$ 上有限型的。对某个 $i$，可找到分离且有限表示的
+代数空间态射 $X_i \to \Spec(\Lambda_i)$，其到 $\Lambda$ 的基变换
+为 $X$。见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation} 和
+\ref{spaces-limits-lemma-descend-separated-morphism}。
+若证明 $\Cohstack_{X_i/\Spec(\Lambda_i)}$ 是代数叠，则由基变换
+（评注 \ref{quot-remark-coherent-base-change} 和《代数叠》第
+\ref{algebraic-section-change-base-scheme} 节）可知
+$\mathcal{X}$ 是代数叠。因此可以假设 $\Lambda$ 是有限型
+$\mathbf{Z}$-代数。
+
+\medskip\noindent
+假设 $S = B = \Spec(\Lambda)$ 是 $\mathbf{Z}$ 上有限型的仿射概形。
+此时验证《Artin 公理》引理
+\ref{artin-lemma-diagonal-representable} 的条件 (1)、(2)、(3)、(4)、
+(5)，即可断定 $\mathcal{X}$ 是代数叠。注意，$\Lambda$ 是 G-环；
+见《代数进阶》命题 \ref{more-algebra-proposition-ubiquity-G-ring}。
+因此 $S$ 的所有局部环都是 G-环，故 (5) 成立。为验证 (2)，
+必须验证《Artin 公理》第 \ref{artin-section-axioms} 节的公理
+[-1]、[0]、[1]、[2]、[3]。略去 [-1] 的验证；公理
+[0]、[1]、[2]、[3] 分别对应于引理 \ref{quot-lemma-coherent-stack}、
+\ref{quot-lemma-coherent-limits},
+\ref{quot-lemma-coherent-RS-star},
+\ref{quot-lemma-coherent-tangent-space}.
+条件 (3) 即引理 \ref{quot-lemma-coherent-existence}。
+条件 (1) 即引理 \ref{quot-lemma-coherent-diagonal}。
+
+\medskip\noindent
+还需证明条件 (4)，即通用性的开性。为此将使用《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality}。已经看到
+$\mathcal{X}$ 的对角态射可由代数空间表示，并且它满足
+(RS*) 且保极限（见上面用到的引理）。因此只需证明
+$\mathcal{X}$ 满足《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality} 中所述的强形式有效性。
+这正是《空间上的平坦性》定理 \ref{spaces-flat-theorem-existence}，
+证明完毕。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{商函子}
+\label{quot-section-functor-quotients}
+
+\noindent
+本节讨论下面定义的函子 $Q_{\mathcal{F}/X/B}$ 的若干一般性质。
+记号 $\Quotfunctor_{\mathcal{F}/X/B}$ 留给
+$\text{Q}_{\mathcal{F}/X/B}$ 的一个子函子。建议初次阅读时跳过本节。
+
+\begin{situation}
+\label{quot-situation-q}
+设 $S$ 是概形，$f : X \to B$ 是 $S$ 上代数空间的态射，
+$\mathcal{F}$ 是拟凝聚 $\mathcal{O}_X$-模。对任意 $B$ 上概形
+$T$，用 $X_T$ 表示 $X$ 到 $T$ 的基变换，用 $\mathcal{F}_T$
+表示 $\mathcal{F}$ 沿投影态射 $X_T = X \times_B T \to X$ 的拉回。
+对这样的 $T$，置
+$$
+\text{Q}_{\mathcal{F}/X/B}(T) =
+\left\{
+\begin{matrix}
+\mathcal{F}_T \to \mathcal{Q}\text{ 的商，其中 }\mathcal{Q}
+\text{ 是在 }T\text{ 上平坦的}\\
+\text{拟凝聚 }\mathcal{O}_{X_T}\text{-模}
+\end{matrix}
+\right\}
+$$
+若两个商具有相同的核，便将它们视为同一。设 $T' \to T$ 是
+$B$ 上概形的态射，且 $\mathcal{F}_T \to \mathcal{Q}$ 是
+$\text{Q}_{\mathcal{F}/X/B}(T)$ 的元素。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-module-flat}，拉回
+$\mathcal{Q}' = (X_{T'} \to X_T)^*\mathcal{Q}$ 是在 $T'$ 上平坦的
+拟凝聚 $\mathcal{O}_{X_{T'}}$-模。因此得到函子
+\begin{equation}
+\label{quot-equation-q}
+\text{Q}_{\mathcal{F}/X/B} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}
+\end{equation}
+这称为{\it $\mathcal{F}/X/B$ 的商函子}。再定义子函子
+\begin{equation}
+\label{quot-equation-q-fp}
+\text{Q}^{fp}_{\mathcal{F}/X/B} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}
+\end{equation}
+：它把 $T$ 映到 $\text{Q}_{\mathcal{F}/X/B}(T)$ 中由如下商
+$\mathcal{F}_T \to \mathcal{Q}$ 组成的子集，即 $\mathcal{Q}$
+作为 $\mathcal{O}_{X_T}$-模有限表示。由《空间的性质》第
+\ref{spaces-properties-section-properties-modules} 节，这是子函子。
+\end{situation}
+
+\noindent
+在情形 \ref{quot-situation-q} 中，有时把
+$\text{Q}_{\mathcal{F}/X/B}$ 看作函子
+% P11-E0375: the frozen source changes the denominator from B to S in both Q_{F/X/S} occurrences.
+$(\Sch/S)^{opp} \to \textit{Sets}$，它配有态射
+$\text{Q}_{\mathcal{F}/X/S} \to B$。具体地，若 $T$ 是
+$S$ 上的概形，则 $\text{Q}_{\mathcal{F}/X/B}(T)$ 的一个元素是
+一对 $(h, \mathcal{Q})$，其中
+% P11-E0377: the frozen source omits "is" in "where h a morphism".
+$h$ 是态射 $h : T \to B$，而 $\mathcal{Q}$ 是 $X_T =
+X \times_{B, h} T$ 上有限表示的、在 $T$ 上平坦的商
+% P11-E0376: finite presentation belongs only to Q^fp, but the frozen prose imposes it on general Q here.
+$\mathcal{F}_T \to \mathcal{Q}$。特别地，当我们说
+$\text{Q}_{\mathcal{F}/X/S}$ 是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。类似评注也适用于
+$\text{Q}^{fp}_{\mathcal{F}/X/B}$。
+
+\begin{remark}
+\label{quot-remark-q-base-change}
+在情形 \ref{quot-situation-q} 中，设 $B' \to B$ 是 $S$ 上代数空间的态射。
+置 $X' = X \times_B B'$，并用 $\mathcal{F}'$ 表示 $\mathcal{F}$
+到 $X'$ 的拉回。于是有 $B'$ 上概形范畴上的函子
+$Q_{\mathcal{F}'/X'/B'}$。对 $B'$ 上概形 $T$，显然有
+$$
+Q_{\mathcal{F}'/X'/B'}(T) = Q_{\mathcal{F}/X/B}(T)
+$$
+，其中右边把 $T$ 通过复合 $T \to B' \to B$ 看作 $B$ 上的概形。
+类似评注也适用于 $\text{Q}^{fp}_{\mathcal{F}/X/B}$。
+这些简单评注有时可用于更换基代数空间。
+\end{remark}
+
+\begin{remark}
+\label{quot-remark-q-sheaf}
+设 $S$ 是概形，$X$ 是 $S$ 上的代数空间，$\mathcal{F}$ 是拟凝聚
+$\mathcal{O}_X$-模。假设
+$\{f_i : X_i \to X\}_{i \in I}$
+是 fpqc 覆盖，并且对每个 $i, j \in I$，给定 fpqc 覆盖
+$\{X_{ijk} \to X_i \times_X X_j\}$。此时有双射
+$$
+\left\{
+\begin{matrix}
+\mathcal{F} \to \mathcal{Q}\text{ 的商，其中 }\\
+\mathcal{Q}\text{ 是拟凝聚的}\\
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\text{商族 }f_i^*\mathcal{F} \to \mathcal{Q}_i
+\text{，其中 }\\
+\mathcal{Q}_i\text{ 是拟凝聚的，且 }
+\mathcal{Q}_i\text{ 与 }\mathcal{Q}_j\\
+\text{在 }X_{ijk}\text{ 上限制为同一个商}
+\end{matrix}
+\right\}
+$$
+具体地，设 $(f_i^*\mathcal{F} \to \mathcal{Q}_i)_{i \in I}$ 是右边的
+元素。由于 $\{X_{ijk} \to X_i \times_X X_j\}$ 是 fpqc 覆盖，
+可知 $\mathcal{Q}_i$ 和 $\mathcal{Q}_j$ 的拉回，限制为
+$\mathcal{F}$ 到 $X_i \times_X X_j$ 的拉回的同一个商（由
+% P11-E0378: the frozen source says "fully faithfulness" instead of "full faithfulness".
+《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+中的全忠实性）。因此得到拟凝聚模关于
+$\{X_i \to X\}_{i \in I}$ 的下降数据。由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+，可找到拟凝聚 $\mathcal{O}_X$-模的映射
+$\mathcal{F} \to \mathcal{Q}$，其在 $X_i$ 上的限制恢复给定映射
+$f_i^*\mathcal{F} \to \mathcal{Q}_i$。由于态射族
+$\{X_i \to X\}$ 联合满且平坦，对每个点 $x \in |X|$，存在某个
+$i$ 和点 $x_i \in |X_i|$ 映到 $x$。注意，所诱导的局部环映射
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{X_i, \overline{x_i}}$
+忠实平坦；见《空间的态射》第
+\ref{spaces-morphisms-section-flat} 节。因此
+$\mathcal{F} \to \mathcal{Q}$ 是满射。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-q-sheaf}
+在情形 \ref{quot-situation-q} 中，函子
+% P11-E0379: the frozen source punctuates "In Situation ..." as a sentence fragment.
+$\text{Q}_{\mathcal{F}/X/B}$ 和
+$\text{Q}^{fp}_{\mathcal{F}/X/B}$
+满足 fpqc 拓扑的层条件。
+\end{lemma}
+
+\begin{proof}
+设 $\{T_i \to T\}_{i \in I}$ 是 $S$ 上概形的 fpqc 覆盖。
+% P11-E0380: the frozen proof uses schemes over S and X ×_S T_i, although Q is defined on Sch/B with X_T = X ×_B T.
+置 $X_i = X_{T_i} = X \times_S T_i$ 和
+$\mathcal{F}_i = \mathcal{F}_{T_i}$。注意，
+$\{X_i \to X_T\}_{i \in I}$ 是 $X_T$ 的 fpqc 覆盖
+（《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}），并且
+$X_{T_i \times_T T_{i'}} = X_i \times_{X_T} X_{i'}$。
+设 $\mathcal{F}_i \to \mathcal{Q}_i$ 是
+$\text{Q}_{\mathcal{F}/X/B}(T_i)$ 的一族元素，并且
+$\mathcal{Q}_i$ 和 $\mathcal{Q}_{i'}$ 在
+$\text{Q}_{\mathcal{F}/X/B}(T_i \times_T T_{i'})$ 中限制为同一元素。
+由评注 \ref{quot-remark-q-sheaf}，得到拟凝聚
+$\mathcal{O}_{X_T}$-模的满射 $\mathcal{F}_T \to \mathcal{Q}$，
+其在 $X_i$ 上的限制恢复给定的商。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-permanence}，$\mathcal{Q}$ 在
+$T$ 上平坦。最后，在 $\text{Q}^{fp}_{\mathcal{F}/X/B}$ 的情形，
+即若 $\mathcal{Q}_i$ 有限表示，则《空间上的下降》引理
+\ref{spaces-descent-lemma-finite-presentation-descends}
+保证 $\mathcal{Q}$ 作为 $\mathcal{O}_{X_T}$-模有限表示。
+\end{proof}
+
+\noindent
+一致性检验：$\text{Q}_{\mathcal{F}/X/B}$、
+$\text{Q}^{fp}_{\mathcal{F}/X/B}$
+在 $S$ 上代数空间之间起着同样的作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-q-to-spaces}
+在情形 \ref{quot-situation-q} 中，设 $T$ 是 $S$ 上的代数空间。
+% P11-E0381: the frozen source punctuates "In Situation ..." as a sentence fragment.
+则
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T,  \text{Q}_{\mathcal{F}/X/B}) =
+\left\{
+\begin{matrix}
+(h, \mathcal{F}_T \to \mathcal{Q})\text{，其中 }
+h : T \to B\text{，且}\\
+\mathcal{Q}\text{ 是拟凝聚的并在 T 上平坦}
+\end{matrix}
+\right\}
+$$
+，其中 $\mathcal{F}_T$ 表示 $\mathcal{F}$ 到代数空间
+$X \times_{B, h} T$ 的拉回。类似地，有
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T,  \text{Q}^{fp}_{\mathcal{F}/X/B}) =
+\left\{
+\begin{matrix}
+(h, \mathcal{F}_T \to \mathcal{Q})\text{，其中 }
+h : T \to B\text{，且}\\
+\mathcal{Q}\text{ 有限表示并在 T 上平坦}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 和满的 \'etale 态射 $p : U \to T$。令
+$R = U \times_T U$，其投影为 $t, s : R \to U$。
+
+\medskip\noindent
+设 $v : T \to \text{Q}_{\mathcal{F}/X/B}$ 是自然变换。则
+$v(p)$ 对应于 $U$ 上的一对
+$(h_U, \mathcal{F}_U \to \mathcal{Q}_U)$。由于 $v$ 是函子间的变换，
+$(h_U, \mathcal{F}_U \to \mathcal{Q}_U)$ 沿 $s$ 和 $t$ 的拉回相同。
+由于 $T = U/R$（《空间》引理
+\ref{spaces-lemma-space-presentation}），得到态射 $h : T \to B$
+满足 $h_U = h \circ p$。由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+，商 $\mathcal{Q}_U$ 下降为 $X_T$ 上的商
+$\mathcal{F}_T \to \mathcal{Q}$。由于 $U \to T$ 满且平坦，
+由《空间的态射》引理 \ref{spaces-morphisms-lemma-flat-permanence}，
+$\mathcal{Q}$ 在 $T$ 上平坦。
+
+\medskip\noindent
+反之，设 $(h, \mathcal{F}_T \to \mathcal{Q})$ 是 $T$ 上的一对。
+把态射 $a : T' \to T$（其中 $T'$ 是概形）映到
+$(h \circ a, \mathcal{F}_{T'} \to a^*\mathcal{Q})$，便得到自然变换
+$v : T \to \text{Q}_{\mathcal{F}/X/B}$。略去验证本段与前段的构造
+互为逆构造。
+
+\medskip\noindent
+在 $\text{Q}^{fp}_{\mathcal{F}/X/B}$ 的情形还需补充：给定态射
+$h : T \to B$，$X_T$ 上的拟凝聚层作为 $\mathcal{O}_{X_T}$-模
+有限表示，当且仅当其到 $X_U$ 的拉回作为 $\mathcal{O}_{X_U}$-模
+有限表示。这由 $X_U \to X_T$ 满且 \'etale 以及《空间上的下降》引理
+\ref{spaces-descent-lemma-finite-presentation-descends} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-q-sheaf-in-X}
+在情形 \ref{quot-situation-q} 中，设 $\{X_i \to X\}_{i \in I}$ 是 fpqc
+覆盖，并且对每个 $i, j \in I$，设
+$\{X_{ijk} \to X_i \times_X X_j\}$ 是 fpqc 覆盖。用
+$\mathcal{F}_i$、相应地 $\mathcal{F}_{ijk}$ 表示 $\mathcal{F}$
+到 $X_i$、相应地到 $X_{ijk}$ 的拉回。对每个 $B$ 上概形 $T$，图
+$$
+\xymatrix{
+Q_{\mathcal{F}/X/B}(T) \ar[r] &
+\prod\nolimits_i
+Q_{\mathcal{F}_i/X_i/B}(T)
+\ar@<1ex>[r]^-{\text{pr}_0^*} \ar@<-1ex>[r]_-{\text{pr}_1^*}
+&
+\prod\nolimits_{i, j, k}
+Q_{\mathcal{F}_{ijk}/X_{ijk}/B}(T)
+}
+$$
+把第一条箭头表示为后两条箭头的等化子。对函子
+$\text{Q}^{fp}_{\mathcal{F}/X/B}$，同一结论成立。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}_{i, T} \to \mathcal{Q}_i$ 是
+$\text{pr}_0^*$ 与 $\text{pr}_1^*$ 的等化子中的元素。
+由评注 \ref{quot-remark-q-sheaf}，得到拟凝聚 $\mathcal{O}_{X_T}$-模的
+满射 $\mathcal{F}_T \to \mathcal{Q}$，其在 $X_{i, T}$ 上的限制
+恢复 $\mathcal{F}_i \to \mathcal{Q}_i$。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-permanence}，$\mathcal{Q}$ 如所需
+在 $T$ 上平坦。在函子 $\text{Q}^{fp}_{\mathcal{F}/X/B}$ 的情形，
+即若 $\mathcal{Q}_i$ 有限表示，则 $\mathcal{Q}$ 也有限表示；
+这由《空间上的下降》引理
+\ref{spaces-descent-lemma-finite-presentation-descends} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-q-limit-preserving}
+在情形 \ref{quot-situation-q} 中，进一步假设
+(a) $f$ 拟紧且拟分离；并且
+(b) $\mathcal{F}$ 有限表示。
+则函子 $\text{Q}^{fp}_{\mathcal{F}/X/B}$ 在如下意义下保极限：
+若 $T = \lim T_i$ 是 $B$ 上仿射概形的有向极限，则
+$\text{Q}^{fp}_{\mathcal{F}/X/B}(T) =
+\colim \text{Q}^{fp}_{\mathcal{F}/X/B}(T_i)$.
+\end{lemma}
+
+\begin{proof}
+设 $T = \lim T_i$ 如引理所述。选取 $i_0 \in I$，并用
+$\{i \in I \mid i \geq i_0\}$ 替换 $I$。可以置
+$B = S = T_{i_0}$，用 $X_{T_0}$ 替换 $X$，并用到 $X_{T_0}$ 的
+% P11-E0382: after choosing i_0, the frozen source uses undefined T_0/X_{T_0} instead of T_{i_0}/X_{T_{i_0}}.
+拉回替换 $\mathcal{F}$。于是 $X_T = \lim X_{T_i}$；见
+《空间的极限》引理
+\ref{spaces-limits-lemma-directed-inverse-system-has-limit}.
+设 $\mathcal{F}_T \to \mathcal{Q}$ 是
+$\text{Q}^{fp}_{\mathcal{F}/X/B}(T)$ 的元素。由《空间的极限》引理
+\ref{spaces-limits-lemma-descend-modules-finite-presentation}
+，存在某个 $i$ 以及有限表示 $\mathcal{O}_{X_{T_i}}$-模的映射
+$\mathcal{F}_{T_i} \to \mathcal{Q}_i$，其到 $X_T$ 的拉回就是给定
+商映射。
+
+\medskip\noindent
+还需验证：适当增大 $i$ 后，映射
+$\mathcal{F}_{T_i} \to \mathcal{Q}_i$ 满，并且 $\mathcal{Q}_i$
+在 $T_i$ 上平坦。为此，选取仿射概形 $U$ 和满的 \'etale 态射
+$U \to X$（见《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}）。
+按定义，可以在拉回到 \'etale 覆盖
+$U_{T_i} \to X_{T_i}$ 后检验满性和在 $T_i$ 上的平坦性。
+这把问题归约到如下情形：$X = \Spec(B_0)$ 是
+$B = S = T_0 = \Spec(A_0)$ 上有限表示的仿射概形。写
+$T_i = \Spec(A_i)$，则 $T = \Spec(A)$，其中 $A = \colim A_i$。
+于是得到如下代数问题。设 $M_i \to N_i$ 是有限表示
+$B_0 \otimes_{A_0} A_i$-模的映射，使得
+$M_i \otimes_{A_i} A \to N_i \otimes_{A_i} A$ 满，并且
+$N_i \otimes_{A_i} A$ 在 $A$ 上平坦。证明：对某个 $i' \geq i$，
+$M_i \otimes_{A_i} A_{i'} \to N_i \otimes_{A_i} A_{i'}$ 满，且
+% P11-E0383: the descended module is over A_{i'}, but the frozen conclusion says flat over A.
+$N_i \otimes_{A_i} A_{i'}$ 在 $A$ 上平坦。前者由《代数》引理
+\ref{algebra-lemma-module-map-property-in-colimit} 得出，后者由
+《代数》引理 \ref{algebra-lemma-flat-finite-presentation-limit-flat}
+得出。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-q-RS-star}
+在情形 \ref{quot-situation-q} 中，设
+% P11-E0384: the frozen source punctuates "In Situation ..." as a sentence fragment.
+$$
+\xymatrix{
+Z \ar[r] \ar[d] & Z' \ar[d] \\
+Y \ar[r] & Y'
+}
+$$
+是 $B$ 上概形范畴中的推出，其中 $Z \to Z'$ 是加厚，$Z \to Y$
+是仿射态射；见《态射进阶》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}。则自然映射
+$$
+Q_{\mathcal{F}/X/B}(Y') \longrightarrow
+Q_{\mathcal{F}/X/B}(Y) \times_{Q_{\mathcal{F}/X/B}(Z)} Q_{\mathcal{F}/X/B}(Z')
+$$
+是双射。若 $X \to B$ 局部有限表示，则对
+$Q^{fp}_{\mathcal{F}/X/B}$ 同一结论成立。
+\end{lemma}
+
+\begin{proof}
+下面构造逆映射。假设有 $\mathcal{F}_Y \to \mathcal{A}$、
+$\mathcal{F}_{Z'} \to \mathcal{B}'$ 以及同构
+$\mathcal{A}|_{X_Z} \to \mathcal{B}'|_{X_Z}$
+，它与给定满射相容。应用《空间的推出》引理
+\ref{spaces-pushouts-lemma-space-over-pushout-flat-modules}
+，得到 $X_{Y'}$ 上在 $Y'$ 上平坦的拟凝聚模 $\mathcal{A}'$。
+由于该层构造为纤维积（见所引引理的证明），有典范映射
+$\mathcal{F}_{Y'} \to \mathcal{A}'$。该映射为满射，因为它分解为
+$$
+\begin{matrix}
+\mathcal{F}_{Y'} \\
+\downarrow \\
+(X_Y \to X_{Y'})_*\mathcal{F}_Y
+\times_{(X_Z \to X_{Y'})_*\mathcal{F}_Z}
+(X_{Z'} \to X_{Y'})_*\mathcal{F}_{Z'} \\
+\downarrow \\
+\mathcal{A}' =
+(X_Y \to X_{Y'})_*\mathcal{A}
+\times_{(X_Z \to X_{Y'})_*\mathcal{A}|_{X_Z}}
+(X_{Z'} \to X_{Y'})_*\mathcal{B}'
+\end{matrix}
+$$
+，其中第一条箭头由《代数进阶》引理
+\ref{more-algebra-lemma-module-over-fibre-product-bis} 为满射，
+第二条箭头由《代数进阶》引理
+\ref{more-algebra-lemma-surjection-module-over-fibre-product} 为满射。
+
+\medskip\noindent
+在 $Q^{fp}_{\mathcal{F}/X/B}$ 的情形，只需证明上述构造产生有限表示
+模。这在交换代数语境下由《代数进阶》评注
+\ref{more-algebra-remark-relative-modules-over-fibre-product}
+说明。代数空间上模的当前情形由此经 \'etale 局部化得出。
+\end{proof}
+
+\begin{remark}[商的障碍]
+\label{quot-remark-q-obs}
+在情形 \ref{quot-situation-q} 中，{\bf 假设} $\mathcal{F}$ 在 $B$ 上平坦。
+设 $T \subset T'$ 是 $B$ 上概形的一阶加厚，其理想层为
+% P11-E0385: the frozen source says "an first order thickening".
+$\mathcal{J}$。则 $X_T \subset X_{T'}$ 是代数空间的一阶加厚，
+其理想层 $\mathcal{I}$ 是 $f_T^*\mathcal{J}$ 的商。利用《空间的态射
+进阶》第 \ref{spaces-more-morphisms-section-thickenings} 节所述的
+基本等价，把 $X_{T'}$ 上、相应地 $T'$ 上的层看作 $X_T$ 上、
+相应地 $T$ 上的层。设
+$$
+0 \to \mathcal{K} \to \mathcal{F}_T \to \mathcal{Q} \to 0
+$$
+定义 $Q_{\mathcal{F}/X/B}(T)$ 的元素 $x$。由于 $\mathcal{F}_{T'}$
+在 $T'$ 上平坦，有短正合列
+$$
+0 \to f_T^*\mathcal{J} \otimes_{\mathcal{O}_{X_T}} \mathcal{F}_T
+\xrightarrow{i} \mathcal{F}_{T'} \xrightarrow{\pi} \mathcal{F}_T \to 0
+$$
+，并且有
+$f_T^*\mathcal{J} \otimes_{\mathcal{O}_{X_T}} \mathcal{F}_T =
+\mathcal{I} \otimes_{\mathcal{O}_{X_T}} \mathcal{F}_T$；见《形变理论》
+引理 \ref{defos-lemma-deform-module-ringed-topoi}。对
+$\mathcal{O}_{X_T}$-模 $\mathcal{G}$，采用简写
+$
+f_T^*\mathcal{J} \otimes_{\mathcal{O}_{X_T}} \mathcal{G} =
+\mathcal{G} \otimes_{\mathcal{O}_T} \mathcal{J}
+$
+。由于 $\mathcal{Q}$ 在 $T$ 上平坦，得到短正合列
+$$
+0 \to
+\mathcal{K} \otimes_{\mathcal{O}_T} \mathcal{J} \to
+\mathcal{F}_T \otimes_{\mathcal{O}_T} \mathcal{J} \to
+\mathcal{Q} \otimes_{\mathcal{O}_T} \mathcal{J} \to
+\to 0
+$$
+% P11-E0386: the frozen short exact sequence contains a duplicated \to before 0.
+结合以上结果，得到典范扩张
+% P11-E0387: the frozen source says "an canonical extension".
+$$
+0 \to \mathcal{Q} \otimes_{\mathcal{O}_T} \mathcal{J} \to
+\pi^{-1}(\mathcal{K})/i(\mathcal{K} \otimes_{\mathcal{O}_T} \mathcal{J}) \to
+\mathcal{K} \to 0
+$$
+，它是 $\mathcal{O}_{X_T}$-模的扩张。这定义典范类
+$$
+o_x(T') \in
+\Ext^1_{\mathcal{O}_{X_T}}(\mathcal{K},
+\mathcal{Q} \otimes_{\mathcal{O}_T} \mathcal{J})
+$$
+若 $o_x(T')$ 为零，则定义它的短正合列分裂；换言之，得到
+$\mathcal{O}_{X_{T'}}$-子模
+$\mathcal{K}' \subset \pi^{-1}(\mathcal{K})$，它位于短正合列
+$0 \to \mathcal{K} \otimes_{\mathcal{O}_T} \mathcal{J} \to
+\mathcal{K}' \to \mathcal{K} \to 0$.
+由上面所引的引理可知
+% P11-E0388: the frozen source says "the lemma reference above" instead of "the lemma referenced above".
+$\mathcal{Q}' = \mathcal{F}_{T'}/\mathcal{K}'$
+是 $x$ 到 $Q_{\mathcal{F}/X/B}(T')$ 中元素的提升。反之，容易看出，
+提升的存在性蕴含 $o_x(T')$ 为零。此外，若
+$x \in Q_{\mathcal{F}/X/B}^{fp}(T)$，则由《形变理论》引理
+\ref{defos-lemma-deform-fp-module-ringed-topoi}，自动有
+$x' \in Q_{\mathcal{F}/X/B}^{fp}(T')$。若以后需要此评注，
+我们会把它改写为引理，精确表述结果并给出详细证明（事实上，
+以上全部论证在任意环化拓扑斯的语境下都成立）。
+\end{remark}
+
+\begin{remark}[商的形变]
+\label{quot-remark-q-defos}
+在情形 \ref{quot-situation-q} 中，{\bf 假设} $\mathcal{F}$ 在 $B$ 上平坦。
+继续评注 \ref{quot-remark-q-obs} 的讨论。假设 $o_x(T') = 0$。
+我们断言，提升 $x' \in Q_{\mathcal{F}/X/B}(T')$ 所成的集合是群
+$$
+\Hom_{\mathcal{O}_{X_T}}(\mathcal{K},
+\mathcal{Q} \otimes_{\mathcal{O}_T} \mathcal{J})
+$$
+下的主齐性空间。具体地，给定在 $T'$ 上平坦且提升商
+$\mathcal{Q}$ 的任意 $\mathcal{F}_{T'} \to \mathcal{Q}'$，
+得到行列均正合的交换图
+$$
+\xymatrix{
+& 0 \ar[d] & 0 \ar[d] & 0 \ar[d] \\
+0 \ar[r] &
+\mathcal{K} \otimes \mathcal{J} \ar[r] \ar[d] &
+\mathcal{F}_T \otimes \mathcal{J} \ar[r] \ar[d] &
+\mathcal{Q} \otimes \mathcal{J} \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K}' \ar[r] \ar[d] &
+\mathcal{F}_{T'} \ar[r] \ar[d] &
+\mathcal{Q}' \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K} \ar[d] \ar[r] &
+\mathcal{F}_T \ar[d] \ar[r] &
+\mathcal{Q} \ar[d] \ar[r] &
+0 \\
+& 0 & 0 & 0
+}
+$$
+（为说明此点，使用前一评注中的观察）。给定映射
+$\varphi : \mathcal{K} \to \mathcal{Q} \otimes \mathcal{J}$，
+考虑子层 $\mathcal{K}'_\varphi \subset \mathcal{F}_{T'}$：
+它由如下局部截面 $s$ 组成，其在 $\mathcal{F}_T$ 中的像是
+$\mathcal{K}$ 的局部截面 $k$，而在 $\mathcal{Q}'$ 中的像是
+$\mathcal{Q} \otimes \mathcal{J}$ 的局部截面 $\varphi(k)$。再置
+$\mathcal{Q}'_\varphi = \mathcal{F}_{T'}/\mathcal{K}'_\varphi$。
+反之，$x$ 的任意第二个提升都对应于以此方式构造的一个商。
+% P11-E0389: the frozen source misspells "quotients" as "qotients".
+若以后需要此评注，我们会把它改写为引理，精确表述结果并给出详细证明
+（事实上，以上全部论证在任意环化拓扑斯的语境下都成立）。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+\section{Quot 函子}
+\label{quot-section-quot}
+
+\noindent
+本节证明 Quot 函子是代数空间。
+
+\begin{situation}
+\label{quot-situation-quot}
+设 $S$ 是概形，$f : X \to B$ 是 $S$ 上代数空间的态射。
+假设 $f$ 有限表示。设 $\mathcal{F}$ 是拟凝聚
+$\mathcal{O}_X$-模。对任意 $B$ 上概形 $T$，用 $X_T$ 表示
+$X$ 到 $T$ 的基变换，用 $\mathcal{F}_T$ 表示 $\mathcal{F}$
+沿投影态射 $X_T = X \times_S T \to X$ 的拉回。对这样的 $T$，置
+$$
+\Quotfunctor_{\mathcal{F}/X/B}(T) =
+\left\{
+\begin{matrix}
+\text{商 }\mathcal{F}_T \to \mathcal{Q}\text{，其中 }\mathcal{Q}
+\text{ 是拟凝聚的}\\
+\mathcal{O}_{X_T}\text{-模，在 }T\text{ 上有限表示且平坦}\\
+\text{其支撑在 }T\text{ 上真}
+\end{matrix}
+\right\}
+$$
+由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-base-change-module-support-proper-over-base}
+，这是我们在第 \ref{quot-section-functor-quotients} 节讨论的函子
+$Q^{fp}_{\mathcal{F}/X/B}$ 的子函子。于是得到函子
+\begin{equation}
+\label{quot-equation-quot}
+\Quotfunctor_{\mathcal{F}/X/B} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}
+\end{equation}
+这称为与 $\mathcal{F}/X/B$ 相联系的{\it Quot 函子}。
+\end{situation}
+
+\noindent
+在情形 \ref{quot-situation-quot} 中，有时把
+$\Quotfunctor_{\mathcal{F}/X/B}$ 看作函子
+$(\Sch/S)^{opp} \to \textit{Sets}$，它配有态射
+$\Quotfunctor_{\mathcal{F}/X/B} \to B$。具体地，若 $T$ 是
+$S$ 上的概形，则 $\Quotfunctor_{\mathcal{F}/X/B}(T)$ 的一个元素是
+一对 $(h, \mathcal{Q})$，其中 $h$ 是态射 $h : T \to B$，
+而 $Q$ 是 $X_T = X \times_{B, h} T$ 上有限表示、在 $T$ 上平坦、
+且支撑在 $T$ 上真的商 $\mathcal{F}_T \to \mathcal{Q}$。
+特别地，当我们说 $\Quotfunctor_{\mathcal{F}/X/B}$ 是代数空间时，
+是指相应函子 $(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{quot-lemma-quot-sheaf}
+在情形 \ref{quot-situation-quot} 中，函子
+$\Quotfunctor_{\mathcal{F}/X/B}$ 满足 fpqc 拓扑的层条件。
+\end{lemma}
+
+\begin{proof}
+在引理 \ref{quot-lemma-q-sheaf} 中已经看到，函子
+$\text{Q}^{fp}_{\mathcal{F}/X/S}$ 是层。回忆，对 $S$ 上概形
+$T$，子集
+$\Quotfunctor_{\mathcal{F}/X/S}(T) \subset \text{Q}_{\mathcal{F}/X/S}(T)$
+选出支撑在 $T$ 上真的商。由《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-proper} 与
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-pullback-support} 的结果，这定义了
+一个子层；后一个引理表明取概形论支撑与平坦基变换可交换。
+\end{proof}
+
+\noindent
+一致性检验：$\Quotfunctor_{\mathcal{F}/X/B}$ 在 $S$ 上代数空间
+之间起着同样的作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-quot-to-spaces}
+在情形 \ref{quot-situation-quot} 中，设 $T$ 是 $S$ 上的代数空间。
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T,  \Quotfunctor_{\mathcal{F}/X/B}) =
+\left\{
+\begin{matrix}
+(h, \mathcal{F}_T \to \mathcal{Q}) \text{，其中 }
+h : T \to B \text{ 且}\\
+\mathcal{Q}\text{ 有限表示且}\\
+\text{在 }T\text{ 上平坦且支撑在 }T\text{ 上真}
+\end{matrix}
+\right\}
+$$
+其中 $\mathcal{F}_T$ 表示 $\mathcal{F}$ 到代数空间
+$X \times_{B, h} T$ 的拉回。
+\end{lemma}
+
+\begin{proof}
+注意，等式左右两边分别是引理
+\ref{quot-lemma-extend-q-to-spaces} 中第二个等式左右两边的子集。
+为看出这些子集在该引理证明给出的识别下相对应，只需证明：
+给定 $h : T \to B$、满的 \'etale 态射 $U \to T$ 和有限型拟凝聚
+$\mathcal{O}_{X_T}$-模 $\mathcal{Q}$，下列条件等价：
+\begin{enumerate}
+\item $\mathcal{Q}$ 的概形论支撑在 $T$ 上真；以及
+\item $(X_U \to X_T)^*\mathcal{Q}$ 的概形论支撑在 $U$ 上真。
+\end{enumerate}
+这由《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-proper} 与
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-pullback-support} 得出；后者表明
+取概形论支撑与平坦基变换可交换。
+\end{proof}
+
+\begin{proposition}
+\label{quot-proposition-quot}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。
+设 $\mathcal{F}$ 是 $X$ 上的拟凝聚层。若 $f$ 有限表示且分离，则
+$\Quotfunctor_{\mathcal{F}/X/B}$ 是代数空间。若 $\mathcal{F}$
+有限表示，则 $\Quotfunctor_{\mathcal{F}/X/B} \to B$ 在局部上有限表示。
+\end{proposition}
+
+\begin{proof}
+由引理 \ref{quot-lemma-quot-sheaf}，我们知道
+$\Quotfunctor_{\mathcal{F}/X/B}$ 是 fppf 拓扑中的层。令
+$\textit{Quot}_{\mathcal{F}/X/B}$ 为与
+$\Quotfunctor_{\mathcal{F}/X/S}$ 对应的群胚叠，见《代数叠》第
+\ref{algebraic-section-split} 节。由《代数叠》命题
+\ref{algebraic-proposition-algebraic-stack-no-automorphisms}，
+只需证明 $\textit{Quot}_{\mathcal{F}/X/B}$ 是代数叠。
+考虑群胚叠的 $1$-态射
+$$
+\textit{Quot}_{\mathcal{F}/X/S}
+\longrightarrow
+\Cohstack_{X/B}
+$$
+它在 $(\Sch/S)_{fppf}$ 上把商
+$\mathcal{F}_T \to \mathcal{Q}$ 关联到模 $\mathcal{Q}$。
+由定理 \ref{quot-theorem-coherent-algebraic-general}，我们知道
+$\Cohstack_{X/B}$ 是代数叠。由《代数叠》引理
+\ref{algebraic-lemma-representable-morphism-to-algebraic}，
+只需证明此 $1$-态射可由代数空间表示。
+
+\medskip\noindent
+设 $T$ 是 $S$ 上的概形，且 $\Cohstack_{X/B}$ 在 $T$ 上的对象
+$(h, \mathcal{G})$ 对应于 $1$-态射
+$\xi : (\Sch/T)_{fppf} \to \Cohstack_{X/B}$。其 $2$-纤维积
+$$
+\mathcal{Z} =
+(\Sch/T)_{fppf}
+\times_{\xi, \Cohstack_{X/B}}
+\textit{Quot}_{\mathcal{F}/X/S}
+$$
+是集合胚中的叠，见《叠》引理
+\ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids}。
+相应的集合层（即函子，见
+《叠》引理
+\ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids} 和
+\ref{stacks-lemma-when-stack-in-sets}）把概形 $T'/T$ 关联到
+$X_{T'}$ 上拟凝聚模的满射 $u : \mathcal{F}_{T'} \to \mathcal{G}_{T'}$
+的集合。因此，$\mathcal{Z}$ 可由代数空间
+$\mathit{Hom}(\mathcal{F}_T, \mathcal{G})$ 的一个开子空间表示
+（由《空间上的平坦性》引理 \ref{spaces-flat-lemma-F-surj-open}），
+该代数空间来自命题 \ref{quot-proposition-hom}。
+\end{proof}
+
+\begin{remark}[通过 Artin 公理得到 Quot 函子]
+\label{quot-remark-quot-via-artins-axioms}
+设 $S$ 是局部环全为 G-环的 Noether 概形。设 $X$ 是 $S$ 上的代数空间，
+其结构态射 $f : X \to S$ 有限表示且分离。设 $\mathcal{F}$ 是 $X$ 上
+有限表示的拟凝聚层，且在 $S$ 上平坦。本备注概述如何使用 Artin 公理证明
+$\Quotfunctor_{\mathcal{F}/X/S}$ 是在 $S$ 上局部有限表示的代数空间，
+从而无需像命题 \ref{quot-proposition-quot} 的证明那样使用凝聚层叠的代数性。
+
+\medskip\noindent
+我们检查《Artin 公理》命题
+\ref{artin-proposition-spaces-diagonal-representable} 中所列的条件。
+$\Quotfunctor_{\mathcal{F}/X/S}$ 的对角态射可表示性可如下看出：
+设有两个商 $\mathcal{F}_T \to \mathcal{Q}_i$，$i = 1, 2$。记第一个商的核为
+$\mathcal{K}_1$。那么需要证明使 $u : \mathcal{K}_1 \to \mathcal{Q}_2$
+变为零的 $T$ 的轨迹是可表示的。例如，这可由《空间上的平坦性》引理
+\ref{spaces-flat-lemma-F-zero-closed-proper}
+或本章前面对 $\mathit{Hom}$ 层的讨论得到。公理 [0]（层）、[1]（极限）、
+[2]（Rim--Schlessinger）由引理 \ref{quot-lemma-quot-sheaf}、
+\ref{quot-lemma-q-limit-preserving} 和 \ref{quot-lemma-q-RS-star}
+得到（再加上处理真性条件的一些额外工作）。
+公理 [3]（切空间有限维）由备注 \ref{quot-remark-q-defos} 中对无穷小形变的描述，
+以及域上真代数空间中凝聚层上同调的有限性（《空间的上同调》引理
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}）得到。
+公理 [4]（形式对象的有效性）由 Grothendieck 存在性定理
+（《空间态射补充》定理 \ref{spaces-more-morphisms-theorem-grothendieck-existence}）得到。
+通常最难验证的是公理 [5]（通用性的开性）。例如，可以使用备注
+\ref{quot-remark-q-obs} 中描述的障碍理论和备注 \ref{quot-remark-q-defos} 中的形变描述，
+再利用《Artin 公理》引理
+\ref{artin-lemma-get-openness-obstruction-theory} 中的判据来完成。
+请与引理 \ref{quot-lemma-coherent-defo-thy} 的第二个证明比较。
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{Hilbert 函子}
+\label{quot-section-hilb}
+
+\noindent
+本节证明 Hilb 函子是代数空间。
+
+\begin{situation}
+\label{quot-situation-hilb}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。
+假设 $f$ 有限表示。对 $B$ 上任意概形 $T$，用 $X_T$ 表示
+$X$ 到 $T$ 的基变换。对这样的 $T$，置
+$$
+\Hilbfunctor_{X/B}(T) =
+\left\{
+\begin{matrix}
+\text{闭子空间 }Z \subset X_T\text{，使得 }Z \to T\\
+\text{有限表示、平坦且真}
+\end{matrix}
+\right\}
+$$
+由于基变换保持所需性质
+（《空间》引理 \ref{spaces-lemma-base-change-immersions} 以及
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-presentation},
+\ref{spaces-morphisms-lemma-base-change-flat} 和
+\ref{spaces-morphisms-lemma-base-change-proper}），
+得到函子
+\begin{equation}
+\label{quot-equation-hilb}
+\Hilbfunctor_{X/B} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}
+\end{equation}
+这称为与 $X/B$ 相联系的 {\it Hilbert 函子}。
+\end{situation}
+
+\noindent
+在情形 \ref{quot-situation-hilb} 中，有时把 $\Hilbfunctor_{X/B}$
+看作函子 $(\Sch/S)^{opp} \to \textit{Sets}$，它配有态射
+$\Hilbfunctor_{X/S} \to B$。具体地，若 $T$ 是 $S$ 上的概形，则
+$\Hilbfunctor_{X/B}(T)$ 的一个元素是一对 $(h, Z)$，其中 $h$ 是态射
+$h : T \to B$，且 $Z \subset X_T = X \times_{B, h} T$
+是闭子概形，在 $T$ 上平坦、真且有限表示。特别地，当我们说
+$\Hilbfunctor_{X/B}$ 是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\medskip\noindent
+当然，Hilbert 函子只是 Quot 函子的特例。
+
+\begin{lemma}
+\label{quot-lemma-hilb-is-quot}
+在情形 \ref{quot-situation-hilb} 中，有
+$\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$.
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是 $B$ 上的概形。给定
+$Z \in \Hilbfunctor_{X/B}(T)$，考虑商
+$\mathcal{O}_{X_T} \to i_*\mathcal{O}_Z$，其中
+$i : Z \to X_T$ 是包含态射。注意，$i_*\mathcal{O}_Z$ 是拟凝聚的。
+由于 $Z \to T$ 和 $X_T \to T$ 都有限表示，我们看到 $i$ 有限表示
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-permanence}），
+$i_*\mathcal{O}_Z$ 是有限表示的 $\mathcal{O}_{X_T}$-模
+（《空间上的下降》引理
+\ref{spaces-descent-lemma-finite-finitely-presented-module}).
+由于 $Z \to T$ 真，我们看到 $i_*\mathcal{O}_Z$ 的支撑在 $T$ 上真
+（按《空间的导出范畴》第
+\ref{spaces-perfect-section-proper-over-base}).
+由于 $\mathcal{O}_Z$ 在 $T$ 上平坦且 $i$ 仿射，我们看到
+$i_*\mathcal{O}_Z$ 在 $T$ 上平坦（略去一个小论证）。因此
+$\mathcal{O}_{X_T} \to i_*\mathcal{O}_Z$
+是 $\Quotfunctor_{\mathcal{O}_X/X/B}(T)$ 的元素。
+
+\medskip\noindent
+反之，给定 $\Quotfunctor_{\mathcal{O}_X/X/B}(T)$ 的元素
+$\mathcal{O}_{X_T} \to \mathcal{Q}$，考虑与拟凝聚理想层
+$\mathcal{I} = \Ker(\mathcal{O}_{X_T} \to \mathcal{Q})$
+相对应的闭浸入 $i : Z \to X_T$
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-ideals}）。
+由 $Z$ 的构造，$\mathcal{Q} = i_*\mathcal{O}_Z$。于是反向阅读
+上面的论证可知，$Z$ 给出 $\Hilbfunctor_{X/B}(T)$ 的一个元素。
+例如，$\mathcal{I}$ 是有限型拟凝聚的
+（《站点上的模》引理
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation})
+因此 $i : Z \to X_T$ 有限表示
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation})
+从而 $Z \to T$ 有限表示
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-presentation}).
+由《空间的导出范畴》第
+\ref{spaces-perfect-section-proper-over-base} 节中所述，$Z \to T$ 为真。
+$Z \to T$ 的平坦性由
+$\mathcal{Q}$ 在 $T$ 上的平坦性推出。
+
+\medskip\noindent
+我们略去验证上述两个构造互为逆构造（这是直接的）。
+\end{proof}
+
+\noindent
+一致性检验：$\Hilbfunctor_{X/B}$ 的层在 $S$ 上的代数空间之间起着同样的作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-hilb-to-spaces}
+在情形 \ref{quot-situation-hilb} 中，设 $T$ 是 $S$ 上的代数空间。我们有
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \Hilbfunctor_{X/B}) =
+\left\{
+\begin{matrix}
+(h, Z)\text{，其中 }h : T \to B,\ Z \subset X_T \\
+\text{在 }T\text{ 上有限表示、平坦且真}
+\end{matrix}
+\right\}
+$$
+其中 $X_T = X \times_{B, h} T$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{quot-lemma-hilb-is-quot}，有
+$\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$。
+因此可应用引理 \ref{quot-lemma-extend-quot-to-spaces}，看出左边
+与如下满射的集合一一对应：$\mathcal{O}_{X_T} \to \mathcal{Q}$，
+它们有限表示、在 $T$ 上平坦且支撑在 $T$ 上真。完全按照
+引理 \ref{quot-lemma-hilb-is-quot} 的证明，我们看到这些商恰好对应于
+满足 $Z \to T$ 真、平坦且有限表示的闭浸入 $Z \to X_T$。
+\end{proof}
+
+\begin{proposition}
+\label{quot-proposition-hilb}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。
+若 $f$ 有限表示且分离，则 $\Hilbfunctor_{X/B}$ 是在 $B$ 上局部有限
+表示的代数空间。
+\end{proposition}
+
+\begin{proof}
+这立即由引理 \ref{quot-lemma-hilb-is-quot} 和命题
+\ref{quot-proposition-quot} 推出。
+\end{proof}
+
+
+
+
+
+
+\section{Picard 叠}
+\label{quot-section-picard-stack}
+
+\noindent
+代数空间态射的 Picard 叠见《叠的例子》第
+\ref{examples-stacks-section-picard-stack} 节。下面的引理将推出，在良好情形下，
+它是凝聚层叠的一个开子叠。
+
+\begin{lemma}
+\label{quot-lemma-picard-stack-open-in-coh}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射，且平坦、
+有限表示并且真。自然映射
+$$
+\Picardstack_{X/B} \longrightarrow \Cohstack_{X/B}
+$$
+可表示为开浸入。
+\end{lemma}
+
+\begin{proof}
+注意，该映射只是把《叠的例子》第
+\ref{examples-stacks-section-picard-stack} 节中的三元组 $(T, g, \mathcal{L})$
+送到同一个三元组 $(T, g, \mathcal{L})$，但现在把它视为情形
+\ref{quot-situation-coherent} 所述类型的三元组。之所以可行，是因为可逆的
+$\mathcal{O}_{X_T}$-模 $\mathcal{L}$ 显然是有限表示的
+$\mathcal{O}_{X_T}$-模；它在 $T$ 上平坦，因为 $X_T \to T$ 平坦；并且其支撑
+在 $T$ 上为真，因为 $X_T \to T$ 为真
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-base-change-flat}
+和 \ref{spaces-morphisms-lemma-base-change-proper}）。因此陈述是有意义的。
+
+\medskip\noindent
+说到这里，显然引理的内容如下：给定 $\Cohstack_{X/B}$ 的对象
+$(T, g, \mathcal{F})$，存在开子概形 $U \subset T$，使得对于概形态射
+$T' \to T$，下列条件等价：
+\begin{enumerate}
+\item[(a)] $T' \to T$ 经由 $U$ 分解；
+\item[(b)] $\mathcal{F}$ 沿 $X_{T'} \to X_T$ 拉回所得的
+$\mathcal{F}_{T'}$ 是可逆的。
+\end{enumerate}
+令 $W \subset |X_T|$ 为点 $x \in |X_T|$ 的集合，其中 $\mathcal{F}$
+在 $x$ 的某个邻域内局部自由。由《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-finite-free-open}.
+，$W$ 是开集，且 $W$ 的构造与任意基变换相容。显然，若 $T' \to T$
+满足 (b)，则 $|X_{T'}| \to |X_T|$ 的像落在 $W$ 中。因此，为构造 $U$，
+可以把 $T$ 替换为开集 $T \setminus f_T(|X_T| \setminus W)$。这样便处于
+$\mathcal{F}$ 有限局部自由的情形。在此情形有不交并分解
+$X_T = X_0 \amalg X_1 \amalg X_2 \amalg \ldots$
+为开且闭子空间，使得 $\mathcal{F}$ 在 $X_i$ 上的限制是秩为 $i$ 的局部自由模。
+于是显然
+$$
+U = T \setminus f_T(|X_0| \cup |X_2| \cup |X_3| \cup \ldots )
+$$
+可行。（注意，若假设 $T$ 拟紧，则 $X_T$ 拟紧，因而只有有限多个 $X_i$
+非空，所以 $U$ 确实是开集。）
+\end{proof}
+
+\begin{proposition}
+\label{quot-proposition-pic}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。若 $f$ 平坦、
+有限表示且真，则 $\Picardstack_{X/B}$ 是代数叠。
+\end{proposition}
+
+\begin{proof}
+立即由引理 \ref{quot-lemma-picard-stack-open-in-coh}、《代数叠》引理
+\ref{algebraic-lemma-representable-morphism-to-algebraic}
+以及下列定理之一推出：
+定理 \ref{quot-theorem-coherent-algebraic}
+或
+定理 \ref{quot-theorem-coherent-algebraic-general}
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Picard 函子}
+\label{quot-section-picard-functor}
+
+\noindent
+本节重新讨论《曲线的 Picard 概形》第 \ref{pic-section-picard-functor} 节中的
+Picard 函子。这里的讨论更一般，因为我们要研究代数空间态射的 Picard 函子，
+正如 Picard 叠一节中所做的，见第 \ref{quot-section-picard-stack} 节。
+
+\medskip\noindent
+设 $S$ 是概形，$X$ 是 $S$ 上的代数空间。$X$ 上的可逆层是
+$X_\etale$ 上的可逆 $\mathcal{O}_X$-模，见《站点上的模》定义
+\ref{sites-modules-definition-invertible-sheaf}。可逆模同构类所成的群记为
+$\Pic(X)$，见《站点上的模》定义 \ref{sites-modules-definition-pic}。
+给定 $S$ 上代数空间的态射 $f : X \to Y$，拉回给出群同态
+$\Pic(Y) \to \Pic(X)$。赋值 $X \leadsto \Pic(X)$ 是从概形范畴到
+阿贝尔群范畴的逆变函子。该函子不可表示，但这个构造的相对版本有时可表示。
+
+\begin{situation}
+\label{quot-situation-pic}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。定义
+$$
+\Picardfunctor_{X/B} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}
+$$
+为如下函子的 fppf 层化：该函子把 $B$ 上概形 $T$ 关联到群 $\Pic(X_T)$。
+\end{situation}
+
+\noindent
+在情形 \ref{quot-situation-pic} 中，有时把 $\Picardfunctor_{X/B}$ 看作函子
+$(\Sch/S)^{opp} \to \textit{Sets}$，它配有态射
+$\Picardfunctor_{X/B} \to B$。在这种观点下，定义 $\Picardfunctor_{X/B}$
+为如下函子的 fppf 层化：
+$$
+T/S \longmapsto \{(h, \mathcal{L}) \mid
+h : T \to B,\ \mathcal{L} \in \Pic(X \times_{B, h} T)\}
+$$
+特别地，当我们说 $\Picardfunctor_{X/B}$ 是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\medskip\noindent
+常用的一个备注是：若 $T$ 是 $B$ 上的概形，则
+$\Picardfunctor_{X_T/T}$ 是 $\Picardfunctor_{X/B}$ 到
+$(\Sch/T)_{fppf}$ 的限制。
+
+\begin{lemma}
+\label{quot-lemma-pic-over-pic}
+在情形 \ref{quot-situation-pic} 中，函子 $\Picardfunctor_{X/B}$ 是函子
+$T \mapsto \Ob(\Picardstack_{X/B, T})/\cong$ 的层化。
+\end{lemma}
+
+\begin{proof}
+由于 Picard 叠 $\Picardstack_{X/B}$ 在 $T$ 上的纤维范畴
+$\Picardstack_{X/B, T}$ 是 $X_T$ 上可逆层所成的范畴
+（见第 \ref{quot-section-picard-stack} 节和《叠的例子》第
+\ref{examples-stacks-section-picard-stack} 节），这由定义立即得到。
+\end{proof}
+
+\noindent
+要看出 $\Picardfunctor_{X/B}$ 在 $B$ 上概形 $T$ 处的取值并不容易。
+下面的引理有助于完成这一任务。
+
+\begin{lemma}
+\label{quot-lemma-flat-geometrically-connected-fibres}
+在情形 \ref{quot-situation-pic} 中，若对 $B$ 上所有概形 $T$，
+$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$ 都是同构，则
+$$
+0 \to \Pic(T) \to \Pic(X_T) \to \Picardfunctor_{X/B}(T)
+$$
+对所有 $T$ 都是正合列。
+\end{lemma}
+
+\begin{proof}
+可以把 $B$ 替换为 $T$、把 $X$ 替换为 $X_T$，并假设 $B = T$，
+以简化记号。设 $\mathcal{N}$ 是可逆的 $\mathcal{O}_B$-模。若
+$f^*\mathcal{N} \cong \mathcal{O}_X$，则由假设
+$f_*f^*\mathcal{N} \cong f_*\mathcal{O}_X \cong \mathcal{O}_B$。
+由于 $\mathcal{N}$ 局部平凡，典范映射
+$\mathcal{N} \to f_*f^*\mathcal{N}$ 在局部上是同构（因为由假设
+$\mathcal{O}_B \to f_*f^*\mathcal{O}_B$ 是同构）。因此
+$\mathcal{N} \to f_*f^*\mathcal{N} \to \mathcal{O}_B$ 是同构，
+从而 $\mathcal{N}$ 平凡。这证明第一支箭头是单射。
+
+\medskip\noindent
+设 $\mathcal{L}$ 是 $\Pic(X) \to \Picardfunctor_{X/B}(B)$ 的核中的
+可逆 $\mathcal{O}_X$-模。存在 fppf 覆盖 $\{B_i \to B\}$，使得
+$\mathcal{L}$ 拉回到 $X_{B_i}$ 上的平凡可逆层。取一个平凡化截面
+$s_i$。则 $\text{pr}_0^*s_i$ 和 $\text{pr}_1^*s_j$ 都是
+$X_{B_i \times_B B_j}$ 上 $\mathcal{L}$ 的平凡化截面，因而相差一个乘法单位元
+$$
+f_{ij} \in
+\Gamma(X_{S_i \times_B B_j}, \mathcal{O}_{X_{B_i \times_B B_j}}^*) =
+\Gamma(B_i \times_B B_j, \mathcal{O}_{B_i \times_N B_j}^*)
+$$
+（等式由我们关于结构层推前的假设得到）。显然，这些元素在
+$B_i \times_B B_j \times_B B_k$ 上满足上闭链条件，因而它们为 fppf 覆盖
+$\{B_i \to B\}$ 上的可逆层定义下降数据。由《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}，存在可逆
+$\mathcal{O}_B$-模 $\mathcal{N}$，它在各 $B_i$ 上带有平凡化，且相应下降数据
+为 $\{f_{ij}\}$。（该命题适用，是因为在证明开始处的替换后 $B$ 是概形。）
+由于从下降数据到模的函子是全忠实的，故 $f^*\mathcal{N} \cong \mathcal{L}$。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-flat-geometrically-connected-fibres-with-section}
+在情形 \ref{quot-situation-pic} 中，设 $\sigma : B \to X$ 是一个截面。
+假设对 $B$ 上所有 $T$，$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+都是同构。则
+$$
+0 \to \Pic(T) \to \Pic(X_T) \to \Picardfunctor_{X/B}(T) \to 0
+$$
+是分裂正合列，分裂由
+$\sigma_T^* : \Pic(X_T) \to \Pic(T)$ 给出。
+\end{lemma}
+
+\begin{proof}
+记 $K(T) = \Ker(\sigma_T^* : \Pic(X_T) \to \Pic(T))$。由于
+$\sigma$ 是 $f$ 的截面，我们看到 $\Pic(X_T)$ 是 $\Pic(T)$ 与 $K(T)$
+的直和。因此由引理 \ref{quot-lemma-flat-geometrically-connected-fibres}，
+对所有 $T$ 有 $K(T) \subset \Picardfunctor_{X/B}(T)$。此外，由构造显然
+$\Picardfunctor_{X/B}$ 是预层 $K$ 的层化。要完成证明，只需证明 $K$
+满足 fppf 覆盖的层条件；这将在下一段完成。
+
+\medskip\noindent
+设 $\{T_i \to T\}$ 是 fppf 覆盖。设 $\mathcal{L}_i$ 是 $K(T_i)$ 的元素，
+它们对所有 $i$ 和 $j$ 在 $K(T_i \times_T T_j)$ 中的像相同。取同构
+$\alpha_i : \mathcal{O}_{T_i} \to \sigma_{T_i}^*\mathcal{L}_i$
+对所有 $i$ 成立。再取同构
+$$
+\varphi_{ij} :
+\mathcal{L}_i|_{X_{T_i \times_T T_j}}
+\longrightarrow
+\mathcal{L}_j|_{X_{T_i \times_T T_j}}
+$$
+若映射
+$$
+\alpha_j|_{T_i \times_T T_j} \circ
+\sigma_{T_i \times_T T_j}^*\varphi_{ij} \circ
+\alpha_i|_{T_i \times_T T_j} :
+\mathcal{O}_{T_i \times_T T_j} \to \mathcal{O}_{T_i \times_T T_j}
+$$
+不等于乘以 $1$ 而是乘以某个 $u_{ij}$，则可将
+$\varphi_{ij}$ 乘以 $u_{ij}^{-1}$ 来修正。完成后，考虑自映射
+$$
+\varphi_{ki}|_{X_{T_i \times_T T_j \times_T T_k}} \circ
+\varphi_{jk}|_{X_{T_i \times_T T_j \times_T T_k}} \circ
+\varphi_{ij}|_{X_{T_i \times_T T_j \times_T T_k}}
+\quad\text{作用于}\quad
+\mathcal{L}_i|_{X_{T_i \times_T T_j \times_T T_k}}
+$$
+它等于乘以 $X_{T_i \times_T T_j \times_T T_k}$ 的结构层的某个截面
+$f_{ijk}$。由我们对 $\varphi_{ij}$ 的选择，该映射沿 $\sigma$ 的拉回
+等于乘以 $1$。由关于 $X$ 上函数的假设，$f_{ijk} = 1$。因此得到 fppf 覆盖
+$\{X_{T_i} \to X\}$ 的下降数据。由《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+存在可逆 $\mathcal{O}_{X_T}$-模 $\mathcal{L}$ 及同构
+$\alpha : \mathcal{O}_T \to \sigma_T^*\mathcal{L}$，其到 $X_{T_i}$ 的拉回恢复
+$(\mathcal{L}_i, \alpha_i)$（略去一个小细节）。因此 $\mathcal{L}$ 如愿定义了
+$K(T)$ 的一个元素。
+\end{proof}
+
+\noindent
+在情形 \ref{quot-situation-pic} 中，设 $\sigma : B \to X$ 是一个截面。
+记 $\Picardstack_{X/B, \sigma}$ 为如下定义的范畴：
+\begin{enumerate}
+\item 对象是四元组 $(T, h, \mathcal{L}, \alpha)$，其中
+$(T, h, \mathcal{L})$ 是 $T$ 上 $\Picardstack_{X/B}$ 的对象，且
+$\alpha : \mathcal{O}_T \to \sigma_T^*\mathcal{L}$ 是同构。
+\item 态射 $(g, \varphi) : (T, h, \mathcal{L}, \alpha)
+\to (T', h', \mathcal{L}', \alpha')$ 由满足 $h = h' \circ g$ 的概形态射
+$g : T \to T'$ 以及同构 $\varphi : (g')^*\mathcal{L}' \to \mathcal{L}$ 给出，
+并满足 $\sigma_T^*\varphi \circ g^*\alpha' = \alpha$。
+这里 $g' : X_{T'} \to X_T$ 是 $g$ 的基变换。
+\end{enumerate}
+有自然的忠实遗忘函子
+$$
+\Picardstack_{X/B, \sigma} \longrightarrow
+\Picardstack_{X/B}
+$$
+这样，我们把 $\Picardstack_{X/B, \sigma}$ 视为 $(\Sch/S)_{fppf}$ 上的范畴。
+
+\begin{lemma}
+\label{quot-lemma-pic-with-section-stack}
+在情形 \ref{quot-situation-pic} 中，设 $\sigma : B \to X$ 是一个截面。
+则上述定义的 $\Picardstack_{X/B, \sigma}$ 是 $(\Sch/S)_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+由《叠的例子》引理 \ref{examples-stacks-lemma-picard-stack}，我们已经知道
+$\Picardstack_{X/B}$ 是 $(\Sch/S)_{fppf}$ 上的群胚叠。下面证明
+$\Picardstack_{X/B, \sigma}$ 的对象下降。设 $\{T_i \to T\}$ 是 fppf 覆盖，
+设 $\xi_i = (T_i, h_i, \mathcal{L}_i, \alpha_i)$ 是位于 $T_i$ 上的
+$\Picardstack_{X/B, \sigma}$ 对象，并设
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+是下降数据。应用 $\Picardstack_{X/B}$ 的结果，可假设存在 $T$ 上
+$\Picardstack_{X/B}$ 的对象 $(T, h, \mathcal{L})$，其拉回对所有 $i$ 都是 $\xi_i$。
+于是得到
+$$
+\alpha_i : \mathcal{O}_{T_i} \to \sigma_{T_i}^*\mathcal{L}_i =
+(T_i \to T)^*\sigma_T^*\mathcal{L}
+$$
+由于映射 $\varphi_{ij}$ 与 $\alpha_i$ 相容，$\alpha_i$ 和 $\alpha_j$
+在 $T_i \times_T T_j$ 上的拉回相同。由拟凝聚层的下降
+（《下降》命题 \ref{descent-proposition-fpqc-descent-quasi-coherent}），
+可知 $\alpha_i$ 是单一映射
+$\alpha : \mathcal{O}_T \to \sigma_T^*\mathcal{L}$ 的限制，如所需。
+我们略去态射下降的证明。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-compare-pic-with-section}
+在情形 \ref{quot-situation-pic} 中，设 $\sigma : B \to X$ 是一个截面。
+态射 $\Picardstack_{X/B, \sigma} \to \Picardstack_{X/B}$
+可表示、满射且光滑。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是概形，且 $(\Sch/T)_{fppf} \to \Picardstack_{X/B}$
+由 $T$ 上 $\Picardstack_{X/B}$ 的对象 $\xi = (T, h, \mathcal{L})$ 给出。
+我们需要证明
+$$
+(\Sch/T)_{fppf} \times_{\xi, \Picardstack_{X/B}} \Picardstack_{X/B, \sigma}
+$$
+可由概形 $V$ 表示，且相应态射 $V \to T$ 满射且光滑。见《代数叠》各节
+\ref{algebraic-section-representable-morphism}、
+\ref{algebraic-section-morphisms-representable-by-algebraic-spaces} 和
+\ref{algebraic-section-representable-properties}。遗忘函子
+$\Picardstack_{X/B, \sigma} \to \Picardstack_{X/B}$ 在纤维范畴上忠实，且对
+$T'/T$，同构类的集合就是同构的集合
+$$
+\alpha' : \mathcal{O}_{T'} \longrightarrow (T' \to T)^*\sigma_T^*\mathcal{L}
+$$
+见《代数叠》引理
+\ref{algebraic-lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+由命题 \ref{quot-proposition-isom}，我们知道该函子可由 $T$ 上有限表示的仿射概形
+$U$ 表示（将命题应用于 $\text{id} : T \to T$、$\mathcal{O}_T$ 和
+$\sigma^*\mathcal{L}$）。在 $T$ 上作 Zariski 局部化，可假设
+$\sigma_T^*\mathcal{L}$ 同构于 $\mathcal{O}_T$，于是我们的函子由 $T$ 上的
+$\mathbf{G}_m \times T$ 表示。因此，$U \to T$ 在 $T$ 上 Zariski 局部看起来
+就是投影 $\mathbf{G}_m \times T \to T$，确实光滑且满射。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-flat-geometrically-connected-fibres-with-section-functor-stack}
+在情形 \ref{quot-situation-pic} 中，设 $\sigma : B \to X$ 是一个截面。
+若对 $B$ 上所有 $T$，$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+都是同构，则 $\Picardstack_{X/B, \sigma} \to (\Sch/S)_{fppf}$
+是集合胚上的纤维化范畴，其在 $T$ 上的同构类集合为
+$$
+\coprod\nolimits_{h : T \to B}
+\Ker(\sigma_T^* : \Pic(X \times_{B, h} T) \to \Pic(T))
+$$
+\end{lemma}
+
+\begin{proof}
+若 $\xi = (T, h, \mathcal{L}, \alpha)$ 是 $T$ 上
+$\Picardstack_{X/B, \sigma}$ 的对象，则 $\xi$ 的自同构 $\varphi$
+由 $X_T$ 结构层的可逆全局截面 $u$ 的乘法给出，并且满足
+$\sigma_T^*u = 1$。由假设 $\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+是同构，故 $u = 1$。因此 $\Picardstack_{X/B, \sigma}$
+是 $(\Sch/S)_{fppf}$ 上集合胚中的纤维化范畴。
+给定 $T$ 和 $h : T \to B$，二元组 $(\mathcal{L}, \alpha)$ 的同构类集合
+等于满足 $\sigma_T^*\mathcal{L} \cong \mathcal{O}_T$（同构未指定）的
+$\mathcal{L}$ 的同构类集合。这是显然的，因为 $\alpha$ 的任意两个选择
+相差一个 $T$ 上的全局单位元，而这与 $X_T$ 上的全局单位元相同。
+\end{proof}
+
+\begin{proposition}
+\label{quot-proposition-pic-functor}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。假设
+\begin{enumerate}
+\item $f$ 平坦、有限表示且真；
+\item 对 $B$ 上所有概形 $T$，$\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+都是同构。
+\end{enumerate}
+则 $\Picardfunctor_{X/B}$ 是代数空间。
+\end{proposition}
+
+\noindent
+在该命题的情形下，代数叠 $\Picardstack_{X/B}$ 是代数空间
+$\Picardfunctor_{X/B}$ 上的束叠。发展束叠的一般理论后，
+这给出命题的一个较短证明（但使用了更一般的理论）。
+
+\begin{proof}
+存在代数空间的满射、平坦、有限表示态射 $B' \to B$，使得基变换
+$X' = X \times_B B'$ 在 $B'$ 上有截面；具体地，可取 $B' = X$。
+注意 $\Picardfunctor_{X'/B'} = B' \times_B \Picardfunctor_{X/B}$。
+因此 $\Picardfunctor_{X'/B'} \to \Picardfunctor_{X/B}$ 可由代数空间表示，
+且满射、平坦并有限表示。于是，若能证明
+$\Picardfunctor_{X'/B'}$ 是代数空间，则由《自举》定理
+\ref{bootstrap-theorem-final-bootstrap}.
+可推出 $\Picardfunctor_{X/B}$ 是代数空间。这样就归约到下一段所述情形。
+
+\medskip\noindent
+除命题假设外，假设有截面 $\sigma : B \to X$。由命题
+\ref{quot-proposition-pic}，$\Picardstack_{X/B}$ 是代数叠。由引理
+\ref{quot-lemma-compare-pic-with-section} 和《代数叠》引理
+\ref{algebraic-lemma-representable-morphism-to-algebraic}
+可知 $\Picardstack_{X/B, \sigma}$ 是代数叠。由引理
+\ref{quot-lemma-flat-geometrically-connected-fibres-with-section-functor-stack}
+和《代数叠》引理
+\ref{algebraic-lemma-characterize-representable-by-space}
+可知 $T \mapsto \Ker(\sigma_T^* : \Pic(X_T) \to \Pic(T))$
+是代数空间。由引理 \ref{quot-lemma-flat-geometrically-connected-fibres-with-section}，
+该函子与 $\Picardfunctor_{X/B}$ 相同。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-diagonal-pic}
+采用命题 \ref{quot-proposition-pic-functor} 中的假设和记号。则对角态射
+$\Picardfunctor_{X/B} \to \Picardfunctor_{X/B} \times_B \Picardfunctor_{X/B}$
+可表示为浸入。换言之，$\Picardfunctor_{X/B} \to B$ 局部分离。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是 $B$ 上的概形，且 $s, t \in \Picardfunctor_{X/B}(T)$。
+我们要证明存在局部闭子概形 $Z \subset T$，使得 $s|_Z = t|_Z$，并且
+态射 $T' \to T$ 经由 $Z$ 分解，当且仅当 $s|_{T'} = t|_{T'}$。
+
+\medskip\noindent
+先将一般问题归约到 $s$ 和 $t$ 来自 $X_T$ 上可逆模的情形。建议读者跳过此步。
+取 fppf 覆盖 $\{T_i \to T\}_{i \in I}$，使得对所有 $i$，
+$s|_{T_i}$ 和 $t|_{T_i}$ 来自 $\Pic(X_{T_i})$。假设对所有对
+$s|_{T_i}, t|_{T_i}$ 都能证明结论，则得到具有所需泛性质的局部闭子概形
+$Z_i \subset T_i$。于是 $Z_i$ 和 $Z_j$ 在 $T_i \times_T T_j$ 中的概形论逆像
+相同。这给出 $Z_i/T_i$ 上的下降数据。由于 $Z_i \to T_i$ 局部拟有限，
+由《空间态射补充》引理
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+可得局部拟有限态射 $Z \to T$，其基变换恢复 $Z_i \to T_i$。再由《下降》引理
+\ref{descent-lemma-descending-fppf-property-immersion}，$Z \to T$ 是浸入。
+最后，由于 $\Picardfunctor_{X/B}$ 是 fppf 层，可知 $s|_Z = t|_Z$，且 $Z$
+满足上面所述的泛性质。
+
+\medskip\noindent
+假设 $s$ 和 $t$ 来自 $X_T$ 上的可逆模 $\mathcal{V}$、$\mathcal{W}$。置
+$\mathcal{L} = \mathcal{V} \otimes \mathcal{W}^{\otimes -1}$。
+我们要找 $T$ 的局部闭子概形 $Z$，使得 $T' \to T$ 经由 $Z$ 分解，当且仅当
+$\mathcal{L}_{X_{T'}}$ 是 $T'$ 上某个可逆层的拉回，见引理
+\ref{quot-lemma-flat-geometrically-connected-fibres}。因此 $Z$ 的存在性由
+《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-diagonal-picard-flat-proper}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{相对态射}
+\label{quot-section-relative-morphisms}
+
+\noindent
+我们继续讨论《可表示性判别》第
+\ref{criteria-section-relative-morphisms} 节。
+在该节中，从概形 $S$ 以及
+在 $S$ 上的代数空间态射 $Z \to B$ 和 $X \to B$ 出发，
+我们构造了函子
+$$
+\mathit{Mor}_B(Z, X) : (\Sch/B)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longmapsto \{f : Z_T \to X_T\}
+$$
+我们有时把 $\mathit{Mor}_B(Z, X)$
+看作带有态射 $\mathit{Mor}_B(Z, X) \to B$
+的函子 $(\Sch/S)^{opp} \to \textit{Sets}$。
+也就是说，如果 $T$ 是一个在 $S$ 上的概形，那么
+$\mathit{Mor}_B(Z, X)(T)$ 的一个元素是一个二元组 $(f, h)$，
+其中 $h$ 是态射 $h : T \to B$，
+而 $f : Z \times_{B, h} T \to X \times_{B, h} T$
+是 $T$ 上的代数空间态射。特别地，当我们说
+$\mathit{Mor}_B(Z, X)$ 是代数空间时，意思是相应的函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{quot-lemma-Mor-into-Hilb}
+设 $S$ 为概形。考虑
+在 $S$ 上的代数空间态射 $Z \to B$ 和 $X \to B$。
+若 $X \to B$ 是分离的，且 $Z \to B$ 是
+有限表示、平坦且真的，
+则存在函子之间的自然
+单射变换
+$$
+\mathit{Mor}_B(Z, X) \longrightarrow \Hilbfunctor_{Z \times_B X/B}
+$$
+它把态射 $f : Z_T \to X_T$ 映到其图。
+\end{lemma}
+
+\begin{proof}
+给定一个在 $B$ 上的概形 $T$，以及一个
+在 $T$ 上的态射 $f_T : Z_T \to X_T$，
+$f$ 的图是态射
+$\Gamma_f = (\text{id}, f) : Z_T \to Z_T \times_T X_T = (Z \times_B X)_T$。
+回忆一下，分离、平坦、真或有限表示
+都是代数空间态射的性质，并且在基变换下稳定（《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-separated},
+\ref{spaces-morphisms-lemma-base-change-flat},
+\ref{spaces-morphisms-lemma-base-change-proper}，以及
+\ref{spaces-morphisms-lemma-base-change-finite-presentation}).
+因此，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-semi-diagonal}，$\Gamma_f$ 是闭浸入。
+此外，$\Gamma_f(Z_T)$ 在 $T$ 上平坦、真且有限表示。
+所以 $\Gamma_f(Z_T)$ 给出
+$\Hilbfunctor_{Z \times_B X/B}(T)$ 的一个元素。
+要证明该变换是单射，只需证明
+具有相同图的两个态射相同。这是因为：
+若 $Y \subset (Z \times_B X)_T$ 是某个态射 $f$ 的图，
+那么可以取 $\text{pr}_1|_Y : Y \to Z_T$ 的逆，
+再与 $\text{pr}_2|_Y$ 复合，从而恢复 $f$。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-Mor-into-Hilb-open}
+假设和记号同引理 \ref{quot-lemma-Mor-into-Hilb}。
+变换
+$\mathit{Mor}_B(Z, X) \longrightarrow \Hilbfunctor_{Z \times_B X/B}$
+可由开浸入表示。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 是在 $B$ 上的概形，并设 $Y \subset (Z \times_B X)_T$
+是 $\Hilbfunctor_{Z \times_B X/B}(T)$ 的一个元素。则 $Y$
+是 $T$ 上某个态射 $Z_T \to X_T$ 的图，当且仅当
+$k = \text{pr}_1|_Y : Y \to Z_T$ 是同构。由《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-where-isomorphism}
+存在开子概形 $V \subset T$，使得对于任意概形态射 $T' \to T$，
+$k_{T'} : Y_{T'} \to Z_{T'}$ 是同构，当且仅当
+$T' \to T$ 经由 $V$ 分解。
+这就证明了引理。
+\end{proof}
+
+\begin{proposition}
+\label{quot-proposition-Mor}
+设 $S$ 为概形。设 $Z \to B$ 和 $X \to B$ 是在 $S$ 上的代数
+空间态射。假设 $X \to B$ 有限表示且分离，而
+$Z \to B$ 有限表示、平坦且真。则
+$\mathit{Mor}_B(Z, X)$ 是在 $B$ 上局部有限
+表示的代数空间。
+\end{proposition}
+
+\begin{proof}
+这是引理 \ref{quot-lemma-Mor-into-Hilb-open}
+和命题 \ref{quot-proposition-hilb} 的直接推论。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{代数空间叠}
+\label{quot-section-stack-of-spaces}
+
+\noindent
+本节延续《Stacks 示例》中以下各节开始的讨论：
+\ref{examples-stacks-section-stack-of-spaces},
+\ref{examples-stacks-section-stack-of-finite-type-spaces}，以及
+\ref{examples-stacks-section-stack-in-groupoids-of-finite-type-spaces}.
+在 $\mathbf{Z}$ 上工作时，其中的讨论表明我们有一个群胚叠
+$$
+p'_{ft} : \Spacesstack'_{ft} \longrightarrow \Sch_{fppf}
+$$
+它参数化有限型代数空间的（非平坦）族。
+更具体地说，$\Spacesstack'_{ft}$ 的一个对象
+\footnote{我们总是进行《Stacks 示例》引理
+\ref{examples-stacks-lemma-stack-ft-spaces} 中所述的替换。}
+是从代数空间 $X$ 到概形 $S$ 的有限型态射 $X \to S$；而态射
+$(X' \to S') \to (X \to S)$ 由一对 $(f, g)$ 给出，
+其中 $f : X' \to X$ 是代数空间态射，
+$g : S' \to S$ 是概形态射，
+并且它们嵌入交换图
+$$
+\xymatrix{
+X' \ar[d] \ar[r]_f & X \ar[d] \\
+S' \ar[r]^g & S
+}
+$$
+并诱导同构 $X' \to S' \times_S X$；换言之，该图
+在代数空间范畴中是笛卡尔的。
+函子 $p'_{ft}$ 将 $(X \to S)$ 送到 $S$，将
+$(f, g)$ 送到 $g$。我们定义一个充满子范畴
+$$
+\Spacesstack'_{fp, flat, proper} \subset
+\Spacesstack'_{ft}
+$$
+它由 $\Spacesstack'_{ft}$ 中的对象 $X \to S$ 组成，其中
+$X \to S$ 是有限表示、平坦且真的。
+记
+$$
+p'_{fp, flat, proper} :
+\Spacesstack'_{fp, flat, proper}
+\longrightarrow
+\Sch_{fppf}
+$$
+为函子 $p'_{ft}$ 在上述子范畴上的限制。
+我们先回顾上述参考文献中已经得到的结果，
+然后开始补充更多结果。
+
+\begin{lemma}
+\label{quot-lemma-spaces-fibred-in-groupoids}
+范畴 $\Spacesstack'_{ft}$ 在 $\Sch_{fppf}$ 上是群胚纤维化的。
+$\Spacesstack'_{fp, flat, proper}$ 亦然。
+\end{lemma}
+
+\begin{proof}
+对于 $\Spacesstack'_{ft}$，我们已在《Stacks 示例》第
+\ref{examples-stacks-section-stack-in-groupoids-of-finite-type-spaces}
+节看到这一点，这很容易推出另一种情形的结论。
+不过，我们也直接检验《范畴》定义
+\ref{categories-definition-fibred-groupoids} 的条件 (1) 和 (2)
+来证明它。
+
+\medskip\noindent
+条件 (1)。设 $X \to S$ 是 $\Spacesstack'_{ft}$ 的对象，
+且 $S' \to S$ 是概形态射。令
+$X' = S' \times_S X$。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-type}.
+注意 $X' \to S'$ 是有限型的，从而得到一个
+位于 $S' \to S$ 之上的态射 $(X' \to S') \to (X \to S)$。
+另一种情形同理，使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-presentation},
+\ref{spaces-morphisms-lemma-base-change-flat}，以及
+\ref{spaces-morphisms-lemma-base-change-proper}.
+
+\medskip\noindent
+条件 (2)。考虑 $\Spacesstack'_{ft}$ 中的态射
+$(f, g) : (X' \to S') \to (X \to S)$ 和
+$(a, b) : (Y \to T) \to (X \to S)$。
+给定满足 $g \circ h = b$ 的态射 $h : T \to S'$，
+我们需证明存在唯一的
+$\Spacesstack'_{ft}$ 中的态射
+$(k, h) : (Y \to T) \to (X' \to S')$，使得
+$(f, g) \circ (k, h) = (a, b)$。
+这由 $X' = S' \times_S X$ 立即得到。
+因此，满足条件 (1) 的
+$\Spacesstack'_{ft}$ 的任意充满子范畴同样成立。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-spaces-diagonal}
+对角态射
+$$
+\Delta : \Spacesstack'_{fp, flat, proper} \longrightarrow
+\Spacesstack'_{fp, flat, proper} \times \Spacesstack'_{fp, flat, proper}
+$$
+可由代数空间表示。
+\end{lemma}
+
+\begin{proof}
+我们将使用《代数叠》引理
+\ref{algebraic-lemma-representable-diagonal} 的判据 (2)。
+设 $S$ 为概形，且 $X$、$Y$ 是在 $S$ 上有限表示、
+在 $S$ 上平坦且在 $S$ 上真的代数空间。
+我们需要证明函子
+$$
+\mathit{Isom}_S(X, Y) : (\Sch/S)_{fppf} \longrightarrow \textit{Sets}, \quad
+T \longmapsto \{f : X_T \to Y_T \text{ isomorphism}\}
+$$
+是代数空间。一个初等论证表明
+$\mathit{Isom}_S(X, Y)$ 位于纤维积中：
+$$
+\xymatrix{
+\mathit{Isom}_S(X, Y) \ar[r] \ar[d] & S \ar[d]_{(\text{id}, \text{id})} \\
+\mathit{Mor}_S(X, Y) \times \mathit{Mor}_S(Y, X) \ar[r] &
+\mathit{Mor}_S(X, X) \times \mathit{Mor}_S(Y, Y)
+}
+$$
+下方的态射把 $(\varphi, \psi)$ 送到
+$(\psi \circ \varphi, \varphi \circ \psi)$。
+由命题 \ref{quot-proposition-Mor}，下行的函子
+是 $S$ 上的代数空间。
+于是，由于 $S$ 上代数空间的范畴具有纤维积，
+即可得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-spaces-stack}
+范畴 $\Spacesstack'_{ft}$ 是
+$\Sch_{fppf}$ 上的群胚叠。对
+$\Spacesstack'_{fp, flat, proper}$ 也同样如此。
+\end{lemma}
+
+\begin{proof}
+该引理成立的原因可概括为：代数空间的任意 fppf 下降数据
+都是有效的，见《Bootstrap》第
+\ref{bootstrap-section-applications}.
+更准确地说，$\Spacesstack'_{ft}$ 的情形由《Stacks 示例》引理
+\ref{examples-stacks-lemma-stack-of-finite-type-spaces}
+推出，正如我们在《Stacks 示例》第
+\ref{examples-stacks-section-stack-in-groupoids-of-finite-type-spaces}.
+不过我们还是回顾证明。我们需要检验《Stacks》定义
+(1)、(2) 和 (3) 的条件
+\ref{stacks-definition-stack-in-groupoids}.
+
+\medskip\noindent
+性质 (1) 已在引理 \ref{quot-lemma-spaces-fibred-in-groupoids} 中看到。
+
+\medskip\noindent
+在 $\Spacesstack'_{fp, flat, proper}$ 的情形，性质 (2) 由
+引理 \ref{quot-lemma-spaces-diagonal} 得到。
+在 $\Spacesstack'_{ft}$ 的情形，它由《Stacks 示例》引理
+\ref{examples-stacks-lemma-pre-stack-of-spaces}
+得到（这确实是“正确”的参考文献）。
+
+\medskip\noindent
+对 $\Spacesstack'_{ft}$，按如下方式检验条件 (3)。设给定
+\begin{enumerate}
+\item 在 $\Sch_{fppf}$ 中的 fppf 覆盖 $\{U_i \to U\}_{i \in I}$，
+\item 对每个 $i \in I$，一个在 $U_i$ 上有限型的代数空间 $X_i$，以及
+\item 对每个 $i, j \in I$，一个代数空间同构
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$，
+它在 $U_i \times_U U_j$ 上，并且在
+$U_i \times_U U_j \times_U U_k$ 上满足余循环条件。
+\end{enumerate}
+我们必须证明存在一个在 $U$ 上有限型的代数空间 $X$，以及
+在 $U_i$ 上的同构 $X_{U_i} \cong X_i$，它们恢复
+同构 $\varphi_{ij}$。这由
+《Bootstrap》引理 \ref{bootstrap-lemma-descend-algebraic-space} 的第 (2) 部分得到。
+由《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-finite-type}
+可知 $X \to U$ 是有限型的。在
+$\Spacesstack'_{fp, flat, proper}$ 的情形，还要使用
+《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-finite-presentation},
+\ref{spaces-descent-lemma-descending-property-flat}，以及
+\ref{spaces-descent-lemma-descending-property-proper}
+在最后一步得到结论。
+\end{proof}
+
+\noindent
+核对：叠 $\Spacesstack'_{ft}$ 和
+$\Spacesstack'_{fp, flat, proper}$
+在代数空间中发挥相同作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-spaces-to-spaces}
+设 $T$ 是在 $\mathbf{Z}$ 上的代数空间。令 $\mathcal{S}_T$
+表示相应的代数叠（《代数叠》第
+\ref{algebraic-section-split},
+\ref{algebraic-section-representable-by-algebraic-spaces}，以及
+\ref{algebraic-section-stacks-spaces}).
+我们有范畴等价
+$$
+\left\{
+\begin{matrix}
+\text{代数空间态射 }\\
+X \to T\text{，且为有限型}
+\end{matrix}
+\right\}
+\longrightarrow
+\Mor_{\textit{Cat}/\Sch_{fppf}}(\mathcal{S}_T, \Spacesstack'_{ft})
+$$
+以及范畴等价
+$$
+\left\{
+\begin{matrix}
+\text{代数空间态射 }X \to T\\
+\text{，且有限表示、平坦且真}
+\end{matrix}
+\right\}
+\longrightarrow
+\Mor_{\textit{Cat}/\Sch_{fppf}}(\mathcal{S}_T,
+\Spacesstack'_{fp, flat, proper})
+$$
+\end{lemma}
+
+\begin{proof}
+我们将由该引理对概形成立这一事实（本质上来自叠的构造），
+以及代数空间在代数空间上的 fppf 下降数据有效这一事实推出它。
+我们强烈建议读者跳过本证明。
+
+\medskip\noindent
+任一箭头从左到右的构造都是直接的：给定有限型 $X \to T$，函子
+$\mathcal{S}_T \to  \Spacesstack'_{ft}$ 将 $U/T$ 送到
+基变换 $X_U \to U$。下面解释如何构造拟逆。
+
+\medskip\noindent
+若 $T$ 是概形，则由 $2$-Yoneda 引理存在拟逆，见
+《范畴》引理 \ref{categories-lemma-yoneda-2category}。
+设 $p : U \to T$ 是满射 \'etale 态射，其中 $U$ 是概形。
+令 $R = U \times_T U$，投影为 $s, t : R \to U$。
+注意我们得到态射
+$$
+\xymatrix{
+\mathcal{S}_{U \times_T U \times_T U} \ar@<2ex>[r] \ar[r] \ar@<-2ex>[r] &
+\mathcal{S}_R \ar@<1ex>[r] \ar@<-1ex>[r] &
+\mathcal{S}_U \ar[r] &
+\mathcal{S}_T
+}
+$$
+并且它们（严格地）满足各种相容性。
+
+\medskip\noindent
+设 $G : \mathcal{S}_T \to \Spacesstack'_{ft}$ 是在 $\Sch_{fppf}$ 上的函子。
+通过上面显示的映射，$G$ 在 $\mathcal{S}_U$ 上的限制
+由 $2$-Yoneda 引理对应于代数空间的有限型态射 $X_U \to U$。
+由于 $p \circ s = p \circ t$，可知
+$R \times_{s, U} X_U$ 和 $R \times_{t, U} X_U$ 都对应于
+$G$ 在 $\mathcal{S}_R$ 上的限制。因此得到典范同构
+$\varphi : X_U \times_{U, t} R \to R \times_{s, U} X_U$（在 $R$ 上）。
+由上图的各种相容性，该同构满足余循环条件。
+于是得到下降数据；由《Bootstrap》引理
+\ref{bootstrap-lemma-descend-algebraic-space} 的第 (2) 部分。
+换言之，我们得到右侧范畴中的对象 $X \to T$。
+我们略去验证构造 $G \leadsto X$
+是函子的，且它是另一构造的拟逆。
+在 $\Spacesstack'_{fp, flat, proper}$ 的情形，还要使用
+《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-finite-presentation},
+\ref{spaces-descent-lemma-descending-property-flat}，以及
+\ref{spaces-descent-lemma-descending-property-proper}
+在最后一步得到 $X \to T$ 有限表示、平坦且真。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-spaces-base-change}
+设 $B$ 是在 $\Spec(\mathbf{Z})$ 上的代数空间。
+令 $B\textit{-Spaces}'_{ft}$ 为由以下二元组组成的范畴：
+$(X \to S, h : S \to B)$，其中 $X \to S$ 是
+$\Spacesstack'_{ft}$ 的对象，且 $h : S \to B$ 是态射。
+$B\textit{-Spaces}'_{ft}$ 中的态射 $(X' \to S', h') \to (X \to S, h)$
+是 $\Spacesstack'_{ft}$ 中满足 $h \circ g = h'$ 的态射 $(f, g)$。
+在此情形，图
+$$
+\xymatrix{
+B\textit{-Spaces}'_{ft} \ar[r] \ar[d] & \Spacesstack'_{ft} \ar[d] \\
+(\Sch/B)_{fppf} \ar[r] & \Sch_{fppf}
+}
+$$
+是 $2$-纤维积方图。这个平凡的备注有时可用于从
+绝对情形 $\Spacesstack'_{ft}$ 推出
+给定基代数空间上的族的情形。
+当然，对 $B\textit{-Spaces}'_{fp, flat, proper}$
+也有类似构造。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-spaces-limits}
+叠
+$p'_{fp, flat, proper} :
+\Spacesstack'_{fp, flat, proper} \to \Sch_{fppf}$ 是保极限的
+（《Artin 公理》定义 \ref{artin-definition-limit-preserving}）。
+\end{lemma}
+
+\begin{proof}
+设 $T = \lim T_i$ 是仿射概形的有向逆系统的极限。
+由《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation}
+在 $T$ 上有限表示的代数空间范畴是
+在 $T_i$ 上有限表示的代数空间范畴的余极限。
+最后使用平坦性和真性沿极限下降这一事实，见
+《空间的极限》引理
+\ref{spaces-limits-lemma-descend-flat} 以及
+\ref{spaces-limits-lemma-eventually-proper}.
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-spaces-RS-star}
+设
+$$
+\xymatrix{
+T \ar[r] \ar[d] & T' \ar[d] \\
+S \ar[r] & S'
+}
+$$
+是概形范畴中的推出，其中
+$T \to T'$ 是加厚，且 $T \to S$ 是仿射，见
+《空间态射进阶》引理 \ref{more-morphisms-lemma-pushout-along-thickening}。
+则纤维范畴上的函子
+$$
+\begin{matrix}
+\Spacesstack'_{fp, flat, proper, S'} \\
+\downarrow \\
+\Spacesstack'_{fp, flat, proper, S}
+\times_{\Spacesstack'_{fp, flat, proper, T}}
+\Spacesstack'_{fp, flat, proper, T'}
+\end{matrix}
+$$
+是等价。
+\end{lemma}
+
+\begin{proof}
+若从条件列表中删去“真”，并将“有限表示”替换为
+“局部有限表示”，则该函子是等价；见《空间的推出》引理
+\ref{spaces-pushouts-lemma-equivalence-categories-spaces-pushout-flat}.
+因此只需证明：给定代数空间到 $S'$ 的态射
+$X' \to S'$，它平坦且局部有限表示，则
+$X' \to S'$ 为真，当且仅当 $S \times_{S'} X' \to S$
+和 $T' \times_{S'} X' \to T'$ 都为真。
+一个方向由真性在基变换下保持这一事实得到
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-base-change-proper}）；
+另一个方向由 $S \times_{S'} X' \to S$ 为真推出
+$X' \to S'$ 为真这一事实得到，依据《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-thicken-property-morphisms-cartesian}.
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-spaces-tangent-space}
+设 $k$ 为域，且 $x = (X \to \Spec(k))$ 是
+$\mathcal{X} = \Spacesstack'_{fp, flat, proper}$ 在 $\Spec(k)$ 上的对象。
+\begin{enumerate}
+\item 若 $k$ 在 $\mathbf{Z}$ 上有限型，则向量空间
+$T\mathcal{F}_{\mathcal{X}, k, x}$ 和
+$\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x})$
+（见《Artin 公理》第 \ref{artin-section-tangent-spaces} 节）
+是有限维的，并且
+\item 一般而言，向量空间 $T_x(k)$ 和 $\text{Inf}_x(k)$
+（见《Artin 公理》第 \ref{artin-section-inf} 节）
+是有限维的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+《Artin 公理》第 \ref{artin-section-tangent-spaces} 节的讨论
+只适用于在基概形 $\Spec(\mathbf{Z})$ 上有限型的域。
+由引理 \ref{quot-lemma-spaces-RS-star}，我们的叠满足 (RS*)，
+因此可以应用
+《Artin 公理》引理 \ref{artin-lemma-properties-lift-RS-star}
+得到 (2) 中提到的向量空间 $T_x(k)$ 和 $\text{Inf}_x(k)$。
+此外，在有限型情形，这些空间与 (1) 中提到的空间相同，
+依据《Artin 公理》注记 \ref{artin-remark-compare-deformation-spaces}。
+处理完这些后，我们开始证明。
+注意一阶加厚
+$\Spec(k) \to \Spec(k[\epsilon]) = \Spec(k[k])$
+的余法模为 $k$。因此《形变理论》引理
+\ref{defos-lemma-deform-spaces} 中描述 $X$ 的无穷小形变
+和 $X$ 的无穷小自同构的公式变为
+$$
+T_x(k) = \Ext^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)
+\quad\text{且}\quad
+\text{Inf}_x(k) = \Ext^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)
+$$
+由《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-netherlander-fp}
+以及 $X$ 是 Noetherian 这一事实，可知
+$\NL_{X/k}$ 的相干上同调层除
+次数 $0$ 和 $-1$ 外均为零。
+由《空间的导出范畴》引理 \ref{spaces-perfect-lemma-ext-finite}，
+上述 $\Ext$-群是有限维的 $k$-向量空间，
+证明完成。
+\end{proof}
+
+\noindent
+请注意，正如下一个引理所证明的，我们的叠不满足形式有效性，
+所以形式光滑性的开放性有些奇怪，见《Examples》一节
+\ref{examples-section-proper-spaces-not-algebraic}。
+稍后我们将把形式光滑性的开放性应用于
+满足形式有效性的 $\Spacesstack'_{fp, flat, proper}$ 的适当子叠，
+从而证明这些叠是代数的。
+
+\begin{lemma}
+\label{quot-lemma-spaces-defo-thy}
+群胚叠 $\mathcal{X} = \Spacesstack'_{fp, flat, proper}$
+在 $\Spec(\mathbf{Z})$ 上满足形式光滑性的开放性。
+同样地，基变换后（注记 \ref{quot-remark-spaces-base-change}），
+形式光滑性的开放性对任意 Noether 基概形 $S$ 成立。
+\end{lemma}
+
+\begin{proof}
+关于这一事实的“通常”证明，请参见本证明后的注记。
+这里我们使用《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality} 来证明。
+我们已经看到 $\mathcal{X}$ 的对角可由代数空间表示，
+满足 (RS*) 且保极限，见引理
+\ref{quot-lemma-spaces-diagonal}、\ref{quot-lemma-spaces-RS-star} 以及
+\ref{quot-lemma-spaces-limits}。
+因此只需证明 $\mathcal{X}$ 满足《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality} 中表述的强
+形式有效性。
+
+\medskip\noindent
+设 $(R_n)$ 是环的逆系统，满足对所有 $n \geq m$，
+$R_n \to R_m$ 是核平方为零的满射。设
+$X_n \to \Spec(R_n)$ 是有限表示、平坦、真的态射，
+其中 $X_n$ 是代数空间；并设 $X_{n + 1} \to X_n$ 是在
+$\Spec(R_{n + 1})$ 上的态射，诱导同构
+$X_n = X_{n + 1} \times_{\Spec(R_{n + 1})} \Spec(R_n)$。
+我们需要找到一个平坦、真且有限表示的态射
+$X \to \Spec(\lim R_n)$，其源是代数空间，
+并且对所有 $n$，$X_n$ 都是 $X$ 的基变换。
+
+\medskip\noindent
+令 $I_n = \Ker(R_n \to R_1)$。可将
+$(X_1 \subset X_n) \to (\Spec(R_1) \subset \Spec(R_n))$
+看作一阶加厚的态射。（继续之前，请阅读《空间态射进阶》
+关于代数空间加厚的部分，即第
+\ref{spaces-more-morphisms-section-thickenings} 节。）$X_n$ 的结构层是扩张
+$$
+0 \to \mathcal{O}_{X_1} \otimes_{R_1} I_n \to
+\mathcal{O}_{X_n} \to \mathcal{O}_{X_1} \to 0
+$$
+它位于 $0 \to I_n \to R_n \to R_1$ 之上，见
+《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-deform}.
+考虑扩张
+$$
+0 \to \lim \mathcal{O}_{X_1} \otimes_{R_1} I_n \to
+\lim \mathcal{O}_{X_n} \to \mathcal{O}_{X_1} \to 0
+$$
+它位于 $0 \to \lim I_n \to \lim R_n \to R_1 \to 0$ 之上。
+上述序列是正合的，因为由《空间的导出范畴》引理
+可知核系统的 $R^1\lim$ 为零
+\ref{spaces-perfect-lemma-Rlim-quasi-coherent}.
+注意映射
+$$
+\mathcal{O}_{X_1} \otimes_{R_1} \lim I_n \longrightarrow
+\lim \mathcal{O}_{X_1} \otimes_{R_1} I_n
+$$
+在应用函子 $DQ_X$ 后诱导同构，见《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-pullback-and-limits}.
+因此由《形变理论》引理
+\ref{defos-lemma-thickening-over-thickening-space-quasi-coherent} 的范畴等价，得到唯一扩张
+$$
+0 \to \mathcal{O}_{X_1} \otimes_{R_1} \lim I_n \to
+\mathcal{O}' \to \mathcal{O}_{X_1} \to 0
+$$
+在 $0 \to \lim I_n \to \lim R_n \to R_1 \to 0$ 之上。
+层 $\mathcal{O}'$ 由
+$\Spec(R_1) \subset \Spec(\lim R_n)$ 上代数空间
+$X_1 \subset X$ 的一阶加厚决定，依据《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-first-order-thickening}。
+注意，由此前使用的《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-deform}，
+$X \to \Spec(\lim R_n)$ 是平坦的。
+由《空间态射进阶》引理
+\ref{spaces-more-morphisms-lemma-deform-property}，可知
+$X \to \Spec(\lim R_n)$ 是真且有限表示的。
+证明完成。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-spaces-defo-thy}
+引理 \ref{quot-lemma-spaces-defo-thy} 也可用以下任一方法证明：
+《Artin 公理》引理 \ref{artin-lemma-dual-openness}
+（如同引理 \ref{quot-lemma-coherent-defo-thy} 的第一个证明），
+或使用《Artin 公理》引理 \ref{artin-lemma-get-openness-obstruction-theory}
+中的障碍理论（如同引理 \ref{quot-lemma-coherent-defo-thy} 的第二个证明）。
+两种方法都使用《余切复形》第 \ref{cotangent-section-deformations-ringed-topoi} 节中
+发展的形变与障碍理论，将形变和障碍所需的性质
+转化为可应用《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-compute-ext} 的 $\Ext$-群。
+第二种方法（使用障碍理论，因而使用完整余切复形）
+或许是大多数参考文献采用的“标准”方法。
+\end{remark}
+
+
+
+
+
+\section{极化真概形叠}
+\label{quot-section-polarized}
+
+\noindent
+研究极化真概形的叠，只需在 $\mathbf{Z}$ 上工作，
+因为随后可以将其拉回到任意所需的概形或代数空间
+（见注记 \ref{quot-remark-polarized-base-change}）。
+
+\begin{situation}
+\label{quot-situation-polarized}
+我们如下定义范畴 $\Polarizedstack$。对象是二元组
+$(X \to S, \mathcal{L})$，其中
+\begin{enumerate}
+\item $X \to S$ 是真、平坦且
+有限表示的概形态射，并且
+\item $\mathcal{L}$ 是可逆的 $\mathcal{O}_X$-模，
+在 $X/S$ 上相对充足，
+（《态射》定义 \ref{morphisms-definition-relatively-ample}）。
+\end{enumerate}
+对象之间的态射 $(X' \to S', \mathcal{L}') \to (X \to S, \mathcal{L})$
+由三元组 $(f, g, \varphi)$ 给出，其中 $f : X' \to X$ 和 $g : S' \to S$
+是嵌入交换图的概形态射
+$$
+\xymatrix{
+X' \ar[d] \ar[r]_f & X \ar[d] \\
+S' \ar[r]^g & S
+}
+$$
+并诱导同构 $X' \to S' \times_S X$；换言之，该图是笛卡尔的；
+且 $\varphi : f^*\mathcal{L} \to \mathcal{L}'$ 是同构。
+复合按显然方式定义（见
+《叠的例子》第
+\ref{examples-stacks-section-stack-of-spaces} 节以及
+第 \ref{examples-stacks-section-stack-of-quasi-coherent-sheaves} 节）。
+遗忘函子
+$$
+p : \Polarizedstack \longrightarrow \Sch_{fppf},\quad
+(X \to S, \mathcal{L}) \longmapsto S
+$$
+就是我们把 $\Polarizedstack$ 看作 $\Sch_{fppf}$ 上范畴的方式
+（记号见第 \ref{quot-section-conventions} 节）。
+\end{situation}
+
+\noindent
+在上一节中，我们已经对叠
+$\Spacesstack'_{fp, flat, proper}$（由有限表示、平坦、真的
+代数空间组成）做了大量工作。为使用这些材料，考虑遗忘函子
+\begin{equation}
+\label{quot-equation-over-proper-spaces}
+\Polarizedstack \longrightarrow
+\Spacesstack'_{fp, flat, proper},\quad
+(X \to S, \mathcal{L}) \longmapsto (X \to S)
+\end{equation}
+下面将使用这个函子作为有用工具。
+注意，若 $(X \to S)$ 属于
+（\ref{quot-equation-over-proper-spaces}）的本质像，则
+$X$ 和 $S$ 是概形。
+
+\begin{lemma}
+\label{quot-lemma-polarized-fibred-in-groupoids}
+范畴 $\Polarizedstack$ 在
+$\Spacesstack'_{fp, flat, proper}$ 上是群胚纤维化的。
+范畴 $\Polarizedstack$ 在 $\Sch_{fppf}$ 上是群胚纤维化的。
+\end{lemma}
+
+\begin{proof}
+我们检验《范畴》定义 \ref{categories-definition-fibred-groupoids} 的条件 (1) 和 (2)。
+
+\medskip\noindent
+条件 (1)。设 $(X \to S, \mathcal{L})$ 是
+$\Polarizedstack$ 的对象，且 $(X' \to S') \to (X \to S)$
+是 $\Spacesstack'_{fp, flat, proper}$ 中的态射。令
+$\mathcal{L}'$ 为 $\mathcal{L}$ 到 $X'$ 的拉回。
+注意 $X, S, S'$ 是概形，因此 $X'$ 也是概形
+（概形的纤维积）。由此
+由《态射》引理 \ref{morphisms-lemma-ample-base-change}，
+$\mathcal{L}'$ 在 $X'/S'$ 上充足。
+这样得到态射
+$(X' \to S', \mathcal{L}') \to (X \to S, \mathcal{L})$，
+它位于 $(X' \to S') \to (X \to S)$ 之上。
+
+\medskip\noindent
+条件 (2)。考虑 $\Polarizedstack$ 中的态射
+$(f, g, \varphi) : (X' \to S', \mathcal{L}') \to (X \to S, \mathcal{L})$ 和
+$(a, b, \psi) : (Y \to T, \mathcal{N}) \to (X \to S, \mathcal{L})$。
+给定 $\Spacesstack'_{fp, flat, proper}$ 中的态射
+$(k, h) : (Y \to T) \to (X' \to S')$，且
+$(f, g) \circ (k, h) = (a, b)$，我们需证明存在唯一态射
+$(k, h, \chi) : (Y \to T, \mathcal{N}) \to (X' \to S', \mathcal{L}')$
+属于 $\Polarizedstack$，并满足
+$(f, g, \varphi) \circ (k, h, \chi) = (a, b, \psi)$。
+只需取
+$$
+\chi = \psi \circ (k^*\varphi)^{-1}
+$$
+这证明了条件 (2)。定义纤维化范畴的函子的复合
+定义纤维化范畴，见《范畴》引理
+\ref{categories-lemma-fibred-over-fibred}。
+因此 $\Polarizedstack$ 在 $\Sch_{fppf}$ 上是群胚纤维化的
+（严格地说，还应检验纤维范畴是群胚，并应用
+《范畴》引理 \ref{categories-lemma-fibred-groupoids}）。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-stack}
+范畴 $\Polarizedstack$ 是
+$\Spacesstack'_{fp, flat, proper}$ 上的群胚叠（赋予继承拓扑，
+见《Stacks》定义 \ref{stacks-definition-topology-inherited}）。
+范畴 $\Polarizedstack$ 是 $\Sch_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+我们通过检验《Stacks》定义
+\ref{stacks-definition-stack-in-groupoids} 的条件 (1)、(2)、(3)，
+证明 $\Polarizedstack$ 是
+$\Spacesstack'_{fp, flat, proper}$ 上的群胚叠。
+条件 (1) 已在引理
+\ref{quot-lemma-polarized-fibred-in-groupoids} 中看到。
+
+\medskip\noindent
+$\Spacesstack'_{fp, flat, proper}$ 的覆盖如下产生：设 $X \to S$ 是
+$\Spacesstack'_{fp, flat, proper}$ 的对象，并设
+$\{S_i \to S\}_{i \in I}$ 是 $\Sch_{fppf}$ 的覆盖。
+令 $X_i = S_i \times_S X$。则
+$\{(X_i \to S_i) \to (X \to S)\}_{i \in I}$ 是
+$\Spacesstack'_{fp, flat, proper}$ 的覆盖，并且
+$\Spacesstack'_{fp, flat, proper}$ 的每个覆盖都同构于其中之一。
+令 $S_{ij} = S_i \times_S S_j$，并令
+$X_{ij} = S_{ij} \times_S X$，于是
+$(X_{ij} \to S_{ij}) = (X_i \to S_i) \times_{(X \to S)} (X_j \to S_j)$。
+接下来，设 $\mathcal{L}, \mathcal{N}$
+是 $X/S$ 上的充足可逆层，使得
+$(X \to S, \mathcal{L})$ 和 $(X \to S, \mathcal{N})$
+是位于对象 $(X \to S)$ 之上的 $\Polarizedstack$ 的两个对象。
+为检验态射的下降，假设给定态射
+$(\text{id}, \text{id}, \varphi_i)$，从
+$(X_i \to S_i, \mathcal{L}|_{X_i})$ 到
+$(X_i \to S_i, \mathcal{N}|_{X_i})$，
+其到态射
+$(X_{ij} \to S_{ij}, \mathcal{L}|_{X_{ij}})$ 到
+$(X_{ij} \to S_{ij}, \mathcal{N}|_{X_{ij}})$ 的基变换
+彼此一致。则
+$\varphi_i : \mathcal{L}|_{X_i} \to \mathcal{N}|_{X_i}$
+是 $X_i$ 上可逆模的同构，并且
+$\varphi_i$ 与 $\varphi_j$ 在 $X_{ij}$ 上限制为相同同构。
+由拟凝聚层的下降（《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent})
+得到唯一同构 $\varphi : \mathcal{L} \to \mathcal{N}$，
+其在 $X_i$ 上的限制恢复 $\varphi_i$。
+
+\medskip\noindent
+对象的下降证明完全相同。
+具体地，设
+$\{(X_i \to S_i) \to (X \to S)\}_{i \in I}$
+是如上的 $\Spacesstack'_{fp, flat, proper}$ 覆盖。
+设有对象 $(X_i \to S_i, \mathcal{L}_i)$，
+它们是位于 $(X_i \to S_i)$ 之上的 $\Polarizedstack$ 对象，
+并有下降数据
+$$
+(\text{id}, \text{id}, \varphi_{ij}) :
+(X_{ij} \to S_{ij}, \mathcal{L}_i|_{X_{ij}})
+\to
+(X_{ij} \to S_{ij}, \mathcal{L}_j|_{X_{ij}})
+$$
+对每个指标三元组，它在
+$(X_{ijk} \to S_{ijk})$ 上满足显然的余循环条件。
+于是由
+拟凝聚层的下降（《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent})
+得到唯一可逆 $\mathcal{O}_X$-模
+$\mathcal{L}$ 以及同构 $\mathcal{L}|_{X_i} \to \mathcal{L}_i$，
+恢复下降数据 $\varphi_{ij}$。
+要证明 $(X \to S, \mathcal{L})$ 是
+$\Polarizedstack$ 的对象，需证明
+$\mathcal{L}$ 是充足的。这由
+《空间上的下降》引理 \ref{spaces-descent-lemma-descending-property-ample} 得到。
+
+\medskip\noindent
+由于我们已经看到 $\Spacesstack'_{fp, flat, proper}$
+是 $\Sch_{fppf}$ 上的群胚叠（引理 \ref{quot-lemma-spaces-stack}），
+形式上即可推出 $\Polarizedstack$ 是 $\Sch_{fppf}$ 上的群胚叠。
+见《Stacks》引理 \ref{stacks-lemma-stack-over-stack}。
+\end{proof}
+
+\noindent
+核对：叠 $\Polarizedstack$ 在代数空间中发挥相同作用。
+
+\begin{lemma}
+\label{quot-lemma-extend-polarized-to-spaces}
+设 $T$ 是在 $\mathbf{Z}$ 上的代数空间。令 $\mathcal{S}_T$
+表示相应的代数叠（《代数叠》第
+\ref{algebraic-section-split},
+\ref{algebraic-section-representable-by-algebraic-spaces}，以及
+\ref{algebraic-section-stacks-spaces}).
+我们有范畴等价
+$$
+\left\{
+\begin{matrix}
+(X \to T, \mathcal{L})\text{，其中}\\
+X \to T\text{ 是代数空间态射，}\\
+\text{它真、平坦且有限表示，并且}\\
+\mathcal{L}\text{ 在 }X/T\text{ 上充足}
+\end{matrix}
+\right\}
+\longrightarrow
+\Mor_{\textit{Cat}/\Sch_{fppf}}(\mathcal{S}_T, \Polarizedstack)
+$$
+\end{lemma}
+
+\begin{proof}
+略去。提示：完全仿照引理
+\ref{quot-lemma-extend-spaces-to-spaces} 的证明，并使用
+《空间上的下降》命题
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+在拟逆函子的构造中下降可逆层。相对充足性沿下降，依据
+《空间上的下降》引理
+\ref{spaces-descent-lemma-descending-property-ample}.
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-polarized-base-change}
+设 $B$ 是在 $\Spec(\mathbf{Z})$ 上的代数空间。
+令 $B\textit{-Polarized}$ 为由三元组
+$(X \to S, \mathcal{L}, h : S \to B)$ 组成的范畴，
+其中 $(X \to S, \mathcal{L})$ 是 $\Polarizedstack$ 的对象，
+且 $h : S \to B$ 是态射。
+$B\textit{-Polarized}$ 中的态射 $(X' \to S', \mathcal{L}', h') \to (X \to S, \mathcal{L}, h)$
+是 $\Polarizedstack$ 中满足 $h \circ g = h'$ 的态射 $(f, g, \varphi)$。
+在此情形，图
+$$
+\xymatrix{
+B\textit{-Polarized} \ar[r] \ar[d] & \Polarizedstack \ar[d] \\
+(\Sch/B)_{fppf} \ar[r] & \Sch_{fppf}
+}
+$$
+是 $2$-纤维积方图。这个平凡备注有时可用于从
+绝对情形 $\Polarizedstack$ 推出给定基代数空间上的
+族的情形。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-polarized-to-spaces-algebraic}
+函子（\ref{quot-equation-over-proper-spaces}）定义一个 $1$-态射
+$$
+\Polarizedstack \to \Spacesstack'_{fp, flat, proper}
+$$
+它是 $\Sch_{fppf}$ 上群胚叠的态射，且依《可表示性判别》定义
+\ref{criteria-definition-algebraic} 的意义是代数的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{quot-lemma-spaces-stack} 和 \ref{quot-lemma-polarized-stack}，
+该陈述有意义。为证明它，取概形 $S$，并取对象
+$\xi = (X \to S)$，它属于 $\Spacesstack'_{fp, flat, proper}$，
+且位于 $S$ 上。需证明
+$$
+\mathcal{X} = (\Sch/S)_{fppf} \times_{\xi, \Spacesstack'_{fp, flat, proper}}
+\Polarizedstack
+$$
+是 $S$ 上的代数叠。注意，$\mathcal{X}$ 的对象由二元组
+$(T/S, \mathcal{L})$ 给出，其中 $T$ 是 $S$ 上的概形，
+$\mathcal{L}$ 是可逆 $\mathcal{O}_{X_T}$-模，且在 $X_T/T$ 上充足。
+态射按显然方式定义。特别地，立即得到嵌入
+$$
+\mathcal{X} \subset \Picardstack_{X/S}
+$$
+它是 $(\Sch/S)_{fppf}$ 上范畴的嵌入，并在态射集合上诱导等式。
+由命题 \ref{quot-proposition-pic}，$\Picardstack_{X/S}$ 是代数叠，
+所以只需证明上述嵌入可由开浸入表示。这正是《空间上的下降》引理
+\ref{spaces-descent-lemma-ample-in-neighbourhood} 的内容。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-diagonal}
+对角态射
+$$
+\Delta : \Polarizedstack \longrightarrow
+\Polarizedstack \times \Polarizedstack
+$$
+由代数空间表示。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{quot-lemma-polarized-to-spaces-algebraic} 和
+\ref{quot-lemma-spaces-diagonal} 的形式推论。
+见《可表示性判别》引理
+\ref{criteria-lemma-diagonals-and-algebraic-morphisms}。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-limits}
+群胚叠 $\Polarizedstack$ 保持极限
+（《Artin 公理》定义 \ref{artin-definition-limit-preserving}）。
+\end{lemma}
+
+\begin{proof}
+设 $I$ 是有向集，且 $(A_i, \varphi_{ii'})$ 是 $I$ 上的环系统。
+令 $S = \Spec(A)$ 以及 $S_i = \Spec(A_i)$。需证明纤维范畴满足
+$$
+\Polarizedstack_S = \colim \Polarizedstack_{S_i}
+$$
+我们知道，$S$ 上有限表示概形的范畴是
+$S_i$ 上有限表示概形范畴的余极限，见《极限》引理
+\ref{limits-lemma-descend-finite-presentation}。
+此外，给定有限表示的 $X_i \to S_i$，其极限为 $X \to S$，则
+可逆 $\mathcal{O}_X$-模 $\mathcal{L}$ 的范畴是可逆
+$\mathcal{O}_{X_i}$-模 $\mathcal{L}_i$ 范畴的余极限，见《极限》引理
+\ref{limits-lemma-descend-modules-finite-presentation} 和
+\ref{limits-lemma-descend-invertible-modules}。
+若 $X \to S$ 真且平坦，则当 $i$ 充分大时，态射
+$X_i \to S_i$ 也真且平坦，见《极限》引理
+\ref{limits-lemma-eventually-proper} 和
+\ref{limits-lemma-descend-flat-finite-presentation}。
+最后，若 $\mathcal{L}$ 在 $X$ 上充足，则当 $i$ 充分大时，
+$\mathcal{L}_i$ 在 $X_i$ 上充足，见《极限》引理
+\ref{limits-lemma-limit-ample}。合并这些事实即完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-RS-star}
+在情形 \ref{quot-situation-coherent} 中，设
+$$
+\xymatrix{
+T \ar[r] \ar[d] & T' \ar[d] \\
+S \ar[r] & S'
+}
+$$
+是概形范畴中的推出，其中 $T \to T'$ 是加厚，且 $T \to S$ 仿射；见
+《态射进阶》引理 \ref{more-morphisms-lemma-pushout-along-thickening}。
+则纤维范畴上的函子
+$$
+\Polarizedstack_{S'}
+\longrightarrow
+\Polarizedstack_S \times_{\Polarizedstack_T} \Polarizedstack_{T'}
+$$
+是等价。
+\end{lemma}
+
+\begin{proof}
+由《态射进阶》引理
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+有等价
+$$
+\textit{flat-lfp}_{S'}
+\longrightarrow
+\textit{flat-lfp}_S \times_{\textit{flat-lfp}_T} \textit{flat-lfp}_{T'}
+$$
+$\textit{flat-lfp}_S$ 表示在 $S$ 上平坦且局部有限表示的概形范畴。
+设左侧的 $X'/S'$ 对应于右侧的三元组
+$(X/S, Y'/T', \varphi)$。
+令 $Y = T \times_{T'} Y'$；通过 $\varphi$，它同构于
+$T \times_S X$。于是《态射进阶》引理
+\ref{more-morphisms-lemma-scheme-over-pushout-flat-modules}
+给出等价
+$$
+\textit{QCoh-flat}_{X'/S'}
+\longrightarrow
+\textit{QCoh-flat}_{X/S}
+\times_{\textit{QCoh-flat}_{Y/T}} \textit{QCoh-flat}_{Y'/T'}
+$$
+$\textit{QCoh-flat}_{X/S}$ 表示由在 $S$ 上平坦的
+拟凝聚 $\mathcal{O}_X$-模组成的范畴。
+由于 $X \to S$、$Y \to T$、$X' \to S'$、$Y' \to T'$ 均平坦，
+这尤其适用于可逆模，从而给出范畴等价
+$$
+\textit{Pic}(X')
+\longrightarrow
+\textit{Pic}(X) \times_{\textit{Pic}(Y)} \textit{Pic}(Y')
+$$
+$\textit{Pic}(X)$ 表示可逆 $\mathcal{O}_X$-模的范畴。
+这里有一点需要说明：若 $\textit{QCoh-flat}_{X'/S'}$ 中的对象
+$\mathcal{F}'$ 在 $X$ 和 $Y'$ 上的拉回都是可逆模，
+则必须证明 $\mathcal{F}'$ 是可逆 $\mathcal{O}_{X'}$-模。
+由上述引理，$\mathcal{F}'$ 是有限表示的
+$\mathcal{O}_{X'}$-模。根据《态射进阶》引理
+\ref{more-morphisms-lemma-flat-and-free-at-point-fibre}
+只需检验 $\mathcal{F}'$ 在 $X' \to S'$ 各纤维上的限制是可逆的。
+但 $X' \to S'$ 的纤维与 $X \to S$ 的纤维相同，
+故这些限制确实可逆。
+
+\medskip\noindent
+由以上论证可知，即使先去掉（在 $S$ 上对象的范畴中）
+$X \to S$ 为真的条件以及 $\mathcal{L}$ 为充足的条件，
+我们仍得到范畴等价。显然，若 $X' \to S'$ 为真，则
+$X \to S$ 和 $Y' \to T'$ 都为真（《态射》引理
+\ref{morphisms-lemma-base-change-proper}).
+反之，若 $X \to S$ 与 $Y' \to T'$ 为真，则
+$X' \to S'$ 也为真；见《态射进阶》引理
+\ref{more-morphisms-lemma-thicken-property-morphisms-cartesian}。
+类似地，若 $\mathcal{L}'$ 在 $X'/S'$ 上充足，
+则 $\mathcal{L}'|_X$ 在 $X/S$ 上充足，且
+$\mathcal{L}'|_{Y'}$ 在 $Y'/T'$ 上充足
+（《态射》引理 \ref{morphisms-lemma-ample-base-change}）。
+最后，若 $\mathcal{L}'|_X$ 在 $X/S$ 上充足，且
+$\mathcal{L}'|_{Y'}$ 在 $Y'/T'$ 上充足，则
+$\mathcal{L}'$ 在 $X'/S'$ 上充足；见《态射进阶》引理
+\ref{more-morphisms-lemma-thicken-property-relatively-ample}。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-tangent-space}
+设 $k$ 为域，且 $x = (X \to \Spec(k), \mathcal{L})$
+是 $\Spec(k)$ 上 $\mathcal{X} = \Polarizedstack$ 的对象。
+\begin{enumerate}
+\item 若 $k$ 在 $\mathbf{Z}$ 上有限型，则向量空间
+$T\mathcal{F}_{\mathcal{X}, k, x}$ 和
+$\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x})$
+（见《Artin 公理》第 \ref{artin-section-tangent-spaces} 节）
+均为有限维；
+\item 一般而言，向量空间 $T_x(k)$ 和 $\text{Inf}_x(k)$
+（见《Artin 公理》第 \ref{artin-section-inf} 节）均为有限维。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+《Artin 公理》第 \ref{artin-section-tangent-spaces} 节中的讨论
+只适用于在基概形 $\Spec(\mathbf{Z})$ 上有限型的域。
+由引理 \ref{quot-lemma-polarized-RS-star}，我们的叠满足 (RS*)，
+因此可应用《Artin 公理》引理
+\ref{artin-lemma-properties-lift-RS-star}，得到 (2) 中所述的向量空间
+$T_x(k)$ 和 $\text{Inf}_x(k)$。此外，在有限型情形，
+由《Artin 公理》注记 \ref{artin-remark-compare-deformation-spaces}，
+这些空间与 (1) 中所述的空间相同。现在开始证明。
+
+\medskip\noindent
+一种证明可以仿照引理 \ref{quot-lemma-spaces-tangent-space} 的证明；
+这要求我们为由一个概形和一个拟凝聚模组成的配对发展形变理论。
+另一种证明可以利用引理 \ref{quot-lemma-spaces-tangent-space} 的结果、
+$\Polarizedstack \to \Spacesstack'_{fp, flat, proper}$,
+的代数性，以及对可逆模形变空间的计算。
+不过，我们将把问题转化为分次 $k$-代数上的形变问题，
+并由此推出结论。
+
+\medskip\noindent
+令 $\mathcal{C}_k$ 为剩余域是 $k$ 的 Artin 局部 $k$-代数
+$A$ 所成的范畴。由 $k$ 上 $\mathcal{X}$ 的对象 $x$，
+得到预形变范畴 $p : \mathcal{F} \to \mathcal{C}_k$；见
+《Artin 公理》第 \ref{artin-section-predeformation-categories} 节。
+因此 $\mathcal{F}(A)$ 是三元组
+$(X_A, \mathcal{L}_A, \alpha)$ 所成的范畴，其中
+$(X_A, \mathcal{L}_A)$ 是 $A$ 上 $\Polarizedstack$ 的对象，
+且 $\alpha$ 是同构
+$(X_A, \mathcal{L}_A) \times_{\Spec(A)} \Spec(k) \cong (X, \mathcal{L})$.
+另一方面，令 $q : \mathcal{G} \to \mathcal{C}_k$ 为
+《形变问题》例 \ref{examples-defos-example-graded-algebras}
+所定义的群胚上余纤维化范畴。
+取 $d_0 \gg 0$（下文会说明需要多大）。令 $P$ 为分次 $k$-代数
+$$
+P = k \oplus \bigoplus\nolimits_{d \geq d_0} H^0(X, \mathcal{L}^{\otimes d})
+$$
+则 $y = (k, P)$ 是 $\mathcal{G}(k)$ 的对象。
+令 $\mathcal{G}_y$ 为《形式形变理论》注记
+\ref{formal-defos-remark-localize-cofibered-groupoid}.
+中的预形变范畴。给定如上的 $(X_A, \mathcal{F}_A, \alpha)$，令
+$$
+Q = A \oplus \bigoplus\nolimits_{d \geq d_0} H^0(X_A, \mathcal{L}_A^{\otimes d})
+$$
+同构 $\alpha$ 诱导映射 $\beta : Q \to P$。
+由射影概形的形变理论
+（《态射进阶》引理 \ref{more-morphisms-lemma-deform-projective}），
+得到群胚上余纤维化范畴的 $1$-态射
+$$
+\mathcal{F} \longrightarrow \mathcal{G}_y,\quad
+(X_A, \mathcal{F}_A, \alpha) \longmapsto (Q, \beta : Q \to P)
+$$
+它们都位于 $\mathcal{C}_k$ 上。事实上，此函子是等价，
+其拟逆由 $Q \mapsto \underline{\text{Proj}}_A(Q)$ 给出。
+具体而言，由《除子》引理 \ref{divisors-lemma-relative-proj-flat}，
+概形 $X_A = \underline{\text{Proj}}_A(Q)$ 在 $A$ 上平坦。
+令 $\mathcal{L}_A = \mathcal{O}_{X_A}(1)$；由同一引理，
+它在 $A$ 上平坦。由 $\beta$ 得到同构
+$(X_A, \mathcal{L}_A) \times_{\Spec(A)} \Spec(k) = (X, \mathcal{L})$
+。随后利用《态射进阶》第
+\ref{more-morphisms-section-morphisms-thickenings} 节和第
+\ref{more-morphisms-section-deform} 节中的方法，
+可由 $(X, \mathcal{L})$ 的相应性质推出配对
+$(X_A, \mathcal{L}_A)$ 所需的全部性质。略去若干细节。
+
+\medskip\noindent
+综上，$T\mathcal{F} = T\mathcal{G}_y = T_y\mathcal{G}$，且
+$\text{Inf}(\mathcal{F}) = \text{Inf}_y(\mathcal{G})$。
+由《形变问题》引理 \ref{examples-defos-lemma-graded-algebras-TI}，
+这些向量空间都是有限维的，证明完毕。
+\end{proof}
+
+\begin{lemma}[极化概形的强形式有效性]
+\label{quot-lemma-polarized-strong-effectiveness}
+\begin{slogan}
+若假设平坦且有限表示，则 Grothendieck 代数化定理
+在非 Noether 情形仍然成立。
+\end{slogan}
+设 $(R_n)$ 是环的逆系统，其转移映射满射且核局部幂零。
+令 $R = \lim R_n$。令 $S_n = \Spec(R_n)$ 及
+$S = \Spec(R)$。考虑概形的交换图
+$$
+\xymatrix{
+X_1 \ar[r]_{i_1} \ar[d] & X_2 \ar[r]_{i_2} \ar[d] & X_3 \ar[r] \ar[d] &
+\ldots \\
+S_1 \ar[r] & S_2 \ar[r] & S_3 \ar[r] & \ldots
+}
+$$
+其中各方块均为笛卡儿方块。设给定 $(\mathcal{L}_n, \varphi_n)$，
+其中每个 $\mathcal{L}_n$ 都是 $X_n$ 上的可逆层，且
+$\varphi_n : i_n^*\mathcal{L}_{n + 1} \to \mathcal{L}_n$ 是同构。若
+\begin{enumerate}
+\item $X_n \to S_n$ 真、平坦且有限表示；
+\item $\mathcal{L}_1$ 在 $X_1$ 上充足，
+\end{enumerate}
+则存在真、平坦且有限表示的概形态射 $X \to S$，
+存在充足可逆 $\mathcal{O}_X$-模 $\mathcal{L}$，
+并存在同构 $X_n \cong X \times_S S_n$ 及
+$\mathcal{L}_n \cong \mathcal{L}|_{X_n}$；
+这些同构与态射 $i_n$ 和 $\varphi_n$ 相容。
+\end{lemma}
+
+\begin{proof}
+依照《态射进阶》引理 \ref{more-morphisms-lemma-deform-projective}，
+为 $X_1 \to S_1$ 和 $\mathcal{L}_1$ 选取 $d_0$。
+对任意 $n \geq 1$，令
+$$
+A_n = R_n \oplus
+\bigoplus\nolimits_{d \geq d_0} H^0(X_n, \mathcal{L}_n^{\otimes d})
+$$
+由该引理，每个 $A_n$ 都是有限表示的分次 $R_n$-代数，
+其齐次部分 $(A_n)_d$ 是有限射影 $R_n$-模，并且
+$X_n = \text{Proj}(A_n)$ 且
+$\mathcal{L}_n = \mathcal{O}_{\text{Proj}(A_n)}(1)$。
+该引理还保证映射
+$$
+A_1 \leftarrow A_2 \leftarrow A_3 \leftarrow \ldots
+$$
+当 $n \leq m$ 时诱导同构 $A_n = A_m \otimes_{R_m} R_n$。令
+$$
+B = \bigoplus\nolimits_{d \geq 0} B_d
+\quad\text{其中}\quad
+B_d = \lim_n (A_n)_d
+$$
+由《代数进阶》引理
+\ref{more-algebra-lemma-lim-finite-projective-gives-finite-projective}
+可知 $B_d$ 是有限射影 $R$-模，且
+$B \otimes_R R_n = A_n$。因此概形
+$$
+X = \text{Proj}(B)
+\quad\text{且}\quad
+\mathcal{L} = \mathcal{O}_X(1)
+$$
+在 $S$ 上平坦，且 $\mathcal{L}$ 是在 $S$ 上平坦的拟凝聚
+$\mathcal{O}_X$-模；见《除子》引理
+\ref{divisors-lemma-relative-proj-flat}。
+由于 Proj 的形成与基变换可交换
+（《构造》引理 \ref{constructions-lemma-base-change-map-proj}），
+得到典范同构
+$$
+X \times_S S_n = X_n
+\quad\text{且}\quad
+\mathcal{L}|_{X_n} \cong \mathcal{L}_n
+$$
+它们与系统的转移映射相容。因此可把 $X_1 \subset X$
+看作闭子概形。下文将证明 $B$ 在 $R$ 上有限表示。
+由《除子》引理 \ref{divisors-lemma-relative-proj-proper} 和
+\ref{divisors-lemma-relative-proj-finite-presentation}
+可知 $X \to S$ 有限表示且为真，并且
+$\mathcal{L} = \mathcal{O}_X(1)$ 作为 $\mathcal{O}_X$-模有限表示。
+由于 $\mathcal{L}$ 在基变换 $X_1 \to S_1$ 上的限制可逆，
+由《态射进阶》引理 \ref{more-morphisms-lemma-finite-free-open}，
+$\mathcal{L}$ 在 $X$ 中 $X_1$ 的某个开邻域上可逆。
+由于 $X \to S$ 为闭的，且 $\Ker(R \to R_1)$ 包含于 Jacobson 根中
+（《代数进阶》引理 \ref{more-algebra-lemma-limit-henselian}），
+可知 $X$ 中 $X_1$ 的任何开邻域都等于 $X$。
+因此 $\mathcal{L}$ 可逆。最后，$S$ 中使得 $\mathcal{L}$
+在纤维上充足的点集是 $S$ 的开集
+（《态射进阶》引理 \ref{more-morphisms-lemma-ample-in-neighbourhood}），
+且包含 $S_1$，故等于 $S$。于是 $X \to S$ 和 $\mathcal{L}$
+具备引理陈述所要求的全部性质。
+
+\medskip\noindent
+现在证明上述断言。选取表示
+$A_1 = R_1[X_1, \ldots, X_s]/(F_1, \ldots, F_t)$，
+其中 $X_i$ 是次数为 $d_i$ 的变量，$F_j$ 是 $X_i$
+中次数为 $e_j$ 的齐次多项式。可以选取映射
+$$
+\Psi : R[X_1, \ldots, X_s] \longrightarrow B
+$$
+提升映射 $R_1[X_1, \ldots, X_s] \to A_1$。
+由于每个 $B_d$ 都是有限射影 $R$-模，再次利用
+$\Ker(R \to R_1)$ 包含于 $R$ 的 Jacobson 根这一事实，
+由 Nakayama 引理（《代数》引理 \ref{algebra-lemma-NAK}）可知
+$\Psi$ 满射。由于 $- \otimes_R R_1$ 右正合，可以找到
+$G_1, \ldots, G_t \in \Ker(\Psi)$，它们在
+$R_1[X_1, \ldots, X_s]$ 中映到 $F_1, \ldots, F_t$。
+注意，对所有 $d \geq 0$，$\Ker(\Psi)_d$ 是有限射影 $R$-模，
+因为它是有限射影 $R$-模之间满射
+$R[X_1, \ldots, X_s]_d \to B_d$ 的核。
+再次由 Nakayama 引理可知，$\Ker(\Psi)$ 由
+$G_1, \ldots, G_t$ 生成。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-existence}
+考虑基概形 $\Spec(\mathbf{Z})$ 上的叠
+$\Polarizedstack$。则每个形式对象都是有效的。
+\end{lemma}
+
+\begin{proof}
+引理中各概念的定义见《Artin 公理》第
+\ref{artin-section-formal-objects} 节。
+由定义可见，本引理立即推出自更一般的引理
+\ref{quot-lemma-polarized-strong-effectiveness}。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-polarized-defo-thy}
+群胚叠 $\Polarizedstack$ 在 $\Spec(\mathbf{Z})$ 上
+满足通用性的开放性。类似地，经基变换后
+（注记 \ref{quot-remark-polarized-base-change}），
+通用性的开放性在任意 Noether 基概形 $S$ 上成立。
+\end{lemma}
+
+\begin{proof}
+这推出自《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality} 以及引理
+\ref{quot-lemma-polarized-diagonal}、
+\ref{quot-lemma-polarized-RS-star},
+\ref{quot-lemma-polarized-limits} 和
+\ref{quot-lemma-polarized-strong-effectiveness}.
+关于此事实的“通常”证明，见本证明之后注记中的讨论。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-polarized-defo-thy}
+引理 \ref{quot-lemma-polarized-defo-thy} 也可用《Artin 公理》引理
+\ref{artin-lemma-get-openness-obstruction-theory} 中的障碍理论证明
+（如引理 \ref{quot-lemma-coherent-defo-thy} 的第二个证明）。
+为此，必须把《余切复形》第
+\ref{cotangent-section-deformations-ringed-topoi} 节发展出的形变与障碍理论
+推广到代数空间与拟凝聚模所成配对的情形。
+另一种办法是利用 $1$-态射
+$\Polarizedstack \to \Spacesstack'_{fp, flat, proper}$
+为代数的（引理 \ref{quot-lemma-polarized-to-spaces-algebraic}），
+以及我们已知其目标满足通用性的开放性
+（引理 \ref{quot-lemma-spaces-defo-thy} 和
+注记 \ref{quot-remark-spaces-defo-thy}）。
+\end{remark}
+
+\begin{theorem}[极化概形叠的代数性]
+\label{quot-theorem-polarized-algebraic}
+叠 $\Polarizedstack$（情形 \ref{quot-situation-polarized}）是代数的。
+事实上，对任意代数空间 $B$，叠
+$B\textit{-Polarized}$（注记 \ref{quot-remark-polarized-base-change}）
+都是代数的。
+\end{theorem}
+
+\begin{proof}
+绝对情形推出自《Artin 公理》引理
+\ref{artin-lemma-diagonal-representable} 以及引理
+\ref{quot-lemma-polarized-diagonal}、
+\ref{quot-lemma-polarized-RS-star},
+\ref{quot-lemma-polarized-limits},
+\ref{quot-lemma-polarized-existence} 和
+\ref{quot-lemma-polarized-defo-thy}.
+关于 $B$ 的情形由此推出：$B\textit{-Polarized}$
+在注记 \ref{quot-remark-polarized-base-change} 中被描述为
+$2$-纤维积，而代数叠存在 $2$-纤维积；见
+《代数叠》引理 \ref{algebraic-lemma-2-fibre-product}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{曲线叠}
+\label{quot-section-curves}
+
+\noindent
+本节证明曲线叠是代数的。关于曲线模空间的进一步讨论，参见《曲线模空间》第
+\ref{moduli-curves-section-introduction} 节。
+
+\medskip\noindent
+Stacks 项目中的曲线是维数为 $1$ 的簇。不过，当我们谈论曲线族时，通常允许
+纤维可约和/或非约。在本节中，
+曲线叠将“参数化维数 $\leq 1$ 的真概形”。然而，事实表明，为了得到曲线族的正确概念，
+我们需要允许族的总空间是代数空间。这导出如下定义。
+
+\begin{situation}
+\label{quot-situation-curves}
+我们定义范畴 $\Curvesstack$ 如下：
+\begin{enumerate}
+\item 对象是 {\it 曲线族}。更准确地说，对象是态射 $f : X \to S$，其中基底 $S$ 是概形，
+{\it 总空间} $X$ 是代数空间，且 $f$ 平坦、真、有限表示，
+相对维数 $\leq 1$（《空间的态射》定义
+\ref{spaces-morphisms-definition-relative-dimension}）。
+\item 对象之间的态射 $(X' \to S') \to (X \to S)$
+由一对 $(f, g)$ 给出，其中 $f : X' \to X$ 是代数空间的态射，
+$g : S' \to S$ 是概形的态射，并且它们适合交换图
+$$
+\xymatrix{
+X' \ar[d] \ar[r]_f & X \ar[d] \\
+S' \ar[r]^g & S
+}
+$$
+诱导同构 $X' \to S' \times_S X$；换言之，该图是笛卡尔的。
+\end{enumerate}
+遗忘函子
+$$
+p : \Curvesstack \longrightarrow \Sch_{fppf},\quad
+(X \to S) \longmapsto S
+$$
+就是我们把 $\Curvesstack$ 看作 $\Sch_{fppf}$ 上范畴的方式
+（记号见第 \ref{quot-section-conventions} 节）。
+\end{situation}
+
+\noindent
+由《域上的空间》引理
+\ref{spaces-over-fields-lemma-codim-1-point-in-schematic-locus}
+以及更一般地由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-projective-over-complete}
+可知，若 $S$ 是域的谱、阿廷局部环的谱，或诺特完备局部环的谱，
+则对任意曲线族 $X \to S$，总空间 $X$ 是概形。
+另一方面，在 $\mathbf{A}^1_k$ 上存在总空间不是概形的曲线族，见
+《例子》第 \ref{examples-section-family-of-curves} 节。
+
+\medskip\noindent
+显然
+\begin{equation}
+\label{quot-equation-curves-over-proper-spaces}
+\Curvesstack \subset \Spacesstack'_{fp, flat, proper}
+\end{equation}
+且 $\Spacesstack'_{fp, flat, proper}$ 的对象 $X \to S$
+属于 $\Curvesstack$ 当且仅当 $X \to S$ 的相对维数 $\leq 1$。
+我们将利用这一点验证 $\Curvesstack$ 的 Artin 公理。
+
+\begin{lemma}
+\label{quot-lemma-curves-fibred-in-groupoids}
+范畴 $\Curvesstack$ 在 $\Sch_{fppf}$ 上是群胚纤维化的。
+\end{lemma}
+
+\begin{proof}
+利用嵌入（\ref{quot-equation-curves-over-proper-spaces}）、像的描述以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-fibred-in-groupoids}），
+问题归结为如下陈述：给定态射
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+S' \ar[r] & S
+}
+$$
+在 $\Spacesstack'_{fp, flat, proper}$ 中（回忆这尤其意味着该图是笛卡尔的），
+若 $X \to S$ 的相对维数 $\leq 1$，则 $X' \to S'$ 的相对维数
+也 $\leq 1$。
+这由《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-stack}
+范畴 $\Curvesstack$ 是 $\Sch_{fppf}$ 上的群胚叠。
+\end{lemma}
+
+\begin{proof}
+利用嵌入（\ref{quot-equation-curves-over-proper-spaces}）、像的描述以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-stack}），
+问题归结为如下陈述：设 $\Spacesstack'_{fp, flat, proper}$ 的对象
+$X \to S$ 以及 fppf 覆盖 $\{S_i \to S\}_{i \in I}$，
+则下列条件等价：
+\begin{enumerate}
+\item $X \to S$ 的相对维数 $\leq 1$；
+\item 对每个 $i$，基变换 $X_i \to S_i$ 的相对维数
+$\leq 1$。
+\end{enumerate}
+这由《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-diagonal}
+对角态射
+$$
+\Delta : \Curvesstack \longrightarrow \Curvesstack \times \Curvesstack
+$$
+由代数空间表示。
+\end{lemma}
+
+\begin{proof}
+这立即由全忠实嵌入
+（\ref{quot-equation-curves-over-proper-spaces}）以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-diagonal}）得到。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-curves-base-change}
+设 $B$ 是 $\Spec(\mathbf{Z})$ 上的代数空间。
+令 $B\text{-}\Curvesstack$ 为由对 $(X \to S, h : S \to B)$
+组成的范畴，其中 $X \to S$ 是 $\Curvesstack$ 的对象，
+$h : S \to B$ 是态射。
+在 $B\text{-}\Curvesstack$ 中，态射 $(X' \to S', h') \to (X \to S, h)$
+是 $\Curvesstack$ 中满足 $h \circ g = h'$ 的态射 $(f, g)$。
+在此情形，图
+$$
+\xymatrix{
+B\text{-}\Curvesstack \ar[r] \ar[d] & \Curvesstack \ar[d] \\
+(\Sch/B)_{fppf} \ar[r] & \Sch_{fppf}
+}
+$$
+是 $2$-纤维积方形。这个平凡的备注有时很有用：
+它可以把绝对情形 $\Curvesstack$ 的结果推导到
+给定基代数空间上的曲线族情形。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-curves-limits}
+叠 $\Curvesstack \to \Sch_{fppf}$ 保持极限
+（《Artin 公理》定义 \ref{artin-definition-limit-preserving}）。
+\end{lemma}
+
+\begin{proof}
+利用嵌入（\ref{quot-equation-curves-over-proper-spaces}）、像的描述以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-limits}），
+问题归结为如下陈述：
+设 $T = \lim T_i$ 是仿射概形有向逆系统的极限。
+设 $i \in I$，且 $X_i \to T_i$ 是
+$T_i$ 上 $\Spacesstack'_{fp, flat, proper}$ 的对象。
+假设 $T \times_{T_i} X_i \to T$ 的相对维数 $\leq 1$。
+则存在某个 $i' \geq i$，使得态射
+$T_{i'} \times_{T_i} X_i \to T_i$ 的相对维数 $\leq 1$。
+这由《空间的极限》引理
+\ref{spaces-limits-lemma-eventually-relative-dimension}.
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-RS-star}
+设
+$$
+\xymatrix{
+T \ar[r] \ar[d] & T' \ar[d] \\
+S \ar[r] & S'
+}
+$$
+是概形范畴中的推出，其中 $T \to T'$ 是加厚且 $T \to S$ 是仿射；见
+《更多态射》引理 \ref{more-morphisms-lemma-pushout-along-thickening}。
+则纤维范畴上的函子
+$$
+\Curvesstack_{S'}
+\longrightarrow
+\Curvesstack_S
+\times_{\Curvesstack_T}
+\Curvesstack_{T'}
+$$
+是等价。
+\end{lemma}
+
+\begin{proof}
+利用嵌入（\ref{quot-equation-curves-over-proper-spaces}）、像的描述以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-RS-star}），
+问题归结为如下陈述：
+设 $X' \to S'$ 是代数空间到 $S'$ 的态射，有限表示、平坦且真，
+则 $X' \to S'$ 的相对维数 $\leq 1$
+当且仅当 $S \times_{S'} X' \to S$
+和 $T' \times_{S'} X' \to T'$ 的相对维数 $\leq 1$。
+一个方向由相对维数 $\leq 1$ 在基变换下保持这一事实得到
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}).
+另一个方向由以下事实得到：相对维数 $\leq 1$ 可在纤维上检验，
+并且 $X' \to S'$ 的纤维（在概形 $S'$ 的点上）
+与 $S \times_{S'} X' \to S$ 的纤维相同，
+因为根据《更多态射》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}，
+$S \to S'$ 是加厚。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-tangent-space}
+设 $k$ 是域，且 $x = (X \to \Spec(k))$ 是
+$\Spec(k)$ 上 $\mathcal{X} = \Curvesstack$ 的对象。
+\begin{enumerate}
+\item 若 $k$ 在 $\mathbf{Z}$ 上有限型，则向量空间
+$T\mathcal{F}_{\mathcal{X}, k, x}$ 和
+$\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x})$
+（见《Artin 公理》第 \ref{artin-section-tangent-spaces} 节）
+是有限维的；并且
+\item 一般地，向量空间 $T_x(k)$ 和 $\text{Inf}_x(k)$
+（见《Artin 公理》第 \ref{artin-section-inf} 节）
+是有限维的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这立即由全忠实嵌入
+（\ref{quot-equation-curves-over-proper-spaces}）以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-tangent-space}）得到。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-existence}
+考虑基概形 $\Spec(\mathbf{Z})$ 上的叠 $\Curvesstack$。
+则每个形式对象都是有效的。
+\end{lemma}
+
+\begin{proof}
+引理中各概念的定义见《Artin 公理》第
+\ref{artin-section-formal-objects} 节。
+设 $(A, \mathfrak m, \kappa)$ 是诺特完备局部环。
+设 $(X_n \to \Spec(A/\mathfrak m^n))$
+是 $A$ 上 $\Curvesstack$ 的形式对象。
+由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-formal-algebraic-space-proper-reldim-1}
+存在射影态射 $X \to \Spec(A)$
+以及同构的相容系统
+$X \times_{\Spec(A)} \Spec(A/\mathfrak m^n) \cong X_n$。
+由《更多态射》引理
+\ref{more-morphisms-lemma-check-flatness-on-infinitesimal-nbhds}
+可知 $X \to \Spec(A)$ 是平坦的。由《更多态射》引理
+\ref{more-morphisms-lemma-dimension-fibres-proper-flat}
+可知 $X \to \Spec(A)$ 的相对维数 $\leq 1$。
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-defo-thy}
+群胚叠 $\mathcal{X} = \Curvesstack$
+在 $\Spec(\mathbf{Z})$ 上满足形式光滑性的开放性。
+同样，在基变换之后（备注 \ref{quot-remark-curves-base-change}），
+形式光滑性的开放性对任意诺特基概形 $S$ 成立。
+\end{lemma}
+
+\begin{proof}
+这立即由全忠实嵌入
+（\ref{quot-equation-curves-over-proper-spaces}）以及
+$\Spacesstack'_{fp, flat, proper}$ 的相应事实
+（引理 \ref{quot-lemma-spaces-defo-thy}）得到。
+\end{proof}
+
+\begin{theorem}[曲线叠的代数性]
+\label{quot-theorem-curves-algebraic}
+\begin{reference}
+参见 \cite[命题 3.3，第 8 页]{dJHS} 以及
+\cite[Jack Hall 的附录 B，定理 B.1]{Smyth}。
+\end{reference}
+叠 $\Curvesstack$（情形 \ref{quot-situation-curves}）
+是代数的。事实上，对任意代数空间 $B$，叠
+$B\text{-}\Curvesstack$（备注 \ref{quot-remark-curves-base-change}）
+也是代数的。
+\end{theorem}
+
+\begin{proof}
+绝对情形由《Artin 公理》引理
+\ref{artin-lemma-diagonal-representable}
+以及引理 \ref{quot-lemma-curves-diagonal}、
+\ref{quot-lemma-curves-RS-star},
+\ref{quot-lemma-curves-limits},
+\ref{quot-lemma-curves-existence}，以及
+\ref{quot-lemma-curves-defo-thy}.
+$B$ 上的情形由此、备注 \ref{quot-remark-curves-base-change} 中
+$B\text{-}\Curvesstack$ 作为 $2$-纤维积的描述，以及
+代数叠具有 $2$-纤维积这一事实得到；见《代数叠》引理
+\ref{algebraic-lemma-2-fibre-product}。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-curves-open-and-closed-in-spaces}
+这个 $1$-态射（\ref{quot-equation-curves-over-proper-spaces}）
+$$
+\Curvesstack \longrightarrow \Spacesstack'_{fp, flat, proper}
+$$
+由开浸入和闭浸入表示。
+\end{lemma}
+
+\begin{proof}
+由于（\ref{quot-equation-curves-over-proper-spaces}）是范畴的全忠实嵌入，
+只需证明如下事实：给定 $\Spacesstack'_{fp, flat, proper}$ 的对象
+$X \to S$，存在开闭子概形 $U \subset S$，
+使得态射 $S' \to S$ 经由 $U$ 分解，当且仅当
+$X \to S$ 的基变换 $X' \to S'$ 的相对维数 $\leq 1$。
+这立即由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-dimension-fibres-proper-flat}.
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-alternative-approach-curves}
+考虑 $2$-纤维积
+$$
+\xymatrix{
+\Curvesstack \times_{\Spacesstack'_{fp, flat, proper}}
+\Polarizedstack \ar[r] \ar[d] &
+\Polarizedstack \ar[d] \\
+\Curvesstack \ar[r] &
+\Spacesstack'_{fp, flat, proper}
+}
+$$
+这个纤维积参数化极化曲线，即带有相对充足可逆层的曲线族。
+事实表明，左侧竖直箭头
+$$
+\textit{PolarizedCurves} \longrightarrow \Curvesstack
+$$
+是代数的、光滑且满射的。也就是说，这个 $1$-态射
+是代数的（因为它是引理 \ref{quot-lemma-polarized-to-spaces-algebraic} 中箭头的基变换），
+每个点都在像中，并且曲线上的可逆层不存在变形障碍
+（见引理 \ref{quot-lemma-curves-existence} 的证明）。
+这给出了证明 $\Curvesstack$ 代数性的另一种方法。
+具体地，由引理 \ref{quot-lemma-curves-open-and-closed-in-spaces}，
+可知 $\textit{PolarizedCurves}$ 是代数叠 $\Polarizedstack$ 的开闭子叠，
+而任何从代数叠出发的光滑代数态射的目标群胚叠都是代数叠。
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{真态射上的复形模空间}
+\label{quot-section-moduli-complexes}
+
+\noindent
+本节的标题和内容取自
+\cite{lieblich-complexes}。设 $S$ 是概形，且
+$f : X \to B$ 是代数空间的真、平坦、有限表示态射。
+我们将证明存在一个代数叠
+$$
+\Complexesstack_{X/B}
+$$
+参数化纤维上负自扩张为零的 $D^b_{\textit{Coh}}$ 对象“族”。
+更准确地说，族由总空间导出范畴中的相对完美对象给出；
+这一略显技术性的概念见《空间的更多态射》第
+\ref{spaces-more-morphisms-section-relatively-perfect}.
+
+\medskip\noindent
+即使 $X$ 是域 $k$ 上的真代数空间，我们也得到一个非常有趣的代数叠。
+具体地，有嵌入
+$$
+\Cohstack_{X/k} \longrightarrow \Complexesstack_{X/k}
+$$
+因为对任意 $\mathcal{O}$-模 $\mathcal{F}$（在任意带环拓扑斯上），
+都有 $\Ext^i_\mathcal{O}(\mathcal{F}, \mathcal{F}) = 0$（当 $i < 0$）。
+虽然这当然说明我们的叠非空，但研究 $\Complexesstack_{X/k}$
+的真正动机是，导出范畴中常常存在这样的对象：
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ 中负自扩张为零的对象，
+并且其上同调层在多个次数中非零。
+例如，$X$ 可能与另一个真代数空间 $Y$（定义在 $k$ 上）导出等价，
+即存在一个 $k$-线性等价
+$$
+F : D^b_{\textit{Coh}}(\mathcal{O}_Y)
+\longrightarrow
+D^b_{\textit{Coh}}(\mathcal{O}_X)
+$$
+有时确实如此，而 $F$ 并非由 $X$ 与 $Y$ 之间的同构给出；
+例如阿贝尔簇及其对偶的情形。在此情形，$F$ 诱导代数叠之间的同构
+$$
+\Complexesstack_{Y/k}
+\longrightarrow
+\Complexesstack_{X/k}
+$$
+（此处待补未来的参考文献），特别地，$Y$ 上的凝聚层叠映入 $X$ 上的复形叠。
+反过来，如果我们足够理解 $\Complexesstack_{X/k}$ 的几何，
+就可以尝试利用它研究所有可能的导出等价空间 $Y$。
+
+\begin{lemma}
+\label{quot-lemma-complexes-open-neg-exts-vanishing}
+设 $S$ 是概形。
+设 $f : X \to Y$ 是 $S$ 上代数空间的态射。
+假设 $f$ 真、平坦且有限表示。
+设 $K, E \in D(\mathcal{O}_X)$。假设 $K$ 伪凝聚，
+且 $E$ 是 $Y$-完美的（《空间的更多态射》定义
+\ref{spaces-more-morphisms-definition-relatively-perfect}）。
+对域 $k$ 及态射 $y : \Spec(k) \to Y$，记 $K_y$、$E_y$
+为到纤维 $X_y$ 的拉回。
+\begin{enumerate}
+\item 存在开子集 $W \subset Y$，其特征性质为
+$$
+y \in |W|
+\Leftrightarrow
+\Ext^i_{\mathcal{O}_{X_y}}(K_y, E_y) = 0
+\text{，其中 }i < 0.
+$$
+\item 对于任意态射 $V \to Y$，若其经由 $W$ 分解，则有
+$$
+\Ext^i_{\mathcal{O}_{X_V}}(K_V, E_V) = 0
+\quad\text{当}\quad i < 0
+$$
+其中 $X_V$ 是 $X$ 的基变换，而 $K_V$、$E_V$
+是 $K$、$E$ 到 $X_V$ 的导出拉回。
+\item 函子 $V \mapsto \Hom_{\mathcal{O}_{X_V}}(K_V, E_V)$
+是 $(\textit{Spaces}/W)_{fppf}$ 上的层，由一个在 $W$ 上仿射且有限表示的
+代数空间表示。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对任意态射 $V \to Y$，复形 $K_V$ 伪凝聚
+（《站点上的上同调》引理
+\ref{sites-cohomology-lemma-pseudo-coherent-pullback})
+且 $E_V$ 是 $V$-完美的（《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-base-change-relatively-perfect}).
+另一个观察是，给定 $y : \Spec(k) \to Y$
+以及域扩张 $k'/k$，带有 $y' : \Spec(k') \to Y$，
+所诱导的态射满足
+$$
+\Ext^i_{\mathcal{O}_{X_{y'}}}(K_{y'}, E_{y'}) =
+\Ext^i_{\mathcal{O}_{X_y}}(K_y, E_y) \otimes_k k'
+$$
+由《概形的导出范畴》引理
+\ref{perfect-lemma-affine-morphism-and-hom-out-of-perfect}.
+因此，(1) 中的消失确实是所诱导点 $y \in |Y|$ 的性质。
+证明中不再特别提及这两个观察。
+
+\medskip\noindent
+首先假设 $Y$ 是仿射概形。于是可应用
+《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-compute-ext-rel-perfect}
+并找到伪凝聚的 $L \in D(\mathcal{O}_Y)$，它按该引理所述的意义计算
+“普遍地计算” $Rf_*R\SheafHom(K, E)$。
+展开定义，对点 $y \in Y$ 有等式
+$$
+\Ext^i_{\kappa(y)}(L \otimes_{\mathcal{O}_Y}^\mathbf{L} \kappa(y),
+\kappa(y)) = \Ext^i_{\mathcal{O}_{X_y}}(K_y, E_y)
+$$
+由此得到
+$$
+H^i(L \otimes_{\mathcal{O}_Y}^\mathbf{L} \kappa(y)) = 0
+\text{ 对 } i > 0 \Leftrightarrow
+\Ext^i_{\mathcal{O}_{X_y}}(K_y, E_y) = 0 \text{ 对 }i < 0.
+$$
+由《概形的导出范畴》引理 \ref{perfect-lemma-jump-loci}，
+满足该条件的点集 $W$ 由 $y \in Y$ 构成，是 $Y$ 的开子集。
+这个开集 $W$ 对所有来自域谱的态射，依据 $L$ 的“普遍性”，
+满足 (1) 中的要求。
+
+\medskip\noindent
+回到一般的代数空间 $Y$。
+取 $\{V_i \to Y\}$ 为由仿射概形 $V_i$ 给出的 \'etale 覆盖。
+则子集 $W \subset |Y|$ 拉回为相应的子集
+$W_i \subset |V_i|$（对应于 $X_{V_i}$、$K_{V_i}$、$E_{V_i}$）。
+由上一段可知 $W_i$ 是开集，因而 $W$ 是开集。
+这就一般地证明了 (1)。此外，(2)、(3) 完全用范畴
+$\textit{Spaces}/W$ 及限制 $X_W$、$K_W$、$E_W$ 表述。
+因此只需考虑 $W = Y$ 的情形。
+
+\medskip\noindent
+假设 $W = Y$。我们断言，对任意代数空间 $V$（在 $Y$ 上），
+$Rf_{V, *}R\SheafHom(K_V, E_V)$ 在次数 $< 0$ 的上同调层均消失。
+这将证明 (2)，因为
+$$
+\Ext^i_{\mathcal{O}_{X_V}}(K_V, E_V) =
+H^i(X_V, R\SheafHom(K_V, E_V)) = 
+H^i(V, Rf_{V, *}R\SheafHom(K_V, E_V))
+$$
+由《站点上的上同调》引理
+\ref{sites-cohomology-lemma-section-RHom-over-U} 以及
+\ref{sites-cohomology-lemma-Leray-unbounded}
+并且由上同调层消失及《导出范畴》引理
+\ref{derived-lemma-negative-vanishing}，上同调群 $H^i$ 在 $i < 0$ 时为零。
+
+\medskip\noindent
+为证明该断言，我们可以在 $V$ 上作 \'etale 局部工作。
+特别地，可假设 $Y$ 仿射且 $W = Y$。
+令 $L \in D(\mathcal{O}_Y)$ 如证明第二段所述。
+对代数空间 $V$（在 $Y$ 上），记 $L_V$ 为 $L$ 到 $V$ 的导出拉回。
+（我们将使用的一个重要特征是，$L$ 对所有代数空间 $V$（在 $Y$ 上）都适用，
+而不只对仿射 $V$ 适用。）
+由于 $W = Y$，有 $H^i(L) = 0$（当 $i > 0$）
+（使用《更多代数》引理
+\ref{more-algebra-lemma-lift-pseudo-coherent-from-residue-field}
+从纤维转到茎）。因此 $H^i(L_V) = 0$（当 $i > 0$）。
+定义 $L$ 的性质是
+$$
+Rf_{V, *}R\SheafHom(K_V, E_V) = R\SheafHom(L_V, \mathcal{O}_V)
+$$
+由于 $L_V$ 集中在次数 $\leq 0$，可知
+$R\SheafHom(L_V, \mathcal{O}_V)$ 集中在次数 $\geq 0$，
+从而证明断言。(2) 的证明完成。
+
+\medskip\noindent
+假设 $W = Y$，但对代数空间 $Y$ 不作任何假设。
+由 (2) 以及《单纯空间》引理
+\ref{spaces-simplicial-lemma-fppf-neg-ext-zero-hom}，
+函子 $F$（由 $F(V) = \Hom_{\mathcal{O}_{X_V}}(K_V, E_V)$ 给出）
+是一个层\footnote{要检验覆盖 $\{V_i \to V\}_{i \in I}$ 的层性质，先考虑
+{\v C}ech fppf 超覆盖 $a : V_\bullet \to V$，其中
+$V_n = \coprod_{i_0 \ldots i_n} V_{i_0} \times_V \ldots \times_V V_{i_n}$
+然后令 $U_\bullet = V_\bullet \times_{a, V} X_V$。于是
+$U_\bullet \to X_V$ 是一个 fppf 超覆盖，可应用《单纯空间》引理
+\ref{spaces-simplicial-lemma-fppf-neg-ext-zero-hom}.}
+在 $(\textit{Spaces}/Y)_{fppf}$ 上。要证明 $F$ 是代数空间且
+$F \to Y$ 在 $Y$ 上仿射并有限表示，我们可以作 \'etale 局部工作；
+见《引导》引理 \ref{bootstrap-lemma-locally-algebraic-space-finite-type}
+以及《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-local} 和
+\ref{spaces-morphisms-lemma-finite-presentation-local}。
+因此，只需证明 $F$ 在 $Y$ 为仿射概形时是 $Y$ 上仿射且有限表示的代数空间。
+此时回到伪凝聚复形 $L \in D(\mathcal{O}_Y)$。
+由于 $H^i(L) = 0$（当 $i > 0$），可将 $L$ 表示为如下形式的复形：
+$$
+\ldots \to \mathcal{O}_Y^{\oplus m_1} \to \mathcal{O}_Y^{\oplus m_0}
+\to 0 \to \ldots
+$$
+末项位于次数 $0$；见《更多代数》引理
+\ref{more-algebra-lemma-pseudo-coherent}。结合证明中前面两个显示公式可得
+$$
+F(V) =
+\Ker(
+\Hom_V(\mathcal{O}_V^{\oplus m_0}, \mathcal{O}_V)
+\to 
+\Hom_V(\mathcal{O}_V^{\oplus m_1}, \mathcal{O}_V)
+)
+$$
+换言之，存在纤维积图
+$$
+\xymatrix{
+F \ar[d] \ar[r] & Y \ar[d]^0 \\
+\mathbf{A}_Y^{m_0} \ar[r] & \mathbf{A}_Y^{m_1}
+}
+$$
+这就证明了所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-complexes}
+设 $S$ 是概形。设 $f : X \to Y$ 是 $S$ 上代数空间的态射。
+假设 $f$ 真、平坦且有限表示。
+设 $E \in D(\mathcal{O}_X)$。
+假设
+\begin{enumerate}
+\item $E$ 是 $S$-完美的（《空间的更多态射》定义
+\ref{spaces-more-morphisms-definition-relatively-perfect})，以及
+\item 对每个点 $s \in S$，有
+$$
+\Ext^i_{\mathcal{O}_{X_s}}(E_s, E_s) = 0
+\quad\text{当}\quad i < 0
+$$
+其中 $E_s$ 是到纤维 $X_s$ 的拉回。
+\end{enumerate}
+则
+\begin{enumerate}
+\item[(a)] (1)、(2) 在任意基变换 $V \to Y$ 下保持；
+\item[(b)] 有
+$\Ext^i_{\mathcal{O}_{X_V}}(E_V, E_V) = 0$（当 $i < 0$），
+且对所有 $V$（在 $Y$ 上）均成立；
+\item[(c)] $V \mapsto \Hom_{\mathcal{O}_{X_V}}(E_V, E_V)$
+由一个在 $Y$ 上仿射且有限表示的代数空间表示。
+\end{enumerate}
+这里 $X_V$ 是 $X$ 的基变换，$E_V$ 是 $E$ 到 $X_V$ 的导出拉回。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{quot-lemma-complexes-open-neg-exts-vanishing} 的直接推论。
+\end{proof}
+
+\begin{situation}
+\label{quot-situation-complexes}
+设 $S$ 是概形。设 $f : X \to B$ 是 $S$ 上代数空间的态射。
+假设 $f$ 真、平坦且有限表示。
+记 $\Complexesstack_{X/B}$ 为如下范畴：其对象是三元组 $(T, g, E)$，其中
+\begin{enumerate}
+\item $T$ 是 $S$ 上的概形；
+\item $g : T \to B$ 是 $S$ 上的态射，并令
+$X_T = T \times_{g, B} X$
+\item $E$ 是 $D(\mathcal{O}_{X_T})$ 的对象，满足引理
+\ref{quot-lemma-complexes} 的条件 (1)、(2)。
+\end{enumerate}
+态射 $(T, g, E) \to (T', g', E')$
+由一对 $(h, \varphi)$ 给出，其中
+\begin{enumerate}
+\item $h : T \to T'$ 是 $B$ 上概形的态射
+（即 $g' \circ h = g$）；并且
+\item $\varphi : L(h')^*E' \to E$ 是
+$D(\mathcal{O}_{X_T})$ 中的同构，其中 $h' : X_T \to X_{T'}$
+是 $h$ 的基变换。
+\end{enumerate}
+\end{situation}
+
+\noindent
+因此 $\Complexesstack_{X/B}$ 是一个范畴，且规则
+$$
+p : \Complexesstack_{X/B} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(T, g, E) \longmapsto T
+$$
+是函子。对概形 $T$（在 $S$ 上），记 $\Complexesstack_{X/B, T}$
+为 $p$ 在 $T$ 上的纤维范畴。这些纤维范畴是群胚。
+
+\begin{lemma}
+\label{quot-lemma-complexes-fibred-in-groupoids}
+在情形 \ref{quot-situation-complexes} 中，函子
+$p : \Complexesstack_{X/B} \longrightarrow (\Sch/S)_{fppf}$
+是群胚纤维化的。
+\end{lemma}
+
+\begin{proof}
+我们通过检验函子 $p$ 是否为群胚纤维化，使用《范畴》定义
+\ref{categories-definition-fibred-groupoids}.
+给定对象 $(T', g', E')$（属于 $\Complexesstack_{X/B}$）
+以及态射 $h : T \to T'$（为 $S$ 上概形的态射），令 $g = h \circ g'$，
+并令 $E = L(h')^*E'$，其中 $h' : X_T \to X_{T'}$
+是 $h$ 的基变换。显然得到态射
+$(T, g, E) \to (T', g', E')$，它属于 $\Complexesstack_{X/B}$
+且位于 $h$ 之上。
+这证明了 (1)。
+对于 (2)，设给定态射
+$$
+(h_1, \varphi_1) : (T_1, g_1, E_1) \to (T, g, E)
+\quad\text{以及}\quad
+(h_2, \varphi_2) : (T_2, g_2, E_2) \to (T, g, E)
+$$
+它们属于 $\Complexesstack_{X/B}$，且有态射 $h : T_1 \to T_2$ 满足
+$h_2 \circ h = h_1$。令 $\varphi$ 为复合
+$$
+L(h')^*E_2
+\xrightarrow{L(h')^*\varphi_2^{-1}}
+L(h')^*L(h_2)^*E = L(h_1)^*E
+\xrightarrow{\varphi_1}
+E_1
+$$
+即可得到态射
+$(h, \varphi) : (T_1, g_1, E_1) \to (T_2, g_2, E_2)$，
+从而证明条件 (2) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-complexes-diagonal}
+在情形 \ref{quot-situation-complexes} 中，记
+$\mathcal{X} = \Complexesstack_{X/B}$。则
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$ 是
+由代数空间表示。
+\end{lemma}
+
+\begin{proof}
+考虑两个对象 $x = (T, g, E)$ 和 $y = (T, g', E')$，它们属于
+$\mathcal{X}$ 在概形 $T$ 上的纤维。需证明
+$\mathit{Isom}_\mathcal{X}(x, y)$ 是 $T$ 上的代数空间，见
+《代数叠》引理 \ref{algebraic-lemma-representable-diagonal}。
+若对 $h : T' \to T$，限制对象 $x|_{T'}$ 与 $y|_{T'}$
+在纤维范畴 $\mathcal{X}_{T'}$ 中同构，则 $g \circ h = g' \circ h$。
+因此存在预层的变换
+$$
+\mathit{Isom}_\mathcal{X}(x, y) \longrightarrow \text{Equalizer}(g, g')
+$$
+由于 $B$ 的对角态射可表示（由概形表示），这个等化子是概形。
+因此可用此等化子替换 $T$，并用其拉回替换 $E$、$E'$。
+于是可假设 $g = g'$。
+
+\medskip\noindent
+假设 $g = g'$。以 $B$ 替换为 $T$，并以 $X$ 替换为 $X_T$ 后，
+问题变为：给定 $E, E' \in D(\mathcal{O}_X)$，
+满足引理 \ref{quot-lemma-complexes} 的条件 (1)、(2)，
+证明 $\mathit{Isom}(E, E')$ 是代数空间。
+这里 $\mathit{Isom}(E, E')$ 是函子
+$$
+(\Sch/B)^{opp} \to \textit{Sets},\quad
+T \mapsto \{\varphi : E_T \to E'_T
+\text{ isomorphism in }D(\mathcal{O}_{X_T})\}
+$$
+其中 $E_T$、$E'_T$ 是 $E$、$E'$ 到 $X_T$ 的导出拉回。
+现在，令 $W \subset B$（分别令 $W' \subset B$）为 $B$ 中由引理
+\ref{quot-lemma-complexes-open-neg-exts-vanishing} 与 $E, E'$（分别与 $E', E$）
+关联的开子空间。
+显然，若存在同构 $E_T \to E'_T$（如 $\mathit{Isom}(E, E')$ 的定义所述），
+则 $T \to B$ 同时经由 $W$、$W'$ 分解（因为 $E$、$E'$ 满足条件 (1)，
+且显然 $E_t \cong E'_t$，所以不存在非零态射
+$E_t[i] \to E_t$ 或 $E'_t[i] \to E_t$；在纤维 $X_t$ 上当 $i > 0$ 时均如此。
+因此可用 $B$ 替换为开集 $W \cap W'$。
+在此情形，函子 $H = \SheafHom(E, E')$
+$$
+(\Sch/B)^{opp} \to \textit{Sets},\quad T \mapsto
+\Hom_{\mathcal{O}_{X_T}}(E_T, E'_T)
+$$
+由引理 \ref{quot-lemma-complexes-open-neg-exts-vanishing}，
+是 $B$ 上仿射且有限表示的代数空间。
+对下列函子同样如此：
+$H' = \SheafHom(E', E)$,
+$I = \SheafHom(E, E)$，以及
+$I' = \SheafHom(E', E')$.
+因此可重复命题 \ref{quot-proposition-isom} 证明中的论证，得到
+$$
+\mathit{Isom}(E, E') = (H' \times_B H) \times_{c, I \times_B I', \sigma} B
+$$
+其中 $c$、$\sigma$ 是某些态射。因此
+$\mathit{Isom}(E, E')$ 是代数空间。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-complexes-stack}
+在情形 \ref{quot-situation-complexes} 中，函子
+$p : \Complexesstack_{X/B} \longrightarrow (\Sch/S)_{fppf}$
+是群胚叠。
+\end{lemma}
+
+\begin{proof}
+要证明 $\Complexesstack_{X/B}$ 是群胚叠，
+需证明预层 $\mathit{Isom}$ 是层且下降数据有效。
+关于 $\mathit{Isom}$ 的陈述由引理 \ref{quot-lemma-complexes-diagonal} 得到，见
+《代数叠》引理 \ref{algebraic-lemma-representable-diagonal}。
+下面证明下降数据的陈述。
+
+\medskip\noindent
+设 $\{a_i : T_i \to T\}$ 是 $S$ 上概形的 fppf 覆盖。
+设 $(\xi_i, \varphi_{ij})$ 是 $\{T_i \to T\}$ 的下降数据，
+取值于 $\Complexesstack_{X/B}$。
+对每个 $i$，可写 $\xi_i = (T_i, g_i, E_i)$。
+记投影 $\text{pr}_0 : T_i \times_T T_j \to T_i$ 和
+$\text{pr}_1 : T_i \times_T T_j \to T_j$。
+条件 $\xi_i|_{T_i \times_T T_j} \cong \xi_j|_{T_i \times_T T_j}$
+尤其蕴含 $g_i \circ \text{pr}_0 = g_j \circ \text{pr}_1$。
+因此存在唯一态射 $g : T \to B$ 使 $g_i = g \circ a_i$，见
+《空间上的下降》引理
+\ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}.
+记 $X_T = T \times_{g, B} X$。令
+$X_i = X_{T_i} = T_i \times_{g_i, B} X = T_i \times_{a_i, T} X_T$
+以及
+$$
+X_{ij} = X_{T_i} \times_{X_T} X_{T_j} = X_i \times_{X_T} X_j
+$$
+其投影 $\text{pr}_i$、$\text{pr}_j$ 分别到 $X_i$、$X_j$。
+注意 $(T_i, g_i, E_i)$ 沿
+$\text{pr}_0 : T_i \times_T T_j \to T_i$ 的拉回为
+$(T_i \times_T T_j, g_i \circ \text{pr}_0, L\text{pr}_i^*E_i)$.
+因此，$\{T_i \to T\}$ 在 $\Complexesstack_{X/B}$ 中的下降数据
+由对象 $(T_i, g \circ a_i, E_i)$ 以及每一对 $i, j$ 的同构给出，该同构位于
+$D\mathcal{O}_{X_{ij}})$
+$$
+\varphi_{ij} :
+L\text{pr}_i^*E_i \longrightarrow L\text{pr}_j^*E_j
+$$
+并在 $X$ 到
+$T_i \times_T T_j \times_T T_k$.
+利用引理 \ref{quot-lemma-complexes} 的 (b) 所给出的负 Ext 消失，可应用
+《单纯空间》引理 \ref{spaces-simplicial-lemma-fppf-glue-neg-ext-zero}
+得到这些复形的下降\footnote{为检验这一点，先考虑
+{\v C}ech fppf 超覆盖 $a : T_\bullet \to T$，其中
+$T_n = \coprod_{i_0 \ldots i_n} T_{i_0} \times_T \ldots \times_T T_{i_n}$
+然后令 $U_\bullet = T_\bullet \times_{a, T} X_T$。于是
+$U_\bullet \to X_T$ 是 fppf 超覆盖，可应用《单纯空间》引理
+\ref{spaces-simplicial-lemma-fppf-glue-neg-ext-zero}.}
+对于这些复形。换言之，存在对象 $E$，属于
+$D_\QCoh(\mathcal{O}_{X_T})$，将 $E_i$ 限制到 $X_{T_i}$ 上，
+并与 $\varphi_{ij}$ 相容。回忆，$T$-完美意味着伪凝聚，
+且相对于 $f^{-1}\mathcal{O}_T$ 具有局部有限 Tor 维。
+因此 $E$ 是 $T$-完美的，这是由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-pseudo-coherent-descends-fpqc} 以及
+\ref{spaces-more-morphisms-lemma-tor-amplitude-descends-fppf}.
+最后需检验 $E$ 满足引理 \ref{quot-lemma-complexes} 的条件 (2)。
+这立即由引理 \ref{quot-lemma-complexes-open-neg-exts-vanishing} 中
+开集 $W$ 的描述，以及 (2) 对 $E_i$ 在 $X_{T_i}/T_i$ 上成立这一事实得到。
+\end{proof}
+
+\begin{remark}
+\label{quot-remark-complexes-base-change}
+在情形 \ref{quot-situation-complexes} 中，规则
+$(T, g, E) \mapsto (T, g)$ 定义 $1$-态射
+$$
+\Complexesstack_{X/B} \longrightarrow \mathcal{S}_B
+$$
+它是群胚叠的态射
+（见引理 \ref{quot-lemma-complexes-stack}、《代数叠》第
+\ref{algebraic-section-split} 节，以及《叠的例子》第
+\ref{examples-stacks-section-stack-associated-to-sheaf}).
+设 $B' \to B$ 是 $S$ 上代数空间的态射。设
+$\mathcal{S}_{B'} \to \mathcal{S}_B$ 是相应的集合纤维化叠的
+$1$-态射。令 $X' = X \times_B B'$。
+由基变换得到群胚叠
+$\Complexesstack_{X'/B'} \to (\Sch/S)_{fppf}$，其中
+$f' : X' \to B'$。
+在此情形，图
+$$
+\begin{matrix}
+\vcenter{\xymatrix{
+\Complexesstack_{X'/B'} \ar[r] \ar[d] &
+\Complexesstack_{X/B} \ar[d] \\
+\mathcal{S}_{B'} \ar[r] & \mathcal{S}_B
+}} \\
+\text{或者换一种记号：} \\
+\vcenter{\xymatrix{
+\Complexesstack_{X'/B'} \ar[r] \ar[d] &
+\Complexesstack_{X/B} \ar[d] \\
+\Sch/B' \ar[r] & \Sch/B
+}}
+\end{matrix}
+$$
+是 $2$-纤维积方形。这个平凡的备注有时可用于改变基代数空间。
+\end{remark}
+
+\begin{lemma}
+\label{quot-lemma-complexes-limits}
+在情形 \ref{quot-situation-complexes} 中，假设 $B \to S$
+局部有限表示。则
+$p : \Complexesstack_{X/B} \to (\Sch/S)_{fppf}$ 保持极限
+（《Artin 公理》定义 \ref{artin-definition-limit-preserving}）。
+\end{lemma}
+
+\begin{proof}
+记 $B(T)$ 为离散范畴，其对象是 $S$-态射 $T \to B$。
+设 $T = \lim T_i$ 是 $S$ 上仿射概形的滤极限。
+将对象 $(T, h, E)$（它是 $\Complexesstack_{X/B, T}$ 的对象）
+所对应的 $h$ 视为 $B(T)$ 中的对象，得到纤维范畴的交换图
+$$
+\xymatrix{
+\colim \Complexesstack_{X/B, T_i} \ar[r] \ar[d] &
+\Complexesstack_{X/B, T} \ar[d] \\
+\colim B(T_i) \ar[r] & B(T)
+}
+$$
+需证明上方水平箭头是等价。由于假设 $B$ 在 $S$ 上局部有限表示，
+由《空间的极限》备注 \ref{spaces-limits-remark-limit-preserving}
+可知下方水平箭头是等价。这意味着可假设 $T = \lim T_i$
+是 $B$ 上仿射概形的滤极限。记相应态射
+$g_i : T_i \to B$、$g : T \to B$。令
+$X_i = T_i \times_{g_i, B} X$，$X_T = T \times_{g, B} X$。
+注意 $X_T = \colim X_i$。
+由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-descend-relatively-perfect} 表明，
+$T$-完美对象构成的 $D(\mathcal{O}_{X_T})$ 范畴是
+$T_i$-完美对象构成的 $D(\mathcal{O}_{X_{T_i}})$ 范畴的余极限。
+因此只需证明：给定 $T_i$-完美对象 $E_i$，属于
+$D(\mathcal{O}_{X_{T_i}})$，且导出拉回 $E$ 是 $E_i$ 到 $X_T$ 的导出拉回，
+满足引理 \ref{quot-lemma-complexes} 的条件 (2)，
+则增大 $i$ 后，$E_i$ 满足引理 \ref{quot-lemma-complexes} 的条件 (2)。
+令 $W \subset |T_i|$ 为引理
+\ref{quot-lemma-complexes-open-neg-exts-vanishing} 为 $E_i$、$E_i$ 构造的开集。
+由 $E$ 的假设，$T \to T_i$ 经由 $T$ 分解。
+于是存在 $i' \geq i$ 使 $T_{i'} \to T_i$ 经由 $W$ 分解，见
+《极限》引理 \ref{limits-lemma-limit-contained-in-constructible}。
+$i'$ 按 $W$ 的构造即可。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-complexes-RS-star}
+在情形 \ref{quot-situation-complexes} 中，设
+$$
+\xymatrix{
+Z \ar[r] \ar[d] & Z' \ar[d] \\
+Y \ar[r] & Y'
+}
+$$
+是 $S$ 上概形范畴中的推出，其中 $Z \to Z'$ 是有限阶加厚，
+$Z \to Y$ 是仿射；见《更多态射》引理
+\ref{more-morphisms-lemma-pushout-along-thickening}。
+则纤维范畴上的函子
+$$
+\Complexesstack_{X/B, Y'}
+\longrightarrow
+\Complexesstack_{X/B, Y}
+\times_{\Complexesstack_{X/B, Z}}
+\Complexesstack_{X/B, Z'}
+$$
+是等价。
+\end{lemma}
+
+\begin{proof}
+注意相应的映射
+$$
+B(Y') \longrightarrow B(Y) \times_{B(Z)} B(Z')
+$$
+是双射，见《空间的推出》引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}.
+因此利用交换图
+$$
+\xymatrix{
+\Complexesstack_{X/B, Y'} \ar[r] \ar[d] &
+\Complexesstack_{X/B, Y}
+\times_{\Complexesstack_{X/B, Z}}
+\Complexesstack_{X/B, Z'}
+\ar[d] \\
+B(Y') \ar[r] & B(Y) \times_{B(Z)} B(Z')
+}
+$$
+可知可假设 $Y'$ 是 $B'$ 上的概形。由备注
+\ref{quot-remark-complexes-base-change}，可将 $B$ 替换为 $Y'$，
+并将 $X$ 替换为 $X \times_B Y'$。因此可假设 $B = Y'$。
+
+\medskip\noindent
+假设 $B = Y'$。先证明函子的全忠实性。
+为此，设 $\xi_1, \xi_2$ 是 $\Complexesstack_{X/B}$ 中位于 $Y'$ 上的两个对象。
+需证明
+$$
+\mathit{Isom}(\xi_1, \xi_2)(Y') \longrightarrow
+\mathit{Isom}(\xi_1, \xi_2)(Y)
+\times_{\mathit{Isom}(\xi_1, \xi_2)(Z)}
+\mathit{Isom}(\xi_1, \xi_2)(Z')
+$$
+是双射。然而我们已经知道 $\mathit{Isom}(\xi_1, \xi_2)$
+是 $B = Y'$ 上的代数空间。因此由《Artin 公理》引理
+\ref{artin-lemma-pushout}（或上述《空间的推出》引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}).
+
+\medskip\noindent
+本质满射性。设 $(E_Y, E_{Z'}, \alpha)$ 是三元组，其中
+$E_Y \in D(\mathcal{O}_Y)$、$E_{Z'} \in D(\mathcal{O}_{X_{Z'}})$
+是满足下列条件的对象：$(Y, Y \to B, E_Y)$ 是
+$Y$ 上属于 $\Complexesstack_{X/B}$ 的对象，并且
+$(Z', Z' \to B, E_{Z'})$ 是 $Z'$ 上属于 $\Complexesstack_{X/B}$ 的对象，
+且 $\alpha : L(X_Z \to X_Y)^*E_Y \to L(X_Z \to X_{Z'})^*E_{Z'}$
+是 $D(\mathcal{O}_{Z'})$ 中的同构。也就是说
+$$
+((Y, Y \to B, E_Y), (Z', Z' \to B, E_{Z'}), \alpha)
+$$
+是本引理箭头目标中的对象。
+注意图
+$$
+\xymatrix{
+X_Z \ar[r] \ar[d] & X_{Z'} \ar[d] \\
+X_Y \ar[r] & X_{Y'}
+}
+$$
+是推出，其中 $X_Z \to X_Y$ 仿射且 $X_Z \to X_{Z'}$ 是加厚
+（见《空间的推出》引理
+\ref{spaces-pushouts-lemma-equivalence-categories-spaces-pushout-flat}).
+因此由《空间的推出》引理
+\ref{spaces-pushouts-lemma-pushout-along-thickening-derived}
+可找到对象 $E_{Y'} \in D(\mathcal{O}_{X_{Y'}})$
+以及同构
+$L(X_Y \to X_{Y'})^*E_{Y'} \to E_Y$ 及
+$L(X_{Z'} \to X_{Y'})^*E_{Y'} \to E_Z$
+与 $\alpha$ 相容。显然，只要证明 $E_{Y'}$ 是 $Y'$-完美的，
+就完成了，因为引理 \ref{quot-lemma-complexes} 的条件 (2)
+是点上的性质（且 $Y$ 与 $Y'$ 具有相同的点）。
+这由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-thickening-relatively-perfect}.
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-complexes-tangent-space}
+在情形 \ref{quot-situation-complexes} 中，假设 $S$ 是局部诺特概形，
+且 $B \to S$ 局部有限表示。
+设 $k$ 是 $S$ 上有限型的域，且
+$x_0 = (\Spec(k), g_0, E_0)$
+是 $\mathcal{X} = \Complexesstack_{X/B}$ 上位于 $k$ 的对象。
+则空间 $T\mathcal{F}_{\mathcal{X}, k, x_0}$ 和
+$\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})$
+（《Artin 公理》第 \ref{artin-section-tangent-spaces} 节）
+是有限维的。
+\end{lemma}
+
+\begin{proof}
+注意由引理 \ref{quot-lemma-complexes-RS-star}，
+我们的群胚叠 $\mathcal{X}$ 满足《Artin 公理》第
+\ref{artin-section-RS-star} 节定义的性质 (RS*)。
+特别地，$\mathcal{X}$ 满足 (RS)。
+因此所有相关的预形变范畴都是形变范畴
+（《Artin 公理》引理 \ref{artin-lemma-deformation-category}），
+上述陈述有意义。
+
+\medskip\noindent
+本段将说明可归约到 $B = \Spec(k)$ 的情形。
+令 $X_0 = \Spec(k) \times_{g_0, B} X$，并记
+$\mathcal{X}_0 = \Complexesstack_{X_0/k}$。在备注
+\ref{quot-remark-complexes-base-change} 中已看到，
+$\mathcal{X}_0$ 是 $2$-纤维积：$\mathcal{X}$ 与 $\Spec(k)$ 在 $B$ 上的纤维积，
+作为 $(\Sch/S)_{fppf}$ 上的群胚纤维化范畴。
+因此由《Artin 公理》引理
+\ref{artin-lemma-fibre-product-tangent-spaces}，
+只需证明 $B$、$\Spec(k)$、$\mathcal{X}_0$ 的切空间和无穷小自同构空间有限维。
+根据《Artin 公理》引理 \ref{artin-lemma-finite-dimension}，
+$B$ 和 $\Spec(k)$ 的切空间有限维，且显然它们的 $\text{Inf}$ 消失。
+因此只需处理 $\mathcal{X}_0$。
+
+\medskip\noindent
+令 $k[\epsilon]$ 为 $k$ 上的对偶数。
+令 $\Spec(k[\epsilon]) \to B$ 为 $g_0 : \Spec(k) \to B$
+与 $\Spec(k[\epsilon]) \to \Spec(k)$ 的复合，后一个态射来自包含
+$k \to k[\epsilon]$。
+令 $X_0 = \Spec(k) \times_B X$，以及
+$X_\epsilon = \Spec(k[\epsilon]) \times_B X$.
+注意 $X_\epsilon$ 是 $X_0$ 的一阶加厚，
+并且在一阶加厚 $\Spec(k) \to \Spec(k[\epsilon])$ 上平坦。
+注意 $X_0$、$X_\epsilon$ 导出典范等价的小 \'etale 拓扑斯，见
+《空间的更多态射》第
+\ref{spaces-more-morphisms-section-thickenings}.
+由《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-thickening-relatively-perfect}
+可知 $T\mathcal{F}_{\mathcal{X}_0, k, x_0}$ 是
+$E_0$ 到 $X_\epsilon$ 的提升的同构类集合（意义见《形变理论》引理
+\ref{defos-lemma-first-order-defos-complex}）。
+因此
+$$
+T\mathcal{F}_{\mathcal{X}_0, k, x_0} =
+\Ext^1_{\mathcal{O}_{X_0}}(E_0, E_0)
+$$
+这里使用了模同一 $\epsilon k[\epsilon] \cong k$，作为 $k[\epsilon]$-模。
+再次使用《形变理论》引理
+\ref{defos-lemma-first-order-defos-complex}，可知存在满射
+$$
+\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})
+\leftarrow
+\Ext^0_{\mathcal{O}_{X_0}}(E_0, E_0)
+$$
+这是 $k$-向量空间的满射。由于 $E_0$ 伪凝聚，它属于
+$D^-_{\textit{Coh}}(\mathcal{O}_{X_0})$，由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-identify-pseudo-coherent-noetherian}。
+由于 $E_0$ 局部具有有限 Tor 维且 $X_0$ 拟紧，可知
+$E_0 \in D^b_{\textit{Coh}}(\mathcal{O}_{X_0})$。
+因此上述 $\Ext$s 是有限维 $k$-向量空间，依据《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-ext-finite}。
+\end{proof}
+
+\begin{lemma}
+\label{quot-lemma-complexes-strong-effectiveness}
+在情形 \ref{quot-situation-complexes} 中，假设 $B = S$ 局部诺特。
+则依《Artin 公理》备注 \ref{artin-remark-strong-effectiveness}
+的意义，$p : \Complexesstack_{X/S} \to (\Sch/S)_{fppf}$
+满足强形式有效性。
+\end{lemma}
+
+\begin{proof}
+设 $(R_n)$ 是 $S$-代数的逆系统，过渡映射满射且核局部幂零。
+令 $R = \lim R_n$。设 $(\xi_n)$ 是
+$\Complexesstack_{X/B}$ 中位于 $(\Spec(R_n))$ 之上的对象系统。需证明
+$(\xi_n)$ 有效，即存在对象 $\xi$，属于 $\Complexesstack_{X/B}$，位于
+$\Spec(R)$ 之上。
+
+\medskip\noindent
+记 $X_R = \Spec(R) \times_S X$，$X_n = \Spec(R_n) \times_S X$。
+显然 $X_n$ 是 $X_R$ 沿 $R \to R_n$ 的基变换。由于 $S = B$，
+$\xi_n$ 对应于 $R_n$-完美对象
+$E_n \in D(\mathcal{O}_{X_n})$，满足引理 \ref{quot-lemma-complexes} 的条件 (2)。
+特别地，$E_n$ 伪凝聚。
+同构 $\xi_{n + 1}|_{\Spec(R_n)} \cong \xi_n$
+对应同构 $L(X_n \to X_{n + 1})^*E_{n + 1} \to E_n$。
+因此由《空间上的平坦性》定理
+\ref{spaces-flat-theorem-existence-derived}，
+可找到伪凝聚对象 $E$，属于 $D(\mathcal{O}_{X_R})$，
+使 $E_n$ 都等于 $E$ 的导出拉回（对所有 $n$），
+并与过渡同构相容。
+
+\medskip\noindent
+注意 $(R, \Ker(R \to R_1))$ 是 Hensel 对，见《更多代数》引理
+\ref{more-algebra-lemma-limit-henselian}。
+特别地，$\Ker(R \to R_1)$ 包含于 $R$ 的 Jacobson 根中。
+于是可应用《空间的更多态射》引理
+\ref{spaces-more-morphisms-lemma-henselian-relatively-perfect}
+可知 $E$ 是 $R$-完美的。
+
+\medskip\noindent
+最后需检验引理 \ref{quot-lemma-complexes} 的条件 (2)。
+由引理 \ref{quot-lemma-complexes-open-neg-exts-vanishing}，
+点 $t$ 属于 $\Spec(R)$ 且 $E_t$ 的负自扩张消失的点集是开集。
+由于该条件在 $V(\Ker(R \to R_1))$ 中成立，且
+$\Ker(R \to R_1)$ 包含于 $R$ 的 Jacobson 根中，
+可知它对所有点成立。
+\end{proof}
+
+\begin{theorem}[真态射上复形模空间的代数性]
+\label{quot-theorem-complexes-algebraic}
+\begin{reference}
+\cite{lieblich-complexes}
+\end{reference}
+设 $S$ 是概形。设 $f : X \to B$ 是
+$S$ 上代数空间的态射。假设 $f$ 真、平坦且有限表示。
+则 $\Complexesstack_{X/B}$ 是 $S$ 上的代数叠。
+\end{theorem}
+
+\begin{proof}
+令 $\mathcal{X} = \Complexesstack_{X/B}$。我们已经看到，$\mathcal{X}$
+是 $(\Sch/S)_{fppf}$ 上的群胚叠，且其对角态射由代数空间表示
+（引理 \ref{quot-lemma-complexes-stack} 和 \ref{quot-lemma-complexes-diagonal}）。
+因此只需找到概形 $W$ 以及满射光滑态射 $W \to \mathcal{X}$。
+
+\medskip\noindent
+设 $B'$ 是概形，且 $B' \to B$ 是满射 \'etale 态射。
+令 $X' = B' \times_B X$，并记投影 $f' : X' \to B'$。
+则 $\mathcal{X}' = \Complexesstack_{X'/B'}$ 等于 $2$-纤维积：
+$\mathcal{X}$ 与由 $B'$ 关联的集合纤维化范畴在由 $B$ 关联的集合纤维化范畴上的
+纤维积（备注 \ref{quot-remark-complexes-base-change}）。由
+《代数叠》第 \ref{algebraic-section-representable-properties} 节的材料，
+态射 $\mathcal{X}' \to \mathcal{X}$ 是满射且 \'etale。
+因此只需对 $\mathcal{X}'$ 证明结论。换言之，可假设 $B$ 是概形。
+
+\medskip\noindent
+假设 $B$ 是概形。在此情形可将 $S$ 替换为 $B$，见
+《代数叠》第 \ref{algebraic-section-change-base-scheme} 节。
+因此可假设 $S = B$。
+
+\medskip\noindent
+假设 $S = B$。取仿射开覆盖 $S = \bigcup U_i$。
+记 $\mathcal{X}_i$ 为 $\mathcal{X}$ 在
+$(\Sch/U_i)_{fppf}$ 上的限制。若能找到概形 $W_i$（定义在 $U_i$ 上）以及满射光滑态射
+$W_i \to \mathcal{X}_i$，则令 $W = \coprod W_i$，得到满射光滑态射
+$W \to \mathcal{X}$。因此可假设 $S = B$ 是仿射的。
+
+\medskip\noindent
+假设 $S = B$ 仿射，记 $S = \Spec(\Lambda)$。
+将 $\Lambda = \colim \Lambda_i$ 写成滤余极限，其中每个 $\Lambda_i$
+在 $\mathbf{Z}$ 上有限型。对某个 $i$，可找到代数空间态射
+$X_i \to \Spec(\Lambda_i)$，它真、平坦且有限表示，并且其到
+$\Lambda$ 的基变换是 $X$。见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-finite-presentation},
+\ref{spaces-limits-lemma-descend-flat}，以及
+\ref{spaces-limits-lemma-eventually-proper}。
+若证明 $\Complexesstack_{X_i/\Spec(\Lambda_i)}$ 是代数叠，则由基变换
+（备注 \ref{quot-remark-complexes-base-change} 以及《代数叠》第
+\ref{algebraic-section-change-base-scheme} 节）可知
+$\mathcal{X}$ 是代数叠。因此可假设 $\Lambda$ 是有限型
+$\mathbf{Z}$-代数。
+
+\medskip\noindent
+假设 $S = B = \Spec(\Lambda)$ 是有限型的仿射 $\mathbf{Z}$-代数。
+此时将验证《Artin 公理》引理
+\ref{artin-lemma-diagonal-representable} 的条件 (1)、(2)、(3)、(4)、(5)，
+从而推出 $\mathcal{X}$ 是代数叠。
+注意 $\Lambda$ 是 G-环，见《更多代数》命题
+\ref{more-algebra-proposition-ubiquity-G-ring}。
+因此 $S$ 的所有局部环都是 G-环，故 (5) 成立。
+要检验 (2)，需验证《Artin 公理》第
+\ref{artin-section-axioms} 节的公理 [-1]、[0]、[1]、[2]、[3]。
+我们省略 [-1] 的验证；公理
+[0]、[1]、[2]、[3] 分别对应引理 \ref{quot-lemma-complexes-stack}、
+\ref{quot-lemma-complexes-limits},
+\ref{quot-lemma-complexes-RS-star},
+\ref{quot-lemma-complexes-tangent-space}。
+条件 (3) 由引理 \ref{quot-lemma-complexes-strong-effectiveness} 得出。
+条件 (1) 就是引理 \ref{quot-lemma-complexes-diagonal}。
+
+\medskip\noindent
+剩下的是证明条件 (4)，即形式光滑性的开放性。
+为此将使用《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality}。
+我们已经看到 $\mathcal{X}$ 的对角态射由代数空间表示，满足 (RS*)，
+并保持极限（见上面使用的引理）。
+因此只需证明 $\mathcal{X}$ 满足《Artin 公理》引理
+\ref{artin-lemma-SGE-implies-openness-versality} 中表述的强形式有效性。
+这由引理 \ref{quot-lemma-complexes-strong-effectiveness} 得出，证明完成。
+\end{proof}
