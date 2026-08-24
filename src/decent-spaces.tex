@@ -1,0 +1,4755 @@
+% Generated mechanically from the frozen decent-spaces.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{67}
+\chapter{良好代数空间}
+
+
+
+\phantomsection
+\label{decent-spaces-section-phantom}
+
+
+\section{引言}
+\label{decent-spaces-section-introduction}
+
+\noindent
+本章研究一般代数空间的“局部”性质，也就是研究不一定拟分离的代数空间。
+拟分离代数空间见 \cite{Kn}。对于更一般的代数空间，确实会出现本质上
+新的现象，尤其涉及点及点的特化。另一方面，代数空间的大多数基本结果
+不必顾及这些现象，因此我们把这部分材料单列一章，置于理论的标准展开
+之后。
+
+
+
+\section{约定}
+\label{decent-spaces-section-conventions}
+
+\noindent
+固定假设所有概形都包含在一个大 fppf 位点 $\Sch_{fppf}$ 中，并且所考虑的
+每个环 $A$ 都满足 $\Spec(A)$（同构于）该大位点的一个对象。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。在本章及下一章中，$X$ 与自身
+的乘积（在 $S$ 上代数空间的范畴中）记作 $X \times_S X$，而不写作
+$X \times X$。
+
+
+
+\section{普遍有界纤维}
+\label{decent-spaces-section-universally-bounded}
+
+\noindent
+我们简要讨论从概形到代数空间的态射具有普遍有界纤维是什么意思。关于
+概形态射的类似定义与结果，参见《态射》第
+\ref{morphisms-section-universally-bounded} 节。
+
+\begin{definition}
+\label{decent-spaces-definition-universally-bounded}
+设 $S$ 为概形。设 $X$ 为 $S$ 上的代数空间，$U$ 为 $S$ 上的概形，
+$f : U \to X$ 为 $S$ 上的态射。若存在整数 $n$，使得对每个域 $k$ 及
+每个态射 $\Spec(k) \to X$，纤维积 $\Spec(k) \times_X U$ 都是 $k$
+上的有限概形，且在 $k$ 上的次数 $\leq n$，则称 {\it $f$ 的纤维普遍
+有界}\footnote{这大概不是标准术语。}。
+\end{definition}
+
+\noindent
+% P08-E269: frozen source's undefined Y and mismatched factors preserved; see ERRATA_CANDIDATES.jsonl.
+这个定义是有意义的，因为纤维积 $\Spec(k) \times_Y X$ 是概形。此外，
+若 $Y$ 是概形，则这里的概念恢复为《态射》定义
+\ref{morphisms-definition-universally-bounded} 中的概念；这是《态射》引理
+\ref{morphisms-lemma-characterize-universally-bounded} 的结果。
+
+\begin{lemma}
+\label{decent-spaces-lemma-composition-universally-bounded}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $V \to U$ 为 $S$ 上概形的
+态射，$U \to X$ 为从 $U$ 到 $X$ 的态射。若 $V \to U$ 与 $U \to X$
+的纤维普遍有界，则 $V \to X$ 的纤维也普遍有界。
+\end{lemma}
+
+\begin{proof}
+取适用于 $V \to U$ 的整数 $n$，并按定义
+\ref{decent-spaces-definition-universally-bounded} 取适用于 $U \to X$ 的整数 $m$。
+设 $\Spec(k) \to X$ 为态射，其中 $k$ 为域。考虑态射
+$$
+\Spec(k) \times_X V
+\longrightarrow
+\Spec(k) \times_X U
+\longrightarrow
+\Spec(k).
+$$
+由假设，概形 $\Spec(k) \times_X U$ 在 $k$ 上有限且次数至多为 $m$，
+而整数 $n$ 限制第一个态射各纤维的次数。因此由《态射》引理
+\ref{morphisms-lemma-composition-universally-bounded}，
+$\Spec(k) \times_X V$ 在 $k$ 上有限且次数至多为 $nm$。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-base-change-universally-bounded}
+设 $S$ 为概形。设 $Y \to X$ 为 $S$ 上代数空间的可表示态射，
+$U \to X$ 为从概形到 $X$ 的态射。若 $U \to X$ 的纤维普遍有界，
+则 $U \times_X Y \to Y$ 的纤维普遍有界。
+\end{lemma}
+
+\begin{proof}
+由定义及纤维积的性质即得。（注意，我们假设 $Y \to X$ 可表示，故
+$U \times_X Y$ 是概形，定义确实适用。）
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-descent-universally-bounded}
+设 $S$ 为概形。设 $g : Y \to X$ 为 $S$ 上代数空间的可表示态射，
+$f : U \to X$ 为从概形到 $X$ 的态射，并设
+$f' : U \times_X Y \to Y$ 为 $f$ 的基变换。若
+$$
+\Im(|f| : |U| \to |X|) \subset \Im(|g| : |Y| \to |X|)
+$$
+且 $f'$ 的纤维普遍有界，则 $f$ 的纤维普遍有界。
+\end{lemma}
+
+\begin{proof}
+按定义 \ref{decent-spaces-definition-universally-bounded} 对态射 $f'$ 取整数
+$n \geq 0$，它限制各纤维积 $\Spec(k) \times_Y (U \times_X Y)$ 的
+次数。我们断言 $n$ 也适用于 $f$。事实上，设
+$x : \Spec(k) \to X$ 是域谱给出的态射。则
+$\Spec(k) \times_X U$ 或为空（此时无须证明），或 $x$ 属于 $|f|$ 的像。
+由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian} 及本引理的假设，这意味着
+存在域扩张 $k'/k$ 与交换图表
+$$
+\xymatrix{
+\Spec(k') \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+于是可见
+$$
+\Spec(k') \times_Y (U \times_X Y) =
+\Spec(k') \times_{\Spec(k)} (\Spec(k) \times_X U)
+$$
+由于按假设概形 $\Spec(k') \times_Y (U \times_X Y)$ 在 $k'$ 上有限且
+次数 $\leq n$，所以 $\Spec(k) \times_X U$ 在 $k$ 上也有限且次数
+$\leq n$，如所需。（略去若干细节。）
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-universally-bounded-permanence}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。考虑交换图表
+$$
+\xymatrix{
+U \ar[rd]_g \ar[rr]_f & & V \ar[ld]^h \\
+& X &
+}
+$$
+其中 $U$ 与 $V$ 为概形。若 $g$ 的纤维普遍有界，且 $f$ 满射且平坦，
+则 $h$ 的纤维也普遍有界。
+\end{lemma}
+
+\begin{proof}
+假设 $g$ 的纤维普遍有界，且 $f$ 满射且平坦。按定义
+\ref{decent-spaces-definition-universally-bounded}，设整数 $n \geq 0$ 限制各概形
+$\Spec(k) \times_X U$ 的次数。我们断言 $n$ 也适用于 $h$。
+设 $\Spec(k) \to X$ 为域谱到 $X$ 的态射。考虑概形态射
+% P08-E270: frozen source's reversed base-change arrow preserved; see ERRATA_CANDIDATES.jsonl.
+$$
+\Spec(k) \times_X V \longrightarrow \Spec(k) \times_X U
+$$
+它平坦且满射。由假设，左边的概形在 $\Spec(k)$ 上有限且次数
+$\leq n$。由《态射》引理
+\ref{morphisms-lemma-universally-bounded-permanence}，右边概形的次数也由
+$n$ 限制，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-universally-bounded-finite-fibres}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，$U$ 为 $S$ 上的概形。
+设 $\varphi : U \to X$ 为 $S$ 上的态射。若 $\varphi$ 的纤维普遍有界，
+则存在整数 $n$，使得 $|U| \to |X|$ 的每个纤维至多含 $n$ 个元素。
+\end{lemma}
+
+\begin{proof}
+定义 \ref{decent-spaces-definition-universally-bounded} 中的整数 $n$ 即可。事实上，
+取 $x \in |X|$，并用态射 $x : \Spec(k) \to X$ 表示 $x$。于是得到交换图表
+$$
+\xymatrix{
+\Spec(k) \times_X U \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r]^x & X
+}
+$$
+由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，该图表表明 $x$ 在 $|U|$
+中的逆像就是上方水平箭头的像。由于 $\Spec(k) \times_X U$ 在 $k$ 上
+有限且次数 $\leq n$，它至多含 $n$ 个点。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{有限性条件与点}
+\label{decent-spaces-section-points-monomorphisms}
+
+\noindent
+本节进一步讨论何时能用从域谱到该空间的单态射表示点。
+
+\begin{remark}
+\label{decent-spaces-remark-recall}
+在证明下一个引理之前，先回顾概形的 \'etale 态射的一些事实：
+\begin{enumerate}
+\item \'Etale 态射平坦，故一般化可沿 \'etale 态射提升
+（《态射》引理 \ref{morphisms-lemma-etale-flat} 与
+\ref{morphisms-lemma-generalizations-lift-flat}）。
+\item \'Etale 态射非分歧，而非分歧态射局部拟有限，故其纤维离散
+（《态射》引理 \ref{morphisms-lemma-flat-unramified-etale}、
+\ref{morphisms-lemma-unramified-quasi-finite} 与
+\ref{morphisms-lemma-quasi-finite-at-point-characterize}）。
+\item 拟紧 \'etale 态射拟有限，因而特别具有有限纤维
+（《态射》引理 \ref{morphisms-lemma-quasi-finite-locally-quasi-compact} 与
+\ref{morphisms-lemma-quasi-finite}）。
+\item 域 $k$ 上的 \'etale 概形是 $k$ 的有限可分域扩张之谱的不交并
+（《态射》引理 \ref{morphisms-lemma-etale-over-field}）。
+\end{enumerate}
+关于 \'etale 态射的一般讨论，参见《\'Etale 态射》第
+\ref{etale-section-etale-morphisms} 节。
+\end{remark}
+
+\begin{lemma}
+\label{decent-spaces-lemma-U-finite-above-x}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。下列条件等价：
+\begin{enumerate}
+\item 存在概形族 $U_i$ 及 \'etale 态射 $\varphi_i : U_i \to X$，使得
+$\coprod \varphi_i : \coprod U_i \to X$ 满射，并且对每个 $i$，
+$|U_i| \to |X|$ 在 $x$ 上的纤维有限；
+\item 对每个仿射概形 $U$ 及 \'etale 态射 $\varphi : U \to X$，
+$|U| \to |X|$ 在 $x$ 上的纤维有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2) $\Rightarrow$ (1) 显然。设 $\varphi_i : U_i \to X$ 是 (1) 中的
+\'etale 态射族，并设 $\varphi : U \to X$ 是从仿射概形到 $X$ 的
+\'etale 态射。考虑纤维积图表
+$$
+\xymatrix{
+U \times_X U_i \ar[r]_-{p_i} \ar[d]_{q_i} & U_i \ar[d]^{\varphi_i} \\
+U \ar[r]^\varphi & X
+}
+\quad \quad
+\xymatrix{
+\coprod U \times_X U_i \ar[r]_-{\coprod p_i} \ar[d]_{\coprod q_i} &
+\coprod U_i \ar[d]^{\coprod \varphi_i} \\
+U \ar[r]^\varphi & X
+}
+$$
+因为 $q_i$ 是 \'etale 态射，所以它是开态射（见注
+\ref{decent-spaces-remark-recall}）。而且态射 $\coprod q_i$ 满射。因此存在有限多个指标
+$i_1, \ldots, i_n$ 以及拟紧开子集
+$W_{i_j} \subset U \times_X U_{i_j}$，它们的像覆盖 $U$。
+态射 $p_i$ 是 \'etale 的，因而局部拟有限（见上面对 \'etale 态射的注）。
+故可应用《态射》引理
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}，
+得知下列态射的纤维有限：
+% P08-E271: frozen source's codomain U_i is preserved; see ERRATA_CANDIDATES.jsonl.
+$p_{i_j}|_{W_{i_j}} : W_{i_j} \to U_i$。
+于是由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian} 及关于 $\varphi_i$ 的假设，
+可知 $\varphi$ 在 $x$ 上的纤维有限。换言之，(2) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-R-finite-above-x}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。下列条件等价：
+\begin{enumerate}
+\item 存在概形 $U$、\'etale 态射 $\varphi : U \to X$ 以及映到 $x$ 的点
+$u, u' \in U$，使得令 $R = U \times_X U$ 后，态射
+$$
+|R| \to |U| \times_{|X|} |U|
+$$
+在 $(u, u')$ 上的纤维有限；
+\item 对每个概形 $U$、\'etale 态射 $\varphi : U \to X$ 以及任意映到
+$x$ 的点 $u, u' \in U$，令 $R = U \times_X U$ 后，态射
+$$
+|R| \to |U| \times_{|X|} |U|
+$$
+在 $(u, u')$ 上的纤维有限；
+\item 存在 $x$ 的等价类中的态射 $\Spec(k) \to X$，其中 $k$ 为域，
+使得投影 $\Spec(k) \times_X \Spec(k) \to \Spec(k)$ 是
+\'etale 且拟紧的；
+\item 存在 $x$ 的等价类中的单态射 $\Spec(k) \to X$，其中 $k$ 为域。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立，即设 $\varphi : U \to X$ 是从概形到 $X$ 的 \'etale 态射，
+$u, u'$ 是 $U$ 中位于 $x$ 上方的点，且
+$|R| \to |U| \times_{|X|} |U|$ 在 $(u, u')$ 上的纤维是有限集。
+在本证明中，把点 $u = \Spec(\kappa(u))$ 视为概形。注意，$u \to U$ 与
+$u' \to U$ 都是单态射（见《概形》引理
+\ref{schemes-lemma-injective-points-surjective-stalks}），故
+$u \times_X u' \to R = U \times_X U$ 是单态射。采用这种语言，假设实际
+意味着 $u \times_X u'$ 是一个底拓扑空间只有有限多个点的概形。
+设 $\psi : W \to X$ 是从概形到 $X$ 的 \'etale 态射，并设
+$w, w' \in W$ 是 $W$ 中映到 $x$ 的点。我们须证明 $w \times_X w'$ 是一个底拓扑
+空间只有有限多个点的概形。考虑纤维积图表
+$$
+\xymatrix{
+W \times_X U \ar[r]_p \ar[d]_q & U \ar[d]^\varphi \\
+W \ar[r]^\psi & X
+}
+$$
+因为 $x$ 是 $u$ 与 $u'$ 的像，所以可在 $W \times_X U$ 中取点
+$\tilde w, \tilde w'$，使得 $q(\tilde w) = w$、
+$q(\tilde w') = w'$、$u = p(\tilde w)$ 且 $u' = p(\tilde w')$；见
+《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}。
+因为 $p$、$q$ 是 \'etale 态射，域扩张
+$\kappa(w) \subset \kappa(\tilde w) \supset \kappa(u)$ 与
+$\kappa(w') \subset \kappa(\tilde w') \supset \kappa(u')$
+中的各个扩张均有限可分；见注 \ref{decent-spaces-remark-recall}。于是得到交换图表
+% P08-E272: frozen source's lower-left X-product is preserved; see ERRATA_CANDIDATES.jsonl.
+$$
+\xymatrix{
+w \times_X w' \ar[d] &
+\tilde w \times_X \tilde w' \ar[l] \ar[d] \ar[r] &
+u \times_X u' \ar[d] \\
+w \times_X w' &
+\tilde w \times_S \tilde w' \ar[l] \ar[r] &
+u \times_S u'
+}
+$$
+其中各方形都是纤维积方形。下方水平态射是 \'etale 且拟紧的：这是因为
+形如 $\Spec(k) \times_S \Spec(k')$ 的概形都是仿射概形，并结合上面对域扩张
+的观察可得。因此，上方水平箭头也是 \'etale 且拟紧的，故具有有限纤维。
+上面已说明 $|u \times_X u'|$ 有限，因而 $|w \times_X w'|$ 有限。
+换言之，(2) 成立。
+
+\medskip\noindent
+假设 (2) 成立。设 $U \to X$ 是从概形 $U$ 出发的 \'etale 态射，且 $x$
+属于 $|U| \to |X|$ 的像。取映到 $x$ 的点 $u \in U$。上一段表明，
+$u = \Spec(\kappa(u)) \to X$ 具有如下性质：$u \times_X u$ 的底拓扑空间
+有限。另一方面，投影 $u \times_X u \to u$ 是下列复合：
+$$
+u \times_X u \longrightarrow
+u \times_X U \longrightarrow
+u \times_X X = u,
+$$
+也就是一个单态射（单态射 $u \to U$ 的基变换）与一个 \'etale 态射
+（\'etale 态射 $U \to X$ 的基变换）的复合。因此，$u \times_X U$ 是
+$\kappa(u)$ 的有限可分域扩张之谱的不交并（见注
+\ref{decent-spaces-remark-recall}）。因为 $u \times_X u$ 有限，它在 $u \times_X U$
+中的像是 $\kappa(u)$ 的有限可分域扩张之谱的有限不交并。由《概形》引理
+\ref{schemes-lemma-mono-towards-spec-field}，可知 $u \times_X u$ 本身也是
+$\kappa(u)$ 的有限可分域扩张之谱的有限不交并。换言之，
+$u \times_X u \to u$ 拟紧且 \'etale。因此 (3) 成立。
+
+\medskip\noindent
+下面证明 (3) 蕴含 (4)。设 $\Spec(k) \to X$ 是 $x$ 的等价类中从域谱到
+$X$ 的态射，使得两个投影
+$t, s : R = \Spec(k) \times_X \Spec(k)  \to \Spec(k)$
+拟紧且 \'etale。特别地，这意味着 $R$ 是 $\Spec(k)$ 上的 \'etale 等价关系。
+由《空间》定理 \ref{spaces-theorem-presentation}，商层
+$X' = \Spec(k)/R$ 是代数空间。由《群胚》引理
+\ref{groupoids-lemma-quotient-groupoid-restrict}，映射 $X' \to X$ 是单态射。
+由于 $s,t$ 拟紧，$R$ 拟紧，因而《空间的性质》引理
+\ref{spaces-properties-lemma-point-like-spaces} 适用于 $X'$；于是对于某个域
+$k'$，有 $X' = \Spec(k')$。故得到分解
+$$
+\Spec(k) \longrightarrow
+\Spec(k') \longrightarrow X
+$$
+它表明 $\Spec(k') \to X$ 是映到 $x \in |X|$ 的单态射。换言之，(4) 成立。
+
+\medskip\noindent
+最后证明 (4) 蕴含 (1)。设 $\Spec(k) \to X$ 是 $x$ 的等价类中的单态射，
+其中 $k$ 为域。设 $U \to X$ 是从概形 $U$ 到 $X$ 的满 \'etale 态射，
+并设 $u \in U$ 是 $x$ 上方的点。由于 $\Spec(k) \times_X u$ 非空，且
+$\Spec(k) \times_X u \to u$ 是单态射，由《概形》引理
+\ref{schemes-lemma-mono-towards-spec-field} 可知
+$\Spec(k) \times_X u = u$。因此 $u \to U \to X$ 经过
+$\Spec(k) \to X$ 分解，如下图所示：
+$$
+\xymatrix{
+u \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+因为右边的竖直箭头是 \'etale 态射，这蕴含 $\kappa(u)/k$ 是有限可分扩张。
+于是
+$$
+u \times_X u = u \times_{\Spec(k)} u
+$$
+是有限概形，再由本证明第一段对条件 (1) 含义的讨论即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-weak-UR-finite-above-x}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。
+设 $U$ 为概形，$\varphi : U \to X$ 为 \'etale 态射。下列条件等价：
+\begin{enumerate}
+\item $x$ 属于 $|U| \to |X|$ 的像，并且令 $R = U \times_X U$ 后，下列
+两个映射在 $x$ 上的纤维都有限：
+$$
+|U| \longrightarrow |X|
+\quad\text{且}\quad
+|R| \longrightarrow |X|
+$$
+\item 存在 $x$ 的等价类中的单态射 $\Spec(k) \to X$，其中 $k$ 为域，
+并且纤维积 $\Spec(k) \times_X U$ 是 $k$ 上的非空有限概形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。它显然蕴含引理 \ref{decent-spaces-lemma-R-finite-above-x} 的第一个条件，
+因而得到 $x$ 的等价类中的单态射 $\Spec(k) \to X$。取纤维积可见，
+$\Spec(k) \times_X U \to \Spec(k)$ 是 $\Spec(k)$ 上只有有限多个点的
+\'etale 概形，因此是 $k$ 上的非空有限概形，即 (2) 成立。
+
+\medskip\noindent
+假设 (2) 成立。由假设，$x$ 属于 $|U| \to |X|$ 的像。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，$|U| \to |X|$ 在 $x$ 上的
+纤维等于 $|\Spec(k) \times_X U|$，故它显然有限。
+$|R| \to |X|$ 在 $x$ 上的纤维也显然有限，因为它等于下列概形的底集合：
+$$
+(\Spec(k) \times_X U) \times_{\Spec(k)} (\Spec(k) \times_X U)
+$$
+而该概形在 $k$ 上有限。因此 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-UR-finite-above-x}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。下列条件等价：
+\begin{enumerate}
+\item 对每个仿射概形 $U$ 及任意 \'etale 态射 $\varphi : U \to X$，令
+$R = U \times_X U$ 后，下列两个映射在 $x$ 上的纤维都有限：
+$$
+|U| \longrightarrow |X|
+\quad\text{且}\quad
+|R| \longrightarrow |X|
+$$
+\item 存在概形 $U_i$ 及 \'etale 态射 $U_i \to X$，使得
+$\coprod U_i \to X$ 满射，并且对每个 $i$，令
+$R_i = U_i \times_X U_i$ 后，下列两个映射在 $x$ 上的纤维都有限：
+$$
+|U_i| \longrightarrow |X|
+\quad\text{且}\quad
+|R_i| \longrightarrow |X|
+$$
+\item 存在 $x$ 的等价类中的单态射 $\Spec(k) \to X$，其中 $k$ 为域，
+并且对任意仿射概形 $U$ 及 \'etale 态射 $U \to X$，纤维积
+$\Spec(k) \times_X U$ 是 $k$ 上的有限概形；
+\item 存在 $x$ 的等价类中的拟紧单态射 $\Spec(k) \to X$，其中 $k$ 为域；
+\item 存在 $x$ 的等价类中的拟紧态射 $\Spec(k) \to X$，其中 $k$ 为域；
+\item 每个 $x$ 的等价类中的态射 $\Spec(k) \to X$ 都拟紧，其中 $k$ 为域。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对每个从仿射概形 $U$ 出发的 \'etale 态射 $U \to X$ 应用引理
+\ref{decent-spaces-lemma-weak-UR-finite-above-x}，即得 (1) 与 (3) 等价。
+(3) 蕴含 (2) 是显然的。假设 $U_i \to X$ 与 $R_i$ 如 (2) 所述。
+由引理 \ref{decent-spaces-lemma-U-finite-above-x}，对任意仿射概形 $U$ 及 \'etale 态射
+$U \to X$，$|U| \to |X|$ 在 $x$ 上的纤维有限。将此纤维记为
+$\{u_1, \ldots, u_n\}$。取某个使 $x$ 属于 $|U_i| \to |X|$ 之像的 $i$，
+则引理 \ref{decent-spaces-lemma-R-finite-above-x} 的 (1) 适用于 $U_i \to X$，故可知
+$|R = U \times_X U| \to |U| \times_{|X|} |U|$ 在每个
+$(u_a, u_b)$ 上的纤维有限，其中 $a, b \in \{1, \ldots, n\}$。
+因此 $|R| \to |X|$ 在 $x$ 上的纤维有限。由此 (1) 成立。至此已知
+(1)、(2)、(3) 等价。
+
+\medskip\noindent
+若 (4) 成立，则对任意仿射概形 $U$ 及 \'etale 态射 $U \to X$，概形
+$\Spec(k) \times_X U$ 一方面在 $k$ 上是 \'etale 的（故由注
+\ref{decent-spaces-remark-recall}，它是 $k$ 的有限可分扩张之谱的不交并），另一方面在
+$U$ 上拟紧（因而拟紧）。由此 (3) 成立。反过来，若 $U_i \to X$ 如 (2)
+所述，且 $\Spec(k) \to X$ 是 (3) 中的单态射，则
+$$
+\coprod \Spec(k) \times_X U_i
+\longrightarrow
+\coprod U_i
+$$
+拟紧（因为在每个 $U_i$ 上，$\Spec(k) \times_X U_i$ 是域谱的有限不交并）。
+故由《空间的态射》引理 \ref{spaces-morphisms-lemma-quasi-compact-local}，
+$\Spec(k) \to X$ 拟紧。
+
+\medskip\noindent
+(4) 蕴含 (5) 是立即的。反过来，设 $\Spec(k) \to X$ 是 $x$ 的等价类中的
+拟紧态射。设 $U \to X$ 是 \'etale 态射且 $U$ 仿射。考虑纤维积
+$$
+\xymatrix{
+F \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+于是 $F \to U$ 拟紧，故 $F$ 拟紧。另一方面，$F \to \Spec(k)$ 是
+\'etale 态射，所以 $F$ 是 $k$ 的有限可分扩张之谱的有限不交并（注
+\ref{decent-spaces-remark-recall}）。因为 $|F| \to |U|$ 的像就是 $|U| \to |X|$ 在
+$x$ 上的纤维（《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}），所以 $|U| \to |X|$ 在
+$x$ 上的纤维有限。概形
+$F \times_{\Spec(k)} F$ 也拟紧且在 $\Spec(k)$ 上 \'etale，故同样是域谱
+的有限并。存在单态射
+$F \times_X F \to F \times_{\Spec(k)} F$，因此由《概形》引理
+\ref{schemes-lemma-mono-towards-spec-field}，$F \times_X F$ 是域谱的
+有限不交并。于是 $F \times_X F \to U \times_X U = R$ 的像有限。
+由《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}，
+该像就是 $|R| \to |X|$ 在 $x$ 上的纤维，故 (1) 成立。至此已知
+(1)--(5) 等价。
+
+\medskip\noindent
+(6) 蕴含 (5) 是显然的。反过来，设 $\Spec(k) \to X$ 如 (4) 所述，
+并设 $\Spec(k') \to X$ 是另一个 $x$ 的等价类中的态射，其中 $k'$ 为域。
+由《空间的性质》引理
+\ref{spaces-properties-lemma-equivalence-class-point-monomorphism}，给定态射
+具有分解 $\Spec(k') \to \Spec(k) \to X$。这是拟紧态射的复合，因而由
+《空间的态射》引理 \ref{spaces-morphisms-lemma-composition-quasi-compact}
+仍拟紧，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-U-universally-bounded}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item 存在概形 $U_i$ 及 \'etale 态射 $U_i \to X$，使得
+$\coprod U_i \to X$ 满射，并且每个 $U_i \to X$ 的纤维普遍有界；
+\item 对每个仿射概形 $U$ 及 \'etale 态射 $\varphi : U \to X$，
+$U \to X$ 的纤维普遍有界。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2) $\Rightarrow$ (1) 显然。假设 (1) 成立。设
+$(\varphi_i : U_i \to X)_{i \in I}$ 是从概形到 $X$ 的 \'etale 态射族，
+它覆盖 $X$，并且每个 $\varphi_i$ 的纤维普遍有界。设
+$\psi : U \to X$ 是从仿射概形到 $X$ 的 \'etale 态射。对每个 $i$，
+考虑纤维积图表
+$$
+\xymatrix{
+U \times_X U_i \ar[r]_{p_i} \ar[d]_{q_i} & U_i \ar[d]^{\varphi_i} \\
+U \ar[r]^\psi & X
+}
+$$
+因为 $q_i$ 是 \'etale 态射，所以它是开态射（见注
+\ref{decent-spaces-remark-recall}）。而且由于态射族 $(\varphi_i)_{i \in I}$ 满射，
+有 $U = \bigcup \Im(q_i)$。由于 $U$ 仿射，因而拟紧，所以可取有限多个
+% P08-E273: frozen source says "finite finitely"; intended "find finitely" is rendered; see ERRATA_CANDIDATES.jsonl.
+$i_1, \ldots, i_n \in I$ 以及拟紧开子集
+$W_j \subset U \times_X U_{i_j}$，使得
+% P08-E274: frozen source uses p although the covering map to U is q; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$U = \bigcup p_{i_j}(W_j)$.
+态射 $p_{i_j}$ 是 \'etale 的，因而局部拟有限（见上面对 \'etale 态射的注）。
+故可应用《态射》引理
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+得知 $p_{i_j}|_{W_j} : W_j \to U_{i_j}$ 的纤维普遍有界。因此由引理
+\ref{decent-spaces-lemma-composition-universally-bounded}，$W_j \to X$ 的纤维普遍有界，
+从而 $\coprod_{j = 1, \ldots, n} W_j \to X$ 的纤维也普遍有界。
+由于 $\coprod_{j = 1, \ldots, n} W_j \to X$ 经过下列满 \'etale 态射分解：
+$\coprod q_{i_j}|_{W_j} : \coprod_{j = 1, \ldots, n} W_j \to U$，
+引理 \ref{decent-spaces-lemma-universally-bounded-permanence} 表明 $U \to X$ 的纤维
+普遍有界。换言之，(2) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-characterize-very-reasonable}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item 存在 Zariski 覆盖 $X = \bigcup X_i$，并且对每个 $i$，存在概形
+$U_i$ 及拟紧满 \'etale 态射 $U_i \to X_i$；
+\item 存在概形 $U_i$ 及 \'etale 态射 $U_i \to X$，使得投影
+$U_i \times_X U_i \to U_i$ 拟紧，且 $\coprod U_i \to X$ 满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 (1) 成立，则态射 $U_i \to X_i \to X$ 是 \'etale 的；这是综合《态射》引理
+\ref{morphisms-lemma-composition-etale} 与《空间》引理
+\ref{spaces-lemma-composition-representable-transformations-property} 与
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+所得。而且因为 $U_i \times_X U_i = U_i \times_{X_i} U_i$，两个投影
+$U_i \times_X U_i \to U_i$ 都拟紧。
+
+\medskip\noindent
+若 (2) 成立，令 $X_i \subset X$ 为与开映射 $|U_i| \to |X|$ 的像对应的
+开子空间；见《空间的性质》引理
+\ref{spaces-properties-lemma-etale-image-open}。态射 $U_i \to X_i$ 满射，
+故 $U_i \to X_i$ 是满 \'etale 态射。投影 $U_i \times_{X_i} U_i \to U_i$ 拟紧，
+因为 $U_i \times_{X_i} U_i = U_i \times_X U_i$。于是由《空间》引理
+\ref{spaces-lemma-representable-morphisms-spaces-property}，态射
+$U_i \to X_i$ 拟紧。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{代数空间上的条件}
+\label{decent-spaces-section-conditions}
+
+\noindent
+本节讨论上文所见代数空间的各种自然条件之间的关系。关于这些条件的含义，
+可先阅读第 \ref{decent-spaces-section-reasonable-decent} 节以形成直观认识。
+
+\begin{lemma}
+\label{decent-spaces-lemma-bounded-fibres}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。考虑 $X$ 的下列条件：
+\begin{itemize}
+\item[] $(\alpha)$ 对每个 $x \in |X|$，引理
+\ref{decent-spaces-lemma-U-finite-above-x} 的等价条件成立。
+\item[] $(\beta)$ 对每个 $x \in |X|$，引理
+\ref{decent-spaces-lemma-R-finite-above-x} 的等价条件成立。
+\item[] $(\gamma)$ 对每个 $x \in |X|$，引理
+\ref{decent-spaces-lemma-UR-finite-above-x} 的等价条件成立。
+\item[] $(\delta)$ 引理 \ref{decent-spaces-lemma-U-universally-bounded} 的等价条件成立。
+\item[] $(\epsilon)$ 引理
+\ref{decent-spaces-lemma-characterize-very-reasonable} 的等价条件成立。
+\item[] $(\zeta)$ 空间 $X$ 在 Zariski 局部拟分离。
+\item[] $(\eta)$ 空间 $X$ 拟分离。
+\item[] $(\theta)$ 空间 $X$ 可表示，即 $X$ 是概形。
+\item[] $(\iota)$ 空间 $X$ 是拟分离概形。
+\end{itemize}
+有
+$$
+\xymatrix{
+& (\theta) \ar@{=>}[rd] & & & &  \\
+(\iota) \ar@{=>}[ru] \ar@{=>}[rd] & &
+(\zeta) \ar@{=>}[r] &
+(\epsilon) \ar@{=>}[r] &
+(\delta) \ar@{=>}[r] &
+(\gamma) \ar@{<=>}[r] & (\alpha) + (\beta) \\
+& (\eta) \ar@{=>}[ru] & & & &
+}
+$$
+\end{lemma}
+
+\begin{proof}
+蕴含关系 $(\gamma) \Leftrightarrow (\alpha) + (\beta)$ 是立即的。
+左侧菱形中的蕴含关系由定义显然成立。
+
+\medskip\noindent
+假设 $(\zeta)$ 成立，即 $X$ 在 Zariski 局部拟分离。则由《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-separated-quasi-compact-pieces}.
+可知 $(\epsilon)$ 成立。
+
+\medskip\noindent
+假设 $(\epsilon)$ 成立。由引理
+\ref{decent-spaces-lemma-characterize-very-reasonable}，存在 Zariski 开覆盖
+$X = \bigcup X_i$，使得对每个 $i$，存在概形 $U_i$ 及拟紧满
+\'etale 态射 $U_i \to X_i$。选取一个 $i$ 及仿射开子概形
+$W \subset U_i$。只须证明 $W \to X$ 的纤维普遍有界，因为这时所有这些
+态射 $W \to X$ 构成的族覆盖 $X$。为此考虑图表
+$$
+\xymatrix{
+W \times_X U_i \ar[r]_-p \ar[d]_q & U_i \ar[d] \\
+W \ar[r] & X
+}
+$$
+由于 $W \to X$ 经过 $X_i$ 分解，有
+$W \times_X U_i = W \times_{X_i} U_i$，故 $q$ 拟紧。又因 $W$ 仿射，
+这蕴含概形 $W \times_X U_i$ 拟紧。于是可应用《态射》引理
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+得知 $p$ 的纤维普遍有界。再由引理
+\ref{decent-spaces-lemma-descent-universally-bounded}，$W \to X$ 的纤维也普遍有界。
+
+\medskip\noindent
+假设 $(\delta)$ 成立。设 $U$ 为仿射概形，$U \to X$ 为 \'etale 态射。
+由假设，态射 $U \to X$ 的纤维普遍有界。于是两个投影
+$R = U \times_X U \to U$ 的纤维也普遍有界；见引理
+\ref{decent-spaces-lemma-base-change-universally-bounded}。再由引理
+\ref{decent-spaces-lemma-composition-universally-bounded}，$R \to X$ 的纤维也普遍有界。
+% P08-E275: frozen source uses x in X instead of x in |X|; formula preserved; see ERRATA_CANDIDATES.jsonl.
+因此，对任意 $x \in X$，$|U| \to |X|$ 与 $|R| \to |X|$ 在 $x$ 上的纤维
+有限；见引理 \ref{decent-spaces-lemma-universally-bounded-finite-fibres}。换言之，引理
+\ref{decent-spaces-lemma-UR-finite-above-x} 的等价条件成立。这证明了
+$(\delta) \Rightarrow (\gamma)$。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-properties-local}
+设 $S$ 为概形。设 $\mathcal{P}$ 是引理 \ref{decent-spaces-lemma-bounded-fibres} 中所列
+代数空间的性质 $(\alpha)$、$(\beta)$、$(\gamma)$、$(\delta)$、
+$(\epsilon)$、$(\zeta)$、$(\theta)$ 之一。若 $X$ 是 $S$ 上的代数空间，
+$X = \bigcup X_i$ 是 Zariski 开覆盖，且每个 $X_i$ 都具有
+$\mathcal{P}$，则 $X$ 具有 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+% P08-E276: frozen source says “let ... is a”; intended “let ... be a” is rendered; see ERRATA_CANDIDATES.jsonl.
+设 $X$ 为 $S$ 上的代数空间，并设 $X = \bigcup X_i$ 为 Zariski 开覆盖，
+其中每个 $X_i$ 都具有 $\mathcal{P}$。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\alpha)$ 的情形。$X_i$ 的条件 $(\alpha)$ 意味着：
+对每个 $x \in |X_i|$、每个仿射概形 $U$ 及 \'etale 态射
+$\varphi : U \to X_i$，$\varphi : |U| \to |X_i|$ 在 $x$ 上的纤维有限。
+% P08-E277: frozen source uses x in X instead of x in |X|; formula preserved; see ERRATA_CANDIDATES.jsonl.
+考虑 $x \in X$、仿射概形 $U$ 以及 \'etale 态射 $U \to X$。由于
+$X = \bigcup X_i$ 是 Zariski 开覆盖，存在有限仿射开覆盖
+% P08-E278: frozen source says “there exits”; intended “there exists” is rendered; see ERRATA_CANDIDATES.jsonl.
+$U = U_1 \cup \ldots \cup U_n$，使得每个 $U_j \to X$ 都经过某个
+$X_{i_j}$ 分解。由假设，对 $j = 1, \ldots, n$，
+$|U_j | \to |X_{i_j}|$ 在 $x$ 上的纤维有限。这显然意味着
+$|U| \to |X|$ 在 $x$ 上的纤维有限。这证明了 $(\alpha)$ 的情形。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\beta)$ 的情形。$X_i$ 的条件 $(\beta)$ 意味着每个
+$x \in |X_i|$ 都可由从域谱到 $X_i$ 的单态射表示。由于
+$X_i \to X$ 是单态射，且 $X = \bigcup X_i$，故 $X$ 也有相同性质。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\gamma)$ 的情形。注意，由引理
+\ref{decent-spaces-lemma-bounded-fibres}，$(\gamma) = (\alpha) + (\beta)$，故
+$(\gamma)$ 的结论来自上面已经处理的情形。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\delta)$ 的情形。$X_i$ 的条件 $(\delta)$ 意味着存在
+概形 $U_{ij}$ 及纤维普遍有界的 \'etale 态射 $U_{ij} \to X_i$，它们覆盖
+$X_i$。这些概形还给出满 \'etale 态射 $\coprod U_{ij} \to X$，并且
+$U_{ij} \to X$ 的纤维仍普遍有界。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\epsilon)$ 的情形。$X_i$ 的条件 $(\epsilon)$ 意味着
+可找到集合 $J_i$ 及态射 $\varphi_{ij} : U_{ij} \to X_i$，使得每个
+$\varphi_{ij}$ 都是 \'etale 态射，两个投影
+$U_{ij} \times_{X_i} U_{ij} \to U_{ij}$ 都拟紧，并且
+$\coprod_{j \in J_i} U_{ij} \to X_i$ 满射。此时复合
+$U_{ij} \to X_i \to X$ 是 \'etale 态射；这是综合《态射》引理
+\ref{morphisms-lemma-composition-etale} 与
+\ref{morphisms-lemma-open-immersion-etale} 以及《空间》引理
+\ref{spaces-lemma-composition-representable-transformations-property} 与
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+所得。由于 $X_i \subset X$ 是子空间，有
+$U_{ij} \times_{X_i} U_{ij} = U_{ij} \times_X U_{ij}$，故纤维积条件得以
+保持。又显然 $\coprod_{i, j} U_{ij} \to X$ 满射。因此 $X$ 满足
+$(\epsilon)$。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\zeta)$ 的情形。$X_i$ 的条件 $(\zeta)$ 意味着
+$X_i$ 在 Zariski 局部拟分离。这立即表明 $X$ 在 Zariski 局部拟分离。
+
+\medskip\noindent
+关于 $(\theta)$，见《空间的性质》引理
+\ref{spaces-properties-lemma-subscheme}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-representable-properties}
+设 $S$ 为概形。设 $\mathcal{P}$ 是引理 \ref{decent-spaces-lemma-bounded-fibres} 中所列
+代数空间的性质 $(\beta)$、$(\gamma)$、$(\delta)$、$(\epsilon)$、
+$(\theta)$ 之一。设 $X$、$Y$ 为 $S$ 上的代数空间，并设
+$X \to Y$ 为可表示态射。若 $Y$ 具有性质 $\mathcal{P}$，则 $X$ 也具有该性质。
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to Y$ 是代数空间的可表示态射，并假设 $Y$ 具有
+$\mathcal{P}$。取 $x \in |X|$，并令 $y = f(x) \in |Y|$。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\beta)$ 的情形。$Y$ 的条件 $(\beta)$ 意味着存在表示
+$y$ 的单态射 $\Spec(k) \to Y$。纤维积
+$X_y = \Spec(k) \times_Y X$ 是概形，而 $x$ 对应于 $X_y$ 的一个点，
+即对应于单态射 $\Spec(k') \to X_y$。由于 $X_y \to X$ 也是单态射，
+可知 $x$ 由单态射 $\Spec(k') \to X_y \to X$ 表示。换言之，
+$X$ 满足 $(\beta)$。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\gamma)$ 的情形。由于
+$(\gamma) \Rightarrow (\beta)$，上一段表明 $y$ 与 $x$ 可由下图中的
+单态射表示：
+$$
+\xymatrix{
+\Spec(k') \ar[r]_-x \ar[d] & X \ar[d] \\
+\Spec(k) \ar[r]^-y & Y
+}
+$$
+此外，由引理 \ref{decent-spaces-lemma-UR-finite-above-x} 的 (2) 所给出的性质
+$(\gamma)$ 的定义，存在概形 $V_i$ 及 \'etale 态射 $V_i \to Y$，使得
+$\coprod V_i \to Y$ 满射；并且对每个 $i$，令
+$R_i = V_i \times_Y V_i$ 后，下列两个映射在 $y$ 上的纤维都有限：
+$$
+|V_i| \longrightarrow |Y|
+\quad\text{且}\quad
+|R_i| \longrightarrow |Y|
+$$
+这意味着概形 $(V_i)_y$ 与 $(R_i)_y$ 在 $y = \Spec(k)$ 上有限。
+由于 $X \to Y$ 可表示，纤维积 $U_i = V_i \times_Y X$ 是概形。
+态射 $U_i \to X$ 是 \'etale 的，且 $\coprod U_i \to X$ 满射。
+最后，对每个 $i$，有
+$$
+(U_i)_x =
+(V_i \times_Y X)_x =
+(V_i)_y \times_{\Spec(k)} \Spec(k')
+$$
+以及
+$$
+(U_i \times_X U_i)_x =
+\left((V_i \times_Y X) \times_X (V_i \times_Y X)\right)_x =
+(R_i)_y \times_{\Spec(k)} \Spec(k')
+$$
+因此它们作为有限概形 $(V_i)_y$ 与 $(R_i)_y$ 的基变换，在 $k'$ 上有限。
+再次应用引理 \ref{decent-spaces-lemma-UR-finite-above-x} 的第二个条件，可知
+$X$ 满足 $(\gamma)$。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\delta)$ 的情形。设 $V \to Y$ 是 \'etale 态射，其中
+$V$ 为仿射概形。由于 $Y$ 具有性质 $(\delta)$，该态射的纤维普遍有界。
+由引理 \ref{decent-spaces-lemma-base-change-universally-bounded}，基变换
+$V \times_Y X \to X$ 的纤维也普遍有界。因此引理
+\ref{decent-spaces-lemma-U-universally-bounded} 的第一部分适用，并且我们看到
+% P08-E279: frozen source concludes Y instead of X; wording preserved; see ERRATA_CANDIDATES.jsonl.
+$Y$ 也具有性质 $(\delta)$。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\epsilon)$ 的情形。我们将反复使用《空间》引理
+\ref{spaces-lemma-base-change-representable-transformations-property}。
+设 $V_i \to Y$ 如引理
+\ref{decent-spaces-lemma-characterize-very-reasonable} 的 (2) 所述。令
+$U_i = X \times_Y V_i$。态射 $U_i \to X$ 是 \'etale 的，且
+$\coprod U_i \to X$ 满射。由于
+$U_i \times_X U_i = X \times_Y (V_i \times_Y V_i)$，可知
+% P08-E280: frozen source changes the base from X to Y in the projection; formula preserved; see ERRATA_CANDIDATES.jsonl.
+投影 $U_i \times_Y U_i \to U_i$ 是投影
+$V_i \times_Y V_i \to V_i$ 的基变换，因而也拟紧。因此 $X$ 满足引理
+\ref{decent-spaces-lemma-characterize-very-reasonable} 的 (2)。
+
+\medskip\noindent
+考虑 $\mathcal{P} = (\theta)$ 的情形。此时结论就是《范畴》引理
+\ref{categories-lemma-representable-over-representable}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{合理代数空间与良好代数空间}
+\label{decent-spaces-section-reasonable-decent}
+
+\noindent
+在引理 \ref{decent-spaces-lemma-bounded-fibres} 中，我们已经看到代数空间的若干条件；
+它们涉及从仿射概形到 $X$ 的 \'etale 态射的行为，以及由概形对 $X$ 作
+某些特殊 \'etale 覆盖的存在性。现将这些不同类型的条件列表如下：
+$$
+\boxed{
+\begin{matrix}
+(\alpha) & \text{从仿射概形出发的 \'etale 态射具有有限纤维} \\
+(\beta) & \text{点来自域谱的单态射} \\
+(\gamma) & \text{点来自域谱的拟紧单态射} \\
+(\delta) & \text{从仿射概形出发的 \'etale 态射具有普遍有界纤维} \\
+(\epsilon) & \text{可由概形作 \'etale 覆盖，且各态射到其像拟紧}
+\end{matrix}
+}
+$$
+
+\medskip\noindent
+下述定义中的条件并不完全是 $X$ 的对角线所满足的条件，但在某种意义上，
+它们是 $X$ 的分离性条件。
+
+\begin{definition}
+\label{decent-spaces-definition-very-reasonable}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+\begin{enumerate}
+\item 若对每个点 $x \in X$，引理
+\ref{decent-spaces-lemma-UR-finite-above-x} 的等价条件成立，换言之，引理
+\ref{decent-spaces-lemma-bounded-fibres} 的性质 $(\gamma)$ 成立，则称 $X$ 是
+{\it 良好的}。
+% P08-E281: frozen source uses x in X instead of x in |X|; formula preserved; see ERRATA_CANDIDATES.jsonl.
+\item 若引理 \ref{decent-spaces-lemma-U-universally-bounded} 的等价条件成立，换言之，
+引理 \ref{decent-spaces-lemma-bounded-fibres} 的性质 $(\delta)$ 成立，则称 $X$ 是
+{\it 合理的}。
+\item 若引理 \ref{decent-spaces-lemma-characterize-very-reasonable} 的等价条件成立，
+即引理 \ref{decent-spaces-lemma-bounded-fibres} 的性质 $(\epsilon)$ 成立，则称 $X$ 是
+{\it 非常合理的}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+代数空间的这些条件之间有下列蕴含关系：
+$$
+\xymatrix{
+\text{可表示} \ar@{=>}[rd] & & & \\
+ & \text{非常合理} \ar@{=>}[r] &
+\text{合理} \ar@{=>}[r] &
+\text{良好} \\
+\text{拟分离} \ar@{=>}[ru] & & &
+}
+$$
+“非常合理代数空间”这一概念现已废弃。引入它，是因为过去证明某些结果需要
+这一假设，而这些结果现在已经对良好空间这一类得到证明。良好空间构成这样
+的空间 $X$ 的最大类别：其中 $|X|$ 的拓扑与 $X$ 自身的性质之间具有良好
+联系。
+
+\begin{example}
+\label{decent-spaces-example-not-decent}
+《空间》例 \ref{spaces-example-affine-line-translation} 中构造的代数空间
+$\mathbf{A}^1_{\mathbf{Q}}/\mathbf{Z}$ 不是良好的，因为它的“一般点”
+不能由从域谱出发的单态射表示。
+\end{example}
+
+\begin{remark}
+\label{decent-spaces-remark-reasonable}
+从技术上说，合理代数空间比非常合理代数空间更易处理。例如，若
+$X \to Y$ 是代数空间的拟紧满 \'etale 态射，且 $X$ 合理，则 $Y$ 也合理；
+见引理 \ref{decent-spaces-lemma-descent-conditions}。但我们不知道性质“非常合理”是否
+也有这一结论。下面还将给出合理代数空间所具有的另一个技术性质。
+\end{remark}
+
+\begin{lemma}
+\label{decent-spaces-lemma-fun-property-reasonable}
+设 $S$ 为概形，$X$ 为拟紧合理代数空间。则存在由拟紧拟分离代数空间
+$X_i$ 构成的有向系统，使得 $X = \colim_i X_i$（这是层范畴中的余极限）。
+而且可将其安排为满足：
+\begin{enumerate}
+\item 对每个 $S$ 上的拟紧概形 $T$，有 $\colim X_i(T) = X(T)$；
+\item 系统的转移态射 $X_i \to X_{i'}$ 与余投影 $X_i \to X$ 都满且
+\'etale；
+\item 若 $X$ 是概形，则代数空间 $X_i$ 都是概形，而转移态射
+$X_i \to X_{i'}$ 与余投影 $X_i \to X$ 都是局部同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略述证明。由《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}，有
+$X = U/R$，其中 $U$ 仿射。在此情形，合理性意味着 $U \to X$ 的纤维
+普遍有界。因此存在整数 $N$，使 $U \to X$ 的“纤维”次数至多为 $N$；
+见定义 \ref{decent-spaces-definition-universally-bounded}。将群胚的结构映射记为
+$s, t : R \to U$ 与 $c : R \times_{s, U, t} R \to R$。
+
+\medskip\noindent
+断言：对每个拟紧开子集 $A \subset R$，存在开子集 $R' \subset R$，使得
+\begin{enumerate}
+\item $A \subset R'$,
+\item $R'$ 拟紧；
+\item $(U, R', s|_{R'}, t|_{R'}, c|_{R' \times_{s, U, t} R'})$ 是群胚概形。
+\end{enumerate}
+注意，$e : U \to R$ 是 \'etale 态射 $s : R \to U$ 的截面，因而是开态射；
+见《\'Etale 态射》命题 \ref{etale-proposition-properties-sections}。
+又因 $U$ 仿射，它拟紧。因此可用 $A \cup e(U) \subset R$ 代替 $A$，
+并假设 $A$ 包含 $e(U)$。
+% P08-E283: frozen construction does not close A under the groupoid inverse; preserved; see ERRATA_CANDIDATES.jsonl.
+接着归纳定义 $A^1 = A$ 以及
+$$
+A^n = c(A^{n - 1} \times_{s, U, t} A) \subset R
+$$
+（$n \geq 2$）。归纳可见，对所有 $n \geq 2$，$A^n$ 都拟紧，因为它是拟紧
+纤维积 $A^{n - 1} \times_{s, U, t} A$ 的像。若 $k$ 是 $S$ 上的代数闭域，
+并考察 $k$-点，则
+% P08-E282: frozen path formula omits the endpoint u_n = u'; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$$
+A^n(k) = \left\{(u, u') \in U(k)
+:
+\begin{matrix}
+\text{存在 } u = u_1, u_2, \ldots, u_n \in U(k)\text{，使得} \\
+(u_i , u_{i + 1}) \in A \text{ 对所有 }i = 1, \ldots, n - 1.
+\end{matrix}
+\right\}
+$$
+由于 $U(k) \to X(k)$ 的纤维大小至多为 $N$，若 $n > N$，上列序列中便有
+重复项，因而可将其缩短；这证明对所有 $n \geq N$，都有
+$A^N = A^n$。于是 $R' = A^N$ 给出群胚概形
+$(U, R', s|_{R'}, t|_{R'}, c|_{R' \times_{s, U, t} R'})$，从而证明上述断言。
+
+\medskip\noindent
+考虑 $(\Sch/S)_{fppf}$ 上的层映射
+$$
+\colim_{R' \subset R} U/R' \longrightarrow U/R
+$$
+其中 $R' \subset R$ 遍历 $R$ 的所有拟紧开子概形，它们如上给出 \'etale
+等价关系。每个商 $U/R'$ 都是代数空间（见《空间》定理
+\ref{spaces-theorem-presentation}）。由于 $R'$ 拟紧且 $U$ 仿射，态射
+$R' \to U \times_{\Spec(\mathbf{Z})} U$ 拟紧，故 $U/R'$ 拟分离。最后，
+若 $T$ 是拟紧概形，则
+$$
+\colim_{R' \subset R} U(T)/R'(T) \longrightarrow U(T)/R(T)
+$$
+是双射，因为由上述断言，从 $T$ 到 $R$ 的每个态射最终都落在某个开子关系
+$R'$ 中。这显然蕴含层 $U/R'$ 的余极限为 $U/R$。换言之，代数空间
+$X = U/R$ 是拟分离代数空间 $U/R'$ 的余极限。
+
+\medskip\noindent
+性质 (1)、(2) 来自上述讨论。若 $X$ 是概形，则选择 $U$ 为 $X$ 的有限多个
+仿射开集之不交并即可得到 (3)。略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-representable-named-properties}
+设 $S$ 为概形，$X$、$Y$ 为 $S$ 上的代数空间，并设 $X \to Y$ 为可表示
+态射。若 $Y$ 良好（相应地，合理），则 $X$ 也如此。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{decent-spaces-lemma-representable-properties} 的改述。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-etale-named-properties}
+设 $S$ 为概形，$X \to Y$ 为 $S$ 上代数空间的 \'etale 态射。若 $Y$ 良好，
+相应地，合理，则 $X$ 也如此。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 为仿射概形，$U \to X$ 为 \'etale 态射。令
+$R = U \times_X U$ 与 $R' = U \times_Y U$。注意，$R \to R'$ 是单态射。
+
+\medskip\noindent
+设 $x \in |X|$。为证明 $X$ 良好，须证明 $|U| \to |X|$ 与
+$|R| \to |X|$ 在 $x$ 上的纤维有限。但若 $Y$ 良好，则
+$|U| \to |Y|$ 与 $|R'| \to |Y|$ 的纤维有限。因此得到“良好”的结论。
+
+\medskip\noindent
+为证明 $X$ 合理，须证明 $U \to X$ 的纤维普遍有界。然而，若 $Y$ 合理，
+则 $U \to Y$ 的纤维普遍有界，而这立即蕴含 $U \to X$ 的纤维也普遍有界。
+因此得到“合理”的结论。
+\end{proof}
+
+
+
+
+
+
+
+\section{点与特化}
+\label{decent-spaces-section-specializations}
+
+\noindent
+存在代数空间的 \'etale 态射 $f : X \to Y$，使得
+$|f| : |X| \to |Y|$ 的某个纤维中的点之间存在非平凡特化；见《例》引理
+\ref{examples-lemma-specializations-fibre-etale}。若该态射的源是概形，
+则可通过要求 $Y$ 满足条件 ($\alpha$) 来避免这种情形。
+
+\begin{lemma}
+\label{decent-spaces-lemma-no-specializations-map-to-same-point}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $U \to X$ 是从概形到
+$X$ 的 \'etale 态射。假设 $u, u' \in |U|$ 映到 $|X|$ 的同一点 $x$，
+且 $u' \leadsto u$。若序对 $(X, x)$ 满足引理
+\ref{decent-spaces-lemma-U-finite-above-x} 的等价条件，则 $u = u'$。
+\end{lemma}
+
+\begin{proof}
+假设序对 $(X, x)$ 满足引理 \ref{decent-spaces-lemma-U-finite-above-x} 的等价条件。
+设 $U$ 为概形，$U \to X$ 为 \'etale 态射，并设 $u, u' \in |U|$ 映到
+$|X|$ 中的 $x$，且 $u' \leadsto u$。我们可以且确实用 $u$ 的一个仿射
+邻域替换 $U$。设 $t, s : R = U \times_X U \to U$ 为两个 \'etale 投影。
+
+\medskip\noindent
+取点 $r \in R$，使得 $t(r) = u$ 且 $s(r) = u'$。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-presentation}，这是可能的。
+由于一般化可沿 \'etale 态射 $t$ 提升（注 \ref{decent-spaces-remark-recall}），可找到
+特化 $r' \leadsto r$，使得 $t(r') = u'$。令 $u'' = s(r')$，则
+$u'' \leadsto u'$。于是可重复此过程，找到 $r'' \leadsto r'$，使得
+$t(r'') = u''$。令 $u''' = s(r'')$，如此继续。图示如下：
+$$
+\xymatrix{
+& r'' \ar[rd]^s \ar[ld]_t \ar@{~>}[d] & \\
+u'' \ar@{~>}[d] & r' \ar[rd]^s \ar[ld]_t \ar@{~>}[d] & u''' \ar@{~>}[d] \\
+u' \ar@{~>}[d] & r \ar[rd]^s \ar[ld]_t & u'' \ar@{~>}[d] \\
+u & & u'
+}
+$$
+注 \ref{decent-spaces-remark-recall} 已说明，\'etale 态射 $s$ 的同一纤维中的点之间没有
+特化。因此，若对某个 $n$ 有 $u^{(n + 1)} = u^{(n)}$，则也有
+$r^{(n)} = r^{(n - 1)}$，进而取 $t$ 得
+$u^{(n)} = u^{(n - 1)}$。这迫使整座塔坍缩，特别地 $u = u'$。所以，
+若 $u \not = u'$，则所有这些特化都严格，且
+$\{u, u', u'', \ldots\}$ 是 $U$ 中映到 $|X|$ 的点 $x$ 的无限点集。
+由于已选 $U$ 为仿射概形，这与引理
+\ref{decent-spaces-lemma-U-finite-above-x} 的第二部分矛盾，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-no-specializations-map-to-same-point-Noetherian}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $U \to X$ 是从概形到 $X$
+的 \'etale 态射。假设 $u, u' \in |U|$ 映到 $|X|$ 的同一点 $x$，且
+$u' \leadsto u$。若 $X$ 局部 Noether，则 $u = u'$。
+\end{lemma}
+
+\begin{proof}
+《概形》第 \ref{schemes-section-points} 节的讨论表明，
+$\mathcal{O}_{U, u'}$ 是 Noether 局部环 $\mathcal{O}_{U, u}$ 的局部化。
+由《空间的性质》引理
+\ref{spaces-properties-lemma-pre-dimension-local-ring}，有
+$\dim(\mathcal{O}_{U, u}) = \dim(\mathcal{O}_{U, u'})$。
+Noether 局部环的维数理论于是给出 $u = u'$。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-specialization}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $x, x' \in |X|$，并假设
+$x' \leadsto x$，也就是说，$x$ 是 $x'$ 的一个特化。假设序对 $(X, x')$
+满足引理 \ref{decent-spaces-lemma-UR-finite-above-x} 的等价条件。则对任意从概形 $U$
+出发的 \'etale 态射 $\varphi : U \to X$ 以及任意满足 $\varphi(u) = x$ 的
+$u \in U$，都存在点 $u'\in U$，使得 $u' \leadsto u$ 且
+$\varphi(u') = x'$。
+% P08-E284: frozen source omits “there” before “exists”; intended proposition translated; see ERRATA_CANDIDATES.jsonl.
+\end{lemma}
+
+\begin{proof}
+我们可以用 $u$ 的一个仿射开邻域替换 $U$，因而可以假设 $U$ 仿射。
+由于 $x$ 属于开映射 $|U| \to |X|$ 的像，$x'$ 也属于该像。因此，由
+《空间的性质》引理
+\ref{spaces-properties-lemma-etale-image-open}，可以用与
+$|U| \to |X|$ 的像对应的 Zariski 开子空间替换 $X$。换言之，可以假设
+$U \to X$ 满且 \'etale。设 $s, t : R = U \times_X U \to U$ 为两个投影。
+根据序对 $(X, x')$ 满足引理 \ref{decent-spaces-lemma-UR-finite-above-x} 的等价条件这一
+假设，$|U| \to |X|$ 和 $|R| \to |X|$ 在 $x'$ 上的纤维都是有限的。设
+% P08-E285: frozen source types point sets as subsets of U and R rather than |U| and |R|; formulas preserved; see ERRATA_CANDIDATES.jsonl.
+$\{u'_1, \ldots, u'_n\} \subset U$ 与
+$\{r'_1, \ldots, r'_m\} \subset R$ 构成 $\{x'\}$ 的全部原像。考虑闭集
+$$
+T = \overline{\{u'_1\}} \cup \ldots \cup \overline{\{u'_n\}} \subset |U|,
+\quad
+T' = \overline{\{r'_1\}} \cup \ldots \cup \overline{\{r'_m\}} \subset |R|.
+$$
+显然 $s(T') \subset T$。由于 $R$ 是等价关系，且点集 $\{r_j'\}$ 按构造在
+$R$ 的取逆运算下不变，故还有 $t(T') = s(T')$。任取点 $w \in T$，则对
+某个 $i$ 有 $u'_i \leadsto w$。取 $r \in R$ 使得 $s(r) = w$。由注
+\ref{decent-spaces-remark-recall}，一般化可沿 $s : R \to U$ 提升，故可找到
+$r' \leadsto r$，使得 $s(r') = u_i'$。于是对某个 $j$ 有 $r' = r'_j$，
+从而 $w \in s(T')$。因此 $T = s(T') = t(T')$ 是 $|U|$ 中的一个
+$|R|$-不变闭集。这意味着 $T$ 是 $|X|$ 的闭子集（！）
+$T'' = \varphi(T)$ 的原像；参见《空间的性质》引理
+\ref{spaces-properties-lemma-points-presentation} 和
+\ref{spaces-properties-lemma-topology-points}。所以
+$T'' = \overline{\{x'\}}$。由于 $x \in T''$，$T$ 含有某个映到 $x$ 的点
+$u_1$。也就是说，对某个 $i$，存在映到给定特化 $x' \leadsto x$ 的特化
+$u'_i \leadsto u_1$。
+
+\medskip\noindent
+为完成证明，由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，取点 $r \in R$，使得
+$s(r) = u$ 且 $t(r) = u_1$。由于一般化可沿 $t$ 提升，且
+$u'_i \leadsto u_1$，可找到特化 $r' \leadsto r$，使得
+$t(r') = u'_i$。令 $u' = s(r')$，则 $u' \leadsto u$ 且
+$\varphi(u') = x'$，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-generalizations-lift-flat}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的平坦态射。设
+$x, x' \in |X|$，并假设 $x' \leadsto x$，也就是说，$x$ 是 $x'$ 的一个
+特化。假设序对 $(X, x')$ 满足引理 \ref{decent-spaces-lemma-UR-finite-above-x} 的等价
+条件（例如，$X$ 良好、$X$ 拟分离或 $X$ 可表时即如此）。则对每个满足
+$f(y) = x$ 的 $y \in |Y|$，都存在点 $y' \in |Y|$，使得
+$y' \leadsto y$ 且 $f(y') = x'$。
+\end{lemma}
+
+\begin{proof}
+（括号中的断言由良好空间的定义以及第
+\ref{decent-spaces-section-reasonable-decent} 节所述各分离条件之间的蕴含关系得到。）
+取概形 $V$ 及满 \'etale 态射 $V \to Y$，再取映到 $y$ 的 $v \in V$。
+于是只需对 $V \to X$ 证明本引理，故可假设 $Y$ 为概形。取概形 $U$ 及
+满 \'etale 态射 $U \to X$，并取映到 $x$ 的 $u \in U$。由引理
+\ref{decent-spaces-lemma-specialization}，可选取映到 $x'$ 的 $u' \leadsto u$。由
+《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}，可选取
+$z \in U \times_X Y$，使其映到 $y$ 和 $u$。于是归结为概形之间的平坦
+态射 $U \times_X Y \to U$ 的情形，而这正是《态射》引理
+\ref{morphisms-lemma-generalizations-lift-flat}。
+\end{proof}
+
+
+
+
+
+
+\section{用概形对代数空间分层}
+\label{decent-spaces-section-stratifications}
+
+\noindent
+本节将证明：拟紧拟分离代数空间存在由局部闭子空间组成的有限分层，其中每一层
+都是概形，而且各部分通过初等特异方块（elementary distinguished square）
+粘合。我们先对合理代数空间证明一个
+稍弱的结果。
+
+\begin{lemma}
+\label{decent-spaces-lemma-quasi-compact-reasonable-stratification}
+设 $S$ 为概形。设 $W \to X$ 为从概形 $W$ 到代数空间 $X$ 的态射，并且
+该态射平坦、局部有限表示、分离、局部拟有限且纤维普遍有界。存在既约闭子空间
+$$
+\emptyset = Z_{-1} \subset Z_0 \subset Z_1 \subset Z_2 \subset
+\ldots \subset Z_n = X
+$$
+使得，若令 $X_r = Z_r \setminus Z_{r - 1}$，则分层
+$X = \coprod_{r = 0, \ldots, n} X_r$ 由下列泛性质刻画：给定
+$g : T \to X$，投影 $W \times_X T \to T$ 是次数为 $r$ 的有限局部自由
+态射，当且仅当 $g(|T|) \subset |X_r|$。
+\end{lemma}
+
+\begin{proof}
+取整数 $n$，使其界住 $W \to X$ 各纤维的次数。取概形 $U$ 及满
+\'etale 态射 $U \to X$。将《态射进阶》引理
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf-universally-bounded}
+用于 $W \times_X U \to U$，得到闭子集
+$$
+\emptyset = Y_{-1} \subset Y_0 \subset Y_1 \subset Y_2 \subset
+\ldots \subset Y_n = U
+$$
+它们由本引理中针对态射 $W \times_X U \to U$ 所述的性质刻画。显然，这些
+闭子集的形成与基变换交换。令 $R = U \times_X U$，其投影为
+$s, t : R \to U$，可得
+$$
+s^{-1}(Y_r) = t^{-1}(Y_r)
+$$
+作为 $R$ 的闭子集相等。换言之，闭子集 $Y_r \subset U$ 是 $R$-不变的。
+这意味着 $|Y_r|$ 是某个闭子集 $Z_r \subset |X|$ 的原像。仍用
+$Z_r \subset X$ 表示赋予既约诱导代数空间结构的该子集；参见
+《空间的性质》定义
+\ref{spaces-properties-definition-reduced-induced-space}。
+
+\medskip\noindent
+设 $g : T \to X$ 为代数空间的态射。取概形 $V$ 及满 \'etale 态射
+$V \to T$。为证明引理最后的断言，只须对复合态射 $V \to X$ 证明它
+（由有限局部自由态射的定义可知；参见《空间的态射》第
+\ref{spaces-morphisms-section-finite-locally-free} 节）。类似地，概形态射
+$W \times_X V \to V$ 是次数为 $r$ 的有限局部自由态射，当且仅当概形态射
+$$
+W \times_X (U \times_X V)
+\longrightarrow
+U \times_X V
+$$
+是次数为 $r$ 的有限局部自由态射（参见《下降》引理
+\ref{descent-lemma-descending-property-finite-locally-free}）。按构造，这又
+等价于 $|U \times_X V| \to |U|$ 的像包含在 $|Y_r|$ 中，而后者等价于
+$|V| \to |X|$ 的像包含在 $|Z_r|$ 中。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-stratify-flat-fp-lqf}
+设 $S$ 为概形。设 $W \to X$ 为从概形 $W$ 到代数空间 $X$ 的态射，并且
+该态射平坦、局部有限表示、分离且局部拟有限。则存在开子空间
+$$
+X = X_0 \supset X_1 \supset X_2 \supset \ldots
+$$
+使得，对任意域 $k$，态射 $\Spec(k) \to X$ 经由 $X_d$ 分解，当且仅当
+$W \times_X \Spec(k)$ 在 $k$ 上的次数为 $\geq d$。
+\end{lemma}
+
+\begin{proof}
+取概形 $U$ 及满 \'etale 态射 $U \to X$。将《态射进阶》引理
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf} 用于
+$W \times_X U \to U$，得到开子概形
+$$
+U = U_0 \supset U_1 \supset U_2 \supset \ldots
+$$
+它们由本引理中针对态射 $W \times_X U \to U$ 所述的性质刻画。
+% P08-E286: frozen source calls the open subschemes U_d “closed subsets”; intended word translated; see ERRATA_CANDIDATES.jsonl.
+显然，这些开子概形的形成与基变换交换。令 $R = U \times_X U$，其投影为
+$s, t : R \to U$，可得
+$$
+s^{-1}(U_d) = t^{-1}(U_d)
+$$
+作为 $R$ 的开子概形相等。换言之，开子概形 $U_d \subset U$ 是
+$R$-不变的。这意味着 $U_d$ 是某个开子空间 $X_d \subset X$ 的原像
+（《空间的性质》引理
+\ref{spaces-properties-lemma-subspaces-presentation}）。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-filter-quasi-compact}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧代数空间。存在开子空间
+$$
+\ldots \subset U_4 \subset U_3 \subset U_2 \subset U_1 = X
+$$
+具有下列性质：
+\begin{enumerate}
+\item 令 $T_p = U_p \setminus U_{p + 1}$（赋予既约诱导子空间结构），则
+存在分离概形 $V_p$ 及满 \'etale 态射 $f_p : V_p \to U_p$，使得
+$f_p^{-1}(T_p) \to T_p$ 是同构；
+\item 若 $x \in |X|$ 可由某个域给出的拟紧态射 $\Spec(k) \to X$ 表示，
+则对某个 $p$ 有 $x \in T_p$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}，可取仿射概形 $U$
+及满 \'etale 态射 $U \to X$。
+% P08-E287: frozen source starts at p >= 0 although the displayed p-fold scheme fibre product and later filtration start at p = 1; preserved; see ERRATA_CANDIDATES.jsonl.
+对 $p \geq 0$，令
+$$
+W_p = U \times_X \ldots \times_X U \setminus \text{所有对角线}
+$$
+其中纤维积有 $p$ 个因子。由于 $U$ 分离，态射 $U \to X$ 分离，且所有
+纤维积 $U \times_X \ldots \times_X U$ 都是分离概形。由于 $U \to X$
+分离，对角态射 $U \to U \times_X U$ 是闭浸入。由于 $U \to X$ 为
+\'etale，对角态射 $U \to U \times_X U$ 又是开浸入；参见《空间的态射》
+引理
+\ref{spaces-morphisms-lemma-etale-unramified} 和
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}。
+类似地，所有对角态射都是开闭浸入，且 $W_p$ 是
+$U \times_X \ldots \times_X U$ 的开闭子概形。此外，态射
+$$
+U \times_X \ldots \times_X U \longrightarrow
+U \times_{\Spec(\mathbf{Z})} \ldots \times_{\Spec(\mathbf{Z})} U
+$$
+局部拟有限且分离（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fibre-product-after-map}），而其目标是仿射概形。
+因此，$U \times_X \ldots \times_X U$ 的任意有限点集都包含在某个仿射开中；
+参见《态射进阶》引理
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-over-affine}。
+所以 $W_p$ 也具有同样性质。对称群 $S_p$ 在 $X$ 上自由作用于 $W_p$
+% P08-E288: frozen source says “fix point locus”; intended fixed-point locus translated; see ERRATA_CANDIDATES.jsonl.
+（因为我们已从 $U \times_X \ldots \times_X U$ 中删去不动点轨迹）。由上述
+事实及《空间的性质》命题
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}
+可知，商 $V_p = W_p/S_p$ 是概形。由于 $S_p$ 在 $W_p$ 上的作用位于 $X$
+上方，存在态射 $V_p \to X$。又因 $W_p \to X$ 为 \'etale，且
+$W_p \to V_p$ 为满 \'etale 态射，故 $V_p \to X$ 也是 \'etale；参见
+《空间的性质》引理 \ref{spaces-properties-lemma-etale-local}。再由
+《空间的性质》引理 \ref{spaces-properties-lemma-quotient-separated} 可知
+$V_p$ 是分离概形。
+
+\medskip\noindent
+令 $U_p \subset X$ 为 $V_p \to X$ 的像所给出的开子空间。按构造，当 $k$
+代数闭时，态射 $\Spec(k) \to X$ 经由 $U_p$ 分解，当且仅当
+$U \times_X \Spec(k)$ 有 $\geq p$ 个点；照例注意，概形论意义下
+$U \times_X \Spec(k)$ 是若干（可能无限多个）$\Spec(k)$ 副本的不交并，
+参见注 \ref{decent-spaces-remark-recall}。由此可知，$U_p$ 给出引理所述的 $X$ 的滤过。
+此外，态射 $\Spec(k) \to X$ 经由 $T_p$ 分解，当且仅当
+$U \times_X \Spec(k)$ 恰有 $p$ 个点。在这种情况下，
+$V_p \times_X \Spec(k)$ 恰有一个点。令
+$Z_p = f_p^{-1}(T_p) \subset V_p$，这是 $V_p$ 的闭子概形。于是
+$Z_p \to T_p$ 是代数空间之间的 \'etale 态射，并且对任意代数闭域 $k$
+在 $k$-值点上诱导双射。确切地说，这意味着 $Z_p \to T_p$ 普遍单射，
+因而由《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-universally-injective-open}
+它是开浸入，进而是同构，这就证明了 (1)。
+
+\medskip\noindent
+设 $x : \Spec(k) \to X$ 为拟紧态射，其中 $k$ 为域。则复合态射
+$\Spec(\overline{k}) \to \Spec(k) \to X$ 也拟紧（《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-quasi-compact}）。在此情形下，概形
+$U \times_X \Spec(\overline{k})$ 拟紧。鉴于上面已经看到它是若干
+$\Spec(\overline{k})$ 副本的不交并，可知它只有有限多个点。若点数为
+$p$，则确有 $x \in T_p$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-filter-reasonable}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧的合理代数空间。存在整数 $n$ 及开子空间
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+具有下列性质：令 $T_p = U_p \setminus U_{p + 1}$（赋予既约诱导子空间
+结构），则存在分离概形 $V_p$ 及满 \'etale 态射
+$f_p : V_p \to U_p$，使得 $f_p^{-1}(T_p) \to T_p$ 是同构。
+\end{lemma}
+
+\begin{proof}
+本引理的证明与引理 \ref{decent-spaces-lemma-filter-quasi-compact} 的证明完全相同。由
+$X$ 合理，存在整数 $n$ 界住 $U \to X$ 各纤维的次数；参见定义
+\ref{decent-spaces-definition-very-reasonable}。于是 $U_{n + 1} = \emptyset$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-stratify-reasonable}
+设 $S$ 为概形，$X$ 为 $S$ 上拟紧的合理代数空间。存在整数 $n$ 及开子空间
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+使得每个 $T_p = U_p \setminus U_{p + 1}$（赋予既约诱导子空间结构）都是
+概形。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{decent-spaces-lemma-filter-reasonable} 的直接推论。
+\end{proof}
+
+\noindent
+下述结果几乎与 \cite[Proposition 5.7.8]{GruRay} 完全相同。
+
+\begin{lemma}
+\label{decent-spaces-lemma-filter-quasi-compact-quasi-separated}
+\begin{reference}
+本结果几乎与 \cite[Proposition 5.7.8]{GruRay} 完全相同。
+\end{reference}
+设 $X$ 为 $\Spec(\mathbf{Z})$ 上的拟紧拟分离代数空间。存在整数 $n$ 及
+开子空间
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+具有下列性质：令 $T_p = U_p \setminus U_{p + 1}$（赋予既约诱导子空间
+结构），则存在拟紧分离概形 $V_p$ 及满 \'etale 态射
+$f_p : V_p \to U_p$，使得 $f_p^{-1}(T_p) \to T_p$ 是同构。
+\end{lemma}
+
+\begin{proof}
+本引理的证明与引理 \ref{decent-spaces-lemma-filter-quasi-compact} 的证明完全相同。注意，
+拟分离空间是合理的；参见引理 \ref{decent-spaces-lemma-bounded-fibres} 和定义
+\ref{decent-spaces-definition-very-reasonable}。所以，与引理
+\ref{decent-spaces-lemma-filter-reasonable} 中一样，有 $U_{n + 1} = \emptyset$。在论证
+末尾还应补充：由于 $X$ 拟分离，各概形
+$U \times_X \ldots \times_X U$ 都拟紧。因此各概形 $W_p$ 拟紧，进而它们
+对对称群 $S_p$ 的商 $V_p = W_p/S_p$ 也是拟紧概形。
+\end{proof}
+
+\noindent
+下述引理或许应当放在别处。
+
+\begin{lemma}
+\label{decent-spaces-lemma-locally-constructible}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟分离代数空间，$E \subset |X|$ 为子集。
+则 $E$ 是 \'etale 局部可构造的（《空间的性质》定义
+\ref{spaces-properties-definition-locally-constructible}），当且仅当 $E$ 是
+拓扑空间 $|X|$ 的局部可构造子集（《拓扑》定义
+\ref{topology-definition-constructible}）。
+\end{lemma}
+
+\begin{proof}
+先假设 $E \subset |X|$ 是拓扑空间 $|X|$ 的局部可构造子集。设
+$f : U \to X$ 为 \'etale 态射，其中 $U$ 为概形。需要证明
+$f^{-1}(E)$ 在 $U$ 中局部可构造。此问题关于 $U$ 和 $X$ 都是局部的，
+故可假设 $X$ 拟紧、$E \subset |X|$ 可构造且 $U$ 仿射。在这种情况下，
+$U \to X$ 拟紧，因而 $f : |U| \to |X|$ 拟紧。注意，$|X|$（相应地
+$U$）的逆紧开集与 $|X|$（相应地 $U$）的拟紧开集是同一回事；参见
+《拓扑》引理 \ref{topology-lemma-topology-quasi-separated-scheme}。于是由
+《拓扑》引理 \ref{topology-lemma-inverse-images-constructibles}，
+$f^{-1}(E)$ 可构造。
+
+\medskip\noindent
+反过来，假设 $E$ 是 \'etale 局部可构造的。我们要证明 $E$ 在拓扑空间
+$|X|$ 中局部可构造。此问题关于 $X$ 是局部的，故可假设 $X$ 既拟紧又
+拟分离。我们将证明此时 $E$ 在 $|X|$ 中可构造。选取开子空间
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+及满 \'etale 态射 $f_p : V_p \to U_p$，使其诱导同构
+$f_p^{-1}(T_p) \to T_p = U_p \setminus U_{p + 1}$，其中 $V_p$ 是引理
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated} 所给出的拟紧分离概形。
+按定义，$E$ 的原像 $E_p \subset V_p$ 在 $V_p$ 中局部可构造。由
+《性质》引理
+\ref{properties-lemma-constructible-quasi-compact-quasi-separated}，
+$E_p$ 在 $V_p$ 中可构造。因此，由《拓扑》引理
+\ref{topology-lemma-intersect-constructible-with-closed}，
+$E_p \cap |f_p^{-1}(T_p)| = E \cap |T_p|$ 在 $|T_p|$ 中可构造（注意，
+$V_p \setminus f_p^{-1}(T_p)$ 是拟紧空间 $U_{p + 1}$ 在拟紧态射 $f_p$
+下的原像，因而拟紧）。所以
+$$
+E = (|T_n| \cap E) \cup (|T_{n - 1}| \cap E) \cup \ldots \cup
+(|T_1| \cap E)
+$$
+由《拓扑》引理
+\ref{topology-lemma-collate-constructible-from-constructible} 可构造。这里用到
+$|T_p|$ 在 $|X|$ 中可构造，这由上述讨论显然可见。
+\end{proof}
+
+
+
+
+
+\section{由概形给出的整覆盖}
+\label{decent-spaces-section-integral-cover}
+
+\noindent
+这里证明：给定任意拟紧拟分离代数空间 $X$，存在概形 $Y$ 及满整态射
+$Y \to X$。在建立代数空间极限的若干理论后，我们将证明还可将其取为有限
+态射；参见《空间的极限》第 \ref{spaces-limits-section-finite-cover} 节。
+
+\begin{lemma}
+\label{decent-spaces-lemma-extend-integral-morphism}
+设 $S$ 为概形。设 $j : V \to Y$ 为 $S$ 上代数空间的拟紧开浸入，并设
+$\pi : Z \to V$ 为整态射。则存在整态射 $\nu : Y' \to Y$，使得 $Z$ 在
+$V$ 上同构于 $V$ 在 $Y'$ 中的原像。
+\end{lemma}
+
+\begin{proof}
+由于 $j$ 和 $\pi$ 都拟紧且分离，$j \circ \pi$ 也如此。令
+$\nu : Y' \to Y$ 为 $Y$ 在 $Z$ 中的正规化；参见《空间的态射》第
+\ref{spaces-morphisms-section-normalization-X-in-Y} 节。当然，$\nu$ 是
+整态射；参见《空间的态射》引理
+\ref{spaces-morphisms-lemma-characterize-normalization}。最后的断言形式地
+得自《空间的态射》引理
+\ref{spaces-morphisms-lemma-properties-normalization} 和
+\ref{spaces-morphisms-lemma-normalization-in-integral}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-there-is-a-scheme-integral-over}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间。
+\begin{enumerate}
+\item 存在满整态射 $Y \to X$，其中 $Y$ 为概形；
+\item 给定满 \'etale 态射 $U \to X$，可以选取 $Y \to X$，使得对每个
+$y \in Y$，都存在开邻域 $V \subset Y$，使 $V \to X$ 经由 $U$ 分解。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 是 (2) 中 $U = X$ 的特殊情形。取满 \'etale 态射 $U' \to U$，其中
+$U'$ 为概形。显然可用 $U'$ 替换 $U$，故可假设 $U$ 为概形。由于 $X$
+拟紧，存在有限多个仿射开集 $U_i \subset U$，使得
+$U' = \coprod U_i \to X$ 满射。再次用 $U'$ 替换 $U$，可假设 $U$ 仿射。
+由于 $X$ 拟分离，因而合理，存在整数 $d$ 界住 $U \to X$ 的几何纤维次数
+（参见引理 \ref{decent-spaces-lemma-bounded-fibres}）。我们将对 $d$ 归纳，对所有满且
+\'etale 地映到 $X$ 的拟紧分离概形 $U$ 证明本引理。若 $d = 1$，则
+$U = X$，取 $Y = U$ 即得结果。假设 $d > 1$。
+
+\medskip\noindent
+应用《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-finite-separated-quasi-affine}，得到分解
+$$
+\xymatrix{
+U \ar[rr]_j \ar[rd] & & Y \ar[ld]^\pi \\
+& X
+}
+$$
+其中 $\pi$ 为整态射，$j$ 为拟紧开浸入。我们可以且确实假设 $j(U)$ 在
+$Y$ 中概形论稠密。于是 $U \times_X Y$ 是拟紧分离概形（因为它在 $U$
+上为整），并且
+$$
+U \times_X Y = U \amalg W
+$$
+这里，第一个直和项是 $U \to U \times_X Y$ 的像（由《空间的态射》引理
+\ref{spaces-morphisms-lemma-semi-diagonal}，它是闭的；又因为它是 $Y$ 上
+\'etale 代数空间之间的 \'etale 态射，所以也是开的），第二个直和项是其
+开闭补集。$W$ 的像 $V \subset Y$ 是包含 $Y \setminus U$ 的开子空间。
+
+\medskip\noindent
+\'etale 态射 $W \to Y$ 的几何纤维基数为 $< d$。事实上，直接考察即可
+看出这对 $U \subset Y$ 的几何点成立。由于 $|U| \subset |Y|$ 稠密，由
+引理 \ref{decent-spaces-lemma-quasi-compact-reasonable-stratification}，它对 $Y$ 的所有
+几何点都成立（拟紧 \'etale 态射的纤维次数在特化下不会增加）。因此可将
+归纳假设用于 $W \to V$，得到满整态射 $Z \to V$，其中 $Z$ 为概形，并且
+该态射在 Zariski 局部经由 $W$ 分解。选取分解 $Z \to Z' \to Y$，其中
+$Z' \to Y$ 为整态射，$Z \to Z'$ 为开浸入（引理
+\ref{decent-spaces-lemma-extend-integral-morphism}）。用 $Z$ 在 $Z'$ 中的概形论闭包替换
+$Z'$ 后，可假设 $Z$ 在 $Z'$ 中概形论稠密。此时有
+$Z' \times_Y V = Z$。最后，在 $Y \setminus V$ 上赋予诱导闭子空间结构，
+记为 $T \subset Y$。考虑态射
+$$
+Z' \amalg T \longrightarrow X
+$$
+按构造，这是满整态射。由于 $T \subset U$，显然态射 $T \to X$ 经由
+$U$ 分解。另一方面，设 $z \in Z'$ 为一点。若 $z \not \in Z$，则 $z$
+映到 $Y \setminus V \subset U$ 的一点，因而可找到 $z$ 的一个邻域，使得
+该态射在此邻域上经由 $U$ 分解。若 $z \in Z$，则 $z$ 在 $Z$ 中有一个
+开邻域（它也是 $z$ 在 $Z'$ 中的开邻域），该邻域经由
+$W \subset U \times_X Y$，从而经由 $U$ 分解。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-there-is-a-scheme-integral-over-refined}
+设 $S$ 为概形，$X$ 为 $S$ 上的拟紧拟分离代数空间，并且 $|X|$ 只有有限
+多个不可约分支。
+\begin{enumerate}
+\item 存在满整态射 $Y \to X$，其中 $Y$ 为概形，并且
+% P08-E289: frozen statement names an undefined f instead of the displayed morphism Y -> X; preserved; see ERRATA_CANDIDATES.jsonl.
+$f$ 在某个拟紧稠密开集 $U \subset X$ 上有限且 \'etale；
+\item 给定满 \'etale 态射 $V \to X$，可以选取 $Y \to X$，使得对每个
+$y \in Y$，都存在开邻域 $W \subset Y$，使 $W \to X$ 经由 $V$ 分解。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+本证明与引理 \ref{decent-spaces-lemma-there-is-a-scheme-integral-over} 的证明大致相同，
+但为得到稠密拟紧开集 $U$，需要补充一些技术性说明（并且很遗憾，为了追踪
+$U$ 还需改换记号）。
+
+\medskip\noindent
+(1) 是 (2) 中 $V = X$ 的特殊情形。
+
+\medskip\noindent
+证明 (2)。取满 \'etale 态射 $V' \to V$，其中 $V'$ 为概形。显然可以用
+$V'$ 替换 $V$，故可假设 $V$ 为概形。由于 $X$ 拟紧，存在有限多个仿射
+开集 $V_i \subset V$，使得 $V' = \coprod V_i \to X$ 满射。再次用 $V'$
+替换 $V$ 后，可假设 $V$ 仿射。由于 $X$ 拟分离，因而合理，存在整数 $d$
+界住 $V \to X$ 的几何纤维次数（参见引理
+\ref{decent-spaces-lemma-bounded-fibres}）。
+
+\medskip\noindent
+我们将对 $d \geq 1$ 归纳，证明下列归纳假设 $(H_d)$：
+\begin{itemize}
+\item 对任意只有有限多个不可约分支的拟紧拟分离代数空间 $X$、任意
+$m \geq 0$、任意拟紧分离概形 $V_j$（$j = 1, \ldots, m$），以及任意
+\'etale 态射 $\varphi_j : V_j \to X$（$j = 1, \ldots, m$），若 $d$ 界住
+$\varphi_j : V_j\to X$ 的几何纤维次数，且
+$\varphi = \coprod \varphi_j : V = \coprod V_j \to X$ 满射，则本引理的
+断言对 $\varphi : V \to X$ 成立。
+\end{itemize}
+若 $d = 1$，则每个 $\varphi_j$ 都是开浸入。因此 $X$ 是概形，并且
+% P08-E290: frozen base case takes Y = V although the surjective union of open immersions V -> X need not be integral; formula preserved; see ERRATA_CANDIDATES.jsonl.
+取 $Y = V$ 即得结果。假设 $d > 1$，假设 $(H_{d - 1})$，并令
+$m$、$\varphi : V_j \to X$（$j = 1, \ldots, m$）如 $(H_d)$ 中所述。
+
+\medskip\noindent
+设 $\eta_1, \ldots, \eta_n \in |X|$ 为 $|X|$ 各不可约分支的一般点。由
+《空间的性质》命题
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}，
+存在开子概形 $U \subset X$，使得 $\eta_1, \ldots, \eta_n \in U$。缩小
+$U$ 后，可假设 $U$ 仿射；再由《态射》引理
+\ref{morphisms-lemma-generically-finite}，可假设每个
+$\varphi_j : V_j \to X$ 在 $U$ 上有限且 \'etale。当然，$U$ 拟紧且在
+$X$ 中稠密，并且 $\varphi_j^{-1}(U)$ 在 $V_j$ 中稠密。特别地，每个
+$V_j$ 只有有限多个不可约分支。
+
+\medskip\noindent
+固定 $j \in \{1, \ldots, m\}$。如《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-finite-separated-quasi-affine} 中那样，
+令 $Y_j$ 为 $X$ 在 $V_j$ 中的正规化。得到分解
+$$
+\xymatrix{
+V_j \ar[rr] \ar[rd]_{\varphi_j} & & Y_j \ar[ld]^{\pi_j} \\
+& X
+}
+$$
+其中 $\pi_j$ 为整态射，$V_j \to Y_j$ 为拟紧开浸入。由于 $Y_j$ 是 $X$
+在 $V_j$ 中的正规化，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-properties-normalization} 和
+\ref{spaces-morphisms-lemma-normalization-in-integral}
+可知 $\varphi_j^{-1}(U) \to \pi_j^{-1}(U)$ 是同构。因此 $\pi_j$ 在 $U$
+上有限且 \'etale。注意，$V_j$ 在 $Y_j$ 中概形论稠密，因为 $Y_j$ 是
+$X$ 在 $V_j$ 中的正规化（这由《空间的态射》引理
+\ref{spaces-morphisms-lemma-characterize-normalization} 对相对正规化的刻画
+得出）。由于 $V_j$ 拟紧，可知 $|V_j| \subset |Y_j|$ 稠密；参见
+《空间的态射》第 \ref{spaces-morphisms-section-scheme-theoretic-closure} 节
+（尤其是《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-immersion}）。从而 $|Y_j|$ 只有
+有限多个不可约分支。于是 $V_j \times_X Y_j$ 是拟紧分离概形
+% P08-E291: frozen source says finite over V_j although only integrality of the normalization map is available here; preserved; see ERRATA_CANDIDATES.jsonl.
+（因为它在 $V_j$ 上有限），并且
+$$
+V_j \times_X Y_j = V_j \amalg W_j
+$$
+这里，第一个直和项是 $V_j \to V_j \times_X Y_j$ 的像（由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-semi-diagonal}，它是闭的；又因为它是
+% P08-E292: frozen source says the spaces are étale over Y instead of Y_j; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$Y$ 上 \'etale 代数空间之间的 \'etale 态射，所以也是开的），第二个
+直和项是其开闭补集。
+
+\medskip\noindent
+\'etale 态射 $W_j \to Y_j$ 的几何纤维基数为 $< d$。事实上，直接考察
+即可看出这对 $V_j \subset Y_j$ 的几何点成立。由于
+$|V_j| \subset |Y_j|$ 稠密，由引理
+\ref{decent-spaces-lemma-quasi-compact-reasonable-stratification}，它对 $Y_j$ 的所有几何点
+都成立（拟紧 \'etale 态射的纤维次数在特化下不会增加）。
+% P08-E294: frozen proof applies H_{d-1} without establishing the required surjectivity of V_j \amalg W_j -> Y_j; preserved; see ERRATA_CANDIDATES.jsonl.
+将
+$(H_{d - 1})$ 用于 $V_j \amalg W_j \to Y_j$，得到满整态射
+$Y_j' \to Y_j$，其中 $Y_j'$ 为概形；该态射在 Zariski 局部经由
+$V_j \amalg W_j$ 分解，并且在某个拟紧稠密开集 $U_j \subset Y_j$ 上有限
+且 \'etale。缩小 $U$ 后，我们可以且确实假设
+$\pi_j^{-1}(U) \subset U_j$（对所有 $j$ 可以且确实选取同一个 $U$；略去
+若干细节）。
+
+\medskip\noindent
+我们断言
+$$
+Y = \coprod\nolimits_{j = 1, \ldots, m} Y'_j \longrightarrow X
+$$
+解决了问题。首先，该态射为整态射，因为在每个直和项上都有整态射的复合
+% P08-E293: frozen source routes the summand through the coproduct Y rather than its component Y_j; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$Y'_j \to Y \to X$（《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-integral}）。其次，该态射在 Zariski
+局部经由 $V = \coprod V_j$ 分解，因为上面已经看到，每个
+$Y'_j \to Y_j$ 在 Zariski 局部经由
+$V_j \amalg W_j = V_j \times_X Y_j$ 分解。最后，由于
+$Y'_j \to Y_j$ 和 $Y_j \to X$ 在 $U$ 上都有限且 \'etale，其复合也如此。
+证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{概形轨迹}
+\label{decent-spaces-section-schematic}
+
+\noindent
+本节证明良好代数空间有一个作为概形的稠密开子空间。我们先对合理代数空间
+证明这一点。
+
+
+\begin{proposition}
+\label{decent-spaces-proposition-reasonable-open-dense-scheme}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。若 $X$ 合理，则 $X$ 存在一个
+作为概形的稠密开子空间。
+\end{proposition}
+
+\begin{proof}
+由《空间的性质》引理 \ref{spaces-properties-lemma-subscheme}，此问题关于
+$X$ 是局部的。因此可假设存在仿射概形 $U$ 及满 \'etale 态射
+$U \to X$（《空间的性质》引理
+\ref{spaces-properties-lemma-cover-by-union-affines}）。由于 $X$ 合理，存在
+整数 $n$ 界住 $U \to X$ 各纤维的次数；参见定义
+\ref{decent-spaces-definition-very-reasonable}。我们对 $n$ 归纳证明，只要
+\begin{enumerate}
+\item $U \to X$ 是满 \'etale 态射，且各纤维次数为 $\leq n$；
+\item $U$ 同构于某个仿射概形的局部闭子概形，
+\end{enumerate}
+则概形轨迹在 $X$ 中稠密。
+
+\medskip\noindent
+令 $X_n \subset X$ 为闭子空间 $Z_{n - 1} \subset X$ 的补开子空间，其中
+该闭子空间是引理 \ref{decent-spaces-lemma-quasi-compact-reasonable-stratification} 对态射
+$U \to X$ 构造的。令 $U_n \subset U$ 为 $X_n$ 的原像。于是
+$U_n \to X_n$ 是次数为 $n$ 的有限局部自由态射。因此，由《空间的性质》
+命题
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}
+以及 $U_n$ 的任意有限点集都包含在 $U_n$ 的某个仿射开集内这一事实（参见
+《性质》引理 \ref{properties-lemma-ample-finite-set-in-affine}），$X_n$ 是
+概形。
+
+\medskip\noindent
+令 $X' \subset X$ 为开子空间，使得 $|X'|$ 是 $|Z_{n - 1}|$ 在 $|X|$ 中的
+内部（参见《拓扑》定义 \ref{topology-definition-nowhere-dense}）。令
+$U' \subset U$ 为其原像。于是 $U' \to X'$ 满且 \'etale，纤维次数由
+$n - 1$ 界住。由归纳假设，$X'$ 的概形轨迹是某个稠密开集
+$X'' \subset X'$。由初等拓扑可知，$X'' \cup X_n \subset X$ 开且稠密，
+从而得证。
+\end{proof}
+
+\begin{theorem}[David Rydh]
+\label{decent-spaces-theorem-decent-open-dense-scheme}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。若 $X$ 良好，则 $X$ 存在一个
+作为概形的稠密开子空间。
+\end{theorem}
+
+\begin{proof}
+假设定理对某个良好代数空间 $X$ 不成立。由《空间的性质》引理
+\ref{spaces-properties-lemma-subscheme}，存在最大的作为概形的开子空间
+$X' \subset X$。由于 $X'$ 在 $X$ 中不稠密，存在开子空间
+$X'' \subset X$，使得 $|X''| \cap |X'| = \emptyset$。用 $X''$ 替换 $X$
+后，得到一个非空良好代数空间 $X$，其中不含{\it 任何}作为概形的开子空间。
+
+\medskip\noindent
+取非空仿射概形 $U$ 及 \'etale 态射 $U \to X$。
+% P08-E295: frozen source calls the image replacement an open subscheme although it is only known to be an open subspace; intended wording translated; see ERRATA_CANDIDATES.jsonl.
+我们可以且确实用与 $|U| \to |X|$ 的像对应的开子空间替换 $X$。考虑引理
+\ref{decent-spaces-lemma-stratify-flat-fp-lqf} 对态射 $U \to X$ 构造的开子空间序列
+% P08-E296: frozen display omits the inclusion symbol after X_2; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$$
+X = X_0 \supset X_1 \supset X_2 \ldots
+$$
+。注意，由于 $U \to X$ 满射，有 $X_0 = X_1$。令
+$U = U_0 = U_1 \supset U_2 \ldots$ 为 $U$ 中相应的开子概形序列。
+
+\medskip\noindent
+取非空仿射开集 $V_1 \subset U_1$（例如 $V_1 = U_1$）。我们将归纳构造
+非空仿射开集序列 $V_1 \supset V_2 \supset \ldots$，其中
+$V_n \subset U_n$。事实上，在已构造 $V_1, \ldots, V_{n - 1}$ 后，除非
+$V_{n - 1} \cap U_n = \emptyset$，总能选取 $V_n$。但若
+$V_{n - 1} \cap U_n = \emptyset$，则满足
+$|X'| = \Im(|V_{n - 1}| \to |X|)$ 的开子空间 $X' \subset X$ 包含在
+$|X| \setminus |X_n|$ 中。因此，$V_{n - 1} \to X'$ 是纤维次数由
+$n - 1$ 界住的 \'etale 态射。换言之，$X'$ 按定义合理，故由命题
+\ref{decent-spaces-proposition-reasonable-open-dense-scheme}，$X'$ 含有非空开子概形。这是
+矛盾，表明可以选取 $V_n$。
+
+\medskip\noindent
+由《极限》引理 \ref{limits-lemma-limit-nonempty}，极限
+$V_\infty = \lim V_n$ 是非空概形。取态射 $\Spec(k) \to V_\infty$。按构造，
+复合态射 $\Spec(k) \to V_\infty \to U \to X$ 的像包含在每个 $X_d$ 中。
+换言之，
+% P08-E297: frozen source says “the fibred” where the fibre U x_X Spec(k) is meant; intended noun translated; see ERRATA_CANDIDATES.jsonl.
+纤维 $U \times_X \Spec(k)$ 的次数无限，这与良好空间的定义矛盾。此矛盾
+完成定理的证明。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-when-quotient-scheme-at-point}
+设 $S$ 为概形，$X \to Y$ 为 $S$ 上代数空间的满有限局部自由态射。对
+$y \in |Y|$，下列条件等价：
+\begin{enumerate}
+\item $y$ 属于 $Y$ 的概形轨迹；
+\item 存在仿射开集 $U \subset X$，包含 $y$ 的原像。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+% P08-E298: frozen proof types the point as y in Y rather than y in |Y|; formula preserved; see ERRATA_CANDIDATES.jsonl.
+若 $y \in Y$ 属于概形轨迹，则它有仿射开邻域 $V \subset Y$；$V$ 在 $X$
+中的原像 $U$ 是在 $V$ 上有限的开集，因而仿射。所以 (1) 蕴含 (2)。
+
+\medskip\noindent
+反过来，假设给定 (2) 中的 $U \subset X$。令 $R = X \times_Y X$，并将投影
+记为 $s, t : R \to X$。考虑
+% P08-E299: frozen set difference lacks parentheses around the intersection; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$Z = R \setminus s^{-1}(U) \cap t^{-1}(U)$。这是 $R$ 的闭子集。像 $t(Z)$
+是 $X$ 的闭子集，可以粗略地描述为 $X$ 中与 $X \setminus U$ 的某点
+$R$-等价的点集。因此，$U' = X \setminus t(Z)$ 是 $X$ 中包含在 $U$ 内的
+$R$-不变开子空间，并且包含 $X \to Y$ 在 $y$ 上的纤维。由于 $X \to Y$
+是开态射（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open}），$U'$ 的像是开子空间
+$V' \subset Y$。由于 $U'$ 是 $R$-不变的，且 $R = X \times_Y X$，可知
+$U'$ 是 $V'$ 的原像（使用《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}）。用 $V'$ 替换 $Y$、用 $U'$
+替换 $X$ 后，可假设 $X$ 为同构于某个仿射概形的开子概形的概形。
+
+\medskip\noindent
+假设 $X$ 为同构于某个仿射概形的开子概形的概形。此时，fppf 商层 $X/R$
+是概形；参见《空间的性质》命题
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}。由于 $Y$
+是 fppf 拓扑中的层，得到一个使 $X \to Y$ 分解的典范映射 $X/R \to Y$。
+由于 $X \to Y$ 满且有限局部自由，它作为层的映射也满（《空间》引理
+\ref{spaces-lemma-surjective-flat-locally-finite-presentation}）。因此
+$X/R \to Y$ 作为层的映射满。另一方面，由于作为层有
+$R = X \times_Y X$，可知 $X/R \to Y$ 作为层的映射单。因此
+$X/R \to Y$ 是同构，进而 $Y$ 可表。
+\end{proof}
+
+\noindent
+至此，我们已有数种不同的方法证明下述引理。
+
+\begin{lemma}
+\label{decent-spaces-lemma-finite-etale-cover-dense-open-scheme}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。若存在有限、\'etale 且满的态射
+$U \to X$，其中 $U$ 为概形，则 $X$ 存在一个作为概形的稠密开子空间。
+\end{lemma}
+
+\begin{proof}[第一种证明]
+态射 $U \to X$ 有限局部自由。因此，$X$ 可分解为开闭子空间
+$X_d \subset X$，使得 $U \times_X X_d \to X_d$ 是次数为 $d$ 的有限局部
+自由态射。故可假设 $U \to X$ 是次数为 $d$ 的有限局部自由态射。此时，令
+$U_i \subset U$（$i \in I$）遍历仿射开集。对每个 $i$，态射
+$U_i \to X$ 都是 \'etale 的，并有普遍有界纤维（具体地，由 $d$ 界住）。
+换言之，$X$ 合理，结论由命题
+\ref{decent-spaces-proposition-reasonable-open-dense-scheme} 得出。
+\end{proof}
+
+\begin{proof}[第二种证明]
+此问题关于 $X$ 是局部的（《空间的性质》引理
+\ref{spaces-properties-lemma-subscheme}），故可假设 $X$ 拟紧。于是 $U$ 拟紧，
+从而存在稠密开子概形 $W \subset U$，且它分离（《性质》引理
+\ref{properties-lemma-quasi-compact-dense-open-separated}）。令
+$Z = U \setminus W$。令 $R = U \times_X U$，并将投影记为
+$s, t : R \to U$。则 $t^{-1}(Z)$ 在 $R$ 中无处稠密（《拓扑》引理
+\ref{topology-lemma-open-inverse-image-closed-nowhere-dense}），因而
+$\Delta = s(t^{-1}(Z))$ 是 $U$ 的 $R$-不变无处稠密闭子集（《态射》引理
+\ref{morphisms-lemma-image-nowhere-dense-finite}）。取
+$u \in U \setminus \Delta$ 为某个不可约分支的一般点。由于这些点在
+$U \setminus \Delta$ 中稠密，且 $\Delta$ 无处稠密，只需证明 $u$ 的像
+$x \in X$ 属于 $X$ 的概形轨迹。
+
+注意，$t(s^{-1}(\{u\})) \subset W$ 是 $W$ 的不可约分支的一般点所成的
+有限集（比较《空间的性质》引理
+\ref{spaces-properties-lemma-codimension-0-points}）。由《性质》引理
+\ref{properties-lemma-maximal-points-affine}，可找到仿射开集 $V \subset W$，
+使得 $t(s^{-1}(\{u\})) \subset V$。由于 $t(s^{-1}(\{u\}))$ 是
+$|U| \to |X|$ 在 $x$ 上的纤维，结论由引理
+\ref{decent-spaces-lemma-when-quotient-scheme-at-point} 得出。
+\end{proof}
+
+\begin{proof}[第三种证明]
+（此证明本质上与第二种证明相同，但使用的引用较少。）
+假设 $X$ 是代数空间，$U$ 是概形，且 $U \to X$ 是有限、\'etale 且满的态射。
+记 $R = U \times_X U$，并照例将投影记为 $s, t : R \to U$。注意 $s,t$ 满、
+有限且 \'etale。断言：$U$ 的所有 $R$-不变仿射开集之并在 $U$ 中拓扑稠密。
+
+\medskip\noindent
+证明该断言。设 $W \subset U$ 为仿射开集。令
+$W' = t(s^{-1}(W)) \subset U$。由于 $s^{-1}(W)$ 仿射（因而拟紧），可知
+$W' \subset U$ 是拟紧开集。由《性质》引理
+\ref{properties-lemma-quasi-compact-dense-open-separated}，存在稠密开集
+$W'' \subset W'$，且它是分离概形。令 $\Delta' = W' \setminus W''$。
+% P08-E300: frozen source says Delta' is closed nowhere dense in W'', but it is the complement of W'' in W'; frozen formula preserved; see ERRATA_CANDIDATES.jsonl.
+这是 $W''$ 的无处稠密闭子集。由于
+$t|_{s^{-1}(W)} : s^{-1}(W) \to W'$ 是开态射（因为它是 \'etale 的），可知
+原像 $(t|_{s^{-1}(W)})^{-1}(\Delta') \subset s^{-1}(W)$ 是无处稠密闭子集
+（参见《拓扑》引理
+\ref{topology-lemma-open-inverse-image-closed-nowhere-dense}）。因此，由《态射》
+引理 \ref{morphisms-lemma-image-nowhere-dense-finite} 可知
+$$
+\Delta = s\left((t|_{s^{-1}(W)})^{-1}(\Delta')\right)
+$$
+是 $W$ 的无处稠密闭子集。取点 $\eta \in W$，使得
+$\eta \not \in \Delta$，并且它是 $W$（因而也是 $U$）某个不可约分支的
+一般点。按上述选择，有限集
+$t(s^{-1}(\{\eta\})) = \{\eta_1, \ldots, \eta_n\}$ 包含在分离概形 $W''$ 中。
+% P08-E301: frozen source has the malformed phrase “the fibres of s is are”; intended assertion translated; see ERRATA_CANDIDATES.jsonl.
+注意，$s$ 的纤维是有限离散空间，并且一般化可沿 \'etale 态射 $t$ 提升；参见
+《态射》引理 \ref{morphisms-lemma-etale-flat} 和
+\ref{morphisms-lemma-generalizations-lift-flat}。由此可知，每个 $\eta_i$ 都是
+$W''$ 某个不可约分支的一般点。因此，由《性质》引理
+\ref{properties-lemma-maximal-points-affine}，可找到仿射开集 $V \subset W''$，
+使得 $\{\eta_1, \ldots, \eta_n\} \subset V$。由《群胚》引理
+\ref{groupoids-lemma-find-invariant-affine}，这说明 $\eta$ 包含在 $U$ 的某个
+$R$-不变仿射开子概形中。由于 $W$ 是 $U$ 的任意仿射开集，且
+$W \setminus \Delta$ 的不可约分支的一般点集在 $W$ 中稠密，断言得证。
+
+\medskip\noindent
+用该断言即可完成证明。事实上，若 $W \subset U$ 是 $R$-不变仿射开集，则
+$R$ 在 $W$ 上的限制 $R_W$ 满足
+$R_W = s^{-1}(W) = t^{-1}(W)$（参见《群胚》定义
+\ref{groupoids-definition-invariant-open} 及其后的讨论）。特别地，映射
+$R_W \to W$ 也有限且 \'etale；因此 $R_W$ 仿射。由《群胚》命题
+\ref{groupoids-proposition-finite-flat-equivalence}，$W/R_W$ 是概形。另一方面，
+由《空间》引理 \ref{spaces-lemma-finding-opens}，$W/R_W$ 是 $X$ 的开子空间。
+% P08-E302: frozen source omits an article/plural marker in “contained in R-invariant affine open”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+% P08-E303: frozen source says “is open dense” rather than “is open and dense”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+故若稠密点集中的每一点都包含在 $U$ 的某个 $R$-不变仿射开集中，则 $X$ 的
+概形轨迹（参见《空间的性质》引理
+\ref{spaces-properties-lemma-subscheme}）必在 $X$ 中开且稠密。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{剩余域与 Hensel 局部环}
+\label{decent-spaces-section-residue-fields-henselian-local-rings}
+
+\noindent
+对良好代数空间，可以定义一点处的剩余域与 Hensel 局部环。例如，下述引理
+说明良好空间上一点的剩余域确有定义。
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-points-monomorphism}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。考虑映射
+$$
+\{\Spec(k) \to X \text{ 为单态射，其中 }k\text{ 为域}\}
+\longrightarrow
+|X|
+$$
+。此映射总为单射。若 $X$ 良好，则它是双射。
+\end{lemma}
+
+\begin{proof}
+《空间的性质》引理
+\ref{spaces-properties-lemma-points-monomorphism} 已表明该映射一般总为单射。
+由引理 \ref{decent-spaces-lemma-bounded-fibres}，当 $X$ 良好时它为满射（其实也可以说，
+这是良好性定义的一部分）。
+\end{proof}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。若点 $x \in |X|$ 可由单态射
+$\Spec(k) \to X$ 表示，则域 $k$ 在唯一同构意义下唯一。对良好代数空间，
+由引理 \ref{decent-spaces-lemma-decent-points-monomorphism}，每一点都存在这种单态射，
+所以下述定义有意义。
+
+\begin{definition}
+\label{decent-spaces-definition-residue-field}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。设 $x \in |X|$。{\it $X$ 在
+$x$ 处的剩余域}是唯一的域 $\kappa(x)$，它带有表示 $x$ 的单态射
+$\Spec(\kappa(x)) \to X$。
+\end{definition}
+
+\noindent
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上良好代数空间的态射。设
+$x \in |X|$ 为一点，并令 $y = f(x) \in |Y|$。则复合态射
+$\Spec(\kappa(x)) \to Y$ 属于定义 $y$ 的等价类，因而经由
+$\Spec(\kappa(y)) \to Y$ 分解。换言之，得到交换图
+$$
+\xymatrix{
+\Spec(\kappa(x)) \ar[r]_-x \ar[d] & X \ar[d]^f \\
+\Spec(\kappa(y)) \ar[r]^-y & Y
+}
+$$
+左侧竖直态射对应于域同态 $\kappa(y) \to \kappa(x)$。我们常简称它为
+$f$ 诱导的同态。
+
+\begin{lemma}
+\label{decent-spaces-lemma-identifies-residue-fields}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上良好代数空间的态射。设
+$x \in |X|$ 为一点，其像为 $y = f(x) \in |Y|$。下列条件等价：
+\begin{enumerate}
+\item $f$ 诱导同构 $\kappa(y) \to \kappa(x)$；
+\item 诱导态射 $\Spec(\kappa(x)) \to Y$ 是单态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由上述讨论立即得出。
+\end{proof}
+
+\noindent
+下述引理说明良好代数空间上一点的 Hensel 局部环确有定义。
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-space-elementary-etale-neighbourhood}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。对每一点 $x \in |X|$，
+存在 \'etale 态射
+$$
+(U, u) \longrightarrow (X, x)
+$$
+，其中 $U$ 为仿射概形，$u$ 是 $U$ 中位于 $x$ 上方的唯一一点，并且诱导同态
+$\kappa(x) \to \kappa(u)$ 是同构。
+\end{lemma}
+
+\begin{proof}
+可用包含 $x$ 的拟紧开集替换 $X$，从而假设 $X$ 拟紧。回忆，由良好空间的
+定义，$x$ 可由从某个域的谱出发的拟紧（单）态射表示。
+% P08-E305: frozen source omits “of” in “from the spectrum a field”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+故引理由引理 \ref{decent-spaces-lemma-filter-quasi-compact} 得出。
+\end{proof}
+
+\begin{definition}
+\label{decent-spaces-definition-elemenary-etale-neighbourhood}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $x \in X$ 为一点。
+% P08-E304: frozen definition types the point as x in X rather than x in |X|; formula preserved; see ERRATA_CANDIDATES.jsonl.
+{\it 初等 \'etale 邻域}是 \'etale 态射 $(U, u) \to (X, x)$，其中 $U$
+为概形，$u \in U$ 为映到 $x$ 的一点，且态射
+$u = \Spec(\kappa(u)) \to X$ 是单态射。{\it 初等 \'etale 邻域的态射}
+$(U, u) \to (U', u')$ 定义为 $X$ 上将 $u$ 映到 $u'$ 的态射 $U \to U'$。
+\end{definition}
+
+\noindent
+若 $X$ 不良好，则初等 \'etale 邻域范畴可能为空。
+
+\begin{lemma}
+\label{decent-spaces-lemma-elementary-etale-neighbourhoods}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x$ 为 $X$ 的一点。
+$(X, x)$ 的初等 \'etale 邻域范畴是余滤的（参见《范畴》定义
+\ref{categories-definition-codirected}）。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-decent-space-elementary-etale-neighbourhood}，该范畴非空。
+假设有两个初等 \'etale 邻域 $(U_i, u_i) \to (X, x)$。考虑
+$U = U_1 \times_X U_2$。由于 $\Spec(\kappa(u_i)) \to X$（$i = 1, 2$）
+都是 $x$ 所在等价类中的单态射（引理
+\ref{decent-spaces-lemma-identifies-residue-fields}），可知
+% P08-E306: frozen source places a detached comma after the closing parenthesis; intended punctuation translated; see ERRATA_CANDIDATES.jsonl.
+$$
+u = \Spec(\kappa(u_1)) \times_X \Spec(\kappa(u_2))
+$$
+是某个域 $\kappa(u)$ 的谱，使得诱导映射 $\kappa(u_i) \to \kappa(u)$ 是
+同构。于是 $u \to U$ 是 $U$ 的一点，并且
+$(U, u) \to (X, x)$ 是支配 $(U_i, u_i)$ 的初等 \'etale 邻域。
+若 $a, b : (U_1, u_1) \to (U_2, u_2)$ 是这两个初等 \'etale 邻域之间的
+两个态射，则考虑概形
+$$
+U = U_1 \times_{(a, b), (U_2 \times_X U_2), \Delta} U_2
+$$
+。由《空间的性质》引理
+\ref{spaces-properties-lemma-etale-permanence}，$U \to X$ 是 \'etale 的。
+此外，完全同前可知 $U$ 有一点 $u$，使得
+$(U, u) \to (X, x)$ 是初等 \'etale 邻域。最后，$U \to U_1$ 等化 $a$ 与
+$b$，证明完毕。
+\end{proof}
+
+\begin{definition}
+\label{decent-spaces-definition-henselian-local-ring}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$。{\it $X$
+在 $x$ 处的 Hensel 局部环}为
+% P08-E308: frozen source has a stray comma between the definition's subject and “is”; intended punctuation translated; see ERRATA_CANDIDATES.jsonl.
+$$
+\mathcal{O}_{X, x}^h = \colim \Gamma(U, \mathcal{O}_U)
+$$
+，其中余极限取遍初等 \'etale 邻域 $(U, u) \to (X, x)$。
+\end{definition}
+
+\noindent
+下面是《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring} 的对应结果。
+
+\begin{lemma}
+\label{decent-spaces-lemma-describe-henselian-local-ring}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$。设
+$(U, u) \to (X, x)$ 为初等 \'etale 邻域。则
+$$
+\mathcal{O}_{X, x}^h = \mathcal{O}_{U, u}^h
+$$
+。换言之，$X$ 在 $x$ 处的 Hensel 局部环等于 $U$ 在 $u$ 处的局部环
+$\mathcal{O}_{U, u}$ 的 Hensel 化 $\mathcal{O}_{U, u}^h$。
+\end{lemma}
+
+\begin{proof}
+由于 $(X, x)$ 的初等 \'etale 邻域范畴余滤（引理
+\ref{decent-spaces-lemma-elementary-etale-neighbourhoods}），可知 $(U, u)$ 的初等
+\'etale 邻域范畴在 $(X, x)$ 的初等 \'etale 邻域范畴中为初始的。
+% P08-E307: frozen proof twice uses singular “neighbourhood” for a category of neighbourhoods; intended plurals translated; see ERRATA_CANDIDATES.jsonl.
+于是该等式由《态射补篇》引理
+\ref{more-morphisms-lemma-describe-henselization} 和《范畴》引理
+\ref{categories-lemma-cofinal} 得出（由于定义 Hensel 局部环的余极限取在
+初等 \'etale 邻域范畴的反范畴上，初始性转化为共尾性）。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-henselian-local-ring-strict}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。设 $\overline{x}$ 为 $X$
+位于 $x \in |X|$ 上方的几何点。$X$ 在 $\overline{x}$ 处的 \'etale 局部环
+$\mathcal{O}_{X, \overline{x}}$（《空间的性质》定义
+\ref{spaces-properties-definition-etale-local-rings}）是 $X$ 在 $x$ 处的
+Hensel 局部环 $\mathcal{O}_{X, x}^h$ 的严格 Hensel 化。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{decent-spaces-lemma-describe-henselian-local-ring}、《空间的性质》引理
+\ref{spaces-properties-lemma-describe-etale-local-ring} 以及下述事实得出：
+对局部环 $(R, \mathfrak m, \kappa)$ 和给定的 $\kappa$ 的可分代数闭包
+$\kappa^{sep}$，有 $(R^h)^{sh} = R^{sh}$。该等式由《代数》引理
+\ref{algebra-lemma-uniqueness-henselian} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-residue-field-henselian-local-ring}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$。
+$X$ 在 $x$ 处的 Hensel 局部环（定义
+\ref{decent-spaces-definition-henselian-local-ring}）的剩余域，就是 $X$ 在 $x$ 处的
+剩余域（定义 \ref{decent-spaces-definition-residue-field}）。
+\end{lemma}
+
+\begin{proof}
+取初等 \'etale 邻域 $(U, u) \to (X, x)$。则 $\kappa(u) = \kappa(x)$，且
+$\mathcal{O}_{X, x}^h = \mathcal{O}_{U, u}^h$
+（引理 \ref{decent-spaces-lemma-describe-henselian-local-ring}）。由《代数》引理
+\ref{algebra-lemma-henselization}，$\mathcal{O}_{U, u}^h$ 的剩余域为
+$\kappa(u)$（该引理的结论就是局部环 Hensel 化的构造/定义；参见《代数》定义
+\ref{algebra-definition-henselization}）。
+\end{proof}
+
+\begin{remark}
+\label{decent-spaces-remark-functoriality-henselian-local-ring}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上良好代数空间的态射。设
+$x \in |X|$，其像为 $y \in |Y|$。取初等 \'etale 邻域
+$(V, v) \to (Y, y)$（由引理
+\ref{decent-spaces-lemma-decent-space-elementary-etale-neighbourhood} 可以如此选取）。
+则 $V \times_Y X$ 是 $X$ 上的 \'etale 代数空间，它有唯一一点 $x'$，在
+$X$ 中映到 $x$，在 $V$ 中映到 $v$。（细节从略；使用所有点都可由从域的谱
+出发的单态射表示这一事实。）取初等 \'etale 邻域
+$(U, u) \to (V \times_Y X, x')$。于是得到交换图
+% P08-E310: frozen remark uses compatible geometric points \bar{x}, \bar{y} without introducing them; formulas preserved; see ERRATA_CANDIDATES.jsonl.
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \overline{x}}) \ar[r] \ar[d] &
+\Spec(\mathcal{O}_{X, x}^h) \ar[r] \ar[d] &
+\Spec(\mathcal{O}_{U, u}) \ar[r] \ar[d] &
+U \ar[r] \ar[d] &
+X \ar[d] \\
+\Spec(\mathcal{O}_{Y, \overline{y}}) \ar[r] &
+\Spec(\mathcal{O}_{Y, y}^h) \ar[r] &
+\Spec(\mathcal{O}_{V, v}) \ar[r] &
+V \ar[r] &
+Y
+}
+$$
+它来自下列等同：
+$\mathcal{O}_{X, \overline{x}} = \mathcal{O}_{U, u}^{sh}$,
+$\mathcal{O}_{X, x}^h = \mathcal{O}_{U, u}^h$,
+$\mathcal{O}_{Y, \overline{y}} = \mathcal{O}_{V, v}^{sh}$,
+$\mathcal{O}_{Y, y}^h = \mathcal{O}_{V, v}^h$
+；参见引理 \ref{decent-spaces-lemma-describe-henselian-local-ring}、《空间的性质》
+引理 \ref{spaces-properties-lemma-describe-etale-local-ring}，以及《代数》
+第 \ref{algebra-section-ind-etale} 节和第
+\ref{algebra-section-henselization} 节所讨论的（严格）Hensel 化函子性。
+% P08-E309: frozen source has the malformed phrase “see in Lemma”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+\end{remark}
+
+
+
+
+
+
+
+
+
+\section{良好空间上的点}
+\label{decent-spaces-section-points}
+
+\noindent
+本节证明良好代数空间上的点的若干性质。下述引理表明，点的特化在良好代数
+空间上的表现良好。《空间》例
+\ref{spaces-example-infinite-product} 表明，一般而言这{\bf 并不}成立。
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-no-specializations-map-to-same-point}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $U \to X$ 为从概形到
+$X$ 的 \'etale 态射。若 $u, u' \in |U|$ 映到 $|X|$ 的同一点，且
+$u' \leadsto u$，则 $u = u'$。
+\end{lemma}
+
+\begin{proof}
+结合引理 \ref{decent-spaces-lemma-bounded-fibres} 与
+\ref{decent-spaces-lemma-no-specializations-map-to-same-point}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-specialization}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。设 $x, x' \in |X|$，并假设
+$x' \leadsto x$，即 $x$ 是 $x'$ 的特化。则对从概形 $U$ 出发的任意
+\'etale 态射 $\varphi : U \to X$ 及满足 $\varphi(u) = x$ 的任意
+$u \in U$，存在点 $u'\in U$，使得 $u' \leadsto u$ 且
+$\varphi(u') = x'$。
+% P08-E311: frozen source omits “there” before “exists a point” and omits spacing in u'\in U; intended prose translated while formula bytes are preserved; see ERRATA_CANDIDATES.jsonl.
+\end{lemma}
+
+\begin{proof}
+结合引理 \ref{decent-spaces-lemma-bounded-fibres} 与
+\ref{decent-spaces-lemma-specialization}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-kolmogorov}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。则 $|X|$ 是 Kolmogorov
+空间（参见《拓扑》定义 \ref{topology-definition-generic-point}）。
+\end{lemma}
+
+\begin{proof}
+设 $x_1, x_2 \in |X|$，且 $x_1 \leadsto x_2$ 与
+$x_2 \leadsto x_1$。须证明 $x_1 = x_2$。取概形 $U$ 及 \'etale 态射
+$U \to X$，使得 $x_1,x_2$ 都属于 $|U| \to |X|$ 的像。由引理
+\ref{decent-spaces-lemma-decent-specialization}，可在 $U$ 中找到特化
+$u_1 \leadsto u_2$，映到 $x_1 \leadsto x_2$。再由引理
+\ref{decent-spaces-lemma-decent-specialization}，可找到映到 $x_2 \leadsto x_1$ 的
+$u_2' \leadsto u_1$。这意味着 $u_2' \leadsto u_2$ 是 $U$ 中映到 $X$ 同一点
+$x_2$ 的两个点之间的特化。除非 $u_2' = u_2$，这是不可能的；参见引理
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}。因此也有
+$u_1 = u_2$，正是所需结论。
+\end{proof}
+
+\begin{proposition}
+\label{decent-spaces-proposition-reasonable-sober}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。则拓扑空间 $|X|$ 是清醒的
+（参见《拓扑》定义 \ref{topology-definition-generic-point}）。
+\end{proposition}
+
+\begin{proof}
+引理 \ref{decent-spaces-lemma-kolmogorov} 已表明 $|X|$ 是 Kolmogorov 空间。因此只需证明
+每个不可约闭子集 $T \subset |X|$ 都有一般点。由《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}，存在闭子空间
+$Z \subset X$，满足
+% P08-E312: frozen source writes |Z| = |T| although T is already a subset of |X|; formula preserved; see ERRATA_CANDIDATES.jsonl.
+$|Z| = |T|$。按定义，这意味着 $Z \to X$ 是代数空间的可表态射。因此由引理
+\ref{decent-spaces-lemma-representable-properties}，$Z$ 是良好代数空间。由定理
+\ref{decent-spaces-theorem-decent-open-dense-scheme}，存在作为概形的稠密开子空间
+$Z' \subset Z$。这意味着 $|Z'| \subset T$ 开且稠密。因此拓扑空间
+$|Z'|$ 不可约，也就是说 $Z'$ 是不可约概形。由《概形》引理
+\ref{schemes-lemma-scheme-sober}，$|Z'|$ 是某个点 $\eta \in T$ 的闭包，
+因而也有 $T = \overline{\{\eta\}}$，证毕。
+\end{proof}
+
+\noindent
+对良好代数空间，维数具有预期的性质。
+
+\begin{lemma}
+\label{decent-spaces-lemma-dimension-decent-space}
+设 $S$ 为概形。按《空间的性质》第
+\ref{spaces-properties-section-dimension} 节定义的维数在 $S$ 上的良好
+代数空间 $X$ 上表现良好：
+\begin{enumerate}
+\item 若 $x \in |X|$，则 $\dim_x(|X|) = \dim_x(X)$；
+\item $\dim(|X|) = \dim(X)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。取带有点 $u \in U$ 的概形 $U$ 及将 $u$ 映到 $x$ 的 \'etale
+态射 $h : U \to X$。按定义，$X$ 在 $x$ 处的维数是 $\dim_u(|U|)$。
+因此可以选取 $U$，使得 $\dim_x(X) = \dim(|U|)$。设 $d$ 为整数。若
+$\dim(U) \geq d$，则 $U$ 中存在非平凡特化序列
+$u_d \leadsto \ldots \leadsto u_0$。取像后得到相应序列
+$h(u_d) \leadsto \ldots \leadsto h(u_0)$
+；由引理 \ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}，其中每个
+特化都非平凡。因此，$|U|$ 在 $|X|$ 中的像的维数至少为 $d$。反过来，
+假设 $x_d \leadsto \ldots \leadsto x_0$ 是 $|X|$ 中的特化序列，且 $x_0$
+属于 $|U| \to |X|$ 的像。由引理 \ref{decent-spaces-lemma-decent-specialization}，可将其
+提升为 $U$ 中的特化序列。
+
+\medskip\noindent
+(2) 立即由 (1)、《拓扑》引理
+\ref{topology-lemma-dimension-supremum-local-dimensions} 及《空间的性质》
+第 \ref{spaces-properties-section-dimension} 节得出。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-dimension-local-ring-quasi-finite}
+设 $S$ 为概形，$X \to Y$ 为 $S$ 上代数空间的局部拟有限态射。设
+$x \in |X|$，其像为 $y \in |Y|$。则 $Y$ 在 $y$ 处的局部环之维数
+$\geq$ $X$ 在 $x$ 处的局部环之维数。
+% P08-E313: frozen source says “is >= to the dimension”; intended grammar translated while the comparison symbol is preserved; see ERRATA_CANDIDATES.jsonl.
+\end{lemma}
+
+\begin{proof}
+代数空间上一点处局部环维数的定义见《空间的性质》定义
+\ref{spaces-properties-definition-dimension-local-ring}。取 \'etale 态射
+$(V, v) \to (Y, y)$，其中 $V$ 为概形。再取 \'etale 态射
+$U \to V \times_Y X$ 及点 $u \in U$，它映到 $x \in |X|$ 与 $v \in V$。
+于是 $U \to V$ 局部拟有限，而须证明
+$$
+\dim(\mathcal{O}_{V, v}) \geq \dim(\mathcal{O}_{U, u})
+$$
+。这正是《代数》引理 \ref{algebra-lemma-dimension-inequality-quasi-finite}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-dimension-quasi-finite}
+设 $S$ 为概形，$X \to Y$ 为 $S$ 上代数空间的局部拟有限态射。则
+$\dim(X) \leq \dim(Y)$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{decent-spaces-lemma-dimension-local-ring-quasi-finite} 与《空间的性质》引理
+\ref{spaces-properties-lemma-dimension} 得出。
+\end{proof}
+
+\noindent
+下述引理比《空间的性质》引理
+\ref{spaces-properties-lemma-point-like-spaces} 略强一点。我们将在引理
+\ref{decent-spaces-lemma-when-field} 中加强它。
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-point-like-spaces}
+设 $S$ 为概形，$k$ 为域，$X$ 为 $S$ 上的代数空间，并假设存在满
+\'etale 态射 $\Spec(k) \to X$。若 $X$ 良好，则
+$X \cong \Spec(k')$，其中 $k/k'$ 为有限可分扩张。
+\end{lemma}
+
+\begin{proof}
+该假设蕴含 $|X| = \{x\}$ 是单点集。由于 $X$ 良好，可以找到像为 $x$ 的
+拟紧单态射 $\Spec(k') \to X$。于是投影
+$U = \Spec(k') \times_X \Spec(k) \to \Spec(k)$
+是单态射，故 $U = \Spec(k)$；参见《概形》引理
+\ref{schemes-lemma-mono-towards-spec-field}。因此投影
+$\Spec(k) = U \to \Spec(k')$ 是 \'etale 的，证毕。
+\end{proof}
+
+
+
+
+
+
+\section{约化单点空间}
+\label{decent-spaces-section-singleton}
+
+\noindent
+{\it 单点}空间是满足 $|X|$ 为单点集的代数空间 $X$。事实表明，它们可能比
+仅仅作为域的谱更有趣；参见《空间》例 \ref{spaces-example-Qbar}。我们建立
+少量工具，以便讨论这类空间。
+
+\begin{lemma}
+\label{decent-spaces-lemma-flat-cover-by-field}
+设 $S$ 为概形，$Z$ 为 $S$ 上的代数空间。设 $k$ 为域，且
+$\Spec(k) \to Z$ 满且平坦。则对任意域 $k'$，任意态射
+$\Spec(k') \to Z$ 均满且平坦。
+\end{lemma}
+
+\begin{proof}
+考虑纤维方块
+$$
+\xymatrix{
+T \ar[d] \ar[r] & \Spec(k) \ar[d] \\
+\Spec(k') \ar[r] & Z
+}
+$$
+注意，$T \to \Spec(k')$ 平坦且满，故 $T$ 非空。另一方面，由于 $k$ 为域，
+$T \to \Spec(k)$ 平坦。因此 $T \to Z$ 平坦且满。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-permanence}，$\Spec(k') \to Z$ 平坦。
+它也满，因为按假设 $|Z|$ 是单点集。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-unique-point}
+设 $S$ 为概形，$Z$ 为 $S$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $Z$ 约化，且 $|Z|$ 是单点集；
+\item 存在满平坦态射 $\Spec(k) \to Z$，其中 $k$ 为域；
+\item 存在局部有限型、满且平坦的态射 $\Spec(k) \to Z$，其中 $k$ 为域。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1)。设 $W$ 为概形，且 $W \to Z$ 为满 \'etale 态射。则 $W$ 是
+约化概形。设 $\eta \in W$ 为 $W$ 某个不可约分支的一般点。由于 $W$ 约化，
+有 $\mathcal{O}_{W, \eta} = \kappa(\eta)$。因此典范态射
+$\eta = \Spec(\kappa(\eta)) \to W$ 平坦。可知复合态射 $\eta \to Z$ 平坦
+（参见《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-flat}）。由于 $|Z|$ 是单点集，它也
+满。换言之，(2) 成立。
+
+\medskip\noindent
+假设 (2)。设 $W$ 为概形，且 $W \to Z$ 为满 \'etale 态射。取域 $k$ 及
+满平坦态射 $\Spec(k) \to Z$。则 $W \times_Z \Spec(k)$ 是 $k$ 上的
+\'etale 概形。因此 $W \times_Z \Spec(k)$ 是若干域的谱之不交并（参见注
+\ref{decent-spaces-remark-recall}），特别地它约化。由于
+$W \times_Z \Spec(k) \to W$ 满且平坦，由《下降》引理
+\ref{descent-lemma-descend-reduced} 可知 $W$ 约化。换言之，(1) 成立。
+
+\medskip\noindent
+显然 (3) 蕴含 (2)。最后假设 (2)。取非空仿射概形 $W$ 及 \'etale 态射
+$W \to Z$。取闭点 $w \in W$，并令 $k = \kappa(w)$。复合态射
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow Z
+$$
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-type} 和
+\ref{spaces-morphisms-lemma-etale-locally-finite-type} 局部有限型；由引理
+\ref{decent-spaces-lemma-flat-cover-by-field}，它也平坦且满。因此 (3) 成立。
+\end{proof}
+
+\noindent
+下述引理挑出一类比前一引理稍好的单点代数空间。
+
+\begin{lemma}
+\label{decent-spaces-lemma-unique-point-better}
+设 $S$ 为概形，$Z$ 为 $S$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $Z$ 约化且局部 Noether，并且 $|Z|$ 是单点集；
+\item 存在局部有限表示、满且平坦的态射 $\Spec(k) \to Z$，其中 $k$ 为域。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (2) 成立。由引理 \ref{decent-spaces-lemma-unique-point}，$Z$ 约化且 $|Z|$ 是单点集。
+设 $W$ 为概形，且 $W \to Z$ 为满 \'etale 态射。取域 $k$ 及局部有限表示、
+满且平坦的态射 $\Spec(k) \to Z$。则 $W \times_Z \Spec(k)$ 是 $k$ 上的
+\'etale 概形，因而是若干域的谱之不交并（参见注
+\ref{decent-spaces-remark-recall}），所以局部 Noether。由于
+$W \times_Z \Spec(k) \to W$ 平坦、满且局部有限表示，可知
+$\{W \times_Z \Spec(k) \to W\}$ 是 fppf 覆盖，进而由《下降》引理
+\ref{descent-lemma-Noetherian-local-fppf} 得知 $W$ 局部 Noether。换言之，
+(1) 成立。
+
+\medskip\noindent
+假设 (1)。取非空仿射概形 $W$ 及 \'etale 态射 $W \to Z$。取闭点
+$w \in W$，并令 $k = \kappa(w)$。由于 $W$ 局部 Noether，态射
+$w : \Spec(k) \to W$ 有限表示；参见《态射》引理
+\ref{morphisms-lemma-closed-immersion-finite-presentation}。因此复合态射
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow Z
+$$
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-presentation} 和
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation} 局部有限
+表示；由引理 \ref{decent-spaces-lemma-flat-cover-by-field}，它也平坦且满。因此 (2)
+成立。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-monomorphism-into-point}
+设 $S$ 为概形，$Z' \to Z$ 为 $S$ 上代数空间的单态射。假设存在域 $k$ 及
+局部有限表示、满且平坦的态射 $\Spec(k) \to Z$。则 $Z'$ 为空，或
+$Z' = Z$。
+\end{lemma}
+
+\begin{proof}
+可假设 $Z'$ 非空。此时纤维积 $T = Z' \times_Z \Spec(k)$ 非空；参见
+《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}。现在
+$T$ 是代数空间，且投影 $T \to \Spec(k)$ 是单态射。因此
+$T = \Spec(k)$；参见《空间的态射》引理
+\ref{spaces-morphisms-lemma-monomorphism-toward-field}。于是
+$\Spec(k) \to Z$ 经由 $Z'$ 分解。但由于 $\Spec(k) \to Z$ 满、平坦且局部
+有限表示，$\Spec(k) \to Z$ 作为 $(\Sch/S)_{fppf}$ 上层的映射也满（参见《空间》注
+\ref{spaces-remark-warning}），故 $Z' = Z$。
+\end{proof}
+
+\noindent
+下述引理表明，可以为代数空间的每一点配上一个典范的、约化且局部 Noether
+的单点代数空间。
+
+\begin{lemma}
+\label{decent-spaces-lemma-find-singleton-from-point}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。则存在唯一的
+$S$ 上代数空间的单态射 $Z \to X$，使得代数空间 $Z$ 满足引理
+\ref{decent-spaces-lemma-unique-point-better} 中的等价条件，并且 $|Z| \to |X|$ 的像为
+$\{x\}$。
+\end{lemma}
+
+\begin{proof}
+取概形 $U$ 及满 \'etale 态射 $U \to X$。令 $R = U \times_X U$，从而
+$X = U/R$ 是一个表现（参见《空间》第
+\ref{spaces-section-presentations} 节）。令
+$$
+U' = \coprod\nolimits_{u \in U\text{ 且位于 }x} \Spec(\kappa(u)).
+$$
+典范态射 $U' \to U$ 是单态射。令
+$$
+R' = U' \times_X U' = R \times_{(U \times_S U)} (U' \times_S U').
+$$
+由于 $U' \to U$ 是单态射，可知投影 $s', t' : R' \to U'$ 都分解为一个
+单态射再接一个 \'etale 态射。又因 $U'$ 是若干域的谱之不交并，使用注
+\ref{decent-spaces-remark-recall} 和《概形》引理
+\ref{schemes-lemma-mono-towards-spec-field} 可知 $R'$ 是若干域的谱之不交并，
+并且态射 $s', t' : R' \to U'$ 是 \'etale 的。因此，由《空间》定理
+\ref{spaces-theorem-presentation}，$Z = U'/R'$ 是代数空间。由于 $R'$ 是
+$R$ 沿 $U' \to U$ 的限制，由《群胚》引理
+\ref{groupoids-lemma-quotient-groupoid-restrict} 可知 $Z \to X$ 是单态射。
+由于 $Z \to X$ 是单态射，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-monomorphism-injective-points} 可知
+$|Z| \to |X|$ 单。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian} 可知
+$$
+|U'| = |Z \times_X U'| \to |Z| \times_{|X|} |U'|
+$$
+满。这蕴含（由 $U'$ 的选取）$|Z| \to |X|$ 的像为 $\{x\}$。因此 $|Z|$
+是单点集。最后，按构造 $U'$ 局部 Noether 且约化，也就是说，$Z$ 满足引理
+\ref{decent-spaces-lemma-unique-point-better} 中的等价条件。
+
+\medskip\noindent
+下面证明 $Z \to X$ 的唯一性。假设 $Z' \to X$ 是另一个这样的代数空间单态射。
+则投影
+$$
+Z' \longleftarrow Z' \times_X Z \longrightarrow Z
+$$
+都是单态射。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，中间的代数空间非空。因此由
+引理 \ref{decent-spaces-lemma-monomorphism-into-point}，两个投影都是同构，证毕。
+\end{proof}
+
+\noindent
+我们引入下述术语，它预示了稍后将引入的剩余胚；参见《叠的性质》定义
+\ref{stacks-properties-definition-residual-gerbe}。
+
+\begin{definition}
+\label{decent-spaces-definition-residual-space}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。{\it $X$ 在
+$x$ 处的剩余空间}\footnote{这是非标准记号。}是引理
+\ref{decent-spaces-lemma-find-singleton-from-point} 中构造的单态射 $Z_x \to X$。
+\end{definition}
+
+\noindent
+特别地，我们知道 $Z_x$ 是局部 Noether、约化的单点代数空间，并且存在域及
+满、平坦、局部有限表示的态射
+$$
+\Spec(k) \longrightarrow Z_x.
+$$
+剩余空间常由从域的谱出发的单态射给出。
+
+\begin{lemma}
+\label{decent-spaces-lemma-residual-space-monomorphism}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间，并设 $x \in |X|$。$X$ 在 $x$
+处的剩余空间 $Z_x$ 同构于某个域的谱，当且仅当 $x$ 可由单态射
+$\Spec(k) \to X$ 表示，其中 $k$ 为域。若 $X$ 良好，则这对所有
+$x \in |X|$ 都成立。
+\end{lemma}
+
+\begin{proof}
+由于 $Z_x \to X$ 是单态射，若对某个域 $k$ 有 $Z_x = \Spec(k)$，则 $x$
+由单态射 $\Spec(k) = Z_x \to X$ 表示。反过来，若表示 $x$ 的
+$\Spec(k) \to X$ 是单态射，则 $Z_x \times_X \Spec(k) \to \Spec(k)$ 是
+源非空的单态射；非空性由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian} 得出。因此，由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-monomorphism-toward-field}，
+$Z_x \times_X \Spec(k) = \Spec(k)$。于是得到单态射
+$\Spec(k) \to Z_x$。由引理 \ref{decent-spaces-lemma-monomorphism-into-point}，它是同构。
+最后一个断言由引理 \ref{decent-spaces-lemma-decent-points-monomorphism} 得出。
+\end{proof}
+
+\noindent
+由下述引理，剩余空间是正则代数空间。
+
+\begin{lemma}
+\label{decent-spaces-lemma-residual-space-regular}
+约化且局部 Noether 的单点代数空间 $Z$ 正则。
+\end{lemma}
+
+\begin{proof}
+设 $Z$ 为概形 $S$ 上约化且局部 Noether 的单点代数空间。设 $W \to Z$ 为满
+\'etale 态射，其中 $W$ 为概形。设 $k$ 为域，并设 $\Spec(k) \to Z$ 满、
+平坦且局部有限表示（参见引理 \ref{decent-spaces-lemma-unique-point-better}）。概形
+$T = W \times_Z \Spec(k)$ 在 $k$ 上 \'etale，特别地正则；参见注
+\ref{decent-spaces-remark-recall}。由于 $T \to W$ 局部有限表示、平坦且满，由《下降》引理
+\ref{descent-lemma-descend-regular} 可知 $W$ 正则。按定义，这意味着 $Z$
+正则。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-factor-through-residual-space-Noetherian}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的态射，并设
+$x \in |X|$ 为一点。假设
+\begin{enumerate}
+\item $|f|(|Y|)$ 包含在 $\{x\} \subset |X|$ 中；
+\item $Y$ 约化；
+\item $X$ 局部 Noether。
+\end{enumerate}
+则 $f$ 经由 $X$ 在 $x$ 处的剩余空间 $Z_x$ 分解。
+\end{lemma}
+
+\begin{proof}
+先作一则说明：由于 $Z_x \to X$ 是单态射，只需找到满 \'etale 态射
+$Y' \to Y$，使得 $Y' \to X$ 经由 $Z_x$ 分解。还要注意，$Y'$ 也约化。
+
+\medskip\noindent
+设 $U$ 为仿射概形，$U \to X$ 为 \'etale 态射，使得 $x$ 属于
+$|U| \to |X|$ 的像。由于 $X$ 局部 Noether，$U$ 是 Noether 仿射概形。
+由假设 (1)，$Y' = U \times_X Y \to Y$ 满且 \'etale。令
+$E \subset |U|$ 为映到 $x$ 的点集。
+% P08-E314: frozen source omits “by” in “Denote E ... the set”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+$E$ 的元素之间不存在非平凡特化；参见引理
+\ref{decent-spaces-lemma-no-specializations-map-to-same-point-Noetherian}。态射
+$Y' \to U$ 将 $|Y'|$ 映入 $E$。由引理
+\ref{decent-spaces-lemma-find-singleton-from-point} 的证明中对 $Z_x$ 的构造，知道
+$\coprod_{u \in E} u \to X$ 经由 $Z_x$ 分解。因此只需证明 $Y' \to U$ 经由
+$\coprod_{u \in E} u \to X$ 分解。用概形给出的一个 \'etale 覆盖替换 $Y'$
+后（先前的说明允许这样做），这由《态射》引理
+\ref{morphisms-lemma-factor-through-set-of-points} 得出。
+% P08-E315: frozen source says “which we are allowed” without the infinitive “to do”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-factor-through-residual-space-decent}
+设 $S$ 为概形，$f : Y \to X$ 为 $S$ 上代数空间的态射，并设
+$x \in |X|$ 为一点。假设
+\begin{enumerate}
+\item $|f|(|Y|)$ 包含在 $\{x\} \subset |X|$ 中；
+\item $Y$ 约化；
+\item $x$ 可由拟紧单态射 $x : \Spec(k) \to X$ 表示，其中 $k$ 为域
+（例如，当 $X$ 良好时）。
+\end{enumerate}
+则 $f$ 经由 $X$ 在 $x$ 处的剩余空间 $Z_x = \Spec(k)$ 分解。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-residual-space-monomorphism}，有 $Z_x = \Spec(k)$。
+
+\medskip\noindent
+先作一则说明：由于 $\Spec(k) \to X$ 是单态射，只需找到满 \'etale 态射
+$Y' \to Y$，使得 $Y' \to X$ 经由 $Z_x$ 分解。还要注意，$Y'$ 也约化。
+
+\medskip\noindent
+用 $x$ 的拟紧开邻域替换 $X$ 后，可假设 $X$ 拟紧。
+% P08-E316: frozen source omits “is” in “assume X quasi-compact”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+由引理 \ref{decent-spaces-lemma-filter-quasi-compact}，$x$ 是 $T \subset U \subset X$ 的点，
+其中 $T \to U$（相应地，$U \to X$）是闭浸入（相应地，开浸入），且 $T$ 是
+概形。由《空间的性质》引理
+\ref{spaces-properties-lemma-factor-through-open-subspace}，$f$ 经由 $U$
+分解，故可假设 $U = X$。又因为 $Y$ 约化，由《空间的性质》引理
+\ref{spaces-properties-lemma-map-into-reduction}，$f$ 经由 $T$ 分解。因此可
+假设 $X = T$ 是概形。由先前的说明，也可假设 $Y$ 是概形。这便归结为
+《态射》引理 \ref{morphisms-lemma-factor-through-point}。
+\end{proof}
+
+\begin{example}
+\label{decent-spaces-example-does-not-factor-through-residual-gerbe}
+下面给出引理 \ref{decent-spaces-lemma-factor-through-residual-space-Noetherian} 与
+\ref{decent-spaces-lemma-factor-through-residual-space-decent} 在 $X$ 既非局部 Noether
+又非良好时的反例。设 $k$ 为域，$G$ 为无限预有限群。令 $Y$ 为把 $G$ 看作
+零维仿射 $k$-群概形所得的概形，即
+$Y = \Spec(\text{局部常值映射 } G \to k)$。令 $\Gamma$ 为把 $G$ 看作离散
+$k$-群概形所得的概形，并令其以平移作用于 $Y$。置 $X = Y/\Gamma$。这是
+单点代数空间，其投影为 $q : Y \to X$。设 $e \in G$ 为单位元（任意元素
+均可），并将其视为 $Y$ 的 $k$-点。得到 $k$-点
+$x : \Spec(k) \to X$；它是单态射，因为它是 $X \to \Spec(k)$ 的截面。
+我们断言，尽管 $Y$ 仿射且约化，并且 $|X| = \{x\}$，态射 $q$ 不经由任何
+态射 $\Spec(K) \to X$ 分解，其中 $K$ 为域。否则，由《空间的性质》引理
+\ref{spaces-properties-lemma-equivalence-class-point-monomorphism}，它将经由
+$x$ 分解。现在，$q$ 沿 $x$ 的拉回为 $\Gamma \to \Spec(k)$，其中投影
+$\Gamma \to Y$ 是轨道映射 $g \mapsto g \cdot e$。后者没有截面，故断言
+成立。
+\end{example}
+
+\begin{lemma}
+\label{decent-spaces-lemma-residual-space-closed}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。设 $x \in |X|$，其剩余空间为
+$Z_x \subset X$。假设 $X$ 局部 Noether。则 $x$ 是 $|X|$ 的闭点，当且
+仅当态射 $Z_x \to X$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+若 $Z_x \to X$ 是闭浸入，则 $x$ 是 $|X|$ 的闭点；参见《空间的态射》引理
+\ref{spaces-morphisms-lemma-immersion-when-closed}。反过来，假设 $x$ 是
+$|X|$ 的闭点。令 $Z \subset X$ 为满足 $|Z| = \{x\}$ 的约化闭子空间
+（《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}）。由《空间的态射》
+引理 \ref{spaces-morphisms-lemma-immersion-locally-finite-type} 和
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}，$Z$
+局部 Noether。又因 $Z$ 约化且 $|Z| = \{x\}$，按定义，$Z = Z_x$ 是剩余
+空间。
+% P08-E317: frozen source has the malformed sequence “it Z = Z_x”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{良好空间}
+\label{decent-spaces-section-decent}
+
+\noindent
+本节汇集良好空间的若干有用事实。
+
+\begin{lemma}
+\label{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}
+任意局部 Noether 的良好代数空间都是拟分离的。
+\end{lemma}
+
+\begin{proof}
+具体而言，设 $X$ 为良好且局部 Noether 的代数空间（在某个基概形上，例如
+在 $\mathbf{Z}$ 上）。设 $U \to X$ 与 $V \to X$ 为 \'etale 态射，其中
+$U$ 与 $V$ 为仿射概形。须证明 $W = U \times_X V$ 拟紧（《空间的性质》
+引理 \ref{spaces-properties-lemma-characterize-quasi-separated}）。由于 $X$
+局部 Noether，概形 $U$ 与 $V$ 都 Noether，且 $W$ 局部 Noether。由于 $X$
+良好，态射 $W \to U$ 的纤维有限。事实上，可以用拟紧单态射
+$\Spec(k) \to X$ 表示任意 $x \in |X|$。于是 $U_k$ 与 $V_k$ 都是 $k$
+的有限可分扩张之谱的有限不交并（注 \ref{decent-spaces-remark-recall}），从而
+$W_k = U_k \times_{\Spec(k)} V_k$ 有限。令 $n$ 为 $W \to U$ 在 $U$
+各不可约分支一般点处纤维次数的最大值。考虑《态射补篇》引理
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf} 对 $W \to U$ 给出的分层
+$$
+U = U_0 \supset U_1 \supset U_2 \supset \ldots
+$$
+。由上述 $n$ 的选取，可知 $U_{n + 1}$ 为空。因此 $W \to U$ 的纤维普遍
+有界。于是可应用《态射补篇》引理
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf-universally-bounded}，得到由
+闭子集组成的分层
+$$
+\emptyset = Z_{-1} \subset Z_0 \subset Z_1 \subset Z_2 \subset
+\ldots \subset Z_n = U
+$$
+，使得令 $S_r = Z_r \setminus Z_{r - 1}$ 后，态射
+$W \times_U S_r \to S_r$ 有限局部自由。由于 $U$ Noether，概形 $S_r$
+都 Noether，进而概形 $W \times_U S_r$ 都 Noether，于是
+% P08-E318: frozen source identifies W with a scheme coproduct over locally closed strata; the displayed formula is preserved, while the argument only needs their finite union to be quasi-compact; see ERRATA_CANDIDATES.jsonl.
+$W = \coprod W \times_U S_r$ 如所需为拟紧的。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-when-field}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。
+\begin{enumerate}
+\item 若 $|X|$ 是单点集，则 $X$ 是概形。
+\item 若 $|X|$ 是单点集且 $X$ 约化，则对某个域 $k$ 有
+$X \cong \Spec(k)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $|X|$ 是单点集。由定理
+\ref{decent-spaces-theorem-decent-open-dense-scheme} 立即可知 $X$ 是概形，但也可如下
+直接论证。取仿射概形 $U$ 及满 \'etale 态射 $U \to X$。令
+$R = U \times_X U$。由引理 \ref{decent-spaces-lemma-UR-finite-above-x}（以及良好空间的
+定义），$U$ 与 $R$ 都只有有限多个点。由引理
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}，这些点在 $U$ 与 $R$
+中全都闭。因此 $U$ 与 $R$ 是仿射概形。可将 $U$ 缩小为单点空间。于是 $U$
+是某个 Hensel 局部环的谱；参见《代数》引理
+\ref{algebra-lemma-local-dimension-zero-henselian}。投影 $R \to U$ 是
+\'etale 的；又因为 $U$ 是 $0$ 维 Hensel 局部环的谱，所以它们有限
+\'etale；参见《代数》引理 \ref{algebra-lemma-characterize-henselian}。
+由《群胚》命题 \ref{groupoids-proposition-finite-flat-equivalence}，$X$
+是概形。
+
+\medskip\noindent
+(2) 由 (1) 以及约化单点概形是域的谱这一事实得出。
+\end{proof}
+
+\begin{remark}
+\label{decent-spaces-remark-one-point-decent-scheme}
+我们将在《空间的极限》引理
+\ref{spaces-limits-lemma-reduction-scheme} 中看到：若一个代数空间的约化
+是概形，则该代数空间本身也是概形。
+\end{remark}
+
+\begin{lemma}
+\label{decent-spaces-lemma-algebraic-residue-field-extension-closed-point}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。考虑交换图
+$$
+\xymatrix{
+\Spec(k) \ar[rr] \ar[rd] & & X \ar[ld] \\
+& S
+}
+$$
+。假设 $\Spec(k) \to S$ 的像点 $s \in S$ 是闭点，且扩张
+$\kappa(s) \subset k$ 是代数的。则 $\Spec(k) \to X$ 的像 $x$ 是
+$|X|$ 的闭点。
+\end{lemma}
+
+\begin{proof}
+假设对某个 $x' \in |X|$ 有 $x \leadsto x'$。取一个 \'etale 态射
+$U \to X$，其中 $U$ 是概形，并取映到 $x'$ 的一点 $u' \in U'$。
+% P08-E319: frozen source places u' in undefined U' although the chosen scheme is U; formula preserved; see ERRATA_CANDIDATES.jsonl.
+由引理 \ref{decent-spaces-lemma-decent-specialization}，可在 $U$ 中取特化
+$u \leadsto u'$，使 $u$ 在 $X$ 中映到 $x$。于是 $u$ 是概形
+$W = \Spec(k) \times_X U$ 的某一点 $w$ 的像。由于投影
+$W \to \Spec(k)$ 是 \'etale 的，$\kappa(w) \supset k$ 是有限扩张，因而
+$\kappa(w) \supset \kappa(s)$ 是代数扩张，继而
+$\kappa(u) \supset \kappa(s)$ 是代数扩张。由《态射》引理
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}，
+$u$ 是 $U$ 的闭点。因此 $u = u'$，从而 $x = x'$。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-finite-residue-field-extension-finite}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。考虑交换图
+$$
+\xymatrix{
+\Spec(k) \ar[rr] \ar[rd] & & X \ar[ld] \\
+& S
+}
+$$
+。假设 $\Spec(k) \to S$ 的像点 $s \in S$ 是闭点，且域扩张
+$k/\kappa(s)$ 有限。则 $\Spec(k) \to X$ 是有限态射。若
+$\kappa(s) = k$，则 $\Spec(k) \to X$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-algebraic-residue-field-extension-closed-point}，像点
+$x \in |X|$ 是闭点。令 $Z \subset X$ 为满足 $|Z| = \{x\}$ 的约化闭子空间
+（《空间的性质》引理
+\ref{spaces-properties-lemma-reduced-closed-subspace}）。由引理
+\ref{decent-spaces-lemma-representable-named-properties}，$Z$ 是良好代数空间。再由引理
+\ref{decent-spaces-lemma-when-field}，对某个域 $k'$ 有 $Z = \Spec(k')$。当然
+$k \supset k' \supset \kappa(s)$。于是 $\Spec(k) \to Z$ 是概形的有限态射；
+$Z \to X$ 是闭浸入，因而也是有限态射。因此 $\Spec(k) \to X$ 有限
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-integral}）。若 $k = \kappa(s)$，则
+$\Spec(k) = Z$，且 $\Spec(k) \to X$ 是闭浸入。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-space-closed-point}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。设 $x \in |X|$ 为闭点。
+则可由某个域的谱给出的闭浸入 $i : \Spec(k) \to X$ 表示 $x$。
+\end{lemma}
+
+\begin{proof}
+由定义 \ref{decent-spaces-definition-very-reasonable}，可用拟紧单态射
+$i : \Spec(k) \to X$ 表示 $x$，其中 $k$ 是域。取 \'etale 态射
+$U \to X$，其中 $U$ 是仿射概形。由于 $x$ 闭且 $X$ 良好，$|U| \to |X|$
+在 $x$ 上的纤维 $F$ 由闭点组成（引理
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}）。由于 $i$ 是单态射，
+$U_k = U \times_X \Spec(k) \to U$ 也是单态射。特别地，映射
+$|U_k| \to F$ 是单射。又因 $U_k$ 拟紧且在域上 \'etale，注
+\ref{decent-spaces-remark-recall} 表明 $U_k$ 是若干域的谱的有限不交并。记
+$U_k = \Spec(k_1) \amalg \ldots \amalg \Spec(k_r)$。由于
+$\Spec(k_i) \to U$ 是单态射，其像 $u_i$ 的剩余域为
+$\kappa(u_i) = k_i$。又因 $u_i \in F$ 是闭点，态射
+$\Spec(k_i) \to U$ 是闭浸入。各 $u_i$ 两两不同，故 $U_k \to U$ 是闭浸入。
+因此由《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local}，$i$ 是闭浸入。证毕。
+\end{proof}
+
+
+
+
+
+\section{局部分离空间}
+\label{decent-spaces-section-locally-separated}
+
+\noindent
+事实证明，局部分离的代数空间是良好空间。
+
+\begin{lemma}
+\label{decent-spaces-lemma-infinite-number}
+设 $A$ 为环，$k$ 为域。设 $\mathfrak p_n$（$n \geq 1$）为 $A$ 的一列
+两两不同的素理想，并且对每个 $n$ 给定嵌入
+$k \to \kappa(\mathfrak p_n)$。则下列态射之像的闭包
+$$
+\coprod\nolimits_{n \not = m}
+\Spec(\kappa(\mathfrak p_n) \otimes_k \kappa(\mathfrak p_m))
+\longrightarrow
+\Spec(A \otimes A)
+$$
+与对角相交。
+\end{lemma}
+
+\begin{proof}
+令 $k_n = \kappa(\mathfrak p_n)$。可设 $A = \prod k_n$。记
+$x_n = \Spec(k_n)$ 为对应于 $A \to k_n$ 的开闭点。
+% P08-E320: frozen source omits “by” in “Denote x_n ...”; intended naming construction translated; see ERRATA_CANDIDATES.jsonl.
+于是 $\Spec(A) = Z \amalg \{x_n\}$，其中 $Z$ 是非空闭子集。具体地，
+$Z = V(e_n; n \geq 1)$，这里 $e_n$ 是 $A$ 中对应于因子 $k_n$ 的幂等元；
+由于各 $e_n$ 生成的理想不等于 $A$，$Z$ 非空。我们将证明像的闭包包含
+$\Delta(Z)$。映射
+$$
+(\prod k_n) \otimes_k (\prod k_m)
+\longrightarrow
+\prod\nolimits_{n \not = m} k_n \otimes_k k_m
+$$
+的核是由 $e_n \otimes e_n$（$n \geq 1$）生成的理想。因此，谱上诱导映射
+之像的闭包为 $V(e_n \otimes e_n; n \geq 1)$，它与
+$\Delta(\Spec(A))$ 的交为 $\Delta(Z)$。故只须证明
+$$
+\coprod\nolimits_{n \not = m} \Spec(k_n \otimes_k k_m)
+\longrightarrow
+\Spec(\prod\nolimits_{n \not = m} k_n \otimes_k k_m)
+$$
+有稠密像。这是因为环同态族
+$\prod_{n \not = m} k_n \otimes_k k_m \to k_n \otimes_k k_m$ 联合单射。
+\end{proof}
+
+\begin{lemma}[David Rydh]
+\label{decent-spaces-lemma-locally-separated-decent}
+局部分离的代数空间是良好的。
+\end{lemma}
+
+\begin{proof}
+设 $S$ 为概形，$X$ 为 $S$ 上局部分离的代数空间。由《空间的性质》定义
+\ref{spaces-properties-definition-separated}，可设
+$S = \Spec(\mathbf{Z})$。未注明基底的纤维积均取在 $\mathbf{Z}$ 上。设
+$x \in |X|$。取概形 $U$、\'etale 态射 $U \to X$ 以及映到 $|X|$ 中
+$x$ 的一点 $u \in U$。一如通常，等同 $u = \Spec(\kappa(u))$。由于
+$X$ 局部分离，态射
+$$
+u \times_X u \to u \times u
+$$
+是浸入（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fibre-product-after-map}）。因此《群胚补篇》引理
+\ref{more-groupoids-lemma-locally-closed-image-is-closed} 表明它是闭浸入
+（使用《概形》引理 \ref{schemes-lemma-immersion-when-closed}）。态射
+$u \times_X u \to u \times_X U$ 是单态射（它是 $u \to U$ 的基变换），而
+$u \times_X U \to u$ 是 \'etale 态射，故 $u \times_X u$ 是若干域的谱的
+不交并（见注 \ref{decent-spaces-remark-recall} 及《概形》引理
+\ref{schemes-lemma-mono-towards-spec-field}）。它在仿射概形 $u \times u$ 中
+还是闭的，故 $u \times_X u$ 是若干域的谱的有限不交并。因此可用单态射
+$\Spec(k) \to X$ 表示 $x$，其中 $k$ 是域；参见引理
+\ref{decent-spaces-lemma-R-finite-above-x}。
+
+\medskip\noindent
+接下来，设 $U = \Spec(A)$ 为仿射概形，且 $U \to X$ 是 \'etale 态射。
+为完成证明，只须证明 $F = U \times_X \Spec(k)$ 有限。将其写成 $k$
+的有限可分扩张之谱的不交并
+$F = \coprod_{i \in I} \Spec(k_i)$。须证明 $I$ 有限。令
+$R = U \times_X U$。由于 $X$ 局部分离，态射
+$j : R \to U \times U$ 是浸入。取开子概形 $U' \subset U \times U$，使
+$j$ 分解经过闭浸入 $j' : R \to U'$。令 $e : U \to R$ 为对角映射。注意
+$e$ 是两个在 $U$ 上 \'etale 的概形之间的态射，且
+$\Delta = j \circ e$ 是闭浸入；由此可知，对某个开闭子概形
+$W \subset R$ 有 $R = e(U) \amalg W$。由于 $j'$ 是闭浸入，
+$j'(W) \subset U'$ 闭且与 $j'(e(U))$ 不交。因此在 $U \times U$ 中有
+$\overline{j(W)} \cap \Delta(U) = \emptyset$。注意，对所有
+$i \not = i'$、$i, i' \in I$，$W$ 都包含
+$\Spec(k_i \otimes_k k_{i'})$。由引理 \ref{decent-spaces-lemma-infinite-number}，可知
+$I$ 如所需为有限集。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{赋值判据}
+\label{decent-spaces-section-valuative-criterion-universally-closed}
+
+\noindent
+对于以良好空间为源的拟紧态射，赋值判据是该态射普遍闭的必要条件。
+
+
+\begin{proposition}
+\label{decent-spaces-proposition-characterize-universally-closed}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 拟紧且
+$X$ 良好。则 $f$ 普遍闭，当且仅当赋值判据的存在性部分成立。
+\end{proposition}
+
+\begin{proof}
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}
+已经给出一个方向。为证明另一个方向，假设 $f$ 普遍闭。设
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] & Y
+}
+$$
+为《空间的态射》定义
+\ref{spaces-morphisms-definition-valuative-criterion} 中的图。令
+$X_A = \Spec(A) \times_Y X$，于是有
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[rd] & X_A \ar[d] \\
+ & \Spec(A)
+}
+$$
+。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-compact}，
+$X_A \to \Spec(A)$ 拟紧。由于 $X_A \to X$ 可表，引理
+\ref{decent-spaces-lemma-representable-properties} 表明 $X_A$ 也良好。此外，由于 $f$
+普遍闭，$X_A \to \Spec(A)$ 普遍闭。因此可以而且确实将 $X$ 换成 $X_A$，
+将 $Y$ 换成 $\Spec(A)$。
+
+\medskip\noindent
+设 $x' \in |X|$ 为 $\Spec(K) \to X$ 的等价类，设
+$y \in |Y| = |\Spec(A)|$ 为闭点。令 $y' = f(x')$；它是
+$\Spec(A)$ 的一般点。由于 $f$ 普遍闭，$f(\overline{\{x'\}})$ 包含
+$\overline{\{y'\}}$，因而包含 $y$。取满足 $f(x) = y$ 的一点
+$x \in \overline{\{x'\}}$。取概形 $U$ 以及 \'etale 态射
+$\varphi : U \to X$，使得存在 $u \in U$ 满足 $\varphi(u) = x$。由引理
+\ref{decent-spaces-lemma-specialization} 及 $X$ 良好的假设，在 $U$ 上存在特化
+$u' \leadsto u$，满足 $\varphi(u') = x'$。这意味着存在公共域扩张
+$K \subset K' \supset \kappa(u')$，使得
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & U \ar[d] \\
+\Spec(K) \ar[r] \ar[rd] & X \ar[d] \\
+ & \Spec(A)
+}
+$$
+交换。这给出如下交换的环图
+$$
+\xymatrix{
+K' & \mathcal{O}_{U, u} \ar[l] \\
+K \ar[u] & \\
+ & A \ar[lu] \ar[uu]
+}
+$$
+。由《代数》引理 \ref{algebra-lemma-dominate}，可找到赋值环
+$A' \subset K'$，它支配 $\mathcal{O}_{U, u}$ 在 $K'$ 中的像。按构造，
+$\mathcal{O}_{U, u}$ 支配 $A$，故 $A'$ 也支配 $A$。于是得到与
+《空间的态射》定义
+\ref{spaces-morphisms-definition-valuative-criterion} 中第二个图同型的图，
+命题得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{相对条件}
+\label{decent-spaces-section-relative-conditions}
+
+\noindent
+这是（又）一个技术性章节，讨论代数空间上与点有关的条件。跳过本节或许是个
+好主意。
+
+\begin{definition}
+\label{decent-spaces-definition-relative-conditions}
+设 $S$ 为概形。若 $S$ 上的代数空间 $X$ 具有引理
+\ref{decent-spaces-lemma-bounded-fibres} 中相应的性质，则称 $X$ {\it 具有性质 $(\beta)$}。
+设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+\begin{enumerate}
+\item 若对任意概形 $T$ 及态射 $T \to Y$，纤维积 $T \times_Y X$ 都具有
+性质 $(\beta)$，则称 $f$ {\it 具有性质 $(\beta)$}。
+\item 若对任意概形 $T$ 及态射 $T \to Y$，纤维积 $T \times_Y X$ 都是
+良好代数空间，则称 $f$ 是{\it 良好的}。
+\item 若对任意概形 $T$ 及态射 $T \to Y$，纤维积 $T \times_Y X$ 都是
+合理代数空间，则称 $f$ 是{\it 合理的}。
+\item 若对任意概形 $T$ 及态射 $T \to Y$，纤维积 $T \times_Y X$ 都是
+非常合理的代数空间，则称 $f$ 是{\it 非常合理的}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+非正式讨论见注 \ref{decent-spaces-remark-very-reasonable}。事实将表明，非常合理态射这一
+类并不那么有用，而良好态射与合理态射这两类是有用的。
+
+\begin{lemma}
+\label{decent-spaces-lemma-properties-trivial-implications}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。关于 $f$ 的各条件
+之间有下列蕴含关系：
+$$
+\xymatrix{
+\text{可表} \ar@{=>}[rd] & & & & \\
+& \text{非常合理} \ar@{=>}[r] & \text{合理} \ar@{=>}[r] &
+\text{良好} \ar@{=>}[r] & (\beta) \\
+\text{拟分离} \ar@{=>}[ru] & & & &
+}
+$$
+\end{lemma}
+
+\begin{proof}
+这由各定义、引理 \ref{decent-spaces-lemma-bounded-fibres} 及《空间的态射》引理
+\ref{spaces-morphisms-lemma-separated-local} 立即得出。
+\end{proof}
+
+\noindent
+下面是另一个合理性检验。
+
+\begin{lemma}
+\label{decent-spaces-lemma-property-for-morphism-out-of-property}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。若 $X$ 良好
+（相应地，合理；具有引理 \ref{decent-spaces-lemma-bounded-fibres} 的性质 $(\beta)$），则
+$f$ 良好（相应地，合理；具有性质 $(\beta)$）。
+\end{lemma}
+
+\begin{proof}
+设 $T$ 为概形并给定态射 $T \to Y$。则 $T \to Y$ 可表，故其基变换
+$T \times_Y X \to X$ 可表。因此若 $X$ 良好（或合理），则
+$T \times_Y X$ 也如此；见引理
+\ref{decent-spaces-lemma-representable-named-properties}。性质 $(\beta)$ 的情形类似；见引理
+\ref{decent-spaces-lemma-representable-properties}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-base-change-relative-conditions}
+具有性质 $(\beta)$、良好或合理这三种条件都在任意基变换下保持。
+\end{lemma}
+
+\begin{proof}
+这由定义立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-property-over-property}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。设
+$\omega \in \{\beta, decent, reasonable\}$。假设 $Y$ 具有性质 $(\omega)$，
+且 $f : X \to Y$ 具有 $(\omega)$。则 $X$ 具有 $(\omega)$。
+\end{lemma}
+
+\begin{proof}
+先证明 $\omega = \beta$ 的情形。此时须证明，任意 $x \in |X|$ 都可由从某个
+域的谱到 $X$ 的单态射表示。令 $y = f(x) \in |Y|$。按假设，存在域 $k$ 及
+表示 $y$ 的单态射 $\Spec(k) \to Y$。于是 $x$ 对应于
+$\Spec(k) \times_Y X$ 的一点 $x'$。按假设，$x'$ 可由单态射
+$\Spec(k') \to \Spec(k) \times_Y X$ 表示。显然，复合
+$\Spec(k') \to X$ 是表示 $x$ 的单态射。
+
+\medskip\noindent
+再证明 $\omega = decent$ 的情形。设 $x \in |X|$ 且
+$y = f(x) \in |Y|$。由前一段的结果，可取图
+$$
+\xymatrix{
+\Spec(k') \ar[r]_x \ar[d] & X \ar[d]^f \\
+\Spec(k) \ar[r]^y & Y
+}
+$$
+，其中两个水平箭头都是单态射。
+% P08-E321: frozen source omits “are” in “whose horizontal arrows monomorphisms”; intended grammar translated; see ERRATA_CANDIDATES.jsonl.
+由于 $Y$ 良好，态射 $y$ 拟紧。由于 $f$ 良好，代数空间
+$\Spec(k) \times_Y X$ 良好，故单态射
+$\Spec(k') \to \Spec(k) \times_Y X$ 拟紧。于是单态射
+$x : \Spec(k') \to X$ 是拟紧态射，因为它是拟紧态射的复合（使用
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-compact} 和
+\ref{spaces-morphisms-lemma-composition-quasi-compact}）。由于点 $x$ 任意，
+这表明 $X$ 良好。
+
+\medskip\noindent
+最后证明 $\omega = reasonable$ 的情形。取 \'etale 态射 $V \to Y$，其中
+$V$ 是仿射概形；再取 \'etale 态射 $U \to V \times_Y X$，其中 $U$ 是仿射
+概形。按假设，$V \to Y$ 具有普遍有界纤维。由引理
+\ref{decent-spaces-lemma-base-change-universally-bounded}，态射 $V \times_Y X \to X$
+具有普遍有界纤维。由关于 $f$ 的假设，$U \to V \times_Y X$ 具有普遍
+有界纤维。再由引理 \ref{decent-spaces-lemma-composition-universally-bounded}，复合
+$U \to X$ 具有普遍有界纤维。因此存在足够多从概形出发、具有普遍有界纤维的
+\'etale 态射 $U \to X$，从而 $X$ 合理。
+% P08-E322: frozen source uses singular “there exists sufficiently many morphisms”; intended plural existence translated; see ERRATA_CANDIDATES.jsonl.
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-composition-relative-conditions}
+具有性质 $(\beta)$、良好或合理这三种条件都在复合下保持。
+\end{lemma}
+
+\begin{proof}
+设 $\omega \in \{\beta, decent, reasonable\}$。设 $f : X \to Y$ 与
+$g : Y \to Z$ 为概形 $S$ 上代数空间的态射，并假设 $f$ 与 $g$ 都具有性质
+$(\omega)$。须证明，对任意概形 $T$ 及态射 $T \to Z$，空间
+$T \times_Z X$ 都具有 $(\omega)$。由引理
+\ref{decent-spaces-lemma-base-change-relative-conditions}，这归结为以下断言：若 $Y$ 是
+具有性质 $(\omega)$ 的代数空间，且 $f : X \to Y$ 是具有 $(\omega)$ 的态射，
+则 $X$ 具有 $(\omega)$。这正是引理
+\ref{decent-spaces-lemma-property-over-property} 的内容。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-fibre-product-conditions}
+设 $S$ 为概形，$f : X \to Y$、$g : Z \to Y$ 为 $S$ 上代数空间的态射。
+若 $X$ 与 $Z$ 良好（相应地，合理；具有引理
+\ref{decent-spaces-lemma-bounded-fibres} 的性质 $(\beta)$），则 $X \times_Y Z$ 也如此。
+\end{lemma}
+
+\begin{proof}
+事实上，由引理 \ref{decent-spaces-lemma-property-for-morphism-out-of-property}，态射
+$X \to Y$ 具有该性质。再由引理
+\ref{decent-spaces-lemma-base-change-relative-conditions}，其基变换
+$X \times_Y Z \to Z$ 具有该性质。最后，引理
+\ref{decent-spaces-lemma-property-over-property} 表明 $X \times_Y Z$ 具有该性质。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-descent-conditions}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射，并设
+$\mathcal{P} \in \{(\beta), decent, reasonable\}$。假设
+\begin{enumerate}
+\item $f$ 拟紧；
+\item $f$ 是 \'etale 态射；
+\item $|f| : |X| \to |Y|$ 满；并且
+\item 代数空间 $X$ 具有性质 $\mathcal{P}$。
+\end{enumerate}
+则 $Y$ 具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+先证明 $\mathcal{P} = (\beta)$ 的情形。设 $y \in |Y|$ 为一点。须证明 $y$
+可由从域的谱出发的单态射表示。取一点 $x \in |X|$，使 $f(x) = y$。按假设，
+可由单态射 $\Spec(k) \to X$ 表示 $x$，其中 $k$ 是域。由引理
+\ref{decent-spaces-lemma-R-finite-above-x}，只须证明两个投影
+$\Spec(k) \times_Y \Spec(k) \to \Spec(k)$ 都是拟紧 \'etale 态射。第一个
+投影可分解为
+$$
+\Spec(k) \times_Y \Spec(k)
+\longrightarrow
+\Spec(k) \times_Y X
+\longrightarrow
+\Spec(k)
+$$
+。第一个态射是单态射，第二个态射拟紧且 \'etale。由《空间的性质》引理
+\ref{spaces-properties-lemma-etale-over-field-scheme}，
+$\Spec(k) \times_Y X$ 是概形。因此它是 $k$ 的有限可分域扩张之谱的有限
+不交并。由《概形》引理 \ref{schemes-lemma-mono-towards-spec-field}，第一个
+箭头将 $\Spec(k) \times_Y \Spec(k)$ 等同于 $k$ 的有限可分域扩张之谱的
+有限不交并。因此该投影态射拟紧且 \'etale。
+
+\medskip\noindent
+再证明 $\mathcal{P} = decent$ 的情形。证明的第一段已经表明，每个
+$y \in |Y|$ 都可由单态射 $y : \Spec(k) \to Y$ 表示。选取这样的 $y$。
+取仿射概形 $U$ 及 \'etale 态射 $U \to X$，使 $|U| \to |Y|$ 的像包含
+$y$。由引理 \ref{decent-spaces-lemma-UR-finite-above-x}，只须证明 $U_y$ 是 $k$ 上的
+有限概形。纤维积 $X_y = \Spec(k) \times_Y X$ 是 $k$ 上拟紧的 \'etale
+代数空间。因此由《空间的性质》引理
+\ref{spaces-properties-lemma-etale-over-field-scheme}，它是概形，从而是
+$k$ 的有限可分扩张之谱的有限不交并。记
+$X_y = \{x_1, \ldots, x_n\}$，其中 $x_i$ 由
+$x_i : \Spec(k_i) \to X$ 给出，且 $[k_i : k] < \infty$。按假设 $X$ 良好，
+故概形 $U_{x_i} = \Spec(k_i) \times_X U$ 在 $k_i$ 上有限。最后注意，作为
+概形有 $U_y = \coprod U_{x_i}$，故 $U_y$ 如所需在 $k$ 上有限。
+
+\medskip\noindent
+最后证明 $\mathcal{P} = reasonable$ 的情形。取仿射概形 $V$ 及 \'etale
+态射 $V \to Y$。须证明 $V \to Y$ 的纤维普遍有界。
+% P08-E323: frozen source has “We have the show”; intended infinitive translated; see ERRATA_CANDIDATES.jsonl.
+代数空间 $V \times_Y X$ 拟紧。因此由《空间的性质》引理
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}，可找到仿射概形
+$W$ 及满 \'etale 态射 $W \to V \times_Y X$。下图中实线部分为已给图：
+$$
+\xymatrix{
+W \ar[r]  \ar[rd] &
+V \times_Y X \ar[r] \ar[d] &
+X \ar[d]_f & \Spec(k) \ar@{..>}[l]^x \ar@{..>}[ld]^y \\
+ & V \ar[r] & Y
+}
+$$
+由空间 $X$ 合理的假设，态射 $W \to X$ 具有普遍有界纤维。令 $n$ 为
+$W \to X$ 的纤维次数的一个界。我们断言，同一整数也给出 $V \to Y$ 的
+纤维之界。事实上，设 $y \in |Y|$ 为一点。则存在 $x \in |X|$，使
+$f(x) = y$（见上文）。
+% P08-E324: frozen source uses “a x” although the variable is conventionally read with an initial vowel sound; intended existential grammar translated; see ERRATA_CANDIDATES.jsonl.
+这意味着可找到域 $k$ 以及由上图虚线箭头给出的态射 $x, y$。特别地，得到
+满 \'etale 态射
+$$
+\Spec(k) \times_{x, X} W
+\to
+\Spec(k) \times_{x, X} (V \times_Y X) = \Spec(k) \times_{y, Y} V
+$$
+。这表明 $\Spec(k) \times_{y, Y} V$ 在 $k$ 上的次数不超过
+$\Spec(k) \times_{x, X} W$ 在 $k$ 上的次数，即 $\leq n$，结论成立。
+（论证的最后一部分与引理
+\ref{decent-spaces-lemma-descent-universally-bounded} 证明中的论证相同。遗憾的是，该引理
+不够一般，因为它只适用于可表态射。）
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-relative-conditions-local}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射，并设\linebreak
+$\mathcal{P} \in \{(\beta), decent, reasonable, very\ reasonable\}$。下列条件
+等价：
+\begin{enumerate}
+\item $f$ 具有 $\mathcal{P}$；
+\item 对每个仿射概形 $Z$ 及每个态射 $Z \to Y$，$f$ 的基变换
+$Z \times_Y X \to Z$ 具有 $\mathcal{P}$；
+\item 对每个仿射概形 $Z$ 及每个态射 $Z \to Y$，代数空间
+$Z \times_Y X$ 具有 $\mathcal{P}$；以及
+\item 存在 Zariski 覆盖 $Y = \bigcup Y_i$，使每个态射
+$f^{-1}(Y_i) \to Y_i$ 都具有 $\mathcal{P}$。
+\end{enumerate}
+若 $\mathcal{P} \in \{(\beta), decent, reasonable\}$，则上述条件还等价于
+\begin{enumerate}
+\item[(5)] 存在概形 $V$ 及满 \'etale 态射 $V \to Y$，使基变换
+$V \times_Y X \to V$ 具有 $\mathcal{P}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+蕴含 (1) $\Rightarrow$ (2) $\Rightarrow$ (3) $\Rightarrow$ (4) 是平凡的。
+蕴含 (3) $\Rightarrow$ (1) 可如下得到。设 $Z \to Y$ 为态射，其源是
+$S$ 上的概形。考虑代数空间 $Z \times_Y X$。若假设 (3)，则对任意仿射开
+子集 $W \subset Z$，$Z \times_Y X$ 的开子空间 $W \times_Y X$ 具有性质
+$\mathcal{P}$。故由引理 \ref{decent-spaces-lemma-properties-local}，空间
+$Z \times_Y X$ 具有性质 $\mathcal{P}$，即 (1) 成立。类似的论证（略去）
+表明 (4) 蕴含 (1)。
+
+\medskip\noindent
+蕴含 (1) $\Rightarrow$ (5) 是平凡的。设 $V \to Y$ 为 (5) 中从概形出发的
+\'etale 态射。设 $Z$ 为仿射概形，并给定态射 $Z \to Y$。考虑图
+$$
+\xymatrix{
+Z \times_Y V \ar[r]_q \ar[d]_p & V \ar[d] \\
+Z \ar[r] & Y
+}
+$$
+。由于 $p$ 是 \'etale 态射，因而是开映射，可选取有限多个仿射开子概形
+$W_i \subset Z \times_Y V$，使 $Z = \bigcup p(W_i)$。考虑交换图
+$$
+\xymatrix{
+V \times_Y X \ar[d] &
+(\coprod W_i) \times_Y X \ar[l] \ar[d] \ar[r] &
+Z \times_Y X \ar[d] \\
+V &
+\coprod W_i \ar[l] \ar[r] &
+Z
+}
+$$
+已知 $V \times_Y X$ 具有性质 $\mathcal{P}$。由引理
+\ref{decent-spaces-lemma-representable-properties}，
+$(\coprod W_i) \times_Y X$ 具有性质 $\mathcal{P}$。注意，态射
+$(\coprod W_i) \times_Y X \to Z \times_Y X$ 是
+$\coprod W_i \to Z$ 的基变换，故拟紧且 \'etale。因此由引理
+\ref{decent-spaces-lemma-descent-conditions}，$Z \times_Y X$ 具有性质 $\mathcal{P}$。
+\end{proof}
+
+\begin{remark}
+\label{decent-spaces-remark-very-reasonable}
+性质 $(\beta)$、良好、合理及非常合理的非正式描述已在第
+\ref{decent-spaces-section-reasonable-decent} 节给出。非常粗略地说，一个态射具有其中
+某种性质，是指该态射的纤维具有相应性质。良好性适用于证明关于 $|X|$ 上各点
+之特化的结论。合理性稍强一些，并且在技术上很容易使用。
+\end{remark}
+
+\noindent
+下面给出先前承诺的一个使用良好态射的引理。
+
+\begin{lemma}
+\label{decent-spaces-lemma-re-characterize-universally-closed}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$ 拟紧且
+良好。（例如，当 $f$ 可表或拟分离时即如此；见引理
+\ref{decent-spaces-lemma-properties-trivial-implications}。）则 $f$ 普遍闭，当且仅当
+赋值判据的存在性部分成立。
+\end{lemma}
+
+\begin{proof}
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}
+已经证明，任意满足赋值判据存在性部分的拟紧态射都是普遍闭的。为证明另一
+方向，假设 $f$ 普遍闭。命题
+\ref{decent-spaces-proposition-characterize-universally-closed} 的证明已经表明，只须对
+任意赋值环 $A$ 及任意态射 $\Spec(A) \to Y$ 证明，基变换
+$f_A : X_A \to \Spec(A)$ 满足赋值判据的存在性部分。按定义，代数空间
+$X_A$ 具有性质 $(\gamma)$，故可将命题
+\ref{decent-spaces-proposition-characterize-universally-closed} 应用于态射 $f_A$，结论成立。
+\end{proof}
+
+
+
+
+
+\section{纤维中的点}
+\label{decent-spaces-section-points-fibres}
+
+\noindent
+设 $S$ 为概形。考虑 $S$ 上代数空间的 Cartesian 图
+\begin{equation}
+\label{decent-spaces-equation-points-fibres}
+\xymatrix{
+W \ar[r]_q \ar[d]_p & Z \ar[d]^g \\
+X \ar[r]^f & Y
+}
+\end{equation}
+。设 $x \in |X|$ 与 $z \in |Z|$ 是映到同一点 $y \in |Y|$ 的点。可以问：
+集合
+\begin{equation}
+\label{decent-spaces-equation-fibre}
+F_{x, z} = \{ w \in |W| \text{ 满足 }p(w) = x\text{ 且 }q(w) = z\}
+\end{equation}
+何时有限？
+
+\begin{example}
+\label{decent-spaces-example-schemes}
+若 $X, Y, Z$ 都是概形，则集合 $F_{x, z}$ 等于
+$\kappa(x) \otimes_{\kappa(y)} \kappa(z)$ 的谱（《概形》引理
+\ref{schemes-lemma-points-fibre-product}）。
+% P08-E325: frozen source equates the set F_{x,z} with a spectrum rather than its underlying point set; intended point-set reading translated without changing formulas; see ERRATA_CANDIDATES.jsonl.
+因此，若 $\kappa(y) \subset \kappa(x)$ 有限，或若
+$\kappa(y) \subset \kappa(z)$ 有限，就得到有限集。特别地，若 $g$ 在 $z$
+处拟有限，则总是如此（《态射》引理
+\ref{morphisms-lemma-residue-field-quasi-finite}）。
+\end{example}
+
+\begin{example}
+\label{decent-spaces-example-not-finite}
+设 $K$ 为特征 $0$ 的域，并赋予无限阶自同构 $\sigma$。令
+$Y = \Spec(K)/\mathbf{Z}$ 及 $X = \mathbf{A}^1_K/\mathbf{Z}$，其中
+$\mathbf{Z}$ 通过 $\sigma$ 作用于 $K$，并通过 $t \mapsto t + 1$ 作用于
+$\mathbf{A}^1_K = \Spec(K[t])$。令 $Z = \Spec(K)$。则
+$W = \mathbf{A}^1_K$。图为
+$$
+\xymatrix{
+\mathbf{A}^1_K \ar[r]_q \ar[d]_p & \Spec(K) \ar[d]^g \\
+\mathbf{A}^1_K/\mathbf{Z} \ar[r]^f & \Spec(K)/\mathbf{Z}
+}
+$$
+取对应于 $t = 0$ 的 $x$，并取 $\Spec(K)$ 的唯一一点 $z$。于是作为集合有
+$F_{x, z} = \mathbf{Z}$。
+\end{example}
+
+\begin{lemma}
+\label{decent-spaces-lemma-surjective-on-fibres}
+在 (\ref{decent-spaces-equation-points-fibres}) 的情形下，若 $Z' \to Z$ 为态射，且
+$z' \in |Z'|$ 映到 $z$，则诱导映射 $F_{x, z'} \to F_{x, z}$ 是满射。
+\end{lemma}
+
+\begin{proof}
+令 $W' = X \times_Y Z' = W \times_Z Z'$。由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，
+$|W'| \to |W| \times_{|Z|} |Z'|$ 是满射。这就给出
+$F_{x, z'} \to F_{x, z}$ 的满性。
+% P08-E326: frozen source concludes with the sentence fragment “Hence the surjectivity ...”; intended conclusion translated; see ERRATA_CANDIDATES.jsonl.
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-qf-and-qc-finite-fibre}
+在图 (\ref{decent-spaces-equation-points-fibres}) 中，若 $f$ 是有限型态射且 $f$ 在 $x$
+处拟有限，则集合 (\ref{decent-spaces-equation-fibre}) 有限。
+\end{lemma}
+
+\begin{proof}
+态射 $q$ 在每个 $w \in F_{x, z}$ 处拟有限；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}。因此本引理由
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-finite-at-a-finite-number-of-points} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-finite-fibre}
+在图 (\ref{decent-spaces-equation-points-fibres}) 中，若 $y$ 可由单态射
+$\Spec(k) \to Y$ 表示，其中 $k$ 是域，且 $g$ 在 $z$ 处拟有限，则集合
+(\ref{decent-spaces-equation-fibre}) 有限。（特例：$Y$ 良好且 $g$ 是 \'etale 态射。）
+\end{lemma}
+
+\begin{proof}
+两次应用引理 \ref{decent-spaces-lemma-surjective-on-fibres}，可将 $Z$ 换成
+$Z_k = \Spec(k) \times_Y Z$，将 $X$ 换成
+$X_k = \Spec(k) \times_Y X$。也可以而且确实将 $Y$ 换成 $\Spec(k)$。
+注意，由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}，
+$Z_k \to \Spec(k)$ 在 $z$ 处拟有限。取概形 $V$、一点 $v \in V$ 以及
+将 $v$ 映到 $z$ 的 \'etale 态射 $V \to Z_k$。再取概形 $U$、一点
+$u \in U$ 以及将 $u$ 映到 $x$ 的 \'etale 态射 $U \to X_k$。再次由引理
+\ref{decent-spaces-lemma-surjective-on-fibres}，只须对图
+$$
+\xymatrix{
+U \times_{\Spec(k)} V \ar[r] \ar[d] & V \ar[d] \\
+U \ar[r] & \Spec(k)
+}
+$$
+证明 $F_{u, v}$ 有限。态射 $V \to \Spec(k)$ 在 $v$ 处拟有限（这由
+《空间的态射》第 \ref{spaces-morphisms-section-local-source-target} 节的
+一般讨论及在一点处拟有限的定义得出）。此时，有限性由例
+\ref{decent-spaces-example-schemes} 得出。引理陈述中的括注则来自以下两个事实：良好
+空间上的点可由从域的谱出发的单态射表示；代数空间的 \'etale 态射局部
+拟有限。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-topology-fibre}
+\begin{slogan}
+代数空间的域值点之纤维具有预期的 Zariski 拓扑。
+\end{slogan}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。设
+$y \in |Y|$，并假设 $y$ 由拟紧单态射 $\Spec(k) \to Y$ 表示。则
+$|X_k| \to |X|$ 是到赋予诱导拓扑的 $f^{-1}(\{y\}) \subset |X|$ 上的
+同胚。
+\end{lemma}
+
+\begin{proof}
+以下将不再另行说明地使用《空间的性质》引理
+\ref{spaces-properties-lemma-etale-open} 及《空间的态射》引理
+\ref{spaces-morphisms-lemma-monomorphism-injective-points}。设
+$V \to Y$ 为从仿射概形 $V$ 出发的 \'etale 态射，使得存在映到 $y$ 的
+$v \in V$。由于 $\Spec(k) \to Y$ 拟紧，$V$ 中只有有限多个点映到 $y$
+（引理 \ref{decent-spaces-lemma-UR-finite-above-x}）。缩小 $V$ 后，可设 $v$ 是唯一
+这样的点。取概形 $U$ 及满 \'etale 态射 $U \to X$。考虑交换图
+$$
+\xymatrix{
+U \ar[d] & U_V \ar[l] \ar[d] & U_v \ar[l] \ar[d] \\
+X \ar[d] & X_V \ar[l] \ar[d] & X_v \ar[l] \ar[d] \\
+Y & V \ar[l] & v \ar[l]
+}
+$$
+由于 $U_v \to U_V$ 将 $U_v$ 等同于 $U_V$ 中赋予诱导拓扑的一个子集
+（《概形》引理 \ref{schemes-lemma-fibre-topological}），又由于
+$|U_V| \to |X_V|$ 与 $|U_v| \to |X_v|$ 都是满开映射，可知
+$|X_v| \to |X_V|$ 是到其像（赋予诱导拓扑）上的同胚。另一方面，在开映射
+$|X_V| \to |X|$ 下，$f^{-1}(\{y\})$ 的逆像等于 $|X_v|$。故
+$|X_v| \to f^{-1}(\{y\})$ 是开映射。态射 $X_v \to X$ 分解经过 $X_k$；
+由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，$|X_k| \to |X|$ 单射，且像为
+$f^{-1}(\{y\})$。由于 $X_v \to X_k$ 满，使用
+$|X_v| \to |X_k| \to f^{-1}(\{y\})$ 即得本引理。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-conditions-on-point-on-space-over-field}
+设 $X$ 为域 $k$ 上局部有限型的代数空间，$x \in |X|$。考虑下列条件：
+\begin{enumerate}
+\item $\dim_x(|X|) = 0$；
+\item $x$ 在 $|X|$ 中闭，且若在 $|X|$ 中有 $x' \leadsto x$，则 $x' = x$；
+\item $x$ 是 $|X|$ 的孤立点；
+\item $\dim_x(X) = 0$；
+\item $X \to \Spec(k)$ 在 $x$ 处拟有限。
+\end{enumerate}
+则 (2)、(3)、(4) 与 (5) 等价。若 $X$ 良好，则 (1) 也与其余条件等价。
+\end{lemma}
+
+\begin{proof}
+例如由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part} 与
+\ref{spaces-morphisms-lemma-quasi-finite-at-point}，(4) 与 (5) 等价。
+
+\medskip\noindent
+设 $U \to X$ 为 \'etale 态射，其中 $U$ 是仿射概形，并设 $u \in U$ 为
+映到 $x$ 的一点。此外，若 $x$ 是闭点，例如在 (2) 或 (3) 的情形下，则
+可以而且确实假设 $u$ 是闭点。按定义
+$\dim_u(U) = \dim_x(X)$；若 $u$ 是闭点，则这又等于
+$\dim(\mathcal{O}_{U, u})$，见《代数》引理
+\ref{algebra-lemma-dimension-closed-point-finite-type-field}。
+
+\medskip\noindent
+若 $\dim_x(X) > 0$ 且 $u$ 闭，则由上述论证，可在 $U$ 中选取非平凡特化
+$u' \leadsto u$。于是 $\kappa(u')$ 在 $k$ 上的超越次数大于
+$\kappa(u)$ 在 $k$ 上的超越次数。因为 $x/k$ 与 $x'/k$ 的超越次数有定义，
+所以它们在 $X$ 中的像 $x$ 与 $x'$ 不同；见《空间的态射》定义
+\ref{spaces-morphisms-definition-dimension-fibre}。这尤其适用于 (2) 与 (3)
+的情形，故 (2) 与 (3) 蕴含 (4)。
+
+\medskip\noindent
+反之，若 $X \to \Spec(k)$ 在 $x$ 处局部拟有限，则
+$U \to \Spec(k)$ 在 $u$ 处局部拟有限，因而 $u$ 是 $U$ 的孤立点
+（《态射》引理 \ref{morphisms-lemma-quasi-finite-at-point-characterize}）。
+由于 $|U| \to |X|$ 连续且开，由此可知 (5) 蕴含 (2) 与 (3)。
+
+\medskip\noindent
+假设 $X$ 良好且 (1) 成立。由引理
+\ref{decent-spaces-lemma-dimension-decent-space}，$\dim_x(X) = \dim_x(|X|)$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-conditions-on-space-over-field}
+设 $X$ 为域 $k$ 上局部有限型的代数空间。考虑下列条件：
+\begin{enumerate}
+\item $|X|$ 是有限集；
+\item $|X|$ 是离散空间；
+\item $\dim(|X|) = 0$；
+\item $\dim(X) = 0$；
+\item $X \to \Spec(k)$ 局部拟有限；
+\end{enumerate}
+则 (2)、(3)、(4) 与 (5) 等价。若 $X$ 良好，则 (1) 蕴含其余条件。
+\end{lemma}
+
+\begin{proof}
+例如由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}，(4)
+与 (5) 等价。
+
+\medskip\noindent
+设 $U \to X$ 为满 \'etale 态射，其中 $U$ 是概形。
+
+\medskip\noindent
+若 $\dim(U) > 0$，则在 $U$ 中选取非平凡特化 $u \leadsto u'$；此时
+$\kappa(u)$ 在 $k$ 上的超越次数大于 $\kappa(u')$ 在 $k$ 上的超越次数。
+因为 $x/k$ 与 $x'/k$ 的超越次数有定义，所以它们在 $X$ 中的像 $x$ 与
+$x'$ 不同；见《空间的态射》定义
+\ref{spaces-morphisms-definition-dimension-fibre}。故 (2) 与 (3) 蕴含 (4)。
+
+\medskip\noindent
+反之，若 $X \to \Spec(k)$ 局部拟有限，则 $U$ 局部 Noether
+（《态射》引理 \ref{morphisms-lemma-finite-type-noetherian}），且维数为
+$0$（《态射》引理
+\ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}），因而是 Artin
+局部环之谱的不交并（《性质》引理
+\ref{properties-lemma-locally-Noetherian-dimension-0}）。所以 $U$ 是离散
+拓扑空间；又因 $|U| \to |X|$ 连续且开，$|X|$ 也如此。换言之，(4) 蕴含
+(2) 与 (3)。
+
+\medskip\noindent
+假设 $X$ 良好且 (1) 成立。此时可选取上述 $U$ 为仿射概形。
+$|U| \to |X|$ 的纤维有限（这是良好空间定义性质的一部分）。故 $U$ 是
+$k$ 上只有有限多个点的有限型概形。因此 $U$ 在 $k$ 上拟有限
+（《态射》引理 \ref{morphisms-lemma-finite-fibre}）；按定义，这意味着
+$X \to \Spec(k)$ 局部拟有限。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-conditions-on-point-in-fibre-and-qf}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的局部有限型态射。设
+$x \in |X|$ 的像为 $y \in |Y|$。令 $F = f^{-1}(\{y\})$，并赋予从 $|X|$
+诱导的拓扑。设 $k$ 为域，且 $\Spec(k) \to Y$ 属于定义 $y$ 的等价类。令
+$X_k = \Spec(k) \times_Y X$。设 $\tilde x \in |X_k|$ 映到
+$x \in |X|$。考虑下列条件：
+\begin{enumerate}
+\item
+\label{decent-spaces-item-fibre-at-x-dim-0}
+$\dim_x(F) = 0$；
+\item
+\label{decent-spaces-item-isolated-in-fibre}
+$x$ 在 $F$ 中孤立；
+\item
+\label{decent-spaces-item-no-specializations-in-fibre}
+$x$ 在 $F$ 中闭，且若在 $F$ 中有 $x' \leadsto x$，则 $x = x'$；
+\item
+\label{decent-spaces-item-dimension-top-k-fibre}
+$\dim_{\tilde x}(|X_k|) = 0$；
+\item
+\label{decent-spaces-item-isolated-in-k-fibre}
+$\tilde x$ 在 $|X_k|$ 中孤立；
+\item
+\label{decent-spaces-item-no-specializations-in-k-fibre}
+$\tilde x$ 在 $|X_k|$ 中闭，且若在 $|X_k|$ 中有
+$\tilde x' \leadsto \tilde x$，则 $\tilde x = \tilde x'$；
+\item
+\label{decent-spaces-item-k-fibre-at-x-dim-0}
+$\dim_{\tilde x}(X_k) = 0$；
+\item
+\label{decent-spaces-item-quasi-finite-at-x}
+$f$ 在 $x$ 处拟有限。
+\end{enumerate}
+则有
+$$
+\xymatrix{
+(\ref{decent-spaces-item-dimension-top-k-fibre}) \ar@{=>}[r]_{f\text{ 良好}} &
+(\ref{decent-spaces-item-isolated-in-k-fibre}) \ar@{<=>}[r] &
+(\ref{decent-spaces-item-no-specializations-in-k-fibre}) \ar@{<=>}[r] &
+(\ref{decent-spaces-item-k-fibre-at-x-dim-0}) \ar@{<=>}[r] &
+(\ref{decent-spaces-item-quasi-finite-at-x})
+}
+$$
+若 $Y$ 良好，则条件 (\ref{decent-spaces-item-isolated-in-fibre}) 与
+(\ref{decent-spaces-item-no-specializations-in-fibre}) 彼此等价，并且等价于条件
+(\ref{decent-spaces-item-isolated-in-k-fibre})、
+(\ref{decent-spaces-item-no-specializations-in-k-fibre})、
+(\ref{decent-spaces-item-k-fibre-at-x-dim-0}) 以及
+(\ref{decent-spaces-item-quasi-finite-at-x})。
+若 $Y$ 与 $X$ 都良好，则所有条件等价。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-conditions-on-point-on-space-over-field}，条件
+(\ref{decent-spaces-item-isolated-in-k-fibre}),
+(\ref{decent-spaces-item-no-specializations-in-k-fibre}) 与
+(\ref{decent-spaces-item-k-fibre-at-x-dim-0}) 彼此等价，并且等价于
+$X_k \to \Spec(k)$ 在 $\tilde x$ 处拟有限这一条件。因此由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}
+，它们也等价于 (\ref{decent-spaces-item-quasi-finite-at-x})。若 $f$ 良好，则 $X_k$ 是
+良好代数空间；引理
+\ref{decent-spaces-lemma-conditions-on-point-on-space-over-field} 表明
+(\ref{decent-spaces-item-dimension-top-k-fibre}) 蕴含
+(\ref{decent-spaces-item-isolated-in-k-fibre})。
+
+\medskip\noindent
+若 $Y$ 良好，则可在 $y$ 的等价类中选取拟紧单态射
+$\Spec(k') \to Y$。此时，引理 \ref{decent-spaces-lemma-topology-fibre} 表明
+$|X_{k'}| \to F$ 是同胚。结合上述论证，即得引理中的其余断言；细节略去。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-conditions-on-fibre-and-qf}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的局部有限型态射。设
+$y \in |Y|$。设 $k$ 为域，且 $\Spec(k) \to Y$ 属于定义 $y$ 的等价类。
+令 $X_k = \Spec(k) \times_Y X$，并令 $F = f^{-1}(\{y\})$ 赋予从 $|X|$
+诱导的拓扑。考虑下列条件：
+\begin{enumerate}
+\item
+\label{decent-spaces-item-fibre-finite}
+$F$ 有限；
+\item
+\label{decent-spaces-item-fibre-discrete}
+$F$ 是离散拓扑空间；
+\item
+\label{decent-spaces-item-fibre-no-specializations}
+$\dim(F) = 0$；
+\item
+\label{decent-spaces-item-k-fibre-finite}
+$|X_k|$ 是有限集；
+\item
+\label{decent-spaces-item-k-fibre-discrete}
+$|X_k|$ 是离散空间；
+\item
+\label{decent-spaces-item-k-fibre-no-specializations}
+$\dim(|X_k|) = 0$；
+\item
+\label{decent-spaces-item-k-fibre-dim-0}
+$\dim(X_k) = 0$；
+\item
+\label{decent-spaces-item-quasi-finite-at-points-fibre}
+$f$ 在 $|X|$ 中位于 $y$ 上方的所有点处拟有限。
+\end{enumerate}
+则有
+$$
+\xymatrix{
+(\ref{decent-spaces-item-fibre-finite}) &
+(\ref{decent-spaces-item-k-fibre-finite}) \ar@{=>}[l] \ar@{=>}[r]_{f\text{ 良好}} &
+(\ref{decent-spaces-item-k-fibre-discrete}) \ar@{<=>}[r] &
+(\ref{decent-spaces-item-k-fibre-no-specializations}) \ar@{<=>}[r] &
+(\ref{decent-spaces-item-k-fibre-dim-0}) \ar@{<=>}[r] &
+(\ref{decent-spaces-item-quasi-finite-at-points-fibre})
+}
+$$
+若 $Y$ 良好，则条件 (\ref{decent-spaces-item-fibre-discrete}) 与
+(\ref{decent-spaces-item-fibre-no-specializations})
+彼此等价，并且等价于条件 (\ref{decent-spaces-item-k-fibre-discrete})、
+(\ref{decent-spaces-item-k-fibre-no-specializations})、(\ref{decent-spaces-item-k-fibre-dim-0}) 及
+(\ref{decent-spaces-item-quasi-finite-at-points-fibre}).
+若 $Y$ 与 $X$ 都良好，则 (\ref{decent-spaces-item-fibre-finite}) 蕴含所有其他条件。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-conditions-on-space-over-field}，条件
+(\ref{decent-spaces-item-k-fibre-discrete})、(\ref{decent-spaces-item-k-fibre-no-specializations}) 与
+(\ref{decent-spaces-item-k-fibre-dim-0}) 彼此等价，并且等价于
+$X_k \to \Spec(k)$ 局部拟有限这一条件。因此由《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}
+，它们也等价于 (\ref{decent-spaces-item-quasi-finite-at-points-fibre})。若 $f$ 良好，则
+$X_k$ 是良好代数空间；引理
+\ref{decent-spaces-lemma-conditions-on-space-over-field} 表明
+(\ref{decent-spaces-item-k-fibre-finite}) 蕴含 (\ref{decent-spaces-item-k-fibre-discrete})。
+
+\medskip\noindent
+由《空间的性质》引理 \ref{spaces-properties-lemma-points-cartesian}，映射
+$|X_k| \to F$ 是满射，故有
+(\ref{decent-spaces-item-k-fibre-finite}) $\Rightarrow$ (\ref{decent-spaces-item-fibre-finite}).
+
+\medskip\noindent
+若 $Y$ 良好，则可在 $y$ 的等价类中选取拟紧单态射
+$\Spec(k') \to Y$。此时，引理 \ref{decent-spaces-lemma-topology-fibre} 表明
+$|X_{k'}| \to F$ 是同胚。结合上述论证，即得引理中的其余断言；细节略去。
+\end{proof}
+
+
+
+
+
+
+
+\section{单态射}
+\label{decent-spaces-section-monomorphisms}
+
+\noindent
+下面给出单态射可表示的另一种情形。更多信息见《空间态射进阶》第
+\ref{spaces-more-morphisms-section-monomorphisms}
+节。
+
+\begin{lemma}
+\label{decent-spaces-lemma-monomorphism-toward-disjoint-union-dim-0-rings}
+设 $S$ 为概形。设 $Y$ 是 $S$ 上若干零维局部环之谱的无交并。
+设 $f : X \to Y$ 是 $S$ 上代数空间的单态射。则 $f$ 可表示，即
+$X$ 是概形。
+\end{lemma}
+
+\begin{proof}
+立即可归约到 $Y = \Spec(A)$ 的情形，其中 $A$ 是零维局部环，即
+$\Spec(A) = \{\mathfrak m_A\}$
+是单点集。若 $X = \emptyset$，则无需证明。否则，选取非空仿射概形
+$U = \Spec(B)$ 以及一个 \'etale 态射 $U \to X$。由于 $|X|$ 是单点集
+（它是 $|Y|$ 的子集；见《空间态射》引理
+\ref{spaces-morphisms-lemma-monomorphism-injective-points}），可知
+$U \to X$ 满射。注意
+$U \times_X U = U \times_Y U = \Spec(B \otimes_A B)$.
+因此两个环同态 $B \to B \otimes_A B$ 都是 \'etale 的。由于
+$$
+(B \otimes_A B)/\mathfrak m_A(B \otimes_A B)
+=
+(B/\mathfrak m_AB) \otimes_{A/\mathfrak m_A} (B/\mathfrak m_AB)
+$$
+可知
+$B/\mathfrak m_AB \to (B \otimes_A B)/\mathfrak m_A(B \otimes_A B)$
+平坦；事实上，它是自由的，其秩等于 $B/\mathfrak m_AB$ 作为
+$A/\mathfrak m_A$-向量空间的维数。由于
+$B \to B \otimes_A B$ 是 \'etale 的，只有当该维数有限时才可能如此
+（例如见《态射》引理 \ref{morphisms-lemma-etale-universally-bounded} 与
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}）。
+$B$ 的每个素理想都位于 $\mathfrak m_A$（即 $A$ 的唯一素理想）上方。
+因此作为拓扑空间有 $\Spec(B) = \Spec(B/\mathfrak m_A)$；又因
+$B/\mathfrak m_A B$ 是 Artin 环，此空间是有限离散集，见《代数》引理
+\ref{algebra-lemma-finite-dimensional-algebra} 与
+\ref{algebra-lemma-artinian-finite-length}。所以 $B$ 的所有素理想都是
+极大理想，且 $B = B_1 \times \ldots \times B_n$ 是有限多个零维局部环
+的乘积，见《代数》引理 \ref{algebra-lemma-product-local}。由《代数》
+引理 \ref{algebra-lemma-local-dimension-zero-henselian}，所有局部环
+$B_i$ 都是 Hensel 的，故 $B \to B \otimes_A B$ 是有限 \'etale 的。
+于是由《群胚》命题 \ref{groupoids-proposition-finite-flat-equivalence}，
+$X$ 是仿射概形。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{一般点}
+\label{decent-spaces-section-generic-points}
+
+\noindent
+本节接续《空间性质》第
+\ref{spaces-properties-section-generic-points} 节。
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-generic-points}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$。
+下列条件等价：
+\begin{enumerate}
+\item $x$ 是 $|X|$ 某个不可约分支的一般点；
+\item 对任意带基点代数空间的 \'etale 态射
+$(Y, y) \to (X, x)$，$y$ 是 $|Y|$ 某个不可约分支的一般点；
+\item 对某个带基点代数空间的 \'etale 态射
+$(Y, y) \to (X, x)$，$y$ 是 $|Y|$ 某个不可约分支的一般点；
+\item $X$ 在 $x$ 处的局部环维数为零；
+\item $x$ 是 $X$ 上余维为 $0$ 的点。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定义，条件 (4) 与 (5) 对任意代数空间等价；见《空间性质》定义
+\ref{spaces-properties-definition-dimension-local-ring}。由引理
+\ref{decent-spaces-lemma-etale-named-properties}，(2) 和 (3) 中的任何 $Y$ 都是良好的。
+因此只需证明 (1) 与 (4) 等价；因为 $Y$ 在 $y$ 处的局部环与 $X$ 在 $x$
+处的局部环维数相同，届时它们与 (2)、(3) 的等价性也随之成立。
+取从仿射概形出发的 \'etale 态射 $f : U \to X$，并取映到 $x$ 的点
+$u \in U$。
+
+\medskip\noindent
+假设 (1)。设 $u' \leadsto u$ 是 $U$ 中的特化。则
+$f(u') = f(u) = x$。由引理
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}，有 $u' = u$。
+因此 $u$ 是 $U$ 某个不可约分支的一般点。于是
+$\dim(\mathcal{O}_{U, u}) = 0$，故 (4) 成立。
+
+\medskip\noindent
+假设 (4)。点 $x$ 包含在某个不可约分支 $T \subset |X|$ 中。由于
+$|X|$ 是清醒的（命题 \ref{decent-spaces-proposition-reasonable-sober}），
+% P08-E327: frozen English source omits the verb in “we T has”.
+$T$ 有一般点 $x'$。当然 $x' \leadsto x$。由引理
+\ref{decent-spaces-lemma-decent-specialization}，可将此特化提升为 $U$ 中的
+$u' \leadsto u$。除非 $u' = u$，即 $x' = x$，否则这与
+$\dim(\mathcal{O}_{U, u}) = 0$ 的假设矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-codimension-local-ring}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。设
+$T \subset |X|$ 为不可约闭子集，并设 $\xi \in T$ 为其一般点
+（命题 \ref{decent-spaces-proposition-reasonable-sober}）。则
+$\text{codim}(T, |X|)$（《拓扑》定义
+\ref{topology-definition-codimension}）等于 $X$ 在 $\xi$ 处的局部环维数
+（《空间性质》定义
+\ref{spaces-properties-definition-dimension-local-ring}）。
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$、点 $u \in U$ 以及把 $u$ 映到 $\xi$ 的 \'etale 态射
+$U \to X$。由引理 \ref{decent-spaces-lemma-decent-specialization}，任意非平凡特化链
+$\xi_e \leadsto \ldots \leadsto \xi_0 = \xi$
+都可提升为 $U$ 中的链
+$u_e \leadsto \ldots \leadsto u_0 = u$。反过来，由引理
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}，$U$ 中任意非平凡
+特化链
+$u_e \leadsto \ldots \leadsto u_0 = u$
+都映成非平凡特化链
+$\xi_e \leadsto \ldots \leadsto \xi_0 = \xi$。
+因为 $|X|$ 与 $U$ 都是清醒拓扑空间，所以 $T$ 在 $|X|$ 中的余维等于
+$\overline{\{u\}}$ 在 $U$ 中的余维。这样，引理归约到概形情形，即
+《性质》引理 \ref{properties-lemma-codimension-local-ring}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-get-reasonable}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。假设
+\begin{enumerate}
+\item $X$ 上每个拟紧 \'etale 概形都只有有限多个不可约分支；
+\item $X$ 上每个余维为 $0$ 的点 $x \in |X|$ 都可由单态射
+$\Spec(k) \to X$ 表示。
+\end{enumerate}
+则 $X$ 是合理代数空间。
+\end{lemma}
+
+\begin{proof}
+设 $U$ 为仿射概形，$a : U \to X$ 为 \'etale 态射。需要证明 $a$ 的纤维
+普遍有界。由假设 (1)，概形 $U$ 只有有限多个不可约分支。令
+$u_1, \ldots, u_n \in U$ 为这些不可约分支的一般点，并令
+$\{x_1, \ldots, x_m\} \subset |X|$ 为
+$\{u_1, \ldots, u_n\}$ 的像。每个 $x_j$ 都是余维为 $0$ 的点。
+由假设 (2)，可选取表示 $x_j$ 的单态射 $\Spec(k_j) \to X$。
+由《空间性质》引理
+\ref{spaces-properties-lemma-codimension-0-points}，有
+$$
+U \times_X \Spec(k_j) = \coprod\nolimits_{a(u_i) = x_j} \Spec(\kappa(u_i))
+$$
+这是 $\Spec(k_j)$ 上次数为
+$d_j = \sum_{a(u_i) = x_j} [\kappa(u_i) : k_j]$ 的有限概形。令
+$n = \max d_j$。
+
+\medskip\noindent
+注意，$a$ 是分离的（《空间性质》引理
+\ref{spaces-properties-lemma-separated-cover}）。考虑引理
+\ref{decent-spaces-lemma-stratify-flat-fp-lqf} 中与 $U \to X$ 相伴的分层
+$$
+X = X_0 \supset X_1 \supset X_2 \supset \ldots
+$$
+由上述 $n$ 的选取，可知 $X_{n + 1}$ 为空。事实上，否则
+% P08-E328: frozen source says the open subset of U contains an x_i, but x_i lies in |X|.
+$a^{-1}(X_{n + 1})$ 是 $U$ 的非空开集，因而会包含某个 $x_i$。
+这将意味着 $X_{n + 1}$ 包含 $x_j = a(u_i)$，矛盾。因此
+$U \to X$ 的纤维普遍有界（实际上由整数 $n$ 所界）。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-finitely-many-irreducible-components}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。下列条件等价：
+\begin{enumerate}
+\item $X$ 是良好的，且 $|X|$ 只有有限多个不可约分支；
+\item $X$ 上每个拟紧 \'etale 概形都只有有限多个不可约分支，
+$X$ 上只有有限多个余维为 $0$ 的点 $x \in |X|$，且每个这样的点都可
+由单态射 $\Spec(k) \to X$ 表示；
+\item 存在一个稠密开子空间 $X' \subset X$，它是概形；$X'$ 只有有限多个
+不可约分支，其一般点为 $\{x'_1, \ldots, x'_m\}$，并且对
+$j = 1, \ldots, m$，态射 $x'_j \to X$ 拟紧。
+\end{enumerate}
+此外，若这些条件成立，则 $X$ 是合理的，而各点 $x'_j \in |X|$ 正是
+$|X|$ 的不可约分支的一般点。
+\end{lemma}
+
+\begin{proof}
+在证明中，我们将不再特别说明而使用《空间性质》引理
+\ref{spaces-properties-lemma-codimension-0-points}
+。假设 (1)。由定理 \ref{decent-spaces-theorem-decent-open-dense-scheme}，$X$ 有一个
+稠密开子概形 $X'$。由于 $|X'|$ 的每个不可约分支的闭包都是 $|X|$
+的不可约分支，可知 $|X'|$ 只有有限多个不可约分支。因此 (3) 成立。
+
+\medskip\noindent
+假设 $X' \subset X$ 如 (3) 所述。令
+$\{x'_1, \ldots, x'_m\}$ 为 $X'$ 的不可约分支的一般点。设
+$a : U \to X$ 为 \'etale 态射，其中 $U$ 是拟紧概形。为证明 (2)，只需
+证明 $U$ 只有有限多个不可约分支，而且它们的一般点位于
+$\{x'_1, \ldots, x'_m\}$ 上方。只需对 $U$ 的某个有限仿射开覆盖中的
+各成员证明此事，故可且确实假设 $U$ 仿射。注意
+$U' = a^{-1}(X') \subset U$ 是稠密开集。由于 $U' \to X'$ 是概形的
+\'etale 态射，$U'$ 的不可约分支的一般点正是位于
+$\{x'_1, \ldots, x'_m\}$ 上方的点。又因 $x'_j \to X$ 拟紧，$U$ 中位于
+$x'_j$ 上方的点只有有限多个（引理 \ref{decent-spaces-lemma-UR-finite-above-x}）。
+因此 $U'$ 只有有限多个不可约分支，而这些不可约分支的闭包就是 $U$ 的
+不可约分支。故 (2) 成立。
+
+\medskip\noindent
+假设 (2)。由引理 \ref{decent-spaces-lemma-get-reasonable} 可得 (1) 以及最后的断言。
+（这里还用到合理代数空间是良好的；见定义
+\ref{decent-spaces-definition-very-reasonable} 后的讨论。）
+\end{proof}
+
+
+
+\section{一般有限态射}
+\label{decent-spaces-section-generically-finite}
+
+\noindent
+本节针对代数空间的态射，讨论《态射》第
+\ref{morphisms-section-generically-finite} 节和《簇》第
+\ref{varieties-section-generically-finite} 节中针对概形态射所讨论的内容。
+
+\begin{lemma}
+\label{decent-spaces-lemma-generically-finite}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$
+拟分离且为有限型。设 $y \in |Y|$ 是 $Y$ 上余维为 $0$ 的点。
+下列条件等价：
+\begin{enumerate}
+\item 若 $\Spec(k) \to Y$ 表示 $y$，则空间 $|X_k|$ 有限；
+\item $X \to Y$ 在 $|X|$ 中位于 $y$ 上方的所有点处拟有限；
+\item 存在开子空间 $Y' \subset Y$，其中 $y \in |Y'|$，使得
+$Y' \times_Y X \to Y'$ 有限。
+\end{enumerate}
+若 $Y$ 良好，则它们还等价于
+\begin{enumerate}
+\item[(4)] 集合 $f^{-1}(\{y\})$ 有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性来自引理 \ref{decent-spaces-lemma-conditions-on-fibre-and-qf}
+（以及由引理 \ref{decent-spaces-lemma-properties-trivial-implications} 得到的事实：
+拟分离态射是良好的）。
+
+\medskip\noindent
+假设等价条件 (1) 和 (2) 成立。选取仿射概形 $V$ 以及把某个点
+$v \in V$ 映到 $y$ 的 \'etale 态射 $V \to Y$。由《空间性质》引理
+\ref{spaces-properties-lemma-codimension-0-points}，$v$ 是 $V$ 某个
+不可约分支的一般点。选取仿射概形 $U$ 以及满射 \'etale 态射
+$U \to V \times_Y X$。于是 $U \to V$ 为有限型。由 (2)，态射
+$U \to V$ 在位于 $v$ 上方的每个点处拟有限。因此 $U \to V$ 在 $v$
+上方的纤维有限（《态射》引理
+\ref{morphisms-lemma-quasi-finite-at-a-finite-number-of-points}）。
+由《态射》引理 \ref{morphisms-lemma-generically-finite}，缩小 $V$ 后
+可假设 $U \to V$ 有限。令
+$$
+R = U \times_{V \times_Y X} U
+$$
+由于 $f$ 拟分离，$V \times_Y X$ 拟分离，因而 $R$ 是拟紧概形。
+此外，
+% P08-E329: frozen source has plural “morphisms” with singular “is”.
+态射 $R \to V$ 是 \'etale 态射 $R \to U$ 与有限态射
+$U \to V$ 的复合，故拟有限。因此可再次应用《态射》引理
+\ref{morphisms-lemma-generically-finite}；缩小 $V$ 后，可假设
+$R \to V$ 也有限。当然，这意味着两个投影
+% P08-E330: frozen source writes R \to V for the two projections; their targets are U.
+$R \to V$ 都是有限 \'etale 的。于是
+$V/R = V \times_Y X$ 是仿射概形；见《群胚》命题
+\ref{groupoids-proposition-finite-flat-equivalence}。由《态射》引理
+\ref{morphisms-lemma-image-proper-is-proper}，可知
+$V \times_Y X \to V$ 是固有的；再由《态射》引理
+\ref{morphisms-lemma-finite-proper}，可知 $V \times_Y X \to V$ 有限。
+最后，令 $Y' \subset Y$ 为与 $|V| \to |Y|$ 的像相对应的 $Y$ 的开子空间。
+由于到 $V$ 的基变换有限，且 $V \to Y'$ 是满射 \'etale 态射，由
+《空间态射》引理 \ref{spaces-morphisms-lemma-integral-local} 可知
+$Y' \times_Y X \to Y'$ 有限。
+
+\medskip\noindent
+若 $Y$ 良好且 $f$ 拟分离，则 $X$ 也良好；这里使用引理
+\ref{decent-spaces-lemma-properties-trivial-implications} 与
+\ref{decent-spaces-lemma-property-over-property}。因此应用引理
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf} 可知 (4) 蕴含 (1) 和 (2)。
+另一方面，由《空间态射》引理
+\ref{spaces-morphisms-lemma-quasi-finite-at-a-finite-number-of-points}
+可知 (2) 蕴含 (4)。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-generically-finite-reprise}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$
+拟分离且局部有限型，并且 $Y$ 拟分离。设 $y \in |Y|$ 为 $Y$ 上余维
+为 $0$ 的点。下列条件等价：
+\begin{enumerate}
+\item 集合 $f^{-1}(\{y\})$ 有限；
+\item 若 $\Spec(k) \to Y$ 表示 $y$，则空间 $|X_k|$ 有限；
+\item 存在开子空间 $X' \subset X$ 与 $Y' \subset Y$，满足
+$f(X') \subset Y'$、$y \in |Y'|$ 及 $f^{-1}(\{y\}) \subset |X'|$，
+使得 $f|_{X'} : X' \to Y'$ 有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于拟分离代数空间是良好的，(1) 与 (2) 的等价性来自引理
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf}。为证明 (1) 和 (2) 蕴含 (3)，
+可且确实用包含 $y$ 的拟紧开集替换 $Y$。由于 $f^{-1}(\{y\})$ 有限，
+可以找到包含该纤维的拟紧开子空间
+% P08-E331: frozen source has the malformed phrase “open subspace of X' subset X”.
+$X' \subset X$。由《空间态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}
+（这里用到 $Y$ 拟分离），限制 $f|_{X'} : X' \to Y$ 拟紧且拟分离。
+将引理 \ref{decent-spaces-lemma-generically-finite} 应用于
+$f|_{X'} : X' \to Y$，即得 (3)。略去 (3) 蕴含 (2) 的证明。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-quasi-finiteness-over-generic-point}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$
+局部有限型。分别以 $X^0 \subset |X|$ 和 $Y^0 \subset |Y|$ 表示
+$X$ 和 $Y$ 的余维为 $0$ 的点集。设 $y \in Y^0$。下列条件等价：
+\begin{enumerate}
+\item $f^{-1}(\{y\}) \subset X^0$；
+\item $f$ 在位于 $y$ 上方的所有点处拟有限；
+\item $f$ 在位于 $y$ 上方的所有 $x \in X^0$ 处拟有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $V$ 为概形，且 $V \to Y$ 为满射 \'etale 态射。设 $U$ 为概形，
+且 $U \to V \times_Y X$ 为满射 \'etale 态射。则 $f$ 在点
+$u \in U$ 的像 $x$ 处拟有限，当且仅当 $U \to V$ 在 $u$ 处拟有限。
+此外，$x \in X^0$ 当且仅当 $u$ 是 $U$ 某个不可约分支的一般点
+（《空间性质》引理
+\ref{spaces-properties-lemma-codimension-0-points}）。因此本引理归约到
+态射 $U \to V$ 的情形，即《态射》引理
+\ref{morphisms-lemma-quasi-finiteness-over-generic-point}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-finite-over-dense-open}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设 $f$
+局部有限型。分别以 $X^0 \subset |X|$ 和 $Y^0 \subset |Y|$ 表示
+$X$ 和 $Y$ 的余维为 $0$ 的点集。假设
+\begin{enumerate}
+\item $Y$ 良好；
+\item $X^0$ 与 $Y^0$ 有限，且 $f^{-1}(Y^0) = X^0$；
+\item $f$ 拟紧或 $f$ 分离。
+\end{enumerate}
+则存在稠密开子空间 $V \subset Y$，使得 $f^{-1}(V) \to V$ 有限。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-finitely-many-irreducible-components} 和
+\ref{decent-spaces-lemma-decent-generic-points}，可假设 $Y$ 是只有有限多个不可约分支
+的概形。进一步缩小后，可假设 $Y$ 是一般点为 $y$ 的不可约仿射概形。
+此时 $f$ 在 $y$ 上方的纤维有限。
+
+\medskip\noindent
+假设 $f$ 拟紧，且 $Y$ 仿射不可约。此时 $X$ 拟紧，可以选取仿射概形
+$U$ 以及满射 \'etale 态射 $U \to X$。于是 $U \to Y$ 为有限型，而
+$U \to Y$ 在 $y$ 上方的纤维就是 $U$ 的不可约分支的一般点集 $U^0$
+（《空间性质》引理
+\ref{spaces-properties-lemma-codimension-0-points}）。因此 $U^0$ 有限
+（《态射》引理
+\ref{morphisms-lemma-quasi-finite-at-a-finite-number-of-points}），
+并且缩小 $Y$ 后，可假设 $U \to Y$ 有限（《态射》引理
+\ref{morphisms-lemma-generically-finite}）。接着考虑
+$R = U \times_X U$。由于投影 $s : R \to U$ 是 \'etale 的，可知
+$R^0 = s^{-1}(U^0)$ 位于 $y$ 上方。由于
+$R \to U \times_Y U$ 是单态射，且 $U \times_Y U \to Y$ 有限，
+故 $R^0$ 有限。并且 $R$ 分离（《空间性质》引理
+\ref{spaces-properties-lemma-separated-cover}）。因此可以再次缩小 $Y$，
+达到 $R$ 在 $Y$ 上有限的情形（《态射》引理
+\ref{morphisms-lemma-finite-over-dense-open}）。在此情形下，完全沿用引理
+\ref{decent-spaces-lemma-generically-finite} 证明中的论证，即得 $X = U/R$ 在 $Y$
+上有限（也可以直接应用该引理，因为此时立即可知 $X$ 也拟分离）。
+
+\medskip\noindent
+假设 $f$ 分离，且 $Y$ 仿射不可约。按引理
+\ref{decent-spaces-lemma-generically-finite-reprise} 选取 $V \subset Y$ 和
+$U \subset X$。由于 $f|_U : U \to V$ 有限，可知
+$U \subset f^{-1}(V)$ 既开又闭（《空间态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-permanence} 与
+\ref{spaces-morphisms-lemma-finite-proper}）。因此对 $X$ 的某个开子空间
+$W$，有 $f^{-1}(V) = U \amalg W$。然而，由于 $U$ 包含 $X$ 中所有余维为
+$0$ 的点，由《空间性质》引理
+\ref{spaces-properties-lemma-codimension-0-points-dense} 可知
+$W = \emptyset$，这正是所需结论。
+\end{proof}
+
+
+
+
+
+
+\section{双有理态射}
+\label{decent-spaces-section-birational}
+
+\noindent
+下面对代数空间的双有理态射之定义，似乎最接近我们对概形的双有理态射
+所作的定义（《态射》定义 \ref{morphisms-definition-birational}）。
+
+\begin{definition}
+\label{decent-spaces-definition-birational}
+设 $S$ 为概形。设 $X$ 和 $Y$ 为 $S$ 上的代数空间。
+% P08-E332: frozen English source omits “be” after X and Y.
+假设 $X$ 和 $Y$ 良好，并且 $|X|$ 与 $|Y|$ 都只有有限多个不可约分支。
+若态射 $f : X \to Y$ 满足
+\begin{enumerate}
+\item $|f|$ 在 $|X|$ 的不可约分支的一般点集与 $|Y|$ 的不可约分支的
+一般点集之间诱导双射；
+\item 对每个不可约分支的一般点 $x \in |X|$，局部环同态
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ 是同构
+（见下文说明），
+\end{enumerate}
+则称该态射为{\it 双有理}态射。
+\end{definition}
+
+\noindent
+说明：由于 $X$ 和 $Y$ 良好，拓扑空间 $|X|$ 与 $|Y|$ 是清醒的
+（命题 \ref{decent-spaces-proposition-reasonable-sober}），所以条件 (1) 有意义。
+此外，因为我们假设 $|X|$ 和 $|Y|$ 只有有限多个不可约分支，所以一般点
+$x_1, \ldots, x_n \in |X|$ 以及相应的
+$y_1, \ldots, y_n \in |Y|$ 分别包含在 $|X|$ 与 $|Y|$ 的任意稠密开集
+中。特别地，由定理 \ref{decent-spaces-theorem-decent-open-dense-scheme}，它们分别
+包含在 $X$ 与 $Y$ 的概形轨迹中。因此可将
+$\mathcal{O}_{X, x_i}$ 以及相应的 $\mathcal{O}_{Y, y_i}$ 定义为该概形
+分别在 $x_i$ 与 $y_i$ 处的局部环。
+
+\medskip\noindent
+由此可知，若态射 $f : X \to Y$ 双有理，则存在稠密开子空间
+$X' \subset X$ 与 $Y' \subset Y$，使得
+\begin{enumerate}
+\item $f(X') \subset Y'$；
+\item $X'$ 和 $Y'$ 可表示；
+\item 按《态射》定义 \ref{morphisms-definition-birational} 的意义，
+$f|_{X'} : X' \to Y'$ 双有理。
+\end{enumerate}
+不过，我们确实要求 $X$ 与 $Y$ 良好且只有有限多个不可约分支。
+引理 \ref{decent-spaces-lemma-finitely-many-irreducible-components} 给出了对具有有限多个
+不可约分支的良好代数空间的其他刻画。在多数情形下，双有理态射在稠密
+开集上是同构。
+
+\begin{lemma}
+\label{decent-spaces-lemma-birational-dominant}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的态射，其中二者
+良好且只有有限多个不可约分支。若 $f$ 双有理，则 $f$ 支配。
+\end{lemma}
+
+\begin{proof}
+由定义立即得到。见《空间态射》定义
+\ref{spaces-morphisms-definition-dominant}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-birational-generic-fibres}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的双有理态射，其中
+二者良好且只有有限多个不可约分支。若
+% P08-E333: frozen source places the topological point y in Y rather than |Y|.
+$y \in Y$ 是某个不可约分支的一般点，则基变换
+$X \times_Y \Spec(\mathcal{O}_{Y, y}) \to \Spec(\mathcal{O}_{Y, y})$
+是同构。
+\end{lemma}
+
+\begin{proof}
+令 $X' \subset X$ 和 $Y' \subset Y$ 为最大的可表示开子空间；见引理
+\ref{decent-spaces-lemma-finitely-many-irreducible-components}。由引理
+\ref{decent-spaces-lemma-quasi-finiteness-over-generic-point}，$f$ 在 $y$ 上方的纤维
+% P08-E334: frozen source has the malformed “is consists”.
+由 $X$ 的余维为 $0$ 的点组成，因而包含在 $X'$ 中。因此
+$X \times_Y \Spec(\mathcal{O}_{Y, y}) =
+X' \times_{Y'} \Spec(\mathcal{O}_{Y', y})$，结论遂由《态射》引理
+\ref{morphisms-lemma-birational-generic-fibres} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-birational-birational}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的双有理态射，其中
+二者良好且只有有限多个不可约分支。假设下列条件之一成立：
+\begin{enumerate}
+\item $f$ 局部有限型，且 $Y$ 既约（即整）；
+% P08-E335: frozen source incorrectly equates reduced with integral.
+\item $f$ 局部有限表示。
+\end{enumerate}
+则存在稠密开子空间 $U \subset X$ 和 $V \subset Y$，使得
+$f(U) \subset V$，且 $f|_U : U \to V$ 是同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-finitely-many-irreducible-components}，可假设 $X$ 和
+$Y$ 都是概形。在此情形下，结论就是《态射》引理
+\ref{morphisms-lemma-birational-birational}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-birational-isomorphism-over-dense-open}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的双有理态射，其中
+二者良好且只有有限多个不可约分支。假设
+\begin{enumerate}
+\item $f$ 拟紧或 $f$ 分离；
+\item $f$ 局部有限型且 $Y$ 既约，或者 $f$ 局部有限表示。
+\end{enumerate}
+则存在稠密开子空间 $V \subset Y$，使得 $f^{-1}(V) \to V$ 是同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-finitely-many-irreducible-components}，可假设 $Y$ 是概形。
+由引理 \ref{decent-spaces-lemma-finite-over-dense-open}，可假设 $f$ 有限。于是 $X$
+也是概形，结论由《态射》引理
+\ref{morphisms-lemma-birational-isomorphism-over-dense-open} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-birational-etale-localization}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的态射，其中二者
+良好且只有有限多个不可约分支。若 $f$ 双有理，而 $V \to Y$
+是以 $V$ 为仿射概形的 \'etale 态射，则 $X \times_Y V$ 良好且只有
+有限多个不可约分支，并且 $X \times_Y V \to V$ 双有理。
+\end{lemma}
+
+\begin{proof}
+代数空间 $U = X \times_Y V$ 是良好的（引理
+\ref{decent-spaces-lemma-etale-named-properties}）。$V$ 和 $U$ 的一般点分别是
+$|V|$ 和 $|U|$ 中位于 $|Y|$ 与 $|X|$ 的一般点上方的元素
+（引理 \ref{decent-spaces-lemma-decent-generic-points}）。由于 $Y$ 良好，可知 $V$
+上只有有限多个一般点。令 $\xi \in |X|$ 为某个不可约分支的一般点。
+由定义 \ref{decent-spaces-definition-birational} 后的讨论，有 Cartesian 方块
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \xi}) \ar[d] \ar[r] & X \ar[d] \\
+\Spec(\mathcal{O}_{Y, f(\xi)}) \ar[r] & Y
+}
+$$
+其中水平态射是识别局部环的单态射，而左侧竖直箭头是同构。因此在图
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \xi}) \times_X U \ar[d] \ar[r] & U \ar[d] \\
+\Spec(\mathcal{O}_{Y, f(\xi)}) \times_Y V \ar[r] & V
+}
+$$
+左侧竖直箭头是同构。水平箭头的像分别包含在 $U$ 与 $V$ 的概形轨迹中，
+并识别局部环（略去一些细节）。由于水平箭头的像分别是 $|U|$ 与 $|V|$
+中位于 $\xi$ 与 $f(\xi)$ 上方的点，结论得证。
+% P08-E336: frozen source uses singular “image” with plural “are”.
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-birational-induced-morphism-normalizations}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上两个代数空间之间的双有理态射，
+其中二者良好且只有有限多个不可约分支。则正规化
+$X^\nu \to X$ 与 $Y^\nu \to Y$ 存在，并且有 $S$ 上代数空间的交换图
+$$
+\xymatrix{
+X^\nu \ar[r] \ar[d] &  Y^\nu \ar[d] \\
+X \ar[r] & Y
+}
+$$
+。态射 $X^\nu \to Y^\nu$ 双有理。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{decent-spaces-lemma-finitely-many-irreducible-components}，$X$ 和 $Y$ 满足
+《空间态射》引理 \ref{spaces-morphisms-lemma-prepare-normalization} 中的
+等价条件，因此正规化有定义。由《空间态射》引理
+\ref{spaces-morphisms-lemma-normalization-normal}，代数空间 $X^\nu$
+正规，并把余维为 $0$ 的点映到余维为 $0$ 的点。由于 $f$ 把余维为 $0$
+的点映到余维为 $0$ 的点（由引理 \ref{decent-spaces-lemma-decent-generic-points}，
+在良好空间上这些点就是一般点），再由《空间态射》引理
+\ref{spaces-morphisms-lemma-normalization-normal}，复合
+$X^\nu \to X \to Y$ 经过 $Y^\nu$ 分解。
+
+\medskip\noindent
+例如由引理 \ref{decent-spaces-lemma-representable-named-properties}，$X^\nu$ 与 $Y^\nu$
+是良好的。此外，态射 $X^\nu \to X$ 和 $Y^\nu \to Y$ 在不可约分支上
+诱导双射（见上述引用），故 $X^\nu$ 与 $Y^\nu$ 都只有有限多个不可约
+分支，而态射 $X^\nu \to Y^\nu$ 在它们的一般点之间诱导双射。因此为
+证明 $X^\nu \to Y^\nu$ 双有理，只需证明它在这些点处的局部环上诱导
+同构。为此，可用 $X$ 和 $Y$ 的一般点的开邻域分别替换它们，故可假设
+$X$ 和 $Y$ 是一般点分别为 $x$ 和 $y$ 的不可约仿射概形。由于 $f$
+双有理，同态
+% P08-E337: frozen source reverses the natural local-ring map from Definition birational.
+$\mathcal{O}_{X, x} \to \mathcal{O}_{Y, y}$ 是同构。令
+$x^\nu \in X^\nu$ 和 $y^\nu \in Y^\nu$ 分别为位于 $x$ 和 $y$ 上方的点。
+由正规化的构造，有
+$\mathcal{O}_{X^\nu, x^\nu} = \mathcal{O}_{X, x}/\mathfrak m_x$；
+$Y$ 上也类似。因此同态
+$\mathcal{O}_{X^\nu, x^\nu} \to \mathcal{O}_{Y^\nu, y^\nu}$
+也是同构。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-finite-birational-over-normal}
+设 $S$ 为概形，$f : X \to Y$ 为 $S$ 上代数空间的态射。假设
+\begin{enumerate}
+\item $X$ 与 $Y$ 良好且只有有限多个不可约分支；
+\item $f$ 整且双有理；
+\item $Y$ 正规；
+\item $X$ 既约。
+\end{enumerate}
+则 $f$ 是同构。
+\end{lemma}
+
+\begin{proof}
+设 $V \to Y$ 为以 $V$ 为仿射概形的 \'etale 态射。只需证明
+$U = X \times_Y V \to V$ 是同构。由引理
+\ref{decent-spaces-lemma-birational-etale-localization} 及其证明，$U$ 与 $V$ 良好且
+只有有限多个不可约分支，并且 $U \to V$ 双有理。由《性质》引理
+\ref{properties-lemma-normal-locally-finite-nr-irreducibles}
+，$V$ 是有限多个整概形的无交并。因此可假设 $V$ 整。由于 $f$ 双有理，
+$U$ 不可约且既约，即为整的（注意，由于 $f$ 整、因而可表示，$U$ 是
+概形）。这样，可假设 $X$ 与 $Y$ 是整概形；结论遂由概形情形得出，见
+《态射》引理 \ref{morphisms-lemma-finite-birational-over-normal}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-normalization-normal}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上良好代数空间的整双有理态射，
+且这些空间只有有限多个不可约分支。则存在分解
+$Y^\nu \to X \to Y$，并且 $Y^\nu \to X$ 是 $X$ 的正规化。
+\end{lemma}
+
+\begin{proof}
+考虑引理 \ref{decent-spaces-lemma-birational-induced-morphism-normalizations} 中的态射
+$X^\nu \to Y^\nu$。由《空间态射》引理
+\ref{spaces-morphisms-lemma-finite-permanence}，此态射是整的。因此由引理
+\ref{decent-spaces-lemma-finite-birational-over-normal}，它是同构。
+\end{proof}
+
+
+
+
+\section{Jacobson 空间}
+\label{decent-spaces-section-jacobson}
+
+\noindent
+我们已在《空间性质》注
+\ref{spaces-properties-remark-list-properties-local-etale-topology}
+中定义了代数空间的 Jacobson 性质。对于可表示代数空间，它与《性质》第
+\ref{properties-section-jacobson} 节中讨论的性质一致。对于一般代数空间
+% P08-E338: frozen source appends a stray |X| after “general algebraic spaces”.
+$|X|$，Jacobson 性质与拓扑空间 $|X|$ 的行为之间的关系并不显然。
+不过，良好（例如拟分离或局部分离）代数空间 $X$ 是 Jacobson 的，当且
+仅当 $|X|$ 是 Jacobson 的（见引理 \ref{decent-spaces-lemma-decent-Jacobson}）。
+
+\begin{lemma}
+\label{decent-spaces-lemma-Jacobson-universally-Jacobson}
+设 $S$ 为概形，$X$ 为 $S$ 上的 Jacobson 代数空间。任何在 $X$
+上局部有限型的代数空间都是 Jacobson 的。
+\end{lemma}
+
+\begin{proof}
+设 $U \to X$ 为满射 \'etale 态射，其中 $U$ 是概形。于是按定义
+$U$ 是 Jacobson 的；而对局部有限型的概形态射 $V \to U$，概形情形
+的相应结果（《态射》引理
+\ref{morphisms-lemma-Jacobson-universally-Jacobson}）表明 $V$
+是 Jacobson 的。因此，若 $Y \to X$ 是代数空间的局部有限型态射，
+令 $V = U \times_X Y$，则按定义可知 $Y$ 是 Jacobson 的。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-Jacobson-ft-points-lift-to-closed}
+设 $S$ 为概形，$X$ 为 $S$ 上的 Jacobson 代数空间。设
+$x \in X_{\text{ft-pts}}$，且 $g : W \to X$ 是局部有限型态射，其中
+$W$ 为概形。若 $x \in \Im(|g|)$，则 $W$ 中存在映到 $x$ 的闭点。
+\end{lemma}
+
+\begin{proof}
+取 \'etale 态射 $U \to X$，其中 $U$ 为概形，且有映到 $x$ 的闭点
+$u \in U$；见《空间态射》引理
+\ref{spaces-morphisms-lemma-identify-finite-type-points}。由引理
+\ref{decent-spaces-lemma-Jacobson-universally-Jacobson}，$W$、$W \times_X U$ 和
+$U$ 都是 Jacobson 概形。因此由《态射》引理
+\ref{morphisms-lemma-jacobson-finite-type-points}，这些概形上的有限型点
+恰好就是闭点。$u$ 的逆像 $T \subset W \times_X U$ 是非空
+% P08-E339: frozen English source omits “is” in “as x in the image”.
+（因为 $x$ 位于 $W \to X$ 的像中）闭子集。由《态射》引理
+\ref{morphisms-lemma-enough-finite-type-points}，$W \times_X U$
+中存在映到 $u$ 的闭点 $t$。由于 $W \times_X U \to W$ 局部有限型，
+由《态射》引理 \ref{morphisms-lemma-jacobson-finite-type-points}，
+$t$ 在 $W$ 中的像是闭的。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-Jacobson-ft-pts}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好 Jacobson 代数空间。则
+$X_{\text{ft-pts}} \subset |X|$ 是闭点集。
+\end{lemma}
+
+\begin{proof}
+若 $x \in |X|$ 闭，则可用闭浸入 $\Spec(k) \to X$ 表示 $x$；见引理
+\ref{decent-spaces-lemma-decent-space-closed-point}。因此 $x$ 当然是有限型点。
+
+\medskip\noindent
+反过来，设 $x \in |X|$ 为有限型点。我们知道，$x$ 可由拟紧单态射
+$\Spec(k) \to X$ 表示，其中 $k$ 为域（定义
+\ref{decent-spaces-definition-very-reasonable}）。另一方面，按定义，存在表示 $x$
+的局部有限型态射 $\Spec(k') \to X$（《态射》定义
+\ref{morphisms-definition-finite-type-point}）。由此得到分解
+$\Spec(k') \to \Spec(k) \to X$。设 $U \to X$ 为任意 \'etale 态射，
+其中 $U$ 仿射，并考虑态射
+$$
+\Spec(k') \times_X U \to \Spec(k) \times_X U \to U
+$$
+。拟紧概形 $\Spec(k) \times_X U$ 在 $\Spec(k)$ 上 \'etale，因而是
+有限多个域之谱的无交并（注 \ref{decent-spaces-remark-recall}）。此外，第一个态射
+满射且局部有限型（《态射》引理
+\ref{morphisms-lemma-permanence-finite-type}），故在有限型点上满射
+（《态射》引理
+\ref{morphisms-lemma-finite-type-points-surjective-morphism}）；而由于
+$U$ 是 Jacobson 的，复合态射（它局部有限型）把有限型点映到闭点
+（《态射》引理 \ref{morphisms-lemma-jacobson-finite-type-points}）。
+因此 $\Spec(k) \times_X U \to U$ 的像是有限闭点集，从而是闭的。
+这对每个仿射 $U$ 和 \'etale 态射 $U \to X$ 都成立，故
+$x \in |X|$ 是闭的。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-decent-Jacobson}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。则 $X$ 是 Jacobson 的，
+当且仅当 $|X|$ 是 Jacobson 的。
+\end{lemma}
+
+\begin{proof}
+假设 $X$ 是 Jacobson 的，且 $T \subset |X|$ 为闭子集。由《空间态射》
+引理
+\ref{spaces-morphisms-lemma-enough-finite-type-points}
+，$T \cap X_{\text{ft-pts}}$ 在 $T$ 中稠密。由引理
+\ref{decent-spaces-lemma-decent-Jacobson-ft-pts}，$X_{\text{ft-pts}}$ 是 $|X|$ 的
+闭点集。因此 $|X|$ 的确是 Jacobson 的。
+
+\medskip\noindent
+假设 $|X|$ 是 Jacobson 的。设 $f : U \to X$ 为 \'etale 态射，其中
+$U$ 是仿射概形。需要证明 $U$ 是 Jacobson 的。若 $x \in |X|$ 闭，
+则纤维 $F = f^{-1}(\{x\})$ 是 $U$ 的有限（由良好的定义）闭子集
+（由 $|X|$ 上拓扑的构造）。由于 $F$ 的点之间不存在特化
+（引理 \ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}），
+$F$ 的每个点在 $U$ 中都闭。若 $U$ 不是 Jacobson 的，则存在非闭点
+$u \in U$，使得 $\{u\}$ 局部闭（《拓扑》引理
+\ref{topology-lemma-non-jacobson-Noetherian-characterize}）。我们将证明
+$f(u) \in |X|$ 闭；由上述结论，$u$ 随即在 $U$ 中闭，得到矛盾并完成证明。
+为证明这一点，可用 $u$ 的一个仿射开邻域替换 $U$。因此可假设
+$\{u\}$ 在 $U$ 中闭。令 $R = U \times_X U$，其投影为
+$s, t : R \to U$。于是 $s^{-1}(\{u\}) = \{r_1, \ldots, r_m\}$ 有限
+（由良好空间的定义）。用 $u$ 的一个更小仿射开邻域替换 $U$ 后，
+可假设对 $j = 1, \ldots, m$ 都有 $t(r_j) = u$。因此 $\{u\}$
+是 $U$ 的 $R$-不变闭子集。于是 $\{f(u)\}$ 是 $X$ 的局部闭子集，
+因为它在 $|X|$ 的开集 $|f|(|U|)$ 中闭。由于 $|X|$ 是 Jacobson 的，
+可知 $f(u)$ 在 $|X|$ 中闭，这正是所需。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-punctured-spec}
+设 $S$ 为概形，$X$ 为 $S$ 上良好的局部 Noether 代数空间。设
+$x \in |X|$。则
+$$
+W = \{x' \in |X| : x' \leadsto x,\ x' \not = x\}
+$$
+是 Noether、谱、清醒且 Jacobson 的拓扑空间。
+\end{lemma}
+
+\begin{proof}
+可以用任意包含 $x$ 的开子空间替换。因此可假设 $X$ 拟紧。于是
+$|X|$ 是 Noether 拓扑空间（《空间性质》引理
+\ref{spaces-properties-lemma-Noetherian-topology}）。因此 $W$ 是
+Noether 拓扑空间（《拓扑》引理 \ref{topology-lemma-Noetherian}）。
+
+\medskip\noindent
+结合引理 \ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated} 与
+《空间性质》引理
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral}，
+可知 $|X|$ 是谱拓扑空间。由《拓扑》引理
+\ref{topology-lemma-make-spectral-space}，$W \cup \{x\}$ 是谱拓扑空间。
+现在 $W$ 是 $W \cup \{x\}$ 的拟紧开集，故由《拓扑》引理
+\ref{topology-lemma-spectral-sub}，$W$ 是谱空间。
+
+\medskip\noindent
+设 $E \subset W$ 为不可约闭子集。若 $Z \subset |X|$ 是 $E$ 的闭包，
+则 $x \in Z$。由命题 \ref{decent-spaces-proposition-reasonable-sober}，存在唯一
+一般点 $\eta \in Z$。当然 $\eta \in W$，因而 $\eta \in E$。所以
+$E$ 有唯一一般点，即 $W$ 是清醒的。
+
+\medskip\noindent
+设 $x' \in W$，且 $\{x'\}$ 在 $W$ 中局部闭。为完成证明，需要证明
+$x'$ 是 $W$ 的闭点。否则，$W$ 中存在非平凡特化
+$x' \leadsto x'_1$。设 $U$ 为仿射概形，$u \in U$ 为一点，并设
+$U \to X$ 为把 $u$ 映到 $x$ 的 \'etale 态射。由引理
+\ref{decent-spaces-lemma-decent-specialization}，可选取映到
+$x' \leadsto x'_1 \leadsto x$ 的特化
+$u' \leadsto u'_1 \leadsto u$。令
+$\mathfrak p' \subset \mathcal{O}_{U, u}$ 为与 $u'$ 对应的素理想。
+这些特化的存在表明
+$\dim(\mathcal{O}_{U, u}/\mathfrak p') \geq 2$。因此由《代数》引理
+\ref{algebra-lemma-Noetherian-local-domain-dim-2-infinite-opens}，
+$\Spec(\mathcal{O}_{U, u}/\mathfrak p')$ 的每个非空开集都无限。
+由引理 \ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}，得到连续映射
+$$
+\Spec(\mathcal{O}_{U, u}/\mathfrak p')
+\setminus \{\mathfrak m_u/\mathfrak p'\}
+\longrightarrow
+W
+$$
+由于左端的一般点映到 $x'$，该映射的像包含在
+$\overline{\{x'\}}$ 中。因此，所示箭头下 $\{x'\}$ 的逆像是非空开集，
+从而无限。然而，由于 $X$ 良好，$U \to X$ 的纤维有限，由此得出
+% P08-E340: frozen source says the singleton {x'} itself is infinite.
+$\{x'\}$ 是无限的。此矛盾完成证明。
+\end{proof}
+
+
+
+
+
+
+\section{局部不可约性}
+\label{decent-spaces-section-irreducible-local-ring}
+
+\noindent
+我们已在《空间性质》第
+\ref{spaces-properties-section-irreducible-local-ring} 节中定义了代数空间
+在一点处的几何分支数。代数空间在一点处的分支数只能对良好代数空间定义。
+
+\begin{lemma}
+\label{decent-spaces-lemma-irreducible-local-ring}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$ 为一点。
+下列条件等价：
+\begin{enumerate}
+\item 对任意初等 \'etale 邻域 $(U, u) \to (X, x)$，局部环
+$\mathcal{O}_{U, u}$ 有唯一极小素理想；
+\item 对任意初等 \'etale 邻域 $(U, u) \to (X, x)$，通过 $u$ 的
+$U$ 的不可约分支唯一；
+\item 对任意初等 \'etale 邻域 $(U, u) \to (X, x)$，局部环
+$\mathcal{O}_{U, u}$ 单枝；
+\item Hensel 局部环 $\mathcal{O}_{X, x}^h$ 有唯一极小素理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 等价，是因为通过 $u$ 的 $U$ 的不可约分支与 $U$ 在 $u$
+处的局部环之极小素理想成 $1$-$1$ 对应。环 $\mathcal{O}_{X, x}^h$ 是
+$\mathcal{O}_{U, u}$ 的 Hensel 化；见定义
+\ref{decent-spaces-definition-henselian-local-ring} 后的讨论。特别地，由《代数进阶》
+引理 \ref{more-algebra-lemma-unibranch}，(3) 与 (4) 等价。(2) 与 (3)
+的等价性来自《态射进阶》引理
+\ref{more-morphisms-lemma-nr-branches}。
+\end{proof}
+
+\begin{definition}
+\label{decent-spaces-definition-unibranch}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$。
+若引理 \ref{decent-spaces-lemma-irreducible-local-ring} 的等价条件成立，
+则称 $X$ {\it 在 $x$ 处单枝}。若 $X$ 在每个 $x \in |X|$ 处都单枝，
+则称 $X$ {\it 单枝}。
+\end{definition}
+
+\noindent
+这与概形的定义相符（《性质》定义
+\ref{properties-definition-unibranch}）。
+
+\begin{lemma}
+\label{decent-spaces-lemma-nr-branches-local-ring}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$ 为一点。
+设 $n \in \{1, 2, \ldots\}$ 为整数。下列条件等价：
+\begin{enumerate}
+\item 对任意初等 \'etale 邻域 $(U, u) \to (X, x)$，局部环
+$\mathcal{O}_{U, u}$ 的极小素理想数为 $\leq n$，且至少对一个
+$(U, u)$ 的选取，此数为 $n$；
+\item 对任意初等 \'etale 邻域 $(U, u) \to (X, x)$，通过 $u$ 的 $U$
+之不可约分支数为 $\leq n$，且至少对一个 $(U, u)$ 的选取，此数为 $n$；
+% P08-E341: frozen source omits “of” after “the number”.
+\item 对任意初等 \'etale 邻域 $(U, u) \to (X, x)$，$U$ 在 $u$ 处的
+分支数为 $\leq n$，且至少对一个 $(U, u)$ 的选取，此数为 $n$；
+\item $\mathcal{O}_{X, x}^h$ 的极小素理想数为 $n$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 等价，是因为通过 $u$ 的 $U$ 的不可约分支与 $U$ 在 $u$
+处的局部环之极小素理想成 $1$-$1$ 对应。环
+% P08-E342: frozen source omits the superscript h on the henselization.
+$\mathcal{O}_{X, x}$ 是 $\mathcal{O}_{U, u}$ 的 Hensel 化；见定义
+\ref{decent-spaces-definition-henselian-local-ring} 后的讨论。特别地，由《代数进阶》
+引理 \ref{more-algebra-lemma-unibranch}，(3) 与 (4) 等价。(2) 与 (3)
+的等价性来自《态射进阶》引理
+\ref{more-morphisms-lemma-nr-branches}。
+\end{proof}
+
+\begin{definition}
+\label{decent-spaces-definition-number-of-branches}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间，并设 $x \in |X|$。
+若引理 \ref{decent-spaces-lemma-nr-branches-local-ring} 的等价条件成立，则
+{\it $X$ 在 $x$ 处的分支数}为 $n \in \mathbf{N}$；否则为 $\infty$。
+\end{definition}
+
+
+
+
+
+
+\section{链状代数空间}
+\label{decent-spaces-section-catenary}
+
+\noindent
+本节把《性质》第 \ref{properties-section-catenary} 节和《态射》第
+\ref{morphisms-section-universally-catenary} 节中的内容推广到代数空间。
+
+\begin{definition}
+\label{decent-spaces-definition-catenary}
+设 $S$ 为概形，$X$ 为 $S$ 上的良好代数空间。若 $|X|$ 链状
+（《拓扑》定义 \ref{topology-definition-catenary}），则称 $X$
+为{\it 链状}代数空间。
+\end{definition}
+
+\noindent
+若 $X$ 可表示，则这等价于表示 $X$ 的概形之相应概念。
+
+\begin{lemma}
+\label{decent-spaces-lemma-scheme-with-dimension-function}
+设 $S$ 为局部 Noether 且普遍链状的概形。设
+$\delta : S \to \mathbf{Z}$ 为维数函数。设 $X$ 为 $S$ 上的良好代数空间，
+并且结构态射 $X \to S$ 局部有限型。设
+$\delta_X : |X| \to \mathbf{Z}$ 为把 $x$ 映到 $\delta(f(x))$ 加上
+$x/f(x)$ 的超越次数所得的映射。则 $\delta_X$ 是 $|X|$ 上的维数函数。
+% P08-E343: frozen source uses f(x) without naming the structure morphism f.
+\end{lemma}
+
+\begin{proof}
+设 $\varphi : U \to X$ 为满射 \'etale 态射，其中 $U$ 为概形。
+由《态射》引理 \ref{morphisms-lemma-dimension-function-propagates}，
+以类似方式定义的函数 $\delta_U$ 是 $U$ 上的维数函数。另一方面，
+由《空间态射》定义
+\ref{spaces-morphisms-definition-dimension-fibre} 中相对超越次数的定义，
+有 $\delta_U(u) = \delta_X(\varphi(u))$。
+
+\medskip\noindent
+设 $x \leadsto x'$ 为 $|X|$ 中点的特化。由引理
+\ref{decent-spaces-lemma-decent-specialization}，可以找到 $U$ 中点的特化
+$u \leadsto u'$，满足 $\varphi(u) = x$ 且 $\varphi(u') = x'$。
+% P08-E344: frozen source begins this sentence with lowercase “by”.
+此外，$x = x'$ 当且仅当 $u = u'$；见引理
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}。因此
+$\delta_U$ 是维数函数这一事实表明 $\delta_X$ 也是维数函数；见《拓扑》
+定义 \ref{topology-definition-dimension-function}。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-universally-catenary-scheme}
+设 $S$ 为局部 Noether 且普遍链状的概形。设 $X$ 为 $S$ 上的代数空间，
+且 $X$ 良好，结构态射 $X \to S$ 局部有限型。则 $X$ 链状。
+\end{lemma}
+
+\begin{proof}
+此问题在 $S$ 上是局部的（使用《拓扑》引理
+\ref{topology-lemma-catenary}）。因此可假设 $S$ 有维数函数；见《拓扑》
+引理 \ref{topology-lemma-locally-dimension-function}。于是由引理
+\ref{decent-spaces-lemma-scheme-with-dimension-function}，$|X|$ 有维数函数。
+由于 $|X|$ 是清醒的（命题 \ref{decent-spaces-proposition-reasonable-sober}），
+由《拓扑》引理 \ref{topology-lemma-dimension-function-catenary}，
+$|X|$ 链状。
+\end{proof}
+
+\noindent
+由引理 \ref{decent-spaces-lemma-universally-catenary-scheme}，下面的定义与可表示代数空间
+已有的概念相容。
+
+\begin{definition}
+\label{decent-spaces-definition-universally-catenary}
+设 $S$ 为概形，$X$ 为 $S$ 上良好且局部 Noether 的代数空间。
+若对每个局部有限型且 $Y$ 良好的代数空间态射 $Y \to X$，代数空间
+$Y$ 都链状，则称 $X$ 是{\it 普遍链状}的。
+\end{definition}
+
+\noindent
+若 $X$ 是代数空间，则条件
+``$X$ 良好且局部 Noether'' 等价于
+``$X$ 拟分离且局部 Noether''。这就是引理
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}。因此也可把上述
+定义理解为：$X$ 普遍链状，当且仅当对于所有拟分离且局部有限型的态射
+$Y \to X$，$Y$ 都链状。
+
+\begin{lemma}
+\label{decent-spaces-lemma-universally-catenary}
+设 $S$ 为概形，$X$ 为 $S$ 上良好、局部 Noether 且普遍链状的代数空间。
+则任何在 $X$ 上局部有限型的良好代数空间都是普遍链状的。
+\end{lemma}
+
+\begin{proof}
+这由定义以及下述事实形式地得出：局部有限型态射的复合仍局部有限型
+（《空间态射》引理
+\ref{spaces-morphisms-lemma-composition-finite-type}）。
+\end{proof}
+
+\begin{lemma}
+\label{decent-spaces-lemma-check-dimension-function-finite-cover}
+设 $S$ 为概形。设 $f : Y \to X$ 为良好且局部 Noether 的代数空间之间
+的满射有限态射。设 $\delta : |X| \to \mathbf{Z}$ 为函数。若
+$\delta \circ |f|$ 是维数函数，则 $\delta$ 是维数函数。
+\end{lemma}
+
+\begin{proof}
+设
+% P08-E345: frozen source uses the mapsto arrow rather than the specialization arrow.
+$x \mapsto x'$，$x \not = x'$，为 $|X|$ 中的特化。选取
+$y \in |Y|$ 使得 $|f|(y) = x$。由于 $|f|$ 是闭映射（《空间态射》引理
+\ref{spaces-morphisms-lemma-finite-proper}），可找到特化
+$y \leadsto y'$，使得 $|f|(y') = x'$。因此
+$\delta(x) = \delta(|f|(y)) > \delta(|f|(y')) = \delta(x')$
+（见《拓扑》定义 \ref{topology-definition-dimension-function}）。
+若 $x \leadsto x'$ 是直接特化，则 $y \leadsto y'$ 也是直接特化：
+事实上，若 $y \leadsto y'' \leadsto y'$，则 $|f|(y'')$ 必为 $x$ 或
+$x'$；而由引理 \ref{decent-spaces-lemma-conditions-on-fibre-and-qf}，$|f|$ 的纤维
+中的点之间不存在非平凡特化。
+\end{proof}
+
+\noindent
+有关讨论将在《空间态射进阶》第
+\ref{spaces-more-morphisms-section-catenary} 节中继续。

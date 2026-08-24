@@ -1,0 +1,6267 @@
+% Generated mechanically from the frozen dga.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{21}
+\chapter{微分分次代数}
+
+
+
+\phantomsection
+\label{dga-section-phantom}
+
+
+\section{引言}
+\label{dga-section-introduction}
+
+\noindent
+本章讨论微分分次代数、模、范畴等。一个基本参考文献是
+\cite{Keller-Deriving}，综述论文可见 \cite{Keller-survey}。
+
+\medskip\noindent
+由于 Stacks project 不在意叙述篇幅，我们先在微分分次模范畴的框架中
+发展这些材料。此后，再在微分分次范畴上的微分分次模框架中重新完成
+这些构造。
+
+
+
+\section{约定}
+\label{dga-section-conventions}
+
+\noindent
+本章继续采用如下约定：{\it 环}指有 $1$ 的交换环。若 $R$ 是环，
+则一个 {\it $R$-代数 $A$} 是一个 $R$-模 $A$，连同一个 $R$-双线性映射
+$A \times A \to A$（乘法），使得该乘法结合且有单位元。换言之，
+它们是含幺结合 $R$-代数，并且结构映射 $R \to A$ 的像包含在 $A$ 的中心中。
+
+\medskip\noindent
+{\bf 符号规则。} 本章将研究通常配备微分的分次代数和分次模。
+底层复形上的符号规则总是采用（或兼容于）《更多代数》第
+\ref{more-algebra-section-sign-rules} 节中引入的规则。
+这有时会使乘法结构以意外方式发生扭曲，特别是在考虑左模，
+或者左模与右模之间的关系时。
+
+
+
+
+
+\section{微分分次代数}
+\label{dga-section-dga}
+
+
+\noindent
+这里只给出定义。
+
+\begin{definition}
+\label{dga-definition-dga}
+设 $R$ 是交换环。一个 {\it $R$ 上的微分分次代数}是以下两者之一：
+\begin{enumerate}
+\item 一个 $R$-模链复形 $A_\bullet$，配备 $R$-双线性映射
+$A_n \times A_m \to A_{n + m}$，$(a, b) \mapsto ab$，使得
+$$
+\text{d}_{n + m}(ab) = \text{d}_n(a)b + (-1)^n a\text{d}_m(b)
+$$
+并且 $\bigoplus A_n$ 成为含幺结合 $R$-代数；或者
+\item 一个 $R$-模上链复形 $A^\bullet$，配备 $R$-双线性映射
+$A^n \times A^m \to A^{n + m}$，$(a, b) \mapsto ab$，使得
+$$
+\text{d}^{n + m}(ab) = \text{d}^n(a)b + (-1)^n a\text{d}^m(b)
+$$
+并且 $\bigoplus A^n$ 成为含幺结合 $R$-代数。
+\end{enumerate}
+\end{definition}
+
+\noindent
+我们常简写为 $A = \bigoplus A_n$ 或 $A = \bigoplus A^n$，并把它看作
+配备一个 $\mathbf{Z}$-分次及一个平方为零且满足上述 Leibniz 规则的
+$R$-线性算子 $\text{d}$ 的含幺结合 $R$-代数。在这种情形下，
+我们常说“设 $(A, \text{d})$ 是一个微分分次代数”。
+
+\medskip\noindent
+微分分次 $R$-代数 $A$ 上联系微分与乘法的 Leibniz 规则，恰好意味着
+乘法映射给出一个上链复形映射
+$$
+\text{Tot}(A^\bullet \otimes_R A^\bullet) \to A^\bullet
+$$
+这里 $A^\bullet$ 表示 $A$ 的底层上链复形。
+
+\begin{definition}
+\label{dga-definition-homomorphism-dga}
+微分分次代数的一个 {\it 同态}
+$f : (A, \text{d}) \to (B, \text{d})$，是一个与分次及 $\text{d}$ 相容的
+代数映射 $f : A \to B$。
+\end{definition}
+
+\begin{definition}
+\label{dga-definition-cdga}
+若对次数为 $n$ 的 $a$ 和次数为 $m$ 的 $b$ 有
+$ab = (-1)^{nm}ba$，则称微分分次代数 $(A, \text{d})$ 是
+{\it 交换的}。若此外对 $\deg(a)$ 为奇数的 $a$ 有 $a^2 = 0$，
+则称 $A$ 是 {\it 严格交换的}。
+\end{definition}
+
+\noindent
+下述定义一般都有意义，但或许只有在对交换微分分次代数取张量积时
+才是“正确的”。
+
+\begin{definition}
+\label{dga-definition-tensor-product}
+设 $R$ 是环。设 $(A, \text{d})$、$(B, \text{d})$ 是 $R$ 上的微分分次代数。
+$A$ 与 $B$ 的 {\it 张量积微分分次代数}是代数 $A \otimes_R B$，
+其乘法定义为
+$$
+(a \otimes b)(a' \otimes b') = (-1)^{\deg(a')\deg(b)} aa' \otimes bb'
+$$
+并配备由下述规则定义的微分 $\text{d}$：
+$\text{d}(a \otimes b) = \text{d}(a) \otimes b + (-1)^m a \otimes \text{d}(b)$
+其中 $m = \deg(a)$。
+\end{definition}
+
+\begin{lemma}
+\label{dga-lemma-total-complex-tensor-product}
+设 $R$ 是环。设 $(A, \text{d})$、$(B, \text{d})$ 是 $R$ 上的微分分次代数。
+用 $A^\bullet$、$B^\bullet$ 表示底层上链复形。作为 $R$-模上链复形，我们有
+$$
+(A \otimes_R B)^\bullet = \text{Tot}(A^\bullet \otimes_R B^\bullet).
+$$
+\end{lemma}
+
+\begin{proof}
+回忆全复形在 $A^p \otimes_R B^q$ 上的微分由
+$\text{d}_1^{p, q} + (-1)^p \text{d}_2^{p, q}$ 给出。
+这恰好与定义 \ref{dga-definition-tensor-product} 中 $A \otimes_R B$
+上的微分规则相同。
+\end{proof}
+
+
+
+
+
+
+\section{微分分次模}
+\label{dga-section-modules}
+
+\noindent
+本章默认使用右模；左模将在第 \ref{dga-section-left-modules} 节中讨论。
+
+\begin{definition}
+\label{dga-definition-dgm}
+设 $R$ 是环。设 $(A, \text{d})$ 是 $R$ 上的微分分次代数。
+$A$ 上的一个（右）{\it 微分分次模} $M$ 是一个右 $A$-模 $M$，
+配备分次 $M = \bigoplus M^n$ 和微分 $\text{d}$，使得
+$M^n A^m \subset M^{n + m}$、$\text{d}(M^n) \subset M^{n + 1}$，并且
+$$
+\text{d}(ma) = \text{d}(m)a + (-1)^n m\text{d}(a)
+$$
+对 $a \in A$ 和 $m \in M^n$ 成立。微分分次模的一个 {\it 同态}
+$f : M \to N$，是一个与分次及微分相容的 $A$-模映射。
+（右）微分分次 $A$-模的范畴记为 $\text{Mod}_{(A, \text{d})}$。
+\end{definition}
+
+\noindent
+注意，可以把 $M$ 看作（右）$R$-模的上链复形 $M^\bullet$。
+事实上，对 $r \in R$ 有 $\text{d}(r) = 0$，且 $r$ 映到 $A$ 的一个
+零次元素，因而 $\text{d}(mr) = \text{d}(m)r$。
+
+\medskip\noindent
+微分分次 $R$-代数 $A$ 上的微分分次 $R$-模 $M$ 中，联系微分与乘法的
+Leibniz 规则恰好意味着乘法映射给出一个上链复形映射
+$$
+\text{Tot}(M^\bullet \otimes_R A^\bullet) \to M^\bullet
+$$
+这里 $A^\bullet$ 和 $M^\bullet$ 分别表示 $A$ 和 $M$ 的底层上链复形。
+
+\begin{lemma}
+\label{dga-lemma-dgm-abelian}
+设 $(A, d)$ 是微分分次代数。范畴 $\text{Mod}_{(A, \text{d})}$
+是阿贝尔范畴，并且具有任意极限和余极限。
+\end{lemma}
+
+\begin{proof}
+取核或余核与取底层 $A$-模可交换。直和和余极限也是如此。
+换言之，$\text{Mod}_{(A, \text{d})}$ 中的这些运算与到 $A$-模范畴的
+遗忘函子可交换。乘积和极限则并非如此。事实上，若 $N_i$（$i \in I$）
+是一族微分分次 $A$-模，则 $\text{Mod}_{(A, \text{d})}$ 中的乘积
+$\prod N_i$ 由 $(\prod N_i)^n = \prod N_i^n$ 以及
+$\prod N_i = \bigoplus_n (\prod N_i)^n$ 给出。因此，乘积确实与到
+分次 $A$-模范畴的遗忘函子可交换。具有乘积和等化子的范畴具有极限；
+见《范畴》引理 \ref{categories-lemma-limits-products-equalizers}。
+\end{proof}
+
+\noindent
+因此，若 $(A, \text{d})$ 是 $R$ 上的微分分次代数，则有阿贝尔范畴间的
+正合函子
+$$
+\text{Mod}_{(A, \text{d})} \longrightarrow \text{Comp}(R)
+$$
+。对于微分分次模 $M$，其上同调群 $H^n(M)$ 定义为相应 $R$-模复形的
+上同调。因此，微分分次模的短正合列 $0 \to K \to L \to M \to 0$
+产生长正合列
+\begin{equation}
+\label{dga-equation-les}
+H^n(K) \to H^n(L) \to H^n(M) \to H^{n + 1}(K)
+\end{equation}
+；它由上同调模组成，见《同调代数》引理
+\ref{homology-lemma-long-exact-sequence-cochain}。
+
+\medskip\noindent
+此外，从现在起，我们沿用模复形的全部术语。例如，若对所有
+$k \in \mathbf{Z}$ 都有 $H^k(M) = 0$，则称微分分次 $A$-模 $M$
+是 {\it 无环的}。若微分分次 $A$-模的同态 $M \to N$ 对所有
+$k \in \mathbf{Z}$ 都诱导同构 $H^k(M) \to H^k(N)$，则称它为
+{\it 拟同构}；其余术语依此类推。
+
+\begin{definition}
+\label{dga-definition-shift}
+设 $(A, \text{d})$ 是微分分次代数。设 $M$ 是微分分次模，
+其底层 $R$-模复形为 $M^\bullet$。对任意 $k \in \mathbf{Z}$，
+如下定义 {\it $k$-移位模} $M[k]$：
+\begin{enumerate}
+\item $M[k]$ 的底层 $R$-模复形是 $M^\bullet[k]$，即
+$M[k]^n = M^{n + k}$ 且 $\text{d}_{M[k]} = (-1)^k\text{d}_M$；以及
+\item 作为 $A$-模，其乘法
+$$
+(M[k])^n \times A^m \longrightarrow (M[k])^{n + m}
+$$
+等于给定的乘法 $M^{n + k} \times A^m \to M^{n + k + m}$。
+\end{enumerate}
+对于微分分次 $A$-模的态射 $f : M \to N$，令
+$f[k] : M[k] \to N[k]$ 为在底层 $A$-模上等于 $f$ 的映射。
+这定义了函子
+$[k] : \text{Mod}_{(A, \text{d})} \to \text{Mod}_{(A, \text{d})}$.
+\end{definition}
+
+\noindent
+来验证这个选择满足 Leibniz 规则。设 $x \in M[k]^n = M^{n + k}$、
+$a \in A^m$，并以 $\cdot_{M[k]}$ 表示 $M[k]$ 中的乘法，则
+\begin{align*}
+\text{d}_{M[k]}(x \cdot_{M[k]} a)
+& =
+(-1)^k \text{d}_M(xa) \\
+& =
+(-1)^k \text{d}_M(x) a + (-1)^{k + n + k} x \text{d}(a) \\
+& =
+\text{d}_{M[k]}(x) a + (-1)^n x \text{d}(a) \\
+& =
+\text{d}_{M[k]}(x) \cdot_{M[k]} a + (-1)^n x \cdot_{M[k]} \text{d}(a)
+\end{align*}
+这正是所需结论，因为作为 $M[k]$ 的齐次元素，$x$ 的次数为 $n$。
+还注意到，在这些选择下，可把乘法映射看作复形映射
+$$
+\text{Tot}(M^\bullet[k] \otimes _R A^\bullet) \to
+\text{Tot}(M^\bullet \otimes _R A^\bullet)[k] \to
+M^\bullet[k]
+$$
+其中第一个箭头是《更多代数》第 \ref{more-algebra-section-sign-rules} 节
+(\ref{more-algebra-item-shift-tensor}) 中的箭头；在本情形下它不涉及符号。
+（事实上，也可由这一观察推出 Leibniz 规则成立。）
+
+\medskip\noindent
+《同调代数》第 \ref{homology-section-homotopy-shift} 节中的说明适用。
+特别地，我们将在不引入符号的情况下认同所有移位 $M[k]$ 的上同调群。
+
+\medskip\noindent
+至此，我们已有足够结构来讨论 {\it 三角}；见《导出范畴》定义
+\ref{derived-definition-triangle}。下一步将发展充分的理论，以陈述并证明
+微分分次模的同伦范畴是三角范畴。我们先定义同伦范畴。
+
+
+
+
+
+
+\section{同伦范畴}
+\label{dga-section-homotopy}
+
+\noindent
+我们的同伦考虑 $A$-模结构和分次，但（当然）不要求与微分相容。
+
+\begin{definition}
+\label{dga-definition-homotopy}
+设 $(A, \text{d})$ 是微分分次代数。设 $f, g : M \to N$ 是微分分次
+$A$-模的同态。$f$ 与 $g$ 之间的一个 {\it 同伦}是一个 $A$-模映射
+$h : M \to N$，使得
+\begin{enumerate}
+\item 对所有 $n$ 有 $h(M^n) \subset N^{n - 1}$；并且
+\item 对所有 $x \in M$ 有
+$f(x) - g(x) = \text{d}_N(h(x)) + h(\text{d}_M(x))$。
+\end{enumerate}
+若存在这样的同伦，则称 $f$ 与 $g$ {\it 同伦}。
+\end{definition}
+
+\noindent
+因此，$h$ 与 $A$-模结构及分次相容，但不与微分相容。若 $f = g$，
+且 $h$ 是定义中的同伦，则 $h$ 在 $\text{Mod}_{(A, \text{d})}$ 中
+定义一个态射 $h : M \to N[-1]$。
+
+\begin{lemma}
+\label{dga-lemma-compose-homotopy}
+设 $(A, \text{d})$ 是微分分次代数。设 $f, g : L \to M$ 是微分分次
+$A$-模的同态，并另给同态 $a : K \to L$ 和 $c : M \to N$。
+若 $A$-模映射 $h : L \to M$ 定义了 $f$ 与 $g$ 之间的同伦，
+则 $c \circ h \circ a$ 定义了 $c \circ f \circ a$ 与
+$c \circ g \circ a$ 之间的同伦。
+\end{lemma}
+
+\begin{proof}
+立即由《同调代数》引理 \ref{homology-lemma-compose-homotopy-cochain} 得出。
+\end{proof}
+
+\noindent
+这个引理使我们可以如下定义同伦范畴。
+
+\begin{definition}
+\label{dga-definition-complexes-notation}
+设 $(A, \text{d})$ 是微分分次代数。{\it 同伦范畴}记为
+$K(\text{Mod}_{(A, \text{d})})$；其对象是
+$\text{Mod}_{(A, \text{d})}$ 的对象，其态射是微分分次 $A$-模同态的
+同伦类。
+\end{definition}
+
+\noindent
+记号 $K(\text{Mod}_{(A, \text{d})})$ 并非标准记号，但至少与
+Stacks project 其他部分中 $K(-)$ 的用法一致。
+
+\begin{lemma}
+\label{dga-lemma-homotopy-direct-sums}
+设 $(A, \text{d})$ 是微分分次代数。同伦范畴
+$K(\text{Mod}_{(A, \text{d})})$ 具有直和和乘积。
+\end{lemma}
+
+\begin{proof}
+略。提示：直接使用引理 \ref{dga-lemma-dgm-abelian} 中的直和和乘积。
+这是可行的，因为我们已经看到这些函子与到分次 $A$-模范畴的遗忘函子
+可交换，并且 $\prod$ 在阿贝尔群族所成的范畴上是正合函子。
+\end{proof}
+
+
+
+
+
+
+
+\section{锥}
+\label{dga-section-cones}
+
+\noindent
+我们为微分分次模范畴引入锥。
+
+\begin{definition}
+\label{dga-definition-cone}
+设 $(A, \text{d})$ 是微分分次代数。设 $f : K \to L$ 是微分分次
+$A$-模的同态。$f$ 的 {\it 锥}是微分分次 $A$-模 $C(f)$；
+它由 $C(f) = L \oplus K$ 给出，其分次为
+$C(f)^n = L^n \oplus K^{n + 1}$，微分为
+$$
+d_{C(f)} =
+\left(
+\begin{matrix}
+\text{d}_L & f \\
+0 & -\text{d}_K
+\end{matrix}
+\right)
+$$
+它配备由显然映射 $L \to C(f)$ 和 $C(f) \to K$ 所诱导的典范复形态射
+$i : L \to C(f)$ 和 $p : C(f) \to K[1]$。
+\end{definition}
+
+\noindent
+锥三角的构造在下述意义下是函子的。
+
+\begin{lemma}
+\label{dga-lemma-functorial-cone}
+设 $(A, \text{d})$ 是微分分次代数。假设
+$$
+\xymatrix{
+K_1 \ar[r]_{f_1} \ar[d]_a & L_1 \ar[d]^b \\
+K_2 \ar[r]^{f_2} & L_2
+}
+$$
+是一个在相差同伦意义下交换的微分分次 $A$-模同态图表。
+那么存在态射 $c : C(f_1) \to C(f_2)$，它产生三角态射
+$$
+(a, b, c) : (K_1, L_1, C(f_1), f_1, i_1, p_1) \to
+(K_1, L_1, C(f_1), f_2, i_2, p_2)
+$$
+，后者位于 $K(\text{Mod}_{(A, \text{d})})$ 中。
+\end{lemma}
+
+\begin{proof}
+设 $h : K_1 \to L_2$ 是 $f_2 \circ a$ 与 $b \circ f_1$ 之间的同伦。
+用矩阵
+$$
+c =
+\left(
+\begin{matrix}
+b & h \\
+0 & a
+\end{matrix}
+\right) :
+L_1 \oplus K_1 \to L_2 \oplus K_2
+$$
+定义 $c$。矩阵计算表明 $c$ 是微分分次模的态射。
+显然 $c \circ i_1 = i_2 \circ b$，也容易验证
+$p_2 \circ c = a \circ p_1$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{容许短正合列}
+\label{dga-section-admissible}
+
+\noindent
+容许短正合列是逐项分裂正合列在微分分次模框架中的对应物。
+
+\begin{definition}
+\label{dga-definition-admissible-ses}
+设 $(A, \text{d})$ 是微分分次代数。
+\begin{enumerate}
+\item 若存在分次 $A$-模映射 $L \to K$，它是 $K \to L$ 的左逆，
+则称微分分次 $A$-模的同态 $K \to L$ 为 {\it 容许单态射}。
+\item 若存在分次 $A$-模映射 $M \to L$，它是 $L \to M$ 的右逆，
+则称微分分次 $A$-模的同态 $L \to M$ 为 {\it 容许满态射}。
+\item 若微分分次 $A$-模的短正合列 $0 \to K \to L \to M \to 0$
+作为分次 $A$-模列分裂，则称它为 {\it 容许短正合列}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+因此，这些分裂与除微分外的所有数据相容。给定一个容许短正合列，
+我们得到一个三角；这正是要求分裂与 $A$-模结构相容的原因。
+
+\begin{lemma}
+\label{dga-lemma-admissible-ses}
+设 $(A, \text{d})$ 是微分分次代数。设
+$0 \to K \to L \to M \to 0$ 是微分分次 $A$-模的容许短正合列。
+设 $s : M \to L$ 和 $\pi : L \to K$ 是满足
+$\Ker(\pi) = \Im(s)$ 的分裂。那么得到态射
+$$
+\delta = \pi \circ \text{d}_L \circ s : M \to K[1]
+$$
+，它属于 $\text{Mod}_{(A, \text{d})}$，并诱导上同调长正合列
+(\ref{dga-equation-les}) 中的边界映射。
+\end{lemma}
+
+\begin{proof}
+由构造，映射 $\pi \circ \text{d}_L \circ s$ 与 $A$-模结构及分次相容。
+由《同调代数》引理
+\ref{homology-lemma-ses-termwise-split-cochain}，它也与微分相容。
+设 $R$ 是使 $A$ 成为其上微分分次代数的环。映射的等式是关于
+$R$-模的陈述。因此，结论由《同调代数》引理
+\ref{homology-lemma-ses-termwise-split-cochain} 和
+\ref{homology-lemma-ses-termwise-split-long-cochain} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-make-commute-map}
+设 $(A, \text{d})$ 是微分分次代数。设
+$$
+\xymatrix{
+K \ar[r]_f \ar[d]_a & L \ar[d]^b \\
+M \ar[r]^g & N
+}
+$$
+是一个相差同伦交换的微分分次 $A$-模同态图表。
+\begin{enumerate}
+\item 若 $f$ 是容许单态射，则 $b$ 同伦于一个使图表交换的同态。
+\item 若 $g$ 是容许满态射，则 $a$ 同伦于一个使图表交换的态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $h : K \to N$ 是 $bf$ 与 $ga$ 之间的同伦，即
+$bf - ga = \text{d}h + h\text{d}$。假设分次 $A$-模映射
+$\pi : L \to K$ 是 $f$ 的左逆。取
+$b' = b - \text{d}h\pi - h\pi \text{d}$。
+假设分次 $A$-模映射 $s : N \to M$ 是 $g$ 的右逆。
+取 $a' = a + \text{d}sh + sh\text{d}$。计算略。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-make-injective}
+设 $(A, \text{d})$ 是微分分次代数。设 $\alpha : K \to L$ 是微分分次
+$A$-模的同态。存在分解
+$$
+\xymatrix{
+K \ar[r]^{\tilde \alpha} \ar@/_1pc/[rr]_\alpha &
+\tilde L \ar[r]^\pi & L
+}
+$$
+，它位于 $\text{Mod}_{(A, \text{d})}$ 中，并且
+\begin{enumerate}
+\item $\tilde \alpha$ 是容许单态射（见定义
+\ref{dga-definition-admissible-ses}）；
+\item 存在态射 $s : L \to \tilde L$，使得
+$\pi \circ s = \text{id}_L$，并且 $s \circ \pi$ 同伦于
+$\text{id}_{\tilde L}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明与《导出范畴》引理 \ref{derived-lemma-make-injective} 的证明相同。
+具体而言，置 $\tilde L = L \oplus C(1_K)$，并使用锥构造的初等性质。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-sequence-maps-split}
+设 $(A, \text{d})$ 是微分分次代数。设
+$L_1 \to L_2 \to \ldots \to L_n$ 是微分分次 $A$-模的可复合同态列。
+存在交换图表
+$$
+\xymatrix{
+L_1 \ar[r] &
+L_2 \ar[r] &
+\ldots \ar[r] &
+L_n \\
+M_1 \ar[r] \ar[u] &
+M_2 \ar[r] \ar[u] &
+\ldots \ar[r] &
+M_n \ar[u]
+}
+$$
+，它位于 $\text{Mod}_{(A, \text{d})}$ 中，使得每个
+$M_i \to M_{i + 1}$ 都是容许单态射，且每个 $M_i \to L_i$
+都是同伦等价。
+\end{lemma}
+
+\begin{proof}
+$n = 1$ 的情形没有内容。引理 \ref{dga-lemma-make-injective} 是 $n = 2$
+的情形。假设除 $M_n$ 外图表均已构造。对复合
+$M_{n - 1} \to L_{n - 1} \to L_n$ 应用引理
+\ref{dga-lemma-make-injective}，所得分解
+$M_{n - 1} \to M_n \to L_n$ 即满足要求。
+\end{proof}
+
+
+
+\begin{lemma}
+\label{dga-lemma-nilpotent}
+设 $(A, \text{d})$ 是微分分次代数。设
+$0 \to K_i \to L_i \to M_i \to 0$（$i = 1, 2, 3$）是微分分次
+$A$-模的容许短正合列。设 $b : L_1 \to L_2$ 和
+$b' : L_2 \to L_3$ 是微分分次模的同态，使得
+$$
+\vcenter{
+\xymatrix{
+K_1 \ar[d]_0 \ar[r] &
+L_1 \ar[r] \ar[d]_b &
+M_1 \ar[d]_0 \\
+K_2 \ar[r] & L_2 \ar[r] & M_2
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+K_2 \ar[d]^0 \ar[r] &
+L_2 \ar[r] \ar[d]^{b'} &
+M_2 \ar[d]^0 \\
+K_3 \ar[r] & L_3 \ar[r] & M_3
+}
+}
+$$
+相差同伦交换。那么 $b' \circ b$ 同伦于 $0$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-make-commute-map}，可把 $b$ 和 $b'$ 替换为与之同伦的
+映射，使得左图的右方块交换，而右图的左方块交换。换言之，
+$\Im(b) \subset \Im(K_2 \to L_2)$ 且
+$\Ker(b') \supset \Im(K_2 \to L_2)$。于是，作为模映射，
+$b' \circ b = 0$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{有区别三角}
+\label{dga-section-distinguished}
+
+\noindent
+下述引理产生我们所用的有区别三角。
+
+\begin{lemma}
+\label{dga-lemma-triangle-independent-splittings}
+设 $(A, \text{d})$ 是微分分次代数。设
+$0 \to K \to L \to M \to 0$ 是微分分次 $A$-模的容许短正合列。
+三角
+\begin{equation}
+\label{dga-equation-triangle-associated-to-admissible-ses}
+K \to L \to M \xrightarrow{\delta} K[1]
+\end{equation}
+中的 $\delta$ 如引理 \ref{dga-lemma-admissible-ses} 所述。该三角在
+$K(\text{Mod}_{(A, \text{d})})$ 中相差典范同构，不依赖于引理
+\ref{dga-lemma-admissible-ses} 中所作的选择。
+\end{lemma}
+
+\begin{proof}
+具体地，设 $(s', \pi')$ 是引理 \ref{dga-lemma-admissible-ses} 中那种分裂的
+第二个选择。我们断言 $\delta$ 与 $\delta'$ 同伦。事实上，对某些唯一的
+次数为 $-1$ 的 $A$-模同态 $h : M \to K$ 和 $g : M \to K$，写成
+$s' = s + \alpha \circ h$ 和 $\pi' = \pi + g \circ \beta$。
+则 $g = -h$，且 $g$ 是 $\delta$ 与 $\delta'$ 之间的同伦。
+相关计算见《同调代数》引理
+\ref{homology-lemma-ses-termwise-split-homotopy-cochain} 的证明。
+\end{proof}
+
+\begin{definition}
+\label{dga-definition-distinguished-triangle}
+设 $(A, \text{d})$ 是微分分次代数。
+\begin{enumerate}
+\item 若 $0 \to K \to L \to M \to 0$ 是微分分次 $A$-模的容许短正合列，
+则 {\it 与 $0 \to K \to L \to M \to 0$ 关联的三角}是
+$K(\text{Mod}_{(A, \text{d})})$ 中的三角
+(\ref{dga-equation-triangle-associated-to-admissible-ses})。
+\item 若 $K(\text{Mod}_{(A, \text{d})})$ 中的三角同构于某个与微分分次
+$A$-模的容许短正合列关联的三角，则称它为 {\it 有区别三角}。
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+
+
+
+\section{锥与有区别三角}
+\label{dga-section-cones-and-triangles}
+
+\noindent
+设 $(A, \text{d})$ 是微分分次代数。设 $f : K \to L$ 是微分分次
+$A$-模的同态。那么 $(K, L, C(f), f, i, p)$ 构成三角
+$$
+K \to L \to C(f) \to K[1]
+$$
+，它位于 $\text{Mod}_{(A, \text{d})}$ 中，因而也位于
+$K(\text{Mod}_{(A, \text{d})})$ 中。一般而言，锥{\bf 并不}是有区别三角，
+但两者只相差一个符号或一次旋转（任君选择）。下面给出两个精确陈述。
+
+\begin{lemma}
+\label{dga-lemma-rotate-cone}
+设 $(A, \text{d})$ 是微分分次代数。设 $f : K \to L$ 是微分分次模的同态。
+三角 $(L, C(f), K[1], i, p, f[1])$ 是与容许短正合列
+$$
+0 \to L \to C(f) \to K[1] \to 0
+$$
+关联的三角；该短正合列来自 $f$ 的锥的定义。
+\end{lemma}
+
+\begin{proof}
+立即由定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-rotate-triangle}
+设 $(A, \text{d})$ 是微分分次代数。设 $\alpha : K \to L$ 和
+$\beta : L \to M$ 定义容许短正合列
+$$
+0 \to K \to L \to M \to 0
+$$
+，它由微分分次 $A$-模组成。设 $(K, L, M, \alpha, \beta, \delta)$
+为关联三角。那么三角
+$$
+(M[-1], K, L, \delta[-1], \alpha, \beta)
+\quad\text{且}\quad
+(M[-1], K, C(\delta[-1]), \delta[-1], i, p)
+$$
+同构。
+\end{lemma}
+
+\begin{proof}
+选取分裂后，写 $L = K \oplus M$，并把 $\alpha$ 和 $\beta$ 分别认同为
+自然包含映射和投影映射。由 $\delta$ 的构造，有
+$$
+d_B =
+\left(
+\begin{matrix}
+d_K & \delta \\
+0 & d_M
+\end{matrix}
+\right)
+$$
+另一方面，$\delta[-1] : M[-1] \to K$ 的锥由
+$C(\delta[-1]) = K \oplus M$ 给出，其微分与上面的矩阵完全相同！
+引理由此得证。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-third-isomorphism}
+设 $(A, \text{d})$ 是微分分次代数。设 $f_1 : K_1 \to L_1$ 和
+$f_2 : K_2 \to L_2$ 是微分分次 $A$-模的同态。设
+$$
+(a, b, c) :
+(K_1, L_1, C(f_1), f_1, i_1, p_1)
+\longrightarrow
+(K_1, L_1, C(f_1), f_2, i_2, p_2)
+$$
+为 $K(\text{Mod}_{(A, \text{d})})$ 中的任意三角态射。
+若 $a$ 和 $b$ 是同伦等价，则 $c$ 也是同伦等价。
+\end{lemma}
+
+\begin{proof}
+设 $a^{-1} : K_2 \to K_1$ 是微分分次 $A$-模的同态，且它在
+$K(\text{Mod}_{(A, \text{d})})$ 中是 $a$ 的逆。设
+$b^{-1} : L_2 \to L_1$ 是微分分次 $A$-模的同态，且它在该范畴中是
+$b$ 的逆。对 $f_1 \circ a^{-1} = b^{-1} \circ f_2$ 应用引理
+\ref{dga-lemma-functorial-cone}，得到态射 $c' : C(f_2) \to C(f_1)$。
+若能证明 $c \circ c'$ 和 $c' \circ c$ 在
+$K(\text{Mod}_{(A, \text{d})})$ 中都是同构，结论即得。因此，只需证明：
+给定 $K(\text{Mod}_{(A, \text{d})})$ 中形如
+$(1, 1, c) : (K, L, C(f), f, i, p)$ 的三角态射，态射 $c$ 是该范畴中的
+同构。由假设，下图中的两个方块
+$$
+\xymatrix{
+L \ar[r] \ar[d]_1 &
+C(f) \ar[r] \ar[d]_c &
+K[1] \ar[d]_1 \\
+L \ar[r] &
+C(f) \ar[r] &
+K[1]
+}
+$$
+相差同伦交换。由 $C(f)$ 的构造，两行都是容许短正合列。
+于是，由引理 \ref{dga-lemma-nilpotent}，在
+$K(\text{Mod}_{(A, \text{d})})$ 中有 $(c - 1)^2 = 0$。
+因此，$c$ 是该范畴中的同构，其逆为 $2 - c$。
+\end{proof}
+
+\noindent
+下述引理表明，同伦范畴中由锥给出的三角族与有区别三角族相差同构而相同，
+至少在不计符号时如此！
+
+\begin{lemma}
+\label{dga-lemma-the-same-up-to-isomorphisms}
+设 $(A, \text{d})$ 是微分分次代数。
+\begin{enumerate}
+\item 给定微分分次 $A$-模的容许短正合列
+$0 \to K \xrightarrow{\alpha} L \to M \to 0$
+，存在同伦等价 $C(\alpha) \to M$，使得图表
+$$
+\xymatrix{
+K \ar[r] \ar[d] & L \ar[d] \ar[r] &
+C(\alpha) \ar[r]_{-p} \ar[d] & K[1] \ar[d] \\
+K \ar[r]^\alpha & L \ar[r]^\beta &
+M \ar[r]^\delta & K[1]
+}
+$$
+在 $K(\text{Mod}_{(A, \text{d})})$ 中定义一个三角同构。
+\item 给定复形态射 $f : K \to L$，存在三角同构
+$$
+\xymatrix{
+K \ar[r] \ar[d] & \tilde L \ar[d] \ar[r] &
+M \ar[r]_{\delta} \ar[d] & K[1] \ar[d] \\
+K \ar[r] & L \ar[r] &
+C(f) \ar[r]^{-p} & K[1]
+}
+$$
+，其中上方三角是与容许短正合列 $K \to \tilde L \to M$ 关联的三角。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。有 $C(\alpha) = L \oplus K$；我们简单地把
+$C(\alpha) \to M$ 定义为先投影到 $L$，再与 $\beta$ 复合。
+由于复合 $K^{n + 1} \to L^{n + 1} \to M^{n + 1}$ 为零，这定义了
+微分分次模的态射。选择满足 $\Ker(\pi) = \Im(s)$ 的分裂
+$s : M \to L$ 和 $\pi : L \to K$，并照例置
+$\delta = \pi \circ \text{d}_L \circ s$。取由 $(s , -\delta)$ 给出的
+$M \to C(\alpha)$ 作为同伦逆。它与微分相容，因为 $\delta^n$
+可刻画为唯一满足下式的映射 $M^n \to K^{n + 1}$：
+$\text{d} \circ s^n - s^{n + 1} \circ \text{d} = \alpha \circ \delta^n$,
+见《同调代数》引理 \ref{homology-lemma-ses-termwise-split-cochain} 的证明。
+复合 $M \to C(f) \to M$ 是恒等映射。复合
+$C(f) \to M \to C(f)$ 等于态射
+$$
+\left(
+\begin{matrix}
+s \circ \beta & 0 \\
+-\delta \circ \beta & 0
+\end{matrix}
+\right)
+$$
+为看出它同伦于恒等映射，使用由矩阵
+$$
+\left(
+\begin{matrix}
+0 & 0 \\
+\pi & 0
+\end{matrix}
+\right) :
+C(\alpha) = L \oplus K
+\to
+L \oplus K = C(\alpha)
+$$
+给出的同伦 $h : C(\alpha) \to C(\alpha)$。容易验证
+$$
+\left(
+\begin{matrix}
+1 & 0 \\
+0 & 1
+\end{matrix}
+\right)
+-
+\left(
+\begin{matrix}
+s \\
+-\delta
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+\beta & 0
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+\text{d} & \alpha \\
+0 & -\text{d}
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+0 & 0 \\
+\pi & 0
+\end{matrix}
+\right)
++
+\left(
+\begin{matrix}
+0 & 0 \\
+\pi & 0
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+\text{d} & \alpha \\
+0 & -\text{d}
+\end{matrix}
+\right)
+$$
+为完成 (1) 的证明，还须证明态射 $-p : C(\alpha) \to K[1]$
+（见定义 \ref{dga-definition-cone}）与复合 $C(\alpha) \to M \to K[1]$
+相差同伦相等。这由上文显然可见。事实上，可使用同伦逆
+$(s, -\delta) : M \to C(\alpha)$，转而验证两个映射
+$M \to K[1]$ 相等。注意 $p \circ (s, -\delta) = -\delta$，正合所需。
+
+\medskip\noindent
+证明 (2)。令 $\tilde f : K \to \tilde L$、$s : L \to \tilde L$
+和 $\pi : L \to L$ 如引理 \ref{dga-lemma-make-injective} 中所述。
+由引理 \ref{dga-lemma-functorial-cone} 和 \ref{dga-lemma-third-isomorphism}，
+三角 $(K, L, C(f), i, p)$ 与
+$(K, \tilde L, C(\tilde f), \tilde i, \tilde p)$ 同构。
+注意，可以复合三角的同构。因此，可以用 $\tilde L$ 替换 $L$，
+并用 $\tilde f$ 替换 $f$。换言之，可以假设 $f$ 是容许单态射。
+此时结论由 (1) 得出。
+\end{proof}
+
+
+
+
+
+
+
+\section{同伦范畴是三角范畴}
+\label{dga-section-homotopy-triangulated}
+
+\noindent
+我们先证明它是预三角范畴。
+
+\begin{lemma}
+\label{dga-lemma-homotopy-category-pre-triangulated}
+设 $(A, \text{d})$ 是微分分次代数。同伦范畴
+$K(\text{Mod}_{(A, \text{d})})$ 连同其自然平移函子和有区别三角，
+是一个预三角范畴。
+\end{lemma}
+
+\begin{proof}
+证明 TR1。由定义，任何同构于有区别三角的三角都是有区别三角。
+此外，任意三角 $(K, K, 0, 1, 0, 0)$ 都是有区别三角，因为
+$0 \to K \to K \to 0 \to 0$ 是容许短正合列。最后，给定微分分次
+$A$-模的任意同态 $f : K \to L$，由引理
+\ref{dga-lemma-the-same-up-to-isomorphisms}，三角
+$(K, L, C(f), f, i, -p)$ 是有区别三角。
+
+\medskip\noindent
+证明 TR2。设 $(X, Y, Z, f, g, h)$ 是一个三角，并假设
+$(Y, Z, X[1], g, h, -f[1])$ 是有区别三角。则存在容许短正合列
+$0 \to K \to L \to M \to 0$，使其关联三角
+$(K, L, M, \alpha, \beta, \delta)$ 同构于
+$(Y, Z, X[1], g, h, -f[1])$。反向旋转可见，
+$(X, Y, Z, f, g, h)$ 同构于
+$(M[-1], K, L, -\delta[-1], \alpha, \beta)$。
+由引理 \ref{dga-lemma-rotate-triangle}，三角
+$(M[-1], K, L, \delta[-1], \alpha, \beta)$ 同构于
+$(M[-1], K, C(\delta[-1]), \delta[-1], i, p)$。
+把前一三角同构预复合以 $Y$ 上的 $-1$，可得
+$(X, Y, Z, f, g, h)$ 同构于
+$(M[-1], K, C(\delta[-1]), \delta[-1], i, -p)$。
+因此，由引理 \ref{dga-lemma-the-same-up-to-isomorphisms}，它是有区别三角。
+反过来，假设 $(X, Y, Z, f, g, h)$ 是有区别三角。
+由引理 \ref{dga-lemma-the-same-up-to-isomorphisms}，这意味着它同构于某个
+$\text{Mod}_{(A, \text{d})}$ 中的态射 $f$ 所给出的三角
+$(K, L, C(f), f, i, -p)$。于是旋转后的三角
+$(Y, Z, X[1], g, h, -f[1])$ 同构于
+$(L, C(f), K[1], i, -p, -f[1])$，后者又同构于三角
+$(L, C(f), K[1], i, p, f[1])$。由引理 \ref{dga-lemma-rotate-cone}，
+这个三角是有区别三角。因此，$(Y, Z, X[1], g, h, -f[1])$
+如所需是有区别三角。
+
+\medskip\noindent
+证明 TR3。设 $(X, Y, Z, f, g, h)$ 和 $(X', Y', Z', f', g', h')$
+是 $K(\mathcal{A})$ 的有区别三角，并设 $a : X \to X'$ 和
+$b : Y \to Y'$ 是满足 $f' \circ a = b \circ f$ 的态射。
+由引理 \ref{dga-lemma-the-same-up-to-isomorphisms}，可以假设
+$(X, Y, Z, f, g, h) = (X, Y, C(f), f, i, -p)$，并且
+$(X', Y', Z', f', g', h') = (X', Y', C(f'), f', i', -p')$。
+此时，只需对 $f, f', a, b$ 给出的交换图表应用引理
+\ref{dga-lemma-functorial-cone}。
+\end{proof}
+
+\noindent
+在一般地证明 TR4 之前，先证明一个特殊情形。
+
+\begin{lemma}
+\label{dga-lemma-two-split-injections}
+设 $(A, \text{d})$ 是微分分次代数。假设 $\alpha : K \to L$ 和
+$\beta : L \to M$ 是微分分次 $A$-模的容许单态射。那么存在有区别三角
+$(K, L, Q_1, \alpha, p_1, d_1)$、
+$(K, M, Q_2, \beta \circ \alpha, p_2, d_2)$ 和
+$(L, M, Q_3, \beta, p_3, d_3)$，使得 TR4 对它们成立。
+\end{lemma}
+
+\begin{proof}
+设 $\pi_1 : L \to K$ 和 $\pi_3 : M \to L$ 是分次 $A$-模同态，
+分别为 $\alpha$ 和 $\beta$ 的左逆。于是 $K \to M$ 也是容许单态射，
+其左逆为 $\pi_2 = \pi_1 \circ \pi_3$。用 $Q_1$、$Q_2$、$Q_3$
+分别表示 $K \to L$、$K \to M$、$L \to M$ 的余核。
+则作为分次 $A$-模，有认同
+$Q_1 = \Ker(\pi_1)$、$Q_3 = \Ker(\pi_3)$ 和
+$Q_2 = \Ker(\pi_2)$。又有 $L = K \oplus Q_1$ 和
+$M = L \oplus Q_3$，故 $M = K \oplus Q_1 \oplus Q_3$。
+注意，$\pi_2 = \pi_1 \circ \pi_3$ 在 $Q_1$ 和 $Q_3$ 上均为零。
+因此 $Q_2 = Q_1 \oplus Q_3$。考虑交换图表
+$$
+\begin{matrix}
+0 & \to & K & \to & L & \to & Q_1 & \to & 0 \\
+  &     & \downarrow &     & \downarrow &     & \downarrow  & \\
+0 & \to & K & \to & M & \to & Q_2 & \to & 0 \\
+  &     & \downarrow &     & \downarrow &     & \downarrow  & \\
+0 & \to & L & \to & M & \to & Q_3 & \to & 0
+\end{matrix}
+$$
+该图表的各行都是容许短正合列，因而按定义确定有区别三角。此外，
+上图中的向下箭头与所选分裂相容，因而定义三角态射
+$$
+(K \to L \to Q_1 \to K[1])
+\longrightarrow
+(K \to M \to Q_2 \to K[1])
+$$
+以及
+$$
+(K \to M \to Q_2 \to K[1])
+\longrightarrow
+(L \to M \to Q_3 \to L[1]).
+$$
+注意，把图表中最下方列的分裂 $Q_3 \to M$ 与 $M \to Q_2$ 复合，
+就得到分裂列 $0 \to Q_1 \to Q_2 \to Q_3 \to 0$ 的一个分裂。
+由此容易看出，相应有区别三角
+$$
+(Q_1 \to Q_2 \to Q_3 \to Q_1[1])
+$$
+中的态射 $\delta : Q_3 \to Q_1[1]$ 等于复合
+$Q_3 \to L[1] \to Q_1[1]$。因此，我们得到公理 TR4 结论中的结构。
+\end{proof}
+
+\noindent
+下面给出最终结论。
+
+\begin{proposition}
+\label{dga-proposition-homotopy-category-triangulated}
+设 $(A, \text{d})$ 是微分分次代数。微分分次 $A$-模的同伦范畴
+$K(\text{Mod}_{(A, \text{d})})$ 连同其自然平移函子和有区别三角，
+是一个三角范畴。
+\end{proposition}
+
+\begin{proof}
+已知 $K(\text{Mod}_{(A, \text{d})})$ 是预三角范畴。因此，只需证明 TR4，
+而证明它可使用《导出范畴》引理
+\ref{derived-lemma-easier-axiom-four}。设 $K \to L$ 和 $L \to M$
+是 $K(\text{Mod}_{(A, \text{d})})$ 中的可复合态射。由引理
+\ref{dga-lemma-sequence-maps-split}，可以假设 $K \to L$ 和 $L \to M$
+都是容许单态射。此时结论由引理 \ref{dga-lemma-two-split-injections} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{左模}
+\label{dga-section-left-modules}
+
+\noindent
+迄今所述的一切在左微分分次模的框架中都有对应版本，
+但必须留意某些符号规则。
+
+\medskip\noindent
+设 $(A, \text{d})$ 是微分分次 $R$-代数。完全类似于右模，
+把一个 {\it 左微分分次 $A$-模} $M$ 定义为一个左 $A$-模 $M$，
+它配备分次 $M = \bigoplus M^n$ 和微分 $\text{d}$，使得
+$A^n M^m \subset M^{n + m}$、$\text{d}(M^n) \subset M^{n + 1}$，并且
+$$
+\text{d}(am) = \text{d}(a) m + (-1)^{\deg(a)}a \text{d}(m)
+$$
+对齐次元素 $a \in A$ 和 $m \in M$ 成立。如前，这一 Leibniz 规则
+恰好意味着乘法定义复形映射
+$$
+\text{Tot}(A^\bullet \otimes_R M^\bullet) \to M^\bullet
+$$
+这里 $A^\bullet$ 和 $M^\bullet$ 表示 $A$ 和 $M$ 的底层 $R$-模复形。
+
+\begin{definition}
+\label{dga-definition-opposite-dga}
+设 $R$ 是环。设 $(A, \text{d})$ 是 $R$ 上的微分分次代数。
+{\it 反微分分次代数}是 $R$ 上的微分分次代数
+$(A^{opp}, \text{d})$；作为分次 $R$-模，有 $A^{opp} = A$，
+微分满足 $\text{d} = \text{d}$，而乘法由
+$$
+a \cdot_{opp} b = (-1)^{\deg(a)\deg(b)} b a
+$$
+给出，其中 $a, b \in A$ 为齐次元素。
+\end{definition}
+
+\noindent
+该定义成立，因为
+\begin{align*}
+\text{d}(a \cdot_{opp} b)
+& =
+(-1)^{\deg(a)\deg(b)} \text{d}(b a) \\
+& =
+(-1)^{\deg(a)\deg(b)} \text{d}(b) a +
+(-1)^{\deg(a)\deg(b) + \deg(b)}b\text{d}(a) \\
+& =
+(-1)^{\deg(a)}a \cdot_{opp} \text{d}(b) + \text{d}(a) \cdot_{opp} b
+\end{align*}
+，正合所需。用底层 $R$-模复形表述，这意味着图表
+$$
+\xymatrix{
+\text{Tot}(A^\bullet \otimes_R A^\bullet)
+\ar[rrr]_-{A^{opp}\text{ 的乘法}}
+\ar[d]_{\text{交换性约束}} & & &
+A^\bullet \ar[d]^{\text{id}} \\
+\text{Tot}(A^\bullet \otimes_R A^\bullet)
+\ar[rrr]^-{A\text{ 的乘法}} & & &
+A^\bullet
+}
+$$
+交换。这里，$R$-模复形的对称幺半范畴上的交换性约束见《更多代数》
+第 \ref{more-algebra-section-sign-rules} 节。
+
+\medskip\noindent
+设 $(A, \text{d})$ 是 $R$ 上的微分分次代数。设 $M$ 是左微分分次
+$A$-模。把 $M$ 视为右 $A^{opp}$-模时记为 $M^{opp}$，其乘法
+$\cdot_{opp}$ 由规则
+$$
+m \cdot_{opp} a = (-1)^{\deg(a)\deg(m)} a m
+$$
+定义，其中 $a$ 和 $m$ 为齐次元素。它与微分相容，因为也可以用图表
+$$
+\xymatrix{
+\text{Tot}(M^\bullet \otimes_R A^\bullet)
+\ar[rrr]_-{M^{opp}\text{ 上的乘法}}
+\ar[d]_{\text{交换性约束}} & & &
+M^\bullet \ar[d]^{\text{id}} \\
+\text{Tot}(A^\bullet \otimes_R M^\bullet)
+\ar[rrr]^-{M\text{ 上的乘法}} & & &
+M^\bullet
+}
+$$
+来定义 $M^{opp}$ 上的乘法 $\cdot_{opp}$。为看出它是结合乘法，
+对齐次元素 $a, b \in A$ 和 $m \in M$ 计算如下：
+\begin{align*}
+m \cdot_{opp} (a \cdot_{opp} b)
+& =
+(-1)^{\deg(a)\deg(b)} m \cdot_{opp} (ba) \\
+& =
+(-1)^{\deg(a)\deg(b) + \deg(ab)\deg(m)} bam \\
+& =
+(-1)^{\deg(a)\deg(b) + \deg(ab)\deg(m) + \deg(b)\deg(am)}
+(am) \cdot_{opp} b \\
+& =
+(-1)^{\deg(a)\deg(b) + \deg(ab)\deg(m) + \deg(b)\deg(am) + \deg(a)\deg(m)}
+(m \cdot_{opp} a) \cdot_{opp} b \\
+& =
+(m \cdot_{opp} a) \cdot_{opp} b
+\end{align*}
+当然，也可利用 $R$-模复形的对称幺半范畴上结合性约束与交换性约束之间的
+相容性证明这一点。
+
+\begin{lemma}
+\label{dga-lemma-left-right}
+设 $(A, \text{d})$ 是微分分次 $R$-代数。从左微分分次 $A$-模范畴到
+右微分分次 $A^{opp}$-模范畴的函子 $M \mapsto M^{opp}$ 是等价。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\noindent
+接着讨论移位。设 $(A, \text{d})$ 是微分分次代数。设 $M$ 是左微分分次
+$A$-模，其底层 $R$-模复形记为 $M^\bullet$。对任意
+$k \in \mathbf{Z}$，如下定义 {\it $k$-移位模} $M[k]$：
+\begin{enumerate}
+\item $M[k]$ 的底层 $R$-模复形是 $M^\bullet[k]$；
+\item 作为 $A$-模，其乘法
+$$
+A^n \times (M[k])^m \longrightarrow (M[k])^{n + m}
+$$
+等于给定乘法 $A^n \times M^{m + k} \to M^{n + m + k}$ 的
+$(-1)^{nk}$ 倍。
+\end{enumerate}
+来验证该选择满足 Leibniz 规则。设 $a \in A^n$、
+$x \in M[k]^m = M^{m + k}$，并以 $\cdot_{M[k]}$ 表示 $M[k]$ 中的乘法，
+则
+\begin{align*}
+\text{d}_{M[k]}(a \cdot_{M[k]} x)
+& =
+(-1)^{k + nk} \text{d}_M(ax) \\
+& =
+(-1)^{k + nk} \text{d}(a) x + (-1)^{k + nk + n} a \text{d}_M(x) \\
+& =
+\text{d}(a) \cdot_{M[k]} x + (-1)^{nk + n} a \text{d}_{M[k]}(x) \\
+& =
+\text{d}(a) \cdot_{M[k]} x + (-1)^n a \cdot_{M[k]} \text{d}_{M[k]}(x)
+\end{align*}
+这正是所需结论，因为作为 $A$ 的齐次元素，$a$ 的次数为 $n$。
+还注意到，在这些选择下，可把乘法映射看作复形映射
+$$
+\text{Tot}(A^\bullet \otimes_R M^\bullet[k]) \to
+\text{Tot}(A^\bullet \otimes_R M^\bullet)[k] \to
+M^\bullet[k]
+$$
+其中第一个箭头是《更多代数》第 \ref{more-algebra-section-sign-rules} 节
+(\ref{more-algebra-item-shift-tensor}) 中的箭头；在本情形下它恰好涉及
+上面所选的符号。（事实上，也可由这一观察推出 Leibniz 规则成立。）
+
+\medskip\noindent
+由上述规则，有典范认同
+$$
+(M[k])^{opp} = M^{opp}[k]
+$$
+，它是右微分分次 $A^{opp}$-模之间不引入符号的认同。换言之，
+引理 \ref{dga-lemma-left-right} 的等价与移位函子相容。
+
+\medskip\noindent
+上述选择要求作出如下定义。
+
+\begin{definition}
+\label{dga-definition-shift-graded-module}
+设 $R$ 是环。设 $A$ 是 $\mathbf{Z}$-分次 $R$-代数。
+\begin{enumerate}
+\item 给定右分次 $A$-模 $M$，把 {\it 第 $k$ 移位 $A$-模} $M[k]$
+定义为与之相同的右 $A$-模，但分次改为 $(M[k])^n = M^{n + k}$。
+\item 给定左分次 $A$-模 $M$，把 {\it 第 $k$ 移位 $A$-模} $M[k]$
+定义为分次满足 $(M[k])^n = M^{n + k}$ 的模，其乘法
+$A^n \times (M[k])^m \to (M[k])^{n + m}$
+等于给定乘法 $A^n \times M^{m + k} \to M^{n + m + k}$ 的
+$(-1)^{nk}$ 倍。
+\end{enumerate}
+\end{definition}
+
+\noindent
+设 $(A, \text{d})$ 是微分分次代数。设 $f, g : M \to N$ 是左微分分次
+$A$-模的同态。$f$ 与 $g$ 之间的一个 {\it 同伦}是分次 $A$-模映射
+$h : M \to N[-1]$（注意移位！），使得
+$$
+f(x) - g(x) = \text{d}_N(h(x)) + h(\text{d}_M(x))
+$$
+对所有 $x \in M$ 成立。若存在这样的同伦，则称 $f$ 与 $g$
+{\it 同伦}。因此，$h$ 与 $A$-模结构（$N$ 上采用移位后的结构）及分次
+（$N$ 上采用移位后的分次）相容，但不与微分相容。若 $f = g$ 且 $h$
+是同伦，则 $h$ 定义左微分分次 $A$-模的态射 $h : M \to N[-1]$。
+
+\medskip\noindent
+由上述规则可知，$f, g : M \to N$ 同伦，当且仅当所诱导的态射
+$f^{opp}, g^{opp} : M^{opp} \to N^{opp}$ 作为右微分分次
+$A^{opp}$-模同态同伦（使用同一个同伦）。
+
+\medskip\noindent
+同伦范畴、锥、容许短正合列和有区别三角，全都按与右微分分次模完全相同的
+方式定义（在底层 $R$-模复形上，一切都与 $R$-模复形的构造一致）。
+这样也得到命题 \ref{dga-proposition-homotopy-category-triangulated}
+关于左模的对应版本；或者也可通过研究反代数上的右模推出它。
+
+
+
+\section{张量积}
+\label{dga-section-tensor-product}
+
+\noindent
+设 $R$ 是环。设 $A$ 是 $R$-代数（见第 \ref{dga-section-conventions} 节）。
+给定右 $A$-模 $M$ 和左 $A$-模 $N$，有 {\it 张量积}
+$$
+M \otimes_A N
+$$
+该张量积是 $R$-模。作为 $R$-模，$M \otimes_A N$ 由符号
+$x \otimes y$（$x \in M$、$y \in N$）生成，并满足关系
+$$
+\begin{matrix}
+(x_1 + x_2) \otimes y - x_1 \otimes y - x_2 \otimes y, \\
+x \otimes (y_1 + y_2) - x \otimes y_1 - x \otimes y_2, \\
+xa \otimes y - x \otimes ay
+\end{matrix}
+$$
+，其中 $a \in A$、$x, x_1, x_2 \in M$ 且 $y, y_1, y_2 \in N$。
+下面列出张量积的一些性质。
+
+\medskip\noindent
+张量积关于每个变元都是右正合的；事实上，它与直和及任意余极限可交换。
+
+\medskip\noindent
+张量积 $M \otimes_A N$ 承载普遍的 $A$-双线性映射
+$M \times N \to M \otimes_A N$，$(x, y) \mapsto x \otimes y$。用公式表示为
+$$
+\text{双线性}_A(M \times N, Q) = \Hom_R(M \otimes_A N, Q)
+$$
+，对任意 $R$-模 $Q$ 成立。
+
+\medskip\noindent
+若 $A$ 是 $\mathbf{Z}$-分次代数，而 $M$、$N$ 是分次 $A$-模，
+则 $M \otimes_A N$ 是分次 $R$-模。此时，$M \otimes_A N$ 的第 $n$
+分次部分 $(M \otimes_A N)^n$ 等于
+$$
+\Coker\left(
+\bigoplus\nolimits_{r + t + s = n}
+M^r \otimes_R A^t \otimes_R N^s \to
+\bigoplus\nolimits_{p + q = n} M^p \otimes_R N^q
+\right)
+$$
+其中映射把 $x \otimes a \otimes y$ 送到
+$x \otimes ay - xa \otimes y$；这里 $x \in M^r$、$y \in N^s$、
+$a \in A^t$ 且 $r + s + t = n$。在这种情形下，映射
+$M \times N \to M \otimes_A N$ 是 $A$-双线性的、与分次相容的，
+并在下述意义下是普遍的：
+$$
+\text{分次双线性}_A(M \times N, Q) =
+\Hom_{\text{分次 }R\text{-模}}(M \otimes_A N, Q)
+$$
+，对任意分次 $R$-模 $Q$ 成立；这里采用分次双线性映射的显然概念。
+
+\medskip\noindent
+若 $(A, \text{d})$ 是微分分次代数，而 $M$ 和 $N$ 分别是左、右微分分次
+$A$-模，则 $M \otimes_A N$ 是微分分次 $R$-模，其微分为
+$$
+\text{d}(x \otimes y) =
+\text{d}(x) \otimes y + (-1)^{\deg(x)}x \otimes \text{d}(y)
+$$
+，其中 $x \in M$ 和 $y \in N$ 为齐次元素。在这种情形下，映射
+$M \times N \to M \otimes_A N$ 是 $A$-双线性的，并与分次及微分相容，
+且在下述意义下是普遍的：
+$$
+\text{微分分次双线性}_A(M \times N, Q) =
+\Hom_{\text{Comp}(R)}(M \otimes_A N, Q)
+$$
+，对任意微分分次 $R$-模 $Q$ 成立；这里采用微分分次双线性映射的显然概念。
+
+
+
+
+
+
+\section{Hom 复形与微分分次模}
+\label{dga-section-hom-complexes}
+
+\noindent
+我们强烈建议读者跳过本节。
+
+\medskip\noindent
+设 $R$ 是环，$M^\bullet$ 是 $R$-模复形。考虑 $R$-模复形
+$$
+E^\bullet = \Hom^\bullet(M^\bullet, M^\bullet)
+$$
+，它在《更多代数》第 \ref{more-algebra-section-hom-complexes} 节中引入。
+由《更多代数》引理 \ref{more-algebra-lemma-composition}，有典范复合法则
+$$
+\text{Tot}(E^\bullet \otimes_R E^\bullet) \to E^\bullet
+$$
+，它是复形映射。因此，$E^\bullet$ 连同这一乘法是微分分次 $R$-代数，
+记为 $(E, \text{d})$。此外，把 $M^\bullet$ 看作
+$\Hom^\bullet(R, M^\bullet)$，可见复合定义乘法
+$$
+\text{Tot}(E^\bullet \otimes_R M^\bullet) \to M^\bullet
+$$
+，它使 $M^\bullet$ 成为一个{\bf 左}微分分次 $E$-模，记为 $M$。
+
+\begin{lemma}
+\label{dga-lemma-left-module-structure}
+在上述情形中，设 $A$ 是微分分次 $R$-代数。在 $M$ 上给定左 $A$-模结构，
+等价于给定微分分次 $R$-代数同态 $A \to E$。
+\end{lemma}
+
+\begin{proof}
+证明略。注意，这一对应不涉及符号。
+\end{proof}
+
+\noindent
+继续上述讨论，并假设另给一个 $R$-模复形 $N^\bullet$。考虑《更多代数》
+第 \ref{more-algebra-section-hom-complexes} 节中引入的 $R$-模复形
+$\Hom^\bullet(M^\bullet, N^\bullet)$。如上可见，复合
+$$
+\text{Tot}(\Hom^\bullet(M^\bullet, N^\bullet) \otimes_R E^\bullet)
+\to \Hom^\bullet(M^\bullet, N^\bullet)
+$$
+定义一个乘法，使 $\Hom^\bullet(M^\bullet, N^\bullet)$ 成为一个
+{\bf 右}微分分次 $E$-模。应用引理 \ref{dga-lemma-left-module-structure}，
+可得：给定左微分分次 $A$-模 $M$ 和 $R$-模复形 $N^\bullet$，
+存在一个典范的右微分分次 $A$-模，其底层 $R$-模复形为
+$\Hom^\bullet(M^\bullet, N^\bullet)$，且乘法
+$$
+\Hom^n(M^\bullet, N^\bullet) \times A^m \longrightarrow
+\Hom^{n + m}(M^\bullet, N^\bullet)
+$$
+把满足 $f_{p, q} \in \Hom(M^{-q}, N^p)$ 的
+$f = (f_{p, q})_{p + q = n}$ 及 $a \in A^m$ 送到元素
+$f \cdot a = (f_{p, q} \circ a)$，其中 $f_{p, q} \circ a$ 是映射
+$$
+M^{-q - m} \xrightarrow{a} M^{-q} \xrightarrow{f_{p, q}} N^p, \quad
+x \longmapsto f_{p, q}(ax)
+$$
+；这里不引入符号。用记号 $\Hom(M, N^\bullet)$ 表示这个右微分分次
+$A$-模。
+
+\begin{lemma}
+\label{dga-lemma-characterize-hom}
+设 $R$ 是环。设 $(A, \text{d})$ 是微分分次 $R$-代数。
+设 $M'$ 是右微分分次 $A$-模，$M$ 是左微分分次 $A$-模，
+$N^\bullet$ 是 $R$-模复形。那么有
+$$
+\Hom_{\text{Mod}_{(A, d)}}(M', \Hom(M, N^\bullet)) =
+\Hom_{\text{Comp}(R)}(M' \otimes_A M, N^\bullet)
+$$
+，其中如第 \ref{dga-section-tensor-product} 节那样，把
+$M \otimes_A M$ 看作 $R$-模复形。
+\end{lemma}
+
+\begin{proof}
+来说明等式两边都对应于与微分相容的分次 $A$-双线性映射
+$$
+M' \times M \longrightarrow N^\bullet
+$$
+。第 \ref{dga-section-tensor-product} 节已经说明右边确实如此。
+给定左边的一个元素 $g$，《更多代数》引理
+\ref{more-algebra-lemma-compose} 中的等式确定一个 $R$-模复形映射
+$g' : \text{Tot}(M' \otimes_R M) \to N^\bullet$。
+换言之，得到一个与微分相容的分次 $R$-双线性映射
+$g'' : M' \times M \to N^\bullet$。$g$ 的 $A$-线性立即转化为
+$g''$ 的 $A$-双线性。
+\end{proof}
+
+\noindent
+设 $R$、$M^\bullet$、$E^\bullet$、$E$ 和 $M$ 如上。不过，现在假设给定
+一个微分分次 $R$-代数 $A$ 以及 $M$ 上的一个{\bf 右}微分分次
+$A$-模结构。于是可考虑映射
+$$
+\text{Tot}(A^\bullet \otimes_R M^\bullet)
+\xrightarrow{\psi}
+\text{Tot}(A^\bullet \otimes_R M^\bullet)
+\to
+M^\bullet
+$$
+其中第一个箭头是 $R$-模复形的微分分次范畴上的交换性约束。
+这对应于 $R$-模复形映射
+$$
+\tau : A^\bullet \longrightarrow E^\bullet
+$$
+。回忆 $E^n = \prod_{p + q = n} \Hom_R(M^{-q}, M^p)$，并对
+$a \in A^n$ 写 $\tau(a) = (\tau_{p, q}(a))_{p + q = n}$。于是
+$$
+\tau_{p, q}(a) : M^{-q} \longrightarrow M^p,\quad
+x \longmapsto (-1)^{\deg(a)\deg(x)}x a = (-1)^{-nq}xa
+$$
+正如读者根据第 \ref{dga-section-left-modules} 节的讨论所应预料的，
+它与 $A$ 上的乘法不相容。事实上，有
+$$
+\tau(a a') = (-1)^{\deg(a)\deg(a')}\tau(a') \tau(a)
+$$
+由此得到下述引理。
+
+\begin{lemma}
+\label{dga-lemma-right-module-structure}
+在上述情形中，设 $A$ 是微分分次 $R$-代数。在 $M$ 上给定右 $A$-模结构，
+等价于给定微分分次 $R$-代数同态 $\tau : A \to E^{opp}$。
+\end{lemma}
+
+\begin{proof}
+见上面的讨论，并注意，由乘法映射
+$M^n \times A^m \to M^{n + m}$ 构造 $\tau$ 时使用了符号。
+\end{proof}
+
+\noindent
+设 $R$、$M^\bullet$、$E^\bullet$、$E$、$A$ 和 $M$ 如上，并如引理中那样
+在 $M$ 上给定右微分分次 $A$-模结构。在这种情形下，存在一个典范的
+左微分分次 $A$-模，其底层 $R$-模复形为
+$\Hom^\bullet(M^\bullet, N^\bullet)$。具体而言，乘法可取为
+\begin{align*}
+\text{Tot}(A^\bullet \otimes_R \Hom^\bullet(M^\bullet, N^\bullet))
+& \xrightarrow{\psi}
+\text{Tot}(\Hom^\bullet(M^\bullet, N^\bullet) \otimes_R A^\bullet) \\
+& \xrightarrow{\tau}
+\text{Tot}(\Hom^\bullet(M^\bullet, N^\bullet) \otimes_R
+\Hom^\bullet(M^\bullet, M^\bullet)) \\
+& \to
+\text{Tot}(\Hom^\bullet(M^\bullet, N^\bullet)
+\end{align*}
+第一个箭头使用 $R$-模复形范畴上的交换性约束，第二个箭头如上所述，
+第三个箭头是 Hom 复形的复合法则。每个映射都是复形映射，因而所得映射
+也是复形映射。事实上，这一构造使
+$\Hom^\bullet(M^\bullet, N^\bullet)$ 成为左微分分次 $A$-模
+（乘法的结合性可用对称幺半结构证明，也可使用下面的公式直接计算）。
+把该乘法明确写为
+$$
+A^n \times \Hom^m(M^\bullet, N^\bullet) \longrightarrow
+\Hom^{n + m}(M^\bullet, N^\bullet)
+$$
+。它把 $a \in A^n$ 以及满足 $f_{p, q} \in \Hom(M^{-q}, N^p)$ 的
+$f = (f_{p, q})_{p + q = m}$ 送到元素 $a \cdot f$；后者的分量为
+$$
+(-1)^{nm}f_{p, q} \circ \tau_{-q, q + n}(a) =
+(-1)^{nm - n(q + n)}f_{p, q} \circ a =
+(-1)^{np + n} f_{p, q} \circ a
+$$
+，它位于 $\Hom_R(M^{-q - n}, N^p)$ 中；其中 $f_{p, q} \circ a$ 是映射
+$$
+M^{-q - n} \xrightarrow{a} M^{-q} \xrightarrow{f_{p, q}} N^p,\quad
+x \longmapsto f_{p, q}(xa)
+$$
+。这里确实引入了符号 $(-1)^{np + n}$。用记号
+$\Hom(M, N^\bullet)$ 表示这个左微分分次 $A$-模。
+
+\begin{lemma}
+\label{dga-lemma-characterize-hom-other-side}
+设 $R$ 是环。设 $(A, \text{d})$ 是微分分次 $R$-代数。
+设 $M$ 是右微分分次 $A$-模，$M'$ 是左微分分次 $A$-模，
+$N^\bullet$ 是 $R$-模复形。那么有
+$$
+\Hom_{\text{左微分分次 }A\text{-模}}(M', \Hom(M, N^\bullet)) =
+\Hom_{\text{Comp}(R)}(M \otimes_A M', N^\bullet)
+$$
+，其中如第 \ref{dga-section-tensor-product} 节那样，把
+$M \otimes_A M'$ 看作 $R$-模复形。
+\end{lemma}
+
+\begin{proof}
+来说明等式两边都对应于与微分相容的分次 $A$-双线性映射
+$$
+M \times M' \longrightarrow N^\bullet
+$$
+。第 \ref{dga-section-tensor-product} 节已经说明右边确实如此。
+给定左边的一个元素 $g$，《更多代数》引理
+\ref{more-algebra-lemma-compose} 中的等式确定复形映射
+$g' : \text{Tot}(M' \otimes_R M) \to N^\bullet$。
+预复合以交换性约束，得到
+$$
+\text{Tot}(M \otimes_R M') \xrightarrow{\psi}
+\text{Tot}(M' \otimes_R M) \xrightarrow{g'}
+N^\bullet
+$$
+，它对应于与微分相容的分次 $R$-双线性映射
+$g'' : M \times M' \to N^\bullet$。$g$ 的 $A$-线性立即转化为
+$g''$ 的 $A$-双线性。具体地，设 $x \in M^e$、
+$x' \in (M')^{e'}$、$a \in A^n$。一方面有
+\begin{align*}
+g''(x, ax')
+& =
+(-1)^{e(n + e')} g'(ax' \otimes x) \\
+& =
+(-1)^{e(n + e')} g(ax')(x) \\
+& =
+(-1)^{e(n + e')} (a \cdot g(x'))(x) \\
+& =
+(-1)^{e(n + e') + n(n + e + e') + n} g(x')(xa)
+\end{align*}
+另一方面有
+$$
+g''(xa, x') = (-1)^{(e + n)e'} g'(x' \otimes xa) =
+(-1)^{(e + n)e'} g(x')(xa) 
+$$
+对指数作一个简单的模 $2$ 计算，便知两者相同。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-evaluation-map-left}
+设 $R$ 是环，$A$ 是微分分次 $R$-代数，$M$ 是左微分分次 $A$-模，
+$N^\bullet$ 是 $R$-模复形。上述构造先产生右微分分次 $A$-模
+$\Hom(M, N^\bullet)$，再产生左微分分次 $A$-模
+$\Hom(\Hom(M, N^\bullet), N^\bullet)$。我们断言存在求值映射
+$$
+ev : M \longrightarrow \Hom(\Hom(M, N^\bullet), N^\bullet)
+$$
+，它位于左微分分次 $A$-模范畴中。由引理
+\ref{dga-lemma-characterize-hom}，为定义它，只需构造与分次及微分相容的
+$A$-双线性配对
+$$
+\Hom(M, N^\bullet) \times M \longrightarrow N^\bullet
+$$
+。为此取
+$$
+(f, x) \longmapsto f(x)
+$$
+它与分次、微分及 $A$-双线性的相容性留给读者验证。$ev$ 在底层
+$R$-模复形上的映射是《更多代数》条目
+(\ref{more-algebra-item-evaluation})。
+\end{remark}
+
+\begin{remark}
+\label{dga-remark-evaluation-map-right}
+设 $R$ 是环，$A$ 是微分分次 $R$-代数，$M$ 是右微分分次 $A$-模，
+$N^\bullet$ 是 $R$-模复形。上述构造先产生左微分分次 $A$-模
+$\Hom(M, N^\bullet)$，再产生右微分分次 $A$-模
+$\Hom(\Hom(M, N^\bullet), N^\bullet)$。我们断言存在求值映射
+$$
+ev : M \longrightarrow \Hom(\Hom(M, N^\bullet), N^\bullet)
+$$
+，它位于右微分分次 $A$-模范畴中。由引理
+\ref{dga-lemma-characterize-hom}，为定义它，只需构造与分次及微分相容的
+$A$-双线性配对
+$$
+M \times \Hom(M, N^\bullet) \longrightarrow N^\bullet
+$$
+。为此取
+$$
+(x, f) \longmapsto (-1)^{\deg(x)\deg(f)}f(x)
+$$
+它与分次、微分及 $A$-双线性的相容性留给读者验证。$ev$ 在底层
+$R$-模复形上的映射是《更多代数》条目
+(\ref{more-algebra-item-evaluation})。
+\end{remark}
+
+\begin{remark}
+\label{dga-remark-shift-dual}
+设 $R$ 是环，$A$ 是微分分次 $R$-代数，$M^\bullet$ 和 $N^\bullet$
+是 $R$-模复形。设 $k \in \mathbf{Z}$，考虑 $R$-模复形同构
+$$
+\Hom^\bullet(M^\bullet, N^\bullet)[-k]
+\longrightarrow
+\Hom^\bullet(M^\bullet[k], N^\bullet)
+$$
+，它在《更多代数》条目 (\ref{more-algebra-item-shift-hom}) 中定义。
+若 $M^\bullet$ 具有左（分别地，右）微分分次 $A$-模结构，
+则这是右（分别地，左）微分分次 $A$-模的映射（模结构采用本节的定义）。
+验证略。提醒读者：左分次 $A$-模的移位上的 $A$-模结构用一个符号定义；
+见定义 \ref{dga-definition-shift-graded-module}。
+\end{remark}
+
+
+
+
+
+
+\section{代数上的投射模}
+\label{dga-section-projectives-over-algebras}
+
+\noindent
+本节讨论代数上的投射模，类似于《代数》第
+\ref{algebra-section-projective} 节。本节或许应移到别处。
+
+\medskip\noindent
+设 $R$ 是环，$A$ 是 $R$-代数；约定见第 \ref{dga-section-conventions} 节。
+显然 $A$ 是投射右 $A$-模，因为对任意右 $A$-模 $M$ 都有
+$\Hom_A(A, M) = M$（因而 $\Hom_A(A, -)$ 正合）。反之，设 $P$ 是投射
+右 $A$-模。通过选择 $P$ 在 $A$ 上的一组生成元
+$\{p_i\}_{i \in I}$，可以选取满射 $\bigoplus_{i \in I} A \to P$。
+由于 $P$ 投射，该满射有左逆，故 $P$ 同构于某个自由模的直和项，
+与交换情形完全相同（《代数》引理
+\ref{algebra-lemma-characterize-projective}）。
+
+\medskip\noindent
+我们得到：
+\begin{enumerate}
+\item $A$-模范畴有足够多投射对象；
+\item $A$ 是投射 $A$-模；
+\item 每个 $A$-模都是若干个 $A$ 的直和的商；
+\item 每个投射 $A$-模都是若干个 $A$ 的直和的一个直和项。
+\end{enumerate}
+
+
+
+\section{分次代数上的投射模}
+\label{dga-section-projectives-over-graded-algebras}
+
+\noindent
+本节讨论分次代数上的投射分次模，类似于《代数》第
+\ref{algebra-section-projective} 节。
+
+\medskip\noindent
+设 $R$ 是环。设 $A$ 是 $R$ 上的 $\mathbf{Z}$-分次代数。
+约定见第 \ref{dga-section-conventions} 节。用 $\text{Mod}_A$ 表示分次右
+$A$-模范畴。对整数 $k$，用 $A[k]$ 表示 $A$ 的移位。
+对于分次右 $A$-模，有
+$$
+\Hom_{\text{Mod}_A}(A[k], M) = M^{-k}
+$$
+由于函子 $M \mapsto M^{-k}$ 在 $\text{Mod}_A$ 上正合，
+$A[k]$ 是 $\text{Mod}_A$ 的投射对象。反之，假设 $P$ 是
+$\text{Mod}_A$ 的投射对象。选择 $P$ 作为 $A$-模的一组齐次生成元，
+可以找到满射
+$$
+\bigoplus\nolimits_{i \in I} A[k_i] \longrightarrow P
+$$
+因此，$\text{Mod}_A$ 的投射对象是若干个移位 $A[k]$ 的直和的一个直和项。
+
+\medskip\noindent
+我们得到：
+\begin{enumerate}
+\item 分次 $A$-模范畴有足够多投射对象；
+\item 对每个 $k \in \mathbf{Z}$，$A[k]$ 都是投射 $A$-模；
+\item 每个分次 $A$-模都是若干个模 $A[k]$（$k$ 可变）的直和的商；
+\item 每个投射 $A$-模都是若干个模 $A[k]$（$k$ 可变）的直和的一个直和项。
+\end{enumerate}
+
+
+
+
+\section{投射模与微分分次代数}
+\label{dga-section-projective-over-differential-graded}
+
+\noindent
+若 $(A, \text{d})$ 是微分分次代数，而 $P$ 是
+$\text{Mod}_{(A, \text{d})}$ 的对象，则称 {\it $P$ 作为分次 $A$-模是投射的}，
+有时也称 {\it $P$ 是分次投射的}；这意指 $P$ 是第
+\ref{dga-section-projectives-over-graded-algebras} 节中分次 $A$-模的阿贝尔范畴
+$\text{Mod}_A$ 的投射对象。
+
+\begin{lemma}
+\label{dga-lemma-target-graded-projective}
+设 $(A, \text{d})$ 是微分分次代数。设 $M \to P$ 是微分分次 $A$-模的
+满同态。若 $P$ 作为分次 $A$-模是投射的，则 $M \to P$ 是容许满态射。
+\end{lemma}
+
+\begin{proof}
+这立即由定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-hom-from-shift-free}
+设 $(A, d)$ 是微分分次代数。那么，对任意微分分次 $A$-模 $M$，有
+$$
+\Hom_{\text{Mod}_{(A, \text{d})}}(A[k], M) =
+\Ker(\text{d} : M^{-k} \to M^{-k + 1})
+$$
+并且
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(A[k], M) = H^{-k}(M)
+$$
+。
+\end{lemma}
+
+\begin{proof}
+立即由定义得出。
+\end{proof}
+
+
+
+
+
+
+
+\section{代数上的内射模}
+\label{dga-section-modules-noncommutative}
+
+\noindent
+本节讨论代数上的内射模，类似于《更多代数》第
+\ref{more-algebra-section-injectives-modules} 节。本节或许应移到别处。
+
+\medskip\noindent
+设 $R$ 是环，$A$ 是 $R$-代数；约定见第 \ref{dga-section-conventions} 节。
+对右 $A$-模 $M$，置
+$$
+M^\vee = \Hom_\mathbf{Z}(M, \mathbf{Q}/\mathbf{Z})
+$$
+并借助乘法 $(a f)(x) = f(xa)$ 把它看作左 $A$-模。事实上，
+$((ab)f)(x) = f(xab) = (bf)(xa) = (a(bf))(x)$。反之，若 $M$ 是左
+$A$-模，则 $M^\vee$ 是右 $A$-模。由于 $\mathbf{Q}/\mathbf{Z}$
+是内射阿贝尔群（《更多代数》引理
+\ref{more-algebra-lemma-injective-abelian}），函子 $M \mapsto M^\vee$
+是正合的（《更多代数》引理 \ref{more-algebra-lemma-vee-exact}）。
+此外，对所有模 $M$，求值映射 $M \to (M^\vee)^\vee$ 是单射
+（《更多代数》引理 \ref{more-algebra-lemma-ev-injective}）。
+
+\medskip\noindent
+我们断言 $A^\vee$ 是内射右 $A$-模。事实上，给定右 $A$-模 $N$，有
+$$
+\Hom_A(N, A^\vee) =
+\Hom_A(N, \Hom_\mathbf{Z}(A, \mathbf{Q}/\mathbf{Z})) = N^\vee
+$$
+；结论由函子 $N \mapsto N^\vee$ 的正合性得出。第二个等式成立，是因为
+$$
+\Hom_\mathbf{Z}(N, \Hom_\mathbf{Z}(A, \mathbf{Q}/\mathbf{Z})) =
+\Hom_\mathbf{Z}(N \otimes_\mathbf{Z} A, \mathbf{Q}/\mathbf{Z})
+$$
+，见《代数》引理 \ref{algebra-lemma-hom-from-tensor-product}。
+在这个模中，$A$-线性恰好挑出双线性映射
+$\varphi : N \times A \to \mathbf{Q}/\mathbf{Z}$，它们在
+$x \otimes a$ 和 $xa \otimes 1$ 上取相同值；换言之，它们来自
+$N^\vee$ 的元素。
+
+\medskip\noindent
+最后，对每个右 $A$-模 $M$，可选择满射
+$\bigoplus_{i \in I} A \to M^\vee$，从而得到单射
+$M \to (M^\vee)^\vee \to \prod_{i \in I} A^\vee$。
+
+\medskip\noindent
+我们得到：
+\begin{enumerate}
+\item $A$-模范畴有足够多内射对象；
+\item $A^\vee$ 是内射 $A$-模；以及
+\item 每个 $A$-模都单射到若干个 $A^\vee$ 的乘积中。
+\end{enumerate}
+
+
+
+
+
+\section{分次代数上的内射模}
+\label{dga-section-modules-noncommutative-graded}
+
+\noindent
+本节讨论分次代数上的内射分次模，类似于《更多代数》第
+\ref{more-algebra-section-injectives-modules} 节。
+
+\medskip\noindent
+设 $R$ 是环。设 $A$ 是 $R$ 上的 $\mathbf{Z}$-分次代数。
+约定见第 \ref{dga-section-conventions} 节。若 $M$ 是分次 $R$-模，置
+$$
+M^\vee =
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\Hom_\mathbf{Z}(M^{-n}, \mathbf{Q}/\mathbf{Z}) =
+\bigoplus\nolimits_{n \in \mathbf{Z}} (M^{-n})^\vee
+$$
+，把它视为分次 $R$-模（$R$ 在齐次部分上的作用不带符号）。
+若 $M$ 具有左分次 $A$-模结构，则如下定义 $M^\vee$ 上的右分次
+$A$-模结构：令 $a \in A^m$ 按
+$$
+(M^{-n})^\vee \to (M^{-n - m})^\vee, \quad
+f \mapsto f \circ a
+$$
+作用，如第 \ref{dga-section-hom-complexes} 节所述。若 $M$ 具有右分次
+$A$-模结构，则如下定义 $M^\vee$ 上的左分次 $A$-模结构：
+令 $a \in A^n$ 按
+$$
+(M^{-m})^\vee \to (M^{-m - n})^\vee, \quad
+f \mapsto (-1)^{nm}f \circ a
+$$
+作用，如第 \ref{dga-section-hom-complexes} 节所述（这个符号是被迫的，
+因为研究微分分次模时我们希望使用同一个公式；若只关心分次模，
+则可在此省略该符号）。在（左或右）分次 $A$-模范畴上，函子
+$M \mapsto M^\vee$ 正合（在各分次部分上验证）。此外，有单射的求值映射
+$$
+ev : M \longrightarrow (M^\vee)^\vee, \quad
+ev^n = (-1)^n \text{ 倍的求值映射 }M^n \to ((M^n)^\vee)^\vee
+$$
+，它是分次 $R$-模的映射；见《更多代数》条目
+(\ref{more-algebra-item-evaluation})。若 $M$ 是左（分别地，右）$A$-模，
+则这个求值映射是左（分别地，右）$A$-模同态；见评注
+\ref{dga-remark-evaluation-map-left} 和 \ref{dga-remark-evaluation-map-right}。
+最后，给定 $k \in \mathbf{Z}$，有典范同构
+$$
+M^\vee[-k] \longrightarrow (M[k])^\vee
+$$
+；它是使用一个符号的分次 $R$-模同构。若 $M$ 是左（分别地，右）
+$A$-模，则它是右（分别地，左）$A$-模的同构。见评注
+\ref{dga-remark-shift-dual}。
+
+\medskip\noindent
+我们断言 $A^\vee$ 是分次右 $A$-模范畴 $\text{Mod}_A$ 的内射对象。
+事实上，给定分次右 $A$-模 $N$，有
+$$
+\Hom_{\text{Mod}_A}(N, A^\vee) =
+\Hom_{\text{Comp}(\mathbf{Z})}(N \otimes_A A, \mathbf{Q}/\mathbf{Z})) =
+(N^0)^\vee
+$$
+；这是引理 \ref{dga-lemma-characterize-hom} 应用于所有微分均为零的情形。
+结论由函子 $N \mapsto (N^0)^\vee = (N^\vee)^0$ 的正合性得出。
+
+\medskip\noindent
+最后，对每个分次右 $A$-模 $M$，可以选择分次左 $A$-模的满射
+$$
+\bigoplus\nolimits_{i \in I} A[k_i] \to M^\vee
+$$
+，其中 $A[k_i]$ 表示 $A$ 由 $k_i \in \mathbf{Z}$ 给出的移位。
+为此，选择 $M^\vee$ 的齐次生成元。这样得到单射
+$$
+M \to (M^\vee)^\vee \to \prod A[k_i]^\vee = \prod A^\vee[-k_i]
+$$
+注意，上式中的乘积是分次模范畴中的乘积（换言之，先在每个次数上取乘积，
+再对各部分取直和）。
+
+\medskip\noindent
+我们得到：
+\begin{enumerate}
+\item 分次 $A$-模范畴有足够多内射对象；
+\item 对每个 $k \in \mathbf{Z}$，模 $A^\vee[k]$ 都是内射的；以及
+\item 每个 $A$-模都单射到分次模范畴中若干个移位 $A^\vee[k]$ 的乘积中。
+\end{enumerate}
+
+
+
+
+
+\section{内射模与微分分次代数}
+\label{dga-section-modules-noncommutative-differential-graded}
+
+\noindent
+若 $(A, \text{d})$ 是微分分次代数，而 $I$ 是
+$\text{Mod}_{(A, \text{d})}$ 的对象，则称 {\it $I$ 作为分次 $A$-模是内射的}，
+有时也称 {\it $I$ 是分次内射的}；这意指 $I$ 是分次 $A$-模的阿贝尔范畴
+$\text{Mod}_A$ 的内射对象。
+
+\begin{lemma}
+\label{dga-lemma-source-graded-injective}
+设 $(A, \text{d})$ 是微分分次代数。设 $I \to M$ 是微分分次 $A$-模的
+单同态。若 $I$ 是分次内射的，则 $I \to M$ 是容许单态射。
+\end{lemma}
+
+\begin{proof}
+这立即由定义得出。
+\end{proof}
+
+\noindent
+设 $(A, \text{d})$ 是微分分次代数。若 $M$ 是左（分别地，右）微分分次
+$A$-模，则
+$$
+M^\vee = \Hom^\bullet(M^\bullet, \mathbf{Q}/\mathbf{Z})
+$$
+连同第 \ref{dga-section-modules-noncommutative-graded} 节中构造的 $A$-模结构，
+由第 \ref{dga-section-hom-complexes} 节的讨论，是右（分别地，左）微分分次
+$A$-模。由评注 \ref{dga-remark-evaluation-map-left} 和
+\ref{dga-remark-evaluation-map-right}，第
+\ref{dga-section-modules-noncommutative-graded} 节的求值映射
+$$
+M \longrightarrow (M^\vee)^\vee
+$$
+是左（分别地，右）微分分次 $A$-模的同态。
+
+\begin{lemma}
+\label{dga-lemma-map-into-dual}
+设 $(A, \text{d})$ 是微分分次代数。若 $M$ 是左微分分次 $A$-模，
+$N$ 是右微分分次 $A$-模，则
+\begin{align*}
+\Hom_{\text{Mod}_{(A, \text{d})}}(N, M^\vee)
+& =
+\Hom_{\text{Comp}(\mathbf{Z})}(N \otimes_A M, \mathbf{Q}/\mathbf{Z}) \\
+& =
+\text{微分分次双线性}_A(N \times M, \mathbf{Q}/\mathbf{Z})
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+第一个等式是引理 \ref{dga-lemma-characterize-hom}，第二个等式已在第
+\ref{dga-section-tensor-product} 节中证明。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-hom-into-shift-dual-free}
+设 $(A, \text{d})$ 是微分分次代数。那么有
+$$
+\Hom_{\text{Mod}_{(A, \text{d})}}(M, A^\vee[k]) =
+\Ker(\text{d} : (M^\vee)^k \to (M^\vee)^{k + 1})
+$$
+并且
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(M, A^\vee[k]) = H^k(M^\vee)
+$$
+；它们是关于微分分次 $A$-模 $M$ 的函子等式。
+\end{lemma}
+
+\begin{proof}
+这由上面的讨论显然可见。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{P-分辨}
+\label{dga-section-P-resolutions}
+
+\noindent
+本节是《导出范畴》第 \ref{derived-section-unbounded} 节的对应版本。
+
+\medskip\noindent
+设 $(A, \text{d})$ 是微分分次代数。设 $P$ 是微分分次 $A$-模。
+若存在滤过
+$$
+0 = F_{-1}P \subset F_0P \subset F_1P \subset \ldots \subset P
+$$
+，它由微分分次子模组成，并且
+\begin{enumerate}
+\item $P = \bigcup F_pP$；
+\item 包含映射 $F_iP \to F_{i + 1}P$ 是容许单态射；
+\item 作为微分分次 $A$-模，商 $F_{i + 1}P/F_iP$ 同构于若干个
+$A[k]$ 的直和，
+\end{enumerate}
+则称 $P$ {\it 具有性质 (P)}。事实上，条件 (2) 是条件 (3) 的推论；
+见引理 \ref{dga-lemma-target-graded-projective}。此外，读者可以验证，
+作为分次 $A$-模，$P$ 同构于若干个 $A$ 的移位的直和。
+
+\begin{lemma}
+\label{dga-lemma-property-P-sequence}
+设 $(A, \text{d})$ 是微分分次代数。设 $P$ 是微分分次 $A$-模。
+若 $F_\bullet$ 是性质 (P) 中的滤过，则得到容许短正合列
+$$
+0 \to
+\bigoplus\nolimits F_iP \to
+\bigoplus\nolimits F_iP \to P \to 0
+$$
+，它由微分分次 $A$-模组成。
+\end{lemma}
+
+\begin{proof}
+第二个映射是各包含映射的直和。第一个映射在源的直和项 $F_iP$ 上，
+等于恒等映射 $F_iP \to F_iP$ 与包含映射
+$F_iP \to F_{i + 1}P$ 的负映射之和。选择分次 $A$-模同态
+$s_i : F_{i + 1}P \to F_iP$，使它们是包含映射的左逆。
+复合后，对所有 $j > i$ 得到映射 $s_{j, i} : F_jP \to F_iP$。
+于是，第一个箭头的一个左逆把 $x \in F_jP$ 映到
+$\bigoplus F_iP$ 中的
+$(s_{j, 0}(x), s_{j, 1}(x), \ldots, s_{j, j - 1}(x), 0, \ldots)$。
+\end{proof}
+
+\noindent
+下述引理表明，具有性质 (P) 的微分分次模是 K-内射模的对偶概念
+（即在某种意义下它们是 K-投射的）。见《导出范畴》定义
+\ref{derived-definition-K-injective}。
+
+\begin{lemma}
+\label{dga-lemma-property-P-K-projective}
+设 $(A, \text{d})$ 是微分分次代数。设 $P$ 是具有性质 (P) 的微分分次
+$A$-模。那么
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(P, N) = 0
+$$
+对所有无环微分分次 $A$-模 $N$ 成立。
+\end{lemma}
+
+\begin{proof}
+将使用 $K(\text{Mod}_{(A, \text{d})})$ 是三角范畴这一事实
+（命题 \ref{dga-proposition-homotopy-category-triangulated}）。
+设 $F_\bullet$ 是 $P$ 上性质 (P) 中的滤过。引理
+\ref{dga-lemma-property-P-sequence} 的短正合列产生一个有区别三角。
+因此，由《导出范畴》引理
+\ref{derived-lemma-representable-homological}，只需证明
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(F_iP, N) = 0
+$$
+对所有无环微分分次 $A$-模 $N$ 和所有 $i$ 成立。每个微分分次模
+$F_iP$ 都具有由容许单态射给出的有限滤过，其分次部分是若干个移位
+$A[k]$ 的直和。因此，只需证明
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(A[k], N) = 0
+$$
+对所有无环微分分次 $A$-模 $N$ 和所有 $k$ 成立。这由引理
+\ref{dga-lemma-hom-from-shift-free} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-good-quotient}
+设 $(A, \text{d})$ 是微分分次代数。设 $M$ 是微分分次 $A$-模。
+存在具有下列性质的微分分次 $A$-模同态 $P \to M$：
+\begin{enumerate}
+\item $P \to M$ 是满射；
+\item $\Ker(\text{d}_P) \to \Ker(\text{d}_M)$ 是满射；以及
+\item $P$ 位于容许短正合列 $0 \to P' \to P \to P'' \to 0$ 中，
+其中 $P'$、$P''$ 是若干个 $A$ 的移位的直和。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $P_k$ 为自由 $A$-模，其生成元 $x,y$ 的次数分别为 $k$ 和 $k+1$。
+通过置 $\text{d}(x) = y$、$\text{d}(y) = 0$，在 $P_k$ 上定义微分分次
+$A$-模结构。对每个元素 $m \in M^k$，都有同态 $P_k \to M$，
+它把 $x$ 映到 $m$，把 $y$ 映到 $\text{d}(m)$。因此，若干个 $P_k$
+的直和到 $M$ 有一个满射。这显然产生具有性质 (1) 和 (3) 的
+$P \to M$。为得到性质 (2)，注意：若
+$m \in \Ker(\text{d}_M)$ 的次数为 $k$，则有把 $1$ 映到 $m$ 的映射
+$A[k] \to M$。因此，加入若干个 $A$ 的移位的直和即可满足 (2)。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-resolve}
+设 $(A, \text{d})$ 是微分分次代数。设 $M$ 是微分分次 $A$-模。
+存在微分分次 $A$-模同态 $P \to M$，使得
+\begin{enumerate}
+\item $P \to M$ 是拟同构；并且
+\item $P$ 具有性质 (P)。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+置 $M=M_0$。归纳选取短正合列
+$$
+0 \to M_{i + 1} \to P_i \to M_i \to 0
+$$
+，其中映射 $P_i \to M_i$ 按引理 \ref{dga-lemma-good-quotient} 选取。
+这给出一个“分辨”
+$$
+\ldots \to P_2 \xrightarrow{f_2} P_1 \xrightarrow{f_1} P_0 \to M \to 0
+$$
+然后置
+$$
+P = \bigoplus\nolimits_{i \geq 0} P_i
+$$
+，把它视为 $A$-模，其分次由
+$P^n = \bigoplus_{a + b = n} P_{-a}^b$ 给出，微分则如双复形关联全复形的
+构造那样，由
+$$
+\text{d}_P(x) = f_{-a}(x) + (-1)^a \text{d}_{P_{-a}}(x)
+$$
+给出，其中 $x \in P_{-a}^b$。在这些约定下，$P$ 确实是微分分次
+$A$-模。回忆每个 $P_i$ 都有两步滤过
+$0 \to P_i' \to P_i \to P_i'' \to 0$，置
+$$
+F_{2i}P = \bigoplus\nolimits_{i \geq j \geq 0} P_j
+\subset
+\bigoplus\nolimits_{i \geq 0} P_i = P
+$$
+并把 $P'_{i + 1}$ 加到 $F_{2i}P$ 中得到 $F_{2i + 1}$。
+这些都是微分分次子模，且相继的商是若干个 $A$ 的移位的直和。
+由引理 \ref{dga-lemma-target-graded-projective}，包含映射
+$F_iP \to F_{i + 1}P$ 是容许单态射。最后，还须证明由增广
+$P_0 \to M$ 给出的映射 $P \to M$ 是拟同构。这由《同调代数》引理
+\ref{homology-lemma-good-resolution-gives-qis} 得出。
+\end{proof}
+
+
+
+
+
+\section{I-分辨}
+\label{dga-section-I-resolutions}
+
+\noindent
+本节是 P-分辨一节的对偶。
+
+\medskip\noindent
+设 $(A, \text{d})$ 是微分分次代数。设 $I$ 是微分分次 $A$-模。
+若存在滤过
+$$
+I = F_0I \supset F_1I \supset F_2I \supset \ldots \supset 0
+$$
+，它由微分分次子模组成，并且
+\begin{enumerate}
+\item $I = \lim I/F_pI$；
+\item 映射 $I/F_{i + 1}I \to I/F_iI$ 是容许满态射；
+\item 作为微分分次 $A$-模，商 $F_iI/F_{i + 1}I$ 同构于第
+\ref{dga-section-modules-noncommutative-differential-graded} 节构造的若干个
+$A^\vee[k]$ 的直积，
+\end{enumerate}
+则称 $I$ {\it 具有性质 (I)}。事实上，条件 (2) 是条件 (3) 的推论；见引理
+\ref{dga-lemma-source-graded-injective}。读者可以验证，作为分次模，$I$ 同构于
+若干个 $A^\vee[k]$ 的直积。
+
+\begin{lemma}
+\label{dga-lemma-property-I-sequence}
+设 $(A, \text{d})$ 是微分分次代数。设 $I$ 是微分分次 $A$-模。
+若 $F_\bullet$ 是性质 (I) 中的滤过，则得到容许短正合列
+$$
+0 \to I \to
+\prod\nolimits I/F_iI \to
+\prod\nolimits I/F_iI \to 0
+$$
+，它由微分分次 $A$-模组成。
+\end{lemma}
+
+\begin{proof}
+略。提示：这是引理 \ref{dga-lemma-property-P-sequence} 的对偶。
+\end{proof}
+
+\noindent
+下述引理表明，具有性质 (I) 的微分分次模是 K-内射模的对应概念。见
+《导出范畴》定义 \ref{derived-definition-K-injective}。
+
+\begin{lemma}
+\label{dga-lemma-property-I-K-injective}
+设 $(A, \text{d})$ 是微分分次代数。设 $I$ 是具有性质 (I) 的微分分次
+$A$-模。那么
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(N, I) = 0
+$$
+对所有无环微分分次 $A$-模 $N$ 成立。
+\end{lemma}
+
+\begin{proof}
+将使用 $K(\text{Mod}_{(A, \text{d})})$ 是三角范畴这一事实
+（命题 \ref{dga-proposition-homotopy-category-triangulated}）。设 $F_\bullet$
+是 $I$ 上性质 (I) 中的滤过。引理 \ref{dga-lemma-property-I-sequence}
+的短正合列产生一个有区别三角。因此，由《导出范畴》引理
+\ref{derived-lemma-representable-homological}，只需证明
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(N, I/F_iI) = 0
+$$
+对所有无环微分分次 $A$-模 $N$ 和所有 $i$ 成立。每个微分分次模
+$I/F_iI$ 都具有由容许单态射给出的有限滤过，其分次部分是若干个
+$A^\vee[k]$ 的直积。因此，只需证明
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(N, A^\vee[k]) = 0
+$$
+对所有无环微分分次 $A$-模 $N$ 和所有 $k$ 成立。这由引理
+\ref{dga-lemma-hom-into-shift-dual-free} 以及 $(-)^\vee$ 是正合函子这一事实得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-good-sub}
+设 $(A, \text{d})$ 是微分分次代数。设 $M$ 是微分分次 $A$-模。
+存在具有下列性质的微分分次 $A$-模同态 $M \to I$：
+\begin{enumerate}
+\item $M \to I$ 是单射；
+\item $\Coker(\text{d}_M) \to \Coker(\text{d}_I)$ 是单射；以及
+\item $I$ 位于容许短正合列 $0 \to I' \to I \to I'' \to 0$ 中，
+其中 $I'$、$I''$ 是若干个 $A^\vee$ 的移位的直积。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+将使用第 \ref{dga-section-modules-noncommutative-differential-graded} 节构造的
+函子 $N \mapsto N^\vee$（从左微分分次模到右微分分次模，以及从右微分
+分次模到左微分分次模）及其全部性质。对每个 $k \in \mathbf{Z}$，令
+$Q_k$ 为自由左 $A$-模，其生成元 $x,y$ 的次数分别为 $k$ 和 $k+1$。
+通过置 $\text{d}(x) = y$、$\text{d}(y) = 0$，在 $Q_k$ 上定义左微分分次
+$A$-模结构。完全仿照引理 \ref{dga-lemma-good-quotient} 的证明，可得左微分分次
+$A$-模的满射
+$$
+\bigoplus\nolimits_{i \in I} Q_{k_i} \longrightarrow M^\vee
+$$
+。于是可以考虑单射
+$$
+M \to (M^\vee)^\vee \to (\bigoplus\nolimits_{i \in I} Q_{k_i})^\vee =
+\prod\nolimits_{i \in I} I_{k_i}
+$$
+，其中 $I_k = Q_{-k}^\vee$ 是“对偶”右微分分次 $A$-模。此外，短正合列
+$0 \to A[-k - 1] \to Q_k \to A[-k] \to 0$ 产生短正合列
+$0 \to A^\vee[k] \to I_k \to A^\vee[k + 1] \to 0$.
+
+\medskip\noindent
+上一段的结果给出具有性质 (1) 和 (3) 的 $M \to I$。为得到性质 (2)，
+设 $\overline{m} \in \Coker(\text{d}_M)$ 是次数为 $k$ 的非零元素。
+选取映射 $\lambda : M^k \to \mathbf{Q}/\mathbf{Z}$，使它在
+$\Im(M^{k - 1} \to M^k)$ 上为零，而在 $m$ 上不为零。由引理
+\ref{dga-lemma-hom-into-shift-dual-free}，这对应于在 $m$ 上不为零的微分分次
+$A$-模同态 $M \to A^\vee[k]$。因此，加入若干个 $A^\vee$ 的移位的副本
+的直积，即可满足 (2)。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-right-resolution}
+设 $(A, \text{d})$ 是微分分次代数。设 $M$ 是微分分次 $A$-模。
+存在微分分次 $A$-模同态 $M \to I$，使得
+\begin{enumerate}
+\item $M \to I$ 是拟同构；并且
+\item $I$ 具有性质 (I)。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+置 $M=M_0$。归纳选取短正合列
+$$
+0 \to M_i \to I_i \to M_{i + 1} \to 0
+$$
+，其中映射 $M_i \to I_i$ 按引理 \ref{dga-lemma-good-sub} 选取。这给出一个“分辨”
+$$
+0 \to M \to I_0 \xrightarrow{f_0} I_1 \xrightarrow{f_1} I_1 \to \ldots
+$$
+以 $I$ 表示微分分次 $A$-模，其分次部分为
+$$
+I^n = \prod\nolimits_{i \geq 0} I^{n - i}_i
+$$
+，微分定义为
+$$
+\text{d}_I(x) = f_i(x) + (-1)^i \text{d}_{I_i}(x)
+$$
+，其中 $x \in I_i^{n-i}$。在这些约定下，$I$ 确实是微分分次 $A$-模。
+回忆每个 $I_i$ 都有两步滤过 $0 \to I_i' \to I_i \to I_i'' \to 0$，置
+$$
+F_{2i}I^n = \prod\nolimits_{j \geq i} I^{n - j}_j
+\subset
+\prod\nolimits_{i \geq 0} I^{n - i}_i = I^n
+$$
+，并把因子 $I'_{i+1}$ 加到 $F_{2i}I$ 中得到 $F_{2i+1}I$。这些都是微分分次
+子模，且相继的商是若干个 $A^\vee$ 的移位的直积。由引理
+\ref{dga-lemma-source-graded-injective}，包含映射 $F_{i+1}I \to F_iI$ 是容许
+单态射。最后，还须证明由增广 $M \to I_0$ 给出的映射 $M \to I$
+是拟同构。这由《同调代数》引理
+\ref{homology-lemma-good-right-resolution-gives-qis} 得出。
+\end{proof}
+
+
+
+
+
+
+\section{导出范畴}
+\label{dga-section-derived}
+
+\noindent
+回忆，无环微分分次模和微分分次模之间的拟同构这两个概念均有定义
+（见第 \ref{dga-section-modules} 节）。
+
+\begin{lemma}
+\label{dga-lemma-acyclic}
+设 $(A, \text{d})$ 是微分分次代数。由无环模组成的
+$K(\text{Mod}_{(A, \text{d})})$ 的满子范畴 $\text{Ac}$，是
+$K(\text{Mod}_{(A, \text{d})})$ 的严格满且饱和的三角子范畴。相应的
+$K(\text{Mod}_{(A, \text{d})})$ 的饱和乘法系（见《导出范畴》引理
+\ref{derived-lemma-operations}）是拟同构类 $\text{Qis}$。特别地，局部化函子
+$$
+Q : K(\text{Mod}_{(A, \text{d})}) \to
+\text{Qis}^{-1}K(\text{Mod}_{(A, \text{d})})
+$$
+的核是 $\text{Ac}$。此外，函子 $H^0$ 通过 $Q$ 分解。
+\end{lemma}
+
+\begin{proof}
+由同调长正合列 (\ref{dga-equation-les})，知道 $H^0$ 是同调函子。
+$H^0$ 的核是无环对象的子范畴，而在所有 $H^i$ 上诱导同构的箭头正是
+拟同构。因此，本引理是《导出范畴》引理
+\ref{derived-lemma-acyclic-general} 的特例。
+
+\medskip\noindent
+集合论说明。《导出范畴》命题
+\ref{derived-proposition-construct-localization} 中的局部化构造，假定给定的
+三角范畴是“小”的，即其底层对象族构成一个集合。令 $V_\alpha$ 是包含
+$(A, \text{d})$ 的部分宇宙（如《集合》第
+\ref{sets-section-sets-hierarchy} 节），并且 $\alpha$ 的共尾数大于
+$\aleph_0$（见《集合》命题
+\ref{sets-proposition-exist-ordinals-large-cofinality}）。于是可以考虑由
+$V_\alpha$ 中的微分分次 $A$-模组成的范畴
+$\text{Mod}_{(A, \text{d}), \alpha}$。直接核查可见，命题
+\ref{dga-proposition-homotopy-category-triangulated} 的证明中使用的全部构造
+都能在 $\text{Mod}_{(A, \text{d}), \alpha}$ 内进行（因为至多只需取微分
+分次模的有限直和）。因此得到三角范畴
+$\text{Qis}_\alpha^{-1}K(\text{Mod}_{(A, \text{d}), \alpha})$。
+下文将看到，若 $\beta>\alpha$，则过渡函子
+$$
+\text{Qis}_\alpha^{-1}K(\text{Mod}_{(A, \text{d}), \alpha})
+\longrightarrow
+\text{Qis}_\beta^{-1}K(\text{Mod}_{(A, \text{d}), \beta})
+$$
+是全忠实的，因为商范畴中的态射集由同伦范畴中从 P-分辨出发的映射计算
+（引理 \ref{dga-lemma-resolve} 的证明中构造 P-分辨时，要取可数直和以及由
+给定模的子集作指标的直和）。因此，读者应把引理中的范畴视为这些子范畴
+的并。
+\end{proof}
+
+\noindent
+考虑到前一引理证明末尾的集合论说明，按如下方式定义导出范畴。
+
+\begin{definition}
+\label{dga-definition-unbounded-derived-category}
+设 $(A, \text{d})$ 是微分分次代数。令 $\text{Ac}$ 和 $\text{Qis}$ 如引理
+\ref{dga-lemma-acyclic} 所述。$(A, \text{d})$ 的{\it 导出范畴}是三角范畴
+$$
+D(A, \text{d}) =
+K(\text{Mod}_{(A, \text{d})})/\text{Ac} =
+\text{Qis}^{-1}K(\text{Mod}_{(A, \text{d})}).
+$$
+以 $H^0 : D(A, \text{d}) \to \text{Mod}_R$ 表示唯一的函子，使得它与
+商函子的复合正好给出上文定义的函子 $H^0$。
+\end{definition}
+
+\noindent
+下面是此前所称的、计算导出范畴中态射集的引理。
+
+\begin{lemma}
+\label{dga-lemma-hom-derived}
+设 $(A, \text{d})$ 是微分分次代数。设 $M$ 和 $N$ 是微分分次 $A$-模。
+\begin{enumerate}
+\item 设 $P \to M$ 是引理 \ref{dga-lemma-resolve} 中的 P-分辨。那么
+$$
+\Hom_{D(A, \text{d})}(M, N) =
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(P, N)
+$$
+\item 设 $N \to I$ 是引理 \ref{dga-lemma-right-resolution} 中的 I-分辨。那么
+$$
+\Hom_{D(A, \text{d})}(M, N) =
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(M, I)
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $P \to M$ 如 (1) 中所述。由于 $P \to M$ 是拟同构，由导出范畴的定义有
+$$
+\Hom_{D(A, \text{d})}(P, N) = \Hom_{D(A, \text{d})}(M, N)
+$$
+。$D(A, \text{d})$ 中的态射 $f:P\to N$ 等于 $s^{-1}f'$，其中
+$f':P\to N'$ 是态射，而 $s:N\to N'$ 是拟同构。选择有区别三角
+$$
+N \to N' \to Q \to N[1]
+$$
+。由于 $s$ 是拟同构，$Q$ 是无环的。因此，由引理
+\ref{dga-lemma-property-P-K-projective}，对所有 $k$ 都有
+$\Hom_{K(\text{Mod}_{(A, \text{d})})}(P, Q[k]) = 0$。由于
+$\Hom_{K(\text{Mod}_{(A, \text{d})})}(P, -)$
+是上同调的，故 $f':P\to N'$ 可唯一提升为态射 $f:P\to N$。这就完成了证明。
+
+\medskip\noindent
+(2) 的证明是 (1) 的对偶：使用引理 \ref{dga-lemma-property-I-K-injective}
+代替引理 \ref{dga-lemma-property-P-K-projective} 即可。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-derived-products}
+设 $(A, \text{d})$ 是微分分次代数。那么
+\begin{enumerate}
+\item $D(A, \text{d})$ 既有直和，也有直积；
+\item 直和可由微分分次模的直和得到；
+\item 直积可由微分分次模的直积得到。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+将使用如下事实：$\text{Mod}_{(A, \text{d})}$ 是具有任意直和与直积的
+阿贝尔范畴，并且它们在 $K(\text{Mod}_{(A, \text{d})})$ 中产生直和与
+直积。见引理 \ref{dga-lemma-dgm-abelian} 和
+\ref{dga-lemma-homotopy-direct-sums}。
+
+\medskip\noindent
+设 $M_j$ 是一族微分分次 $A$-模。考虑分次直和
+$M=\bigoplus M_j$；它是具有显然的……的微分分次 $A$-模。对微分分次
+$A$-模 $N$，选取拟同构 $N\to I$，其中 $I$ 是具有性质 (I) 的微分分次
+$A$-模；见引理 \ref{dga-lemma-right-resolution}。利用引理
+\ref{dga-lemma-hom-derived}，有
+\begin{align*}
+\Hom_{D(A, \text{d})}(M, N)
+& =
+\Hom_{K(A, \text{d})}(M, I) \\
+& =
+\prod \Hom_{K(A, \text{d})}(M_j, I) \\
+& =
+\prod \Hom_{D(A, \text{d})}(M_j, N)
+\end{align*}
+由此得到 $D(A, \text{d})$ 中的直和，正如引理第 (2) 项所述。
+
+\medskip\noindent
+设 $M_j$ 是一族微分分次 $A$-模。考虑微分分次 $A$-模的直积
+$M=\prod M_j$。对微分分次 $A$-模 $N$，选取拟同构 $P\to N$，
+其中 $P$ 是具有性质 (P) 的微分分次 $A$-模；见引理
+\ref{dga-lemma-resolve}。利用引理 \ref{dga-lemma-hom-derived}，有
+\begin{align*}
+\Hom_{D(A, \text{d})}(N, M)
+& =
+\Hom_{K(A, \text{d})}(P, M) \\
+& =
+\prod \Hom_{K(A, \text{d})}(P, M_j) \\
+& =
+\prod \Hom_{D(A, \text{d})}(N, M_j)
+\end{align*}
+由此得到 $D(A, \text{d})$ 中的直和，正如引理第 (3) 项所述。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-P-resolution}
+设 $R$ 是环，$(A, \text{d})$ 是微分分次 $R$-代数。利用 P-分辨，有时可将
+关于 $D(A, \text{d})$ 中一般对象的命题约化为关于 $A[k]$ 的命题。
+具体地，设 $T$ 是 $D(A, \text{d})$ 中对象的一个性质，并假设
+\begin{enumerate}
+\item 若 $K_i$（$i\in I$）是 $D(A, \text{d})$ 中的一族对象，且对所有
+$i\in I$ 都有 $T(K_i)$，则 $T(\bigoplus K_i)$ 成立；
+\item 若 $K\to L\to M\to K[1]$ 是 $D(A, \text{d})$ 中的有区别三角，
+且 $T$ 对其中两个对象成立，则它对第三个对象也成立；以及
+\item 对所有 $k\in\mathbf{Z}$，$T(A[k])$ 成立。
+\end{enumerate}
+那么 $T$ 对 $D(A, \text{d})$ 的所有对象成立。这由引理
+\ref{dga-lemma-property-P-sequence} 和 \ref{dga-lemma-resolve} 即得。
+\end{remark}
+
+
+
+
+
+
+
+\section{典范 delta-函子}
+\label{dga-section-canonical-delta-functor}
+
+\noindent
+设 $(A, \text{d})$ 是微分分次代数。考虑函子
+$\text{Mod}_{(A, \text{d})} \to K(\text{Mod}_{(A, \text{d})})$。
+一般而言，这个函子{\bf 不是} $\delta$-函子。然而，函子
+$\text{Mod}_{(A, \text{d})} \to D(A, \text{d})$ 的确是一个
+$\delta$-函子。为说明这一点，必须定义与阿贝尔范畴
+$\text{Mod}_{(A, \text{d})}$ 中的短正合列
+$$
+0 \to K \xrightarrow{a} L \xrightarrow{b} M \to 0
+$$
+相联系的态射 $\delta$。考虑态射 $a$ 的锥 $C(a)$。有
+$C(a)=L\oplus K$，并把 $q:C(a)\to M$ 定义为先投影到 $L$，再复合 $b$。
+于是得到微分分次 $A$-模同态
+$$
+q : C(a) \longrightarrow M.
+$$
+显然 $q\circ i=b$，其中 $i$ 如定义 \ref{dga-definition-cone} 所述。注意，由于
+$a$ 是单射，$q$ 的核可与 $\text{id}_K$ 的锥等同，而后者是无环的。
+故 $q$ 是拟同构。由引理 \ref{dga-lemma-the-same-up-to-isomorphisms}，三角
+$$
+(K, L, C(a), a, i, -p)
+$$
+是 $K(\text{Mod}_{(A, \text{d})})$ 中的有区别三角。由于局部化函子
+$K(\text{Mod}_{(A, \text{d})}) \to D(A, \text{d})$ 是正合的，
+$(K,L,C(a),a,i,-p)$ 也是 $D(A, \text{d})$ 中的有区别三角。由于 $q$
+是拟同构，它在 $D(A, \text{d})$ 中是同构。因此推出
+$$
+(K, L, M, a, b, -p \circ q^{-1})
+$$
+是 $D(A, \text{d})$ 中的有区别三角。这引出下述引理。
+
+\begin{lemma}
+\label{dga-lemma-derived-canonical-delta-functor}
+设 $(A, \text{d})$ 是微分分次代数。上面定义的函子
+$\text{Mod}_{(A, \text{d})} \to D(A, \text{d})$ 自然具有
+$\delta$-函子结构，其中
+$$
+\delta_{K \to L \to M} = - p \circ q^{-1}
+$$
+，而 $p$ 和 $q$ 如上文所述。
+\end{lemma}
+
+\begin{proof}
+已经看到，对复形的每个短正合列，这个选择都会给出有区别三角。
+还须证明该构造的函子性；见《导出范畴》定义
+\ref{derived-definition-delta-functor}。稍作推导即可由引理
+\ref{dga-lemma-functorial-cone} 得出。可与《导出范畴》引理
+\ref{derived-lemma-derived-canonical-delta-functor} 比较。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-homotopy-colimit}
+设 $(A, \text{d})$ 是微分分次代数，$M_n$ 是一个微分分次模系统。那么，
+$D(A, \text{d})$ 中的导出余极限 $\text{hocolim} M_n$ 由微分分次模
+$\colim M_n$ 表示。
+\end{lemma}
+
+\begin{proof}
+置 $M=\colim M_n$。由《导出范畴》引理
+\ref{derived-lemma-compute-colimit}（应用于其底层阿贝尔群复形），有微分分次
+模的正合列
+$$
+0 \to \bigoplus M_n \to \bigoplus M_n \to M \to 0
+$$
+。由引理 \ref{dga-lemma-derived-products}，这些直和也是 $D(\mathcal{A})$ 中的
+直和。因此，结论由《导出范畴》定义
+\ref{derived-definition-derived-colimit} 中导出余极限的定义，以及复形的短正合列
+给出有区别三角这一事实（引理
+\ref{dga-lemma-derived-canonical-delta-functor}）得出。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{线性范畴}
+\label{dga-section-linear}
+
+\noindent
+这里只给出定义。
+
+\begin{definition}
+\label{dga-definition-linear-category}
+设 $R$ 是环。{\it $R$-线性范畴 $\mathcal{A}$} 是这样的范畴：每个态射集
+都带有 $R$-模结构，并且对 $x,y,z\in\Ob(\mathcal{A})$，复合律
+$$
+\Hom_\mathcal{A}(y, z) \times \Hom_\mathcal{A}(x, y)
+\longrightarrow
+\Hom_\mathcal{A}(x, z)
+$$
+是 $R$-双线性的。
+\end{definition}
+
+\noindent
+因此，复合确定 $R$-模的 $R$-线性映射
+$$
+\Hom_\mathcal{A}(y, z) \otimes_R \Hom_\mathcal{A}(x, y)
+\longrightarrow
+\Hom_\mathcal{A}(x, z)
+$$
+。注意，这里并不假设 $R$-线性范畴是加性范畴。
+
+\begin{definition}
+\label{dga-definition-functor-linear-categories}
+设 $R$ 是环。{\it $R$-线性范畴之间的函子}，也称为
+{\it $R$-线性函子}，是函子 $F:\mathcal{A}\to\mathcal{B}$，使得对
+$\mathcal{A}$ 的所有对象 $x,y$，映射
+$F : \Hom_\mathcal{A}(x, y) \to \Hom_\mathcal{B}(F(x), F(y))$
+是 $R$-模同态。
+\end{definition}
+
+
+
+
+
+
+
+\section{分次范畴}
+\label{dga-section-graded}
+
+\noindent
+这里只给出一些定义。
+
+\begin{definition}
+\label{dga-definition-graded-category}
+设 $R$ 是环。{\it $R$ 上的分次范畴 $\mathcal{A}$} 是这样的范畴：
+每个态射集都带有分次 $R$-模结构，并且对
+$x,y,z\in\Ob(\mathcal{A})$，复合是 $R$-双线性的，并诱导分次 $R$-模同态
+$$
+\Hom_\mathcal{A}(y, z) \otimes_R \Hom_\mathcal{A}(x, y)
+\longrightarrow
+\Hom_\mathcal{A}(x, z)
+$$
+（即保持次数的同态）。
+\end{definition}
+
+\noindent
+在这种情形下，以 $\Hom_\mathcal{A}^i(x,y)$ 表示分次对象
+$\Hom_\mathcal{A}(x,y)$ 的次数 $i$ 部分，从而
+$$
+\Hom_\mathcal{A}(x, y) =
+\bigoplus\nolimits_{i \in \mathbf{Z}} \Hom_\mathcal{A}^i(x, y)
+$$
+是它按分次部分的直和分解。
+
+\begin{definition}
+\label{dga-definition-functor-graded-categories}
+设 $R$ 是环。{\it $R$ 上分次范畴之间的函子}，也称为
+{\it 分次函子}，是函子 $F:\mathcal{A}\to\mathcal{B}$，使得对
+$\mathcal{A}$ 的所有对象 $x,y$，映射
+$F : \Hom_\mathcal{A}(x, y) \to \Hom_\mathcal{A}(F(x), F(y))$
+是分次 $R$-模同态。
+\end{definition}
+
+\noindent
+给定一个分次范畴，往往关心其对应的、态射次数为 $0$ 的“通常”范畴。
+正式定义如下。
+
+\begin{definition}
+\label{dga-definition-H0-of-graded-category}
+设 $R$ 是环，$\mathcal{A}$ 是 $R$ 上的分次范畴。令
+{\it $\mathcal{A}^0$} 为与 $\mathcal{A}$ 具有相同对象的范畴，并置
+$$
+\Hom_{\mathcal{A}^0}(x, y) = \Hom^0_\mathcal{A}(x, y)
+$$
+，即取 $\mathcal{A}$ 的态射分次模的次数 $0$ 部分。
+\end{definition}
+
+\begin{definition}
+\label{dga-definition-graded-direct-sum}
+设 $R$ 是环，$\mathcal{A}$ 是 $R$ 上的分次范畴。若 $\mathcal{A}$ 中的直和
+$(x,y,z,i,j,p,q)$（记号同《同调代数》评注
+\ref{homology-remark-direct-sum}）中的 $i,j,p,q$ 都是次数 $0$ 的齐次态射，
+则称它为{\it 分次直和}。
+\end{definition}
+
+\begin{example}[分次对象的分次范畴]
+\label{dga-example-graded-category-graded-objects}
+设 $\mathcal{B}$ 是加性范畴。回忆，在《同调代数》定义
+\ref{homology-definition-graded} 中已经定义了 $\mathcal{B}$ 的分次对象范畴
+$\text{Gr}(\mathcal{B})$。本例将构造 $R=\mathbf{Z}$ 上的分次范畴
+$\text{Gr}^{gr}(\mathcal{B})$，使其对应范畴
+$\text{Gr}^{gr}(\mathcal{B})^0$ 恢复 $\text{Gr}(\mathcal{B})$。
+取 $\mathcal{B}$ 的分次对象作为 $\text{Gr}^{gr}(\mathcal{B})$ 的对象。
+给定 $\mathcal{B}$ 的分次对象 $A=(A^i)$ 和 $B=(B^i)$，置
+$$
+\Hom_{\text{Gr}^{gr}(\mathcal{B})}(A, B) =
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Hom^n(A, B)
+$$
+，其中次数 $n$ 的分次部分是从 $A$ 到 $B$ 的次数 $n$ 齐次映射所组成的
+阿贝尔群。具体地，
+$$
+\Hom^n(A, B) = \prod\nolimits_{p + q = n} \Hom_\mathcal{B}(A^{-q}, B^p)
+$$
+（注意指标的反转，并注意这里是直积而不是直和）。换言之，从 $A$ 到 $B$
+的次数 $n$ 态射 $f$ 可视为系统 $f=(f_{p,q})$，其中
+$p,q\in\mathbf{Z}$、$p+q=n$，且 $f_{p,q}:A^{-q}\to B^p$ 是
+$\mathcal{B}$ 的态射。给定 $\mathcal{B}$ 的分次对象 $A,B,C$，
+$\text{Gr}^{gr}(\mathcal{B})$ 中态射的复合通过映射
+$$
+\Hom^m(B, C) \times \Hom^n(A, B) \longrightarrow \Hom^{n + m}(A, C)
+$$
+定义，即取分次对象齐次映射的普通复合 $(g,f)\mapsto g\circ f$。按分量写为
+$$
+(g \circ f)_{p, r} = g_{p, q} \circ f_{-q, r}
+$$
+，其中 $q$ 满足 $p+q=m$ 和 $-q+r=n$。
+\end{example}
+
+\begin{example}[分次模的分次范畴]
+\label{dga-example-gm-gr-cat}
+设 $A$ 是环 $R$ 上的 $\mathbf{Z}$-分次代数。构造 $R$ 上的分次范畴
+$\text{Mod}^{gr}_A$，使其对应范畴 $(\text{Mod}^{gr}_A)^0$ 是分次
+$A$-模范畴。取右分次 $A$-模作为 $\text{Mod}^{gr}_A$ 的对象（见第
+\ref{dga-section-projectives-over-algebras} 节）。给定分次 $A$-模 $L$ 和 $M$，置
+$$
+\Hom_{\text{Mod}^{gr}_A}(L, M) =
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Hom^n(L, M)
+$$
+，其中 $\Hom^n(L,M)$ 是次数 $n$ 齐次的右 $A$-模映射 $L\to M$ 的集合，
+即对所有 $i\in\mathbf{Z}$ 都有 $f(L^i)\subset M^{i+n}$。按分量写，
+$$
+\Hom^n(L, M) \subset \prod\nolimits_{p + q = n} \Hom_R(L^{-q}, M^p)
+$$
+（注意指标的反转）是由满足下式的 $f=(f_{p,q})$ 组成的子集：
+$$
+f_{p, q}(m a) = f_{p - i, q + i}(m)a
+$$
+，其中 $a\in A^i$、$m\in L^{-q-i}$。对分次 $A$-模 $K,L,M$，通过映射
+$$
+\Hom^m(L, M) \times \Hom^n(K, L) \longrightarrow \Hom^{n + m}(K, M)
+$$
+定义 $\text{Mod}^{gr}_A$ 中的复合，即取右 $A$-模映射的普通复合
+$(g,f)\mapsto g\circ f$。
+\end{example}
+
+\begin{remark}
+\label{dga-remark-graded-shift-functors}
+设 $R$ 是环，$\mathcal{D}$ 是 $R$-线性范畴，并带有由
+$n\in\mathbf{Z}$ 作指标的一族 $R$-线性函子
+$[n]:\mathcal{D}\to\mathcal{D}$、$x\mapsto x[n]$，使得
+$[n]\circ[m]=[n+m]$ 且 $[0]=\text{id}_\mathcal{D}$（作为函子相等）。
+由此可以构造 $R$ 上与 $\mathcal{D}$ 具有相同对象的分次范畴
+$\mathcal{D}^{gr}$，置
+$$
+\Hom_{\mathcal{D}^{gr}}(x, y) =
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Hom_\mathcal{D}(x, y[n])
+$$
+，其中 $x,y$ 是 $\mathcal{D}$ 的对象。注意
+$(\mathcal{D}^{gr})^0=\mathcal{D}$（见定义
+\ref{dga-definition-H0-of-graded-category}）。此外，分次范畴
+$\mathcal{D}^{gr}$ 继承 $R$-线性分次函子 $[n]$，满足
+$[n]\circ[m]=[n+m]$ 和 $[0]=\text{id}_{\mathcal{D}^{gr}}$，并具有性质
+$$
+\Hom_{\mathcal{D}^{gr}}(x, y[n]) = \Hom_{\mathcal{D}^{gr}}(x, y)[n]
+$$
+；这是与态射复合相容的分次 $R$-模同构。
+
+\medskip\noindent
+反过来，设给定 $R$ 上的分次范畴 $\mathcal{A}$，它带有一族 $R$-线性
+分次函子 $[n]$，满足 $[n]\circ[m]=[n+m]$ 和
+$[0]=\text{id}_\mathcal{A}$，并且还带有同构
+$$
+\Hom_\mathcal{A}(x, y[n]) = \Hom_\mathcal{A}(x, y)[n]
+$$
+；这是与态射复合相容的分次 $R$-模同构。读者容易证明
+$\mathcal{A}=(\mathcal{A}^0)^{gr}$。
+
+\medskip\noindent
+下面是上述关系 $\mathcal{D}\leftrightarrow\mathcal{A}$ 的两个例子：
+\begin{enumerate}
+\item 设 $\mathcal{B}$ 是加性范畴。若
+$\mathcal{D}=\text{Gr}(\mathcal{B})$，则
+$\mathcal{A}=\text{Gr}^{gr}(\mathcal{B})$，如例
+\ref{dga-example-graded-category-graded-objects} 所述。
+\item 若 $A$ 是分次环，且 $\mathcal{D}=\text{Mod}_A$ 是分次右 $A$-模
+范畴，则 $\mathcal{A}=\text{Mod}^{gr}_A$；见例
+\ref{dga-example-gm-gr-cat}。
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+\section{微分分次范畴}
+\label{dga-section-dga-categories}
+
+\noindent
+注意，若 $R$ 是环，则 $R$ 是自身之上的微分分次代数（当然取
+$R=R^0$）。此时，微分分次 $R$-模与 $R$-模复形是一回事。特别地，
+给定两个微分分次 $R$-模 $M$ 和 $N$，以 $M\otimes_R N$ 表示如下微分
+分次 $R$-模：先取与 $M,N$ 对应的 $R$-模复形的张量积所得到的双复形，
+再取其关联全复形。
+
+\begin{definition}
+\label{dga-definition-dga-category}
+设 $R$ 是环。{\it $R$ 上的微分分次范畴 $\mathcal{A}$} 是这样的范畴：
+每个态射集都带有微分分次 $R$-模结构，并且对
+$x,y,z\in\Ob(\mathcal{A})$，复合是 $R$-双线性的，并诱导微分分次
+$R$-模同态
+$$
+\Hom_\mathcal{A}(y, z) \otimes_R \Hom_\mathcal{A}(x, y)
+\longrightarrow
+\Hom_\mathcal{A}(x, z)
+$$
+。
+\end{definition}
+
+\noindent
+定义中的最后一个条件表示：若
+$f\in\Hom_\mathcal{A}^n(x,y)$ 和 $g\in\Hom_\mathcal{A}^m(y,z)$
+分别是次数 $n$ 和 $m$ 的齐次态射，则在
+$\Hom_\mathcal{A}^{n+m+1}(x,z)$ 中有
+$$
+\text{d}(g \circ f) = \text{d}(g) \circ f + (-1)^mg \circ \text{d}(f)
+$$
+。这由双复形全复形上的微分符号法则得出；见《同调代数》定义
+\ref{homology-definition-associated-simple-complex}。
+
+\begin{definition}
+\label{dga-definition-functor-dga-categories}
+设 $R$ 是环。{\it $R$ 上微分分次范畴之间的函子}是函子
+$F:\mathcal{A}\to\mathcal{B}$，使得对 $\mathcal{A}$ 的所有对象 $x,y$，
+映射
+$F : \Hom_\mathcal{A}(x, y) \to \Hom_\mathcal{A}(F(x), F(y))$
+是微分分次 $R$-模同态。
+\end{definition}
+
+\noindent
+给定一个微分分次范畴，往往关心其对应的复形范畴和同伦范畴。正式定义如下。
+
+\begin{definition}
+\label{dga-definition-homotopy-category-of-dga-category}
+设 $R$ 是环，$\mathcal{A}$ 是 $R$ 上的微分分次范畴。定义
+\begin{enumerate}
+\item {\it $\mathcal{A}$ 的复形范畴}\footnote{这可能不是标准术语。}
+为范畴 $\text{Comp}(\mathcal{A})$；它与 $\mathcal{A}$ 具有相同对象，并且
+$$
+\Hom_{\text{Comp}(\mathcal{A})}(x, y) =
+\Ker(d : \Hom^0_\mathcal{A}(x, y) \to \Hom^1_\mathcal{A}(x, y))
+$$
+\item {\it $\mathcal{A}$ 的同伦范畴}为范畴 $K(\mathcal{A})$；它与
+$\mathcal{A}$ 具有相同对象，并且
+$$
+\Hom_{K(\mathcal{A})}(x, y) = H^0(\Hom_\mathcal{A}(x, y))
+$$
+\end{enumerate}
+\end{definition}
+
+\noindent
+这里对符号 $K(\mathcal{A})$ 的用法并不标准，但至少与 Stacks 项目其他章中
+$K(-)$ 的用法相容。
+
+\begin{definition}
+\label{dga-definition-dg-direct-sum}
+设 $R$ 是环，$\mathcal{A}$ 是 $R$ 上的微分分次范畴。若 $\mathcal{A}$
+中的直和 $(x,y,z,i,j,p,q)$（记号同《同调代数》评注
+\ref{homology-remark-direct-sum}）中的 $i,j,p,q$ 都是次数 $0$ 的齐次闭态射，
+即 $\text{d}(i)=0$ 等，则称它为{\it 微分分次直和}。
+\end{definition}
+
+\begin{lemma}
+\label{dga-lemma-functorial}
+设 $R$ 是环。$R$ 上微分分次范畴之间的函子
+$F:\mathcal{A}\to\mathcal{B}$ 诱导函子
+$\text{Comp}(\mathcal{A}) \to \text{Comp}(\mathcal{B})$
+和 $K(\mathcal{A})\to K(\mathcal{B})$。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{example}[复形的微分分次范畴]
+\label{dga-example-category-complexes}
+设 $\mathcal{B}$ 是加性范畴。构造 $R=\mathbf{Z}$ 上的微分分次范畴
+$\text{Comp}^{dg}(\mathcal{B})$，使其对应的复形范畴是
+$\text{Comp}(\mathcal{B})$，对应的同伦范畴是 $K(\mathcal{B})$。
+取 $\mathcal{B}$ 的复形作为 $\text{Comp}^{dg}(\mathcal{B})$ 的对象。
+给定 $\mathcal{B}$ 的复形 $A^\bullet$ 和 $B^\bullet$，有时也以
+$A^\bullet$ 和 $B^\bullet$ 表示 $\mathcal{B}$ 中相应的分次对象
+（即忘掉微分）。采用这一记号上的滥用，置
+$$
+\Hom_{\text{Comp}^{dg}(\mathcal{B})}(A^\bullet, B^\bullet) =
+\Hom_{\text{Gr}^{gr}(\mathcal{B})}(A^\bullet, B^\bullet) =
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Hom^n(A, B)
+$$
+，把它视为分次 $\mathbf{Z}$-模，记号和定义同例
+\ref{dga-example-graded-category-graded-objects}。换言之，第 $n$ 个分次部分是
+分次对象之间次数 $n$ 的齐次态射所组成的阿贝尔群
+$$
+\Hom^n(A^\bullet, B^\bullet) =
+\prod\nolimits_{p + q = n} \Hom_\mathcal{B}(A^{-q}, B^p)
+$$
+。注意指标的反转，并注意这里是直积而不是直和。对次数为 $n$ 的元素
+$f\in\Hom^n(A^\bullet,B^\bullet)$，置
+$$
+\text{d}(f) = \text{d}_B \circ f - (-1)^n f \circ \text{d}_A
+$$
+。符号与《代数进阶》第 \ref{more-algebra-section-sign-rules} 节完全相同。
+为使此式有意义，把 $\text{d}_B$ 和 $\text{d}_A$ 看作 $\mathcal{B}$ 的
+分次对象之间次数 $1$ 的齐次映射，并在右侧使用范畴
+$\text{Gr}^{gr}(\mathcal{B})$ 中的复合。按分量写，若
+$f=(f_{p,q})$ 且 $f_{p,q}:A^{-q}\to B^p$，则
+\begin{equation}
+\label{dga-equation-differential-hom-complex}
+\text{d}(f_{p, q}) =
+\text{d}_B \circ f_{p, q} - (-1)^{p + q} f_{p, q} \circ \text{d}_A 
+\end{equation}
+注意，此表达式的第一项属于 $\Hom_\mathcal{B}(A^{-q},B^{p+1})$，
+第二项属于 $\Hom_\mathcal{B}(A^{-q-1},B^p)$。读者可以验证：
+\begin{enumerate}
+\item $\text{d}$ 的平方为零；
+\item $\Hom^n(A^\bullet,B^\bullet)$ 中的元素 $f$ 满足
+$\text{d}(f)=0$，当且仅当 $\mathcal{B}$ 的分次对象之间的态射
+$f:A^\bullet\to B^\bullet[n]$ 实际上是复形映射；
+\item 特别地，$\text{Comp}^{dg}(\mathcal{B})$ 的复形范畴等于
+$\text{Comp}(\mathcal{B})$；
+\item (2) 中由 $f$ 定义的复形态射与零同伦，当且仅当存在
+$g\in\Hom^{n-1}(A^\bullet,B^\bullet)$ 使得 $f=\text{d}(g)$；
+\item 特别地，得到典范同构
+$$
+\Hom_{K(\mathcal{B})}(A^\bullet, B^\bullet)
+\longrightarrow
+H^0(\Hom_{\text{Comp}^{dg}(\mathcal{B})}(A^\bullet, B^\bullet))
+$$
+，并且 $\text{Comp}^{dg}(\mathcal{B})$ 的同伦范畴等于 $K(\mathcal{B})$。
+\end{enumerate}
+给定复形 $A^\bullet,B^\bullet,C^\bullet$，通过分次范畴
+$\text{Gr}^{gr}(\mathcal{B})$ 中的复合 $(g,f)\mapsto g\circ f$ 定义复合
+$$
+\Hom^m(B^\bullet, C^\bullet) \times \Hom^n(A^\bullet, B^\bullet)
+\longrightarrow
+\Hom^{n + m}(A^\bullet, C^\bullet)
+$$
+；见例 \ref{dga-example-graded-category-graded-objects}。这定义微分分次模的映射
+$$
+\Hom_{\text{Comp}^{dg}(\mathcal{B})}(B^\bullet, C^\bullet)
+\otimes_R
+\Hom_{\text{Comp}^{dg}(\mathcal{B})}(A^\bullet, B^\bullet)
+\longrightarrow
+\Hom_{\text{Comp}^{dg}(\mathcal{B})}(A^\bullet, C^\bullet)
+$$
+，正如定义 \ref{dga-definition-dga-category} 所要求的，因为
+\begin{align*}
+\text{d}(g \circ f) & =
+\text{d}_C \circ g \circ f - (-1)^{n + m} g \circ f \circ \text{d}_A \\
+& =
+\left(\text{d}_C \circ g - (-1)^m g \circ \text{d}_B\right) \circ f +
+(-1)^m g \circ \left(\text{d}_B \circ f - (-1)^n f \circ \text{d}_A\right) \\
+& =
+\text{d}(g) \circ f + (-1)^m g \circ \text{d}(f)
+\end{align*}
+，这正是所需等式。
+\end{example}
+
+\begin{lemma}
+\label{dga-lemma-additive-functor-induces-dga-functor}
+设 $F:\mathcal{B}\to\mathcal{B}'$ 是加性范畴之间的加性函子。那么 $F$
+诱导例 \ref{dga-example-category-complexes} 中微分分次范畴之间的函子
+$$
+F : \text{Comp}^{dg}(\mathcal{B}) \to \text{Comp}^{dg}(\mathcal{B}')
+$$
+，并在复形范畴和同伦范畴上诱导通常的函子。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{example}[微分分次模的微分分次范畴]
+\label{dga-example-dgm-dg-cat}
+设 $(A, \text{d})$ 是环 $R$ 上的微分分次代数。构造 $R$ 上的微分分次
+范畴 $\text{Mod}^{dg}_{(A, \text{d})}$，使其复形范畴是
+$\text{Mod}_{(A, \text{d})}$，同伦范畴是
+$K(\text{Mod}_{(A, \text{d})})$。取微分分次 $A$-模作为
+$\text{Mod}^{dg}_{(A, \text{d})}$ 的对象。给定微分分次 $A$-模 $L,M$，置
+$$
+\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(L, M) =
+\Hom_{\text{Mod}^{gr}_A}(L, M) = \bigoplus \Hom^n(L, M)
+$$
+，把它视为分次 $R$-模，其中右侧如例 \ref{dga-example-gm-gr-cat} 所定义。
+换言之，第 $n$ 个分次部分 $\Hom^n(L,M)$ 是次数 $n$ 齐次的右 $A$-模映射
+所组成的 $R$-模。对元素 $f\in\Hom^n(L,M)$，置
+$$
+\text{d}(f) = \text{d}_M \circ f - (-1)^n f \circ \text{d}_L
+$$
+。为使此式有意义，把 $\text{d}_M$ 和 $\text{d}_L$ 看作分次 $R$-模映射，
+并采用分次 $R$-模映射的复合。显然，作为分次 $R$-模映射，
+$\text{d}(f)$ 是次数 $n+1$ 的齐次映射；它还是 $A$-线性的，因为
+\begin{align*}
+\text{d}(f)(xa)
+& =
+\text{d}_M(f(x) a) - (-1)^n f (\text{d}_L(xa)) \\
+& =
+\text{d}_M(f(x)) a + (-1)^{\deg(x) + n} f(x) \text{d}(a) 
+- (-1)^n f(\text{d}_L(x)) a - (-1)^{n + \deg(x)} f(x) \text{d}(a) \\
+& = \text{d}(f)(x) a
+\end{align*}
+，这正是所需等式（注意，若 $\Hom$ 上微分的定义中没有这个符号，计算就
+不能成立）。按分量表示 $f$ 的微分时，也有与例
+\ref{dga-example-category-complexes} 类似的公式。读者可以仿照例
+\ref{dga-example-category-complexes} 验证：
+\begin{enumerate}
+\item $\text{d}$ 的平方为零；
+\item $\Hom^n(L,M)$ 中的元素 $f$ 满足 $\text{d}(f)=0$，当且仅当
+$f:L\to M[n]$ 是微分分次 $A$-模同态；
+\item 特别地，$\text{Mod}^{dg}_{(A, \text{d})}$ 的复形范畴是
+$\text{Mod}_{(A, \text{d})}$；
+\item (2) 中由 $f$ 定义的同态与零同伦，当且仅当存在
+$g\in\Hom^{n-1}(L,M)$ 使得 $f=\text{d}(g)$；
+\item 特别地，得到典范同构
+$$
+\Hom_{K(\text{Mod}_{(A, \text{d})})}(L, M)
+\longrightarrow
+H^0(\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(L, M))
+$$
+，并且 $\text{Mod}^{dg}_{(A, \text{d})}$ 的同伦范畴是
+$K(\text{Mod}_{(A, \text{d})})$。
+\end{enumerate}
+给定微分分次 $A$-模 $K,L,M$，通过齐次右 $A$-模映射的复合
+$(g,f)\mapsto g\circ f$ 定义复合
+$$
+\Hom^m(L, M) \times \Hom^n(K, L) \longrightarrow \Hom^{n + m}(K, M)
+$$
+。这定义微分分次模的映射
+$$
+\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(L, M) \otimes_R
+\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(K, L) \longrightarrow
+\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(K, M)
+$$
+，正如定义 \ref{dga-definition-dga-category} 所要求的，因为
+\begin{align*}
+\text{d}(g \circ f) & =
+\text{d}_M \circ g \circ f - (-1)^{n + m} g \circ f \circ \text{d}_K \\
+& =
+\left(\text{d}_M \circ g - (-1)^m g \circ \text{d}_L\right) \circ f +
+(-1)^m g \circ \left(\text{d}_L \circ f - (-1)^n f \circ \text{d}_K\right) \\
+& =
+\text{d}(g) \circ f + (-1)^m g \circ \text{d}(f)
+\end{align*}
+，这正是所需等式。
+\end{example}
+
+\begin{lemma}
+\label{dga-lemma-homomorphism-induces-dga-functor}
+设 $\varphi:(A,\text{d})\to(E,\text{d})$ 是微分分次代数同态。那么
+$\varphi$ 诱导例 \ref{dga-example-dgm-dg-cat} 中微分分次范畴之间的函子
+$$
+F :
+\text{Mod}^{dg}_{(E, \text{d})}
+\longrightarrow
+\text{Mod}^{dg}_{(A, \text{d})}
+$$
+，并在微分分次模范畴和同伦范畴上诱导显然的限制函子。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-construction}
+设 $R$ 是环，$\mathcal{A}$ 是 $R$ 上的微分分次范畴，$x$ 是
+$\mathcal{A}$ 的对象。令
+$$
+(E, \text{d}) = \Hom_\mathcal{A}(x, x)
+$$
+为 $x$ 的自同态微分分次 $R$-代数。令 $E$ 通过 $\mathcal{A}$ 中的复合作用
+在 $\Hom_\mathcal{A}(x,y)$ 上，得到微分分次范畴之间的函子
+$$
+\mathcal{A} \longrightarrow \text{Mod}^{dg}_{(E, \text{d})},\quad
+y \longmapsto \Hom_\mathcal{A}(x, y)
+$$
+。应用引理 \ref{dga-lemma-functorial}，此函子诱导函子
+$$
+\text{Comp}(\mathcal{A}) \to \text{Mod}_{(A, \text{d})}
+\quad\text{且}\quad
+K(\mathcal{A}) \to K(\text{Mod}_{(A, \text{d})})
+$$
+。
+\end{lemma}
+
+\begin{proof}
+本引理不证自明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{得到三角范畴}
+\label{dga-section-review}
+
+\noindent
+本节讨论《导出范畴》命题
+\ref{derived-proposition-homotopy-category-triangulated} 和命题
+\ref{dga-proposition-homotopy-category-triangulated} 的证明论证所适用的最一般框架。
+
+\medskip\noindent
+设 $R$ 是环，$\mathcal{A}$ 是 $R$ 上的微分分次范畴。为使论证成立，
+对 $\mathcal{A}$ 施加下列公理：
+\begin{enumerate}
+\item[(A)] $\mathcal{A}$ 有零对象以及两个对象的微分分次直和
+（如定义 \ref{dga-definition-dg-direct-sum}）。
+\item[(B)] 存在微分分次范畴之间的函子
+$[n]:\mathcal{A}\longrightarrow\mathcal{A}$，使得
+$[0]=\text{id}_\mathcal{A}$ 且 $[n+m]=[n]\circ[m]$，并且给定与复合相容的
+微分分次 $R$-模同构
+$$
+\Hom_\mathcal{A}(x, y[n]) = \Hom_\mathcal{A}(x, y)[n]
+$$
+。
+\end{enumerate}
+
+\noindent
+对上述微分分次范畴 $\mathcal{A}$，规定：
+\begin{enumerate}
+\item 若在底层分次范畴中存在同构 $y\cong x\oplus z$，使得
+$x\to z$ 和 $y\to z$ 是（余）投影，则称 $\text{Comp}(\mathcal{A})$
+中的态射列 $x\to y\to z$ 为{\it 容许短正合列}。
+\item 若 $\text{Comp}(\mathcal{A})$ 中的态射 $x\to y$ 可延拓为容许短正合列
+$x\to y\to z$，则称它为{\it 容许单态射}。
+\item 若 $\text{Comp}(\mathcal{A})$ 中的态射 $y\to z$ 可延拓为容许短正合列
+$x\to y\to z$，则称它为{\it 容许满态射}。
+\end{enumerate}
+下一个引理说明，在公理 (A) 和 (B) 成立时，容许短正合列给出一个三角。
+
+\begin{lemma}
+\label{dga-lemma-get-triangle}
+设 $\mathcal{A}$ 是满足公理 (A)、(B) 的微分分次范畴。给定容许短正合列
+$x\to y\to z$，得到（见证明）$\text{Comp}(\mathcal{A})$ 中的三角
+$$
+x \to y \to z \to x[1]
+$$
+，其性质为：$z[-1]\to x\to y\to z\to x[1]$ 中任意两个相邻箭头的复合
+在 $K(\mathcal{A})$ 中为零。
+\end{lemma}
+
+\begin{proof}
+选择图表
+$$
+\xymatrix{
+x \ar[rr]_1 \ar[rd]_a & & x \\
+& y \ar[ru]_\pi \ar[rd]^b & \\
+z \ar[rr]^1 \ar[ru]^s & & z
+}
+$$
+，它给出容许短正合列定义中的分次对象同构 $y\cong x\oplus z$。在此情形下，
+下列等式成立：
+\begin{enumerate}
+\item $1=\pi a$，从而 $\text{d}(\pi)a=0$；
+\item $1=bs$，从而 $b\text{d}(s)=0$；
+\item $1=a\pi+sb$，从而 $a\text{d}(\pi)+\text{d}(s)b=0$；
+\item $\pi s=0$，从而 $\text{d}(\pi)s+\pi\text{d}(s)=0$；
+\item $\text{d}(s)=a\pi\text{d}(s)$，因为
+$\text{d}(s)=(a\pi+sb)\text{d}(s)$ 且 $b\text{d}(s)=0$；
+\item $\text{d}(\pi)=\text{d}(\pi)sb$，因为
+$\text{d}(\pi)=\text{d}(\pi)(a\pi+sb)$ 且 $\text{d}(\pi)a=0$；
+\item $\text{d}(\pi\text{d}(s))=0$，因为将它后复合单态射 $a$，得到
+$\text{d}(a\pi\text{d}(s))=\text{d}(\text{d}(s))=0$；以及
+\item $\text{d}(\text{d}(\pi)s)=0$，因为由 (4)，它是
+$\text{d}(\pi\text{d}(s))$ 的负值，而后者由 (7) 为 $0$。
+\end{enumerate}
+这里反复使用了 $\text{d}(a)=0$、$\text{d}(b)=0$ 和 $\text{d}(1)=0$。
+由 (7)，
+$$
+\delta = \pi \text{d}(s) = - \text{d}(\pi) s : z \to x[1]
+$$
+是 $\text{Comp}(\mathcal{A})$ 中的态射。由 (5)，复合
+$a\delta=a\pi\text{d}(s)=\text{d}(s)$ 与零同伦。由 (6)，复合
+$\delta b=-\text{d}(\pi)sb=\text{d}(-\pi)$ 与零同伦。
+\end{proof}
+
+\noindent
+除公理 (A)、(B) 外，还需要一个关于锥存在性的公理。将全部条件正式写成如下情形。
+
+\begin{situation}
+\label{dga-situation-ABC}
+这里 $R$ 是环，$\mathcal{A}$ 是 $R$ 上满足公理 (A)、(B) 以及下列公理的
+微分分次范畴：
+\begin{enumerate}
+\item[(C)] 给定次数为 $0$ 且满足 $\text{d}(f)=0$ 的箭头 $f:x\to y$，
+$\text{Comp}(\mathcal{A})$ 中存在容许短正合列 $y\to c(f)\to x[1]$，
+使引理 \ref{dga-lemma-get-triangle} 中的映射 $x[1]\to y[1]$ 等于 $f[1]$。
+\end{enumerate}
+\end{situation}
+
+\noindent
+称 $c(f)$ 为态射 $f$ 的一个{\it 锥}。若 (A)、(B)、(C) 成立，
+则锥在一种较弱的意义下具有函子性。
+
+\begin{lemma}
+\label{dga-lemma-cone}
+\begin{slogan}
+同伦范畴是三角范畴。本引理证明三角范畴公理的一部分。
+\end{slogan}
+在情形 \ref{dga-situation-ABC} 中，设图表
+$$
+\xymatrix{
+x_1 \ar[r]_{f_1} \ar[d]_a & y_1 \ar[d]^b \\
+x_2 \ar[r]^{f_2} & y_2
+}
+$$
+在 $\text{Comp}(\mathcal{A})$ 中在同伦意义下交换。则存在态射
+$c:c(f_1)\to c(f_2)$，它在 $K(\mathcal{A})$ 中给出三角态射
+$$
+(a, b, c) : (x_1, y_1, c(f_1)) \to (x_1, y_1, c(f_1))
+$$
+。
+\end{lemma}
+
+\begin{proof}
+假设意味着存在次数为 $-1$ 的态射 $h:x_1\to y_2$，使得
+$\text{d}(h)=bf_1-f_2a$。选择与态射 $y_i\to c(f_i)\to x_i[1]$ 相容的
+分次对象同构 $c(f_i)=y_i\oplus x_i[1]$。以
+$a_i:y_i\to c(f_i)$、$b_i:c(f_i)\to x_i[1]$、
+$s_i:x_i[1]\to c(f_i)$ 和 $\pi_i:c(f_i)\to y_i$ 表示这些给定态射。
+回忆，$x_i[1]\to y_i[1]$ 由 $\pi_i\text{d}(s_i)$ 给出。由公理 (C)，这意味着
+$$
+f_i = \pi_i \text{d}(s_i) = - \text{d}(\pi_i) s_i
+$$
+（利用移位函子 $[1]$ 将 $\Hom(x_i,y_i)$ 与
+$\Hom(x_i[1],y_i[1])$ 识别）。置
+$c=a_2b\pi_1+s_2ab_1+a_2hb$。利用引理 \ref{dga-lemma-get-triangle}
+证明中得到的等式，有
+\begin{align*}
+\text{d}(c)
+& =
+a_2 b \text{d}(\pi_1) + \text{d}(s_2) a b_1 + a_2 \text{d}(h) b_1 \\
+& =
+- a_2 b f_1 b_1 + a_2 f_2 a b_1 + a_2 (b f_1 - f_2 a) b_1 \\
+& = 0
+\end{align*}
+（这里特别使用了
+$\text{d}(\pi_1) = \text{d}(\pi_1) s_1 b_1 = f_1 b_1$ 以及
+$\text{d}(s_2)=a_2\pi_2\text{d}(s_2)=a_2f_2$）。因此，$c$ 是
+$\mathcal{A}$ 中次数为 $0$ 的态射 $c:c(f_1)\to c(f_2)$，并与给定态射
+$y_i\to c(f_i)\to x_i[1]$ 相容。
+\end{proof}
+
+\noindent
+在情形 \ref{dga-situation-ABC} 中，若存在容许短正合列 $x'\to y'\to z'$，
+使得 $K(\mathcal{A})$ 中的三角 $(x,y,z,f,g,h)$ 作为三角同构于引理
+\ref{dga-lemma-get-triangle} 构造的三角
+$(x',y',z',x'\to y',y'\to z',\delta)$，则称它为{\it 有区别三角}。
+下文将证明
+$$
+\boxed{
+K(\mathcal{A})\text{ 是三角范畴}
+}
+$$
+这个结果虽没有想象中那么一般，却适用于 Stacks 项目迄今所讨论情形的若干
+自然推广。下面给出一些例子：
+\begin{enumerate}
+\item 设 $(X,\mathcal{O}_X)$ 是环化空间，$(A,d)$ 是微分分次
+$\mathcal{O}_X$-代数层，$\mathcal{A}$ 是微分分次 $A$-模的微分分次范畴。
+那么 $K(\mathcal{A})$ 是三角范畴。
+\item 设 $(\mathcal{C},\mathcal{O})$ 是环化位点，$(A,d)$ 是微分分次
+$\mathcal{O}$-代数层，$\mathcal{A}$ 是微分分次 $A$-模的微分分次范畴。
+那么 $K(\mathcal{A})$ 是三角范畴。见《微分分次层》命题
+\ref{sdga-proposition-homotopy-category-triangulated}。
+\item 另外两个风格不同的例子见《例》第
+\ref{examples-section-nongraded-differential-graded} 节。
+\end{enumerate}
+
+\noindent
+下面这个简单引理是该构造的关键。
+
+\begin{lemma}
+\label{dga-lemma-id-cone-null}
+在情形 \ref{dga-situation-ABC} 中，给定 $\mathcal{A}$ 的任意对象 $x$ 以及
+恒等态射 $1_x:x\to x$ 的锥 $C(1_x)$，$C(1_x)$ 上的恒等态射与零同伦。
+\end{lemma}
+
+\begin{proof}
+考虑公理 (C) 给出的容许短正合列
+$$
+\xymatrix{
+x \ar@<0.5ex>[r]^a  &
+C(1_x) \ar@<0.5ex>[l]^{\pi} \ar@<0.5ex>[r]^b &
+x[1]\ar@<0.5ex>[l]^s
+}
+$$
+。由引理 \ref{dga-lemma-get-triangle}，在移位下识别 Hom 集，有
+$1_x=\pi d(s)=-d(\pi)s$，其中把 $s$ 看作
+$\Hom_{\mathcal{A}}^{-1}(x,C(1_x))$ 中的态射。因此，利用引理
+\ref{dga-lemma-get-triangle} 的公式 (5)，有 $a=a\pi d(s)=d(s)$；利用引理
+\ref{dga-lemma-get-triangle} 的公式 (6)，有 $b=-d(\pi)sb=-d(\pi)$。故
+$$
+1_{C(1_x)} = a\pi + sb = d(s)\pi - sd(\pi) = d(s\pi)
+$$
+，因为 $s$ 的次数为 $-1$。
+\end{proof}
+
+\noindent
+上述引理的更一般版本将见于引理 \ref{dga-lemma-cone-homotopy}。下述引理是
+引理 \ref{dga-lemma-make-commute-map} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-homo-change}
+在情形 \ref{dga-situation-ABC} 中，给定 $\text{Comp}(\mathcal{A})$ 中在同伦
+意义下交换的图表
+$$
+\xymatrix{x\ar[r]^f\ar[d]_a & y\ar[d]^b\\
+z\ar[r]^g & w}
+$$
+。那么
+\begin{enumerate}
+\item 若 $f$ 是容许单态射，则 $b$ 同伦于某个使图表交换的态射 $b'$。
+\item 若 $g$ 是容许满态射，则 $a$ 同伦于某个使图表交换的态射 $a'$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明 (1)，注意假设蕴含：存在 $\Hom_{\mathcal{A}}(x,w)$ 中次数为 $-1$
+的某个 $h$，使得 $bf-ga=d(h)$。由于 $f$ 是容许单态射，在范畴
+$\mathcal{A}$ 中存在次数为 $0$ 的态射 $\pi:y\to x$。令
+$b'=b-d(h\pi)$。于是
+\begin{align*}
+b'f = bf - d(h\pi)f
+= &
+bf - d(h\pi f) \quad (\text{因为 }d(f) = 0) \\
+= &
+bf-d(h) \\
+= &
+ga
+\end{align*}
+，这正是所需等式。(2) 的证明略。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-make-injective} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-factor}
+在情形 \ref{dga-situation-ABC} 中，设 $\alpha:x\to y$ 是
+$\text{Comp}(\mathcal{A})$ 中的态射。那么在 $\text{Comp}(\mathcal{A})$
+中存在分解
+$$
+\xymatrix{
+x \ar[r]^{\tilde{\alpha}}  &
+\tilde{y} \ar@<0.5ex>[r]^{\pi} &
+y\ar@<0.5ex>[l]^s
+}
+$$
+，使得
+\begin{enumerate}
+\item $\tilde{\alpha}$ 是容许单态射，且
+$\pi\tilde{\alpha}=\alpha$；
+\item $\text{Comp}(\mathcal{A})$ 中存在态射 $s:y\to\tilde{y}$，
+使得 $\pi s=1_y$，且 $s\pi$ 与 $1_{\tilde{y}}$ 同伦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由公理 (A)，可令 $\tilde y$ 为 $y$ 与 $C(1_x)$ 的微分分次直和；即存在图表
+$$
+\xymatrix@C=3pc{
+y \ar@<0.5ex>[r]^s  &
+y\oplus C(1_x) \ar@<0.5ex>[l]^{\pi} \ar@<0.5ex>[r]^{p} &
+C(1_x)\ar@<0.5ex>[l]^t
+}
+$$
+，其中所有态射次数均为零，且都在 $\text{Comp}(\mathcal{A})$ 中。
+令 $\tilde y=y\oplus C(1_x)$。于是 $1_{\tilde y}=s\pi+tp$。现考虑图表
+$$
+\xymatrix{
+x \ar[r]^{\tilde{\alpha}}  &
+\tilde{y} \ar@<0.5ex>[r]^{\pi} &
+y\ar@<0.5ex>[l]^s
+}
+$$
+，其中 $\tilde\alpha$ 由态射 $x\xrightarrow{\alpha}y$ 以及下述容许短正合列
+中的自然态射 $x\to C(1_x)$ 诱导：
+$$
+\xymatrix{
+x \ar@<0.5ex>[r]  &
+C(1_x) \ar@<0.5ex>[l] \ar@<0.5ex>[r] &
+x[1]\ar@<0.5ex>[l]
+}
+$$
+因此，该图表中次数为 $0$ 的态射 $C(1_x)\to x$ 与零态射 $y\to x$
+共同诱导次数为 $0$ 的态射 $\beta:\tilde y\to x$。$\tilde\alpha$ 是容许
+单态射，因为它位于容许短正合列
+$$
+\xymatrix{
+x\ar[r]^{\tilde{\alpha}} &
+\tilde{y} \ar[r] &
+x[1]
+}
+$$
+中。此外，由 $\tilde\alpha$ 的构造，$\pi\tilde\alpha=\alpha$；由第一个
+图表，$\pi s=1_y$。只须证明 $s\pi$ 与 $1_{\tilde y}$ 同伦。把 $1_x$
+写成某个次数为 $-1$ 的映射的微分 $d(h)$。于是，最后一个断言由下式得出：
+\begin{align*}
+1_{\tilde{y}} - s\pi
+= &
+tp \\
+= &
+t(dh)p\quad\text{（由引理 \ref{dga-lemma-id-cone-null}）} \\
+= &
+d(thp)
+\end{align*}
+，因为 $dt=dp=0$，且 $t$ 的次数为零。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-sequence-maps-split} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-analogue-sequence-maps-split}
+在情形 \ref{dga-situation-ABC} 中，设
+$x_1\to x_2\to\ldots\to x_n$ 是 $\text{Comp}(\mathcal{A})$ 中一列可复合
+态射。那么 $\text{Comp}(\mathcal{A})$ 中存在交换图表
+$$
+\xymatrix{x_1\ar[r] & x_2\ar[r] & \ldots\ar[r] & x_n\\
+y_1\ar[r]\ar[u] & y_2\ar[r]\ar[u] & \ldots\ar[r] & y_n\ar[u]}
+$$
+，使每个 $y_i\to y_{i+1}$ 都是容许单态射，而每个 $y_i\to x_i$ 都是同伦等价。
+\end{lemma}
+
+\begin{proof}
+$n=1$ 的情形是平凡的：只须取 $y_1=x_1$，而 $x_1$ 上的恒等态射当然是
+同伦等价。$n=2$ 的情形由引理 \ref{dga-lemma-factor} 给出。假设已经把图表构造
+到 $x_{n-1}$。对复合 $y_{n-1}\to x_{n-1}\to x_n$ 应用引理
+\ref{dga-lemma-factor}，得到 $y_n$。于是 $y_{n-1}\to y_n$ 是容许单态射，
+$y_n\to x_n$ 是同伦等价。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-nilpotent} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-triseq}
+在情形 \ref{dga-situation-ABC} 中，设 $x_i\to y_i\to z_i$ 是
+$\mathcal{A}$ 中的态射（$i=1,2,3$），并且 $x_2\to y_2\to z_2$ 是容许
+短正合列。设 $b:y_1\to y_2$ 和 $b':y_2\to y_3$ 是
+$\text{Comp}(\mathcal{A})$ 中的态射，使得
+$$
+\vcenter{
+\xymatrix{
+x_1 \ar[d]_0 \ar[r] &
+y_1 \ar[r] \ar[d]_b &
+z_1 \ar[d]_0 \\
+x_2 \ar[r] & y_2 \ar[r] & z_2
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+x_2 \ar[d]^0 \ar[r] &
+y_2 \ar[r] \ar[d]^{b'} &
+z_2 \ar[d]^0 \\
+x_3 \ar[r] & y_3 \ar[r] & z_3
+}
+}
+$$
+中的两个图表均在同伦意义下交换。那么 $b'\circ b$ 与 $0$ 同伦。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-homo-change}，可分别用与 $b,b'$ 同伦的映射
+$\tilde b,\tilde b'$ 替代它们，使左图的右方块交换，右图的左方块交换。
+设对 $\mathcal{A}$ 中次数为 $-1$ 的态射 $h,h'$，有
+$b=\tilde b+d(h)$、$b'=\tilde b'+d(h')$。于是
+$$
+b'b = \tilde{b}'\tilde{b} + d(\tilde{b}'h + h'\tilde{b} + h'd(h))
+$$
+，因为 $d(\tilde b)=d(\tilde b')=0$。也就是说，$b'b$ 与
+$\tilde b'\tilde b$ 同伦。现证明 $\tilde b'\tilde b=0$。由于
+$x_2\xrightarrow{f}y_2\xrightarrow{g}z_2$ 是容许短正合列，存在次数为 $0$
+的态射 $\pi:y_2\to x_2$ 和 $s:z_2\to y_2$，使得
+$\text{id}_{y_2}=f\pi+sg$。因此
+$$
+\tilde{b}'\tilde{b} = \tilde{b}'(f\pi + sg)\tilde{b} = 0
+$$
+，因为两个交换方块分别蕴含 $g\tilde b=0$ 和 $\tilde b'f=0$。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-triangle-independent-splittings} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-analogue-triangle-independent-splittings}
+在情形 \ref{dga-situation-ABC} 中，设
+$0\to x\to y\to z\to 0$ 是 $\text{Comp}(\mathcal{A})$ 中的容许短正合列。
+以引理 \ref{dga-lemma-get-triangle} 中定义的 $\delta:z\to x[1]$ 构成三角
+$$
+\xymatrix{x\ar[r] & y\ar[r] & z\ar[r]^{\delta} & x[1]}
+$$
+。在 $K(\mathcal{A})$ 中，除典范同构外，它不依赖于引理
+\ref{dga-lemma-get-triangle} 中所作的选择。
+\end{lemma}
+
+\begin{proof}
+假设 $\delta$ 由分裂
+$$
+\xymatrix{
+x \ar@<0.5ex>[r]^{a} &
+y \ar@<0.5ex>[r]^b\ar@<0.5ex>[l]^{\pi} &
+z \ar@<0.5ex>[l]^s
+}
+$$
+定义，而 $\delta'$ 由以 $\pi',s'$ 代替 $\pi,s$ 的分裂定义。那么
+$$
+s'-s = (a\pi + sb)(s'-s) = a\pi s'
+$$
+，因为 $bs'=bs=1_z$ 且 $\pi s=0$。类似地，
+$$
+\pi' - \pi = (\pi' - \pi)(a\pi + sb) = \pi'sb
+$$
+由于按引理 \ref{dga-lemma-get-triangle} 的构造，$\delta=\pi d(s)$ 且
+$\delta'=\pi'd(s')$，可计算
+$$
+\delta' = \pi'd(s') = (\pi + \pi'sb)d(s + a\pi s') = \delta + d(\pi s')
+$$
+；这里使用了 $\pi a=1_x$、$ba=0$，以及由引理
+\ref{dga-lemma-get-triangle} 的公式 (5) 得出的
+$\pi'sbd(s')=\pi'sba\pi d(s')=0$。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-rotate-cone} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-restate-axiom-c}
+在情形 \ref{dga-situation-ABC} 中，设 $f:x\to y$ 是
+$\text{Comp}(\mathcal{A})$ 中的态射。三角 $(y,c(f),x[1],i,p,f[1])$
+是与容许短正合列
+$$
+\xymatrix{y\ar[r] & c(f) \ar[r] & x[1]}
+$$
+相联系的三角，其中锥 $c(f)$ 如引理 \ref{dga-lemma-get-triangle} 中所定义。
+\end{lemma}
+
+\begin{proof}
+这由公理 (C) 得出。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-rotate-triangle} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-cone-rotate-isom}
+在情形 \ref{dga-situation-ABC} 中，设 $\alpha:x\to y$ 和 $\beta:y\to z$
+给出 $\text{Comp}(\mathcal{A})$ 中的容许短正合列
+$$
+\xymatrix{
+x \ar[r] &
+y\ar[r] &
+z
+}
+$$
+。令 $(x,y,z,\alpha,\beta,\delta)$ 为 $K(\mathcal{A})$ 中相联系的三角。
+那么三角
+$$
+(z[-1], x, y, \delta[-1], \alpha, \beta)
+\quad\text{且}\quad
+(z[-1], x, c(\delta[-1]), \delta[-1], i, p)
+$$
+同构。
+\end{lemma}
+
+\begin{proof}
+有如下形式的图表
+$$
+\xymatrix{
+z[-1]\ar[r]^{\delta[-1]}\ar[d]^1 &
+x\ar@<0.5ex>[r]^{\alpha}\ar[d]^1 &
+y\ar@<0.5ex>[r]^{\beta}\ar@{.>}[d]\ar@<0.5ex>[l]^{\tilde{\alpha}} &
+z\ar[d]^1\ar@<0.5ex>[l]^{\tilde\beta} \\
+z[-1] \ar[r]^{\delta[-1]} &
+x\ar@<0.5ex>[r]^i &
+c(\delta[-1]) \ar@<0.5ex>[r]^p\ar@<0.5ex>[l]^{\tilde i} &
+z\ar@<0.5ex>[l]^{\tilde p}
+}
+$$
+，其中 $\alpha,\beta,i,p$ 的分裂分别由
+$\tilde\alpha,\tilde\beta,\tilde i,\tilde p$ 给出。把态射
+$y\to c(\delta[-1])$ 定义为 $i\tilde\alpha+\tilde p\beta$，把态射
+$c(\delta[-1])\to y$ 定义为 $\alpha\tilde i+\tilde\beta p$。先验证它们
+确实是 $\text{Comp}(\mathcal{A})$ 中的态射。由引理
+\ref{dga-lemma-get-triangle} 中的恒等式，有关系
+$\delta[-1]=\tilde\alpha d(\tilde\beta)=-d(\tilde\alpha)\tilde\beta$
+以及 $\delta[-1]=\tilde i d(\tilde p)$。于是
+\begin{align*}
+d(\tilde{\alpha})
+& =
+d(\tilde{\alpha})\tilde{\beta}\beta \\
+& =
+-\delta[-1]\beta
+\end{align*}
+，其中第一个等号使用了引理 \ref{dga-lemma-get-triangle} 的公式 (6)，第二个
+等号使用了前述关系。类似地，得到 $d(\tilde p)=i\delta[-1]$。因此
+\begin{align*}
+d(i\tilde{\alpha} + \tilde{p}\beta)
+& =
+d(i)\tilde{\alpha} + id(\tilde{\alpha}) +
+d(\tilde{p})\beta + \tilde{p}d(\beta) \\
+& =
+id(\tilde{\alpha}) + d(\tilde{p})\beta \\
+& =
+-i\delta[-1]\beta + i\delta[-1]\beta \\
+& =
+0
+\end{align*}
+，故 $i\tilde\alpha+\tilde p\beta$ 确实是 $\text{Comp}(\mathcal{A})$
+中的态射。类似计算表明，$\alpha\tilde i+\tilde\beta p$ 也是
+$\text{Comp}(\mathcal{A})$ 中的态射。显然这些态射组成上述交换图表。计算得
+\begin{align*}
+(i\tilde{\alpha} + \tilde{p}\beta)(\alpha \tilde{i} + \tilde{\beta} p)
+& =
+i\tilde{\alpha}\alpha\tilde{i} + i\tilde{\alpha}\tilde{\beta}p
++ \tilde{p}\beta\alpha\tilde{i} + \tilde{p}\beta\tilde{\beta}p \\
+& =
+i\tilde{i} + \tilde{p}p \\
+& =
+1_{c(\delta[-1])}
+\end{align*}
+，其中自由使用了引理 \ref{dga-lemma-get-triangle} 中的恒等式。类似地，计算得
+$(\alpha \tilde{i} + \tilde{\beta} p)(i\tilde{\alpha} + \tilde{p}\beta) = 1_y$,
+，故 $y\cong c(\delta[-1])$。因此，所讨论的两个三角同构。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-third-isomorphism} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-analogue-third-isomorphism}
+在情形 \ref{dga-situation-ABC} 中，设 $f_1:x_1\to y_1$ 和
+$f_2:x_2\to y_2$ 是 $\text{Comp}(\mathcal{A})$ 中的态射。设
+$$
+(a,b,c): (x_1,y_1,c(f_1), f_1, i_1, p_1) \to (x_2,y_2, c(f_2), f_2, i_1, p_1)
+$$
+是 $K(\mathcal{A})$ 中任意三角态射。若 $a$ 和 $b$ 是同伦等价，则 $c$
+也是同伦等价。
+\end{lemma}
+
+\begin{proof}
+由于 $a,b$ 是同伦等价，它们在 $K(\mathcal{A})$ 中可逆。以
+$a^{-1},b^{-1}$ 表示它们在 $K(\mathcal{A})$ 中的逆，得到交换图表
+$$
+\xymatrix{
+x_2\ar[d]^{a^{-1}}\ar[r]^{f_2} &
+y_2\ar[d]^{b^{-1}}\ar[r]^{i_2} &
+c(f_2)\ar[d]^{c'} \\
+x_1\ar[r]^{f_1} &
+y_1 \ar[r]^{i_1} &
+c(f_1)
+}
+$$
+，其中映射 $c'$ 通过把引理 \ref{dga-lemma-cone} 应用于上图左侧交换方块而定义。
+由于图表在 $K(\mathcal{A})$ 中交换，由引理 \ref{dga-lemma-triseq}，只需证明：
+给定 $K(\mathcal{A})$ 中的三角态射
+$(1,1,c): (x,y,c(f),f,i,p)\to (x,y,c(f),f,i,p)$
+，映射 $c$ 是 $K(\mathcal{A})$ 中的同构。在 $K(\mathcal{A})$ 中有交换图表
+$$
+\vcenter{
+\xymatrix{
+y\ar[d]^{1}\ar[r] &
+c(f)\ar[d]^{c}\ar[r] &
+x[1]\ar[d]^{1} \\
+y\ar[r] &
+c(f) \ar[r] &
+x[1]
+}
+}
+\quad\Rightarrow\quad
+\vcenter{
+\xymatrix{
+y\ar[d]^{0}\ar[r] &
+c(f)\ar[d]^{c-1}\ar[r] &
+x[1]\ar[d]^{0} \\
+y\ar[r] &
+c(f) \ar[r] &
+x[1]
+}
+}
+$$
+由于各行都是容许短正合列，由引理 \ref{dga-lemma-triseq} 得到恒等式
+$(c-1)^2=0$。由此推出 $2-c$ 是 $c$ 在 $K(\mathcal{A})$ 中的逆，
+因而 $c$ 是同构。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-the-same-up-to-isomorphisms} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-cone-homotopy}
+在情形 \ref{dga-situation-ABC} 中：
+\begin{enumerate}
+\item 给定容许短正合列 $x\xrightarrow{\alpha}y\xrightarrow{\beta}z$。
+那么存在同伦等价 $e:C(\alpha)\to z$，使图表
+\begin{equation}
+\label{dga-equation-cone-isom-triangle}
+\vcenter{
+\xymatrix{
+x\ar[r]^{\alpha}\ar[d] &
+y\ar[r]^{b}\ar[d] &
+C(\alpha)\ar[r]^{-c}\ar@{.>}[d]^{e} &
+x[1]\ar[d] \\
+x\ar[r]^{\alpha} &
+y\ar[r]^{\beta} &
+z\ar[r]^{\delta} & x[1]
+}
+}
+\end{equation}
+在 $K(\mathcal{A})$ 中定义三角同构。这里
+$y\xrightarrow{b}C(\alpha)\xrightarrow{c}x[1]$ 是按公理 (C) 给出的容许
+短正合列。
+\item 给定 $\text{Comp}(\mathcal{A})$ 中的态射 $\alpha:x\to y$，令
+$x\xrightarrow{\tilde\alpha}\tilde y\to y$ 为引理 \ref{dga-lemma-factor}
+中给出的分解，其中容许单态射 $x\xrightarrow{\tilde\alpha}y$ 延拓为容许短正合列
+$$
+\xymatrix{
+x \ar[r]^{\tilde{\alpha}} &
+\tilde{y} \ar[r] & z
+}
+$$
+。那么存在三角同构
+$$
+\xymatrix{
+x \ar[r]^{\tilde{\alpha}} \ar[d] &
+\tilde{y} \ar[r] \ar[d] &
+z \ar[r]^{\delta} \ar@{.>}[d]^{e} &
+x[1] \ar[d] \\
+x \ar[r]^{\alpha} &
+y \ar[r] &
+C(\alpha) \ar[r]^{-c} &
+x[1]
+}
+$$
+，其中上方三角是与列 $x\xrightarrow{\tilde\alpha}\tilde y\to z$ 相联系的三角。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对 (1)，考虑下述更完整的图表，其中\emph{不}改变 $c$ 的符号：
+$$
+\xymatrix{
+x\ar@<0.5ex>[r]^{\alpha} \ar[d] &
+y\ar@<0.5ex>[l]^{\pi} \ar@<0.5ex>[r]^{b}\ar[d] &
+C(\alpha)\ar@<0.5ex>[l]^{p} \ar@<0.5ex>[r]^{c}\ar@{.>}@<0.5ex>[d]^{e} &
+x[1]\ar@<0.5ex>[l]^{\sigma} \ar[d]\ar@<0.5ex>[r]^{\alpha} &
+y[1]\ar@<0.5ex>[l]^{\pi} \\
+x\ar@<0.5ex>[r]^{\alpha} &
+y\ar@<0.5ex>[r]^{\beta} \ar@<0.5ex>[l]^{\pi} &
+z\ar[r]^{\delta}\ar@<0.5ex>[l]^{s} \ar@{.>}@<0.5ex>[u]^{f} &
+x[1]
+}
+$$
+其中容许短正合列 $x\xrightarrow{\alpha}y\xrightarrow{\beta}z$ 带有分裂
+$\pi,s$，容许短正合列
+$y\xrightarrow{b}C(\alpha)\xrightarrow{c}x[1]$ 带有分裂 $p,\sigma$。
+注意（在移位下识别 Hom 集），由引理 \ref{dga-lemma-get-triangle} 中的构造，
+$$
+\alpha = pd(\sigma) = -d(p)\sigma,\quad
+\delta = \pi d(s) = -d(\pi)s
+$$
+。
+
+\medskip\noindent
+定义 $e=\beta p$ 和 $f=bs-\sigma\delta$。先验证它们是
+$\text{Comp}(\mathcal{A})$ 中的态射。为证明 $d(e)=\beta d(p)$ 为零，
+只需证明 $\beta d(p)b$ 和 $\beta d(p)\sigma$ 均为零，而
+$$
+\beta d(p)b = \beta d(pb) = \beta d(1_y) = 0,\quad
+\beta d(p)\sigma = -\beta\alpha = 0
+$$
+。类似地，为验证 $d(f)=bd(s)-d(\sigma)\delta$ 为零，只需验证它与 $p$
+及 $c$ 的后复合都为零，而
+\begin{align*}
+pbd(s) - pd(\sigma)\delta
+= &
+d(s)-\alpha\delta = d(s)-\alpha\pi d(s) = 0 \\
+cbd(s)-cd(\sigma)\delta
+= &
+-cd(\sigma)\delta = -d(c\sigma)\delta = 0
+\end{align*}
+。图表 \ref{dga-equation-cone-isom-triangle} 左侧两个方块的交换性直接由定义得出。
+在证明右侧方块在同伦意义下交换之前，先验证 $e$ 是同伦等价。显然，
+$$
+ef=\beta p (bs-\sigma\delta)=\beta s=1_z
+$$
+。为验证 $fe$ 与 $1_{C(\alpha)}$ 同伦，先注意
+$$
+b\alpha = bpd(\alpha) = d(\sigma),\quad
+\alpha c = -d(p)\sigma c = -d(p),\quad
+d(\pi)p = d(\pi)s\beta p = -\delta\beta p
+$$
+。利用这些恒等式，计算得
+\begin{align*}
+1_{C(\alpha)} = &
+bp + \sigma c
+\quad (\text{由 }y \xrightarrow{b} C(\alpha) \xrightarrow{c} x[1]) \\
+= &
+b(\alpha\pi + s\beta)p + \sigma(\pi\alpha)c
+\quad (\text{由 }x \xrightarrow{\alpha} y \xrightarrow{\beta} z) \\
+= &
+d(\sigma)\pi p + bs\beta p - \sigma\pi d(p)
+\quad (\text{由上述前两个恒等式}) \\
+= &
+d(\sigma)\pi p + bs\beta p - \sigma\delta\beta p
++ \sigma\delta\beta p - \sigma\pi d(p) \\
+= &
+(bs - \sigma\delta)\beta p + d(\sigma)\pi p
+- \sigma d(\pi)p - \sigma\pi d(p)\quad
+(\text{由上述第三个恒等式}) \\
+= &
+fe + d(\sigma \pi p)
+\end{align*}
+，因为 $\sigma\in\Hom^{-1}(x,C(\alpha))$（参见引理
+\ref{dga-lemma-id-cone-null} 的证明）。因此 $e,f$ 互为同伦逆。最后，为验证
+图表 \ref{dga-equation-cone-isom-triangle} 的右侧方块在同伦意义下交换，
+只须验证 $-cf=\delta$。这由下式得出：
+$$
+-cf = -c(bs-\sigma\delta) = c\sigma\delta = \delta
+$$
+，因为 $cb=0$。
+
+\medskip\noindent
+对 (2)，考虑引理 \ref{dga-lemma-factor} 中给出的分解
+$x\xrightarrow{\tilde\alpha}\tilde y\to y$，故第二个态射是同伦等价。
+由引理 \ref{dga-lemma-cone} 和 \ref{dga-lemma-analogue-third-isomorphism}，
+下列两个三角之间存在三角同构：
+$$
+x \xrightarrow{\alpha} y \to C(\alpha) \to x[1]
+\quad\text{且}\quad
+x \xrightarrow{\tilde{\alpha}} \tilde{y} \to C(\tilde{\alpha}) \to x[1]
+$$
+。由于可以复合三角同构，通过以 $\tilde\alpha$ 替代 $\alpha$、以
+$\tilde y$ 替代 $y$、以 $C(\tilde\alpha)$ 替代 $C(\alpha)$，可假设
+$\alpha$ 是容许单态射。在这种情形下，结论由 (1) 得出。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-homotopy-category-pre-triangulated} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-analogue-homotopy-category-pre-triangulated}
+在情形 \ref{dga-situation-ABC} 中，同伦范畴 $K(\mathcal{A})$ 连同其自然平移
+函子和有区别三角，是预三角范畴。
+\end{lemma}
+
+\begin{proof}
+逐一验证 TR1、TR2 和 TR3。
+
+\medskip\noindent
+TR1 的证明。由定义，每个与有区别三角同构的三角都是有区别的。由于
+$$
+\xymatrix{x\ar[r]^{1_x} & x\ar[r] & 0}
+$$
+是容许短正合列，$(x,x,0,1_x,0,0)$ 是有区别三角。此外，给定
+$\text{Comp}(\mathcal{A})$ 中的态射 $\alpha:x\to y$，由引理
+\ref{dga-lemma-cone-homotopy}，三角 $(x,y,c(\alpha),\alpha,i,-p)$ 是有区别的。
+
+\medskip\noindent
+TR2 的证明。设 $(x,y,z,\alpha,\beta,\gamma)$ 是三角，并假设
+$(y,z,x[1],\beta,\gamma,-\alpha[1])$ 是有区别的。则存在容许短正合列
+$0\to x'\to y'\to z'\to0$，使相联系的三角
+$(x',y',z',\alpha',\beta',\gamma')$ 同构于
+$(y,z,x[1],\beta,\gamma,-\alpha[1])$。旋转后，得出
+$(x,y,z,\alpha,\beta,\gamma)$ 同构于
+$(z'[-1],x',y',\gamma'[-1],\alpha',\beta')$。由引理
+\ref{dga-lemma-cone-rotate-isom}，后者同构于
+$(z'[-1],x',c(\gamma'[-1]),\gamma'[-1],i,p)$。按下图所示改变符号并复合
+这两个同构：
+$$
+\xymatrix@C=3pc{
+x\ar[r]^{\alpha}\ar[d] &
+y\ar[r]^{\beta}\ar[d] &
+z\ar[r]^{\gamma}\ar[d] &
+x[1]\ar[d] \\
+z'[-1]\ar[r]^{-\gamma'[-1]}\ar[d]_{-1_{z'[-1]}} &
+x \ar[r]^{\alpha'}\ar@{=}[d] &
+y' \ar[r]^{\beta'} \ar[d] &
+z'\ar[d]^{-1_{z'}} \\
+z'[-1]\ar[r]^{\gamma'[-1]} &
+x \ar[r]^{\alpha'} &
+c(\gamma'[-1]) \ar[r]^{-p} &
+z'
+}
+$$
+由引理 \ref{dga-lemma-cone-homotopy} (2)，推出
+$(x,y,z,\alpha,\beta,\gamma)$ 是有区别的。反过来，假设
+$(x,y,z,\alpha,\beta,\gamma)$ 是有区别的。由引理
+\ref{dga-lemma-cone-homotopy} (1)，它同构于形如
+$(x',y',c(\alpha'),\alpha',i,-p)$ 的三角，其中
+$\alpha':x'\to y'$ 是 $\text{Comp}(\mathcal{A})$ 中的某个态射。
+旋转后的三角 $(y,z,x[1],\beta,\gamma,-\alpha[1])$ 同构于
+$(y',c(\alpha'),x'[1],i,-p,-\alpha[1])$，而后者同构于
+$(y',c(\alpha'),x'[1],i,p,\alpha[1])$。由引理
+\ref{dga-lemma-restate-axiom-c}，这个三角是有区别的，从而
+$(y,z,x[1],\beta,\gamma,-\alpha[1])$ 是有区别的。
+
+\medskip\noindent
+TR3 的证明。设 $(x,y,z,\alpha,\beta,\gamma)$ 和
+$(x',y',z',\alpha',\beta',\gamma')$ 是 $\text{Comp}(\mathcal{A})$
+中的有区别三角，且 $f:x\to x'$、$g:y\to y'$ 是满足
+$\alpha'\circ f=g\circ\alpha$ 的态射。由引理
+\ref{dga-lemma-cone-homotopy}，可假设
+$(x,y,z,\alpha,\beta,\gamma)= (x,y,c(\alpha),\alpha, i, -p)$
+，且
+$(x',y',z',\alpha',\beta',\gamma')=(x',y',c(\alpha'),\alpha',i',-p')$。
+现应用引理 \ref{dga-lemma-cone} 即得结论。
+\end{proof}
+
+\noindent
+下述引理是引理 \ref{dga-lemma-two-split-injections} 的对应版本。
+
+\begin{lemma}
+\label{dga-lemma-dgc-analogue-tr4}
+在情形 \ref{dga-situation-ABC} 中，给定 $\mathcal{A}$ 中的容许单态射
+$x\xrightarrow{\alpha}y$、$y\xrightarrow{\beta}z$，存在有区别三角
+$(x,y,q_1,\alpha,p_1,\delta_1)$、$(x,z,q_2,\beta\alpha,p_2,\delta_2)$
+和 $(y,z,q_3,\beta,p_3,\delta_3)$，使 TR4 成立。
+\end{lemma}
+
+\begin{proof}
+给定容许单态射 $x\xrightarrow{\alpha}y$ 和 $y\xrightarrow{\beta}z$，
+通过将它们延拓为容许短正合列，可以得到有区别三角
+$$
+\xymatrix{
+x\ar@<0.5ex>[r]^{\alpha} &
+y\ar@<0.5ex>[l]^{\pi_1} \ar@<0.5ex>[r]^{p_1} &
+q_1 \ar[r]^{\delta_1} \ar@<0.5ex>[l]^{s_1} &
+x[1]
+}
+$$
+$$
+\xymatrix{
+x\ar@<0.5ex>[r]^{\beta\alpha} &
+z\ar@<0.5ex>[l]^{\pi_1\pi_3} \ar@<0.5ex>[r]^{p_2} &
+q_2 \ar[r]^{\delta_2} \ar@<0.5ex>[l]^{s_2} &
+x[1]
+}
+$$
+$$
+\xymatrix{
+y\ar@<0.5ex>[r]^{\beta} &
+z\ar@<0.5ex>[l]^{\pi_3} \ar@<0.5ex>[r]^{p_3} &
+q_3 \ar[r]^{\delta_3} \ar@<0.5ex>[l]^{s_3} &
+x[1]
+}
+$$
+。在这些图表中，映射 $\delta_i$ 类似于引理 \ref{dga-lemma-get-triangle}
+中定义的映射，定义为 $\delta_i=\pi_i d(s_i)$。它们构成下述实线交换图表
+$$
+\xymatrix@C=5pc@R=3pc{
+x\ar@<0.5ex>[r]^{\alpha} \ar@<0.5ex>[dr]^{\beta\alpha} &
+y\ar@<0.5ex>[d]^{\beta} \ar@<0.5ex>[l]^{\pi_1} \ar@<0.5ex>[r]^{p_1} &
+q_1 \ar[r]^{\delta_1} \ar@<0.5ex>[l]^{s_1} \ar@{.>}[dd]^{p_2\beta s_1} &
+x[1] \\
+ &
+z \ar@<0.5ex>[u]^{\pi_3}\ar@<0.5ex>[d]^{p_3}
+\ar@<0.5ex>[dr]^{p_2} \ar@<0.5ex>[ul]^{\pi_1\pi_3} & & \\
+ &
+q_3\ar@<0.5ex>[u]^{s_3} \ar[d]^{\delta_3} &
+q_2 \ar@{.>}[l]^{p_3s_2} \ar@<0.5ex>[ul]^{s_2} \ar[dr]^{\delta_2} \\
+ &
+y[1] & & x[1]}
+$$
+，其中虚线箭头按图中所示定义。显然，它们的复合
+$p_3s_2p_2\beta s_1=0$，因为 $s_2p_2=0$。断言两者都是
+$\text{Comp}(\mathcal{A})$ 中的态射。可利用引理
+\ref{dga-lemma-get-triangle} 中的等式验证这一点：
+$$
+d(p_2\beta s_1) = p_2\beta d(s_1) = p_2\beta\alpha\pi_1 d(s_1) = 0
+$$
+，因为 $p_2\beta\alpha=0$；并且
+$$
+d(p_3s_2) = p_3d(s_2) = p_3\beta\alpha\pi_1\pi_3 d(s_2) = 0
+$$
+，因为 $p_3\beta=0$。为验证 $q_1\to q_2\to q_3$ 是容许短正合列，
+还须证明在底层分次范畴中 $q_2=q_1\oplus q_3$，且上述两个态射分别是
+余投影和投影。为此，注意在底层分次范畴 $\mathcal{C}$ 中有
+$$
+y = x\oplus q_1,\quad
+z = y\oplus q_3 = x\oplus q_1\oplus q_3
+$$
+，其中 $\pi_1\pi_3$ 给出到第一个因子的投影态射
+$x\oplus q_1\oplus q_3\to z$。由 $\mathcal{A}$ 的公理 (A)，
+$\mathcal{C}$ 是加性范畴。因此可应用《同调代数》引理
+\ref{homology-lemma-additive-cat-biproduct-kernel}，得出
+$$
+\Ker(\pi_1\pi_3) = q_1\oplus q_3
+$$
+在 $\mathcal{C}$ 中成立。再把《同调代数》引理
+\ref{homology-lemma-additive-cat-biproduct-kernel} 应用于
+$z=x\oplus q_2$，得到 $\Ker(\pi_1\pi_3)=q_2$。故在 $\mathcal{C}$ 中
+$q_2\cong q_1\oplus q_3$。显然，上述虚线态射给出余投影和投影。
+
+\medskip\noindent
+最后，还须验证容许短正合列 $q_1\to q_2\to q_3$ 诱导的态射
+$\delta:q_3\to q_1[1]$ 与 $p_1\delta_3$ 一致。由引理
+\ref{dga-lemma-get-triangle} 中的构造，态射 $\delta$ 由下式给出：
+\begin{align*}
+p_1\pi_3s_2d(p_2s_3)
+= &
+p_1\pi_3s_2p_2d(s_3) \\
+= &
+p_1\pi_3(1-\beta\alpha\pi_1\pi_3)d(s_3) \\
+= &
+p_1\pi_3d(s_3)\quad (\text{因为 }\pi_3\beta = 0) \\
+= &
+p_1\delta_3
+\end{align*}
+，这正是所需等式。证明完成。
+\end{proof}
+
+\noindent
+汇集以上结果，终于得到命题
+\ref{dga-proposition-homotopy-category-triangulated} 的对应版本。
+
+\begin{proposition}
+\label{dga-proposition-ABC-homotopy-category-triangulated}
+在情形 \ref{dga-situation-ABC} 中，同伦范畴 $K(\mathcal{A})$ 连同其自然平移
+函子和有区别三角，是三角范畴。
+\end{proposition}
+
+\begin{proof}
+由引理 \ref{dga-lemma-analogue-homotopy-category-pre-triangulated}，
+$K(\mathcal{A})$ 是预三角范畴。把引理
+\ref{dga-lemma-analogue-sequence-maps-split}、\ref{dga-lemma-dgc-analogue-tr4}
+与《导出范畴》引理 \ref{derived-lemma-easier-axiom-four} 结合，得出
+$K(\mathcal{A})$ 是三角范畴。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-functor-between-ABC}
+设 $R$ 是环，$F:\mathcal{A}\to\mathcal{B}$ 是满足公理 (A)、(B)、(C)
+的 $R$ 上微分分次范畴之间的函子，并且 $F(x[1])=F(x)[1]$。
+那么 $F$ 诱导三角范畴之间的正合函子
+$K(\mathcal{A})\to K(\mathcal{B})$。
+\end{lemma}
+
+\begin{proof}
+确实，若 $x\to y\to z$ 是 $\text{Comp}(\mathcal{A})$ 中的容许短正合列，
+则 $F(x)\to F(y)\to F(z)$ 是 $\text{Comp}(\mathcal{B})$ 中的容许短正合列。
+此外，引理 \ref{dga-lemma-get-triangle} 中构造的“边界”态射
+$\delta=\pi\text{d}(s):z\to x[1]$ 产生态射
+$F(\delta):F(z)\to F(x[1])=F(x)[1]$；它等于容许短正合列
+$F(x)\to F(y)\to F(z)$ 的边界映射 $F(\pi)\text{d}(F(s))$。
+\end{proof}
+
+
+
+
+
+\section{双模}
+\label{dga-section-bimodules}
+
+\noindent
+继续第 \ref{dga-section-tensor-product} 节开始的讨论。
+
+\begin{definition}
+\label{dga-definition-bimodule}
+双模。设 $R$ 是环。
+\begin{enumerate}
+\item 设 $A,B$ 是 $R$-代数。{\it $(A,B)$-双模}是带有 $R$-双线性映射
+$$
+A \times M \to M, (a, x) \mapsto ax
+\quad\text{且}\quad
+M \times B \to M, (x, b) \mapsto xb
+$$
+的 $R$-模 $M$，并满足
+\begin{enumerate}
+\item $a'(ax)=(a'a)x$ 且 $(xb)b'=x(bb')$；
+\item $a(xb)=(ax)b$；以及
+\item $1x=x=x1$。
+\end{enumerate}
+\item 设 $A,B$ 是 $\mathbf{Z}$-分次 $R$-代数。{\it 分次 $(A,B)$-双模}
+是带有分次 $M=\bigoplus M^n$ 的 $(A,B)$-双模 $M$，使得
+$A^nM^m\subset M^{n+m}$ 且 $M^nB^m\subset M^{n+m}$。
+\item 设 $A,B$ 是微分分次 $R$-代数。{\it 微分分次 $(A,B)$-双模}
+是带有次数为 $1$ 的齐次微分 $\text{d}:M\to M$ 的分次 $(A,B)$-双模，
+使得对齐次元素 $a\in A$、$x\in M$、$b\in B$，有
+$\text{d}(ax)=\text{d}(a)x+(-1)^{\deg(a)}a\text{d}(x)$ 且
+$\text{d}(xb)=\text{d}(x)b+(-1)^{\deg(x)}x\text{d}(b)$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，微分分次 $(A,B)$-双模 $M$ 与下述数据是一回事：$M$ 是右微分分次
+$B$-模，同时也是左微分分次 $A$-模，两个分次和微分彼此一致，并且
+$A$-模结构与 $B$-模结构交换。精确表述如下。
+
+\begin{lemma}
+\label{dga-lemma-what-makes-a-bimodule-dg}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$M$ 是右微分分次 $B$-模。$M$ 上与给定微分分次 $B$-模结构相容的
+$(A,B)$-双模结构，与微分分次 $R$-代数同态
+$$
+A
+\longrightarrow
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(M, M)
+$$
+之间有一一对应。
+\end{lemma}
+
+\begin{proof}
+设 $\mu:A\times M\to M$ 在 $M$ 的底层 $R$-模复形 $M^\bullet$ 上定义
+左微分分次 $A$-模结构。由引理 \ref{dga-lemma-left-module-structure}，结构
+$\mu$ 对应于微分分次 $R$-代数的映射
+$\gamma:A\to\Hom^\bullet(M^\bullet,M^\bullet)$。本引理的断言恰是：
+$\mu$ 与 $B$-作用交换，当且仅当 $\gamma$ 的像落在
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(M, M) \subset
+\Hom^\bullet(M^\bullet, M^\bullet)
+$$
+中。详细计算略。
+\end{proof}
+
+\noindent
+设 $M$ 是微分分次 $(A,B)$-双模。回忆第 \ref{dga-section-left-modules} 节：
+左微分分次 $A$-模结构对应于右微分分次 $A^{opp}$-模结构。由于 $A$-模
+结构与 $B$-模结构交换，这赋予 $M$ 微分分次
+$A^{opp}\otimes_R B$-模结构：
+$$
+x \cdot (a \otimes b) = (-1)^{\deg(a)\deg(x)} axb
+$$
+。反过来，若有微分分次 $A^{opp}\otimes_R B$-模 $M$，则可利用上式得到
+微分分次 $(A,B)$-双模。
+
+\begin{lemma}
+\label{dga-lemma-bimodule-over-tensor}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数。
+上述构造定义范畴等价
+$$
+\begin{matrix}
+\text{微分分次}\\
+(A, B)\text{-双模}
+\end{matrix}
+\longleftrightarrow
+\begin{matrix}
+\text{右微分分次}\\
+A^{opp} \otimes_R B\text{-模}
+\end{matrix}
+$$
+\end{lemma}
+
+\begin{proof}
+由上述讨论立即得出。
+\end{proof}
+
+\noindent
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数。
+设 $P$ 是微分分次 $(A,B)$-双模。若存在滤过
+$$
+0 = F_{-1}P \subset F_0P \subset F_1P \subset \ldots \subset P
+$$
+，它由微分分次 $(A,B)$-双模组成，并且
+\begin{enumerate}
+\item $P=\bigcup F_pP$；
+\item 包含映射 $F_iP\to F_{i+1}P$ 作为分次 $(A,B)$-双模映射是分裂的；
+\item 作为微分分次 $(A,B)$-双模，商 $F_{i+1}P/F_iP$ 同构于若干个
+$(A\otimes_R B)[k]$ 的直和，
+\end{enumerate}
+则称 $P$ {\it 具有性质 (P)}。
+
+\begin{lemma}
+\label{dga-lemma-bimodule-resolve}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数，
+$M$ 是微分分次 $(A,B)$-双模。存在微分分次 $(A,B)$-双模同态 $P\to M$，
+它是拟同构，并且 $P$ 具有上面定义的性质 (P)。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-bimodule-over-tensor} 和 \ref{dga-lemma-resolve} 立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-bimodule-property-P-sequence}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数。
+设 $P$ 是具有性质 (P) 的微分分次 $(A,B)$-双模，其相应滤过为
+$F_\bullet$。那么得到短正合列
+$$
+0 \to
+\bigoplus\nolimits F_iP \to
+\bigoplus\nolimits F_iP \to P \to 0
+$$
+，它由微分分次 $(A,B)$-双模组成，并且作为分次 $(A,B)$-双模列是分裂的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-bimodule-over-tensor} 和
+\ref{dga-lemma-property-P-sequence} 立即得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{双模与张量积}
+\label{dga-section-bimodules-tensor}
+
+\noindent
+设 $R$ 是环，$A,B$ 是 $R$-代数，$M$ 是右 $A$-模，$N$ 是
+$(A,B)$-双模。那么 $M\otimes_A N$ 是右 $B$-模。
+
+\medskip\noindent
+若在上一段的情形中，$A,B$ 是 $\mathbf{Z}$-分次代数，$M$ 是分次
+$A$-模，$N$ 是分次 $(A,B)$-双模，则 $M\otimes_A N$ 是右分次 $B$-模。
+该构造关于 $M$ 具有函子性，并定义例 \ref{dga-example-gm-gr-cat} 中分次范畴
+之间的函子
+$$
+- \otimes_A N :
+\text{Mod}^{gr}_A
+\longrightarrow
+\text{Mod}^{gr}_B
+$$
+。确实，若 $M,M'$ 是分次 $A$-模，$f:M\to M'$ 是次数 $n$ 齐次的
+$A$-模同态，则
+$f\otimes\text{id}_N:M\otimes_A N\to M'\otimes_A N$ 是次数 $n$
+齐次的 $B$-模同态。
+
+\medskip\noindent
+若在上一段的情形中，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次代数，
+$M$ 是微分分次 $A$-模，$N$ 是微分分次 $(A,B)$-双模，则
+$M\otimes_A N$ 是右微分分次 $B$-模。
+
+\begin{lemma}
+\label{dga-lemma-tensor}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$N$ 是微分分次 $(A,B)$-双模。那么 $M\mapsto M\otimes_A N$ 定义微分分次
+范畴之间的函子
+$$
+- \otimes_A N :
+\text{Mod}^{dg}_{(A, \text{d})}
+\longrightarrow
+\text{Mod}^{dg}_{(B, \text{d})}
+$$
+。应用引理 \ref{dga-lemma-functorial}，此函子诱导函子
+$$
+\text{Mod}_{(A, \text{d})} \to \text{Mod}_{(B, \text{d})}
+\quad\text{以及}\quad
+K(\text{Mod}_{(A, \text{d})}) \to K(\text{Mod}_{(B, \text{d})})
+$$
+。
+\end{lemma}
+
+\begin{proof}
+上面已经看到该构造如何定义底层分次范畴之间的函子。因此，只需证明该构造
+与微分相容。设 $M,M'$ 是微分分次 $A$-模，$f:M\to M'$ 是次数 $n$
+齐次的 $A$-模同态。那么
+$$
+\text{d}(f) = \text{d}_{M'} \circ f - (-1)^n f \circ \text{d}_M
+$$
+。另一方面，
+$$
+\text{d}(f \otimes \text{id}_N) =
+\text{d}_{M' \otimes_A N} \circ
+(f \otimes \text{id}_N)
+- (-1)^n
+(f \otimes \text{id}_N) \circ \text{d}_{M \otimes_A N}
+$$
+。把它应用于元素 $x\otimes y$，其中 $x\in M$、$y\in N$ 是齐次元素，得到
+\begin{align*}
+\text{d}(f \otimes \text{id}_N)(x \otimes y)
+= &
+\text{d}_{M'}(f(x)) \otimes y + (-1)^{n + \deg(x)}f(x) \otimes \text{d}_N(y) \\
+& - (-1)^n f(\text{d}_M(x)) \otimes y
+- (-1)^{n + \deg(x)}f(x) \otimes \text{d}_N(y) \\
+= &
+\text{d}(f) (x \otimes y)
+\end{align*}
+故 $\text{d}(f)\otimes\text{id}_N=
+\text{d}(f\otimes\text{id}_N)$。证明完成。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-shift-tensor-no-sign}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$N$ 是微分分次 $(A,B)$-双模，$M$ 是右微分分次 $A$-模。那么对每个
+$k\in\mathbf{Z}$，有右微分分次 $B$-模同构
+$$
+(M \otimes_A N)[k] \longrightarrow
+M[k] \otimes_A N
+$$
+，其定义不引入符号；见《代数进阶》第
+\ref{more-algebra-section-sign-rules} 节。
+\end{remark}
+
+\noindent
+若有环 $R$、$R$-代数 $A,B,C$、右 $A$-模 $M$、$(A,B)$-双模 $N$
+以及 $(B,C)$-双模 $N'$，则 $N\otimes_B N'$ 是 $(A,C)$-双模，并且
+$$
+(M \otimes_A N) \otimes_B N' = M \otimes_A (N \otimes_B N')
+$$
+。这个等式在分次情形和微分分次情形中仍成立。符号法则见《代数进阶》第
+\ref{more-algebra-section-sign-rules} 节。
+
+
+
+
+
+
+\section{双模与内部 Hom}
+\label{dga-section-bimodules-hom}
+
+\noindent
+设 $R$ 是环。若 $A$ 是 $R$-代数（见第 \ref{dga-section-conventions} 节中的约定），
+而 $M,M'$ 是右 $A$-模，则像通常一样定义
+$$
+\Hom_A(M, M') = \{f : M \to M' \mid f \text{ 是 }A\text{-线性的}\}
+$$
+。
+
+\medskip\noindent
+设 $R$ 是环，$A,B$ 是 $R$-代数，$N$ 是 $(A,B)$-双模，$N'$ 是右
+$B$-模。在这种情形下，通过前复合把
+$$
+\Hom_B(N, N')
+$$
+看作右 $A$-模。
+
+\medskip\noindent
+设 $R$ 是环，$A,B$ 是 $\mathbf{Z}$-分次 $R$-代数，$N$ 是分次
+$(A,B)$-双模，$N'$ 是右分次 $B$-模。在这种情形下，通过前复合把例
+\ref{dga-example-gm-gr-cat} 中定义的分次 $R$-模
+$$
+\Hom_{\text{Mod}^{gr}_B}(N, N')
+$$
+看作右分次 $A$-模。该构造关于 $N'$ 具有函子性，并定义例
+\ref{dga-example-gm-gr-cat} 中分次范畴之间的函子
+$$
+\Hom_{\text{Mod}^{gr}_B}(N, -) :
+\text{Mod}^{gr}_B
+\longrightarrow
+\text{Mod}^{gr}_A
+$$
+。确实，若 $N_1,N_2$ 是分次 $B$-模，而 $f:N_1\to N_2$ 是次数 $n$
+齐次的 $B$-模同态，则诱导映射
+$\Hom_{\text{Mod}^{gr}_B}(N,N_1)\to
+\Hom_{\text{Mod}^{gr}_B}(N,N_2)$ 是次数 $n$ 齐次的 $A$-模同态。
+
+\medskip\noindent
+设 $R$ 是环，$A,B$ 是微分 $\mathbf{Z}$-分次 $R$-代数，$N$ 是微分分次
+$(A,B)$-双模，$N'$ 是右微分分次 $B$-模。在这种情形下，通过如分次情形
+中的前复合，把例 \ref{dga-example-dgm-dg-cat} 中定义的微分分次 $R$-模
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, N')
+$$
+看作右微分分次 $A$-模。这与微分相容，因为乘法是复合
+$$
+\Hom_{\text{Mod}^{dg}_B}(N, N') \otimes_R A \to
+\Hom_{\text{Mod}^{dg}_B}(N, N') \otimes_R
+\Hom_{\text{Mod}^{dg}_B}(N, N) \to
+\Hom_{\text{Mod}^{dg}_B}(N, N')
+$$
+。第一个箭头使用引理 \ref{dga-lemma-what-makes-a-bimodule-dg} 中的映射，
+第二个箭头是微分分次范畴 $\text{Mod}^{dg}_{(B, \text{d})}$ 中的复合。
+
+\begin{lemma}
+\label{dga-lemma-hom}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$N$ 是微分分次 $(A,B)$-双模。上述构造定义微分分次范畴之间的函子
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, -) :
+\text{Mod}^{dg}_{(B, \text{d})}
+\longrightarrow
+\text{Mod}^{dg}_{(A, \text{d})}
+$$
+。应用引理 \ref{dga-lemma-functorial}，此函子诱导函子
+$$
+\text{Mod}_{(B, \text{d})} \to \text{Mod}_{(A, \text{d})}
+\quad\text{以及}\quad
+K(\text{Mod}_{(B, \text{d})}) \to K(\text{Mod}_{(A, \text{d})})
+$$
+。
+\end{lemma}
+
+\begin{proof}
+上面已经看到该构造如何定义底层分次范畴之间的函子。因此，只需证明该构造
+与微分相容。设 $N_1,N_2$ 是微分分次 $B$-模。记
+$$
+H_{12} = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N_1, N_2),\quad
+H_1 = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, N_1),\quad
+H_2 = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, N_2)
+$$
+。考虑微分分次范畴 $\text{Mod}^{dg}_{(B, \text{d})}$ 中的复合
+$$
+c : H_{12} \otimes_R H_1 \longrightarrow H_2
+$$
+。设 $f:N_1\to N_2$ 是次数 $n$ 齐次的 $B$-模同态；换言之，
+$f\in H_{12}^n$。引理中的函子把 $f$ 映到
+$c_f:H_1\to H_2$、$g\mapsto c(f,g)$。$\text{d}(f)$ 也类似。另一方面，
+$$
+\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(H_1, H_2)
+$$
+上的微分把 $c_f$ 映到
+$\text{d}_{H_2}\circ c_f-(-1)^n c_f\circ\text{d}_{H_1}$。由于 $c$ 是
+$R$-模复形之间的态射，有
+$\text{d}c(f,g)=c(\text{d}f,g)+(-1)^n c(f,\text{d}g)$。因此
+\begin{align*}
+(\text{d}c_f)(g)
+& =
+\text{d}c(f,g) - (-1)^n c(f, \text{d}g) \\
+& =
+c(\text{d}f, g) + (-1)^n c(f, \text{d}g)  - (-1)^n c(f, \text{d}g) \\
+& =
+c(\text{d}f, g) = c_{\text{d}f}(g)
+\end{align*}
+。证明完成。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-shift-hom-no-sign}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$N$ 是微分分次 $(A,B)$-双模，$N'$ 是右微分分次 $B$-模。那么对每个
+$k\in\mathbf{Z}$，有右微分分次 $A$-模同构
+$$
+\Hom_{\text{Mod}^{gr}_B}(N, N')[k]
+\longrightarrow
+\Hom_{\text{Mod}^{gr}_B}(N, N'[k])
+$$
+，其定义不引入符号；见《代数进阶》第
+\ref{more-algebra-section-sign-rules} 节。
+\end{remark}
+
+\begin{lemma}
+\label{dga-lemma-tensor-hom-adjunction}
+设 $R$ 是环，$A,B$ 是 $R$-代数，$M$ 是右 $A$-模，$N$ 是
+$(A,B)$-双模，$N'$ 是右 $B$-模。那么有 $R$-模的典范同构
+$$
+\Hom_B(M \otimes_A N, N') = \Hom_A(M, \Hom_B(N, N'))
+$$
+。若 $A,B,M,N,N'$ 带有彼此相容的分次，则有分次 $R$-模的典范同构
+$$
+\Hom_{\text{Mod}_B^{gr}}(M \otimes_A N, N') =
+\Hom_{\text{Mod}_A^{gr}}(M, \Hom_{\text{Mod}_B^{gr}}(N, N'))
+$$
+。若 $A,B,M,N,N'$ 带有彼此相容的微分分次结构，则有 $R$-模复形的典范同构
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(M \otimes_A N, N') =
+\Hom_{\text{Mod}^{dg}_{(A, \text{d})}}(M,
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, N'))
+$$
+。
+\end{lemma}
+
+\begin{proof}
+略。提示：在非分次情形下，把两边都解释为右侧 $B$-线性的 $A$-双线性映射
+$\psi:M\times N\to N'$。在（微分）分次情形下，使用《代数进阶》引理
+\ref{more-algebra-lemma-compose} 的同构，并验证它与模结构相容。或者，
+使用引理 \ref{dga-lemma-characterize-hom} 的同构，并证明它与 $B$-模结构相容。
+\end{proof}
+
+
+
+
+
+
+
+\section{导出 Hom}
+\label{dga-section-restriction}
+
+\noindent
+本节与《代数进阶》第 \ref{more-algebra-section-RHom} 节对应。
+
+\medskip\noindent
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$N$ 是微分分次 $(A,B)$-双模。考虑第 \ref{dga-section-bimodules-hom} 节的函子
+\begin{equation}
+\label{dga-equation-restriction}
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, -) :
+\text{Mod}_{(B, \text{d})}
+\longrightarrow
+\text{Mod}_{(A, \text{d})}
+\end{equation}
+。
+
+\begin{lemma}
+\label{dga-lemma-restriction-homotopy}
+函子 (\ref{dga-equation-restriction}) 定义三角范畴之间的正合函子
+$K(\text{Mod}_{(B, \text{d})})\to K(\text{Mod}_{(A, \text{d})})$。
+\end{lemma}
+
+\begin{proof}
+通过引理 \ref{dga-lemma-hom} 和评注 \ref{dga-remark-shift-hom-no-sign}，
+这由引理 \ref{dga-lemma-functor-between-ABC} 的一般原理得出。
+\end{proof}
+
+\noindent
+回忆，有三角范畴之间的正合函子
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, -) :
+K(\text{Mod}_{(B, \text{d})}) \to K(\text{Mod}_{(A, \text{d})})
+$$
+；见引理 \ref{dga-lemma-restriction-homotopy}。考虑图表
+$$
+\xymatrix{
+K(\text{Mod}_{(B, \text{d})}) \ar[d] \ar[rr]_{\text{见上文}} \ar[rrd]_F & &
+K(\text{Mod}_{(A, \text{d})}) \ar[d] \\
+D(B, \text{d}) \ar@{..>}[rr] & &
+D(A, \text{d})
+}
+$$
+希望把虚线箭头构造为复合 $F$ 的{\it 右导出函子}。
+（{\it 警告}：在多数有意义的情形中，图表并不交换。）具体地，在《导出范畴》
+第 \ref{derived-section-derived-functors} 节的一般框架中，希望计算 $F$
+关于 $K(\text{Mod}_{(A, \text{d})})$ 中拟同构乘法系的右导出函子。
+
+\begin{lemma}
+\label{dga-lemma-derived-restriction}
+在上述情形中，$F$ 的右导出函子存在。记为
+$R\Hom(N,-):D(B,\text{d})\to D(A,\text{d})$。
+\end{lemma}
+
+\begin{proof}
+使用《导出范畴》引理 \ref{derived-lemma-find-existence-computes} 来证明。
+取具有性质 (I) 的对象作为对象族 $\mathcal{I}$。性质 (1) 已在引理
+\ref{dga-lemma-right-resolution} 中证明。性质 (2) 成立，因为若
+$s:I\to I'$ 是具有性质 (I) 的模之间的拟同构，则由引理
+\ref{dga-lemma-hom-derived}，$s$ 是同伦等价。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-functoriality-derived-restriction}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数，
+$f:N\to N'$ 是微分分次 $(A,B)$-双模同态。那么 $f$ 诱导函子态射
+$$
+- \circ f : R\Hom(N', -) \longrightarrow R\Hom(N, -)
+$$
+。若 $f$ 是拟同构，则 $f\circ-$ 是函子同构。
+\end{lemma}
+
+\begin{proof}
+记 $\mathcal{B}=\text{Mod}^{dg}_{(B, \text{d})}$ 为微分分次 $B$-模的
+微分分次范畴；见例 \ref{dga-example-dgm-dg-cat}。设 $I$ 是具有性质 (I) 的
+微分分次 $B$-模。那么
+$f\circ-:\Hom_\mathcal{B}(N',I)\to\Hom_\mathcal{B}(N,I)$ 是微分分次
+$A$-模之间的映射，并且关于 $I$ 具有函子性。由于函子
+$R\Hom(N',-)$ 和 $R\Hom(N,-)$ 通过把 $\Hom_\mathcal{B}$ 应用于具有
+性质 (I) 的对象来计算（引理 \ref{dga-lemma-derived-restriction}），便得到所示的
+函子变换。
+
+\medskip\noindent
+假设 $f$ 是拟同构。设 $F_\bullet$ 是 $I$ 上的给定滤过。由于
+$I=\lim I/F_pI$，有
+$\Hom_\mathcal{B}(N', I) = \lim \Hom_\mathcal{B}(N', I/F_pI)$，并且
+$\Hom_\mathcal{B}(N,I)=\lim\Hom_\mathcal{B}(N,I/F_pI)$。由于系统
+$I/F_pI$ 的过渡映射作为分次模映射是分裂的，系统
+$\Hom_\mathcal{B}(N',I/F_pI)$ 和 $\Hom_\mathcal{B}(N,I/F_pI)$ 的过渡
+映射都是满射。因此，把 $\Hom_\mathcal{B}(N',I)$（分别地，
+$\Hom_\mathcal{B}(N,I)$）看作阿贝尔群复形，它计算复形系统
+$\Hom_\mathcal{B}(N',I/F_pI)$（分别地，
+$\Hom_\mathcal{B}(N,I/F_pI)$）的 $R\lim$。见《代数进阶》引理
+\ref{more-algebra-lemma-compute-Rlim}。因此只需证明每个映射
+$$
+\Hom_\mathcal{B}(N', I/F_pI) \to \Hom_\mathcal{B}(N, I/F_pI)
+$$
+都是拟同构。由于满射 $I/F_{p+1}I\to I/F_pI$ 作为分次 $B$-模映射是
+分裂的，故
+$$
+0 \to \Hom_\mathcal{B}(N', F_pI/F_{p + 1}I) \to
+\Hom_\mathcal{B}(N', I/F_{p + 1}I) \to
+\Hom_\mathcal{B}(N', I/F_pI) \to 0
+$$
+是微分分次 $A$-模的短正合列。对 $N$ 有类似的列，并且 $f$ 诱导短正合列
+之间的映射。因此，对 $p$ 归纳（从 $p=0$ 开始，此时 $I/F_0I=0$），
+得出只需证明映射
+$\Hom_\mathcal{B}(N', F_pI/F_{p + 1}I) \to \Hom_\mathcal{B}(N, F_pI/F_{p + 1}I)$
+是拟同构。由于 $F_pI/F_{p+1}I$ 是若干个 $A^\vee$ 的移位的直积，只需证明
+$\Hom_\mathcal{B}(N', B^\vee[k]) \to \Hom_\mathcal{B}(N, B^\vee[k])$
+是拟同构。由引理 \ref{dga-lemma-hom-into-shift-dual-free}，只需证明
+$(N')^\vee\to N^\vee$ 是拟同构。这成立，因为 $f$ 是拟同构，且
+$(\ )^\vee$ 是正合函子。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-derived-restriction-exts}
+设 $(A,\text{d})$ 和 $(B,\text{d})$ 是环 $R$ 上的微分分次代数，$N$
+是微分分次 $(A,B)$-双模。那么对每个 $n\in\mathbf{Z}$，有 $R$-模同构
+$$
+H^n(R\Hom(N, M)) = \Ext^n_{D(B, \text{d})}(N, M)
+$$
+，它关于 $M$ 具有函子性。关于引理
+\ref{dga-lemma-functoriality-derived-restriction} 中所述的运算，它也关于 $N$
+具有函子性。
+\end{lemma}
+
+\begin{proof}
+在引理 \ref{dga-lemma-derived-restriction} 的证明中已经看到
+$$
+R\Hom(N, M) = 
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, I)
+$$
+作为微分分次 $A$-模成立，其中 $M\to I$ 是从 $M$ 到具有性质 (I) 的微分
+分次 $B$-模的拟同构。因此，由引理 \ref{dga-lemma-hom-derived}，该复形具有
+正确的上同调模。这些等同的函子性讨论从略。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-compute-derived-restriction}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数，
+$N$ 是微分分次 $(A,B)$-双模。若
+$\Hom_{D(B, \text{d})}(N, N') = \Hom_{K(\text{Mod}_{(B, \text{d})})}(N, N')$
+对所有 $N'\in K(B,\text{d})$ 成立（例如，若 $N$ 作为微分分次 $B$-模
+具有性质 (P)），则在 $D(B,\text{d})$ 中关于 $M$ 函子地有
+$$
+R\Hom(N, M) = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, M)
+$$
+。
+\end{lemma}
+
+\begin{proof}
+由构造（引理 \ref{dga-lemma-derived-restriction}），为求 $R\Hom(N,M)$，
+选择拟同构 $M\to I$，其中 $I$ 是具有性质 (I) 的微分分次 $B$-模，并置
+$R\Hom(N, M) = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, I)$.
+由假设，$M\to I$ 诱导的映射
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, M) \longrightarrow
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, I)
+$$
+是拟同构；见例 \ref{dga-example-dgm-dg-cat} 中的讨论。这证明了本引理。
+若 $N$ 作为 $B$-模具有性质 (P)，则由引理 \ref{dga-lemma-hom-derived}，
+假设成立。
+\end{proof}
+
+
+
+
+\section{导出 Hom 的一种变体}
+\label{dga-section-variant}
+
+\noindent
+设 $\mathcal{A}$ 是阿贝尔范畴。考虑 $\mathcal{A}$ 的复形所组成的微分分次
+范畴 $\text{Comp}^{dg}(\mathcal{A})$；见例
+\ref{dga-example-category-complexes}。设 $K^\bullet$ 是 $\mathcal{A}$ 的复形。置
+$$
+(E, \text{d}) = \Hom_{\text{Comp}^{dg}(\mathcal{A})}(K^\bullet, K^\bullet)
+$$
+，并考虑引理 \ref{dga-lemma-construction} 中微分分次范畴之间的函子
+$$
+\text{Comp}^{dg}(\mathcal{A}) \longrightarrow \text{Mod}^{dg}_{(E, \text{d})},
+\quad
+X^\bullet
+\longmapsto
+\Hom_{\text{Comp}^{dg}(\mathcal{A})}(K^\bullet, X^\bullet)
+$$
+。
+
+\begin{lemma}
+\label{dga-lemma-existence-of-derived}
+在上述情形中，若
+$\Hom(K^\bullet,-):K(\mathcal{A})\to D(\textit{Ab})$ 的右导出函子
+$R\Hom(K^\bullet,-)$ 在 $D(\mathcal{A})$ 上处处有定义，则得到三角范畴之间
+的典范正合函子
+$$
+R\Hom(K^\bullet, -) : D(\mathcal{A}) \longrightarrow D(E, \text{d})
+$$
+；取相应的阿贝尔群复形后，它化为通常的函子。
+\end{lemma}
+
+\begin{proof}
+注意，由引理 \ref{dga-lemma-construction}，有相应函子
+$K(\mathcal{A})\to K(\text{Mod}_{(E, \text{d})})$。断言它是三角范畴之间
+的正合函子。确实，设 $f:A^\bullet\to B^\bullet$ 是 $\mathcal{A}$ 的
+复形映射。计算表明
+$$
+\Hom_{\text{Comp}^{dg}(\mathcal{A})}(K^\bullet, C(f)^\bullet)
+=
+C\left(
+\Hom_{\text{Comp}^{dg}(\mathcal{A})}(K^\bullet, A^\bullet) \to
+\Hom_{\text{Comp}^{dg}(\mathcal{A})}(K^\bullet, B^\bullet)
+\right)
+$$
+，其中右侧是本章前文在 $\text{Mod}_{(E, \text{d})}$ 中定义的锥。这表明
+该函子与锥相容，因而与有区别三角相容。设 $X^\bullet$ 是
+$K(\mathcal{A})$ 的对象。考虑拟同构 $s:X^\bullet\to Y^\bullet$ 的范畴。
+已知函子
+$(s : X^\bullet \to Y^\bullet) \mapsto \Hom_\mathcal{A}(K^\bullet, Y^\bullet)$
+在 $D(\textit{Ab})$ 中看时本质上是常值的。但由于遗忘函子
+$D(E,\text{d})\to D(\textit{Ab})$ 与取上同调相容，在
+$D(E,\text{d})$ 中也有同样结论。这证明了本引理。
+\end{proof}
+
+\noindent
+{\bf 警告：}虽然本引理按其表述成立，并可能按此形式发挥作用，但除非对所有
+$n\in\mathbf{Z}$ 都有
+$H^n(E) = \Ext^n_{D(\mathcal{A})}(K^\bullet, K^\bullet)$
+，否则微分代数 $E$ 不是“正确”的微分代数。
+
+
+
+
+
+\section{导出张量积}
+\label{dga-section-base-change}
+
+\noindent
+本节与《代数进阶》第
+\ref{more-algebra-section-derived-base-change} 节对应。
+
+\medskip\noindent
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是 $R$ 上的微分分次代数，
+$N$ 是微分分次 $(A,B)$-双模。考虑第 \ref{dga-section-bimodules-tensor} 节
+定义的函子
+\begin{equation}
+\label{dga-equation-bc}
+\text{Mod}_{(A, \text{d})}
+\longrightarrow
+\text{Mod}_{(B, \text{d})},\quad
+M \longmapsto M \otimes_A N
+\end{equation}
+。
+
+\begin{lemma}
+\label{dga-lemma-bc-homotopy}
+函子 (\ref{dga-equation-bc}) 定义三角范畴之间的正合函子
+$K(\text{Mod}_{(A, \text{d})})\to K(\text{Mod}_{(B, \text{d})})$。
+\end{lemma}
+
+\begin{proof}
+通过引理 \ref{dga-lemma-tensor} 和评注 \ref{dga-remark-shift-tensor-no-sign}，
+这由引理 \ref{dga-lemma-functor-between-ABC} 的一般原理得出。
+\end{proof}
+
+\noindent
+此时可以考虑图表
+$$
+\xymatrix{
+K(\text{Mod}_{(A, \text{d})}) \ar[d] \ar[rr]_{- \otimes_A N} \ar[rrd]_F & &
+K(\text{Mod}_{(B, \text{d})}) \ar[d] \\
+D(A, \text{d}) \ar@{..>}[rr] & &
+D(B, \text{d})
+}
+$$
+下文构造的虚线箭头将是复合 $F$ 的{\it 左导出函子}。
+（{\it 警告}：该图表并不交换。）具体地，在《导出范畴》第
+\ref{derived-section-derived-functors} 节的一般框架中，希望计算 $F$
+关于 $K(\text{Mod}_{(A, \text{d})})$ 中拟同构乘法系的左导出函子。
+
+\begin{lemma}
+\label{dga-lemma-derived-bc}
+在上述情形中，$F$ 的左导出函子存在。记为
+$-\otimes_A^\mathbf{L}N:D(A,\text{d})\to D(B,\text{d})$。
+\end{lemma}
+
+\begin{proof}
+使用《导出范畴》引理 \ref{derived-lemma-find-existence-computes} 来证明。
+取具有性质 (P) 的对象作为对象族 $\mathcal{P}$。性质 (1) 已在引理
+\ref{dga-lemma-resolve} 中证明。性质 (2) 成立，因为若 $s:P\to P'$ 是具有
+性质 (P) 的模之间的拟同构，则由引理 \ref{dga-lemma-hom-derived}，$s$
+是同伦等价。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-functoriality-bc}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数，
+$f:N\to N'$ 是微分分次 $(A,B)$-双模同态。那么 $f$ 诱导函子态射
+$$
+1\otimes f :
+- \otimes_A^\mathbf{L} N
+\longrightarrow
+- \otimes_A^\mathbf{L} N'
+$$
+。若 $f$ 是拟同构，则 $1\otimes f$ 是函子同构。
+\end{lemma}
+
+\begin{proof}
+设 $M$ 是具有性质 (P) 的微分分次 $A$-模。那么
+$1\otimes f:M\otimes_A N\to M\otimes_A N'$ 是微分分次 $B$-模之间的映射，
+并且关于 $M$ 具有函子性。由于函子 $-\otimes_A^\mathbf{L}N$ 和
+$-\otimes_A^\mathbf{L}N'$ 通过在具有性质 (P) 的对象上取张量来计算
+（引理 \ref{dga-lemma-derived-bc}），便得到所示的函子变换。
+
+\medskip\noindent
+假设 $f$ 是拟同构。设 $F_\bullet$ 是 $M$ 上的给定滤过。注意
+$M \otimes_A N = \colim F_i(M) \otimes_A N$，并且
+$M \otimes_A N' = \colim F_i(M) \otimes_A N'$。因此只需证明
+$F_n(M) \otimes_A N \to F_n(M) \otimes_A N'$
+是拟同构（滤过余极限是正合的；见《代数》引理
+\ref{algebra-lemma-directed-colimit-exact}）。由于包含映射
+$F_n(M)\to F_{n+1}(M)$ 作为分次 $A$-模映射是分裂的，故
+$$
+0 \to F_n(M) \otimes_A N \to F_{n + 1}(M) \otimes_A N \to
+F_{n + 1}(M)/F_n(M) \otimes_A N \to 0
+$$
+是微分分次 $B$-模的短正合列。对 $N'$ 有类似的列，并且 $f$ 诱导短正合列
+之间的映射。因此，对 $n$ 归纳（从 $n=-1$ 开始，此时
+$F_{-1}(M)=0$），得出只需证明映射
+$F_{n+1}(M)/F_n(M)\otimes_A N\to F_{n+1}(M)/F_n(M)\otimes_A N'$
+是拟同构。这成立，因为 $F_{n+1}(M)/F_n(M)$ 是若干个 $A$ 的移位的直和，
+而对 $A[k]$ 结论成立，原因是 $f:N\to N'$ 是拟同构。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-compute-bc}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数。
+设 $N$ 是微分分次 $(A,B)$-双模，并且作为左微分分次 $A$-模具有性质 (P)。
+那么对所有微分分次 $A$-模 $M$，$M\otimes_A^\mathbf{L}N$ 由
+$M\otimes_A N$ 计算。
+\end{lemma}
+
+\begin{proof}
+设 $f:M\to M'$ 是微分分次 $A$-模之间的拟同构。断言
+$f\otimes\text{id}:M\otimes_A N\to M'\otimes_A N$ 是拟同构。若断言成立，
+则由引理 \ref{dga-lemma-derived-bc} 证明中导出张量积的构造，得到所需结论。
+映射 $f\otimes\text{id}$ 的构造只依赖于 $N$ 上的左微分分次 $A$-模结构。
+此外，
+$M\otimes_A N=N\otimes_{A^{opp}}M=N\otimes_{A^{opp}}^\mathbf{L}M$，
+因为 $N$ 作为微分分次 $A^{opp}$-模具有性质 (P)。因此，断言由引理
+\ref{dga-lemma-functoriality-bc} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-tensor-hom-adjoint}
+设 $R$ 是环，$(A,\text{d})$ 和 $(B,\text{d})$ 是微分分次 $R$-代数，
+$N$ 是微分分次 $(A,B)$-双模。那么引理 \ref{dga-lemma-derived-bc} 中的函子
+$$
+- \otimes_A^\mathbf{L} N : D(A, \text{d}) \longrightarrow D(B, \text{d})
+$$
+是引理 \ref{dga-lemma-derived-restriction} 中函子
+$$
+R\Hom(N, -) : D(B, \text{d}) \longrightarrow D(A, \text{d})
+$$
+的左伴随。
+\end{lemma}
+
+\begin{proof}
+这由《导出范畴》引理
+\ref{derived-lemma-pre-derived-adjoint-functors-general}，以及引理
+\ref{dga-lemma-tensor-hom-adjunction} 中
+$-\otimes_A N$ 与 $\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N,-)$
+互为伴随这一事实得出。
+\end{proof}
+
+\begin{example}
+\label{dga-example-map-hom-tensor}
+设 $R$ 是环，$(A,\text{d})\to(B,\text{d})$ 是微分分次 $R$-代数同态。
+可以把 $B$ 看作微分分次 $(A,B)$-双模，并得到函子
+$$
+- \otimes_A B : D(A, \text{d}) \longrightarrow D(B, \text{d})
+$$
+。由引理 \ref{dga-lemma-tensor-hom-adjoint}，它的左伴随是函子
+$R\Hom(B,-)$。对微分分次 $B$-模 $N$，以 $N_A$ 表示通过 $A\to B$
+限制得到的微分分次 $A$-模。那么显然有关于 $B$-模 $N$ 函子的典范同构
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(B, N) \longrightarrow N_A,\quad
+f \longmapsto f(1)
+$$
+。因此，$R\Hom(B,-)$ 是限制函子，并得到
+$$
+\Hom_{D(A, \text{d})}(M, N_A) =
+\Hom_{D(B, \text{d})}(M \otimes^\mathbf{L}_A B, N)
+$$
+；它对 $M$ 与 $N$ 双函子地成立，正如交换环的情形。最后注意，限制也是张量函子，
+因为 $N_A = N \otimes_B {}_BB_A = N \otimes_B^\mathbf{L} {}_BB_A$，
+其中 ${}_BB_A$ 表示把 $B$ 看作微分分次 $(B,A)$-双模。
+\end{example}
+
+\begin{lemma}
+\label{dga-lemma-tensor-with-compact-fully-faithful}
+沿用引理 \ref{dga-lemma-tensor-hom-adjoint} 的记号与假设。假设
+\begin{enumerate}
+\item $N$ 在 $D(B,\text{d})$ 中定义一个紧对象；
+\item 对每个 $k\in\mathbf{Z}$，映射
+$H^k(A) \to \Hom_{D(B, \text{d})}(N, N[k])$ 都是同构。
+\end{enumerate}
+则函子 $-\otimes_A^\mathbf{L}N$ 是全忠实的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-tensor-hom-adjoint}，我们的函子有由
+$R\Hom(N,-)$ 给出的左伴随。由《范畴》引理
+\ref{categories-lemma-adjoint-fully-faithful}，只需证明：对任意微分分次
+$A$-模 $M$，映射
+$$
+M \longrightarrow R\Hom(N, M \otimes_A^\mathbf{L} N)
+$$
+在 $D(A,\text{d})$ 中是同构。为此，只需证明
+$$
+H^n(M) \longrightarrow
+\text{Ext}^n_{D(B, \text{d})}(N, M \otimes_A^\mathbf{L} N)
+$$
+是同构，见引理 \ref{dga-lemma-derived-restriction-exts}。由于 $N$ 是紧对象，
+右端与直和交换。因此由评注 \ref{dga-remark-P-resolution}，只需在
+$M=A[k]$ 时证明此映射为同构。由评注
+\ref{dga-remark-shift-tensor-no-sign}，
+$(A[k]\otimes_A^\mathbf{L}N)=N[k]$；而对 $N$ 的假设 (2)
+正是说结论在这些情形下成立。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-base-change-K-flat}
+设 $R\to R'$ 是环映射，$(A,\text{d})$ 是微分分次 $R$-代数，
+而 $(A',\text{d})$ 是其基变换，即 $A'=A\otimes_RR'$。
+若 $A$ 作为 $R$-模复形是 K-平坦的，则
+\begin{enumerate}
+\item $- \otimes_A^\mathbf{L} A' : D(A, \text{d}) \to D(A', \text{d})$
+等于函子
+$$
+K(A, \text{d}) \longrightarrow K(A', \text{d}),\quad
+M \longmapsto M \otimes_R R'
+$$
+的右导出函子；
+\item 图表
+$$
+\xymatrix{
+D(A, \text{d}) \ar[r]_{- \otimes_A^\mathbf{L} A'} \ar[d]_{\text{限制}} &
+D(A', \text{d}) \ar[d]^{\text{限制}} \\
+D(R) \ar[r]^{- \otimes_R^\mathbf{L} R'} & D(R')
+}
+$$
+交换；
+\item 若 $M$ 作为 $R$-模复形是 K-平坦的，则微分分次 $A'$-模
+$M\otimes_RR'$ 表示 $M\otimes_A^\mathbf{L}A'$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对任意微分分次 $A$-模 $M$，都有典范映射
+$$
+c_M : M \otimes_R R' \longrightarrow M \otimes_A A'
+$$
+。设 $P$ 是具有性质 (P) 的微分分次 $A$-模。我们断言 $c_P$ 是同构，
+并且 $P$ 作为 $R$-模复形是 K-平坦的。利用引理
+\ref{dga-lemma-derived-bc} 和《代数进阶》第
+\ref{more-algebra-section-derived-tensor-product} 节中导出张量积的定义，
+这将通过形式论证证明引理所述全部结论。
+
+\medskip\noindent
+设 $F_\bullet$ 是表明 $P$ 具有性质 (P) 的滤过。注意 $c_A$ 是同构，
+且依假设 $A$ 作为 $R$-模复形是 K-平坦的。因此，对 $A$ 的平移的直和
+同样成立（处理直和时也可使用《代数进阶》引理
+\ref{more-algebra-lemma-colimit-K-flat}）。于是，这对复形
+$F_{p+1}P/F_pP$ 成立。由于短正合列
+$$
+0 \to F_pP \to F_{p + 1}P \to F_{p + 1}P/F_pP \to 0
+$$
+作为分次模列是分裂正合的，可归纳得出：对每个 $p$，$c_{F_pP}$ 都是同构，
+且 $F_pP$ 作为 $R$-模复形是 K-平坦的（使用《代数进阶》引理
+\ref{more-algebra-lemma-K-flat-two-out-of-three}）。最后，由
+$P=\colim F_pP$ 可知 $c_P$ 是同构，且 $P$ 作为 $R$-模复形是
+K-平坦的（使用《代数进阶》引理
+\ref{more-algebra-lemma-colimit-K-flat}）。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-RHom-is-tensor}
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是微分分次
+$R$-代数，$T$ 是微分分次 $(A,B)$-双模。假设
+\begin{enumerate}
+\item $T$ 在 $D(B,\text{d})$ 中定义一个紧对象；
+\item $S = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(T, B)$
+在 $D(A,\text{d})$ 中表示 $R\Hom(T,B)$。
+\end{enumerate}
+则 $S$ 具有微分分次 $(B,A)$-双模结构，并有同构
+$$
+N \otimes_B^\mathbf{L} S \longrightarrow R\Hom(T, N)
+$$
+，它关于 $D(B,\text{d})$ 中的 $N$ 是函子的。
+\end{lemma}
+
+\begin{proof}
+记 $\mathcal{B}=\text{Mod}^{dg}_{(B,\text{d})}$。$S$ 上的右
+$A$-模结构来自映射 $A\to\Hom_\mathcal{B}(T,T)$ 以及例
+\ref{dga-example-dgm-dg-cat} 中定义的复合
+$\Hom_\mathcal{B}(T, B) \otimes \Hom_\mathcal{B}(T, T)
+\to \Hom_\mathcal{B}(T, B)$。再次使用这一乘法，可得映射
+$$
+c_N :
+N \otimes_B S = \Hom_\mathcal{B}(B, N) \otimes_B \Hom_\mathcal{B}(T, B)
+\longrightarrow
+\Hom_\mathcal{B}(T, N)
+$$
+，它关于 $N$ 是函子的。给定 $N$，可选取拟同构
+$P\to N\to I$，其中 $P$（相应地 $I$）是具有性质 (P)（相应地 (I)）
+的微分分次 $B$-模。于是利用 $c_N$，在分别表示
+$S\otimes_B^\mathbf{L}N$ 与 $R\Hom(T,N)$ 的对象之间得到映射
+$P\otimes_BS\to\Hom_\mathcal{B}(T,I)$。显然，这定义了引理所述的
+函子变换 $c$。
+
+\medskip\noindent
+为证明 $c$ 是函子同构，可假设 $N$ 是具有性质 (P) 的微分分次
+$B$-模。由于 $T$ 在 $D(B,\text{d})$ 中定义紧对象，且箭头两端都定义
+三角范畴的正合函子，利用引理 \ref{dga-lemma-property-P-sequence}，
+可约化到 $N$ 具有有限滤过、其分次片是若干 $B[k]$ 的直和的情形。
+再次利用箭头两端都是三角范畴的正合函子以及 $T$ 的紧性，可进一步
+约化到 $N=B[k]$ 的情形。假设 (2) 恰好断言此时 $c$ 是同构。
+\end{proof}
+
+
+
+
+
+
+\section{导出张量积的复合}
+\label{dga-section-compose-tensor-functors}
+
+\noindent
+我们建议读者略过本节。
+
+\medskip\noindent
+设 $R$ 是环，$(A,\text{d})$、$(B,\text{d})$ 和 $(C,\text{d})$
+是微分分次 $R$-代数。设 $N$ 是微分分次 $(A,B)$-双模，$N'$ 是微分分次
+$(B,C)$-模。以 $N_B$ 表示把双模 $N$ 看作微分分次 $B$-模
+（忘掉 $A$-结构）所得的模。存在典范映射
+\begin{equation}
+\label{dga-equation-plain-versus-derived}
+N_B \otimes_B^\mathbf{L} N'
+\longrightarrow
+(N \otimes_B N')_C
+\end{equation}
+于 $D(C,\text{d})$ 中。这里，$(N\otimes_BN')_C$ 表示把
+$(A,C)$-双模 $N\otimes_BN'$ 看作微分分次 $C$-模所得的模。
+事实上，此映射来自如下事实：导出张量积总有到普通张量积的映射
+（因为它是左导出函子）。
+
+\begin{lemma}
+\label{dga-lemma-compose-tensor-functors-general}
+设 $R$ 是环，$(A,\text{d})$、$(B,\text{d})$ 和 $(C,\text{d})$
+是微分分次 $R$-代数。设 $N$ 是微分分次 $(A,B)$-双模，$N'$ 是微分分次
+$(B,C)$-模。假设 (\ref{dga-equation-plain-versus-derived}) 是同构。
+则复合
+$$
+\xymatrix{
+D(A, \text{d}) \ar[rr]^{- \otimes_A^\mathbf{L} N} & &
+D(B, \text{d}) \ar[rr]^{- \otimes_B^\mathbf{L} N'} & &
+D(C, \text{d})
+}
+$$
+同构于 $-\otimes_A^\mathbf{L}N''$，其中 $N''=N\otimes_BN'$
+被看作 $(A,C)$-双模。
+\end{lemma}
+
+\begin{proof}
+我们定义函子变换
+$$
+(- \otimes_A^\mathbf{L} N) \otimes_B^\mathbf{L} N'
+\longrightarrow
+- \otimes_A^\mathbf{L} N''
+$$
+。为此，设 $M$ 是具有性质 (P) 的微分分次 $A$-模。按照引理
+\ref{dga-lemma-derived-bc} 的证明中函子 $-\otimes_A^\mathbf{L}N''$
+的构造，普通张量积 $M\otimes_AN''$ 在 $D(C,\text{d})$ 中表示
+$M\otimes_A^\mathbf{L}N''$。于是可写成
+$$
+M \otimes_A N'' =
+M \otimes_A (N \otimes_B N') =
+(M \otimes_A N) \otimes_B N'
+$$
+。模 $M\otimes_AN$ 在 $D(B,\text{d})$ 中表示
+$M\otimes_A^\mathbf{L}N$。选取拟同构 $Q\to M\otimes_AN$，
+其中 $Q$ 是具有性质 (P) 的微分分次 $B$-模。则 $Q\otimes_BN'$
+在 $D(C,\text{d})$ 中表示
+$(M\otimes_A^\mathbf{L}N)\otimes_B^\mathbf{L}N'$。
+因此，可由下式定义所需映射：
+$$
+(M \otimes_A^\mathbf{L} N) \otimes_B^\mathbf{L} N' =
+Q \otimes_B N' \to
+M \otimes_A N \otimes_B N' =
+M \otimes_A^\mathbf{L} N''
+$$
+。此映射的构造关于 $M$ 是函子的，并与有区别三角及直和相容；细节从略。
+考虑 $D(A,\text{d})$ 的对象 $M$ 的性质 $T$，其含义是此映射为同构。则
+\begin{enumerate}
+\item 若每个 $M_i$ 都满足 $T$，则 $\bigoplus M_i$ 满足 $T$；
+\item 对一个有区别三角，若三个对象中的两个满足 $T$，则第三个也满足；
+\item $A[k]$ 满足 $T$，因为此时所得映射是
+(\ref{dga-equation-plain-versus-derived}) 的一个平移，而我们已经假设后者是同构。
+\end{enumerate}
+因此由评注 \ref{dga-remark-P-resolution}，性质 $T$ 恒成立，证明完毕。
+\end{proof}
+
+\noindent
+设 $R$ 是环，$(A,\text{d})$、$(B,\text{d})$ 和 $(C,\text{d})$
+是微分分次 $R$-代数。暂以 $(A\otimes_RB)_B$ 表示把微分分次代数
+$A\otimes_RB$ 看作（右）微分分次 $B$-模所得的模；以
+${}_B(B\otimes_RC)_C$ 表示把微分分次代数 $B\otimes_RC$
+看作微分分次 $(B,C)$-双模所得的双模。于是存在典范映射
+\begin{equation}
+\label{dga-equation-plain-versus-derived-algebras}
+(A \otimes_R B)_B \otimes_B^\mathbf{L} {}_B(B \otimes_R C)_C
+\longrightarrow
+(A \otimes_R B \otimes_R C)_C
+\end{equation}
+于 $D(C,\text{d})$ 中，其中 $(A\otimes_RB\otimes_RC)_C$
+表示把微分分次 $R$-代数 $A\otimes_RB\otimes_RC$ 看作（右）
+微分分次 $C$-模所得的模。事实上，此映射来自等同
+$$
+(A \otimes_R B)_B \otimes_B {}_B(B \otimes_R C)_C =
+(A \otimes_R B \otimes_R C)_C
+$$
+以及导出张量积总有到普通张量积的映射这一事实
+（因为它是左导出函子）。
+
+\begin{lemma}
+\label{dga-lemma-compose-tensor-functors-general-algebra}
+设 $R$ 是环，$(A,\text{d})$、$(B,\text{d})$ 和 $(C,\text{d})$
+是微分分次 $R$-代数。假设
+(\ref{dga-equation-plain-versus-derived-algebras}) 是同构。设 $N$ 是微分分次
+$(A,B)$-双模，$N'$ 是微分分次 $(B,C)$-双模。则复合
+$$
+\xymatrix{
+D(A, \text{d}) \ar[rr]^{- \otimes_A^\mathbf{L} N} & &
+D(B, \text{d}) \ar[rr]^{- \otimes_B^\mathbf{L} N'} & &
+D(C, \text{d})
+}
+$$
+同构于 $-\otimes_A^\mathbf{L}N''$，其中微分分次 $(A,C)$-双模
+$N''$ 将在证明中描述。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-functoriality-bc}，可把 $N$ 与 $N'$ 替换为与之
+拟同构的双模。因此可假设 $N$（相应地 $N'$）作为微分分次
+$(A,B)$-双模（相应地 $(B,C)$-双模）具有性质 (P)，见引理
+\ref{dga-lemma-bimodule-resolve}。我们断言，对 $(A,C)$-双模
+$N''=N\otimes_BN'$，引理成立。为证明这一点，只需证明
+$$
+N_B \otimes_B^\mathbf{L} N' \longrightarrow (N \otimes_B N')_C
+$$
+在 $D(C,\text{d})$ 中是同构，见引理
+\ref{dga-lemma-compose-tensor-functors-general}。
+
+\medskip\noindent
+设 $F_\bullet$ 是双模性质 (P) 中 $N$ 上的滤过。由引理
+\ref{dga-lemma-bimodule-property-P-sequence}，存在微分分次
+$(A,B)$-双模的短正合列
+$$
+0 \to
+\bigoplus\nolimits F_iN \to
+\bigoplus\nolimits F_iN \to N \to 0
+$$
+，它作为分次 $(A,B)$-双模列是分裂的。因而它更是微分分次 $B$-模的
+容许短正合列，并给出 $D(B,\text{d})$ 中的有区别三角
+$$
+\bigoplus\nolimits F_iN_B \to
+\bigoplus\nolimits F_iN_B \to N_B \to
+\bigoplus\nolimits F_iN_B[1]
+$$
+。利用 $-\otimes_B^\mathbf{L}N'$ 是三角范畴的正合函子且与直和交换，
+并利用 $-\otimes_BN'$ 把容许正合列变为容许正合列且与直和交换，
+可将问题约化为证明：对每个 $p$，
+$$
+(F_pN)_B \otimes_B^\mathbf{L} N' \longrightarrow (F_pN)_B \otimes_B N'
+$$
+都是拟同构。对 $(A,B)$-双模的短正合列
+$$
+0 \to F_pN \to F_{p + 1}N \to F_{p + 1}N/F_pN \to 0
+$$
+重复此论证；这些列作为分次 $(A,B)$-双模列是分裂的，故可约化为对
+$F_{p+1}N/F_pN$ 证明同一断言。由于这些模是
+$(A\otimes_RB)_B$ 的平移的直和，又可约化为证明
+$$
+(A \otimes_R B)_B \otimes_B^\mathbf{L} N'
+\longrightarrow
+(A \otimes_R B)_B \otimes_B N'
+$$
+是拟同构。
+
+\medskip\noindent
+选取双模性质 (P) 中 $N'$ 上的滤过 $F_\bullet$。选取微分分次
+$B$-模的拟同构 $P\to(A\otimes_RB)_B$，其中 $P$ 具有性质 (P)。
+由引理 \ref{dga-lemma-derived-bc} 中的构造，$P\otimes_BN'$ 在
+$D(C,\text{d})$ 中表示
+$(A\otimes_RB)_B\otimes_B^\mathbf{L}N'$；因此我们必须证明
+$P\otimes_BN'\to(A\otimes_RB)_B\otimes_BN'$ 是拟同构。
+由于 $N'=\colim F_pN'$，只需证明
+$P\otimes_BF_pN'\to(A\otimes_RB)_B\otimes_BF_pN'$
+是拟同构。利用短正合列
+$0 \to F_pN' \to F_{p + 1}N' \to F_{p + 1}N'/F_pN' \to 0$
+作为分次 $(B,C)$-双模列是分裂的，可约化为证明：对每个 $p$，
+$P \otimes_B F_{p + 1}N'/F_pN' \to
+(A \otimes_R B)_B \otimes_B F_{p + 1}N'/F_pN'$
+是拟同构。最后，利用 $F_{p+1}N'/F_pN'$ 是
+${}_B(B\otimes_RC)_C$ 的平移的直和，可知只需证明
+$$
+P \otimes_B {}_B(B \otimes_R C)_C \to
+(A \otimes_R B)_B \otimes_B {}_B(B \otimes_R C)_C
+$$
+是拟同构。由于 $P\to(A\otimes_RB)_B$ 是由满足性质 (P) 的模
+给出的分辨，此微分分次 $C$-模映射在 $D(C,\text{d})$ 中表示态射
+(\ref{dga-equation-plain-versus-derived-algebras})，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-compose-tensor-functors}
+设 $R$ 是环，$(A,\text{d})$、$(B,\text{d})$ 和 $(C,\text{d})$
+是微分分次 $R$-代数。若 $C$ 作为 $R$-模复形是 K-平坦的，则
+(\ref{dga-equation-plain-versus-derived-algebras}) 是同构，并且引理
+\ref{dga-lemma-compose-tensor-functors-general-algebra} 的结论成立。
+\end{lemma}
+
+\begin{proof}
+选取微分分次 $B$-模的拟同构 $P\to(A\otimes_RB)_B$，其中 $P$
+具有性质 (P)。于是只需证明
+$$
+P \otimes_B (B \otimes_R C) \longrightarrow
+(A \otimes_R B) \otimes_B (B \otimes_R C)
+$$
+是拟同构。等价地，我们考察
+$$
+P \otimes_R C \longrightarrow
+A \otimes_R B \otimes_R C
+$$
+。若 $C$ 作为 $R$-模复形是 K-平坦的，则由《代数进阶》引理
+\ref{more-algebra-lemma-K-flat-quasi-isomorphism}，这是拟同构。
+\end{proof}
+
+
+
+
+
+\section{导出张量积的一种变体}
+\label{dga-section-variant-base-change}
+
+\noindent
+设 $(\mathcal{C},\mathcal{O})$ 是环化位点。于是有函子
+$$
+\text{Comp}(\mathcal{O}) \to K(\mathcal{O}) \to D(\mathcal{O})
+$$
+；如上所见，还有微分分次增强 $\text{Comp}^{dg}(\mathcal{O})$。
+具体地说，这是例 \ref{dga-example-category-complexes} 中与阿贝尔范畴
+$\textit{Mod}(\mathcal{O})$ 相关联的微分分次范畴。设 $K^\bullet$
+是 $\mathcal{O}$-模复形，换言之，是 $\text{Comp}^{dg}(\mathcal{O})$
+的对象。令
+$$
+(E, \text{d}) =
+\Hom_{\text{Comp}^{dg}(\mathcal{O})}(K^\bullet, K^\bullet)
+$$
+。这是微分分次 $\mathbf{Z}$-代数。我们断言，在这种情形下有导出基变换
+的类似物。
+
+\begin{lemma}
+\label{dga-lemma-tensor-with-complex}
+在上述情形下，存在微分分次范畴的函子
+$$
+- \otimes_E K^\bullet :
+\text{Mod}^{dg}_{(E, \text{d})}
+\longrightarrow
+\text{Comp}^{dg}(\mathcal{O})
+$$
+。此函子把 $E$ 映到 $K^\bullet$，并与直和交换。
+\end{lemma}
+
+\begin{proof}
+设 $M$ 是微分分次 $E$-模。对 $\mathcal{C}$ 的每个对象 $U$，复形
+$K^\bullet(U)$ 既是左微分分次 $E$-模，也是右 $\mathcal{O}(U)$-模。
+两个作用交换，故得到一个双模。因此，由第 \ref{dga-section-tensor-product}
+节与第 \ref{dga-section-bimodules} 节中的构造，可以形成张量积
+$$
+M \otimes_E K^\bullet(U)
+$$
+；它是微分分次 $\mathcal{O}(U)$-模，即 $\mathcal{O}(U)$-模复形。
+此构造关于 $U$ 是函子的，故可层化而得到 $\mathcal{O}$-模复形，记为
+$$
+M \otimes_E K^\bullet
+$$
+。此外，对每个 $U$，由引理 \ref{dga-lemma-tensor}，此构造确定微分分次
+范畴的函子
+$\text{Mod}^{dg}_{(E, \text{d})} \to \text{Comp}^{dg}(\mathcal{O}(U))$
+。因此，显然得到引理所述函子。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-tensor-with-complex-homotopy}
+引理 \ref{dga-lemma-tensor-with-complex} 的函子定义三角范畴的正合函子
+$K(\text{Mod}_{(E, \text{d})}) \to K(\mathcal{O})$.
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-functorial}，该函子诱导同伦范畴之间的函子。
+我们必须证明 $-\otimes_EK^\bullet$ 把有区别三角变为有区别三角。
+设 $0\to K\to L\to M\to0$ 是微分分次 $E$-模的容许短正合列。
+设 $s:M\to L$ 是分次 $E$-模同态，并且是 $L\to M$ 的左逆。
+则 $s$ 定义分次 $\mathcal{O}$-模的映射
+$M\otimes_EK^\bullet\to L\otimes_EK^\bullet$
+（即保持 $\mathcal{O}$-模结构与分次，但不保持微分），它是
+$L\otimes_EK^\bullet\to M\otimes_EK^\bullet$ 的左逆。因此
+$$
+0 \to K \otimes_E K^\bullet \to L \otimes_E K^\bullet \to
+M \otimes_E K^\bullet \to 0
+$$
+是逐项分裂的复形短正合列，也就是说，它在 $K(\mathcal{O})$ 中定义
+一个有区别三角。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-tensor-with-complex-derived}
+引理 \ref{dga-lemma-tensor-with-complex-homotopy} 的函子
+$K(\text{Mod}_{(E, \text{d})})\to K(\mathcal{O})$ 有定义在整个
+$D(E,\text{d})$ 上的左导出版本，记为
+$- \otimes_E^\mathbf{L} K^\bullet : D(E, \text{d}) \to D(\mathcal{O})$.
+\end{lemma}
+
+\begin{proof}
+使用《导出范畴》引理 \ref{derived-lemma-find-existence-computes}
+来证明。取具有性质 (P) 的对象为对象族 $\mathcal{P}$。
+性质 (1) 已在引理 \ref{dga-lemma-resolve} 中证明。性质 (2) 成立，
+因为若 $s:P\to P'$ 是具有性质 (P) 的模之间的拟同构，则由引理
+\ref{dga-lemma-hom-derived}，$s$ 是同伦等价。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-upgrade-tensor-with-complex-derived}
+设 $R$ 是环，$\mathcal{C}$ 是位点，$\mathcal{O}$ 是交换
+$R$-代数层，$K^\bullet$ 是 $\mathcal{O}$-模复形。引理
+\ref{dga-lemma-tensor-with-complex-derived} 的函子具有如下性质：对
+$D(E,\text{d})$ 中的任意 $M,N$，在 $D(R)$ 中有典范映射
+$$
+R\Hom(M, N)
+\longrightarrow
+R\Hom_\mathcal{O}(M \otimes_E^\mathbf{L} K^\bullet,
+N \otimes_E^\mathbf{L} K^\bullet)
+$$
+；它在上同调模上给出由函子 $-\otimes_E^\mathbf{L}K^\bullet$ 诱导的映射
+$$
+\Ext^n_{D(E, \text{d})}(M, N) \to
+\Ext^n_{D(\mathcal{O})}
+(M \otimes_E^\mathbf{L} K^\bullet, N \otimes_E^\mathbf{L} K^\bullet)
+$$
+。
+\end{lemma}
+
+\begin{proof}
+箭头右端是《位点上的上同调》第
+\ref{sites-cohomology-section-global-RHom} 节引入的全局导出 Hom，
+它具有正确的上同调模。对左端，把 $M$ 看作 $(R,A)$-双模，并使用第
+\ref{dga-section-restriction} 节引入的导出 $\Hom$；它也具有正确的上同调模。
+为证明引理，可假设 $M,N$ 都是具有性质 (P) 的微分分次 $E$-模；
+由引理 \ref{dga-lemma-functoriality-derived-restriction}，这不改变箭头左端。
+由引理 \ref{dga-lemma-compute-derived-restriction}，箭头左端于是变为
+$\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(M, N)$.
+在引理 \ref{dga-lemma-tensor-with-complex}、
+\ref{dga-lemma-tensor-with-complex-homotopy} 与
+\ref{dga-lemma-tensor-with-complex-derived}
+中，我们已经构造微分分次范畴的函子
+$$
+- \otimes_E K^\bullet :
+\text{Mod}^{dg}_{(E, \text{d})}
+\longrightarrow
+\text{Comp}^{dg}(\mathcal{O})
+$$
+，并已证明，在具有性质 (P) 的微分分次 $E$-模上取此函子的值即可计算
+$-\otimes_E^\mathbf{L}K^\bullet$。因此得到 $R$-模复形的映射
+$$
+\Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(M, N)
+\longrightarrow
+\Hom_{\text{Comp}^{dg}(\mathcal{O})}
+(M \otimes_E K^\bullet, N \otimes_E K^\bullet)
+$$
+。对任意 $\mathcal{O}$-模复形 $\mathcal{F}^\bullet$、
+$\mathcal{G}^\bullet$，存在典范映射
+$$
+\Hom_{\text{Comp}^{dg}(\mathcal{O})}
+(\mathcal{F}^\bullet, \mathcal{G}^\bullet) =
+\Gamma(\mathcal{C},
+\SheafHom^\bullet(\mathcal{F}^\bullet, \mathcal{G}^\bullet))
+\longrightarrow
+R\Hom_\mathcal{O}(\mathcal{F}^\bullet, \mathcal{G}^\bullet).
+$$
+合并这些映射，即得引理所需映射。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-tensor-with-complex-hom-adjoint}
+设 $(\mathcal{C},\mathcal{O})$ 是环化位点，$K^\bullet$ 是
+$\mathcal{O}$-模复形。则引理 \ref{dga-lemma-tensor-with-complex-derived}
+的函子
+$$
+- \otimes_E^\mathbf{L} K^\bullet :
+D(E, \text{d})
+\longrightarrow
+D(\mathcal{O})
+$$
+是引理 \ref{dga-lemma-existence-of-derived} 的函子
+$$
+R\Hom(K^\bullet, -) : D(\mathcal{O}) \longrightarrow D(E, \text{d})
+$$
+的左伴随。
+\end{lemma}
+
+\begin{proof}
+此断言的含义是，存在关于 $M$ 与 $L^\bullet$ 双函子的等式
+$$
+\Hom_{D(E, \text{d})}(M, R\Hom(K^\bullet, L^\bullet)) =
+\Hom_{D(\mathcal{O})}(M \otimes^\mathbf{L}_E K^\bullet, L^\bullet)
+$$
+。为说明这一点，可把 $M$ 替换为具有性质 (P) 的微分分次 $E$-模 $P$，
+也可把 $L^\bullet$ 替换为 K-内射的 $\mathcal{O}$-模复形
+$I^\bullet$。结合引理 \ref{dga-lemma-hom-derived} 与陈述中所引诸引理给出的
+导出函子计算，上式化为
+$$
+\Hom_{K(\text{Mod}_{(E, \text{d})})}
+(P, \Hom_\mathcal{B}(K^\bullet, I^\bullet)) =
+\Hom_{K(\mathcal{O})}(P \otimes_E K^\bullet, I^\bullet)
+$$
+，其中 $\mathcal{B}=\text{Comp}^{dg}(\mathcal{O})$。存在从右端到左端、
+关于 $P$ 与 $I^\bullet$ 函子的求值映射（细节从略）。选取性质 (P)
+定义中 $P$ 上的滤过 $F_\bullet$。由引理
+\ref{dga-lemma-property-P-sequence}，并利用等式两端在
+$K(\text{Mod}_{(E,\text{d})})$ 上都是关于 $P$ 的同调函子，
+可约化到把 $P$ 换成微分分次 $E$-模 $\bigoplus F_iP$ 的情形。
+由于两端都把变量 $P$ 中的直和变为直积，可再约化到 $P$ 是某个
+微分分次 $E$-模 $F_iP$ 的情形。每个 $F_iP$ 都有由容许单态射给出的
+有限滤过，其分次片是分次投射 $E$-模，故可约化到 $P$ 是分次投射
+$E$-模的情形。此时显然有
+$$
+\Hom_{\text{Mod}^{dg}_{(E, \text{d})}}
+(P, \Hom_\mathcal{B}(K^\bullet, I^\bullet)) =
+\Hom_{\text{Comp}^{dg}(\mathcal{O})}(P \otimes_E K^\bullet, I^\bullet)
+$$
+作为分次 $\mathbf{Z}$-模的等式（因为此断言可约化到 $P=E[k]$
+这一显然的情形）。该同构与微分相容，故得结论。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-fully-faithful-in-compact-case}
+设 $(\mathcal{C},\mathcal{O})$ 是环化位点，$K^\bullet$ 是
+$\mathcal{O}$-模复形。假设
+\begin{enumerate}
+\item $K^\bullet$ 表示 $D(\mathcal{O})$ 的一个紧对象；
+\item $E = \Hom_{\text{Comp}^{dg}(\mathcal{O})}(K^\bullet, K^\bullet)$
+计算 $K^\bullet$ 在 $D(\mathcal{O})$ 中的 Ext 群。
+\end{enumerate}
+则引理 \ref{dga-lemma-tensor-with-complex-derived} 的函子
+$$
+- \otimes_E^\mathbf{L} K^\bullet :
+D(E, \text{d})
+\longrightarrow
+D(\mathcal{O})
+$$
+是全忠实的。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-tensor-with-complex-hom-adjoint}，我们的函子有由
+$R\Hom(K^\bullet,-)$ 给出的左伴随。因此只需证明：对微分分次
+$E$-模 $M$，映射
+$$
+H^0(M) \longrightarrow
+\Hom_{D(\mathcal{O})}(K^\bullet, M \otimes_E^\mathbf{L} K^\bullet)
+$$
+是同构。可假设 $M=P$ 是具有性质 (P) 的微分分次 $E$-模。
+由于 $K^\bullet$ 定义紧对象，利用引理
+\ref{dga-lemma-property-P-sequence}，可约化到 $P$ 具有有限滤过且其分次片
+是若干 $E[k]$ 的直和的情形。再次利用紧性，可约化到 $P=E[k]$
+的情形。对 $K^\bullet$ 的假设正是说结论在这些情形下成立。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{紧对象的刻画}
+\label{dga-section-compact}
+
+\noindent
+加性范畴的紧对象定义于《导出范畴》定义
+\ref{derived-definition-compact-object}。本节刻画微分分次代数的导出范畴
+中的紧对象。
+
+\begin{remark}
+\label{dga-remark-source-graded-projective}
+设 $(A,\text{d})$ 是微分分次代数。能否刻画满足下列条件的微分分次
+$A$-模 $P$：对每个微分分次 $A$-模 $M$，都有
+$$
+\Hom_{K(A, \text{d})}(P, M) =  \Hom_{D(A, \text{d})}(P, M)
+$$
+？设 $\mathcal{D}\subset K(A,\text{d})$ 是以满足上述条件的对象 $P$
+为对象的满子范畴。则 $\mathcal{D}$ 是 $K(A,\text{d})$ 的严格满饱和
+三角子范畴。若 $P$ 作为分次 $A$-模是投射的，则要判定 $P$ 是否为
+$\mathcal{D}$ 的对象，只需检验：每当 $M$ 非循环时，
+$\Hom_{K(A,\text{d})}(P,M)=0$。然而，一般来说，仅假设 $P$
+作为分次 $A$-模是投射的还不够。例如，取 $A=R=k[\epsilon]$，其中
+$k$ 是域，$k[\epsilon]=k[x]/(x^2)$ 是对偶数环。令 $P$ 为如下对象：
+对每个 $n\in\mathbf{Z}$ 都有 $P^n=R$，且微分由乘以 $\epsilon$
+给出。于是 $\text{id}_P\in\Hom_{K(A,\text{d})}(P,P)$ 是非零元素，
+但 $P$ 非循环。
+\end{remark}
+
+\begin{remark}
+\label{dga-remark-graded-projective-is-compact}
+设 $(A,\text{d})$ 是微分分次代数。若微分分次 $A$-模 $M$ 作为右
+$A$-模由有限多个元素生成，就称 $M$ 是{\it 有限的}。若微分分次
+$A$-模 $P$ 是有限分次投射的，可以问：$P$ 是否给出
+$D(A,\text{d})$ 的紧对象？推测一般并非如此，但我们不知道反例。
+然而，若 $P$ 还是评注 \ref{dga-remark-source-graded-projective} 的范畴
+$\mathcal{D}$ 的对象，则答案是肯定的（这来自如下事实：
+$D(A,\text{d})$ 中的直和由模的直和给出；细节从略）。
+\end{remark}
+
+\begin{lemma}
+\label{dga-lemma-factor-through-nicer}
+设 $(A,\text{d})$ 是微分分次代数，$E$ 是 $D(A,\text{d})$ 的紧对象。
+设 $P$ 是微分分次 $A$-模，它具有有限滤过
+$$
+0 = F_{-1}P \subset F_0P \subset F_1P \subset \ldots \subset F_nP = P
+$$
+，其各项为微分分次子模，并且对某些集合 $J_i$ 与整数 $k_{i,j}$ 有
+$$
+F_{i + 1}P/F_iP \cong \bigoplus\nolimits_{j \in J_i} A[k_{i, j}]
+$$
+作为微分分次 $A$-模的同构。设 $E\to P$ 是 $D(A,\text{d})$ 的态射。
+则存在微分分次子模 $P'\subset P$，使得对某些有限子集
+$J'_i\subset J_i$，$F_{i+1}P\cap P'/(F_iP\cap P')$ 等于
+$\bigoplus_{j\in J'_i}A[k_{i,j}]$，并且 $E\to P$ 通过 $P'$ 分解。
+\end{lemma}
+
+\begin{proof}
+我们对 $-1\leq m\leq n$ 向下归纳，证明存在微分分次子模
+$P'\subset P$ 使得
+\begin{enumerate}
+\item $F_mP\subset P'$；
+\item 对 $i\geq m$，商 $F_{i+1}P\cap P'/(F_iP\cap P')$ 同构于
+$\bigoplus_{j\in J'_i}A[k_{i,j}]$，其中 $J'_i\subset J_i$ 为有限子集；
+\item $E\to P$ 通过 $P'$ 分解。
+\end{enumerate}
+初始情形是 $m=n$，此时可取 $P'=P$。
+
+\medskip\noindent
+归纳步骤。假设 $P'$ 对 $m$ 有效。对 $i\geq m$ 与 $j\in J'_i$，
+取次数为 $k_{i,j}$ 的齐次元素
+$x_{i,j}\in F_{i+1}P\cap P'$，使其在
+$F_{i+1}P\cap P'/(F_iP\cap P')$ 中的像是对应于 $j\in J_i$
+的直和项的生成元。诸 $x_{i,j}$ 作为 $A$-模生成 $P'/F_mP$。写成
+$$
+\text{d}(x_{i, j}) = \sum x_{i', j'} a_{i, j}^{i', j'} + y_{i, j}
+$$
+，其中 $y_{i,j}\in F_mP$ 且 $a_{i,j}^{i',j'}\in A$。存在有限子集
+$J'_{m-1}\subset J_{m-1}$，使每个 $y_{i,j}$ 都映到
+$F_mP/F_{m-1}P$ 的子模
+$\bigoplus_{j\in J'_{m-1}}A[k_{m-1,j}]$ 中。令
+$P''\subset F_mP$ 为该子模在映射 $F_mP\to F_mP/F_{m-1}P$
+下的逆像。于是可见 $A$-子模
+$$
+P'' + \sum x_{i, j}A
+$$
+是所求类型的微分分次子模。此外，
+$$
+P'/(P'' + \sum x_{i, j}A) =
+\bigoplus\nolimits_{j \in J_{m - 1} \setminus J'_{m - 1}} A[k_{m - 1, j}]
+$$
+。由于 $E$ 是紧的，给定映射 $E\to P'$ 与商映射的复合通过上面所示模
+的一个有限直和子项分解。因此，扩大 $J'_{m-1}$ 后，可假设
+$E\to P'$ 通过 $P''+\sum x_{i,j}A$ 分解，正合所需。
+\end{proof}
+
+\noindent
+并非 $D(A,\text{d})$ 的每个紧对象都来自有限分次投射的微分分次
+$A$-模；见《例》第 \ref{examples-section-interesting-compact} 节。
+
+\begin{proposition}
+\label{dga-proposition-compact}
+设 $(A,\text{d})$ 是微分分次代数，$E$ 是 $D(A,\text{d})$ 的对象。
+则下列条件等价：
+\begin{enumerate}
+\item $E$ 是紧对象；
+\item $E$ 是 $D(A,\text{d})$ 的某个对象的直和项，该对象由微分分次模
+$P$ 表示；$P$ 有由微分分次子模组成的有限滤过 $F_\bullet$，并且
+$F_iP/F_{i-1}P$ 是 $A$ 的平移的有限直和。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+假设 $E$ 是紧的。由引理 \ref{dga-lemma-resolve}，可假设 $E$ 由具有性质
+(P) 的微分分次 $A$-模 $P$ 表示。考虑由引理
+\ref{dga-lemma-property-P-sequence} 的容许短正合列给出的有区别三角
+$$
+\bigoplus F_iP \to \bigoplus F_iP \to P
+\xrightarrow{\delta} \bigoplus F_iP[1]
+$$
+。由于 $E$ 是紧的，对某些态射
+$\delta_i:P\to F_iP[1]$，有
+$\delta = \sum_{i = 1, \ldots, n} \delta_i$
+。$\delta$ 与映射
+$\bigoplus F_iP[1]\to\bigoplus F_iP[1]$ 的复合为零
+（《导出范畴》引理 \ref{derived-lemma-composition-zero}），故
+$\delta=0$（这是因为 $\bigoplus F_iP\to\bigoplus F_iP$ 在直和项
+$F_iP$ 上是恒等映射与到 $F_{i-1}P$ 的包含映射之差）。因此，由
+《导出范畴》引理 \ref{derived-lemma-split}，$E$ 上的恒等映射在
+$D(A,\text{d})$ 中通过 $\bigoplus F_iP$ 分解。再次利用 $P$ 的紧性，
+可知映射 $E\to\bigoplus F_iP$ 对某个 $n$ 通过
+$\bigoplus_{i=1,\ldots,n}F_iP$ 分解。换言之，$E$ 上的恒等映射通过
+$\bigoplus_{i=1,\ldots,n}F_iP$ 分解。由引理
+\ref{dga-lemma-factor-through-nicer}，$E$ 的恒等映射可分解为
+$E\to P\to E$，其中 $P$ 如引理陈述的第 (2) 项所述。于是已经证明
+(1) 蕴含 (2)。
+
+\medskip\noindent
+假设 (2)。由《导出范畴》引理
+\ref{derived-lemma-compact-objects-subcategory}，只需证明 $P$ 给出紧对象。
+注意 $P$ 具有性质 (P)，故由引理 \ref{dga-lemma-hom-derived}，对任意微分
+分次模 $M$ 都有
+$$
+\Hom_{D(A, \text{d})}(P, M) = \Hom_{K(A, \text{d})}(P, M)
+$$
+。由于 $D(A,\text{d})$ 中的直和由分次模的直和给出（引理
+\ref{dga-lemma-derived-products}），问题约化为证明
+$\Hom_{K(A,\text{d})}(P,M)$ 与直和交换。利用 $K(A,\text{d})$
+是三角范畴、$\Hom$ 在第一变量中是上同调函子以及 $P$ 上的滤过，
+可约化到 $P$ 是 $A$ 的平移的有限直和的情形，进而约化到显然的情形
+$P=A[k]$。
+\end{proof}
+
+\begin{lemma}
+\label{dga-lemma-compact-implies-bounded}
+设 $(A,\text{d})$ 是微分分次代数。对 $D(A,\text{d})$ 的每个紧对象
+$E$，存在整数 $a\leq b$，使得只要对 $i\in[a,b]$ 有
+$H^i(M)=0$，就有 $\Hom_{D(A,\text{d})}(E,M)=0$。
+\end{lemma}
+
+\begin{proof}
+注意，$D(A,\text{d})$ 中存在这样一对整数的对象所成的子范畴，
+是 $D(A,\text{d})$ 的饱和严格满三角子范畴。因此由命题
+\ref{dga-proposition-compact}，只需在 $E$ 由如下微分分次模 $P$ 表示时证明：
+$P$ 有由微分分次子模组成的有限滤过 $F_\bullet$，且
+$F_iP/F_{i-1}P$ 是 $A$ 的平移的有限直和。利用与三角的相容性，
+只需对 $P=A$ 证明。此时
+$\Hom_{D(A,\text{d})}(A,M)=H^0(M)$，并且取 $a=b=0$ 即得结论。
+\end{proof}
+
+\noindent
+若 $(A,\text{d})$ 只是置于次数 $0$ 且微分为零的代数，或者更一般地，
+只分布于有限多个次数，则确实可以得到对紧对象更精确的描述。
+
+\begin{lemma}
+\label{dga-lemma-compact}
+设 $(A,\text{d})$ 是微分分次代数，并假设当 $|n|\gg0$ 时
+$A^n=0$。设 $E$ 是 $D(A,\text{d})$ 的对象。下列条件等价：
+\begin{enumerate}
+\item $E$ 是紧对象；
+\item $E$ 可由微分分次 $A$-模 $P$ 表示，其中 $P$ 作为分次 $A$-模
+是有限投射的，并且对每个微分分次 $A$-模 $M$ 都满足
+$\Hom_{K(A, \text{d})}(P, M) = \Hom_{D(A, \text{d})}(P, M)$
+。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{D}\subset K(A,\text{d})$ 是评注
+\ref{dga-remark-source-graded-projective} 中讨论的三角子范畴。设 $P$
+是 $\mathcal{D}$ 的对象，并且作为分次 $A$-模是有限投射的。则由评注
+\ref{dga-remark-graded-projective-is-compact}，$P$ 表示
+$D(A,\text{d})$ 的紧对象。
+
+\medskip\noindent
+为证明逆命题，设 $E$ 是 $D(A,\text{d})$ 的紧对象。固定引理
+\ref{dga-lemma-compact-implies-bounded} 中的 $a\leq b$。必要时减小 $a$
+并增大 $b$，还可假设当 $i\notin[a,b]$ 时 $H^i(E)=0$
+（这由命题 \ref{dga-proposition-compact} 及对 $A$ 的假设得出）。此外，
+固定整数 $c>0$，使得当 $|n|\geq c$ 时 $A^n=0$。
+
+\medskip\noindent
+由命题 \ref{dga-proposition-compact}，可见在 $D(A,\text{d})$ 中，$E$
+是某个微分分次 $A$-模 $P$ 的直和项；$P$ 有由微分分次子模组成的有限
+滤过 $F_\bullet$，且 $F_iP/F_{i-1}P$ 是 $A$ 的平移的有限直和。
+特别地，$P$ 具有性质 (P)，并且由引理 \ref{dga-lemma-hom-derived}，
+对任意微分分次模 $M$ 有
+$\Hom_{D(A, \text{d})}(P, M) = \Hom_{K(A, \text{d})}(P, M)$
+。换言之，$P$ 是评注 \ref{dga-remark-source-graded-projective} 中讨论的
+三角子范畴 $\mathcal{D}\subset K(A,\text{d})$ 的对象。注意 $P$
+作为分次 $A$-模是有限自由的。
+
+\medskip\noindent
+选取 $n>0$ 使 $b+4c-n<a$。以微分分次 $A$-模的自同态
+$\varphi:P\to P$ 表示到 $E$ 上的投影算子。考虑 $K(A,\text{d})$
+中的有区别三角
+$$
+P \xrightarrow{1 - \varphi} P \to C \to P[1]
+$$
+，其中 $C$ 是第一个箭头的锥。则 $C$ 是 $\mathcal{D}$ 的对象，
+在 $D(A,\text{d})$ 中有 $C\cong E\oplus E[1]$，并且 $C$
+是有限分次自由 $A$-模。接着考虑 $K(A,\text{d})$ 中的有区别三角
+$$
+C[1] \to C \to C' \to C[2]
+$$
+，其中 $C'$ 是某个态射 $C[1]\to C$ 的锥，而该态射表示
+$D(A,\text{d})$ 中的复合
+$$
+C[1] \cong E[1] \oplus E[2] \to E[1] \to E \oplus E[1] \cong C
+$$
+。于是可见 $C'$ 表示 $E\oplus E[2]$。依此继续，可找到微分分次
+$A$-模 $P$，它是 $\mathcal{D}$ 的对象，作为分次 $A$-模是有限自由的，
+并表示 $E\oplus E[n]$。
+
+\medskip\noindent
+选取 $P$ 作为 $A$-模的齐次元素基 $x_i$（$i\in I$）。令
+$d_i=\deg(x_i)$。令 $P_1$ 为由满足 $d_i\leq a-c-1$ 的
+$x_i$ 与 $\text{d}(x_i)$ 生成的 $P$ 的 $A$-子模；令 $P_2$
+为由满足 $d_i\geq b-n+c$ 的 $x_i$ 与 $\text{d}(x_i)$ 生成的
+$P$ 的 $A$-子模。注意
+\begin{enumerate}
+\item $P_1$ 与 $P_2$ 是 $P$ 的微分分次子模；
+\item 当 $t\geq a$ 时，$P_1^t=0$；
+\item 当 $t\leq a-2c$ 时，$P_1^t=P^t$；
+\item 当 $t\leq b-n$ 时，$P_2^t=0$；
+\item 当 $t\geq b-n+2c$ 时，$P_2^t=P^t$。
+\end{enumerate}
+由于按 $n$ 的选取有 $b-n+2c\geq a-2c$，得到微分分次 $A$-模的
+短正合列
+$$
+0 \to P_1 \cap P_2 \to P_1 \oplus P_2 \xrightarrow{\pi} P \to 0
+$$
+。由于 $P$ 作为分次 $A$-模是投射的，这是容许短正合列
+（引理 \ref{dga-lemma-target-graded-projective}）。因此在
+$K(A,\text{d})$ 中得到边界映射
+$\delta:P\to(P_1\cap P_2)[1]$，见引理 \ref{dga-lemma-admissible-ses}。
+由于 $P=E\oplus E[n]$，且 $P_1\cap P_2$ 集中于次数 $(b-n,a)$，
+可知
+$\Hom_{D(A,\text{d})}(E\oplus E[n],(P_1\cap P_2)[1])$ 为零。
+又因 $P$ 是 $\mathcal{D}$ 的对象，故 $\delta$ 作为
+$K(A,\text{d})$ 中的态射为零。由《导出范畴》引理
+\ref{derived-lemma-split}，可找到映射 $s:P\to P_1\oplus P_2$，使得
+$\pi \circ s = \text{id}_P + \text{d}h + h\text{d}$
+，其中 $h:P\to P$ 的次数为 $-1$。由于 $P_1\oplus P_2\to P$
+是满射，且 $P$ 作为分次 $A$-模是投射的，可以选取 $h$ 的齐次提升
+$\tilde h:P\to P_1\oplus P_2$。把 $s$ 改为
+$s+\text{d}\tilde h+\tilde h\text{d}$，即可得到
+$\pi\circ s=\text{id}_P$。这意味着得到直和分解
+$P=s^{-1}(P_1)\oplus s^{-1}(P_2)$。由于 $s^{-1}(P_2)$ 在次数
+$\geq b-n+2c$ 上等于 $P$，可见 $s^{-1}(P_2)\to P\to E$
+是拟同构，即 $D(A,\text{d})$ 中的同构。证明完毕。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{导出范畴的等价}
+\label{dga-section-equivalence}
+
+\noindent
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是微分分次 $R$-代数。
+一个自然出现的问题是：$D(A,\text{d})$ 与 $D(B,\text{d})$ 作为
+$R$-线性三角范畴等价意味着什么？这是相当微妙的问题，而且事实将表明，
+它并不总是正确的问题。尽管如此，本节仍汇集若干保证这种等价成立的条件。
+
+\medskip\noindent
+我们强烈建议读者参阅关于此主题的开创性论文 \cite{Rickard}。
+
+\begin{lemma}
+\label{dga-lemma-qis-equivalence}
+设 $R$ 是环，$(A,\text{d})\to(B,\text{d})$ 是微分分次 $R$-代数的
+同态，并在上同调代数上诱导同构。则
+$$
+- \otimes_A^\mathbf{L} B : D(A, \text{d}) \to D(B, \text{d})
+$$
+给出三角范畴的 $R$-线性等价，其拟逆为限制函子 $N\mapsto N_A$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-tensor-with-compact-fully-faithful}，函子
+$M\mapsto M\otimes_A^\mathbf{L}B$ 是全忠实的。由引理
+\ref{dga-lemma-tensor-hom-adjoint}，函子
+$N\mapsto R\Hom(B,N)=N_A$ 是右伴随，见例
+\ref{dga-example-map-hom-tensor}。显然 $R\Hom(B,-)$ 的核为零。
+结论遂由《导出范畴》引理
+\ref{derived-lemma-fully-faithful-adjoint-kernel-zero} 得出。
+\end{proof}
+
+\noindent
+分析上述证明可见，下列推广无需额外工作即可得到。
+
+\begin{lemma}
+\label{dga-lemma-tilting-equivalence}
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是微分分次 $R$-代数，
+$N$ 是微分分次 $(A,B)$-双模。假设
+\begin{enumerate}
+\item $N$ 在 $D(B,\text{d})$ 中定义紧对象；
+\item 若 $N'\in D(B,\text{d})$，且对每个 $n\in\mathbf{Z}$ 有
+$\Hom_{D(B,\text{d})}(N,N'[n])=0$，则 $N'=0$；
+\item 对每个 $k\in\mathbf{Z}$，映射
+$H^k(A)\to\Hom_{D(B,\text{d})}(N,N[k])$ 都是同构。
+\end{enumerate}
+则
+$$
+- \otimes_A^\mathbf{L} N : D(A, \text{d}) \to D(B, \text{d})
+$$
+给出三角范畴的 $R$-线性等价。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dga-lemma-tensor-with-compact-fully-faithful}，函子
+$M\mapsto M\otimes_A^\mathbf{L}N$ 是全忠实的。由引理
+\ref{dga-lemma-tensor-hom-adjoint}，函子 $N'\mapsto R\Hom(N,N')$
+是右伴随。由假设 (3)，$R\Hom(N,-)$ 的核为零。因此结论由
+《导出范畴》引理 \ref{derived-lemma-fully-faithful-adjoint-kernel-zero}
+得出。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-tilting-equivalence}
+在引理 \ref{dga-lemma-tilting-equivalence} 中，可把条件 (2) 替换为
+$N$ 是 $D_{compact}(B,d)$ 的经典生成元这一条件，见《导出范畴》命题
+\ref{derived-proposition-generator-versus-classical-generator}。
+此外，若已知 $R\Hom(N,B)$ 是 $D(A,\text{d})$ 的紧对象，则只需检验
+$N$ 是 $D_{compact}(B,\text{d})$ 的弱生成元。证明从略；如果 Stacks
+project 今后用到此结论，我们会在这里补上证明。
+\end{remark}
+
+\noindent
+有时把下述引理中的 $B$-模 $P$ 称为“$(A,B)$-倾斜复形”。
+
+\begin{lemma}
+\label{dga-lemma-rickard}
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是微分分次 $R$-代数。
+假设 $A=H^0(A)$。下列条件等价：
+\begin{enumerate}
+\item $D(A,\text{d})$ 与 $D(B,\text{d})$ 作为 $R$-线性三角范畴等价；
+\item 存在 $D(B,\text{d})$ 的对象 $P$，使得
+\begin{enumerate}
+\item $P$ 是 $D(B,\text{d})$ 的紧对象；
+\item 若 $N\in D(B,\text{d})$，且对每个 $i\in\mathbf{Z}$ 有
+$\Hom_{D(B,\text{d})}(P,N[i])=0$，则 $N=0$；
+\item 当 $i\neq0$ 时，$\Hom_{D(B,\text{d})}(P,P[i])=0$；当 $i=0$
+时，该群等于 $A$。
+\end{enumerate}
+\end{enumerate}
+由 (2) 构造的等价 $D(A,\text{d})\to D(B,\text{d})$ 把 $A$ 映到 $P$。
+\end{lemma}
+
+\begin{proof}
+设 $F:D(A,\text{d})\to D(B,\text{d})$ 是等价。则 $F$ 把紧对象映到
+紧对象。因此 $P=F(A)$ 是紧的，即 (2)(a) 成立。条件 (2)(b) 与
+(2)(c) 由 $F$ 是等价立即得出。
+
+\medskip\noindent
+设 $P$ 是 (2) 中的对象，以具有性质 (P) 的微分分次模表示 $P$。令
+$$
+(E, \text{d}) = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(P, P)
+$$
+。由引理 \ref{dga-lemma-hom-derived} 与假设 (2)(c)，有 $H^0(E)=A$，
+且当 $k\neq0$ 时 $H^k(E)=0$。把 $P$ 看作 $(E,B)$-双模，并使用引理
+\ref{dga-lemma-tilting-equivalence} 与假设 (2)(b)，得到等价
+$$
+D(E, \text{d}) \to D(B, \text{d})
+$$
+，它把 $E$ 映到 $P$。令 $E'\subset E$ 为如下微分分次 $R$-子代数：
+$$
+(E')^i = \left\{
+\begin{matrix}
+E^i & \text{若 }i < 0 \\
+\Ker(E^0 \to E^1) & \text{若 }i = 0 \\
+0 & \text{若 }i > 0
+\end{matrix}
+\right.
+$$
+于是有微分分次代数的拟同构
+$(A,\text{d})\leftarrow(E',\text{d})\rightarrow(E,\text{d})$。
+因此由引理 \ref{dga-lemma-qis-equivalence} 得到等价
+$$
+D(A, \text{d}) \leftarrow D(E', \text{d}) \rightarrow D(E, \text{d})
+\rightarrow D(B, \text{d})
+$$
+。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-lift-equivalence-to-dga}
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是微分分次 $R$-代数。
+设给定三角范畴的 $R$-线性等价
+$$
+F : D(A, \text{d}) \longrightarrow D(B, \text{d})
+$$
+。令 $N=F(A)$。则 $N$ 是微分分次 $B$-模。由于 $F$ 是等价，且
+$A$ 是 $D(A,\text{d})$ 的紧对象，可知 $N$ 是 $D(B,\text{d})$
+的紧对象。由于 $A$ 生成 $D(A,\text{d})$ 且 $F$ 是等价，可见 $N$
+生成 $D(B,\text{d})$。最后，
+$H^k(A)=\Hom_{D(A,\text{d})}(A,A[k])$，而由 $F$ 是等价可知，
+对每个 $k$，$F$ 诱导同构
+$H^k(A)=\Hom_{D(B,\text{d})}(N,N[k])$。要得出存在由引理
+\ref{dga-lemma-tilting-equivalence} 的构造产生的等价
+$D(A,\text{d})\to D(B,\text{d})$，所需的只是在 $N$ 上给出一个
+与微分相容、并与给定右 $B$-模结构交换的左 $A$-模结构。事实上，
+只需在把 $N$ 替换为与之拟同构的微分分次 $B$-模后完成此事。
+在某些情形下可以构造这一模结构。例如，若假设 $F$ 可提升为微分分次函子
+$$
+F^{dg} :
+\text{Mod}^{dg}_{(A, \text{d})}
+\longrightarrow
+\text{Mod}^{dg}_{(B, \text{d})}
+$$
+（记号见例 \ref{dga-example-dgm-dg-cat}），它位于相应微分分次范畴之间，
+则上述要求成立。另一种情形将在下面的命题中讨论。
+\end{remark}
+
+\begin{proposition}
+\label{dga-proposition-rickard}
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是微分分次 $R$-代数，
+$F:D(A,\text{d})\to D(B,\text{d})$ 是三角范畴的 $R$-线性等价。
+假设
+\begin{enumerate}
+\item $A=H^0(A)$；
+\item $B$ 作为 $R$-模复形是 K-平坦的。
+\end{enumerate}
+则存在引理 \ref{dga-lemma-tilting-equivalence} 所述的 $(A,B)$-双模 $N$。
+\end{proposition}
+
+\begin{proof}
+如上面的评注 \ref{dga-remark-lift-equivalence-to-dga}，在
+$D(B,\text{d})$ 中令 $N=F(A)$。可假设 $N$ 是具有性质 (P) 的微分分次
+$B$-模。令
+$$
+(E, \text{d}) = \Hom_{\text{Mod}^{dg}_{(B, \text{d})}}(N, N)
+$$
+。由引理 \ref{dga-lemma-hom-derived}，有 $H^0(E)=A$，且当 $k\neq0$
+时 $H^k(E)=0$。此外，由评注 \ref{dga-remark-lift-equivalence-to-dga}
+中的讨论及引理 \ref{dga-lemma-tilting-equivalence}，可见 $N$ 作为
+$(E,B)$-双模诱导等价
+$-\otimes_E^\mathbf{L}N:D(E,\text{d})\to D(B,\text{d})$。
+令 $E'\subset E$ 为如下微分分次 $R$-子代数：
+$$
+(E')^i = \left\{
+\begin{matrix}
+E^i & \text{若 }i < 0 \\
+\Ker(E^0 \to E^1) & \text{若 }i = 0 \\
+0 & \text{若 }i > 0
+\end{matrix}
+\right.
+$$
+于是有微分分次代数的拟同构
+$(A,\text{d})\leftarrow(E',\text{d})\rightarrow(E,\text{d})$。
+因此由引理 \ref{dga-lemma-qis-equivalence} 得到等价
+$$
+D(A, \text{d}) \leftarrow D(E', \text{d}) \rightarrow D(E, \text{d})
+\rightarrow D(B, \text{d})
+$$
+。注意，左侧箭头的拟逆 $D(A,\text{d})\to D(E',\text{d})$ 由
+$M\mapsto M\otimes_A^\mathbf{L}A$ 给出，其中把 $A$ 看作
+$(A,E')$-双模，见例 \ref{dga-example-map-hom-tensor}。另一方面，函子
+$D(E',\text{d})\to D(B,\text{d})$ 由
+$M\mapsto M\otimes_{E'}^\mathbf{L}N$ 给出，其中 $N$ 如上。
+由引理 \ref{dga-lemma-compose-tensor-functors} 即得结论。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-rickard}
+设 $A,B,F,N$ 如命题 \ref{dga-proposition-rickard}。尚不清楚 $F$ 与函子
+$G(-)=-\otimes_A^\mathbf{L}N$ 是否同构。按构造，在
+$D(B,\text{d})$ 中有同构 $N=G(A)\to F(A)$。当 $M$ 是分次投射的
+微分分次 $A$-模（例如 $A$ 的平移的直和）时，可以直接把它扩张为
+函子同构 $G(M)\to F(M)$。进而，当 $M$ 是此类模之间某个映射的锥时，
+可得 $G(M)\cong F(M)$。一般情形下是否还有更多结论，我们并不知道。
+\end{remark}
+
+\begin{lemma}
+\label{dga-lemma-rickard-rings}
+设 $R$ 是环，$A,B$ 是 $R$-代数。下列条件等价：
+\begin{enumerate}
+\item 存在三角范畴的 $R$-线性等价 $D(A)\to D(B)$；
+\item 存在 $D(B)$ 的对象 $P$，使得
+\begin{enumerate}
+\item $P$ 可由有限投射 $B$-模组成的有限复形表示；
+\item 若 $K\in D(B)$，且对每个 $i\in\mathbf{Z}$ 有
+$\Ext^i_B(P,K)=0$，则 $K=0$；
+\item 当 $i\neq0$ 时，$\Ext^i_B(P,P)=0$；当 $i=0$ 时，该群等于 $A$。
+\end{enumerate}
+\end{enumerate}
+此外，若 $B$ 作为 $R$-模是平坦的，则上述条件还等价于
+\begin{enumerate}
+\item[(3)] 存在 $(A,B)$-双模 $N$，使得
+$-\otimes_A^\mathbf{L}N:D(A)\to D(B)$ 是等价。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价，是引理 \ref{dga-lemma-rickard} 结合引理
+\ref{dga-lemma-compact} 对 $D(B)$ 的紧对象之刻画所得的特例
+（略去一个小细节）。当 $B$ 是 $R$-平坦的时，与 (3) 的等价由命题
+\ref{dga-proposition-rickard} 得出。
+\end{proof}
+
+\begin{remark}
+\label{dga-remark-centers}
+设 $R$ 是环，$A,B$ 是 $R$-代数。若 $D(A)$ 与 $D(B)$ 作为
+$R$-线性三角范畴等价，则 $A$ 与 $B$ 的中心作为 $R$-代数同构。
+特别地，若 $A,B$ 交换，则 $A\cong B$。这一颇为棘手的证明见
+\cite[Proposition 9.2]{Rickard} 或 \cite[Proposition 6.3.2]{KZ}。
+另一种途径或许是使用 Hochschild 上同调（见下面的评注）。
+\end{remark}
+
+\begin{remark}
+\label{dga-remark-hochschild-cohomology}
+设 $R$ 是环，$(A,\text{d})$ 与 $(B,\text{d})$ 是导出等价的微分分次
+$R$-代数，即存在三角范畴的 $R$-线性等价
+$D(A,\text{d})\to D(B,\text{d})$。我们想证明 $(A,\text{d})$ 与
+$(B,\text{d})$ 的某些不变量相同。在许多情形下，可以更好地控制局面。
+例如，可能存在形如
+$$
+- \otimes_A \Omega : D(A, \text{d}) \longrightarrow D(B, \text{d})
+$$
+的等价，其中 $\Omega$ 是某个微分分次 $(A,B)$-双模
+（命题 \ref{dga-proposition-rickard} 的情形即如此；若等价来自几何构造，
+也常常如此）。若该函子的拟逆又由
+$$
+- \otimes_B^\mathbf{L} \Omega' : D(B, \text{d}) \longrightarrow D(A, \text{d})
+$$
+给出，其中 $\Omega'$ 是微分分次 $(B,A)$-双模
+（同前，这样的模 $\Omega'$ 在实际中常常存在），则可考虑双模导出范畴
+之间的函子
+$$
+D(A^{opp} \otimes_R A, \text{d})
+\longrightarrow
+D(B^{opp} \otimes_R B, \text{d}),\quad
+M \longmapsto \Omega' \otimes^\mathbf{L}_A M \otimes_A^\mathbf{L} \Omega
+$$
+（使用引理 \ref{dga-lemma-bimodule-over-tensor} 把双模化为右模）。注意，
+此函子把 $(A,A)$-双模 $A$ 映到 $(B,B)$-双模 $B$。在适当条件下
+（例如 $A,B,\Omega$ 在 $R$ 上的平坦性等），此函子也将是等价。
+若确实如此，则得到 Hochschild 上同调群的同构
+$$
+HH^i(A, \text{d}) =
+\Hom_{D(A^{opp} \otimes_R A, \text{d})}(A, A[i])
+\longrightarrow
+\Hom_{D(B^{opp} \otimes_R B, \text{d})}(B, B[i]) =
+HH^i(B, \text{d}).
+$$
+例如，若 $A=H^0(A)$，则 $HH^0(A,\text{d})$ 等于 $A$ 的中心，
+这就给出了评注 \ref{dga-remark-centers} 中所述结果的概念性证明。
+如果今后用到本评注，我们将在此给出精确陈述与详细证明。
+\end{remark}
+
+
+
+\section{微分分次代数的分辨}
+\label{dga-section-resolution-dgas}
+
+\noindent
+设 $R$ 是环。按我们的约定，集合 $S$ 上的自由 $R$-代数
+$R\langle S\rangle$ 是如下代数：它以表达式
+$$
+s_1 s_2 \ldots s_n
+$$
+为 $R$-基，其中 $n\geq0$，而 $s_1,\ldots,s_n\in S$ 是 $S$
+中元素的一个序列。乘法由连接给出：
+$$
+(s_1 s_2 \ldots s_n) \cdot (s'_1 s'_2 \ldots s'_m) =
+s_1 \ldots s_n s'_1 \ldots s'_m
+$$
+。此代数由如下性质刻画：对每个 $R$-代数 $A$，映射
+$$
+\Mor_{R\text{-代数}}(R\langle S \rangle, A) \to
+\text{Map}(S, A),\quad
+\varphi \longmapsto (s \mapsto \varphi(s))
+$$
+是双射。
+
+\medskip\noindent
+在分次 $R$-代数范畴中，集合 $S$ 应带有分次，我们把它看作映射
+$\deg:S\to\mathbf{Z}$。于是 $R\langle S\rangle$ 带有分次，使单项式
+的次数为
+$$
+\deg(s_1 s_2 \ldots s_n) = \deg(s_1) + \ldots + \deg(s_n)
+$$
+。在此设定下，对每个分次 $R$-代数 $A$，映射
+$$
+\Mor_{\text{分次 }R\text{-代数}}(R\langle S \rangle, A) \to
+\text{Map}_{\text{分次集合}}(S, A),\quad
+\varphi \longmapsto (s \mapsto \varphi(s))
+$$
+是双射。
+
+\medskip\noindent
+若 $A$ 是分次 $R$-代数，$S$ 是分次集合，也可类似地构造
+$A\langle S\rangle$。$A\langle S\rangle$ 的元素是形如
+$$
+a_0 s_1 a_1 s_2 \ldots a_{n - 1} s_n a_n
+$$
+的元素之和，其中 $a_i\in A$，并模去使这些表达式关于
+$(a_0,\ldots,a_n)$ 为 $R$-多重线性的关系。因此，对 $S$ 中元素的
+每个序列 $s_1,\ldots,s_n$，都有包含
+$$
+A \otimes_R \ldots \otimes_R A \subset A\langle S \rangle
+$$
+，而该代数是这些项的直和。由此定义，读者可证明映射
+$$
+\Mor_{\text{分次 }R\text{-代数}}(A\langle S \rangle, B) \to
+\Mor_{\text{分次 }R\text{-代数}}(A, B) \times
+\text{Map}_{\text{分次集合}}(S, B),
+$$
+把 $\varphi$ 映到 $(\varphi|_A,(s\mapsto\varphi(s)))$；
+对每个分次 $R$-代数 $A$，该映射是双射。注意，若 $A$ 是自由分次
+$R$-代数，则 $A\langle S\rangle$ 也是自由分次 $R$-代数。
+
+\medskip\noindent
+设 $A$ 是微分分次 $R$-代数，$S$ 是分次集合。再假设对每个
+$s\in S$，给定齐次元素 $f_s\in A$，满足
+$\deg(f_s)=\deg(s)+1$ 且 $\text{d}f_s=0$。则在
+$A\langle S\rangle$ 上存在唯一的微分分次代数结构，使得
+$\text{d}(s)=f_s$。例如，给定 $a,b,c\in A$ 与 $s,t\in S$，定义
+\begin{align*}
+\text{d}(asbtc)
+& =
+\text{d}(a)sbtc + (-1)^{\deg(a)}a f_s b t c +
+(-1)^{\deg(a) + \deg(s)} as\text{d}(b)tc \\
+& + (-1)^{\deg(a) + \deg(s) + \deg(b)} asb f_t c +
+(-1)^{\deg(a) + \deg(s) + \deg(b) + \deg(t)} asbt\text{d}(c)
+\end{align*}
+。细节从略。
+
+\begin{lemma}
+\label{dga-lemma-K-flat-resolution}
+设 $R$ 是环，$(B,\text{d})$ 是微分分次 $R$-代数。存在微分分次
+$R$-代数的拟同构 $(A,\text{d})\to(B,\text{d})$，并具有下列性质：
+\begin{enumerate}
+\item $A$ 作为 $R$-模复形是 K-平坦的；
+\item $A$ 是自由分次 $R$-代数。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+首先断言，可找到具有 (1)、(2) 且在上同调上诱导满射的
+$(A_0,\text{d})\to(B,\text{d})$。具体地，取分次集合 $S$；
+对每个 $s\in S$，取次数为 $\deg(s)$ 的齐次元素
+$b_s\in\Ker(d:B\to B)$，使其在 $H^*(B)$ 中的类
+$\overline b_s$ 作为 $R$-模生成 $H^*(B)$。可令
+$A_0=R\langle S\rangle$，微分为零，并以 $s\mapsto b_s$
+定义 $A_0\to B$。
+
+\medskip\noindent
+给定在上同调上诱导满射的 $A_0\to B$，归纳构造序列
+$$
+A_0 \to A_1 \to A_2 \to \ldots B
+$$
+。给定 $A_n\to B$，令 $S_n$ 为分次集合；对每个 $s\in S_n$，
+令 $a_s\in\Ker(\text{d}:A_n\to A_n)$ 为次数
+$\deg(s)+1$ 的齐次元素，其在 $H^*(A_n)$ 中的类
+$\overline a_s$ 映到 $H^*(B)$ 中的零。取 $S_n$ 足够大，使诸
+$\overline a_s$ 作为 $R$-模生成
+$\Ker(H^*(A_n)\to H^*(B))$。然后令
+$$
+A_{n + 1} = A_n\langle S_n \rangle
+$$
+，其微分由 $\text{d}(s)=a_s$ 给出，见上面的讨论。于是每个
+$(A_n,\text{d})$ 都满足 (1)、(2)；细节从略。映射
+$H^*(A_n)\to H^*(B)$ 是满射，因为 $n=0$ 时已经如此。
+
+\medskip\noindent
+显然 $A=\colim A_n$ 是自由分次 $R$-代数。由《代数进阶》引理
+\ref{more-algebra-lemma-colimit-K-flat}，它是 K-平坦的。映射
+$H^*(A)\to H^*(B)$ 是同构：它是满射，也是单射。事实上，
+$H^*(A)$ 的每个元素都来自某个 $H^*(A_n)$ 中的元素；若它在
+$H^*(B)$ 中消失，则它在 $H^*(A_{n+1})$ 中消失，因而也在
+$H^*(A)$ 中消失。
+\end{proof}
+
+\noindent
+作为应用，我们证明引理
+\ref{dga-lemma-compose-tensor-functors-general-algebra} 的“正确”版本。
+
+\begin{lemma}
+\label{dga-lemma-compose-tensor-functors-tor}
+设 $R$ 是环，$(A,\text{d})$、$(B,\text{d})$ 和 $(C,\text{d})$
+是微分分次 $R$-代数。假设 $A\otimes_RC$ 在 $D(R)$ 中表示
+$A\otimes_R^\mathbf{L}C$。设 $N$ 是微分分次 $(A,B)$-双模，
+$N'$ 是微分分次 $(B,C)$-双模。则复合
+$$
+\xymatrix{
+D(A, \text{d}) \ar[rr]^{- \otimes_A^\mathbf{L} N} & &
+D(B, \text{d}) \ar[rr]^{- \otimes_B^\mathbf{L} N'} & &
+D(C, \text{d})
+}
+$$
+同构于 $-\otimes_A^\mathbf{L}N''$，其中 $N''$ 是某个微分分次
+$(A,C)$-双模。
+\end{lemma}
+
+\begin{proof}
+利用引理 \ref{dga-lemma-K-flat-resolution}，选取拟同构
+$(B',\text{d})\to(B,\text{d})$，其中 $B'$ 作为 $R$-模复形是
+K-平坦的。由引理 \ref{dga-lemma-qis-equivalence}，函子
+$-\otimes_{B'}^\mathbf{L}B:D(B',\text{d})\to D(B,\text{d})$
+是等价，其拟逆由限制给出。注意，限制典范同构于函子
+$-\otimes_B^\mathbf{L}B:D(B,\text{d})\to D(B',\text{d})$，
+其中把 $B$ 看作 $(B,B')$-双模。因此，只需对下列复合证明引理：
+$$
+D(A) \to D(B) \to D(B'),\quad
+D(B') \to D(B) \to D(C),\quad
+D(A) \to D(B') \to D(C).
+$$
+第一个复合由引理 \ref{dga-lemma-compose-tensor-functors} 处理，因为 $B'$
+作为 $R$-模复形是 K-平坦的。第二个复合成立，因为
+$B \otimes_B^\mathbf{L} N' = N' = B \otimes_B N'$
+，故可应用引理 \ref{dga-lemma-compose-tensor-functors-general}。于是约化到
+$B$ 作为 $R$-模复形是 K-平坦的情形。
+
+\medskip\noindent
+假设 $B$ 作为 $R$-模复形是 K-平坦的。只需证明
+(\ref{dga-equation-plain-versus-derived-algebras}) 是同构，见引理
+\ref{dga-lemma-compose-tensor-functors-general-algebra}。选取拟同构
+$L\to A$，其中 $L$ 是具有性质 (P) 的微分分次 $R$-模。显然
+$P=L\otimes_RB$ 作为微分分次 $B$-模具有性质 (P)。因此必须证明
+$P\to A\otimes_RB$ 诱导拟同构
+$$
+P \otimes_B (B \otimes_R C)
+\longrightarrow
+(A \otimes_R B) \otimes_B (B \otimes_R C)
+$$
+。可将其改写为
+$$
+P \otimes_R B \otimes_R C \longrightarrow A \otimes_R B \otimes_R C
+$$
+。由于 $B$ 作为 $R$-模复形是 K-平坦的，由《代数进阶》引理
+\ref{more-algebra-lemma-K-flat-quasi-isomorphism}，只需证明
+$$
+P \otimes_R C \to A \otimes_R C
+$$
+是拟同构，而这恰是我们的假设。
+\end{proof}
+
+\noindent
+下列引理其实不属于本节，但似乎没有更自然的安置位置。
+
+\begin{lemma}
+\label{dga-lemma-countable}
+设 $(A,\text{d})$ 是微分分次代数，且对每个 $i$，$H^i(A)$ 都可数。
+设 $M$ 是 $D(A,\text{d})$ 的对象。下列条件等价：
+\begin{enumerate}
+\item $M=\text{hocolim},E_n$，其中 $E_n$ 是 $D(A,\text{d})$ 的紧对象；
+\item 对每个 $i$，$H^i(M)$ 都可数。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。由《导出范畴》引理
+\ref{derived-lemma-cohomology-of-hocolim}，有
+$H^i(M)=\colim H^i(E_n)$。因此只需证明对每个 $n$，$H^i(E_n)$
+可数。由命题 \ref{dga-proposition-compact}，可见 $E_n$ 在
+$D(A,\text{d})$ 中同构于某个微分分次模 $P$ 的直和项；$P$ 有由微分
+分次子模组成的有限滤过 $F_\bullet$，且 $F_jP/F_{j-1}P$ 是 $A$
+的平移的有限直和。依假设，群 $H^i(F_jP/F_{j-1}P)$ 可数。
+对滤过长度归纳并使用上同调长正合列，即得 (2)。更有趣的是反向蕴含。
+
+\medskip\noindent
+我们断言，存在可数微分分次子代数 $A'\subset A$，使包含映射
+$A'\to A$ 在上同调上定义同构。为构造 $A'$，选取可数微分分次子代数
+$$
+A_1 \subset A_2 \subset A_3 \subset \ldots
+$$
+，使得：(a) $H^i(A_1)\to H^i(A)$ 是满射；(b) 对 $n>1$，映射
+$H^i(A_{n-1})\to H^i(A_n)$ 的核与映射
+$H^i(A_{n-1})\to H^i(A)$ 的核相同。为构造 $A_1$，取生成 $A$
+的上同调（作为环或作为分次阿贝尔群）的任意可数上链集
+$S\subset A$，并令 $A_1$ 为由 $S$ 生成的 $A$ 的微分分次子代数。
+给定 $A_{n-1}$ 后，为构造 $A_n$，对每个在 $H^i(A)$ 中映到零的上链
+$a\in A_{n-1}^i$，选取 $s_a\in A^{i-1}$ 使
+$\text{d}(s_a)=a$，并令 $A_n$ 为由 $A_{n-1}$ 与诸元素 $s_a$
+生成的 $A$ 的微分分次子代数。最后取 $A'=\bigcup A_n$。
+
+\medskip\noindent
+由引理 \ref{dga-lemma-qis-equivalence}，限制映射
+$D(A,\text{d})\to D(A',\text{d})$，$M\mapsto M_{A'}$，是等价。
+由于 $M$ 与 $M_{A'}$ 的上同调群相同，只需对 $(A',\text{d})$
+证明蕴含 (2) $\Rightarrow$ (1)。
+
+\medskip\noindent
+假设 $A$ 可数。用与上面完全相同类型的论证可见，对
+$D(A,\text{d})$ 中的 $M$，下列两者等价：对每个 $i$，$H^i(M)$
+可数；$M$ 可由可数微分分次模表示。因此，为证明蕴含
+(2) $\Rightarrow$ (1)，可约化到下一段所述情形。
+
+\medskip\noindent
+假设 $A$ 可数，且 $M$ 是可数微分分次 $A$-模。我们断言，存在微分分次
+$A$-模同态 $P\to M$，使得
+\begin{enumerate}
+\item $P\to M$ 是拟同构；
+\item $P$ 具有性质 (P)；
+\item $P$ 可数。
+\end{enumerate}
+查看引理 \ref{dga-lemma-resolve} 中构造 P-分辨的证明可见，只需说明在可数
+微分分次模的设定下仍能证明引理 \ref{dga-lemma-good-quotient}。
+这由该证明立即得出。
+
+\medskip\noindent
+假设 $A$ 可数，且 $M$ 是具有性质 (P) 的可数微分分次模。选取由微分分次
+子模组成的滤过
+$$
+0 = F_{-1}P \subset F_0P \subset F_1P \subset \ldots \subset P
+$$
+，使得
+\begin{enumerate}
+\item $P=\bigcup F_pP$；
+\item $F_iP\to F_{i+1}P$ 是容许单态射；
+\item 对某些集合 $J_i$ 与整数 $k_j$，有微分分次模的同构
+$F_iP/F_{i - 1}P \to \bigoplus_{j \in J_i} A[k_j]$
+。
+\end{enumerate}
+当然，对每个 $i$，$J_i$ 都可数。对每个 $i$ 与 $j\in J_i$，
+选取次数为 $k_j$ 的 $x_{i,j}\in F_iP$，使其在
+$F_iP/F_{i-1}P$ 中的像生成对应于 $j$ 的直和项。
+
+\medskip\noindent
+断言：给定 $n$ 以及有限子集 $S_i\subset J_i$（$i=1,\ldots,n$），
+存在有限子集 $S_i\subset T_i\subset J_i$（$i=1,\ldots,n$），使得
+$P'=\bigoplus_{i\leq n}\bigoplus_{j\in T_i}Ax_{i,j}$ 是 $P$
+的微分分次子模。这已在引理 \ref{dga-lemma-factor-through-nicer} 的证明中
+说明，也容易直接证明：诸元素 $x_{i,j}$ 作为右 $A$-模自由生成 $P$。
+$P$ 的结构表明
+$$
+\text{d}(x_{i, j}) = \sum\nolimits_{i' < i} x_{i', j'}a_{i', j'}
+$$
+，其中求和当然是有限的。因此，给定 $S_0,\ldots,S_n$，可先选取
+$S_0\subset S'_0,\ldots,S_{n-1}\subset S'_{n-1}$，使得对每个
+$j\in S_n$ 都有
+$\text{d}(x_{n, j}) \in \bigoplus_{i' < n, j' \in S'_{i'}} x_{i', j'}A$
+。然后对 $n$ 归纳，可以选取
+$S'_0\subset T_0,\ldots,S'_{n-1}\subset T_{n-1}$，保证
+$\bigoplus_{i'<n,j'\in T_{i'}}x_{i',j'}A$ 是微分分次 $A$-子模。
+令 $T_n=S_n$，便得到所需的
+$P'=\bigoplus_{i\leq n,j\in T_i}x_{i,j}A$。
+
+\medskip\noindent
+由此断言显然可知，$P=\bigcup P'_n$ 是上述 $P'_n$ 的可数递增并。
+按构造，每个 $P'_n$ 都是具有性质 (P) 的微分分次模，其滤过有限，
+且逐次商是 $A$ 的平移的有限直和。因此 $P'_n$ 定义
+$D(A,\text{d})$ 的紧对象，例如见命题 \ref{dga-proposition-compact}。
+由引理 \ref{dga-lemma-homotopy-colimit}，在 $D(A,\text{d})$ 中有
+$P=\text{hocolim},P'_n$，故蕴含 (2) $\Rightarrow$ (1) 证明完毕。
+\end{proof}

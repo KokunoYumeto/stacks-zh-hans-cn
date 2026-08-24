@@ -1,0 +1,6712 @@
+% Generated mechanically from the frozen restricted.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{87}
+\chapter{形式空间的代数化}
+
+
+\phantomsection
+\label{restricted-section-phantom}
+
+
+\section{引言}
+\label{restricted-section-introduction}
+
+\noindent
+本章的主要目标是证明 Artin 关于膨胀的定理，见定理
+\ref{restricted-theorem-dilatations}；关于压缩的结果将在 Artin 公理的
+\ref{artin-section-contractions} 节中讨论。这两个结果都用到关于形式代数空间的材料，
+因此本章中部将延续上一章对形式代数空间的讨论，见《形式空间》之
+\ref{formal-spaces-section-introduction} 节。本章第一部分专门讨论代数预备知识，
+主要涉及 rig-\,'etale 代数的代数化。
+
+\medskip\noindent
+设 $A$ 为诺特环，$I\subset A$ 为理想。本章第一部分（第
+\ref{restricted-section-two-categories}--\ref{restricted-section-approximation-principal} 节）讨论在诺特环
+$A$ 上拓扑有限型的 $I$-进完备代数 $B$。我们将证明，对于某个受限幂级数环中的理想
+$J$（闭理想），有 $B=A\{x_1,\ldots,x_n\}/J$（其中 $A$ 赋予 $I$-进拓扑）。
+我们展示朴素余切复形 $\NL_{B/A}^\wedge$ 的良好定义。若 $I$ 的某个幂湮灭
+$\NL_{B/A}^\wedge$，则称 $B$ 是 $(A,I)$ 上的 rig-\,'etale 代数；rig-光滑代数有类似概念。
+若 $A$ 是 G-环，则利用 Popescu 定理可证明，$(A,I)$ 上的任意 rig-光滑代数 $B$ 都是某个有限型
+$A$-代数的完备化；非正式地说，我们可以将 $B$“代数化”。不过，本部分的主要结果是：
+任意 $(A,I)$ 上的 rig-\,'etale 代数 $B$ 都可以代数化（不要求 $A$ 是 G-环），见引理
+\ref{restricted-lemma-approximate}。关于这类代数化的文献指引，见备注
+\ref{restricted-remark-discussion}。本部分的一般参考文献为
+\cite{EGA}、\cite{Abbes} 和 \cite{Fujiwara-Kato}。
+
+\medskip\noindent
+本章第二部分（第
+\ref{restricted-section-finite-type-red}--\ref{restricted-section-formal-modifications} 节）在适当的一般性层面
+讨论形式代数空间态射的类型（主要针对局部诺特形式代数空间）。其中最有趣的是最后一节
+的“形式修改”概念。我们仔细核对我们的定义与 \cite{ArtinII} 中 Artin 的定义一致。
+
+\medskip\noindent
+最后，在本章第三也是最后一部分（第
+\ref{restricted-section-completion-and-morphisms}--\ref{restricted-section-modifications} 节）中，我们证明主要定理
+并给出若干应用。事实上，我们从更强的结果——定理
+\ref{restricted-theorem-dilatations-general}——推出 Artin 定理。粗略地说，该定理断言：若
+$f:\mathfrak X\to\mathfrak X'$ 是 rig-\,'etale 态射，且 $\mathfrak X'$ 是局部诺特代数空间
+的形式完备化，则 $\mathfrak X$ 也是如此。在 Artin 的工作中，态射 $f$ 被假设为适当且
+rig-满射。
+
+
+
+
+
+
+\section{两个范畴}
+\label{restricted-section-two-categories}
+
+\noindent
+设 $A$ 为环，$I\subset A$ 为理想。本节中 ${}^\wedge$ 表示 $I$-进完备化。
+置 $A_n=A/I^n$，于是 $A$ 的 $I$-进完备化为 $A^\wedge=\lim A_n$。令
+$\mathcal{C}$ 为范畴
+\begin{equation}
+\label{restricted-equation-C}
+\mathcal{C} =
+\left\{
+\begin{matrix}
+\text{逆系统 }\ldots\to B_3\to B_2\to B_1\\
+\text{其中 }B_n\text{ 是有限型 }A_n\text{-代数，}\\
+B_{n+1}\to B_n\text{ 是 }A_{n+1}\text{-代数映射，}\\
+\text{并诱导 }B_{n+1}/I^nB_{n+1}\cong B_n
+\end{matrix}
+\right\}
+\end{equation}
+$\mathcal{C}$ 中的态射由同态系统给出。
+
+令 $\mathcal{C}'$ 为范畴
+\begin{equation}
+\label{restricted-equation-C-prime}
+\mathcal{C}' =
+\left\{
+\begin{matrix}
+A\text{-代数 }B\text{，其 }I\text{-进完备}\\
+\text{满足 }B/IB\text{ 为 }A/I\text{ 上的有限型代数}
+\end{matrix}
+\right\}
+\end{equation}
+$\mathcal{C}'$ 中的态射为 $A$-代数映射。存在函子
+\begin{equation}
+\label{restricted-equation-from-complete-to-systems}
+\mathcal{C}' \longrightarrow \mathcal{C},\quad
+B \longmapsto (B/I^nB)
+\end{equation}
+确实，由于 $B/IB$ 是 $A/I$ 上的有限型代数，环映射
+$A_n=A/I^n\to B/I^nB$ 由代数引理
+\ref{algebra-lemma-finite-type-mod-nilpotent} 是有限型的。
+
+\begin{lemma}
+\label{restricted-lemma-topologically-finite-type}
+设 $A$ 为环，$I\subset A$ 为有限生成理想。函子
+$$
+\mathcal{C} \longrightarrow \mathcal{C}',\quad
+(B_n) \longmapsto B = \lim B_n
+$$
+是 (\ref{restricted-equation-from-complete-to-systems}) 的准逆函子。
+$A[x_1,\ldots,x_r]^\wedge$ 的完备化属于 $\mathcal{C}'$，且
+$\mathcal{C}'$ 的任意对象都具有形式
+$$
+B=A[x_1,\ldots,x_r]^\wedge/J
+$$
+其中 $J\subset A[x_1,\ldots,x_r]^\wedge$ 为某个理想。
+\end{lemma}
+
+\begin{proof}
+设 $(B_n)$ 是 $\mathcal{C}$ 的对象。由代数引理
+\ref{algebra-lemma-limit-complete}，可知 $B=\lim B_n$ 是 $I$-进完备的，且
+$B/I^nB=B_n$。因此 $B$ 是 $\mathcal{C}'$ 的对象，并且取商可恢复对象 $(B_n)$。
+反之，若 $B$ 是 $\mathcal{C}'$ 的对象，则由假设
+$B=\lim B/I^nB$。故 $B\mapsto(B/I^nB)$ 是本引理所述函子的准逆。
+
+\medskip\noindent
+由于 $A[x_1,\ldots,x_r]^\wedge=\lim A_n[x_1,\ldots,x_r]$，
+由引理第一条它是 $\mathcal{C}'$ 的对象。最后，设 $B$ 是 $\mathcal{C}'$ 的对象。
+选取 $b_1,\ldots,b_r\in B$，其在 $B/IB$ 中的像生成 $B/IB$ 作为 $A/I$-代数。
+因为 $B$ 是 $I$-进完备的，$A$-代数映射
+$A[x_1,\ldots,x_r]\to B$，$x_i\mapsto b_i$ 延拓为 $A$-代数映射
+$A[x_1,\ldots,x_r]^\wedge\to B$。还需证明此映射满射；
+这由代数引理 \ref{algebra-lemma-completion-generalities} 得出，因为映射
+$A[x_1,\ldots,x_r]\to B$ 模 $I$ 满射，
+且 $B=B^\wedge$。
+\end{proof}
+
+\noindent
+提醒读者：当 $A$ 不是诺特环时，$\mathcal{C}'$ 对象的商未必仍是 $\mathcal{C}'$ 的对象。
+见例子之引理 \ref{examples-lemma-noncomplete-quotient}。下面说明当 $A$ 为诺特环时不会发生这种情况。
+
+\begin{lemma}
+\label{restricted-lemma-topologically-finite-type-Noetherian}
+\begin{reference}
+\cite[Proposition 7.5.5]{EGA1}
+\end{reference}
+设 $A$ 为诺特环，$I\subset A$ 为理想。则
+\begin{enumerate}
+\item 范畴 $\mathcal{C}'$（\ref{restricted-equation-C-prime}）的每个对象都是诺特的；
+\item 若 $B\in\Ob(\mathcal{C}')$ 且 $J\subset B$ 为理想，则 $B/J$ 是 $\mathcal{C}'$ 的对象；
+\item 对有限型 $A$-代数 $C$，其 $I$-进完备化 $C^\wedge$ 属于 $\mathcal{C}'$；
+\item 特别地，完备化 $A[x_1,\ldots,x_r]^\wedge$ 属于 $\mathcal{C}'$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(4) 由代数引理 \ref{algebra-lemma-completion-Noetherian-Noetherian} 得出，
+因为 $A[x_1,\ldots,x_r]$ 是诺特环（代数引理
+\ref{algebra-lemma-Noetherian-permanence}）。由引理
+\ref{restricted-lemma-topologically-finite-type}，为证明 (1) 只需化归到刚刚证明的多项式环完备化情形。
+(2) 由代数引理 \ref{algebra-lemma-completion-tensor} 得出，该引理说明每个有限
+$B$-模都是 $IB$-进完备的。(3) 与 (4) 同理。
+\end{proof}
+
+\begin{remark}[基变换]
+\label{restricted-remark-base-change}
+设 $\varphi:A_1\to A_2$ 为环映射，$I_i\subset A_i$ 为理想，并且对某个 $c\geq1$ 有
+$\varphi(I_1^c)\subset I_2$。这对所有 $n\geq1$ 诱导环映射
+$A_{1,cn}=A_1/I_1^{cn}\to A_2/I_2^n=A_{2,n}$。令 $\mathcal{C}_i$ 为
+$(A_i,I_i)$ 的范畴 (\ref{restricted-equation-C})。存在基变换函子
+\begin{equation}
+\label{restricted-equation-base-change-systems}
+\mathcal{C}_1 \longrightarrow \mathcal{C}_2,\quad
+(B_n) \longmapsto (B_{cn} \otimes_{A_{1,cn}} A_{2,n})
+\end{equation}
+令 $\mathcal{C}_i'$ 为 $(A_i,I_i)$ 的范畴 (\ref{restricted-equation-C-prime})。
+若 $I_2$ 有限生成，则存在基变换函子
+\begin{equation}
+\label{restricted-equation-base-change-complete}
+\mathcal{C}_1' \longrightarrow \mathcal{C}_2',\quad
+B \longmapsto (B \otimes_{A_1} A_2)^\wedge
+\end{equation}
+因为此时完备化是完备的（代数引理
+\ref{algebra-lemma-hathat-finitely-generated}）。若 $I_1,I_2$ 都有限生成，
+则通过函子 (\ref{restricted-equation-from-complete-to-systems}) 两个基变换函子一致；
+由引理 \ref{restricted-lemma-topologically-finite-type} 这些函子是等价。
+\end{remark}
+
+\begin{remark}[闭浸入下的基变换]
+\label{restricted-remark-take-bar}
+设 $A$ 为诺特环，$I\subset A$ 为理想。令 $\mathfrak a\subset A$ 为理想，
+记 $\bar A=A/\mathfrak a$。令 $\bar I\subset\bar A$ 为理想，并对某些 $c,d\geq1$ 满足
+$I^c\bar A\subset\bar I$ 且 $\bar I^d\subset I\bar A$。此时，$(A,I)$ 到
+$(\bar A,\bar I)$ 的基变换函子 (\ref{restricted-equation-base-change-complete}) 由
+$B\mapsto\bar B=B/\mathfrak aB$ 给出。事实上有
+\begin{equation}
+\label{restricted-equation-base-change-to-closed}
+\bar B=(B\otimes_A\bar A)^\wedge=(B/\mathfrak aB)^\wedge
+=B/\mathfrak aB
+\end{equation}
+最后一个等式是因为任意有限 $B$-模由代数引理
+\ref{algebra-lemma-completion-tensor} 为 $I$-进完备；若再被 $\mathfrak a$ 湮灭，
+则由代数引理 \ref{algebra-lemma-change-ideal-completion} 为 $\bar I$-进完备。
+\end{remark}
+
+
+
+
+
+\section{朴素余切复形}
+\label{restricted-section-naive-cotangent-complex}
+
+\noindent
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $B$ 为 $A$-代数，
+它是 $I$-进完备的，且 $A/I\to B/IB$ 为有限型映射，即为
+(\ref{restricted-equation-C-prime}) 的对象。由引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian}，可写成
+$$
+B=A[x_1,\ldots,x_r]^\wedge/J
+$$
+其中 $J$ 为有限生成理想。对上述表示的一个选择，我们在此情形下用公式
+\begin{equation}
+\label{restricted-equation-NL}
+\NL_{B/A}^\wedge=(J/J^2\longrightarrow\bigoplus B\text{d}x_i)
+\end{equation}
+定义\textit{朴素余切复形}；其项位于次数 $-1$ 和 $0$，其中该映射把
+$g\in J$ 的剩余类送到微分
+$\text{d}g=\sum(\partial g/\partial x_i)\text{d}x_i$。这里的偏导数把 $g$
+看作幂级数来取。下面的引理说明 $\NL_{B/A}^\wedge$ 在同伦意义下定义良好。
+
+\begin{lemma}
+\label{restricted-lemma-NL-up-to-homotopy}
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $B$ 是
+(\ref{restricted-equation-C-prime}) 的对象。朴素余切复形 $\NL_{B/A}^\wedge$ 在 $K(B)$ 中定义良好。
+\end{lemma}
+
+\begin{proof}
+该引理的含义是：给定第二个表示
+$B=A[y_1,\ldots,y_s]^\wedge/K$，$B$-模复形
+$$
+(J/J^2\to B\text{d}x_i)
+\quad\text{和}\quad
+(K/K^2\to\bigoplus B\text{d}y_j)
+$$
+是同伦等价的。证明可完全仿照代数引理
+\ref{algebra-lemma-NL-homotopy} 的证明。
+
+\medskip\noindent
+步骤 1。若选取 $g_i(y_1,\ldots,y_s)\in A[y_1,\ldots,y_s]^\wedge$，
+其映到 $B$ 中 $x_i$ 的像，则得到唯一的连续 $A$-代数同态
+$$
+A[x_1,\ldots,x_r]^\wedge\to A[y_1,\ldots,y_s]^\wedge,\quad
+x_i\mapsto g_i(y_1,\ldots,y_s)
+$$
+并与给定的到 $B$ 的满射相容。这样的映射称为表示之间的态射。
+它把 $J$ 映入 $K$，从而诱导 $B$-模映射 $J/J^2\to K/K^2$。
+把 $\text{d}x_i$ 送到 $\sum(\partial g_i/\partial y_j)\text{d}y_j$，
+得到复形映射
+$$
+(J/J^2\to\bigoplus B\text{d}x_i)
+\longrightarrow
+(K/K^2\to\bigoplus B\text{d}y_j).
+$$
+当然，交换两个表示的角色也可作同样构造，从而得到反向的复形映射。
+
+\medskip\noindent
+步骤 2。上述构造与表示态射的复合相容。因此只需证明：给定
+$g_i(x_1,\ldots,x_r)\in A[x_1,\ldots,x_n]^\wedge$，其映到 $B$ 中 $x_i$ 的像，
+所诱导的复形映射
+$$
+(J/J^2\to\bigoplus B\text{d}x_i)
+\longrightarrow
+(J/J^2\to\bigoplus B\text{d}x_i)
+$$
+同伦于恒等映射。为此考虑映射
+$h:\bigoplus B\text{d}x_i\to J/J^2$，其规则为
+$\text{d}x_i\mapsto g_i(x_1,\ldots,x_n)-x_i$，直接计算即可。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-NL-is-completion}
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $A\to B$ 为有限型环映射。
+选取表示 $\alpha:A[x_1,\ldots,x_n]\to B$。则
+$$
+\NL_{B^\wedge/A}^\wedge=\lim\NL(\alpha)\otimes_B B^\wedge
+$$
+作为复形成立，并且在 $D(B^\wedge)$ 中有
+$$
+\NL_{B^\wedge/A}^\wedge=\NL_{B/A}\otimes_B^\mathbf{L}B^\wedge.
+$$
+\end{lemma}
+
+\begin{proof}
+所述命题有意义，因为 $B^\wedge$ 是
+(\ref{restricted-equation-C-prime}) 的对象，这是引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian} 的结论。
+令 $J=\Ker(\alpha)$。在 $A[x_1,\ldots,x_n]$ 上对有限模取 $I$-进完备化是正合的，
+并且等于函子
+$M\mapsto M\otimes_{A[x_1,\ldots,x_n]}A[x_1,\ldots,x_n]^\wedge$，
+见代数引理 \ref{algebra-lemma-completion-tensor} 和
+\ref{algebra-lemma-completion-flat}。此外，环映射
+$A[x_1,\ldots,x_n]\to A[x_1,\ldots,x_n]^\wedge$ 及 $B\to B^\wedge$ 都是平坦的。
+因此 $B^\wedge=A[x_1,\ldots,x_n]^\wedge/J^\wedge$，且
+$$
+(J/J^2)\otimes_BB^\wedge=(J/J^2)^\wedge=J^\wedge/(J^\wedge)^2.
+$$
+由于 $\NL(\alpha)=(J/J^2\to\bigoplus B\text{d}x_i)$，见代数之
+\ref{algebra-section-netherlander} 节，故 $\NL_{B^\wedge/A}^\wedge$
+等于 $\NL(\alpha)\otimes_BB^\wedge$。最后一个断言来自
+$\NL_{B/A}$ 与 $\NL(\alpha)$ 同伦等价，且 $B\to B^\wedge$ 平坦（所以沿
+$B\to B^\wedge$ 的导出基变换
+就是普通基变换）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-NL-is-limit}
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $B$ 是
+(\ref{restricted-equation-C-prime}) 的对象。则
+\begin{enumerate}
+\item 在 $D(B)$ 中，pro-对象
+$\{\NL_{B/A}^\wedge\otimes_BB/I^nB\}$ 与 $\{\NL_{B_n/A_n}\}$
+严格同构（详见证明）；
+\item 在 $D(B)$ 中，$\NL_{B/A}^\wedge=R\lim\NL_{B_n/A_n}$。
+\end{enumerate}
+这里 $B_n,A_n$ 如第 \ref{restricted-section-two-categories} 节所定义。
+\end{lemma}
+
+\begin{proof}
+命题的含义如下：对每个 $n$，有良定义的 $B_n$-模复形
+$\NL_{B_n/A_n}$，并有过渡映射
+$\NL_{B_{n+1}/A_{n+1}}\to\NL_{B_n/A_n}$。见代数之
+\ref{algebra-section-netherlander} 节。因此可将
+$$
+\ldots\to\NL_{B_3/A_3}\to\NL_{B_2/A_2}\to\NL_{B_1/A_1}
+$$
+视为 $B$-模复形的逆系统，因而也是 $D(B)$ 中的逆系统。此外，
+$R\lim\NL_{B_n/A_n}$ 是该逆系统的同伦极限，见导出范畴之
+\ref{derived-section-derived-limit} 节。
+
+\medskip\noindent
+选取表示 $B=A[x_1,\ldots,x_r]^\wedge/J$。这给出表示
+$$
+B_n=B/I^nB=A_n[x_1,\ldots,x_r]/J_n
+$$
+其中
+$$
+J_n=JA_n[x_1,\ldots,x_r]
+=J/(J\cap I^nA[x_1,\ldots,x_r]^\wedge).
+$$
+两项复形 $J_n/J_n^2\longrightarrow\bigoplus B_n\text{d}x_i$
+表示 $\NL_{B_n/A_n}$，见代数之 \ref{algebra-section-netherlander} 节。
+由诺特环 $A[x_1,\ldots,x_r]^\wedge$ 中的 Artin--Rees 定理
+（代数引理 \ref{algebra-lemma-Artin-Rees}，以及引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian}），存在 $c\geq0$ 使得对所有 $n\geq c$
+有典范满射
+$$
+J/I^nJ\to J_n\to J/I^{n-c}J\to J_{n-c},\quad n\geq c
+$$
+略作思考可知这些映射与微分相容，从而得到复形映射
+$$
+\NL_{B/A}^\wedge\otimes_BB/I^nB\to
+\NL_{B_n/A_n}\to
+\NL_{B/A}^\wedge\otimes_BB/I^{n-c}B\to
+\NL_{B_{n-c}/A_{n-c}}
+$$
+并与逆系统 $\{\NL_{B/A}^\wedge\otimes_BB/I^nB\}$ 和
+$\{\NL_{B_n/A_n}\}$ 的过渡映射相容。这就证明了引理的 (1)。
+
+\medskip\noindent
+由 (1)，且同构的 pro-系统具有相同的 $R\lim$，为证明 (2) 只需说明
+$\NL_{B/A}^\wedge$ 等于 $R\lim\NL_{B/A}^\wedge\otimes_BB/I^nB$。
+然而 $\NL_{B/A}^\wedge$ 是有限 $B$-模组成的两项复形 $M^\bullet$；
+例如由代数引理 \ref{algebra-lemma-completion-tensor}，这些模是 $I$-进完备的。
+因此
+$M^\bullet=\lim M^\bullet/I^nM^\bullet=R\lim M^\bullet/I^nM^\bullet$，
+见更多代数之引理 \ref{more-algebra-lemma-compute-Rlim-modules} 及备注
+\ref{more-algebra-remark-how-unique}。
+\end{proof}
+
+
+\begin{lemma}
+\label{restricted-lemma-NL-base-change}
+设 $(A_1,I_1)\to(A_2,I_2)$ 如备注 \ref{restricted-remark-base-change}，
+且 $A_1,A_2$ 为诺特环。设 $B_1$ 是 $(A_1,I_1)$ 的
+(\ref{restricted-equation-C-prime}) 对象，令 $B_2$ 为 $B_1$ 的基变换。则存在典范映射
+$$
+\NL_{B_1/A_1}\otimes_{B_2}B_1\to\NL_{B_2/A_2}
+$$
+其在 $H^0$ 上诱导同构，在 $H^{-1}$ 上诱导满射。
+\end{lemma}
+
+\begin{proof}
+选取表示 $B_1=A_1[x_1,\ldots,x_r]^\wedge/J_1$。由于
+$$
+A_2/I_2^n[x_1,\ldots,x_r]
+=A_1/I_1^{cn}[x_1,\ldots,x_r]\otimes_{A_1/I_1^{cn}}A_2/I_2^n,
+$$
+有
+$$
+A_2[x_1,\ldots,x_r]^\wedge
+=(A_1[x_1,\ldots,x_r]^\wedge\otimes_{A_1}A_2)^\wedge,
+$$
+两边都取 $I_2$-进完备化（当然，对 $A_1[x_1,\ldots,x_r]^\wedge$ 取的是
+$I_1$-进完备化）。置 $J_2=J_1A_2[x_1,\ldots,x_r]^\wedge$。
+同样论证得到 $B_2$ 在 $A_2$ 上的表示
+\begin{align*}
+B_2&=(B_1\otimes_{A_1}A_2)^\wedge\\
+&=\lim\frac{A_1/I_1^{cn}[x_1,\ldots,x_r]}{J_1(A_1/I_1^{cn}[x_1,\ldots,x_r])}
+\otimes_{A_1/I_1^{cn}}A_2/I_2^n\\
+&=\lim\frac{A_2/I_2^n[x_1,\ldots,x_r]}{J_2(A_2/I_2^n[x_1,\ldots,x_r])}\\
+&=A_2[x_1,\ldots,x_r]^\wedge/J_2.
+\end{align*}
+因此有交换图
+$$
+\xymatrix{
+\NL^\wedge_{B_1/A_1} : \ar[d] &
+J_1/J_1^2 \ar[r]_-{\text{d}} \ar[d] & \bigoplus B_1\text{d}x_i \ar[d] \\
+\NL^\wedge_{B_2/A_2} : &
+J_2/J_2^2 \ar[r]^-{\text{d}} & \bigoplus B_2\text{d}x_i
+}
+$$
+诱导映射 $J_1/J_1^2\otimes_{B_1}B_2\to J_2/J_2^2$ 是满射，
+因为 $J_2$ 由 $J_1$ 的像生成。这确定了引理中显示的箭头。
+我们略去证明该箭头在同伦意义下良定义（即在同伦意义下与表示选择无关）。
+关于诱导的上同调模上的映射的断言直接由上述讨论得到（细节略）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-exact-sequence-NL}
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $B\to C$ 为
+(\ref{restricted-equation-C-prime}) 的态射。则存在正合序列
+$$
+\xymatrix{
+C\otimes_BH^0(\NL_{B/A}^\wedge)\ar[r] &
+H^0(\NL_{C/A}^\wedge)\ar[r] &
+H^0(\NL_{C/B}^\wedge)\ar[r] & 0 \\
+H^{-1}(\NL_{B/A}^\wedge\otimes_BC)\ar[r] &
+H^{-1}(\NL_{C/A}^\wedge)\ar[r] &
+H^{-1}(\NL_{C/B}^\wedge)\ar[llu]
+}
+$$
+详见证明。
+\end{lemma}
+
+\begin{proof}
+注意，取张量积 $\NL_{B/A}^\wedge\otimes_BC$ 是有意义的，因为由引理
+\ref{restricted-lemma-NL-up-to-homotopy}，$\NL_{B/A}^\wedge$ 在同伦意义下定义良好。
+此外，$(B,IB)$ 是一对，其中 $B$ 为诺特环（引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian}），而 $C$ 属于相应的范畴
+(\ref{restricted-equation-C-prime})。因此 $6$ 项序列中的所有项都定义良好。
+
+\medskip\noindent
+选取表示 $B=A[x_1,\ldots,x_r]^\wedge/J$，再选取表示
+$C=B[y_1,\ldots,y_s]^\wedge/J'$。合并这些表示得到
+$$
+C=A[x_1,\ldots,x_r,y_1,\ldots,y_s]^\wedge/K.
+$$
+于是读者可验证得到交换图
+$$
+\xymatrix{
+0\ar[r] &
+\bigoplus C\text{d}x_i\ar[r] &
+\bigoplus C\text{d}x_i\oplus\bigoplus C\text{d}y_j\ar[r] &
+\bigoplus C\text{d}y_j\ar[r] & 0\\
+&
+J/J^2\otimes_BC\ar[r]\ar[u] &
+K/K^2\ar[r]\ar[u] &
+J'/(J')^2\ar[r]\ar[u] &
+0
+}
+$$
+其两行均正合。注意，左侧竖直箭头是定义
+$\NL_{B/A}^\wedge$ 的箭头与 $\text{id}_C$ 的张量积。
+引理由蛇引理（代数引理 \ref{algebra-lemma-snake}）得到。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-transitive-lci-at-end}
+在引理 \ref{restricted-lemma-exact-sequence-NL} 的假设下，假设对所有 $n$，
+$B/I^nB\to C/I^nC$ 是局部完全交叉同态。则
+$$
+H^{-1}(\NL_{B/A}^\wedge\otimes_BC)\to H^{-1}(\NL_{C/A}^\wedge)
+$$
+是单射。
+\end{lemma}
+
+\begin{proof}
+对每个 $n\geq1$，置 $A_n=A/I^n$、$B_n=B/I^nB$、$C_n=C/I^nC$。
+有
+\begin{align*}
+H^{-1}(\NL_{B/A}^\wedge\otimes_BC)
+&=\lim H^{-1}(\NL_{B/A}^\wedge\otimes_BC_n)\\
+&=\lim H^{-1}(\NL_{B/A}^\wedge\otimes_BB_n\otimes_{B_n}C_n)\\
+&=\lim H^{-1}(\NL_{B_n/A_n}\otimes_{B_n}C_n).
+\end{align*}
+第一个等式由更多代数之引理
+\ref{more-algebra-lemma-consequence-Artin-Rees} 以及
+$H^{-1}(\NL_{B/A}^\wedge\otimes_BC)$ 是有限 $C$-模这一事实得出，
+故由代数引理 \ref{algebra-lemma-completion-tensor} 它是 $I$-进完备的。
+第二个等式显然成立，第三个由引理 \ref{restricted-lemma-NL-is-limit} 得出。
+映射
+$H^{-1}(\NL_{B_n/A_n}\otimes_{B_n}C_n)\to H^{-1}(\NL_{C_n/A_n})$
+由更多代数之引理 \ref{more-algebra-lemma-transitive-lci-at-end} 为单射。
+证明完成，因为同样有
+$H^{-1}(\NL_{C/A}^\wedge)=\lim H^{-1}(\NL_{C_n/A_n})$。
+\end{proof}
+
+
+
+
+
+\section{rig-光滑代数}
+\label{restricted-section-rig-smooth}
+
+\noindent
+作为下述定义的动机，请参阅更多代数之备注
+\ref{more-algebra-remark-smoothness-ext-1-zero}。
+
+\begin{definition}
+\label{restricted-definition-rig-smooth-homomorphism}
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $B$ 是
+(\ref{restricted-equation-C-prime}) 的对象。若存在整数 $c\geq0$，使得对每个
+$B$-模 $N$，$I^c$ 湮灭 $\Ext^1_B(\NL_{B/A}^\wedge,N)$，
+则称 $B$ 在 $(A,I)$ 上\textit{rig-光滑}。
+\end{definition}
+
+\noindent
+下面说明这一条件的含义。
+
+\begin{lemma}
+\label{restricted-lemma-equivalent-with-artin-smooth}
+设 $A$ 为诺特环，$I\subset A$ 为理想。设 $B$ 是
+(\ref{restricted-equation-C-prime}) 的对象。写成
+$B=A[x_1,\ldots,x_r]^\wedge/J$（引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian}），并令
+$\NL_{B/A}^\wedge=(J/J^2\to\bigoplus B\text{d}x_i)$
+为其朴素余切复形（\ref{restricted-equation-NL}）。以下条件等价：
+\begin{enumerate}
+\item $B$ 在 $(A,I)$ 上 rig-光滑；
+\item $D(B)$ 中的对象 $\NL_{B/A}^\wedge$ 关于理想 $IB$ 满足更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 的等价条件 (1)--(6)；
+\item 存在 $c\geq0$，使得对每个 $a\in I^c$，存在映射
+$h:\bigoplus B\text{d}x_i\to J/J^2$，满足
+$a:J/J^2\to J/J^2$ 等于 $h\circ\text{d}$；
+\item 存在 $b_1,\ldots,b_s\in B$，使
+$V(b_1,\ldots,b_s)\subset V(IB)$，并且对每个 $l=1,\ldots,s$，
+存在 $m\geq0$、$f_1,\ldots,f_m\in J$ 及
+$T\subset\{1,\ldots,n\}$ 且 $|T|=m$，使
+\begin{enumerate}
+\item $\det_{i\in T,j\leq m}(\partial f_j/\partial x_i)$ 在 $B$ 中整除 $b_l$；
+\item $b_lJ\subset(f_1,\ldots,f_m)+J^2$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1)、(2)、(3) 的等价性立即由更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 得出。
+
+\medskip\noindent
+假设 $b_1,\ldots,b_s$ 如 (4) 所述。由于 $B$ 为诺特环，
+$V(b_1,\ldots,b_s)\subset V(IB)$ 蕴含对某个 $c\geq0$ 有
+$I^cB\subset(b_1,\ldots,b_s)$（例如由代数引理
+\ref{algebra-lemma-Noetherian-power-ideal-kills-module}）。取
+$1\leq l\leq s$、$m\geq0$、$f_1,\ldots,f_m\in J$ 及
+$T\subset\{1,\ldots,n\}$ 且 $|T|=m$，满足 (4)(a)、(b)。在 $b_l$ 处取逆可得
+$$
+\NL_{B/A}^\wedge\otimes_BB_{b_l}=
+\left(
+\bigoplus\nolimits_{j\leq m}B_{b_l}f_j
+\longrightarrow
+\bigoplus\nolimits_{i=1,\ldots,n}B_{b_l}\text{d}x_i
+\right)
+$$
+且该箭头同构于直和项
+$\bigoplus_{i\in T}B_{b_l}\text{d}x_i$ 的嵌入。
+因此 $H^{-1}(\NL_{B/A}^\wedge)$ 是 $b_l$-幂扭的，而
+$H^0(\NL_{B/A}^\wedge)$ 在 $b_l$ 处取逆后成为有限自由模。
+结合 $I^cB\subset(b_1,\ldots,b_s)$，得
+$H^{-1}(\NL_{B/A}^\wedge)$ 是 $IB$-幂扭的。于是更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 的条件 (4) 成立，
+从而 (4) 蕴含 (2)。
+
+\medskip\noindent
+现在假设等价条件 (1)、(2)、(3) 成立。我们将证明 (4)；但强烈建议读者自行核实。
+复形 $\NL_{B/A}^\wedge$ 决定
+$D^b_{\textit{Coh}}(\Spec(B))$ 的一个对象，其限制到 Zariski 开集
+$U=\Spec(B)\setminus V(IB)$ 是置于次数 $0$ 的有限局部自由模
+$\mathcal{E}$（例如由更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 的第四个等价条件可得）。
+取 $J$ 的生成元 $f_1,\ldots,f_M$，得到正合序列
+$$
+\bigoplus\nolimits_{j=1,\ldots,M}\mathcal{O}_U\cdot f_j\to
+\bigoplus\nolimits_{i=1,\ldots,n}\mathcal{O}_U\cdot\text{d}x_i\to
+\mathcal{E}\to0.
+$$
+令 $U=\bigcup_{l=1,\ldots,s}U_l$ 为有限仿射开覆盖，使
+$\mathcal{E}|_{U_l}$ 为秩 $r_l=n-m_l$ 的自由模，其中 $n\geq m_l\geq0$。
+将各 $U_l$ 细化为仿射开覆盖后，可设存在
+$T_l\subset\{1,\ldots,n\}$，使 $i\in\{1,\ldots,n\}\setminus T_l$ 的
+$\text{d}x_i$ 映成 $\mathcal{E}|_{U_l}$ 的一组基。重复论证可设存在
+$T'_l\subset\{1,\ldots,M\}$，其基数为 $m_l$，且 $j\in T'_l$ 的
+$f_j$ 映成 $\mathcal{O}_{U_l}\cdot\text{d}x_i\to\mathcal{E}|_{U_l}$ 的核的一组基。
+最后，由于开覆盖 $U=\bigcup U_l$ 可由标准开覆盖细化（代数引理
+\ref{algebra-lemma-Zariski-topology}），可设 $U_l=D(g_l)$，其中 $g_l\in B$。
+特别地 $V(g_1,\ldots,g_s)=V(IB)$。
+由上述选择和线性代数，$\det_{i\in T_l,j\in T'_l}
+(\partial f_j/\partial x_i)$ 在 $B_{b_l}$ 中为可逆元。
+同样，$\NL_{B/A}^\wedge$ 在 $U_l$ 上次数 $-1$ 的上同调消失，
+说明 $J/J^2+(f_j;j\in T')$ 被 $b_l$ 的某个幂湮灭。
+将每个 $g_l$ 换成适当幂，即得引理的 (4)(a)、(4)(b)。
+细节略。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-smooth}
+设 $A$ 为诺特环，$I$ 为理想，$B$ 为有限型 $A$-代数。
+\begin{enumerate}
+\item 若 $\Spec(B)\to\Spec(A)$ 在 $\Spec(A)\setminus V(I)$ 上光滑，
+则 $B^\wedge$ 在 $(A,I)$ 上 rig-光滑；
+\item 若 $B^\wedge$ 在 $(A,I)$ 上 rig-光滑，则存在
+$g\in1+IB$，使 $\Spec(B_g)$ 在 $\Spec(A)\setminus V(I)$ 上光滑。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下不再重复提及引理 \ref{restricted-lemma-equivalent-with-artin-smooth}。
+
+\medskip\noindent
+假设 (1)。回忆 $\NL_{B/A}$ 与局部化交换，见代数引理
+\ref{algebra-lemma-localize-NL}。因此由光滑环映射的定义（朴素余切复形拟同构于
+置于次数 $0$ 的有限射影模），$\NL_{B/A}$ 关于理想 $IB$ 满足更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 的第四个等价条件（细节略）。
+由引理 \ref{restricted-lemma-NL-is-completion}，
+$\NL_{B^\wedge/A}^\wedge=\NL_{B/A}\otimes_BB^\wedge$，再由更多代数之引理
+\ref{more-algebra-lemma-base-change-property-ext-1-annihilated} 得到 (2)。
+
+\medskip\noindent
+假设 (2)。选取表示 $B=A[x_1,\ldots,x_n]/J$，置 $N=J/J^2$，
+并考虑由 $J/J^2$ 上恒等映射确定的元素
+$\xi\in\Ext^1_B(\NL_{B/A},J/J^2)$。再次利用
+$\NL_{B^\wedge/A}^\wedge=\NL_{B/A}\otimes_BB^\wedge$，可知假设蕴含
+$$
+\xi\otimes1\in
+\Ext^1_{B^\wedge}(\NL_{B/A}\otimes_BB^\wedge,N\otimes_BB^\wedge)
+=\Ext^1_{B^\wedge}(\NL_{B/A},N)\otimes_BB^\wedge
+$$
+被某个 $c\geq0$ 的 $I^c$ 湮灭。等式例如由更多代数之引理
+\ref{more-algebra-lemma-base-change-RHom} 得出（也可由更简单的更多代数之引理
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext} 推出）。
+于是 $M=I^cB\xi\subset\Ext^1_B(\NL_{B/A},N)$ 是有限子模，并映到
+$\Ext^1_B(\NL_{B/A},N)\otimes_BB^\wedge$ 的零元。由于 $B\to B^\wedge$ 平坦，
+这意味着 $M\otimes_BB^\wedge$ 为零。由 Nakayama 引理（代数引理
+\ref{algebra-lemma-NAK}），$M=I^cB\xi$ 被某个形如 $g=1+x$（$x\in IB$）的元素湮灭。
+这说明对每个 $b\in I^cB$，存在使下图交换的 $B$-线性虚线箭头
+$$
+\xymatrix{
+J/J^2 \ar[r] \ar[d]^b & \bigoplus B\text{d}x_i \ar@{..>}[d]^h \\
+J/J^2 \ar[r] & (J/J^2)_g
+}
+$$
+因此 $(\NL_{B/A})_{gb}$ 拟同构于有限射影模；细节略。
+由于 $(\NL_{B/A})_{gb}=\NL_{B_{gb}/A}$ 在 $D(B_{gb})$ 中成立，
+这说明 $B_{gb}$ 在 $\Spec(A)$ 上光滑。对所有 $b\in I^cB$ 均如此，
+故 $\Spec(B_g)\to\Spec(A)$ 在 $\Spec(A)\setminus V(I)$ 上光滑。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-zero-ext-1-after-modding-out}
+设 $(A_1,I_1)\to(A_2,I_2)$ 如备注 \ref{restricted-remark-base-change}，且
+$A_1,A_2$ 为诺特环。设 $B_1$ 是 $(A_1,I_1)$ 的
+(\ref{restricted-equation-C-prime}) 对象，$B_2$ 为 $B_1$ 的基变换。设
+$f_1\in B_1$，其像为 $f_2\in B_2$。若对每个 $B_1$-模 $N_1$，
+$\Ext^1_{B_1}(\NL_{B_1/A_1}^\wedge,N_1)$ 被 $f_1$ 湮灭，
+则对每个 $B_2$-模 $N_2$，$\Ext^1_{B_2}(\NL_{B_2/A_2}^\wedge,N_2)$
+被 $f_2$ 湮灭。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-NL-base-change} 存在映射
+$$
+\NL_{B_1/A_1}\otimes_{B_2}B_1\to\NL_{B_2/A_2}
+$$
+其在 $H^0$ 上诱导同构、在 $H^{-1}$ 上诱导满射。
+于是由更多代数之引理
+\ref{more-algebra-lemma-two-term-base-change}、
+\ref{more-algebra-lemma-base-change-property-ext-1-annihilated} 和
+\ref{more-algebra-lemma-surjection-property-ext-1-annihilated} 得到结论；
+后两个引理分别应用于主理想 $(f_1)\subset B_1$ 与 $(f_2)\subset B_2$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-smooth-homomorphism}
+设 $A_1\to A_2$ 为诺特环映射。设 $I_i\subset A_i$ 为理想，且
+$V(I_1A_2)=V(I_2)$。设 $B_1$ 是 $(A_1,I_1)$ 的
+(\ref{restricted-equation-C-prime}) 对象，$B_2$ 是按备注 \ref{restricted-remark-base-change}
+得到的 $B_1$ 的基变换。若 $B_1$ 在 $(A_1,I_1)$ 上 rig-光滑，
+则 $B_2$ 在 $(A_2,I_2)$ 上 rig-光滑。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-zero-ext-1-after-modding-out}、定义
+\ref{restricted-definition-rig-smooth-homomorphism} 以及 $A_2$ 诺特，从而对某个
+$c\geq0$ 有 $I_2^c$ 包含于 $I_1A_2$，立即得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{环同态的变形}
+\label{restricted-section-defos-ring-maps}
+
+\noindent
+关于从 rig-光滑代数提升环同态的一些工作。
+
+\begin{remark}[线性近似]
+\label{restricted-remark-linear-approximation}
+设 $A$ 为环，且 $I \subset A$ 为有限生成理想。
+设 $C$ 为 $I$-进完备的 $A$-代数。
+设 $\psi : A[x_1, \ldots, x_r]^\wedge \to C$ 为连续的
+$A$-代数映射。给定 $\delta_i \in C$（$i = 1, \ldots, r$）。
+则可以考虑
+$$
+\psi' : A[x_1, \ldots, x_r]^\wedge \to C,\quad
+x_i \longmapsto \psi(x_i) + \delta_i
+$$
+参见形式空间，备注 \ref{formal-spaces-remark-universal-property}。
+于是有
+$$
+\psi'(g) = \psi(g) + \sum \psi(\partial g/\partial x_i)\delta_i + \xi
+$$
+其中误差项 $\xi \in (\delta_i\delta_j)$。这是将 $g$ 写成幂级数并逐项计算得到的。
+由于 $g$ 的系数趋于零，收敛性是自动的。
+细节略。
+\end{remark}
+
+\begin{remark}[提升映射]
+\label{restricted-remark-improve-homomorphism}
+设 $A$ 为诺特环，且 $I \subset A$ 为理想。
+设 $B$ 是 \ref{restricted-equation-C-prime} 中的对象。
+设 $C$ 为 $I$-进完备的 $A$-代数。
+设 $\psi_n : B \to C/I^nC$ 为 $A$-代数同态。
+将 $\psi_n$ 提升为到 $C/I^{2n}C$ 中的 $A$-代数同态的障碍是元素
+$$
+o(\psi_n) \in \Ext^1_B(\NL_{B/A}^\wedge, I^nC/I^{2n}C)
+$$
+正如我们将要说明的。具体地，取一个表示
+$B = A[x_1, \ldots, x_r]^\wedge/J$。
+取 $\psi : A[x_1, \ldots, x_r]^\wedge \to C$ 为 $\psi_n$ 的提升。
+由于 $\psi(J) \subset I^nC$，有 $\psi(J^2) \subset I^{2n}C$，
+从而得到 $B$-线性同态
+$$
+o(\psi) :
+J/J^2 \longrightarrow I^nC/I^{2n}C, \quad g \longmapsto \psi(g)
+$$
+它当然延拓为 $C$-线性映射
+$$
+J/J^2 \otimes_B C \to I^nC/I^{2n}C
+$$
+由于 $\NL_{B/A}^\wedge = (J/J^2 \to \bigoplus B \text{d}x_i)$，
+通过如下同一性，得到 $o(\psi_n)$，它是 $o(\psi)$ 的像：
+\begin{align*}
+& \Ext^1_B(\NL_{B/A}^\wedge, I^nC/I^{2n}C) \\
+& =
+\Coker\left(\Hom_B(\bigoplus B\text{d}x_i, I^nC/I^{2n}C) \to
+\Hom_B(J/J^2, I^nC/I^{2n}C)\right)
+\end{align*}
+等式参见更多代数，引理
+\ref{more-algebra-lemma-map-out-of-almost-free} 的 (1)。
+
+\medskip\noindent
+假设 $o(\psi_n)$ 在
+$\Ext^1_B(\NL_{B/A}^\wedge, I^{n'}C/I^{2n'}C)$ 中映为零，
+其中整数 $n'$ 满足 $n > n' > n/2$。我们声称，这意味着可以找到
+$A$-代数同态 $\psi'_{2n'} : B \to C/I^{2n'}C$，
+使其作为映射到 $C/I^{n'}C$ 的映射时与 $\psi_n$ 一致。
+极端情形 $n'=n$ 说明了我们先前为何称 $o(\psi_n)$ 为将 $\psi_n$
+提升到 $C/I^{2n}C$ 的障碍。
+证明如下：假设 $o(\psi_n)$ 映为零，意味着可以找到一个 $B$-模映射
+$$
+h : \bigoplus B\text{d}x_i \longrightarrow I^{n'}C/I^{2n'}C
+$$
+使得 $o(\psi)$ 与 $h \circ \text{d}$ 作为映射到
+$I^{n'}C/I^{2n'}C$ 时相同。设
+$h(\text{d}x_i) = \delta_i \bmod I^{2n'}C$，其中 $\delta_i \in I^{n'}C$。
+于是考虑映射
+$$
+\psi' : A[x_1, \ldots, x_r]^\wedge \to C,\quad
+x_i \longmapsto \psi(x_i) - \delta_i
+$$
+幂级数计算表明 $\psi'(J) \subset I^{2n'}C$。事实上，对 $g \in J$ 有
+$$
+\psi'(g) \equiv
+\psi(g) - \sum \psi(\partial g/\partial x_i)\delta_i \equiv
+o(\psi)(g) - (h \circ \text{d})(g) \equiv
+0 \bmod I^{2n'}C
+$$
+第一次等式参见备注 \ref{restricted-remark-linear-approximation}。
+因此 $\psi'$ 诱导出所需的 $A$-代数同态
+$$
+\psi'_{2n'} : B \to C/I^{2n'}C
+$$
+\end{remark}
+
+\begin{lemma}
+\label{restricted-lemma-get-morphism-general-better}
+假设给定以下数据：
+\begin{enumerate}
+\item 一个整数 $c \geq 0$；
+\item 诺特环 $A$ 的一个理想 $I$；
+\item 对于 $(A, I)$，\ref{restricted-equation-C-prime} 中的 $B$，满足对任意 $B$-模 $N$，
+$I^c$ 湮灭 $\Ext^1_B(\NL_{B/A}^\wedge, N)$；
+\item 一个诺特的 $I$-进完备 $A$-代数 $C$；记
+$d = d(\text{Gr}_I(C))$ 和 $q_0 = q(\text{Gr}_I(C))$ 为局部上同调中
+\ref{local-cohomology-section-uniform} 节所得的整数；
+\item 一个整数 $n \geq \max(q_0 + (d + 1)c, 2(d + 1)c + 1)$；以及
+\item 一个 $A$-代数同态 $\psi_n : B \to C/I^nC$。
+\end{enumerate}
+则存在 $A$-代数映射 $\varphi : B \to C$，使得
+$$
+\psi_n \bmod I^{n - (d + 1)c} = \varphi \bmod I^{n - (d + 1)c}
+$$
+\end{lemma}
+
+\begin{proof}
+考虑备注 \ref{restricted-remark-improve-homomorphism} 中的障碍类
+$$
+o(\psi_n) \in \Ext^1_B(\NL_{B/A}^\wedge, I^nC/I^{2n}C)
+$$
+对任意 $C/I^nC$-模 $N$，有
+\begin{align*}
+\Ext^1_B(\NL_{B/A}^\wedge, N)
+& =
+\Ext^1_{C/I^nC}(\NL_{B/A}^\wedge \otimes_B^\mathbf{L} C/I^nC, N) \\
+& =
+\Ext^1_{C/I^nC}(\NL_{B/A}^\wedge \otimes_B C/I^nC, N)
+\end{align*}
+第一个等式由更多代数，引理
+\ref{more-algebra-lemma-upgrade-adjoint-tensor-RHom} 得到，第二个等式由
+更多代数，引理 \ref{more-algebra-lemma-two-term-base-change} 得到。
+特别地，看到对所有 $C/I^nC$-模 $N$，
+$\Ext^1_{C/I^nC}(\NL_{B/A}^\wedge \otimes_B C/I^nC, N)$ 被 $I^cC$ 湮灭。
+由此可应用
+局部上同调，引理 \ref{local-cohomology-lemma-bound-two-term-complex}，
+得到 $o(\psi_n)$ 映为零：
+$$
+\Ext^1_{C/I^nC}(\NL_{B/A}^\wedge \otimes_B C/I^nC, I^{n'}C/I^{2n'}C) =
+\Ext^1_B(\NL_{B/A}^\wedge, I^{n'}C/I^{2n'}C) =
+$$
+其中 $n' = n - (d + 1)c$。根据备注
+\ref{restricted-remark-improve-homomorphism} 的讨论，得到映射
+$$
+\psi'_{2n'} : B \to C/I^{2n'}C
+$$
+它模 $I^{n'}$ 与 $\psi_n$ 一致。
+注意，由于 $n \geq 2(d + 1)c + 1$，有 $2n' > n$。
+
+\medskip\noindent
+可以重复此过程。从 $n_0 = n$ 和 $\psi^0 = \psi_n$ 开始，最终得到严格递增的整数序列
+$$
+n_0 < n_1 < n_2 < \ldots
+$$
+以及 $A$-代数同态 $\psi^i : B \to C/I^{n_i}C$，
+使得 $\psi^{i + 1}$ 与 $\psi^i$ 模 $I^{n_i - tc}$ 一致。
+由于 $C$ 是 $I$-进完备的，可以令 $\varphi$ 为映射
+$$
+\psi^i \bmod I^{n_i - (d + 1)c} : B \to C/I^{n_i - (d + 1)c}C
+$$
+的极限，引理得证。
+\end{proof}
+
+\noindent
+建议读者跳到下一节。事实上，如果其中的代数 $C$ 假设为诺特的，
+下面两个引理就是上述结果的推论。
+
+\begin{lemma}
+\label{restricted-lemma-get-morphism-nonzerodivisor}
+设 $I = (a)$ 为诺特环 $A$ 的主理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象。
+假设给定整数 $c \geq 0$，使得对所有 $B$-模 $N$，
+$\Ext^1_B(\NL_{B/A}^\wedge, N)$ 被 $a^c$ 湮灭。
+设 $C$ 为 $I$-进完备的 $A$-代数，且 $a$ 在 $C$ 上为非零因子。
+令 $n > 2c$。对任意 $A$-代数映射 $\psi_n : B \to C/a^nC$，
+存在 $A$-代数映射 $\varphi : B \to C$，使得
+$$
+\psi_n \bmod a^{n - c}C = \varphi \bmod a^{n - c}C
+$$
+\end{lemma}
+
+\begin{proof}
+考虑备注 \ref{restricted-remark-improve-homomorphism} 中的障碍类
+$$
+o(\psi_n) \in \Ext^1_B(\NL_{B/A}^\wedge, a^nC/a^{2n}C)
+$$
+由于 $a$ 在 $C$ 上为非零因子，$C$-模范畴中的映射
+$a^c : a^nC/a^{2n}C \to a^nC/a^{2n}C$ 同构于映射
+$a^nC/a^{2n}C \to a^{n - c}C/a^{2n - c}C$。
+因此根据关于 $\NL_{B/A}^\wedge$ 的假设，可知类 $o(\psi_n)$ 映为零于
+$$
+\Ext^1_B(\NL_{B/A}^\wedge, a^{n - c}C/a^{2n - c}C)
+$$
+从而当然也映为零于
+$$
+\Ext^1_B(\NL_{B/A}^\wedge, a^{n - c}C/a^{2n - 2c}C)
+$$
+根据备注 \ref{restricted-remark-improve-homomorphism} 的讨论，得到映射
+$$
+\psi_{2n - 2c} : B \to C/a^{2n - 2c}C
+$$
+它模 $a^{n - c}C$ 与 $\psi_n$ 一致。
+注意，由于 $n > 2c$，有 $2n - 2c > n$。
+
+\medskip\noindent
+可以重复此过程。从 $n_0 = n$ 和 $\psi^0 = \psi_n$ 开始，最终得到严格递增的整数序列
+$$
+n_0 < n_1 < n_2 < \ldots
+$$
+以及 $A$-代数同态 $\psi^i : B \to C/a^{n_i}C$，
+使得 $\psi^{i + 1}$ 与 $\psi^i$ 模 $a^{n_i - c}C$ 一致。
+由于 $C$ 是 $I$-进完备的，可以令 $\varphi$ 为映射
+$$
+\psi^i \bmod a^{n_i - c}C : B \to C/a^{n_i - c}C
+$$
+的极限，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-get-morphism-principal}
+设 $I = (a)$ 为诺特环 $A$ 的主理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象。
+假设给定整数 $c \geq 0$，使得对所有 $B$-模 $N$，
+$\Ext^1_B(\NL_{B/A}^\wedge, N)$ 被 $a^c$ 湮灭。
+设 $C$ 为 $I$-进完备的 $A$-代数。
+假设给定整数 $d \geq 0$，使得 $C[a^\infty] \cap a^dC = 0$。
+令 $n > \max(2c, c + d)$。对任意 $A$-代数映射
+$\psi_n : B \to C/a^nC$，存在 $A$-代数映射 $\varphi : B \to C$，使得
+$$
+\psi_n \bmod a^{n - c} = \varphi \bmod a^{n - c}
+$$
+\end{lemma}
+
+\noindent
+若 $C$ 为诺特环，则对某个 $e \geq 0$ 有 $C[a^\infty] = C[a^e]$。
+由 Artin--Rees 定理（代数，引理 \ref{algebra-lemma-Artin-Rees}），
+存在整数 $f$，使得对所有 $n \geq f$，
+$a^nC \cap C[a^\infty] \subset a^{n - f}C[a^\infty]$。
+于是 $d = e + f$ 是引理中的一个整数。特别地，当 $C$ 是
+\ref{restricted-equation-C-prime} 中的对象时，由引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian}，此论证也适用。
+
+\begin{proof}
+令 $C \to C'$ 为 $C$ 对 $C[a^\infty]$ 的商。由代数，引理
+\ref{algebra-lemma-quotient-complete} 以及
+$\bigcap (C[a^\infty] + a^nC) = C[a^\infty]$ 的事实（因为当 $n \geq d$ 时，
+和 $C[a^\infty] + a^nC$ 是直和），$A$-代数 $C'$ 是 $I$-进完备的。
+对 $m \geq d$，图表
+$$
+\xymatrix{
+0 \ar[r] &
+C[a^\infty] \ar[r] \ar[d] &
+C \ar[r] \ar[d] & C' \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+C[a^\infty] \ar[r] &
+C/a^m C \ar[r] & C'/a^m C' \ar[r] & 0
+}
+$$
+具有正合的行。因此对所有 $m \geq d$，$C$ 是 $C'$ 与 $C/a^mC$
+沿 $C'/a^mC'$ 的纤维积。由引理
+\ref{restricted-lemma-get-morphism-nonzerodivisor}，可以选择同态
+$\varphi' : B \to C'$，使得 $\varphi'$ 与 $\psi_n$ 作为映射到
+$C'/a^{n - c}C'$ 时一致。于是得到同态
+$$
+(\varphi', \psi_n \bmod a^{n - c}C) : B \to
+C' \times_{C'/a^{n - c}C'} C/a^{n - c}C
+$$
+由于 $n - c \geq d$，这与同态 $\varphi : B \to C$ 是同一件事。
+证明完毕。
+\end{proof}
+
+
+\section{G-环上 rig-光滑代数的代数化}
+\label{restricted-section-over-G-ring}
+
+\noindent
+若基环 $A$ 是诺特 G-环，则对于任意理想 $I\subset A$（不必是主理想）
+以及任意 rig-光滑代数，可以证明 \cite[III Theorem 7]{Elkik}。
+
+\begin{lemma}
+\label{restricted-lemma-close-enough}
+设 $I$ 为诺特环 $A$ 的理想。令 $r\geq0$，并记
+$P=A[x_1,\ldots,x_r]$ 为 $I$-进完备化。考虑 $P$ 的一个商的自由分解
+$$
+P^{\oplus t} \xrightarrow{K} P^{\oplus m}
+\xrightarrow{g_1, \ldots, g_m} P \to B \to 0
+$$
+假设 $B$ 在 $(A,I)$ 上 rig-光滑。则存在整数 $n$，使得对任意复形
+$$
+P^{\oplus t} \xrightarrow{K'} P^{\oplus m}
+\xrightarrow{g'_1, \ldots, g'_m} P
+$$
+若 $g_i-g'_i\in I^nP$ 且
+$K-K'\in I^n\text{Mat}(m\times t,P)$，则存在 $A$-代数同构
+$B\to B'$，其中 $B'=P/(g'_1,\ldots,g'_m)$。
+\end{lemma}
+
+\begin{proof}
+(A) 由定义 \ref{restricted-definition-rig-smooth-homomorphism}，可以选择
+$c\geq0$，使得对所有 $B$-模 $N$，$I^c$ 湮灭
+$\Ext^1_B(\NL_{B/A}^\wedge,N)$。
+
+\medskip\noindent
+(B) 由更多代数之引理 \ref{more-algebra-lemma-approximate-complex} 和
+\ref{more-algebra-lemma-approximate-complex-graded}，存在常数
+$c_1=c(g_1,\ldots,g_m,K)$，使得当 $n\geq c_1+1$ 时，复形
+$$
+P^{\oplus t} \xrightarrow{K'} P^{\oplus m}
+\xrightarrow{g'_1, \ldots, g'_m} P \to B' \to 0
+$$
+正合，并且 $\text{Gr}_I(B)\cong\text{Gr}_I(B')$。
+
+\medskip\noindent
+(C) 令 $d_0=d(\text{Gr}_I(B))$ 和 $q_0=q(\text{Gr}_I(B))$
+为局部上同调之 \ref{local-cohomology-section-uniform} 节中所得的整数。
+
+\medskip\noindent
+我们声称
+$$
+n=\max(c_1+1,q_0+(d_0+1)c,2(d_0+1)c+1)
+$$
+可行，其中 $c$ 如 (A)，$c_1$ 如 (B)，而 $q_0,d_0$ 如 (C)。
+
+\medskip\noindent
+设 $g'_1,\ldots,g'_m$ 和 $K'$ 如引理所述。
+由于 $g_i=g'_i\in I^nP$，得到典范的 $A$-代数同态
+$$
+\psi_n:B\longrightarrow B'/I^nB'
+$$
+它诱导同构 $B/I^nB\to B'/I^nB'$。因为
+$\text{Gr}_I(B)\cong\text{Gr}_I(B')$，有
+$d_0=d(\text{Gr}_I(B'))$ 及 $q_0=q(\text{Gr}_I(B'))$；
+又因为 $n\geq\max(q_0+(1+d_0)c,2(d_0+1)c+1)$，
+可应用引理 \ref{restricted-lemma-get-morphism-general-better}，找到 $A$-代数同态
+$$
+\varphi:B\longrightarrow B'
+$$
+满足
+$$
+\varphi\bmod I^{n-(d_0+1)c}B'
+=\psi_n\bmod I^{n-(d_0+1)c}B'
+$$
+由于 $n-(d_0+1)c>0$，可见 $\varphi$ 是一个 $A$-代数同态，
+且模 $I$ 诱导出上面所得的同构 $B/IB\to B'/IB'$。
+证明的其余部分说明这些事实迫使 $\varphi$ 成为同构；
+建议读者自行找出证明。
+
+\medskip\noindent
+具体地，例如应用代数引理
+\ref{algebra-lemma-completion-generalities} 的 (1)，并利用 $B$ 与 $B'$
+均完备，可知 $\varphi$ 为满射。
+因此 $\varphi$ 诱导满射
+$\text{Gr}_I(B)\to\text{Gr}_I(B')$；由于源和目标是彼此同构的诺特环，
+此满射必为同构，见代数引理
+\ref{algebra-lemma-surjective-endo-noetherian-ring-is-iso}
+（当然，也可以证明 $\varphi$ 诱导的正是上面所得的同构，不过这还需要一个小论证）。
+于是对所有 $e\geq0$，$\varphi$ 诱导单射
+$I^eB/I^{e+1}B\to I^eB'/I^{e+1}B'$。
+这意味着 $\varphi$ 是单射，因为由 Krull 交定理（代数引理
+\ref{algebra-lemma-intersect-powers-ideal-module-zero}），
+对任意 $b\in B$，存在 $e\geq0$ 使得 $b\in I^eB$ 且
+$b\not\in I^{e+1}B$。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-algebraize-easy}
+设 $I$ 为诺特环 $A$ 的理想。设 $C^h$ 为有限型 $A$-代数 $C$
+关于理想 $IC$ 的 Hensel 化。设 $J\subset C^h$ 为理想。
+则存在有限型 $A$-代数 $B$，使得
+$B^\wedge\cong(C^h/J)^\wedge$。
+\end{lemma}
+
+\begin{proof}
+由更多代数之引理
+\ref{more-algebra-lemma-henselization-Noetherian-pair}，环 $C^h$ 是诺特的。
+设 $J=(g_1,\ldots,g_m)$。环 $C^h$ 是平展 $C$-代数 $C'$ 的滤过余极限，
+其中 $C/IC\to C'/IC'$ 是同构（见更多代数之引理
+\ref{more-algebra-lemma-henselization} 的证明）。
+选取一个 $C'$，使得 $g_1,\ldots,g_m$ 是
+$g'_1,\ldots,g'_m\in C'$ 的像。置
+$B=C'/(g'_1,\ldots,g'_m)$，得到有限型 $A$-代数。
+当然，$(C,IC)$ 与 $C',IC')$ 具有相同的 Hensel 化和相同的完备化。
+由此容易推出 $B^\wedge=(C^h/J)^\wedge$。
+\end{proof}
+
+\begin{proposition}
+\label{restricted-proposition-approximate}
+设 $I$ 为诺特 G-环 $A$ 的理想。设 $B$ 为
+\ref{restricted-equation-C-prime} 中的对象。若 $B$ 在 $(A,I)$ 上 rig-光滑，
+则存在有限型 $A$-代数 $C$ 以及 $A$-代数同构
+$B\cong C^\wedge$。
+\end{proposition}
+
+\begin{proof}
+选取表示 $B=A[x_1,\ldots,x_r]^\wedge/J$。记
+$P=A[x_1,\ldots,x_r]^\wedge$。选取生成元
+$g_1,\ldots,g_m\in J$。选取 $g_1,\ldots,g_m$ 之间关系模的生成元
+$k_1,\ldots,k_t$，也就是说，使
+$$
+P^{\oplus t}\xrightarrow{k_1,\ldots,k_t}
+P^{\oplus m}\xrightarrow{g_1,\ldots,g_m}
+P\to B\to0
+$$
+成为一个自由分解。写 $k_i=(k_{i1},\ldots,k_{im})$，于是有
+\begin{equation}
+\label{restricted-equation-relations-straight-up}
+\sum\nolimits_j k_{ij}g_j=0
+\end{equation}
+其中 $i=1,\ldots,t$。记 $K=(k_{ij})$ 为以 $k_{ij}$ 为元素的 $m\times t$ 矩阵。
+
+\medskip\noindent
+令 $A[x_1,\ldots,x_r]^h$ 为对
+$(A[x_1,\ldots,x_r],IA[x_1,\ldots,x_r])$ 的 Hensel 化，见更多代数之引理
+\ref{more-algebra-lemma-henselization}。
+可以且将会把 $A[x_1,\ldots,x_r]^h$ 看作
+$P=A[x_1,\ldots,x_r]^\wedge$ 的子环，见更多代数之引理
+\ref{more-algebra-lemma-henselization-Noetherian-pair}。
+由于 $A$ 是诺特 G-环，$A[x_1,\ldots,x_r]$ 也是诺特 G-环，见更多代数之命题
+\ref{more-algebra-proposition-finite-type-over-G-ring}。
+因此，对于理想 $I$ 所生成的理想，映射
+$A[x_1,\ldots,x_r]^h\to A[x_1,\ldots,x_r]^\wedge=P$
+具有逼近性质，见环映射的光滑化之引理
+\ref{smoothing-lemma-henselian-pair}。
+选择引理 \ref{restricted-lemma-close-enough} 中充分大的整数 $n$。
+由逼近性质，可以选择
+$g'_1,\ldots,g'_m\in A[x_1,\ldots,x_r]^h$ 以及矩阵
+$$
+K'=(k'_{ij})\in\text{Mat}(m\times t,A[x_1,\ldots,x_r]^h)
+$$
+使得在 $A[x_1,\ldots,x_r]^h$ 中
+$\sum\nolimits_j k'_{ij}g'_j=0$，并且
+$g_i-g'_i\in I^nP$ 及
+$K-K'\in I^n\text{Mat}(m\times t,P)$。
+由 $n$ 的选择，可知存在同构
+$$
+B\to P/(g'_1,\ldots,g'_m)=
+\left(A[x_1,\ldots,x_r]^h/(g'_1,\ldots,g'_m)\right)^\wedge
+$$
+由引理 \ref{restricted-lemma-algebraize-easy}，证明完毕。
+\end{proof}
+
+\noindent
+若 $A$ 只是诺特环而不是 G-环，下面的引理一般不成立。
+事实上，若 $(A,\mathfrak m)$ 是局部环且 $I=\mathfrak m$，
+则该引理等价于 $A^h$ 的 Artin 逼近性质（如环映射的光滑化之定理
+\ref{smoothing-theorem-approximation-property}），
+而这一性质并非对每个诺特局部环都成立。
+
+\begin{lemma}
+\label{restricted-lemma-fully-faithfulness}
+设 $A$ 为诺特 G-环，且 $I\subset A$ 为理想。
+设 $B,C$ 为有限型 $A$-代数。对 $I$-进完备化的任意 $A$-代数映射
+$\varphi:B^\wedge\to C^\wedge$ 以及任意 $N\geq1$，存在
+\begin{enumerate}
+\item 一个平展环映射 $C\to C'$，它诱导同构
+$C/IC\to C'/IC'$；
+\item 一个 $A$-代数映射 $\varphi:B\to C'$；
+\end{enumerate}
+使得 $\varphi$ 与 $\psi$ 模 $I^N$ 作为到
+$C^\wedge=(C')^\wedge$ 的映射时一致。
+\end{lemma}
+
+\begin{proof}
+引理的陈述是有意义的：$C\to C'$ 是平坦的（代数，引理
+\ref{algebra-lemma-etale}），因而对所有 $n$ 诱导同构
+$C/I^nC\to C'/I^nC'$（更多代数，引理
+\ref{more-algebra-lemma-neighbourhood-isomorphism}），进而诱导完备化之间的同构。
+令 $C^h$ 为对 $(C,IC)$ 的 Hensel 化，见更多代数之引理
+\ref{more-algebra-lemma-henselization}。
+则 $C^h$ 是这些代数 $C'$ 的滤过余极限，并且映射
+$C\to C'\to C^h$ 诱导完备化之间的同构（更多代数，引理
+\ref{more-algebra-lemma-henselization-Noetherian-pair}）。
+因此，只需证明存在一个模 $I^N$ 与 $\psi$ 同余的 $A$-代数映射
+$B\to C^h$。
+写
+$$
+B=A[x_1,\ldots,x_n]/(f_1,\ldots,f_m)
+$$
+环映射 $\psi$ 对应于元素
+$\hat c_1,\ldots,\hat c_n\in C^\wedge$，满足对
+$j=1,\ldots,m$ 有
+$$
+f_j(\hat c_1,\ldots,\hat c_n)=0
+$$
+由于 $A$ 是诺特 G-环，$C$ 也是诺特 G-环，见更多代数之命题
+\ref{more-algebra-proposition-finite-type-over-G-ring}。
+因此环映射的光滑化之引理
+\ref{smoothing-lemma-henselian-pair} 适用，给出元素
+$c_1,\ldots,c_n\in C^h$，使得对 $j=1,\ldots,m$ 有
+$f_j(c_1,\ldots,c_n)=0$，并且
+$\hat c_i-c_i\in I^NC^h$。
+这就按要求确定了映射 $B\to C^h$。
+\end{proof}
+
+\section{rig-光滑代数的代数化}
+\label{restricted-section-algebraization-rig-smooth}
+
+\noindent
+事实表明，若 rig-光滑代数具有一种特定的表示，则其代数化是直接的。
+相关讨论还请参见备注 \ref{restricted-remark-discussion}。
+
+\begin{lemma}
+\label{restricted-lemma-presentation-rig-smooth}
+设 $A$ 为环。设
+$f_1,\ldots,f_m\in A[x_1,\ldots,x_n]$，并置
+$B=A[x_1,\ldots,x_n]/(f_1,\ldots,f_m)$。
+假设 $m\leq n$，并置
+$g=\det_{1\leq i,j\leq m}(\partial f_j/\partial x_i)$。则
+\begin{enumerate}
+\item 对每个 $B$-模 $N$，$g$ 湮灭
+$\Ext^1_B(\NL_{B/A},N)$；
+\item 若 $n=m$，则在 $D(B)$ 中，$\NL_{B/A}$ 上乘以 $g$ 的映射为 $0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $T$ 为 $m\times m$ 矩阵，其元素为
+$\partial f_j/\partial x_i$（$1\leq i,j\leq n$）。
+令 $K\in D(B)$ 由复形
+$T:B^{\oplus m}\to B^{\oplus m}$ 表示，其项位于次数 $-1$ 和 $0$。
+由更多代数之引理 \ref{more-algebra-lemma-silly}，
+在 $D(B)$ 中 $g:K\to K$ 为零。置 $J=(f_1,\ldots,f_m)$。
+回忆 $\NL_{B/A}$ 同伦等价于
+$J/J^2\to\bigoplus_{i=1,\ldots,n}B\text{d}x_i$，见代数之
+\ref{algebra-section-netherlander} 节。
+记 $L$ 为复形
+$J/J^2\to\bigoplus_{i=1,\ldots,m}B\text{d}x_i$，
+从而有商映射 $\NL_{B/A}\to L$。
+还有满的复形映射 $K\to L$：把次数 $-1$ 的项 $B^{\oplus m}$
+中的第 $j$ 个基元素送到 $J/J^2$ 中 $f_j$ 的类。图示为
+$$
+\NL_{B/A}\to L\leftarrow K
+$$
+由更多代数之引理
+\ref{more-algebra-lemma-two-term-surjection-map-zero}，
+可知在 $D(B)$ 中 $L$ 上乘以 $g$ 的映射为 $0$。
+另一方面，特异三角
+$B^{\oplus n-m}[0]\to\NL_{B/A}\to L$
+表明，对每个 $B$-模 $N$，映射
+$\Ext^1_B(L,N)\to\Ext^1_B(\NL_{B/A},N)$ 满射，
+故后者被 $g$ 湮灭。这证明了 (1)。
+若 $n=m$，则 $\NL_{B/A}=L$，从而 (2) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-approximate-presentation-rig-smooth}
+设 $I$ 为诺特环 $A$ 的理想。设 $B$ 为
+\ref{restricted-equation-C-prime} 中的对象。取一个表示
+$B=A[x_1,\ldots,x_r]^\wedge/J$。
+假设存在元素 $b\in B$、整数 $0\leq m\leq r$ 以及
+$f_1,\ldots,f_m\in J$，使得
+\begin{enumerate}
+\item 在 $\Spec(B)$ 中，$V(b)\subset V(IB)$；
+\item
+$\Delta=\det_{1\leq i,j\leq m}(\partial f_j/\partial x_i)$
+在 $B$ 中的像整除 $b$；以及
+\item $bJ\subset(f_1,\ldots,f_m)+J^2$。
+\end{enumerate}
+则存在有限型 $A$-代数 $C$ 以及 $A$-代数同构
+$B\cong C^\wedge$。
+\end{lemma}
+
+\begin{proof}
+这些条件蕴含 $B$ 在 $(A,I)$ 上 rig-光滑，见引理
+\ref{restricted-lemma-equivalent-with-artin-smooth}。
+对某个 $b'\in B$，在 $B$ 中写 $b'\Delta=b$。
+设 $I=(a_1,\ldots,a_t)$。由于 $V(b)\subset V(IB)$，
+存在整数 $c\geq0$，使得 $I^cB\subset bB$。
+对某些 $b_i\in B$，在 $B$ 中写 $bb_i=a_i^c$。
+
+\medskip\noindent
+选择整数 $n\gg0$（稍后将看到需取多大）。
+选择多项式 $f'_1,\ldots,f'_m\in A[x_1,\ldots,x_r]$，使得
+$f_i-f'_i\in I^nA[x_1,\ldots,x_r]^\wedge$。
+置
+$\Delta'=\det_{1\leq i,j\leq m}(\partial f'_j/\partial x_i)$，
+并考虑有限型 $A$-代数
+$$
+C=A[x_1,\ldots,x_r,z_1,\ldots,z_t]/
+(f'_1,\ldots,f'_m,
+z_1\Delta'-a_1^c,\ldots,z_t\Delta'-a_t^c)
+$$
+我们将对 $C$ 应用引理 \ref{restricted-lemma-presentation-rig-smooth}。
+计算得
+$$
+\det\left(
+\begin{matrix}
+\text{由下列各式的偏导数组成的矩阵}\\
+f'_1,\ldots,f'_m,z_1\Delta'-a_1^c,\ldots,z_t\Delta'-a_t^c\\
+\text{关于变量}\\
+x_1,\ldots,x_m,z_1,\ldots,z_t
+\end{matrix}
+\right)=(\Delta')^{t+1}
+$$
+因此，对所有 $C$-模 $N$，
+$\Ext^1_C(\NL_{C/A},N)$ 被 $(\Delta')^{t+1}$ 湮灭。
+由于在 $C$ 中 $a_i^c$ 被 $\Delta'$ 整除，
+$a_i^{(t+1)c}$ 也湮灭这些 $\Ext^1$。
+因此，对所有 $C$-模 $N$，$I^{c_1}$ 湮灭
+$\Ext^1_C(\NL_{C/A},N)$，其中
+$c_1=1+t((t+1)c-1)$。
+$c_1$ 的确切值对其余论证并不重要；重要的是它与 $n$ 无关。
+
+\medskip\noindent
+由引理 \ref{restricted-lemma-NL-is-completion}，
+$\NL_{C^\wedge/A}^\wedge=\NL_{C/A}\otimes_CC^\wedge$。
+再由更多代数之引理
+\ref{more-algebra-lemma-base-change-property-ext-1-annihilated} 和
+\ref{more-algebra-lemma-two-term-base-change}，
+可知对任意 $C^\wedge$-模 $N$，
+$I^{c_1}$ 在
+$\Ext^1_{C^\wedge}(\NL_{C^\wedge/A}^\wedge,N)$ 上的乘法也为零。
+特别地，$C^\wedge$ 在 $(A,I)$ 上 rig-光滑。
+
+\medskip\noindent
+注意，有满的 $A$-代数同态
+$$
+\psi_n:C\longrightarrow B/I^nB
+$$
+它把 $x_i$ 的类送到 $x_i$ 的类，并把 $z_i$ 的类送到 $b_ib'$ 的类。
+这由证明第一段中对 $b'$ 和 $b_i$ 的选择成立。
+
+\medskip\noindent
+令 $d=d(\text{Gr}_I(B))$ 和 $q_0=q(\text{Gr}_I(B))$
+为局部上同调之 \ref{local-cohomology-section-uniform} 节中所得的整数。
+由引理 \ref{restricted-lemma-get-morphism-general-better}，若取
+$$
+n\geq\max(q_0+(d+1)c_1,2(d+1)c_1+1),
+$$
+则可找到 $A$-代数同态
+$\varphi:C^\wedge\to B$，它模
+$I^{n-(d+1)c_1}B$ 与 $\psi_n$ 同余。
+
+\medskip\noindent
+由于 $\varphi:C^\wedge\to B$ 模 $I$ 满射，可知它本身满射
+（例如使用代数引理 \ref{algebra-lemma-completion-generalities}）。
+为完成证明，只需说明
+$\Ker(\varphi)/\Ker(\varphi)^2$ 被 $I$ 的某个幂湮灭，见更多代数之引理
+\ref{more-algebra-lemma-quotient-by-idempotent}。
+
+\medskip\noindent
+由于 $\varphi$ 满射，可知
+$\NL_{B/C^{\wedge}}^\wedge$ 的上同调模为
+$H^0(\NL_{B/C^{\wedge}}^\wedge)=0$ 以及
+$H^{-1}(\NL_{B/C^{\wedge}}^\wedge)=\Ker(\varphi)/\Ker(\varphi)^2$。
+由引理 \ref{restricted-lemma-exact-sequence-NL}，有正合序列
+$$
+H^{-1}(\NL_{C^\wedge/A}^\wedge\otimes_{C^\wedge}B)\to
+H^{-1}(\NL_{B/A}^\wedge)\to
+H^{-1}(\NL_{B/C^{\wedge}}^\wedge)\to
+H^0(\NL_{C^\wedge/A}^\wedge\otimes_{C^\wedge}B)\to
+H^0(\NL_{B/A}^\wedge)\to0
+$$
+前两个模被 $I$ 的某个幂湮灭，因为 $B$ 和 $C^\wedge$
+在 $(A,I)$ 上 rig-光滑。因此，只需证明满射
+$$
+H^0(\NL_{C^\wedge/A}^\wedge\otimes_{C^\wedge}B)\to
+H^0(\NL_{B/A}^\wedge)
+$$
+的核被 $I$ 的某个幂湮灭。
+为此，只需证明它被 $b$ 的某个幂湮灭。换言之，只需证明
+$$
+H^0(\NL_{C^\wedge/A}^\wedge)\otimes_{C^\wedge}B[1/b]
+\longrightarrow
+H^0(\NL_{B/A}^\wedge)\otimes_BB[1/b]
+$$
+是同构。然而，两边都是秩为 $r-m$ 的自由 $B[1/b]$-模，
+其基为 $\text{d}x_{m+1},\ldots,\text{d}x_r$。证明完毕。
+\end{proof}
+
+\begin{remark}
+\label{restricted-remark-discussion}
+设 $I$ 为诺特环 $A$ 的理想。设 $B$ 为
+\ref{restricted-equation-C-prime} 中的对象，并且在 $(A,I)$ 上 rig-光滑。
+\cite[Theorem 1.2]{gabber-zavyalov} 证明了 $B$ 同构于某个有限型
+$A$-代数的 $I$-进完备化。该结果取代了下列部分结果：
+\begin{enumerate}
+\item 若 $A$ 是 G-环，则结论由命题
+\ref{restricted-proposition-approximate} 得到；
+\item 若 $B$ 在 $(A,I)$ 上 rig-\,'etale，则结论由引理
+\ref{restricted-lemma-approximate} 得到；
+\item 若 $I$ 为主理想，则结论由
+\cite[III Theorem 7]{Elkik} 得到。
+\end{enumerate}
+\end{remark}
+
+\section{rig-\,'etale 代数}
+\label{restricted-section-rig-etale}
+
+\noindent
+鉴于 rig-光滑代数的定义（定义
+\ref{restricted-definition-rig-smooth-homomorphism}），下面的定义并不令人意外。
+
+\begin{definition}
+\label{restricted-definition-rig-etale-homomorphism}
+设 $A$ 为诺特环，且 $I\subset A$ 为理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象。
+若存在整数 $c\geq0$，使得对所有 $a\in I^c$，
+在 $D(B)$ 中 $\NL_{B/A}^\wedge$ 上乘以 $a$ 的映射为零，
+则称 $B$ {\it 在 $(A,I)$ 上 rig-\,'etale}。
+\end{definition}
+
+\noindent
+下一引理中的条件 \ref{restricted-item-condition-artin} 是
+\cite{ArtinII} 用来定义形式修改的条件之一。
+我们将其加入条件列表，以便之后与我们的条件比较。
+
+\begin{lemma}
+\label{restricted-lemma-equivalent-with-artin}
+设 $A$ 为诺特环，且 $I\subset A$ 为理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象。写成
+$B=A[x_1,\ldots,x_r]^\wedge/J$
+（引理 \ref{restricted-lemma-topologically-finite-type-Noetherian}），
+并令
+$\NL_{B/A}^\wedge=(J/J^2\to\bigoplus B\text{d}x_i)$
+为其朴素余切复形（\ref{restricted-equation-NL}）。
+以下条件等价：
+\begin{enumerate}
+\item $B$ 在 $(A,I)$ 上 rig-\,'etale；
+\item
+\label{restricted-item-zero-on-NL}
+存在 $c\geq0$，使得对所有 $a\in I^c$，在 $D(B)$ 中
+$\NL_{B/A}^\wedge$ 上乘以 $a$ 的映射为零；
+\item
+\label{restricted-item-zero-on-cohomology-NL}
+存在 $c\geq0$，使得 $H^i(\NL_{B/A}^\wedge)$（$i=-1,0$）
+被 $I^c$ 湮灭；
+\item
+\label{restricted-item-zero-on-cohomology-NL-truncations}
+存在 $c\geq0$，使得对所有 $n\geq1$，
+$H^i(\NL_{B_n/A_n})$（$i=-1,0$）被 $I^c$ 湮灭，
+其中 $A_n=A/I^n$ 且 $B_n=B/I^nB$；
+\item
+\label{restricted-item-condition-artin-pre-pre}
+对每个 $a\in I$，存在 $c\geq0$，使得
+\begin{enumerate}
+\item $a^c$ 湮灭 $H^0(\NL_{B/A}^\wedge)$；并且
+\item 存在 $f_1,\ldots,f_r\in J$，使得
+$a^cJ\subset(f_1,\ldots,f_r)+J^2$。
+\end{enumerate}
+\item
+\label{restricted-item-condition-artin-pre}
+对每个 $a\in I$，存在 $f_1,\ldots,f_r\in J$ 及 $c\geq0$，使得
+\begin{enumerate}
+\item $\det_{1\leq i,j\leq r}(\partial f_j/\partial x_i)$
+在 $B$ 中整除 $a^c$；并且
+\item $a^cJ\subset(f_1,\ldots,f_r)+J^2$。
+\end{enumerate}
+\item
+\label{restricted-item-condition-artin}
+选取 $J$ 的生成元 $f_1,\ldots,f_t$，则
+\begin{enumerate}
+\item $B$ 在 $A$ 上的 Jacobi 理想，即 $B$ 中由矩阵
+$(\partial f_j/\partial x_i)_{1\leq i\leq r,1\leq j\leq t}$
+的 $r\times r$ 子式生成的理想，包含某个 $c$ 的理想 $I^cB$；并且
+\item $B$ 在 $A$ 上的 Cramer 理想，即 $B$ 中由 $J$
+作为 $A[x_1,\ldots,x_r]^\wedge$-模的第 $r$ 个 Fitting 理想在 $B$
+中的像所生成的理想，包含某个 $c$ 的 $I^cB$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 \ref{restricted-item-zero-on-NL} 的等价性只是定义
+\ref{restricted-definition-rig-etale-homomorphism} 的重述。
+
+\medskip\noindent
+\ref{restricted-item-zero-on-NL} 与
+\ref{restricted-item-zero-on-cohomology-NL} 的等价性由更多代数之引理
+\ref{more-algebra-lemma-zero-in-derived} 得到。
+
+\medskip\noindent
+\ref{restricted-item-zero-on-cohomology-NL} 与
+\ref{restricted-item-zero-on-cohomology-NL-truncations} 的等价性来自系统
+$\{\NL_{B_n/A_n}\}$ 与
+$\NL_{B/A}^\wedge\otimes_BB_n$ 严格同构这一事实，见引理
+\ref{restricted-lemma-NL-is-limit}。略去一些细节。
+
+\medskip\noindent
+假设 \ref{restricted-item-zero-on-NL}。令 $a\in I$。
+选择 $c$，使得 $\NL_{B/A}^\wedge$ 上乘以 $a^c$ 的映射为零。
+由更多代数之引理
+\ref{more-algebra-lemma-map-out-of-almost-free} 的 (1)，
+存在映射 $\alpha:\bigoplus B\text{d}x_i\to J/J^2$，
+使得 $\text{d}\circ\alpha$ 与 $\alpha\circ\text{d}$
+均为乘以 $a^c$ 的映射。
+取 $f_i\in J$，使其模 $J^2$ 的类等于
+$\alpha(\text{d}x_i)$。简单计算表明
+\ref{restricted-item-condition-artin-pre} 的 (a)、(b) 成立。
+
+\medskip\noindent
+略去 \ref{restricted-item-condition-artin-pre} 蕴含
+\ref{restricted-item-condition-artin-pre-pre} 的验证；这只是关于 $B$ 上形如
+$M\to B^{\oplus r}$ 的两项复形的一个陈述。
+
+\medskip\noindent
+假设 \ref{restricted-item-condition-artin-pre-pre} 成立。
+设 $I=(a_1,\ldots,a_t)$。令 $c_i\geq0$ 为使
+\ref{restricted-item-condition-artin-pre-pre} 的 (a)、(b) 对
+$a_i^{c_i}$ 成立的整数。于是
+$I^{\sum c_i}$ 湮灭 $H^0(\NL_{B/A}^\wedge)$。
+令 $f_{i,1},\ldots,f_{i,r}\in J$ 如
+\ref{restricted-item-condition-artin-pre-pre} 的 (b) 中针对 $a_i$ 所述。
+考虑复合
+$$
+B^{\oplus r}\to J/J^2\to\bigoplus B\text{d}x_i
+$$
+其中第 $j$ 个基向量映到 $J/J^2$ 中 $f_{i,j}$ 的类。
+由 \ref{restricted-item-condition-artin-pre-pre} 的 (a)、(b)，
+该复合的余核被 $a_i^{2c_i}$ 湮灭。
+因此，该映射在对 $a_i^{c_i}$ 取逆后满射，进而为同构
+（代数，引理 \ref{algebra-lemma-fun}）。
+于是 $B^{\oplus r}\to\bigoplus B\text{d}x_i$ 的核是
+$a_i$-幂挠模，从而
+$$
+H^{-1}(\NL_{B/A}^\wedge)
+=\Ker(J/J^2\to\bigoplus B\text{d}x_i)
+$$
+也是 $a_i$-幂挠模。由于 $B$ 为诺特环（引理
+\ref{restricted-lemma-topologically-finite-type-Noetherian}），
+包括 $H^{-1}(\NL_{B/A}^\wedge)$ 在内的所有模都是有限的。
+因此，对某个 $d_i\geq0$，$a_i^{d_i}$ 湮灭
+$H^{-1}(\NL_{B/A}^\wedge)$。
+由此，$I^{\sum d_i}$ 湮灭 $H^{-1}(\NL_{B/A}^\wedge)$，
+故 \ref{restricted-item-zero-on-cohomology-NL} 成立。
+
+\medskip\noindent
+因此，条件
+\ref{restricted-item-zero-on-NL}、
+\ref{restricted-item-zero-on-cohomology-NL}、
+\ref{restricted-item-zero-on-cohomology-NL-truncations}、
+\ref{restricted-item-condition-artin-pre-pre} 和
+\ref{restricted-item-condition-artin-pre} 彼此等价。
+还需说明这些条件与 \ref{restricted-item-condition-artin} 等价。
+注意，Cramer 理想
+$\text{Fit}_r(J)B$ 等于
+$\text{Fit}_r(J/J^2)$，因为
+$J/J^2=J\otimes_{A[x_1,\ldots,x_r]^\wedge}B$，见更多代数之引理
+\ref{more-algebra-lemma-fitting-ideal-basics} 的 (3)。
+还要注意，Jacobi 理想正是
+$\text{Fit}_0(H^0(\NL_{B/A}^\wedge))$。
+因此，
+\ref{restricted-item-zero-on-cohomology-NL} 与
+\ref{restricted-item-condition-artin} 的等价性是一个纯代数问题，
+下面一段讨论这一问题。
+
+\medskip\noindent
+设 $R$ 为诺特环，且 $I\subset R$ 为理想。
+设 $M\xrightarrow{d}R^{\oplus r}$ 为两项复形。
+需要证明以下条件等价：
+\begin{enumerate}
+\item[(A)] $M\to R^{\oplus r}$ 的上同调被 $I$ 的某个幂湮灭；以及
+\item[(B)] 理想 $\text{Fit}_r(M)$ 和
+$\text{Fit}_0(\text{Coker}(d))$ 包含 $I$ 的某个幂。
+\end{enumerate}
+由于 $R$ 是诺特环，可以把 (2) 改写为相应闭子概形之间的包含，见代数之引理
+\ref{algebra-lemma-Zariski-topology} 和
+\ref{algebra-lemma-Noetherian-power}。
+另一方面，在 $V(\text{Fit}_0(\Coker(d)))$ 的补集上，
+$d$ 的余核为零；而在 $V(\text{Fit}_r(M))$ 的补集上，
+模 $M$ 局部由 $r$ 个元素生成，见更多代数之引理
+\ref{more-algebra-lemma-fitting-ideal-generate-locally}。
+因此，(B) 等价于
+\begin{enumerate}
+\item[(C)] 在 $V(I)$ 之外，$d$ 的余核为零，且模 $M$
+局部由 $\leq r$ 个元素生成。
+\end{enumerate}
+当然，这等价于 $M\to R^{\oplus r}$ 在
+$\Spec(R)\setminus V(I)$ 上具有零上同调，而后者又等价于 (A)。
+证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-rig-smooth}
+设 $A$ 为诺特环，且 $I$ 为理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象。
+若 $B$ 在 $(A,I)$ 上 rig-\,'etale，则 $B$ 在 $(A,I)$ 上 rig-光滑。
+\end{lemma}
+
+\begin{proof}
+立即由定义 \ref{restricted-definition-rig-smooth-homomorphism} 和
+\ref{restricted-definition-rig-etale-homomorphism} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale}
+设 $A$ 为诺特环，且 $I$ 为理想。
+设 $B$ 为有限型 $A$-代数。
+\begin{enumerate}
+\item 若 $\Spec(B)\to\Spec(A)$ 在
+$\Spec(A)\setminus V(I)$ 上平展，则 $B^\wedge$ 满足引理
+\ref{restricted-lemma-equivalent-with-artin} 的等价条件。
+\item 若 $B^\wedge$ 满足引理
+\ref{restricted-lemma-equivalent-with-artin} 的等价条件，则存在
+$g\in1+IB$，使得 $\Spec(B_g)$ 在
+$\Spec(A)\setminus V(I)$ 上平展。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $B^\wedge$ 满足引理
+\ref{restricted-lemma-equivalent-with-artin} 的等价条件。
+朴素余切复形 $\NL_{B/A}$ 是有限型 $B$-模组成的复形，
+因而 $H^{-1}$ 和 $H^0$ 是有限 $B$-模。
+完备化是有限 $B$-模上的正合函子（代数，引理
+\ref{algebra-lemma-completion-flat}），并且
+$\NL_{B^\wedge/A}^\wedge$ 是复形 $\NL_{B/A}$ 的完备化
+（选取表示即可容易看出）。
+因此，假设蕴含存在 $c\geq0$，使得对所有 $n$，
+$H^{-1}/I^nH^{-1}$ 和 $H^0/I^nH^0$ 被 $I^c$ 湮灭。
+由 Nakayama 引理（代数，引理 \ref{algebra-lemma-NAK}），
+这意味着 $I^cH^{-1}$ 和 $I^cH^0$ 被某个形如
+$g=1+x$（$x\in IB$）的元素湮灭。
+对 $g$ 取逆后（这不改变商 $B/I^nB$），
+可见 $\NL_{B/A}$ 的上同调被 $I^c$ 湮灭。
+于是，由平展环映射的定义，
+$A\to B$ 在 $B$ 中任何不位于 $V(I)$ 上方的素理想处平展，见代数之定义
+\ref{algebra-definition-etale}。
+
+\medskip\noindent
+反之，假设 $\Spec(B)\to\Spec(A)$ 在
+$\Spec(A)\setminus V(I)$ 上平展。
+则对每个 $a\in I$，存在 $c\geq0$，使得
+$\NL_{B/A}$ 上乘以 $a^c$ 的映射为零。
+由于 $\NL_{B^\wedge/A}^\wedge$ 是 $\NL_{B/A}$ 的导出完备化
+（见引理 \ref{restricted-lemma-NL-is-limit}），可知 $B^\wedge$
+满足引理 \ref{restricted-lemma-equivalent-with-artin} 的等价条件。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-zero-after-modding-out}
+设 $(A_1,I_1)\to(A_2,I_2)$ 如备注
+\ref{restricted-remark-base-change}，且 $A_1,A_2$ 为诺特环。
+设 $B_1$ 是 $(A_1,I_1)$ 的
+\ref{restricted-equation-C-prime} 中的对象，并令 $B_2$ 为 $B_1$ 的基变换。
+若在 $D(B_1)$ 中，$\NL^\wedge_{B_1/A_1}$ 上乘以
+$f_1\in B_1$ 的映射为零，则在 $D(B_2)$ 中，
+$\NL^\wedge_{B_2/A_2}$ 上乘以其像 $f_2\in B_2$ 的映射为零。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-NL-base-change}，存在映射
+$$
+\NL_{B_1/A_1}\otimes_{B_2}B_1\to\NL_{B_2/A_2}
+$$
+它在 $H^0$ 上诱导同构，在 $H^{-1}$ 上诱导满射。
+于是结论由更多代数之引理
+\ref{more-algebra-lemma-two-term-surjection-map-zero} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-etale-homomorphism}
+设 $A_1\to A_2$ 为诺特环映射。设 $I_i\subset A_i$ 为理想，
+使得 $V(I_1A_2)=V(I_2)$。设 $B_1$ 是 $(A_1,I_1)$ 的
+\ref{restricted-equation-C-prime} 中的对象。
+设 $B_2$ 为按备注 \ref{restricted-remark-base-change} 得到的 $B_1$ 的基变换。
+若 $B_1$ 在 $(A_1,I_1)$ 上 rig-\,'etale，
+则 $B_2$ 在 $(A_2,I_2)$ 上 rig-\,'etale。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-zero-after-modding-out}、定义
+\ref{restricted-definition-rig-etale-homomorphism} 以及以下事实得到：
+由于 $A_2$ 诺特，对某个 $c\geq0$ 有 $I_2^c\subset I_1A_2$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-fully-faithful-etale-over-complement}
+设 $A$ 为诺特环，且 $I\subset A$ 为理想。
+设 $B$ 为有限型 $A$-代数，使得
+$\Spec(B)\to\Spec(A)$ 在 $\Spec(A)\setminus V(I)$ 上平展。
+设 $C$ 为诺特 $A$-代数。则 $I$-进完备化的任意 $A$-代数映射
+$B^\wedge\to C^\wedge$ 都来自唯一的 $A$-代数映射
+$$
+B\longrightarrow C^h
+$$
+其中 $C^h$ 是对 $(C,IC)$ 的 Hensel 化，如更多代数之引理
+\ref{more-algebra-lemma-henselization} 所述。
+此外，任意 $A$-代数同态 $B\to C^h$ 均经由某个平展
+$C$-代数 $C'$ 分解，其中 $C/IC\to C'/IC'$ 是同构。
+\end{lemma}
+
+\begin{proof}
+唯一性来自 $C^h$ 是 $C^\wedge$ 的子环这一事实，例如见更多代数之引理
+\ref{more-algebra-lemma-henselization-Noetherian-pair}。
+最后一个断言来自 $C^h$ 是这些 $C$-代数 $C'$ 的滤过余极限这一事实，
+见更多代数之引理 \ref{more-algebra-lemma-henselization} 的证明。
+说完这些，现在转向存在性的证明。
+
+\medskip\noindent
+设 $\varphi:B^\wedge\to C^\wedge$ 为给定的映射。
+它定义了映射 $C\to B\otimes_AC$ 的完备化的截面
+$$
+\sigma:(B\otimes_AC)^\wedge\longrightarrow C^\wedge
+$$
+可以用 $(C,IC,B\otimes_AC,C,\sigma)$ 代替
+$(A,I,B,C,\varphi)$。由此可见，可以假设 $A=C$。
+
+\medskip\noindent
+在 $A=C$ 情形下证明存在性。此时映射
+$\varphi:B^\wedge\to A^\wedge$ 必为满射。
+由引理 \ref{restricted-lemma-rig-etale} 和
+\ref{restricted-lemma-exact-sequence-NL}，可见
+$$
+\NL_{A^\wedge/\!_\varphi B^\wedge}^\wedge
+$$
+的上同调群被 $I$ 的某个幂湮灭。
+由于 $\varphi$ 满射，这蕴含
+$\Ker(\varphi)/\Ker(\varphi)^2$ 被 $I$ 的某个幂湮灭。
+因此，$\varphi:B^\wedge\to A^\wedge$ 是某个有限型
+$B$-代数 $B\to D$ 的完备化，见更多代数之引理
+\ref{more-algebra-lemma-quotient-by-idempotent}。
+于是 $A\to D$ 是有限型代数映射，并诱导同构
+$A^\wedge\to D^\wedge$。
+由引理 \ref{restricted-lemma-rig-etale}，可以用一个局部化替换 $D$，
+并假设 $A\to D$ 在 $V(I)$ 之外平展。
+由于 $A^\wedge\to D^\wedge$ 为同构，
+可见 $\Spec(D)\to\Spec(A)$ 在 $V(ID)$ 的某个邻域中也平展
+（例如由更多态射之引理
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}）。
+因此 $\Spec(D)\to\Spec(A)$ 平展。所以 $D$ 映到 $A^h$，引理得证。
+\end{proof}
+
+\section{一个推出论证}
+\label{restricted-section-approximation}
+
+\noindent
+本节唯一的目标是证明下面的引理；它将在 rig-\,'etale 代数的代数化中起关键作用。
+我们将用到一点代数空间理论来证明该引理。
+本章较早的版本给出了一个使用代数与少量变形理论的（长得多的）证明；
+有兴趣的读者可在 Stacks 项目的历史中找到它。
+
+\begin{lemma}
+\label{restricted-lemma-lift-approximation}
+设 $A$ 为诺特环，且 $I\subset A$ 为理想。
+设 $J\subset A$ 为幂零理想。考虑交换图表
+$$
+\xymatrix{
+C \ar[r] & C_0 \ar@{=}[r] & C/JC \\
+& B_0 \ar[u] \\
+A \ar[r] \ar[uu] & A_0 \ar[u] \ar@{=}[r] & A/J
+}
+$$
+其中竖直箭头均为有限型，并满足
+\begin{enumerate}
+\item $\Spec(C)\to\Spec(A)$ 在
+$\Spec(A)\setminus V(I)$ 上平展；
+\item $\Spec(B_0)\to\Spec(A_0)$ 在
+$\Spec(A_0)\setminus V(IA_0)$ 上平展；并且
+\item $B_0\to C_0$ 平展，且诱导同构
+$B_0/IB_0=C_0/IC_0$。
+\end{enumerate}
+则可将上面的图表补成交换图表
+$$
+\xymatrix{
+C \ar[r] & C/JC \\
+B \ar[u] \ar[r] & B_0 \ar[u] \\
+A \ar[r] \ar[u] & A/J \ar[u]
+}
+$$
+其中 $A\to B$ 为有限型，$B/JB=B_0$，$B\to C$ 平展，并且
+$\Spec(B)\to\Spec(A)$ 在 $\Spec(A)\setminus V(I)$ 上平展。
+\end{lemma}
+
+\begin{proof}
+置 $X=\Spec(A)$、$X_0=\Spec(A_0)$、$Y_0=\Spec(B_0)$、
+$Z=\Spec(C)$、$Z_0=\Spec(C_0)$。
+此外，分别记
+$U\subset X$、$U_0\subset X_0$、$V_0\subset Y_0$、
+$W\subset Z$、$W_0\subset Z_0$ 为 $I$ 的零点集的补集。
+下面的图有助于直观理解这一情形：
+$$
+\xymatrix{
+Z \ar[dd] & Z_0 \ar[l] \ar[d] \\
+& Y_0 \ar[d] \\
+X & X_0 \ar[l]
+}
+\quad\quad\quad
+\xymatrix{
+W \ar[dd] & W_0 \ar[l] \ar[d] \\
+& V_0 \ar[d] \\
+U & U_0 \ar[l]
+}
+$$
+引理中的条件保证
+$$
+\xymatrix{
+W_0 \ar[r] \ar[d] & Z_0 \ar[d] \\
+V_0 \ar[r] & Y_0
+}
+$$
+是初等特异方形，见空间的导出范畴之定义
+\ref{spaces-perfect-definition-elementary-distinguished-square}。
+此外，已知 $W_0\to U_0$ 与 $V_0\to U_0$ 平展。
+由于假设 $J$ 幂零，态射 $X_0\subset X$ 是有限阶加厚。
+由平展位点的拓扑不变性，可以找到唯一的平展概形态射
+$V\to X$，使得 $V_0=V\times_XX_0$；
+并且可以把给定态射 $W_0\to V_0$ 提升为唯一的 $X$-态射
+$W\to V$。见平展态射之定理
+\ref{etale-theorem-remarkable-equivalence}。
+由于 $W_0\to V_0$ 是分离的，态射 $W\to V$ 也分离，
+例如见更多态射之引理
+\ref{more-morphisms-lemma-deform-property}。
+由空间的推出之引理
+\ref{spaces-pushouts-lemma-construct-elementary-distinguished-square}，
+可在 $X$ 上代数空间的范畴中构造初等特异方形
+$$
+\xymatrix{
+W \ar[r] \ar[d] & Z \ar[d] \\
+V \ar[r] & Y
+}
+$$
+由于初等特异方形的基变换仍为初等特异方形（空间的导出范畴之引理
+\ref{spaces-perfect-lemma-make-more-elementary-distinguished-squares}），可见
+$$
+\xymatrix{
+W_0 \ar[r] \ar[d] & Z_0 \ar[d] \\
+V_0 \ar[r] & Y\times_XX_0
+}
+$$
+是初等特异方形。
+由于初等特异方形是推出（空间的推出之引理
+\ref{spaces-pushouts-lemma-elementary-distinguished-square-pushout}），
+可知存在唯一的同构 $Y\times_XX_0=Y_0$，
+且与涉及这些空间的两个方形相容。
+由空间的极限之命题
+\ref{spaces-limits-proposition-affine}，可知 $Y$ 是仿射的。
+写 $Y=\Spec(B)$。显然，$B$ 可嵌入所需图表，并满足要求的所有性质。
+\end{proof}
+
+\section{rig-\,'etale 代数的代数化}
+\label{restricted-section-approximation-principal}
+
+\noindent
+主要目标是证明 rig-\,'etale 代数的代数化，其中不假设底层诺特环 $A$
+为 G-环，且理想 $I\subset A$ 是任意的——不必是主理想。
+我们先证明主理想情形，再用第 \ref{restricted-section-approximation} 节的结果完成证明。
+
+\begin{lemma}
+\label{restricted-lemma-approximate-principal}
+\begin{reference}
+\cite[III Theorem 7]{Elkik} 的 rig-\,'etale 情形
+\end{reference}
+设 $A$ 为诺特环，且 $I=(a)$ 为主理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象，并且
+在 $(A,I)$ 上 rig-\,'etale。
+则存在有限型 $A$-代数 $C$ 以及同构
+$B\cong C^\wedge$。
+\end{lemma}
+
+\begin{proof}
+选取表示 $B=A[x_1,\ldots,x_r]^\wedge/J$。
+由引理 \ref{restricted-lemma-equivalent-with-artin} 的 (6)，可以找到
+$c\geq0$ 和 $f_1,\ldots,f_r\in J$，使得
+$\det_{1\leq i,j\leq r}(\partial f_j/\partial x_i)$
+在 $B$ 中整除 $a^c$，并且
+$a^cJ\subset(f_1,\ldots,f_r)+J^2$。
+因此，引理 \ref{restricted-lemma-approximate-presentation-rig-smooth} 适用。
+这已经完成证明，不过我们想指出，在此情形下，
+引理 \ref{restricted-lemma-get-morphism-general-better} 可以由容易得多的引理
+\ref{restricted-lemma-get-morphism-principal} 替代。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-approximate}
+设 $A$ 为诺特环，且 $I\subset A$ 为理想。
+设 $B$ 为 \ref{restricted-equation-C-prime} 中的对象，并且
+在 $(A,I)$ 上 rig-\,'etale。
+则存在有限型 $A$-代数 $C$ 以及同构
+$B\cong C^\wedge$。
+\end{lemma}
+
+\begin{proof}
+对 $I$ 的生成元个数作归纳来证明此引理。
+设 $I=(a_1,\ldots,a_t)$。若 $t=0$，则 $I=0$，无事可证。
+若 $t=1$，则引理由引理
+\ref{restricted-lemma-approximate-principal} 得到。假设 $t>1$。
+
+\medskip\noindent
+对任意 $m\geq1$，置 $\bar A_m=A/(a_t^m)$。
+考虑 $\bar A_m$ 中的理想
+$\bar I_m=(\bar a_1,\ldots,\bar a_{t-1})$。
+注意，$V(I\bar A_m)=V(\bar I_m)$。
+令 $B_m=B/(a_t^m)$ 为映射
+$(A,I)\to(\bar A_m,\bar I_m)$ 下 $B$ 的基变换，见备注
+\ref{restricted-remark-take-bar}。
+由引理 \ref{restricted-lemma-base-change-rig-etale-homomorphism}，
+$B_m$ 在 $(\bar A_m,\bar I_m)$ 上 rig-\,'etale。
+
+\medskip\noindent
+由对 $t$ 的归纳假设，可以找到有限型
+$\bar A_m$-代数 $C_m$ 以及映射 $C_m\to B_m$，
+它诱导同构 $C_m^\wedge\cong B_m$，其中完备化是关于 $\bar I_m$ 的。
+由引理 \ref{restricted-lemma-rig-etale}，可以假设
+$\Spec(C_m)\to\Spec(\bar A_m)$ 在
+$\Spec(\bar A_m)\setminus V(\bar I_m)$ 上平展。
+
+\medskip\noindent
+我们声称，可以如上一段选择 $A_m\to C_m\to B_m$，
+并且还有同构
+$C_m/(a_t^{m-1})\to C_{m-1}$，
+它们与给定的 $A$-代数结构及到
+$B_{m-1}=B_m/(a_t^{m-1})$ 的映射相容。
+首先固定一个选择 $A_1\to C_1\to B_1$。
+假设已经找到具有所需性质的
+$C_{m-1}\to C_{m-2}\to\ldots\to C_1$。
+注意，
+$C_m/(a_t^{m-1})$ 在
+$\Spec(\bar A_{m-1})\setminus V(\bar I_{m-1})$ 上平展。
+因此由引理 \ref{restricted-lemma-fully-faithful-etale-over-complement}，
+存在平展扩张 $C_{m-1}\to C'_{m-1}$，它模
+$\bar I_{m-1}$ 诱导同构；并且存在 $\bar A_{m-1}$-代数映射
+$$
+C_m/(a_t^{m-1})\to C'_{m-1}
+$$
+它在完备化上诱导同构
+$B_m/(a_t^{m-1})\to B_{m-1}$。
+注意，由态射之引理 \ref{morphisms-lemma-etale-permanence}，
+$C_m/(a_t^{m-1})\to C'_{m-1}$ 在 $V(\bar I_{m-1})$ 的补集上平展；
+而在 $V(\bar I_{m-1})$ 上，它在完备化上诱导同构，因而在那里也平展
+（例如由更多态射之引理
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}）。
+因此 $C_m/(a_t^{m-1})\to C'_{m-1}$ 平展。
+由平展态射的拓扑不变性（平展态射之定理
+\ref{etale-theorem-remarkable-equivalence}），
+存在平展环映射 $C_m\to C'_m$，使
+$C_m/(a_t^{m-1})\to C'_{m-1}$ 同构于
+$C_m/(a_t^{m-1})\to C'_m/(a_t^{m-1})$。
+注意，$C'_m$ 的 $\bar I_m$-进完备化等于 $C_m$ 的
+$\bar I_m$-进完备化，即 $B_m$（细节略）。
+对图表
+$$
+\xymatrix{
+& C'_m \ar[r] & C'_m/(a_t^{m-1}) \\
+C''_m \ar@{..>}[ru] \ar@{..>}[rr] & & C_{m-1} \ar[u] \\
+& \bar A_m \ar[r] \ar[uu] \ar@{..>}[lu] & \bar A_{m-1} \ar[u]
+}
+$$
+应用引理 \ref{restricted-lemma-lift-approximation}，可知存在 $C''_m$ 的一个“提升”，
+把 $C_{m-1}$ 提升为 $\bar A_m$ 上的代数，并具有所有所需性质。
+
+\medskip\noindent
+由构造，$(C_m)$ 是主理想 $(a_t)$ 的范畴
+\ref{restricted-equation-C} 中的对象。
+因此逆极限 $B'=\lim C_m$ 是 $(a_t)$-进完备的 $A$-代数，
+且 $B'/a_tB'$ 是 $A/(a_t)$ 上的有限型代数，见引理
+\ref{restricted-lemma-topologically-finite-type}。
+由构造，有 $C_m=B'/(a_t^m)$，$C_m$ 的 $I$-进完备化为 $B_m$，
+而 $B'$ 的 $I$-进完备化同构于 $B$。
+对每个 $m$，复形 $\NL_{C_m/A_m}$ 的有限上同调模由构造支撑在
+$V(IC_m)\subset\Spec(C_m)$ 上。
+因此这些模是 $I$-进完备的（因为它们被 $I$ 的某个幂湮灭）。
+由于 $\NL^\wedge_{B_m/A_m}$ 是 $\NL_{C_m/A_m}$ 的 $I$-进完备化，
+见引理 \ref{restricted-lemma-NL-is-completion}，映射
+$\NL_{C_m/A_m}\to\NL_{B_m/A_m}$ 在上同调上诱导同构。
+于是，由于 $B$ 在 $A$ 上 rig-\,'etale，可知存在 $I$ 的一个固定幂，
+它对所有 $m$ 都湮灭 $\NL_{C_m/A_m}$ 的上同调，见引理
+\ref{restricted-lemma-equivalent-with-artin}。
+由同一引理，$B'$ 在 $(A,(a_t))$ 上 rig-\,'etale。
+最后，对 $(A,(a_t))$ 上的 $B'$ 应用引理
+\ref{restricted-lemma-approximate-principal}，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-approximate-by-etale-over-complement}
+设 $A$ 为诺特环，且 $I\subset A$ 为理想。
+设 $B$ 为 $I$-进完备的 $A$-代数，且
+$A/I\to B/IB$ 为有限型。引理
+\ref{restricted-lemma-equivalent-with-artin} 的等价条件也等价于
+\begin{enumerate}
+\item[(8)]
+\label{restricted-item-algebraize}
+存在有限型 $A$-代数 $C$，使得
+$\Spec(C)\to\Spec(A)$ 在
+$\Spec(A)\setminus V(I)$ 上平展，并且
+$B\cong C^\wedge$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+结合引理 \ref{restricted-lemma-equivalent-with-artin}、
+\ref{restricted-lemma-approximate} 和
+\ref{restricted-lemma-rig-etale}。略去一个小细节。
+\end{proof}
+
+\section{有限型态射}
+\label{restricted-section-finite-type}
+
+\noindent
+在形式空间之 \ref{formal-spaces-section-finite-type} 节中，
+我们定义了形式代数空间的有限型态射。
+本节研究具有有限生成定义理想的 adic 拓扑环之间相应类型的连续环映射。
+强烈建议读者跳过本节。
+
+\begin{lemma}
+\label{restricted-lemma-finite-type}
+设 $A$ 和 $B$ 为具有有限生成定义理想的 adic 拓扑环。
+设 $\varphi:A\to B$ 为连续环同态。以下条件等价：
+\begin{enumerate}
+\item $\varphi$ 是 adic 的，且 $B$ 在 $A$ 上拓扑有限型；
+\item $\varphi$ 是 taut 的，且 $B$ 在 $A$ 上拓扑有限型；
+\item 存在定义理想 $I\subset A$，使 $B$ 上的拓扑为 $I$-进拓扑，
+并且存在定义理想 $I'\subset A$，使 $A/I'\to B/I'B$ 为有限型；
+\item 对所有定义理想 $I\subset A$，$B$ 上的拓扑为 $I$-进拓扑，
+且 $A/I\to B/IB$ 为有限型；
+\item 存在定义理想 $I\subset A$，使 $B$ 上的拓扑为 $I$-进拓扑，
+且 $B$ 属于范畴 \ref{restricted-equation-C-prime}；
+\item 对所有定义理想 $I\subset A$，$B$ 上的拓扑为 $I$-进拓扑，
+且 $B$ 属于范畴 \ref{restricted-equation-C-prime}；
+\item 作为拓扑 $A$-代数，$B$ 是
+$A\{x_1,\ldots,x_r\}$ 对某个闭理想的商；
+\item 作为拓扑 $A$-代数，$B$ 是
+$A[x_1,\ldots,x_r]^\wedge$ 对某个闭理想的商，其中
+$A[x_1,\ldots,x_r]^\wedge$ 是 $A[x_1,\ldots,x_r]$
+关于 $A$ 的某个定义理想的完备化；并且
+\item 在此添加更多内容。
+\end{enumerate}
+此外，这些等价条件定义了
+$\text{WAdm}^{adic*}$ 态射的一个局部性质；该范畴定义于形式空间之备注
+\ref{formal-spaces-remark-variant-adic-star}。
+\end{lemma}
+
+\begin{proof}
+taut 环同态定义于形式空间之定义
+\ref{formal-spaces-definition-taut}。
+adic 环同态定义于形式空间之定义
+\ref{formal-spaces-definition-adic-homomorphism}。
+引理由形式空间之引理
+\ref{formal-spaces-lemma-quotient-restricted-power-series}、
+\ref{formal-spaces-lemma-quotient-restricted-power-series-admissible} 和
+\ref{formal-spaces-lemma-adic-homomorphism} 合并得到。细节略。
+需要明确的是，拓扑环
+$A[x_1,\ldots,x_n]^\wedge$ 与
+$A\{x_1,\ldots,x_r\}$ 之间没有区别，见形式空间之备注
+\ref{formal-spaces-remark-I-adic-completion-and-restricted-power-series}。
+\end{proof}
+
+\begin{remark}
+\label{restricted-remark-NL-well-defined-topological}
+设 $A\to B$ 为 $\text{WAdm}^{adic*}$ 中的箭头，
+它是 adic 且拓扑有限型的（见引理 \ref{restricted-lemma-finite-type}）。
+写 $B=A\{x_1,\ldots,x_r\}/J$。则可置\footnote{事实上，
+这一构造对满足形式空间之引理
+\ref{formal-spaces-lemma-quotient-restricted-power-series}
+中等价条件的 $\text{WAdm}^{count}$ 箭头也适用。}
+$$
+\NL_{B/A}^\wedge=
+\left(J/J^2\longrightarrow\bigoplus B\text{d}x_i\right)
+$$
+与引理 \ref{restricted-lemma-NL-up-to-homotopy} 的证明完全相同，
+读者可以证明，该 $B$-模复形在同伦范畴 $K(B)$ 中
+（相差唯一同构）定义良好。
+现在，若 $A$ 为诺特环，而 $I\subset A$ 为定义理想，
+则这一构造重新得到公式 \ref{restricted-equation-NL} 在第
+\ref{restricted-section-naive-cotangent-complex} 节所定义的
+$B$ 在 $(A,I)$ 上的朴素余切复形，
+原因只是由形式空间之备注
+\ref{formal-spaces-remark-I-adic-completion-and-restricted-power-series}，
+$A[x_1,\ldots,x_n]^\wedge$ 与
+$A\{x_1,\ldots,x_r\}$ 相同。
+特别地，仍当 $A$ 是 adic 诺特拓扑环时，对象
+$\NL_{B/A}^\wedge$ 与定义理想 $I\subset A$ 的选择无关。
+\end{remark}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-finite-type}
+考虑引理 \ref{restricted-lemma-finite-type} 所定义的
+$\textit{WAdm}^{adic*}$ 箭头的性质 $P$。
+则 $P$ 在形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-adic-star}
+所定义的基变换下稳定。
+\end{lemma}
+
+\begin{proof}
+陈述由引理 \ref{restricted-lemma-finite-type} 是有意义的。
+为证明它，假设在 $\textit{WAdm}^{adic*}$ 中有态射
+$B\to A$ 和 $B\to C$，并且作为拓扑 $B$-代数，对某个闭理想 $J$ 有
+$A=B\{x_1,\ldots,x_r\}/J$。
+则 $A\widehat{\otimes}_BC$ 同构于
+$C\{x_1,\ldots,x_r\}/J'$ 的商，其中
+$J'$ 是 $JC\{x_1,\ldots,x_r\}$ 的闭包。
+略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-finite-type}
+考虑引理 \ref{restricted-lemma-finite-type} 所定义的
+$\textit{WAdm}^{adic*}$ 箭头的性质 $P$。
+则 $P$ 在形式空间之备注
+\ref{formal-spaces-remark-composition-variant-adic-star}
+所定义的复合下稳定。
+\end{lemma}
+
+\begin{proof}
+陈述由引理 \ref{restricted-lemma-finite-type} 是有意义的。
+最容易的证明方式是说明：
+(a) adic 拓扑环之间 adic 环映射的复合仍为 adic；
+(b) 连续环映射的复合保持拓扑有限型这一性质。
+细节略。
+\end{proof}
+
+\noindent
+下面的引理说明，adic* 形式代数空间的态射局部有限型，
+当且仅当它们在平展局部由引理
+\ref{restricted-lemma-finite-type} 所述类型的拓扑环映射给出。
+
+\begin{lemma}
+\label{restricted-lemma-finite-type-morphisms}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部 adic* 形式代数空间的态射。
+以下条件等价：
+\begin{enumerate}
+\item 对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+是由代数空间可表且平展的，态射 $U\to V$ 对应于
+$\textit{WAdm}^{adic*}$ 中 adic 且拓扑有限型的箭头；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$，并且对每个 $j$，
+存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖
+$\{X_{ji}\to Y_j\times_YX\}$，使每个
+$X_{ji}\to Y_j$ 对应于 $\textit{WAdm}^{adic*}$ 中 adic 且拓扑有限型的箭头；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_i\to X\}$，并且对每个 $i$，
+存在分解 $X_i\to Y_i\to Y$，其中 $Y_i$ 是仿射形式代数空间，
+$Y_i\to Y$ 由代数空间可表且平展，而
+$X_i\to Y_i$ 对应于 $\textit{WAdm}^{adic*}$ 中 adic 且拓扑有限型的箭头；并且
+\item $f$ 局部有限型。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+立即由引理 \ref{restricted-lemma-finite-type} 中 (1) 与 (2) 的等价性，以及形式空间之引理
+\ref{formal-spaces-lemma-finite-type-local-property} 得到。
+\end{proof}
+
+\section{约化上的有限型}
+\label{restricted-section-finite-type-red}
+
+\noindent
+本节略谈局部可数指标化形式代数空间的态射
+$X\to Y$，其中 $X_{red}\to Y_{red}$ 局部有限型。
+我们会把它转化为一个代数条件。为理解这一代数条件，记住以下事实会很有用：
+\begin{itemize}
+\item 若 $A$ 为弱容许拓扑环，则拓扑幂零元素的集合
+$\mathfrak a\subset A$ 是开根理想，并且
+$\text{Spf}(A)_{red}=\Spec(A/\mathfrak a)$。
+\end{itemize}
+见形式空间之定义
+\ref{formal-spaces-definition-weakly-admissible}、引理
+\ref{formal-spaces-lemma-topologically-nilpotent} 以及例
+\ref{formal-spaces-example-reduction-affine-formal-spectrum}。
+
+\begin{lemma}
+\label{restricted-lemma-finite-type-red}
+对 $\text{WAdm}^{count}$ 中的箭头 $\varphi:A\to B$，考虑性质
+$P(\varphi)=$“诱导的环同态
+$A/\mathfrak a\to B/\mathfrak b$ 为有限型”，
+其中 $\mathfrak a\subset A$ 和 $\mathfrak b\subset B$
+是拓扑幂零元素的理想。
+则 $P$ 是形式空间之情形
+\ref{formal-spaces-situation-local-property} 所定义的局部性质。
+\end{lemma}
+
+\begin{proof}
+考虑形式空间之情形
+\ref{formal-spaces-situation-local-property} 中的交换图表
+$$
+\xymatrix{
+B \ar[r] & (B')^\wedge \\
+A \ar[r] \ar[u]^\varphi & (A')^\wedge \ar[u]_{\varphi'}
+}
+$$
+对该图表取 $\text{Spf}$，得到仿射形式代数空间的图表
+$$
+\xymatrix{
+\text{Spf}(B) \ar[d] &
+\text{Spf}((B')^\wedge) \ar[l] \ar[d] \\
+\text{Spf}(A) &
+\text{Spf}((A')^\wedge) \ar[l]
+}
+$$
+由形式空间之引理 \ref{formal-spaces-lemma-etale}，
+其中横向箭头由代数空间可表且平展。
+因此得到仿射概形的交换图表
+$$
+\xymatrix{
+\text{Spf}(B)_{red} \ar[d]^f &
+\text{Spf}((B')^\wedge)_{red} \ar[l]^g \ar[d]^{f'} \\
+\text{Spf}(A)_{red} &
+\text{Spf}((A')^\wedge)_{red} \ar[l]
+}
+$$
+由形式空间之引理
+\ref{formal-spaces-lemma-reduction-smooth}，其中横向箭头平展。
+由形式空间之例
+\ref{formal-spaces-example-reduction-affine-formal-spectrum} 和引理
+\ref{formal-spaces-lemma-etale-surjective}，
+形式空间之情形
+\ref{formal-spaces-situation-local-property} 中的条件 (1)、(2)、(3)
+转化为以下陈述：
+\begin{enumerate}
+\item 若 $f$ 局部有限型，则 $f'$ 局部有限型；
+\item 若 $f'$ 局部有限型且 $g$ 满，则 $f$ 局部有限型；并且
+\item 若 $T_i\to S$（$i=1,\ldots,n$）局部有限型，则
+$\coprod_{i=1,\ldots,n}T_i\to S$ 局部有限型。
+\end{enumerate}
+(1) 与 (2) 来自局部有限型这一性质在平展拓扑下对源和目标均为局部的事实，
+见空间的态射之 \ref{spaces-morphisms-section-finite-type} 节中的讨论。
+(3) 是定义的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-finite-type-red}
+考虑引理 \ref{restricted-lemma-finite-type-red} 所定义的
+$\textit{WAdm}^{count}$ 箭头的性质 $P$。
+则 $P$ 在基变换下稳定（形式空间之情形
+\ref{formal-spaces-situation-base-change-local-property}）。
+\end{lemma}
+
+\begin{proof}
+陈述由引理 \ref{restricted-lemma-finite-type-red} 是有意义的。
+为证明它，假设在 $\textit{WAdm}^{count}$ 中有态射
+$B\to A$ 与 $B\to C$，使得
+$B/\mathfrak b\to A/\mathfrak a$ 为有限型，
+其中 $\mathfrak b\subset B$ 与 $\mathfrak a\subset A$
+是拓扑幂零元素的理想。
+由于 $A$ 和 $B$ 弱容许，理想 $\mathfrak a$ 与 $\mathfrak b$ 是开的。
+令 $\mathfrak c\subset C$ 为拓扑幂零元素的（开）理想。
+则得到满射
+$$
+A\widehat{\otimes}_BC\to
+A/\mathfrak a\otimes_{B/\mathfrak b}C/\mathfrak c
+$$
+其核是弱定义理想，因而由拓扑幂零元素组成
+（请与形式空间之引理
+\ref{formal-spaces-lemma-completed-tensor-product} 的证明比较）。
+由于
+$C/\mathfrak c\to
+A/\mathfrak a\otimes_{B/\mathfrak b}C/\mathfrak c$
+已经是 $B/\mathfrak b\to A/\mathfrak a$ 的基变换，所以为有限型。
+结论随即得到。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-finite-type-red}
+考虑引理 \ref{restricted-lemma-finite-type-red} 所定义的
+$\textit{WAdm}^{count}$ 箭头的性质 $P$。
+则 $P$ 在复合下稳定（形式空间之情形
+\ref{formal-spaces-situation-composition-local-property}）。
+\end{lemma}
+
+\begin{proof}
+略。提示：有限型环映射的复合仍为有限型。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-finite-type-finite-type-red}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{count}$ 中的箭头。
+若 $\varphi$ 是 taut 且拓扑有限型的，则 $\varphi$
+满足引理 \ref{restricted-lemma-finite-type-red} 所定义的条件。
+\end{lemma}
+
+\begin{proof}
+这是定义的一个容易推论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-Noetherian-finite-type-red}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头，
+并满足引理 \ref{restricted-lemma-finite-type-red} 所定义的条件。
+则 $A\to B$ 拓扑有限型。
+\end{lemma}
+
+\begin{proof}
+令 $\mathfrak b\subset B$ 为拓扑幂零元素的理想。
+选取 $b_1,\ldots,b_r\in B$，它们的像生成 $B/\mathfrak b$
+作为 $A$-代数。再选取理想 $\mathfrak b$ 的生成元
+$b_{r+1},\ldots,b_s$。
+我们声称，映射
+$$
+\varphi:A[x_1,\ldots,x_s]\longrightarrow B,\quad
+x_i\longmapsto b_i
+$$
+的像稠密。事实上，若对某个 $n\geq0$ 有 $b\in\mathfrak b^n$，
+则可对多重指标
+$E=(e_{r+1},\ldots,e_s)$ 写成
+$$
+b=\sum b_Eb_{r+1}^{e_{r+1}}\ldots b_s^{e_s},
+|E|=\sum e_i=n, b_E\in B
+$$
+接着，可以写
+$b_E=f_E(b_1,\ldots,b_r)+b'_E$，其中
+$b'_E\in\mathfrak b$ 且
+$f_E\in A[x_1,\ldots,x_r]$。
+合起来得到 $b\in\Im(\varphi)+\mathfrak b^{n+1}$。
+由归纳可见，对所有 $n\geq0$，
+$B=\Im(\varphi)+\mathfrak b^n$；由于 $\mathfrak b$ 是 $B$ 的定义理想，
+这就蕴含所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-Noetherian-adic-finite-type-red}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头。
+若 $\varphi$ 是 adic 的，则以下条件等价：
+\begin{enumerate}
+\item $\varphi$ 满足引理
+\ref{restricted-lemma-finite-type-red} 所定义的条件；并且
+\item $\varphi$ 满足引理
+\ref{restricted-lemma-finite-type} 所定义的条件。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：为证明 (1) $\Rightarrow$ (2)，使用引理
+\ref{restricted-lemma-Noetherian-finite-type-red}。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-finite-type-red-morphisms}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部可数指标化形式代数空间的态射。
+以下条件等价：
+\begin{enumerate}
+\item 对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$ 对应于
+$\textit{WAdm}^{count}$ 中满足引理
+\ref{restricted-lemma-finite-type-red} 所定义性质的箭头；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$，并且对每个 $j$，
+存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_{ji}\to Y_j\times_YX\}$，
+使每个 $X_{ji}\to Y_j$ 对应于
+$\textit{WAdm}^{count}$ 中满足引理
+\ref{restricted-lemma-finite-type-red} 所定义性质的箭头；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_i\to X\}$，并且对每个 $i$，
+存在分解 $X_i\to Y_i\to Y$，其中 $Y_i$ 是仿射形式代数空间，
+$Y_i\to Y$ 由代数空间可表且平展，而
+$X_i\to Y_i$ 对应于
+$\textit{WAdm}^{count}$ 中满足引理
+\ref{restricted-lemma-finite-type-red} 所定义性质的箭头；并且
+\item 态射 $f_{red}:X_{red}\to Y_{red}$ 局部有限型。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1)、(2)、(3) 的等价性由引理
+\ref{restricted-lemma-finite-type-red} 以及形式空间之引理
+\ref{formal-spaces-lemma-property-defines-property-morphisms} 得到。
+令 $Y_j$ 与 $X_{ji}$ 如 (2)。则
+\begin{itemize}
+\item 族
+$\{Y_{j,red}\to Y_{red}\}$ 与
+$\{X_{ji,red}\to X_{red}\}$ 是仿射概形的平展覆盖。
+这由形式空间之引理
+\ref{formal-spaces-lemma-reduction-formal-algebraic-space}
+的证明中的讨论得到，也可直接由形式空间之引理
+\ref{formal-spaces-lemma-reduction-smooth} 得到。
+\item 若 $X_{ji}\to Y_j$ 对应于
+$\textit{WAdm}^{count}$ 中的态射 $B_j\to A_{ji}$，
+则 $X_{ji,red}\to Y_{j,red}$ 对应于环映射
+$B_j/\mathfrak b_j\to A_{ji}/\mathfrak a_{ji}$，
+其中 $\mathfrak b_j$ 和 $\mathfrak a_{ji}$ 是拓扑幂零元素的理想。
+这由形式空间之例
+\ref{formal-spaces-example-reduction-affine-formal-spectrum} 得到。
+因此，$X_{ji,red}\to Y_{j,red}$ 局部有限型，
+当且仅当 $B_j\to A_{ji}$ 满足引理
+\ref{restricted-lemma-finite-type-red} 所定义的性质。
+\end{itemize}
+由这些说明，(2) 与 (4) 等价，因为局部有限型是代数空间态射的一个性质，
+且在平展拓扑下对源和目标均为局部的，见空间的态射之
+\ref{spaces-morphisms-section-finite-type} 节中的讨论。
+\end{proof}
+
+\section{平坦态射}
+\label{restricted-section-flat}
+
+\noindent
+本节定义局部诺特形式代数空间的平坦态射。
+
+\begin{lemma}
+\label{restricted-lemma-flat-axioms}
+$\textit{WAdm}^{Noeth}$ 箭头上的性质
+$P(\varphi)=$“$\varphi$ 平坦”是形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 所定义的局部性质。
+\end{lemma}
+
+\begin{proof}
+回忆该陈述的含义。首先，$\textit{WAdm}^{Noeth}$ 是以下范畴：
+对象为 adic 诺特拓扑环，态射为连续环同态。
+考虑满足以下条件的交换图表
+$$
+\xymatrix{
+B \ar[r] & (B')^\wedge \\
+A \ar[r] \ar[u]^\varphi & (A')^\wedge \ar[u]_{\varphi'}
+}
+$$
+$A$ 与 $B$ 是 adic 诺特拓扑环，
+$A\to A'$ 与 $B\to B'$ 是平展环映射，
+对某个定义理想 $I\subset A$ 有
+$(A')^\wedge=\lim A'/I^nA'$，
+对某个定义理想 $J\subset B$ 有
+$(B')^\wedge=\lim B'/J^nB'$，
+并且 $\varphi:A\to B$ 与
+$\varphi':(A')^\wedge\to(B')^\wedge$ 连续。
+由形式空间之引理
+\ref{formal-spaces-lemma-completion-in-sub}，
+$(A')^\wedge$ 与 $(B')^\wedge$ 是 adic 诺特拓扑环。
+需要证明
+\begin{enumerate}
+\item $\varphi$ 平坦 $\Rightarrow\varphi'$ 平坦；
+\item 若 $B\to B'$ 忠实平坦，则
+$\varphi'$ 平坦 $\Rightarrow\varphi$ 平坦；并且
+\item 若对 $i=1,\ldots,n$，$A\to B_i$ 平坦，则
+$A\to\prod_{i=1,\ldots,n}B_i$ 平坦。
+\end{enumerate}
+我们将不再说明地使用诺特环的完备化平坦这一事实
+（代数，引理 \ref{algebra-lemma-completion-flat}）。
+当然，$A\to A'$ 和 $B\to B'$ 平坦，
+因此特别地，图表中的横向箭头平坦。
+
+\medskip\noindent
+(1) 的证明。若 $\varphi$ 平坦，则复合
+$A\to(A')^\wedge\to(B')^\wedge$ 平坦。
+因此由平坦性续篇之引理
+\ref{flat-lemma-etale-flat-up-down}，
+$A'\to(B')^\wedge$ 平坦。
+再对 $R=A'$、理想 $I(A')$ 以及
+$M=(B')^\wedge=M^\wedge$ 应用更多代数之引理
+\ref{more-algebra-lemma-flat-after-completion}，
+可见 $(A')^\wedge\to(B')^\wedge$ 平坦。
+
+\medskip\noindent
+(2) 的证明。假设 $\varphi'$ 平坦且 $B\to B'$ 忠实平坦。
+则复合 $A\to(A')^\wedge\to(B')^\wedge$ 平坦。
+又由形式空间之引理
+\ref{formal-spaces-lemma-etale-surjective}，
+$B\to(B')^\wedge$ 忠实平坦。
+因此由代数之引理
+\ref{algebra-lemma-flatness-descends-more-general}，
+$\varphi:A\to B$ 平坦。
+
+\medskip\noindent
+(3) 的证明略。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-flat-continuous}
+记 $P$ 为引理 \ref{restricted-lemma-flat-axioms} 所定义的
+$\textit{WAdm}^{Noeth}$ 箭头的性质。
+记 $Q$ 为引理 \ref{restricted-lemma-finite-type-red} 所定义的性质，
+把它视为 $\textit{WAdm}^{Noeth}$ 箭头的性质。
+记 $R$ 为引理 \ref{restricted-lemma-finite-type} 所定义的性质，
+把它视为 $\textit{WAdm}^{Noeth}$ 箭头的性质。则
+\begin{enumerate}
+\item $P$ 在由 $Q$ 作基变换下稳定
+（形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}）；并且
+\item $P+R$ 在基变换下稳定
+（形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-Noetherian}）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+陈述是有意义的，因为 $P,Q,R$ 都是
+$\textit{WAdm}^{Noeth}$ 态射的局部性质。
+设 $\varphi:B\to A$ 与 $\psi:B\to C$ 为
+$\textit{WAdm}^{Noeth}$ 的态射。
+若 $Q(\varphi)$ 或 $Q(\psi)$ 成立，则由形式空间之引理
+\ref{formal-spaces-lemma-completed-tensor-product}，
+$A\widehat{\otimes}_BC$ 是诺特环。
+由于 $R$ 蕴含 $Q$（引理
+\ref{restricted-lemma-finite-type-finite-type-red}），
+可知在 (1)、(2) 两种情形下都如此。
+这是首先必须核对的事项。还需证明
+$C\to A\widehat{\otimes}_BC$ 平坦。
+
+\medskip\noindent
+(1) 的证明。固定定义理想 $I\subset A$ 与 $J\subset B$。
+由引理 \ref{restricted-lemma-Noetherian-finite-type-red}，
+环映射 $B\to C$ 拓扑有限型。
+因此，对所有 $n\geq1$，$B\to C/J^n$ 为有限型。
+于是环 $A\otimes_BC/J^n$ 是诺特的
+（因为它在 $A$ 上有限型，且 $A$ 为诺特环）。
+所以 $A\otimes_BC/J^n$ 的 $I$-进完备化
+$A\widehat{\otimes}_BC/J^n$ 在 $C/J^n$ 上平坦：
+$C/J^n\to A\otimes_BC/J^n$ 是 $B\to A$ 的基变换，因而平坦；
+而由代数之引理 \ref{algebra-lemma-completion-flat}，
+$A\otimes_BC/J^n\to A\widehat{\otimes}_BC/J^n$ 平坦。
+注意
+$$
+A\widehat{\otimes}_BC/J^n=
+(A\widehat{\otimes}_BC)/J^n(A\widehat{\otimes}_BC)
+$$
+细节略。由此，$M=A\widehat{\otimes}_BC$ 是 $C$-模，
+关于 $J$-进拓扑完备，并且对所有 $n\geq1$，
+$M/J^nM$ 在 $C/J^n$ 上平坦。
+由更多代数之引理
+\ref{more-algebra-lemma-limit-flat}，这蕴含 $M$ 在 $C$ 上平坦。
+
+\medskip\noindent
+(2) 的证明。此时 $B\to A$ 是 adic 的，因而只有
+$$
+A\widehat{\otimes}_BC=\lim A\otimes_BC/J^n
+$$
+对形式空间之引理
+\ref{formal-spaces-lemma-completed-tensor-product}
+应用 $C/J^n$ 代替 $C$，可知环
+$A\otimes_BC/J^n$ 是诺特的。
+与此前相同地得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-flat-continuous}
+记 $P$ 为引理 \ref{restricted-lemma-flat-axioms} 所定义的
+$\textit{WAdm}^{Noeth}$ 箭头的性质。
+则 $P$ 在复合下稳定（形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian}）。
+\end{lemma}
+
+\begin{proof}
+这是因为平坦环映射的复合仍平坦。
+\end{proof}
+
+\begin{definition}
+\label{restricted-definition-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 adic 诺特拓扑环之间的平坦映射，
+则称 $f$ {\it 平坦}。
+\end{definition}
+
+\noindent
+下面证明该条件可以在源和目标上平展局部地检验。
+
+\begin{lemma}
+\label{restricted-lemma-flat-morphisms}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+以下条件等价：
+\begin{enumerate}
+\item $f$ 平坦；
+\item 对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 $\textit{WAdm}^{Noeth}$ 中的平坦映射；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$，并且对每个 $j$，
+存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_{ji}\to Y_j\times_YX\}$，
+使每个 $X_{ji}\to Y_j$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的平坦映射；并且
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_i\to X\}$，并且对每个 $i$，
+存在分解 $X_i\to Y_i\to Y$，其中 $Y_i$ 是仿射形式代数空间，
+$Y_i\to Y$ 由代数空间可表且平展，而
+$X_i\to Y_i$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的平坦映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性就是定义 \ref{restricted-definition-flat}。
+(2)、(3)、(4) 的等价性来自以下事实：
+由引理 \ref{restricted-lemma-flat-axioms}，平坦是
+$\text{WAdm}^{Noeth}$ 箭头的局部性质；
+再应用形式空间之引理
+\ref{formal-spaces-lemma-property-defines-property-morphisms}
+对局部诺特代数空间之间态射的变体，
+该变体在形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 中提及。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Z\to Y$
+为 $S$ 上局部诺特形式代数空间的态射。
+\begin{enumerate}
+\item 若 $f$ 平坦，且
+$g_{red}:Z_{red}\to Y_{red}$ 局部有限型，
+则基变换 $X\times_YZ\to Z$ 平坦。
+\item 若 $f$ 平坦且局部有限型，则基变换
+$X\times_YZ\to Z$ 平坦且局部有限型。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}、
+引理 \ref{restricted-lemma-base-change-flat-continuous} 的 (1)、
+引理 \ref{restricted-lemma-flat-morphisms} 以及
+引理 \ref{restricted-lemma-finite-type-red-morphisms} 合并得到。
+
+\medskip\noindent
+(2) 由形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-Noetherian}、
+引理 \ref{restricted-lemma-base-change-flat-continuous} 的 (2)、
+引理 \ref{restricted-lemma-flat-morphisms} 以及
+引理 \ref{restricted-lemma-finite-type-morphisms} 合并得到。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 与 $g$ 平坦，则 $g\circ f$ 也平坦。
+\end{lemma}
+
+\begin{proof}
+结合形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian}
+与引理 \ref{restricted-lemma-composition-flat-continuous}。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-representable-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 由代数空间可表，并且在 Bootstrap 之定义
+\ref{bootstrap-definition-property-transformation} 的意义下平坦，
+则 $f$ 在定义 \ref{restricted-definition-flat} 的意义下平坦。
+\end{lemma}
+
+\begin{proof}
+这是一个健全性检验，其证明本应平凡，但并不完全如此。
+我们力劝读者跳过此证明。
+假设 $f$ 由代数空间可表，并且在 Bootstrap 之定义
+\ref{bootstrap-definition-property-transformation} 的意义下平坦。
+考虑交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展。
+则由形式空间之引理
+\ref{formal-spaces-lemma-representable-local-property}，
+态射 $U\to V$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 taut 映射 $B\to A$。
+注意，这意味着 $B\to A$ 是 adic 的（形式空间，引理
+\ref{formal-spaces-lemma-adic-homomorphism}）。
+特别地，对任意定义理想 $J\subset B$，
+$A$ 上的拓扑为 $J$-进拓扑，并且图表
+$$
+\xymatrix{
+\Spec(A/J^nA) \ar[r] \ar[d] & \Spec(B/J^n) \ar[d] \\
+U \ar[r] & V
+}
+$$
+是笛卡尔的。
+
+\medskip\noindent
+设 $T\to V$ 为态射，其中 $T$ 是概形。则
+\begin{align*}
+X\times_YT\to T\text{ 平坦}
+&\Rightarrow
+U\times_YT\to T\text{ 平坦}\\
+&\Rightarrow
+U\times_VV\times_YT\to T\text{ 平坦}\\
+&\Rightarrow
+U\times_VV\times_YT\to V\times_YT\text{ 平坦}\\
+&\Rightarrow
+U\times_VT\to T\text{ 平坦}
+\end{align*}
+第一个陈述是对 $f$ 的假设。
+第一个蕴含成立，因为 $U\to X$ 平展，因而平坦，并且代数空间平坦态射的复合仍平坦。
+第二个蕴含成立，因为
+$U\times_YT=U\times_VV\times_YT$。
+第三个蕴含由平坦性续篇之引理
+\ref{flat-lemma-etale-flat-up-down} 得到。
+第四个蕴含成立，因为可以由态射
+$T\to V\times_YT$ 拉回。
+由此可知，$U\to V$ 在 Bootstrap 之定义
+\ref{bootstrap-definition-property-transformation} 的意义下平坦。
+就连续环映射 $B\to A$ 而言，这意味着环映射
+$B/J^n\to A/J^nA$ 平坦（见上图）。
+
+\medskip\noindent
+最后，例如由更多代数之引理
+\ref{more-algebra-lemma-limit-flat}，可知 $B\to A$ 平坦。
+\end{proof}
+
+\section{rig-闭点}
+\label{restricted-section-rig-points}
+
+\noindent
+我们只发展足够的理论，以便在后文中用它检验 rig-平坦性。
+读者可在 \cite{BL-I} 中找到更多理论；该文除其他内容外，
+还讨论了局部诺特形式概形的情形。
+
+\begin{lemma}
+\label{restricted-lemma-rig-point}
+设 $A$ 为诺特 adic 拓扑环。设 $\mathfrak q\subset A$ 为素理想。
+以下条件等价：
+\begin{enumerate}
+\item 对某个定义理想 $I\subset A$，
+$I\not\subset\mathfrak q$，且 $\mathfrak q$ 对这一性质极大；
+\item 对某个定义理想 $I\subset A$，
+素理想 $\mathfrak q$ 定义了
+$\Spec(A)\setminus V(I)$ 的一个闭点；
+\item 对任意定义理想 $I\subset A$，
+$I\not\subset\mathfrak q$，且 $\mathfrak q$ 对这一性质极大；
+\item 对任意定义理想 $I\subset A$，
+素理想 $\mathfrak q$ 定义了
+$\Spec(A)\setminus V(I)$ 的一个闭点；
+\item $\dim(A/\mathfrak q)=1$，且对某个定义理想
+$I\subset A$，有 $I\not\subset\mathfrak q$；
+\item $\dim(A/\mathfrak q)=1$，且对任意定义理想
+$I\subset A$，有 $I\not\subset\mathfrak q$；
+\item $\dim(A/\mathfrak q)=1$，且 $A/\mathfrak q$ 上诱导的拓扑非平凡；
+\item $A/\mathfrak q$ 是 $1$ 维诺特完备局部整环，
+其极大理想是 $A$ 的任意定义理想之像的根；并且
+\item 在此添加更多内容。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+显然，(1) 与 (2) 等价；同理，(3) 与 (4) 等价。
+由于 $V(I)$ 与 $A$ 的定义理想 $I$ 的选择无关，可知 (2) 与 (4) 等价。
+
+\medskip\noindent
+假设等价条件 (1)--(4) 成立。
+若 $\dim(A/\mathfrak q)>1$，则可以选择极大理想
+$\mathfrak q\subset\mathfrak m\subset A$，使得
+$\dim((A/\mathfrak q)_\mathfrak m)>1$。
+于是由代数之引理
+\ref{algebra-lemma-Noetherian-local-domain-dim-2-infinite-opens}，
+$$
+\Spec((A/\mathfrak q)_\mathfrak m)
+-V(I(A/\mathfrak q)_\mathfrak m)
+$$
+将是无限的。这与 $\mathfrak q$ 在
+$\Spec(A)\setminus V(I)$ 中闭矛盾。
+所以 (6) 成立。显然 (6) 蕴含 (5)。
+
+\medskip\noindent
+反之，假设 (5) 成立。设 $I\subset A$ 为定义理想。
+由于 $A/\mathfrak q$ 关于 $I(A/\mathfrak q)$ 完备
+（例如由代数之引理 \ref{algebra-lemma-completion-tensor}），
+由代数之引理 \ref{algebra-lemma-radical-completion}，
+$\Spec(A/\mathfrak q)$ 的所有闭点都包含在
+$V(IA/\mathfrak q)$ 中。
+由于 $\dim(A/\mathfrak q)=1$ 且
+$I\not\subset\mathfrak q$，得到两点：
+(a) $V(IA/\mathfrak q)$ 必须包含
+$\Spec(A/\mathfrak q)$ 中除泛点以外的所有点；
+(b) $V(IA/\mathfrak q)$ 必须是（有限）离散集。
+由 (a)，$\mathfrak q$ 是
+$\Spec(A)\setminus V(I)$ 的闭点，故 (2) 成立。
+
+\medskip\noindent
+继续假设 (5)。例如由更多代数之引理
+\ref{more-algebra-lemma-irreducible-henselian-pair-connected}
+（以及完备对是 Hensel 对这一事实，见更多代数之引理
+\ref{more-algebra-lemma-complete-henselian}），
+有限离散空间 $V(IA/\mathfrak q)$ 必为单点。
+故 (8) 成立。反之，显然 (8) 蕴含 (5)。
+
+\medskip\noindent
+至此已知 (1)--(6) 与 (8) 等价。
+略去它们也与 (7) 等价的验证。
+\end{proof}
+
+\noindent
+为便于讨论这类素理想，引入如下非标准记号。
+
+\begin{definition}
+\label{restricted-definition-rig-closed}
+设 $A$ 为诺特 adic 拓扑环。设 $\mathfrak q\subset A$ 为素理想。
+若引理 \ref{restricted-lemma-rig-point} 的等价条件成立，
+则称 $\mathfrak q$ {\it rig-闭}。
+\end{definition}
+
+\noindent
+我们将需要几个引理；它们实质上说明，即使在相对情形下，
+也存在很多 rig-闭素理想。
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-relative-residue-field}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头。
+记 $\mathfrak a\subset A$ 与 $\mathfrak b\subset B$
+为拓扑幂零元素的理想。假设
+$A/\mathfrak a\to B/\mathfrak b$ 为有限型。
+设 $\mathfrak q\subset B$ 为 rig-闭素理想。
+则局部环 $B/\mathfrak q$ 的剩余域 $\kappa$
+是有限型 $A/\mathfrak a$-代数。
+\end{lemma}
+
+\begin{proof}
+设 $\mathfrak q\subset\mathfrak m\subset B$
+为包含 $\mathfrak q$ 的唯一极大理想。
+则 $\mathfrak b\subset\mathfrak m$。因此
+$A/\mathfrak a\to B/\mathfrak b\to B/\mathfrak m=\kappa$
+为有限型。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-relative}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中 adic 且拓扑有限型的箭头。
+设 $\mathfrak q\subset B$ 为 rig-闭素理想。
+令 $\mathfrak p=\varphi^{-1}(\mathfrak q)\subset A$。
+令 $\mathfrak a\subset A$ 为拓扑幂零元素的理想。
+以下条件等价：
+\begin{enumerate}
+\item $B/\mathfrak q$ 的剩余域 $\kappa$ 在
+$A/\mathfrak a$ 上有限；
+\item $\mathfrak p\subset A$ 是 rig-闭素理想；
+\item $A/\mathfrak p\subset B/\mathfrak q$ 是有限环扩张。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1)。回忆 $B/\mathfrak q$ 是 $1$ 维诺特局部环，
+其拓扑是由极大理想给出的 adic 拓扑。
+由于 $\varphi$ 是 adic 的，$A\to B/\mathfrak q$ 是 adic 的。
+因此 $\varphi(\mathfrak a)$ 是 $B/\mathfrak q$ 中的非零理想。
+所以 $B/\mathfrak q+\varphi(\mathfrak a)$ 具有有限长度。
+再由假设，$B/\mathfrak q+\varphi(\mathfrak a)$
+作为 $A/\mathfrak a$-模是有限的。
+故由代数之引理
+\ref{algebra-lemma-finite-over-complete-ring}，
+$B/\mathfrak q$ 在 $A$ 上有限。因此 (3) 成立。
+
+\medskip\noindent
+假设 (3)。由代数之引理
+\ref{algebra-lemma-integral-overring-surjective}，
+$\Spec(B/\mathfrak q)\to\Spec(A/\mathfrak p)$ 满。
+这蕴含 (2)。
+
+\medskip\noindent
+假设 (2)。记 $\kappa'$ 为 $A/\mathfrak p$ 的剩余域。
+由引理 \ref{restricted-lemma-rig-closed-point-relative-residue-field}
+（以及引理 \ref{restricted-lemma-finite-type-finite-type-red}），
+扩张 $\kappa/\kappa'$ 作为代数是有限生成的。
+由 Hilbert 零点定理（代数，引理
+\ref{algebra-lemma-field-finite-type-over-domain}），
+$\kappa/\kappa'$ 是有限扩张。因此 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-jacobson}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中 adic 且拓扑有限型的箭头。
+设 $\mathfrak q\subset B$ 为 rig-闭素理想。
+若对某个定义理想 $I\subset A$，$A/I$ 是 Jacobson 环，
+则 $\mathfrak p=\varphi^{-1}(\mathfrak q)\subset A$ 是 rig-闭素理想。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-closed-point-relative-residue-field}
+（与引理 \ref{restricted-lemma-finite-type-finite-type-red} 合用），
+$B/\mathfrak q$ 的剩余域 $\kappa$ 在
+$A/\mathfrak a$ 上有限型。
+由于 $A/\mathfrak a$ 是 Jacobson 环，由代数之引理
+\ref{algebra-lemma-silly-jacobson}，
+$\kappa$ 在 $A/\mathfrak a$ 上有限。
+结论由引理 \ref{restricted-lemma-rig-closed-point-relative} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-in-image}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中 adic 且拓扑有限型的箭头。
+设 $\mathfrak p\subset A$ 为 rig-闭素理想。
+设 $\mathfrak a\subset A$ 与 $\mathfrak b\subset B$
+为拓扑幂零元素的理想。若 $\varphi$ 平坦，则以下条件等价：
+\begin{enumerate}
+\item $A/\mathfrak p$ 的极大理想在映射
+$\Spec(B/\mathfrak b)\to\Spec(A/\mathfrak a)$ 的像中；
+\item 存在 rig-闭素理想 $\mathfrak q\subset B$，使得
+$\mathfrak p=\varphi^{-1}(\mathfrak q)$。
+\end{enumerate}
+若这些条件成立，则 $\varphi$、$\mathfrak p$、$\mathfrak q$
+满足引理 \ref{restricted-lemma-rig-closed-point-relative} 的结论。
+\end{lemma}
+
+\begin{proof}
+(2) $\Rightarrow$ (1) 是立即的。假设 (1)。
+为证明 $\mathfrak q$ 的存在性，可以用
+$A/\mathfrak p$ 代替 $A$，并用
+$B/\mathfrak pB$ 代替 $B$（略去一些细节）。
+因此可假设 $(A,\mathfrak m,\kappa)$ 是 $1$ 维诺特完备局部环，
+$\mathfrak m=\mathfrak a$，且 $\mathfrak p=(0)$。
+条件 (1) 只是说
+$$
+B_0=B\otimes_A\kappa=B/\mathfrak mB=B/\mathfrak aB
+$$
+非零。注意，$B_0$ 在 $\kappa$ 上有限型。
+因此可以对 $\dim(B_0)$ 作归纳。
+若 $\dim(B_0)=0$，则任意极小素理想 $\mathfrak q\subset B$ 都可用
+（$A\to B$ 的平坦性保证 $\mathfrak q$ 位于
+$\mathfrak p=(0)$ 上方）。
+若 $\dim(B_0)>0$，则可以找到 $b\in B$，其像
+$b_0\in B_0$ 是非零因子且不是单位，见代数之引理
+\ref{algebra-lemma-dim-not-zero-exists-nonzerodivisor-nonunit}。
+由代数之引理 \ref{algebra-lemma-grothendieck}，
+环 $B'=B/bB$ 在 $A$ 上平坦。
+由于 $B'_0=B'\otimes_A\kappa=B_0/(b_0)$ 非零，
+可对 $B'$ 应用归纳假设而得出结论。
+引理的最后一个陈述显然由引理
+\ref{restricted-lemma-rig-closed-point-relative} 得到。
+\end{proof}
+
+\noindent
+引入一些记号。
+
+\begin{definition}
+\label{restricted-definition-completed-principal-localization}
+设 $A$ 为具有有限生成定义理想的 adic 拓扑环。设 $f\in A$。
+$A$ 的{\it 完备化主局部化} $A_{\{f\}}$ 定义为：
+把 $A$ 在 $f$ 处的主局部化 $A_f=A[1/f]$
+关于 $A$ 的任意定义理想作完备化。
+\end{definition}
+
+\noindent
+需要说明的是，若 $f$ 拓扑幂零，则 $A_{\{f\}}$ 为零环。
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-in-localization}
+设 $A$ 为 adic 诺特拓扑环。
+设 $\mathfrak p\subset A$ 为素理想。
+设 $f\in A$ 的像在 $A/\mathfrak p$ 中为单位。则
+$$
+\mathfrak pA_{\{f\}}=
+\mathfrak p(A_f)^\wedge=
+\mathfrak p\otimes_A(A_f)^\wedge=
+(\mathfrak p_f)^\wedge
+$$
+是素理想，其商为
+$$
+A/\mathfrak p=(A/\mathfrak p)\otimes_A(A_f)^\wedge=
+(A_f)^\wedge/\mathfrak p(A_f)^\wedge
+=A_{\{f\}}/\mathfrak pA_{\{f\}}
+$$
+\end{lemma}
+
+\begin{proof}
+由于 $A_f$ 诺特，环映射
+$A\to A_f\to(A_f)^\wedge$ 平坦。
+对任意有限 $A$-模 $M$，
+$M\otimes_A(A_f)^\wedge$ 是 $M_f$ 的完备化。
+若 $f$ 在 $M$ 上为单位，则 $M_f=M$ 已经完备。
+见代数之 \ref{algebra-section-completion-noetherian} 节中的讨论。
+这些观察容易推出结论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-after-localization}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中 adic 且拓扑有限型的箭头。
+设 $\mathfrak q\subset B$ 为 rig-闭素理想。
+存在 $f\in A$，其像在 $B/\mathfrak q$ 中为单位，并得到图表
+$$
+\vcenter{
+\xymatrix{
+B \ar[r] &
+B_{\{f\}} \\
+A \ar[r] \ar[u]_\varphi &
+A_{\{f\}} \ar[u]_{\varphi_{\{f\}}}
+}
+}
+\quad\text{以及素理想}\quad
+\vcenter{
+\xymatrix{
+\mathfrak q \ar@{-}[r] \ar@{-}[d] &
+\mathfrak q' \ar@{-}[d] \ar@{=}[r] &
+\mathfrak qB_{\{f\}} \\
+\mathfrak p \ar@{-}[r] &
+\mathfrak p'
+}
+}
+$$
+使得 $\mathfrak p'$ 是 rig-闭的；也就是说，映射
+$A_{\{f\}}\to B_{\{f\}}$ 与素理想
+$\mathfrak q'$、$\mathfrak p'$ 满足引理
+\ref{restricted-lemma-rig-closed-point-relative} 的等价条件。
+\end{lemma}
+
+\begin{proof}
+$\mathfrak q'$ 的描述见引理
+\ref{restricted-lemma-rig-closed-point-in-localization}。
+本引理唯一的断言是：可以适当选择 $f$，使素理想
+$\mathfrak p'$ 具有性质
+$\dim((A_f)^\wedge/\mathfrak p')=1$。
+由引理 \ref{restricted-lemma-rig-closed-point-relative}，
+这又只是说
+$B/\mathfrak q=(B_f)^\wedge/\mathfrak q'$
+的剩余域 $\kappa$ 在
+$(A_f)^\wedge/\mathfrak a'=(A/\mathfrak a)_f$ 上有限。
+由引理 \ref{restricted-lemma-rig-closed-point-relative-residue-field}，
+已知 $A/\mathfrak a\to\kappa$ 是有限型代数同态。
+由 Hilbert 零点定理的如下形式——代数之引理
+\ref{algebra-lemma-field-finite-type-over-domain}，
+可以找到 $f\in A$，其像在 $\kappa$ 中为单位，
+使得 $\kappa$ 在 $A_f$ 上有限。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-variables}
+设 $A$ 为诺特 adic 拓扑环。记
+$A\{x_1,\ldots,x_n\}$ 为 $A$ 上的受限幂级数环。
+设 $\mathfrak q\subset A\{x_1,\ldots,x_n\}$ 为素理想。
+置
+$\mathfrak q'=A[x_1,\ldots,x_n]\cap\mathfrak q$ 以及
+$\mathfrak p=A\cap\mathfrak q$。
+若 $\mathfrak q$ 与 $\mathfrak p$ 均为 rig-闭，则映射
+$$
+A[x_1,\ldots,x_n]_{\mathfrak q'}
+\to
+A\{x_1,\ldots,x_n\}_\mathfrak q
+$$
+在关于各自极大理想的完备化之间定义同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-closed-point-relative}，环映射
+$A/\mathfrak p\to A\{x_1,\ldots,x_n\}/\mathfrak q$ 有限。
+对每个 $m\geq1$，模
+$\mathfrak q^m/\mathfrak q^{m+1}$ 在 $A$ 上有限，
+因为它是有限
+$A\{x_1,\ldots,x_n\}/\mathfrak q$-模。
+所以 $A\{x_1,\ldots x_n\}/\mathfrak q^m$ 是有限 $A$-模。
+因此
+$A[x_1,\ldots,x_n]\to
+A\{x_1,\ldots,x_n\}/\mathfrak q^m$
+满射（因为其像稠密且是 $A$-子模）。
+由此直接可知，对所有 $m$，
+$$
+A[x_1,\ldots,x_n]/(\mathfrak q')^m
+\to A\{x_1,\ldots,x_n\}/\mathfrak q^m
+$$
+是同构，引理容易随之得到。
+提示：选取拓扑幂零的 $g\in A$，且它不在 $\mathfrak p$ 中。
+则完备化之间的映射是
+$$
+\lim_m\left(A[x_1,\ldots,x_n]/(\mathfrak q')^m\right)_g
+\longrightarrow
+\left(A\{x_1,\ldots,x_n\}/\mathfrak q^m\right)_g
+$$
+略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-closed-point-etale}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头。
+假设 $\varphi$ 是 adic、拓扑有限型且平坦的，并且对
+某个（相应地，任意）定义理想 $I\subset A$，
+$A/I\to B/IB$ 平展。
+设 $\mathfrak q\subset B$ 为 rig-闭素理想，且
+$\mathfrak p=A\cap\mathfrak q$ 也是 rig-闭的。则
+$\mathfrak pB_\mathfrak q=\mathfrak qB_\mathfrak q$。
+\end{lemma}
+
+\begin{proof}
+令 $\kappa$ 为 $1$ 维完备局部环 $A/\mathfrak p$ 的剩余域。
+由于 $A/I\to B/IB$ 平展，可知
+$B\otimes_A\kappa$ 是 $\kappa$ 的有限可分扩张的有限积，
+见代数之引理 \ref{algebra-lemma-etale-over-field}。
+其中一个因子是 $B/\mathfrak q$ 的剩余域。
+由代数之引理 \ref{algebra-lemma-finite-over-complete-ring}，
+$B/\mathfrak pB$ 是有限 $A/\mathfrak p$-代数。
+它也是平坦的。结合上述事实，由代数之引理
+\ref{algebra-lemma-characterize-etale}，可知
+$A/\mathfrak p\to B/\mathfrak pB$ 有限平展。
+因此 $B/\mathfrak pB$ 既约，这蕴含引理的陈述（细节略）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-fibre-regular}
+设 $A$ 为 adic 诺特拓扑环。
+设 $\mathfrak p\subset A$ 为 rig-闭素理想。
+对任意 $n\geq1$，环映射
+$$
+A/\mathfrak p
+\longrightarrow
+A\{x_1,\ldots,x_n\}\otimes_AA/\mathfrak p=
+A/\mathfrak p\{x_1,\ldots,x_n\}
+$$
+是正则的。特别地，代数
+$A\{x_1,\ldots,x_n\}\otimes_A\kappa(\mathfrak p)$
+在 $\kappa(\mathfrak p)$ 上几何正则。
+\end{lemma}
+
+\begin{proof}
+我们将使用一些关于正则环映射的事实，读者可在更多代数之
+\ref{more-algebra-section-regular} 节找到。
+由于 $A/\mathfrak p$ 是完备诺特局部环，它是优秀的
+（更多代数，命题
+\ref{more-algebra-proposition-ubiquity-excellent}）。
+因此 $A/\mathfrak p[x_1,\ldots,x_n]$ 也是优秀的
+（由同一引用）。
+所以由更多代数之引理
+\ref{more-algebra-lemma-map-G-ring-to-completion-regular}，
+$$
+A/\mathfrak p[x_1,\ldots,x_n]
+\to A/\mathfrak p\{x_1,\ldots,x_n\}
+$$
+是正则环同态。
+当然，$A/\mathfrak p\to A/\mathfrak p[x_1,\ldots,x_n]$
+光滑，因而正则。由于正则环映射的复合仍正则，证明完毕。
+\end{proof}
+
+\section{Rig-平坦同态}
+\label{restricted-section-rig-flat-homomorphisms}
+
+\noindent
+本节定义 adic 诺特拓扑环的 rig-平坦同态。
+
+\begin{lemma}
+\label{restricted-lemma-naively-rig-flat-continuous}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{adic*}$ 中的态射
+（形式空间，第 \ref{formal-spaces-section-morphisms-rings} 节）。
+假设 $\varphi$ 是 adic 的。则下列条件等价：
+\begin{enumerate}
+\item 对每个拓扑幂零元 $f\in A$，$B_f$ 在 $A$ 上平坦；
+\item 对每个拓扑幂零元 $g\in B$，$B_g$ 在 $A$ 上平坦；
+\item 对每个不包含定义理想的素理想 $\mathfrak q\subset B$，
+$B_\mathfrak q$ 在 $A$ 上平坦；
+\item 对每个 rig-闭素理想 $\mathfrak q\subset B$，
+$B_\mathfrak q$ 在 $A$ 上平坦；以及
+\item 在此添加更多内容。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由定义和代数之引理
+\ref{algebra-lemma-flat-localization} 得出。
+\end{proof}
+
+\begin{definition}
+\label{restricted-definition-naively-rig-flat}
+设 $\varphi:A\to B$ 为 adic 诺特拓扑环之间的连续环同态，
+即 $\varphi$ 是 $\textit{WAdm}^{Noeth}$ 中的箭头。
+如果 $\varphi$ 是 adic 的、拓扑有限型的，并满足引理
+\ref{restricted-lemma-naively-rig-flat-continuous} 中的等价条件，
+则称 $\varphi$ 是{\it 朴素 rig-平坦的}。
+\end{definition}
+
+\noindent
+下例表明，这一概念并不能“局部化”。
+
+\begin{example}
+\label{restricted-example-recompletion-not-rig-flat}
+由例子之引理 \ref{examples-lemma-nonreduced-recompletion}，
+存在一个局部诺特 $2$ 维整环 $(A,\mathfrak m)$，它关于主理想
+$I=(a)$ 完备；还存在 $f\in\mathfrak m$、$f\not\in I$，
+使环 $A_{\{f\}}[1/a]$ 非约化。
+这里，$A_{\{f\}}$ 是主局部化 $A_f$ 的 $I$-进完备化
+$(A_f)^\wedge$。需要说明的是，环 $A_{\{f\}}[1/a]$ 非零。
+令
+$B=A_{\{f\}}/\text{nil}(A_{\{f\}})$
+为模其幂零根的商。注意 $A\to B$ 是 adic 的且拓扑有限型。
+事实上，在将 $x$ 映到 $1/f$ 在 $B$ 中的像的映射下，
+$B$ 是 $A\{x\}=A[x]^\wedge$ 的一个商。
+$B$ 中每个不包含 $a$ 的素理想 $\mathfrak q$ 都必定
+位于 $(0)\subset A$ 之上\footnote{事实上，由于 $B$ 是 $a$-进完备的，
+可找到 $\mathfrak q\subset\mathfrak q'\subset B$，使
+$a\in\mathfrak q'$。于是
+$\mathfrak p'=A\cap\mathfrak q'$ 包含 $a$ 而不包含 $f$，
+故为高度 $1$ 的素理想。又因 $a\not\in\mathfrak p$，
+$\mathfrak p=A\cap\mathfrak q$ 必真包含于 $\mathfrak p'$。
+由 $\dim(A)=2$ 可知 $\mathfrak p=(0)$。}。
+因此 $B_\mathfrak q$ 作为 $A$ 的分式域上的模，在 $A$ 上平坦。
+所以 $A\to B$ 是朴素 rig-平坦的。另一方面，映射
+$$
+A_{\{f\}}
+\longrightarrow
+B_{\{f\}}=(B_f)^\wedge=B=A_{\{f\}}/\text{nil}(A_{\{f\}})
+$$
+在逆转 $a$ 后并不平坦，因为所得映射
+$A_{\{f\}}[1/a]\to
+A_{\{f\}}[1/a]/\text{nil}(A_{\{f\}}[1/a])$
+是非平凡满射。因此
+$A_{\{f\}}\to B_{\{f\}}^\wedge$ 并非朴素 rig-平坦！
+\end{example}
+
+\noindent
+事实证明，采用下述定义便可轻易绕开这一问题。
+
+\begin{definition}
+\label{restricted-definition-rig-flat-continuous-homomorphism}
+设 $\varphi:A\to B$ 为 adic 诺特拓扑环之间的连续环同态，
+即 $\varphi$ 是 $\textit{WAdm}^{Noeth}$ 中的箭头。
+如果 $\varphi$ 是 adic 的、拓扑有限型的，并且对每个 $f\in A$，
+诱导映射
+$$
+A_{\{f\}}\longrightarrow B_{\{f\}}
+$$
+都是朴素 rig-平坦的（定义
+\ref{restricted-definition-naively-rig-flat}），则称 $\varphi$ 是
+{\it rig-平坦的}。
+\end{definition}
+
+\noindent
+在上述定义中取 $f=1$，可见 rig-平坦性蕴含朴素 rig-平坦性。
+上例表明其逆命题不成立。不过，在许多情形下，我们不必担心
+rig-平坦性及其朴素版本之间的差别，如下一个引理所示。
+
+\begin{lemma}
+\label{restricted-lemma-rig-flat-naive}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头。
+若对某个（等价地，任意）定义理想 $I\subset A$，$A/I$ 是
+Jacobson 环，并且 $\varphi$ 是朴素 rig-平坦的，
+则 $\varphi$ 是 rig-平坦的。
+\end{lemma}
+
+\begin{proof}
+假设 $\varphi$ 是朴素 rig-平坦的。先陈述这些假设的若干显然推论。
+设 $f\in A$。则 $A,B,A_{\{f\}},B_{\{f\}}$ 都是诺特 adic
+拓扑环。映射
+$A\to A_{\{f\}}\to B_{\{f\}}$ 和
+$A\to B\to B_{\{f\}}$ 都是 adic 的且拓扑有限型。
+环映射 $A\to A_{\{f\}}$ 和 $B\to B_{\{f\}}$ 是平坦的，
+因为它们分别是 $A\to A_f$ 和 $B\to B_f$ 与完备化映射的复合，
+而完备化映射由代数之引理
+\ref{algebra-lemma-completion-flat} 是平坦的。
+环 $A,B,A_{\{f\}},B_{\{f\}}$ 各自模 $I$ 的商都是
+$A/I$ 上的有限型代数，因而也都是 Jacobson 环
+（代数，命题 \ref{algebra-proposition-Jacobson-permanence}）。
+
+\medskip\noindent
+设 $\mathfrak q'\subset B_{\{f\}}$ 是 rig-闭的。
+只需证明 $(B_{\{f\}})_{\mathfrak q'}$ 在 $A_{\{f\}}$ 上平坦，
+见引理 \ref{restricted-lemma-naively-rig-flat-continuous}。
+由引理 \ref{restricted-lemma-rig-closed-jacobson}，位于 $\mathfrak q'$ 下方的
+素理想 $\mathfrak q\subset B$、$\mathfrak p'\subset A_{\{f\}}$
+和 $\mathfrak p\subset A$ 都是 rig-闭的。我们将把代数之引理
+\ref{algebra-lemma-yet-another-variant-local-criterion-flatness}
+应用于图表
+$$
+\xymatrix{
+B_\mathfrak q \ar[r] &
+(B_{\{f\}})_{\mathfrak q'} \\
+A_\mathfrak p \ar[u] \ar[r] &
+(A_{\{f\}})_{\mathfrak p'} \ar[u]
+}
+$$
+并取 $M=B_\mathfrak q$。
+唯一尚未核验的假设是：$\mathfrak p$ 生成
+$(A_{\{f\}})_{\mathfrak p'}$ 的极大理想。
+这由引理 \ref{restricted-lemma-rig-closed-point-in-localization} 得出；
+这里利用 $\mathfrak p$ 和 $\mathfrak p'$ 都 rig-闭，以看出
+$f$ 在 $A/\mathfrak p$ 中的像是单位
+（这是证明中唯一会在没有 Jacobson 假设时失效的一步）。
+具体而言，这说明
+$A/\mathfrak p\to A_{\{f\}}/\mathfrak p'$
+是局部环的有限包含（引理
+\ref{restricted-lemma-rig-closed-point-relative}），并且 $f$ 在后一个环中的像是单位。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-flat-base-change}
+设 $\varphi:A\to B$ 和 $A\to C$ 为
+$\textit{WAdm}^{Noeth}$ 中的箭头。
+假设 $\varphi$ 是 rig-平坦的，且 $A\to C$ 是 adic 的并且拓扑有限型。
+则 $C\to B\widehat{\otimes}_A C$ 是 rig-平坦的。
+\end{lemma}
+
+\begin{proof}
+假设 $\varphi$ 是 rig-平坦的。设 $f\in C$。
+我们须证明
+$C_{\{f\}}\to B\widehat{\otimes}_A C_{\{f\}}$
+是朴素 rig-平坦的。由于可以用 $C_{\{f\}}$ 代替 $C$，
+只需证明 $C\to B\widehat{\otimes}_A C$ 是朴素 rig-平坦的。
+
+\medskip\noindent
+若 $A\to C$ 满射，或更一般地，若 $C$ 作为 $A$-模是有限的，
+则
+$B\otimes_A C=B\widehat{\otimes}_A C$，
+因为完备诺特环上的有限模是完备的，见代数之引理
+\ref{algebra-lemma-completion-tensor}。
+由平坦性的通常基变换
+（代数，引理 \ref{algebra-lemma-flat-base-change}），
+可见在此情形下，$\varphi$ 的朴素 rig-平坦性蕴含
+$C\to B\times_A C$ 的朴素 rig-平坦性。
+
+\medskip\noindent
+一般情形下，可将 $A\to C$ 分解为
+$A\to A\{x_1,\ldots,x_n\}\to C$，
+其中 $A\{x_1,\ldots,x_n\}$ 是受限幂级数环，且
+$A\{x_1,\ldots,x_n\}\to C$ 满射。
+因此，只需在 $C=A\{x_1,\ldots,x_n\}$ 时证明
+$C\to B\widehat{\otimes}_A B$ 是朴素 rig-平坦的。
+由于
+$A\{x_1,\ldots,x_n\}=A\{x_1,\ldots,x_{n-1}\}\{x_n\}$，
+对 $n$ 归纳便归结到下一段讨论的情形。
+
+\medskip\noindent
+这里 $C=A\{x\}$。注意
+$B\widehat{\otimes}_A C=B\{x\}$。
+我们须证明 $A\{x\}\to B\{x\}$ 是朴素 rig-平坦的。
+设 $\mathfrak q\subset B\{x\}$ 为 rig-闭素理想。
+我们须证明 $B\{x\}_{\mathfrak q}$ 在 $A\{x\}$ 上平坦。
+置 $\mathfrak p=A\cap\mathfrak q$。
+由引理 \ref{restricted-lemma-rig-closed-point-after-localization}，
+可找到 $f\in A$，使 $f$ 在 $B\{x\}/\mathfrak q$ 中的像是单位，
+且在 $A_{\{f\}}$ 中诱导出的素理想 $\mathfrak p'$ 是 rig-闭的。
+下面将使用
+$A_{\{f\}}\{x\}=A\{x\}_{\{f\}}$，并对 $B$ 作类似使用；
+细节从略。考虑图表
+$$
+\xymatrix{
+(B\{x\})_{\mathfrak q} \ar[r] &
+(B_{\{f\}}\{x\})_{\mathfrak q'} \\
+A\{x\} \ar[r] \ar[u] &
+A_{\{f\}}\{x\} \ar[u]
+}
+$$
+我们要证明左边的竖直箭头平坦。
+上方水平箭头忠实平坦：它是局部环的局部同态，并且由于
+$B_{\{f\}}\{x\}$ 是诺特环 $B\{x\}$ 的某个局部化的完备化，
+它也是平坦的。类似地，下方水平箭头平坦。
+所以只需证明右边的竖直箭头平坦。这把问题归结为下一段讨论的情形。
+
+\medskip\noindent
+这里 $C=A\{x\}$，并且有一个 rig-闭素理想
+$\mathfrak q\subset B\{x\}$，使
+$\mathfrak p=A\cap\mathfrak q$ 也 rig-闭。
+由引理 \ref{restricted-lemma-rig-closed-point-relative}，这蕴含中间素理想
+$B\cap\mathfrak q$ 和 $A\{x\}\cap\mathfrak q$ 也都是 rig-闭的。
+考虑诺特局部环的局部同态图表
+$$
+\xymatrix{
+(B[x])_{B[x]\cap\mathfrak q} \ar[r] &
+(B\{x\})_{\mathfrak q} \\
+(A[x])_{A[x]\cap\mathfrak q} \ar[r] \ar[u] &
+(A\{x\})_{A\{x\}\cap\mathfrak q} \ar[u]
+}
+$$
+由引理 \ref{restricted-lemma-rig-closed-point-variables}，
+水平箭头在完备化上诱导同构。
+我们已经知道左边的竖直箭头平坦
+（因为 $A\to B$ 是朴素 rig-平坦的，故在由定义理想确定的
+闭轨迹之外，$A[x]\to B[x]$ 是平坦的）。
+最后由更多代数之引理
+\ref{more-algebra-lemma-flat-completion} 得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-flat-local-etale}
+考虑 $\textit{WAdm}^{Noeth}$ 中的交换图表
+$$
+\xymatrix{
+B \ar[r] & B' \\
+A \ar[r] \ar[u]^\varphi & A' \ar[u]_{\varphi'}
+}
+$$
+其中所有箭头都是 adic 的且拓扑有限型。
+假设 $A\to A'$ 和 $B\to B'$ 平坦。
+设 $I\subset A$ 为定义理想。
+若 $\varphi$ 是 rig-平坦的且
+$A/I\to A'/IA'$ 是 \'etale 的，则 $\varphi'$ 是 rig-平坦的。
+\end{lemma}
+
+\begin{proof}
+给定 $f\in A'$，该引理的假设对图表
+$$
+\xymatrix{
+B \ar[r] & (B')_{\{f\}} \\
+A \ar[r] \ar[u]^\varphi & (A')_{\{f\}} \ar[u]
+}
+$$
+仍成立。因此只需证明 $\varphi'$ 是朴素 rig-平坦的。
+
+\medskip\noindent
+取 rig-闭素理想 $\mathfrak q'\subset B'$。
+我们须证明 $(B')_{\mathfrak q'}$ 在 $A'$ 上平坦。
+可选择 $f\in A$，使其在 $B'/\mathfrak q'$ 中的像是单位，
+且 $A_{\{f\}}$ 中诱导出的素理想 $\mathfrak p''$ 是 rig-闭的，
+见引理 \ref{restricted-lemma-rig-closed-point-after-localization}。
+准确地说，这里
+$\mathfrak q''=\mathfrak q'B'_{\{f\}}$ 且
+$\mathfrak p''=A_{\{f\}}\cap\mathfrak q''$。
+考虑图表
+$$
+\xymatrix{
+B'_{\mathfrak q'} \ar[r] &
+(B'_{\{f\}})_{\mathfrak q''} \\
+A \ar[r] \ar[u] &
+A_{\{f\}} \ar[u]
+}
+$$
+我们要证明左边的竖直箭头平坦。
+上方水平箭头忠实平坦：它是局部环的局部同态，并且由于
+$B'_{\{f\}}$ 是诺特环 $B'_f$ 的某个局部化的完备化，
+它也是平坦的。类似地，下方水平箭头平坦。
+所以只需证明右边的竖直箭头平坦。
+最后，该引理的所有假设对图表
+$$
+\xymatrix{
+B_{\{f\}} \ar[r] &
+B'_{\{f\}} \\
+A_{\{f\}} \ar[r] \ar[u] &
+A'_{\{f\}} \ar[u]
+}
+$$
+仍成立。这把问题归结为下一段讨论的情形。
+
+\medskip\noindent
+取 rig-闭素理想 $\mathfrak q'\subset B'$，并假设
+$\mathfrak p=A\cap\mathfrak q'$ 也 rig-闭。
+由引理 \ref{restricted-lemma-rig-closed-point-relative}，
+这还蕴含素理想
+$\mathfrak q=B\cap\mathfrak q'$ 和
+$\mathfrak p'=A'\cap\mathfrak q'$ 都是 rig-闭的。
+我们将把代数之引理
+\ref{algebra-lemma-yet-another-variant-local-criterion-flatness}
+应用于图表
+$$
+\xymatrix{
+B_\mathfrak q \ar[r] &
+B'_{\mathfrak q'} \\
+A_\mathfrak p \ar[u] \ar[r] &
+A'_{\mathfrak p'} \ar[u]
+}
+$$
+并取 $M=B_\mathfrak q$。唯一尚未核验的假设是：
+$\mathfrak p$ 生成 $A'_{\mathfrak p'}$ 的极大理想。
+这由引理 \ref{restricted-lemma-rig-closed-point-etale} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-flat-local-down}
+考虑 $\textit{WAdm}^{Noeth}$ 中的交换图表
+$$
+\xymatrix{
+B \ar[r] & B' \\
+A \ar[r] \ar[u]^\varphi & A' \ar[u]_{\varphi'}
+}
+$$
+其中所有箭头都是 adic 的且拓扑有限型。
+假设 $A\to A'$ 平坦，且 $B\to B'$ 忠实平坦。
+若 $\varphi'$ 是 rig-平坦的，则 $\varphi$ 是 rig-平坦的。
+\end{lemma}
+
+\begin{proof}
+给定 $f\in A$，该引理的假设对图表
+$$
+\xymatrix{
+B_{\{f\}} \ar[r] & (B')_{\{f\}} \\
+A_{\{f\}} \ar[r] \ar[u]^\varphi & (A')_{\{f\}} \ar[u]
+}
+$$
+仍成立（核验忠实平坦条件时，可用如下事实：
+$B\to B'$ 忠实平坦，等价于 $B\to B'$ 平坦，且对于某个
+定义理想 $I\subset A$，映射
+$\Spec(B'/IB')\to\Spec(B/IB)$ 满射）。
+因此只需证明 $\varphi$ 是朴素 rig-平坦的。
+然而，已知 $\varphi'$ 是朴素 rig-平坦的，且
+$\Spec(B')\to\Spec(B)$ 满射，结论立即得出。
+\end{proof}
+
+\noindent
+最后，我们可以证明 rig-平坦性是一个局部性质。
+
+\begin{lemma}
+\label{restricted-lemma-rig-flat-axioms}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-平坦的”是形式空间之备注
+\ref{formal-spaces-remark-variant-adic-star} 所定义的局部性质。
+\end{lemma}
+
+\begin{proof}
+回顾一下该陈述的含义。首先，$\textit{WAdm}^{Noeth}$ 是以
+adic 诺特拓扑环为对象、以连续环同态为态射的范畴。
+考虑交换图表
+$$
+\xymatrix{
+B \ar[r] & (B')^\wedge \\
+A \ar[r] \ar[u]^\varphi & (A')^\wedge \ar[u]_{\varphi'}
+}
+$$
+并假设它满足下列条件：$A$ 和 $B$ 是 adic 诺特拓扑环，
+$A\to A'$ 和 $B\to B'$ 是 \'etale 环映射，
+对于某个定义理想 $I\subset A$，
+$(A')^\wedge=\lim A'/I^nA'$；
+对于某个定义理想 $J\subset B$，
+$(B')^\wedge=\lim B'/J^nB'$；并且
+$\varphi:A\to B$ 与
+$\varphi':(A')^\wedge\to(B')^\wedge$ 都连续。
+注意，由形式空间之引理
+\ref{formal-spaces-lemma-completion-in-sub}，
+$(A')^\wedge$ 和 $(B')^\wedge$ 是 adic 诺特拓扑环。
+我们须证明：
+\begin{enumerate}
+\item $\varphi$ 是 rig-平坦的 $\Rightarrow\varphi'$ 是 rig-平坦的；
+\item 若 $B\to B'$ 忠实平坦，则 $\varphi'$ 是 rig-平坦的
+$\Rightarrow\varphi$ 是 rig-平坦的；以及
+\item 若对 $i=1,\ldots,n$，$A\to B_i$ 都是 rig-平坦的，
+则 $A\to\prod_{i=1,\ldots,n}B_i$ 是 rig-平坦的。
+\end{enumerate}
+由引理 \ref{restricted-lemma-finite-type}，adic 且拓扑有限型这一性质满足
+条件 (1)、(2) 和 (3)。因此，在对“rig-平坦”性质核验
+(1)、(2) 和 (3) 时，可以已经假设所有环映射都是 adic 的且拓扑有限型。
+此时，(1) 和 (2) 分别由引理
+\ref{restricted-lemma-rig-flat-local-etale} 和
+\ref{restricted-lemma-rig-flat-local-down} 得出。
+平凡的 (3) 的证明从略。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-flat-continuous}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-平坦的”在复合下稳定，
+其含义如形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian} 所定义。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-flat-axioms}，该陈述有意义。
+为证明它，假设 $\textit{WAdm}^{Noeth}$ 中有 rig-平坦态射
+$A\to B$ 和 $B\to C$。
+由引理 \ref{restricted-lemma-composition-finite-type}，
+$A\to C$ 是 adic 的且拓扑有限型。
+为完成证明，须证明对每个 $f\in A$，映射
+$A_{\{f\}}\to C_{\{f\}}$ 是朴素 rig-平坦的。
+由于 $A_{\{f\}}\to B_{\{f\}}$ 和
+$B_{\{f\}}\to C_{\{f\}}$ 都是朴素 rig-平坦的，
+只需证明朴素 rig-平坦映射的复合仍朴素 rig-平坦。
+这是代数之引理 \ref{algebra-lemma-composition-flat} 的推论。
+\end{proof}
+
+\section{Rig-平坦态射}
+\label{restricted-section-rig-flat-morphisms}
+
+\noindent
+本节利用第 \ref{restricted-section-rig-flat-homomorphisms} 节中的工作，
+定义局部诺特代数空间的 rig-平坦态射。
+
+\begin{definition}
+\label{restricted-definition-rig-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 adic 诺特拓扑环之间的 rig-平坦映射，
+则称 $f$ 是{\it rig-平坦的}。
+\end{definition}
+
+\noindent
+下面证明该条件可以在源和目标上平展局部地检验。
+
+\begin{lemma}
+\label{restricted-lemma-rig-flat-morphisms}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+以下条件等价：
+\begin{enumerate}
+\item $f$ 是 rig-平坦的；
+\item 对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 $\textit{WAdm}^{Noeth}$ 中的 rig-平坦映射；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$，并且对每个 $j$，
+存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_{ji}\to Y_j\times_YX\}$，
+使每个 $X_{ji}\to Y_j$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 rig-平坦映射；并且
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_i\to X\}$，并且对每个 $i$，
+存在分解 $X_i\to Y_i\to Y$，其中 $Y_i$ 是仿射形式代数空间，
+$Y_i\to Y$ 由代数空间可表且平展，而
+$X_i\to Y_i$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 rig-平坦映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性就是定义 \ref{restricted-definition-rig-flat}。
+(2)、(3)、(4) 的等价性来自以下事实：
+由引理 \ref{restricted-lemma-rig-flat-axioms}，rig-平坦是
+$\text{WAdm}^{Noeth}$ 箭头的局部性质；
+再应用形式空间之引理
+\ref{formal-spaces-lemma-property-defines-property-morphisms}
+对局部诺特代数空间之间态射的变体，
+该变体在形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 中提及。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Z\to Y$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 是 rig-平坦的，且 $g$ 局部有限型，
+则基变换 $X\times_YZ\to Z$ 是 rig-平坦的。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}
+及形式空间之第 \ref{formal-spaces-section-adic} 节中的讨论，
+这由引理 \ref{restricted-lemma-rig-flat-base-change} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-flat}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 和 $g$ 都是 rig-平坦的，则 $g\circ f$ 也是。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian}，
+这由引理 \ref{restricted-lemma-composition-rig-flat-continuous} 得出。
+\end{proof}
+
+\section{Rig-光滑同态}
+\label{restricted-section-rig-smooth-homomorphisms}
+
+\noindent
+本节证明 adic 诺特拓扑环的 rig-光滑同态的一些性质，
+这些性质是引入局部诺特形式代数空间的 rig-光滑态射所需要的。
+
+\begin{lemma}
+\label{restricted-lemma-rig-smooth-continuous}
+设 $A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的态射
+（形式空间，第 \ref{formal-spaces-section-morphisms-rings} 节）。
+下列条件等价：
+\begin{enumerate}
+\item[(a)] $A\to B$ 满足引理 \ref{restricted-lemma-finite-type} 中的等价条件，
+并且存在定义理想 $I\subset B$，使 $B$ 在 $(A,I)$ 上 rig-光滑；以及
+\item[(b)] $A\to B$ 满足引理 \ref{restricted-lemma-finite-type} 中的等价条件，
+并且对每个定义理想 $I\subset A$，代数 $B$ 都在 $(A,I)$ 上 rig-光滑。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $I$ 和 $I'$ 是 $A$ 的定义理想。则存在整数 $c\geq0$，使
+$I^c\subset I'$ 且 $(I')^c\subset I$。因此，$B$ 在 $(A,I)$ 上
+rig-光滑，当且仅当 $B$ 在 $(A,I')$ 上 rig-光滑。
+这由定义 \ref{restricted-definition-rig-smooth-homomorphism}、包含关系
+$I^c\subset I'$ 与 $(I')^c\subset I$，以及下述事实得出：
+由备注 \ref{restricted-remark-NL-well-defined-topological}，
+朴素余切复形 $\NL_{B/A}^\wedge$ 不依赖于 $A$ 的定义理想的选择。
+\end{proof}
+
+\begin{definition}
+\label{restricted-definition-rig-smooth-continuous-homomorphism}
+设 $\varphi:A\to B$ 为 adic 诺特拓扑环之间的连续环同态，
+即 $\varphi$ 是 $\textit{WAdm}^{Noeth}$ 中的箭头。
+若引理 \ref{restricted-lemma-rig-smooth-continuous} 中的等价条件成立，
+则称 $\varphi$ 是{\it rig-光滑的}。
+\end{definition}
+
+\noindent
+这定义了一个局部性质。
+
+\begin{lemma}
+\label{restricted-lemma-rig-smooth-axioms}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-光滑的”是形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 所定义的局部性质。
+\end{lemma}
+
+\begin{proof}
+回顾一下该陈述的含义。首先，$\textit{WAdm}^{Noeth}$ 是以
+adic 诺特拓扑环为对象、以连续环同态为态射的范畴。
+考虑交换图表
+$$
+\xymatrix{
+B \ar[r] & (B')^\wedge \\
+A \ar[r] \ar[u]^\varphi & (A')^\wedge \ar[u]_{\varphi'}
+}
+$$
+并假设它满足下列条件：$A$ 和 $B$ 是 adic 诺特拓扑环，
+$A\to A'$ 和 $B\to B'$ 是 \'etale 环映射，
+对于某个定义理想 $I\subset A$，
+$(A')^\wedge=\lim A'/I^nA'$；
+对于某个定义理想 $J\subset B$，
+$(B')^\wedge=\lim B'/J^nB'$；并且
+$\varphi:A\to B$ 与
+$\varphi':(A')^\wedge\to(B')^\wedge$ 都连续。
+注意，由形式空间之引理
+\ref{formal-spaces-lemma-completion-in-sub}，
+$(A')^\wedge$ 和 $(B')^\wedge$ 是 adic 诺特拓扑环。
+我们须证明：
+\begin{enumerate}
+\item $\varphi$ 是 rig-光滑的 $\Rightarrow\varphi'$ 是 rig-光滑的；
+\item 若 $B\to B'$ 忠实平坦，则 $\varphi'$ 是 rig-光滑的
+$\Rightarrow\varphi$ 是 rig-光滑的；以及
+\item 若对 $i=1,\ldots,n$，$A\to B_i$ 都是 rig-光滑的，
+则 $A\to\prod_{i=1,\ldots,n}B_i$ 是 rig-光滑的。
+\end{enumerate}
+引理 \ref{restricted-lemma-finite-type} 中的等价条件满足条件 (1)、(2) 和 (3)。
+因此，在对“rig-光滑”性质核验 (1)、(2) 和 (3) 时，
+可以已经假设每种情形下的环映射都满足引理
+\ref{restricted-lemma-finite-type} 中的等价条件。
+
+\medskip\noindent
+选取定义理想 $I\subset A$。由以上所述，图表中每个环的拓扑都是
+$I$-进拓扑，并且 $B$、$(A')^\wedge$、$(B')^\wedge$
+属于 $(A,I)$ 的范畴 (\ref{restricted-equation-C-prime})。
+由于 $A\to A'$ 和 $B\to B'$ 都是 \'etale 的，复形
+$\NL_{A'/A}$ 和 $\NL_{B'/B}$ 为零，故由引理
+\ref{restricted-lemma-NL-is-completion}，
+$\NL_{(A')^\wedge/A}^\wedge$ 和
+$\NL_{(B')^\wedge/B}^\wedge$ 为零。
+将引理 \ref{restricted-lemma-exact-sequence-NL} 应用于
+$A\to(A')^\wedge\to(B')^\wedge$，得到同构
+$$
+H^i(\NL_{(B')^\wedge/(A')^\wedge}^\wedge) \to H^i(\NL_{(B')^\wedge/A}^\wedge)
+$$
+因此
+$\NL_{(B')^\wedge/A}^\wedge\to
+\NL_{(B')^\wedge/(A')^\wedge}$ 是拟同构。
+环映射 $B/I^nB\to B'/I^nB'$ 是 \'etale 的，
+因而是局部完全交
+（代数，引理 \ref{algebra-lemma-etale-standard-smooth}）。
+所以可将引理 \ref{restricted-lemma-exact-sequence-NL} 和
+\ref{restricted-lemma-transitive-lci-at-end} 应用于
+$A\to B\to(B')^\wedge$，得到同构
+$$
+H^i(\NL_{B/A}^\wedge \otimes_B (B')^\wedge) \to
+H^i(\NL_{(B')^\wedge/A}^\wedge)
+$$
+由此可知
+$\NL_{B/A}^\wedge\otimes_B(B')^\wedge\to
+\NL_{(B')^\wedge/A}^\wedge$ 是拟同构。
+结合这两个观察，得到 $D((B')^\wedge)$ 中的同构
+$$
+\NL_{(B')^\wedge/(A')^\wedge}^\wedge \cong
+\NL_{B/A}^\wedge \otimes_B (B')^\wedge
+$$
+准备工作至此完成，可以开始真正的证明。
+
+\medskip\noindent
+证明 (1)。假设 $\varphi$ 是 rig-光滑的。则存在 $c\geq0$，使对每个
+$B$-模 $N$，$\Ext^1_B(\NL_{B/A}^\wedge,N)$ 都被 $I^c$ 零化。
+由更多代数之引理
+\ref{more-algebra-lemma-two-term-base-change} 和
+\ref{more-algebra-lemma-base-change-property-ext-1-annihilated}，
+这一性质在沿 $B\to(B')^\wedge$ 作基变换时保持。
+因此，对每个 $(B')^\wedge$-模 $N$，
+$\Ext^1_{(B')^\wedge}
+(\NL_{(B')^\wedge/(A')^\wedge}^\wedge,N)$
+都被 $I^c(A')^\wedge$ 零化，这说明 $\varphi'$ 是 rig-光滑的。
+这证明了 (1)。
+
+\medskip\noindent
+为证明 (2)，假设 $B\to B'$ 忠实平坦且 $\varphi'$ 是 rig-光滑的。
+则存在 $c\geq0$，使对每个 $(B')^\wedge$-模 $N'$，
+$\Ext^1_{(B')^\wedge}
+(\NL_{(B')^\wedge/(A')^\wedge}^\wedge,N')$
+都被 $I^c(B')^\wedge$ 零化。
+复合 $B\to B'\to(B')^\wedge$ 是平坦的
+（代数，引理 \ref{algebra-lemma-completion-flat}），
+故对任意 $B$-模 $N$，有
+$$
+\Ext^1_B(\NL_{B/A}^\wedge, N) \otimes_B (B')^\wedge =
+\Ext^1_{(B')^\wedge}(\NL_{B/A}^\wedge \otimes_B (B')^\wedge,
+N \otimes_B (B')^\wedge)
+$$
+其中使用了更多代数之引理
+\ref{more-algebra-lemma-base-change-RHom} 的 (3)
+（略去少量细节）。因此，该模被 $I^c$ 零化。
+然而，由我们假设 $B\to B'$ 忠实平坦，
+$B\to(B')^\wedge$ 实际上忠实平坦
+（形式空间，引理 \ref{formal-spaces-lemma-etale-surjective}）。
+由此可知 $\Ext^1_B(\NL_{B/A}^\wedge,N)$ 被 $I^c$ 零化。
+所以 $\varphi$ 是 rig-光滑的。这证明了 (2)。
+
+\medskip\noindent
+为证明 (3)，置 $B=\prod_{i=1,\ldots,n}B_i$；
+只需注意，$\NL_{B/A}^\wedge$ 是复形
+$\NL_{B_i/A}^\wedge$ 的直和，其中各复形均视为 $B$-模复形。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-smooth-continuous}
+考虑 $\textit{WAdm}^{Noeth}$ 的箭头上的性质
+$P(\varphi)=$“$\varphi$ 是 rig-光滑的”与
+$Q(\varphi)$=“$\varphi$ 是 adic 的”。
+则依照形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}
+中的定义，$P$ 在由 $Q$ 作基变换下稳定。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-smooth-continuous}，该陈述有意义。
+为证明它，假设 $\textit{WAdm}^{Noeth}$ 中有态射
+$B\to A$ 和 $B\to C$，且 $B\to A$ 是 rig-光滑的，
+$B\to C$ 是 adic 的
+（形式空间，定义 \ref{formal-spaces-definition-adic-homomorphism}）。
+则可选取定义理想 $I\subset B$，使 $A$ 和 $C$ 上的拓扑都是
+$I$-进拓扑。在这种情形下，由引理
+\ref{restricted-lemma-base-change-rig-smooth-homomorphism} 立即可知，
+$A\widehat{\otimes}_B C$ 在 $(C,IC)$ 上 rig-光滑。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-smooth-continuous}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-光滑的”在复合下稳定，
+其含义如形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian} 所定义。
+\end{lemma}
+
+\begin{proof}
+我们强烈建议读者自行寻找证明，不要阅读下面的证明。
+由引理 \ref{restricted-lemma-rig-smooth-continuous}，该陈述有意义。
+为证明它，假设 $\textit{WAdm}^{Noeth}$ 中有 rig-光滑态射
+$A\to B$ 和 $B\to C$。
+则可选取定义理想 $I\subset A$，使 $C$ 和 $B$ 上的拓扑都是
+$I$-进拓扑。由引理 \ref{restricted-lemma-exact-sequence-NL}，得到正合列
+$$
+\xymatrix{
+C \otimes_B H^0(\NL_{B/A}^\wedge) \ar[r] &
+H^0(\NL_{C/A}^\wedge) \ar[r] &
+H^0(\NL_{C/B}^\wedge) \ar[r] & 0 \\
+H^{-1}(\NL_{B/A}^\wedge \otimes_B C) \ar[r] &
+H^{-1}(\NL_{C/A}^\wedge) \ar[r] &
+H^{-1}(\NL_{C/B}^\wedge) \ar[llu]
+}
+$$
+注意，$H^{-1}(\NL_{B/A}^\wedge\otimes_BC)$ 和
+$H^{-1}(\NL_{C/B}^\wedge)$ 都被 $I$ 的某个幂零化；
+这由引理 \ref{restricted-lemma-equivalent-with-artin-smooth} 的 (2)，
+结合更多代数之引理
+\ref{more-algebra-lemma-two-term-base-change} 和
+\ref{more-algebra-lemma-base-change-property-ext-1-annihilated}
+得出（后两者用于处理沿 $B\to C$ 的基变换）。
+因此 $H^{-1}(\NL_{C/A}^\wedge)$ 被 $I$ 的某个幂零化。
+接着，根据引理 \ref{restricted-lemma-equivalent-with-artin-smooth} 的 (2)
+所给出的 rig-光滑代数刻画，而该刻画又引用更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 的 (5)，
+可以选取 $f_1,\ldots,f_s\in IB$ 和 $g_1,\ldots,g_t\in IC$，使
+$V(f_1,\ldots,f_s)=V(IB)$ 且
+$V(g_1,\ldots,g_t)=V(IC)$，并使
+$H^0(\NL_{B/A}^\wedge)_{f_i}$ 是有限投射 $B_{f_i}$-模，
+$H^0(\NL_{C/B}^\wedge)_{g_j}$ 是有限投射 $C_{g_j}$-模。
+由于次数 $-1$ 的上同调在 $f_ig_j$ 处局部化后消失，得到短正合列
+$$
+0 \to
+(C \otimes_B H^0(\NL_{B/A}^\wedge))_{f_ig_j} \to
+H^0(\NL_{C/A}^\wedge)_{f_ig_j} \to
+H^0(\NL_{C/B}^\wedge)_{f_ig_j} \to 0
+$$
+从而 $H^0(\NL_{C/A}^\wedge)_{f_ig_j}$ 作为同类模的扩张，
+是有限投射 $C_{f_ig_j}$-模。
+所以，由引理 \ref{restricted-lemma-equivalent-with-artin-smooth} 的 (2) 中的判据，
+并进而由更多代数之引理
+\ref{more-algebra-lemma-ext-1-annihilated} 的 (4) 中的判据，
+可知 $C$ 在 $(A,I)$ 上 rig-光滑。
+\end{proof}
+
+\noindent
+下述引理可解释为：rig-光滑同态是“rig-syntomic”的，
+或说是“rig-平坦$+$rig-lci”的。
+
+\begin{lemma}
+\label{restricted-lemma-rig-smooth-rig-flat}
+设 $\varphi:A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头。
+若 $\varphi$ 是 rig-光滑的，则 $\varphi$ 是 rig-平坦的；
+并且对于任意表示 $B=A\{x_1,\ldots,x_n\}/J$ 以及不包含定义理想的
+素理想 $J\subset\mathfrak q\subset A\{x_1,\ldots,x_n\}$，
+理想
+$J_\mathfrak q\subset A\{x_1,\ldots,x_n\}_\mathfrak q$
+由正则序列生成。
+\end{lemma}
+
+\begin{proof}
+设 $f\in A$。为证明 $\varphi$ 是 rig-平坦的，须证明
+$\varphi_{\{f\}}:A_{\{f\}}\to B_{\{f\}}$ 是朴素 rig-平坦的。
+现在，或者将 $\varphi_{\{f\}}$ 视为 $\varphi$ 的基变换并使用引理
+\ref{restricted-lemma-base-change-rig-smooth-continuous}，
+或者使用 rig-光滑是局部性质这一事实
+（引理 \ref{restricted-lemma-rig-smooth-axioms}），
+均可看出 $\varphi_{\{f\}}$ 是 rig-光滑的。
+因此只需证明 $\varphi$ 是朴素 rig-平坦的。
+
+\medskip\noindent
+选取表示 $B=A\{x_1,\ldots,x_n\}/J$。
+为核验引理的第二部分，只需对 $J\subset\mathfrak q$，
+其中 $\mathfrak q$ 在不包含定义理想的素理想中极大，核验
+$J_\mathfrak q\subset A\{x_1,\ldots,x_n\}_\mathfrak q$
+由正则序列生成，见代数之引理
+\ref{algebra-lemma-regular-sequence-in-neighbourhood}
+（该引理表明，在 $V(J)$ 中，$J$ 可由正则序列生成的素理想构成开集）。
+换言之，可以假设 $\mathfrak q$ 在
+$A\{x_1,\ldots,x_n\}$ 中 rig-闭。
+而为核验 $B$ 是朴素 rig-平坦的，也只需核验相应的局部化
+$B_\mathfrak q$ 在 $A$ 上平坦。
+
+\medskip\noindent
+设 $\mathfrak q\subset A\{x_1,\ldots,x_n\}$ 是 rig-闭的，且
+$J\subset\mathfrak q$。由引理
+\ref{restricted-lemma-rig-closed-point-after-localization}，
+可选取 $f\in A$，使其在
+$A\{x_1,\ldots,x_n\}/\mathfrak q$ 中的像是单位，
+且在 $A_{\{f\}}$ 中诱导出的素理想 $\mathfrak p'$ 是 rig-闭的。
+下面将使用
+$A_{\{f\}}\{x_1,\ldots,x_n\}=
+A\{x_1,\ldots,x_n\}_{\{f\}}$；细节从略。
+考虑图表
+$$
+\xymatrix{
+A\{x_1, \ldots, x_n\}_{\mathfrak q} / J_\mathfrak q \ar[r] &
+A_{\{f\}}\{x_1, \ldots, x_n\}_{\mathfrak q'}/
+J A_{\{f\}}\{x_1, \ldots, x_n\}_{\mathfrak q'} \\
+A\{x_1, \ldots, x_n\}_{\mathfrak q} \ar[r] \ar[u] &
+A_{\{f\}}\{x_1, \ldots, x_n\}_{\mathfrak q'} \ar[u] \\
+A \ar[r] \ar[u] &
+A_{\{f\}} \ar[u]
+}
+$$
+中间的水平箭头忠实平坦：它是局部环的局部同态，并且由于
+$A_{\{f\}}\{x_1,\ldots,x_n\}$ 是诺特环
+$A\{x_1,\ldots,x_n\}$ 的某个局部化的完备化，它也是平坦的。
+类似地，底部水平箭头平坦。因此，为证明 $J_\mathfrak q$
+由正则序列生成，且
+$A\to A\{x_1,\ldots,x_n\}_{\mathfrak q}/J_\mathfrak q$
+平坦，只需对
+$J A_{\{f\}}\{x_1,\ldots,x_n\}_{\mathfrak q'}$ 和
+$A_{\{f\}}\to A_{\{f\}}\{x_1,\ldots,x_n\}_{\mathfrak q'}/
+J A_{\{f\}}\{x_1,\ldots,x_n\}_{\mathfrak q'}$
+证明相同的陈述。关于正则序列的陈述，见代数之引理
+\ref{algebra-lemma-flat-increases-depth} 或更多代数之引理
+\ref{more-algebra-lemma-flat-descent-regular-ideal}。
+最后，我们已经看到 $A_{\{f\}}\to B_{\{f\}}$ 是 rig-光滑的。
+这把问题归结为下一段讨论的情形。
+
+\medskip\noindent
+设 $\mathfrak q\subset A\{x_1,\ldots,x_n\}$ 是 rig-闭的，
+$J\subset\mathfrak q$，并且还假设
+$\mathfrak p=A\cap\mathfrak q$ 也是 rig-闭的。
+由引理 \ref{restricted-lemma-equivalent-with-artin-smooth} 给出的
+rig-光滑代数刻画，重新排列变量 $x_1,\ldots,x_n$ 后，
+可找到 $m\geq0$ 和 $f_1,\ldots,f_m\in J$，使：
+\begin{enumerate}
+\item $J_\mathfrak q$ 由 $f_1,\ldots,f_m$ 生成；并且
+\item $\det_{1\leq i,j\leq m}(\partial f_j/\partial x_i)$
+在 $A\{x_1,\ldots,x_n\}_\mathfrak q$ 中的像是单位。
+\end{enumerate}
+由引理 \ref{restricted-lemma-fibre-regular}，纤维环
+$$
+F = A\{x_1, \ldots, x_n\} \otimes_A \kappa(\mathfrak p)
+$$
+是正则的。注意，$A$-导子 $\partial/\partial x_i$
+（唯一地）延拓为导子 $D_i:F\to F$。
+由更多代数之引理
+\ref{more-algebra-lemma-quotient-sequence-regular}，
+$f_1,\ldots,f_m$ 在 $F_\mathfrak q$ 中的像构成正则序列。
+由 $A\to A\{x_1,\ldots,x_n\}$ 的平坦性以及代数之引理
+\ref{algebra-lemma-grothendieck-regular-sequence}，
+这表明 $f_1,\ldots,f_m$ 在
+$A\{x_1,\ldots,x_m\}_\mathfrak q$ 中的像构成正则序列，
+并且模这些元素所得的商在 $A$ 上平坦。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-exact-sequence-NL-rig-smooth}
+设 $A\to B\to C$ 为 $\textit{WAdm}^{Noeth}$ 中的箭头，
+它们都是 adic 的且拓扑有限型。
+若 $B\to C$ 是 rig-光滑的，则映射
+$$
+H^{-1}(\NL_{B/A}^\wedge \otimes_B C) \to H^{-1}(\NL_{C/A}^\wedge)
+$$
+的核（见引理 \ref{restricted-lemma-exact-sequence-NL}）被某个定义理想零化。
+\end{lemma}
+
+\begin{proof}
+设 $\overline{\mathfrak q}\subset C$ 为不包含定义理想的素理想。
+由于所论各模是有限的，只需证明
+$$
+H^{-1}(\NL_{B/A}^\wedge \otimes_B C)_{\overline{\mathfrak q}} \to
+H^{-1}(\NL_{C/A}^\wedge)_{\overline{\mathfrak q}}
+$$
+是单射。如同引理 \ref{restricted-lemma-exact-sequence-NL} 的证明，
+选取表示
+$B=A\{x_1,\ldots,x_r\}/J$、
+$C=B\{y_1,\ldots,y_s\}/J'$ 和
+$C=A\{x_1,\ldots,x_r,y_1,\ldots,y_s\}/K$。
+观察引理 \ref{restricted-lemma-exact-sequence-NL} 的证明中的图表，
+可知只需证明 $J/J^2\otimes_BC\to K/K^2$
+在与 $\overline{\mathfrak q}$ 对应的素理想
+$\mathfrak q\subset A\{x_1,\ldots,x_r,y_1,\ldots,y_s\}$
+处局部化后是单射。请与更多代数之引理
+\ref{more-algebra-lemma-transitive-lci-at-end} 及其证明比较。
+这等价于要求 $J/KJ\to K/K^2$ 在 $\mathfrak q$ 处局部化后是单射；
+又等价于证明
+$J_\mathfrak q\cap K^2_\mathfrak q=(KJ)_\mathfrak q$。
+由引理 \ref{restricted-lemma-rig-smooth-rig-flat}，已知
+$(K/J)_\mathfrak q=J'_\mathfrak q$ 由正则序列生成。
+因此，所需的交性质由更多代数之引理
+\ref{more-algebra-lemma-conormal-sequence-H1-regular-ideal} 得出
+（并使用正则序列生成的理想是 $H_1$-正则的这一事实，见更多代数之
+第 \ref{more-algebra-section-ideals} 节）。
+\end{proof}
+
+\section{Rig-光滑态射}
+\label{restricted-section-rig-smooth-morphisms}
+
+\noindent
+本节利用第 \ref{restricted-section-rig-smooth-homomorphisms} 节中的工作，
+定义局部诺特代数空间的 rig-光滑态射。
+
+\begin{definition}
+\label{restricted-definition-rig-smooth}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 adic 诺特拓扑环之间的 rig-光滑映射，
+则称 $f$ 是{\it rig-光滑的}。
+\end{definition}
+
+\noindent
+下面证明该条件可以在源和目标上平展局部地检验。
+
+\begin{lemma}
+\label{restricted-lemma-rig-smooth-morphisms}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+以下条件等价：
+\begin{enumerate}
+\item $f$ 是 rig-光滑的；
+\item 对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 $\textit{WAdm}^{Noeth}$ 中的 rig-光滑映射；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$，并且对每个 $j$，
+存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_{ji}\to Y_j\times_YX\}$，
+使每个 $X_{ji}\to Y_j$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 rig-光滑映射；并且
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_i\to X\}$，并且对每个 $i$，
+存在分解 $X_i\to Y_i\to Y$，其中 $Y_i$ 是仿射形式代数空间，
+$Y_i\to Y$ 由代数空间可表且平展，而
+$X_i\to Y_i$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 rig-光滑映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性就是定义 \ref{restricted-definition-rig-smooth}。
+(2)、(3)、(4) 的等价性来自以下事实：
+由引理 \ref{restricted-lemma-rig-smooth-axioms}，rig-光滑是
+$\text{WAdm}^{Noeth}$ 箭头的局部性质；
+再应用形式空间之引理
+\ref{formal-spaces-lemma-property-defines-property-morphisms}
+对局部诺特代数空间之间态射的变体，
+该变体在形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 中提及。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-smooth}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Z\to Y$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 是 rig-光滑的且 $g$ 是 adic 的，
+则基变换 $X\times_YZ\to Z$ 是 rig-光滑的。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}
+及形式空间之第 \ref{formal-spaces-section-adic} 节中的讨论，
+这由引理 \ref{restricted-lemma-base-change-rig-smooth-continuous} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-smooth}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 和 $g$ 都是 rig-光滑的，则 $g\circ f$ 也是。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian}，
+这由引理 \ref{restricted-lemma-composition-rig-smooth-continuous} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-smooth-rig-flat-morphism}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 是 rig-光滑的，则 $f$ 是 rig-平坦的。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{restricted-lemma-rig-smooth-rig-flat} 和定义立即得出。
+\end{proof}
+
+\section{Rig-\,'etale 同态}
+\label{restricted-section-rig-etale-homomorphisms}
+
+\noindent
+本节证明 adic 诺特拓扑环的 rig-\,'etale 同态的一些性质，
+这些性质是引入局部诺特代数空间的 rig-\,'etale 态射所需要的。
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-continuous}
+设 $A\to B$ 为 $\textit{WAdm}^{Noeth}$ 中的态射
+（形式空间，第 \ref{formal-spaces-section-morphisms-rings} 节）。
+下列条件等价：
+\begin{enumerate}
+\item[(a)] $A\to B$ 满足引理 \ref{restricted-lemma-finite-type} 中的等价条件，
+并且存在定义理想 $I\subset B$，使 $B$ 在 $(A,I)$ 上 rig-\,'etale；以及
+\item[(b)] $A\to B$ 满足引理 \ref{restricted-lemma-finite-type} 中的等价条件，
+并且对每个定义理想 $I\subset A$，代数 $B$ 都在 $(A,I)$ 上
+rig-\,'etale。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $I$ 和 $I'$ 是 $A$ 的定义理想。则存在整数 $c\geq0$，使
+$I^c\subset I'$ 且 $(I')^c\subset I$。因此，$B$ 在 $(A,I)$ 上
+rig-\,'etale，当且仅当 $B$ 在 $(A,I')$ 上 rig-\,'etale。
+这由定义 \ref{restricted-definition-rig-etale-homomorphism}、包含关系
+$I^c\subset I'$ 与 $(I')^c\subset I$，以及下述事实得出：
+由备注 \ref{restricted-remark-NL-well-defined-topological}，
+朴素余切复形 $\NL_{B/A}^\wedge$ 不依赖于 $A$ 的定义理想的选择。
+\end{proof}
+
+\begin{definition}
+\label{restricted-definition-rig-etale-continuous-homomorphism}
+设 $\varphi:A\to B$ 为 adic 诺特拓扑环之间的连续环同态，
+即 $\varphi$ 是 $\textit{WAdm}^{Noeth}$ 中的箭头。
+若引理 \ref{restricted-lemma-rig-etale-continuous} 中的等价条件成立，
+则称 $\varphi$ 是{\it rig-etale 的}。
+\end{definition}
+
+\noindent
+这定义了一个局部性质。
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-axioms}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-\,'etale 的”是形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 所定义的局部性质。
+\end{lemma}
+
+\begin{proof}
+本证明与引理 \ref{restricted-lemma-rig-smooth-axioms} 的证明完全相同。
+回顾一下该陈述的含义。首先，$\textit{WAdm}^{Noeth}$ 是以
+adic 诺特拓扑环为对象、以连续环同态为态射的范畴。
+考虑交换图表
+$$
+\xymatrix{
+B \ar[r] & (B')^\wedge \\
+A \ar[r] \ar[u]^\varphi & (A')^\wedge \ar[u]_{\varphi'}
+}
+$$
+并假设它满足下列条件：$A$ 和 $B$ 是 adic 诺特拓扑环，
+$A\to A'$ 和 $B\to B'$ 是 \'etale 环映射，
+对于某个定义理想 $I\subset A$，
+$(A')^\wedge=\lim A'/I^nA'$；
+对于某个定义理想 $J\subset B$，
+$(B')^\wedge=\lim B'/J^nB'$；并且
+$\varphi:A\to B$ 与
+$\varphi':(A')^\wedge\to(B')^\wedge$ 都连续。
+注意，由形式空间之引理
+\ref{formal-spaces-lemma-completion-in-sub}，
+$(A')^\wedge$ 和 $(B')^\wedge$ 是 adic 诺特拓扑环。
+我们须证明：
+\begin{enumerate}
+\item $\varphi$ 是 rig-\,'etale 的
+$\Rightarrow\varphi'$ 是 rig-\,'etale 的；
+\item 若 $B\to B'$ 忠实平坦，则 $\varphi'$ 是 rig-\,'etale 的
+$\Rightarrow\varphi$ 是 rig-\,'etale 的；以及
+\item 若对 $i=1,\ldots,n$，$A\to B_i$ 都是 rig-\,'etale 的，
+则 $A\to\prod_{i=1,\ldots,n}B_i$ 是 rig-\,'etale 的。
+\end{enumerate}
+引理 \ref{restricted-lemma-finite-type} 中的等价条件满足条件 (1)、(2) 和 (3)。
+因此，在对“rig-\,'etale”性质核验 (1)、(2) 和 (3) 时，
+可以已经假设每种情形下的环映射都满足引理
+\ref{restricted-lemma-finite-type} 中的等价条件。
+
+\medskip\noindent
+选取定义理想 $I\subset A$。由以上所述，图表中每个环的拓扑都是
+$I$-进拓扑，并且 $B$、$(A')^\wedge$、$(B')^\wedge$
+属于 $(A,I)$ 的范畴 (\ref{restricted-equation-C-prime})。
+由于 $A\to A'$ 和 $B\to B'$ 都是 \'etale 的，复形
+$\NL_{A'/A}$ 和 $\NL_{B'/B}$ 为零，故由引理
+\ref{restricted-lemma-NL-is-completion}，
+$\NL_{(A')^\wedge/A}^\wedge$ 和
+$\NL_{(B')^\wedge/B}^\wedge$ 为零。
+将引理 \ref{restricted-lemma-exact-sequence-NL} 应用于
+$A\to(A')^\wedge\to(B')^\wedge$，得到同构
+$$
+H^i(\NL_{(B')^\wedge/(A')^\wedge}^\wedge) \to H^i(\NL_{(B')^\wedge/A}^\wedge)
+$$
+因此
+$\NL_{(B')^\wedge/A}^\wedge\to
+\NL_{(B')^\wedge/(A')^\wedge}$ 是拟同构。
+环映射 $B/I^nB\to B'/I^nB'$ 是 \'etale 的，
+因而是局部完全交
+（代数，引理 \ref{algebra-lemma-etale-standard-smooth}）。
+所以可将引理 \ref{restricted-lemma-exact-sequence-NL} 和
+\ref{restricted-lemma-transitive-lci-at-end} 应用于
+$A\to B\to(B')^\wedge$，得到同构
+$$
+H^i(\NL_{B/A}^\wedge \otimes_B (B')^\wedge) \to
+H^i(\NL_{(B')^\wedge/A}^\wedge)
+$$
+由此可知
+$\NL_{B/A}^\wedge\otimes_B(B')^\wedge\to
+\NL_{(B')^\wedge/A}^\wedge$ 是拟同构。
+结合这两个观察，得到 $D((B')^\wedge)$ 中的同构
+$$
+\NL_{(B')^\wedge/(A')^\wedge}^\wedge \cong
+\NL_{B/A}^\wedge \otimes_B (B')^\wedge
+$$
+准备工作至此完成，可以开始真正的证明。
+
+\medskip\noindent
+证明 (1)。假设 $\varphi$ 是 rig-\,'etale 的。
+则存在 $c\geq0$，使对 $a\in I^c$ 的乘法在 $D(B)$ 中的
+$\NL_{B/A}^\wedge$ 上为零。这一性质在沿
+$B\to(B')^\wedge$ 作基变换时保持，见更多代数之引理
+\ref{more-algebra-lemma-two-term-base-change}。
+由上述同构，$\varphi'$ 是 rig-\,'etale 的。这证明了 (1)。
+
+\medskip\noindent
+为证明 (2)，假设 $B\to B'$ 忠实平坦且 $\varphi'$ 是
+rig-\,'etale 的。则存在 $c\geq0$，使对 $a\in I^c$ 的乘法
+在 $D((B')^\wedge)$ 中的
+$\NL_{(B')^\wedge/(A')^\wedge}^\wedge$ 上为零。
+由上述同构，$a^c$ 零化
+$\NL_{B/A}^\wedge\otimes_B(B')^\wedge$ 的上同调模。
+由我们假设 $B\to B'$ 忠实平坦，复合
+$B\to(B')^\wedge$ 忠实平坦，见形式空间之引理
+\ref{formal-spaces-lemma-etale-surjective}。
+因此，$\NL_{B/A}^\wedge$ 的上同调模被 $I^c$ 零化。
+由引理 \ref{restricted-lemma-equivalent-with-artin}，
+$\varphi$ 是 rig-\,'etale 的。这证明了 (2)。
+
+\medskip\noindent
+为证明 (3)，置 $B=\prod_{i=1,\ldots,n}B_i$；
+只需注意，$\NL_{B/A}^\wedge$ 是复形
+$\NL_{B_i/A}^\wedge$ 的直和，其中各复形均视为 $B$-模复形。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-etale-continuous}
+考虑 $\textit{WAdm}^{Noeth}$ 的箭头上的性质
+$P(\varphi)=$“$\varphi$ 是 rig-\,'etale 的”与
+$Q(\varphi)$=“$\varphi$ 是 adic 的”。
+则依照形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}
+中的定义，$P$ 在由 $Q$ 作基变换下稳定。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-etale-continuous}，该陈述有意义。
+为证明它，假设 $\textit{WAdm}^{Noeth}$ 中有态射
+$B\to A$ 和 $B\to C$，且 $B\to A$ 是 rig-\,'etale 的，
+$B\to C$ 是 adic 的
+（形式空间，定义 \ref{formal-spaces-definition-adic-homomorphism}）。
+则可选取定义理想 $I\subset B$，使 $A$ 和 $C$ 上的拓扑都是
+$I$-进拓扑。在这种情形下，由引理
+\ref{restricted-lemma-base-change-rig-etale-homomorphism} 立即可知，
+$A\widehat{\otimes}_B C$ 在 $(C,IC)$ 上 rig-\,'etale。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-etale-continuous}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-\,'etale 的”在复合下稳定，
+其含义如形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian} 所定义。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-etale-continuous}，该陈述有意义。
+为证明它，假设 $\textit{WAdm}^{Noeth}$ 中有 rig-\,'etale 态射
+$A\to B$ 和 $B\to C$。
+则可选取定义理想 $I\subset A$，使 $C$ 和 $B$ 上的拓扑都是
+$I$-进拓扑。由引理 \ref{restricted-lemma-exact-sequence-NL}，得到正合列
+$$
+\xymatrix{
+C \otimes_B H^0(\NL_{B/A}^\wedge) \ar[r] &
+H^0(\NL_{C/A}^\wedge) \ar[r] &
+H^0(\NL_{C/B}^\wedge) \ar[r] & 0 \\
+H^{-1}(\NL_{B/A}^\wedge \otimes_B C) \ar[r] &
+H^{-1}(\NL_{C/A}^\wedge) \ar[r] &
+H^{-1}(\NL_{C/B}^\wedge) \ar[llu]
+}
+$$
+存在 $c\geq0$，使对每个 $a\in I$，乘以 $a^c$ 在
+$D(B)$ 中的 $\NL_{B/A}^\wedge$ 以及在
+$D(C)$ 中的 $\NL_{C/B}^\wedge$ 上都为零。
+当然，乘以 $a^c$ 在 $D(C)$ 中的
+$\NL_{B/A}^\wedge\otimes_BC$ 上也为零。
+所以
+$H^0(\NL_{B/A}^\wedge)\otimes_A C$、
+$H^0(\NL_{C/B}^\wedge)$、
+$H^{-1}(\NL_{B/A}^\wedge\otimes_BC)$ 和
+$H^{-1}(\NL_{C/B}^\wedge)$ 都被 $a^c$ 零化。
+由正合列可知，乘以 $a^{2c}$ 在
+$H^0(\NL_{C/A}^\wedge)$ 和
+$H^{-1}(\NL_{C/A}^\wedge)$ 上为零。
+由引理 \ref{restricted-lemma-equivalent-with-artin}，
+$C$ 按所需在 $(A,I)$ 上 rig-\,'etale。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-permanence-rig-etale-continuous}
+在 $\textit{WAdm}^{Noeth}$ 的箭头上，性质
+$P(\varphi)=$“$\varphi$ 是 rig-\,'etale 的”具有形式空间之备注
+\ref{formal-spaces-remark-permanence-variant-Noetherian}
+所定义的消去性质。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-rig-etale-continuous}，该陈述有意义。
+为证明它，假设 $\textit{WAdm}^{Noeth}$ 中有映射
+$A\to B$ 和 $B\to C$，且 $A\to C$ 与 $A\to B$
+都是 rig-\,'etale 的。我们须证明 $B\to C$ 是 rig-\,'etale 的。
+可选取定义理想 $I\subset A$，使 $C$ 和 $B$ 上的拓扑都是
+$I$-进拓扑。由引理 \ref{restricted-lemma-exact-sequence-NL}，得到正合列
+$$
+\xymatrix{
+C \otimes_B H^0(\NL_{B/A}^\wedge) \ar[r] &
+H^0(\NL_{C/A}^\wedge) \ar[r] &
+H^0(\NL_{C/B}^\wedge) \ar[r] & 0 \\
+H^{-1}(\NL_{B/A}^\wedge \otimes_B C) \ar[r] &
+H^{-1}(\NL_{C/A}^\wedge) \ar[r] &
+H^{-1}(\NL_{C/B}^\wedge) \ar[llu]
+}
+$$
+存在 $c\geq0$，使对每个 $a\in I$，乘以 $a^c$ 在
+$D(B)$ 中的 $\NL_{B/A}^\wedge$ 以及在
+$D(C)$ 中的 $\NL_{C/A}^\wedge$ 上都为零。
+所以
+$H^0(\NL_{B/A}^\wedge)\otimes_A C$、
+$H^0(\NL_{C/A}^\wedge)$ 和
+$H^{-1}(\NL_{C/A}^\wedge)$ 都被 $a^c$ 零化。
+由正合列可知，乘以 $a^{2c}$ 在
+$H^0(\NL_{C/B}^\wedge)$ 和
+$H^{-1}(\NL_{C/B}^\wedge)$ 上为零。
+由引理 \ref{restricted-lemma-equivalent-with-artin}，
+$C$ 按所需在 $(B,IB)$ 上 rig-\,'etale。
+\end{proof}
+
+\section{Rig-\,'etale 态射}
+\label{restricted-section-rig-etale-morphisms}
+
+\noindent
+本节利用第 \ref{restricted-section-rig-etale-homomorphisms} 节中的工作，
+定义局部诺特代数空间的 rig-\,'etale 态射。
+
+\begin{definition}
+\label{restricted-definition-rig-etale}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 adic 诺特拓扑环之间的 rig-\,'etale 映射，
+则称 $f$ 是{\it rig-\,'etale 的}。
+\end{definition}
+
+\noindent
+下面证明该条件可以在源和目标上平展局部地检验。
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-morphisms}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+以下条件等价：
+\begin{enumerate}
+\item $f$ 是 rig-\,'etale 的；
+\item 对每个交换图表
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U,V$ 是仿射形式代数空间，而 $U\to X$ 与 $V\to Y$
+由代数空间可表且平展，态射 $U\to V$
+对应于 $\textit{WAdm}^{Noeth}$ 中的 rig-\,'etale 映射；
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$，并且对每个 $j$，
+存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_{ji}\to Y_j\times_YX\}$，
+使每个 $X_{ji}\to Y_j$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 rig-\,'etale 映射；并且
+\item 存在形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{X_i\to X\}$，并且对每个 $i$，
+存在分解 $X_i\to Y_i\to Y$，其中 $Y_i$ 是仿射形式代数空间，
+$Y_i\to Y$ 由代数空间可表且平展，而
+$X_i\to Y_i$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的 rig-\,'etale 映射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性就是定义 \ref{restricted-definition-rig-etale}。
+(2)、(3)、(4) 的等价性来自以下事实：
+由引理 \ref{restricted-lemma-rig-etale-axioms}，rig-\,'etale 是
+$\text{WAdm}^{Noeth}$ 箭头的局部性质；
+再应用形式空间之引理
+\ref{formal-spaces-lemma-property-defines-property-morphisms}
+对局部诺特代数空间之间态射的变体，
+该变体在形式空间之备注
+\ref{formal-spaces-remark-variant-Noetherian} 中提及。
+\end{proof}
+
+\noindent
+特别要说明的是，rig-\,'etale 态射局部有限型。
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-finite-type}
+局部诺特形式代数空间的 rig-\,'etale 态射局部有限型。
+\end{lemma}
+
+\begin{proof}
+引理 \ref{restricted-lemma-rig-etale-axioms} 中的性质 $P$
+蕴含形式空间之引理
+\ref{formal-spaces-lemma-quotient-restricted-power-series}
+中的等价条件 (a)、(b)、(c)、(d)。
+所以结论由形式空间之引理
+\ref{formal-spaces-lemma-finite-type-local-property} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-rig-smooth-morphism}
+局部诺特形式代数空间的 rig-\,'etale 态射是 rig-光滑的。
+\end{lemma}
+
+\begin{proof}
+这由定义和引理 \ref{restricted-lemma-rig-etale-rig-smooth} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-etale}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Z\to Y$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 是 rig-\,'etale 的且 $g$ 是 adic 的，
+则基变换 $X\times_YZ\to Z$ 是 rig-\,'etale 的。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-base-change-variant-variant-Noetherian}
+及形式空间之第 \ref{formal-spaces-section-adic} 节中的讨论，
+这由引理 \ref{restricted-lemma-base-change-rig-etale-continuous} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-etale}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $f$ 和 $g$ 都是 rig-\,'etale 的，则 $g\circ f$ 也是。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-composition-variant-Noetherian}，
+这由引理 \ref{restricted-lemma-composition-rig-etale-continuous} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-permanence}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $g\circ f$ 和 $g$ 都是 rig-\,'etale 的，则 $f$ 也是。
+\end{lemma}
+
+\begin{proof}
+由形式空间之备注
+\ref{formal-spaces-remark-permanence-variant-Noetherian}，
+这由引理 \ref{restricted-lemma-permanence-rig-etale-continuous} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-alternative-permanence}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。
+若 $g\circ f$ 是 rig-\,'etale 的且 $g$ 是 adic 单态射，
+则 $f$ 是 rig-\,'etale 的。
+\end{lemma}
+
+\begin{proof}
+使用引理 \ref{restricted-lemma-base-change-rig-etale} 以及如下事实：
+$f$ 是 $g\circ f$ 沿 $g$ 的基变换。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-closed-immersion-rig-smooth}
+设 $S$ 为概形。设 $f:X\to Y$ 为形式代数空间的态射。
+假设 $X$ 和 $Y$ 局部诺特，且 $f$ 是闭浸入。下列条件等价：
+\begin{enumerate}
+\item $f$ 是 rig-光滑的；
+\item $f$ 是 rig-\,'etale 的；
+\item 对每个仿射形式代数空间 $V$ 以及每个由代数空间可表且平展的
+态射 $V\to Y$，态射 $X\times_YV\to V$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的满态射 $B\to A$，其核 $J$
+具有如下性质：对 $B$ 的某个定义理想 $I$，有 $I(J/J^2)=0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先作如下观察：给定 (2) 中的 $V$ 和 $V\to Y$，而不对 $f$
+施加任何进一步假设，由形式空间之引理
+\ref{formal-spaces-lemma-closed-immersion-into-countably-indexed}，
+可知态射 $X\times_YV\to V$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的满态射 $B\to A$。
+
+\medskip\noindent
+由引理 \ref{restricted-lemma-rig-etale-rig-smooth-morphism}，
+(2) $\Rightarrow$ (1)。
+
+\medskip\noindent
+证明 (3) $\Rightarrow$ (2)。假设 (3)。由引理
+\ref{restricted-lemma-rig-etale-morphisms}，只需证明 (3) 中出现的环映射
+$B\to A$ 在定义
+\ref{restricted-definition-rig-etale-continuous-homomorphism} 的意义下
+是 rig-\,'etale 的。设 $I$ 如 (3) 中所述。
+$A$ 在 $(B,I)$ 上的朴素余切复形
+$\NL_{A/B}^\wedge$ 是把 $J/J^2$ 放在次数 $-1$ 所得的 $A$-模复形。
+因此，由定义 \ref{restricted-definition-rig-etale-homomorphism}，
+$A$ 在 $(B,I)$ 上 rig-\,'etale。
+
+\medskip\noindent
+假设 (1)，并设 $V$ 和 $B\to A$ 如 (3) 中所述。
+由定义 \ref{restricted-definition-rig-smooth}，$B\to A$ 是 rig-光滑的。
+任取定义理想 $I\subset B$。则 $A$ 在 $(B,I)$ 上 rig-光滑。
+如上所述，复形 $\NL_{A/B}^\wedge$ 是把 $J/J^2$
+放在次数 $-1$ 所得的复形。因此，由引理
+\ref{restricted-lemma-equivalent-with-artin-smooth}，
+$J/J^2$ 被某个 $n\geq1$ 的幂 $I^n$ 零化。
+由于 $B$ 是 adic 的，$I^n$ 是 $B$ 的定义理想。证明完毕。
+\end{proof}
+
+\section{Rig-满射态射}
+\label{restricted-section-rig-surjective}
+
+\noindent
+对于局部诺特形式代数空间之间的局部有限型态射，
+可以采用一个源自 \cite{ArtinII} 的定义。
+关于更一般情形中的处理方式，见备注
+\ref{restricted-remark-rig-surjective-more-general} 中的讨论。
+
+\begin{definition}
+\label{restricted-definition-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上形式代数空间的态射。
+假设 $X$ 和 $Y$ 局部诺特，且 $f$ 局部有限型。
+如果对每个实线图表
+$$
+\xymatrix{
+\text{Spf}(R') \ar@{..>}[r] \ar@{..>}[d] & X \ar[d]^f \\
+\text{Spf}(R) \ar[r]^-p & Y
+}
+$$
+其中 $R$ 是完备离散赋值环且 $p$ 是 adic 态射，
+都存在完备离散赋值环的扩张 $R\subset R'$ 和态射
+$\text{Spf}(R')\to X$，使所示图表交换，
+则称 $f$ 是{\it rig-满射的}。
+\end{definition}
+
+\noindent
+下面的引理将说明，在局部诺特形式代数空间和局部有限型态射的语境中，
+这一概念表现得相当合理。下一个备注讨论如何修改该定义，
+使之适用于更广泛的形式代数空间态射。
+
+\begin{remark}
+\label{restricted-remark-rig-surjective-more-general}
+定义 \ref{restricted-definition-rig-surjective} 中表述的条件，
+甚至对局部 adic* 形式代数空间的有限型态射也不合适。
+例如，若
+$A=(\bigcup_{n\geq1}k[t^{1/n}])^\wedge$，
+其中完备化是 $t$-进完备化，则不存在 adic 态射
+$\text{Spf}(R)\to\text{Spf}(A)$，其中 $R$ 是完备离散赋值环。
+因而任意态射 $X\to\text{Spf}(A)$ 都会是 rig-满射的；
+但是，由于 $A$ 是整环且 $t\in A$ 非零，我们希望把 $A$
+看作至少具有一个“rig-点”，并不希望允许 $X=\emptyset$。
+为了涵盖这一特定情形，可以考虑 adic 态射
+$$
+\text{Spf}(R) \longrightarrow Y
+$$
+其中 $R$ 是关于主理想 $J$ 完备的赋值环，并且
+$\mathfrak m_R=\sqrt{J}$。在这种情形下，$R$ 的值群可嵌入
+$(\mathbf{R},+)$，由此得到 Berkovich 在定义与 $Y$ 相关联的
+解析空间时采用的观点，见 \cite{Berkovich}。
+另一种方法由 Huber 倡导。在他的理论中，舍去
+$\Spec(R/J)$ 是单点的假设，见 \cite{Huber-continuous-valuations}。
+\end{remark}
+
+\begin{lemma}
+\label{restricted-lemma-composition-rig-surjective}
+\begin{slogan}
+局部有限型态射的 rig-满射性在复合下保持
+\end{slogan}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上形式代数空间的态射。
+假设 $X,Y,Z$ 局部诺特，且 $f,g$ 局部有限型。
+若 $f,g$ 都是 rig-满射的，则 $g\circ f$ 也是。
+\end{lemma}
+
+\begin{proof}
+这直接由定义得出
+（并使用形式空间之引理
+\ref{formal-spaces-lemma-composition-finite-type}）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $Z\to Y$
+为 $S$ 上形式代数空间的态射。
+假设 $X,Y,Z$ 局部诺特，且 $f,g$ 局部有限型。
+若 $f$ 是 rig-满射的，则基变换 $Z\times_YX\to Z$ 也是。
+\end{lemma}
+
+\begin{proof}
+这直接由定义得出（并使用形式空间之引理
+\ref{formal-spaces-lemma-fibre-product-Noetherian} 和
+\ref{formal-spaces-lemma-base-change-finite-type}）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-surjective-alternative-permanence}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的局部有限型态射。
+若 $g\circ f$ 是 rig-满射的且 $g$ 是单态射，
+则 $f$ 是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+使用引理 \ref{restricted-lemma-base-change-rig-surjective} 以及如下事实：
+$f$ 是 $g\circ f$ 沿 $g$ 的基变换。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-permanence-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上形式代数空间的态射。
+假设 $X,Y,Z$ 局部诺特，且 $f,g$ 局部有限型。
+若 $g\circ f:X\to Z$ 是 rig-满射的，则
+$g:Y\to Z$ 也是。
+\end{lemma}
+
+\begin{proof}
+这由定义立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-etale-covering-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 为局部诺特形式代数空间的态射，
+并假设它由代数空间可表、平展且满射。则 $f$ 是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+设 $p:\text{Spf}(R)\to Y$ 为 adic 态射，其中 $R$ 是完备离散赋值环。
+令 $Z=\text{Spf}(R)\times_YX$。则
+$Z\to\text{Spf}(R)$ 由代数空间可表、平展且满射，
+故 $Z$ 非空。选取非空仿射形式代数空间 $V$ 以及平展态射
+$V\to Z$（按我们的定义，这是可以做到的）。
+于是 $V\to\text{Spf}(R)$ 对应于 $R\to A^\wedge$，
+其中 $R\to A$ 是平展环映射，见形式空间之引理
+\ref{formal-spaces-lemma-etale}。由于 $A^\wedge\not=0$
+（因为 $V\not=\emptyset$），可以找到位于 $\mathfrak m_R$ 上方的
+$A$ 的极大理想 $\mathfrak m$。于是 $A_\mathfrak m$ 是离散赋值环
+（更多代数，引理
+\ref{more-algebra-lemma-Dedekind-etale-extension}）。
+所以 $R'=A_\mathfrak m^\wedge$ 是完备离散赋值环
+（更多代数，引理 \ref{more-algebra-lemma-completion-dvr}）。
+应用形式空间之引理
+\ref{formal-spaces-lemma-morphism-between-formal-spectra}，
+得到所需态射 $\text{Spf}(R')\to V\to Z\to X$。
+\end{proof}
+
+\noindent
+以上引理的结论是：可以在 $Y$ 上平展局部地检验
+$f:X\to Y$ 是否 rig-满射。
+
+\begin{lemma}
+\label{restricted-lemma-upshot}
+设 $S$ 为概形。设 $f:X\to Y$ 为局部诺特形式代数空间的
+局部有限型态射。设 $\{g_i:Y_i\to Y\}$ 为形式代数空间态射族，
+其中各态射由代数空间可表且平展，并且 $\coprod g_i$ 满射。
+则 $f$ 是 rig-满射的，当且仅当每个
+$f_i:X\times_YY_i\to Y_i$ 都是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+事实上，若 $f$ 是 rig-满射的，则任意基变换也是
+（引理 \ref{restricted-lemma-base-change-rig-surjective}）。
+反之，若所有 $f_i$ 都是 rig-满射的，则
+$\coprod f_i:\coprod X\times_YY_i\to\coprod Y_i$ 也是。
+由引理 \ref{restricted-lemma-etale-covering-rig-surjective}，态射
+$\coprod g_i:\coprod Y_i\to Y$ 是 rig-满射的。
+所以 $\coprod X\times_YY_i\to Y$ 是 rig-满射的
+（引理 \ref{restricted-lemma-composition-rig-surjective}）。
+由于该态射经过 $X\to Y$ 分解，由引理
+\ref{restricted-lemma-permanence-rig-surjective}，$X\to Y$ 是 rig-满射的。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-faithfully-flat-rig-surjective}
+设 $A$ 为关于理想 $I$ 完备的诺特环。
+设 $B$ 为 $I$-进完备的 $A$-代数。
+若对每个 $n$，$A/I^n\to B/I^nB$ 都是有限型且平坦的，
+并且在 $n=1$ 时忠实平坦，则
+$\text{Spf}(B)\to\text{Spf}(A)$ 是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+下文将不再另行说明地使用如下事实：形式谱之间的态射由相应拓扑环之间的
+连续映射给出，见形式空间之引理
+\ref{formal-spaces-lemma-morphism-between-formal-spectra}。
+设 $\varphi:A\to R$ 为到完备离散赋值环 $A$ 的连续映射。
+这蕴含 $\varphi(I)\subset\mathfrak m_R$。
+另一方面，由于只须在 $\varphi$ 对应于 adic 态射时构造提升
+$\varphi':B'\to R'$，可以假设 $\varphi(I)\not=0$。
+因此可考虑基变换 $C=B\widehat{\otimes}_A R$，
+例如见备注 \ref{restricted-remark-base-change}。
+于是 $C$ 是 $\mathfrak m_R$-进完备的 $R$-代数，
+$C/\mathfrak m_R^nC$ 在 $R/\mathfrak m_R^n$ 上有限型且平坦，
+并且 $C/\mathfrak m_RC$ 非零。
+任取位于 $\mathfrak m_R$ 上方的极大理想 $\mathfrak m\subset C$。
+由平坦性（它蕴含下降）可知
+$\Spec(C_\mathfrak m)\setminus V(\mathfrak m_RC_\mathfrak m)$
+是非空开集。因此可以选取素理想
+$\mathfrak q\subset\mathfrak m$，使 $\mathfrak q$ 给出
+$\Spec(C_\mathfrak m)\setminus\{\mathfrak m\}$ 的闭点，
+且 $\mathfrak q\not\in V(IC_\mathfrak m)$，见性质之引理
+\ref{properties-lemma-complement-closed-point-Jacobson}。
+于是 $C/\mathfrak q$ 是 $1$ 维局部整环，并且存在包含
+$C/\mathfrak q\subset R'$，其中 $R'$ 是离散赋值环
+（代数，引理 \ref{algebra-lemma-exists-dvr}）。
+按构造，$\mathfrak m_RR'\subset\mathfrak m_{R'}$，
+并且 $C\to R'$ 延拓为连续映射 $C\to(R')^\wedge$
+（事实上，在当前情形下可选择 $R'$ 使
+$R'=(R')^\wedge$，但我们不需要这一点）。
+由于离散赋值环的完备化仍是离散赋值环，该假设给出环的交换图表
+$$
+\xymatrix{
+(R')^\wedge & C \ar[l] & B \ar[l] \\
+R \ar[u] & R \ar[l] \ar[u] & A \ar[l] \ar[u]
+}
+$$
+它给出所需的提升。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-flat-rig-surjective}
+设 $A$ 为关于理想 $I$ 完备的诺特环。
+设 $B$ 为 $I$-进完备的 $A$-代数。假设：
+\begin{enumerate}
+\item $A$ 中的 $I$-挠为 $0$；
+\item 对每个 $n$，$A/I^n\to B/I^nB$ 都平坦且有限型。
+\end{enumerate}
+则 $\text{Spf}(B)\to\text{Spf}(A)$ 是 rig-满射的，
+当且仅当 $A/I\to B/IB$ 忠实平坦。
+\end{lemma}
+
+\begin{proof}
+忠实平坦性由引理 \ref{restricted-lemma-faithfully-flat-rig-surjective}
+蕴含 rig-满射性。为证明逆命题，下文将不再另行说明地使用如下事实：
+$I$-挠消失等价于 $I$-幂挠消失
+（更多代数，引理 \ref{more-algebra-lemma-torsion-free}）。
+还将不再另行说明地使用如下事实：形式谱之间的态射由相应拓扑环之间的
+连续映射给出，见形式空间之引理
+\ref{formal-spaces-lemma-morphism-between-formal-spectra}。
+
+\medskip\noindent
+假设 $\text{Spf}(B)\to\text{Spf}(A)$ 是 rig-满射的。
+选取极大理想 $I\subset\mathfrak m\subset A$。
+$\Spec(A_\mathfrak m)$ 的开子集
+$U=\Spec(A_\mathfrak m)\setminus V(I_\mathfrak m)$ 非空，
+因为 $A_\mathfrak m$ 的 $I_\mathfrak m$-挠为零
+（使用代数之引理
+\ref{algebra-lemma-Noetherian-power-ideal-kills-module}）。
+因此可以找到素理想 $\mathfrak q\subset A_\mathfrak m$，
+它给出 $U$ 的一个点（即
+$IA_\mathfrak m\not\subset\mathfrak q$），并对应于
+$\Spec(A_\mathfrak m)\setminus\{\mathfrak m\}$ 的闭点，见性质之引理
+\ref{properties-lemma-complement-closed-point-Jacobson}。
+于是 $A_\mathfrak m/\mathfrak q$ 是 $1$ 维局部整环。
+所以存在局部环的单局部同态
+$A_\mathfrak m/\mathfrak q\subset R$，其中 $R$ 是离散赋值环
+（代数，引理 \ref{algebra-lemma-exists-dvr}）。
+按构造，$IR\subset\mathfrak m_R$，并且
+$A\to R$ 延拓为连续映射 $A\to R^\wedge$。
+由于离散赋值环的完备化仍是离散赋值环，该假设给出环的交换图表
+$$
+\xymatrix{
+R' & B \ar[l] \\
+R^\wedge \ar[u] & A \ar[l] \ar[u]
+}
+$$
+因而找到 $B$ 中位于 $\mathfrak m$ 上方的素理想。
+所以 $\Spec(B/IB)\to\Spec(A/I)$ 满射，进而
+$A/I\to B/IB$ 忠实平坦
+（代数，引理 \ref{algebra-lemma-ff-rings}）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-monomorphism-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 为形式代数空间的态射。
+假设 $X,Y$ 局部诺特，$f$ 局部有限型，且 $f$ 是单态射。
+则 $f$ 是 rig-满射的，当且仅当每个 adic 态射
+$\text{Spf}(R)\to Y$ 都经过 $X$ 分解，其中 $R$ 是完备离散赋值环。
+\end{lemma}
+
+\begin{proof}
+一个方向是平凡的。为证明另一个方向，假设
+$\text{Spf}(R)\to Y$ 是 adic 态射，并且存在完备离散赋值环的扩张
+$R\subset R'$，使经过 $Y$ 分解的
+$\text{Spf}(R')\to\text{Spf}(R)\to X$ 存在。
+于是
+$\Spec(R'/\mathfrak m_R^nR')\to\Spec(R/\mathfrak m_R^n)$
+满且平坦；因 $X$ 满足 fpqc 覆盖的层条件，态射
+$\Spec(R/\mathfrak m_R^n)\to X$ 经过 $X$ 分解，
+见形式空间之引理 \ref{formal-spaces-lemma-sheaf-fpqc}。
+换言之，$\text{Spf}(R)\to Y$ 经过 $X$ 分解。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-closed-immersion-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 为形式代数空间的态射。
+假设 $X,Y$ 局部诺特，且 $f$ 是闭浸入。下列条件等价：
+\begin{enumerate}
+\item $f$ 是 rig-满射的；以及
+\item 对每个仿射形式代数空间 $V$ 以及每个由代数空间可表且平展的
+态射 $V\to Y$，态射 $X\times_YV\to V$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的满态射 $B\to A$，其核 $J$
+具有如下性质：对 $B$ 的某个定义理想 $I$ 和某个 $n\geq1$，
+有 $IJ^n=0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先作如下观察：给定 (2) 中的 $V$ 和 $V\to Y$，而不对 $f$
+施加任何进一步假设，由形式空间之引理
+\ref{formal-spaces-lemma-closed-immersion-into-countably-indexed}，
+可知态射 $X\times_YV\to V$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的满态射 $B\to A$。
+
+\medskip\noindent
+假设 (1)。由引理 \ref{restricted-lemma-base-change-rig-surjective}，
+$\text{Spf}(A)\to\text{Spf}(B)$ 是 rig-满射的。
+设 $I\subset B$ 为定义理想。由于 $B$ 是 adic 的，
+对所有 $m\geq1$，$I^m\subset B$ 都是定义理想。
+若对所有 $n,m\geq1$ 都有 $I^mJ^n\not=0$，
+则 $IJ$ 不幂零，故 $V(IJ)\not=\Spec(B)$。
+因而可找到素理想 $\mathfrak p\subset B$，使
+$\mathfrak p\not\in V(I)\cup V(J)$。
+注意 $I(B/\mathfrak p)\not=B/\mathfrak p$，故可找到极大理想
+$\mathfrak p+I\subset\mathfrak m\subset B$。
+由代数之引理 \ref{algebra-lemma-exists-dvr}，
+可找到离散赋值环 $R$ 和单局部环同态
+$(B/\mathfrak p)_\mathfrak m\to R$。
+显然，环映射 $B\to R$ 不可能经过 $A=B/J$ 分解。
+依照引理 \ref{restricted-lemma-monomorphism-rig-surjective}，
+这与 $\text{Spf}(A)\to\text{Spf}(B)$ 是 rig-满射的相矛盾。
+因此，对某些 $n,m$，确有 $I^nJ^m=0$，这证明 (2)。
+
+\medskip\noindent
+假设 (2)。由引理 \ref{restricted-lemma-upshot}，只需证明
+$\text{Spf}(A)\to\text{Spf}(B)$ 是 rig-满射的。
+选取定义理想 $I\subset B$ 和整数 $n$，使 $IJ^n=0$。
+考虑环映射 $B\to R$，其中 $R$ 是离散赋值环，且 $I$ 的像非零。
+由于 $R$ 是整环，$J$ 在 $R$ 中的像为零。
+所以 $B\to R$ 经过满射 $B\to A$ 分解，结论由
+rig-满射态射的定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-closed-immersion-rig-smooth-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 为形式代数空间的态射。
+假设 $X,Y$ 局部诺特，且 $f$ 是闭浸入。下列条件等价：
+\begin{enumerate}
+\item $f$ 是 rig-光滑且 rig-满射的；
+\item $f$ 是 rig-\,'etale 且 rig-满射的；以及
+\item 对每个仿射形式代数空间 $V$ 以及每个由代数空间可表且平展的
+态射 $V\to Y$，态射 $X\times_YV\to V$ 对应于
+$\textit{WAdm}^{Noeth}$ 中的满态射 $B\to A$，其核 $J$
+具有如下性质：对 $B$ 的某个定义理想 $I$，有 $IJ=0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $I,J$ 为环 $B$ 的理想，使 $IJ^n=0$ 且 $I(J/J^2)=0$。
+则 $I^nJ=0$（证明从略）。所以本引理由引理
+\ref{restricted-lemma-closed-immersion-rig-smooth} 和
+\ref{restricted-lemma-closed-immersion-rig-surjective} 的平凡组合得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-etale-descent}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Y\to Z$
+为 $S$ 上局部诺特形式代数空间的态射。假设：
+\begin{enumerate}
+\item $g$ 局部有限型；
+\item $f$ 是 rig-光滑（相应地，rig-\,'etale）且 rig-满射的；
+\item $g\circ f$ 是 rig-光滑的（相应地，rig-\,'etale 的）。
+\end{enumerate}
+则 $g$ 是 rig-光滑的（相应地，rig-\,'etale 的）。
+\end{lemma}
+
+\begin{proof}
+我们将证明 rig-光滑情形，并在证明末尾指出证明 rig-\,'etale 情形
+所需的改动。考虑交换图表
+$$
+\xymatrix{
+X \times_Y V \ar[r] \ar[d] &
+V \ar[d] \ar[r] &
+W \ar[d] \\
+X \ar[r] &
+Y \ar[r] &
+Z
+}
+$$
+其中 $V,W$ 是仿射形式代数空间，而 $V\to Y$ 与 $W\to Z$
+由代数空间可表且平展。我们须证明 $V\to W$ 对应于
+adic 诺特拓扑环之间的 rig-光滑映射，见定义
+\ref{restricted-definition-rig-smooth}。
+可以写成 $V=\text{Spf}(B)$ 和 $W=\text{Spf}(C)$，
+并且 $V\to W$ 对应于 adic 环映射 $C\to B$；
+该映射拓扑有限型，见引理 \ref{restricted-lemma-finite-type-morphisms}。
+
+\medskip\noindent
+下文将不再另行说明地使用如下事实：
+$X\times_YV\to V$ 是 rig-光滑且 rig-满射的，见引理
+\ref{restricted-lemma-base-change-rig-smooth} 和
+\ref{restricted-lemma-base-change-rig-surjective}。
+此外，复合 $X\times_YV\to V\to W$ 是 rig-光滑的，
+因为 $g\circ f$ 是 rig-光滑的。
+
+\medskip\noindent
+设 $I\subset C$ 为定义理想。模
+反设 $C\to B$ 不是 rig-光滑的，以求矛盾。
+这意味着存在不包含 $IB$ 的素理想 $\mathfrak q\subset B$，
+使得或者 $H^{-1}(\NL_{B/C}^\wedge)_\mathfrak p$ 非零，
+或者 $H^0(\NL_{B/C}^\wedge)_\mathfrak p$ 不是有限自由
+$B_\mathfrak q$-模。见引理
+\ref{restricted-lemma-equivalent-with-artin-smooth}；略去若干细节。
+可以选择极大理想 $IB+\mathfrak q\subset\mathfrak m$。
+由代数之引理 \ref{algebra-lemma-exists-dvr}，
+可以找到完备离散赋值环 $R$ 和单局部环同态
+$(B/\mathfrak q)_\mathfrak m\to R$。
+
+\medskip\noindent
+用一个扩张代替 $R$ 后，可以假设 adic 态射
+$\text{Spf}(R)\to V=\text{Spf}(B)$ 有提升
+$\text{Spf}(R)\to X\times_YV$。
+选取形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的平展覆盖
+$\{\text{Spf}(A_i)\to X\times_YV\}$。
+由引理 \ref{restricted-lemma-etale-covering-rig-surjective}，
+可以假设 $\text{Spf}(R)\to X\times_YV$ 提升为某个 $i$ 的态射
+$\text{Spf}(R)\to\text{Spf}(A_i)$
+（这可能需要再次用一个扩张代替 $R$）。
+置 $A=A_i$。考虑环映射
+$$
+C \to B \to A \to R
+$$
+设 $\mathfrak p\subset A$ 为映射 $A\to R$ 的核；
+注意 $\mathfrak p$ 位于 $\mathfrak q$ 上方。
+已知 $C\to A$ 和 $B\to A$ 都是 rig-光滑的。
+特别地，由引理 \ref{restricted-lemma-rig-smooth-rig-flat}，环映射
+$B_\mathfrak q\to A_\mathfrak p$ 平坦。
+考虑引理 \ref{restricted-lemma-exact-sequence-NL} 和
+\ref{restricted-lemma-exact-sequence-NL-rig-smooth} 的相应正合列
+$$
+\xymatrix{
+&
+H^0(\NL_{B/C}^\wedge) \otimes_B A_\mathfrak p \ar[r] &
+H^0(\NL_{A/C}^\wedge)_\mathfrak p \ar[r] &
+H^0(\NL_{A/B}^\wedge)_\mathfrak p \ar[r] & 0 \\
+0 \ar[r] &
+H^{-1}(\NL_{B/C}^\wedge \otimes_B A)_\mathfrak p \ar[r] &
+H^{-1}(\NL_{A/C}^\wedge)_\mathfrak p \ar[r] &
+H^{-1}(\NL_{A/B}^\wedge)_\mathfrak p \ar[llu]
+}
+$$
+由 $C\to A$ 和 $B\to A$ 的 rig-光滑性可知
+$H^{-1}(\NL_{B/C}^\wedge\otimes_BA)_\mathfrak p=0$，
+并且 $H^0(\NL_{B/C}^\wedge)\otimes_BA_\mathfrak p$
+作为有限自由 $A_\mathfrak p$-模之间满射的核，是有限自由的。
+由于 $B_\mathfrak q\to A_\mathfrak p$ 平坦，因而忠实平坦，
+这蕴含
+$H^{-1}(\NL_{B/C}^\wedge)_\mathfrak q=0$，
+并且 $H^0(\NL_{B/C}^\wedge)_\mathfrak q$ 有限自由，
+这正是所求的矛盾。
+
+\medskip\noindent
+在 rig-\,'etale 情形下，论证完全相同，
+只是所得结论是
+$H^{-1}(\NL_{B/C}^\wedge)_\mathfrak q$ 和
+$H^0(\NL_{B/C}^\wedge)_\mathfrak q$ 都为零。
+\end{proof}
+
+\section{完备离散赋值环上的形式代数空间}
+\label{restricted-section-over-cdrv}
+
+\noindent
+本节采用如下术语：若 $A$ 是弱可容许拓扑环，
+则“{\it $X$ 是 $A$ 上的形式代数空间}”意指 $X$ 是一个形式代数空间，
+并配备形式代数空间的态射
+$p:X\to\text{Spf}(A)$。在这种情形下，称 $p$ 为{\it 结构态射}。
+
+\begin{lemma}
+\label{restricted-lemma-flat-locus}
+设 $X$ 为完备离散赋值环 $A$ 上的局部诺特形式代数空间。
+则存在形式代数空间的闭浸入 $X'\to X$，使 $X'$ 在 $A$ 上平坦，
+并且任何局部诺特形式代数空间的态射 $Y\to X$，只要 $Y$
+在 $A$ 上平坦，就经过 $X'$ 分解。
+\end{lemma}
+
+\begin{proof}
+设 $\pi\in A$ 为一致化元。回顾：$A$-模平坦，
+当且仅当其 $\pi$-幂挠为 $0$。
+
+\medskip\noindent
+先假设 $X$ 是仿射形式代数空间。
+则 $X=\text{Spf}(B)$，其中 $B$ 是 adic 诺特 $A$-代数。
+在这种情形下，令 $X'=\text{Spf}(B')$，其中
+$B'=B/\pi\text{-幂挠子}$。
+显然，$X'$ 在 $A$ 上平坦，且 $X'\to X$ 是闭浸入。
+设 $g:Y\to X$ 为局部诺特形式代数空间的态射，
+其中 $Y$ 在 $A$ 上平坦。选取形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{Y_j\to Y\}$。
+于是 $Y_j=\text{Spf}(C_j)$，其中 $C_j$ 在 $A$ 上平坦。
+因而态射 $Y_j\to X$ 对应于连续 $R$-代数映射 $B\to C_j$；
+由于 $B\to C_j$ 显然零化 $\pi$-幂挠，它经过 $X'$ 分解。
+由于 $\{Y_j\to Y\}$ 是覆盖且 $X'\to X$ 是单态射，
+可知 $g$ 经过 $X'$ 分解。
+
+\medskip\noindent
+设 $X$ 和 $\{X_i\to X\}_{i\in I}$ 如形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space} 中所述。
+对每个 $i$，令 $X'_i\to X_i$ 为上述构造的平坦部分。
+对 $i,j\in I$，投影 $X'_i\times_XX_j\to X'_i$
+是概形的平展态射（前者由假设，后者由形式空间之引理
+\ref{formal-spaces-lemma-presentation-representable}）。
+因而 $X'_i\times_XX_j$ 在 $A$ 上平坦，因为由代数空间可表且平展的
+态射是平坦的（引理 \ref{restricted-lemma-representable-flat}）。
+所以由泛性质，投影 $X'_i\times_XX_j\to X_j$ 经过 $X'_j$ 分解。
+由于态射 $X'_i\to X_i$ 是层的单射，得到
+$$
+R_{ij} = X'_i \times_X X_j = X'_i \times_X X'_j = X_i \times_X X'_j
+$$
+置 $U=\coprod X'_i$、$R=\coprod R_{ij}$，并以
+$s,t:R\to U$ 表示两个投影。作为层，$R=U\times_XU$，
+且 $s,t$ 都平展。由以上观察，$(t,s):R\to U$ 定义了平展等价关系。
+所以由空间之定理 \ref{spaces-theorem-presentation}，
+$X'=U/R$ 是代数空间。按构造，图表
+$$
+\xymatrix{
+\coprod X'_i \ar[r] \ar[d] & \coprod X_i \ar[d] \\
+X' \ar[r] & X
+}
+$$
+是笛卡尔的。由于右侧竖直箭头平展满射，顶部水平箭头可表且为闭浸入，
+由 Bootstrap 之引理
+\ref{bootstrap-lemma-after-fppf-sep-lqf}，可知 $X'\to X$ 可表。
+随后使用空间之引理
+\ref{spaces-lemma-descent-representable-transformations-property}，
+可知 $X'\to X$ 是闭浸入。
+
+\medskip\noindent
+最后，设 $Y\to X$ 为态射，其中 $Y$ 是在 $A$ 上平坦的
+局部诺特形式代数空间。则每个 $X_i\times_XY$ 在 $Y$ 上平展，
+因而在 $A$ 上平坦（见上文）。所以
+$X_i\times_XY\to X_i$ 经过 $X'_i$ 分解。
+由于 $\{X_i\times_XY\to Y\}$ 是平展覆盖，
+$Y\to X$ 经过 $X'$ 分解。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-flat-and-diagonal-rig-surjective}
+设 $X$ 为完备离散赋值环 $A$ 上的局部诺特形式代数空间，
+且在该环上局部有限型。设 $X'\subset X$ 如引理
+\ref{restricted-lemma-flat-locus} 中所述。
+若 $X\to X\times_{\text{Spf}(A)}X$ 是 rig-\,'etale 且 rig-满射的，
+则 $X'=\text{Spf}(A)$ 或 $X'=\emptyset$。
+\end{lemma}
+
+\begin{proof}
+（顺便说明：由形式空间之引理
+\ref{formal-spaces-lemma-diagonal-morphism-formal-algebraic-spaces}，
+对角总是局部有限型；而由形式空间之引理
+\ref{formal-spaces-lemma-base-change-finite-type} 和
+\ref{formal-spaces-lemma-locally-finite-type-locally-noetherian}，
+$X\times_{\text{Spf}(A)}X$ 局部诺特。
+因此，对角态射上的这些条件是有意义的。）图表
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X' \times_{\text{Spf}(A)} X' \ar[d] \\
+X \ar[r] & X \times_{\text{Spf}(A)} X
+}
+$$
+是笛卡尔的。因此，由引理 \ref{restricted-lemma-base-change-rig-surjective}，
+$X'\to X'\times_{\text{Spf}(A)}X'$ 是 rig-\,'etale 且 rig-满射的。
+选取仿射形式代数空间 $U$ 和由代数空间可表且平展的态射
+$U\to X'$。则 $U=\text{Spf}(B)$，其中 $B$ 是 adic 诺特拓扑环，
+是平坦 $A$-代数；其拓扑是 $\pi$-进拓扑，其中
+$\pi\in A$ 是一致化元；并且对每个 $n$，
+$A/\pi^nA\to B/\pi^nB$ 有限型。
+为后用，注意这尤其蕴含：若 $B\not=0$，则映射
+$\text{Spf}(B)\to\text{Spf}(A)$ 是层的满射
+（请回顾，我们一贯使用 fppf 拓扑）。重复上述论证，可知
+$$
+W = U \times_{X'} U =
+X' \times_{X' \times_{\text{Spf}(A)} X'} (U \times_{\text{Spf}(A)} U)
+\longrightarrow
+U \times_{\text{Spf}(A)} U
+$$
+是闭浸入，并且 rig-\,'etale 且 rig-满射。
+由形式空间之引理
+\ref{formal-spaces-lemma-fibre-product-affines-over-separated}，有
+$U\times_{\text{Spf}(A)}U=
+\text{Spf}(B\widehat{\otimes}_AB)$。
+由于 $B\widehat{\otimes}_AB$ 是平坦 $A$-代数
+$B\otimes_AB$ 的 $\pi$-进完备化，它是平坦 $A$-代数。
+所以由引理 \ref{restricted-lemma-closed-immersion-rig-smooth-rig-surjective}，
+$W=U\times_{\text{Spf}(A)}U$。
+换言之，$U\times_{X'}U=U\times_{\text{Spf}(A)}U$；
+这又意味着 $U\to X'$ 的像（视为层映射）单射地映到
+$\text{Spf}(A)$。选取形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的覆盖 $\{U_i\to X'\}$。
+特别地，$\coprod U_i\to X'$ 是层的满射。
+把以上论证应用于 $U_i\coprod U_j\to X'$
+（使用 $U_i\amalg U_j$ 仍是仿射形式代数空间这一事实），
+可知 $X'\to\text{Spf}(A)$ 是 fppf 层的单射。
+由于 $X'$ 在 $A$ 上平坦，或者 $X'$ 为空
+（若对所有 $i$，$U_i$ 都为空），或者该映射是同构
+（若对某个 $i$，$U_i$ 非空；此时已看到
+$U_i\to\text{Spf}(A)$ 是层的满射）。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-rig-monomorphism-rig-surjective}
+设 $S$ 为概形。设 $f:X\to Y$ 为形式代数空间的态射。假设：
+\begin{enumerate}
+\item $X$ 和 $Y$ 局部诺特；
+\item $f$ 局部有限型；
+\item $\Delta_f:X\to X\times_YX$ 是 rig-\,'etale 且 rig-满射的。
+\end{enumerate}
+则 $f$ 是 rig-满射的，当且仅当每个 adic 态射
+$\text{Spf}(R)\to Y$ 都提升为态射 $\text{Spf}(R)\to X$，
+其中 $R$ 是完备离散赋值环。
+\end{lemma}
+
+\begin{proof}
+一个方向是平凡的。为证明另一个方向，假设
+$\text{Spf}(R)\to Y$ 是 adic 态射，并且存在完备离散赋值环的扩张
+$R\subset R'$，使经过 $Y$ 分解的
+$\text{Spf}(R')\to\text{Spf}(R)\to X$ 存在。
+考虑纤维积图表
+$$
+\xymatrix{
+\text{Spf}(R') \ar[r] \ar[rd] &
+\text{Spf}(R) \times_Y X \ar[r] \ar[d]^p &
+X \ar[d]^f \\
+&
+\text{Spf}(R) \ar[r] &
+Y
+}
+$$
+态射 $p$ 作为 $f$ 的基变换局部有限型，见形式空间之引理
+\ref{formal-spaces-lemma-base-change-finite-type}。
+对角态射 $\Delta_p$ 是 $\Delta_f$ 的基变换，
+因而 rig-\,'etale 且 rig-满射。
+由引理 \ref{restricted-lemma-flat-and-diagonal-rig-surjective}，
+$\text{Spf}(R)\times_YX$ 在 $R$ 上的平坦轨迹或者是
+$\emptyset$，或者等于 $\text{Spf}(R)$。
+但是，由于 $\text{Spf}(R')$ 经过它分解，可知它非空，
+因而按所需得到态射
+$\text{Spf}(R)\to\text{Spf}(R)\times_YX\to X$。
+\end{proof}
+
+\section{完备化函子}
+\label{restricted-section-completion-functor}
+
+\noindent
+本节考虑下列情形。首先固定基概形 $S$。
+所有环、拓扑环、概形、代数空间、形式代数空间及其间态射都在 $S$ 上。
+其次固定代数空间 $X$ 和闭子集 $T\subset|X|$。
+以 $U\subset X$ 表示满足 $|U|=|X|\setminus T$ 的开子空间。图示为
+$$
+U \to X \quad |X| = |U| \amalg T
+$$
+在这种情形下，给定 $X$ 上的代数空间 $X'$，即配备态射
+$f:X'\to X$ 的代数空间 $X'$，以 $T'\subset|X'|$
+表示 $T$ 的逆像，并令 $U'\subset X'$ 为满足
+$|U'|=|X'|\setminus T'$ 的开子空间。图示为
+$$
+U' = f^{-1}U
+\quad\quad
+\vcenter{
+\xymatrix{
+U' \ar[d] \ar[r] & X' \ar[d]_f \\
+U \ar[r] & X
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+|U'| \ar[r] \ar[d] & |X'| \ar[d]^{|f|} & T' \ar[l] \ar[d] \\
+|U| \ar[r] & |X| & T \ar[l]
+}
+}
+\quad\quad
+T' = |f|^{-1}T
+$$
+我们将把 $f$ 的性质同形式完备化的诱导态射
+$$
+f_{/T} : X'_{/T'} \longrightarrow X_{/T}
+$$
+的性质联系起来。如所示公式所表明的，以 $f_{/T}$ 表示该态射。
+我们已在形式空间之引理
+\ref{formal-spaces-lemma-map-completions-representable}
+中看到 $f_{/T}$ 由代数空间可表。
+事实上，如该引理的证明所示，图表
+$$
+\xymatrix{
+X'_{/T'} \ar[d]_{f_{/T}} \ar[r] & X' \ar[d]^f \\
+X_{/T} \ar[r] & X
+}
+$$
+是笛卡尔的。阅读下面陈述并证明的各引理时，请记住这一事实。
+
+\begin{lemma}
+\label{restricted-lemma-map-completions-finite-type}
+在上述情形中，若 $f$ 局部有限型，则 $f_{/T}$ 局部有限型。
+\end{lemma}
+
+\begin{proof}
+（形式代数空间的有限型态射在形式空间之第
+\ref{formal-spaces-section-finite-type} 节中讨论。）
+事实上，设 $Z\to X$ 为从概形到 $X$ 的态射，
+使 $|Z|$ 映入 $T$。由上述笛卡尔方形，
+$Z\times_XX'$ 是表示 $Z\times_{X_{/T}}X'_{/T'}$ 的代数空间。
+由于 $Z\times_XX'\to Z$ 由空间的态射之引理
+\ref{spaces-morphisms-lemma-base-change-finite-type}
+局部有限型，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-map-completions-etale}
+在上述情形中，若 $f$ 平展，则 $f_{/T}$ 平展。
+\end{lemma}
+
+\begin{proof}
+采用引理 \ref{restricted-lemma-map-completions-finite-type} 证明中的相同论证，
+结论由空间的态射之引理
+\ref{spaces-morphisms-lemma-base-change-etale} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-closed-immersion-gives-closed-immersion}
+在上述情形中，若 $f$ 是闭浸入，则 $f_{/T}$ 是闭浸入。
+\end{lemma}
+
+\begin{proof}
+（形式代数空间的闭浸入在形式空间之第
+\ref{formal-spaces-section-closed-immersions} 节中讨论。）
+采用引理 \ref{restricted-lemma-map-completions-finite-type} 证明中的相同论证，
+结论由空间之引理
+\ref{spaces-lemma-base-change-immersions} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-proper-gives-proper}
+在上述情形中，若 $f$ 是真的，则 $f_{/T}$ 是真的。
+\end{lemma}
+
+\begin{proof}
+（形式代数空间的真态射在形式空间之第
+\ref{formal-spaces-section-proper} 节中讨论。）
+采用引理 \ref{restricted-lemma-map-completions-finite-type} 证明中的相同论证，
+结论由空间的态射之引理
+\ref{spaces-morphisms-lemma-base-change-proper} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-quasi-compact-gives-quasi-compact}
+在上述情形中，若 $f$ 拟紧，则 $f_{/T}$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+（形式代数空间的拟紧态射在形式空间之第
+\ref{formal-spaces-section-quasi-compact} 节中讨论。）
+我们须证明
+$(X'_{/T'})_{red}\to(X_{/T})_{red}$ 是代数空间的拟紧态射。
+由形式空间之引理
+\ref{formal-spaces-lemma-reduction-completion}，
+这是态射 $Z'\to Z$，其中 $Z'\subset X'$（相应地，$Z\subset X$）
+是 $T'$（相应地，$T$）上的约化诱导代数空间结构。
+因此 $Z'\to f^{-1}Z=Z\times_XX'$ 是加厚
+（即在底拓扑空间上诱导同构的闭浸入）。
+由于 $Z\times_XX'\to Z$ 作为 $f$ 的基变换拟紧
+（空间的态射，引理
+\ref{spaces-morphisms-lemma-base-change-quasi-compact}），
+由更多空间的态射之引理
+\ref{spaces-more-morphisms-lemma-thicken-property-morphisms}，
+$Z'\to Z$ 也拟紧。
+\end{proof}
+
+\begin{remark}
+\label{restricted-remark-diagonal-gives-diagonal}
+在上述情形中，考虑对角态射
+$\Delta_f:X'\to X'\times_XX'$ 和
+$\Delta_{f_{/T}}:X'_{/T'}\to
+X'_{/T'}\times_{X_{/T}}X'_{/T'}$。
+容易看出
+$$
+X'_{/T'} \times_{X_{/T}} X'_{/T'} = (X' \times_X X')_{/T''}
+$$
+作为 $X'\times_XX'$ 的子函子成立，其中
+$T''\subset|X'\times_XX'|$ 是 $T$ 的逆像。
+所以 $\Delta_{f_{/T}}=(\Delta_f)_{/T''}$。
+下面将用此说明 $\Delta_f$ 的性质由 $\Delta_{f_{/T}}$ 继承。
+\end{remark}
+
+\begin{lemma}
+\label{restricted-lemma-quasi-separated-gives-quasi-separated}
+在上述情形中，若 $f$ 是（拟）分离的，则 $f_{/T}$ 也是。
+\end{lemma}
+
+\begin{proof}
+（形式代数空间态射的分离性条件在形式空间之第
+\ref{formal-spaces-section-separation-axioms} 节中讨论。）
+我们须证明：若 $\Delta_f$ 拟紧（相应地，是闭浸入），
+则 $\Delta_{f_{/T}}$ 也如此。
+这由备注 \ref{restricted-remark-diagonal-gives-diagonal} 中的讨论以及引理
+\ref{restricted-lemma-quasi-compact-gives-quasi-compact} 和
+\ref{restricted-lemma-closed-immersion-gives-closed-immersion} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-smooth-gives-rig-smooth}
+在上述情形中，若 $X$ 局部诺特，$f$ 局部有限型，
+且 $U'\to U$ 光滑，则 $f_{/T}$ 是 rig-光滑的。
+\end{lemma}
+
+\begin{proof}
+证明策略如下：归结到 $X,X'$ 都仿射的情形，
+把仿射情形翻译为代数，最后应用引理 \ref{restricted-lemma-rig-smooth}。
+我们建议读者略过细节。
+
+\medskip\noindent
+选取满平展态射 $W\to X$，其中 $W=\coprod W_i$
+是仿射概形的不交并，见空间的性质之引理
+\ref{spaces-properties-lemma-cover-by-union-affines}。
+对每个 $i$，选取满平展态射
+$W'_i\to W_i\times_XX'$，其中
+$W'_i=\coprod W'_{ij}$ 是仿射概形的不交并。
+特别地，$\coprod W'_{ij}\to X'$ 满且平展。
+以 $f_{ij}:W_{ij}\to W_i$ 表示给定态射。
+以 $T_i\subset W_i$ 和 $T'_{ij}\subset W_{ij}$ 表示 $T$ 的逆像。
+由于沿 $T$ 的逆像取完备化产生笛卡尔图表（见上文），有
+$(W_i)_{/T_i}=W_i\times_XX_{/T}$，并且类似地，
+$(W'_{ij})_{/T'_{ij}}=W'_{ij}\times_{X'}X'_{/T'}$。
+此外，回顾 $(W_i)_{/T_i}$ 和 $(W'_{ij})_{/T'_{ij}}$
+是仿射形式代数空间。因此
+$\{W'_{ij})_{/T'_{ij}}\to X'_{/T'}\}$ 是形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space} 所述的覆盖。
+由引理 \ref{restricted-lemma-rig-smooth-morphisms}，只需证明
+$$
+(W'_{ij})_{/T'_{ij}} \longrightarrow (W_i)_{/T_i}
+$$
+是 rig-光滑的。注意，$W'_{ij}\to W_i$ 局部有限型，
+并诱导光滑态射
+$W'_{ij}\setminus T'_{ij}\to W_i\setminus T_i$
+（因为 $f$ 具有这些性质，且这些态射性质在源和目标上平展局部）。
+又注意 $W_i$ 局部诺特（因为 $X$ 局部诺特，
+且该性质在代数空间上平展局部）。
+所以只需证明 $X,X'$ 都为仿射概形时的引理。
+
+\medskip\noindent
+假设 $X=\Spec(A)$ 和 $X'=\Spec(A')$ 是仿射概形。
+由于 $X$ 诺特，$A$ 是诺特环。
+态射 $f$ 由有限型环映射 $A\to A'$ 给出。
+设 $I\subset A$ 为截出 $T$ 的理想，则 $IA'$ 截出 $T'$。
+此外，$\Spec(A')\to\Spec(A)$ 在
+$\Spec(A)\setminus T$ 上光滑。
+设 $A^\wedge$ 和 $(A')^\wedge$ 为 $I$-进完备化。
+则 $X_{/T}=\text{Spf}(A^\wedge)$ 且
+$X'_{/T'}=\text{Spf}((A')^\wedge)$，见形式空间之引理
+\ref{formal-spaces-lemma-formal-completion-types} 的证明。
+由引理 \ref{restricted-lemma-rig-smooth}，$(A')^\wedge$ 在 $(A.I)$ 上
+rig-光滑；这又意味着 $A^\wedge\to(A')^\wedge$ 是 rig-光滑的；
+最后，由引理 \ref{restricted-lemma-rig-smooth-morphisms}，
+$X'_{/T'}\to X_{/T}$ 是 rig-光滑的。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-etale-gives-rig-etale}
+在上述情形中，若 $X$ 局部诺特，$f$ 局部有限型，
+且 $U'\to U$ 平展，则 $f_{/T}$ 是 rig-\,'etale 的。
+\end{lemma}
+
+\begin{proof}
+证明与引理 \ref{restricted-lemma-smooth-gives-rig-smooth} 的证明完全相同，
+只是把引理 \ref{restricted-lemma-rig-smooth} 和
+\ref{restricted-lemma-rig-smooth-morphisms} 替换为引理
+\ref{restricted-lemma-rig-etale} 和 \ref{restricted-lemma-rig-etale-morphisms}。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-completion-proper-surjective-rig-surjective}
+在上述情形中，若 $X$ 局部诺特，$f$ 是真的，
+且 $U'\to U$ 满射，则 $f_{/T}$ 是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+（该陈述由引理 \ref{restricted-lemma-map-completions-finite-type} 和
+形式空间之引理
+\ref{formal-spaces-lemma-formal-completion-types} 是有意义的。）
+设 $R$ 为分式域为 $K$ 的完备离散赋值环。
+设 $p:\text{Spf}(R)\to X_{/T}$ 为形式代数空间的 adic 态射。
+由形式空间之引理
+\ref{formal-spaces-lemma-adic-into-completion}，
+复合 $\text{Spf}(R)\to X_{/T}\to X$ 对应于态射
+$q:\Spec(R)\to X$，它把 $\Spec(K)$ 映入 $U$。
+由于 $U'\to U$ 真且满射，
+$\Spec(K)\times_UU'$ 非空且在 $K$ 上真。
+所以可以选取域扩张 $K'/K$ 和交换图表
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & U' \ar[r] \ar[d] & X' \ar[d] \\
+\Spec(K) \ar[r] & U \ar[r] & X
+}
+$$
+设 $R'\subset K'$ 为支配 $R$ 且分式域为 $K'$ 的离散赋值环，
+见代数之引理 \ref{algebra-lemma-exists-dvr}。
+由于 $\Spec(K)\to X$ 延拓为 $\Spec(R)\to X$，
+由真性的赋值判据
+（空间的态射，引理
+\ref{spaces-morphisms-lemma-characterize-proper}），
+可以把 $U'$ 的 $K'$-点延拓为位于
+$\Spec(R)\to X$ 上方的态射 $\Spec(R')\to X'$。
+于是 $T'$ 在 $\Spec(R')$ 中的逆像是闭点，并得到提升 $p$ 的
+adic 态射 $\text{Spf}((R')^\wedge)\to X'_{/T'}$，如所需
+（注意，由更多代数之引理
+\ref{more-algebra-lemma-completion-dvr}，
+$(R')^\wedge$ 是完备离散赋值环）。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-separated-mono-open-diagonal-rig-surjective}
+在上述情形中，若 $X$ 局部诺特，$f$ 分离且局部有限型，
+并且 $U'\to U$ 是单态射，则
+$\Delta_{f_{/T}}$ 是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+对角 $\Delta_f:X'\to X'\times_XX'$ 是闭浸入，
+而 $\Delta_f$ 的限制 $U'\to U'\times_UU'$ 满射。
+所以结论由备注 \ref{restricted-remark-diagonal-gives-diagonal} 中的讨论和引理
+\ref{restricted-lemma-completion-proper-surjective-rig-surjective} 得出。
+\end{proof}
+
+\section{形式修改}
+\label{restricted-section-formal-modifications}
+
+\noindent
+本节定义并研究 Artin 的局部诺特形式代数空间之形式修改概念。
+先给出定义。
+
+\begin{definition}
+\label{restricted-definition-formal-modification}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射。
+若满足下列条件，则称 $f$ 为{\it 形式修改}：
+\begin{enumerate}
+\item $f$ 是真态射（形式空间，定义
+\ref{formal-spaces-definition-proper}）；
+\item $f$ 是 rig-\,'etale 的；
+\item $f$ 是 rig-满射的；
+\item $\Delta_f:X\to X\times_YX$ 是 rig-满射的。
+\end{enumerate}
+\end{definition}
+
+\noindent
+引理 \ref{restricted-lemma-modification-gives-formal-modification}
+给出一个典型例子；事实上，稍后将证明每个形式修改在“形式局部”
+意义下都属于这一类型，见引理
+\ref{restricted-lemma-formal-modifications-locally-algebraic}。
+下面把这些条件与 Artin 论文中的条件作比较。
+
+\begin{remark}
+\label{restricted-remark-compare-formal-modification-artin}
+在 \cite[Definition 1.7]{ArtinII} 中，形式修改被定义为局部诺特
+形式代数空间的真态射 $f:X\to Y$，并满足下列三个条件\footnote{我们不会把
+这些条件完全翻译为 Stacks project 中发展出的语言。
+尽管如此，我们希望这里的讨论对读者有所帮助。}：
+\begin{enumerate}
+\item[(\romannumeral1)] $f$ 的 Cramer 理想和 Jacobian 理想
+各自包含 $X$ 的一个定义理想；
+\item[(\romannumeral2)] 定义对角映射
+$\Delta:X\to X\times_YX$ 的理想被
+$X\times_YX$ 的一个定义理想零化；以及
+\item[(\romannumeral3)] 每当 $R$ 是完备离散赋值环时，
+任意 adic 态射 $\text{Spf}(R)\to Y$ 都提升为
+$\text{Spf}(R)\to X$。
+\end{enumerate}
+下面把这些条件与我们上列的条件作比较。
+
+\medskip\noindent
+关于 (\romannumeral1)。性质 (\romannumeral1) 与我们要求
+$f$ 为 rig-\,'etale 态射的条件一致；这由引理
+\ref{restricted-lemma-equivalent-with-artin} 的
+(\ref{restricted-item-condition-artin}) 得出。
+
+\medskip\noindent
+关于 (\romannumeral2)。假设 $f$ 是 rig-\,'etale 的。
+则 $\Delta_f:X\to X\times_YX$ 是局部诺特形式代数空间的
+rig-\,'etale 态射，因为这两个空间都在 $X$ 上 rig-\,'etale
+（第一个经由 $\text{id}_X$，第二个经由 $\text{pr}_1$）。
+见引理 \ref{restricted-lemma-base-change-rig-etale} 和
+\ref{restricted-lemma-rig-etale-permanence}。
+所以由引理 \ref{restricted-lemma-closed-immersion-rig-smooth-rig-surjective}，
+性质 (\romannumeral2) 与我们要求 $\Delta_f$ rig-满射的条件一致。
+
+\medskip\noindent
+关于 (\romannumeral3)。性质 (\romannumeral3) 与我们的
+rig-满射态射概念并不完全一致，因为 Artin 要求所有 adic 态射
+$\text{Spf}(R)\to Y$ 都提升为到 $X$ 的态射，而我们的 rig-满射概念
+仅断言用一个扩张代替 $R$ 后存在提升。
+不过，由 (\romannumeral1) 和 (\romannumeral2)，已经知道
+$\Delta_f$ 是 rig-\,'etale 且 rig-满射的，因此由引理
+\ref{restricted-lemma-rig-monomorphism-rig-surjective}，这些条件等价。
+\end{remark}
+
+\begin{lemma}
+\label{restricted-lemma-modification-gives-formal-modification}
+设 $S$、$f:X'\to X$、$T\subset|X|$、$U\subset X$、
+$T'\subset|X'|$ 和 $U'\subset X'$ 如第
+\ref{restricted-section-completion-functor} 节中所述。
+若 $X$ 局部诺特，$f$ 是真的，且 $U'\to U$ 是同构，
+则 $f_{/T}:X'_{/T'}\to X_{/T}$ 是形式修改。
+\end{lemma}
+
+\begin{proof}
+由形式空间之引理
+\ref{formal-spaces-lemma-formal-completion-types}，
+该箭头的源和目标是局部诺特形式代数空间。
+其余条件由引理 \ref{restricted-lemma-proper-gives-proper}、
+\ref{restricted-lemma-etale-gives-rig-etale}、
+\ref{restricted-lemma-completion-proper-surjective-rig-surjective} 和
+\ref{restricted-lemma-separated-mono-open-diagonal-rig-surjective} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-base-change-formal-modification}
+设 $S$ 为概形。设 $f:X\to Y$ 为 $S$ 上局部诺特形式代数空间的态射，
+并且是形式修改。则对局部诺特形式代数空间的任意 adic 态射
+$Y'\to Y$，基变换
+$f':X\times_YY'\to Y'$ 是形式修改。
+\end{lemma}
+
+\begin{proof}
+由形式空间之引理
+\ref{formal-spaces-lemma-base-change-proper}，态射 $f'$ 是真的。
+由引理 \ref{restricted-lemma-base-change-rig-etale}，态射 $f'$ 是 rig-etale 的。
+于是由引理 \ref{restricted-lemma-base-change-rig-surjective}，
+态射 $f'$ 是 rig-满射的。置 $X'=X\times_ Y'$。
+态射 $\Delta_{f'}$ 是 $\Delta_f$ 沿 adic 态射
+$X'\times_{Y'}X'\to X\times_YX$ 的基变换。
+所以由引理 \ref{restricted-lemma-base-change-rig-surjective}，
+$\Delta_{f'}$ 是 rig-满射的。
+\end{proof}
+
+\section{完备化与态射，I}
+\label{restricted-section-completion-and-morphisms}
+
+\noindent
+本节给出一些关于完备化的预备结果，将用于定理
+\ref{restricted-theorem-dilatations-general} 的证明。
+尽管这里陈述并证明的引理并非平凡
+（其中一些建立在我们关于 rig-\,'etale 代数之代数化的工作上），
+我们仍建议读者初次阅读时跳过本节。
+
+\begin{lemma}
+\label{restricted-lemma-algebraize-rig-etale-affine}
+设 $T\subset X$ 为诺特仿射概形 $X$ 的闭子集。
+设 $W$ 为诺特仿射形式代数空间。
+设 $g:W\to X_{/T}$ 为 rig-\,'etale 态射。
+则存在仿射概形 $X'$ 和有限型态射 $f:X'\to X$，
+该态射在 $X\setminus T$ 上平展，并且存在与 $f_{/T}$ 和 $g$
+相容的同构 $X'_{/f^{-1}T}\cong W$。
+此外，若 $W\to X_{/T}$ 平展，则 $X'\to X$ 平展。
+\end{lemma}
+
+\begin{proof}
+$X'$ 的存在性是引理
+\ref{restricted-lemma-approximate-by-etale-over-complement} 的重述。
+最后一个陈述由更多态射之引理
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-algebraize-morphism-rig-etale}
+假设给定：
+\begin{enumerate}
+\item 诺特仿射概形 $X,X',Y$；
+\item 闭子集 $T\subset|X|$；
+\item 局部有限型态射 $f:X'\to X$，它在 $X\setminus T$ 上平展；
+\item 态射 $h:Y\to X$；
+\item 位于 $X_{/T}$ 上的态射
+$\alpha:Y_{/T}\to X'_{/T}$（记号见证明）。
+\end{enumerate}
+则存在仿射概形的平展态射 $b:Y'\to Y$，
+它诱导同构 $b_{/T}:Y'_{/T}\to Y_{/T}$；
+并且存在位于 $X$ 上的态射 $a:Y'\to X'$，使
+$\alpha=a_{/T}\circ b_{/T}^{-1}$。
+\end{lemma}
+
+\begin{proof}
+陈述中使用下标 ${}_{/T}$ 的记号指如下构造：
+它把概形态射 $g:V\to X$ 关联到形式代数空间的态射
+$g_{/T}:V_{/g^{-1}T}\to X_{/T}$；这是从 $X$ 上概形的范畴
+到 $X_{/T}$ 上形式代数空间的范畴的函子，见第
+\ref{restricted-section-completion-functor} 节。
+说明这一点后，本引理只是引理
+\ref{restricted-lemma-fully-faithful-etale-over-complement} 的改述。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-factor}
+设 $S$ 为概形。设 $f:X\to Y$ 与 $g:Z\to Y$ 为代数空间的态射。
+设 $T\subset|X|$ 闭。假设：
+\begin{enumerate}
+\item $X$ 局部诺特；
+\item $g$ 是单态射且局部有限型；
+\item $f|_{X\setminus T}:X\setminus T\to Y$ 经过 $g$ 分解；
+\item $f_{/T}:X_{/T}\to Y$ 经过 $g$ 分解。
+\end{enumerate}
+则 $f$ 经过 $g$ 分解。
+\end{lemma}
+
+\begin{proof}
+考虑纤维积 $E=X\times_YZ\to X$。
+由假设，开浸入 $X\setminus T\to X$ 经过 $E$ 分解；
+而任何满足 $|\varphi|(|X'|)\subset T$ 的态射
+$\varphi:X'\to X$ 也经过 $E$ 分解，见形式空间之第
+\ref{formal-spaces-section-completion} 节。
+由更多空间的态射之引理
+\ref{spaces-more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}，
+这蕴含 $E\to X$ 在 $E$ 中每个映到 $T$ 中某点的点处平展。
+所以 $E\to X$ 是平展单态射，因而是开浸入
+（空间的态射，引理
+\ref{spaces-morphisms-lemma-etale-universally-injective-open}）。
+于是由我们的假设蕴含 $|X|=|E|$，可知 $E=X$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-faithful-general}
+设 $S$ 为概形。设 $X,W$ 为 $S$ 上代数空间，其中 $X$ 局部诺特。
+设 $T\subset|X|$ 为闭子集。
+设 $a,b:X\to W$ 为 $S$ 上代数空间的态射，满足
+$a|_{X\setminus T}=b|_{X\setminus T}$，并且作为态射
+$X_{/T}\to W$ 有 $a_{/T}=b_{/T}$。则 $a=b$。
+\end{lemma}
+
+\begin{proof}
+设 $E$ 为 $a,b$ 的等化子。则 $E$ 是代数空间，并且
+$E\to X$ 局部有限型且为单态射，见空间的态射之引理
+\ref{spaces-morphisms-lemma-properties-diagonal}。
+我们的假设蕴含：可把引理 \ref{restricted-lemma-factor} 应用于两个态射
+$f=\text{id}:X\to X$ 与 $g:E\to X$ 以及 $|X|$ 的闭子集 $T$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-faithful}
+设 $S$ 为概形。设 $X,Y$ 为 $S$ 上局部诺特代数空间。
+设 $T\subset|X|$ 和 $T'\subset|Y|$ 为闭子集。
+设 $a,b:X\to Y$ 为 $S$ 上代数空间的态射，满足
+$a|_{X\setminus T}=b|_{X\setminus T}$、
+$|a|(T)\subset T'$、$|b|(T)\subset T'$，并且作为态射
+$X_{/T}\to Y_{/T'}$ 有 $a_{/T}=b_{/T}$。则 $a=b$。
+\end{lemma}
+
+\begin{proof}
+这是更一般的引理 \ref{restricted-lemma-faithful-general} 的推论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-equivalence-relation}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特代数空间，
+并设 $T\subset|X|$ 为闭子集。
+设 $s,t:R\to U$ 为 $X$ 上代数空间的两个态射。假设：
+\begin{enumerate}
+\item $R,U$ 在 $X$ 上局部有限型；
+\item $s,t$ 到 $X\setminus T$ 的基变换是平展等价关系；
+\item 形式完备化
+$(t_{/T},s_{/T}):R_{/T}\to
+U_{/T}\times_{X_{/T}}U_{/T}$ 也是等价关系（记号见证明）。
+\end{enumerate}
+则 $(t,s):R\to U\times_XU$ 是平展等价关系。
+\end{lemma}
+
+\begin{proof}
+陈述中使用下标 ${}_{/T}$ 的记号指如下构造：
+它把代数空间态射 $f:X'\to X$ 关联到形式代数空间的态射
+$f_{/T}:X'_{/f^{-1}T}\to X_{/T}$，见第
+\ref{restricted-section-completion-functor} 节。
+由假设，态射 $s,t:R\to U$ 在 $X\setminus T$ 上平展。
+由于映射 $s,t:R\to U$ 的形式完备化平展，例如由更多态射之引理
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}，
+可知 $s,t$ 平展。把引理 \ref{restricted-lemma-factor} 应用于态射
+$\text{id}:R\times_{U\times_XU}R\to R\times_{U\times_XU}R$
+和 $\Delta:R\to R\times_{U\times_XU}R$，可知 $(t,s)$ 是单态射。
+再次把它应用于
+$(t\circ\text{pr}_0,s\circ\text{pr}_1):
+R\times_{s,U,t}R\to U\times_XU$ 与
+$(t,s):R\to U\times_XU$，得到“传递性”。
+等价关系的另外两条公理的证明从略。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-smash-away-from-T}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特代数空间，
+并设 $T\subset|X|$ 为闭子集。
+设 $f:X'\to X$ 为局部有限型并在 $T$ 外平展的代数空间态射。
+存在 $f$ 的分解
+$$
+X' \longrightarrow X'' \longrightarrow X
+$$
+并具有下列性质：$X''\to X$ 局部有限型，
+$X''\to X$ 在 $X\setminus T$ 上为同构，并且
+$X'_{/T}\to X''_{/T}$ 是同构（记号见证明）。
+\end{lemma}
+
+\begin{proof}
+陈述中使用下标 ${}_{/T}$ 的记号指如下构造：
+它把代数空间态射 $f:X'\to X$ 关联到形式代数空间的态射
+$f_{/T}:X'_{/f^{-1}T}\to X_{/T}$，见第
+\ref{restricted-section-completion-functor} 节。
+还将使用第 \ref{restricted-section-completion-functor} 节中引入的记号
+$U\subset X$ 和 $U'\subset X'$，表示满足
+$|U|=|X|\setminus T$ 与
+$U'=|X'|\setminus f^{-1}T$ 的开子空间。
+
+\medskip\noindent
+用 $X'\amalg U$ 代替 $X'$ 后，可以并且确实假设
+$X'\to X$ 的像包含 $U$。令
+$$
+R = X' \amalg_{U'} (U' \times_U U')
+$$
+为 $U'\to X'$ 与对角态射
+$U'\to U'\times_UU'=U'\times_XU'$ 的推出。
+由于 $U'\to X$ 平展，该对角是开浸入，因而 $R$ 是代数空间
+（例如由空间之引理
+\ref{spaces-lemma-glueing-algebraic-spaces} 得出）。
+两个投影 $U'\times_UU'\to U'$ 延拓到 $R$，
+得到两个平展态射 $s,t:R\to X'$。
+分别在每一片上核验，可知 $R$ 是 $X'$ 上的平展等价关系。
+置 $X''=X'/R$；由 Bootstrap 之定理
+\ref{bootstrap-theorem-final-bootstrap}，它是代数空间。
+按构造得到引理中的分解，并且态射 $X''\to X$ 局部有限型
+（因为这可以平展局部地核验，即在 $X'$ 上核验）。
+由于 $U'\to U$ 是满平展态射，且
+$s^{-1}(U')=t^{-1}(U')=U'\times_UU'$，
+可知 $U''=U\times_XX''\to U$ 是同构。
+最后，须证明态射 $X'\to X''$ 诱导同构
+$X'_{/T}\to X''_{/T}$。为此，注意由我们对 $R$ 的选择，
+$R$ 沿 $T$ 的逆像的形式完备化等于 $X'$ 沿 $T$ 的逆像的形式完备化！
+由形式空间之第 \ref{formal-spaces-section-completion} 节中
+对形式完备化的构造，作为层有
+$X''_{/T}=(X'_{/T})/(R_{/T})$。
+由于 $X'_{/T}=R_{/T}$，可知 $X'_{/T}=X''_{/T}$。证明完毕。
+\end{proof}
+
+\section{态射的 rig-粘合}
+\label{restricted-section-glue-formal-to-actual}
+
+\noindent
+设 $X,W$ 为代数空间，其中 $X$ 诺特。
+设 $Z\subset X$ 为闭子空间，其开补为 $U$。
+粗略地说，下面的命题断言
+$$
+\{\text{态射 }X \to W\} =
+\{\text{相容态射 }U \to W\text{ 且 }X_{/Z} \to W\}
+$$
+这里，$a:U\to W$ 与 $b:X_{/Z}\to W$ 的相容性意指
+$a,b$ 定义同一个“rig-空间的态射”。
+引入“rig-空间”的范畴需要大量工作，但为了准确陈述该条件在此情形下的
+含义，我们无须这样做。
+
+\begin{proposition}
+\label{restricted-proposition-glue-modification}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特代数空间。
+设 $T\subset|X|$ 为闭子集，其开补子空间为 $U\subset X$。
+设 $f:X'\to X$ 为代数空间的真态射，且
+$f^{-1}(U)\to U$ 是同构。对 $S$ 上任意代数空间 $W$，映射
+$$
+\Mor_S(X, W) \longrightarrow
+\Mor_S(X', W) \times_{\Mor_S(X'_{/T}, W)} \Mor_S(X_{/T}, W)
+$$
+是双射。
+\end{proposition}
+
+\begin{proof}
+设 $w':X'\to W$ 和 $\hat w:X_{/T}\to W$ 为态射，
+它们分别与 $X'_{/T}\to X$ 和 $X'_{/T}\to X_{/T}$ 复合后，
+给出同一个态射 $X'_{/T}\to W$。
+我们须证明存在唯一态射 $w:X\to W$，它分别与
+$X'\to X$ 和 $X_{/T}\to X$ 复合后恢复 $w'$ 和 $\hat w$。
+唯一性立即由引理 \ref{restricted-lemma-faithful-general} 得出。
+
+\medskip\noindent
+关于 $T,f$ 的假设在沿代数空间的任意平展态射
+$X_1\to X$ 作基变换时保持。
+由于形式代数空间是平展拓扑的层，且已经有唯一性，
+只需在用平展覆盖的成员代替 $X$ 后证明存在性。
+所以可以假设 $X$ 是仿射诺特概形。
+
+\medskip\noindent
+假设 $X$ 是仿射诺特概形。我们将利用空间的推出之第
+\ref{spaces-pushouts-section-coequalizer-glue} 节中的材料构造态射
+$w:X\to W$。继续阅读本证明之前，先阅读该节的少量材料是有益的。
+
+\medskip\noindent
+置 $X''=X'\times_XX'$，并考虑两个态射
+$a=w'\circ\text{pr}_1:X''\to W$ 和
+$b=w'\circ\text{pr}_2:X''\to W$。
+可见 $a,b$ 在开集 $U$ 上相等，并且
+$a_{/T}$ 与 $b_{a/T}$ 相等
+（因为二者都等于复合 $X''_{/T}\to X_{/T}\to W$，
+其中第二个箭头是 $\hat w$）。
+所以由引理 \ref{restricted-lemma-faithful-general}，有 $a=b$。
+
+\medskip\noindent
+以 $Z\subset X$ 表示 $T$ 上的约化诱导闭子概形结构。
+对 $n\geq1$，以 $Z_n\subset X$ 表示 $Z$ 的第 $n$ 个无穷小邻域。
+记 $w_n=\hat w|_{Z_n}:Z_n\to W$，于是
+$X_{/T}=\colim Z_n$ 上有 $\hat w=\colim w_n$。
+置 $Y_n=X'\amalg Z_n$。考虑两个投影
+$$
+s_n, t_n : R_n = Y_n \times_X Y_n \longrightarrow Y_n
+$$
+令 $Y_n\to X_n\to X$ 为空间的推出之第
+\ref{spaces-pushouts-section-coequalizer-glue} 节中所述的
+$s_n,t_n$ 的余等化子（特别地，该余等化子存在并具有良好性质等，
+见空间的推出之引理
+\ref{spaces-pushouts-lemma-coequalizer}）。
+由上一段的结果 $a=b$ 以及 $w',\hat w$ 在 $X'_{/T}$ 上相等，
+可知态射
+$$
+w' \amalg w_n : Y_n \longrightarrow W
+$$
+等化 $s_n,t_n$。因此，对所有 $n\geq1$，存在态射
+$w^n:X_n\to W$，它与 $w',w_n$ 相容。
+此外，对 $m\geq1$，复合
+$$
+X_n \to X_{n + m} \xrightarrow{w^{n + m}} W
+$$
+按构造等于 $w^n$（因为相应陈述对
+$w'\amalg w_{n+m}$ 和 $w'\amalg w_n$ 成立）。
+由空间的推出之引理
+\ref{spaces-pushouts-lemma-essentially-constant} 和备注
+\ref{spaces-pushouts-remark-essentially-constant}，
+代数空间系统 $X_n$ 本质常值，其值为 $X$，结论得证。
+\end{proof}
+
+\section{Rig-\,'etale 态射的代数化}
+\label{restricted-section-algebraization}
+
+\noindent
+本节证明 Artin 论文 \cite{ArtinII} 中关于膨胀之结果的一个推广。
+
+\medskip\noindent
+本节记号与第 \ref{restricted-section-completion-functor} 节一致，
+但其中的代数空间和形式代数空间都局部诺特。
+
+\medskip\noindent
+因此，先固定基概形 $S$。所有环、拓扑环、概形、代数空间、
+形式代数空间及其间态射都在 $S$ 上。
+其次固定局部诺特代数空间 $X$ 和闭子集 $T\subset|X|$。
+以 $U\subset X$ 表示满足 $|U|=|X|\setminus T$ 的开子空间。图示为
+$$
+U \to X \quad |X| = |U| \amalg T
+$$
+给定代数空间态射 $f:X'\to X$，将沿用第
+\ref{restricted-section-completion-functor} 节中的记号
+$U'=f^{-1}U$、$T'=|f|^{-1}(T)$ 和
+$f_{/T}:X'_{/T'}\to X_{/T}$。
+有时把 $X'_{/T'}$ 写成 $X'_{/T}$；更一般地，对 $X$ 上代数空间的态射
+$a:X'\to X''$，以 $a_{/T}:X'_{/T}\to X''_{/T}$ 表示沿
+$T$ 在 $X',X''$ 中的逆像完备化态射 $a$ 所得的形式代数空间态射。
+
+\medskip\noindent
+在此设定下，考虑函子
+\begin{equation}
+\label{restricted-equation-completion-functor}
+\left\{
+\begin{matrix}
+\text{代数空间的态射}\\
+f : X' \to X\text{，其局部}\\
+\text{有限型，并且}\\
+U' \to U\text{ 是同构}
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\text{态射 }g : W \to X_{/T}\\
+\text{属于形式代数空间}\\
+\text{其中 }W\text{ 局部诺特}\\
+\text{并且 }g\text{ 是 rig-\,'etale 的}
+\end{matrix}
+\right\}
+\end{equation}
+它把 $f:X'\to X$ 映到 $f_{/T}:X'_{/T'}\to X_{/T}$。
+这是有意义的，因为由引理 \ref{restricted-lemma-etale-gives-rig-etale}，
+$f_{/T}$ 是 rig-\,'etale 的。
+
+\begin{lemma}
+\label{restricted-lemma-functoriality-completion-functor}
+在上述情形中，设 $X_1\to X$ 为代数空间的态射，且 $X_1$ 局部诺特。
+以 $T_1\subset|X_1|$ 表示 $T$ 的逆像，
+以 $U_1\subset X_1$ 表示 $U$ 的逆像。记：
+\begin{enumerate}
+\item $\mathcal{C}_{X,T}$ 为如下范畴：其对象是局部有限型的
+代数空间态射 $f:X'\to X$，并且
+$U'=f^{-1}U\to U$ 是同构；
+\item $\mathcal{C}_{X_1,T_1}$ 为如下范畴：其对象是局部有限型的
+代数空间态射 $f_1:X_1'\to X_1$，并且
+$f_1^{-1}U_1\to U_1$ 是同构；
+\item $\mathcal{C}_{X_{/T}}$ 为如下范畴：其对象是形式代数空间的态射
+$g:W\to X_{/T}$，其中 $W$ 局部诺特且 $g$ 是 rig-\,'etale 的；
+\item $\mathcal{C}_{X_{1,/T_1}}$ 为如下范畴：其对象是形式代数空间的态射
+$g_1:W_1\to X_{1,/T_1}$，其中 $W_1$ 局部诺特且
+$g_1$ 是 rig-\,'etale 的。
+\end{enumerate}
+则图表
+$$
+\xymatrix{
+\mathcal{C}_{X, T} \ar[d] \ar[r] &
+\mathcal{C}_{X_{/T}} \ar[d] \\
+\mathcal{C}_{X_1, T_1} \ar[r] &
+\mathcal{C}_{X_{1, /T_1}}
+}
+$$
+交换，其中水平箭头由 (\ref{restricted-equation-completion-functor}) 给出，
+竖直箭头分别由沿 $X_1\to X$ 和沿
+$X_{1,/T_1}\to X_{/T}$ 的基变换给出。
+\end{lemma}
+
+\begin{proof}
+这是因为 $X$ 上代数空间范畴中的完备化函子
+$(h:Y\to X)\mapsto Y_{/T}=Y_{/|h|^{-1}T}$ 与纤维积交换。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-completion-functor-fully-faithful}
+在上述情形中，设 $f:X'\to X$ 为局部有限型且在 $U$ 上为同构的
+代数空间态射。设 $g:Y\to X$ 为态射，其中 $Y$ 局部诺特。
+则完备化给出双射
+$$
+\Mor_X(Y, X') \longrightarrow \Mor_{X_{/T}}(Y_{/T}, X'_{/T})
+$$
+特别地，函子 (\ref{restricted-equation-completion-functor}) 充分忠实。
+\end{lemma}
+
+\begin{proof}
+设 $a,b:Y\to X'$ 为 $X$ 上态射，且 $a_{/T}=b_{/T}$。
+则 $a,b$ 在开子空间 $g^{-1}U$ 上以及沿 $g^{-1}T$ 完备化后相等。
+所以由引理 \ref{restricted-lemma-faithful}，$a=b$。
+换言之，完备化映射总是单射。
+
+\medskip\noindent
+设 $\alpha:Y_{/T}\to X'_{/T}$ 为 $X_{/T}$ 上形式代数空间的态射。
+我们须证明存在 $X$ 上态射 $a:Y\to X'$，使
+$\alpha=a_{/T}$。证明先作一个标准但繁琐的归约到仿射情形，
+然后应用引理 \ref{restricted-lemma-algebraize-morphism-rig-etale}。
+
+\medskip\noindent
+设 $\{h_i:Y_i\to Y\}$ 为代数空间的平展覆盖。
+若对每个 $i$ 都能找到 $X$ 上态射 $a_i:Y_i\to X'$，
+其完备化
+$(a_i)_{/T}:(Y_i)_{/T}\to X'_{/T}$ 等于
+$\alpha\circ(h_i)_{/T}$，则得到态射 $a:Y\to X'$，且
+$\alpha=a_{/T}$。事实上，先注意，由于它们与 $\alpha$ 相等，
+作为态射 $(Y_i\times_YY_j)_{/T}\to X'_{/T}$ 有
+$(a_i)_{/T}\circ\text{pr}_1=
+(a_j)_{/T}\circ\text{pr}_2$
+（这里使用完备化 ${}_{/T}$ 与纤维积交换）。
+由已经证明的单射性，这说明作为态射
+$Y_i\times_YY_j\to X'$ 有
+$a_i\circ\text{pr}_1=a_j\circ\text{pr}_2$。
+由于 $X'$ 是 fppf 层，态射族 $a_i$ 下降为态射 $a:Y\to X'$。
+又因为
+$\{(a_i)_{/T}:(Y_i)_{/T}\to X'_{/T}\}$ 是平展覆盖，
+有 $\alpha=a_{/T}$。
+
+\medskip\noindent
+由上一段的结果，为证明存在性，可以假设 $Y$ 仿射，
+并且 $g:Y\to X$ 分解为 $g_1:Y\to X_1$ 和平展态射
+$X_1\to X$，其中 $X_1$ 仿射。
+令 $T_1\subset|X_1|$ 为 $T$ 的逆像，置
+$X'_1=X'\times_XX_1$，投影为 $f_1:X'_1\to X_1$，并令
+$$
+\alpha_1 = (\alpha, (g_1)_{/T_1}) :
+Y_{/T_1} = Y_{/T}
+\longrightarrow
+X'_{/T} \times_{X_{/T}} (X_1)_{/T_1} = (X'_1)_{/T_1}
+$$
+由此只需证明 $X_1$ 上 $\alpha_1$ 的存在性；换言之，
+可用 $X_1,T_1,X'_1,Y,g_1,\alpha_1$ 分别代替
+$X,T,X',Y,f,g,\alpha$。这把问题归结为下一段所述的情形。
+
+\medskip\noindent
+假设 $Y,X$ 仿射。回顾，$(Y_{/T})_{red}$ 是仿射概形
+（同构于 $g^{-1}T\subset Y$ 上的约化诱导概形结构，见形式空间之引理
+\ref{formal-spaces-lemma-reduction-completion}）。
+因此
+$\alpha_{red}:(Y_{/T})_{red}\to(X'_{/T})_{red}$
+在 $f^{-1}T$ 中的像 $E$ 拟紧
+（由同一引理，这是 $(X'_{/T})_{red}$ 的底拓扑空间）。
+所以可以找到仿射概形 $V$ 和平展态射 $h:V\to X'$，
+使 $h$ 的像包含 $E$。选取实线笛卡尔图表
+$$
+\xymatrix{
+Y'_{/T} \ar@{..>}[rd] \ar@{..>}[r] &
+W \ar[d] \ar[r] & V_{/T} \ar[d]^{h_{/T}} \\
+& Y_{/T} \ar[r]^\alpha & X'_{/T}
+}
+$$
+按构造，态射 $W\to Y_{/T}$ 由代数空间可表、平展且满射
+（满射性可通过观察约化看出，见形式空间之引理
+\ref{formal-spaces-lemma-reduction-surjective}）。
+由引理 \ref{restricted-lemma-algebraize-rig-etale-affine}，
+可写 $W=Y'_{/T}$，其中 $Y'\to Y$ 平展且 $Y'$ 仿射。
+这给出图表中的虚线箭头。
+由于 $W\to Y_{/T}$ 满射，$Y'\to Y$ 的像包含 $g^{-1}T$。
+所以 $\{Y'\to Y,Y\setminus g^{-1}T\to Y\}$ 是平展覆盖。
+由于 $f$ 在 $U$ 上为同构，存在（唯一的）位于 $X$ 上的态射
+$Y\setminus g^{-1}T\to X'$，它在完备化上与 $\alpha$ 相等
+（因为 $Y\setminus g^{-1}T$ 的完备化为空）。
+所以只需证明 $Y'$ 的存在性；这把问题归结为下一段研究的情形。
+
+\medskip\noindent
+由上一段的结果，可以假设 $Y$ 仿射，并且 $\alpha$ 分解为
+$Y_{/T}\to V_{/T}\to X'_{/T}$，其中 $V$ 是在 $X'$ 上平展的仿射概形。
+仍可用仿射平展覆盖的成员代替 $Y$。
+由引理 \ref{restricted-lemma-algebraize-morphism-rig-etale}，
+可找到仿射概形的平展态射 $b:Y'\to Y$，
+它诱导同构 $b_{/T}:Y'_{/T}\to Y_{/T}$；
+还可找到态射 $c:Y'\to V$，使
+$c_{/T}\circ b_{/T}^{-1}$ 是给定态射 $Y_{/T}\to V_{/T}$。
+令 $a':Y'\to X'$ 为 $c$ 与 $V\to X'$ 的复合，则
+$a'_{/T}=\alpha\circ b_{/T}$；换言之，
+$Y'$ 和 $\alpha\circ b_{/T}$ 的存在性成立。
+最后再次考虑平展覆盖
+$\{Y'\to Y,Y\setminus g^{-1}T\to Y\}$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-dilatations-affine}
+在上述情形中，假设 $X$ 仿射。则函子
+(\ref{restricted-equation-completion-functor}) 是等价。
+\end{lemma}
+
+\noindent
+证明本引理之前，先讨论一个例子。假设
+$S=\Spec(k)$、$X=\mathbf{A}^1_k$、$T=\{0\}$。
+则 $X_{/T}=\text{Spf}(k[[x]])$。
+令 $W=\text{Spf}(k[[x]]\times k[[x]])$。
+相应的 $f:X'\to X$ 是原点加倍的仿射直线到仿射直线的映射
+（概形，例 \ref{schemes-example-affine-space-zero-doubled}）。
+此外，这是从 $X\amalg X$ 到 $X$ 开始应用引理
+\ref{restricted-lemma-smash-away-from-T} 中构造所得的输出。
+
+\begin{proof}
+已知该函子充分忠实，见引理
+\ref{restricted-lemma-completion-functor-fully-faithful}。
+下面证明本质满。设 $g:W\to X_{/T}$ 为形式代数空间的态射，
+其中 $W$ 局部诺特且 $g$ 是 rig-\,'etale 的。
+我们将分若干步证明 $W$ 属于本质像。
+
+\medskip\noindent
+第 1 步：$W$ 是仿射形式代数空间。
+由引理 \ref{restricted-lemma-algebraize-rig-etale-affine}，
+可找到有限型且在 $X\setminus T$ 上平展的 $U\to X$，
+使 $U_{/T}$ 同构于 $W$。于是由引理
+\ref{restricted-lemma-smash-away-from-T}，$W$ 属于本质像。
+
+\medskip\noindent
+第 2 步：$W$ 分离。选取形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的 $\{W_i\to W\}$。
+由第 1 步，形式代数空间 $W_i$ 和 $W_i\times_WW_j$ 都属于本质像。
+设 $W_i=(X'_i)_{/T}$ 且
+$W_i\times_WW_j=(X'_{ij})_{/T}$。
+由充分忠实性，得到态射
+$t_{ij}:X'_{ij}\to X'_i$ 和
+$s_{ij}:X'_{ij}\to X'_j$，分别匹配投影
+$W_i\times_WW_j\to W_i$ 和 $W_i\times_WW_j\to W_j$。
+考虑结构
+$$
+R = \coprod X'_{ij},\quad
+V = \coprod X'_i,\quad
+s = \coprod s_{ij},\quad
+t = \coprod t_{ij}
+$$
+（不能使用字母 $U$，因为它已经用过。）
+应用引理 \ref{restricted-lemma-equivalence-relation}，可知
+$(t,s):R\to V\times_XV$ 定义了 $X$ 上 $V$ 的平展等价关系。
+所以可以取商 $X'=V/R$；由 Bootstrap 之定理
+\ref{bootstrap-theorem-final-bootstrap}，它是代数空间。
+由于完备化与纤维积和层的商交换，得到 $X'_{/T}\cong W$，
+作为 $X_{/T}$ 上形式代数空间的同构。
+
+\medskip\noindent
+第 3 步：$W$ 是一般情形。选取形式空间之定义
+\ref{formal-spaces-definition-formal-algebraic-space}
+所述的 $\{W_i\to W\}$。
+形式代数空间 $W_i$ 和 $W_i\times_WW_j$ 都分离。
+所以由第 2 步，形式代数空间 $W_i$ 和 $W_i\times_WW_j$
+都属于本质像。随后完全按照上一段论证，可知 $W$ 也属于本质像。
+证明完毕。
+\end{proof}
+
+\begin{theorem}
+\label{restricted-theorem-dilatations-general}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特代数空间。
+设 $T\subset|X|$ 为闭子集。设 $U\subset X$ 为满足
+$|U|=|X|\setminus T$ 的开子空间。完备化函子
+(\ref{restricted-equation-completion-functor})
+$$
+\left\{
+\begin{matrix}
+\text{代数空间的态射}\\
+f : X' \to X\text{，其局部}\\
+\text{有限型，并且}\\
+f^{-1}U \to U\text{ 是同构}
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\text{态射 }g : W \to X_{/T}\\
+\text{属于形式代数空间}\\
+\text{其中 }W\text{ 局部诺特}\\
+\text{并且 }g\text{ 是 rig-\,'etale 的}
+\end{matrix}
+\right\}
+$$
+把 $f:X'\to X$ 映到
+$f_{/T}:X'_{/T'}\to X_{/T}$；该函子是等价。
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-completion-functor-fully-faithful}，该函子充分忠实。
+设 $g:W\to X_{/T}$ 为形式代数空间的态射，其中 $W$ 局部诺特，
+且 $g$ 是 rig-\,'etale 的。为完成证明，将证明 $W$ 属于本质像。
+
+\medskip\noindent
+选取平展覆盖 $\{X_i\to X\}$，其中对所有 $i$，$X_i$ 都仿射。
+以 $U_i\subset X_i$ 表示 $U$ 的逆像，以
+$T_i\subset X_i$ 表示 $T$ 的逆像。回顾，
+$(X_i)_{/T_i}=(X_i)_{/T}=(X_i\times_XX)_{/T}$，且
+$W_i=X_i\times_XW=(X_i)_{/T}\times_{X_{/T}}W$，见引理
+\ref{restricted-lemma-functoriality-completion-functor}。
+注意，得到满足适当余圈条件的同构
+$$
+\alpha_{ij} :
+W_i \times_{X_{/T}} (X_j)_{/T}
+\longrightarrow 
+(X_i)_{/T} \times_{X_{/T}} W_j
+$$
+把引理 \ref{restricted-lemma-dilatations-affine} 应用于
+$X_i,T_i,U_i,W_i\to(X_i)_{/T}$，得到代数空间的态射
+$X'_i\to X_i$，它局部有限型并在 $U_i$ 上为同构；
+还得到 $(X_i)_{/T}$ 上的同构
+$\beta_i:(X'_i)_{/T}\cong W_i$。
+由充分忠实性，得到 $X_i\times_XX_j$ 上的同构
+$$
+a_{ij} : X'_i \times_X X_j \longrightarrow X_i \times_X X'_j
+$$
+使
+$\alpha_{ij}=\beta_j|_{X_i\times_XX_j}
+\circ(a_{ij})_{/T}\circ\beta_i^{-1}|_{X_i\times_XX_j}$。
+再次使用充分忠实性（这次在
+$X_i\times_XX_j\times_XX_k$ 上），可知态射 $a_{ij}$
+满足与 $\alpha_{ij}$ 相同的余圈条件。
+换言之，得到相对于族 $\{X_i\to X\}$ 的下降数据
+（如空间上的下降之定义
+\ref{spaces-descent-definition-descent-datum-for-family-of-morphisms}）
+$(X'_i,a_{ij})$。
+由 Bootstrap 之引理
+\ref{bootstrap-lemma-descend-algebraic-space}，该下降数据有效。
+所以得到代数空间的态射 $f:X'\to X$ 以及 $X_i$ 上的同构
+$h_i:X'\times_XX_i\to X'_i$，使
+$a_{ij}=h_j|_{X_i\times_XX_j}\circ
+h_i^{-1}|_{X_i\times_XX_j}$。
+读者可以核验，由此得到的 $X_i$ 上同构
+$$
+(X' \times_X X_i)_{/T}
+\xrightarrow{\beta_i \circ (h_i)_{/T}}
+W_i
+$$
+粘合为 $X_{/T}$ 上的同构 $X'_{/T}\to W$；略去若干细节。
+\end{proof}
+
+\section{完备化与态射，II}
+\label{restricted-section-completion-and-morphisms-bis}
+
+\noindent
+为得到 Artin 的膨胀定理，需要在定理
+\ref{restricted-theorem-dilatations-general} 给出的对应中，
+把形式修改与实际修改相匹配。我们建议读者跳过本节。
+
+\begin{lemma}
+\label{restricted-lemma-output-quasi-compact}
+在定理 \ref{restricted-theorem-dilatations-general} 的假设与记号下，
+设 $f:X'\to X$ 对应于 $g:W\to X_{/T}$。
+则 $f$ 拟紧，当且仅当 $g$ 拟紧。
+\end{lemma}
+
+\begin{proof}
+若 $f$ 拟紧，则由引理
+\ref{restricted-lemma-quasi-compact-gives-quasi-compact}，$g$ 拟紧。
+反之，假设 $g$ 拟紧。选取平展覆盖 $\{X_i\to X\}$，其中 $X_i$ 仿射。
+只需证明基变换 $X'\times_XX_i\to X_i$ 拟紧，见空间的态射之引理
+\ref{spaces-morphisms-lemma-quasi-compact-local}。
+由形式空间之引理
+\ref{formal-spaces-lemma-characterize-quasi-compact-morphism}，
+基变换
+$W_i\times_{X_{/T}}(X_i)_{/T}\to(X_i)_{/T}$ 拟紧。
+由引理 \ref{restricted-lemma-functoriality-completion-functor}，
+归结为下一段所述的情形。
+
+\medskip\noindent
+假设 $X$ 仿射且 $g:W\to X_{/T}$ 拟紧。
+我们须证明 $X'$ 拟紧。设 $V\to X'$ 为满平展态射，
+其中 $V=\coprod_{j\in J}V_j$ 是仿射空间的不交并。
+则 $V_{/T}\to X'_{/T}=W$ 是满平展态射。
+由于 $W$ 拟紧，可以找到有限子集 $J'\subset J$，使
+$\coprod_{j\in J'}(V_j)_{/T}\to W$ 满射。
+于是
+$$
+U \amalg \coprod\nolimits_{j \in J'} V_j \longrightarrow X'
+$$
+满射（因而 $X'$ 拟紧）。事实上，由 $X'_{/T}=W$，有
+$|X'|=|U|\amalg|W_{red}|$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-output-quasi-separated}
+在定理 \ref{restricted-theorem-dilatations-general} 的假设与记号下，
+设 $f:X'\to X$ 对应于 $g:W\to X_{/T}$。
+则 $f$ 拟分离，当且仅当 $g$ 拟分离。
+\end{lemma}
+
+\begin{proof}
+若 $f$ 拟分离，则由引理
+\ref{restricted-lemma-quasi-separated-gives-quasi-separated}，$g$ 拟分离。
+反之，假设 $g$ 拟分离。我们须证明 $f$ 拟分离。
+与引理 \ref{restricted-lemma-output-quasi-compact} 的证明完全相同，
+使用空间的态射之引理
+\ref{spaces-morphisms-lemma-separated-local} 和形式空间之引理
+\ref{formal-spaces-lemma-separated-local}，可以在由仿射概形组成的
+$X$ 的平展覆盖的成员上核验。因此可以并且确实假设 $X$ 仿射。
+
+\medskip\noindent
+设 $V\to X'$ 为满平展态射，其中
+$V=\coprod_{j\in J}V_j$ 是仿射空间的不交并。
+为证明 $X'$ 拟分离，只需证明对所有 $j,j'\in J$，
+$V_j\times_{X'}V_{j'}$ 拟紧。
+由于 $W$ 拟分离，纤维积
+$(V_j\times_YV_{j'})_{/T}=
+(V_j)_{/T}\times_{X'_{/T}}(V_{j'})_{/T}$
+对所有 $j,j'\in J$ 都拟紧。
+由于 $X$ 是诺特仿射概形，且 $U'\to U$ 是同构，
+$$
+(V_j \times_{X'} V_{j'}) \times_X U =
+(V_j \times_X V_{j'}) \times_X U
+$$
+拟紧。因此，由等式
+$$
+|V_j \times_{X'} V_{j'}| =
+|(V_j \times_{X'} V_{j'}) \times_X U| \amalg
+|(V_j \times_{X'} V_{j'})_{/T, red}|
+$$
+以及形式代数空间拟紧当且仅当其相关联的约化代数空间拟紧这一事实，
+得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-output-separated}
+在定理 \ref{restricted-theorem-dilatations-general} 的假设与记号下，
+设 $f:X'\to X$ 对应于 $g:W\to X_{/T}$。
+则 $f$ 分离 $\Leftrightarrow$ $g$ 分离且
+$\Delta_g:W\to W\times_{X_{/T}}W$ 是 rig-满射的。
+\end{lemma}
+
+\begin{proof}
+若 $f$ 分离，则由引理
+\ref{restricted-lemma-quasi-separated-gives-quasi-separated} 和
+\ref{restricted-lemma-separated-mono-open-diagonal-rig-surjective}，
+$g$ 分离且 $\Delta_g$ 是 rig-满射的。
+假设 $g$ 分离且 $\Delta_g$ 是 rig-满射的。
+与引理 \ref{restricted-lemma-output-quasi-compact} 的证明完全相同，
+使用空间的态射之引理
+\ref{spaces-morphisms-lemma-base-change-separated}
+（代数空间态射的分离性在基上局部）、形式空间之引理
+\ref{formal-spaces-lemma-base-change-separated}
+（形式代数空间态射的分离性在基变换下保持），以及引理
+\ref{restricted-lemma-base-change-rig-surjective}
+（rig-满射性在基变换下保持），可以在由仿射概形组成的
+$X$ 的平展覆盖的成员上核验。
+因此可以并且确实假设 $X$ 仿射。此外，由引理
+\ref{restricted-lemma-output-quasi-separated}，已经知道
+$f:X'\to X$ 拟分离。
+
+\medskip\noindent
+由空间的上同调之引理
+\ref{spaces-cohomology-lemma-check-separated-dvr} 和备注
+\ref{spaces-cohomology-remark-variant}，只需证明：给定任意交换图表
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X' \ar[d] \\
+\Spec(R) \ar[r]^p \ar@{-->}[ru] & X' \times_X X'
+}
+$$
+其中 $R$ 是分式域为 $K$ 的完备离散赋值环，
+存在使图表交换的虚线箭头
+（因为这给出赋值判据的唯一性部分）。
+令 $h:\Spec(R)\to X$ 为 $p$ 与态射
+$Y\times_XY\to X$ 的复合。分三种情形：
+情形 I：$h(\Spec(R))\subset U$。此情形平凡，
+因为 $U'=X'\times_XU\to U$ 是同构。
+情形 II：$h$ 把 $\Spec(R)$ 映入 $T$。
+此情形由假设 $g:W\to X_{/T}$ 分离得出。
+事实上，若 $Z$ 表示 $T$ 上的约化诱导闭子空间结构，
+则 $h$ 经过 $Z$ 分解，并且
+$$
+W \times_{X_{/T}} Z = X' \times_X Z \longrightarrow Z
+$$
+由假设分离（并使用例如形式空间之引理
+\ref{formal-spaces-lemma-separated-local}）。
+把空间的上同调之引理
+\ref{spaces-cohomology-lemma-check-separated-dvr}
+应用于所示箭头，得到提升性质。
+情形 III：$h(\Spec(K))$ 不在 $T$ 中，但 $h$ 把
+$\Spec(R)$ 的闭点映入 $T$。在这种情形下，相应态射
+$$
+p_{/T} :
+\text{Spf}(R)
+\longrightarrow
+(X' \times_X X')_{/T} =
+W \times_{X_{/T}} W
+$$
+是 adic 态射（由形式空间之引理
+\ref{formal-spaces-lemma-map-completions-representable} 和定义
+\ref{formal-spaces-definition-adic-morphism}）。
+因此，我们关于
+$\Delta_g:W\to W\times_{X_{/T}}W$ rig-满射的假设蕴含：
+可把 $p_{/T}$ 提升为态射
+$\text{Spf}(R)\to W=X'_{/T}$，见引理
+\ref{restricted-lemma-monomorphism-rig-surjective}。
+使用形式空间之引理
+\ref{formal-spaces-lemma-map-into-algebraic-space}
+把复合 $\text{Spf}(R)\to X'$ 代数化，得到按所需提升 $p$ 的态射
+$\Spec(R)\to X'$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-output-proper}
+在定理 \ref{restricted-theorem-dilatations-general} 的假设与记号下，
+设 $f:X'\to X$ 对应于 $g:W\to X_{/T}$。
+则 $f$ 为真，当且仅当 $g$ 是形式修改
+（定义 \ref{restricted-definition-formal-modification}）。
+\end{lemma}
+
+\begin{proof}
+若 $f$ 为真，则由引理
+\ref{restricted-lemma-modification-gives-formal-modification}，$g$ 是形式修改。
+假设 $g$ 是形式修改。由引理
+\ref{restricted-lemma-output-quasi-compact} 和 \ref{restricted-lemma-output-separated}，
+$f$ 拟紧且分离。
+
+\medskip\noindent
+由空间的上同调之引理
+\ref{spaces-cohomology-lemma-check-proper-dvr} 和备注
+\ref{spaces-cohomology-remark-variant}，只需证明：给定任意交换图表
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X' \ar[d]^f \\
+\Spec(R) \ar[r]^p \ar@{-->}[ru] & X
+}
+$$
+其中 $R$ 是分式域为 $K$ 的完备离散赋值环，
+存在使图表交换的虚线箭头。分三种情形：
+情形 I：$p(\Spec(R))\subset U$。此情形平凡，
+因为 $U'\to U$ 是同构。
+情形 II：$p$ 把 $\Spec(R)$ 映入 $T$。
+此情形由假设 $g:W\to X_{/T}$ 为真得出。
+事实上，若 $Z$ 表示 $T$ 上的约化诱导闭子空间结构，
+则 $p$ 经过 $Z$ 分解，并且
+$$
+W \times_{X_{/T}} Z = X' \times_X Z \longrightarrow Z
+$$
+由假设为真。把空间的上同调之引理
+\ref{spaces-cohomology-lemma-check-proper-dvr}
+应用于所示箭头，得到提升性质。
+情形 III：$p(\Spec(K))$ 不在 $T$ 中，但 $p$ 把
+$\Spec(R)$ 的闭点映入 $T$。在这种情形下，相应态射
+$$
+p_{/T} : \text{Spf}(R) \longrightarrow X'_{/T} = W
+$$
+是 adic 态射（由形式空间之引理
+\ref{formal-spaces-lemma-map-completions-representable} 和定义
+\ref{formal-spaces-definition-adic-morphism}）。
+因此，我们关于 $g:W\to X_{/T}$ rig-满射的假设蕴含：
+可把 $g_{/T}$ 提升为态射
+$\text{Spf}(R')\to W=X'_{/T}$，其中
+$R\subset R'$ 是完备离散赋值环的某个扩张。
+使用形式空间之引理
+\ref{formal-spaces-lemma-map-into-algebraic-space}
+把复合 $\text{Spf}(R')\to X'$ 代数化，得到按所需提升 $p$ 的态射
+$\Spec(R')\to X'$。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-output-etale}
+在定理 \ref{restricted-theorem-dilatations-general} 的假设与记号下，
+设 $f:X'\to X$ 对应于 $g:W\to X_{/T}$。
+则 $f$ 平展，当且仅当 $g$ 平展。
+\end{lemma}
+
+\begin{proof}
+若 $f$ 平展，则由引理 \ref{restricted-lemma-map-completions-etale}，$g$ 平展。
+反之，假设 $g$ 平展。由于 $f$ 在 $U$ 上为同构，
+$f$ 在 $U$ 上平展。所以只需证明 $f$ 在 $X'$ 中每个
+位于 $T$ 上方的点处平展。
+以 $Z\subset X$ 表示底拓扑空间为
+$|Z|=T\subset|X|$ 的约化闭子空间，见空间的性质之定义
+\ref{spaces-properties-definition-reduced-induced-space}。
+令 $Z_n\subset X$ 为第 $n$ 个无穷小邻域，则
+$X_{/T}=\colim Z_n$。由于 $X'_{/T}=W\to X_{/T}$，
+由所假设的 $g$ 的平展性可知
+$f^{-1}(Z_n)=X'\times_XZ_n\to Z_n$ 平展。
+由更多空间的态射之引理
+\ref{spaces-more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}，
+$f$ 在位于 $T$ 上方的点处平展。
+\end{proof}
+
+\section{Artin 的膨胀定理}
+\label{restricted-section-dilatations}
+
+\noindent
+本节对形式代数空间使用不同字体，以突出这些陈述与
+\cite{ArtinII} 中相应陈述的相似性。下面是本章第一个主定理。
+
+\begin{theorem}
+\label{restricted-theorem-dilatations}
+\begin{reference}
+\cite[Theorem 3.2]{ArtinII}
+\end{reference}
+设 $S$ 为概形。设 $X$ 为 $S$ 上局部诺特代数空间。
+设 $T\subset|X|$ 为闭子集。令
+$\mathfrak X=X_{/T}$
+为 $X$ 沿 $T$ 的形式完备化。设
+$$
+\mathfrak f : \mathfrak X' \to \mathfrak X
+$$
+为形式修改（定义 \ref{restricted-definition-formal-modification}）。
+则存在唯一真态射 $f:X'\to X$，它在 $X$ 中 $T$ 的补上为同构，
+并且其完备化 $f_{/T}$ 恢复 $\mathfrak f$。
+\end{theorem}
+
+\begin{proof}
+这由定理 \ref{restricted-theorem-dilatations-general} 和引理
+\ref{restricted-lemma-output-proper} 得出。
+\end{proof}
+
+\noindent
+下面给出第 \ref{restricted-section-formal-modifications} 节中承诺的
+形式修改刻画。
+
+\begin{lemma}
+\label{restricted-lemma-formal-modifications-locally-algebraic}
+设 $S$ 为概形。设 $\mathfrak X'\to\mathfrak X$ 为 $S$ 上
+局部诺特形式代数空间的形式修改
+（定义 \ref{restricted-definition-formal-modification}）。给定：
+\begin{enumerate}
+\item 任意 adic 诺特拓扑环 $A$；
+\item 任意 adic 态射
+$\text{Spf}(A)\longrightarrow\mathfrak X$。
+\end{enumerate}
+则存在代数空间的真态射 $X\to\Spec(A)$，以及位于
+$\text{Spf}(A)$ 上的同构
+$$
+\text{Spf}(A) \times_{\mathfrak X} \mathfrak X'
+\longrightarrow
+X_{/Z}
+$$
+它把 $\mathfrak X$ 的基变换与 $X$ 沿“闭纤维”
+$Z=X\times_{\Spec(A)}\text{Spf}(A)_{red}$ 的形式完备化同构起来；
+这里所说的闭纤维是 $X$ 在 $A$ 上的闭纤维。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{restricted-lemma-base-change-formal-modification}，态射
+$\text{Spf}(A)\times_{\mathfrak X}\mathfrak X'
+\to\text{Spf}(A)$ 是形式修改。
+所以结论由定理 \ref{restricted-theorem-dilatations} 得出。
+\end{proof}
+
+\section{对修改的应用}
+\label{restricted-section-modifications}
+
+\noindent
+设 $A$ 为诺特环，设 $I\subset A$ 为理想。置
+$X=\Spec(A)$ 和 $U=X\setminus V(I)$。本节考虑范畴
+\begin{equation}
+\label{restricted-equation-modification}
+\left\{
+f : X' \longrightarrow X
+\quad \middle| \quad
+\begin{matrix}
+X'\text{ 是代数空间}\\
+f\text{ 局部有限型}\\
+f^{-1}(U) \to U\text{ 是同构}
+\end{matrix}
+\right\}
+\end{equation}
+从 $X'/X$ 到 $X''/X$ 的态射，是 $X$ 上代数空间的态射
+$X'\to X''$。
+
+\medskip\noindent
+设 $A\to B$ 为诺特环同态，设 $J\subset B$ 为满足
+$J=\sqrt{IB}$ 的理想。则沿态射
+$\Spec(B)\to\Spec(A)$ 的基变换给出从 $A$ 的范畴
+(\ref{restricted-equation-modification}) 到 $B$ 的范畴
+(\ref{restricted-equation-modification}) 的函子。
+
+\begin{lemma}
+\label{restricted-lemma-Noetherian-local-ring}
+设 $A\to B$ 为诺特环的环同态，并且对某个理想 $I\subset A$，
+它在 $I$-进完备化上诱导同构
+（例如，$B$ 是 $A$ 的 $I$-进完备化）。
+则基变换定义了 $(A,I)$ 的范畴
+(\ref{restricted-equation-modification}) 与 $(B,IB)$ 的范畴
+(\ref{restricted-equation-modification}) 之间的范畴等价。
+\end{lemma}
+
+\begin{proof}
+置 $X=\Spec(A)$、$T=V(I)$。
+置 $X_1=\Spec(B)$、$T_1=V(IB)$。
+由定理 \ref{restricted-theorem-dilatations-general}
+（事实上只需引理 \ref{restricted-lemma-dilatations-affine} 中处理的仿射情形），
+$X,T$ 的范畴 (\ref{restricted-equation-modification}) 等价于
+局部诺特形式代数空间的 rig-\,'etale 态射
+$W\to X_{/T}$ 的范畴。类似地，$X_1,T_1$ 的范畴
+(\ref{restricted-equation-modification}) 等价于局部诺特形式代数空间的
+rig-\,'etale 态射 $W_1\to X_{1,/T_1}$ 的范畴。
+由于
+$X_{/T}=\text{Spf}(A^\wedge)$ 且
+$X_{1,/T_1}=\text{Spf}(B^\wedge)$
+（形式空间，引理
+\ref{formal-spaces-lemma-affine-formal-completion-types}），
+由我们的假设 $A^\wedge\to B^\wedge$ 是同构，
+可知这些范畴等价。略去该等价由基变换给出的核验。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-Noetherian-local-ring-properties}
+记号与假设如引理 \ref{restricted-lemma-Noetherian-local-ring}。
+设 $f:X'\to\Spec(A)$ 通过该等价对应于
+$g:Y'\to\Spec(B)$。则 $f$ 拟紧、拟分离、分离、真、有限，
+以及在此添加更多内容，当且仅当 $g$ 具有相应性质。
+\end{lemma}
+
+\begin{proof}
+对于拟紧、拟分离、分离和真这些陈述，可以使用引理
+\ref{restricted-lemma-output-quasi-compact}
+\ref{restricted-lemma-output-quasi-separated}、
+\ref{restricted-lemma-output-separated}、
+\ref{restricted-lemma-output-quasi-separated} 和
+\ref{restricted-lemma-output-proper}，把相应性质翻译成形式完备化的性质，
+再使用引理 \ref{restricted-lemma-Noetherian-local-ring} 证明中的论证来推出。
+不过，也有如下使用 fpqc 下降的直接论证。
+首先，由于 $A^\wedge\to B^\wedge$ 是同构，
+可以归结到对 $A\to A^\wedge$ 和 $B\to B^\wedge$ 证明本引理。
+然后注意，
+$\{U\to\Spec(A),\Spec(A^\wedge)\to\Spec(A)\}$ 是 fpqc 覆盖，
+其中仍取 $U=\Spec(A)\setminus V(I)$。
+按照范畴 (\ref{restricted-equation-modification}) 的定义，
+$f$ 沿 $U\to\Spec(A)$ 的基变换是 $\text{id}_U$。
+设 $P$ 为代数空间态射的一个在基上 fpqc 局部的性质
+（空间上的下降，定义
+\ref{spaces-descent-definition-property-morphisms-local}），
+并且 $P$ 对恒等态射成立。
+则 $P$ 对 $f$ 成立，当且仅当 $P$ 对 $g$ 成立。
+由空间上的下降之引理
+\ref{spaces-descent-lemma-descending-property-quasi-compact}、
+\ref{spaces-descent-lemma-descending-property-quasi-separated}、
+\ref{spaces-descent-lemma-descending-property-separated}、
+\ref{spaces-descent-lemma-descending-property-proper} 和
+\ref{spaces-descent-lemma-descending-property-finite}，
+这适用于 $P$ 分别取拟紧、拟分离、分离、真和有限。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-equivalence-to-completion}
+设 $A\to B$ 为局部诺特环的局部映射，满足：
+\begin{enumerate}
+\item $A\to B$ 平坦；
+\item $\mathfrak m_B=\mathfrak m_AB$；
+\item $\kappa(\mathfrak m_A)=\kappa(\mathfrak m_B)$。
+\end{enumerate}
+则从 $(A,\mathfrak m_A)$ 的范畴
+(\ref{restricted-equation-modification}) 到 $(B,\mathfrak m_B)$ 的范畴
+(\ref{restricted-equation-modification}) 的基变换函子是等价。
+\end{lemma}
+
+\begin{proof}
+这些条件意指 $A\to B$ 在完备化上诱导同构，见更多代数之引理
+\ref{more-algebra-lemma-flat-unramified}。
+所以本引理是引理 \ref{restricted-lemma-Noetherian-local-ring} 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{restricted-lemma-dominate-by-admissible-blowup}
+设 $(A,\mathfrak m,\kappa)$ 为诺特局部环。
+设 $f:X\to S$ 为 (\ref{restricted-equation-modification}) 的对象，且 $f$ 为真。
+则存在支配 $X$ 的 $U$-可容许爆破 $S'\to S$。
+\end{lemma}
+
+\begin{proof}
+这是更多空间的态射之引理
+\ref{spaces-more-morphisms-lemma-dominate-modification-by-blowup} 的特例。
+\end{proof}

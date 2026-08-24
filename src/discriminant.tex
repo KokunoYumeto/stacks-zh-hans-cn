@@ -1,0 +1,2997 @@
+% Generated mechanically from the frozen discriminant.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{48}
+\chapter{判别式与不同}
+
+
+
+\phantomsection
+\label{discriminant-section-phantom}
+
+
+\section{引言}
+\label{discriminant-section-introduction}
+
+\noindent
+本章研究概形的局部拟有限态射的不同理想与判别式。
+其中部分内容可参考 \cite{Kunz}。
+
+\medskip\noindent
+给定 Noetherian 概形的拟有限态射 $f : Y \to X$，
+存在相对对偶化模 $\omega_{Y/X}$。
+第 \ref{discriminant-section-quasi-finite-dualizing} 节利用
+Zariski 主定理和 \'etale 局部化方法从头构造这个模。
+关键性质如下：给定交换图
+$$
+\xymatrix{
+Y' \ar[d]_{f'} \ar[r]_{g'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+其中 $g : X' \to X$ 平坦，$Y' \subset X' \times_X Y$ 为开子集，且
+$f' : Y' \to X'$ 有限，则存在典范同构
+$$
+f'_*(g')^*\omega_{Y/X} =
+\SheafHom_{\mathcal{O}_{X'}}(f'_*\mathcal{O}_{Y'}, \mathcal{O}_{X'})
+$$
+作为 $f'_*\mathcal{O}_{Y'}$-模层。第
+\ref{discriminant-section-quasi-finite-traces} 节证明：若 $f$ 平坦，则存在典范整体截面
+$\tau_{Y/X} \in H^0(Y, \omega_{Y/X})$，使得对每个如上的交换图，
+$(g')^*\tau_{Y/X}$ 映到有限局部自由态射 $f'$ 在第
+\ref{discriminant-section-discriminant} 节中的迹映射。
+第 \ref{discriminant-section-different} 节把 Noetherian 概形的平坦拟有限态射之
+不同理想定义为
+$\tau_{Y/X} : \mathcal{O}_X \to \omega_{Y/X}$ 的余核的零化子。
+
+\medskip\noindent
+本章的主要目标是证明：对拟有限 syntomic
+态射\footnote{亦即平坦且为 lci。}$f$，其不同理想与 K\"ahler 不同理想一致。
+K\"ahler 不同理想是 $\Omega_{Y/X}$ 的第零 Fitting 理想；见第
+\ref{discriminant-section-kahler-different} 节。
+这一相等并非显然；第 \ref{discriminant-section-formula-different} 节采用 Tate
+提出的一个精巧论证。沿途还将讨论 Noether 不同理想与 Dedekind 不同理想。
+
+\medskip\noindent
+直到本章末尾的第 \ref{discriminant-section-comparison} 和
+\ref{discriminant-section-gorenstein-lci} 节，我们才把这些内容与概形对偶理论中
+较为深入的材料联系起来。
+
+
+
+
+
+
+
+
+\section{拟有限环同态的对偶化模}
+\label{discriminant-section-quasi-finite-dualizing}
+
+\noindent
+设 $A \to B$ 是 Noetherian 环的拟有限同态。由 Zariski 主定理
+（《代数》，引理 \ref{algebra-lemma-quasi-finite-open-integral-closure}），
+存在分解 $A \to B' \to B$，其中 $A \to B'$ 有限，而 $B' \to B$
+在谱上诱导开浸入。此时令
+\begin{equation}
+\label{discriminant-equation-dualizing}
+\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B
+\end{equation}
+可将它看成一种相对对偶化模；见引理 \ref{discriminant-lemma-compare-dualizing} 和
+\ref{discriminant-lemma-compare-dualizing-algebraic}。
+本节将用初等交换代数方法证明：$\omega_{B/A}$ 不依赖于分解的选取，
+并且 $\omega_{B/A}$ 的形成与平坦基变换可交换。
+为证明分解无关性，先比较任意给定的两个分解。
+
+\begin{lemma}
+\label{discriminant-lemma-dominate-factorizations}
+设 $A \to B$ 是拟有限环同态。给定两个分解
+$A \to B' \to B$ 与 $A \to B'' \to B$，其中
+$A \to B'$ 和 $A \to B''$ 有限，而 $\Spec(B) \to \Spec(B')$
+与 $\Spec(B) \to \Spec(B'')$ 均为开浸入。则存在
+一个 $A$-子代数 $B''' \subset B$，它在 $A$ 上有限，并且
+$\Spec(B) \to \Spec(B''')$ 是开浸入，且 $B' \to B$ 与
+$B'' \to B$ 均经过 $B'''$.
+\end{lemma}
+
+\begin{proof}
+令 $B''' \subset B$ 为 $B' \to B$ 与 $B'' \to B$ 的像所生成的
+$A$-子代数。由于 $B'$ 和 $B''$ 都由有限多个在 $A$ 上整的元素生成，
+可知 $B'''$ 也由有限多个在 $A$ 上整的元素生成，因而
+$B'''$ 在 $A$ 上有限
+（《代数》，引理 \ref{algebra-lemma-characterize-finite-in-terms-of-integral}）。
+考虑映射
+$$
+B = B' \otimes_{B'} B \to B''' \otimes_{B'} B \to B \otimes_{B'} B = B
+$$
+末一个等号成立是因为 $\Spec(B) \to \Spec(B')$ 是开浸入，
+因而是单态射。第二个箭头为单射，因为 $B' \to B$ 平坦。
+因此两个箭头均为同构。这意味着
+$$
+\xymatrix{
+\Spec(B''') \ar[d] & \Spec(B) \ar[d] \ar[l] \\
+\Spec(B') & \Spec(B) \ar[l]
+}
+$$
+是笛卡尔图。开浸入的基变换仍为开浸入，故得结论。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-well-defined}
+模 (\ref{discriminant-equation-dualizing}) 是良定义的，即与分解的选取无关。
+\end{lemma}
+
+\begin{proof}
+令 $B', B'', B'''$ 如引理 \ref{discriminant-lemma-dominate-factorizations} 所述。
+得到典范映射
+$$
+\omega''' = \Hom_A(B''', A) \otimes_{B'''} B \longrightarrow
+\Hom_A(B', A) \otimes_{B'} B = \omega'
+$$
+以及一个涉及 $B''$ 的类似映射。只要证明这些映射都是同构即可。
+取 $g \in B'$，使 $B'_g \to B_g$ 是同构；于是 $B'_g \to (B''')_g \to B_g$ 都是同构。只需证明 $(\omega''')_g \to \omega'_g$ 是同构。环同态 $B' \to B'''$ 的核和余核都是有限 $A$-模，且为 $g$-幂挠模，
+因而被 $g$ 的某个幂零化。由此容易推出结论。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-localize-dualizing}
+设 $A \to B$ 是 Noetherian 环的拟有限同态。
+\begin{enumerate}
+\item 若对某个 $f \in A$，$A \to B$ 分解为 $A \to A_f \to B$，
+则 $\omega_{B/A} = \omega_{B/A_f}$。
+\item 若 $g \in B$，则 $(\omega_{B/A})_g = \omega_{B_g/A}$。
+\item 若 $f \in A$，则 $\omega_{B_f/A_f} = (\omega_{B/A})_f$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $A \to B' \to B$ 是一个分解，其中 $A \to B'$ 有限，且
+$\Spec(B) \to \Spec(B')$ 是开浸入。在情形 (1) 中，可以用分解
+$A_f \to B'_f \to B$ 计算 $\omega_{B/A_f}$，再应用《代数》，引理
+\ref{algebra-lemma-hom-from-finitely-presented}。
+在情形 (2) 中，用分解 $A \to B' \to B_g$ 即得结论。
+(3) 由 (1) 与 (2) 结合而得。
+\end{proof}
+
+\noindent
+设 $A \to B$ 是 Noetherian 环的拟有限同态，$A \to A_1$ 是
+Noetherian 环的任意同态，并令 $B_1 = B \otimes_A A_1$。得到余笛卡尔图
+$$
+\xymatrix{
+B \ar[r] & B_1 \\
+A \ar[u] \ar[r] & A_1 \ar[u]
+}
+$$
+注意 $A_1 \to B_1$ 也是拟有限的（《代数》，引理
+\ref{algebra-lemma-quasi-finite-base-change}）。
+在此情形下定义一个典范的 $B$-线性基变换映射
+\begin{equation}
+\label{discriminant-equation-bc-dualizing}
+\omega_{B/A} \longrightarrow \omega_{B_1/A_1}
+\end{equation}
+具体地，按照 $\omega_{B/A}$ 的构造选取分解 $A \to B' \to B$。
+此时 $B'_1 = B' \otimes_A A_1$ 在 $A_1$ 上有限，而在构造
+$\omega_{B_1/A_1}$ 时可采用分解 $A_1 \to B'_1 \to B_1$。
+因此需要构造映射
+$$
+\Hom_A(B', A) \otimes_{B'} B
+\longrightarrow
+\Hom_{A_1}(B' \otimes_A A_1, A_1) \otimes_{B'_1} B_1
+$$
+只需构造一个 $B'$-线性映射
+$\Hom_A(B', A) \to \Hom_{A_1}(B' \otimes_A A_1, A_1)$，
+记为 $\varphi \mapsto \varphi_1$。给定 $A$-线性映射
+$\varphi : B' \to A$，令 $\varphi_1$ 满足
+$\varphi_1(b' \otimes a_1) = \varphi(b')a_1$。
+这显然是 $A_1$-线性的，构造完成。
+
+\begin{lemma}
+\label{discriminant-lemma-bc-map-dualizing}
+基变换映射 (\ref{discriminant-equation-bc-dualizing}) 与分解
+$A \to B' \to B$ 的选取无关。给定环同态 $A \to A_1 \to A_2$，
+$A \to A_1$ 与 $A_1 \to A_2$ 的基变换映射之复合，等于
+$A \to A_2$ 的基变换映射。
+\end{lemma}
+
+\begin{proof}
+略。提示：完全仿照引理 \ref{discriminant-lemma-dualizing-well-defined} 的论证，
+并使用引理 \ref{discriminant-lemma-dominate-factorizations}。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-flat-base-change}
+若 $A \to A_1$ 平坦，则基变换映射 (\ref{discriminant-equation-bc-dualizing}) 诱导同构
+$\omega_{B/A} \otimes_B B_1 \to \omega_{B_1/A_1}$。
+\end{lemma}
+
+\begin{proof}
+假设 $A \to A_1$ 平坦。由 $\omega_{B/A}$ 的构造，可设 $A \to B$ 有限。
+此时 $\omega_{B/A} = \Hom_A(B, A)$，且
+$\omega_{B_1/A_1} = \Hom_{A_1}(B_1, A_1)$。由于
+$B_1 = B \otimes_A A_1$，结论由《代数进阶》，引理
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-composition}
+设 $A \to B \to C$ 是 Noetherian 环的拟有限同态。则存在典范映射
+$\omega_{B/A} \otimes_B \omega_{C/B} \to \omega_{C/A}$。
+\end{lemma}
+
+\begin{proof}
+选取 $A \to B' \to B$，使 $A \to B'$ 有限，且
+$\Spec(B) \to \Spec(B')$ 是开浸入。此时 $B' \to C$ 也拟有限。
+选取 $B' \to C' \to C$，使 $B' \to C'$ 有限，且
+$\Spec(C) \to \Spec(C')$ 是开浸入。于是该箭头的源为
+$$
+\Hom_A(B', A) \otimes_{B'} B \otimes_B
+\Hom_B(B \otimes_{B'} C', B) \otimes_{B \otimes_{B'} C'} C
+$$
+它等于
+$$
+\Hom_A(B', A) \otimes_{B'}
+\Hom_{B'}(C', B) \otimes_{C'} C
+$$
+而映射的复合
+$\Hom_A(B', A) \times \Hom_{B'}(C', B) \to \Hom_A(C', A)$
+确实给出它到
+$\Hom_A(C', A) \otimes_{C'} C = \omega_{C/A}$ 的典范映射。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-product}
+设 $A \to B$ 和 $A \to C$ 是 Noetherian 环的拟有限同态。
+则作为 $B \times C$ 上的模，
+$\omega_{B \times C/A} = \omega_{B/A} \times \omega_{C/A}$。
+\end{lemma}
+
+\begin{proof}
+选取分解 $A \to B' \to B$ 和 $A \to C' \to C$，使得
+$A \to B'$ 与 $A \to C'$ 有限，而 $\Spec(B) \to \Spec(B')$
+与 $\Spec(C) \to \Spec(C')$ 是开浸入。则
+$A \to B' \times C' \to B \times C$ 是同类分解。
+用它计算 $\omega_{B \times C/A}$ 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-associated-primes}
+设 $A \to B$ 是 Noetherian 环的拟有限同态。则
+$\text{Ass}_B(\omega_{B/A})$ 是 $B$ 中位于 $A$ 的伴随素理想之上的
+所有素理想所成的集合。
+\end{lemma}
+
+\begin{proof}
+选取分解 $A \to B' \to B$，其中 $A \to B'$ 有限，而 $B' \to B$
+在谱上诱导开浸入。由于
+$\omega_{B/A} = \omega_{B'/A} \otimes_{B'} B$，只需对
+$\omega_{B'/A}$ 证明该断言。因此可设 $A \to B$ 有限。
+
+\medskip\noindent
+设 $\mathfrak p \in \text{Ass}(A)$，且 $\mathfrak q$ 是 $B$ 中位于
+$\mathfrak p$ 之上的素理想。取 $x \in A$，使其零化子为
+$\mathfrak p$。选取非零的 $\kappa(\mathfrak p)$-线性映射
+$\lambda : \kappa(\mathfrak q) \to \kappa(\mathfrak p)$。
+由于 $A/\mathfrak p \subset B/\mathfrak q$ 是有限环扩张，存在
+$f \in A$、$f \not \in \mathfrak p$，使 $f\lambda$ 把
+$B/\mathfrak q$ 映入 $A/\mathfrak p$。于是得到非零的 $A$-线性映射
+$$
+B \to B/\mathfrak q \to A/\mathfrak p \to A,\quad
+b \mapsto f\lambda(b)x
+$$
+直接计算可知，$\omega_{B/A}$ 的这个元素的零化子是
+$\mathfrak q$，故 $\mathfrak q \in \text{Ass}(\omega_{B/A})$。
+
+\medskip\noindent
+反之，设素理想 $\mathfrak q \subset B$ 位于素理想
+$\mathfrak p \subset A$ 之上，且后者不是 $A$ 的伴随素理想。
+需证明 $\mathfrak q \not \in \text{Ass}_B(\omega_{B/A})$。
+把 $A$ 换成 $A_\mathfrak p$，并把 $B$ 换成 $B_\mathfrak p$，
+可设 $\mathfrak p$ 是 $A$ 的极大理想。引理
+\ref{discriminant-lemma-dualizing-flat-base-change} 与《代数》，引理
+\ref{algebra-lemma-localize-ass} 说明这一步是允许的。
+于是存在 $f \in \mathfrak m$，它是 $A$ 上的非零因子。
+那么 $f$ 也是 $\omega_{B/A}$ 上的非零因子，故 $\mathfrak q$
+不是这个模的伴随素理想。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-base-flat-flat}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。则
+$\omega_{B/A}$ 是平坦 $A$-模。
+\end{lemma}
+
+\begin{proof}
+设素理想 $\mathfrak q \subset B$ 位于 $\mathfrak p \subset A$ 之上。
+我们证明局部化 $\omega_{B/A, \mathfrak q}$ 在 $A_\mathfrak p$ 上平坦。
+由《代数》，引理 \ref{algebra-lemma-flat-localization}，这就足够了。
+由《代数》，引理
+\ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime}，
+可找到 \'etale 环同态 $A \to A'$ 和位于 $\mathfrak p$ 之上的素理想
+$\mathfrak p' \subset A'$，使得 $\kappa(\mathfrak p') = \kappa(\mathfrak p)$，
+并且
+$$
+B' = B \otimes_A A' = C \times D
+$$
+其中 $A' \to C$ 有限，且 $B \otimes_A A'$ 中同时位于
+$\mathfrak q$ 与 $\mathfrak p'$ 之上的唯一素理想 $\mathfrak q'$
+对应于 $C$ 的一个素理想。由引理
+\ref{discriminant-lemma-dualizing-flat-base-change} 和《代数》，引理
+\ref{algebra-lemma-base-change-flat-up-down}，只需证明
+$\omega_{B'/A', \mathfrak q'}$ 在 $A'_{\mathfrak p'}$ 上平坦。
+又由引理 \ref{discriminant-lemma-dualizing-product}，
+$\omega_{B'/A'} = \omega_{C/A'} \times \omega_{D/A'}$，
+故归结为 $B$ 在 $A$ 上有限平坦的情形。此时 $B$ 是有限局部自由
+$A$-模，而 $\omega_{B/A} = \Hom_A(B, A)$ 是其对偶有限局部自由
+$A$-模。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-base-change-of-flat}
+若 $A \to B$ 平坦，则基变换映射 (\ref{discriminant-equation-bc-dualizing}) 诱导同构
+$\omega_{B/A} \otimes_B B_1 \to \omega_{B_1/A_1}$。
+\end{lemma}
+
+\begin{proof}
+若 $A \to B$ 有限平坦，则 $B$ 是有限局部自由 $A$-模。
+此时 $\omega_{B/A} = \Hom_A(B, A)$ 是其对偶有限局部自由 $A$-模，
+而这个模的形成与任意基变换可交换，故引理在此情形下成立。
+下一段把一般的拟有限平坦情形归结为刚讨论的有限平坦情形。
+
+\medskip\noindent
+设 $\mathfrak q_1 \subset B_1$ 是素理想。我们证明该映射在
+$\mathfrak q_1$ 处的局部化是同构；由《代数》，引理
+\ref{algebra-lemma-characterize-zero-local}，这就足够了。
+令 $\mathfrak q \subset B$ 与 $\mathfrak p \subset A$ 为
+$\mathfrak q_1$ 下方的素理想。由《代数》，引理
+\ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime}，
+可找到 \'etale 环同态 $A \to A'$ 和位于 $\mathfrak p$ 之上的素理想
+$\mathfrak p' \subset A'$，使得 $\kappa(\mathfrak p') = \kappa(\mathfrak p)$，
+并且
+$$
+B' = B \otimes_A A' = C \times D
+$$
+其中 $A' \to C$ 有限，且 $B \otimes_A A'$ 中同时位于
+$\mathfrak q$ 与 $\mathfrak p'$ 之上的唯一素理想 $\mathfrak q'$
+对应于 $C$ 的一个素理想。令 $A'_1 = A' \otimes_A A_1$，并考察环同态
+$A \to A' \to A'_1$ 与 $A \to A_1 \to A'_1$ 的基变换映射
+(\ref{discriminant-equation-bc-dualizing})，如下图所示：
+$$
+\xymatrix{
+\omega_{B'/A'} \otimes_{B'} B'_1 \ar[r] & \omega_{B'_1/A'_1} \\
+\omega_{B/A} \otimes_B B'_1 \ar[r] \ar[u] &
+\omega_{B_1/A_1} \otimes_{B_1} B'_1 \ar[u]
+}
+$$
+其中 $B' = B \otimes_A A'$、$B_1 = B \otimes_A A_1$，且
+$B_1' = B \otimes_A (A' \otimes_A A_1)$。由引理
+\ref{discriminant-lemma-bc-map-dualizing}，该图交换。由引理
+\ref{discriminant-lemma-dualizing-flat-base-change}，竖直箭头都是同构。
+由于 $B_1 \to B'_1$ 是 \'etale 的，因而平坦，只需证明上方水平箭头
+在 $B'_1$ 中位于 $\mathfrak q$ 之上的某个素理想 $\mathfrak q'_1$
+处局部化后是同构（这样的素理想存在，并应用《代数》，引理
+\ref{algebra-lemma-local-flat-ff}）。
+因此可设 $B = C \times D$，其中 $A \to C$ 有限，且 $\mathfrak q$
+对应于 $C$ 的一个素理想。此时对偶化模 $\omega_{B/A}$ 也有相应分解
+（引理 \ref{discriminant-lemma-dualizing-product}），于是问题归结为上面已处理的
+有限平坦情形 $A \to C$。
+\end{proof}
+
+\begin{remark}
+\label{discriminant-remark-relative-dualizing-for-quasi-finite}
+设 $f : Y \to X$ 是局部 Noetherian 概形之间的局部拟有限态射。
+由引理 \ref{discriminant-lemma-localize-dualizing} 显然可知，$Y$ 上存在唯一的凝聚
+$\mathcal{O}_Y$-模 $\omega_{Y/X}$，使得对每一对满足
+$f(V) \subset U$ 的仿射开集 $\Spec(B) = V \subset Y$、
+$\Spec(A) = U \subset X$，都存在典范同构
+$$
+H^0(V, \omega_{Y/X}) = \omega_{B/A}
+$$
+且这些同构与限制映射相容。
+\end{remark}
+
+\begin{lemma}
+\label{discriminant-lemma-compare-dualizing-algebraic}
+设 $A \to B$ 是 Noetherian 环的拟有限同态。令
+$\omega_{B/A}^\bullet \in D(B)$ 为《对偶化复形》第
+\ref{dualizing-section-relative-dualizing-complexes-Noetherian} 节讨论的
+代数相对对偶化复形。则存在一个（非唯一的）同构
+$\omega_{B/A} = H^0(\omega_{B/A}^\bullet)$。
+\end{lemma}
+
+\begin{proof}
+选取分解 $A \to B' \to B$，其中 $A \to B'$ 有限，且
+$\Spec(B') \to \Spec(B)$ 是开浸入。由《对偶化复形》，引理
+\ref{dualizing-lemma-composition-shriek-algebraic}、
+\ref{dualizing-lemma-upper-shriek-localize} 以及
+$\omega_{B/A}^\bullet$ 的定义，有
+$\omega_{B/A}^\bullet = \omega_{B'/A}^\bullet \otimes_B^\mathbf{L} B'$。
+因此只需在 $A \to B$ 有限时证明存在该同构。在这种情形下，
+《对偶化复形》，引理 \ref{dualizing-lemma-upper-shriek-finite} 给出
+$\omega_{B/A}^\bullet = R\Hom(B, A)$，从而如所需有
+$H^0(\omega^\bullet_{B/A}) = \Hom_A(B, A)$。
+\end{proof}
+
+
+
+
+
+
+\section{有限局部自由态射的判别式}
+\label{discriminant-section-discriminant}
+
+\noindent
+设 $X$ 是概形，$\mathcal{F}$ 是有限局部自由 $\mathcal{O}_X$-模。
+则存在典范的{\it 迹}映射
+$$
+\text{Trace} :
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{F})
+\longrightarrow
+\mathcal{O}_X
+$$
+见《练习》，练习 \ref{exercises-exercise-trace-det}。这个映射满足：
+$\text{Trace}(\text{id})$ 是 $\mathcal{O}_X$ 上对应于
+$\mathcal{F}$ 的秩的局部常值函数。
+
+\medskip\noindent
+设 $\pi : X \to Y$ 是有限局部自由概形态射。则存在典范的
+{\it $\pi$ 的迹}，即一个 $\mathcal{O}_Y$-线性映射
+$$
+\text{Trace}_\pi : \pi_*\mathcal{O}_X \longrightarrow \mathcal{O}_Y
+$$
+它把 $\pi_*\mathcal{O}_X$ 的局部截面 $f$ 映到
+$\pi_*\mathcal{O}_X$ 上乘以 $f$ 的映射之迹。在仿射开集上，
+这恢复《练习》，练习 \ref{exercises-exercise-trace-det-rings} 中的构造。
+复合
+$$
+\mathcal{O}_Y \xrightarrow{\pi^\sharp} \pi_*\mathcal{O}_X
+\xrightarrow{\text{Trace}_\pi} \mathcal{O}_Y
+$$
+等于乘以 $\pi$ 的次数（这是 $Y$ 上的局部常值函数）。仿照
+《域论》，第 \ref{fields-section-trace-pairing} 节，可定义迹配对
+$$
+Q_\pi :
+\pi_*\mathcal{O}_X \times \pi_*\mathcal{O}_X
+\longrightarrow
+\mathcal{O}_Y
+$$
+其规则为 $(f, g) \mapsto \text{Trace}_\pi(fg)$。可把 $Q_\pi$ 看成
+相同秩的局部自由模之间的线性映射
+$\pi_*\mathcal{O}_X \to
+\SheafHom_{\mathcal{O}_Y}(\pi_*\mathcal{O}_X, \mathcal{O}_Y)$，
+因而得到行列式
+$$
+\det(Q_\pi) :
+\wedge^{top}(\pi_*\mathcal{O}_X)
+\longrightarrow
+\wedge^{top}(\pi_*\mathcal{O}_X)^{\otimes -1}
+$$
+换言之，得到整体截面
+$$
+\det(Q_\pi) \in \Gamma(Y, \wedge^{top}(\pi_*\mathcal{O}_X)^{\otimes -2})
+$$
+按定义，{\it $\pi$ 的判别式}是由这个整体截面定义的闭子概形
+$D_\pi \subset Y$。显然，$D_\pi$ 是 $Y$ 的局部主闭子概形。
+
+\begin{lemma}
+\label{discriminant-lemma-discriminant}
+设 $\pi : X \to Y$ 是有限局部自由概形态射。则 $\pi$ 是 \'etale 的，
+当且仅当其判别式为空。
+\end{lemma}
+
+\begin{proof}
+由《态射》，引理 \ref{morphisms-lemma-etale-flat-etale-fibres}，
+只需检验 $\pi$ 的纤维为 \'etale。迹配对的构造与基变换可交换，
+故问题归结为：设 $k$ 是域，$A$ 是有限维 $k$-代数，证明
+$A$ 在 $k$ 上为 \'etale，当且仅当迹配对
+$Q_{A/k} : A \times A \to k$、$(a, b) \mapsto \text{Trace}_{A/k}(ab)$
+非退化。
+
+\medskip\noindent
+假设 $Q_{A/k}$ 非退化。若 $a \in A$ 是幂零元，则对每个 $b \in A$，
+$ab$ 都是幂零的，从而 $Q_{A/k}(a, -)$ 恒为零。因此 $A$ 是既约的。
+于是可写成乘积 $A = K_1 \times \ldots \times K_n$，其中每个 $K_i$
+都是域（见《代数》，引理
+\ref{algebra-lemma-finite-dimensional-algebra}、
+\ref{algebra-lemma-artinian-finite-length} 和
+\ref{algebra-lemma-minimal-prime-reduced-ring}）。
+此时二次空间 $(A, Q_{A/k})$ 是各空间 $(K_i, Q_{K_i/k})$
+的正交直和。由《域论》，引理
+\ref{fields-lemma-separable-trace-pairing}，每个 $K_i$ 在 $k$ 上可分。
+由《代数》，引理 \ref{algebra-lemma-etale-over-field}，这说明
+$A$ 在 $k$ 上为 \'etale。反向结论可将上述论证倒读得到。
+\end{proof}
+
+
+
+
+
+\section{平坦拟有限环同态的迹}
+\label{discriminant-section-quasi-finite-traces}
+
+\noindent
+本节标题中的迹，与《概形的对偶理论》第
+\ref{duality-section-trace} 节讨论的迹性质完全不同。这里所指的是
+《域论》第 \ref{fields-section-trace-pairing} 节讨论并在《练习》，练习
+\ref{exercises-exercise-trace-det} 和
+\ref{exercises-exercise-trace-det-rings} 中推广的迹。
+
+\medskip\noindent
+设 $A \to B$ 是 Noetherian 环的有限平坦同态。则 $B$ 作为 $A$-模
+有限平坦，因而有限局部自由（《代数》，引理
+\ref{algebra-lemma-finite-projective}）。给定 $b \in B$，可考察
+$B$ 上乘以 $b$ 所给出的 $A$-线性映射 $B \to B$ 的
+{\it 迹} $\text{Trace}_{B/A}(b)$。由上述参考资料，这定义了
+$A$-线性映射 $\text{Trace}_{B/A} : B \to A$。由于 $A \to B$ 有限，
+$\omega_{B/A} = \Hom_A(B, A)$，故
+$\text{Trace}_{B/A} \in \omega_{B/A}$。
+
+\medskip\noindent
+对一般的平坦拟有限环同态，按如下方式定义迹的概念。
+
+\begin{definition}
+\label{discriminant-definition-trace-element}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。
+{\it 迹元}是唯一的\footnote{唯一性与存在性将在引理
+\ref{discriminant-lemma-trace-unique} 和 \ref{discriminant-lemma-dualizing-tau} 中说明。}元素
+$\tau_{B/A} \in \omega_{B/A}$，它满足如下性质：对任意 Noetherian
+$A$-代数 $A_1$，若 $B_1 = B \otimes_A A_1$ 有乘积分解
+$B_1 = C \times D$，且 $A_1 \to C$ 有限，则 $\tau_{B/A}$ 在
+$\omega_{C/A_1}$ 中的像为 $\text{Trace}_{C/A_1}$。
+这里利用基变换映射 (\ref{discriminant-equation-bc-dualizing}) 和引理
+\ref{discriminant-lemma-dualizing-product} 得到
+$\omega_{B/A} \to \omega_{B_1/A_1} \to \omega_{C/A_1}$。
+\end{definition}
+
+\noindent
+先证明迹元的唯一性，再证明其存在性。
+
+\begin{lemma}
+\label{discriminant-lemma-trace-unique}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。则
+$\omega_{B/A}$ 中至多有一个迹元。
+\end{lemma}
+
+\begin{proof}
+设素理想 $\mathfrak q \subset B$ 位于素理想
+$\mathfrak p \subset A$ 之上。由《代数》，引理
+\ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime}，
+可找到 \'etale 环同态 $A \to A_1$ 和位于 $\mathfrak p$ 之上的
+素理想 $\mathfrak p_1 \subset A_1$，使得
+$\kappa(\mathfrak p_1) = \kappa(\mathfrak p)$，并且
+$$
+B_1 = B \otimes_A A_1 = C \times D
+$$
+其中 $A_1 \to C$ 有限，且 $B \otimes_A A_1$ 中同时位于
+$\mathfrak q$ 与 $\mathfrak p_1$ 之上的唯一素理想 $\mathfrak q_1$
+对应于 $C$ 的一个素理想。注意
+$\omega_{C/A_1} = \omega_{B/A} \otimes_B C$
+（结合引理 \ref{discriminant-lemma-dualizing-flat-base-change} 和
+\ref{discriminant-lemma-dualizing-product}）。按此方式得到的环同态族 $B \to C$
+是由平坦映射组成的联合单射族，而 $\tau_{B/A}$ 在
+$\omega_{C/A_1}$ 中的像已被规定，故唯一性成立。
+\end{proof}
+
+\noindent
+下面作一个合理性检验。
+
+\begin{lemma}
+\label{discriminant-lemma-finite-flat-trace}
+设 $A \to B$ 是 Noetherian 环的有限平坦同态。则
+$\text{Trace}_{B/A} \in \omega_{B/A}$ 是迹元。
+\end{lemma}
+
+\begin{proof}
+设有环同态 $A \to A_1$，其中 $A_1$ 为 Noetherian，并有乘积分解
+$B \otimes_A A_1 = C \times D$，其中 $A_1 \to C$ 有限。
+当然，此时 $A_1 \to D$ 也有限。令 $B_1 = B \otimes_A A_1$。
+迹的构造与基变换可交换，故 $\text{Trace}_{B/A}$ 映到
+$\text{Trace}_{B_1/A_1}$。再注意，在引理
+\ref{discriminant-lemma-dualizing-product} 的同构
+$\omega_{B_1/A_1} = \omega_{C/A_1} \times \omega_{D/A_1}$ 下，有
+$\text{Trace}_{B_1/A_1} = (\text{Trace}_{C/A_1}, \text{Trace}_{D/A_1})$，
+证明即告完成。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-trace-base-change}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态，
+$\tau \in \omega_{B/A}$ 是迹元。
+\begin{enumerate}
+\item 若 $A \to A_1$ 是环同态，且 $A_1$ 为 Noetherian，则令
+$B_1 = A_1 \otimes_A B$ 后，$\tau$ 在 $\omega_{B_1/A_1}$ 中的像是迹元。
+\item 若对某个环 $R$ 与 $f \in R$ 有 $A = R_f$，则
+$\tau$ 是 $\omega_{B/R}$ 中的迹元。
+\item 若 $g \in B$，则 $\tau$ 在 $\omega_{B_g/A}$ 中的像是迹元。
+\item 若 $B = B_1 \times B_2$，则 $\tau$ 在
+$\omega_{B_1/A}$ 和 $\omega_{B_2/A}$ 中的像都是迹元。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 是定义的形式推论。
+
+\medskip\noindent
+由引理 \ref{discriminant-lemma-localize-dualizing}，
+$\omega_{B/R} = \omega_{B/A}$，故 (2) 的陈述有意义。把 $\tau$
+视为 $\omega_{B/R}$ 的元素，并将其记作 $\tau'$。为证明 (2)，设有
+$R \to R_1$，其中 $R_1$ 为 Noetherian，并有乘积分解
+$B \otimes_R R_1 = C \times D$，其中 $R_1 \to C$ 有限。
+令 $A_1 = (R_1)_f$，则 $B \otimes_A A_1 = C \times D$。
+由于 $R_1 \to C$ 有限，当然 $A_1 \to C$ 也有限。因此，
+由 $\tau$ 的定义性质可得 $\tau'$ 的相应性质。
+
+\medskip\noindent
+由引理 \ref{discriminant-lemma-localize-dualizing}，
+$\omega_{B_g/A} = (\omega_{B/A})_g$，故 (3) 的陈述有意义。
+证明与 (2) 类似。设有 $A \to A_1$，其中 $A_1$ 为 Noetherian，
+并有乘积分解 $B_g \otimes_A A_1 = C \times D$，其中
+$A_1 \to C$ 有限。令 $B_1 = B \otimes_A A_1$。由于
+$B_g \otimes_A A_1 = (B_1)_g$，$\Spec(C) \to \Spec(B_1)$ 是开浸入；
+又因 $A_1 \to C$ 有限，所以 $B_1 \to C$ 有限，其像是闭的。
+因此 $B_1 = C \times D_1$ 且 $D = (D_1)_g$。
+应用 $\tau$ 的定义性质，即得 $\tau$ 在 $\omega_{B_g/A}$ 中之像的相应性质。
+
+\medskip\noindent
+由引理 \ref{discriminant-lemma-dualizing-product}，
+$\omega_{B/A} = \omega_{B_1/A} \times \omega_{B_2/A}$，故 (4) 有意义。
+设有 $A \to A'$，其中 $A'$ 为 Noetherian，并有乘积分解
+$B \otimes_A A' = C \times D$，其中 $A' \to C$ 有限。
+显然可把该乘积分解细化为
+$B \otimes_A A' = C_1 \times C_2 \times D_1 \times D_2$，
+其中 $A' \to C_i$ 有限，且 $B_i \otimes_A A' = C_i \times D_i$。
+由 $\tau$ 的定义性质可得 $\tau$ 在 $\omega_{B_i/A}$ 中之像的相应性质。
+这里用到显然的事实：在分解
+$\omega_{C/A'} = \omega_{C_1/A'} \times \omega_{C_2/A'}$ 下，
+$\text{Trace}_{C/A'} = (\text{Trace}_{C_1/A'}, \text{Trace}_{C_2/A'})$。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-glue-trace}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。
+设 $g_1, \ldots, g_m \in B$ 生成单位理想，并设
+$\tau \in \omega_{B/A}$ 的像在每个 $\omega_{B_{g_i}/A}$ 中
+都是 $A \to B_{g_i}$ 的迹元。则 $\tau$ 是迹元。
+\end{lemma}
+
+\begin{proof}
+设有 $A \to A_1$，其中 $A_1$ 为 Noetherian，并有乘积分解
+$B \otimes_A A_1 = C \times D$，其中 $A_1 \to C$ 有限。
+需证明 $\tau$ 在 $\omega_{C/A_1}$ 中的像为
+$\text{Trace}_{C/A_1}$。注意 $g_1, \ldots, g_m$ 在
+$B_1 = B \otimes_A A_1$ 中生成单位理想；由引理
+\ref{discriminant-lemma-trace-base-change}，$\tau$ 映到
+$\omega_{(B_1)_{g_i}/A_1}$ 中的迹元。因此可以用 $A_1$ 替换 $A$，
+并用 $B_1$ 替换 $B$，归结为下一段所述情形。
+
+\medskip\noindent
+这里假设 $B = C \times D$，且 $A \to C$ 有限。令 $\tau_C$
+为 $\tau$ 在 $\omega_{C/A}$ 中的像。需证明在 $\omega_{C/A}$ 中有
+$\tau_C = \text{Trace}_{C/A}$。由迹元与乘积的相容性
+（引理 \ref{discriminant-lemma-trace-base-change}），$\tau_C$ 映到
+$\omega_{C_{g_i}/A}$ 中的迹元。因此，用 $C$ 替换 $B$ 后，
+可设 $A \to B$ 有限平坦。
+
+\medskip\noindent
+假设 $A \to B$ 有限平坦。由引理 \ref{discriminant-lemma-finite-flat-trace}，
+$\text{Trace}_{B/A}$ 是迹元。因此，由引理
+\ref{discriminant-lemma-trace-base-change}，$\text{Trace}_{B/A}$ 映到
+$\omega_{B_{g_i}/A}$ 中的迹元。迹元是唯一的（引理
+\ref{discriminant-lemma-trace-unique}），故 $\text{Trace}_{B/A}$ 与 $\tau$
+在 $\omega_{B_{g_i}/A} = (\omega_{B/A})_{g_i}$ 中的像相同。
+由于 $g_1, \ldots, g_m$ 生成 $B$ 的单位理想，映射
+$\omega_{B/A} \to \prod \omega_{B_{g_i}/A}$ 为单射，
+从而如所需有 $\tau_C = \text{Trace}_{B/A}$。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-tau}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。则存在迹元
+$\tau \in \omega_{B/A}$。
+\end{lemma}
+
+\begin{proof}
+选取分解 $A \to B' \to B$，其中 $A \to B'$ 有限，且
+$\Spec(B) \to \Spec(B')$ 是开浸入。取 $g_1, \ldots, g_n \in B'$，
+使得作为 $\Spec(B')$ 的开集有
+$\Spec(B) = \bigcup D(g_i)$。假设能证明拟有限平坦环同态
+$A \to B_{g_i}$ 的迹元 $\tau_i$ 存在。由引理
+\ref{discriminant-lemma-trace-base-change}，对所有 $i, j$，元素 $\tau_i$ 与
+$\tau_j$ 都映到 $\omega_{B_{g_ig_j}/A}$ 中的迹元。由迹元的唯一性
+（引理 \ref{discriminant-lemma-trace-unique}），它们映到同一元素。因此，
+$\omega_{B/A}$ 所对应拟凝聚模的层条件（见《代数》，引理
+\ref{algebra-lemma-cover-module}）给出元素
+$\tau \in \omega_{B/A}$。由引理 \ref{discriminant-lemma-glue-trace}，
+$\tau$ 是迹元。这样便归结为下一段处理的情形。
+
+\medskip\noindent
+假设 $A \to B'$ 有限，$g \in B'$，且 $B = B'_g$ 在 $A$ 上平坦。
+任务是在
+$\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B$ 中构造迹元。
+选取由有限自由 $A$-模 $F_0$ 与 $F_1$ 构成的 $B'$ 的解消
+$F_1 \to F_0 \to B' \to 0$。于是有正合列
+$$
+0 \to \Hom_A(B', A) \to F_0^\vee \to F_1^\vee
+$$
+其中 $F_i^\vee = \Hom_A(F_i, A)$ 是对偶有限自由模。类似地有正合列
+$$
+0 \to \Hom_A(B', B') \to F_0^\vee \otimes_A B' \to F_1^\vee \otimes_A B'
+$$
+构造 $\tau$ 的想法是利用图
+$$
+B' \xrightarrow{\mu} \Hom_A(B', B')
+\leftarrow \Hom_A(B', A) \otimes_A B'
+\xrightarrow{ev} A
+$$
+其中第一个箭头把 $b' \in B'$ 映到乘以 $b'$ 所给出的 $A$-线性算子，
+末一个箭头是取值映射。问题在于中间的箭头——它把
+$\lambda' \otimes b'$ 映到 $b'' \mapsto \lambda'(b'')b'$——并非同构。
+若 $B'$ 在 $A$ 上平坦，上述正合列说明它是同构，并且从左到右的复合
+就是通常的迹 $\text{Trace}_{B'/A}$。一般情形下，考察图
+$$
+\xymatrix{
+& \Hom_A(B', A) \otimes_A B' \ar[r] \ar[d] &
+\Hom_A(B', A) \otimes_A B'_g \ar[d] \\
+B' \ar[r]_-\mu \ar@{..>}[rru] \ar@{..>}[ru]^\psi &
+\Hom_A(B', B') \ar[r] &
+\Ker(F_0^\vee \otimes_A B'_g \to F_1^\vee \otimes_A B'_g)
+}
+$$
+由 $A \to B'_g$ 的平坦性，右侧竖直箭头是同构。因此得到未标记的虚箭头。
+由于 $B'_g = \colim \frac{1}{g^n}B'$，余极限与张量积可交换，
+且 $B'$ 是有限表现 $A$-模，所以可找到 $n \geq 0$ 以及一个
+$B'$-线性映射（对右 $B'$-模结构而言）
+$\psi : B' \to \Hom_A(B', A) \otimes_A B'$，
+使它与左侧竖直箭头的复合为 $g^n\mu$。再与 $ev$ 复合，得到元素
+$ev \circ \psi \in \Hom_A(B', A)$。令
+$$
+\tau = (ev \circ \psi) \otimes g^{-n} \in
+\Hom_A(B', A) \otimes_{B'} B'_g = \omega_{B'_g/A} = \omega_{B/A}
+$$
+略去这个元素与上述 $n$ 和 $\psi$ 的选取无关的直接验证。
+
+\medskip\noindent
+先在一个特殊情形中证明上一段构造的 $\tau$ 具有所需性质。
+具体地，设 $B' = C' \times D'$，$g = (f, h)$，其中
+$A \to C'$ 平坦，$D'_h$ 平坦，且 $f$ 是 $C'$ 中的单位。
+需证明：$\tau$ 在 $\omega_{C'/A}$ 中映到 $\text{Trace}_{C'/A}$。
+先如上为一对 $(D', h)$ 选取 $n_D$ 以及
+$\psi_D : D' \to \Hom_A(D', A) \otimes_A D'$，并令
+$\psi_C : C' \to \Hom_A(C', A) \otimes_A C' = \Hom_A(C', C')$
+把 $c' \in C'$ 映到乘以 $c'$。然后取
+$n = n_D$ 和 $\psi = (f^{n_D} \psi_C, \psi_D)$。
+由上述 $\text{Trace}_{C'/A} = ev \circ \psi_C$，所需相容性显然成立。
+
+\medskip\noindent
+为证明一般情形下的所需性质，设给定 $A \to A_1$，其中 $A_1$
+为 Noetherian，并有乘积分解 $B'_g \otimes_A A_1 = C \times D$，
+其中 $A_1 \to C$ 有限。令 $B'_1 = B' \otimes_A A_1$。
+由于 $B'_g \otimes_A A_1 = (B'_1)_g$，
+$\Spec(C) \to \Spec(B'_1)$ 是开浸入；又因 $A_1 \to C$ 有限，
+$B'_1 \to C$ 也有限，故其像为闭集。因此
+$B'_1 = C \times D'$ 且 $D'_g = D$。可见 $A_1$ 上的
+$B'_1 = C \times D'$ 与 $g$ 正是上一段的情形。
+上述显示图的形成与基变换可交换，因此 $\tau$ 的形成与基变换
+$A \to A_1$ 可交换（略去细节；可用解消
+$F_1 \otimes_A A_1 \to F_0 \otimes_A A_1 \to B'_1 \to 0$
+看出这一点）。所需相容性遂由上一段的结论得出。
+\end{proof}
+
+\begin{remark}
+\label{discriminant-remark-relative-dualizing-for-flat-quasi-finite}
+设 $f : Y \to X$ 是局部 Noetherian 概形之间的平坦局部拟有限态射，
+并令 $\omega_{Y/X}$ 如注记
+\ref{discriminant-remark-relative-dualizing-for-quasi-finite} 所述。由迹元的唯一性、
+存在性以及与局部化的相容性（引理 \ref{discriminant-lemma-trace-unique}、
+\ref{discriminant-lemma-dualizing-tau} 和 \ref{discriminant-lemma-trace-base-change}），
+显然存在整体截面
+$$
+\tau_{Y/X} \in \Gamma(Y, \omega_{Y/X})
+$$
+使得对每一对满足 $f(V) \subset U$ 的仿射开集
+$\Spec(B) = V \subset Y$、$\Spec(A) = U \subset X$，
+元素 $\tau_{Y/X}$ 在典范同构
+$H^0(V, \omega_{Y/X}) = \omega_{B/A}$ 下映到 $\tau_{B/A}$。
+\end{remark}
+
+\begin{lemma}
+\label{discriminant-lemma-tau-nonzero}
+设 $k$ 是域，$A$ 是有限 $k$-代数。假设 $A$ 为局部环，其剩余域为
+$k'$。则下列条件等价：
+\begin{enumerate}
+\item $\text{Trace}_{A/k}$ 非零；
+\item $\tau_{A/k} \in \omega_{A/k}$ 非零；
+\item $k'/k$ 可分，且 $\text{length}_A(A)$ 与 $k$ 的特征互素。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{discriminant-lemma-finite-flat-trace}，条件 (1) 与 (2) 等价。
+设 $\mathfrak m \subset A$。由于 $\dim_k(A) < \infty$，显然 $A$
+作为 $A$-模具有有限长度。选取理想滤过
+$$
+A = I_0 \supset \mathfrak m = I_1 \supset I_2 \supset \ldots I_n = 0
+$$
+使得作为 $A$-模有 $I_i/I_{i + 1} \cong k'$。参见《代数》，引理
+\ref{algebra-lemma-simple-pieces}；该引理还说明
+$n = \text{length}_A(A)$。若 $a \in \mathfrak m$，则
+$aI_i \subset I_{i + 1}$，从而显然有 $\text{Trace}_{A/k}(a) = 0$。
+若 $a \not \in \mathfrak m$，其像为 $\lambda \in k'$，则得到
+$$
+\text{Trace}_{A/k}(a) =
+\sum\nolimits_{i = 0, \ldots, n - 1}
+\text{Trace}_k(a : I_i/I_{i - 1} \to I_i/I_{i - 1}) =
+n \text{Trace}_{k'/k}(\lambda)
+$$
+最后应用《域论》，引理 \ref{fields-lemma-separable-trace-pairing}，
+即得引理。
+\end{proof}
+
+
+
+
+
+
+\section{有限态射}
+\label{discriminant-section-finite-morphisms}
+
+\noindent
+本节汇集前面各节的构造在有限态射情形下的若干说明。
+设 $f : Y \to X$ 是局部 Noetherian 概形的有限态射，并令
+$\omega_{Y/X}$ 如注记 \ref{discriminant-remark-relative-dualizing-for-quasi-finite} 所述。
+
+\medskip\noindent
+第一点说明是，作为 $f_*\mathcal{O}_Y$-模层有
+$$
+f_*\omega_{Y/X} = \SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)
+$$
+由于 $f$ 是仿射的，这个公式唯一刻画 $\omega_{Y/X}$；见《态射》，引理
+\ref{morphisms-lemma-affine-equivalence-modules}。该公式成立是因为：
+若 $\Spec(A) = U \subset X$ 是仿射开集，则逆像
+$V = f^{-1}(U)$ 是某个有限 $A$-代数 $B$ 的谱，因而按构造有
+$$
+H^0(U, f_*\omega_{Y/X}) =
+H^0(V, \omega_{Y/X}) =
+\omega_{B/A} =
+\Hom_A(B, A) =
+H^0(U, \SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X))
+$$
+特别地，得到典范取值映射
+$$
+f_*\omega_{Y/X} \longrightarrow \mathcal{O}_X
+$$
+若把 $f_*\omega_{Y/X}$ 看成层
+$\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)$，
+这个映射由在 $1$ 处取值得到。
+
+\medskip\noindent
+第二点说明是，利用取值映射，可以典范地得到等同
+$$
+\Hom_Y(\mathcal{F}, f^*\mathcal{G} \otimes_{\mathcal{O}_Y} \omega_{Y/X})
+=
+\Hom_X(f_*\mathcal{F}, \mathcal{G})
+$$
+它关于 $Y$ 上的拟凝聚模 $\mathcal{F}$ 和 $X$ 上的有限局部自由模
+$\mathcal{G}$ 具有函子性。若 $\mathcal{G} = \mathcal{O}_X$，
+这立即由上述内容和《代数》，引理
+\ref{algebra-lemma-adjoint-hom-restrict} 得出。对一般的 $\mathcal{G}$，
+可应用同一引理以及 $f_*\mathcal{O}_Y$-模的同构
+$$
+f_*(f^*\mathcal{G} \otimes_{\mathcal{O}_Y} \omega_{Y/X}) =
+\mathcal{G} \otimes_{\mathcal{O}_X}
+\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X) =
+\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{G})
+$$
+其中第一个等号是投影公式
+（《上同调》，引理 \ref{cohomology-lemma-projection-formula}）。
+也可以在仿射局部作直接计算来证明该公式。
+
+\medskip\noindent
+第三点说明是，若 $f$ 还平坦，则复合
+$$
+f_*\mathcal{O}_Y \xrightarrow{f_*\tau_{Y/X}} f_*\omega_{Y/X}
+\longrightarrow \mathcal{O}_X
+$$
+等于第 \ref{discriminant-section-discriminant} 节讨论的迹映射
+$\text{Trace}_f$。在仿射开集上考察即可立即看出这一点。
+
+\medskip\noindent
+第四点说明是，若 $f$ 平坦且 $X$ 为 Noetherian，则对任意
+$D_\QCoh(\mathcal{O}_Y)$ 中的 $K$ 和 $D_\QCoh(\mathcal{O}_X)$ 中的 $M$，有
+$$
+\Hom_Y(K, Lf^*M \otimes_{\mathcal{O}_Y} \omega_{Y/X})
+=
+\Hom_X(Rf_*K, M)
+$$
+这可由《概形的对偶理论》第 \ref{duality-section-proper-flat} 节的内容得出，
+但在这里也可直接证明如下。首先，若 $X$ 仿射，则由《对偶化复形》，引理
+\ref{dualizing-lemma-right-adjoint} 和
+\ref{dualizing-lemma-RHom-is-tensor-special}\footnote{在本情形下，
+这个引理有更简单的证明。}以及《概形的导出范畴》，引理
+\ref{perfect-lemma-affine-compare-bounded}，结论成立。然后使用归纳原理
+（《概形的上同调》，引理 \ref{coherent-lemma-induction-principle}）与
+Mayer--Vietoris（采用《上同调》，引理
+\ref{cohomology-lemma-mayer-vietoris-hom} 的形式）完成证明。
+
+
+
+
+
+
+
+\section{Noether 不同理想}
+\label{discriminant-section-noether-different}
+
+\noindent
+文献中有许多不同的“不同理想”。本节及下节列出其中一些；
+更多信息建议读者参阅 \cite{Kunz}。
+
+\medskip\noindent
+设 $A \to B$ 是环同态。将乘法映射记为
+$$
+\mu : B \otimes_A B \longrightarrow B,\quad
+b \otimes b' \longmapsto bb'
+$$
+并令 $I = \Ker(\mu)$。显然，$I$ 由所有 $b \in B$ 对应的元素
+$b \otimes 1 - 1 \otimes b$ 生成。因此，$I$ 的零化子
+$J \subset B \otimes_A B$ 典范地成为 $B$-模。
+$B$ 在 $A$ 上的 {\it Noether 不同理想}是 $J$ 在映射
+$\mu : B \otimes_A B \to B$ 下的像。等价地，Noether 不同理想是映射
+$$
+J = \Hom_{B \otimes_A B}(B, B \otimes_A B) \longrightarrow B,\quad
+\varphi \longmapsto \mu(\varphi(1))
+$$
+的像。先证明若干必要的引理。
+
+\begin{lemma}
+\label{discriminant-lemma-noether-different-product}
+设 $A \to B_i$（$i = 1, 2$）为环同态，并令 $B = B_1 \times B_2$。
+\begin{enumerate}
+\item $\Ker(B \otimes_A B \to B)$ 的零化子 $J$ 等于
+$J_1 \times J_2$，其中 $J_i$ 是
+$\Ker(B_i \otimes_A B_i \to B_i)$ 的零化子。
+\item $B$ 在 $A$ 上的 Noether 不同理想 $\mathfrak{D}$ 等于
+$\mathfrak{D}_1 \times \mathfrak{D}_2$，其中 $\mathfrak{D}_i$
+是 $B_i$ 在 $A$ 上的 Noether 不同理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-noether-different-base-change}
+设 $A \to B$ 是有限型环同态，$A \to A'$ 是平坦环同态，并令
+$B' = B \otimes_A A'$。
+\begin{enumerate}
+\item $\Ker(B' \otimes_{A'} B' \to B')$ 的零化子 $J'$ 等于
+$J \otimes_A A'$，其中 $J$ 是 $\Ker(B \otimes_A B \to B)$ 的零化子。
+\item $B'$ 在 $A'$ 上的 Noether 不同理想 $\mathfrak{D}'$ 等于
+$\mathfrak{D}B'$，其中 $\mathfrak{D}$ 是 $B$ 在 $A$ 上的 Noether 不同理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取 $B$ 作为 $A$-代数的一组生成元 $b_1, \ldots, b_n$。则
+$$
+J = \Ker(B \otimes_A B \xrightarrow{b_i \otimes 1 - 1 \otimes b_i}
+(B \otimes_A B)^{\oplus n})
+$$
+因此 $J$ 的形成与平坦基变换可交换。关于 Noether 不同理想的结论
+立即由此得出。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-noether-different-localization}
+设 $A \to B' \to B$ 是环同态，其中 $A \to B'$ 为有限型，
+而 $B' \to B$ 在谱上诱导开浸入。
+\begin{enumerate}
+\item $\Ker(B \otimes_A B \to B)$ 的零化子 $J$ 等于
+$J' \otimes_{B'} B$，其中 $J'$ 是
+$\Ker(B' \otimes_A B' \to B')$ 的零化子。
+\item $B$ 在 $A$ 上的 Noether 不同理想 $\mathfrak{D}$ 等于
+$\mathfrak{D}'B$，其中 $\mathfrak{D}'$ 是 $B'$ 在 $A$ 上的
+Noether 不同理想。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+记 $I = \Ker(B \otimes_A B \to B)$，并记
+$I' = \Ker(B' \otimes_A B' \to B')$。由于
+$\Spec(B) \to \Spec(B')$ 是开浸入，得到
+$B = (B \otimes_A B) \otimes_{B' \otimes_A B'} B'$。
+因此 $I = I'(B \otimes_A B)$。由于 $I'$ 有限生成，且
+$B' \otimes_A B' \to B \otimes_A B$ 平坦，有
+$J = J'(B \otimes_A B)$；见《代数》，引理
+\ref{algebra-lemma-annihilator-flat-base-change}。
+由于 $J'$ 的 $B' \otimes_A B'$-模结构经过
+$B' \otimes_A B' \to B'$ 分解，故 (1) 成立。(2) 是 (1) 的推论。
+\end{proof}
+
+\begin{remark}
+\label{discriminant-remark-construction-pairing}
+设 $A \to B$ 是 Noetherian 环的拟有限同态，并令 $J$ 为
+$\Ker(B \otimes_A B \to B)$ 的零化子。存在典范的 $B$-双线性配对
+\begin{equation}
+\label{discriminant-equation-pairing-noether}
+\omega_{B/A} \times J \longrightarrow B
+\end{equation}
+其定义如下。选取分解 $A \to B' \to B$，其中 $A \to B'$ 有限，
+而 $B' \to B$ 在谱上诱导开浸入。令 $J'$ 为
+$\Ker(B' \otimes_A B' \to B')$ 的零化子。先定义
+$$
+\Hom_A(B', A) \times J' \longrightarrow B',\quad
+(\lambda, \sum b_i \otimes c_i) \longmapsto \sum \lambda(b_i)c_i
+$$
+这恰为 $B'$-双线性的，因为对 $\xi \in J'$ 与 $b \in B'$，有
+$(b \otimes 1)\xi = (1 \otimes b)\xi$。由引理
+\ref{discriminant-lemma-noether-different-localization} 以及
+$\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B$，
+可将它扩张为上面所示的 $B$-双线性配对。
+\end{remark}
+
+\begin{lemma}
+\label{discriminant-lemma-noether-pairing-compatibilities}
+设 $A \to B$ 是 Noetherian 环的拟有限同态。
+\begin{enumerate}
+\item 若 $A \to A'$ 是 Noetherian 环的平坦同态，则
+$$
+\xymatrix{
+\omega_{B/A} \times J \ar[r] \ar[d] & B \ar[d]  \\
+\omega_{B'/A'} \times J' \ar[r] & B'
+}
+$$
+交换，其中记号同引理 \ref{discriminant-lemma-noether-different-base-change}，
+水平箭头由 (\ref{discriminant-equation-pairing-noether}) 给出。
+\item 若 $B = B_1 \times B_2$，则
+$$
+\xymatrix{
+\omega_{B/A} \times J \ar[r] \ar[d] & B \ar[d]  \\
+\omega_{B_i/A} \times J_i \ar[r] & B_i
+}
+$$
+对 $i = 1, 2$ 交换，其中记号同引理
+\ref{discriminant-lemma-noether-different-product}，水平箭头由
+(\ref{discriminant-equation-pairing-noether}) 给出。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由注记 \ref{discriminant-remark-construction-pairing} 中配对的构造，
+(1) 与 (2) 都归结为 $A \to B$ 有限的情形。此时 (1) 由收缩映射
+$\Hom_A(M, A) \otimes_A M \otimes_A M \to M$、
+$\lambda \otimes m \otimes m' \mapsto \lambda(m)m'$
+与基变换可交换这一事实得出。为证明 (2)，使用
+$J = J_1 \times J_2$ 包含于 $B \otimes_A B$ 的直和分量
+$B_1 \otimes_A B_1$ 与 $B_2 \otimes_A B_2$ 中这一事实。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-noether-pairing-flat-quasi-finite}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。注记
+\ref{discriminant-remark-construction-pairing} 的配对诱导同构
+$J \to \Hom_B(\omega_{B/A}, B)$。
+\end{lemma}
+
+\begin{proof}
+先在 $A \to B$ 有限平坦时证明。此时可在 $A$ 上局部化，并假设
+$B$ 作为 $A$-模是有限自由的。设 $b_1, \ldots, b_n$ 是 $B$
+作为 $A$-模的一组基，并将 $\omega_{B/A}$ 的对偶基记为
+$b_1^\vee, \ldots, b_n^\vee$。注意
+$\sum b_i \otimes c_i \in J$ 映到 $\Hom_B(\omega_{B/A}, B)$ 中
+把 $b_i^\vee$ 送到 $c_i$ 的元素。设
+$\varphi : \omega_{B/A} \to B$ 为 $B$-线性映射。断言
+$\xi = \sum b_i \otimes \varphi(b_i^\vee)$ 属于 $J$。
+事实上，$\varphi$ 的 $B$-线性恰好蕴含：对每个 $b \in B$，
+$(b \otimes 1)\xi = (1 \otimes b)\xi$。因此该映射有逆，故为同构。
+
+\medskip\noindent
+设素理想 $\mathfrak q \subset B$ 位于 $\mathfrak p \subset A$ 之上。
+我们证明局部化
+$$
+J_\mathfrak q
+\longrightarrow
+\Hom_B(\omega_B/A, B)_\mathfrak q
+$$
+是同构。由《代数》，引理 \ref{algebra-lemma-characterize-zero-local}，
+这就足够了。由《代数》，引理
+\ref{algebra-lemma-etale-makes-quasi-finite-finite-one-prime}，
+可找到 \'etale 环同态 $A \to A'$ 以及位于 $\mathfrak p$ 之上的素理想
+$\mathfrak p' \subset A'$，使得 $\kappa(\mathfrak p') = \kappa(\mathfrak p)$，
+并且
+$$
+B' = B \otimes_A A' = C \times D
+$$
+其中 $A' \to C$ 有限，且 $B \otimes_A A'$ 中同时位于
+$\mathfrak q$ 与 $\mathfrak p'$ 之上的唯一素理想 $\mathfrak q'$
+对应于 $C$ 的一个素理想。令 $J'$ 为
+$\Ker(B' \otimes_{A'} B' \to B')$ 的零化子。由引理
+\ref{discriminant-lemma-dualizing-flat-base-change}、
+\ref{discriminant-lemma-noether-different-base-change} 和
+\ref{discriminant-lemma-noether-pairing-compatibilities}，映射
+$J' \to \Hom_{B'}(\omega_{B'/A'}, B')$ 是对映射
+$J \to \Hom_B(\omega_{B/A}, B)$ 应用函子 $- \otimes_B B'$ 得到的。
+由于 $B_\mathfrak q \to B'_{\mathfrak q'}$ 忠实平坦，只需对
+$(A' \to B', \mathfrak q')$ 证明结论。再由引理
+\ref{discriminant-lemma-dualizing-product}、
+\ref{discriminant-lemma-noether-different-product} 和
+\ref{discriminant-lemma-noether-pairing-compatibilities}，归结为证明第一段已经处理的情形。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-noether-different-flat-quasi-finite}
+设 $A \to B$ 是 Noetherian 环的平坦拟有限同态。图
+$$
+\xymatrix{
+J \ar[rr] \ar[rd]_\mu & &
+\Hom_B(\omega_{B/A}, B) \ar[ld]^{\varphi \mapsto \varphi(\tau_{B/A})} \\
+& B
+}
+$$
+交换，其中水平箭头是引理
+\ref{discriminant-lemma-noether-pairing-flat-quasi-finite} 的同构。
+因此，$B$ 在 $A$ 上的 Noether 不同理想是映射
+$\Hom_B(\omega_{B/A}, B) \to B$ 的像。
+\end{lemma}
+
+\begin{proof}
+完全仿照引理 \ref{discriminant-lemma-noether-pairing-flat-quasi-finite} 的证明，
+归结为有限自由同态 $A \to B$ 的情形。此时
+$\tau_{B/A} = \text{Trace}_{B/A}$。选取 $B$ 作为 $A$-模的一组基
+$b_1, \ldots, b_n$。令 $\xi = \sum b_i \otimes c_i \in J$，则
+$\mu(\xi) = \sum b_i c_i$。另一方面，$\xi$ 在
+$\Hom_B(\omega_{B/A}, B)$ 中的像把 $\text{Trace}_{B/A}$ 映到
+$\sum \text{Trace}_{B/A}(b_i)c_i$。因此需证明
+$$
+\sum b_ic_i = \sum \text{Trace}_{B/A}(b_i)c_i
+$$
+其中 $\xi = \sum b_i \otimes c_i \in J$。写成
+$b_i b_j = \sum_k a_{ij}^k b_k$，其中 $a_{ij}^k \in A$。
+则右端为 $\sum_{i, j} a_{ij}^j c_i$。另一方面，$\xi \in J$ 蕴含
+$$
+(b_j \otimes 1)(\sum\nolimits_i b_i \otimes c_i) =
+(1 \otimes b_j)(\sum\nolimits_i b_i \otimes c_i)
+$$
+从而 $b_j c_i = \sum_k a_{jk}^i c_k$。因此左端为
+$\sum_{i, j} a_{ij}^i c_j$。由于 $a_{ij}^k = a_{ji}^k$，等式成立。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-noether-different}
+设 $A \to B$ 是有限型环同态，$\mathfrak{D} \subset B$ 是 Noether
+不同理想。则 $V(\mathfrak{D})$ 是所有使 $A \to B$ 在
+$\mathfrak q$ 处分歧的素理想 $\mathfrak q \subset B$ 所成的集合。
+\end{lemma}
+
+\begin{proof}
+假设 $A \to B$ 在 $\mathfrak q$ 处非分歧。对某个
+$g \in B$、$g \not \in \mathfrak q$，用 $B_g$ 替换 $B$ 后，
+可设 $A \to B$ 非分歧（《代数》，定义
+\ref{algebra-definition-unramified} 以及引理
+\ref{discriminant-lemma-noether-different-localization}）。此时
+$\Omega_{B/A} = 0$。因此，若 $I = \Ker(B \otimes_A B \to B)$，
+则由《代数》，引理 \ref{algebra-lemma-differentials-diagonal}，
+$I/I^2 = 0$。由于 $A \to B$ 为有限型，$I$ 有限生成。
+于是由 Nakayama 引理（《代数》，引理 \ref{algebra-lemma-NAK}），
+存在形如 $1 + i$ 的元素零化 $I$。从而 $\mathfrak{D} = B$。
+
+\medskip\noindent
+反之，假设 $\mathfrak{D} \not \subset \mathfrak q$。
+按上述方式用一个主局部化替换 $B$ 后，可设 $\mathfrak{D} = B$。
+这意味着 $I$ 的零化子中存在形如 $1 + i$ 的元素。
+反过来，这又蕴含 $I/I^2 = \Omega_{B/A}$ 为零，故得结论。
+\end{proof}
+
+
+
+
+
+
+
+\section{K\"ahler 不同理想}
+\label{discriminant-section-kahler-different}
+
+\noindent
+设 $A \to B$ 是有限型环同态。{\it K\"ahler 不同理想}是
+$\Omega_{B/A}$ 作为 $B$-模的第零 Fitting 理想。将该定义整体化如下。
+
+\begin{definition}
+\label{discriminant-definition-kahler-different}
+设 $f : Y \to X$ 是局部有限型概形态射。{\it K\"ahler 不同理想}
+是 $\Omega_{Y/X}$ 的第 $0$ 个 Fitting 理想。
+\end{definition}
+
+\noindent
+K\"ahler 不同理想是 $Y$ 上的拟凝聚理想层。
+
+\begin{lemma}
+\label{discriminant-lemma-base-change-kahler-different}
+考虑概形的笛卡尔图
+$$
+\xymatrix{
+Y' \ar[d]_{f'} \ar[r] & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+其中 $f$ 局部为有限型。令 $R \subset Y$、相应地\ 令
+$R' \subset Y'$ 为分别由 $f$、相应地\ 由 $f'$ 的 K\"ahler 不同理想
+定义的闭子概形。则 $Y' \to Y$ 诱导同构 $R' \to R \times_Y Y'$。
+\end{lemma}
+
+\begin{proof}
+这是因为 $\Omega_{Y'/X'}$ 是 $\Omega_{Y/X}$ 的拉回
+（《态射》，引理 \ref{morphisms-lemma-base-change-differentials}），
+然后可应用《代数进阶》，引理
+\ref{more-algebra-lemma-fitting-ideal-basics}。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-kahler-different}
+设 $f : Y \to X$ 是局部有限型概形态射，并令 $R \subset Y$
+为 K\"ahler 不同理想所定义的闭子概形。则 $R \subset Y$
+恰为 $f$ 分歧的点集。
+\end{lemma}
+
+\begin{proof}
+这是《除子》，引理
+\ref{divisors-lemma-zero-fitting-ideal-omega-unramified} 的同一证明。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-kahler-different-complete-intersection}
+设 $A$ 是环，$n \geq 1$，且
+$f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$。令
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$。
+则 $B$ 在 $A$ 上的 K\"ahler 不同理想是由
+$\det(\partial f_i/\partial x_j)$ 生成的 $B$ 的理想。
+\end{lemma}
+
+\begin{proof}
+这是因为由《代数》，引理 \ref{algebra-lemma-differential-seq}，
+$\Omega_{B/A}$ 有表现
+$$
+\bigoplus\nolimits_{i = 1, \ldots, n} B f_i
+\xrightarrow{\text{d}}
+\bigoplus\nolimits_{j = 1, \ldots, n} B \text{d}x_j
+\rightarrow \Omega_{B/A} \rightarrow 0
+$$
+\end{proof}
+
+
+
+\section{Dedekind 不同理想}
+\label{discriminant-section-dedekind-different}
+
+\noindent
+设 $A \to B$ 是环同态。若 $A$ 为 Noetherian、$A \to B$ 有限、
+$A$ 上的每个非零因子在 $B$ 上仍为非零因子，并且当
+$K = Q(A)$、$L = B \otimes_A K$ 时 $K \to L$ 为 \'etale，
+则称{\it Dedekind 不同理想有定义}。此时 $K \subset L$ 有限 \'etale，且
+$$
+\mathcal{L}_{B/A} = \{x \in L \mid \text{Trace}_{L/K}(bx) \in A
+\text{ 对所有 }b \in B\}
+$$
+是 Dedekind 补模。在这种情形下，{\it Dedekind 不同理想}是
+$$
+\mathfrak{D}_{B/A} = \{x \in L \mid x\mathcal{L}_{B/A} \subset B\}
+$$
+把它看成 $L$ 的 $B$-子模。由引理
+\ref{discriminant-lemma-dedekind-different-ideal}，若 $A$ 正规，或 $B$ 在 $A$ 上平坦，
+则 Dedekind 不同理想是 $B$ 的理想。
+
+\begin{lemma}
+\label{discriminant-lemma-dedekind-different-ideal}
+假设 $A \to B$ 的 Dedekind 不同理想有定义。考虑下列陈述：
+\begin{enumerate}
+\item $A \to B$ 平坦；
+\item $A$ 是正规环；
+\item $\text{Trace}_{L/K}(B) \subset A$；
+\item $1 \in \mathcal{L}_{B/A}$；
+\item Dedekind 不同理想 $\mathfrak{D}_{B/A}$ 是 $B$ 的理想。
+\end{enumerate}
+则有 (1) $\Rightarrow$ (3)、(2) $\Rightarrow$ (3)、
+(3) $\Leftrightarrow$ (4) 以及 (4) $\Rightarrow$ (5)。
+\end{lemma}
+
+\begin{proof}
+(3) 与 (4) 的等价以及蕴含 (4) $\Rightarrow$ (5) 都是立即的。
+
+\medskip\noindent
+若 $A \to B$ 平坦，则 $\text{Trace}_{B/A} : B \to A$ 有定义，
+而 $\text{Trace}_{L/K}$ 是其基变换。因此 (3) 成立。
+
+\medskip\noindent
+若 $A$ 正规，则 $A$ 是有限多个正规整环的乘积，故归结为正规整环情形。
+此时 $K$ 是 $A$ 的分式域，而 $L = \prod L_i$ 是有限多个
+$K$ 的有限可分域扩张之乘积。于是
+$\text{Trace}_{L/K}(b) = \sum \text{Trace}_{L_i/K}(b_i)$，
+其中 $b_i \in L_i$ 是 $b$ 的像。由于 $B$ 在 $A$ 上有限，
+$b$ 在 $A$ 上整，故这些迹属于 $A$。事实上，$b_i$ 在 $K$ 上的
+极小多项式的系数属于 $A$（《代数》，引理
+\ref{algebra-lemma-minimal-polynomial-normal-domain}），并且
+$\text{Trace}_{L_i/K}(b_i)$ 是其中某个系数的整数倍
+（《域论》，引理
+\ref{fields-lemma-trace-and-norm-from-minimal-polynomial}）。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dedekind-complementary-module}
+若 $A \to B$ 的 Dedekind 不同理想有定义，则存在典范同构
+$\mathcal{L}_{B/A} \to \omega_{B/A}$。
+\end{lemma}
+
+\begin{proof}
+回忆 $A \to B$ 有限，故 $\omega_{B/A} = \Hom_A(B, A)$。
+把 $x \in \mathcal{L}_{B/A}$ 映到映射
+$b \mapsto \text{Trace}_{L/K}(bx)$。反之，给定 $A$-线性映射
+$\varphi : B \to A$，得到 $K$-线性映射 $\varphi_K : L \to K$。
+由于 $K \to L$ 有限 \'etale，迹配对非退化（引理
+\ref{discriminant-lemma-discriminant}），故存在 $x \in L$，使得对每个 $y \in L$，
+$\varphi_K(y) = \text{Trace}_{L/K}(xy)$。于是
+$x \in \mathcal{L}_{B/A}$ 在 $\omega_{B/A}$ 中映到 $\varphi$。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-flat-dedekind-complementary-module-trace}
+若 $A \to B$ 的 Dedekind 不同理想有定义，且 $A \to B$ 平坦，则
+\begin{enumerate}
+\item 典范同构 $\mathcal{L}_{B/A} \to \omega_{B/A}$ 把
+$1 \in \mathcal{L}_{B/A}$ 映到迹元
+$\tau_{B/A} \in \omega_{B/A}$；
+\item Dedekind 不同理想为
+$\mathfrak{D}_{B/A} = \{b \in B \mid b\omega_{B/A} \subset B\tau_{B/A}\}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第一个断言由引理 \ref{discriminant-lemma-dedekind-different-ideal} 的证明和引理
+\ref{discriminant-lemma-finite-flat-trace} 得出。第二个断言立即由第一个断言和定义得出。
+\end{proof}
+
+
+
+\section{不同理想}
+\label{discriminant-section-different}
+
+\noindent
+下面定义的动机在于：正如下文将看到的，它在有限平坦情形下恢复
+Dedekind 不同理想。
+
+\begin{definition}
+\label{discriminant-definition-different}
+设 $f : Y \to X$ 是局部 Noetherian 概形之间的平坦局部拟有限态射。
+令 $\omega_{Y/X}$ 为相对对偶化模，并令
+$\tau_{Y/X} \in \Gamma(Y, \omega_{Y/X})$ 为迹元
+（注记 \ref{discriminant-remark-relative-dualizing-for-quasi-finite} 和
+\ref{discriminant-remark-relative-dualizing-for-flat-quasi-finite}）。
+$$
+\Coker(\mathcal{O}_Y \xrightarrow{\tau_{Y/X}} \omega_{Y/X})
+$$
+的零化子称为 $Y/X$ 的{\it 不同理想}。它是凝聚理想
+$\mathfrak{D}_f \subset \mathcal{O}_Y$。
+\end{definition}
+
+\noindent
+下文注记 \ref{discriminant-remark-different-generalization} 将推广这个定义。
+注意，若 $\omega_{Y/X}$ 是可逆 $\mathcal{O}_Y$-模，则
+$\mathfrak{D}_f$ 局部由一个元素生成。先陈述它与 Dedekind 不同理想的一致性。
+
+\begin{lemma}
+\label{discriminant-lemma-flat-agree-dedekind}
+设 $f : Y \to X$ 是 Noetherian 概形的平坦拟有限态射。
+设 $V = \Spec(B) \subset Y$、$U = \Spec(A) \subset X$ 是满足
+$f(V) \subset U$ 的仿射开子概形。若 $A \to B$ 的 Dedekind
+不同理想有定义，则作为 $V$ 上的凝聚理想层有
+$$
+\mathfrak{D}_f|_V = \widetilde{\mathfrak{D}_{B/A}}
+$$
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{discriminant-lemma-dedekind-different-ideal} 和
+\ref{discriminant-lemma-flat-dedekind-complementary-module-trace} 显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-flat-gorenstein-agree-noether}
+设 $f : Y \to X$ 是 Noetherian 概形的平坦拟有限态射。
+设 $V = \Spec(B) \subset Y$、$U = \Spec(A) \subset X$ 是满足
+$f(V) \subset U$ 的仿射开子概形。若 $\omega_{Y/X}|_V$ 可逆，
+即若 $\omega_{B/A}$ 是可逆 $B$-模，则作为 $V$ 上的凝聚理想层有
+$$
+\mathfrak{D}_f|_V = \widetilde{\mathfrak{D}}
+$$
+其中 $\mathfrak{D} \subset B$ 是 $B$ 在 $A$ 上的 Noether 不同理想。
+\end{lemma}
+
+\begin{proof}
+考虑映射
+$$
+\SheafHom_{\mathcal{O}_Y}(\omega_{Y/X}, \mathcal{O}_Y)
+\longrightarrow
+\mathcal{O}_Y,\quad
+\varphi \longmapsto \varphi(\tau_{Y/X})
+$$
+在仿射开集上，该映射的像对应于 Noether 不同理想；见引理
+\ref{discriminant-lemma-noether-different-flat-quasi-finite}。因此结论归结为如下初等事实：
+给定可逆模 $\omega$ 与整体截面 $\tau$，映射
+$\tau : \SheafHom(\omega, \mathcal{O}) = \omega^{\otimes -1} \to \mathcal{O}$
+的像等于 $\Coker(\tau : \mathcal{O} \to \omega)$ 的零化子。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-base-change-different}
+考虑 Noetherian 概形的笛卡尔图
+$$
+\xymatrix{
+Y' \ar[d]_{f'} \ar[r] & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+其中 $f$ 平坦且拟有限。令 $R \subset Y$、相应地\ 令
+$R' \subset Y'$ 为由不同理想 $\mathfrak{D}_f$、相应地\ 由
+$\mathfrak{D}_{f'}$ 定义的闭子概形。则 $Y' \to Y$ 诱导双射闭浸入
+$R' \to R \times_Y Y'$。若 $g$ 平坦，或者 $\omega_{Y/X}$ 可逆，
+则 $R' = R \times_Y Y'$。
+\end{lemma}
+
+\begin{proof}
+立即归结为 $X$、$X'$、$Y$、$Y'$ 都仿射的情形。换言之，
+有 Noetherian 环的余笛卡尔图
+$$
+\xymatrix{
+B' & B \ar[l] \\
+A' \ar[u] & A \ar[l] \ar[u]
+}
+$$
+其中 $A \to B$ 平坦且拟有限。基变换映射
+$\omega_{B/A} \otimes_B B' \to \omega_{B'/A'}$ 是同构
+（引理 \ref{discriminant-lemma-dualizing-base-change-of-flat}），并把迹元
+$\tau_{B/A}$ 映到迹元 $\tau_{B'/A'}$
+（引理 \ref{discriminant-lemma-trace-base-change}）。因此有限 $B$-模
+$Q = \Coker(\tau_{B/A} : B \to \omega_{B/A})$ 满足
+$Q \otimes_B B' = \Coker(\tau_{B'/A'} : B' \to \omega_{B'/A'})$。
+所以 $\mathfrak{D}_{B/A}B' \subset \mathfrak{D}_{B'/A'}$，
+即得到闭浸入 $R' \to R \times_Y Y'$。由于
+$R = \text{Supp}(Q)$ 且 $R' = \text{Supp}(Q \otimes_B B')$
+（《代数》，引理 \ref{algebra-lemma-support-closed}），由《代数》，引理
+\ref{algebra-lemma-support-base-change}，
+$R' \to R \times_Y Y'$ 为双射。若 $B \to B'$ 平坦，例如
+$A \to A'$ 平坦，则等式
+$\mathfrak{D}_{B/A}B' = \mathfrak{D}_{B'/A'}$ 成立；见《代数》，引理
+\ref{algebra-lemma-annihilator-flat-base-change}。
+最后，若 $\omega_{B/A}$ 可逆，则可局部化并设
+$\omega_{B/A} = B \lambda$。写成 $\tau_{B/A} = b\lambda$，可见
+$Q = B/bB$ 且 $\mathfrak{D}_{B/A} = bB$。在 $B'$ 上作同样论证，
+得到 $\mathfrak{D}_{B'/A'} = bB'$，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-norm-different-in-discriminant}
+设 $f : Y \to X$ 是 Noetherian 概形的有限平坦态射。则
+$\text{Norm}_f : f_*\mathcal{O}_Y \to \mathcal{O}_X$ 把
+$f_*\mathfrak{D}_f$ 映入判别式 $D_f$ 的理想层。
+\end{lemma}
+
+\begin{proof}
+范数映射构造于《除子》，引理
+\ref{divisors-lemma-finite-locally-free-has-norm}，而 $f$ 的判别式
+构造于第 \ref{discriminant-section-discriminant} 节。问题是仿射局部的，故可设
+$X = \Spec(A)$、$Y = \Spec(B)$，且 $f$ 由有限局部自由环同态
+$A \to B$ 给出。进一步局部化后，可设 $B$ 作为 $A$-模是有限自由的。
+选取 $B$ 作为 $A$-模的一组基 $b_1, \ldots, b_n \in B$，并将
+$\omega_{B/A} = \Hom_A(B, A)$ 作为 $A$-模的对偶基记为
+$b_1^\vee, \ldots, b_n^\vee$。由于 $b$ 的范数是 $A$-线性映射
+$b : B \to B$ 的行列式，故
+$\text{Norm}_{B/A}(b) = \det(b_i^\vee(bb_j))$。
+判别式是 $\Spec(A)$ 中由 $\det(\text{Trace}_{B/A}(b_ib_j))$
+定义的主闭子概形。若 $b \in \mathfrak{D}_{B/A}$，则存在
+$c_i \in B$，使得
+$b \cdot b_i^\vee = c_i \cdot \text{Trace}_{B/A}$；这里用圆点表示
+$\omega_{B/A}$ 上的 $B$-模结构。写成 $c_i = \sum a_{il} b_l$。则
+\begin{align*}
+\text{Norm}_{B/A}(b)
+& =
+\det(b_i^\vee(bb_j)) \\
+& =
+\det( (b \cdot b_i^\vee)(b_j)) \\
+& =
+\det((c_i \cdot \text{Trace}_{B/A})(b_j)) \\
+& =
+\det(\text{Trace}_{B/A}(c_ib_j)) \\
+& =
+\det(a_{il}) \det(\text{Trace}_{B/A}(b_l b_j))
+\end{align*}
+这就证明了引理。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-different-ramification}
+设 $f : Y \to X$ 是 Noetherian 概形的平坦拟有限态射。
+由不同理想 $\mathfrak{D}_f$ 定义的闭子概形 $R \subset Y$
+恰为 $f$ 非 \'etale（等价地，分歧）的点集。
+\end{lemma}
+
+\begin{proof}
+由于 $f$ 为有限表现且平坦，它在一点为 \'etale，当且仅当在该点非分歧。
+此外，分歧点轨迹的形成与基变换可交换。见《态射》，第
+\ref{morphisms-section-etale} 节，特别是《态射》，引理
+\ref{morphisms-lemma-set-points-where-fibres-etale}。由引理
+\ref{discriminant-lemma-base-change-different}，$R$ 的形成在集合意义下与基变换可交换。
+故只需在 $X$ 是某个域的谱时证明。另一方面，
+$(\omega_{Y/X}, \tau_{Y/X})$ 的构造在 $Y$ 上是局部的。
+由于 $Y$ 在域上拟有限，所以是有限离散空间，故可设 $Y$ 只有一个点。
+
+\medskip\noindent
+设 $X = \Spec(k)$、$Y = \Spec(B)$，其中 $k$ 是域，而 $B$ 是
+有限局部 $k$-代数。若 $Y \to X$ 为 \'etale，则 $B$ 是 $k$
+的有限可分扩张。由《域论》，引理
+\ref{fields-lemma-separable-trace-pairing}，迹元
+$\text{Trace}_{B/k}$ 是 $\omega_{B/k}$ 的一个基元素。因此此时
+$\mathfrak{D}_{B/k} = B$。反之，若 $\mathfrak{D}_{B/k} = B$，
+则由引理 \ref{discriminant-lemma-norm-different-in-discriminant} 以及 $1$ 的范数为
+$1$ 这一事实可知，判别式为空。因此由引理
+\ref{discriminant-lemma-discriminant}，$Y \to X$ 为 \'etale。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-norm-different-is-discriminant}
+设 $f : Y \to X$ 是 Noetherian 概形的平坦拟有限态射，并令
+$R \subset Y$ 为 $\mathfrak{D}_f$ 所定义的闭子概形。
+\begin{enumerate}
+\item 若 $\omega_{Y/X}$ 可逆，则 $R$ 是 $Y$ 的局部主闭子概形。
+\item 若 $\omega_{Y/X}$ 可逆且 $f$ 有限，则 $R$ 的范数是 $f$
+的判别式 $D_f$。
+\item 若 $\omega_{Y/X}$ 可逆，且 $f$ 在 $Y$ 的伴随点处为 \'etale，
+则 $R$ 是有效 Cartier 除子，并存在同构
+$\mathcal{O}_Y(R) = \omega_{Y/X}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。可以在 $Y$ 上局部工作，故可设 $\omega_{Y/X}$ 是秩为
+$1$ 的自由模。设 $\omega_{Y/X} = \mathcal{O}_Y\lambda$。
+写成 $\tau_{Y/X} = h \lambda$，则 $R$ 由 $h$ 定义，即 $R$ 局部为主的。
+
+\medskip\noindent
+(2) 的证明。可设 $Y \to X$ 由有限自由环同态 $A \to B$ 给出，
+且 $\omega_{B/A}$ 作为 $B$-模是秩为 $1$ 的自由模。选取
+$\omega_{B/A}$ 的一个 $B$-基元素 $\lambda$，并对某个 $b \in B$ 写成
+$\text{Trace}_{B/A} = b \cdot \lambda$。则
+$\mathfrak{D}_{B/A} = (b)$，而 $D_f$ 由
+$\det(\text{Trace}_{B/A}(b_ib_j))$ 定义，其中
+$b_1, \ldots, b_n$ 是 $B$ 作为 $A$-模的一组基。令
+$b_1^\vee, \ldots, b_n^\vee$ 为对偶基。写成
+$b_i^\vee = c_i \cdot \lambda$，可见 $c_1, \ldots, c_n$
+也是 $B$ 的一组基。因此，当 $c_i = \sum a_{il}b_l$ 时，
+$\det(a_{il})$ 是 $A$ 中的单位。显然
+$b \cdot b_i^\vee = c_i \cdot \text{Trace}_{B/A}$，
+故由引理 \ref{discriminant-lemma-norm-different-in-discriminant} 证明中的计算可知，
+$\text{Norm}_{B/A}(b)$ 等于 $\det(\text{Trace}_{B/A}(b_ib_j))$
+乘以一个单位。
+
+\medskip\noindent
+(3) 的证明。在上述记号下，由引理 \ref{discriminant-lemma-different-ramification}
+和假设可知，$h$ 在 $Y$ 的伴随点处不消失，这蕴含 $h$ 是非零因子。
+典范同构把 $1$ 映到 $\tau_{Y/X}$；见《除子》，引理
+\ref{divisors-lemma-characterize-OD}。
+\end{proof}
+
+
+
+
+
+
+
+\section{拟有限 syntomic 态射}
+\label{discriminant-section-quasi-finite-syntomic}
+
+\noindent
+本节讨论拟有限 syntomic 态射具有可逆相对对偶化模这一事实。
+
+\begin{lemma}
+\label{discriminant-lemma-syntomic-quasi-finite}
+设 $f : Y \to X$ 是概形态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 局部拟有限且 syntomic；
+\item $f$ 局部拟有限、平坦且为局部完全交态射；
+\item $f$ 局部拟有限、平坦、局部有限表现，且 $f$ 的纤维为局部完全交；
+\item $f$ 局部拟有限，并且对每个 $y \in Y$，存在仿射开集
+$y \in V = \Spec(B) \subset Y$、$U = \Spec(A) \subset X$，
+满足 $f(V) \subset U$，还存在整数 $n$ 以及
+$h, f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$，使得
+$B = A[x_1, \ldots, x_n, 1/h]/(f_1, \ldots, f_n)$；
+\item 对每个 $y \in Y$，存在仿射开集
+$y \in V = \Spec(B) \subset Y$、$U = \Spec(A) \subset X$，
+满足 $f(V) \subset U$，且 $A \to B$ 是形如
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ 的相对整体完全交；
+\item $f$ 局部拟有限、平坦、局部有限表现，且 $\NL_{Y/X}$
+的 Tor 振幅在 $[-1, 0]$ 中；
+\item $f$ 平坦、局部有限表现，$\NL_{Y/X}$ 是秩为 $0$、
+Tor 振幅在 $[-1, 0]$ 中的完美复形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 的等价性是《态射进阶》，引理
+\ref{more-morphisms-lemma-flat-lci}。(1) 与 (3) 的等价性是《态射》，引理
+\ref{morphisms-lemma-syntomic-flat-fibres}。
+
+\medskip\noindent
+若 $A \to B$ 如 (4) 所述，则
+$B = A[x, x_1, \ldots, x_n]/(xh - 1, f_1, \ldots, f_n)$
+是相对整体完全交；见《代数》，定义
+\ref{algebra-definition-relative-global-complete-intersection}。
+因此 (4) 蕴含 (5)，而 (5) 蕴含 (4) 是显然的。
+
+\medskip\noindent
+条件 (5) 蕴含 (1)：由《代数》，引理
+\ref{algebra-lemma-relative-global-complete-intersection}，
+相对整体完全交是 syntomic 的；而相对整体完全交的定义保证，
+含 $n$ 个变量和 $n$ 个方程的相对整体完全交是拟有限的；见《代数》，定义
+\ref{algebra-definition-relative-global-complete-intersection} 和引理
+\ref{algebra-lemma-isolated-point-fibre}。
+
+\medskip\noindent
+《代数》，引理 \ref{algebra-lemma-syntomic} 或《态射》，引理
+\ref{morphisms-lemma-syntomic-locally-standard-syntomic}
+均说明 (1) 蕴含 (5)。
+
+\medskip\noindent
+《态射进阶》，引理 \ref{more-morphisms-lemma-flat-fp-NL-lci}
+说明 (6) 与 (1) 等价。若等价条件 (1)--(6) 成立，则在仿射局部，
+$Y \to X$ 由相对整体完全交
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ 给出，
+其变量数与方程数相同。利用这个表现可见
+$$
+\NL_{B/A} =\left(
+(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n} B \text{d} x_i\right)
+$$
+由《代数》，引理
+\ref{algebra-lemma-relative-global-complete-intersection-conormal}，
+模 $(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2$ 是自由的，
+其生成元为元素 $f_1, \ldots, f_n$ 的同余类。因此
+$\NL_{B/A}$ 的秩为 $0$，$\NL_{Y/X}$ 亦然。于是 (1)--(6) 蕴含 (7)。
+
+\medskip\noindent
+最后假设 (7)。由《态射进阶》，引理
+\ref{more-morphisms-lemma-flat-fp-NL-lci}，$f$ 是 syntomic 的。
+因此在适当的仿射开集上，$f$ 由相对整体完全交
+$A \to B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ 给出；见《态射》，引理
+\ref{morphisms-lemma-syntomic-locally-standard-syntomic}。
+完全仿照上述论证，$\NL_{B/A}$ 是秩为 $n - m$ 的完美复形。
+因此 $n = m$，故 (5) 成立。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-characterize-invertible}
+相对对偶化模的可逆性。
+\begin{enumerate}
+\item 若 $A \to B$ 是 Noetherian 环的拟有限平坦同态，则
+$\omega_{B/A}$ 是可逆 $B$-模，当且仅当对所有素理想
+$\mathfrak p \subset A$，$\omega_{B \otimes_A \kappa(\mathfrak p)/\kappa(\mathfrak p)}$
+是可逆 $B \otimes_A \kappa(\mathfrak p)$-模。
+\item 若 $Y \to X$ 是 Noetherian 概形的拟有限平坦态射，则
+$\omega_{Y/X}$ 可逆，当且仅当对所有 $x \in X$，
+$\omega_{Y_x/x}$ 可逆。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。由于 $A \to B$ 平坦，模 $\omega_{B/A}$ 为 $A$-平坦；
+见引理 \ref{discriminant-lemma-dualizing-base-flat-flat}。因此，
+$\omega_{B/A}$ 是可逆 $B$-模，当且仅当对每个素理想
+$\mathfrak p \subset A$，$\omega_{B/A} \otimes_A \kappa(\mathfrak p)$
+是可逆 $B \otimes_A \kappa(\mathfrak p)$-模；见《态射进阶》，引理
+\ref{more-morphisms-lemma-flat-and-free-at-point-fibre}。
+仍利用 $A \to B$ 平坦这一点，$\omega_{B/A}$ 的形成与基变换可交换；
+见引理 \ref{discriminant-lemma-dualizing-base-change-of-flat}。因此在平坦性成立时，
+相对对偶化模可逆，等价于对映射
+$\kappa(\mathfrak p) \to B \otimes_A \kappa(\mathfrak p)$，
+其相对对偶化模可逆。
+
+\medskip\noindent
+(2) 由 (1) 以及如下事实得出：在仿射局部，对偶化模由其代数对应物给出；
+见注记 \ref{discriminant-remark-relative-dualizing-for-quasi-finite}。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dim-zero-global-complete-intersection-over-field}
+设 $k$ 是域，并设 $B = k[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$
+是 $k$ 上维数为 $0$ 的整体完全交。则 $\omega_{B/k}$ 可逆。
+\end{lemma}
+
+\begin{proof}
+由 Noether 正规化，见《代数》，引理
+\ref{algebra-lemma-Noether-normalization}，存在有限单射 $k \to B$，
+即 $\dim_k(B) < \infty$。因此作为 $B$-模有
+$\omega_{B/k} = \Hom_k(B, k)$。由《对偶化复形》，引理
+\ref{dualizing-lemma-dualizing-finite}，$R\Hom(B, k)$ 是 $B$ 的对偶复形；
+又由《对偶化复形》，引理 \ref{dualizing-lemma-RHom-ext}，
+$R\Hom(B, k)$ 等于放在次数 $0$ 的 $\omega_{B/k}$。
+故只需证明 $B$ 为 Gorenstein（《对偶化复形》，引理
+\ref{dualizing-lemma-gorenstein}）。这由《对偶化复形》，引理
+\ref{dualizing-lemma-gorenstein-lci} 成立。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-dualizing-syntomic-quasi-finite}
+设 $f : Y \to X$ 是局部 Noetherian 概形的态射。若 $f$ 满足引理
+\ref{discriminant-lemma-syntomic-quasi-finite} 的等价条件，则 $\omega_{Y/X}$
+是可逆 $\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+可设 $A \to B$ 是形如
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ 的相对整体完全交，
+而需证明 $\omega_{B/A}$ 可逆。这由结合引理
+\ref{discriminant-lemma-characterize-invertible} 与
+\ref{discriminant-lemma-dim-zero-global-complete-intersection-over-field} 得出。
+\end{proof}
+
+\begin{example}
+\label{discriminant-example-universal-quasi-finite-syntomic}
+设 $n \geq 1$ 与 $d \geq 1$ 为整数。令 $T$ 为满足
+$e_i \geq 0$ 且 $\sum e_i \leq d$ 的多重指标
+$E = (e_1, \ldots, e_n)$ 所成的集合。考虑环
+$$
+A = \mathbf{Z}[a_{i, E} ; 1 \leq i \leq n, E \in T]
+$$
+在 $A[x_1, \ldots, x_n]$ 中考虑元素
+$f_i = \sum_{E \in T} a_{i, E} x^E$，其中按惯例
+$x^E = x_1^{e_1} \ldots x_n^{e_n}$。考虑 $A$-代数
+$$
+B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+记 $X_{n, d} = \Spec(A)$，并令 $Y_{n, d} \subset \Spec(B)$
+为使态射 $\Spec(B) \to \Spec(A) = X_{n, d}$ 的限制拟有限的最大开子概形；
+见《代数》，引理 \ref{algebra-lemma-quasi-finite-open}。
+\end{example}
+
+\begin{lemma}
+\label{discriminant-lemma-universal-quasi-finite-syntomic-etale}
+沿用例 \ref{discriminant-example-universal-quasi-finite-syntomic} 的记号，
+概形 $X_{n, d}$ 与 $Y_{n, d}$ 都正则且不可约，态射
+$Y_{n, d} \to X_{n, d}$ 局部拟有限且 syntomic，并存在稠密开子概形
+$V \subset Y_{n, d}$，使 $Y_{n, d} \to X_{n, d}$ 在其上限制为
+\'etale 态射 $V \to X_{n, d}$。
+\end{lemma}
+
+\begin{proof}
+概形 $X_{n, d}$ 是多项式环 $A$ 的谱。因此 $X_{n, d}$ 正则且不可约。由于可写成
+$$
+f_i = a_{i, (0, \ldots, 0)} +
+\sum\nolimits_{E \in T, E \not = (0, \ldots, 0)} a_{i, E} x^E
+$$
+环 $B$ 同构于以 $x_1, \ldots, x_n$ 以及所有满足
+$E \not = (0, \ldots, 0)$ 的 $a_{i, E}$ 为变量的多项式环。
+因此 $\Spec(B)$ 是不可约正则概形，其开集 $Y_{n, d}$ 亦然。
+由引理 \ref{discriminant-lemma-syntomic-quasi-finite}，态射
+$Y_{n, d} \to X_{n, d}$ 局部拟有限且 syntomic。为找到 $V$，
+只需找到一点，使 $Y_{n, d} \to X_{n, d}$ 在该点为 \'etale
+（按定义，态射为 \'etale 的点轨迹为开集）。因此只需找到
+$X_{n, d}$ 的一点，使 $Y_{n, d} \to X_{n, d}$ 的纤维非空且为
+\'etale；见《态射》，引理 \ref{morphisms-lemma-etale-at-point}。
+选择对应于环同态 $\chi : A \to \mathbf{Q}$ 的点，该同态把
+$f_i$ 映到 $x_i^d - 1$。于是
+$$
+B \otimes_{A, \chi} \mathbf{Q} =
+\mathbf{Q}[x_1, \ldots, x_n]/(x_1^d - 1, \ldots, x_n^d - 1)
+$$
+这是 $\mathbf{Q}$ 上的非零 \'etale 代数。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-locally-comes-from-universal}
+设 $f : Y \to X$ 是概形态射。若 $f$ 满足引理
+\ref{discriminant-lemma-syntomic-quasi-finite} 的等价条件，则对每个 $y \in Y$，
+存在 $n, d$ 以及交换图
+$$
+\xymatrix{
+Y \ar[d] &
+V \ar[d] \ar[l] \ar[r] &
+Y_{n, d} \ar[d] \\
+X & U \ar[l] \ar[r] &
+X_{n, d}
+}
+$$
+其中 $U \subset X$ 与 $V \subset Y$ 为满足 $y \in V$ 的开集，
+$Y_{n, d} \to X_{n, d}$ 如例
+\ref{discriminant-example-universal-quasi-finite-syntomic} 所述，而右侧方块为笛卡尔图。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{discriminant-lemma-syntomic-quasi-finite}，可选取仿射的 $U$ 与 $V$，
+使 $U = \Spec(R)$、$V = \Spec(S)$，其中
+$S = R[y_1, \ldots, y_n]/(g_1, \ldots, g_n)$。
+沿用例 \ref{discriminant-example-universal-quasi-finite-syntomic} 的记号，
+若选取充分大的 $d$，则每个 $g_i$ 可写成
+$g_i = \sum_{E \in T} g_{i, E}y^E$，其中 $g_{i, E} \in R$。
+将 $a_{i, E}$ 映到 $g_{i, E}$ 的映射 $A \to R$，以及将
+$x_i \to y_i$ 的映射 $B \to S$，给出环的余笛卡尔图
+$$
+\xymatrix{
+S & B \ar[l] \\
+R \ar[u] & A \ar[l] \ar[u]
+}
+$$
+引理得证。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{有限 syntomic 态射}
+\label{discriminant-section-finite-syntomic}
+
+\noindent
+本节给出第 \ref{discriminant-section-quasi-finite-syntomic} 节关于有限 syntomic 态射的对应版本。
+
+\begin{lemma}
+\label{discriminant-lemma-syntomic-finite}
+设 $f : Y \to X$ 是概形态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 有限且 syntomic；
+\item $f$ 有限、平坦，且为局部完全交态射；
+\item $f$ 有限、平坦、局部有限表现，且 $f$ 的纤维为局部完全交；
+\item $f$ 有限，并且对每个 $x \in X$，存在仿射开集
+$x \in U = \Spec(A) \subset X$、整数 $n$ 以及
+$f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$，使得
+$f^{-1}(U)$ 同构于
+$A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ 的谱；
+\item $f$ 有限、平坦、局部有限表现，且 $\NL_{X/Y}$ 的 Tor 振幅在 $[-1, 0]$ 中；
+\item $f$ 有限、平坦、局部有限表现，且 $\NL_{X/Y}$ 是秩为 $0$、
+Tor 振幅在 $[-1, 0]$ 中的完美复形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1)、(2)、(3)、(5)、(6) 的等价性以及 (4) $\Rightarrow$ (1)，
+均立即由引理 \ref{discriminant-lemma-syntomic-quasi-finite} 得出。
+假设等价条件 (1)、(2)、(3)、(5)、(6) 成立。
+取一点 $x \in X$ 以及 $X$ 中包含 $x$ 的仿射开集 $U = \Spec(A)$，
+并设 $x$ 对应于素理想 $\mathfrak p \subset A$。写成
+$f^{-1}(U) = \Spec(B)$ 及 $B = A[x_1, \ldots, x_n]/I$。
+由 (6)，$\NL_{B/A}$ 是 Tor 振幅在 $[-1, 0]$ 中的完美复形，
+故 $I/I^2$ 是秩为 $n$ 的有限局部自由 $B$-模。
+由于 $B_\mathfrak p$ 是半局部环，$(I/I^2)_\mathfrak p$
+是秩为 $n$ 的自由模；见《代数》，引理
+\ref{algebra-lemma-locally-free-semi-local-free}。
+因此用不属于 $\mathfrak p$ 的某个元素作主局部化并以所得环替换 $A$ 后，
+可设 $I/I^2$ 是秩为 $n$ 的自由 $B$-模。
+于是由《代数》，引理 \ref{algebra-lemma-huber}，
+可找到 $B$ 在 $A$ 上变量数与方程数相同的一个表现。换言之，可设
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$。这证明了 (4)。
+\end{proof}
+
+\begin{example}
+\label{discriminant-example-universal-finite-syntomic}
+设 $d \geq 1$ 为整数。考虑变量 $a_{ij}^l$，其中
+$1 \leq i, j, l \leq d$，并记
+$$
+A_d = \mathbf{Z}[a_{ij}^k]/J
+$$
+其中 $J$ 是由下列元素生成的理想：
+$$
+\left\{
+\begin{matrix}
+\sum_l a_{ij}^la_{lk}^m - \sum_l a_{il}^ma_{jk}^l & \forall i, j, k, m \\
+a_{ij}^k - a_{ji}^k & \forall i, j, k \\
+a_{i1}^j - \delta_{ij} & \forall i, j
+\end{matrix}
+\right.
+$$
+其中 $\delta_{ij}$ 表示 Kronecker delta 函数。如下定义一个
+$A_d$-代数 $B_d$：作为 $A_d$-模，令
+$$
+B_d = A_d e_1 \oplus \ldots \oplus A_d e_d
+$$
+代数结构由把 $1$ 映到 $e_1$ 的映射 $A_d \to B_d$ 给出。
+$B_d$ 上的乘法是 $A_d$-双线性映射
+$$
+m : B_d \times B_d \longrightarrow B_d, \quad
+m(e_i, e_j) = \sum a_{ij}^k e_k
+$$
+直接验证可知，上述关系恰好保证这给出一个 $A_d$-代数结构。态射
+$$
+\pi_d : Y_d = \Spec(B_d) \longrightarrow \Spec(A_d) = X_d
+$$
+是秩为 $d$ 的“泛”有限自由态射。
+\end{example}
+
+\begin{lemma}
+\label{discriminant-lemma-universal-finite-syntomic}
+沿用例 \ref{discriminant-example-universal-finite-syntomic} 的记号，存在开子概形
+$U_d \subset X_d$，具有如下性质：概形态射 $X \to X_d$ 通过
+$U_d$ 分解，当且仅当 $Y_d \times_{X_d} X \to X$ 为 syntomic。
+\end{lemma}
+
+\begin{proof}
+回忆：syntomic 等价于平坦且为局部完全交态射；见《态射进阶》，引理
+\ref{more-morphisms-lemma-flat-lci}。令 $W_d \subset Y_d$ 为
+$\pi_d$ 为 Koszul 的点集。它在 $Y_d$ 中是开集，而且其形成与任意基变换可交换；
+见《态射进阶》，引理
+\ref{more-morphisms-lemma-base-change-lci-fibres}。
+由于 $\pi_d$ 有限，从而是闭态射，故 $Z = \pi_d(Y_d \setminus W_d)$
+为闭集。显然 $U_d = X_d \setminus Z$，而且其形成与基变换可交换，
+故引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-universal-finite-syntomic-smooth}
+沿用例 \ref{discriminant-example-universal-finite-syntomic} 的记号，并令 $U_d$
+如引理 \ref{discriminant-lemma-universal-finite-syntomic} 所述，则 $U_d$
+在 $\Spec(\mathbf{Z})$ 上光滑。
+\end{lemma}
+
+\begin{proof}
+利用《态射进阶》，引理
+\ref{more-morphisms-lemma-lifting-along-artinian-at-point} 来证明
+$U_d \to \Spec(\mathbf{Z})$ 光滑。具体地，设有态射
+$\Spec(A) \to U_d$，且 $A' \to A$ 是小扩张。则
+$B = A \otimes_{A_d} B_d$ 是在 $A$ 上 syntomic 的有限自由
+$A$-代数（由 $U_d$ 的构造）。由《环映射的光滑化》，命题
+\ref{smoothing-proposition-lift-smooth}，存在 syntomic 环同态
+$A' \to B'$，使得 $B \cong B' \otimes_{A'} A$。
+令 $e'_1 = 1 \in B'$。对 $1 < i \leq d$，选取元素
+$1 \otimes e_i \in A \otimes_{A_d} B_d = B$ 的提升 $e'_i \in B'$。
+于是 $e'_1, \ldots, e'_d$ 是 $B'$ 在 $A'$ 上的一组基
+（例如见《代数》，引理
+\ref{algebra-lemma-local-artinian-basis-when-flat}）。
+因此可唯一地写成 $e'_i e'_j = \sum \alpha_{ij}^l e'_l$，其中
+$\alpha_{ij}^l \in A'$ 满足 $A'$ 中的关系
+$\sum_l \alpha_{ij}^l \alpha_{lk}^m = \sum_l \alpha_{il}^m \alpha _{jk}^l$、
+$\alpha_{ij}^k = \alpha_{ji}^k$ 以及 $\alpha_{i1}^j = \delta_{ij}$。
+把 $a_{ij}^l \in A_d$ 映到 $\alpha_{ij}^l \in A'$，便确定了态射
+$\Spec(A') \to X_d$。该态射与给定态射 $\Spec(A) \to U_d$ 相容。
+由于 $\Spec(A')$ 与 $\Spec(A)$ 具有相同的底层拓扑空间，
+由此得到所需提升 $\Spec(A') \to U_d$，并得出 $U_d$ 在
+$\mathbf{Z}$ 上光滑。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-universal-finite-syntomic-etale}
+沿用例 \ref{discriminant-example-universal-finite-syntomic} 的记号，考虑使
+$\pi_d$ 为 \'etale 的开子概形 $U'_d \subset X_d$。则 $U'_d$
+是引理 \ref{discriminant-lemma-universal-finite-syntomic} 中开集 $U_d$ 的稠密子集。
+\end{lemma}
+
+\begin{proof}
+完全仿照引理 \ref{discriminant-lemma-universal-finite-syntomic} 的证明，并应用《态射》，引理
+\ref{morphisms-lemma-set-points-where-fibres-etale}，可得一个最大的开集
+$U'_d \subset X_d$，使得 $\pi_d$ 在其上为 \'etale。此外，由于
+\'etale 态射是 syntomic 的，有 $U'_d \subset U_d$。
+为完成证明，需证 $U'_d \subset U_d$ 稠密。设
+$u : \Spec(k) \to U_d$ 为态射，其中 $k$ 是域。令
+$B = k \otimes_{A_d} B_d$，如引理
+\ref{discriminant-lemma-universal-finite-syntomic-smooth} 的证明所述。
+我们将证明：存在剩余域为 $k$ 的局部整环 $A'$，以及有限 syntomic
+$A'$-代数 $B'$，满足 $B = k \otimes_{A'} B'$，且其泛纤维为 \'etale。
+完全仿照上一段，这将确定态射 $\Spec(A') \to U_d$，它把泛点映入
+$U'_d$，把闭点映到 $u$，从而完成证明。
+
+\medskip\noindent
+由引理 \ref{discriminant-lemma-syntomic-finite} 的 (4)，可选取表现
+$B = k[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$。
+令 $d'$ 为多项式 $f_1, \ldots, f_n$ 的最大总次数，并令
+$Y_{n, d'} \to X_{n, d'}$ 如例
+\ref{discriminant-example-universal-quasi-finite-syntomic} 所述。由构造，存在态射
+$u' : \Spec(k) \to X_{n, d'}$，使得
+$$
+\Spec(B) \cong Y_{n, d'} \times_{X_{n, d'}, u'} \Spec(k)
+$$
+记 $A = \mathcal{O}_{X_{n, d'}, u'}^h$ 为 $X_{n, d'}$ 在 $u'$ 的像处的
+局部环之 Hensel 化。则可写成
+$$
+Y_{n, d'} \times_{X_{n, d'}} \Spec(A) = Z \amalg W
+$$
+其中 $Z \to \Spec(A)$ 有限，而 $W \to \Spec(A)$ 的闭纤维为空；
+见《代数》，引理 \ref{algebra-lemma-characterize-henselian} 的 (13)，
+或《态射进阶》，第 \ref{more-morphisms-section-etale-localization} 节中的讨论。
+由引理 \ref{discriminant-lemma-universal-quasi-finite-syntomic-etale}，局部环 $A$ 正则
+（这里还使用《代数进阶》，引理
+\ref{more-algebra-lemma-henselization-regular}），且态射
+$Z \to \Spec(A)$ 在 $\Spec(A)$ 的泛点上为 \'etale
+（因为它映到 $X_{d, n'}$ 的泛点）。由构造，
+$Z \times_{\Spec(A)} \Spec(k) \cong \Spec(B)$。
+这已证明所需结论，唯一的例外是 $A$ 的剩余域到 $k$ 的映射未必为同构。
+由《代数》，引理 \ref{algebra-lemma-flat-local-given-residue-field}，
+存在平坦局部环同态 $A \to A'$，使 $A'$ 的剩余域为 $k$。
+若 $A'$ 不是整环，则取极小素理想 $\mathfrak p \subset A'$；
+由平坦性，它位于 $A$ 的唯一极小素理想之上。然后以 $A'/\mathfrak p$
+替换 $A'$。令 $B'$ 为唯一的 $A'$-代数，使得
+$Z \times_{\Spec(A)} \Spec(A') = \Spec(B')$。证明完成。
+\end{proof}
+
+\begin{remark}
+\label{discriminant-remark-universal-finite-syntomic-smooth-top}
+设 $\pi_d : Y_d \to X_d$ 如例
+\ref{discriminant-example-universal-finite-syntomic} 所述。令 $U_d \subset X_d$
+为使 $V_d = \pi_d^{-1}(U_d)$ 如引理
+\ref{discriminant-lemma-universal-finite-syntomic} 中那样有限 syntomic 的最大开集。
+则 $V_d$ 在 $\mathbf{Z}$ 上也光滑。
+（当然，当 $d \geq 2$ 时，态射 $V_d \to U_d$ 并不光滑。）
+仿照引理 \ref{discriminant-lemma-universal-finite-syntomic-smooth} 的证明，
+这对应于如下形变问题：给定小扩张 $C' \to C$，以及带有截面
+$B \to C$ 的有限 syntomic $C$-代数 $B$，求一个有限 syntomic
+$C'$-代数 $B'$ 及截面 $B' \to C'$，使其与 $C$ 的张量积恢复
+$B \to C$。由引理 \ref{discriminant-lemma-syntomic-finite}，可把
+$B = C[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$ 写成相对整体完全交。
+作坐标变换后，可设 $x_1, \ldots, x_n$ 都在 $B \to C$ 的核中，
+于是多项式 $f_i$ 的常数项为零。任取 $f_i$ 的提升
+$f'_i \in C'[x_1, \ldots, x_n]$，并使其常数项为零。则
+$B' = C'[x_1, \ldots, x_n]/(f'_1, \ldots, f'_n)$ 配上把 $x_i$
+映到零的截面 $B' \to C'$ 即满足要求。
+\end{remark}
+
+\begin{lemma}
+\label{discriminant-lemma-locally-comes-from-universal-finite}
+设 $f : Y \to X$ 是概形态射。若 $f$ 满足引理
+\ref{discriminant-lemma-syntomic-finite} 的等价条件，则对每个 $x \in X$，
+存在 $d$ 以及交换图
+$$
+\xymatrix{
+Y \ar[d] &
+V \ar[d] \ar[l] \ar[r] &
+V_d \ar[d] \ar[r] &
+Y_d \ar[d]^{\pi_d}\\
+X &
+U \ar[l] \ar[r] &
+U_d \ar[r] &
+X_d
+}
+$$
+具有如下性质：
+\begin{enumerate}
+\item $U \subset X$ 为开集，$x \in U$，且 $V = f^{-1}(U)$；
+\item $\pi_d : Y_d \to X_d$ 如例
+\ref{discriminant-example-universal-finite-syntomic} 所述；
+\item $U_d \subset X_d$ 如引理 \ref{discriminant-lemma-universal-finite-syntomic} 所述，
+且 $V_d = \pi_d^{-1}(U_d) \subset Y_d$；
+\item 中间方块为笛卡尔图。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取 $x$ 的仿射开邻域 $U = \Spec(A) \subset X$，并写成
+$V = f^{-1}(U) = \Spec(B)$。则 $B$ 是有限局部自由 $A$-模，
+而包含关系 $A \subset B$ 在局部上是直和项。缩小 $U$ 后，
+可选取 $B$ 作为 $A$-模的一组基 $1 = e_1, e_2, \ldots, e_d$。
+唯一地写成 $e_i e_j = \sum \alpha_{ij}^l e_l$，其中
+$\alpha_{ij}^l \in A$ 满足 $A$ 中的关系
+$\sum_l \alpha_{ij}^l \alpha_{lk}^m = \sum_l \alpha_{il}^m \alpha _{jk}^l$、
+$\alpha_{ij}^k = \alpha_{ji}^k$ 以及 $\alpha_{i1}^j = \delta_{ij}$。
+把 $a_{ij}^l \in A_d$ 映到 $\alpha_{ij}^l \in A$，便确定态射
+$\Spec(A) \to X_d$。由构造，$V \cong \Spec(A) \times_{X_d} Y_d$。
+由 $U_d$ 的定义，$\Spec(A) \to X_d$ 通过 $U_d$ 分解。证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{不同理想的一个公式}
+\label{discriminant-section-formula-different}
+
+\noindent
+本节讨论 \cite[Appendix A]{Mazur-Roberts} 附录 A 中 Tate 的材料。
+用本章的语言来说，这将证明：对平坦、拟有限的局部完全交态射，
+不同理想等于 K\"ahler 不同理想。首先在一个特殊情形中计算 Noether 不同理想。
+
+\begin{lemma}
+\label{discriminant-lemma-tate}
+\begin{reference}
+\cite[Appendix]{Mazur-Roberts}
+\end{reference}
+设 $A \to P$ 是环同态，且 $f_1, \ldots, f_n \in P$ 是 Koszul 正则序列。
+假设 $B = P/(f_1, \ldots, f_n)$ 在 $A$ 上平坦。设
+$g_1, \ldots, g_n \in P \otimes_A B$ 是生成乘法映射
+$P \otimes_A B \to B$ 之核的 Koszul 正则序列。写成
+$f_i \otimes 1 = \sum g_{ij} g_j$。则
+$\Ker(B \otimes_A B \to B)$ 的零化子是由 $\det(g_{ij})$ 的像生成的主理想。
+\end{lemma}
+
+\begin{proof}
+Koszul 复形 $K_\bullet = K(P, f_1, \ldots, f_n)$ 是由有限自由
+$P$-模组成的 $B$ 的消解。Koszul 复形
+$M_\bullet = K(P \otimes_A B, g_1, \ldots, g_n)$ 是由有限自由
+$P \otimes_A B$-模组成的 $B$ 的消解。存在复形映射
+$$
+K_\bullet \longrightarrow M_\bullet
+$$
+它在次数 $1$ 由矩阵 $(g_{ij})$ 给出，在次数 $n$ 由
+$\det(g_{ij})$ 给出；见《代数进阶》，引理
+\ref{more-algebra-lemma-functorial}。由于 $B$ 是平坦 $A$-模，
+可把 $M_\bullet$ 看作平坦 $P$-模的复形
+（通过 $P \to P \otimes_A B$，$p \mapsto p \otimes 1$）。
+因此可用这两个复形计算 $\text{Tor}_*^P(B, B)$，从而显示中的映射
+与 $B$ 张量后给出拟同构。显然 $H_n(K_\bullet \otimes_P B) = B$。
+另一方面，$H_n(M_\bullet \otimes_P B)$ 是下列映射的核：
+$$
+B \otimes_A B \xrightarrow{g_1, \ldots, g_n} (B \otimes_A B)^{\oplus n}
+$$
+由于 $g_1, \ldots, g_n$ 生成 $B \otimes_A B \to B$ 的核，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-quasi-finite-complete-intersection}
+设 $A$ 是环，$n \geq 1$，且
+$h, f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$。令
+$B = A[x_1, \ldots, x_n, 1/h]/(f_1, \ldots, f_n)$，
+并假设 $B$ 在 $A$ 上拟有限。则
+\begin{enumerate}
+\item $B$ 在 $A$ 上平坦，且 $A \to B$ 是相对局部完全交；
+\item $I = \Ker(B \otimes_A B \to B)$ 的零化子 $J$
+作为 $B$-模自由且秩为 $1$；
+\item $B$ 在 $A$ 上的 Noether 不同理想由 $B$ 中的
+$\det(\partial f_i/\partial x_j)$ 生成。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意
+$B = A[x, x_1, \ldots, x_n]/(xh - 1, f_1, \ldots, f_n)$
+是 $A$ 上的相对整体完全交；见《代数》，定义
+\ref{algebra-definition-relative-global-complete-intersection}。
+由《代数》，引理 \ref{algebra-lemma-relative-global-complete-intersection}，
+$B$ 在 $A$ 上平坦。
+
+\medskip\noindent
+写成 $P' = A[x, x_1, \ldots, x_n]$ 以及
+$P = P'/(xh - 1) = A[x_1, \ldots, x_n, 1/h]$。于是有
+$P' \to P \to B$。由《代数进阶》，引理
+\ref{more-algebra-lemma-relative-global-complete-intersection-koszul}，
+$xh - 1, f_1, \ldots, f_n$ 是 $P'$ 中的 Koszul 正则序列。
+又因 $xh - 1$ 是 $P'$ 中长度为一的 Koszul 正则序列
+（例如同样由该引理），故由《代数进阶》，引理
+\ref{more-algebra-lemma-truncate-koszul-regular}，
+$f_1, \ldots, f_n$ 是 $P$ 中的 Koszul 正则序列。
+
+\medskip\noindent
+令 $g_i \in P \otimes_A B$ 为 $x_i \otimes 1 - 1 \otimes x_i$ 的像。
+在 $A[x_1, \ldots, x_n] \otimes_A A[x_1, \ldots, x_n]$ 中简记
+$y_i = x_i \otimes 1$、$z_i = 1 \otimes x_i$，于是 $g_i$ 是
+$y_i - z_i$ 的像。对多项式 $f \in A[x_1, \ldots, x_n]$，
+在上述张量积中记 $f(y) = f \otimes 1$ 及 $f(z) = 1 \otimes f$。
+于是
+$$
+P \otimes_A B/(g_1, \ldots, g_n) =
+\frac{A[y_1, \ldots, y_n, z_1, \ldots, z_n, \frac{1}{h(y)h(z)}]}
+{(f_1(z), \ldots, f_n(z), y_1 - z_1, \ldots, y_n - z_n)}
+$$
+显然同构于 $B$。因此仿照上述论证，
+$f_1(z), \ldots, f_n(z), y_1 - z_1, \ldots, y_n - z_n$
+是
+$A[y_1, \ldots, y_n, z_1, \ldots, z_n, \frac{1}{h(y)h(z)}]$
+中的 Koszul 正则序列。序列 $f_1(z), \ldots, f_n(z)$ 也是
+$A[y_1, \ldots, y_n, z_1, \ldots, z_n, \frac{1}{h(y)h(z)}]$
+中的 Koszul 正则序列，因为映射
+$$
+P \longrightarrow A[y_1, \ldots, y_n, z_1, \ldots, z_n,
+\textstyle{\frac{1}{h(y)h(z)}}],\quad x_i \longmapsto z_i
+$$
+平坦，并可应用《代数进阶》，引理
+\ref{more-algebra-lemma-koszul-regular-flat-base-change}。
+再由《代数进阶》，引理
+\ref{more-algebra-lemma-truncate-koszul-regular}，得出
+$g_1, \ldots, g_n$ 是 $P \otimes_A B$ 中的正则序列。
+
+\medskip\noindent
+至此，以上述 $P$、$f_1, \ldots, f_n$ 及
+$g_i \in P \otimes_A B$，已验证引理 \ref{discriminant-lemma-tate} 的全部假设。
+特别地，$I$ 的零化子 $J$ 在 $B$ 上由一个元素 $\delta$ 自由生成。
+令 $f_{ij} = \partial f_i/\partial x_j \in A[x_1, \ldots, x_n]$。
+初等计算表明，可写成
+$$
+f_i(y) =
+f_i(z_1 + g_1, \ldots, z_n + g_n) =
+f_i(z) + \sum\nolimits_j f_{ij}(z) g_j +
+\sum\nolimits_{j, j'} F_{ijj'}g_jg_{j'}
+$$
+其中 $F_{ijj'} \in A[y_1, \ldots, y_n, z_1, \ldots, z_n]$。
+取其在 $P \otimes_A B$ 中的像，项 $f_i(z)$ 映到零，因而得到
+$$
+f_i \otimes 1 = \sum\nolimits_j
+\left(1 \otimes f_{ij} + \sum\nolimits_{j'} F_{ijj'}g_{j'}\right)g_j
+$$
+于是由引理 \ref{discriminant-lemma-tate}，有 $\delta = \det(g_{ij})$，其中
+$g_{ij} = 1 \otimes f_{ij} + \sum_{j'} F_{ijj'}g_{j'}$。
+由于 $g_{j'}$ 在 $B$ 中的像为零，故
+$\det(\partial f_i/\partial x_j)$ 在 $B$ 中的像生成 $B$ 在 $A$ 上的
+Noether 不同理想。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-different-syntomic-quasi-finite}
+设 $f : Y \to X$ 是 Noetherian 概形的态射。若 $f$ 满足引理
+\ref{discriminant-lemma-syntomic-quasi-finite} 的等价条件，则 $f$ 的不同理想
+$\mathfrak{D}_f$ 等于 $f$ 的 K\"ahler 不同理想。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{discriminant-lemma-flat-gorenstein-agree-noether} 及
+\ref{discriminant-lemma-dualizing-syntomic-quasi-finite}，$f$ 的不同理想在仿射局部
+等于 Noether 不同理想。再应用引理
+\ref{discriminant-lemma-kahler-different-complete-intersection} 与
+\ref{discriminant-lemma-quasi-finite-complete-intersection} 对标准仿射块上的
+Noether 不同理想和 K\"ahler 不同理想所作的计算，即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-different-quasi-finite-complete-intersection}
+设 $A$ 是环，$n \geq 1$，且
+$h, f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$。令
+$B = A[x_1, \ldots, x_n, 1/h]/(f_1, \ldots, f_n)$，
+并假设 $B$ 在 $A$ 上拟有限。则存在同构 $B \to \omega_{B/A}$，
+把 $\det(\partial f_i/\partial x_j)$ 映到 $\tau_{B/A}$。
+\end{lemma}
+
+\begin{proof}
+令 $J$ 为 $\Ker(B \otimes_A B \to B)$ 的零化子。由引理
+\ref{discriminant-lemma-quasi-finite-complete-intersection}，映射 $A \to B$ 平坦，
+且 $J$ 是自由 $B$-模，其生成元 $\xi$ 在 $B$ 中映到
+$\det(\partial f_i/\partial x_j)$。于是结论由引理
+\ref{discriminant-lemma-noether-different-flat-quasi-finite} 以及如下事实得出：
+$\omega_{B/A}$ 是可逆 $B$-模（引理
+\ref{discriminant-lemma-dualizing-syntomic-quasi-finite}）。
+（警告：必须证明 $\omega_{B/A}$ 可逆，因为满足
+$\Hom_B(M, B) \cong B$ 的有限 $B$-模 $M$ 未必自由。）
+\end{proof}
+
+\begin{example}
+\label{discriminant-example-different-for-monogenic}
+设 $A$ 是 Noetherian 环，且 $f, h \in A[x]$ 满足
+$$
+B = (A[x]/(f))_h = A[x, 1/h]/(f)
+$$
+在 $A$ 上拟有限。令 $f' \in A[x]$ 为 $f$ 关于 $x$ 的导数。
+理想 $\mathfrak{D} = (f') \subset B$ 既是 $B$ 在 $A$ 上的
+Noether 不同理想，也是 $B$ 在 $A$ 上的 K\"ahler 不同理想；
+此外，它所对应的拟凝聚理想层正是 $\Spec(B)$ 在 $\Spec(A)$ 上的不同理想。
+\end{example}
+
+\begin{lemma}
+\label{discriminant-lemma-discriminant-quasi-finite-morphism-smooth}
+设 $S$ 是 Noetherian 概形，$X$、$Y$ 是 $S$ 上相对维数为 $n$ 的光滑概形，
+而 $f : Y \to X$ 是 $S$ 上局部拟有限的态射。则 $f$ 平坦，且由 $f$ 的
+不同理想切出的闭子概形 $R \subset Y$，就是由下列截面切出的局部主闭子概形：
+$$
+\wedge^n(\text{d}f) \in
+\Gamma(Y,
+(f^*\Omega^n_{X/S})^{\otimes -1} \otimes_{\mathcal{O}_Y} \Omega^n_{Y/S})
+$$
+若 $f$ 在 $Y$ 的伴随点处为 \'etale，则 $R$ 是有效 Cartier 除子，并且
+$$
+f^*\Omega^n_{X/S} \otimes_{\mathcal{O}_Y} \mathcal{O}(R) =
+\Omega^n_{Y/S}
+$$
+是 $Y$ 上可逆层的等式。
+\end{lemma}
+
+\begin{proof}
+为证明 $f$ 平坦，只需对所有 $s \in S$ 证明 $Y_s \to X_s$ 平坦
+（《态射进阶》，引理
+\ref{more-morphisms-lemma-morphism-between-flat-Noetherian}）。
+$Y_s \to X_s$ 的平坦性由《代数》，引理
+\ref{algebra-lemma-CM-over-regular-flat} 得出。由《态射进阶》，引理
+\ref{more-morphisms-lemma-lci-permanence}，态射 $f$ 是局部完全交态射。
+因此关于不同理想的断言，由引理
+\ref{discriminant-lemma-different-syntomic-quasi-finite} 及 K\"ahler 不同理想的相应断言得出。
+最后，由《态射》，引理 \ref{morphisms-lemma-triangle-differentials}，有正合序列
+$$
+f^*\Omega_{X/S} \xrightarrow{\text{d}f} \Omega_{Y/S} \to \Omega_{Y/X} \to 0
+$$
+而 $\Omega_{X/S}$ 与 $\Omega_{Y/S}$ 都是秩为 $n$ 的有限局部自由模
+（《态射》，引理
+\ref{morphisms-lemma-smooth-omega-finite-locally-free}），
+故由第零 Fitting 理想的定义，关于 K\"ahler 不同理想的断言是显然的。
+若 $f$ 在 $Y$ 的伴随点处为 \'etale，则 $\wedge^n\text{d}f$ 在
+$Y$ 的伴随点处不消失，因而 $R$ 的局部方程是非零因子。
+所以 $R$ 是有效 Cartier 除子。典范同构把 $1$ 映到
+$\wedge^n\text{d}f$；见《除子》，引理
+\ref{divisors-lemma-characterize-OD}。
+\end{proof}
+
+
+
+
+
+
+\section{Tate 映射}
+\label{discriminant-section-tate-map}
+
+\noindent
+本节对局部 Noetherian 概形的局部拟有限 syntomic 态射，构造相对余切复形的
+行列式与相对对偶化模之间的同构。依照 \cite[1.4.4]{Garel}，
+我们把这个同构称为 Tate 映射。我们的做法是尽量避免局部计算。
+
+\medskip\noindent
+设 $Y \to X$ 是概形的局部拟有限 syntomic 态射。本节将不再说明地使用
+引理 \ref{discriminant-lemma-syntomic-quasi-finite} 中关于这一概念的全部等价条件。
+特别地，$\NL_{Y/X}$ 是 $D(\mathcal{O}_Y)$ 中 Tor 振幅在 $[-1, 0]$
+内的完美对象。因此在 $Y$ 上有典范可逆模 $\det(\NL_{Y/X})$ 以及整体截面
+$$
+\delta(\NL_{Y/X}) \in \Gamma(Y, \det(\NL_{Y/X}))
+$$
+见《概形的导出范畴》，引理
+\ref{perfect-lemma-determinant-two-term-complexes}。设给定概形交换图
+$$
+\xymatrix{
+Y' \ar[r]_b \ar[d] & Y \ar[d] \\
+X' \ar[r] & X
+}
+$$
+其中竖直箭头均局部拟有限且 syntomic，并且该图把 $Y'$ 同构到
+$X' \times_X Y$ 的一个开子概形。则典范映射
+$$
+Lb^*\NL_{Y/X} \longrightarrow \NL_{Y'/X'}
+$$
+由《态射进阶》，引理 \ref{more-morphisms-lemma-base-change-NL-flat}
+可知是拟同构。因此得到典范同构
+$b^*\det(\NL_{Y/X}) \to \det(\NL_{Y'/X'})$，它把典范截面
+$\delta(\NL_{Y/X})$ 映到 $\delta(\NL_{Y'/ X'})$；见《概形的导出范畴》，注记
+\ref{perfect-remark-functorial-det}。
+
+\begin{remark}
+\label{discriminant-remark-local-description-delta}
+设 $Y \to X$ 是概形的局部拟有限 syntomic 态射。序对
+$(\det(\NL_{Y/X}), \delta(\NL_{Y/X}))$ 在局部上是什么样？选取仿射开集
+$V = \Spec(B) \subset Y$、$U = \Spec(A) \subset X$，满足
+$f(V) \subset U$；再取整数 $n$ 以及
+$f_1, \ldots, f_n \in A[x_1, \ldots, x_n]$，使得
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_n)$。则
+$$
+\NL_{B/A} = \left(
+(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2
+\longrightarrow
+\bigoplus\nolimits_{i = 1, \ldots, n} B \text{d} x_i\right)
+$$
+且 $(f_1, \ldots, f_n)/(f_1, \ldots, f_n)^2$ 是自由模，
+其生成元为同余类 $\overline{f}_i$；见引理
+\ref{discriminant-lemma-syntomic-quasi-finite} 的证明。因此 $\det(L_{B/A})$
+由下列生成元自由生成：
+$$
+\text{d}x_1 \wedge \ldots \wedge \text{d}x_n
+\otimes
+(\overline{f}_1 \wedge \ldots \wedge \overline{f}_n)^{\otimes -1}
+$$
+而截面 $\delta(\NL_{B/A})$ 按定义为元素
+$$
+\delta(\NL_{B/A}) =
+\det(\partial f_j/ \partial x_i) \cdot
+\text{d}x_1 \wedge \ldots \wedge \text{d}x_n
+\otimes
+(\overline{f}_1 \wedge \ldots \wedge \overline{f}_n)^{\otimes -1}
+$$
+\end{remark}
+
+\noindent
+设 $Y \to X$ 是局部 Noetherian 概形的局部拟有限 syntomic 态射。
+由注记 \ref{discriminant-remark-relative-dualizing-for-quasi-finite} 及
+\ref{discriminant-remark-relative-dualizing-for-flat-quasi-finite}，有凝聚
+$\mathcal{O}_Y$-模 $\omega_{Y/X}$ 以及典范整体截面
+$$
+\tau_{Y/X} \in \Gamma(Y, \omega_{Y/X})
+$$
+它在仿射局部恢复序对 $\omega_{B/A}, \tau_{B/A}$。
+由引理 \ref{discriminant-lemma-dualizing-syntomic-quasi-finite}，模
+$\omega_{Y/X}$ 可逆。设给定局部 Noetherian 概形交换图
+$$
+\xymatrix{
+Y' \ar[r]_b \ar[d] & Y \ar[d] \\
+X' \ar[r] & X
+}
+$$
+其中竖直箭头均局部拟有限且 syntomic，并且该图把 $Y'$ 同构到
+$X' \times_X Y$ 的一个开子概形。则有典范基变换映射
+$$
+b^*\omega_{Y/X} \longrightarrow \omega_{Y'/X'}
+$$
+这是把 $\tau_{Y/X}$ 映到 $\tau_{Y'/X'}$ 的同构。事实上，仿射情形中的
+基变换映射就是 (\ref{discriminant-equation-bc-dualizing})；由引理
+\ref{discriminant-lemma-dualizing-base-change-of-flat}，它是同构；而由引理
+\ref{discriminant-lemma-trace-base-change} 的 (1)，它把 $\tau_{Y/X}$ 映到
+$\tau_{Y'/X'}$。
+
+\begin{proposition}
+\label{discriminant-proposition-tate-map}
+存在唯一的规则，它对局部 Noetherian 概形的每个局部拟有限 syntomic 态射
+$Y \to X$ 指派同构
+$$
+c_{Y/X} : \det(\NL_{Y/X}) \longrightarrow \omega_{Y/X}
+$$
+并满足下列两个性质：
+\begin{enumerate}
+\item 截面 $\delta(\NL_{Y/X})$ 被映到 $\tau_{Y/X}$；
+\item 该规则与限制到开集以及基变换相容。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+先重述命题。考虑范畴 $\mathcal{C}$：其对象记为 $Y/X$，
+是局部 Noetherian 概形的局部拟有限 syntomic 态射 $Y \to X$；
+其态射 $b/a : Y'/X' \to Y/X$ 是交换图
+$$
+\xymatrix{
+Y' \ar[d] \ar[r]_b & Y \ar[d] \\
+X' \ar[r]^a & X
+}
+$$
+并且该图把 $Y'$ 同构到 $X' \times_X Y$ 的一个开子概形。
+命题意味着：对 $\mathcal{C}$ 的每个对象 $Y/X$，有同构
+$c_{Y/X} : \det(\NL_{Y/X}) \to \omega_{Y/X}$，满足
+$c_{Y/X}(\delta(\NL_{Y/X})) = \tau_{Y/X}$；而对 $\mathcal{C}$ 的每个态射
+$b/a : Y'/X' \to Y/X$，在上述识别
+$b^*\det(\NL_{Y/X}) = \det(\NL_{Y'/X'})$ 及
+$b^*\omega_{Y/X} = \omega_{Y'/X'}$ 下，有
+$b^*c_{Y/X} = c_{Y'/X'}$。
+
+\medskip\noindent
+给定 $\mathcal{C}$ 中的 $Y/X$ 及 $y \in Y$，可找到仿射开集
+$V \subset Y$、$U \subset X$，满足 $y \in V$ 及 $f(V) \subset U$，
+使得存在同构
+$$
+\det(\NL_{Y/X})|_V \longrightarrow \omega_{Y/X}|_V
+$$
+把 $\delta(\NL_{Y/X})|_V$ 映到 $\tau_{Y/X}|_V$。
+这是因为可按引理 \ref{discriminant-lemma-syntomic-quasi-finite} 的 (5) 选取仿射开集，
+再应用注记 \ref{discriminant-remark-local-description-delta} 中
+$\delta(\NL_{Y/X})$ 的仿射局部描述以及引理
+\ref{discriminant-lemma-different-quasi-finite-complete-intersection}。
+若截面 $\tau_{Y/X}$ 的零化子为零，则这些局部映射唯一，且自动可以粘合。
+因此，只要 $\tau_{Y/X}$ 的零化子为零，就存在唯一同构
+$c_{Y/X} : \det(\NL_{Y/X}) \to \omega_{Y/X}$，满足
+$c_{Y/X}(\delta(\NL_{Y/X})) = \tau_{Y/X}$。
+若 $b/a : Y'/X' \to Y/X$ 是 $\mathcal{C}$ 中的态射，且
+$\tau_{Y'/X'}$ 的零化子也为零，则 $b^*c_{Y/X}$ 是唯一同构
+$c_{Y'/X'} : \det(\NL_{Y'/X'}) \to \omega_{Y'/X'}$，满足
+$c_{Y'/X'}(\delta(\NL_{Y'/X'})) = \tau_{Y'/X'}$。
+这由等式 $b^*\delta(\NL_{Y/X}) = \delta(\NL_{Y'/X'})$ 及
+$b^*\tau_{Y/X} = \tau_{Y'/X'}$ 形式地得出。
+
+\medskip\noindent
+上一段可概括如下。令 $\mathcal{C}_{nice} \subset \mathcal{C}$
+表示由满足 $\tau_{Y/X}$ 的零化子为零的 $Y/X$ 构成的全子范畴。
+这样就在 $\mathcal{C}_{nice}$ 上解决了问题。对
+$\mathcal{C}_{nice}$ 中的 $Y/X$，仍以 $c_{Y/X}$ 表示刚得到的解。
+
+\medskip\noindent
+考虑 $\mathcal{C}$ 中的态射
+$$
+Y_1/X_1 \xleftarrow{b_1/a_1} Y/X \xrightarrow{b_2/a_2} Y_2/X_2
+$$
+并设 $Y_1/X_1$ 与 $Y_2/X_2$ 是 $\mathcal{C}_{nice}$ 的对象。
+{\bf 断言。}$b_1^*c_{Y_1/X_1} = b_2^*c_{Y_2/X_2}$。
+先证明该断言蕴含命题，然后再证明断言。
+
+\medskip\noindent
+设 $d, n \geq 1$，并考虑例
+\ref{discriminant-example-universal-quasi-finite-syntomic} 中构造的局部拟有限 syntomic 态射
+$Y_{n, d} \to X_{n, d}$。则 $Y_{n, d}$ 是不可约正则概形，且态射
+$Y_{n, d} \to X_{n, d}$ 局部拟有限、syntomic，并在某个稠密开集上为
+\'etale；见引理 \ref{discriminant-lemma-universal-quasi-finite-syntomic-etale}。
+例如由引理 \ref{discriminant-lemma-different-ramification}，
+$\tau_{Y_{n, d}/X_{n, d}}$ 非零。而不可约正则概形上的可逆模之非零截面
+其零化子为零。因此 $Y_{n, d}/X_{n, d}$ 是 $\mathcal{C}_{nice}$ 的对象。
+
+\medskip\noindent
+设 $Y/X$ 是 $\mathcal{C}$ 的任意对象，并取 $y \in Y$。
+由引理 \ref{discriminant-lemma-locally-comes-from-universal}，可找到
+$n, d \geq 1$ 以及 $\mathcal{C}$ 中的态射
+$$
+Y/X \leftarrow V/U \xrightarrow{b/a} Y_{n, d}/X_{n, d}
+$$
+其中 $V \subset Y$ 与 $U \subset X$ 为开集。因此可用 $b$ 把上面构造的
+典范态射 $c_{Y_{n, d}/X_{n, d}}$ 拉回到 $V$。该断言保证这些局部同构能够粘合，
+从而得到良定义的整体同构 $c_{Y/X} : \det(\NL_{Y/X}) \to \omega_{Y/X}$，
+满足 $c_{Y/X}(\delta(\NL_{Y/X})) = \tau_{Y/X}$。
+若 $b/a : Y'/X' \to Y/X$ 是 $\mathcal{C}$ 中的态射，则该断言还表明，
+以同样方式构造的映射 $c_{Y'/X'}$ 是局部构造的映射 $c_{Y/X}$ 经 $b$ 的拉回。
+故只需证明断言。
+
+\medskip\noindent
+在证明的其余部分证明该断言。可取一点 $y \in Y$，并证明这些映射在
+$y$ 的某个开邻域中一致。因此，可用 $y$ 在 $Y_1$、$Y_2$ 中的像之开邻域
+分别替换 $Y_1$、$Y_2$。于是可设 $Y, X, Y_1, X_1, Y_2, X_2$ 都仿射，
+即分别为环 $B, A, B_1, A_1, B_2, A_2$ 的谱。图示为
+$$
+\xymatrix{
+B_1 \ar[r] & B & B_2 \ar[l] \\
+A_1 \ar[u] \ar[r] & A \ar[u] & A_2 \ar[l] \ar[u]
+}
+$$
+由假设，$B$ 的谱同时是 $A \otimes_{A_1} B_1$ 的谱以及
+$A \otimes_{A_2} B_2$ 的谱中的仿射开集。进一步缩小后，可设存在元素
+$g_i \in A \otimes_{A_i} B_i$，使给定映射诱导同构
+$(A \otimes_{A_i} B_i)_{g_i} = B$；见《性质》，引理
+\ref{properties-lemma-standard-open-two-affines}。取足够多的变量
+$x_\alpha$、$y_\beta$，使得可以选取 $A_1$-代数和 $A_2$-代数的满射
+$$
+A'_1 = A_1[x_\alpha] \to A
+\quad\text{且}\quad
+A'_2 = A_2[y_\beta] \to A
+$$
+再选取 $g_i \in A \otimes_{A_i} B_i$ 的提升
+$h_i \in A'_i \otimes_{A_i} B_i$，并考虑图
+$$
+\xymatrix{
+(A'_1 \otimes_{A_1} B_1)_{h_1} \ar[r] & B &
+(A'_2 \otimes_{A_1} B_2)_{h_2} \ar[l] \\
+A'_1 \ar[u] \ar[r] & A \ar[u] & A'_2 \ar[l] \ar[u]
+}
+$$
+由构造，两个方块均为余笛卡尔图。接着考虑环同态
+$$
+A' = A'_1 \times_A A'_2 \longrightarrow
+B' =
+(A'_1 \otimes_{A_1} B_1)_{h_1} \times_B
+(A'_2 \otimes_{A_1} B_2)_{h_2}
+$$
+由《代数进阶》，引理
+\ref{more-algebra-lemma-module-over-fibre-product}，有
+$A'_1 \otimes_{A'} B' = (A'_1 \otimes_{A_1} B_1)_{h_1}$ 以及
+$A'_2 \otimes_{A'} B' = (A'_2 \otimes_{A_2} B_2)_{h_2}$。
+特别地，态射 $Y' = \Spec(B') \to \Spec(A') = X'$ 的纤维是态射
+$Y_i \to X_i$ 的纤维经基变换所得概形的开子概形，因而是有限局部完全交
+（见引理 \ref{discriminant-lemma-syntomic-quasi-finite}）。
+由《代数进阶》，引理
+\ref{more-algebra-lemma-properties-algebras-over-fibre-product}，
+环同态 $A' \to B'$ 平坦且有限表现。因此由引理
+\ref{discriminant-lemma-syntomic-quasi-finite} 的 (3)，$Y' \to X'$ 局部拟有限且 syntomic。
+从而得到交换图
+$$
+\xymatrix{
+& & Y/X \ar[ld] \ar@/_2pc/[lldd]_{b_1/a_1} \ar[rd] \ar@/^2pc/[rrdd]^{b_2/a_2} \\
+& Y'_1/X'_1 \ar[rd] \ar[ld] & & Y'_2/X'_2 \ar[ld] \ar[rd] \\
+Y_1/X_1 & & Y'/X' & & Y_2/X_2
+}
+$$
+其中 $Y'_i/X'_i$ 对应于 $A'_i \to (A'_i \otimes_{A_i} B_i)_{h_i}$。
+
+\medskip\noindent
+本段用极限论证处理 $A'$ 与 $A'_i$ 可能不是 Noetherian 环的问题；
+建议读者略过本段。可找到有限生成的 $\mathbf{Z}$-子代数
+$A'' \subset A'$ 以及拟有限 syntomic 环同态 $A'' \to B''$，使得
+$B' = A' \otimes_{A''} B''$。这由《极限》，引理
+\ref{limits-lemma-descend-finite-presentation}、
+\ref{limits-lemma-descend-syntomic} 及
+\ref{limits-lemma-descend-quasi-finite} 得出。
+于是环同态 $A'' \to A'_1 = A_1[x_\alpha]$ 将通过某个有限多项式子代数
+$A_i[x_1, \ldots, x_n$ 分解，而环同态
+$A'' \to A'_2 = A_2[y_\beta]$ 将通过 $A_2[y_1, \ldots, y_m]$ 分解。
+扩大变量集合后，还可设
+$h_1 \in A_1[x_1, \ldots, x_n] \otimes_{A_1} B_1$ 及
+$h_2 \in A_2[y_1, \ldots, y_m] \otimes_{A_2} B_2$。
+再扩大一次变量集合，可设映射
+$B'' \to (A'_i \otimes_{A_i} B_i)_{h_i}$ 分别通过
+$(A_1[x_1, \ldots, x_n] \otimes_{A_1} B_1)_{h_1}$ 与
+$(A_2[y_1, \ldots, y_m] \otimes_{A_2} B_2)_{h_2}$ 分解。
+分别用下列环的谱替换 $Y'$、$X'$、$Y'_1$、$X'_1$、$Y'_2$、$X'_2$：
+$B''$、$A''$、$(A_1[x_1, \ldots, x_n] \otimes_{A_1} B_1)_{h_1}$、
+$A_1[x_1, \ldots, x_n]$、$(A_2[y_1, \ldots, y_m] \otimes_{A_2} B_2)_{h_2}$、
+$A_2[y_1, \ldots, y_m]$。这样得到如上图，其中所有概形均为 Noetherian。
+
+\medskip\noindent
+注意，$Y'_i/X'_i$ 是 $\mathcal{C}_{nice}$ 的对象，因为它通过在某个仿射空间与
+$Y_i/X_i$ 的乘积中取开子概形而得到。特别地，$c_{Y_i/X_i}$ 经
+$(b_i/a_i)$ 的拉回，等于 $c_{Y'_i/X'_i}$ 经
+$Y/X \to Y'_i/X'_i$ 的拉回。若 $Y'/X'$ 是
+$\mathcal{C}_{nice}$ 的对象，则证明已经完成（但这很可能不成立）：
+沿方块两边拉回 $c_{Y'/X'}$ 即得到所需结论。
+为绕过 $Y'/X'$ 不属于 $\mathcal{C}_{nice}$ 的问题，注意上述论证表明，
+在必要时缩小全部概形 $X, Y, X'_1, Y'_1, X'_2, Y'_2, X', Y'$ 后，
+可找到 $n, d \geq 1$，并把图扩充为
+$$
+\xymatrix{
+& Y/X \ar[ld] \ar[rd] \\
+Y'_1/X'_1 \ar[rd] & & Y'_2/X'_2 \ar[ld] \\
+& Y'/X' \ar[d] \\
+& Y_{n, d}/X_{n, d}
+}
+$$
+于是可从 $c_{Y_{n, d}/X_{n, d}}$ 拉回，并应用已经给出的论证。证明完成。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{不同理想的一种推广}
+\label{discriminant-section-different-generalization}
+
+\noindent
+本节推广定义 \ref{discriminant-definition-different}，以涵盖 Dedekind 不同理想有定义且
+$1 \in \mathcal{L}_{B/A}$ 的所有环同态 $A \to B$。先解释条件：
+“$A \to B$ 把非零因子映到非零因子，并诱导平坦映射
+$Q(A) \to Q(A) \otimes_A B$”。
+
+\begin{lemma}
+\label{discriminant-lemma-explain-condition}
+设 $A \to B$ 是 Noetherian 环同态。考虑条件：
+\begin{enumerate}
+\item $A$ 的非零因子映到 $B$ 的非零因子；
+\item (1) 成立，且 $Q(A) \to Q(A) \otimes_A B$ 平坦；
+\item 对每个 $\mathfrak q \in \text{Ass}(B)$，$A \to B_\mathfrak q$ 平坦；
+\item (3) 成立，且对位于 $\text{Ass}(A)$ 中某元素之上的每个
+$\mathfrak q$，$A \to B_\mathfrak q$ 平坦。
+\end{enumerate}
+则有蕴含关系
+$$
+\xymatrix{
+(1) & (2) \ar@{=>}[l] \ar@{=>}[d] \\
+(3) \ar@{=>}[u] & (4) \ar@{=>}[l]
+}
+$$
+若 $A \to B$ 满足上升性质，则 (2) 与 (4) 等价。
+\end{lemma}
+
+\begin{proof}
+图中的水平蕴含是平凡的。令 $S \subset A$ 为非零因子的集合，于是
+$Q(A) = S^{-1}A$ 且 $Q(A) \otimes_A B = S^{-1}B$。回忆
+$S = A \setminus \bigcup_{\mathfrak p \in \text{Ass}(A)} \mathfrak p$；
+见《代数》，引理 \ref{algebra-lemma-ass-zero-divisors}。
+设素理想 $\mathfrak q \subset B$ 位于 $\mathfrak p \subset A$ 之上。
+
+\medskip\noindent
+假设 (2)。若 $\mathfrak q \in \text{Ass}(B)$，则 $\mathfrak q$
+由零因子组成，所以 (1) 表明 $\mathfrak p$ 也如此。因此
+$\mathfrak p$ 对应于 $S^{-1}A$ 的一个素理想。由假设 (2)，
+$A \to B_\mathfrak q$ 平坦。若 $\mathfrak q$ 位于 $A$ 的伴随素理想
+$\mathfrak p$ 之上，则当然 $\mathfrak p \in \Spec(S^{-1}A)$，同一论证适用。
+
+\medskip\noindent
+假设 (3)。令 $f \in A$ 为非零因子。若 $f$ 是 $B$ 上的零因子，
+则 $f$ 包含在 $B$ 的某个伴随素理想 $\mathfrak q$ 中。
+由假设，$A \to B_\mathfrak q$ 平坦；再由《代数》，引理
+\ref{algebra-lemma-bourbaki}，得出 $\mathfrak p$ 是 $A$ 的伴随素理想。
+这将推出 $f$ 是 $A$ 上的零因子，矛盾。
+
+\medskip\noindent
+假设 (4)，并且 $A \to B$ 满足上升性质。已经知道 (1) 成立。
+若 $\mathfrak q$ 对应于 $S^{-1}B$ 的一个素理想，则 $\mathfrak p$
+包含在 $A$ 的某个伴随素理想 $\mathfrak p'$ 中。由上升性质，存在包含
+$\mathfrak q$ 且位于 $\mathfrak p$ 之上的素理想 $\mathfrak q'$。
+由 (4)，$A \to B_{\mathfrak q'}$ 平坦。因此作为局部化，
+$A \to B_{\mathfrak q}$ 平坦。故 $A \to S^{-1}B$ 平坦，
+$S^{-1}A \to S^{-1}B$ 也平坦；见《代数》，引理
+\ref{algebra-lemma-flat-localization}。
+\end{proof}
+
+\begin{remark}
+\label{discriminant-remark-different-generalization}
+可以推广定义 \ref{discriminant-definition-different}。设 $f : Y \to X$
+是 Noetherian 概形的拟有限态射，具有如下性质：
+\begin{enumerate}
+\item $f$ 平坦的开集 $V \subset Y$ 包含
+$\text{Ass}(\mathcal{O}_Y)$ 与 $f^{-1}(\text{Ass}(\mathcal{O}_X))$；
+\item 迹元 $\tau_{V/X}$ 来自某个截面
+$\tau \in \Gamma(Y, \omega_{Y/X})$。
+\end{enumerate}
+由引理 \ref{discriminant-lemma-dualizing-associated-primes}，条件 (1) 蕴含
+$V$ 包含 $\omega_{Y/X}$ 的伴随点。特别地，若 $\tau$ 存在，则它唯一
+（《除子》，引理
+\ref{divisors-lemma-restriction-injective-open-contains-ass}）。
+给定 $\tau$，可把不同理想 $\mathfrak{D}_f$ 定义为
+$\Coker(\tau : \mathcal{O}_Y \to \omega_{Y/X})$ 的零化子。
+在许多情形中，这与 Dedekind 不同理想一致（引理
+\ref{discriminant-lemma-agree-dedekind}）。不过，对非正规环之间的非平坦映射，
+这一推广不再度量态射的分歧；见例 \ref{discriminant-example-no-different}。
+\end{remark}
+
+\begin{lemma}
+\label{discriminant-lemma-agree-dedekind}
+假设 $A \to B$ 的 Dedekind 不同理想有定义。令
+$X = \Spec(A)$、$Y = \Spec(B)$。注记
+\ref{discriminant-remark-different-generalization} 的推广适用于态射
+$f : Y \to X$，当且仅当 $1 \in \mathcal{L}_{B/A}$
+（例如，当 $A$ 正规时如此；见引理
+\ref{discriminant-lemma-dedekind-different-ideal}）。在此情形中，
+$\mathfrak{D}_{B/A}$ 是 $B$ 的理想，而且作为 $Y$ 上的凝聚理想层有
+$$
+\mathfrak{D}_f = \widetilde{\mathfrak{D}_{B/A}}
+$$
+\end{lemma}
+
+\begin{proof}
+由于 $A \to B$ 的 Dedekind 不同理想有定义，可应用引理
+\ref{discriminant-lemma-explain-condition}，得知 $Y \to X$ 满足注记
+\ref{discriminant-remark-different-generalization} 的条件 (1)。回忆存在典范同构
+$c : \mathcal{L}_{B/A} \to \omega_{B/A}$；见引理
+\ref{discriminant-lemma-dedekind-complementary-module}。如上令
+$K = Q(A)$ 及 $L = K \otimes_A B$。由构造，映射 $c$ 嵌入交换图
+$$
+\xymatrix{
+\mathcal{L}_{B/A} \ar[r] \ar[d]_c & L \ar[d] \\
+\omega_{B/A} \ar[r] & \Hom_K(L, K)
+}
+$$
+其中右侧竖直箭头把 $x \in L$ 映到映射
+$y \mapsto \text{Trace}_{L/K}(xy)$，下方水平箭头是
+$\omega_{B/A}$ 的基变换映射 (\ref{discriminant-equation-bc-dualizing})。
+可把下方水平映射分解为
+$$
+\omega_{B/A} = \Gamma(Y, \omega_{Y/X})
+\to \Gamma(V, \omega_{V/X}) \to \Hom_K(L, K)
+$$
+由于 $\omega_{V/X}$ 的所有伴随点都映到 $A$ 的伴随素理想
+（引理 \ref{discriminant-lemma-dualizing-associated-primes}），第二个映射为单射。
+由迹元的定义（定义 \ref{discriminant-definition-trace-element}），元素
+$\tau_{V/X}$ 在 $\Hom_K(L, K)$ 中映到 $\text{Trace}_{L/K}$。
+因此，注记 \ref{discriminant-remark-different-generalization} 条件 (2) 中的
+$\tau$ 存在，当且仅当 $1 \in \mathcal{L}_{B/A}$；此时
+$\tau = c(1)$。在这种情形下，由引理
+\ref{discriminant-lemma-dedekind-different-ideal}，有
+$\mathfrak{D}_{B/A} \subset B$。最后，从定义以及上面得到的
+$\tau = c(1)$ 立即可知 $\mathfrak{D}_f$ 与 $\mathfrak{D}_{B/A}$ 一致。
+\end{proof}
+
+\begin{example}
+\label{discriminant-example-no-different}
+设 $k$ 是域，$A = k[x, y]/(xy)$、$B = k[u, v]/(uv)$，并令
+$A \to B$ 由 $x \mapsto u^n$ 及 $y \mapsto v^m$ 给出，其中
+$n, m \in \mathbf{N}$ 与 $k$ 的特征互素。则
+$A_{x + y} \to B_{x + y}$ 是（有限）\'etale，故处在 Dedekind 不同理想
+有定义的情形。计算表明
+$$
+\text{Trace}_{L/K}(1) = (nx + my)/(x + y),\quad
+\text{Trace}_{L/K}(u^i) = 0,\quad \text{Trace}_{L/K}(v^j) = 0
+$$
+其中 $1 \leq i < n$ 且 $1 \leq j < m$。由此
+$1 \in \mathcal{L}_{B/A}$ 当且仅当 $n = m$。此外，计算表明，若
+$n = m$，则 $\mathcal{L}_{B/A} = B$，且 Dedekind 不同理想也等于
+$B$。换言之，注记 \ref{discriminant-remark-different-generalization} 中的不同理想
+对 $\Spec(B) \to \Spec(A)$ 有定义，当且仅当 $n = m$；在此情形中，
+不同理想为单位理想。因此在非平坦情形中，不同理想非零并不能保证态射为
+\'etale 或非分歧。
+\end{example}
+
+
+
+
+
+
+
+\section{与对偶理论的比较}
+\label{discriminant-section-comparison}
+
+\noindent
+本节把上述初等代数构造与概形对偶理论一章中的构造作比较。
+
+\begin{lemma}
+\label{discriminant-lemma-compare-dualizing}
+设 $f : Y \to X$ 是 Noetherian 概形之间的拟有限分离态射。
+对每一对仿射开集 $\Spec(B) = V \subset Y$、
+$\Spec(A) = U \subset X$，若 $f(V) \subset U$，则存在同构
+$$
+H^0(V, f^!\mathcal{O}_X) = \omega_{B/A}
+$$
+其中 $f^!$ 如《概形对偶》第
+\ref{duality-section-upper-shriek} 节所述。这些同构与限制映射相容，
+并给出典范同构 $H^0(f^!\mathcal{O}_X) = \omega_{Y/X}$，
+其中 $\omega_{Y/X}$ 如注 \ref{discriminant-remark-relative-dualizing-for-quasi-finite}
+所述。类似地，若 $f : Y \to X$ 是具有对偶复形
+$\omega_S^\bullet$ 的 Noetherian 基概形 $S$ 上有限型概形之间的拟有限态射，
+则 $H^0(f_{new}^!\mathcal{O}_X) = \omega_{Y/X}$。
+\end{lemma}
+
+\begin{proof}
+由 Zariski 主定理，可选取分解 $f = f' \circ j$，其中
+$j : Y \to Y'$ 是开浸入，而 $f' : Y' \to X$ 是有限态射；见
+《态射进阶》，引理
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}。
+由《概形对偶》，引理 \ref{duality-lemma-shriek-well-defined}
+中的构造，有 $f^! = j^* \circ a'$，其中
+$a' : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_{Y'})$
+是《概形对偶》，引理 \ref{duality-lemma-twisted-inverse-image}
+中 $Rf'_*$ 的右伴随。由《概形对偶》，引理
+\ref{duality-lemma-finite-twisted}，可知在
+$D_\QCoh^+(f'_*\mathcal{O}_{Y'})$ 中
+$\Phi(a'(\mathcal{O}_X)) = R\SheafHom(f'_*\mathcal{O}_{Y'}, \mathcal{O}_X)$。
+特别地，$a'(\mathcal{O}_X)$ 在次数 $< 0$ 的上同调层均为零。
+其第零上同调层由下列同构确定：
+$$
+f'_*H^0(a'(\mathcal{O}_X)) =
+\SheafHom_{\mathcal{O}_X}(f'_*\mathcal{O}_{Y'}, \mathcal{O}_X)
+$$
+这里借助《态射》，引理
+\ref{morphisms-lemma-affine-equivalence-modules} 的等价，
+把两边视为 $f'_*\mathcal{O}_{Y'}$-模。记
+$(f')^{-1}U = V' = \Spec(B')$，便得到
+$$
+H^0(V', a'(\mathcal{O}_X)) = \Hom_A(B', A).
+$$
+由于 $a'(\mathcal{O}_X)$ 的第零上同调层是拟凝聚模，
+其在 $V$ 上的限制如所需由
+$\omega_{B/A} = \Hom_A(B', A) \otimes_{B'} B$ 给出。
+
+\medskip\noindent
+关于限制映射的断言是指：经由上述同构，拟凝聚
+$\mathcal{O}_{Y'}$-模 $H^0(a'(\mathcal{O}_X))$ 对 $Y'$ 中开集的限制映射，
+与引理 \ref{discriminant-lemma-localize-dualizing} 为模 $\omega_{B/A}$
+定义的映射一致。这是显然的。
+
+\medskip\noindent
+设 $f : Y \to X$ 是具有对偶复形 $\omega_S^\bullet$ 的 Noetherian
+基概形 $S$ 上有限型概形之间的拟有限态射。取开集
+$V \subset Y$ 与 $U \subset X$，使得 $f(V) \subset U$，且
+$V$、$U$ 均在 $S$ 上分离。以 $f|_V : V \to U$ 表示 $f$ 的限制。
+由上面的讨论以及《概形对偶》，引理
+\ref{duality-lemma-duality-bootstrap}，存在典范同构
+$$
+H^0(f_{new}^!\mathcal{O}_X)|_V = H^0((f|_V)^!\mathcal{O}_U) = \omega_{V/U} =
+\omega_{Y/X}|_V
+$$
+我们略去验证这些同构可粘合成整体同构
+$H^0(f_{new}^!\mathcal{O}_X) \to \omega_{Y/X}$。
+\end{proof}
+
+\begin{lemma}
+\label{discriminant-lemma-compare-trace}
+设 $f : Y \to X$ 是 Noetherian 概形之间的有限平坦态射。第
+\ref{discriminant-section-discriminant} 节的映射
+$$
+\text{Trace}_f : f_*\mathcal{O}_Y \longrightarrow \mathcal{O}_X
+$$
+对应于映射 $\mathcal{O}_Y \to f^!\mathcal{O}_X$（见证明）。
+以 $\tau_{Y/X} \in H^0(Y, f^!\mathcal{O}_X)$ 表示 $1$ 的像。
+经引理 \ref{discriminant-lemma-compare-dualizing} 的同构
+$H^0(f^!\mathcal{O}_X) = \omega_{X/Y}$，这与注
+\ref{discriminant-remark-relative-dualizing-for-flat-quasi-finite} 中的构造一致。
+\end{lemma}
+
+\begin{proof}
+函子 $f^!$ 定义于《概形对偶》第
+\ref{duality-section-upper-shriek} 节。由于 $f$ 有限（因而为恰当态射），
+$f^!$ 由 $f$ 的推前函子的右伴随给出。在《概形对偶》第
+\ref{duality-section-duality-finite} 节中，我们已具体写出这一伴随。
+特别地，对象 $f^!\mathcal{O}_X$ 仅有一个置于次数 $0$ 的上同调层，
+并且对该层有
+$$
+f_*f^!\mathcal{O}_X =
+\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)
+$$
+这里还用到：由于 $f$ 是 Noetherian 概形之间的有限平坦态射，
+$f_*\mathcal{O}_Y$ 有限局部自由，故所有高次 Ext 层均为零。
+略去若干细节。最终得到
+$$
+\text{Trace}_f \in
+\Hom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X) =
+\Gamma(X, f_*f^!\mathcal{O}_X) =
+\Gamma(Y, f^!\mathcal{O}_X)
+$$
+另一方面，由引理 \ref{discriminant-lemma-compare-dualizing} 的识别，有
+$f^!\mathcal{O}_X = \omega_{Y/X}$。因此在
+$$
+\Gamma(Y, f^!\mathcal{O}_X) = \Gamma(Y, \omega_{Y/X})
+$$
+中现在有两个元素：$\text{Trace}_f$，以及注
+\ref{discriminant-remark-relative-dualizing-for-flat-quasi-finite} 中的
+$\tau_{Y/X}$；本引理断言二者相同。
+
+\medskip\noindent
+设 $U = \Spec(A) \subset X$ 是仿射开集，其逆像为
+$V = \Spec(B) \subset Y$。由于 $f$ 有限，$A \to B$ 有限，
+故由构造有 $\omega_{Y/X}(V) = \Hom_A(B,A)$；这一同构与上面所述
+把 $f_*f^!\mathcal{O}_Y$ 识别为
+$\SheafHom_{\mathcal{O}_X}(f_*\mathcal{O}_Y, \mathcal{O}_X)$ 的识别一致。
+于是 $\text{Trace}_f$ 与 $\tau_{Y/X}$ 的一致性，由引理
+\ref{discriminant-lemma-finite-flat-trace} 中
+$\tau_{B/A} = \text{Trace}_{B/A}$ 这一事实得出。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{拟有限 Gorenstein 态射}
+\label{discriminant-section-gorenstein-lci}
+
+\noindent
+本节讨论拟有限 Gorenstein 态射。
+
+\begin{lemma}
+\label{discriminant-lemma-gorenstein-quasi-finite}
+设 $f : Y \to X$ 是 Noetherian 概形之间的拟有限态射。下列条件等价：
+\begin{enumerate}
+\item $f$ 是 Gorenstein 态射；
+\item $f$ 平坦，且 $f$ 的纤维均为 Gorenstein；
+\item $f$ 平坦，且 $\omega_{Y/X}$ 可逆
+（注 \ref{discriminant-remark-relative-dualizing-for-quasi-finite}）；
+\item 对每个 $y \in Y$，存在仿射开集
+$y \in V = \Spec(B) \subset Y$、$U = \Spec(A) \subset X$，
+使得 $f(V) \subset U$、$A \to B$ 平坦，且
+$\omega_{B/A}$ 是可逆 $B$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定义，(1) 与 (2) 等价。由注
+\ref{discriminant-remark-relative-dualizing-for-quasi-finite} 中
+$\omega_{Y/X}$ 的构造，(3) 与 (4) 等价。因此只需证明
+(1)--(2) 与 (3)--(4) 等价。
+
+\medskip\noindent
+第一种证明。仿射局部地工作，可假设 $f$ 是分离态射。
+应用引理 \ref{discriminant-lemma-compare-dualizing} 可知，
+$\omega_{Y/X}$ 是 $f^!\mathcal{O}_X$ 的第零上同调层。
+在两组条件下，$f$ 都平坦且拟有限，故
+$f^!\mathcal{O}_X$ 同构于 $\omega_{Y/X}[0]$；见《概形对偶》，引理
+\ref{duality-lemma-flat-quasi-finite-shriek}。
+于是所需等价性由《概形对偶》，引理
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein} 得出。
+
+\medskip\noindent
+第二种证明。由引理 \ref{discriminant-lemma-characterize-invertible}，
+只需在 $X$ 是域 $k$ 的谱时证明 (2) 与 (3) 等价。
+此时 $Y = \Spec(B)$，其中 $B$ 是有限 $k$-代数。
+在这种情形下，置于次数 $0$ 的
+$\omega_{B/A} = \omega_{B/k} = \Hom_k(B, k)$ 是 $B$ 的对偶复形；
+见《对偶复形》，引理 \ref{dualizing-lemma-dualizing-finite}。
+因此所需等价性由《对偶复形》，引理
+\ref{dualizing-lemma-gorenstein} 得出。
+\end{proof}
+
+\begin{remark}
+\label{discriminant-remark-collect-results-qf-gorenstein}
+设 $f : Y \to X$ 是 Noetherian 概形之间的拟有限 Gorenstein 态射。
+令 $\mathfrak D_f \subset \mathcal{O}_Y$ 为不同理想，并令
+$R \subset Y$ 为由 $\mathfrak D_f$ 切出的闭子概形。则有：
+\begin{enumerate}
+\item $\mathfrak D_f$ 是局部主理想；
+\item $R$ 是局部主闭子概形；
+\item 仿射局部地，$\mathfrak D_f$ 与 Noether 不同理想相同；
+\item $R$ 的形成与基变换相容；
+\item 若 $f$ 有限，则 $R$ 的范数是 $f$ 的判别式；
+\item 若 $f$ 在 $Y$ 的伴随点处为 \'etale，则
+$R$ 是有效 Cartier 除子，且 $\omega_{Y/X} = \mathcal{O}_Y(R)$。
+\end{enumerate}
+这些结论由引理 \ref{discriminant-lemma-flat-gorenstein-agree-noether}、
+\ref{discriminant-lemma-base-change-different} 和
+\ref{discriminant-lemma-norm-different-is-discriminant} 得出。
+\end{remark}
+
+\begin{remark}
+\label{discriminant-remark-collect-results-qf-gorenstein-two}
+设 $S$ 是配备对偶复形 $\omega_S^\bullet$ 的 Noetherian 概形。
+设 $f : Y \to X$ 是 $S$ 上可紧化概形之间的拟有限 Gorenstein 态射。
+再假设 $Y$、$X$ 均为 Cohen--Macaulay，且 $f$ 在 $Y$ 的一般点处为
+\'etale。结合《概形对偶》，注
+\ref{duality-remark-CM-morphism-compare-dualizing} 与注
+\ref{discriminant-remark-collect-results-qf-gorenstein}，可知有典范同构
+$$
+\omega_Y = f^*\omega_X \otimes_{\mathcal{O}_Y} \omega_{Y/X} =
+f^*\omega_X \otimes_{\mathcal{O}_Y} \mathcal{O}_Y(R)
+$$
+这是 $\mathcal{O}_Y$-模的同构。若进一步 $f$ 有限，则同构
+$\mathcal{O}_Y(R) = \omega_{Y/X}$ 来自整体截面
+$\tau_{Y/X} \in H^0(Y, \omega_{Y/X})$；经对偶，该截面对应于映射
+$\text{Trace}_f : f_*\mathcal{O}_Y \to \mathcal{O}_X$；见引理
+\ref{discriminant-lemma-compare-trace}。
+\end{remark}

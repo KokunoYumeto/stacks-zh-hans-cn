@@ -1,0 +1,2594 @@
+% Generated mechanically from the frozen hypercovering.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{24}
+\chapter{超覆盖}
+
+
+
+\phantomsection
+\label{hypercovering-section-phantom}
+
+
+\section{引言}
+\label{hypercovering-section-introduction}
+
+\noindent
+设 $\mathcal{C}$ 为位点，见《位点》定义 \ref{sites-definition-site}。
+设 $X$ 为 $\mathcal{C}$ 的对象。
+给定 $\mathcal{C}$ 上的阿贝尔层 $\mathcal{F}$，
+我们希望计算其上同调群
+$$
+H^i(X, \mathcal{F}).
+$$
+按照一般定义（《位点上的上同调》第
+\ref{sites-cohomology-section-cohomology-sheaves} 节），
+可通过选取内射分辨
+$
+0 \to \mathcal{F} \to \mathcal{I}^0 \to \mathcal{I}^1 \to \ldots
+$
+并置
+$$
+H^i(X, \mathcal{F})
+=
+H^i(
+\Gamma(X, \mathcal{I}^0) \to
+\Gamma(X, \mathcal{I}^1) \to
+\Gamma(X, \mathcal{I}^2)\to \ldots)
+$$
+本章的目标是证明，在 $\mathcal{C}$ 有纤维积的情形下，
+也可以不选取内射分辨而计算这些上同调群。
+为此我们将使用超覆盖。
+
+\medskip\noindent
+位点中的超覆盖是覆盖的推广；见
+\cite[Expos\'e V, Sec. 7]{SGA4}。给定对象 $X$ 的超覆盖 $K$，
+存在一个从 {\v C}ech 到上同调的谱序列，
+它用该层在 $K$ 的各分量 $K_n$ 上的上同调来表示阿贝尔层
+$\mathcal{F}$ 在 $X$ 上的上同调。事实表明，超覆盖总是足够多，
+因而对所有超覆盖取余极限时，谱序列退化，且 $\mathcal{F}$
+在 $X$ 上的上同调由 {\v C}ech 上同调群的余极限计算。
+
+\medskip\noindent
+还可考虑一种更一般的构造，即具有上同调下降的单纯增广；见
+\cite[Expos\'e Vbis]{SGA4}。关于上同调下降，一份很好的手稿是
+Brian Conrad 的文章，见
+\url{https://math.stanford.edu/~conrad/papers/hypercover.pdf}。
+我们将在关于单纯空间的章节中回到这些问题，并在那里证明，例如，
+``局部紧''拓扑空间的真超覆盖具有上同调下降（《单纯空间》第
+\ref{spaces-simplicial-section-proper-hypercovering} 节）。
+我们的处理方法是把这一陈述归结为本章构造的从 {\v C}ech 到上同调的谱序列。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{半可表对象}
+\label{hypercovering-section-semi-representable}
+
+\noindent
+首先作如下定义。
+字母 ``SR'' 表示半可表（Semi-Representable）。
+
+\begin{definition}
+\label{hypercovering-definition-SR}
+设 $\mathcal{C}$ 为范畴。用 $\text{SR}(\mathcal{C})$
+表示如下定义的{\it 半可表对象}范畴：
+\begin{enumerate}
+\item 对象是对象族 $\{U_i\}_{i \in I}$；
+\item 态射 $\{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$ 由映射
+$\alpha : I \to J$ 以及对每个 $i \in I$ 给定的 $\mathcal{C}$ 中态射
+$f_i : U_i \to V_{\alpha(i)}$ 构成。
+\end{enumerate}
+设 $X \in \Ob(\mathcal{C})$ 为 $\mathcal{C}$ 的对象。
+{\it $X$ 上的半可表对象}范畴是范畴
+$\text{SR}(\mathcal{C}, X) = \text{SR}(\mathcal{C}/X)$.
+\end{definition}
+
+\noindent
+该定义实质上等价于
+\cite[Expos\'e V, Subsection 7.3.0]{SGA4}。注意，这是一个``大''范畴。
+稍后我们将``限制''构造 $X$ 的超覆盖所需指标集 $I$ 的大小，
+届时便可重新定义 $\text{SR}(\mathcal{C}, X)$，使之成为一个范畴。
+现明确写出 $\text{SR}(\mathcal{C}, X)$ 的对象与态射：
+\begin{enumerate}
+\item 对象是态射族 $\{U_i \to X\}_{i \in I}$；
+\item 态射 $\{U_i \to X\}_{i \in I} \to
+\{V_j \to X\}_{j \in J}$ 由映射 $\alpha : I \to J$
+以及对每个 $i \in I$ 给定的 $X$ 上态射
+$f_i : U_i \to V_{\alpha(i)}$ 构成。
+\end{enumerate}
+存在遗忘函子
+$\text{SR}(\mathcal{C}, X) \to \text{SR}(\mathcal{C})$.
+
+\begin{definition}
+\label{hypercovering-definition-SR-F}
+设 $\mathcal{C}$ 为范畴。
+用 $F$ 表示{\it 把预层赋给半可表对象的函子}。以公式表示为
+\begin{eqnarray*}
+F : \text{SR}(\mathcal{C}) & \longrightarrow & \textit{PSh}(\mathcal{C}) \\
+\{U_i\}_{i \in I} & \longmapsto & \amalg_{i\in I} h_{U_i}
+\end{eqnarray*}
+其中 $h_U$ 表示与对象 $U$ 相伴的可表预层。
+\end{definition}
+
+\noindent
+给定态射 $U \to X$，得到可表预层的态射 $h_U \to h_X$。
+因此，我们常把 $F$ 在 $\text{SR}(\mathcal{C}, X)$ 上的限制视为取值于
+$h_X$ 上集合预层范畴、即 $\textit{PSh}(\mathcal{C})/h_X$ 的函子。
+相应图示为：
+$$
+\xymatrix{
+\text{SR}(\mathcal{C}, X) \ar[r]_F \ar[d] &
+\textit{PSh}(\mathcal{C})/h_X \ar[d] \\
+\text{SR}(\mathcal{C}) \ar[r]^F &
+\textit{PSh}(\mathcal{C})
+}
+$$
+下面讨论半可表对象范畴中极限的存在性。
+
+\begin{lemma}
+\label{hypercovering-lemma-coprod-prod-SR}
+设 $\mathcal{C}$ 为范畴。
+\begin{enumerate}
+\item 范畴 $\text{SR}(\mathcal{C})$ 有余积，且 $F$ 与余积交换；
+\item 函子 $F : \text{SR}(\mathcal{C}) \to \textit{PSh}(\mathcal{C})$
+与极限交换；
+\item 若 $\mathcal{C}$ 有纤维积，则 $\text{SR}(\mathcal{C})$ 有纤维积；
+\item 若 $\mathcal{C}$ 有二元积，则 $\text{SR}(\mathcal{C})$ 有二元积；
+\item 若 $\mathcal{C}$ 有等化子，则 $\text{SR}(\mathcal{C})$ 也有等化子；
+\item 若 $\mathcal{C}$ 有终对象，则 $\text{SR}(\mathcal{C})$ 也有终对象。
+\end{enumerate}
+设 $X \in \Ob(\mathcal{C})$。
+\begin{enumerate}
+\item 范畴 $\text{SR}(\mathcal{C}, X)$ 有余积，且 $F$ 与余积交换；
+\item 若 $\mathcal{C}$ 有纤维积，则 $\text{SR}(\mathcal{C}, X)$
+有有限极限，且
+$F : \text{SR}(\mathcal{C}, X) \to \textit{PSh}(\mathcal{C})/h_X$
+与这些极限交换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先证明关于 $\text{SR}(\mathcal{C})$ 的各项结论。
+证明 (1)。$\{U_i\}_{i \in I}$ 与 $\{V_j\}_{j \in J}$ 的余积是
+$\{U_i\}_{i \in I} \amalg \{V_j\}_{j \in J}$；换言之，它是以
+$I \amalg J$ 为指标集的对象族，对元素 $k \in I \amalg J$，若
+$k = i \in I$ 则给出 $U_i$，若 $k = j \in J$ 则给出 $V_j$。
+对象族之族的余积也类似。显然 $F$ 与这些余积交换。
+
+\medskip\noindent
+证明 (2)。对 $\Ob(\mathcal{C})$ 中的 $U$，考虑
+$\text{SR}(\mathcal{C})$ 的对象 $\{U\}$。显然
+$\Mor_{\text{SR}(\mathcal{C})}(\{U\}, K)) = F(K)(U)$
+对 $K \in \Ob(\text{SR}(\mathcal{C}))$ 成立。由于预层的极限在截面层面计算
+（《位点》第 \ref{sites-section-limits-colimits-PSh} 节），
+故 $F$ 与极限交换。
+
+\medskip\noindent
+证明 (3)。设给定态射
+$(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+以及态射
+$(\beta, g_k) : \{W_k\}_{k \in K} \to \{V_j\}_{j \in J}$.
+这些态射的纤维积由下式给出：
+$$
+\{ U_i \times_{f_i, V_j, g_k} W_k\}_{(i, j, k) \in I \times J \times K
+\text{使得 } j = \alpha(i) = \beta(k)}
+$$
+若 $\mathcal{C}$ 有纤维积，则这些纤维积存在。
+
+\medskip\noindent
+证明 (4)。$\{U_i\}_{i \in I}$ 与 $\{V_j\}_{j \in J}$ 的积为
+$\{U_i \times V_j\}_{i \in I, j \in J}$。若 $\mathcal{C}$ 有积，
+则这些积存在。
+
+\medskip\noindent
+证明 (5)。两个映射
+$(\alpha, f_i), (\alpha', f'_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+的等化子为
+$$
+\{
+\text{Eq}(f_i, f'_i : U_i \to V_{\alpha(i)})
+\}_{i \in I,\ \alpha(i) = \alpha'(i)}
+$$
+若 $\mathcal{C}$ 有等化子，则这些等化子存在。
+
+\medskip\noindent
+证明 (6)。若 $X$ 是 $\mathcal{C}$ 的终对象，则 $\{X\}$ 是
+$\text{SR}(\mathcal{C})$ 的终对象。
+
+\medskip\noindent
+下面证明关于 $\text{SR}(\mathcal{C}, X)$ 的陈述。
+把上述结果应用于范畴 $\mathcal{C}/X$，并利用
+$\text{SR}(\mathcal{C}/X) = \text{SR}(\mathcal{C}, X)$ 以及
+$\textit{PSh}(\mathcal{C}/X) = \textit{PSh}(\mathcal{C})/h_X$
+（把《位点》引理 \ref{sites-lemma-essential-image-j-shriek}
+应用于赋予混沌拓扑的 $\mathcal{C}$），即可得到这些陈述。
+不过我们也直接论证如下。显然，
+$\{U_i \to X\}_{i \in I}$ 与 $\{V_j \to X\}_{j \in J}$ 的余积是
+$\{U_i \to X\}_{i \in I} \amalg \{V_j \to X\}_{j \in J}$；
+终点为 $X$ 的态射族之族的余积也类似。对象 $\{X \to X\}$ 是
+$\text{SR}(\mathcal{C}, X)$ 的终对象。设给定态射
+$(\alpha, f_i) : \{U_i \to X\}_{i \in I} \to \{V_j \to X\}_{j \in J}$
+以及态射
+$(\beta, g_k) : \{W_k \to X\}_{k \in K} \to \{V_j \to X\}_{j \in J}$.
+这些态射的纤维积由下式给出：
+$$
+\{ U_i \times_{f_i, V_j, g_k} W_k \to X \}_{(i, j, k) \in I \times J \times K
+\text{使得 } j = \alpha(i) = \beta(k)}
+$$
+由假设 $\mathcal{C}$ 有纤维积，这些纤维积存在。
+因此 $\text{SR}(\mathcal{C}, X)$ 有有限极限；
+见《范畴》引理 \ref{categories-lemma-finite-limits-exist}。
+略去此情形下关于函子 $F$ 的陈述的验证。
+\end{proof}
+
+
+
+
+
+\section{超覆盖}
+\label{hypercovering-section-hypercoverings}
+
+\noindent
+若再假设我们的范畴是位点，便可作如下定义。
+
+\begin{definition}
+\label{hypercovering-definition-covering-SR}
+设 $\mathcal{C}$ 为位点。设
+$f = (\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+为范畴 $\text{SR}(\mathcal{C})$ 中的态射。若对每个 $j \in J$，
+态射族 $\{U_i \to V_j\}_{i \in I, \alpha(i) = j}$
+都是位点 $\mathcal{C}$ 的覆盖，则称 $f$ 为{\it 覆盖}。
+设 $X$ 为 $\mathcal{C}$ 的对象。若 $\text{SR}(\mathcal{C}, X)$
+中的态射 $K \to L$ 在 $\text{SR}(\mathcal{C})$ 中的像是覆盖，
+则称它为{\it 覆盖}。
+\end{definition}
+
+\begin{lemma}
+\label{hypercovering-lemma-covering-permanence}
+设 $\mathcal{C}$ 为位点。
+\begin{enumerate}
+\item $\text{SR}(\mathcal{C})$ 中覆盖的复合仍为覆盖。
+\item 若 $K \to L$ 是 $\text{SR}(\mathcal{C})$ 中的覆盖，
+而 $L' \to L$ 是态射，则 $L' \times_L K$ 存在，且
+$L' \times_L K \to L'$ 是覆盖。
+\item 若 $\mathcal{C}$ 有二元积，并且 $A \to B$ 与 $K \to L$
+是 $\text{SR}(\mathcal{C})$ 中的覆盖，则
+$A \times K \to B \times L$ 是覆盖。
+\end{enumerate}
+设 $X \in \Ob(\mathcal{C})$。则 (1) 与 (2) 对
+$\text{SR}(\mathcal{C}, X)$ 成立；若 $\mathcal{C}$ 有纤维积，
+则 (3) 也成立。
+\end{lemma}
+
+\begin{proof}
+(1) 由位点的公理立即得到。(2) 由引理
+\ref{hypercovering-lemma-coprod-prod-SR} 的证明中 $\text{SR}(\mathcal{C})$
+内纤维积的构造，以及 $\mathcal{C}$ 的覆盖中各态射须为可表态射的要求得到。
+把 $A \times K \to B \times L$ 看作复合
+$A \times K \to B \times K \to B \times L$，它因而是覆盖的基变换的复合，
+故得 (3)。最后一个陈述由
+$\text{SR}(\mathcal{C}, X) = \text{SR}(\mathcal{C}/X)$ 得出。
+\end{proof}
+
+\noindent
+由引理 \ref{hypercovering-lemma-coprod-prod-SR} 与《单纯方法》引理
+\ref{simplicial-lemma-existence-cosk}，若 $\mathcal{C}$ 有纤维积，
+则 $\text{SR}(\mathcal{C}, X)$ 的截断单纯对象的余骨架存在。
+因此下述定义是有意义的。
+
+\begin{definition}
+\label{hypercovering-definition-hypercovering}
+设 $\mathcal{C}$ 为有纤维积的位点，且 $X \in \Ob(\mathcal{C})$。
+{\it $X$ 的超覆盖}是 $\text{SR}(\mathcal{C}, X)$ 的单纯对象 $K$，满足：
+\begin{enumerate}
+\item 对象 $K_0$ 是位点 $\mathcal{C}$ 中 $X$ 的覆盖；
+\item 对每个 $n \geq 0$，典范态射
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+是上述意义下的覆盖。
+\end{enumerate}
+\end{definition}
+
+\noindent
+条件 (1) 是有意义的，因为 $\text{SR}(\mathcal{C}, X)$ 的每个对象
+毕竟都是终点为 $X$ 的态射族。它也可以表述为：从 $K_0$ 到
+$\text{SR}(\mathcal{C}, X)$ 的终对象的态射是覆盖。
+
+\begin{example}[{\v C}ech 超覆盖]
+\label{hypercovering-example-cech}
+设 $\mathcal{C}$ 为有纤维积的位点，且
+$\{U_i \to X\}_{i \in I}$ 是 $\mathcal{C}$ 的覆盖。置
+$K_0 = \{U_i \to X\}_{i \in I}$。则 $K_0$ 是
+$\text{SR}(\mathcal{C}, X)$ 的 $0$-截断单纯对象，故可构造
+$$
+K = \text{cosk}_0 K_0.
+$$
+显然 $K$ 满足定义 \ref{hypercovering-definition-hypercovering} 的条件 (1)。
+由《单纯方法》引理 \ref{simplicial-lemma-cosk-up}，所有态射
+$K_{n + 1} \to (\text{cosk}_n \text{sk}_n K)_{n + 1}$ 都是同构，
+故它也满足条件 (2)。注意，各项 $K_n$ 正是通常的
+$$
+K_n = \{
+U_{i_0} \times_X U_{i_1} \times_X \ldots \times_X U_{i_n} \to X
+\}_{(i_0, i_1, \ldots, i_n) \in I^{n + 1}}
+$$
+这种形式的 $X$ 的超覆盖称为 $X$ 的{\it {\v C}ech 超覆盖}。
+\end{example}
+
+\begin{example}[由位点的单纯对象给出的超覆盖]
+\label{hypercovering-example-hypercovering-in-C}
+设 $\mathcal{C}$ 为有纤维积的位点，$X \in \Ob(\mathcal{C})$，
+并设 $U$ 为 $\mathcal{C}$ 的单纯对象。仍记 $U_n = U([n])$。
+最后，假设给定增广
+$$
+a : U \to X
+$$
+在此情形下，可考虑 $\text{SR}(\mathcal{C}, X)$ 的单纯对象 $K$，
+其各项为 $K_n = \{U_n \to X\}$。当且仅当下列三个条件成立时，
+$K$ 是定义 \ref{hypercovering-definition-hypercovering} 意义下的 $X$ 的超覆盖
+\footnote{由于 $\mathcal{C}$ 有纤维积，范畴 $\mathcal{C}/X$
+有全部有限极限。因此，由《单纯方法》引理
+\ref{simplicial-lemma-existence-cosk}，所需余骨架存在。}：
+\begin{enumerate}
+\item $\{U_0 \to X\}$ 是 $\mathcal{C}$ 的覆盖；
+\item $\{U_1 \to U_0 \times_X U_0\}$ 是 $\mathcal{C}$ 的覆盖；
+\item $\{U_{n + 1} \to (\text{cosk}_n\text{sk}_n U)_{n + 1}\}$
+对 $n \geq 1$ 是 $\mathcal{C}$ 的覆盖。
+\end{enumerate}
+略去直接的验证。
+\end{example}
+
+\begin{example}[与一个覆盖相伴的 {\v C}ech 超覆盖]
+\label{hypercovering-example-cech-cover}
+设 $\mathcal{C}$ 为有纤维积的位点。设 $U \to X$ 是
+$\mathcal{C}$ 的态射，使得 $\{U \to X\}$ 是 $\mathcal{C}$ 的覆盖
+\footnote{$\mathcal{C}$ 中具有此性质的态射有时称为``覆盖态射''。}。
+考虑 $\text{SR}(\mathcal{C}, X)$ 的单纯对象 $K$，其各项为
+$$
+K_n = \{U \times_X U \times_X \ldots \times_X U \to X\}
+\quad (n + 1 \text{ 个因子})
+$$
+则 $K$ 是 $X$ 的超覆盖。该例同时是例 \ref{hypercovering-example-cech}
+与例 \ref{hypercovering-example-hypercovering-in-C} 的特殊情形。
+\end{example}
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercoverings-set}
+设 $\mathcal{C}$ 为有纤维积的位点，且 $X \in \Ob(\mathcal{C})$。
+$X$ 的所有超覆盖所成的类是集合。
+\end{lemma}
+
+\begin{proof}
+由于 $\mathcal{C}$ 是位点，$X$ 的所有覆盖所成的类是集合。
+因此，可取的 $K_0$ 所成的类是集合。假设已经证明可取的
+$K_0, \ldots, K_n$ 所成的类是集合。于是只需证明，给定
+$K_0, \ldots, K_n$ 后，可取的 $K_{n + 1}$ 所成的类是集合。
+这显然成立，因为 $K_{n + 1}$ 必须从
+$(\text{cosk}_n \text{sk}_n K)_{n + 1}$ 的所有可能覆盖中选取。
+\end{proof}
+
+\begin{remark}
+\label{hypercovering-remark-hypercoverings-really-set}
+该引理不只是说，存在由超覆盖的选择组成且为集合的共尾系统；
+它断言超覆盖本身确实组成一个集合。
+\end{remark}
+
+\noindent
+$\mathcal{C}$ 上的预层范畴有有限（余）极限。因此，
+集合预层上存在函子 $\text{cosk}_n$。
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercovering-F}
+设 $\mathcal{C}$ 为有纤维积的位点，$X \in \Ob(\mathcal{C})$，
+并设 $K$ 为 $X$ 的超覆盖。考虑 $\textit{PSh}(\mathcal{C})$
+的单纯对象 $F(K)$，并赋予它到常值单纯预层 $h_X$ 的增广。
+\begin{enumerate}
+\item 预层态射 $F(K)_0 \to h_X$ 在层化后成为满射。
+\item 态射
+$$
+(d^1_0, d^1_1) :
+F(K)_1
+\longrightarrow
+F(K)_0 \times_{h_X} F(K)_0
+$$
+在层化后成为满射。
+\item 对每个 $n \geq 1$，态射
+$$
+F(K)_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n F(K))_{n + 1}
+$$
+在层化后成为满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们将使用如下事实：若 $\{U_i \to U\}_{i \in I}$
+是位点 $\mathcal{C}$ 的覆盖，则态射
+$$
+\amalg_{i \in I} h_{U_i} \to h_U
+$$
+在层化后成为满射；见《位点》引理
+\ref{sites-lemma-covering-surjective-after-sheafification}。
+故第一个断言立即成立。
+
+\medskip\noindent
+对第二个断言，由《单纯方法》例 \ref{simplicial-example-cosk0}，
+单纯对象 $\text{cosk}_0 \text{sk}_0 K$ 的各项为
+$K_0 \times \ldots \times K_0$。因此，由超覆盖的定义，
+$(d^1_0, d^1_1) : K_1 \to K_0 \times K_0$ 是覆盖。
+结合上述断言以及 $F$ 把积变为 $h_X$ 上的纤维积这一事实，便得到 (2)。
+
+\medskip\noindent
+对第三个断言，我们声称
+$\text{cosk}_n \text{sk}_n F(K) =
+F(\text{cosk}_n \text{sk}_n K)$
+对 $n \geq 1$ 成立。为证明这一点，暂用 $F'$ 表示函子
+$\text{SR}(\mathcal{C}, X) \to \textit{PSh}(\mathcal{C})/h_X$.
+由引理 \ref{hypercovering-lemma-coprod-prod-SR}，函子 $F'$ 与有限极限交换。
+根据《单纯方法》第 \ref{simplicial-section-skeleton} 节中
+对 $\text{cosk}_n$ 函子的描述，有
+$\text{cosk}_n \text{sk}_n F'(K) =
+F'(\text{cosk}_n \text{sk}_n K)$.
+回忆《单纯方法》引理 \ref{simplicial-lemma-existence-cosk}
+中描述 $(\text{cosk}_n U)_m$ 时所用的范畴是
+$(\Delta/[m])^{opp}_{\leq n}$。一个有趣的练习是证明，只要
+$n \geq 1$，范畴 $(\Delta/[m])_{\leq n}$ 就是连通的（见《范畴》定义
+\ref{categories-definition-category-connected}）。因此，由《范畴》引理
+\ref{categories-lemma-connected-limit-over-X}，有
+$\text{cosk}_n \text{sk}_n F'(K) =
+\text{cosk}_n \text{sk}_n F(K)$，从而该断言成立。
+由此得到性质 (2)，因为此时可见，(2) 中的态射是把函子 $F$
+应用于定义 \ref{hypercovering-definition-covering-SR} 意义下的覆盖所得；
+结论遂由本证明开头提到的第一个事实得出。
+\end{proof}
+
+
+
+\section{无环性}
+\label{hypercovering-section-acyclicity}
+
+\noindent
+设 $\mathcal{C}$ 为位点。对集合预层 $\mathcal{F}$，用
+$\mathbf{Z}_\mathcal{F}$ 表示由下述规则定义的阿贝尔群预层：
+$$
+\mathbf{Z}_\mathcal{F}(U) = \text{由 }\mathcal{F}(U)\text{ 生成的自由阿贝尔群}.
+$$
+有时称它为{\it $\mathcal{F}$ 上的自由阿贝尔预层}。
+当然，构造 $\mathcal{F} \mapsto \mathbf{Z}_\mathcal{F}$ 是函子，
+且是遗忘函子
+$\textit{PAb}(\mathcal{C}) \to \textit{PSh}(\mathcal{C})$.
+的左伴随。当然，层化 $\mathbf{Z}_\mathcal{F}^\#$ 是阿贝尔群层，
+而函子 $\mathcal{F} \mapsto \mathbf{Z}_\mathcal{F}^\#$ 也为左伴随。
+有时称 $\mathbf{Z}_\mathcal{F}^\#$ 为
+{\it $\mathcal{F}$ 上的自由阿贝尔层}。
+
+\medskip\noindent
+对位点 $\mathcal{C}$ 的对象 $X$，用 $\mathbf{Z}_X$ 表示
+$h_X$ 上的自由阿贝尔预层，并用 $\mathbf{Z}_X^\#$ 表示其层化。
+
+\begin{definition}
+\label{hypercovering-definition-homology}
+设 $\mathcal{C}$ 为位点，$K$ 为 $\textit{PSh}(\mathcal{C})$
+的单纯对象。由上可得 $\textit{Ab}(\mathcal{C})$ 的单纯对象
+$\mathbf{Z}_K^\#$。可取其相伴的阿贝尔预层复形
+$s(\mathbf{Z}_K^\#)$；见《单纯方法》第
+\ref{simplicial-section-complexes} 节。$K$ 的{\it 同调}是
+阿贝尔层复形 $s(\mathbf{Z}_K^\#)$ 的同调。
+\end{definition}
+
+\noindent
+换言之，$K$ 的{\it 第 $i$ 个同调 $H_i(K)$}是阿贝尔群层
+$H_i(K) = H_i(s(\mathbf{Z}_K^\#))$。本节研究 $K$ 是
+$\mathcal{C}$ 的对象 $X$ 的超覆盖时的同调。
+
+\begin{lemma}
+\label{hypercovering-lemma-compare-cosk0}
+设 $\mathcal{C}$ 为位点，$\mathcal{F} \to \mathcal{G}$
+为集合预层的态射。用 $K$ 表示 $\textit{PSh}(\mathcal{C})$
+的单纯对象，其第 $n$ 项是 $\mathcal{F}$ 在 $\mathcal{G}$ 上的
+$(n + 1)$ 重纤维积；见《单纯方法》例
+\ref{simplicial-example-fibre-products-simplicial-object}。
+若 $\mathcal{F} \to \mathcal{G}$ 在层化后为满射，则
+$$
+H_i(K) =
+\left\{
+\begin{matrix}
+0 & \text{若} & i > 0\\
+\mathbf{Z}_\mathcal{G}^\# & \text{若} & i = 0
+\end{matrix}
+\right.
+$$
+次数 $0$ 上的同构由态射
+$H_0(K) \to \mathbf{Z}_\mathcal{G}^\#$ 给出；该态射来自映射
+$(\mathbf{Z}_K^\#)_0 =
+\mathbf{Z}_\mathcal{F}^\# \to \mathbf{Z}_\mathcal{G}^\#$。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{G}' \subset \mathcal{G}$ 为态射
+$\mathcal{F} \to \mathcal{G}$ 的像。取 $U \in \Ob(\mathcal{C})$，置
+$A = \mathcal{F}(U)$ 和 $B = \mathcal{G}'(U)$。
+则单纯集 $K(U)$ 等于第 $n$ 个单形由下式给出的单纯集：
+$$
+A \times_B A \times_B \ldots \times_B A\ (n + 1 \text{ 个因子)}.
+$$
+由《单纯方法》引理 \ref{simplicial-lemma-cosk-minus-one-equivalence}，
+态射 $K(U) \to B$ 是平凡 Kan 纤维化，因而是同伦等价
+（《单纯方法》引理 \ref{simplicial-lemma-trivial-kan-homotopy}）。
+对它应用``生成自由阿贝尔群''函子，得到
+$$
+\mathbf{Z}_K(U) \longrightarrow \mathbf{Z}_B
+$$
+是同伦等价。注意，$s(\mathbf{Z}_B)$ 是复形
+$$
+\ldots \to
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{0}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{1}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{0}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \to 0
+$$
+；见《单纯方法》引理 \ref{simplicial-lemma-homology-eilenberg-maclane}。
+因此，对 $i > 0$ 有
+$H_i(s(\mathbf{Z}_K(U))) = 0$，且
+$H_0(s(\mathbf{Z}_K(U))) = \bigoplus_{b \in B}\mathbf{Z}
+= \bigoplus_{s \in \mathcal{G}'(U)} \mathbf{Z}$.
+这些等同与限制映射相容。
+
+\medskip\noindent
+由此推出 $H_i(s(\mathbf{Z}_K)) = 0$ 对 $i > 0$ 成立，且
+$H_0(s(\mathbf{Z}_K)) = \mathbf{Z}_{\mathcal{G}'}$；这里在
+$\textit{PAb}(\mathcal{C})$ 中计算同调群。由于层化是正合函子，
+便得到引理的结论。确切地说，正合性蕴含
+$H_0(s(\mathbf{Z}_K))^\# = H_0(s(\mathbf{Z}_K^\#))$，
+其他指标也同样。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-acyclicity}
+设 $\mathcal{C}$ 为位点，$f : L \to K$ 为
+$\textit{PSh}(\mathcal{C})$ 的单纯对象之间的态射，
+且 $n \geq 0$ 为整数。假设：
+\begin{enumerate}
+\item 对 $i < n$，态射 $L_i \to K_i$ 是同构；
+\item 态射 $L_n \to K_n$ 在层化后为满射；
+\item 典范映射 $L \to \text{cosk}_n \text{sk}_n L$ 是同构；
+\item 典范映射 $K \to \text{cosk}_n \text{sk}_n K$ 是同构。
+\end{enumerate}
+则 $H_i(f) : H_i(L) \to H_i(K)$ 是同构。
+\end{lemma}
+
+\begin{proof}
+该证明与上面引理 \ref{hypercovering-lemma-compare-cosk0} 的证明完全相同。
+确切地说，先令 $K_n' \subset K_n$ 为映射 $L_n \to K_n$
+之像所成的子预层。假设 (2) 意味着 $K_n'$ 的层化等于 $K_n$ 的层化。
+此外，由于对所有 $i < n$ 都有 $L_i = K_i$，取
+$U_0 = L_0 = K_0, \ldots, U_{n - 1} = L_{n - 1} = K_{n - 1}, U_n = K'_n$.
+便得到 $n$-截断单纯预层 $U$。记单纯预层
+$K' = \text{cosk}_n U$。由于可将 $K'_m$ 构造为有限极限，
+而层化又正合，故 $(K'_m)^\# = K_m$。换言之，
+$(K')^\# = K^\#$。再次由层化的正合性，推出
+$H_i(K) = H_i(K')$。因此，只需对态射 $L \to K'$ 证明该引理；
+也就是说，可以假设 $L_n \to K_n$ 是{\it 预层}的满射！
+
+\medskip\noindent
+在此情形下，对 $\mathcal{C}$ 的任意对象 $U$，单纯集的态射
+$$
+L(U) \longrightarrow K(U)
+$$
+满足《单纯方法》引理 \ref{simplicial-lemma-section} 的全部假设。
+故它是平凡 Kan 纤维化，尤其是同伦等价
+（《单纯方法》引理 \ref{simplicial-lemma-trivial-kan-homotopy}）。因此
+$$
+\mathbf{Z}_L(U) \longrightarrow \mathbf{Z}_K(U)
+$$
+也是同伦等价。这对所有 $U$ 都成立，结论随之得出。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-acyclic-hypercover-sheaves}
+设 $\mathcal{C}$ 为位点，$K$ 为单纯预层，$\mathcal{G}$ 为预层，
+并设 $K \to \mathcal{G}$ 为 $K$ 到 $\mathcal{G}$ 的增广。假设：
+\begin{enumerate}
+\item 预层态射 $K_0 \to \mathcal{G}$ 在层化后成为满射；
+\item 态射
+$$
+(d^1_0, d^1_1) :
+K_1
+\longrightarrow
+K_0 \times_\mathcal{G} K_0
+$$
+在层化后成为满射；
+\item 对每个 $n \geq 1$，态射
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+在层化后成为满射。
+\end{enumerate}
+则对 $i > 0$ 有 $H_i(K) = 0$，且
+$H_0(K) = \mathbf{Z}_\mathcal{G}^\#$。
+\end{lemma}
+
+\begin{proof}
+对 $n \geq 1$，记 $K^n = \text{cosk}_n \text{sk}_n K$。
+把 $K^0$ 定义为这样的单纯对象：$(K^0)_n$ 等于 $(n + 1)$ 重纤维积
+$K_0 \times_\mathcal{G} \ldots \times_\mathcal{G} K_0$；
+见《单纯方法》例 \ref{simplicial-example-fibre-products-simplicial-object}。
+存在态射
+$$
+K \longrightarrow \ldots \to K^n \to K^{n - 1} \to \ldots \to K^1 \to K^0.
+$$
+态射 $K \to K^i$ 以及 $j \geq i \geq 1$ 时的 $K^j \to K^i$
+来自各函子 $\text{cosk}_n$ 的泛性质。态射 $K^1 \to K^0$
+是《单纯方法》评注 \ref{simplicial-remark-augmentation} 中的典范态射。
+还回忆，$K^0 \to \text{cosk}_1 \text{sk}_1 K^0$ 是同构；
+见《单纯方法》引理 \ref{simplicial-lemma-cosk-minus-one}。
+
+\medskip\noindent
+由引理 \ref{hypercovering-lemma-compare-cosk0}，对 $i > 0$ 有
+$H_i(K^0) = 0$，且 $H_0(K^0) = \mathbf{Z}_\mathcal{G}^\#$。
+
+\medskip\noindent
+取 $n \geq 1$，考虑态射 $K^n \to K^{n - 1}$。
+它在次数 $< n$ 的各项上是同构。注意，
+$K^n \to \text{cosk}_n \text{sk}_n K^n$ 与
+$K^{n - 1} \to \text{cosk}_n \text{sk}_n K^{n - 1}$ 都是同构；又有
+$(K^n)_n = K_n$ 及
+$(K^{n - 1})_n = (\text{cosk}_{n - 1} \text{sk}_{n - 1} K)_n$。
+因此，由假设，$(K^n)_n \to (K^{n - 1})_n$ 是层化后成为满射的预层态射。
+由引理 \ref{hypercovering-lemma-acyclicity}，得到
+$H_i(K^n) = H_i(K^{n - 1})$。结合上文即证明该引理。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercovering-acyclic}
+设 $\mathcal{C}$ 为有纤维积的位点，$X$ 为 $\mathcal{C}$ 的对象，
+并设 $K$ 为 $X$ 的超覆盖。单纯预层 $F(K)$ 的同调在次数 $> 0$
+时为 $0$，在次数 $0$ 时等于 $\mathbf{Z}_X^\#$。
+\end{lemma}
+
+\begin{proof}
+合用引理 \ref{hypercovering-lemma-acyclic-hypercover-sheaves}
+与 \ref{hypercovering-lemma-hypercovering-F}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{{\v C}ech 上同调与超覆盖}
+\label{hypercovering-section-hyper-cech}
+
+\noindent
+设 $\mathcal{C}$ 为位点。考虑位点 $\mathcal{C}$ 上的阿贝尔群预层
+$\mathcal{F}$。它定义函子
+\begin{eqnarray*}
+\mathcal{F} : \text{SR}(\mathcal{C})^{opp}
+& \longrightarrow &
+\textit{Ab} \\
+\{U_i\}_{i \in I} &
+\longmapsto &
+\prod\nolimits_{i \in I} \mathcal{F}(U_i)
+\end{eqnarray*}
+于是，$\text{SR}(\mathcal{C})$ 的单纯对象 $K$ 被变为
+$\textit{Ab}$ 的余单纯对象 $\mathcal{F}(K)$。与 $\mathcal{F}(K)$
+相伴的上链复形 $s(\mathcal{F}(K))$（《单纯方法》第
+\ref{simplicial-section-dold-kan-cosimplicial} 节）称为
+$\mathcal{F}$ 关于单纯对象 $K$ 的 {\v C}ech 复形。置
+$$
+\check{H}^i(K, \mathcal{F})
+=
+H^i(s(\mathcal{F}(K))).
+$$
+并称之为 $\mathcal{F}$ 关于 $K$ 的第 $i$ 个 {\v C}ech 上同调群。
+本节证明《层上同调》第 \ref{cohomology-section-cech}、
+\ref{cohomology-section-cech-functor} 与
+\ref{cohomology-section-cech-cohomology-cohomology} 节中
+关于开覆盖的 {\v C}ech 上同调若干结果的类似物。
+
+\begin{lemma}
+\label{hypercovering-lemma-h0-cech}
+设 $\mathcal{C}$ 为有纤维积的位点，$X$ 为 $\mathcal{C}$ 的对象，
+$K$ 为 $X$ 的超覆盖，且 $\mathcal{F}$ 为 $\mathcal{C}$ 上的阿贝尔群层。
+则 $\check{H}^0(K, \mathcal{F}) = \mathcal{F}(X)$。
+\end{lemma}
+
+\begin{proof}
+有
+$$
+\check{H}^0(K, \mathcal{F})
+=
+\Ker(\mathcal{F}(K_0) \longrightarrow \mathcal{F}(K_1))
+$$
+写 $K_0 = \{U_i \to X\}$。它是位点 $\mathcal{C}$ 中的覆盖。
+此外，$K_1 \to K_0 \times K_0$ 是
+$\text{SR}(\mathcal{C}, X)$ 中的覆盖。因此可写
+$K_1 = \amalg_{i_0, i_1 \in I} \{V_{i_0i_1j} \to X\}$，
+使态射 $K_1 \to K_0 \times K_0$ 由位点 $\mathcal{C}$ 的覆盖
+$\{V_{i_0i_1j} \to U_{i_0} \times_X U_{i_1}\}$ 给出。
+从而还可把
+$$
+\check{H}^0(K, \mathcal{F})
+=
+\Ker(
+\prod\nolimits_i \mathcal{F}(U_i)
+\longrightarrow
+\prod\nolimits_{i_0i_1 j} \mathcal{F}(V_{i_0i_1j})
+)
+$$
+按显然的映射作此等同。$\mathcal{F}$ 的层性质蕴含
+$\check{H}^0(K, \mathcal{F}) = H^0(X, \mathcal{F})$。
+\end{proof}
+
+\noindent
+事实上，该性质当然刻画了 $\mathcal{C}$ 上所有阿贝尔预层中的阿贝尔层。
+在此情形下，《层上同调》引理 \ref{hypercovering-lemma-injective-trivial-cech}
+的类似物如下。
+
+\begin{lemma}
+\label{hypercovering-lemma-injective-trivial-cech}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖，$\mathcal{I}$ 是 $\mathcal{C}$ 上的内射阿贝尔群层。则
+$$
+\check{H}^p(K, \mathcal{I}) =
+\left\{
+\begin{matrix}
+\mathcal{I}(X) & \text{若} & p = 0 \\
+0 & \text{若} & p > 0
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+注意，对 $\text{SR}(\mathcal{C}, X)$ 的任意对象
+$Z = \{U_i \to X\}$ 以及 $\mathcal{C}$ 上的任意阿贝尔层
+$\mathcal{F}$，都有
+\begin{eqnarray*}
+\mathcal{F}(Z)
+& = &
+\prod \mathcal{F}(U_i) \\
+& = &
+\prod \Mor_{\textit{PSh}(\mathcal{C})}(h_{U_i}, \mathcal{F})\\
+& = &
+\Mor_{\textit{PSh}(\mathcal{C})}(F(Z), \mathcal{F})\\
+& = &
+\Mor_{\textit{PAb}(\mathcal{C})}(\mathbf{Z}_{F(Z)}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{Ab}(\mathcal{C})}(\mathbf{Z}_{F(Z)}^\#, \mathcal{F})
+\end{eqnarray*}
+由此可见，对 $\text{SR}(\mathcal{C}, X)$ 的任意单纯对象 $K$，都有
+\begin{equation}
+\label{hypercovering-equation-identify-cech}
+s(\mathcal{F}(K))
+=
+\Hom_{\textit{Ab}(\mathcal{C})}(s(\mathbf{Z}_{F(K)}^\#), \mathcal{F})
+\end{equation}
+记号见定义 \ref{hypercovering-definition-homology}。
+若 $K$ 是超覆盖，则层复形 $s(\mathbf{Z}_{F(K)}^\#)$
+拟同构于 $\mathbf{Z}_X^\#$，见引理 \ref{hypercovering-lemma-hypercovering-acyclic}。
+因此，若 $\mathcal{I}$ 是内射阿贝尔层而 $K$ 是超覆盖，
+则复形 $s(\mathcal{I}(K))$ 除了次数 $0$ 外是无环的。换言之，
+$$
+\check{H}^i(K, \mathcal{I}) = 0
+$$
+对 $i > 0$ 成立。结合引理 \ref{hypercovering-lemma-h0-cech} 即得结论。
+\end{proof}
+
+\noindent
+下面给出《位点上的上同调》引理
+\ref{sites-cohomology-lemma-cech-spectral-sequence} 的类似物。
+设 $\mathcal{C}$ 是位点，$\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔群层。
+回忆，$\underline{H}^i(\mathcal{F})$ 表示 $\mathcal{C}$ 上由规则
+$\underline{H}^i(\mathcal{F}) : U \longmapsto H^i(U, \mathcal{F})$
+定义的阿贝尔群预层。依照本节引言中的做法，把它扩张到
+$\text{SR}(\mathcal{C})$ 上。
+
+\begin{lemma}
+\label{hypercovering-lemma-cech-spectral-sequence}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖，$\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔群层。
+在 $D^{+}(\textit{Ab})$ 中存在关于 $\mathcal{F}$ 函子性的态射
+$$
+s(\mathcal{F}(K))
+\longrightarrow
+R\Gamma(X, \mathcal{F})
+$$
+它诱导函子 $\textit{Ab}(\mathcal{C}) \to \textit{Ab}$ 之间的自然变换
+$$
+\check{H}^i(K, -) \longrightarrow H^i(X, -)
+$$
+此外，存在谱序列 $(E_r, d_r)_{r \geq 0}$，满足
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+并收敛到 $H^{p + q}(X, \mathcal{F})$。
+此谱序列关于 $\mathcal{F}$ 和超覆盖 $K$ 都是函子性的。
+\end{lemma}
+
+\begin{proof}
+可以采用《上同调》一章相应引理中的同一方法证明。这里改用双复形论证。
+
+\medskip\noindent
+在 $\mathcal{C}$ 上阿贝尔层的范畴中选取内射分辨
+$\mathcal{F} \to \mathcal{I}^\bullet$。考虑各项为
+$$
+A^{p, q} = \mathcal{I}^q(K_p)
+$$
+的双复形 $A^{\bullet, \bullet}$，其中微分
+$d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$ 来自与余单纯阿贝尔群
+$\mathcal{I}^p(K)$ 相伴的复形 $s(\mathcal{I}^q(K))$ 上的微分，
+而微分 $d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ 来自微分
+$\mathcal{I}^q \to \mathcal{I}^{q + 1}$。
+用 $\text{Tot}(A^{\bullet, \bullet})$ 表示与双复形
+$A^{\bullet, \bullet}$ 相伴的全复形，见《同调代数》第
+\ref{homology-section-double-complexes} 节。我们将使用与此双复形相伴的
+两个谱序列 $({}'E_r, {}'d_r)$ 和 $({}''E_r, {}''d_r)$，见
+《同调代数》第 \ref{homology-section-double-complex} 节。
+
+\medskip\noindent
+由引理 \ref{hypercovering-lemma-injective-trivial-cech}，复形
+$s(\mathcal{I}^q(K))$ 在正次数无环，且其 $H^0$ 等于
+$\mathcal{I}^q(X)$。因此，由《同调代数》引理
+\ref{homology-lemma-double-complex-gives-resolution}，自然映射
+$$
+\mathcal{I}^\bullet(X) \longrightarrow \text{Tot}(A^{\bullet, \bullet})
+$$
+是阿贝尔群复形的拟同构。特别地，
+$H^n(\text{Tot}(A^{\bullet, \bullet})) = H^n(X, \mathcal{F})$。
+
+\medskip\noindent
+引理中的态射 $s(\mathcal{F}(K)) \longrightarrow R\Gamma(X, \mathcal{F})$
+是态射 $s(\mathcal{F}(K)) \to \text{Tot}(A^{\bullet, \bullet})$
+与上述拟同构之逆的复合。这是可行的，因为 $\mathcal{I}^\bullet(X)$
+是 $R\Gamma(X, \mathcal{F})$ 的一个代表元。
+
+\medskip\noindent
+考虑谱序列 $({}'E_r, {}'d_r)_{r \geq 0}$。由《同调代数》引理
+\ref{homology-lemma-ss-double-complex}，有
+$$
+{}'E_2^{p, q} = H^p_I(H^q_{II}(A^{\bullet, \bullet}))
+$$
+换言之，先对 $d_2$ 取上同调，得到群
+${}'E_1^{p, q} = \underline{H}^q(\mathcal{F})(K_p)$。
+因此，由微分 ${}'d_1$ 的描述，确有
+${}'E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))$。
+由以上所述和《同调代数》引理
+\ref{homology-lemma-first-quadrant-ss}，可见它按要求收敛到
+$H^n(X, \mathcal{F})$。
+
+\medskip\noindent
+关于上述构造对阿贝尔层 $\mathcal{F}$ 和超覆盖 $K$ 的函子性，
+其证明从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Verdier 意义下的超覆盖}
+\label{hypercovering-section-hypercoverings-verdier}
+
+\noindent
+敏锐的读者会注意到，为了得到对象 $X$ 的超覆盖所对应的从
+{\v C}ech 上同调到上同调的谱序列，我们所需的只是引理
+\ref{hypercovering-lemma-hypercovering-F} 的结论。因此下面的定义是合理的。
+
+\begin{definition}
+\label{hypercovering-definition-hypercovering-variant}
+设 $\mathcal{C}$ 是位点，并假设 $\mathcal{C}$ 具有等化子和纤维积。
+设 $\mathcal{G}$ 是集合预层。$\mathcal{G}$ 的一个{\it 超覆盖}，是
+$\text{SR}(\mathcal{C})$ 的单纯对象 $K$ 连同一个增广
+$F(K) \to \mathcal{G}$，使得
+\begin{enumerate}
+\item $F(K_0) \to \mathcal{G}$ 在层化后成为满射；
+\item $F(K_1) \to F(K_0) \times_\mathcal{G} F(K_0)$
+在层化后成为满射；并且
+\item $F(K_{n + 1}) \longrightarrow F((\text{cosk}_n \text{sk}_n K)_{n + 1})$
+对 $n \geq 1$ 在层化后成为满射。
+\end{enumerate}
+若 $\text{SR}(\mathcal{C})$ 的单纯对象 $K$ 是
+$\textit{PSh}(\mathcal{C})$ 的终对象 $*$ 的超覆盖，则称 $K$ 为一个
+{\it 超覆盖}。
+\end{definition}
+
+\noindent
+假设 $\mathcal{C}$ 具有纤维积和等化子，便保证
+$\text{SR}(\mathcal{C})$ 具有纤维积和等化子，并且 $F$ 与它们交换
+（引理 \ref{hypercovering-lemma-coprod-prod-SR}）；这足以定义所用的余骨架函子
+（见《单纯方法》评注 \ref{simplicial-remark-existence-cosk} 和
+《范畴论》引理 \ref{categories-lemma-fibre-products-equalizers-exist}）。
+对一般的 $\mathcal{C}$，可把条件 (3) 替换为：
+$F(K_{n + 1}) \longrightarrow ((\text{cosk}_n \text{sk}_n F(K))_{n + 1})$
+对 $n \geq 1$ 在层化后成为满射；本节的结果仍然成立。
+
+\medskip\noindent
+设 $\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔层。上一节定义了
+$\mathcal{F}$ 关于 $\text{SR}(\mathcal{C})$ 的单纯对象 $K$ 的
+{\v C}ech 复形。现在，对给定预层 $\mathcal{G}$，置
+$$
+H^0(\mathcal{G}, \mathcal{F}) =
+\Mor_{\textit{PSh}(\mathcal{C})}(\mathcal{G}, \mathcal{F}) =
+\Mor_{\Sh(\mathcal{C})}(\mathcal{G}^\#, \mathcal{F}) =
+H^0(\mathcal{G}^\#, \mathcal{F})
+$$
+记号同《位点上的上同调》第 \ref{sites-cohomology-section-limp} 节。
+这是左正合函子，其高阶导出函子（《位点上的上同调》第
+\ref{sites-cohomology-section-limp} 节作了简要研究）记为
+$H^i(\mathcal{G}, \mathcal{F})$。我们将证明，给定 $\mathcal{G}$ 的
+超覆盖 $K$，存在一个从 {\v C}ech 上同调到上同调的谱序列，
+收敛到上同调 $H^i(\mathcal{G}, \mathcal{F})$。注意，若
+$\mathcal{G} = *$，则 $H^i(*, \mathcal{F}) = H^i(\mathcal{C}, \mathcal{F})$，
+这恢复了 $\mathcal{F}$ 在位点 $\mathcal{C}$ 上的上同调。
+
+\begin{lemma}
+\label{hypercovering-lemma-h0-cech-variant}
+设 $\mathcal{C}$ 是具有等化子和纤维积的位点，
+$\mathcal{G}$ 是 $\mathcal{C}$ 上的预层，$K$ 是 $\mathcal{G}$ 的超覆盖，
+$\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔群层。则
+$\check{H}^0(K, \mathcal{F}) = H^0(\mathcal{G}, \mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+这由 $H^0(\mathcal{G}, \mathcal{F})$ 的定义以及下图在层化后成为余等化子图的事实得出：
+$$
+\xymatrix{
+F(K_1) \ar@<1ex>[r] \ar@<-1ex>[r] &
+F(K_0) \ar[r] & \mathcal{G}
+}
+$$
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-injective-trivial-cech-variant}
+设 $\mathcal{C}$ 是具有等化子和纤维积的位点，
+$\mathcal{G}$ 是 $\mathcal{C}$ 上的预层，$K$ 是 $\mathcal{G}$ 的超覆盖，
+$\mathcal{I}$ 是 $\mathcal{C}$ 上的内射阿贝尔群层。则
+$$
+\check{H}^p(K, \mathcal{I}) =
+\left\{
+\begin{matrix}
+H^0(\mathcal{G}, \mathcal{I}) & \text{若} & p = 0 \\
+0 & \text{若} & p > 0
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+由 (\ref{hypercovering-equation-identify-cech})，有
+$$
+s(\mathcal{F}(K))
+=
+\Hom_{\textit{Ab}(\mathcal{C})}(s(\mathbf{Z}_{F(K)}^\#), \mathcal{F})
+$$
+复形 $s(\mathbf{Z}_{F(K)}^\#)$ 拟同构于
+$\mathbf{Z}_\mathcal{G}^\#$，见引理
+\ref{hypercovering-lemma-acyclic-hypercover-sheaves}。因此，若 $\mathcal{I}$ 是内射阿贝尔层，
+则复形 $s(\mathcal{I}(K))$ 除了次数 $0$ 外是无环的。换言之，
+对 $i > 0$ 有 $\check{H}^i(K, \mathcal{I}) = 0$。
+结合引理 \ref{hypercovering-lemma-h0-cech-variant} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-cech-spectral-sequence-variant}
+设 $\mathcal{C}$ 是具有等化子和纤维积的位点，
+$\mathcal{G}$ 是 $\mathcal{C}$ 上的预层，$K$ 是 $\mathcal{G}$ 的超覆盖，
+$\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔群层。
+在 $D^{+}(\textit{Ab})$ 中存在关于 $\mathcal{F}$ 函子性的态射
+$$
+s(\mathcal{F}(K)) \longrightarrow R\Gamma(\mathcal{G}, \mathcal{F})
+$$
+它诱导函子 $\textit{Ab}(\mathcal{C}) \to \textit{Ab}$ 之间的自然变换
+$$
+\check{H}^i(K, -) \longrightarrow H^i(\mathcal{G}, -)
+$$
+此外，存在谱序列 $(E_r, d_r)_{r \geq 0}$，满足
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+并收敛到 $H^{p + q}(\mathcal{G}, \mathcal{F})$。
+此谱序列关于 $\mathcal{F}$ 和超覆盖 $K$ 都是函子性的。
+\end{lemma}
+
+\begin{proof}
+在 $\mathcal{C}$ 上阿贝尔层的范畴中选取内射分辨
+$\mathcal{F} \to \mathcal{I}^\bullet$。考虑各项为
+$$
+A^{p, q} = \mathcal{I}^q(K_p)
+$$
+的双复形 $A^{\bullet, \bullet}$，其中微分
+$d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$ 来自微分
+$\mathcal{I}^p \to \mathcal{I}^{p + 1}$，而微分
+$d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ 来自与余单纯阿贝尔群
+$\mathcal{I}^p(K)$ 相伴的复形 $s(\mathcal{I}^p(K))$ 上的微分，
+如上所述。我们将使用与此双复形相伴的两个谱序列
+$({}'E_r, {}'d_r)$ 和 $({}''E_r, {}''d_r)$，见《同调代数》第
+\ref{homology-section-double-complex} 节。
+
+\medskip\noindent
+由引理 \ref{hypercovering-lemma-injective-trivial-cech-variant}，复形
+$s(\mathcal{I}^p(K))$ 在正次数无环，且其 $H^0$ 等于
+$H^0(\mathcal{G}, \mathcal{I}^p)$。因此，由《同调代数》引理
+\ref{homology-lemma-double-complex-gives-resolution} 及其证明，
+谱序列 $({}'E_r, {}'d_r)$ 退化，并且自然映射
+$$
+H^0(\mathcal{G}, \mathcal{I}^\bullet) \longrightarrow
+\text{Tot}(A^{\bullet, \bullet})
+$$
+是阿贝尔群复形的拟同构。引理中的态射
+$s(\mathcal{F}(K)) \longrightarrow R\Gamma(\mathcal{G}, \mathcal{F})$
+是自然映射 $s(\mathcal{F}(K)) \to \text{Tot}(A^{\bullet, \bullet})$
+与上述拟同构之逆的复合。这是可行的，因为
+$H^0(\mathcal{G}, \mathcal{I}^\bullet)$ 是
+$R\Gamma(\mathcal{G}, \mathcal{F})$ 的一个代表元。
+
+\medskip\noindent
+考虑谱序列 $({}''E_r, {}''d_r)_{r \geq 0}$。由《同调代数》引理
+\ref{homology-lemma-ss-double-complex}，有
+$$
+{}''E_2^{p, q} = H^p_{II}(H^q_I(A^{\bullet, \bullet}))
+$$
+换言之，先对 $d_1$ 取上同调，得到群
+${}''E_1^{p, q} = \underline{H}^p(\mathcal{F})(K_q)$。
+因此，由微分 ${}''d_1$ 的描述，确有
+${}''E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))$。
+由于此谱序列收敛到 $\text{Tot}(A^{\bullet, \bullet})$ 的上同调，
+证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-cech-spectral-sequence-verdier}
+设 $\mathcal{C}$ 是具有等化子和纤维积的位点，$K$ 是超覆盖，
+$\mathcal{F}$ 是阿贝尔层。存在谱序列 $(E_r, d_r)_{r \geq 0}$，满足
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+并收敛到整体上同调群 $H^{p + q}(\mathcal{F})$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{hypercovering-lemma-cech-spectral-sequence-variant} 的特殊情形。
+\end{proof}
+
+
+
+
+
+
+
+\section{超覆盖的覆盖细化}
+\label{hypercovering-section-covering}
+
+\noindent
+下面给出若干构造超覆盖的方法。注意，由于范畴
+$\text{SR}(\mathcal{C}, X)$ 具有纤维积，它的单纯对象范畴也具有纤维积，
+见《单纯方法》引理 \ref{simplicial-lemma-fibre-product}。
+
+\begin{lemma}
+\label{hypercovering-lemma-funny-gamma}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K,L,M$ 是 $\text{SR}(\mathcal{C}, X)$ 的单纯对象，并设
+$a : K \to L$、$b : M \to L$ 是态射。假设
+\begin{enumerate}
+\item $K$ 是 $X$ 的超覆盖；
+\item 态射 $M_0 \to L_0$ 是覆盖；并且
+\item 对每个 $n \geq 0$，下图中的箭头 $\gamma$ 是覆盖：
+$$
+\xymatrix{
+M_{n + 1} \ar[dd] \ar[rr] \ar[rd]^\gamma &
+&
+(\text{cosk}_n \text{sk}_n M)_{n + 1} \ar[dd] \\
+&
+L_{n + 1}
+\times_{(\text{cosk}_n \text{sk}_n L)_{n + 1}}
+(\text{cosk}_n \text{sk}_n M)_{n + 1}
+\ar[ld] \ar[ru]
+& \\
+L_{n + 1} \ar[rr] & & (\text{cosk}_n \text{sk}_n L)_{n + 1}
+}
+$$
+\end{enumerate}
+则纤维积 $K \times_L M$ 是 $X$ 的超覆盖。
+\end{lemma}
+
+\begin{proof}
+由 (2)，态射 $(K \times_L M)_0 = K_0 \times_{L_0} M_0 \to K_0$
+是覆盖的基变换，因而是覆盖，见引理 \ref{hypercovering-lemma-covering-permanence}。
+由 (1)，$K_0 \to \{X \to X\}$ 是覆盖。因此，由引理
+\ref{hypercovering-lemma-covering-permanence}，
+$(K \times_L M)_0 \to \{X \to X\}$ 是覆盖。故
+$K \times_L M$ 满足定义 \ref{hypercovering-definition-hypercovering} 的第一个条件。
+
+\medskip\noindent
+还需验证，对所有 $n \geq 0$，态射
+$$
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1} = (K \times_L M)_{n + 1}
+\longrightarrow
+(\text{cosk}_n \text{sk}_n (K \times_L M))_{n + 1}
+$$
+是覆盖。简记
+$A = (\text{cosk}_n \text{sk}_n K)_{n + 1}$,
+$B = (\text{cosk}_n \text{sk}_n L)_{n + 1}$，以及
+$C = (\text{cosk}_n \text{sk}_n M)_{n + 1}$.
+函子 $\text{cosk}_n \text{sk}_n$ 与纤维积交换，见《单纯方法》引理
+\ref{simplicial-lemma-cosk-fibre-product}。因此，上式右端等于
+$A \times_B C$。考虑交换图
+$$
+\xymatrix{
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1} \ar[r] \ar[d] &
+M_{n + 1} \ar[d] \ar[rd]_\gamma \ar[rrd] &
+& \\
+K_{n + 1} \ar[r] \ar[rd] &
+L_{n + 1} \ar[rrd] &
+L_{n + 1} \times_B C \ar[l] \ar[r] &
+C \ar[d] \\
+&
+A \ar[rr] &
+&
+B
+}
+$$
+此图表明
+$$
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1}
+=
+(K_{n + 1} \times_B C)
+\times_{(L_{n + 1} \times_B C), \gamma}
+M_{n + 1}
+$$
+现在，$K_{n + 1} \times_B C \to A \times_B C$ 是覆盖
+$K_{n + 1} \to A$ 沿态射 $A \times_B C \to A$ 的基变换，
+故为覆盖。由假设 (3)，态射 $\gamma$ 是覆盖。因此态射
+$$
+(K_{n + 1} \times_B C)
+\times_{(L_{n + 1} \times_B C), \gamma}
+M_{n + 1}
+\longrightarrow
+K_{n + 1} \times_B C
+$$
+作为覆盖的基变换也是覆盖。覆盖的复合仍是覆盖，故引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-product-hypercoverings}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象。
+若 $K,L$ 是 $X$ 的超覆盖，则 $K \times L$ 是 $X$ 的超覆盖。
+\end{lemma}
+
+\begin{proof}
+既可直接验证，也可应用上述引理 \ref{hypercovering-lemma-funny-gamma}，并验证
+$L \to \{X \to X\}$ 具有性质 (3)。
+\end{proof}
+
+
+\noindent
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象。
+由于范畴 $\text{SR}(\mathcal{C}, X)$ 具有余积和有限极限，
+对某些单纯集 $U$（例如只有有限多个非退化单形者）以及
+$\text{SR}(\mathcal{C}, X)$ 的任意单纯对象 $K$，可以讨论对象
+$U \times K$ 和 $\Hom(U, K)$。见《单纯方法》第
+\ref{simplicial-section-product-with-simplicial-sets} 节和第
+\ref{simplicial-section-hom-from-simplicial-sets} 节。
+
+\begin{lemma}
+\label{hypercovering-lemma-covering}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖，$k \geq 0$ 是整数。设
+$u : Z \to K_k$ 是 $\text{SR}(\mathcal{C}, X)$ 中的覆盖。
+则存在超覆盖的态射 $f: L \to K$，使得 $L_k \to K_k$ 经由 $u$ 分解。
+\end{lemma}
+
+\begin{proof}
+记 $Y = K_k$。设 $C[k]$ 是《单纯方法》例
+\ref{simplicial-example-simplex-cosimplicial-set} 中定义的余单纯集。
+我们将使用《单纯方法》引理
+\ref{simplicial-lemma-morphism-into-product} 给出的
+$\Hom(C[k], Y)$ 和 $\Hom(C[k], Z)$ 的描述。
+存在对应于 $\text{id} : K_k = Y \to Y$ 的典范态射
+$K \to \Hom(C[k], Y)$。考虑态射
+$\Hom(C[k], Z) \to \Hom(C[k], Y)$；其次数 $n$ 项上的态射为
+$$
+\prod\nolimits_{\alpha : [k] \to [n]} Z
+\longrightarrow
+\prod\nolimits_{\alpha : [k] \to [n]} Y
+$$
+即在每个因子上使用给定态射 $Z \to Y$。置
+$$
+L = K \times_{\Hom(C[k], Y)} \Hom(C[k], Z).
+$$
+态射 $L_k \to K_k$ 位于交换图
+$$
+\xymatrix{
+L_k \ar[r] \ar[d] &
+\prod_{\alpha : [k] \to [k]} Z \ar[r]^-{\text{pr}_{\text{id}_{[k]}}} \ar[d] &
+Z \ar[d] \\
+K_k \ar[r] &
+\prod_{\alpha : [k] \to [k]} Y \ar[r]^-{\text{pr}_{\text{id}_{[k]}}} &
+Y
+}
+$$
+中。由于底部两个箭头的复合是恒等态射，便得到所需分解。
+
+\medskip\noindent
+还需证明 $L$ 是 $X$ 的超覆盖。为此应用引理
+\ref{hypercovering-lemma-funny-gamma}。条件 (1) 由假设成立。对于 (2)，态射
+$$
+\Hom(C[k], Z)_0 \to \Hom(C[k], Y)_0
+$$
+是覆盖，因为态射 $[k] \to [0]$ 仅有一个，故它同构于 $Z \to Y$。
+
+\medskip\noindent
+考虑 $n = 0$ 时的条件 (3)。由于
+$(\text{cosk}_0 T)_1 = T \times T$
+（《单纯方法》例 \ref{simplicial-example-cosk0}）且
+$\Hom(C[k], Z)_1 = \prod_{\alpha : [k] \to [1]} Z$，得到图
+$$
+\xymatrix{
+\prod\nolimits_{\alpha : [k] \to [1]} Z \ar[r] \ar[d] &
+Z \times Z \ar[d] \\
+\prod\nolimits_{\alpha : [k] \to [1]} Y \ar[r] &
+Y \times Y
+}
+$$
+其中水平箭头对应于向两个非满射 $\alpha$ 所对应因子的投影。
+因此箭头 $\gamma$ 是态射
+$$
+\prod\nolimits_{\alpha : [k] \to [1]} Z
+\longrightarrow
+\prod\nolimits_{\alpha : [k] \to [1]\text{ 非满}} Z
+\times
+\prod\nolimits_{\alpha : [k] \to [1]\text{ 满}} Y
+$$
+它是覆盖的乘积，故由引理 \ref{hypercovering-lemma-covering-permanence} 仍为覆盖。
+
+\medskip\noindent
+考虑 $n > 0$ 时的条件 (3)。我们断言，存在有限集的单射
+$\tau : S' \to S$，使得对 $\text{SR}(\mathcal{C}, X)$ 的任意对象
+$T$，态射
+\begin{equation}
+\label{hypercovering-equation-map}
+\Hom(C[k], T)_{n + 1} \to
+(\text{cosk}_n \text{sk}_n \Hom(C[k], T))_{n + 1}
+\end{equation}
+关于 $T$ 函子性地同构于投影
+$\prod_{s \in S} T \to \prod_{s' \in S'} T$。若此言成立，
+则仿照上一段可见，箭头 $\gamma$ 是态射
+$$
+\prod\nolimits_{s \in S} Z
+\longrightarrow
+\prod\nolimits_{s \in S'} Z
+\times
+\prod\nolimits_{s \not\in \tau(S')} Y
+$$
+它是覆盖的乘积，故由引理 \ref{hypercovering-lemma-covering-permanence} 仍为覆盖。
+由构造，有
+$\Hom(C[k], T)_{n + 1} = \prod_{\alpha : [k] \to [n + 1]} T$
+（见《单纯方法》引理 \ref{simplicial-lemma-morphism-into-product}）。
+相应地取 $S = \text{Map}([k], [n + 1])$。另一方面，
+《单纯方法》引理 \ref{simplicial-lemma-formula-limit} 把
+$(\text{cosk}_n \text{sk}_n \Hom(C[k], T))_{n + 1}$
+的点描述为 $\Hom(C[k], T)_n$ 的点列
+$(f_0, \ldots, f_{n + 1})$，满足
+$d^n_{j - 1} f_i = d^n_i f_j$（$0 \leq i < j \leq n + 1$）。
+可写 $f_i = (f_{i, \alpha})$，其中 $f_{i, \alpha}$ 是 $T$ 的点，
+$\alpha \in \text{Map}([k], [n])$。这些条件化为
+$$
+f_{i, \delta^n_{j - 1} \circ \beta} = f_{j, \delta_i^n \circ \beta}
+$$
+对任意 $0 \leq i < j \leq n + 1$ 和 $\beta : [k] \to [n - 1]$
+成立。因此
+$$
+S' = \{0, \ldots, n + 1\} \times \text{Map}([k], [n]) / \sim
+$$
+其中等价关系由等价式
+$$
+(i, \delta^n_{j - 1} \circ \beta) \sim (j, \delta_i^n \circ \beta)
+$$
+生成，其中 $0 \leq i < j \leq n + 1$ 且
+$\beta : [k] \to [n - 1]$。一个略去的计算表明，态射
+(\ref{hypercovering-equation-map}) 对应于映射 $S' \to S$，它把 $(i, \alpha)$
+送到 $\delta^{n + 1}_i \circ \alpha \in S$。（由《单纯方法》引理
+\ref{simplicial-lemma-relations-face-degeneracy} 的 (1)，此映射确实良定义，
+这也许能使读者安心。）为完成证明，只需说明：若
+$\alpha, \alpha' : [k] \to [n]$、$0 \leq i < j \leq n + 1$，且
+$$
+\delta^{n + 1}_i \circ \alpha = \delta^{n + 1}_j \circ \alpha'
+$$
+则存在某个 $\beta : [k] \to [n - 1]$，使得
+$\alpha = \delta^n_{j - 1} \circ \beta$ 且
+$\alpha' = \delta_i^n \circ \beta$。这很容易验证，故略去。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-covering-sheaf}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖，$n \geq 0$ 是整数。设
+$u : \mathcal{F} \to F(K_n)$ 是层化后成为满射的预层态射。
+则存在超覆盖的态射 $f: L \to K$，使得
+$F(f_n) : F(L_n) \to F(K_n)$ 经由 $u$ 分解。
+\end{lemma}
+
+\begin{proof}
+写成 $K_n = \{U_i \to X\}_{i \in I}$。于是映射 $u$ 是集合预层态射
+$u : \mathcal{F} \to \amalg h_{u_i}$。关于 $u$ 的假设意味着：
+对每个 $i \in I$，存在位点 $\mathcal{C}$ 的覆盖
+$\{U_{ij} \to U_i\}_{j \in I_i}$ 和预层态射
+$t_{ij} : h_{U_{ij}} \to \mathcal{F}$，使得 $u \circ t_{ij}$
+是由态射 $U_{ij} \to U_i$ 得到的映射
+$h_{U_{ij}} \to h_{U_i}$。置 $J = \amalg_{i \in I} I_i$，并令
+$\alpha : J \to I$ 为显然的映射。对 $j \in J$，记
+$V_j = U_{\alpha(j)j}$，并置 $Z = \{V_j \to X\}_{j \in J}$。
+最后，考虑由 $\alpha : J \to I$ 和上述态射
+$V_j = U_{\alpha(j)j} \to U_{\alpha(j)}$ 给出的态射
+$u' : Z \to K_n$。显然，这是范畴 $\text{SR}(\mathcal{C}, X)$ 中的覆盖；
+由构造，$F(u') : F(Z) \to F(K_n)$ 经由 $u$ 分解。
+故结论由上述引理 \ref{hypercovering-lemma-covering} 得出。
+\end{proof}
+
+
+\section{添加单形}
+\label{hypercovering-section-adding-simplices}
+
+\noindent
+本节证明后面将用到的一些技术性引理。设 $\mathcal{C}$ 是具有纤维积的位点，
+$X$ 是 $\mathcal{C}$ 的对象。如上述第 \ref{hypercovering-section-covering} 节所指出，
+对某些单纯集 $U$ 和 $\text{SR}(\mathcal{C}, X)$ 的任意单纯对象 $K$，
+对象 $U \times K$ 和 $\Hom(U, K)$ 都已定义。见《单纯方法》第
+\ref{simplicial-section-product-with-simplicial-sets} 节和第
+\ref{simplicial-section-hom-from-simplicial-sets} 节。
+
+\begin{lemma}
+\label{hypercovering-lemma-one-more-simplex}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖。设 $U \subset V$ 是单纯集，且对所有 $n$，
+$U_n,V_n$ 都是有限非空集。假设 $U$ 只有有限多个非退化单形。
+设 $n \geq 0$ 且 $x \in V_n$、$x \not \in U_n$，并满足
+\begin{enumerate}
+\item 对 $i < n$ 有 $V_i = U_i$；
+\item $V_n = U_n \cup \{x\}$；
+\item 对 $j > n$，任意 $z \in V_j$、$z \not \in U_j$ 都是退化的。
+\end{enumerate}
+则 $\text{SR}(\mathcal{C}, X)$ 中的态射
+$$
+\Hom(V, K)_0
+\longrightarrow
+\Hom(U, K)_0
+$$
+是覆盖。
+\end{lemma}
+
+\begin{proof}
+若 $n = 0$，则容易推出 $V = U \amalg \Delta[0]$（见下文）。
+此时 $\Hom(V, K)_0 = \Hom(U, K)_0 \times K_0$，结论由引理
+\ref{hypercovering-lemma-covering-permanence} 得出。
+
+\medskip\noindent
+设 $a : \Delta[n] \to V$ 是《单纯方法》引理
+\ref{simplicial-lemma-simplex-map} 中与 $x$ 相伴的态射。
+记 $\partial \Delta[n] = i_{(n-1)!} \text{sk}_{n - 1} \Delta[n]$
+为 $\Delta[n]$ 的 $(n - 1)$-骨架。设
+$b : \partial \Delta[n] \to U$ 是 $a$ 在 $\Delta[n]$ 的
+$(n - 1)$-骨架上的限制。由《单纯方法》引理
+\ref{simplicial-lemma-glue-simplex}，有
+$V = U \amalg_{\partial \Delta[n]} \Delta[n]$。由《单纯方法》引理
+\ref{simplicial-lemma-hom-from-coprod}，图
+$$
+\xymatrix{
+\Hom(V, K)_0 \ar[r] \ar[d] &
+\Hom(U, K)_0 \ar[d] \\
+\Hom(\Delta[n], K)_0 \ar[r] &
+\Hom(\partial \Delta[n], K)_0
+}
+$$
+是纤维积方块。因此只需证明底部水平箭头是覆盖。由《单纯方法》引理
+\ref{simplicial-lemma-cosk-shriek}，此箭头等同于
+$$
+K_n \to (\text{cosk}_{n - 1} \text{sk}_{n - 1} K)_n
+$$
+故由超覆盖的定义，它是覆盖。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-add-simplices}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖。设 $U \subset V$ 是单纯集，且对所有 $n$，
+$U_n,V_n$ 都是有限非空集。假设 $U$ 和 $V$ 都只有有限多个非退化单形。
+则 $\text{SR}(\mathcal{C}, X)$ 中的态射
+$$
+\Hom(V, K)_0
+\longrightarrow
+\Hom(U, K)_0
+$$
+是覆盖。
+\end{lemma}
+
+\begin{proof}
+由上述引理 \ref{hypercovering-lemma-one-more-simplex}，只需证明关于引理中这类单纯集
+包含 $U \subset V$ 的一个简单引理。这恰是《单纯方法》引理
+\ref{simplicial-lemma-add-simplices} 的结论。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-degeneracy-maps-coverings}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K$ 是 $X$ 的超覆盖。则
+\begin{enumerate}
+\item 对每个 $n \geq 0$，$K_n$ 是 $X$ 的覆盖；
+\item 对所有 $n \geq 1$ 和 $0 \leq i \leq n$，
+$d^n_i : K_n \to K_{n - 1}$ 是覆盖。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆，由定义 \ref{hypercovering-definition-hypercovering}，$K_0$ 是 $X$ 的覆盖；
+这等价于说 $K_0 \to \{X \to X\}$ 是定义
+\ref{hypercovering-definition-covering-SR} 意义下的覆盖。因此 (1) 由 (2) 得出，
+因为 (2) 将证明复合
+$K_n \to K_{n - 1} \to \ldots \to K_0 \to \{X \to X\}$
+由引理 \ref{hypercovering-lemma-covering-permanence} 是覆盖。
+
+\medskip\noindent
+证明 (2)。由《单纯方法》引理
+\ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}，有
+$\Mor(\Delta[n], K)_0 = K_n$。因此，把引理
+\ref{hypercovering-lemma-add-simplices} 应用于 $n + 1$ 个不同的包含
+$\Delta[n - 1] \to \Delta[n]$，便得 (2)。
+\end{proof}
+
+\begin{remark}
+\label{hypercovering-remark-P-covering}
+引理 \ref{hypercovering-lemma-add-simplices} 和
+\ref{hypercovering-lemma-degeneracy-maps-coverings} 有如下有用的特殊情形。
+设范畴 $\mathcal{C}$ 具有纤维积。设
+$P \subset \text{Arrows}(\mathcal{C})$ 在基变换和复合下稳定，
+并包含所有同构。所谓一个 {\it $P$-超覆盖}，是从
+$\mathcal{C}$ 的单纯对象出发的增广 $a : U \to X$，使得
+\begin{enumerate}
+\item $U_0 \to X$ 属于 $P$；
+\item $U_1 \to U_0 \times_X U_0$ 属于 $P$；
+\item $U_{n + 1} \to (\text{cosk}_n\text{sk}_n U)_{n + 1}$
+对 $n \geq 1$ 属于 $P$。
+\end{enumerate}
+范畴 $\mathcal{C}/X$ 具有所有有限极限，故上述表述中所用的余骨架存在
+（见《范畴论》引理 \ref{categories-lemma-finite-limits-exist}）。
+我们断言，态射 $U_n \to X$ 和 $d^n_i : U_n \to U_{n - 1}$ 都属于
+$P$。把 $\mathcal{C}$ 视为一个位点，其覆盖为满足 $f \in P$ 的
+$\{f : V \to U\}$，再取由 $K_n = \{U_n \to X\}$ 给出的 $K$，
+便可由上述引理得到此结论。
+\end{remark}
+
+
+\section{同伦}
+\label{hypercovering-section-homotopies}
+
+\noindent
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$L$ 是 $\text{SR}(\mathcal{C}, X)$ 的单纯对象。由《单纯方法》引理
+\ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}，
+范畴 $\text{Simp}(\text{SR}(\mathcal{C}, X))$ 中存在对象
+$\Hom(\Delta[1], L)$，它表示函子
+$$
+T
+\longmapsto
+\Mor_{\text{Simp}(\text{SR}(\mathcal{C}, X))}(\Delta[1] \times T, L)
+$$
+由 $e_i : \Delta[0] \to \Delta[1]$ 和等同
+$\Hom(\Delta[0], L) = L$，得到典范态射
+$$
+\Hom(\Delta[1], L) \to L \times L
+$$
+
+\begin{lemma}
+\label{hypercovering-lemma-hom-hypercovering}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$L$ 是 $\text{SR}(\mathcal{C}, X)$ 的单纯对象。设 $n \geq 0$。
+考虑由上述态射得到的交换图
+\begin{equation}
+\label{hypercovering-equation-diagram}
+\xymatrix{
+\Hom(\Delta[1], L)_{n + 1} \ar[r] \ar[d] &
+(\text{cosk}_n \text{sk}_n \Hom(\Delta[1], L))_{n + 1} \ar[d] \\
+(L \times L)_{n + 1} \ar[r] &
+(\text{cosk}_n \text{sk}_n (L \times L))_{n + 1}
+}
+\end{equation}
+此图各项可作如下等同，其中
+$\partial \Delta[n + 1] = i_{n!}\text{sk}_n \Delta[n + 1]$
+是 $(n + 1)$-单形的 $n$-骨架：
+\begin{eqnarray*}
+\Hom(\Delta[1], L)_{n + 1}
+& = &
+\Hom(\Delta[1] \times \Delta[n + 1], L)_0 \\
+(\text{cosk}_n \text{sk}_n \Hom(\Delta[1], L))_{n + 1}
+& = &
+\Hom(\Delta[1] \times \partial \Delta[n + 1], L)_0 \\
+(L \times L)_{n + 1}
+& = &
+\Hom(
+(\Delta[n + 1] \amalg \Delta[n + 1], L)_0 \\
+(\text{cosk}_n \text{sk}_n (L \times L))_{n + 1}
+& = &
+\Hom(
+\partial \Delta[n + 1]
+\amalg
+\partial \Delta[n + 1], L)_0
+\end{eqnarray*}
+而 $\text{SR}(\mathcal{C}, X)$ 中这些对象之间的态射来自单纯集交换图
+\begin{equation}
+\label{hypercovering-equation-dual-diagram}
+\xymatrix{
+\Delta[1] \times \Delta[n + 1] &
+\Delta[1] \times \partial\Delta[n + 1] \ar[l] \\
+\Delta[n + 1] \amalg \Delta[n + 1] \ar[u] &
+\partial\Delta[n + 1] \amalg \partial\Delta[n + 1]
+\ar[l] \ar[u]
+}
+\end{equation}
+此外，图 (\ref{hypercovering-equation-diagram}) 中底部箭头与右侧箭头的纤维积等于
+$$
+\Hom(U, L)_0
+$$
+其中 $U \subset \Delta[1] \times \Delta[n + 1]$ 是最小单纯子集，
+使得 $\Delta[n + 1] \amalg \Delta[n + 1]$ 和
+$\Delta[1] \times \partial\Delta[n + 1]$ 都映入其中。
+\end{lemma}
+
+\begin{proof}
+第一和第三个等式是《单纯方法》引理
+\ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}。
+第二和第四个等式由该引理与《单纯方法》引理
+\ref{simplicial-lemma-cosk-shriek} 合并得出。最后一个断言由如下事实得出：
+$U$ 是图 (\ref{hypercovering-equation-dual-diagram}) 的底部和右侧箭头的推出；
+再应用《单纯方法》引理 \ref{simplicial-lemma-hom-from-coprod}。
+要看出 $U$ 等于此推出，只需看出
+$\Delta[n + 1] \amalg \Delta[n + 1]$ 与
+$\Delta[1] \times \partial\Delta[n + 1]$ 在
+$\Delta[1] \times \Delta[n + 1]$ 中的交等于
+$\partial\Delta[n + 1] \amalg \partial\Delta[n + 1]$。
+这留给读者验证。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-homotopy}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$K,L$ 是 $X$ 的超覆盖，$a,b : K \to L$ 是超覆盖的态射。
+则存在超覆盖的态射 $c : K' \to K$，使得
+$a \circ c$ 同伦于 $b \circ c$。
+\end{lemma}
+
+\begin{proof}
+考虑交换图
+$$
+\xymatrix{
+K' \ar@{=}[r]^-{def} \ar[rd]_c &
+K \times_{(L \times L)} \Hom(\Delta[1], L)
+\ar[r] \ar[d] & \Hom(\Delta[1], L) \ar[d] \\
+& K \ar[r]^{(a, b)} & L \times L
+}
+$$
+由 $\Hom(\Delta[1], L)$ 的函子性质，水平态射的复合对应于一个态射
+$K' \times \Delta[1] \to L$；它定义 $c \circ a$ 与 $c \circ b$
+之间的同伦。因此，只要证明 $K'$ 是 $X$ 的超覆盖，就可得到引理。
+为此，把引理 \ref{hypercovering-lemma-funny-gamma} 应用于态射对
+$K \to L \times L$ 和 $\Hom(\Delta[1], L) \to L \times L$。
+引理 \ref{hypercovering-lemma-funny-gamma} 的条件 (1) 成立。引理
+\ref{hypercovering-lemma-funny-gamma} 的条件 (2) 也成立，
+因为 $\Hom(\Delta[1], L)_0 = L_1$；又因假设 $L$ 是超覆盖，态射
+$(d^1_0, d^1_1) : L_1 \to L_0 \times L_0$ 是
+$\text{SR}(\mathcal{C}, X)$ 中的覆盖。为证明引理
+\ref{hypercovering-lemma-funny-gamma} 的条件 (3)，应用上述引理
+\ref{hypercovering-lemma-hom-hypercovering}。根据该引理，引理
+\ref{hypercovering-lemma-funny-gamma} 的条件 (3) 中的态射
+$\gamma$ 是态射
+$$
+\Hom(\Delta[1] \times \Delta[n + 1], L)_0
+\longrightarrow
+\Hom(U, L)_0
+$$
+其中 $U \subset \Delta[1] \times \Delta[n + 1]$。由引理
+\ref{hypercovering-lemma-add-simplices}，这是覆盖，故断言得证。
+\end{proof}
+
+\begin{remark}
+\label{hypercovering-remark-contractible-category}
+注意，证明的关键在于应用引理 \ref{hypercovering-lemma-add-simplices}。
+这个引理完全是一般性的，并不在意单纯集的确切形状
+（只要它们仅有有限多个非退化单形）。因此完全有理由期待如下结果：
+给定任意态射 $a : K \times \partial \Delta[k] \to L$，其中 $K,L$
+是超覆盖，则存在超覆盖的态射 $c : K' \to K$ 和态射
+$g : K' \times \Delta[k] \to L$，使得
+$g|_{K' \times \partial \Delta[k]} =
+a \circ (c \times \text{id}_{\partial \Delta[k]})$.
+换言之，超覆盖的范畴在适当意义下是可缩的。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{上同调与超覆盖}
+\label{hypercovering-section-cohomology}
+
+\noindent
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔群层，$K,L$ 是 $X$ 的超覆盖。
+若 $a,b : K \to L$ 是同伦映射，则
+$\mathcal{F}(a), \mathcal{F}(b) : \mathcal{F}(K) \to \mathcal{F}(L)$
+也是同伦映射，见《单纯方法》引理
+\ref{simplicial-lemma-functorial-homotopy}。因此，它们在相伴上链复形的
+上同调群上产生相同作用，见《单纯方法》引理
+\ref{simplicial-lemma-homotopy-s-Q}。我们将用这一点定义遍历所有超覆盖的余极限。
+
+\medskip\noindent
+暂记 $\text{HC}(\mathcal{C}, X)$ 为如下范畴：其对象是 $X$ 的超覆盖，
+其态射是 $X$ 的超覆盖之间的映射的同伦类。我们已经看到这是一个范畴，
+而且不是“大”范畴，见引理 \ref{hypercovering-lemma-hypercoverings-set}。
+$\text{HC}(\mathcal{C}, X)$ 的反范畴将作为下图的指标范畴；术语见
+《范畴论》第 \ref{categories-section-limits} 节。考虑图
+$$
+\check{H}^i(-, \mathcal{F}) :
+\text{HC}(\mathcal{C}, X)^{opp}
+\longrightarrow
+\textit{Ab}.
+$$
+由引理 \ref{hypercovering-lemma-product-hypercoverings}、\ref{hypercovering-lemma-homotopy}
+以及上述关于同伦的说明，此图是有向的，见《范畴论》定义
+\ref{categories-definition-directed}。因此余极限
+$$
+\check{H}^i_{\text{HC}}(X, \mathcal{F}) =
+\colim_{K \in \text{HC}(\mathcal{C}, X)} \check{H}^i(K, \mathcal{F})
+$$
+有特别简单的描述（见所引位置）。
+
+\begin{theorem}
+\label{hypercovering-theorem-cohomology-hypercoverings}
+设 $\mathcal{C}$ 是具有纤维积的位点，$X$ 是 $\mathcal{C}$ 的对象，
+$i \geq 0$。函子
+\begin{eqnarray*}
+\textit{Ab}(\mathcal{C}) & \longrightarrow & \textit{Ab} \\
+\mathcal{F} & \longmapsto & H^i(X, \mathcal{F}) \\
+\mathcal{F} & \longmapsto & \check{H}^i_{\text{HC}}(X, \mathcal{F})
+\end{eqnarray*}
+典范同构。
+\end{theorem}
+
+\begin{proof}[使用谱序列的证明]
+设对某个 $p \geq 0$ 有 $\xi \in H^p(X, \mathcal{F})$。
+我们证明：对 $X$ 的某个超覆盖 $K$，$\xi$ 位于引理
+\ref{hypercovering-lemma-cech-spectral-sequence} 的映射
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ 的像中。
+
+\medskip\noindent
+若 $p = 0$，这由引理 \ref{hypercovering-lemma-h0-cech} 成立。若 $p = 1$，
+选取例 \ref{hypercovering-example-cech} 中 $X$ 的 {\v C}ech 超覆盖 $K$，
+从位点 $\mathcal{C}$ 中满足 $\xi|_{U_i} = 0$ 的覆盖
+$K_0 = \{U_i \to X\}$ 开始；见《位点上的上同调》引理
+\ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}。
+此时立即由引理 \ref{hypercovering-lemma-cech-spectral-sequence} 的谱序列得出，
+$\xi$ 来自 $\check{H}^1(K, \mathcal{F})$ 的一个元素。
+一般地，选取 $X$ 的任意超覆盖 $K$，使得 $\xi$ 在
+$\underline{H}^p(\mathcal{F})(K_0)$ 中的像为零（再次使用例
+\ref{hypercovering-example-cech} 和《位点上的上同调》引理
+\ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}）。
+由引理 \ref{hypercovering-lemma-cech-spectral-sequence} 的谱序列，$\xi$ 来自
+$\check{H}^p(K, \mathcal{F})$ 的一个元素的障碍，是一列元素
+$\xi_1, \ldots, \xi_{p - 1}$，其中
+$\xi_q \in \check{H}^{p - q}(K, \underline{H}^q(\mathcal{F}))$
+（更精确地说，是 $\xi_q$ 在这些群的某些子商中的像）。
+
+\medskip\noindent
+可以归纳地用细化替换超覆盖 $K$，使障碍
+$\xi_1, \ldots, \xi_{p - 1}$ 的限制为零（而不仅是其在子商中的像为零，
+故此处没有微妙之处）。事实上，假设已经达到
+$\xi_{q + 1}, \ldots, \xi_{p - 1}$ 都为零的情形。注意，
+$\xi_q \in \check{H}^{p - q}(K, \underline{H}^q(\mathcal{F}))$
+是某个元素
+$$
+\tilde \xi_q \in
+\underline{H}^q(\mathcal{F})(K_{p - q}) =
+\prod H^q(U_i, \mathcal{F})
+$$
+的类，其中 $K_{p - q} = \{U_i \to X\}_{i \in I}$。设
+$\xi_{q, i}$ 为 $\tilde \xi_q$ 在 $H^q(U_i, \mathcal{F})$ 中的分量。
+由于 $q \geq 1$，可再次应用《位点上的上同调》引理
+\ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}，
+选取位点的覆盖 $\{U_{i, j} \to U_i\}$，使每个限制
+$\xi_{q, i}|_{U_{i, j}} = 0$。考虑范畴
+$\text{SR}(\mathcal{C}, X)$ 的对象 $Z = \{U_{i, j} \to X\}$ 及其显然态射
+$u : Z \to K_{p - q}$。显然 $u$ 是覆盖，见定义
+\ref{hypercovering-definition-covering-SR}。由引理 \ref{hypercovering-lemma-covering}，存在 $X$
+的超覆盖的态射 $L \to K$，使 $L_{p - q} \to K_{p - q}$ 经由 $u$
+分解。于是显然，$\xi_q$ 在
+$\underline{H}^q(\mathcal{F})(L_{p - q})$ 中的像为零。
+由于引理 \ref{hypercovering-lemma-cech-spectral-sequence} 的谱序列是函子性的，
+用 $L$ 替换 $K$ 后便达到 $\xi_q, \ldots, \xi_{p - 1}$ 均为零的情形。
+如此继续，最终得到一个使它们全为零的超覆盖，因而 $\xi$ 位于映射
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ 的像中。
+
+\medskip\noindent
+设 $K$ 是 $X$ 的超覆盖，$\xi \in \check{H}^p(K, \mathcal{F})$，
+且 $\xi$ 在引理 \ref{hypercovering-lemma-cech-spectral-sequence} 的映射
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ 下的像为零。
+为完成定理证明，需说明存在超覆盖的态射 $L \to K$，使 $\xi$
+在 $\check{H}^p(L, \mathcal{F})$ 中的限制为零。由引理
+\ref{hypercovering-lemma-cech-spectral-sequence} 的谱序列，$\xi$ 在
+$H^p(X, \mathcal{F})$ 中的像消失，意味着存在元素
+$\xi_1, \ldots, \xi_{p - 2}$，其中
+$\xi_q \in \check{H}^{p - 1 - q}(K, \underline{H}^q(\mathcal{F}))$
+（更精确地说，是它们在某些子商中的像），使得谱序列中的像
+$d_{q + 1}^{p - 1 - q, q}\xi_q$ 之和为 $\xi$。因此，完全按照上述机制，
+可以找到超覆盖的态射 $L \to K$，使元素
+$\xi_q$（$q = 1, \ldots, p - 2$）在
+$\check{H}^{p - 1 - q}(L, \underline{H}^q(\mathcal{F}))$ 中的限制为零。
+于是，由于态射 $L \to K$ 依照引理
+\ref{hypercovering-lemma-cech-spectral-sequence} 诱导谱序列的态射，可得 $\xi$ 为零。
+\end{proof}
+
+\begin{proof}[不使用谱序列的证明]
+我们已经看到 $i = 0$ 时的结论，见引理 \ref{hypercovering-lemma-h0-cech}。
+已知函子 $H^i(X, -)$ 构成泛 $\delta$-函子，见《导出范畴》引理
+\ref{derived-lemma-higher-derived-functors}。为证明定理，只需说明函子列
+$\check{H}^i_{HC}(X, -)$ 构成 $\delta$-函子。事实上，已知
+{\v C}ech 上同调在内射层上为零（引理
+\ref{hypercovering-lemma-injective-trivial-cech}），于是可以应用《同调代数》引理
+\ref{homology-lemma-efface-implies-universal}。
+
+\medskip\noindent
+设
+$$
+0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0
+$$
+是 $\mathcal{C}$ 上阿贝尔层的短正合列。设
+$\xi \in \check{H}^p_{HC}(X, \mathcal{H})$。选取 $X$ 的超覆盖 $K$
+以及在上同调中代表 $\xi$ 的元素 $\sigma \in \mathcal{H}(K_p)$。
+存在相应的复形正合列
+$$
+0 \to s(\mathcal{F}(K)) \to s(\mathcal{G}(K)) \to s(\mathcal{H}(K))
+$$
+但不能保证右端也有一个零；这正是妨碍我们直接应用蛇引理定义
+$\delta(\xi)$ 的唯一因素。回忆，若 $K_p = \{U_i \to X\}$，则
+$$
+\mathcal{H}(K_p) = \prod \mathcal{H}(U_i)
+$$
+写 $\sigma =\prod \sigma_i$，其中 $\sigma_i \in \mathcal{H}(U_i)$。
+由于 $\mathcal{G} \to \mathcal{H}$ 是层的满射，存在覆盖
+$\{U_{i, j} \to U_i\}$，使 $\sigma_i|_{U_{i, j}}$ 是某个元素
+$\tau_{i, j} \in \mathcal{G}(U_{i, j})$ 的像。考虑范畴
+$\text{SR}(\mathcal{C}, X)$ 的对象 $Z = \{U_{i, j} \to X\}$ 及其显然态射
+$u : Z \to K_p$。显然 $u$ 是覆盖，见定义
+\ref{hypercovering-definition-covering-SR}。由引理 \ref{hypercovering-lemma-covering}，存在 $X$
+的超覆盖的态射 $L \to K$，使 $L_p \to K_p$ 经由 $u$ 分解。
+因此用 $L$ 替换 $K$ 后，可以假设 $\sigma$ 是某个元素
+$\tau \in \mathcal{G}(K_p)$ 的像。注意 $d(\sigma) = 0$，
+但不一定有 $d(\tau) = 0$。因而
+$d(\tau) \in \mathcal{F}(K_{p + 1})$ 是闭链。在此情形下，定义
+$\delta(\xi)$ 为闭链 $d(\tau)$ 在
+$\check{H}^{p + 1}_{HC}(X, \mathcal{F})$ 中的类。
+
+\medskip\noindent
+此时有几件事需要验证：(a) $\delta(\xi)$ 不依赖于 $\tau$ 的选择；
+(b) $\delta(\xi)$ 不依赖于使 $\sigma$ 可提升的超覆盖 $L \to K$
+的选择；(c) $\delta(\xi)$ 不依赖于起初为表示 $\xi$ 所选的超覆盖和
+$\sigma$。我们略去 (a)、(b)、(c) 的验证；其中对超覆盖选择的独立性，
+实质上归结为引理 \ref{hypercovering-lemma-product-hypercoverings} 和
+\ref{hypercovering-lemma-homotopy}。我们还略去验证 $\delta$ 关于 $\mathcal{C}$ 上
+阿贝尔层短正合列之间的态射具有函子性。
+
+\medskip\noindent
+最后，必须验证在这个 $\delta$ 的定义下，上述阿贝尔层短正合列给出
+{\v C}ech 上同调群的长正合列。先证明：若
+$\delta(\xi) = 0$（$\xi$ 如上），则 $\xi$ 是某个元素
+$\xi' \in \check{H}^p_{HC}(X, \mathcal{G})$ 的像。事实上，若
+$\delta(\xi) = 0$，则沿用上述记号，$d(\tau)$ 的类在
+$\check{H}^{p + 1}_{HC}(X, \mathcal{F})$ 中为零。因此存在超覆盖的态射
+$L \to K$，使 $d(\tau)$ 限制所得的 $\mathcal{F}(L_{p + 1})$ 中的元素，
+等于某个 $\upsilon \in \mathcal{F}(L_p)$ 的 $d(\upsilon)$。
+这蕴含 $\tau|_{L_p} + \upsilon$ 构成闭链，并确定一个类
+$\xi' \in \check{H}^p(L, \mathcal{G})$，它按要求映到 $\xi$。
+
+\medskip\noindent
+我们略去以下断言的证明：若
+$\xi' \in \check{H}^{p + 1}_{HC}(X, \mathcal{F})$ 在
+$\check{H}^{p + 1}_{HC}(X, \mathcal{G})$ 中映为零，则对某个
+$\xi \in \check{H}^p_{HC}(X, \mathcal{H})$ 有
+$\xi' = \delta(\xi)$。
+\end{proof}
+
+\noindent
+下面用一个巧妙手法推出定理 \ref{hypercovering-theorem-cohomology-hypercoverings}
+的 Verdier 情形。
+
+\begin{proposition}
+\label{hypercovering-proposition-cohomology-hypercoverings}
+设 $\mathcal{C}$ 是具有纤维积和二元积的位点，
+$\mathcal{F}$ 是 $\mathcal{C}$ 上的阿贝尔层，$i \geq 0$。则
+\begin{enumerate}
+\item 对每个 $\xi \in H^i(\mathcal{F})$，存在超覆盖 $K$，使 $\xi$
+属于典范映射 $\check{H}^i(K, \mathcal{F}) \to H^i(\mathcal{F})$ 的像；
+\item 若 $K,L$ 是超覆盖，且
+$\xi_K \in \check{H}^i(K, \mathcal{F})$、
+$\xi_L \in \check{H}^i(L, \mathcal{F})$ 映到
+$H^i(\mathcal{F})$ 的同一元素，则存在超覆盖 $M$ 以及态射
+$M \to K$ 和 $M \to L$，使 $\xi_K$ 与 $\xi_L$ 映到
+$\check{H}^i(M, \mathcal{F})$ 的同一元素。
+\end{enumerate}
+换言之，忽略集合论问题，$\mathcal{F}$ 在 $\mathcal{C}$ 上的上同调群，
+是 $\mathcal{F}$ 遍历所有超覆盖的 {\v C}ech 上同调群的余极限。
+\end{proposition}
+
+\begin{proof}
+此结果是定理 \ref{hypercovering-theorem-cohomology-hypercoverings} 的直接推论。
+事实上，可以人为地用一个稍大的位点 $\mathcal{C}'$ 替换
+$\mathcal{C}$，使得 (I) $\mathcal{C}'$ 有终对象 $X$；(II)
+$\mathcal{C}$ 中的超覆盖与 $\mathcal{C}'$ 中 $X$ 的超覆盖大致相同。
+但由于问题本身的性质，需要处理相当多的记账细节。
+
+\medskip\noindent
+若 $\mathcal{C}$ 中具有固定靶的态射族 $\{U_i \to U\}$ 所对应的映射
+$\coprod_{i \in I} h_{U_i} \to h_U$ 在层化后成为满射，则称它为
+{\it 弱覆盖}。如下构造新位点 $\mathcal{C}'$：
+\begin{enumerate}
+\item 作为范畴，置
+$\Ob(\mathcal{C}') = \Ob(\mathcal{C}) \amalg \{X\}$，
+并从 $\mathcal{C}'$ 的每个对象向 $X$ 添加唯一态射；
+\item 当 $\mathcal{C}$ 中存在纤维积和二元积时，
+$\mathcal{C}'$ 具有相应的纤维积；
+\item $\mathcal{C}'$ 的覆盖包括 $\mathcal{C}$ 的弱覆盖，以及满足如下条件的
+$\{U_i \to X\}_{i \in I}$：或者某个 $i$ 有 $U_i = X$；或者对所有
+$i$ 都有 $U_i \not = X$，且 $\mathcal{C}$ 上预层的映射
+$\coprod h_{U_i} \to *$ 在 $\mathcal{C}$ 上层化后成为满射；
+\item 应用《集合论》引理 \ref{sets-lemma-coverings-site} 限制覆盖，
+从而得到位点 $\mathcal{C}'$。
+\end{enumerate}
+于是 $\Sh(\mathcal{C}') = \Sh(\mathcal{C})$，因为包含函子
+$\mathcal{C} \to \mathcal{C}'$ 是特殊余连续函子
+（见《位点与层》定义 \ref{sites-definition-special-cocontinuous-functor}）。
+直接的验证从略。
+
+\medskip\noindent
+选取 $\mathcal{C}'$ 的覆盖 $\{U_i \to X\}$，使对所有 $i$，$U_i$ 都是
+$\mathcal{C}$ 的对象（这是可能的，因为
+$\mathcal{C} \to \mathcal{C}'$ 特殊余连续）。于是
+$K_0 = \{U_i \to X\}$ 是上述位点 $\mathcal{C}'$ 中的覆盖。
+把 $K_0$ 看成 $\text{SR}(\mathcal{C}', X)$ 的对象，并置
+$K_{init} = \text{cosk}_0(K_0)$。于是 $K_{init}$ 是 $X$ 的超覆盖，
+见例 \ref{hypercovering-example-cech}。注意，每个 $K_{init, n}$ 都具有
+$\{W_j \to X\}$ 的形状，其中 $W_j \in \Ob(\mathcal{C})$。
+
+\medskip\noindent
+证明 (1)。选取
+$\xi \in H^i(\mathcal{F}) = H^i(X, \mathcal{F}')$，其中
+$\mathcal{F}'$ 是 $\mathcal{C}'$ 上与 $\mathcal{C}$ 上的
+$\mathcal{F}$ 对应的阿贝尔层。由定理
+\ref{hypercovering-theorem-cohomology-hypercoverings}，存在 $\mathcal{C}'$ 中 $X$
+的超覆盖的态射 $K' \to K_{init}$，使 $\xi$ 来自
+$\check{H}^i(K', \mathcal{F})$ 的一个元素。写
+$K'_n = \{U_{n, j} \to X\}$。由于 $K'_n$ 映到
+$K_{init, n}$，可见 $U_{n, j}$ 是 $\mathcal{C}$ 的对象。因此置
+$K_n = \{U_{n, j}\}$，便可定义 $\text{SR}(\mathcal{C})$ 的单纯对象
+$K$。由于 $\mathcal{C}'$ 中由 $\mathcal{C}$ 的态射族构成的覆盖，
+是弱覆盖，可见 $K$ 是定义 \ref{hypercovering-definition-hypercovering-variant}
+意义下的超覆盖。最后，由于 $\mathcal{F}'$ 是 $\mathcal{C}'$ 上
+限制到 $\mathcal{C}$ 等于 $\mathcal{F}$ 的唯一层，{\v C}ech 复形
+$s(\mathcal{F}(K))$ 与 $s(\mathcal{F}'(K'))$ 相同，于是 (1) 成立。
+（略去与到上同调群的映射之相容性的验证。）
+
+\medskip\noindent
+证明 (2)。设 $K,L$ 是 $\mathcal{C}$ 中的超覆盖。令 $K',L'$ 为通过函子
+$\text{SR}(\mathcal{C}) \to \text{SR}(\mathcal{C}', X)$,
+$\{U_i\} \mapsto \{U_i \to X\}$ 由 $K,L$ 得到的
+$\text{SR}(\mathcal{C}', X)$ 的单纯对象。与前面一样，{\v C}ech 复形相等，
+于是得到 $\xi_{K'}$ 和 $\xi_{L'}$，它们映到 $\mathcal{C}'$ 上
+$\mathcal{F}'$ 的同一上同调类。由于集合论问题，必要时扩大
+$\mathcal{C}'$ 中覆盖的选择后，可以假设 $K',L'$ 是
+$\mathcal{C}'$ 中 $X$ 的超覆盖；这由定义
+\ref{hypercovering-definition-hypercovering-variant} 中的超覆盖定义，以及
+$\mathcal{C}$ 中的弱覆盖给出 $\mathcal{C}'$ 中的覆盖这一事实成立。
+由定理 \ref{hypercovering-theorem-cohomology-hypercoverings}，存在
+$\mathcal{C}'$ 中 $X$ 的超覆盖 $M'$ 以及态射
+$M' \to K'$、$M' \to L'$ 和 $M' \to K_{init}$，使
+$\xi_{K'}$ 与 $\xi_{L'}$ 限制到
+$\check{H}^i(M', \mathcal{F})$ 的同一元素。像上面一样展开此陈述，
+便得 (2)。
+\end{proof}
+
+
+
+
+
+\section{空间的超覆盖}
+\label{hypercovering-section-hypercoverings-spaces}
+
+\noindent
+即使对拓扑空间，上述理论也颇有趣。在这种情形下，可以具体写出超覆盖，
+并看清结果实际表达的内容。
+
+\medskip\noindent
+设 $X$ 是拓扑空间。考虑《位点与层》例
+\ref{sites-example-site-topological} 中的位点 $X_{Zar}$。
+回忆，$X_{Zar}$ 的对象就是 $X$ 的开集，而 $X_{Zar}$ 的态射就是包含。
+那么，位点 $X_{Zar}$ 上 $X$ 的超覆盖是什么？
+
+\medskip\noindent
+先展开定义 \ref{hypercovering-definition-SR}。$\text{SR}(X_{Zar}, X)$ 的一个对象，
+就是一个集合 $I$ 以及对每个 $i \in I$ 给定的开集 $U_i \subset X$。
+由于态射 $U_i \to X$ 不会混淆，把它记为 $\{U_i\}_{i \in I}$。
+两个这样的对象之间的态射
+$\{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$，由集合映射
+$\alpha : I \to J$ 给出，并满足对所有 $i \in I$ 有
+$U_i \subset V_{\alpha(i)}$。这样的态射何时是覆盖？当且仅当对每个
+$j \in J$ 都有
+$V_j = \bigcup_{i\in I, \ \alpha(i) = j} U_i$（并且这是位点
+$X_{Zar}$ 中的覆盖）。
+
+\medskip\noindent
+由以上内容得到位点 $X_{Zar}$ 中超覆盖的如下描述。
+$X_{Zar}$ 中 $X$ 的一个超覆盖由以下数据给出：
+\begin{enumerate}
+\item 一个单纯集 $I$（见《单纯方法》第
+\ref{simplicial-section-simplicial-set} 节）；
+\item 对每个 $n \geq 0$ 和每个 $i \in I_n$，一个开集 $U_i \subset X$。
+\end{enumerate}
+用 $(I, \{U_i\})$ 表示这样一组数据。为使它成为 $X$ 的超覆盖，
+要求满足以下性质：
+\begin{itemize}
+\item 对 $i \in I_n$ 和 $0 \leq a \leq n$，有
+$U_i \subset U_{d^n_a(i)}$；
+\item 对 $i \in I_n$ 和 $0 \leq a \leq n$，有
+$U_i = U_{s^n_a(i)}$；
+\item 有
+\begin{equation}
+\label{hypercovering-equation-covering-X}
+X = \bigcup\nolimits_{i \in I_0} U_i,
+\end{equation}
+\item 对每个 $i_0, i_1 \in I_0$，有
+\begin{equation}
+\label{hypercovering-equation-covering-two}
+U_{i_0} \cap U_{i_1} =
+\bigcup\nolimits_{i \in I_1, \ d^1_0(i) = i_0, \ d^1_1(i) = i_1} U_i,
+\end{equation}
+\item 对每个 $n \geq 1$ 以及每个满足
+$d^n_{b - 1}(i_a) = d^n_a(i_b)$（$0\leq a < b\leq n + 1$）的
+$(i_0, \ldots, i_{n + 1}) \in (I_n)^{n + 2}$，有
+\begin{equation}
+\label{hypercovering-equation-covering-general}
+U_{i_0} \cap \ldots \cap U_{i_{n + 1}} =
+\bigcup\nolimits_{i \in I_{n + 1},
+\ d^{n + 1}_a(i) = i_a, \ a = 0, \ldots, n + 1} U_i,
+\end{equation}
+\item 开覆盖 (\ref{hypercovering-equation-covering-X})、
+(\ref{hypercovering-equation-covering-two}) 和 (\ref{hypercovering-equation-covering-general})
+都属于 $\text{Cov}(X_{Zar})$（这是一个集合论条件，用来限制覆盖的指标集大小）。
+\end{itemize}
+例如，条件 (\ref{hypercovering-equation-covering-X}) 和
+(\ref{hypercovering-equation-covering-two}) 应当可从《空间上的层》一章中认出，
+而条件 (\ref{hypercovering-equation-covering-general}) 是其自然推广。
+
+\begin{remark}
+\label{hypercovering-remark-not-covering-set}
+这个描述的一个特点是：若某个多重交
+$U_{i_0} \cap \ldots \cap U_{i_{n + 1}}$ 为空，则右侧的覆盖可以是空覆盖。
+因此，映射 $I_{n + 1} \to (\text{cosk}_n\text{sk}_n I)_{n + 1}$
+不一定自动为满射。这意味着 $I$ 的几何实现可能是一个有趣的
+（非可缩）空间。
+
+\medskip\noindent
+事实上，令 $I'_n \subset I_n$ 为由满足 $U_i \not = \emptyset$ 的单形
+$i \in I_n$ 组成的子集。容易看出 $I' \subset I$ 是单纯子集，
+且 $(I', \{U_i\})$ 是超覆盖。因此总能把一个超覆盖细化为所有开集
+$U_i$ 都非空的超覆盖。
+\end{remark}
+
+\begin{remark}
+\label{hypercovering-remark-repackage-into-simplicial-space}
+再用另一种方式重新组织这些信息。设 $(I, \{U_i\})$ 是拓扑空间
+$X$ 的超覆盖。由这些数据，置
+$$
+U_n = \coprod\nolimits_{i \in I_n} U_i,
+$$
+可构造单纯拓扑空间 $U_\bullet$；对给定的
+$\varphi : [n] \to [m]$，令态射 $U(\varphi) : U_n \to U_m$
+为来自各个 $i \in I_n$ 所对应包含 $U_i \subset U_{\varphi(i)}$ 的态射。
+这个单纯拓扑空间带有增广 $\epsilon : U_\bullet \to X$。
+凭借此态射，单纯空间 $U_\bullet$ 成为 $X$ 的超覆盖；沿此超覆盖，
+存在 \cite[Expos\'e Vbis]{SGA4} 意义下的上同调下降。换言之，
+$H^n(U_\bullet, \epsilon^*\mathcal{F}) = H^n(X, \mathcal{F})$。
+（此处以后插入关于单纯空间上的上同调，以及用这种语言表述的上同调下降的参考。）
+设 $\mathcal{F}$ 是 $X$ 上的阿贝尔层。此时，引理
+\ref{hypercovering-lemma-cech-spectral-sequence} 的谱序列成为具有如下 $E_1$-项的谱序列：
+$$
+E_1^{p, q} = H^q(U_p, \epsilon_q^*\mathcal{F})
+\Rightarrow
+H^{p + q}(U_\bullet, \epsilon^*\mathcal{F}) = H^{p + q}(X, \mathcal{F})
+$$
+它把 $\epsilon^*\mathcal{F}$ 的全上同调与 $\mathcal{F}$ 在
+$U_\bullet$ 各片上的上同调群作比较。（此处以后插入关于此谱序列的参考。）
+\end{remark}
+
+\noindent
+在拓扑学中，我们常希望找到 $X$ 的超覆盖，使所有 $U_i$ 都来自
+$X$ 的一个给定拓扑基，而且所有覆盖 (\ref{hypercovering-equation-covering-two})
+和 (\ref{hypercovering-equation-covering-general}) 都来自一个给定的共终覆盖族。
+下面给出两个示例性引理。
+
+\begin{lemma}
+\label{hypercovering-lemma-basis-hypercovering}
+设 $X$ 是拓扑空间，$\mathcal{B}$ 是 $X$ 的拓扑基。
+则存在 $X$ 的超覆盖 $(I, \{U_i\})$，使每个 $U_i$ 都属于
+$\mathcal{B}$。
+\end{lemma}
+
+\begin{proof}
+设 $n \geq 0$。所谓 $X$ 的一个{\it $n$-截断超覆盖}，是由一个
+$n$-截断单纯集 $I$，以及对每个 $i \in I_a$、$0 \leq a \leq n$
+给定的 $X$ 的开集 $U_i$ 所组成，并要求定义超覆盖的条件凡有意义时都成立。
+换言之，只有当其中出现的所有单形都是满足 $a \leq n$ 的
+$a$-单形时，才要求相应的包含关系和覆盖条件。若能证明：给定所有
+$U_i \in \mathcal{B}$ 的 $n$-截断超覆盖 $(I, \{U_i\})$，可以在不添加
+任何 $a \leq n$ 的 $a$-单形的情况下，把它扩张为
+$(n + 1)$-截断超覆盖，那么引理即得证。具体如下。先考虑由
+$I' = \text{sk}_{n + 1}(\text{cosk}_n I)$.
+定义的 $(n + 1)$-截断单纯集 $I'$。回忆，
+$$
+I'_{n + 1} =
+\left\{
+\begin{matrix}
+(i_0, \ldots, i_{n + 1}) \in (I_n)^{n + 2} \text{，使得}\\
+d^n_{b - 1}(i_a) = d^n_a(i_b) \text{ 对所有 }0\leq a < b\leq n + 1
+\end{matrix}
+\right\}
+$$
+若 $i' \in I'_{n + 1}$ 是退化的，比如 $i' = s^n_a(i)$，则置
+$U_{i'} = U_i$（无论如何，第二个条件已迫使我们这样做）。
+此时还置 $J_{i'} = \{i'\}$。若 $i' \in I'_{n + 1}$ 是非退化的，
+比如 $i' = (i_0, \ldots, i_{n + 1})$，则选取集合 $J_{i'}$
+和开覆盖
+\begin{equation}
+\label{hypercovering-equation-choose-covering}
+U_{i_0} \cap \ldots \cap U_{i_{n + 1}} =
+\bigcup\nolimits_{i \in J_{i'}} U_i,
+\end{equation}
+其中对 $i \in J_{i'}$ 有 $U_i \in \mathcal{B}$。置
+$$
+I_{n + 1} = \coprod\nolimits_{i' \in I'_{n + 1}} J_{i'}
+$$
+存在典范映射 $\pi : I_{n + 1} \to I'_{n + 1}$；由构造，它在
+$I'_{n + 1}$ 的退化单形集合上是双射。对 $i \in I_{n + 1}$，定义
+$d^{n + 1}_a(i) = d^{n + 1}_a(\pi(i))$。对 $i \in I_n$，把
+$s^n_a(i) \in I_{n + 1}$ 定义为位于退化单形
+$s^n_a(i) \in I'_{n + 1}$ 上方的唯一单形。略去验证这定义了
+$X$ 的一个 $(n + 1)$-截断超覆盖。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-quasi-separated-quasi-compact-hypercovering}
+设 $X$ 是拓扑空间，$\mathcal{B}$ 是 $X$ 的拓扑基。假设
+\begin{enumerate}
+\item $X$ 是拟紧的；
+\item 每个 $U \in \mathcal{B}$ 都是拟紧开集；
+\item $X$ 中任意两个拟紧开集的交仍拟紧。
+\end{enumerate}
+则存在 $X$ 的超覆盖 $(I, \{U_i\})$，具有以下性质：
+\begin{enumerate}
+\item 每个 $U_i$ 都属于基 $\mathcal{B}$；
+\item 每个 $I_n$ 都是有限集；特别地，
+\item 覆盖 (\ref{hypercovering-equation-covering-X})、
+(\ref{hypercovering-equation-covering-two}) 和 (\ref{hypercovering-equation-covering-general})
+都是有限的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在引理 \ref{hypercovering-lemma-basis-hypercovering} 证明的构造中，若在
+(\ref{hypercovering-equation-choose-covering}) 处选取由 $\mathcal{B}$ 中元素组成的
+有限覆盖，便直接得到结论。细节从略。
+\end{proof}
+
+
+
+
+
+
+
+\section{构造超覆盖}
+\label{hypercovering-section-hypercovering-sites}
+
+\noindent
+设 $\mathcal{C}$ 是位点。本节按如下方式看待
+$\text{SR}(\mathcal{C})$ 的单纯对象。照例置 $K_n = K([n])$，
+并用 $K(\varphi) : K_n \to K_m$ 表示与
+$\varphi : [m] \to [n]$ 相伴的态射。可以写
+$K_n = \{U_{n, i}\}_{i \in I_n}$。对
+$\varphi : [m] \to [n]$，态射 $K(\varphi) : K_n \to K_m$
+由映射 $\alpha(\varphi) : I_n \to I_m$ 以及对 $i \in I_n$ 的态射
+$f_{\varphi, i} : U_{n, i} \to U_{m, \alpha(\varphi)(i)}$ 给出。
+$K$ 是 $\text{SR}(\mathcal{C})$ 的单纯对象这一事实蕴含
+$(I_n, \alpha(\varphi))$ 是单纯集，而且当
+$\psi : [l] \to [m]$ 时，
+$f_{\psi, \alpha(\varphi)(i)} \circ f_{\varphi, i} =
+f_{\varphi \circ \psi, i}$。
+
+\begin{lemma}
+\label{hypercovering-lemma-split}
+设 $\mathcal{C}$ 是位点，$K$ 是 $\text{SR}(\mathcal{C})$ 的
+$r$-截断单纯对象。以下条件等价：
+\begin{enumerate}
+\item $K$ 是分裂的（《单纯方法》定义
+\ref{simplicial-definition-split}）；
+\item $f_{\varphi, i} : U_{n, i} \to U_{m, \alpha(\varphi)(i)}$
+对 $r \geq n \geq 0$、满射 $\varphi : [m] \to [n]$ 和
+$i \in I_n$ 是同构；
+\item $f_{\sigma^n_j, i} : U_{n, i} \to U_{n + 1, \alpha(\sigma^n_j)(i)}$
+对 $0 \leq j \leq n < r$ 和 $i \in I_n$ 是同构。
+\end{enumerate}
+对单纯对象也有同样结论，只需在 (2) 和 (3) 中置 $r = \infty$。
+\end{lemma}
+
+\begin{proof}
+单纯集的分裂是唯一的，并由各次数 $n$ 中的非退化指标
+$N(I_n)$ 给出，见《单纯方法》引理
+\ref{simplicial-lemma-splitting-simplicial-sets}。
+$\text{SR}(\mathcal{C})$ 的两个对象
+$\{U_i\}_{i \in I}$ 和 $\{U_j\}_{j \in J}$ 的余积，按显然记号由
+$\{U_l\}_{l \in I \amalg J}$ 给出。因此 $K$ 的分裂必由
+$N(K_n) = \{U_i\}_{i \in N(I_n)}$ 给出。展开定义便得到 (1) 与 (2)
+的等价性。任意满射 $\varphi : [m] \to [n]$ 都是态射
+$\sigma^k_j$（$k = n, n + 1, \ldots, m - 1$）的复合，故 (2) 与 (3)
+等价。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercovering-object}
+设 $\mathcal{C}$ 是具有纤维积的位点，
+$\mathcal{B} \subset \Ob(\mathcal{C})$ 是子集。假设
+\begin{enumerate}
+\item $\mathcal{C}$ 的任意对象 $U$ 都有一个满足
+$U_j \in \mathcal{B}$ 的覆盖 $\{U_j \to U\}_{j \in J}$；
+\item 若 $\{U_j \to U\}_{j \in J}$ 是满足
+$U_j \in \mathcal{B}$ 的覆盖，且 $\{U' \to U\}$ 是满足
+$U' \in \mathcal{B}$ 的态射，则
+$\{U_j \to U\}_{j \in J} \amalg \{U' \to U\}$ 是覆盖。
+\end{enumerate}
+则对 $\mathcal{C}$ 中的任意 $X$，存在 $X$ 的超覆盖 $K$，使得
+$K_n = \{U_{n, i}\}_{i \in I_n}$，并且对所有 $i \in I_n$ 都有
+$U_{n, i} \in \mathcal{B}$。
+\end{lemma}
+
+\begin{proof}
+引理 \ref{hypercovering-lemma-basis-hypercovering} 的证明是本证明的预备练习；
+建议读者先阅读那个证明。
+
+\medskip\noindent
+先用位点 $\mathcal{C}/X$ 替换 $\mathcal{C}$。这样做以后，可以假设
+$X$ 是 $\mathcal{C}$ 的终对象，并且 $\mathcal{C}$ 具有所有有限极限
+（《范畴论》引理 \ref{categories-lemma-finite-limits-exist}）。
+
+\medskip\noindent
+设 $n \geq 0$。所谓 $X$ 的一个
+{\it $n$-截断 $\mathcal{B}$-超覆盖}，是
+$\text{SR}(\mathcal{C})$ 的一个 $n$-截断单纯对象 $K$，满足：
+对 $i \in I_a$、$0 \leq a \leq n$ 有
+$U_{a, i} \in \mathcal{B}$；$K_0$ 是 $X$ 的覆盖；且
+$K_{a + 1} \to (\text{cosk}_a \text{sk}_a K)_{a + 1}$
+对 $a = 0, \ldots, n - 1$ 是定义
+\ref{hypercovering-definition-covering-SR} 意义下的覆盖。
+
+\medskip\noindent
+由假设，$X$ 有一个满足 $U_i \in \mathcal{B}$ 的覆盖
+$\{U_{0, i} \to X\}_{i \in I_0}$，故得到 $X$ 的一个
+$0$-截断 $\mathcal{B}$-超覆盖。注意，$X$ 的任意
+$0$-截断 $\mathcal{B}$-超覆盖都是分裂的，见引理 \ref{hypercovering-lemma-split}。
+
+\medskip\noindent
+若能证明：对 $n \geq 0$，给定 $X$ 的一个分裂
+$n$-截断 $\mathcal{B}$-超覆盖 $K$，可把它扩张为 $X$ 的一个分裂
+$(n + 1)$-截断 $\mathcal{B}$-超覆盖，则引理成立。
+
+\medskip\noindent
+构造该扩张。考虑 $\text{SR}(\mathcal{C})$ 的 $(n + 1)$-截断单纯对象
+$K' = \text{sk}_{n + 1}(\text{cosk}_n K)$。写成
+$$
+K'_{n + 1} = \{U'_{n + 1, i}\}_{i \in I'_{n + 1}}
+$$
+由于 $K = \text{sk}_n K'$，对 $0 \leq a \leq n$ 有
+$K_a = K'_a$。对每个 $i' \in I'_{n + 1}$，选取覆盖
+\begin{equation}
+\label{hypercovering-equation-choose-covering-B}
+\{g_{n + 1, j} : U_{n + 1, j} \to U'_{n + 1, i'}\}_{j \in J_{i'}}
+\end{equation}
+使得对 $j \in J_{i'}$ 有 $U_{n + 1, j} \in \mathcal{B}$。
+由引理中关于 $\mathcal{B}$ 的假设，这是可能的。对
+$0 \leq m \leq n$，用 $N_m \subset I_m$ 表示非退化指标的子集。置
+$$
+I_{n + 1} =
+\coprod\nolimits_{\varphi : [n + 1] \to [m]\text{ 满射，}0\leq m \leq n}
+N_m \amalg
+\coprod\nolimits_{i' \in I'_{n + 1}} J_{i'}
+$$
+对 $j \in I_{n + 1}$，置
+$$
+U_{n + 1, j} =
+\left\{
+\begin{matrix}
+U_{m, i} & \text{若} &
+j = (\varphi, i) & \text{其中} & \varphi : [n + 1] \to [m], i \in N_m \\
+U_{n + 1, j} & \text{若} &
+j \in J_{i'} & \text{其中} & i' \in I'_{n + 1}
+\end{matrix}
+\right.
+$$
+记号是显然的。置 $K_{n + 1} = \{U_{n + 1, j}\}_{j \in I_{n + 1}}$。
+由构造，对所有 $j \in I_{n + 1}$，$U_{n + 1, j}$ 都属于
+$\mathcal{B}$。定义相容映射
+$$
+I_{n + 1} \to I'_{n + 1}
+\quad\text{和}\quad
+K_{n + 1} \to K'_{n + 1}
+$$
+具体地，第一个映射由
+$(\varphi, i) \mapsto \alpha'(\varphi)(i)$ 和
+$(j \in J_{i'}) \mapsto i'$ 给出；第二个映射使用态射
+$$
+f'_{\varphi, i} : U_{m, i} \to U'_{n + 1, \alpha'(\varphi)(i)}
+\quad\text{和}\quad
+g_{n + 1, j} : U_{n + 1, j} \to U'_{n + 1, i'}
+$$
+我们断言，态射
+$$
+K_{n + 1} \to K'_{n + 1} =
+(\text{cosk}_n \text{sk}_n K')_{n + 1} =
+(\text{cosk}_n K)_{n + 1}
+$$
+是定义 \ref{hypercovering-definition-covering-SR} 意义下的覆盖。事实上，若
+$i' \in I'_{n + 1}$，则或者 $i'$ 非退化，此时 $i'$ 在
+$I_{n + 1}$ 中的逆像等于 $J_{i'}$，由选择
+(\ref{hypercovering-equation-choose-covering-B}) 得到 $U'_{n + 1, i'}$ 的一个覆盖；
+或者 $i'$ 退化，此时对唯一的偶对 $(\varphi, i)$，$i'$ 在
+$I_{n + 1}$ 中的逆像为 $J_{i'} \amalg \{(\varphi, i)\}$，
+由选择 (\ref{hypercovering-equation-choose-covering-B}) 和引理的假设 (2) 得到覆盖。
+
+\medskip\noindent
+为完成证明，还需定义与态射
+$\varphi : [m] \to [n + 1]$、$0 \leq m \leq n$ 对应的态射
+$K(\varphi) : K_{n + 1} \to K_m$，以及与态射
+$\varphi : [n + 1] \to [m]$、$0 \leq m \leq n$ 对应的态射
+$K(\varphi) : K_m \to K_{n + 1}$，并使它们满足适当的复合关系。
+对第一类，使用复合
+$$
+K_{n + 1} \to K'_{n + 1} \xrightarrow{K'(\varphi)} K'_m = K_m
+$$
+来定义 $K(\varphi) : K_{n + 1} \to K_m$。对第二类，设给定
+$\varphi : [n + 1] \to [m]$、$0 \leq m \leq n$。
+如下定义相应态射 $K(\varphi) : K_m \to K_{n + 1}$：
+\begin{enumerate}
+\item 对 $i \in I_m$，存在唯一满射 $\psi : [m] \to [m_0]$
+以及唯一的非退化 $i_0 \in I_{m_0}$，使得
+$\alpha(\psi)(i_0) = i$\footnote{例如，若 $i$ 非退化，则
+$m = m_0$ 且 $\psi = \text{id}_{[m]}$。}；
+\item 置 $\varphi_0 = \psi_0 \circ \varphi : [n + 1] \to [m_0]$，
+并把 $i \in I_m$ 映到 $(\varphi_0, i_0) \in I_{n + 1}$；换言之，
+$\alpha(\varphi)(i) = (\varphi_0, i_0)$；
+\item 态射
+$f_{\varphi, i} : U_{m, i} \to U_{n + 1, \alpha(\varphi)(i)} = U_{m_0, i_0}$
+是同构 $f_{\psi, i_0} : U_{m_0, i_0} \to U_{m, i}$ 的逆
+（见引理 \ref{hypercovering-lemma-split}）。
+\end{enumerate}
+略去直接但繁琐的验证：这定义了 $X$ 的一个分裂
+$(n + 1)$-截断 $\mathcal{B}$-超覆盖，扩张给定的 $n$-截断者。
+事实上，除需验证对所有 $0 \leq a,b \leq n + 1$ 的
+$\varphi : [a] \to [b]$，态射 $K(\varphi)$ 的复合正确之外，
+其余一切均由以上构造显然成立。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercovering-site}
+设 $\mathcal{C}$ 是具有等化子和纤维积的位点，
+$\mathcal{B} \subset \Ob(\mathcal{C})$ 是子集。假设
+$\mathcal{C}$ 的任意对象都有一个各成员属于 $\mathcal{B}$ 的覆盖。
+则存在超覆盖 $K$，使得 $K_n = \{U_i\}_{i \in I_n}$，
+并且对所有 $i \in I_n$ 都有 $U_i \in \mathcal{B}$。
+\end{lemma}
+
+\begin{proof}
+此证明与引理 \ref{hypercovering-lemma-hypercovering-object} 的证明几乎相同。
+这里只说明不同之处。
+
+\medskip\noindent
+设 $n \geq 1$。所谓一个{\it $n$-截断 $\mathcal{B}$-超覆盖}，
+是 $\text{SR}(\mathcal{C})$ 的一个 $n$-截断单纯对象 $K$，满足：
+对 $i \in I_a$、$0 \leq a \leq n$ 有
+$U_{a, i} \in \mathcal{B}$；并且
+\begin{enumerate}
+\item $F(K_0)^\# \to *$ 是满射；
+\item $F(K_1)^\# \to F(K_0)^\# \times F(K_0)^\#$ 是满射；
+\item $F(K_{a + 1})^\# \to F((\text{cosk}_a \text{sk}_a K)_{a + 1})^\#$
+对 $a = 1, \ldots, n - 1$ 是满射。
+\end{enumerate}
+先显式构造一个分裂 $1$-截断 $\mathcal{B}$-超覆盖。
+
+\medskip\noindent
+取 $I_0 = \mathcal{B}$ 和 $K_0 = \{U\}_{U \in \mathcal{B}}$。
+由关于 $\mathcal{B}$ 的假设，(1) 成立。置
+$$
+\Omega =
+\{(U, V, W, a, b) \mid U, V, W \in \mathcal{B}, a : U \to V, b : U \to W\}
+$$
+再置 $I_1 = I_0 \amalg \Omega$。对 $i \in I_1$，若 $i \in I_0$，
+置 $U_{1, i} = U_{0, i}$；若
+$i = (U, V, W, a, b) \in \Omega$，置 $U_{1, i} = U$。
+映射 $K(\sigma^0_0) : K_0 \to K_1$ 对应于包含
+$\alpha(\sigma^0_0) : I_0 \to I_1$ 和对象上的恒等态射
+$f_{\sigma^0_0, i} : U_{0, i} \to U_{1, i}$。映射
+$K(\delta^1_0), K(\delta^1_1) : K_1 \to K_0$ 对应于两个映射
+$I_1 \to I_0$：它们在 $I_0 \subset I_1$ 上为恒等，并分别把
+$(U, V, W, a, b) \in \Omega \subset I_1$ 映到 $V$ 和 $W$。
+相应态射 $f_{\delta^1_0, i}, f_{\delta^1_1, i} : U_{1, i} \to U_{0, i}$，
+在 $i \in I_0$ 时为恒等；在
+$i = (U, V, W, a, b) \in \Omega$ 时分别为 $a,b$。
+(2) 成立的理由如下：$F(K_0)^\# \times F(K_0)^\#$ 在
+$\mathcal{C}$ 的对象 $U$ 上的任意截面，在用某个覆盖的各成员替换
+$U$ 后，都来自映射 $U \to F(K_0) \times F(K_0)$。
+这又意味着存在 $V,W \in \mathcal{B}$ 和两个态射
+$U \to V$、$U \to W$。进一步用某个覆盖的各成员替换 $U$ 后，
+可以按要求假设 $U \in \mathcal{B}$。
+
+\medskip\noindent
+若能证明：对 $n \geq 1$，给定一个分裂
+$n$-截断 $\mathcal{B}$-超覆盖 $K$，可以把它扩张为一个分裂
+$(n + 1)$-截断 $\mathcal{B}$-超覆盖，则引理成立。这里的论证与引理
+\ref{hypercovering-lemma-hypercovering-object} 的证明完全相同。除以下说明外，
+精确细节从略。第一，在本引理的证明中不需要假设 (2)，因为无需态射
+$K_{n + 1} \to (\text{cosk}_n K)_{n + 1}$ 本身是覆盖；只需它在相伴集合层上
+诱导满射，而这由《位点与层》引理
+\ref{sites-lemma-covering-surjective-after-sheafification} 得出。
+第二，$\mathcal{C}$ 具有纤维积和等化子的假设保证
+$\text{SR}(\mathcal{C})$ 具有纤维积和等化子，并且 $F$ 与它们交换
+（引理 \ref{hypercovering-lemma-coprod-prod-SR}）。这足以保证所用的余骨架函子存在
+（见《单纯方法》评注 \ref{simplicial-remark-existence-cosk} 和
+《范畴论》引理 \ref{categories-lemma-fibre-products-equalizers-exist}）。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercovering-morphism-sites}
+设 $f : \mathcal{C} \to \mathcal{D}$ 是由函子
+$u : \mathcal{D} \to \mathcal{C}$ 给出的位点态射。假设
+$\mathcal{D}$ 和 $\mathcal{C}$ 具有等化子和纤维积，且 $u$ 与它们交换。
+若 $\text{SR}(\mathcal{D})$ 的单纯对象 $K$ 是超覆盖，
+则 $u(K)$ 是超覆盖。
+\end{lemma}
+
+\begin{proof}
+如本节引言中那样写 $K_n = \{U_{n, i}\}_{i \in I_n}$，则 $u(K)$
+是 $\text{SR}(\mathcal{C})$ 的对象，其中
+$u(K_n) = \{u(U_i)\}_{i \in I_n}$。由《位点与层》引理
+\ref{sites-lemma-pullback-representable-sheaf}，对
+$U \in \Ob(\mathcal{D})$ 有 $f^{-1}h_U^\# = h_{u(U)}^\#$。
+这意味着对所有 $n$，
+$f^{-1}F(K_n)^\# = F(u(K_n))^\#$。验证定义
+\ref{hypercovering-definition-hypercovering-variant} 中 $u(K)$ 成为超覆盖的条件
+(1)、(2)、(3)。由于 $f^{-1}$ 是正合函子，可得
+$$
+F(u(K_0))^\# = f^{-1}F(K_0)^\# \to f^{-1}* = *
+$$
+作为满射的拉回是满射，故得到 (1)。类似地，
+$$
+F(u(K_1))^\# = f^{-1}F(K_1)^\# \to
+f^{-1} (F(K_0) \times F(K_0))^\# = F(u(K_0))^\# \times F(u(K_0))^\#
+$$
+作为拉回是满射，故得到 (2)。对于条件 (3)，要用相同方法得出结论，
+只需有
+$$
+F((\text{cosk}_n \text{sk}_n u(K))_{n + 1})^\# =
+f^{-1}F((\text{cosk}_n \text{sk}_n K)_{n + 1})^\#
+$$
+以上说明 $f^{-1}F(-) = F(u(-))$。因此只需证明，对 $n \geq 1$，
+$u$ 与定义 $(\text{cosk}_n \text{sk}_n K)_{n + 1}$ 时所用的极限交换。
+由《单纯方法》评注 \ref{simplicial-remark-existence-cosk}，
+这些极限是有限连通极限；由假设，$u$ 与它们交换。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-hypercovering-continuous-functor}
+设 $\mathcal{C},\mathcal{D}$ 是位点，
+$u : \mathcal{D} \to \mathcal{C}$ 是连续函子。假设
+$\mathcal{D}$ 和 $\mathcal{C}$ 具有纤维积，且 $u$ 与纤维积交换。
+设 $Y \in \mathcal{D}$，并设
+$K \in \text{SR}(\mathcal{D}, Y)$ 是 $Y$ 的超覆盖。
+则 $u(K)$ 是 $u(Y)$ 的超覆盖。
+\end{lemma}
+
+\begin{proof}
+这比引理 \ref{hypercovering-lemma-hypercovering-morphism-sites} 的证明容易，
+因为“是某个对象的超覆盖”这一概念更强，见定义
+\ref{hypercovering-definition-hypercovering} 和 \ref{hypercovering-definition-covering-SR}。
+事实上，由位点态射的定义，$u$ 把覆盖送到覆盖。只需验证，对
+$n \geq 1$，$u$ 与定义
+$(\text{cosk}_n \text{sk}_n K)_{n + 1}$ 时所用的极限交换。
+这是显然的，因为诱导函子
+$\mathcal{D}/Y \to \mathcal{C}/X$ 与所有有限极限交换
+（而由《范畴论》引理 \ref{categories-lemma-finite-limits-exist}，
+源和靶都具有所有有限极限）。
+\end{proof}
+
+\begin{lemma}
+\label{hypercovering-lemma-w-contractible}
+设 $\mathcal{C}$ 是位点，$\mathcal{B} \subset \Ob(\mathcal{C})$
+是子集。假设
+\begin{enumerate}
+\item $\mathcal{C}$ 具有纤维积；
+\item 对所有 $X \in \Ob(\mathcal{C})$，存在满足
+$U_i \in \mathcal{B}$ 的有限覆盖 $\{U_i \to X\}_{i \in I}$；
+\item 若 $\{U_i \to X\}_{i \in I}$ 是满足
+$U_i \in \mathcal{B}$ 的有限覆盖，且 $U \to X$ 是满足
+$U \in \mathcal{B}$ 的态射，则
+$\{U_i \to X\}_{i \in I} \amalg \{U \to X\}$ 是覆盖。
+\end{enumerate}
+则对每个 $X$，存在 $X$ 的超覆盖 $K$，使每个
+$K_n = \{U_{n, i} \to X\}_{i \in I_n}$ 中 $I_n$ 有限，且
+$U_{n, i} \in \mathcal{B}$。
+\end{lemma}
+
+\begin{proof}
+此引理是引理
+\ref{hypercovering-lemma-quasi-separated-quasi-compact-hypercovering} 的位点版本。
+证明时完全依照引理 \ref{hypercovering-lemma-hypercovering-object} 的证明，
+并注意以下两点：
+\begin{enumerate}
+\item[(a)] 选取初始覆盖 $\{U_{0, i} \to X\}_{i \in I_0}$，
+使 $U_{0, i} \in \mathcal{B}$ 且指标集 $I_0$ 有限；
+\item[(b)] 选取覆盖 (\ref{hypercovering-equation-choose-covering-B}) 时，
+取 $J_{i'}$ 为有限集。
+\end{enumerate}
+读者容易看出，经过这些修改，最终对所有 $n$ 都得到有限指标集 $I_n$。
+\end{proof}
+
+\begin{remark}
+\label{hypercovering-remark-taking-disjoint-unions}
+设 $\mathcal{C}$ 是位点，$K,L$ 是 $\text{SR}(\mathcal{C})$ 的对象。
+写 $K = \{U_i\}_{i \in I}$、$L = \{V_j\}_{j \in J}$。
+假设 $U = \coprod_{i \in I} U_i$ 和
+$V = \coprod_{j \in J} V_j$ 存在。于是得到
+$$
+\Mor_{\text{SR}(\mathcal{C})}(K, L) \longrightarrow \Mor_\mathcal{C}(U, V)
+$$
+如下。给定由 $\alpha : I \to J$ 和
+$f_i : U_i \to V_{\alpha(i)}$ 给出的 $f : K \to L$，得到函子的变换
+$$
+\Mor_\mathcal{C}(V, -) =
+\prod\nolimits_{j \in J} \Mor_\mathcal{C}(V_j, -)
+\to
+\prod\nolimits_{i \in I} \Mor_\mathcal{C}(U_i, -) =
+\Mor_\mathcal{C}(U, -)
+$$
+它把 $(g_j)_{j \in J}$ 送到
+$(g_{\alpha(i)} \circ f_i)_{i \in I}$。因此 Yoneda 引理给出相应映射
+$U \to V$。当然，$U \to V$ 通过态射 $f_i$ 把直和项 $U_i$
+映入直和项 $V_{\alpha(i)}$。
+\end{remark}
+
+\begin{remark}
+\label{hypercovering-remark-take-unions-hypercovering}
+设 $\mathcal{C}$ 是具有纤维积和等化子的位点，$K$ 是超覆盖。
+写 $K_n = \{U_{n, i}\}_{i \in I_n}$。假设
+\begin{enumerate}
+\item[(a)] $U_n = \coprod_{i \in I_n} U_{n, i}$ 存在；
+\item[(b)] $\coprod_{i \in I_n} h_{U_{n, i}} \to h_{U_n}$
+在层化后诱导同构。
+\end{enumerate}
+于是得到 $\text{SR}(\mathcal{C})$ 的另一个单纯对象 $L$，其中
+$L_n = \{U_n\}$，见评注 \ref{hypercovering-remark-taking-disjoint-unions}。
+我们断言 $L$ 是超覆盖。为此验证定义
+\ref{hypercovering-definition-hypercovering-variant} 的条件 (1)、(2)、(3)。
+条件 (1) 由 (b) 和 $K$ 的条件 (1) 得出；条件 (2) 完全类似。
+条件 (3) 由下式得出：
+\begin{align*}
+F((\text{cosk}_n \text{sk}_n L)_{n + 1})^\#
+& =
+((\text{cosk}_n \text{sk}_n F(L)^\#)_{n + 1}) \\
+& =
+((\text{cosk}_n \text{sk}_n F(K)^\#)_{n + 1}) \\
+& =
+F((\text{cosk}_n \text{sk}_n K)_{n + 1})^\#
+\end{align*}
+其中 $n \geq 1$；因此完全如 (1)、(2) 那样，$K$ 的相应条件蕴含
+$L$ 的相应条件。注意，$F$ 与连通极限交换且层化正合，这证明第一和
+最后一个等式；中间的等式由 (b) 中
+$F(K)^\# = F(L)^\#$ 得出。
+\end{remark}
+
+\begin{remark}
+\label{hypercovering-remark-take-unions-hypercovering-X}
+设 $\mathcal{C}$ 是位点，$X \in \Ob(\mathcal{C})$。假设
+$\mathcal{C}$ 具有纤维积，并设 $K$ 是 $X$ 的超覆盖。
+写 $K_n = \{U_{n, i}\}_{i \in I_n}$。假设
+\begin{enumerate}
+\item[(a)] $U_n = \coprod_{i \in I_n} U_{n, i}$ 存在；
+\item[(b)] 给定 $\text{SR}(\mathcal{C})$ 中的态射
+$(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$ 和
+$(\beta, g_k) : \{W_k\}_{k \in K} \to \{V_j\}_{j \in J}$
+，且
+$U = \coprod U_i$、$V = \coprod V_j$ 和 $W = \coprod W_j$
+存在，则 $U \times_V W =
+\coprod_{(i, j, k), \alpha(i) = j = \beta(k)} U_i \times_{V_j} W_k$；
+\item[(c)] 若 $(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+是定义 \ref{hypercovering-definition-covering-SR} 意义下的覆盖，且
+$U = \coprod U_i$ 和 $V = \coprod V_j$ 存在，则评注
+\ref{hypercovering-remark-taking-disjoint-unions} 中相应的态射 $U \to V$
+是 $\mathcal{C}$ 的覆盖。
+\end{enumerate}
+于是得到 $\text{SR}(\mathcal{C})$ 的另一个单纯对象 $L$，其中
+$L_n = \{U_n\}$，见评注 \ref{hypercovering-remark-taking-disjoint-unions}。
+我们断言 $L$ 是 $X$ 的超覆盖。为此验证定义
+\ref{hypercovering-definition-hypercovering} 的条件 (1)、(2)。条件 (1) 由 (c)
+和 $K$ 的条件 (1) 得出，因为 $K$ 的条件 (1) 表明
+$K_0 = \{U_{0, i}\}_{i \in I_0}$ 是定义
+\ref{hypercovering-definition-covering-SR} 意义下 $\{X\}$ 的覆盖。
+条件 (2) 成立，是因为 $\mathcal{C}/X$ 具有所有有限极限，故
+$\text{SR}(\mathcal{C}/X)$ 也具有所有有限极限，而条件 (b) 表明
+“取不交并”的构造与这些有限极限交换。因此态射
+$$
+L_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n L)_{n + 1}
+$$
+是覆盖，因为它是把“取不交并”函子应用于态射
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+所得的结果；由 $K$ 的条件 (2)，后者被假设为定义
+\ref{hypercovering-definition-covering-SR} 意义下的覆盖。这一说法有意义，
+因为性质 (b) 特别保证：若从 $X$ 上一张可取不交并的半可表对象有限图出发，
+则该图在 $\text{SR}(\mathcal{C}/X)$ 中的极限仍是 $X$ 上可取不交并的
+半可表对象。
+\end{remark}

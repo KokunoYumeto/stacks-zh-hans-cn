@@ -1,0 +1,6320 @@
+% Generated mechanically from the frozen curves.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{52}
+\chapter{代数曲线}
+
+
+
+\phantomsection
+\label{curves-section-phantom}
+
+
+\section{引言}
+\label{curves-section-introduction}
+
+\noindent
+本章发展代数曲线理论的一些内容。
+关于复数域上代数曲线的一部参考书是 \cite{ACGH}。
+
+\medskip\noindent
+已有知识。除一般的代数几何之外，我们还已经证明了
+若干专门关于代数曲线的结果。现列举如下。
+\begin{enumerate}
+\item 我们在《簇》，第 \ref{varieties-section-dimension-one} 节中讨论了
+$1$ 维 Noether 概形的仿射开集及其上的丰沛可逆层。
+\item 我们在《簇》，第 \ref{varieties-section-curves} 节中看到，
+一条曲线要么仿射，要么投射。
+\item 我们在《簇》，第 \ref{varieties-section-divisors-curves} 节中讨论了
+固有曲线上局部自由模的次数。
+\item 我们在《曲线的 Picard 概形》，
+第 \ref{pic-section-introduction} 节中讨论了代数闭域上
+非奇异投射曲线的 Picard 概形。
+\end{enumerate}
+
+
+
+
+
+\section{曲线与函数域}
+\label{curves-section-curves-function-fields}
+
+\noindent
+本节针对曲线的情形，详细阐述《簇》，
+第 \ref{varieties-section-varieties-rational-maps} 节中的结果。
+
+\begin{lemma}
+\label{curves-lemma-extend-over-dvr}
+设 $k$ 为域，$X$ 为曲线，$Y$ 为固有簇。
+设 $U \subset X$ 为非空开集，$f : U \to Y$ 为态射。
+若 $x \in X$ 是闭点，且 $\mathcal{O}_{X, x}$
+为离散赋值环，则存在开集 $U \subset U' \subset X$，
+它包含 $x$，并且存在簇态射 $f' : U' \to Y$，后者延拓 $f$。
+\end{lemma}
+
+\begin{proof}
+这是《态射》，引理 \ref{morphisms-lemma-extend-across}
+的一个特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-extend-over-normal-curve}
+设 $k$ 为域，$X$ 为正规曲线，$Y$ 为固有簇。
+从 $X$ 到 $Y$ 的有理映射所成的集合，等于态射
+$X \to Y$ 所成的集合。
+\end{lemma}
+
+\begin{proof}
+从 $X$ 到 $Y$ 的有理映射可由引理
+\ref{curves-lemma-extend-over-dvr} 延拓为态射 $X \to Y$，
+因为每个局部环都是离散赋值环
+（例如见《簇》，引理 \ref{varieties-lemma-regular-point-on-curve}）。
+反之，若两个态射 $f,g: X \to Y$ 作为有理映射等价，
+则由《态射》，引理 \ref{morphisms-lemma-equality-of-morphisms}
+可知 $f = g$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-flat}
+设 $k$ 为域，$f : X \to Y$ 为 $k$ 上曲线之间的非常值态射。
+若 $Y$ 正规，则 $f$ 平坦。
+\end{lemma}
+
+\begin{proof}
+取 $x \in X$，其像为 $y \in Y$。那么 $\mathcal{O}_{Y, y}$
+或为域，或为离散赋值环
+（《簇》，引理 \ref{varieties-lemma-regular-point-on-curve}）。
+由于 $f$ 非常值，它是支配的（因为它必将 $X$ 的泛点映到
+$Y$ 的泛点）。这说明
+$\mathcal{O}_{Y, y} \to \mathcal{O}_{X, x}$ 为单射
+（《态射》，引理 \ref{morphisms-lemma-dominant-between-integral}）。
+因此，$\mathcal{O}_{X, x}$ 作为 $\mathcal{O}_{Y, y}$-模无挠；
+进而由《代数进阶》，引理
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat}，
+$\mathcal{O}_{X, x}$ 作为 $\mathcal{O}_{Y, y}$-模是平坦的。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-finite}
+设 $k$ 为域，$f : X \to Y$ 为 $k$ 上概形之间的态射。假设
+\begin{enumerate}
+\item $Y$ 在 $k$ 上分离；
+\item $X$ 是维数 $\leq 1$ 的 $k$ 上固有概形；
+\item $f(Z)$ 至少含有两个点，其中 $Z \subset X$
+是维数为 $1$ 的任一不可约分支。
+\end{enumerate}
+则 $f$ 有限。
+\end{lemma}
+
+\begin{proof}
+由《态射》，引理
+\ref{morphisms-lemma-image-proper-scheme-closed}，态射 $f$ 固有。
+因此 $f(X)$ 是闭集，闭点的像也是闭点。
+设 $y \in Y$ 是 $X$ 中某个闭点的像。
+那么由条件 (3)，$f^{-1}(\{y\})$ 是 $X$ 的闭子集，
+并且不包含任何维数为 $1$ 的不可约分支的泛点。因此
+$f^{-1}(\{y\})$ 有限。进而由《态射进阶》，引理
+\ref{more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}，
+$f$ 在 $y$ 的某个开邻域上有限
+（若 $Y$ 为 Noether 概形，则可以使用较容易的
+《概形上同调》，引理
+\ref{coherent-lemma-proper-finite-fibre-finite-in-neighbourhood}）。
+上面已经看到这样的点 $y$ 足够多，故证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-extend-to-completion}
+设 $k$ 为域，$X \to Y$ 为簇之间的态射，其中
+$Y$ 固有而 $X$ 为曲线。存在分解
+$X \to \overline{X} \to Y$，其中
+$X \to \overline{X}$ 是开浸入，且
+$\overline{X}$ 是投射曲线。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{curves-lemma-extend-over-dvr} 以及《簇》，
+引理 \ref{varieties-lemma-reduced-dim-1-projective-completion} 立即可得。
+\end{proof}
+
+\noindent
+下面是本节的主要定理。若簇之间的态射
+$f : X \to Y$ 的像 $f(X)$ 只由一个点 $y$ 组成，且该点属于 $Y$，
+则称它为{\it 常值态射}。在这种情形下，$y$ 是 $Y$ 的闭点
+（因为 $X$ 的闭点之像是 $Y$ 的闭点）。
+
+\begin{theorem}
+\label{curves-theorem-curves-rational-maps}
+设 $k$ 为域。下列范畴典范等价：
+\begin{enumerate}
+\item 有限生成域扩张 $K/k$ 所成的范畴，其中扩张的超越次数为 $1$。
+\item 以曲线为对象、以支配有理映射为态射的范畴。
+\item 以正规投射曲线为对象、以非常值态射为态射的范畴。
+\item 以非奇异投射曲线为对象、以非常值态射为态射的范畴。
+\item 以正则投射曲线为对象、以非常值态射为态射的范畴。
+\item 以正规固有曲线为对象、以非常值态射为态射的范畴。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+范畴 (1) 与 (2) 之间的等价，是《簇》，
+定理 \ref{varieties-theorem-varieties-rational-maps}
+中等价的限制。具体而言，一个簇为曲线，当且仅当其函数域的
+超越次数为 $1$；例如见《簇》，
+引理 \ref{varieties-lemma-dimension-locally-algebraic}。
+
+\medskip\noindent
+范畴 (3)、(4)、(5) 与 (6) 相同。首先，“正则”与“非奇异”
+是同义词，见《性质》，定义 \ref{properties-definition-regular}。
+对 Noether 的 $1$ 维概形而言，正规与正则是同一回事
+（《性质》，引理 \ref{properties-lemma-regular-normal} 及
+\ref{properties-lemma-normal-dimension-1-regular}）。
+曲线的情形见《簇》，引理
+\ref{varieties-lemma-regular-point-on-curve}。
+因此 (3) 与 (5) 相同。最后，由《簇》，引理
+\ref{varieties-lemma-dim-1-proper-projective}，(6) 与 (3) 相同。
+
+\medskip\noindent
+若 $f : X \to Y$ 是非奇异投射曲线之间的非常值态射，
+则 $f$ 把泛点 $\eta$（即 $X$ 的泛点）映到泛点
+$\xi$（即 $Y$ 的泛点）。
+因此得到范畴 (1) 中的态射
+$k(Y) = \mathcal{O}_{Y, \xi} \to \mathcal{O}_{X, \eta} = k(X)$
+。若两个态射 $f,g: X \to Y$ 给出同一态射
+$k(Y) \to k(X)$，则由 (1) 与 (2) 之间的等价，
+$f$ 与 $g$ 作为有理映射等价；进而由引理
+\ref{curves-lemma-extend-over-normal-curve}，有 $f=g$。
+反之，设范畴 (1) 中给定映射
+$k(Y) \to k(X)$。则得到态射 $U \to Y$，其中
+$U \subset X$ 是某个非空开集。由引理 \ref{curves-lemma-extend-over-dvr}，
+它可延拓到整个 $X$，从而得到范畴 (5) 中的态射。
+所以存在充分忠实函子 (5)$\to$(1)。
+
+\medskip\noindent
+为完成证明，还须说明 (1) 中的每个 $K/k$
+都是某条正规投射曲线的函数域。
+我们已经知道 $K = k(X)$，其中 $X$ 是某条曲线。
+将 $X$ 换成它的正规化
+（这是一个与 $X$ 双有理的簇）后，可以假设 $X$ 正规
+（《簇》，引理
+\ref{varieties-lemma-normalization-locally-algebraic}）。
+然后依照《簇》，引理
+\ref{varieties-lemma-reduced-dim-1-projective-completion}，
+选取 $X \to \overline{X}$，使
+$\overline{X} \setminus X = \{x_1, \ldots, x_n\}$。
+由于 $X$ 正规，而且每个局部环
+$\mathcal{O}_{\overline{X}, x_i}$ 都正规，可知
+$\overline{X}$ 如所需是一条正规投射曲线。
+（备注：也可以先用《簇》，引理
+\ref{varieties-lemma-dim-1-projective-completion} 作紧化，
+再用《簇》，引理
+\ref{varieties-lemma-normalization-locally-algebraic} 作正规化。
+这样便可避免使用稍显微妙的《态射》，引理
+\ref{morphisms-lemma-relative-normalization-normal-codim-1}。）
+\end{proof}
+
+\begin{definition}
+\label{curves-definition-normal-projective-model}
+设 $k$ 为域，$X$ 为曲线。
+所谓{\it $X$ 的非奇异投射模型}，是指一个二元组
+$(Y, \varphi)$，其中 $Y$ 是非奇异投射曲线，而
+$\varphi : k(X) \to k(Y)$ 是函数域的同构。
+\end{definition}
+
+\noindent
+由定理 \ref{curves-theorem-curves-rational-maps}，非奇异投射模型
+在唯一同构意义下确定。因此我们常说``该非奇异投射模型''。
+记号中通常省略 $\varphi$。
+警告：$Y$ 未必在 $k$ 上光滑；但引理
+\ref{curves-lemma-nonsingular-model-smooth} 表明，这种情形只能发生在正特征中。
+
+\begin{lemma}
+\label{curves-lemma-nonsingular-model-smooth}
+设 $k$ 为域，$X$ 为曲线，且 $Y$ 是 $X$ 的非奇异投射模型。
+若 $k$ 完美，则 $Y$ 是光滑投射曲线。
+\end{lemma}
+
+\begin{proof}
+例如见《簇》，引理 \ref{varieties-lemma-regular-point-on-curve}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-smooth-models}
+设 $k$ 为域，$X$ 为 $k$ 上的几何不可约曲线。
+对域扩张 $K/k$，以 $Y_K$ 表示 $(X_K)_{red}$ 的一个非奇异投射模型。
+\begin{enumerate}
+\item 若 $X$ 固有，则 $Y_K$ 是 $X_K$ 的正规化。
+\item 存在有限纯不可分扩张 $K/k$，使得 $Y_K$ 光滑。
+\item 每当 $Y_K$ 光滑\footnote{甚至只需几何约化。}时，
+都有 $H^0(Y_K, \mathcal{O}_{Y_K}) = K$。
+\item 给定域的交换图
+$$
+\xymatrix{
+\Omega & K' \ar[l] \\
+K \ar[u] & k \ar[l] \ar[u]
+}
+$$
+使得 $Y_K$ 与 $Y_{K'}$ 光滑，则
+$Y_\Omega = (Y_K)_\Omega = (Y_{K'})_\Omega$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $X'$ 是 $X$ 的一个非奇异投射模型。则 $X'$ 与 $X$
+有彼此同构的非空开子概形。特别地，$X'$ 几何不可约，
+正如 $X$ 一样（省略若干细节）。所以可以假设 $X$ 投射。
+
+\medskip\noindent
+假设 $X$ 固有。则 $X_K$ 固有，因而其正规化
+$(X_K)^\nu$ 也固有，因为它在一个固有概形上有限
+（《簇》，引理 \ref{varieties-lemma-normalization-locally-algebraic}，
+以及《态射》，引理 \ref{morphisms-lemma-finite-proper} 与
+\ref{morphisms-lemma-composition-proper}）。
+另一方面，$X_K$ 不可约，因为 $X$ 几何不可约。
+因此 $X_K^\nu$ 固有、正规且不可约，并与 $(X_K)_{red}$ 双有理。
+由于固有曲线是投射的（《簇》，引理
+\ref{varieties-lemma-dim-1-proper-projective}），这就证明了 (1)。
+
+\medskip\noindent
+证明 (2)。由于 $X$ 固有并且已有 (1)，可应用《簇》，引理
+\ref{varieties-lemma-finite-extension-geometrically-normal}，
+找到有限纯不可分扩张 $K/k$，使得 $Y_K$ 几何正规。
+由于对曲线而言正规与正则等价（《性质》，引理
+\ref{properties-lemma-normal-dimension-1-regular}），
+$Y_K$ 于是几何正则。由《簇》，引理
+\ref{varieties-lemma-geometrically-regular-smooth}，$Y$ 是光滑簇。
+
+\medskip\noindent
+若 $Y_K$ 几何约化，则 $Y_K$ 几何整
+（《簇》，引理 \ref{varieties-lemma-geometrically-integral}），
+且由《簇》，引理
+\ref{varieties-lemma-regular-functions-proper-variety} 可知
+$H^0(Y_K, \mathcal{O}_{Y_K}) = K$。
+因为光滑簇几何约化（甚至几何正则，见《簇》，引理
+\ref{varieties-lemma-geometrically-regular-smooth}），这就证明了 (3)。
+
+\medskip\noindent
+若 $Y_K$ 光滑，则对每个扩张 $\Omega/K$，基变换
+$(Y_K)_\Omega$ 在 $\Omega$ 上光滑
+（《态射》，引理 \ref{morphisms-lemma-base-change-smooth}）。
+因此显然有 $Y_\Omega = (Y_K)_\Omega$。这就证明了 (4)。
+\end{proof}
+
+
+
+
+
+
+\section{线性系}
+\label{curves-section-linear-series}
+
+\noindent
+我们采用如下方式定义线性系，这与经典叙述略有不同
+（见备注 \ref{curves-remark-classical-linear-series}）。
+
+\begin{definition}
+\label{curves-definition-linear-series}
+设 $k$ 为域，$X$ 为维数 $\leq 1$ 的 $k$ 上固有概形。
+设 $d \geq 0$ 且 $r \geq 0$。
+所谓{\it 次数为 $d$、维数为 $r$ 的线性系}，是指二元组
+$(\mathcal{L}, V)$，其中 $\mathcal{L}$ 是可逆
+$\mathcal{O}_X$-模，次数为 $d$
+（《簇》，定义 \ref{varieties-definition-degree-invertible-sheaf}），
+而 $V \subset H^0(X, \mathcal{L})$ 是 $k$-向量子空间，
+其维数为 $r + 1$。简言之，我们称 $(\mathcal{L}, V)$
+是一个{\it $\mathfrak g^r_d$}，定义在 $X$ 上。
+\end{definition}
+
+\noindent
+我们主要在 $X$ 为非奇异固有曲线时使用这个定义。
+事实上，上述定义只是推广经典 $\mathfrak g^r_d$ 定义的一种方式。
+例如，若 $X$ 是固有曲线，可以允许 $\mathcal{L}$ 是无挠凝聚
+$\mathcal{O}_X$-模，秩为 $1$，从而推广线性系的概念。
+在非奇异曲线上，每个无挠凝聚模都是局部自由的，
+所以这与我们对非奇异固有曲线所用的概念一致。
+
+\medskip\noindent
+下述引理说明固有非奇异曲线上线性系的几何意义。
+
+\begin{lemma}
+\label{curves-lemma-linear-series}
+设 $k$ 为域，$X$ 为 $k$ 上的非奇异固有曲线。
+设 $(\mathcal{L}, V)$ 是一个 $\mathfrak g^r_d$，定义在 $X$ 上。
+则存在态射
+$$
+\varphi : X \longrightarrow \mathbf{P}^r_k = \text{Proj}(k[T_0, \ldots, T_r])
+$$
+，它是 $k$ 上簇的态射；并存在映射
+$\alpha : \varphi^*\mathcal{O}_{\mathbf{P}^r_k}(1) \to \mathcal{L}$
+，使得 $\varphi^*T_0, \ldots, \varphi^*T_r$
+被映为 $V$ 的一组基，所用映射为 $\alpha$。
+\end{lemma}
+
+\begin{proof}
+设 $s_0, \ldots, s_r \in V$ 是一组 $k$-基。由于 $X$ 非奇异，
+记该映射的像为 $\mathcal{L}' \subset \mathcal{L}$；该映射为
+$s_0, \ldots, s_r : \mathcal{O}_X^{\oplus r + 1} \to \mathcal{L}$
+。于是该像是可逆 $\mathcal{O}_X$-模；例如这可由《除子》，引理
+\ref{divisors-lemma-torsion-free-over-regular-dim-1} 得到。
+然后应用《构造》，引理 \ref{constructions-lemma-projective-space}，
+得到态射
+$$
+\varphi = \varphi_{(\mathcal{L}', (s_0, \ldots, s_r))} :
+X \longrightarrow \mathbf{P}^r_k
+$$
+，正如引理所述。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-linear-series-trivial-existence}
+设 $k$ 为域，$X$ 为维数 $\leq 1$ 的 $k$ 上固有概形。
+若 $X$ 有一个 $\mathfrak g^r_d$，则 $X$ 有一个
+$\mathfrak g^s_d$，对所有 $0 \leq s \leq r$ 都如此。
+\end{lemma}
+
+\begin{proof}
+这是因为向量空间 $V$ 的维数为 $r + 1$，它定义在 $k$ 上；
+该空间有维数为 $s + 1$ 的线性子空间，对所有
+$0 \leq s \leq r$ 都如此。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-g1d}
+设 $k$ 为域，$X$ 为 $k$ 上的非奇异固有曲线。
+设 $(\mathcal{L}, V)$ 是一个 $\mathfrak g^1_d$，定义在 $X$ 上。
+则态射 $\varphi : X \to \mathbf{P}^1_k$
+（见引理 \ref{curves-lemma-linear-series}）满足下列二者之一：
+\begin{enumerate}
+\item 它非常值，且次数 $\leq d$；或
+\item 它分解通过 $\mathbf{P}^1_k$ 的一个闭点，并且在这种情形下
+$H^0(X, \mathcal{O}_X) \not = k$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-linear-series} 可知
+$\mathcal{L}' = \varphi^*\mathcal{O}_{\mathbf{P}^1_k}(1)$
+有一个非零映射 $\mathcal{L}' \to \mathcal{L}$。
+因此由《簇》，引理 \ref{varieties-lemma-check-invertible-sheaf-trivial}
+可知 $0 \leq \deg(\mathcal{L}') \leq d$。
+若 $\deg(\mathcal{L}') = 0$，则同一引理给出
+$\mathcal{L}' \cong \mathcal{O}_X$；又因为有两个线性无关截面，
+所以处于情形 (2)。
+若 $\deg(\mathcal{L}') > 0$，则 $\varphi$ 非常值
+（因为可逆模沿常值态射的拉回是平凡的）。因此
+$$
+\deg(\mathcal{L}') =
+\deg(X/\mathbf{P}^1_k) \deg(\mathcal{O}_{\mathbf{P}^1_k}(1))
+$$
+，这由《簇》，引理
+\ref{varieties-lemma-degree-pullback-map-proper-curves} 得到。
+由于 $\mathcal{O}_{\mathbf{P}^1_k}(1)$ 的次数为 $1$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-grd-inequalities}
+设 $k$ 为域，$X$ 为 $k$ 上满足
+$H^0(X, \mathcal{O}_X) = k$ 的固有曲线。若 $X$ 有一个
+$\mathfrak g^r_d$，则 $r \leq d$。若等号成立，则
+$H^1(X, \mathcal{O}_X) = 0$；换言之，$X$ 的亏格
+（定义 \ref{curves-definition-genus}）为 $0$。
+\end{lemma}
+
+\begin{proof}
+设 $(\mathcal{L}, V)$ 是一个 $\mathfrak g^r_d$。由于这样只会增大
+$r$，可以假设 $V = H^0(X, \mathcal{L})$。选取非零元
+$s \in V$。于是 $s$ 的零点概形是一个有效 Cartier 除子
+$D \subset X$，并且 $\mathcal{L} = \mathcal{O}_X(D)$；还有短正合列
+$$
+0 \to \mathcal{O}_X \to \mathcal{L} \to \mathcal{L}|_D \to 0
+$$
+；见《除子》，引理 \ref{divisors-lemma-characterize-OD} 及
+备注 \ref{divisors-remark-ses-regular-section}。
+由《簇》，引理 \ref{varieties-lemma-degree-effective-Cartier-divisor}，
+有 $\deg(D) = \deg(\mathcal{L}) = d$。
+由于 $D$ 是 Artin 概形，有
+$\mathcal{L}|_D \cong \mathcal{O}_D$\footnote{在我们的情形下，
+这由《除子》，引理
+\ref{divisors-lemma-finite-trivialize-invertible-upstairs}
+得到，因为 $D \to \Spec(k)$ 有限。}。因此
+$$
+\dim_k H^0(D, \mathcal{L}|_D) = \dim_k H^0(D, \mathcal{O}_D) = \deg(D) = d
+$$
+另一方面，依假设
+$\dim_k H^0(X, \mathcal{O}_X) = 1$，且
+$\dim H^0(X, \mathcal{L}) = r + 1$。
+因此 $r + 1 \leq 1 + d$，亦即引理所述的 $r \leq d$。
+
+\medskip\noindent
+假设等号成立。则
+$H^0(X, \mathcal{L}) \to H^0(X, \mathcal{L}|_D)$ 满射。
+若已知 $H^1(X, \mathcal{L})$ 为零，则由上同调长正合列可推出
+$H^1(X, \mathcal{O}_X)$ 为零，证明便告完成。
+我们的策略是把 $\mathcal{L}$ 换成一个上同调消没的高次幂。
+由于 $\mathcal{L}|_D$ 是平凡可逆模（见上），可以找到截面
+$t$，它取值于 $\mathcal{L}$，且其在 $D$ 上的限制生成
+$\mathcal{L}|_D$。考虑乘法映射
+$$
+\mu :
+H^0(X, \mathcal{L}) \otimes_k H^0(X, \mathcal{L})
+\longrightarrow
+H^0(X, \mathcal{L}^{\otimes 2})
+$$
+以及短正合列
+$$
+0 \to \mathcal{L} \xrightarrow{s}
+\mathcal{L}^{\otimes 2} \to \mathcal{L}^{\otimes 2}|_D \to 0
+$$
+由于 $H^0(\mathcal{L}) \to H^0(\mathcal{L}|_D)$ 满射，且
+$t$ 映到 $\mathcal{L}|_D$ 的一个平凡化，可知
+$\mu(H^0(X, \mathcal{L}) \otimes t)$ 给出
+$H^0(X, \mathcal{L}^{\otimes 2})$ 的一个子空间，并满射到
+$\mathcal{L}^{\otimes 2}|_D$ 的整体截面。因此
+$$
+\dim H^0(X, \mathcal{L}^{\otimes 2}) = r + 1 + d = 2r + 1 =
+\deg(\mathcal{L}^{\otimes 2}) + 1
+$$
+。所以 $\mathcal{L}^{\otimes 2}$ 与 $\mathcal{L}$ 具有同一性质，
+亦即整体截面空间的维数等于次数加一。因为 $\mathcal{L}$ 丰沛
+（《簇》，引理 \ref{varieties-lemma-ample-curve}），
+存在某个 $n_0$，使 $\mathcal{L}^{\otimes n}$ 的 $H^1$
+对所有 $n \geq n_0$ 都消没
+（《概形的上同调》，引理 \ref{coherent-lemma-coherent-proper-ample}）。
+因此，把上述论证应用于 $\mathcal{L}^{\otimes n}$，
+其中 $n = 2^m$ 且 $m$ 足够大，便得引理成立。
+\end{proof}
+
+\begin{remark}[经典定义]
+\label{curves-remark-classical-linear-series}
+设 $X$ 为代数闭域 $k$ 上的光滑投射曲线。
+称两个有效 Cartier 除子 $D, D' \subset X$ {\it 线性等价}，
+当且仅当有 $\mathcal{O}_X(D) \cong \mathcal{O}_X(D')$，
+这里把二者视为 $\mathcal{O}_X$-模。
+由于 $\Pic(X) = \text{Cl}(X)$
+（《除子》，引理 \ref{divisors-lemma-local-rings-UFD-c1-bijective}），
+可知 $D$ 与 $D'$ 线性等价，当且仅当同 $D$ 与 $D'$
+相伴的 Weil 除子定义了 $\text{Cl}(X)$ 的同一个元素。
+给定有效 Cartier 除子 $D \subset X$，其次数为 $d$；
+所谓它的{\it 完备线性系统}或{\it 完备线性系} $|D|$，
+即 $D$ 的完备线性系，是由所有有效 Cartier 除子
+$E \subset X$ 组成的集合，这些除子与 $D$ 线性等价。
+换言之，$|D|$ 是下述态射某条纤维的闭点集合：
+$$
+\gamma_d :
+\underline{\Hilbfunctor}^d_{X/k}
+\longrightarrow
+\underline{\Picardfunctor}^d_{X/k}
+$$
+这里取曲线上 Picard 概形，引理 \ref{pic-lemma-picard-pieces}
+中对应于 $\mathcal{O}_X(D)$ 的闭点之上的纤维。
+这赋予 $|D|$ 一个自然概形结构，并且事实证明
+$|D| \cong \mathbf{P}^m_k$，其中
+$m + 1 = h^0(\mathcal{O}_X(D))$。事实上，更典范地有
+$$
+|D| = \mathbf{P}(H^0(X, \mathcal{O}_X(D))^\vee)
+$$
+，其中 $(-)^\vee$ 表示 $k$-线性对偶，而 $\mathbf{P}$ 如《构造》，
+例 \ref{constructions-example-projective-space} 中所定义。
+用这种语言，$X$ 上的{\it 线性系统}或{\it 线性系}，
+是可由线性方程截出的闭子簇 $L \subset |D|$。
+若 $L$ 的维数为 $r$，则 $L = \mathbf{P}(V^\vee)$，其中
+$V \subset H^0(X, \mathcal{O}_X(D))$ 是维数为 $r + 1$
+的线性子空间。因此，经典线性系 $L \subset |D|$
+对应于上述定义的线性系 $(\mathcal{O}_X(D), V)$。
+\end{remark}
+
+
+
+
+
+
+
+\section{对偶性}
+\label{curves-section-duality}
+
+\noindent
+本节推导有关域上固有 $1$ 维概形的对偶化复形与对偶性的一般理论
+所带来的结论。有关域上更高维固有概形的类似讨论，见《概形的对偶性》，
+第 \ref{duality-section-duality-proper-over-field} 节。
+
+\begin{lemma}
+\label{curves-lemma-duality-dim-1}
+设 $X$ 为维数 $\leq 1$ 的域 $k$ 上固有概形。
+存在具有下列性质的对偶化复形 $\omega_X^\bullet$：
+\begin{enumerate}
+\item $H^i(\omega_X^\bullet)$ 仅在 $i = -1, 0$ 时非零；
+\item $\omega_X = H^{-1}(\omega_X^\bullet)$
+是凝聚 Cohen--Macaulay 模，其支撑是所有维数为 $1$ 的不可约分支；
+\item 对闭点 $x \in X$，模 $H^0(\omega_{X, x}^\bullet)$ 非零，
+当且仅当下列二者之一成立：
+\begin{enumerate}
+\item $\dim(\mathcal{O}_{X, x}) = 0$；或
+\item $\dim(\mathcal{O}_{X, x}) = 1$
+且 $\mathcal{O}_{X, x}$ 不是 Cohen--Macaulay 的；
+\end{enumerate}
+\item 对 $K \in D_\QCoh(\mathcal{O}_X)$ 有函子性同构\footnote{由
+Yoneda 引理，这一性质在唯一同构意义下刻画
+$\omega_X^\bullet$ 作为 $D_\QCoh(\mathcal{O}_X)$ 中的对象。由于
+$\omega_X^\bullet$ 属于 $D^b_{\textit{Coh}}(\mathcal{O}_X)$，
+事实上只需考虑 $K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$。}
+$$
+\Ext^i_X(K, \omega_X^\bullet) = \Hom_k(H^{-i}(X, K), k)
+$$
+，并与平移及特异三角形相容；
+\item 有函子性同构
+$\Hom(\mathcal{F}, \omega_X) = \Hom_k(H^1(X, \mathcal{F}), k)$
+，其中 $\mathcal{F}$ 是 $X$ 上的拟凝聚模；
+\item 若 $X \to \Spec(k)$ 光滑且相对维数为 $1$，则
+$\omega_X \cong \Omega_{X/k}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以 $f : X \to \Spec(k)$ 表示结构态射。先取相对对偶化复形
+$$
+\omega_X^\bullet = \omega_{X/k}^\bullet = a(\mathcal{O}_{\Spec(k)})
+$$
+，如《概形的对偶性》，备注
+\ref{duality-remark-relative-dualizing-complex} 中所述。
+性质 (4) 由构造即得，因为 $a$ 是
+$f_* : D_\QCoh(\mathcal{O}_X) \to D(\mathcal{O}_{\Spec(k)})$ 的右伴随。
+由于 $f$ 固有，依定义有
+$f^!(\mathcal{O}_{\Spec(k)}) = a(\mathcal{O}_{\Spec(k)})$；
+见《概形的对偶性》，第 \ref{duality-section-upper-shriek} 节。
+因此 $\omega_X^\bullet$ 与 $\omega_X$ 正如《概形的对偶性》，
+例 \ref{duality-example-proper-over-local} 以及
+例 \ref{duality-example-equidimensional-over-field} 中所述。
+(1) 与 (2) 由《概形的对偶性》，引理
+\ref{duality-lemma-vanishing-good-dualizing} 得到。
+对闭点 $x \in X$，$\omega_{X, x}^\bullet$ 是
+$\mathcal{O}_{X, x}$ 上的正规化对偶化复形；见《概形的对偶性》，
+引理 \ref{duality-lemma-good-dualizing-normalized}。
+于是 (3) 由《对偶化复形》，引理 \ref{dualizing-lemma-apply-CM} 得到。
+对凝聚 $\mathcal{F}$，(5) 由《概形的对偶性》，引理
+\ref{duality-lemma-dualizing-module-proper-over-A} 得到；一般情形则把
+(4) 展开，并取 $K = \mathcal{F}[0]$ 与 $i = -1$。
+(6) 由《概形的对偶性》，引理 \ref{duality-lemma-smooth-proper} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-duality-dim-1-CM}
+设 $X$ 为域 $k$ 上的固有概形，它是 Cohen--Macaulay 的，
+并且等维且维数为 $1$。引理 \ref{curves-lemma-duality-dim-1} 中的模
+$\omega_X$ 具有下列性质：
+\begin{enumerate}
+\item $\omega_X$ 是 $X$ 上的对偶化模
+（《概形的对偶性》，第 \ref{duality-section-dualizing-module} 节）；
+\item $\omega_X$ 是凝聚 Cohen--Macaulay 模，其支撑为 $X$；
+\item 有函子性同构
+$\Ext^i_X(K, \omega_X[1]) = \Hom_k(H^{-i}(X, K), k)$
+，它们对 $K \in D_\QCoh(X)$ 与平移相容；
+\item 有函子性同构
+$\Ext^{1 + i}(\mathcal{F}, \omega_X) = \Hom_k(H^{-i}(X, \mathcal{F}), k)$
+，其中 $\mathcal{F}$ 是 $X$ 上的拟凝聚模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回顾引理 \ref{curves-lemma-duality-dim-1} 的证明，其中
+$\omega_X$ 正如《概形的对偶性》，例
+\ref{duality-example-proper-over-local} 中所述，因而是对偶化模。
+其余断言由引理 \ref{curves-lemma-duality-dim-1} 以及等式
+$\omega_X^\bullet = \omega_X[1]$ 得到；后者成立是因为
+$X$ 为 Cohen--Macaulay 概形（《概形的对偶性》，引理
+\ref{duality-lemma-dualizing-module-CM-scheme}）。
+\end{proof}
+
+\begin{remark}
+\label{curves-remark-rework-duality-locally-free}
+设 $X$ 为维数 $\leq 1$ 的域 $k$ 上固有概形。
+设 $\omega_X^\bullet$ 与 $\omega_X$ 如引理
+\ref{curves-lemma-duality-dim-1} 中所定义。若 $\mathcal{E}$ 是有限局部自由
+$\mathcal{O}_X$-模，其对偶为 $\mathcal{E}^\vee$，则有典范同构
+$$
+\Hom_k(H^{-i}(X, \mathcal{E}), k) =
+H^i(X, \mathcal{E}^\vee \otimes_{\mathcal{O}_X}^\mathbf{L} \omega_X^\bullet)
+$$
+。这由上述引理及《上同调》，引理
+\ref{cohomology-lemma-dual-perfect-complex} 得到。
+若 $X$ 是 Cohen--Macaulay 的，并且等维且维数为 $1$，则有典范同构
+$$
+\Hom_k(H^{-i}(X, \mathcal{E}), k) =
+H^{1 + i}(X, \mathcal{E}^\vee \otimes_{\mathcal{O}_X} \omega_X)
+$$
+；这由引理 \ref{curves-lemma-duality-dim-1-CM} 得到。特别地，若
+$\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模，则有
+$$
+\dim_k H^0(X, \mathcal{L}) =
+\dim_k H^1(X, \mathcal{L}^{\otimes -1} \otimes_{\mathcal{O}_X} \omega_X)
+$$
+以及
+$$
+\dim_k H^1(X, \mathcal{L}) =
+\dim_k H^0(X, \mathcal{L}^{\otimes -1} \otimes_{\mathcal{O}_X} \omega_X)
+$$
+\end{remark}
+
+\noindent
+下面对对偶化复形作一次合理性检验。
+
+\begin{lemma}
+\label{curves-lemma-sanity-check-duality}
+设 $X$ 为维数 $\leq 1$ 的域 $k$ 上固有概形。
+设 $\omega_X^\bullet$ 与 $\omega_X$ 如引理
+\ref{curves-lemma-duality-dim-1} 中所定义。
+\begin{enumerate}
+\item 若 $X \to \Spec(k)$ 分解为
+$X \to \Spec(k') \to \Spec(k)$，其中 $k'$ 是某个域，则 $\omega_X^\bullet$ 与
+$\omega_X$ 满足性质 (4)、(5)、(6)，其中把 $k$ 换成 $k'$。
+\item 若 $K/k$ 是域扩张，则 $\omega_X^\bullet$ 与 $\omega_X$
+在基变换 $X_K$ 上的拉回，正如引理
+\ref{curves-lemma-duality-dim-1} 对态射 $X_K \to \Spec(K)$ 所述。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以 $f : X \to \Spec(k)$ 表示结构态射。断言 (1) 的确切含义是：
+$\omega_X^\bullet$ 与 $\omega_X$ 正如引理
+\ref{curves-lemma-duality-dim-1} 对态射 $f' : X \to \Spec(k')$ 所定义。
+在引理 \ref{curves-lemma-duality-dim-1} 的证明中，我们取
+$\omega_X^\bullet = a(\mathcal{O}_{\Spec(k)})$，其中 $a$ 是
+《概形的对偶性》，引理
+\ref{duality-lemma-twisted-inverse-image} 对 $f$ 所给函子的右伴随。
+因此须证明
+$a(\mathcal{O}_{\Spec(k)}) \cong a'(\mathcal{O}_{\Spec(k)})$
+，其中 $a'$ 是《概形的对偶性》，引理
+\ref{duality-lemma-twisted-inverse-image} 对 $f'$ 所给函子的右伴随。
+由于 $k' \subset H^0(X, \mathcal{O}_X)$，可知 $k'/k$ 是有限扩张
+（《概形的上同调》，引理
+\ref{coherent-lemma-proper-over-affine-cohomology-finite}）。
+由伴随的唯一性，有 $a = a' \circ b$，其中 $b$ 是《概形的对偶性》，
+引理 \ref{duality-lemma-twisted-inverse-image} 对
+$g : \Spec(k') \to \Spec(k)$ 所给函子的右伴随。
+换言之，有 $f^! = (f')^! \circ g^!$。
+因此只需证明 $\Hom_k(k', k) \cong k'$ 是一个 $k'$-模同构；
+见《概形的对偶性》，例
+\ref{duality-example-affine-twisted-inverse-image}。
+这是因为二者都是 $k'$-向量空间，且维数相同（即维数 $1$）。
+
+\medskip\noindent
+证明 (2)。这是因为由《概形的对偶性》，引理
+\ref{duality-lemma-more-base-change}，$a$ 满足基变换。
+参见《概形的对偶性》，备注
+\ref{duality-remark-relative-dualizing-complex} 中的讨论。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-closed-immersion-dim-1-CM}
+设 $X$ 为维数 $\leq 1$ 的域 $k$ 上固有概形。
+设 $i : Y \to X$ 为闭浸入，并设
+$\omega_X^\bullet$、$\omega_X$、$\omega_Y^\bullet$、$\omega_Y$
+如引理 \ref{curves-lemma-duality-dim-1} 中所定义。则
+\begin{enumerate}
+\item $\omega_Y^\bullet = R\SheafHom(\mathcal{O}_Y, \omega_X^\bullet)$；
+\item $\omega_Y = \SheafHom(\mathcal{O}_Y, \omega_X)$，且
+$i_*\omega_Y = \SheafHom_{\mathcal{O}_X}(i_*\mathcal{O}_Y, \omega_X)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以 $g : Y \to \Spec(k)$ 与 $f : X \to \Spec(k)$ 表示结构态射。
+于是 $g = f \circ i$。以 $a, b, c$ 分别表示《概形的对偶性》，
+引理 \ref{duality-lemma-twisted-inverse-image} 对 $f, g, i$
+所给函子的右伴随。由右伴随的唯一性，有 $b = c \circ a$；
+这里也用到 $Rg_* = Rf_* \circ Ri_*$。
+在引理 \ref{curves-lemma-duality-dim-1} 的证明中，我们置
+$\omega_X^\bullet = a(\mathcal{O}_{\Spec(k)})$ 且
+$\omega_Y^\bullet = b(\mathcal{O}_{\Spec(k)})$。
+因此 $\omega_Y^\bullet = c(\omega_X^\bullet)$；由《概形的对偶性》，
+引理 \ref{duality-lemma-twisted-inverse-image-closed}，这蕴含 (1)。
+由于 $\omega_X = H^{-1}(\omega_X^\bullet)$ 且
+$\omega_Y = H^{-1}(\omega_Y^\bullet)$，可得
+$\omega_Y = \SheafHom(\mathcal{O}_Y, \omega_X)$。
+这又蕴含
+$i_*\omega_Y = \SheafHom_{\mathcal{O}_X}(i_*\mathcal{O}_Y, \omega_X)$
+；见《概形的对偶性》，引理
+\ref{duality-lemma-sheaf-with-exact-support-ext}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-closed-subscheme-reduced-gorenstein}
+设 $X$ 为域 $k$ 上的固有概形，它是 Gorenstein、约化的，
+并且等维且维数为 $1$。设 $i : Y \to X$ 是等维且维数为 $1$
+的约化闭子概形。设 $j : Z \to X$ 是 $X \setminus Y$
+的概形论闭包。则
+\begin{enumerate}
+\item $Y$ 与 $Z$ 都是 Cohen--Macaulay 的；
+\item 若 $\mathcal{I} \subset \mathcal{O}_X$、分别地
+$\mathcal{J} \subset \mathcal{O}_X$ 是 $Y$、分别地 $Z$
+在 $X$ 中的理想层，则
+$$
+\mathcal{I} = i_*\mathcal{I}'
+\quad\text{且}\quad
+\mathcal{J} = j_*\mathcal{J}'
+$$
+，其中 $\mathcal{I}' \subset \mathcal{O}_Z$、分别地
+$\mathcal{J}' \subset \mathcal{O}_Y$ 是 $Y \cap Z$ 在
+$Z$、分别地 $Y$ 中的理想层；
+\item $\omega_Y = \mathcal{J}'(i^*\omega_X)$，且
+$i_*(\omega_Y) = \mathcal{J}\omega_X$；
+\item $\omega_Z = \mathcal{I}'(i^*\omega_X)$，且
+$i_*(\omega_Z) = \mathcal{I}\omega_X$；
+\item 有下列短正合列：
+\begin{align*}
+0 \to \omega_X \to i_*i^*\omega_X \oplus j_*j^*\omega_X \to
+\mathcal{O}_{Y \cap Z} \to 0 \\
+0 \to i_*\omega_Y \to \omega_X \to j_*j^*\omega_X \to 0 \\
+0 \to j_*\omega_Z \to \omega_X \to i_*i^*\omega_X \to 0 \\
+0 \to i_*\omega_Y \oplus j_*\omega_Z \to \omega_X \to
+\mathcal{O}_{Y \cap Z} \to 0 \\
+0 \to \omega_Y \to i^*\omega_X \to \mathcal{O}_{Y \cap Z} \to 0 \\
+0 \to \omega_Z \to j^*\omega_X \to \mathcal{O}_{Y \cap Z} \to 0
+\end{align*}
+\end{enumerate}
+这里 $\omega_X$、$\omega_Y$、$\omega_Z$ 如引理
+\ref{curves-lemma-duality-dim-1} 中所定义。
+\end{lemma}
+
+\begin{proof}
+约化的 $1$ 维 Noether 概形是 Cohen--Macaulay 的，所以 (1) 成立。
+由于 $X$ 约化，在概形论意义下有 $X = Y \cup Z$。
+采用《态射》，引理 \ref{morphisms-lemma-scheme-theoretic-union}
+中的记号，并由该引理的断言，有短正合列
+$$
+0 \to \mathcal{O}_X \to
+\mathcal{O}_Y \oplus \mathcal{O}_Z \to \mathcal{O}_{Y \cap Z} \to 0
+$$
+。由于 $\mathcal{J} = \Ker(\mathcal{O}_X \to \mathcal{O}_Z)$、
+$\mathcal{J}' = \Ker(\mathcal{O}_Y \to \mathcal{O}_{Y \cap Z})$、
+$\mathcal{I} = \Ker(\mathcal{O}_X \to \mathcal{O}_Y)$，以及
+$\mathcal{I}' = \Ker(\mathcal{O}_Z \to \mathcal{O}_{Y \cap Z})$，
+图追踪即得 (2)。
+注意 $\mathcal{I} + \mathcal{J}$ 是 $Y \cap Z$ 的理想层，
+并且 $\mathcal{I} \cap \mathcal{J} = 0$。因此有下列正合列：
+\begin{align*}
+0 \to \mathcal{O}_X \to \mathcal{O}_Y \oplus \mathcal{O}_Z \to
+\mathcal{O}_{Y \cap Z} \to 0 \\
+0 \to \mathcal{J} \to \mathcal{O}_X \to \mathcal{O}_Z \to 0 \\
+0 \to \mathcal{I} \to \mathcal{O}_X \to \mathcal{O}_Y \to 0 \\
+0 \to \mathcal{J} \oplus \mathcal{I} \to \mathcal{O}_X \to
+\mathcal{O}_{Y \cap Z} \to 0 \\
+0 \to \mathcal{J}' \to \mathcal{O}_Y \to \mathcal{O}_{Y \cap Z} \to 0 \\
+0 \to \mathcal{I}' \to \mathcal{O}_Z \to \mathcal{O}_{Y \cap Z} \to 0
+\end{align*}
+由于 $X$ 是 Gorenstein 的，$\omega_X$ 是可逆
+$\mathcal{O}_X$-模（《概形的对偶性》，引理
+\ref{duality-lemma-gorenstein}）。
+由于 $Y \cap Z$ 的维数为 $0$，有
+$\omega_X|_{Y \cap Z} \cong \mathcal{O}_{Y \cap Z}$。
+因此，只要证明 (3) 与 (4)，把上述短正合列与可逆模
+$\omega_X$ 作张量积，便得到引理中的短正合列。
+由对称性，只需证明 (3)；再由 (2)，只需证明
+$i_*(\omega_Y) = \mathcal{J}\omega_X$。
+
+\medskip\noindent
+我们有
+$i_*\omega_Y = \SheafHom_{\mathcal{O}_X}(i_*\mathcal{O}_Y, \omega_X)$
+，这由引理 \ref{curves-lemma-closed-immersion-dim-1-CM} 得到。
+再次利用 $\omega_X$ 可逆，最终只需证明
+$\SheafHom_{\mathcal{O}_X}(\mathcal{O}_X/\mathcal{I}, \mathcal{O}_X)$
+同构地映到 $\mathcal{J}$，其映射是在 $1$ 处取值。
+换言之，$\mathcal{J}$ 是 $\mathcal{I}$ 的零化子。这由上文得到。
+\end{proof}
+
+
+
+
+
+
+
+\section{Riemann--Roch 定理}
+\label{curves-section-Riemann-Roch}
+
+\noindent
+设 $k$ 为域，$X$ 为维数 $\leq 1$ 的 $k$ 上固有概形。
+在《簇》，第 \ref{varieties-section-divisors-curves} 节中，
+我们用下式定义常秩局部自由 $\mathcal{O}_X$-模
+$\mathcal{E}$ 的次数：
+\begin{equation}
+\label{curves-equation-degree}
+\deg(\mathcal{E}) =
+\chi(X, \mathcal{E}) - \text{rank}(\mathcal{E})\chi(X, \mathcal{O}_X)
+\end{equation}
+；见《簇》，定义 \ref{varieties-definition-degree-invertible-sheaf}。
+在《Chow 同调》一章中，我们把 $\mathcal{E}$ 的第一 Chern 类定义为
+闭链上的运算（《Chow 同调》，第
+\ref{chow-section-intersecting-chern-classes} 节），并证明
+\begin{equation}
+\label{curves-equation-degree-c1}
+\deg(\mathcal{E}) = \deg(c_1(\mathcal{E}) \cap [X]_1)
+\end{equation}
+；见《Chow 同调》，引理 \ref{chow-lemma-degree-vector-bundle}。
+结合 (\ref{curves-equation-degree}) 与 (\ref{curves-equation-degree-c1})，
+得到第一种 Riemann--Roch 公式：
+\begin{equation}
+\label{curves-equation-rr}
+\chi(X, \mathcal{E}) =
+\deg(c_1(\mathcal{E}) \cap [X]_1) +
+\text{rank}(\mathcal{E})\chi(X, \mathcal{O}_X)
+\end{equation}
+若 $\mathcal{L}$ 是可逆 $\mathcal{O}_X$-模，还可以考虑数值交数
+$(\mathcal{L} \cdot X)$，其定义见《簇》，定义
+\ref{varieties-definition-intersection-number}。不过，这并未给出新内容，因为
+\begin{equation}
+\label{curves-equation-numerical-degree}
+(\mathcal{L} \cdot X) = \deg(\mathcal{L})
+\end{equation}
+；这由《簇》，引理
+\ref{varieties-lemma-intersection-numbers-and-degrees-on-curves} 得到。
+若 $\mathcal{L}$ 丰沛，则这个整数为正，并称下式
+\begin{equation}
+\label{curves-equation-degree-X}
+\deg_\mathcal{L}(X) = (\mathcal{L} \cdot X) = \deg(\mathcal{L})
+\end{equation}
+为 $X$ 关于 $\mathcal{L}$ 的次数；见《簇》，定义
+\ref{varieties-definition-degree}。
+
+\medskip\noindent
+为了得到真正的 Riemann--Roch 定理，我们希望把
+$\chi(X, \mathcal{O}_X)$ 写成 $X$ 上某个典范零维闭链的次数。
+完全一般的版本见 \cite{F}。我们将利用对偶性，在 $X$ 为
+Gorenstein 时得到一个公式；不过，从某种意义上说这是一种取巧
+（例如，因为这种方法在更高维中不能奏效）。
+
+\medskip\noindent
+我们先利用引理 \ref{curves-lemma-duality-dim-1} 与
+\ref{curves-lemma-duality-dim-1-CM}，得到 $\mathcal{O}_X$ 的 Euler
+示性数同对偶化复形或对偶化模的 Euler 示性数之间的关系。
+
+\begin{lemma}
+\label{curves-lemma-euler}
+设 $X$ 为维数 $\leq 1$ 的域 $k$ 上固有概形。
+令 $\omega_X^\bullet$ 与 $\omega_X$ 如引理
+\ref{curves-lemma-duality-dim-1} 中所定义，则
+$$
+\chi(X, \mathcal{O}_X) = \chi(X, \omega_X^\bullet)
+$$
+。若 $X$ 是 Cohen--Macaulay 的，并且等维且维数为 $1$，则
+$$
+\chi(X, \mathcal{O}_X) = - \chi(X, \omega_X)
+$$
+\end{lemma}
+
+\begin{proof}
+第一条公式的右端定义如下：
+$$
+\chi(X, \omega_X^\bullet) =
+\sum\nolimits_{i \in \mathbf{Z}} (-1)^i\dim_k H^i(X, \omega_X^\bullet)
+$$
+这是良定义的，因为 $\omega_X^\bullet$ 属于
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$；也可以由下式看出：
+$$
+H^i(X, \omega_X^\bullet) =
+\Ext^i(\mathcal{O}_X, \omega_X^\bullet) =
+H^{-i}(X, \mathcal{O}_X)
+$$
+它总是有限维的，并且仅在 $i = 0, -1$ 时非零。
+这当然也证明了第一条公式。在 CM 情形下，
+$\omega_X^\bullet = \omega_X[1]$，所以第二条公式由第一条公式推出；
+见引理 \ref{curves-lemma-duality-dim-1-CM}。
+\end{proof}
+
+\noindent
+我们将利用引理 \ref{curves-lemma-euler} 得到所需的
+$\chi(X, \mathcal{O}_X)$ 公式，此时 $\omega_X$ 可逆，
+亦即 $X$ 为 Gorenstein 的。其断言是：取 $-1/2$ 倍的
+$\omega_X$ 的第一 Chern 类，再同闭链 $[X]_1$ 作帽积；
+该闭链与 $X$ 相伴。所得闭链是 $X$ 上一个具有半整数系数的
+自然零维闭链，其次数为
+$\chi(X, \mathcal{O}_X)$。Riemann--Roch 定理的陈述中无法避免分数。
+
+\begin{lemma}[Riemann--Roch]
+\label{curves-lemma-rr}
+设 $X$ 为域 $k$ 上的固有概形，它是 Gorenstein 的，
+并且等维且维数为 $1$。设 $\omega_X$ 如引理
+\ref{curves-lemma-duality-dim-1} 中所定义。则
+\begin{enumerate}
+\item $\omega_X$ 是可逆 $\mathcal{O}_X$-模；
+\item $\deg(\omega_X) = -2\chi(X, \mathcal{O}_X)$；
+\item 对常秩局部自由 $\mathcal{O}_X$-模 $\mathcal{E}$，有
+$$
+\chi(X, \mathcal{E}) = \deg(\mathcal{E}) -
+\textstyle{\frac{1}{2}} \text{rank}(\mathcal{E}) \deg(\omega_X)
+$$
+，且 $\dim_k(H^i(X, \mathcal{E})) =
+\dim_k(H^{1 - i}(X, \mathcal{E}^\vee \otimes_{\mathcal{O}_X} \omega_X))$
+对所有 $i \in \mathbf{Z}$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\noindent
+非奇异（正规）曲线是 Gorenstein 的；见《概形的对偶性》，引理
+\ref{duality-lemma-regular-gorenstein}。
+
+\begin{proof}
+回顾 Gorenstein 概形是 Cohen--Macaulay 的
+（《概形的对偶性》，引理 \ref{duality-lemma-gorenstein-CM}），
+因而 $\omega_X$ 是 $X$ 上的对偶化模；见引理
+\ref{curves-lemma-duality-dim-1-CM}。
+从 Gorenstein 性质的定义几乎立即可知，对偶化层可逆；见《概形的对偶性》，
+第 \ref{duality-section-gorenstein} 节。
+把 (\ref{curves-equation-rr}) 应用于 $\omega_X$，得到
+$$
+\chi(X, \omega_X) = 
+\deg(c_1(\omega_X) \cap [X]_1) + \chi(X, \mathcal{O}_X)
+$$
+。结合引理 \ref{curves-lemma-euler}，得到
+$$
+2\chi(X, \mathcal{O}_X) = - \deg(c_1(\omega_X) \cap [X]_1) = - \deg(\omega_X)
+$$
+；第二个等号由 (\ref{curves-equation-degree-c1}) 得到。
+把它代回关于 $\mathcal{E}$ 的 (\ref{curves-equation-rr})，即得引理中的展示公式。
+维数的对称性是 $X$ 的对偶性的推论；见备注
+\ref{curves-remark-rework-duality-locally-free}。
+\end{proof}
+
+
+
+
+
+\section{一些消没结果}
+\label{curves-section-vanishing}
+
+\noindent
+本节包含一些很弱的消没结果。更多且更有趣的若干结果见
+第 \ref{curves-section-more-vanishing} 节。
+
+\begin{lemma}
+\label{curves-lemma-automatic}
+设 $k$ 为域，$X$ 为 $k$ 上维数为 $1$ 的固有概形，且
+$H^0(X, \mathcal{O}_X) = k$。则 $X$ 连通、Cohen--Macaulay，
+并且等维且维数为 $1$。
+\end{lemma}
+
+\begin{proof}
+由于 $\Gamma(X, \mathcal{O}_X) = k$ 没有非平凡幂等元，
+$X$ 连通。这已经说明 $X$ 等维且维数为 $1$
+（任何维数为 $0$ 的不可约分支都会是一个连通分支）。
+设 $\mathcal{I} \subset \mathcal{O}_X$ 为支撑于闭点的最大凝聚子模。
+这个 $\mathcal{I}$ 存在
+（《除子》，引理 \ref{divisors-lemma-remove-embedded-points}），
+并由整体截面生成（《簇》，引理
+\ref{varieties-lemma-chi-tensor-finite}）。
+由于 $1 \in \Gamma(X, \mathcal{O}_X)$ 不是 $\mathcal{I}$ 的截面，
+可知 $\mathcal{I} = 0$。所以 $X$ 没有嵌入点
+（《除子》，引理 \ref{divisors-lemma-remove-embedded-points}）。
+再由《除子》，引理 \ref{divisors-lemma-S1-no-embedded}，
+$X$ 满足 $(S_1)$。因此 $X$ 是 Cohen--Macaulay 的。
+\end{proof}
+
+\noindent
+本节始终处于下述情形。
+
+\begin{situation}
+\label{curves-situation-Cohen-Macaulay-curve}
+这里 $k$ 是域，$X$ 是 $k$ 上维数为 $1$ 的固有概形，并且
+$H^0(X, \mathcal{O}_X) = k$。
+\end{situation}
+
+\noindent
+由引理 \ref{curves-lemma-automatic}，概形 $X$ 是 Cohen--Macaulay 的，
+并且等维且维数为 $1$。引理 \ref{curves-lemma-duality-dim-1} 与
+\ref{curves-lemma-duality-dim-1-CM} 中讨论的对偶化模 $\omega_X$
+具有不消没的 $H^1$，因为事实上
+$\dim_k H^1(X, \omega_X) = \dim_k H^0(X, \mathcal{O}_X) = 1$。
+事实证明，任何比 $\omega_X$ 稍微更“正”的对象都有消没的 $H^1$。
+
+\begin{lemma}
+\label{curves-lemma-vanishing}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，给定正合列
+$$
+\omega_X \to \mathcal{F} \to \mathcal{Q} \to 0
+$$
+，其中各项是凝聚 $\mathcal{O}_X$-模，且
+$H^1(X, \mathcal{Q}) = 0$
+（例如 $\dim(\text{Supp}(\mathcal{Q})) = 0$ 时如此），则或者
+$H^1(X, \mathcal{F}) = 0$，或者
+$\mathcal{F} = \omega_X \oplus \mathcal{Q}$。
+\end{lemma}
+
+\begin{proof}
+（括号中的断言由《概形的上同调》，引理
+\ref{coherent-lemma-coherent-support-dimension-0} 得到。）
+由于 $H^0(X, \mathcal{O}_X) = k$ 与 $H^1(X, \omega_X)$ 对偶
+（见第 \ref{curves-section-Riemann-Roch} 节），可知
+$\dim H^1(X, \omega_X) = 1$。层 $\omega_X$ 表示函子
+$\mathcal{F} \mapsto \Hom_k(H^1(X, \mathcal{F}), k)$
+，这里范畴为凝聚 $\mathcal{O}_X$-模所成的范畴
+（《概形的对偶性》，引理
+\ref{duality-lemma-dualizing-module-proper-over-A}）。
+考虑引理陈述中的正合列，并假设
+$H^1(X, \mathcal{F}) \not = 0$。由于
+$H^1(X, \mathcal{Q}) = 0$，映射
+$H^1(X, \omega_X) \to H^1(X, \mathcal{F})$ 是同构。
+由上述 $\omega_X$ 的泛性质，存在映射
+$\mathcal{F} \to \omega_X$，其在 $H^1$ 上的作用是该同构的逆。
+复合 $\omega_X \to \mathcal{F} \to \omega_X$
+是恒等映射（由泛性质），引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-vanishing-twist}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，设
+$\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模，它由整体截面生成，
+且不同构于 $\mathcal{O}_X$。则
+$H^1(X, \omega_X \otimes \mathcal{L}) = 0$。
+\end{lemma}
+
+\begin{proof}
+由第 \ref{curves-section-Riemann-Roch} 节所讨论的对偶性，只需证明
+$H^0(X, \mathcal{L}^{\otimes - 1}) = 0$。否则，可以选取整体截面
+$t$，它属于 $\mathcal{L}^{\otimes - 1}$；再选取整体截面
+$s$，它属于 $\mathcal{L}$，使得 $st \not = 0$。
+但由假设，$st$ 是 $1$ 的常数倍，因为
+$H^0(X, \mathcal{O}_X) = k$。于是
+$\mathcal{L} \cong \mathcal{O}_X$，矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-globally-generated}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，给定正合列
+$$
+\omega_X \to \mathcal{F} \to \mathcal{Q} \to 0
+$$
+，其中各项是凝聚 $\mathcal{O}_X$-模，
+$\dim(\text{Supp}(\mathcal{Q})) = 0$ 且
+$\dim_k H^0(X, \mathcal{Q}) \geq 2$；并假设不存在非零子模
+$\mathcal{Q}' \subset \mathcal{F}$，使
+$\mathcal{Q}' \to \mathcal{Q}$ 单射。
+则 $\mathcal{F}$ 中由整体截面生成的子模满射到 $\mathcal{Q}$。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{F}' \subset \mathcal{F}$ 为由整体截面以及
+$\omega_X \to \mathcal{F}$ 的像生成的子模。由于
+$\dim_k H^0(X, \mathcal{Q}) \geq 2$，且
+$\dim_k H^1(X, \omega_X) = \dim_k H^0(X, \mathcal{O}_X) = 1$，
+可知 $\mathcal{F}' \to \mathcal{Q}$ 非零，并且
+$\omega_X \to \mathcal{F}'$ 不是同构。
+因此 $H^1(X, \mathcal{F}') = 0$；这由引理
+\ref{curves-lemma-vanishing} 以及对 $\mathcal{F}$ 的假设得到。考虑短正合列
+$$
+0 \to \mathcal{F}' \to \mathcal{F} \to
+\mathcal{Q}/\Im(\mathcal{F}' \to \mathcal{Q}) \to 0
+$$
+。若右端商非零，便产生矛盾，因为此时
+$H^0(X, \mathcal{F})$ 比 $H^0(X, \mathcal{F}')$ 大。
+\end{proof}
+
+\noindent
+下面给出一个整体生成的例子。
+
+\begin{lemma}
+\label{curves-lemma-globally-generated-curve}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，假设 $X$ 是整的。
+设 $0 \to \omega_X \to \mathcal{F} \to \mathcal{Q} \to 0$
+是凝聚 $\mathcal{O}_X$-模的短正合列，其中 $\mathcal{F}$ 无挠，
+$\dim(\text{Supp}(\mathcal{Q})) = 0$，且
+$\dim_k H^0(X, \mathcal{Q}) \geq 2$。则 $\mathcal{F}$ 由整体截面生成。
+\end{lemma}
+
+\begin{proof}
+考虑由整体截面生成的子模 $\mathcal{F}'$。由引理
+\ref{curves-lemma-globally-generated}，$\mathcal{F}' \to \mathcal{Q}$ 满射；
+特别地，$\mathcal{F}' \not = 0$。由于 $X$ 是曲线，
+$\mathcal{F}' \subset \mathcal{F}$ 是秩为 $1$ 的层之间的包含，
+所以 $\mathcal{Q}' = \mathcal{F}/\mathcal{F}'$ 支撑于有限多个点。
+为导出矛盾，假设 $\mathcal{Q}'$ 非零。则
+$H^1(X, \mathcal{F}') \not = 0$。于是由泛性质得到非零映射
+$\mathcal{F}' \to \omega_X$（《概形的对偶性》，引理
+\ref{duality-lemma-dualizing-module-proper-over-A}）。
+复合 $\mathcal{F}' \to \omega_X \to \mathcal{F}$ 的像由整体截面生成，
+所以包含于 $\mathcal{F}'$。于是得到非零自映射
+$\mathcal{F}' \to \mathcal{F}'$。由于 $\mathcal{F}'$ 是固有曲线上
+秩为 $1$ 的无挠层，该映射必为自同构（省略细节）。
+但这就蕴含 $\mathcal{F}'$ 包含于 $\omega_X \subset \mathcal{F}$，
+同 $\mathcal{F}' \to \mathcal{Q}$ 的满射性矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-tensor-omega-with-globally-generated-invertible}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，设 $\mathcal{L}$
+为非常丰沛的可逆 $\mathcal{O}_X$-模，且
+$\deg(\mathcal{L}) \geq 2$。则
+$\omega_X \otimes_{\mathcal{O}_X} \mathcal{L}$ 由整体截面生成。
+\end{lemma}
+
+\begin{proof}
+先假设 $k$ 代数闭。设 $x \in X$ 为闭点。设
+$C_i \subset X$ 为各不可约分支，并对每个 $i$，以
+$x_i \in C_i$ 表示其泛点。由《簇》，引理
+\ref{varieties-lemma-very-ample-vanish-at-point}，可以选取截面
+$s \in H^0(X, \mathcal{L})$，使 $s$ 在 $x$ 处消没，
+但不在 $x_i$ 处消没，对所有 $i$ 都如此。相应的模映射
+$s : \mathcal{O}_X \to \mathcal{L}$ 是单射，其余核
+$\mathcal{Q}$ 支撑于有限多个点，并且
+$H^0(X, \mathcal{Q}) \geq 2$。考虑相应的正合列
+$$
+0 \to \omega_X \to \omega_X \otimes \mathcal{L} \to
+\omega_X \otimes \mathcal{Q} \to 0
+$$
+。由引理 \ref{curves-lemma-globally-generated}，由整体截面生成的模满射到
+$\omega_X \otimes \mathcal{Q}$。由于 $x$ 任意，引理得证。
+省略若干细节。
+
+\medskip\noindent
+下面把 $k$ 非代数闭的情形归约到代数闭域的情形。建议读者跳过
+证明的其余部分。选取代数闭包 $\overline{k}$，其基域为 $k$，并考虑基变换
+$X_{\overline{k}}$。我们来检验
+$X_{\overline{k}} \to \Spec(\overline{k})$ 是情形
+\ref{curves-situation-Cohen-Macaulay-curve} 的一个例子。由平坦基变换
+（《概形的上同调》，引理
+\ref{coherent-lemma-flat-base-change-cohomology}），有
+$H^0(X_{\overline{k}}, \mathcal{O}) = \overline{k}$。
+概形 $X_{\overline{k}}$ 在 $\overline{k}$ 上固有
+（《态射》，引理 \ref{morphisms-lemma-base-change-proper}），
+并且等维且维数为 $1$
+（《态射》，引理 \ref{morphisms-lemma-dimension-fibre-after-base-change}）。
+$\omega_X$ 在 $X_{\overline{k}}$ 上的拉回是
+$X_{\overline{k}}$ 的对偶化模；这由引理
+\ref{curves-lemma-sanity-check-duality} 得到。
+$\mathcal{L}$ 在 $X_{\overline{k}}$ 上的拉回非常丰沛
+（《态射》，引理 \ref{morphisms-lemma-very-ample-base-change}）。
+$\mathcal{L}$ 在 $X_{\overline{k}}$ 上的拉回之次数，等于
+$\mathcal{L}$ 在 $X$ 上的次数（《簇》，引理
+\ref{varieties-lemma-degree-base-change}）。最后，
+$\omega_X \otimes \mathcal{L}$ 由整体截面生成，当且仅当
+其基变换也如此（《簇》，引理
+\ref{varieties-lemma-globally-generated-base-change}）。
+因此该结果由代数闭基域的情形推出。
+\end{proof}
+
+
+
+
+\section{非常丰沛可逆层}
+\label{curves-section-very-ample}
+
+\noindent
+对于可逆模 $\mathcal{L}$，若它定义在代数闭域上有限型概形
+$X$ 上，
+常用的一条非常丰沛判据是：$\mathcal{L}$ 的截面分离点与切向量
+（《簇》，第 \ref{varieties-section-separating-points-tangent-vectors} 节）。
+下面给出曲线的另一条判据；请同《簇》，
+第 \ref{varieties-subsection-regularity} 小节比较。
+
+\begin{lemma}
+\label{curves-lemma-criterion-very-ample}
+设 $k$ 为域，$X$ 为 $k$ 上维数为 $1$ 的固有概形，且
+$H^0(X, \mathcal{O}_X) = k$。设 $\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模。假设
+\begin{enumerate}
+\item $\mathcal{L}$ 有一个正则整体截面；
+\item $H^1(X, \mathcal{L}) = 0$；且
+\item $\mathcal{L}$ 丰沛。
+\end{enumerate}
+则 $\mathcal{L}^{\otimes 6}$ 在 $X$ 上相对于 $k$ 非常丰沛。
+\end{lemma}
+
+\begin{proof}
+设 $s$ 为 $\mathcal{L}$ 的正则整体截面。设
+$i : Z = Z(s) \to X$ 为 $s$ 的零点概形；见《除子》，
+第 \ref{divisors-section-effective-Cartier-invertible} 节。
+由条件 (3)，有 $Z \not = \emptyset$（省略一个小细节）。
+考虑短正合列
+$$
+0 \to \mathcal{O}_X \xrightarrow{s} \mathcal{L} \to
+i_*(\mathcal{L}|_Z) \to 0
+$$
+。与 $\mathcal{L}$ 作张量积，得到
+$$
+0 \to \mathcal{L} \to \mathcal{L}^{\otimes 2} \to
+i_*(\mathcal{L}^{\otimes 2}|_Z) \to 0
+$$
+。注意 $Z$ 的维数为 $0$
+（《除子》，引理
+\ref{divisors-lemma-effective-Cartier-makes-dimension-drop}），
+所以它是 Artin 环的谱
+（《簇》，引理 \ref{varieties-lemma-algebraic-scheme-dim-0}），
+进而 $\mathcal{L}|_Z \cong \mathcal{O}_Z$
+（《代数》，引理 \ref{algebra-lemma-locally-free-semi-local-free}）。
+该短正合列还表明 $H^1(X, \mathcal{L}^{\otimes 2}) = 0$
+（例如可用《簇》，引理 \ref{varieties-lemma-chi-tensor-finite}
+看出右端相应位置消没）。对 $n \geq 1$ 作归纳，并使用正合列
+$$
+0 \to \mathcal{L}^{\otimes n} \xrightarrow{s}
+\mathcal{L}^{\otimes n + 1} \to
+i_*(\mathcal{L}^{\otimes n + 1}|_Z) \to 0
+$$
+，可知 $H^1(X, \mathcal{L}^{\otimes n}) = 0$ 对 $n > 0$ 成立，
+并且存在整体截面 $t_{n + 1}$，它属于
+$\mathcal{L}^{\otimes n + 1}$，并给出
+$\mathcal{L}^{\otimes n + 1}|_Z \cong \mathcal{O}_Z$ 的平凡化。
+
+\medskip\noindent
+考虑乘法映射
+$$
+\mu_n :
+H^0(X, \mathcal{L}) \otimes_k H^0(X, \mathcal{L}^{\otimes n})
+\oplus
+H^0(X, \mathcal{L}^{\otimes 2}) \otimes_k H^0(X, \mathcal{L}^{\otimes n - 1})
+\longrightarrow
+H^0(X, \mathcal{L}^{\otimes n + 1})
+$$
+我们断言它对 $n \geq 3$ 满射。为此考虑短正合列
+$$
+0 \to \mathcal{L}^{\otimes n} \xrightarrow{s}
+\mathcal{L}^{\otimes n + 1} \to i_*(\mathcal{L}^{\otimes n + 1}|_Z) \to 0
+$$
+。该正合列中从左端而来的 $\mathcal{L}^{\otimes n + 1}$ 的截面，
+属于 $\mu_n$ 的像。另一方面，由于
+$H^0(\mathcal{L}^{\otimes 2}) \to H^0(\mathcal{L}^{\otimes 2}|_Z)$
+满射（见上），且 $t_{n - 1}$ 映到
+$\mathcal{L}^{\otimes n - 1}|_Z$ 的一个平凡化，可知
+$\mu_n(H^0(X, \mathcal{L}^{\otimes 2}) \otimes t_{n - 1})$
+给出 $H^0(X, \mathcal{L}^{\otimes n + 1})$ 的一个子空间，
+该子空间满射到 $\mathcal{L}^{\otimes n + 1}|_Z$ 的整体截面。
+断言得证。
+
+\medskip\noindent
+由上一段的断言可知，分次 $k$-代数
+$$
+S = \bigoplus\nolimits_{n \geq 0} H^0(X, \mathcal{L}^{\otimes n})
+$$
+由次数 $0, 1, 2, 3$ 的元素在 $k$ 上生成。
+回顾 $X = \text{Proj}(S)$；见《态射》，引理
+\ref{morphisms-lemma-proper-ample-is-proj}。
+因此 $S^{(6)} = \bigoplus_{n} S_{6n}$ 由次数 $1$ 的元素生成。
+这意味着 $\mathcal{L}^{\otimes 6}$ 如所需是非常丰沛的。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-criterion-very-ample-bis}
+设 $k$ 为域，$X$ 为 $k$ 上维数为 $1$ 的固有概形，且
+$H^0(X, \mathcal{O}_X) = k$。设 $\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模。假设
+\begin{enumerate}
+\item $\mathcal{L}$ 由整体截面生成；
+\item $H^1(X, \mathcal{L}) = 0$；且
+\item $\mathcal{L}$ 丰沛。
+\end{enumerate}
+则 $\mathcal{L}^{\otimes 2}$ 在 $X$ 上相对于 $k$ 非常丰沛。
+\end{lemma}
+
+\begin{proof}
+选取基 $s_0, \ldots, s_n$；这是
+$H^0(X, \mathcal{L}^{\otimes 2})$ 在 $k$ 上的一组基。由性质 (1)，
+$\mathcal{L}^{\otimes 2}$ 由整体截面生成，并得到态射
+$$
+\varphi_{\mathcal{L}^{\otimes 2}, (s_0, \ldots, s_n)} :
+X \longrightarrow \mathbf{P}^n_k
+$$
+；见《构造》，第 \ref{constructions-section-projective-space} 节。
+引理断言此态射是闭浸入。为检验这一点，可以把 $k$ 换成其代数闭包；
+见《下降》，引理
+\ref{descent-lemma-descending-property-closed-immersion}。
+所以可以假设 $k$ 代数闭。
+
+\medskip\noindent
+假设 $k$ 代数闭。对每个泛点 $\eta_i \in X$，设
+$V_i \subset H^0(X, \mathcal{L})$ 为一个 $k$-向量子空间，
+由在 $\eta_i$ 处消没的截面组成。由于 $\mathcal{L}$ 由整体截面生成，
+$V_i \not = H^0(X, \mathcal{L})$。由于 $X$ 只有有限多个不可约分支，
+且 $k$ 无限，可以找到 $s \in H^0(X, \mathcal{L})$，
+它在 $\eta_i$ 处不消没，对所有 $i$ 都如此。
+于是 $s$ 是 $\mathcal{L}$ 的正则截面
+（因为由引理 \ref{curves-lemma-automatic}，$X$ 是 Cohen--Macaulay 的，
+所以 $\mathcal{L}$ 没有嵌入相伴点）。
+
+\medskip\noindent
+特别地，引理 \ref{curves-lemma-criterion-very-ample} 的证明中给出的
+所有断言对这个 $s$ 都成立。此外，因为 $\mathcal{L}$
+由整体截面生成，可以找到整体截面
+$t \in H^0(X, \mathcal{L})$，使 $t|_Z$ 不消没
+（如上利用 $Z$ 只有有限多个点来论证）。
+于是，在引理 \ref{curves-lemma-criterion-very-ample} 的证明中，
+可用 $t$ 进一步看出乘法映射
+$$
+\mu_n :
+H^0(X, \mathcal{L}) \otimes_k H^0(X, \mathcal{L}^{\otimes 2})
+\longrightarrow
+H^0(X, \mathcal{L}^{\otimes 3})
+$$
+满射。因此
+$$
+S = \bigoplus\nolimits_{n \geq 0} H^0(X, \mathcal{L}^{\otimes n})
+$$
+由次数 $0, 1, 2$ 的元素在 $k$ 上生成。仿照引理
+\ref{curves-lemma-criterion-very-ample} 的证明论证，得到
+$S^{(2)} = \bigoplus_{n} S_{2n}$ 由次数 $1$ 的元素生成。
+这意味着 $\mathcal{L}^{\otimes 2}$ 如所需是非常丰沛的。
+省略若干细节。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{曲线的亏格}
+\label{curves-section-genus}
+
+\noindent
+若 $X$ 是域 $k$ 上光滑、投射且几何不可约的曲线，我们先前已把
+$X$ 的亏格定义为 $H^1(X, \mathcal{O}_X)$ 的维数；见《曲线的
+Picard 概形》，定义 \ref{pic-definition-genus}。注意在此情形下
+$H^0(X, \mathcal{O}_X) = k$；见《簇》，引理
+\ref{varieties-lemma-regular-functions-proper-variety}。
+现作如下推广。
+
+\begin{definition}
+\label{curves-definition-genus}
+设 $k$ 为域，$X$ 为 $k$ 上维数为 $1$ 的固有概形，且
+$H^0(X, \mathcal{O}_X) = k$。则 $X$ 的{\it 亏格}是
+$g = \dim_k H^1(X, \mathcal{O}_X)$。
+\end{definition}
+
+\noindent
+它有时称为 $X$ 的{\it 算术亏格}。文献中，固有曲线
+$X$（其基域为 $k$）的算术亏格有时定义为
+$$
+p_a(X) = 1 - \chi(X, \mathcal{O}_X) =
+1 - \dim_k H^0(X, \mathcal{O}_X) + \dim_k H^1(X, \mathcal{O}_X)
+$$
+。当我们的定义适用时，两者一致，因为我们假设
+$H^0(X, \mathcal{O}_X) = k$。但须注意：
+\begin{enumerate}
+\item $p_a(X)$ 可以为负；且
+\item $p_a(X)$ 依赖于基域 $k$，应写作 $p_a(X/k)$。
+\end{enumerate}
+例如，若 $k = \mathbf{Q}$ 且
+$X = \mathbf{P}^1_{\mathbf{Q}(i)}$，则
+$p_a(X/\mathbf{Q}) = -1$ 且 $p_a(X/\mathbf{Q}(i)) = 0$。
+
+\medskip\noindent
+我们定义中的假设 $H^0(X, \mathcal{O}_X) = k$ 有两个后果。
+一方面，它意味着基域没有歧义。另一方面，它蕴含概形 $X$
+是 Cohen--Macaulay 的，并且等维且维数为 $1$
+（引理 \ref{curves-lemma-automatic}）。若 $\omega_X$ 表示引理
+\ref{curves-lemma-duality-dim-1} 与 \ref{curves-lemma-duality-dim-1-CM}
+中的对偶化模，则
+\begin{equation}
+\label{curves-equation-genus}
+g = \dim_k H^1(X, \mathcal{O}_X) = \dim_k H^0(X, \omega_X)
+\end{equation}
+；这由对偶性得到，见备注
+\ref{curves-remark-rework-duality-locally-free}。
+
+\medskip\noindent
+若 $X$ 在 $k$ 上固有、维数 $\leq 1$，且
+$H^0(X, \mathcal{O}_X)$ 不等于基域 $k$，我们不用上面展示公式给出的
+算术亏格 $p_a(X)$，而使用不变量 $\chi(X, \mathcal{O}_X)$。
+事实上，\cite[page 276]{FAC} 与 \cite[Introduction]{Hirzebruch}
+主张应把 $\chi(X, \mathcal{O}_X)$ 称为算术亏格。
+
+\begin{lemma}
+\label{curves-lemma-genus-base-change}
+设 $k'/k$ 为域扩张，$X$ 为 $k$ 上维数为 $1$ 的固有概形，且
+$H^0(X, \mathcal{O}_X) = k$。则 $X_{k'}$ 是 $k'$ 上维数为
+$1$ 的固有概形，并且
+$H^0(X_{k'}, \mathcal{O}_{X_{k'}}) = k'$。
+此外，$X_{k'}$ 的亏格等于 $X$ 的亏格。
+\end{lemma}
+
+\begin{proof}
+例如由《态射》，引理
+\ref{morphisms-lemma-dimension-fibre-after-base-change}，
+$X_{k'}$ 的维数为 $1$。态射 $X_{k'} \to \Spec(k')$ 固有，
+这由《态射》，引理 \ref{morphisms-lemma-base-change-proper} 得到。
+等式 $H^0(X_{k'}, \mathcal{O}_{X_{k'}}) = k'$ 由《概形的上同调》，
+引理 \ref{coherent-lemma-flat-base-change-cohomology} 得到。
+亏格相等也由同一引理得到。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-gorenstein}
+设 $k$ 为域，$X$ 为 $k$ 上维数为 $1$ 的固有概形，且
+$H^0(X, \mathcal{O}_X) = k$。若 $X$ 是 Gorenstein 的，则
+$$
+\deg(\omega_X) = 2g - 2
+$$
+，其中 $g$ 是 $X$ 的亏格，而 $\omega_X$ 如引理
+\ref{curves-lemma-duality-dim-1} 中所定义。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-rr} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-smooth}
+设 $X$ 为域 $k$ 上的光滑固有曲线，且
+$H^0(X, \mathcal{O}_X) = k$。则
+$$
+\dim_k H^0(X, \Omega_{X/k}) = g
+\quad\text{且}\quad
+\deg(\Omega_{X/k}) = 2g - 2
+$$
+，其中 $g$ 是 $X$ 的亏格。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-duality-dim-1}，有 $\Omega_{X/k} = \omega_X$。
+所以这些公式由 (\ref{curves-equation-genus}) 及引理
+\ref{curves-lemma-genus-gorenstein} 得到。
+\end{proof}
+
+
+
+
+
+
+\section{平面曲线}
+\label{curves-section-plane-curves}
+
+\noindent
+设 $k$ 为域。所谓{\it 平面曲线}，是指曲线 $X$，它同
+$\mathbf{P}^2_k$ 的某个闭子概形同构。
+我们常把嵌入 $X \to \mathbf{P}^2_k$ 视为已给定。
+由《除子》，例 \ref{divisors-example-closed-subscheme-of-proj}，
+曲线由相应的齐次理想确定：
+$$
+I(X) =
+\Ker\left(
+k[T_0, T_2, T_2] \longrightarrow \bigoplus \Gamma(X, \mathcal{O}_X(n))
+\right)
+$$
+。回顾在这种情形下有
+$$
+X = \text{Proj}(k[T_0, T_2, T_2]/I)
+$$
+，这是 $\mathbf{P}^2_k$ 的闭子概形。
+这些构造的一般资料见《除子》，例
+\ref{divisors-example-closed-subscheme-of-proj} 及其中的参考文献。
+事实证明，对某个齐次多项式有 $I(X) = (F)$，其中
+$F \in k[T_0, T_1, T_2]$；见引理 \ref{curves-lemma-equation-plane-curve}。
+由于 $X$ 不可约，$F$ 也不可约；见引理
+\ref{curves-lemma-plane-curve}。此外，考察短正合列
+$$
+0 \to \mathcal{O}_{\mathbf{P}^2_k}(-d) \xrightarrow{F}
+\mathcal{O}_{\mathbf{P}^2_k} \to \mathcal{O}_X \to 0
+$$
+，其中 $d = \deg(F)$，可知 $H^0(X, \mathcal{O}_X) = k$，且 $X$
+的亏格为 $(d - 1)(d - 2)/2$；见引理
+\ref{curves-lemma-genus-plane-curve} 的证明。
+
+\medskip\noindent
+寻找光滑平面曲线时，最容易的方法是写出显式方程。以 $p$
+表示 $k$ 的特征。若 $p$ 不整除 $d$，可以取
+$$
+F = T_0^d + T_1^d + T_2^d
+$$
+。相应曲线 $X = V_+(F)$ 称为次数为 $d$ 的
+{\it Fermat 曲线}。它光滑，因为在每个标准仿射片
+$D_+(T_i)$ 上，所得曲线同下述仿射曲线同构：
+$$
+\Spec(k[x, y]/(x^d + y^d + 1))
+$$
+。环映射 $k \to k[x, y]/(x^d + y^d + 1)$ 光滑，这由《代数》，
+引理 \ref{algebra-lemma-relative-global-complete-intersection-smooth}
+得到，因为 $d x^{d - 1}$ 与 $d y^{d - 1}$ 在
+$k[x, y]/(x^d + y^d + 1)$ 中生成单位理想。
+若 $p | d$ 但 $p \not = 3$，则可用方程
+$$
+F = T_0^{d - 1}T_1 + T_1^{d - 1}T_2 + T_2^{d - 1}T_0
+$$
+。确切地说，在各仿射片上得到 $x + x^{d - 1}y + y^{d - 1}$，
+其导数为 $1 - x^{d - 2}y$ 与 $x^{d - 1} - y^{d - 2}$；
+三者的公共零点集为空\footnote{确实，由
+$x^{d - 1} = y^{d - 2}$，有 $0 = x + x^{d - 1}y + y^{d - 1} =
+x + 2 x^{d - 1} y$。由于 $x \not = 0$（这是因为
+$1 = x^{d - 2}y$），故
+$0 = 1 + 2x^{d - 2}y = 3$；除非 $3 = 0$，这不可能。}。
+特征为 $3$ 的例子留给读者构造。
+
+\medskip\noindent
+更一般地，对任意域 $k$ 以及任意 $n$ 与 $d$，都存在次数为
+$d$ 的光滑超曲面，它位于 $\mathbf{P}^n_k$ 中；
+例如见 \cite{Poonen}。
+
+\medskip\noindent
+当然，这种方法只能得到亏格为三角数的光滑曲线。为了得到任意亏格的
+光滑曲线，可以寻找位于
+$\mathbf{P}^1 \times \mathbf{P}^1$ 上的光滑曲线
+（以后在此插入参考文献）。
+
+\begin{lemma}
+\label{curves-lemma-equation-plane-curve}
+设 $Z \subset \mathbf{P}^2_k$ 为闭子概形，它等维且维数为 $1$，
+并且没有嵌入点（等价地，$Z$ 是 Cohen--Macaulay 的）。
+则理想 $I(Z) \subset k[T_0, T_1, T_2]$ 是主理想；
+这个理想同 $Z$ 相应。
+\end{lemma}
+
+\begin{proof}
+这是《除子》，引理
+\ref{divisors-lemma-equation-codim-1-in-projective-space} 的特殊情形
+（另见《簇》，引理
+\ref{varieties-lemma-equation-codim-1-in-projective-space}）。
+括号中的断言来自如下事实：$1$ 维 Noether 概形是
+Cohen--Macaulay 的，当且仅当它没有嵌入点；见《除子》，引理
+\ref{divisors-lemma-noetherian-dim-1-CM-no-embedded-points}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-plane-curve}
+设 $Z \subset \mathbf{P}^2_k$ 如引理
+\ref{curves-lemma-equation-plane-curve} 中所述，并设
+$I(Z) = (F)$，其中 $F \in k[T_0, T_1, T_2]$。
+则 $Z$ 是曲线，当且仅当 $F$ 不可约。
+\end{lemma}
+
+\begin{proof}
+若 $F$ 可约，比如 $F = F' F''$，令 $Z'$ 为
+$\mathbf{P}^2_k$ 中由 $F'$ 定义的闭子概形。显然
+$Z' \subset Z$ 且 $Z' \not = Z$。由于 $Z'$ 也具有维数 $1$，
+可知 $Z$ 或者不约化，或者 $Z$ 不可约。
+反之，写成 $Z = \sum a_i D_i$，其中 $D_i$ 是 $Z$
+的不可约分支；见《除子》，引理
+\ref{divisors-lemma-codim-1-part} 与
+\ref{divisors-lemma-codimension-1-is-effective-Cartier}。
+设 $F_i \in k[T_0, T_1, T_2]$ 为生成 $D_i$ 之理想的齐次多项式。
+显然 $F$ 与 $\prod F_i^{a_i}$ 截出 $\mathbf{P}^2_k$
+中的同一个闭子概形。因此有 $F = \lambda \prod F_i^{a_i}$，
+其中 $\lambda \in k^*$；这是因为二者都生成 $Z$ 的理想。
+所以若 $F$ 不可约，则 $Z$ 是素除子，亦即曲线。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-plane-curve}
+设 $Z \subset \mathbf{P}^2_k$ 如引理
+\ref{curves-lemma-equation-plane-curve} 中所述，并设
+$I(Z) = (F)$，其中 $F \in k[T_0, T_1, T_2]$。
+则 $H^0(Z, \mathcal{O}_Z) = k$，且 $Z$ 的亏格为
+$(d - 1)(d - 2)/2$，其中 $d = \deg(F)$。
+\end{lemma}
+
+\begin{proof}
+设 $S = k[T_0, T_1, T_2]$。有分次模的正合列
+$$
+0 \to S(-d) \xrightarrow{F} S \to S/(F) \to 0
+$$
+。以 $i : Z \to \mathbf{P}^2_k$ 表示给定的闭浸入。
+应用正合函子 $\widetilde{\ }$
+（《构造》，引理 \ref{constructions-lemma-proj-sheaves}），得到
+$$
+0 \to \mathcal{O}_{\mathbf{P}^2_k}(-d) \to
+\mathcal{O}_{\mathbf{P}^2_k} \to i_*\mathcal{O}_Z \to 0
+$$
+，因为 $F$ 生成 $Z$ 的理想。注意
+$\mathcal{O}_{\mathbf{P}^2_k}(-d)$ 与
+$\mathcal{O}_{\mathbf{P}^2_k}$ 的上同调群由《概形的上同调》，引理
+\ref{coherent-lemma-cohomology-projective-space-over-ring} 给出。
+另一方面，有
+$H^q(Z, \mathcal{O}_Z) = H^q(\mathbf{P}^2_k, i_*\mathcal{O}_Z)$；这由
+《概形的上同调》，引理
+\ref{coherent-lemma-relative-affine-cohomology}。
+应用上同调长正合列，首先得到
+$$
+k = H^0(\mathbf{P}^2_k, \mathcal{O}_{\mathbf{P}^2_k}) \longrightarrow
+H^0(Z, \mathcal{O}_Z)
+$$
+是同构；其次得到边界映射
+$$
+H^1(Z, \mathcal{O}_Z) \longrightarrow
+H^2(\mathbf{P}^2_k, \mathcal{O}_{\mathbf{P}^2_k}(-d)) \cong
+k[T_0, T_1, T_2]_{d - 3}
+$$
+是同构。容易看出后者的维数为 $(d - 1)(d - 2)/2$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-smooth-plane-curve-point-over-separable}
+设 $Z \subset \mathbf{P}^2_k$ 如引理
+\ref{curves-lemma-equation-plane-curve} 中所述，并设
+$I(Z) = (F)$，其中 $F \in k[T_0, T_1, T_2]$。
+若 $Z \to \Spec(k)$ 至少在一点光滑，且 $k$ 无限，
+则光滑轨迹中存在闭点 $z \in Z$，使得 $\kappa(z)/k$
+是次数至多为 $d$ 的有限可分扩张。
+\end{lemma}
+
+\begin{proof}
+设 $z' \in Z$ 是 $Z \to \Spec(k)$ 光滑的一个点。
+必要时重新编号坐标，可以假设 $z'$ 属于 $D_+(T_0)$。
+置 $f = F(1, x, y) \in k[x, y]$。则
+$Z \cap D_+(X_0)$ 同 $k[x, y]/(f)$ 的谱同构。
+设 $f_x, f_y$ 为 $f$ 对 $x, y$ 的偏导数。
+由于 $z'$ 是 $Z/k$ 的光滑点，$f_x$ 或 $f_y$
+在 $z'$ 处非零（见《代数》，第 \ref{algebra-section-smooth} 节中的讨论）。
+重新编号坐标后，可以假设 $f_y$ 在 $z'$ 处非零。
+因此存在非空开子概形 $V \subset Z \cap D_{+}(X_0)$，使投影
+$$
+p : V \longrightarrow \Spec(k[x])
+$$
+是 \'etale 的。由于把 $f$ 看作 $y$ 的多项式时次数至多为 $d$，
+投影 $p$ 的各纤维之次数至多为 $d$
+（见《态射》，第 \ref{morphisms-section-universally-bounded} 节中的讨论）。
+此外，因为 $p$ 是 \'etale 的，$p$ 的像是开集
+$U \subset \Spec(k[x])$。最后，由于 $k$ 无限，$k$-有理点集合
+$U(k)$（它属于 $U$）无限，特别地非空。
+任选 $t \in U(k)$，并令 $z \in V$ 为映到 $t$ 的一个点。
+此 $z$ 即满足要求。
+\end{proof}
+
+
+
+
+
+\section{亏格为零的曲线}
+\label{curves-section-genus-zero}
+
+\noindent
+以后我们需要知道固有的亏格为零曲线具有怎样的形状。
+事实证明，Gorenstein 的固有亏格零曲线是次数为 $2$ 的平面曲线，
+也就是一条二次曲线；见引理 \ref{curves-lemma-genus-zero}。
+一般的固有亏格零曲线可由一条非奇异曲线（定义在某个更大的域上）
+通过推出过程得到；见引理 \ref{curves-lemma-genus-zero-singular}。
+由于非奇异曲线是 Gorenstein 的，这两个结果涵盖了所有可能情形。
+
+\begin{lemma}
+\label{curves-lemma-genus-zero-pic}
+设 $X$ 是域 $k$ 上的固有曲线，且 $H^0(X, \mathcal{O}_X) = k$。
+若 $X$ 的亏格为 $0$，则每个可逆 $\mathcal{O}_X$-模
+$\mathcal{L}$，只要次数为 $0$，都是平凡的。
+\end{lemma}
+
+\begin{proof}
+确实，由 Riemann--Roch（引理 \ref{curves-lemma-rr}）有
+$\dim_k H^0(X, \mathcal{L}) \geq 0 + 1 - 0 = 1$，
+故 $\mathcal{L}$ 有非零截面，进而由《簇》，引理
+\ref{varieties-lemma-check-invertible-sheaf-trivial}，
+有 $\mathcal{L} \cong \mathcal{O}_X$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-zero-positive-degree}
+设 $X$ 是域 $k$ 上的固有曲线，且 $H^0(X, \mathcal{O}_X) = k$。
+假设 $X$ 的亏格为 $0$。设 $\mathcal{L}$ 为可逆
+$\mathcal{O}_X$-模，其次数为 $d > 0$。则
+\begin{enumerate}
+\item $\dim_k H^0(X, \mathcal{L}) = d + 1$ 且 $\dim_k H^1(X, \mathcal{L}) = 0$；
+\item $\mathcal{L}$ 非常丰沛，并定义了到 $\mathbf{P}^d_k$ 的闭浸入。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由次数与亏格的定义，有
+$$
+\dim_k H^0(X, \mathcal{L}) - \dim_k H^1(X, \mathcal{L}) = d + 1
+$$
+。设 $s$ 为 $\mathcal{L}$ 的非零截面。
+则 $s$ 的零点概形是有效 Cartier 除子
+$D \subset X$，有 $\mathcal{L} = \mathcal{O}_X(D)$，并且有短正合列
+$$
+0 \to \mathcal{O}_X \to \mathcal{L} \to \mathcal{L}|_D \to 0
+$$
+；见《除子》，引理 \ref{divisors-lemma-characterize-OD} 与
+注 \ref{divisors-remark-ses-regular-section}。
+由假设 $H^1(X, \mathcal{O}_X) = 0$，故
+$H^0(X, \mathcal{L}) \to H^0(X, \mathcal{L}|_D)$ 满射。
+又因 $\mathcal{L}|_D$ 由整体截面生成
+（因为 $\dim(D) = 0$；见《簇》，引理
+\ref{varieties-lemma-chi-tensor-finite}），
+所以可逆模 $\mathcal{L}$ 由整体截面生成。
+事实上，由于 $D$ 是 Artin 概形，有
+$\mathcal{L}|_D \cong \mathcal{O}_D$\footnote{在本情形中，这也由《除子》，
+引理 \ref{divisors-lemma-finite-trivialize-invertible-upstairs} 得到，
+因为 $D \to \Spec(k)$ 是有限的。}；
+因此可以找到一个截面 $t$，它属于 $\mathcal{L}$，其在
+$D$ 上的限制生成 $\mathcal{L}|_D$。
+该短正合列还表明 $H^1(X, \mathcal{L}) = 0$。
+
+\medskip\noindent
+对 $n \geq 1$，考察乘法映射
+$$
+\mu_n :
+H^0(X, \mathcal{L}) \otimes_k H^0(X, \mathcal{L}^{\otimes n})
+\longrightarrow
+H^0(X, \mathcal{L}^{\otimes n + 1})
+$$
+。我们断言它是满射。为此，考察短正合列
+$$
+0 \to \mathcal{L}^{\otimes n} \xrightarrow{s}
+\mathcal{L}^{\otimes n + 1} \to \mathcal{L}^{\otimes n + 1}|_D \to 0
+$$
+。此列中由左端给出的 $\mathcal{L}^{\otimes n + 1}$ 的截面
+属于 $\mu_n$ 的像。另一方面，由于
+$H^0(\mathcal{L}) \to H^0(\mathcal{L}|_D)$ 满射，且
+$t^n$ 映为 $\mathcal{L}^{\otimes n}|_D$ 的一个平凡化，
+可见 $\mu_n(H^0(X, \mathcal{L}) \otimes t^n)$ 给出
+$H^0(X, \mathcal{L}^{\otimes n + 1})$ 的一个子空间，它满射到
+$\mathcal{L}^{\otimes n + 1}|_D$ 的整体截面空间。这就证明了断言。
+
+\medskip\noindent
+注意，由《簇》，引理 \ref{varieties-lemma-ample-curve}，
+$\mathcal{L}$ 是丰沛的。因此《态射》，引理
+\ref{morphisms-lemma-proper-ample-is-proj} 给出同构
+$$
+X \longrightarrow
+\text{Proj}\left(
+\bigoplus\nolimits_{n \geq 0} H^0(X, \mathcal{L}^{\otimes n})\right)
+$$
+。由于映射 $\mu_n$ 对所有 $n \geq 1$ 都是满射，
+右端的分次代数是 $H^0(X, \mathcal{L})$ 上对称代数的商。
+选取一个 $k$-基 $s_0, \ldots, s_d$，作为
+$H^0(X, \mathcal{L})$ 的基，可见它是一个含 $d + 1$ 个变量的
+多项式代数的商。分次环的商对应于 $\text{Proj}$ 的闭浸入
+（《构造》，引理
+\ref{constructions-lemma-surjective-graded-rings-generated-degree-1-map-proj}），
+故得到闭浸入 $X \to \mathbf{P}^d_k$。
+我们略去如下验证：该态射正是《构造》，引理
+\ref{constructions-lemma-projective-space} 中同截面
+$s_0, \ldots, s_d$（它们属于 $\mathcal{L}$）相联系的态射。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-zero}
+设 $X$ 是域 $k$ 上的固有曲线，且 $H^0(X, \mathcal{O}_X) = k$。
+若 $X$ 是 Gorenstein 的且亏格为 $0$，则 $X$
+同次数为 $2$ 的平面曲线同构。
+\end{lemma}
+
+\begin{proof}
+考察可逆层 $\mathcal{L} = \omega_X^{\otimes -1}$，其中
+$\omega_X$ 如引理 \ref{curves-lemma-duality-dim-1} 所述。
+由引理 \ref{curves-lemma-genus-gorenstein}，
+$\deg(\omega_X) = -2$，故 $\deg(\mathcal{L}) = 2$。
+由引理 \ref{curves-lemma-genus-zero-positive-degree}，
+选取一个基 $s_0, s_1, s_2$，它是如下 $k$-向量空间的基：
+$\mathcal{L}$ 的整体截面空间。由此得到闭浸入
+$$
+\varphi_{(\mathcal{L}, (s_0, s_1, s_2))} :
+X \longrightarrow \mathbf{P}^2_k
+$$
+。因此 $X$ 是某个次数为 $d$ 的平面曲线。设
+$F \in k[T_0, T_1, T_2]_d$ 为其方程
+（引理 \ref{curves-lemma-equation-plane-curve}）。
+由于 $X$ 的亏格为 $0$，可知 $d$ 是 $1$ 或 $2$
+（引理 \ref{curves-lemma-genus-plane-curve}）。
+注意，$F$ 在 $\varphi(X)$ 上的限制是零截面，因此
+$F(s_0, s_1, s_2)$ 是 $\mathcal{L}^{\otimes 2}$ 的零截面。
+由于 $s_0, s_1, s_2$ 线性无关，$F$ 不可能是线性的，
+即 $d = \deg(F) \geq 2$。所以 $d = 2$，证明完成。
+\end{proof}
+
+\begin{proposition}[射影直线的刻画]
+\label{curves-proposition-projective-line}
+设 $k$ 为域，设 $X$ 为 $k$ 上的固有曲线。下列条件等价：
+\begin{enumerate}
+\item $X \cong \mathbf{P}^1_k$；
+\item $X$ 在 $k$ 上光滑且几何不可约，$X$ 的亏格为 $0$，
+并且 $X$ 有次数为奇数的可逆模；
+\item $X$ 在 $k$ 上几何整，$X$ 的亏格为 $0$，$X$ 是 Gorenstein 的，
+并且 $X$ 有次数为奇数的可逆层；
+\item $H^0(X, \mathcal{O}_X) = k$，$X$ 的亏格为 $0$，$X$ 是 Gorenstein 的，
+并且 $X$ 有次数为奇数的可逆层；
+\item $X$ 在 $k$ 上几何整，$X$ 的亏格为 $0$，
+并且 $X$ 有可逆 $\mathcal{O}_X$-模，其次数为 $1$；
+\item $H^0(X, \mathcal{O}_X) = k$，$X$ 的亏格为 $0$，
+并且 $X$ 有可逆 $\mathcal{O}_X$-模，其次数为 $1$；
+\item $H^1(X, \mathcal{O}_X) = 0$，并且 $X$ 有可逆
+$\mathcal{O}_X$-模，其次数为 $1$；
+\item $H^1(X, \mathcal{O}_X) = 0$，且 $X$ 有闭点
+$x_1, \ldots, x_n$，使得 $\mathcal{O}_{X, x_i}$ 正规且
+$\gcd([\kappa(x_i) : k]) = 1$；以及
+\item 以后在此添加更多条件。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+我们将证明条件 (2) -- (8) 中的每一个都推出 (1)，并略去
+(1) 推出 (2) -- (8) 的验证。
+
+\medskip\noindent
+假设 (2)。$k$ 上的光滑概形是几何约化的
+（《簇》，引理 \ref{varieties-lemma-smooth-geometrically-normal}）
+且正则（《簇》，引理 \ref{varieties-lemma-smooth-regular}）。
+因此 $X$ 是 Gorenstein 的（《概形的对偶性》，引理
+\ref{duality-lemma-regular-gorenstein}）。于是归结为 (3)。
+
+\medskip\noindent
+假设 (3)。由于 $X$ 在 $k$ 上几何整，由《簇》，引理
+\ref{varieties-lemma-regular-functions-proper-variety}，
+有 $H^0(X, \mathcal{O}_X) = k$。于是归结为 (4)。
+
+\medskip\noindent
+假设 (4)。由于 $X$ 是 Gorenstein 的，引理
+\ref{curves-lemma-duality-dim-1} 中的对偶化模 $\omega_X$
+由引理 \ref{curves-lemma-genus-gorenstein} 具有次数
+$\deg(\omega_X) = -2$。结合存在奇数次数可逆模的假设，
+可知存在次数为 $1$ 的可逆模。这样便归结为 (6)。
+
+\medskip\noindent
+假设 (5)。由于 $X$ 在 $k$ 上几何整，由《簇》，引理
+\ref{varieties-lemma-regular-functions-proper-variety}，
+有 $H^0(X, \mathcal{O}_X) = k$。于是归结为 (6)。
+
+\medskip\noindent
+假设 (6)。由引理 \ref{curves-lemma-genus-zero-positive-degree}，
+有 $X \cong \mathbf{P}^1_k$。
+
+\medskip\noindent
+假设 (7)。注意，由《簇》，引理
+\ref{varieties-lemma-regular-functions-proper-variety}，
+$\kappa = H^0(X, \mathcal{O}_X)$ 是 $k$ 的有限域扩张。
+若 $d = [\kappa : k] > 1$，则每个可逆层的次数都被 $d$ 整除，
+因而不可能存在次数为 $1$ 的可逆层。所以 $d = 1$，归结为情形 (6)。
+
+\medskip\noindent
+假设 (8)。注意，由《簇》，引理
+\ref{varieties-lemma-regular-functions-proper-variety}，
+$\kappa = H^0(X, \mathcal{O}_X)$ 是 $k$ 的有限域扩张。
+由于 $\kappa \subset \kappa(x_i)$，次数最大公因数的假设给出
+$k = \kappa$。同一条件使我们可以找到整数 $a_i$，使得
+$1 = \sum a_i[\kappa(x_i) : k]$。
+由《簇》，引理 \ref{varieties-lemma-regular-point-on-curve}，
+$x_i$ 在 $X$ 上定义一个有效 Cartier 除子，故可考察可逆模
+$\mathcal{O}_X(\sum a_i x_i)$。按我们对 $a_i$ 的选取，
+$\mathcal{L}$ 的次数为 $1$。由引理
+\ref{curves-lemma-genus-zero-positive-degree}，有
+$X \cong \mathbf{P}^1_k$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-zero-singular}
+设 $X$ 是域 $k$ 上的固有曲线，且 $H^0(X, \mathcal{O}_X) = k$。
+假设 $X$ 奇异且亏格为 $0$。则存在交换图
+$$
+\xymatrix{
+x' \ar[d] \ar[r] & X' \ar[d]^\nu \ar[r] & \Spec(k') \ar[d] \\
+x \ar[r] & X \ar[r] & \Spec(k)
+}
+$$
+，其中
+\begin{enumerate}
+\item $k'/k$ 是非平凡有限扩张；
+\item $X' \cong \mathbf{P}^1_{k'}$；
+\item $x'$ 是一个 $k'$-有理点，它属于 $X'$；
+\item $x$ 是一个 $k$-有理点，它属于 $X$；
+\item $X' \setminus \{x'\} \to X \setminus \{x\}$ 是同构；
+\item $0 \to \mathcal{O}_X \to \nu_*\mathcal{O}_{X'} \to k'/k \to 0$
+是短正合列，其中
+$k'/k = \kappa(x')/\kappa(x)$ 表示支撑在点 $x$ 上的摩天层。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\nu : X' \to X$ 为 $X$ 的正规化；见《簇》，第
+\ref{varieties-section-normalization} 节与第
+\ref{varieties-section-normalization-one-dimensional} 节。
+由于 $X$ 奇异，$\nu$ 不是同构。于是
+$k' = H^0(X', \mathcal{O}_{X'})$ 是 $k$ 的有限扩张
+（《簇》，引理 \ref{varieties-lemma-regular-functions-proper-variety}）。
+短正合列
+$$
+0 \to \mathcal{O}_X \to \nu_*\mathcal{O}_{X'} \to \mathcal{Q} \to 0
+$$
+以及 $\mathcal{Q}$ 支撑在有限多个闭点上的事实告诉我们：
+\begin{enumerate}
+\item $H^1(X', \mathcal{O}_{X'}) = 0$，即 $X'$ 的亏格为 $0$，
+这里把它视作 $k'$ 上的曲线；
+\item 有短正合列
+$0 \to k \to k' \to H^0(X, \mathcal{Q}) \to 0$。
+\end{enumerate}
+特别地，$k'/k$ 是非平凡扩张。
+
+\medskip\noindent
+下面考察通常称为{\it 导子理想}的对象
+$$
+\mathcal{I} = \SheafHom_{\mathcal{O}_X}(\nu_*\mathcal{O}_{X'}, \mathcal{O}_X)
+$$
+。这是拟凝聚 $\mathcal{O}_X$-模。把 $\mathcal{I}$ 看成
+$\mathcal{O}_X$ 中的理想，所用映射为
+$\varphi \mapsto \varphi(1)$。于是 $\mathcal{I}(U)$ 是所有
+$f \in \mathcal{O}_X(U)$ 的集合，它们满足
+$f \left(\nu_*\mathcal{O}_{X'}(U)\right) \subset \mathcal{O}_X(U)$。
+换言之，条件是
+$f$ 零化 $\mathcal{Q}$。再换言之，有定义性正合列
+$$
+0 \to \mathcal{I} \to \mathcal{O}_X \to
+\SheafHom_{\mathcal{O}_X}(\mathcal{Q}, \mathcal{Q})
+$$
+。设 $U \subset X$ 为包含 $\mathcal{Q}$ 之支撑的仿射开集。
+则 $V = \mathcal{Q}(U) = H^0(X, \mathcal{Q})$ 是
+$k$-向量空间，维数为 $n - 1$。映射
+$\mathcal{O}_X(U) \to \Hom_k(V, V)$ 的像是交换子代数，
+故其维数 $\leq n - 1$；这里维数取自 $k$
+（这是矩阵代数的交换子代数所具有的性质；略去细节）。
+由此得到短正合列
+$$
+0 \to \mathcal{I} \to \mathcal{O}_X \to \mathcal{A} \to 0
+$$
+，其中 $\text{Supp}(\mathcal{A}) = \text{Supp}(\mathcal{Q})$
+且 $\dim_k H^0(X, \mathcal{A}) \leq n - 1$。
+另一方面，描述
+$\mathcal{I} = \SheafHom_{\mathcal{O}_X}(\nu_*\mathcal{O}_{X'}, \mathcal{O}_X)$
+赋予 $\mathcal{I}$ 一个 $\nu_*\mathcal{O}_{X'}$-模结构，
+使包含映射 $\mathcal{I} \to \nu_*\mathcal{O}_{X'}$
+成为 $\nu_*\mathcal{O}_{X'}$-模映射。
+因此有 $\mathcal{I} = \nu_*\mathcal{I}'$，其中
+$\mathcal{I}' \subset \mathcal{O}_{X'}$ 是某个拟凝聚理想层；见《态射》，引理
+\ref{morphisms-lemma-affine-equivalence-modules}。
+把 $\mathcal{A}'$ 定义为余核：
+$$
+0 \to \mathcal{I}' \to \mathcal{O}_{X'} \to \mathcal{A}' \to 0
+$$
+。合并以上正合列，得到短正合列
+$0 \to \mathcal{A} \to \nu_*\mathcal{A}' \to \mathcal{Q} \to 0$。
+使用上述估计，并结合
+$\dim_k H^0(X, \mathcal{Q}) = n - 1$，得到
+$$
+\dim_k H^0(X', \mathcal{A}') =
+\dim_k H^0(X, \mathcal{A}) + \dim_k H^0(X, \mathcal{Q}) \leq 2 n - 2
+$$
+。然而，由于 $X'$ 是 $k'$ 上的曲线，左端被 $n$ 整除
+（《簇》，引理 \ref{varieties-lemma-divisible}）。
+由于 $\mathcal{A}$ 与 $\mathcal{A}'$ 都不可能为零，
+可知 $\dim_k H^0(X', \mathcal{A}') = n$；
+这意味着 $\mathcal{I}'$ 是某个 $k'$-有理点 $x'$ 的理想层。
+由命题 \ref{curves-proposition-projective-line}，得到
+$X' \cong \mathbf{P}^1_{k'}$。
+回到上述等式，可知 $\dim_k H^0(X, \mathcal{A}) = 1$。
+这意味着 $\mathcal{I}$ 是某个 $k$-有理点 $x$ 的理想层。
+于是，作为摩天层，有
+$\mathcal{A} = \kappa(x) = k$ 且
+$\mathcal{A}' = \kappa(x') = k'$。
+比较上述正合列，立刻得到引理所述的结构层结论。
+\end{proof}
+
+\begin{example}
+\label{curves-example-squish-on-P1}
+事实上，对任意非平凡有限扩张 $k'/k$，引理
+\ref{curves-lemma-genus-zero-singular} 所描述的情形都会发生。
+具体地，可以考察
+$$
+A = \{f \in k'[x] \mid f(0) \in k \}
+$$
+。$A$ 的谱是一条仿射曲线；可把它同
+$B = k'[y]$ 的谱粘合，所用同构为
+$A_x \cong B_y$，它把 $x^{-1}$ 映到 $y$。
+所得结果是固有曲线 $X$，满足 $H^0(X, \mathcal{O}_X) = k$，
+并有奇异点 $x$，它同极大理想 $A \cap (x)$ 相应。
+$X$ 的正规化恰如引理中所述，是 $\mathbf{P}^1_{k'}$。
+\end{example}
+
+
+
+
+
+
+
+\section{几何亏格}
+\label{curves-section-geometric-genus}
+
+\noindent
+若 $X$ 是 $k$ 上的固有且{\bf 光滑}的曲线，并且
+$H^0(X, \mathcal{O}_X) = k$，则
+$$
+p_g(X) = \dim_k H^0(X, \Omega_{X/k})
+$$
+称为 $X$ 的{\it 几何亏格}。由引理 \ref{curves-lemma-genus-smooth}，
+$X$ 的几何亏格同（算术）亏格一致。然而在更高维时，
+几何亏格与算术亏格并不相同；见注 \ref{curves-remark-genus-higher-dimension}。
+
+\medskip\noindent
+对奇异曲线，几何亏格定义如下。
+
+\begin{definition}
+\label{curves-definition-geometric-genus}
+设 $k$ 为域，设 $X$ 为 $k$ 上的几何不可约曲线。
+$X$ 的{\it 几何亏格}，是 $X$ 的某个光滑射影模型的亏格；
+该模型可以定义在 $k$ 的某个扩域上，如引理
+\ref{curves-lemma-smooth-models} 中所述。
+\end{definition}
+
+\noindent
+若 $k$ 完美，则非奇异射影模型 $Y$，也就是 $X$ 的非奇异射影模型，是光滑的
+（引理 \ref{curves-lemma-nonsingular-model-smooth}），而 $X$
+的几何亏格就是 $Y$ 的亏格。但若 $k$ 不完美，这可能不成立。
+在这种情形下，选取扩张 $K/k$，使非奇异射影模型
+$Y_K$（它是 $(X_K)_{red}$ 的模型）成为光滑射影曲线，并把 $X$ 的几何亏格定义为
+$Y_K$ 的亏格。由引理 \ref{curves-lemma-smooth-models} 与
+\ref{curves-lemma-genus-base-change}，这个定义是良定的。
+
+\begin{remark}
+\label{curves-remark-genus-higher-dimension}
+设 $X$ 是 $d$ 维固有光滑簇，定义在代数闭域 $k$ 上。
+此时{\it 算术亏格}通常定义为
+$p_a(X) = (-1)^d(\chi(X, \mathcal{O}_X) - 1)$，而{\it 几何亏格}
+定义为 $p_g(X) = \dim_k H^0(X, \Omega^d_{X/k})$。
+在这种情形下，算术亏格与几何亏格不再一致，尽管仍有
+$\omega_X \cong \Omega_{X/k}^d$。例如，若 $d = 2$，则
+\begin{align*}
+p_a(X) - p_g(X) & =
+h^0(X, \mathcal{O}_X) - h^1(X, \mathcal{O}_X) + h^2(X, \mathcal{O}_X) - 1
+- h^0(X, \Omega^2_{X/k}) \\
+& =
+- h^1(X, \mathcal{O}_X) + h^2(X, \mathcal{O}_X) - h^0(X, \omega_X) \\
+& =
+- h^1(X, \mathcal{O}_X)
+\end{align*}
+，其中 $h^i(X, \mathcal{F}) = \dim_k H^i(X, \mathcal{F})$，
+最后一个等式来自对偶性。因此对曲面而言，差
+$p_g(X) - p_a(X)$ 总是非负的；它有时称为曲面的不规则度。
+若 $X = C_1 \times C_2$ 是亏格分别为 $g_1$ 与 $g_2$
+的光滑射影曲线之积，则不规则度为 $g_1 + g_2$。
+\end{remark}
+
+
+
+
+
+
+\section{Riemann--Hurwitz 公式}
+\label{curves-section-riemann-hurewitz}
+
+\noindent
+设 $k$ 为域。设 $f : X \to Y$ 为 $k$ 上光滑曲线之间的态射。
+由《态射》，引理 \ref{morphisms-lemma-triangle-differentials}，
+得到典范正合列
+$$
+f^*\Omega_{Y/k} \xrightarrow{\text{d}f} \Omega_{X/k}
+\longrightarrow \Omega_{X/Y} \longrightarrow 0
+$$
+。由于 $X$ 与 $Y$ 光滑，层 $\Omega_{X/k}$ 与
+$\Omega_{Y/k}$ 是可逆模；见《态射》，引理
+\ref{morphisms-lemma-smooth-omega-finite-locally-free}。
+假设第一个映射非零，也就是说，假设 $f$ 泛 \'etale；
+见引理 \ref{curves-lemma-generically-etale}。设 $R \subset X$ 为
+不同理想 $\mathfrak{D}_f$ 所截出的闭子概形；这是 $f$ 的不同理想。
+由《判别式》，引理
+\ref{discriminant-lemma-discriminant-quasi-finite-morphism-smooth}，
+它也就是 $\text{d}f$ 的消没轨迹；它是有效 Cartier 除子，并且有
+$$
+f^*\Omega_{Y/k} \otimes_{\mathcal{O}_X} \mathcal{O}_X(R) = \Omega_{X/k}
+$$
+。特别地，若 $X$, $Y$ 是射影的，且
+$k = H^0(Y, \mathcal{O}_Y) = H^0(X, \mathcal{O}_X)$，
+并且 $X$, $Y$ 的亏格分别为 $g_X$, $g_Y$，则得到
+Riemann--Hurwitz 公式
+\begin{align*}
+2g_X - 2 & =
+\deg(\Omega_{X/k}) \\
+& =
+\deg(f^*\Omega_{Y/k} \otimes_{\mathcal{O}_X} \mathcal{O}_X(R)) \\
+& =
+\deg(f) \deg(\Omega_{Y/k}) + \deg(R) \\
+& =
+\deg(f) (2g_Y - 2) + \deg(R)
+\end{align*}
+。第一个与最后一个等式来自引理 \ref{curves-lemma-genus-smooth}。
+第二个等式来自上面给出的可逆层同构。
+第三个等式来自次数的可加性
+（《簇》，引理 \ref{varieties-lemma-degree-tensor-product}）、
+拉回次数的公式
+（《簇》，引理 \ref{varieties-lemma-degree-pullback-map-proper-curves}），
+以及最后关于 $\mathcal{O}_X(R)$ 次数的公式
+（《簇》，引理 \ref{varieties-lemma-degree-effective-Cartier-divisor}）。
+
+\medskip\noindent
+为了使用 Riemann--Hurwitz 公式，需要计算
+$\deg(R) = \dim_k \Gamma(R, \mathcal{O}_R)$。由 $k$ 上零维概形的结构
+（例如见《簇》，引理 \ref{varieties-lemma-algebraic-scheme-dim-0}），
+可知 $R$ 是 Artin 局部环之谱的有限不交并：
+$R = \coprod_{x \in R} \Spec(\mathcal{O}_{R, x})$，
+其中每个 $\mathcal{O}_{R, x}$ 在 $k$ 上都是有限维的。因此
+$$
+\deg(R) = \sum\nolimits_{x \in R} \dim_k \mathcal{O}_{R, x} =
+\sum\nolimits_{x \in R} d_x [\kappa(x) : k]
+$$
+，其中
+$$
+d_x = \text{length}_{\mathcal{O}_{R, x}} \mathcal{O}_{R, x} =
+\text{length}_{\mathcal{O}_{X, x}} \mathcal{O}_{R, x}
+$$
+是 $x$ 在 $R$ 中的重数
+（见《代数》，引理 \ref{algebra-lemma-pushdown-module}）。
+设 $x \in X$ 为闭点，其像为 $y \in Y$。
+考察茎，得到正合列
+$$
+\Omega_{Y/k, y} \to \Omega_{X/k, x} \to \Omega_{X/Y, x} \to 0
+$$
+。选取局部生成元 $\eta_x$ 与 $\eta_y$；它们分别生成秩为
+$1$ 的自由模 $\Omega_{X/k, x}$ 与 $\Omega_{Y/k, y}$。
+可知
+$
+\eta_y \mapsto h \eta_x
+$
+，其中 $h \in \mathcal{O}_{X, x}$ 非零。由正合列可知，
+$\Omega_{X/Y, x} \cong \mathcal{O}_{X, x}/h\mathcal{O}_{X, x}$；
+这是作为 $\mathcal{O}_{X, x}$-模的同构。
+由于除子 $R$ 由 $h$ 截出（见上），有
+$\mathcal{O}_{R, x} = \mathcal{O}_{X, x}/h\mathcal{O}_{X, x}$。
+于是得到下列等式：
+\begin{align*}
+d_x
+& =
+\text{length}_{\mathcal{O}_{X, x}}(\mathcal{O}_{R, x}) \\
+& =
+\text{length}_{\mathcal{O}_{X, x}}(\mathcal{O}_{X, x}/h\mathcal{O}_{X, x}) \\
+& =
+\text{length}_{\mathcal{O}_{X, x}}(\Omega_{X/Y, x}) \\
+& =
+\text{ord}_{\mathcal{O}_{X, x}}(h) \\
+& =
+\text{ord}_{\mathcal{O}_{X, x}}(``\eta_y/\eta_x")
+\end{align*}
+。第一个等式来自 $d_x$ 的定义。第二个与第三个等式已在上面看到。
+第四个等式是 $\text{ord}$ 的定义；见《代数》，定义
+\ref{algebra-definition-ord}。注意，由于 $\mathcal{O}_{X, x}$
+是离散赋值环，整数 $\text{ord}_{\mathcal{O}_{X, x}}(h)$
+就是 $h$ 的赋值。第五个等式是一种记忆法。
+
+\medskip\noindent
+下面给出一种可以用其他不变量来“计算”重数 $d_x$ 的情形。
+确切地说，若 $\kappa(x)$ 在 $k$ 上可分，则可取
+$\eta_x = \text{d}s$ 与 $\eta_y = \text{d}t$，其中 $s$ 与 $t$
+分别是 $\mathcal{O}_{X, x}$ 与 $\mathcal{O}_{Y, y}$
+中的一致化元（引理 \ref{curves-lemma-uniformizer-works}）。
+于是有 $t \mapsto u s^{e_x}$，其中
+$u \in \mathcal{O}_{X, x}$ 是某个单位，而 $e_x$ 是扩张
+$\mathcal{O}_{Y, y} \subset \mathcal{O}_{X, x}$ 的分歧指数。因此
+$$
+\eta_y = \text{d}t = \text{d}(u s^{e_x}) =
+e s^{e_x - 1} u \text{d}s + s^{e_x} \text{d}u
+$$
+。将 $\text{d}u = w \text{d}s$ 写成此形式，其中
+$w \in \mathcal{O}_{X, x}$，可见
+$$
+``\eta_y/\eta_x" = e s^{e_x - 1} u + s^{e_x} w = (e_x u + s w)s^{e_x - 1}
+$$
+。因此其消没阶为 $e_x - 1$；例外是 $\kappa(x)$
+的特征为 $p > 0$ 且 $p$ 整除 $e_x$ 的情形，此时消没阶
+$> e_x - 1$。
+
+\medskip\noindent
+合并以上全部结果可知，若 $k$ 的特征为零，则
+$$
+2g_X - 2 = (2g_Y - 2)\deg(f) +
+\sum\nolimits_{x \in X} (e_x - 1)[\kappa(x) : k]
+$$
+，其中 $e_x$ 是 $\mathcal{O}_{X, x}$ 在
+$\mathcal{O}_{Y, f(x)}$ 上的分歧指数。当且仅当所有分歧都是温和的，
+也就是剩余域扩张 $\kappa(x)/\kappa(y)$ 可分且
+$e_x$ 与 $k$ 的特征互素时，这个精确公式才成立；
+不过以上论证不足以证明这一点。参见引理 \ref{curves-lemma-rhe} 及其证明。
+
+\begin{lemma}
+\label{curves-lemma-generically-etale}
+\begin{slogan}
+光滑曲线之间的态射可分，当且仅当它几乎处处 \'etale
+\end{slogan}
+设 $k$ 为域。设 $f : X \to Y$ 为 $k$ 上光滑曲线之间的态射。
+下列条件等价：
+\begin{enumerate}
+\item $\text{d}f : f^*\Omega_{Y/k} \to \Omega_{X/k}$ 非零；
+\item $\Omega_{X/Y}$ 支撑在 $X$ 的某个真闭子集上；
+\item 存在非空开集 $U \subset X$，使
+$f|_U : U \to Y$ 非分歧；
+\item 存在非空开集 $U \subset X$，使
+$f|_U : U \to Y$ 为 \'etale；
+\item 函数域扩张 $k(X)/k(Y)$ 是有限可分扩张。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 与 $Y$ 光滑，层 $\Omega_{X/k}$ 与
+$\Omega_{Y/k}$ 是可逆模；见《态射》，引理
+\ref{morphisms-lemma-smooth-omega-finite-locally-free}。
+利用《态射》，引理 \ref{morphisms-lemma-triangle-differentials}
+的正合列
+$$
+f^*\Omega_{Y/k} \longrightarrow \Omega_{X/k}
+\longrightarrow \Omega_{X/Y} \longrightarrow 0
+$$
+，可知 (1) 与 (2) 等价，并且二者等价于
+$f^*\Omega_{Y/k} \to \Omega_{X/k}$ 在泛点处非零这一条件。
+(2) 与 (3) 的等价性来自《态射》，引理
+\ref{morphisms-lemma-unramified-omega-zero}。
+(3) 与 (4) 的等价性来自《态射》，引理
+\ref{morphisms-lemma-flat-unramified-etale}，以及平坦性自动成立这一事实
+（引理 \ref{curves-lemma-flat}）。
+为看出 (5) 与 (4) 等价，可用《代数》，引理
+\ref{algebra-lemma-smooth-at-generic-point}。略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-rh}
+设 $f : X \to Y$ 为域 $k$ 上光滑固有曲线之间的态射，
+它满足引理 \ref{curves-lemma-generically-etale} 中的等价条件。
+若 $k = H^0(Y, \mathcal{O}_Y) = H^0(X, \mathcal{O}_X)$，
+并且 $X$ 与 $Y$ 的亏格分别为 $g_X$ 与 $g_Y$，则
+$$
+2g_X - 2 = (2g_Y - 2) \deg(f) + \deg(R)
+$$
+，其中 $R \subset X$ 是 $f$ 的不同理想所截出的有效 Cartier 除子。
+\end{lemma}
+
+\begin{proof}
+见以上讨论；其中用到了《判别式》，引理
+\ref{discriminant-lemma-discriminant-quasi-finite-morphism-smooth}、
+引理 \ref{curves-lemma-genus-smooth}，以及《簇》，引理
+\ref{varieties-lemma-degree-tensor-product} 与
+\ref{varieties-lemma-degree-pullback-map-proper-curves}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-uniformizer-works}
+设 $X \to \Spec(k)$ 光滑且相对维数为 $1$；这里是在闭点
+$x \in X$ 处而言。
+若 $\kappa(x)$ 在 $k$ 上可分，则对任意一致化元 $s$，
+它位于离散赋值环 $\mathcal{O}_{X, x}$ 中，元素
+$\text{d}s$ 都自由生成 $\Omega_{X/k, x}$；这里生成是在
+$\mathcal{O}_{X, x}$ 上而言。
+\end{lemma}
+
+\begin{proof}
+由《代数》，引理 \ref{algebra-lemma-characterize-smooth-over-field}，
+环 $\mathcal{O}_{X, x}$ 是离散赋值环。由于 $x$ 是闭点，
+$\kappa(x)$ 是 $k$ 的有限扩张。因此，若 $\kappa(x)/k$ 可分，
+则由《代数》，引理 \ref{algebra-lemma-computation-differential}，
+任意一致化元 $s$ 都映为
+$\Omega_{X/k, x} \otimes_{\mathcal{O}_{X, x}} \kappa(x)$
+中的非零元素。由于 $\Omega_{X/k, x}$ 是秩为 $1$
+的自由模，而该模定义在 $\mathcal{O}_{X, x}$ 上，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-rhe}
+沿用引理 \ref{curves-lemma-rh} 的记号与假设。对闭点
+$x \in X$，设 $d_x$ 为 $x$ 在 $R$ 中的重数。则
+$$
+2g_X - 2 = (2g_Y - 2) \deg(f) + \sum\nolimits d_x [\kappa(x) : k]
+$$
+。此外，有下列结论：
+\begin{enumerate}
+\item $d_x = \text{length}_{\mathcal{O}_{X, x}}(\Omega_{X/Y, x})$；
+\item $d_x \geq e_x - 1$，其中 $e_x$ 是
+$\mathcal{O}_{X, x}$ 在 $\mathcal{O}_{Y, y}$ 上的分歧指数；
+\item $d_x = e_x - 1$，当且仅当 $\mathcal{O}_{X, x}$
+在 $\mathcal{O}_{Y, y}$ 上温和分歧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-rh} 与以上讨论
+（其中用到了《簇》，引理
+\ref{varieties-lemma-algebraic-scheme-dim-0} 以及《代数》，引理
+\ref{algebra-lemma-pushdown-module}），只需证明重数 $d_x$
+所满足的结论；这是 $x$ 在 $R$ 中的重数。第 (1) 部分已在以上讨论中证明。
+以上讨论只在 $\kappa(x)$ 在 $k$ 上可分的情形证明了 (2) 与 (3)。
+在证明的其余部分，我们用关于拟有限 Gorenstein 态射之不同理想的材料，
+统一处理 (2) 与 (3)。
+
+\medskip\noindent
+首先注意，$f$ 是拟有限 Gorenstein 态射。
+例如，这是因为 $f$ 是平坦的拟有限态射，且 $X$ 是 Gorenstein 的
+（见《概形的对偶性》，引理
+\ref{duality-lemma-flat-morphism-from-gorenstein-scheme}）；
+也可以使用《判别式》，引理
+\ref{discriminant-lemma-discriminant-quasi-finite-morphism-smooth}
+的证明中所得的结果（上面已经使用过该引理）。
+因此，由《判别式》，引理
+\ref{discriminant-lemma-gorenstein-quasi-finite}，
+$\omega_{X/Y}$ 可逆；在把 $X$ 换成开集以及沿某个
+$Y' \to Y$ 作基变换之后，这一点仍然成立。以下将不再说明而直接使用。
+
+\medskip\noindent
+选取仿射开集 $U \subset X$ 与 $V \subset Y$，使得
+$x \in U$、$y \in V$、$f(U) \subset V$，且 $x$ 是
+$U$ 中位于 $y$ 上方的唯一一点。写成
+$U = \Spec(A)$ 与 $V = \Spec(B)$。
+于是 $R \cap U$ 是 $f|_U : U \to V$ 的不同理想。
+由《判别式》，引理 \ref{discriminant-lemma-base-change-different}，
+在本情形中，不同理想的形成同任意基变换交换。由 $U$ 与 $V$ 的选取，
+有
+$$
+A \otimes_B \kappa(y) =
+\mathcal{O}_{X, x} \otimes_{\mathcal{O}_{Y, y}} \kappa(y) =
+\mathcal{O}_{X, x}/(s^{e_x})
+$$
+，其中 $e_x$ 是引理陈述中的分歧指数。令
+$C = \mathcal{O}_{X, x}/(s^{e_x})$，把它视作
+$\kappa(y)$ 上的有限代数。设 $\mathfrak{D}_{C/\kappa(y)}$
+为 $C$ 在 $\kappa(y)$ 上的不同理想，其含义见《判别式》，定义
+\ref{discriminant-definition-different}。
+只需证明：$\mathfrak{D}_{C/\kappa(y)}$ 非零，当且仅当扩张
+$\mathcal{O}_{Y, y} \subset \mathcal{O}_{X, x}$ 温和分歧；
+并且在温和分歧情形，$\mathfrak{D}_{C/\kappa(y)}$
+等于由 $s^{e_x - 1}$ 生成的理想；这是 $C$ 中的理想。
+回顾温和分歧恰好意味着 $\kappa(x)/\kappa(y)$ 可分，且
+$\kappa(y)$ 的特征不整除 $e_x$。另一方面，
+$C/\kappa(y)$ 的不同理想非零，当且仅当
+$\tau_{C/\kappa(y)} \in \omega_{C/\kappa(y)}$ 非零。
+确实，由于 $\omega_{C/\kappa(y)}$ 是可逆 $C$-模
+（它是 $\omega_{A/B}$ 的基变换），它是秩为 $1$ 的自由模；
+设生成元为 $\lambda$。写成
+$\tau_{C/\kappa(y)} = h\lambda$，其中 $h \in C$。
+于是 $\mathfrak{D}_{C/\kappa(y)} = (h) \subset C$，从而得到该断言。
+由《判别式》，引理 \ref{discriminant-lemma-tau-nonzero}，
+有 $\tau_{C/\kappa(y)} \not = 0$，当且仅当
+$\kappa(x)/\kappa(y)$ 可分且 $e_x$ 与该特征互素。
+最后，即使 $\tau_{C/\kappa(y)}$ 非零，仍有
+$s \tau_{C/\kappa(y)} = 0$，因为
+$s\tau_{C/\kappa(y)} : C \to \kappa(y)$ 把 $c$ 映为
+幂零算子 $sc$ 的迹，而这个迹为零。因此 $sh = 0$，从而
+$h \in (s^{e_x - 1})$；这证明始终有
+$\mathfrak{D}_{C/\kappa(y)} \subset (s^{e_x - 1})$。
+由于 $(s^{e_x - 1}) \subset C$ 是最小的非零理想，最终断言得证。
+\end{proof}
+
+
+
+
+
+
+\section{不可分态射}
+\label{curves-section-inseparable}
+
+\noindent
+下面对不可分态射下亏格的行为作一些说明。
+
+\begin{lemma}
+\label{curves-lemma-dominated-by-smooth}
+设 $k$ 为域。设 $f : X \to Y$ 为 $k$ 上曲线之间的满态射。
+若 $X$ 在 $k$ 上光滑，且 $Y$ 正规，则 $Y$ 在 $k$ 上光滑。
+\end{lemma}
+
+\begin{proof}
+设 $y \in Y$。选取 $x \in X$，使它映到 $y$。
+由《簇》，引理 \ref{varieties-lemma-flat-under-smooth}，
+只需证明 $f$ 在 $x$ 处平坦。这由引理 \ref{curves-lemma-flat} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-purely-inseparable}
+设 $k$ 为特征 $p > 0$ 的域。设 $f : X \to Y$ 为
+$k$ 上固有非奇异曲线之间的非常值态射。
+若函数域扩张 $k(X)/k(Y)$ 纯不可分，则存在分解
+$$
+X = X_0 \to X_1 \to \ldots \to X_n = Y
+$$
+，使每个 $X_i$ 都是固有非奇异曲线，并且
+$X_i \to X_{i + 1}$ 是次数为 $p$ 的态射，而
+$k(X_{i + 1}) \subset k(X_i)$ 不可分。
+\end{lemma}
+
+\begin{proof}
+这由定理 \ref{curves-theorem-curves-rational-maps} 以及如下事实得到：
+域的有限纯不可分扩张总能写成一列次数为 $p$ 的（不可分）扩张；
+见《域》，引理 \ref{fields-lemma-finite-purely-inseparable}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-inseparable-deg-p-smooth}
+设 $k$ 为特征 $p > 0$ 的域。设 $f : X \to Y$ 为
+$k$ 上固有非奇异曲线之间的非常值态射。
+若 $X$ 光滑，且 $k(Y) \subset k(X)$ 是次数为 $p$ 的不可分扩张，
+则存在唯一同构 $Y = X^{(p)}$，使 $f$ 就是 $F_{X/k}$。
+\end{lemma}
+
+\begin{proof}
+相对 Frobenius 态射 $F_{X/k} : X \to X^{(p)}$
+构造于《簇》，第 \ref{varieties-section-frobenius} 节。
+注意，$X^{(p)}$ 是 $k$ 上的光滑固有曲线；这是 $X$ 的基变换。
+由《簇》，引理 \ref{varieties-lemma-inseparable-deg-p-smooth}，
+态射 $F_{X/k}$ 的次数为 $p$。因此
+$k(X^{(p)})$ 与 $k(Y)$ 都是 $k(X)$ 的子域，并且
+$[k(X) : k(Y)] = [k(X) : k(X^{(p)})] = p$。
+为了证明引理，只需证明 $k(Y) = k(X^{(p)})$ 在
+$k(X)$ 中成立；见定理 \ref{curves-theorem-curves-rational-maps}。
+
+\medskip\noindent
+写成 $K = k(X)$。考察映射 $\text{d} : K \to \Omega_{K/k}$。
+由引理 \ref{curves-lemma-generically-etale} 可知，
+$k(Y)$ 包含于 $\text{d}$ 的核中。由《簇》，引理
+\ref{varieties-lemma-relative-frobenius-omega} 可知，
+$k(X^{(p)})$ 也包含于 $\text{d}$ 的核中。
+由于 $X$ 是光滑曲线，$\Omega_{K/k}$ 是维数为 $1$
+的向量空间，定义在 $K$ 上。于是《代数进阶》，引理
+\ref{more-algebra-lemma-p-basis} 蕴含
+$\Ker(\text{d}) = kK^p$ 且 $[K : kK^p] = p$。
+因次数相同，便有 $k(Y) = kK^p = k(X^{(p)})$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-purely-inseparable-smooth}
+设 $k$ 为特征 $p > 0$ 的域。设 $f : X \to Y$ 为
+$k$ 上固有非奇异曲线之间的非常值态射。
+若 $X$ 光滑，且 $k(Y) \subset k(X)$ 纯不可分，则存在唯一的
+$n \geq 0$ 与唯一同构 $Y = X^{(p^n)}$，使 $f$
+是 $n$ 重相对 Frobenius 态射；这是 $X/k$ 的相对 Frobenius。
+\end{lemma}
+
+\begin{proof}
+$n$ 重相对 Frobenius 态射（对 $X/k$ 而言）定义于《簇》，注
+\ref{varieties-remark-n-fold-relative-frobenius}。
+合并引理 \ref{curves-lemma-inseparable-deg-p-smooth} 与
+\ref{curves-lemma-purely-inseparable} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-purely-inseparable-smooth-genus}
+设 $k$ 为特征 $p > 0$ 的域。设 $f : X \to Y$ 为
+$k$ 上固有非奇异曲线之间的非常值态射。假设
+\begin{enumerate}
+\item $X$ 光滑；
+\item $H^0(X, \mathcal{O}_X) = k$；
+\item $k(X)/k(Y)$ 纯不可分。
+\end{enumerate}
+则 $Y$ 光滑，$H^0(Y, \mathcal{O}_Y) = k$，并且 $Y$
+的亏格等于 $X$ 的亏格。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-purely-inseparable-smooth}，可知
+$Y = X^{(p^n)}$ 是 $X$ 沿 $F_{\Spec(k)}^n$ 的基变换。
+因此 $Y$ 光滑，而关于上同调与亏格的结论来自引理
+\ref{curves-lemma-genus-base-change}。
+\end{proof}
+
+\begin{example}
+\label{curves-example-inseparable}
+本例说明，在非奇异射影曲线之间的纯不可分态射下，亏格可能改变。
+设 $k$ 为特征 $3$ 的域。假设存在元素 $a \in k$，它不是
+$3$ 次幂；例如可以取 $k = \mathbf{F}_3(a)$。
+设 $X$ 为齐次方程
+$$
+F = T_1^2T_0 - T_2^3 + aT_0^3
+$$
+所定义的平面曲线，如第 \ref{curves-section-plane-curves} 节所述。
+在仿射片 $D_+(T_0)$ 上使用坐标 $x = T_1/T_0$
+与 $y = T_2/T_0$，得到 $x^2 - y^3 + a = 0$，
+它定义一条非奇异仿射曲线。此外，无穷远点
+$(0 : 1: 0)$ 是光滑点。因此 $X$ 是亏格为 $1$
+的非奇异射影曲线（引理 \ref{curves-lemma-genus-plane-curve}）。
+另一方面，考察态射 $f : X \to \mathbf{P}^1_k$；它在
+$D_+(T_0)$ 上把 $(x, y)$ 映到
+$x \in \mathbf{A}^1_k \subset \mathbf{P}^1_k$。
+则 $f$ 是 $k$ 上固有非奇异曲线之间的态射，诱导次数为
+$p = 3$ 的不可分函数域扩张；但 $X$ 的亏格为 $1$，
+而 $\mathbf{P}^1_k$ 的亏格为 $0$。
+\end{example}
+
+\begin{proposition}
+\label{curves-proposition-unwind-morphism-smooth}
+设 $k$ 为特征 $p > 0$ 的域。设 $f : X \to Y$ 为
+$k$ 上固有光滑曲线之间的非常值态射。则可把 $f$ 分解为
+$$
+X \longrightarrow X^{(p^n)} \longrightarrow Y
+$$
+，其中 $X^{(p^n)} \to Y$ 是固有光滑曲线之间的非常值态射，
+诱导可分域扩张 $k(X^{(p^n)})/k(Y)$，且
+$$
+X^{(p^n)} = X \times_{\Spec(k), F_{\Spec(k)}^n} \Spec(k),
+$$
+而 $X \to X^{(p^n)}$ 是 $n$ 重相对 Frobenius 态射，作用于 $X$。
+\end{proposition}
+
+\begin{proof}
+由《域》，引理 \ref{fields-lemma-separable-first}，存在子扩张
+$k(X)/E/k(Y)$，使 $k(X)/E$ 纯不可分而 $E/k(Y)$ 可分。
+由定理 \ref{curves-theorem-curves-rational-maps}，这对应于分解
+$X \to Z \to Y$；它是 $f$ 的分解，其中 $Z$ 是非奇异固有曲线。
+把引理 \ref{curves-lemma-purely-inseparable-smooth} 应用于态射
+$X \to Z$ 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-inseparable-linear-system}
+设 $k$ 为特征 $p > 0$ 的域。设 $X$ 为 $k$ 上的光滑固有曲线。
+设 $(\mathcal{L}, V)$ 为 $\mathfrak g^r_d$，其中
+$r \geq 1$。则下列两种情形之一成立：
+\begin{enumerate}
+\item 存在一个 $\mathfrak g^1_d$，其相应态射
+$X \to \mathbf{P}^1_k$（引理 \ref{curves-lemma-linear-series}）
+泛 \'etale（即如引理 \ref{curves-lemma-generically-etale} 中所述）；或者
+\item 存在 $\mathfrak g^r_{d'}$，它在 $X^{(p)}$ 上，其中
+$d' \leq d/p$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取两个 $k$-线性无关元素 $s, t \in V$。
+则 $f = s/t$ 是定义态射 $X \to \mathbf{P}^1_k$ 的有理函数；
+该态射对应于线性系 $(\mathcal{L}, ks + kt)$。
+若此态射并非泛 \'etale，则由命题
+\ref{curves-proposition-unwind-morphism-smooth}，有
+$f \in k(X^{(p)})$。现在选取一个基
+$s_0, \ldots, s_r$，作为 $V$ 的基，并令 $\mathcal{L}' \subset \mathcal{L}$
+为由 $s_0, \ldots, s_r$ 生成的可逆层。置
+$f_i = s_i/s_0$，把它看作 $k(X)$ 中的元素。若对每一对 $(s_0, s_i)$ 都有
+$f_i \in k(X^{(p)})$，则态射
+$$
+\varphi = \varphi_{(\mathcal{L}', (s_0, \ldots, s_r)} :
+X
+\longrightarrow
+\mathbf{P}^r_k = \text{Proj}(k[T_0, \ldots, T_r])
+$$
+经由 $X^{(p)}$ 分解，因为这在仿射开集 $D_+(T_0)$ 上成立，
+而由引理 \ref{curves-lemma-extend-over-normal-curve}，可以把仿射部分上的态射
+延拓到整个光滑曲线 $X^{(p)}$ 上。引入记号，设有如下分解：
+$$
+X \xrightarrow{F_{X/k}} X^{(p)} \xrightarrow{\psi} \mathbf{P}^r_k
+$$
+；这是 $\varphi$ 的分解。则
+$\mathcal{N} = \psi^*\mathcal{O}_{\mathbf{P}^1_k}(1)$
+是可逆 $\mathcal{O}_{X^{(p)}}$-模，满足
+$\mathcal{L}' = F_{X/k}^*\mathcal{N}$，并且
+$\psi^*T_0, \ldots, \psi^*T_r$ 在 $k$ 上线性无关
+（因为它们拉回为 $s_0, \ldots, s_r$，这是在 $X$ 上的拉回）。
+最后有
+$$
+d = \deg(\mathcal{L}) \geq \deg(\mathcal{L}') =
+\deg(F_{X/k}) \deg(\mathcal{N}) = p \deg(\mathcal{N})
+$$
+，正如所需。这里使用了《簇》，引理
+\ref{varieties-lemma-check-invertible-sheaf-trivial}、
+\ref{varieties-lemma-degree-pullback-map-proper-curves} 与
+\ref{varieties-lemma-inseparable-deg-p-smooth}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-point-over-separable-extension}
+设 $k$ 为域。设 $X$ 为 $k$ 上光滑固有曲线，满足
+$H^0(X, \mathcal{O}_X) = k$，且亏格 $g \geq 2$。
+则存在闭点 $x \in X$，使 $\kappa(x)/k$ 可分且次数
+$\leq 2g - 2$。
+\end{lemma}
+
+\begin{proof}
+置 $\omega = \Omega_{X/k}$。由引理 \ref{curves-lemma-genus-smooth}，
+它的次数为 $2g - 2$，并有 $g$ 个整体截面。
+因此有一个 $\mathfrak g^{g - 1}_{2g - 2}$。
+由平凡的引理 \ref{curves-lemma-linear-series-trivial-existence}，
+存在一个 $\mathfrak g^1_{2g - 2}$；再由引理
+\ref{curves-lemma-g1d}，得到态射
+$$
+\varphi : X \longrightarrow \mathbf{P}^1_k
+$$
+，其次数为 $d \leq 2g - 2$。由于 $\varphi$ 平坦（引理 \ref{curves-lemma-flat}）且有限
+（引理 \ref{curves-lemma-finite}），它是次数为 $d$ 的有限局部自由态射
+（《态射》，引理 \ref{morphisms-lemma-finite-flat}）。
+任取有理点 $t \in \mathbf{P}^1_k$，并任取点 $x \in X$，
+使 $\varphi(x) = t$。则
+$$
+d \geq [\kappa(x) : \kappa(t)] = [\kappa(x) : k]
+$$
+，例如由《态射》，引理
+\ref{morphisms-lemma-finite-locally-free-universally-bounded} 与
+\ref{morphisms-lemma-characterize-universally-bounded}。
+因此若 $k$ 完美（例如特征为零或有限），引理得证。
+于是归结为下一段讨论的情形。
+
+\medskip\noindent
+假设 $k$ 是特征 $p > 0$ 的无限域。如上，将使用 $X$
+有一个 $\mathfrak g^{g - 1}_{2g - 2}$ 这一事实。
+光滑固有曲线 $X^{(p)}$ 与 $X$ 亏格相同，故其亏格 $> 0$。
+由引理 \ref{curves-lemma-grd-inequalities}，可知 $X^{(p)}$
+没有 $\mathfrak g^{g - 1}_d$，这里 $d \leq g - 1$ 任意。
+把引理 \ref{curves-lemma-inseparable-linear-system} 应用于我们的
+$\mathfrak g^{g - 1}_{2g - 2}$（并注意 $2g - 2/p \leq g - 1$），
+可知情形 (2) 不会发生。因此得到态射
+$$
+\varphi : X \longrightarrow \mathbf{P}^1_k
+$$
+，它泛 \'etale（按该引理的含义），且次数 $\leq 2g - 2$。
+设 $U \subset X$ 为 $\varphi$ 是 \'etale 的非空开子概形。
+则 $\varphi(U) \subset \mathbf{P}^1_k$ 是非空 Zariski 开集；
+可以选取 $k$-有理点 $t \in \varphi(U)$，因为 $k$ 无限。
+令 $u \in U$ 为满足 $\varphi(u) = t$ 的一点。
+则 $\kappa(u)/\kappa(t)$ 可分
+（《态射》，引理 \ref{morphisms-lemma-etale-over-field}），
+$\kappa(t) = k$，并且如前有
+$[\kappa(u) : k] \leq 2g - 2$。
+\end{proof}
+
+\noindent
+下面的引理其实不属于本节，但我们不知道还能把它放在何处。
+
+\begin{lemma}
+\label{curves-lemma-ramification-to-algebraic-closure}
+设 $X$ 为域 $k$ 上的光滑曲线。设
+$\overline{x} \in X_{\overline{k}}$ 为闭点，其像为 $x \in X$。
+则 $\mathcal{O}_{X, x} \subset \mathcal{O}_{X_{\overline{k}}, \overline{x}}$
+的分歧指数等于 $\kappa(x)/k$ 的不可分次数。
+\end{lemma}
+
+\begin{proof}
+缩小 $X$ 后，可以假设存在 \'etale 态射
+$\pi : X \to \mathbf{A}^1_k$；见《态射》，引理
+\ref{morphisms-lemma-smooth-etale-over-affine-space}。
+于是可以考察局部环的交换图
+$$
+\xymatrix{
+\mathcal{O}_{X_{\overline{k}}, \overline{x}} &
+\mathcal{O}_{\mathbf{A}^1_{\overline{k}}, \pi(\overline{x})} \ar[l] \\
+\mathcal{O}_{X, x} \ar[u] &
+\mathcal{O}_{\mathbf{A}^1_k, \pi(x)} \ar[l] \ar[u]
+}
+$$
+。水平箭头的分歧指数为 $1$，因为它们对应于
+\'etale 态射。此外，扩张 $\kappa(x)/\kappa(\pi(x))$ 可分，
+故 $\kappa(x)$ 与 $\kappa(\pi(x))$ 在 $k$ 上具有相同的不可分次数。
+由分歧指数的乘法性，只需在 $x$ 是仿射直线上的点时证明结论。
+
+\medskip\noindent
+假设 $X = \mathbf{A}^1_k$。此时 $X$ 在 $x$ 处的局部环形如
+$$
+\mathcal{O}_{X, x} = k[t]_{(P)}
+$$
+，其中 $P$ 是 $k$ 上不可约的首一多项式。
+于是有 $P(t) = Q(t^q)$，其中 $Q \in k[t]$ 是某个可分多项式；
+见《域》，引理
+\ref{fields-lemma-irreducible-polynomials}。
+注意，$\kappa(x) = k[t]/(P)$ 的不可分次数为 $q$，这是在 $k$ 上而言。
+另一方面，在 $\overline{k}$ 上可以分解
+$Q(t) = \prod (t - \alpha_i)$，其中 $\alpha_i$ 两两不同。
+写成 $\alpha_i = \beta_i^q$，其中存在唯一的
+$\beta_i \in \overline{k}$。于是点 $\overline{x}$
+对应于其中一个 $\beta_i$。现在可以得出结论，因为
+$$
+k[t]_{(P)} \longrightarrow \overline{k}[t]_{(t - \beta_i)}
+$$
+的分歧指数确实等于 $q$：一致化元 $P$ 映为
+$(t - \beta_i)^q$ 乘以一个单位。
+\end{proof}
+
+
+
+
+
+\section{推出}
+\label{curves-section-pushouts}
+
+\noindent
+设 $k$ 为域。考察实线图
+$$
+\xymatrix{
+Z' \ar[d] \ar[r]_{i'} & X' \ar@{..>}[d]^a \\
+Z \ar@{..>}[r]^i & X
+}
+$$
+；这是 $k$ 上概形的图，并满足
+\begin{enumerate}
+\item[(a)] $X'$ 是 $k$ 上分离的有限型概形，且维数 $\leq 1$；
+\item[(b)] $i : Z' \to X'$ 是闭浸入；
+\item[(c)] $Z'$ 与 $Z$ 在 $\Spec(k)$ 上有限；并且
+\item[(d)] $Z' \to Z$ 满射。
+\end{enumerate}
+在这种情形下，$X'$ 的每个有限点集都包含于某个仿射开集中；
+见《簇》，命题
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}。
+因此满足《态射进阶》，命题
+\ref{more-morphisms-proposition-pushout-along-closed-immersion-and-integral}
+的假设，并得到如下结论：
+\begin{enumerate}
+\item 推出 $X = Z \amalg_{Z'} X'$ 在概形范畴中存在；
+\item $i : Z \to X$ 是闭浸入；
+\item $a : X' \to X$ 是整满态射；
+\item 由《态射进阶》，引理
+\ref{more-morphisms-lemma-pushout-separated}，
+$X \to \Spec(k)$ 是分离的；
+\item 由《态射进阶》，引理
+\ref{more-morphisms-lemma-pushout-finite-type}，
+$X \to \Spec(k)$ 是有限型的；
+\item 因此，由《态射》，引理
+\ref{morphisms-lemma-finite-integral} 与
+\ref{morphisms-lemma-permanence-finite-type}，
+$a : X' \to X$ 是有限的；
+\item 若 $X' \to \Spec(k)$ 固有，则由《态射》，引理
+\ref{morphisms-lemma-image-proper-is-proper}，
+$X \to \Spec(k)$ 固有。
+\end{enumerate}
+
+\noindent
+下面的引理可以作显著推广。
+
+\begin{lemma}
+\label{curves-lemma-complete-local-ring-pushout}
+在上述情形中，设 $Z = \Spec(k')$，其中 $k'$ 为域；并设
+$Z' = \Spec(k'_1 \times \ldots \times k'_n)$，其中 $k'_i/k'$
+是有限域扩张。设 $x \in X$ 为 $Z \to X$ 的像，并设
+$x'_i \in X'$ 为 $\Spec(k'_i) \to X'$ 的像。则有纤维积图
+$$
+\xymatrix{
+\prod\nolimits_{i = 1, \ldots, n} k'_i &
+\prod\nolimits_{i = 1, \ldots, n} \mathcal{O}_{X', x'_i}^\wedge \ar[l] \\
+k' \ar[u] &
+\mathcal{O}_{X, x}^\wedge \ar[u] \ar[l]
+}
+$$
+，其中水平箭头由到剩余域的映射给出。
+\end{lemma}
+
+\begin{proof}
+选取仿射开邻域 $\Spec(A)$，它是 $x$ 在 $X$ 中的邻域。
+设 $\Spec(A') \subset X'$ 为其逆像。由构造，有纤维积图
+$$
+\xymatrix{
+\prod\nolimits_{i = 1, \ldots, n} k'_i &
+A' \ar[l] \\
+k' \ar[u] &
+A \ar[u] \ar[l]
+}
+$$
+。由于所有对象在 $A$ 上都有限，考察极大理想
+$\mathfrak m \subset A$，它同 $x$ 相应。对它作完备化后，该图仍为纤维积图
+（《代数》，引理 \ref{algebra-lemma-completion-flat}）。
+最后应用《代数》，引理
+\ref{algebra-lemma-completion-finite-extension}，
+以识别 $A'$ 的完备化。
+\end{proof}
+
+
+
+
+\section{粘合与压缩}
+\label{curves-section-glueing-squishing}
+
+\noindent
+以下用 $k[\epsilon]$ 表示 $k$ 上的对偶数代数，其定义见《簇》，定义
+\ref{varieties-definition-dual-numbers}。
+
+\begin{lemma}
+\label{curves-lemma-no-in-between-over-k}
+设 $k$ 为代数闭域。设 $k \subset A$ 为环扩张，并且 $A$
+恰有两个 $k$-子代数。则 $A = k \times k$ 或
+$A = k[\epsilon]$。
+\end{lemma}
+
+\begin{proof}
+假设意味着 $k \not = A$，并且任意子环
+$k \subset C \subset A$ 都等于 $k$ 或 $A$。
+取 $t \in A$ 且 $t \not \in k$。则 $A$ 由 $t$ 在 $k$ 上生成，
+故有 $A = k[x]/I$，其中 $I$ 是某个理想。
+若 $I = (0)$，则会有不允许出现的子代数 $k[x^2]$。
+否则，$I$ 由某个首一多项式 $P$ 生成。写成
+$P = \prod_{i = 1}^d (t - a_i)$。若 $d > 2$，则由
+$(t - a_1)(t - a_2)$ 生成的子代数给出矛盾。
+所以 $d = 2$。若 $a_1 \not = a_2$，则 $A = k \times k$；
+若 $a_1 = a_2$，则 $A = k[\epsilon]$。
+\end{proof}
+
+\begin{example}[粘合点]
+\label{curves-example-glue-points}
+设 $k$ 为代数闭域。设 $f : X' \to X$ 为代数
+$k$-概形之间的态射。若下列条件成立，就称 $X$
+由粘合 $a$ 与 $b$ 得到；这两点位于 $X'$ 中：
+\begin{enumerate}
+\item $a, b \in X'(k)$ 是不同的点，它们映到同一点
+$x \in X(k)$；
+\item $f$ 有限，并且
+$f^{-1}(X \setminus \{x\}) \to X \setminus \{x\}$ 是同构；
+\item 有短正合列
+$$
+0 \to \mathcal{O}_X \to f_*\mathcal{O}_{X'} \xrightarrow{a - b} x_*k \to 0
+$$
+，其中右端箭头把局部截面 $h$（它属于 $f_*\mathcal{O}_{X'}$）
+映到差 $h(a) - h(b) \in k$。
+\end{enumerate}
+若属于这种情形，则还有短正合列
+$$
+0 \to \mathcal{O}_X^* \to f_*\mathcal{O}_{X'}^*
+\xrightarrow{ab^{-1}} x_*k^* \to 0
+$$
+，其中右端箭头把局部截面 $h$（它属于 $f_*\mathcal{O}_{X'}^*$）
+映到乘法差 $h(a)h(b)^{-1} \in k^*$。
+\end{example}
+
+\begin{example}[压缩切向量]
+\label{curves-example-squish-tangent-vector}
+设 $k$ 为代数闭域。设 $f : X' \to X$ 为代数
+$k$-概形之间的态射。若下列条件成立，就称 $X$
+由压缩切向量 $\vartheta$ 得到；该切向量位于 $X'$ 中：
+\begin{enumerate}
+\item $\vartheta : \Spec(k[\epsilon]) \to X'$ 是 $k$ 上的闭浸入，
+且 $f \circ \vartheta$ 经由一点 $x \in X(k)$ 分解；
+\item $f$ 有限，并且
+$f^{-1}(X \setminus \{x\}) \to X \setminus \{x\}$ 是同构；
+\item 有短正合列
+$$
+0 \to \mathcal{O}_X \to f_*\mathcal{O}_{X'} \xrightarrow{\vartheta} x_*k \to 0
+$$
+，其中右端箭头把局部截面 $h$（它属于 $f_*\mathcal{O}_{X'}$）
+映到 $\epsilon$ 的系数；该系数取自
+$\vartheta^\sharp(h) \in k[\epsilon]$。
+\end{enumerate}
+若属于这种情形，则还有短正合列
+$$
+0 \to \mathcal{O}_X^* \to f_*\mathcal{O}_{X'}^*
+\xrightarrow{\vartheta} x_*k \to 0
+$$
+，其中右端箭头把局部截面 $h$（它属于 $f_*\mathcal{O}_{X'}^*$）
+映到 $\text{d}\log(\vartheta^\sharp(h))$，这里
+$\text{d}\log : k[\epsilon]^* \to k$
+是把 $a + b\epsilon$ 映到 $b/a \in k$ 的交换群同态。
+\end{example}
+
+\begin{lemma}
+\label{curves-lemma-factor-almost-isomorphism}
+设 $k$ 为代数闭域。设 $f : X' \to X$ 为代数 $k$-概形之间的
+有限态射，满足 $\mathcal{O}_X \subset f_*\mathcal{O}_{X'}$，
+并且 $f$ 在某个有限点集之外是同构。则存在分解
+$$
+X' = X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+，使每个 $X_i \to X_{i - 1}$ 或者是两个点的粘合，
+或者是一个切向量的压缩
+（见例 \ref{curves-example-glue-points} 与
+\ref{curves-example-squish-tangent-vector}）。
+\end{lemma}
+
+\begin{proof}
+设 $U \subset X$ 为使 $f$ 成为同构的最大开集。
+则 $X \setminus U = \{x_1, \ldots, x_n\}$，其中
+$x_i \in X(k)$。我们将考察分解 $X' \to Y \to X$；
+这是 $f$ 的分解，要求两个态射都有限，并且
+$$
+\mathcal{O}_X \subset g_*\mathcal{O}_Y \subset f_*\mathcal{O}_{X'}
+$$
+，其中 $g : Y \to X$ 为给定态射。由假设，
+$\mathcal{O}_{X, x} \to (f_*\mathcal{O}_{X'})_x$
+是同构，除非有 $x = x_i$，其中 $i$ 为某个指标。因此余核
+$$
+f_*\mathcal{O}_{X'}/\mathcal{O}_X = \bigoplus \mathcal{Q}_i
+$$
+是摩天层 $\mathcal{Q}_i$ 之直和；它们支撑在
+$x_1, \ldots, x_n$ 上。由于所显示的商是凝聚
+$\mathcal{O}_X$-模，可知 $\mathcal{Q}_i$ 在
+$\mathcal{O}_{X, x_i}$ 上具有有限长度。因此可以对这些长度之和，
+也就是整个余核的长度，作归纳。
+
+\medskip\noindent
+若 $n > 1$，则可以定义 $\mathcal{O}_X$-子代数
+$\mathcal{A} \subset f_*\mathcal{O}_{X'}$，方法是取
+$\mathcal{Q}_1$ 的逆像。
+这将给出非平凡分解，于是可用归纳。
+
+\medskip\noindent
+假设 $n = 1$。简记 $x = x_1$。考察有限 $k$-代数扩张
+$$
+A = \mathcal{O}_{X, x} \subset (f_*\mathcal{O}_{X'})_x = B
+$$
+。注意，$\mathcal{Q} = \mathcal{Q}_1$ 是值为 $B/A$ 的摩天层。
+有 $k$-子代数 $A \subset A + \mathfrak m_A B \subset B$。
+若两个包含都严格，则得到非平凡分解，并如上用归纳。
+若 $A + \mathfrak m_A B = B$，则由 Nakayama 有 $A = B$；
+此时 $f$ 是同构，无事可证。由此可假设
+$B = A + \mathfrak m_A B$。置 $C = B/\mathfrak m_A B$。
+若 $C$ 有多于 $2$ 个 $k$-子代数，则得到介于 $A$ 与 $B$
+之间的子代数，方法是在 $B$ 中取逆像。因此可假设
+$C$ 恰有 $2$ 个 $k$-子代数。由引理
+\ref{curves-lemma-no-in-between-over-k}，有 $C = k \times k$
+或 $C = k[\epsilon]$。在这种情形下，$f$ 相应地是两个点的粘合，
+或一个切向量的压缩。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-glue-points}
+设 $k$ 为代数闭域。若 $f : X' \to X$ 是如例
+\ref{curves-example-glue-points} 中由粘合两点 $a, b$ 得到的态射，则有正合列
+$$
+k^* \to \Pic(X) \to \Pic(X') \to 0
+$$
+。若 $a$ 与 $b$ 位于 $X'$ 的不同连通分支上，则第一个映射为零；
+若 $X'$ 固有且 $a$ 与 $b$ 位于 $X'$ 的同一连通分支上，
+则第一个映射为单射。
+\end{lemma}
+
+\begin{proof}
+由《簇》，引理 \ref{varieties-lemma-surjective-pic-birational-finite}，
+映射 $\Pic(X) \to \Pic(X')$ 满射。使用短正合列
+$$
+0 \to \mathcal{O}_X^* \to f_*\mathcal{O}_{X'}^*
+\xrightarrow{ab^{-1}} x_*k^* \to 0
+$$
+，得到
+$$
+H^0(X', \mathcal{O}_{X'}^*) \xrightarrow{ab^{-1}} k^* \to
+H^1(X, \mathcal{O}_X^*) \to H^1(X, f_*\mathcal{O}_{X'}^*)
+$$
+。有 $H^1(X, f_*\mathcal{O}_{X'}^*) \subset H^1(X', \mathcal{O}_{X'}^*)$
+（例如由 Leray 谱序列；见《上同调》，引理
+\ref{cohomology-lemma-Leray}）。
+因此 $\Pic(X) \to \Pic(X')$ 的核是
+$ab^{-1} : H^0(X', \mathcal{O}_{X'}^*) \to k^*$ 的余核。
+若 $a$ 与 $b$ 位于 $X'$ 的不同连通分支上，则
+$ab^{-1}$ 满射。由于 $k$ 代数闭，$k$ 上约化连通固有概形的
+任意正则函数都来自 $k$ 的一个元素；见《簇》，引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}。
+因此 $ab^{-1}$ 为零，如果 $X'$ 固有且 $a$ 与 $b$
+位于同一连通分支上。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-squish-tangent-vector}
+设 $k$ 为代数闭域。若 $f : X' \to X$ 是如例
+\ref{curves-example-squish-tangent-vector} 中对切向量
+$\vartheta$ 的压缩，则有正合列
+$$
+(k, +) \to \Pic(X) \to \Pic(X') \to 0
+$$
+，并且若 $X'$ 固有且约化，则第一个映射为单射。
+\end{lemma}
+
+\begin{proof}
+由《簇》，引理 \ref{varieties-lemma-surjective-pic-birational-finite}，
+映射 $\Pic(X) \to \Pic(X')$ 满射。使用例
+\ref{curves-example-squish-tangent-vector} 的短正合列
+$$
+0 \to \mathcal{O}_X^* \to f_*\mathcal{O}_{X'}^*
+\xrightarrow{\vartheta} x_*k \to 0
+$$
+，得到
+$$
+H^0(X', \mathcal{O}_{X'}^*) \xrightarrow{\vartheta} k \to
+H^1(X, \mathcal{O}_X^*) \to H^1(X, f_*\mathcal{O}_{X'}^*)
+$$
+。有 $H^1(X, f_*\mathcal{O}_{X'}^*) \subset H^1(X', \mathcal{O}_{X'}^*)$
+（例如由 Leray 谱序列；见《上同调》，引理
+\ref{cohomology-lemma-Leray}）。
+因此 $\Pic(X) \to \Pic(X')$ 的核是映射
+$\vartheta : H^0(X', \mathcal{O}_{X'}^*) \to k$ 的余核。
+由于 $k$ 代数闭，$k$ 上约化连通固有概形的任意正则函数
+都来自 $k$ 的一个元素；见《簇》，引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}。
+由此得到引理的最后一个断言。
+\end{proof}
+
+
+\section{多重交叉与结点奇点}
+\label{curves-section-multicross}
+
+\noindent
+本节讨论最简单的一类曲线奇点。
+
+\medskip\noindent
+设 $k$ 为域。考察完备局部 $k$-代数
+\begin{equation}
+\label{curves-equation-multicross}
+A = \{(f_1, \ldots, f_n) \in k[[t]] \times \ldots \times k[[t]] \mid
+f_1(0) = \ldots = f_n(0)\}
+\end{equation}
+采用《簇》，定义 \ref{varieties-definition-wedge}
+引入的术语，$A$ 是 $n$ 个 $1$ 元幂级数环（系数域为 $k$）
+的楔和。注意，
+$k[[t]] \times \ldots \times k[[t]]$
+是 $A$ 在其全分式环中的整闭包。因此 $\delta$-不变量
+在 $A$ 上的值为 $n - 1$。存在同构
+$$
+k[[x_1, \ldots, x_n]]/(\{x_ix_j\}_{i \not = j}) \longrightarrow A
+$$
+，它把 $x_i$ 映到 $(0, \ldots, 0, t, 0, \ldots, 0)$；
+后者位于 $A$ 中。由此
+$\dim(A) = 1$，且
+$\dim_k \mathfrak m/\mathfrak m^2 = n$.
+特别地，$A$ 正则当且仅当 $n = 1$。
+
+\begin{lemma}
+\label{curves-lemma-multicross-algebra}
+设 $k$ 为可分闭域。设 $A$ 为 $1$ 维约化 Nagata 局部
+$k$-代数，其剩余域为 $k$。则
+$$
+\delta\text{-invariant }A \geq \text{number of branches of }A - 1
+$$
+若等号成立，则 $A^\wedge$ 如式 (\ref{curves-equation-multicross}) 所示。
+\end{lemma}
+
+\begin{proof}
+由于 $A$ 的剩余域可分闭，$A$ 的分支数等于 $A$ 的几何分支数；
+见《代数补篇》，定义 \ref{more-algebra-definition-number-of-branches}。
+不等式由《簇》，引理
+\ref{varieties-lemma-delta-number-branches-inequality} 给出。
+假设等号成立。可以把 $A$ 替换为 $A$ 的完备化；
+这不改变分支数或 $\delta$-不变量；见《代数补篇》，引理
+\ref{more-algebra-lemma-one-dimensional-number-of-branches}
+以及《簇》，引理 \ref{varieties-lemma-delta-same-after-completion}。
+此时 $A$ 严格 Hensel；见《代数》，引理
+\ref{algebra-lemma-complete-henselian}。由《簇》，引理
+\ref{varieties-lemma-delta-number-branches-inequality-sh}，
+$A$ 是若干完备离散赋值环的楔和。由《代数》，引理
+\ref{algebra-lemma-regular-complete-containing-coefficient-field}，
+其中每一个都同构于 $k[[t]]$。所以 $A$ 如式
+(\ref{curves-equation-multicross}) 所示。
+\end{proof}
+
+\begin{definition}
+\label{curves-definition-multicross}
+设 $k$ 为代数闭域。设 $X$ 为代数 $1$ 维 $k$-概形，并设
+$x \in X$ 为闭点。称 $x$ 定义了一个{\it 多重交叉奇点}，
+如果完备化
+$\mathcal{O}_{X, x}^\wedge$
+对某个 $n \geq 2$ 同构于式 (\ref{curves-equation-multicross})。
+称 $x$ 是一个{\it 结点}或{\it 普通二重点}，也称它
+{\it 定义了一个结点奇点}，如果 $n = 2$。
+\end{definition}
+
+\noindent
+在某种意义上，这些是代数闭域上曲线所能具有的最简单奇点。
+
+\begin{lemma}
+\label{curves-lemma-multicross}
+设 $k$ 为代数闭域。设 $X$ 为约化代数 $1$ 维 $k$-概形，
+并设 $x \in X$。下列条件等价：
+\begin{enumerate}
+\item $x$ 定义一个多重交叉奇点；
+\item $\delta$-不变量（对 $X$ 在 $x$ 处而言）等于
+$X$ 在 $x$ 处的分支数减 $1$；
+\item 存在态射序列
+$U_n \to U_{n - 1} \to \ldots \to U_0 = U \subset X$
+，其中 $U$ 是 $x$ 的开邻域，$U_n$ 非奇异，并且每个
+$U_i \to U_{i - 1}$ 都是例 \ref{curves-example-glue-points}
+所述的两点粘合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+条件 (1) 与 (2) 的等价性就是引理 \ref{curves-lemma-multicross-algebra}。
+
+\medskip\noindent
+假设 (3) 成立。我们对 $i$ 作降序归纳，证明 $U_i$ 的所有奇点
+都是多重交叉奇点。对 $U_n$ 这显然成立，因为 $U_n$ 没有奇点。
+若 $U_i$ 是把 $U_{i + 1}$ 中的 $a, b \in U_{i + 1}$
+粘合为一点 $c \in U_i$ 而得到的，则
+$$
+\mathcal{O}_{U_i, c}^\wedge \subset
+\mathcal{O}_{U_{i + 1}, a}^\wedge \times \mathcal{O}_{U_{i + 1}, b}^\wedge
+$$
+恰由在 $k$ 中剩余类相同的元素组成。因此 $c$ 处的分支数等于
+$a$ 与 $b$ 处分支数之和，而 $\delta$-不变量在 $c$ 处等于
+$\delta$-不变量在 $a$ 与 $b$ 处的值之和再加 $1$
+（因为所显示的包含之余维为 $1$）。这就按要求证明了 (2)。
+
+\medskip\noindent
+假设等价条件 (1) 与 (2) 成立。可以选取开集
+$U \subset X$，使得 $x$ 是 $U$ 的唯一奇点。对正规化态射
+应用引理 \ref{curves-lemma-factor-almost-isomorphism}：
+$$
+U^\nu = U_n \to U_{n - 1} \to \ldots \to U_1 \to U_0 = U
+$$
+只需证明每一步都没有压缩切向量。假设
+$U_{i + 1} \to U_i$ 是第一次出现这种情形的步骤，即 $i$
+最小，并且该步骤压缩切向量 $\theta$，其所在点为
+$u' \in U_{i + 1}$，位于 $u \in U_i$ 上方。按上述论证可知，
+$u_i$ 是多重交叉奇点（因为各映射
+$U_i \to \ldots \to U_0$ 都是成对粘合点）。然而此时
+$u'$ 与 $u$ 处的分支数相同，而 $\delta$-不变量在
+$U_i$ 的 $u$ 处之值为 $1$ 加上 $\delta$-不变量在
+$U_{i + 1}$ 的 $u'$ 处之值。由引理
+\ref{curves-lemma-multicross-algebra}，
+这说明 $u$ 不可能是多重交叉奇点，矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-multicross-gorenstein-is-nodal}
+设 $k$ 为代数闭域。设 $X$ 为约化代数 $1$ 维 $k$-概形。
+设 $x \in X$ 为多重交叉奇点（定义
+\ref{curves-definition-multicross}）。若 $X$ 为 Gorenstein，则 $x$ 为结点。
+\end{lemma}
+
+\begin{proof}
+映射 $\mathcal{O}_{X, x} \to \mathcal{O}_{X, x}^\wedge$
+平坦，并且在如下意义下非分歧：
+$\kappa(x) = \mathcal{O}_{X, x}^\wedge/\mathfrak m_x \mathcal{O}_{X, x}^\wedge$.
+（见《代数补篇》，节
+\ref{more-algebra-section-permanence-completion}。）因此，$X$
+为 Gorenstein 蕴含 $\mathcal{O}_{X, x}$ 为 Gorenstein；再由
+《对偶复形》，引理 \ref{dualizing-lemma-flat-under-gorenstein}，
+可推出 $\mathcal{O}_{X, x}^\wedge$ 为 Gorenstein。
+所以只需证明式 (\ref{curves-equation-multicross}) 中的环 $A$
+在 $n \geq 2$ 时为 Gorenstein 当且仅当 $n = 2$。
+
+\medskip\noindent
+若 $n = 2$，则 $A = k[[x, y]]/(xy)$ 是完全交，从而为
+Gorenstein。例如，把《概形的对偶性》，引理
+\ref{duality-lemma-gorenstein-lci} 应用于 $k[[x, y]] \to A$，
+并使用正则局部环 $k[[x, y]]$ 由《对偶复形》，引理
+\ref{dualizing-lemma-regular-gorenstein} 为 Gorenstein，即得此结论。
+
+\medskip\noindent
+假设 $n > 2$。若 $A$ 为 Gorenstein，则 $A$ 将是 $A$ 上的
+对偶复形（《概形的对偶性》，定义
+\ref{duality-definition-gorenstein}）。于是
+$R\Hom(k, A)$ 将等于 $k[n]$，其中 $n \in \mathbf{Z}$；
+见《对偶复形》，引理 \ref{dualizing-lemma-find-function}。
+由此可推出 $\Ext^1_A(k, A) \cong k$ 或
+$\Ext^1_A(k, A) = 0$（取决于 $n$ 的值；事实上
+$n$ 必须为 $-1$，但这一点在此无关紧要）。利用正合列
+$$
+0 \to \mathfrak m_A \to A \to k \to 0
+$$
+可得
+$$
+\Ext^1_A(k, A) = \Hom_A(\mathfrak m_A, A)/A
+$$
+，其中 $A \to \Hom_A(\mathfrak m_A, A)$ 由
+$a \mapsto (a' \mapsto aa')$ 给出。设
+$e_i \in \Hom_A(\mathfrak m_A, A)$ 是把
+$(f_1, \ldots, f_n) \in \mathfrak m_A$ 映到
+$(0, \ldots, 0, f_i, 0, \ldots, 0)$ 的元素。容易验证，
+$e_1, \ldots, e_{n - 1}$ 关于 $k$ 线性无关，其像位于
+$\Hom_A(\mathfrak m_A, A)/A$ 中。因此
+$\dim_k \Ext^1_A(k, A) \geq n - 1 \geq 2$，证毕。
+（注意，$e_1 + \ldots + e_n$ 是 $1$ 在映射
+$A \to \Hom_A(\mathfrak m_A, A)$ 下的像。）
+\end{proof}
+
+
+
+
+\section{Picard 群中的挠元}
+\label{curves-section-torsion-in-pic}
+
+\noindent
+本节给出域上 $1$ 维固有概形的 Picard 群中挠元的界。
+这将在研究曲线的半稳定约化时使用。
+
+\medskip\noindent
+似乎没有初等方法可得引理
+\ref{curves-lemma-torsion-picard-smooth-projective} 的结论。
+分析其证明可见两个关键要素：(1) 存在一个分类光滑射影曲线上
+零次可逆层的阿贝尔簇；(2) 可以确定阿贝尔簇上挠点的结构。
+
+\begin{lemma}
+\label{curves-lemma-torsion-picard-smooth-projective}
+设 $k$ 为代数闭域。设 $X$ 为亏格为 $g$ 的光滑射影曲线，
+其底域为 $k$。
+\begin{enumerate}
+\item 若 $n \geq 1$ 在 $k$ 中可逆，则
+$\Pic(X)[n] \cong (\mathbf{Z}/n\mathbf{Z})^{\oplus 2g}$.
+\item 若 $k$ 的特征为 $p > 0$，则存在整数
+$0 \leq f \leq g$，使得
+$\Pic(X)[p^m] \cong (\mathbf{Z}/p^m\mathbf{Z})^{\oplus f}$ 对
+所有 $m \geq 1$ 都成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+用 $\Pic^0(X) \subset \Pic(X)$ 表示由次数为 $0$ 的可逆层
+组成的子群。换言之，有短正合列
+$$
+0 \to \Pic^0(X) \to \Pic(X) \xrightarrow{\deg} \mathbf{Z} \to 0.
+$$
+群 $\Pic^0(X)$ 是 $k$-点集；它取自群概形
+$\underline{\Picardfunctor}^0_{X/k}$。见
+《曲线的 Picard 概形》，引理 \ref{pic-lemma-picard-pieces}。
+同一引理还说明 $\underline{\Picardfunctor}^0_{X/k}$
+是 $g$ 维阿贝尔簇，定义在 $k$ 上；其定义见《群胚》，定义
+\ref{groupoids-definition-abelian-variety}。于是结论来自
+《群胚》，命题 \ref{groupoids-proposition-review-abelian-varieties}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-torsion-picard-becomes-visible}
+设 $k$ 为域。设 $n$ 与 $k$ 的特征互素。设 $X$ 为 $k$ 上
+光滑固有曲线，满足 $H^0(X, \mathcal{O}_X) = k$，且亏格为 $g$。
+\begin{enumerate}
+\item 若 $g = 1$，则存在有限可分扩张 $k'/k$，使得
+$X_{k'}$ 有一个 $k'$-有理点，且
+$\Pic(X_{k'})[n] \cong (\mathbf{Z}/n\mathbf{Z})^{\oplus 2}$.
+\item 若 $g \geq 2$，则存在有限可分扩张 $k'/k$，满足
+$[k' : k] \leq (2g - 2)(n^{2g})!$，使得 $X_{k'}$
+有一个 $k'$-有理点，且
+$\Pic(X_{k'})[n] \cong (\mathbf{Z}/n\mathbf{Z})^{\oplus 2g}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $g \geq 2$。首先可选取次数至多为 $2g - 2$ 的有限可分扩张，
+使 $X$ 获得一个有理点；见引理
+\ref{curves-lemma-point-over-separable-extension}。因此可假设 $X$
+有一个 $k$-有理点 $x \in X(k)$，但此时必须在如下界下证明引理：
+$[k' : k] \leq (n^{2g})!$.
+设 $k \subset k^{sep} \subset \overline{k}$ 是代数闭包中的
+一个可分代数闭包。由引理
+\ref{curves-lemma-torsion-picard-smooth-projective} 有
+$$
+\Pic(X_{\overline{k}})[n] \cong (\mathbf{Z}/n\mathbf{Z})^{\oplus 2g}
+$$
+由《曲线的 Picard 概形》，引理 \ref{pic-lemma-torsion-descends}，
+可得
+$$
+\Pic(X_{k^{sep}})[n] \cong (\mathbf{Z}/n\mathbf{Z})^{\oplus 2g}
+$$
+再由《曲线的 Picard 概形》，引理
+\ref{pic-lemma-torsion-descends}，有连续作用
+$$
+\text{Gal}(k^{sep}/k)
+\longrightarrow
+\text{Aut}(\Pic(X_{k^{sep}})[n]
+$$
+，而对该映射核的固定域 $k'$，引理成立。由于作用连续，其核为开，
+所以 $k'/k$ 有限。由 Galois 理论，
+$\text{Gal}(k'/k)$ 是所显示箭头的像。基数为 $n^{2g}$ 的集合
+之置换群的基数为 $(n^{2g})!$，故再由 Galois 理论可得
+$[k' : k] \leq (n^{2g})!$。
+（当然，这实际上以 $|\text{GL}_{2g}(\mathbf{Z}/n\mathbf{Z})|$
+为界证明了引理，但这里所需的只是存在某个界。）
+
+\medskip\noindent
+若亏格为 $1$，则使 $X$ 获得有理点的有限可分域扩张之次数
+不存在统一上界（略去细节）。不过，这样的扩张确实存在，例如由
+《簇》，引理
+\ref{varieties-lemma-smooth-separable-closed-points-dense} 可知。
+其余证明与 $g \geq 2$ 的情形相同。
+\end{proof}
+
+\begin{proposition}
+\label{curves-proposition-torsion-picard-reduced-proper}
+设 $k$ 为代数闭域。设 $X$ 为 $k$ 上约化、连通且维数为 $1$
+的固有概形。设 $g$ 为 $X$ 的亏格，并设 $g_{geom}$ 为 $X$
+各不可约分支之几何亏格的和。对任意素数 $\ell$，若它不同于
+$k$ 的特征，则有
+$$
+\dim_{\mathbf{F}_\ell} \Pic(X)[\ell]
+\leq g + g_{geom}
+$$
+，且等号成立当且仅当 $X$ 的所有奇点都是多重交叉奇点。
+\end{proposition}
+
+\begin{proof}
+设 $\nu : X^\nu \to X$ 为正规化（《簇》，引理
+\ref{varieties-lemma-prepare-delta-invariant}）。选取分解
+$$
+X^\nu = X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+，如引理 \ref{curves-lemma-factor-almost-isomorphism} 所述。记
+$h^0_i = \dim_k H^0(X_i, \mathcal{O}_{X_i})$ 以及
+$h^1_i = \dim_k H^1(X_i, \mathcal{O}_{X_i})$。
+由引理 \ref{curves-lemma-glue-points} 与
+\ref{curves-lemma-squish-tangent-vector}，对每个 $n > i \geq 0$，
+出现下列三种情形之一：
+\begin{enumerate}
+\item $X_i$ 由粘合位于不同连通分支上的
+$a, b \in X_{i + 1}$ 得到；此时
+$\Pic(X_i) = \Pic(X_{i + 1})$,
+$h^0_{i + 1} = h^0_i + 1$, $h^1_{i + 1} = h^1_i$,
+\item $X_i$ 由粘合位于同一连通分支上的
+$a, b \in X_{i + 1}$ 得到；此时有短正合列
+$$
+0 \to k^* \to \Pic(X_i) \to \Pic(X_{i + 1}) \to 0,
+$$
+，且 $h^0_{i + 1} = h^0_i$，$h^1_{i + 1} = h^1_i - 1$；
+\item $X_i$ 由压缩 $X_{i + 1}$ 中的一个切向量得到；
+此时有短正合列
+$$
+0 \to (k, +) \to \Pic(X_i) \to \Pic(X_{i + 1}) \to 0,
+$$
+，且 $h^0_{i + 1} = h^0_i$，$h^1_{i + 1} = h^1_i - 1$。
+\end{enumerate}
+关于结构层上同调群维数的断言，使用例
+\ref{curves-example-glue-points} 与
+\ref{curves-example-squish-tangent-vector} 中的正合列即可证明。
+由于 $k$ 代数闭且其特征与 $\ell$ 互素，可知
+$(k, +)$ 与 $k^*$ 都是 $\ell$-可除群，并且其
+$\ell$-挠子群满足 $(k, +)[\ell] = 0$ 以及
+$k^*[\ell] \cong \mathbf{F}_\ell$。因此
+$$
+\dim_{\mathbf{F}_\ell} \Pic(X_{i + 1})[\ell] -
+\dim_{\mathbf{F}_\ell}\Pic(X_i)[\ell]
+$$
+除情形 (2) 中等于 $-1$ 外，该量均为零。此过程结束时得到正规化
+$X^\nu = X_n$，它是 $k$ 上光滑射影曲线的不交并。因此有
+\begin{enumerate}
+\item $h^1_n = g_{geom}$；并且
+\item $\dim_{\mathbf{F}_\ell} \Pic(X_n)[\ell] = 2g_{geom}$.
+\end{enumerate}
+最后一个等式来自引理
+\ref{curves-lemma-torsion-picard-smooth-projective}。由于 $g = h^1_0$，
+可知类型 (2) 与 (3) 的步骤数至多为
+$h^1_0 - h^1_n = g - g_{geom}$。由上述秩差的计算可得
+$$
+\dim_{\mathbf{F}_\ell} \Pic(X)[\ell] \leq
+g - g_{geom} + 2g_{geom} = g + g_{geom}
+$$
+，且等号成立当且仅当不出现类型 (3) 的步骤。由引理
+\ref{curves-lemma-multicross}，这恰好意味着 $X$ 的所有奇点都是
+多重交叉奇点。反过来，若所有奇点都是多重交叉奇点，则引理
+\ref{curves-lemma-multicross} 保证可以找到如上的序列
+$X^\nu = X_n \to \ldots \to X_0 = X$，其中不出现类型 (3)
+的步骤，于是引理中的等号成立（只需对每个点粘合局部序列，
+即可得到一个同时适用于 $x$ 的所有奇点的序列；略去若干细节）。
+\end{proof}
+
+
+
+
+
+\section{亏格与几何亏格的比较}
+\label{curves-section-genus-geometric-genus}
+
+\noindent
+设 $k$ 为域，其代数闭包为 $\overline{k}$。设 $X$ 为
+维数 $\leq 1$ 的固有概形，其底域为 $k$。定义 $g_{geom}(X/k)$ 为
+$X_{\overline{k}}$ 的所有 $1$ 维不可约分支之几何亏格的和。
+
+\begin{lemma}
+\label{curves-lemma-bound-geometric-genus}
+设 $k$ 为域。设 $X$ 为维数 $\leq 1$ 的固有概形，其底域为 $k$。则
+$$
+g_{geom}(X/k) = \sum\nolimits_{C \subset X} g_{geom}(C/k)
+$$
+，其中求和遍历不可约分支 $C \subset X$，其维数为 $1$。
+\end{lemma}
+
+\begin{proof}
+这直接来自定义以及如下事实：不可约分支 $\overline{Z}$
+（属于 $X_{\overline{k}}$）满射到不可约分支 $Z$（属于 $X$）
+（《簇》，引理 \ref{varieties-lemma-image-irreducible}），
+且两者维数相同（把《态射》，引理
+\ref{morphisms-lemma-dimension-fibre-after-base-change}
+用于 $\overline{Z}$ 的一般点）。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-geometric-genus-normalization}
+设 $k$ 为域。设 $X$ 为维数 $\leq 1$ 的固有概形，其底域为 $k$。则
+\begin{enumerate}
+\item 有 $g_{geom}(X/k) = g_{geom}(X_{red}/k)$。
+\item 若 $X' \to X$ 是双有理固有态射，则
+$g_{geom}(X'/k) = g_{geom}(X/k)$.
+\item 若 $X^\nu \to X$ 是正规化态射，则
+$g_{geom}(X^\nu/k) = g_{geom}(X/k)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 点直接来自引理 \ref{curves-lemma-bound-geometric-genus}。
+若 $X' \to X$ 双有理且固有，则它是有限态射，并在某个稠密开集上
+为同构（见《簇》，引理
+\ref{varieties-lemma-finite-in-codim-1} 与
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}）。
+因此 $X'_{\overline{k}} \to X_{\overline{k}}$ 在某个稠密开集上
+为同构。所以 $X'_{\overline{k}}$ 与 $X_{\overline{k}}$
+的不可约分支一一对应，而且对应分支的函数域同构。特别地，
+这些分支的非奇异射影模型同构，因而具有相同的几何亏格。
+这证明了 (2)。第 (3) 点来自 (1)、(2) 以及
+$X^\nu \to X_{red}$ 双有理这一事实（《态射》，引理
+\ref{morphisms-lemma-normalization-birational}）。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-goes-down}
+设 $k$ 为域。设 $X$ 为维数 $\leq 1$ 的固有概形，其底域为 $k$。
+设 $f : Y \to X$ 为有限态射，并且存在稠密开集 $U \subset X$，
+使得 $f$ 在其上为闭浸入。则
+$$
+\dim_k H^1(X, \mathcal{O}_X) \geq \dim_k H^1(Y, \mathcal{O}_Y)
+$$
+\end{lemma}
+
+\begin{proof}
+考察正合列
+$$
+0 \to \mathcal{G} \to \mathcal{O}_X \to f_*\mathcal{O}_Y \to \mathcal{F} \to 0
+$$
+，它由 $X$ 上的凝聚层组成。由假设，$\mathcal{F}$ 支撑在有限多个
+闭点上，因而高次上同调消失（《簇》，引理
+\ref{varieties-lemma-chi-tensor-finite}）。另一方面，由《上同调》，
+命题 \ref{cohomology-proposition-vanishing-Noetherian} 有
+$H^2(X, \mathcal{G}) = 0$。于是形式地可知诱导映射
+$H^1(X, \mathcal{O}_X) \to H^1(X, f_*\mathcal{O}_Y)$
+满射。由于 $H^1(X, f_*\mathcal{O}_Y) = H^1(Y, \mathcal{O}_Y)$
+（《概形的上同调》，引理
+\ref{coherent-lemma-relative-affine-cohomology}），引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-normalization}
+设 $k$ 为域。设 $X$ 为维数 $\leq 1$ 的固有概形，其底域为 $k$。
+若 $X' \to X$ 是双有理固有态射，则
+$$
+\dim_k H^1(X, \mathcal{O}_X) \geq \dim_k H^1(X', \mathcal{O}_{X'})
+$$
+若 $X$ 约化，映射
+$H^0(X, \mathcal{O}_X) \to H^0(X', \mathcal{O}_{X'})$
+满射，并且等号成立，则 $X' = X$。
+\end{lemma}
+
+\begin{proof}
+若 $f : X' \to X$ 双有理且固有，则它是有限态射，并在某个稠密
+开集上为同构（见《簇》，引理
+\ref{varieties-lemma-finite-in-codim-1} 与
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}）。
+因此不等式来自引理 \ref{curves-lemma-genus-goes-down}。假设 $X$ 约化。
+则 $\mathcal{O}_X \to f_*\mathcal{O}_{X'}$ 为单射，并得到短正合列
+$$
+0 \to \mathcal{O}_X \to f_*\mathcal{O}_{X'} \to \mathcal{F} \to 0
+$$
+在第二个断言的假设下，由上同调长正合列可得
+$H^0(X, \mathcal{F}) = 0$。于是 $\mathcal{F} = 0$，因为
+$\mathcal{F}$ 由整体截面生成（《簇》，引理
+\ref{varieties-lemma-chi-tensor-finite}）。并且
+$\mathcal{O}_X = f_*\mathcal{O}_{X'}$。由于 $f$ 仿射，
+这蕴含 $X = X'$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-bound-geometric-genus-curve}
+设 $k$ 为域。设 $C$ 为 $k$ 上的固有曲线。置
+$\kappa = H^0(C, \mathcal{O}_C)$。则
+$$
+[\kappa : k]_s \dim_\kappa H^1(C, \mathcal{O}_C) \geq g_{geom}(C/k)
+$$
+\end{lemma}
+
+\begin{proof}
+《簇》，引理 \ref{varieties-lemma-regular-functions-proper-variety}
+说明 $\kappa$ 是域，并且是 $k$ 的有限扩张。由《域》，引理
+\ref{fields-lemma-separable-degree}，有
+$[\kappa : k]_s = |\Mor_k(\kappa, \overline{k})|$；从而
+$\Spec(\kappa \otimes_k \overline{k})$ 有
+$[\kappa : k]_s$ 个点，每个点的剩余域都是 $\overline{k}$。因此
+$$
+C_{\overline{k}} =
+\bigcup\nolimits_{t \in \Spec(\kappa \otimes_k \overline{k})} C_t
+$$
+（集合论意义下的并）。这里
+$C_t = C \times_{\Spec(\kappa), t} \Spec(\overline{k})$，而
+$t$ 被视为 $k$-代数映射 $t : \kappa \to \overline{k}$。
+由此得到 $g_{geom}(C/k) = \sum_t g_{geom}(C_t/\overline{k})$，
+且求和指标集的大小为 $[\kappa : k]_s$。有
+$$
+H^0(C_t, \mathcal{O}_{C_t}) = \overline{k}
+\quad\text{且}\quad
+\dim_{\overline{k}} H^1(C_t, \mathcal{O}_{C_t}) =
+\dim_\kappa H^1(C, \mathcal{O}_C)
+$$
+，这是上同调与基变换的结果（《概形的上同调》，引理
+\ref{coherent-lemma-flat-base-change-cohomology}）。注意，正规化
+$C_t^\nu$ 是 $C_t$ 各不可约分支之非奇异射影模型的不交并
+（《态射》，引理
+\ref{morphisms-lemma-normalization-in-terms-of-components}）。因此
+$\dim_{\overline{k}} H^1(C_t^\nu, \mathcal{O}_{C_t^\nu})$
+等于 $g_{geom}(C_t/\overline{k})$。由引理
+\ref{curves-lemma-genus-goes-down} 有
+$$
+\dim_{\overline{k}} H^1(C_t, \mathcal{O}_{C_t}) \geq
+\dim_{\overline{k}} H^1(C_t^\nu, \mathcal{O}_{C_t^\nu})
+$$
+，证毕。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-bound-torsion-simple}
+设 $k$ 为域。设 $X$ 为维数 $\leq 1$ 的固有概形，其底域为 $k$。
+设 $\ell$ 为在 $k$ 中可逆的素数。则
+$$
+\dim_{\mathbf{F}_\ell} \Pic(X)[\ell] \leq
+\dim_k H^1(X, \mathcal{O}_X) + g_{geom}(X/k)
+$$
+，其中 $g_{geom}(X/k)$ 如上定义。
+\end{lemma}
+
+\begin{proof}
+由《簇》，引理 \ref{varieties-lemma-change-fields-pic}，映射
+$\Pic(X) \to \Pic(X_{\overline{k}})$ 为单射。由《概形的上同调》，
+引理 \ref{coherent-lemma-flat-base-change-cohomology}，
+$\dim_k H^1(X, \mathcal{O}_X)$ 等于
+$\dim_{\overline{k}} H^1(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$。
+因此可假设 $k$ 代数闭。
+
+\medskip\noindent
+设 $X_{red}$ 为 $X$ 的约化。则满射
+$\mathcal{O}_X \to \mathcal{O}_{X_{red}}$ 诱导满射
+$H^1(X, \mathcal{O}_X) \to H^1(X, \mathcal{O}_{X_{red}})$
+，因为由《上同调》，命题
+\ref{cohomology-proposition-vanishing-Noetherian}，
+拟凝聚层的上同调在次数 $\geq 2$ 时消失。由于
+$X_{red} \to X$ 在 $\overline{k}$ 上的不可约分支之间诱导同构，
+并在 Picard 群的 $\ell$-挠子群上诱导同构
+（《曲线的 Picard 概形》，引理
+\ref{pic-lemma-torsion-descends}），可以把 $X$ 替换为 $X_{red}$。
+这样就归约到命题
+\ref{curves-proposition-torsion-picard-reduced-proper}。
+\end{proof}
+
+
+
+
+
+
+\section{结点曲线}
+\label{curves-section-nodal}
+
+\noindent
+我们已经定义了代数闭域上的普通二重点；见定义
+\ref{curves-definition-multicross}。具体地，若 $x \in X$ 是某个
+$1$ 维代数概形的闭点，而该概形定义在代数闭域 $k$ 上，
+则 $x$ 为普通二重点当且仅当
+$$
+\mathcal{O}_{X, x}^\wedge \cong k[[x, y]]/(xy)
+$$
+见式 (\ref{curves-equation-multicross}) 及节
+\ref{curves-section-multicross} 中其后的讨论。
+
+\begin{definition}
+\label{curves-definition-nodal}
+设 $k$ 为域。设 $X$ 为 $1$ 维局部代数 $k$-概形。
+\begin{enumerate}
+\item 称闭点 $x \in X$ 是{\it 结点}或{\it 普通二重点}，
+也称它{\it 定义了结点奇点}，如果存在普通二重点
+$\overline{x} \in X_{\overline{k}}$ 映到 $x$。
+\item 称{\it $X$ 的奇点至多为结点型}，如果 $X$ 的每个闭点
+或者位于结构态射 $X \to \Spec(k)$ 的光滑轨迹中，
+或者是普通二重点。
+\end{enumerate}
+\end{definition}
+
+\noindent
+若 $1$ 维代数概形 $X$ 的奇点至多为结点型，通常就称 $X$ 为
+{\it 结点曲线}。有时还要求结点曲线固有。按此方式定义的结点曲线
+未必不可约，因此这与我们先前把曲线定义为维数为 $1$ 的簇相冲突。
+
+\begin{lemma}
+\label{curves-lemma-reduced-quotient-regular-ring-dim-2}
+设 $(A, \mathfrak m)$ 为维数 $2$ 的正则局部环，并设
+$I \subset \mathfrak m$ 为理想。
+\begin{enumerate}
+\item 若 $A/I$ 约化，则 $I = (0)$、$I = \mathfrak m$，或者
+$I = (f)$，其中 $f \in \mathfrak m$ 非零。
+\item 若 $A/I$ 的深度为 $1$，则 $I = (f)$，其中非零
+$f \in \mathfrak m$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $I \not = 0$。写成 $I = (f_1, \ldots, f_r)$。由于 $A$ 是
+唯一分解整环（《代数补篇》，引理
+\ref{more-algebra-lemma-regular-local-UFD}），可写成
+$f_i = fg_i$，其中 $f$ 是 $f_1, \ldots, f_r$ 的最大公因子。
+所以 $g_1, \ldots, g_r$ 的最大公因子为 $1$，这意味着不存在
+高度 $1$ 的素理想包含 $g_1, \ldots, g_r$。于是或者
+$(g_1, \ldots, g_r) = A$，从而 $I = (f)$；或者不是如此，
+此时 $\dim(A) = 2$ 蕴含
+$V(g_1, \ldots, g_r) = \{\mathfrak m\}$, i.e.,
+$\mathfrak m = \sqrt{(g_1, \ldots, g_r)}$.
+
+\medskip\noindent
+假设 $A/I$ 约化，即 $I$ 为根理想。若 $f$ 是单位，则由 $I$
+为根理想可知 $I = \mathfrak m$。若 $f \in \mathfrak m$，则
+$f^n$ 在 $A/I$ 中的像为零。由约化性得到 $f \in I$，故
+$I = (f)$。
+
+\medskip\noindent
+假设 $A/I$ 的深度为 $1$。则 $\mathfrak m$ 不是 $A/I$ 的
+伴随素理想。由于 $f$ 模 $I$ 的类被 $g_1, \ldots, g_r$ 零化，
+可知 $f$ 的类在 $A/I$ 中为零。因此按要求有 $I = (f)$。
+\end{proof}
+
+\noindent
+设 $\kappa$ 为域，$V$ 为 $\kappa$ 上的向量空间。称
+$q \in \text{Sym}^2_\kappa(V)$ {\it 非退化}，如果诱导的
+$\kappa$-线性映射 $V^\vee \to V$ 为同构。若
+$q = \sum_{i \leq j} a_{ij} x_i x_j$ 对某个 $\kappa$-基
+$x_1, \ldots, x_n$ 成立，而该基属于 $V$，则这意味着
+下列矩阵的行列式
+$$
+\left(
+\begin{matrix}
+2a_{11} & a_{12} & \ldots \\
+a_{12} & 2a_{22} & \ldots \\
+\ldots & \ldots & \ldots
+\end{matrix}
+\right)
+$$
+非零。这等价于如下条件：$q$ 关于 $x_i$ 的各偏导数在概形论意义下
+截出 $0$。
+
+\begin{lemma}
+\label{curves-lemma-nodal-algebraic}
+设 $k$ 为域。设 $(A, \mathfrak m, \kappa)$ 为 Noether 局部
+$k$-代数。下列条件等价：
+\begin{enumerate}
+\item $\kappa/k$ 可分，$A$ 约化，
+$\dim_\kappa(\mathfrak m/\mathfrak m^2) = 2$，并且存在非退化元素
+$q \in \text{Sym}^2_\kappa(\mathfrak m/\mathfrak m^2)$
+，它在 $\mathfrak m^2/\mathfrak m^3$ 中映为零；
+\item $\kappa/k$ 可分，$\text{depth}(A) = 1$，
+$\dim_\kappa(\mathfrak m/\mathfrak m^2) = 2$，并且存在非退化元素
+$q \in \text{Sym}^2_\kappa(\mathfrak m/\mathfrak m^2)$
+，它在 $\mathfrak m^2/\mathfrak m^3$ 中映为零；
+\item $\kappa/k$ 可分，并且
+$A^\wedge \cong \kappa[[x, y]]/(ax^2 + bxy + cy^2)$
+为 $k$-代数同构，其中 $ax^2 + bxy + cy^2$ 是 $\kappa$ 上
+的非退化二次型。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (3) 成立。则 $A^\wedge$ 约化，因为
+$ax^2 + bxy + cy^2$ 或者不可约，或者是两个不相伴素元的乘积。因此
+$A \subset A^\wedge$ 约化，从而 (1) 成立。
+
+\medskip\noindent
+假设 (1) 成立。$A$ 不可能是 Artin 环，否则由
+$\mathfrak m \not = (0)$ 可知它不约化。因此
+$\dim(A) \geq 1$；再由《代数》，引理
+\ref{algebra-lemma-criterion-reduced} 得到
+$\text{depth}(A) \geq 1$。另一方面，$\dim(A) = 2$ 蕴含
+$A$ 正则；由《代数》，引理
+\ref{algebra-lemma-regular-graded}，这与 $q$ 的存在矛盾。
+所以 $\dim(A) \leq 1$；再由《代数》，引理
+\ref{algebra-lemma-bound-depth} 得到
+$\text{depth}(A) = 1$。故 (2) 成立。
+
+\medskip\noindent
+假设 (2) 成立。$A$ 的深度与 $A^\wedge$ 的深度相同
+（《代数补篇》，引理 \ref{more-algebra-lemma-completion-depth}），
+而其余条件不受完备化影响，因此可假设 $A$ 完备。按《代数补篇》，
+引理 \ref{more-algebra-lemma-lift-residue-field} 选取
+$\kappa \to A$。由于
+$\dim_\kappa(\mathfrak m/\mathfrak m^2) = 2$，可以选取
+$x_0, y_0 \in \mathfrak m$，使其像构成一组基。得到连续
+$\kappa$-代数映射
+$$
+\kappa[[x, y]] \longrightarrow A
+$$
+，其规则为 $x \mapsto x_0$ 与 $y \mapsto y_0$。设
+$q$ 是 $ax_0^2 + bx_0y_0 + cy_0^2$ 在
+$\text{Sym}^2_\kappa(\mathfrak m/\mathfrak m^2)$ 中的类。
+把 $Q(x, y) = ax^2 + bxy + cy^2$ 视为二元多项式。于是
+$$
+Q(x_0, y_0) = ax_0^2 + bx_0y_0 + cy_0^2 =
+\sum\nolimits_{i + j = 3} a_{ij} x_0^iy_0^j
+$$
+，其中某些 $a_{ij}$ 属于 $A$。我们要证明，可以通过改变
+$x_0$、$y_0$ 的选取来提高消没阶。假设
+$x_1, y_1 \in \mathfrak m^2$。则
+$$
+Q(x_0 + x_1, y_0 + y_1) = Q(x_0, y_0) +
+(2ax_0 + by_0)x_1 + (bx_0 + 2cy_0)y_1 \bmod \mathfrak m^4
+$$
+由引理之前的讨论，$Q$ 非退化恰好意味着
+$2ax_0 + by_0$ 与 $bx_0 + 2cy_0$ 是
+一组 $\kappa$-基；它是 $\mathfrak m/\mathfrak m^2$ 的基。
+因此当然可以选取
+$x_1, y_1 \in \mathfrak m^2$，使得
+$Q(x_0 + x_1, y_0 + y_1) \in \mathfrak m^4$.
+如此归纳下去，可以找到 $x_i, y_i \in \mathfrak m^{i + 1}$，使得
+$$
+Q(x_0 + x_1 + \ldots + x_n, y_0 + y_1 + \ldots + y_n) \in \mathfrak m^{n + 3}
+$$
+由于 $A$ 完备，可以置 $x_\infty = \sum x_i$ 以及
+$y_\infty = \sum y_i$，并考察映射
+$\kappa[[x, y]] \longrightarrow A$，它把 $x$ 映到 $x_\infty$，
+把 $y$ 映到 $y_\infty$。由《代数》，引理
+\ref{algebra-lemma-completion-generalities}，该映射诱导满射
+$\kappa[[x, y]]/(Q) \longrightarrow A$。由引理
+\ref{curves-lemma-reduced-quotient-regular-ring-dim-2}，
+$k[[x, y]] \to A$ 的核为主理想。但该核不能包含 $Q$ 的真因子，
+因为这样的因子的次数将为 $1$，所用变量为 $x, y$；这与
+$\dim(\mathfrak m/\mathfrak m^2) = 2$ 矛盾。因此按要求，$Q$
+生成该核。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-2-branches-delta-1}
+设 $k$ 为域。设 $(A, \mathfrak m, \kappa)$ 为 Nagata 局部
+$k$-代数。下列条件等价：
+\begin{enumerate}
+\item $k \to A$ 如引理 \ref{curves-lemma-nodal-algebraic} 所述；
+\item $\kappa/k$ 可分，$A$ 约化且维数为 $1$，
+$\delta$-不变量在 $A$ 上为 $1$，并且 $A$ 有 $2$ 个几何分支。
+\end{enumerate}
+若这些条件成立，则整闭包 $A'$（即 $A$ 在其全分式环中的整闭包）
+有 $1$ 个或 $2$ 个极大理想 $\mathfrak m'$，而扩张
+$\kappa(\mathfrak m')/k$ 可分。
+\end{lemma}
+
+\begin{proof}
+在两种条件下，$A$ 与 $A^\wedge$ 都约化。在情形 (2) 中，
+这是因为约化 Nagata 局部环的完备化约化（《代数补篇》，引理
+\ref{more-algebra-lemma-completion-reduced}）。在两种条件下，
+$A$ 与 $A^\wedge$ 的维数都是 $1$（《代数补篇》，引理
+\ref{more-algebra-lemma-completion-dimension}）。由《簇》，引理
+\ref{varieties-lemma-delta-same-after-completion} 以及《代数补篇》，
+引理 \ref{more-algebra-lemma-one-dimensional-number-of-branches}，
+$\delta$-不变量以及 $A$ 与 $A^\wedge$ 的几何分支数都相同。
+按《簇》，引理 \ref{varieties-lemma-pre-delta-invariant}，设
+$A'$ 为 $A$ 在其全分式环中的整闭包。由《簇》，引理
+\ref{varieties-lemma-normalization-same-after-completion}，
+$A' \otimes_A A^\wedge$ 对 $A^\wedge$ 扮演同一角色。因此可以把
+$A$ 替换为 $A^\wedge$，并假设 $A$ 完备。
+
+\medskip\noindent
+假设 (1) 成立。只需证明 $A$ 有两个几何分支且
+$\delta$-不变量为 $1$。可以假设
+$A = \kappa[[x, y]]/(ax^2 + bxy + cy^2)$，其中
+$q = ax^2 + bxy + cy^2$ 非退化。分两种情形。
+
+\medskip\noindent
+情形 I：$q$ 在 $\kappa$ 上分裂。改变坐标后，可假设
+$q = xy$。于是
+$$
+A' = \kappa[[x, y]]/(x) \times \kappa[[x, y]]/(y)
+$$
+
+\medskip\noindent
+情形 II：$q$ 不分裂。此时 $c \not = 0$，而非退化意味着
+$b^2 - 4ac \not = 0$。因此
+$\kappa' = \kappa[t]/(a + bt + ct^2)$ 是次数为 $2$ 的可分扩张，
+其底域为 $\kappa$。于是 $t = y/x$ 在 $A$ 上整，并得到
+$$
+A' = \kappa'[[x]]
+$$
+，其中 $y$ 在右端映到 $tx$。
+
+\medskip\noindent
+在两种情形下，直接验证可知 $\delta$-不变量为 $1$，
+几何分支数为 $2$。由此可见 (1) 蕴含 (2)。
+此外也得到引理最后一个断言。
+
+\medskip\noindent
+假设 (2) 成立。由《代数补篇》，引理
+\ref{more-algebra-lemma-number-of-branches-1}，$A'$ 或者有两个
+极大理想，或者 $A'$ 有一个极大理想，且
+$[\kappa(\mathfrak m') : \kappa]_s = 2$。
+
+\medskip\noindent
+情形 I：$A'$ 有两个极大理想 $\mathfrak m'_1$、$\mathfrak m'_2$，
+其剩余域分别为 $\kappa_1$、$\kappa_2$。由于 $\delta$-不变量
+等于 $A'/A$ 的长度，并且存在满射
+$A'/A \to (\kappa_1 \times \kappa_2)/\kappa$，可知
+$\kappa = \kappa_1 = \kappa_2$。由于 $A$ 完备（并且由《代数》，
+引理 \ref{algebra-lemma-complete-henselian} 可知它 Hensel），
+而 $A'$ 在 $A$ 上有限，可知 $A' = A_1 \times A_2$
+（由《代数》，引理 \ref{algebra-lemma-finite-over-henselian}）。
+由于 $A'$ 为正规环，$A_1$ 与 $A_2$ 都是离散赋值环。因此由
+《代数补篇》，引理
+\ref{more-algebra-lemma-power-series-over-residue-field}，
+$A_1$ 与 $A_2$ 都同构于 $\kappa[[t]]$（作为 $k$-代数）。
+由于 $\delta$-不变量为 $1$，可知 $A$ 是 $A_1$ 与 $A_2$ 的楔和
+（《簇》，定义 \ref{varieties-definition-wedge}）。容易得到
+$A \cong \kappa[[x, y]]/(xy)$。
+
+\medskip\noindent
+情形 II：$A'$ 只有一个极大理想 $\mathfrak m'$，其剩余域为
+$\kappa'$，且 $[\kappa' : \kappa]_s = 2$。完全照情形 I 的论证，
+可知 $[\kappa' : \kappa] = 2$，并且 $\kappa'$ 在 $\kappa$ 上
+可分。由于 $A'$ 正规，可知 $A'$ 同构于 $\kappa'[[t]]$
+（见上面的引文）。由于 $A'/A$ 的长度为 $1$，得到
+$$
+A = \{f \in \kappa'[[t]] \mid f(0) \in \kappa\}
+$$
+于是简单计算表明 $A$ 如情形 (1) 所述。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-fitting-ideal-well-defined}
+设 $k$ 为域。设 $A = k[[x_1, \ldots, x_n]]$，并设
+$I = (f_1, \ldots, f_m) \subset A$ 为理想。对任意 $r \geq 0$，
+$A/I$ 中由 $r \times r$ 子式生成的理想（这些子式来自矩阵
+$(\partial f_j/\partial x_i)$），与 $I$ 的生成元以及正则参数系
+$x_1, \ldots, x_n$ 的选取无关；该参数系属于 $A$。
+\end{lemma}
+
+\begin{proof}
+此引理的“正确”证明是说明该理想为一个连续微分模的
+第 $(n - r)$ 个 Fitting 理想；该模属于 $A/I$ 相对于 $k$。
+下面给出直接证明。若 $g_1, \ldots g_l$ 是 $I$ 的另一组生成元，
+则可写成 $g_s = \sum a_{sj}f_j$，并有矩阵等式
+$$
+(\partial g_s/\partial x_i) = (a_{sj}) (\partial f_j/\partial x_i)
++ (\partial a_{sj}/\partial x_i f_j)
+$$
+最后一项在 $A/I$ 中为零。由 Cauchy--Binet 公式，$g_s$
+所对应的子式理想包含于 $f_j$ 所对应的理想。由对称性，
+两理想相同。若 $y_1, \ldots, y_n \in \mathfrak m_A$
+是另一组正则参数系，则矩阵
+$(\partial y_j/\partial x_i)$
+可逆，此时可使用微分的链式法则。略去若干细节。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-fitting-ideal}
+设 $k$ 为域。设 $A = k[[x_1, \ldots, x_n]]$，并设
+$I = (f_1, \ldots, f_m) \subset \mathfrak m_A$ 为理想。下列条件等价：
+\begin{enumerate}
+\item $k \to A/I$ 如引理 \ref{curves-lemma-nodal-algebraic} 所述；
+\item $A/I$ 约化，并且各 $(n - 1) \times (n - 1)$ 子式
+（来自矩阵 $(\partial f_j/\partial x_i)$）生成
+$I + \mathfrak m_A$；
+\item $\text{depth}(A/I) = 1$，并且各
+$(n - 1) \times (n - 1)$ 子式（来自矩阵
+$(\partial f_j/\partial x_i)$）生成 $I + \mathfrak m_A$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-fitting-ideal-well-defined}，证明中可以改变坐标系
+以及生成元的选取。
+
+\medskip\noindent
+若 (1) 成立，则可改变坐标，使得 $x_1, \ldots, x_{n - 2}$
+在 $A/I$ 中映为零，并且
+$A/I = k[[x_{n - 1}, x_n]]/(a x_{n - 1}^2 + b x_{n - 1}x_n + c x_n^2)$
+，其中 $a x_{n - 1}^2 + b x_{n - 1}x_n + c x_n^2$ 是某个
+非退化二次型。直接计算即可证明 (2) 与 (3) 均成立。
+
+\medskip\noindent
+假设矩阵的各 $(n - 1) \times (n - 1)$ 子式（该矩阵为
+$(\partial f_j/\partial x_i)$）生成 $I + \mathfrak m_A$。
+假设对某个 $i$ 与 $j$，偏导数
+$\partial f_j/\partial x_i$ 是 $A$ 中的单位。此时可使用参数系
+$f_j, x_1, \ldots, x_{i - 1}, \hat x_i, x_{i + 1}, \ldots, x_n$
+以及生成元
+$f_j, f_1, \ldots, f_{j - 1}, \hat f_j, f_{j + 1}, \ldots, f_m$
+来生成 $I$。于是得到正则参数系 $x_1, \ldots, x_n$，以及生成元
+$x_1, f_2, \ldots, f_m$；它们生成 $I$。接着寻找满足
+$i \geq 2$ 与 $j \geq 2$ 的指标，使
+$\partial f_j/\partial x_i$ 是 $A$ 中的单位。若存在这样的指标对，
+则可作上述替换，并假设有正则参数系 $x_1, \ldots, x_n$，
+以及生成元 $x_1, x_2, f_3, \ldots, f_m$；它们生成 $I$。
+继续进行，有限步后达到如下情形：存在正则参数系
+$x_1, \ldots, x_n$，以及生成元
+$x_1, \ldots, x_t, f_{t + 1}, \ldots, f_m$；它们生成 $I$，
+并且 $\partial f_j/\partial x_i \in \mathfrak m_A$ 对所有
+$i, j \geq t + 1$ 都成立。
+
+\medskip\noindent
+此时偏导数组成的矩阵具有如下分块形状：
+$$
+\left(
+\begin{matrix}
+I_{t \times t} & * \\
+0 & \mathfrak m_A
+\end{matrix}
+\right)
+$$
+因此每个 $(n - 1) \times (n - 1)$ 子式都属于
+$\mathfrak m_A^{n - 1 - t}$。注意，$I \not = \mathfrak m_A$，
+否则子式理想将包含 $1$。由此 $n - 1 - t \leq 1$，因为存在
+$\mathfrak m_A \setminus \mathfrak m_A^2 + I$ 中的元素
+（否则由 Nakayama 有 $I = \mathfrak m_A$）。因此
+$t \geq n - 2$。上面已经看到
+$t \not = n$；类似地，若 $t = n - 1$，则存在可逆的
+$(n - 1) \times (n - 1)$ 子式，这同样不允许。因此
+$t = n - 2$。于是 $A/I$ 是 $k[[x_{n - 1}, x_n]]$ 的商。
+引理 \ref{curves-lemma-reduced-quotient-regular-ring-dim-2} 说明，
+在情形 (2) 与 (3) 中，$I$ 都由
+$x_1, \ldots, x_{n - 2}, f$ 生成，其中
+$f = f(x_{n - 1}, x_n)$。此时关于子式的条件恰好说明
+$f$ 的二次项非退化，即 $A/I$ 如引理
+\ref{curves-lemma-nodal-algebraic} 所述。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal}
+设 $k$ 为域。设 $X$ 为 $1$ 维代数 $k$-概形，并设
+$x \in X$ 为闭点。下列条件等价：
+\begin{enumerate}
+\item $x$ 是结点；
+\item $k \to \mathcal{O}_{X, x}$ 如引理
+\ref{curves-lemma-nodal-algebraic} 所述；
+\item 任意 $\overline{x} \in X_{\overline{k}}$，若它映到 $x$，
+就定义结点奇点；
+\item $\kappa(x)/k$ 可分，$\mathcal{O}_{X, x}$ 约化，并且
+$\Omega_{X/k}$ 的第一 Fitting 理想生成 $\mathfrak m_x$；
+这一生成发生在 $\mathcal{O}_{X, x}$ 中；
+\item $\kappa(x)/k$ 可分，$\text{depth}(\mathcal{O}_{X, x}) = 1$，
+并且 $\Omega_{X/k}$ 的第一 Fitting 理想生成 $\mathfrak m_x$；
+这一生成发生在 $\mathcal{O}_{X, x}$ 中；
+\item $\kappa(x)/k$ 可分，并且 $\mathcal{O}_{X, x}$ 约化，
+其 $\delta$-不变量为 $1$，且有 $2$ 个几何分支。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先假设 $k$ 代数闭。此时 (1) 与 (3) 的等价性显然。
+(1)、(3) 与 (2) 等价，因为二元非退化二次型在坐标变换下
+只有 $xy$ 一种。(1) 与 (6) 的等价性就是引理
+\ref{curves-lemma-multicross-algebra}。把 $X$ 替换为 $x$ 的一个仿射邻域后，
+可假设存在闭浸入 $X \to \mathbf{A}^n_k$，它把 $x$ 映到 $0$。
+设 $f_1, \ldots, f_m \in k[x_1, \ldots, x_n]$ 是理想 $I$
+的生成元；该理想定义 $X$ 在 $\mathbf{A}^n_k$ 中的嵌入。此时
+$\Omega_{X/k}$ 对应于 $R = k[x_1, \ldots, x_n]/I$-模
+$\Omega_{R/k}$，后者有展示
+$$
+R^{\oplus m} \xrightarrow{(\partial f_j/\partial x_i)}
+R^{\oplus n} \to \Omega_{R/k} \to 0
+$$
+（见《代数》，节 \ref{algebra-section-differentials} 与
+\ref{algebra-section-netherlander}.)
+因此 $\Omega_{R/k}$ 的第一 Fitting 理想就是由
+$(n - 1) \times (n - 1)$ 子式生成的理想；这些子式来自矩阵
+$(\partial f_j/\partial x_i)$。把引理
+\ref{curves-lemma-fitting-ideal} 用于 $k[x_1, \ldots, x_n] \to R$
+在极大理想 $(x_1, \ldots, x_n)$ 处的完备化，即知
+(2)、(4)、(5) 等价。
+
+\medskip\noindent
+现在假设 $k$ 为任意域。在情形 (2)、(4)、(5)、(6) 中，
+剩余域 $\kappa(x)$ 在 $k$ 上可分。我们来证明情形 (1)、(3)
+也具有这一性质。设 $Z \subset X$ 为 $X$ 的闭子概形，
+它由 $\Omega_{X/k}$ 的第一 Fitting 理想定义。$Z$ 的形成
+与域扩张交换（《除子》，引理
+\ref{divisors-lemma-base-change-and-fitting-ideal-omega}）。
+若 (1) 或 (3) 成立，则存在一点 $\overline{x}$；它属于
+$X_{\overline{k}}$，并且 $\overline{x}$ 是重数为 $1$ 的孤立点，
+所在概形为 $Z_{\overline{k}}$（因为在 $\overline{k}$ 上，
+引理的各条件等价）。
+特别地，$Z_{\overline{x}}$ 在 $\overline{x}$ 处几何约化
+（因为 $\overline{k}$ 代数闭）。所以 $Z$ 在 $x$ 处几何约化
+（《簇》，引理
+\ref{varieties-lemma-geometrically-reduced-upstairs}）。特别地，
+$Z$ 在 $x$ 处约化，因而 $Z = \Spec(\kappa(x))$ 在 $x$ 的一个
+邻域中成立，并且 $\kappa(x)$ 在 $k$ 上几何约化。
+这意味着 $\kappa(x)/k$ 可分（《代数》，引理
+\ref{algebra-lemma-characterize-separable-field-extensions}）。
+
+\medskip\noindent
+上一段的论证表明，若 (1) 或 (3) 成立，则
+$\Omega_{X/k}$ 的第一 Fitting 理想生成 $\mathfrak m_x$。
+由于 $\mathcal{O}_{X, x} \to \mathcal{O}_{X_{\overline{k}}, \overline{x}}$
+平坦，并且
+$\mathcal{O}_{X_{\overline{k}}, \overline{x}}$ 约化且深度为 $1$，
+可知 (4) 与 (5) 成立（使用《代数》，引理
+\ref{algebra-lemma-descent-reduced} 与
+\ref{algebra-lemma-apply-grothendieck}).
+反过来，由《代数》，引理 \ref{algebra-lemma-criterion-reduced}，
+(4) 蕴含 (5)。若 (5) 成立，则 $Z$ 在 $x$ 处几何约化
+（因为 $\kappa(x)/k$ 可分，并且在一个邻域中 $Z$ 就是 $x$）。
+所以 $Z_{\overline{k}}$ 在任意点 $\overline{x}$ 处约化；
+该点属于 $X_{\overline{k}}$ 且位于 $x$ 上方。换言之，
+$\Omega_{X_{\overline{k}}/\overline{k}}$ 的第一 Fitting 理想生成
+$\mathfrak m_{\overline{x}}$；这一生成发生在
+$\mathcal{O}_{X_{\overline{k}, \overline{x}}}$ 中。此外，由于
+$\mathcal{O}_{X, x} \to \mathcal{O}_{X_{\overline{k}}, \overline{x}}$
+平坦，可知
+$\text{depth}(\mathcal{O}_{X_{\overline{k}}, \overline{x}}) = 1$
+（见上面的引文）。因此 (5) 对
+$\overline{x} \in X_{\overline{k}}$ 成立，从而 (3) 成立
+（使用代数闭域上各条件的等价性）。由此可见
+(1)、(3)、(4)、(5) 等价。
+
+\medskip\noindent
+(2) 与 (6) 的等价性来自引理 \ref{curves-lemma-2-branches-delta-1}。
+
+\medskip\noindent
+最后证明 (2) $=$ (6) 与 (1) $=$ (3) $=$ (4) $=$ (5) 等价。
+首先，由《簇》，引理
+\ref{varieties-lemma-geometric-branches-and-change-of-fields}，
+$X$ 在 $x$ 处的几何分支数等于
+$X_{\overline{k}}$ 在 $\overline{x}$ 处的几何分支数。
+根据目前已有的信息可知，在所有情形中这个数都等于 $2$。
+另一方面，在情形 (1) 中，$X$ 显然在 $x$ 处几何约化，因而
+$$
+\delta\text{-invariant of }X\text{ 在 }x \leq
+\delta\text{-invariant of }X_{\overline{k}}\text{ 在 }\overline{x}
+$$
+，这来自《簇》，引理
+\ref{varieties-lemma-delta-invariant-and-change-of-fields}。
+在情形 (1) 中，右端为 $1$，这迫使 $\delta$-不变量
+（对 $X$ 在 $x$ 处而言）为 $1$（因为若其为零，则由《簇》，引理
+\ref{varieties-lemma-delta-invariant-is-zero}，
+$\mathcal{O}_{X, x}$ 将是离散赋值环，因而单分支，矛盾）。
+所以 (5) 成立。反过来，若 (2) $=$ (5) 成立，则《簇》，引理
+\ref{varieties-lemma-geometrically-normal-in-codim-1} 的假设
+(a)、(b)、(c) 由引理 \ref{curves-lemma-2-branches-delta-1} 可知
+对 $x \in X$ 成立。因此《簇》，引理
+\ref{varieties-lemma-delta-invariant-and-change-of-fields-better}
+适用，并说明上述不等式中等号成立。由此可知 (5) 对
+$\overline{x} \in X_{\overline{k}}$ 成立；再由代数闭域上各条件的
+等价性，回到情形 (1)。
+\end{proof}
+
+\begin{remark}[与结点相伴的二次扩张]
+\label{curves-remark-quadratic-extension}
+设 $k$ 为域。设 $(A, \mathfrak m, \kappa)$ 为 Noether 局部
+$k$-代数。假设 $(A, \mathfrak m, \kappa)$ 如引理
+\ref{curves-lemma-nodal-algebraic} 所述，或者 $A$ 为引理
+\ref{curves-lemma-2-branches-delta-1} 所述的 Nagata 环，或者 $A$ 完备且
+如引理 \ref{curves-lemma-fitting-ideal} 所述。则 $A$ 按如下方式典范地
+定义次数为 $2$ 的可分 $\kappa$-代数 $\kappa'$：
+\begin{enumerate}
+\item 设 $q = ax^2 + bxy + cy^2$ 为引理
+\ref{curves-lemma-nodal-algebraic} 所述的非退化二次型，并选取坐标
+$x, y$ 使 $a \not = 0$，再置
+$\kappa' = \kappa[x]/(ax^2 + bx + c)$,
+\item 设 $A' \supset A$ 为 $A$ 在其全分式环中的整闭包，并置
+$\kappa' = A'/\mathfrak m A'$；或者
+\item 令 $\kappa'$ 为满足下式的 $\kappa$-代数：
+$\text{Proj}(\bigoplus_{n \geq 0} \mathfrak m^n/\mathfrak m^{n + 1}) =
+\Spec(\kappa')$.
+\end{enumerate}
+引理 \ref{curves-lemma-2-branches-delta-1} 的证明已经给出 (1) 与 (2)
+的等价性。略去它们与 (3) 的等价性。若 $X$ 是局部 Noether
+$k$-概形，而 $x \in X$ 是满足 $\mathcal{O}_{X, x} = A$ 的点，
+则 (3) 表明
+$\Spec(\kappa') = X^\nu \times_X \Spec(\kappa)$，其中
+$\nu : X^\nu \to X$ 是正规化态射。
+\end{remark}
+
+\begin{remark}[平凡二次扩张]
+\label{curves-remark-trivial-quadratic-extension}
+设 $k$ 为域。设 $(A, \mathfrak m, \kappa)$ 如评注
+\ref{curves-remark-quadratic-extension} 所述，并设 $\kappa'/\kappa$
+为相伴的次数为 $2$ 的可分代数。下列条件等价：
+\begin{enumerate}
+\item $\kappa' \cong \kappa \times \kappa$ 为 $\kappa$-代数同构；
+\item 引理 \ref{curves-lemma-nodal-algebraic} 中的形式 $q$
+可选为 $xy$；
+\item $A$ 有两个分支；
+\item 引理 \ref{curves-lemma-2-branches-delta-1} 中的扩张 $A'/A$
+有两个极大理想；并且
+\item $A^\wedge \cong \kappa[[x, y]]/(xy)$ 为 $k$-代数同构。
+\end{enumerate}
+这些条件的等价性已在引理
+\ref{curves-lemma-2-branches-delta-1} 的证明中给出。若 $X$ 是局部
+Noether $k$-概形，而 $x \in X$ 满足 $\mathcal{O}_{X, x} = A$，
+则这恰好意味着有两个点 $x_1, x_2$；它们属于正规化 $X^\nu$，
+位于 $x$ 上方，并且 $\kappa(x) = \kappa(x_1) = \kappa(x_2)$。
+\end{remark}
+
+\begin{definition}
+\label{curves-definition-split-node}
+设 $k$ 为域。设 $X$ 为 $1$ 维代数 $k$-概形，并设
+$x \in X$ 为闭点。称 $x$ 为{\it 分裂结点}，如果 $x$ 是结点，
+$\kappa(x) = k$，并且评注
+\ref{curves-remark-trivial-quadratic-extension} 中的等价断言对
+$A = \mathcal{O}_{X, x}$ 成立。
+\end{definition}
+
+\noindent
+把关于这一概念已经知道的内容表述为如下必备引理。
+
+\begin{lemma}
+\label{curves-lemma-split-node}
+设 $k$ 为域。设 $X$ 为 $1$ 维代数 $k$-概形，并设
+$x \in X$ 为闭点。下列条件等价：
+\begin{enumerate}
+\item $x$ 是分裂结点；
+\item $x$ 是结点，并且恰有两个点 $x_1, x_2$；它们属于正规化
+$X^\nu$，位于 $x$ 上方，且
+$k = \kappa(x_1) = \kappa(x_2)$,
+\item $\mathcal{O}_{X, x}^\wedge \cong k[[x, y]]/(xy)$ 为 $k$-代数同构；
+并且
+\item 此处增补更多内容。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这来自评注 \ref{curves-remark-trivial-quadratic-extension} 中的讨论以及
+引理 \ref{curves-lemma-nodal}。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-node-field-extension}
+设 $K/k$ 为域扩张。设 $X$ 为局部代数
+$k$-概形，其维数为 $1$。设 $y \in X_K$ 为一个点，其像为
+$x \in X$。以下条件等价：
+\begin{enumerate}
+\item $x$ 是 $X$ 的闭点且为结点；
+\item $y$ 是 $Y$ 的闭点且为结点。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $x$ 是 $X$ 的闭点，则 $y$ 也是闭点（考察剩余域即可）。
+但逆命题未必成立；确实，$Y$ 的一个闭点可能映到 $X$ 的非闭点。
+不过在这种情形下，$y$ 不可能是结点。事实上，此时 $X$ 在 $x$
+处几何单分支（因为 $x$ 将是 $X$ 的泛点，且
+$\mathcal{O}_{X, x}$ 为 Artin 环，而任意 Artin 局部环都几何单分支），
+所以 $Y$ 在 $y$ 处几何单分支（《簇》，引理
+\ref{varieties-lemma-geometrically-unibranch-and-change-of-fields}）。
+由引理 \ref{curves-lemma-nodal}，这意味着 $y$ 不可能是结点。
+因此我们可以并且确实假设 $x$ 与 $y$ 都是闭点。
+
+\medskip\noindent
+选取代数闭包 $\overline{k}$、$\overline{K}$，以及映射
+$\overline{k} \to \overline{K}$，它延拓给定映射 $k \to K$。
+利用引理 \ref{curves-lemma-nodal} 中 (1) 与 (3) 的等价性，
+可归约到 $k$ 与 $K$ 都是代数闭域的情形。在这种情形下，
+可以像引理 \ref{curves-lemma-nodal} 的证明那样论证：几何分支数和
+$\delta$-不变量，对 $X$ 在 $x$ 处与对 $Y$ 在 $y$ 处相同。
+另一种论证是选取一个同构
+$k[[x_1, \ldots, x_n]]/(g_1, \ldots, g_m) \to \mathcal{O}_{X, x}^\wedge$
+；按照《簇》，引理
+\ref{varieties-lemma-complete-local-ring-structure-as-algebra}，
+这是一个 $k$-代数同构。由《簇》，引理
+\ref{varieties-lemma-base-change-complete-local-ring}，它给出
+$K[[x_1, \ldots, x_n]]/(g_1, \ldots, g_m) \to \mathcal{O}_{Y, y}^\wedge$
+这一 $K$-代数同构。根据定义，我们必须证明
+$$
+k[[x_1, \ldots, x_n]]/(g_1, \ldots, g_m) \cong k[[s, t]]/(st)
+$$
+当且仅当
+$$
+K[[x_1, \ldots, x_n]]/(g_1, \ldots, g_m) \cong K[[s, t]]/(st)
+$$
+。我们鼓励读者自行证明这一点。由于 $k$ 与 $K$ 都是代数闭域，
+这等价于要求这些环满足引理 \ref{curves-lemma-nodal-algebraic} 中的条件。
+借助引理 \ref{curves-lemma-fitting-ideal}，它转化为关于
+$(n - 1) \times (n - 1)$ 阶子式的陈述；这些子式来自矩阵
+$(\partial g_j/\partial x_i)$，且该陈述显然与所用的域无关。
+细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-node-etale-local}
+设 $k$ 为域。设 $X$ 为局部代数
+$k$-概形，其维数为 $1$。设 $Y \to X$ 为 \'etale 态射，且
+$y \in Y$ 为一个像等于 $x \in X$ 的点。以下条件等价：
+\begin{enumerate}
+\item $x$ 是 $X$ 的闭点且为结点；
+\item $y$ 是 $Y$ 的闭点且为结点。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-node-field-extension}，我们可以基变换到 $k$
+的代数闭包。此时 $x$ 与 $y$ 的剩余域都是 $k$。
+所以映射 $\mathcal{O}_{X, x}^\wedge \to \mathcal{O}_{Y, y}^\wedge$
+是同构（例如见《\'Etale 态射》，引理
+\ref{etale-lemma-characterize-etale-completions}，或《代数进阶》，引理
+\ref{more-algebra-lemma-flat-unramified}）。故结论显然。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-node-over-separable-extension}
+设 $k'/k$ 为有限可分域扩张。设 $X$ 为局部代数
+$k'$-概形，其维数为 $1$。并设 $x \in X$ 为闭点。以下条件等价：
+\begin{enumerate}
+\item $x$ 是结点；
+\item $x$ 是结点，其中将 $X$ 视为局部代数 $k$-概形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这立即来自引理 \ref{curves-lemma-nodal} 对结点的刻画。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal-lci}
+设 $k$ 为域。设 $X$ 为局部代数 $k$-概形，等维且维数为 $1$。
+以下条件等价：
+\begin{enumerate}
+\item $X$ 的奇点至多为结点；
+\item $X$ 在 $k$ 上为局部完全交，并且闭子概形
+$Z \subset X$ 由 $\Omega_{X/k}$ 的第一 Fitting 理想截出，
+且在 $k$ 上非分歧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们强烈建议读者自行寻找本引理的证明；下面只是把先前的结果
+拼合起来，反而可能掩盖真正发生的事情。
+
+\medskip\noindent
+假设 (2)。由于 $Z \to \Spec(k)$ 是拟有限的
+（《态射》，引理 \ref{morphisms-lemma-unramified-quasi-finite}），
+由《态射》，引理 \ref{morphisms-lemma-residue-field-quasi-finite}，
+点 $x \in Z$ 的剩余域是 $k$ 的有限扩张（并且可分）。
+因此由《态射》，引理
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}，
+每个 $x \in Z$ 都是 $X$ 的闭点。由《代数》，引理
+\ref{algebra-lemma-lci-CM}，局部环 $\mathcal{O}_{X, x}$ 是
+Cohen--Macaulay 环。根据维数理论，
+$\dim(\mathcal{O}_{X, x}) = 1$（《簇》，节
+\ref{varieties-section-algebraic-schemes}），故
+$\text{depth}(\mathcal{O}_{X, x})) = 1$。由引理
+\ref{curves-lemma-nodal}，$x$ 是结点。若 $x \in X$ 且 $x \not \in Z$，
+则由《除子》，引理
+\ref{divisors-lemma-d-fitting-ideal-omega-smooth}，
+$X \to \Spec(k)$ 在 $x$ 处光滑。
+
+\medskip\noindent
+假设 (1)。在此假设下，$X$ 在每个闭点处几何约化
+（见《簇》，引理
+\ref{varieties-lemma-geometrically-reduced-upstairs}）。
+因此由《簇》，引理
+\ref{varieties-lemma-geometrically-reduced-dense-smooth-open}，
+$X \to \Spec(k)$ 在一个稠密开集上光滑。于是 $Z$ 是闭的，
+并且仅由闭点组成。由《除子》，引理
+\ref{divisors-lemma-d-fitting-ideal-omega-smooth}，态射
+$X \setminus Z \to \Spec(k)$ 光滑。因此由《态射》，引理
+\ref{morphisms-lemma-smooth-syntomic} 以及《态射》，定义
+\ref{morphisms-definition-syntomic} 中对局部完全交的定义，
+$X \setminus Z$ 是局部完全交。由引理 \ref{curves-lemma-nodal}，
+对每个点 $x \in Z$，局部环 $\mathcal{O}_{Z, x}$ 等于
+$\kappa(x)$，且 $\kappa(x)$ 在 $k$ 上可分。所以
+$Z \to \Spec(k)$ 非分歧（《态射》，引理
+\ref{morphisms-lemma-unramified-over-field}）。最后，引理
+\ref{curves-lemma-nodal} 结合引理 \ref{curves-lemma-nodal-algebraic} 的 (3)
+说明 $\mathcal{O}_{X, x}$ 是《除幂代数》，定义
+\ref{dpa-definition-lci} 意义下的完全交。不过，《除幂代数》，引理
+\ref{dpa-lemma-check-lci-agrees} 与《态射》，引理
+\ref{morphisms-lemma-local-complete-intersection} 说明，这与定义
+域上局部完全交概形时所用的概念一致。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-facts-about-nodal-curves}
+设 $k$ 为域。设 $X$ 为局部代数 $k$-概形，等维且维数为
+$1$，其奇点至多为结点。则 $X$ 为 Gorenstein 且几何约化。
+\end{lemma}
+
+\begin{proof}
+Gorenstein 断言来自引理 \ref{curves-lemma-nodal-lci} 和
+《概形的对偶性》，引理 \ref{duality-lemma-gorenstein-lci}。
+也可以使用如下事实：只需在传到代数闭包后检验
+（《概形的对偶性》，引理
+\ref{duality-lemma-gorenstein-base-change}）；再利用 Noether
+局部环为 Gorenstein 当且仅当其完备化为 Gorenstein
+（《对偶复形》，引理
+\ref{dualizing-lemma-flat-under-gorenstein}）；最后直接证明局部环
+$k[[t]]$ 与 $k[[x, y]]/(xy)$ 为 Gorenstein。
+
+\medskip\noindent
+为证明 $X$ 几何约化，只需证明 $X_{\overline{k}}$ 约化
+（《簇》，引理 \ref{varieties-lemma-perfect-reduced} 和
+\ref{varieties-lemma-geometrically-reduced}）。但
+$X_{\overline{k}}$ 是代数闭域上的结点曲线。因此
+$X_{\overline{k}}$ 的完备局部环同构于
+$\overline{k}[[t]]$ 或 $\overline{k}[[x, y]]/(xy)$；
+这些环都约化，正合所需。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-closed-subscheme-nodal-curve}
+设 $k$ 为域。设 $X$ 为局部代数 $k$-概形，等维且维数为
+$1$，其奇点至多为结点。若 $Y \subset X$ 是等维且维数为
+$1$ 的约化闭子概形，则
+\begin{enumerate}
+\item $Y$ 的奇点至多为结点；
+\item 若 $Z \subset X$ 是 $X \setminus Y$ 的概形论闭包，则
+\begin{enumerate}
+\item 概形论交 $Y \cap Z$ 是 $k$ 的若干有限可分扩张的谱的不交并；
+\item $Y \cap Z$ 的每个点都是 $X$ 的结点；
+\item $Y \to \Spec(k)$ 在 $Y \cap Z$ 的每个点处光滑。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 与 $Y$ 都约化、等维且维数为 $1$，可知 $Y$
+是 $X$ 的一部分不可约分支的概形论并（在约化环中，$(0)$
+是诸极小素理想之交）。设 $y \in Y$ 为闭点。若 $y$ 位于
+$X \to \Spec(k)$ 的光滑轨迹中，则 $y$ 位于 $X$ 的唯一一个
+不可约分支上，并且 $Y$ 与 $X$ 在 $y$ 的某个开邻域中相同。
+故 $Y \to \Spec(k)$ 在 $y$ 处光滑。若 $y$ 是 $X$ 的结点，
+但仍只位于 $X$ 的一个不可约分支上，则由同一论证，$y$
+是 $Y$ 的结点。假设 $y$ 位于多于 $1$ 个不可约分支上，
+而这些分支属于 $X$。由于 $X$ 在 $y$ 处的几何分支数为
+$2$（引理 \ref{curves-lemma-nodal}），由《性质》，引理
+\ref{properties-lemma-number-of-branches-irreducible-components}，
+不可约分支的数目至多为 $2$，并且这些分支通过 $y$。若 $Y$ 同时包含这两个
+分支，则 $Y = X$ 在 $y$ 的某个开邻域中再次成立，且 $y$
+是 $Y$ 的结点。最后，假设 $Y$ 只包含其中一个不可约分支。
+把 $X$ 替换为 $x$ 的一个开邻域后，可以假设 $Y$ 是这两个
+不可约分支之一，而 $Z$ 是另一个。再次由《性质》，引理
+\ref{properties-lemma-number-of-branches-irreducible-components}，
+可知 $X$ 在 $y$ 处有两个分支；也就是说，局部环
+$\mathcal{O}_{X, y}$ 有两个分支，它们分别来自
+$\mathcal{O}_{Y, y}$ 与 $\mathcal{O}_{Z, y}$。写成
+$\mathcal{O}_{X, y}^\wedge \cong \kappa(y)[[u, v]]/(uv)$
+，如评注 \ref{curves-remark-trivial-quadratic-extension} 所示。例如由引理
+\ref{curves-lemma-nodal}，域 $\kappa(y)$ 是 $k$ 的有限可分扩张。
+因此，必要时交换 $u$ 与 $v$ 的作用后，映射
+$\mathcal{O}_{X, y} \to \mathcal{O}_{Y, Y}$
+的完备化对应于 $\kappa(y)[[u, v]]/(uv) \to \kappa(y)[[u]]$，
+而映射
+$\mathcal{O}_{X, y} \to \mathcal{O}_{Y, Y}$
+的完备化对应于 $\kappa(y)[[u, v]]/(uv) \to \kappa(y)[[v]]$。
+$Y \cap Z$ 的概形论交由它们的理想之和截出；该理想之和在完备化中为
+$(u, v)$，即极大理想。因此 (2)(a) 与 (2)(b) 显然。
+最后，(2)(c) 成立：$\mathcal{O}_{Y, y}$ 的完备化正则，
+所以 $\mathcal{O}_{Y, y}$ 正则（《代数进阶》，引理
+\ref{more-algebra-lemma-completion-regular}）；又因
+$\kappa(y)/k$ 可分，由《代数》，引理
+\ref{algebra-lemma-separable-smooth}，它在某个开邻域中光滑。
+\end{proof}
+
+
+
+
+\section{结点曲线族}
+\label{curves-section-families-nodal}
+
+\noindent
+在 Stacks 项目中，曲线是维数 $1$ 的不可约簇；但在文献中，
+“半稳定曲线”或“结点曲线”通常并非不可约，并且常被假设为固有的，
+尤其是在“半稳定曲线族”“结点曲线族”或“结点族”等说法中。
+因此，要选取一个既与文献一致又在内部自洽的术语颇为困难。
+此外，我们实际上想先研究下述引理中引入的概念
+（该概念在源上是局部的）。
+
+\begin{lemma}
+\label{curves-lemma-nodal-family}
+设 $f : X \to S$ 为概形态射。以下条件等价：
+\begin{enumerate}
+\item $f$ 平坦且局部有限表示，每个非空纤维
+$X_s$ 都等维且维数为 $1$，并且 $X_s$ 的奇点至多为结点；
+\item $f$ 是相对维数为 $1$ 的 syntomic 态射，并且闭子概形
+$\text{Sing}(f) \subset X$ 由 $\Omega_{X/S}$ 的第一
+Fitting 理想定义，且在 $S$ 上非分歧。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆 $\text{Sing}(f)$ 的形成与基变换交换，见《除子》，引理
+\ref{divisors-lemma-base-change-and-fitting-ideal-omega}。
+于是本引理来自引理 \ref{curves-lemma-nodal-lci}、《态射》，引理
+\ref{morphisms-lemma-syntomic-flat-fibres}，以及《态射》，引理
+\ref{morphisms-lemma-unramified-etale-fibres}。（我们还使用显然的
+《态射》，引理
+\ref{morphisms-lemma-syntomic-locally-finite-presentation} 和
+\ref{morphisms-lemma-syntomic-flat}。）
+\end{proof}
+
+\begin{definition}
+\label{curves-definition-nodal-family}
+设 $f : X \to S$ 为概形态射。若 $f$
+{\it 相对维数为 $1$ 且至多为结点}，是指 $f$ 满足引理
+\ref{curves-lemma-nodal-family} 中的等价条件。
+\end{definition}
+
+\noindent
+之所以采用这个繁复术语，有以下几个原因\footnote{不过，如果您有更好的建议，
+请给 Stacks 项目的维护者发送电子邮件。}。第一，我们要确保这个概念
+不与文献中的其他概念混淆（见本节引言）。第二，可以设想该概念对
+较高相对维数态射的若干推广（例如，可以要求态射在 \'etale 局部是
+若干至多为结点的态射之复合；也可以要求态射的纤维维数更高，
+但至多具有普通二重点）。
+
+\begin{lemma}
+\label{curves-lemma-smooth-relative-dimension-1}
+相对维数为 $1$ 的光滑态射相对维数为 $1$ 且至多为结点。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-base-change-nodal-family}
+设 $f : X \to S$ 相对维数为 $1$ 且至多为结点。
+则 $f$ 的任意基变换也具有同一性质。
+\end{lemma}
+
+\begin{proof}
+这是因为 syntomic 态射的基变换仍为 syntomic
+（《态射》，引理 \ref{morphisms-lemma-base-change-syntomic}）；
+相对维数为 $1$ 的态射之基变换仍有相对维数 $1$
+（《态射》，引理
+\ref{morphisms-lemma-base-change-relative-dimension-d}）；
+$\text{Sing}(f)$ 的形成与基变换交换（《除子》，引理
+\ref{divisors-lemma-base-change-and-fitting-ideal-omega}）；
+并且非分歧态射的基变换仍非分歧（《态射》，引理
+\ref{morphisms-lemma-base-change-unramified}）。
+\end{proof}
+
+\noindent
+下面的引理说明，可以在纤维上检验一个态射是否相对维数为
+$1$ 且至多为结点。
+
+\begin{lemma}
+\label{curves-lemma-locus-where-nodal}
+设 $f : X \to S$ 为平坦且局部有限表示的概形态射。
+则存在极大开子概形 $U \subset X$，使得
+$f|_U : U \to S$ 相对维数为 $1$ 且至多为结点。
+此外，$U$ 的形成与任意基变换交换。
+\end{lemma}
+
+\begin{proof}
+由《态射》，引理
+\ref{morphisms-lemma-set-points-where-fibres-lci}，存在这样的开集，
+$f$ 在其上为 syntomic。因此可以假设 $f$ 是 syntomic 态射。
+特别地，$f$ 是 Cohen--Macaulay 态射（《概形的对偶性》，引理
+\ref{duality-lemma-lci-gorenstein} 和
+\ref{duality-lemma-gorenstein-CM-morphism}）。因此 $X$ 是若干
+开闭子概形的不交并，而 $f$ 在每个子概形上具有给定的相对维数；
+见《态射》，引理
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}。
+这一分解被任意基变换保持；见《态射》，引理
+\ref{morphisms-lemma-base-change-relative-dimension-d}。舍去除一个
+部分之外的所有部分后，可以假设 $f$ 是相对维数为 $1$ 的
+syntomic 态射。设 $\text{Sing}(f) \subset X$ 为
+$\Omega_{X/S}$ 的第一 Fitting 理想定义的闭子概形。
+存在极大开子概形 $W \subset \text{Sing}(f)$，使得
+$W \to S$ 非分歧，并且它的形成与基变换交换
+（《态射》，引理
+\ref{morphisms-lemma-set-points-where-fibres-unramified}）。
+又因为 $\text{Sing}(f)$ 的形成与基变换交换（《除子》，引理
+\ref{divisors-lemma-base-change-and-fitting-ideal-omega}），可知
+$$
+U = (X \setminus \text{Sing}(f)) \cup W
+$$
+是 $X$ 的极大开子概形，使得
+$f|_U : U \to S$ 相对维数为 $1$ 且至多为结点；
+并且 $U$ 的形成与基变换交换。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal-family-precompose-etale}
+设 $f : X \to S$ 相对维数为 $1$ 且至多为结点。
+若 $Y \to X$ 是 \'etale 态射，则复合 $g : Y \to S$
+相对维数为 $1$ 且至多为结点。
+\end{lemma}
+
+\begin{proof}
+注意，$g$ 是平坦且局部有限表示的，因为它是两个平坦且局部
+有限表示态射的复合（使用《态射》，引理
+\ref{morphisms-lemma-etale-locally-finite-presentation}、
+\ref{morphisms-lemma-etale-flat}、
+\ref{morphisms-lemma-composition-finite-presentation} 和
+\ref{morphisms-lemma-composition-flat}）。
+因此只需证明纤维的奇点至多为结点。这来自引理
+\ref{curves-lemma-node-etale-local}（以及如下事实：\'etale 态射与
+光滑态射的复合仍光滑；见《态射》，引理
+\ref{morphisms-lemma-etale-smooth-unramified} 和
+\ref{morphisms-lemma-composition-smooth}）。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal-family-postcompose-etale}
+设 $S' \to S$ 为概形的 \'etale 态射。
+设 $f : X \to S'$ 相对维数为 $1$ 且至多为结点。
+则复合 $g : X \to S$ 相对维数为 $1$ 且至多为结点。
+\end{lemma}
+
+\begin{proof}
+注意，$g$ 是平坦且局部有限表示的，因为它是两个平坦且局部
+有限表示态射的复合（使用《态射》，引理
+\ref{morphisms-lemma-etale-locally-finite-presentation}、
+\ref{morphisms-lemma-etale-flat}、
+\ref{morphisms-lemma-composition-finite-presentation} 和
+\ref{morphisms-lemma-composition-flat}）。因此只需证明 $g$
+的纤维之奇点至多为结点。这来自引理
+\ref{curves-lemma-node-over-separable-extension} 以及对光滑点的类似结果。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal-family-etale-local-source}
+设 $f : X \to S$ 为概形态射。设 $\{U_i \to X\}$ 为
+\'etale 覆盖。以下条件等价：
+\begin{enumerate}
+\item $f$ 相对维数为 $1$ 且至多为结点；
+\item 每个 $U_i \to S$ 都相对维数为 $1$ 且至多为结点。
+\end{enumerate}
+换言之，相对维数为 $1$ 且至多为结点这一性质在源上是
+\'etale 局部的。
+\end{lemma}
+
+\begin{proof}
+一个方向已见于引理
+\ref{curves-lemma-nodal-family-precompose-etale}。对另一个方向，
+注意局部有限表示、平坦，或具有相对维数 $1$，都是在源上
+\'etale 局部的性质（《下降》，引理
+\ref{descent-lemma-locally-finite-presentation-fppf-local-source}、
+\ref{descent-lemma-flat-fpqc-local-source} 和
+\ref{descent-lemma-dimension-at-point}）。取纤维后，归约到
+$S$ 为某个域的谱的情形。在这种情形下，结论来自引理
+\ref{curves-lemma-node-etale-local}（以及光滑性在源上 \'etale 局部这一
+事实；见《下降》，引理
+\ref{descent-lemma-smooth-smooth-local-source}）。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal-family-fpqc-local-target}
+设 $f : X \to S$ 为概形态射。设 $\{U_i \to S\}$ 为 fpqc 覆盖。
+以下条件等价：
+\begin{enumerate}
+\item $f$ 相对维数为 $1$ 且至多为结点；
+\item 每个 $X \times_S U_i \to U_i$ 都相对维数为 $1$
+且至多为结点。
+\end{enumerate}
+换言之，相对维数为 $1$ 且至多为结点这一性质在靶上是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+一个方向已见于引理 \ref{curves-lemma-base-change-nodal-family}。
+对另一个方向，注意局部有限表示、平坦，或具有相对维数 $1$，
+都是在靶上 fpqc 局部的性质（《下降》，引理
+\ref{descent-lemma-descending-property-locally-finite-presentation}、
+\ref{descent-lemma-descending-property-flat}，以及《态射》，引理
+\ref{morphisms-lemma-dimension-fibre-after-base-change}）。
+取纤维后，归约到 $S$ 为某个域的谱的情形。在这种情形下，
+结论来自引理 \ref{curves-lemma-node-field-extension}（以及光滑性在靶上
+fpqc 局部这一事实；见《下降》，引理
+\ref{descent-lemma-descending-property-smooth}）。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-descend-nodal-family}
+设 $S = \lim S_i$ 为一族概形的有向系统之极限，转移态射均为仿射。
+设 $0 \in I$，并设 $f_0 : X_0 \to Y_0$ 为 $S_0$ 上的概形态射。
+假设 $S_0$、$X_0$、$Y_0$ 都拟紧且拟分离。设
+$f_i : X_i \to Y_i$ 为 $f_0$ 到 $S_i$ 的基变换，并设
+$f : X \to Y$ 为 $f_0$ 到 $S$ 的基变换。若
+\begin{enumerate}
+\item $f$ 相对维数为 $1$ 且至多为结点；
+\item $f_0$ 局部有限表示，
+\end{enumerate}
+则存在 $i \geq 0$，使得 $f_i$ 相对维数为 $1$ 且至多为结点。
+\end{lemma}
+
+\begin{proof}
+由《极限》，引理 \ref{limits-lemma-descend-syntomic}，存在 $i$，
+使得 $f_i$ 为 syntomic。于是
+$X_i = \coprod_{d \geq 0} X_{i, d}$ 是若干开闭子概形的不交并，
+且 $X_{i, d} \to Y_i$ 具有相对维数 $d$；见《态射》，引理
+\ref{morphisms-lemma-syntomic-relative-dimension}。根据《态射》，
+引理 \ref{morphisms-lemma-dimension-fibre-after-base-change}
+所给出的纤维维数在基变换下的行为，可知 $X \to X_i$
+映入 $X_{i, 1}$。于是存在 $i' \geq i$，使得
+$X_{i'} \to X_i$ 映入 $X_{i, 1}$；见《极限》，引理
+\ref{limits-lemma-limit-contained-in-constructible}。因此
+$f_{i'} : X_{i'} \to Y_{i'}$ 是相对维数为 $1$ 的 syntomic 态射
+（再次使用《态射》，引理
+\ref{morphisms-lemma-dimension-fibre-after-base-change}）。
+考虑态射 $\text{Sing}(f_{i'}) \to Y_{i'}$。我们知道它到 $Y$
+的基变换非分歧。因此由《极限》，引理
+\ref{limits-lemma-descend-unramified}，增大 $i'$ 后，态射
+$\text{Sing}(f_{i'}) \to Y_{i'}$ 变为非分歧。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-formal-local-structure-nodal-family}
+设 $f : T \to S$ 为概形态射。设 $t \in T$ 的像为 $s \in S$。
+假设
+\begin{enumerate}
+\item $f$ 在 $t$ 处平坦；
+\item $\mathcal{O}_{S, s}$ 是 Noether 环；
+\item $f$ 局部有限型；
+\item $t$ 是纤维 $T_s$ 的分裂结点。
+\end{enumerate}
+则存在 $h \in \mathfrak m_s^\wedge$ 以及同构
+$$
+\mathcal{O}_{T, t}^\wedge \cong
+\mathcal{O}_{S, s}^\wedge[[x, y]]/(xy - h)
+$$
+，它是 $\mathcal{O}_{S, s}^\wedge$-代数同构。
+\end{lemma}
+
+\begin{proof}
+把 $S$ 替换为 $\Spec(\mathcal{O}_{S, s})$，并把 $T$ 替换为
+到 $\Spec(\mathcal{O}_{S, s})$ 的基变换。此时 $T$ 局部
+Noether，因而 $\mathcal{O}_{T, t}$ 是 Noether 环。置
+$A = \mathcal{O}_{S, s}^\wedge$、$\mathfrak m = \mathfrak m_A$，
+并置 $B = \mathcal{O}_{T, t}^\wedge$。由《代数进阶》，引理
+\ref{more-algebra-lemma-flat-completion}，$A \to B$ 平坦。由于
+$\mathcal{O}_{T, t}/\mathfrak m_s \mathcal{O}_{T, t} = \mathcal{O}_{T_s, t}$
+，可知 $B/\mathfrak m B = \mathcal{O}_{T_s, t}^\wedge$。
+由假设 (4) 和引理 \ref{curves-lemma-split-node}，存在
+$\overline{u}, \overline{v} \in B/\mathfrak m B$，使得映射
+$$
+(A/\mathfrak m)[[x, y]] \longrightarrow B/\mathfrak m B,\quad
+x \longmapsto \overline{u},
+x \longmapsto \overline{v}
+$$
+为满射，且核为 $(xy)$。
+
+\medskip\noindent
+假设已有 $n \geq 1$ 以及 $u, v \in B$，它们映到
+$\overline{u}, \overline{v}$，并且
+$$
+u v = h + \delta
+$$
+，其中 $h \in A$ 且 $\delta \in \mathfrak m^nB$。我们断言，
+存在 $u', v' \in B$，满足
+$u - u', v - v' \in \mathfrak m^n B$，并且
+$$
+u' v' = h' + \delta'
+$$
+，其中 $h' \in A$ 且 $\delta' \in \mathfrak m^{n + 1}B$。
+为此，写成 $\delta = \sum f_i b_i$，其中
+$f_i \in \mathfrak m^n$ 且 $b_i \in B$。再写成
+$b_i = a_i + u b_{i, 1} + v b_{i, 2} + \delta_i$
+，其中 $a_i \in A$、$b_{i, 1}, b_{i, 2} \in B$，且
+$\delta_i \in \mathfrak m B$。这是可行的，因为 $B$ 的剩余域
+等于 $A$ 的剩余域，并且 $u$ 与 $v$ 在 $B/\mathfrak m B$
+中的像生成极大理想。然后置
+$$
+u' = u - \sum b_{i, 2}f_i,\quad
+v' = v - \sum b_{i, 1}f_i
+$$
+，得到
+$$
+u'v' = h + \delta - \sum (b_{i, 1}u + b_{i, 2}v)f_i + \sum
+c_{ij}f_if_j =
+h + \sum a_if_i + \sum f_i \delta_i + \sum c_{ij}f_if_j
+$$
+，其中某些 $c_{i, j} \in B$。因此得到上述形式的等式，其中
+$h' = h + \sum a_if_i$，且
+$\delta' = \sum f_i \delta_i + \sum c_{ij}f_if_j$。
+
+\medskip\noindent
+作归纳论证，并从任意提升 $u_1, v_1 \in B$ 开始；它们提升
+$\overline{u}, \overline{v}$。上一段的结果给出元素序列
+$u_n, v_n \in B$ 以及 $h_n \in A$，使得
+$u_n - u_{n + 1} \in \mathfrak m^n B$,
+$v_n - v_{n + 1} \in \mathfrak m^n B$,
+$h_n - h_{n + 1} \in \mathfrak m^n$,
+并且 $u_n v_n - h_n \in \mathfrak m^n B$。由于 $A$ 与 $B$
+完备，可以置
+$u_\infty = \lim u_n$、$v_\infty = \lim v_n$，以及
+$h_\infty = \lim h_n$，于是得到
+$u_\infty v_\infty = h_\infty$ 于 $B$ 中成立。因此有 $A$-代数映射
+$$
+A[[x, y]]/(xy - h_\infty) \longrightarrow B
+$$
+，它把 $x$ 映到 $u_\infty$，把 $v$ 映到 $v_\infty$。
+这是平坦 $A$-代数之间的映射，模去 $\mathfrak m$ 后是同构。
+它模 $\mathfrak m$ 为满射，故由完备性和《代数》，引理
+\ref{algebra-lemma-completion-generalities} 可知它是满射。
+再应用《代数》，引理 \ref{algebra-lemma-mod-injective}，
+可知它是同构。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-genus-in-nodal-family-of-curves}
+设 $f : X \to S$ 为概形态射。假设
+\begin{enumerate}
+\item $f$ 固有；
+\item $f$ 相对维数为 $1$ 且至多为结点；
+\item $f$ 的几何纤维连通。
+\end{enumerate}
+则 (a) $f_*\mathcal{O}_X = \mathcal{O}_S$，且此等式在任意
+基变换后仍成立；(b) $R^1f_*\mathcal{O}_X$ 是有限局部自由
+$\mathcal{O}_S$-模，其形成与任意基变换交换；(c)
+$R^qf_*\mathcal{O}_X = 0$ 对 $q \geq 2$ 成立。
+\end{lemma}
+
+\begin{proof}
+(a) 来自《概形的导出范畴》，引理
+\ref{perfect-lemma-proper-flat-geom-red-connected}。由
+《概形的导出范畴》，引理
+\ref{perfect-lemma-proper-flat-h0}，在 $S$ 上局部可以写成
+$Rf_*\mathcal{O}_X = \mathcal{O}_S \oplus P$，其中 $P$
+是 Tor 振幅包含于 $[1, \infty)$ 的完美复形。回忆
+$Rf_*\mathcal{O}_X$ 的形成与任意基变换交换
+（《概形的导出范畴》，引理
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}）。
+所以对 $s \in S$ 有
+$$
+H^i(P \otimes_{\mathcal{O}_S}^\mathbf{L} \kappa(s)) =
+H^i(X_s, \mathcal{O}_{X_s})
+\text{ 对 }i \geq 1
+$$
+。除非 $i = 1$，否则该式为零，因为 $X_s$ 是维数 $1$
+的 Noether 概形；见《上同调》，命题
+\ref{cohomology-proposition-vanishing-Noetherian}。于是
+$P = H^1(P)[-1]$，并且 $H^1(P)$ 有限局部自由，例如由
+《代数进阶》，引理
+\ref{more-algebra-lemma-lift-perfect-from-residue-field} 可知。
+所有构造都与基变换相容，结论随即成立。
+\end{proof}
+
+
+
+
+
+\section{结点曲线族的 \'Etale 局部结构}
+\label{curves-section-etale-local-nodal}
+
+
+\noindent
+考虑概形态射
+$$
+\Spec(\mathbf{Z}[u, v, a]/(uv - a))
+\longrightarrow
+\Spec(\mathbf{Z}[a])
+$$
+下一个引理说明，这个态射是结点曲线族的 \'etale 局部结构模型。
+
+\begin{lemma}
+\label{curves-lemma-etale-local-structure-nodal-family}
+设 $f : X \to S$ 为概形态射。假设 $f$ 相对维数为 $1$ 且至多为结点。
+设 $x \in X$ 是纤维 $X_s$ 的一个奇点。则存在概形的交换图
+$$
+\xymatrix{
+X \ar[d] &
+U \ar[rr] \ar[l] \ar[rd] & &
+W \ar[r] \ar[ld] &
+\Spec(\mathbf{Z}[u, v, a]/(uv - a)) \ar[d] \\
+S & &
+V \ar[ll] \ar[rr] & & \Spec(\mathbf{Z}[a])
+}
+$$
+其中 $X \leftarrow U$、$S \leftarrow V$ 与 $U \to W$ 是 \'etale
+态射，右侧方块是笛卡尔方块，并且存在一个点 $u \in U$ 映到
+$x$（在 $X$ 中）。
+\end{lemma}
+
+\begin{proof}[第一种证明：使用 Artin 逼近]
+首先使用绝对 Noether 逼近，把情形归约到有限型
+$\mathbf{Z}$-概形。问题在 $X$ 与 $S$ 上是局部的，因此可假设
+$X$ 与 $S$ 都是仿射的。于是可写 $S = \Spec(R)$，并把
+$R$ 写成滤过余极限 $R = \colim R_i$，其中
+$\mathbf{Z}$-代数均为有限型。由《极限》，引理
+\ref{limits-lemma-descend-finite-presentation}，可找到 $i$ 以及
+$f_i : X_i \to \Spec(R_i)$，其到 $S$ 的基变换为 $f$。
+增大 $i$ 后可假设 $f_i$ 相对维数为 $1$ 且至多为结点，见引理
+\ref{curves-lemma-descend-nodal-family}。$x_i \in X_i$ 是 $x$ 的像，
+并且是其纤维的奇点，例如这是因为
+$\text{Sing}(f)$ 的形成与基变换交换（《除子》，引理
+\ref{divisors-lemma-base-change-and-fitting-ideal-omega}）。
+若能对 $f_i : X_i \to S_i$ 与 $x_i$ 证明本引理，则通过基变换
+即可得到 $f : X \to S$ 的结论。因此归约到下一段研究的情形。
+
+\medskip\noindent
+假设 $S$ 在 $\mathbf{Z}$ 上有限型。设 $s \in S$ 为 $x$ 的像。
+回忆 $\kappa(x)$ 是 $\kappa(s)$ 的有限可分扩张，例如因为
+$\text{Sing}(f) \to S$ 非分歧，或者因为 $x$ 是纤维 $X_s$
+的结点，从而可应用引理 \ref{curves-lemma-nodal}。此外，设
+$\kappa'/\kappa(x)$ 为次数为 $2$ 的、评注
+\ref{curves-remark-quadratic-extension} 中与 $\mathcal{O}_{X_s, x}$
+相伴的二次可分代数。由《态射进阶》，引理
+\ref{more-morphisms-lemma-realize-prescribed-residue-field-extension-etale}，
+可以选取一个 \'etale 邻域 $(V, v) \to (S, s)$，使扩张
+$\kappa(v)/\kappa(s)$ 在 $\kappa(x)/\kappa(s)$ 的情形（即
+$\kappa' \cong \kappa(x) \times \kappa(x)$）中实现前一扩张，
+而在扩张 $\kappa'/\kappa(s)$ 中，若 $\kappa'$ 为域则实现之。
+把 $X$ 替换为 $X \times_S V$，把 $S$
+替换为 $V$，就归约到下一段的情形。
+
+\medskip\noindent
+假设 $S$ 在 $\mathbf{Z}$ 上有限型，且 $x \in X_s$ 是分裂结点，
+见定义 \ref{curves-definition-split-node}。由引理
+\ref{curves-lemma-formal-local-structure-nodal-family}，存在
+$\mathcal{O}_{S, s}$-代数同构
+$$
+\mathcal{O}_{X, x}^\wedge \cong
+\mathcal{O}_{S, s}^\wedge[[s, t]]/(st - h)
+$$
+，其中 $h \in \mathfrak m_s^\wedge \subset \mathcal{O}_{S, s}^\wedge$。
+换言之，考虑同态
+$$
+\sigma : \mathbf{Z}[a] \longrightarrow \mathcal{O}_{S, s}^\wedge
+$$
+将 $a$ 映到 $h$，则存在 $\mathcal{O}_{S, s}$-代数同构
+$$
+\mathcal{O}_{X, x}^\wedge
+\longrightarrow
+\mathcal{O}_{Y_\sigma, y_\sigma}^\wedge
+$$
+其中
+$$
+Y_\sigma = \Spec(\mathbf{Z}[u, v, t]/(uv - a))
+\times_{\Spec(\mathbf{Z}[a]), \sigma} \Spec(\mathcal{O}_{S, s}^\wedge)
+$$
+且 $y_\sigma$ 是 $Y_\sigma$ 中位于
+$\Spec(\mathcal{O}_{S, s}^\wedge)$ 闭点之上的点，其坐标
+$u, v$ 均为零。由于 $\mathcal{O}_{S, s}$ 是 G-环（《代数进阶》，
+命题 \ref{more-algebra-proposition-ubiquity-G-ring}），可应用
+《态射进阶》，引理
+\ref{more-morphisms-lemma-relative-map-approximation-pre}，结论得证。
+\end{proof}
+
+\begin{proof}[不使用 Artin 逼近的证明]
+我们只略述此证明；它由 Mohan Swaminathan 提供，并仿照
+\cite[Proposition X.2.1]{ACG} 中的论证。与前一个证明不同，
+本证明使用实际方程。
+
+\medskip\noindent
+以与第一个证明完全相同的方式，我们归约到 $S$ 在
+$\mathbf{Z}$ 上有限型且 $x \in X_s$ 为分裂结点的情形；
+见定义 \ref{curves-definition-split-node}。由引理
+\ref{curves-lemma-split-node}，存在 $\kappa(s)$-代数同构
+$$
+\mathcal{O}_{X_s, x}^\wedge \cong \kappa(s)[[u, v]]/(uv)
+$$
+注意 $X_s$ 在 $x$ 处的切空间维数为 $2$。因此由《簇》，引理
+\ref{varieties-lemma-immersion-into-affine}，经 Zariski 缩小后可假设
+存在闭浸入 $X \to Y$，该浸入在 $S$ 上，且 $Y \to S$ 光滑、相对维数
+为 $2$。由于 $X$ 按定义是相对维数为 $1$ 的 syntomic
+概形，可知 $X$ 是 $Y$ 中的有效 Cartier 除子（见《除子》，引理
+\ref{divisors-lemma-immersion-lci-into-smooth-regular-immersion}）。
+于是缩小 $Y$ 与 $X$ 后，可假设 $Y = \Spec(B)$ 为仿射的，
+并存在非零因子 $g \in B$，使得 $X = \Spec(B/gB)$。
+
+\medskip\noindent
+写 $S = \Spec(R)$，记 $\mathfrak p \subset R$ 为对应于 $s$ 的素理想。
+令 $\mathfrak q \subset B$ 为对应于 $x$ 的素理想（视为 $Y$
+中的点）。有映射
+$$
+B_\mathfrak q / \mathfrak p B_\mathfrak q
+\longrightarrow
+B_\mathfrak q / g B_\mathfrak q + \mathfrak p B_\mathfrak q
+\longrightarrow
+\kappa(s)[[u, v]]/(uv)
+$$
+其中第二个箭头在完备化后成为同构。把 $B$ 替换为适当的主元局部化后，
+可假设存在 $U, V \in B$，它们分别映到 $u$ 与 $v$，模去
+$(u, v)^2$ 意义下相等。于是
+$B_\mathfrak q/\mathfrak p B_\mathfrak q$ 的完备化是
+$\kappa(s)[[U, V]]$。此外，缩小 $Y$ 并以单位乘 $g$ 后，可假设
+$g$ 映到 $UV$ 加上 $\kappa(s)[[U, V]]$ 中的高阶项。再缩小 $Y$，
+还可假设
+\begin{enumerate}
+\item $\mathfrak q = \mathfrak pB + (U, V)$
+\item $\Omega_{B/R}$ 在 $\text{d}U$ 与 $\text{d}V$ 上自由
+\end{enumerate}
+写 $\text{d}(g) = g_2 \text{d}U + g_1 \text{d}V$，其中 $g_1, g_2 \in B$。
+注意，理想 $J = (g_1, g_2) \subset B$ 与坐标 $U$、$V$ 的选择无关
+（$g$ 固定）。模去 $\mathfrak p B_\mathfrak q + (U, V)^3B_\mathfrak q$
+考察，可知 $g_1$ 与 $g_2$ 分别与 $U$、$V$ 同余，模去
+$\mathfrak p B_\mathfrak q + (U, V)^2B_\mathfrak q$。
+因此可把上面的论证以 $U$ 替换为 $g_1$、以 $V$ 替换为 $g_2$
+重新进行。于是得到 $J = (U, V)$，从而
+$g_1, g_2 \in (U, V) = J$（当然，这里的 $g_1$ 与 $g_2$ 与先前
+坐标选择所得的同名元素不同）。
+
+\medskip\noindent
+注意 $\Spec(B/J) \to S = \Spec(R)$ 在 $x$ 处 \'etale。
+因此把 $S$ 替换为一个 \'etale 邻域并再次缩小 $Y$ 后，可假设
+$R \to B \to B/J$ 是同构。记 $r \in R$ 为其在 $B/J$ 中的像
+等于 $-g$ 的像的元素。于是可写
+$$
+g + r \equiv a U + b V \bmod (U, V)^2
+$$
+其中 $a, b \in R$。利用 $\text{d}g \in J\Omega_{B/R}$ 求导，
+可得 $a = b = 0$。因此可写
+$$
+g + r = \alpha U^2 + \beta UV + \gamma V^2
+$$
+其中 $\alpha, \beta, \gamma \in B$。于是 $\beta$ 映到 $1$ 于
+$\kappa(x)$，而 $\alpha$ 与 $\gamma$ 映到 $0$ 于 $\kappa(x)$。
+所以可假设 $\beta$ 与 $\alpha + \beta + \gamma$ 在 $B$ 中可逆。
+考虑由下式给出的覆盖 $Y'$，它覆盖 $Y$：
+$$
+Y' = \Spec(B[t]/(t(1 - t) - \alpha \gamma / \beta^2))
+$$
+其中 $x'$ 是 $x$ 上满足 $t = 1$ 的唯一点。注意
+$Y' \to Y$ 在 $x'$ 处 \'etale。考虑
+$$
+T_1 = (\alpha + t \beta)U + ((1 - t)\beta + \gamma)V
+\quad\text{且}\quad
+T_2 =
+\frac{(\alpha + (1 - t) \beta)U + (t\beta + \gamma)V}{\alpha + \beta + \gamma}
+$$
+它们属于 $\Gamma(Y', \mathcal{O}_{Y'})$。于是
+$$
+g = T_1 T_2 - r
+$$
+由于 $T_1$ 与 $T_2$ 在上述意义下也是坐标，可知态射
+$Y' \to \mathbf{A}^2_S$（由 $T_1$ 与 $T_2$ 给出）在 $x'$ 的某个邻域内
+\'etale，且 $X' \subset Y'$ 是 $X$ 的拉回，
+是 $\mathbf{A}^2_S = \Spec(R[x_1, x_2])$ 中由方程
+$x_1x_2 - r = 0$ 给出的闭子概形的逆像（必要时再次缩小 $Y'$）。
+我们把这些数据拼合成所需的交换图，细节留给读者。
+\end{proof}
+
+
+
+
+\section{更多消没结果}
+\label{curves-section-more-vanishing}
+
+\noindent
+这是第 \ref{curves-section-vanishing} 节的继续。
+
+\begin{lemma}
+\label{curves-lemma-h1-nonzero-degree-leq-2g-2}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，假设 $X$ 不可约且
+亏格为 $g$。令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+令 $Z \subset X$ 为一个 $0$ 维闭子概形，其理想
+层为 $\mathcal{I} \subset \mathcal{O}_X$。若 $H^1(X, \mathcal{I}\mathcal{L})$
+非零，则
+$$
+\deg(\mathcal{L}) \leq 2g - 2 + \deg(Z)
+$$
+除非 $\mathcal{I}\mathcal{L} \cong \omega_X$，否则不等号严格成立。
+\end{lemma}
+
+\begin{proof}
+任意曲线（例如 $X$）都是 Cohen--Macaulay 的。
+若 $H^1(X, \mathcal{I}\mathcal{L})$ 非零，则存在非零态射
+$\mathcal{I}\mathcal{L} \to \omega_X$，见引理
+\ref{curves-lemma-duality-dim-1-CM}。
+由于 $\mathcal{I}\mathcal{L}$ 无挠，该态射是单射。
+由于域是 Gorenstein 且 $X$ 约化，我们得到 Gorenstein
+轨迹 $U \subset X$ 在 $X$ 中非空，见《概形的对偶性》引理
+\ref{duality-lemma-gorenstein}。
+该引理还说明 $\omega_X|_U$ 可逆。
+因此我们有短正合序列
+$$
+0 \to \mathcal{I}\mathcal{L} \to \omega_X \to \mathcal{Q} \to 0
+$$
+其中 $\mathcal{Q}$ 的支集是零维的。因此
+\begin{align*}
+0 & \leq \dim \Gamma(X, \mathcal{Q})\\
+& =
+\chi(\mathcal{Q}) \\
+& =
+\chi(\omega_X) - \chi(\mathcal{I}\mathcal{L}) \\
+& =
+\chi(\omega_X) - \deg(\mathcal{L}) - \chi(\mathcal{I}) \\
+& =
+2g - 2 - \deg(\mathcal{L}) + \deg(Z)
+\end{align*}
+由引理 \ref{curves-lemma-euler}、\ref{curves-lemma-rr}，公式 (\ref{curves-equation-genus})，
+以及《簇论》引理 \ref{varieties-lemma-chi-tensor-finite}
+和 \ref{varieties-lemma-degree-on-proper-curve} 得到。这里还用了
+$\deg(Z) = \dim_k \Gamma(Z, \mathcal{O}_Z) = \chi(\mathcal{O}_Z)$
+以及短正合序列
+$0 \to \mathcal{I} \to \mathcal{O}_X \to \mathcal{O}_Z \to 0$.
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-degree-more-than-2g-2}
+\begin{reference}
+\cite[Lemma 2]{Jongmin}
+\end{reference}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，
+假设 $X$ 不可约且亏格为 $g$。
+令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+令 $Z \subset X$ 为一个 $0$ 维闭子概形，其理想
+层为 $\mathcal{I} \subset \mathcal{O}_X$。
+若 $\deg(\mathcal{L}) > 2g - 2 + \deg(Z)$，则
+$H^1(X, \mathcal{I}\mathcal{L}) = 0$，且下列可能性之一
+成立：
+\begin{enumerate}
+\item $H^0(X, \mathcal{I}\mathcal{L}) \not = 0$，或
+\item $g = 0$ 且 $\deg(\mathcal{L}) = \deg(Z) - 1$。
+\end{enumerate}
+在情形 (2) 中，若 $Z = \emptyset$，则 $X \cong \mathbf{P}^1_k$，且 $\mathcal{L}$
+对应于 $\mathcal{O}_{\mathbf{P}^1}(-1)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-h1-nonzero-degree-leq-2g-2}，得
+$H^1(X, \mathcal{I}\mathcal{L})$ 消没。
+若 $H^0(X, \mathcal{I}\mathcal{L}) = 0$，则
+$\chi(\mathcal{I}\mathcal{L}) = 0$。由短正合
+序列 $0 \to \mathcal{I}\mathcal{L} \to \mathcal{L} \to \mathcal{O}_Z \to 0$
+可得 $\deg(\mathcal{L}) = g - 1 + \deg(Z)$。
+于是 $g - 1 + \deg(Z) > 2g - 2 + \deg(Z)$，从而 $g = 0$，
+故 (2) 成立。在情形 (2) 且 $Z = \emptyset$ 时，
+$\mathcal{L}^{-1}$ 是次数为 $1$ 的可逆层。
+这意味着存在同构 $X \to \mathbf{P}^1_k$，且由引理
+\ref{curves-lemma-genus-zero-positive-degree}，$\mathcal{L}^{-1}$ 是
+$\mathcal{O}_{\mathbf{P}^1}(1)$ 的拉回。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-degree-more-than-2g}
+\begin{reference}
+\cite[Lemma 3]{Jongmin}
+\end{reference}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，
+假设 $X$ 不可约且亏格为 $g$。
+令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+若 $\deg(\mathcal{L}) \geq 2g$，则 $\mathcal{L}$
+由整体截面生成。
+\end{lemma}
+
+\begin{proof}
+令 $Z \subset X$ 为由 $\mathcal{L}$ 的整体截面
+切出的闭子概形。由引理 \ref{curves-lemma-degree-more-than-2g-2}
+可知 $Z \not = X$。令 $\mathcal{I} \subset \mathcal{O}_X$
+为切出 $Z$ 的理想层。考虑短正合序列
+$$
+0 \to \mathcal{I}\mathcal{L}
+\to \mathcal{L} \to \mathcal{O}_Z \to 0
+$$
+若 $Z \not = \emptyset$，则由上同调的长正合序列可知
+$H^1(X, \mathcal{I}\mathcal{L})$ 非零。
+由引理 \ref{curves-lemma-duality-dim-1-CM} 得到一个
+非零因而为单射的态射
+$$
+\mathcal{I}\mathcal{L}
+\longrightarrow
+\omega_X
+$$
+特别地，我们得到单射
+$H^0(X, \mathcal{L}) = H^0(X, \mathcal{I}\mathcal{L})
+\to H^0(X, \omega_X)$。这不可能，因为
+$$
+\dim_k H^0(X, \mathcal{L}) = \dim_k H^1(X, \mathcal{L}) +
+\deg(\mathcal{L}) + 1 - g \geq g + 1
+$$
+而由 (\ref{curves-equation-genus}) 有 $\dim H^0(X, \omega_X) = g$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-degree-more-than-2g-1-and-Z}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，
+假设 $X$ 不可约且亏格为 $g$。
+令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+令 $Z \subset X$ 为非空的 $0$ 维闭子概形。
+若 $\deg(\mathcal{L}) \geq 2g - 1 + \deg(Z)$，则 $\mathcal{L}$
+由整体截面生成，且 $H^0(X, \mathcal{L}) \to H^0(X, \mathcal{L}|_Z)$
+是满射。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-degree-more-than-2g}，可知它由整体截面生成。
+若 $\mathcal{I} \subset \mathcal{O}_X$ 是 $Z$ 的理想层，则由
+引理 \ref{curves-lemma-h1-nonzero-degree-leq-2g-2} 有
+$H^1(X, \mathcal{I}\mathcal{L}) = 0$。故限制态射满射。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-degree-at-least-2g+1}
+在情形 \ref{curves-situation-Cohen-Macaulay-curve} 中，
+假设 $X$ 在 $k$ 上几何不可约且亏格为 $g$。
+令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+若 $\deg(\mathcal{L}) \geq 2g + 1$，则 $\mathcal{L}$
+非常丰沛。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-degree-more-than-2g}，$\mathcal{L}$
+由整体截面生成，因而确定一个态射
+$f : X \to \mathbf{P}^n_k$，其中 $n = h^0(X,\mathcal{L}) - 1$。要证明
+$\mathcal{L}$ 非常丰沛，就是要证明
+$f$ 是闭浸入。只需检查 $f$ 到代数闭包 $\overline{k}$（$k$ 的）
+的基变换是闭浸入（《下降》引理
+\ref{descent-lemma-descending-property-closed-immersion}）。
+因此可假设 $k$ 代数闭；由假设 $X$ 仍不可约。
+引理 \ref{curves-lemma-degree-more-than-2g-1-and-Z}
+说明对每个 $0$ 维闭子概形
+$Z\subset X$，
+限制态射 $H^0(X, \mathcal{L}) \to H^0(X, \mathcal{L}|_Z)$
+都是满射。由《簇论》引理
+\ref{varieties-lemma-variant-separate-points-tangent-vectors}，
+$\mathcal{L}$ 非常丰沛。
+\end{proof}
+
+
+\begin{lemma}
+\label{curves-lemma-vanishing-on-gorenstein}
+\begin{reference}
+\cite[Lemma 4]{Jongmin} 的弱形式
+\end{reference}
+令 $k$ 为一个域。令 $X$ 为 $k$ 上的 proper 概形，
+它是约化、连通且维数为 $1$。
+令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+令 $Z \subset X$ 为一个 $0$ 维闭子概形，其理想
+层为 $\mathcal{I} \subset \mathcal{O}_X$。
+若 $H^1(X, \mathcal{I}\mathcal{L}) \not = 0$，则存在
+一个约化的连通闭子概形 $Y \subset X$，
+维数为 $1$，满足
+$$
+\deg(\mathcal{L}|_Y) \leq -2\chi(Y, \mathcal{O}_Y) + \deg(Z \cap Y)
+$$
+其中 $Z \cap Y$ 是概形论交。
+\end{lemma}
+
+\begin{proof}
+若 $H^1(X, \mathcal{I}\mathcal{L})$ 非零，则存在非零态射
+$\varphi : \mathcal{I}\mathcal{L} \to \omega_X$，见引理
+\ref{curves-lemma-duality-dim-1-CM}。令 $Y \subset X$
+为不可约分支 $C$（属于 $X$）的并，其中
+$\varphi$ 在 $C$ 的一般点非零。则 $Y$ 是约化闭子概形。
+令 $\mathcal{J} \subset \mathcal{O}_X$ 为 $Y$ 的理想层。
+由于 $\mathcal{J}\mathcal{I}\mathcal{L}$
+（作为 $\mathcal{L}$ 的子模）没有嵌入关联点，且 $\varphi$ 在
+$\mathcal{J}$ 的支集的一般点处为零
+（由 $Y$ 的选择及 $X$ 约化所致），可知 $\varphi$ 分解为
+$$
+\mathcal{I}\mathcal{L} \to
+\mathcal{I}\mathcal{L}/\mathcal{J}\mathcal{I}\mathcal{L} \to \omega_X
+$$
+我们可以把 $\mathcal{I}\mathcal{L}/\mathcal{J}\mathcal{I}\mathcal{L}$
+视为 $Y$ 上某个凝聚层的推前，并滥用记号仍用同一符号表示。
+由于 $\omega_Y = \SheafHom(\mathcal{O}_Y, \omega_X)$，
+由引理 \ref{curves-lemma-closed-immersion-dim-1-CM}
+可得到态射
+$$
+\mathcal{I}\mathcal{L}/
+\mathcal{J}\mathcal{I}\mathcal{L} 
+\to \omega_Y
+$$
+它是 $\mathcal{O}_Y$-模的态射，并在 $Y$ 的一般点处为单射。
+令 $\mathcal{I}' \subset \mathcal{O}_Y$ 为 $Z \cap Y$ 的理想
+层。存在态射
+$\mathcal{I}\mathcal{L}/\mathcal{J}\mathcal{I}\mathcal{L} \to
+\mathcal{I}'\mathcal{L}|_Y$，其核支集在闭点上。
+由于 $\omega_Y$ 是 Cohen--Macaulay 模，以上态射
+经由单射 $\mathcal{I}'\mathcal{L}|_Y \to
+\omega_Y$ 分解。于是得到短正合序列
+$$
+0 \to \mathcal{I}'\mathcal{L}|_Y \to \omega_Y \to \mathcal{Q} \to 0
+$$
+这是 $Y$ 上凝聚层的正合序列，其中 $\mathcal{Q}$ 的支集维数为 $0$
+（这里用了 $\omega_Y$ 在 $Y$ 的一般点处是可逆模这一事实）。因此
+$$
+0 \leq \dim \Gamma(Y, \mathcal{Q}) =
+\chi(\mathcal{Q}) = \chi(\omega_Y) - \chi(\mathcal{I}'\mathcal{L}) =
+-2\chi(\mathcal{O}_Y) - \deg(\mathcal{L}|_Y) + \deg(Z \cap Y)
+$$
+由引理 \ref{curves-lemma-euler} 及《簇论》引理
+\ref{varieties-lemma-chi-tensor-finite} 得到。
+若 $Y$ 连通，则引理得证。
+否则，对 $Y$ 的某个连通分支重复论证的最后部分。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-global-generation}
+令 $k$ 为一个域。令 $X$ 为 $k$ 上的 proper 概形，
+它是约化、连通且维数为 $1$。
+令 $\mathcal{L}$ 为可逆的 $\mathcal{O}_X$-模。
+假设对每个约化连通闭子概形 $Y \subset X$（维数为 $1$），都有
+$$
+\deg(\mathcal{L}|_Y) \geq 2\dim_k H^1(Y, \mathcal{O}_Y)
+$$
+则 $\mathcal{L}$ 由整体截面生成。
+\end{lemma}
+
+\begin{proof}
+对 $X$ 的不可约分支数作归纳。
+若 $X$ 不可约，则把 $X$ 视为域
+$k' = H^0(X, \mathcal{O}_X)$ 上的概形，应用引理
+\ref{curves-lemma-degree-more-than-2g} 即得本引理。假设 $X$ 不可约。
+在继续之前，若 $k$ 有限，则把 $k$ 替换为纯超越扩张 $K$。
+这由《簇论》的下列引理所允许：
+\ref{varieties-lemma-globally-generated-base-change},
+\ref{varieties-lemma-degree-base-change},
+\ref{varieties-lemma-geometrically-reduced-any-base-change}，以及
+\ref{varieties-lemma-bijection-irreducible-components},
+《概形的上同调》引理 \ref{coherent-lemma-flat-base-change-cohomology}、
+引理 \ref{curves-lemma-sanity-check-duality}，以及 $K$ 在 $k$ 上几何不可约这一
+初等事实。
+
+\medskip\noindent
+为导出矛盾，假设 $\mathcal{L}$ 不由整体截面生成。
+于是可取凝聚理想层
+$\mathcal{I} \subset \mathcal{O}_X$，使得
+$H^0(X, \mathcal{I}\mathcal{L}) = H^0(X, \mathcal{L})$，
+并且 $\mathcal{O}_X/\mathcal{I}$ 非零且
+支集维数为 $0$。例如，可取 $\mathcal{I}$ 为 $\mathcal{L}$ 的整体截面
+公共消没轨迹中任意闭点的理想层。
+考虑短正合序列
+$$
+0 \to \mathcal{I}\mathcal{L} \to \mathcal{L} \to 
+\mathcal{L}/\mathcal{I}\mathcal{L} \to 0
+$$
+由于 $\mathcal{L}/\mathcal{I}\mathcal{L}$ 的支集
+维数为 $0$，可知 $\mathcal{L}/\mathcal{I}\mathcal{L}$
+由整体截面生成（《簇论》引理
+\ref{varieties-lemma-chi-tensor-finite}）。
+由短正合序列以及
+$H^0(X, \mathcal{I}\mathcal{L}) = H^0(X, \mathcal{L})$ 这一事实，得到单射
+$H^0(X, \mathcal{L}/\mathcal{I}\mathcal{L}) \to H^1(X, \mathcal{I}\mathcal{L})$.
+
+\medskip\noindent
+回忆 $k$-向量空间 $H^1(X, \mathcal{I}\mathcal{L})$
+是 $\Hom(\mathcal{I}\mathcal{L}, \omega_X)$ 的对偶。
+取 $\varphi : \mathcal{I}\mathcal{L} \to \omega_X$。
+由引理 \ref{curves-lemma-vanishing-on-gorenstein} 有
+$H^1(X, \mathcal{L}) = 0$。因此
+$$
+\dim_k H^0(X, \mathcal{I}\mathcal{L}) = \dim_k H^0(X, \mathcal{L}) =
+\deg(\mathcal{L}) + \chi(\mathcal{O}_X) > \dim_k H^1(X, \mathcal{O}_X) =
+\dim_k H^0(X, \omega_X)
+$$
+我们得到 $\varphi$ 在整体截面上不是单射，特别地
+$\varphi$ 不是单射。对每个不可约分支的一般点 $\eta \in X$
+（它属于 $X$ 的不可约分支），记
+$V_\eta \subset \Hom(\mathcal{I}\mathcal{L}, \omega_X)$ 为由 $k$-子向量
+空间中的那些 $\varphi$ 构成的空间，它们在 $\eta$ 处为零。
+由于 $\mathcal{I}\mathcal{L}$ 的每个关联点
+都是 $X$ 的一般点，上述说明
+$\Hom(\mathcal{I}\mathcal{L}, \omega_X) = \bigcup V_\eta$。
+因为 $X$ 只有有限个一般点且 $k$ 是无限域，故有
+$\Hom(\mathcal{I}\mathcal{L}, \omega_X) = V_\eta$ 对某个 $\eta$ 成立。
+令 $\eta \in C \subset X$ 为相应的不可约分支。
+令 $Y \subset X$ 为 $X$ 的其他不可约分支之并。
+则 $Y$ 是非空的约化闭子概形且不等于 $X$。
+令 $\mathcal{J} \subset \mathcal{O}_X$ 为 $Y$ 的理想层。
+请注意，$\mathcal{J}$ 的支集是 $C$。
+
+\medskip\noindent
+令 $\varphi : \mathcal{I}\mathcal{L} \to \omega_X$ 为任意态射。
+由于 $\mathcal{J}\mathcal{I}\mathcal{L}$
+没有嵌入关联点（作为 $\mathcal{L}$ 的子模），且 $\varphi$ 在
+支集的一般点 $\eta$（属于 $\mathcal{J}$）处为零，可知
+$\varphi$ 分解为
+$$
+\mathcal{I}\mathcal{L} \to
+\mathcal{I}\mathcal{L}/\mathcal{J}\mathcal{I}\mathcal{L} \to \omega_X
+$$
+我们可以把 $\mathcal{I}\mathcal{L}/\mathcal{J}\mathcal{I}\mathcal{L}$
+视为 $Y$ 上某个凝聚层的推前，并滥用记号仍用同一符号表示。
+由于 $\omega_Y = \SheafHom(\mathcal{O}_Y, \omega_X)$，
+由引理 \ref{curves-lemma-closed-immersion-dim-1-CM}
+得到分解
+$$
+\mathcal{I}\mathcal{L} \to
+\mathcal{I}\mathcal{L}/
+\mathcal{J}\mathcal{I}\mathcal{L} 
+\xrightarrow{\varphi'} \omega_Y \to \omega_X
+$$
+这是 $\varphi$ 的分解。令 $\mathcal{I}' \subset \mathcal{O}_Y$ 为
+$\mathcal{I} \subset \mathcal{O}_X$ 的像。存在满射
+$\mathcal{I}\mathcal{L}/\mathcal{J}\mathcal{I}\mathcal{L} \to
+\mathcal{I}'\mathcal{L}|_Y$，其核支集在闭点上。
+由于 $\omega_Y$ 是 $Y$ 上的 Cohen--Macaulay 模，态射 $\varphi'$
+经由态射
+$\varphi'' : \mathcal{I}'\mathcal{L}|_Y \to \omega_Y$.
+于是有交换图
+$$
+\vcenter{
+\xymatrix{
+0 \ar[r] &
+\mathcal{I}\mathcal{L} \ar[r] \ar[d] &
+\mathcal{L} \ar[r] \ar[d] &
+\mathcal{L}/\mathcal{I}\mathcal{L} \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+\mathcal{I}'\mathcal{L}|_Y \ar[r] &
+\mathcal{L}|_Y \ar[r] &
+\mathcal{L}|_Y/\mathcal{I}'\mathcal{L}|_Y \ar[r] &
+0
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+\mathcal{I}\mathcal{L} \ar[r]_\varphi \ar[d] & \omega_X \\
+\mathcal{I}'\mathcal{L}|_Y \ar[r]^{\varphi''} & \omega_Y \ar[u]
+}
+}
+$$
+现在可以如下完成证明：
+由于对每个 $\varphi$ 都有一个 $\varphi''$，且
+$\omega_X \in \textit{Coh}(\mathcal{O}_X)$
+表示函子 $\mathcal{F} \mapsto \Hom_k(H^1(X, \mathcal{F}), k)$，
+可知
+$H^1(X, \mathcal{I}\mathcal{L}) \to H^1(Y, \mathcal{I}'\mathcal{L}|_Y)$
+是单射。由于边界态射
+$H^0(X, \mathcal{L}/\mathcal{I}\mathcal{L}) \to H^1(X, \mathcal{I}\mathcal{L})$
+是单射，故复合态射
+$$
+H^0(X, \mathcal{L}/\mathcal{I}\mathcal{L}) \to
+H^0(X, \mathcal{L}|_Y/\mathcal{I}'\mathcal{L}|_Y) \to
+H^1(X, \mathcal{I}'\mathcal{L}|_Y)
+$$
+是单射。由于
+$\mathcal{L}/\mathcal{I}\mathcal{L} \to
+\mathcal{L}|_Y/\mathcal{I}'\mathcal{L}|_Y$
+是凝聚模之间的满射，且其支集维数为 $0$，可知第一个态射
+$H^0(X, \mathcal{L}/\mathcal{I}\mathcal{L}) \to
+H^0(X, \mathcal{L}|_Y/\mathcal{I}'\mathcal{L}|_Y)$
+是满射（因而是双射）。但由归纳假设，$\mathcal{L}|_Y$ 由整体
+截面生成（当然，即使 $Y$ 不连通这仍然成立），故边界态射
+$$
+H^0(X, \mathcal{L}|_Y/\mathcal{I}'\mathcal{L}|_Y) \to
+H^1(X, \mathcal{I}'\mathcal{L}|_Y)
+$$
+不可能是单射。
+矛盾证明了结论。
+\end{proof}
+
+
+
+
+
+\section{压缩有理尾}
+\label{curves-section-contracting-rational-tails}
+
+\noindent
+本节讨论压缩概形以改善其典范层正性性质的最简单情形。
+
+\begin{example}[压缩有理尾]
+\label{curves-example-rational-tail}
+令 $k$ 为一个域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+称一个{\it 有理尾}为不可约分支 $C \subset X$
+（视为整闭子概形），满足以下性质：
+\begin{enumerate}
+\item $X' \not = \emptyset$，其中 $X' \subset X$ 是 $X \setminus C$ 的
+概形论闭包；
+\item 概形论交 $C \cap X'$ 是单个
+约化点 $x$；
+\item $H^0(C, \mathcal{O}_C)$ 同构地映到
+$x$ 的剩余域；
+\item $C$ 的亏格为零。
+\end{enumerate}
+由于至少有两个 $X$ 的不可约分支经过
+$x$，故 $x$ 是结点。
+置 $k' = H^0(C, \mathcal{O}_C) = \kappa(x)$。
+则 $k'/k$ 是有限可分域扩张
+（引理 \ref{curves-lemma-nodal}）。存在典范态射
+$$
+c : X \longrightarrow X'
+$$
+它在 $X'$ 上诱导恒等态射，并将 $C$ 映到 $x \in X'$；该映射通过
+典范态射 $C \to \Spec(k') = x$ 给出。这由
+《态射》引理 \ref{morphisms-lemma-scheme-theoretic-union} 得到，
+因为 $X$ 是 $C$ 与 $X'$ 的概形论并（$X$ 约化）。
+此外，我们断言
+$$
+c_*\mathcal{O}_X = \mathcal{O}_{X'}
+\quad\text{且}\quad
+R^1c_*\mathcal{O}_X = 0
+$$
+为此，记 $i_C : C \to X$、$i_{X'} : X' \to X$ 及 $i_x : x \to X$
+为这些嵌入，并使用正合序列
+$$
+0 \to \mathcal{O}_X \to
+i_{C, *}\mathcal{O}_C \oplus i_{X', *}\mathcal{O}_{X'} \to
+i_{x, *}\kappa(x) \to 0
+$$
+（《态射》引理 \ref{morphisms-lemma-scheme-theoretic-union}）。
+考察高阶直接像的长正合序列可知，只需证明
+$H^0(C, \mathcal{O}_C) = k'$ 且 $H^1(C, \mathcal{O}_C) = 0$，
+而这由假设得到。
+注意 $X'$ 也是 $k$ 上维数为 $1$ 的 proper 概形，
+其奇点至多为结点
+（引理 \ref{curves-lemma-closed-subscheme-nodal-curve}），
+满足 $H^0(X', \mathcal{O}_{X'}) = k$，且
+$X'$ 与 $X$ 有相同亏格。
+我们称 $c : X \to X'$ 为
+{\it 有理尾的压缩}。
+\end{example}
+
+\begin{lemma}
+\label{curves-lemma-rational-tail-negative}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+令 $C \subset X$ 为有理尾
+（例 \ref{curves-example-rational-tail}）。则 $\deg(\omega_X|_C) < 0$。
+\end{lemma}
+
+\begin{proof}
+令 $X' \subset X$ 如例中所述。则有短正合
+序列
+$$
+0 \to \omega_C \to \omega_X|_C \to \mathcal{O}_{C \cap X'} \to 0
+$$
+见引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein}、
+\ref{curves-lemma-facts-about-nodal-curves} 及
+\ref{curves-lemma-closed-subscheme-nodal-curve}。
+取例中的 $k'$，则 $\deg(\omega_C) = -2[k' : k]$，
+因为由命题 \ref{curves-proposition-projective-line} 有
+$C \cong \mathbf{P}^1_{k'}$，且 $\deg(C \cap X') = [k' : k]$。
+所以 $\deg(\omega_X|_C) = -[k' : k]$，为负数。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-rational-tail-field-extension}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+令 $C \subset X$ 为有理尾
+（例 \ref{curves-example-rational-tail}）。
+对任意域扩张 $K/k$，基变换 $C_K \subset X_K$
+是有限个互不相交有理尾的并。
+\end{lemma}
+
+\begin{proof}
+令 $x \in C$，并令 $k' = \kappa(x)$ 如例中所述。
+由命题 \ref{curves-proposition-projective-line}，有
+$C \cong \mathbf{P}^1_{k'}$。
+由于 $k'/k$ 是有限可分扩张，有
+$k' \otimes_k K = K'_1 \times \ldots \times K'_n$，
+它是有限个有限可分扩张 $K'_i/K$ 的乘积。
+置 $C_i = \mathbf{P}^1_{K'_i}$，并记 $x_i \in C_i$
+为 $x$ 的逆像。则 $C_K = \coprod C_i$ 且
+$X'_K \cap C_i = x_i$，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-no-rational-tail}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+若 $X$ 没有有理尾
+（例 \ref{curves-example-rational-tail}），
+则对每个约化连通闭子概形
+$Y \subset X$，若 $Y \not = X$ 且维数为 $1$，有
+$\deg(\omega_X|_Y) \geq \dim_k H^1(Y, \mathcal{O}_Y)$.
+\end{lemma}
+
+\begin{proof}
+令 $Y \subset X$ 如陈述所述。则 $k' = H^0(Y, \mathcal{O}_Y)$
+是域且是 $k$ 的有限扩张，并且 $[k' : k]$
+整除下面与 $Y$ 及 $Y$ 上凝聚层相关的所有数值不变量，见
+《簇论》引理 \ref{varieties-lemma-divisible}。
+令 $Z \subset X$ 如引理
+\ref{curves-lemma-closed-subscheme-reduced-gorenstein} 所述。
+以下不再特别指出地使用该引理以及引理
+\ref{curves-lemma-facts-about-nodal-curves} 和
+\ref{curves-lemma-closed-subscheme-nodal-curve} 的结果。
+于是得到短正合序列
+$$
+0 \to \omega_Y \to \omega_X|_Y \to \mathcal{O}_{Y \cap Z} \to 0
+$$
+见引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein}。
+从而
+$$
+\deg(\omega_X|_Y) = \deg(Y \cap Z) + \deg(\omega_Y) =
+\deg(Y \cap Z) - 2\chi(Y, \mathcal{O}_Y)
+$$
+因此，若引理不成立，则
+$$
+2[k' : k] > \deg(Y \cap Z) + \dim_k H^1(Y, \mathcal{O}_Y)
+$$
+由于 $Y \cap Z$ 非空，且由上述整除性可知，
+只有在 $Y \cap Z$ 是单个 $k'$-有理点，且该点位于 $Y$ 的光滑轨迹中，
+并且 $H^1(Y, \mathcal{O}_Y) = 0$ 时才可能发生这种情况。
+若 $Y$ 不可约，则这意味着 $Y$ 是有理尾。
+若 $Y$ 可约，则由于 $\deg(\omega_X|_Y) = -[k' : k]$，
+可知存在不可约分支 $C$，属于 $Y$，满足
+$\deg(\omega_X|_C) < 0$，见
+《簇论》引理 \ref{varieties-lemma-degree-in-terms-of-components}。
+将上述分析应用于 $C$，可知 $C$ 是有理尾。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-no-rational-tail-semiample-genus-geq-2}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+假设 $X$ 没有有理尾
+（例 \ref{curves-example-rational-tail}）。若
+\begin{enumerate}
+\item $X$ 的亏格为 $0$，则 $X$ 同构于不可约平面圆锥，且
+$\omega_X^{\otimes -1}$ 非常丰沛；
+\item $X$ 的亏格为 $1$，则 $\omega_X \cong \mathcal{O}_X$；
+\item $X$ 的亏格满足 $\geq 2$，则
+$\omega_X^{\otimes m}$ 对 $m \geq 2$ 由整体截面生成。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{curves-lemma-facts-about-nodal-curves}，$X$ 是
+Gorenstein 的，即 $\omega_X$ 是可逆的 $\mathcal{O}_X$-模。
+
+\medskip\noindent
+若 $X$ 的亏格为零，则 $\deg(\omega_X) < 0$；因此若
+$X$ 有多于一个不可约分支，就与引理
+\ref{curves-lemma-no-rational-tail} 矛盾。在不可约情形，
+由引理 \ref{curves-lemma-genus-zero} 可知 $X$ 同构于不可约平面圆锥，且
+$\omega_X^{\otimes -1}$ 非常丰沛。
+
+\medskip\noindent
+若 $X$ 的亏格为 $1$，则 $\omega_X$ 有整体截面，且
+$\deg(\omega_X|_C) = 0$ 对每个不可约分支成立。
+确切地说，由引理 \ref{curves-lemma-no-rational-tail}，有
+$\deg(\omega_X|_C) \geq 0$ 对所有不可约分支 $C$ 成立；由引理
+\ref{curves-lemma-genus-gorenstein}，这些数之和为
+$0$，于是可应用《簇论》引理
+\ref{varieties-lemma-degree-in-terms-of-components}。
+再由《簇论》引理
+\ref{varieties-lemma-no-sections-dual-nef}，有
+$\omega_X \cong \mathcal{O}_X$。
+
+\medskip\noindent
+假设亏格为 $g$ 的 $X$ 大于或等于 $2$。
+若 $X$ 不可约，则由引理
+\ref{curves-lemma-degree-more-than-2g} 即得结论。
+假设 $X$ 可约。
+由引理 \ref{curves-lemma-no-rational-tail}，引理
+\ref{curves-lemma-global-generation} 的不等式对陈述中的每个
+$Y \subset X$ 都成立，但 $Y = X$ 除外。分析引理
+\ref{curves-lemma-global-generation} 的证明可知（在可约情形）
+对 $Y = X$ 所用的唯一不等式是
+$$
+\deg(\omega_X^{\otimes m}) > -2 \chi(\mathcal{O}_X)
+\quad\text{且}\quad
+\deg(\omega_X^{\otimes m}) + \chi(\mathcal{O}_X) > \dim_k H^1(X, \mathcal{O}_X)
+$$
+由于在假设 $g \geq 2$ 且 $m \geq 2$ 下二者均成立，故得证。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-contracting-rational-tails}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+考虑序列
+$$
+X = X_0 \to X_1 \to \ldots \to X_n = X'
+$$
+它由有理尾的压缩（例 \ref{curves-example-rational-tail}）组成，
+直到不再有有理尾。则
+\begin{enumerate}
+\item 若 $X$ 的亏格为 $0$，则 $X'$ 是不可约平面圆锥；
+\item 若 $X$ 的亏格为 $1$，则 $\omega_{X'} \cong \mathcal{O}_X$；
+\item 若 $X$ 的亏格为 $> 1$，则
+$\omega_{X'}^{\otimes m}$ 对 $m \geq 2$ 由整体截面生成。
+\end{enumerate}
+若 $X$ 的亏格满足 $\geq 1$，则态射 $X \to X'$
+与选择无关，且该态射的形成与基域扩张相交换。
+\end{lemma}
+
+\begin{proof}
+我们不断压缩有理尾，直到不再有有理尾。
+由引理 \ref{curves-lemma-no-rational-tail-semiample-genus-geq-2}，
+可知 (1)、(2)、(3) 成立。
+
+\medskip\noindent
+唯一性。要证明 $f : X \to X'$ 与所作选择无关，
+只需证明：任意有理尾 $C \subset X$ 都被 $X \to X'$
+映到一点；细节略去。
+若不然，则存在截面
+$s \in \Gamma(X', \omega_{X'}^{\otimes 2})$，它在不可约分支
+$f(C)$ 的一般点处不为零。
+由于每个压缩 $X_i \to X_{i + 1}$
+都有截面 $X_{i + 1} \to X_i$，故存在截面
+$X' \to X$，它是 $f$ 的截面。于是有正合序列
+$$
+0 \to \omega_{X'} \to \omega_X \to \omega_X|_{X''} \to 0
+$$
+其中 $X'' \subset X$ 是被 $f$ 压缩的不可约分支之并。
+见引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein}。
+于是得到态射 $\omega_{X'}^{\otimes 2} \to \omega_X^{\otimes 2}$，
+取 $s$ 的像得到 $\omega_X^{\otimes 2}$ 的一个截面，
+它在 $C$ 的一般点处不为零。
+这与 $\omega_X$ 限制到有理尾上的次数为负相矛盾
+（引理 \ref{curves-lemma-rational-tail-negative}）。
+
+\medskip\noindent
+关于基域扩张的陈述由引理
+\ref{curves-lemma-rational-tail-field-extension} 得到。细节略去。
+\end{proof}
+
+
+
+
+
+\section{压缩有理桥}
+\label{curves-section-contracting-rational-bridges}
+
+\noindent
+本节讨论继第 \ref{curves-section-contracting-rational-tails} 节所述情形之后，
+压缩概形以改善其典范层正性性质的下一个最简单情形。
+
+\begin{example}[压缩有理桥]
+\label{curves-example-rational-bridge}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+称一个{\it 有理桥}为不可约分支 $C \subset X$
+（视为整闭子概形），满足以下性质：
+\begin{enumerate}
+\item $X' \not = \emptyset$，其中 $X' \subset X$ 是 $X \setminus C$ 的
+概形论闭包；
+\item 概形论交 $C \cap X'$ 的次数为 $2$（相对于
+$H^0(C, \mathcal{O}_C)$）；
+\item $C$ 的亏格为零。
+\end{enumerate}
+置 $k' = H^0(C, \mathcal{O}_C)$ 且
+$k'' = H^0(C \cap X', \mathcal{O}_{C \cap X'})$。
+则 $k'$ 是域（《簇论》引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}），
+且 $\dim_{k'}(k'') = 2$。由于 $X$ 的至少
+两个不可约分支经过 $C \cap X'$ 的每个点，故这些点是 $X$ 的结点，
+并且在 $C$ 与 $X'$ 上均为光滑点
+（引理 \ref{curves-lemma-closed-subscheme-nodal-curve}）。
+因此 $k'/k$ 是有限可分域扩张，
+且 $k''/k'$ 要么是次数为 $2$ 的可分域扩张，
+要么 $k'' = k' \times k'$（引理 \ref{curves-lemma-nodal}）。由
+第 \ref{curves-section-pushouts} 节，存在推出
+$$
+\xymatrix{
+C \cap X' \ar[r] \ar[d] &
+X' \ar[d]^a \\
+\Spec(k') \ar[r] &
+Y
+}
+$$
+它具有许多良好性质（以下使用时不再逐一说明）。令 $y \in Y$ 为
+$\Spec(k') \to Y$ 的像。则
+$$
+\mathcal{O}_{Y, y}^\wedge \cong k'[[s, t]]/(st)
+\quad\text{或}\quad
+\mathcal{O}_{Y, y}^\wedge \cong
+\{f \in k''[[s]] : f(0) \in k'\}
+$$
+取决于 $C \cap X'$ 有 $2$ 个还是 $1$ 个点。
+这由引理 \ref{curves-lemma-complete-local-ring-pushout} 以及事实
+$\mathcal{O}_{X', p} \cong \kappa(p)[[t]]$ 得到，其中
+$p \in C \cap X'$，而该事实见《代数补遗》引理
+\ref{more-algebra-lemma-power-series-over-residue-field}。
+因此 $y \in Y$ 是结点，见引理 \ref{curves-lemma-nodal} 与
+\ref{curves-lemma-2-branches-delta-1}，特别是引理
+\ref{curves-lemma-2-branches-delta-1} 中 (2) $\Rightarrow$ (1) 的证明里
+情形 II 的讨论。
+故 $Y$ 的奇点至多为结点。
+
+\medskip\noindent
+可将上面的交换图扩展为图
+$$
+\xymatrix{
+C \cap X' \ar[r] \ar[d] &
+X' \ar[d]^a \ar[r] & X \ar[ld]^c &
+C \ar[ld] \ar[l] \\
+\Spec(k') \ar[r] &
+Y &
+\Spec(k') \ar[l]
+}
+$$
+其中下方两条水平态射相同。确切地说，$X$ 是 $X'$ 与 $C$ 的
+概形论并（因此由《态射》引理
+\ref{morphisms-lemma-scheme-theoretic-union} 为推出），
+且态射 $C \to Y$ 与 $X' \to Y$ 在 $C \cap X'$ 上相同。
+最后，我们断言
+$$
+c_*\mathcal{O}_X = \mathcal{O}_Y
+\quad\text{且}\quad
+R^1c_*\mathcal{O}_X = 0
+$$
+为此使用正合序列
+$$
+0 \to \mathcal{O}_X \to
+\mathcal{O}_C \oplus \mathcal{O}_{X'} \to
+\mathcal{O}_{C \cap X'} \to 0
+$$
+（《态射》引理 \ref{morphisms-lemma-scheme-theoretic-union}）。
+高阶直接像的长正合序列为
+$$
+0 \to c_*\mathcal{O}_X \to c_*\mathcal{O}_C \oplus c_*\mathcal{O}_{X'} \to
+c_*\mathcal{O}_{C \cap X'} \to
+R^1c_*\mathcal{O}_X \to
+R^1c_*\mathcal{O}_C \oplus R^1c_*\mathcal{O}_{X'}
+$$
+由于 $c|_{X'} = a$ 是仿射态射，故
+$R^1c_*\mathcal{O}_{X'} = 0$.
+由于 $c|_C$ 分解为 $C \to \Spec(k') \to X$，且
+$C$ 亏格为零，故 $R^1c_*\mathcal{O}_C = 0$。
+由于 $\mathcal{O}_{X'} \to \mathcal{O}_{C \cap X'}$ 是
+满射，且 $c|_{X'}$ 是仿射态射，可知
+$c_*\mathcal{O}_{X'} \to c_*\mathcal{O}_{C \cap X'}$
+是满射。这证明了 $R^1c_*\mathcal{O}_X = 0$。
+最后有
+$\mathcal{O}_Y = c_*\mathcal{O}_X$，这是由正合序列以及
+《态射补遗》命题
+\ref{more-morphisms-proposition-pushout-along-closed-immersion-and-integral}
+中对推出的结构层的描述得到的。
+
+\medskip\noindent
+综上，$Y$ 也是 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(Y, \mathcal{O}_Y) = k$，其奇点至多为结点
+（引理 \ref{curves-lemma-closed-subscheme-nodal-curve}），
+并且 $Y$ 与 $X$ 有相同亏格。
+我们称 $c : X \to Y$ 为
+{\it 有理桥的压缩}。
+\end{example}
+
+\begin{lemma}
+\label{curves-lemma-rational-bridge-zero}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+令 $C \subset X$ 为有理桥
+（例 \ref{curves-example-rational-bridge}）。则 $\deg(\omega_X|_C) = 0$。
+\end{lemma}
+
+\begin{proof}
+令 $X' \subset X$ 如例中所述。则有短正合
+序列
+$$
+0 \to \omega_C \to \omega_X|_C \to \mathcal{O}_{C \cap X'} \to 0
+$$
+见引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein}、
+\ref{curves-lemma-facts-about-nodal-curves} 及
+\ref{curves-lemma-closed-subscheme-nodal-curve}。
+取例中的 $k''/k'/k$，有
+$\deg(\omega_C) = -2[k' : k]$，因为 $C$ 的亏格为 $0$
+（引理 \ref{curves-lemma-rr}），且
+$\deg(C \cap X') = [k'' : k] = 2[k' : k]$。
+因此 $\deg(\omega_X|_C) = 0$。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-rational-bridge-field-extension}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的 proper 概形，且
+$H^0(X, \mathcal{O}_X) = k$。假设 $X$ 的奇点至多为结点。
+令 $C \subset X$ 为有理桥
+（例 \ref{curves-example-rational-bridge}）。
+对任意域扩张 $K/k$，基变换 $C_K \subset X_K$
+是有限个互不相交有理桥的并。
+\end{lemma}
+
+\begin{proof}
+令 $k''/k'/k$ 如例中所述。
+由于 $k'/k$ 是有限可分扩张，有
+$k' \otimes_k K = K'_1 \times \ldots \times K'_n$，
+它是有限个有限可分扩张 $K'_i/K$ 的乘积。
+相应的乘积分解
+$k'' \otimes_k K = \prod K''_i$ 给出次数为 $2$ 的
+可分代数扩张 $K''_i/K'_i$。
+置 $C_i = C_{K'_i}$。则 $C_K = \coprod C_i$，
+因而每个 $C_i$ 的亏格为 $0$（视为 $K'_i$ 上的曲线），
+因为由平坦基变换有 $H^1(C_K, \mathcal{O}_{C_K}) = 0$。
+最后，$X'_K \cap C_i = \Spec(K''_i)$ 的次数为 $2$（相对于 $K'_i$），
+如所需。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-rational-bridge-canonical}
+令 $c : X \to Y$ 为有理桥的压缩
+（例 \ref{curves-example-rational-bridge}）。
+则 $c^*\omega_Y \cong \omega_X$。
+\end{lemma}
+
+\begin{proof}
+可以通过直接计算证明这一点，但我们更愿意使用如下特征：将
+$\omega_X$ 看作拟凝聚 $\mathcal{O}_X$-模，它表示函子
+$\textit{Coh}(\mathcal{O}_X) \to \textit{Sets}$,
+$\mathcal{F} \mapsto \Hom_k(H^1(X, \mathcal{F}), k) =
+H^1(X, \mathcal{F})^\vee$，见引理
+\ref{curves-lemma-duality-dim-1-CM}，或《概形的对偶性》引理
+\ref{duality-lemma-dualizing-module-proper-over-A}。
+
+\medskip\noindent
+严格地说，记 $\mathcal{C}_Y$ 为如下范畴：对象是可逆的
+$\mathcal{O}_Y$-模，态射是
+$\mathcal{O}_Y$-模同态。记 $\mathcal{C}_X$ 为如下范畴：对象是可逆的
+$\mathcal{O}_X$-模 $\mathcal{L}$，满足
+$\mathcal{L}|_C \cong \mathcal{O}_C$，态射是
+$\mathcal{O}_Y$-模同态。我们断言函子
+$$
+c^* : \mathcal{C}_Y \to \mathcal{C}_X
+$$
+是范畴等价。确切地说，由《态射的更多性质》引理
+\ref{more-morphisms-lemma-bijection-on-Pic}，它本质满射。再由投影公式
+（《上同调》引理 \ref{cohomology-lemma-projection-formula}）
+得到 $c_*c^*\mathcal{N} = \mathcal{N}$，因而 $c^*$
+是范畴等价，其拟逆为 $c_*$。
+
+\medskip\noindent
+我们断言 $\omega_X$ 是 $\mathcal{C}_X$ 的对象。事实上，有短正合列
+$$
+0 \to \omega_C \to \omega_X|_C \to \mathcal{O}_{C \cap X'} \to 0
+$$
+见引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein}。
+取次数可得 $\deg(\omega_X|_C) = 0$（略去一个小细节）。
+因此由引理 \ref{curves-lemma-genus-zero-pic}，$\omega_X|_C$ 是平凡的，
+从而 $\omega_X$ 是 $\mathcal{C}_X$ 的对象。
+
+\medskip\noindent
+由于 $R^1c_*\mathcal{O}_X = 0$，投影公式表明
+$R^1c_*c^*\mathcal{N} = 0$，其中
+$\mathcal{N} \in \Ob(\mathcal{C}_Y)$。
+因此，Leray 谱序列
+（《上同调》引理 \ref{cohomology-lemma-apply-Leray}）给出如下
+$$
+\xymatrix{
+\mathcal{C}_Y \ar[rr]_{c^*} \ar[dr]_{H^1(Y, -)^\vee} & &
+\mathcal{C}_X \ar[ld]^{H^1(X, -)^\vee} \\
+& \textit{Sets}
+}
+$$
+范畴与函子的图表是交换的。由于
+$\omega_Y \in \Ob(\mathcal{C}_Y)$ 表示东南方向的函子，且
+$\omega_X \in \Ob(\mathcal{C}_X)$ 表示东南方向的函子，
+由 Yoneda 引理（《范畴》引理 \ref{categories-lemma-yoneda}）即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-no-rational-bridge-ample-genus-geq-2}
+令 $k$ 为域。令 $X$ 为 $k$ 上的真概形，维数为 $1$，且
+$H^0(X, \mathcal{O}_X) = k$。假设
+\begin{enumerate}
+\item $X$ 的奇点至多为结点，
+\item $X$ 没有有理尾
+（例 \ref{curves-example-rational-tail}），
+\item $X$ 没有有理桥
+（例 \ref{curves-example-rational-bridge}），
+\item $g$ 为 $X$ 的亏格，且 $\geq 2$。
+\end{enumerate}
+则 $\omega_X$ 是丰沛的。
+\end{lemma}
+
+\begin{proof}
+只需证明 $\deg(\omega_X|_C) > 0$ 对每个不可约分支 $C$（它属于 $X$）都成立，见《簇》引理
+\ref{varieties-lemma-ampleness-in-terms-of-degrees-components}。
+若 $X = C$ 不可约，则由 $g \geq 2$
+及引理 \ref{curves-lemma-genus-gorenstein} 得到结论。
+否则，置 $k' = H^0(C, \mathcal{O}_C)$。这是
+$k$ 的一个域有限扩张，并且 $[k' : k]$
+整除下文与 $C$ 及在 $C$ 上的拟凝聚层相关的所有数值不变量，见
+《簇》引理 \ref{varieties-lemma-divisible}。
+令 $X' \subset X$ 为 $X \setminus C$ 的闭包，如
+引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein} 中所述。
+下文将直接使用该引理以及引理
+\ref{curves-lemma-facts-about-nodal-curves} 和
+\ref{curves-lemma-closed-subscheme-nodal-curve} 的结果。
+于是得到短正合列
+$$
+0 \to \omega_C \to \omega_X|_C \to \mathcal{O}_{C \cap X'} \to 0
+$$
+见引理 \ref{curves-lemma-closed-subscheme-reduced-gorenstein}。因此
+$$
+\deg(\omega_X|_C) = \deg(C \cap X') + \deg(\omega_C) =
+\deg(C \cap X') - 2\chi(C, \mathcal{O}_C)
+$$
+所以若引理不成立，则
+$$
+2[k' : k] \geq \deg(C \cap X') + 2\dim_k H^1(C, \mathcal{O}_C)
+$$
+由于 $C \cap X'$ 非空，且由上面提到的整除性，只有以下两种情形之一才可能发生：
+\begin{enumerate}
+\item[(a)] $C \cap X'$ 是一个 $k'$-有理点，且属于 $C$，
+$H^1(C, \mathcal{O}_C) = 0$；
+\item[(b)] $C \cap X'$ 的次数为 $2$（在 $k'$ 上），且
+$H^1(C, \mathcal{O}_C) = 0$。
+\end{enumerate}
+第一种可能意味着 $C$ 是有理尾，第二种意味着 $C$ 是有理桥。
+由于两者都被排除，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-contracting-rational-bridges}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的真概形，满足
+$H^0(X, \mathcal{O}_X) = k$ 且亏格为 $g \geq 2$。
+假设 $X$ 的奇点至多为结点，且
+$X$ 没有有理尾。考虑一列
+$$
+X = X_0 \to X_1 \to \ldots \to X_n = X'
+$$
+有理桥的压缩
+（例 \ref{curves-example-rational-bridge}），直至不再有有理桥。
+则 $\omega_{X'}$ 是丰沛的。
+态射 $X \to X'$ 与选择无关，且该态射的构造与基域扩张相容。
+\end{lemma}
+
+\begin{proof}
+我们不断压缩有理桥，直至不再有有理桥。由引理
+\ref{curves-lemma-no-rational-bridge-ample-genus-geq-2}，此时
+$\omega_{X'}$ 是丰沛的。
+
+\medskip\noindent
+记 $f : X \to X'$ 为其复合。由
+引理 \ref{curves-lemma-rational-bridge-canonical} 及归纳法可知
+$f^*\omega_{X'} = \omega_X$。
+有 $f_*\mathcal{O}_X = \mathcal{O}_{X'}$，
+因为有理桥的压缩具有这一性质。因此投影公式给出
+$f_*f^*\mathcal{L} = \mathcal{L}$，对所有可逆的
+$\mathcal{O}_{X'}$-模 $\mathcal{L}$ 均成立。
+于是
+$$
+\Gamma(X', \omega_{X'}^{\otimes m}) = \Gamma(X, \omega_X^{\otimes m})
+$$
+对所有 $m$ 成立。由于 $X'$ 是这些空间直和的 Proj，
+由《态射》引理 \ref{morphisms-lemma-proper-ample-is-proj}，
+我们得到态射 $X \to X'$ 完全是典范的。
+
+\medskip\noindent
+令 $K/k$ 为域扩张，则
+$\omega_{X_K}$ 是 $\omega_X$ 的拉回
+（引理 \ref{curves-lemma-sanity-check-duality}），并且由
+《概形的上同调》引理
+\ref{coherent-lemma-flat-base-change-cohomology}，有
+$\Gamma(X, \omega_X^{\otimes m}) \otimes_k K$
+等于
+$\Gamma(X_K, \omega_{X_K}^{\otimes m})$。
+因此由上述论证，$f : X \to X'$ 的构造与
+$K/k$ 的基变换相容。细节略。
+\end{proof}
+
+
+
+
+
+
+\section{压缩为稳定曲线}
+\label{curves-section-contracting-to-stable}
+
+\noindent
+本节结合在
+节 \ref{curves-section-contracting-rational-tails} 与
+\ref{curves-section-contracting-rational-bridges} 中得到的压缩态射。
+具体地，设 $k$ 为域，令 $X$ 为 $k$ 上维数为 $1$ 的真概形，满足
+$H^0(X, \mathcal{O}_X) = k$ 且亏格 $g \geq 2$。
+假设 $X$ 的奇点至多为结点。将引理
+\ref{curves-lemma-contracting-rational-tails} 的态射与
+引理 \ref{curves-lemma-contracting-rational-bridges} 的态射复合，得到态射
+$$
+c : X \longrightarrow Y
+$$
+使得 $Y$ 也是 $k$ 上维数为 $1$ 的真概形，奇点至多为结点，且
+$k = H^0(Y, \mathcal{O}_Y)$，亏格为 $g$，并满足
+$\mathcal{O}_Y = c_*\mathcal{O}_X$ 及 $R^1c_*\mathcal{O}_X = 0$，
+以及 $\omega_Y$ 在 $Y$ 上丰沛。
+引理 \ref{curves-lemma-characterize-contraction-to-stable}
+表明这些条件事实上刻画了该态射。
+
+\begin{lemma}
+\label{curves-lemma-contract-gorenstein-canonical}
+令 $k$ 为域。令 $c : X \to Y$ 为 $k$ 上真概形之间的态射。
+假设
+\begin{enumerate}
+\item $\mathcal{O}_Y = c_*\mathcal{O}_X$ 且 $R^1c_*\mathcal{O}_X = 0$，
+\item $X$ 与 $Y$ 都约化、Gorenstein，且维数为 $1$，
+\item 满足 $\exists\ m \in \mathbf{Z}$，使得
+$H^1(X, \omega_X^{\otimes m}) = 0$ 且 $\omega_X^{\otimes m}$
+由整体截面生成。
+\end{enumerate}
+则 $c^*\omega_Y \cong \omega_X$。
+\end{lemma}
+
+\begin{proof}
+由《态射的更多性质》定理
+\ref{more-morphisms-theorem-stein-factorization-Noetherian}，$c$ 的纤维几何连通。
+特别地，$c$ 是满射。
+在有限多个闭点 $y = y_1, \ldots, y_r$（它们属于 $Y$）处 $X_y$ 的维数为 $1$，而在
+$Y \setminus \{y_1, \ldots, y_r\}$ 上态射 $c$ 是同构。
+细节略；提示：在 $\{y_1, \ldots, y_r\}$ 之外，
+态射 $c$ 是有限的，见《概形的上同调》引理
+\ref{coherent-lemma-characterize-finite}。
+
+\medskip\noindent
+下面仔细构造映射 $b : c^*\omega_Y \to \omega_X$。
+记 $f : X \to \Spec(k)$ 及 $g : Y \to \Spec(k)$ 为结构态射。
+我们有 $f^!k = \omega_X[1]$ 及 $g^!k = \omega_Y[1]$，见
+引理 \ref{curves-lemma-duality-dim-1} 及其证明。于是
+$f^! = c^! \circ g^!$，从而 $c^!\omega_Y = \omega_X$。
+因此有函子性同构
+$$
+\Hom_{D(\mathcal{O}_X)}(\mathcal{F}, \omega_X)
+\longrightarrow
+\Hom_{D(\mathcal{O}_Y)}(Rc_*\mathcal{F}, \omega_Y)
+$$
+对拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，这是按 $c^!$ 的定义得到的\footnote{它是《概形的对偶性》引理
+\ref{duality-lemma-twisted-inverse-image} 中右伴随函子限制到
+$D^+_\QCoh(\mathcal{O}_Y)$ 后的结果。}。
+该同构由迹映射 $t : Rc_*\omega_X \to \omega_Y$
+（伴随的余单位）诱导。由投影公式
+（《上同调》引理 \ref{cohomology-lemma-projection-formula}），
+典范映射 $a : \omega_Y \to Rc_*c^*\omega_Y$ 是同构。
+结合上述内容，得到满足下式的典范映射
+$b : c^*\omega_Y \to \omega_X$：
+$$
+t \circ Rc_*(b) = a^{-1}
+$$
+特别地，将 $b$ 限制到 $c^{-1}(Y \setminus \{y_1, \ldots, y_r\})$
+后，它是同构（因为它是可逆模之间的映射，且与另一个映射的复合给出同构 $a^{-1}$）。
+
+\medskip\noindent
+取 (3) 中的 $m \in \mathbf{Z}$，考虑映射
+$$
+b^{\otimes m} :
+\Gamma(Y, \omega_Y^{\otimes m})
+\longrightarrow
+\Gamma(X, \omega_X^{\otimes m})
+$$
+由于 $Y$ 约化，且由构造中提到的 $b$ 的最后一个性质，该映射是单射。
+由 Riemann--Roch（引理 \ref{curves-lemma-rr}）有
+$\chi(X, \omega_X^{\otimes m}) =\chi(Y, \omega_Y^{\otimes m})$.
+因此
+$$
+\dim_k \Gamma(Y, \omega_Y^{\otimes m}) \geq
+\dim_k \Gamma(X, \omega_X^{\otimes m}) = \chi(X, \omega_X^{\otimes m})
+$$
+从而 $b^{\otimes m}$ 在整体截面上诱导同构。因此
+$b^{\otimes m} : c^*\omega_Y^{\otimes m} \to \omega_X^{\otimes m}$
+是满射，因为 $\omega_X^{\otimes m}$ 的生成元都在像中。
+于是 $b^{\otimes m}$ 是同构，因而 $b$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-characterize-contraction-to-stable}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的真概形，满足
+$H^0(X, \mathcal{O}_X) = k$ 且亏格为 $g \geq 2$。
+假设 $X$ 的奇点至多为结点。
+存在唯一的态射（在唯一同构意义下）
+$$
+c : X \longrightarrow Y
+$$
+它是 $k$ 上概形之间的态射，并具有下列性质：
+\begin{enumerate}
+\item $Y$ 在 $k$ 上真，$\dim(Y) = 1$，且 $Y$ 的奇点至多为结点；
+\item $\mathcal{O}_Y = c_*\mathcal{O}_X$ 且 $R^1c_*\mathcal{O}_X = 0$；
+\item $\omega_Y$ 在 $Y$ 上丰沛。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+存在性：由本节引言中所述，结合引理
+\ref{curves-lemma-contracting-rational-tails} 与
+\ref{curves-lemma-contracting-rational-bridges}，存在具有所列全部性质的态射。
+此外，它可写成复合
+$$
+X \to X_1 \to X_2 \ldots \to X_n \to X_{n + 1} \to \ldots \to X_{n + n'}
+$$
+其中前 $n$ 个态射是有理尾的压缩，后 $n'$ 个态射是有理桥的压缩。
+注意，性质 (2) 对每个有理尾的压缩（例 \ref{curves-example-rational-tail}）
+和有理桥的压缩（例 \ref{curves-example-rational-bridge}）都成立。
+容易看出，该性质在态射的复合下保持。
+
+\medskip\noindent
+唯一性：令 $c : X \to Y$ 为满足条件
+(1)、(2)、(3) 的态射。我们将证明存在唯一同构
+$X_{n + n'} \to Y$，使其与态射 $X \to X_{n + n'}$ 及 $c$ 相容。
+
+\medskip\noindent
+开始证明前，先对 $c$ 作一些观察。
+首先由《态射的更多性质》定理
+\ref{more-morphisms-theorem-stein-factorization-Noetherian}，$c$ 的纤维几何连通。
+特别地，$c$ 是满射。
+对闭点 $y \in Y$，纤维 $X_y$ 满足
+$$
+H^1(X_y, \mathcal{O}_{X_y}) = 0
+\quad\text{且}\quad
+H^0(X_y, \mathcal{O}_{X_y}) = \kappa(y)
+$$
+第一个等式由《态射的更多性质》引理
+\ref{more-morphisms-lemma-check-h1-fibre-zero} 得到，第二个等式由《态射的更多性质》引理
+\ref{more-morphisms-lemma-h1-fibre-zero-check-h0-kappa} 得到。
+因此，要么 $X_y = x$，其中 $x$ 是 $X$ 中映到 $y$ 的唯一点，且与 $y$ 有相同的剩余域；
+要么 $X_y$ 是 $\kappa(y)$ 上维数为 $1$ 的真概形。注意在第二种情形
+$X_y$ 是 Cohen--Macaulay 的（引理 \ref{curves-lemma-automatic}）。
+然而，由于 $X$ 约化，$X_y$ 在其所有一般点处必为约化的（细节略），因而由《性质》引理
+\ref{properties-lemma-criterion-reduced}，$X_y$ 约化。
+由此 $X_y$ 的奇点至多为结点
+（引理 \ref{curves-lemma-closed-subscheme-nodal-curve}）。
+注意 $X_y$ 的亏格为零（见上文）。
+最后，只有有限多个点 $y$ 使得纤维 $X_y$ 的维数为 $1$，记为
+$\{y_1, \ldots, y_r\}$，并且 $c^{-1}(Y \setminus \{y_1, \ldots, y_r\})$
+经 $c$ 同构映到 $Y \setminus \{y_1, \ldots, y_r\}$。
+细节略；提示：在 $\{y_1, \ldots, y_r\}$ 之外，
+态射 $c$ 是有限的，见《概形的上同调》引理
+\ref{coherent-lemma-characterize-finite}。
+
+\medskip\noindent
+令 $C \subset X$ 为有理尾。
+我们断言 $c$ 将 $C$ 映到一点。假设并非如此以导出矛盾，则 $C$ 的像是
+$D \subset Y$ 的不可约分支。
+回忆 $H^0(C, \mathcal{O}_C) = k'$ 是 $k$ 的有限可分扩张，且 $C$ 有一个
+$k'$-有理点 $x$，它也是 $C$ 与 $X$ 的“其余部分”的唯一交点。
+由上面的总体讨论可知
+$C \setminus \{x\} \subset c^{-1}(Y \setminus \{y_1, \ldots, y_r\})$
+经同构映到 $D$ 的一个开子集 $V$。令 $y = c(x) \in D$。
+注意 $y$ 是 $D$ 与 $Y$ 的“其余部分”相交的唯一点。若
+$y \not \in \{y_1, \ldots, y_r\}$，则 $C \cong D$，显然 $D$ 是
+$Y$ 的有理尾，这与 $\omega_Y$ 的丰沛性矛盾
+（引理 \ref{curves-lemma-rational-tail-negative}）。
+因此 $y \in \{y_1, \ldots, y_r\}$ 且 $\dim(X_y) = 1$。
+于是 $x \in X_y \cap C$，并且 $x$ 是 $X_y$ 及 $C$ 的光滑点
+（引理 \ref{curves-lemma-closed-subscheme-nodal-curve}）。
+若 $y \in D$ 是 $D$ 的奇点，则 $y$ 是结点，且 $Y = D$
+（因为由引理 \ref{curves-lemma-closed-subscheme-nodal-curve}，$Y$ 不可能有另一个分支经过 $y$）。
+于是 $X = X_y \cup C$，这意味着 $g = 0$，因为按
+例 \ref{curves-example-rational-tail} 中的讨论，它等于 $X_y$ 的亏格；矛盾。
+若 $y \in D$ 是 $D$ 的光滑点，则
+$C \to D$ 是同构（因为非奇异射影模型唯一，且 $C$ 与 $D$ 双有理，见
+节 \ref{curves-section-curves-function-fields}）。于是 $D$ 是
+$Y$ 的有理尾，这与 $\omega_Y$ 的丰沛性矛盾。
+
+\medskip\noindent
+假设 $n \geq 1$。若 $C \subset X$ 是被 $X \to X_1$ 压缩的有理尾，
+则由上一段 $C$ 被映到 $Y$ 中的一点。因此 $c : X \to Y$ 经由 $X \to X_1$
+分解（因为 $X$ 是 $C$ 与 $X_1$ 的推出，见例 \ref{curves-example-rational-tail} 中的讨论）。
+将 $X$ 替换为 $X_1$ 后，$n$ 减少了。由归纳法可假设
+$n = 0$，即 $X$ 没有有理尾。
+
+\medskip\noindent
+假设 $n = 0$，即 $X$ 没有任何有理尾。
+由引理 \ref{curves-lemma-no-rational-tail-semiample-genus-geq-2}，
+$\omega_X^{\otimes 2}$ 与 $\omega_X^{\otimes 3}$ 由整体截面生成。
+由引理 \ref{curves-lemma-vanishing-twist} 得到
+$H^1(X, \omega_X^{\otimes 3}) = 0$。
+应用引理 \ref{curves-lemma-contract-gorenstein-canonical}（取 $m = 3$），
+可得 $c^*\omega_Y \cong \omega_X$。
+由引理 \ref{curves-lemma-rational-bridge-canonical} 及归纳法，还有
+$\omega_X = (X \to X_{n'})^*\omega_{X_{n'}}$。
+对 $c$ 和 $X \to X_{n'}$ 均应用投影公式，得到
+$$
+\Gamma(X_{n'}, \omega_{X_{n'}}^{\otimes m}) =
+\Gamma(X, \omega_X^{\otimes m}) =
+\Gamma(Y, \omega_Y^{\otimes m})
+$$
+对所有 $m$ 成立。
+由于 $X_{n'}$ 与 $Y$ 都是这些空间直和的 Proj，
+由《态射》引理 \ref{morphisms-lemma-proper-ample-is-proj}，
+得到典范同构 $X_{n'} = Y$，如所需。使图表交换的该同构的唯一性验证略去。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-tricanonical}
+令 $k$ 为域。令 $X$ 为 $k$ 上维数为 $1$ 的真概形，满足
+$H^0(X, \mathcal{O}_X) = k$ 且亏格为 $g \geq 2$。假设 $X$ 的奇点
+至多为结点且 $\omega_X$ 丰沛。则
+$\omega_X^{\otimes 3}$ 非常丰沛，且 $H^1(X, \omega_X^{\otimes 3}) = 0$。
+\end{lemma}
+
+\begin{proof}
+结合《簇》引理
+\ref{varieties-lemma-ampleness-in-terms-of-degrees-components} 及
+引理 \ref{curves-lemma-rational-tail-negative} 与 \ref{curves-lemma-rational-bridge-zero}，
+可知 $X$ 不含有理尾或有理桥。
+于是由引理 \ref{curves-lemma-contracting-rational-tails}，
+$\omega_X^{\otimes 3}$ 由整体截面生成。
+取 $H^0(X, \omega_X^{\otimes 3})$ 的 $k$-基 $s_0, \ldots, s_n$。
+得到态射
+$$
+\varphi_{\omega_X^{\otimes 3}, (s_0, \ldots, s_n)} :
+X \longrightarrow \mathbf{P}^n_k
+$$
+见《构造》节 \ref{constructions-section-projective-space}。
+引理断言该态射是闭浸入。
+为检验这一点，可将 $k$ 替换为其代数闭包，见《下降》引理
+\ref{descent-lemma-descending-property-closed-immersion}。
+因此可假设 $k$ 代数闭。
+
+\medskip\noindent
+假设 $k$ 代数闭。
+我们将使用《簇》引理
+\ref{varieties-lemma-variant-separate-points-tangent-vectors}
+证明本引理。
+令 $Z \subset X$ 为次数 $2$ 的闭子概形（在 $Z$ 上），
+其理想层为 $\mathcal{I} \subset \mathcal{O}_X$。
+我们需要证明
+$$
+H^0(X, \mathcal{L}) \to H^0(Z, \mathcal{L}|_Z)
+$$
+是满射。因此只需证明
+$H^1(X, \mathcal{I}\mathcal{L}) = 0$。
+为此使用引理 \ref{curves-lemma-vanishing-on-gorenstein}。
+于是只需证明
+$$
+3\deg(\omega_X|_Y) > -2\chi(Y, \mathcal{O}_Y) + \deg(Z \cap Y)
+$$
+对每个约化连通闭子概形 $Y \subset X$ 都成立。
+由于 $k$ 代数闭且 $Y$ 连通约化，有
+$H^0(Y, \mathcal{O}_Y) = k$（《簇》引理
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}).
+因此 $\chi(Y, \mathcal{O}_Y) = 1 - \dim H^1(Y, \mathcal{O}_Y)$。
+所以需要证明
+$$
+3\deg(\omega_X|_Y) > -2 + 2\dim H^1(Y, \mathcal{O}_Y) + \deg(Z \cap Y)
+$$
+由引理 \ref{curves-lemma-no-rational-tail} 可得，除非
+$Y = X$ 或 $\deg(\omega_X|_Y) = 0$，上述不等式成立。
+由于 $\omega_X$ 丰沛，第二种可能不发生
+（见本证明引用的第一个引理）。最后，若 $Y = X$，由 Riemann--Roch（引理 \ref{curves-lemma-rr}）
+及 $g \geq 2$ 可知该不等式成立。
+对 $Z = \emptyset$ 使用同样论证可得
+$H^1(X, \omega_X^{\otimes 3}) = 0$.
+\end{proof}
+
+
+
+
+
+
+
+\section{向量场}
+\label{curves-section-vector-fields}
+
+\noindent
+本节研究曲线上的向量场空间。
+向量场对应于无穷小自同构，见《态射的更多性质》节
+\ref{more-morphisms-section-action-by-derivations}，
+因而在模空间理论中发挥重要作用。
+
+\medskip\noindent
+令 $k$ 为代数闭域。
+令 $X$ 为 $k$ 上的有限型概形。
+令 $x \in X$ 为闭点。
+若元素 $D \in \text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+{\it 固定 $x$}，是指 $D(\mathcal{I}) \subset \mathcal{I}$，其中
+$\mathcal{I} \subset \mathcal{O}_X$ 是 $x$ 的理想层。
+
+\begin{lemma}
+\label{curves-lemma-smooth-vector-fields}
+令 $k$ 为代数闭域。
+令 $X$ 为 $k$ 上光滑、真且连通的曲线。
+令 $g$ 为 $X$ 的亏格。
+\begin{enumerate}
+\item 若 $g \geq 2$，则 $\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+为零；
+\item 若 $g = 1$ 且 $D \in \text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+非零，则 $D$ 不固定 $X$ 的任何闭点；
+\item 若 $g = 0$ 且 $D \in \text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+非零，则 $D$ 至多固定 $X$ 的 $2$ 个闭点。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆我们有一个泛 $k$-导数
+$d : \mathcal{O}_X \to \Omega_{X/k}$，因而对某个
+$\mathcal{O}_X$-线性映射 $\theta : \Omega_{X/k} \to \mathcal{O}_X$ 有 $D = \theta \circ d$。
+回忆 $\Omega_{X/k} \cong \omega_X$，见
+引理 \ref{curves-lemma-duality-dim-1}。
+由 Riemann--Roch 有 $\deg(\omega_X) = 2g - 2$
+（引理 \ref{curves-lemma-rr}）。
+因此当 $g > 1$ 时，由《簇》引理
+\ref{varieties-lemma-check-invertible-sheaf-trivial}.
+必有 $\theta$ 为零。这证明了 (1)。
+若 $g = 1$，则非零 $\theta$ 处处不消失；若
+$g = 0$，则非零 $\theta$ 的零点构成次数为 $2$ 的因子。
+因此，只需证明闭点 $x \in X$ 处 $\theta$ 消失
+等价于 $D$ 固定 $x$（如上所定义），即可得到 (2)、(3)。
+令 $z \in \mathcal{O}_{X, x}$ 为局部参数。
+则 $dz$ 是 $\Omega_{X, x}$ 的一个基元素，见
+引理 \ref{curves-lemma-uniformizer-works}。
+由于 $D(z) = \theta(dz)$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-nodal-vector-fields}
+令 $k$ 为代数闭域。
+令 $X$ 为 $k$ 上奇点至多为结点的、真且连通的
+维数为 $1$ 的概形。令 $\nu : X^\nu \to X$ 为正规化。
+令 $S \subset X^\nu$ 为 $\nu$ 不是同构处的点集。则
+$$
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) =
+\{D' \in \text{Der}_k(\mathcal{O}_{X^\nu}, \mathcal{O}_{X^\nu}) \mid
+D' \text{ fixes every }x^\nu \in S\}
+$$
+\end{lemma}
+
+\begin{proof}
+令 $x \in X$ 为结点。令 $x', x'' \in X^\nu$ 为 $x$ 的逆像。
+（由于 $k$ 代数闭，每个结点都是分裂结点，见
+定义 \ref{curves-definition-split-node} 及引理
+\ref{curves-lemma-split-node}。）
+令 $u \in \mathcal{O}_{X^\nu, x'}$ 及 $v \in \mathcal{O}_{X^\nu, x''}$
+为局部参数。注意我们有正合列
+$$
+0 \to \mathcal{O}_{X, x} \to
+\mathcal{O}_{X^\nu, x'} \times \mathcal{O}_{X^\nu, x''} \to k \to 0
+$$
+这由引理 \ref{curves-lemma-multicross} 得到。
+因此可将 $u$ 与 $v$ 视为 $\mathcal{O}_{X, x}$ 中的元素，且 $uv = 0$。
+
+\medskip\noindent
+令 $D \in \text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$。则
+$0 = D(uv) = vD(u) + uD(v)$。由于 $(u)$ 是
+$\mathcal{O}_{X, x}$ 中 $v$ 的湮灭子，反之亦然，故 $D(u) \in (u)$ 且
+$D(v) \in (v)$。由于 $\mathcal{O}_{X^\nu, x'} = k + (u)$，
+可将 $D$ 延拓到 $\mathcal{O}_{X^\nu, x'}$，且该延拓固定 $x'$。
+这给出等式右端的某个 $D'$。
+反之，给定固定 $x'$ 与 $x''$ 的 $D'$，可知 $D'$ 保持子环
+$\mathcal{O}_{X, x} \subset
+\mathcal{O}_{X^\nu, x'} \times \mathcal{O}_{X^\nu, x''}$，
+这就是等式中从右向左的构造。
+\end{proof}
+
+\begin{lemma}
+\label{curves-lemma-stable-vector-fields}
+令 $k$ 为代数闭域。
+令 $X$ 为 $k$ 上奇点至多为结点的、真且连通的
+维数为 $1$ 的概形。假设 $X$ 的亏格至少为
+$2$，且 $X$ 没有有理尾或有理桥。则
+$\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X) = 0$.
+\end{lemma}
+
+\begin{proof}
+令 $D \in \text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$。
+令 $X^\nu$ 为 $X$ 的正规化。
+令 $D' \in \text{Der}_k(\mathcal{O}_{X^\nu}, \mathcal{O}_{X^\nu})$
+为经引理 \ref{curves-lemma-nodal-vector-fields} 与 $D$ 对应的元素。
+令 $C \subset X^\nu$ 为不可约分支。
+若 $C$ 的亏格为 $> 1$，则由引理 \ref{curves-lemma-smooth-vector-fields} 第 (1) 部分，
+$D'|_{\mathcal{O}_C} = 0$。
+若 $C$ 的亏格为 $1$，则 $C$ 至少有一个闭点 $c$ 映到 $X$ 的结点
+（否则 $X \cong C$ 将有亏格 $1$）。由对应关系，这意味着
+$D'|_{\mathcal{O}_C}$ 固定 $c$，故由引理
+\ref{curves-lemma-smooth-vector-fields} 第 (2) 部分它为零。
+最后，若 $C$ 的亏格为零，则至少有
+$3$ 个两两不同的闭点 $c_1, c_2, c_3 \in C$
+映到 $X$ 的结点；否则会出现以下情形之一：
+$X$ 是将 $C$ 的两个点粘合而成（$C$ 的两个点映到同一结点），或
+$C$ 是有理桥（两个点映到 $X$ 的不同结点），或
+$C$ 是有理尾（一个点映到 $X$ 的结点）。
+这三种可能都不允许，因为 $C$ 的亏格 $\geq 2$，且没有有理桥或有理尾。
+因此 $D'|_{\mathcal{O}_C}$ 固定 $c_1, c_2, c_3$，故由引理
+\ref{curves-lemma-smooth-vector-fields} 第 (3) 部分它为零。
+\end{proof}

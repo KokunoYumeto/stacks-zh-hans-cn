@@ -1,0 +1,4288 @@
+% Generated mechanically from the frozen resolve.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{53}
+\chapter{曲面奇点的消解}
+
+
+
+\phantomsection
+\label{resolve-section-phantom}
+
+
+\section{引言}
+\label{resolve-section-introduction}
+
+\noindent
+本章讨论曲面的奇点消解，遵循 Lipman \cite{Lipman}，
+并主要依照 Artin 在 \cite{Artin-Lipman} 中的论述。主要结果
+（定理 \ref{resolve-theorem-resolve}）说明：Noether 概形
+$2$ 维的概形 $Y$ 有奇点消解，只要它有有限正规化
+$Y^\nu \to Y$，其中有有限多个奇点 $y_i \in Y^\nu$，并且对每个 $i$，
+完备化 $\mathcal{O}_{Y^\nu, y_i}^\wedge$ 是正规的。
+
+\medskip\noindent
+确切地说，若 $Y$ 是一个 $2$ 维概形，有限型于拟优基环 $R$
+（例如域，或分式域特征为 $0$ 的 Dedekind 域，如 $\mathbf{Z}$），
+则 $Y$ 的正规化是有限的，
+奇点有限，且局部环的完备化是正规的。见《更多代数》各节
+\ref{more-algebra-section-singular-locus}、
+\ref{more-algebra-section-G-ring} 以及
+\ref{more-algebra-section-excellent} 中的讨论，以及
+《更多代数》引理 \ref{more-algebra-lemma-normal-goes-up}。
+因此这样的 $Y$ 有奇点消解。
+
+\medskip\noindent
+证明的大致轮廓如下。令 $A$ 为维数 $2$ 的 Noether 局部整环。证明步骤为
+\begin{enumerate}
+\item[N] 将 $A$ 替换为其正规化；
+\item[V] 证明 Grauert--Riemenschneider 定理；
+\item[B] 证明存在最大值 $g$，它等于 $H^1(X, \mathcal{O}_X)$
+在所有正规修改 $X \to \Spec(A)$ 上的长度最大值，
+并归约到 $g = 0$ 的情形；
+\item[R] 我们称 $A$ 在 $g = 0$ 时定义有理奇点；在此情形经过有限次
+爆破后可假设 $A$ 为 Gorenstein 且 $g = 0$；
+\item[D] 我们称 $A$ 在 $g = 0$ 且 $A$ 为 Gorenstein 时定义有理双重点，
+并在此情形显式地消解奇点。
+\end{enumerate}
+每一步都需要对环 $A$ 作出假设。下面依次讨论。
+
+\medskip\noindent
+关于 N：这里需要假设 $A$ 有有限正规化（这并非自动成立）。
+本章大部分地方，在需要某个正规化有限时，我们假设概形是 Nagata 的。
+然而，Nagata 条件比定理陈述中给出的条件略强。
+解决这个小问题的一种办法是利用环 $A$ 形式非分歧（即其完备化
+是约化的），并使用引理 \ref{resolve-lemma-formally-unramified}。
+不过，按我们的证明方式，使用引理 \ref{resolve-lemma-normalization-completion}
+将完备化上的正规化有限性提升为 $A$ 上正规化的有限性，反而更容易。
+
+\medskip\noindent
+关于 V：这是命题 \ref{resolve-proposition-Grauert-Riemenschneider}，
+大致说明对正规修改 $f : X \to \Spec(A)$，有
+$R^1f_*\omega_X = 0$，其中 $\omega_X$ 是 $X/A$ 的对偶化模
+（备注 \ref{resolve-remark-dualizing-setup}）。事实上，由对偶性，该结果等价于关于
+$Rf_*\mathcal{O}_X$ 在{\it 导出范畴} $D(A)$ 中的对象的一个陈述
+（引理 \ref{resolve-lemma-R1-injective}）。
+话虽如此，证明使用了标准事实：特殊纤维的分支具有正的余法层
+（引理 \ref{resolve-lemma-nontrivial-normal-bundle}）。
+
+\medskip\noindent
+关于 B：在某种意义上，这是证明中最微妙的部分。
+最后，当 $A$ 是完备 Noether 局部环时我们才需要使用这一步的输出，
+尽管本文写得稍微一般些。术语在定义
+\ref{resolve-definition-reduce-to-rational} 中给出。
+若上面定义的 $g$ 有界，则直接论证表明可找到正规修改
+$X \to \Spec(A)$，使 $X$ 的所有奇点都是有理奇点，见引理
+\ref{resolve-lemma-reduce-to-rational}。
+我们证明：给定有限扩张 $A \subset B$，若 $g$ 对 $B$ 有界（当它对 $A$ 有界时），
+则在下列两种情形中成立：
+(1) 分式域扩张可分，见引理 \ref{resolve-lemma-reduce-to-rational}；
+(2) 分式域扩张次数为 $p$，特征为 $p$，且 $A$ 正则完备，见
+引理 \ref{resolve-lemma-go-up-degree-p}。
+
+\medskip\noindent
+关于 R：这里将 $g = 0$ 的情形归约到 Gorenstein 情形。
+使一切奏效的奇妙事实是：有理曲面奇点的爆破是正规的，见
+引理 \ref{resolve-lemma-blow-up-normal-rational}。
+
+\medskip\noindent
+关于 D：有理双重点的消解基本上是手工进行的，见
+节 \ref{resolve-section-rational-double-points}。
+有理双重点是超曲面奇点（这是真的，但我们不证明，因为不需要）。局部方程形如
+$$
+a_{11} x_1^2 + a_{12} x_1x_2 + a_{13}x_1x_3 + a_{22} x_2^2 +
+a_{23} x_2x_3 + a_{33} x_3^2 =
+\sum a_{ijk} x_ix_jx_k
+$$
+利用二次部分不能为零（因为重数为 $2$，且在任意爆破后仍为 $2$）以及每次爆破
+都正规的事实，很快即可得到消解。一个微妙之处是，我们没有在每次爆破下递减的不变量，
+但依靠节 \ref{resolve-section-arcs} 中关于形式弧的材料来证明该过程终止。
+
+\medskip\noindent
+为将一切拼合起来，还需要一些额外工作。主要难点是要将完备化
+$A^\wedge$ 的消解提升为 $\Spec(A)$ 的消解。
+为此我们首先证明：若消解存在，则存在由规范化爆破给出的消解
+（引理 \ref{resolve-lemma-existence-implies-existence-by-normalized-blowing-ups}）。
+由引理 \ref{resolve-lemma-normalized-blowup-completion}，可将一列规范化爆破从完备化提升上来。
+即使在完备局部环 $A$ 的消解证明中我们也使用这一点，因为我们的策略对有限包含
+$A_0 \subset A$（其中 $A_0$ 正则）的次数作归纳，见引理 \ref{resolve-lemma-resolve-complete}。
+若 B 步骤中有更强的结果（例如 Lipman 论文中证明的结果），则可避免这一步。
+
+
+
+
+\section{正特征下的迹映射}
+\label{resolve-section-trace}
+
+\noindent
+本节的一些结果可以从《德拉姆上同调》第 \ref{derham-section-trace} 节
+关于微分形式上迹的更一般讨论中推出。相关讨论见备注
+\ref{resolve-remark-compare-Garel}。
+
+\medskip\noindent
+固定素数 $p$。令 $R$ 为一个 $\mathbf{F}_p$-代数。给定
+$a \in R$，置 $S = R[x]/(x^p - a)$。定义 $R$-线性映射
+$$
+\text{Tr}_x : \Omega_{S/R} \longrightarrow \Omega_R
+$$
+其规则为
+$$
+x^i\text{d}x \longmapsto
+\left\{
+\begin{matrix}
+0 & \text{若} & 0 \leq i \leq p - 2, \\
+\text{d}a & \text{若} & i = p - 1
+\end{matrix}
+\right.
+$$
+这是有意义的，因为 $\Omega_{S/R}$ 是自由 $R$-模，其基为
+$x^i\text{d}x$（$0 \leq i \leq p - 1$）。
+下面的引理说明迹映射是良定义的，即与坐标 $x$ 的选择无关。
+
+\begin{lemma}
+\label{resolve-lemma-trace-well-defined}
+令 $\varphi : R[x]/(x^p - a) \to R[y]/(y^p - b)$ 为一个 $R$-代数
+同态。则 $\text{Tr}_x = \text{Tr}_y \circ \varphi$。
+\end{lemma}
+
+\begin{proof}
+设 $\varphi(x) = \lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1}$，
+其中 $\lambda_i \in R$。将 $x$ 映到
+$\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1}$
+能诱导 $R$-代数同态 $R[x]/(x^p - a) \to R[y]/(y^p - b)$
+的条件等价于
+$$
+a = \lambda_0^p + \lambda_1^p b + \ldots + \lambda_{p - 1}^pb^{p - 1}
+$$
+在环 $R$ 中成立。考虑多项式环
+$$
+R_{univ} = \mathbf{F}_p[b, \lambda_0, \ldots, \lambda_{p - 1}]
+$$
+以及其中的元素
+$a = \lambda_0^p + \lambda_1^p b + \ldots + \lambda_{p - 1}^pb^{p - 1}$
+考虑泛代数映射
+$\varphi_{univ} : R_{univ}[x]/(x^p - a) \to R_{univ}[y]/(y^p - b)$
+它将 $x$ 映到
+$\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1}$.
+得到典范映射
+$$
+R_{univ} \longrightarrow R
+$$
+将 $b, \lambda_i$ 分别送到 $b, \lambda_i$。按构造得到交换图
+$$
+\xymatrix{
+R_{univ}[x]/(x^p - a) \ar[r] \ar[d]_{\varphi_{univ}} &
+R[x]/(x^p - a) \ar[d]^\varphi \\
+R_{univ}[y]/(y^p - b) \ar[r] & R[y]/(y^p - b)
+}
+$$
+且水平箭头与迹映射相容。因此只需对映射 $\varphi_{univ}$ 证明引理。
+于是可设 $R = \mathbf{F}_p[b, \lambda_0, \ldots, \lambda_{p - 1}]$
+为多项式环。我们通过计算
+$\text{Tr}_y(\varphi(x)^i\text{d}\varphi(x))$（$i = 0 , \ldots, p - 1$）
+来验证此时引理成立。
+
+\medskip\noindent
+情形 $0 \leq i \leq p - 2$。展开
+$$
+(\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1})^i
+(\lambda_1 + 2 \lambda_2 y + \ldots + (p - 1)\lambda_{p - 1}y^{p - 2})
+$$
+在环 $R[y]/(y^p - b)$ 中展开上式。我们必须证明 $y^{p - 1}$ 的系数为零。
+为此，只需证明上式作为 $y$ 的多项式时，在幂 $y^{pk - 1}$
+前的系数都为零。将该多项式写成
+$$
+\frac{\text{d}}{(i + 1)\text{d}y}
+(\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1})^{i + 1}
+$$
+确实，$y^{kp - 1}$ 的系数全部为零。
+
+\medskip\noindent
+情形 $i = p - 1$。展开
+$$
+(\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1})^{p - 1}
+(\lambda_1 + 2 \lambda_2 y + \ldots + (p - 1)\lambda_{p - 1}y^{p - 2})
+$$
+在环 $R[y]/(y^p - b)$ 中展开上式。为了完成证明，需要说明 $y^{p - 1}$ 的系数乘以
+$\text{d}b$ 等于 $\text{d}a$。这里使用 $R$ 是 $S/pS$，其中
+$S = \mathbf{Z}[b, \lambda_0, \ldots, \lambda_{p - 1}]$.
+于是上式作为 $y$ 的多项式等于
+$$
+\frac{\text{d}}{p\text{d}y}
+(\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1})^p
+$$
+由于 $\frac{\text{d}}{\text{d}y}(y^{pk}) = pk y^{pk - 1}$，
+只需考察 $y^{pk}$ 在多项式
+$(\lambda_0 + \lambda_1 y + \ldots + \lambda_{p - 1}y^{p - 1})^p$
+中的系数模 $p$ 的值。这些项之和为
+$$
+\lambda_0^p + \lambda_1^py^p + \ldots + \lambda_{p - 1}^py^{p(p - 1)}
+\bmod p
+$$
+因此，施加算子 $\frac{\text{d}}{p\text{d}y}$，并模 $y^p - b$ 化简后，
+我们得到
+$$
+\lambda_1^p + 2\lambda_2^pb + \ldots + (p - 1)\lambda_{p - 1}b^{p - 2}
+$$
+这就是所要计算的 $y^{p - 1}$ 的系数。由于
+$a = \lambda_0^p + \lambda_1^p b + \ldots + \lambda_{p - 1}^pb^{p - 1}$
+在 $R$ 中成立，可得
+$$
+\text{d}a = (\lambda_1^p  + 2 \lambda_2^p b + \ldots +
+(p - 1) \lambda_{p - 1}^p b^{p - 2}) \text{d}b
+$$
+在 $R$ 中成立。这证明 $y^{p - 1}$ 的系数正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-trace-higher}
+令 $\mathbf{F}_p \subset \Lambda \subset R \subset S$ 为环扩张，
+并假设 $S$ 同构于 $R[x]/(x^p - a)$，其中 $a \in R$。
+则存在典范的 $R$-线性映射
+$$
+\text{Tr} :
+\Omega^{t + 1}_{S/\Lambda}
+\longrightarrow
+\Omega_{R/\Lambda}^{t + 1}
+$$
+其中 $t \geq 0$，且满足
+$$
+\eta_1 \wedge \ldots \wedge \eta_t \wedge x^i\text{d}x
+\longmapsto
+\left\{
+\begin{matrix}
+0 & \text{若} & 0 \leq i \leq p - 2, \\
+\eta_1 \wedge \ldots \wedge \eta_t \wedge \text{d}a & \text{若} & i = p - 1
+\end{matrix}
+\right.
+$$
+其中 $\eta_i \in \Omega_{R/\Lambda}$，并且 $\text{Tr}$ 湮灭映射
+$S \otimes_R \Omega_{R/\Lambda}^{t + 1} \to \Omega_{S/\Lambda}^{t + 1}$.
+\end{lemma}
+
+\begin{proof}
+当 $t = 0$ 时，使用复合映射
+$$
+\Omega_{S/\Lambda} \to \Omega_{S/R} \to \Omega_R \to \Omega_{R/\Lambda}
+$$
+其中第二个映射由引理 \ref{resolve-lemma-trace-well-defined} 给出。
+存在正合序列
+$$
+H_1(L_{S/R}) \xrightarrow{\delta} \Omega_{R/\Lambda} \otimes_R S \to
+\Omega_{S/\Lambda} \to \Omega_{S/R} \to 0
+$$
+（代数，引理 \ref{algebra-lemma-exact-sequence-NL}）。
+模 $\Omega_{S/R}$ 在 $S$ 上以 $\text{d}x$ 为基自由，
+模 $H_1(L_{S/R})$ 在 $S$ 上以 $x^p - a$ 为基自由，后者经 $\delta$
+映到 $-\text{d}a \otimes 1$（在 $\Omega_{R/\Lambda} \otimes_R S$ 中）。
+特别地，若置
+$$
+M = \Coker(R \to \Omega_{R/\Lambda}, 1 \mapsto -\text{d}a)
+$$
+则可见 $\Coker(\delta) = M \otimes_R S$。于是得到典范映射
+$$
+\Omega^{t + 1}_{S/\Lambda} \to
+\wedge_S^t(\Coker(\delta)) \otimes_S \Omega_{S/R} =
+\wedge^t_R(M) \otimes_R \Omega_{S/R}
+$$
+现在，由于映射
+$\text{Tr} : \Omega_{S/R} \to \Omega_{R/\Lambda}$
+的像包含于 $R\text{d}a$（引理 \ref{resolve-lemma-trace-well-defined}），
+可知与像中的元素作楔积会湮灭 $\text{d}a$。
+因此存在典范映射
+$$
+\wedge^t_R(M) \otimes_R \Omega_{S/R} \to \Omega_{R/\Lambda}^{t + 1}
+$$
+它将
+$\overline{\eta}_1 \wedge \ldots \wedge \overline{\eta}_t \wedge \omega$
+映到 $\eta_1 \wedge \ldots \wedge \eta_t \wedge \text{Tr}(\omega)$。
+\end{proof}
+
+\begin{remark}
+\label{resolve-remark-compare-Garel}
+令 $\mathbf{F}_p \subset \Lambda \subset R \subset S$ 及 $\text{Tr}$
+如引理 \ref{resolve-lemma-trace-higher} 中所设。由《德拉姆上同调》命题
+\ref{derham-proposition-Garel}，存在复形的典范映射
+$$
+\Theta_{S/R} :
+\Omega_{S/\Lambda}^\bullet
+\longrightarrow
+\Omega_{R/\Lambda}^\bullet
+$$
+《德拉姆上同调》例 \ref{derham-example-Garel} 中的计算表明
+$\Theta_{S/R}(x^i \text{d}x) = \text{Tr}_x(x^i\text{d}x)$
+对所有 $i$ 都成立。
+由于 $\text{Trace}_{S/R} = \Theta^0_{S/R}$ 恒等于零，并且
+$$
+\Theta_{S/R}(a \wedge b) = a \wedge \Theta_{S/R}(b)
+$$
+对 $a \in \Omega^i_{R/\Lambda}$ 及 $b \in \Omega^j_{S/\Lambda}$，
+由此得到 $\text{Tr} = \Theta_{S/R}$。使用 $\text{Tr}$ 的优点在于，
+它的构造要初等得多。
+\end{remark}
+
+\begin{lemma}
+\label{resolve-lemma-trace-extends}
+令 $S$ 为 $\mathbf{F}_p$ 上的概形。令 $f : Y \to X$ 为 $S$ 上 Noether
+正规整概形之间的有限态射。假设
+\begin{enumerate}
+\item 函数域扩张是次数为 $p$ 的纯不可分扩张；
+\item $\Omega_{X/S}$ 是相干的 $\mathcal{O}_X$-模（例如 $X$ 在 $S$ 上有限型）。
+\end{enumerate}
+则对 $i \geq 1$ 存在典范映射
+$$
+\text{Tr} : f_*\Omega^i_{Y/S} \longrightarrow (\Omega_{X/S}^i)^{**}
+$$
+其在 $X$ 的一般点处的茎恢复引理 \ref{resolve-lemma-trace-higher} 的迹映射。
+\end{lemma}
+
+\begin{proof}
+正合序列 $f^*\Omega_{X/S} \to \Omega_{Y/S} \to \Omega_{Y/X} \to 0$
+表明 $\Omega_{Y/S}$，从而 $f_*\Omega_{Y/S}$，也是相干模。因此只需证明：
+一般点处的迹映射可延拓到满足
+$x \in X$ 且 $\dim(\mathcal{O}_{X, x}) = 1$ 的茎；见《除子》引理
+\ref{divisors-lemma-describe-reflexive-hull}。于是归结为下一段讨论的情形。
+
+\medskip\noindent
+设 $X = \Spec(A)$、$Y = \Spec(B)$，其中 $A$ 是离散赋值环，
+且 $B$ 在 $A$ 上有限。由于诱导的分式域扩张 $L/K$ 是纯不可分的，
+可知 $B$ 也是局部环。因此 $B$ 也是离散赋值环。于是有以下两种情形之一：
+\begin{enumerate}
+\item $B/A$ 的分歧指数为 $p$，因而 $B = A[x]/(x^p - a)$，
+其中 $a \in A$ 是素元；
+\item $\mathfrak m_B = \mathfrak m_A B$，且剩余域
+$B/\mathfrak m_A B$ 是次数为 $p$ 的纯不可分扩张，扩张基域为
+$\kappa_A = A/\mathfrak m_A$。
+取任意 $x \in B$，使其剩余类不属于 $\kappa_A$，则
+$B = A[x]/(x^p - a)$，其中 $a \in A$ 为单位。
+\end{enumerate}
+令 $\Spec(\Lambda) \subset S$ 为仿射开集，使得 $X$ 映入
+$\Spec(\Lambda)$。应用引理 \ref{resolve-lemma-trace-higher} 可知，
+迹映射延拓为
+$\Omega^i_{B/\Lambda} \to \Omega^i_{A/\Lambda}$，对所有 $i \geq 1$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{二次变换}
+\label{resolve-section-quadratic}
+
+\noindent
+本节研究曲面上爆破非奇异点时发生的情形。我们不急于将这种态射
+形式化地称为{\it 二次变换}：一方面常常使用其他名称，另一方面
+“二次变换”这一短语有时具有不同的含义。
+
+\begin{lemma}
+\label{resolve-lemma-blowup}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的正则局部环。
+令 $f : X \to S = \Spec(A)$ 为沿 $A$ 中的 $\mathfrak m$ 爆破的态射，
+带有例外除子 $E$。存在闭浸入
+$$
+r : X \longrightarrow \mathbf{P}^1_S
+$$
+在 $S$ 上满足
+\begin{enumerate}
+\item $r|_E : E \to \mathbf{P}^1_\kappa$ 是同构；
+\item $\mathcal{O}_X(E) = \mathcal{O}_X(-1) =
+r^*\mathcal{O}_{\mathbf{P}^1}(-1)$；
+\item $\mathcal{C}_{E/X} = (r|_E)^*\mathcal{O}_{\mathbf{P}^1}(1)$，且
+$\mathcal{N}_{E/X} = (r|_E)^*\mathcal{O}_{\mathbf{P}^1}(-1)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $A$ 是维数 $2$ 的正则环，可写 $\mathfrak m = (x, y)$。
+将 $x$、$y$ 置于次数 $1$，它们生成 Rees 代数
+$\bigoplus_{n \geq 0} \mathfrak m^n$，这是 $A$ 上的代数。回忆
+$X = \text{Proj}(\bigoplus_{n \geq 0} \mathfrak m^n)$；见《除子》引理
+\ref{divisors-lemma-blowing-up-affine}。于是满射
+$$
+A[T_0, T_1] \longrightarrow \bigoplus\nolimits_{n \geq 0} \mathfrak m^n,
+\quad
+T_0 \mapsto x,\ T_1 \mapsto y
+$$
+作为分次 $A$-代数诱导闭浸入
+$r : X \to \mathbf{P}^1_S = \text{Proj}(A[T_0, T_1])$，
+满足 $\mathcal{O}_X(1) = r^*\mathcal{O}_{\mathbf{P}^1_S}(1)$；见《构造》引理
+\ref{constructions-lemma-surjective-graded-rings-generated-degree-1-map-proj}。
+这证明 (2)，因为由《除子》引理
+\ref{divisors-lemma-blowing-up-gives-effective-Cartier-divisor}，
+$\mathcal{O}_X(E) = \mathcal{O}_X(-1)$。
+
+\medskip\noindent
+为证明 (1)，注意
+$$
+\left(\bigoplus\nolimits_{n \geq 0} \mathfrak m^n\right) \otimes_A \kappa =
+\bigoplus\nolimits_{n \geq 0} \mathfrak m^n/\mathfrak m^{n + 1} \cong
+\kappa[\overline{x}, \overline{y}]
+$$
+这是多项式代数；见《代数》引理 \ref{algebra-lemma-regular-graded}。
+这证明 $X \to S$ 在 $\Spec(\kappa)$ 上的纤维等于
+$\text{Proj}(\kappa[\overline{x}, \overline{y}]) = \mathbf{P}^1_\kappa$；见《构造》引理
+\ref{constructions-lemma-base-change-map-proj}。
+回忆 $E$ 是 $X$ 的闭子概形，由 $\mathfrak m\mathcal{O}_X$ 定义，
+即 $E = X_\kappa$。由态射 $r$ 的选取可知，$r|_E$ 实际上
+将 $E = X_\kappa$ 识别为 $\mathbf{P}^1_S \to S$ 的特殊纤维。
+
+\medskip\noindent
+(3) 由 (1)、(2) 以及《除子》引理
+\ref{divisors-lemma-conormal-effective-Cartier-divisor} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blowup-regular}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的正则局部环。
+令 $f : X \to S = \Spec(A)$ 为沿 $A$ 中的 $\mathfrak m$ 爆破的态射。
+则 $X$ 是不可约正则概形。
+\end{lemma}
+
+\begin{proof}
+由《除子》引理 \ref{divisors-lemma-blow-up-integral-scheme}
+以及《代数》引理 \ref{algebra-lemma-regular-domain}，可知 $X$ 是整概形。
+要看出 $X$ 正则，只需检查闭点处的
+$\mathcal{O}_{X, x}$（其中 $x \in X$）正则；见《性质》引理
+\ref{properties-lemma-characterize-regular}。
+令 $x \in X$ 为闭点。由于 $f$ proper，$x$ 映到
+$\mathfrak m$，即 $x$ 是例外除子 $E$ 上的点。
+于是 $E$ 是有效 Cartier 除子，且 $E \cong \mathbf{P}^1_\kappa$。
+因此，若 $g \in \mathfrak m_x \subset \mathcal{O}_{X, x}$ 是 $E$ 的局部
+方程，则
+$\mathcal{O}_{X, x}/(g) \cong \mathcal{O}_{\mathbf{P}^1_\kappa, x}$。
+由于 $\mathbf{P}^1_\kappa$ 可由两个仿射开集覆盖，而它们是
+在 $\kappa$ 上的多项式环的谱，可知
+$\mathcal{O}_{\mathbf{P}^1_\kappa, x}$ 正则；见《代数》引理
+\ref{algebra-lemma-dim-affine-space}。
+最后应用《代数》引理
+\ref{algebra-lemma-regular-mod-x}。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blowup-pic}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的正则局部环。
+令 $f : X \to S = \Spec(A)$ 为沿 $A$ 中的 $\mathfrak m$ 爆破的态射。
+则 $\Pic(X) = \mathbf{Z}$，由 $\mathcal{O}_X(E)$ 生成。
+\end{lemma}
+
+\begin{proof}
+回忆 $E = \mathbf{P}^1_\kappa$ 的 Picard 群为 $\mathbf{Z}$，
+生成元为 $\mathcal{O}(1)$；见《除子》引理
+\ref{divisors-lemma-Pic-projective-space-UFD}。
+由引理 \ref{resolve-lemma-blowup}，可逆 $\mathcal{O}_X$-模
+$\mathcal{O}_X(E)$ 限制为 $\mathcal{O}(-1)$。因此
+$\mathcal{O}_X(E)$ 在 $\Pic(X)$ 中生成无限循环群。
+由于 $A$ 正则，它是 UFD；见《更多代数》引理
+\ref{more-algebra-lemma-regular-local-UFD}。
+于是去掉闭点的谱 $U = S \setminus \{\mathfrak m\} = X \setminus E$
+的 Picard 群平凡；见《除子》引理
+\ref{divisors-lemma-open-subscheme-UFD}。
+因此，对每个可逆 $\mathcal{O}_X$-模 $\mathcal{L}$，
+存在同构 $s : \mathcal{O}_U \to \mathcal{L}|_U$。
+于是 $s$ 是 $\mathcal{L}$ 的正则亚纯截面，且
+$\text{div}_\mathcal{L}(s) = nE$，其中
+$n \in \mathbf{Z}$
+（《除子》定义 \ref{divisors-definition-divisor-invertible-sheaf}）。
+由《除子》引理 \ref{divisors-lemma-normal-c1-injective}
+（以及由引理 \ref{resolve-lemma-blowup-regular} 知 $X$ 正规），
+得到 $\mathcal{L} = \mathcal{O}_X(nE)$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-cohomology-of-blowup}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的正则局部环。
+令 $f : X \to S = \Spec(A)$ 为沿 $A$ 中的 $\mathfrak m$ 爆破的态射。
+令 $\mathcal{F}$ 为拟相干 $\mathcal{O}_X$-模。
+\begin{enumerate}
+\item $H^p(X, \mathcal{F}) = 0$，当 $p \not \in \{0, 1\}$ 时；
+\item $H^1(X, \mathcal{O}_X(n)) = 0$，当 $n \geq -1$ 时；
+\item $H^1(X, \mathcal{F}) = 0$，只要 $\mathcal{F}$ 或 $\mathcal{F}(1)$
+是整体生成的；
+\item $H^0(X, \mathcal{O}_X(n)) = \mathfrak m^{\max(0, n)}$；
+\item $\text{length}_A H^1(X, \mathcal{O}_X(n)) = -n(-n - 1)/2$，
+当 $n < 0$ 时。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $\mathfrak m = (x, y)$，则 $X$ 被仿射爆破代数的谱覆盖，
+这些代数为 $A[\frac{\mathfrak m}{x}]$ 和
+$A[\frac{\mathfrak m}{y}]$；这是因为将 $x$、$y$ 置于次数 $1$ 后，
+它们生成 Rees 代数 $\bigoplus \mathfrak m^n$（这是 $A$ 上的代数）。
+见《除子》引理 \ref{divisors-lemma-blowing-up-affine} 以及
+《构造》引理 \ref{constructions-lemma-proj-quasi-compact}。
+由《构造》引理 \ref{constructions-lemma-proj-separated}，$X$ 是分离的，
+故由《概形上同调》引理 \ref{coherent-lemma-vanishing-nr-affines}，
+拟相干层的上同调在次数 $\geq 2$ 时消失。
+
+\medskip\noindent
+令 $i : E \to X$ 为例外除子，见《除子》定义
+\ref{divisors-definition-blow-up}。
+回忆 $\mathcal{O}_X(-E) = \mathcal{O}_X(1)$ 是
+$f$-相对充足的；见《除子》引理
+\ref{divisors-lemma-blowing-up-gives-effective-Cartier-divisor}。
+因此有 $H^1(X, \mathcal{O}_X(-nE)) = 0$，其中 $n > 0$；
+见《概形上同调》引理 \ref{coherent-lemma-kill-by-twisting}。
+考虑滤链
+$$
+\mathcal{O}_X(-nE) \subset \mathcal{O}_X(-(n - 1)E) \subset
+\ldots \subset \mathcal{O}_X(-E) \subset \mathcal{O}_X \subset \mathcal{O}_X(E)
+$$
+其相邻商层为
+$$
+\mathcal{O}_X(-t E)/\mathcal{O}_X(-(t + 1)E) =
+\mathcal{O}_X(t)/\mathcal{I}(t) =
+i_*\mathcal{O}_E(t)
+$$
+其中 $\mathcal{I} = \mathcal{O}_X(-E)$ 是 $E$ 的理想层。
+由引理 \ref{resolve-lemma-blowup}，有 $E = \mathbf{P}^1_\kappa$，且
+$\mathcal{O}_E(1)$ 确实对应于 $\mathbf{P}^1$ 上结构层的通常 Serre 扭曲。
+因此 $\mathcal{O}_E(t)$ 的上同调在次数 $1$ 上（当 $t \geq -1$ 时）消失；见
+《概形上同调》引理 \ref{coherent-lemma-cohomology-projective-space-over-ring}。
+由于这等于 $H^1(X, i_*\mathcal{O}_E(t))$（由《概形上同调》引理
+\ref{coherent-lemma-relative-affine-cohomology}），可知
+$H^1(X, \mathcal{O}_X(-(t + 1)E)) \to H^1(X, \mathcal{O}_X(-tE))$
+在 $t \geq -1$ 时满射。因此
+$$
+0 = H^1(X, \mathcal{O}_X(-nE))
+\longrightarrow
+H^1(X, \mathcal{O}_X(-tE)) = H^1(X, \mathcal{O}_X(t))
+$$
+在 $t \geq -1$ 时满射，这就证明了 (2)。
+
+\medskip\noindent
+令 $\mathcal{F}$ 为整体生成的。这意味着存在短正合序列
+$$
+0 \to \mathcal{G} \to \bigoplus\nolimits_{i \in I} \mathcal{O}_X
+\to \mathcal{F} \to 0
+$$
+注意由《上同调》引理
+\ref{cohomology-lemma-quasi-separated-cohomology-colimit}，有
+$H^1(X, \bigoplus_{i \in I} \mathcal{O}_X) =
+\bigoplus_{i \in I} H^1(X, \mathcal{O}_X)$。
+由 (2) 得 $H^1(X, \mathcal{O}_X) = 0$。
+若 $\mathcal{F}(1)$ 整体生成，则可找到满射
+$\bigoplus_{i \in I} \mathcal{O}_X(-1) \to \mathcal{F}$，
+并以类似方式论证。换言之，(3) 由 (2) 推出。
+
+\medskip\noindent
+对于 (4)，注意当 $n$ 足够大时，有
+$\Gamma(X, \mathcal{O}_X(n)) = \mathfrak m^n$；见《概形上同调》引理
+\ref{coherent-lemma-recover-tail-graded-module}。
+若 $n \geq 0$，则可使用短正合序列
+$$
+0 \to \mathcal{O}_X(n) \to \mathcal{O}_X(n - 1) \to
+i_*\mathcal{O}_E(n - 1) \to 0
+$$
+并利用左侧层的 $H^1$ 消失得到交换图
+$$
+\xymatrix{
+0 \ar[r] &
+\mathfrak m^{\max(0, n)} \ar[r] \ar[d] &
+\mathfrak m^{\max(0, n - 1)} \ar[r] \ar[d] &
+\mathfrak m^{\max(0, n)}/\mathfrak m^{\max(0, n - 1)} \ar[r] \ar[d] & 0\\
+0 \ar[r] &
+\Gamma(X, \mathcal{O}_X(n)) \ar[r] &
+\Gamma(X, \mathcal{O}_X(n - 1)) \ar[r] &
+\Gamma(E, \mathcal{O}_E(n - 1)) \ar[r] & 0
+}
+$$
+其行均正合。事实上，当 $n < 0$ 时行也正合，
+因为此时右侧的群为零。
+在引理 \ref{resolve-lemma-blowup} 的证明中我们已看到右侧竖直箭头是同构
+（细节略去）。因此若左侧竖直箭头是同构，中间的也是同构。
+由此对 $n$ 作递降归纳即可得到 (4)。
+
+\medskip\noindent
+最后，我们利用下列序列对 $n$ 作递降归纳来证明 (5)：
+$$
+0 \to \mathcal{O}_X(n) \to \mathcal{O}_X(n - 1) \to
+i_*\mathcal{O}_E(n - 1) \to 0
+$$
+具体地，当 $n \geq -1$ 时，我们已经知道
+$H^1(X, \mathcal{O}_X(n)) = 0$。由于
+$$
+H^1(X, i_*\mathcal{O}_E(-2)) =
+H^1(E, \mathcal{O}_E(-2)) =
+H^1(\mathbf{P}^1_\kappa, \mathcal{O}(-2)) \cong \kappa
+$$
+由《概形上同调》引理
+\ref{coherent-lemma-cohomology-projective-space-over-ring}，上述模长度为
+$1$ 的 $A$-模，故由上同调长正合序列可知 (5) 对 $n = -2$ 成立。
+如此继续即可。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blowup-improve}
+令 $(A, \mathfrak m)$ 为维数 $2$ 的正则局部环。
+令 $f : X \to S = \Spec(A)$ 为沿 $A$ 中的 $\mathfrak m$ 爆破的态射。
+令 $\mathfrak m^n \subset I \subset \mathfrak m$ 为理想。
+令 $d \geq 0$ 为满足下式的最大整数：
+$$
+I \mathcal{O}_X \subset \mathcal{O}_X(-dE)
+$$
+其中 $E$ 为例外除子。置
+$\mathcal{I}' = I\mathcal{O}_X(dE) \subset \mathcal{O}_X$.
+则 $d > 0$，层 $\mathcal{O}_X/\mathcal{I}'$ 支持在有限多个
+闭点 $x_1, \ldots, x_r$（它们属于 $X$）上，并且
+\begin{align*}
+\text{length}_A(A/I)
+& >
+\text{length}_A \Gamma(X, \mathcal{O}_X/\mathcal{I}') \\
+& \geq
+\sum\nolimits_{i = 1, \ldots, r}
+\text{length}_{\mathcal{O}_{X, x_i}}
+(\mathcal{O}_{X, x_i}/\mathcal{I}'_{x_i})
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+由于 $I \subset \mathfrak m$，$I$ 的每个元素都在 $E$ 上消失，
+故 $d \geq 1$。另一方面，由于 $\mathfrak m^n \subset I$，可知
+$d \leq n$。考虑短正合序列
+$$
+0 \to I\mathcal{O}_X \to \mathcal{O}_X \to \mathcal{O}_X/I\mathcal{O}_X \to 0
+$$
+由于 $I\mathcal{O}_X$ 整体生成，由引理
+\ref{resolve-lemma-cohomology-of-blowup} 有 $H^1(X, I\mathcal{O}_X) = 0$。
+因此得到满射
+$A/I \to \Gamma(X, \mathcal{O}_X/I\mathcal{O}_X)$。考虑短正合序列
+$$
+0 \to
+\mathcal{O}_X(-dE)/I\mathcal{O}_X \to
+\mathcal{O}_X/I\mathcal{O}_X \to
+\mathcal{O}_X/\mathcal{O}_X(-dE) \to 0
+$$
+由《除子》引理 \ref{divisors-lemma-codim-1-part}，可知
+$\mathcal{O}_X(-dE)/I\mathcal{O}_X$ 支持在 $X$ 的有限多个闭点上。
+特别地，该相干层的高阶上同调群消失（细节略去）。于是下图中
+$$
+\xymatrix{
+& & A/I \ar[d] \\
+0 \ar[r] &
+\Gamma(X, \mathcal{O}_X(-dE)/I\mathcal{O}_X) \ar[r] &
+\Gamma(X, \mathcal{O}_X/I\mathcal{O}_X) \ar[r] &
+\Gamma(X, \mathcal{O}_X/\mathcal{O}_X(-dE)) \ar[r] & 0
+}
+$$
+底行正合且竖直箭头满射。我们有
+$$
+\text{length}_A \Gamma(X, \mathcal{O}_X(-dE)/I\mathcal{O}_X) <
+\text{length}_A(A/I)
+$$
+因为 $\Gamma(X, \mathcal{O}_X/\mathcal{O}_X(-dE))$ 非零。
+事实上，$1 \in \Gamma(X, \mathcal{O}_X)$ 的像在 $d > 0$ 时非零。
+
+\medskip\noindent
+为完成证明，将上述结果改写为引理中的陈述。由于
+$\mathcal{O}_X(dE)$ 可逆，有
+$$
+\mathcal{O}_X/\mathcal{I}' =
+\mathcal{O}_X(-dE)/I\mathcal{O}_X \otimes_{\mathcal{O}_X} \mathcal{O}_X(dE).
+$$
+因此 $\mathcal{O}_X/\mathcal{I}'$ 与 $\mathcal{O}_X(-dE)/I\mathcal{O}_X$
+支持在同一有限点集上，记为 $x_1, \ldots, x_r \in E \subset X$。
+此外有
+$$
+\Gamma(X, \mathcal{O}_X(-dE)/I\mathcal{O}_X) =
+\bigoplus \mathcal{O}_X(-dE)_{x_i}/I\mathcal{O}_{X, x_i}
+\cong
+\bigoplus \mathcal{O}_{X, x_i}/\mathcal{I}'_{x_i} =
+\Gamma(X, \mathcal{O}_X/\mathcal{I}')
+$$
+因为局部环上的可逆模是平凡的。由此得到严格不等式。
+又由于
+$$
+\text{length}_A(\mathcal{O}_{X, x_i}/\mathcal{I}'_{x_i}) \geq
+\text{length}_{\mathcal{O}_{X, x_i}}(\mathcal{O}_{X, x_i}/\mathcal{I}'_{x_i})
+$$
+这直接由长度的定义得到。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-differentials-of-blowup}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的正则局部环。
+令 $f : X \to S = \Spec(A)$ 为沿 $A$ 中的 $\mathfrak m$ 爆破的态射。
+则 $\Omega_{X/S} = i_*\Omega_{E/\kappa}$，其中 $i : E \to X$
+是例外除子的浸入。
+\end{lemma}
+
+\begin{proof}
+记 $\mathbf{P}^1 = \mathbf{P}^1_S$，令
+$r : X \to \mathbf{P}^1$ 如引理 \ref{resolve-lemma-blowup} 中所述。
+则有正合序列
+$$
+\mathcal{C}_{X/\mathbf{P}^1} \to r^*\Omega_{\mathbf{P}^1/S} \to
+\Omega_{X/S} \to 0
+$$
+见《态射》引理 \ref{morphisms-lemma-differentials-relative-immersion}。
+由《态射》引理 \ref{morphisms-lemma-base-change-differentials}，
+$\Omega_{\mathbf{P}^1/S}|_E = \Omega_{E/\kappa}$，因此只需证明第一箭头
+映到典范映射
+$r^*\Omega_{\mathbf{P}^1/S} \to i_*\Omega_{E/\kappa}$
+的核上是满射。这可局部完成。沿用引理 \ref{resolve-lemma-blowup} 证明中的记号，
+在 $X$ 的仿射开集上，态射 $f$ 对应于环映射
+$$
+A \to A[t]/(xt - y)
+$$
+其中 $x, y \in \mathfrak m$ 为生成元。因此
+$\text{d}(xt - y) = x\text{d}t$ 且 $y\text{d}t = t \cdot x \text{d}t$，
+这就证明了所需结论。
+\end{proof}
+
+
+
+\section{由二次变换支配}
+\label{resolve-section-dominating-by-quadratic}
+
+\noindent
+利用上述结果，可以证明正则 $2$ 维概形的任意修改都由点上的爆破支配。
+
+\medskip\noindent
+令 $X$ 为概形，令 $x \in X$ 为闭点。照例，将
+$i : x = \Spec(\kappa(x)) \to X$ 看作闭子概形。
+称 {\it $X' \to X$} 为沿 $X$ 中的点 $x$ 的 $X$ 的爆破，
+即在闭子概形 $x \subset X$ 上进行爆破。注意，若 $X$ 局部 Noether，则由《除子》引理
+\ref{divisors-lemma-blowing-up-projective}，$X' \to X$ 是射影的（特别是 proper）。
+
+\begin{lemma}
+\label{resolve-lemma-make-ideal-principal}
+令 $X$ 为 Noether 概形。令 $T \subset X$ 为有限个闭点 $x$ 的集合，
+使得 $\mathcal{O}_{X, x}$ 是维数 $2$ 的正则环（对 $x \in T$）。
+令 $\mathcal{I} \subset \mathcal{O}_X$ 为拟相干理想层，且
+$\mathcal{O}_X/\mathcal{I}$ 支持在 $T$ 上。
+则存在序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+其中 $X_{i + 1} \to X_i$ 是在 $X_i$ 上沿位于 $T$ 中某点上方的闭点进行的爆破，
+并且 $\mathcal{I}\mathcal{O}_{X_n}$ 是可逆理想层。
+\end{lemma}
+
+\begin{proof}
+设 $T = \{x_1, \ldots, x_r\}$. 记 $I_i$ 为 $\mathcal{I}$ 在
+$x_i$ 处的茎。置
+$$
+n_i = \text{length}_{\mathcal{O}_{X, x_i}}(\mathcal{O}_{X, x_i}/I_i)
+$$
+由于 $\mathcal{O}_X/\mathcal{I}$ 支持在 $T$ 上，该长度有限，
+从而 $\mathcal{O}_{X, x_i}/I_i$ 的支集等于
+$\{\mathfrak m_{x_i}\}$（见《代数》引理 \ref{algebra-lemma-support-point}）。
+我们对 $\sum n_i$ 作归纳。若 $n_i = 0$ 对所有 $i$ 都成立，则
+$\mathcal{I} = \mathcal{O}_X$，结论成立。
+
+\medskip\noindent
+设 $n_i > 0$。令 $X' \to X$ 为在 $X$ 中沿 $x_i$ 的爆破
+（见引理上方的讨论）。
+由于 $\Spec(\mathcal{O}_{X, x_i}) \to X$ 平坦，可知
+$X' \times_X \Spec(\mathcal{O}_{X, x_i})$ 是在极大理想处对环
+$\mathcal{O}_{X, x_i}$ 的爆破；见《除子》引理
+\ref{divisors-lemma-flat-base-change-blowing-up}。
+因此交换图中的方块
+$$
+\xymatrix{
+\text{Proj}(\bigoplus\nolimits_{d \geq 0} \mathfrak m_{x_i}^d) \ar[r] \ar[d] &
+X' \ar[d] \\
+\Spec(\mathcal{O}_{X, x_i}) \ar[r] & X
+}
+$$
+是笛卡尔的。令 $E \subset X'$ 以及
+$E' \subset \text{Proj}(\bigoplus\nolimits_{d \geq 0} \mathfrak m_{x_i}^d)$
+为例外除子。令 $d \geq 1$ 为引理
+\ref{resolve-lemma-blowup-improve} 对理想
+$\mathcal{I}_i \subset \mathcal{O}_{X, x_i}$ 所得到的整数。
+由于图中的水平箭头平坦，且 $E' \to E$ 满射，且 $E'$ 是 $E$ 的拉回，
+可得
+$$
+\mathcal{I}\mathcal{O}_{X'} \subset \mathcal{O}_{X'}(-dE)
+$$
+（细节略去）。置 $\mathcal{I}' = \mathcal{I}\mathcal{O}_{X'}(dE) \subset \mathcal{O}_{X'}$。
+于是 $\mathcal{O}_{X'}/\mathcal{I}'$ 支持在有限多个闭点
+$T' \subset |X'|$ 上，因为这在
+$X \setminus \{x_i\}$ 上以及拉回到
+$\text{Proj}(\bigoplus\nolimits_{d \geq 0} \mathfrak m_{x_i}^d)$ 时都成立。
+引理 \ref{resolve-lemma-blowup-improve} 的最后断言告诉我们：茎
+$\mathcal{O}_{X', x'}/\mathcal{I}'\mathcal{O}_{X', x'}$
+（其中 $x'$ 位于 $x_i$ 上方）的长度之和 $< n_i$。
+因此长度总和下降了。
+
+\medskip\noindent
+由归纳假设，存在序列
+$$
+X'_n \to \ldots \to X'_1 \to X'
+$$
+它由位于 $T'$ 上方闭点处的爆破组成，且
+$\mathcal{I}'\mathcal{O}_{X'_n}$ 可逆。由于
+$\mathcal{I}'\mathcal{O}_{X'}(-dE) = \mathcal{I}\mathcal{O}_{X'}$，
+可得 $\mathcal{I}\mathcal{O}_{X'_n} =
+\mathcal{I}'\mathcal{O}_{X'_n}(-d(f')^{-1}E)$
+其中 $f' : X'_n \to X'$ 是复合态射。
+注意由《除子》引理
+\ref{divisors-lemma-blow-up-pullback-effective-Cartier}，
+$(f')^{-1}E$ 是有效 Cartier 除子。因此由《除子》引理
+\ref{divisors-lemma-sum-effective-Cartier-divisors} 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-dominate-by-blowing-up-in-points}
+令 $X$ 为 Noether 概形。令 $T \subset X$ 为有限个闭点 $x$ 的集合，
+使得 $\mathcal{O}_{X, x}$ 是维数 $2$ 的正则局部环。令
+$f : Y \to X$ 为概形之间的 proper 态射，并且在
+$U = X \setminus T$ 上是同构。则存在序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+其中 $X_{i + 1} \to X_i$ 是在 $X_i$ 上沿闭点 $x_i$ 进行的爆破，
+且该点位于 $T$ 中某点上方，并且复合态射有分解 $X_n \to Y \to X$。
+\end{lemma}
+
+\begin{proof}
+由《更多平坦性》引理 \ref{flat-lemma-dominate-modification-by-blowup}，
+存在 $U$-容许爆破 $X' \to X$，支配 $Y \to X$。因此可设存在理想层
+$\mathcal{I} \subset \mathcal{O}_X$，使得
+$\mathcal{O}_X/\mathcal{I}$ 支持在 $T$ 上，且
+$Y$ 是 $X$ 沿 $\mathcal{I}$ 的爆破。
+由引理 \ref{resolve-lemma-make-ideal-principal}，存在序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+其中 $X_{i + 1} \to X_i$ 是在 $X_i$ 上沿闭点 $x_i$ 进行的爆破，
+且该点位于 $T$ 中某点上方，$\mathcal{I}\mathcal{O}_{X_n}$ 是可逆理想层。
+由爆破的泛性质（《除子》引理
+\ref{divisors-lemma-universal-property-blowing-up}），
+得到所需分解。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-extend-rational-map-blowing-up}
+令 $S$ 为概形。令 $X$ 为 $S$ 上的概形，正则且维数为 $2$。
+令 $Y$ 为 $S$ 上的 proper 概形。给定 $S$-有理映射
+$f : U \to Y$，从 $X$ 到 $Y$，存在序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+以及 $S$-态射 $f_n : X_n \to Y$，使得 $X_{i + 1} \to X_i$
+是在 $X_i$ 上沿不位于 $U$ 上方的闭点进行的爆破，且 $f_n$ 与 $f$ 一致。
+\end{lemma}
+
+\begin{proof}
+可设 $U$ 包含每个余维 $1$ 的点；见《态射》引理
+\ref{morphisms-lemma-extend-across}。
+于是补集 $T \subset X$（对应于 $U$）是有限个闭点，
+其局部环是维数 $2$ 的正则环。
+应用《除子》引理 \ref{divisors-lemma-extend-rational-map-after-modification}，
+得到 proper 态射 $p : X' \to X$，它在 $U$ 上为同构，
+并有态射 $f' : X' \to Y$，与 $f$ 在 $U$ 上一致。
+对态射 $p : X' \to X$ 应用引理 \ref{resolve-lemma-dominate-by-blowing-up-in-points}。
+复合 $X_n \to X' \to Y$ 即为所需态射。
+\end{proof}
+
+
+
+
+
+
+\section{由正规化爆破支配}
+\label{resolve-section-normalized-blowups}
+
+\noindent
+本节证明曲面的修改可由一列沿点的正规化爆破支配。
+
+\begin{definition}
+\label{resolve-definition-normalized-blowup}
+令 $X$ 为概形，使每个拟紧开集都有有限多个不可约分支。
+令 $x \in X$ 为闭点。{\it $X$ 在 $x$ 处的正规化爆破}是复合
+$X'' \to X' \to X$，其中 $X' \to X$ 是沿 $X$ 中 $x$ 的爆破，
+而 $X'' \to X'$ 是 $X'$ 的正规化。
+\end{definition}
+
+\noindent
+这里，正规化 $X'' \to X'$ 的定义使用《除子》引理
+\ref{divisors-lemma-blow-up-and-irreducible-components}：概形 $X'$
+有由不可约分支有限的开集组成的开覆盖。
+正规化的定义见《态射》定义 \ref{morphisms-definition-normalization}。
+
+\medskip\noindent
+一般而言，即使 $X$ Noether，正规化爆破也未必 proper。
+回忆，若概形有由 Nagata 环的谱组成的仿射开覆盖，
+则称其为 Nagata（《性质》定义 \ref{properties-definition-nagata}）。
+
+\begin{lemma}
+\label{resolve-lemma-Nagata-normalized-blowup}
+在定义 \ref{resolve-definition-normalized-blowup} 中，若 $X$ 是 Nagata，
+则 $X$ 在 $x$ 处的正规化爆破是正规、Nagata 的，且在 $X$ 上 proper。
+\end{lemma}
+
+\begin{proof}
+爆破态射 $X' \to X$ 是 proper 的（由于 $X$ 局部 Noether，
+可应用《除子》引理 \ref{divisors-lemma-blowing-up-projective}）。
+因此 $X'$ 是 Nagata 的（《态射》引理
+\ref{morphisms-lemma-finite-type-nagata}）。
+于是正规化 $X'' \to X'$ 是有限的（《态射》引理
+\ref{morphisms-lemma-nagata-normalization}），
+从而 $X'' \to X$ 也 proper（《态射》引理
+\ref{morphisms-lemma-finite-proper} 和
+\ref{morphisms-lemma-composition-proper}）。
+因此正规化爆破是正规（《态射》引理
+\ref{morphisms-lemma-normalization-normal}）的 Nagata 代数空间。
+\end{proof}
+
+\noindent
+在下面的引理中，我们需要假设 $X$ 是 Noether，以保证它有有限多个不可约分支。
+于是 proper 性质保证 $f : Y \to X$ 的 $Y$ 也有有限多个不可约分支，
+并且要求 $f$ 为双有理态射是有意义的
+（《态射》定义 \ref{morphisms-definition-birational}）。
+
+\begin{lemma}
+\label{resolve-lemma-dominate-by-normalized-blowing-up}
+令 $X$ 为 Noether、Nagata 且维数为 $2$ 的概形。
+令 $f : Y \to X$ 为 proper 双有理态射。
+则存在交换图
+$$
+\xymatrix{
+X_n \ar[r] \ar[d] &
+X_{n - 1} \ar[r] &
+\ldots \ar[r] &
+X_1 \ar[r] &
+X_0 \ar[d] \\
+Y \ar[rrrr]  & & & & X
+}
+$$
+其中 $X_0 \to X$ 是正规化，且 $X_{i + 1} \to X_i$ 是在闭点处
+对 $X_i$ 的正规化爆破。
+\end{lemma}
+
+\begin{proof}
+下面将不再另行提及《态射》各节的结果：
+\ref{morphisms-section-nagata}、
+\ref{morphisms-section-dimension-formula} 以及
+\ref{morphisms-section-normalization}。
+可将 $Y$ 替换为其正规化。令 $X_0 \to X$ 为正规化。
+态射 $Y \to X$ 经由 $X_0$ 分解。因此可设 $X$ 与 $Y$ 均正规。
+
+\medskip\noindent
+设 $X$ 与 $Y$ 正规。态射 $f : Y \to X$ 在某个开集上是同构，
+该开集包含每个余维 $0$、$1$ 的点（位于 $Y$ 中）以及纤维有限的 $Y$ 中各点；见《簇》引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}。
+因此存在有限个闭点 $T \subset X$，使 $f$ 在 $X \setminus T$ 上为同构。
+对每个 $x \in T$，纤维 $Y_x$ 是维数 $1$ 的 proper 几何连通概形，定义在 $\kappa(x)$ 上；见
+《更多态射》引理
+\ref{more-morphisms-lemma-geometrically-connected-fibres-towards-normal}。
+于是
+$$
+BadCurves(f) = \{C \subset Y\text{ 闭} \mid
+\dim(C) = 1, f(C) = \text{a point}\}
+$$
+是有限集。我们对 $BadCurves(f)$ 的元素个数作归纳证明引理。
+基例是 $BadCurves(f)$ 为空的情形；此时 $f$ 是同构。
+
+\medskip\noindent
+固定 $x \in T$。令 $X' \to X$ 为 $X$ 在 $x$ 处的正规化爆破，令
+$Y'$ 为 $Y \times_X X'$ 的正规化。图示为
+$$
+\xymatrix{
+Y' \ar[r]_{f'} \ar[d] & X' \ar[d] \\
+Y \ar[r]^f & X
+}
+$$
+令 $x' \in X'$ 为位于 $x$ 上方的闭点，使纤维
+$Y'_{x'}$ 的维数 $\geq 1$。令 $C' \subset Y'$ 为 $Y'_{x'}$ 的不可约分支，
+即 $C' \in BadCurves(f')$。由于 $Y' \to Y \times_X X'$ 有限，
+可知 $C'$ 必映到某个不可约分支 $C \subset Y_x$。
+显然 $C \in BadCurves(f)$。
+由于 $Y' \to Y$ 是双有理的，因而在余维 $1$ 的点上（位于 $Y$ 中）为同构，
+可得单射
+$$
+BadCurves(f') \longrightarrow BadCurves(f)
+$$
+因此只需证明：经过有限次这样的正规化爆破后，至少消去一条坏曲线，
+即上面显示的映射不满射。
+
+\medskip\noindent
+我们使用 Zariski 的论证消去一条坏曲线。
+取 $C \in BadCurves(f)$，它位于 $x$ 上方。记 $\mathcal{O}_{Y, C}$
+为 $Y$ 在 $C$ 的一般点处的局部环。选取元素
+$u \in \mathcal{O}_{X, C}$，其在剩余域 $R(C)$ 中的像
+在 $\kappa(x)$ 上超越（这是可能的，因为由《簇》引理
+\ref{varieties-lemma-dimension-locally-algebraic}，
+$R(C)$ 的超越次数为 $1$（相对于 $\kappa(x)$）。
+可写 $u = a/b$，其中 $a, b \in \mathcal{O}_{X, x}$，因为
+$\mathcal{O}_{Y, C}$ 与 $\mathcal{O}_{X, x}$ 有相同的分式域。
+由 $u$ 的选取，必有 $a, b \in \mathfrak m_x$。于是
+$$
+N_{u, a, b} = \min
+\{\text{ord}_{\mathcal{O}_{Y, C}}(a), \text{ord}_{\mathcal{O}_{Y, C}}(b)\} > 0
+$$
+因此可对该整数作递降归纳。令 $X' \to X$ 为 $x$ 处的正规化爆破，
+并令 $Y'$ 为如上的 $X' \times_X Y$ 的正规化。我们将证明：若 $C$ 是某条坏曲线
+$C' \subset Y'$ 的像，且位于 $x' \in X'$ 上方，则
+存在选择 $a', b' \mathcal{O}_{X', x'}$，使
+$N_{u, a', b'} < N_{u, a, b}$。这就完成证明。
+确切地说，由于 $X' \to X$ 经由爆破分解，存在非零元素
+$d \in \mathfrak m_{x'}$，使得 $a = a' d$ 且 $b = b' d$
+（取爆破的例外除子的局部方程作为 $d$ 即可）。由于 $Y' \to Y$
+在包含 $C$ 一般点的开集上是同构（如上所见），可知
+$\mathcal{O}_{Y', C'} = \mathcal{O}_{Y, C}$。于是
+$$
+\text{ord}_{\mathcal{O}_{Y, C}}(a) =
+\text{ord}_{\mathcal{O}_{Y', C'}}(a' d) =
+\text{ord}_{\mathcal{O}_{Y', C'}}(a') +
+\text{ord}_{\mathcal{O}_{Y', C'}}(d) >
+\text{ord}_{\mathcal{O}_{Y', C'}}(a')
+$$
+对 $b$ 同理，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-extend-rational-map-normalized-blowing-up}
+令 $S$ 为概形。令 $X$ 为概形，定义在 $S$ 上，Noether、Nagata 且维数为 $2$。
+令 $Y$ 为 $S$ 上的 proper 概形。给定
+$S$-有理映射 $f : U \to Y$，从 $X$ 到 $Y$，存在序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 \to X
+$$
+以及 $S$-态射 $f_n : X_n \to Y$，使得 $X_0 \to X$ 是正规化，
+$X_{i + 1} \to X_i$ 是在闭点处对 $X_i$ 的正规化爆破，且 $f_n$ 与 $f$ 一致。
+\end{lemma}
+
+\begin{proof}
+应用《除子》引理 \ref{divisors-lemma-extend-rational-map-after-modification}，
+得到 proper 态射 $p : X' \to X$，它在 $U$ 上为同构，
+并有态射 $f' : X' \to Y$，与 $f$ 在 $U$ 上一致。
+对态射 $p : X' \to X$ 应用引理 \ref{resolve-lemma-dominate-by-normalized-blowing-up}。
+复合 $X_n \to X' \to Y$ 即为所需态射。
+\end{proof}
+
+
+
+
+
+\section{在局部环上作修改}
+\label{resolve-section-modifications}
+
+\noindent
+令 $S$ 为概形。令 $s_1, \ldots, s_n \in S$ 为两两不同的闭点。
+假设开浸入
+$$
+U = S \setminus \{s_1, \ldots, s_n\} \longrightarrow S
+$$
+是拟紧的。记 $FP_{S, \{s_1, \ldots, s_n\}}$ 为有限表示态射
+$f : X \to S$ 的范畴，其中态射诱导同构 $f^{-1}(U) \to U$。
+态射均为 $S$ 上概形的态射。
+对每个 $i$，置 $S_i = \Spec(\mathcal{O}_{S, s_i})$，
+并令 $V_i = S_i \setminus \{s_i\}$。记 $FP_{S_i, s_i}$ 为有限表示态射
+$g_i : Y_i \to S_i$ 的范畴，其中态射诱导同构
+$g_i^{-1}(V_i) \to V_i$。
+态射均为 $S_i$ 上的态射。基变换定义函子
+\begin{equation}
+\label{resolve-equation-equivalence}
+F :
+FP_{S, \{s_1, \ldots, s_n\}}
+\longrightarrow
+FP_{S_1, s_1} \times \ldots \times FP_{S_n, s_n}
+\end{equation}
+为将本章至少部分问题归约到局部环情形，有以下引理。
+
+\begin{lemma}
+\label{resolve-lemma-equivalence}
+函子 $F$（\ref{resolve-equation-equivalence}）是等价。
+\end{lemma}
+
+\begin{proof}
+当 $n = 1$ 时，这是《极限》引理 \ref{limits-lemma-modifications}。
+当 $n > 1$ 时可完全类似证明，或由此推出。例如，设
+$g_i : Y_i \to S_i$ 是 $FP_{S_i, s_i}$ 中的对象。
+由 $n = 1$ 的情形，可找到有限表示的 $f'_i : X'_i \to S$，
+它们在 $S \setminus \{s_i\}$ 上为同构，且到 $S_i$ 的基变换为 $g_i$。
+于是置
+$$
+f : X = X'_1 \times_S \ldots \times_S X'_n \to S
+$$
+这是 $FP_{S, \{s_1, \ldots, s_n\}}$ 中的对象，
+其沿 $S_i \to S$ 的基变换恢复 $g_i$。因此函子本质满射。
+满忠实性的证明略去。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-equivalence-properties}
+令 $S, s_i, S_i$ 如（\ref{resolve-equation-equivalence}）中所设。
+若 $f : X \to S$ 对应 $g_i : Y_i \to S_i$，对应关系由 $F$ 给出，
+则 $f$ 分离、proper、有限，当且仅当 $g_i$ 对 $i = 1, \ldots, n$ 具有相应性质。
+\end{lemma}
+
+\begin{proof}
+由《极限》引理
+\ref{limits-lemma-modifications-properties} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-equivalence-fibre}
+令 $S, s_i, S_i$ 如（\ref{resolve-equation-equivalence}）中所设。
+若 $f : X \to S$ 对应 $g_i : Y_i \to S_i$，对应关系由 $F$ 给出，
+则 $X_{s_i} \cong (Y_i)_{s_i}$ 是在 $\kappa(s_i)$ 上的概形同构。
+\end{lemma}
+
+\begin{proof}
+显然。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-equivalence-sequence-blowups}
+令 $S, s_i, S_i$ 如（\ref{resolve-equation-equivalence}）中所设，
+并假设 $f : X \to S$ 对应 $g_i : Y_i \to S_i$，其中对应关系由 $F$ 给出。
+则存在分解
+$$
+X = Z_m \to Z_{m - 1} \to \ldots \to Z_1 \to Z_0 = S
+$$
+这是 $f$ 的分解，其中 $Z_{j + 1} \to Z_j$ 是在 $Z_j$ 上沿闭点 $z_j$ 进行的爆破，
+且该点位于 $\{s_1, \ldots, s_n\}$ 上方；当且仅当对每个
+$i$ 存在分解
+$$
+Y_i = Z_{i, m_i} \to Z_{i, m_i - 1} \to \ldots \to Z_{i, 1} \to Z_{i, 0} = S_i
+$$
+这是 $g_i$ 的分解，其中 $Z_{i, j + 1} \to Z_{i, j}$ 是在 $Z_{i, j}$ 上沿闭点 $z_{i, j}$ 进行的爆破，
+且该点位于 $s_i$ 上方。
+\end{lemma}
+
+\begin{proof}
+从一列爆破开始
+$Z_m \to Z_{m - 1} \to \ldots \to Z_1 \to Z_0 = S$。
+第一个态射 $Z_1 \to S$ 是沿某个 $s_i$（不妨设为 $s_1$）的爆破。
+应用 $F$ 于 $Z_1 \to S$，得到 $Z_{1, 1} \to S_1$ 在 $s_1$ 处的爆破，
+即在 $s_1$ 处爆破，而有 $Z_{i, 0} = S_i$（当 $i > 1$ 时）。
+下一步中，我们或者沿某个 $s_i$（$i \geq 2$）爆破 $Z_1$，
+或者选取闭点 $z_1$，它属于 $Z_1 \to S$ 在 $s_1$ 上方的纤维。
+第一种情形显然；第二种情形利用
+$(Z_1)_{s_1} \cong (Z_{1, 1})_{s_1}$
+（引理 \ref{resolve-lemma-equivalence-fibre}），得到闭点 $z_{1, 1} \in Z_{1, 1}$，
+它对应于 $z_1$。
+然后令 $Z_{1, 2} \to Z_{1, 1}$ 为沿 $z_{1, 1}$ 的爆破。
+如此继续即可构造每个 $g_i$ 的分解。
+
+\medskip\noindent
+反之，给定爆破序列
+$Z_{i, m_i} \to Z_{i, m_i - 1} \to \ldots \to Z_{i, 1} \to Z_{i, 0} = S_i$，
+以完全相同的方式构造 $S$ 的爆破序列。
+\end{proof}
+
+\noindent
+下面是关于正规化爆破的
+引理 \ref{resolve-lemma-equivalence-sequence-blowups} 的类似结果。
+
+\begin{lemma}
+\label{resolve-lemma-equivalence-sequence-normalized-blowups}
+令 $S, s_i, S_i$ 如（\ref{resolve-equation-equivalence}）中所设，
+并假设 $f : X \to S$ 对应于 $g_i : Y_i \to S_i$，对应关系由 $F$ 给出。
+假设 $S$ 的每个拟紧开子集都有有限个不可约分支。
+则存在一个分解
+$$
+X = Z_m \to Z_{m - 1} \to \ldots \to Z_1 \to Z_0 = S
+$$
+这是 $f$ 的分解，其中 $Z_{j + 1} \to Z_j$ 是在 $Z_j$ 上沿闭点
+$z_j$ 作的正规化爆破，该点位于 $\{x_1, \ldots, x_n\}$ 上方；当且仅当对每个 $i$
+都存在一个分解
+$$
+Y_i = Z_{i, m_i} \to Z_{i, m_i - 1} \to \ldots \to Z_{i, 1} \to Z_{i, 0} = S_i
+$$
+这是 $g_i$ 的分解，其中 $Z_{i, j + 1} \to Z_{i, j}$ 是在 $Z_{i, j}$
+上沿闭点 $z_{i, j}$ 作的正规化爆破，该点位于 $s_i$ 上方。
+\end{lemma}
+
+\begin{proof}
+关于 $S$ 的假设用于逐步保证我们所正规化的概形局部只有有限个不可约分支，
+从而上述陈述有意义。既然如此，该引理就由证明
+引理 \ref{resolve-lemma-equivalence-sequence-blowups} 时所用的完全相同论证得到。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{消没}
+\label{resolve-section-vanishing}
+
+\noindent
+本节中我们经常在以下情形下工作。
+回忆一下，修改是整概形之间的 proper 双有理态射（《态射》，定义
+\ref{morphisms-definition-modification}）。
+
+\begin{situation}
+\label{resolve-situation-vanishing}
+这里 $(A, \mathfrak m, \kappa)$ 是维数为 $2$ 的局部诺特正规整环。
+令 $s$ 为 $S = \Spec(A)$ 的闭点，并令 $U = S \setminus \{s\}$。
+令 $f : X \to S$ 为修改。记 $C_1, \ldots, C_r$ 为特殊纤维
+$X_s$ 的不可约分支；这里该特殊纤维来自 $f$。
+\end{situation}
+
+\noindent
+由《簇》引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}，
+态射 $f$ 定义了同构 $f^{-1}(U) \to U$。
+由《簇》引理 \ref{varieties-lemma-dimension-fibre-in-higher-codimension}，
+特殊纤维 $X_s$ 在 $\Spec(\kappa)$ 上 proper，且维数至多为 $1$。
+由 Stein 分解（《态射进阶》引理
+\ref{more-morphisms-lemma-geometrically-connected-fibres-towards-normal}），
+有 $f_*\mathcal{O}_X = \mathcal{O}_S$，且特殊纤维 $X_s$ 在 $\kappa$ 上几何连通。
+若 $X_s$ 的维数为 $0$，则 $f$ 是有限态射（《态射进阶》引理
+\ref{more-morphisms-lemma-proper-finite-fibre-finite-in-neighbourhood}），
+因而是同构（《态射》引理 \ref{morphisms-lemma-finite-birational-over-normal}）。
+我们舍弃这个无趣的情形，于是得到
+$\dim(C_i) = 1$，其中 $i = 1, \ldots, r$。
+
+\begin{lemma}
+\label{resolve-lemma-dominate-by-scheme-modification}
+在情形 \ref{resolve-situation-vanishing} 中，存在 $U$-容许爆破
+$X' \to S$，它支配 $X$。
+\end{lemma}
+
+\begin{proof}
+这是《平坦性进阶》引理
+\ref{flat-lemma-dominate-modification-by-blowup} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-nice-meromorphic-function}
+在情形 \ref{resolve-situation-vanishing} 中，存在非零的
+$f \in \mathfrak m$，使得对每个 $i = 1, \ldots, r$，存在
+\begin{enumerate}
+\item 闭点 $x_i \in C_i$，满足 $x_i \not \in C_j$（对 $j \not = i$），
+\item 分解 $f = g_i f_i$，它是 $f$ 在 $\mathcal{O}_{X, x_i}$ 中的分解，其中
+$g_i \in \mathfrak m_{x_i}$ 映到 $\mathcal{O}_{C_i, x_i}$ 的非零元素。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下不再特别提及情形 \ref{resolve-situation-vanishing} 之后的观察。
+选取闭点 $x_i \in C_i$，它不属于 $C_j$，其中 $j \not = i$。
+选取 $g_i \in \mathfrak m_{x_i}$，使其映到
+$\mathcal{O}_{C_i, x_i}$ 的非零元素。由于 $A$ 的分式域就是
+$\mathcal{O}_{X_i, x_i}$ 的分式域，可写成
+$g_i = a_i/b_i$，其中 $a_i, b_i \in A$。取 $f = \prod a_i$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-nontrivial-normal-bundle}
+在情形 \ref{resolve-situation-vanishing} 中，假设 $X$ 正规。
+令 $Z \subset X$ 为非空有效 Cartier 除子，并假设作为集合有
+$Z \subset X_s$。则 $Z$ 的余法层非平凡。
+更确切地说，存在某个 $i$ 使得 $C_i \subset Z$ 且
+$\deg(\mathcal{C}_{Z/X}|_{C_i}) > 0$。
+\end{lemma}
+
+\begin{proof}
+以下不再特别提及情形 \ref{resolve-situation-vanishing} 之后的观察。
+令 $f$ 为引理 \ref{resolve-lemma-nice-meromorphic-function} 中的函数。
+令 $\xi_i \in C_i$ 为泛点，令 $\mathcal{O}_i$ 为 $X$ 在 $\xi_i$ 处的局部环。
+则 $\mathcal{O}_i$ 是离散赋值环。令 $e_i$ 为 $f$ 在 $\mathcal{O}_i$ 中的赋值，
+于是 $e_i > 0$。令 $h_i \in \mathcal{O}_i$ 为 $Z$ 的局部方程，令 $d_i$ 为其赋值。
+于是 $d_i \geq 0$。选取并固定 $i$，使 $d_i/e_i$ 最大
+（于是 $d_i > 0$，因为 $Z$ 非空）。
+将 $f$ 替换为 $f^{d_i}$，将 $Z$ 替换为 $e_iZ$。
+这是允许的，因为有关系
+$\mathcal{O}_X(e_i Z) = \mathcal{O}_X(Z)^{\otimes e_i}$，以及余法层与
+$\mathcal{O}_X(Z)$ 之间的关系（见《除子》引理
+\ref{divisors-lemma-invertible-sheaf-sum-effective-Cartier-divisors}
+和 \ref{divisors-lemma-conormal-effective-Cartier-divisor}；又因次数乘以 $e_i$，见
+《簇》引理 \ref{varieties-lemma-degree-tensor-product}）。
+令 $\mathcal{I}$ 为 $Z$ 的理想层，使得 $\mathcal{C}_{Z/X} = \mathcal{I}|_Z$。
+考虑像 $\overline{f}$，即 $f$ 在 $\Gamma(Z, \mathcal{O}_Z)$ 中的像。
+由上述选择可知，$\overline{f}$ 在 $Z$ 的不可约分支的泛点处消失
+（这些泛点都是某个 $C_j$ 的泛点，因为 $Z$ 包含于特殊纤维中）。另一方面，
+由《除子》引理 \ref{divisors-lemma-normal-effective-Cartier-divisor-S1}，
+$Z$ 是 $(S_1)$ 的。因而概形 $Z$ 没有嵌入关联点，于是由《除子》引理
+\ref{divisors-lemma-S1-no-embedded} 和
+\ref{divisors-lemma-restriction-injective-open-contains-weakly-ass} 得到
+$\overline{f} = 0$。因此 $f$ 是 $\mathcal{I}$ 的整体截面，按构造生成
+$\mathcal{I}_{\xi_i}$。故像 $s_i$，即 $f$ 在
+$\Gamma(C_i, \mathcal{I}|_{C_i})$ 中的像，是非零的。然而，$f$ 的选择保证
+$s_i$ 在 $x_i$ 处有零点。因此由《簇》引理
+\ref{varieties-lemma-check-invertible-sheaf-trivial}，$\mathcal{I}|_{C_i}$ 的次数为 $> 0$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-H1-injective}
+在情形 \ref{resolve-situation-vanishing} 中，假设 $X$ 正规且 $A$ 是 Nagata 环。映射
+$$
+H^1(X, \mathcal{O}_X) \longrightarrow H^1(f^{-1}(U), \mathcal{O}_X)
+$$
+是单射。
+\end{lemma}
+
+\begin{proof}
+令 $0 \to \mathcal{O}_X \to \mathcal{E} \to \mathcal{O}_X \to 0$ 为对应于
+非平凡元素 $\xi$ 的扩张，该元素属于 $H^1(X, \mathcal{O}_X)$
+（《上同调》引理 \ref{cohomology-lemma-h1-extensions}）。
+令 $\pi : P = \mathbf{P}(\mathcal{E}) \to X$ 为与 $\mathcal{E}$ 关联的射影丛。
+满射 $\mathcal{E} \to \mathcal{O}_X$ 定义截面 $\sigma : X \to P$，
+其余法层同构于 $\mathcal{O}_X$（《除子》引理
+\ref{divisors-lemma-conormal-sheaf-section-projective-bundle}）。
+若 $\xi$ 在 $f^{-1}(U)$ 上的限制平凡，则得到映射
+$\mathcal{E}|_{f^{-1}(U)} \to \mathcal{O}_{f^{-1}(U)}$，它劈裂单射
+$\mathcal{O}_X \to \mathcal{E}$。这定义了第二个截面
+$\sigma' : f^{-1}(U) \to P$，它与 $\sigma$ 不交。由于 $\xi$ 非平凡，可知 $\sigma'$ 不可能延拓到整个
+$X$ 且仍与 $\sigma$ 不交。令 $X' \subset P$ 为 $\sigma'$ 的概形论像
+（《态射》定义 \ref{morphisms-definition-scheme-theoretic-image}）。图示为
+$$
+\xymatrix{
+& X' \ar[rd]_g \ar[r] & P \ar[d]_\pi \\
+f^{-1}(U) \ar[ru]_{\sigma'} \ar[rr] & & X \ar@/_/[u]_\sigma
+}
+$$
+态射 $P \setminus \sigma(X) \to X$ 是仿射的。
+若 $X' \cap \sigma(X) = \emptyset$，则 $X' \to X$ 既仿射又 proper，因而有限
+（《态射》引理 \ref{morphisms-lemma-finite-proper}），进而是同构
+（因为 $X$ 正规，见《态射》引理
+\ref{morphisms-lemma-finite-birational-over-normal}）。这与上述结论矛盾。
+
+\medskip\noindent
+令 $X^\nu$ 为 $X'$ 的正规化。由于 $A$ 是 Nagata 环，
+$X^\nu \to X'$ 是有限态射（《态射》引理
+\ref{morphisms-lemma-nagata-normalization} 和
+\ref{morphisms-lemma-ubiquity-nagata}）。令 $Z \subset X^\nu$ 为有效 Cartier 除子
+$\sigma(X) \subset P$ 的拉回。由上可知 $Z$ 非空，且包含在
+$X^\nu \to S$ 的闭纤维中。由于 $P \to X$ 光滑，可知 $\sigma(X)$ 是有效
+Cartier 除子（《除子》引理
+\ref{divisors-lemma-section-smooth-regular-immersion}）。
+因此 $Z \subset X^\nu$ 也是有效 Cartier 除子。由于 $\sigma(X)$ 在 $P$ 中的余法层为
+$\mathcal{O}_X$，由《态射》引理
+\ref{morphisms-lemma-conormal-functorial-flat}，$Z$ 在 $X^\nu$ 中的余法层
+（先验上可逆）为 $\mathcal{O}_Z$。这与引理
+\ref{resolve-lemma-nontrivial-normal-bundle} 矛盾，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-R1-injective}
+在情形 \ref{resolve-situation-vanishing} 中，假设 $X$ 正规且 $A$ 是 Nagata 环。则
+$$
+\Hom_{D(A)}(\kappa[-1], Rf_*\mathcal{O}_X)
+$$
+为零。这里使用 $D(A) = D_\QCoh(\mathcal{O}_S)$，将
+$Rf_*\mathcal{O}_X$ 看作 $D(A)$ 的对象。
+\end{lemma}
+
+\begin{proof}
+由 $Rf_*$ 与 $Lf^*$ 的伴随性，这样的映射等同于映射
+$\alpha : Lf^*\kappa[-1] \to \mathcal{O}_X$。注意
+$$
+H^i(Lf^*\kappa[-1]) =
+\left\{
+\begin{matrix}
+0 & \text{若} & i > 1 \\
+\mathcal{O}_{X_s} & \text{若} & i = 1 \\
+\text{some }\mathcal{O}_{X_s}\text{-模} & \text{若} & i \leq 0
+\end{matrix}
+\right.
+$$
+由于 $\Hom(H^0(Lf^*\kappa[-1]), \mathcal{O}_X) = 0$
+（因为 $\mathcal{O}_X$ 无挠），故 $\Ext$ 的谱序列
+（《位点上的上同调》例
+\ref{sites-cohomology-example-hom-complex-into-sheaf}）蕴含
+$\Hom_{D(\mathcal{O}_X)}(Lf^*\kappa[-1], \mathcal{O}_X)$ 等于
+$\Ext^1_{\mathcal{O}_X}(\mathcal{O}_{X_s}, \mathcal{O}_X)$。
+于是可知 $\alpha : Lf^*\kappa[-1] \to \mathcal{O}_X$ 由扩张
+$$
+0 \to \mathcal{O}_X \to \mathcal{E} \to \mathcal{O}_{X_s} \to 0
+$$
+给出。由引理 \ref{resolve-lemma-H1-injective}，该扩张沿满射
+$\mathcal{O}_X \to \mathcal{O}_{X_s}$ 的拉回为零
+（因为该拉回在 $f^{-1}(U)$ 上显然劈裂）。因此
+$1 \in \mathcal{O}_{X_s}$ 可提升为整体截面 $s$，该截面属于 $\mathcal{E}$。
+将 $s$ 乘以理想层 $\mathcal{I}$（即 $X_s$ 的理想层），得到 $\mathcal{O}_X$-模映射
+$c_s : \mathcal{I} \to \mathcal{O}_X$。应用 $f_*$ 得到 $A$-线性映射
+$f_*c_s : \mathfrak m \to A$。由于 $A$ 是诺特正规局部整环，该映射由某个元素
+$a \in A$ 的乘法给出。将 $s$ 改为 $s -  a$，可知 $s$ 被
+$\mathcal{I}$ 零化，故该扩张如期平凡。
+\end{proof}
+
+\begin{remark}
+\label{resolve-remark-dualizing-setup}
+令 $X$ 为维数为 $2$ 的整诺特正规概形。此时以下条件等价：
+\begin{enumerate}
+\item $X$ 有对偶复形 $\omega_X^\bullet$；
+\item 存在凝聚 $\mathcal{O}_X$-模 $\omega_X$，使得
+$\omega_X[n]$ 是对偶复形，其中 $n$ 可以是任意整数。
+\end{enumerate}
+这由 $X$ 是 Cohen--Macaulay 概形（《性质》引理
+\ref{properties-lemma-normal-dimension-2-Cohen-Macaulay}）以及《概形的对偶性》引理
+\ref{duality-lemma-dualizing-module-CM-scheme} 得出。在这种情形下，依照
+《概形的对偶性》节 \ref{duality-section-dualizing-module}，称 $\omega_X$ 为
+{\it 对偶模}。特别地，当 $A$ 是维数为 $2$ 的诺特正规局部整环时，
+若上述条件成立，就称 {\it $A$ 有对偶模 $\omega_A$}。在这种情形下，若
+$X \to \Spec(A)$ 是正规修改，则 $X$ 也有对偶模；见《概形的对偶性》例
+\ref{duality-example-proper-over-local}。此时总以 $\omega_X$ 表示关于
+$\omega_A$ 归一化的对偶模，即使得 $\omega_X[2]$ 是相对于
+$\omega_A[2]$ 归一化的对偶复形。见《概形的对偶性》节
+\ref{duality-section-glue}。
+\end{remark}
+
+\noindent
+下一命题中的 Grauert--Riemenschneider 消没是引理
+\ref{resolve-lemma-R1-injective} 与一般对偶理论的形式推论。
+
+\begin{proposition}[Grauert-Riemenschneider]
+\label{resolve-proposition-Grauert-Riemenschneider}
+在情形 \ref{resolve-situation-vanishing} 中，假设
+\begin{enumerate}
+\item $X$ 是正规概形；
+\item $A$ 是 Nagata 环，并有对偶复形 $\omega_A^\bullet$。
+\end{enumerate}
+令 $\omega_X$ 为 $X$ 的对偶模
+（评注 \ref{resolve-remark-dualizing-setup}）。则 $R^1f_*\omega_X = 0$。
+\end{proposition}
+
+\begin{proof}
+本证明中使用等同 $D(A) = D_\QCoh(\mathcal{O}_S)$，将拟凝聚
+$\mathcal{O}_S$-模与 $A$-模相等同。此外，可以假设 $\omega_A^\bullet$
+已经归一化；见《对偶复形》节 \ref{dualizing-section-dualizing-local}。
+由于 $X$ 是诺特正规 $2$ 维概形，它是 Cohen--Macaulay 概形
+（《性质》引理 \ref{properties-lemma-normal-dimension-2-Cohen-Macaulay}）。
+因此 $\omega_X^\bullet = \omega_X[2]$（《概形的对偶性》引理
+\ref{duality-lemma-dualizing-module-CM-scheme}，以及《概形的对偶性》例
+\ref{duality-example-proper-over-local} 中的归一化）。
+若命题不成立，则可找到非零映射 $R^1f_*\omega_X \to \kappa$。
+换言之，得到非零映射 $\alpha : Rf_*\omega_X^\bullet \to \kappa[1]$。
+应用 $R\Hom_A(-, \omega_A^\bullet)$，得到非零映射
+$$
+\beta : \kappa[-1] \longrightarrow Rf_*\mathcal{O}_X
+$$
+这与引理 \ref{resolve-lemma-R1-injective} 矛盾。为说明
+$R\Hom_A(-, \omega_A^\bullet)$ 的确具有上述作用，先注意到
+$$
+R\Hom_A(\kappa[1], \omega_A^\bullet) =
+R\Hom_A(\kappa, \omega_A^\bullet)[-1] =
+\kappa[-1]
+$$
+因为 $\omega_A^\bullet$ 已归一化，并且有
+$$
+R\Hom_A(Rf_*\omega_X^\bullet, \omega_A^\bullet) =
+Rf_*R\SheafHom_{\mathcal{O}_X}(\omega_X^\bullet, \omega_X^\bullet) =
+Rf_*\mathcal{O}_X
+$$
+第一个等号来自《概形的对偶性》例
+\ref{duality-example-iso-on-RSheafHom-noetherian} 以及按构造成立的
+$\omega_X^\bullet = f^!\omega_A^\bullet$；第二个等号成立是因为
+$\omega_X^\bullet$ 是 $X$ 的对偶复形（这归结为《概形的对偶性》引理
+\ref{duality-lemma-shriek-dualizing}）。
+\end{proof}
+
+
+
+
+
+\section{有界性}
+\label{resolve-section-bounded}
+
+\noindent
+本节开始讨论如何将 $2$ 维概形的情形归约到有理奇点情形。
+
+\begin{lemma}
+\label{resolve-lemma-exact-sequence}
+令 $(A, \mathfrak m, \kappa)$ 为维数为 $2$ 的诺特正规局部整环。
+考虑交换图
+$$
+\xymatrix{
+X' \ar[rd]_{f'} \ar[rr]_g & & X \ar[ld]^f \\
+& \Spec(A)
+}
+$$
+其中 $f$ 与 $f'$ 是情形 \ref{resolve-situation-vanishing} 中的修改，且 $X$ 正规。
+于是有短正合列
+$$
+0 \to H^1(X, \mathcal{O}_X) \to H^1(X', \mathcal{O}_{X'}) \to
+H^0(X, R^1g_*\mathcal{O}_{X'}) \to 0
+$$
+此外，$\dim(\text{Supp}(R^1g_*\mathcal{O}_{X'})) = 0$，且
+$R^1g_*\mathcal{O}_{X'}$ 由整体截面生成。
+\end{lemma}
+
+\begin{proof}
+以下不再特别提及情形 \ref{resolve-situation-vanishing} 之后的观察。
+由于 $X$ 正规，而 $g$ 是支配双有理态射，有
+$g_*\mathcal{O}_{X'} = \mathcal{O}_X$；例如见《态射进阶》引理
+\ref{more-morphisms-lemma-geometrically-connected-fibres-towards-normal}。
+由于 $g$ 的纤维维数为 $\leq 1$，有
+$R^pg_*\mathcal{O}_{X'} = 0$（当 $p > 1$ 时）；例如见《概形的上同调》引理
+\ref{coherent-lemma-higher-direct-images-zero-above-dimension-fibre}。
+$R^1g_*\mathcal{O}_{X'}$ 的支撑包含于 $X$ 中满足 $g'$ 的纤维维数为
+$\geq 1$ 的点集。因此，它包含于那些不可约分支 $C' \subset X'_s$ 的像集，
+其中这些分支映到 $X_s$ 的点；这是有限个闭点组成的集合
+（回忆 $X'_s \to X_s$ 是 proper $1$ 维概形之间的态射，这些概形在 $\kappa$ 上）。
+于是由《概形的上同调》引理
+\ref{coherent-lemma-coherent-support-dimension-0}，$R^1g_*\mathcal{O}_{X'}$
+由整体截面生成。利用态射 $f : X \to S$ 以及上述参考文献可知，
+$H^p(X, \mathcal{F}) = 0$（当 $p > 1$ 时），这里 $\mathcal{O}_X$-模
+$\mathcal{F}$ 可以是任意凝聚模。因此，引理中的短正合列由 $g$ 和
+$\mathcal{O}_{X'}$ 的 Leray 谱序列得到；见《上同调》引理
+\ref{cohomology-lemma-Leray}。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-bound-a-torsion}
+令 $(A, \mathfrak m, \kappa)$ 为维数为 $2$ 的局部正规 Nagata 整环。
+令 $a \in A$ 非零。存在整数 $N$，使得对每个修改
+$f : X \to \Spec(A)$，若 $X$ 正规，则 $A$-模
+$$
+M_{X, a} = \Coker(A \longrightarrow H^0(Z, \mathcal{O}_Z))
+$$
+其中 $Z \subset X$ 由 $a$ 截出；该模的长度以 $N$ 为界。
+\end{lemma}
+
+\begin{proof}
+由短正合列
+$
+0 \to \mathcal{O}_X \xrightarrow{a} \mathcal{O}_X \to \mathcal{O}_Z \to 0
+$
+可知
+\begin{equation}
+\label{resolve-equation-a-torsion}
+M_{X, a} = H^1(X, \mathcal{O}_X)[a]
+\end{equation}
+这里置 $N[a] = \{n \in N \mid an = 0\}$；对一个 $A$-模 $N$ 采用此记号。因此若
+$a$ 整除 $b$，则 $M_{X, a} \subset M_{X, b}$。
+假设对某个 $c \in A$，模 $M_{X, c}$ 的长度有界。
+那么对每个 $X$，有正合列
+$$
+0 \to M_{X, c} \to M_{X, c^2} \to M_{X, c}
+$$
+其中第二个箭头由乘以 $c$ 给出。因此 $M_{X, c^2}$ 的长度也有界。
+所以，只须找到使本引理成立的 $c \in A$，并满足 $a$ 整除某个
+$c^n$，其中 $n > 0$。由《代数进阶》引理
+\ref{more-algebra-lemma-divides-radical}，可以假设 $A/(a)$ 是既约环。
+
+\medskip\noindent
+假设 $A/(a)$ 既约。令 $A/(a) \subset B$ 为 $A/(a)$ 在其商环中的正规化。
+由于 $A$ 是 Nagata 环，$\Coker(A \to B)$ 是有限模。我们断言这个有限模的长度
+就是一个界。为此，考虑引理中的 $f : X \to \Spec(A)$，并令
+$Z' \subset Z$ 为 $Z \cap f^{-1}(U)$ 的概形论闭包。
+例如由《簇》引理 \ref{varieties-lemma-finite-in-codim-1}，
+$Z' \to \Spec(A/(a))$ 是有限态射。因此 $Z' = \Spec(B')$，其中
+$A/(a) \subset B' \subset B$。另一方面，我们断言映射
+$$
+H^0(Z, \mathcal{O}_Z) \to H^0(Z', \mathcal{O}_{Z'})
+$$
+是单射。事实上，若 $s \in H^0(Z, \mathcal{O}_Z)$ 属于其核，
+则 $s$ 在 $f^{-1}(U) \cap Z$ 上的限制为零。因此 $s$ 在
+$H^1(X, \mathcal{O}_X)$ 中的像在 $H^1(f^{-1}(U), \mathcal{O}_X)$ 中消失。
+由引理 \ref{resolve-lemma-H1-injective} 可知，$s$ 来自某个元素 $\tilde s$，该元素属于 $A$。
+但按假设，$\tilde s$ 在 $B'$ 中的像为零，这蕴含 $s = 0$。
+综上，$M_{X, a}$ 是 $B'/A$ 的子商；也就是说，$B'$ 的元素未必都能延拓为
+$\mathcal{O}_Z$ 的整体截面，但无论如何，$M_{X, a}$ 的长度以 $B/A$ 的长度为界。
+\end{proof}
+
+\noindent
+在某些情形下，奇点解消可归约到有理奇点情形。
+
+\begin{definition}
+\label{resolve-definition-reduce-to-rational}
+令 $(A, \mathfrak m, \kappa)$ 为维数为 $2$ 的局部正规 Nagata 整环。
+\begin{enumerate}
+\item 称 $A$ {\it 定义一个有理奇点}，如果对每个正规修改
+$X \to \Spec(A)$ 都有 $H^1(X, \mathcal{O}_X) = 0$。
+\item 称 {\it 对 $A$ 可以归约到有理奇点}，如果这些 $A$-模
+$$
+H^1(X, \mathcal{O}_X)
+$$
+的长度对所有修改 $X \to \Spec(A)$（其中 $X$ 正规）一致有界。
+\end{enumerate}
+\end{definition}
+
+\noindent
+第 (2) 项中的说法由引理 \ref{resolve-lemma-reduce-to-rational} 解释。
+粗略地说，下面的引理断言：$\Spec(A)$ 的修改的局部环，在 $A$ 定义有理奇点时
+也定义有理奇点。
+
+\begin{lemma}
+\label{resolve-lemma-rational-propagates}
+令 $(A, \mathfrak m, \kappa)$ 为维数为 $2$、定义有理奇点的局部正规 Nagata 整环。
+令 $A \subset B$ 为具有相同分式域、且本质有限型的整环局部扩张，
+并假设 $\dim(B) = 2$ 且 $B$ 正规。则 $B$ 定义有理奇点。
+\end{lemma}
+
+\begin{proof}
+选取有限型 $A$-代数 $C$，使得 $B = C_\mathfrak q$，其中
+$\mathfrak q \subset C$ 是素理想。将 $C$ 替换为 $C$ 在 $B$ 中的像后，可假设 $C$ 是整环，
+其分式域等于 $A$ 的分式域。然后可以选取闭浸入
+$\Spec(C) \to \mathbf{A}^n_A$，并在 $\mathbf{P}^n_A$ 中取闭包，从而得到 $B$
+同构于 $\mathcal{O}_{X, x}$；这里 $x \in X$ 是某个射影修改
+$X \to \Spec(A)$ 的闭点。（《态射》引理
+\ref{morphisms-lemma-dimension-formula} 表明 $\kappa(x)$ 是 $\kappa$ 的有限扩张，
+于是《态射》引理
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}
+表明 $x$ 是闭点。）令 $\nu : X^\nu \to X$ 为正规化。
+由于 $A$ 是 Nagata 环，态射 $\nu$ 有限（《态射》引理
+\ref{morphisms-lemma-nagata-normalization}）。因此由《态射进阶》引理
+\ref{more-morphisms-lemma-category-projective}，$X^\nu$ 在 $A$ 上是射影的。
+由于 $B = \mathcal{O}_{X, x}$ 正规，有
+$\mathcal{O}_{X, x} = (\nu_*\mathcal{O}_{X^\nu})_x$。
+因此存在唯一点 $x^\nu \in X^\nu$，它位于 $x$ 上方，且
+$\mathcal{O}_{X^\nu, x^\nu} = \mathcal{O}_{X, x}$。
+故可假设 $X$ 正规且在 $A$ 上射影。
+令 $Y \to \Spec(\mathcal{O}_{X, x}) = \Spec(B)$ 为修改，并假设 $Y$ 正规。
+需要证明 $H^1(Y, \mathcal{O}_Y) = 0$。由《极限》引理
+\ref{limits-lemma-modifications}，可以找到概形态射 $g : X' \to X$，
+它在 $X \setminus \{x\}$ 上为同构，并使
+$X' \times_X \Spec(\mathcal{O}_{X, x})$ 同构于 $Y$。由《极限》引理
+\ref{limits-lemma-modifications-properties}，$g$ 是 proper 的，故为修改。
+$X'$ 在点 $x'$ 处的局部环同构于 $X$ 在 $g(x')$ 处的局部环，前提是
+$g(x') \not = x$；
+在 $g(x') = x$ 时，$X'$ 在 $x'$ 处的局部环同构于 $Y$ 在对应点处的局部环。
+可知 $X'$ 正规，因为 $X$ 与 $Y$ 都正规。因此
+$H^1(X', \mathcal{O}_{X'}) = 0$，这来自关于 $A$ 的假设。由引理 \ref{resolve-lemma-exact-sequence} 有
+$R^1g_*\mathcal{O}_{X'} = 0$。这显然意味着如期有
+$H^1(Y, \mathcal{O}_Y) = 0$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-reduce-to-rational}
+令 $(A, \mathfrak m, \kappa)$ 为维数为 $2$ 的局部正规 Nagata 整环。
+若对 $A$ 可以归约到有理奇点，则存在一列有限的正规化爆破
+$$
+X = X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = \Spec(A)
+$$
+其中心均为闭点，并且对任意闭点 $x \in X$，局部环
+$\mathcal{O}_{X, x}$ 定义有理奇点。特别地，$X \to \Spec(A)$ 是修改，
+而 $X$ 是在 $A$ 上射影的正规概形。
+\end{lemma}
+
+\begin{proof}
+选取修改 $X \to \Spec(A)$，其中 $X$ 正规，并使
+$H^1(X, \mathcal{O}_X)$ 的长度最大。由引理 \ref{resolve-lemma-exact-sequence}，
+对任意进一步的修改 $g : X' \to X$，若 $X'$ 正规，则有
+$R^1g_*\mathcal{O}_{X'} = 0$ 以及
+$H^1(X, \mathcal{O}_X) = H^1(X', \mathcal{O}_{X'})$。
+
+\medskip\noindent
+令 $x \in X$ 为闭点。我们将证明 $\mathcal{O}_{X, x}$ 定义有理奇点。
+令 $Y \to \Spec(\mathcal{O}_{X, x})$ 为修改，并假设 $Y$ 正规。
+需要证明 $H^1(Y, \mathcal{O}_Y) = 0$。由《极限》引理
+\ref{limits-lemma-modifications}，可找到概形态射 $g : X' \to X$，
+它在 $X \setminus \{x\}$ 上为同构，并使
+$X' \times_X \Spec(\mathcal{O}_{X, x})$ 同构于 $Y$。由《极限》引理
+\ref{limits-lemma-modifications-properties}，$g$ 是 proper 的，故为修改。
+$X'$ 在点 $x'$ 处的局部环同构于 $X$ 在 $g(x')$ 处的局部环，前提是
+$g(x') \not = x$；若 $g(x') = x$，则 $X'$ 在 $x'$ 处的局部环同构于
+$Y$ 在对应点处的局部环。可知 $X'$ 正规，因为 $X$ 与 $Y$ 都正规。
+由极大性有 $R^1g_*\mathcal{O}_{X'} = 0$（见第一段）。这显然意味着如期有
+$H^1(Y, \mathcal{O}_Y) = 0$。
+
+\medskip\noindent
+结论是，我们找到了一个正规修改 $X$，它是 $\Spec(A)$ 的修改，使 $X$ 在闭点处的局部环
+全都定义有理奇点。然后选取一列正规化爆破
+$X_n \to \ldots \to X_1 \to \Spec(A)$，使 $X_n$ 支配 $X$；见引理
+\ref{resolve-lemma-dominate-by-normalized-blowing-up}。对闭点 $x' \in X_n$，若它映到
+$x \in X$，则可将引理 \ref{resolve-lemma-rational-propagates} 应用于环映射
+$\mathcal{O}_{X, x} \to \mathcal{O}_{X_n, x'}$，从而看出
+$\mathcal{O}_{X_n, x'}$ 定义有理奇点。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-go-up-separable}
+令 $A \to B$ 为维数为 $2$ 的局部正规 Nagata 整环之间的有限单射局部环映射。
+假设所诱导的分式域扩张可分。若对 $A$ 可以归约到有理奇点，
+则对 $B$ 也可以。
+\end{lemma}
+
+\begin{proof}
+令 $n$ 为分式域扩张 $L/K$ 的次数。令
+$\text{Trace}_{L/K} : L \to K$ 为迹。由于该扩张有限可分，迹配对
+$(h, g) \mapsto \text{Trace}_{L/K}(fg)$ 是 $L$ 在 $K$ 上的非退化双线性形式。
+见《域》引理 \ref{fields-lemma-separable-trace-pairing}。
+选取 $b_1, \ldots, b_n \in B$，使其构成 $L$ 在 $K$ 上的一组基。
+由上可知 $d = \det(\text{Trace}_{L/K}(b_ib_j)) \in A$ 非零。
+
+\medskip\noindent
+令 $Y \to \Spec(B)$ 为修改，并假设 $Y$ 正规。可以找到 $U$-容许爆破
+$X'$，它是 $\Spec(A)$ 的爆破，使严格变换 $Y'$（来自 $Y$）在 $X'$ 上有限；
+见《平坦性进阶》引理 \ref{flat-lemma-finite-after-blowing-up}。图示为
+$$
+\xymatrix{
+Y' \ar[d] \ar[r] & Y \ar[r] & \Spec(B) \ar[d] \\
+X' \ar[rr] & & \Spec(A)
+}
+$$
+将 $X'$ 与 $Y'$ 替换为各自的正规化后，可假设 $X'$ 与 $Y'$ 分别是
+$\Spec(A)$ 与 $\Spec(B)$ 的正规修改。如此便归约到存在交换图的情形
+$$
+\xymatrix{
+Y \ar[d]_\pi \ar[r]_-g & \Spec(B) \ar[d] \\
+X \ar[r]^-f & \Spec(A)
+}
+$$
+其中 $X$ 与 $Y$ 分别是 $\Spec(A)$ 与 $\Spec(B)$ 的正规修改，且 $\pi$ 有限。
+
+\medskip\noindent
+$L$ 在 $K$ 上的迹映射延拓为 $\mathcal{O}_X$-模映射
+$\text{Trace} : \pi_*\mathcal{O}_Y \to \mathcal{O}_X$。考虑映射
+$$
+\Phi : \pi_*\mathcal{O}_Y \longrightarrow \mathcal{O}_X^{\oplus n},\quad
+s \longmapsto (\text{Trace}(b_1s), \ldots, \text{Trace}(b_ns))
+$$
+该映射是单射（因为它在泛点处是单射），并且有映射
+$$
+\mathcal{O}_X^{\oplus n} \longrightarrow \pi_*\mathcal{O}_Y,\quad
+(s_1, \ldots, s_n) \longmapsto \sum b_i s_i
+$$
+它与 $\Phi$ 的复合以 $\text{Trace}(b_ib_j)$ 为矩阵。
+因此 $\Phi$ 的余核被 $d$ 零化。由此得到正合列
+$$
+H^0(X, \Coker(\Phi)) \to H^1(Y, \mathcal{O}_Y) \to
+H^1(X, \mathcal{O}_X)^{\oplus n}
+$$
+右端按假设有界，所以只须证明 $d$-挠子有界，这些挠子位于
+$H^1(Y, \mathcal{O}_Y)$ 中。
+这正是引理 \ref{resolve-lemma-bound-a-torsion} 与（\ref{resolve-equation-a-torsion}）的内容。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-regular-rational}
+令 $A$ 为维数为 $2$ 的 Nagata 正则局部环。则 $A$ 定义有理奇点。
+\end{lemma}
+
+\begin{proof}
+（本证明并不需要 $A$ 是 Nagata 环的假设，但我们只在 Nagata 的
+$2$ 维正规局部整环情形下定义了有理奇点。）令
+$X \to \Spec(A)$ 为修改，并假设 $X$ 正规。由引理
+\ref{resolve-lemma-dominate-by-blowing-up-in-points}，可支配 $X$；把这个支配概形记作
+$X_n$，它是以下序列的末项：
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = \Spec(A)
+$$
+其各步均为沿闭点的爆破。由引理 \ref{resolve-lemma-blowup-regular}，概形
+$X_i$ 正则，特别地正规（《代数》引理
+\ref{algebra-lemma-regular-normal}）。由引理 \ref{resolve-lemma-exact-sequence} 有
+$H^1(X, \mathcal{O}_X) \subset H^1(X_n, \mathcal{O}_{X_n})$。
+所以只须证明 $H^1(X_n, \mathcal{O}_{X_n}) = 0$。再次使用引理
+\ref{resolve-lemma-exact-sequence}，只须证明
+$R^1(X_i \to X_{i - 1})_*\mathcal{O}_{X_i} = 0$，其中
+$i = 1, \ldots, n$。这由引理 \ref{resolve-lemma-cohomology-of-blowup} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-bound-dualizing-implies-bound}
+令 $A$ 为维数为 $2$ 且具有对偶复形 $\omega_A^\bullet$ 的局部正规 Nagata 整环。
+若存在非零的 $d \in A$，使得对所有正规修改 $X \to \Spec(A)$，迹映射
+$$
+\Gamma(X, \omega_X) \to \omega_A
+$$
+的余核被 $d$ 零化，则对 $A$ 可以归约到有理奇点。
+\end{lemma}
+
+\begin{proof}
+对命题中的 $X \to \Spec(A)$，需要约束 $H^1(X, \mathcal{O}_X)$。
+令 $\omega_X$ 为 $X$ 的对偶模，如 Grauert--Riemenschneider 陈述中所述
+（命题 \ref{resolve-proposition-Grauert-Riemenschneider}）。迹映射是《概形的对偶性》节
+\ref{duality-section-trace} 中描述的映射 $Rf_*\omega_X \to \omega_A$。
+由 Grauert--Riemenschneider 消没有 $Rf_*\omega_X = f_*\omega_X$，
+所以迹映射确实给出映射 $\Gamma(X, \omega_X) \to \omega_A$。
+由对偶性有 $Rf_*\omega_X = R\Hom_A(Rf_*\mathcal{O}_X, \omega_A)$
+（这里使用了 $\omega_X[2]$ 是 $X$ 上相对于 $\omega_A[2]$ 归一化的对偶复形；
+见《概形的对偶性》引理 \ref{duality-lemma-duality-bootstrap}，
+或更直接地见节 \ref{duality-section-duality}，乃至例
+\ref{duality-example-iso-on-RSheafHom-noetherian}）。区分三角
+$$
+A \to Rf_*\mathcal{O}_X \to R^1f_*\mathcal{O}_X[-1] \to A[1]
+$$
+经 $R\Hom_A(-, \omega_A)$ 变为短正合列
+$$
+0 \to f_*\omega_X \to \omega_A \to
+\Ext_A^2(R^1f_*\mathcal{O}_X, \omega_A) \to 0
+$$
+（并且 $\Ext_A^i(R^1f_*\mathcal{O}_X, \omega_A) = 0$（当 $i \not = 2$ 时）；
+这也将由下文讨论得到）。
+由于 $R^1f_*\mathcal{O}_X$ 支撑在 $\{\mathfrak m\}$ 中，局部对偶定理告诉我们
+$$
+\Ext_A^2(R^1f_*\mathcal{O}_X, \omega_A) =
+\Ext_A^0(R^1f_*\mathcal{O}_X, \omega_A[2]) =
+\Hom_A(R^1f_*\mathcal{O}_X, E)
+$$
+是 $R^1f_*\mathcal{O}_X$ 的 Matlis 对偶（其他 Ext 群为零）；见《对偶复形》引理
+\ref{dualizing-lemma-special-case-local-duality}。由 Matlis 对偶所固有的范畴等价
+（《对偶复形》命题 \ref{dualizing-proposition-matlis}），若
+$R^1f_*\mathcal{O}_X$ 不被 $d$ 零化，则上面的 $\Ext^2$ 也不被零化。
+因此 $H^1(X, \mathcal{O}_X)$ 被 $d$ 零化。所需有界性遂由引理
+\ref{resolve-lemma-bound-a-torsion} 与（\ref{resolve-equation-a-torsion}）得出。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-compare-differentials-dualizing}
+令 $p$ 为素数。令 $A$ 为维数为 $2$、特征为 $p$ 的正则局部环。
+令 $A_0 \subset A$ 为子环，使得 $\Omega_{A/A_0}$ 是秩为
+$r < \infty$ 的自由模。置 $\omega_A = \Omega^r_{A/A_0}$。
+若 $X \to \Spec(A)$ 是一列沿闭点爆破的结果，则存在映射
+$$
+\varphi_X : (\Omega^r_{X/\Spec(A_0)})^{**} \longrightarrow \omega_X
+$$
+延拓泛点处给定的等同。
+\end{lemma}
+
+\begin{proof}
+注意 $A$ 是 Gorenstein 环（《对偶复形》引理
+\ref{dualizing-lemma-regular-gorenstein}），因此可逆模 $\omega_A$ 的确可作为对偶模。
+此外，引理中的任意 $X$ 都有可逆对偶模 $\omega_X$，因为 $X$ 正则
+（故为 Gorenstein），且在 $A$ 上 proper；见评注
+\ref{resolve-remark-dualizing-setup} 与引理 \ref{resolve-lemma-blowup-regular}。
+假设已经构造映射 $\varphi_X : (\Omega^r_{X/A_0})^{**} \to \omega_X$，
+并假设 $b : X' \to X$ 是沿闭点的爆破。置
+$\Omega^r_X = (\Omega^r_{X/A_0})^{**}$ 以及
+$\Omega^r_{X'} = (\Omega^r_{X'/A_0})^{**}$。由于
+$\omega_{X'} = b^!(\omega_X)$，映射 $\Omega^r_{X'} \to \omega_{X'}$
+等同于映射 $Rb_*(\Omega^r_{X'}) \to \omega_X$。见评注
+\ref{resolve-remark-dualizing-setup} 与《概形的对偶性》节
+\ref{duality-section-duality} 中的讨论。因此只须给出映射
+$$
+Rb_*(\Omega^r_{X'}) \longrightarrow \Omega^r_X
+$$
+层 $\Omega^r_{X'}$ 与 $\Omega^r_X$ 都可逆；见《除子》引理
+\ref{divisors-lemma-reflexive-over-regular-dim-2}。考虑正合列
+$$
+b^*\Omega_{X/A_0} \to \Omega_{X'/A_0} \to \Omega_{X'/X} \to 0
+$$
+局部计算表明 $\Omega_{X'/X}$ 同构于例外除子 $E$ 上的可逆模；见引理
+\ref{resolve-lemma-differentials-of-blowup}。由此得到以下两种情形之一：
+$$
+\Omega^r_{X'} \cong (b^*\Omega^r_X)(E)
+\quad\text{或}\quad
+\Omega^r_{X'} \cong b^*\Omega^r_X
+$$
+见《除子》引理 \ref{divisors-lemma-wedge-product-ses}。
+（第二种可能在特征零时从不发生，但在特征 $p$ 时可能发生。）
+在两种情形下，由引理 \ref{resolve-lemma-cohomology-of-blowup} 都有
+$R^1b_*(\Omega^r_{X'}) = 0$ 且 $b_*(\Omega^r_{X'}) = \Omega^r_X$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-go-up-degree-p}
+令 $p$ 为素数。令 $A$ 为维数为 $2$、特征为 $p$ 的完备正则局部环。
+令 $L/K$ 为次数为 $p$ 的不可分扩张，其中 $K$ 是 $A$ 的分式域。
+令 $B \subset L$ 为 $A$ 的整闭包。则对 $B$ 可以归约到有理奇点。
+\end{lemma}
+
+\begin{proof}
+有 $A = k[[x, y]]$。写 $L = K[x]/(x^p - f)$，其中 $f \in A$，
+并以 $g \in B$ 表示 $x$ 的同余类，
+即满足 $g^p = f$ 的元素。由《代数》引理
+\ref{algebra-lemma-derivative-zero-pth-power} 可知，$\text{d}f$ 在
+$\Omega_{K/\mathbf{F}_p}$ 中非零。由《代数进阶》引理
+\ref{more-algebra-lemma-power-series-ring-subfields}，存在子域
+$k^p \subset k' \subset k$，满足 $p^e = [k : k'] < \infty$，使得
+$\text{d}f$ 在 $\Omega_{K/K_0}$ 中非零；这里 $K_0$ 是
+$A_0 = k'[[x^p, y^p]] \subset A$ 的分式域。于是
+$$
+\Omega_{A/A_0} =
+A \otimes_k \Omega_{k/k'} \oplus A \text{d}x \oplus A \text{d}y
+$$
+是秩为 $e + 2$ 的有限自由模。置 $\omega_A = \Omega^{e + 2}_{A/A_0}$。
+考虑典范映射
+$$
+\text{Tr} :
+\Omega^{e + 2}_{B/A_0}
+\longrightarrow
+\Omega^{e + 2}_{A/A_0} = \omega_A
+$$
+它来自引理 \ref{resolve-lemma-trace-extends}。由对偶性，这确定了映射
+$$
+c : \Omega^{e + 2}_{B/A_0} \to \omega_B = \Hom_A(B, \omega_A)
+$$
+断言：$c$ 的余核被 $B$ 的某个非零元素零化。
+
+\medskip\noindent
+由于 $\text{d}f$ 在 $\Omega_{A/A_0}$ 中非零，可以找到
+$\eta_1, \ldots, \eta_{e + 1} \in \Omega_{A/A_0}$，使得
+$\theta = \eta_1 \wedge \ldots \wedge \eta_{e + 1} \wedge \text{d}f$ 在
+$\omega_A = \Omega^{e + 2}_{A/A_0}$ 中非零。为证明该断言，我们将构造元素
+$\omega_i$，它们属于 $\Omega^{e + 2}_{B/A_0}$，其中
+$i = 0, \ldots, p - 1$，它们映到
+$\varphi_i \in \omega_B = \Hom_A(B, \omega_A)$，并满足
+$\varphi_i(g^j) = \delta_{ij}\theta$，其中 $j = 0, \ldots, p - 1$。
+由于 $\{1, g, \ldots, g^{p - 1}\}$ 是 $L/K$ 的一组基，这就证明了断言。
+置 $\eta = \eta_1 \wedge \ldots \wedge \eta_{e + 1}$，使得
+$\theta = \eta \wedge \text{d}f$。置
+$\omega_i = \eta \wedge g^{p - 1 - i}\text{d}g$。于是按构造有
+$$
+\varphi_i(g^j) = \text{Tr}(g^j \eta \wedge g^{p - 1 - i}\text{d}g) =
+\text{Tr}(\eta \wedge g^{p - 1 - i + j}\text{d}g) = \delta_{ij} \theta
+$$
+这来自引理 \ref{resolve-lemma-trace-higher} 中迹映射的显式描述。
+
+\medskip\noindent
+令 $Y \to \Spec(B)$ 为正规修改。完全如引理
+\ref{resolve-lemma-go-up-separable} 的证明中一样，可以归约到 $Y$ 在某个修改
+$X$ 上有限的情形，该修改属于 $\Spec(A)$。由引理
+\ref{resolve-lemma-dominate-by-blowing-up-in-points}，甚至可以假设
+$X \to \Spec(A)$ 是一列沿闭点爆破的结果。图示如下：
+$$
+\xymatrix{
+Y \ar[d]_\pi \ar[r]_-g & \Spec(B) \ar[d] \\
+X \ar[r]^-f & \Spec(A)
+}
+$$
+可将引理 \ref{resolve-lemma-trace-extends} 应用于 $\pi$，从而得到下式的第一个箭头：
+$$
+\pi_*(\Omega^{e + 2}_{Y/A_0})
+\xrightarrow{\text{Tr}}
+(\Omega^{e + 2}_{X/A_0})^{**}
+\xrightarrow{\varphi_X}
+\omega_X
+$$
+第二个箭头来自引理 \ref{resolve-lemma-compare-differentials-dualizing}
+（因为 $f$ 是一列沿闭点爆破）。由有限态射 $\pi$ 的对偶性，
+这对应于映射
+$$
+c_Y : \Omega^{e + 2}_{Y/A_0} \longrightarrow \omega_Y
+$$
+它延拓上面的映射 $c$。因此，$\Gamma(Y, \omega_Y) \to \omega_B$ 的像
+包含 $c$ 的像。由该断言可知，其余核被 $B$ 的某个固定非零元素零化。
+最后应用引理 \ref{resolve-lemma-bound-dualizing-implies-bound}。
+\end{proof}
+
+
+
+
+
+
+\section{有理奇点}
+\label{resolve-section-rational-singularities}
+
+\noindent
+本节把有理奇点的情形归约到 Gorenstein 有理奇点的情形。
+见 \cite{Lipman-rational} 与 \cite{Mattuck}。
+
+\begin{situation}
+\label{resolve-situation-rational}
+这里 $(A, \mathfrak m, \kappa)$ 是维数为 $2$、定义有理奇点的局部正规 Nagata 整环。
+令 $s$ 为 $S = \Spec(A)$ 的闭点，并令 $U = S \setminus \{s\}$。
+令 $f : X \to S$ 为修改，并假设 $X$ 正规。
+记 $C_1, \ldots, C_r$ 为特殊纤维 $X_s$ 的不可约分支；该纤维来自 $f$。
+\end{situation}
+
+\begin{lemma}
+\label{resolve-lemma-globally-generated}
+在情形 \ref{resolve-situation-rational} 中，令 $\mathcal{F}$ 为拟凝聚
+$\mathcal{O}_X$-模。则
+\begin{enumerate}
+\item $H^p(X, \mathcal{F}) = 0$（当 $p \not \in \{0, 1\}$ 时）；
+\item $H^1(X, \mathcal{F}) = 0$，如果 $\mathcal{F}$ 由整体截面生成。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 项由《概形的上同调》引理
+\ref{coherent-lemma-higher-direct-images-zero-above-dimension-fibre} 得出。
+若 $\mathcal{F}$ 由整体截面生成，则存在满射
+$\bigoplus_{i \in I} \mathcal{O}_X \to \mathcal{F}$。由第 (1) 项与上同调长正合列，
+这在 $H^1$ 上诱导满射。由于 $H^1(X, \mathcal{O}_X) = 0$
+（因为 $S$ 有有理奇点），而且 $H^1(X, -)$ 与直和交换
+（《上同调》引理 \ref{cohomology-lemma-quasi-separated-cohomology-colimit}），
+结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-sections-powers-I-rational}
+在情形 \ref{resolve-situation-rational} 中，假设 $E = X_s$ 是有效 Cartier 除子。
+令 $\mathcal{I}$ 为 $E$ 的理想层。则
+$H^0(X, \mathcal{I}^n) = \mathfrak m^n$ 且
+$H^1(X, \mathcal{I}^n) = 0$。
+\end{lemma}
+
+\begin{proof}
+有 $H^0(X, \mathcal{O}_X) = A$；见情形 \ref{resolve-situation-vanishing} 后的讨论。
+于是 $\mathfrak m \subset H^0(X, \mathcal{I}) \subset H^0(X, \mathcal{O}_X)$。
+由于 $X_s \not = \emptyset$，第二个包含并非等号。因此
+$H^0(X, \mathcal{I}) = \mathfrak m$。由于
+$\mathcal{I}^n = \mathfrak m^n\mathcal{O}_X$，引理
+\ref{resolve-lemma-globally-generated} 表明 $H^1(X, \mathcal{I}^n) = 0$。
+
+\medskip\noindent
+选取生成元 $x_1, \ldots, x_{\mu + 1}$，用来生成 $\mathfrak m$。
+它们定义 $\mathcal{I}$ 的整体截面并生成该层。因此有短正合列
+$$
+0 \to \mathcal{F} \to \mathcal{O}_X^{\oplus \mu + 1} \to \mathcal{I} \to 0
+$$
+于是 $\mathcal{F}$ 是有限局部自由 $\mathcal{O}_X$-模，秩为 $\mu$，
+且由《构造》引理 \ref{constructions-lemma-globally-generated-omega-twist-1}，
+$\mathcal{F} \otimes \mathcal{I}$ 由整体截面生成。因此
+$\mathcal{F} \otimes \mathcal{I}^n$ 对所有 $n \geq 1$ 都由整体截面生成。
+所以当 $n \geq 2$ 时，可考虑正合列
+$$
+0 \to \mathcal{F} \otimes \mathcal{I}^{n - 1} \to
+(\mathcal{I}^{n - 1})^{\oplus \mu + 1} \to
+\mathcal{I}^n \to 0
+$$
+应用上同调长正合列，并使用引理 \ref{resolve-lemma-globally-generated} 给出的
+$H^1(X, \mathcal{F} \otimes \mathcal{I}^{n - 1}) = 0$，得到
+$H^0(X, \mathcal{I}^n)$ 的每个元素都具有形式 $\sum x_i a_i$，
+其中某些 $a_i \in H^0(X, \mathcal{I}^{n - 1})$。归纳可得
+$H^0(X, \mathcal{I}^n) = \mathfrak m^n$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blow-up-normal-rational}
+在情形 \ref{resolve-situation-rational} 中，$\Spec(A)$ 沿 $\mathfrak m$ 的爆破是正规的。
+\end{lemma}
+
+\begin{proof}
+令 $X' \to \Spec(A)$ 为该爆破，换言之，
+$$
+X' = \text{Proj}(A \oplus \mathfrak m \oplus \mathfrak m^2 \oplus \ldots).
+$$
+是 Rees 代数的 Proj。这尤其表明 $X'$ 是整概形，且
+$X' \to \Spec(A)$ 是射影修改。令 $X$ 为 $X'$ 的正规化。
+由于 $A$ 是 Nagata 环，$\nu : X \to X'$ 是有限态射
+（《态射》引理 \ref{morphisms-lemma-nagata-normalization}）。
+令 $E' \subset X'$ 为例外除子，并令 $E \subset X$ 为其逆像。
+令 $\mathcal{I}' \subset \mathcal{O}_{X'}$ 与
+$\mathcal{I} \subset \mathcal{O}_X$ 为它们的理想层。
+回忆 $\mathcal{I}' = \mathcal{O}_{X'}(1)$（《除子》引理
+\ref{divisors-lemma-blowing-up-projective}）。注意
+$\mathcal{I} = \nu^*\mathcal{I}'$，且 $E$ 是有效 Cartier 除子
+（《除子》引理 \ref{divisors-lemma-pullback-effective-Cartier-defined}）。
+我们要证明 $\nu$ 是同构。由于 $\nu$ 有限，只须证明
+$\mathcal{O}_{X'} \to \nu_*\mathcal{O}_X$ 是同构。否则可找到 $n \geq 0$，使得
+$$
+H^0(X', (\mathcal{I}')^n) \not =
+H^0(X', (\nu_*\mathcal{O}_X) \otimes (\mathcal{I}')^n)
+$$
+例如，这是因为可以从关联分次模恢复拟凝聚 $\mathcal{O}_{X'}$-模；
+见《性质》引理 \ref{properties-lemma-ample-quasi-coherent}。
+由投影公式有
+$$
+H^0(X', (\nu_*\mathcal{O}_X) \otimes (\mathcal{I}')^n) =
+H^0(X, \nu^*(\mathcal{I}')^n) =
+H^0(X, \mathcal{I}^n) = \mathfrak m^n
+$$
+最后一个等号来自引理 \ref{resolve-lemma-sections-powers-I-rational}。
+另一方面，显然有单射 $\mathfrak m^n \to H^0(X', (\mathcal{I}')^n)$。
+由于 $H^0(X', (\mathcal{I}')^n)$ 无挠，可知等号对所有 $n$ 都成立，
+故 $X = X'$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-cohomology-blow-up-rational}
+在情形 \ref{resolve-situation-rational} 中，令 $X$ 为 $\Spec(A)$ 沿 $\mathfrak m$ 的爆破。
+令 $E \subset X$ 为例外除子。照常置 $\mathcal{O}_X(1) = \mathcal{I}$，并置
+$\mathcal{O}_E(1) = \mathcal{O}_X(1)|_E$。则有
+\begin{enumerate}
+\item $E$ 是 $\kappa$ 上的 proper Cohen--Macaulay 曲线；
+\item $\mathcal{O}_E(1)$ 非常丰沛；
+\item $\deg(\mathcal{O}_E(1)) \geq 1$，且等号仅当 $A$ 为正则局部环时成立；
+\item $H^1(E, \mathcal{O}_E(n)) = 0$，其中 $n \geq 0$；
+\item $H^0(E, \mathcal{O}_E(n)) = \mathfrak m^n/\mathfrak m^{n + 1}$，
+其中 $n \geq 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于按构造 $\mathcal{O}_X(1)$ 非常丰沛，可知其在特殊纤维 $E$ 上的限制也非常丰沛。
+由引理 \ref{resolve-lemma-blow-up-normal-rational}，概形 $X$ 正规。于是由《除子》引理
+\ref{divisors-lemma-normal-effective-Cartier-divisor-S1}，$E$ 是 Cohen--Macaulay 的。
+引理 \ref{resolve-lemma-sections-powers-I-rational} 可用，并且由正合列
+$$
+0 \to \mathcal{I}^{n + 1} \to \mathcal{I}^n \to i_*\mathcal{O}_E(n) \to 0
+$$
+以及上同调长正合列得到第 (4)、(5) 项。特别地，有
+$$
+\deg(\mathcal{O}_E(1)) = \chi(E, \mathcal{O}_E(1)) - \chi(E, \mathcal{O}_E) =
+\dim(\mathfrak m/\mathfrak m^2) - 1
+$$
+这来自《簇》定义 \ref{varieties-definition-degree-invertible-sheaf}。
+因而第 (3) 项也成立。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-dualizing-rational}
+在情形 \ref{resolve-situation-rational} 中，假设 $A$ 有对偶复形
+$\omega_A^\bullet$。令 $\omega_X$ 为 $X$ 的对偶模，则迹映射
+$H^0(X, \omega_X) \to \omega_A$ 是同构；因此存在典范映射
+$f^*\omega_A \to \omega_X$。
+\end{lemma}
+
+\begin{proof}
+由 Grauert--Riemenschneider 消没（命题
+\ref{resolve-proposition-Grauert-Riemenschneider}）有
+$Rf_*\omega_X = f_*\omega_X$。由对偶性得到短正合列
+$$
+0 \to f_*\omega_X \to \omega_A \to
+\Ext^2_A(R^1f_*\mathcal{O}_X, \omega_A) \to 0
+$$
+（例如见引理 \ref{resolve-lemma-bound-dualizing-implies-bound} 的证明），
+而由于 $A$ 定义有理奇点，得到 $f_*\omega_X = \omega_A$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-dualizing-blow-up-rational}
+在情形 \ref{resolve-situation-rational} 中，假设 $A$ 有对偶复形
+$\omega_A^\bullet$ 且不正则。令 $X$ 为 $\Spec(A)$ 沿 $\mathfrak m$ 的爆破，
+例外除子为 $E \subset X$。令 $\omega_X$ 为 $X$ 的对偶模。则
+\begin{enumerate}
+\item $\omega_E = \omega_X|_E \otimes \mathcal{O}_E(-1)$；
+\item $H^1(X, \omega_X(n)) = 0$，其中 $n \geq 0$；
+\item 引理 \ref{resolve-lemma-dualizing-rational} 中的映射
+$f^*\omega_A \to \omega_X$ 是满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下不再特别提及引理 \ref{resolve-lemma-cohomology-blow-up-rational} 的结果。
+由《概形的对偶性》引理
+\ref{duality-lemma-sheaf-with-exact-support-effective-Cartier} 和
+\ref{duality-lemma-twisted-inverse-image-closed}，注意到
+$\omega_E = \omega_X|_E \otimes \mathcal{O}_E(-1)$。因此
+$\omega_X|_E = \omega_E(1)$。考虑短正合列
+$$
+0 \to \omega_X(n + 1) \to \omega_X(n) \to i_*\omega_E(n + 1) \to 0
+$$
+由《代数曲线》引理 \ref{curves-lemma-vanishing-twist} 可知
+$H^1(E, \omega_E(n + 1)) = 0$（当 $n \geq 0$ 时）。因此映射
+$$
+\ldots \to H^1(X, \omega_X(2)) \to H^1(X, \omega_X(1)) \to H^1(X, \omega_X)
+$$
+均为满射。由于 $H^1(X, \omega_X(n))$ 在 $n \gg 0$ 时为零
+（《概形的上同调》引理 \ref{coherent-lemma-kill-by-twisting}），
+可知第 (2) 项成立。
+
+\medskip\noindent
+由《代数曲线》引理
+\ref{curves-lemma-tensor-omega-with-globally-generated-invertible} 可知
+$\omega_X|_E = \omega_E \otimes \mathcal{O}_E(1)$ 由整体截面生成。
+由于上面已经看到 $H^1(X, \omega_X(1)) = 0$，映射
+$H^0(X, \omega_X) \to H^0(E, \omega_X|_E)$ 是满射。因此
+$\omega_X$ 由整体截面生成，所以第 (3) 项成立，因为引理
+\ref{resolve-lemma-dualizing-rational} 使用 $\Gamma(X, \omega_X) = \omega_A$ 定义该映射。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-rational-to-gorenstein}
+令 $(A, \mathfrak m, \kappa)$ 为维数为 $2$、定义有理奇点的局部正规 Nagata 整环。
+假设 $A$ 有对偶复形。则存在一列有限的沿奇异闭点爆破
+$$
+X = X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = \Spec(A)
+$$
+使得 $X_i$ 对每个 $i$ 都正规，并且对偶层 $\omega_X$（即 $X$ 的对偶层）是可逆
+$\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+对偶模 $\omega_A$ 是有限 $A$-模，其泛点处的茎可逆。事实上，
+$\omega_A \otimes_A K$ 是分式域 $K$ 的对偶模，而该域是 $A$ 的分式域，故秩为 $1$。
+因此存在爆破 $b : Y \to \Spec(A)$，使 $\omega_A$ 关于 $b$ 的严格变换为可逆
+$\mathcal{O}_Y$-模；见《除子》引理
+\ref{divisors-lemma-blowup-fitting-ideal}。由引理
+\ref{resolve-lemma-dominate-by-normalized-blowing-up}，可以选取一列正规化爆破
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to \Spec(A)
+$$
+使得 $X_n$ 支配 $Y$。由引理 \ref{resolve-lemma-blow-up-normal-rational} 并归纳可知，
+每个 $X_i \to X_{i - 1}$ 就是爆破。
+
+\medskip\noindent
+我们断言 $\omega_{X_n}$ 可逆。由于 $\omega_{X_n}$ 是凝聚
+$\mathcal{O}_{X_n}$-模，只须说明它的茎是可逆模。若 $x \in X_n$ 是正则点，
+则由正则概形为 Gorenstein 概形这一事实可知结论显然
+（《对偶复形》引理 \ref{dualizing-lemma-regular-gorenstein}）。
+若 $x$ 是 $X_n$ 的奇异点，则每个像 $x_i \in X_i$（即 $x$ 的像）都是奇异点
+（因为由引理 \ref{resolve-lemma-blowup-regular}，正则点的爆破仍正则）。
+考虑引理 \ref{resolve-lemma-dualizing-rational} 中的典范映射
+$f_n^*\omega_A \to \omega_{X_n}$。对每个 $i$，态射
+$X_{i + 1} \to X_i$ 或者是 $x_i$ 的爆破，或者在 $x_i$ 处是同构。
+由于 $x_i$ 总是奇异点，由引理 \ref{resolve-lemma-dualizing-blow-up-rational} 与归纳可知，
+映射 $f_i^*\omega_A \to \omega_{X_i}$ 在 $x_i$ 处的茎上总是满射。因此
+$$
+(f_n^*\omega_A)_x \longrightarrow \omega_{X_n, x}
+$$
+是满射。另一方面，由 $b$ 的选择，$f_n^*\omega_A$ 模去其挠子模所得的商是可逆模
+$\mathcal{L}$。此外，对偶模无挠（《概形的对偶性》引理
+\ref{duality-lemma-dualizing-module}）。因此
+$\mathcal{L}_x \cong  \omega_{X_n, x}$，证明完成。
+\end{proof}
+
+
+
+
+
+
+\section{形式弧}
+\label{resolve-section-arcs}
+
+\noindent
+令 $X$ 为局部诺特概形。本节称 $X$ 中的{\it 形式弧}为态射
+$a : T \to X$，其中 $T$ 是完备离散赋值环 $R$ 的谱，并把其剩余域
+$\kappa$ 与像 $p$ 的剩余域等同；这里该像是 $\Spec(R)$ 的闭点之像。在这种情形下，称形式弧
+$a$ {\it 以 $p$ 为中心}。称形式弧 $T \to X$ {\it 非奇异}，如果所诱导的映射
+$\mathfrak m_p/\mathfrak m_p^2 \to \mathfrak m_R/\mathfrak m_R^2$ 为满射。
+
+\medskip\noindent
+令 $a : T \to X$、$T = \Spec(R)$ 为以闭点 $p$ 为中心的非奇异形式弧，且该点属于 $X$。
+假设 $X$ 局部诺特。令 $b : X_1 \to X$ 为 $X$ 沿 $x$ 的爆破。
+由于 $a$ 非奇异，存在元素 $f \in \mathfrak m_p$，它映到 $R$ 中的一个
+一致化参数。特别地，$T$ 的泛点映到 $X$ 中不等于 $p$ 的点。
+换言之，令 $K$ 为 $R$ 的分式域，则 $a$ 的限制定义态射
+$\Spec(K) \to X \setminus \{p\}$。由于态射 $b$ 为固有态射，且在
+$X \setminus \{x\}$ 上为同构，可应用固有性的赋值判别准则，得到唯一态射
+$a_1$，使下图交换：
+$$
+\xymatrix{
+T \ar[r]_{a_1} \ar[rd]_a & X_1 \ar[d]^{b} \\
+& X
+}
+$$
+令 $p_1 \in X_1$ 为 $T$ 的闭点之像。注意 $p_1$ 是闭点，因为它是
+$\kappa = \kappa(p)$-有理点，并位于 $X_1 \to X$ 在 $x$ 上方的纤维中。
+由于有分解
+$$
+\mathcal{O}_{X, x} \to \mathcal{O}_{X_1, p_1} \to R
+$$
+可知 $a_1$ 也是非奇异形式弧。
+
+\medskip\noindent
+可以重复这一过程，得到一列爆破
+$$
+\xymatrix{
+T \ar[d]_a \ar[rd]_{a_1} \ar[rrd]_{a_2} \ar[rrrd]^{a_3} \\
+(X, p) & (X_1, p_1) \ar[l] & (X_2, p_2) \ar[l] &
+(X_3, p_3) \ar[l] & \ldots \ar[l]
+}
+$$
+这类爆破序列可以刻画如下。
+
+\begin{lemma}
+\label{resolve-lemma-sequence-blowups}
+令 $X$ 为局部诺特概形。设
+$$
+(X, p) = (X_0, p_0) \leftarrow (X_1, p_1) \leftarrow (X_2, p_2) \leftarrow
+(X_3, p_3) \leftarrow \ldots
+$$
+为一列爆破，并满足：
+\begin{enumerate}
+\item $p_i$ 是闭点，映到 $p_{i - 1}$，且
+$\kappa(p_i) = \kappa(p_{i - 1})$；
+\item 存在 $x_1 \in \mathfrak m_p$，其在 $\mathfrak m_{p_i}$ 中的像
+（$i > 0$）定义例外除子 $E_i \subset X_i$。
+\end{enumerate}
+则该序列由上述非奇异弧 $a : T \to X$ 得到。
+\end{lemma}
+
+\begin{proof}
+记 $\mathcal{O}_n = \mathcal{O}_{X_n, p_n}$ 以及
+$\mathcal{O} = \mathcal{O}_{X, p}$。以 $\mathfrak m \subset \mathcal{O}$ 和
+$\mathfrak m_n \subset \mathcal{O}_n$ 表示极大理想。
+
+\medskip\noindent
+我们断言 $x_1^t \not \in \mathfrak m_n^{t + 1}$。
+事实上，若不然，则在局部环 $\mathcal{O}_{n + 1}$ 中，元素 $x_1^t$
+属于 $(t + 1)E_{n + 1}$ 的理想。这与 $x_1$ 定义 $E_{n + 1}$ 的假设矛盾。
+
+\medskip\noindent
+对每个 $n$，选取生成元 $y_{n, 1}, \ldots, y_{n, t_n}$ 来生成
+$\mathfrak m_n$。由假设 (2) 有
+$\mathfrak m_n \mathcal{O}_{n + 1} = x_1\mathcal{O}_{n + 1}$，故可写成
+$y_{n, i} = a_{n, i} x_1$，其中某个
+$a_{n, i} \in \mathcal{O}_{n + 1}$。由于映射
+$\mathcal{O}_n \to \mathcal{O}_{n + 1}$ 按 (1) 在剩余域上定义同构，
+可选取 $c_{n, i} \in \mathcal{O}_n$，使其剩余类与 $a_{n, i}$ 相同。
+于是
+$$
+\mathfrak m_n = (x_1, z_{n, 1}, \ldots, z_{n, t_n}),
+\quad z_{n, i} = y_{n, i} - c_{n, i} x_1
+$$
+而元素 $z_{n, i}$ 映到 $\mathfrak m_{n + 1}^2$ 的元素，
+这一陈述在 $\mathcal{O}_{n + 1}$ 中成立。
+
+\medskip\noindent
+考虑
+$$
+J_n = \Ker(\mathcal{O} \to \mathcal{O}_n/\mathfrak m_n^{n + 1})
+$$
+我们断言 $\mathcal{O}/J_n$ 的长度为 $n + 1$，并且
+$\mathcal{O}/(x_1) + J_n$ 等于剩余域。当 $n = 0$ 时这是直接的。
+假设该断言对 $n$ 成立。令 $f \in J_n$。于是在 $\mathcal{O}_n$ 中有
+$$
+f = a x_1^{n + 1} + x_1^n A_1(z_{n, i}) +
+x_1^{n - 1} A_2(z_{n, i}) + \ldots + A_{n + 1}(z_{n, i})
+$$
+其中 $a \in \mathcal{O}_n$，而 $A_i$ 是次数为 $i$、系数属于
+$\mathcal{O}_n$ 的齐次式。由于 $\mathcal{O} \to \mathcal{O}_n$ 认同剩余域，
+可选取 $a \in \mathcal{O}$（仿照上面对 $z_{n, i}$ 的构造）。
+在 $\mathcal{O}_{n + 1}$ 中取像可见，$f$ 与 $a x_1^{n + 1}$
+模 $\mathfrak m_{n + 1}^{n + 2}$ 有相同的像。由于
+$x_n^{n + 1} \not \in \mathfrak m_{n + 1}^{n + 2}$，可知
+$J_n/J_{n + 1}$ 的长度为 $1$，断言得证。
+
+\medskip\noindent
+考虑 $R = \lim \mathcal{O}/J_n$。这是 $\mathfrak m$-进完备化的一个商，
+而该完备化取自 $\mathcal{O}$，故它是完备诺特局部环。另一方面，它的长度
+不是有限的，且 $x_1$ 生成其极大理想。因此 $R$ 是完备离散赋值环。
+映射 $\mathcal{O} \to R$ 提升为局部同态 $\mathcal{O}_n \to R$，
+对每个 $n$ 均如此。有两种方法证明这一点：(1) 对每个 $n$，可用类似过程
+构造 $\mathcal{O}_n \to R_n$，然后证明 $\mathcal{O} \to \mathcal{O}_n \to R_n$
+经由同构 $R \to R_n$ 分解；或者 (2) 可用除子章引理
+\ref{divisors-lemma-characterize-affine-blowup} 证明 $\mathcal{O}_n$ 是反复仿射
+爆破代数的一个局部化，从而显式构造映射 $\mathcal{O}_n \to R$。
+由此显然，这列爆破来自非奇异弧 $a : T = \Spec(R) \to X$。
+\end{proof}
+
+\noindent
+下述引理是一类内龙（N\'eron）消奇异化引理。
+
+\begin{lemma}
+\label{resolve-lemma-sequence-blowups-along-arc-becomes-nonsingular}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的诺特局部整环。令
+$A \to R$ 为到一个完备离散赋值环的满射。这定义了非奇异弧
+$a : T = \Spec(R) \to \Spec(A)$。令
+$$
+\Spec(A) = X_0 \leftarrow X_1 \leftarrow X_2 \leftarrow X_3 \leftarrow \ldots
+$$
+为由 $a$ 构造的爆破序列。若 $A_\mathfrak p$ 是正则局部环，其中
+$\mathfrak p = \Ker(A \to R)$，则对某个 $i$，概形 $X_i$ 在 $x_i$ 处正则。
+\end{lemma}
+
+\begin{proof}
+令 $x_1 \in \mathfrak m$ 映到 $R$ 的一个一致化参数。注意
+$\kappa(\mathfrak p) = K$ 是 $R$ 的分式域。把
+$\mathfrak p = (x_2, \ldots, x_r)$ 写成生成元个数 $r$ 最少的形式。
+若 $r = 2$，则 $\mathfrak m = (x_1, x_2)$，且 $A$ 正则，引理成立。
+假设 $r > 2$。必要时重新编号，可设 $x_2$ 映到 $A_\mathfrak p$ 的一个
+一致化参数。于是 $\mathfrak p/\mathfrak p^2 + (x_2)$ 被 $x_1$ 的某个幂湮灭。
+对 $i > 2$，可找到 $n_i \geq 0$ 以及 $a_i \in A$，使得
+$$
+x_1^{n_i} x_i - a_i x_2 = \sum\nolimits_{2 \leq j \leq k} a_{jk} x_jx_k
+$$
+其中 $a_{jk} \in A$。若出现 $n_i = 0$，其指标为某个 $i$，则可去掉
+$x_i$ 这个属于 $\mathfrak p$ 的生成元，并对 $r$ 作归纳而得证。
+若对某个 $i$，元素 $a_i$ 是单位，则可去掉 $x_2$ 这个属于
+$\mathfrak p$ 的生成元，并以同样方式得证。因此或者 $a_i \in \mathfrak p$，或者
+$a_i = u_i x_1^{m_1} \bmod \mathfrak p$，其中某个 $m_1 > 0$，且
+$u_i \in A$ 为单位。因此有二者之一：
+$$
+x_1^{n_i} x_i = \sum\nolimits_{2 \leq j \leq k} a_{jk} x_jx_k
+\quad\text{或}\quad
+x_1^{n_i} x_i - u_i x_1^{m_i} x_2 =
+\sum\nolimits_{2 \leq j \leq k} a_{jk} x_jx_k
+$$
+我们将证明，爆破之后整数 $n_i$、$m_i$ 减小，这就完成证明。
+
+\medskip\noindent
+考察这些方程在仿射爆破代数 $A' = A[\mathfrak m/x_1]$ 上的情形。
+由于 $\mathfrak m = (x_1, \ldots, x_r)$，可见 $A'$ 由 $R$ 上的元素
+$y_i = x_i/x_1$（$i \geq 2$）生成。显然 $A \to R$ 延拓为
+$A' \to R$，其核为 $(y_2, \ldots, y_r)$。于是二者之一成立：
+$$
+x_1^{n_i - 1} y_i = \sum\nolimits_{2 \leq j \leq k} a_{jk} y_jy_k
+\quad\text{或}\quad
+x_1^{n_i - 1} y_i - u_i x_1^{m_1 - 1} y_2 =
+\sum\nolimits_{2 \leq j \leq k} a_{jk} y_jy_k
+$$
+证明完成。
+\end{proof}
+
+
+
+
+\section{到完备化的基变换}
+\label{resolve-section-aux}
+
+\noindent
+下述简单引理将成为后文的一个有用工具。
+
+\begin{lemma}
+\label{resolve-lemma-iso-completions}
+令 $(A, \mathfrak m, \kappa)$ 为局部环，其极大理想 $\mathfrak m$ 有限生成。
+令 $X$ 为 $A$ 上的概形。令
+$Y = X \times_{\Spec(A)} \Spec(A^\wedge)$，其中 $A^\wedge$ 是关于
+$\mathfrak m$ 的进完备化，而被完备化的环为 $A$。对点 $q \in Y$，设其像 $p \in X$ 位于
+$\Spec(A)$ 的闭点上方，则局部环映射
+$\mathcal{O}_{X, p} \to \mathcal{O}_{Y, q}$ 在完备化上诱导同构。
+\end{lemma}
+
+\begin{proof}
+可设 $X$ 仿射，因而可写成 $X = \Spec(B)$。令
+$\mathfrak q \subset B' = B \otimes_A A^\wedge$ 为对应于 $q$ 的素理想，
+并令 $\mathfrak p \subset B$ 为对应于 $p$ 的素理想。由代数章引理
+\ref{algebra-lemma-hathat-finitely-generated}，有
+$$
+B'/(\mathfrak m^\wedge)^n B' =
+A^\wedge/(\mathfrak m^\wedge)^n \otimes_A B =
+A/\mathfrak m^n \otimes_A B = B/\mathfrak m^n B
+$$
+对所有 $n$ 成立。由于 $\mathfrak m B \subset \mathfrak p$ 且
+$\mathfrak m^\wedge B' \subset \mathfrak q$，可见 $B/\mathfrak p^n$ 与
+$B'/\mathfrak q^n$ 都是上面所示环对同一素理想的第 $n$ 次幂取商。
+引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-port-regularity-to-completion}
+令 $(A, \mathfrak m, \kappa)$ 为诺特局部环。令 $X \to \Spec(A)$ 为局部有限型态射。
+置 $Y = X \times_{\Spec(A)} \Spec(A^\wedge)$。令 $y \in Y$ 的像为 $x \in X$。则
+\begin{enumerate}
+\item 若 $\mathcal{O}_{Y, y}$ 正则，则 $\mathcal{O}_{X, x}$ 正则；
+\item 若 $y$ 位于闭纤维中，则 $\mathcal{O}_{Y, y}$ 正则
+$\Leftrightarrow \mathcal{O}_{X, x}$ 正则；
+\item 若 $X$ 在 $A$ 上固有，则 $X$ 正则当且仅当 $Y$ 正则。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $A \to A^\wedge$ 忠实平坦（代数章引理
+\ref{algebra-lemma-completion-faithfully-flat}），可知 $Y \to X$ 平坦。
+故 (1) 由代数章引理 \ref{algebra-lemma-descent-regular} 得到。
+引理 \ref{resolve-lemma-iso-completions} 表明，态射 $Y \to X$ 在特殊纤维各点的
+完备局部环上诱导同构。故 (2) 由进阶代数章引理
+\ref{more-algebra-lemma-completion-regular} 得到。若 $X$ 在 $A$ 上固有，
+则 $Y$ 在 $A^\wedge$ 上固有（态射章引理
+\ref{morphisms-lemma-base-change-proper}），并且 $X$ 与 $Y$ 的每个闭点都位于
+闭纤维中。因此由性质章引理 \ref{properties-lemma-characterize-regular}，
+$Y$ 为正则概形当且仅当 $X$ 正则。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-descend-admissible-blowup}
+令 $(A, \mathfrak m)$ 为诺特局部环，其完备化为 $A^\wedge$。令
+$U \subset \Spec(A)$ 与 $U^\wedge \subset \Spec(A^\wedge)$ 为相应的去心谱。
+若 $Y \to \Spec(A^\wedge)$ 是 $U^\wedge$-容许爆破，则存在
+$U$-容许爆破 $X \to \Spec(A)$，使得
+$Y = X \times_{\Spec(A)} \Spec(A^\wedge)$。
+\end{lemma}
+
+\begin{proof}
+按定义，存在理想 $J \subset A^\wedge$，使得
+$V(J) = \{\mathfrak m A^\wedge\}$，且 $Y$ 是 $S^\wedge$ 沿由 $J$ 定义的
+闭子概形的爆破；见除子章定义 \ref{divisors-definition-admissible-blowup}。
+由于 $A^\wedge$ 诺特，这说明
+$\mathfrak m^n A^\wedge \subset J$，其中 $n$ 为某个整数。由
+$A^\wedge/\mathfrak m^n A^\wedge = A/\mathfrak m^n$，可找到理想
+$\mathfrak m^n \subset I \subset A$，使得 $J = I A^\wedge$。
+令 $X \to S$ 为沿 $I$ 的爆破。由于 $A \to A^\wedge$ 平坦，
+由除子章引理 \ref{divisors-lemma-flat-base-change-blowing-up} 可知
+$X$ 的基变换即为 $Y$。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blowup-still-good}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的 Nagata 局部正规整环。
+假设 $A$ 定义有理奇点，且完备化 $A^\wedge$（所完备化的环为 $A$）正规。则
+\begin{enumerate}
+\item $A^\wedge$ 定义有理奇点；
+\item 若 $X \to \Spec(A)$ 是沿 $\mathfrak m$ 的爆破，则对闭点
+$x \in X$，完备化 $\mathcal{O}_{X, x}$ 正规。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $Y \to \Spec(A^\wedge)$ 为修改，且 $Y$ 正规。需要证明
+$H^1(Y, \mathcal{O}_Y) = 0$。由簇章引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}，
+$Y \to \Spec(A^\wedge)$ 在去心谱
+$U^\wedge = \Spec(A^\wedge) \setminus \{\mathfrak m^\wedge\}$ 上为同构。
+由引理 \ref{resolve-lemma-dominate-by-scheme-modification}，存在
+$U^\wedge$-容许爆破 $Y' \to \Spec(A^\wedge)$，它支配 $Y$。由引理
+\ref{resolve-lemma-descend-admissible-blowup}，存在 $U$-容许爆破
+$X \to \Spec(A)$，其到 $A^\wedge$ 的基变换支配 $Y$。
+由于 $A$ 是 Nagata 环，可用其正规化替换 $X$；替换后
+$X \to \Spec(A)$ 是正规修改（但可能不再是 $U$-容许爆破）。
+于是 $H^1(X, \mathcal{O}_X) = 0$，因为 $A$ 定义有理奇点。因此
+$H^1(X \times_{\Spec(A)} \Spec(A^\wedge),
+\mathcal{O}_{X \times_{\Spec(A)} \Spec(A^\wedge)}) = 0$
+由平坦基变换得到（概形上同调章引理
+\ref{coherent-lemma-flat-base-change-cohomology}，并用代数章引理
+\ref{algebra-lemma-completion-flat} 所给的 $A \to A^\wedge$ 平坦性）。
+由引理 \ref{resolve-lemma-exact-sequence} 可知 $H^1(Y, \mathcal{O}_Y) = 0$。
+
+\medskip\noindent
+最后，令 $X \to \Spec(A)$ 为 $\Spec(A)$ 沿 $\mathfrak m$ 的爆破。
+则 $Y = X \times_{\Spec(A)} \Spec(A^\wedge)$ 是 $\Spec(A^\wedge)$
+沿 $\mathfrak m^\wedge$ 的爆破。由引理 \ref{resolve-lemma-blow-up-normal-rational}，
+$Y$ 与 $X$ 都正规。另一方面，$A^\wedge$ 优良（进阶代数章命题
+\ref{more-algebra-proposition-ubiquity-excellent}），故 $Y$ 的每个仿射开子集
+都是某个优良正规整环的谱（进阶代数章引理
+\ref{more-algebra-lemma-finite-type-over-excellent}）。因此对 $y \in Y$，环映射
+$\mathcal{O}_{Y, y} \to \mathcal{O}_{Y, y}^\wedge$ 正则；由进阶代数章引理
+\ref{more-algebra-lemma-normal-goes-up} 可知 $\mathcal{O}_{Y, y}^\wedge$ 正规。
+若 $x \in X$ 是特殊纤维的闭点，则存在唯一闭点 $y \in Y$，它位于 $x$ 上方。
+由于 $\mathcal{O}_{X, x} \to \mathcal{O}_{Y, y}$ 在完备化上诱导同构
+（引理 \ref{resolve-lemma-iso-completions}），结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-formally-unramified}
+令 $(A, \mathfrak m)$ 为诺特局部环，令 $X$ 为 $A$ 上的概形。假设
+\begin{enumerate}
+\item $A$ 解析非分歧（代数章定义
+\ref{algebra-definition-analytically-unramified}）；
+\item $X$ 在 $A$ 上局部有限型；
+\item $X \to \Spec(A)$ 在 $X$ 的各不可约分支的泛点处为 \'etale 态射。
+\end{enumerate}
+则 $X$ 的正规化在 $X$ 上有限。
+\end{lemma}
+
+\begin{proof}
+由于 $A$ 解析非分歧，由代数章引理
+\ref{algebra-lemma-analytically-unramified-easy} 可知它既约。由于 $X$ 的
+正规化只依赖于 $X$ 的既约化，可替换 $X$，替换物为 $X_{red}$；注意
+$X_{red} \to X$ 在开集 $U$ 上为同构，其中 $X \to \Spec(A)$ 为 \'etale 态射，
+因为 $U$ 既约（下降章引理 \ref{descent-lemma-reduced-local-smooth}）。
+故替换后条件 (3) 仍成立。此外，可设仿射概形 $X = \Spec(B)$。
+
+\medskip\noindent
+映射
+$$
+K = \prod\nolimits_{\mathfrak p \subset A\text{ minimal}} \kappa(\mathfrak p)
+\longrightarrow
+K^\wedge = \prod\nolimits_{\mathfrak p^\wedge \subset A^\wedge\text{ minimal}}
+\kappa(\mathfrak p^\wedge)
+$$
+是单射，因为 $A \to A^\wedge$ 忠实平坦（代数章引理
+\ref{algebra-lemma-completion-faithfully-flat}），从而在极小素理想集合之间诱导满射
+（对平坦环映射使用降链性质；见代数章第
+\ref{algebra-section-going-up} 节）。由于这里的环诺特，两边都是有限个域的乘积。
+令 $L = \prod_{\mathfrak q \subset B\text{ minimal}} \kappa(\mathfrak q)$。
+假设 (3) 蕴含 $L = B \otimes_A K$，且 $K \to L$ 是有限 \'etale 环映射
+（这是因为 $A \to B$ 泛有限；例如使用代数章引理
+\ref{algebra-lemma-generically-finite}，或态射章第
+\ref{morphisms-section-generically-finite} 节中更详细的结果）。
+由于 $B$ 既约，可知 $B \subset L$。这蕴含
+$$
+C = B \otimes_A A^\wedge \subset
+L \otimes_A A^\wedge = L \otimes_K K^\wedge = M
+$$
+于是 $M$ 是 $C$ 的全分式环；作为 $K^\wedge$ 上的有限可分代数，
+它是有限个域的乘积。因此 $C$ 既约，且其正规化 $C'$ 是 $C$ 在 $M$ 中的
+整闭包。正规化 $B'$（被正规化的环为 $B$）是 $B$ 在 $L$ 中的整闭包。由
+$A \to A^\wedge$ 的平坦性，得到单射 $B' \otimes_A A^\wedge \to M$，
+其像包含在 $C'$ 中。图示为
+$$
+B' \otimes_A A^\wedge \longrightarrow C'
+$$
+由于 $A^\wedge$ 是 Nagata 环（代数章引理
+\ref{algebra-lemma-Noetherian-complete-local-Nagata}），可知 $C'$ 在
+$C = B \otimes_A A^\wedge$ 上有限；见代数章引理
+\ref{algebra-lemma-Noetherian-complete-local-Nagata} 与
+\ref{algebra-lemma-nagata-in-reduced-finite-type-finite-integral-closure}。
+由于 $C$ 诺特，可知 $B' \otimes_A A^\wedge$ 在
+$C = B \otimes_A A^\wedge$ 上有限。因此由忠实平坦下降（代数章引理
+\ref{algebra-lemma-descend-properties-modules}），$B'$ 在 $B$ 上有限，正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-normalization-completion}
+令 $(A, \mathfrak m, \kappa)$ 为诺特局部环。令 $X \to \Spec(A)$ 为局部有限型态射。
+置 $Y = X \times_{\Spec(A)} \Spec(A^\wedge)$。若 $Y$ 中特殊纤维的补集正规，
+则正规化 $X^\nu \to X$ 有限，且 $X^\nu$ 到 $\Spec(A^\wedge)$ 的基变换
+给出 $Y$ 的正规化。
+\end{lemma}
+
+\begin{proof}
+立即归约到仿射情形 $X = \Spec(B)$，其中 $B$ 是有限型 $A$-代数。
+置 $C = B \otimes_A A^\wedge$，从而 $Y = \Spec(C)$。由于
+$A \to A^\wedge$ 忠实平坦，对任意素理想 $\mathfrak q \subset B$，
+存在素理想 $\mathfrak r \subset C$，它位于 $\mathfrak q$ 上方。
+于是 $B_\mathfrak q \to C_\mathfrak r$ 忠实平坦。因此，若
+$\mathfrak q$ 不位于 $\mathfrak m$ 上方，则 $C_\mathfrak r$ 正规，
+这是关于 $Y$ 的假设所给；再由代数章引理 \ref{algebra-lemma-descent-normal}，
+$B_\mathfrak q$ 正规。由此可见 $X$ 在特殊纤维之外正规。
+
+\medskip\noindent
+回忆完备诺特局部环 $A^\wedge$ 是 Nagata 环（代数章引理
+\ref{algebra-lemma-Noetherian-complete-local-Nagata}）。因此正规化
+$Y^\nu \to Y$ 有限（态射章引理 \ref{morphisms-lemma-nagata-normalization}），
+并在特殊纤维之外为同构。记 $Y^\nu = \Spec(C')$。于是 $C \to C'$ 有限，
+并在 $V(\mathfrak m C)$ 之外为同构。由于 $B \to C$ 平坦且诱导同构
+$B/\mathfrak m B \to C/\mathfrak m C$，存在有限环映射 $B \to B'$，
+其到 $C$ 的基变换给出 $C \to C'$；见进阶代数章引理
+\ref{more-algebra-lemma-application-formal-glueing} 与注
+\ref{more-algebra-remark-formal-glueing-algebras}。
+因此得到有限态射 $X' \to X$，它在特殊纤维之外为同构，且其基变换给出
+$Y^\nu \to Y$。由第一段的讨论，$X'$ 在不属于特殊纤维的点处正规。
+对特殊纤维上的点 $x \in X'$，有相应的点 $y \in Y^\nu$ 和平坦映射
+$\mathcal{O}_{X', x} \to \mathcal{O}_{Y^\nu, y}$。由于
+$\mathcal{O}_{Y^\nu, y}$ 正规，$\mathcal{O}_{X', x}$ 也正规；见代数章引理
+\ref{algebra-lemma-descent-normal}。因此 $X'$ 正规，从而它是 $X$ 的正规化。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-normalized-blowup-completion}
+令 $(A, \mathfrak m, \kappa)$ 为诺特局部整环，其完备化 $A^\wedge$ 正规。
+则对任意正规化爆破序列
+$$
+Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to \Spec(A^\wedge)
+$$
+存在一列（固有的）正规化爆破
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to \Spec(A)
+$$
+其到 $A^\wedge$ 的基变换给出原序列。
+\end{lemma}
+
+\begin{proof}
+给定序列 $Y_n \to \ldots \to Y_1 \to Y_0 = \Spec(A^\wedge)$，归纳构造
+$X_n \to \ldots \to X_1 \to X_0 = \Spec(A)$。基本情形为 $i = 0$。
+给定 $X_i$，其基变换为 $Y_i$，令 $Y'_i \to Y_i$ 为沿闭点
+$y_i \in Y_i$ 的爆破，使得 $Y_{i + 1}$ 是 $Y_i$ 的正规化。
+由于 $Y_i$ 与 $X_i$ 的闭纤维同构，点 $y_i$ 对应于闭点 $x_i$，后者位于
+$X_i$ 的特殊纤维上。令 $X'_i \to X_i$ 为 $X_i$ 沿 $x_i$ 的爆破。
+于是 $X'_i$ 到 $\Spec(A^\wedge)$ 的基变换同构于 $Y'_i$。
+由引理 \ref{resolve-lemma-normalization-completion}，正规化
+$X_{i + 1} \to X'_i$ 有限，且其到 $\Spec(A^\wedge)$ 的基变换同构于
+$Y_{i + 1}$。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{有理双点}
+\label{resolve-section-rational-double-points}
+
+\noindent
+在第 \ref{resolve-section-rational-singularities} 节中，我们论证了 $2$ 维有理奇点的
+消解可归约到 Gorenstein 情形。Gorenstein 有理曲面奇点是有理双点。
+我们将通过显式计算消解它们。
+
+\medskip\noindent
+根据例子章第 \ref{examples-section-bad} 节的讨论，存在正规诺特局部整环
+$A$，其完备化同构于 $\mathbf{C}[[x, y, z]]/(z^2)$。在这种情形下，
+可以说 $A$ 有一个有理双点奇点；但另一方面，$\Spec(A)$ 不存在奇点消解。
+若 $A$ 是 Nagata 环，这种现象不会发生；见代数章引理
+\ref{algebra-lemma-local-nagata-domain-analytically-unramified}。
+
+\medskip\noindent
+然而还有更糟的情形：存在局部正规 Nagata 整环 $A$，其完备化为
+$\mathbf{C}[[x, y, z]]/(yz)$；另有一个这样的环，其完备化为
+$\mathbf{C}[[x, y, z]]/(y^2 - z^3)$。这是 \cite{Nishimura-few} 的例 2.5。
+因此，本节需要假设所论环的完备化正规。
+
+\begin{situation}
+\label{resolve-situation-rational-double-point}
+此处 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的 Nagata 局部正规整环，
+它定义有理奇点，其完备化正规，并且它是 Gorenstein 环。假设 $A$ 不正则。
+\end{situation}
+
+\noindent
+本节的论证将表明，在这一情境下，反复爆破奇点即可消解 $\Spec(A)$。
+证明过程中需要下述引理。
+
+\begin{lemma}
+\label{resolve-lemma-issquare}
+令 $\kappa$ 为域，令 $I \subset \kappa[x, y]$ 为理想。设
+$$
+a + b x + c y + d x^2 + exy + f y^2 \in I^2
+$$
+其中 $a, b, c, d, e, f \in k$ 不全为零。若 $I$ 在 $\kappa[x, y]$ 中的
+余长度为 $> 1$，则
+$a + b x + c y + d x^2 + exy + f y^2 = j(g + hx + iy)^2$
+，其中某些 $j, g, h, i \in \kappa$。
+\end{lemma}
+
+\begin{proof}
+考虑偏导数 $b + 2dx + ey$ 与 $c + ex + 2fy$。由 Leibniz 法则，
+它们属于 $I$。若其中一个非零，则作形如
+$x \mapsto \alpha + \beta x + \gamma y$ 与
+$y \mapsto \delta + \epsilon x + \zeta y$ 的线性坐标变换后，可设
+$x \in I$。于是 $I = (x)$，或者 $I = (x, F)$，其中 $F$ 是次数
+$\geq 2$ 的首一多项式，以 $y$ 为变量。第一种情形结论显然。第二种情形下，
+注意 $I^2$ 中任意元素都可写成
+$$
+A(x, y) x^2 + B(y) x F + C(y) F^2
+$$
+的形式，其中 $A(x, y) \in \kappa[x, y]$ 且 $B, C \in \kappa[y]$。因此
+$$
+a + b x + c y + d x^2 + exy + f y^2 = A(x, y) x^2 + B(y) x F + C(y) F^2
+$$
+由次数可知 $B = C = 0$，且 $A$ 为常数。
+
+\medskip\noindent
+为完成证明，还需处理两个偏导数都为零的情形。这只能发生在特征 $2$ 时，
+此时得到
+$$
+a + d x^2 + f y^2 \in I^2
+$$
+可设 $f$ 非零（否则交换 $x$ 与 $y$ 的角色）。除以 $f$ 后，归结为
+$\kappa$ 的特征为 $2$ 且
+$$
+a + d x^2 + y^2 \in I^2
+$$
+若 $a$ 与 $d$ 都是 $\kappa$ 中的平方，则结论成立。否则，存在导子
+$\theta : \kappa \to \kappa$，使得 $\theta(a) \not = 0$ 或
+$\theta(d) \not = 0$；见代数章引理
+\ref{algebra-lemma-derivative-zero-pth-power}。可将它延拓为
+$\kappa[x, y]$ 的导子，所取延拓满足 $\theta(x) = \theta(y) = 0$。于是
+$$
+\theta(a) + \theta(d) x^2 \in I
+$$
+情形 $\theta(d) = 0$ 导致矛盾。因此可设
+$\alpha + x^2 \in I$，其中某个 $\alpha \in \kappa$。结合上式可知
+$a + \alpha d + y^2 \in I$。故
+$$
+J = (\alpha + x^2, a + \alpha d + y^2) \subset I
+$$
+其余维数至多为 $2$。注意 $J/J^2$ 是 $\kappa[x, y]/J$ 上的自由模，基为
+$\alpha + x^2$ 与 $a + \alpha d + y^2$。因此
+$a + d x^2 + y^2 =
+1 \cdot (a + \alpha d + y^2) + d \cdot (\alpha + x^2) \in I^2$
+蕴含包含关系 $J \subset I$ 是严格的。于是可找到形如
+$g + hx + iy + jxy$ 的非零元素，它属于 $I$。若 $j = 0$，则 $I$ 包含一个线性型，
+可如第一段那样得出结论。因此 $j \not = 0$，且
+$\dim_\kappa(I/J) = 1$（否则可在 $I$ 中找到上述形式且 $j = 0$ 的元素）。
+所以 $I$ 具有形式
+$(\alpha + x^2, \beta + y^2, g + hx + iy + jxy)$
+，其中 $j \not = 0$，且余长度为 $3$。在这种情形下，
+$a + dx^2 + y^2 \in I^2$ 不可能成立。可直接计算证明这一点，但我们采用
+如下论证。为证明该断言，可设 $\kappa$ 代数闭。于是作坐标变换
+$x \mapsto \sqrt{\alpha} + x$ 与 $y \mapsto \sqrt{\beta} + y$，并可设
+$I = (x^2, y^2, g' + h'x + i'y + jxy)$，其中 $j$ 不变。此时
+$g' = h' = i' = 0$，否则 $I$ 的余长度不是 $3$。故得到
+$I = (x^2, y^2, xy)$，结论显然。
+\end{proof}
+
+\noindent
+令 $(A, \mathfrak m, \kappa)$ 如情境
+\ref{resolve-situation-rational-double-point}。令 $X \to \Spec(A)$ 为沿
+$\mathfrak m$ 的爆破，所爆破的概形是 $\Spec(A)$。由引理
+\ref{resolve-lemma-blow-up-normal-rational}，$X$ 正规。由引理
+\ref{resolve-lemma-rational-propagates}，$X$ 的所有奇点都是有理奇点。
+由于 $\omega_A = A$，由引理 \ref{resolve-lemma-dualizing-blow-up-rational} 可知
+$\omega_X \cong \mathcal{O}_X$（约定见注 \ref{resolve-remark-dualizing-setup} 中的讨论）。
+因此 $X$ 的所有奇点都是 Gorenstein 奇点。此外，由引理
+\ref{resolve-lemma-blowup-still-good}，$X$ 在闭点处的局部环具有正规完备化。
+换言之，爆破 $\Spec(A)$ 后得到正规曲面 $X$，其奇点如情境
+\ref{resolve-situation-rational-double-point} 所述。下文将不再说明而直接使用这一点。
+（注意：在下述讨论过程中将看到，这些奇点只有有限多个。）
+
+\medskip\noindent
+令 $E \subset X$ 为例外除子。由引理 \ref{resolve-lemma-dualizing-blow-up-rational}，
+有 $\omega_E = \mathcal{O}_E(-1)$。由引理
+\ref{resolve-lemma-cohomology-blow-up-rational}，有
+$\kappa = H^0(E, \mathcal{O}_E)$。因此 $E$ 是 Gorenstein 曲线；由代数曲线章
+第 \ref{curves-section-Riemann-Roch} 节所讨论的 Riemann--Roch，有
+$$
+\chi(E, \mathcal{O}_E) = 1 - g = -(1/2) \deg(\omega_E) =
+(1/2)\deg(\mathcal{O}_E(1))
+$$
+其中 $g = \dim_\kappa H^1(E, \mathcal{O}_E) \geq 0$。由簇章引理
+\ref{varieties-lemma-ampleness-in-terms-of-degrees-components}，
+$\deg(\mathcal{O}_E(1))$ 为正，故 $g = 0$ 且
+$\deg(\mathcal{O}_E(1)) = 2$。因此有
+$$
+\dim_\kappa (\mathfrak m^n/\mathfrak m^{n + 1}) = 2n + 1
+$$
+；这是由引理 \ref{resolve-lemma-cohomology-blow-up-rational} 以及 $E$ 上的
+Riemann--Roch 得到的。
+
+\medskip\noindent
+选取 $x_1, x_2, x_3 \in \mathfrak m$，使其映到
+$\mathfrak m/\mathfrak m^2$ 的一组基。因为
+$\dim_\kappa(\mathfrak m^2/\mathfrak m^3) = 5$，元素 $x_i x_j$ 的像满足
+一个关系；这里 $i \geq j$，且所论空间是这个 $\kappa$-向量空间。
+换言之，可以找到 $a_{ij} \in A$（$i \geq j$），它们不全属于
+$\mathfrak m$，并使得
+$$
+a_{11} x_1^2 + a_{12} x_1x_2 + a_{13}x_1x_3 + a_{22} x_2^2 +
+a_{23} x_2x_3 + a_{33} x_3^2 =
+\sum a_{ijk} x_ix_jx_k
+$$
+，其中某些 $a_{ijk} \in A$，且 $i \leq j \leq k$。用
+$a \mapsto \overline{a}$ 表示映射 $A \to \kappa$。二次型
+$q = \sum \overline{a}_{ij} t_i t_j \in \kappa[t_1, t_2, t_3]$
+由上述选择确定到相差 $\kappa^*$ 中元素的乘法为止。若在论证过程中发现
+$\overline{a}_{ij} = 0$ 于 $\kappa$ 中，则可把项 $a_{ij} x_i x_j$
+并入右端，并设 $a_{ij} = 0$；这一操作改变 $a_{ijk}$，但不改变其他
+$a_{i'j'}$。
+
+\medskip\noindent
+该爆破由 $3$ 个仿射图覆盖，它们对应于“变量” $x_1, x_2, x_3$。
+由对称性，只需研究其中一个图。为此令
+$$
+A' = A[\mathfrak m/x_1]
+$$
+为仿射爆破代数（如代数章第 \ref{algebra-section-blow-up} 节）。
+由于 $x_1, x_2, x_3$ 生成 $\mathfrak m$，可知 $A'$ 由
+$y_2 = x_2/x_1$ 与 $y_3 = x_3/x_1$ 生成，基环为 $A$。为简化公式，偶尔使用
+$y_1 = 1$。此外，考察上述关系可得
+$$
+a_{11} + a_{12} y_2 + a_{13} y_3 + a_{22} y_2^2 +
+a_{23} y_2y_3 + a_{33} y_3^2 =
+x_1 (\sum a_{ijk} y_iy_jy_k)
+$$
+于 $A'$ 中成立。回忆 $x_1 \in A'$ 定义例外除子 $E$；这里是在某个仿射开子集上，
+而该开子集属于 $X$。因而该除子在概形意义下由下式给出：
+$$
+\kappa[y_2, y_3]/
+(\overline{a}_{11} + \overline{a}_{12} y_2 + \overline{a}_{13} y_3 +
+\overline{a}_{22} y_2^2 + \overline{a}_{23} y_2y_3 + \overline{a}_{33} y_3^2)
+$$
+换言之，$E \subset \mathbf{P}^2_\kappa = \text{Proj}(\kappa[t_1, t_2, t_3])$
+是上述二次型 $q$ 的零概形。
+
+\medskip\noindent
+二次型 $q$ 是由 $A$ 定义的奇点的一个重要不变量。若 $q$ 是某个线性型的
+平方再乘以 $\kappa^*$ 中的元素，则称处于{\bf 情形 II}；否则称处于
+{\bf 情形 I}。注意，恰好在改变 $x_1, x_2, x_3$ 的选择后有
+$$
+x_3^2 = \sum a_{ijk}x_ix_jx_k
+$$
+于局部环 $A$ 中成立时，我们处于情形 II。
+
+\medskip\noindent
+令 $\mathfrak m' \subset A'$ 为位于 $\mathfrak m$ 上方的极大理想，
+其剩余域为 $\kappa'$。换言之，$\mathfrak m'$ 对应于例外除子上的闭点
+$p \in E$。回忆满射
+$$
+\kappa[y_2, y_3] \to \kappa'
+$$
+的核由两个元素 $f_2, f_3 \in \kappa[y_2, y_3]$ 生成（例如见代数章例
+\ref{algebra-example-spec-kxy}，或代数章引理
+\ref{algebra-lemma-dim-affine-space} 的证明）。令 $z_2, z_3 \in A'$ 映到
+$f_2, f_3$，这里的像在 $\kappa[y_2, y_3]$ 中考察。于是
+$\mathfrak m' = (x_1, z_2, z_3)$，因为 $x_2$ 与 $x_3$ 都变得可被
+$x_1$ 整除，而这一切发生在 $A'$ 中。
+
+\medskip\noindent
+{\bf 断言。} 若 $X$ 在 $p$ 处奇异，则 $\kappa' = \kappa$，或者我们处于
+情形 II。事实上，若 $A'_{\mathfrak m'}$ 奇异，则
+$\dim_{\kappa'} \mathfrak m'/(\mathfrak m')^2 = 3$，这蕴含
+$\dim_{\kappa'} \overline{\mathfrak m}'/(\overline{\mathfrak m}')^2 = 2$
+，其中 $\overline{m}'$ 是
+$\mathcal{O}_{E, p} = \mathcal{O}_{X, p}/x_1\mathcal{O}_{X, p}$ 的极大理想。
+这蕴含
+$$
+q(1, y_2, y_3) =
+\overline{a}_{11} + \overline{a}_{12} y_2 + \overline{a}_{13} y_3 +
+\overline{a}_{22} y_2^2 + \overline{a}_{23} y_2y_3 + \overline{a}_{33} y_3^2
+\in (f_2, f_3)^2
+$$
+，否则 $z_2$ 与 $z_3$ 的类在
+$\overline{\mathfrak m}'/(\overline{\mathfrak m}')^2$ 中会满足一个关系。
+现在断言由引理 \ref{resolve-lemma-issquare} 得到。
+
+\medskip\noindent
+情形 I 中的消解。由断言，$X$ 的任意奇点都是 $\kappa$-有理点。
+选取这样的奇点 $p$。可以选取 $x_1, x_2, x_3 \in \mathfrak m$，使得
+$p$ 位于上述仿射图中，且坐标为 $y_2 = y_3 = 0$。由于它是奇点，
+仿照断言的证明可得 $q(1, y_2, y_3) \in (y_2, y_3)^2$。
+因此可选 $a_{11} = a_{12} = a_{13} = 0$，并且
+$q(t_1, t_2, t_3) = q(t_2, t_3)$。于是
+$$
+E = V(q) \subset \mathbf{P}^1_\kappa
+$$
+或者是两条在 $p$ 相交的不同直线之并，或者是次数 $2$ 的曲线，且具有唯一
+$\kappa$-有理点（略去一个小细节；使用 $q$ 在相差标量的意义下
+不是线性型的平方）。在两种情形下，都可推出 $X$ 有唯一奇点 $p$，
+且该点是 $\kappa$-有理点。在这种情形下还需要更多一点信息。
+首先，考察上式中的高次项，可得 $\overline{a}_{111} = 0$；这是因为
+$p$ 奇异。于是可写成
+$a_{111} = b_{111} x_1 \bmod (x_2, x_3)$，其中某个 $b_{111} \in A$。
+此时在 $p$ 处，相对于生成元 $x_1, y_2, y_3$，二次型如下；这些元素生成
+$\mathfrak m'$：
+$$
+q' =
+\overline{b}_{111} t_1^2 +
+\overline{a}_{112} t_1 t_2 + \overline{a}_{113} t_1 t_3 +
+\overline{a}_{22} t_2^2 +
+\overline{a}_{23} t_2 t_3 +
+\overline{a}_{33} t_3^2
+$$
+可见 $E' = V(q')$ 与直线 $t_1 = 0$ 相交于两个点，或相交于一个次数
+$2$ 的点。因此 $p$ 处于情形 I。
+
+\medskip\noindent
+假设爆破 $X' \to X$；这里爆破的是 $X$，中心为 $p$，并且再次有奇点 $p'$。则 $p'$ 是
+$\kappa$-有理点，并且可以继续爆破而得到 $X'' \to X'$。若这一过程不停止，
+便得到爆破序列
+$$
+\Spec(A) \leftarrow X \leftarrow X' \leftarrow X'' \leftarrow \ldots
+$$
+我们要证明引理 \ref{resolve-lemma-sequence-blowups} 适用于此情形。为此必须说明
+元素 $x_1$ 的选择；此元素属于 $\mathfrak m$。假设 $A$ 处于情形 I，且 $X$ 有奇点。
+称 $x_1 \in \mathfrak m$ 为{\it 良坐标}，如果对 $x_2, x_3$ 的任意选择
+（等价地，某个选择），二次型 $q(t_1, t_2, t_3)$ 满足
+$q(0, t_2, t_3)$ 不是一个平方的标量倍。上面已经看到良坐标存在。
+若 $x_1$ 是良坐标，则奇点 $p \in E$（它是 $X$ 的奇点）不在超曲面 $t_1 = 0$ 上；
+这是因为该超曲面或者没有有理点，或者即使有，该点在 $X$ 上也不奇异。
+注意，这等价于说 $x_1$ 在 $\mathcal{O}_{X, p}$ 中的像截出例外除子 $E$。
+上述计算还表明，若 $x_1$ 是 $A$ 的良坐标，则
+$x_1 \in \mathfrak m'\mathcal{O}_{X, p}$ 是 $p$ 处的良坐标。当然，这里用到了
+良坐标的概念不依赖于计算中所用的 $x_2$, $x_3$ 的选择。因此 $x_1$ 在
+$p'$、$p''$ 等处都映为良坐标。于是引理 \ref{resolve-lemma-sequence-blowups}
+适用，并且我们的爆破序列来自非奇异弧 $A \to R$。此时映射
+$A^\wedge \to R$ 是满射。由于 $A$ 的完备化正规，由引理
+\ref{resolve-lemma-sequence-blowups-along-arc-becomes-nonsingular} 可知，经过有限次爆破后，
+$$
+\Spec(A^\wedge) \leftarrow X^\wedge \leftarrow (X')^\wedge \leftarrow \ldots
+$$
+所得概形 $(X^{(n)})^\wedge$ 正则。由于
+$(X^{(n)})^\wedge \to X^{(n)}$ 在完备局部环上诱导同构（引理
+\ref{resolve-lemma-iso-completions}），可知 $X^{(n)}$ 也正则。
+
+\medskip\noindent
+情形 II 中的消解。此时有
+$$
+x_3^2 = \sum a_{ijk}x_ix_jx_k
+$$
+于 $A$ 中成立，其中 $x_1, x_2, x_3$ 是 $\mathfrak m$ 的某组生成元。
+于是 $q = t_3^2$ 且 $E = 2C$，其中 $C$ 是一条直线。回忆在 $A'$ 中有
+$$
+y_3^2 = x_1(\sum a_{ijk} y_iy_jy_k)
+$$
+由于已知 $X$ 正规，得到离散赋值环 $\mathcal{O}_{X, \xi}$；这里 $\xi$ 是
+$C$ 的泛点。元素 $y_3 \in A'$ 映到 $\mathcal{O}_{X, \xi}$ 的一个
+一致化参数。由于 $x_1$ 在概形意义下截出 $E$，而 $C$ 在其中具有重数 $2$，
+可知 $x_1$ 是 $y_3^2$ 的一个单位倍，这一陈述在 $\mathcal{O}_{X, \xi}$ 中成立。
+考察上式可推出
+$$
+h(y_2) = \overline{a}_{111} + \overline{a}_{112} y_2 +
+\overline{a}_{122} y_2^2 +
+\overline{a}_{222} y_2^3
+$$
+在 $\xi$ 的剩余域中必须非零。现在，假设 $p \in C$ 定义一个奇点。
+则 $y_3$ 在 $p$ 处为零；由证明上述断言时所用的论证，$p$ 必对应于
+$h$ 的一个零点。若 $h$ 在 $p$ 处没有二重零点，则二次型 $q'$ 在 $p$ 处
+不是平方，故 $p$ 落入上面已经处理的情形 I\footnote{极大理想在 $p$ 处，
+而所处环为 $A'$；它由 $y_3, x_1$ 和第三个元素 $g$ 生成。后者在
+$\kappa[y_2]$ 中的像是 $h$ 的素因子，并对应于 $p$。若该素因子不整除
+$h$ 两次，则 $p$ 处的二次型形如
+$$
+y_3^2 - x_1((something)x_1 + (something)y_3 + (unit)g)
+$$
+，它绝不可能在 $\kappa[y_3, x_1, g]$ 中为平方。}。由于 $h$ 的次数为
+$3$，至多有一个落入情形 II 的奇点 $p \in C$；而且它是
+$\kappa$-有理点。改变 $x_1, x_2, x_3$ 的选择后，可设该点为
+$y_2 = y_3 = 0$。于是
+$h = \overline{a}_{122} y_2^2 + \overline{a}_{222} y_2^3$。此外，仍须有
+$\overline{a}_{113} = 0$，二次型 $q'$ 才具有所需形状。因此局部环
+$\mathcal{O}_{X, p}$ 定义下一段所述的奇点。
+
+\medskip\noindent
+最后处理如下情形：可以选取生成元 $x_1, x_2, x_3$，它们生成 $\mathfrak m$，使得
+$$
+x_3^2 + x_1(a x_2^2 + b x_2x_3 + c x_3^2) \in \mathfrak m^4
+$$
+，其中某些 $a, b, c \in A$。这是情形 II 的一个子类。若
+$\overline{a} = 0$，则可写成 $a = a_1 x_1 + a_2 x_2 + a_3 x_3$，
+爆破后得到
+$$
+y_3^2 + x_1(a_1 x_1 y_2^2 + a_2 x_1 y_2^3 + a_3 x_1 y_2^2 y_3 +
+b y_2 y_3 + c y_3^2) = x_1^2 (\sum a_{ijkl}y_iy_jy_ky_l)
+$$
+这意味着 $X$ 不正规\footnote{事实上，该方程表明，沿 $1$ 维轨迹
+$x_1 = y_3 = 0$ 会出现奇异情形，而这不可能发生在正规曲面上。}，矛盾。
+由上一段的结果，若爆破 $X$ 有落入情形 II 的奇点 $p$，则这样的点只有一个，
+并且它是 $\kappa$-有理点。计算仿射爆破代数
+$A[\frac{\mathfrak m}{x_2}]$ 和 $A[\frac{\mathfrak m}{x_3}]$
+，读者容易看出 $p$ 不可能包含在 $X$ 的相应开子集中。因此 $p$ 位于
+$A[\frac{\mathfrak m}{x_1}]$ 的谱中。像前面一样作爆破，可知 $p$ 必为坐标
+$y_2 = y_3 = 0$ 的点，且新方程形如
+$$
+y_3^2 + x_1(a y_2^2 + b y_2 y_3 + c y_3^2) \in (\mathfrak m')^4
+$$
+，它与之前具有相同形状，并且 $x_1$ 定义例外除子。因此，若过程不停止，
+便得到无限爆破序列，并且在每一步中，$x_1$ 都在奇点的局部环中定义例外除子。
+于是可用引理 \ref{resolve-lemma-sequence-blowups}、
+\ref{resolve-lemma-sequence-blowups-along-arc-becomes-nonsingular} 以及与此前相同的论证
+完成证明。
+
+\begin{lemma}
+\label{resolve-lemma-resolve-rational-double-points}
+令 $(A, \mathfrak m, \kappa)$ 为维数 $2$ 的局部正规 Nagata 整环，
+它定义有理奇点，其完备化正规，并且它是 Gorenstein 环。
+则存在一列有限次沿奇异闭点的爆破
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = \Spec(A)
+$$
+，使得 $X_n$ 正则，并且每个中间概形 $X_i$ 正规，只有有限多个同类型奇点。
+\end{lemma}
+
+\begin{proof}
+这正是上述讨论已经证明的内容。
+\end{proof}
+
+
+
+
+\section{由存在性蕴含的性质}
+\label{resolve-section-existence-gives}
+
+\noindent
+本节证明，对于诺特整概形，正则改造的存在性会带来相当多的后果。
+不关心“坏”诺特环的读者可略过本节。
+
+\begin{lemma}
+\label{resolve-lemma-regular-alteration-implies}
+令 $Y$ 为诺特整概形。假设存在改造
+$f : X \to Y$，且 $X$ 正则。则正规化 $Y^\nu \to Y$
+是有限的，并且 $Y$ 有一个正则的稠密开子概形。
+\end{lemma}
+
+\begin{proof}
+只需在 $Y = \Spec(A)$ 且 $A$ 为诺特整环的情形证明此结论。
+令 $B$ 为 $A$ 在其分式域中的整闭包。
+置 $C = \Gamma(X, \mathcal{O}_X)$。由概形上同调章引理
+\ref{coherent-lemma-proper-over-affine-cohomology-finite}
+可知 $C$ 是有限 $A$-模。由于 $X$ 正规
+（性质章引理 \ref{properties-lemma-regular-normal}），
+$C$ 是正规整环
+（性质章引理 \ref{properties-lemma-normal-integral-sections}）。
+因此 $B \subset C$，且可知 $B$ 在 $A$ 上有限，因为 $A$ 诺特。
+
+\medskip\noindent
+存在非空开子概形 $V \subset Y$，使得 $f^{-1}V \to V$
+有限；见态射章定义 \ref{morphisms-definition-alteration}。
+缩小 $V$ 后，可假设 $f^{-1}V \to V$ 平坦
+（态射章命题 \ref{morphisms-proposition-generic-flatness}）。
+因此 $f^{-1}V \to V$ 忠实平坦。由代数章引理
+\ref{algebra-lemma-descent-regular}，$V$ 正则。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-algebra-helper}
+令 $(A, \mathfrak m)$ 为诺特局部环，令 $B \subset C$
+为有限 $A$-代数。假设 (a) $B$ 是正规环，并且
+(b) $\mathfrak m$-进完备化 $C^\wedge$ 是正规环。
+则 $B^\wedge$ 是正规环。
+\end{lemma}
+
+\begin{proof}
+考虑交换图
+$$
+\xymatrix{
+B \ar[r] \ar[d] & C \ar[d] \\
+B^\wedge \ar[r] & C^\wedge
+}
+$$
+回忆：$\mathfrak m$-进完备化在有限 $A$-模范畴上是正合的，
+因为它由张量上平坦 $A$-代数 $A^\wedge$ 给出
+（代数章引理 \ref{algebra-lemma-completion-flat}）。
+我们用 Serre 判据
+（代数章引理 \ref{algebra-lemma-criterion-normal}）
+证明诺特环 $B^\wedge$ 正规。
+令 $\mathfrak q \subset B^\wedge$ 为位于
+$\mathfrak p \subset B$ 上方的素理想。若 $\dim(B_\mathfrak p) \geq 2$，则
+$\text{depth}(B_\mathfrak p) \geq 2$；又因
+$B_\mathfrak p \to B^\wedge_\mathfrak q$ 平坦，可知
+$\text{depth}(B^\wedge_\mathfrak q) \geq 2$
+（代数章引理 \ref{algebra-lemma-apply-grothendieck}）。
+若 $\dim(B_\mathfrak p) \leq 1$，则 $B_\mathfrak p$
+或者是离散赋值环，或者是域。
+此时 $C_\mathfrak p$ 在 $B_\mathfrak p$ 上忠实平坦
+（因为它有限且无挠）。
+所以 $B^\wedge_\mathfrak p \to C^\wedge_\mathfrak p$
+忠实平坦；在 $\mathfrak q$ 处局部化后仍然如此。
+由于 $C^\wedge$ 及其任意局部化都满足 $(S_2)$，由代数章引理
+\ref{algebra-lemma-descent-Sk} 可知 $B^\wedge_\mathfrak p$ 满足 $(S_2)$。
+综上可知，$(S_2)$ 对 $B^\wedge$ 成立。为证明 $B^\wedge$
+满足 $(R_1)$，只需考虑素理想 $\mathfrak q \subset B^\wedge$，且它满足
+$\dim(B^\wedge_\mathfrak q) \leq 1$。由
+$\dim(B^\wedge_\mathfrak q) = \dim(B_\mathfrak p) +
+\dim(B^\wedge_\mathfrak q/\mathfrak p B^\wedge_\mathfrak q)$ 以及
+代数章引理 \ref{algebra-lemma-dimension-base-fibre-total}，
+可知 $\dim(B_\mathfrak p) \leq 1$；并且同前可知
+$B^\wedge_\mathfrak q \to C^\wedge_\mathfrak q$
+忠实平坦。结论由代数章引理 \ref{algebra-lemma-descent-Rk} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-regular-alteration-implies-local}
+令 $(A, \mathfrak m, \kappa)$ 为诺特局部整环。
+假设存在改造 $f : X \to \Spec(A)$，且 $X$ 正则。则
+\begin{enumerate}
+\item 存在非零元 $f \in A$，使得 $A_f$ 正则；
+\item 整闭包 $B$，即 $A$ 在其分式域中的整闭包，在 $A$ 上有限；
+\item $\mathfrak m$-进完备化后的 $B$ 是正规环；换言之，
+$B$ 在其各极大理想处的完备化都是正规整环；
+\item $A$ 的泛形式纤维正则。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 与 (2) 项由引理 \ref{resolve-lemma-regular-alteration-implies} 得到。
+为给第 (3) 项的证明建立记号，需要重做该引理证明的一部分。
+置 $C = \Gamma(X, \mathcal{O}_X)$。由概形上同调章引理
+\ref{coherent-lemma-proper-over-affine-cohomology-finite}
+可知 $C$ 是有限 $A$-模。由于 $X$ 正规
+（性质章引理 \ref{properties-lemma-regular-normal}），
+$C$ 是正规整环
+（性质章引理 \ref{properties-lemma-normal-integral-sections}）。
+因此 $B \subset C$，且可知 $B$ 在 $A$ 上有限，因为 $A$ 诺特。
+由引理 \ref{resolve-lemma-algebra-helper}，为证明第 (3) 项，只需证明
+$\mathfrak m$-进完备化 $C^\wedge$ 正规。
+
+\medskip\noindent
+由代数章引理 \ref{algebra-lemma-completion-finite-extension}，
+完备化 $C^\wedge$ 是 $C$ 的如下各完备化之乘积：取 $C$ 中位于
+$\mathfrak m$ 上方的素理想，并在这些素理想处完备化。这样的素理想只有有限个，可列为
+$\mathfrak m_1, \ldots, \mathfrak m_r$，而它们正是 $C$ 的极大理想。
+（对 $B$ 的相应结论说明了本引理最后一句。）
+因此，将 $A$ 替换为 $C_{\mathfrak m_i}$，并将 $X$ 替换为
+$X_i = X \times_{\Spec(C)} \Spec(C_{\mathfrak m_i})$，
+即可归约到下一段讨论的情形。
+（注意，由概形上同调章引理 \ref{coherent-lemma-flat-base-change-cohomology}，
+$\Gamma(X_i, \mathcal{O}) = C_{\mathfrak m_i}$。）
+
+\medskip\noindent
+此时 $A$ 是诺特局部正规整环，$f : X \to \Spec(A)$ 是满足
+$\Gamma(X, \mathcal{O}_X) = A$ 的正则改造。需要证明完备化
+$A^\wedge$（所完备化的环为 $A$）是正规整环。由引理
+\ref{resolve-lemma-port-regularity-to-completion}，
+$Y = X \times_{\Spec(A)} \Spec(A^\wedge)$ 正则。
+又由概形上同调章引理 \ref{coherent-lemma-flat-base-change-cohomology}，
+$\Gamma(Y, \mathcal{O}_Y) = A^\wedge$，故与前面一样可知
+$A^\wedge$ 正规。具体地，由性质章引理
+\ref{properties-lemma-regular-normal}，$Y$ 正规。
+因为 $\Gamma(Y, \mathcal{O}_Y) = A^\wedge$ 是局部环，所以它连通。
+因而 $Y$ 正规且整（对诺特概形，连通且正规蕴含整）。于是由性质章引理
+\ref{properties-lemma-normal-integral-sections}，
+$\Gamma(Y, \mathcal{O}_Y) = A^\wedge$ 是正规整环。
+这证明了第 (3) 项。
+
+\medskip\noindent
+证明第 (4) 项。令 $\eta \in \Spec(A)$ 表示泛点，并用下标
+$\eta$ 表示到 $\eta$ 的基变换。由于 $f$ 是改造，概形 $X_\eta$
+在 $\eta$ 上有限且忠实平坦。由引理
+\ref{resolve-lemma-port-regularity-to-completion}，
+$Y = X \times_{\Spec(A)} \Spec(A^\wedge)$ 正则，故 $Y_\eta$ 正则
+（因为它是 $Y$ 中开子集的极限）。于是
+$Y_\eta \to \Spec(A^\wedge \otimes_A \kappa(\eta))$
+是到泛形式纤维的有限忠实平坦态射。结论由代数章引理
+\ref{algebra-lemma-descent-regular} 得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{奇点消解}
+\label{resolve-section-resolution}
+
+
+
+\noindent
+先给出一个定义。
+
+\begin{definition}
+\label{resolve-definition-resolution}
+令 $Y$ 为诺特整概形。$Y$ 的一个{\it 奇点消解}是修改
+$f : X \to Y$，其中 $X$ 正则。
+\end{definition}
+
+\noindent
+对于曲面，我们有时还需要稍多一些信息。
+
+\begin{definition}
+\label{resolve-definition-resolution-surface}
+令 $Y$ 为 $2$ 维诺特整概形。称 $Y$ 有一个
+{\it 由正规化爆破给出的奇点消解}，如果存在序列
+$$
+Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to Y_0 \to Y
+$$
+满足
+\begin{enumerate}
+\item $Y_i$ 在 $Y$ 上固有，其中 $i = 0, \ldots, n$；
+\item $Y_0 \to Y$ 是正规化；
+\item $Y_i \to Y_{i - 1}$ 是正规化爆破，其中 $i = 1, \ldots, n$；
+\item $Y_n$ 正则。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，条件 (1) 蕴含：正规化 $Y_0$（即 $Y$ 的正规化）在 $Y$ 上有限，
+并且正规化爆破中所用的正规化也都是有限的。
+
+\begin{lemma}
+\label{resolve-lemma-existence-implies-existence-by-normalized-blowing-ups}
+令 $(A, \mathfrak m, \kappa)$ 为诺特局部环。
+假设 $A$ 正规且维数为 $2$。若 $\Spec(A)$ 有奇点消解，
+则 $\Spec(A)$ 有由正规化爆破给出的奇点消解。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{resolve-lemma-regular-alteration-implies-local}，完备化
+$A^\wedge$（所完备化的是 $A$）正规。由引理
+\ref{resolve-lemma-port-regularity-to-completion} 可知
+$\Spec(A^\wedge)$ 有奇点消解。由引理
+\ref{resolve-lemma-normalized-blowup-completion}，任意正规化爆破序列
+$Y_n \to Y_{n - 1} \to \ldots \to \Spec(A^\wedge)$
+都来自正规化爆破序列 $X_n \to \ldots \to \Spec(A)$。此外，若 $Y_n$
+正则，则由引理 \ref{resolve-lemma-port-regularity-to-completion}，$X_n$ 正则。
+因此只需在 $A$ 完备的情形证明本引理。
+
+\medskip\noindent
+再假设 $A$ 完备。我们要用到：$A$ 是 Nagata 环
+（代数章命题 \ref{algebra-proposition-ubiquity-nagata}）、优良环
+（进阶代数章命题 \ref{more-algebra-proposition-ubiquity-excellent}），
+且有对偶化复形
+（对偶化复形章引理 \ref{dualizing-lemma-ubiquity-dualizing}）。
+此外，对任意在 $A$ 上本质有限型的环，同样的结论成立。
+若 $B$ 是优良局部正规整环，则完备化 $B^\wedge$ 正规
+（因为 $B \to B^\wedge$ 正则，并可应用进阶代数章引理
+\ref{more-algebra-lemma-normal-goes-up}）。在以下证明中，我们将使用此事实而不再说明。
+
+\medskip\noindent
+令 $X \to \Spec(A)$ 为奇点消解。选取正规化爆破序列
+$$
+Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to \Spec(A)
+$$
+支配 $X$（引理 \ref{resolve-lemma-dominate-by-normalized-blowing-up}）。
+态射 $Y_n \to X$ 在 $X$ 的有限多个点之外是同构。
+因此可应用引理 \ref{resolve-lemma-dominate-by-blowing-up-in-points}，
+找到沿闭点的爆破序列
+$$
+X_m \to X_{m - 1} \to \ldots \to X
+$$
+使得 $X_m$ 支配 $Y_n$。图示为
+$$
+\xymatrix{
+& Y_n \ar[rd] \ar[rr] & & \Spec(A) \\
+X_m \ar[rr] \ar[ru] & & X \ar[ru]
+}
+$$
+为证明本引理，只需证明对 $Y_n$ 作有限次正规化爆破便可得到正则概形。
+由上图可知 $Y_n$ 有奇点消解，即 $X_m$。由于 $Y_n$ 是正规曲面，
+这说明 $Y_n$ 至多有有限多个奇点 $y_1, \ldots, y_t$
+（因为 $X_m \to Y_n$ 在维数为 $1$ 的纤维之外是同构；见簇章引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}）。
+
+\medskip\noindent
+令 $x_a \in X$ 为 $y_a$ 的像。则 $\mathcal{O}_{X, x_a}$ 正则，
+因而定义有理奇点（引理 \ref{resolve-lemma-regular-rational}）。
+将引理 \ref{resolve-lemma-rational-propagates} 应用于
+$\mathcal{O}_{X, x_a} \to \mathcal{O}_{Y_n, y_a}$，
+可知 $\mathcal{O}_{Y_n, y_a}$ 定义有理奇点。由引理
+\ref{resolve-lemma-rational-to-gorenstein}，存在沿奇异闭点的有限爆破序列
+$$
+Y_{a, n_a} \to Y_{a, n_a - 1} \to \ldots \to \Spec(\mathcal{O}_{Y_n, y_a})
+$$
+使得 $Y_{a, n_a}$ 是 Gorenstein 的，即有可逆对偶化模。由（本质上平凡的）
+引理 \ref{resolve-lemma-equivalence-sequence-blowups}，取 $n' = \sum n_a$，
+这些序列对应于爆破序列
+$$
+Y_{n + n'} \to Y_{n + n' - 1} \to \ldots \to Y_n
+$$
+使得 $Y_{n + n'}$ 正规，且 $Y_{n + n'}$ 的局部环都是 Gorenstein 的。
+利用上面给出的引理，可支配 $Y_{n + n'}$；更具体地，可取爆破序列
+$X_{m + m'} \to \ldots \to X_m$ 支配 $Y_{n + n'}$，如下图所示：
+$$
+\xymatrix{
+ & Y_{n + n'} \ar[rr] & & Y_n \ar[rd] \ar[rr] & & \Spec(A) \\
+X_{m + m'} \ar[ru] \ar[rr] & & X_m \ar[rr] \ar[ru] & & X \ar[ru]
+}
+$$
+因此 $Y_{n + n'}$ 同样只有有限多个奇点
+$y'_1, \ldots, y'_s$；但此时这些奇点是有理双点。更准确地说，局部环
+$\mathcal{O}_{Y_{n + n'}, y'_b}$ 满足引理
+\ref{resolve-lemma-resolve-rational-double-points} 的情形。
+完全按照上面的论证即可得到本引理。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-resolve-complete}
+令 $(A, \mathfrak m, \kappa)$ 为诺特完备局部环。
+假设 $A$ 是维数为 $2$ 的正规整环。则 $\Spec(A)$ 有奇点消解。
+\end{lemma}
+
+\begin{proof}
+诺特完备局部环是 J-2 的
+（进阶代数章命题 \ref{more-algebra-proposition-ubiquity-J-2}）、Nagata 的
+（代数章命题 \ref{algebra-proposition-ubiquity-nagata}）、优良的
+（进阶代数章命题 \ref{more-algebra-proposition-ubiquity-excellent}），
+并且有对偶化复形
+（对偶化复形章引理 \ref{dualizing-lemma-ubiquity-dualizing}）。
+此外，对任意在 $A$ 上本质有限型的环，同样的结论成立。
+若 $B$ 是优良局部正规整环，则完备化 $B^\wedge$ 正规
+（因为 $B \to B^\wedge$ 正则，并可应用进阶代数章引理
+\ref{more-algebra-lemma-normal-goes-up}）。换言之，在以下证明中遇到的局部环
+都具有所需的“优良性”性质。
+
+\medskip\noindent
+选取 $A_0 \subset A$，使 $A_0$ 为正则完备局部环且
+$A_0 \to A$ 有限；见代数章引理
+\ref{algebra-lemma-complete-local-Noetherian-domain-finite-over-regular}。
+这诱导分式域的有限扩张 $K/K_0$。我们对 $[K : K_0]$ 作归纳。
+起始情形是次数为 $1$；此时 $A_0 = A$，结论成立。
+
+\medskip\noindent
+假设存在中间域 $K_0 \subset L \subset K$，且
+$K_0 \not = L \not = K$。令 $B \subset A$ 为 $A_0$ 在 $L$ 中的整闭包。
+由归纳假设，选取奇点消解 $Y \to \Spec(B)$。令 $X$ 为
+$Y \times_{\Spec(B)} \Spec(A)$ 的正规化。图示为
+$$
+\xymatrix{
+X \ar[r] \ar[d] & \Spec(A) \ar[d] \\
+Y \ar[r] & \Spec(B)
+}
+$$
+由于 $A$ 是 J-2 的，$X$ 的正则轨迹是开的。由于 $X$ 是正规曲面，
+可知 $X$ 至多有有限多个奇点 $x_1, \ldots, x_n$；它们是满足
+$\dim(\mathcal{O}_{X, x_i}) = 2$ 的闭点。
+对每个 $i$，令 $y_i \in Y$ 为其像。由于
+$\mathcal{O}_{Y, y_i}^\wedge \to \mathcal{O}_{X, x_i}^\wedge$
+有限且次数小于原先的次数，由归纳假设可知
+$\mathcal{O}_{X, x_i}^\wedge$ 有奇点消解。由引理
+\ref{resolve-lemma-existence-implies-existence-by-normalized-blowing-ups}，存在正规化爆破序列
+$$
+Z^\wedge_{i, n_i} \to \ldots \to Z^\wedge_{i, 1} \to
+\Spec(\mathcal{O}_{X, x_i}^\wedge)
+$$
+且 $Z^\wedge_{i, n_i}$ 正则。由引理
+\ref{resolve-lemma-normalized-blowup-completion}，有相应的正规化爆破序列
+$$
+Z_{i, n_i} \to \ldots \to Z_{i, 1} \to \Spec(\mathcal{O}_{X, x_i})
+$$
+由引理 \ref{resolve-lemma-port-regularity-to-completion}，$Z_{i, n_i}$ 是正则概形。
+由引理 \ref{resolve-lemma-equivalence-sequence-normalized-blowups}，
+可将这些正规化爆破嵌入相应的序列
+$$
+Z_n \to Z_{n - 1} \to \ldots \to Z_1 \to X
+$$
+当然，考察局部环可知 $Z_n$ 也正则。这证明了归纳步骤。
+
+\medskip\noindent
+假设不存在满足 $K_0 \subset L \subset K$ 且
+$K_0 \not = L \not = K$ 的中间域。则或者 $K/K_0$ 可分，
+或者 $K$ 的特征为 $p$ 且 $[K : K_0] = p$。
+于是，引理 \ref{resolve-lemma-go-up-separable} 或引理 \ref{resolve-lemma-go-up-degree-p}
+蕴含可以归约到有理奇点。由引理 \ref{resolve-lemma-reduce-to-rational} 可知，
+存在正规修改 $X \to \Spec(A)$，使得每个奇点 $x$（位于 $X$ 上）
+所对应的局部环 $\mathcal{O}_{X, x}$ 定义有理奇点。由于 $A$ 是 J-2 的，
+可知 $X$ 有有限多个奇点 $x_1, \ldots, x_n$。
+由引理 \ref{resolve-lemma-rational-to-gorenstein}，存在沿奇异闭点的有限爆破序列
+$$
+X_{i, n_i} \to X_{i, n_i - 1} \to \ldots \to \Spec(\mathcal{O}_{X, x_i})
+$$
+使得 $X_{i, n_i}$ 是 Gorenstein 的，即有可逆对偶化模。由（本质上平凡的）
+引理 \ref{resolve-lemma-equivalence-sequence-blowups}，取 $n = \sum n_a$，
+这些序列对应于爆破序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X
+$$
+使得 $X_n$ 正规，且 $X_n$ 的局部环都是 Gorenstein 的。
+$X_n$ 同样只有有限多个奇点 $x'_1, \ldots, x'_s$，
+但此时这些奇点是有理双点。更准确地说，局部环
+$\mathcal{O}_{X_n, x'_i}$ 满足引理
+\ref{resolve-lemma-resolve-rational-double-points} 的情形。
+完全按照上面的论证即可得到本引理。
+\end{proof}
+
+\noindent
+最后来到本章的主定理。
+
+\begin{theorem}[Lipman]
+\label{resolve-theorem-resolve}
+\begin{reference}
+\cite[Theorem on page 151]{Lipman}
+\end{reference}
+令 $Y$ 为二维诺特整概形。下列条件等价：
+\begin{enumerate}
+\item 存在改造 $X \to Y$，且 $X$ 正则；
+\item $Y$ 存在奇点消解；
+\item $Y$ 有由正规化爆破给出的奇点消解；
+\item 正规化 $Y^\nu \to Y$ 有限，$Y^\nu$ 有有限多个奇点
+$y_1, \ldots, y_m$，并且对每个 $y_i$，
+$\mathcal{O}_{Y^\nu, y_i}$ 的完备化正规。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+蕴含关系 (3) $\Rightarrow$ (2) $\Rightarrow$ (1) 是立即的。
+
+\medskip\noindent
+令 $X \to Y$ 为改造，且 $X$ 正则。由引理
+\ref{resolve-lemma-regular-alteration-implies}，$Y^\nu \to Y$ 有限。
+考虑态射章引理 \ref{morphisms-lemma-normalization-normal} 给出的分解
+$f : X \to Y^\nu$。由簇章引理 \ref{varieties-lemma-finite-in-codim-1}，
+态射 $f$ 在开子概形 $V \subset Y^\nu$ 上有限；该开子概形包含每个余维
+$\leq 1$ 的点，其中所说的余维是在 $Y^\nu$ 中计算的。由代数章引理
+\ref{algebra-lemma-CM-over-regular-flat} 以及以下事实，$f$ 在 $V$ 上平坦：
+由 Serre 判据，维数 $\leq 2$ 的正规局部环是 Cohen--Macaulay 的
+（代数章引理 \ref{algebra-lemma-criterion-normal}）。
+于是由代数章引理 \ref{algebra-lemma-descent-regular}，$V$ 正则。
+由于 $Y^\nu$ 诺特，可知
+$Y^\nu \setminus V = \{y_1, \ldots, y_m\}$ 是有限集。
+由引理 \ref{resolve-lemma-regular-alteration-implies-local}，
+$\mathcal{O}_{Y^\nu, y_i}$ 的完备化正规。
+这样便得到 (1) $\Rightarrow$ (4)。
+
+\medskip\noindent
+假设 (4)。需要证明 (3)。可以立即用正规化替换 $Y$。
+令 $y_1, \ldots, y_m \in Y$ 为奇点。应用引理
+\ref{resolve-lemma-resolve-complete} 与
+\ref{resolve-lemma-existence-implies-existence-by-normalized-blowing-ups}，
+可知存在有限的正规化爆破序列
+$$
+Y_{i, n_i} \to Y_{i, n_i - 1} \to \ldots \to \Spec(\mathcal{O}^\wedge_{Y, y_i})
+$$
+使得 $Y_{i, n_i}$ 正则。由引理
+\ref{resolve-lemma-normalized-blowup-completion}，有相应的正规化爆破序列
+$$
+X_{i, n_i} \to \ldots \to X_{i, 1} \to \Spec(\mathcal{O}_{Y, y_i})
+$$
+由引理 \ref{resolve-lemma-port-regularity-to-completion}，$X_{i, n_i}$ 是正则概形。
+由引理 \ref{resolve-lemma-equivalence-sequence-normalized-blowups}，
+可将这些正规化爆破嵌入相应的序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to Y
+$$
+当然，考察局部环可知 $X_n$ 也正则。证明完毕。
+\end{proof}
+
+
+
+
+
+
+\section{嵌入消解}
+\label{resolve-section-embedded}
+
+\noindent
+给定曲面上的曲线，存在一次爆破，可将该曲线化为严格正规交叉除子。
+本节将使用如下事实：一维局部诺特概形正规当且仅当它正则
+（代数章引理 \ref{algebra-lemma-characterize-dvr}）。
+还将使用如下事实：局部诺特概形上的任意点都特殊化到某个闭点
+（性质章引理 \ref{properties-lemma-locally-Noetherian-closed-point}）。
+
+\begin{lemma}
+\label{resolve-lemma-resolve-curve}
+令 $Y$ 为一维诺特整概形。下列条件等价：
+\begin{enumerate}
+\item 存在改造 $X \to Y$，且 $X$ 正则；
+\item $Y$ 存在奇点消解；
+\item 存在沿闭点的有限爆破序列
+$Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to Y$，且 $Y_n$ 正则；
+\item 正规化 $Y^\nu \to Y$ 有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+蕴含关系 (3) $\Rightarrow$ (2) $\Rightarrow$ (1) 是立即的。
+蕴含关系 (1) $\Rightarrow$ (4) 由引理
+\ref{resolve-lemma-regular-alteration-implies} 得到。
+注意，一维正规概形正则，因此蕴含关系 (4) $\Rightarrow$ (2) 也显然。
+故只需证明等价条件 (1)、(2) 与 (4) 蕴含 (3)。
+
+\medskip\noindent
+令 $f : X \to Y$ 为奇点消解。由于 $Y$ 的维数为一，由簇章引理
+\ref{varieties-lemma-finite-in-codim-1} 可知 $f$ 有限。
+我们将构造分解
+$$
+X \to \ldots \to Y_2 \to Y_1 \to Y
+$$
+其中，$Y_i \to Y_{i - 1}$ 是某个闭点的爆破，且只要
+$Y_{i - 1}$ 不正则，它就不是同构。这些态射中的每一个都有限（理由同上），
+并得到相应的系统
+$$
+f_*\mathcal{O}_X \supset \ldots \supset
+f_{2, *}\mathcal{O}_{Y_2} \supset
+f_{1, *}\mathcal{O}_{Y_1} \supset \mathcal{O}_Y
+$$
+其中 $f_i : Y_i \to Y$ 是结构态射。由于 $Y$ 诺特，这个凝聚子模的递增序列
+必定稳定（概形上同调章引理 \ref{coherent-lemma-acc-coherent}）。
+这证明存在某个 $n$，使得概形 $Y_n$ 如所需那样正则。
+为构造 $Y_i$，在给定 $Y_{i - 1}$ 后，选取奇异闭点
+$y_{i - 1} \in Y_{i - 1}$，并令 $Y_i \to Y_{i - 1}$ 为相应的爆破。
+由于 $X$ 正则且维数为 $1$（因而闭点处的局部环是离散赋值环，
+特别地是主理想整环），理想层
+$\mathfrak m_{y_{i - 1}} \cdot \mathcal{O}_X$ 可逆。
+由爆破的泛性质（除子章引理
+\ref{divisors-lemma-universal-property-blowing-up}），得到分解
+$X \to Y_i$。最后，$Y_i \to Y_{i - 1}$ 不是同构，
+因为 $\mathfrak m_{y_{i - 1}}$ 不是可逆理想。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blowup-curve}
+令 $X$ 为诺特概形。令 $Y \subset X$ 为维数 $1$ 的整闭子概形，
+并假设它满足引理 \ref{resolve-lemma-resolve-curve} 的等价条件。则存在沿闭点的有限爆破序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X
+$$
+使得 $Y$ 在 $X_n$ 中的严格变换是正则曲线。
+\end{lemma}
+
+\begin{proof}
+令 $Y_n \to Y_{n - 1} \to \ldots \to Y_1 \to Y$ 为引理
+\ref{resolve-lemma-resolve-curve} 给出的爆破序列。令
+$X_n \to X_{n - 1} \to \ldots \to X_1 \to X$ 为 $X$ 的相应爆破序列。
+这确实可行，因为由除子章引理 \ref{divisors-lemma-strict-transform}，
+严格变换就是相应的爆破。
+\end{proof}
+
+\noindent
+令 $X$ 为局部诺特概形，令 $Y, Z \subset X$ 为闭子概形。
+令 $p \in Y \cap Z$ 为闭点。假设 $Y$ 是维数为 $1$ 的整概形，
+且 $Y$ 的泛点不包含在 $Z$ 中。在此情形可考虑不变量
+\begin{equation}
+\label{resolve-equation-multiplicity}
+m_p(Y \cap Z) =
+\text{length}_{\mathcal{O}_{X, p}}(\mathcal{O}_{Y \cap Z, p})
+\end{equation}
+这是整数 $\geq 1$。事实上，若 $I, J \subset \mathcal{O}_{X, p}$
+是对应于 $Y, Z$ 的理想，则
+$\mathcal{O}_{Y \cap Z, p} = \mathcal{O}_{X, p}/I + J$
+的支集等于 $\{\mathfrak m_p\}$，因为我们假设 $Y \cap Z$ 不包含
+$Y$ 中特殊化到 $p$ 的唯一一点。因此由代数章引理
+\ref{algebra-lemma-support-point}，其长度有限。
+
+\begin{lemma}
+\label{resolve-lemma-blowup-nonsingular-curves-meeting-at-point}
+在上述情形中，令 $X' \to X$ 为 $X$ 在 $p$ 处的爆破。
+令 $Y', Z' \subset X'$ 为 $Y, Z$ 的严格变换。
+若 $\mathcal{O}_{Y, p}$ 正则，则
+\begin{enumerate}
+\item $Y' \to Y$ 是同构；
+\item $Y'$ 与例外纤维 $E \subset X'$ 交于一点
+$q$，且 $m_q(Y \cap E) = 1$；
+\item 若还有 $q \in Z'$，则 $m_q(Y \cap Z') < m_p(Y \cap Z)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $\mathcal{O}_{X, p} \to \mathcal{O}_{Y, p}$ 满射，且
+$\mathcal{O}_{Y, p}$ 是离散赋值环，可以选取元素
+$x_1 \in \mathfrak m_p$，其在 $\mathcal{O}_{Y, p}$ 中的像是一致化参数。
+选取仿射开集 $U = \Spec(A)$，它包含 $p$，并使得 $x_1 \in A$。
+令 $\mathfrak m \subset A$ 为对应于 $p$ 的极大理想。令
+$I, J \subset A$ 为定义 $Y, Z$ 的理想，这里所处的仿射概形为 $\Spec(A)$。
+缩小 $U$ 后，可假设 $\mathfrak m = I + (x_1)$；换言之，
+在概形论意义下 $V(x_1) \cap U \cap Y = \{p\}$。
+由此可知 $p$ 是 $Y$ 上的有效 Cartier 除子；又因 $Y'$ 是 $Y$ 在 $p$ 处的爆破
+（除子章引理 \ref{divisors-lemma-strict-transform}），
+由除子章引理 \ref{divisors-lemma-blow-up-effective-Cartier-divisor} 可知
+$Y' \to Y$ 是同构。关系 $\mathfrak m = I + (x_1)$ 蕴含
+$\mathfrak m^n \subset I + (x_1^n)$，故可定义映射
+$$
+\psi : A[\textstyle{\frac{\mathfrak m}{x_1}}] \longrightarrow A/I
+$$
+如下定义：将 $y/x_1^n \in A[\frac{\mathfrak m}{x_1}]$ 映到
+$a$ 在 $A/I$ 中的类，其中选取 $a$ 使得 $y \equiv ax_1^n \bmod I$。
+于是 $\psi$ 对应于从 $Y \cap U$ 到 $X'$ 的态射；该态射在 $U$ 上，
+并由 $Y' \cong Y$ 给出。
+由于 $x_1$ 在 $A[\frac{\mathfrak m}{x_1}]$ 中的像截出例外除子，
+可知 $m_q(Y', E) = 1$。最后，由 $J \subset \mathfrak m$ 可知理想
+$J' \subset A[\frac{\mathfrak m}{x_1}]$ 必然包含所有元素
+$f/x_1$，其中 $f \in J$。因此，若选取 $f \in J$，使其像
+$\overline{f}$（该像取在 $A/I$ 中）的最小赋值等于 $m_p(Y \cap Z)$，则可知
+$\psi(f/x_1) = \overline{f}/x_1$ 在 $A/I$ 中的赋值少一，
+这证明了本引理的最后一项。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-blowup-curves}
+令 $X$ 为诺特概形。令 $Y_i \subset X$，$i = 1, \ldots, n$，
+为维数 $1$ 的整闭子概形，并各自满足引理 \ref{resolve-lemma-resolve-curve}
+的等价条件。则存在沿闭点的有限爆破序列
+$$
+X_n \to X_{n - 1} \to \ldots \to X_1 \to X
+$$
+使得严格变换 $Y'_i \subset X_n$（即 $Y_i$ 在 $X_n$ 中的严格变换）
+是两两不交的正则曲线。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{resolve-lemma-blowup-curve}，可假设 $Y_i$ 是正则曲线，其中
+$i = 1, \ldots, n$。对每个 $i \not = j$ 以及
+$p \in Y_i \cap Y_j$，都有不变量
+$m_p(Y_i \cap Y_j)$（\ref{resolve-equation-multiplicity}）。
+若这些数的最大值 $> 1$，则在最大值达到的所有点 $p$ 处爆破，
+可使它减小（引理 \ref{resolve-lemma-blowup-nonsingular-curves-meeting-at-point}）。
+若最大值为 $1$，则在所有这些点 $p$ 处爆破，使用同一引理即可分离这些曲线。
+\end{proof}
+
+\noindent
+当曲线包含在正则曲面上时，我们通常希望将它化为正规交叉除子。
+
+\begin{lemma}
+\label{resolve-lemma-turn-into-effective-Cartier}
+令 $X$ 为维数 $2$ 的正则概形，令 $Z \subset X$ 为真闭子概形。
+存在沿闭点的爆破序列
+$$
+X_n \to \ldots \to X_1 \to X
+$$
+使得逆像 $Z_n$（即 $Z$ 在 $X_n$ 中的逆像）是有效 Cartier 除子。
+\end{lemma}
+
+\begin{proof}
+令 $D \subset Z$ 为包含在 $Z$ 中的最大有效 Cartier 除子。
+则由除子章引理 \ref{divisors-lemma-codim-1-part}，
+$\mathcal{I}_Z \subset \mathcal{I}_D$，且商支承在闭点上。
+因此可写成 $\mathcal{I}_Z = \mathcal{I}_{Z'} \mathcal{I}_D$，
+其中 $Z' \subset X$ 是闭子概形，并且在集合论意义下由有限多个闭点组成。
+应用引理 \ref{resolve-lemma-make-ideal-principal}，可得到本引理所述的爆破序列，
+使得 $\mathcal{I}_{Z'}\mathcal{O}_{X_n}$ 可逆。这证明了本引理。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-embedded-resolution}
+令 $X$ 为维数 $2$ 的正则概形。令 $Z \subset X$ 为真闭子概形，
+并假设每个不可约分支 $Y \subset Z$，若其维数为 $1$，就满足引理
+\ref{resolve-lemma-resolve-curve} 的等价条件。则存在沿闭点的爆破序列
+$$
+X_n \to \ldots \to X_1 \to X
+$$
+使得逆像 $Z_n$（即 $Z$ 在 $X_n$ 中的逆像）是有效 Cartier 除子，
+并支承在严格正规交叉除子上。
+\end{lemma}
+
+\begin{proof}
+令 $X' \to X$ 为闭点 $p$ 处的爆破。则逆像 $Z' \subset X'$（即 $Z$ 的逆像）
+支承在 $Z$ 的严格变换与例外除子上。例外除子是正则曲线
+（引理 \ref{resolve-lemma-blowup}），而严格变换 $Y'$（所对应的不可约分支为 $Y$）
+或者等于 $Y$，或者是 $Y$ 在 $p$ 处的爆破。因此在此过程中不会产生新的
+维数 $1$ 的奇异分支。于是由引理 \ref{resolve-lemma-turn-into-effective-Cartier}
+与引理 \ref{resolve-lemma-blowup-curves}，可假设 $Z$ 是有效 Cartier 除子，
+且所有不可约分支 $Y$（它们属于 $Z$）都正则。
+（当然，不能假设各不可约分支两两不交，因为每次在 $Z$ 的一点处爆破，
+都会向 $Z$ 添加一个新的不可约分支，即例外除子。）
+
+\medskip\noindent
+假设 $Z$ 是有效 Cartier 除子，其不可约分支 $Y_i$ 都正则。
+对每个 $i \not = j$ 以及 $p \in Y_i \cap Y_j$，都有不变量
+$m_p(Y_i \cap Y_j)$（\ref{resolve-equation-multiplicity}）。
+若这些数的最大值 $> 1$，则在最大值达到的所有点 $p$ 处爆破，
+可使它减小（引理 \ref{resolve-lemma-blowup-nonsingular-curves-meeting-at-point}）
+（注意，“新”的不变量 $m_{q_i}(Y'_i \cap E)$ 始终为 $1$）。
+若最大值为 $1$，并且例如有 $p \in Y_1 \cap \ldots \cap Y_r$，
+其中某个 $r > 2$，而该点不位于任何其他分支上，则在 $p$ 处爆破后，
+可知 $Y'_1, \ldots, Y'_r$ 不会在 $p$ 上方的点相交；并且
+$m_{q_i}(Y'_i, E) = 1$，其中 $Y'_i \cap E = \{q_i\}$。
+因此，继续在多于 $3$ 个分支（这些分支属于 $Z$）相交的点处爆破，便达到如下情形：
+对每个闭点 $p \in X$，或者
+(a) 没有曲线 $Y_i$ 经过 $p$；
+(b) 恰有一条曲线 $Y_i$ 经过 $p$，且 $\mathcal{O}_{Y_i, p}$ 正则；
+或者 (c) 恰有两条曲线 $Y_i$、$Y_j$ 经过 $p$，局部环
+$\mathcal{O}_{Y_i, p}$、$\mathcal{O}_{Y_j, p}$ 正则，且
+$m_p(Y_i \cap Y_j) = 1$。
+这意味着 $\sum Y_i$ 是正则曲面 $X$ 上的严格正规交叉除子；见
+平展态射章引理 \ref{etale-lemma-strict-normal-crossings}。
+\end{proof}
+
+
+
+
+
+
+\section{收缩例外曲线}
+\label{resolve-section-minus-one}
+
+\noindent
+令 $X$ 为诺特概形。令 $E \subset X$ 为满足下列性质的闭子概形：
+\begin{enumerate}
+\item $E$ 是 $X$ 上的有效 Cartier 除子；
+\item 存在域 $k$ 以及概形同构 $\mathbf{P}^1_k \to E$；
+\item 法层 $\mathcal{N}_{E/X}$ 拉回为
+$\mathcal{O}_{\mathbf{P}^1}(-1)$。
+\end{enumerate}
+这样的闭子概形称为{\it 第一类例外曲线}。
+
+\medskip\noindent
+令 $X'$ 为诺特概形，令 $x \in X'$ 为闭点，并使
+$\mathcal{O}_{X', x}$ 是维数 $2$ 的正则局部环。令
+$b : X \to X'$ 为 $X'$ 在 $x$ 处的爆破。此时例外纤维
+$E \subset X$ 是第一类例外曲线。这由引理 \ref{resolve-lemma-blowup} 得到。
+
+\medskip\noindent
+问题：每条第一类例外曲线是否都能作为上述爆破的纤维得到？
+换言之，是否总存在概形的固有态射 $X \to X'$，使得
+$E$ 映到闭点 $x \in X'$，使得 $\mathcal{O}_{X', x}$
+是维数 $2$ 的正则局部环，并且 $X$ 是 $X'$ 在 $x$ 处的爆破？
+若是如此，就称{\it 存在 $E$ 的收缩}。
+
+\begin{lemma}
+\label{resolve-lemma-factor-through-contraction}
+令 $X$ 为诺特概形。令 $E \subset X$ 为第一类例外曲线。
+若存在收缩 $X \to X'$，且它收缩 $E$，则它具有如下泛性质：
+对每个态射 $\varphi : X \to Y$，若 $\varphi(E)$ 为一点，
+就存在唯一分解 $X \to X' \to Y$，它给出 $\varphi$。
+\end{lemma}
+
+\begin{proof}
+令 $b : X \to X'$ 为 $E$ 的收缩。作为拓扑空间，$X'$ 是 $X$
+关于将 $E$ 的所有点等同为一点这一关系所得的商。事实上，$b$ 固有
+（除子章引理 \ref{divisors-lemma-blowing-up-projective} 与
+态射章引理 \ref{morphisms-lemma-locally-projective-proper}）且满，
+因而给出拓扑空间的商映射（拓扑章引理
+\ref{topology-lemma-closed-morphism-quotient-topology}）。
+另一方面，典范映射 $\mathcal{O}_{X'} \to b_*\mathcal{O}_X$
+是同构。确实，在像点 $x \in X'$（即 $E$ 的像）的补集上这是显然的，
+而在 $x$ 处的茎上，该映射由引理 \ref{resolve-lemma-cohomology-of-blowup}
+第 (4) 项可知是同构。因此，环空间对 $(X', \mathcal{O}_{X'})$
+可由 $X$ 构造如下：先取拓扑空间的商，再赋予它
+$b_*\mathcal{O}_X$ 作为结构层。
+
+\medskip\noindent
+给定 $\varphi$，令 $\varphi' : X' \to Y$ 为满足
+$\varphi = \varphi' \circ b$ 的唯一拓扑空间映射。于是映射
+$$
+\varphi^\sharp : \varphi^{-1}\mathcal{O}_Y =
+b^{-1}((\varphi')^{-1}\mathcal{O}_Y) \to \mathcal{O}_X
+$$
+伴随于映射
+$$
+(\varphi')^\sharp :
+(\varphi')^{-1}\mathcal{O}_Y \to b_*\mathcal{O}_X = \mathcal{O}_{X'}
+$$
+于是 $(\varphi', (\varphi')^\sharp)$ 是从 $X'$ 到 $Y$ 的环空间态射，
+并给出所需分解。由于 $\varphi$ 是局部环空间态射，$\varphi'$ 也是。
+事实上，只需验证映射 $\mathcal{O}_{Y, y} \to \mathcal{O}_{X', x}$
+是局部的，其中 $y \in Y$ 是 $E$ 在 $\varphi$ 下的像。确实，
+元素 $f \in \mathfrak m_y$ 拉回为 $X$ 上在 $E$ 的每一点都为零的函数，
+故 $f$ 到 $X'$ 的拉回是在 $x$ 于 $X'$ 中的一个邻域上定义且具有同一性质的函数。
+显然，该函数必在 $x$ 处消失，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-contraction-unique}
+令 $X$ 为诺特概形。令 $E \subset X$ 为第一类例外曲线。
+若存在 $E$ 的收缩，则它在唯一同构意义下唯一。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{resolve-lemma-factor-through-contraction} 的泛性质立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-exceptional-first-kind-local}
+令 $X$ 为诺特概形。令 $E \subset X$ 为第一类例外曲线。
+令 $E_n = nE$，并以 $\mathcal{O}_n$ 表示其结构层。则
+$$
+A = \lim H^0(E_n, \mathcal{O}_n)
+$$
+是维数 $2$ 的完备诺特正则局部环，并且
+$\Ker(A \to H^0(E_n, \mathcal{O}_n))$ 是其极大理想的 $n$ 次幂。
+\end{lemma}
+
+\begin{proof}
+回顾，存在同构 $\mathbf{P}^1_k \to E$，使得 $E$ 在 $X$ 中的法层
+拉回为 $\mathcal{O}(-1)$。于是 $H^0(E, \mathcal{O}_E) = k$。
+以 $\mathcal{O}_n(iE)$ 表示可逆层 $\mathcal{O}_X(iE)$ 到 $E_n$ 的限制，
+其中 $n \geq 1$ 且 $i \in \mathbf{Z}$。
+回顾，$\mathcal{O}_X(-nE)$ 是 $E_n$ 的理想层。因此，对 $d \geq 0$
+得到短正合列
+$$
+0 \to \mathcal{O}_E(-(d + n)E) \to
+\mathcal{O}_{n + 1}(-dE) \to
+\mathcal{O}_n(-dE) \to 0
+$$
+由于 $\mathcal{O}_E(-(d + n)E) = \mathcal{O}_{\mathbf{P}^1_k}(d + n)$，
+对所有 $d \geq 0$ 与 $n \geq 1$，其第一上同调群消失。
+从而系统 $H^0(E_n, \mathcal{O}_n(-dE))$ 的转移映射都是满射。
+当 $d = 0$ 时，得到由环的满射构成的逆系统，且每个转移映射的核都是幂零理想。
+因此 $A = \lim H^0(E_n, \mathcal{O}_n)$ 是剩余域为 $k$ 的局部环，
+其极大理想为
+$$
+\lim \Ker(H^0(E_n, \mathcal{O}_n) \to H^0(E, \mathcal{O}_E)) =
+\lim H^0(E_n, \mathcal{O}_n(-E))
+$$
+在此核中选取 $x, y$，使其映到一组 $k$-基；该基属于
+$H^0(E, \mathcal{O}_E(-E)) = H^0(\mathbf{P}^1_k, \mathcal{O}(1))$。
+于是 $x^d, x^{d - 1}y, \ldots, y^d$ 是
+$\lim H^0(E_n, \mathcal{O}_n(-dE))$ 的元素，并映到
+$H^0(E, \mathcal{O}_E(-dE)) = H^0(\mathbf{P}^1_k, \mathcal{O}(d))$
+的一组基。由此可见，$A$ 关于由诸核
+$$
+I_n = \Ker(A \longrightarrow H^0(E_n, \mathcal{O}_n))
+$$
+所定义的线性拓扑是分离且完备的。我们有
+$x, y \in I_1$、$I_d I_{d'} \subset I_{d + d'}$，并且
+$I_d/I_{d + 1}$ 是自由 $k$-模，其基为
+$x^d, x^{d - 1}y, \ldots, y^d$。我们将证明 $I_d = (x, y)^d$。事实上，若
+$z_e \in I_e$ 且 $e \geq d$，则可写成
+$$
+z_e = a_{e, 0} x^d + a_{e, 1} x^{d - 1}y + \ldots + a_{e, d}y^d + z_{e + 1}
+$$
+其中 $a_{e, j} \in (x, y)^{e - d}$，而 $z_{e + 1} \in I_{e + 1}$；
+这是由我们对 $I_d/I_{d + 1}$ 的描述得到的。因此，从某个
+$z = z_d \in I_d$ 出发，可递归地进行这一过程，得到
+$$
+z = \sum\nolimits_{e \geq d} \sum\nolimits_j a_{e, j} x^{d - j} y^j
+$$
+其中某些 $a_{e, j} \in (x, y)^{e - d}$。于是
+$a_j = \sum_{e \geq d} a_{e, j}$ 存在（由完备性以及
+$a_{e, j} \in I_{e - d}$），并且
+$z = \sum a_{e, j} x^{d - j} y^j$。故 $I_d = (x, y)^d$。
+于是 $A$ 关于 $(x, y)$-进拓扑完备。由代数章引理
+\ref{algebra-lemma-completion-Noetherian}，$A$ 是诺特的。
+显然其维数为 $2$，这是由 $(x, y)^d/(x, y)^{d + 1}$ 的描述以及代数章命题
+\ref{algebra-proposition-dimension} 得到的。
+由于极大理想由两个元素生成，该局部环是正则的。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-contraction}
+令 $X$ 为诺特概形。令 $E \subset X$ 为第一类例外曲线。
+若存在态射 $f : X \to Y$，使得
+\begin{enumerate}
+\item $Y$ 诺特；
+\item $f$ 固有；
+\item $f$ 将 $E$ 映到一点 $y$，该点属于 $Y$；
+\item $f$ 在不属于 $E$ 的每一点处拟有限；
+\end{enumerate}
+则存在 $E$ 的收缩，并且它就是 $f$ 的 Stein 分解。
+\end{lemma}
+
+\begin{proof}
+应用态射进阶章定理
+\ref{more-morphisms-theorem-stein-factorization-Noetherian}，
+得到 Stein 分解 $X \to X' \to Y$。于是 $X \to X'$ 满足本引理的所有假设
+（略去一些细节）。因此，在让 $Y$ 由 $X'$ 取代后，还可假设
+$f_*\mathcal{O}_X = \mathcal{O}_Y$，并且 $f$ 的纤维几何连通。
+
+\medskip\noindent
+假设 $f_*\mathcal{O}_X = \mathcal{O}_Y$，且 $f$ 的纤维几何连通。
+注意到 $y \in Y$ 是闭点，因为 $f$ 是闭映射且 $E$ 闭。态射
+$f^{-1}(Y \setminus \{y\}) \to Y \setminus \{y\}$（即 $f$ 的限制）是有限态射
+（态射进阶章引理 \ref{more-morphisms-lemma-characterize-finite}）。
+由于有限态射是仿射的，结合 $f_*\mathcal{O}_X = \mathcal{O}_Y$，
+该限制是同构。为证明 $\mathcal{O}_{Y, y}$ 是维数 $2$ 的正则局部环，
+考虑概形上同调章引理 \ref{coherent-lemma-formal-functions-stalk} 的同构
+$$
+\mathcal{O}_{Y, y}^\wedge \longrightarrow
+\lim H^0(X \times_Y \Spec(\mathcal{O}_{Y, y}/\mathfrak m_y^n), \mathcal{O})
+$$
+令 $E_n = nE$，如引理 \ref{resolve-lemma-exceptional-first-kind-local} 所示。
+注意
+$$
+E_n \subset X \times_Y \Spec(\mathcal{O}_{Y, y}/\mathfrak m_y^n)
+$$
+因为 $E \subset X_y = X \times_Y \Spec(\kappa(y))$。另一方面，
+由于在集合论意义下 $E = f^{-1}(\{y\})$（因为 $f$ 的纤维几何连通），
+可知概形论纤维 $X_y$ 在概形论意义下包含于 $E_n$，这里取某个 $n > 0$。
+确实，对凝聚 $\mathcal{O}_X$-模 $\mathcal{F} = \mathcal{O}_{X_y}$
+与理想层 $\mathcal{I}$（即 $E$ 的理想层）应用概形上同调章引理
+\ref{coherent-lemma-power-ideal-kills-sheaf}，并使用
+$\mathcal{I}^n$ 是 $E_n$ 的理想层。这说明
+$$
+X \times_Y \Spec(\mathcal{O}_{Y, y}/\mathfrak m_y^m) \subset E_{nm}
+$$
+因此，上面显示的逆极限等于 $\lim H^0(E_n, \mathcal{O}_n)$，
+而由引理 \ref{resolve-lemma-exceptional-first-kind-local}，后者是二维
+正则局部环。故 $\mathcal{O}_{Y, y}$ 是二维正则局部环，
+因为其完备化具有此性质（代数进阶章引理
+\ref{more-algebra-lemma-completion-regular} 与
+\ref{more-algebra-lemma-completion-dimension}）。
+
+\medskip\noindent
+还需证明 $f : X \to Y$ 是爆破 $b : Y' \to Y$，即 $Y$ 在 $y$ 处的爆破。
+我们鼓励读者自行寻找证明。首先注意，引理
+\ref{resolve-lemma-exceptional-first-kind-local} 还蕴含在概形论意义下
+$X_y = E$。由于 $E$ 的理想层可逆，这说明
+$f^{-1}\mathfrak m_y \cdot \mathcal{O}_X$ 可逆。因此由爆破的泛性质得到分解
+$$
+X \to Y' \to Y
+$$
+这给出态射 $f$ 的分解；参见除子章引理
+\ref{divisors-lemma-universal-property-blowing-up}。
+回顾，由引理 \ref{resolve-lemma-blowup}，例外纤维 $E' \subset Y'$
+是第一类例外曲线。令 $g : E \to E'$ 为诱导的态射。
+由于 $E'$ 与 $E$ 的余法层都由 $a$、$b$（的拉回）生成，典范映射
+$g^*\mathcal{C}_{E'/Y'} \to \mathcal{C}_{E/X}$
+是满射（态射章引理 \ref{morphisms-lemma-conormal-functorial}）。
+由于二者都可逆，该映射是同构。由于 $\mathcal{C}_{E/X}$ 的次数为正，
+$g$ 不可能是常值态射。因此 $g$ 具有有限纤维，故 $g$ 是有限态射
+（同上引用）。然而，$Y'$ 在 $E'$ 的所有点处正则（因而正规），
+且 $X \to Y'$ 双有理并在 $E'$ 外是同构，所以由簇章引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}，
+$X \to Y'$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-pic-blowup}
+令 $b : X \to X'$ 为第一类例外曲线 $E \subset X$ 的收缩。
+则有短正合列
+$$
+0 \to \Pic(X') \to \Pic(X) \to \mathbf{Z} \to 0
+$$
+其中第一个映射是沿 $b$ 的拉回，第二个映射将 $\mathcal{L}$
+映到 $\mathcal{L}$ 在例外曲线 $E$ 上的次数。映射
+$n \mapsto \mathcal{O}_X(-nE)$ 给出该正合列的分裂。
+\end{lemma}
+
+\begin{proof}
+由于 $E = \mathbf{P}^1_k$，$E$ 的 Picard 群是 $\mathbf{Z}$，见除子章引理
+\ref{divisors-lemma-Pic-projective-space-UFD}。因此，可将最后一个映射看作
+$\mathcal{L} \mapsto \mathcal{L}|_E$。由第一类例外曲线的定义，
+$\mathcal{O}_X(E)$ 到 $E$ 的限制之次数为 $-1$。综合这些说明，
+只需证明 $\Pic(X') \to \Pic(X)$ 是单射，且其像恰由这样的可逆层组成：
+限制为 $\mathcal{O}_E$，而限制取在 $E$ 上。
+
+\medskip\noindent
+给定可逆 $\mathcal{O}_{X'}$-模 $\mathcal{L}'$，我们断言映射
+$\mathcal{L}' \to b_*b^*\mathcal{L}'$ 是同构。除像点
+$x \in X'$（即 $E$ 的像）外，这处处显然。为在 $x$ 处的茎上验证它是同构，
+可用 $X'$ 的一个开邻域（含 $x$）代替它，并假设 $\mathcal{L}'$ 是
+$\mathcal{O}_{X'}$。于是只需证明映射
+$\mathcal{O}_{X'} \to b_*\mathcal{O}_X$ 是同构。这由引理
+\ref{resolve-lemma-cohomology-of-blowup} 第 (4) 项得到。
+
+\medskip\noindent
+令 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模，并满足
+$\mathcal{L}|_E = \mathcal{O}_E$。我们断言：(1) $b_*\mathcal{L}$ 可逆；
+(2) $b^*b_*\mathcal{L} \to \mathcal{L}$ 是同构。
+在 $X' \setminus \{x\}$ 上，断言 (1)、(2) 显然。因此，只需在基变换到
+$\Spec(\mathcal{O}_{X', x})$ 后证明 (1)、(2)。计算 $b_*$ 与平坦基变换交换
+（概形上同调章引理 \ref{coherent-lemma-flat-base-change-cohomology}），
+$b^*$ 及伴随映射的构造也同样如此。但若 $X'$ 是正则局部环的谱，
+则由引理 \ref{resolve-lemma-blowup-pic} 中 Picard 群的描述，$\mathcal{L}$ 平凡。
+这就证明了断言。
+
+\medskip\noindent
+综合前两段证明的断言，可知映射
+$\mathcal{L} \mapsto b_*\mathcal{L}$ 是下列映射的逆：
+$$
+\Pic(X') \longrightarrow \Ker(\Pic(X) \to \Pic(E))
+$$
+本引理得证。
+\end{proof}
+
+\begin{remark}
+\label{resolve-remark-pic-blowup}
+令 $b : X \to X'$ 为第一类例外曲线 $E \subset X$ 的收缩。
+由引理 \ref{resolve-lemma-pic-blowup}，得到等同
+$$
+\Pic(X) = \Pic(X') \oplus \mathbf{Z}
+$$
+其中，$\mathcal{L}$ 对应于偶 $(\mathcal{L}', n)$ 当且仅当
+$\mathcal{L} = (b^*\mathcal{L}')(-nE)$，即
+$\mathcal{L}(nE) = b^*\mathcal{L}'$。事实上，引理
+\ref{resolve-lemma-pic-blowup} 的证明表明
+$\mathcal{L}' = b_*\mathcal{L}(nE)$。当然，赋值
+$\mathcal{L} \mapsto \mathcal{L}'$ 是群同态。
+\end{remark}
+
+\begin{lemma}
+\label{resolve-lemma-lift-sections-and-h1}
+令 $X$ 为诺特概形。令 $E \subset X$ 为第一类例外曲线。
+令 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。令 $n$ 为如下整数：
+$\mathcal{L}|_E$ 的次数为 $n$；这里将它看作 $\mathbf{P}^1$ 上的可逆模。则
+\begin{enumerate}
+\item 若 $H^1(X, \mathcal{L}) = 0$ 且 $n \geq 0$，则
+$H^1(X, \mathcal{L}(iE)) = 0$ 对所有 $0 \leq i \leq n + 1$ 成立。
+\item 若 $n \leq 0$，则
+$H^1(X, \mathcal{L}) \subset H^1(X, \mathcal{L}(E))$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由除子章引理 \ref{divisors-lemma-Pic-projective-space-UFD}，
+注意到 $\mathcal{L}|_E = \mathcal{O}(n)$。对短正合列
+$$
+0 \to \mathcal{L} \to \mathcal{L}(E) \to \mathcal{L}(E)|_E \to 0,
+$$
+应用归纳法及相应的上同调长正合列，并使用如下事实：
+$H^1(\mathbf{P}^1, \mathcal{O}(d)) = 0$ 对 $d \geq -1$ 成立，而
+$H^0(\mathbf{P}^1, \mathcal{O}(d)) = 0$ 对 $d \leq -1$ 成立。
+略去一些细节。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-contract-ample}
+令 $S = \Spec(R)$ 为仿射诺特概形。令 $X \to S$ 为固有态射。
+令 $\mathcal{L}$ 为 $X$ 上的丰沛可逆层。令 $E \subset X$
+为第一类例外曲线。则
+\begin{enumerate}
+\item 存在收缩 $b : X \to X'$，它收缩 $E$；
+\item $X'$ 在 $S$ 上固有；
+\item 可逆 $\mathcal{O}_{X'}$-模 $\mathcal{L}'$ 是丰沛的，
+其中 $\mathcal{L}'$ 如注释 \ref{resolve-remark-pic-blowup} 所述。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+令 $n$ 为引理 \ref{resolve-lemma-lift-sections-and-h1} 中
+$\mathcal{L}|_E$ 的次数。注意到 $n > 0$，因为 $\mathcal{L}$ 在 $E$ 上丰沛
+（簇章引理 \ref{varieties-lemma-ample-curve} 与性质章引理
+\ref{properties-lemma-ample-on-closed}）。以 $\mathcal{L}$ 的某个幂代替它后，
+可假设 $H^i(X, \mathcal{L}^{\otimes e}) = 0$ 对所有
+$i > 0$ 与 $e > 0$ 成立；见概形上同调章引理
+\ref{coherent-lemma-vanshing-gives-ample}。最后，再以 $\mathcal{L}$ 的另一个幂代替它，
+可假设存在整体截面 $t_0, \ldots, t_n$，它们属于 $\mathcal{L}$ 并定义闭浸入
+$\psi : X \to \mathbf{P}^n_S$；见态射章引理
+\ref{morphisms-lemma-finite-type-over-affine-ample-very-ample}。
+
+\medskip\noindent
+置 $\mathcal{M} = \mathcal{L}(nE)$。则
+$\mathcal{M}|_E \cong \mathcal{O}_E$。由于有短正合列
+$$
+0 \to \mathcal{M}(-E) \to \mathcal{M} \to \mathcal{O}_E \to 0
+$$
+且 $H^1(X, \mathcal{M}(-E))$ 为零（由引理
+\ref{resolve-lemma-lift-sections-and-h1} 以及 $n > 0$），可选取截面
+$s_{n + 1}$，它属于 $\mathcal{M}$ 并生成 $\mathcal{M}|_E$。
+最后，以 $s_0, \ldots, s_n$ 表示 $\mathcal{M}$ 的截面；它们由上面选取的
+截面 $t_0, \ldots, t_n$（属于 $\mathcal{L}$）通过
+$\mathcal{L} \subset \mathcal{L}(nE) = \mathcal{M}$ 得到。
+合在一起，截面 $s_0, \ldots, s_n, s_{n + 1}$ 生成 $\mathcal{M}$，
+并且在 $X$ 的每一点都如此，因而定义态射
+$$
+\varphi : X \longrightarrow \mathbf{P}^{n + 1}_S
+$$
+它在 $S$ 上；见构造章引理 \ref{constructions-lemma-projective-space}。
+
+\medskip\noindent
+下面将验证引理 \ref{resolve-lemma-contraction} 的条件。验证完成后可知，
+Stein 分解 $X \to X' \to \mathbf{P}^{n + 1}_S$（即 $\varphi$ 的 Stein 分解）
+就是所需收缩，这证明 (1)。此外，态射
+$X' \to \mathbf{P}^{n + 1}_S$ 有限，故 $X'$ 在 $S$ 上固有
+（态射章引理 \ref{morphisms-lemma-finite-proper} 与
+\ref{morphisms-lemma-composition-proper}）。这证明 (2)。注意，$X'$ 上有丰沛可逆层。
+事实上，$\mathcal{M}'$ 是 $\mathcal{O}_{\mathbf{P}^{n + 1}_S}(1)$ 的拉回，
+由态射章引理
+\ref{morphisms-lemma-pullback-ample-tensor-relatively-ample}，它是丰沛的。
+注意，$\mathcal{M}'$ 的拉回为 $\mathcal{M}$，这里拉回到 $X$
+（由构造章引理 \ref{constructions-lemma-projective-space}）。
+最后，$\mathcal{M} = \mathcal{L}(nE)$。由于在上述论证中用原来
+$\mathcal{L}$ 的一个正幂代替了它，由性质章引理
+\ref{properties-lemma-ample-power-ample}，本引理 (3) 中的可逆
+$\mathcal{O}_{X'}$-模 $\mathcal{L}'$ 在 $X'$ 上丰沛。
+
+\medskip\noindent
+容易看出：$\mathbf{P}^{n + 1}_S$ 诺特，且 $\varphi$ 固有。
+略去细节。
+
+\medskip\noindent
+其次，注意到 $U = X \setminus E$ 的任一点都映到开子概形
+$W$，它位于 $\mathbf{P}^{n + 1}_S$ 中；在该开子概形上，前
+$n + 1$ 个齐次坐标中至少一个非零。另一方面，$E$ 的任一点都映到
+前 $n + 1$ 个齐次坐标全为零的点，特别地映到 $W$ 的补集。
+此外，显然有分解
+$$
+U = \varphi^{-1}(W) \xrightarrow{\varphi|_U}
+W \xrightarrow{\text{pr}} \mathbf{P}^n_S
+$$
+它是 $\psi|_U$ 的分解，其中 $\text{pr}$ 是使用前 $n + 1$ 个坐标的投影，
+而 $\psi : X \to \mathbf{P}^n_S$ 是上面选取的嵌入。因此
+$\varphi|_U : U \to W$ 拟有限。
+
+\medskip\noindent
+最后，考虑映射 $\varphi|_E : E \to \mathbf{P}^{n + 1}_S$。
+注意，对任意点 $x \in E$，像 $\varphi(x)$ 的前 $n + 1$ 个坐标全为零，
+即态射 $\varphi|_E$ 通过闭子概形 $\mathbf{P}^0_S \cong S$ 分解。
+由概形章引理 \ref{schemes-lemma-morphism-into-affine}，态射
+$E \to S = \Spec(R)$ 分解为
+$E \to \Spec(H^0(E, \mathcal{O}_E)) \to \Spec(R)$。
+由于按假设 $H^0(E, \mathcal{O}_E)$ 是域，可知 $E$ 映到
+$S \subset \mathbf{P}^{n + 1}_S$ 中的一点，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-contract-when-quasi-projective}
+令 $S$ 为诺特概形。令 $f : X \to S$ 为有限型态射。
+令 $E \subset X$ 为包含在 $f$ 的某个纤维中的第一类例外曲线。
+\begin{enumerate}
+\item 若 $X$ 在 $S$ 上射影，则存在收缩 $X \to X'$，它收缩 $E$，
+并且 $X'$ 在 $S$ 上射影。
+\item 若 $X$ 在 $S$ 上拟射影，则存在收缩 $X \to X'$，它收缩 $E$，
+并且 $X'$ 在 $S$ 上拟射影。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+两种情形都由引理 \ref{resolve-lemma-contract-ample} 结合关于丰沛可逆模与
+（拟）射影态射的标准结果得到。
+
+\medskip\noindent
+(1) 的证明。$f$ 的射影性意味着 $f$ 固有且存在一个
+$f$-丰沛可逆模 $\mathcal{L}$，见态射章引理
+\ref{morphisms-lemma-projective-is-quasi-projective-proper} 与定义
+\ref{morphisms-definition-quasi-projective}。令 $U \subset S$ 为包含
+$E$ 的像的仿射开集。由引理 \ref{resolve-lemma-contract-ample}，存在收缩
+$c : f^{-1}(U) \to V'$，它收缩 $E$；另有丰沛可逆模
+$\mathcal{N}'$，定义在 $V'$ 上，
+其到 $f^{-1}(U)$ 的拉回等于
+$\mathcal{L}(nE)|_{f^{-1}(U)}$。令 $v \in V'$ 为使 $c$ 是在 $v$ 处爆破的闭点。
+粘合 $V'$ 与 $X \setminus E$，所沿开集为
+$f^{-1}(U) \setminus E = V' \setminus \{v\}$，便得到概形 $X'$，它在 $S$ 上。态射 $c$ 与
+$\text{id}_{X \setminus E}$ 粘合为态射 $b : X \to X'$，它就是 $E$ 的收缩。
+$U$ 在 $X'$ 中的逆像在 $U$ 上固有。另一方面，$X' \to S$ 在
+$v$ 于 $S$ 中的像之补集上的限制，同构于 $X \to S$ 在该开集上的限制。
+因此 $X' \to S$ 固有（固有性在基底上是局部的，见态射章引理
+\ref{morphisms-lemma-proper-local-on-the-base}）。最后，$\mathcal{N}'$ 与
+$\mathcal{L}|_{X \setminus E}$ 在
+$f^{-1}(U) \setminus E = V' \setminus \{v\}$ 上限制为同构的可逆模，
+故它们粘合为可逆模 $\mathcal{L}'$；该模定义在 $X'$ 上。$\mathcal{L}'$ 在
+$U$ 于 $X'$ 中的逆像上的限制是丰沛的，因为 $\mathcal{N}'$ 具有此性质。
+对 $S$ 的仿射开集，若它避开 $v$ 的像，则由 $\mathcal{L}$ 具有此性质可知同样成立。
+故由态射章引理 \ref{morphisms-lemma-characterize-relatively-ample}，
+$\mathcal{L}'$ 是关于 $(X' \to S)$ 相对丰沛的，(1) 得证。
+
+\medskip\noindent
+(2) 的证明。由态射章引理
+\ref{morphisms-lemma-quasi-projective-open-projective}，可将 $X$ 写成
+概形 $\overline{X}$ 的开子概形，而该概形在 $S$ 上射影。由 (1)，存在收缩
+$b : \overline{X} \to \overline{X}'$，且 $\overline{X}'$ 在 $S$ 上射影。
+令 $X' \subset \overline{X}$ 为 $X \to \overline{X}'$ 的像；
+由于 $b$ 在 $E$ 外是同构，这是开集。于是 $X \to X'$ 是所需收缩。
+注意，$X'$ 在 $S$ 上拟射影，因为由第 (1) 项证明中的构造，
+它具有一个 $S$-相对丰沛可逆模。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-regular-dim-2-quasi-projective}
+令 $S$ 为诺特概形。令 $f : X \to S$ 为有限型分离态射，
+并且 $X$ 是维数 $2$ 的正则概形。则 $X$ 在 $S$ 上拟射影。
+\end{lemma}
+
+\begin{proof}
+由 Chow 引理（概形上同调章引理
+\ref{coherent-lemma-chow-Noetherian}），存在固有态射
+$\pi : X' \to X$，它在稠密开集 $U \subset X$ 上是同构，
+并且 $X' \to S$ 是 H-拟射影的。由引理
+\ref{resolve-lemma-extend-rational-map-blowing-up}，存在沿闭点的爆破序列
+$$
+X_n \to \ldots \to X_1 \to X_0 = X
+$$
+以及一个 $S$-态射 $X_n \to X'$，它延拓有理映射 $U \to X'$。
+由除子章引理 \ref{divisors-lemma-blowing-up-projective} 与态射章引理
+\ref{morphisms-lemma-composition-projective}，注意到 $X_n \to X$ 是射影的。
+这由态射章引理 \ref{morphisms-lemma-projective-permanence} 蕴含
+$X_n \to X'$ 是射影的。因此由态射章引理
+\ref{morphisms-lemma-composition-quasi-projective}，$X_n \to S$ 是拟射影的
+（也使用射影态射是拟射影的这一事实，见态射章引理
+\ref{morphisms-lemma-projective-quasi-projective}）。由引理
+\ref{resolve-lemma-contract-when-quasi-projective}（以及引理
+\ref{resolve-lemma-contraction-unique} 所述收缩的唯一性），可知
+$X_{n - 1}, \ldots, X_0 = X$ 都在 $S$ 上拟射影，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-regular-dim-2-projective}
+令 $S$ 为诺特概形。令 $f : X \to S$ 为固有态射，
+并且 $X$ 是维数 $2$ 的正则概形。则 $X$ 在 $S$ 上射影。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{resolve-lemma-regular-dim-2-quasi-projective} 与态射章引理
+\ref{morphisms-lemma-projective-is-quasi-projective-proper} 得到。
+\end{proof}
+
+
+
+
+
+
+\section{双有理映射的分解}
+\label{resolve-section-factorizing}
+
+\noindent
+非奇异曲面之间的固有双有理态射由二次变换序列给出。
+
+\begin{lemma}
+\label{resolve-lemma-proper-birational-regular-surfaces}
+令 $f : X \to Y$ 为整诺特概形之间的固有双有理态射，
+这些概形是维数 $2$ 的正则概形。则 $f$ 是沿闭点的爆破序列。
+\end{lemma}
+
+\begin{proof}
+令 $V \subset Y$ 为 $f$ 在其上是同构的最大开集。则 $V$ 包含所有
+余维数 $1$ 的点，而这些点属于 $V$（簇章引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}）。
+令 $y \in Y$ 为不包含于 $V$ 的闭点。我们要证明，$f$ 通过爆破
+$b : Y' \to Y$ 分解，该爆破是 $Y$ 在 $y$ 处的爆破。确实，若这成立，
+则纤维 $f^{-1}(y)$ 的至少一个（事实上恰好一个）分支将同构地映到
+$Y'$ 中的例外曲线，并且 $X \to Y'$ 的纤维中的曲线数将严格小于
+$X \to Y$ 的纤维中的曲线数，故可用归纳法结束证明。略去一些细节。
+
+\medskip\noindent
+由引理 \ref{resolve-lemma-extend-rational-map-blowing-up}，存在爆破序列
+$$
+X' = X_n \to X_{n - 1} \to \ldots \to X_1 \to X_0 = X
+$$
+它们沿着位于纤维 $f^{-1}(y)$ 上方的闭点进行；并且存在态射
+$X' \to Y'$，使得
+$$
+\xymatrix{
+X' \ar[d]_{f'} \ar[r] & X \ar[d]^f \\
+Y' \ar[r] & Y
+}
+$$
+交换。我们要证明态射 $X' \to Y'$ 通过 $X$ 分解；于是可对 $n$ 使用归纳法，
+归约到如下情形：$X' \to X$ 是 $X$ 在闭点 $x \in X$ 处的爆破，
+而该点映到 $y$。
+
+\medskip\noindent
+令 $E \subset X'$ 为爆破 $X' \to X$ 的例外纤维。若 $E$ 映到 $Y'$ 中的一点，
+则由引理 \ref{resolve-lemma-factor-through-contraction} 得到所需分解。
+我们将证明，若非如此便会产生矛盾。确实，若 $f'(E)$ 不是一点，
+则 $E' = f'(E)$ 必为 $Y'$ 中的例外曲线。图式为
+$$
+\xymatrix{
+E \ar[r] \ar[d]_g & X' \ar[d]_{f'} \ar[r] & X \ar[d]^f \\
+E' \ar[r] & Y' \ar[r] & Y
+}
+$$
+与前面相同地论证，可知 $f'$ 在 $E'$ 的泛点的某个开邻域上是同构。
+因此 $g : E \to E'$ 是有限双有理态射。由态射章引理
+\ref{morphisms-lemma-extend-across}，$g$ 的逆（一个有理映射）处处有定义，
+故 $g$ 是同构。考虑映射
+$$
+g^*\mathcal{C}_{E'/Y'} \longrightarrow \mathcal{C}_{E/X'}
+$$
+它来自态射章引理 \ref{morphisms-lemma-conormal-functorial}。
+由于源与靶是次数为 $1$ 的可逆模，并且它们位于
+$E = E' = \mathbf{P}^1_\kappa$ 上，
+并且该映射非零（因为 $f'$ 在 $E$ 的泛点处是同构），可知它是同构。
+由态射章引理 \ref{morphisms-lemma-two-immersions}，得到
+$\Omega_{X'/Y'}|_E = 0$。这意味着 $f'$ 在 $E$ 的每一点处非分歧
+（态射章引理 \ref{morphisms-lemma-unramified-at-point}）。因此 $f'$ 在 $E$
+的每一点处拟有限（态射章引理 \ref{morphisms-lemma-unramified-quasi-finite}）。
+因此，由簇章引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}，最大开集
+$V' \subset Y'$（$f'$ 在其上为同构）包含 $E'$。
+这又蕴含 $y$ 在 $X'$ 中的逆像是 $E'$。故 $y$ 在 $X$ 中的逆像是 $x$。
+因此，由簇章引理
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}，
+$x \in X$ 属于 $f$ 在其上为同构的最大开集。这与我们假设 $y$ 不在该开集中矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{resolve-lemma-birational-regular-surfaces}
+令 $S$ 为诺特概形。令 $X$ 与 $Y$ 为 $S$ 上的固有整概形，
+并且它们是维数 $2$ 的正则概形。则 $X$ 与 $Y$ 是 $S$-双有理的，
+当且仅当存在由 $S$-态射组成的图式
+$$
+X = X_0 \leftarrow X_1 \leftarrow \ldots \leftarrow X_n = Y_m
+\to \ldots \to Y_1 \to Y_0 = Y
+$$
+其中每个态射都是沿闭点的爆破。
+\end{lemma}
+
+\begin{proof}
+令 $U \subset X$ 为开集，并令 $f : U \to Y$ 为给定的
+$S$-有理映射（它作为 $S$-有理映射可逆）。由引理
+\ref{resolve-lemma-extend-rational-map-blowing-up}，可将 $f$ 分解为
+$X_n \to \ldots \to X_1 \to X_0 = X$ 与 $f_n : X_n \to Y$。
+由于 $X_n$ 在 $S$ 上固有，且 $Y$ 在 $S$ 上分离，态射 $f_n$ 固有。
+显然 $f_n$ 是双有理的。因此由引理
+\ref{resolve-lemma-proper-birational-regular-surfaces}，$f_n$ 是若干收缩的复合。
+略去逆命题的证明。
+\end{proof}

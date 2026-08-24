@@ -1,0 +1,5066 @@
+% Generated mechanically from the frozen dualizing.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{46}
+\chapter{对偶化复形}
+
+
+
+\phantomsection
+\label{dualizing-section-phantom}
+
+
+\section{引言}
+\label{dualizing-section-introduction}
+
+\noindent
+本章讨论交换代数中的对偶化复形。参考文献为 \cite{RD}。
+
+\medskip\noindent
+我们首先讨论本质满射与本质单射、射影覆盖、内射包、
+Artinian 环上的对偶，以及剩余域的内射包，并很快导出 Matlis 对偶定理的证明。
+参见第 \ref{dualizing-section-essential} 节、
+\ref{dualizing-section-injective-modules} 节、
+\ref{dualizing-section-projective-cover} 节、
+\ref{dualizing-section-injective-hull} 节、
+\ref{dualizing-section-artinian} 节、
+\ref{dualizing-section-hull-residue-field} 节，以及命题 \ref{dualizing-proposition-matlis}。
+
+\medskip\noindent
+接下来三节以很大的普遍性讨论局部上同调，参见
+\ref{dualizing-section-bad-local-cohomology}、\ref{dualizing-section-local-cohomology} 和
+\ref{dualizing-section-local-cohomology-noetherian} 节。我们在
+\ref{dualizing-section-depth} 节将其中部分内容用于讨论深度。另一个应用是：
+给定环 $A$ 的有限生成理想 $I$，$A$ 的导出范畴中的
+``$I$-完备''对象与 ``$I$-挠''对象等价，参见
+\ref{dualizing-section-torsion-and-complete} 节。
+若要进一步了解局部上同调（例如依赖局部对偶的有限性定理，见下文），
+请参阅《局部上同调》第 \ref{local-cohomology-section-introduction} 节。
+
+\medskip\noindent
+本章主要致力于环映射的对偶与对偶化复形。参见
+\ref{dualizing-section-trivial}、\ref{dualizing-section-base-change-trivial-duality}、
+\ref{dualizing-section-dualizing}、\ref{dualizing-section-dualizing-local}、
+\ref{dualizing-section-dimension-function}、\ref{dualizing-section-local-duality}、
+\ref{dualizing-section-dualizing-module}、\ref{dualizing-section-CM}、
+\ref{dualizing-section-gorenstein}、\ref{dualizing-section-ubiquity-dualizing} 和
+\ref{dualizing-section-formal-fibres} 节。
+关键定义是：对 Noetherian 环 $A$，对偶化复形
+$\omega_A^\bullet$ 是一个对象，满足
+$\omega_A^\bullet \in D^{+}(A)$，其上同调模
+$H^i(\omega_A^\bullet)$ 都是有限 $A$-模，具有有限内射维数，并且映射
+$$
+A \longrightarrow R\Hom_A(\omega_A^\bullet, \omega_A^\bullet)
+$$
+是拟同构。在建立对偶化复形的一些初等性质后，我们证明对偶化复形导出一个维数函数。
+接着证明 Grothendieck 局部对偶定理。简要讨论对偶化模与 Cohen--Macaulay 环后，
+我们引入 Gorenstein 环，并说明许多熟悉的 Noetherian 环具有对偶化复形。
+最后一节应用上述材料，说明 Noetherian 局部环的形式纤维为 Gorenstein 环或局部完全交时，
+存在良好的理论。
+
+\medskip\noindent
+最后几节描述代数几何中使用的``上惊叹号函子''的代数构造，例如书籍
+\cite{RD} 中所用者。本主题将在关于概形对偶的章节中继续讨论。
+参见《概形的对偶》第 \ref{duality-section-introduction} 节。
+
+
+
+
+
+
+
+\section{本质满射与本质单射}
+\label{dualizing-section-essential}
+
+\noindent
+我们主要将在模范畴中工作，但不妨在一般情形下给出定义。
+
+\begin{definition}
+\label{dualizing-definition-essential}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item $\mathcal{A}$ 中的单射 $A \subset B$ 称为{\it 本质的}，
+或称 $B$ 是 $A$ 的{\it 本质扩张}，
+若每个非零子对象 $B' \subset B$ 与 $A$ 的交均非零。
+\item $\mathcal{A}$ 中的满射 $f : A \to B$ 称为{\it 本质的}，
+若对每个真子对象 $A' \subset A$ 都有 $f(A') \not = B$。
+\end{enumerate}
+\end{definition}
+
+\noindent
+关于这一概念有如下引理。
+
+\begin{lemma}
+\label{dualizing-lemma-essential}
+设 $\mathcal{A}$ 为阿贝尔范畴。
+\begin{enumerate}
+\item 若 $A \subset B$ 与 $B \subset C$ 是本质扩张，则
+$A \subset C$ 是本质扩张。
+\item 若 $A \subset B$ 是本质扩张且 $C \subset B$ 是子对象，
+则 $A \cap C \subset C$ 是本质扩张。
+\item 若 $A \to B$ 与 $B \to C$ 是本质满射，则
+$A \to C$ 是本质满射。
+\item 给定本质满射 $f : A \to B$ 及核为 $K$ 的满射
+$A \to C$，则态射 $C \to B/f(K)$ 是本质满射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明略。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-union-essential-extensions}
+设 $R$ 为环，$M$ 为 $R$-模，并设 $E = \colim E_i$ 是
+$R$-模的滤过余极限。给定相容的 $R$-模本质单射族
+$M \to E_i$。则 $M \to E$ 是本质单射。
+\end{lemma}
+
+\begin{proof}
+这由定义以及滤过余极限的正合性立即推出（代数，引理
+\ref{algebra-lemma-directed-colimit-exact}）。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-essential-extension}
+设 $R$ 为环，$M \subset N$ 为 $R$-模。下列条件等价：
+\begin{enumerate}
+\item $M \subset N$ 是本质扩张；
+\item 对每个非零 $x \in N$，存在 $f \in R$，使得 $fx \in M$
+且 $fx \not = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 (1) 成立，并取非零元素 $x \in N$。由 (1) 有
+$Rx \cap M \not = 0$，故 (2) 成立。
+
+\medskip\noindent
+设 (2) 成立。令 $N' \subset N$ 为非零子模，并取非零
+$x \in N'$。由 (2)，可找到 $f \in R$，使得 $fx \in M$
+且 $fx \not = 0$。因此 $N' \cap M \not = 0$。
+\end{proof}
+
+
+
+
+\section{内射模}
+\label{dualizing-section-injective-modules}
+
+\noindent
+下面给出一些关于环上内射模的结果。
+
+\begin{lemma}
+\label{dualizing-lemma-product-injectives}
+设 $R$ 为环。任意内射 $R$-模的直积都是内射的。
+\end{lemma}
+
+\begin{proof}
+这是《同调》引理 \ref{homology-lemma-product-injectives} 的特例。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-flat}
+设 $R \to S$ 为平坦环映射。若 $E$ 是内射 $S$-模，
+则 $E$ 作为 $R$-模也是内射的。
+\end{lemma}
+
+\begin{proof}
+这是因为由《代数》引理 \ref{algebra-lemma-adjoint-tensor-restrict}，
+以及张量 $S$ 保持正合这一事实，有
+$\Hom_R(M, E) = \Hom_S(M \otimes_R S, E)$。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-epimorphism}
+设 $R \to S$ 为环的满同态。设 $E$ 为 $S$-模。
+若 $E$ 作为 $R$-模是内射的，则 $E$ 作为 $S$-模也是内射的。
+\end{lemma}
+
+\begin{proof}
+这是因为对任意 $S$-模 $N$ 都有
+$\Hom_R(N, E) = \Hom_S(N, E)$，见《代数》引理
+\ref{algebra-lemma-epimorphism-modules}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-hom-injective}
+设 $R \to S$ 为环映射。若 $E$ 是内射 $R$-模，
+则 $\Hom_R(S, E)$ 是内射 $S$-模。
+\end{lemma}
+
+\begin{proof}
+这是因为由《代数》引理
+\ref{algebra-lemma-adjoint-hom-restrict}，有
+$\Hom_S(N, \Hom_R(S, E)) = \Hom_R(N, E)$。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-essential-extensions-in-injective}
+设 $R$ 为环。设 $I$ 为内射 $R$-模。设 $E \subset I$ 为子模。
+以下条件等价：
+\begin{enumerate}
+\item $E$ 是内射的；
+\item 对所有 $E \subset E' \subset I$，若 $E \subset E'$ 是本质的，
+则 $E = E'$。
+\end{enumerate}
+特别地，$R$-模是内射的，当且仅当每个本质扩张都是平凡的。
+\end{lemma}
+
+\begin{proof}
+最后的断言由第一项及 $R$-模范畴有足够多内射对象这一事实得出
+（《更多代数》第 \ref{more-algebra-section-injectives-modules} 节）。
+
+\medskip\noindent
+假设 (1)。令 $E \subset E' \subset I$ 如 (2) 中所述。
+则恒等映射 $\text{id}_E : E \to E$ 可延拓为映射
+$\alpha : E' \to E$。$\alpha$ 的核必为零，因为它与 $E$ 的交为零，
+而 $E'$ 是本质扩张。因此 $E = E'$。
+
+\medskip\noindent
+假设 (2)。设 $M \subset N$ 为 $R$-模，并设 $\varphi : M \to E$
+为 $R$-模映射。为证明 (1)，需证明 $\varphi$ 可延拓为态射
+$N \to E$。考虑所有对
+$(M', \varphi')$ 所成的集合 $\mathcal{S}$，其中
+$M \subset M' \subset N$，且 $\varphi' : M' \to E$ 为在 $M$ 上
+与 $\varphi$ 一致的 $R$-模映射。按规则
+$(M', \varphi') \leq (M'', \varphi'')$ 当且仅当
+$M' \subset M''$ 且 $\varphi''|_{M'} = \varphi'$，
+在 $\mathcal{S}$ 上定义序。显然，$\mathcal{S}$ 的全序子集可取其上界。
+由 Zorn 引理，不妨设 $(M, \varphi)$ 是极大元。
+
+\medskip\noindent
+选取 $\varphi$ 与包含映射 $E \to I$ 的复合
+$\psi : N \to I$ 的延拓。这是可能的，因为 $I$ 是内射的。
+若 $\psi(N) \subset E$，则 $\psi$ 即为所需延拓。
+若 $\psi(N)$ 不包含于 $E$，则由 (2)，包含
+$E \subset E + \psi(N)$ 不是本质的。因此可以找到非零子模
+$K \subset E + \psi(N)$，使其与 $E$ 的交为 $0$。
+这意味着 $M' = \psi^{-1}(E + K)$ 严格包含 $M$。
+于是可利用下式将 $\varphi$ 延拓到 $M'$：
+$$
+M' \xrightarrow{\psi|_{M'}} E + K \to (E + K)/K = E
+$$
+这与 $(M, \varphi)$ 的极大性矛盾。
+\end{proof}
+
+\begin{example}
+\label{dualizing-example-reduced-ring-injective}
+设 $R$ 为约化环。设 $\mathfrak p \subset R$ 为极小素理想，
+使得 $K = R_\mathfrak p$ 是域（《代数》引理
+\ref{algebra-lemma-minimal-prime-reduced-ring}）。
+则 $K$ 是内射 $R$-模。事实上，对任意 $R$-模 $M$，有
+$\Hom_R(M, K) = \Hom_K(M_\mathfrak p, K)$。
+由于局部化是正合函子，且对 $K$-向量空间取对偶是正合函子，
+可知 $\Hom_R(-, K)$ 是正合函子，即 $K$ 是内射 $R$-模。
+\end{example}
+
+\begin{lemma}
+\label{dualizing-lemma-sum-injective-modules}
+设 $R$ 为 Noetherian 环。内射模的直和是内射的。
+\end{lemma}
+
+\begin{proof}
+设 $E_i$ 是由集合 $I$ 参数化的一族内射模。
+令 $E = \bigoplus E_i$。为证明 $E$ 是内射的，使用《内射模》引理
+\ref{injectives-lemma-criterion-baer}。设
+$\varphi : J \to E$ 为从 $R$ 的理想到 $E$ 的模映射。
+由于 $J$ 是有限生成 $R$-模（因为 $R$ 是 Noetherian 环），
+可找到有限多个元素 $i_1, \ldots, i_r \in I$，使得
+$\varphi$ 的像包含于 $\bigoplus_{j = 1, \ldots, r} E_{i_j}$。
+于是利用各模 $E_{i_j}$ 的内射性，可将 $\varphi$ 延拓到
+$\bigoplus_{j = 1, \ldots, r} E_{i_j}$。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-localization-injective-modules}
+设 $R$ 为 Noetherian 环。设 $S \subset R$ 为乘法闭子集。
+若 $E$ 是内射 $R$-模，则 $S^{-1}E$ 是内射 $S^{-1}R$-模。
+\end{lemma}
+
+\begin{proof}
+由于 $R \to S^{-1}R$ 是环的满同态，只需证明 $S^{-1}E$
+作为 $R$-模是内射的，见引理 \ref{dualizing-lemma-injective-epimorphism}。
+为此使用《内射模》引理 \ref{injectives-lemma-criterion-baer}。
+设 $I \subset R$ 为理想，且 $\varphi : I \to S^{-1} E$ 为
+$R$-模映射。由于 $I$ 是有限表示 $R$-模（因为 $R$ 是 Noetherian 环），
+可找到 $f \in S$ 及 $R$-模映射 $I \to E$，使得
+$f\varphi$ 是复合 $I \to E \to S^{-1}E$
+（《代数》引理 \ref{algebra-lemma-hom-from-finitely-presented}）。
+然后可将 $I \to E$ 延拓为同态 $R \to E$。于是复合
+$$
+R \to E \to S^{-1}E \xrightarrow{f^{-1}} S^{-1}E
+$$
+就是 $\varphi$ 到 $R$ 的所需延拓。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-module-divide}
+设 $R$ 为 Noetherian 环。设 $I$ 为内射 $R$-模。
+\begin{enumerate}
+\item 设 $f \in R$。则 $E = \bigcup I[f^n] = I[f^\infty]$
+是 $I$ 的内射子模。
+\item 设 $J \subset R$ 为理想。则 $J$-幂挠子模
+$I[J^\infty]$ 是 $I$ 的内射子模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们使用引理 \ref{dualizing-lemma-essential-extensions-in-injective} 证明 (1)。
+设 $E \subset E' \subset I$，且 $E'$ 是 $E$ 的本质扩张。
+我们将证明 $E' = E$。否则可取 $x \in E'$ 且 $x \not \in E$。
+令 $J = \{ a \in R \mid ax \in E\}$。由于 $R$ 是 Noetherian 环，
+可写 $J = (g_1, \ldots, g_t)$，其中 $g_i \in R$。
+按定义，$E$ 是 $I$ 中被 $f$ 的某个幂湮灭的元素所成的集合，
+故可取整数 $n_i$ 使 $f^{n_i}g_ix = 0$。
+令 $n = \mathrm{max}\{ n_i \}$。则 $x' = f^n x$ 属于 $E'$，
+但不属于 $E$，且被 $J$ 湮灭。令 $J' = \{ a \in R \mid ax' \in E \}$，
+则 $J \subset J'$。反之，$a \in J'$ 当且仅当 $ax' \in E$，
+当且仅当对某个 $m \geq 0$ 有 $f^m a x' = 0$。但
+$f^m a x' = f^{m + n} a x$，故 $ax \in E$，即 $a \in J$。
+于是 $J = J'$。因此 $J = J' = \text{Ann}(x')$，从而 $Rx' \cap E  = 0$。
+所以 $E'$ 不是 $E$ 的本质扩张，矛盾。
+
+\medskip\noindent
+为证明 (2)，写成 $J = (f_1, \ldots, f_t)$。则
+$I[J^\infty]$ 等于
+$$
+(\ldots((I[f_1^\infty])[f_2^\infty])\ldots)[f_t^\infty]
+$$
+结论由 (1) 及归纳法得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-dimension-over-polynomial-ring}
+设 $A$ 为 Noetherian 环。设 $E$ 为内射 $A$-模。
+则 $E \otimes_A A[x]$ 作为 $D(A[x])$ 中的对象具有内射振幅 $[0, 1]$。
+特别地，$E \otimes_A A[x]$ 作为 $A[x]$-模具有有限内射维数。
+\end{lemma}
+
+\begin{proof}
+记 $E[x] = E \otimes_A A[x]$。考虑 $A[x]$-模的短正合序列
+$$
+0 \to E[x] \to \Hom_A(A[x], E[x]) \to \Hom_A(A[x], E[x]) \to 0
+$$
+其中第一个映射将 $p \in E[x]$ 送到 $f \mapsto fp$，第二个映射将
+$\varphi$ 送到 $f \mapsto \varphi(xf) - x\varphi(f)$。
+第二个映射是满射，因为作为阿贝尔群
+$\Hom_A(A[x], E[x]) = \prod_{n \geq 0} E[x]$，且该映射将
+$(e_n)$ 送到 $(e_{n + 1} - xe_n)$，这是满射。
+作为 $A$-模，有 $E[x] \cong \bigoplus_{n \geq 0} E$，
+由引理 \ref{dualizing-lemma-sum-injective-modules} 可知它是内射的。
+因此 $A[x]$-模 $\Hom_A(A[x], E[x])$ 由引理
+\ref{dualizing-lemma-hom-injective} 是内射的，证明完毕。
+\end{proof}
+
+
+
+\section{射影覆盖}
+\label{dualizing-section-projective-cover}
+
+\noindent
+本节简要讨论射影覆盖。
+
+\begin{definition}
+\label{dualizing-definition-projective-cover}
+设 $R$ 为环。$R$-模的满射 $P \to M$ 称为{\it 射影覆盖}，
+有时也称为{\it 射影包络}，若 $P$ 是射影 $R$-模且 $P \to M$ 是本质满射。
+\end{definition}
+
+\noindent
+射影覆盖并不总是存在。例如，若 $k$ 是域且 $R = k[x]$ 是 $k$ 上的多项式环，
+则模 $M = R/(x)$ 没有射影覆盖。事实上，对任意满射 $f : P \to M$，
+其中 $P$ 在 $R$ 上是射影的，真子模 $(x - 1)P$ 也满射到 $M$。
+因此 $f$ 不是本质满射。
+
+\begin{lemma}
+\label{dualizing-lemma-projective-cover-unique}
+设 $R$ 为环且 $M$ 为 $R$-模。若 $M$ 存在射影覆盖，则其在同构意义下唯一。
+\end{lemma}
+
+\begin{proof}
+设 $P \to M$ 与 $P' \to M$ 是射影覆盖。由于 $P$ 是射影 $R$-模，
+且 $P' \to M$ 为满射，可取与到 $M$ 的映射相容的 $R$-模映射
+$\alpha : P \to P'$。由于 $P' \to M$ 是本质满射，故 $\alpha$ 是满射。
+由于 $P'$ 是射影 $R$-模，可取直和分解
+$P = \Ker(\alpha) \oplus P'$。由于 $P' \to M$ 为满射，
+且 $P \to M$ 是本质满射，得 $\Ker(\alpha)$ 为零，如所需。
+\end{proof}
+
+\noindent
+下面给出射影覆盖存在的一个例子。
+
+\begin{lemma}
+\label{dualizing-lemma-projective-covers-local}
+设 $(R, \mathfrak m, \kappa)$ 为局部环。任意有限 $R$-模都有射影覆盖。
+\end{lemma}
+
+\begin{proof}
+设 $M$ 为有限 $R$-模。令 $r = \dim_\kappa(M/\mathfrak m M)$。
+取 $x_1, \ldots, x_r \in M$，其在 $M/\mathfrak m M$ 中映为一组基。
+考虑映射 $f : R^{\oplus r} \to M$。由 Nakayama 引理，该映射为满射
+（《代数》引理 \ref{algebra-lemma-NAK}）。若
+$N \subset R^{\oplus r}$ 是真子模，则
+$N/\mathfrak m N \to \kappa^{\oplus r}$ 不满射（再次由 Nakayama 引理），
+从而 $N/\mathfrak m N \to M/\mathfrak m M$ 不满射。因此 $f$ 是本质满射。
+\end{proof}
+
+
+
+
+
+
+
+\section{内射包}
+\label{dualizing-section-injective-hull}
+
+\noindent
+本节简要讨论内射包。
+
+\begin{definition}
+\label{dualizing-definition-injective-hull}
+设 $R$ 为环。$R$-模的单射 $M \to I$ 称为{\it 内射包}，若 $I$ 是内射
+$R$-模且 $M \to I$ 是本质单射。
+\end{definition}
+
+\noindent
+内射包总是存在。
+
+\begin{lemma}
+\label{dualizing-lemma-injective-hull}
+设 $R$ 为环。任意 $R$-模都有内射包。
+\end{lemma}
+
+\begin{proof}
+设 $M$ 为 $R$-模。由《更多代数》第
+\ref{more-algebra-section-injectives-modules} 节，$R$-模范畴有足够多内射对象。
+取单射 $M \to I$，其中 $I$ 为内射 $R$-模。
+考虑由满足 $M \subset E \subset I$ 的子模组成的集合 $\mathcal{S}$，
+其中 $E$ 是 $M$ 的本质扩张。按包含关系给 $\mathcal{S}$ 排序。
+若 $\{E_\alpha\}$ 是 $\mathcal{S}$ 的全序子集，则
+$\bigcup E_\alpha$ 也是 $M$ 的本质扩张
+（引理 \ref{dualizing-lemma-union-essential-extensions}）。
+因此可应用 Zorn 引理，取极大元 $E \in \mathcal{S}$。
+我们断言 $M \subset E$ 是内射包，即 $E$ 是内射 $R$-模。
+这由引理 \ref{dualizing-lemma-essential-extensions-in-injective} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-hull-unique}
+设 $R$ 为环。设 $M$、$N$ 为 $R$-模，且 $M \to E$ 与 $N \to E'$ 是内射包。
+则
+\begin{enumerate}
+\item 对任意 $R$-模映射 $\varphi : M \to N$，存在 $R$-模映射
+$\psi : E \to E'$，使下图交换：
+$$
+\xymatrix{
+M \ar[r] \ar[d]_\varphi & E \ar[d]^\psi \\
+N \ar[r] & E'
+}
+$$
+\item 若 $\varphi$ 是单射，则 $\psi$ 是单射；
+\item 若 $\varphi$ 是本质单射，则 $\psi$ 是同构；
+\item 若 $\varphi$ 是同构，则 $\psi$ 是同构；
+\item 若 $M \to I$ 是将 $M$ 嵌入内射 $R$-模的嵌入，则存在同构
+$I \cong E \oplus I'$，且它与 $M$ 的嵌入相容。
+\end{enumerate}
+特别地，$M$ 的内射包 $E$ 在同构意义下唯一。
+\end{lemma}
+
+\begin{proof}
+(1) 由 $E'$ 为内射 $R$-模这一事实得出。(2) 因为
+$\Ker(\psi) \cap M = 0$，且 $E$ 是 $M$ 的本质扩张。
+设 $\varphi$ 是本质单射。由 (2)，$E \cong \psi(E) \subset E'$，
+从而因 $E$ 内射，有 $E' = \psi(E) \oplus E''$。
+由于 $E'$ 是 $M$ 的本质扩张（引理 \ref{dualizing-lemma-essential}），得 $E'' = 0$。
+(4) 是 (3) 的特例。设 $M \to I$ 如 (5) 所述。
+取延拓 $M \to I$ 的映射 $\alpha : E \to I$。如前所述，$\alpha$ 是单射。
+因此同样地，$\alpha(E)$ 是 $I$ 的直和项。这就证明了 (5)。
+\end{proof}
+
+\begin{example}
+\label{dualizing-example-injective-hull-domain}
+设 $R$ 为整环，分式域为 $K$。则 $R \subset K$ 是 $R$ 的内射包。
+事实上，由例 \ref{dualizing-example-reduced-ring-injective}，$K$ 是内射 $R$-模；
+由引理 \ref{dualizing-lemma-essential-extension}，$R \subset K$ 是本质扩张。
+\end{example}
+
+\begin{definition}
+\label{dualizing-definition-indecomposable}
+加性范畴中的对象 $X$ 称为{\it 不可分解的}，若它非零，且当
+$X = Y \oplus Z$ 时，$Y = 0$ 或 $Z = 0$。
+\end{definition}
+
+\begin{lemma}
+\label{dualizing-lemma-indecomposable-injective}
+设 $R$ 为环。设 $E$ 为不可分解的内射 $R$-模。则
+\begin{enumerate}
+\item $E$ 是 $E$ 的任意非零子模的内射包；
+\item $E$ 的任意两个非零子模的交非零；
+\item $\text{End}_R(E)$ 是非交换局部环，其极大理想由核非零的
+$\varphi : E \to E$ 组成；
+\item $E$ 上的零因子集合是 $R$ 的素理想 $\mathfrak p$，且 $E$ 是内射
+$R_\mathfrak p$-模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由引理 \ref{dualizing-lemma-injective-hull-unique} 得出。(2) 由 (1) 及内射包的定义得出。
+
+\medskip\noindent
+(3) 的证明。令 $A = \text{End}_R(E)$，并令
+$I = \{\varphi \in A \mid \Ker(\varphi) \not = 0\}$。
+这意味着 $I$ 是双边理想，且任意 $\varphi \in A$、$\varphi \not \in I$ 都可逆。
+设 $\varphi$ 与 $\psi$ 都不是单射。由 (2)，
+$\Ker(\varphi) \cap \Ker(\psi)$ 非零。因此 $\varphi + \psi \in I$，
+从而 $I$ 是双边理想。若 $\varphi \in A$ 且 $\varphi \not \in I$，则
+$E \cong \varphi(E) \subset E$ 是内射子模，故因 $E$ 不可分解而有
+$E = \varphi(E)$。
+
+\medskip\noindent
+(4) 的证明。考虑环映射 $R \to A$，令 $\mathfrak p \subset R$ 为极大理想
+$I$ 的逆像。显然 $\mathfrak p$ 是素理想，且 $R \to A$ 延拓为
+$R_\mathfrak p \to A$。因此 $E$ 是 $R_\mathfrak p$-模。
+由引理 \ref{dualizing-lemma-injective-epimorphism}，$E$ 作为 $R_\mathfrak p$-模是内射的。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-hull-indecomposable}
+设 $\mathfrak p \subset R$ 是环 $R$ 的素理想。
+设 $E$ 是 $R/\mathfrak p$ 的内射包。则
+\begin{enumerate}
+\item $E$ 是不可分解的；
+\item $E$ 是 $\kappa(\mathfrak p)$ 的内射包；
+\item $E$ 是环 $R_\mathfrak p$ 上 $\kappa(\mathfrak p)$ 的内射包。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-essential-extension}，包含
+$R/\mathfrak p \subset \kappa(\mathfrak p)$ 是本质扩张。
+于是引理 \ref{dualizing-lemma-injective-hull-unique} 表明 (2) 成立。
+对 $f \in R$ 且 $f \not \in \mathfrak p$，映射
+$f : \kappa(\mathfrak p) \to \kappa(\mathfrak p)$ 是同构，
+故映射 $f : E \to E$ 是同构，见引理 \ref{dualizing-lemma-injective-hull-unique}。
+因此 $E$ 是 $R_\mathfrak p$-模。由引理
+\ref{dualizing-lemma-injective-epimorphism}，它作为 $R_\mathfrak p$-模是内射的。
+最后，设 $E' \subset E$ 是非零内射 $R$-子模。
+则 $J = (R/\mathfrak p) \cap E'$ 非零。缩小 $E'$ 后，可设 $E'$ 是 $J$ 的内射包
+（例如见引理 \ref{dualizing-lemma-injective-hull-unique}）。
+注意，由引理 \ref{dualizing-lemma-essential-extension}，$R/\mathfrak p$ 是 $J$ 的本质扩张。
+因此由引理 \ref{dualizing-lemma-injective-hull-unique} 的 (3)，$E' \to E$ 是同构。
+所以 $E$ 不可分解。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-indecomposable-injective-noetherian}
+设 $R$ 为 Noetherian 环。设 $E$ 为不可分解的内射 $R$-模。
+则存在 $R$ 的某个素理想 $\mathfrak p$，使 $E$ 是
+$\kappa(\mathfrak p)$ 的内射包。
+\end{lemma}
+
+\begin{proof}
+令 $\mathfrak p$ 为引理 \ref{dualizing-lemma-indecomposable-injective} 中得到的素理想。
+设 $\mathfrak p = (f_1, \ldots, f_r)$。取非零元素
+$x \in \bigcap \Ker(f_i : E \to E)$，见引理 \ref{dualizing-lemma-indecomposable-injective}。
+则 $(R_\mathfrak p)x$ 是 $E$ 中与 $\kappa(\mathfrak p)$ 同构的模。
+由引理 \ref{dualizing-lemma-indecomposable-injective} 得出结论。
+\end{proof}
+
+\begin{proposition}[Noetherian 环上内射模的结构]
+\label{dualizing-proposition-structure-injectives-noetherian}
+设 $R$ 为 Noetherian 环。
+每个内射模都是不可分解内射模的直和。
+每个不可分解内射模都是某个素理想处剩余域的内射包。
+\end{proposition}
+
+\begin{proof}
+第二个断言就是引理 \ref{dualizing-lemma-indecomposable-injective-noetherian}。
+对第一个断言，设 $I$ 为内射 $R$-模。我们使用超限归纳构造
+$I_\alpha \subset I$：对序数 $\alpha$，它们是 $\beta < \alpha$ 时的不可分解内射
+$R$-模 $E_{\beta + 1}$ 的直和。
+当 $\alpha = 0$ 时令 $I_0 = 0$。设序数 $\alpha$ 已给定且 $I_\alpha$ 已构造。
+由引理 \ref{dualizing-lemma-sum-injective-modules}，$I_\alpha$ 是内射 $R$-模。
+因此 $I \cong I_\alpha \oplus I'$。若 $I' = 0$，则完成。
+否则由《代数》引理 \ref{algebra-lemma-ass-zero}，$I'$ 有一个伴随素理想。
+因此对某个素理想 $\mathfrak p$，$I'$ 含有 $R/\mathfrak p$ 的一个副本。
+于是由引理 \ref{dualizing-lemma-injective-hull-unique} 与
+\ref{dualizing-lemma-injective-hull-indecomposable}，$I'$ 含有不可分解子模 $E$。
+令 $I_{\alpha + 1} = I_\alpha \oplus E_\alpha$。
+若 $\alpha$ 是极限序数，且对 $\beta < \alpha$ 已构造 $I_\beta$，则令
+$I_\alpha = \bigcup_{\beta < \alpha} I_\beta$。
+注意 $I_\alpha = \bigoplus_{\beta < \alpha} E_{\beta + 1}$。
+证明完毕。
+\end{proof}
+
+
+
+\section{Artinian 局部环上的对偶}
+\label{dualizing-section-artinian}
+
+\noindent
+设 $(R, \mathfrak m, \kappa)$ 为 Artinian 局部环。
+回忆这意味着 $R$ 是 Noetherian 环，且 $R$ 作为 $R$-模具有有限长度。
+此外，$R$-模是有限的当且仅当它具有有限长度。本节中将不再重复说明这些事实。
+更多细节见《代数》第 \ref{algebra-section-length} 节与
+\ref{algebra-section-artinian} 节，以及《代数》命题
+\ref{algebra-proposition-dimension-zero-ring}。
+
+\begin{lemma}
+\label{dualizing-lemma-finite}
+设 $(R, \mathfrak m, \kappa)$ 为 Artinian 局部环。
+设 $E$ 为 $\kappa$ 的内射包。对每个有限 $R$-模 $M$，有
+$$
+\text{length}_R(M) = \text{length}_R(\Hom_R(M, E))
+$$
+特别地，$\kappa$ 的内射包 $E$ 是有限 $R$-模。
+\end{lemma}
+
+\begin{proof}
+由于 $E$ 是 $\kappa$ 的本质扩张，有
+$\kappa = E[\mathfrak m]$，其中 $E[\mathfrak m]$ 是 $E$ 中的
+$\mathfrak m$-挠部分（记号见《更多代数》第
+\ref{more-algebra-section-torsion} 节）。
+于是 $\Hom_R(\kappa, E) \cong \kappa$，长度等式对 $M = \kappa$ 成立。
+我们对 $M$ 的长度归纳证明引理中的显示等式。若 $M$ 非零，则存在核为 $M'$ 的满射
+$M \to \kappa$。由于函子 $M \mapsto \Hom_R(M, E)$ 正合，可得短正合序列
+$$
+0 \to \Hom_R(\kappa, E) \to \Hom_R(M, E) \to \Hom_R(M', E) \to 0.
+$$
+该序列以及序列 $0 \to M' \to M \to \kappa \to 0$ 的长度可加性，
+结合归纳假设对 $M'$ 与 $\kappa$ 的等式，推出 $M$ 的等式。
+引理的最后一个断言由 $E = \Hom_R(R, E)$ 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-evaluate}
+设 $(R, \mathfrak m, \kappa)$ 为 Artinian 局部环。
+设 $E$ 为 $\kappa$ 的内射包。对任意有限 $R$-模 $M$，求值映射
+$$
+M \longrightarrow \Hom_R(\Hom_R(M, E), E)
+$$
+是同构。特别地，$R = \Hom_R(E, E)$。
+\end{lemma}
+
+\begin{proof}
+注意显示的箭头是单射。事实上，若 $x \in M$ 为非零元素，
+则存在非零映射 $Rx \to \kappa$，可将其延拓为在 $x$ 上不为零的映射
+$\varphi : M \to E$。由引理 \ref{dualizing-lemma-finite}，箭头的源与靶具有相同长度，
+故它是同构。最后一个断言由取 $M = R$ 得出。
+\end{proof}
+
+\noindent
+记 $\text{Mod}^{fg}_R$ 为环 $R$ 上有限 $R$-模所成的范畴，则下一个引理可表述为：
+
+\begin{lemma}
+\label{dualizing-lemma-duality}
+设 $(R, \mathfrak m, \kappa)$ 为 Artinian 局部环。
+设 $E$ 为 $\kappa$ 的内射包。函子 $D(-) = \Hom_R(-, E)$
+诱导正合反等价
+$\text{Mod}^{fg}_R \to \text{Mod}^{fg}_R$，并且
+$D \circ D \cong \text{id}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-evaluate}，我们已知 $D \circ D = \text{id}$ 在
+$\text{Mod}^{fg}_R$ 上成立。因此立即得到 $D$ 是反等价。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-duality-torsion-cotorsion}
+假设与记号同引理 \ref{dualizing-lemma-duality}。设 $I \subset R$ 为理想，$M$ 为有限 $R$-模。
+则
+$$
+D(M[I]) = D(M)/ID(M) \quad\text{且}\quad D(M/IM) = D(M)[I]
+$$
+\end{lemma}
+
+\begin{proof}
+设 $I = (f_1, \ldots, f_t)$。考虑映射
+$$
+M^{\oplus t} \xrightarrow{f_1, \ldots, f_t} M
+$$
+其余核为 $M/IM$。应用正合函子 $D$，得到 $D(M/IM)$ 是 $D(M)[I]$。
+另一种情形同理可证。
+\end{proof}
+
+
+
+\section{剩余域的内射包}
+\label{dualizing-section-hull-residue-field}
+
+\noindent
+本节中的大多数结果针对 Noetherian 局部环。
+
+\begin{lemma}
+\label{dualizing-lemma-quotient}
+设 $R \to S$ 是局部环的满射，核为 $I$。
+设 $E$ 为 $R$ 上 $R$ 的剩余域的内射包。
+则 $E[I]$ 是 $S$ 上 $S$ 的剩余域的内射包。
+\end{lemma}
+
+\begin{proof}
+注意，由 $S = R/I$，有 $E[I] = \Hom_R(S, E)$。
+由引理 \ref{dualizing-lemma-hom-injective}，$E[I]$ 是内射 $S$-模。
+由于 $E$ 是 $\kappa = R/\mathfrak m_R$ 的本质扩张，$E[I]$ 同样是
+$\kappa$ 的本质扩张。结论得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-torsion-submodule-sum-injective-hulls}
+设 $(R, \mathfrak m, \kappa)$ 为局部环。
+设 $E$ 为 $\kappa$ 的内射包。设 $M$ 为 $\mathfrak m$-幂挠 $R$-模，
+且 $n = \dim_\kappa(M[\mathfrak m]) < \infty$。
+则 $M$ 同构于 $E^{\oplus n}$ 的一个子模。
+\end{lemma}
+
+\begin{proof}
+注意 $E^{\oplus n}$ 是 $\kappa^{\oplus n} = M[\mathfrak m]$ 的内射包。
+因此存在 $R$-模映射 $M \to E^{\oplus n}$，其在 $M[\mathfrak m]$ 上为单射。
+由于 $M$ 是 $\mathfrak m$-幂挠的，包含 $M[\mathfrak m] \subset M$ 是本质扩张
+（例如由引理 \ref{dualizing-lemma-essential-extension}），故
+$M \to E^{\oplus n}$ 的核为零。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-union-artinian}
+设 $(R, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+设 $E$ 为 $R$ 上 $\kappa$ 的内射包。
+设 $E_n$ 为 $R/\mathfrak m^n$ 上 $\kappa$ 的内射包。
+则 $E = \bigcup E_n$ 且 $E_n = E[\mathfrak m^n]$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-quotient}，$E_n = E[\mathfrak m^n]$。
+又因 $\bigcup E_n = E[\mathfrak m^\infty]$ 是包含 $\kappa$ 的内射
+$R$-子模，故 $E = \bigcup E_n$，见引理 \ref{dualizing-lemma-injective-module-divide}。
+\end{proof}
+
+\noindent
+下一个引理说明，Noetherian 局部环的剩余域的内射包只取决于完备化。
+
+\begin{lemma}
+\label{dualizing-lemma-compare}
+设 $R \to S$ 是局部 Noetherian 环的平坦局部同态，满足
+$R/\mathfrak m_R \cong S/\mathfrak m_R S$。
+则 $R$ 的剩余域的内射包也是 $S$ 的剩余域的内射包。
+\end{lemma}
+
+\begin{proof}
+注意 $\mathfrak m_RS = \mathfrak m_S$，因为前者的商是域。
+令 $\kappa = R/\mathfrak m_R = S/\mathfrak m_S$。
+令 $E_R$ 为 $R$ 上 $\kappa$ 的内射包，令 $E_S$ 为 $S$ 上 $\kappa$ 的内射包。
+由引理 \ref{dualizing-lemma-injective-flat}，$E_S$ 是内射 $R$-模。
+取剩余域恒等的延拓 $E_R \to E_S$。由引理
+\ref{dualizing-lemma-union-artinian}，该映射是同构，因为对每个 $n$，$R \to S$ 诱导同构
+$R/\mathfrak m_R^n \to S/\mathfrak m_S^n$。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-endos}
+设 $(R, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+设 $E$ 为 $R$ 上 $\kappa$ 的内射包。则 $\Hom_R(E, E)$
+与 $R$ 的完备化有典范同构。
+\end{lemma}
+
+\begin{proof}
+按引理 \ref{dualizing-lemma-union-artinian}，写 $E = \bigcup E_n$，其中
+$E_n = E[\mathfrak m^n]$。$E$ 的任意自同态都保持这一滤过。因此
+$$
+\Hom_R(E, E) = \lim \Hom_R(E_n, E_n)
+$$
+由引理 \ref{dualizing-lemma-evaluate}，
+$\Hom_R(E_n, E_n) = \Hom_{R/\mathfrak m^n}(E_n, E_n) = R/\mathfrak m^n$，
+故得证。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-hull-has-dcc}
+设 $(R, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+设 $E$ 为 $R$ 上 $\kappa$ 的内射包。则 $E$ 满足降链条件。
+\end{lemma}
+
+\begin{proof}
+若 $E \supset M_1 \supset M_2 \supset \ldots$ 是子模序列，则
+$$
+\Hom_R(E, E) \to \Hom_R(M_1, E) \to \Hom_R(M_2, E) \to \ldots
+$$
+是满射序列。由引理 \ref{dualizing-lemma-endos}，其中每一项都是完备化
+$R^\wedge = \Hom_R(E, E)$ 上的模。
+由于 $R^\wedge$ 是 Noetherian 环（《代数》引理
+\ref{algebra-lemma-completion-Noetherian-Noetherian}），序列稳定，即
+$\Hom_R(M_n, E) = \Hom_R(M_{n + 1}, E) = \ldots$。
+由于 $E$ 内射，这只能在 $\Hom_R(M_n/M_{n + 1}, E)$ 为零时发生。
+然而若 $M_n/M_{n + 1}$ 非零，则其中含有被 $\mathfrak m$ 湮灭的非零元素，
+因为由引理 \ref{dualizing-lemma-union-artinian}，$E$ 是 $\mathfrak m$-幂挠的。
+此时 $M_n/M_{n + 1}$ 有非零映射到 $E$，与假定的消失矛盾。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-describe-categories}
+设 $(R, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+设 $E$ 为 $\kappa$ 的内射包。
+\begin{enumerate}
+\item 对 $R$-模 $M$，以下条件等价：
+\begin{enumerate}
+\item $M$ 满足升链条件；
+\item $M$ 是有限 $R$-模；
+\item 存在 $n, m$ 及正合序列
+$R^{\oplus m} \to R^{\oplus n} \to M \to 0$。
+\end{enumerate}
+\item 对 $R$-模 $M$，以下条件等价：
+\begin{enumerate}
+\item $M$ 满足降链条件；
+\item $M$ 是 $\mathfrak m$-幂挠的，且
+$\dim_\kappa(M[\mathfrak m]) < \infty$；
+\item 存在 $n, m$ 及正合序列
+$0 \to M \to E^{\oplus n} \to E^{\oplus m}$。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明略。
+
+\medskip\noindent
+设 $M$ 为满足降链条件的 $R$-模，取 $x \in M$。
+$\mathfrak m^n x$ 是子模降链，因而稳定。所以对某个 $n$，
+$\mathfrak m^nx = \mathfrak m^{n + 1}x$。由 Nakayama 引理
+（《代数》引理 \ref{algebra-lemma-NAK}），这意味着 $\mathfrak m^n x = 0$，
+即 $x$ 是 $\mathfrak m$-幂挠的。由于 $M[\mathfrak m]$ 是 $\kappa$ 上的向量空间，
+要满足降链条件，它必须是有限维的。
+
+\medskip\noindent
+设 $M$ 是 $\mathfrak m$-幂挠的，且其 $\mathfrak m$-挠子模 $M[\mathfrak m]$ 有限维。
+由引理 \ref{dualizing-lemma-torsion-submodule-sum-injective-hulls}，对某个 $n$，$M$ 是
+$E^{\oplus n}$ 的子模。考虑商 $N = E^{\oplus n}/M$。由引理
+\ref{dualizing-lemma-injective-hull-has-dcc}，$E$ 满足降链条件，故 $E^{\oplus n}$ 与 $N$ 也满足。
+因此 $N$ 满足 (2)(a)，由证明的第二段可知 $N$ 满足 (2)(b)。
+再由引理 \ref{dualizing-lemma-torsion-submodule-sum-injective-hulls}，对某个 $m$，$N$ 是
+$E^{\oplus m}$ 的子模。因此有短正合序列
+$0 \to M \to E^{\oplus n} \to E^{\oplus m}$。
+
+\medskip\noindent
+设有短正合序列 $0 \to M \to E^{\oplus n} \to E^{\oplus m}$。
+由于由引理 \ref{dualizing-lemma-injective-hull-has-dcc}，$E$ 满足降链条件，
+故 $M$ 也满足降链条件。
+\end{proof}
+
+\begin{proposition}[Matlis 对偶]
+\label{dualizing-proposition-matlis}
+设 $(R, \mathfrak m, \kappa)$ 为完备局部 Noetherian 环。
+设 $E$ 为 $R$ 上 $\kappa$ 的内射包。函子
+$D(-) = \Hom_R(-, E)$ 诱导反等价
+$$
+\left\{
+\begin{matrix}
+R\text{-modules with the} \\
+\text{descending chain condition}
+\end{matrix}
+\right\}
+\longleftrightarrow
+\left\{
+\begin{matrix}
+R\text{-modules with the} \\
+\text{ascending chain condition}
+\end{matrix}
+\right\}
+$$
+并且等价两侧都有 $D \circ D = \text{id}$。
+\end{proposition}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-endos}，有 $R = \Hom_R(E, E) = D(E)$。
+显然 $E = \Hom_R(R, E) = D(R)$。由于 $E$ 是内射的，函子 $D$ 正合。
+结论立即由引理 \ref{dualizing-lemma-describe-categories} 中对这些范畴的描述得出。
+\end{proof}
+
+\begin{remark}
+\label{dualizing-remark-matlis}
+设 $(R, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+设 $E$ 为 $R$ 上 $\kappa$ 的内射包。这里给出 Matlis 对偶的补充：若 $N$ 是
+$\mathfrak m$-幂挠模，且 $M = \Hom_R(N, E)$ 是 $R$ 的完备化上的有限模，
+则 $N$ 满足降链条件。事实上，对任意满足 $N'' \subset N' \subset N$ 且
+$N'' \not = N'$ 的子模，可取嵌入 $\kappa \subset N''/N'$，从而得到湮灭
+$N''$ 的非零映射 $N' \to E$，并将其延拓为湮灭 $N''$ 的映射 $N \to E$。
+因此 $N \supset N' \mapsto M' = \Hom_R(N/N', E) \subset M$
+是从 $N$ 的子模到 $M$ 的子模的保持包含映射，结论随即得到。
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{导出挠部分}
+\label{dualizing-section-bad-local-cohomology}
+
+\noindent
+设 $A$ 为环，$I \subset A$ 为有限生成理想
+（若 $I$ 不是有限生成的，或许应采用不同定义）。令 $Z = V(I) \subset \Spec(A)$。
+回忆，$I$-幂挠模所成的范畴 $I^\infty\text{-torsion}$
+只取决于闭子集 $Z$，而不取决于满足 $Z = V(I)$ 的有限生成理想 $I$ 的选择，见
+《更多代数》引理 \ref{more-algebra-lemma-local-cohomology-closed}。
+本节考虑函子
+$$
+H^0_{I} : \text{Mod}_A \longrightarrow I^\infty\text{-torsion},\quad
+M \longmapsto M[I^\infty] = \bigcup M[I^n]
+$$
+它将 $M$ 送到其 $I$-幂挠子模。
+
+\medskip\noindent
+设 $A$ 为环，$I$ 为有限生成理想。注意 $I^\infty\text{-torsion}$ 是 Grothendieck
+阿贝尔范畴（直和存在，滤余极限正合，且由
+《更多代数》引理 \ref{more-algebra-lemma-I-power-torsion-presentation}，
+$\bigoplus A/I^n$ 是生成元）。因此导出范畴
+$D(I^\infty\text{-torsion})$ 存在，见《内射模》备注
+\ref{injectives-remark-existence-D}。
+函子 $H^0_I$ 左正合，其导出延拓记为
+$$
+R\Gamma_I : D(A) \longrightarrow D(I^\infty\text{-torsion}).
+$$
+{\bf Warning:} 除非环 $A$ 是 Noetherian 环，否则此函子不配称为局部上同调。
+函子 $H^0_I$、$R\Gamma_I$ 及卫星函子 $H^p_I$ 只取决于闭子集
+$Z \subset \Spec(A)$，而不取决于满足 $V(I) = Z$ 的有限生成理想 $I$ 的选择。
+不过，我们坚持在上述函子中使用下标 $I$，因为记号 $R\Gamma_Z$ 将用于另一函子，见
+（\ref{dualizing-equation-local-cohomology}）；据我们所知，该函子与 $R\Gamma_I$ 一致
+仅在 $A$ 为 Noetherian 环时成立（见引理 \ref{dualizing-lemma-local-cohomology-noetherian}）。
+
+\begin{lemma}
+\label{dualizing-lemma-adjoint}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。
+函子 $R\Gamma_I$ 是函子 $D(I^\infty\text{-torsion}) \to D(A)$ 的右伴随。
+\end{lemma}
+
+\begin{proof}
+这是因为取 $I$-幂挠子模是包含函子
+$I^\infty\text{-torsion} \to \text{Mod}_A$ 的右伴随。见《导出范畴》引理
+\ref{derived-lemma-derived-adjoint-functors}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-ext}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。对 $D(A)$ 中任意对象 $K$，有
+$$
+R\Gamma_I(K) = \text{hocolim}\ R\Hom_A(A/I^n, K)
+$$
+在 $D(A)$ 中，且
+$$
+R^q\Gamma_I(K) = \colim_n \Ext_A^q(A/I^n, K)
+$$
+作为模对所有 $q \in \mathbf{Z}$ 成立。
+\end{lemma}
+
+\begin{proof}
+设 $J^\bullet$ 为表示 $K$ 的 K-内射复形。则
+$$
+R\Gamma_I(K) = J^\bullet[I^\infty] = \colim J^\bullet[I^n] =
+\colim \Hom_A(A/I^n, J^\bullet)
+$$
+其中第一等式是 $R\Gamma_I(K)$ 的定义。由《导出范畴》引理
+\ref{derived-lemma-colim-hocolim}，得到引理陈述中的第一个显示等式。
+第二个显示等式由
+$H^q(\Hom_A(A/I^n, J^\bullet)) = \Ext^q_A(A/I^n, K)$
+以及阿贝尔群范畴中的滤余极限正合而得。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-bad-local-cohomology-vanishes}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。
+设 $K^\bullet$ 为 $A$-模复形，且对某个 $f \in I$，
+$f : K^\bullet \to K^\bullet$ 是同构，即 $K^\bullet$ 是 $A_f$-模复形。
+则 $R\Gamma_I(K^\bullet) = 0$。
+\end{lemma}
+
+\begin{proof}
+事实上，此时 $R\Gamma_I(K^\bullet)$ 的上同调模既是 $f$-幂挠的，
+又由 $f$ 的自同构作用。因此上同调模为零，故对象为零。
+\end{proof}
+
+\noindent
+设 $A$ 为环，$I \subset A$ 为有限生成理想。
+由《更多代数》引理 \ref{more-algebra-lemma-I-power-torsion}，
+$I$-幂挠模所成的范畴是全体 $A$-模范畴的 Serre 子范畴。因此存在函子
+\begin{equation}
+\label{dualizing-equation-compare-torsion}
+D(I^\infty\text{-torsion}) \longrightarrow D_{I^\infty\text{-torsion}}(A)
+\end{equation}
+其中右侧是 $D(A)$ 的全子范畴，由上同调为 $I$-幂挠模的对象组成。
+该函子与该范畴都在《导出范畴》第
+\ref{derived-section-triangulated-sub} 节中讨论。
+
+\begin{lemma}
+\label{dualizing-lemma-not-equal}
+设 $A$ 为环，$I$ 为有限生成理想。设 $M$ 与 $N$ 为 $I$-幂挠模。
+\begin{enumerate}
+\item $\Hom_{D(A)}(M, N) = \Hom_{D({I^\infty\text{-torsion}})}(M, N)$；
+\item $\Ext^1_{D(A)}(M, N) =
+\Ext^1_{D({I^\infty\text{-torsion}})}(M, N)$；
+\item $\Ext^2_{D({I^\infty\text{-torsion}})}(M, N) \to
+\Ext^2_{D(A)}(M, N)$ 一般不是满射；
+\item （\ref{dualizing-equation-compare-torsion}）一般不是等价。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 立即由 $I$-幂挠模构成 $\text{Mod}_A$ 的 Serre 子范畴这一事实得出。
+(4) 由 (3) 得出。
+
+\medskip\noindent
+为证明 (3)，设环 $A$ 中有元素 $f \in A$，使得 $A[f]$ 含有一个被 $f$
+湮灭的非零元素 $x$，且 $A$ 含有满足 $f^nx_n = x$ 的元素 $x_n$。
+这样的环 $A$ 存在，因为可取
+$$
+A = \mathbf{Z}[f, x, x_n]/(fx, f^nx_n - x)
+$$
+给定 $A$，令 $I = (f)$。则正合序列
+$$
+0 \to A[f] \to A \xrightarrow{f} A \to A/fA \to 0
+$$
+定义 $\Ext^2_A(A/fA, A[f])$ 中的一个元素。我们断言该元素不来自
+$\Ext^2_{D(f^\infty\text{-torsion})}(A/fA, A[f])$ 中的元素。
+否则将存在正合序列
+$$
+0 \to A[f] \to M \to N \to A/fA \to 0
+$$
+其中 $M$ 与 $N$ 是定义同一个 $2$-扩张类的 $f$-幂挠模。
+由于 $A \to A$ 是自由模复形，且两个 $2$-扩张类相同，可找到映射
+$$
+\xymatrix{
+0 \ar[r] &
+A[f] \ar[r] \ar[d] &
+A \ar[r] \ar[d]_\varphi &
+A \ar[r] \ar[d]_\psi &
+A/fA \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+A[f] \ar[r] &
+M \ar[r] &
+N \ar[r] &
+A/fA \ar[r] & 0
+}
+$$
+（略去若干细节）。然后可用 $\varphi$ 的像替换 $M$，用 $\psi$ 的像替换 $N$。
+此时 $M$ 是循环模，故对某个 $n$ 有 $f^n M = 0$。
+考察 $\varphi(x_{n + 1})$，便与 $f^{n + 1}x_n = x$ 在 $A[f]$ 中非零这一事实矛盾。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{局部上同调}
+\label{dualizing-section-local-cohomology}
+
+\noindent
+设 $A$ 为环，$I \subset A$ 为有限生成理想。令
+$Z = V(I) \subset \Spec(A)$。我们将构造函子
+\begin{equation}
+\label{dualizing-equation-local-cohomology}
+R\Gamma_Z : D(A) \longrightarrow D_{I^\infty\text{-torsion}}(A).
+\end{equation}
+它是包含函子的右伴随。记号见第 \ref{dualizing-section-bad-local-cohomology} 节。
+$R\Gamma_Z(K)$ 的上同调模称为 $K$ 关于 $Z$ 的{\it 局部上同调群}。
+由引理 \ref{dualizing-lemma-not-equal}，即使将二者都视为取值于 $D(A)$ 的函子，
+此函子一般也{\bf 不}等于 $R\Gamma_I( - )$。
+第 \ref{dualizing-section-local-cohomology-noetherian} 节将证明，当 $A$ 为 Noetherian 环时，
+二者一致。
+
+\medskip\noindent
+我们将在局部上同调一章继续讨论局部上同调，见《局部上同调》第
+\ref{local-cohomology-section-introduction} 节。例如，那里将证明
+$R\Gamma_Z$ 计算 $\Spec(A)$ 上相伴拟凝聚层复形的支撑在 $Z$ 中的上同调。
+见《局部上同调》引理
+\ref{local-cohomology-lemma-local-cohomology-is-local-cohomology}。
+
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-adjoint}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。
+包含函子 $D_{I^\infty\text{-torsion}}(A) \to D(A)$ 存在右伴随
+$R\Gamma_Z$（\ref{dualizing-equation-local-cohomology}）。
+事实上，若 $I$ 由 $f_1, \ldots, f_r \in A$ 生成，则有
+$$
+R\Gamma_Z(K) =
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}}
+\to \ldots \to A_{f_1\ldots f_r}) \otimes_A^\mathbf{L} K
+$$
+并且对 $K \in D(A)$ 函子性成立。
+\end{lemma}
+
+\begin{proof}
+设 $I = (f_1, \ldots, f_r)$ 为理想。设 $K^\bullet$ 为 $A$-模复形。
+存在复形的典范映射
+$$
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r}) \longrightarrow A.
+$$
+即从扩充的 {\v C}ech 复形到 $A$ 的映射。
+与 $K^\bullet$ 张量并取相伴全复形，得到映射
+$$
+\text{Tot}\left(
+K^\bullet \otimes_A
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r})\right)
+\longrightarrow
+K^\bullet
+$$
+于 $D(A)$ 中。我们断言左侧复形的上同调模是 $I$-幂挠的，
+即 LHS 是 $D_{I^\infty\text{-torsion}}(A)$ 中的对象。事实上，有
+$$
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r}) = \colim K(A, f_1^n, \ldots, f_r^n)
+$$
+见《更多代数》引理
+\ref{more-algebra-lemma-extended-alternating-Cech-is-colimit-koszul}。
+此外，由《更多代数》引理 \ref{more-algebra-lemma-homotopy-koszul}，
+复形 $K(A, f_1^n, \ldots, f_r^n)$ 上乘以 $f_i^n$ 零伦。
+由于
+$$
+H^q\left( LHS \right) =
+\colim H^q(\text{Tot}(K^\bullet \otimes_A K(A, f_1^n, \ldots, f_r^n)))
+$$
+断言得证。另一方面，若 $K^\bullet$ 是
+$D_{I^\infty\text{-torsion}}(A)$ 中的对象，则复形
+$K^\bullet \otimes_A A_{f_{i_0} \ldots f_{i_p}}$ 的上同调消失。
+因此此时映射 $LHS \to K^\bullet$ 在 $D(A)$ 中是同构。构造
+$$
+R\Gamma_Z(K^\bullet) =
+\text{Tot}\left(
+K^\bullet \otimes_A
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r})\right)
+$$
+对 $K^\bullet$ 函子性成立，并定义三角范畴之间的正合函子
+$D(A) \to D_{I^\infty\text{-torsion}}(A)$。
+由上述自然变换 $R\Gamma_Z \to \text{id}$ 的存在，以及它在子范畴中的
+$K^\bullet$ 上取同构这一事实，形式地得出 $R\Gamma_Z$ 是所需右伴随。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-and-restriction}
+设 $A \to B$ 为环同态，$I \subset A$ 为有限生成理想。令 $J = IB$，
+再令 $Z = V(I)$、$Y = V(J)$。则
+$$
+R\Gamma_Z(M_A) = R\Gamma_Y(M)_A
+$$
+对 $M \in D(B)$ 函子性成立。这里 $(-)_A$ 表示标量限制函子
+$D(B) \to D(A)$ 以及
+$D_{J^\infty\text{-torsion}}(B) \to D_{I^\infty\text{-torsion}}(A)$。
+\end{lemma}
+
+\begin{proof}
+这由伴随函子的唯一性得出，因为 $R\Gamma_Z((-)_A)$ 与
+$R\Gamma_Y(-)_A$ 都是函子
+$D_{I^\infty\text{-torsion}}(A) \to D(B)$，
+$K \mapsto K \otimes_A^\mathbf{L} B$ 的右伴随。
+也可使用交错 {\v C}ech 复形给出的 $R\Gamma_Z$ 与 $R\Gamma_Y$ 的描述
+（引理 \ref{dualizing-lemma-local-cohomology-adjoint}）。
+具体地，若 $I = (f_1, \ldots, f_r)$，则 $J$ 由 $f_1, \ldots, f_r$
+的像 $g_1, \ldots, g_r \in B$ 生成。
+此时该引理的陈述由典范同构
+\begin{align*}
+& M_A \otimes_A (A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}}
+\to \ldots \to A_{f_1\ldots f_r}) \\
+& = 
+M \otimes_B (B \to \prod\nolimits_{i_0} B_{g_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} B_{g_{i_0}g_{i_1}}
+\to \ldots \to B_{g_1\ldots g_r})
+\end{align*}
+的存在得出，其中 $M$ 为任意 $B$-模。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-torsion-change-rings}
+设 $A \to B$ 为环同态，$I \subset A$ 为有限生成理想。令 $J = IB$，
+$Z = V(I)$ 且 $Y = V(J)$。则
+$$
+R\Gamma_Z(K) \otimes_A^\mathbf{L} B = R\Gamma_Y(K \otimes_A^\mathbf{L} B)
+$$
+对 $K \in D(A)$ 函子性成立。
+\end{lemma}
+
+\begin{proof}
+写 $I = (f_1, \ldots, f_r)$。则 $J$ 由 $f_1, \ldots, f_r$
+的像 $g_1, \ldots, g_r \in B$ 生成，并且作为 $B$-模复形有
+$$
+(A \to \prod A_{f_{i_0}} \to \ldots \to A_{f_1\ldots f_r}) \otimes_A B =
+(B \to \prod B_{g_{i_0}} \to \ldots \to B_{g_1\ldots g_r})
+$$
+以 $A$-模的 K-平坦复形 $K^\bullet$ 表示 $K$。由于与
+$$
+K^\bullet \otimes_A
+(A \to \prod A_{f_{i_0}} \to \ldots \to A_{f_1\ldots f_r}) \otimes_A B
+$$
+以及
+$$
+K^\bullet \otimes_A B \otimes_B
+(B \to \prod B_{g_{i_0}} \to \ldots \to B_{g_1\ldots g_r})
+$$
+相伴的全复形分别表示该引理所示公式的左侧与右侧
+（见引理 \ref{dualizing-lemma-local-cohomology-adjoint}），故结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-vanishes}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。设 $K^\bullet$ 为
+$A$-模复形，并且对某个 $f \in I$，映射
+$f : K^\bullet \to K^\bullet$ 是同构；换言之，$K^\bullet$ 是
+$A_f$-模复形。则 $R\Gamma_Z(K^\bullet) = 0$。
+\end{lemma}
+
+\begin{proof}
+事实上，此时 $R\Gamma_Z(K^\bullet)$ 的上同调模既是 $f$-幂挠的，
+而 $f$ 又通过自同构作用。因此这些上同调模为零，从而该对象为零。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-torsion-tensor-product}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。对 $K, L \in D(A)$ 有
+$$
+R\Gamma_Z(K \otimes_A^\mathbf{L} L) =
+K \otimes_A^\mathbf{L} R\Gamma_Z(L) =
+R\Gamma_Z(K) \otimes_A^\mathbf{L} L =
+R\Gamma_Z(K) \otimes_A^\mathbf{L} R\Gamma_Z(L)
+$$
+若 $K$ 或 $L$ 属于 $D_{I^\infty\text{-torsion}}(A)$，则
+$K \otimes_A^\mathbf{L} L$ 也属于其中。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-local-cohomology-adjoint}，对某个 $C \in D(A)$，
+$R\Gamma_Z$ 由 $C \otimes^\mathbf{L} -$ 给出。因此对一般的
+$K, L \in D(A)$ 有
+$$
+R\Gamma_Z(K \otimes_A^\mathbf{L} L) =
+K \otimes^\mathbf{L} L \otimes_A^\mathbf{L} C =
+K \otimes_A^\mathbf{L} R\Gamma_Z(L)
+$$
+其余等式由此形式地得出；该引理的最后一个陈述也随之成立。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-ss}
+设 $A$ 为环，$I, J \subset A$ 为有限生成理想。令 $Z = V(I)$、
+$Y = V(J)$。则 $Z \cap Y = V(I + J)$，并且作为函子
+$D(A) \to D_{(I + J)^\infty\text{-torsion}}(A)$ 有
+$R\Gamma_Y \circ R\Gamma_Z = R\Gamma_{Y \cap Z}$。对 $K \in D^+(A)$，
+存在谱序列
+$$
+E_2^{p, q} = H^p_Y(H^q_Z(K)) \Rightarrow H^{p + q}_{Y \cap Z}(K)
+$$
+如《导出范畴》引理
+\ref{derived-lemma-grothendieck-spectral-sequence} 所述。
+\end{lemma}
+
+\begin{proof}
+严格说来，$R\Gamma_Y$ 与 $R\Gamma_Z$ 不能直接复合，所以引理中的记号
+略有滥用。该陈述的含义只是：先将 $R\Gamma_Z$ 与包含函子
+$D_{I^\infty\text{-torsion}}(A) \to D(A)$ 复合，再与
+$R\Gamma_Y$ 复合。于是等式
+$R\Gamma_Y \circ R\Gamma_Z = R\Gamma_{Y \cap Z}$
+由下述事实得出：函子
+$$
+D_{I^\infty\text{-torsion}}(A) \to D(A) \xrightarrow{R\Gamma_Y}
+D_{(I + J)^\infty\text{-torsion}}(A)
+$$
+是包含函子
+$D_{(I + J)^\infty\text{-torsion}}(A) \to D_{I^\infty\text{-torsion}}(A)$
+的右伴随。也可使用引理 \ref{dualizing-lemma-local-cohomology-adjoint}
+以及如下事实证明该公式：关于 $f_1, \ldots, f_r$ 与
+$g_1, \ldots, g_m$ 的扩充 {\v C}ech 复形的张量积，正是关于
+$f_1, \ldots, f_n. g_1, \ldots, g_m$ 的扩充 {\v C}ech 复形。
+最后一个断言由此及所引引理得出。
+\end{proof}
+
+\noindent
+以下引理是《更多代数》引理
+\ref{more-algebra-lemma-restriction-derived-complete-equivalence}
+对上同调为挠模的复形的类似结果。
+
+\begin{lemma}
+\label{dualizing-lemma-torsion-flat-change-rings}
+设 $A \to B$ 为平坦环同态，$I \subset A$ 为有限生成理想，且
+$A/I = B/IB$。则换基与标量限制诱导互为拟逆的等价
+$D_{I^\infty\text{-torsion}}(A) = D_{(IB)^\infty\text{-torsion}}(B)$。
+\end{lemma}
+
+\begin{proof}
+更准确地说，这两个函子分别为：对
+$D_{I^\infty\text{-torsion}}(A)$ 中的 $K$，取
+$K \mapsto K \otimes_A^\mathbf{L} B$；对
+$D_{(IB)^\infty\text{-torsion}}(B)$ 中的 $M$，取 $M \mapsto M_A$。
+其成立的原因是
+$H^i(K \otimes_A^\mathbf{L} B) = H^i(K) \otimes_A B = H^i(K)$。
+第一个等式由 $A \to B$ 平坦得出，第二个等式由《更多代数》引理
+\ref{more-algebra-lemma-neighbourhood-isomorphism} 得出。
+\end{proof}
+
+\noindent
+《更多代数》引理 \ref{more-algebra-lemma-neighbourhood-equivalence} 与
+\ref{more-algebra-lemma-neighbourhood-extensions}
+已经对模的 $\Hom$ 和 $\Ext^1$ 证明了以下引理。
+
+\begin{lemma}
+\label{dualizing-lemma-neighbourhood-extensions}
+设 $A \to B$ 为平坦环同态，$I \subset A$ 为有限生成理想，且
+$A/I \to B/IB$ 是同构。对 $K \in D_{I^\infty\text{-torsion}}(A)$
+及 $L \in D(A)$，映射
+$$
+R\Hom_A(K, L) \longrightarrow R\Hom_B(K \otimes_A B, L \otimes_A B)
+$$
+是拟同构。特别地，若 $M$、$N$ 为 $A$-模，且 $M$ 是 $I$-幂挠的，
+则对所有 $i$，典范映射
+$$
+\Ext^i_A(M, N)
+\longrightarrow
+\Ext^i_B(M \otimes_A B, N \otimes_A B)
+$$
+都是同构。
+\end{lemma}
+
+\begin{proof}
+令 $Z = V(I) \subset \Spec(A)$、$Y = V(IB) \subset \Spec(B)$。
+由于 $K$ 的上同调模是 $I$-幂挠的，典范映射
+$R\Gamma_Z(L) \to L$ 在 $D(A)$ 中诱导同构
+$$
+R\Hom_A(K, R\Gamma_Z(L)) \to R\Hom_A(K, L)
+$$
+类似地，$K \otimes_A B$ 的上同调模是 $IB$-幂挠的，并且在
+$D(B)$ 中有同构
+$$
+R\Hom_B(K \otimes_A B, R\Gamma_Y(L \otimes_A B)) \to 
+R\Hom_B(K \otimes_A B, L \otimes_A B)
+$$
+由引理 \ref{dualizing-lemma-torsion-change-rings}，
+$R\Gamma_Z(L) \otimes_A B = R\Gamma_Y(L \otimes_A B)$。
+因此只需证明映射
+$$
+R\Hom_A(K, R\Gamma_Z(L)) \to R\Hom_B(K \otimes_A B, R\Gamma_Z(L) \otimes_A B)
+$$
+是拟同构。这由引理 \ref{dualizing-lemma-torsion-flat-change-rings} 得出。
+\end{proof}
+
+
+
+
+\section{Noetherian 环上的局部上同调}
+\label{dualizing-section-local-cohomology-noetherian}
+
+\noindent
+设 $A$ 为环，$I \subset A$ 为有限生成理想。令
+$Z = V(I) \subset \Spec(A)$。回忆（\ref{dualizing-equation-compare-torsion}）是函子
+$$
+D(I^\infty\text{-torsion}) \to D_{I^\infty\text{-torsion}}(A)
+$$
+事实上，存在函子的自然变换
+\begin{equation}
+\label{dualizing-equation-compare-torsion-functors}
+(\ref{dualizing-equation-compare-torsion}) \circ R\Gamma_I(-)
+\longrightarrow
+R\Gamma_Z(-)
+\end{equation}
+具体地，给定 $A$-模复形 $K^\bullet$，$D(A)$ 中的典范映射
+$R\Gamma_I(K^\bullet) \to K^\bullet$ 唯一地经由
+$R\Gamma_Z(K^\bullet)$ 分解，因为 $R\Gamma_I(K^\bullet)$ 的上同调模
+是 $I$-幂挠的（见引理 \ref{dualizing-lemma-adjoint}）。
+一般而言，此映射不是同构（引理 \ref{dualizing-lemma-not-equal} 已给出这一点）。
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-noetherian}
+设 $A$ 为 Noetherian 环，$I \subset A$ 为理想。
+\begin{enumerate}
+\item 对 $K \in D_{I^\infty\text{-torsion}}(A)$，伴随映射
+$R\Gamma_I(K) \to K$ 是同构；
+\item 函子（\ref{dualizing-equation-compare-torsion}）
+$D(I^\infty\text{-torsion}) \to D_{I^\infty\text{-torsion}}(A)$
+是等价；
+\item 函子变换（\ref{dualizing-equation-compare-torsion-functors}）是同构；
+换言之，对 $K \in D(A)$ 有 $R\Gamma_I(K) = R\Gamma_Z(K)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+一个省略的形式论证表明，只需证明 (1)。
+
+\medskip\noindent
+设 $M$ 为 $I$-幂挠 $A$-模。选取到内射 $A$-模中的嵌入
+$M \to J$。由引理 \ref{dualizing-lemma-injective-module-divide}，
+$J[I^\infty]$ 是内射 $A$-模，因而得到嵌入
+$M \to J[I^\infty]$。所以每个 $I$-幂挠模都有内射分解
+$M \to J^\bullet$，其中 $J^n$ 也都是 $I$-幂挠的。因此
+$R\Gamma_I(M) = M$（这并非显然；若 $A$ 不是 Noetherian 环，
+一般也不成立）。接着设
+$K \in D_{I^\infty\text{-torsion}}^+(A)$。此时谱序列
+$$
+R^q\Gamma_I(H^p(K)) \Rightarrow R^{p + q}\Gamma_I(K)
+$$
+（《导出范畴》引理 \ref{derived-lemma-two-ss-complex-functor}）
+收敛，并且由上文可知，只有 $q = 0$ 的项可能非零。
+故 $R\Gamma_I(K) \to K$ 是同构。
+
+\medskip\noindent
+再设 $K$ 是 $D_{I^\infty\text{-torsion}}(A)$ 的任意对象。
+由引理 \ref{dualizing-lemma-local-cohomology-ext} 有
+$$
+R^q\Gamma_I(K) = \colim \Ext^q_A(A/I^n, K)
+$$
+选取生成 $I$ 的 $f_1, \ldots, f_r \in A$。令
+$K_n^\bullet = K(A, f_1^n, \ldots, f_r^n)$ 为次数位于
+$-r, \ldots, 0$ 的 Koszul 复形。由《更多代数》引理
+\ref{more-algebra-lemma-sequence-Koszul-complexes}，
+$D(A)$ 中的 pro-对象 $\{A/I^n\}$ 与 $\{K_n^\bullet\}$ 相同，故
+$$
+R^q\Gamma_I(K) = \colim \Ext^q_A(K_n^\bullet, K)
+$$
+任取表示 $K$ 的 $A$-模复形 $K^\bullet$。由于 $K_n^\bullet$
+是由有限自由模组成的有限复形，有
+$$
+\Ext^q_A(K_n, K) =
+H^q(\text{Tot}((K_n^\bullet)^\vee \otimes_A K^\bullet))
+$$
+其中 $(K_n^\bullet)^\vee$ 是复形 $K_n^\bullet$ 的对偶。
+见《更多代数》引理 \ref{more-algebra-lemma-RHom-out-of-projective}。
+由于 $(K_n^\bullet)^\vee$ 是次数位于 $0, \ldots, r$、由有限自由
+$A$-模组成的复形，复形
+$\text{Tot}((K_n^\bullet)^\vee \otimes_A K^\bullet)$ 与复形
+$\text{Tot}((K_n^\bullet)^\vee \otimes_A \tau_{\geq q - r - 2} K^\bullet)$
+在次数 $q - 1$ 及更高次数上的项相同。因此
+$$
+\Ext^q_A(K_n, K) = \text{Ext}^q_A(K_n, \tau_{\geq q - r - 2}K)
+$$
+对所有 $n$ 成立。于是
+$$
+R^q\Gamma_I(K) = R^q\Gamma_I(\tau_{\geq q - r - 2}K) =
+H^q(\tau_{\geq q - r - 2}K) = H^q(K)
+$$
+故映射 $R\Gamma_I(K) \to K$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-compute-local-cohomology-noetherian}
+设 $A$ 为 Noetherian 环，$I = (f_1, \ldots, f_r)$ 为 $A$ 的理想。
+令 $Z = V(I) \subset \Spec(A)$。在 $D(A)$ 中存在典范同构
+$$
+R\Gamma_I(A) \to
+(A \to \prod\nolimits_{i_0} A_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} A_{f_{i_0}f_{i_1}} \to
+\ldots \to A_{f_1\ldots f_r}) \to R\Gamma_Z(A)
+$$
+若 $M$ 为 $A$-模，则类似地，在 $D(A)$ 中有
+$$
+R\Gamma_I(M) \cong
+(M \to \prod\nolimits_{i_0} M_{f_{i_0}} \to
+\prod\nolimits_{i_0 < i_1} M_{f_{i_0}f_{i_1}} \to
+\ldots \to M_{f_1\ldots f_r}) \cong R\Gamma_Z(M)
+$$
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{dualizing-lemma-local-cohomology-noetherian} 以及引理
+\ref{dualizing-lemma-local-cohomology-adjoint} 中对函子 $R\Gamma_Z$ 的计算得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-change-rings}
+若 $A \to B$ 是 Noetherian 环的同态，且 $I \subset A$ 为理想，
+则在 $D(B)$ 中有
+$$
+R\Gamma_I(A) \otimes_A^\mathbf{L} B =
+R\Gamma_Z(A) \otimes_A^\mathbf{L} B =
+R\Gamma_Y(B) = R\Gamma_{IB}(B)
+$$
+其中 $Y = V(IB) \subset \Spec(B)$。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{dualizing-lemma-compute-local-cohomology-noetherian} 与
+\ref{dualizing-lemma-torsion-change-rings} 即得。
+\end{proof}
+
+
+
+
+
+
+\section{深度}
+\label{dualizing-section-depth}
+
+\noindent
+本节重新考察《代数》第 \ref{algebra-section-depth} 节引入的深度概念。
+
+\begin{lemma}
+\label{dualizing-lemma-depth}
+设 $A$ 为 Noetherian 环，$I \subset A$ 为理想，$M$ 为有限
+$A$-模，且 $IM \not = M$。则以下整数相等：
+\begin{enumerate}
+\item $\text{depth}_I(M)$；
+\item 使 $\Ext_A^i(A/I, M)$ 非零的最小整数 $i$；
+\item 使 $H^i_I(M)$ 非零的最小整数 $i$。
+\end{enumerate}
+此外，对任意被 $I$ 的某次幂零化的有限 $A$-模 $N$，当
+$i < \text{depth}_I(M)$ 时有 $\Ext^i_A(N, M) = 0$。
+\end{lemma}
+
+\begin{proof}
+由《代数》引理 \ref{algebra-lemma-depth-finite-noetherian}，可以对
+$\text{depth}_I(M)$ 归纳来证明 (1) 与 (2) 相等。
+
+\medskip\noindent
+先看基础情形。若 $\text{depth}_I(M) = 0$，则 $I$ 包含于 $M$
+的相伴素理想之并中（《代数》引理
+\ref{algebra-lemma-ass-zero-divisors}）。
+由素理想避开引理（《代数》引理 \ref{algebra-lemma-silly}），
+对某个相伴素理想 $\mathfrak p$ 有 $I \subset \mathfrak p$。
+因此 $\Hom_A(A/I, M)$ 非零，故此时等式成立。
+
+\medskip\noindent
+设 $\text{depth}_I(M) > 0$。取 $f \in I$，使它是 $M$ 上的非零因子，
+并且 $\text{depth}_I(M/fM) = \text{depth}_I(M) - 1$。考察短正合序列
+$$
+0 \to M \to M \to M/fM \to 0
+$$
+以及相伴的 $\Ext^*_A(A/I, -)$ 长正合序列。注意
+$\Ext^i_A(A/I, M)$ 是有限 $A/I$-模（《代数》引理
+\ref{algebra-lemma-ext-noetherian} 与
+\ref{algebra-lemma-annihilate-ext}）。因此得到
+$$
+\Hom_A(A/I, M/fM) = \Ext^1_A(A/I, M)
+$$
+以及短正合序列
+$$
+0 \to \Ext^i_A(A/I, M) \to \text{Ext}^i_A(A/I, M/fM) \to
+\Ext^{i + 1}_A(A/I, M) \to 0
+$$
+于是由归纳得到 (1) 与 (2) 相等。
+
+\medskip\noindent
+注意，对所有 $n \geq 1$ 都有
+$\text{depth}_I(M) = \text{depth}_{I^n}(M)$；例如这由《代数》引理
+\ref{algebra-lemma-regular-sequence-powers} 得出。因此由 (1) 与 (2)
+相等可知，对所有 $n$ 以及 $i < \text{depth}_I(M)$，有
+$\Ext^i_A(A/I^n, M) = 0$。设 $N$ 为被 $I$ 的某次幂零化的有限
+$A$-模。则对某些 $n, m \geq 0$，可选取短正合序列
+$$
+0 \to N' \to (A/I^n)^{\oplus m} \to N \to 0
+$$
+此时
+$\Hom_A(N, M) \subset \Hom_A((A/I^n)^{\oplus m}, M)$，
+并且当 $i < \text{depth}_I(M)$ 时，
+$\Ext^i_A(N, M) \subset \text{Ext}^{i - 1}_A(N', M)$。
+于是一个简单的归纳论证表明，该引理的最后一个陈述成立。
+
+\medskip\noindent
+最后证明 (3) 等于 (1) 与 (2)。由引理
+\ref{dualizing-lemma-local-cohomology-ext} 有
+$H^p_I(M) = \colim \Ext^p_A(A/I^n, M)$。
+所以当 $i < \text{depth}_I(M)$ 时 $H^i_I(M) = 0$。
+当 $i = \text{depth}_I(M)$ 时，利用
+$\Ext_A^{i - 1}(I/I^n, M)$ 的消失可知，映射
+$\Ext_A^i(A/I, M) \to H_I^i(M)$ 是单射，从而证明在正确次数上非零。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-depth-in-ses}
+设 $A$ 为 Noetherian 环，$0 \to N' \to N \to N'' \to 0$
+为有限 $A$-模的短正合序列，$I \subset A$ 为理想。则
+\begin{enumerate}
+\item
+$\text{depth}_I(N) \geq \min\{\text{depth}_I(N'), \text{depth}_I(N'')\}$；
+\item
+$\text{depth}_I(N'') \geq \min\{\text{depth}_I(N), \text{depth}_I(N') - 1\}$；
+\item
+$\text{depth}_I(N') \geq \min\{\text{depth}_I(N), \text{depth}_I(N'') + 1\}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $IN \not = N$、$IN' \not = N'$ 且 $IN'' \not = N''$。
+此时可以使用引理 \ref{dualizing-lemma-depth} 中由 Ext 群
+$\Ext^i(A/I, N)$ 给出的深度刻画，并使用《代数》引理
+\ref{algebra-lemma-long-exact-seq-ext} 的上同调长正合序列
+$$
+\begin{matrix}
+0
+\to \Hom_A(A/I, N')
+\to \Hom_A(A/I, N)
+\to \Hom_A(A/I, N'')
+\\
+\phantom{0\ }
+\to \Ext^1_A(A/I, N')
+\to \Ext^1_A(A/I, N)
+\to \Ext^1_A(A/I, N'')
+\to \ldots
+\end{matrix}
+$$
+若 $IN = N$，该论证也成立，因为此时对所有 $i$ 都有
+$\Ext^i_A(A/I, N) = 0$。在 $IN' \not = N'$ 和/或
+$IN'' \not = N''$ 的情形同理。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-depth-drops-by-one}
+设 $A$ 为 Noetherian 环，$I \subset A$ 为理想，$M$ 为有限
+$A$-模，且 $IM \not = M$。
+\begin{enumerate}
+\item 若 $x \in I$ 是 $M$ 上的非零因子，则
+$\text{depth}_I(M/xM) = \text{depth}_I(M) - 1$。
+\item $I$ 中任意 $M$-正则序列 $x_1, \ldots, x_r$ 都可扩充为
+$I$ 中长度为 $\text{depth}_I(M)$ 的 $M$-正则序列。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2) 是 (1) 的形式推论。设 $x \in I$ 如 (1) 所述。由短正合序列
+$0 \to M \to M \to M/xM \to 0$ 及引理 \ref{dualizing-lemma-depth-in-ses}，
+有 $\text{depth}_I(M/xM) \geq \text{depth}_I(M) - 1$。
+另一方面，若 $x_1, \ldots, x_r \in I$ 是 $M/xM$ 的正则序列，
+则 $x, x_1, \ldots, x_r$ 是 $M$ 的正则序列。因此 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-depth-CM}
+设 $R$ 为 Noetherian 局部环。若 $M$ 是有限 Cohen--Macaulay
+$R$-模，且 $I \subset R$ 为非平凡理想，则
+$$
+\text{depth}_I(M) = \dim(\text{Supp}(M)) - \dim(\text{Supp}(M/IM)).
+$$
+\end{lemma}
+
+\begin{proof}
+对 $\text{depth}_I(M)$ 归纳。
+
+\medskip\noindent
+若 $\text{depth}_I(M) = 0$，则 $I$ 包含于 $M$ 的某个相伴素理想
+$\mathfrak p$ 中（《代数》引理
+\ref{algebra-lemma-ideal-nonzerodivisor}）。于是
+$\mathfrak p \in \text{Supp}(M/IM)$，从而
+$\dim(\text{Supp}(M/IM)) \geq \dim(R/\mathfrak p) = \dim(\text{Supp}(M))$，
+其中等式由《代数》引理
+\ref{algebra-lemma-CM-ass-minimal-support} 成立。故此时引理成立。
+
+\medskip\noindent
+若 $\text{depth}_I(M) > 0$，取 $x \in I$，使它是 $M$ 上的非零因子。
+注意 $(M/xM)/I(M/xM) = M/IM$。另一方面，由引理
+\ref{dualizing-lemma-depth-drops-by-one} 有
+$\text{depth}_I(M/xM) = \text{depth}_I(M) - 1$；由《代数》引理
+\ref{algebra-lemma-one-equation-module} 有
+$\dim(\text{Supp}(M/xM)) = \dim(\text{Supp}(M)) -  1$。
+因此由归纳假设得到结论。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-depth-flat-CM}
+设 $R \to S$ 为 Noetherian 局部环之间的平坦局部环同态。
+以 $\mathfrak m \subset R$ 表示极大理想，设 $I \subset S$ 为理想。
+若 $S/\mathfrak mS$ 是 Cohen--Macaulay 的，则
+$$
+\text{depth}_I(S) \geq \dim(S/\mathfrak mS) - \dim(S/\mathfrak mS + I)
+$$
+\end{lemma}
+
+\begin{proof}
+由《代数》引理 \ref{algebra-lemma-grothendieck-regular-sequence}，
+$S$ 中任何在 $S/\mathfrak mS$ 中映为正则序列的序列，都是 $S$
+中的正则序列。因此只需在 $R$ 为域的情形证明该引理；
+这是引理 \ref{dualizing-lemma-depth-CM} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-divide-by-torsion}
+设 $A$ 为环，$I \subset A$ 为有限生成理想，$M$ 为 $A$-模。
+令 $Z = V(I)$。则 $H^0_I(M) = H^0_Z(M)$。以 $N$ 表示这个共同的值，
+并令 $M' = M/N$。则
+\begin{enumerate}
+\item 对所有 $p > 0$，有 $H^0_I(M') = 0$、
+$H^p_I(M) = H^p_I(M')$ 及 $H^p_I(N) = 0$；
+\item 对所有 $p > 0$，有 $H^0_Z(M') = 0$、
+$H^p_Z(M) = H^p_Z(M')$ 及 $H^p_Z(N) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+按定义，$H^0_I(M) = M[I^\infty]$ 是 $I$-幂挠的。
+由引理 \ref{dualizing-lemma-local-cohomology-adjoint}，若
+$I = (f_1, \ldots, f_r)$，则
+$$
+H^0_Z(M) = \Ker(M \longrightarrow M_{f_1} \times \ldots \times M_{f_r})
+$$
+因此 $H^0_I(M) \subset H^0_Z(M)$。反之，若 $x \in H^0_Z(M)$，
+则对某个 $e_i \geq 1$，它被某个 $f_i^{e_i}$ 零化，因而被 $I$
+的某次幂零化。这证明了第一个等式，并且 $N$ 是 $I$-幂挠的。
+由引理 \ref{dualizing-lemma-adjoint} 有 $R\Gamma_I(N) = N$；
+由引理 \ref{dualizing-lemma-local-cohomology-adjoint} 有 $R\Gamma_Z(N) = N$。
+这证明了 (1) 与 (2) 中 $H^p_I(N)$ 和 $H^p_Z(N)$ 在高次的消失。
+由上述论证以及《更多代数》引理
+\ref{more-algebra-lemma-divide-by-torsion} 所给出的 $M'$ 为
+$I$-幂无挠这一事实，得到 $H^0_I(M')$ 与 $H^0_Z(M')$ 的消失。
+$M$ 与 $M'$ 的高次上同调相等，则立即由上同调长正合序列得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{挠模与完备模}
+\label{dualizing-section-torsion-and-complete}
+
+\noindent
+设 $A$ 为环，$I$ 为有限生成理想。此时可以考察上同调模为
+$I$-幂挠模的复形所构成的导出范畴
+$D_{I^\infty\text{-torsion}}(A)$（第 \ref{dualizing-section-local-cohomology} 节），
+以及导出完备复形的导出范畴 $D_{comp}(A, I)$（《更多代数》第
+\ref{more-algebra-section-derived-completion} 节）。本节证明这两个范畴等价。
+更一般的陈述见 \cite{Dwyer-Greenlees}。
+
+\begin{lemma}
+\label{dualizing-lemma-complete-and-local}
+\begin{slogan}
+这类结果有时称为 Greenlees--May 对偶。
+\end{slogan}
+设 $A$ 为环，$I$ 为有限生成理想。令 $R\Gamma_Z$ 如引理
+\ref{dualizing-lemma-local-cohomology-adjoint} 所述；令 ${\ }^\wedge$
+表示《更多代数》引理 \ref{more-algebra-lemma-derived-completion}
+中的导出完备化。对 $D(A)$ 中的对象 $K$，在 $D(A)$ 中有
+$$
+R\Gamma_Z(K^\wedge) = R\Gamma_Z(K)
+\quad\text{且}\quad
+(R\Gamma_Z(K))^\wedge = K^\wedge
+$$
+\end{lemma}
+
+\begin{proof}
+选取生成 $I$ 的 $f_1, \ldots, f_r \in A$。回忆由《更多代数》引理
+\ref{more-algebra-lemma-derived-completion} 有
+$$
+K^\wedge = R\Hom_A\left((A \to \prod A_{f_{i_0}}
+\to \prod A_{f_{i_0i_1}} \to \ldots \to A_{f_1 \ldots f_r}), K\right)
+$$
+因此锥 $C = \text{Cone}(K \to K^\wedge)$ 由
+$$
+R\Hom_A\left((\prod A_{f_{i_0}}
+\to \prod A_{f_{i_0i_1}} \to \ldots \to A_{f_1 \ldots f_r}), K\right)
+$$
+给出。它可由一个带有限滤过的复形表示，其相继商同构于
+$$
+R\Hom_A(A_{f_{i_0} \ldots f_{i_p}}, K), \quad p > 0
+$$
+对这些复形施用 $R\Gamma_Z$ 后均消失，见引理
+\ref{dualizing-lemma-local-cohomology-vanishes}。对可区别三角
+$K \to K^\wedge \to C \to K[1]$ 施用 $R\Gamma_Z$，
+即知该引理的第一个公式成立。
+
+\medskip\noindent
+回忆由引理 \ref{dualizing-lemma-local-cohomology-adjoint} 有
+$$
+R\Gamma_Z(K) =
+K \otimes^\mathbf{L} (A \to \prod A_{f_{i_0}}
+\to \prod A_{f_{i_0i_1}} \to \ldots \to A_{f_1 \ldots f_r})
+$$
+因此锥 $C = \text{Cone}(R\Gamma_Z(K) \to K)$ 可由一个带有限滤过的
+复形表示，其相继商同构于
+$$
+K \otimes_A A_{f_{i_0} \ldots f_{i_p}}, \quad p > 0
+$$
+对这些复形施用 ${\ }^\wedge$ 后均消失，见《更多代数》引理
+\ref{more-algebra-lemma-derived-completion-vanishes}。
+对可区别三角 $R\Gamma_Z(K) \to K \to C \to R\Gamma_Z(K)[1]$
+施用导出完备化，即知该引理的第二个公式成立。
+\end{proof}
+
+\noindent
+以下结果是关于三角范畴的容许子范畴这一很一般现象的一个特殊情形。
+
+\begin{proposition}
+\label{dualizing-proposition-torsion-complete}
+\begin{reference}
+这是 \cite[Theorem 1.1]{Porta-Liran-Yekutieli} 的一个特殊情形。
+\end{reference}
+设 $A$ 为环，$I \subset A$ 为有限生成理想。函子
+$R\Gamma_Z$ 与 ${\ }^\wedge$ 定义互为拟逆的范畴等价
+$$
+D_{I^\infty\text{-torsion}}(A) \leftrightarrow D_{comp}(A, I)
+$$
+\end{proposition}
+
+\begin{proof}
+立即由引理 \ref{dualizing-lemma-complete-and-local} 得出。
+\end{proof}
+
+\noindent
+上述命题的以下补充更精确地描述了态射之间的对应。
+
+\begin{lemma}
+\label{dualizing-lemma-compare-RHom}
+采用引理 \ref{dualizing-lemma-complete-and-local} 的记号。对 $D(A)$ 中的对象
+$K, L$，在 $D(A)$ 中存在典范同构
+$$
+R\Hom_A(K^\wedge, L^\wedge) \longrightarrow R\Hom_A(R\Gamma_Z(K), R\Gamma_Z(L))
+$$
+\end{lemma}
+
+\begin{proof}
+设 $I = (f_1, \ldots, f_r)$。以
+$C = (A \to \prod A_{f_i} \to \ldots \to A_{f_1 \ldots f_r})$
+表示交错 {\v C}ech 复形。则导出完备化由
+$R\Hom_A(C, -)$ 给出（《更多代数》引理
+\ref{more-algebra-lemma-derived-completion}），局部上同调由
+$C \otimes^\mathbf{L} -$ 给出（引理
+\ref{dualizing-lemma-local-cohomology-adjoint}）。结合同构
+$$
+R\Hom_A(K \otimes^\mathbf{L} C, L \otimes^\mathbf{L} C) =
+R\Hom_A(K, R\Hom_A(C,  L \otimes^\mathbf{L} C))
+$$
+（《更多代数》引理 \ref{more-algebra-lemma-internal-hom}）与映射
+$$
+L \to R\Hom_A(C,  L \otimes^\mathbf{L} C)
+$$
+（《更多代数》引理 \ref{more-algebra-lemma-internal-hom-diagonal}），
+得到映射
+$$
+\gamma :
+R\Hom_A(K, L)
+\longrightarrow
+R\Hom_A(K \otimes^\mathbf{L} C, L \otimes^\mathbf{L} C)
+$$
+另一方面，右侧等于
+$$
+R\Hom_A(C, R\Hom_A(K, L \otimes^\mathbf{L} C)).
+$$
+因而是导出完备的。由导出完备化的泛性质，$\gamma$ 经由
+$R\Hom_A(K, L)$ 的导出完备化分解。然而，由《更多代数》引理
+\ref{more-algebra-lemma-completion-RHom}，导出完备化可移入
+$R\Hom_A$ 内，于是得到所需映射。
+
+\medskip\noindent
+为证明该引理的映射是同构，可以假设 $K$ 与 $L$ 都是导出完备的，
+即 $K = K^\wedge$ 且 $L = L^\wedge$。此时考察映射
+$$
+\gamma : R\Hom_A(K, L) \longrightarrow R\Hom_A(R\Gamma_Z(K), R\Gamma_Z(L))
+$$
+由命题 \ref{dualizing-proposition-torsion-complete}，左侧与右侧的上同调群相同。
+换言之，只需验证映射 $\gamma$ 将 $D(A)$ 中的态射
+$\alpha : K \to L$ 送到态射
+$R\Gamma_Z(\alpha) : R\Gamma_Z(K) \to R\Gamma_Z(L)$。
+我们省略验证（提示：注意 $R\Gamma_Z(\alpha)$ 正是映射
+$\alpha \otimes \text{id}_C :
+K \otimes^\mathbf{L} C
+\to
+L \otimes^\mathbf{L} C$；它与《更多代数》引理
+\ref{more-algebra-lemma-internal-hom-diagonal} 中映射的构造几乎相同）。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-completion-local}
+设 $I$ 与 $J$ 为 Noetherian 环 $A$ 的理想，$M$ 为有限 $A$-模。
+令 $Z =V(J)$。考察局部上同调的导出 $I$-进完备化
+$R\Gamma_Z(M)^\wedge$。则
+\begin{enumerate}
+\item 有 $R\Gamma_Z(M)^\wedge = R\lim R\Gamma_Z(M/I^nM)$；
+\item 存在短正合序列
+$$
+0 \to R^1\lim H^{i - 1}_Z(M/I^nM) \to H^i(R\Gamma_Z(M)^\wedge) \to
+\lim H^i_Z(M/I^nM) \to 0
+$$
+\end{enumerate}
+特别地，$R\Gamma_Z(M)^\wedge$ 在负次数上的上同调消失。
+\end{lemma}
+
+\begin{proof}
+设 $J = (g_1, \ldots, g_m)$。由引理
+\ref{dualizing-lemma-local-cohomology-adjoint}，$R\Gamma_Z(M)$ 由复形
+$$
+M \to \prod M_{g_{j_0}} \to \prod M_{g_{j_0}g_{j_1}} \to
+\ldots \to M_{g_1g_2\ldots g_m}
+$$
+计算。由《更多代数》引理
+\ref{more-algebra-lemma-when-derived-completion-is-completion}，
+此复形的导出 $I$-进完备化由通常完备化构成的复形
+$$
+\lim M/I^nM \to \prod \lim (M/I^nM)_{g_{j_0}} \to
+\ldots \to \lim (M/I^nM)_{g_1g_2\ldots g_m}
+$$
+给出。又因为 $R\Gamma_Z(M/I^nM)$ 由复形
+$ M/I^nM \to \prod (M/I^nM)_{g_{j_0}} \to
+\ldots \to (M/I^nM)_{g_1g_2\ldots g_m}$ 计算，且这些复形之间的
+转移映射都是满射，所以由《更多代数》引理
+\ref{more-algebra-lemma-compute-Rlim-modules} 得到 (1)。
+(2) 随后由《更多代数》引理
+\ref{more-algebra-lemma-break-long-exact-sequence-modules} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-completion-local-H0}
+采用引理 \ref{dualizing-lemma-completion-local} 的记号与假设，并设 $A$ 是
+$I$-进完备的。则
+$$
+H^0(R\Gamma_Z(M)^\wedge) = \colim H^0_{V(J')}(M)
+$$
+其中滤过余极限取遍满足 $V(J') \cap V(I) = V(J) \cap V(I)$ 的
+$J' \subset J$。
+\end{lemma}
+
+\begin{proof}
+由于 $M$ 是有限 $A$-模，$M$ 是 $I$-进完备的。
+引理 \ref{dualizing-lemma-completion-local} 的证明表明
+$$
+H^0(R\Gamma_Z(M)^\wedge) =
+\Ker(M^\wedge \to \prod M_{g_j}^\wedge) =
+\Ker(M \to \prod M_{g_j}^\wedge)
+$$
+其中右侧采用通常的 $I$-进完备化。映射
+$M_{g_j} \to M_{g_j}^\wedge$ 的核 $K_j$ 是
+$\bigcap I^n M_{g_j}$。由《代数》引理
+\ref{algebra-lemma-intersection-powers-ideal-module}，对每个
+$\mathfrak p \in V(IA_{g_j})$，都可找到
+$f \in A_{g_j}$、$f \not \in \mathfrak p$，使得 $(K_j)_f = 0$。
+
+\medskip\noindent
+设 $s \in H^0(R\Gamma_Z(M)^\wedge)$。由上文，可将 $s$ 视为 $M$
+的元素。由上述论证，$s$ 的支撑 $Z'$ 与 $D(g_j)$ 的交同
+$D(g_j) \cap V(I)$ 不交。因此 $Z'$ 是 $\Spec(A)$ 的闭子集，且
+$Z' \cap V(I) \subset V(J)$。于是对某个满足 $J' \subset J$ 且
+$V(J') \cap V(I) \subset V(J)$ 的理想，有
+$Z' \cup V(J) = V(J')$，并且 $s \in H^0_{V(J')}(M)$。
+反之，任意满足 $J' \subset J$ 与 $V(J') \cap V(I) \subset V(J)$ 的
+$s \in H^0_{V(J')}(M)$，对所有 $j$，在 $M_{g_j}^\wedge$ 中的像都为零。
+这就证明了该引理。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{环同态的平凡对偶}
+\label{dualizing-section-trivial}
+
+\noindent
+设 $A \to B$ 为环同态。考察函子
+$$
+\Hom_A(B, -) : \text{Mod}_A \longrightarrow \text{Mod}_B,\quad
+M \longmapsto \Hom_A(B, M)
+$$
+此函子左正合，并有导出扩张
+$R\Hom(B, -) : D(A) \to D(B)$。
+
+\begin{lemma}
+\label{dualizing-lemma-right-adjoint}
+设 $A \to B$ 为环同态。上面构造的函子 $R\Hom(B, -)$
+是标量限制函子 $D(B) \to D(A)$ 的右伴随。
+\end{lemma}
+
+\begin{proof}
+由《代数》引理 \ref{algebra-lemma-adjoint-hom-restrict}，标量限制与
+$\Hom_A(B, -)$ 是伴随函子，故结论成立。另见《导出范畴》引理
+\ref{derived-lemma-derived-adjoint-functors}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-composition-right-adjoints}
+设 $A \to B \to C$ 为环同态。则函子
+$R\Hom(C, -) \circ R\Hom(B, -) : D(A) \to D(C)$
+就是 $R\Hom(C, -) : D(A) \to D(C)$。
+\end{lemma}
+
+\begin{proof}
+由右伴随的唯一性及引理 \ref{dualizing-lemma-right-adjoint} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-RHom-ext}
+设 $\varphi : A \to B$ 为环同态。对 $D(A)$ 中的 $K$ 有
+$$
+\varphi_*R\Hom(B, K) = R\Hom_A(B, K)
+$$
+其中 $\varphi_* : D(B) \to D(A)$ 是标量限制。特别地，
+$R^q\Hom(B, K) = \Ext_A^q(B, K)$。
+\end{lemma}
+
+\begin{proof}
+选取表示 $K$ 的 K-内射复形 $I^\bullet$。则 $R\Hom(B, K)$
+由 $B$-模复形 $\Hom_A(B, I^\bullet)$ 表示。将它视为 $A$-模复形时，
+它表示 $R\Hom_A(B, K)$，故引理成立。
+\end{proof}
+
+\noindent
+设 $A$ 为 Noetherian 环。以
+$$
+D_{\textit{Coh}}(A) \subset D(A)
+$$
+表示如下全子范畴：其对象是 $D(A)$ 中上同调模均为有限 $A$-模的对象
+$K$。这一定义成立，见《导出范畴》第
+\ref{derived-section-triangulated-sub} 节；因为 $A$ 是 Noetherian 环，
+有限 $A$-模构成 $\text{Mod}_A$ 的 Serre 子范畴。
+
+\begin{lemma}
+\label{dualizing-lemma-exact-support-coherent}
+采用上述记号，并设 $A \to B$ 是 Noetherian 环之间的有限环同态。
+则 $R\Hom(B, -)$ 将 $D^+_{\textit{Coh}}(A)$ 映入
+$D^+_{\textit{Coh}}(B)$。
+\end{lemma}
+
+\begin{proof}
+需要证明：若 $K \in D^+(A)$ 的上同调模有限，则复形
+$R\Hom(B, K)$ 的上同调模也有限。由引理 \ref{dualizing-lemma-RHom-ext}，
+只要证明 Ext 模 $\Ext^i_A(B, K)$ 是有限 $A$-模即可。
+由于 $K$ 下有界，存在收敛谱序列
+$$
+\Ext^p_A(B, H^q(K)) \Rightarrow \text{Ext}^{p + q}_A(B, K)
+$$
+而由《代数》引理 \ref{algebra-lemma-ext-noetherian}，
+模 $\Ext^p_A(B, H^q(K))$ 有限，故证明完成。
+\end{proof}
+
+\begin{remark}
+\label{dualizing-remark-exact-support}
+设 $A$ 为环，$I \subset A$ 为理想，并令 $B = A/I$。
+此时函子 $\Hom_A(B, -)$ 等于函子
+$$
+\text{Mod}_A \longrightarrow \text{Mod}_B,\quad M \longmapsto M[I]
+$$
+它将 $M$ 送到其 $I$-挠子模。
+\end{remark}
+
+\begin{situation}
+\label{dualizing-situation-resolution}
+设 $R \to A$ 为环同态。我们给出 $R\Hom(A, -)$ 的另一种构造，
+它将在本章后文中很有用。具体地，设有 $R$ 上的微分分次代数
+$(E, d)$ 以及拟同构 $E \to A$，其中将 $A$ 视为微分为零的
+$R$ 上微分分次代数。则有交换图
+$$
+\vcenter{
+\xymatrix{
+D(E, \text{d}) \ar[rd] & &  D(A) \ar[ll] \ar[ld] \\
+& D(R)
+}
+}
+\quad\text{且}\quad
+\vcenter{
+\xymatrix{
+D(E, \text{d}) \ar[rr]_{- \otimes_E^\mathbf{L} A} & &  D(A) \\
+& D(R) \ar[lu]^{- \otimes_R^\mathbf{L} E} \ar[ru]_{- \otimes_R^\mathbf{L} A}
+}
+}
+$$
+其中水平箭头是范畴等价（《微分分次代数》引理
+\ref{dga-lemma-qis-equivalence}）。第一个图显然交换。
+第二个图也交换：一方面，第一个图交换，而这里的函子是其中函子的左伴随
+（《微分分次代数》例 \ref{dga-example-map-hom-tensor}）；另一方面，
+也可使用 $E \otimes^\mathbf{L}_E A = E \otimes_E A$
+及《微分分次代数》引理
+\ref{dga-lemma-compose-tensor-functors-general}。
+\end{situation}
+
+\begin{lemma}
+\label{dualizing-lemma-RHom-dga}
+在情形 \ref{dualizing-situation-resolution} 中，函子 $R\Hom(A, -)$
+等于函子 $R\Hom(E, -) : D(R) \to D(E, \text{d})$
+与等价 $- \otimes^\mathbf{L}_E A : D(E, \text{d}) \to D(A)$ 的复合。
+\end{lemma}
+
+\begin{proof}
+这是因为 $R\Hom(E, -)$ 是 $- \otimes^\mathbf{L}_R E$ 的右伴随，
+见《微分分次代数》引理 \ref{dga-lemma-tensor-hom-adjoint}。
+因此，此函子对环同态 $R \to A$ 所起的作用与函子
+$R\Hom(A, -)$ 相同（引理 \ref{dualizing-lemma-right-adjoint}），故二者必经由等价
+$- \otimes^\mathbf{L}_E A : D(E, \text{d}) \to D(A)$ 对应。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-RHom-is-tensor}
+在情形 \ref{dualizing-situation-resolution} 中，假设
+\begin{enumerate}
+\item 将 $E$ 视为 $D(R)$ 的对象时，它是紧对象；
+\item $N = \Hom^\bullet_R(E^\bullet, R)$ 计算 $R\Hom(E, R)$。
+\end{enumerate}
+则 $R\Hom(E, -) : D(R) \to D(E)$ 同构于
+$K \mapsto K \otimes_R^\mathbf{L} N$。
+\end{lemma}
+
+\begin{proof}
+这是《微分分次代数》引理
+\ref{dga-lemma-RHom-is-tensor} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-RHom-is-tensor-special}
+在情形 \ref{dualizing-situation-resolution} 中，设 $A$ 是完美 $R$-模。则
+$$
+R\Hom(A, -) : D(R) \to D(A)
+$$
+由 $K \mapsto K \otimes_R^\mathbf{L} M$ 给出，其中
+$M = R\Hom(A, R) \in D(A)$。
+\end{lemma}
+
+\begin{proof}
+应用《分次幂代数》引理
+\ref{dpa-lemma-tate-resoluton-pseudo-coherent-ring-map}，
+选取 $A$ 在 $R$ 上的 Tate 分解 $(E, \text{d})$。
+注意，当 $i > 0$ 时 $E^i = 0$；$E^0 = R[x_1, \ldots, x_n]$
+是多项式代数；当 $i < 0$ 时，$E^i$ 是有限自由 $E^0$-模。
+因此，将 $E$ 视为 $R$-模复形时，它是自由 $R$-模的上有界复形。
+验证引理 \ref{dualizing-lemma-RHom-is-tensor} 的假设。第一条成立是因为
+$A$ 完美（故由《更多代数》命题
+\ref{more-algebra-proposition-perfect-is-compact}，它也是紧对象）；
+第二条由《更多代数》引理
+\ref{more-algebra-lemma-RHom-out-of-projective} 成立。
+由该引理，对某个微分分次 $E$-模 $N$，函子
+$K \mapsto R\Hom(E, K)$ 同构于
+$K \mapsto K \otimes_R^\mathbf{L} N$。注意在 $D(A)$ 中
+$$
+(R \otimes_R E) \otimes_E^\mathbf{L} A = R \otimes_E E \otimes_E A
+$$
+因此由《微分分次代数》引理
+\ref{dga-lemma-compose-tensor-functors-general-algebra}，
+$- \otimes_R^\mathbf{L} N$ 与 $- \otimes_R^\mathbf{L} A$ 的复合
+具有 $- \otimes_R M$ 的形式，其中 $M \in D(A)$。
+最后应用引理 \ref{dualizing-lemma-RHom-dga} 即完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-compute-for-effective-Cartier-algebraic}
+设 $R \to A$ 为满环同态，其核 $I$ 是可逆 $R$-模。函子
+$R\Hom(A, -) : D(R) \to D(A)$ 同构于
+$K \mapsto K \otimes_R^\mathbf{L} N[-1]$，其中 $N$ 是可逆
+$A$-模 $I \otimes_R A$ 的逆。
+\end{lemma}
+
+\begin{proof}
+由于 $A$ 有有限射影分解
+$$
+0 \to I \to R \to A \to 0
+$$
+可知 $A$ 是完美 $R$-模。由引理
+\ref{dualizing-lemma-RHom-is-tensor-special}，只需证明 $D(A)$ 中
+$R\Hom(A, R)$ 由 $N[-1]$ 表示。这意味着 $R\Hom(A, R)$ 只有一个
+非零上同调模，即次数 $1$ 上的 $N$。由于
+$\text{Mod}_A \to \text{Mod}_R$ 全忠实，只需在施用标量限制函子
+$i_* : D(A) \to D(R)$ 后证明。由引理 \ref{dualizing-lemma-RHom-ext} 有
+$$
+i_*R\Hom(A, R) = R\Hom_R(A, R)
+$$
+利用上述有限射影分解可知，后者由复形
+$R \to I^{\otimes -1}$ 表示，其中 $R$ 位于次数 $0$。
+映射 $R \to I^{\otimes -1}$ 是单射，其余核为 $N$。
+\end{proof}
+
+
+
+
+
+\section{平凡对偶的换基}
+\label{dualizing-section-base-change-trivial-duality}
+
+\noindent
+本节考察环的余笛卡尔方块
+$$
+\xymatrix{
+A \ar[r]_\alpha & A' \\
+R \ar[u]^\varphi \ar[r]^\rho & R' \ar[u]_{\varphi'}
+}
+$$
+换言之，$A' = A \otimes_R R'$。若 $A$ 与 $R'$ 在 $R$ 上
+{\bf Tor 独立}，则存在典范换基映射
+\begin{equation}
+\label{dualizing-equation-base-change}
+R\Hom(A, K) \otimes_A^\mathbf{L} A'
+\longrightarrow
+R\Hom(A', K \otimes_R^\mathbf{L} R')
+\end{equation}
+它位于 $D(A')$ 中，并对 $D(R)$ 中的 $K$ 函子性成立。
+事实上，由引理 \ref{dualizing-lemma-right-adjoint} 的伴随性，这样的箭头等价于
+$D(R')$ 中的映射
+$$
+\varphi'_*\left(R\Hom(A, K) \otimes_A^\mathbf{L} A'\right)
+\longrightarrow
+K \otimes_R^\mathbf{L} R'
+$$
+其中 $\varphi'_* : D(A') \to D(R')$ 为标量限制函子。
+对左侧应用《更多代数》引理
+\ref{more-algebra-lemma-base-change-comparison}，可知这又等价于
+$D(R')$ 中的映射
+$$
+\varphi_*(R\Hom(A, K)) \otimes_R^\mathbf{L} R'
+\longrightarrow
+K \otimes_R^\mathbf{L} R'
+$$
+其中 $\varphi_* : D(A) \to D(R)$ 为标量限制函子。
+可取 $can \otimes^\mathbf{L} \text{id}_{R'}$，其中
+$can : \varphi_*(R\Hom(A, K)) \to K$ 是 $R\Hom(A, -)$ 与
+$\varphi_*$ 之间伴随的余单位。
+
+\begin{lemma}
+\label{dualizing-lemma-check-base-change-is-iso}
+在上述情形中，映射（\ref{dualizing-equation-base-change}）是同构，当且仅当
+《更多代数》引理
+\ref{more-algebra-lemma-internal-hom-diagonal-better} 中的映射
+$$
+R\Hom_R(A, K) \otimes_R^\mathbf{L} R'
+\longrightarrow
+R\Hom_R(A, K \otimes_R^\mathbf{L} R')
+$$
+是同构。
+\end{lemma}
+
+\begin{proof}
+为证明该映射是同构，只需证明施用 $\varphi'_*$ 后它是同构。
+对（\ref{dualizing-equation-base-change}）施用函子 $\varphi'_*$，并利用
+$A' = A \otimes_R^\mathbf{L} R'$，得到《更多代数》公式
+（\ref{more-algebra-equation-base-change-RHom}）中的导出 Hom 换基映射
+$R\Hom_R(A, K) \otimes_R^\mathbf{L} R' \to
+R\Hom_{R'}(A \otimes_R^\mathbf{L} R', K \otimes_R^\mathbf{L} R')$。
+完全依照《更多代数》引理
+\ref{more-algebra-lemma-base-change-RHom} 的证明展开左右两侧，
+特别是使用《更多代数》引理
+\ref{more-algebra-lemma-upgrade-adjoint-tensor-RHom}，即得所需结果。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-flat-bc-surjection}
+设 $R \to A$ 与 $R \to R'$ 为环同态，并令
+$A' = A \otimes_R R'$。假设
+\begin{enumerate}
+\item 作为 $R$-模，$A$ 是伪凝聚的；
+\item 作为 $R$-模，$R'$ 有有限 Tor 维数（例如 $R \to R'$ 平坦）；
+\item $A$ 与 $R'$ 在 $R$ 上 Tor 独立。
+\end{enumerate}
+则对 $K \in D^+(R)$，映射（\ref{dualizing-equation-base-change}）是同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-check-base-change-is-iso} 及《更多代数》引理
+\ref{more-algebra-lemma-internal-hom-evaluate-tensor-isomorphism}
+的第 (4) 部分得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-bc-surjection}
+设 $R \to A$ 与 $R \to R'$ 为环同态，并令
+$A' = A \otimes_R R'$。假设
+\begin{enumerate}
+\item 作为 $R$-模，$A$ 是完美的；
+\item $A$ 与 $R'$ 在 $R$ 上 Tor 独立。
+\end{enumerate}
+则对所有 $K \in D(R)$，映射（\ref{dualizing-equation-base-change}）都是同构。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-check-base-change-is-iso} 及《更多代数》引理
+\ref{more-algebra-lemma-internal-hom-evaluate-tensor-isomorphism}
+的第 (1) 部分得出。
+\end{proof}
+
+
+
+
+
+
+
+\section{对偶复形}
+\label{dualizing-section-dualizing}
+
+\noindent
+本节定义 Noetherian 环的对偶复形。
+
+\begin{definition}
+\label{dualizing-definition-dualizing}
+设 $A$ 为 Noetherian 环。一个{\it 对偶复形}是 $A$-模复形
+$\omega_A^\bullet$，满足
+\begin{enumerate}
+\item $\omega_A^\bullet$ 有有限内射维数；
+\item 对所有 $i$，$H^i(\omega_A^\bullet)$ 是有限 $A$-模；
+\item $A \to R\Hom_A(\omega_A^\bullet, \omega_A^\bullet)$ 是拟同构。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这一概念需要一些时间才能熟悉。读者不妨先不看证明，自行证明下面若干引理。
+
+\begin{lemma}
+\label{dualizing-lemma-finite-ext-into-bounded-injective}
+设 $A$ 为 Noetherian 环，$K, L \in D_{\textit{Coh}}(A)$，
+并设 $L$ 有有限内射维数。则 $R\Hom_A(K, L)$ 属于
+$D_{\textit{Coh}}(A)$。
+\end{lemma}
+
+\begin{proof}
+取整数 $n$，考察可区别三角
+$$
+\tau_{\leq n}K \to K \to \tau_{\geq n + 1}K \to \tau_{\leq n}K[1]
+$$
+见《导出范畴》评注
+\ref{derived-remark-truncation-distinguished-triangle}。
+由于 $L$ 有有限内射维数，对某个常数 $c$，
+$R\Hom_A(\tau_{\geq n + 1}K, L)$ 在次数 $\geq c - n$ 上的
+上同调消失。因此，给定 $i$，对某个 $n \gg - i$，映射
+$\Ext^i_A(K, L) \to \Ext^i_A(\tau_{\leq n}K, L)$ 是同构。
+将《概形的导出范畴》引理
+\ref{perfect-lemma-coherent-internal-hom} 应用于
+$\tau_{\leq n}K$ 与 $L$，可知对所有 $i$，
+$\Ext^i_A(K, L)$ 都是有限 $A$-模。因此 $R\Hom_A(K, L)$
+确为 $D_{\textit{Coh}}(A)$ 的对象。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing}
+设 $A$ 为 Noetherian 环。若 $\omega_A^\bullet$ 为对偶复形，则函子
+$$
+D : K \longmapsto R\Hom_A(K, \omega_A^\bullet)
+$$
+是反等价 $D_{\textit{Coh}}(A) \to D_{\textit{Coh}}(A)$；
+它交换 $D^+_{\textit{Coh}}(A)$ 与 $D^-_{\textit{Coh}}(A)$，
+并诱导反等价
+$D^b_{\textit{Coh}}(A) \to D^b_{\textit{Coh}}(A)$。
+此外，$D \circ D$ 同构于恒等函子。
+\end{lemma}
+
+\begin{proof}
+设 $K$ 为 $D_{\textit{Coh}}(A)$ 的对象。由引理
+\ref{dualizing-lemma-finite-ext-into-bounded-injective}，
+$R\Hom_A(K, \omega_A^\bullet)$ 是 $D_{\textit{Coh}}(A)$ 的对象。
+由《更多代数》引理
+\ref{more-algebra-lemma-internal-hom-evaluate-isomorphism-technical}
+及对偶复形的假设，得到典范同构
+$$
+K = R\Hom_A(\omega_A^\bullet, \omega_A^\bullet) \otimes_A^\mathbf{L} K
+\longrightarrow
+R\Hom_A(R\Hom_A(K, \omega_A^\bullet), \omega_A^\bullet)
+$$
+因此该函子有拟逆，证明完成。
+\end{proof}
+
+\noindent
+设 $R$ 为环。回忆：若 $D(R)$ 的对象 $L$ 关于导出张量积赋予
+$D(R)$ 的对称幺半结构是可逆对象，则称其 {\it 可逆}。
+由《更多代数》引理 \ref{more-algebra-lemma-invertible-derived}，
+这等价于：$L$ 完美，$L = \bigoplus H^n(L)[-n]$ 是有限直和，
+每个 $H^n(L)$ 都有限射影，并且存在开覆盖
+$\Spec(R) = \bigcup D(f_i)$，使得对某些整数 $n_i$ 有
+$L \otimes_R R_{f_i} \cong R_{f_i}[-n_i]$。
+
+\begin{lemma}
+\label{dualizing-lemma-equivalence-comes-from-invertible}
+设 $A$ 为 Noetherian 环，且
+$F : D^b_{\textit{Coh}}(A) \to D^b_{\textit{Coh}}(A)$
+为 $A$-线性范畴等价。则 $F(A)$ 是 $D(A)$ 的可逆对象。
+\end{lemma}
+
+\begin{proof}
+设 $\mathfrak m \subset A$ 为极大理想，余域为 $\kappa$。
+考察对象 $F(\kappa)$。由于
+$\kappa = \Hom_{D(A)}(\kappa, \kappa)$，可知 $F(\kappa)$
+的所有上同调群都被 $\mathfrak m$ 零化。又有
+$$
+\Ext^i_A(\kappa, \kappa) = \text{Ext}^i_A(F(\kappa), F(\kappa))
+= \Hom_{D(A)}(F(\kappa), F(\kappa)[i])
+$$
+当 $i < 0$ 时为零。设 $H^a(F(\kappa)) \not = 0$、
+$H^b(F(\kappa)) \not = 0$，其中 $a$ 最小而 $b$ 最大
+（特别地 $a \leq b$）。则 $D(A)$ 中存在非零映射
+$$
+F(\kappa) \to H^b(F(\kappa))[-b] \to H^a(F(\kappa))[-b]
+\to F(\kappa)[a - b]
+$$
+（它非零是因为在上同调上诱导非零映射）。故 $b = a$，于是
+$F(\kappa) = \kappa[-a]$。
+
+\medskip\noindent
+设 $G$ 是 $F$ 的拟逆。按上述论证，存在整数 $b$，使
+$G(\kappa) = \kappa[-b]$。复合后得到 $a + b = 0$。
+设 $E$ 为被 $\mathfrak m$ 的某次幂零化的有限 $A$-模。
+对 $E$ 的长度归纳，可知对某个被 $\mathfrak m$ 的某次幂零化的
+有限 $A$-模 $E'$，有 $G(E) = E'[-b]$。于是
+$E[-a] = F(E')$。接着考察群
+$$
+\Ext^i_A(A, E') = \text{Ext}^i_A(F(A), F(E')) =
+\Hom_{D(A)}(F(A), E[-a + i])
+$$
+左侧非零当且仅当 $i = 0$，此时得到 $E'$。令
+$E = E' = \kappa$ 并使用 Nakayama 引理，可知当 $j > a$ 时
+$H^j(F(A))_\mathfrak m$ 为零，而当 $j = a$ 时它由 $1$ 个元素生成。
+另一方面，若对某个 $j < a$，$H^j(F(A))_\mathfrak m$ 非零，
+则对某个 $i < 0$ 及某个 $E$，存在映射
+$F(A) \to E[-a + i]$（《更多代数》引理
+\ref{more-algebra-lemma-detect-cohomology}），这给出矛盾。
+因此对某个由 $1$ 个元素生成的 $A_\mathfrak m$-模 $M$，有
+$F(A)_\mathfrak m = M[-a]$。然而
+$$
+A_\mathfrak m = \Hom_{D(A)}(A, A)_\mathfrak m =
+\Hom_{D(A)}(F(A), F(A))_\mathfrak m = \Hom_{A_\mathfrak m}(M, M)
+$$
+所以 $M \cong A_\mathfrak m$。由此存在
+$f \in A$、$f \not \in \mathfrak m$，使得
+$F(A)_f$ 同构于 $A_f[-a]$。证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-unique}
+设 $A$ 为 Noetherian 环。若 $\omega_A^\bullet$ 与
+$(\omega'_A)^\bullet$ 都是对偶复形，则对 $D(A)$ 的某个可逆对象
+$L$，$(\omega'_A)^\bullet$ 拟同构于
+$\omega_A^\bullet \otimes_A^\mathbf{L} L$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-dualizing} 与
+\ref{dualizing-lemma-equivalence-comes-from-invertible}，函子
+$K \mapsto R\Hom_A(R\Hom_A(K, \omega_A^\bullet), (\omega_A')^\bullet)$
+将 $A$ 映到某个可逆对象 $L$。换言之，存在同构
+$$
+L \longrightarrow R\Hom_A(\omega_A^\bullet, (\omega_A')^\bullet)
+$$
+由于 $L$ 有有限 Tor 维数，可应用《更多代数》引理
+\ref{more-algebra-lemma-internal-hom-evaluate-isomorphism-technical}
+看出，对 $D^b_{\textit{Coh}}(A)$ 中的 $K$，映射
+$$
+R\Hom_A(\omega_A^\bullet, (\omega'_A)^\bullet) \otimes_A^\mathbf{L} K
+\longrightarrow
+R\Hom_A(R\Hom_A(K, \omega_A^\bullet), (\omega_A')^\bullet)
+$$
+是同构。特别地，令 $K = \omega_A^\bullet$ 即完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-localize}
+设 $A$ 为 Noetherian 环，$B = S^{-1}A$ 为局部化。
+若 $\omega_A^\bullet$ 是对偶复形，则
+$\omega_A^\bullet \otimes_A B$ 是 $B$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+设 $\omega_A^\bullet \to I^\bullet$ 为拟同构，其中 $I^\bullet$
+是内射模的有界复形。则 $S^{-1}I^\bullet$ 是内射
+$B = S^{-1}A$-模的有界复形（引理
+\ref{dualizing-lemma-localization-injective-modules}），并表示
+$\omega_A^\bullet \otimes_A B$。因此
+$\omega_A^\bullet \otimes_A B$ 有有限内射维数。
+由 $A \to B$ 的平坦性，
+$H^i(\omega_A^\bullet \otimes_A B) = H^i(\omega_A^\bullet) \otimes_A B$，
+故 $\omega_A^\bullet \otimes_A B$ 的上同调模有限。最后，映射
+$$
+B \longrightarrow
+R\Hom_A(\omega_A^\bullet \otimes_A B, \omega_A^\bullet \otimes_A B)
+$$
+是拟同构，因为在此情形中内 Hom 的形成与平坦换基交换，见
+《更多代数》引理 \ref{more-algebra-lemma-base-change-RHom}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-glue}
+设 $A$ 为 Noetherian 环，$f_1, \ldots, f_n \in A$ 生成单位理想。
+若 $\omega_A^\bullet$ 是 $A$-模复形，且对所有 $i$，
+$(\omega_A^\bullet)_{f_i}$ 都是 $A_{f_i}$ 的对偶复形，则
+$\omega_A^\bullet$ 是 $A$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+考察双复形
+$$
+\prod\nolimits_{i_0} (\omega_A^\bullet)_{f_{i_0}}
+\to
+\prod\nolimits_{i_0 < i_1} (\omega_A^\bullet)_{f_{i_0}f_{i_1}}
+\to \ldots
+$$
+相伴全复形拟同构于 $\omega_A^\bullet$；例如可用《下降》评注
+\ref{descent-remark-standard-covering}，或《概形的导出范畴》引理
+\ref{perfect-lemma-alternating-cech-complex-complex-computes-cohomology}。
+由假设，将复形 $(\omega_A^\bullet)_{f_i}$ 视为
+$A_{f_i}$-模复形时，它们有有限内射维数。因此，对每个
+$(\omega_A^\bullet)_{f_{i_0} \ldots f_{i_p}}$、$p > 0$，
+它在 $A_{f_{i_0} \ldots f_{i_p}}$ 上有有限内射维数，见引理
+\ref{dualizing-lemma-localization-injective-modules}。进而，每个复形
+$(\omega_A^\bullet)_{f_{i_0} \ldots f_{i_p}}$、$p > 0$
+在 $A$ 上也有有限内射维数，见引理 \ref{dualizing-lemma-injective-flat}。
+于是 $\omega_A^\bullet$ 作为 $A$-模复形有有限内射维数
+（因为它可由带有限滤过的复形表示，而各分次部分都有有限内射维数）。
+对每个 $i$，$H^n(\omega_A^\bullet)_{f_i}$ 是有限
+$A_{f_i}$ 模，故由《代数》引理 \ref{algebra-lemma-cover}，
+$H^i(\omega_A^\bullet)$ 是有限 $A$-模。最后，映射
+$A \to R\Hom_A(\omega_A^\bullet, \omega_A^\bullet)$ 到 $A_{f_i}$
+的导出换基是映射
+$A_{f_i} \to R\Hom_A((\omega_A^\bullet)_{f_i}, (\omega_A^\bullet)_{f_i})$，
+见《更多代数》引理 \ref{more-algebra-lemma-base-change-RHom}。
+所以 $A \to R\Hom_A(\omega_A^\bullet, \omega_A^\bullet)$
+是同构，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-finite}
+设 $A \to B$ 为 Noetherian 环之间的有限环同态，且
+$\omega_A^\bullet$ 为对偶复形。则
+$R\Hom(B, \omega_A^\bullet)$ 是 $B$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+设 $\omega_A^\bullet \to I^\bullet$ 为拟同构，其中 $I^\bullet$
+是内射模的有界复形。则 $\Hom_A(B, I^\bullet)$ 是内射
+$B$-模的有界复形（引理 \ref{dualizing-lemma-hom-injective}），并表示
+$R\Hom(B, \omega_A^\bullet)$。所以
+$R\Hom(B, \omega_A^\bullet)$ 有有限内射维数。
+由引理 \ref{dualizing-lemma-exact-support-coherent}，它是
+$D_{\textit{Coh}}(B)$ 的对象。最后计算
+$$
+\Hom_{D(B)}(R\Hom(B, \omega_A^\bullet), R\Hom(B, \omega_A^\bullet)) =
+\Hom_{D(A)}(R\Hom(B, \omega_A^\bullet), \omega_A^\bullet) = B
+$$
+并且当 $n \not = 0$ 时，
+$$
+\Hom_{D(B)}(R\Hom(B, \omega_A^\bullet), R\Hom(B, \omega_A^\bullet)[n]) =
+\Hom_{D(A)}(R\Hom(B, \omega_A^\bullet), \omega_A^\bullet[n]) = 0
+$$
+这证明了对偶复形的最后一条性质。在所示等式中，第一个等式由引理
+\ref{dualizing-lemma-right-adjoint} 成立，第二个等式由引理
+\ref{dualizing-lemma-dualizing} 成立。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-quotient}
+设 $A \to B$ 为 Noetherian 环之间的满同态，且
+$\omega_A^\bullet$ 为对偶复形。则
+$R\Hom(B, \omega_A^\bullet)$ 是 $B$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{dualizing-lemma-dualizing-finite} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-polynomial-ring}
+设 $A$ 为 Noetherian 环。若 $\omega_A^\bullet$ 为对偶复形，
+则 $\omega_A^\bullet \otimes_A A[x]$ 是 $A[x]$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+令 $B = A[x]$ 且 $\omega_B^\bullet = \omega_A^\bullet \otimes_A B$。
+由引理 \ref{dualizing-lemma-injective-dimension-over-polynomial-ring} 与
+《更多代数》引理 \ref{more-algebra-lemma-finite-injective-dimension}，
+$\omega_B^\bullet$ 有有限内射维数。由 $A \to B$ 的平坦性，
+$H^i(\omega_B^\bullet) = H^i(\omega_A^\bullet) \otimes_A B$，
+故 $\omega_A^\bullet \otimes_A B$ 的上同调模有限。最后，映射
+$$
+B \longrightarrow R\Hom_B(\omega_B^\bullet, \omega_B^\bullet)
+$$
+是拟同构，因为在此情形中内 Hom 的形成与平坦换基交换，见
+《更多代数》引理 \ref{more-algebra-lemma-base-change-RHom}。
+\end{proof}
+
+\begin{proposition}
+\label{dualizing-proposition-dualizing-essentially-finite-type}
+设 $A$ 为有对偶复形的 Noetherian 环。则任意在 $A$ 上本质有限型的
+$A$-代数都有对偶复形。
+\end{proposition}
+
+\begin{proof}
+这由引理 \ref{dualizing-lemma-dualizing-localize}、
+\ref{dualizing-lemma-dualizing-quotient} 与
+\ref{dualizing-lemma-dualizing-polynomial-ring} 合并得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-find-function}
+设 $A$ 为 Noetherian 环，$\omega_A^\bullet$ 为对偶复形。
+设 $\mathfrak m \subset A$ 为极大理想，并令
+$\kappa = A/\mathfrak m$。则对某个 $n \in \mathbf{Z}$，
+$R\Hom_A(\kappa, \omega_A^\bullet) \cong \kappa[n]$。
+\end{lemma}
+
+\begin{proof}
+这是因为 $R\Hom_A(\kappa, \omega_A^\bullet)$ 是 $\kappa$
+上的对偶复形（引理 \ref{dualizing-lemma-dualizing-quotient}），而
+$\kappa$ 上的对偶复形在平移意义下唯一（引理
+\ref{dualizing-lemma-dualizing-unique}），并且 $\kappa$ 本身是
+$\kappa$ 上的对偶复形。
+\end{proof}
+
+
+
+
+\section{局部环上的对偶复形}
+\label{dualizing-section-dualizing-local}
+
+\noindent
+本节中，$(A, \mathfrak m, \kappa)$ 表示配备对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环，并且引理
+\ref{dualizing-lemma-find-function} 中的整数 $n$ 为零。更准确地说，假设
+$R\Hom_A(\kappa, \omega_A^\bullet) = \kappa[0]$。
+此时称该对偶复形{\it 规范化}。注意，规范化对偶复形在同构意义下唯一，
+并且 $A$ 的任意其他对偶复形都同构于某个规范化对偶复形的平移
+（引理 \ref{dualizing-lemma-dualizing-unique}）。
+
+\begin{lemma}
+\label{dualizing-lemma-normalized-finite}
+设 $(A, \mathfrak m, \kappa) \to (B, \mathfrak m', \kappa')$
+为 Noetherian 局部环之间的有限局部同态，$\omega_A^\bullet$
+为规范化对偶复形。则
+$\omega_B^\bullet = R\Hom(B, \omega_A^\bullet)$ 是 $B$
+的规范化对偶复形。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-dualizing-finite}，复形
+$\omega_B^\bullet$ 是 $B$ 的对偶复形。由引理
+\ref{dualizing-lemma-right-adjoint} 有
+$$
+R\Hom_B(\kappa', \omega_B^\bullet) =
+R\Hom_B(\kappa', R\Hom(B, \omega_A^\bullet)) =
+R\Hom_A(\kappa', \omega_A^\bullet)
+$$
+作为 $A$-模，$\kappa'$ 同构于若干份 $\kappa$ 的有限直和；
+又因为 $\omega_A^\bullet$ 规范化，所以此复形的上同调只位于次数
+$0$。因此 $\omega_B^\bullet$ 也是规范化对偶复形。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-normalized-quotient}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。设 $A \to B$ 为满射。
+则 $\omega_B^\bullet = R\Hom_A(B, \omega_A^\bullet)$
+是 $B$ 的规范化对偶复形。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{dualizing-lemma-normalized-finite} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-equivalence-finite-length}
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+设 $F$ 是有限长度 $A$-模范畴的 $A$-线性自等价。
+则 $F$ 同构于恒等函子。
+\end{lemma}
+
+\begin{proof}
+由于 $\kappa$ 是该范畴唯一的单对象，有
+$F(\kappa) \cong \kappa$。该范畴是 Abel 范畴，故 $F$ 正合。
+因此对所有有限长度模 $E$，$F(E)$ 与 $E$ 的长度相同。
+由
+$\Hom(E, \kappa) = \Hom(F(E), F(\kappa)) \cong \Hom(F(E), \kappa)$
+及 Nakayama 引理，$E$ 与 $F(E)$ 有相同数目的生成元。
+所以 $F(A/\mathfrak m^n)$ 是循环 $A$-模。选取生成元
+$e \in F(A/\mathfrak m^n)$。由 $F$ 的 $A$-线性，
+$\mathfrak m^n e = 0$。由于长度相等，映射
+$A/\mathfrak m^n \to F(A/\mathfrak m^n)$ 必为同构。选取元素
+$$
+e \in \lim F(A/\mathfrak m^n)
+$$
+使它对所有 $n$ 都映到生成元（略去一个简短论证）。
+于是得到同构系统 $A/\mathfrak m^n \to F(A/\mathfrak m^n)$，
+它与所有 $A$-模映射
+$A/\mathfrak m^n \to A/\mathfrak m^{n'}$ 相容
+（再次使用 $F$ 的 $A$-线性）。任意有限长度模都是循环模直和之间
+某个映射的余核，因此得到该引理的同构。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-finite-length}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。设 $E$ 为 $\kappa$
+的内射包。则当 $N$ 遍历有限长度 $A$-模时，存在函子性同构
+$$
+R\Hom_A(N, \omega_A^\bullet) = \Hom_A(N, E)[0]
+$$
+\end{lemma}
+
+\begin{proof}
+对 $N$ 的长度归纳可知，$R\Hom_A(N, \omega_A^\bullet)$
+是位于次数 $0$ 的有限长度模。因此
+$R\Hom_A(-, \omega_A^\bullet)$ 在有限长度模范畴上诱导反等价。
+由命题 \ref{dualizing-proposition-matlis}，$\Hom_A(-, E)$ 也如此，故
+$$
+N \longmapsto \Hom_A(R\Hom_A(N, \omega_A^\bullet), E)
+$$
+是引理 \ref{dualizing-lemma-equivalence-finite-length} 中那样的等价，
+因而同构于恒等函子。又由命题 \ref{dualizing-proposition-matlis}，
+$\Hom_A(-, E)$ 施用两次就是恒等函子，故得到该引理的陈述。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-sitting-in-degrees}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。设 $M$ 为有限
+$A$-模，并令 $d = \dim(\text{Supp}(M))$。则
+\begin{enumerate}
+\item 若 $\Ext^i_A(M, \omega_A^\bullet)$ 非零，则
+$i \in \{-d, \ldots, 0\}$；
+\item $\Ext^i_A(M, \omega_A^\bullet)$ 的支集维数至多为 $-i$；
+\item $\text{depth}(M)$ 是满足
+$\Ext^{-\delta}_A(M, \omega_A^\bullet) \not = 0$ 的最小整数
+$\delta \geq 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+对 $d$ 作归纳。若 $d = 0$，则结论由引理
+\ref{dualizing-lemma-dualizing-finite-length} 与 Matlis 对偶
+（命题 \ref{dualizing-proposition-matlis}）得出；后者保证当 $M$ 非零时，
+$\Hom_A(M, E)$ 非零。
+
+\medskip\noindent
+假设结论对支集维数 $< d$ 的模成立，并且 $M$ 的深度 $> 0$。
+选取一个在 $M$ 上为非零因子的 $f \in \mathfrak m$，并考虑短正合列
+$$
+0 \to M \to M \to M/fM \to 0
+$$
+由于 $\dim(\text{Supp}(M/fM)) = d - 1$
+（代数，引理 \ref{algebra-lemma-one-equation-module}），
+可以应用归纳假设。记
+$E^i = \Ext^i_A(M, \omega_A^\bullet)$ 以及
+$F^i = \Ext^i_A(M/fM, \omega_A^\bullet)$，得到长正合列
+$$
+\ldots \to F^i \to E^i \xrightarrow{f} E^i \to F^{i + 1} \to \ldots
+$$
+由归纳假设，当
+$i + 1 \not \in \{-\dim(\text{Supp}(M/fM)), \ldots, -\text{depth}(M/fM)\}$
+时，$E^i/fE^i = 0$。由 Nakayama 引理（代数，引理
+\ref{algebra-lemma-NAK}）和代数，引理
+\ref{algebra-lemma-depth-drops-by-one}，可知当
+$i \not \in \{-\dim(\text{Supp}(M)), \ldots, -\text{depth}(M)\}$
+时，$E^i = 0$。此外，在边界情形
+$i = - \text{depth}(M)$，由归纳假设 $F^{i + 1}$ 非零，
+从而可知 $E^i$ 非零。由于 $E^i/fE^i \subset F^{i + 1}$，有
+$$
+\dim(\text{Supp}(F^{i + 1})) \geq \dim(\text{Supp}(E^i/fE^i))
+\geq \dim(\text{Supp}(E^i)) - 1
+$$
+（参见上面所用的引理），由此还得到维数估计 (2)。
+
+\medskip\noindent
+若 $M$ 的深度为 $0$ 且 $d > 0$，令
+$N = M[\mathfrak m^\infty]$，并置
+$M' = M/N$（比较引理 \ref{dualizing-lemma-divide-by-torsion}）。
+则 $M'$ 的深度 $> 0$，且 $\dim(\text{Supp}(M')) = d$。
+因此结论对 $M'$ 成立；又因为
+$R\Hom_A(N, \omega_A^\bullet) = \Hom_A(N, E)$
+（引理 \ref{dualizing-lemma-dualizing-finite-length}），
+$\Ext$ 的长正合上同调列蕴含结论对 $M$ 也成立。
+\end{proof}
+
+\begin{remark}
+\label{dualizing-remark-vanishing-for-arbitrary-modules}
+设 $(A, \mathfrak m)$ 和 $\omega_A^\bullet$ 如引理
+\ref{dualizing-lemma-sitting-in-degrees} 中所述。由更多代数，引理
+\ref{more-algebra-lemma-injective-amplitude}，该引理的第 (3) 部分适用，
+故 $\omega_A^\bullet$ 的内射振幅位于 $[-d, 0]$。
+特别地，对任意 $A$-模 $M$（不必有限），当
+$i \not \in \{-d, \ldots, 0\}$ 时，有
+$\Ext^i_A(M, \omega_A^\bullet) = 0$。
+\end{remark}
+
+\begin{lemma}
+\label{dualizing-lemma-local-CM}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。设 $M$ 为有限
+$A$-模。下列条件等价：
+\begin{enumerate}
+\item $M$ 是 Cohen--Macaulay 模；
+\item $\Ext^i_A(M, \omega_A^\bullet)$ 至多对一个 $i$ 非零；
+\item 当 $i \not = \dim(\text{Supp}(M))$ 时，
+$\Ext^{-i}_A(M, \omega_A^\bullet)$ 为零。
+\end{enumerate}
+以 $CM_d$ 表示深度为 $d$ 的有限 Cohen--Macaulay $A$-模范畴。
+则 $M \mapsto \Ext^{-d}_A(M, \omega_A^\bullet)$
+定义了 $CM_d$ 的一个反自等价。
+\end{lemma}
+
+\begin{proof}
+以下不再另行说明地使用引理 \ref{dualizing-lemma-sitting-in-degrees} 的结论。
+固定一个有限模 $M$。若 $M$ 是 Cohen--Macaulay 模，则只有
+$\Ext^{-d}_A(M, \omega_A^\bullet)$ 可能非零，故
+(1) $\Rightarrow$ (3)。(3) $\Rightarrow$ (2) 是立即的。
+假设 (2)，并令 $N = \Ext^{-\delta}_A(M, \omega_A^\bullet)$
+为那个非零的 $\Ext$，其中 $\delta = \text{depth}(M)$。由于
+$$
+M[0] = R\Hom_A(R\Hom_A(M, \omega_A^\bullet), \omega_A^\bullet) =
+R\Hom_A(N[\delta], \omega_A^\bullet)
+$$
+（引理 \ref{dualizing-lemma-dualizing}），可知
+$M = \Ext_A^{-\delta}(N, \omega_A^\bullet)$。
+因此 $\delta \geq \dim(\text{Supp}(M))$。另一方面，
+还知道 $\delta \leq \dim(\text{Supp}(M))$
+（代数，引理 \ref{algebra-lemma-bound-depth}），故 $M$ 是
+Cohen--Macaulay 模。
+
+\medskip\noindent
+为证明最后一个陈述，只需对 $CM_d$ 中的 $M$ 证明
+$N = \Ext^{-d}_A(M, \omega_A^\bullet)$ 属于 $CM_d$。
+上面已经看到 $M[0] = R\Hom_A(N[d], \omega_A^\bullet)$，
+由 (1) 与 (3) 的等价性即得所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-artinian}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。若 $\dim(A) = 0$，
+则 $\omega_A^\bullet \cong E[0]$，其中 $E$ 是剩余域的内射包。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-dualizing-finite-length} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-divide-by-finite-length-ideal}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形的
+Noetherian 局部环。设 $I \subset \mathfrak m$ 为有限长度理想，
+并置 $B = A/I$。则在 $D(A)$ 中有特异三角
+$$
+\omega_B^\bullet \to \omega_A^\bullet \to \Hom_A(I, E)[0] \to
+\omega_B^\bullet[1]
+$$
+其中 $E$ 是 $\kappa$ 的内射包，$\omega_B^\bullet$ 是 $B$
+的规范化对偶复形。
+\end{lemma}
+
+\begin{proof}
+使用短正合列 $0 \to I \to A \to B \to 0$ 以及引理
+\ref{dualizing-lemma-dualizing-finite-length} 和
+\ref{dualizing-lemma-normalized-quotient}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-divide-by-nonzerodivisor}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。设
+$f \in \mathfrak m$ 为非零因子，并置 $B = A/(f)$。
+则在 $D(A)$ 中有特异三角
+$$
+\omega_B^\bullet \to \omega_A^\bullet \to \omega_A^\bullet \to
+\omega_B^\bullet[1]
+$$
+其中 $\omega_B^\bullet$ 是 $B$ 的规范化对偶复形。
+\end{lemma}
+
+\begin{proof}
+使用短正合列 $0 \to A \to A \to B \to 0$ 和引理
+\ref{dualizing-lemma-normalized-quotient}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-nonvanishing-generically-local}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。设 $\mathfrak p$ 是 $A$
+的极小素理想，且 $\dim(A/\mathfrak p) = e$。则
+$H^i(\omega_A^\bullet)_\mathfrak p$ 非零当且仅当 $i = -e$。
+\end{lemma}
+
+\begin{proof}
+由于 $A_\mathfrak p$ 的维数为零，存在整数 $n > 0$，使得
+$\mathfrak p^nA_\mathfrak p$ 为零。置 $B = A/\mathfrak p^n$ 以及
+$\omega_B^\bullet = R\Hom_A(B, \omega_A^\bullet)$。
+由 $B_\mathfrak p = A_\mathfrak p$ 可知
+$$
+(\omega_B^\bullet)_\mathfrak p =
+R\Hom_A(B, \omega_A^\bullet) \otimes_A^\mathbf{L} A_\mathfrak p =
+R\Hom_{A_\mathfrak p}(B_\mathfrak p, (\omega_A^\bullet)_\mathfrak p) =
+(\omega_A^\bullet)_\mathfrak p
+$$
+第二个等号由更多代数，引理
+\ref{more-algebra-lemma-base-change-RHom} 得到。由引理
+\ref{dualizing-lemma-normalized-quotient}，可以用 $B$ 替换 $A$。
+替换后有 $\dim(A) = e$。于是由引理
+\ref{dualizing-lemma-sitting-in-degrees} 的第 (1)、(2) 部分，
+$H^i(\omega_A^\bullet)_\mathfrak p$ 仅当 $i = -e$ 时才可能非零。
+另一方面，$(\omega_A^\bullet)_\mathfrak p$ 是非零环
+$A_\mathfrak p$ 的对偶复形（引理 \ref{dualizing-lemma-dualizing-localize}），
+故剩下的这个模必为非零。
+\end{proof}
+
+
+
+
+
+\section{对偶复形与维数函数}
+\label{dualizing-section-dimension-function}
+
+\noindent
+局部情形中的结果有如下推论：具有对偶复形的 Noetherian 环
+是有限维的普遍等长链环。
+
+\begin{lemma}
+\label{dualizing-lemma-nonvanishing-generically}
+设 $A$ 为 Noetherian 环，$\mathfrak p$ 为 $A$ 的极小素理想。
+则 $H^i(\omega_A^\bullet)_\mathfrak p$ 恰好对一个 $i$ 非零。
+\end{lemma}
+
+\begin{proof}
+复形 $\omega_A^\bullet \otimes_A A_\mathfrak p$ 是
+$A_\mathfrak p$ 的对偶复形（引理 \ref{dualizing-lemma-dualizing-localize}）。
+由于 $\mathfrak p$ 极小，$A_\mathfrak p$ 的维数为零。
+故结论由引理 \ref{dualizing-lemma-dualizing-artinian} 得出。
+\end{proof}
+
+\noindent
+设 $A$ 为 Noetherian 环，$\omega_A^\bullet$ 为对偶复形。
+引理 \ref{dualizing-lemma-find-function} 使我们能够定义函数
+$$
+\delta = \delta_{\omega_A^\bullet} : \Spec(A) \longrightarrow \mathbf{Z}
+$$
+它把 $\mathfrak p$ 映到引理 \ref{dualizing-lemma-find-function} 针对
+$A_\mathfrak p$ 上的对偶复形
+$(\omega_A^\bullet)_\mathfrak p$（引理
+\ref{dualizing-lemma-dualizing-localize}）及剩余域 $\kappa(\mathfrak p)$
+所给出的整数。更准确地说，把 $\delta(\mathfrak p)$ 定义为使
+$$
+(\omega_A^\bullet)_\mathfrak p[-\delta(\mathfrak p)]
+$$
+成为 Noetherian 局部环 $A_\mathfrak p$ 上规范化对偶复形的唯一整数。
+
+\begin{lemma}
+\label{dualizing-lemma-quotient-function}
+设 $A$ 为 Noetherian 环，$\omega_A^\bullet$ 为对偶复形。
+设 $A \to B$ 为满环同态，并令
+$\omega_B^\bullet = R\Hom(B, \omega_A^\bullet)$ 为引理
+\ref{dualizing-lemma-dualizing-quotient} 所给出的 $B$ 的对偶复形。则
+$$
+\delta_{\omega_B^\bullet} = \delta_{\omega_A^\bullet}|_{\Spec(B)}
+$$
+\end{lemma}
+
+\begin{proof}
+这由这些函数的定义和引理 \ref{dualizing-lemma-normalized-quotient} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dimension-function}
+设 $A$ 为 Noetherian 环，$\omega_A^\bullet$ 为对偶复形。
+上面定义的函数 $\delta = \delta_{\omega_A^\bullet}$ 是维数函数
+（拓扑，定义 \ref{topology-definition-dimension-function}）。
+\end{lemma}
+
+\begin{proof}
+设 $\mathfrak p \subset \mathfrak q$ 为一个直接特化。
+需要证明 $\delta(\mathfrak p) = \delta(\mathfrak q) + 1$。
+可以把 $A$ 替换为 $A/\mathfrak p$，把复形 $\omega_A^\bullet$
+替换为
+$\omega_{A/\mathfrak p}^\bullet = R\Hom(A/\mathfrak p, \omega_A^\bullet)$，
+把素理想 $\mathfrak p$ 替换为 $(0)$，并把素理想 $\mathfrak q$
+替换为 $\mathfrak q/\mathfrak p$；参见引理
+\ref{dualizing-lemma-quotient-function}。因此可以假设 $A$ 是整环，
+$\mathfrak p = (0)$，而 $\mathfrak q$ 是高度为 $1$ 的素理想。
+
+\medskip\noindent
+由引理 \ref{dualizing-lemma-nonvanishing-generically}，
+$H^i(\omega_A^\bullet)_{(0)}$ 恰好对一个 $i$ 非零，将其记为
+$i_0$。事实上 $i_0 = -\delta((0))$，因为
+$(\omega_A^\bullet)_{(0)}[-\delta((0))]$ 是域 $A_{(0)}$
+上的规范化对偶复形。
+
+\medskip\noindent
+另一方面，$(\omega_A^\bullet)_\mathfrak q[-\delta(\mathfrak q)]$
+是 $A_\mathfrak q$ 的规范化对偶复形。由引理
+\ref{dualizing-lemma-nonvanishing-generically-local} 可知
+$$
+H^e((\omega_A^\bullet)_\mathfrak q[-\delta(\mathfrak q)])_{(0)} =
+H^{e - \delta(\mathfrak q)}(\omega_A^\bullet)_{(0)}
+$$
+仅当 $e = -\dim(A_\mathfrak q) = -1$ 时非零。因此
+$$
+-\delta((0)) = -1 - \delta(\mathfrak q)
+$$
+这正是所需等式。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-universally-catenary}
+设 $A$ 为具有对偶复形的 Noetherian 环。则 $A$ 是有限维的
+普遍等长链环。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-dimension-function}，$\Spec(A)$ 具有维数函数，
+因而是等长链的；参见拓扑，引理
+\ref{topology-lemma-dimension-function-catenary}。
+所以 $A$ 是等长链环；参见代数，引理
+\ref{algebra-lemma-catenary}。由命题
+\ref{dualizing-proposition-dualizing-essentially-finite-type}，
+$A$ 是普遍等长链环。
+
+\medskip\noindent
+任意对偶复形 $\omega_A^\bullet$ 均属于
+$D^b_{\textit{Coh}}(A)$，故由引理
+\ref{dualizing-lemma-nonvanishing-generically}，函数
+$\delta_{\omega_A^\bullet}$ 在极小素理想处的取值有界。
+另一方面，对剩余域为 $\kappa$ 的极大理想 $\mathfrak m$，整数
+$i = -\delta(\mathfrak m)$ 是使
+$\Ext_A^i(\kappa, \omega_A^\bullet)$ 非零的唯一整数
+（引理 \ref{dualizing-lemma-find-function}）。由于 $\omega_A^\bullet$
+具有有限内射维数，这些值也有界。$A$ 的维数等于
+$\delta(\mathfrak p) - \delta(\mathfrak m)$ 的最大值，
+其中 $\mathfrak p \subset \mathfrak m$ 是由一个极小素理想与一个
+极大素理想组成的一对。因此 $\Spec(A)$ 的维数有界。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-depth-dualizing-module}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。令 $d = \dim(A)$ 以及
+$\omega_A = H^{-d}(\omega_A^\bullet)$。则
+\begin{enumerate}
+\item $\omega_A$ 的支集是 $\Spec(A)$ 中所有维数为 $d$
+的不可约分支之并；
+\item $\omega_A$ 满足 $(S_2)$；参见代数，定义
+\ref{algebra-definition-conditions}。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下不再另行说明地使用引理 \ref{dualizing-lemma-sitting-in-degrees}。
+由引理 \ref{dualizing-lemma-nonvanishing-generically-local}，$\omega_A$
+的支集包含所有维数为 $d$ 的不可约分支。设
+$\mathfrak p \subset A$ 为素理想。由引理
+\ref{dualizing-lemma-dimension-function}，复形
+$(\omega_A^\bullet)_{\mathfrak p}[-\dim(A/\mathfrak p)]$
+是 $A_\mathfrak p$ 的规范化对偶复形。因此，若
+$\dim(A/\mathfrak p) + \dim(A_\mathfrak p) < d$，则
+$(\omega_A)_\mathfrak p = 0$。这证明 $\omega_A$ 的支集是所有维数为
+$d$ 的不可约分支之并：由于 $A$ 是等长链环
+（引理 \ref{dualizing-lemma-universally-catenary}），这个并的补集恰由满足
+$\dim(A/\mathfrak p) + \dim(A_\mathfrak p) < d$ 的 $A$ 的素理想
+$\mathfrak p$ 构成。另一方面，若
+$\dim(A/\mathfrak p) + \dim(A_\mathfrak p) = d$，则
+$$
+(\omega_A)_\mathfrak p =
+H^{-\dim(A_\mathfrak p)}\left(
+(\omega_A^\bullet)_{\mathfrak p}[-\dim(A/\mathfrak p)] \right)
+$$
+因此，为证明 $\omega_A$ 满足 $(S_2)$，只需证明 $\omega_A$
+的深度至少为 $\min(\dim(A), 2)$。对 $\dim(A)$ 作归纳。
+$\dim(A) = 0$ 的情形显然。
+
+\medskip\noindent
+假设 $\text{depth}(A) > 0$。选取非零因子
+$f \in \mathfrak m$，并置 $B = A/fA$。则
+$\dim(B) = \dim(A) - 1$，可以对 $B$ 应用归纳假设。
+由引理 \ref{dualizing-lemma-divide-by-nonzerodivisor}，乘以 $f$ 在
+$\omega_A$ 上是单射，且有
+$\omega_A/f\omega_A \subset \omega_B$。这证明 $\omega_A$ 的深度
+至少为 $1$。若 $\dim(A) > 1$，则 $\dim(B) > 0$，而 $\omega_B$
+的深度 $ > 0$。所以 $\omega_A$ 的深度 $> 1$，此情形得证。
+
+\medskip\noindent
+假设 $\dim(A) > 0$ 且 $\text{depth}(A) = 0$。令
+$I = A[\mathfrak m^\infty]$，并置 $B = A/I$。则 $B$ 的深度
+$\geq 1$，且由引理 \ref{dualizing-lemma-divide-by-finite-length-ideal}，
+$\omega_A = \omega_B$。上面已经对 $\omega_B$ 证明了结论，
+故证明完成。
+\end{proof}
+
+
+
+
+
+\section{局部对偶定理}
+\label{dualizing-section-local-duality}
+
+\noindent
+本节的主要结果归功于 Grothendieck。
+
+\begin{lemma}
+\label{dualizing-lemma-local-cohomology-of-dualizing}
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环，
+$\omega_A^\bullet$ 为规范化对偶复形，并令
+$Z = V(\mathfrak m) \subset \Spec(A)$。则
+$E = R^0\Gamma_Z(\omega_A^\bullet)$ 是 $\kappa$ 的内射包，且
+$R\Gamma_Z(\omega_A^\bullet) = E[0]$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-local-cohomology-noetherian}，有
+$R\Gamma_{\mathfrak m} = R\Gamma_Z$。因此，由引理
+\ref{dualizing-lemma-local-cohomology-ext}，
+$$
+R\Gamma_Z(\omega_A^\bullet) =
+R\Gamma_{\mathfrak m}(\omega_A^\bullet) =
+\text{hocolim}\ R\Hom_A(A/\mathfrak m^n, \omega_A^\bullet)
+$$
+设 $E'$ 为剩余域的一个内射包。由引理
+\ref{dualizing-lemma-dualizing-finite-length}，可以找到与转移映射相容的同构
+$$
+R\Hom_A(A/\mathfrak m^n, \omega_A^\bullet) \cong \Hom_A(A/\mathfrak m^n, E')[0]
+$$
+由引理 \ref{dualizing-lemma-union-artinian}，
+$E' = \bigcup E'[\mathfrak m^n] = \colim \Hom_A(A/\mathfrak m^n, E')$，
+故 $E \cong E'$，而复形 $R\Gamma_Z(\omega_A^\bullet)$
+的所有其他上同调群均为零。
+\end{proof}
+
+\begin{remark}
+\label{dualizing-remark-specific-injective-hull}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。由上面的引理
+\ref{dualizing-lemma-local-cohomology-of-dualizing}，
+$R\Gamma_Z(\omega_A^\bullet)$ 是置于次数 $0$ 的剩余域内射包。
+事实上，这给出了内射包的一种“构造”或“实现”，它比任意选取一个
+内射包略微更典范。具体而言，规范化对偶复形在同构意义下唯一，
+其自同构群为 $A$ 的单位群；而 $\kappa$ 的内射包也在同构意义下
+唯一，其自同构群为 $A$ 关于 $\mathfrak m$ 的完备化
+$A^\wedge$ 的单位群。
+\end{remark}
+
+\noindent
+以下是本节的主要结果。
+
+\begin{theorem}
+\label{dualizing-theorem-local-duality}
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环，
+$\omega_A^\bullet$ 为规范化对偶复形，$E$ 为剩余域的一个内射包，
+并令 $Z = V(\mathfrak m) \subset \Spec(A)$。以 ${}^\wedge$
+表示关于 $\mathfrak m$ 的导出完备化。则对 $D(A)$ 中的 $K$，有
+$$
+R\Hom_A(K, \omega_A^\bullet)^\wedge \cong R\Hom_A(R\Gamma_Z(K), E[0])
+$$
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-local-cohomology-of-dualizing}，注意到
+$E[0] \cong R\Gamma_Z(\omega_A^\bullet)$。由更多代数，引理
+\ref{more-algebra-lemma-completion-RHom}，左端的完备化可以移入内部。
+因此只需证明
+$$
+R\Hom_A(K^\wedge, (\omega_A^\bullet)^\wedge)
+=
+R\Hom_A(R\Gamma_Z(K), R\Gamma_Z(\omega_A^\bullet))
+$$
+这由命题 \ref{dualizing-proposition-torsion-complete} 给出的
+$D_{comp}(A, \mathfrak m)$ 与
+$D_{\mathfrak m^\infty\text{-torsion}}(A)$ 之间的等价得出。
+更准确地说，这是引理 \ref{dualizing-lemma-compare-RHom} 的特殊情形。
+\end{proof}
+
+\noindent
+下面给出上述定理的一个特殊情形。
+
+\begin{lemma}
+\label{dualizing-lemma-special-case-local-duality}
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环，
+$\omega_A^\bullet$ 为规范化对偶复形，$E$ 为剩余域的一个内射包。
+设 $K \in D_{\textit{Coh}}(A)$。则
+$$
+\Ext^{-i}_A(K, \omega_A^\bullet)^\wedge =
+\Hom_A(H^i_{\mathfrak m}(K), E)
+$$
+其中 ${}^\wedge$ 表示 $\mathfrak m$-进完备化。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-dualizing}，$R\Hom_A(K, \omega_A^\bullet)$
+是 $D_{\textit{Coh}}(A)$ 的对象。由更多代数，引理
+\ref{more-algebra-lemma-derived-completion-pseudo-coherent}，
+$R\Hom_A(K, \omega_A^\bullet)$ 的导出完备化之上同调模等于通常的完备化
+$\Ext^i_A(K, \omega_A^\bullet)^\wedge$。另一方面，由引理
+\ref{dualizing-lemma-local-cohomology-noetherian}，对
+$Z = V(\mathfrak m)$ 有 $R\Gamma_{\mathfrak m} = R\Gamma_Z$。
+此外，函子 $\Hom_A(-, E)$ 正合，故可通过上同调分解。
+因此该引理是定理 \ref{dualizing-theorem-local-duality} 的推论。
+\end{proof}
+
+
+
+
+
+\section{对偶模}
+\label{dualizing-section-dualizing-module}
+
+\noindent
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环，且
+$\omega_A^\bullet$ 为规范化对偶复形。称引理
+\ref{dualizing-lemma-depth-dualizing-module} 中所述的模
+$\omega_A = H^{-\dim(A)}(\omega_A^\bullet)$ 为 $A$ 的一个
+{\it 对偶模}。这个模是 $A$ 的一个典范模。通常约定把 Noetherian
+局部环 $(A, \mathfrak m, \kappa)$ 的{\it 典范模}定义为满足
+$$
+\Hom_A(K, E) \cong H^{\dim(A)}_\mathfrak m(A)
+$$
+的有限 $A$-模 $K$，其中 $E$ 是剩余域的一个内射包。对偶模之所以
+是典范模，是因为由引理 \ref{dualizing-lemma-special-case-local-duality}，
+$$
+\Hom_A(H^{\dim(A)}_\mathfrak m(A), E) = (\omega_A)^\wedge
+$$
+进而施用 $\Hom_A(-, E)$ 得
+\begin{align*}
+\Hom_A(\omega_A, E)
+& =
+\Hom_A((\omega_A)^\wedge, E) \\
+& =
+\Hom_A(\Hom_A(H^{\dim(A)}_\mathfrak m(A), E), E) \\
+& = H^{\dim(A)}_\mathfrak m(A)
+\end{align*}
+第一个等号成立是因为 $E$ 是 $\mathfrak m$-幂挠的，第二个等号由
+上式得到，第三个等号由 Matlis 对偶（命题
+\ref{dualizing-proposition-matlis}）得到。上述典范模定义的用处在于：
+即使 $A$ 没有对偶复形，该定义仍然有意义。
+
+
+
+
+\section{Cohen--Macaulay 环}
+\label{dualizing-section-CM}
+
+\noindent
+代数，第 \ref{algebra-section-CM} 节和第
+\ref{algebra-section-CM-ring} 节研究了 Cohen--Macaulay 模与环。
+
+\begin{lemma}
+\label{dualizing-lemma-depth-in-terms-dualizing-complex}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环。则 $\text{depth}(A)$
+等于满足 $H^{-\delta}(\omega_A^\bullet) \not = 0$ 的最小整数
+$\delta \geq 0$。
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{dualizing-lemma-sitting-in-degrees} 立即得出。
+下面再给出两种证明方式。
+
+\medskip\noindent
+第一种。由 Nakayama 引理，$\delta$ 是满足
+$\Hom_A(H^{-\delta}(\omega_A^\bullet), \kappa) \not = 0$
+的最小整数。换言之，它是使
+$\Ext_A^{-\delta}(\omega_A^\bullet, \kappa)$ 非零的最小整数。
+利用引理 \ref{dualizing-lemma-dualizing} 以及 $\omega_A^\bullet$ 的规范化，
+这等于使 $\Ext_A^\delta(\kappa, A)$ 非零的最小整数。
+由代数，引理 \ref{algebra-lemma-depth-ext}，这正是 $A$ 的深度。
+
+\medskip\noindent
+第二种。由局部对偶定理（采用引理
+\ref{dualizing-lemma-special-case-local-duality} 的形式），$\delta$
+是使 $H^\delta_\mathfrak m(A)$ 非零的最小整数。由引理
+\ref{dualizing-lemma-depth}，这正是 $A$ 的深度。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-apply-CM}
+设 $(A, \mathfrak m, \kappa)$ 为带规范化对偶复形
+$\omega_A^\bullet$ 的 Noetherian 局部环，其对偶模为
+$\omega_A = H^{-\dim(A)}(\omega_A^\bullet)$。下列条件等价：
+\begin{enumerate}
+\item $A$ 是 Cohen--Macaulay 环；
+\item $\omega_A^\bullet$ 集中在单一次数上；
+\item $\omega_A^\bullet = \omega_A[\dim(A)]$。
+\end{enumerate}
+在这种情况下，$\omega_A$ 是极大 Cohen--Macaulay 模。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-local-CM} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-has-dualizing-module-CM}
+设 $A$ 为 Noetherian 环。若存在有限 $A$-模 $\omega_A$，使得
+$\omega_A[0]$ 是对偶复形，则 $A$ 是 Cohen--Macaulay 环。
+\end{lemma}
+
+\begin{proof}
+可以把 $A$ 替换为它在某个素理想处的局部化
+（引理 \ref{dualizing-lemma-dualizing-localize} 及代数，定义
+\ref{algebra-definition-ring-CM}）。此时结论由引理
+\ref{dualizing-lemma-apply-CM} 立即得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-CM-open}
+设 $A$ 为带对偶复形 $\omega_A^\bullet$ 的 Noetherian 环，
+$M$ 为有限 $A$-模。则
+$$
+U = \{\mathfrak p \in \Spec(A) \mid M_\mathfrak p\text{ 为 Cohen--Macaulay}\}
+$$
+是 $\Spec(A)$ 的开子集，并且它与 $\text{Supp}(M)$ 的交是稠密的。
+\end{lemma}
+
+\begin{proof}
+若 $\mathfrak p$ 是 $\text{Supp}(M)$ 的一般点，则
+$\text{depth}(M_\mathfrak p) = \dim(M_\mathfrak p) = 0$，
+故 $\mathfrak p \in U$。这证明了稠密性。若 $\mathfrak p \in U$，
+则由引理 \ref{dualizing-lemma-local-CM}，
+$$
+R\Hom_A(M, \omega_A^\bullet)_\mathfrak p =
+R\Hom_{A_\mathfrak p}(M_\mathfrak p, (\omega_A^\bullet)_\mathfrak p)
+$$
+恰有一个非零上同调模，设它位于次数 $i_0$。由于
+$R\Hom_A(M, \omega_A^\bullet)$ 只有有限多个非零上同调模 $H^i$，
+而且每个都是有限 $A$-模，所以可以找到
+$f \in A$、$f \not \in \mathfrak p$，使得当 $i \not = i_0$ 时
+$(H^i)_f = 0$。于是 $R\Hom_A(M, \omega_A^\bullet)_f$
+恰有一个非零上同调模；反向应用刚才的论证，得到
+$D(f) \subset U$。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-CM}
+设 $A$ 为 Noetherian 环。若 $A$ 具有对偶复形
+$\omega_A^\bullet$，则
+$\{\mathfrak p \in \Spec(A) \mid A_\mathfrak p\text{ 为 Cohen--Macaulay}\}$
+是 $\Spec(A)$ 的稠密开子集。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{dualizing-lemma-CM-open} 与定义的直接推论。
+\end{proof}
+
+
+
+
+
+
+\section{Gorenstein 环}
+\label{dualizing-section-gorenstein}
+
+\noindent
+到目前为止，我们见到的唯一显式对偶复形，是域 $\kappa$ 上由
+$\kappa$ 给出的复形，其中 $\kappa$ 为域；参见引理
+\ref{dualizing-lemma-find-function} 的证明。由命题
+\ref{dualizing-proposition-dualizing-essentially-finite-type}，任意域上的有限型
+代数都有对偶复形。然而，确实存在没有对偶复形的 Noetherian
+（局部）环。我们已经看到，具有对偶复形的环是普遍等长链环
+（引理 \ref{dualizing-lemma-universally-catenary}），但也存在不是等长链环的
+Noetherian 局部环；参见例子，第
+\ref{examples-section-non-catenary-Noetherian-local} 节。
+
+\medskip\noindent
+尽管如此，代数几何中的许多环都具有对偶复形，原因仅仅是它们是
+Gorenstein 环的商。事实上，这个条件既必要又充分：Noetherian 环
+具有对偶复形，当且仅当它是某个有限维 Gorenstein 环的商。
+这就是 Sharp 猜想（\cite{Sharp}）；在文献中可见
+\cite[Corollary 1.4]{Kawasaki}。回到当前主题，下面给出
+Gorenstein 环的定义。
+
+\begin{definition}
+\label{dualizing-definition-gorenstein}
+Gorenstein 环。
+\begin{enumerate}
+\item 设 $A$ 为 Noetherian 局部环。若 $A[0]$ 是 $A$
+的对偶复形，则称 $A$ 是{\it Gorenstein} 环。
+\item 设 $A$ 为 Noetherian 环。若对 $A$ 的每个素理想
+$\mathfrak p$，$A_\mathfrak p$ 都是 Gorenstein 环，则称 $A$
+是{\it Gorenstein} 环。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这个定义是合理的，因为若 $A[0]$ 是 $A$ 的对偶复形，则由引理
+\ref{dualizing-lemma-dualizing-localize}，$S^{-1}A[0]$ 是 $S^{-1}A$
+的对偶复形。若有限维 Noetherian 环作为自身上的模具有有限内射维数，
+则它是 Gorenstein 环；参见引理 \ref{dualizing-lemma-characterize-gorenstein}。
+
+\begin{lemma}
+\label{dualizing-lemma-gorenstein-CM}
+Gorenstein 环是 Cohen--Macaulay 环。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-apply-CM} 得出。
+\end{proof}
+
+\noindent
+正则环是 Gorenstein 环的一个例子。
+
+\begin{lemma}
+\label{dualizing-lemma-regular-gorenstein}
+正则局部环是 Gorenstein 环。正则环是 Gorenstein 环。
+\end{lemma}
+
+\begin{proof}
+设 $A$ 为维数为 $d$ 的正则环。则 $A$ 的整体维数有限且等于
+$d$；参见代数，引理
+\ref{algebra-lemma-finite-gl-dim-finite-dim-regular}。
+因此对所有 $A$-模 $M$，有 $\Ext^{d + 1}_A(M, A) = 0$；
+参见代数，引理 \ref{algebra-lemma-projective-dimension-ext}。
+由更多代数，引理 \ref{more-algebra-lemma-injective-amplitude}，
+$A$ 作为 $A$-模具有有限内射维数。故 $A[0]$ 是对偶复形，
+于是由定义后的评注，$A$ 是 Gorenstein 环。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-gorenstein}
+设 $A$ 为 Noetherian 环。
+\begin{enumerate}
+\item 若 $A$ 具有对偶复形 $\omega_A^\bullet$，则
+\begin{enumerate}
+\item $A$ 是 Gorenstein 环 $\Leftrightarrow$ $\omega_A^\bullet$
+是 $D(A)$ 的可逆对象；
+\item $A_\mathfrak p$ 是 Gorenstein 环 $\Leftrightarrow$
+$(\omega_A^\bullet)_\mathfrak p$ 是 $D(A_\mathfrak p)$ 的可逆对象；
+\item $\{\mathfrak p \in \Spec(A) \mid A_\mathfrak p\text{ is Gorenstein}\}$
+是开子集。
+\end{enumerate}
+\item 若 $A$ 是 Gorenstein 环，则 $A$ 具有对偶复形当且仅当
+$A[0]$ 是对偶复形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+关于 $D(A)$ 的可逆对象，参见更多代数，引理
+\ref{more-algebra-lemma-invertible-derived} 以及第
+\ref{dualizing-section-dualizing} 节中的讨论。
+
+\medskip\noindent
+由引理 \ref{dualizing-lemma-dualizing-localize}，对每个 $\mathfrak p$，
+复形 $(\omega_A^\bullet)_\mathfrak p$ 都是 $A_\mathfrak p$
+上的对偶复形。由定义及对偶复形的唯一性（引理
+\ref{dualizing-lemma-dualizing-unique}），得到 (1)(b)。
+
+\medskip\noindent
+为证明 (1)(c)，假设 $A_\mathfrak p$ 是 Gorenstein 环。
+令 $n_x$ 为使 $H^{n_{x}}((\omega_A^\bullet)_\mathfrak p)$
+非零且同构于 $A_\mathfrak p$ 的唯一整数。由于
+$\omega_A^\bullet$ 属于 $D^b_{\textit{Coh}}(A)$，其非零上同调
+$H^i(\omega_A^\bullet)$ 只有有限多个，且都是有限 $A$-模。
+因此存在 $f \in A$、$f \not \in \mathfrak p$，使得只有
+$H^{n_x}((\omega_A^\bullet)_f)$ 非零，并且它在 $A_f$ 上由
+$1$ 个元素生成。由于对偶复形是忠实的（依定义），可知
+$A_f \cong H^{n_x}((\omega_A^\bullet)_f)$。于是对每个
+$\mathfrak q \in D(f)$，$A_\mathfrak q$ 都是 Gorenstein 环。
+这证明了 (1)(c) 中的集合是开的。
+
+\medskip\noindent
+证明 (1)(a)。蕴含 $\Leftarrow$ 由 (1)(b) 得出。
+蕴含 $\Rightarrow$ 由上一段的讨论得出：那里证明了，若
+$A_\mathfrak p$ 是 Gorenstein 环，则存在
+$f \in A$、$f \not \in \mathfrak p$，使得复形
+$(\omega_A^\bullet)_f$ 只有一个非零上同调模，而且该模可逆。
+
+\medskip\noindent
+若 $A[0]$ 是对偶复形，则由第 (1) 部分，$A$ 是 Gorenstein 环。
+反之，第 (1) 部分表明 $\omega_A^\bullet$ 局部同构于 $A$
+的某个平移。成为对偶复形是局部性质（引理
+\ref{dualizing-lemma-dualizing-glue}），故结论显然。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-gorenstein-ext}
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环。
+则 $A$ 是 Gorenstein 环，当且仅当对 $i \gg 0$，
+$\Ext^i_A(\kappa, A)$ 为零。
+\end{lemma}
+
+\begin{proof}
+注意到，$A[0]$ 是 $A$ 的对偶复形，当且仅当 $A$ 作为
+$A$-模具有有限内射维数（这由定义 \ref{dualizing-definition-dualizing}
+立即得出）。因此该引理由更多代数，引理
+\ref{more-algebra-lemma-finite-injective-dimension-Noetherian-local} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-characterize-gorenstein}
+设 $A$ 为 Noetherian 环。下列条件等价：
+\begin{enumerate}
+\item $A$ 作为自身上的模具有有限内射维数；
+\item $A$ 是有限维 Gorenstein 环。
+\end{enumerate}
+在这种情况下，$A[0]$ 是对偶复形。
+\end{lemma}
+
+\begin{proof}
+若 $A$ 作为 $A$-模具有有限内射维数，则 $A[0]$ 是 $A$
+上的对偶复形（参见定义 \ref{dualizing-definition-dualizing}）。由引理
+\ref{dualizing-lemma-universally-catenary}，$A$ 有限维；由引理
+\ref{dualizing-lemma-gorenstein}，该环是 Gorenstein 环。
+反之，假设 $A$ 是 Gorenstein 环且
+$\dim(A) \leq d < \infty$。设 $I \subset A$ 为任意理想。
+断言当 $i > d$ 时，$\Ext^i_A(A/I, A) = 0$；由更多代数，引理
+\ref{more-algebra-lemma-injective-amplitude}，这将证明 $A$
+作为自身上的模具有有限内射维数。构造 $\Ext$ 群与局部化可交换
+（例如参见更多代数，引理
+\ref{more-algebra-lemma-base-change-RHom}）。所以为证明消失，
+可以假设 $A$ 是维数 $e < d$ 的局部环。由于 $A$ 是 Gorenstein
+环，$\omega_A^\bullet = A[e]$ 是规范化对偶复形。
+于是所断言的消失例如由引理 \ref{dualizing-lemma-sitting-in-degrees} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-gorenstein-divide-by-nonzerodivisor}
+设 $(A, \mathfrak m, \kappa)$ 为 Noetherian 局部环，
+$f \in \mathfrak m$ 为非零因子，并置 $B = A/(f)$。
+则 $A$ 是 Gorenstein 环，当且仅当 $B$ 是 Gorenstein 环。
+\end{lemma}
+
+\begin{proof}
+若 $A$ 是 Gorenstein 环，则由引理
+\ref{dualizing-lemma-divide-by-nonzerodivisor}，$B$ 是 Gorenstein 环。
+反之，假设 $B$ 是 Gorenstein 环。则当 $i \gg 0$ 时，
+$\Ext^i_B(\kappa, B)$ 为零（引理 \ref{dualizing-lemma-gorenstein-ext}）。
+回忆 $R\Hom(B, -) : D(A) \to D(B)$ 是限制函子的右伴随
+（引理 \ref{dualizing-lemma-right-adjoint}）。因此
+$$
+R\Hom_A(\kappa, A) = R\Hom_B(\kappa, R\Hom(B, A)) =
+R\Hom_B(\kappa, B[1])
+$$
+最后一个等号可由直接计算或引理
+\ref{dualizing-lemma-compute-for-effective-Cartier-algebraic} 得到。
+所以当 $i \gg 0$ 时，$\Ext^i_A(\kappa, A)$ 为零，因而 $A$
+是 Gorenstein 环（引理 \ref{dualizing-lemma-gorenstein-ext}）。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-gorenstein-lci}
+若 $A \to B$ 是环的局部完全交同态，且 $A$ 是 Noetherian
+Gorenstein 环，则 $B$ 是 Gorenstein 环。
+\end{lemma}
+
+\begin{proof}
+由更多代数，定义
+\ref{more-algebra-definition-local-complete-intersection}，可写成
+$B = A[x_1, \ldots, x_n]/I$，其中 $I$ 是 Koszul 正则理想。
+注意 Gorenstein 环 $A$ 上的多项式环是 Gorenstein 环：先归约到
+$A$ 为局部环，再使用引理 \ref{dualizing-lemma-dualizing-polynomial-ring}
+和 \ref{dualizing-lemma-gorenstein}。依定义，Koszul 正则理想局部由
+Koszul 正则序列生成；参见更多代数，第
+\ref{more-algebra-section-ideals} 节。考察
+$A[x_1, \ldots, x_n]$ 的局部环，可知只需证明：若 $R$
+是 Noetherian 局部 Gorenstein 环，并且
+$f_1, \ldots, f_c \in \mathfrak m_R$ 是 Koszul 正则序列，
+则 $R/(f_1, \ldots, f_c)$ 是 Gorenstein 环。这由引理
+\ref{dualizing-lemma-gorenstein-divide-by-nonzerodivisor} 以及如下事实得出：
+$R$ 中的 Koszul 正则序列就是正则序列（更多代数，引理
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent}）。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-flat-under-gorenstein}
+设 $A \to B$ 为 Noetherian 局部环之间的平坦局部同态。
+下列条件等价：
+\begin{enumerate}
+\item $B$ 是 Gorenstein 环；
+\item $A$ 和 $B/\mathfrak m_A B$ 都是 Gorenstein 环。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下将不再另行说明地使用局部 Gorenstein 环具有有限内射维数
+这一事实以及引理 \ref{dualizing-lemma-gorenstein-ext}。由更多代数，引理
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext}，
+对所有 $i$ 有
+$$
+\Ext^i_A(\kappa_A, A) \otimes_A B =
+\Ext^i_B(B/\mathfrak m_A B, B)
+$$
+
+\medskip\noindent
+假设 (2)。利用 $R\Hom(B/\mathfrak m_A B, -) : D(B) \to D(B/\mathfrak m_A B)$
+是限制函子的右伴随（引理 \ref{dualizing-lemma-right-adjoint}），得到
+$$
+R\Hom_B(\kappa_B, B) =
+R\Hom_{B/\mathfrak m_A B}(\kappa_B, R\Hom(B/\mathfrak m_A B, B))
+$$
+$R\Hom(B/\mathfrak m_A B, B)$ 的上同调模为
+$\Ext^i_B(B/\mathfrak m_A B, B) =
+\Ext^i_A(\kappa_A, A) \otimes_A B$。由于 $A$ 是 Gorenstein 环，
+这些模中只有有限多个非零，并且每个都同构于若干份
+$B/\mathfrak m_A B$ 的直和。又因为 $B/\mathfrak m_A B$
+是 Gorenstein 环，可知 $R\Hom_B(B/\mathfrak m_B, B)$
+只有有限多个非零上同调模。因此 $B$ 是 Gorenstein 环。
+
+\medskip\noindent
+假设 (1)。由于 $B$ 具有有限内射维数，当 $i \gg 0$ 时，
+$\Ext^i_B(B/\mathfrak m_A B, B)$ 为 $0$。由于 $A \to B$
+忠实平坦，当 $i \gg 0$ 时，$\Ext^i_A(\kappa_A, A)$ 为 $0$。
+故 $A$ 是 Gorenstein 环。这意味着 $\Ext^i_A(\kappa_A, A)$
+恰好对一个 $i$ 非零，即 $i = \dim(A)$，并且
+$\Ext^{\dim(A)}_A(\kappa_A, A) \cong \kappa_A$
+（参见引理 \ref{dualizing-lemma-normalized-finite}、\ref{dualizing-lemma-apply-CM}
+及 \ref{dualizing-lemma-gorenstein-CM}）。所以
+$\Ext^i_B(B/\mathfrak m_A B, B)$ 除了一个 $i$ 以外均为零，
+即 $i = \dim(A)$，且
+$\Ext^{\dim(A)}_B(B/\mathfrak m_A B, B) \cong B/\mathfrak m_A B$。
+由引理 \ref{dualizing-lemma-normalized-finite}，$B/\mathfrak m_A B$
+是 Gorenstein 环。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-tor-injective-hull}
+设 $(A, \mathfrak m, \kappa)$ 为维数 $d$ 的 Noetherian 局部
+Gorenstein 环，$E$ 为 $\kappa$ 的内射包。则当 $i \not = d$ 时，
+$\text{Tor}_i^A(E, \kappa)$ 为零，并且
+$\text{Tor}_d^A(E, \kappa) = \kappa$。
+\end{lemma}
+
+\begin{proof}
+由于 $A$ 是 Gorenstein 环，$\omega_A^\bullet = A[d]$ 是 $A$
+的规范化对偶复形。此外，$E$ 是
+$R\Gamma_\mathfrak m(\omega_A^\bullet)$ 唯一的非零上同调模，
+并且位于次数 $0$；参见引理
+\ref{dualizing-lemma-local-cohomology-of-dualizing}。由引理
+\ref{dualizing-lemma-torsion-tensor-product}，有
+$$
+E \otimes_A^\mathbf{L} \kappa =
+R\Gamma_\mathfrak m(\omega_A^\bullet) \otimes_A^\mathbf{L} \kappa =
+R\Gamma_\mathfrak m(\omega_A^\bullet \otimes_A^\mathbf{L} \kappa) =
+R\Gamma_\mathfrak m(\kappa[d]) = \kappa[d]
+$$
+引理随即得证。
+\end{proof}
+
+
+
+
+\section{对偶复形的普遍存在性}
+\label{dualizing-section-ubiquity-dualizing}
+
+\noindent
+许多 Noetherian 环都有对偶复形。
+
+\begin{lemma}
+\label{dualizing-lemma-flat-unramified}
+设 $A \to B$ 为 Noetherian 局部环之间的局部同态，
+$\omega_A^\bullet$ 为规范化对偶复形。若 $A \to B$ 平坦且
+$\mathfrak m_A B = \mathfrak m_B$，则
+$\omega_A^\bullet \otimes_A B$ 是 $B$ 的规范化对偶复形。
+\end{lemma}
+
+\begin{proof}
+显然 $\omega_A^\bullet \otimes_A B$ 属于
+$D^b_{\textit{Coh}}(B)$。设 $\kappa_A$ 和 $\kappa_B$ 分别为
+$A$ 和 $B$ 的剩余域。由更多代数，引理
+\ref{more-algebra-lemma-base-change-RHom}，有
+$$
+R\Hom_B(\kappa_B, \omega_A^\bullet \otimes_A B) =
+R\Hom_A(\kappa_A, \omega_A^\bullet) \otimes_A B =
+\kappa_A[0] \otimes_A B = \kappa_B[0]
+$$
+因此由更多代数，引理
+\ref{more-algebra-lemma-finite-injective-dimension-Noetherian-local}，
+$\omega_A^\bullet \otimes_A B$ 具有有限内射维数。最后，用相同的论证可得
+$$
+R\Hom_B(\omega_A^\bullet \otimes_A B, \omega_A^\bullet \otimes_A B) =
+R\Hom_A(\omega_A^\bullet, \omega_A^\bullet) \otimes_A B = A \otimes_A B = B
+$$
+这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-flat-iso-mod-I}
+设 $A \to B$ 为 Noetherian 环之间的平坦映射。设
+$I \subset A$ 为理想，满足 $A/I = B/IB$，并且 $IB$ 包含于
+$B$ 的 Jacobson 根中。设 $\omega_A^\bullet$ 为对偶复形。
+则 $\omega_A^\bullet \otimes_A B$ 是 $B$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+显然 $\omega_A^\bullet \otimes_A B$ 属于
+$D^b_{\textit{Coh}}(B)$。由更多代数，引理
+\ref{more-algebra-lemma-base-change-RHom}，对任意
+$K \in D^b_{\textit{Coh}}(A)$ 有
+$$
+R\Hom_B(K \otimes_A B, \omega_A^\bullet \otimes_A B) =
+R\Hom_A(K, \omega_A^\bullet) \otimes_A B
+$$
+对任意理想 $IB \subset J \subset B$，存在唯一理想
+$I \subset J' \subset A$，使得 $A/J' \otimes_A B = B/J$。
+因此由更多代数，引理
+\ref{more-algebra-lemma-finite-injective-dimension-Noetherian-radical}，
+$\omega_A^\bullet \otimes_A B$ 具有有限内射维数。最后还有
+$$
+R\Hom_B(\omega_A^\bullet \otimes_A B, \omega_A^\bullet \otimes_A B) =
+R\Hom_A(\omega_A^\bullet, \omega_A^\bullet) \otimes_A B = A \otimes_A B = B
+$$
+这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-completion-henselization-dualizing}
+设 $A$ 为 Noetherian 环，$I \subset A$ 为理想，
+$\omega_A^\bullet$ 为对偶复形。
+\begin{enumerate}
+\item $\omega_A^\bullet \otimes_A A^h$ 是对偶复形，它定义在环对
+$(A, I)$ 的 Hensel 化 $(A^h, I^h)$ 上；
+\item $\omega_A^\bullet \otimes_A A^\wedge$ 是 $I$-进完备化
+$A^\wedge$ 上的对偶复形；
+\item 若 $A$ 局部，则 $\omega_A^\bullet \otimes_A A^h$，相应地，\ 
+$\omega_A^\bullet \otimes_A A^{sh}$，分别是 $A$ 的 Hensel 化，
+相应地，\ 严格 Hensel 化上的对偶复形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-flat-unramified} 和
+\ref{dualizing-lemma-flat-iso-mod-I} 立即得出。关于完备化与 Hensel 化，
+参见更多代数，第 \ref{more-algebra-section-henselian-pairs}、
+\ref{more-algebra-section-permanence-completion}、
+\ref{more-algebra-section-permanence-henselization} 节，以及代数，第
+\ref{algebra-section-completion} 和
+\ref{algebra-section-completion-noetherian} 节。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-ubiquity-dualizing}
+下列类型的环具有对偶复形：
+\begin{enumerate}
+\item 域；
+\item Noetherian 完备局部环；
+\item $\mathbf{Z}$；
+\item Dedekind 整环；
+\item 由上述某个环通过取本质有限型代数、取理想进完备化、
+取 Hensel 化或取严格 Hensel 化而得到的任意环。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (5) 部分由命题
+\ref{dualizing-proposition-dualizing-essentially-finite-type} 和引理
+\ref{dualizing-lemma-completion-henselization-dualizing} 得出。
+由引理 \ref{dualizing-lemma-regular-gorenstein}，正则局部环具有对偶复形。
+由 Cohen 结构定理（代数，定理
+\ref{algebra-theorem-cohen-structure-theorem}），Noetherian 完备局部环
+是某个正则局部环的商。设 $A$ 为 Dedekind 整环。则每个理想
+$I$ 都是有限投射 $A$-模（这由代数，引理
+\ref{algebra-lemma-finite-projective} 以及如下事实得出：$A$
+的局部环都是离散赋值环，因而都是主理想整环）。于是由更多代数，引理
+\ref{more-algebra-lemma-injective-amplitude}，每个 $A$-模的内射维数
+都有限且至多为 $1$。容易推出 $A[0]$ 是对偶复形。
+\end{proof}
+
+
+
+
+
+\section{形式纤维}
+\label{dualizing-section-formal-fibres}
+
+\noindent
+本节是更多代数，第
+\ref{more-algebra-section-properties-formal-fibres} 节的继续。
+那里对局部环具有 Cohen--Macaulay 形式纤维的 Noetherian 环 $A$
+建立了一套相当完善的理论。具体而言，我们证明了：(1) 只需检验在
+极大理想处的局部化之形式纤维是 Cohen--Macaulay 的；(2) $A$
+上的有限型环继承此性质；(3) 对 $A$ 的任意完备化 $A^\wedge$，
+$A \to A^\wedge$ 的纤维都是 Cohen--Macaulay 的；(4) $A$
+的 Hensel 化继承此性质。参见更多代数，引理
+\ref{more-algebra-lemma-check-P-ring-maximal-ideals}、命题
+\ref{more-algebra-proposition-finite-type-over-P-ring}、引理
+\ref{more-algebra-lemma-map-P-ring-to-completion-P} 和引理
+\ref{more-algebra-lemma-henselization-pair-P-ring}。对于局部环具有
+几何约化、几何正规、$(S_n)$ 或几何 $(R_n)$ 形式纤维的
+Noetherian 环，也有类似结论。本节将看到，对于局部环具有
+Gorenstein 或局部完全交形式纤维的 Noetherian 环，同样如此。
+这与本章相关，因为具有对偶复形的 Noetherian 环就是一个例子。
+
+\begin{lemma}
+\label{dualizing-lemma-formal-fibres-gorenstein}
+更多代数，第 \ref{more-algebra-section-properties-formal-fibres} 节的
+性质 (A)、(B)、(C)、(D)、(E) 对
+$P(k \to R) =$“$R$ 是 Gorenstein 环”成立。
+\end{lemma}
+
+\begin{proof}
+我们已经知道把 Gorenstein 换成 Cohen--Macaulay 时结论成立，
+所以每一步中都可以假设所处理的环是 Cohen--Macaulay 环。
+这对证明并无多少实质帮助，但有助于直觉。
+
+\medskip\noindent
+第 (A) 部分。设 $K/k$ 为有限生成域扩张，$R$ 为 Gorenstein
+$k$-代数。可以找到 $k$ 上的整体完全交
+$A = k[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$，使 $K$
+同构于 $A$ 的分式域；参见代数，引理
+\ref{algebra-lemma-colimit-syntomic}。于是
+$R \to R \otimes_k A$ 是相对整体完全交。由引理
+\ref{dualizing-lemma-gorenstein-lci}，$R \otimes_k A$ 是 Gorenstein 环。
+所以作为其局部化，$R \otimes_k K$ 也是 Gorenstein 环。
+
+\medskip\noindent
+证明 (B)。这是显然的，因为一个环是 Gorenstein 环，当且仅当
+它的所有局部环都是 Gorenstein 环。
+
+\medskip\noindent
+第 (C) 部分。设 $A \to B \to C$ 为 Noetherian 环之间的平坦映射。
+假设 $A \to B$ 的纤维是 Gorenstein 的，且 $B \to C$ 正则。
+需要证明 $A \to C$ 的纤维是 Gorenstein 的。显然可以假设
+$A = k$ 为域，进而假设 $B \to C$ 是 Noetherian 局部环之间的
+正则局部同态。此时 $B$ 是 Gorenstein 环，而
+$C/\mathfrak m_B C$ 正则，特别地，它是 Gorenstein 环
+（引理 \ref{dualizing-lemma-regular-gorenstein}）。由引理
+\ref{dualizing-lemma-flat-under-gorenstein}，$C$ 是 Gorenstein 环。
+
+\medskip\noindent
+第 (D) 部分由引理 \ref{dualizing-lemma-flat-under-gorenstein} 得出。
+第 (E) 部分是立即的，因为该条件不涉及底域。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-dualizing-gorenstein-formal-fibres}
+设 $A$ 为 Noetherian 局部环。若 $A$ 具有对偶复形，则 $A$
+的形式纤维都是 Gorenstein 的。
+\end{lemma}
+
+\begin{proof}
+设 $\mathfrak p$ 为 $A$ 的素理想。$A$ 在 $\mathfrak p$ 处的形式纤维
+同构于 $A/\mathfrak p$ 在 $(0)$ 处的形式纤维。商环
+$A/\mathfrak p$ 具有对偶复形（引理
+\ref{dualizing-lemma-dualizing-quotient}）。因此只需检验 $A$ 为局部整环且
+$\mathfrak p = (0)$ 时的陈述。设 $\omega_A^\bullet$ 为 $A$
+的对偶复形。则 $\omega_A^\bullet \otimes_A A^\wedge$ 是完备化
+$A^\wedge$ 的对偶复形（引理 \ref{dualizing-lemma-flat-unramified}）。
+又 $\omega_A^\bullet \otimes_A K$ 是 $A$ 的分式域 $K$
+的对偶复形（引理 \ref{dualizing-lemma-dualizing-localize}）。所以对某个
+$n \in \mathbf{Z}$，$\omega_A^\bullet \otimes_A K$
+同构于 $K[n]$。类似地，可知形式纤维 $A^\wedge \otimes_A K$
+的一个对偶复形为
+$$
+\omega_A^\bullet \otimes_A A^\wedge \otimes_{A^\wedge} (A^\wedge \otimes_A K) =
+(\omega_A^\bullet \otimes_A K) \otimes_K (A^\wedge \otimes_A K) \cong
+(A^\wedge \otimes_A K)[n]
+$$
+这正是所需结论。
+\end{proof}
+
+\noindent
+下面验证除幂代数，评注 \ref{dpa-remark-no-good-ci-map} 中所承诺的结论。
+
+\begin{lemma}
+\label{dualizing-lemma-formal-fibres-lci}
+更多代数，第 \ref{more-algebra-section-properties-formal-fibres} 节的
+性质 (A)、(B)、(C)、(D)、(E) 对
+$P(k \to R) =$“$R$ 是局部完全交”成立。参见除幂代数，定义
+\ref{dpa-definition-lci}。
+\end{lemma}
+
+\begin{proof}
+第 (A) 部分。设 $K/k$ 为有限生成域扩张，$R$ 为一个是局部完全交的
+$k$-代数。可以找到 $k$ 上的整体完全交
+$A = k[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$，使 $K$
+同构于 $A$ 的分式域；参见代数，引理
+\ref{algebra-lemma-colimit-syntomic}。于是
+$R \to R \otimes_k A$ 是相对整体完全交。由除幂代数，引理
+\ref{dpa-lemma-avramov}，$R \otimes_k A$ 是局部完全交。
+
+\medskip\noindent
+证明 (B)。这是显然的，因为一个环是局部完全交，当且仅当它的所有
+局部环都是完全交。
+
+\medskip\noindent
+第 (C) 部分。设 $A \to B \to C$ 为 Noetherian 环之间的平坦映射。
+假设 $A \to B$ 的纤维是局部完全交，并且 $B \to C$ 正则。
+需要证明 $A \to C$ 的纤维是局部完全交。显然可以假设
+$A = k$ 为域，进而假设 $B \to C$ 是 Noetherian 局部环之间的
+正则局部同态。此时 $B$ 是完全交，而 $C/\mathfrak m_B C$ 正则，
+特别地，依定义它是完全交。由除幂代数，引理
+\ref{dpa-lemma-avramov}，$C$ 是完全交。
+
+\medskip\noindent
+第 (D) 部分由 (C) 中相同的论证以及除幂代数，引理
+\ref{dpa-lemma-avramov} 的另一个方向得出。第 (E) 部分是立即的，
+因为该条件不涉及底域。
+\end{proof}
+
+
+
+
+
+
+\section{代数意义下的上叹号函子}
+\label{dualizing-section-relative-dualizing-complex-algebraic}
+
+\noindent
+对 Noetherian 环的有限型同态 $R \to A$，我们将构造一个在非唯一同构
+意义下良定义的函子 $\varphi^! : D(R) \to D(A)$。正如将在概形的
+对偶理论，评注 \ref{duality-remark-local-calculation-shriek} 中看到的，
+它在同构意义下与概形对偶理论中出现的上叹号函子一致。
+为说明这一构造的动机，先提及另外两个性质：
+\begin{enumerate}
+\item $\varphi^!$ 把 $R$ 的对偶复形（若存在）送到 $A$ 的对偶复形；
+\item $\omega_{A/R}^\bullet = \varphi^!(R)$ 是一种相对对偶复形：
+它属于 $D^b_{\textit{Coh}}(A)$；若 $R \to A$ 平坦，则它限制到
+纤维上后是对偶复形。
+\end{enumerate}
+这些陈述就是引理 \ref{dualizing-lemma-shriek-dualizing-algebraic} 和
+\ref{dualizing-lemma-relative-dualizing-algebraic}。
+
+\medskip\noindent
+设 $\varphi : R \to A$ 为 Noetherian 环的有限型同态。
+如下定义函子 $\varphi^! : D(R) \to D(A)$：
+\begin{enumerate}
+\item 若 $\varphi : R \to A$ 满，则置
+$\varphi^!(K) = R\Hom(A, K)$。这里使用第 \ref{dualizing-section-trivial} 节的函子
+$R\Hom(A, -) : D(R) \to D(A)$；
+\item 一般地，选择满射 $\psi : P \to A$，其中
+$P = R[x_1, \ldots, x_n]$，并置
+$\varphi^!(K) = \psi^!(K \otimes_R^\mathbf{L} P)[n]$。
+这里使用更多代数，第 \ref{more-algebra-section-derived-base-change} 节的函子
+$- \otimes_R^\mathbf{L} P : D(R) \to D(P)$。
+\end{enumerate}
+注意按多项式环中的变量数作平移 $[n]$。这一构造{\bf 不是}典范的，
+而函子 $\varphi^!$ 仅在函子的（非唯一）同构意义下良定义
+\footnote{可以使这一构造成为典范的：在构造中以
+$\Omega^n_{P/R}[n]$ 代替 $P[n]$，并在引理
+\ref{dualizing-lemma-well-defined} 中使用它。若要这样做，本节的内容会复杂得多。}。
+
+\begin{lemma}
+\label{dualizing-lemma-well-defined}
+设 $\varphi : R \to A$ 为 Noetherian 环的有限型同态。
+则函子 $\varphi^!$ 在同构意义下良定义。
+\end{lemma}
+
+\begin{proof}
+假设 $\psi_1 : P_1 = R[x_1, \ldots, x_n] \to A$ 与
+$\psi_2 : P_2 = R[y_1, \ldots, y_m] \to A$ 是两个从多项式环到
+$A$ 的满射。于是得到交换图
+$$
+\xymatrix{
+R[x_1, \ldots, x_n, y_1, \ldots, y_m]
+\ar[d]^{x_i \mapsto g_i} \ar[rr]_-{y_j \mapsto f_j} & &
+R[x_1, \ldots, x_n] \ar[d] \\
+R[y_1, \ldots, y_m] \ar[rr] & & A
+}
+$$
+其中选择 $f_j$ 与 $g_i$，使得 $\psi_1(f_j) = \psi_2(y_j)$ 以及
+$\psi_2(g_i) = \psi_1(x_i)$。由对称性，只需证明用
+$P \to A$ 与 $P[y_1, \ldots, y_m] \to A$ 定义的函子同构。
+由归纳可以假设 $m = 1$，从而归约到下一段讨论的情形。
+
+\medskip\noindent
+给定 $\psi : P \to A$，并设 $\chi : P[y] \to A$ 在 $P$
+上诱导 $\psi$。记 $Q = P[y]$。选取 $g \in P$，使
+$\psi(g) = \chi(y)$。以 $\pi : Q \to P$ 表示满足
+$\pi(y) = g$ 的 $P$-代数映射。于是 $\chi = \psi \circ \pi$；
+又因为两者都是限制函子 $D(A) \to D(Q)$ 的右伴随
+（见第 \ref{dualizing-section-trivial} 节），故
+$\chi^! = \psi^! \circ \pi^!$。因此
+$$
+\chi^!\left(K \otimes_R^\mathbf{L} Q\right)[n + 1] =
+\psi^!\left(\pi^!\left(K \otimes_R^\mathbf{L} Q\right)[1]\right)[n]
+$$
+所以只需证明
+$\pi^!(K \otimes_R^\mathbf{L} Q[1]) = K \otimes_R^\mathbf{L} P$。
+因此只需证明函子 $\pi^!(-) : D(Q) \to D(P)$ 同构于
+$K \mapsto K \otimes_Q^\mathbf{L} P[-1]$。这由引理
+\ref{dualizing-lemma-compute-for-effective-Cartier-algebraic} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-shriek-boundedness}
+设 $\varphi : R \to A$ 为 Noetherian 环的有限型同态。
+\begin{enumerate}
+\item $\varphi^!$ 把 $D^+(R)$ 映入 $D^+(A)$，并把
+$D^+_{\textit{Coh}}(R)$ 映入 $D^+_{\textit{Coh}}(A)$；
+\item 若 $\varphi$ 完美，则 $\varphi^!$ 把 $D^-(R)$ 映入
+$D^-(A)$，把 $D^-_{\textit{Coh}}(R)$ 映入
+$D^-_{\textit{Coh}}(A)$，并把 $D^b_{\textit{Coh}}(R)$ 映入
+$D^b_{\textit{Coh}}(A)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+按 $\varphi^!$ 的定义选取分解 $R \to P \to A$。函子
+$- \otimes_R^\mathbf{L} : D(R) \to D(P)$ 保持子范畴
+$D^+, D^+_{\textit{Coh}}, D^-, D^-_{\textit{Coh}}, D^b_{\textit{Coh}}$。
+由引理 \ref{dualizing-lemma-exact-support-coherent}，函子
+$R\Hom(A, -) : D(P) \to D(A)$ 保持 $D^+$ 与
+$D^+_{\textit{Coh}}$。若 $R \to A$ 完美，则 $A$ 作为
+$P$-模是完美的；参见更多代数，引理
+\ref{more-algebra-lemma-perfect-ring-map}。回忆 $R\Hom(A, K)$
+限制到 $D(P)$ 后就是 $R\Hom_P(A, K)$。由更多代数，引理
+\ref{more-algebra-lemma-dual-perfect-complex}，对某个完美对象
+$E \in D(P)$ 有 $R\Hom_P(A, K) = E \otimes_P^\mathbf{L} K$。
+由于可以用有限投射 $P$-模的有限复形表示 $E$，所以一旦 $K$
+属于 $D^-(P), D^-_{\textit{Coh}}(P), D^b_{\textit{Coh}}(P)$，
+$R\Hom_P(A, K)$ 也属于相应范畴。限制函子
+$D(A) \to D(P)$ 反映这些子范畴，故证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-shriek-dualizing-algebraic}
+设 $\varphi$ 为 Noetherian 环的有限型同态。若
+$\omega_R^\bullet$ 是 $R$ 的对偶复形，则
+$\varphi^!(\omega_R^\bullet)$ 是 $A$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-dualizing-polynomial-ring} 和
+\ref{dualizing-lemma-dualizing-quotient} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-flat-bc}
+设 $R \to R'$ 为 Noetherian 环的平坦同态，
+$\varphi : R \to A$ 为有限型环映射，并设
+$\varphi' : R' \to A' = A \otimes_R R'$ 为 $\varphi$ 诱导的映射。
+则对 $D(R)$ 中的 $K$，有函子性映射
+$$
+\varphi^!(K) \otimes_A^\mathbf{L} A' \longrightarrow
+(\varphi')^!(K \otimes_R^\mathbf{L} R')
+$$
+并且当 $K \in D^+(R)$ 时，这些映射是同构。
+\end{lemma}
+
+\begin{proof}
+选取分解 $R \to P \to A$，其中 $P$ 是 $R$ 上的多项式环。
+基变换给出相应分解 $R' \to P' \to A'$。由更多代数，引理
+\ref{more-algebra-lemma-double-base-change}，有
+$(K \otimes_R^\mathbf{L} P) \otimes_P^\mathbf{L} P' =
+(K \otimes_R^\mathbf{L} R') \otimes_{R'}^\mathbf{L} P'$，
+故只需构造关于 $K$ 函子性的映射
+$$
+R\Hom(A, K \otimes_R^\mathbf{L} P[n]) \otimes_A^\mathbf{L} A'
+\longrightarrow
+R\Hom(A', (K \otimes_R^\mathbf{L} P[n]) \otimes_P^\mathbf{L} P')
+$$
+为此，使用映射 (\ref{dualizing-equation-base-change})；它是在第
+\ref{dualizing-section-base-change-trivial-duality} 节中针对 $P, A, P', A'$
+构造的。
+由引理 \ref{dualizing-lemma-flat-bc-surjection}，当 $K \in D^+(R)$ 时，
+该映射为同构。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-bc}
+设 $R \to R'$ 为 Noetherian 环的同态。设
+$\varphi : R \to A$ 为完美环映射（更多代数，定义
+\ref{more-algebra-definition-pseudo-coherent-perfect}），并且 $R'$ 与
+$A$ 在 $R$ 上 Tor 独立。设
+$\varphi' : R' \to A' = A \otimes_R R'$ 为 $\varphi$ 诱导的映射。
+则对 $D(R)$ 中的 $K$，有函子性同构
+$$
+\varphi^!(K) \otimes_A^\mathbf{L} A' =
+(\varphi')^!(K \otimes_R^\mathbf{L} R')
+$$
+\end{lemma}
+
+\begin{proof}
+可以选择分解 $R \to P \to A$，其中 $P$ 是 $R$ 上的多项式环，
+而 $A$ 是完美 $P$-模；参见更多代数，引理
+\ref{more-algebra-lemma-perfect-ring-map}。基变换给出相应分解
+$R' \to P' \to A'$。由更多代数，引理
+\ref{more-algebra-lemma-double-base-change}，有
+$(K \otimes_R^\mathbf{L} P) \otimes_P^\mathbf{L} P' =
+(K \otimes_R^\mathbf{L} R') \otimes_{R'}^\mathbf{L} P'$，
+所以只需构造关于 $K$ 函子性的映射
+$$
+R\Hom(A, K \otimes_R^\mathbf{L} P[n]) \otimes_A^\mathbf{L} A'
+\longrightarrow
+R\Hom(A', (K \otimes_R^\mathbf{L} P[n]) \otimes_P^\mathbf{L} P')
+$$
+我们有
+$$
+A \otimes_P^\mathbf{L} P' = A \otimes_R^\mathbf{L} R' = A'
+$$
+第一个等号由更多代数，引理
+\ref{more-algebra-lemma-base-change-comparison} 应用于
+$R, R', P, P'$ 得出。第二个等号成立是因为 $A$ 与 $R'$ 在
+$R$ 上 Tor 独立。因此 $A$ 与 $P'$ 在 $P$ 上 Tor 独立，
+可以使用映射 (\ref{dualizing-equation-base-change})；它是在第
+\ref{dualizing-section-base-change-trivial-duality} 节中针对
+$P, A, P', A'$ 构造的，由此得到所需箭头。由引理
+\ref{dualizing-lemma-bc-surjection}，为完成证明，只需证明 $A$ 是完美
+$P$-模，而这已在上面说明。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-bc-flat}
+设 $R \to R'$ 为 Noetherian 环的同态，
+$\varphi : R \to A$ 为平坦有限型映射，并设
+$\varphi' : R' \to A' = A \otimes_R R'$ 为 $\varphi$ 诱导的映射。
+则对 $D(R)$ 中的 $K$，有函子性同构
+$$
+\varphi^!(K) \otimes_A^\mathbf{L} A' =
+(\varphi')^!(K \otimes_R^\mathbf{L} R')
+$$
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{dualizing-lemma-bc} 的特殊情形；依据是更多代数，引理
+\ref{more-algebra-lemma-flat-finite-presentation-perfect}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-composition-shriek-algebraic}
+设 $A \xrightarrow{a} B \xrightarrow{b} C$ 为 Noetherian 环的有限型
+同态。则存在函子变换 $b^! \circ a^! \to (b \circ a)^!$，
+它在 $D^+(A)$ 上为同构。
+\end{lemma}
+
+\begin{proof}
+选取 $A$ 上的多项式环 $P = A[x_1, \ldots, x_n]$ 以及满射
+$P \to B$。选取在 $B$ 上生成 $C$ 的元素
+$c_1, \ldots, c_m \in C$。置 $Q = P[y_1, \ldots, y_m]$，并记
+$Q' = Q \otimes_P B = B[y_1, \ldots, y_m]$。设
+$\chi : Q' \to C$ 为把 $y_j$ 送到 $c_j$ 的满射。图如下：
+$$
+\xymatrix{
+& Q \ar[r]_{\psi'} & Q' \ar[r]_\chi & C \\
+A \ar[r] & P \ar[r]^\psi \ar[u] & B \ar[u]
+}
+$$
+由引理 \ref{dualizing-lemma-flat-bc-surjection}，对 $M \in D(P)$ 有箭头
+$\psi^!(M) \otimes_B^\mathbf{L} Q' \to (\psi')^!(M \otimes_P^\mathbf{L} Q)$，
+当 $M$ 下有界时它是同构。此外，由第 \ref{dualizing-section-trivial} 节，
+两个函子都是限制函子 $D(C) \to D(Q)$ 的右伴随，故
+$\chi^! \circ (\psi')^! = (\chi \circ \psi')^!$。于是
+\begin{align*}
+b^!(a^!(K))
+& =
+\chi^!(\psi^!(K \otimes_A^\mathbf{L} P)[n] \otimes_B^\mathbf{L} Q)[m] \\
+& \to
+\chi^!((\psi')^!(K \otimes_A^\mathbf{L} P \otimes_P^\mathbf{L} Q))[n + m] \\
+& =
+(\chi \circ \psi')^!(K\otimes_A^\mathbf{L} Q)[n + m] \\
+& =
+(b \circ a)^!(K)
+\end{align*}
+除上述结论外，这里还使用了更多代数，引理
+\ref{more-algebra-lemma-double-base-change}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-upper-shriek-finite}
+设 $\varphi : R \to A$ 为 Noetherian 环之间的有限映射。
+则 $\varphi^!$ 同构于第 \ref{dualizing-section-trivial} 节的函子
+$R\Hom(A, -) : D(R) \to D(A)$。
+\end{lemma}
+
+\begin{proof}
+假设 $A$ 在 $R$ 上由 $n > 1$ 个元素生成。则可以把
+$R \to A$ 分解为两个有限环映射的复合，并且每一步的生成元数都
+$< n$。利用引理 \ref{dualizing-lemma-composition-shriek-algebraic} 和引理
+\ref{dualizing-lemma-composition-right-adjoints}，只需证明 $A$ 在 $R$
+上由一个元素生成时的引理。由于 $A$ 在 $R$ 上有限，$A$
+是 $B = R[x]/(f)$ 的商，其中 $f$ 是关于 $x$ 的首一多项式
+（代数，引理 \ref{algebra-lemma-finite-is-integral}）。再次使用关于
+复合的引理，以及依定义对满射已有一致性这一事实，只需对
+$R \to B = R[x]/(f)$ 证明引理。在这种情况下，函子
+$\varphi^!$ 同构于 $K \mapsto K \otimes_R^\mathbf{L} B$；
+这可把引理 \ref{dualizing-lemma-compute-for-effective-Cartier-algebraic}
+用于映射 $R[x] \to B$ 来证明（注意 $\varphi^!$ 的定义与该引理中的
+平移相加为零）。对于函子 $R\Hom(B, -) : D(R) \to D(B)$，
+由引理 \ref{dualizing-lemma-RHom-is-tensor-special}，只需证明作为 $B$-模有
+$\Hom_R(B, R) \cong B$。假设 $f$ 的次数为 $d$。则
+$1, x, \ldots, x^{d - 1}$ 给出 $B$ 的一组 $R$-基。
+令 $\delta_i : B \to R$、$i = 0, \ldots, d - 1$ 为关于这组基
+取出 $x^i$ 系数的 $R$-线性映射。于是
+$\delta_0, \ldots, \delta_{d - 1}$ 是 $\Hom_R(B, R)$ 的一组基。
+最后，对 $0 \leq i \leq d - 1$，计算表明
+$$
+x^i \delta_{d - 1} =
+\delta_{d - 1 - i} + b_1 \delta_{d - i} + \ldots + b_i \delta_{d - 1}
+$$
+其中某些 $c_1, \ldots, c_d \in R$ 满足上述关系
+\footnote{若 $f = x^d + a_1 x^{d - 1} + \ldots + a_d$，则
+$c_1 = -a_1$、$c_2 = a_1^2 - a_2$、
+$c_3 = -a_1^3 + 2a_1a_2 -a_3$，等等。}。
+所以 $\Hom_R(B, R)$ 是由 $\delta_{d - 1}$ 生成的主 $B$-模。
+考察秩可知，它是秩为 $1$ 的自由 $B$-模。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-upper-shriek-localize}
+设 $R$ 为 Noetherian 环，$f \in R$。若 $\varphi$ 表示映射
+$R \to R_f$，则 $\varphi^!$ 同构于
+$- \otimes_R^\mathbf{L} R_f$。更一般地，若
+$\varphi : R \to R'$ 满足 $\Spec(R') \to \Spec(R)$ 为开浸入，
+则 $\varphi^!$ 同构于 $- \otimes_R^\mathbf{L} R'$。
+\end{lemma}
+
+\begin{proof}
+选取表示 $R \to R[x] \to R[x]/(fx - 1) = R_f$，并注意到
+$fx - 1$ 是 $R[x]$ 中的非零因子。因此可以用引理
+\ref{dualizing-lemma-compute-for-effective-Cartier-algebraic} 计算函子
+$\varphi^!$。略去细节；注意 $\varphi^!$ 的定义与该引理中的平移
+相加为零。
+
+\medskip\noindent
+一般情形下，注意到 $R' \otimes_R R' = R'$。所以结论由上面的
+基变换结果得出。使用引理 \ref{dualizing-lemma-flat-bc} 或引理
+\ref{dualizing-lemma-bc} 均可。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-upper-shriek-is-tensor-functor}
+设 $\varphi : R \to A$ 为 Noetherian 环之间的完美同态
+（例如 $\varphi$ 是平坦有限型的）。则对 $K \in D(R)$，有
+$\varphi^!(K) = K \otimes_R^\mathbf{L} \varphi^!(R)$。
+\end{lemma}
+
+\begin{proof}
+（括号内的陈述由更多代数，引理
+\ref{more-algebra-lemma-flat-finite-presentation-perfect} 得出。）
+可以选择分解 $R \to P \to A$，其中 $P$ 是 $R$ 上 $n$ 个变量的
+多项式环，而 $A$ 是完美 $P$-模；参见更多代数，引理
+\ref{more-algebra-lemma-perfect-ring-map}。回忆
+$\varphi^!(K) = R\Hom(A, K \otimes_R^\mathbf{L} P[n])$。
+因此结论由引理 \ref{dualizing-lemma-RHom-is-tensor-special} 与更多代数，引理
+\ref{more-algebra-lemma-double-base-change} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-if-have-omega}
+设 $\varphi : A \to B$ 为 Noetherian 环的有限型同态，
+$\omega_A^\bullet$ 为 $A$ 的对偶复形，并置
+$\omega_B^\bullet = \varphi^!(\omega_A^\bullet)$。对
+$K \in D_{\textit{Coh}}(A)$ 记
+$D_A(K) = R\Hom_A(K, \omega_A^\bullet)$，对
+$L \in D_{\textit{Coh}}(B)$ 记
+$D_B(L) = R\Hom_B(L, \omega_B^\bullet)$。则对
+$K \in D_{\textit{Coh}}(A)$，有函子性同构
+$$
+\varphi^!(K) = D_B(D_A(K) \otimes_A^\mathbf{L} B)
+$$
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-shriek-dualizing-algebraic}，注意到
+$\omega_B^\bullet$ 是 $B$ 的对偶复形。设 $A \to B \to C$
+为 Noetherian 环的有限型同态。若引理对 $A \to B$ 和
+$B \to C$ 成立，则它对 $A \to C$ 也成立。这由引理
+\ref{dualizing-lemma-composition-shriek-algebraic} 以及如下事实得出：由引理
+\ref{dualizing-lemma-dualizing}，$D_B \circ D_B \cong \text{id}$。
+因此只需在 $A \to B$ 为满射以及 $B$ 是 $A$ 上的多项式环时
+证明引理。
+
+\medskip\noindent
+假设 $B = A[x_1, \ldots, x_n]$。由于
+$D_A \circ D_A \cong \text{id}$，只需对
+$D_{\textit{Coh}}(A)$ 中的 $K$ 证明
+$D_B(K \otimes_A B) \cong D_A(K) \otimes_A B[n]$。
+选取表示 $\omega_A^\bullet$ 的内射对象有界复形 $I^\bullet$。
+选取拟同构 $I^\bullet \otimes_A B \to J^\bullet$，其中
+$J^\bullet$ 是 $B$-模的有界复形。给定 $A$-模复形
+$K^\bullet$，考虑显然的复形映射
+$$
+\Hom^\bullet(K^\bullet, I^\bullet) \otimes_A B[n]
+\longrightarrow
+\Hom^\bullet(K^\bullet \otimes_A B, J^\bullet[n])
+$$
+左端表示 $D_A(K) \otimes_A B[n]$，右端表示
+$D_B(K \otimes_A B)$。因此，只需证明当 $K^\bullet$
+的上同调模是有限 $A$-模时，该映射是拟同构。注意在任一次数
+$r$，两边复形的上同调都只依赖于有限多个 $K^i$。所以可以把
+$K^\bullet$ 替换为截断，也就是说，可以假设 $K^\bullet$
+表示 $D^-_{\textit{Coh}}(A)$ 的对象。此时 $K^\bullet$
+拟同构于有限自由 $A$-模的上有界复形。因此可以假设
+$K^\bullet$ 本身就是有限自由 $A$-模的上有界复形。
+在这种情况下，容易看出所显示的映射是复形的同构，
+从而完成此情形的证明。
+
+\medskip\noindent
+假设 $A \to B$ 满。以 $i_* : D(B) \to D(A)$ 表示限制函子，
+并回忆 $\varphi^!(-) = R\Hom(A, -)$ 是 $i_*$ 的右伴随
+（引理 \ref{dualizing-lemma-right-adjoint}）。对 $F \in D(B)$，有
+\begin{align*}
+\Hom_B(F, D_B(D_A(K) \otimes_A^\mathbf{L} B))
+& =
+\Hom_B((D_A(K) \otimes_A^\mathbf{L} B) \otimes_B^\mathbf{L} F,
+\omega_B^\bullet) \\
+& =
+\Hom_A(D_A(K) \otimes_A^\mathbf{L} i_*F, \omega_A^\bullet) \\
+& =
+\Hom_A(i_*F, D_A(D_A(K))) \\
+& =
+\Hom_A(i_*F, K) \\
+& =
+\Hom_B(F, \varphi^!(K))
+\end{align*}
+第一个等号由更多代数，引理 \ref{more-algebra-lemma-internal-hom}
+及 $D_B$ 的定义得到。第二个等号由上述伴随性及等式
+$i_*((D_A(K) \otimes_A^\mathbf{L} B) \otimes_B^\mathbf{L} F) =
+D_A(K) \otimes_A^\mathbf{L} i_*F$ 得到（更多代数，引理
+\ref{more-algebra-lemma-derived-base-change}）。第三个等号由更多代数，
+引理 \ref{more-algebra-lemma-internal-hom} 得出。第四个等号成立是因为
+$D_A \circ D_A = \text{id}$。最后一个等号再次由伴随性得到。
+因此由 Yoneda 引理，结论成立。
+\end{proof}
+
+
+
+
+
+
+\section{Noetherian 情形中的相对对偶复形}
+\label{dualizing-section-relative-dualizing-complexes-Noetherian}
+
+\noindent
+设 $\varphi : R \to A$ 为 Noetherian 环的有限型同态。
+把 $D(A)$ 的对象
+$$
+\omega_{A/R}^\bullet = \varphi^!(R)
+$$
+定义为{\it $A$ 在 $R$ 上的相对对偶复形}。这里的 $\varphi^!$
+如第 \ref{dualizing-section-relative-dualizing-complex-algebraic} 节所述。
+由该节内容可知，$\omega_{A/R}^\bullet$ 在（非唯一）同构意义下良定义。
+
+\begin{lemma}
+\label{dualizing-lemma-base-change-relative-algebraic}
+设 $R \to R'$ 为 Noetherian 环的同态，$R \to A$ 为有限型映射，
+并置 $A' = A \otimes_R R'$。若
+\begin{enumerate}
+\item $R \to R'$ 平坦；或
+\item $R \to A$ 平坦；或
+\item $R \to A$ 完美，并且 $R'$ 与 $A$ 在 $R$ 上 Tor 独立，
+\end{enumerate}
+则在 $D(A')$ 中有同构
+$\omega_{A/R}^\bullet \otimes_A^\mathbf{L} A' \to \omega^\bullet_{A'/R'}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-flat-bc}、\ref{dualizing-lemma-bc-flat}、
+\ref{dualizing-lemma-bc} 及定义得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-algebraic}
+设 $\varphi : R \to A$ 为 Noetherian 环的有限型映射。
+\begin{enumerate}
+\item 若 $\varphi$ 完美，则
+\begin{enumerate}
+\item $\omega_{A/R}^\bullet$ 属于 $D^b_{\textit{Coh}}(A)$；
+\item $\omega_{A/R}^\bullet$ 在 $R$ 上具有有限 Tor 维数；
+\item $A \to R\Hom_A(\omega_{A/R}^\bullet, \omega_{A/R}^\bullet)$
+是同构。
+\end{enumerate}
+\item 若 $\varphi$ 平坦，则 (1)(a)、(1)(b)、(1)(c) 成立，并且
+\begin{enumerate}
+\item $\omega_{A/R}^\bullet$ 是 $R$-完美的
+（更多代数，定义 \ref{more-algebra-definition-relatively-perfect}）；
+\item 对每个到域的映射 $R \to k$，基变换
+$\omega_{A/R}^\bullet \otimes_A^\mathbf{L} (A \otimes_R k)$
+是 $A \otimes_R k$ 的对偶复形。
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 $R \to A$ 完美。按照 $\varphi^!$ 的定义选取
+$R \to P \to A$。则 $A$ 是完美 $P$-模（更多代数，引理
+\ref{more-algebra-lemma-perfect-ring-map}）。由引理
+\ref{dualizing-lemma-shriek-boundedness}，这表明 $\omega_{A/R}^\bullet$
+属于 $D^b_{\textit{Coh}}(A)$，从而证明 (1)(a)。为证明
+$\omega_{A/R}^\bullet$ 作为 $R$-模复形具有有限 Tor 维数，注意到
+$\omega_{A/R}^\bullet = \varphi^!(R) = R\Hom(A, P)[n]$
+在 $D(P)$ 中映到 $R\Hom_P(A, P)[n]$；后者在 $D(P)$ 中完美
+（更多代数，引理 \ref{more-algebra-lemma-dual-perfect-complex}）。
+由于 $R \to P$ 平坦，它在 $D(R)$ 中具有有限 Tor 维数。
+这证明 (1)(b)。$D(A)$ 的对象
+$R\Hom_A(\omega_{A/R}^\bullet, \omega_{A/R}^\bullet)$
+在 $D(P)$ 中映到
+\begin{align*}
+R\Hom_P(\omega_{A/R}^\bullet, R\Hom(A, P)[n])
+& =
+R\Hom_P(R\Hom_P(A, P)[n], P)[n] \\
+& =
+R\Hom_P(R\Hom_P(A, P), P)
+\end{align*}
+由已经使用过的更多代数，引理
+\ref{more-algebra-lemma-dual-perfect-complex}，这等于 $A$。
+这证明 (1)(c)。
+
+\medskip\noindent
+假设 $\varphi$ 平坦。则 $R \to A$ 是完美环映射
+（更多代数，引理
+\ref{more-algebra-lemma-flat-finite-presentation-perfect}），
+故 (1)(a)、(1)(b)、(1)(c) 成立。于是由 (1)(a)、(1)(b) 及定义，
+$\omega_{A/R}^\bullet$ 当然是 $R$-完美的。设 $R \to k$ 如 (2)(b)
+中所述。由引理 \ref{dualizing-lemma-base-change-relative-algebraic}，有同构
+$$
+\omega_{A/R}^\bullet \otimes_A^\mathbf{L} (A \otimes_R k) \cong
+\omega^\bullet_{A \otimes_R k/k}
+$$
+而由引理 \ref{dualizing-lemma-shriek-dualizing-algebraic}，右端是对偶复形。
+证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-base-change-dualizing-over-field}
+设 $K/k$ 为域扩张，$A$ 为有限型 $k$-代数，并令
+$A_K = A \otimes_k K$。若 $\omega_A^\bullet$ 是 $A$ 的对偶复形，
+则 $\omega_A^\bullet \otimes_A A_K$ 是 $A_K$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+由对偶复形的唯一性，为 $A$ 选择哪个对偶复形并不重要；
+略去详细证明。以 $\varphi : k \to A$ 表示代数结构。由引理
+\ref{dualizing-lemma-shriek-dualizing-algebraic}，可以取
+$\omega_A^\bullet = \varphi^!(k[0])$。结论由引理
+\ref{dualizing-lemma-relative-dualizing-algebraic} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-lci-shriek}
+设 $\varphi : R \to A$ 为 Noetherian 环的局部完全交同态。
+则 $\omega_{A/R}^\bullet$ 是 $D(A)$ 的可逆对象，并且对所有
+$K \in D(R)$，有
+$\varphi^!(K) = K \otimes_R^\mathbf{L} \omega_{A/R}^\bullet$。
+\end{lemma}
+
+\begin{proof}
+回忆由更多代数，引理 \ref{more-algebra-lemma-lci-perfect}，
+局部完全交同态是完美环映射。因此最后一个陈述由引理
+\ref{dualizing-lemma-upper-shriek-is-tensor-functor} 得出。由更多代数，定义
+\ref{more-algebra-definition-local-complete-intersection}，可写成
+$A = R[x_1, \ldots, x_n]/I$，其中 $I$ 是 Koszul 正则理想。
+第 \ref{dualizing-section-relative-dualizing-complex-algebraic} 节中
+$\varphi^!$ 的构造表明，只需在 $A = R/I$ 且
+$I \subset R$ 为 Koszul 正则理想时证明引理。由更多代数，引理
+\ref{more-algebra-lemma-invertible-derived}，检验
+$\omega_{A/R}^\bullet$ 在 $D(A)$ 中可逆是 $\Spec(A)$ 上的局部问题。
+此外，由引理 \ref{dualizing-lemma-flat-bc}，$\omega_{A/R}^\bullet$
+的形成与 $R$ 上的局部化可交换。结合更多代数，定义
+\ref{more-algebra-definition-regular-ideal}、引理
+\ref{more-algebra-lemma-noetherian-finite-all-equivalent} 和代数，引理
+\ref{algebra-lemma-regular-sequence-in-neighbourhood}，可以找到
+$g_1, \ldots, g_r \in R$，它们在 $A$ 中生成单位理想，并且
+$I_{g_j} \subset R_{g_j}$ 由正则序列生成。因此可以假设
+$A = R/(f_1, \ldots, f_c)$，其中 $f_1, \ldots, f_c$ 是 $R$
+中的正则序列。于是考虑环映射
+$$
+R \to R/(f_1) \to R/(f_1, f_2) \to \ldots \to R/(f_1, \ldots, f_c) = A
+$$
+使用引理 \ref{dualizing-lemma-composition-shriek-algebraic}
+（以及已经证明的最后一个陈述），可知只需对每一步证明引理。
+最后，若对某个非零因子 $f$ 有 $A = R/(f)$，则引理成立，
+因为由引理 \ref{dualizing-lemma-compute-for-effective-Cartier-algebraic}，
+$\varphi^!(R) = R\Hom(A, R)$ 可逆。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-gorenstein-shriek}
+设 $\varphi : R \to A$ 为 Noetherian 环的平坦有限型同态。
+下列条件等价：
+\begin{enumerate}
+\item 对所有素理想 $\mathfrak p \subset R$，纤维
+$A \otimes_R \kappa(\mathfrak p)$ 都是 Gorenstein 环；
+\item $\omega_{A/R}^\bullet$ 是 $D(A)$ 的可逆对象；参见更多代数，
+引理 \ref{more-algebra-lemma-invertible-derived}。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 (2) 成立，则纤维环 $A \otimes_R \kappa(\mathfrak p)$
+具有可逆的对偶复形，因而是 Gorenstein 环。参见引理
+\ref{dualizing-lemma-relative-dualizing-algebraic} 和 \ref{dualizing-lemma-gorenstein}。
+
+\medskip\noindent
+反之，假设 (1)。由引理 \ref{dualizing-lemma-shriek-boundedness}，
+注意到 $\omega_{A/R}^\bullet$ 属于 $D^b_{\textit{Coh}}(A)$
+（因为 Noetherian 环的平坦有限型同态完美；参见更多代数，引理
+\ref{more-algebra-lemma-flat-finite-presentation-perfect}）。
+选取位于 $\mathfrak p \subset R$ 之上的素理想
+$\mathfrak q \subset A$。则
+$$
+\omega_{A/R}^\bullet \otimes_A^\mathbf{L} \kappa(\mathfrak q) =
+\omega_{A/R}^\bullet \otimes_A^\mathbf{L}
+(A \otimes_R \kappa(\mathfrak p))
+\otimes_{(A \otimes_R \kappa(\mathfrak p))}^\mathbf{L}
+\kappa(\mathfrak q)
+$$
+应用引理 \ref{dualizing-lemma-relative-dualizing-algebraic}、
+\ref{dualizing-lemma-gorenstein} 和假设 (1)，可知此复形有 $1$ 个非零上同调群，
+它是 $1$ 维 $\kappa(\mathfrak q)$-向量空间。由更多代数，引理
+\ref{more-algebra-lemma-lift-bounded-pseudo-coherent-to-perfect}，
+存在 $f \in A$、$f \not \in \mathfrak q$，使
+$(\omega_{A/R}^\bullet)_f$ 是 $D(A_f)$ 的可逆对象。
+这证明 (2) 成立。
+\end{proof}
+
+\noindent
+下面的引理有助于看清：从 Noetherian 环传到其有限型代数时，
+维数函数如何变化。
+
+\begin{lemma}
+\label{dualizing-lemma-shriek-normalized}
+设 $\varphi : R \to A$ 为 Noetherian 环的有限型同态。
+假设 $R$ 局部，并设 $\mathfrak m \subset A$ 为位于 $R$
+的极大理想之上的极大理想。若 $\omega_R^\bullet$ 是 $R$
+的规范化对偶复形，则
+$\varphi^!(\omega_R^\bullet)_\mathfrak m$ 是 $A_\mathfrak m$
+的规范化对偶复形。
+\end{lemma}
+
+\begin{proof}
+已经知道 $\varphi^!(\omega_R^\bullet)$ 是 $A$ 的对偶复形；
+参见引理 \ref{dualizing-lemma-shriek-dualizing-algebraic}。按照
+$\varphi^!$ 的构造选择分解 $R \to P \to A$，其中
+$P = R[x_1, \ldots, x_n]$。若能对 $R \to P$ 以及 $P$
+中对应于 $\mathfrak m$ 的极大理想 $\mathfrak m'$ 证明引理，
+则把引理 \ref{dualizing-lemma-normalized-quotient} 用于
+$P_{\mathfrak m'} \to A_\mathfrak m$，或把引理
+\ref{dualizing-lemma-quotient-function} 用于 $P \to A$，即可得到
+$R \to A$ 的结论。在 $A = R[x_1, \ldots, x_n]$ 的情形，
+例如由代数，引理 \ref{algebra-lemma-dimension-base-fibre-equals-total}
+（并结合代数，引理 \ref{algebra-lemma-dim-affine-space} 计算纤维维数），
+有 $\dim(A_\mathfrak m) = \dim(R) + n$。$\omega_R^\bullet$
+规范化意味着 $i = -\dim(R)$ 是使 $H^i(\omega_R^\bullet)$ 非零的
+最小指标（由引理 \ref{dualizing-lemma-sitting-in-degrees} 和
+\ref{dualizing-lemma-nonvanishing-generically-local} 得出）。于是
+$\varphi^!(\omega_R^\bullet)_\mathfrak m =
+\omega_R^\bullet \otimes_R A_\mathfrak m[n]$ 的第一个非零上同调模
+位于次数 $-\dim(R) - n$，因此它是 $A_\mathfrak m$
+的规范化对偶复形。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-trivial-vanishing}
+设 $R \to A$ 为 Noetherian 环的有限型同态，
+$\mathfrak q \subset A$ 为位于 $\mathfrak p \subset R$ 之上的素理想。
+则
+$$
+H^i(\omega_{A/R}^\bullet)_\mathfrak q \not = 0
+\Rightarrow - d \leq i
+$$
+其中 $d$ 是 $\Spec(A) \to \Spec(R)$ 在 $\mathfrak p$ 上方的纤维
+于点 $\mathfrak q$ 处的维数。
+\end{lemma}
+
+\begin{proof}
+如第 \ref{dualizing-section-relative-dualizing-complex-algebraic} 节所述，
+选择分解 $R \to P \to A$，其中
+$P = R[x_1, \ldots, x_n]$，使得
+$\omega_{A/R}^\bullet = R\Hom(A, P)[n]$。需要证明
+$R\Hom(A, P)_\mathfrak q$ 在次数 $< n - d$ 上的上同调消失。
+由引理 \ref{dualizing-lemma-RHom-ext}，这意味着需要证明：当 $i < n - d$
+时，$\Ext_P^i(P/I, P)_{\mathfrak r} = 0$，其中
+$\mathfrak r \subset P$ 是对应于 $\mathfrak q$ 的素理想，而 $I$
+是 $P \to A$ 的核。由更多代数，引理
+\ref{more-algebra-lemma-pseudo-coherence-and-base-change-ext}，
+可以把它改写为
+$\Ext_{P_\mathfrak r}^i(P_\mathfrak r/IP_\mathfrak r, P_\mathfrak r)$。
+因此，由引理 \ref{dualizing-lemma-depth}，需要证明
+$$
+\text{depth}_{IP_\mathfrak r}(P_\mathfrak r) \geq n - d
+$$
+由引理 \ref{dualizing-lemma-depth-flat-CM}，有
+$$
+\text{depth}_{IP_\mathfrak r}(P_\mathfrak r) \geq
+\dim((P \otimes_R \kappa(\mathfrak p))_\mathfrak r) -
+\dim((P/I \otimes_R \kappa(\mathfrak p))_\mathfrak r)
+$$
+由代数，引理 \ref{algebra-lemma-codimension}，右端的两个量相符。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-flat-vanishing}
+设 $R \to A$ 为 Noetherian 环的平坦有限型同态，
+$\mathfrak q \subset A$ 为位于 $\mathfrak p \subset R$ 之上的素理想。
+则
+$$
+H^i(\omega_{A/R}^\bullet)_\mathfrak q \not = 0
+\Rightarrow - d \leq i \leq 0
+$$
+其中 $d$ 是 $\Spec(A) \to \Spec(R)$ 在 $\mathfrak p$ 上方的纤维
+于点 $\mathfrak q$ 处的维数。若 $\Spec(A) \to \Spec(R)$
+的所有纤维维数都 $\leq d$，则 $\omega_{A/R}^\bullet$ 作为
+$R$-模复形的 Tor 振幅位于 $[-d, 0]$。
+\end{lemma}
+
+\begin{proof}
+下界已在引理 \ref{dualizing-lemma-relative-dualizing-trivial-vanishing} 中证明。
+如第 \ref{dualizing-section-relative-dualizing-complex-algebraic} 节所述，
+选择分解 $R \to P \to A$，其中
+$P = R[x_1, \ldots, x_n]$，使得
+$\omega_{A/R}^\bullet = R\Hom(A, P)[n]$。上界意味着当 $i > n$
+时，$\Ext^i_P(A, P)$ 为零。这由更多代数，引理
+\ref{more-algebra-lemma-perfect-over-polynomial-ring} 得出；该引理表明
+$A$ 是完美 $P$-模，其 Tor 振幅位于 $[-n, 0]$。
+
+\medskip\noindent
+证明最后一个陈述。设 $R \to R'$ 为 Noetherian 环的同态，并置
+$A' = A \otimes_R R'$。则
+$$
+\omega_{A'/R'}^\bullet =
+\omega_{A/R}^\bullet \otimes_A^\mathbf{L} A' =
+\omega_{A/R}^\bullet \otimes_R^\mathbf{L} R'
+$$
+第一个同构由引理 \ref{dualizing-lemma-base-change-relative-algebraic} 得出；
+第二个同构发生在 $D(R')$ 中，由更多代数，引理
+\ref{more-algebra-lemma-base-change-comparison} 得出。由证明的第一部分
+（注意 $\Spec(A') \to \Spec(R')$ 的纤维维数都 $\leq d$），
+可知 $\omega_{A/R}^\bullet \otimes_R^\mathbf{L} R'$
+只有次数 $[-d, 0]$ 上的上同调。取 $R' = R \oplus M$ 为用有限
+$R$-模 $M$ 对 $R$ 作的平方零加厚，可见对任意有限 $R$-模 $M$，
+$R\Hom(A, P) \otimes_R^\mathbf{L} M$ 只有区间 $[-d, 0]$
+内的上同调。任意 $R$-模都是有限 $R$-模的滤过余极限，且张量积
+与余极限可交换，结论随即得出。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-CM-vanishing}
+设 $R \to A$ 为 Noetherian 环的有限型同态，
+$\mathfrak p \subset R$ 为素理想。假设
+\begin{enumerate}
+\item $R_\mathfrak p$ 是 Cohen--Macaulay 环；
+\item 对任意极小素理想 $\mathfrak q \subset A$，有
+$\text{trdeg}_{\kappa(R \cap \mathfrak q)} \kappa(\mathfrak q) \leq r$。
+\end{enumerate}
+则
+$$
+H^i(\omega_{A/R}^\bullet)_\mathfrak p \not = 0 \Rightarrow - r \leq i
+$$
+而且 $H^{-r}(\omega_{A/R}^\bullet)_\mathfrak p$ 作为
+$A_\mathfrak p$-模满足 $(S_2)$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-base-change-relative-algebraic}，可以把 $R$
+替换为 $R_\mathfrak p$。因此可以假设 $R$ 是 Cohen--Macaulay
+局部环；需要对 $A$-模 $H^i(\omega_{A/R}^\bullet)$ 证明引理的陈述。
+
+\medskip\noindent
+设 $R^\wedge$ 为 $R$ 的完备化。映射 $R \to R^\wedge$ 平坦，
+且 $R^\wedge$ 是 Cohen--Macaulay 环（更多代数，引理
+\ref{more-algebra-lemma-completion-CM}）。由于
+$A \to A \otimes_R R^\wedge$ 平坦，$A \otimes_R R^\wedge$
+的极小素理想位于 $A$ 的极小素理想之上（平坦映射满足下降性；
+参见代数，引理 \ref{algebra-lemma-flat-going-down}）。因此由态射，引理
+\ref{morphisms-lemma-dimension-fibre-after-base-change}，条件 (2)
+对有限型环映射 $R^\wedge \to A \otimes_R R^\wedge$ 成立。
+再次应用引理 \ref{dualizing-lemma-base-change-relative-algebraic}，只需对
+$R^\wedge \to A \otimes_R R^\wedge$ 证明引理。于是利用引理
+\ref{dualizing-lemma-ubiquity-dualizing}，可以假设 $R$ 是具有对偶复形
+$\omega_R^\bullet$ 的 Noetherian 局部 Cohen--Macaulay 环。
+
+\medskip\noindent
+设 $\mathfrak m \subset A$ 为极大理想。只需对
+$H^i(\omega_{A/R}^\bullet)_\mathfrak m$ 证明引理的陈述。
+若 $\mathfrak m$ 不位于 $R$ 的极大理想之上，则把 $R$
+替换为某个局部化即可归约到这一情形（略去一个小细节）。
+
+\medskip\noindent
+可以假设 $\omega_R^\bullet$ 规范化。置 $d = \dim(R)$，
+则对某个 $R$-模 $\omega_R$，有
+$\omega_R^\bullet = \omega_R[d]$；参见引理
+\ref{dualizing-lemma-apply-CM}。置
+$\omega_A^\bullet = \varphi^!(\omega_R^\bullet)$。
+由引理 \ref{dualizing-lemma-relative-dualizing-if-have-omega}，有
+$$
+\omega_{A/R}^\bullet =
+R\Hom_A(\omega_R[d] \otimes_R^\mathbf{L} A, \omega_A^\bullet)
+$$
+由维数公式，$\dim(A_\mathfrak m) \leq d + r$；参见态射，引理
+\ref{morphisms-lemma-dimension-formula-general}，并利用 Hilbert 零点定理
+所给出的事实：$\kappa(\mathfrak m)$ 在 $R$ 的剩余域上有限。
+由引理 \ref{dualizing-lemma-shriek-normalized}，
+$(\omega_A^\bullet)_\mathfrak m$ 是 $A_\mathfrak m$
+的规范化对偶复形。因此只有当 $-d - r \leq i \leq 0$ 时，
+$H^i((\omega_A^\bullet)_\mathfrak m)$ 才可能非零；参见引理
+\ref{dualizing-lemma-sitting-in-degrees}。由于
+$\omega_R[d] \otimes_R^\mathbf{L} A$ 位于次数 $\leq -d$，
+所述消失结论成立。最后还有
+$$
+H^{-r}(\omega_{A/R}^\bullet)_\mathfrak m =
+\Hom_A(\omega_R \otimes_R A, H^{-d - r}(\omega_A^\bullet))_\mathfrak m
+$$
+由引理 \ref{dualizing-lemma-depth-dualizing-module}，
+$H^{-d - r}(\omega_A^\bullet)_\mathfrak m$ 满足 $(S_2)$。
+所以由更多代数，引理 \ref{more-algebra-lemma-hom-into-S2}，
+最后一个陈述成立。
+\end{proof}
+
+
+
+\section{关于对偶复形的更多结果}
+\label{dualizing-section-more-dualizing}
+
+\noindent
+这里汇集若干不太适合放在其他地方的引理。
+
+\begin{lemma}
+\label{dualizing-lemma-descent}
+设 $A \to B$ 为 Noetherian 环之间的忠实平坦映射。
+若 $K \in D(A)$，且 $K \otimes_A^\mathbf{L} B$ 是 $B$
+的对偶复形，则 $K$ 是 $A$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+由于 $A \to B$ 平坦，有
+$H^i(K) \otimes_A B = H^i(K \otimes_A^\mathbf{L} B)$。
+由于 $K \otimes_A^\mathbf{L} B$ 属于 $D^b_{\textit{Coh}}(B)$，
+先得到 $K$ 属于 $D^b(A)$，再由代数，引理
+\ref{algebra-lemma-descend-properties-modules} 可知 $H^i(K)$
+是有限 $A$-模。设 $M$ 为有限 $A$-模。由更多代数，引理
+\ref{more-algebra-lemma-base-change-RHom}，有
+$$
+R\Hom_A(M, K) \otimes_A B = R\Hom_B(M \otimes_A B, K \otimes_A^\mathbf{L} B)
+$$
+由于 $K \otimes_A^\mathbf{L} B$ 具有有限内射维数，设其内射振幅
+位于 $[a, b]$，右端在次数 $> b$ 上的上同调消失。
+又因为 $A \to B$ 忠实平坦，$R\Hom_A(M, K)$ 在次数 $> b$
+上的上同调也消失。因此由更多代数，引理
+\ref{more-algebra-lemma-injective-amplitude}，$K$ 具有有限内射维数。
+为完成证明，需要说明映射 $A \to R\Hom_A(K, K)$ 是同构。
+为此再次使用更多代数，引理
+\ref{more-algebra-lemma-base-change-RHom}，以及
+$B \to R\Hom_B(K \otimes_A^\mathbf{L} B, K \otimes_A^\mathbf{L} B)$
+是同构这一事实。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-descent-ascent}
+设 $\varphi : A \to B$ 为 Noetherian 环的同态。假设
+\begin{enumerate}
+\item $A \to B$ 是 syntomic 的，并在谱上诱导满射；或
+\item $A \to B$ 是忠实平坦的局部完全交；或
+\item $A \to B$ 是具有 Gorenstein 纤维的忠实平坦有限型映射。
+\end{enumerate}
+则 $K \in D(A)$ 是 $A$ 的对偶复形，当且仅当
+$K \otimes_A^\mathbf{L} B$ 是 $B$ 的对偶复形。
+\end{lemma}
+
+\begin{proof}
+由更多代数，引理 \ref{more-algebra-lemma-syntomic-lci}，
+$A \to B$ 满足 (1) 当且仅当 $A \to B$ 满足 (2)。注意在 (2)、(3) 中，
+相对对偶复形 $\varphi^!(A) = \omega_{B/A}^\bullet$ 都是
+$D(B)$ 的可逆对象；参见引理 \ref{dualizing-lemma-lci-shriek} 和
+\ref{dualizing-lemma-gorenstein-shriek}。此外，两种情形下都有
+$\varphi^!(K) = K \otimes_A^\mathbf{L} \omega_{B/A}^\bullet$；
+对于情形 (3)，参见引理
+\ref{dualizing-lemma-upper-shriek-is-tensor-functor}。因此，除张量一个
+$D(B)$ 的可逆对象以外，$\varphi^!(K)$ 与
+$K \otimes_A^\mathbf{L} B$ 相同。所以 $\varphi^!(K)$ 是 $B$
+的对偶复形，当且仅当 $K \otimes_A^\mathbf{L} B$ 是对偶复形
+（成为对偶复形是局部性质，并且在平移下不变）。由此，若 $K$
+是 $A$ 的对偶复形，则由引理
+\ref{dualizing-lemma-shriek-dualizing-algebraic}，$K \otimes_A^\mathbf{L} B$
+是 $B$ 的对偶复形。关于此性质的下降，参见引理
+\ref{dualizing-lemma-descent}。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-hull-goes-up}
+设 $(A, \mathfrak m, \kappa) \to (B, \mathfrak n, l)$ 为
+Noetherian 环的平坦局部同态，且 $\mathfrak n = \mathfrak m B$。
+若 $E$ 是 $\kappa$ 的内射包，则 $E \otimes_A B$ 是 $l$ 的内射包。
+\end{lemma}
+
+\begin{proof}
+如引理 \ref{dualizing-lemma-union-artinian} 中那样，写成
+$E = \bigcup E_n$。只需证明
+$E_n \otimes_{A/\mathfrak m^n} B/\mathfrak n^n$ 是 $l$
+在 $B/\mathfrak n$ 上的内射包。这把问题归约到 $A$ 与 $B$
+都是 Artinian 局部环的情形。由代数，引理
+\ref{algebra-lemma-pullback-module}，注意到
+$\text{length}_A(A) = \text{length}_B(B)$ 以及
+$\text{length}_A(E) = \text{length}_B(E \otimes_A B)$。
+由引理 \ref{dualizing-lemma-finite}，有
+$\text{length}_A(E) = \text{length}_A(A)$ 以及
+$\text{length}_B(E') = \text{length}_B(B)$，其中 $E'$ 是 $l$
+在 $B$ 上的内射包。因此
+$\text{length}_B(E') = \text{length}_B(E \otimes_A B)$。又有
+$$
+\dim_l((E \otimes_A B)[\mathfrak n]) =
+\dim_l(E[\mathfrak m] \otimes_A B) =
+\dim_\kappa(E[\mathfrak m]) = 1
+$$
+这里使用了 $A \to B$ 的平坦性及 $\mathfrak n = \mathfrak mB$。
+所以由引理 \ref{dualizing-lemma-torsion-submodule-sum-injective-hulls}，
+存在单射的 $B$-模映射 $E \otimes_A B \to E'$。
+由上面证明的长度相等性，它是同构。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-injective-goes-up}
+设 $\varphi : A \to B$ 为 Noetherian 环的平坦同态，并且对所有
+素理想 $\mathfrak q \subset B$，都有
+$\mathfrak p B_\mathfrak q = \mathfrak qB_\mathfrak q$，其中
+$\mathfrak p = \varphi^{-1}(\mathfrak q)$；例如，$\varphi$ 可以是
+\'etale 的。若 $I$ 是内射 $A$-模，则 $I \otimes_A B$ 是内射
+$B$-模。
+\end{lemma}
+
+\begin{proof}
+由代数，引理 \ref{algebra-lemma-etale-at-prime}，\'Etale 映射满足该假设。
+由引理 \ref{dualizing-lemma-sum-injective-modules} 和命题
+\ref{dualizing-proposition-structure-injectives-noetherian}，可以假设 $I$
+是某个素理想 $\mathfrak p \subset A$ 的剩余域
+$\kappa(\mathfrak p)$ 的内射包。于是 $I$ 是 $A_\mathfrak p$-模。
+只需证明 $I \otimes_A B = I \otimes_{A_\mathfrak p} B_\mathfrak p$
+作为 $B_\mathfrak p$-模内射；参见引理
+\ref{dualizing-lemma-injective-flat}。因此可以假设
+$(A, \mathfrak m, \kappa)$ 是 Noetherian 局部环，且 $I = E$
+是剩余域 $\kappa$ 的内射包。我们的假设蕴含 Noetherian 环
+$B/\mathfrak m B$ 是若干域的乘积（略去细节）。因此 $B$
+中位于 $\mathfrak m$ 之上的素理想只有有限多个，记为
+$\mathfrak m_1, \ldots, \mathfrak m_n$，而且它们都是极大理想。
+如引理 \ref{dualizing-lemma-union-artinian} 中那样，写成
+$E = \bigcup E_n$。则 $E \otimes_A B = \bigcup E_n \otimes_A B$，
+而 $E_n \otimes_A B$ 是支集为
+$\{\mathfrak m_1, \ldots, \mathfrak m_n\}$ 的有限 $B$-模，
+因而分解为其在 $\mathfrak m_i$ 处局部化的乘积。所以
+$E \otimes_A B = \prod (E \otimes_A B)_{\mathfrak m_i}$。
+又由引理 \ref{dualizing-lemma-injective-hull-goes-up}，
+$(E \otimes_A B)_{\mathfrak m_i} = E \otimes_A B_{\mathfrak m_i}$
+是 $\mathfrak m_i$ 的剩余域之内射包，结论成立。
+\end{proof}
+
+
+
+
+
+
+\section{相对对偶复形}
+\label{dualizing-section-relative-dualizing-complexes}
+
+\noindent
+对 Noetherian 环的有限型环映射 $\varphi : R \to A$，
+第 \ref{dualizing-section-relative-dualizing-complexes-Noetherian} 节考虑了相对对偶复形
+$\omega_{A/R}^\bullet = \varphi^!(R)$。若 $R$ 不是 Noetherian 环，
+类似构造的复形一般不具有良好性质。本节对非 Noetherian 环的平坦有限
+表现环映射 $R \to A$ 定义相对对偶复形。该定义被选择为能够推广到
+概形的平坦有限表现态射；参见概形的对偶理论，第
+\ref{duality-section-relative-dualizing-complexes} 节。我们将证明：
+在该定义适用时，相对对偶复形存在；它在（非典范）同构意义下唯一；
+并且在 Noetherian 情形中，恢复第
+\ref{dualizing-section-relative-dualizing-complexes-Noetherian} 节的复形。
+
+\medskip\noindent
+只关心 Noetherian 情形的读者可以放心跳过本节！
+
+\begin{definition}
+\label{dualizing-definition-relative-dualizing-complex}
+设 $R \to A$ 为平坦有限表现环映射。若对象 $K \in D(A)$ 满足
+\begin{enumerate}
+\item $K$ 是 $R$-完美的（更多代数，定义
+\ref{more-algebra-definition-relatively-perfect}）；
+\item $R\Hom_{A \otimes_R A}(A, K \otimes_A^\mathbf{L} (A \otimes_R A))$
+同构于 $A$，
+\end{enumerate}
+则称这个对象为一个{\it 相对对偶复形}。
+\end{definition}
+
+\noindent
+为理解这个定义，读者可能需要阅读并理解下面的一些引理。引理
+\ref{dualizing-lemma-relative-dualizing-noetherian} 和
+\ref{dualizing-lemma-uniqueness-relative-dualizing} 表明，这个定义与第
+\ref{dualizing-section-relative-dualizing-complexes-Noetherian} 节中的定义并不冲突。
+
+\begin{lemma}
+\label{dualizing-lemma-uniqueness-relative-dualizing}
+设 $R \to A$ 为平坦有限表现环映射。$R \to A$
+的任意两个相对对偶复形均同构。
+\end{lemma}
+
+\begin{proof}
+设 $K$ 与 $L$ 是 $R \to A$ 的两个相对对偶复形。记
+$K_1 = K \otimes_A^\mathbf{L} (A \otimes_R A)$ 以及
+$L_2 = (A \otimes_R A) \otimes_A^\mathbf{L} L$，它们分别是经由
+第一、第二余投影 $A \to A \otimes_R A$ 所作的导出基变换。
+由对称性，对 $L_2$ 的假设蕴含
+$R\Hom_{A \otimes_R A}(A, L_2)$ 同构于 $A$。把更多代数，引理
+\ref{more-algebra-lemma-internal-hom-evaluate-tensor-isomorphism}
+的第 (3) 部分应用两次，得到
+$$
+A \otimes_{A \otimes_R A}^\mathbf{L} L_2 \cong
+R\Hom_{A \otimes_R A}(A, K_1 \otimes_{A \otimes_R A}^\mathbf{L} L_2) \cong
+A \otimes_{A \otimes_R A}^\mathbf{L} K_1
+$$
+对任一余投影应用限制函子 $D(A \otimes_R A) \to D(A)$，
+即得所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-noetherian}
+设 $\varphi : R \to A$ 为 Noetherian 环的平坦有限型环映射。
+则第 \ref{dualizing-section-relative-dualizing-complexes-Noetherian} 节的相对对偶复形
+$\omega_{A/R}^\bullet = \varphi^!(R)$ 是定义
+\ref{dualizing-definition-relative-dualizing-complex} 意义下的相对对偶复形。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{dualizing-lemma-relative-dualizing-algebraic}，
+$\varphi^!(R)$ 是 $R$-完美的。以
+$\delta : A \otimes_R A \to A$ 表示乘法映射，以
+$p_1, p_2 : A \to A \otimes_R A$ 表示两个余投影。则由引理
+\ref{dualizing-lemma-flat-bc}，
+$$
+\varphi^!(R) \otimes_A^\mathbf{L} (A \otimes_R A) =
+\varphi^!(R) \otimes_{A, p_1}^\mathbf{L} (A \otimes_R A) =
+p_2^!(A)
+$$
+回忆
+$
+R\Hom_{A \otimes_R A}(A, \varphi^!(R) \otimes_A^\mathbf{L} (A \otimes_R A))
+$
+是 $\delta^!(\varphi^!(R) \otimes_A^\mathbf{L} (A \otimes_R A))$
+在限制映射 $\delta_* : D(A) \to D(A \otimes_R A)$ 下的像。
+这里使用第 \ref{dualizing-section-relative-dualizing-complex-algebraic} 节中
+$\delta^!$ 的定义和引理 \ref{dualizing-lemma-RHom-ext}。由引理
+\ref{dualizing-lemma-composition-shriek-algebraic}，
+$\delta^!(p_2^!(A)) \cong A$，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-base-change-relative-dualizing}
+设 $R \to A$ 为平坦有限表现环映射。则
+\begin{enumerate}
+\item 在 $D(A)$ 中存在相对对偶复形 $K$；
+\item 对任意环映射 $R \to R'$，令 $A' = A \otimes_R R'$ 且
+$K' = K \otimes_A^\mathbf{L} A'$，则 $K'$ 是 $R' \to A'$
+的相对对偶复形。
+\end{enumerate}
+此外，若
+$$
+\xi : A \longrightarrow K \otimes_A^\mathbf{L} (A \otimes_R A)
+$$
+是循环模
+$\Hom_{D(A \otimes_R A)}(A, K \otimes_A^\mathbf{L} (A \otimes_R A))$
+的一个生成元，则在 (2) 中，$\xi$ 关于
+$A \otimes_R A \to A' \otimes_{R'} A'$ 的导出基变换是循环模
+$\Hom_{D(A' \otimes_{R'} A')}(A',
+K' \otimes_{A'}^\mathbf{L} (A' \otimes_{R'} A'))$
+的一个生成元。
+\end{lemma}
+
+\begin{proof}
+先归约到 Noetherian 情形。由代数，引理
+\ref{algebra-lemma-flat-finite-presentation-limit-flat}，存在有限型
+$\mathbf{Z}$-子代数 $R_0 \subset R$ 和平坦有限型环映射
+$R_0 \to A_0$，使得 $A = A_0 \otimes_{R_0} R$。由引理
+\ref{dualizing-lemma-relative-dualizing-noetherian}，存在相对对偶复形
+$K_0 \in D(A_0)$。因此，只要对 $K_0$ 证明 (2)，便可知
+$K_0 \otimes_{A_0}^\mathbf{L} A$ 是 $R \to A$ 的对偶复形，
+并由导出基变换的传递性知它也满足 (2)。相对对偶复形的唯一性
+（引理 \ref{dualizing-lemma-uniqueness-relative-dualizing}）于是表明，
+这对任意相对对偶复形都成立。
+
+\medskip\noindent
+设 $R$ 为 Noetherian 环，且设 $K$ 是 $R \to A$ 的相对对偶复形。
+给定环映射 $R \to R'$，令 $A' = A \otimes_R R'$ 且
+$K' = K \otimes_A^\mathbf{L} A'$。为完成证明，须证明 $K'$
+是 $R' \to A'$ 的相对对偶复形。由更多代数，引理
+\ref{more-algebra-lemma-base-change-relatively-perfect}，
+$K'$ 在所有情形中均为 $R'$-完美的。由引理
+\ref{dualizing-lemma-base-change-relative-algebraic} 和
+\ref{dualizing-lemma-relative-dualizing-noetherian}，若 $R'$ 为 Noetherian 环，
+则 $K'$ 是 $R' \to A'$ 的相对对偶复形（按任一种意义）。
+导出张量积的传递性给出
+$K \otimes_A^\mathbf{L} (A \otimes_R A)
+\otimes_{A \otimes_R A}^\mathbf{L} (A' \otimes_{R'} A') =
+K' \otimes_{A'}^\mathbf{L} (A' \otimes_{R'} A')$。
+$R \to A$ 的平坦性保证
+$A \otimes_{A \otimes_R A}^\mathbf{L} (A' \otimes_{R'} A') = A'$；
+事实上，$A \otimes_R A$ 与 $R'$ 在 $R$ 上 Tor 独立，故可应用
+更多代数，引理 \ref{more-algebra-lemma-base-change-comparison}。
+最后，由更多代数，引理
+\ref{more-algebra-lemma-more-relative-pseudo-coherent-is-moot}，
+$A$ 作为 $A \otimes_R A$-模是伪凝聚的。因此，更多代数，引理
+\ref{more-algebra-lemma-compute-RHom-relatively-perfect}
+的全部假设均已验证。于是存在一个由 $R$-平坦有限表现
+$A \otimes_R A$-模组成的下有界复形 $E^\bullet$，使得
+$E^\bullet \otimes_R R'$ 表示
+$R\Hom_{A' \otimes_{R'} A'}(A',
+K' \otimes_{A'}^\mathbf{L} (A' \otimes_{R'} A'))$，
+并且这些识别与导出基变换相容。
+取 $n \in \mathbf{Z}$，$n \not = 0$。用正合列
+$$
+E^{n - 1} \to E^n \to Q^n \to 0
+$$
+定义 $Q^n$。由于 $\kappa(\mathfrak p)$ 是 Noetherian 环，
+根据上面的论述，
+$H^n(E^\bullet \otimes_R \kappa(\mathfrak p)) = 0$。
+追踪交换图可知
+$$
+Q^n \otimes_R \kappa(\mathfrak p) \to E^{n + 1} \otimes_R \kappa(\mathfrak p)
+$$
+是单射。因此，对 $A \otimes_R A$ 中位于 $\mathfrak p$ 上方的素理想
+$\mathfrak q$，$Q^n_\mathfrak q$ 是 $R_\mathfrak p$-平坦的，且
+$Q^n_\mathfrak p \to E^{n + 1}_\mathfrak q$ 是
+$R_\mathfrak p$-普遍单射；参见代数，引理
+\ref{algebra-lemma-mod-injective}。因为这对所有素理想都成立，
+故 $Q^n$ 是 $R$-平坦的，且 $Q^n \to E^{n + 1}$ 是
+$R$-普遍单射。特别地，对任意环映射 $R \to R'$，
+$H^n(E^\bullet \otimes_R R') = 0$。
+令 $Z^0 = \Ker(E^0 \to E^1)$。由正合列
+$0 \to Z^0 \to E^0 \to E^1 \to Q^1 \to 0$ 可知，
+$Z^0$ 是 $R$-平坦的，并且对所有 $R \to R'$ 均有
+$Z^0 \otimes_R R' = \Ker(E^0 \otimes_R R' \to E^1 \otimes_R R')$。
+于是短正合列
+$0 \to Q^{-1} \to Z^0 \to H^0(E^\bullet) \to 0$
+表明
+$$
+H^0(E^\bullet \otimes_R R') = H^0(E^\bullet) \otimes_R R'
+= A \otimes_R R' = A'
+$$
+正如所需。这个等式还给出了引理的最后一个断言。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-RHom}
+设 $R \to A$ 为平坦有限表现环映射，且设 $K$ 为相对对偶复形。
+则 $A \to R\Hom_A(K, K)$ 是同构。
+\end{lemma}
+
+\begin{proof}
+由代数，引理 \ref{algebra-lemma-flat-finite-presentation-limit-flat}，
+存在有限型 $\mathbf{Z}$-子代数 $R_0 \subset R$ 和平坦有限型环映射
+$R_0 \to A_0$，使得 $A = A_0 \otimes_{R_0} R$。由引理
+\ref{dualizing-lemma-uniqueness-relative-dualizing}、
+\ref{dualizing-lemma-relative-dualizing-noetherian} 和
+\ref{dualizing-lemma-base-change-relative-dualizing}，存在相对对偶复形
+$K_0 \in D(A_0)$，其导出基变换就是 $K$。
+这把问题归约到下一段所讨论的情形。
+
+\medskip\noindent
+设 $R$ 为 Noetherian 环，且设 $K$ 是 $R \to A$ 的相对对偶复形。
+给定环映射 $R \to R'$，令 $A' = A \otimes_R R'$ 且
+$K' = K \otimes_A^\mathbf{L} A'$。为完成证明，只需证明
+$R\Hom_{A'}(K', K') = A'$。由引理
+\ref{dualizing-lemma-relative-dualizing-algebraic}，当 $R'$ 为 Noetherian 环时，
+这已经成立。一般的 $R'$ 是 Noetherian $R$-代数的滤过余极限，
+故由更多代数，引理
+\ref{more-algebra-lemma-colimit-relatively-perfect}，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{dualizing-lemma-relative-dualizing-composition}
+设 $R \to A \to B$ 为平坦有限表现环映射。设 $K_{A/R}$ 和
+$K_{B/A}$ 分别是 $R \to A$ 和 $A \to B$ 的相对对偶复形。
+则 $K = K_{A/R} \otimes_A^\mathbf{L} K_{B/A}$ 是
+$R \to B$ 的相对对偶复形。
+\end{lemma}
+
+\begin{proof}
+我们将归约到 Noetherian 情形。具体而言，由代数，引理
+\ref{algebra-lemma-flat-finite-presentation-limit-flat}，存在有限型
+$\mathbf{Z}$-子代数 $R_0 \subset R$ 和平坦有限型环映射
+$R_0 \to A_0$，使得 $A = A_0 \otimes_{R_0} R$。增大 $R_0$
+并相应地替换 $A_0$ 后，可设存在平坦有限型环映射
+$A_0 \to B_0$，使得 $B = B_0 \otimes_{R_0} R$（应用同一引理）。
+若对 $R_0 \to A_0 \to B_0$ 证明本引理，则由引理
+\ref{dualizing-lemma-uniqueness-relative-dualizing}、
+\ref{dualizing-lemma-relative-dualizing-noetherian} 和
+\ref{dualizing-lemma-base-change-relative-dualizing} 即得一般情形。
+这把问题归约到下一段所讨论的情形。
+
+\medskip\noindent
+设 $R$ 为 Noetherian 环，并以 $\varphi : R \to A$ 和
+$\psi : A \to B$ 表示给定的环映射。由上面所引的结果，
+$K_{A/R} \cong \varphi^!(R)$ 且 $K_{B/A} \cong \psi^!(A)$。于是
+$$
+K = K_{A/R} \otimes_A^\mathbf{L} K_{B/A} \cong
+\varphi^!(R) \otimes_A^\mathbf{L} \psi^!(A) \cong
+\psi^!(\varphi^!(R)) \cong (\psi \circ \varphi)^!(R)
+$$
+由引理 \ref{dualizing-lemma-upper-shriek-is-tensor-functor} 和
+\ref{dualizing-lemma-composition-shriek-algebraic}，$K$ 因而是
+$R \to B$ 的相对对偶复形。
+\end{proof}

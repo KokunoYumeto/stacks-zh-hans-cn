@@ -1,0 +1,3821 @@
+% Generated mechanically from the frozen equiv.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{56}
+\chapter{代数簇的导出范畴}
+
+
+
+\phantomsection
+\label{equiv-section-phantom}
+
+
+\section{引言}
+\label{equiv-section-introduction}
+
+\noindent
+本章继续 Derived Categories of Schemes, Section
+\ref{perfect-section-introduction} 中开始的讨论。
+我们将讨论 Fourier--Mukai 变换；Mukai 在 \cite{Mukai} 中最先研究了这种变换。
+我们将证明关于导出等价的 Orlov 定理（\cite{Orlov-K3}）。
+我们还将讨论 Anel 与 To\"en 在 \cite{AT} 中证明的导出等价类的可数性。
+
+\medskip\noindent
+Daniel Huybrechts 的著作 \cite{Huybrechts} 是本专题的良好入门。
+其他推动这一专题普及的论文包括：
+\begin{enumerate}
+\item Bondal 与 Kapranov 的论文，参见 \cite{Bondal-Kapranov}；
+\item Bondal 与 Orlov 的论文，参见 \cite{Bondal-Orlov}；
+\item Bondal 与 Van den Bergh 的论文，参见 \cite{BvdB}；
+\item Beilinson 的论文，参见
+\cite{Beilinson} 与 \cite{Beilinson-derived}；
+\item Orlov 的论文，参见 \cite{Orlov-AV}；
+\item Orlov 的论文，参见 \cite{Orlov-motives}；
+\item Rouquier 的论文，参见 \cite{Rouquier-dimensions}；
+\item 这里还可以列举许多其他论文。
+\end{enumerate}
+
+
+
+
+\section{约定与记号}
+\label{equiv-section-conventions}
+
+\noindent
+设 $k$ 为域。$k$-线性三角范畴 $\mathcal{T}$ 是一个三角范畴
+（Derived Categories, Section
+\ref{derived-section-triangulated-definitions}），其上赋有 $k$-线性结构
+（Differential Graded Algebra, Section \ref{dga-section-linear}），
+并且平移函子 $[n] : \mathcal{T} \to \mathcal{T}$ 是 $k$-线性的；
+这对所有 $n \in \mathbf{Z}$ 都成立。
+
+\medskip\noindent
+设 $k$ 为域。用 $\text{Vect}_k$ 表示 $k$-向量空间范畴。
+对 $k$-向量空间 $V$，用 $V^\vee$ 表示 $k$-线性意义下 $V$ 的对偶，
+即 $V^\vee = \Hom_k(V, k)$。
+
+\medskip\noindent
+设 $X$ 为概形。用 $D_{perf}(\mathcal{O}_X)$ 表示
+$D(\mathcal{O}_X)$ 中由完美复形组成的全子范畴
+（Cohomology, Section \ref{cohomology-section-perfect}）。
+若 $X$ 为 Noether 概形，则
+$D_{perf}(\mathcal{O}_X) \subset D^b_{\textit{Coh}}(\mathcal{O}_X)$；参见
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-noetherian}。
+若 $X$ 为正则 Noether 概形，则
+$D_{perf}(\mathcal{O}_X) = D^b_{\textit{Coh}}(\mathcal{O}_X)$；参见
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-regular}。
+
+\medskip\noindent
+设 $k$ 为域，$X$ 和 $Y$ 为 $k$ 上的概形。在这种情形下，
+用 $X \times Y$ 代替 $X \times_{\Spec(k)} Y$。
+
+
+\medskip\noindent
+设 $S$ 为概形，$X$、$Y$ 为 $S$ 上的概形。
+设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模，
+$\mathcal{G}$ 为 $\mathcal{O}_Y$-模。定义
+$$
+\mathcal{F} \boxtimes \mathcal{G} =
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times_S Y}}
+\text{pr}_2^*\mathcal{G}
+$$
+作为 $\mathcal{O}_{X \times_S Y}$-模。若
+$K \in D(\mathcal{O}_X)$ 且 $M \in D(\mathcal{O}_Y)$，则定义
+$$
+K \boxtimes M =
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} L\text{pr}_2^*M
+$$
+作为 $D(\mathcal{O}_{X \times_S Y})$ 的对象。
+因此这一记号可能有歧义，但上下文应能说明所指的是二者中的哪一个。
+
+
+
+
+
+\section{Serre 函子}
+\label{equiv-section-Serre-functors}
+
+\noindent
+本节材料取自 \cite{Bondal-Kapranov}。
+
+\begin{lemma}
+\label{equiv-lemma-Serre-functor-exists}
+设 $k$ 为域，$\mathcal{T}$ 为 $k$-线性三角范畴，并且满足
+$\dim_k \Hom_\mathcal{T}(X, Y) < \infty$，其中
+$X, Y \in \Ob(\mathcal{T})$ 任意。下列条件等价：
+\begin{enumerate}
+\item 存在 $k$-线性等价
+$S : \mathcal{T} \to \mathcal{T}$ 以及 $k$-线性同构
+$c_{X, Y} : \Hom_\mathcal{T}(X, Y) \to \Hom_\mathcal{T}(Y, S(X))^\vee$
+，且该同构关于 $X, Y \in \Ob(\mathcal{T})$ 具有函子性；
+\item 对每个 $X \in \Ob(\mathcal{T})$，函子
+$Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$ 可表，而函子
+$Y \mapsto \Hom_\mathcal{T}(Y, X)^\vee$ 余可表。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+条件 (1) 蕴含 (2)，因为给定 $(S, c)$ 和 $X \in \Ob(\mathcal{T})$ 后，
+对象 $S(X)$ 表示函子
+$Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$，而对象 $S^{-1}(X)$ 余表示函子
+$Y \mapsto \Hom_\mathcal{T}(Y, X)^\vee$。
+
+\medskip\noindent
+假设 (2)。下面将反复使用 Yoneda 引理；参见
+Categories, Lemma \ref{categories-lemma-yoneda}。
+对每个 $X$，以 $S(X)$ 表示函子
+$Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$ 的表示对象。给定
+$\varphi : X \to X'$，得到唯一的箭头 $S(\varphi) : S(X) \to S(X')$；
+它由相应的函子变换
+$\Hom_\mathcal{T}(X, -)^\vee \to \Hom_\mathcal{T}(X', -)^\vee$ 确定。
+这样，$S$ 是函子，并且按构造得到同构 $c_{X, Y}$。
+还须证明 $S$ 是等价。对每个 $X$，以 $S'(X)$ 表示函子
+$Y \mapsto \Hom_\mathcal{T}(Y, X)^\vee$ 的余表示对象。与上面相同的论证表明
+$S'$ 是函子。我们断言 $S'$ 是 $S$ 的拟逆。为此，注意
+$$
+\Hom_\mathcal{T}(X, Y) = \Hom_\mathcal{T}(Y, S(X))^\vee =
+\Hom_\mathcal{T}(S'(S(X)), Y)
+$$
+在双函子意义下成立；即得到 $S' \circ S \cong \text{id}_\mathcal{T}$。
+类似地，有
+$$
+\Hom_\mathcal{T}(Y, X) = \Hom_\mathcal{T}(S'(X), Y)^\vee =
+\Hom_\mathcal{T}(Y, S(S'(X)))
+$$
+从而得到 $S \circ S' \cong \text{id}_\mathcal{T}$。
+\end{proof}
+
+\begin{definition}
+\label{equiv-definition-Serre-functor}
+设 $k$ 为域，$\mathcal{T}$ 为 $k$-线性三角范畴，并且满足
+$\dim_k \Hom_\mathcal{T}(X, Y) < \infty$，其中
+$X, Y \in \Ob(\mathcal{T})$ 任意。若引理 \ref{equiv-lemma-Serre-functor-exists}
+中的等价条件成立，则称{\it 存在 Serre 函子}。在这种情形下，
+{\it Serre 函子}是一个 $k$-线性等价
+$S : \mathcal{T} \to \mathcal{T}$，并配备 $k$-线性同构
+$c_{X, Y} : \Hom_\mathcal{T}(X, Y) \to \Hom_\mathcal{T}(Y, S(X))^\vee$
+；这些同构关于 $X, Y \in \Ob(\mathcal{T})$ 具有函子性。
+\end{definition}
+
+\begin{remark}
+\label{equiv-remark-matress}
+设 $X^0 \to X^1 \to X^2 \to X^0[1]$ 和
+$Y^0 \to Y^1 \to Y^2 \to Y^0[1]$ 是某三角范畴中的可区别三角。
+对 $p \in \mathbf{Z}$，写成 $p = 3n + i$，其中
+$i \in \{0, 1, 2\}$，并定义 $X^p = X^i[n]$。对 $Y^q$ 作类似定义。
+考虑项为
+$$
+K^{p, q} = \Hom(X^{-p}, Y^q)
+$$
+的双复形。微分 $d_1 : K^{p, q} \to K^{p + 1, q}$ 由映射
+$X^{-p - 1} \to X^{-p}$ 给出（它等于第一个可区别三角中的相应映射，至多差一个平移）；
+微分 $d_2 : K^{p, q} \to K^{p, q + 1}$ 类似地由映射
+$Y^q \to Y^{q + 1}$ 给出。由 Derived Categories, Lemma
+\ref{derived-lemma-representable-homological} 可知，这个双复形的各行各列都正合。
+此外，$K^{p, q} = K^{p + 3, q - 3}$，且这些等式与微分相容。最后，公理 TR3
+还蕴含一个性质：给定
+$\alpha \in K^{p, q}$ 和 $\beta \in K^{p - 1, q + 1}$，若
+$d_2 \alpha = d_1 \beta$，则存在 $\gamma \in K^{p - 2, q + 2}$，使得
+$d_1 \gamma = d_2 \beta $ 在 $K^{p - 1, q + 2}$ 中成立，并且
+$d_2 \gamma = d_1 \alpha $ 在 $K^{p - 2, q + 3} = K^{p + 1, q}$ 中成立。
+（提示：当 $p = q = 0$ 时，这正是 TR3 的陈述；其他指标的情形由平移证明。）
+具有这些性质的双复形称为 {\it matress}；参见 \cite{Bondal-Kapranov}。
+\end{remark}
+
+\begin{remark}
+\label{equiv-remark-dual-matress}
+设 $k$ 为域，$K^{\bullet, \bullet}$ 为有限维 $k$-向量空间的双复形，
+并且它还是注 \ref{equiv-remark-matress} 中的 matress。我们断言，对偶双复形
+$L^{p, q} = \Hom_k(K^{-q, -p}, k)$ 也是 matress。各行各列的正合性以及
+3-周期性都是直接的。为验证附加条件，考虑线性映射
+$$
+\partial :
+K^{p, q} \oplus K^{p - 1, q + 1} \oplus K^{p - 2, q + 2}
+\longrightarrow
+K^{p, q + 1} \oplus K^{p - 1, q + 2} \oplus K^{p - 2, q + 3}
+$$
+它把 $(\alpha, \beta, \gamma)$ 映到
+$(d_2 \alpha - d_1 \beta, d_2 \gamma - d_1 \alpha, d_1 \gamma - d_2 \beta)$
+；这里采用注 \ref{equiv-remark-matress} 中的识别。成为 matress 的条件是
+$$
+\Im(\partial) \cap
+\left( 0 \oplus K^{p - 1, q + 2} \oplus K^{p - 2, q + 3} \right)
+=
+\Im(\partial|_{0 \oplus 0 \oplus K^{p - 2, q + 2}})
+$$
+以 ${}^\wedge$ 表示向量空间或映射的对偶。取对偶得到
+$$
+\Ker(\partial^\wedge) +
+\left(L^{-p, -q - 1} \oplus 0 \oplus 0 \right)
+=
+\Ker(\text{pr}_{L^{-p + 2, -q - 2}} \circ \partial^\wedge)
+$$
+其中 $\text{pr}$ 项表示投影。这蕴含
+$\Im(\partial^\wedge) \cap (L^{-p, -q} \oplus L^{-p + 1, -q - 1} \oplus 0)$
+等于
+$\Im(\partial^\wedge|_{L^{-p, -q - 1} \oplus 0 \oplus 0})$；这正转化为
+$L^{\bullet, \bullet}$ 的 matress 条件。略去若干细节。
+\end{remark}
+
+\begin{lemma}
+\label{equiv-lemma-Serre-functor}
+在定义 \ref{equiv-definition-Serre-functor} 的情形下，若 Serre 函子存在，
+则它在唯一同构意义下唯一，并且是三角范畴之间的正合函子。
+\end{lemma}
+
+\begin{proof}
+给定 Serre 函子 $S$，对象 $S(X)$ 表示函子
+$Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$。
+因此，由 Yoneda 引理（Categories, Lemma \ref{categories-lemma-yoneda}），
+对象 $S(X)$ 连同函子性识别
+$\Hom_\mathcal{T}(X, Y)^\vee = \Hom_\mathcal{T}(Y, S(X))$
+在唯一同构意义下确定。此外，对 $\varphi : X \to X'$，箭头
+$S(\varphi) : S(X) \to S(X')$ 由相应的函子变换
+$\Hom_\mathcal{T}(X, -)^\vee \to \Hom_\mathcal{T}(X', -)^\vee$ 唯一确定。
+
+\medskip\noindent
+对对象 $X, Y$（属于 $\mathcal{T}$），有
+\begin{align*}
+\Hom(Y, S(X)[1])^\vee
+& =
+\Hom(Y[-1], S(X))^\vee \\
+& =
+\Hom(X, Y[-1]) \\
+& =
+\Hom(X[1], Y) \\
+& =
+\Hom(Y, S(X[1]))^\vee
+\end{align*}
+由 Yoneda 引理，存在唯一同构
+$S(X[1]) \to S(X)[1]$，它诱导上述从左上到右下的同构。
+由于上面的每个同构都同时关于 $X$ 和 $Y$ 具有函子性，
+这就定义了函子同构
+$S \circ [1] \to [1] \circ S$。
+
+\medskip\noindent
+设 $(A, B, C, f, g, h)$ 是 $\mathcal{T}$ 中的可区别三角。
+须证明三角 $(S(A), S(B), S(C), S(f), S(g), S(h))$ 是可区别的。
+这里使用上面构造的典范同构 $S(A[1]) \to S(A)[1]$，把目标
+$S(A[1])$（即 $S(h)$ 的目标）与 $S(A)[1]$ 识别。先注意，对任意 $X$（属于 $\mathcal{T}$），
+三角 $(S(A), S(B), S(C), S(f), S(g), S(h))$ 诱导长正合列
+$$
+\ldots \to
+\Hom(X, S(A)) \to
+\Hom(X, S(B)) \to
+\Hom(X, S(C)) \to
+\Hom(X, S(A)[1]) \to \ldots
+$$
+，其中各项都是有限维 $k$-向量空间。事实上，这个序列是下列序列的
+$k$-线性对偶：
+$$
+\ldots \leftarrow
+\Hom(A, X) \leftarrow
+\Hom(B, X) \leftarrow
+\Hom(C, X) \leftarrow
+\Hom(A[1], X) \leftarrow
+\ldots
+$$
+后一个序列由 Derived Categories, Lemma
+\ref{derived-lemma-representable-homological} 可知是正合的。
+接着，选取可区别三角 $(S(A), E, S(C), i, p, S(h))$；
+由公理 TR1 和 TR2，这样的选取是可能的。我们要构造虚线箭头，使下图交换：
+$$
+\xymatrix{
+S(C)[-1] \ar[r]_-{S(h[-1])} &
+S(A) \ar[r]_{S(f)} &
+S(B) \ar[r]_{S(g)} &
+S(C) \ar[r]_{S(h)} &
+S(A)[1] \\
+S(C)[-1] \ar[r]^-{S(h[-1])} \ar@{=}[u] &
+S(A) \ar[r]^i \ar@{=}[u] &
+E \ar[r]^p \ar@{..>}[u]^\varphi &
+S(C) \ar[r]^{S(h)} \ar@{=}[u] &
+S(A)[1] \ar@{=}[u]
+}
+$$
+具体地，若已有 $\varphi$，则断言对任意 $X$，由此得到的映射
+$\Hom(X, E) \to \Hom(X, S(B))$ 是 $k$-向量空间同构。事实上，将得到交换图
+$$
+\xymatrix{
+\Hom(X, S(C)[-1]) \ar[r] &
+\Hom(X, S(A)) \ar[r] &
+\Hom(X, S(B)) \ar[r] &
+\Hom(X, S(C)) \ar[r] &
+\Hom(X, S(A)[1]) \\
+\Hom(X, S(C)[-1]) \ar[r] \ar@{=}[u] &
+\Hom(X, S(A)) \ar[r] \ar@{=}[u] &
+\Hom(X, E) \ar[r] \ar[u]^\varphi &
+\Hom(X, S(C)) \ar[r] \ar@{=}[u] &
+\Hom(X, S(A)[1]) \ar@{=}[u]
+}
+$$
+其两行都正合（见上文）。应用五引理
+（Homology, Lemma \ref{homology-lemma-five-lemma}），可知中间箭头是同构。
+再由 Yoneda 引理，得到 $\varphi$ 是同构。
+
+\medskip\noindent
+为求得 $\varphi$，由可区别三角
+$A \to B \to C \to A[1]$ 和 $S(A) \to E \to S(C) \to S(A)[1]$
+构造注 \ref{equiv-remark-matress} 中的 matress。由注
+\ref{equiv-remark-dual-matress}，它的 $k$-线性对偶也是 matress。
+利用 $S$ 是 Serre 函子这一事实，与上面相同可知，这个对偶 matress
+正是由三角（其中第二个尚未知道是可区别的）
+$S(A) \to E \to S(C) \to S(A)[1]$ 和
+$S(A) \to S(B) \to S(C) \to S(A)[1]$ 构成的双复形。
+而 matress 条件恰好说明映射
+$S(A) \to S(A)$ 和 $S(C) \to S(C)$ 可以补成三角之间的态射；
+即存在使上图交换的 $\varphi$。
+\end{proof}
+
+
+
+
+
+
+\section{Serre 函子的例}
+\label{equiv-section-examples-Serre-functors}
+
+\noindent
+下述引理给出标准例。
+
+\begin{lemma}
+\label{equiv-lemma-Serre-functor-Gorenstein-proper}
+设 $k$ 为域，$X$ 为 $k$ 上的 Gorenstein 固有概形。
+考虑 Duality for Schemes, Lemmas
+\ref{duality-lemma-duality-proper-over-field} 中的复形 $\omega_X^\bullet$。
+则函子
+$$
+S : D_{perf}(\mathcal{O}_X) \longrightarrow D_{perf}(\mathcal{O}_X),\quad
+K \longmapsto S(K) = \omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K
+$$
+是 Serre 函子。
+\end{lemma}
+
+\begin{proof}
+该陈述有意义，因为由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-ext-finite}，有 $\dim \Hom_X(K, L) < \infty$，其中
+$K, L \in D_{perf}(\mathcal{O}_X)$。由于 $X$ 是 Gorenstein 的，对偶复形
+$\omega_X^\bullet$ 是 $D(\mathcal{O}_X)$ 的可逆对象；参见
+Duality for Schemes, Lemma \ref{duality-lemma-gorenstein}。
+特别地，在 $X$ 上局部，复形 $\omega_X^\bullet$ 只有一个非零上同调层，
+且它是可逆模；参见 Cohomology, Lemma
+\ref{cohomology-lemma-invertible-derived}。因此 $S(K)$ 属于
+$D_{perf}(\mathcal{O}_X)$。另一方面，$\omega_X^\bullet$ 的可逆性显然蕴含
+$S$ 是 $D_{perf}(\mathcal{O}_X)$ 的自等价。最后，须找到同构
+$$
+c_{K, L} : \Hom_X(K, L) \longrightarrow
+\Hom_X(L, \omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K)^\vee
+$$
+，并且它关于 $K, L$ 具有双函子性。为此，使用典范同构
+$$
+\Hom_X(K, L) = H^0(X, L \otimes_{\mathcal{O}_X}^\mathbf{L} K^\vee)
+$$
+以及
+$$
+\Hom_X(L, \omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K) =
+H^0(X, 
+\omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K
+\otimes_{\mathcal{O}_X}^\mathbf{L} L^\vee)
+$$
+；它们由 Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex} 给出。
+由于 $(L \otimes_{\mathcal{O}_X}^\mathbf{L} K^\vee)^\vee =
+(K^\vee)^\vee \otimes_{\mathcal{O}_X}^\mathbf{L} L^\vee$
+，并且存在典范同构 $K \to (K^\vee)^\vee$，由
+Duality for Schemes, Lemma
+\ref{duality-lemma-duality-proper-over-field-perfect} 可知，这些
+$k$-向量空间典范对偶。这就给出同构 $c_{K, L}$。
+略去这些同构具有函子性的证明。
+\end{proof}
+
+
+
+
+
+\section{相干模的刻画}
+\label{equiv-section-coherent}
+
+\noindent
+本节在某种意义上延续了 Derived Categories of Schemes, Section
+\ref{perfect-section-pseudo-coherent} 与 More on Morphisms, Section
+\ref{more-morphisms-section-characterize-pseudo-coherent} 中的讨论。
+
+\medskip\noindent
+在陈述结果之前，需要先引入一些记号。设 $k$ 为域，设 $n \geq 0$
+为整数。令 $S = k[X_0, \ldots, X_n]$。对于整数 $e$，以
+$S_e \subset S$ 表示次数为 $e$ 的齐次多项式所成的子空间。考察
+（非交换）$k$-代数
+$$
+R =
+\left(
+\begin{matrix}
+S_0 & S_1 & S_2 & \ldots & \ldots \\
+0 & S_0 & S_1 & \ldots & \ldots\\
+0 & 0 & S_0 & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & \ldots & \ldots & \ldots & S_0
+\end{matrix}
+\right)
+$$
+（有 $n + 1$ 行和列），其乘法与加法按显然方式定义。
+
+\begin{lemma}
+\label{equiv-lemma-perfect-for-R}
+沿用上述 $k$、$n$ 和 $R$，设 $K$ 为 $D(R)$ 的对象。下列条件等价：
+\begin{enumerate}
+\item $\sum_{i \in \mathbf{Z}} \dim_k H^i(K) < \infty$；
+\item $K$ 是紧对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $K$ 是紧对象，则 $K$ 可由复形 $M^\bullet$ 表示，并且后者作为分次
+$R$-模是有限投射的；参见 Differential Graded Algebra, Lemma
+\ref{dga-lemma-compact}。由于 $\dim_k R < \infty$，可得
+$\sum \dim_k M^i < \infty$，从而当然有
+$\sum \dim_k H^i(M^\bullet) < \infty$。（也可以很容易地由较初等的
+Differential Graded Algebra, Proposition \ref{dga-proposition-compact}
+推出这一蕴含。）
+
+\medskip\noindent
+假设 $K$ 满足 (1)。考虑截断的可区别三角
+$\tau_{\leq m}K \to K \to \tau_{\geq m + 1}K$；参见
+Derived Categories, Remark
+\ref{derived-remark-truncation-distinguished-triangle}。显然，
+$\tau_{\leq m}K$ 与 $\tau_{\geq m + 1} K$ 都满足 (1)。若能证明二者
+都是紧对象，则 $K$ 也是紧对象；参见 Derived Categories, Lemma
+\ref{derived-lemma-compact-objects-subcategory}。因此，对 $K$ 的非零
+上同调模的数目作归纳，可以假设 $H^i(K)$ 仅对一个 $i$ 非零。
+作平移后，可以假设 $K$ 由只含一个有限维 $R$-模 $M$ 的复形给出，
+该模位于次数 $0$。
+
+\medskip\noindent
+由于 $\dim_k(M) < \infty$，可知 $M$ 作为 $R$-模是 Artin 的。因此，
+只需证明每个单 $R$-模都表示 $D(R)$ 的紧对象。注意
+$$
+I =
+\left(
+\begin{matrix}
+0 & S_1 & S_2 & \ldots & \ldots \\
+0 & 0 & S_1 & \ldots & \ldots\\
+0 & 0 & 0 & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & \ldots & \ldots & \ldots & 0
+\end{matrix}
+\right)
+$$
+是 $R$ 的幂零双边理想，而 $R/I$ 是交换 $k$-代数，并且同构于
+$n + 1$ 个 $k$ 的乘积（各因子沿矩阵对角线放置；换言之，$R/I$
+可提升为 $k$-子代数，并嵌入 $R$）。由此，$R$ 恰有 $n + 1$ 个单模
+同构类 $M_0, \ldots, M_n$（沿对角线放置）。考虑由行向量组成的右
+$R$-模 $P_i$
+$$
+P_i =
+\left(
+\begin{matrix}
+0 &
+\ldots &
+0 &
+S_0 &
+\ldots &
+S_{i - 1} &
+S_i
+\end{matrix}
+\right)
+$$
+，其乘法 $P_i \times R \to P_i$ 按显然方式定义。于是
+$R \cong P_0 \oplus \ldots \oplus P_n$，这是一个右 $R$-模同构。显然
+$R$ 是 $D(R)$ 的紧对象，
+故每个 $P_i$ 都是 $D(R)$ 的紧对象。（当然也可由此推出每个 $P_i$
+作为 $R$-模都是投射的，但这并不是本证明所需的结论。）显然，
+$P_0 = M_0$ 是上述单 $R$-模中的第一个。对于 $P_1$，有短正合序列
+$$
+0 \to P_0^{\oplus n + 1} \to P_1 \to M_1 \to 0
+$$
+这说明 $M_1$ 属于一个另外两项均为紧对象的可区别三角，因而 $M_1$
+是 $D(R)$ 的紧对象。更一般地，存在短正合序列
+$$
+0 \to C_i \to P_i \to M_i \to 0
+$$
+，其中 $C_i$ 是有限维 $R$-模，其单组成因子都同构于 $M_j$，这里
+$j < i$。由归纳假设，先得到 $C_i$ 确定 $D(R)$ 的紧对象，继而得到
+$M_i$ 也如此，正如所需。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-coherent-on-projective-space}
+设 $k$ 为域，设 $n \geq 0$，并设
+$K \in D_\QCoh(\mathcal{O}_{\mathbf{P}^n_k})$。下列条件等价：
+\begin{enumerate}
+\item $K$ 属于 $D^b_{\textit{Coh}}(\mathcal{O}_{\mathbf{P}^n_k})$；
+\item $\sum_{i \in \mathbf{Z}}
+\dim_k H^i(\mathbf{P}^n_k, E \otimes^\mathbf{L} K) < \infty$
+对于任意完美对象 $E$ 成立，该对象属于
+$D(\mathcal{O}_{\mathbf{P}^n_k})$；
+\item $\sum_{i \in \mathbf{Z}}
+\dim_k \Ext^i_{\mathbf{P}^n_k}(E, K) < \infty$
+对于任意完美对象 $E$ 成立，该对象属于
+$D(\mathcal{O}_{\mathbf{P}^n_k})$；
+\item $\sum_{i \in \mathbf{Z}} \dim_k H^i(\mathbf{P}^n_k,
+K \otimes^\mathbf{L} \mathcal{O}_{\mathbf{P}^n_k}(d)) < \infty$
+对于 $d = 0, 1, \ldots, n$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由 Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}，
+(2) 与 (3) 等价。若 (1) 成立，则对于完美的 $E$，导出张量积
+$E \otimes^\mathbf{L} K$ 属于
+$D^b_{\textit{Coh}}(\mathcal{O}_{\mathbf{P}^n_k})$，再由
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-direct-image-coherent} 可知 (2) 成立。显然 (2) 蕴含
+(4)，因为 $\mathcal{O}_{\mathbf{P}^n_k}(d)$ 可视为 $\mathbf{P}^n_k$ 的
+导出范畴中的完美对象。因此，只需证明 (4) 蕴含 (1)。
+
+\medskip\noindent
+假设 (4) 成立。令 $R$ 如 Lemma \ref{equiv-lemma-perfect-for-R} 中所定义，并令
+$P = \bigoplus_{d = 0, \ldots, n} \mathcal{O}_{\mathbf{P}^n_k}(-d)$。
+回顾 $R = \text{End}_{\mathbf{P}^n_k}(P)$，而 $P$ 的其余自 Ext 都为零，
+并且由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-Pn-module-category}，$P$ 确定等价
+$- \otimes^\mathbf{L} P : D(R) \to D_\QCoh(\mathcal{O}_{\mathbf{P}^n_k})$。
+设 $K$ 所对应的对象为 $L$，它属于 $D(R)$。于是
+\begin{align*}
+H^i(L)
+& =
+\Ext^i_{D(R)}(R, L) \\
+& =
+\Ext^i_{\mathbf{P}^n_k}(P, K) \\
+& =
+H^i(\mathbf{P}^n_k, K \otimes P^\vee) \\
+& =
+\bigoplus\nolimits_{d = 0, \ldots, n}
+H^i(\mathbf{P}^n_k, K \otimes \mathcal{O}(d))
+\end{align*}
+；这里使用了 Differential Graded Algebra, Lemma
+\ref{dga-lemma-upgrade-tensor-with-complex-derived}
+（以及 $- \otimes^\mathbf{L} P$ 是等价这一事实）和 Cohomology, Lemma
+\ref{cohomology-lemma-dual-perfect-complex}。因此，假设 (4) 蕴含 $L$
+满足 Lemma \ref{equiv-lemma-perfect-for-R} 的条件 (2)，从而是 $D(R)$ 的紧对象。
+于是 $K$ 是 $D_\QCoh(\mathcal{O}_{\mathbf{P}^n_k})$ 的紧对象。再由
+Derived Categories of Schemes, Proposition
+\ref{perfect-proposition-compact-is-perfect}，$K$ 是完美的。由于
+$D_{perf}(\mathcal{O}_{\mathbf{P}^n_k}) =
+D^b_{\textit{Coh}}(\mathcal{O}_{\mathbf{P}^n_k})$
+，其中用到了 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-perfect-on-regular}，故 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-finiteness}
+设 $X$ 是域 $k$ 上的固有概形。设
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$，并设 $E$ 属于
+$D(\mathcal{O}_X)$ 且是完美的。则
+$\sum_{i \in \mathbf{Z}} \dim_k \Ext^i_X(E, K) < \infty$.
+\end{lemma}
+
+\begin{proof}
+例如，结合 Derived Categories of Schemes, Lemmas
+\ref{perfect-lemma-ext-finite} 与
+\ref{perfect-lemma-ext-from-perfect-into-bounded-QCoh} 即得此结论。
+另一种证明是结合 Derived Categories of Schemes, Lemmas
+\ref{perfect-lemma-perfect-on-noetherian} 与
+\ref{perfect-lemma-direct-image-coherent}。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-characterize-dbcoh-projective}
+\begin{reference}
+在射影情形，这是 \cite[Lemma 7.46]{Rouquier-dimensions}，并且也隐含在
+\cite[Theorem A.1]{BvdB} 中。
+\end{reference}
+设 $X$ 是域 $k$ 上的固有概形，并设
+$K \in \Ob(D_\QCoh(\mathcal{O}_X))$。下列条件等价：
+\begin{enumerate}
+\item $K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$；
+\item $\sum_{i \in \mathbf{Z}} \dim_k \Ext^i_X(E, K) < \infty$
+对于所有完美 $E$ 成立，这些对象属于 $D(\mathcal{O}_X)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+蕴含 (1) $\Rightarrow$ (2) 由 Lemma \ref{equiv-lemma-finiteness} 得到。
+蕴含 (2) $\Rightarrow$ (1) 由 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-characterize-relatively-perfect}
+得到（关于域上的相对完美对象的含义，参见 Derived Categories of Schemes, Example
+\ref{perfect-example-relatively-perfect-field}
+）；下一段给出射影情形下较容易的证明。
+
+\medskip\noindent
+假设 (2) 成立且 $X$ 在 $k$ 上射影。选取闭浸入
+$i : X \to \mathbf{P}^n_k$。只需证明 $Ri_*K$ 属于
+$D^b_{\textit{Coh}}(\mathbf{P}^n_k)$，因为拟相干模 $\mathcal{F}$ 定义在
+$X$ 上时，它是相干的（相应地，为零），当且仅当 $i_*\mathcal{F}$
+是相干的（相应地，为零）。对于完美对象 $E$（它属于
+$D(\mathcal{O}_{\mathbf{P}^n_k})$），$Li^*E$ 是 $D(\mathcal{O}_X)$ 的
+完美对象，并且
+$$
+\Ext^q_{\mathbf{P}^n_k}(E, Ri_*K) = \Ext^q_X(Li^*E, K)
+$$
+因此，由假设可知
+$\sum_{q \in \mathbf{Z}} \dim_k \Ext^q_{\mathbf{P}^n_k}(E, Ri_*K) < \infty$.
+由 Lemma \ref{equiv-lemma-coherent-on-projective-space} 即得结论。
+\end{proof}
+
+
+
+
+
+\section{一个可表性定理}
+\label{equiv-section-bondal-van-den-bergh}
+
+\noindent
+本节材料取自 \cite{BvdB}。
+
+\medskip\noindent
+设 $\mathcal{T}$ 为 $k$-线性三角范畴。本节考察 $k$-线性上同调函子
+$H$，其定义域为 $\mathcal{T}$，值域为 $k$-向量空间范畴。这意味着
+$H$ 是函子
+$$
+H : \mathcal{T}^{opp} \longrightarrow \text{Vect}_k
+$$
+，它是 $k$-线性的，并且对于任意可区别三角 $X \to Y \to Z$（位于
+$\mathcal{T}$ 中），序列 $H(Z) \to H(Y) \to H(X)$ 是 $k$-向量空间的
+正合序列。参见 Derived Categories, Definition
+\ref{derived-definition-homological} 与 Differential Graded Algebra,
+Section \ref{dga-section-linear}。
+
+\begin{lemma}
+\label{equiv-lemma-maps-from-compact-filtered}
+设 $\mathcal{D}$ 为三角范畴，设 $\mathcal{D}' \subset \mathcal{D}$ 为
+全三角子范畴，并设 $X \in \Ob(\mathcal{D})$。以箭头 $E \to X$ 为对象且
+$E \in \Ob(\mathcal{D}')$ 的范畴是滤过的。
+\end{lemma}
+
+\begin{proof}
+检验 Categories, Definition \ref{categories-definition-directed} 中的条件。
+该范畴非空，因为它包含 $0 \to X$。若 $E_i \to X$（$i = 1, 2$）是对象，
+则 $E_1 \oplus E_2 \to X$ 是对象，并且存在态射
+$(E_i \to X) \to (E_1 \oplus E_2 \to X)$。最后，设
+$a, b : (E \to X) \to (E' \to X)$ 是态射。选取可区别三角
+$E \xrightarrow{a - b} E' \to E''$，它位于 $\mathcal{D}'$ 中。由公理 TR3，
+得到三角的态射
+$$
+\xymatrix{
+E \ar[r]_{a - b} \ar[d] &
+E' \ar[d] \ar[r] & E'' \ar[d] \\
+0 \ar[r] &
+X \ar[r] &
+X
+}
+$$
+，而所得箭头 $(E' \to X) \to (E'' \to X)$ 使 $a$ 与 $b$ 相等。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-van-den-bergh}
+\begin{reference}
+\cite[Lemma 2.14]{CKN}
+\end{reference}
+设 $k$ 为域。设 $\mathcal{D}$ 是具有直和且紧生成的 $k$-线性三角范畴。
+以 $\mathcal{D}_c$ 表示紧对象所成的全子范畴。设
+$H : \mathcal{D}_c^{opp} \to \text{Vect}_k$ 是 $k$-线性上同调函子，并满足
+$\dim_k H(X) < \infty$，其中 $X \in \Ob(\mathcal{D}_c)$ 任取。则 $H$
+同构于函子 $X \mapsto \Hom(X, Y)$，其中 $Y \in \Ob(\mathcal{D})$
+是某个对象。
+\end{lemma}
+
+\begin{proof}
+下文将反复使用 Derived Categories, Lemma
+\ref{derived-lemma-compact-objects-subcategory} 而不再说明。记
+$G : \mathcal{D}_c \to \text{Vect}_k$ 为 $k$-线性同调函子，它把 $X$ 送到
+$H(X)^\vee$。对于任意对象 $Y$（属于 $\mathcal{D}$），置
+$$
+G'(Y) = \colim_{X \to Y, X \in \Ob(\mathcal{D}_c)} G(X)
+$$
+由 Lemma \ref{equiv-lemma-maps-from-compact-filtered}，该余极限是滤过的。我们断言
+$G'$ 是 $k$-线性同调函子，$G'$ 在 $\mathcal{D}_c$ 上的限制是 $G$，并且
+$G'$ 把直和送到直和。
+
+\medskip\noindent
+具体而言，设 $Y_1 \to Y_2 \to Y_3$ 是可区别三角。设
+$\xi \in G'(Y_2)$ 在 $G'(Y_3)$ 中的像为零。由于该余极限是滤过的，
+$\xi$ 可由某个 $X \to Y_2$ 以及 $X \in \Ob(\mathcal{D}_c)$、
+$g \in G(X)$ 表示。$\xi$ 在 $G'(Y_3)$ 中的像为零，意味着复合
+$X \to Y_2 \to Y_3$ 分解为 $X \to X' \to Y_3$，其中
+$X' \in \mathcal{D}_c$，且 $g$ 在 $G(X')$ 中的像为零。选取可区别三角
+$X'' \to X \to X'$。于是 $X'' \in \Ob(\mathcal{D}_c)$。由于 $G$ 是
+同调函子，可知 $g$ 是某个 $g'' \in G'(X'')$ 的像。由公理 TR3，态射
+$X \to Y_2$ 与 $X' \to Y_3$ 可嵌入可区别三角的态射
+$(X'' \to X \to X') \to (Y_1 \to Y_2 \to Y_3)$。由此确实可见，
+$\xi$ 是 $G'(Y_1)$ 中由 $X'' \to Y_1$ 及 $g'' \in G(X'')$ 表示的元素的像。
+
+\medskip\noindent
+若 $Y \in \Ob(\mathcal{D}_c)$，则 $\text{id} : Y \to Y$ 是以
+$X \to Y$ 为对象且 $X \in \Ob(\mathcal{D}_c)$ 的箭头范畴中的终对象。
+所以在此情形 $G'(Y) = G(Y)$，从而关于限制的断言成立。设
+$Y = \bigoplus_{i \in I} Y_i$ 是一个直和。设 $a : X \to Y$，其中
+$X \in \Ob(\mathcal{D}_c)$，并设 $g \in G(X)$ 表示元素 $\xi$，该元素属于
+$G'(Y)$。态射 $a : X \to Y$ 可唯一写成态射 $a_i : X \to Y_i$ 之和，
+且几乎所有项为零；这是因为 $X$ 是 $\mathcal{D}$ 的紧对象。令
+$I' = \{i \in I \mid a_i \not = 0\}$。则 $a$ 可分解为复合
+$$
+X \xrightarrow{(1, \ldots, 1)}
+\bigoplus\nolimits_{i \in I'} X
+\xrightarrow{\bigoplus_{i \in I'} a_i}
+\bigoplus\nolimits_{i \in I} Y_i = Y
+$$
+于是 $\xi = \sum_{i \in I'} \xi_i$ 是各元素 $\xi_i \in G'(Y_i)$ 的像之和，
+其中这些元素对应于 $a_i : X \to Y_i$ 和 $g \in G(X)$。因此
+$\bigoplus G'(Y_i) \to G'(Y)$ 是满射。其为单射的（平凡）验证从略。
+
+\medskip\noindent
+由此，函子 $Y \mapsto G'(Y)^\vee$ 是上同调函子，并把直和送到直积。
+因此，由 Brown 可表性（参见 Derived Categories, Proposition
+\ref{derived-proposition-brown}），存在 $Y \in \Ob(\mathcal{D})$ 以及同构
+$G'(Z)^\vee = \Hom(Z, Y)$；该同构关于 $Z$ 是函子性的。对于
+$X \in \Ob(\mathcal{D}_c)$，有
+$G'(X)^\vee = G(X)^\vee = (H(X)^\vee)^\vee = H(X)$，因为
+$\dim_k H(X) < \infty$。证明完成。
+\end{proof}
+
+\begin{theorem}
+\label{equiv-theorem-bondal-van-den-bergh}
+\begin{reference}
+在射影情形，这是 \cite[Theorem A.1]{BvdB}。
+\end{reference}
+设 $X$ 是域 $k$ 上的固有概形。设
+$F : D_{perf}(\mathcal{O}_X)^{opp} \to \text{Vect}_k$ 是 $k$-线性上同调函子，
+并满足
+$$
+\sum\nolimits_{n \in \mathbf{Z}} \dim_k F(E[n]) < \infty
+$$
+对所有 $E \in D_{perf}(\mathcal{O}_X)$ 成立。则
+$F$ 同构于形如 $E \mapsto \Hom_X(E, K)$ 的函子，其中
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$ 为某个对象。
+\end{theorem}
+
+\begin{proof}
+导出范畴 $D_\QCoh(\mathcal{O}_X)$ 具有直和且是紧生成的，而
+$D_{perf}(\mathcal{O}_X)$ 是紧对象所成的全子范畴；参见
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-direct-sums},
+Theorem \ref{perfect-theorem-bondal-van-den-Bergh} 及
+Proposition \ref{perfect-proposition-compact-is-perfect}.
+由 Lemma \ref{equiv-lemma-van-den-bergh}，可以假设 $F(E) = \Hom_X(E, K)$，其中
+$K \in \Ob(D_\QCoh(\mathcal{O}_X))$ 为某个对象。于是由
+Lemma \ref{equiv-lemma-characterize-dbcoh-projective} 可知，$K$ 属于
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-homological-representable}
+设 $X$ 是域 $k$ 上的正则固有概形。设
+$G : D_{perf}(\mathcal{O}_X) \to \text{Vect}_k$ 是 $k$-线性同调函子，并满足
+$$
+\sum\nolimits_{n \in \mathbf{Z}} \dim_k G(E[n]) < \infty
+$$
+对所有 $E \in D_{perf}(\mathcal{O}_X)$ 成立。则 $G$ 同构于形如
+$E \mapsto \Hom_X(K, E)$ 的函子，其中 $K \in D_{perf}(\mathcal{O}_X)$
+为某个对象。
+\end{lemma}
+
+\begin{proof}
+考察反变函子 $E \mapsto E^\vee$，其定义在
+$D_{perf}(\mathcal{O}_X)$ 上；参见 Cohomology, Lemma
+\ref{cohomology-lemma-dual-perfect-complex}。该函子是
+$D_{perf}(\mathcal{O}_X)$ 的正合反自等价。因此，可将 Theorem
+\ref{equiv-theorem-bondal-van-den-bergh} 应用于函子 $F(E) = G(E^\vee)$，得到
+$K \in D_{perf}(\mathcal{O}_X)$，使得 $G(E^\vee) = \Hom_X(E, K)$。于是
+$G(E) = \Hom_X(E^\vee, K) = \Hom_X(K^\vee, E)$，故取 $K^\vee$ 即可。
+\end{proof}
+
+
+
+
+
+
+\section{伴随函子的存在性}
+\label{equiv-section-adjoints}
+
+\noindent
+作为 Bondal 与 van den Bergh 论文中结果的推论，得到下述伴随函子自动存在性。
+
+\begin{lemma}
+\label{equiv-lemma-always-right-adjoints}
+设 $k$ 为域，设 $X$ 与 $Y$ 是 $k$ 上的固有概形。若 $X$ 正则，则任意
+$k$-线性正合函子
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+都有正合右伴随与正合左伴随。
+\end{lemma}
+
+\begin{proof}
+若伴随函子存在，则由非常一般的 Derived Categories, Lemma
+\ref{derived-lemma-adjoint-is-exact}，它是正合函子。
+
+\medskip\noindent
+先证明右伴随的存在性。为此，只需证明对于
+$M \in D_{perf}(\mathcal{O}_Y)$，反变函子
+$K \mapsto \Hom_Y(F(K), M)$ 可表。该函子是反变、$k$-线性且上同调的。
+因此，由 Theorem \ref{equiv-theorem-bondal-van-den-bergh}，只需证明
+$$
+\sum\nolimits_{i \in \mathbf{Z}} \dim_k \Ext^i_Y(F(K), M) < \infty
+$$
+即可。这由 Lemma \ref{equiv-lemma-finiteness} 得到。
+
+\medskip\noindent
+对于左伴随的存在性，论证相同，只需使用 Lemma
+\ref{equiv-lemma-homological-representable} 代替 Theorem
+\ref{equiv-theorem-bondal-van-den-bergh}。
+\end{proof}
+
+
+
+
+
+
+\section{Fourier--Mukai 函子}
+\label{equiv-section-fourier-mukai}
+
+\noindent
+这些函子最早在 \cite{Mukai} 中引入。
+
+\begin{definition}
+\label{equiv-definition-fourier-mukai-functor}
+设 $S$ 为概形，设 $X$ 与 $Y$ 为 $S$ 上的概形，并设
+$K \in D(\mathcal{O}_{X \times_S Y})$。三角范畴之间的正合函子
+$$
+\Phi_K : D(\mathcal{O}_X) \longrightarrow D(\mathcal{O}_Y),\quad
+M \longmapsto R\text{pr}_{2, *}(
+L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K)
+$$
+称为一个 {\it Fourier--Mukai 函子}，而 $K$ 称为该函子的一个
+{\it Fourier--Mukai 核}。此外：
+\begin{enumerate}
+\item 若 $\Phi_K$ 把 $D_\QCoh(\mathcal{O}_X)$ 送入 $D_\QCoh(\mathcal{O}_Y)$，
+则所得正合函子
+$\Phi_K : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+称为 Fourier--Mukai 函子；
+\item 若 $\Phi_K$ 把 $D_{perf}(\mathcal{O}_X)$ 送入
+$D_{perf}(\mathcal{O}_Y)$，则所得正合函子
+$\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+称为 Fourier--Mukai 函子；
+\item 若 $X$ 与 $Y$ 都是 Noether 概形，且 $\Phi_K$ 把
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ 送入 $D^b_{\textit{Coh}}(\mathcal{O}_Y)$，
+则所得正合函子
+$\Phi_K : D^b_{\textit{Coh}}(\mathcal{O}_X) \to
+D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+称为 Fourier--Mukai 函子。对于 $D_{\textit{Coh}}$、
+$D^+_{\textit{Coh}}$、$D^-_{\textit{Coh}}$ 也作类似定义。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{equiv-lemma-fourier-Mukai-QCoh}
+设 $S$ 为概形，设 $X$ 与 $Y$ 为 $S$ 上的概形，并设
+$K \in D(\mathcal{O}_{X \times_S Y})$。相应的 Fourier--Mukai 函子 $\Phi_K$
+把 $D_\QCoh(\mathcal{O}_X)$ 送入 $D_\QCoh(\mathcal{O}_Y)$，只要 $K$ 属于
+$D_\QCoh(\mathcal{O}_{X \times_S Y})$ 且 $X \to S$ 拟紧、拟分离。
+\end{lemma}
+
+\begin{proof}
+这是因为：导出拉回保持 $D_\QCoh$（Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-pullback}）；导出张量积保持 $D_\QCoh$
+（Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-tensor-product}）；投影
+$\text{pr}_2 : X \times_S Y \to Y$ 拟紧且拟分离（Schemes, Lemmas
+\ref{schemes-lemma-quasi-compact-preserved-base-change} 与
+\ref{schemes-lemma-separated-permanence}）；沿拟分离且拟紧态射的总直像保持
+$D_\QCoh$（Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-direct-image}）。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-compose-fourier-mukai}
+设 $S$ 为概形，设 $X, Y, Z$ 为 $S$ 上的概形。假设 $X \to S$、
+$Y \to S$ 与 $Z \to S$ 都拟紧且拟分离。设
+$K \in D_\QCoh(\mathcal{O}_{X \times_S Y})$，并设
+$K' \in D_\QCoh(\mathcal{O}_{Y \times_S Z})$。考虑 Fourier--Mukai 函子
+$\Phi_K : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+与 $\Phi_{K'} : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_Z)$。若
+$X$ 与 $Z$ 在 $S$ 上 Tor 独立，且 $Y \to S$ 平坦，则
+$$
+\Phi_{K'} \circ \Phi_K = \Phi_{K''} :
+D_\QCoh(\mathcal{O}_X)
+\longrightarrow
+D_\QCoh(\mathcal{O}_Z)
+$$
+，其中
+$$
+K'' = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*K')
+$$
+属于 $D_\QCoh(\mathcal{O}_{X \times_S Z})$。
+\end{lemma}
+
+\begin{proof}
+该陈述由 Lemma \ref{equiv-lemma-fourier-Mukai-QCoh} 可知是有意义的。下文将使用
+Derived Categories of Schemes, Lemmas
+\ref{perfect-lemma-quasi-coherence-pullback},
+\ref{perfect-lemma-quasi-coherence-tensor-product} 以及
+\ref{perfect-lemma-quasi-coherence-direct-image}
+以及 Schemes, Lemmas
+\ref{schemes-lemma-quasi-compact-preserved-base-change} 与
+\ref{schemes-lemma-separated-permanence}
+，而不再说明。由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-base-change-tor-independent}
+可知 $X \times_S Y$ 与 $Y \times_S Z$ 在 $Y$ 上 Tor 独立。这意味着对于
+下列笛卡尔图有基变换：
+$$
+\xymatrix{
+X \times_S Y \times_S Z \ar[d] \ar[r] &
+Y \times_S Z \ar[d]^{p^{YZ}_Y} \\
+X \times_S Y \ar[r]^{p^{XY}_Y} & Y
+}
+$$
+这里所指的是具有拟相干上同调层的复形；参见 Derived Categories of Schemes,
+Lemma \ref{perfect-lemma-compare-base-change}。简记 $p^* = Lp^*$、
+$p_* = Rp_*$ 及 $\otimes = \otimes^\mathbf{L}$，则对于
+$M \in D_\QCoh(\mathcal{O}_X)$ 有等式链
+\begin{align*}
+\Phi_{K'}(\Phi_K(M))
+& =
+p^{YZ}_{Z, *}(p^{YZ, *}_Y p^{XY}_{Y, *}(p^{XY, *}_X M \otimes K) \otimes K') \\
+& =
+p^{YZ}_{Z, *}(\text{pr}_{23, *} \text{pr}_{12}^*(p^{XY, *}_X M \otimes K)
+\otimes K') \\
+& =
+p^{YZ}_{Z, *}(\text{pr}_{23, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K)
+\otimes K') \\
+& =
+p^{YZ}_{Z, *}(\text{pr}_{23, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K')) \\
+& =
+\text{pr}_{3, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K') \\
+& =
+p^{XZ}_{Z, *}\text{pr}_{13, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K') \\
+& =
+p^{XZ}_{Z, *} (p^{XZ, *}_X M \otimes \text{pr}_{13, *}(\text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K'))
+\end{align*}
+，正如所需。第二个等式使用了上述基变换，而第 $4$ 个等式与最后一个等式
+使用了 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-cohomology-base-change}。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-fourier-mukai}
+设 $S$ 为概形，设 $X$ 与 $Y$ 为 $S$ 上的概形，并设
+$K \in D(\mathcal{O}_{X \times_S Y})$。若下列条件中至少一个成立，则相应的
+Fourier--Mukai 函子 $\Phi_K$ 把 $D_{perf}(\mathcal{O}_X)$ 送入
+$D_{perf}(\mathcal{O}_Y)$：
+\begin{enumerate}
+\item $S$ 是 Noether 概形，$X \to S$ 与 $Y \to S$ 是有限型的，
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_{X \times_S Y})$，$H^i(K)$ 的支撑在
+$Y$ 上固有，其中 $i$ 任取，并且 $K$ 作为
+$D(\text{pr}_2^{-1}\mathcal{O}_Y)$ 的对象具有有限 Tor 维数；
+\item $X \to S$ 是有限表示的，并且 $K$ 可由有界复形
+$\mathcal{K}^\bullet$ 表示；该复形由有限表示
+$\mathcal{O}_{X \times_S Y}$-模组成，在 $Y$ 上平坦且其支撑在 $Y$ 上固有；
+\item $X \to S$ 是有限表示的固有平坦态射，且 $K$ 完美；
+\item $S$ 是 Noether 概形，$X \to S$ 平坦且固有，并且 $K$ 完美；
+\item $X \to S$ 是有限表示的固有平坦态射，且 $K$ 是 $Y$-完美的；
+\item $S$ 是 Noether 概形，$X \to S$ 平坦且固有，并且 $K$ 是
+$Y$-完美的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $M$ 在 $X$ 上完美，则 $L\text{pr}_1^*M$ 在 $X \times_S Y$ 上完美；
+参见 Cohomology, Lemma \ref{cohomology-lemma-perfect-pullback}。下文将使用
+此事实而不再说明。还要使用如下事实：若 $X \to S$ 是有限型、固有、
+平坦或有限表示的，则基变换 $\text{pr}_2 : X \times_S Y \to Y$ 也具有
+相应性质；参见 Morphisms, Lemmas
+\ref{morphisms-lemma-base-change-finite-type},
+\ref{morphisms-lemma-base-change-proper},
+\ref{morphisms-lemma-base-change-flat} 与
+\ref{morphisms-lemma-base-change-finite-presentation}.
+
+\medskip\noindent
+情形 (1) 由
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-direct-image}
+与 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-perfect-on-noetherian} 结合得到。
+
+\medskip\noindent
+情形 (2) 由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-base-change-tensor-perfect} 得到。
+
+\medskip\noindent
+情形 (3) 由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general} 得到。
+
+\medskip\noindent
+情形 (4) 由情形 (3) 以及如下事实得到：由 Morphisms, Lemma
+\ref{morphisms-lemma-noetherian-finite-type-finite-presentation}，Noether 概形之间的
+有限型态射是有限表示的。
+
+\medskip\noindent
+情形 (5) 由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-derived-pushforward-rel-perfect} 与 Derived Categories of Schemes,
+Lemma \ref{perfect-lemma-perfect-relatively-perfect} 结合得到。
+
+\medskip\noindent
+情形 (6) 由情形 (5) 得到，其方式与情形 (4) 由情形 (3) 得到的方式相同。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-fourier-mukai-Coh}
+设 $S$ 为 Noether 概形，设 $X$ 与 $Y$ 为 $S$ 上的有限型概形，并设
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_{X \times_S Y})$。若下列条件中至少
+一个成立，则相应的 Fourier--Mukai 函子 $\Phi_K$ 把
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ 送入 $D^b_{\textit{Coh}}(\mathcal{O}_Y)$：
+\begin{enumerate}
+\item $H^i(K)$ 的支撑在 $Y$ 上固有，其中 $i$ 任取，并且 $K$ 作为
+$D(\text{pr}_1^{-1}\mathcal{O}_X)$ 的对象具有有限 Tor 维数；
+\item $K$ 可由有界复形 $\mathcal{K}^\bullet$ 表示；该复形由相干
+$\mathcal{O}_{X \times_S Y}$-模组成，在 $X$ 上平坦且其支撑在 $Y$ 上固有；
+\item $H^i(K)$ 的支撑在 $Y$ 上固有，其中 $i$ 任取，并且 $X$ 是正则概形；
+\item $K$ 完美，$H^i(K)$ 的支撑在 $Y$ 上固有，其中 $i$ 任取，并且
+$Y \to S$ 平坦。
+\end{enumerate}
+此外，在每种情形下，若 $X \to S$ 固有，则支撑条件自动成立。
+\end{lemma}
+
+\begin{proof}
+设 $M$ 为 $D^b_{\textit{Coh}}(\mathcal{O}_X)$ 的对象。在每种情形下，都将使用
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-direct-image-coherent}
+来证明
+$$
+\Phi_K(M) = R\text{pr}_{2, *}(
+L\text{pr}_1^*M
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}
+K)
+$$
+属于 $D^b_{\textit{Coh}}(\mathcal{O}_Y)$。导出张量积
+$L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K$
+是 $D(\mathcal{O}_{X \times_S Y})$ 的伪凝聚对象（由 Cohomology, Lemma
+\ref{cohomology-lemma-pseudo-coherent-pullback}、Derived Categories of Schemes,
+Lemma \ref{perfect-lemma-identify-pseudo-coherent-noetherian} 以及 Cohomology,
+Lemma \ref{cohomology-lemma-tensor-pseudo-coherent}），因而具有相干上同调层
+（再次由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian}）。在每种情形下，上同调层
+$H^i(L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K)$
+的支撑在 $Y$ 上固有，因为这些支撑包含于各 $H^i(K)$ 的支撑之并。因此，
+在每种情形下，只需证明这个张量积下有界。
+
+\medskip\noindent
+情形 (1)。由 Cohomology, Lemma
+\ref{cohomology-lemma-variant-derived-pullback}，有
+$$
+L\text{pr}_1^*M
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}
+K
+\cong
+\text{pr}_1^{-1}M
+\otimes_{\text{pr}_1^{-1}\mathcal{O}_X}^\mathbf{L}
+K
+$$
+，其中记号含义显然。因此，Tor 维数的假设与 $M$ 仅有有限个非零上同调层
+这一事实给出了所需的界。
+
+\medskip\noindent
+情形 (2) 成立，因为这里的假设蕴含 $K$ 作为
+$D(\text{pr}_1^{-1}\mathcal{O}_X)$ 的对象具有有限 Tor 维数，故可应用上一段的论证。
+
+\medskip\noindent
+在情形 (3) 中，$K$ 作为 $D(\text{pr}_1^{-1}\mathcal{O}_X)$ 的对象也具有
+有限 Tor 维数。事实上，选取仿射开集 $U = \Spec(A)$ 与
+$V = \Spec(B)$，它们分别属于 $X$ 与 $Y$，并映入仿射开集
+$W = \Spec(R)$，后者属于 $S$。于是
+$K|_{U \times V}$ 由有限 $A \otimes_R B$-模组成的有界复形
+$M^\bullet$ 给出。由于 $A$ 是有限维正则环，可知每个 $M^i$ 作为 $A$-模
+具有有限投射维数（Algebra, Lemma
+\ref{algebra-lemma-finite-gl-dim-finite-dim-regular}），因而作为 $A$-模具有
+有限 Tor 维数。因此 $M^\bullet$ 作为 $A$-模复形具有有限 Tor 维数
+（More on Algebra, Lemma
+\ref{more-algebra-lemma-complex-finite-tor-dimension-modules}）。由于
+$X \times Y$ 拟紧，存在 $[a, b]$，使得对于每个点 $z \in X \times Y$，茎
+$K_z$ 的 Tor 振幅落在 $[a, b]$ 中（相对于
+$\mathcal{O}_{X, \text{pr}_1(z)}$）。
+这蕴含 $K$ 作为 $D(\text{pr}_1^{-1}\mathcal{O}_X)$ 的对象具有有界 Tor 维数；
+参见 Cohomology, Lemma \ref{cohomology-lemma-tor-amplitude-stalk}。按前两段
+的方式即可得到结论。
+
+\medskip\noindent
+情形 (4)。沿用上述记号，环映射 $R \to B$ 平坦。因此环映射
+$A \to A \otimes_R B$ 平坦，故任意投射 $A \otimes_R B$-模都是
+$A$-平坦的。于是，任意完美 $A \otimes_R B$-模复形作为 $A$-模复形
+都具有有限 Tor 维数，结论同前。
+\end{proof}
+
+\begin{example}
+\label{equiv-example-diagonal-fourier-mukai}
+设 $X \to S$ 为概形之间的分离态射。则对角态射
+$\Delta : X \to X \times_S X$ 是闭浸入，因而
+$\mathcal{O}_\Delta = \Delta_*\mathcal{O}_X = R\Delta_*\mathcal{O}_X$
+是有限型拟相干 $\mathcal{O}_{X \times_S X}$-模，并且在 $X$ 上平坦
+（关于任一投影）。在此情形下，Fourier--Mukai 函子
+$\Phi_{\mathcal{O}_\Delta}$ 等于恒等函子。事实上，对任意
+$M \in D(\mathcal{O}_X)$，有
+\begin{align*}
+L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S X}}^\mathbf{L}
+\mathcal{O}_\Delta
+& =
+L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S X}}^\mathbf{L}
+R\Delta_*\mathcal{O}_X \\
+& =
+R\Delta_*(
+L\Delta^*L\text{pr}_1^*M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_X) \\
+& =
+R\Delta_*(M)
+\end{align*}
+第一个等式已在上文讨论。第二个等式是 Cohomology, Lemma
+\ref{cohomology-lemma-projection-formula-closed-immersion}.
+第三个等式成立是因为 $\text{pr}_1 \circ \Delta = \text{id}_X$，并且有
+Cohomology, Lemma \ref{cohomology-lemma-derived-pullback-composition}.
+若将其推前到 $X$，所用函子为 $R\text{pr}_{2, *}$，则得到 $M$；这是由
+Cohomology, Lemma \ref{cohomology-lemma-derived-pushforward-composition}
+以及 $\text{pr}_2 \circ \Delta = \text{id}_X$ 这一事实推出的。
+\end{example}
+
+\begin{lemma}
+\label{equiv-lemma-fourier-mukai-right-adjoint}
+\begin{reference}
+参见 \cite{Rizzardo} 中的讨论。
+\end{reference}
+设 $X \to S$ 与 $Y \to S$ 为拟紧拟分离概形之间的态射。设
+$\Phi : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+为具有伪凝聚核的 Fourier--Mukai 函子，其中
+$K \in D_\QCoh(\mathcal{O}_{X \times_S Y})$。设
+$a : D_\QCoh(\mathcal{O}_Y) \to  D_\QCoh(\mathcal{O}_{X \times_S Y})$
+为 $R\text{pr}_{2, *}$ 的右伴随；参见 Duality for Schemes, Lemma
+\ref{duality-lemma-twisted-inverse-image}。记
+$$
+K' = (Y \times_S X \to X \times_S Y)^*
+R\SheafHom_{\mathcal{O}_{X \times_S Y}}(K, a(\mathcal{O}_Y)) \in
+D_\QCoh(\mathcal{O}_{Y \times_S X})
+$$
+并以 $\Phi' : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+记相应的 Fourier--Mukai 变换。存在典范映射
+$$
+\Hom_X(M, \Phi'(N)) \longrightarrow \Hom_Y(\Phi(M), N)
+$$
+它关于 $M$（作为 $D_\QCoh(\mathcal{O}_X)$ 的对象）以及
+$N$（作为 $D_\QCoh(\mathcal{O}_Y)$ 的对象）都具有函子性，并且在下列任一情形下为同构：
+\begin{enumerate}
+\item $N$ 完美；或
+\item $K$ 完美，且 $X \to S$ 是有限表示的固有平坦态射。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-fourier-Mukai-QCoh} 得到陈述中的函子 $\Phi$。注意，由
+Duality for Schemes, Lemma
+\ref{duality-lemma-twisted-inverse-image-bounded-below}，
+$a(\mathcal{O}_Y)$ 属于 $D^+_\QCoh(\mathcal{O}_{X \times_S Y})$。
+因此，当 $K$ 伪凝聚时，由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-internal-hom} 有
+$K' \in D_\QCoh(\mathcal{O}_{Y \times_S X})$，从而得到所述的 $\Phi'$。
+
+\medskip\noindent
+简记
+$\otimes^\mathbf{L} = \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}$
+以及
+$\SheafHom = R\SheafHom_{\mathcal{O}_{X \times_S Y}}$.
+设 $M$ 属于 $D_\QCoh(\mathcal{O}_X)$，并设
+$N$ 属于 $D_\QCoh(\mathcal{O}_Y)$。则
+\begin{align*}
+\Hom_Y(\Phi(M), N)
+& =
+\Hom_Y(R\text{pr}_{2, *}(L\text{pr}_1^*M \otimes^\mathbf{L} K), N) \\
+& =
+\Hom_{X \times_S Y}(L\text{pr}_1^*M \otimes^\mathbf{L} K, a(N)) \\
+& =
+\Hom_{X \times_S Y}(L\text{pr}_1^*M,
+R\SheafHom(K, a(N))) \\
+& =
+\Hom_X(M, R\text{pr}_{1, *}R\SheafHom(K, a(N)))
+\end{align*}
+其中使用了 Cohomology, Lemmas \ref{cohomology-lemma-internal-hom}
+与 \ref{cohomology-lemma-adjoint}。存在典范映射
+$$
+L\text{pr}_2^*N \otimes^\mathbf{L} R\SheafHom(K, a(\mathcal{O}_Y))
+\xrightarrow{\alpha}
+R\SheafHom(K, L\text{pr}_2^*N \otimes^\mathbf{L} a(\mathcal{O}_Y))
+\xrightarrow{\beta}
+R\SheafHom(K, a(N))
+$$
+这里 $\alpha$ 是 Cohomology, Lemma
+\ref{cohomology-lemma-internal-hom-diagonal-better} 中的映射，而 $\beta$ 是
+Duality for Schemes, Equation
+(\ref{duality-equation-compare-with-pullback}) 中的映射。合并所有这些箭头，
+便得到本引理陈述中所显示的函子性箭头。
+
+\medskip\noindent
+箭头 $\alpha$ 由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-internal-hom-evaluate-tensor-isomorphism} 可知为同构，只要
+$K$ 或 $N$ 完美。箭头 $\beta$ 在 $N$ 完美时由 Duality for Schemes, Lemma
+\ref{duality-lemma-compare-with-pullback-perfect} 可知为同构；更一般地，若
+$X \to S$ 是有限表示的平坦固有态射，则由 Duality for Schemes,
+Lemma \ref{duality-lemma-compare-with-pullback-flat-proper}，它也为同构。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-fourier-mukai-left-adjoint}
+\begin{reference}
+参见 \cite{Rizzardo} 中的讨论。
+\end{reference}
+设 $S$ 为 Noether 概形。设 $Y \to S$ 为平坦固有 Gorenstein 态射，并设
+$X \to S$ 为有限型态射。记 $\omega^\bullet_{Y/S}$ 为 $Y$ 在 $S$ 上的
+相对对偶化复形。设
+$\Phi : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+为具有完美核的 Fourier--Mukai 函子，其中
+$K \in D_\QCoh(\mathcal{O}_{X \times_S Y})$。记
+$$
+K' = (Y \times_S X \to X \times_S Y)^*(K^\vee
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}
+L\text{pr}_2^*\omega^\bullet_{Y/S})
+\in
+D_\QCoh(\mathcal{O}_{Y \times_S X})
+$$
+并以 $\Phi' : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+记相应的 Fourier--Mukai 变换。存在典范同构
+$$
+\Hom_Y(N, \Phi(M)) \longrightarrow \Hom_X(\Phi'(N), M)
+$$
+它关于 $M$（作为 $D_\QCoh(\mathcal{O}_X)$ 的对象）以及
+$N$（作为 $D_\QCoh(\mathcal{O}_Y)$ 的对象）都具有函子性。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-fourier-Mukai-QCoh} 得到陈述中的函子 $\Phi$。
+
+\medskip\noindent
+注意，在当前设定下，相对对偶化复形的形成与基变换交换；参见
+Duality for Schemes, Remark
+\ref{duality-remark-relative-dualizing-complex}。因此
+$L\text{pr}_2^*\omega^\bullet_{Y/S} = \omega^\bullet_{X \times_S Y/X}$。
+此外，$\omega^\bullet_{Y/S}$ 是导出范畴中的可逆对象；参见
+Duality for Schemes, Lemma
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein}；因而它尤其完美。
+
+\medskip\noindent
+为真正证明本引理，我们采用一个取巧办法。具体地，将 $X$ 与 $Y$ 的角色以及
+$K$ 与 $K'$ 的角色互换后，所得数据符合
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} 的情形，从而得到结论。显然，
+$K'$ 作为完美对象的张量积仍是完美的，故 Lemma
+\ref{equiv-lemma-fourier-mukai-right-adjoint} 中的讨论适用于它。要说明将
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} 的过程应用于 $K'$（在
+$Y \times_S X$ 上）会产生一个同构于 $K$ 的复形，只需说明下式
+（略去细节）：
+$$
+R\SheafHom(R\SheafHom(K, \omega^\bullet_{X \times_S Y/X}),
+\omega^\bullet_{X \times_S Y/X}) = K
+$$
+这是显然的，因为 $K$ 完美而 $\omega^\bullet_{X \times_S Y/X}$ 可逆；
+细节从略。因此 Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} 给出映射
+$$
+\Hom_Y(N, \Phi(M)) \longrightarrow \Hom_X(\Phi'(N), M)
+$$
+它关于 $M$（作为 $D_\QCoh(\mathcal{O}_X)$ 的对象）以及
+$N$（作为 $D_\QCoh(\mathcal{O}_Y)$ 的对象）都具有函子性；由于
+$K'$ 完美，该映射为同构。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-fourier-mukai-flat-proper-over-noetherian}
+设 $S$ 为 Noether 概形。
+\begin{enumerate}
+\item 对于 $X$、$Y$（二者在 $S$ 上固有且平坦），若 $K$ 是
+$D_{perf}(\mathcal{O}_{X \times_S Y})$ 的对象，则得到 Fourier--Mukai 函子
+$\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$。
+\item 对于 $X$、$Y$、$Z$（三者在 $S$ 上固有且平坦），以及 $K \in
+D_{perf}(\mathcal{O}_{X \times_S Y})$，$K' \in
+D_{perf}(\mathcal{O}_{Y \times_S Z})$，复合
+$\Phi_{K'} \circ \Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Z)$
+等于 $\Phi_{K''}$，其中 $K'' \in D_{perf}(\mathcal{O}_{X \times_S Z})$
+按 Lemma \ref{equiv-lemma-compose-fourier-mukai} 中的方式计算；
+\item 对于如 (1) 中的 $X$、$Y$、$K$、$\Phi_K$，若 $X \to S$ 是 Gorenstein
+态射，则
+$\Phi_{K'} : D_{perf}(\mathcal{O}_Y) \to D_{perf}(\mathcal{O}_X)$ 是
+$\Phi_K$ 的右伴随，其中 $K' \in D_{perf}(\mathcal{O}_{Y \times_S X})$
+是 $L\text{pr}_1^*\omega_{X/S}^\bullet
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K^\vee$ 沿
+$Y \times_S X \to X \times_S Y$ 的拉回；
+\item 对于如 (1) 中的 $X$、$Y$、$K$、$\Phi_K$，若 $Y \to S$ 是 Gorenstein
+态射，则
+$\Phi_{K''} : D_{perf}(\mathcal{O}_Y) \to D_{perf}(\mathcal{O}_X)$ 是
+$\Phi_K$ 的左伴随，其中 $K'' \in D_{perf}(\mathcal{O}_{Y \times_S X})$
+是 $L\text{pr}_2^*\omega_{Y/S}^\bullet
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K^\vee$ 沿
+$Y \times_S X \to X \times_S Y$ 的拉回。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 部分立即由 Lemma \ref{equiv-lemma-fourier-mukai} 的第 (4) 部分得到。
+
+\medskip\noindent
+第 (2) 部分由 Lemma \ref{equiv-lemma-compose-fourier-mukai} 以及下述事实得到：
+$K'' = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*K')$ 是完美的；例如这可由 Derived Categories of Schemes,
+Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image}.
+
+\medskip\noindent
+第 (3) 部分在所有具有拟相干上同调层的复形上的伴随性，由
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} 得到；其中 $K'$ 等于
+$R\SheafHom_{\mathcal{O}_{X \times_S Y}}(K, a(\mathcal{O}_Y))$
+沿 $Y \times_S X \to X \times_S Y$ 的拉回，而 $a$ 是
+$R\text{pr}_{2, *} : D_\QCoh(\mathcal{O}_{X \times_S Y}) \to
+D_\QCoh(\mathcal{O}_Y)$ 的右伴随。以 $f : X \to S$ 记 $X$ 的结构态射。
+由于 $f$ 固有，函子
+$f^! : D_\QCoh^+(\mathcal{O}_S) \to D_\QCoh^+(\mathcal{O}_X)$
+是下述右伴随在 $D_\QCoh^+(\mathcal{O}_S)$ 上的限制：
+$Rf_* : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_S)$；参见
+Duality for Schemes, Section \ref{duality-section-upper-shriek}。因此，
+Duality for Schemes, Remark
+\ref{duality-remark-relative-dualizing-complex}
+中定义的相对对偶化复形 $\omega_{X/S}^\bullet$ 等于
+$\omega_{X/S}^\bullet = f^!\mathcal{O}_S$。由于相对对偶化复形的形成与
+基变换交换（参见 Duality for Schemes, Remark
+\ref{duality-remark-relative-dualizing-complex}），可知
+$a(\mathcal{O}_Y) = L\text{pr}_1^*\omega_{X/S}^\bullet$.
+因此
+$$
+R\SheafHom_{\mathcal{O}_{X \times_S Y}}(K, a(\mathcal{O}_Y))
+\cong
+L\text{pr}_1^*\omega_{X/S}^\bullet
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K^\vee
+$$
+，由 Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}。
+最后，由于假设 $X \to S$ 是 Gorenstein 态射，相对对偶化复形可逆；这由
+Duality for Schemes, Lemma
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein}.
+于是 $\omega_{X/S}^\bullet$ 完美
+(Cohomology, Lemma \ref{cohomology-lemma-invertible-derived})
+，从而 $K'$ 完美。因此 $\Phi_{K'}$ 确实把
+$D_{perf}(\mathcal{O}_Y)$ 送入 $D_{perf}(\mathcal{O}_X)$，第 (3) 部分得证。
+
+\medskip\noindent
+第 (4) 部分的证明与第 (3) 部分相同，只需使用
+Lemma \ref{equiv-lemma-fourier-mukai-left-adjoint} 代替
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{解消与界}
+\label{equiv-section-tricks-smooth}
+
+\noindent
+光滑固有概形的对角具有良好的解消。
+
+\begin{lemma}
+\label{equiv-lemma-on-product}
+设 $R$ 为 Noether 环。设 $X$、$Y$ 为 $R$ 上具有解消性质的有限型概形。
+对于任意相干 $\mathcal{O}_{X \times_R Y}$-模 $\mathcal{F}$，存在满射
+$\mathcal{E} \boxtimes \mathcal{G} \to \mathcal{F}$，其中
+$\mathcal{E}$ 是有限局部自由 $\mathcal{O}_X$-模，而
+$\mathcal{G}$ 是有限局部自由 $\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+设 $U \subset X$ 与 $V \subset Y$ 为仿射开子概形。设
+$\mathcal{I} \subset \mathcal{O}_X$ 为 $X \setminus U$ 上约化诱导闭子概形
+结构的理想层。类似地，设 $\mathcal{I}' \subset \mathcal{O}_Y$ 为
+$Y \setminus V$ 上约化诱导闭子概形结构的理想层。则理想层
+$$
+\mathcal{J} = \Im(\text{pr}_1^*\mathcal{I} \otimes_{\mathcal{O}_{X \times_R Y}}
+\text{pr}_2^*\mathcal{I}' \to \mathcal{O}_{X \times_R Y})
+$$
+满足 $V(\mathcal{J}) = X \times_R Y \setminus U \times_R V$。对于任意截面
+$s \in \mathcal{F}(U \times_R V)$，可找到整数 $n > 0$ 与映射
+$\mathcal{J}^n \to \mathcal{F}$，其在 $U \times_R V$ 上的限制给出 $s$；
+参见 Cohomology of Schemes, Lemma \ref{coherent-lemma-homs-over-open}。
+由假设，可选取满射 $\mathcal{E} \to \mathcal{I}$ 与
+$\mathcal{G} \to \mathcal{I}'$。它们相应地产生满射
+$$
+\mathcal{E} \boxtimes \mathcal{G} \to \mathcal{J}
+\quad\text{且}\quad
+\mathcal{E}^{\otimes n} \boxtimes \mathcal{G}^{\otimes n} \to \mathcal{J}^n
+$$
+，从而产生映射
+$\mathcal{E}^{\otimes n} \boxtimes \mathcal{G}^{\otimes n} \to \mathcal{F}$
+，其像包含截面 $s$（在 $U \times_R V$ 上）。由于 $X \times_R Y$
+可由有限多个形如 $U \times_R V$ 的仿射开集覆盖，并且
+$\mathcal{F}|_{U \times_R V}$ 由有限多个截面生成（Properties, Lemma
+\ref{properties-lemma-finite-type-module}），故存在满射
+$$
+\bigoplus\nolimits_{j = 1, \ldots, N}
+\mathcal{E}_j^{\otimes n_j} \boxtimes \mathcal{G}_j^{\otimes n_j}
+\to \mathcal{F}
+$$
+其中 $\mathcal{E}_j$ 在 $X$ 上有限局部自由，而
+$\mathcal{G}_j$ 在 $Y$ 上有限局部自由。令
+$\mathcal{E} = \bigoplus \mathcal{E}_j^{\otimes n_j}$ 且
+$\mathcal{G} = \bigoplus \mathcal{G}_j^{\otimes n_j}$，便得到本引理。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-on-product-general}
+设 $R$ 为环。设 $X$、$Y$ 为 $R$ 上具有解消性质的拟紧拟分离概形。
+对于任意有限型拟相干 $\mathcal{O}_{X \times_R Y}$-模 $\mathcal{F}$，
+存在满射 $\mathcal{E} \boxtimes \mathcal{G} \to \mathcal{F}$，其中
+$\mathcal{E}$ 是有限局部自由 $\mathcal{O}_X$-模，而
+$\mathcal{G}$ 是有限局部自由 $\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+由极限论证从 Lemma \ref{equiv-lemma-on-product} 得到。建议读者略过此证明。
+由于 $X \times_R Y$ 是 $X \times_\mathbf{Z} Y$ 的闭子概形，把 $R$ 替换为
+$\mathbf{Z}$ 并无妨碍。由 Properties, Lemma
+\ref{properties-lemma-finite-directed-colimit-surjective-maps}，可将
+$\mathcal{F}$ 写成某个有限表示 $\mathcal{O}_{X \times_R Y}$-模的商。因此可假设
+$\mathcal{F}$ 是有限表示的。接着可写成 $X = \lim X_i$，其中 $X_i$ 在
+$\mathbf{Z}$ 上有限表示；类似地，$Y = \lim Y_j$；参见 Limits, Proposition
+\ref{limits-proposition-approximate}。于是 $\mathcal{F}$ 可下降为
+$\mathcal{F}_{ij}$，后者位于某个 $X_i \times_R Y_j$ 上
+（Limits, Lemma \ref{limits-lemma-descend-modules-finite-presentation}），
+而具有解消性质这一性质也可下降（Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-resolution-property-descends}）。然后把
+Lemma \ref{equiv-lemma-on-product} 应用于 $\mathcal{F}_{ij}$，再拉回即可。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-diagonal-resolution}
+设 $R$ 为 Noether 环。设 $X$ 为 $R$ 上具有解消性质的分离有限型概形。令
+$\mathcal{O}_\Delta = \Delta_*(\mathcal{O}_X)$，其中
+$\Delta : X \to X \times_R X$ 是 $X/k$ 的对角。存在解消
+$$
+\ldots \to
+\mathcal{E}_2 \boxtimes \mathcal{G}_2 \to
+\mathcal{E}_1 \boxtimes \mathcal{G}_1 \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0 \to
+\mathcal{O}_\Delta \to 0
+$$
+其中每个 $\mathcal{E}_i$ 与 $\mathcal{G}_i$ 都是有限局部自由
+$\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+由于 $X$ 分离，对角态射 $\Delta$ 是闭浸入，因而 $\mathcal{O}_\Delta$ 是
+相干 $\mathcal{O}_{X \times_R X}$-模（Cohomology of Schemes, Lemma
+\ref{coherent-lemma-i-star-equivalence}）。故本引理立即由
+Lemma \ref{equiv-lemma-on-product} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-Ext-0-regular}
+设 $X$ 为维数 $d < \infty$ 的正则 Noether 概形。则
+\begin{enumerate}
+\item 对于 $\mathcal{F}$、$\mathcal{G}$ 这两个相干 $\mathcal{O}_X$-模，
+有 $\Ext^n_X(\mathcal{F}, \mathcal{G}) = 0$，只要 $n > d$；并且
+\item 对于 $K, L \in D^b_{\textit{Coh}}(\mathcal{O}_X)$ 与
+$a \in \mathbf{Z}$，若 $H^i(K) = 0$ 对所有 $i < a + d$ 成立，且
+$H^i(L) = 0$ 对所有 $i \geq a$ 成立，则 $\Hom_X(K, L) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明 (1)，使用谱序列
+$$
+H^p(X, \SheafExt^q(\mathcal{F}, \mathcal{G})) \Rightarrow
+\Ext^{p + q}_X(\mathcal{F}, \mathcal{G})
+$$
+；参见 Cohomology, Section \ref{cohomology-section-ext}。设 $x \in X$。有
+$$
+\SheafExt^q(\mathcal{F}, \mathcal{G})_x =
+\SheafExt^q_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+$$
+；参见 Cohomology, Lemma \ref{cohomology-lemma-stalk-internal-hom}
+（这里还使用了 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian} 所给出的
+$\mathcal{F}$ 的伪凝聚性）。令 $d_x = \dim(\mathcal{O}_{X, x})$。
+由于 $\mathcal{O}_{X, x}$ 正则，环 $\mathcal{O}_{X, x}$ 的整体维数为
+$d_x$；参见 Algebra, Proposition
+\ref{algebra-proposition-regular-finite-gl-dim}。因此
+$\SheafExt^q_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)$
+在 $q > d_x$ 时为零。于是模 $\SheafExt^q(\mathcal{F}, \mathcal{G})$
+的支撑维数至多为 $d - q$。故
+$H^p(X, \SheafExt^q(\mathcal{F}, \mathcal{G})) = 0$，只要 $p > d - q$
+；这是由 Cohomology, Proposition
+\ref{cohomology-proposition-vanishing-Noetherian} 得到的。第 (1) 部分得证。
+
+\medskip\noindent
+证明 (2)。可对 $K$ 与 $L$ 的非零上同调层数目作归纳。当这些数目为
+$0, 1$ 时，结论由 (1) 得到。若 $K$ 的非零上同调层数目为 $> 1$，则令
+$i \in \mathbf{Z}$ 为使 $H^i(K)$ 非零的最小整数。得到特异三角
+$$
+H^i(K)[-i] \to K \to \tau_{\geq i + 1}K
+$$
+(Derived Categories, Remark
+\ref{derived-remark-truncation-distinguished-triangle})
+，并且 $\Hom(K, L)$ 的消失可由
+$\Hom(H^i(K)[-i], L)$ 与 $\Hom(\tau_{\geq i + 1}K, L)$ 的消失通过
+Derived Categories, Lemma \ref{derived-lemma-representable-homological} 推出。
+若 $L$ 有多于一个非零上同调层，论证类似。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-split-complex-regular}
+设 $X$ 为维数 $d < \infty$ 的正则 Noether 概形。设
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$ 且 $a \in \mathbf{Z}$。若
+$H^i(K) = 0$ 对所有 $a < i < a + d$ 成立，则
+$K = \tau_{\leq a}K \oplus \tau_{\geq a + d}K$.
+\end{lemma}
+
+\begin{proof}
+由假设的上同调层消失，有
+$\tau_{\leq a}K = \tau_{\leq a + d - 1}K$。由 Derived Categories,
+Remark \ref{derived-remark-truncation-distinguished-triangle}，有特异三角
+$$
+\tau_{\leq a}K \to K \to \tau_{\geq a + d}K \xrightarrow{\delta}
+(\tau_{\leq a}K)[1]
+$$
+由 Derived Categories, Lemma \ref{derived-lemma-split}，只需证明态射
+$\delta$ 为零。这由 Lemma \ref{equiv-lemma-Ext-0-regular} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-diagonal-trick}
+设 $k$ 为域。设 $X$ 为 $k$ 上拟紧、分离且光滑的概形。存在有限局部自由
+$\mathcal{O}_X$-模 $\mathcal{E}$ 与 $\mathcal{G}$，使得
+$$
+\mathcal{O}_\Delta \in \langle \mathcal{E} \boxtimes \mathcal{G} \rangle
+$$
+在 $D(\mathcal{O}_{X \times X})$ 中成立；记号同 Derived Categories,
+Section \ref{derived-section-generators}。
+\end{lemma}
+
+\begin{proof}
+由 Varieties, Lemma \ref{varieties-lemma-smooth-regular}，回忆 $X$ 正则。
+因此由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-regular-resolution-property}，$X$ 具有解消性质。故可选取
+Lemma \ref{equiv-lemma-diagonal-resolution} 中的解消。记 $\dim(X) = d$。由于
+$X \times X$ 在 $k$ 上光滑，它是正则的。因此 $X \times X$ 是正则
+Noether 概形，且 $\dim(X \times X) = 2d$。对象
+$$
+K = (\mathcal{E}_{2d} \boxtimes \mathcal{G}_{2d} \to
+\ldots \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0)
+$$
+属于 $D_{perf}(\mathcal{O}_{X \times X})$；其上同调层为
+$\mathcal{O}_\Delta$（次数 $0$）以及
+$\Ker(\mathcal{E}_{2d} \boxtimes \mathcal{G}_{2d} \to
+\mathcal{E}_{2d-1} \boxtimes \mathcal{G}_{2d-1})$（次数 $-2d$），
+其余次数均为零。
+因此由 Lemma \ref{equiv-lemma-split-complex-regular} 可知，$\mathcal{O}_\Delta$
+是 $K$ 在 $D_{perf}(\mathcal{O}_{X \times X})$ 中的直和项。显然，对象
+$K$ 属于
+$$
+\left\langle
+\bigoplus\nolimits_{i = 0, \ldots, 2d} \mathcal{E}_i \boxtimes \mathcal{G}_i
+\right\rangle
+\subset
+\left\langle
+\left(\bigoplus\nolimits_{i = 0, \ldots, 2d} \mathcal{E}_i\right)
+\boxtimes
+\left(\bigoplus\nolimits_{i = 0, \ldots, 2d} \mathcal{G}_i\right)
+\right\rangle
+$$
+，证明完毕。（读者可参见 Derived Categories, Lemmas
+\ref{derived-lemma-generated-by-E-explicit} 与
+\ref{derived-lemma-in-cone-n}，以确认我们的对象属于此范畴。）
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-smooth-proper-strong-generator}
+设 $k$ 为域。设 $X$ 为 $k$ 上固有且光滑的概形。则
+$D_{perf}(\mathcal{O}_X)$ 具有强生成元。
+\end{lemma}
+
+\begin{proof}
+使用 Lemma \ref{equiv-lemma-diagonal-trick}，选取有限局部自由
+$\mathcal{O}_X$-模 $\mathcal{E}$ 与 $\mathcal{G}$，使得
+$\mathcal{O}_\Delta \in \langle \mathcal{E} \boxtimes \mathcal{G} \rangle$
+在 $D(\mathcal{O}_{X \times X})$ 中成立。断言 $\mathcal{G}$ 是
+$D_{perf}(\mathcal{O}_X)$ 的强生成元。沿用 Derived Categories, Section
+\ref{derived-section-operate-on-full} 中的记号，选取 $m, n \geq 1$，使得
+$$
+\mathcal{O}_\Delta \in
+smd(add(\mathcal{E} \boxtimes \mathcal{G}[-m, m])^{\star n})
+$$
+这可由 Derived Categories, Lemma
+\ref{derived-lemma-find-smallest-containing-E} 做到。设 $K$ 为
+$D_{perf}(\mathcal{O}_X)$ 的对象。由于
+$L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} -$
+是正合函子，并且
+$$
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+(\mathcal{E} \boxtimes \mathcal{G}) =
+(K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E}) \boxtimes \mathcal{G}
+$$
+，由 Derived Categories, Remark \ref{derived-remark-operations-functor} 可知
+$$
+L\text{pr}_1^*K
+\otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+\mathcal{O}_\Delta
+\in
+smd(add(
+(K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E})
+\boxtimes \mathcal{G}[-m, m])^{\star n})
+$$
+应用正合函子 $R\text{pr}_{2, *}$，并注意到
+$$
+R\text{pr}_{2, *}
+\left((K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E}) \boxtimes
+\mathcal{G}\right) =
+R\Gamma(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E})
+\otimes_k \mathcal{G}
+$$
+；由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-cohomology-base-change}，得到
+$$
+K = R\text{pr}_{2, *}(L\text{pr}_1^*K
+\otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} \mathcal{O}_\Delta)
+\in
+smd(add(R\Gamma(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E})
+\otimes_k \mathcal{G}[-m, m])^{\star n})
+$$
+等号由 Example \ref{equiv-example-diagonal-fourier-mukai} 中的讨论得到。由于
+$K$ 完美，存在 $a \leq b$，使得 $H^i(X, K)$ 仅在
+$i \in [a, b]$ 时非零。由于 $X$ 固有，每个 $H^i(X, K)$ 都是有限维的。
+因此右端包含于
+$smd(add(\mathcal{G}[-m + a, m + b])^{\star n})$，而后者又由上述某个引用
+包含于 $\langle \mathcal{G} \rangle_n$。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-diagonal-trick-proper}
+设 $k$ 为域。设 $X$ 为 $k$ 上固有光滑的概形。存在整数 $m, n \geq 1$
+与有限局部自由 $\mathcal{O}_X$-模 $\mathcal{G}$，使每个相干
+$\mathcal{O}_X$-模都包含于 $smd(add(\mathcal{G}[-m, m])^{\star n})$；
+记号同 Derived Categories, Section \ref{derived-section-operate-on-full}。
+\end{lemma}
+
+\begin{proof}
+在 Lemma \ref{equiv-lemma-smooth-proper-strong-generator} 的证明中，已经说明存在
+$m', n \geq 1$，使得对任意相干 $\mathcal{O}_X$-模 $\mathcal{F}$，有
+$$
+\mathcal{F} \in smd(add(\mathcal{G}[-m' + a, m' + b])^{\star n})
+$$
+；这里 $a \leq b$ 可任取，只要 $H^i(X, \mathcal{F})$ 仅在
+$i \in [a, b]$ 时非零。因此可取 $a = 0$ 与 $b = \dim(X)$。再取
+$m = \max(m', m' + b)$，证明完毕。
+\end{proof}
+
+\noindent
+下一个引理就是本节标题所指的有界性结果。
+
+\begin{lemma}
+\label{equiv-lemma-boundedness}
+设 $k$ 为域。设 $X$ 为 $k$ 上光滑固有的概形。设 $\mathcal{A}$ 为阿贝尔范畴。
+设 $H : D_{perf}(\mathcal{O}_X) \to \mathcal{A}$ 为同调函子
+（Derived Categories, Definition \ref{derived-definition-homological}），并且
+对所有 $K$（作为 $D_{perf}(\mathcal{O}_X)$ 的对象），对象 $H^i(K)$ 仅对
+有限多个 $i \in \mathbf{Z}$ 非零。则存在整数 $m \geq 1$，使得
+$H^i(\mathcal{F}) = 0$ 对任意相干 $\mathcal{O}_X$-模 $\mathcal{F}$
+以及 $i \not \in [-m, m]$ 成立。上同调函子的情形类似。
+\end{lemma}
+
+\begin{proof}
+结合 Lemma \ref{equiv-lemma-diagonal-trick-proper} 与
+Derived Categories, Lemma \ref{derived-lemma-forward-cone-n} 即得。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-bounded-fibres}
+设 $k$ 为域。设 $X$、$Y$ 为 $k$ 上的有限型概形。设
+$K_0 \to K_1 \to K_2 \to \ldots$ 为
+$D_{perf}(\mathcal{O}_{X \times Y})$ 中的对象系统，并设整数 $m \geq 0$，
+使得
+\begin{enumerate}
+\item $H^q(K_i)$ 仅在 $q \leq m$ 时非零；
+\item 对于每个相干 $\mathcal{O}_X$-模 $\mathcal{F}$，若
+$\dim(\text{Supp}(\mathcal{F})) = 0$，则对象
+$$
+R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}}^\mathbf{L}
+K_n)
+$$
+在 $[-m, m] \cup [-m - n, m - n]$ 以外的次数上具有零上同调层，并且当
+$n > 2m$ 时，转移映射在 $[-m, m]$ 中各次数的上同调层上诱导同构。
+\end{enumerate}
+则 $K_n$ 在 $[-m, m] \cup [-m - n, m - n]$ 以外的次数上具有零上同调层，
+并且当 $n > 2m$ 时，转移映射在 $[-m, m]$ 中各次数的上同调层上诱导同构。
+此外，若 $X$ 与 $Y$ 在 $k$ 上光滑，则对充分大的 $n$，有
+$K_n = K \oplus C_n$，该等式在 $D_{perf}(\mathcal{O}_{X \times Y})$ 中成立；
+其中 $K$ 的上同调仅位于次数 $[-m, m]$，而 $C_n$ 的上同调仅位于次数
+$[-m - n, m - n]$，转移映射在各个 $K$ 的副本之间给出同构。
+\end{lemma}
+
+\begin{proof}
+设 $Z$ 为 (2) 中某个 $\mathcal{F}$ 的概形论支撑。则
+$Z \to \Spec(k)$ 有限，因而 $Z \times Y \to Y$ 有限。因此，对于对象
+$M$（属于 $D_\QCoh(\mathcal{O}_{X \times Y})$），若其上同调层支撑于
+$Z \times Y$，则有
+$H^i(R\text{pr}_{2, *}(M)) = \text{pr}_{2, *}H^i(M)$，并且函子
+$\text{pr}_{2, *}$ 在支撑于 $Z \times Y$ 的拟相干模上忠实；细节从略。
+故对象
+$$
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}}^\mathbf{L} K_n
+$$
+在 $D_{perf}(\mathcal{O}_{X \times Y})$ 中的上同调层在
+$[-m, m] \cup [-m - n, m - n]$ 之外为零，并且当 $n > 2m$ 时，转移映射
+在 $[-m, m]$ 中各次数的上同调层上诱导同构。设
+$z \in X \times Y$ 为映到闭点 $x \in X$ 的闭点。则
+$$
+K_{n, z} \otimes_{\mathcal{O}_{X \times Y, z}}^\mathbf{L}
+\mathcal{O}_{X \times Y, z}/\mathfrak m_x^t\mathcal{O}_{X \times Y, z}
+$$
+仅在区间 $[-m, m] \cup [-m - n, m - n]$ 中具有非零上同调。由
+More on Algebra, Lemma
+\ref{more-algebra-lemma-kollar-kovacs-pseudo-coherent} 可知，$K_{n, z}$
+仅在次数 $[-m, m] \cup [-m - n, m - n]$ 中具有非零上同调。由于这对
+$X \times Y$ 的所有闭点都成立，可知 $K_n$ 仅在次数
+$[-m, m] \cup [-m - n, m - n]$ 中具有非零上同调层。完全相同的论证表明，
+映射 $K_n \to K_{n + 1}$ 在 $[-m, m]$ 中各次数的上同调层上是同构，只要
+$n > 2m$。
+
+\medskip\noindent
+若 $X$ 与 $Y$ 在 $k$ 上光滑，则 $X \times Y$ 在 $k$ 上光滑，因而由
+Varieties, Lemma \ref{varieties-lemma-smooth-regular} 它是正则的。因此，由
+Lemma \ref{equiv-lemma-split-complex-regular}，便得到 $K_n$ 的直和分解，只要
+$n > 2m + \dim(X \times Y)$。最后一个陈述由此显然。
+\end{proof}
+
+
+
+
+
+\section{同胞函子}
+\label{equiv-section-sibling}
+
+\noindent
+本节围绕下述概念证明若干范畴论结果。
+
+\begin{definition}
+\label{equiv-definition-siblings}
+设 $\mathcal{A}$ 为阿贝尔范畴，设 $\mathcal{D}$ 为三角范畴。称三角范畴之间的
+两个正合函子
+$$
+F, F' : D^b(\mathcal{A}) \longrightarrow \mathcal{D}
+$$
+为{\it 同胞函子}，或者称 $F'$ 是 $F$ 的一个{\it 同胞}，如果下列两个条件成立：
+\begin{enumerate}
+\item 函子 $F \circ i$ 与 $F' \circ i$ 同构，其中
+$i : \mathcal{A} \to D^b(\mathcal{A})$ 为包含函子；并且
+\item 有 $F(K) \cong F'(K)$，对任意 $K$（属于 $D^b(\mathcal{A})$）。
+\end{enumerate}
+\end{definition}
+
+\noindent
+有时第二个条件可由第一个条件推出。
+
+\begin{lemma}
+\label{equiv-lemma-sibling-fully-faithful}
+设 $\mathcal{A}$ 为阿贝尔范畴，设 $\mathcal{D}$ 为三角范畴。设
+$F, F' : D^b(\mathcal{A}) \longrightarrow \mathcal{D}$
+为三角范畴之间的正合函子。假设
+\begin{enumerate}
+\item 函子 $F \circ i$ 与 $F' \circ i$ 同构，其中
+$i : \mathcal{A} \to D^b(\mathcal{A})$ 为包含函子；并且
+\item 对所有 $X, Y \in \Ob(\mathcal{A})$，有
+$\Ext^q_\mathcal{D}(F(X), F(Y)) = 0$，只要 $q < 0$（例如当
+$F$ 全忠实时）。
+\end{enumerate}
+则 $F$ 与 $F'$ 是同胞函子。
+\end{lemma}
+
+\begin{proof}
+设 $K \in D^b(\mathcal{A})$。将证明 $F(K)$ 同构于 $F'(K)$。可将 $K$
+表示为有界复形 $A^\bullet$，其项是 $\mathcal{A}$ 中的对象。将 $K$ 替换为
+某个平移后，可假设 $A^i = 0$ 对所有 $i > 0$ 成立。选取 $n \geq 0$，使得
+$A^{-i} = 0$ 对所有 $i > n$ 成立。对象
+$$
+M_i = (A^{-i} \to \ldots \to A^0)[-i],\quad i = 0, \ldots, n
+$$
+在 $D^b(\mathcal{A})$ 中组成复形
+$A^\bullet = A^{-n} \to \ldots \to A^0$ 的一个 Postnikov 系统，而该复形
+也属于 $D^b(\mathcal{A})$；参见 Derived Categories, Example
+\ref{derived-example-key-postnikov}。由于 $F$ 与 $F'$ 都是三角范畴之间的正合函子，
+$$
+F(M_i)
+\quad\text{且}\quad
+F'(M_i)
+$$
+在 $\mathcal{D}$ 中都组成下述复形的 Postnikov 系统：
+$$
+F(A^{-n}) \to \ldots \to F(A^0) =
+F'(A^{-n}) \to \ldots \to F'(A^0)
+$$
+由假设，这些对象之间的所有负次数 $\Ext$ 都消失，故由 Postnikov 系统的唯一性
+（Derived Categories, Lemma \ref{derived-lemma-existence-postnikov-system}）得到
+$F(K) = F(M_n[n]) \cong F'(M_n[n]) = F'(K)$。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-sibling-faithful}
+设 $F$ 与 $F'$ 为 Definition \ref{equiv-definition-siblings} 中的同胞函子。则
+\begin{enumerate}
+\item 若 $F$ 本质满，则 $F'$ 本质满；
+\item 若 $F$ 全忠实，则 $F'$ 全忠实。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第 (1) 部分立即由同胞函子的性质 (2) 得到。
+
+\medskip\noindent
+假设 $F$ 全忠实。以 $\mathcal{D}' \subset \mathcal{D}$ 记 $F$ 的本质像，于是
+$F : D^b(\mathcal{A}) \to \mathcal{D}'$ 是等价。由同胞函子的性质 (2)，函子
+$F'$ 通过 $\mathcal{D}'$ 分解，故可考虑函子
+$H = F^{-1} \circ F' : D^b(\mathcal{A}) \to D^b(\mathcal{A})$。注意 $H$
+是恒等函子的同胞。只需证明 $H$ 全忠实，因而问题化归为下一段所讨论的情形。
+
+\medskip\noindent
+令 $\mathcal{D} = D^b(\mathcal{A})$。须证明恒等函子的同胞
+$F : \mathcal{D} \to \mathcal{D}$ 全忠实。以 $a_X : X \to F(X)$ 记
+Definition \ref{equiv-definition-siblings} 对 $X \in \Ob(\mathcal{A})$ 给出的函子性同构。
+对于任意 $K$（属于 $\mathcal{D}$）以及特异三角
+$K_1 \to K_2 \to K_3$（属于 $\mathcal{D}$），若映射
+$$
+F : \Hom(K, K_i[n]) \to \Hom(F(K), F(K_i[n]))
+$$
+对所有 $n \in \mathbf{Z}$ 以及 $i = 1, 3$ 都是同构，则对 $i = 2$ 以及所有
+$n \in \mathbf{Z}$ 也成立。这里使用 $5$-引理 Homology, Lemma
+\ref{homology-lemma-five-lemma} 与 Derived Categories, Lemma
+\ref{derived-lemma-representable-homological}；细节从略。类似地，若映射
+$$
+F : \Hom(K_i[n], K) \to \Hom(F(K_i[n]), F(K))
+$$
+对所有 $n \in \mathbf{Z}$ 以及 $i = 1, 3$ 都是同构，则对 $i = 2$ 以及所有
+$n \in \mathbf{Z}$ 也成立。使用典范截断并对非零上同调对象的数目作归纳，
+可知只需证明
+$$
+F : \Ext^q(X, Y) \to \Ext^q(F(X), F(Y))
+$$
+对所有 $X, Y \in \Ob(\mathcal{A})$ 以及所有 $q \in \mathbf{Z}$ 都是双射。
+由于 $F$ 是 $\text{id}$ 的同胞，有 $F(X) \cong X$ 与 $F(Y) \cong Y$，
+故右端在 $q < 0$ 时为零。情形 $q = 0$ 由 $F$ 是恒等函子的同胞这一假设成立。
+还需证明 $q > 0$ 的情形。
+
+\medskip\noindent
+情形 $q = 1$：单射性。元素 $\xi$（属于 $\Ext^1(X, Y)$）给出特异三角
+$$
+Y \to E \to X \xrightarrow{\xi} Y[1]
+$$
+注意 $E \in \Ob(\mathcal{A})$。由于 $F$ 是恒等函子的同胞，得到交换图
+$$
+\xymatrix{
+E \ar[d] \ar[r] & X \ar[d] \\
+F(E) \ar[r] & F(X)
+}
+$$
+，其中竖直箭头是同构 $a_E$ 与 $a_X$。由 TR3，起初与 $\xi$ 相伴的特异三角
+同构于特异三角
+$$
+F(Y) \to F(E) \to F(X) \xrightarrow{F(\xi)} F(Y[1]) = F(Y)[1]
+$$
+因此 $\xi = 0$ 当且仅当 $F(\xi)$ 为零，亦即
+$F : \Ext^1(X, Y) \to \Ext^1(F(X), F(Y))$ 是单射。
+
+\medskip\noindent
+情形 $q = 1$：满射性。设 $\theta$ 为 $\Ext^1(F(X), F(Y))$ 的元素。
+它定义了 $F(X)$ 被 $F(Y)$ 的一个扩张（位于 $\mathcal{A}$ 中）；可将其
+中项写为 $F(E)$，因为 $F$ 是恒等函子的同胞。于是得到特异三角
+$$
+F(Y) \xrightarrow{F(\alpha)} F(E)
+\xrightarrow{F(\beta)} F(X)
+\xrightarrow{\theta} F(Y[1]) = F(Y)[1]
+$$
+，其中有态射 $\alpha : Y \to E$ 与 $\beta : E \to X$。由于 $F$ 是恒等
+函子的同胞，序列 $0 \to Y \to E \to X \to 0$ 是 $\mathcal{A}$ 中的短正合列。
+因此得到特异三角
+$$
+Y \xrightarrow{\alpha} E \xrightarrow{\beta} X \xrightarrow{\delta} Y[1]
+$$
+，其中有态射 $\delta : X \to Y[1]$。应用正合函子 $F$，得到特异三角
+$$
+F(Y) \xrightarrow{F(\alpha)} F(E) \xrightarrow{F(\beta)} F(X)
+\xrightarrow{F(\delta)} F(Y)[1]
+$$
+按上述方式论证，可知这两个三角同构。因此存在交换图
+$$
+\xymatrix{
+F(X) \ar[d]^\gamma \ar[r]_{F(\delta)} & F(Y[1]) \ar[d]_\epsilon \\
+F(X) \ar[r]^\theta & F(Y[1])
+}
+$$
+，其中 $\gamma$、$\epsilon$ 是某些同构（还可说得更多，但这里不需要）。
+可写成 $\gamma = F(\gamma')$ 与 $\epsilon = F(\epsilon')$。于是
+$\theta = F(\epsilon' \circ \delta \circ (\gamma')^{-1})$
+，从而得到满射性。
+
+\medskip\noindent
+情形 $q > 1$：满射性。使用 Yoneda 扩张（参见 Derived Categories, Section
+\ref{derived-section-ext}），对于任意元素 $\xi$（属于 $\Ext^q(F(X), F(Y))$），
+可找到
+$F(X) = B_0, B_1, \ldots, B_{q - 1}, B_q = F(Y) \in \Ob(\mathcal{A})$ 以及元素
+$$
+\xi_i \in \Ext^1(B_{i - 1}, B_i)
+$$
+，使得 $\xi$ 是复合 $\xi_q \circ \ldots \circ \xi_1$。写成
+$B_i = F(A_i)$（当然有 $A_i = B_i$，但不需要使用这一点），于是
+$$
+\xi_i = F(\eta_i) \in \Ext^1(F(A_{i - 1}), F(A_i))
+\quad\text{其中}\quad
+\eta_i \in \Ext^1(A_{i - 1}, A_i)
+$$
+；这是由 $q = 1$ 时的满射性得到的。于是
+$\eta = \eta_q \circ \ldots \circ \eta_1$ 是 $\Ext^q(X, Y)$ 的元素，
+且 $F(\eta) = \xi$。
+
+\medskip\noindent
+情形 $q > 1$：单射性。元素 $\xi$（属于 $\Ext^q(X, Y)$）给出特异三角
+$$
+Y[q - 1] \to E \to X \xrightarrow{\xi} Y[q]
+$$
+应用 $F$，得到特异三角
+$$
+F(Y)[q - 1] \to F(E) \to F(X) \xrightarrow{F(\xi)} F(Y)[q]
+$$
+若 $F(\xi) = 0$，则 $F(E) \cong F(Y)[q - 1] \oplus F(X)$ 在
+$\mathcal{D}$ 中成立；参见 Derived Categories, Lemma
+\ref{derived-lemma-split}。由于 $F$ 是恒等函子的同胞，有
+$E \cong F(E)$，因而
+$$
+E \cong F(E) \cong F(Y)[q - 1] \oplus F(X) \cong Y[q - 1] \oplus X
+$$
+换言之，$E$ 同构于其上同调对象的直和。这蕴含最初的特异三角分裂，
+亦即 $\xi = 0$。
+\end{proof}
+
+\noindent
+作如下非标准定义。设 $\mathcal{A}$ 为阿贝尔范畴。称 $\mathcal{A}$
+{\it 有足够多的负对象}，如果对任意给定的 $X \in \Ob(\mathcal{A})$，
+存在对象 $N$，使得
+\begin{enumerate}
+\item 存在满射 $N \to X$；并且
+\item $\Hom(X, N) = 0$.
+\end{enumerate}
+下面证明关于这一概念的两个引理，以便用于 Proposition
+\ref{equiv-proposition-siblings-isomorphic} 的证明。
+
+\begin{lemma}
+\label{equiv-lemma-good-map}
+设 $\mathcal{A}$ 为有足够多负对象的阿贝尔范畴。设
+$X \in D^b(\mathcal{A})$。设 $b \in \mathbf{Z}$ 满足
+$H^i(X) = 0$ 对 $i > b$ 成立。则存在映射 $N[-b] \to X$，
+使诱导映射 $N \to H^b(X)$ 为满射，且 $\Hom(H^b(X), N) = 0$。
+\end{lemma}
+
+\begin{proof}
+利用截断函子，可将 $X$ 表示为复形
+$A^a \to A^{a + 1} \to \ldots \to A^b$，其各项是 $\mathcal{A}$ 中的对象。
+选取 $N$（属于 $\mathcal{A}$），使得存在满射 $t : N \to A^b$，并且
+$\Hom(A^b, N) = 0$。于是满射 $t$ 定义所需的映射 $N[-b] \to X$。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-good-map-zero}
+设 $\mathcal{A}$ 为有足够多负对象的阿贝尔范畴。设
+$f : X \to X'$ 为 $D^b(\mathcal{A})$ 的态射。设 $b \in \mathbf{Z}$，
+使得 $H^i(X) = 0$ 对 $i > b$ 成立，而 $H^i(X') = 0$ 对
+$i \geq b$ 成立。则存在映射 $N[-b] \to X$，使诱导映射
+$N \to H^b(X)$ 为满射，使得 $\Hom(H^b(X), N) = 0$，并且使复合
+$N[-b] \to X \to X'$ 为零。
+\end{lemma}
+
+\begin{proof}
+可将 $f$ 表示为有界复形之间的映射
+$f^\bullet : A^\bullet \to B^\bullet$，其中复形的各项是 $\mathcal{A}$ 中的对象；
+例如参见 Derived Categories, Lemma \ref{derived-lemma-bounded-derived}。考虑对象
+$$
+C = \Ker(A^b \to A^{b + 1}) \times_{\Ker(B^b \to B^{b + 1})} B^{b - 1}
+$$
+（属于 $\mathcal{A}$）。由于 $H^b(B^\bullet) = 0$，可知
+$C \to H^b(A^\bullet)$ 为满射。
+另一方面，映射 $C \to A^b \to B^b$ 与映射
+$C \to B^{b - 1} \to B^b$ 相同，因而复合 $C[-b] \to X \to X'$
+为零。由于 $\mathcal{A}$ 有足够多负对象，可找到对象 $N$，它带有满射
+$N \to C \oplus H^b(X)$，并且 $\Hom(C \oplus H^b(X), N) = 0$。
+于是 $N$ 连同映射 $N[-b] \to X$ 给出引理所要求的解。
+\end{proof}
+
+\noindent
+我们建议读者阅读原始的 \cite[Proposition 2.16]{Orlov-K3}，以领会
+下述命题证明中所蕴含的精彩思想。
+
+\begin{proposition}
+\label{equiv-proposition-siblings-isomorphic}
+\begin{reference}
+\cite[Proposition 2.16]{Orlov-K3}；在上述负对象的定义中，无须假设
+$\Ext^q(N, X)$ 对 $q > 0$ 消失这一事实归功于 \cite{Canonaco-Stellari}。
+\end{reference}
+设 $F$ 与 $F'$ 为 Definition \ref{equiv-definition-siblings} 所述的同胞函子。
+假设 $F$ 全忠实，并且 $\mathcal{A}$ 有足够多负对象（见上）。则
+$F$ 与 $F'$ 是同构函子。
+\end{proposition}
+
+\begin{proof}
+由 Definition \ref{equiv-definition-siblings} 的第 (2) 部分，函子 $F'$ 的像包含在
+函子 $F$ 的本质像中。因此函子 $H = F^{-1} \circ F'$ 是恒等函子的同胞。
+这将问题化归为下一段所述的情形。
+
+\medskip\noindent
+令 $\mathcal{D} = D^b(\mathcal{A})$。须证明恒等函子的同胞
+$F : \mathcal{D} \to \mathcal{D}$ 与恒等函子同构。给定对象 $X$（属于
+$\mathcal{D}$），若 $X$ 的{\it 宽度}为 $w = w(X)$，其含义是 $w \geq 0$
+为满足下述条件的最小整数：存在整数 $a \in \mathbf{Z}$，使得
+$H^i(X) = 0$ 对 $i \not \in [a, a + w - 1]$ 成立。由于 $F$ 是恒等函子的同胞，
+并且 $F \circ [n] = [n] \circ F$，我们已经有同构
+$$
+c_X : X \to F(X)
+$$
+，它们对 $w(X) \leq 1$ 定义并与平移相容。此外，若
+$X = A[-a]$ 且 $X' = A'[-a]$，其中 $A, A' \in \Ob(\mathcal{A})$，
+则对任意态射 $f : X \to X'$，图
+\begin{equation}
+\label{equiv-equation-to-show}
+\vcenter{
+\xymatrix{
+X \ar[d]_{c_X} \ar[r]_f &
+X' \ar[d]^{c_{X'}} \\
+F(X) \ar[r]^{F(f)} &
+F(X')
+}
+}
+\end{equation}
+交换。
+
+\medskip\noindent
+下面证明：对任意态射 $f : X \to X'$，若 $w(X), w(X') \leq 1$，则图
+(\ref{equiv-equation-to-show}) 交换。若 $X$ 或 $X'$ 为零，这一点显然。否则可唯一地写成
+$X = A[-a]$ 与 $X' = A'[-a']$，其中 $A, A'$ 属于 $\mathcal{A}$，并且
+$a, a' \in \mathbf{Z}$。情形 $a = a'$ 已在上面讨论。若 $a' > a$，则
+$f = 0$（Derived Categories, Lemma \ref{derived-lemma-negative-exts}），结论显然。
+若 $a' < a$，则 $f$ 对应于元素 $\xi \in \Ext^q(A, A')$，其中
+$q = a - a'$。使用 Yoneda 扩张（参见 Derived Categories, Section
+\ref{derived-section-ext}），可找到
+$A = A_0, A_1, \ldots, A_{q - 1}, A_q = A' \in \Ob(\mathcal{A})$ 以及元素
+$$
+\xi_i \in \Ext^1(A_{i - 1}, A_i)
+$$
+，使得 $\xi$ 是复合 $\xi_q \circ \ldots \circ \xi_1$。换言之，令
+$X_i = A_i[-a + i]$，便得到态射
+$$
+X = X_0 \xrightarrow{f_1} X_1 \to \ldots \to X_{q - 1}
+\xrightarrow{f_q} X_q = X'
+$$
+，其复合为 $f$。由于图 (\ref{equiv-equation-to-show}) 对 $f_1, \ldots, f_q$ 的交换性
+蕴含它对 $f$ 的交换性，故可化归到 $q = 1$ 的情形。在此情形中，作平移后
+可假设有特异三角
+$$
+A' \to E \to A \xrightarrow{f} A'[1]
+$$
+。注意 $E$ 是 $\mathcal{A}$ 的对象。考虑下图
+$$
+\xymatrix{
+E \ar[d]_{c_E} \ar[r] &
+A \ar[d]_{c_A} \ar[r]_f &
+A'[1] \ar[d]^{c_{A'}[1]}
+\ar@{..>}@<-1ex>[d]_\gamma \ar@{..>}[ld]^\epsilon \ar[r] &
+E[1] \ar[d]^{c_E[1]} \\
+F(E) \ar[r] &
+F(A) \ar[r]^{F(f)} &
+F(A')[1] \ar[r] &
+F(E)[1]
+}
+$$
+，其两行都是特异三角。右侧方块已经交换，但尚不知道中间方块是否交换。
+由三角范畴的公理，可找到态射 $\gamma$ 使整个图交换。于是
+$\gamma - c_{A'}[1]$ 与 $F(A')[1] \to F(E)[1]$ 的复合为零，故可找到
+$\epsilon : A'[1] \to F(A)$，使得
+$\gamma - c_{A'}[1] = F(f) \circ \epsilon$。然而，任何箭头
+$A'[1] \to F(A)$ 都为零，因为它是 $\mathcal{A}$ 中对象之间的负次数 Ext 类。
+因此 $\gamma = c_{A'}[1]$，从而中间方块也交换，这正是所要证明的。
+
+\medskip\noindent
+为完成证明，我们对 $w$ 归纳，以证明存在同构 $c_X : X \to F(X)$，
+对所有 $X$（满足 $w(X) \leq w$）定义，并与这些对象之间的所有态射相容。
+基础情形 $w = 1$ 已在上面证明。假设对某个 $w \geq 1$ 已知结论。
+
+\medskip\noindent
+设 $X$ 为满足 $w(X) = w + 1$ 的对象。选取 $a \in \mathbf{Z}$，使得
+$H^i(X) = 0$ 对 $i \not \in [a, a + w]$ 成立。令 $b = a + w$，于是
+$H^b(X)$ 非零。依照 Lemma \ref{equiv-lemma-good-map} 选取 $N[-b] \to X$。
+选取特异三角
+$$
+N[-b] \to X \to Y \to N[-b + 1]
+$$
+。计算上同调长正合列，得到 $w(Y) \leq w$。因此由归纳假设，得到下图中的
+实线箭头
+$$
+\xymatrix{
+N[-b] \ar[r] \ar[d]_{c_N[-b]} &
+X \ar[r] \ar@{..>}[d]_{c_{N[-b] \to X}} &
+Y \ar[r] \ar[d]^{c_Y} &
+N[-b + 1] \ar[d]^{c_N[-b + 1]} \\
+F(N)[-b] \ar[r] &
+F(X) \ar[r] &
+F(Y) \ar[r] &
+F(N)[-b + 1]
+}
+$$
+。由此得到虚线箭头 $c_{N[-b] \to X}$。根据 Derived Categories, Lemma
+\ref{derived-lemma-uniqueness-third-arrow}，该虚线箭头是唯一的，因为
+$\Hom(X, F(N)[-b]) \cong \Hom(X, N[-b]) = 0$；这里使用了我们对 $N$ 的选取。
+事实上，
+$c_{N[-b] \to X}$ 是使顶点为 $X, Y, F(X), F(Y)$ 的方块交换的唯一虚线箭头。
+
+\medskip\noindent
+设 $N'[-b] \to X$ 是 Lemma \ref{equiv-lemma-good-map} 所述的另一映射；我们证明
+$c_{N[-b] \to X} = c_{N'[-b] \to X}$。注意映射
+$(N \oplus N')[-b] \to X$ 也满足 Lemma \ref{equiv-lemma-good-map} 的条件。
+因此可假设 $N'[-b] \to X$ 通过 $N'[-b] \to N[-b] \to X$ 分解，其中
+有某个态射 $N' \to N$。选取特异三角
+$N[-b] \to X \to Y \to N[-b + 1]$ 与
+$N'[-b] \to X \to Y' \to N'[-b + 1]$。由公理 TR3，可找到态射
+$g : Y' \to Y$，它与 $\text{id}_X$ 及 $N' \to N$ 一起构成三角之间的态射。
+由于图 (\ref{equiv-equation-to-show}) 对 $g$ 交换，故有
+$$
+(F(X) \to F(Y)) \circ c_{N'[-b] \to X} = (F(X) \to F(Y)) \circ c_{N[-b] \to X}
+$$
+。由上述构造中指出的 $c_{N[-b] \to X}$ 的唯一性，现在得到
+$c_{N'[-b] \to X} = c_{N[-b] \to X}$。
+
+\medskip\noindent
+因此现在可对 $X$（宽度为 $w + 1$）定义同构 $c_X : X \to F(X)$，
+将它取为所有映射 $c_{N[-b] \to X}$ 的共同值，其中 $N[-b] \to X$ 如
+Lemma \ref{equiv-lemma-good-map} 所述。为完成证明，须说明：对满足
+上述条件的对象之间的所有态射 $f : X \to X'$，若
+$w(X) \leq w + 1$ 且 $w(X') \leq w + 1$，图 (\ref{equiv-equation-to-show}) 都交换。选取
+$a \leq b \leq a + w$，使得 $H^i(X) = 0$ 对 $i \not \in [a, b]$ 成立；
+并选取 $a' \leq b' \leq a' + w$，使得 $H^i(X') = 0$ 对
+$i \not \in [a', b']$ 成立。我们对 $(b' - a') + (b - a)$ 归纳以证明断言。
+（基础情形是该数为零；由于 $w \geq 1$，这没有问题。）分两种情形。
+
+\medskip\noindent
+情形 I：$b' < b$。在此情形中，由 Lemma \ref{equiv-lemma-good-map-zero}，可依
+Lemma \ref{equiv-lemma-good-map} 选取 $N[-b] \to X$，使得复合
+$N[-b] \to X \to X'$ 为零。选取特异三角
+$N[-b] \to X \to Y \to N[-b + 1]$。由于 $N[-b] \to X'$ 为零，可知
+$f$ 通过 $X \to Y \to X'$ 分解。由于 $H^i(Y)$ 只可能对
+$i \in [a, b - 1]$ 非零，由归纳可知图 (\ref{equiv-equation-to-show}) 对
+$Y \to X'$ 交换。图 (\ref{equiv-equation-to-show}) 对 $X \to Y$ 的交换性：若
+$w(X) = w + 1$，则来自构造；若 $w(X) \leq w$，则来自第一个归纳假设。
+故图 (\ref{equiv-equation-to-show}) 对 $f$ 交换。
+
+\medskip\noindent
+情形 II：$b' \geq b$。在此情形中，依 Lemma \ref{equiv-lemma-good-map} 选取
+$N'[-b'] \to X'$。还可假设 $\Hom(H^{b'}(X), N') = 0$（这只在
+$b' = b$ 时相关）；例如，可将 $N'$ 替换为一个对象 $N''$，使后者满射到
+$N' \oplus H^{b'}(X)$，并且 $\Hom(N' \oplus H^{b'}(X), N'') = 0$。
+选取特异三角 $N'[-b'] \to X' \to Y' \to N'[-b' + 1]$。
+$\Hom(X, X') \to \Hom(X, Y')$ 由我们对 $N'$ 的选取而为单射（细节从略）；于是
+$\Hom(X, F(X')) \to \Hom(X, F(Y'))$ 也为单射。因此在此情形中，只需验证
+图 (\ref{equiv-equation-to-show}) 对复合 $X \to Y'$ 交换；该复合由态射
+$X \to X' \to Y'$ 构成。由于 $H^i(Y')$ 只可能对 $i \in [a', b' - 1]$ 非零，
+结论由归纳假设得到。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{推出全忠实性}
+\label{equiv-section-get-fully-faithful}
+
+\noindent
+判定一个函子何时全忠实将很有用；为此给出
+\cite[Lemma 2.15]{Orlov-K3} 的如下变体。
+
+\begin{lemma}
+\label{equiv-lemma-get-fully-faithful}
+\begin{reference}
+\cite[Lemma 2.15]{Orlov-K3} 的变体
+\end{reference}
+设 $F : \mathcal{D} \to \mathcal{D}'$ 为三角范畴之间的正合函子。设
+$S \subset \Ob(\mathcal{D})$ 为对象的集合。假设
+\begin{enumerate}
+\item $F$ 同时有右伴随和左伴随；
+\item 对 $K \in \mathcal{D}$，若 $\Hom(E, K[i]) = 0$ 对所有
+$E \in S$ 及 $i \in \mathbf{Z}$ 成立，则 $K = 0$；
+\item 对 $K \in \mathcal{D}$，若 $\Hom(K, E[i]) = 0$ 对所有
+$E \in S$ 及 $i \in \mathbf{Z}$ 成立，则 $K = 0$；
+\item 映射 $\Hom(E, E'[i]) \to \Hom(F(E), F(E')[i])$（由 $F$ 诱导）对所有
+$E, E' \in S$ 及 $i \in \mathbf{Z}$ 都是双射。
+\end{enumerate}
+则 $F$ 全忠实。
+\end{lemma}
+
+\begin{proof}
+分别以 $F_r$ 与 $F_l$ 表示 $F$ 的右伴随和左伴随。对 $E \in S$，
+选取特异三角
+$$
+E \to F_r(F(E)) \to C \to E[1]
+$$
+，其中第一支箭头是伴随的单位。对 $E' \in S$，有
+$$
+\Hom(E', F_r(F(E))[i]) = \Hom(F(E'), F(E)[i]) = \Hom(E', E[i])
+$$
+。最后一个等号由假设 (4) 成立。因此把同调函子 $\Hom(E', -)$
+（Derived Categories, Lemma \ref{derived-lemma-representable-homological}）
+应用于上述特异三角，可知 $\Hom(E', C[i]) = 0$ 对所有
+$i \in \mathbf{Z}$ 与 $E' \in S$ 成立。由假设 (2)，得到
+$C = 0$ 与 $E = F_r(F(E))$。
+
+\medskip\noindent
+对 $K \in \Ob(\mathcal{D})$，选取特异三角
+$$
+F_l(F(K)) \to K \to C \to F_l(F(K))[1]
+$$
+，其中第一支箭头是伴随的余单位。对 $E \in S$，有
+$$
+\Hom(F_l(F(K)), E[i]) = \Hom(F(K), F(E)[i]) =
+\Hom(K, F_r(F(E))[i]) = \Hom(K, E[i])
+$$
+，其中最后一个等号由第一段的结论成立。于是与前面一样得到
+$\Hom(C, E[i]) = 0$ 对所有 $E \in S$ 及 $i \in \mathbf{Z}$ 成立。
+故由假设 (3)，$C = 0$。再由 Categories, Lemma
+\ref{categories-lemma-adjoint-fully-faithful}，$F$ 全忠实。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-duality-at-point}
+设 $k$ 为域。设 $X$ 为有限型 $k$-概形，并且是正则的。设 $x \in X$
+为闭点。给定凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，其支撑在 $x$ 上；
+选取凝聚 $\mathcal{O}_X$-模 $\mathcal{F}'$，其支撑也在 $x$ 上，使得
+$\mathcal{F}_x$ 与 $\mathcal{F}'_x$ 互为 Matlis 对偶。则存在同构
+$$
+\Hom_X(\mathcal{F}, M) =
+H^0(X, M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{F}'[-d_x])
+$$
+，其中 $d_x = \dim(\mathcal{O}_{X, x})$；该同构对 $M$
+（属于 $D_{perf}(\mathcal{O}_X)$）具有函子性。
+\end{lemma}
+
+\begin{proof}
+由于 $\mathcal{F}$ 支撑在 $x$ 上，有
+$$
+\Hom_X(\mathcal{F}, M) =
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, M_x)
+$$
+；类似地，有
+$$
+H^0(X, M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{F}'[-d_x]) =
+\text{Tor}^{\mathcal{O}_{X, x}}_{d_x}(M_x, \mathcal{F}'_x)
+$$
+。因此只需证明：给定 Noether 正则局部环 $A$（维数为 $d$）与有限长度
+$A$-模 $N$，若 $N'$ 是 $N$ 的 Matlis 对偶，则存在函子性同构
+$$
+\Hom_A(N, K) = \text{Tor}^A_d(K, N')
+$$
+，对 $K$（属于 $D_{perf}(A)$）成立。左端可写成
+$H^0(R\Hom_A(N, A) \otimes_A^\mathbf{L} K)$；这是由 More on Algebra, Lemma
+\ref{more-algebra-lemma-dual-perfect-complex} 以及 $N$ 确定 $D(A)$ 的完美对象这一事实得到的。
+公式成立是因为
+$$
+R\Hom_A(N, A) = R\Hom_A(N, A[d])[-d] = N'[-d]
+$$
+；这里使用 Dualizing Complexes, Lemma
+\ref{dualizing-lemma-dualizing-finite-length}，以及 $A[d]$ 是 $A$ 上的正规化
+对偶化复形这一事实（由 Dualizing Complexes, Lemma
+\ref{dualizing-lemma-regular-gorenstein}，$A$ 是 Gorenstein 环）。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-orthogonal-point-sheaf}
+设 $k$ 为域。设 $X$ 为有限型 $k$-概形，并且是正则的。设 $x \in X$ 为闭点，
+以 $\mathcal{O}_x$ 表示在 $x$ 处取值为 $\kappa(x)$ 的摩天层。设 $K$ 属于
+$D_{perf}(\mathcal{O}_X)$。
+\begin{enumerate}
+\item 若 $\Ext^i_X(\mathcal{O}_x, K) = 0$，则存在开邻域 $U$（它是 $x$ 的邻域），使得
+$H^{i - d_x}(K)|_U = 0$，其中 $d_x = \dim(\mathcal{O}_{X, x})$。
+\item 若 $\Hom_X(\mathcal{O}_x, K[i]) = 0$ 对所有 $i \in \mathbf{Z}$ 成立，
+则 $K$ 在 $x$ 的某个开邻域上为零。
+\item 若 $\Ext^i_X(K, \mathcal{O}_x) = 0$，则存在开邻域 $U$（它是 $x$ 的邻域），使得
+$H^i(K^\vee)|_U = 0$。
+\item 若 $\Hom_X(K, \mathcal{O}_x[i]) = 0$ 对所有 $i \in \mathbf{Z}$ 成立，
+则 $K$ 在 $x$ 的某个开邻域上为零。
+\item 若 $H^i(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x) = 0$，
+则存在开邻域 $U$（它是 $x$ 的邻域），使得 $H^i(K)|_U = 0$。
+\item 若 $H^i(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x) = 0$
+对 $i \in \mathbf{Z}$ 成立，则 $K$ 在 $x$ 的某个开邻域上为零。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意 $H^i(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x)$ 等于
+$K_x  \otimes_{\mathcal{O}_{X, x}}^\mathbf{L} \kappa(x)$。因此第 (5) 部分由
+More on Algebra, Lemma \ref{more-algebra-lemma-cut-complex-in-two} 得到。
+第 (6) 部分由第 (5) 部分得到。第 (1) 部分由第 (5) 部分、Lemma
+\ref{equiv-lemma-duality-at-point}，以及 $\kappa(x)$ 的 Matlis 对偶是 $\kappa(x)$ 这一事实得到。
+第 (2) 部分由第 (1) 部分得到。第 (3) 部分由第 (5) 部分以及下述事实得到：
+$\Ext^i(K, \mathcal{O}_x) =
+H^i(X, K^\vee \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x)$
+由 Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex} 成立。
+第 (4) 部分由第 (3) 部分以及刚引用的引理给出的 $K \cong (K^\vee)^\vee$ 得到。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-hom-into-point-sheaf}
+设 $X$ 为 Noether 概形。设 $x \in X$ 为闭点，以 $\mathcal{O}_x$ 表示在
+$x$ 处取值为 $\kappa(x)$ 的摩天层。设 $K$ 属于
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$。设 $b \in \mathbf{Z}$。下列条件等价：
+\begin{enumerate}
+\item $H^i(K)_x = 0$ 对所有 $i > b$ 成立；
+\item $\Hom_X(K, \mathcal{O}_x[-i]) = 0$ 对所有 $i > b$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+考虑复形 $K_x$（属于 $D^b_{\textit{Coh}}(\mathcal{O}_{X, x})$）。存在整数
+$b_x \in \mathbf{Z}$，使得 $K_x$ 可由下列上有界复形表示：
+$$
+\ldots \to
+\mathcal{O}_{X, x}^{\oplus n_{b_x - 2}} \to
+\mathcal{O}_{X, x}^{\oplus n_{b_x - 1}} \to
+\mathcal{O}_{X, x}^{\oplus n_{b_x}} \to 0 \to \ldots
+$$
+，其中 $\mathcal{O}_{X, x}^{\oplus n_i}$ 位于次数 $i$，而所有转移映射都由
+系数属于 $\mathfrak m_x$ 的矩阵给出。参见 More on Algebra, Lemma
+\ref{more-algebra-lemma-lift-pseudo-coherent-from-residue-field}。
+结论由此容易得到（并且这些等价条件成立当且仅当 $b \geq b_x$）。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-get-fully-faithful-geometric}
+设 $k$ 为域。设 $X$ 与 $Y$ 为 $k$ 上的固有概形。假设 $X$ 正则。则 $k$-线性正合函子
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+全忠实，当且仅当对任意闭点 $x, x' \in X$，映射
+$$
+F : \Ext^i_X(\mathcal{O}_x, \mathcal{O}_{x'})
+\longrightarrow
+\Ext^i_Y(F(\mathcal{O}_x), F(\mathcal{O}_{x'}))
+$$
+对所有 $i \in \mathbf{Z}$ 都是同构。这里 $\mathcal{O}_x$ 是在 $x$ 处取值为
+$\kappa(x)$ 的摩天层。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-always-right-adjoints}，函子 $F$ 同时有左伴随与右伴随。
+因此可应用 Lemma \ref{equiv-lemma-get-fully-faithful} 的判据，因为该引理的假设 (2) 与 (3)
+由 Lemma \ref{equiv-lemma-orthogonal-point-sheaf} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-noah-pre}
+\begin{reference}
+Noah Olander 于 2020 年 6 月 9 日的电子邮件
+\end{reference}
+设 $k$ 为域。设 $X$ 为正则的固有 $k$-概形。设
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$ 为 $k$-线性正合函子。
+假设对每个凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，若
+$\dim(\text{Supp}(\mathcal{F})) = 0$，则都有同构 $\mathcal{F} \cong F(\mathcal{F})$。
+则 $F$ 全忠实。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-get-fully-faithful-geometric}，只需证明映射
+$$
+F : \Ext^i_X(\mathcal{O}_x, \mathcal{O}_{x'})
+\longrightarrow
+\Ext^i_X(F(\mathcal{O}_x), F(\mathcal{O}_{x'}))
+$$
+对所有 $i \in \mathbf{Z}$ 以及所有闭点 $x, x' \in X$ 都是同构。由假设，
+源与目标同构。若 $x \not = x'$，则两端都为零，结论成立。若 $x = x'$，
+只需证明该映射是单射或满射之一。对 $i < 0$，两端都为零，结论成立。
+对 $i = 0$，任意非零映射 $\alpha : \mathcal{O}_x \to \mathcal{O}_x$
+（作为 $\mathcal{O}_X$-模态射）都是同构。因此 $F(\alpha)$ 也是同构，
+故 $F(\alpha)$ 非零。这就证明了 $i = 0$ 的情形。对 $i = 1$，
+非零元素 $\xi$（属于 $\Ext^1(\mathcal{O}_x, \mathcal{O}_x)$）对应于非分裂短正合列
+$$
+0 \to \mathcal{O}_x \to \mathcal{F} \to \mathcal{O}_x \to 0
+$$
+。由于 $F(\mathcal{F}) \cong \mathcal{F}$，可知 $F(\mathcal{F})$ 也是
+$\mathcal{O}_x$ 被 $\mathcal{O}_x$ 的非分裂扩张。由于
+$\mathcal{O}_x \cong F(\mathcal{O}_x)$ 是简单 $\mathcal{O}_X$-模，并且
+$\mathcal{F} \cong F(\mathcal{F})$ 的长度为 $2$，可知在特异三角
+$$
+F(\mathcal{O}_x) \to F(\mathcal{F}) \to F(\mathcal{O}_x)
+\xrightarrow{F(\xi)} F(\mathcal{O}_x)[1]
+$$
+中，前两支箭头必组成短正合列；该短正合列必与上述短正合列同构，因而非分裂。
+由此 $F(\xi)$ 非零，得到 $i = 1$ 的结论。对 $i > 1$，Ext 类的复合定义满射
+$$
+\Ext^1(F(\mathcal{O}_x), F(\mathcal{O}_x)) \otimes \ldots \otimes
+\Ext^1(F(\mathcal{O}_x), F(\mathcal{O}_x))
+\longrightarrow
+\Ext^i(F(\mathcal{O}_x), F(\mathcal{O}_x))
+$$
+。参见 Duality for Schemes, Lemma \ref{duality-lemma-regular-ideal-ext}。
+因此次数 $1$ 的满射性蕴含对 $i > 0$ 的满射性。证明完毕。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{特殊函子}
+\label{equiv-section-special-functors}
+
+\noindent
+本节证明关于一类特殊函子的若干结果，它们将在本章后面使用。
+
+\begin{definition}
+\label{equiv-definition-siblings-geometric}
+设 $k$ 为域。设 $X$、$Y$ 为有限型 $k$-概形。回忆
+$D^b_{\textit{Coh}}(\mathcal{O}_X) = D^b(\textit{Coh}(\mathcal{O}_X))$
+；这是 Derived Categories of Schemes, Proposition
+\ref{perfect-proposition-DCoh} 的结论。称两个 $k$-线性正合函子
+$$
+F, F' :
+D^b_{\textit{Coh}}(\mathcal{O}_X) = D^b(\textit{Coh}(\mathcal{O}_X))
+\longrightarrow
+D^b_{\textit{Coh}}(\mathcal{O}_Y)
+$$
+为{\it 同胞函子}，或者称 $F'$ 是 $F$ 的一个{\it 同胞}，如果 $F$ 与 $F'$
+在 Definition \ref{equiv-definition-siblings} 的意义下为同胞函子，其中阿贝尔范畴取为
+$\textit{Coh}(\mathcal{O}_X)$。若 $X$ 正则，则
+$D_{perf}(\mathcal{O}_X) = D^b_{\textit{Coh}}(\mathcal{O}_X)$，这是
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-noetherian}；
+并且对 $k$-线性正合函子
+$F, F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+也使用相同术语。
+\end{definition}
+
+\begin{lemma}
+\label{equiv-lemma-exact-functor-preserving-Coh}
+设 $k$ 为域。设 $X$、$Y$ 为有限型 $k$-概形，并且 $X$ 分离。设
+$F : D^b_{\textit{Coh}}(\mathcal{O}_X) \to D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+为 $k$-线性正合函子，它把
+$\textit{Coh}(\mathcal{O}_X) \subset D^b_{\textit{Coh}}(\mathcal{O}_X)$
+映入
+$\textit{Coh}(\mathcal{O}_Y) \subset D^b_{\textit{Coh}}(\mathcal{O}_Y)$.
+。则存在 Fourier--Mukai 函子
+$F' : D^b_{\textit{Coh}}(\mathcal{O}_X) \to D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+，其核是凝聚 $\mathcal{O}_{X \times Y}$-模 $\mathcal{K}$；它在 $X$ 上平坦，
+其支撑在 $Y$ 上有限，并且该函子是 $F$ 的同胞。
+\end{lemma}
+
+\begin{proof}
+以 $H : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$ 表示
+$F$ 的限制。由于 $F$ 是三角范畴之间的正合函子，可知 $H$ 是阿贝尔范畴之间的
+正合函子。当然，$H$ 是 $k$-线性的，因为 $F$ 也是。由
+Functors and Morphisms, Lemma \ref{functors-lemma-functor-coherent-over-field}
+，得到凝聚 $\mathcal{O}_{X \times Y}$-模 $\mathcal{K}$，它在 $X$ 上平坦，
+且支撑在 $Y$ 上有限。令 $F'$ 为以 $\mathcal{K}$ 定义的 Fourier--Mukai 函子，
+使得 $F'$ 限制为 $H$（当限制到 $ \textit{Coh}(\mathcal{O}_X)$ 时）。由 Lemma
+\ref{equiv-lemma-fourier-mukai-Coh}，函子 $F'$ 把
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ 映入 $D^b_{\textit{Coh}}(\mathcal{O}_Y)$。
+注意 $F$ 与 $F'$ 满足 Lemma \ref{equiv-lemma-sibling-fully-faithful} 的第一、第二个条件，
+故它们是同胞函子。
+\end{proof}
+
+\begin{remark}
+\label{equiv-remark-difficult}
+若 $F, F' : D^b_{\textit{Coh}}(\mathcal{O}_X) \to \mathcal{D}$ 是同胞函子，$F$
+全忠实，并且 $X$ 是约化的射影 $k$-概形，则 $F \cong F'$；这可由
+Proposition \ref{equiv-proposition-siblings-isomorphic} 配合 Theorem
+\ref{equiv-theorem-fully-faithful} 证明中的论证得到。然而一般而言，我们不知道同胞函子
+是否同构。即便在 Lemma \ref{equiv-lemma-exact-functor-preserving-Coh} 的情形中，
+证明同胞函子 $F$ 与 $F'$ 同构似乎也很困难。若 $X$ 是光滑的固有 $k$-概形，
+并且 $F$ 全忠实，则由 \cite{Noah} 可知 $F \cong F'$。
+若你在更一般的情形中有证明或反例，请发送电子邮件至
+\href{mailto:stacks.project@gmail.com}{stacks.project@gmail.com}.
+\end{remark}
+
+\begin{lemma}
+\label{equiv-lemma-two-functors-pre}
+设 $k$ 为域。设 $X$、$Y$ 为 $k$ 上的固有概形。假设 $X$ 正则。设
+$F, G : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+为 $k$-线性正合函子，且满足
+\begin{enumerate}
+\item $F(\mathcal{F}) \cong G(\mathcal{F})$ 对任意凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$（满足 $\dim(\text{Supp}(\mathcal{F})) = 0$）成立；
+\item $F$ 全忠实。
+\end{enumerate}
+则 $G$ 的本质像包含于 $F$ 的本质像。
+\end{lemma}
+
+\begin{proof}
+回忆 $F$ 与 $G$ 都有左右伴随；参见 Lemma \ref{equiv-lemma-always-right-adjoints}。
+特别地，本质像 $\mathcal{A} \subset D_{perf}(\mathcal{O}_Y)$（即 $F$ 的本质像）满足
+Derived Categories, Lemma \ref{derived-lemma-right-adjoint} 的等价条件。我们断言
+$G$ 通过 $\mathcal{A}$ 分解。由 Derived Categories, Lemma
+\ref{derived-lemma-right-adjoint}，$\mathcal{A} = {}^\perp(\mathcal{A}^\perp)$，
+故只需证明 $\Hom_Y(G(M), N) = 0$ 对所有 $M$（属于
+$D_{perf}(\mathcal{O}_X)$）以及 $N \in \mathcal{A}^\perp$ 成立。我们有
+$$
+\Hom_Y(G(M), N) = \Hom_X(M, G_r(N))
+$$
+，其中 $G_r$ 是 $G$ 的右伴随。因此只需证明 $G_r(N) = 0$。有
+$G(\mathcal{F}) \cong F(\mathcal{F})$，对 (1) 中所述的 $\mathcal{F}$ 成立，故
+$$
+\Hom_X(\mathcal{F}, G_r(N)) =
+\Hom_Y(G(\mathcal{F}), N) =
+\Hom_Y(F(\mathcal{F}), N) = 0
+$$
+，因为 $N$ 属于本质像 $\mathcal{A}$（即 $F$ 的本质像）的右正交。当然，
+$\Hom_X(\mathcal{F}, G_r(N)[i])$ 对任意 $i \in \mathbf{Z}$ 也同样消失。因此由
+Lemma \ref{equiv-lemma-orthogonal-point-sheaf}，$G_r(N) = 0$，证毕。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-noah}
+\begin{reference}
+Noah Olander 于 2020 年 6 月 8 日的电子邮件
+\end{reference}
+设 $k$ 为域。设 $X$ 为正则的固有 $k$-概形。设
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$ 为 $k$-线性正合函子。
+假设对每个凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，若
+$\dim(\text{Supp}(\mathcal{F})) = 0$，则存在同构
+$\mathcal{F} \cong F(\mathcal{F})$。那么存在自同构 $f : X \to X$（定义在 $k$ 上），
+它在底拓扑空间上诱导恒等映射\footnote{这常常迫使 $f$ 本身为恒等映射；参见
+Varieties, Lemma \ref{varieties-lemma-automorphism}.}，以及可逆
+$\mathcal{O}_X$-模 $\mathcal{L}$，使得 $F$ 与
+$F'(M) = f^*M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{L}$ 是同胞函子。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-noah-pre}，函子 $F$ 全忠实。由 Lemma
+\ref{equiv-lemma-two-functors-pre}，恒等函子的本质像包含于 $F$ 的本质像；亦即 $F$
+本质满。因此 $F$ 是等价。注意拟逆 $F^{-1}$ 满足与 $F$ 相同的假设。
+
+\medskip\noindent
+设 $M \in D_{perf}(\mathcal{O}_X)$，并设 $H^i(M) = 0$ 对 $i > b$ 成立。
+由于 $F$ 全忠实，有
+$$
+\Hom_X(M, \mathcal{O}_x[-i]) =
+\Hom_X(F(M), F(\mathcal{O}_x)[-i]) \cong
+\Hom_X(F(M), \mathcal{O}_x[-i])
+$$
+，对任意 $i \in \mathbf{Z}$ 以及任意闭点 $x$（属于 $X$）成立。因此由 Lemma
+\ref{equiv-lemma-hom-into-point-sheaf}，可知 $F(M)$ 的上同调层在次数 $> b$ 中消失。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。由上可知 $F(\mathcal{F})$ 的上同调层
+只可能在次数 $\leq 0$ 非零。令 $\mathcal{G} = H^0(F(\mathcal{F}))$。选取特异三角
+$$
+K \to F(\mathcal{F}) \to \mathcal{G} \to K[1]
+$$
+。则 $K$ 的上同调层只可能在次数 $\leq -1$ 非零。应用 $F^{-1}$，得到特异三角
+$$
+F^{-1}(K) \to \mathcal{F} \to F^{-1}(\mathcal{G}) \to F^{-1}(K')[1]
+$$
+。由于 $F^{-1}(K)$ 的上同调层只可能在次数 $\leq -1$ 非零（把上一段应用于
+$F^{-1}$），箭头 $F^{-1}(K) \to \mathcal{F}$ 为零（Derived Categories, Lemma
+\ref{derived-lemma-negative-exts}）。因此 $K \to F(\mathcal{F})$ 为零；由第一个
+特异三角的选取，这蕴含 $F(\mathcal{F}) = \mathcal{G}$。
+
+\medskip\noindent
+由上一段，$F$ 保持 $\textit{Coh}(\mathcal{O}_X)$，并且确实定义等价
+$H : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_X)$。由
+Functors and Morphisms, Lemma
+\ref{functors-lemma-equivalence-coherent-over-field}
+，得到自同构 $f : X \to X$（在 $k$ 上）以及可逆 $\mathcal{O}_X$-模
+$\mathcal{L}$，使得 $H(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$。
+令 $F'(M) = f^*M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{L}$。使用 Lemma
+\ref{equiv-lemma-sibling-fully-faithful}，可知 $F$ 与 $F'$ 是同胞函子。为说明 $f$
+在 $X$ 的底拓扑空间上为恒等映射，使用 $F(\mathcal{O}_x) \cong \mathcal{O}_x$
+以及 $\mathcal{O}_x$ 的支撑为 $\{x\}$ 这一事实。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-two-functors}
+设 $k$ 为域。设 $X$、$Y$ 为 $k$ 上的固有概形。假设 $X$ 正则。设
+$F, G : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$ 为
+$k$-线性正合函子，且满足
+\begin{enumerate}
+\item $F(\mathcal{F}) \cong G(\mathcal{F})$ 对任意凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$（满足 $\dim(\text{Supp}(\mathcal{F})) = 0$）成立；
+\item $F$ 全忠实；
+\item $G$ 是 Fourier--Mukai 函子，其核属于 $D_{perf}(\mathcal{O}_{X \times Y})$。
+\end{enumerate}
+则存在 Fourier--Mukai 函子
+$F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+，其核属于 $D_{perf}(\mathcal{O}_{X \times Y})$，并且 $F$ 与 $F'$ 是同胞函子。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-two-functors-pre}，$G$ 的本质像包含于 $F$ 的本质像。
+考虑函子 $H = F^{-1} \circ G$；由于 $F$ 全忠实，该函子有意义。由 Lemma
+\ref{equiv-lemma-noah}，得到自同构 $f : X \to X$ 与可逆 $\mathcal{O}_X$-模
+$\mathcal{L}$，使得函子 $H' : K \mapsto f^*K \otimes \mathcal{L}$ 是 $H$ 的同胞。
+特别地，由 Lemma \ref{equiv-lemma-sibling-faithful}，$H$ 是自等价；并且 $H$ 诱导
+$\textit{Coh}(\mathcal{O}_X)$ 的自等价（因为其同胞函子 $H'$ 具有这一性质）。
+因此拟逆 $H^{-1}$ 与 $(H')^{-1}$ 存在且互为同胞（略去一个小细节），并且
+$(H')^{-1}$ 把 $M$ 映为
+$(f^{-1})^*(M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{L}^{\otimes -1})$
+；这是 Fourier--Mukai 函子（细节从略）。于是当然，$F = G \circ H^{-1}$ 是
+$G \circ (H')^{-1}$ 的同胞。由 Lemma \ref{equiv-lemma-compose-fourier-mukai}，
+Fourier--Mukai 函子的复合仍为 Fourier--Mukai 函子，结论得证。
+\end{proof}
+
+
+
+
+
+\section{全忠实函子}
+\label{equiv-section-fully-faithful}
+
+\noindent
+依照 \cite{Orlov-K3} 与 \cite{Ballard}，我们的目标是证明导出范畴之间的
+全忠实函子是 Fourier--Mukai 函子的同胞。
+
+\begin{situation}
+\label{equiv-situation-fully-faithful}
+这里 $k$ 为域。设 $X$ 与 $Y$ 为 $k$ 上的光滑固有概形。给定 $k$-线性、
+正合且全忠实的函子
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$。
+\end{situation}
+
+\noindent
+继续阅读之前，最好至少阅读 Derived Categories, Section
+\ref{derived-section-postnikov} 的一部分。
+
+\medskip\noindent
+回忆 $X$ 正则，因而具有解消性质（Varieties, Lemma
+\ref{varieties-lemma-smooth-regular} 与 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-regular-resolution-property}）。因此可在 $X \times X$ 上选取解消
+$$
+\ldots \to
+\mathcal{E}_2 \boxtimes \mathcal{G}_2 \to
+\mathcal{E}_1 \boxtimes \mathcal{G}_1 \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0 \to
+\mathcal{O}_\Delta \to 0
+$$
+，其中每个 $\mathcal{E}_i$ 与 $\mathcal{G}_i$ 都是有限局部自由
+$\mathcal{O}_X$-模；参见 Lemma \ref{equiv-lemma-diagonal-resolution}。使用复形
+\begin{equation}
+\label{equiv-equation-original-complex}
+\ldots \to
+\mathcal{E}_2 \boxtimes \mathcal{G}_2 \to
+\mathcal{E}_1 \boxtimes \mathcal{G}_1 \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0
+\end{equation}
+（属于 $D_{perf}(\mathcal{O}_{X \times X})$），如 Derived Categories, Example
+\ref{derived-example-key-postnikov} 所述；若对每个 $n$ 记
+$$
+M_n = (\mathcal{E}_n \boxtimes \mathcal{G}_n \to \ldots \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0)[-n]
+$$
+，便得到复形 (\ref{equiv-equation-original-complex}) 的无穷 Postnikov 系统。这意味着态射
+$M_0 \to M_1[1] \to M_2[2] \to \ldots$、
+$M_n \to \mathcal{E}_n \boxtimes \mathcal{G}_n$ 以及
+$\mathcal{E}_n \boxtimes \mathcal{G}_n \to M_{n - 1}$ 满足 Derived Categories,
+Definition \ref{derived-definition-postnikov-system} 中记载的若干条件。令
+$$
+\mathcal{F}_n = \Ker(\mathcal{E}_n \boxtimes \mathcal{G}_n \to
+\mathcal{E}_{n - 1} \boxtimes \mathcal{G}_{n - 1})
+$$
+。注意，由于 $\mathcal{O}_\Delta$ 在 $X$ 上平坦（通过 $\text{pr}_1$），
+$\mathcal{F}_n$ 对所有 $n$ 也具有同一性质（这是方便但非必要的观察）。有
+$$
+H^q(M_n[n]) = \left\{
+\begin{matrix}
+\mathcal{O}_\Delta & \text{若} & q = 0 \\
+\mathcal{F}_n & \text{若} & q = -n \\
+0 & \text{若} & q \not = 0, -n
+\end{matrix}
+\right.
+$$
+因此对 $n \geq \dim(X \times X)$，有
+$$
+M_n[n] \cong \mathcal{O}_\Delta \oplus \mathcal{F}_n[n]
+$$
+；该同构在 $D_{perf}(\mathcal{O}_{X \times X})$ 中成立，见
+Lemma \ref{equiv-lemma-split-complex-regular}。
+
+\medskip\noindent
+我们关心复形
+\begin{equation}
+\label{equiv-equation-complex}
+\ldots \to
+\mathcal{E}_2 \boxtimes F(\mathcal{G}_2) \to
+\mathcal{E}_1 \boxtimes F(\mathcal{G}_1) \to
+\mathcal{E}_0 \boxtimes F(\mathcal{G}_0)
+\end{equation}
+（属于 $D_{perf}(\mathcal{O}_{X \times Y})$），因为该复形的“总体化”应当给出
+我们试图构造的 Fourier--Mukai 函子的核。对所有 $i, j \geq 0$，有
+\begin{align*}
+\Ext^q_{X \times Y}(\mathcal{E}_i \boxtimes F(\mathcal{G}_i),
+\mathcal{E}_j \boxtimes F(\mathcal{G}_j))
+& =
+\bigoplus\nolimits_p
+\Ext^{q + p}_X(\mathcal{E}_i, \mathcal{E}_j) \otimes_k
+\Ext^{-p}_Y(F(\mathcal{G}_i), F(\mathcal{G}_j)) \\
+& =
+\bigoplus\nolimits_p
+\Ext^{q + p}_X(\mathcal{E}_i, \mathcal{E}_j) \otimes_k
+\Ext^{-p}_X(\mathcal{G}_i, \mathcal{G}_j)
+\end{align*}
+。第二个等号成立是因为 $F$ 全忠实，第一个等号则由 Derived Categories of Schemes,
+Lemma \ref{perfect-lemma-kunneth-Ext} 得到。可知这些 $\Ext^q$ 对 $q < 0$ 为零。
+因此由 Derived Categories, Lemma \ref{derived-lemma-existence-postnikov-system}，
+可为复形 (\ref{equiv-equation-complex}) 构造无穷 Postnikov 系统
+$K_0, K_1, K_2, \ldots$（位于 $D_{perf}(\mathcal{O}_{X \times Y})$ 中）。与
+$M_0, M_1, M_2, \ldots$ 的情形平行，这意味着得到态射
+$K_0 \to K_1[1] \to K_2[2] \to \ldots$、
+$K_n \to \mathcal{E}_n \boxtimes F(\mathcal{G}_n)$ 以及
+$\mathcal{E}_n \boxtimes F(\mathcal{G}_n) \to K_{n - 1}$；它们属于
+$D_{perf}(\mathcal{O}_{X \times Y})$，并满足 Derived Categories, Definition
+\ref{derived-definition-postnikov-system} 中记载的若干条件。
+
+\medskip\noindent
+设 $\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模，其支撑只含有限多个点；亦即
+$\dim(\text{Supp}(\mathcal{F})) = 0$。考虑三角范畴之间的正合函子
+$$
+D_{perf}(\mathcal{O}_{X \times Y})
+\longrightarrow
+D_{perf}(\mathcal{O}_Y),\quad
+N \longmapsto R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} N)
+$$
+于是对象 $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} K_i)$ 构成一个 Postnikov 系统，
+对应于 $D_{perf}(\mathcal{O}_Y)$ 中以如下对象为项的复形：
+$$
+R\text{pr}_{2, *}(
+(\mathcal{F} \otimes \mathcal{E}_i) \boxtimes F(\mathcal{G}_i)) =
+\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k F(\mathcal{G}_i) =
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k \mathcal{G}_i)
+$$
+。这里使用了 $\mathcal{F} \otimes \mathcal{E}_i$ 的高次上同调消失，因为其支撑
+维数为 $0$。另一方面，应用正合函子
+$$
+D_{perf}(\mathcal{O}_{X \times X})
+\longrightarrow
+D_{perf}(\mathcal{O}_Y),\quad
+N \longmapsto F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} N))
+$$
+，可知对象
+$F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n))$
+构成第二个无穷 Postnikov 系统，对应于 $D_{perf}(\mathcal{O}_Y)$ 中以如下对象为项的复形：
+$$
+F(R\text{pr}_{2, *}(
+(\mathcal{F} \otimes \mathcal{E}_i) \boxtimes \mathcal{G}_i)) =
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k \mathcal{G}_i)
+$$
+。这与前面相同！Postnikov 系统的唯一性（Derived Categories, Lemma
+\ref{derived-lemma-existence-postnikov-system}）可以应用，因为
+$$
+\Ext^q_Y(
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k \mathcal{G}_i),
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_j) \otimes_k \mathcal{G}_j)) = 0,
+\quad q < 0
+$$
+；这里使用 $F$ 全忠实。因此得到一族同构
+$$
+F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n[n]))
+\cong
+R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} K_n[n])
+$$
+（位于 $D_{perf}(\mathcal{O}_Y)$ 中），它们与 $D_{perf}(\mathcal{O}_Y)$ 中由下列态射
+诱导的态射相容：
+$$
+M_{n - 1}[n - 1] \to M_n[n]
+\quad\text{且}\quad
+K_{n - 1}[n - 1] \to K_n[n]
+$$
+$$
+M_n \to \mathcal{E}_n \boxtimes \mathcal{G}_n
+\quad\text{且}\quad
+K_n \to \mathcal{E}_n \boxtimes F(\mathcal{G}_n)
+$$
+$$
+\mathcal{E}_n \boxtimes \mathcal{G}_n \to M_{n - 1}
+\quad\text{且}\quad
+\mathcal{E}_n \boxtimes F(\mathcal{G}_n) \to K_{n - 1}
+$$
+；这些态射是 Postnikov 系统结构的一部分。对充分大的 $n$，得到直和分解
+$$
+F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n[n]))
+=
+F(\mathcal{F}) \oplus
+F(R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}} \mathcal{F}_n
+))[n]
+$$
+，它对应于上面构造的 $M_n$ 的直和分解（这里使用 $\mathcal{F}_n$ 在 $X$ 上的
+平坦性，即通过 $\text{pr}_1$ 的平坦性，以便在上述公式中写普通张量积；但这对论证
+并非必要）。由 Lemma \ref{equiv-lemma-boundedness}，可知存在整数 $m \geq 0$，使该直和
+分解的第一个直和项只在区间 $[-m, m]$ 中可能有非零上同调层，而第二个直和项只在
+区间 $[-m - n, m + \dim(X) - n]$ 中可能有非零上同调层。因此系统
+$K_0 \to K_1[1] \to K_2[2] \to \ldots$（位于
+$D_{perf}(\mathcal{O}_{X \times Y})$ 中）满足 Lemma
+\ref{equiv-lemma-bounded-fibres} 的假设，必要时可把 $m$ 换成更大的整数。于是可写成
+$$
+K_n[n] = K \oplus C_n
+$$
+，对 $n \gg 0$ 成立，并与转移映射相容；且 $C_n$ 只在范围
+$[-m - n, m - n]$ 中可能有非零上同调层。以 $G$ 表示对应于 $K$ 的
+Fourier--Mukai 函子。综合以上结果，得到
+$$
+\begin{matrix}
+G(\mathcal{F}) \oplus
+R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}}^\mathbf{L} C_n)
+\cong \\
+R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} K_n[n]) \cong \\
+F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n[n]))
+\cong \\
+F(\mathcal{F}) \oplus
+F(R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}} \mathcal{F}_n
+))[n]
+\end{matrix}
+$$
+观察这些对象所处的次数，可知当 $n \gg m$ 时得到同构
+$$
+F(\mathcal{F}) \cong G(\mathcal{F})
+$$
+。此外，回忆这对每个凝聚 $\mathcal{F}$（定义在 $X$ 上且支撑维数为 $0$）都成立。
+
+\begin{lemma}
+\label{equiv-lemma-fully-faithful}
+设 $k$ 为域。设 $X$ 与 $Y$ 为 $k$ 上的光滑固有概形。给定 $k$-线性、
+正合且全忠实的函子
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+，存在 Fourier--Mukai 函子
+$F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$，其核属于
+$D_{perf}(\mathcal{O}_{X \times Y})$，并且它是 $F$ 的同胞。
+\end{lemma}
+
+\begin{proof}
+把 Lemma \ref{equiv-lemma-two-functors} 应用于 $F$ 与上面构造的函子 $G$。
+\end{proof}
+
+\noindent
+下述定理在不假设 $X$ 射影时也成立；参见 \cite{Noah}。
+
+\begin{theorem}[Orlov]
+\label{equiv-theorem-fully-faithful}
+\begin{reference}
+\cite[Theorem 2.2]{Orlov-K3}；\cite{Noah} 在不假设 $X$ 射影的情况下证明了这一点
+\end{reference}
+设 $k$ 为域。设 $X$ 与 $Y$ 为光滑固有 $k$-概形，并且 $X$ 在 $k$ 上射影。
+任意 $k$-线性、全忠实的正合函子
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$ 是 Fourier--Mukai 函子，
+其某个核属于 $D_{perf}(\mathcal{O}_{X \times Y})$。
+\end{theorem}
+
+\begin{proof}
+依 Lemma \ref{equiv-lemma-fully-faithful}，令 $F'$ 为 $F$ 的同胞 Fourier--Mukai 函子。
+要由 Proposition \ref{equiv-proposition-siblings-isomorphic} 得到 $F \cong F'$，
+只需证明 $\textit{Coh}(\mathcal{O}_X)$ 有足够多负对象。然而，例如当
+$X = \Spec(k)$ 时，这并不成立。因此先把 $X = \coprod X_i$ 分解为其连通
+（亦即不可约）分支，并论证只需对每个（全忠实的）复合函子证明结论：
+$$
+F_i :
+D_{perf}(\mathcal{O}_{X_i}) \to
+D_{perf}(\mathcal{O}_X) \to
+D_{perf}(\mathcal{O}_Y)
+$$
+。细节从略。因此可假设 $X$ 不可约。
+
+\medskip\noindent
+情形 $\dim(X) = 0$。此时 $X$ 是有限（可分）扩张 $k'/k$ 的谱，因而
+$D_{perf}(\mathcal{O}_X)$ 等价于分次 $k'$-向量空间的范畴；在此等价下，
+$\mathcal{O}_X$ 对应于平凡的 $1$-维向量空间，位于次数 $0$。容易看出任意两个同胞函子
+$F, F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$ 都同构。事实上，
+我们有同构 $F(\mathcal{O}_X) \cong F'(\mathcal{O}_X)$，它与 $k$-代数
+$k' = \text{End}_{D_{perf}(\mathcal{O}_X)}(\mathcal{O}_X)$ 的作用相容；该同构
+典范地延拓到任意分次 $k'$-向量空间上的同构。
+
+\medskip\noindent
+情形 $\dim(X) > 0$。此时 $X$ 是维数 $> 1$ 的光滑射影簇。设
+$\mathcal{F}$ 为凝聚 $\mathcal{O}_X$-模。须证明存在凝聚模 $\mathcal{N}$，使得
+\begin{enumerate}
+\item 存在满射 $\mathcal{N} \to \mathcal{F}$；并且
+\item $\Hom(\mathcal{F}, \mathcal{N}) = 0$.
+\end{enumerate}
+选取丰沛可逆 $\mathcal{O}_X$-模 $\mathcal{L}$。我们断言
+$\mathcal{N} = (\mathcal{L}^{\otimes n})^{\oplus r}$ 在 $n \ll 0$ 且 $r$ 足够大时
+满足要求。条件 (1) 由 Properties, Proposition
+\ref{properties-proposition-characterize-ample} 得到。最后，有
+$$
+\Hom(\mathcal{F}, \mathcal{L}^{\otimes n}) =
+H^0(X, \SheafHom(\mathcal{F}, \mathcal{L}^{\otimes n})) =
+H^0(X, \SheafHom(\mathcal{F}, \mathcal{O}_X) \otimes \mathcal{L}^{\otimes n})
+$$
+。由于对偶 $\SheafHom(\mathcal{F}, \mathcal{O}_X)$ 无挠，由 Varieties, Lemma
+\ref{varieties-lemma-vanishin-h0-negative}，它对 $n \ll 0$ 消失。证明完毕。
+\end{proof}
+
+\begin{proposition}
+\label{equiv-proposition-equivalence}
+设 $k$ 为域。设 $X$ 与 $Y$ 为 $k$ 上的光滑固有概形。若
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$ 是三角范畴之间的
+$k$-线性正合等价，则存在 Fourier--Mukai 函子
+$F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$，
+其核属于 $D_{perf}(\mathcal{O}_{X \times Y})$，且该函子既是等价又是 $F$ 的同胞。
+\end{proposition}
+
+\begin{proof}
+Lemma \ref{equiv-lemma-fully-faithful} 的函子 $F'$ 由 Lemma
+\ref{equiv-lemma-sibling-faithful} 可知是等价。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-uniqueness}
+设 $k$ 为域。设 $X$ 为 $k$ 上的光滑固有概形。设
+$K \in D_{perf}(\mathcal{O}_{X \times X})$。若 Fourier--Mukai 函子
+$\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$ 与恒等函子同构，
+则 $K \cong \Delta_*\mathcal{O}_X$ 在 $_{perf}(\mathcal{O}_{X \times X})$ 中成立。
+\end{lemma}
+
+\begin{proof}
+令 $i$ 为使上同调层 $H^i(K)$ 非零的最小整数。设 $\mathcal{E}$ 与
+$\mathcal{G}$ 为有限局部自由 $\mathcal{O}_X$-模。则
+\begin{align*}
+H^i(X \times X, K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+(\mathcal{E} \boxtimes \mathcal{G}))
+& =
+H^i(X, R\text{pr}_{2, *}(K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+(\mathcal{E} \boxtimes \mathcal{G}))) \\
+& =
+H^i(X, \Phi_K(\mathcal{E}) \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{G}) \\
+& \cong
+H^i(X, \mathcal{E} \otimes \mathcal{G})
+\end{align*}
+；当 $i < 0$ 时它为零。另一方面，可选取 $\mathcal{E}$ 与 $\mathcal{G}$，使得存在满射
+$\mathcal{E}^\vee \boxtimes \mathcal{G}^\vee \to H^i(K)$
+；这由 Lemma \ref{equiv-lemma-on-product} 得到。在此情形中，上述等式的左端非零。
+因此得到 $H^i(K) = 0$ 对 $i < 0$ 成立。
+
+\medskip\noindent
+令 $i$ 为使 $H^i(K)$ 非零的最大整数。同一论证令 $\mathcal{E}$ 与
+$\mathcal{G}$ 的支撑维数为 $0$，得到 $i \leq 0$。因此可知 $K$ 由单个凝聚
+$\mathcal{O}_{X \times X}$-模 $\mathcal{K}$ 给出，它位于次数 $0$。
+
+\medskip\noindent
+由于 $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})$
+就是 $\mathcal{F}$，取支撑在闭点上的 $\mathcal{F}$，可知 $\mathcal{K}$ 的支撑
+在 $X$ 上经 $\text{pr}_2$ 有限。由于
+$R\text{pr}_{2, *}(\mathcal{K}) \cong \mathcal{O}_X$，由 Functors and Morphisms,
+Lemma \ref{functors-lemma-pushforward-invertible-pre} 得到
+$\mathcal{K} = s_*\mathcal{O}_X$，其中 $s : X \to X \times X$ 是第二投影的某个截面。
+于是 $\Phi_K(M) = f^*M$，其中 $f = \text{pr}_1 \circ s$；这只有在 $s$ 是对角态射时
+才可能发生，正是所求。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Fourier--Mukai 核的范畴}
+\label{equiv-section-category-Fourier-Mukai-kernels}
+
+\noindent
+设 $S$ 为概形。我们断言存在如下范畴：
+\begin{enumerate}
+\item 对象为 $S$ 上的光滑固有概形。
+\item 从 $X$ 到 $Y$ 的态射为 $D_{perf}(\mathcal{O}_{X \times_S Y})$
+中对象的同构类。
+\item $K \in D_{perf}(\mathcal{O}_{X \times_S Y})$ 的同构类与 $K'$ 在
+$D_{perf}(\mathcal{O}_{Y \times_S Z})$ 中的同构类之复合，是下列对象的同构类：
+$$
+R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*K')
+$$
+由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}，它属于
+$D_{perf}(\mathcal{O}_{X \times_S Z})$。
+\item 从 $X$ 到 $X$ 的恒等态射是 $\Delta_{X/S, *}\mathcal{O}_X$ 的同构类。
+由 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-perfect-closed-immersion-perfect-direct-image}
+以及下述事实，它属于 $D_{perf}(\mathcal{O}_{X \times_S X})$：由 Divisors, Lemma
+\ref{divisors-lemma-immersion-smooth-into-smooth-regular-immersion} 与
+More on Morphisms, Lemma \ref{more-morphisms-lemma-regular-immersion-perfect}，
+$\Delta_{X/S}$ 是完美态射。
+\end{enumerate}
+下面验证态射复合的结合律；略去恒等态射确为恒等元的验证。为此，设有
+$X, Y, Z, W$，以及
+$c \in D_{perf}(\mathcal{O}_{X \times_S Y})$,
+$c' \in D_{perf}(\mathcal{O}_{Y \times_S Z})$ 和
+$c'' \in D_{perf}(\mathcal{O}_{Z \times_S W})$。则
+\begin{align*}
+c'' \circ (c' \circ c)
+& \cong
+\text{pr}^{134}_{14, *}(
+\text{pr}^{134, *}_{13}
+\text{pr}^{123}_{13, *}(\text{pr}^{123, *}_{12}c \otimes
+\text{pr}^{123, *}_{23}c')
+\otimes \text{pr}^{134, *}_{34}c'') \\
+& \cong
+\text{pr}^{134}_{14, *}(
+\text{pr}^{1234}_{134, *}
+\text{pr}^{1234, *}_{123}(\text{pr}^{123, *}_{12}c \otimes
+\text{pr}^{123, *}_{23}c')
+\otimes \text{pr}^{134, *}_{34}c'') \\
+& \cong
+\text{pr}^{134}_{14, *}(
+\text{pr}^{1234}_{134, *}
+(\text{pr}^{1234, *}_{12}c \otimes
+\text{pr}^{1234, *}_{23}c')
+\otimes \text{pr}^{134, *}_{34}c'') \\
+& \cong
+\text{pr}^{134}_{14, *}
+\text{pr}^{1234}_{134, *}
+((\text{pr}^{1234, *}_{12}c \otimes
+\text{pr}^{1234, *}_{23}c')
+\otimes \text{pr}^{1234, *}_{34}c'') \\
+& \cong
+\text{pr}^{1234}_{14, *}(
+(\text{pr}^{1234, *}_{12}c \otimes
+\text{pr}^{1234, *}_{23}c') \otimes
+\text{pr}^{1234, *}_{34}c'')
+\end{align*}
+这里采用记号
+$$
+p^{1234}_{134} : X \times_S Y \times_S Z \times_S W
+\to X \times_S Z \times_S W
+\quad\text{且}\quad
+p^{134}_{14} : X \times_S Z \times_S W \to X \times_S W
+$$
+表示这些投影；其他指标也采用类似记号。我们还用 $\text{pr}_*$ 代替
+$R\text{pr}_*$，用 $\text{pr}^*$ 代替 $L\text{pr}^*$，并省略
+$\otimes$ 的所有上标与下标。第一个等式就是复合的定义。第二个等式成立，是因为
+$\text{pr}^{134, *}_{13} \text{pr}^{123}_{13, *} =
+\text{pr}^{1234}_{134, *} \text{pr}^{1234, *}_{123}$
+由基变换成立（Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-compare-base-change}）。第三个等式成立，是因为拉回能正确复合并与张量积相容；
+见 Cohomology, Lemmas \ref{cohomology-lemma-derived-pullback-composition} 与
+\ref{cohomology-lemma-pullback-tensor-product}。第四个等式由 $p^{1234}_{134}$ 的“投影公式”得到；
+见 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-cohomology-base-change}。第五个等式说明固有推前与复合相容；见
+Cohomology, Lemma \ref{cohomology-lemma-derived-pushforward-composition}。
+再由张量积的结合律，即证得复合的结合律。
+
+\begin{lemma}
+\label{equiv-lemma-base-change-is-functor}
+设 $S' \to S$ 为概形态射。下述规则
+\begin{enumerate}
+\item 把光滑固有概形 $X$（定义在 $S$ 上）映为 $X' =  S' \times_S X$；并且
+\item 把对象 $K$（属于 $D_{perf}(\mathcal{O}_{X \times_S Y})$）的同构类映为
+$L(X' \times_{S'} Y' \to X \times_S Y)^*K$
+在 $D_{perf}(\mathcal{O}_{X' \times_{S'} Y'})$ 中的同构类，
+\end{enumerate}
+给出从为 $S$ 定义的范畴到为 $S'$ 定义的范畴的函子。
+\end{lemma}
+
+\begin{proof}
+为验证此点，设有 $X, Y, Z$，以及
+$K \in D_{perf}(\mathcal{O}_{X \times_S Y})$ 和
+$M \in D_{perf}(\mathcal{O}_{Y \times_S Z})$。记
+$K' \in D_{perf}(\mathcal{O}_{X' \times_{S'} Y'})$ 和
+$M' \in D_{perf}(\mathcal{O}_{Y' \times_{S'} Z'})$
+为该引理陈述中的相应拉回。图表
+$$
+\xymatrix{
+X' \times_{S'} Y' \times_{S'} Z' \ar[r] \ar[d]_{\text{pr}'_{13}} &
+X \times_S Y \times_S Z \ar[d]^{\text{pr}_{13}} \\
+X' \times_{S'} Z' \ar[r] &
+X \times_S Z
+}
+$$
+是笛卡儿的，并且 $\text{pr}_{13}$ 光滑且固有。由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}
+可知，下方水平箭头对下列复合的导出拉回
+$$
+R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*M)
+$$
+确实（典范地）同构于
+$$
+R\text{pr}'_{13, *}(
+L(\text{pr}'_{12})^*K'
+\otimes_{\mathcal{O}_{X' \times_{S'} Y' \times_{S'} Z'}}^\mathbf{L}
+L(\text{pr}'_{23})^*M')
+$$
+，正如所需。略去若干细节。
+\end{proof}
+
+
+
+
+
+\section{相对等价}
+\label{equiv-section-relative-equivalences}
+
+\noindent
+本节证明关于下述概念的若干引理。
+
+\begin{definition}
+\label{equiv-definition-relative-equivalence-kernel}
+设 $S$ 为概形，并设 $X \to S$ 与 $Y \to S$ 为光滑固有态射。称对象
+$K \in D_{perf}(\mathcal{O}_{X \times_S Y})$ 为{\it 从 $X$ 到 $Y$、定义在 $S$ 上
+的相对等价的 Fourier--Mukai 核}，如果存在对象
+$K' \in D_{perf}(\mathcal{O}_{X \times_S Y})$，使得
+$$
+\Delta_{X/S, *}\mathcal{O}_X \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S X}}^\mathbf{L}
+L\text{pr}_{23}^*K')
+$$
+在 $D(\mathcal{O}_{X \times_S X})$ 中成立，并且
+$$
+\Delta_{Y/S, *}\mathcal{O}_Y \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K'
+\otimes_{\mathcal{O}_{Y \times_S X \times_S Y}}^\mathbf{L}
+L\text{pr}_{23}^*K)
+$$
+在 $D(\mathcal{O}_{Y \times_S Y})$ 中成立。换言之，$K$ 的同构类在
+Section \ref{equiv-section-category-Fourier-Mukai-kernels} 所定义的范畴中给出可逆箭头。
+\end{definition}
+
+\noindent
+这里刻意采用了较为繁复的说法。
+
+\begin{lemma}
+\label{equiv-lemma-equivalences-rek}
+沿用 Definition \ref{equiv-definition-relative-equivalence-kernel} 的记号，设 $K$ 为从 $X$
+到 $Y$、定义在 $S$ 上的相对等价的 Fourier--Mukai 核。则相应的 Fourier--Mukai 函子
+$\Phi_K : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+（Lemma \ref{equiv-lemma-fourier-Mukai-QCoh}）以及
+$\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+（Lemma \ref{equiv-lemma-fourier-mukai}）都是等价。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{equiv-lemma-compose-fourier-mukai} 与
+Example \ref{equiv-example-diagonal-fourier-mukai} 立即得到。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-base-change-rek}
+沿用 Definition \ref{equiv-definition-relative-equivalence-kernel} 的记号，设 $K$ 为从 $X$
+到 $Y$、定义在 $S$ 上的相对等价的 Fourier--Mukai 核。设 $S_1 \to S$ 为概形态射，并令
+$X_1 = S_1 \times_S X$ 与 $Y_1 = S_1 \times_S Y$。则拉回
+$K_1 = L(X_1 \times_{S_1} Y_1 \to X \times_S Y)^*K$ 是从 $X_1$
+到 $Y_1$、定义在 $S_1$ 上的相对等价的 Fourier--Mukai 核。
+\end{lemma}
+
+\begin{proof}
+设 $K' \in D_{perf}(\mathcal{O}_{Y \times_S X})$ 为 Definition
+\ref{equiv-definition-relative-equivalence-kernel} 中假定存在的对象。记 $K'_1$ 为 $K'$ 沿
+$Y_1 \times_{S_1} X_1 \to Y \times_S X$ 的拉回。只需证明
+$$
+\Delta_{X_1/S_1, *}\mathcal{O}_X \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K_1
+\otimes_{\mathcal{O}_{X_1 \times_{S_1} Y_1 \times_{S_1} X_1}}^\mathbf{L}
+L\text{pr}_{23}^*K_1')
+$$
+在 $D(\mathcal{O}_{X_1 \times_{S_1} X_1})$ 中成立；另一个条件同理。由于
+$$
+\xymatrix{
+X_1 \times_{S_1} Y_1 \times_{S_1} X_1 \ar[r] \ar[d]_{\text{pr}_{13}} &
+X \times_S Y \times_S X \ar[d]^{\text{pr}_{13}} \\
+X_1 \times_{S_1} X_1 \ar[r] &
+X \times_S X
+}
+$$
+是笛卡儿图，由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}
+可知，只需证明
+$$
+\Delta_{X_1/S_1, *}\mathcal{O}_{X_1}
+\cong
+L(X_1 \times_{S_1} X_1 \to X \times_S X)^*\Delta_{X/S, *}\mathcal{O}_X 
+$$
+而只要 $X$ 与 $X_1 \times_{S_1} X_1$ 在 $X \times_S X$ 上 Tor 无关，此式便成立；
+见 Derived Categories of Schemes, Lemma \ref{perfect-lemma-compare-base-change}。
+这种 Tor 无关性可直接看出，也可由更一般的 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-case-of-tor-independence} 得到：把它应用于四个顶点为
+$X, X, X, S$ 的方块及其沿 $S_1 \to S$ 的基变换即可。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-descend-rek}
+设 $S = \lim_{i \in I} S_i$ 是概形的有向系统的极限，其转移态射
+$g_{i'i} : S_{i'} \to S_i$ 都是仿射的。假设 $S_i$ 对每个 $i \in I$ 都拟紧且拟分离。
+取 $0 \in I$。设 $X_0 \to S_0$ 与 $Y_0 \to S_0$ 为光滑固有态射。令
+$X_i = S_i \times_{S_0} X_0$（$i \geq 0$），并令 $X = S \times_{S_0} X_0$；对 $Y_0$ 也作类似定义。
+若 $K$ 是从 $X$ 到 $Y$、定义在 $S$ 上的相对等价的 Fourier--Mukai 核，则对某个 $i \geq 0$，
+存在从 $X_i$ 到 $Y_i$、定义在 $S_i$ 上的相对等价的 Fourier--Mukai 核。
+\end{lemma}
+
+\begin{proof}
+设 $K' \in D_{perf}(\mathcal{O}_{Y \times_S X})$ 为 Definition
+\ref{equiv-definition-relative-equivalence-kernel} 中假定存在的对象。由于
+$X \times_S Y = \lim X_i \times_{S_i} Y_i$，存在指标 $i$ 以及对象 $K_i$ 与 $K'_i$，
+它们属于 $D_{perf}(\mathcal{O}_{Y_i \times_{S_i} X_i})$，
+使其拉回到 $Y \times_S X$ 后分别给出 $K$ 与 $K'$；见 Derived Categories of Schemes,
+Lemma \ref{perfect-lemma-descend-perfect}。由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}
+，对象
+$$
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K_i
+\otimes_{\mathcal{O}_{X_i \times_{S_i} Y_i \times_{S_i} X_i}}^\mathbf{L}
+L\text{pr}_{23}^*K_i')
+$$
+是完美的，且其到 $X \times_S X$ 的拉回等于
+$$
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S X}}^\mathbf{L}
+L\text{pr}_{23}^*K') \cong \Delta_{X/S, *}\mathcal{O}_X
+$$
+；参见 Lemma \ref{equiv-lemma-base-change-rek} 的证明。另一方面，由于 $X_i \to S$ 光滑且分离，对象
+$$
+\Delta_{i, *}\mathcal{O}_{X_i}
+$$
+（属于 $D(\mathcal{O}_{X_i \times_{S_i} X_i})$）也是完美的（由 More on Morphisms, Lemmas
+\ref{more-morphisms-lemma-smooth-diagonal-perfect} 与
+\ref{more-morphisms-lemma-perfect-proper-perfect-direct-image}），且其到
+$X \times_S X$ 的拉回等于
+$$
+\Delta_{X/S, *}\mathcal{O}_X
+$$
+；参见 Lemma \ref{equiv-lemma-base-change-rek} 的证明。因此由 Derived Categories of Schemes,
+Lemma \ref{perfect-lemma-descend-perfect}，增大 $i$ 后可假设
+$$
+\Delta_{i, *}\mathcal{O}_{X_i} \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K_i
+\otimes_{\mathcal{O}_{X_i \times_{S_i} Y_i \times_{S_i} X_i}}^\mathbf{L}
+L\text{pr}_{23}^*K_i')
+$$
+，正如所需。交换 $K$ 与 $K'$ 的角色可作同样论证。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{无形变}
+\label{equiv-section-no-deformations}
+
+\noindent
+本节标题所指的是 Lemma \ref{equiv-lemma-no-deformations}。
+
+\begin{lemma}
+\label{equiv-lemma-deform-koszul}
+设 $(R, \mathfrak m, \kappa) \to (A, \mathfrak n, \lambda)$ 为本质有限表示的
+局部环平坦局部同态。设
+$\overline{f}_1, \ldots, \overline{f}_r \in \mathfrak n/\mathfrak m A
+\subset A/\mathfrak m A$ 为正则序列，并设 $K \in D(A)$。假设
+\begin{enumerate}
+\item $K$ 是完美的；
+\item $K \otimes_A^\mathbf{L} A/\mathfrak m A$ 在 $D(A/\mathfrak m A)$ 中同构于
+$\overline{f}_1, \ldots, \overline{f}_r$ 上的 Koszul 复形。
+\end{enumerate}
+则 $K$ 在 $D(A)$ 中同构于某个正则序列 $f_1, \ldots, f_r \in A$ 上的 Koszul 复形，
+该序列提升给定元素 $\overline{f}_1, \ldots, \overline{f}_r$。此外，
+$A/(f_1, \ldots, f_r)$ 在 $R$ 上平坦。
+\end{lemma}
+
+\begin{proof}
+本引理的证明采用链复形。Koszul 复形
+$K_\bullet(\overline{f}_1, \ldots, \overline{f}_r)$ 定义于 More on Algebra,
+Definition \ref{more-algebra-definition-koszul-complex}。由 More on Algebra, Lemma
+\ref{more-algebra-lemma-lift-complex-stably-frees}，可用下列复形表示 $K$：
+$$
+K_\bullet :
+A \to A^{\oplus r} \to \ldots \to A^{\oplus r} \to A
+$$
+$A/\mathfrak mA$ 与它的张量积恰好等于（！）
+$K_\bullet(\overline{f}_1, \ldots, \overline{f}_r)$。记
+$f_1, \ldots, f_r \in A$ 为箭头 $A^{\oplus r} \to A$ 的各分量。这些 $f_i$
+是 $\overline{f}_i$ 的提升。由 Algebra, Lemma
+\ref{algebra-lemma-grothendieck-regular-sequence-general}
+，$f_1, \ldots, f_r$ 在 $A$ 中构成正则序列，并且 $A/(f_1, \ldots, f_r)$
+在 $R$ 上平坦。令 $J = (f_1, \ldots, f_r) \subset A$。考虑图表
+$$
+\xymatrix{
+K_\bullet \ar[rd] \ar@{..>}[rr]_{\varphi_\bullet} & &
+K_\bullet(f_1, \ldots, f_r) \ar[ld] \\
+& A/J
+}
+$$
+由于 $f_1, \ldots, f_r$ 是正则序列，西南方向的箭头为拟同构（见 More on Algebra,
+Lemma \ref{more-algebra-lemma-regular-koszul-regular}）。因此，例如由 Algebra,
+Lemma \ref{algebra-lemma-compare-resolutions}，可找到使图表交换的虚线箭头。
+模去 $\mathfrak m$，得到交换图表
+$$
+\xymatrix{
+K_\bullet(\overline{f}_1, \ldots, \overline{f}_r)
+\ar[rd] \ar[rr]_{\overline{\varphi}_\bullet} & &
+K_\bullet(\overline{f}_1, \ldots, \overline{f}_r) \ar[ld] \\
+& (A/\mathfrak m A)/(\overline{f}_1, \ldots, \overline{f}_r)
+}
+$$
+；这是由 $K_\bullet$ 的选取所得。因此 $\overline{\varphi}$ 在导出范畴
+$D(A/\mathfrak m A)$ 中为同构，从而
+$\overline{\varphi} \otimes_{A/\mathfrak m A}^\mathbf{L} \lambda$ 为同构。由于
+$\overline{f}_i \in \mathfrak n / \mathfrak m A$，可知
+$$
+\text{Tor}_i^{A/\mathfrak m A}(
+K_\bullet(\overline{f}_1, \ldots, \overline{f}_r), \lambda)
+=
+K_i(\overline{f}_1, \ldots, \overline{f}_r) \otimes_{A/\mathfrak m A} \lambda
+$$
+所以 $\varphi_i \bmod \mathfrak n$ 可逆。由于 $A$ 是局部环，这说明 $\varphi_i$
+是同构，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-limit-arguments}
+设 $R \to S$ 为 Noether 环之间的有限型平坦环同态。设 $\mathfrak q \subset S$
+为位于 $\mathfrak p \subset R$ 上方的素理想，并设 $K \in D(S)$ 为完美对象。
+设 $f_1, \ldots, f_r \in \mathfrak q S_\mathfrak q$ 为正则序列，使得
+$S_\mathfrak q/(f_1, \ldots, f_r)$ 在 $R$ 上平坦，并且
+$K \otimes_S^\mathbf{L} S_\mathfrak q$ 同构于 $f_1, \ldots, f_r$ 上的 Koszul 复形。
+则存在 $g \in S$，$g \not \in \mathfrak q$，使得
+\begin{enumerate}
+\item $f_1, \ldots, f_r$ 是 $f'_1, \ldots, f'_r \in S_g$ 的像；
+\item $f'_1, \ldots, f'_r$ 在 $S_g$ 中构成正则序列；
+\item $S_g/(f'_1, \ldots, f'_r)$ 在 $R$ 上平坦；
+\item $K \otimes_S^\mathbf{L} S_g$ 同构于 $f_1, \ldots, f_r$ 上的 Koszul 复形。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由局部化的定义，可找到满足 (1) 的 $g \in S$，$g \not \in \mathfrak q$。把 $g$
+替换为 $gg'$，其中 $g' \in S$ 且 $g' \not \in \mathfrak q$，便可假设 (2) 成立；
+见 Algebra, Lemma \ref{algebra-lemma-regular-sequence-in-neighbourhood}。由 Algebra,
+Theorem \ref{algebra-theorem-openness-flatness}，$S_g/(f'_1, \ldots, f'_r)$
+在 $R$ 上的平坦性在 $\mathfrak q$ 的某个开邻域中成立。因此再次把 $g$ 替换为
+$gg'$，其中 $g' \in S$ 且 $g' \not \in \mathfrak q$，便可同时假设 (3) 成立。
+最后，由 More on Algebra, Lemma \ref{more-algebra-lemma-colimit-perfect-complexes}，
+再作一次替换即可得到 (4)。
+\end{proof}
+
+\noindent
+下述引理的推广见 More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-where-isomorphism}.
+
+\begin{lemma}
+\label{equiv-lemma-isomorphism-in-neighbourhood}
+设 $S$ 为 Noether 概形，$s \in S$。设 $p : X \to Y$ 为 $S$ 上的概形态射。假设
+\begin{enumerate}
+\item $Y \to S$ 与 $X \to S$ 都是固有态射；
+\item $X$ 在 $S$ 上平坦；
+\item $X_s \to Y_s$ 是同构。
+\end{enumerate}
+则存在开子集 $U \subset S$，它是 $s$ 的邻域，并且基变换 $X_U \to Y_U$ 是同构。
+\end{lemma}
+
+\begin{proof}
+由 Morphisms, Lemma \ref{morphisms-lemma-closed-immersion-proper}，态射 $p$ 是固有的。
+由 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-proper-finite-fibre-finite-in-neighbourhood}
+，存在开子集 $Y_s \subset V \subset Y$，使得
+$p|_{p^{-1}(V)} : p^{-1}(V) \to V$ 是有限态射。由 More on Morphisms, Theorem
+\ref{more-morphisms-theorem-criterion-flatness-fibre-Noetherian}
+，存在开子集 $X_s \subset U \subset X$，使得 $p|_U : U \to Y$ 平坦。
+去掉 $X \setminus U$ 与 $Y \setminus V$ 的像（它们是不含 $s$ 的闭子集）后，
+可假设 $p$ 平坦且有限。于是 $p$ 是开映射（Morphisms, Lemma
+\ref{morphisms-lemma-fppf-open}），并且 $Y_s \subset p(X) \subset Y$；故缩小 $S$ 后，
+可假设 $p$ 满射。由于 $p_s : X_s \to Y_s$ 是同构，态射
+$$
+p^\sharp : \mathcal{O}_Y \longrightarrow p_*\mathcal{O}_X
+$$
+是凝聚 $\mathcal{O}_Y$-模之间的态射（$p$ 有限）；沿 $i : Y_s \to Y$ 拉回后，
+它成为同构（例如由 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-affine-base-change}）。Nakayama 引理于是说明
+$\mathcal{O}_{Y, y} \to (p_*\mathcal{O}_X)_y$ 对所有 $y \in Y_s$ 都是满射。
+因此存在开子集 $Y_s \subset V \subset Y$，使得 $p^\sharp|_V$ 满射
+（Modules, Lemma \ref{modules-lemma-finite-type-surjective-on-stalk}）。故再次缩小 $S$ 后，
+可假设 $p^\sharp$ 满射；这说明 $p$ 是闭浸入（因为 $p$ 已经有限）。于是 $p$
+是 Noether 概形之间满射、平坦的闭浸入，因而是同构；见 Morphisms, Section
+\ref{morphisms-section-flat-closed-immersions}。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-no-deformations}
+设 $k$ 为域。设 $S$ 为 $k$ 上具有 $k$-有理点 $s$ 的有限型概形。设 $Y \to S$
+为光滑固有态射。设 $X = Y_s \times S \to S$ 为纤维等于 $Y_s$ 的常值族。
+设 $K$ 为从 $X$ 到 $Y$、定义在 $S$ 上的相对等价的 Fourier--Mukai 核。假设限制
+$$
+L(Y_s \times_S Y_s \to X \times_S Y)^*K \cong 
+\Delta_{Y_s/k, *} \mathcal{O}_{Y_s}
+$$
+在 $D(\mathcal{O}_{Y_s \times Y_s})$ 中成立。则存在开邻域 $s \in U \subset S$，
+使得 $Y|_U$ 同构于 $Y_s \times U$，且该同构定义在 $U$ 上。
+\end{lemma}
+
+\begin{proof}
+记 $i : Y_s \times Y_s = X_s \times Y_s \to X \times_S Y$ 为自然闭浸入。
+（从现在起，我们把 $Y_s$ 而非 $X_s$ 用作 $X$ 在 $s$ 上纤维的记号。）设
+$z \in Y_s \times Y_s = (X \times_S Y)_s \subset X \times_S Y$ 为闭点。
+如上所示，我们既把 $z$ 看作 $Y_s \times Y_s$ 的闭点，也把它看作
+$X \times_S Y$ 的闭点。
+
+\medskip\noindent
+情形 I：$z \not \in \Delta_{Y_s/k}(Y_s)$。记 $\mathcal{O}_z$ 为凝聚
+$\mathcal{O}_{Y_s \times Y_s}$-模，其支撑在 $z$ 上，值为 $\kappa(z)$。则
+$i_*\mathcal{O}_z$ 是凝聚 $\mathcal{O}_{X \times_S Y}$-模，其支撑在 $z$ 上，
+值为 $\kappa(z)$。我们的假设意味着
+$$
+K \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} i_*\mathcal{O}_z =
+Li^*K \otimes_{\mathcal{O}_{Y_s \times Y_s}}^\mathbf{L} \mathcal{O}_z = 0
+$$
+因此由 Lemma \ref{equiv-lemma-orthogonal-point-sheaf}，存在开集
+$U(z) \subset X \times_S Y$，它是 $z$ 的邻域，并使得 $K|_{U(z)} = 0$。在此情形，令
+$Z(z) = \emptyset$，把它视为 $U(z)$ 的闭子概形。
+
+\medskip\noindent
+情形 II：$z \in \Delta_{Y_s/k}(Y_s)$。由于 $Y_s$ 在 $k$ 上光滑，
+$\Delta_{Y_s/k} : Y_s \to Y_s \times Y_s$ 是正则浸入；见 More on Morphisms,
+Lemma \ref{more-morphisms-lemma-smooth-diagonal-perfect}。选取正则序列
+$\overline{f}_1, \ldots, \overline{f}_r \in
+\mathcal{O}_{Y_s \times Y_s, z}$，使它生成 $\Delta_{Y_s/k}(Y_s)$ 的理想层。
+由于正则序列是 Koszul-正则的（More on Algebra, Lemma
+\ref{more-algebra-lemma-regular-koszul-regular}），我们的假设意味着
+$$
+K_z \otimes_{\mathcal{O}_{X \times_S Y, z}}^\mathbf{L}
+\mathcal{O}_{Y_s \times Y_s, z}
+\in D(\mathcal{O}_{Y_s \times Y_s, z})
+$$
+由 $\overline{f}_1, \ldots, \overline{f}_r$ 在
+$\mathcal{O}_{Y_s \times Y_s, z}$ 上的 Koszul 复形表示。把 Lemma
+\ref{equiv-lemma-deform-koszul} 应用于
+$\mathcal{O}_{S, s} \to \mathcal{O}_{X \times_S Y, z}$，可知
+$K_z \in D(\mathcal{O}_{X \times_S Y, z})$ 由某个正则序列
+$f_1, \ldots, f_r \in \mathcal{O}_{X \times_S Y, z}$ 的 Koszul 复形表示；
+该序列提升正则序列 $\overline{f}_1, \ldots, \overline{f}_r$，而且
+$\mathcal{O}_{X \times_S Y}/(f_1, \ldots, f_r)$ 在 $\mathcal{O}_{S, s}$ 上平坦。
+由若干极限论证（Lemma \ref{equiv-lemma-limit-arguments}），存在仿射开集
+$U(z) \subset X \times_S Y$，它是 $z$ 的邻域；并存在闭子概形
+$Z(z) \subset U(z)$，使得
+\begin{enumerate}
+\item $Z(z) \to U(z)$ 是正则闭浸入；
+\item $K|_{U(z)}$ 拟同构于 $\mathcal{O}_{Z(z)}$；
+\item $Z(z) \to S$ 平坦；
+\item $Z(z)_s = \Delta_{Y_s/k}(Y_s) \cap U(z)_s$
+作为 $U(z)_s$ 的闭子概形成立。
+\end{enumerate}
+
+\noindent
+由性质 (2)，对 $z, z' \in Y_s \times Y_s$，有
+$Z(z) \cap U(z') = Z(z') \cap U(z)$，等式在闭子概形意义下成立。因此得到开邻域
+$$
+U = \bigcup\nolimits_{z \in Y_s \times Y_s\text{ 闭}} U(z)
+$$
+，它是 $Y_s \times Y_s$ 在 $X \times_S Y$ 中的开邻域；并得到闭子概形 $Z \subset U$，
+使得 (1) $Z \to U$ 是正则闭浸入，(2) $Z \to S$ 平坦，并且
+(3) $Z_s = \Delta_{Y_s/k}(Y_s)$。由于 $X \times_S Y \to S$ 固有，把 $S$
+替换为 $s$ 的某个开邻域后，可假设 $U = X \times_S Y$。由于投影
+$Z_s \to Y_s$ 与 $Z_s \to X_s$ 都是同构，缩小 $S$ 后可假设
+$Z \to Y$ 与 $Z \to X$ 都是同构；见 Lemma
+\ref{equiv-lemma-isomorphism-in-neighbourhood}。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-no-deformations-better}
+设 $k$ 为代数闭域，并设 $X$ 为 $k$ 上的光滑固有概形。设
+$f : Y \to S$ 为光滑固有态射，其中 $S$ 在 $k$ 上有限型。设 $K$ 为从
+$X \times S$ 到 $Y$、定义在 $S$ 上的相对等价的 Fourier--Mukai 核。则 $S$
+可由开子概形 $U$ 覆盖，使得存在 $U$-同构
+$f^{-1}(U) \cong Y_0 \times U$，其中某个 $Y_0$ 在 $k$ 上固有且光滑。
+\end{lemma}
+
+\begin{proof}
+选取闭点 $s \in S$。由于 $k$ 代数闭，这是一个 $k$-有理点。令 $Y_0 = Y_s$。
+记 $K_0$ 为 $K$ 到 $X \times Y_0$ 的限制。由 Lemma \ref{equiv-lemma-base-change-rek}，它
+是从 $X$ 到 $Y_0$、定义在 $\Spec(k)$ 上的相对等价的 Fourier--Mukai 核。
+设 $K'_0$ 为 $D_{perf}(\mathcal{O}_{Y_0 \times X})$ 中由 Definition
+\ref{equiv-definition-relative-equivalence-kernel} 假定存在的对象。则由 Definition
+\ref{equiv-definition-relative-equivalence-kernel} 所固有的对称性，$K'_0$ 是从 $Y_0$ 到 $X$、
+定义在 $\Spec(k)$ 上的相对等价的 Fourier--Mukai 核。因此由 Lemma
+\ref{equiv-lemma-base-change-rek}，拉回
+$$
+M = (Y_0 \times X \times S \to Y_0 \times X)^*K'_0
+$$
+（定义在 $(Y_0 \times S) \times_S (X \times S) = Y_0 \times X \times S$ 上）
+是从 $Y_0 \times S$ 到 $X \times S$、定义在 $S$ 上的相对等价的 Fourier--Mukai 核。
+现在考虑核
+$$
+K_{new} =
+R\text{pr}_{13, *}(L\text{pr}_{12}^*M
+\otimes_{\mathcal{O}_{(Y_0 \times S) \times_S (X \times S)
+\times_S Y}}^\mathbf{L}
+L\text{pr}_{23}^*K)
+$$
+，它定义在 $(Y_0 \times S) \times_S Y$ 上。这是从 $Y_0 \times S$ 到 $Y$、
+定义在 $S$ 上的相对等价的 Fourier--Mukai 核，因为它是 Section
+\ref{equiv-section-category-Fourier-Mukai-kernels} 所构造范畴中两个可逆箭头的复合。
+此外，该复合与基变换相容（Lemma \ref{equiv-lemma-base-change-is-functor}）。因此可知，
+$K_{new}$ 到 $((Y_0 \times S) \times_S Y)_s = Y_0 \times Y_0$ 的拉回等于
+$K_0$ 与 $K'_0$ 的复合，因而等于此范畴中的恒等元。换言之，
+$$
+L(Y_0 \times Y_0 \to (Y_0 \times S) \times_S Y)^*K_{new}
+\cong
+\Delta_{Y_0/k, *}\mathcal{O}_{Y_0}
+$$
+因此由 Lemma \ref{equiv-lemma-no-deformations}，$Y \to S$ 同构于 $Y_0 \times S$，
+该同构在 $s$ 的某个开邻域上成立。证明完毕。
+\end{proof}
+
+
+
+
+
+
+\section{可数性}
+\label{equiv-section-countability}
+
+\noindent
+本节证明关于某些集合之可数性的若干初等引理。设 $\mathcal{C}$ 为范畴。
+本节称 $\mathcal{C}$ 为{\it 可数的}，如果
+\begin{enumerate}
+\item 对任意 $X, Y \in \Ob(\mathcal{C})$，集合 $\Mor_\mathcal{C}(X, Y)$ 可数；并且
+\item $\mathcal{C}$ 的对象同构类之集合可数。
+\end{enumerate}
+
+\begin{lemma}
+\label{equiv-lemma-countable-finite-type}
+设 $R$ 为可数 Noether 环。则 $R$ 上有限型概形的范畴可数。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-countable-abelian}
+设 $\mathcal{A}$ 为可数阿贝尔范畴。则 $D^b(\mathcal{A})$ 可数。
+\end{lemma}
+
+\begin{proof}
+只需对 $D(\mathcal{A})$ 证明该陈述，因为其他范畴都是它的全子范畴。由于
+$D(\mathcal{A})$ 中每个对象都是由 $\mathcal{A}$ 的对象组成的复形，立即可知
+$D^b(\mathcal{A})$ 的对象同构类之集合可数。此外，对有界复形
+$A^\bullet$ 与 $B^\bullet$（它们由 $\mathcal{A}$ 的对象组成），显然
+$\Hom_{K^b(\mathcal{A})}(A^\bullet, B^\bullet)$ 可数。
+有
+$$
+\Hom_{D^b(\mathcal{A})}(A^\bullet, B^\bullet) =
+\colim_{s : (A')^\bullet \to A^\bullet
+\text{ qis and }(A')^\bullet\text{ bounded}}
+\Hom_{K^b(\mathcal{A})}((A')^\bullet, B^\bullet)
+$$
+，这是 Derived Categories, Lemma \ref{derived-lemma-bounded-derived}。因此它是可数集，
+因为它是可数个可数集的余极限。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-countable-perfect}
+设 $X$ 为某个可数 Noether 环上的有限型概形。则范畴
+$D_{perf}(\mathcal{O}_X)$ 与 $D^b_{\textit{Coh}}(\mathcal{O}_X)$ 都可数。
+\end{lemma}
+
+\begin{proof}
+由 Morphisms, Lemma \ref{morphisms-lemma-finite-type-noetherian}，$X$ 是 Noether 概形。
+因而由 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-perfect-on-noetherian}，$D_{perf}(\mathcal{O}_X)$ 是
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ 的全子范畴。所以只需对
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ 证明结论。回忆
+$D^b_{\textit{Coh}}(\mathcal{O}_X) = D^b(\textit{Coh}(\mathcal{O}_X))$
+，这是 Derived Categories of Schemes, Proposition \ref{perfect-proposition-DCoh}。
+故由 Lemma \ref{equiv-lemma-countable-abelian}，只需证明
+$\textit{Coh}(\mathcal{O}_X)$ 可数。略去此证明。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-countable-isos}
+设 $K$ 为代数闭域，$S$ 为 $K$ 上的有限型概形，并设 $X \to S$ 与 $Y \to S$
+为有限型态射。存在可数集 $I$，并且对 $i \in I$ 存在一对
+$(S_i \to S, h_i)$，满足下列性质：
+\begin{enumerate}
+\item $S_i \to S$ 是有限型态射；令 $X_i = X \times_S S_i$ 与
+$Y_i = Y \times_S S_i$；
+\item $h_i : X_i \to Y_i$ 是 $S_i$ 上的同构；
+\item 对任意闭点 $s \in S(K)$，若 $X_s \cong Y_s$ 在 $K = \kappa(s)$ 上成立，
+则 $s$ 属于 $S_i \to S$ 的像，其中 $i$ 为某个指标。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+域 $K$ 是其可数子域的滤过并。对偶地，$\Spec(K)$ 是 $K$ 的这些可数子域之谱的
+余滤过极限。因此 Limits, Lemma \ref{limits-lemma-descend-finite-presentation}
+保证存在可数子域 $k$，以及态射 $X_0 \to S_0$ 与 $Y_0 \to S_0$；这些态射位于
+$k$ 上的有限型概形之间，并使得 $X \to S$ 与 $Y \to S$ 是它们的基变换。
+
+\medskip\noindent
+由 Lemma \ref{equiv-lemma-countable-finite-type}，存在可数集 $I$ 与若干对
+$(S_{0, i} \to S_0, h_{0, i})$，满足
+\begin{enumerate}
+\item $S_{0, i} \to S_0$ 是有限型态射；令
+$X_{0, i} = X_0 \times_{S_0} S_{0, i}$ 与
+$Y_{0, i} = Y_0 \times_{S_0} S_{0, i}$；
+\item $h_{0, i} : X_{0, i} \to Y_{0, i}$ 是 $S_{0, i}$ 上的同构。
+\end{enumerate}
+而且每一对 $(T \to S_0, h_T)$，其中 $T \to S_0$ 有限型且
+$h_T : X_0 \times_{S_0} T \to Y_0 \times_{S_0} T$ 为同构，都同构于上述某一对。
+记 $(S_i \to S, h_i)$ 为 $(S_{0, i} \to S_0, h_{0, i})$ 沿
+$\Spec(K) \to \Spec(k)$ 的基变换。我们断言这组数据满足要求。
+
+\medskip\noindent
+设 $s \in S(K)$，并设 $h_s : X_s \to Y_s$ 为 $K = \kappa(s)$ 上的同构。
+可把 $K$ 写成其有限生成 $k$-子代数的滤过并。因此由 Limits, Proposition
+\ref{limits-proposition-characterize-locally-finite-presentation} 与 Lemma
+\ref{limits-lemma-descend-finite-presentation}，可找到这样的有限生成 $k$-子代数
+$K \supset A \supset k$，使得
+\begin{enumerate}
+\item 存在交换图表
+$$
+\xymatrix{
+\Spec(K) \ar[d]_s \ar[r] &
+\Spec(A) \ar[d]^{s'} \\
+S \ar[r] &
+S_0}
+$$
+其中 $s' : \Spec(A) \to S_0$ 是 $k$ 上的某个态射；
+\item $h_s$ 是下列同构的基变换：
+$h_{s'} : X_0 \times_{S_0, s'} \Spec(A) \to
+X_0 \times_{S_0, s'} \Spec(A)$，该同构定义在 $A$ 上。
+\end{enumerate}
+于是 $(s' : \Spec(A) \to S_0, h_{s'})$ 当然同构于
+$(S_{0, i} \to S_0, h_{0, i})$，其中 $i \in I$。这便完成证明，因为 (1) 中的交换图表说明，
+$s$ 属于 $s'$ 到 $\Spec(K)$ 的基变换之像。
+\end{proof}
+
+\begin{lemma}
+\label{equiv-lemma-countable-equivs}
+设 $K$ 为代数闭域。存在可数集 $I$，并且对 $i \in I$ 存在一组
+$(S_i/K, X_i \to S_i, Y_i \to S_i, M_i)$，满足下列性质：
+\begin{enumerate}
+\item $S_i$ 是 $K$ 上的有限型概形；
+\item $X_i \to S_i$ 与 $Y_i \to S_i$ 都是光滑固有概形态射；
+\item $M_i \in D_{perf}(\mathcal{O}_{X_i \times_{S_i} Y_i})$
+是从 $X_i$ 到 $Y_i$、定义在 $S_i$ 上的相对等价的 Fourier--Mukai 核；
+\item 对任意光滑固有概形 $X$ 与 $Y$（它们定义在 $K$ 上），若存在 $K$-线性正合等价
+$D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+，则存在 $i \in I$ 与 $s \in S_i(K)$，使得
+$X \cong (X_i)_s$ 且 $Y \cong (Y_i)_s$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+选取可数子域 $k \subset K$，例如素域。由 Lemmas
+\ref{equiv-lemma-countable-finite-type} 与 \ref{equiv-lemma-countable-perfect}，满足本引理 (1)、(2)、(3)
+的 $k$ 上系统只有可数多个同构类。因此可选取可数集 $I$，并对每个 $i \in I$
+选取一个这样的系统
+$$
+(S_{0, i}/k, X_{0, i} \to S_{0, i}, Y_{0, i} \to S_{0, i}, M_{0, i})
+$$
+，它定义在 $k$ 上，并使每个同构类至少出现一次。记
+$(S_i/K, X_i \to S_i, Y_i \to S_i, M_i)$ 为上述系统到 $K$ 的基变换。
+由 Lemma \ref{equiv-lemma-base-change-rek}，该系统具有性质 (1)、(2)、(3)。下面证明性质 (4)。
+
+\medskip\noindent
+考虑光滑固有概形 $X$ 与 $Y$（它们定义在 $K$ 上），并设有 $K$-线性正合等价
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$。
+由 Proposition \ref{equiv-proposition-equivalence}，可假设存在对象
+$M \in D_{perf}(\mathcal{O}_{X \times Y})$，使得 $F = \Phi_M$ 是相应的
+Fourier--Mukai 函子。由 Lemma \ref{equiv-lemma-fourier-mukai-flat-proper-over-noetherian}，
+存在 $M'$，它属于 $D_{perf}(\mathcal{O}_{Y \times X})$，使得 $\Phi_{M'}$ 是 $\Phi_M$
+的右伴随。由于 $\Phi_M$ 是等价，这说明 $\Phi_{M'}$ 是 $\Phi_M$ 的拟逆。
+由 Lemma \ref{equiv-lemma-fourier-mukai-flat-proper-over-noetherian}，下列对象所定义的
+Fourier--Mukai 函子
+$$
+A = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*M
+\otimes_{\mathcal{O}_{X \times Y \times X}}^\mathbf{L}
+L\text{pr}_{23}^*M')
+$$
+（该对象属于 $D_{perf}(\mathcal{O}_{X \times X})$）以及
+$$
+B = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*M'
+\otimes_{\mathcal{O}_{Y \times X \times Y}}^\mathbf{L}
+L\text{pr}_{23}^*M)
+$$
+（该对象属于 $D_{perf}(\mathcal{O}_{Y \times Y})$）分别同构于
+$\text{id} : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$
+与
+$\text{id} : D_{perf}(\mathcal{O}_Y) \to D_{perf}(\mathcal{O}_Y)$
+。因此
+$A \cong \Delta_{X/K, *}\mathcal{O}_X$ 且
+$B \cong \Delta_{Y/K, *}\mathcal{O}_Y$，这是 Lemma \ref{equiv-lemma-uniqueness}。
+故由定义，$M$ 是从 $X$ 到 $Y$、定义在 $K$ 上的相对等价的 Fourier--Mukai 核。
+
+\medskip\noindent
+可把 $K$ 写成其有限型 $k$-子代数 $A \subset K$ 的滤过余极限。由 Limits, Lemma
+\ref{limits-lemma-descend-finite-presentation}，可找到 $X_0, Y_0$，它们在 $A$ 上有限型，
+它们到 $K$ 的基变换分别产生 $X$ 与 $Y$。由 Limits, Lemmas
+\ref{limits-lemma-eventually-proper} 与 \ref{limits-lemma-descend-smooth}，增大 $A$ 后，
+可假设 $X_0$ 与 $Y_0$ 在 $A$ 上光滑且固有。由 Lemma \ref{equiv-lemma-descend-rek}，
+再次增大 $A$ 后，可假设 $M$ 是某个
+$M_0  \in D_{perf}(\mathcal{O}_{X_0 \times_{\Spec(A)} Y_0})$ 的拉回；该对象是从
+$X_0$ 到 $Y_0$、定义在 $\Spec(A)$ 上的相对等价的 Fourier--Mukai 核。因此
+$(S_0/k, X_0 \to S_0, Y_0 \to S_0, M_0)$ 同构于
+$(S_{0, i}/k, X_{0, i} \to S_{0, i}, Y_{0, i} \to S_{0, i}, M_{0, i})$
+，其中 $i \in I$。由于 $S_i = S_{0, i} \times_{\Spec(k)} \Spec(K)$，
+性质 (4) 对 $s : \Spec(K) \to S_i$ 成立；该态射由
+$\Spec(K) \to \Spec(A) \cong S_{0, i}$ 诱导，而后者来自 $A \subset K$。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{导出等价簇的可数性}
+\label{equiv-section-countable-derived-equivalent}
+
+\noindent
+本节证明 Anel 和 To\"en 的一个结果，见 \cite{AT}。
+
+\begin{definition}
+\label{equiv-definition-derived-equivalent}
+设 $k$ 为域，$X$ 和 $Y$ 为 $k$ 上的光滑射影概形。称 $X$ 和 $Y$
+是{\it 导出等价的}，是指存在一个 $k$-线性的正合等价
+$D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+\end{definition}
+
+\noindent
+结果如下。
+
+\begin{theorem}
+\label{equiv-theorem-countable}
+\begin{reference}
+对 \cite{AT} 的轻微改进
+\end{reference}
+设 $K$ 为代数闭域。设 $\mathbf{X}$ 为 $K$ 上的光滑固有概形。光滑固有概形
+$\mathbf{Y}$（定义在 $K$ 上且与 $\mathbf{X}$ 导出等价）的同构类至多可数。
+\end{theorem}
+
+\begin{proof}
+取一个可数集 $I$，并对每个 $i \in I$ 取满足引理
+\ref{equiv-lemma-countable-equivs} 的性质 (1)、(2)、(3) 和 (4) 的系统
+$(S_i/K, X_i \to S_i, Y_i \to S_i, M_i)$。固定 $i \in I$，并置
+$S = S_i$、$X = X_i$、$Y = Y_i$ 以及 $M = M_i$。显然，只需证明：
+纤维 $Y_s$ 的同构类所成之集是可数的，其中 $s \in S(K)$ 且
+$X_s \cong \mathbf{X}$。我们在下一段证明这一点。
+
+\medskip\noindent
+设 $S$ 为 $K$ 上的有限型概形，$X \to S$ 和 $Y \to S$ 为固有光滑态射，
+并设 $M \in D_{perf}(\mathcal{O}_{X \times_S Y})$ 为一个从 $X$ 到 $Y$、
+定义在 $S$ 上的相对等价的 Fourier--Mukai 核。我们将证明：纤维 $Y_s$ 的同构类
+所成之集是可数的，其中 $s \in S(K)$ 且 $X_s \cong \mathbf{X}$。对族
+$\mathbf{X} \times S \to S$ 和 $X \to S$ 应用引理
+\ref{equiv-lemma-countable-isos}，可得一个可数集 $I$，并对每个 $i \in I$
+得到一对 $(S_i \to S, h_i)$，满足下列性质：
+\begin{enumerate}
+\item $S_i \to S$ 是有限型态射，并置 $X_i = X \times_S S_i$；
+\item $h_i : \mathbf{X} \times S_i \to X_i$ 是 $S_i$ 上的同构；
+\item 对任意闭点 $s \in S(K)$，如果同构 $\mathbf{X} \cong X_s$ 是定义在
+$K = \kappa(s)$ 上的，则点 $s$ 位于态射 $S_i \to S$（对某个 $i$）的像中。
+\end{enumerate}
+置 $Y_i = Y \times_S S_i$，并用
+$M_i \in D_{perf}(\mathcal{O}_{X_i \times_{S_i} Y_i})$
+表示 $M$ 的拉回。由引理 \ref{equiv-lemma-base-change-rek}，$M_i$ 是一个从 $X_i$ 到
+$Y_i$、定义在 $S_i$ 上的相对等价的 Fourier--Mukai 核。由于 $I$ 可数，
+由性质 (3)，只需证明纤维 $Y_{i, s}$ 的同构类所成之集是可数的，其中
+$s \in S_i(K)$。事实上，由引理 \ref{equiv-lemma-no-deformations-better}，这个数是有限的，
+证明完毕。
+\end{proof}

@@ -1,0 +1,2619 @@
+% Generated mechanically from the frozen adequate.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{45}
+\chapter{适足模}
+
+
+
+\phantomsection
+\label{adequate-section-phantom}
+
+
+\section{引言}
+\label{adequate-section-introduction}
+
+\noindent
+对任意概形 $X$，准凝聚模范畴 $\QCoh(\mathcal{O}_X)$ 是阿贝尔范畴，并且是所有
+$\mathcal{O}_X$-模所成阿贝尔范畴的一个弱 Serre 子范畴。把代数空间 $X$ 上的准凝聚模范畴
+视为 $X$ 的小 \'etale 位点上所有 $\mathcal{O}_X$-模所成范畴的子范畴时，同样的结论成立。
+此外，对于拟紧且拟分离的态射 $f : X \to Y$，推前 $f_*$ 及高阶直像都保持准凝聚性。
+
+\medskip\noindent
+接下来，设 $X$ 为概形，$\mathcal{O}$ 为 $X$ 的某个大位点（例如大 fppf 位点）上的结构层。
+准凝聚 $\mathcal{O}$-模范畴是阿贝尔范畴（事实上，它等价于上面提到的概形 $X$ 上通常的
+准凝聚 $\mathcal{O}_X$-模范畴），但它嵌入 $\textit{Mod}(\mathcal{O})$ 的函子并不正合。
+例如，在 $\mathbf{A}^1_k = \Spec(k[x])$ 上考虑由乘以 $x$ 给出的准凝聚模映射
+$$
+\mathcal{O}_{\mathbf{A}^1_k}
+\longrightarrow
+\mathcal{O}_{\mathbf{A}^1_k}
+$$
+在准凝聚层的阿贝尔范畴中，此映射是单射；然而在 $\mathbf{A}^1_k$ 的大位点上所有
+$\mathcal{O}$-模所成的阿贝尔范畴中，它有非平凡核。这一点可通过在
+$\Spec(k[x]/(x)) = \Spec(k)$ 上取截面看出。此外，对于拟紧且拟分离的态射
+$f : X \to Y$，函子 $f_{big, *}$ 并不保持准凝聚性。
+
+\medskip\noindent
+本章引入一类称为适足模的对象。它们与准凝聚模密切相关，并“修复”上述两个问题。
+另一种方案将在讨论代数栈上的准凝聚模时采用：考虑局部准凝聚且满足平坦基变换性质的
+$\mathcal{O}$-模。参见《栈上同调》第
+\ref{stacks-cohomology-section-loc-qcoh-flat-base-change} 节、《栈上同调》评注
+\ref{stacks-cohomology-remark-bousfield-colocalization}，以及《栈的导出范畴》第
+\ref{stacks-perfect-section-derived} 节。
+
+
+
+
+
+
+\section{约定}
+\label{adequate-section-conventions}
+
+\noindent
+本章固定
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$，
+并固定《拓扑》第 \ref{topologies-section-procedure} 节所述的一个大
+$\tau$-位点 $\Sch_\tau$。所有概形均视为 $\Sch_\tau$ 的对象。特别地，给定概形 $S$，
+可得位点
+$(\textit{Aff}/S)_\tau \subset (\Sch/S)_\tau$。
+这些位点上的结构层 $\mathcal{O}$ 由规则
+$\mathcal{O}(T) = \Gamma(T, \mathcal{O}_T)$ 定义。
+
+\medskip\noindent
+以下所有环 $A$ 都满足 $\Spec(A)$（同构于）$\Sch_\tau$ 的一个对象。给定环 $A$，
+以 $\textit{Alg}_A$ 表示如下 $A$-代数范畴：其对象是形如
+$B = \Gamma(U, \mathcal{O}_U)$ 的 $A$-代数 $B$，其中 $U$ 是 $\Sch_\tau$ 的仿射对象。
+因此，给定仿射概形 $S = \Spec(A)$，函子
+$$
+(\textit{Aff}/S)_\tau \longrightarrow \textit{Alg}_A,
+\quad
+U \longmapsto \mathcal{O}(U)
+$$
+是一个等价。
+
+
+
+
+
+\section{适足函子}
+\label{adequate-section-quasi-coherent}
+
+\noindent
+本节讨论一个与准凝聚层的直像密切相关的主题。其中大部分材料取自论文
+\cite{Jaffe}。
+
+\begin{definition}
+\label{adequate-definition-module-valued-functor}
+设 $A$ 为环。所谓{\it 模值函子}，是满足下列条件的函子
+$F : \textit{Alg}_A \to \textit{Ab}$：
+\begin{enumerate}
+\item 对 $\textit{Alg}_A$ 的每个对象 $B$，群 $F(B)$ 都赋有 $B$-模结构；
+\item 对 $\textit{Alg}_A$ 的任意态射 $B \to B'$，映射
+$F(B) \to F(B')$ 是 $B$-线性的。
+\end{enumerate}
+所谓{\it 模值函子之间的态射}，是函子变换 $\varphi : F \to G$，使得对所有
+$B \in \Ob(\textit{Alg}_A)$，映射 $F(B) \to G(B)$ 都是 $B$-线性的。
+\end{definition}
+
+\noindent
+设 $S = \Spec(A)$ 为仿射概形。$\textit{Alg}_A$ 上的模值函子范畴等价于
+
+$\mathcal{O}$-模预层范畴
+$\textit{PMod}((\textit{Aff}/S)_\tau, \mathcal{O})$。
+该等价把模值函子 $F$ 送到由规则
+$\mathcal{F}(U) = F(\mathcal{O}(U))$
+定义的预层 $\mathcal{F}$。这直接来自第 \ref{adequate-section-conventions} 节给出的等价
+$(\textit{Aff}/S)_\tau \to \textit{Alg}_A$, $U \mapsto \mathcal{O}(U)$。
+其拟逆由 $F(B) = \mathcal{F}(\Spec(B))$ 给出。
+
+\medskip\noindent
+模值函子的一个重要特例构造如下。设 $M$ 为 $A$-模。用 $\underline{M}$ 表示
+模值函子 $B \mapsto M \otimes_A B$（带有显然的 $B$-模结构）。注意，若
+$M \to N$ 是 $A$-模映射，则它诱导模值函子之间的态射
+$\underline{M} \to \underline{N}$。反过来，任意模值函子态射
+$\underline{M} \to \underline{N}$ 都来自某个 $A$-模映射 $M \to N$；
+在 $B = A$ 处取值即可看出这一点。换言之，$\text{Mod}_A$ 是
+$\textit{Alg}_A$ 上模值函子范畴的满子范畴。
+
+\medskip\noindent
+给定 $A$-模映射 $\varphi : M \to N$，由于 $\otimes$ 右正合，有
+$\Coker(\underline{M} \to \underline{N}) =
+\underline{Q}$，其中 $Q = \Coker(M \to N)$。但核一般没有相同的性质：
+例如，$A$-模的单射在基变换后未必仍是单射。因此下述定义是自然的。
+
+\begin{definition}
+\label{adequate-definition-adequate-functor}
+设 $A$ 为环。称 $\textit{Alg}_A$ 上的模值函子 $F$
+\begin{enumerate}
+\item 为{\it 适足的}，若存在 $A$-模映射 $M \to N$，使得 $F$ 同构于
+$\Ker(\underline{M} \to \underline{N})$；
+\item 为{\it 线性适足的}，若 $F$ 同构于某个映射
+$\underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$ 的核。
+\end{enumerate}
+\end{definition}
+
+\noindent
+注意，$F$ 适足当且仅当存在正合列
+$0 \to F \to \underline{M} \to \underline{N}$；而 $F$ 线性适足当且仅当存在正合列
+$0 \to F \to \underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$。
+
+\medskip\noindent
+设 $A$ 为环。本节将证明，$\textit{Alg}_A$ 上的适足函子构成阿贝尔范畴
+（引理 \ref{adequate-lemma-cokernel-adequate} 与 \ref{adequate-lemma-kernel-adequate}），
+并且有一族生成元（引理 \ref{adequate-lemma-adequate-surjection-from-linear}）。
+我们还将看到，它是 $\textit{Alg}_A$ 上所有模值函子所成范畴的弱 Serre 子范畴
+（引理 \ref{adequate-lemma-extension-adequate}），并且具有任意余极限
+（引理 \ref{adequate-lemma-colimit-adequate}）。
+
+\begin{lemma}
+\label{adequate-lemma-adequate-finite-presentation}
+设 $A$ 为环，$F$ 为 $\textit{Alg}_A$ 上的适足函子。若
+$B = \colim B_i$ 是 $A$-代数的滤过余极限，则
+$F(B) = \colim F(B_i)$。
+\end{lemma}
+
+\begin{proof}
+这是因为，对任意 $A$-模 $M$，都有
+$M \otimes_A B = \colim M \otimes_A B_i$（参见《代数》引理
+\ref{algebra-lemma-tensor-products-commute-with-limits}），
+并且滤过余极限与正合列可交换；参见《代数》引理
+\ref{algebra-lemma-directed-colimit-exact}。
+\end{proof}
+
+ 
+\begin{remark}
+\label{adequate-remark-settheoretic}
+考虑范畴 $\textit{Alg}_{fp, A}$：其对象是形如
+$B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ 的 $A$-代数 $B$，
+态射为 $A$-代数映射。每个 $A$-代数 $B$ 都是有限表示
+$A$-代数的滤过余极限，也就是 $\textit{Alg}_{fp, A}$ 中对象的滤过余极限。
+由引理 \ref{adequate-lemma-adequate-finite-presentation} 可知，每个适足函子 $F$
+都由其在 $\textit{Alg}_{fp, A}$ 上的限制决定。因此，对于某些问题，
+可以只考虑 $\textit{Alg}_{fp, A}$ 上的函子。例如，适足函子范畴与第
+\ref{adequate-section-conventions} 节所选大 $\tau$-位点无关。
+\end{remark}
+
+\begin{lemma}
+\label{adequate-lemma-adequate-flat}
+设 $A$ 为环，$F$ 为 $\textit{Alg}_A$ 上的适足函子。若
+$B \to B'$ 平坦，则
+$F(B) \otimes_B B' \to F(B')$
+是同构。
+\end{lemma}
+
+\begin{proof}
+选取正合列 $0 \to F \to \underline{M} \to \underline{N}$。
+由此得到图表
+$$
+\xymatrix{
+0 \ar[r] & F(B) \otimes_B B' \ar[r] \ar[d] &
+(M \otimes_A B)\otimes_B B' \ar[r] \ar[d] &
+(N \otimes_A B)\otimes_B B' \ar[d] \\
+0 \ar[r] & F(B') \ar[r] &
+M \otimes_A B' \ar[r] &
+N \otimes_A B'
+}
+$$
+其中两行均正合（上行正合是因为 $B \to B'$ 平坦）。右侧两个竖直箭头均为同构，
+故左侧箭头也是同构。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-adequate-surjection-from-linear}
+设 $A$ 为环，$F$ 为 $\textit{Alg}_A$ 上的适足函子。则存在满射
+$L \to F$，其中 $L$ 是若干线性适足函子的直和。
+\end{lemma}
+
+\begin{proof}
+选取正合列 $0 \to F \to \underline{M} \to \underline{N}$，其中
+$\underline{M} \to \underline{N}$ 由 $\varphi : M \to N$ 给出。
+由引理 \ref{adequate-lemma-adequate-finite-presentation}，只需构造 $L \to F$，
+使得对每个有限表示 $A$-代数 $B$，映射 $L(B) \to F(B)$ 都是满射。
+因此，只需对给定的有限表示 $A$-代数 $B$ 和元素 $\xi \in F(B)$，
+构造线性适足函子 $L$ 及映射 $L \to F$，使 $\xi$ 属于
+$L(B) \to F(B)$ 的像。（这是因为此类对 $(B, \xi)$ 的同构类构成一个集合。）
+
+\medskip\noindent
+为此，把 $\xi$ 在 $\underline{M}(B) = M \otimes_A B$ 中的像写成
+$\sum_{i = 1, \ldots, n} m_i \otimes b_i$。已知
+$\sum \varphi(m_i) \otimes b_i = 0$ 于 $N \otimes_A B$ 中。
+由于 $N$ 是有限表示 $A$-模的滤过余极限，可以找到有限表示 $A$-模 $N'$
+以及 $A$-模的交换图
+$$
+\xymatrix{
+A^{\oplus n} \ar[r] \ar[d]_{m_1, \ldots, m_n} & N' \ar[d] \\
+M \ar[r] & N
+}
+$$
+使得 $(b_1, \ldots, b_n)$ 在 $N' \otimes_A B$ 中映为零。
+选取一个表示 $A^{\oplus l} \to A^{\oplus k} \to N' \to 0$，
+再选取图中映射 $A^{\oplus n} \to N'$ 的一个提升
+$A^{\oplus n} \to A^{\oplus k}$。于是存在
+$(c_1, \ldots, c_l) \in B^{\oplus l}$，使
+$(b_1, \ldots, b_n, c_1, \ldots, c_l)$ 在 $B^{\oplus k}$ 中映为零，
+其中所用映射为 $B^{\oplus n} \oplus B^{\oplus l} \to B^{\oplus k}$。
+考虑交换图
+$$
+\xymatrix{
+A^{\oplus n} \oplus A^{\oplus l} \ar[r] \ar[d] & A^{\oplus k} \ar[d] \\
+M \ar[r] & N
+}
+$$
+其中左侧竖直箭头在直和项 $A^{\oplus l}$ 上为零。令 $L$ 为映射
+$\underline{A^{\oplus n + l}}
+\to \underline{A^{\oplus k}}$ 的核，
+则它满足要求，因为元素
+$(b_1, \ldots, b_n, c_1, \ldots, c_l) \in L(B)$ 映到 $\xi$。
+\end{proof}
+
+\noindent
+考虑分次 $A$-代数 $B = \bigoplus_{d \geq 0} B_d$。有两个 $A$-代数映射
+$p, a : B \to B[t, t^{-1}]$，即 $p : b \mapsto b$，以及当 $b$ 齐次时
+$a : b \mapsto t^{\deg(b)} b$。若 $F$ 是 $\textit{Alg}_A$ 上的模值函子，定义
+\begin{equation}
+\label{adequate-equation-weight-k}
+F(B)^{(k)} = \{\xi \in F(B) \mid t^k F(p)(\xi) = F(a)(\xi)\}.
+\end{equation}
+对于在平坦环扩张下表现良好的函子，这给出一个直和分解。这正是
+$\mathbf{G}_m$ 的表示完全可约这一事实的体现。
+
+\begin{lemma}
+\label{adequate-lemma-flat-functor-split}
+设 $A$ 为环，$F$ 为 $\textit{Alg}_A$ 上的模值函子。假设对每个平坦映射
+$B \to B'$，映射
+$F(B) \otimes_B B' \to F(B')$ 都是同构。设 $B$ 为分次 $A$-代数。则
+\begin{enumerate}
+\item $F(B) = \bigoplus_{k \in \mathbf{Z}} F(B)^{(k)}$；
+\item 映射 $B \to B_0 \to B$ 诱导的映射 $F(B) \to F(B)$
+的像包含于 $F(B)^{(0)}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $x \in F(B)$。映射 $p : B \to B[t, t^{-1}]$ 是自由的，故
+$$
+F(B[t, t^{-1}]) =
+\bigoplus\nolimits_{k \in \mathbf{Z}} F(p)(F(B)) \cdot t^k =
+\bigoplus\nolimits_{k \in \mathbf{Z}} F(B) \cdot t^k
+$$
+如下所示，在证明余下部分中省略记号 $F(p)$。对某些 $x_k \in F(B)$，写
+$F(a)(x) = \sum t^k x_k$。记
+$\epsilon : B[t, t^{-1}] \to B$
+为把 $t \mapsto 1$ 的 $B$-代数映射。注意，复合
+$\epsilon \circ p, \epsilon \circ a : B \to B[t, t^{-1}] \to B$
+均为恒等映射。因此
+$$
+x = F(\epsilon)(F(a)(x)) = F(\epsilon)(\sum t^k x_k) = \sum x_k.
+$$
+另一方面，断言 $x_k \in F(B)^{(k)}$。为此考虑交换图
+$$
+\xymatrix{
+B \ar[r]_a \ar[d]_{a'} &
+B[t, t^{-1}] \ar[d]^f \\
+B[s, s^{-1}] \ar[r]^-g &
+B[t, s, t^{-1}, s^{-1}]
+}
+$$
+其中 $a'(b) = s^{\deg(b)}b$，$f(b) = b$，$f(t) = st$，
+$g(b) = t^{\deg(b)}b$ 且 $g(s) = s$。于是
+$$
+F(g)(F(a'))(x) = F(g)(\sum s^k x_k) =
+\sum s^k F(a)(x_k)
+$$
+沿另一条路径则有
+$$
+F(f)(F(a))(x) = F(f)(\sum t^k x_k) = \sum (st)^k x_k.
+$$
+由于 $B \to B[s, t, s^{-1}, t^{-1}]$ 是自由的，故
+$F(B[t, s, t^{-1}, s^{-1}]) =
+\bigoplus_{k, l \in \mathbf{Z}} F(B) \cdot t^ks^l$。
+比较上述表达式的系数，得到所需的 $F(a)(x_k) = t^k x_k$。
+
+\medskip\noindent
+最后，$F(B_0) \to F(B)$ 的像包含于 $F(B)^{(0)}$，因为
+$B_0 \to B \xrightarrow{a} B[t, t^{-1}]$ 等于
+$B_0 \to B \xrightarrow{p} B[t, t^{-1}]$。
+\end{proof}
+
+\noindent
+作为引理 \ref{adequate-lemma-flat-functor-split} 的一个特例，注意
+$$
+\underline{M}(B)^{(k)} = M \otimes_A B_k
+$$
+其中 $B_k$ 是分次 $A$-代数 $B$ 的 $k$ 次部分。
+
+\begin{lemma}
+\label{adequate-lemma-lift-map}
+设 $A$ 为环。给定 $\textit{Alg}_A$ 上模值函子的实线图表
+$$
+\xymatrix{
+0 \ar[r] &
+L \ar[d]_\varphi \ar[r] &
+\underline{A^{\oplus n}} \ar[r] \ar@{..>}[ld] &
+\underline{A^{\oplus m}} \\
+& \underline{M}
+}
+$$
+且其行正合，则存在使图表交换的虚线箭头。
+\end{lemma}
+
+\begin{proof}
+假设映射 $A^{\oplus n} \to A^{\oplus m}$ 由 $m \times n$ 矩阵
+$(a_{ij})$ 给出。考虑环
+$B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$。元素
+$(x_1, \ldots, x_n) \in \underline{A^{\oplus n}}(B)$ 在
+$\underline{A^{\oplus m}}(B)$ 中映为零，因而是唯一元素
+$\xi \in L(B)$ 的像。注意，$\xi$ 具有如下泛性质：对任意 $A$-代数 $C$
+和任意 $\xi' \in L(C)$，存在 $A$-代数映射 $B \to C$，使得
+$\xi$ 经映射 $L(B) \to L(C)$ 映到 $\xi'$。
+
+\medskip\noindent
+注意，$B$ 是分次 $A$-代数，因而可用引理
+\ref{adequate-lemma-flat-functor-split} 与 \ref{adequate-lemma-adequate-flat}
+把这些函子在 $B$ 上的取值分解为分次部分。由于
+$(x_1, \ldots, x_n)$ 是 $\underline{A^{\oplus n}}(B)$ 中的一次元素，
+故 $\xi \in L(B)^{(1)}$。于是
+$\varphi(\xi) \in \underline{M}(B)^{(1)} = M \otimes_A B_1$。
+由于 $B_1$ 作为 $A$-模由 $x_1, \ldots, x_n$ 生成，可以写成
+$\varphi(\xi) = \sum m_i \otimes x_i$。考虑映射
+$A^{\oplus n} \to M$，它把第 $i$ 个基向量送到 $m_i$。
+按构造，所诱导的映射
+$\underline{A^{\oplus n}} \to \underline{M}$
+把元素 $\xi$ 送到 $\varphi(\xi)$。由上述泛性质可知该图表交换。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-cokernel-into-module}
+设 $A$ 为环，$\varphi : F \to \underline{M}$ 为 $\textit{Alg}_A$
+上模值函子之间的映射，并设 $F$ 适足。则 $\Coker(\varphi)$ 适足。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{adequate-lemma-adequate-surjection-from-linear}，可设
+$F = \bigoplus L_i$ 是若干线性适足函子的直和。选取正合列
+$0 \to L_i \to \underline{A^{\oplus n_i}} \to \underline{A^{\oplus m_i}}$。
+对每个 $i$，依引理 \ref{adequate-lemma-lift-map} 选取映射
+$A^{\oplus n_i} \to M$。考虑图表
+$$
+\xymatrix{
+0 \ar[r] &
+\bigoplus L_i  \ar[r] \ar[d] &
+\bigoplus \underline{A^{\oplus n_i}} \ar[r] \ar[ld] &
+\bigoplus \underline{A^{\oplus m_i}} \\
+& \underline{M}
+}
+$$
+考虑 $A$-模
+$$
+Q =
+\Coker(\bigoplus A^{\oplus n_i} \to M \oplus \bigoplus A^{\oplus m_i})
+\quad\text{且}\quad
+P = \Coker(\bigoplus A^{\oplus n_i} \to \bigoplus A^{\oplus m_i}).
+$$
+于是 $\Coker(\varphi)$ 同构于 $\underline{Q} \to \underline{P}$ 的核。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-cokernel-adequate}
+\begin{slogan}
+环上的代数范畴中，适足函子之间映射的余核仍然适足。
+\end{slogan}
+设 $A$ 为环，$\varphi : F \to G$ 为 $\textit{Alg}_A$ 上适足函子之间的映射。
+则 $\Coker(\varphi)$ 适足。
+\end{lemma}
+
+\begin{proof}
+选取单射 $G \to \underline{M}$。于是有单射
+$G/F \to \underline{M}/F$。由引理 \ref{adequate-lemma-cokernel-into-module}，
+$\underline{M}/F$ 适足，因而可找到单射
+$\underline{M}/F \to \underline{N}$。
+复合后得到单射 $G/F \to \underline{N}$。再由引理
+\ref{adequate-lemma-cokernel-into-module}，所诱导映射
+$G \to \underline{N}$ 的余核适足，故可找到单射
+$\underline{N}/G \to \underline{K}$。于是
+$0 \to G/F \to \underline{N} \to \underline{K}$ 正合，结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-kernel-adequate}
+设 $A$ 为环，$\varphi : F \to G$ 为 $\textit{Alg}_A$ 上适足函子之间的映射。
+则 $\Ker(\varphi)$ 适足。
+\end{lemma}
+
+\begin{proof}
+选取单射 $F \to \underline{M}$ 和单射
+$G \to \underline{N}$。把 $F \to \underline{M \oplus N}$
+记作对角映射，使图表
+$$
+\xymatrix{
+F \ar[d] \ar[r] & G \ar[d] \\
+\underline{M \oplus N} \ar[r] & \underline{N}
+}
+$$
+交换。由引理 \ref{adequate-lemma-cokernel-adequate}，可找到模映射
+$M \oplus N \to K$，使得 $F$ 是
+$\underline{M \oplus N} \to \underline{K}$ 的核。
+于是 $\Ker(\varphi)$ 是
+$\underline{M \oplus N} \to \underline{K \oplus N}$ 的核。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-colimit-adequate}
+设 $A$ 为环。$\textit{Alg}_A$ 上适足函子的任意直和仍然适足；
+适足函子的余极限也适足。
+\end{lemma}
+
+\begin{proof}
+关于直和的断言是直接的。一般余极限可写成两个直和之间某个映射的核；参见
+《范畴》引理 \ref{categories-lemma-colimits-coproducts-coequalizers}。
+因此结论由引理 \ref{adequate-lemma-kernel-adequate} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-flat-linear-functor}
+设 $A$ 为环，$F, G$ 为 $\textit{Alg}_A$ 上的模值函子，
+$\varphi : F \to G$ 为函子变换。假设
+\begin{enumerate}
+\item $\varphi$ 可加；
+\item 对每个 $A$-代数 $B$、$\xi \in F(B)$ 以及单位
+$u \in B^*$，在 $G(B)$ 中有 $\varphi(u\xi) = u\varphi(\xi)$；
+\item 对任意平坦环映射 $B \to B'$，有
+$G(B) \otimes_B B' = G(B')$。
+\end{enumerate}
+则 $\varphi$ 是模值函子之间的态射。
+\end{lemma}
+
+\begin{proof}
+设 $B$ 为 $A$-代数，$\xi \in F(B)$ 且 $b \in B$。需证明
+$\varphi(b \xi) = b \varphi(\xi)$。考虑环映射
+$$
+B \to B' = B[x, y, x^{-1}, y^{-1}]/(x + y - b).
+$$
+此环映射忠实平坦，故 $G(B) \subset G(B')$。另一方面，
+$$
+\varphi(b\xi) = \varphi((x + y)\xi) =
+\varphi(x\xi) + \varphi(y\xi) = x\varphi(\xi) + y\varphi(\xi)
+= (x + y)\varphi(\xi) = b\varphi(\xi)
+$$
+这是因为 $x, y$ 在 $B'$ 中都是单位。结论成立。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-extension-adequate-key}
+设 $A$ 为环，并设
+$0 \to \underline{M} \to G \to L \to 0$
+是 $\textit{Alg}_A$ 上模值函子的短正合列，其中 $L$ 线性适足。则 $G$ 适足。
+\end{lemma}
+
+\begin{proof}
+先指出：对任意平坦 $A$-代数映射 $B \to B'$，映射
+$G(B) \otimes_B B' \to G(B')$ 是同构。事实上，这对
+$\underline{M}$ 与 $L$ 成立，见引理 \ref{adequate-lemma-adequate-flat}；
+于是由五引理对 $G$ 也成立。特别地，由引理
+\ref{adequate-lemma-flat-functor-split}，对任意分次 $A$-代数 $B$，有
+$G(B) = \bigoplus_{k \in \mathbf{Z}} G(B)^{(k)}$。
+
+\medskip\noindent
+选取正合列
+$0 \to L \to \underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$。
+设映射 $A^{\oplus n} \to A^{\oplus m}$ 由 $m \times n$ 矩阵
+$(a_{ij})$ 给出。考虑分次 $A$-代数
+$B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$。元素
+$(x_1, \ldots, x_n) \in \underline{A^{\oplus n}}(B)$ 在
+$\underline{A^{\oplus m}}(B)$ 中映为零，故它是唯一元素
+$\xi \in L(B)$ 的像。注意 $\xi \in L(B)^{(1)}$。映射
+$$
+\Hom_A(B, C) \longrightarrow L(C), \quad
+f \longmapsto L(f)(\xi)
+$$
+定义一个函子同构。原因是 $f$ 由像
+$c_i = f(x_i) \in C$ 决定，而这些像必须满足关系
+$\sum a_{ij}c_j = 0$；另一方面，$L(C)$ 正是满足关系
+$\sum a_{ij} c_j = 0$ 的 $n$-元组 $(c_1, \ldots, c_n)$ 所成集合。
+
+\medskip\noindent
+根据上述引理，函子 $\underline{M}$、$G$、$L$ 在 $B$ 上的取值均为各权空间的直和。
+因此，$0 \to \underline{M} \to G \to L \to 0$ 的正合性蕴含序列
+$0 \to \underline{M}(B)^{(1)} \to G(B)^{(1)} \to L(B)^{(1)} \to 0$
+正合。于是可以选取映到 $\xi$ 的元素 $\theta \in G(B)^{(1)}$。
+
+\medskip\noindent
+考虑分次 $A$-代数
+$$
+C = A[x_1, \ldots, x_n, y_1, \ldots, y_n]/
+(\sum a_{ij}x_j, \sum a_{ij}y_j)
+$$
+有三个分次 $A$-代数同态 $p_1, p_2, m : B \to C$，由下列规则定义：
+$$
+p_1(x_i) = x_i, \quad
+p_1(x_i) = y_i, \quad
+m(x_i) = x_i + y_i.
+$$
+将证明元素
+$$
+\tau = G(m)(\theta) - G(p_1)(\theta) - G(p_2)(\theta) \in G(C)
+$$
+为零。首先，直接计算可见 $\tau$ 在 $L(C)$ 中映为零，故
+$\tau$ 是 $\underline{M}(C)$ 的元素。此外，由于
+$m$, $p_1$, $p_2$ 都是分次代数映射，有
+$\tau \in G(C)^{(1)}$；又因 $\underline{M} \subset G$，可得
+$$
+\tau \in \underline{M}(C)^{(1)} = M \otimes_A C_1.
+$$
+由于 $C_1 = p_1(B_1) \oplus p_2(B_1)$，可唯一地写成
+$\tau = \underline{M}(p_1)(\tau_1) + \underline{M}(p_2)(\tau_2)$，
+其中 $\tau_i \in M \otimes_A B_1 = \underline{M}(B)^{(1)}$。
+考虑由 $x_i \mapsto x_i$、$y_i \mapsto 0$ 定义的环映射
+$q_1 : C \to B$。于是
+$\underline{M}(q_1)(\tau) =
+\underline{M}(q_1)(\underline{M}(p_1)(\tau_1) + \underline{M}(p_2)(\tau_2)) =
+\tau_1$。
+另一方面，由于 $q_1 \circ m = q_1 \circ p_1$，有
+$G(q_1)(\tau) = - G(q_1 \circ p_2)(\tau)$。又因
+$q_1 \circ p_2$ 分解为 $B \to A \to B$，故
+$G(q_1 \circ p_2)(\tau)$ 属于 $G(B)^{(0)}$；见引理
+\ref{adequate-lemma-flat-functor-split}。因此 $\tau_1 = 0$，因为它属于
+$G(B)^{(0)} \cap \underline{M}(B)^{(1)} \subset
+G(B)^{(0)} \cap G(B)^{(1)} = 0$。
+同理 $\tau_2 = 0$，从而 $\tau = 0$。
+
+\medskip\noindent
+由 $\theta \in G(B)$ 得到函子变换
+$$
+\psi : L(-) = \Hom_A(B, - ) \longrightarrow G(-)
+$$
+它把 $f : B \to C$ 送到 $G(f)(\theta)$。由于 $\theta$ 是 $\xi$ 的提升，
+映射 $\psi$ 是 $G \to L$ 的右逆。用 $\psi$ 表述，上面证明的结论意味着：
+$\tau = 0$ 表明 $\psi$ 可加；而 $\theta \in G(B)^{(1)}$ 蕴含，
+对任意 $A$-代数 $D$、$l \in L(D)$ 及单位 $u \in D^*$，在 $G(D)$ 中有
+$\psi(ul) = u\psi(l)$。由引理 \ref{adequate-lemma-flat-linear-functor}，
+$\psi$ 是模值函子之间的态射。显然，这蕴含
+$G \cong \underline{M} \oplus L$，结论成立。
+\end{proof}
+
+\begin{remark}
+\label{adequate-remark-linearly-adequate}
+设 $A$ 为环。引理 \ref{adequate-lemma-extension-adequate-key} 的证明表明：
+若 $\textit{Alg}_A$ 上模值函子的扩张
+$0 \to \underline{M} \to E \to L \to 0$
+中 $L$ 线性适足，则该扩张分裂。证明只用到模值函子
+$F = \underline{M}$ 的下列性质：
+\begin{enumerate}
+\item 对平坦环映射 $B \to B'$，映射
+$F(B) \otimes_B B' \to F(B')$ 是同构；
+\item
+$F(C)^{(1)} = F(p_1)(F(B)^{(1)}) \oplus F(p_2)(F(B)^{(1)})$，
+其中 $B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$ 且
+$C = A[x_1, \ldots, x_n, y_1, \ldots, y_n]/
+(\sum a_{ij}x_j, \sum a_{ij}y_j)$。
+\end{enumerate}
+任意适足函子 $F$ 都满足这两个性质；略去细节。因此，$L$ 是适足函子阿贝尔范畴中的
+投射对象。
+\end{remark}
+
+\begin{lemma}
+\label{adequate-lemma-extension-adequate}
+设 $A$ 为环，并设
+$0 \to F \to G \to H \to 0$
+是 $\textit{Alg}_A$ 上模值函子的短正合列。若 $F$ 与 $H$ 适足，则 $G$ 也适足。
+\end{lemma}
+
+\begin{proof}
+选取正合列 $0 \to F \to \underline{M} \to \underline{N}$。
+若能证明 $(\underline{M} \oplus G)/F$ 适足，则 $G$ 是适足函子映射
+$(\underline{M} \oplus G)/F \to \underline{N}$ 的核，
+故由引理 \ref{adequate-lemma-kernel-adequate} 可知它适足。
+因此可设 $F = \underline{M}$。
+
+\medskip\noindent
+由引理 \ref{adequate-lemma-adequate-surjection-from-linear}，可选取满射
+$L \to H$，其中 $L$ 是若干线性适足函子的直和。
+若能证明拉回 $G \times_H L$ 适足，则 $G$ 是映射
+$\Ker(L \to H) \to G \times_H L$ 的余核，
+故由引理 \ref{adequate-lemma-cokernel-adequate} 可知它适足。
+因此可设 $H = \bigoplus L_i$ 是若干线性适足函子的直和。
+由引理 \ref{adequate-lemma-extension-adequate-key}，每个拉回
+$G \times_H L_i$ 都适足。再由引理
+\ref{adequate-lemma-colimit-adequate}，$\bigoplus G \times_H L_i$ 适足。
+而 $G$ 是下列映射的余核：
+$$
+\bigoplus\nolimits_{i \not = i'} F \longrightarrow
+\bigoplus G \times_H L_i
+$$
+其中，直和项 $(i, i')$ 中的 $\xi$ 映到
+$(0, \ldots, 0, \xi, 0, \ldots, 0, -\xi, 0, \ldots, 0)$，
+其非零项位于直和项 $i$ 与 $i'$ 中。因此由引理
+\ref{adequate-lemma-cokernel-adequate}，$G$ 适足。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-base-change-adequate}
+设 $A \to A'$ 为环映射。若 $F$ 是 $\textit{Alg}_A$ 上的适足函子，
+则其在 $\textit{Alg}_{A'}$ 上的限制 $F'$ 也适足。
+\end{lemma}
+
+\begin{proof}
+选取正合列 $0 \to F \to \underline{M} \to \underline{N}$。则
+$F'(B') = F(B') = \Ker(M \otimes_A B' \to N \otimes_A B')$。
+由于 $M \otimes_A B' = M \otimes_A A' \otimes_{A'} B'$，且 $N$ 也同样，
+可见 $F'$ 是
+$\underline{M \otimes_A A'} \to \underline{N \otimes_A A'}$ 的核。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-pushforward-adequate}
+设 $A \to A'$ 为环映射。若 $F'$ 是 $\textit{Alg}_{A'}$ 上的适足函子，
+则 $\textit{Alg}_A$ 上的模值函子
+$F : B \mapsto F'(A' \otimes_A B)$ 也适足。
+\end{lemma}
+
+\begin{proof}
+选取正合列 $0 \to F' \to \underline{M'} \to \underline{N'}$。则
+\begin{align*}
+F(B) & = F'(A' \otimes_A B) \\
+& = \Ker(M' \otimes_{A'} (
+A' \otimes_A B) \to N' \otimes_{A'} (A' \otimes_A B)) \\
+& = \Ker(M' \otimes_A B \to N' \otimes_A B)
+\end{align*}
+因此，$F$ 是 $\underline{M} \to \underline{N}$ 的核，其中
+$M = M'$、$N = N'$ 均视为 $A$-模。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-adequate-product}
+设 $A = A_1 \times \ldots \times A_n$ 为若干环的乘积。$A$ 上的一个适足函子，
+等价于一列适足函子 $F_1, \ldots, F_n$，其中 $F_i$ 定义在 $A_i$ 上。
+\end{lemma}
+
+\begin{proof}
+这是因为 $A$-代数 $B$ 典范地分解为乘积
+$B_1 \times \ldots \times B_n$，而 $A$-模也有同样的分解。
+令 $F(B) = \coprod F_i(B_i)$ 即得该对应。略去细节。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-adequate-descent}
+设 $A \to A'$ 为环映射，$F$ 为 $\textit{Alg}_A$ 上的模值函子，并满足
+\begin{enumerate}
+\item $F$ 在 $A'$-代数范畴上的限制 $F'$ 适足；
+\item 对任意 $A$-代数 $B$，序列
+$$
+0 \to F(B) \to F(B \otimes_A A') \to F(B \otimes_A A' \otimes_A A')
+$$
+正合。
+\end{enumerate}
+则 $F$ 适足。
+\end{lemma}
+
+\begin{proof}
+函子 $B \to F(B \otimes_A A')$ 与
+$B \mapsto F(B \otimes_A A' \otimes_A A')$ 都适足；见引理
+\ref{adequate-lemma-pushforward-adequate} 与
+\ref{adequate-lemma-base-change-adequate}。因此，$F$ 作为适足函子之间某个映射的核而适足；
+见引理 \ref{adequate-lemma-kernel-adequate}。
+\end{proof}
+
+
+
+
+
+
+\section{适足函子的高阶 Ext 群}
+\label{adequate-section-higher-ext}
+
+\noindent
+设 $A$ 为环。引理 \ref{adequate-lemma-extension-adequate} 已经表明：
+在 $\textit{Alg}_A$ 上模值函子的范畴中，适足函子的任意扩张仍然适足。
+本节将证明，高阶 Ext 群也具有同样的性质。
+
+\begin{lemma}
+\label{adequate-lemma-adjoint}
+设 $A$ 为环。对 $\textit{Alg}_A$ 上的每个模值函子 $F$，
+都存在 $\textit{Alg}_A$ 上模值函子的态射 $Q(F) \to F$，使得
+(1) $Q(F)$ 适足，并且
+(2) 对每个适足函子 $G$，映射
+$\Hom(G, Q(F)) \to \Hom(G, F)$ 是双射。
+\end{lemma}
+
+\begin{proof}
+选取一族线性适足函子 $\{L_i\}_{i \in I}$，使每个线性适足函子
+都同构于某个 $L_i$。这是可以做到的。假设可以找到
+$Q(F) \to F$，它满足 (1)，并满足下列性质 (2)'：
+对每个 $i \in I$，映射
+$\Hom(L_i, Q(F)) \to \Hom(L_i, F)$ 是双射。则 (2) 成立。
+事实上，结合引理 \ref{adequate-lemma-adequate-surjection-from-linear} 与
+\ref{adequate-lemma-kernel-adequate} 可知，每个适足函子 $G$ 都位于正合列
+$$
+K \to L \to G \to 0
+$$
+中，其中 $K$ 与 $L$ 都是若干线性适足函子的直和。因此，(2)'
+蕴含映射
+$\Hom(L, Q(F)) \to \Hom(L, F)$
+与
+$\Hom(K, Q(F)) \to \Hom(K, F)$
+均为双射，从而对 $G$ 也有相同结论。
+
+\medskip\noindent
+考虑范畴 $\mathcal{I}$，其对象为二元组
+$(i, \varphi)$，其中 $i \in I$ 且 $\varphi : L_i \to F$ 为态射。
+态射 $(i, \varphi) \to (i', \varphi')$ 是满足
+$\varphi' \circ \psi = \varphi$ 的映射
+$\psi : L_i \to L_{i'}$。令
+$$
+Q(F) = \colim_{(i, \varphi) \in \Ob(\mathcal{I})} L_i
+$$
+存在自然映射 $Q(F) \to F$；由引理
+\ref{adequate-lemma-colimit-adequate}，它适足；而且由构造可知它满足性质 (2)'。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-enough-injectives}
+设 $A$ 为环。记 $\mathcal{P}$ 为 $\textit{Alg}_A$ 上模值函子的范畴，
+记 $\mathcal{A}$ 为 $\textit{Alg}_A$ 上适足函子的范畴。
+记 $i : \mathcal{A} \to \mathcal{P}$ 为包含函子，
+并记 $Q : \mathcal{P} \to \mathcal{A}$ 为引理
+\ref{adequate-lemma-adjoint} 中的构造。则
+\begin{enumerate}
+\item $i$ 全忠实且正合，其像为弱 Serre 子范畴；
+\item $\mathcal{P}$ 有足够多的内射对象；
+\item 函子 $Q$ 是 $i$ 的右伴随，因而左正合；
+\item $Q$ 将内射对象映为内射对象；
+\item $\mathcal{A}$ 有足够多的内射对象。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+本引理只是汇集前面已经得到的一些事实。由定义、弱 Serre 子范畴的刻画
+（见《同调代数》引理 \ref{homology-lemma-characterize-weak-serre-subcategory}），以及引理
+\ref{adequate-lemma-cokernel-adequate}、\ref{adequate-lemma-kernel-adequate} 和
+\ref{adequate-lemma-extension-adequate}，(1) 是清楚的。
+回忆 $\mathcal{P}$ 等价于范畴
+$\textit{PMod}((\textit{Aff}/\Spec(A))_\tau, \mathcal{O})$。
+因此由《内射对象》命题 \ref{injectives-proposition-presheaves-modules} 得到 (2)。
+由引理 \ref{adequate-lemma-adjoint} 和《范畴》引理 \ref{categories-lemma-adjoint-exact} 得到 (3)。
+由《同调代数》引理 \ref{homology-lemma-adjoint-preserve-injectives} 和
+\ref{homology-lemma-adjoint-enough-injectives} 得到 (4) 与 (5)。
+\end{proof}
+
+\noindent
+设 $A$ 为环。与《形式形变理论》第 \ref{formal-defos-section-tangent-spaces-functors} 节中一样，
+给定 $A$-代数 $B$ 与 $B$-模 $N$，令 $B[N]$ 为底层 $B$-模为
+$B \oplus N$ 的 $R$-代数，其乘法由
+$(b, m)(b', m ') = (bb', bm' + b'm)$ 给出。
+注意，该构造关于二元组 $(B, N)$ 具有函子性：态射
+$(B, N) \to (B', N')$ 由一个 $A$-代数映射
+$B \to B'$ 和一个 $B$-模映射 $N \to N'$ 给出。
+在某种意义下，下一引理所定义的二元组函子 $TF$ 是 $F$ 的切空间。
+以下只考虑使 $B[N]$ 成为 $\textit{Alg}_A$ 的对象的二元组 $(B, N)$。
+
+\begin{lemma}
+\label{adequate-lemma-tangent-functor}
+设 $A$ 为环，$F$ 为模值函子。对每个
+$B \in \Ob(\textit{Alg}_A)$ 及 $B$-模 $N$，都有典范分解
+$$
+F(B[N]) = F(B) \oplus TF(B, N)
+$$
+它由下列性质刻画：
+\begin{enumerate}
+\item $TF(B, N) = \Ker(F(B[N]) \to F(B))$；
+\item $TF(B, N)$ 上有一个 $B$-模结构，它与 $F(B[N])$ 上的
+$B[N]$-模结构相容；
+\item $TF$ 是二元组 $(B, N)$ 的范畴上的函子；
+\item
+\label{adequate-item-mult-map}
+存在典范映射 $N \otimes_B F(B) \to TF(B, N)$，
+它们给出定义在二元组 $(B, N)$ 的范畴上的函子之间的变换；
+\item $TF(B, 0) = 0$；当 $N \to N'$ 为零映射时，
+映射 $TF(B, N) \to TF(B, N')$ 为零。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $B \to B[N] \to B$ 是恒等映射，可见 $F(B) \to F(B[N])$
+是直和项，而它的补空间是 (1) 中定义的 $TF(N, B)$。
+该构造关于二元组 $(B, N)$ 具有函子性，这是因为给定二元组的态射
+$(B, N) \to (B', N')$，便在 $\textit{Alg}_A$ 中得到交换图
+$$
+\xymatrix{
+B' \ar[r] & B'[N'] \ar[r] & B' \\
+B \ar[r] \ar[u] & B[N] \ar[r] \ar[u] & B \ar[u]
+}
+$$
+$B$-模结构来自 $B[N]$-模结构与环映射 $B \to B[N]$。
+(4) 中的映射是复合
+$$
+N \otimes_B F(B) \longrightarrow
+B[N] \otimes_{B[N]} F(B[N]) \longrightarrow F(B[N])
+$$
+其像包含于 $TF(B, N)$。（第一支箭头使用包含映射
+$N \to B[N]$ 与 $F(B) \to F(B[N])$，第二支箭头是乘法映射。）
+若 $N = 0$，则 $B = B[N]$，故 $TF(B, 0) = 0$。
+若 $N \to N'$ 为零映射，则它分解为
+$N \to 0 \to N'$；由于 $TF(B, 0) = 0$，诱导映射为零。
+\end{proof}
+
+\noindent
+设 $A$ 为环，设 $M$ 为 $A$-模。则取值于模的函子
+$\underline{M}$ 的切空间 $T\underline{M}$ 由规则
+$T\underline{M}(B, N) = N \otimes_A M$ 给出。特别地，对给定的 $B$，
+函子 $N \mapsto T\underline{M}(B, N)$ 是可加且右正合的。
+事实证明，对内射的取值于模的函子也成立。
+
+\begin{lemma}
+\label{adequate-lemma-tangent-injective}
+设 $A$ 为环，设 $I$ 为取值于模的函子范畴中的内射对象。
+则对任意 $B \in \Ob(\textit{Alg}_A)$ 以及短正合序列
+$0 \to N_1 \to N \to N_2 \to 0$
+（其中为 $B$-模），序列
+$$
+TI(B, N_1) \to TI(B, N) \to TI(B, N_2) \to 0
+$$
+是正合的。
+\end{lemma}
+
+\begin{proof}
+以下使用引理 \ref{adequate-lemma-tangent-functor} 的结果，不再另行说明。
+记 $h : \textit{Alg}_A \to \textit{Sets}$ 为函子
+$h(C) = \Mor_A(B[N], C)$。对 $h_1$ 与 $h_2$ 作同样记号。
+与满射 $N \to N_2$ 对应的映射 $B[N] \to B[N_2]$
+是满射。它对应映射 $h_2 \to h$，使得对所有 $A$-代数 $C$，
+$h_2(C) \to h(C)$ 是单射。另一方面，有两个映射
+$p, q : h \to h_1$，分别对应零映射 $N_1 \to N$ 与嵌入 $N_1 \to N$。
+注意
+$$
+\xymatrix{
+h_2 \ar[r] & h \ar@<1ex>[r] \ar@<-1ex>[r] & h_1
+}
+$$
+是等化子图表。记 $\mathcal{O}_h$ 为取值于模的函子
+$C \mapsto \bigoplus_{h(C)} C$。对 $\mathcal{O}_{h_1}$ 与
+$\mathcal{O}_{h_2}$ 作同样记号。注意
+$$
+\Hom_\mathcal{P}(\mathcal{O}_h, F) = F(B[N])
+$$
+其中 $\mathcal{P}$ 是 $\textit{Alg}_A$ 上取值于模的函子范畴。
+我们断言在 $\mathcal{P}$ 中有等化子图表
+$$
+\xymatrix{
+\mathcal{O}_{h_2} \ar[r] &
+\mathcal{O}_h \ar@<1ex>[r] \ar@<-1ex>[r] &
+\mathcal{O}_{h_1}
+}
+$$
+事实上，设 $C \in \Ob(\textit{Alg}_A)$，且
+$\xi = \sum_{i = 1, \ldots, n} c_i \cdot f_i$，其中 $c_i \in C$，
+$f_i : B[N] \to C$ 是 $\mathcal{O}_h(C)$ 的元素。
+若 $p(\xi) = q(\xi)$，则
+$$
+\sum c_i \cdot f_i \circ z = \sum c_i \cdot f_i \circ y
+$$
+其中 $z, y : B[N_1] \to B[N]$ 为映射
+$z : (b, m_1) \mapsto (b, 0)$ 及
+$y : (b, m_1) \mapsto (b, m_1)$。这意味着对每个 $i$，
+存在某个 $j$ 使 $f_j \circ z = f_i \circ y$。
+显然这意味着 $f_i(N_1) = 0$，即 $f_i$ 经由唯一映射
+$\overline{f}_i : B[N_2] \to C$ 分解。因此 $\xi$ 是
+$\overline{\xi} = \sum c_i \cdot \overline{f}_i$ 的像。
+由于 $I$ 是内射对象，它将此等化子图表变为余等化子图表
+$$
+\xymatrix{
+I(B[N_1]) \ar@<1ex>[r] \ar@<-1ex>[r] &
+I(B[N]) \ar[r] &
+I(B[N_2])
+}
+$$
+该图表与直和分解
+$I(B[N]) = I(B) \oplus TI(B, N)$ 及
+$I(B[N_i]) = I(B) \oplus TI(B, N_i)$ 相容。
+零映射 $N \to N_1$ 诱导零映射
+$TI(B, N) \to TI(B, N_1)$。
+因此上述余等化子性质意味着序列
+$TI(B, N_1) \to TI(B, N) \to TI(B, N_2) \to 0$
+正合，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-exactness-implies}
+设 $A$ 为环。设 $F$ 为取值于模的函子，满足：对任意
+$B \in \Ob(\textit{Alg}_A)$，$B$-模上的函子 $TF(B, -)$
+将 $B$-模的短正合序列变为右正合序列。则
+\begin{enumerate}
+\item $TF(B, N_1 \oplus N_2) = TF(B, N_1) \oplus TF(B, N_2)$；
+\item $TF(B, N)$ 上存在第二个函子性的 $B$-模结构，
+通过对 $x \in TF(B, N)$ 与 $b \in B$ 置
+$x \cdot b = TF(B, b\cdot 1_N)(x)$ 定义；
+\item
+\label{adequate-item-mult-map-linear}
+引理 \ref{adequate-lemma-tangent-functor} 中的典范映射
+$N \otimes_B F(B) \to TF(B, N)$，
+相对于第二个 $B$-模结构也是 $B$-线性的；
+\item
+\label{adequate-item-tangent-right-exact}
+给定有限表示的 $B$-模 $N$，存在典范同构
+$TF(B, B) \otimes_B N \to TF(B, N)$，
+其中张量积使用 $TF(B, B)$ 上的第二个 $B$-模结构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下使用引理 \ref{adequate-lemma-tangent-functor} 的结果，不再另行说明。
+映射 $N_1 \to N_1 \oplus N_2$ 与 $N_2 \to N_1 \oplus N_2$
+给出映射
+$TF(B, N_1) \oplus TF(B, N_2) \to TF(B, N_1 \oplus N_2)$，
+它是单射，因为映射 $N_1 \oplus N_2 \to N_1$ 与
+$N_1 \oplus N_2 \to N_2$ 诱导逆映射。
+由于 $TF$ 右正合，我们看到
+$TF(B, N_1) \to TF(B, N_1 \oplus N_2) \to TF(B, N_2) \to 0$
+正合。因此
+$TF(B, N_1) \oplus TF(B, N_2) \to TF(B, N_1 \oplus N_2)$
+是同构。这证明了 (1)。
+
+\medskip\noindent
+为证明 (2)，只需证明
+$x \cdot (b_1 + b_2) = x \cdot b_1 + x \cdot b_2$。
+（结合律与可加性显然。）为此考虑
+$$
+N \xrightarrow{(b_1, b_2)} N \oplus N \xrightarrow{+} N
+$$
+并应用 $TF(B, -)$。
+
+\medskip\noindent
+(3) 立即由映射
+$N \otimes_B F(B) \to TF(B, N)$ 关于 $(B, N)$ 的函子性得到。
+
+\medskip\noindent
+设 $N$ 为有限表示的 $B$-模。取表示
+$B^{\oplus m} \to B^{\oplus n} \to N \to 0$。这给出正合序列
+$$
+TF(B, B^{\oplus m}) \to TF(B, B^{\oplus n}) \to TF(B, N) \to 0
+$$
+由 $TF(B, -)$ 的右正合性。由 (1) 可写成
+$TF(B, B^{\oplus m}) = TF(B, B)^{\oplus m}$ 且
+$TF(B, B^{\oplus n}) = TF(B, B)^{\oplus n}$。接下来设
+$B^{\oplus m} \to B^{\oplus n}$ 由矩阵 $T = (b_{ij})$ 给出。
+则诱导映射 $TF(B, B)^{\oplus m} \to TF(B, B)^{\oplus n}$
+由元素为 $TF(B, b_{ij} \cdot 1_B)$ 的矩阵给出。
+结合 $\otimes$ 的右正合性即可证明 (4)。
+\end{proof}
+
+\begin{example}
+\label{adequate-example-module-structure-different}
+设 $F$ 为如引理 \ref{adequate-lemma-exactness-implies} 中的取值于模的函子。
+$TF(B, N)$ 上的两个模结构不总是一致。下面给出一个例子。
+设 $A = \mathbf{F}_p$，其中 $p$ 为素数。令 $F(B) = B$，
+但其 $B$-模结构由 $b \cdot x = b^px$ 给出。则
+$TF(B, N) = N$，其 $B$-模结构由
+$b \cdot x = b^px$ 给出，其中 $x \in N$。然而，第二个 $B$-模
+结构由 $x \cdot b = bx$ 给出。注意，在此情形下典范映射
+$N \otimes_B F(B) \to TF(B, N)$ 为零，因为将元素
+$n \in B[N]$ 提升到 $p$ 次方所得为零。
+\end{example}
+
+\noindent
+在下一个引理中，我们将经常使用如下观察：若
+$0 \to F \to G \to H \to 0$ 是 $\textit{Alg}_A$ 上模值函子的正合列，
+则对任意二元组 $(B, N)$，序列
+$0 \to TF(B, N) \to TG(B, N) \to TH(B, N) \to 0$ 也是正合的。
+这是因为
+$0 \to F(B[N]) \to G(B[N]) \to H(B[N]) \to 0$ 是正合的。
+
+\begin{lemma}
+\label{adequate-lemma-exactness-permanence}
+设 $A$ 为环。对于模值函子 $F$（定义在 $\textit{Alg}_A$ 上），称性质
+$(*)$ 成立，是指对所有 $B \in \Ob(\textit{Alg}_A)$，函子
+$TF(B, -)$ 在 $B$-模上将 $B$-模的短正合列变为右正合列。设
+$0 \to F \to G \to H \to 0$ 是 $\textit{Alg}_A$ 上模值函子的短正合列。
+\begin{enumerate}
+\item 若 $(*)$ 对 $F, G$ 成立，则 $(*)$ 对 $H$ 成立；
+\item 若 $(*)$ 对 $F, H$ 成立，则 $(*)$ 对 $G$ 成立；
+\item 若 $H' \to H$ 是 $\textit{Alg}_A$ 上模值函子的态射，且 $(*)$
+对 $F$、$G$、$H$ 与 $H'$ 都成立，则 $(*)$ 对 $G \times_H H'$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+固定 $B$。设
+$0 \to N_1 \to N_2 \to N_3 \to 0$ 是 $B$-模的短正合列。
+(1) 由下图的图追逐得到：
+$$
+\xymatrix{
+0 \ar[r] &
+TF(B, N_1) \ar[r] \ar[d] &
+TG(B, N_1) \ar[r] \ar[d] &
+TH(B, N_1) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_2) \ar[r] \ar[d] &
+TG(B, N_2) \ar[r] \ar[d] &
+TH(B, N_2) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_3) \ar[r] \ar[d] &
+TG(B, N_3) \ar[r] \ar[d] &
+TH(B, N_3) \ar[r] & 0 \\
+& 0 & 0
+}
+$$
+其中横行正合，涉及 $TF$ 与 $TG$ 的列也正合。
+为证明 (2)，在下图中作图追逐：
+$$
+\xymatrix{
+0 \ar[r] &
+TF(B, N_1) \ar[r] \ar[d] &
+TG(B, N_1) \ar[r] \ar[d] &
+TH(B, N_1) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_2) \ar[r] \ar[d] &
+TG(B, N_2) \ar[r] \ar[d] &
+TH(B, N_2) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_3) \ar[r] \ar[d] &
+TG(B, N_3) \ar[r] &
+TH(B, N_3) \ar[r] \ar[d] & 0 \\
+& 0 & & 0
+}
+$$
+其中横行正合，涉及 $TF$ 与 $TH$ 的列也正合。
+(3) 由 (2) 得到，因为 $G \times_H H'$ 位于正合列
+$0 \to F \to G \times_H H' \to H' \to 0$ 中。
+\end{proof}
+
+\noindent
+本节的大部分工作都是为了证明下面这个关键的消失结果。
+
+\begin{lemma}
+\label{adequate-lemma-ext-group-zero-key}
+设 $A$ 为环，$M$、$P$ 为 $A$-模，且 $P$ 有限表示。则
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M}) = 0$
+对 $i > 0$ 成立，其中 $\mathcal{P}$ 是模值函子范畴，
+这些函子定义在 $\textit{Alg}_A$ 上。
+\end{lemma}
+
+\begin{proof}
+选取 $\underline{M} \to I^\bullet$ 在 $\mathcal{P}$ 中的内射分解，见引理
+\ref{adequate-lemma-enough-injectives}。由《导出范畴》引理
+\ref{derived-lemma-compute-ext-resolutions}，$\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+中的任意元素都来自态射 $\varphi : \underline{P} \to I^i$，且
+$d^i \circ \varphi = 0$。我们将证明下列 Yoneda 扩张
+$$
+E : 0 \to \underline{M} \to I^0 \to \ldots \to
+I^{i - 1} \times_{\Ker(d^i)} \underline{P} \to \underline{P} \to 0
+$$
+是 $\underline{P}$ 被 $\underline{M}$ 扩张、由 $\varphi$ 关联的平凡 Yoneda 扩张；
+由《导出范畴》引理 \ref{derived-lemma-yoneda-extension}，这就证明了引理。
+
+\medskip\noindent
+对于模值函子 $F$（定义在 $\textit{Alg}_A$ 上），称性质 $(*)$ 成立，是指对所有
+$B \in \Ob(\textit{Alg}_A)$，函子 $TF(B, -)$ 在 $B$-模上将 $B$-模的短正合列
+变为右正合列。回忆模值函子 $\underline{M}, I^n, \underline{P}$
+都满足性质 $(*)$，见引理 \ref{adequate-lemma-tangent-injective} 及其前面的注记。
+将 $0 \to \underline{M} \to I^\bullet$ 分裂为短正合列后，由引理
+\ref{adequate-lemma-exactness-permanence} 可知每个函子
+$\Im(d^{n - 1}) = \Ker(d^n) \subset I^n$ 都满足 $(*)$，
+而 $I^{i - 1} \times_{\Ker(d^i)} \underline{P}$ 也满足
+$(*)$。
+
+\medskip\noindent
+因此可设 Yoneda 扩张写成
+$$
+E : 0 \to \underline{M} \to F_{i - 1} \to \ldots \to
+F_0 \to \underline{P} \to 0
+$$
+其中每个模值函子 $F_j$ 都满足 $(*)$。令
+$G_j(B) = TF_j(B, B)$，并通过引理
+\ref{adequate-lemma-exactness-implies} 中定义的{\it 第二个} $B$-模结构
+将其视为 $B$-模。由于 $TF_j$ 是二元组上的函子，$G_j$ 是
+$\textit{Alg}_A$ 上的模值函子。此外，由于 $E$ 是正合列，
+序列 $G_{j + 1} \to G_j \to G_{j - 1}$ 正合（见引理
+\ref{adequate-lemma-exactness-permanence} 前的注记）。
+注意 $T\underline{M}(B, B) = M \otimes_A B = \underline{M}(B)$，
+且这里两个 $B$-模结构一致。因此得到 Yoneda 扩张
+$$
+E' :  0 \to \underline{M} \to G_{i - 1} \to \ldots \to
+G_0 \to \underline{P} \to 0
+$$
+此外，引理 \ref{adequate-lemma-tangent-functor} (\ref{adequate-item-mult-map}) 的典范映射
+$$
+F_j(B) = B \otimes_B F_j(B) \longrightarrow TF_j(B, B) = G_j(B)
+$$
+由引理 \ref{adequate-lemma-exactness-implies} (\ref{adequate-item-mult-map-linear}) 可知是
+$B$-线性的，并且关于 $B$ 具有函子性。因此得到 Yoneda 扩张的映射
+$$
+\xymatrix{
+0 \ar[r] &
+\underline{M} \ar[r] \ar[d]^1 &
+F_{i - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+F_0 \ar[r] \ar[d] &
+\underline{P} \ar[r] \ar[d]^1 & 0 \\
+0 \ar[r] &
+\underline{M} \ar[r] &
+G_{i - 1} \ar[r] &
+\ldots \ar[r] &
+G_0 \ar[r] &
+\underline{P} \ar[r] & 0
+}
+$$
+特别地，由上面提到的 Yoneda Ext 引理，$E$ 与 $E'$ 在
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$ 中具有相同的类。
+最后，令 $N$ 为有限表示的 $A$-模。则
+$$
+0 \to T\underline{M}(A, N) \to TF_{i - 1}(A, N) \to \ldots \to
+TF_0(A, N) \to T\underline{P}(A, N) \to 0
+$$
+正合。由引理 \ref{adequate-lemma-exactness-implies} (\ref{adequate-item-tangent-right-exact})，
+取 $B = A$，这转化为下列 $A$-模序列的正合性：
+$$
+0 \to M \otimes_A N \to G_{i - 1}(A) \otimes_A N \to \ldots \to
+G_0(A) \otimes_A N \to P \otimes_A N \to 0
+$$
+因此 $A$-模序列
+$0 \to M \to G_{i - 1}(A) \to \ldots \to G_0(A) \to P \to 0$
+是泛正合的，即与任意有限表示的 $A$-模 $N$ 张量后仍正合。令
+$K = \Ker(G_0(A) \to P)$，于是有正合列
+$$
+0 \to K \to G_0(A) \to P \to 0
+\quad\text{且}\quad
+G_2(A) \to G_1(A) \to K \to 0
+$$
+将第二个序列与 $N$ 张量，得到
+$K \otimes_A N = \Coker(G_2(A) \otimes_A N \to G_1(A) \otimes_A N)$。
+而 $G_2(A) \otimes_A N \to G_1(A) \otimes_A N \to G_0(A) \otimes_A N$
+的正合性蕴含 $K \otimes_A N \to G_0(A) \otimes_A N$ 是单射。
+由《代数》定理 \ref{algebra-theorem-universally-exact-criteria}，
+这意味着 $A$-模扩张 $0 \to K \to G_0(A) \to P \to 0$ 是正合的；
+又因假设 $P$ 有限表示，故该序列分裂，见《代数》引理
+\ref{algebra-lemma-universally-exact-split}。
+任一分裂 $P \to G_0(A)$ 都定义了映射 $\underline{P} \to G_0$，
+它分裂满射 $G_0 \to \underline{P}$。因此 Yoneda 扩张 $E'$ 等价于
+平凡的 Yoneda 扩张，证毕。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-ext-group-zero}
+设 $A$ 为环，$M$ 为 $A$-模，$L$ 为 $\textit{Alg}_A$ 上的线性适足函子。则
+$\Ext^i_\mathcal{P}(L, \underline{M}) = 0$
+对 $i > 0$ 成立，其中 $\mathcal{P}$ 是模值函子范畴，
+这些函子定义在 $\textit{Alg}_A$ 上。
+\end{lemma}
+
+\begin{proof}
+由于 $L$ 线性适足，存在正合列
+$$
+0 \to L \to \underline{A^{\oplus m}} \to \underline{A^{\oplus n}} \to
+\underline{P} \to 0
+$$
+其中 $P = \Coker(A^{\oplus m} \to A^{\oplus n})$ 是由线性适足函子定义
+给出的有限自由 $A$-模映射的余核。由引理
+\ref{adequate-lemma-ext-group-zero-key}，我们有
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+和
+$\Ext^i_\mathcal{P}(\underline{A}, \underline{M})$
+在 $i > 0$ 时均消失。令
+$K = \Ker(\underline{A^{\oplus n}} \to \underline{P})$。
+由与正合列
+$0 \to K \to \underline{A^{\oplus n}} \to \underline{P} \to 0$
+关联的 Ext 群长正合列，可得
+$\Ext^i_\mathcal{P}(K, \underline{M}) = 0$ 对 $i > 0$ 成立。
+再对正合列
+$0 \to L \to \underline{A^{\oplus m}} \to K \to 0$
+重复此论证即可。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-RQ-zero}
+沿用引理 \ref{adequate-lemma-enough-injectives} 的记号，对任意适足函子 $F$，都有
+$R^pQ(F) = 0$ 对所有 $p > 0$ 成立。
+\end{lemma}
+
+\begin{proof}
+选取正合列 $0 \to F \to \underline{M^0} \to \underline{M^1}$。
+令 $M^2 = \Coker(M^0 \to M^1)$，于是
+$0 \to F \to \underline{M^0} \to \underline{M^1}
+\to \underline{M^2} \to 0$ 是一个分解。由《导出范畴》引理
+\ref{derived-lemma-two-ss-complex-functor}，得到谱序列
+$$
+R^pQ(\underline{M^q}) \Rightarrow R^{p + q}Q(F)
+$$
+由于 $Q(\underline{M^q}) = \underline{M^q}$，只需证明对任意
+$A$-模 $M$，$R^pQ(\underline{M}) = 0$ 且 $p > 0$。
+
+\medskip\noindent
+在范畴 $\mathcal{P}$ 中选取内射分解 $\underline{M} \to I^\bullet$。
+若 $R^iQ(\underline{M})$ 非零，则
+$\Ker(Q(I^i) \to Q(I^{i + 1}))$ 严格大于
+$Q(I^{i - 1}) \to Q(I^i)$ 的像。因此由引理
+\ref{adequate-lemma-adequate-surjection-from-linear}，存在一个线性适足函子 $L$ 及映射
+$\varphi : L \to Q(I^i)$，其像落在
+$Q(I^i) \to Q(I^{i + 1})$ 的核中，但不经过
+$Q(I^{i - 1}) \to Q(I^i)$ 的像分解。
+由于 $Q$ 是包含函子的左伴随，映射
+$\varphi$ 对应于映射 $\varphi' : L \to I^i$，且具有相同性质。
+于是 $\varphi'$ 给出
+$\Ext^i_\mathcal{P}(L, \underline{M})$ 中的非零元素，这与引理
+\ref{adequate-lemma-ext-group-zero} 矛盾。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{适足模}
+\label{adequate-section-adequate}
+
+\noindent
+在《下降》一书的 \ref{descent-section-quasi-coherent-sheaves} 节中，
+我们看到，概形 $S$ 上的拟凝聚模，正是与 $S$ 关联的任意大位点
+$(\Sch/S)_\tau$ 上的拟凝聚模。我们也看到，这一识别有两个问题：
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_S) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$、
+$\mathcal{F} \mapsto \mathcal{F}^a$ 一般不是正合的
+（《下降》引理 \ref{descent-lemma-equivalence-quasi-coherent-limits}），并且
+\item 给定拟紧且拟分离的态射 $f : X \to S$，函子 $f_*$ 一般不保持
+大位点上的拟凝聚层（《下降》命题
+\ref{descent-proposition-equivalence-quasi-coherent-functorial}）。
+\end{enumerate}
+(1) 意味着我们不能在 $D(\mathcal{O})$ 中定义由上同调层拟凝聚的复形组成的三角子范畴。
+(2) 意味着即使 $\mathcal{F}$ 拟凝聚且 $f$ 拟紧拟分离，
+$Rf_*\mathcal{F}$ 也不是上同调层拟凝聚的复形。
+此外，《下降》引理
+\ref{descent-lemma-equivalence-quasi-coherent-limits}
+和命题
+\ref{descent-proposition-equivalence-quasi-coherent-functorial}
+的证明中给出的例子并非病态的。
+
+\medskip\noindent
+本节讨论 $(\Sch/S)_\tau$ 上一个稍大的 $\mathcal{O}$-模范畴，
+它包含拟凝聚模，是阿贝尔的，并且当 $f$ 拟紧拟分离时在 $f_*$ 下保持。
+为此，设 $S$ 为概形，令 $\mathcal{F}$ 为 $(\Sch/S)_\tau$ 上的
+$\mathcal{O}$-模预层。对 $(\Sch/S)_\tau$ 的任意仿射对象
+$U = \Spec(A)$，可将 $\mathcal{F}$ 限制到 $(\textit{Aff}/U)_\tau$，
+得到该位点上的 $\mathcal{O}$-模预层。相应的模值函子（见
+\ref{adequate-section-quasi-coherent} 节）记为
+$$
+F = F_{\mathcal{F}, A} :
+\textit{Alg}_A \longrightarrow \textit{Ab},
+\quad
+B \longmapsto \mathcal{F}(\Spec(B))
+$$
+赋值 $\mathcal{F} \mapsto F_{\mathcal{F}, A}$ 是阿贝尔范畴之间的正合函子。
+
+\begin{definition}
+\label{adequate-definition-adequate}
+若 $(\Sch/S)_\tau$ 上的 $\mathcal{O}$-模层 $\mathcal{F}$ 存在一个
+$\tau$-覆盖
+$\{\Spec(A_i) \to S\}_{i \in I}$，使得对所有 $i \in I$，
+$F_{\mathcal{F}, A_i}$ 适足，则称该层 {\it 适足}。
+\end{definition}
+
+\noindent
+下面将看到，适足 $\mathcal{O}$-模的范畴与所选拓扑 $\tau$ 无关。
+
+\begin{lemma}
+\label{adequate-lemma-adequate-local}
+设 $S$ 为概形，$\mathcal{F}$ 为 $(\Sch/S)_\tau$ 上的适足
+$\mathcal{O}$-模。对 $S$ 上任意仿射概形 $\Spec(A)$，
+函子 $F_{\mathcal{F}, A}$ 都适足。
+\end{lemma}
+
+\begin{proof}
+设 $\{\Spec(A_i) \to S\}_{i \in I}$ 为 $\tau$-覆盖，且对所有 $i \in I$，
+$F_{\mathcal{F}, A_i}$ 适足。可以找到标准仿射 $\tau$-覆盖
+$\{\Spec(A'_j) \to \Spec(A)\}_{j = 1, \ldots, m}$，
+使得 $\Spec(A'_j) \to \Spec(A) \to S$ 经过某个
+$\Spec(A_{i(j)})$，其中 $i(j) \in I$。于是 $F_{\mathcal{F}, A'_j}$
+是 $F_{\mathcal{F}, A_{i(j)}}$ 在 $A'_j$-代数范畴上的限制。
+由此，依据引理 \ref{adequate-lemma-base-change-adequate}，
+$F_{\mathcal{F}, A'_j}$ 适足。由引理
+\ref{adequate-lemma-adequate-product}，序列
+$F_{\mathcal{F}, A'_j}$ 对应于 $A' = A'_1 \times \ldots \times A'_m$
+上的适足“乘积”函子 $F'$。由于 $\mathcal{F}$ 是层（对 Zariski 拓扑），
+该乘积函子 $F'$ 等于 $F_{\mathcal{F}, A'}$，即 $F$ 在 $A'$-代数上的限制。
+最后，$\{\Spec(A') \to \Spec(A)\}$ 是 $\tau$-覆盖。
+由引理 \ref{adequate-lemma-adequate-descent} 可知 $F_{\mathcal{F}, A}$ 适足。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-adequate-affine}
+设 $S = \Spec(A)$ 为仿射概形。$(\Sch/S)_\tau$ 上的适足
+$\mathcal{O}$-模范畴与 $\textit{Alg}_A$ 上取值于模的适足函子范畴等价。
+\end{lemma}
+
+\begin{proof}
+给定适足模 $\mathcal{F}$，函子 $F_{\mathcal{F}, A}$
+由引理 \ref{adequate-lemma-adequate-local} 可知是适足的。
+给定适足函子 $F$，取正合列
+$0 \to F \to \underline{M} \to \underline{N}$，并考虑
+$\mathcal{O}$-模 $\mathcal{F} = \Ker(M^a \to N^a)$，其中
+$M^a$ 表示 $(\Sch/S)_\tau$ 上与 $S$ 上拟凝聚层
+$\widetilde{M}$ 相关联的拟凝聚 $\mathcal{O}$-模。注意
+$F = F_{\mathcal{F}, A}$；特别地，按定义 $\mathcal{F}$ 是适足的。
+我们省略证明这些构造给出互逆的范畴等价。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-pullback-adequate}
+设 $f : T \to S$ 为概形态射。
+适足 $\mathcal{O}$-模 $\mathcal{F}$ 在 $(\Sch/S)_\tau$ 上的拉回
+$f^*\mathcal{F}$，是 $(\Sch/T)_\tau$ 上的适足
+$\mathcal{O}$-模。
+\end{lemma}
+
+\begin{proof}
+拉回映射
+$f^* : \textit{Mod}((\Sch/S)_\tau, \mathcal{O}) \to
+\textit{Mod}((\Sch/T)_\tau, \mathcal{O})$
+由限制给出，即对 $T$ 上任意概形 $V$，有
+$f^*\mathcal{F}(V) = \mathcal{F}(V)$。
+因此本引理立即由引理 \ref{adequate-lemma-adequate-local}
+及定义得到。
+\end{proof}
+
+\noindent
+下面给出适足 $\mathcal{O}$-模范畴的刻画。
+为理解其意义，考虑概形 $S$ 上拟凝聚 $\mathcal{O}_S$-模之间的映射
+$\mathcal{G} \to \mathcal{H}$。
+所关联的 $\mathcal{O}$-模映射 $\mathcal{G}^a \to \mathcal{H}^a$
+的余核是拟凝聚的，因为它等于 $(\mathcal{H}/\mathcal{G})^a$。
+但一般而言，$\mathcal{G}^a \to \mathcal{H}^a$ 的核并非拟凝聚。
+不过，它是适足的。
+
+\begin{lemma}
+\label{adequate-lemma-adequate-characterize}
+设 $S$ 为概形，且 $\mathcal{F}$ 是 $(\Sch/S)_\tau$ 上的
+$\mathcal{O}$-模。以下命题等价：
+\begin{enumerate}
+\item $\mathcal{F}$ 适足；
+\item 存在仿射开覆盖 $S = \bigcup S_i$，以及拟凝聚
+$\mathcal{O}_{S_i}$-模映射 $\mathcal{G}_i \to \mathcal{H}_i$，使得
+$\mathcal{F}|_{(\Sch/S_i)_\tau}$ 是
+$\mathcal{G}_i^a \to \mathcal{H}_i^a$ 的核；
+\item 存在 $\tau$-覆盖 $\{S_i \to S\}_{i \in I}$，以及
+$\mathcal{O}_{S_i}$-拟凝聚模映射 $\mathcal{G}_i \to \mathcal{H}_i$，使得
+$\mathcal{F}|_{(\Sch/S_i)_\tau}$ 是
+$\mathcal{G}_i^a \to \mathcal{H}_i^a$ 的核；
+\item 存在 $\tau$-覆盖 $\{f_i : S_i \to S\}_{i \in I}$，使得每个
+$f_i^*\mathcal{F}$ 都适足；
+\item 对 $S$ 上任意仿射概形 $U$，限制
+$\mathcal{F}|_{(\Sch/U)_\tau}$ 是拟凝聚
+$\mathcal{O}_U$-模映射 $\mathcal{G}^a \to \mathcal{H}^a$ 的核。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $U = \Spec(A)$ 为 $S$ 上的仿射概形。
+令 $F = F_{\mathcal{F}, A}$。按定义，函子 $F$ 适足，当且仅当存在
+$A$-模映射 $M \to N$，使得 $F = \Ker(\underline{M} \to \underline{N})$。
+结合引理 \ref{adequate-lemma-adequate-local} 与
+\ref{adequate-lemma-adequate-affine}，可见 (1) 与 (5) 等价。
+
+\medskip\noindent
+显然 (5) 蕴含 (2)，而 (2) 蕴含 (3)。若 (3) 成立，则可细化覆盖
+$\{S_i \to S\}$，使每个 $S_i = \Spec(A_i)$ 都是仿射的。
+于是根据证明的预备说明，$F_{\mathcal{F}, A_i}$ 适足。因此 $\mathcal{F}$
+按定义适足，故 (3) 蕴含 (1)。
+
+\medskip\noindent
+最后，(4) 与 (1) 等价：一个方向使用引理
+\ref{adequate-lemma-pullback-adequate}；另一个方向使用
+$\tau$-覆盖的复合仍为 $\tau$-覆盖。
+\end{proof}
+
+\noindent
+与拟凝聚层的情形一样，适足模范畴与所选拓扑无关。
+
+\begin{lemma}
+\label{adequate-lemma-adequate-fpqc}
+设 $\mathcal{F}$ 是 $(\Sch/S)_\tau$ 上的适足 $\mathcal{O}$-模。
+对 $S$ 上仿射概形之间的任意满射平坦态射
+$\Spec(B) \to \Spec(A)$，扩张的 {\v C}ech 复形
+$$
+0 \to \mathcal{F}(\Spec(A)) \to
+\mathcal{F}(\Spec(B)) \to
+\mathcal{F}(\Spec(B \otimes_A B)) \to \ldots
+$$
+都是正合的。特别地，$\mathcal{F}$ 满足 fpqc 覆盖的层条件，
+并且是 $(\Sch/S)_{fppf}$ 上的 $\mathcal{O}$-模层。
+\end{lemma}
+
+\begin{proof}
+令 $A \to B$ 如引理所述，并设 $F = F_{\mathcal{F}, A}$。此函子由
+引理 \ref{adequate-lemma-adequate-local} 可知是适足的。
+由引理 \ref{adequate-lemma-adequate-flat}，由于
+$A \to B$、$A \to B \otimes_A B$ 等都是平坦的，有
+$F(B) = F(A) \otimes_A B$，
+$F(B \otimes_A B) = F(A) \otimes_A B \otimes_A B$，等等。
+正合性由《下降》引理 \ref{descent-lemma-ff-exact} 得出。
+
+\medskip\noindent
+因此，$\mathcal{F}$ 满足 $\tau$-覆盖（特别是 Zariski 覆盖）以及
+仿射概形到仿射概形的任意忠实平坦覆盖的层条件。仿照《下降》引理
+\ref{descent-lemma-standard-fpqc-covering} 及命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent} 的证明，
+可知 $\mathcal{F}$ 满足所有 fpqc 覆盖的层条件（这些覆盖由
+$(\Sch/S)_\tau$ 的对象组成）。细节略。
+\end{proof}
+
+\noindent
+引理 \ref{adequate-lemma-adequate-fpqc} 特别表明，对任意两个拓扑 $\tau, \tau'$，
+关于 $\tau$-拓扑和 $\tau'$-拓扑的适足模集合相同
+（作为底层范畴 $\Sch/S$ 上的模预层）。
+
+\begin{definition}
+\label{adequate-definition-category-adequate-modules}
+设 $S$ 为概形。$(\Sch/S)_\tau$ 上的适足 $\mathcal{O}$-模范畴记为
+{\it $\textit{Adeq}(\mathcal{O})$} 或
+{\it $\textit{Adeq}((\Sch/S)_\tau, \mathcal{O})$}。若不选定拓扑，
+只考虑适足模的阿贝尔范畴，则简记为 {\it $\textit{Adeq}(S)$}。
+\end{definition}
+
+\begin{lemma}
+\label{adequate-lemma-same-cohomology-adequate}
+设 $S$ 为概形，且 $\mathcal{F}$ 是 $(\Sch/S)_\tau$ 上的适足
+$\mathcal{O}$-模。
+\begin{enumerate}
+\item 限制 $\mathcal{F}|_{S_{Zar}}$ 是概形 $S$ 上的拟凝聚
+$\mathcal{O}_S$-模。
+\item 限制 $\mathcal{F}|_{S_\etale}$ 是与
+$\mathcal{F}|_{S_{Zar}}$ 关联的拟凝聚模。
+\item 对 $S$ 上任意仿射概形 $U$，都有 $H^q(U, \mathcal{F}) = 0$
+（对所有 $q > 0$）。
+\item 存在典范同构
+$$
+H^q(S, \mathcal{F}|_{S_{Zar}}) =
+H^q((\Sch/S)_\tau, \mathcal{F}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{adequate-lemma-adequate-flat} 和引理
+\ref{adequate-lemma-adequate-local} 可知，对 $S$ 上仿射概形之间的任意平坦态射
+$U \to V$，都有
+$\mathcal{F}(U) = \mathcal{F}(V) \otimes_{\mathcal{O}(V)} \mathcal{O}(U)$。
+特别地，若 $U \subset V \subset S$ 是 $S$ 的仿射开子集，也成立，
+因此 $\mathcal{F}|_{S_{Zar}}$ 拟凝聚。故 (1) 成立。
+
+\medskip\noindent
+设 $S' \to S$ 为概形的 \'etale 态射。对 $U \subset S'$ 中映到仿射开集
+$V \subset S$ 的仿射开集，我们有
+$\mathcal{F}(U) = \mathcal{F}(V) \otimes_{\mathcal{O}(V)} \mathcal{O}(U)$，
+因为 $U \to V$ 为 \'etale，因而平坦。所以
+$\mathcal{F}|_{S'_{Zar}}$ 是 $\mathcal{F}|_{S_{Zar}}$ 的拉回。
+这就证明了 (2)。
+
+\medskip\noindent
+我们将把《位点上的上同调》引理
+\ref{sites-cohomology-lemma-cech-vanish-collection}
+应用于位点 $(\Sch/S)_\tau$，其中 $\mathcal{B}$ 是 $S$ 上仿射概形的集合，
+而 $\text{Cov}$ 是标准仿射 $\tau$-覆盖的集合。
+该引理的假设 (3) 由《下降》引理
+\ref{descent-lemma-standard-covering-Cech} 以及
+在单个仿射覆盖情形下的引理 \ref{adequate-lemma-adequate-fpqc} 满足。
+因此，对 $S$ 上每个仿射概形 $U$，都有 $H^p(U, \mathcal{F}) = 0$。
+这证明了 (3)。完全仿照《下降》命题
+\ref{descent-proposition-same-cohomology-quasi-coherent} 的证明，
+即得到上同调的相等性 (4)。
+\end{proof}
+
+\begin{remark}
+\label{adequate-remark-compare}
+设 $S$ 为概形。我们有函子
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+以及
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$。
+具体而言，函子 $u : \mathcal{F} \mapsto \mathcal{F}^a$
+来自取相应的 $\mathcal{O}$-模；根据引理
+\ref{adequate-lemma-adequate-characterize}，该模是适足的。
+反之，函子 $v$ 来自限制
+$v : \mathcal{G} \mapsto \mathcal{G}|_{S_{Zar}}$，见引理
+\ref{adequate-lemma-same-cohomology-adequate}。
+由于 $\mathcal{F}^a$ 可描述为在环化拓扑斯之间的态射
+$((\Sch/S)_\tau, \mathcal{O}) \to (S_{Zar}, \mathcal{O}_S)$
+下对 $\mathcal{F}$ 的拉回，见《下降》注记
+\ref{descent-remark-change-topologies-ringed-sites}；又因为限制是推前，
+故 $u$ 与 $v$ 如下互为伴随：
+$$
+\SheafHom_{\mathcal{O}_S}(\mathcal{F}, v\mathcal{G})
+=
+\SheafHom_\mathcal{O}(u\mathcal{F}, \mathcal{G})
+$$
+其中 $\mathcal{O}$ 表示大位点上的结构层。
+从上述描述立即可见，对所有拟凝聚层，伴随映射
+$\mathcal{F} \to vu\mathcal{F}$ 都是同构。
+\end{remark}
+
+\begin{lemma}
+\label{adequate-lemma-sheafification-adequate}
+设 $S$ 为概形，且 $\mathcal{F}$ 是 $(\Sch/S)_\tau$ 上的
+$\mathcal{O}$-模预层。若对 $S$ 上每个仿射概形
+$\Spec(A)$，函子 $F_{\mathcal{F}, A}$ 都适足，则 $\mathcal{F}$ 的层化是适足的
+$\mathcal{O}$-模。
+\end{lemma}
+
+\begin{proof}
+设 $U = \Spec(A)$ 为 $S$ 上的仿射概形。
+令 $F = F_{\mathcal{F}, A}$。
+层化为 $\mathcal{F}^\# = (\mathcal{F}^+)^+$，见《位点》
+第 \ref{sites-section-sheafification} 节。
+按构造
+$$
+(\mathcal{F})^+(U) =
+\colim_\mathcal{U} \check{H}^0(\mathcal{U}, \mathcal{F})
+$$
+其中余极限取遍位点 $(\Sch/S)_\tau$ 中的覆盖。
+由于 $U$ 仿射，只需对 $U$ 的标准仿射 $\tau$-覆盖
+$\mathcal{U} = \{U_i \to U\}_{i \in I} =
+\{\Spec(A_i) \to \Spec(A)\}_{i \in I}$ 取极限。
+由于每个 $A \to A_i$ 及 $A \to A_i \otimes_A A_j$ 都平坦，有
+$$
+\check{H}^0(\mathcal{U}, \mathcal{F}) =
+\Ker(\prod F(A) \otimes_A A_i \to \prod F(A) \otimes_A A_i \otimes_A A_j)
+$$
+由引理 \ref{adequate-lemma-adequate-flat} 得出。
+由于 $A \to \prod A_i$ 忠实平坦，根据《下降》引理
+\ref{descent-lemma-ff-exact}，上述对象总是典范同构于 $F(A)$。
+因此，在 $S$ 上所有仿射概形处，预层 $(\mathcal{F})^+$ 与
+$\mathcal{F}$ 取相同的值。再次重复该论证，可知
+$\mathcal{F}^\# = ((\mathcal{F})^+)^+$ 也有同样性质。
+于是 $F_{\mathcal{F}, A} = F_{\mathcal{F}^\#, A}$，从而
+$\mathcal{F}^\#$ 是适足的。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-abelian-adequate}
+设 $S$ 为概形。
+\begin{enumerate}
+\item 范畴 $\textit{Adeq}(\mathcal{O})$ 是阿贝尔范畴。
+\item 函子
+$\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+是正合的。
+\item 若 $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+是 $\mathcal{O}$-模的短正合列，且
+$\mathcal{F}_1$ 与 $\mathcal{F}_3$ 适足，则
+$\mathcal{F}_2$ 适足。
+\item 范畴 $\textit{Adeq}(\mathcal{O})$ 有余极限，并且函子
+$\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+与余极限交换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $\varphi : \mathcal{F} \to \mathcal{G}$ 是适足 $\mathcal{O}$-模之间的映射。
+为证明 (1) 和 (2)，只需证明在
+$\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$ 中计算的
+$\mathcal{K} = \Ker(\varphi)$ 与 $\mathcal{Q} = \Coker(\varphi)$ 都适足。
+设 $U = \Spec(A)$ 为 $S$ 上的仿射概形。
+令 $F = F_{\mathcal{F}, A}$，$G = F_{\mathcal{G}, A}$。
+由引理 \ref{adequate-lemma-kernel-adequate} 与
+\ref{adequate-lemma-cokernel-adequate}，诱导映射
+$F \to G$ 的核 $K$ 与余核 $Q$ 是适足函子。
+由于核是在预层层面计算的，$K = F_{\mathcal{K}, A}$，
+故 $\mathcal{K}$ 适足。为证明余核的结论，记 $\mathcal{Q}'$ 为
+$\varphi$ 的预层余核。于是 $Q = F_{\mathcal{Q}', A}$ 且
+$\mathcal{Q} = (\mathcal{Q}')^\#$。因此由引理
+\ref{adequate-lemma-sheafification-adequate}，$\mathcal{Q}$ 适足。
+
+\medskip\noindent
+设 $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+是 $\mathcal{O}$-模的短正合列，且
+$\mathcal{F}_1$ 与 $\mathcal{F}_3$ 适足。
+设 $U = \Spec(A)$ 为 $S$ 上的仿射概形。
+令 $F_i = F_{\mathcal{F}_i, A}$。函子列
+$$
+0 \to F_1 \to F_2 \to F_3 \to 0
+$$
+是正合的，因为对 $U$ 上的仿射概形 $V = \Spec(B)$，由引理
+\ref{adequate-lemma-same-cohomology-adequate} 有 $H^1(V, \mathcal{F}_1) = 0$。
+由于由引理 \ref{adequate-lemma-adequate-local} 可知 $F_1$ 与 $F_3$ 是适足函子，
+故由引理 \ref{adequate-lemma-extension-adequate}，$F_2$ 适足。
+因此 $\mathcal{F}_2$ 适足。
+
+\medskip\noindent
+设 $\mathcal{I} \to \textit{Adeq}(\mathcal{O})$，$i \mapsto \mathcal{F}_i$
+为一个图表。记 $\mathcal{F} = \colim_i \mathcal{F}_i$，其余极限在
+$\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$ 中计算。
+为证明 (4)，只需证明 $\mathcal{F}$ 适足。
+令 $\mathcal{F}' = \colim_i \mathcal{F}_i$ 为在 $\mathcal{O}$-模预层中计算的余极限。
+于是 $\mathcal{F} = (\mathcal{F}')^\#$。
+设 $U = \Spec(A)$ 为 $S$ 上的仿射概形。
+令 $F_i = F_{\mathcal{F}_i, A}$。由引理
+\ref{adequate-lemma-colimit-adequate}，函子
+$\colim_i F_i = F_{\mathcal{F}', A}$ 适足。
+引理 \ref{adequate-lemma-sheafification-adequate} 表明 $\mathcal{F}$ 适足。
+\end{proof}
+
+\noindent
+下述引理说明，拟紧且拟分离态射下适足模的总直像
+$Rf_*\mathcal{F}$ 是一个上同调层均适足的复形。
+
+\begin{lemma}
+\label{adequate-lemma-direct-image-adequate}
+设 $f : T \to S$ 为拟紧且拟分离的概形态射。对
+$(\Sch/T)_\tau$ 上任意适足 $\mathcal{O}_T$-模，推前
+$f_*\mathcal{F}$ 以及高阶直像 $R^if_*\mathcal{F}$ 都是
+$(\Sch/S)_\tau$ 上的适足 $\mathcal{O}_S$-模。
+\end{lemma}
+
+\begin{proof}
+首先说明高阶直像的计算方式。取内射分解
+$\mathcal{F} \to \mathcal{I}^\bullet$。
+于是 $R^if_*\mathcal{F}$ 是复形 $f_*\mathcal{I}^\bullet$ 的第 $i$ 个上同调层。
+因此，$R^if_*\mathcal{F}$ 是如下预层所关联的层：它把
+$(\Sch/S)_\tau$ 的对象 $U/S$ 送到模
+\begin{align*}
+\frac{\Ker(f_*\mathcal{I}^i(U) \to f_*\mathcal{I}^{i + 1}(U))}
+{\Im(f_*\mathcal{I}^{i - 1}(U) \to f_*\mathcal{I}^i(U))}
+& =
+\frac{\Ker(\mathcal{I}^i(U \times_S T) \to
+\mathcal{I}^{i + 1}(U \times_S T))}
+{\Im(\mathcal{I}^{i - 1}(U \times_S T) \to \mathcal{I}^i(U \times_S T))}
+\\
+& =
+H^i(U \times_S T, \mathcal{F}) \\
+& = H^i((\Sch/U \times_S T)_\tau,
+\mathcal{F}|_{(\Sch/U \times_S T)_\tau}) \\
+& = H^i(U \times_S T, \mathcal{F}|_{(U \times_S T)_{Zar}})
+\end{align*}
+第一个等号由《拓扑》引理
+\ref{topologies-lemma-morphism-big-fppf}（以及其他拓扑的相应结论）给出；
+第二个等号来自在 $(\Sch/T)_\tau$ 的对象上计算 $\mathcal{F}$ 的上同调的定义；
+第三个等号由《位点上的上同调》引理
+\ref{sites-cohomology-lemma-cohomology-of-open} 给出；最后一个等号由
+引理 \ref{adequate-lemma-same-cohomology-adequate} 给出。
+因此根据引理 \ref{adequate-lemma-sheafification-adequate}，只需证明下一段中的断言。
+
+\medskip\noindent
+设 $A$ 为环，$T$ 为在 $A$ 上拟紧且拟分离的概形，且 $\mathcal{F}$ 是
+$(\Sch/T)_\tau$ 上的适足 $\mathcal{O}_T$-模。对 $A$-代数 $B$，令
+$T_B = T \times_{\Spec(A)} \Spec(B)$，并记
+$\mathcal{F}_B = \mathcal{F}|_{(T_B)_{Zar}}$，即 $\mathcal{F}$ 到
+$T_B$ 的小 Zariski 位点的限制。
+（回顾一下，这是概形 $T_B$ 上的“通常”拟凝聚层，见引理
+\ref{adequate-lemma-same-cohomology-adequate}。）
+断言：函子
+$$
+B \longmapsto H^q(T_B, \mathcal{F}_B)
+$$
+是适足的。我们将按通常的切分 $T$ 的方法证明本引理。
+
+\medskip\noindent
+情形 I：$T$ 为仿射。在此情形所有概形 $T_B$ 都仿射，且对所有 $q \geq 1$，
+$H^q(T_B, \mathcal{F}_B) = 0$。
+函子 $B \mapsto H^0(T_B, \mathcal{F}_B)$ 由引理
+\ref{adequate-lemma-pushforward-adequate} 可知适足。
+
+\medskip\noindent
+情形 II：$T$ 分离。令 $n$ 为覆盖 $T$ 所需仿射概形的最小数目。
+对 $n$ 归纳。基例为情形 I。取仿射开覆盖 $T = V_1 \cup \ldots \cup V_n$。
+令 $V = V_1 \cup \ldots \cup V_{n - 1}$，$U = V_n$。注意
+$$
+U \cap V = (V_1 \cap V_n) \cup \ldots \cup (V_{n - 1} \cap V_n)
+$$
+也是 $n - 1$ 个仿射开集的并，因为 $T$ 分离；见《概形》引理
+\ref{schemes-lemma-characterize-separated}。
+对每个 $B$，基变换 $U_B$、$V_B$ 及
+$(U \cap V)_B = U_B \cap V_B$ 的行为相同。因此对每个 $B$ 有长正合列
+$$
+0 \to
+H^0(T_B, \mathcal{F}_B) \to
+H^0(U_B, \mathcal{F}_B) \oplus H^0(V_B, \mathcal{F}_B) \to
+H^0((U \cap V)_B, \mathcal{F}_B) \to
+H^1(T_B, \mathcal{F}_B) \to \ldots
+$$
+其关于 $B$ 函子性见《上同调》引理
+\ref{cohomology-lemma-mayer-vietoris}。
+由归纳假设，函子
+$B \mapsto H^q(U_B, \mathcal{F}_B)$、
+$B \mapsto H^q(V_B, \mathcal{F}_B)$ 以及
+$B \mapsto H^q((U \cap V)_B, \mathcal{F}_B)$
+都是适足的。利用引理 \ref{adequate-lemma-kernel-adequate} 与
+\ref{adequate-lemma-cokernel-adequate}，可见函子
+$B \mapsto H^q(T_B, \mathcal{F}_B)$
+位于外项均适足的短正合列中。因此断言由引理
+\ref{adequate-lemma-extension-adequate} 得出。
+
+\medskip\noindent
+情形 III：一般的拟紧拟分离情形。仍按覆盖 $T$ 所需仿射概形数目 $n$ 归纳。
+基例 $n = 1$ 是情形 I。取仿射开覆盖 $T = V_1 \cup \ldots \cup V_n$。
+令 $V = V_1 \cup \ldots \cup V_{n - 1}$，$U = V_n$。注意，由于 $T$ 拟分离，
+$U \cap V$ 是某个仿射概形的拟紧开子集，故情形 II 可应用于它。
+其余论证与上段完全相同，略去。
+\end{proof}
+
+
+
+
+
+
+
+\section{寄生适足模}
+\label{adequate-section-parasitic}
+
+\noindent
+本节开始比较概形 $S$ 上的适足模与拟凝聚模。回顾，有函子
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+以及
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$，
+它们满足伴随关系
+$$
+\SheafHom_{\QCoh(\mathcal{O}_S)}(\mathcal{F}, v\mathcal{G})
+=
+\SheafHom_{\textit{Adeq}(\mathcal{O})}(u\mathcal{F}, \mathcal{G})
+$$
+并且对每个拟凝聚层 $\mathcal{F}$，$\mathcal{F} \to vu\mathcal{F}$ 是同构，见
+注记 \ref{adequate-remark-compare}。
+因此 $u$ 是全忠实嵌入，我们可将 $\QCoh(\mathcal{O}_S)$
+识别为 $\textit{Adeq}(\mathcal{O})$ 的满子范畴。
+函子 $v$ 正合，但一般而言 $u$ 不左正合。
+$v$ 的核是寄生适足模构成的子范畴。
+
+\medskip\noindent
+在《下降》定义 \ref{descent-definition-parasitic} 中给出了寄生模的定义。
+对于适足模，该概念与所选拓扑无关。
+
+\begin{lemma}
+\label{adequate-lemma-parasitic-adequate}
+设 $S$ 为概形，且 $\mathcal{F}$ 是 $(\Sch/S)_\tau$ 上的适足
+$\mathcal{O}$-模。以下条件等价：
+\begin{enumerate}
+\item $v\mathcal{F} = 0$；
+\item $\mathcal{F}$ 是寄生的；
+\item $\mathcal{F}$ 关于 $\tau$-拓扑是寄生的；
+\item 对所有开子集 $U \subset S$，有 $\mathcal{F}(U) = 0$；
+\item 存在仿射开覆盖 $S = \bigcup U_i$，使得对所有 $i$ 有
+$\mathcal{F}(U_i) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由定义，(2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5) 立即成立。
+假设 (5)。设 $S = \bigcup U_i$ 是仿射开覆盖，且对所有 $i$ 有
+$\mathcal{F}(U_i) = 0$。令 $V \to S$ 为平坦态射。存在仿射开覆盖
+$V = \bigcup V_j$，使每个 $V_j$ 映入某个 $U_i$。由于态射
+$V_j \to S$ 平坦，$V_j \to U_i$ 也平坦。因此相应的环映射
+$A_i = \mathcal{O}(U_i) \to \mathcal{O}(V_j) = B_j$ 平坦。于是由引理
+\ref{adequate-lemma-adequate-local} 及引理 \ref{adequate-lemma-adequate-flat}，有
+$\mathcal{F}(U_i) \otimes_{A_i} B_j \to \mathcal{F}(V_j)$
+为同构。因此 $\mathcal{F}(V_j) = 0$。由于 $\mathcal{F}$ 是 Zariski 拓扑下的层，
+可得 $\mathcal{F}(V) = 0$。这样就证明了 (5) 蕴含 (2)。
+
+\medskip\noindent
+这证明了 (2)、(3)、(4)、(5) 等价。由于 (1) 与 (3) 等价（见注记
+\ref{adequate-remark-compare}），故五个条件彼此等价。
+\end{proof}
+
+\noindent
+设 $S$ 为概形。寄生适足模构成 $\textit{Adeq}(\mathcal{O})$ 的 Serre 子范畴。
+其商范畴是拟凝聚模范畴。
+
+\begin{lemma}
+\label{adequate-lemma-adequate-by-parasitic}
+设 $S$ 为概形。寄生适足模的子范畴
+$\mathcal{C} \subset \textit{Adeq}(\mathcal{O})$ 是 Serre 子范畴。此外，函子 $v$
+诱导范畴等价
+$$
+\textit{Adeq}(\mathcal{O}) / \mathcal{C} = \QCoh(\mathcal{O}_S).
+$$
+\end{lemma}
+
+\begin{proof}
+范畴 $\mathcal{C}$ 是正合函子
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$ 的核，见引理
+\ref{adequate-lemma-parasitic-adequate}。
+因此由《同调》引理 \ref{homology-lemma-kernel-exact-functor}，它是 Serre 子范畴。
+由《同调》引理 \ref{homology-lemma-serre-subcategory-is-kernel}，得到诱导的正合函子
+$\overline{v} :
+\textit{Adeq}(\mathcal{O}) / \mathcal{C}
+\to
+\QCoh(\mathcal{O}_S)$。
+由于 $u$ 是 $v$ 的右逆，立即可见 $\overline{v}$ 本质满射。
+由《同调》引理 \ref{homology-lemma-quotient-by-kernel-exact-functor}，
+$\overline{v}$ 是忠实的。又由于 $u$ 是 $v$ 的右逆，最终得到
+$\overline{v}$ 全忠实。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-direct-image-parasitic-adequate}
+设 $f : T \to S$ 为拟紧且拟分离的概形态射。对
+$(\Sch/T)_\tau$ 上任意寄生适足 $\mathcal{O}_T$-模，推前
+$f_*\mathcal{F}$ 及高阶直像 $R^if_*\mathcal{F}$ 都是
+$(\Sch/S)_\tau$ 上的寄生适足 $\mathcal{O}_S$-模。
+\end{lemma}
+
+\begin{proof}
+我们已经在引理 \ref{adequate-lemma-direct-image-adequate} 中看到，这些高阶直像是适足的。
+因此只需证明，对任意开集 $\tau$-覆盖 $\{U_i \to S\}$，有
+$(R^if_*\mathcal{F})(U_i) = 0$。而由《下降》引理
+\ref{descent-lemma-direct-image-parasitic}，$R^if_*\mathcal{F}$ 是寄生的。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{适足模的导出范畴 I}
+\label{adequate-section-comparison}
+
+
+\noindent
+设 $S$ 为概形。继续讨论第 \ref{adequate-section-parasitic} 节的内容。
+正合函子 $v$ 诱导函子
+$$
+D(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D(\QCoh(\mathcal{O}_S))
+$$
+有界版本也同样如此。
+
+\begin{lemma}
+\label{adequate-lemma-quotient-easy}
+设 $S$ 为概形。令
+$\mathcal{C} \subset \textit{Adeq}(\mathcal{O})$ 为由寄生适足模组成的
+满子范畴。则
+$$
+D(\textit{Adeq}(\mathcal{O}))/D_\mathcal{C}(\textit{Adeq}(\mathcal{O}))
+= D(\QCoh(\mathcal{O}_S))
+$$
+有界版本也同样成立。
+\end{lemma}
+
+\begin{proof}
+立即由《导出范畴》引理
+\ref{derived-lemma-quotient-by-serre-easy} 得出。
+\end{proof}
+
+\noindent
+接下来反向寻找描述，考察函子链
+$$
+K^+(\QCoh(\mathcal{O}_S))
+\longrightarrow
+K^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+(\QCoh(\mathcal{O}_S)).
+$$
+在某些情形下，适足模的导出范畴是拟凝聚模复形的同伦范畴
+在通用拟同构处的局部化。设 $S$ 为概形。若拟凝聚
+$\mathcal{O}_S$-模复形之间的映射
+$\varphi : \mathcal{F}^\bullet \to \mathcal{G}^\bullet$
+满足：对每个概形态射 $f : T \to S$，拉回 $f^*\varphi$ 都是拟同构，
+则称其为{\it 通用拟同构}。
+
+\begin{lemma}
+\label{adequate-lemma-describe-Dplus-adequate}
+设 $U = \Spec(A)$ 为仿射概形。
+有界下导出范畴 $D^+(\textit{Adeq}(\mathcal{O}))$ 是
+$K^+(\QCoh(\mathcal{O}_U))$ 在通用拟同构乘法子集处的局部化。
+\end{lemma}
+
+\begin{proof}
+若 $\varphi : \mathcal{F}^\bullet \to \mathcal{G}^\bullet$
+是拟凝聚 $\mathcal{O}_U$-模复形之间的态射，则
+$u\varphi : u\mathcal{F}^\bullet \to
+u\mathcal{G}^\bullet$ 是拟同构，当且仅当 $\varphi$ 是通用拟同构。
+因此，由《导出范畴》引理
+\ref{derived-lemma-triangle-functor-localize}，通用拟同构的集合 $S$
+是与三角结构相容的饱和乘法系统。
+于是 $S^{-1}K^+(\QCoh(\mathcal{O}_U))$ 存在且为三角范畴，见
+《导出范畴》命题
+\ref{derived-proposition-construct-localization}。
+由《导出范畴》引理
+\ref{derived-lemma-universal-property-localization}，得到典范函子
+$can : S^{-1}K^+(\QCoh(\mathcal{O}_U)) \to
+D^{+}(\textit{Adeq}(\mathcal{O}))$。
+
+\medskip\noindent
+注意，几乎按定义，$U$ 上每个适足模都能嵌入某个拟凝聚层，见
+引理 \ref{adequate-lemma-adequate-characterize}。因此由《导出范畴》引理
+\ref{derived-lemma-subcategory-right-resolution}，对任意
+$\mathcal{F}^\bullet \in \Ob(K^+(\textit{Adeq}(\mathcal{O})))$，
+存在拟同构
+$\mathcal{F}^\bullet \to u\mathcal{G}^\bullet$，
+其中 $\mathcal{G}^\bullet \in \Ob(K^+(\QCoh(\mathcal{O}_U)))$。
+这证明了 $can$ 本质满射。
+
+\medskip\noindent
+类似地，设 $\mathcal{F}^\bullet$ 与 $\mathcal{G}^\bullet$
+是拟凝聚 $\mathcal{O}_U$-模的有界下复形。
+$D^+(\textit{Adeq}(\mathcal{O}))$ 中这两个对象之间的态射，
+由一对
+$f : u\mathcal{F}^\bullet \to \mathcal{H}^\bullet$ 与
+$s : u\mathcal{G}^\bullet \to \mathcal{H}^\bullet$ 组成，其中 $s$
+是拟同构。取拟同构
+$s' : \mathcal{H}^\bullet \to u\mathcal{E}^\bullet$。
+于是
+$s' \circ f : \mathcal{F} \to \mathcal{E}^\bullet$ 与通用拟同构
+$s' \circ s : \mathcal{G}^\bullet \to \mathcal{E}^\bullet$
+给出 $S^{-1}K^{+}(\QCoh(\mathcal{O}_U))$ 中的态射，
+其映到给定的态射。这证明了全忠实中的“满”部分。
+“忠实”部分同理可证。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-right-adjoint-adequate}
+设 $U = \Spec(A)$ 为仿射概形。包含函子
+$$
+\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/U)_\tau, \mathcal{O})
+$$
+具有右伴随 $A$\footnote{这就是“适足化子”。}。
+此外，对每个适足模 $\mathcal{F}$，伴随映射
+$A(\mathcal{F}) \to \mathcal{F}$ 都是同构。
+\end{lemma}
+
+\begin{proof}
+由《拓扑》引理
+\ref{topologies-lemma-affine-big-site-fppf}
+（其他拓扑同理），我们可以在 $(\textit{Aff}/U)_\tau$ 上的
+$\mathcal{O}$-模中工作。
+记 $\mathcal{P}$ 为 $\textit{Alg}_A$ 上取值于模的函子范畴，
+记 $\mathcal{A}$ 为 $\textit{Alg}_A$ 上的适足函子范畴。记
+$i : \mathcal{A} \to \mathcal{P}$ 为包含函子。记
+$Q : \mathcal{P} \to \mathcal{A}$ 为引理
+\ref{adequate-lemma-adjoint} 的构造。
+有交换图
+\begin{equation}
+\label{adequate-equation-categories}
+\vcenter{
+\xymatrix{
+\textit{Adeq}(\mathcal{O}) \ar[r]_-k \ar@{=}[d] &
+\textit{Mod}((\textit{Aff}/U)_\tau, \mathcal{O}) \ar[r]_-j &
+\textit{PMod}((\textit{Aff}/U)_\tau, \mathcal{O}) \ar@{=}[d] \\
+\mathcal{A} \ar[rr]^-i & & \mathcal{P}
+}
+}
+\end{equation}
+左侧纵向等号是引理 \ref{adequate-lemma-adequate-affine}，
+右侧纵向等号已在第 \ref{adequate-section-quasi-coherent} 节说明。
+定义 $A(\mathcal{F}) = Q(j(\mathcal{F}))$。
+由于 $j$ 是全忠实函子，立即得到 $A$ 是包含函子 $k$ 的右伴随。
+同样，由于 $k$ 也是全忠实函子，最后的断言形式上成立。
+\end{proof}
+
+\noindent
+函子 $A$ 是右伴随，因而是左正合的。由于包含函子是正合的，见
+引理 \ref{adequate-lemma-abelian-adequate}，我们得到 $A$ 将内射对象变为内射对象，
+且范畴 $\textit{Adeq}(\mathcal{O})$ 有足够多的内射对象，见
+《同调》引理 \ref{homology-lemma-adjoint-enough-injectives}
+以及
+《内射对象》定理
+\ref{injectives-theorem-sheaves-modules-injectives}。
+这也可由
+(\ref{adequate-equation-categories}) 中的等价性、
+以及引理 \ref{adequate-lemma-enough-injectives} 得到。
+
+\begin{lemma}
+\label{adequate-lemma-RA-zero}
+设 $U = \Spec(A)$ 为仿射概形。对
+$\textit{Adeq}(\mathcal{O})$ 的任意对象 $\mathcal{F}$，都有
+$R^pA(\mathcal{F}) = 0$（对所有 $p > 0$），其中 $A$ 如
+引理 \ref{adequate-lemma-right-adjoint-adequate} 中所定义。
+\end{lemma}
+
+\begin{proof}
+使用引理 \ref{adequate-lemma-right-adjoint-adequate} 证明中的记号，
+在 $(\textit{Aff}/U)_\tau$ 上的 $\mathcal{O}$-模范畴中取内射分解
+$k(\mathcal{F}) \to \mathcal{I}^\bullet$。
+由
+《层上同调》引理 \ref{sites-cohomology-lemma-include-modules}
+以及
+引理 \ref{adequate-lemma-same-cohomology-adequate}，
+复形 $j(\mathcal{I}^\bullet)$ 是正合的。
+另一方面，由《层上同调》引理
+\ref{sites-cohomology-lemma-injective-module-injective-presheaf}，
+每个 $j(\mathcal{I}^n)$ 都是模预层范畴中的内射对象。
+因此 $R^pA(\mathcal{F}) = R^pQ(j(k(\mathcal{F})))$。
+结论现由引理 \ref{adequate-lemma-RQ-zero} 得出。
+\end{proof}
+
+\noindent
+设 $S$ 为概形。根据第 \ref{adequate-section-adequate} 节的讨论，嵌入
+$\textit{Adeq}(\mathcal{O}) \subset
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+将 $\textit{Adeq}(\mathcal{O})$ 显示为所有 $\mathcal{O}$-模范畴中的弱 Serre 子范畴。记
+$$
+D_{\textit{Adeq}}(\mathcal{O}) \subset
+D(\mathcal{O}) = D(\textit{Mod}((\Sch/S)_\tau, \mathcal{O}))
+$$
+为上同调层适足的复形所组成的三角子范畴，见
+《导出范畴》第 \ref{derived-section-triangulated-sub} 节。
+于是得到典范函子
+$$
+D(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D_{\textit{Adeq}}(\mathcal{O})
+$$
+见《导出范畴》公式 (\ref{derived-equation-compare})。
+
+\begin{lemma}
+\label{adequate-lemma-bounded-below}
+若 $U = \Spec(A)$ 为仿射概形，则上述函子的有界下版本
+\begin{equation}
+\label{adequate-equation-compare-bounded-adequate}
+D^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+_{\textit{Adeq}}(\mathcal{O})
+\end{equation}
+是一个等价。
+\end{lemma}
+
+\begin{proof}
+令 $A : \textit{Mod}(\mathcal{O}) \to \textit{Adeq}(\mathcal{O})$
+为在引理 \ref{adequate-lemma-right-adjoint-adequate} 中构造的包含函子的右伴随。
+由于 $A$ 左正合且 $\textit{Mod}(\mathcal{O})$ 有足够多内射对象，
+$A$ 具有右导出函子
+$RA : D^+_{\textit{Adeq}}(\mathcal{O}) \to D^+(\textit{Adeq}(\mathcal{O}))$。
+我们断言 $RA$ 是
+(\ref{adequate-equation-compare-bounded-adequate}) 的拟逆。
+关键事实是：若 $\mathcal{F}$ 为适足模，则伴随映射
+$\mathcal{F} \to RA(\mathcal{F})$ 由引理 \ref{adequate-lemma-RA-zero} 是拟同构。
+ 
+\medskip\noindent
+也就是说，要完整证明本引理，只需证明：
+\begin{enumerate}
+\item 对 $\mathcal{F}^\bullet \in K^+(\textit{Adeq}(\mathcal{O}))$，
+典范映射 $\mathcal{F}^\bullet \to RA(\mathcal{F}^\bullet)$
+是拟同构；以及
+\item 对 $\mathcal{G}^\bullet \in K^+(\textit{Mod}(\mathcal{O}))$，
+典范映射 $RA(\mathcal{G}^\bullet) \to \mathcal{G}^\bullet$
+是拟同构。
+\end{enumerate}
+(1) 与 (2) 都由关键事实以及谱序列论证得到，所用谱序列是
+《导出范畴》引理 \ref{derived-lemma-two-ss-complex-functor} 中的某一个谱序列。
+细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-ext-adequate}
+设 $U = \Spec(A)$ 为仿射概形。
+设 $\mathcal{F}$ 与 $\mathcal{G}$ 为适足 $\mathcal{O}$-模。对任意 $i \geq 0$，自然映射
+$$
+\Ext^i_{\textit{Adeq}(\mathcal{O})}(\mathcal{F}, \mathcal{G})
+\longrightarrow
+\Ext^i_{\textit{Mod}(\mathcal{O})}(\mathcal{F}, \mathcal{G})
+$$
+是同构。
+\end{lemma}
+
+\begin{proof}
+按定义，这些 Ext 群由导出范畴中的 Hom 集计算。
+因此立即由引理 \ref{adequate-lemma-bounded-below} 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{纯扩张}
+\label{adequate-section-pure}
+
+\noindent
+我们希望用代数刻画仿射概形的大站点上拟凝聚层的扩张。
+为此引入如下概念。
+
+\begin{definition}
+\label{adequate-definition-pure}
+设 $A$ 为环。
+\begin{enumerate}
+\item 若对每个 $A$-模的普遍正合序列
+$0 \to K \to M \to N \to 0$，序列
+$0 \to \Hom_A(P, K) \to \Hom_A(P, M) \to \Hom_A(P, N) \to 0$
+都是正合的，则称 $A$-模 $P$ 为{\it 纯射影}。
+\item 若对每个 $A$-模的普遍正合序列
+$0 \to K \to M \to N \to 0$，序列
+$0 \to \Hom_A(N, I) \to \Hom_A(M, I) \to \Hom_A(K, I) \to 0$
+都是正合的，则称 $A$-模 $I$ 为{\it 纯内射}。
+\end{enumerate}
+\end{definition}
+
+\noindent
+我们来刻画纯射影模。
+
+\begin{lemma}
+\label{adequate-lemma-pure-projective}
+设 $A$ 为环。
+\begin{enumerate}
+\item 模是纯射影的，当且仅当它是有限表示 $A$-模直和的直和项。
+\item 对任意模 $M$，存在一个普遍正合序列
+$0 \to N \to P \to M \to 0$。
+其中 $P$ 为纯射影模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+首先注意，由《代数》定理
+\ref{algebra-theorem-universally-exact-criteria}，
+有限表示 $A$-模是纯射影的。
+因此有限表示 $A$-模直和的直和项确实是纯射影的。设 $M$ 为任意
+$A$-模。将其写成有限表示 $A$-模的滤过余极限
+$M = \colim_{i \in I} P_i$。考虑序列
+$$
+0 \to N \to \bigoplus P_i \to M \to 0.
+$$
+对任意有限表示 $A$-模 $P$，映射
+$\Hom_A(P, \bigoplus P_i) \to \Hom_A(P, M)$
+是满射，因为任意 $P \to M$ 的映射都经过某个 $P_i$ 分解。
+因此由
+《代数》定理 \ref{algebra-theorem-universally-exact-criteria}，
+该序列是普遍正合的。这证明了 (2)。
+若 $M$ 现在是纯射影的，则该序列分裂，从而可见
+$M$ 是 $\bigoplus P_i$ 的直和项。
+\end{proof}
+
+\noindent
+我们来刻画纯内射模。
+
+\begin{lemma}
+\label{adequate-lemma-pure-injective}
+设 $A$ 为环。对任意 $A$-模 $M$，置
+$M^\vee = \Hom_\mathbf{Z}(M, \mathbf{Q}/\mathbf{Z})$。
+\begin{enumerate}
+\item 对任意 $A$-模 $M$，$A$-模 $M^\vee$ 是纯内射的。
+\item $A$-模 $I$ 是纯内射的，当且仅当映射
+$I \to (I^\vee)^\vee$ 分裂。
+\item 对任意模 $M$，存在普遍正合序列
+$0 \to M \to I \to N \to 0$，其中 $I$ 是纯内射的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+以下使用函子 $M \mapsto M^\vee$ 的下列性质，见
+《代数》补充内容第 \ref{more-algebra-section-injectives-modules} 节，
+不再另行说明。第 (1) 项成立，因为
+$\Hom_A(N, M^\vee) =
+\Hom_\mathbf{Z}(N \otimes_A M, \mathbf{Q}/\mathbf{Z})$
+且 $\mathbf{Q}/\mathbf{Z}$ 在阿贝尔群范畴中是内射对象。
+因此若 $I \to (I^\vee)^\vee$ 分裂，则 $I$ 是纯内射的。
+我们断言，对任意 $A$-模 $M$，评价映射
+$ev : M \to (M^\vee)^\vee$ 是普遍单射。
+为此注意，$ev^\vee : ((M^\vee)^\vee)^\vee \to M^\vee$
+有右逆，即 $ev' : M^\vee \to ((M^\vee)^\vee)^\vee$。
+于是对任意 $A$-模 $N$，将正合忠实函子
+${}^\vee$ 应用于映射
+$N \otimes_A M \to N \otimes_A (M^\vee)^\vee$，得到
+$$
+\Hom_A(N, ((M^\vee)^\vee)^\vee) =
+\Big(N \otimes_A (M^\vee)^\vee\Big)^\vee
+\to
+\Big(N \otimes_A M\Big)^\vee =
+\Hom_A(N, M^\vee)
+$$
+该映射由右逆的存在性而为满射。断言得证。
+该断言蕴含 (3) 以及 (2) 中条件的必要性。
+\end{proof}
+
+\noindent
+在继续之前，先作如下观察；本节其余部分将频繁使用它。
+
+\begin{lemma}
+\label{adequate-lemma-split-universally-exact-sequence}
+设 $A$ 为环。
+\begin{enumerate}
+\item 设 $L \to M \to N$ 为普遍正合序列（其中对象为 $A$-模），并令
+$K = \Im(M \to N)$。
+则 $K \to N$ 是普遍单射。
+\item 任意普遍正合复形都可以拆分为普遍正合短正合序列。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。对任意 $A$-模 $T$，由张量积 $\otimes$ 的右正合性，序列
+$L \otimes_A T \to M \otimes_A T \to K \otimes_A T \to 0$ 是正合的。
+由假设，序列
+$L \otimes_A T \to M \otimes_A T \to N \otimes_A T$ 是正合的。
+合并这两点可知 $K \otimes_A T \to N \otimes_A T$ 是单射。
+
+\medskip\noindent
+(2) 的含义如下：设 $M^\bullet$ 为 $A$-模的普遍正合复形。置
+$K^i = \Ker(d^i) \subset M^i$。
+则短正合序列
+$0 \to K^i \to M^i \to K^{i + 1} \to 0$
+都是普遍正合的。这立即由 (1) 得出。
+\end{proof}
+
+\begin{definition}
+\label{adequate-definition-pure-resolution}
+设 $A$ 为环，设 $M$ 为 $A$-模。
+\begin{enumerate}
+\item {\it 纯射影分解} $P_\bullet \to M$ 是普遍正合序列
+$$
+\ldots \to P_1 \to P_0 \to M \to 0
+$$
+且每个 $P_i$ 都是纯射影模。
+\item {\it 纯内射分解} $M \to I^\bullet$ 是普遍正合序列
+$$
+0 \to M \to I^0 \to I^1 \to \ldots
+$$
+且每个 $I^i$ 都是纯内射模。
+\end{enumerate}
+\end{definition}
+
+\noindent
+这些分解在所有普遍正合的左分解或右分解类中具有通常的唯一性性质。
+
+\begin{lemma}
+\label{adequate-lemma-pure-projective-resolutions}
+设 $A$ 为环。
+\begin{enumerate}
+\item 任意 $A$-模都有纯射影分解。
+\end{enumerate}
+设 $M \to N$ 为 $A$-模的态射。
+设 $P_\bullet \to M$ 为纯射影分解，
+设 $N_\bullet \to N$ 为普遍正合分解。
+\begin{enumerate}
+\item[(2)] 存在复形态射 $P_\bullet \to N_\bullet$，
+诱导给定的映射
+$$
+M = \Coker(P_1 \to P_0) \to \Coker(N_1 \to N_0) = N
+$$
+\item[(3)] 两个复形态射 $\alpha, \beta : P_\bullet \to N_\bullet$，
+若诱导相同的映射 $M \to N$，则它们同伦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 立即由引理 \ref{adequate-lemma-pure-projective} 得出。
+在证明 (2) 与 (3) 之前注意，由引理
+\ref{adequate-lemma-split-universally-exact-sequence}，
+可以将普遍正合复形 $N_\bullet \to N \to 0$
+拆分为普遍正合短正合序列
+$0 \to K_0 \to N_0 \to N \to 0$
+以及 $0 \to K_i \to N_i \to K_{i - 1} \to 0$。
+
+\medskip\noindent
+(2) 的证明。由于 $P_0$ 是纯射影的，
+可以找到一个映射 $P_0 \to N_0$，提升映射 $P_0 \to M \to N$。
+得到诱导映射 $P_1 \to F_0 \to N_0$，其最终落入 $K_0$。
+由于 $P_1$ 是纯射影的，可以将其提升为映射 $P_1 \to N_1$。
+这又诱导映射 $P_2 \to P_1 \to N_1$，它映到 $N_0$（即映到 $K_1$）为零。
+因此可以提升得到映射 $P_2 \to N_2$。如此重复。
+
+\medskip\noindent
+(3) 的证明。要证明 $\alpha, \beta$ 同伦，只需证明差
+$\gamma = \alpha - \beta$ 同伦于零。注意 $\gamma_0 : P_0 \to N_0$
+的像包含于 $K_0$。因此可以将 $\gamma_0$ 提升为映射
+$h_0 : P_0 \to N_1$。考虑映射
+$\gamma_1' = \gamma_1 - h_0 \circ d_{P, 1} : P_1 \to N_1$。
+由 $h_0$ 的选取可知 $\gamma_1'$ 的像包含于 $K_1$。
+由于 $P_1$ 是纯射影的，可以将 $\gamma_1'$ 提升为映射
+$h_1 : P_1 \to N_2$。此时有
+$\gamma_1 = h_0 \circ d_{F, 1} + d_{N, 2} \circ h_1$。重复上述过程。
+\end{proof}
+
+\begin{lemma}
+\label{adequate-lemma-pure-injective-resolutions}
+设 $A$ 为环。
+\begin{enumerate}
+\item 任意 $A$-模都有纯内射分解。
+\end{enumerate}
+设 $M \to N$ 为 $A$-模的态射。
+设 $M \to M^\bullet$ 为普遍正合分解，且
+设 $N \to I^\bullet$ 为纯内射分解。
+\begin{enumerate}
+\item[(2)] 存在复形态射 $M^\bullet \to I^\bullet$，
+诱导给定的映射
+$$
+M = \Ker(M^0 \to M^1) \to \Ker(I^0 \to I^1) = N
+$$
+\item[(3)] 两个复形态射 $\alpha, \beta : M^\bullet \to I^\bullet$，
+若诱导相同的映射 $M \to N$，则它们同伦。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+本引理是引理 \ref{adequate-lemma-pure-projective-resolutions} 的对偶命题。
+证明相同，只需反转所有箭头。
+\end{proof}
+
+\noindent
+利用以上材料可如下定义纯扩张群。设 $A$ 为环，设 $M$、$N$ 为 $A$-模。
+取纯内射分解 $N \to I^\bullet$。由
+引理 \ref{adequate-lemma-pure-injective-resolutions}，复形
+$$
+\Hom_A(M, I^\bullet)
+$$
+在同伦意义下良定义。因此其第 $i$ 个上同调模
+是 $M$ 与 $N$ 的良定义不变量。
+
+\begin{definition}
+\label{adequate-definition-pure-ext}
+设 $A$ 为环，设 $M$、$N$ 为 $A$-模。
+第 $i$ 个{\it 纯扩张模} $\text{Pext}^i_A(M, N)$
+定义为复形 $\Hom_A(M, I^\bullet)$ 的第 $i$ 个上同调模，
+其中 $I^\bullet$ 是 $N$ 的纯内射分解。
+\end{definition}
+
+\noindent
+警告：$A$-模的正合序列不一定导出纯扩张群的长正合序列。
+（为此需要普遍正合序列。）
+我们收集一些由以上材料显然得到的事实。
+
+\begin{lemma}
+\label{adequate-lemma-facts-pext}
+设 $A$ 为环。
+\begin{enumerate}
+\item $\text{Pext}^i_A(M, N) = 0$ 对 $i > 0$ 成立，只要 $N$ 为纯内射模；
+\item $\text{Pext}^i_A(M, N) = 0$ 对 $i > 0$ 成立，只要 $M$ 为纯射影模；
+特别地，当 $M$ 为有限表示的 $A$-模时也成立；
+\item $\text{Pext}^i_A(M, N)$ 也是复形
+$\Hom_A(P_\bullet, N)$ 的第 $i$ 个上同调模，其中 $P_\bullet$
+是 $M$ 的纯射影分解。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为证明 (3)，考虑双复形
+$$
+A^{\bullet, \bullet} = \Hom_A(P_\bullet, I^\bullet)
+$$
+其每一行在除第 $0$ 次之外的次数上正合，而该行的上同调为
+$\Hom_A(M, I^q)$。其每一列除第 $0$ 次外均为正合，
+而该列的上同调为 $\Hom_A(P_p, N)$。
+因此，与该复形相关的两个谱序列（见
+《同调》第 \ref{homology-section-double-complex} 节）
+退化，从而得到所述等式。
+\end{proof}
+
+
+
+
+
+\section{大站点上拟凝聚层的高阶 Ext}
+\label{adequate-section-big}
+
+\noindent
+事实证明，与纯内射模 $I$ 关联的取值于模的函子
+$\underline{I}$，在 $\textit{Alg}_A$ 上的适足函子范畴中给出一个内射对象。
+警告：纯射影模并不一定在适足函子范畴中给出射影对象。
+不过我们确实有大量射影对象，即线性适足函子。
+
+\begin{lemma}
+\label{adequate-lemma-pure-injective-injective-adequate}
+设 $A$ 为环。
+设 $\mathcal{A}$ 为 $\textit{Alg}_A$ 上适足函子的范畴。
+$\mathcal{A}$ 的内射对象恰好是函子
+$\underline{I}$，其中 $I$ 为纯内射 $A$-模。
+\end{lemma}
+
+\begin{proof}
+设 $I$ 为 $\mathcal{A}$ 的内射对象。
+取某个 $A$-模 $M$ 的嵌入 $I \to \underline{M}$。
+由于 $I$ 是内射对象，可知 $\underline{M} = I \oplus F$，其中 $F$ 为取值于模的函子。
+于是 $M = I(A) \oplus F(A)$，从而
+$I = \underline{I(A)}$。因此任意内射对象
+都形如某个 $A$-模 $I$ 的 $\underline{I}$。
+显然 $I$ 必须是纯内射的，因为每个普遍正合序列
+$0 \to M \to N \to L \to 0$
+都给出 $\mathcal{A}$ 中的正合序列
+$0 \to \underline{M} \to \underline{N} \to \underline{L} \to 0$。
+
+\medskip\noindent
+最后，设 $I$ 为纯内射 $A$-模。取嵌入
+$\underline{I} \to J$，其中 J 为 $\mathcal{A}$ 的内射对象（见
+引理 \ref{adequate-lemma-enough-injectives}）。
+由上文可知 $J = \underline{I'}$，其中某个 $A$-模 $I'$ 为纯内射。
+由于 $\underline{I} \to \underline{I'}$ 是内射的，
+映射 $I \to I'$ 是普遍单射。由 $I$ 的假设，该映射分裂。
+因此 $\underline{I}$ 是 $J = \underline{I'}$ 的直和项，
+从而是范畴 $\mathcal{A}$ 的内射对象。
+\end{proof}
+
+\noindent
+设 $U = \Spec(A)$ 为仿射概形，设 $M$ 为 $A$-模。
+我们用记号 $M^a$ 表示 $(\Sch/U)_\tau$ 上与 $U$ 上拟凝聚层
+$\widetilde{M}$ 关联的 $\mathcal{O}$-模拟凝聚层。
+现在记号已齐备，可以表述如下引理。
+
+\begin{lemma}
+\label{adequate-lemma-big-ext}
+设 $U = \Spec(A)$ 为仿射概形。设 $M$、$N$ 为 $A$-模。
+对所有 $i$，都有典范同构
+$$
+\Ext^i_{\textit{Mod}(\mathcal{O})}(M^a, N^a) = \text{Pext}^i_A(M, N)
+$$
+且该同构关于 $M$ 与 $N$ 具有函子性。
+\end{lemma}
+
+\begin{proof}
+我们构造一个从右向左的典范箭头。若
+$N \to I^\bullet$ 是纯内射分解，则
+$M^a \to (I^\bullet)^a$ 是（适足的）$\mathcal{O}$-模的正合复形。
+因此 $\text{Pext}^i_A(M, N)$ 的任意元素
+都给出 $D(\mathcal{O})$ 中的映射 $N^a \to M^a[i]$，即
+左侧群的一个元素。
+
+\medskip\noindent
+为证明该映射是同构，注意可将
+$\Ext^i_{\textit{Mod}(\mathcal{O})}(M^a, N^a)$ 替换为
+$\Ext^i_{\textit{Adeq}(\mathcal{O})}(M^a, N^a)$，见
+引理 \ref{adequate-lemma-ext-adequate}。
+令 $\mathcal{A}$ 为 $\textit{Alg}_A$ 上适足函子的范畴。
+我们已经看到 $\mathcal{A}$ 等价于
+$\textit{Adeq}(\mathcal{O})$，见
+引理 \ref{adequate-lemma-adequate-affine}；另见
+引理 \ref{adequate-lemma-right-adjoint-adequate} 的证明。
+因此现在只需证明
+$$
+\Ext^i_\mathcal{A}(\underline{M}, \underline{N}) =
+\text{Pext}^i_A(M, N)
+$$
+然而，这由引理
+\ref{adequate-lemma-pure-injective-injective-adequate} 立即可见，
+因为纯内射分解 $N \to I^\bullet$ 恰好对应于
+$\mathcal{A}$ 中 $\underline{N}$ 的内射分解。
+\end{proof}
+
+
+
+
+
+
+
+\section{适足模的导出范畴 II}
+\label{adequate-section-derived-categories}
+
+\noindent
+设 $S$ 为概形。记 $\mathcal{O}_S$ 为 $S$ 的结构层，
+记 $\mathcal{O}$ 为大站点 $(\Sch/S)_\tau$ 的结构层。
+在《下降》备注 \ref{descent-remark-change-topologies-ringed} 中，
+我们构造了带环空间的站点态射
+\begin{equation}
+\label{adequate-equation-compare-big-small}
+f :
+((\Sch/S)_\tau, \mathcal{O})
+\longrightarrow
+(S_{Zar}, \mathcal{O}_S).
+\end{equation}
+在前几节中我们看到，函子
+$f_* : \textit{Mod}(\mathcal{O}) \to \textit{Mod}(\mathcal{O}_S)$
+将适足层变为拟凝聚层，并诱导正合函子
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$；事实上，
+$f_* = v$ 诱导等价
+$\textit{Adeq}(\mathcal{O})/\mathcal{C} \to \QCoh(\mathcal{O}_S)$，
+其中 $\mathcal{C}$ 为寄生适足模构成的子范畴。
+此外，函子 $f^*$ 将拟凝聚模变为适足模，并诱导函子
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$，
+它是 $v$ 的左伴随。
+\medskip\noindent
+$D_{\textit{Adeq}}(\mathcal{O})$ 与 $D_\QCoh(S)$ 之间也存在非常相似的关系。
+首先说明范畴 $D_{\textit{Adeq}}(\mathcal{O})$
+与所选拓扑无关。
+
+\begin{remark}
+\label{adequate-remark-D-adeq-independence-topology}
+设 $S$ 为概形。
+设 $\tau, \tau' \in \{Zar, \etale, smooth, syntomic, fppf\}$。
+记 $\mathcal{O}_\tau$，resp.\ $\mathcal{O}_{\tau'}$ 为结构层 $\mathcal{O}$
+在 $(\Sch/S)_\tau$，resp.\ $(\Sch/S)_{\tau'}$ 上视为层所得的对象。
+则 $D_{\textit{Adeq}}(\mathcal{O}_\tau)$ 与
+$D_{\textit{Adeq}}(\mathcal{O}_{\tau'})$ 典范同构。
+这由《层上同调》引理
+\ref{sites-cohomology-lemma-compare-topologies-derived-adequate-modules} 得出。
+具体地，假设 $\tau$ 比拓扑 $\tau'$ 更强，令
+$\mathcal{C} = (\Sch/S)_{fppf}$，令 $\mathcal{B}$ 为
+$S$ 上仿射概形的集合。上文已经看到了假设 (1) 与 (2)。
+假设 (3) 显然成立，假设 (4) 由引理
+\ref{adequate-lemma-same-cohomology-adequate} 得出。
+\end{remark}
+
+\begin{remark}
+\label{adequate-remark-D-adeq-and-D-QCoh}
+设 $S$ 为概形。态射 $f$ 见
+(\ref{adequate-equation-compare-big-small})，它诱导伴随函子
+$Rf_* : D_{\textit{Adeq}}(\mathcal{O}) \to D_\QCoh(S)$
+和
+$Lf^* : D_\QCoh(S) \to D_{\textit{Adeq}}(\mathcal{O})$。
+此外 $Rf_* Lf^* \cong \text{id}_{D_\QCoh(S)}$。
+
+\medskip\noindent
+下面略述证明。由
+备注 \ref{adequate-remark-D-adeq-independence-topology}，
+可假设拓扑 $\tau$ 为 Zariski 拓扑。
+我们将使用 $\mathcal{O}$-模上无界全导出函子
+$Lf^*$ 与 $Rf_*$ 的存在性及其伴随性，见
+《层上同调》引理 \ref{sites-cohomology-lemma-adjoint}。
+此时 $f_*$ 只是 $(\Sch/S)_{Zar}$ 到其子范畴
+$S_{Zar}$ 的限制。因此显然
+$Rf_* = f_*$ 诱导
+$Rf_* : D_{\textit{Adeq}}(\mathcal{O}) \to D_\QCoh(S)$。
+设 $\mathcal{G}^\bullet$ 为 $D_\QCoh(S)$ 中的对象。
+可取一个系统
+$\mathcal{K}_1^\bullet \to \mathcal{K}_2^\bullet \to \ldots$
+以及图表，其中各复形为有界上、平坦的 $\mathcal{O}_S$-模复形，
+转移映射逐项分裂单射：
+$$
+\xymatrix{
+\mathcal{K}_1^\bullet \ar[d] \ar[r] &
+\mathcal{K}_2^\bullet \ar[d] \ar[r] & \ldots \\
+\tau_{\leq 1}\mathcal{G}^\bullet \ar[r] &
+\tau_{\leq 2}\mathcal{G}^\bullet \ar[r] & \ldots
+}
+$$
+其具有《导出范畴》引理
+\ref{derived-lemma-special-direct-system} 中列出的性质 (1)、(2)、(3)，
+其中 $\mathcal{P}$ 是平坦 $\mathcal{O}_S$-模的集合。
+于是 $Lf^*\mathcal{G}^\bullet$ 由
+$\colim f^*\mathcal{K}_n^\bullet$ 计算，见
+《层上同调》引理 \ref{sites-cohomology-lemma-pullback-K-flat} 及
+\ref{sites-cohomology-lemma-derived-base-change}
+（注意，由于《\'Etale 上同调》引理
+\ref{etale-cohomology-lemma-points-fppf}，我们的站点有足够多点）。
+我们需要证明 $H^i(Lf^*\mathcal{G}^\bullet) =
+\colim H^i(f^*\mathcal{K}_n^\bullet)$ 对每个 $i$ 都是适足的。由
+引理 \ref{adequate-lemma-abelian-adequate}，
+只需证明每个 $H^i(f^*\mathcal{K}_n^\bullet)$ 都是适足的。
+
+\medskip\noindent
+$H^i(f^*\mathcal{K}_n^\bullet)$ 的适足性在 $S$ 上是局部的，
+因此可假设 $S = \Spec(A)$ 为仿射概形。由于 $S$ 仿射，
+$D_\QCoh(S) = D(\QCoh(\mathcal{O}_S))$，见
+《概形的导出范畴》第
+\ref{perfect-section-derived-quasi-coherent} 节的讨论。
+因此存在拟同构
+$\mathcal{F}^\bullet \to \mathcal{K}_n^\bullet$，
+其中 $\mathcal{F}^\bullet$ 是平坦拟凝聚模的有界上复形。
+于是 $f^*\mathcal{F}^\bullet \to f^*\mathcal{K}_n^\bullet$ 是
+拟同构，且 $f^*\mathcal{F}^\bullet$ 的上同调层是适足的。
+
+\medskip\noindent
+最后的断言
+$Rf_* Lf^* \cong \text{id}_{D_\QCoh(S)}$
+由上述函子的显式描述得出。
+（直白地说：若 $\mathcal{F}$ 是拟凝聚的且 $p > 0$，则
+$L_pf^*\mathcal{F}$ 是寄生适足模。）
+\end{remark}
+
+
+\begin{remark}
+\label{adequate-remark-conclusion}
+上面的备注 \ref{adequate-remark-D-adeq-and-D-QCoh}
+蕴含导出范畴之间的等价
+$$
+D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})
+\longrightarrow
+D_\QCoh(S)
+$$
+其中 $\mathcal{C}$ 为寄生适足模构成的范畴。
+具体地，显然 $D_\mathcal{C}(\mathcal{O})$ 是 $Rf_*$ 的核，
+因而得到所示函子。对 $D_{\textit{Adeq}}(\mathcal{O})$ 的任意对象 $X$，
+映射 $Lf^*Rf_*X \to X$ 在 $D_\QCoh(S)$ 中映为拟同构，因此
+$Lf^*Rf_*X \to X$ 是
+$D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})$ 中的同构。
+最后，对 $D_{\textit{Adeq}}(\mathcal{O})$ 中的对象 $X, Y$，映射
+$$
+Rf_* :
+\Hom_{D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})}(X, Y)
+\to
+\Hom_{D_\QCoh(S)}(Rf_*X, Rf_*Y)
+$$
+是双射，因为 $Lf^*$ 给出其逆映射（由上述备注）。
+\end{remark}

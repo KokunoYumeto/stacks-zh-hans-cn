@@ -1,0 +1,6220 @@
+% Generated mechanically from the frozen models.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{54}
+\chapter{半稳定约化}
+
+
+
+\phantomsection
+\label{models-section-phantom}
+
+
+\section{引言}
+\label{models-section-introduction}
+
+\noindent
+本章证明曲线的半稳定约化定理。我们将采用 Artin 与 Winters
+在论文 \cite{Artin-Winters} 中的方法。
+
+\medskip\noindent
+事实上，无须使用任何奇点消解结果，也可以证明曲线的半稳定约化定理。
+具体而言，可以运用 Mumford 所发展的几何不变量理论（GIT），参见
+\cite{GIT}，来确立半稳定曲线模空间的存在性与射影性。Gieseker
+大力推进了这一方法，并在其讲义 \cite{Gieseker}\footnote{Gieseker
+的讲义以代数闭域为基域写成，但同一方法在 $\mathbf{Z}$ 上也适用。}
+中证明了完整结果。这是一项相当惊人的成就：人们似乎很难凭直觉相信，
+在从未真正研究正维基底上的曲线族的情况下，仍能证明这样的结果。
+
+\medskip\noindent
+从历史上看，曲线半稳定约化定理的首个证明见 Deligne 与 Mumford
+的论文 \cite{DM}。该证明把问题约化到阿贝尔簇的情形；由于
+Grothendieck 等人的工作，这一情形在当时已经解决，参见
+\cite{SGA7-I} 与 \cite{SGA7-II}）。阿贝尔簇的半稳定约化定理使用
+N\'eron 模型理论，而该理论又建立在对基底上双有理群律的处理之上。
+
+\medskip\noindent
+Artin 与 Winters 论文中的方法依靠曲面奇点的消解来获得正则模型。
+一旦正则模型的存在性成立，证明便归结为分析特殊纤维的各种可能情形，
+再利用域上 $1$ 维概形的 Picard 群中挠子的一个不等式得出结论。
+Saito 的论文 \cite{Saito} 中可见类似论证；他直接运用 \'etale 上同调，
+并得到更强的结果：可以用惯性群在 $\ell$-进 \'etale 上同调上的作用
+来刻画半稳定约化。
+
+\medskip\noindent
+证明该定理的另一种途径是运用刚性解析几何技术。这里请读者参见
+\cite{vanderPut} 与 \cite{Arzdorf-Wewers}。
+
+\medskip\noindent
+Temkin 的论文 \cite{Temkin} 运用赋值论技术（此外还证明了更多结果）；
+该文附录 A 还对不同证明以及它们与 $2$ 维概形奇点消解之间的关系
+作了很好的综述。
+
+\medskip\noindent
+读者或许还愿意参阅 Ahmed Abbes 撰写的另一篇综述论文
+\cite{Abbes-ssr}。
+
+
+
+
+
+
+\section{线性代数}
+\label{models-section-linear-algebra}
+
+\noindent
+下面给出稍后将用到的若干引理。
+
+\begin{lemma}
+\label{models-lemma-recurring}
+\begin{reference}
+\cite[Theorem I]{Taussky}
+\end{reference}
+令 $A = (a_{ij})$ 为复 $n \times n$ 矩阵。
+\begin{enumerate}
+\item 若 $|a_{ii}| > \sum_{j \not = i} |a_{ij}|$ 对每个 $i$ 都成立，
+则 $\det(A)$ 非零。
+\item 若存在实向量 $m = (m_1, \ldots, m_n)$，满足 $m_i > 0$，
+并且 $|a_{ii} m_i| > \sum_{j \not = i} |a_{ij}m_j|$ 对每个 $i$
+都成立，则 $\det(A)$ 非零。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $A$ 如 (1) 且 $\det(A) = 0$，则存在非零向量 $z$ 使得
+$Az = 0$。选取 $r$ 使 $|z_r|$ 最大。于是
+$$
+|a_{rr} z_r| = |\sum\nolimits_{k \not = r} a_{rk}z_k| \leq
+\sum\nolimits_{k \not = r} |a_{rk}||z_k| \leq
+|z_r| \sum\nolimits_{k \not = r} |a_{rk}| < |a_{rr}||z_r|
+$$
+这给出矛盾。为证明 (2)，对矩阵 $(a_{ij}m_j)$ 应用 (1)；
+其行列式为 $m_1 \ldots m_n \det(A)$。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-recurring-real}
+令 $A = (a_{ij})$ 为实 $n \times n$ 矩阵，并且 $a_{ij} \geq 0$
+对 $i \not = j$ 成立。令 $m = (m_1, \ldots, m_n)$ 为满足 $m_i > 0$
+的实向量。对 $I \subset \{1, \ldots, n\}$，令
+$x_I \in \mathbf{R}^n$ 为如下向量：其第 $i$ 个坐标为 $m_i$（若
+$i \in I$），否则为 $0$。若
+\begin{equation}
+\label{models-equation-ineq}
+-a_{ii}m_i \geq \sum\nolimits_{j \not = i} a_{ij}m_j
+\end{equation}
+对每个 $i$ 都成立，则 $\Ker(A)$ 是由满足下列条件的向量 $x_I$
+张成的向量空间：
+\begin{enumerate}
+\item $a_{ij} = 0$ 对 $i \in I$、$j \not \in I$ 成立；
+\item 对 $i \in I$，(\ref{models-equation-ineq}) 中等号成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+将 $a_{ij}$ 替换为 $a_{ij}m_j$ 后，可假设 $m_i = 1$ 对所有 $i$ 成立。
+若 $I \subset \{1, \ldots, n\}$ 满足 (1) 与 (2)，则直接计算可知
+$x_I$ 属于 $A$ 的核。反过来，令
+$x = (x_1, \ldots, x_n) \in \mathbf{R}^n$ 为 $A$ 的核中的非零向量。
+我们将对 $x$ 的非零坐标数作归纳，证明 $x$ 属于满足 (1)、(2) 的向量
+$x_I$ 所张成的空间。令 $I \subset \{1, \ldots, n\}$ 为指标 $r$
+的集合，其中 $|x_r|$ 取最大值。对 $r \in I$，有
+$$
+|a_{rr} x_r| = |\sum\nolimits_{k \not = r} a_{rk}x_k| \leq
+\sum\nolimits_{k \not = r} a_{rk}|x_k| \leq
+|x_r| \sum\nolimits_{k \not = r} a_{rk} \leq |a_{rr}||x_r|
+$$
+因此处处取等号。特别地，$a_{rk} = 0$ 对 $r \in I$、$k \not \in I$
+成立，并且对 $r \in I$，(\ref{models-equation-ineq}) 中等号成立。
+于是可将 $x_I$ 的适当倍数从 $x$ 中减去，从而减少非零坐标的数目。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-recurring-symmetric-real}
+令 $A = (a_{ij})$ 为对称实 $n \times n$ 矩阵，并且 $a_{ij} \geq 0$
+对 $i \not = j$ 成立。令 $m = (m_1, \ldots, m_n)$ 为满足 $m_i > 0$
+的实向量。假设
+\begin{enumerate}
+\item $Am = 0$,
+\item 不存在真非空子集 $I \subset \{1, \ldots, n\}$，使得
+$a_{ij} = 0$ 对 $i \in I$、$j \not \in I$ 成立。
+\end{enumerate}
+则 $x^t A x \leq 0$，且等号成立当且仅当 $x = qm$，其中某个
+$q \in \mathbf{R}$。
+\end{lemma}
+
+\begin{proof}[第一种证明]
+将 $a_{ij}$ 替换为 $a_{ij}m_im_j$ 后，可假设 $m_i = 1$ 对所有
+$i$ 都成立。条件 (1) 意味着 $-a_{ii} = \sum_{j \not = i} a_{ij}$
+对所有 $i$ 都成立。回忆
+$x^tAx = \sum_{i, j} x_ia_{ij}x_j$。于是
+\begin{align*}
+\sum\nolimits_{i \not = j} -a_{ij}(x_j - x_i)^2 & =
+\sum\nolimits_{i \not = j} -a_{ij}x_j^2 + 2a_{ij}x_ix_i - a_{ij}x_i^2 \\
+& =
+\sum\nolimits_j a_{jj} x_j^2 +
+\sum\nolimits_{i \not = j} 2a_{ij}x_ix_i +
+\sum\nolimits_j a_{jj} x_i^2 \\
+& = 2x^tAx
+\end{align*}
+这显然 $\leq 0$。若等号成立，令 $I$ 为指标 $i$ 的集合，其中
+$x_i \not = x_1$。则 $a_{ij} = 0$ 对 $i \in I$、$j \not \in I$
+成立。因此由条件 (2)，$I = \{1, \ldots, n\}$，而 $x$
+是 $m = (1, \ldots, 1)$ 的倍数。
+\end{proof}
+
+\begin{proof}[第二种证明]
+由谱定理，矩阵 $A$ 的特征值都是实数。我们断言所有特征值都
+$\leq 0$。事实上，由于性质 (1) 意味着
+$-a_{ii}m_i = \sum_{j \not = i} a_{ij}m_j$ 对所有 $i$ 都成立，
+可知矩阵 $A' = A - \lambda I$（其中 $\lambda > 0$）满足
+$|a'_{ii}m_i| > \sum a'_{ij}m_j = \sum |a'_{ij}m_j|$ 对所有 $i$
+都成立。因此由引理 \ref{models-lemma-recurring}，$A'$ 可逆。
+这蕴含对称双线性形式 $x^tAy$
+是半负定的，即 $x^tAx \leq 0$ 对所有 $x$ 都成立。由此，$A$ 的核
+等于向量 $x$ 的集合，其中 $x^tAx = 0$。引理
+\ref{models-lemma-recurring-real} 对核的描述给出本引理的最后断言。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-orthogonal-direct-sum}
+令 $L$ 为有限自由 $\mathbf{Z}$-模，并赋有整值对称正定双线性形式
+$\langle\ ,\ \rangle : L \times L \to \mathbf{Z}$。
+令 $A \subset L$ 为子模，且 $L/A$ 无挠。置
+$B = \{b \in L \mid \langle a, b\rangle = 0,\ \forall a \in A\}$.
+则有单射
+$$
+A^\#/A \leftarrow L/(A \oplus B) \rightarrow B^\#/B
+$$
+其余核均为 $L^\#/L$ 的商。这里
+$A^\# = \{a' \in A \otimes \mathbf{Q} \mid
+\langle a, a'\rangle \in \mathbf{Z},\ \forall a \in A\}$
+，而 $B$ 与 $L$ 的相应记号作类似定义。
+\end{lemma}
+
+\begin{proof}
+注意
+$L \otimes \mathbf{Q} = A \otimes \mathbf{Q} \oplus B \otimes \mathbf{Q}$
+，因为由正定性，该形式在 $A$ 上非退化。以
+$\pi_B : L \otimes \mathbf{Q} \to B \otimes \mathbf{Q}$ 表示投影。
+由于该形式为整值，$\pi_B(x) \in B^\#$ 对 $x \in L$ 成立。
+这给出正合列
+$$
+0 \to A \to L \xrightarrow{\pi_B} B^\# \to Q \to 0
+$$
+其中 $Q$ 是 $L \to B^\#$ 的余核。注意 $Q$ 是 $L^\#/L$ 的商，
+因为映射 $L^\# \to B^\#$ 是满射：它是 $\mathbf{Z}$-线性对偶于
+$B \to L$ 的映射，而后者作为 $\mathbf{Z}$-模映射是分裂的。
+模去 $A \oplus B$，得到短正合列
+$$
+0 \to L/(A \oplus B) \to B^\#/B \to Q \to 0
+$$
+这就证明了本引理。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-coker}
+令 $L_0$、$L_1$ 为有限自由 $\mathbf{Z}$-模，并赋有整值对称正定
+双线性形式 $\langle\ ,\ \rangle : L_i \times L_i \to \mathbf{Z}$。
+令 $\text{d} : L_0 \to L_1$ 与 $\text{d}^* : L_1 \to L_0$
+互为伴随。若 $\langle\ ,\ \rangle$ 在 $L_0$ 上是幺模的，则存在同构
+$$
+\Phi :
+\Coker(\text{d}^*\text{d})_{torsion}
+\longrightarrow
+\Im(\text{d})^\#/\Im(\text{d})
+$$
+，其中记号同引理 \ref{models-lemma-orthogonal-direct-sum}。
+\end{lemma}
+
+\begin{proof}
+令 $x \in L_0$ 表示 $\Coker(\text{d}^*\text{d})$ 中的一个挠类。
+则对某个 $a > 0$，可以写成 $ax = \text{d}^*\text{d}(y)$。
+对任意 $z \in \Im(\text{d})$，设 $z = \text{d}(y')$，则
+$$
+\langle (1/a)\text{d}(y), z \rangle =
+\langle (1/a)\text{d}(y), \text{d}(y') \rangle =
+\langle x, y' \rangle \in \mathbf{Z}
+$$
+因此 $(1/a)\text{d}(y) \in \Im(\text{d})^\#$。定义
+$\Phi(x) = (1/a)\text{d}(y) \bmod \Im(\text{d})$.
+略去 $\Phi$ 良定义、可加且为单射的证明。
+
+\medskip\noindent
+为证明 $\Phi$ 为满射，令 $z \in \Im(\text{d})^\#$。
+则 $z$ 定义线性映射 $L_0 \to \mathbf{Z}$，其规则为
+$x \mapsto \langle z, \text{d}(x)\rangle$。由于假设 $L_0$ 上的配对为幺模的，
+可找到 $x' \in L_0$，使得
+$\langle x', x \rangle = \langle z, \text{d}(x)\rangle$
+对所有 $x \in L_0$ 成立。特别地，$x'$ 与 $\Ker(\text{d})$ 的配对为零。
+由于 $\Im(\text{d}^*\text{d}) \otimes \mathbf{Q}$ 是
+$\Ker(\text{d}) \otimes \mathbf{Q}$ 的正交补，这意味着 $x'$ 在
+$\Coker(\text{d}^*\text{d})$ 中定义一个挠类。我们断言
+$\Phi(x') = z$。确实，写成 $a x' = \text{d}^*\text{d}(y)$，其中某个
+$y \in L_0$ 且 $a > 0$。对任意 $x \in L_0$，得到
+$$
+\langle z, \text{d}(x)\rangle =
+\langle x', x \rangle =
+\langle (1/a)\text{d}^*\text{d}(y), x \rangle =
+\langle (1/a)\text{d}(y),\text{d}(x) \rangle
+$$
+因此 $z = \Phi(x')$，证明完成。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-recurring-symmetric-integer}
+令 $A = (a_{ij})$ 为对称整数 $n \times n$ 矩阵，并且
+$a_{ij} \geq 0$ 对 $i \not = j$ 成立。令 $m = (m_1, \ldots, m_n)$
+为满足 $m_i > 0$ 的整数向量。假设
+\begin{enumerate}
+\item $Am = 0$,
+\item 不存在真非空子集 $I \subset \{1, \ldots, n\}$，使得
+$a_{ij} = 0$ 对 $i \in I$、$j \not \in I$ 成立。
+\end{enumerate}
+令 $e$ 为序对 $(i, j)$ 的数目，其中 $i < j$ 且 $a_{ij} > 0$。
+则对素数 $\ell$，若它与所有 $a_{ij}$ 和 $m_i$ 互素，便有
+$$
+\dim_{\mathbf{F}_\ell}(\Coker(A)[\ell]) \leq 1 - n + e
+$$
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{models-lemma-recurring-symmetric-real}，$A$ 的秩为 $n - 1$。
+复合映射
+$$
+\mathbf{Z}^{\oplus n} \xrightarrow{\text{diag}(m_1, \ldots, m_n)}
+\mathbf{Z}^{\oplus n} \xrightarrow{(a_{ij})}
+\mathbf{Z}^{\oplus n} \xrightarrow{\text{diag}(m_1, \ldots, m_n)}
+\mathbf{Z}^{\oplus n}
+$$
+的矩阵为 $a_{ij}m_im_j$。由对 $\ell$ 的限制，首尾两个映射的余核
+都是阶与 $\ell$ 互素的挠群，因此只须对以 $a_{ij}m_im_j$ 为矩阵元的
+矩阵证明本引理。故可假设 $m = (1, \ldots, 1)$。
+
+\medskip\noindent
+假设 $m = (1, \ldots, 1)$。置 $V = \{1, \ldots, n\}$ 以及
+$E = \{(i, j) \mid i < j\text{ 且 }a_{ij} > 0\}$。对
+$e = (i, j) \in E$，置 $a_e = a_{ij}$。定义映射 $s, t : E \to V$，
+令 $s(i, j) = i$ 以及 $t(i, j) = j$。置
+$\mathbf{Z}(V) = \bigoplus_{i \in V} \mathbf{Z}i$ 以及
+$\mathbf{Z}(E) = \bigoplus_{e \in E} \mathbf{Z}e$.
+在 $\mathbf{Z}(V)$ 与 $\mathbf{Z}(E)$ 上定义对称正定整值配对如下：
+$$
+\langle i, i \rangle = 1\text{ 对 }i \in V, \quad
+\langle e, e \rangle = a_e\text{ 对 }e \in E
+$$
+并令其他所有配对均为零。考虑映射
+$$
+\text{d} : \mathbf{Z}(V) \to \mathbf{Z}(E), \quad
+i \longmapsto
+\sum\nolimits_{e \in E,\ s(e) = i} e - \sum\nolimits_{e \in E,\ t(e) = i} e
+$$
+以及
+$$
+\text{d}^*(e) = a_e(s(e) - t(e))
+$$
+计算表明
+$$
+\langle d(x), y\rangle = \langle x, \text{d}^*(y) \rangle
+$$
+，换言之，$\text{d}$ 与 $\text{d}^*$ 互为伴随。接下来计算
+\begin{align*}
+\text{d}^*\text{d}(i)
+& = 
+\text{d}^*(
+\sum\nolimits_{e \in E,\ s(e) = i} e - \sum\nolimits_{e \in E,\ t(e) = i} e) \\
+& =
+\sum\nolimits_{e \in E,\ s(e) = i} a_e(s(e) - t(e)) -
+\sum\nolimits_{e \in E,\ t(e) = i} a_e(s(e) - t(e))
+\end{align*}
+$i$ 在 $\text{d}^*\text{d}(i)$ 中的系数为
+$$
+\sum\nolimits_{e \in E,\ s(e) = i} a_e +
+\sum\nolimits_{e \in E,\ t(e) = i} a_e = - a_{ii}
+$$
+，因为 $\sum_j a_{ij} = 0$，而 $j \not = i$ 在
+$\text{d}^*\text{d}(i)$ 中的系数为 $-a_{ij}$。
+因此 $\Coker(A) = \Coker(\text{d}^*\text{d})$。
+
+\medskip\noindent
+考虑包含关系
+$$
+\Im(\text{d}) \oplus \Ker(\text{d}^*) \subset \mathbf{Z}(E)
+$$
+左端是正交直和。显然 $\mathbf{Z}(E)/\Ker(\text{d}^*)$ 无挠。
+我们断言 $\mathbf{Z}(E)/\Im(\text{d})$ 也无挠。事实上，设
+$x = \sum x_e e \in \mathbf{Z}(E)$ 且 $a > 1$，并且
+$ax = \text{d}y$ 对某个 $y = \sum y_i i \in \mathbf{Z}(V)$ 成立。
+则 $a x_e = y_{s(e)} - y_{t(e)}$。由性质 (2)，所有 $y_i$ 模 $a$
+具有同一个同余类。因此可以写成
+$y = a y' + (y_1, y_1, \ldots, y_1)$。由于
+$\text{d}(y_1, y_1, \ldots, y_1) = 0$，可知
+$x = \text{d}(y')$，这正是所需证明的结论。
+
+\medskip\noindent
+因此可以应用引理 \ref{models-lemma-orthogonal-direct-sum}，得到单射
+$$
+\Im(\text{d})^\#/\Im(\text{d}) \leftarrow
+\mathbf{Z}(E)/(\Im(\text{d}) \oplus \Ker(\text{d}^*)) \rightarrow
+\Ker(\text{d}^*)^\#/\Ker(\text{d}^*)
+$$
+其余核被所有 $a_e$ 的乘积零化，而该乘积与 $\ell$ 互素。由于
+$\Ker(\text{d}^*)$ 是秩为 $1 - n + e$ 的格，可知只要证明存在同构
+$$
+\Phi : M_{torsion} \longrightarrow \Im(\text{d})^\#/\Im(\text{d})
+$$
+即可完成证明。这已在引理 \ref{models-lemma-coker} 中证明。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{数值型}
+\label{models-section-numerical-types}
+
+\noindent
+部分论证将涉及以下数据结构的组合性质。
+
+\begin{definition}
+\label{models-definition-type}
+一个{\it 数值型} $T$ 由下列数据给出：
+$$
+n, m_i, a_{ij}, w_i, g_i
+$$
+其中 $n \geq 1$ 为整数，而 $m_i$、$a_{ij}$、$w_i$、$g_i$
+是在 $1 \leq i, j \leq n$ 范围内满足下列条件的整数：
+\begin{enumerate}
+\item $m_i > 0$, $w_i > 0$, $g_i \geq 0$,
+\item 矩阵 $A = (a_{ij})$ 对称，且 $a_{ij} \geq 0$ 对
+$i \not = j$ 成立；
+\item 不存在真非空子集 $I \subset \{1, \ldots, n\}$，使得
+$a_{ij} = 0$ 对 $i \in I$、$j \not \in I$ 成立；
+\item 对每个 $i$，都有 $\sum_j a_{ij}m_j = 0$；
+\item $w_i | a_{ij}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+显然，这类结构用起来多少有些麻烦；但它恰好出现在光滑几何连通曲线的
+固有正则模型的特殊纤维中。当然，我们只在重排指标的意义下考察这些型。
+
+\begin{definition}
+\label{models-definition-type-equivalent}
+称两个数值型 $n, m_i, a_{ij}, w_i, g_i$ 与
+$n', m'_i, a'_{ij}, w'_i, g'_i$ 为{\it 等价型}，如果存在一个置换
+$\sigma$，作用于 $\{1, \ldots, n\}$，使得
+$m_i = m'_{\sigma(i)}$、$a_{ij} = a'_{\sigma(i)\sigma(j)}$、
+$w_i = w'_{\sigma(i)}$，并且 $g_i = g'_{\sigma(i)}$。
+\end{definition}
+
+\noindent
+一个数值型具有亏格。
+
+\begin{lemma}
+\label{models-lemma-genus}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型。则表达式
+$$
+g = 1 + \sum m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii})
+$$
+是整数。
+\end{lemma}
+
+\begin{proof}
+为证明 $g$ 是整数，须证明 $\sum a_{ii}m_i$ 为偶数。如下模 $2$
+计算即可看出这一点：
+\begin{align*}
+\sum\nolimits_i a_{ii} m_i 
+& \equiv
+\sum\nolimits_{i,\ m_i\text{ 为奇数}} a_{ii}m_i \\
+& \equiv
+\sum\nolimits_{i,\ m_i\text{ 为奇数}} \sum\nolimits_{j \not = i} a_{ij}m_j \\
+& \equiv
+\sum\nolimits_{i,\ m_i\text{ 为奇数}}
+\sum\nolimits_{j \not = i,\ m_j\text{ 为奇数}} a_{ij}m_j \\
+& \equiv
+\sum\nolimits_{i < j,\ m_i\text{ 且 }m_j\text{ 为奇数}} a_{ij}(m_i + m_j) \\
+& \equiv
+0
+\end{align*}
+这里使用了 $a_{ij} = a_{ji}$，以及 $\sum_j a_{ij}m_j = 0$
+对所有 $i$ 成立。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-genus}
+称 $n, m_i, a_{ij}, w_i, g_i$ 为{\it 亏格 $g$ 的数值型}，如果
+$g = 1 + \sum m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii})$ 是引理
+\ref{models-lemma-genus} 中的整数。
+\end{definition}
+
+\noindent
+下面将证明（引理 \ref{models-lemma-genus-nonnegative}）亏格几乎总是
+$\geq 0$。不过，确实存在负亏格的数值型。
+
+\begin{lemma}
+\label{models-lemma-irreducible}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格 $g$ 的数值型。
+若 $n = 1$，则 $a_{11} = 0$ 且 $g = 1 + m_1w_1(g_1 - 1)$。
+此外，所有这样的数值型可分类如下：
+\begin{enumerate}
+\item 若 $g < 0$，则 $g_1 = 0$，而亏格为 $g$ 且 $n = 1$ 的可能数值型
+只有有限多个，它们对应于分解式 $m_1w_1 = 1 - g$。
+\item 若 $g = 0$，则 $m_1 = 1$、$w_1 = 1$、$g_1 = 0$，
+如引理 \ref{models-lemma-genus-zero} 所述。
+\item 若 $g = 1$，则推出 $g_1 = 1$，但 $m_1, w_1$ 可以是任意正整数；
+这就是情形 (\ref{models-item-one})，见引理 \ref{models-lemma-genus-one}。
+\item 若 $g > 1$，则 $g_1 > 1$，而亏格为 $g$ 且 $n = 1$ 的可能数值型
+只有有限多个，它们对应于分解式 $m_1w_1(g_1 - 1) = g - 1$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+该引理不证自明。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-diagonal-negative}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格 $g$ 的数值型。
+若 $n > 1$，则 $a_{ii} < 0$ 对所有 $i$ 成立。
+\end{lemma}
+
+\begin{proof}
+对矩阵 $A$ 应用引理 \ref{models-lemma-recurring-symmetric-real}。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-minus-one}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格 $g$ 的数值型。
+假设 $n > 1$。若指标 $i$ 的贡献
+$m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii})$ 对亏格 $g$ 为 $< 0$，
+则 $g_i = 0$ 且 $a_{ii} = -w_i$。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{models-lemma-diagonal-negative} 以及
+$w_i > 0$、$g_i \geq 0$、$w_i | a_{ii}$ 得出。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-type-minus-one}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型。称 $i$ 为一个
+{\it $(-1)$-指标}，若 $g_i = 0$ 且 $a_{ii} = -w_i$。
+\end{definition}
+
+\noindent
+我们可以“收缩”$(-1)$-指标。
+
+\begin{lemma}
+\label{models-lemma-contract}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。
+假设 $n$ 是一个 $(-1)$-指标。则存在数值型 $T'$，它由
+$n', m'_i, a'_{ij}, w'_i, g'_i$ 给出并满足
+\begin{enumerate}
+\item $n' = n - 1$,
+\item $m'_i = m_i$,
+\item $a'_{ij} = a_{ij} - a_{in}a_{jn}/a_{nn}$,
+\item $w'_i = w_i/2$，若 $a_{in}/w_n$ 为偶数且
+$a_{in}/w_i$ 为奇数；否则 $w'_i = w_i$；
+\item $g'_i =
+\frac{w_i}{w'_i}(g_i - 1) + 1 + \frac{a_{in}^2 - w_na_{in}}{2w'_iw_n}$.
+\end{enumerate}
+此外，$g = g'$。
+\end{lemma}
+
+\begin{proof}
+注意，例如由引理 \ref{models-lemma-irreducible} 可知 $n > 1$，因而
+$n' \geq 1$。我们对 $n', m'_i, a'_{ij}, w'_i, g'_i$ 检验定义
+\ref{models-definition-type} 的条件 (1)--(5)。
+
+\medskip\noindent
+条件 (1) 是立即的。
+
+\medskip\noindent
+条件 (2)。$A' = (a'_{ij})$ 的对称性是立即的；并且由引理
+\ref{models-lemma-diagonal-negative} 有 $a_{nn} < 0$，故
+$a'_{ij} \geq a_{ij} \geq 0$ 对 $i \not = j$ 成立。
+
+\medskip\noindent
+条件 (3)。假设 $I \subset \{1, \ldots, n - 1\}$，并且
+$a'_{ii'} = 0$ 对 $i \in I$ 与
+$i' \in \{1, \ldots, n - 1\} \setminus I$ 成立。于是可见，对每个
+$i \in I$ 与 $i' \in I'$ 都有 $a_{in}a_{i'n} = 0$。因此，或者
+$a_{in} = 0$ 对所有 $i \in I$ 成立，而
+$I \subset \{1, \ldots, n\}$ 与 $T$ 的性质 (3) 矛盾；或者
+$a_{i'n} = 0$ 对所有 $i' \in \{1, \ldots, n - 1\} \setminus I$
+成立，而 $I \cup \{n\} \subset \{1, \ldots, n\}$ 与 $T$ 的
+性质 (3) 矛盾。因此 (3) 对 $T'$ 成立。
+
+\medskip\noindent
+条件 (4)。计算得
+$$
+\sum\nolimits_{j = 1}^{n - 1} a'_{ij}m_j =
+\sum\nolimits_{j = 1}^{n - 1}
+(a_{ij}m_j - \frac{a_{in}a_{jn}m_j}{a_{nn}}) =
+- a_{in}m_n - \frac{a_{in}}{a_{nn}}(-a_{nn}m_n) = 0
+$$
+，正如所需。
+
+\medskip\noindent
+条件 (5)。须证明 $w'_i$ 整除 $a_{in}a_{jn}/a_{nn}$。
+这是显然的，因为 $a_{nn} = -w_n$，且 $w_n | a_{jn}$、$w_i | a_{in}$。
+
+\medskip\noindent
+为证明 $g = g'$，先写成
+\begin{align*}
+g
+& =
+1 + \sum\nolimits_{i = 1}^n m_i(w_i(g_i - 1) - \frac{1}{2}a_{ii}) \\
+& =
+1 + \sum\nolimits_{i = 1}^{n - 1} m_i(w_i(g_i - 1) - \frac{1}{2}a_{ii})
+-\frac{1}{2}m_nw_n \\
+& =
+1 +  \sum\nolimits_{i = 1}^{n - 1}
+m_i(w_i(g_i - 1) - \frac{1}{2}a_{ii} - \frac{1}{2}a_{in})
+\end{align*}
+与 $g'$ 的表达式比较，可知只须
+$$
+w'_i(g'_i - 1) - \frac{1}{2}a'_{ii} =
+w_i(g_i - 1) - \frac{1}{2}a_{in} - \frac{1}{2}a_{ii}
+$$
+对 $i \leq n - 1$ 成立。换言之，有
+$$
+g'_i = \frac{2w_i(g_i - 1) - a_{in} - a_{ii} + a'_{ii} + 2w'_i}{2w'_i} =
+\frac{w_i}{w'_i}(g_i - 1) + 1 + \frac{a_{in}^2 - w_na_{in}}{2w'_iw_n}
+$$
+直接检验可知，这是一个整数 $\geq 0$，若按 (4) 选取 $w'_i$。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-top-genus}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型。令 $e$ 为序对
+$(i, j)$ 的数目，其中 $i < j$ 且 $a_{ij} > 0$。则表达式
+$g_{top} = 1 - n + e$ 为 $\geq 0$。
+\end{lemma}
+
+\begin{proof}
+若非如此，则 $e < n - 1$，这意味着存在一个 $i$，使得
+$a_{ij} = 0$ 对所有 $j \not = i$ 成立。这与定义
+\ref{models-definition-type} 的假设 (3) 矛盾。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-top-genus}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。{\it $T$ 的拓扑亏格}
+是引理 \ref{models-lemma-top-genus} 中的非负整数 $g_{top} = 1 - n + e$。
+\end{definition}
+
+\noindent
+我们想用拓扑亏格来控制亏格。然而，这并非总是成立，例如引理
+\ref{models-lemma-irreducible} 中 $n = 1$ 的数值型便是如此。但它对极小数值型
+成立；极小数值型定义如下。
+
+\begin{definition}
+\label{models-definition-type-minimal}
+称数值型 $n, m_i, a_{ij}, w_i, g_i$（其亏格为 $g$）是{\it 极小的}，
+如果不存在 $i$ 满足 $g_i = 0$ 与 $a_{ii} = -w_i$；换言之，
+不存在 $(-1)$-指标。
+\end{definition}
+
+\noindent
+我们将证明，极小型的亏格 $g$（其中 $n > 1$）大于或等于
+$\max(1, g_{top})$。
+
+\begin{lemma}
+\label{models-lemma-non-irreducible-minimal-type-genus-at-least-one}
+若 $n, m_i, a_{ij}, w_i, g_i$ 为满足 $n > 1$ 的极小数值型，
+则 $g \geq 1$。
+\end{lemma}
+
+\begin{proof}
+这是因为 $g = 1 + \sum \Phi_i$，而
+$\Phi_i = m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii})$ 由引理
+\ref{models-lemma-minus-one} 与极小型的定义为非负。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-genus-nonnegative}
+若 $n, m_i, a_{ij}, w_i, g_i$ 为满足 $n > 1$ 的极小数值型，
+则 $g \geq g_{top}$。
+\end{lemma}
+
+\begin{proof}
+只对与固有正则模型相伴的数值型感兴趣的读者可以跳过此证明，
+因为稍后我们将在几何情形下重新证明这一结果。可以写成
+$$
+g_{top} = 1 - n + \frac{1}{2}\sum\nolimits_{a_{ij} > 0} 1 =
+1 + \sum\nolimits_i (-1 +
+\frac{1}{2}\sum\nolimits_{j \not = i,\ a_{ij} > 0} 1) 
+$$
+另一方面，有
+\begin{align*}
+g & =
+1 + \sum m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii}) \\
+& =
+1 + \sum m_iw_ig_i - \sum m_iw_i +
+\frac{1}{2} \sum\nolimits_{i \not = j} a_{ij}m_j \\
+& =
+1 + \sum\nolimits_i
+m_iw_i(-1 + g_i + \frac{1}{2} \sum\nolimits_{j \not = i} \frac{a_{ij}}{w_i})
+\end{align*}
+第一个等号来自定义，第二个等号使用 $\sum a_{ij}m_j = 0$，
+最后一个等号使用 $a_{ij} = a_{ji}$ 并交换求和次序。与 $g_{top}$
+的公式比较，可知若
+$$
+\Psi_i =
+m_iw_i(-1 + g_i + \frac{1}{2} \sum\nolimits_{j \not = i} \frac{a_{ij}}{w_i})
+- (-1 + \frac{1}{2}\sum\nolimits_{j \not = i,\ a_{ij} > 0} 1)
+$$
+为 $\geq 0$ 对每个 $i$ 都成立，本引理便成立。然而，事实未必如此。
+下面分析哪些指标可能满足 $\Psi_i < 0$。首先注意
+$$
+(-1 + g_i + \frac{1}{2}\sum\nolimits_{j \not = i} \frac{a_{ij}}{w_i}) \geq
+(-1 + \frac{1}{2}\sum\nolimits_{j \not = i,\ a_{ij} > 0} 1)
+$$
+，因为 $a_{ij}/w_i$ 是非负整数。由于 $m_iw_i$ 是正整数，
+可知 $\Psi_i \geq 0$，只要 $m_iw_i = 1$，或该不等式的左端
+为 $\geq 0$；后者发生在 $g_i > 0$ 时，或 $a_{ij} > 0$ 对至少两个指标
+$j$ 成立时，或存在一个 $j$ 使得 $a_{ij} > w_i$ 时。因此
+$$
+P = \{i : \Psi_i < 0\}
+$$
+恰为满足下列条件的指标 $i$ 的集合：$m_iw_i > 1$、$g_i = 0$；
+$a_{ij} > 0$ 对唯一的 $j$ 成立；并且 $a_{ij} = w_i$ 对这个 $j$ 成立。
+此外，
+$$
+i \in P \Rightarrow \Psi_i = \frac{1}{2}(-m_iw_i + 1)
+$$
+证明策略是说明：给定 $i \in P$，可以从 $\Psi_j$ 借用一点，其中
+$j$ 是 $i$ 的相邻指标，即 $a_{ij} > 0$。然而，这并不能直接奏效，
+因为 $j$ 可能是满足 $\Psi_j = 0$ 的指标。
+
+\medskip\noindent
+考虑集合
+$$
+Z = \{j : g_j = 0\text{ 且 }
+j\text{ has exactly two neighbours }i, k\text{ 其中 }
+a_{ij} = w_j = a_{jk}\}
+$$
+对 $j \in Z$，有 $\Psi_j = 0$。我们考虑序列
+$M = (i, j_1, \ldots, j_s)$，其中 $s \geq 0$、$i \in P$、
+$j_1, \ldots, j_s \in Z$，并且
+$a_{ij_1} > 0, a_{j_1j_2} > 0, \ldots, a_{j_{s - 1}j_s} > 0$。
+若我们的数值型由两个属于 $P$ 的指标组成，或更一般地，由两个属于
+$P$ 的指标及全都属于 $Z$ 的其余指标组成，则 $g_{top} = 0$，
+由引理 \ref{models-lemma-non-irreducible-minimal-type-genus-at-least-one}
+即可得证。我们可以并且确实排除这些情形。
+
+\medskip\noindent
+令 $M = (i, j_1, \ldots, j_s)$ 为极大序列，并令 $k$ 为 $j_s$
+的第二个相邻指标。（若 $s = 0$，则 $k$ 是 $i$ 的唯一相邻指标。）
+由极大性，$k \not \in Z$；由刚才所述，$k \not \in P$。注意
+$w_i = a_{ij_1} = w_{j_1} = a_{j_1j_2} = \ldots = w_{j_s} =
+a_{j_sk}$。考察数值型的定义，可知
+\begin{align*}
+m_ia_{ii} + m_{j_1}w_i & = 0,\\
+m_iw_i + m_{j_1}a_{j_1j_1} + m_{j_2}w_i & = 0,\\
+\ldots & \ldots \\
+m_{j_{s - 1}}w_i + m_{j_s}a_{j_sj_s} + m_kw_i & = 0
+\end{align*}
+第一个等式蕴含 $m_{j_1} \geq 2m_i$，因为该数值型是极小的。
+于是第二个等式蕴含 $m_{j_2} \geq 3m_i$，依此类推。无论如何，
+可得 $m_k \geq 2m_i$（也包括 $s = 0$ 的情形）。
+
+\medskip\noindent
+令 $k$ 为如下指标：存在 $t > 0$ 以及两两不同的上述极大序列
+$M_1, \ldots, M_t$，其中 $M_b = (i_b, j_{b, 1}, \ldots, j_{b, s_b})$，
+使得 $k$ 是 $j_{b, s_b}$ 的相邻指标，对 $b = 1, \ldots, t$ 成立。
+我们将证明 $\Phi_j + \sum_{b = 1, \ldots, t} \Phi_{i_b} \geq 0$。
+由上述讨论，这将完成本引理的证明。令 $M$ 为出现在 $M_b$ 中的指标
+之并，其中 $b = 1, \ldots, t$。写成
+$$
+\Psi_k =
+-\sum\nolimits_{b = 1, \ldots, t} \Psi_{i_b} + \Psi_k'
+$$
+其中
+\begin{align*}
+\Psi_k' & =
+m_kw_k\left(-1 + g_k +
+\frac{1}{2} \sum\nolimits_{b = 1, \ldots t}
+(\frac{a_{kj_{b, s_b}}}{w_k} - \frac{m_{i_b}w_{i_b}}{m_kw_k}) +
+\frac{1}{2} \sum\nolimits_{l \not = k,\ l \not \in M}
+\frac{a_{kl}}{w_k}
+\right) \\
+&
+-\left(
+-1 + \frac{1}{2}\sum\nolimits_{l \not = k,\ l \not \in M,\ a_{kl} > 0} 1
+\right)
+\end{align*}
+假设 $\Psi_k' < 0$，以求矛盾。若集合
+$\{l : l \not = k,\ l \not \in M,\ a_{kl} > 0\}$ 为空，
+则 $\{1, \ldots, n\} = M \cup \{k\}$ 且 $g_{top} = 0$，
+因为此时 $e = n - 1$；结果由引理
+\ref{models-lemma-non-irreducible-minimal-type-genus-at-least-one} 成立。
+因此可假设至少存在一个这样的 $l$，它对第一个括号内的和贡献
+$(1/2)a_{kl}/w_k \geq 1/2$。对每个 $b = 1, \ldots, t$，有
+$$
+\frac{a_{kj_{b, s_b}}}{w_k} - \frac{m_{i_b}w_{i_b}}{m_kw_k} =
+\frac{w_{i_b}}{w_k}(1 - \frac{m_{i_b}}{m_k})
+$$
+该表达式为 $\geq \frac{1}{2}$，因为由上一段有
+$m_k \geq 2m_{i_b}$；并且它为 $\geq 1$，如果 $w_k < w_{i_b}$。
+由此，$\Psi_k' < 0$ 蕴含 $g_k = 0$。若 $t \geq 2$，或
+$t = 1$ 且 $w_k < w_{i_1}$，则 $\Psi_k' \geq 0$（这里使用了
+上面所示的 $l$ 的存在性），这也给出矛盾。因此 $t = 1$ 且
+$w_k = w_{i_1}$。若关于 $l$ 的和中至少有两个非零项，或有一个这样的
+$k$ 且 $a_{kl} > w_k$，则同样有 $\Psi_k' \geq 0$。最后一种可能是
+$t = 1$，并且存在一个 $l$ 使 $a_{kl} = w_k$。这是不允许的，
+因为它将意味着 $k \in Z$，与 $M_1$ 的极大性矛盾。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-minus-two}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格 $g$ 的数值型。
+假设 $n > 1$。若 $i$ 使得贡献
+$m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii})$
+对亏格 $g$ 为 $0$，则 $g_i = 0$ 且 $a_{ii} = -2w_i$。
+\end{lemma}
+
+\begin{proof}
+这立即由引理 \ref{models-lemma-diagonal-negative} 以及
+$w_i > 0$、$g_i \geq 0$、$w_i | a_{ii}$ 得出。
+\end{proof}
+
+\noindent
+满足这一关系的指标在极小数值型的结构中起着重要作用。
+因此我们为它们命名。
+
+\begin{definition}
+\label{models-definition-type-minus-two}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格 $g$ 的数值型。
+称 $i$ 为一个{\it $(-2)$-指标}，若 $g_i = 0$ 且
+$a_{ii} = -2w_i$。
+\end{definition}
+
+\noindent
+给定亏格 $g$ 的极小数值型，$(-2)$-指标恰好是在下列公式中
+不对亏格贡献正数的指标：
+$$
+g = 1 + \sum m_i(w_i(g_i - 1) - \frac{1}{2} a_{ii})
+$$
+因此，正如稍后将看到的，要控制与 $(-2)$-指标相伴的量会有些棘手。
+
+\begin{remark}
+\label{models-remark-genus-equality}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为满足 $n > 1$ 的极小数值型。
+引理 \ref{models-lemma-genus-nonnegative} 中可以有等式 $g = g_{top}$。
+例如，若 $m_i = w_i = 1$，且 $g_i = 0$ 对所有 $i$ 成立，
+并且 $a_{ij} \in \{0, 1\}$ 对 $i < j$ 成立。
+\end{remark}
+
+
+\section{数值型的 Picard 群}
+\label{models-section-picard-group}
+
+\noindent
+定义如下。
+
+\begin{definition}
+\label{models-definition-picard-group}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。{\it $T$ 的 Picard 群}
+是矩阵 $(a_{ij}/w_i)$ 的余核；更确切地，
+$$
+\Pic(T) =
+\Coker\left(
+\mathbf{Z}^{\oplus n} \to \mathbf{Z}^{\oplus n},\quad
+e_i
+\mapsto
+\sum \frac{a_{ij}}{w_j}e_j
+\right)
+$$
+其中 $e_i$ 表示第 $i$ 个标准基向量，它属于 $\mathbf{Z}^{\oplus n}$。
+\end{definition}
+
+\begin{lemma}
+\label{models-lemma-picard-rank-1}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。
+$T$ 的 Picard 群是秩为 $1$ 的有限生成阿贝尔群。
+\end{lemma}
+
+\begin{proof}
+若 $n = 1$，则 $A = (a_{ij})$ 是零矩阵，结论显然。若 $n > 1$，
+则矩阵 $A$ 的秩为 $n - 1$；这可由引理 \ref{models-lemma-recurring-real}
+或引理 \ref{models-lemma-recurring-symmetric-real} 得出。当然，按 $1/w_i$
+缩放各行不影响秩。这就证明了本引理。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-picard-T-and-A}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。
+则 $\Pic(T) \subset \Coker(A)$，其中 $A = (a_{ij})$。
+\end{lemma}
+
+\begin{proof}
+由于 $\Pic(T)$ 是 $(a_{ij}/w_i)$ 的余核，可知存在交换图
+$$
+\xymatrix{
+0 \ar[r] &
+\mathbf{Z}^{\oplus n} \ar[rr]_A & &
+\mathbf{Z}^{\oplus n} \ar[rr] & &
+\Coker(A) \ar[r] & 0 \\
+0 \ar[r] &
+\mathbf{Z}^{\oplus n} \ar[rr]^{(a_{ij}/w_i)} \ar[u]_{\text{id}} & &
+\mathbf{Z}^{\oplus n} \ar[rr] \ar[u]_{\text{diag}(w_1, \ldots, w_n)} & &
+\Pic(T) \ar[r] \ar[u] & 0
+}
+$$
+，其两行均正合。由蛇形引理可得 $\Pic(T) \subset \Coker(A)$。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-contract-picard-group}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。
+假设 $n$ 是一个 $(-1)$-指标。令 $T'$ 为引理
+\ref{models-lemma-contract} 中构造的数值型。存在单射
+$$
+\Pic(T) \to \Pic(T')
+$$
+，其余核为初等阿贝尔 $2$-群。
+\end{lemma}
+
+\begin{proof}
+回忆 $n' = n - 1$。令 $e_i$、相应地 $e'_i$ 为第 $i$ 个基向量，
+分别属于 $\mathbf{Z}^{\oplus n}$、相应地 $\mathbf{Z}^{\oplus n - 1}$。
+首先记
+$$
+q : \mathbf{Z}^{\oplus n} \to \mathbf{Z}^{\oplus n - 1},
+\quad e_n \mapsto 0\text{ 且 }e_i \mapsto e'_i\text{ 对 }i \leq n - 1
+$$
+并置
+$$
+p : \mathbf{Z}^{\oplus n} \to \mathbf{Z}^{\oplus n - 1},\quad
+e_n \mapsto \sum\nolimits_{j = 1}^{n - 1} \frac{a_{nj}}{w'_j} e'_j
+\text{ 且 }
+e_i \mapsto \frac{w_i}{w'_i} e'_i\text{ 对 }i \leq n - 1
+$$
+计算（略去）表明存在交换图
+$$
+\xymatrix{
+\mathbf{Z}^{\oplus n} \ar[rr]_{(a_{ij}/w_i)} \ar[d]_q & &
+\mathbf{Z}^{\oplus n} \ar[d]^p \\
+\mathbf{Z}^{\oplus n'} \ar[rr]^{(a'_{ij}/w'_i)} & &
+\mathbf{Z}^{\oplus n'}
+}
+$$
+由于上方箭头的余核为 $\Pic(T)$，而下方箭头的余核为 $\Pic(T')$，
+得到所需的 Picard 群同态。由于 $\frac{w_i}{w'_i} \in \{1, 2\}$，
+可知 $\Pic(T) \to \Pic(T')$ 的余核被 $2$ 零化（因为 $2e'_i$
+属于 $p$ 的像，对所有 $i \leq n - 1$ 都成立）。最后证明
+$\Pic(T) \to \Pic(T')$ 是单射。令 $L = (l_1, \ldots, l_n)$
+表示 $\Pic(T)$ 中映到 $\Pic(T')$ 的零元的元素。由于 $q$ 为满射，
+追图可知可以假设 $L$ 属于 $p$ 的核。这意味着
+$l_na_{ni}/w'_i + l_iw_i/w'_i = 0$，即 $l_i = - a_{ni}/w_i l_n$。
+因此 $L$ 是 $-l_ne_n$ 在映射 $(a_{ij}/w_j)$ 下的像，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-picard-group-genus-nonpositive}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为数值型 $T$。
+若亏格 $g$（属于 $T$）为 $\leq 0$，则 $\Pic(T) = \mathbf{Z}$。
+\end{lemma}
+
+\begin{proof}
+对 $n$ 作归纳。若 $n = 1$，断言显然。若 $n > 1$，则由引理
+\ref{models-lemma-non-irreducible-minimal-type-genus-at-least-one}，$T$ 不是极小的。
+用一个等价型替换 $T$ 后，可假设 $n$ 是一个 $(-1)$-指标。
+由引理 \ref{models-lemma-contract-picard-group}，得到
+$\Pic(T) \subset \Pic(T')$。由引理 \ref{models-lemma-contract} 可知
+$T'$ 的亏格等于 $T$ 的亏格，归纳即得结论。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{真子图的分类}
+\label{models-section-classify-proper-subgraphs}
+
+\noindent
+本节固定一个数值型 $n, m_i, a_{ij}, w_i, g_i$，其亏格为 $g$。
+我们将完整列出所有完全由
+$(-2)$-指标（定义 \ref{models-definition-type-minus-two}）组成的可能“子图”，
+同时分类所有亏格为 $1$ 的极小数值型。换言之，本节将证明
+命题 \ref{models-proposition-classify-subgraphs} 和
+引理 \ref{models-lemma-genus-one}。
+
+\medskip\noindent
+策略如下。令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格为 $g$ 的数值型。
+令 $I \subset \{1, \ldots, n\}$ 为一个由 $(-2)$-指标组成的子集，
+并且不存在非空真子集 $J \subset I$，使得 $a_{jj'} = 0$，其中
+$j \in J$、$j' \in I \setminus J$。我们按基数 $|I|$ 对上述 $I$
+作归纳。若 $I = \{i\}$ 仅含 $1$ 个指标，则 $m_i$、
+$a_{ii}$ 和 $w_i$ 只受到如下约束：定义 \ref{models-definition-type}
+给出的 $w_i | a_{ii}$，以及引理 \ref{models-lemma-diagonal-negative}
+给出的 $a_{ii} < 0$；这就是归纳起点。在归纳步骤中，先把归纳假设
+用于子集 $I' \subset I$，其大小满足 $|I'| < |I|$。这会对可能的
+$m_i, a_{ij}, w_i$（其中 $i, j \in I$）施加若干约束。
+特别地，因为 $|I'| < |I| \leq n$，由 $\sum a_{ij}m_j = 0$ 和
+引理 \ref{models-lemma-recurring-symmetric-real} 可知，子矩阵
+$(a_{ij})_{i, j \in I'}$ 是负定的，且其行列式的符号为 $(-1)^m$。
+对余下的每一种可能性，计算 $(a_{ij})_{i, j \in I}$ 的行列式。
+若其符号为 $-(-1)^{|I|}$，则 Sylvester 定理表明矩阵
+$(a_{ij})_{i, j \in I}$ 并非半负定，因而可以排除该情形。
+若其符号为 $(-1)^{|I|}$，则 $|I| < n$，我们暂且断定该情形
+可以作为真子图出现，并把它列入本节的某个引理。若行列式为 $0$，
+则再次由引理 \ref{models-lemma-recurring-symmetric-real} 必有 $|I| = n$，
+且 $g = 0$。在这些情形中，我们会实际求出所有可能的
+$m_i, a_{ij}, w_i$（$i, j \in I$），并将其列入引理
+\ref{models-lemma-genus-one}。完成这一论证后，我们也就得到所有亏格为
+$1$ 且满足 $n > 1$ 的极小数值型：由亏格公式以及上一节的讨论，
+它们必然完全由 $(-2)$-指标组成，因而必会出现在归纳过程中。
+最后，读者可以逐一查看引理 \ref{models-lemma-genus-one} 中列出的可能性，
+从而看出本节列为可能情形的所有真子图配置，实际上都已经出现在
+亏格为 $1$ 的数值型中。
+
+\medskip\noindent
+设 $i$ 和 $j$ 是 $(-2)$-指标，并满足 $a_{ij} > 0$。
+由引理 \ref{models-lemma-recurring-symmetric-real}，矩阵 $A = (a_{ij})$
+是半负定的，故矩阵
+$$
+\left(
+\begin{matrix}
+-2w_i & a_{ij} \\
+a_{ij} & -2w_j
+\end{matrix}
+\right)
+$$
+是负定的，除非 $n = 2$。情形 $n = 2$ 确实可能发生：此时行列式
+$4w_1w_2 - a_{12}^2$ 为零。利用 $\text{lcm}(w_1, w_2)$ 整除
+$a_{12}$，读者很容易看出只有如下可能：
+$$
+(w_1, w_2, a_{12}) = (w, w, 2w), (w, 4w, 4w), \text{ 或 }(4w, w, 4w)
+$$
+注意，情形 $(4w, w, 4w)$ 可由情形 $(w, 4w, 4w)$ 通过交换指标
+$i, j$ 得到。在这些情形中 $g = 1$。这就得到情形
+(\ref{models-item-two-cycle}) 和 (\ref{models-item-up4})，它们列于引理
+\ref{models-lemma-genus-one}。现在假设 $n > 2$。上述矩阵的行列式
+$4w_iw_j - a_{ij}^2$ 为 $> 0$，所以 $a_{ij}^2/w_iw_j < 4$。
+另一方面，已知 $\text{lcm}(w_i, w_j) | a_{ij}$，因而
+$a_{ij}^2/w_iw_j$ 是整数。因此
+$a_{ij}^2/w_iw_j \in \{1, 2, 3\}$，并且 $w_i | w_j$，
+或反之。于是有如下可能性：
+$$
+(w_1, w_2, a_{12}) = (w, w, w), (w, 2w, 2w), (w, 3w, 3w),
+(2w, w, 2w), \text{ 或 }(3w, w, 3w)
+$$
+注意，情形 $(2w, w, 2w)$ 可由情形 $(w, 2w, 2w)$ 通过交换指标
+$i, j$ 得到；情形 $(3w, w, 3w)$ 与 $(w, 3w, 3w)$ 也同样如此。
+前三个解给出情形 (\ref{models-item-A2})、(\ref{models-item-B2}) 和
+(\ref{models-item-G2})，它们列于引理 \ref{models-lemma-two-by-two}。
+在该引理中，我们还写出了对整数 $m_i$ 和 $m_j$ 的推论；这里利用了
+$\sum_l a_{kl}m_l = 0$ 对每个 $k$ 都成立，因而特别推出
+$a_{ii}m_i + a_{ij}m_j \leq 0$（当 $k = i$）以及
+$a_{ij}m_i + a_{jj}m_j \leq 0$（当 $k = j$）。
+
+\begin{lemma}
+\label{models-lemma-two-by-two}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet
+}
+$$
+若 $n > 2$，给定一对指标 $i, j$；它们是 $(-2)$-指标且满足
+$a_{ij} > 0$，则适当重排后，$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-A2}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w \\
+w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $w$ 任意，且 $2m_1 \geq m_2$、$2m_2 \geq m_1$；或
+\item
+\label{models-item-B2}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w \\
+2w & -4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w
+\end{matrix}
+\right)
+$$
+其中 $w$ 任意，且 $m_1 \geq m_2$、$2m_2 \geq m_1$；或
+\item
+\label{models-item-G2}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 3w \\
+3w & -6w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+3w
+\end{matrix}
+\right)
+$$
+其中 $w$ 任意，且 $2m_1 \geq 3m_2$、$2m_2 \geq m_1$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $i$、$j$、$k$ 是三个 $(-2)$-指标，并且 $a_{ij} > 0$、
+$a_{jk} > 0$。换言之，指标 $i$ 与 $j$ “相交”，而 $j$ 与 $k$
+“相交”。下文将不再特别说明：每一对 $(i, j)$、$(i, k)$、
+$(j, k)$ 都是引理 \ref{models-lemma-two-by-two} 所列的情形之一。
+矩阵 $A = (a_{ij})$ 由引理 \ref{models-lemma-recurring-symmetric-real}
+可知是半负定的，故矩阵
+$$
+\left(
+\begin{matrix}
+-2w_i & a_{ij} & a_{ik} \\
+a_{ij} & -2w_j & a_{jk} \\
+a_{ik} & a_{jk} & -2w_k
+\end{matrix}
+\right)
+$$
+是负定的，除非 $n = 3$。情形 $n = 3$ 确实可能发生：此时该矩阵的
+行列式\footnote{它是
+$-8w_iw_jw_k + 2a_{ij}^2w_k + 2a_{jk}^2w_i + 2a_{ik}^2w_j +
+2a_{ij}a_{jk}a_{ik}$.}为零，于是得到整数等式
+$$
+4 = \frac{a_{ij}^2}{w_iw_j} +
+\frac{a_{jk}^2}{w_jw_k} +
+\frac{a_{ik}^2}{w_iw_k} +
+\frac{a_{ij}a_{ik}a_{jk}}{w_iw_jw_k}
+$$
+。该等式右端最后一项由其余各项决定，因为
+$$
+\left(\frac{a_{ij}a_{ik}a_{jk}}{w_iw_jw_k}\right)^2 =
+\frac{a_{ij}^2}{w_iw_j} \frac{a_{jk}^2}{w_jw_k} \frac{a_{ik}^2}{w_iw_k}
+$$
+上文已经看到，$\frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k}$
+属于 $\{1, 2, 3\}$，而 $\frac{a_{ik}^2}{w_iw_k}$ 属于
+$\{0, 1, 2, 3\}$，故只有如下可能：
+$$
+(\frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k}, \frac{a_{ik}^2}{w_iw_k}) =
+(1, 1, 1), (1, 3, 0), (2, 2, 0),\text{ 或 } (3, 1, 0)
+$$
+注意，情形 $(3, 1, 0)$ 可由情形 $(1, 3, 0)$ 通过颠倒指标
+$i, j, k$ 的顺序得到。在每一种情形中都有 $g = 1$；读者可在情形
+(\ref{models-item-three-cycle})、(\ref{models-item-equal-up3})、
+(\ref{models-item-equal-down3})、(\ref{models-item-up-up})、(\ref{models-item-up-down})、
+(\ref{models-item-down-up}) 中找到它们，这些情形列于引理
+\ref{models-lemma-genus-one}：其中一种对应 $(1, 1, 1)$，两种对应
+$(1, 3, 0)$，三种对应 $(2, 2, 0)$。
+假设 $n > 3$，则得到整数不等式
+$$
+4 > \frac{a_{ij}^2}{w_iw_j} + \frac{a_{ik}^2}{w_iw_k} +
+\frac{a_{jk}^2}{w_jw_k} + \frac{a_{ij}a_{ik}a_{jk}}{w_iw_jw_k}
+$$
+。利用上文对这些数的限制，可知只有如下可能：
+$$
+(\frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k}, \frac{a_{ik}^2}{w_iw_k}) =
+(1, 1, 0), (1, 2, 0),\text{ 或 }(2, 1, 0)
+$$
+特别地，$a_{ik} = 0$（回忆我们假设 $a_{ij} > 0$ 且
+$a_{jk} > 0$）。注意，情形 $(2, 1, 0)$ 可由情形 $(1, 2, 0)$
+通过颠倒指标 $i, j, k$ 的顺序得到。前两个解给出情形
+(\ref{models-item-A3})、(\ref{models-item-C3}) 和 (\ref{models-item-B3})，它们列于引理
+\ref{models-lemma-three-by-three}；其中还写出了对整数 $m_i$、$m_j$、
+$m_k$ 的推论。
+
+\begin{lemma}
+\label{models-lemma-three-by-three}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet
+}
+$$
+若 $n > 3$，给定三个指标 $i, j, k$，它们都是 $(-2)$-指标，
+并且 $a_{ij}, a_{ik}, a_{jk}$ 中至少有两个非零，则适当重排后，
+$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-A3}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 \\
+w & -2w & w \\
+0 & w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、$2m_3 \geq m_2$；或
+\item
+\label{models-item-C3}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 \\
+w & -2w & 2w \\
+0 & 2w & -4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+2w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + 2m_3$、$2m_3 \geq m_2$；或
+\item
+\label{models-item-B3}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 \\
+2w & -4w & 2w \\
+0 & 2w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+2w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、$m_3 \geq m_2$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $i$、$j$、$k$、$l$ 是四个 $(-2)$-指标，并且 $a_{ij} > 0$、
+$a_{jk} > 0$、$a_{kl} > 0$。换言之，指标 $i$ 与 $j$ “相交”，
+$j$ 与 $k$ “相交”，而 $k$ 与 $l$ “相交”。由引理
+\ref{models-lemma-three-by-three} 可知 $a_{ik} = a_{jl} = 0$。
+矩阵 $A = (a_{ij})$ 是半负定的，故矩阵
+$$
+\left(
+\begin{matrix}
+-2w_i & a_{ij} & 0 & a_{il} \\
+a_{ij} & -2w_j & a_{jk} & 0 \\
+0 & a_{jk} & -2w_k & a_{kl} \\
+a_{il} & 0 & a_{kl} & -2w_l
+\end{matrix}
+\right)
+$$
+是负定的，除非 $n = 4$。情形 $n = 4$ 确实可能发生：此时该矩阵的
+行列式\footnote{它是
+$16w_iw_jw_kw_l - 4a_{ij}^2w_kw_l - 4a_{jk}^2w_iw_l - 4a_{kl}^2w_iw_j -
+4a_{il}^2w_jw_k + a_{ij}^2a_{kl}^2 + a_{jk}^2a_{il}^2 -
+2a_{ij}a_{il}a_{jk}a_{kl}$.}为零，于是得到非负整数等式
+$$
+16 +
+\frac{a_{ij}^2}{w_iw_j}\frac{a_{kl}^2}{w_kw_l} +
+\frac{a_{jk}^2}{w_jw_k}\frac{a_{il}^2}{w_iw_l} =
+4\frac{a_{ij}^2}{w_iw_j} + 4\frac{a_{jk}^2}{w_jw_k} + 4\frac{a_{kl}^2}{w_kw_l}
++ 4\frac{a_{il}^2}{w_iw_l} + 2\frac{a_{ij}a_{il}a_{jk}a_{kl}}{w_iw_jw_kw_l}
+$$
+。该等式右端最后一项由其余各项决定，因为
+$$
+\left(\frac{a_{ij}a_{il}a_{jk}a_{kl}}{w_iw_jw_kw_l}\right)^2 =
+\frac{a_{ij}^2}{w_iw_j} \frac{a_{jk}^2}{w_jw_k}
+\frac{a_{kl}^2}{w_kw_l} \frac{a_{il}^2}{w_iw_l}
+$$
+上文已经看到，
+$\frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k}, \frac{a_{kl}^2}{w_kw_l}$
+属于 $\{1, 2\}$，而 $\frac{a_{il}^2}{w_iw_l}$ 属于 $\{0, 1, 2\}$，
+故只有如下解：
+$$
+(\frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k}, \frac{a_{kl}^2}{w_kw_l},
+\frac{a_{il}^2}{w_iw_l}) =
+(1, 1, 1, 1) \text{ 或 } (2, 1, 2, 0)
+$$
+且此时 $g = 1$；读者可在情形 (\ref{models-item-four-cycle})、
+(\ref{models-item-up-equal-up})、(\ref{models-item-up-equal-down}) 和
+(\ref{models-item-down-equal-up}) 中找到它们，这些情形列于引理
+\ref{models-lemma-genus-one}。假设 $n > 4$，则得到非负整数不等式
+$$
+16 +
+\frac{a_{ij}^2}{w_iw_j}\frac{a_{kl}^2}{w_kw_l} +
+\frac{a_{jk}^2}{w_jw_k}\frac{a_{il}^2}{w_iw_l} >
+4\frac{a_{ij}^2}{w_iw_j} + 4\frac{a_{jk}^2}{w_jw_k} + 4\frac{a_{kl}^2}{w_kw_l}
++ 4\frac{a_{il}^2}{w_iw_l} + 2\frac{a_{ij}a_{il}a_{jk}a_{kl}}{w_iw_jw_kw_l}
+$$
+。利用上文对这些数的限制，可知只有如下可能：
+$$
+(\frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k}, \frac{a_{kl}^2}{w_kw_l},
+\frac{a_{il}^2}{w_iw_l}) =
+(1, 1, 1, 0), (1, 1, 2, 0), (1, 2, 1, 0), \text{ 或 }(2, 1, 1, 0)
+$$
+特别地，$a_{il} = 0$（回忆我们假设其余三项非零）。注意，情形
+$(2, 1, 1, 0)$ 可由情形 $(1, 1, 2, 0)$ 通过颠倒指标
+$i, j, k, l$ 的顺序得到。前三个解给出情形 (\ref{models-item-A4})、
+(\ref{models-item-C4})、(\ref{models-item-B4}) 和 (\ref{models-item-F4})，它们列于引理
+\ref{models-lemma-four-by-four}；其中还写出了对整数 $m_i$、$m_j$、$m_k$、
+$m_l$ 的推论。
+
+\begin{lemma}
+\label{models-lemma-four-by-four}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet
+}
+$$
+若 $n > 4$，给定四个 $(-2)$-指标 $i, j, k, l$，并且
+$a_{ij}, a_{jk}, a_{kl}$ 非零，则适当重排后，$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-A4}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 \\
+w & -2w & w & 0 \\
+0 & w & -2w & w \\
+0 & 0 & w & -2w 
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4$，并且 $2m_4 \geq m_3$；或
+\item
+\label{models-item-C4}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 \\
+w & -2w & w & 0 \\
+0 & w & -2w & 2w \\
+0 & 0 & 2w & -4w 
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+2w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + 2m_4$，并且 $2m_4 \geq m_3$；或
+\item
+\label{models-item-B4}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 & 0 \\
+2w & -4w & 2w & 0 \\
+0 & 2w & -4w & 2w \\
+0 & 0 & 2w & -2w 
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+2w \\
+2w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4$，并且 $m_4 \geq m_3$；或
+\item
+\label{models-item-F4}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 \\
+w & -2w & 2w & 0 \\
+0 & 2w & -4w & 2w \\
+0 & 0 & 2w & -4w 
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+2w \\
+2w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + 2m_3$、
+$2m_3 \geq m_2 + m_4$，并且 $2m_4 \geq m_3$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $i$、$j$、$k$、$l$ 是四个 $(-2)$-指标，并且 $a_{ij} > 0$、
+$a_{ij} > 0$、$a_{il} > 0$。换言之，指标 $i$ 与指标
+$j$、$k$、$l$ “相交”。由引理 \ref{models-lemma-three-by-three} 可知
+$a_{jk} = a_{jl} = a_{kl} = 0$。矩阵 $A = (a_{ij})$ 是半负定的，
+故矩阵
+$$
+\left(
+\begin{matrix}
+-2w_i & a_{ij} & a_{ik} & a_{il} \\
+a_{ij} & -2w_j & 0 & 0 \\
+a_{ik} & 0 & -2w_k & 0 \\
+a_{il} & 0 & 0 & -2w_l
+\end{matrix}
+\right)
+$$
+是负定的，除非 $n = 4$。情形 $n = 4$ 确实可能发生：此时该矩阵的
+行列式\footnote{它是
+$16w_iw_jw_kw_l - 4a_{ij}^2w_kw_l - 4a_{ik}^2w_jw_l - 4a_{il}^2w_jw_k$.}
+为零，于是得到非负整数等式
+$$
+4 = \frac{a_{ij}^2}{w_iw_j} + \frac{a_{ik}^2}{w_iw_k} + \frac{a_{il}^2}{w_jw_l}
+$$
+。上文已经看到，
+$\frac{a_{ij}^2}{w_iw_j}, \frac{a_{ik}^2}{w_iw_k}, \frac{a_{il}^2}{w_iw_l}$
+属于 $\{1, 2\}$，故适当重排后只有一种可能：$4 = 1 + 1 + 2$。
+在每一种情形中都有 $g = 1$；读者可在情形
+(\ref{models-item-triple-with-up}) 和 (\ref{models-item-triple-with-down}) 中找到它们，
+这些情形列于引理 \ref{models-lemma-genus-one}。假设 $n > 4$，则得到
+非负整数不等式
+$$
+4 > \frac{a_{ij}^2}{w_iw_j} + \frac{a_{ik}^2}{w_iw_k} + \frac{a_{il}^2}{w_jw_l}
+$$
+。这推出 $\frac{a_{ij}^2}{w_iw_j} =
+\frac{a_{ik}^2}{w_iw_k} = \frac{a_{il}^2}{w_jw_l} = 1$，并且
+$w_i = w_j = w_k = w_l$。这就得到情形 (\ref{models-item-D4})，它列于引理
+\ref{models-lemma-D4}；其中还写出了对整数 $m_i$、$m_j$、$m_k$、$m_l$ 的推论。
+
+\begin{lemma}
+\label{models-lemma-D4}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] & \bullet \\
+& \bullet
+}
+$$
+若 $n > 4$，给定四个 $(-2)$-指标 $i, j, k, l$，并且
+$a_{ij}, a_{ik}, a_{il}$ 非零，则适当重排后，$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-D4}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & w & w \\
+w & -2w & 0 & 0 \\
+w & 0 & -2w & 0 \\
+w & 0 & 0 & -2w 
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2 + m_3 + m_4$、$2m_2 \geq m_1$、
+$2m_3 \geq m_1$、$2m_4 \geq m_1$。注意，这推出
+$m_1 \geq \max(m_2, m_3, m_4)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $h$、$i$、$j$、$k$、$l$ 是五个 $(-2)$-指标，并且
+$a_{hi} > 0$、$a_{ij} > 0$、$a_{jk} > 0$、$a_{kl} > 0$。
+换言之，指标 $h$ 与 $i$ “相交”，$i$ 与 $j$ “相交”，
+$j$ 与 $k$ “相交”，而 $k$ 与 $l$ “相交”。应用引理
+\ref{models-lemma-three-by-three} 和 \ref{models-lemma-four-by-four} 可知
+$a_{hj} = a_{hk} = a_{ik} = a_{il} = a_{jl} = 0$，并且分数
+$\frac{a_{hi}^2}{w_hw_i}, \frac{a_{ij}^2}{w_iw_j}, \frac{a_{jk}^2}{w_jw_k},
+\frac{a_{kl}^2}{w_kw_l}$ 属于 $\{1, 2\}$，而分数
+$\frac{a_{hl}^2}{w_hw_l} \in \{0, 1, 2\}$。
+矩阵 $A = (a_{ij})$ 是半负定的，故矩阵
+$$
+\left(
+\begin{matrix}
+-2w_h & a_{hi} & 0 & 0 & a_{hl} \\
+a_{hi} & -2w_i & a_{ij} & 0 & 0 \\
+0 & a_{ij} & -2w_j & a_{jk} & 0 \\
+0 & 0 & a_{jk} & -2w_k & a_{kl} \\
+a_{hl} & 0 & 0 & a_{kl} & -2w_l
+\end{matrix}
+\right)
+$$
+是负定的，除非 $n = 5$。情形 $n = 5$ 确实可能发生：此时该矩阵的
+行列式\footnote{它是
+$-32w_hw_iw_jw_kw_l +
+8a_{hi}^2w_jw_kw_l +
+8a_{ij}^2w_hw_kw_l +
+8a_{jk}^2w_hw_iw_l +
+8a_{kl}^2w_hw_iw_j +
+8a_{hl}^2w_iw_jw_k -
+2a_{hi}^2a_{jk}^2w_l -
+2a_{hi}^2a_{kl}^2w_j -
+2a_{ij}^2a_{kl}^2w_h -
+2a_{hl}^2a_{ij}^2w_k -
+2a_{hl}^2a_{jk}^2w_i +
+2a_{hi}a_{ij}a_{jk}a_{kl}a_{hl}
+$
+.}
+为零，于是得到非负整数等式
+\begin{align*}
+16 + 
+\frac{a_{hi}^2}{w_hw_i}\frac{a_{jk}^2}{w_jw_k} +
+\frac{a_{hi}^2}{w_hw_i}\frac{a_{kl}^2}{w_kw_l} +
+\frac{a_{ij}^2}{w_iw_j}\frac{a_{kl}^2}{w_kw_l} +
+\frac{a_{hl}^2}{w_hw_l}\frac{a_{ij}^2}{w_iw_j} +
+\frac{a_{hl}^2}{w_hw_l}\frac{a_{jk}^2}{w_jw_k} \\
+= 4\frac{a_{hi}^2}{w_hw_i} +
+4\frac{a_{ij}^2}{w_iw_j} +
+4\frac{a_{jk}^2}{w_jw_k} +
+4\frac{a_{kl}^2}{w_kw_l} +
+4\frac{a_{hl}^2}{w_hw_l} +
+\frac{a_{hi}a_{ij}a_{jk}a_{kl}a_{hl}}{w_hw_iw_jw_kw_l}
+\end{align*}
+。该等式右端最后一项由其余各项决定，因为
+$$
+\left(\frac{a_{hi}a_{ij}a_{jk}a_{kl}a_{hl}}{w_hw_iw_jw_kw_l} \right)^2 =
+\frac{a_{hi}^2}{w_hw_i} \frac{a_{ij}^2}{w_iw_j}
+\frac{a_{jk}^2}{w_jw_k} \frac{a_{kl}^2}{w_kw_l} \frac{a_{hl}^2}{w_hw_l}
+$$
+由此可知只有如下解：
+$$
+(\frac{a_{hi}^2}{w_hw_i}, \frac{a_{ij}^2}{w_iw_j},
+\frac{a_{jk}^2}{w_jw_k}, \frac{a_{kl}^2}{w_kw_l}, \frac{a_{hl}^2}{w_hw_l}) =
+(1, 1, 1, 1, 1), (1, 1, 2, 1, 0), (1, 2, 1, 1, 0), \text{ 或 }(2, 1, 1, 2, 0)
+$$
+注意，情形 $(1, 2, 1, 1, 0)$ 可由情形 $(1, 1, 2, 1, 0)$ 通过颠倒指标
+$h, i, j, k, l$ 的顺序得到。在这些情形中 $g = 1$；读者可在情形
+(\ref{models-item-five-cycle})、(\ref{models-item-equal-equal-up-equal})、
+(\ref{models-item-equal-equal-down-equal})、(\ref{models-item-up-equal-equal-up})、
+(\ref{models-item-up-equal-equal-down}) 和 (\ref{models-item-down-equal-equal-up})
+中找到它们，这些情形列于引理 \ref{models-lemma-genus-one}：其中一种对应
+$(1, 1, 1, 1, 1)$，两种对应 $(1, 1, 2, 1, 0)$，三种对应
+$(2, 1, 1, 2, 0)$。假设 $n > 5$，则得到非负整数不等式
+\begin{align*}
+16 + 
+\frac{a_{hi}^2}{w_hw_i}\frac{a_{jk}^2}{w_jw_k} +
+\frac{a_{hi}^2}{w_hw_i}\frac{a_{kl}^2}{w_kw_l} +
+\frac{a_{ij}^2}{w_iw_j}\frac{a_{kl}^2}{w_kw_l} +
+\frac{a_{hl}^2}{w_hw_l}\frac{a_{ij}^2}{w_iw_j} +
+\frac{a_{hl}^2}{w_hw_l}\frac{a_{jk}^2}{w_jw_k} \\
+> 4\frac{a_{hi}^2}{w_hw_i} +
+4\frac{a_{ij}^2}{w_iw_j} +
+4\frac{a_{jk}^2}{w_jw_k} +
+4\frac{a_{kl}^2}{w_kw_l} +
+4\frac{a_{hl}^2}{w_hw_l} +
+\frac{a_{hi}a_{ij}a_{jk}a_{kl}a_{hl}}{w_hw_iw_jw_kw_l}
+\end{align*}
+。利用上文对这些数的限制，可知只有如下可能：
+$$
+(\frac{a_{hi}^2}{w_hw_i}, \frac{a_{ij}^2}{w_iw_j},
+\frac{a_{jk}^2}{w_jw_k}, \frac{a_{kl}^2}{w_kw_l}, \frac{a_{hl}^2}{w_hw_l}) =
+(1, 1, 1, 1, 0), (1, 1, 1, 2, 0), \text{ 或 } (2, 1, 1, 1, 0)
+$$
+特别地，$a_{hl} = 0$（回忆我们假设其余四项非零）。注意，情形
+$(1, 1, 1, 2, 0)$ 可由情形 $(2, 1, 1, 1, 0)$ 通过颠倒指标
+$h, i, j, k, l$ 的顺序得到。前两个解给出情形 (\ref{models-item-A5})、
+(\ref{models-item-C5}) 和 (\ref{models-item-B5})，它们列于引理
+\ref{models-lemma-five-by-five}；其中还写出了对整数 $m_h$、$m_i$、$m_j$、
+$m_k$、$m_l$ 的推论。
+
+\begin{lemma}
+\label{models-lemma-five-by-five}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet
+}
+$$
+若 $n > 5$，给定五个 $(-2)$-指标 $h, i, j, k, l$，并且
+$a_{hi}, a_{ij}, a_{jk}, a_{kl}$ 非零，则适当重排后，
+$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-A5}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 \\
+0 & w & -2w & w & 0 \\
+0 & 0 & w & -2w & w \\
+0 & 0 & 0 & w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4$、$2m_4 \geq m_3 + m_5$，并且
+$2m_5 \geq m_4$；或
+\item
+\label{models-item-C5}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 \\
+0 & w & -2w & w & 0 \\
+0 & 0 & w & -2w & 2w \\
+0 & 0 & 0 & 2w & -4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+2w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + 2m_4$、$2m_4 \geq m_3 + m_5$，并且
+$2m_5 \geq m_4$；或
+\item
+\label{models-item-B5}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 & 0 & 0 \\
+2w & -4w & 2w & 0 & 0 \\
+0 & 2w & -4w & 2w & 0 \\
+0 & 0 & 2w & -4w & 2w \\
+0 & 0 & 0 & 2w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+2w \\
+2w \\
+2w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4$、$2m_4 \geq m_3 + m_5$，并且
+$m_4 \geq m_3$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $h$、$i$、$j$、$k$、$l$ 是五个 $(-2)$-指标，并且
+$a_{hi} > 0$、$a_{hj} > 0$、$a_{hk} > 0$、$a_{hl} > 0$。
+换言之，指标 $h$ 与指标 $i$、$j$、$k$、$l$ “相交”。由引理
+\ref{models-lemma-three-by-three} 可知
+$a_{ij} = a_{ik} = a_{il} = a_{jk} = a_{jl} = a_{kl} = 0$；再由引理
+\ref{models-lemma-D4} 可知，有 $w_h = w_i = w_j = w_k = w_l = w$，其中
+$w > 0$ 是整数，并且
+$a_{hi} = a_{hj} = a_{hk} = a_{hl} = -2w$。相应的矩阵
+$$
+\left(
+\begin{matrix}
+-2w & w & w & w & w \\
+w & -2w & 0 & 0 & 0 \\
+w & 0 & -2w & 0 & 0 \\
+w & 0 & 0 & -2w & 0 \\
+w & 0 & 0 & 0 & -2w
+\end{matrix}
+\right)
+$$
+是奇异的。因此这种情形只能在 $n = 5$ 且 $g = 1$ 时发生。
+读者可在情形 (\ref{models-item-quadruple}) 中找到它，该情形列于引理
+\ref{models-lemma-genus-one}。
+
+\begin{lemma}
+\label{models-lemma-fourfold}
+如下形状的真子图不存在：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[ld] \ar@{-}[r] \ar@{-}[d] & \bullet \\
+\bullet & \bullet
+}
+$$
+若 $n > 5$，则{\bf 不}存在五个 $(-2)$-指标
+$h$、$i$、$j$、$k$，使得 $a_{hi} > 0$、$a_{hj} > 0$、
+$a_{hk} > 0$、$a_{hl} > 0$。
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $h$、$i$、$j$、$k$、$l$ 是五个 $(-2)$-指标，并且
+$a_{hi} > 0$、$a_{ij} > 0$、$a_{jk} > 0$、$a_{jl} > 0$。
+换言之，指标 $h$ 与 $i$ “相交”，而指标 $j$ 与指标
+$i$、$k$、$l$ “相交”。由引理 \ref{models-lemma-D4} 可知
+$a_{ik} = a_{il} = a_{kl} = 0$、$w_i = w_j = w_k = w_l = w$，
+并且 $a_{ij} = a_{jk} = a_{jl} = w$，其中 $w$ 为某个整数。
+把引理 \ref{models-lemma-four-by-four} 应用于两个四元组 $h, i, j, k$ 和
+$h, i, j, l$，可知 $a_{hj} = a_{hk} = a_{hl} = 0$，且
+$w_h = \frac{1}{2}w$、$w$ 或 $2w$；相应地，$a_{hi} = w$、$w$
+或 $2w$。由于 $A$ 是半负定的，可知矩阵
+$$
+\left(
+\begin{matrix}
+-2w_h & a_{hi} & 0 & 0 & 0 \\
+a_{hi} & -2w & w & 0 & 0 \\
+0 & w & -2w & w & w \\
+0 & 0 & w & -2w & 0 \\
+0 & 0 & w & 0 & -2w
+\end{matrix}
+\right)
+$$
+是负定的，除非 $n = 5$。读者计算可得，该矩阵的行列式为 $0$ 的情形是
+$w_h = \frac{1}{2}w$ 或 $2w$。
+这就得到情形 (\ref{models-item-triple-extended-up}) 和
+(\ref{models-item-triple-extended-down})，它们列于引理 \ref{models-lemma-genus-one}。
+当 $w_h = w$ 时，得到情形 (\ref{models-item-D5})，它列于引理
+\ref{models-lemma-D5}。
+
+\begin{lemma}
+\label{models-lemma-D5}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] \ar@{-}[d] & \bullet \\
+& & \bullet
+}
+$$
+若 $n > 5$，给定五个 $(-2)$-指标 $h, i, j, k, l$，并且
+$a_{hi}, a_{ij}, a_{jk}, a_{jl}$ 非零，则适当重排后，
+$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-D5}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 \\
+0 & w & -2w & w & w \\
+0 & 0 & w & -2w & 0 \\
+0 & 0 & w & 0 & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4 + m_5$、$2m_4 \geq m_3$，并且
+$2m_5 \geq m_3$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $t > 5$，并设 $i_1, \ldots, i_t$ 是 $t$ 个互异的 $(-2)$-指标，
+使得 $a_{i_ji_{j + 1}}$ 非零，其中 $j = 1, \ldots, t - 1$。我们对
+$t$ 作归纳，证明：若 $n = t$，则得到可能情形
+(\ref{models-item-n-cycle})、(\ref{models-item-up-chain-equal-up})、
+(\ref{models-item-up-chain-equal-down})、(\ref{models-item-down-chain-equal-up})，
+它们列于引理 \ref{models-lemma-genus-one}；若
+$n > t$，则得到情形 (\ref{models-item-An})、(\ref{models-item-Cn})、
+(\ref{models-item-Bn})，它们列于引理 \ref{models-lemma-long}。
+首先，若 $a_{i_1i_t}$ 非零，则由引理 \ref{models-lemma-five-by-five} 的结果
+立即可知 $w_{i_1} = \ldots = w_{i_t} = w$，并且有
+$a_{i_ji_{j + 1}} = w$（$j = 1, \ldots, t - 1$），且
+$a_{i_1i_t} = w$。于是向量 $(1, \ldots, 1)$ 属于相应
+$t \times t$ 矩阵的核。因此必有 $n = t$，亏格为 $1$，并且得到情形
+(\ref{models-item-n-cycle})，它列于引理 \ref{models-lemma-genus-one}。
+故可假设 $a_{i_1i_t} = 0$。由归纳假设（若 $t = 6$，则用引理
+\ref{models-lemma-five-by-five}），有 $a_{i_ji_k} = 0$，其中 $k > j + 1$。
+此外，有 $w_{i_1} = \ldots = w_{i_{t - 1}} = w$，其中 $w$ 为整数，
+且 $w_{i_1}, w_{i_t} \in \{\frac{1}{2}w, w, 2w\}$。再者，
+$w_{i_1}$、相应地 $w_{i_t}$ 的取值为 $\frac{1}{2}w$、$w$ 或 $2w$，
+意味着 $a_{i_1i_2}$、相应地 $a_{i_{t - 1}i_t}$ 的取值为 $w$、$w$
+或 $2w$。共有 $9$ 种可能。逐一判断都很容易：
+\begin{enumerate}
+\item 若 $(w_{i_1}, w_{i_t}) = (\frac{1}{2}w, \frac{1}{2}w)$，则得到情形
+(\ref{models-item-up-chain-equal-down})，它列于引理 \ref{models-lemma-genus-one}；
+\item 若 $(w_{i_1}, w_{i_t}) = (\frac{1}{2}w, w)$ 或
+$(w, \frac{1}{2}w)$，则得到情形 (\ref{models-item-Bn})，它列于引理
+\ref{models-lemma-long}；
+\item 若 $(w_{i_1}, w_{i_t}) = (\frac{1}{2}w, 2w)$ 或
+$(2w, \frac{1}{2}w)$，则得到情形 (\ref{models-item-up-chain-equal-up})，
+它列于引理 \ref{models-lemma-genus-one}；
+\item 若 $(w_{i_1}, w_{i_t}) = (w, w)$，则得到情形
+(\ref{models-item-An})，它列于引理 \ref{models-lemma-long}；
+\item 若 $(w_{i_1}, w_{i_t}) = (w, 2w)$ 或 $(2w, w)$，则得到情形
+(\ref{models-item-Cn})，它列于引理 \ref{models-lemma-long}；
+\item 若 $(w_{i_1}, w_{i_t}) = (2w, 2w)$，则得到情形
+(\ref{models-item-down-chain-equal-up})，它列于引理 \ref{models-lemma-genus-one}。
+\end{enumerate}
+
+\begin{lemma}
+\label{models-lemma-long}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{..}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet
+}
+$$
+设 $t > 5$ 且 $n > t$。给定 $t$ 个互异的 $(-2)$-指标
+$i_1, \ldots, i_t$，使得 $a_{i_ji_{j + 1}}$ 非零，其中
+$j = 1, \ldots, t - 1$，则在允许颠倒这些指标次序的意义下，
+$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-An}
+分别满足 $w_{i_1} = w_{i_2} = \ldots = w_{i_t} = w$、
+$a_{i_ji_{j + 1}} = w$，且 $a_{i_ji_k} = 0$（当 $k > j + 1$）；或
+\item
+\label{models-item-Cn}
+分别满足 $w_{i_1} = w_{i_2} = \ldots = w_{i_{t - 1}} = w$、
+$w_{j_t} = 2w$、$a_{i_ji_{j + 1}} = w$（$j < t - 1$）、
+$a_{i_{t - 1}i_t} = 2w$，且 $a_{i_ji_k} = 0$（当 $k > j + 1$）；或
+\item
+\label{models-item-Bn}
+分别满足 $w_{i_1} = w_{i_2} = \ldots = w_{i_{t - 1}} = 2w$、
+$w_{j_t} = w$、$a_{i_ji_{j + 1}} = 2w$、
+$a_{i_{t - 1}i_t} = 2w$，且 $a_{i_ji_k} = 0$（当 $k > j + 1$）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $t > 4$，并设 $i_1, \ldots, i_{t + 1}$ 是 $t + 1$ 个互异的
+$(-2)$-指标，使得 $a_{i_ji_{j + 1}} > 0$（$j = 1, \ldots, t - 1$），
+并且 $a_{j_{t - 1}j_{t + 1}} > 0$。参见引理 \ref{models-lemma-Dn} 中的图。
+我们对 $t$ 作归纳，证明：若 $n = t + 1$，则得到可能情形
+(\ref{models-item-Dn-extended-up}) 和 (\ref{models-item-Dn-extended-down})，
+它们列于引理 \ref{models-lemma-genus-one}；若 $n > t + 1$，则得到情形
+(\ref{models-item-Dn})，它列于引理 \ref{models-lemma-Dn}。
+由归纳假设（当 $t = 5$ 时用引理 \ref{models-lemma-D5}），可知
+$a_{i_ji_k}$ 在指定的非零项之外均为零（$j, k \geq 2$）。此外，有
+$w_2 = \ldots = w_{t + 1} = w$，其中 $w$ 为整数，并且非零的
+$a_{i_ji_k}$（$j, k \geq 2$）均等于 $w$。
+把引理 \ref{models-lemma-long}（若 $t = 5$，则用引理
+\ref{models-lemma-five-by-five}）应用于序列 $i_1, \ldots, i_t$ 以及序列
+$i_1, \ldots, i_{t - 1}, i_{t + 1}$，可知 $a_{i_1 i_j} = 0$
+（$j \geq 3$），且 $w_1$ 等于 $\frac{1}{2}w$、$w$ 或 $2w$；
+相应地，$a_{i_1i_2}$ 等于 $w, w, 2w$。共有 $3$ 种可能，
+逐一判断都很容易：
+\begin{enumerate}
+\item 若 $w_1 = \frac{1}{2}w$，则得到情形
+(\ref{models-item-Dn-extended-down})，它列于引理 \ref{models-lemma-genus-one}。
+\item 若 $w_1 = w$，则得到情形 (\ref{models-item-Dn})，它列于引理
+\ref{models-lemma-Dn}。
+\item 若 $w_1 = 2w$，则得到情形 (\ref{models-item-Dn-extended-up})，
+它列于引理 \ref{models-lemma-genus-one}。
+\end{enumerate}
+
+\begin{lemma}
+\label{models-lemma-Dn}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{..}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] \ar@{-}[d] & \bullet \\
+& & & \bullet
+}
+$$
+设 $t > 4$ 且 $n > t + 1$。给定 $t + 1$ 个互异的 $(-2)$-指标
+$i_1, \ldots, i_{t + 1}$，使得 $a_{i_ji_{j + 1}}$ 非零，其中
+$j = 1, \ldots, t - 1$，并且 $a_{i_{t - 1}i_{t + 1}}$ 非零，
+则 $a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-Dn}
+分别满足 $w_{i_1} = w_{i_2} = \ldots = w_{i_{t + 1}} = w$，
+$a_{i_ji_{j + 1}} = w$（$j = 1, \ldots, t - 1$），
+$a_{i_{t - 1}i_{t + 1}} = w$，并且有 $a_{i_ji_k} = 0$；这里指其余
+指标对 $(j, k)$，且 $j > k$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+假设给定 $6$ 个互异的 $(-2)$-指标 $g, h, i, j, k, l$，使得
+$a_{gh}, a_{hi}, a_{ij}, a_{jk}, a_{il}$ 非零。参见引理
+\ref{models-lemma-E6} 中的图。应用引理 \ref{models-lemma-D5} 可知，必处于引理
+\ref{models-lemma-E6} 所述的情形。由于行列式为 $3w^6 > 0$，可知此时绝不可能有
+$n = 6$！
+
+\begin{lemma}
+\label{models-lemma-E6}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \\
+& & \bullet
+}
+$$
+设 $n > 6$。给定 $6$ 个互异的 $(-2)$-指标 $i_1, \ldots, i_6$，
+使得 $a_{12}, a_{23}, a_{34}, a_{45}, a_{36}$ 非零，则
+$m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-E6}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5 \\
+m_6
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 \\
+0 & w & -2w & w & 0 & w \\
+0 & 0 & w & -2w & w & 0 \\
+0 & 0 & 0 & w & -2w & 0 \\
+0 & 0 & w & 0 & 0 & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4 + m_6$、$2m_4 \geq m_3 + m_5$、
+$2m_5 \geq m_3$，并且 $2m_6 \geq m_3$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+设 $t \geq 4$，并设 $i_0, \ldots, i_{t + 1}$ 是 $t + 2$ 个互异的
+$(-2)$-指标，使得 $a_{i_ji_{j + 1}} > 0$（$j = 1, \ldots, t - 1$），
+并且 $a_{i_0i_2} > 0$、$a_{i_{t - 1}i_{t + 1}} > 0$。
+参见引理 \ref{models-lemma-double-triple} 中的图。应用引理 \ref{models-lemma-D5}
+和 \ref{models-lemma-Dn} 可知，其余所有 $a_{i_ji_k}$ 均为零（$j < k$）；
+并且有 $w_{i_0} = \ldots = w_{i_{t + 1}} = w$，其中 $w$ 为整数，
+而 $A$ 中指定的非零非对角元均等于 $w$。计算表明相应矩阵的行列式
+为零。因此 $n = t + 2$，并得到情形 (\ref{models-item-double-triple})，
+它列于引理 \ref{models-lemma-genus-one}。
+
+\begin{lemma}
+\label{models-lemma-double-triple}
+如下形状的真子图不存在：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{..}[r] \ar@{-}[d] &
+\bullet \ar@{-}[d] \ar@{-}[r] & \bullet \\
+& \bullet & \bullet
+}
+$$
+假设 $t \geq 4$ 且 $n > t + 2$。{\bf 不}存在 $t + 2$ 个互异的
+$(-2)$-指标 $i_0, \ldots, i_{t + 1}$，使得
+$a_{i_ji_{j + 1}} > 0$（$j = 1, \ldots, t - 1$），并且
+$a_{i_0i_2} > 0$、$a_{i_{t - 1}i_{t + 1}} > 0$。
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+假设给定 $7$ 个互异的 $(-2)$-指标 $f, g, h, i, j, k, l$，使得数
+$a_{fg}, a_{gh}, a_{ij}, a_{jh}, a_{kl}, a_{lh}$ 非零。
+参见引理 \ref{models-lemma-E6-completed} 中的图。应用引理 \ref{models-lemma-D5}
+可知相应矩阵为
+$$
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 & 0 \\
+0 & w & -2w & 0 & w & 0 & w \\
+0 & 0 & 0 & -2w & w & 0 & 0 \\
+0 & 0 & w & w & -2w & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & -2w & w \\
+0 & 0 & w & 0 & 0 & w & -2w
+\end{matrix}
+\right)
+$$
+由于行列式为 $0$，可知必有 $n = 7$ 且 $g = 1$，并得到情形
+(\ref{models-item-E6-completed})，它列于引理 \ref{models-lemma-genus-one}。
+
+\begin{lemma}
+\label{models-lemma-E6-completed}
+如下形状的真子图不存在：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \\
+& & \bullet \ar@{-}[d] \\
+& & \bullet
+}
+$$
+假设 $n > 7$。{\bf 不}存在 $7$ 个互异的 $(-2)$-指标
+$f, g, h, i, j, k, l$，使得
+$a_{fg}, a_{gh}, a_{ij}, a_{jh}, a_{kl}, a_{lh}$ 非零。
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+假设给定 $7$ 个互异的 $(-2)$-指标 $f, g, h, i, j, k, l$，使得数
+$a_{fg}, a_{gh}, a_{hi}, a_{ij}, a_{jk}, a_{il}$ 非零。
+参见引理 \ref{models-lemma-E7} 中的图。应用引理 \ref{models-lemma-D5} 和
+\ref{models-lemma-Dn} 可知，必处于引理 \ref{models-lemma-E7} 所述的情形。
+由于行列式为 $-8w^7 > 0$，可知此时绝不可能有 $n = 7$！
+
+\begin{lemma}
+\label{models-lemma-E7}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] \ar@{-}[d] & \bullet \ar@{-}[r] & \bullet \\
+& & & \bullet
+}
+$$
+设 $n > 7$。给定 $7$ 个互异的 $(-2)$-指标 $i_1, \ldots, i_7$，
+使得 $a_{12}, a_{23}, a_{34}, a_{45}, a_{56}, a_{47}$ 非零，
+则 $m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-E7}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5 \\
+m_6 \\
+m_7
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 & 0 \\
+0 & w & -2w & w & 0 & 0 & 0 \\
+0 & 0 & w & -2w & w & 0 & w \\
+0 & 0 & 0 & w & -2w & w & 0 \\
+0 & 0 & 0 & 0 & w & -2w & 0 \\
+0 & 0 & 0 & w & 0 & 0 & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4$、$2m_4 \geq m_3 + m_5 + m_7$、
+$2m_5 \geq m_4 + m_6$、$2m_6 \geq m_5$，并且 $2m_7 \geq m_4$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+假设给定 $8$ 个互异的 $(-2)$-指标，相应非零元 $a_{ij}$ 在矩阵
+$A$ 中的图形如下：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \\
+& & & & \bullet
+}
+$$
+或如下：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] \ar@{-}[d] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \\
+& & & \bullet
+}
+$$
+完全仿照引理 \ref{models-lemma-E7} 的证明，可知第一种图形得到情形
+(\ref{models-item-E8})，它列于引理 \ref{models-lemma-E8}；而且不会在引理
+\ref{models-lemma-genus-one} 中产生新情形。完全仿照引理
+\ref{models-lemma-E6-completed} 的证明，可知若 $n > 8$，第二种图形不会出现；
+但它会给出情形 (\ref{models-item-E7-completed})，该情形列于引理
+\ref{models-lemma-genus-one}，此时 $n = 8$。
+
+\begin{lemma}
+\label{models-lemma-E8}
+如下形状的真子图的分类：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \\
+& & & & \bullet
+}
+$$
+设 $n > 8$。给定 $8$ 个互异的 $(-2)$-指标 $i_1, \ldots, i_8$，
+使得 $a_{12}, a_{23}, a_{34}, a_{45}, a_{56}, a_{65}, a_{57}$ 非零，
+则 $m$、$a$、$w$ 数据如下：
+\begin{enumerate}
+\item
+\label{models-item-E8}
+分别为
+$$
+\left(
+\begin{matrix}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4 \\
+m_5 \\
+m_6 \\
+m_7 \\
+m_8
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 & 0 & 0 \\
+0 & w & -2w & w & 0 & 0 & 0 & 0 \\
+0 & 0 & w & -2w & w & 0 & 0 & 0 \\
+0 & 0 & 0 & w & -2w & w & 0 & w \\
+0 & 0 & 0 & 0 & w & -2w & w & 0 \\
+0 & 0 & 0 & 0 & 0 & w & -2w & 0 \\
+0 & 0 & 0 & 0 & w & 0 & 0 & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right)
+$$
+其中 $2m_1 \geq m_2$、$2m_2 \geq m_1 + m_3$、
+$2m_3 \geq m_2 + m_4$、$2m_4 \geq m_3 + m_5$、
+$2m_5 \geq m_4 + m_6 + m_8$、$2m_6 \geq m_5 + m_7$、
+$2m_7 \geq m_6$，并且 $2m_8 \geq m_5$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-E7-completed}
+如下形状的真子图不存在：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] & \bullet \\
+& & & \bullet
+}
+$$
+假设 $n > 8$。{\bf 不}存在 $8$ 个互异的 $(-2)$-指标
+$e, f, g, h, i, j, k, l$，使得
+$a_{ef}, a_{fg}, a_{gh}, a_{hi}, a_{ij}, a_{jk}, a_{lh}$ 非零。
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+假设给定 $9$ 个互异的 $(-2)$-指标，相应非零元 $a_{ij}$ 在矩阵
+$A$ 中的图形如下：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \\
+& & & & & \bullet
+}
+$$
+完全仿照引理 \ref{models-lemma-E6-completed} 的证明，可知若 $n > 9$，
+这种图形不会出现；但当 $n = 9$ 时，它给出情形
+(\ref{models-item-E8-completed})，该情形列于引理 \ref{models-lemma-genus-one}。
+
+\begin{lemma}
+\label{models-lemma-E8-completed}
+如下形状的真子图不存在：
+$$
+\xymatrix{
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] & \bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \ar@{-}[r] & \bullet \\
+& & & & & \bullet
+}
+$$
+假设 $n > 9$。{\bf 不}存在 $9$ 个互异的 $(-2)$-指标
+$d, e, f, g, h, i, j, k, l$，使得
+$a_{de}, a_{ef}, a_{fg}, a_{gh}, a_{hi}, a_{ij}, a_{jk}, a_{lh}$ 非零。
+\end{lemma}
+
+\begin{proof}
+见上文的讨论。
+\end{proof}
+
+\noindent
+汇总上述信息，得到如下命题。
+
+\begin{proposition}
+\label{models-proposition-classify-subgraphs}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格为 $g$ 的数值型。
+令 $I \subset \{1, \ldots, n\}$ 为基数 $\geq 2$ 的真子集，
+它由 $(-2)$-指标组成，并且不存在非空真子集 $I' \subset I$，使得
+$a_{i'i} = 0$ 对 $i' \in I$、$i \in I \setminus I'$ 成立。
+则适当重排后，$m_i$、$a_{ij}$、$w_i$（$i, j \in I$）的数据
+正是下列各引理所列者：引理 \ref{models-lemma-two-by-two}、
+\ref{models-lemma-three-by-three},
+\ref{models-lemma-four-by-four},
+\ref{models-lemma-D4},
+\ref{models-lemma-five-by-five},
+\ref{models-lemma-D5},
+\ref{models-lemma-long},
+\ref{models-lemma-Dn},
+\ref{models-lemma-E6},
+\ref{models-lemma-E7} 或
+\ref{models-lemma-E8}。
+\end{proposition}
+
+\begin{proof}
+这由上文的讨论立即得到；另见第 \ref{models-section-classify-proper-subgraphs} 节
+开头的讨论。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{亏格零与一的极小型分类}
+\label{models-section-classification-genus-one}
+
+\noindent
+本节标题已经说明全部内容。
+
+\begin{lemma}[亏格零]
+\label{models-lemma-genus-zero}
+亏格为零的极小数值型只有
+$n = 1$, $m_1 = 1$, $a_{11} = 0$, $w_1 = 1$, $g_1 = 0$.
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{models-lemma-non-irreducible-minimal-type-genus-at-least-one}
+和 \ref{models-lemma-irreducible} 得出。
+\end{proof}
+
+\begin{lemma}[亏格一]
+\label{models-lemma-genus-one}
+在等价意义下，亏格为一的极小数值型如下：
+\begin{enumerate}
+\item
+\label{models-item-one}
+$n = 1$、$a_{11} = 0$、$g_1 = 1$，而 $m_1, w_1 \geq 1$ 任意；
+\item
+\label{models-item-two-cycle}
+$n = 2$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w \\
+2w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up4}
+$n = 2$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 4w \\
+4w & -8w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-three-cycle}
+$n = 3$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & w \\
+w & -2w & w \\
+w & w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-equal-up3}
+$n = 3$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 \\
+w & -2w & 3w \\
+0 & 3w & -6w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+3w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-equal-down3}
+$n = 3$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+3m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-6w & 3w & 0 \\
+3w & -6w & 3w \\
+0 & 3w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+3w \\
+3w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-up}
+$n = 3$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 \\
+2w & -4w & 4w \\
+0 & 4w & -8w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-down}
+$n = 3$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 \\
+2w & -4w & 2w \\
+0 & 2w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-down-up}
+$n = 3$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 \\
+2w & -2w & 2w \\
+0 & 2w & -4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+w \\
+2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-four-cycle}
+$n = 4$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & w \\
+w & -2w & w & 0 \\
+0 & w & -2w & w \\
+w & 0 & w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-equal-up}
+$n = 4$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+2m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 & 0 \\
+2w & -4w & 2w & 0 \\
+0 & 2w & -4w & 4w \\
+0 & 0 & 4w & -8w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+2w \\
+4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-equal-down}
+$n = 4$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 & 0 \\
+2w & -4w & 2w & 0 \\
+0 & 2w & -4w & 2w \\
+0 & 0 & 2w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+2w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-down-equal-up}
+$n = 4$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 & 0 \\
+2w & -2w & w & 0 \\
+0 & w & -2w & 2w \\
+0 & 0 & 2w & -4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+w \\
+w \\
+2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-triple-with-up}
+$n = 4$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & w & 2w \\
+w & -2w & 0 & 0 \\
+w & 0 & -2w & 0 \\
+2w & 0 & 0 & -4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-triple-with-down}
+$n = 4$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+m \\
+m \\
+2m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 2w & 2w \\
+2w & -4w & 0 & 0 \\
+2w & 0 & -4w & 0 \\
+2w & 0 & 0 & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+2w \\
+2w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-five-cycle}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m \\
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & w \\
+w & -2w & w & 0 & 0 \\
+0 & w & -2w & w & 0 \\
+0 & 0 & w & -2w & w \\
+w & 0 & 0 & w & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-equal-equal-up-equal}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+3m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 \\
+0 & w & -2w & 2w & 0 \\
+0 & 0 & 2w & -4w & 2w \\
+0 & 0 & 0 & 2w & -4w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+2w \\
+2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-equal-equal-down-equal}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+3m \\
+4m \\
+2m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 & 0 & 0 \\
+2w & -4w & 2w & 0 & 0 \\
+0 & 2w & -4w & 2w & 0 \\
+0 & 0 & 2w & -2w & w \\
+0 & 0 & 0 & w & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+2w \\
+2w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-equal-equal-up}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+2m \\
+2m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 & 0 & 0 \\
+2w & -4w & 2w & 0 & 0 \\
+0 & 2w & -4w & 2w & 0 \\
+0 & 0 & 2w & -4w & 4w \\
+0 & 0 & 0 & 4w & -8w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+2w \\
+2w \\
+4w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-equal-equal-down}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+m \\
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 & 0 & 0 \\
+2w & -4w & 2w & 0 & 0 \\
+0 & 2w & -4w & 2w & 0 \\
+0 & 0 & 2w & -4w & 2w \\
+0 & 0 & 0 & 2w & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+2w \\
+2w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-down-equal-equal-up}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+2m \\
+2m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 & 0 & 0 \\
+2w & -2w & w & 0 & 0 \\
+0 & w & -2w & w & 0 \\
+0 & 0 & w & -2w & 2w \\
+0 & 0 & 0 & 2w & -4w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+w \\
+w \\
+w \\
+2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-quadruple}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+m \\
+m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & w & w & w \\
+w & -2w & 0 & 0 & 0 \\
+w & 0 & -2w & 0 & 0 \\
+w & 0 & 0 & -2w & 0 \\
+w & 0 & 0 & 0 & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-triple-extended-up}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+2m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-4w & 2w & 0 & 0 & 0 \\
+2w & -2w & w & 0 & 0 \\
+0 & w & -2w & w & w \\
+0 & 0 & w & -2w & 0 \\
+0 & 0 & w & 0 & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+2w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-triple-extended-down}
+$n = 5$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+2m \\
+2m \\
+2m \\
+m \\
+m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & 2w & 0 & 0 & 0 \\
+2w & -4w & 2w & 0 & 0 \\
+0 & 2w & -4w & 2w & 2w \\
+0 & 0 & 2w & -4w & 0 \\
+0 & 0 & 2w & 0 & -4w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+2w \\
+2w \\
+2w \\
+2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-n-cycle}
+$n \geq 6$，并有一个推广情形 (\ref{models-item-five-cycle}) 的 $n$-圈：
+\begin{enumerate}
+\item $m_1 = \ldots = m_n = m$,
+\item $a_{12} = \ldots = a_{(n - 1) n} = w$, $a_{1n} = w$,
+而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = \ldots = w_n = w$
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-chain-equal-up}
+$n \geq 6$，并有一条推广情形 (\ref{models-item-up-equal-equal-up}) 的链：
+\begin{enumerate}
+\item $m_1 = \ldots = m_{n - 1} = 2m$, $m_n = m$,
+\item $a_{12} = \ldots = a_{(n - 2) (n - 1)} = 2w$, $a_{(n - 1) n} = 4w$,
+而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = w$, $w_2 = \ldots = w_{n - 1} = 2w$, $w_n = 4w$
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-up-chain-equal-down}
+$n \geq 6$，并有一条推广情形 (\ref{models-item-up-equal-equal-down}) 的链：
+\begin{enumerate}
+\item $m_1 = \ldots = m_n = m$,
+\item $a_{12} = \ldots = a_{(n - 1) n} = w$,
+而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = w$, $w_2 = \ldots = w_{n - 1} = 2w$, $w_n = w$
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-down-chain-equal-up}
+$n \geq 6$，并有一条推广情形 (\ref{models-item-down-equal-equal-up}) 的链：
+\begin{enumerate}
+\item $m_1 = w$, $w_2 = \ldots = m_{n - 1} = 2m$, $m_n = m$,
+\item $a_{12} = 2w$, $a_{23} = \ldots = a_{(n - 2) (n - 1)} = w$,
+$a_{(n - 1) n} = 2w$，而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = 2w$, $w_2 = \ldots = w_{n - 1} = w$, $w_n = 2w$
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-Dn-extended-up}
+$n \geq 6$，并有一个推广情形 (\ref{models-item-triple-extended-up}) 的型：
+\begin{enumerate}
+\item $m_1 = m$, $m_2 = \ldots = m_{n - 3} = 2m$, $m_{n - 1} = m_n = m$,
+\item $a_{12} = 2w$, $a_{23} = \ldots = a_{(n - 2) (n - 1)} = w$,
+$a_{(n - 2) n} = w$，而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = 2w$, $w_2 = \ldots = w_n = w$
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-Dn-extended-down}
+$n \geq 6$，并有一个推广情形 (\ref{models-item-triple-extended-down}) 的型：
+\begin{enumerate}
+\item $m_1 = \ldots = m_{n - 3} = 2m$, $m_{n - 1} = m_n = m$,
+\item $a_{12} = \ldots = a_{(n - 2) (n - 1)} = 2w$,
+$a_{(n - 2) n} = 2w$，而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = w$, $w_2 = \ldots = w_n = 2w$
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-double-triple}
+$n \geq 6$，并有一个推广情形 (\ref{models-item-quadruple}) 的型：
+\begin{enumerate}
+\item $m_1 = m_2 = m$, $m_3 = \ldots = m_{n - 2} = 2m$, $m_{n - 1} = m_n = m$,
+\item $a_{13} = w$, $a_{23} = \ldots = a_{(n - 2) (n - 1)} = w$,
+$a_{(n - 2) n} = w$，而对其余 $i < j$，有 $a_{ij} = 0$；
+\item $w_1 = \ldots = w_n = w$,
+\end{enumerate}
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-E6-completed}
+$n = 7$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+3m \\
+m \\
+2m \\
+m \\
+2m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 & 0 \\
+0 & w & -2w & 0 & w & 0 & w \\
+0 & 0 & 0 & -2w & w & 0 & 0 \\
+0 & 0 & w & w & -2w & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & -2w & w \\
+0 & 0 & w & 0 & 0 & w & -2w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-E7-completed}
+$n = 8$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+3m \\
+4m \\
+3m \\
+2m \\
+m \\
+2m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 & 0 & 0 \\
+0 & w & -2w & w & 0 & 0 & 0 & 0 \\
+0 & 0 & w & -2w & w & 0 & 0 & w \\
+0 & 0 & 0 & w & -2w & w & 0 & 0 \\
+0 & 0 & 0 & 0 & w & -2w & w & 0 \\
+0 & 0 & 0 & 0 & 0 & w & -2w & 0 \\
+0 & 0 & 0 & w & 0 & 0 & 0 & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意；
+\item
+\label{models-item-E8-completed}
+$n = 9$，且 $m_i, a_{ij}, w_i, g_i$ 如下：
+$$
+\left(
+\begin{matrix}
+m \\
+2m \\
+3m \\
+4m \\
+5m \\
+6m \\
+4m \\
+2m \\
+3m
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+-2w & w & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+w & -2w & w & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & w & -2w & w & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & w & -2w & w & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & w & -2w & w & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & w & -2w & w & 0 & w \\
+0 & 0 & 0 & 0 & 0 & w & -2w & w & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & w & -2w & 0 \\
+0 & 0 & 0 & 0 & 0 & w & 0 & 0 & -2w \\
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w \\
+w
+\end{matrix}
+\right),
+\quad
+\left(
+\begin{matrix}
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0
+\end{matrix}
+\right)
+$$
+其中 $w$ 和 $m$ 任意。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这已经在第 \ref{models-section-classify-proper-subgraphs} 节中证明。
+另见第 \ref{models-section-classify-proper-subgraphs} 节开头的讨论。
+\end{proof}
+
+
+
+
+
+
+\section{数值型不变量的界}
+\label{models-section-towards-classification}
+
+\noindent
+在证明曲线的半稳定约化时，我们将用到亏格为 $g$ 的数值型之
+Picard 群的一个界；本节将证明这个界。
+
+\begin{lemma}
+\label{models-lemma-bound-neighbours}
+令 $n, m_i, a_{ij}, w_i, g_i$ 为亏格为 $g$ 的数值型。
+给定 $i, j$，并假设 $a_{ij} > 0$，则有
+$m_ia_{ij} \leq m_j|a_{jj}|$ 且 $m_iw_i \leq m_j|a_{jj}|$。
+\end{lemma}
+
+\begin{proof}
+对每个指标 $j$，都有
+$m_j a_{jj} + \sum_{i \not = j} m_ia_{ij} = 0$。因此，若已知
+$|a_{jj}|$ 和 $m_j$ 的上界，则也得到非零（因而为正）的 $a_{ij}$
+以及 $m_i$ 的上界。回忆 $w_i$ 整除 $a_{ij}$，读者很容易看出本引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-bound-heart}
+固定 $g \geq 2$。对每个极小数值型 $n, m_i, a_{ij}, w_i, g_i$，
+若其亏格为 $g$ 且 $n > 1$，则有：
+\begin{enumerate}
+\item 集合 $J \subset \{1, \ldots, n\}$ 由非 $(-2)$-指标构成，且
+至多有 $2g - 2$ 个元素；
+\item 对 $j \in J$，有 $g_j < g$；
+\item 对 $j \in J$，有 $m_j|a_{jj}| \leq 6g - 6$；
+\item 对 $j \in J$ 以及 $i \in \{1, \ldots, n\}$，有
+$m_ia_{ij} \leq 6g - 6$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆 $g = 1 + \sum m_j(w_j(g_j - 1) - \frac{1}{2} a_{jj})$。
+对 $j \in J$，量 $m_j(w_j(g_j - 1) - \frac{1}{2} a_{jj})$
+对亏格 $g$ 的贡献为 $> 0$，因而
+$\geq 1/2$。这里使用了引理 \ref{models-lemma-minus-one}、
+定义 \ref{models-definition-type-minus-one}、定义 \ref{models-definition-type-minimal}、
+引理 \ref{models-lemma-minus-two} 和定义 \ref{models-definition-type-minus-two}；
+下文将不再特别说明这些结果。因此 $J$ 至多有 $2(g - 1)$ 个元素。
+这证明了 (1)。
+
+\medskip\noindent
+回忆由引理 \ref{models-lemma-diagonal-negative}，$-a_{ii} > 0$ 对所有 $i$
+成立。因此，对 $j \in J$，量
+$m_j(w_j(g_j - 1) - \frac{1}{2} a_{jj})$ 对亏格 $g$ 的贡献为
+$> m_jw_j(g_j - 1)$。故
+$$
+g - 1 > m_jw_j(g_j - 1) \Rightarrow g_j < (g - 1)/m_jw_j + 1
+$$
+这确实推出 $g_j < g$，从而证明了 (2)。
+
+\medskip\noindent
+对 $j \in J$，若 $g_j > 0$，则量
+$m_j(w_j(g_j - 1) - \frac{1}{2} a_{jj})$ 对亏格 $g$ 的贡献为
+$\geq -\frac{1}{2}m_ja_{jj}$，于是立即得到
+$m_j|a_{jj}| \leq 2(g - 1)$。否则 $a_{jj} = -kw_j$，其中
+$k \geq 3$ 为整数（因为 $j \in J$），并且有
+$$
+m_jw_j(-1 + \frac{k}{2}) \leq g - 1
+\Rightarrow
+m_jw_j \leq \frac{2(g - 1)}{k - 2}
+$$
+将它代回 $a_{jj} = -km_jw_j$，得到
+$$
+m_j|a_{jj}| \leq 2(g - 1) \frac{k}{k - 2} \leq 6(g - 1)
+$$
+这证明了 (3)。
+
+\medskip\noindent
+(4) 由引理 \ref{models-lemma-bound-neighbours} 和 (3) 得出。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-bound-wm}
+固定 $g \geq 2$。对每个极小数值型 $n, m_i, a_{ij}, w_i, g_i$，
+若其亏格为 $g$，则有 $m_i|a_{ij}| \leq 768g$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{models-lemma-bound-neighbours}，只需证明
+$m_i|a_{ii}| \leq 768g$ 对所有 $i$ 成立。令
+$J \subset \{1, \ldots, n\}$ 为引理
+\ref{models-lemma-bound-heart} 中的非 $(-2)$-指标集。注意 $J$ 非空，因为
+$g \geq 2$。此外，由该引理，有 $m_j|a_{jj}| \leq 6g$，其中
+$j \in J$。
+
+\medskip\noindent
+设有 $j \in J$ 以及一个序列 $i_1, \ldots, i_7$，它由
+$(-2)$-指标组成，并使得 $a_{ji_1}$ 以及 $a_{i_1i_2}$、
+$a_{i_2i_3}$、$a_{i_3i_4}$、$a_{i_4i_5}$、$a_{i_5i_6}$、
+$a_{i_6i_7}$ 非零。由引理 \ref{models-lemma-bound-neighbours} 可知
+$m_{i_1}w_{i_1} \leq 6g$ 且 $m_{i_1}a_{ji_1} \leq 6g$。
+因为 $i_1$ 是 $(-2)$-指标，所以 $a_{i_1i_1} = -2w_{i_1}$，
+从而 $m_{i_1}|a_{i_1i_1}| \leq 12g$。重复这一论证，得到
+$m_{i_2}w_{i_2} \leq 12g$ 且 $m_{i_2}a_{i_1i_2} \leq 12g$。
+继而 $m_{i_2}|a_{i_2i_2}| \leq 24g$，依此类推。最终得到
+$m_{i_k}|a_{i_ki_k}| \leq 2^k(6g) \leq 768g$，其中
+$k = 1, \ldots, 7$。
+
+\medskip\noindent
+令 $I \subset \{1, \ldots, n\} \setminus J$ 为极大连通子集。
+换言之，不存在非空真子集 $I' \subset I$，使得
+$a_{i'i} = 0$（$i' \in I'$ 且 $i \in I \setminus I'$）；并且
+$I$ 在此性质下极大。
+特别地，由于数值型按定义是连通的，存在 $j \in J$ 和 $i \in I$，
+使得 $a_{ij} > 0$。查看命题 \ref{models-proposition-classify-subgraphs} 中
+对此类 $I$ 的分类，并使用上一段的结果，可知
+$w_i|a_{ii}| \leq 768g$ 对所有 $i \in I$ 成立，除非 $I$ 是引理
+\ref{models-lemma-long} 或引理
+\ref{models-lemma-Dn} 所述的情形。因此可以假设 $a_{ii'}$ 的非零图形
+（$i, i' \in I$）为
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{..}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet
+}
+$$
+（它有引理 \ref{models-lemma-long} 详述的 3 个子情形），或为
+$$
+\xymatrix{
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{..}[r] &
+\bullet \ar@{-}[r] &
+\bullet \ar@{-}[r] \ar@{-}[d] &
+\bullet \\
+& & & & \bullet
+}
+$$
+我们将证明该界对引理 \ref{models-lemma-long} 的第一个子情形成立；其余情形
+留给读者，其论证几乎完全相同。
+
+\medskip\noindent
+重新编号后，可以假设 $I = \{1, \ldots, t\} \subset \{1, \ldots, n\}$，
+并且存在整数 $w$，使得
+$$
+w = w_1 = \ldots = w_t =
+a_{12} = \ldots = a_{(t - 1) t} =
+-\frac{1}{2} a_{i_1i_2} = \ldots = -\frac{1}{2} a_{(t - 1) t}
+$$
+等式 $a_{ii}m_i + \sum_{j \not = i} a_{ij}m_j = 0$ 推出
+$$
+2m_2 \geq m_1 + m_3, \ldots, 2m_{t - 1} \geq m_{t - 2} + m_t
+$$
+不等式 $2m_i \geq m_{i - 1} + m_{i + 1}$ 中等号成立，当且仅当
+$i$ 除 $i - 1$ 和 $i + 1$ 外不与任何指标“相交”。若 $i$ 确实与另一个
+指标相交，则该指标属于 $J$（由 $I$ 的极大性）。特别地，映射
+$\{1, \ldots, t\} \to \mathbf{Z}$，$i \mapsto m_i$ 是凹的。
+
+\medskip\noindent
+令 $m = \max(m_i, i \in \{1, \ldots, t\})$。则
+$m_i|a_{ii}| \leq 2mw$ 对 $i \leq t$ 成立，我们的目标是证明
+$2mw \leq 768g$。
+令 $s$、相应地 $s'$ 为 $\{1, \ldots, t\}$ 中满足
+$m_s = m = m_{s'}$ 的最小、相应地最大指标。由凹性可知
+$m_i = m$ 对 $s \leq i \leq s'$ 成立。若 $s > 1$，则不等式
+$2m_s \geq m_{s - 1} + m_{s + 1}$ 中等号不成立，因而 $s$ 与
+$J$ 中的一个指标相交。此时由证明第二段的结果，$2mw \leq 12g$。
+同样，若 $s' < t$，则 $s'$ 与 $J$ 中的一个指标相交，仍得到
+$2mw \leq 12g$。但若 $s = 1$ 且 $s' = t$，则有 $a_{ij} = 0$，
+其中 $j \in J$ 且 $i \in \{2, \ldots, t - 1\}$。然而我们已经看到，
+必存在一对 $(i, j) \in I \times J$，使得 $a_{ij} > 0$；于是只能有
+$i = 1$ 或 $i = t$。仍按前述方法得到 $2mw \leq 12g$（因为此时
+$m_1 = m = m_t$）。
+\end{proof}
+
+\begin{proposition}
+\label{models-proposition-bound-picard-group}
+令 $g \geq 2$。对每个数值型 $T$（其亏格为 $g$）以及素数
+$\ell > 768g$，有
+$$
+\dim_{\mathbf{F}_\ell} \Pic(T)[\ell] \leq g
+$$
+其中 $\Pic(T)$ 如定义 \ref{models-definition-picard-group} 所述。若 $T$ 极小，
+则甚至有
+$$
+\dim_{\mathbf{F}_\ell} \Pic(T)[\ell] \leq g_{top} \leq g
+$$
+其中 $g_{top}$ 如定义 \ref{models-definition-top-genus} 所述。
+\end{proposition}
+
+\begin{proof}
+设 $T$ 由 $n, m_i, a_{ij}, w_i, g_i$ 给出。若 $T$ 不极小，
+则存在一个 $(-1)$-指标。用等价型替换 $T$ 后，可假设 $n$ 是
+$(-1)$-指标。应用引理 \ref{models-lemma-contract-picard-group}，得到
+$\Pic(T) \subset \Pic(T')$，其中 $T'$ 是亏格为 $g$ 的数值型
+（引理 \ref{models-lemma-contract}），并且有 $n - 1$ 个指标。因此，只要对
+极小数值型证明本引理，即可对 $n$ 作归纳而得到结论。
+
+\medskip\noindent
+假设 $T$ 是亏格 $\geq 2$ 的极小数值型。由引理
+\ref{models-lemma-genus-nonnegative} 可知 $g_{top} \leq g$。若 $A = (a_{ij})$，
+则由引理 \ref{models-lemma-picard-T-and-A} 有
+$\Pic(T) \subset \Coker(A)$。因此，只需对 $\Coker(A)$ 证明本引理。
+由引理 \ref{models-lemma-bound-wm} 可知，有 $m_i|a_{ij}| \leq 768g$，
+其中 $i, j$ 任意。因此结论由引理
+\ref{models-lemma-recurring-symmetric-integer} 得出。
+\end{proof}
+
+
+
+
+
+
+
+\section{模型}
+\label{models-section-models}
+
+\noindent
+在本章中，$R$ 表示一个离散赋值环，$K$ 表示它的分式域。必要时，
+我们用 $\pi \in R$ 表示一个一致化元，并用 $k = R/(\pi)$ 表示它的剩余域。
+
+\medskip\noindent
+设 $V$ 是一个代数 $K$-概形
+（Varieties, Definition \ref{varieties-definition-algebraic-scheme}）。
+$V$ 的一个{\it 模型}是指一个平坦有限型\footnote{有时允许模型在 $R$ 上局部有限型会很有用；
+到需要时我们再处理这一情形。}
+态射 $X \to \Spec(R)$，并配有一个同构
+$V \to X_K = X \times_{\Spec(R)} \Spec(K)$。我们通常把 $V$ 与一般纤维
+$X_K$（即 $X$ 的一般纤维）等同起来，并直接写作 $V = X_K$。
+特殊纤维为 $X_k = X \times_{\Spec(R)} \Spec(k)$。
+所谓{\it $X \to X'$ 这个 $V$ 的模型态射}，是指 $X \to X'$ 是一个
+$R$ 上概形的态射，其在 $V$ 上诱导恒等态射。
+
+\medskip\noindent
+我们称{\it $X$ 是 $V$ 的一个固有模型}，如果 $X$ 是 $V$ 的一个模型
+且结构态射 $X \to \Spec(R)$ 是固有的。
+分离模型、光滑模型以及这里还应补充的其他模型也作类似定义。
+我们称{\it $X$ 是 $V$ 的一个正则模型}，如果 $X$ 是 $V$ 的一个模型
+且 $X$ 是正则概形。
+正规模型、约化模型以及这里还应补充的其他模型也作类似定义。
+
+\medskip\noindent
+设 $R \subset R'$ 是离散赋值环的一个扩张
+（More on Algebra, Definition
+\ref{more-algebra-definition-extension-discrete-valuation-rings}）。
+它诱导分式域的一个扩张 $K'/K$。
+给定一个代数概形 $V$（定义在 $K$ 上），以 $V'$ 表示基变换
+$V \times_{\Spec(K)} \Spec(K')$。于是有函子
+$$
+\text{models for }V\text{ 相对于 }R
+\longrightarrow
+\text{models for }V'\text{ 相对于 }R'
+$$
+把 $X$ 映到 $X \times_{\Spec(R)} \Spec(R')$。
+
+\begin{lemma}
+\label{models-lemma-closure-is-model}
+设 $V_1 \to V_2$ 是 $K$ 上代数概形的闭浸入。
+若 $X_2$ 是 $V_2$ 的一个模型，则 $V_1 \to X_2$ 的概形论像
+是 $V_1$ 的一个模型。
+\end{lemma}
+
+\begin{proof}
+由 Morphisms, Lemma \ref{morphisms-lemma-quasi-compact-scheme-theoretic-image}
+与 Example \ref{morphisms-example-scheme-theoretic-image}，
+问题归结为下面的代数陈述。设 $A_1$ 是一个在 $R$ 上平坦的有限型
+$R$-代数。设 $A_1 \otimes_R K \to B_2$ 是满射。那么
+$A_2 = A_1 / \Ker(A_1 \to B_2)$ 是一个在 $R$ 上平坦的有限型
+$R$-代数，并且 $B_2 = A_2 \otimes_R K$。
+我们略去详细证明；可用
+More on Algebra, Lemma \ref{more-algebra-lemma-dedekind-torsion-free-flat}
+证明 $A_2$ 平坦。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-normalization}
+设 $X$ 是几何正规簇 $V$（定义在 $K$ 上）的一个模型。
+则正规化 $\nu : X^\nu \to X$ 是有限的，而且 $X^\nu$ 到完备化
+$R^\wedge$ 的基变换是 $X$ 的基变换的正规化。此外，对每个
+$x \in X^\nu$，$\mathcal{O}_{X^\nu, x}$ 的完备化都是正规的。
+\end{lemma}
+
+\begin{proof}
+注意 $R^\wedge$ 是一个离散赋值环
+（More on Algebra, Lemma \ref{more-algebra-lemma-completion-dvr}）。
+令 $Y = X \times_{\Spec(R)} \Spec(R^\wedge)$。
+由于 $R^\wedge$ 是离散赋值环，我们有
+$$
+Y \setminus Y_k =
+Y \times_{\Spec(R^\wedge)} \Spec(K^\wedge) =
+V \times_{\Spec(K)} \Spec(K^\wedge)
+$$
+其中 $K^\wedge$ 是 $R^\wedge$ 的分式域。
+因为 $V$ 几何正规，右端是正规概形。因此引理的第一部分由
+Resolution of Surfaces, Lemma \ref{resolve-lemma-normalization-completion}
+推出。
+
+\medskip\noindent
+为证明第二部分，由第一部分可设 $X$ 和 $Y$ 都正规。若 $x$ 位于一般纤维，
+则 $\mathcal{O}_{X, x} = \mathcal{O}_{V, x}$ 是一个本质上有限型于某个域的
+正规局部环。这种环是优环（More on Algebra, Proposition
+\ref{more-algebra-proposition-ubiquity-excellent}）。
+若 $x$ 是特殊纤维上的一点，其像为 $y \in Y$，则由
+Resolution of Surfaces, Lemma \ref{resolve-lemma-iso-completions}，
+$\mathcal{O}_{X, x}^\wedge = \mathcal{O}_{Y, y}^\wedge$。
+在此情形下，$\mathcal{O}_{Y, y}$ 是优正规局部整环；这是因为由与上面相同的文献，
+$R^\wedge$ 是优环。若 $B$ 是优正规局部整环，
+则其完备化 $B^\wedge$ 正规（因为 $B \to B^\wedge$ 正则，且可应用
+More on Algebra, Lemma \ref{more-algebra-lemma-normal-goes-up}）。
+证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-regular}
+设 $X$ 是光滑曲线 $C$（定义在 $K$ 上）的一个模型。则 $X$ 存在奇点消解，
+并且任意消解都是 $C$ 的一个模型。
+\end{lemma}
+
+\begin{proof}
+我们验证 Lipman 定理的条件 (4)
+（Resolution of Surfaces, Theorem \ref{resolve-theorem-resolve}）成立。
+除 $X^\nu$ 仅有有限个奇点这一陈述外，这由
+Lemma \ref{models-lemma-normalization} 立即可得。为证明该陈述，由
+More on Algebra, Proposition \ref{more-algebra-proposition-ubiquity-J-2}
+可知 $R$ 是 J-2 环，因而非奇异轨迹在 $X^\nu$ 中是开集。
+由于 $X^\nu$ 正规且维数 $\leq 2$，奇点都是闭点；因此奇异轨迹是闭集
+便意味着它只含有限多个点（因为 $X$ 拟紧）。注意 $X$ 的任意消解
+都是 $X$ 的一个修改
+（Resolution of Surfaces, Definition \ref{resolve-definition-resolution}）。
+由 Varieties, Lemma
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}，
+它在 $X$ 的正规轨迹上是同构。由于正规点集包含 $C = X_K$，
+故任意消解都是 $C$ 的一个模型。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-minimal-model}
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+所谓{\it 极小模型}，是指一个正则固有模型 $X$，它是 $C$ 的模型，
+并且 $X$ 不包含第一类例外曲线
+（Resolution of Surfaces, Section \ref{resolve-section-minus-one}）。
+\end{definition}
+
+\noindent
+严格说来，这种对象应称为极小正则固有模型，甚至应称为相对极小正则射影模型。
+不过，只要我们始终处理离散赋值环上的模型（本章正是如此），就不会产生混淆。
+
+\medskip\noindent
+极小模型总是存在
+（Proposition \ref{models-proposition-exists-minimal-model}），并且在亏格 $> 0$
+时唯一（Lemma \ref{models-lemma-minimal-model-unique}）。
+
+\begin{lemma}
+\label{models-lemma-pre-exists-minimal-model}
+\begin{slogan}
+曲线的正则固有模型可由极小模型经连续吹起得到
+\end{slogan}
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+若 $X$ 是 $C$ 的一个正则固有模型，则存在态射序列
+$$
+X = X_m \to X_{m - 1} \to \ldots \to X_1 \to X_0
+$$
+其中各项均为 $C$ 的固有正则模型，每个态射都是一条第一类例外曲线的收缩，
+且 $X_0$ 是一个极小模型。
+\end{lemma}
+
+\begin{proof}
+由 Resolution of Surfaces, Lemma \ref{resolve-lemma-regular-dim-2-projective}
+可知 $X$ 在 $R$ 上是射影的。因此，由
+More on Morphisms, Lemma \ref{more-morphisms-lemma-projective}，
+$X$ 有一个丰沛可逆层（下文将用到这一点）。
+设 $E \subset X$ 是一条第一类例外曲线；参见
+Resolution of Surfaces, Section \ref{resolve-section-minus-one}。
+由 Resolution of Surfaces, Lemma \ref{resolve-lemma-contract-ample}，
+可收缩 $E$；相应态射为 $X \to X'$，并且 $X'$ 正则且在 $R$ 上射影。
+显然，$X'_k$ 的不可约分支数恰比 $X_k$ 的不可约分支数少一。
+因此，这样的收缩只能执行有限次，最终便得到一个极小模型。
+\end{proof}
+
+\begin{proposition}
+\label{models-proposition-exists-minimal-model}
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+则极小模型存在。
+\end{proposition}
+
+\begin{proof}
+选取一个闭浸入 $C \to \mathbf{P}^n_K$。令 $X$ 为
+$C \to \mathbf{P}^n_R$ 的概形论像。由
+Lemma \ref{models-lemma-closure-is-model}，$X \to \Spec(R)$ 是 $C$ 的一个射影模型。
+由 Lemma \ref{models-lemma-regular}，存在奇点消解 $X' \to X$，且 $X'$ 是
+$C$ 的一个模型。于是，作为固有态射的复合，$X' \to \Spec(R)$ 是固有的。
+现在应用 Lemma \ref{models-lemma-pre-exists-minimal-model} 即得一个极小模型。
+\end{proof}
+
+
+
+
+
+\section{正则模型的几何}
+\label{models-section-special-fibre}
+
+\noindent
+本节描述一个固有正则模型 $X$ 的几何；它是光滑射影曲线 $C$ 的模型，
+该曲线定义在 $K$ 上并满足 $H^0(C, \mathcal{O}_C) = K$。
+
+\begin{lemma}
+\label{models-lemma-divisor-special-fiber}
+设 $X$ 是光滑曲线 $C$（定义在 $K$ 上）的一个正则模型。
+\begin{enumerate}
+\item 特殊纤维 $X_k$ 是 $X$ 上的一个有效 Cartier 除子；
+\item 每个不可约分支 $C_i$（属于 $X_k$）都是 $X$ 上的一个有效 Cartier 除子；
+\item $X_k = \sum m_i C_i$（有效 Cartier 除子之和），
+其中 $m_i$ 是 $C_i$ 在 $X_k$ 中的重数；
+\item $\mathcal{O}_X(X_k) \cong \mathcal{O}_X$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回忆 $R$ 是一个离散赋值环，其一致化元为 $\pi$，剩余域为
+$k = R/(\pi)$。由于 $X \to \Spec(R)$ 平坦，元素 $\pi$ 在 $X$ 上仿射局部地
+是非零因子（见 More on Algebra, Lemma
+\ref{more-algebra-lemma-dedekind-torsion-free-flat}）。因此，若
+$U = \Spec(A) \subset X$ 是仿射开集，则
+$$
+X_k \cap U = U_k = \Spec(A \otimes_R k) = \Spec(A/\pi A)
+$$
+并且 $\pi$ 是 $A$ 中的非零因子。因此，由 Divisors, Lemma
+\ref{divisors-lemma-characterize-effective-Cartier-divisor}，
+$X_k = V(\pi)$ 是一个有效 Cartier 除子。这就证明了 (1)。
+
+\medskip\noindent
+以上讨论表明，偶对 $(\mathcal{O}_X(X_k), 1)$ 与偶对
+$(\mathcal{O}_X, \pi)$ 同构，从而证明了 (4)。
+
+\medskip\noindent
+由 Divisors, Lemma \ref{divisors-lemma-effective-Cartier-divisor-is-a-sum}，
+存在两两不同的整有效 Cartier 除子 $D_i \subset X$ 和整数
+$a_i \geq 0$，使得 $X_k = \sum a_i D_i$。可以删去所有除子
+$D_i$ 中满足 $a_i = 0$ 的那些。此时，由有效 Cartier 除子加法的定义立即可知，
+集合论上有 $X_k = \bigcup D_i$。因此 $C_i = D_i$ 是 $X_k$ 的不可约分支，
+这就证明了 (2)。令 $\xi_i$ 为 $C_i$ 的一般点。则
+$\mathcal{O}_{X, \xi_i}$ 是离散赋值环
+（Divisors, Lemma \ref{divisors-lemma-integral-effective-Cartier-divisor-dvr}）。
+一致化元 $\pi_i \in \mathcal{O}_{X, \xi_i}$ 是 $C_i$ 的一个局部方程，
+而 $\pi$ 的像是 $X_k$ 的一个局部方程。由 $X_k = \sum a_i C_i$ 可知，
+$\pi$ 与 $\pi_i^{a_i}$ 在 $\mathcal{O}_{X, \xi_i}$ 中生成同一个理想。
+另一方面，$C_i$ 在 $X_k$ 中的重数为
+$$
+m_i = \text{length}_{\mathcal{O}_{C_i, \xi_i}} \mathcal{O}_{X_k, \xi_i} =
+\text{length}_{\mathcal{O}_{C_i, \xi_i}} \mathcal{O}_{X, \xi_i}/(\pi) =
+\text{length}_{\mathcal{O}_{C_i, \xi_i}} \mathcal{O}_{X, \xi_i}/(\pi_i^{a_i}) =
+a_i
+$$
+参见 Chow Homology, Definition
+\ref{chow-definition-cycle-associated-to-closed-subscheme}。
+所以 $a_i = m_i$，从而 (3) 得证。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-gorenstein}
+设 $X$ 是光滑曲线 $C$（定义在 $K$ 上）的一个正则模型。则
+\begin{enumerate}
+\item $X \to \Spec(R)$ 是相对维数为 $1$ 的 Gorenstein 态射；
+\item 每个不可约分支 $C_i$（属于 $X_k$）都是 Gorenstein 的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $X \to \Spec(R)$ 平坦，为证明 (1)，只需证明各纤维都是 Gorenstein 的
+（Duality for Schemes, Lemma \ref{duality-lemma-gorenstein-morphism}）。
+一般纤维是光滑曲线，因而正则，进而是 Gorenstein 的
+（Duality for Schemes, Lemma \ref{duality-lemma-regular-gorenstein}）。
+对于特殊纤维 $X_k$，它是一个正则概形（因而是 Gorenstein 概形）上的有效
+Cartier 除子，所以也是 Gorenstein 的；例如可用 Dualizing Complexes, Lemma
+\ref{dualizing-lemma-gorenstein-divide-by-nonzerodivisor}。
+同一论证说明各曲线 $C_i$ 也是 Gorenstein 的。
+\end{proof}
+
+\begin{situation}
+\label{models-situation-regular-model}
+设 $R$ 是离散赋值环，其分式域为 $K$，剩余域为 $k$，一致化元为 $\pi$。
+设 $C$ 是定义在 $K$ 上且满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+设 $X$ 是 $C$ 的一个正则固有模型。设 $C_1, \ldots, C_n$ 是特殊纤维
+$X_k$ 的不可约分支。依照 Lemma \ref{models-lemma-divisor-special-fiber}，写作
+$X_k = \sum m_i C_i$。
+\end{situation}
+
+\begin{lemma}
+\label{models-lemma-regular-model-connected}
+在 Situation \ref{models-situation-regular-model} 中，特殊纤维 $X_k$ 是连通的。
+\end{lemma}
+
+\begin{proof}
+这是 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-geometrically-connected-fibres-towards-normal}
+的推论。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-regular-model-pic}
+在 Situation \ref{models-situation-regular-model} 中，有正合序列
+$$
+0 \to \mathbf{Z} \to \mathbf{Z}^{\oplus n} \to
+\Pic(X) \to \Pic(C) \to 0
+$$
+其中第一个映射把 $1$ 送到 $(m_1, \ldots, m_n)$，第二个映射把第
+$i$ 个基向量送到 $\mathcal{O}_X(C_i)$。
+\end{lemma}
+
+\begin{proof}
+注意 $C \subset X$ 是开子概形。由
+Divisors, Lemma \ref{divisors-lemma-extend-invertible-module}，限制映射
+$\Pic(X) \to \Pic(C)$ 是满射。设 $\mathcal{L}$ 是一个可逆
+$\mathcal{O}_X$-模，并且存在同构 $s : \mathcal{O}_C \to \mathcal{L}|_C$。
+于是 $s$ 是 $\mathcal{L}$ 的一个正则亚纯截面，而且有
+$\text{div}_\mathcal{L}(s) = \sum a_i C_i$，其中 $a_i \in \mathbf{Z}$
+（Divisors, Definition \ref{divisors-definition-divisor-invertible-sheaf}）。
+由 Divisors, Lemma \ref{divisors-lemma-normal-c1-injective}
+（以及 $X$ 正规这一事实），可得 $\mathcal{L} = \mathcal{O}_X(\sum a_iC_i)$。
+最后，假设 $\mathcal{O}_X(\sum a_i C_i) \cong \mathcal{O}_X$。
+那么存在一个元素 $g$，它属于 $X$ 的函数域，并满足
+$\text{div}_X(g) = \sum a_i C_i$。特别地，有理函数 $g$ 在一般纤维
+$C$（即 $X$ 的一般纤维）上既无零点也无极点。由于 $C$ 是正规概形，这说明
+$g \in H^0(C, \mathcal{O}_C) = K$。因此有 $g = \pi^a u$，其中
+$a \in \mathbf{Z}$ 且 $u \in R^*$。于是
+$\text{div}_X(g) = a \sum m_i C_i$，证明完毕。
+\end{proof}
+
+\noindent
+在 Situation \ref{models-situation-regular-model} 中，对每个可逆
+$\mathcal{O}_X$-模 $\mathcal{L}$ 和每个 $i$，都有一个整数
+$$
+\deg(\mathcal{L}|_{C_i}) =
+\chi(C_i, \mathcal{L}|_{C_i}) - \chi(C_i, \mathcal{O}_{C_i})
+$$
+它是 $\mathcal{L}$ 到 $C_i$ 的限制相对于基域 $k$ 的次数\footnote{注意可能出现域
+$\kappa_i = H^0(C_i, \mathcal{O}_{C_i})$ 严格大于 $k$ 的情形。此时 $C_i$
+上的每个可逆模，其次数（按上式定义）都被 $[\kappa_i : k]$ 整除。}；
+参见 Varieties, Section \ref{varieties-section-divisors-curves}。
+
+\begin{lemma}
+\label{models-lemma-intersection-pairing}
+在 Situation \ref{models-situation-regular-model} 中，给定 $\mathcal{L}$（一个可逆
+$\mathcal{O}_X$-模）以及
+$a = (a_1, \ldots, a_n) \in \mathbf{Z}^{\oplus n}$，定义
+$$
+\langle a, \mathcal{L} \rangle = \sum a_i\deg(\mathcal{L}|_{C_i})
+$$
+则 $\langle , \rangle$ 是双线性的，而且对
+$b = (b_1, \ldots, b_n) \in \mathbf{Z}^{\oplus n}$ 有
+$$
+\left\langle a, \mathcal{O}_X(\sum b_i C_i) \right\rangle =
+\left\langle b, \mathcal{O}_X(\sum a_i C_i) \right\rangle
+$$
+\end{lemma}
+
+\begin{proof}
+双线性立即由定义和 Varieties, Lemma
+\ref{varieties-lemma-degree-tensor-product} 得出。为证明对称性，只需设 $a$ 和
+$b$ 是 $\mathbf{Z}^{\oplus n}$ 中的标准基向量。因此只需证明
+$$
+\deg(\mathcal{O}_X(C_j)|_{C_i}) = \deg(\mathcal{O}_X(C_i)|_{C_j})
+$$
+对所有 $1 \leq i, j \leq n$ 成立。若 $i = j$，则无需证明。
+若 $i \not = j$，则典范截面 $1$（属于 $\mathcal{O}_X(C_j)$）限制为
+$\mathcal{O}_X(C_j)|_{C_i}$ 的一个非零截面（因而是正则截面），
+其零点概形恰为 $C_i \cap C_j$（概形论相交）。换言之，
+$C_i \cap C_j$ 是 $C_i$ 上的一个有效 Cartier 除子，并且
+$$
+\deg(\mathcal{O}_X(C_j)|_{C_i}) = \deg(C_i \cap C_j)
+$$
+由 Varieties, Lemma \ref{varieties-lemma-degree-effective-Cartier-divisor}
+可得上式。利用对称性，另一端也得到同一个（！）公式，证明完毕。
+\end{proof}
+
+\noindent
+在 Situation \ref{models-situation-regular-model} 中，常常可以方便地把
+$\mathbf{Z}^{\oplus n}$ 看成集合 $\{C_1, \ldots, C_n\}$ 上的自由阿贝尔群。
+我们把这个群的元素记作 $\sum a_i C_i$；这里将它视为形式和，尽管等价地，
+我们也可以（而且有时确实会）把这样的和看作 $X$ 上支撑于特殊纤维
+$X_k$ 的 Weil 除子。现在，Lemma \ref{models-lemma-intersection-pairing}
+使我们可以在这个自由阿贝尔群上依照下式定义一个对称双线性形式
+$(\ \cdot\ )$：
+\begin{equation}
+\label{models-equation-form}
+\left(\sum a_i C_i \cdot \sum b_j C_j\right) =
+\left\langle a, \mathcal{O}_X(\sum b_j C_j) \right\rangle =
+\left\langle b, \mathcal{O}_X(\sum a_i C_i) \right\rangle
+\end{equation}
+下面证明这个双线性形式的一些性质。
+
+\begin{lemma}
+\label{models-lemma-properties-form}
+在 Situation \ref{models-situation-regular-model} 中，对称双线性形式
+(\ref{models-equation-form}) 具有以下性质：
+\begin{enumerate}
+\item $(C_i \cdot C_j) \geq 0$ 若 $i \not = j$，且等号成立当且仅当
+$C_i \cap C_j = \emptyset$；
+\item $(\sum m_i C_i \cdot C_j) = 0$；
+\item 不存在非空真子集 $I \subset \{1, \ldots, n\}$，使得
+$(C_i \cdot C_j) = 0$ 对 $i \in I$、$j \not \in I$ 成立；
+\item $(\sum a_i C_i \cdot \sum a_i C_i) \leq 0$，且等号成立当且仅当
+存在 $q \in \mathbf{Q}$，使得 $a_i = qm_i$ 对 $i = 1, \ldots, n$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+在 Lemma \ref{models-lemma-intersection-pairing} 的证明中，我们看到
+$(C_i \cdot C_j) = \deg(C_i \cap C_j)$ 若 $i \not = j$。
+它满足 $\geq 0$，且 $> 0 $ 当且仅当 $C_i \cap C_j \not = \emptyset$。
+这证明了 (1)。
+
+\medskip\noindent
+(2) 的证明。由 Lemma \ref{models-lemma-divisor-special-fiber}，与
+$\sum m_i C_i$ 相伴的可逆层是平凡的，而平凡层的次数为零，故结论成立。
+
+\medskip\noindent
+(3) 的证明。借助 (1) 的证明中对相交数的描述，这正表达了 $X_k$ 连通这一事实
+（Lemma \ref{models-lemma-regular-model-connected}）。
+
+\medskip\noindent
+(4) 由 (1)、(2)、(3) 以及 Lemma \ref{models-lemma-recurring-symmetric-real} 推出。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-multiple-fibre-normal-bundle}
+在 Situation \ref{models-situation-regular-model} 中，令
+$d = \gcd(m_1, \ldots, m_n)$，并令 $D = \sum (m_i/d)C_i$ 为有效
+Cartier 除子。则 $\mathcal{O}_X(D)$ 的阶整除 $d$（在 $\Pic(X)$ 中），
+并且 $\mathcal{C}_{D/X}$ 是一个可逆 $\mathcal{O}_D$-模，
+它的阶整除 $d$（在 $\Pic(D)$ 中）。
+\end{lemma}
+
+\begin{proof}
+我们有
+$$
+\mathcal{O}_X(D)^{\otimes d} = \mathcal{O}_X(dD) =
+\mathcal{O}_X(X_k) = \mathcal{O}_X
+$$
+这是 Lemma \ref{models-lemma-divisor-special-fiber} 的结论。又因为
+$\mathcal{C}_{D/X}$ 是 $\mathcal{O}_X(-D)$ 的拉回，故第二个结论也成立。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-regular-model-field}
+\begin{reference}
+\cite[Lemma 2.6]{Artin-Winters}
+\end{reference}
+在 Situation \ref{models-situation-regular-model} 中，令
+$d = \gcd(m_1, \ldots, m_n)$。令 $D = \sum (m_i/d) C_i$ 为有效
+Cartier 除子。则存在有效 Cartier 除子序列
+$$
+(X_k)_{red} = Z_0 \subset Z_1 \subset \ldots \subset Z_m = D
+$$
+使得 $Z_j = Z_{j - 1} + C_{i_j}$，其中某个
+$i_j \in \{1, \ldots, n\}$ 对 $j = 1, \ldots, m$ 取值；并且
+$H^0(Z_j, \mathcal{O}_{Z_j})$ 都是 $k$ 的有限扩域，其中 $j = 0, \ldots m$。
+\end{lemma}
+
+\begin{proof}
+约化概形 $D_{red} = (X_k)_{red} = \sum C_i$ 是连通的
+（Lemma \ref{models-lemma-regular-model-connected}），并且在 $k$ 上固有。因此由
+Varieties, Lemma
+\ref{varieties-lemma-proper-geometrically-reduced-global-sections}，
+$H^0(D_{red}, \mathcal{O})$ 是一个域，也是 $k$ 的有限扩张。
+所以结论对 $Z_0 = D_{red} = (X_k)_{red}$ 成立。假设已经构造出
+$$
+(X_k)_{red} = Z_0 \subset Z_1 \subset \ldots \subset Z_t \subset D
+$$
+其中 $Z_j = Z_{j - 1} + C_{i_j}$，某个 $i_j \in \{1, \ldots, n\}$
+对 $j = 1, \ldots, t$ 取值，并且 $H^0(Z_j, \mathcal{O}_{Z_j})$
+都是 $k$ 的有限扩域，其中 $j = 0, \ldots, t$。写
+$Z_t = \sum a_i C_i$，其中 $1 \leq a_i \leq m_i/d$。
+若 $a_i = m_i/d$ 对所有 $i$ 成立，则 $Z_t = D$，引理得证。
+否则，有 $a_i < m_i/d$ 对某个 $i$ 成立，由
+Lemma \ref{models-lemma-properties-form} 可得 $(Z_t \cdot Z_t) < 0$。
+这意味着 $(D - Z_t \cdot Z_t) > 0$，因为该引理还给出
+$(D \cdot Z_t) = 0$。因此可以找到一个 $i$，满足
+$a_i < m_i/d$ 且 $(C_i \cdot Z_t) > 0$。令
+$Z_{t + 1} = Z_t + C_i$ 以及 $i_{t + 1} = i$。考虑短正合序列
+$$
+0 \to \mathcal{O}_X(-Z_t)|_{C_i} \to \mathcal{O}_{Z_{t + 1}} \to
+\mathcal{O}_{Z_t} \to 0
+$$
+它来自 Divisors, Lemma \ref{divisors-lemma-ses-add-divisor}。
+根据我们对 $i$ 的选择，$\mathcal{O}_X(-Z_t)|_{C_i}$ 是固有曲线
+$C_i$ 上的负次数可逆层，因而没有非零整体截面
+（Varieties, Lemma \ref{varieties-lemma-check-invertible-sheaf-trivial}）。
+因此，$H^0(\mathcal{O}_{Z_{t + 1}}) \subset H^0(\mathcal{O}_{Z_t})$
+是一个域（这一点很清楚，也可由 Algebra, Lemma
+\ref{algebra-lemma-integral-under-field} 得出），并且是 $k$ 的有限扩张。
+这样便延长了序列。由于过程必然停止，例如因为
+$t \leq \sum (m_i/d - 1)$，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-regular-model-genus}
+\begin{reference}
+\cite[Lemma 2.6]{Artin-Winters}
+\end{reference}
+在 Situation \ref{models-situation-regular-model} 中，令
+$d = \gcd(m_1, \ldots, m_n)$。令 $D = \sum (m_i/d) C_i$ 为 $X$ 上的
+有效 Cartier 除子。则
+$$
+1 - g_C = d [\kappa : k] (1 - g_D)
+$$
+其中 $g_C$ 是 $C$ 的亏格，$g_D$ 是 $D$ 的亏格，并且
+$\kappa = H^0(D, \mathcal{O}_D)$。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{models-lemma-regular-model-field} 可知 $\kappa$ 是 $k$ 的一个有限扩域。
+又因为 $H^0(C, \mathcal{O}_C) = K$，所以 $C$ 与 $D$ 的亏格均有定义
+（见 Algebraic Curves, Definition \ref{curves-definition-genus}），并且
+$g_C = \dim_K H^1(C, \mathcal{O}_C)$ 以及
+$g_D = \dim_\kappa H^1(D, \mathcal{O}_D)$。由
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-chi-locally-constant-geometric}，有
+$$
+1 - g_C = \chi(C, \mathcal{O}_C) =
+\chi(X_k, \mathcal{O}_{X_k}) = \dim_k H^0(X_k, \mathcal{O}_{X_k})
+- \dim_k H^1(X_k, \mathcal{O}_{X_k})
+$$
+我们断言
+$$
+\chi(X_k, \mathcal{O}_{X_k}) = d \chi(D, \mathcal{O}_D)
+$$
+这将证明引理，因为
+$$
+\chi(D, \mathcal{O}_D) =
+\dim_k H^0(D, \mathcal{O}_D) - \dim_k H^1(D, \mathcal{O}_D) =
+[\kappa : k](1 - g_D)
+$$
+注意，作为有效 Cartier 除子有 $X_k = dD$。为证明该断言，我们对
+$1 \leq r \leq d$ 归纳证明
+$\chi(rD, \mathcal{O}_{rD}) = r \chi(D, \mathcal{O}_D)$。
+基础情形 $r = 1$ 显然成立。若 $1 \leq r < d$，则考虑短正合序列
+$$
+0 \to \mathcal{O}_X(rD)|_D \to \mathcal{O}_{(r + 1)D} \to
+\mathcal{O}_{rD} \to 0
+$$
+它来自 Divisors, Lemma \ref{divisors-lemma-ses-add-divisor}。由欧拉示性数的
+可加性（Varieties, Lemma \ref{varieties-lemma-euler-characteristic-additive}），
+只需证明 $\chi(D, \mathcal{O}_X(rD)|_D) = \chi(D, \mathcal{O}_D)$。
+这是因为 $\mathcal{O}_X(rD)|_D$ 是 $\Pic(D)$ 中的挠元
+（Lemma \ref{models-lemma-multiple-fibre-normal-bundle}），并且线丛的次数具有可加性
+（Varieties, Lemma \ref{varieties-lemma-degree-tensor-product}），
+所以挠可逆层的次数为零。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-exceptional-curves-dont-meet}
+在 Situation \ref{models-situation-regular-model} 中，给定一对指标 $i, j$，
+若 $C_i$ 和 $C_j$ 都是第一类例外曲线，并且
+$C_i \cap C_j \not = \emptyset$，则 $n = 2$、$m_1 = m_2 = 1$、
+$C_1 \cong \mathbf{P}^1_k$、$C_2 \cong \mathbf{P}^1_k$，而且 $C_1$ 与
+$C_2$ 相交于一个 $k$-有理点，且 $C$ 的亏格为 $0$。
+\end{lemma}
+
+\begin{proof}
+选取同构 $C_i = \mathbf{P}^1_{\kappa_i}$ 和
+$C_j = \mathbf{P}^1_{\kappa_j}$。概形 $C_i \cap C_j$ 在 $C_i$ 与 $C_j$
+中都是非空有效 Cartier 除子。因此
+$$
+(C_i \cdot C_j) = \deg(C_i \cap C_j) \geq \max([\kappa_i: k], [\kappa_j : k])
+$$
+第一个等号已在 Lemma \ref{models-lemma-intersection-pairing} 的证明中给出。
+另一方面，自交数 $(C_i \cdot C_i)$ 等于 $\mathcal{O}_X(C_i)$ 在 $C_i$
+上的次数，即 $-[\kappa_i : k]$，因为 $C_i$ 是第一类例外曲线。
+对 $C_j$ 也同样成立。由 Lemma \ref{models-lemma-properties-form}，
+$$
+0 \geq (C_i + C_j)^2 = -[\kappa_i : k] + 2(C_i \cdot C_j) - [\kappa_j : k]
+$$
+这说明 $[\kappa_i : k] = \deg(C_i \cap C_j) = [\kappa_j : k]$，
+而且有 $(C_i + C_j)^2 = 0$。再次考察该引理可知 $n = 2$、
+$\{1, 2\} = \{i, j\}$ 且 $m_1 = m_2$。此外，概形论相交
+$C_i \cap C_j$ 只包含一个点 $p$，其剩余域为 $\kappa$，并且
+$\kappa_i \to \kappa \leftarrow \kappa_j$ 都是同构。令
+$D = C_1 + C_2$ 为 $X$ 上的有效 Cartier 除子。注意 $D$ 是 $C_1$ 与
+$C_2$ 的概形论并
+（Divisors, Lemma \ref{divisors-lemma-sum-effective-Cartier-divisors-union}），
+故有短正合序列
+$$
+0 \to \mathcal{O}_D \to \mathcal{O}_{C_1} \oplus \mathcal{O}_{C_2} \to
+\mathcal{O}_p \to 0
+$$
+它来自 Morphisms, Lemma \ref{morphisms-lemma-scheme-theoretic-union}。
+我们已知 $C_i \cong \mathbf{P}^1_\kappa$ 的上同调
+（Cohomology of Schemes, Lemma
+\ref{coherent-lemma-cohomology-projective-space-over-ring}），
+故由上同调长正合序列可得 $H^0(D, \mathcal{O}_D) = \kappa$ 以及
+$H^1(D, \mathcal{O}_D) = 0$。再由 Lemma \ref{models-lemma-regular-model-genus} 得到
+$$
+1 - g_C = d[\kappa : k](1 - 0)
+$$
+其中 $d = m_1 = m_2$。由此可得 $g_C = 0$、$d = m_1 = m_2 = 1$，
+并且 $\kappa = k$。
+\end{proof}
+
+
+
+
+
+\section{极小模型的唯一性}
+\label{models-section-uniqueness}
+
+\noindent
+若一般纤维的亏格为正，则极小模型是唯一的
+（Lemma \ref{models-lemma-minimal-model-unique}），因而具有合适的映射性质
+（Lemma \ref{models-lemma-minimal-model-mapping-property}）。
+
+\begin{lemma}
+\label{models-lemma-minimal-model-unique}
+设 $C$ 是定义在 $K$ 上的光滑射影曲线，满足
+$H^0(C, \mathcal{O}_C) = K$ 且亏格 $> 0$。
+则 $C$ 有唯一的极小模型。
+\end{lemma}
+
+\begin{proof}
+我们已经证明了引理中困难的部分，即极小模型的存在性（其证明依赖于
+曲面奇点的消解）；参见 Proposition \ref{models-proposition-exists-minimal-model}。
+为证明唯一性，设 $X$ 和 $Y$ 是两个极小模型。由
+Resolution of Surfaces, Lemma \ref{resolve-lemma-birational-regular-surfaces}，
+存在如下 $S$-态射图：
+$$
+X = X_0 \leftarrow X_1 \leftarrow \ldots \leftarrow X_n = Y_m
+\to \ldots \to Y_1 \to Y_0 = Y
+$$
+其中每个态射都是在一个闭点处的吹起。态射 $X_n \to X_{n - 1}$ 的例外纤维
+是一条第一类例外曲线 $E$。我们断言 $E$ 在态射 $X_n = Y_m \to Y$
+下被收缩到一点。若断言成立，则由 Resolution of Surfaces, Lemma
+\ref{resolve-lemma-factor-through-contraction}，$X_n \to Y$ 经由
+$X_{n - 1}$ 分解。在这种情形下，由 Resolution of Surfaces, Lemma
+\ref{resolve-lemma-proper-birational-regular-surfaces}，态射
+$X_{n - 1} \to Y$ 仍是一列例外曲线的收缩。因此对 $n$ 归纳即可得出结论。
+（基础情形 $n = 0$ 意味着存在收缩序列
+$X = Y_m \to \ldots \to Y_1 \to Y_0 = Y$
+以 $Y$ 结束。但由于 $X$ 是极小模型，它不包含第一类例外曲线，
+故 $m = 0$ 且 $X = Y$。）
+
+\medskip\noindent
+断言的证明。我们对 $m$ 归纳证明：任意第一类例外曲线 $E \subset Y_m$
+都被态射 $Y_m \to Y$ 映到一点。若 $m = 0$，则这由 $Y$ 是极小模型立即可知。
+若 $m > 0$，则或者 $Y_m \to Y_{m - 1}$ 收缩 $E$（此时已经完成），
+或者例外纤维 $E' \subset Y_m$（属于 $Y_m \to Y_{m - 1}$）是另一条
+第一类例外曲线。由于 $E$ 和 $E'$ 都是特殊纤维的不可约分支，
+且按假设 $g_C > 0$，故由 Lemma \ref{models-lemma-exceptional-curves-dont-meet}
+可得 $E \cap E' = \emptyset$。于是 $E$ 在 $Y_{m - 1}$ 中的像是
+一条第一类例外曲线（这是因为态射 $Y_m \to Y_{m - 1}$ 在 $E$ 的某个邻域上
+是同构）。归纳假设表明 $Y_{m - 1} \to Y$ 收缩这条曲线，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-minimal-model-mapping-property}
+设 $C$ 是定义在 $K$ 上的光滑射影曲线，满足
+$H^0(C, \mathcal{O}_C) = K$ 且亏格 $> 0$。设 $X$ 是 $C$ 的极小模型
+（Lemma \ref{models-lemma-minimal-model-unique}）。设 $Y$ 是 $C$ 的一个正则固有模型。
+则存在唯一的模型态射 $Y \to X$，它是一列第一类例外曲线的收缩。
+\end{lemma}
+
+\begin{proof}
+态射 $X \to Y$ 的存在性和性质立即由
+Lemma \ref{models-lemma-pre-exists-minimal-model} 以及极小模型的唯一性得出。
+态射 $Y \to X$ 是唯一的，因为 $C \subset Y$ 在概形论意义下稠密，
+而且 $X$ 是分离的（见 Morphisms, Lemma
+\ref{morphisms-lemma-equality-of-morphisms}）。
+\end{proof}
+
+\begin{example}
+\label{models-example-nonunique-in-genus-zero}
+若 $C$ 的亏格为 $0$，则极小模型确实不唯一。具体地，考虑闭子概形
+$$
+X \subset \mathbf{P}^2_R
+$$
+它由 $T_1T_2 - \pi T_0^2 = 0$ 定义。更准确地说，$X$ 定义为
+$\text{Proj}(R[T_0, T_1, T_2]/(T_1T_2 - \pi T_0^2))$。于是特殊纤维
+$X_k$ 是两条例外曲线 $C_1$、$C_2$ 的并，二者都同构于
+$\mathbf{P}^1_k$（恰如 Lemma \ref{models-lemma-exceptional-curves-dont-meet} 中那样）。
+从 $(0 : 1 : 0)$ 投影定义了一个态射 $X \to \mathbf{P}^1_R$，它收缩
+$C_2$，并诱导 $C_1$ 与 $\mathbf{P}^1_R$ 的特殊纤维之间的同构。
+从 $(0 : 0 : 1)$ 投影定义了一个态射 $X \to \mathbf{P}^1_R$，它收缩
+$C_1$，并诱导 $C_2$ 与 $\mathbf{P}^1_R$ 的特殊纤维之间的同构。
+更准确地说，这些态射对应于分次 $R$-代数映射
+$$
+R[T_0, T_1] \longrightarrow
+R[T_0, T_1, T_2]/(T_1T_2 - \pi T_0^2) \longleftarrow
+R[T_0, T_2]
+$$
+我们将在 Lemma \ref{models-lemma-nonuniqueness} 中研究这一现象。
+\end{example}
+
+
+
+
+
+
+
+
+\section{亏格公式}
+\label{models-section-genus-formula}
+
+\noindent
+来自固有正则模型的组合结构还满足一个限制。
+
+\begin{lemma}
+\label{models-lemma-add-component}
+在 Situation \ref{models-situation-regular-model} 中，假设有有效 Cartier 除子
+$D, D' \subset X$，使得 $D' = D + C_i$ 对某个
+$i \in \{1, \ldots, n\}$ 成立，并且 $D' \subset X_k$。则
+$$
+\chi(X_k, \mathcal{O}_{D'}) - \chi(X_k, \mathcal{O}_D) =
+\chi(X_k, \mathcal{O}_X(-D)|_{C_i}) =
+-(D \cdot C_i) + \chi(C_i, \mathcal{O}_{C_i})
+$$
+\end{lemma}
+
+\begin{proof}
+第二个等号由 (\ref{models-equation-form}) 中双线性形式 $(\ \cdot\ )$ 的定义以及
+Lemma \ref{models-lemma-intersection-pairing} 得出。为证明第一个等号，分两种情形。
+若 $C_i \not \subset D$，则 $D'$ 是 $D$ 与 $C_i$ 的概形论并
+（由 Divisors, Lemma
+\ref{divisors-lemma-sum-effective-Cartier-divisors-union}），
+因而得到短正合序列
+$$
+0 \to \mathcal{O}_{D'} \to
+\mathcal{O}_D \times \mathcal{O}_{C_i} \to
+\mathcal{O}_{D \cap C_i} \to 0
+$$
+它来自 Morphisms, Lemma \ref{morphisms-lemma-scheme-theoretic-union}。
+又有正合序列
+$$
+0 \to \mathcal{O}_X(-D)|_{C_i} \to
+\mathcal{O}_{C_i} \to \mathcal{O}_{D \cap C_i} \to 0
+$$
+（Divisors, Remark \ref{divisors-remark-ses-regular-section}），
+故由欧拉示性数的可加性
+（Varieties, Lemma \ref{varieties-lemma-euler-characteristic-additive}）
+可得所需断言。另一方面，若 $C_i \subset D$，则有正合序列
+$$
+0 \to \mathcal{O}_X(-D)|_{C_i} \to \mathcal{O}_{D'} \to \mathcal{O}_D \to 0
+$$
+它来自 Divisors, Lemma \ref{divisors-lemma-ses-add-divisor}，
+由此立即看出引理成立。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-genus-formula}
+在 Situation \ref{models-situation-regular-model} 中，有
+$$
+g_C = 1 + \sum\nolimits_{i = 1, \ldots, n}
+m_i\left([\kappa_i : k] (g_i - 1) - \frac{1}{2}(C_i \cdot C_i)\right)
+$$
+其中 $\kappa_i = H^0(C_i, \mathcal{O}_{C_i})$，$g_i$ 是 $C_i$ 的亏格，
+$g_C$ 是 $C$ 的亏格。
+\end{lemma}
+
+\begin{proof}
+基本工具是 Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-chi-locally-constant-geometric}，它给出
+$$
+1 - g_C = \chi(C, \mathcal{O}_C) =
+\chi(X_k, \mathcal{O}_{X_k})
+$$
+选取有效 Cartier 除子序列
+$$
+X_k = D_m \supset D_{m - 1} \supset \ldots \supset D_1 \supset D_0 = \emptyset
+$$
+使得 $D_{j + 1} = D_j + C_{i_j}$ 对每个 $j$ 都成立。（逐次把
+$D_{j + 1}$ 的一个非零重数减一，显然可以选出这样的序列。）从
+$\chi(\mathcal{O}_{D_0}) = 0$ 开始应用 Lemma \ref{models-lemma-add-component}，得到
+\begin{align*}
+1 - g_C
+& =
+\chi(X_k, \mathcal{O}_{X_k}) \\
+& =
+\sum\nolimits_j
+\left(-(D_j \cdot C_{i_j}) +  \chi(C_{i_j}, \mathcal{O}_{C_{i_j}})\right) \\
+& =
+- \sum\nolimits_j
+(C_{i_1} + C_{i_2} + \ldots + C_{i_{j - 1}} \cdot C_{i_j}) +
+\sum\nolimits_j \chi(C_{i_j}, \mathcal{O}_{C_{i_j}}) \\
+& =
+-\frac{1}{2}\sum\nolimits_{j \not = j'} (C_{i_{j'}} \cdot C_{i_j}) +
+\sum m_i \chi(C_i, \mathcal{O}_{C_i}) \\
+& =
+\frac{1}{2} \sum m_i(C_i \cdot C_i) + \sum m_i \chi(C_i, \mathcal{O}_{C_i})
+\end{align*}
+最后一个等号或许需要解释。由于 $\sum_j C_{i_j} = \sum m_i C_i$，
+由 Lemma \ref{models-lemma-properties-form} 有
+$(\sum_j C_{i_j} \cdot \sum_j C_{i_j}) = 0$。因此
+$$
+0 = \sum\nolimits_{j \not = j'} (C_{i_{j'}} \cdot C_{i_j}) +
+\sum m_i(C_i \cdot C_i)
+$$
+这是把该乘积分成“非对角”项与“对角”项所得。注意，由
+Varieties, Lemma \ref{varieties-lemma-regular-functions-proper-variety}，
+$\kappa_i$ 是 $k$ 的有限扩域。因此 $C_i$ 的亏格有定义，并且
+$\chi(C_i, \mathcal{O}_{C_i}) = [\kappa_i : k](1 - g_i)$。
+汇总以上各式并重新排列各项，得到
+$$
+g_C = - \frac{1}{2}\sum m_i(C_i \cdot C_i) +
+\sum m_i[\kappa_i : k](g_i - 1) + 1
+$$
+这也正是引理的结论。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-numerical-type-of-model}
+在 Situation \ref{models-situation-regular-model} 中，令
+$\kappa_i = H^0(C_i, \mathcal{O}_{C_i})$，并令 $g_i$ 为 $C_i$ 的亏格，
+则数据
+$$
+n, m_i, (C_i \cdot C_j), [\kappa_i : k], g_i
+$$
+构成一个数值型，其亏格等于 $C$ 的亏格。
+\end{lemma}
+
+\begin{proof}
+（在 Lemma \ref{models-lemma-genus-formula} 的证明中，我们已经看到引理陈述所用的量
+都有良好定义。）需要验证 Definition \ref{models-definition-type} 的条件 (1)--(5)。
+
+\medskip\noindent
+条件 (1) 立即成立。
+
+\medskip\noindent
+条件 (2)。矩阵 $(C_i \cdot C_j)$ 的对称性由 Equation
+(\ref{models-equation-form}) 和 Lemma \ref{models-lemma-intersection-pairing} 得出。
+$(C_i \cdot C_j)$ 在 $i \not = j$ 时的非负性是
+Lemma \ref{models-lemma-properties-form} 的 (1)。
+
+\medskip\noindent
+条件 (3) 是 Lemma \ref{models-lemma-properties-form} 的 (3)。
+
+\medskip\noindent
+条件 (4) 是 Lemma \ref{models-lemma-properties-form} 的 (2)。
+
+\medskip\noindent
+条件 (5) 来自以下事实：$(C_i \cdot C_j)$ 是 $C_i$ 上某个可逆模的次数，
+因此被 $[\kappa_i : k]$ 整除；参见 Varieties, Lemma
+\ref{varieties-lemma-divisible}。
+
+\medskip\noindent
+Lemma \ref{models-lemma-genus-formula} 中证明的亏格公式说明，该数值型具有陈述中的亏格；
+参见 Definition \ref{models-definition-genus}。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-numerical-type-model}
+在 Situation \ref{models-situation-regular-model} 中，所谓{\it 与 $X$ 相伴的数值型}，
+是指 Lemma \ref{models-lemma-numerical-type-of-model} 所描述的数值型。
+\end{definition}
+
+\noindent
+现在把模型的极小性与型的极小性对应起来。
+
+\begin{lemma}
+\label{models-lemma-numerical-type-minimal-model}
+在 Situation \ref{models-situation-regular-model} 中，以下条件等价：
+\begin{enumerate}
+\item $X$ 是极小模型；
+\item 与 $X$ 相伴的数值型是极小的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若数值型极小，则不存在 $i$ 同时满足 $g_i = 0$ 和
+$(C_i \cdot C_i) = -[\kappa_i: k]$；参见
+Definition \ref{models-definition-type-minimal}。这显然说明曲线 $C_i$ 中没有
+第一类例外曲线。
+
+\medskip\noindent
+反过来，假设数值型不极小。则存在 $i$，使得 $g_i = 0$ 且
+$(C_i \cdot C_i) = -[\kappa_i: k]$。我们断言这说明 $C_i$ 是第一类例外曲线。
+事实上，可逆层 $\mathcal{O}_X(-C_i)|_{C_i}$ 的次数为
+$-(C_i \cdot C_i) = [\kappa_i : k]$；这是把 $C_i$ 看作 $k$ 上的固有曲线时
+所得。因此它的次数为 $1$；这是把 $C_i$ 看作 $\kappa_i$ 上的固有曲线时所得。
+应用 Algebraic Curves, Proposition \ref{curves-proposition-projective-line} 可知
+$C_i \cong \mathbf{P}^1_{\kappa_i}$，这是作为 $\kappa_i$ 上的概形而言。
+由于域上的 $\mathbf{P}^1$ 的 Picard 群为
+$\mathbf{Z}$，可知 $C_i$ 在 $X$ 中的法层同构于
+$\mathcal{O}_{\mathbf{P}_{\kappa_i}}(-1)$，证明完毕。
+\end{proof}
+
+\begin{remark}
+\label{models-remark-numerical-type-not-from-model}
+并非每个数值型都来自模型，一个简单的理由是存在亏格为负的数值型。
+也存在亏格为正的极小数值型，它并不是某个模型（定义在某个离散赋值环上）
+所相伴的数值型，而该模型的一般纤维是光滑射影几何不可约曲线
+（定义在该离散赋值环的分式域上）。一个简单例子是
+$n = 1$, $m_1 = 1$, $a_{11} = 0$, $w_1 = 6$, $g_1 = 1$.
+在此情形下，特殊纤维 $X_k$ 不会几何连通，因为它定义在一个扩域
+$\kappa$ 上，而该域是 $k$ 的 $6$ 次扩张。这与一般纤维几何连通矛盾（见
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-geometrically-connected-fibres-towards-normal}）。
+类似地，$n = 2$、$m_1 = m_2 = 1$、
+$-a_{11} = -a_{22} = a_{12} = a_{21} = 6$、$w_1 = w_2 = 6$、
+$g_1 = g_2 = 1$ 也因同一理由给出一个例子（细节略去）。
+但当 $w_i$ 的最大公因数为 $1$ 时，我们没有例子。
+\end{remark}
+
+\begin{lemma}
+\label{models-lemma-numerical-type-rational-point}
+在 Situation \ref{models-situation-regular-model} 中，假设 $C$ 有一个 $K$-有理点。则
+\begin{enumerate}
+\item $X_k$ 有一个 $k$-有理点 $x$，它是 $X_k$ 在 $k$ 上的光滑点；
+\item 若 $x \in C_i$，则 $H^0(C_i, \mathcal{O}_{C_i}) = k$ 且 $m_i = 1$；
+\item $H^0(X_k, \mathcal{O}_{X_k}) = k$，并且 $X_k$ 的亏格等于 $C$ 的亏格。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $X \to \Spec(R)$ 固有，由固有性的赋值判别准则，$K$-有理点延拓为态射
+$a : \Spec(R) \to X$（Morphisms, Lemma
+\ref{morphisms-lemma-characterize-proper}）。令 $x \in X$ 为 $a$ 下
+$\Spec(R)$ 的闭点的像。于是 $a$ 对应于一个 $R$-代数同态
+$\psi : \mathcal{O}_{X, x} \to R$（见 Schemes, Section
+\ref{schemes-section-points}）。因此 $\pi \not \in \mathfrak m_x^2$（因为 $\pi$
+在 $R$ 中的像不属于 $\mathfrak m_R^2$）。故
+$\mathcal{O}_{X_k, x} = \mathcal{O}_{X, x}/\pi \mathcal{O}_{X, x}$ 是正则的
+（Algebra, Lemma \ref{algebra-lemma-regular-ring-CM}）。进而由 Algebra, Lemma
+\ref{algebra-lemma-separable-smooth}，$X_k \to \Spec(k)$ 在 $x$ 处光滑。
+因此 $x$ 包含在唯一一个不可约分支 $C_i$（属于 $X_k$）中，且
+$\mathcal{O}_{C_i, x} = \mathcal{O}_{X_k, x}$，并且 $m_i = 1$。
+$C_i$ 有 $k$-有理点这一事实说明域
+$\kappa_i = H^0(C_i, \mathcal{O}_{C_i})$
+（Varieties, Lemma \ref{varieties-lemma-regular-functions-proper-variety}）
+等于 $k$。这证明了 (1)。我们有 $H^0(X_k, \mathcal{O}_{X_k}) = k$，
+因为 $H^0(X_k, \mathcal{O}_{X_k})$ 是 $k$ 的一个扩域
+（Lemma \ref{models-lemma-regular-model-field}），并映入
+$H^0(C_i, \mathcal{O}_{C_i}) = k$。亏格相等由
+Lemma \ref{models-lemma-regular-model-genus} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-genus-reduction-smaller}
+在 Situation \ref{models-situation-regular-model} 中，假设 $X$ 是极小模型，
+$\gcd(m_1, \ldots, m_n) = 1$，并且
+$H^0((X_k)_{red}, \mathcal{O}) = k$。则映射
+$$
+H^1(X_k, \mathcal{O}_{X_k}) \to H^1((X_k)_{red}, \mathcal{O}_{(X_k)_{red}})
+$$
+是满射，而且只要 $(X_k)_{red} \not = X_k$，其核就非平凡。
+\end{lemma}
+
+\begin{proof}
+由于次数 $\geq 2$ 的上同调在 $X_k$ 上消失
+（Cohomology, Proposition \ref{cohomology-proposition-vanishing-Noetherian}），
+$X_k$ 上阿贝尔层的任意满射都会在 $H^1$ 上诱导满射。考虑
+Lemma \ref{models-lemma-regular-model-field} 的序列
+$$
+(X_k)_{red} = Z_0 \subset Z_1 \subset \ldots \subset Z_m = X_k
+$$
+由于域同态
+$H^0(Z_j, \mathcal{O}_{Z_j}) \to
+H^0((X_k)_{red}, \mathcal{O}_{(X_k)_{red}}) = k$ 是单射，
+可得 $H^0(Z_j, \mathcal{O}_{Z_j}) = k$ 对 $j = 0, \ldots, m$ 成立。
+于是 $H^0(X_k, \mathcal{O}_{X_k}) \to H^0(Z_{m - 1}, \mathcal{O}_{Z_{m - 1}})$
+是满射。令 $C = C_{i_m}$。
+则 $X_k = Z_{m - 1} + C$。令
+$\mathcal{L} = \mathcal{O}_X(-Z_{m - 1})|_C$。于是 $\mathcal{L}$ 是一个可逆
+$\mathcal{O}_C$-模。与 Lemma \ref{models-lemma-regular-model-field} 的证明相同，有如下凝聚层正合序列：
+$$
+0 \to \mathcal{L} \to \mathcal{O}_{X_k} \to \mathcal{O}_{Z_{m - 1}} \to 0
+$$
+这是 $X_k$ 上的序列。因此得到短正合序列
+$$
+0 \to
+H^1(C, \mathcal{L}) \to H^1(X_k, \mathcal{O}_{X_k}) \to
+H^1(Z_{m - 1}, \mathcal{O}_{Z_{m - 1}}) \to 0
+$$
+$\mathcal{L}$ 在 $C$ 上相对于 $k$ 的次数为
+$$
+(C \cdot -Z_{m - 1}) = (C \cdot C - X_k) = (C \cdot C)
+$$
+令 $\kappa = H^0(C, \mathcal{O}_C)$ 且 $w = [\kappa : k]$。
+由可逆层次数的定义可知
+$$
+\chi(C, \mathcal{L}) =
+\chi(C, \mathcal{O}_C) + (C \cdot C) =
+w(1 - g_C) + (C \cdot C)
+$$
+其中 $g_C$ 是 $C$ 的亏格。该表达式 $< 0$，因为 $X$ 极小，
+因而 $C$ 不是第一类例外曲线
+（见 Lemma \ref{models-lemma-numerical-type-minimal-model} 的证明）。
+故 $\dim_k H^1(C, \mathcal{L}) > 0$，证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-genus-reduction-bigger-than}
+在 Situation \ref{models-situation-regular-model} 中，假设 $X_k$ 有一个 $k$-有理点
+$x$，它是 $X_k \to \Spec(k)$ 的光滑点。则
+$$
+\dim_k H^1((X_k)_{red}, \mathcal{O}_{(X_k)_{red}}) \geq
+g_{top} + g_{geom}(X_k/k)
+$$
+其中 $g_{geom}$ 如 Algebraic Curves, Section
+\ref{curves-section-genus-geometric-genus} 中所定义，而 $g_{top}$ 是与 $X_k$
+相伴的数值型的拓扑亏格（Definition \ref{models-definition-top-genus}；
+Definition \ref{models-definition-numerical-type-model}）。
+\end{lemma}
+
+\begin{proof}
+我们将证明不等式
+$$
+\dim_k H^1(D, \mathcal{O}_D) \geq g_{top}(D) + g_{geom}(D/k)
+$$
+对所有连通约化有效 Cartier 除子 $D \subset (X_k)_{red}$（包含 $x$）成立；
+证明对 $D$ 的不可约分支数归纳。这里 $g_{top}(D) = 1 - m + e$，其中
+$m$ 是 $D$ 的不可约分支数，$e$ 是 $D$ 中彼此相交的无序分支对的数目。
+
+\medskip\noindent
+基础情形：$D$ 只有一个不可约分支。此时 $D = C_i$ 是包含 $x$ 的唯一不可约分支。
+在此情形下，$\dim_k H^1(D, \mathcal{O}_D) = g_i$ 且 $g_{top}(D) = 0$。
+由于 $C_i$ 有一个 $k$-有理光滑点，它是几何整的
+（Varieties, Lemma \ref{varieties-lemma-variety-with-smooth-rational-point}）。
+因此 $g_i$ 是 $C_{i, \overline{k}}$ 的亏格
+（Algebraic Curves, Lemma \ref{curves-lemma-genus-base-change}）。
+同时，$g_{geom}(D/k)$ 是正规化 $C_{i, \overline{k}}^\nu$
+（属于 $C_{i, \overline{k}}$）的亏格。把 Algebraic Curves, Lemma
+\ref{curves-lemma-genus-normalization} 应用于正规化态射
+$C_{i, \overline{k}}^\nu \to C_{i, \overline{k}}$，得到
+\begin{equation}
+\label{models-equation-genus-change-special-component}
+\text{genus of }C_{i, \overline{k}} \geq
+\text{genus of }C_{i, \overline{k}}^\nu
+\end{equation}
+综合以上结果可知，在这种情形下
+$\dim_k H^1(D, \mathcal{O}_D) \geq g_{top}(D) + g_{geom}(D/k)$。
+
+\medskip\noindent
+归纳步骤。设 $D$ 有多于 $1$ 个不可约分支。可以写成
+$D = C_i + D'$，其中 $x \in D'$ 且 $D'$ 仍然连通。这是一个留给读者的
+图论练习（提示：取 $C_i$ 为 $D$ 中离 $x$ 最远的分支）。下面计算各不变量的变化。
+由于 $x \in D'$，有
+$H^0(D, \mathcal{O}_D) = H^0(D', \mathcal{O}_{D'}) = k$。考察层的短正合序列
+$$
+0 \to \mathcal{O}_D \to \mathcal{O}_{C_i} \oplus \mathcal{O}_{D'}
+\to \mathcal{O}_{C_i \cap D'} \to 0
+$$
+（Morphisms, Lemma \ref{morphisms-lemma-scheme-theoretic-union}），
+并利用欧拉示性数的可加性，得到
+\begin{align*}
+\dim_k H^1(D, \mathcal{O}_D) - \dim_k H^1(D', \mathcal{O}_{D'})
+& =
+-\chi(\mathcal{O}_{C_i}) + \chi(\mathcal{O}_{C_i \cap D'}) \\
+& =
+w_i(g_i - 1) + \sum\nolimits_{C_j \subset D'} a_{ij}
+\end{align*}
+这里与 Lemma \ref{models-lemma-numerical-type-of-model} 一样，令
+$w_i = [\kappa_i : k]$、$\kappa_i = H^0(C_i, \mathcal{O}_{C_i})$，
+$g_i$ 为 $C_i$ 的亏格，并令 $a_{ij} = (C_i \cdot C_j)$。我们有
+$$
+g_{top}(D) - g_{top}(D') = -1 +
+\sum\nolimits_{C_j \subset D'\text{ meeting }C_i} 1
+$$
+以及
+$$
+g_{geom}(D/k) - g_{geom}(D'/k) = g_{geom}(C_i/k)
+$$
+这个等式是 Algebraic Curves, Lemma \ref{curves-lemma-bound-geometric-genus}
+的结论。把这些等式与归纳假设结合，只需证明
+$$
+w_i g_i - g_{geom}(C_i/k) +
+\sum\nolimits_{C_j \subset D'\text{ meets } C_i} (a_{ij} - 1) - (w_i - 1)
+$$
+非负。事实上，有
+\begin{equation}
+\label{models-equation-genus-change}
+w_i g_i \geq [\kappa_i : k]_s g_i \geq g_{geom}(C_i/k)
+\end{equation}
+第二个不等式由 Algebraic Curves, Lemma
+\ref{curves-lemma-bound-geometric-genus-curve} 给出。另一方面，由于 $w_i$ 整除
+$a_{ij}$（Varieties, Lemma \ref{varieties-lemma-divisible}），显然
+\begin{equation}
+\label{models-equation-change-intersections}
+\sum\nolimits_{C_j \subset D'\text{ meets } C_i} (a_{ij} - 1) - (w_i - 1)
+\geq 0
+\end{equation}
+这是因为至少有一个 $C_j \subset D'$ 与 $C_i$ 相交。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-equality-genus-reduction-bigger-than}
+若 Lemma \ref{models-lemma-genus-reduction-bigger-than} 中的等号成立，则
+\begin{enumerate}
+\item $X_k$ 中包含 $x$ 的唯一不可约分支是 $k$ 上光滑射影几何不可约曲线；
+\item 若 $C \subset X_k$ 是另一个不可约分支，则
+$\kappa = H^0(C, \mathcal{O}_C)$ 是 $k$ 的有限可分扩张，$C$ 有一个
+$\kappa$-有理点，并且 $C$ 在 $\kappa$ 上光滑。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+回顾 Lemma \ref{models-lemma-genus-reduction-bigger-than} 的证明可知，要使等号成立，
+不等式 (\ref{models-equation-genus-change-special-component})、
+(\ref{models-equation-genus-change}) 和 (\ref{models-equation-change-intersections})
+都必须是等式。
+
+\medskip\noindent
+令 $C_i$ 为包含 $x$ 的不可约分支。等式
+(\ref{models-equation-genus-change-special-component}) 通过
+Algebraic Curves, Lemma \ref{curves-lemma-genus-normalization} 表明
+$C_{i, \overline{k}}^\nu \to C_{i, \overline{k}}$ 是同构。因此
+$C_{i, \overline{k}}$ 光滑，(1) 成立。
+
+\medskip\noindent
+接着，令 $C_i \subset X_k$ 是另一个不可约分支。可以假设有
+$D =  D' + C_i$，如 Lemma \ref{models-lemma-genus-reduction-bigger-than} 证明的
+归纳步骤中那样。等式 (\ref{models-equation-genus-change}) 立即说明
+$\kappa_i/k$ 是有限可分扩张。等式 (\ref{models-equation-change-intersections})
+说明：或者 $a_{ij} = 1$ 对某个 $j$ 成立，或者存在唯一的
+$C_j \subset D'$ 与 $C_i$ 相交，并且 $a_{ij} = w_i$。在两种情形下，
+$C_i$ 都有一个 $\kappa_i$-有理点 $c$，且在概形论意义下
+$c = C_i \cap C_j$。由于 $\mathcal{O}_{X, c}$ 是正则局部环，这说明
+$C_i$ 与 $C_j$ 的局部方程构成局部环 $\mathcal{O}_{X, c}$ 的一组正则参数。
+于是由 Algebra, Lemma \ref{algebra-lemma-regular-ring-CM}，
+$\mathcal{O}_{C_i, c}$ 是正则的。我们得出 $C_i \to \Spec(\kappa_i)$ 在 $c$
+处光滑（Algebra, Lemma \ref{algebra-lemma-separable-smooth}）。因此 $C_i$
+在 $\kappa_i$ 上几何整
+（Varieties, Lemma \ref{varieties-lemma-variety-with-smooth-rational-point}）。
+最后还需证明 $C_i$ 在 $\kappa_i$ 上光滑。注意
+$$
+C_{i, \overline{k}} = C_i \times_{\Spec(k)} \Spec(\overline{k})
+= \coprod\nolimits_{\kappa_i \to \overline{k}}
+C_i \times_{\Spec(\kappa_i)} \Spec(\overline{k})
+$$
+其中有 $[\kappa_i : k]$ 个分支。因此，若 $C_i$ 在 $\kappa_i$ 上不光滑，
+则这些曲线中的每一条都不光滑，进而都不正规；正规化态射会降低亏格
+（Algebraic Curves, Lemma \ref{curves-lemma-genus-normalization}）。
+这是不允许的，因为它会降低 $C_i/k$ 的几何亏格，与
+$[\kappa_i : k] g_i = g_{geom}(C_i/k)$ 矛盾。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{吹降例外曲线}
+\label{models-section-contract}
+
+\noindent
+下面的引理说明，在正则固有模型中收缩一条第一类例外曲线时，相交数如何变化。
+把它放在这里，主要是为了与 Lemma \ref{models-lemma-contract} 中引入的数值收缩比较。
+我们将在 Remark \ref{models-remark-compare-contractions} 中比较几何收缩与数值收缩。
+
+\begin{lemma}
+\label{models-lemma-blowdown-regular-model}
+在 Situation \ref{models-situation-regular-model} 中，假设 $C_n$ 是第一类例外曲线。
+令 $f : X \to X'$ 为 $C_n$ 的收缩。令 $C'_i = f(C_i)$，并写作
+$X'_k = \sum m'_i C'_i$。则 $X'$、$C'_i$、$i = 1, \ldots, n' = n - 1$
+以及 $m'_i = m_i$ 如 Situation \ref{models-situation-regular-model} 中所述，并且
+\begin{enumerate}
+\item 对 $i, j < n$，有
+$(C'_i \cdot C'_j) =
+(C_i \cdot C_j) - (C_i \cdot C_n) (C_j \cdot C_n) /(C_n \cdot C_n)$,
+\item 对 $i < n$，若 $C_i \cap C_n \not = \emptyset$，则有映射
+$\kappa_i \leftarrow \kappa'_i \rightarrow \kappa_n$。
+\end{enumerate}
+这里 $\kappa_i = H^0(C_i, \mathcal{O}_{C_i})$ 且
+$\kappa'_i = H^0(C'_i, \mathcal{O}_{C'_i})$。
+\end{lemma}
+
+\begin{proof}
+由 Resolution of Surfaces, Lemma \ref{resolve-lemma-contract-ample}，
+可以收缩 $C_n$；所用态射为 $f : X \to X'$，并且 $X'$ 正则且在 $R$ 上射影。
+因此 $X'$ 如 Situation \ref{models-situation-regular-model} 中所述。令 $x \in X'$ 为
+$C_n$ 的像。由于 $f$ 给出同构
+$X \setminus C_n \to X' \setminus \{x\}$，显然 $m'_i = m_i$ 对 $i < n$ 成立。
+
+\medskip\noindent
+引理的 (2) 立即由态射 $C_i \to C'_i$ 和 $C_n \to x \to C'_i$ 的存在性得出。
+
+\medskip\noindent
+由 Divisors, Lemma \ref{divisors-lemma-blow-up-pullback-effective-Cartier}，
+拉回 $f^{-1}C'_i$ 有定义。由 Divisors, Lemma
+\ref{divisors-lemma-effective-Cartier-divisor-is-a-sum}，可知
+$f^{-1}C'_i = C_i + e_i C_n$ 对某个 $e_i \geq 0$ 成立。由于
+$\mathcal{O}_X(C_i + e_i C_n) = \mathcal{O}_X(f^{-1}C'_i) =
+f^*\mathcal{O}_{X'}(C'_i)$
+（Divisors, Lemma \ref{divisors-lemma-pullback-effective-Cartier-divisors}），
+并且可逆层的拉回限制到 $C_n$ 上是平凡可逆层，故
+$$
+0 = \deg_{C_n}(\mathcal{O}_X(C_i + e_i C_n)) =
+(C_i + e_i C_n \cdot C_n) = (C_i \cdot C_n) + e_i(C_n \cdot C_n)
+$$
+由于 $f_j = f|_{C_j} : C_j \to C_j$ 是 $k$ 上固有曲线之间的固有双有理态射，
+由 Varieties, Lemma \ref{varieties-lemma-degree-birational-pullback} 可知，
+$\deg_{C'_j}(\mathcal{O}_{X'}(C'_i)|_{C'_j})$ 等于
+$\deg_{C_j}(f_j^*\mathcal{O}_{X'}(C'_i)|_{C'_j})$。考察交换图
+$$
+\xymatrix{
+C_j \ar[r] \ar[d]_{f_j} & X \ar[d]^f \\
+C'_j \ar[r] & X'
+}
+$$
+并应用 Divisors, Lemma
+\ref{divisors-lemma-pullback-effective-Cartier-divisors}，可得
+$$
+(C'_i \cdot C'_j) = \deg_{C'_j}(\mathcal{O}_{X'}(C'_i)|_{C'_j}) =
+\deg_{C_j}(\mathcal{O}_X(C_i + e_i C_n)) = (C_i + e_i C_n \cdot C_j)
+$$
+代入上面求得的 $e_i$ 公式，便得到 (1)。
+\end{proof}
+
+\begin{remark}
+\label{models-remark-genus-change}
+在 Lemma \ref{models-lemma-blowdown-regular-model} 的情形下，还可以精确描述
+亏格 $g_i$（属于 $C_i$）与亏格 $g'_i$（属于 $C'_i$）之间的关系。公式为
+$$
+g'_i = \frac{w_i}{w'_i}(g_i - 1) + 1 +
+\frac{(C_i \cdot C_n)^2 - w_n(C_i \cdot C_n)}{2w'_iw_n}
+$$
+其中 $w_i = [\kappa_i : k]$、$w_n = [\kappa_n : k]$ 且
+$w'_i = [\kappa'_i : k]$。为证明这一点，考虑短正合序列
+$$
+0 \to \mathcal{O}_{X'}(-C'_i) \to \mathcal{O}_{X'} \to
+\mathcal{O}_{C'_i} \to 0
+$$
+及其到 $X$ 的拉回，即
+$$
+0 \to \mathcal{O}_X(-C'_i - e_iC_n) \to \mathcal{O}_X \to
+\mathcal{O}_{C_i + e_i C_n} \to 0
+$$
+其中 $e_i$ 如 Lemma \ref{models-lemma-blowdown-regular-model} 的证明中所述。
+由于 $Rf_*f^*\mathcal{L} = \mathcal{L}$ 对任意可逆模 $\mathcal{L}$
+（在 $X'$ 上）都成立（细节略去），故
+$$
+Rf_*\mathcal{O}_{C_i + e_i C_n} = \mathcal{O}_{C'_i}
+$$
+作为 $X'_k$ 上的凝聚层复形成立。因此两端具有相同的欧拉示性数，
+它也等于 $\mathcal{O}_{C_i + e_i C_n}$ 在 $X_k$ 上的欧拉示性数。
+利用正合序列
+$$
+0 \to \mathcal{O}_{C_i + e_i C_n} \to
+\mathcal{O}_{C_i} \oplus \mathcal{O}_{e_iC_n} \to
+\mathcal{O}_{C_i \cap e_iC_n} \to 0
+$$
+并进一步过滤 $\mathcal{O}_{e_iC_n}$（细节略去），可得
+$$
+\chi(\mathcal{O}_{C'_i}) =
+\chi(\mathcal{O}_{C_i}) - {e_i + 1 \choose 2}(C_n \cdot C_n)
+- e_i(C_i \cdot C_n)
+$$
+由于 $e_i = -(C_i \cdot C_n)/(C_n \cdot C_n)$ 且
+$(C_n \cdot C_n) = -w_n$，这就导出本注记开头的公式。
+若以后需要这一结果，我们会把它表述为引理并给出详细证明。
+\end{remark}
+
+\begin{remark}
+\label{models-remark-compare-contractions}
+设 $f : X \to X'$ 如 Lemma \ref{models-lemma-blowdown-regular-model} 中所述。
+设 $n, m_i, a_{ij}, w_i, g_i$ 是与 $X$ 相伴的数值型，
+$n', m'_i, a'_{ij}, w'_i, g'_i$ 是与 $X'$ 相伴的数值型。
+由 Lemma \ref{models-lemma-blowdown-regular-model} 和 Remark \ref{models-remark-genus-change}
+立即可知，除 $w'_i$ 的取值外，这与 Lemma \ref{models-lemma-contract} 中数值型的收缩一致。
+在几何情形下，$w'_i$ 是同时整除 $w_i$ 和 $w_n$ 的某个正整数。
+在数值情形下，我们把 $w'_i$ 选为整除 $w_i$ 的尽可能大的整数，
+使得 $g'_i$（由该公式给出）为整数。这个选择在数值设定中效果很好，
+因为它有助于比较数值型的 Picard 群；参见
+Lemma \ref{models-lemma-contract-picard-group}（尽管下文实际只用到单射性，
+而对更小的 $w'_i$，这一单射性也成立）。
+\end{remark}
+
+\begin{lemma}
+\label{models-lemma-nonuniqueness}
+设 $C$ 是定义在 $K$ 上的光滑射影曲线，满足
+$H^0(C, \mathcal{O}_C) = K$ 且亏格为 $0$。若 $C$ 有不止一个极小模型，
+则每个极小模型的特殊纤维都同构于 $\mathbf{P}^1_k$。
+\end{lemma}
+
+\noindent
+这个引理可以加强为：两个不同构极小模型之间的双有理变换，可以分解为一列如
+Example \ref{models-example-nonunique-in-genus-zero} 中的初等变换。
+若以后需要这一结论，我们会在这里精确表述并证明它。
+
+\begin{proof}
+设 $X$ 是 $C$ 的某个极小模型。与 $X$ 相伴的数值型亏格为 $0$ 且极小
+（Definition \ref{models-definition-numerical-type-model} 和
+Lemma \ref{models-lemma-numerical-type-minimal-model}）。因此由
+Lemma \ref{models-lemma-genus-zero} 可知，$X_k$ 约化、不可约，满足
+$H^0(X_k, \mathcal{O}_{X_k}) = k$，且亏格为 $0$。设 $Y$ 是 $C$ 的第二个
+极小模型，它不同构于 $X$。由 Resolution of Surfaces, Lemma
+\ref{resolve-lemma-birational-regular-surfaces}，存在如下 $S$-态射图：
+$$
+X = X_0 \leftarrow X_1 \leftarrow \ldots \leftarrow X_n = Y_m
+\to \ldots \to Y_1 \to Y_0 = Y
+$$
+其中每个态射都是在一个闭点处的吹起。我们对 $m$ 归纳证明引理。
+基础情形是 $m = 0$；此时，由于已假设 $Y$ 极小，这将意味着 $n = 0$，
+但 $X$ 不同构于 $Y$，故这种情形不会发生，即无需验证任何事情。
+
+\medskip\noindent
+继续之前，注意 $n + 1 = m + 1$ 等于 $X_n = Y_m$ 的特殊纤维的不可约分支数，
+因为 $X_k$ 和 $Y_k$ 都不可约。下文还会用到另一个观察：若
+$X' \to X''$ 是 $C$ 的正则固有模型之间的态射，则 $X' \to X''$ 在
+$X''$ 的某个开集上是同构，该开集的补是 $X''$ 的特殊纤维上有限个闭点；
+参见 Varieties, Lemma
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}。
+事实上，任何这样的 $X' \to X''$ 都是一列闭点处的吹起
+（Resolution of Surfaces, Lemma
+\ref{resolve-lemma-proper-birational-regular-surfaces}），而吹起的数目等于
+$X'$ 与 $X''$ 的特殊纤维的不可约分支数之差。
+
+\medskip\noindent
+令 $E_i \subset Y_i$（$m \geq i \geq 1$）为被态射
+$Y_i \to Y_{i - 1}$ 收缩的曲线。令 $i$ 为满足如下条件的最大指标：
+$E_i$ 的重数 $> 1$（在 $Y_i$ 的特殊纤维中）。于是后续吹起
+$Y_m \to \ldots \to Y_{i + 1} \to Y_i$ 在 $E_i$ 上都是同构；否则，
+$E_j$ 对某个 $j > i$ 的重数将 $> 1$。令 $E \subset Y_m$ 为 $E_i$ 的逆像。
+由刚才的说明，$E \subset Y_m$ 是第一类例外曲线。令 $Y_m \to Y'$ 为 $E$
+的收缩（其存在性由 Resolution of Surfaces, Lemma
+\ref{resolve-lemma-contract-when-quasi-projective} 给出）。态射 $Y_m \to X$
+必须收缩 $E$，因为 $X_k$ 约化。因此存在态射 $Y' \to Y$ 和 $Y' \to X$
+（由 Resolution of Surfaces, Lemma
+\ref{resolve-lemma-factor-through-contraction}），它们都是至多
+$n - 1 = m - 1$ 个例外曲线收缩的复合（见以上讨论）。对 $m$ 应用归纳假设即可。
+总之，可以假设所有曲线 $X_i$ 和 $Y_i$ 的特殊纤维都约化。
+
+\medskip\noindent
+由于 $X_i$ 与 $Y_i$ 的纤维约化，吹起 $X_i \to X_{i - 1}$ 和
+$Y_i \to Y_{i - 1}$ 必须发生在特殊纤维的正则闭点处。事实上，若 $X''$
+是 $C$ 的一个正则模型，$x \in X''$ 是特殊纤维的闭点，并且
+$\pi \in \mathfrak m_x^2$，则例外纤维 $E$（属于吹起 $X' \to X''$，
+中心为 $x$）的重数至少为 $2$（在 $X'$ 的特殊纤维中；局部计算略去）。因此，如所断言的，
+$\mathcal{O}_{X''_k, x} = \mathcal{O}_{X'', x}/\pi$ 是正则的
+（Algebra, Lemma \ref{algebra-lemma-regular-ring-CM}）。特别地，$x$ 是它所在的
+唯一不可约分支 $Z'$（属于 $X''_k$）上的 Cartier 除子
+（Varieties, Lemma \ref{varieties-lemma-regular-point-on-curve}）。
+因此，严格变换 $Z \subset X'$（来自 $Z'$）同构地映到 $Z'$
+（使用 Divisors, Lemmas \ref{divisors-lemma-strict-transform} 和
+\ref{divisors-lemma-blow-up-effective-Cartier-divisor}）。换言之，若一个
+不可约分支 $Z$（属于 $X_i$）在映射 $X_i \to X_j$（$i > j$）下不被收缩，
+则它同构地映到其像。
+
+\medskip\noindent
+现在可以证明引理了。令 $E \subset Y_m$ 为被态射
+$Y_m \to Y_{m - 1}$ 收缩的第一类例外曲线。若 $E$ 被态射
+$Y_m = X_n \to X$ 收缩，则存在分解 $Y_{m - 1} \to X$
+（Resolution of Surfaces, Lemma \ref{resolve-lemma-factor-through-contraction}），
+而且 $Y_{m - 1} \to X$ 是一列闭点处的吹起
+（Resolution of Surfaces, Lemma
+\ref{resolve-lemma-proper-birational-regular-surfaces}）。在这种情形下，减小 $m$
+并应用归纳假设即可。最后，假设 $E$ 不被态射 $Y_m \to X$ 收缩。
+$E \to X_k$ 是满射，因为 $X_k$ 不可约；由上面的讨论，这意味着它是同构。
+所以 $X_k$ 同构于射影直线，正是所需结论。
+\end{proof}
+
+
+
+
+
+\section{模型的 Picard 群}
+\label{models-section-picard-groups-models}
+
+\noindent
+假设 $R, K, k, \pi, C, X, n, C_1, \ldots, C_n, m_1, \ldots, m_n$
+如 Situation \ref{models-situation-regular-model} 中所述。
+在 Lemma \ref{models-lemma-regular-model-pic} 中，我们得到了正合序列
+$$
+0 \to \mathbf{Z} \to \mathbf{Z}^{\oplus n} \to
+\Pic(X) \to \Pic(C) \to 0
+$$
+我们希望用这个序列研究适当素数 $\ell$ 下这些 Picard 群中的 $\ell$-挠。
+
+\begin{lemma}
+\label{models-lemma-characterize-trivial}
+在 Situation \ref{models-situation-regular-model} 中，令 $d = \gcd(m_1, \ldots, m_n)$。
+若 $\mathcal{L}$ 是一个可逆 $\mathcal{O}_X$-模，并且
+\begin{enumerate}
+\item 它在 $C$ 上的限制是平凡可逆模，并且
+\item 它的次数为 $0$（在每个 $C_i$ 上），
+\end{enumerate}
+则 $\mathcal{L}^{\otimes d} \cong \mathcal{O}_X$。
+\end{lemma}
+
+\begin{proof}
+由 Lemma \ref{models-lemma-regular-model-pic}，有
+$\mathcal{L} \cong \mathcal{O}_X(\sum a_i C_i)$，其中
+$a_i \in \mathbf{Z}$。
+$\mathcal{L}|_{C_j}$ 的次数是 $\sum_j a_j(C_i \cdot C_j)$。特别地，
+$(\sum a_i C_i \cdot \sum a_i C_i) = 0$。
+因此由 Lemma \ref{models-lemma-properties-form} 可知，
+$(a_1, \ldots, a_n) = q(m_1, \ldots, m_n)$，其中
+$q \in \mathbf{Q}$。于是 $\mathcal{L} = \mathcal{O}_X(lD)$，
+其中 $l \in \mathbf{Z}$；
+这里 $D = \sum (m_i/d) C_i$ 如
+Lemma \ref{models-lemma-multiple-fibre-normal-bundle} 中所述，结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-canonical-map-of-pic}
+在 Situation \ref{models-situation-regular-model} 中，
+令 $T$ 为与 $X$ 相伴的数值型。存在典范映射
+$$
+\Pic(C) \to \Pic(T)
+$$
+其核恰由 $C$ 上如下可逆模组成：它们是可逆模 $\mathcal{L}$ 的限制，
+其中该模定义在 $X$ 上，并且满足
+$\deg_{C_i}(\mathcal{L}|_{C_i}) = 0$，其中 $i = 1, \ldots, n$。
+\end{lemma}
+
+\begin{proof}
+回忆 $w_i = [\kappa_i : k]$，其中
+$\kappa_i = H^0(C_i, \mathcal{O}_{C_i)})$；还回忆，$C_i$ 上任意可逆模的次数
+均可被 $w_i$ 整除（Varieties, Lemma \ref{varieties-lemma-divisible}）。
+因此可以考虑映射
+$$
+\frac{\deg}{w} : \Pic(X) \to \mathbf{Z}^{\oplus n}, \quad
+\mathcal{L} \mapsto
+(\frac{\deg(\mathcal{L}|_{C_1})}{w_1}, \ldots,
+\frac{\deg(\mathcal{L}|_{C_n})}{w_n})
+$$
+在此映射下，$\mathcal{O}_X(C_j)$ 的像是
+$$
+((C_j \cdot C_1)/w_1, \ldots, (C_j \cdot C_n)/w_n) =
+(a_{1j}/w_1, \ldots, a_{nj}/w_n)
+$$
+这恰是第 $j$ 个基向量在映射
+$(a_{ij}/w_i) : \mathbf{Z}^{\oplus n} \to \mathbf{Z}^{\oplus n}$
+下的像；该映射定义了 $T$ 的 Picard 群，参见
+Definition \ref{models-definition-picard-group}。
+因此，引理中的典范映射来自交换图
+$$
+\xymatrix{
+\mathbf{Z}^{\oplus n} \ar[r] \ar[d]_{\text{id}} &
+\Pic(X) \ar[r] \ar[d]^{\frac{\deg}{w}} &
+\Pic(C) \ar[r] \ar[d] & 0 \\
+\mathbf{Z}^{\oplus n} \ar[r]^{(a_{ij}/w_i)} &
+\mathbf{Z}^{\oplus n} \ar[r] &
+\Pic(T) \ar[r] & 0
+}
+$$
+其两行均正合（上行由 Lemma \ref{models-lemma-regular-model-pic} 得到）。
+关于核的描述是清楚的。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-sequence-torsion}
+在 Situation \ref{models-situation-regular-model} 中，令
+$d = \gcd(m_1, \ldots, m_n)$，并令 $T$ 为与 $X$ 相伴的数值型。
+设 $h \geq 1$ 是与 $d$ 互素的整数。存在正合序列
+$$
+0 \to \Pic(X)[h] \to \Pic(C)[h] \to \Pic(T)[h]
+$$
+\end{lemma}
+
+\begin{proof}
+对 Lemma \ref{models-lemma-regular-model-pic} 的正合序列取 $h$-挠，
+得到 $0 \to \Pic(X)[h] \to \Pic(C)[h]$ 的正合性，
+因为 $h$ 与 $d$ 互素。
+利用 Lemma \ref{models-lemma-canonical-map-of-pic} 的映射，可得映射
+$\Pic(C)[h] \to \Pic(T)[h]$，它把 $\Pic(X)[h]$ 中的元素送到零。
+反之，若 $\xi \in \Pic(C)[h]$ 在 $\Pic(T)[h]$ 中的像为零，
+则可以找到一个可逆 $\mathcal{O}_X$-模 $\mathcal{L}$，
+使得 $\deg(\mathcal{L}|_{C_i}) = 0$ 对所有 $i$ 都成立，且它在 $C$ 上的限制为
+$\xi$。于是由 Lemma \ref{models-lemma-characterize-trivial}，
+$\mathcal{L}^{\otimes h}$ 是 $d$-挠的。
+取整数 $d'$ 使得 $dd' \equiv 1 \bmod h$。
+这样的整数存在，因为 $h$ 与 $d$ 互素。
+于是 $\mathcal{L}^{\otimes dd'}$ 是一个 $h$-挠可逆层（在 $X$ 上），
+且它在 $C$ 上的限制为 $\xi$。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-torsion-embeds}
+在 Situation \ref{models-situation-regular-model} 中，设 $h$ 是与 $k$ 的特征互素的整数。
+则映射
+$$
+\Pic(X)[h] \longrightarrow \Pic((X_k)_{red})[h]
+$$
+是单射。
+\end{lemma}
+
+\begin{proof}
+注意 $X \times_{\Spec(R)} \Spec(R/\pi^n)$ 是 $(X_k)_{red}$ 的有限阶增厚
+（例如可由 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-power-ideal-kills-sheaf} 得出）。因此典范映射
+$\Pic(X \times_{\Spec(R)} \Spec(R/\pi^n)) \to \Pic((X_k)_{red})$
+在 $h$-挠上给出同构；这是由 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-torsion-pic-thickening} 以及关于 $h$ 的假设得到的。
+因此，若 $\mathcal{L}$ 是一个 $h$-挠可逆层（在 $X$ 上），且其在
+$(X_k)_{red}$ 上的限制是平凡层，则
+$\mathcal{L}$ 在 $X \times_{\Spec(R)} \Spec(R/\pi^n)$ 上的限制对所有 $n$
+都是平凡层。
+于是
+\begin{align*}
+H^0(X, \mathcal{L})^\wedge
+& =
+\lim H^0(X \times_{\Spec(R)} \Spec(R/\pi^n),
+\mathcal{L}|_{X \times_{\Spec(R)} \Spec(R/\pi^n)}) \\
+& \cong
+\lim H^0(X \times_{\Spec(R)} \Spec(R/\pi^n),
+\mathcal{O}_{X \times_{\Spec(R)} \Spec(R/\pi^n)}) \\
+& =
+R^\wedge
+\end{align*}
+这里，第一个和最后一个等号使用形式函数定理
+（Cohomology of Schemes, Theorem \ref{coherent-theorem-formal-functions}），
+中间的同构例如使用 More on Algebra, Lemma
+\ref{more-algebra-lemma-isomorphic-completions}。
+由于 $H^0(X, \mathcal{L})$ 是有限 $R$-模，而 $R$ 是离散赋值环，
+这说明 $H^0(X, \mathcal{L})$ 是秩为 $1$ 的自由 $R$-模。
+取基元 $s \in H^0(X, \mathcal{L})$。
+沿上述同构反向追踪可知，
+$s|_{X \times_{\Spec(R)} \Spec(R/\pi^n)}$ 对所有 $n$ 都给出平凡化。
+由于 $s$ 的零化轨迹在 $X$ 中闭，且 $X \to \Spec(R)$ 固有，
+故 $s$ 的零化轨迹为空，正是所需结论。
+\end{proof}
+
+
+
+
+
+
+\section{半稳定约化}
+\label{models-section-semistable-reduction}
+
+\noindent
+本节将仔细定义半稳定约化的含义。
+
+\begin{example}
+\label{models-example-blowup}
+设 $R$ 是离散赋值环，其一致化元为 $\pi$。
+给定 $n \geq 0$，考虑环映射
+$$
+R \longrightarrow A = R[x, y]/(xy - \pi^n)
+$$
+置 $X = \Spec(A)$ 且 $S = \Spec(R)$。
+若 $n = 0$，则 $X \to S$ 光滑。
+对所有 $n$，态射 $X \to S$ 都是 Algebraic Curves, Section
+\ref{curves-section-families-nodal} 所定义的相对维数为 $1$ 的至多结点态射。
+若 $n = 1$，则 $X$ 正则；但若 $n > 1$，则 $X$ 不正则，
+因为 $(x, y)$ 不再生成极大理想 $\mathfrak m = (\pi, x, y)$。
+为改善 $n > 1$ 时的情形，考虑吹起 $b : X' \to X$；
+这是 $X$ 沿 $\mathfrak m$ 的吹起。参见 Divisors, Section
+\ref{divisors-section-blowing-up}。
+按构造，$X'$ 由三个仿射片覆盖，它们分别对应吹起代数
+$A[\frac{\mathfrak m}{\pi}]$、$A[\frac{\mathfrak m}{x}]$ 和
+$A[\frac{\mathfrak m}{y}]$。
+
+\medskip\noindent
+代数 $A[\frac{\mathfrak m}{\pi}]$ 有生成元
+$x' = x/\pi$ 和 $y' = y/\pi$，并满足 $x'y' = \pi^{n - 2}$。
+因此，$X'$ 的这一部分是 $R[x', y'](x'y' - \pi^{n - 2})$ 的谱。
+
+\medskip\noindent
+代数 $A[\frac{\mathfrak m}{x}]$ 有生成元 $x$、$u = \pi/x$，
+并满足关系 $xu - \pi$。注意，此环包含
+$y/x = \pi^n/x^2 = u^2\pi^{n - 2}$。因此，$X'$ 的这一部分正则。
+
+\medskip\noindent
+由对称性，代数 $A[\frac{\mathfrak m}{y}]$ 的情形与
+$A[\frac{\mathfrak m}{x}]$ 的情形相同。
+
+\medskip\noindent
+因此可知，$X' \to S$ 是相对维数为 $1$ 的至多结点态射，并且
+$X'$ 正则，至多除去一个点；该点有一个与上面完全相同的仿射开邻域，
+只是把 $n$ 换成 $n - 2$。
+对 $n$ 归纳，可得一列闭点处的吹起
+$$
+X_{\lfloor n/2 \rfloor} \to \ldots \to X_1 \to X_0 = X
+$$
+使得 $X_{\lfloor n/2 \rfloor} \to S$ 是相对维数为 $1$ 的至多结点态射，
+且 $X_{\lfloor n/2 \rfloor}$ 正则。
+\end{example}
+
+\begin{lemma}
+\label{models-lemma-etale-local-at-worst-nodal}
+设 $R$ 是离散赋值环。设 $X$ 是相对维数为 $1$ 的至多结点概形
+（在 $R$ 上）。
+设 $x \in X$ 是 $X$ 在 $R$ 上的特殊纤维中的一点。
+则存在交换图
+$$
+\xymatrix{
+X \ar[d] &
+U \ar[r] \ar[d] \ar[l] &
+\Spec(A) \ar[dl] \\
+\Spec(R) &
+\Spec(R') \ar[l]
+}
+$$
+其中 $R \subset R'$ 是离散赋值环的 \'etale 扩张，
+态射 $U \to X$ 是 \'etale 的，态射 $U \to \Spec(A)$ 是 \'etale 的，
+存在一点 $x' \in U$ 映到 $x$，并且
+$$
+A = R'[u, v]/(uv)
+\quad\text{或}\quad
+A = R'[u, v]/(uv - \pi^n)
+$$
+其中 $n \geq 0$，且 $\pi \in R'$ 是一致化元。
+\end{lemma}
+
+\begin{proof}
+我们已经在远为一般的情形下证明了这个引理；参见
+Algebraic Curves, Lemma \ref{curves-lemma-etale-local-structure-nodal-family}。
+这里所要做的，只是把那里的陈述改写成上面的陈述。
+
+\medskip\noindent
+首先，若态射 $X \to \Spec(R)$ 在 $x$ 处光滑，则可以找到 \'etale 态射
+$U \to \mathbf{A}^1_R = \Spec(R[u])$，其中 $U \subset X$ 是 $x$ 的某个
+仿射开邻域。这就是
+Morphisms, Lemma \ref{morphisms-lemma-smooth-etale-over-affine-space}。
+必要时把坐标 $u$ 换成 $u + 1$，便可假设 $x$ 映到标准开集
+$D(u) \subset \mathbf{A}^1_R$ 中的一点。此时 $D(u) = \Spec(A)$，其中
+$A = R[u, v]/(uv - 1)$，因而结论在此情形下成立。
+
+\medskip\noindent
+其次，假设 $x$ 是该纤维的奇点。应用
+Algebraic Curves, Lemma \ref{curves-lemma-etale-local-structure-nodal-family}
+可得交换图
+$$
+\xymatrix{
+X \ar[d] &
+U \ar[rr] \ar[l] \ar[rd] & &
+W \ar[r] \ar[ld] &
+\Spec(\mathbf{Z}[u, v, a]/(uv - a)) \ar[d] \\
+\Spec(R) & &
+V \ar[ll] \ar[rr] & & \Spec(\mathbf{Z}[a])
+}
+$$
+并具有所引引理陈述中的全部性质。
+令 $x' \in U$ 为该引理保证的、映到 $x$ 的点。
+先把 $V$ 缩小为 $x'$ 的像的一个仿射邻域，记作
+$V = \Spec(R')$。于是 $R \to R'$ 是 \'etale 的。
+由于 $R$ 是离散赋值环，$R'$ 是若干拟局部 Dedekind 整环的有限直积
+（使用 More on Algebra, Lemma
+\ref{more-algebra-lemma-Dedekind-etale-extension}）。
+因此，例如使用素理想回避，可以找到标准开集
+$D(f) \subset V = \Spec(R')$，它包含 $x'$ 的像，并使得 $R'_f$ 是离散赋值环。
+把 $R'$ 替换为 $R'_f$，便达到如下情形：
+$V = \Spec(R')$，且 $R \subset R'$ 是离散赋值环的 \'etale 扩张
+（离散赋值环的扩张定义于 More on Algebra, Definition
+\ref{more-algebra-definition-extension-discrete-valuation-rings}）。
+
+\medskip\noindent
+态射 $V \to \Spec(\mathbf{Z}[a])$ 由像 $h$ 决定；它是 $a$ 在
+$R'$ 中的像。
+于是 $W = \Spec(R'[u, v]/(uv - h))$。
+因此，引理对 $A = R'[u, v]/(uv - h)$ 成立。
+若 $h = 0$，便显然得到引理中所列的第一种情形。
+若 $h \not = 0$，则可写成 $h = \epsilon \pi^n$，其中
+$n \geq 0$，且 $\epsilon$ 是 $R'$ 的单位。
+作坐标变换 $u_{new} = \epsilon u$ 和 $v_{new} = v$，
+便得到引理所列的 $A$ 的第二种同构类型。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-blowup-at-worst-nodal}
+设 $R$ 是离散赋值环。设 $X$ 是一个拟紧概形，它是
+相对维数为 $1$ 的至多结点概形（在 $R$ 上），且一般纤维光滑。
+则存在 $m \geq 0$ 以及一列态射
+$$
+X_m \to \ldots \to X_1 \to X_0 = X
+$$
+满足
+\begin{enumerate}
+\item $X_{i + 1} \to X_i$ 是闭点 $x_i$ 处的吹起，其中 $X_i$ 在该点奇异；
+\item $X_i \to \Spec(R)$ 是相对维数为 $1$ 的至多结点态射；
+\item $X_m$ 正则。
+\end{enumerate}
+\end{lemma}
+
+\noindent
+一个稍强而同样成立的陈述是：无论怎样在奇点处吹起，最终都会得到一个解消，
+且所有中间吹起都是相对维数为 $1$ 的至多结点概形（在 $R$ 上）。
+
+\begin{proof}
+由于 $X$ 拟紧，其特殊纤维 $X_k$ 也拟紧。
+由于 $X_k$ 的奇点至多为结点，$X_k$ 只有有限多个结点，并且在其余各点
+都在 $k$ 上光滑。由于 $X \to \Spec(R)$ 平坦且一般纤维光滑，
+$X$ 在 $R$ 上光滑，例外仅为 $X_k$ 的有限多个结点
+（使用 Morphisms, Lemma \ref{morphisms-lemma-smooth-at-point}）。
+由此，$X$ 在每一点都正则，可能的例外仅为其特殊纤维的结点
+（参见 Algebra, Lemma \ref{algebra-lemma-regular-goes-up}）。
+令 $x \in X$ 为这样的一个结点。选取交换图
+$$
+\xymatrix{
+X \ar[d] &
+U \ar[r] \ar[d] \ar[l] &
+\Spec(A) \ar[dl] \\
+\Spec(R) &
+\Spec(R') \ar[l]
+}
+$$
+如 Lemma \ref{models-lemma-etale-local-at-worst-nodal} 中所述。
+注意，情形 $A = R'[u, v]/(uv)$ 不可能发生，因为这会意味着
+$X/R$ 的一般纤维奇异（略去一个小细节）。
+因此有 $A = R'[u, v]/(uv - \pi^n)$，其中 $n \geq 0$。
+由于 $x$ 是奇点，故 $n \geq 2$；参见
+Example \ref{models-example-blowup} 中的讨论。
+
+\medskip\noindent
+缩小 $U$ 后，可假设存在唯一一点 $u \in U$ 映到 $x$。
+令 $w \in \Spec(A)$ 为 $u$ 的像。
+还可假设 $u$ 是 $U$ 中映到 $w$ 的唯一一点。
+由于两条水平箭头均为 \'etale 的，把 $u$ 视为 $U$ 的闭子概形，
+便可知它既是 $x \in X$ 的概形论逆像，也是
+$w \in \Spec(A)$ 的概形论逆像。
+由于吹起与平坦基变换可交换
+（Divisors, Lemma \ref{divisors-lemma-flat-base-change-blowing-up}），
+得到交换图
+$$
+\xymatrix{
+X' \ar[d] &
+U' \ar[l] \ar[d] \ar[r] &
+W' \ar[d] \\
+X & U \ar[l] \ar[r] & \Spec(A)
+}
+$$
+其中两个方块均为 Cartesian 方块，竖直箭头分别是沿
+$x, u, w$ 的吹起（分别在 $X, U, \Spec(A)$ 中）。
+概形 $W'$ 已在 Example \ref{models-example-blowup} 中描述过。
+那里已经看到，$W'$ 是相对维数为 $1$ 的至多结点概形（在 $R'$ 上）。
+因此 $W'$ 也是相对维数为 $1$ 的至多结点概形（在 $R$ 上）
+（Algebraic Curves, Lemma
+\ref{curves-lemma-nodal-family-postcompose-etale}）。
+所以 $U'$ 是相对维数为 $1$ 的至多结点概形（在 $R$ 上）
+（参见 Algebraic Curves, Lemma
+\ref{curves-lemma-nodal-family-etale-local-source}）。
+由于 $X' \to X$ 在 $x$ 的补集上是同构，再次使用
+Algebraic Curves, Lemma
+\ref{curves-lemma-nodal-family-etale-local-source}，
+可知 $X'/R$ 也具有同样的性质。
+
+\medskip\noindent
+最后，需要说明，进行有限次这样的吹起后会得到正则模型 $X_m$。
+这相当清楚，因为上述吹起使“不变量”$n$ 减少 $2$；参见
+Example \ref{models-example-blowup} 中的计算。
+不过，为避免精确定义这个不变量并证明其性质，我们改作如下论证。
+若 $n = 2$，则 $W'$ 正则，因而 $X'$ 在位于 $x$ 上方的所有点处都正则，
+并且 $X$ 的奇点数减少了 $1$。
+若 $n > 2$，则 $w'$ 是 $W'$ 中位于 $w$ 上方的唯一奇点，并满足
+$\kappa(w) = \kappa(w')$。因此 $U'$ 有唯一奇点 $u'$ 位于 $u$ 上方，
+且 $\kappa(u) = \kappa(u')$。
+显然，这意味着 $X'$ 有唯一奇点 $x'$ 位于 $x$ 上方，
+即 $u'$ 的像。于是完全按照上面的论证，可得交换图
+$$
+\xymatrix{
+X'' \ar[d] &
+U'' \ar[l] \ar[d] \ar[r] &
+W'' \ar[d] \\
+X' & U' \ar[l] \ar[r] & W'
+}
+$$
+其中两个方块均为 Cartesian 方块，竖直箭头分别是沿
+$x', u', w'$ 的吹起（分别在 $X', U', W'$ 中）。
+如此继续，便得到一列相容的吹起，并在
+$\lfloor n/2 \rfloor$ 步之后停止。过程结束时，概形
+$X^{(\lfloor n/2 \rfloor)}$ 的奇点数将比 $X$ 少一个。
+对奇点数归纳即完成证明。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-blowdown-at-worst-nodal}
+设 $R$ 是离散赋值环，其分式域为 $K$、剩余域为 $k$。
+假设 $X \to \Spec(R)$ 是相对维数为 $1$ 的至多结点态射（在 $R$ 上）。
+设 $X \to X'$ 是第一类例外曲线 $E \subset X$ 的收缩。
+则 $X'$ 是相对维数为 $1$ 的至多结点概形（在 $R$ 上）。
+\end{lemma}
+
+\begin{proof}
+具体地，令 $x' \in X'$ 为 $E$ 的像。
+唯一需要说明的是，$X' \to \Spec(R)$ 是相对维数为 $1$ 的至多结点态射
+（在 $x'$ 的某个邻域中）。
+$X \to \Spec(R)$ 的闭纤维约化，所以 $\pi \in R$ 的消没阶为 $1$
+（在 $E$ 上）。
+这立即说明，把 $\pi$ 看作
+$\mathfrak m_{x'} \subset \mathcal{O}_{X', x'}$ 的元素时，
+它不属于 $\mathfrak m_{x'}^2$。
+由于 $\mathcal{O}_{X', x'}$ 是维数为 $2$ 的正则环
+（依 Resolution of Surfaces, Section \ref{resolve-section-minus-one}
+中收缩的定义），可知 $\mathcal{O}_{X'_k, x'}$
+是维数为 $1$ 的正则环
+（Algebra, Lemma \ref{algebra-lemma-regular-ring-CM}）。
+另一方面，曲线 $E$ 必须与至少另一个分支 $C$ 相交，其中该分支属于闭纤维
+$X_k$。取 $x \in E \cap C$。
+则 $x$ 是特殊纤维 $X_k$ 的结点，因而 $\kappa(x)/k$ 是有限可分扩张；
+参见 Algebraic Curves, Lemma \ref{curves-lemma-nodal}。
+由于 $x \mapsto x'$，可知 $\kappa(x')/k$ 是有限可分扩张。
+由 Algebra, Lemma \ref{algebra-lemma-separable-smooth} 可知，
+$X'_k \to \Spec(k)$ 在 $x'$ 的某个开邻域中光滑。
+结合平坦性，这证明 $X' \to \Spec(R)$ 在 $x'$ 的某个邻域中光滑
+（Morphisms, Lemma \ref{morphisms-lemma-smooth-at-point}）。
+证明至此完成，因为相对维数为 $1$ 的光滑态射是相对维数为 $1$
+的至多结点态射
+（Algebraic Curves, Lemma
+\ref{curves-lemma-smooth-relative-dimension-1}）。
+\end{proof}
+
+\begin{lemma}
+\label{models-lemma-semistable}
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+下列条件等价：
+\begin{enumerate}
+\item 存在 $C$ 的一个固有模型，它是相对维数为 $1$ 的至多结点概形（在 $R$ 上）；
+\item 存在 $C$ 的一个极小模型，它是相对维数为 $1$ 的至多结点概形（在 $R$ 上）；
+\item $C$ 的任意极小模型都是相对维数为 $1$ 的至多结点概形（在 $R$ 上）。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+为理解这个陈述，回忆：极小模型被定义为不含第一类例外曲线的正则固有模型
+（Definition \ref{models-definition-minimal-model}）；极小模型存在
+（Proposition \ref{models-proposition-exists-minimal-model}）；
+而若 $C$ 的亏格 $> 0$，极小模型唯一
+（Lemma \ref{models-lemma-minimal-model-unique}）。
+据此，蕴含关系 (2) $\Rightarrow$ (1) 和 (3) $\Rightarrow$ (2) 是清楚的。
+
+\medskip\noindent
+假设 (1)。设 $X$ 是 $C$ 的一个固有模型，并且是
+相对维数为 $1$ 的至多结点概形（在 $R$ 上）。
+应用 Lemma \ref{models-lemma-blowup-at-worst-nodal}，还可假设 $X$ 正则。
+令
+$$
+X = X_m \to X_{m - 1} \to \ldots \to X_1 \to X_0
+$$
+如 Lemma \ref{models-lemma-pre-exists-minimal-model} 中所述。
+由 Lemma \ref{models-lemma-blowdown-at-worst-nodal} 和归纳法可知，
+$X_0$ 是相对维数为 $1$ 的至多结点概形（在 $R$ 上）。
+
+\medskip\noindent
+要完成证明，只需说明 (2) 蕴含 (3)。
+若 $C$ 的亏格 $> 0$，这一点是清楚的，因为此时极小模型唯一
+（见以上讨论）。另一方面，若极小模型不唯一，则对任意极小模型，
+态射 $X \to \Spec(R)$ 都光滑，因为由
+Lemma \ref{models-lemma-nonuniqueness}，其特殊纤维同构于 $\mathbf{P}^1_k$。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-semistable}
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+若 Lemma \ref{models-lemma-semistable} 中的等价条件成立，则称
+$C$ 具有{\it 半稳定约化}。
+\end{definition}
+
+\begin{lemma}
+\label{models-lemma-good}
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+下列条件等价：
+\begin{enumerate}
+\item 存在 $C$ 的一个固有光滑模型；
+\item 存在 $C$ 的一个极小模型，它在 $R$ 上光滑；
+\item 任意极小模型都在 $R$ 上光滑。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 $X$ 是光滑固有模型，则其特殊纤维连通
+（Lemma \ref{models-lemma-regular-model-connected}）且光滑，因而不可约。
+这立即说明它是极小模型。因此 (1) 蕴含 (2)。
+要完成证明，只需说明 (2) 蕴含 (3)。
+若 $C$ 的亏格 $> 0$，这一点是清楚的，因为此时极小模型唯一
+（Lemma \ref{models-lemma-minimal-model-unique}）。
+另一方面，若极小模型不唯一，则对任意极小模型，
+态射 $X \to \Spec(R)$ 都光滑，因为由
+Lemma \ref{models-lemma-nonuniqueness}，其特殊纤维同构于 $\mathbf{P}^1_k$。
+\end{proof}
+
+\begin{definition}
+\label{models-definition-good}
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+若 Lemma \ref{models-lemma-good} 中的等价条件成立，则称
+$C$ 具有{\it 良约化}。
+\end{definition}
+
+
+
+
+
+
+
+
+\section{亏格零情形的半稳定约化}
+\label{models-section-semistable-reduction-genus-zero}
+
+\noindent
+本节对亏格零曲线证明半稳定约化定理
+（Theorem \ref{models-theorem-semistable-reduction}）。
+
+\medskip\noindent
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+若 $C$ 的亏格为 $0$，则 $C$ 同构于一条二次曲线；
+参见 Algebraic Curves, Lemma \ref{curves-lemma-genus-zero}。
+因此存在有限可分扩张 $K'/K$，其次数至多为 $2$，使得
+$C(K') \not = \emptyset$；参见 Algebraic Curves, Lemma
+\ref{curves-lemma-smooth-plane-curve-point-over-separable}。
+令 $R' \subset K'$ 为 $R$ 的整闭包；参见 More on Algebra, Remark
+\ref{more-algebra-remark-finite-separable-extension} 中的讨论。
+我们将证明，$C_{K'}$ 在 $R'_{\mathfrak m}$ 上具有半稳定约化，
+其中 $\mathfrak m$ 遍历 $R'$ 的每个极大理想
+（当然，在当前情形下至多有两个这样的理想）。
+把 $R$ 替换为 $R'_{\mathfrak m}$，并把 $C$ 替换为 $C_{K'}$，
+便约化到下一段所讨论的情形。
+
+\medskip\noindent
+本段中，$R$ 是分式域为 $K$ 的离散赋值环，$C$ 是 $K$ 上满足
+$H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线，其亏格为 $0$，
+并且 $C$ 有一个 $K$-有理点。在这种情形下，由
+Algebraic Curves, Proposition \ref{curves-proposition-projective-line}，
+有 $C \cong \mathbf{P}^1_K$。
+因此可以用 $\mathbf{P}^1_R$ 作为模型，并可知 $C$ 同时具有良约化和半稳定约化。
+
+\begin{example}
+\label{models-example-extension-necessary-genus-zero}
+令 $R = \mathbf{R}[[\pi]]$，并考虑概形
+$$
+X = V(T_1^2 + T_2^2 - \pi T_0^2) \subset \mathbf{P}^2_R
+$$
+$X$ 到 $\mathbf{C}[[\pi]]$ 的基变换同构于
+Example \ref{models-example-nonunique-in-genus-zero} 中定义的概形，
+因为有分解 $T_1^2 + T_2^2 = (T_1 + iT_2)(T_1 - iT_2)$
+（在 $\mathbf{C}$ 上）。
+因此 $X$ 正则，而其特殊纤维不可约但奇异；所以
+$X$ 是其一般纤维的唯一极小模型
+（使用 Lemma \ref{models-lemma-nonuniqueness}）。
+由此可见，即使亏格为 $0$，扩张也是必要的。
+\end{example}
+
+
+
+\section{亏格一情形的半稳定约化}
+\label{models-section-semistable-reduction-genus-one}
+
+\noindent
+本节对亏格一曲线证明半稳定约化定理
+（Theorem \ref{models-theorem-semistable-reduction}）。
+建议读者先阅读亏格 $\geq 2$ 情形的证明
+（Section \ref{models-section-semistable-reduction-genus-at-least-two}）。
+我们将尽可能使用 Lemma \ref{models-lemma-genus-one} 中给出的
+亏格为 $1$ 的极小数值型分类。
+
+\medskip\noindent
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+假设 $C$ 的亏格为 $1$。
+选取素数 $\ell \geq 7$，它不同于 $k$ 的特征。
+选取有限可分扩张 $K'/K$，使得 $C(K') \not = \emptyset$ 且
+$\Pic(C_{K'})[\ell] \cong (\mathbf{Z}/\ell \mathbf{Z})^{\oplus 2}$.
+参见 Algebraic Curves, Lemma
+\ref{curves-lemma-torsion-picard-becomes-visible}。
+令 $R' \subset K'$ 为 $R$ 的整闭包；参见 More on Algebra, Remark
+\ref{more-algebra-remark-finite-separable-extension}.
+可以把 $R$ 替换为 $R'_{\mathfrak m}$，其中 $\mathfrak m$ 是
+$R'$ 的某个极大理想，并把 $C$ 替换为 $C_{K'}$。
+这就约化到下一段讨论的情形。
+
+\medskip\noindent
+在本节余下部分中，$R$ 是分式域为 $K$ 的离散赋值环，
+$C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线，
+其亏格为 $1$，具有一个 $K$-有理点，并满足
+$\Pic(C)[\ell] \cong (\mathbf{Z}/\ell \mathbf{Z})^{\oplus 2}$
+，其中 $\ell \geq 7$ 是不同于 $k$ 的特征的某个素数。
+我们将证明 $C$ 具有半稳定约化。
+
+\medskip\noindent
+令 $X$ 为 $C$ 的一个极小模型；参见
+Proposition \ref{models-proposition-exists-minimal-model}.
+令 $T = (n, m_i, (a_{ij}), w_i, g_i)$ 为与 $X$ 相伴的数值型
+（Definition \ref{models-definition-numerical-type-model}）。
+则 $T$ 是极小数值型
+（Lemma \ref{models-lemma-numerical-type-minimal-model}）。
+由于 $C$ 有有理点，由 Lemma \ref{models-lemma-numerical-type-rational-point}，
+存在 $i$ 使得 $m_i = w_i = 1$。
+考察 Lemma \ref{models-lemma-genus-one} 中亏格为 $1$ 的极小数值型分类，
+可知 $m = w = 1$，并且以下情形不允许：
+(\ref{models-item-up4}),
+(\ref{models-item-equal-down3}),
+(\ref{models-item-up-up}),
+(\ref{models-item-down-up}),
+(\ref{models-item-up-equal-up}),
+(\ref{models-item-down-equal-up}),
+(\ref{models-item-triple-with-down}),
+(\ref{models-item-equal-equal-down-equal}),
+(\ref{models-item-up-equal-equal-up}),
+(\ref{models-item-down-equal-equal-up}),
+(\ref{models-item-triple-extended-down}),
+(\ref{models-item-up-chain-equal-up}),
+(\ref{models-item-down-chain-equal-up}),
+(\ref{models-item-Dn-extended-down})（因为不存在同时满足 $w_i$ 和 $m_i$
+等于 $1$ 的指标）。
+令 $e$ 为指标对 $(i, j)$ 的数目，其中 $i < j$ 且 $a_{ij} > 0$。
+对于其余情形，有
+\begin{enumerate}
+\item[(A)] 对以下情形，$e = n - 1$：
+(\ref{models-item-one}),
+(\ref{models-item-two-cycle}),
+(\ref{models-item-equal-up3}),
+(\ref{models-item-up-down}),
+(\ref{models-item-up-equal-down}),
+(\ref{models-item-triple-with-up}),
+(\ref{models-item-equal-equal-up-equal}),
+(\ref{models-item-up-equal-equal-down}),
+(\ref{models-item-quadruple}),
+(\ref{models-item-triple-extended-up}),
+(\ref{models-item-up-chain-equal-down}),
+(\ref{models-item-Dn-extended-up}),
+(\ref{models-item-double-triple}),
+(\ref{models-item-E6-completed}),
+(\ref{models-item-E7-completed}) 以及
+(\ref{models-item-E8-completed})；
+\item[(B)] 对以下情形，$e = n$：
+(\ref{models-item-three-cycle}),
+(\ref{models-item-four-cycle}),
+(\ref{models-item-five-cycle}) 以及
+(\ref{models-item-n-cycle}).
+\end{enumerate}
+我们将分别讨论这两类情形。
+
+\medskip\noindent
+情形 (A)。在这种情形下，$\Pic(T)[\ell]$ 平凡
+（数值型的 Picard 群定义于 Section \ref{models-section-picard-group}）。
+消没性来自 $\Pic(T) \subset \Coker(A)$
+（Lemma \ref{models-lemma-picard-T-and-A}）以及
+$\Coker(A)[\ell] = 0$；后者由 Lemma
+\ref{models-lemma-recurring-symmetric-integer} 和所选 $\ell$ 与 $a_{ij}$、$m_i$
+互素这一事实得到。
+由 Lemmas \ref{models-lemma-sequence-torsion} 和 \ref{models-lemma-torsion-embeds}，
+可知存在嵌入
+$$
+(\mathbf{Z}/\ell \mathbf{Z})^{\oplus 2} \subset \Pic((X_k)_{red})[\ell].
+$$
+由 Algebraic Curves, Lemma \ref{curves-lemma-bound-torsion-simple}，得到
+$$
+2 \leq \dim_k H^1((X_k)_{red}, \mathcal{O}_{(X_k)_{red}}) +
+g_{geom}((X_k)_{red}/k)
+$$
+由 Algebraic Curves, Lemmas \ref{curves-lemma-bound-geometric-genus} 和
+\ref{curves-lemma-bound-geometric-genus-curve}
+可知 $g_{geom}((X_k)_{red}/k) \leq \sum w_ig_i$。
+Lemma \ref{models-lemma-genus-reduction-smaller} 的假设
+由 Lemma \ref{models-lemma-numerical-type-rational-point} 得以满足，因而
+$\dim_k H^1((X_k)_{red}, \mathcal{O}_{(X_k)_{red}}) \leq g = 1$。
+合并这些不等式可得
+$$
+2 \leq 1 + \sum w_i g_i
+$$
+考察该列表可知，此数值型由
+$n = 1$、$w_1 = m_1 = g_1 = 1$ 给出。
+由于处处取等，可知 $g_{geom}(C_1/k) = 1$。
+另一方面，已知 $C_1$ 有一个 $k$-有理点 $x$，使得
+$C_1 \to \Spec(k)$ 在 $x$ 处光滑。
+因此 $C_1$ 几何整
+（Varieties, Lemma \ref{varieties-lemma-variety-with-smooth-rational-point}）。
+于是 $g_{geom}(C_1/k) = 1$ 既等于 $C_{1, \overline{k}}$ 的正规化的亏格，
+也等于 $C_{1, \overline{k}}$ 的亏格。
+因此正规化态射
+$C_{1, \overline{k}}^\nu \to C_{1, \overline{k}}$
+是同构
+（Algebraic Curves, Lemma \ref{curves-lemma-genus-normalization}）。
+所以 $C_1$ 在 $k$ 上光滑，正是所需结论。
+
+\medskip\noindent
+情形 (B)。这里我们只能得出存在嵌入
+$$
+\mathbf{Z}/\ell \mathbf{Z} \subset \Pic(X_k)[\ell]
+$$
+由各型的分类可知，$m_i = w_i = 1$ 且 $g_i = 0$，这对每个 $i$ 成立。
+因此每个 $C_i$ 都是 $k$ 上的亏格零曲线。
+此外，对每个 $i$，存在 $j$，使得 $C_i \cap C_j$ 是一个 $k$-有理点。
+于是由 Algebraic Curves, Proposition
+\ref{curves-proposition-projective-line}，可得
+$C_i \cong \mathbf{P}^1_k$。
+特别地，由于 $X_k$ 是各 $C_i$ 的概形论并，故
+$X_{\overline{k}}$ 是各 $C_{i, \overline{k}}$ 的概形论并。
+因此 $X_{\overline{k}}$ 是维数为 $1$ 的约化连通固有概形（在 $\overline{k}$ 上），
+且 $\dim_{\overline{k}}
+H^1(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}}) = 1$。
+此外，由 Varieties, Lemma \ref{varieties-lemma-change-fields-pic}
+以及上述结论，仍有
+$$
+\dim_{\mathbf{F}_\ell}(\Pic(X_{\overline{k}}) \geq 1
+$$
+由 Algebraic Curves, Proposition
+\ref{curves-proposition-torsion-picard-reduced-proper}
+可知 $X_{\overline{k}}$ 只有多重交叉奇点。
+但由于 $X_k$ 是 Gorenstein 的（Lemma \ref{models-lemma-gorenstein}），
+$X_{\overline{k}}$ 也是 Gorenstein 的（Duality for Schemes, Lemma
+\ref{duality-lemma-gorenstein-base-change}）。
+由 Algebraic Curves, Lemma
+\ref{curves-lemma-multicross-gorenstein-is-nodal} 可知，
+$X_{\overline{k}}$ 至多为结点。这就完成了情形 (B) 的证明。
+
+\begin{example}
+\label{models-example-extension-necessary-genus-one}
+设 $k$ 是代数闭域。设 $Z$ 是 $k$ 上亏格为正数 $g$ 的光滑射影曲线。
+设 $n \geq 1$ 是与 $k$ 的特征互素的整数。
+设 $\mathcal{L}$ 是可逆 $\mathcal{O}_Z$-模，其阶为 $n$；参见
+Algebraic Curves, Lemma
+\ref{curves-lemma-torsion-picard-smooth-projective}。
+选取同构 $\varphi : \mathcal{L}^{\otimes n} \to \mathcal{O}_Z$。
+置 $R = k[[\pi]]$，其分式域为 $K = k((\pi))$。
+用 $Z_R$ 表示 $Z$ 到 $R$ 的基变换。
+令 $\mathcal{L}_R$ 为 $\mathcal{L}$ 到 $Z_R$ 的拉回。
+考虑有限平坦态射
+$$
+p : X \longrightarrow Z_R
+$$
+使得
+$$
+p_*\mathcal{O}_X =
+\text{Sym}^*_{\mathcal{O}_{Z_R}}(\mathcal{L}_R)/(\varphi - \pi) =
+\mathcal{O}_{Z_R} \oplus \mathcal{L}_R \oplus
+\mathcal{L}_R^{\otimes 2} \oplus \ldots \oplus \mathcal{L}_R^{\otimes n - 1}
+$$
+更精确地，若 $U = \Spec(A) \subset Z$ 是仿射开集，
+使得 $\mathcal{L}|_U$ 由截面 $s$ 平凡化，并满足
+$\varphi(s^{\otimes n}) = f$（其中 $f$ 是单位），则
+$$
+p^{-1}(U_R) = \Spec\left(
+(A \otimes_R R[[\pi]])[x]/(x^n - \pi f)
+\right)
+$$
+读者可验证，一般纤维之间的态射 $X_K \to Z_K$ 是有限 \'etale 的。
+考察结构层的描述可知，$H^0(X, \mathcal{O}_X) = R$ 且
+$H^0(X_K, \mathcal{O}_{X_K}) = K$。
+由 Riemann--Hurwitz 公式
+（Algebraic Curves, Lemma \ref{curves-lemma-rhe}），
+$X_K$ 的亏格为 $n(g - 1) + 1$。特别地，$X_K$ 的亏格为 $1$，
+若 $Z$ 的亏格为 $1$。
+另一方面，由上述局部方程，概形 $X$ 正则；作为有效 Cartier 除子，
+特殊纤维 $X_k$ 是约化特殊纤维的 $n$ 倍。
+因此，任何有限扩张 $K'/K$，若在其上 $X_K$ 获得半稳定约化，
+都必须分歧，且分歧指数至少为 $n$（略去一些细节）。
+所以，不存在如下普适上界：使亏格为 $1$ 的曲线获得半稳定约化所需扩张的次数。
+\end{example}
+
+
+
+
+
+
+\section{亏格至少为二时的半稳定约化}
+\label{models-section-semistable-reduction-genus-at-least-two}
+
+\noindent
+本节对亏格 $\geq 2$ 的曲线证明半稳定约化定理
+（Theorem \ref{models-theorem-semistable-reduction}）。
+固定 $g \geq 2$。
+
+\medskip\noindent
+设 $R$ 是分式域为 $K$ 的离散赋值环。
+设 $C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+假设 $C$ 的亏格为 $g$。
+选取素数 $\ell > 768g$，它不同于 $k$ 的特征。
+选取有限可分扩张 $K'/K$，使得 $C(K') \not = \emptyset$ 且
+$\Pic(C_{K'})[\ell] \cong (\mathbf{Z}/\ell \mathbf{Z})^{\oplus 2g}$.
+参见 Algebraic Curves, Lemma
+\ref{curves-lemma-torsion-picard-becomes-visible}。
+令 $R' \subset K'$ 为 $R$ 的整闭包；参见 More on Algebra, Remark
+\ref{more-algebra-remark-finite-separable-extension}.
+可以把 $R$ 替换为 $R'_{\mathfrak m}$，其中 $\mathfrak m$ 是
+$R'$ 的某个极大理想，并把 $C$ 替换为 $C_{K'}$。
+这就约化到下一段讨论的情形。
+
+\medskip\noindent
+在本节余下部分中，$R$ 是分式域为 $K$ 的离散赋值环，
+$C$ 是 $K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线，
+其亏格为 $g$，具有一个 $K$-有理点，并满足
+$\Pic(C)[\ell] \cong (\mathbf{Z}/\ell \mathbf{Z})^{\oplus 2g}$
+，其中 $\ell \geq 768g$ 是不同于 $k$ 的特征的某个素数。
+我们将证明 $C$ 具有半稳定约化。
+
+\medskip\noindent
+在本节余下部分中，我们将不再另行说明地使用
+Lemma \ref{models-lemma-numerical-type-rational-point} 的各项结论。
+
+\medskip\noindent
+令 $X$ 为 $C$ 的一个极小模型；参见
+Proposition \ref{models-proposition-exists-minimal-model}.
+令 $T = (n, m_i, (a_{ij}), w_i, g_i)$ 为与 $X$ 相伴的数值型
+（Definition \ref{models-definition-numerical-type-model}）。
+则 $T$ 是亏格为 $g$ 的极小数值型
+（Lemma \ref{models-lemma-numerical-type-minimal-model}）。
+由 Proposition \ref{models-proposition-bound-picard-group}，有
+$$
+\dim_{\mathbf{F}_\ell} \Pic(T)[\ell] \leq g_{top}
+$$
+由 Lemmas \ref{models-lemma-sequence-torsion} 和 \ref{models-lemma-torsion-embeds}，
+可知存在嵌入
+$$
+(\mathbf{Z}/\ell \mathbf{Z})^{\oplus 2g - g_{top}}
+\subset \Pic((X_k)_{red})[\ell].
+$$
+由 Algebraic Curves, Lemma \ref{curves-lemma-bound-torsion-simple}，得到
+$$
+2g - g_{top} \leq
+\dim_k H^1((X_k)_{red}, \mathcal{O}_{(X_k)_{red}}) + g_{geom}(X_k/k)
+$$
+由 Lemmas \ref{models-lemma-genus-reduction-smaller} 和
+\ref{models-lemma-genus-reduction-bigger-than}
+，有
+$$
+g \geq \dim_k H^1((X_k)_{red}, \mathcal{O}_{(X_k)_{red}}) \geq
+g_{top} + g_{geom}(X_k/k)
+$$
+初等数论告诉我们，这 $3$ 个不等式能够同时成立的唯一方式，是它们全都取等。
+考察 Lemma \ref{models-lemma-genus-reduction-smaller}，可知
+$m_i = 1$ 对所有 $i$ 都成立。
+考察 Lemma \ref{models-lemma-equality-genus-reduction-bigger-than}，可知
+$X_k$ 的每个不可约分支都在 $k$ 上光滑。
+
+\medskip\noindent
+特别地，由于 $X_k$ 是其不可约分支 $C_i$ 的概形论并，
+可知 $X_{\overline{k}}$ 是各 $C_{i, \overline{k}}$ 的概形论并。
+因此 $X_{\overline{k}}$ 是维数为 $1$ 的约化连通固有概形（在 $\overline{k}$ 上），
+并且 $\dim_{\overline{k}}
+H^1(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}}) = g$。
+此外，由 Varieties, Lemma \ref{varieties-lemma-change-fields-pic}
+以及上述结论，仍有
+$$
+\dim_{\mathbf{F}_\ell}(\Pic(X_{\overline{k}})[\ell])
+\geq 2g - g_{top} =
+\dim_{\overline{k}} H^1(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})
++ g_{geom}(X_{\overline{k}})
+$$
+由 Algebraic Curves, Proposition
+\ref{curves-proposition-torsion-picard-reduced-proper}
+可知 $X_{\overline{k}}$ 只有多重交叉奇点。
+但由于 $X_k$ 是 Gorenstein 的（Lemma \ref{models-lemma-gorenstein}），
+$X_{\overline{k}}$ 也是 Gorenstein 的（Duality for Schemes, Lemma
+\ref{duality-lemma-gorenstein-base-change}）。
+由 Algebraic Curves, Lemma
+\ref{curves-lemma-multicross-gorenstein-is-nodal} 可知，
+$X_{\overline{k}}$ 至多为结点。证明完成。
+
+
+
+
+
+
+
+
+
+
+\section{曲线的半稳定约化}
+\label{models-section-semistable-reduction-theorem}
+
+\noindent
+本节完成该定理的证明。
+对 $g \geq 2$，令 $768g < \ell' < \ell$ 为前两个素数 $> 768g$，并置
+\begin{equation}
+\label{models-equation-bound}
+B_g = (2g - 2)(\ell^{2g})!
+\end{equation}
+$B_g$ 的精确形式并不重要；我们要强调的是，它只依赖于 $g$。
+
+\begin{theorem}
+\label{models-theorem-semistable-reduction}
+\begin{reference}
+\cite[Corollary 2.7]{DM}
+\end{reference}
+设 $R$ 是分式域为 $K$ 的离散赋值环。设 $C$ 是
+$K$ 上满足 $H^0(C, \mathcal{O}_C) = K$ 的光滑射影曲线。
+则存在离散赋值环的扩张 $R \subset R'$，它在分式域上诱导有限可分扩张
+$K'/K$，使得 $C_{K'}$ 具有半稳定约化。
+更精确地，有下列结论：
+\begin{enumerate}
+\item 若 $C$ 的亏格为零，则存在次数为 $2$ 的可分扩张
+$K'/K$，使得 $C_{K'} \cong \mathbf{P}^1_{K'}$；因此
+$C_{K'}$ 同构于光滑射影概形 $\mathbf{P}^1_{R'}$ 的一般纤维，
+其中 $R'$ 是 $R$ 在 $K'$ 中的整闭包。
+\item 若 $C$ 的亏格为一，则存在有限可分扩张 $K'/K$，使得
+$C_{K'}$ 在 $R'_\mathfrak m$ 上具有半稳定约化；这对每个极大理想
+$\mathfrak m$ 都成立，其中该理想属于整闭包 $R'$，即 $R$ 在 $K'$ 中的整闭包。
+此外，$C_{K'}$ 在 $R'_\mathfrak m$ 上的（唯一）极小模型的特殊纤维，
+要么是光滑亏格一曲线，要么是一圈有理曲线。
+\item 若亏格 $g$（曲线 $C$ 的亏格）大于一，则存在有限可分扩张
+$K'/K$，其次数至多为 $B_g$（\ref{models-equation-bound}），使得
+$C_{K'}$ 在 $R'_\mathfrak m$ 上具有半稳定约化；这对每个极大理想
+$\mathfrak m$ 都成立，其中该理想属于整闭包 $R'$，即 $R$ 在 $K'$ 中的整闭包。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+亏格零的情形见 Section \ref{models-section-semistable-reduction-genus-zero}。
+亏格一的情形见 Section \ref{models-section-semistable-reduction-genus-one}。
+亏格大于一的情形见
+Section \ref{models-section-semistable-reduction-genus-at-least-two}。
+为看出次数 $[K' : K]$ 有界，可以使用
+Algebraic Curves, Lemma \ref{curves-lemma-torsion-picard-becomes-visible}
+中证明的界：使所有 $\ell$-挠或 $\ell'$-挠可见所需扩张的次数有界。
+（使用 $\ell$ 和 $\ell'$ 的原因是需要避开剩余域 $k$ 的特征。）
+\end{proof}
+
+\begin{remark}[改进该界]
+\label{models-remark-improving-bound}
+文献中的结果表明，Theorem \ref{models-theorem-semistable-reduction}
+陈述中的界可以改进。例如，\cite{DM} 证明：若剩余域完美，
+$C$ 的半稳定约化与其 Jacobian 的半稳定约化等价；这大概对一般剩余域也成立。
+对阿贝尔簇而言，若 Galois 在 $\ell$-挠上的作用平凡，
+其中 $\ell \geq 3$ 且不等于剩余特征，则它具有半稳定约化。
+因此大概可以取 $\ell = 5$（在公式（\ref{models-equation-bound}）中用于 $B_g$）
+（不过证明需要多得多的工作；若以后需要，我们会在这里给出精确陈述和证明）。
+\end{remark}

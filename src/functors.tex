@@ -1,0 +1,1834 @@
+% Generated mechanically from the frozen functors.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{55}
+\chapter{函子与态射}
+
+
+
+\phantomsection
+\label{functors-section-phantom}
+
+
+\section{引言}
+\label{functors-section-introduction}
+
+\noindent
+设 $X$ 和 $Y$ 为概形。本章围绕函子
+$\QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_X)$ 与概形态射
+$X \to Y$ 之间的关系展开。更一般地，我们研究
+$\QCoh(\mathcal{O}_X)$ 与 $X$ 之间的关系；若 $X$ 为 Noether 概形，
+则研究 $\textit{Coh}(\mathcal{O}_X)$ 与 $X$ 之间的关系。
+Gabriel 在 \cite{Gabriel} 中研究了这种关系。
+
+
+
+
+
+
+\section{模范畴上的函子}
+\label{functors-section-preliminary}
+
+\noindent
+对环 $A$，记 $\text{Mod}^{fp}_A$ 为有限表示 $A$-模所成的范畴。
+
+\begin{lemma}
+\label{functors-lemma-functor-on-fp-modules}
+设 $A$ 为环，$\mathcal{B}$ 为具有滤过余极限的范畴，并设
+$F : \text{Mod}^{fp}_A \to \mathcal{B}$ 为函子。则 $F$ 唯一地延拓为
+与滤过余极限交换的函子 $F' : \text{Mod}_A \to \mathcal{B}$。
+\end{lemma}
+
+\begin{proof}
+这由 Categories, Lemma
+\ref{categories-lemma-extend-functor-by-colim} 得出。
+为说明该引理适用，注意由 Algebra, Lemma
+\ref{algebra-lemma-characterize-finitely-presented-module-hom}，
+有限表示 $A$-模是 $\text{Mod}_A$ 中范畴意义下的紧对象。
+此外，由 Algebra, Lemma \ref{algebra-lemma-module-colimit-fp}，
+每个 $A$-模都是有限表示 $A$-模的滤过余极限。
+\end{proof}
+
+\noindent
+若范畴 $\mathcal{B}$ 可加且具有滤过余极限，则 $\mathcal{B}$ 具有任意直和：
+任一直和都可写成有限直和的滤过余极限。
+
+\begin{lemma}
+\label{functors-lemma-functor-on-fp-modules-additive}
+设 $A$、$\mathcal{B}$、$F$ 如引理 \ref{functors-lemma-functor-on-fp-modules} 中所述。
+假设 $\mathcal{B}$ 可加且 $F$ 可加。则 $F'$ 可加，并与任意直和交换。
+\end{lemma}
+
+\begin{proof}
+为证明 $F'$ 可加，只需证明态射
+$F'(M) \oplus F'(M') \to F'(M \oplus M')$ 对任意 $A$-模 $M$、$M'$
+都是同构；参见
+Homology, Lemma \ref{homology-lemma-additive-functor}。
+把 $M = \colim_i M_i$ 和 $M' = \colim_j M'_j$ 写成有限表示
+$A$-模 $M_i$ 的滤过余极限。于是
+$F'(M) = \colim_i F(M_i)$、$F'(M') = \colim_j F(M'_j)$，以及
+\begin{align*}
+F'(M \oplus M')
+& =
+F'(\colim_{i, j} M_i \oplus M'_j) \\
+& =
+\colim_{i, j} F(M_i \oplus M'_j) \\
+& =
+\colim_{i, j} F(M_i) \oplus F(M'_j) \\
+& =
+F'(M) \oplus F'(M')
+\end{align*}
+正合所需。为证明 $F'$ 与直和交换，假设
+$M = \bigoplus_{i \in I} M_i$。则
+$M = \colim_{I' \subset I\text{ 有限}} \bigoplus_{i \in I'} M_i$
+是一个滤过余极限。由此得到
+\begin{align*}
+F'(M)
+& =
+\colim_{I' \subset I\text{ 有限}}
+F'(\bigoplus\nolimits_{i \in I'} M_i) \\
+& =
+\colim_{I' \subset I\text{ 有限}}
+\bigoplus\nolimits_{i \in I'} F'(M_i) \\
+& =
+\bigoplus\nolimits_{i \in I} F'(M_i)
+\end{align*}
+第二个等号由已经证明的 $F'$ 的可加性成立。
+\end{proof}
+
+\noindent
+若范畴 $\mathcal{B}$ 可加、具有滤过余极限且具有余核，则
+$\mathcal{B}$ 具有任意余极限；参见上述讨论和 Categories, Lemma
+\ref{categories-lemma-colimits-coproducts-coequalizers}。
+
+\begin{lemma}
+\label{functors-lemma-functor-on-fp-modules-right-exact}
+设 $A$、$\mathcal{B}$、$F$ 如引理 \ref{functors-lemma-functor-on-fp-modules} 中所述。
+假设 $\mathcal{B}$ 可加、具有余核，且 $F$ 右正合。则 $F'$ 可加、
+右正合，并与任意直和交换。
+\end{lemma}
+
+\begin{proof}
+由于 $F$ 右正合，$F$ 与二元余积交换，而这种余积由直和表示。
+故由 Homology, Lemma \ref{homology-lemma-additive-functor}，$F$ 可加。
+再由引理 \ref{functors-lemma-functor-on-fp-modules-additive}，$F'$ 可加并与直和交换。
+我们建议读者自行证明 $F'$ 右正合，而不要阅读下面的证明。
+
+\medskip\noindent
+为证明 $F'$ 右正合，只需证明 $F'$ 与等化余子交换；参见
+Categories, Lemma \ref{categories-lemma-characterize-right-exact}。
+若 $a, b : K \to L$ 为 $A$-模态射，则 $a$ 与 $b$ 的等化余子是
+$a - b : K \to L$ 的余核。因此，设
+$K \to L \to M \to 0$ 为 $A$-模的正合序列。我们必须证明，在
+$$
+F'(K) \to F'(L) \to F'(M) \to 0
+$$
+第二个箭头是第一个箭头在 $\mathcal{B}$ 中的余核
+（若 $\mathcal{B}$ 为 Abel 范畴，我们会说所示序列正合）。
+由 Algebra, Lemma \ref{algebra-lemma-module-colimit-fp}，把
+$M = \colim_{i \in I} M_i$ 写成有限表示 $A$-模的滤过余极限。
+令 $L_i = L \times_M M_i$。
+由此得到一族正合序列 $K \to L_i \to M_i \to 0$，它们以 $I$ 为参数。
+由 Categories, Lemma \ref{categories-lemma-colimits-commute}，
+余极限与余极限交换；又因为余核是一类等化余子，所以只需证明
+$F'(L_i) \to F(M_i)$ 是 $F'(K) \to F'(L_i)$ 在 $\mathcal{B}$ 中的余核，
+对所有 $i \in I$ 均成立。换言之，可以假设 $M$ 有限表示。
+把 $L = \colim_{i \in I} L_i$ 写成有限表示 $A$-模的滤过余极限，
+使每个 $L_i$ 都满射到 $M$。令 $K_i = K \times_L L_i$。
+由此得到一族短正合序列 $K_i \to L_i \to M \to 0$，它们以 $I$ 为参数。
+重复上述论证，可归约为证明：$F(L_i) \to F(M_i)$ 是
+$F'(K) \to F(L_i)$ 在 $\mathcal{B}$ 中的余核，对所有 $i \in I$ 均成立。
+换言之，可以假设 $L$ 和 $M$ 都是有限表示
+$A$-模。此时模 $\Ker(L \to M)$ 是有限的
+（Algebra, Lemma \ref{algebra-lemma-extension}）。因此可把
+$K = \colim_{i \in I} K_i$ 写成有限表示 $A$-模的滤过余极限，
+其中每一项都满射到 $\Ker(L \to M)$。由此得到一族短正合序列
+$K_i \to L \to M \to 0$，它们以 $I$ 为参数。重复上述论证，
+可归约为证明：$F(L) \to F(M)$ 是 $F(K_i) \to F(L)$
+在 $\mathcal{B}$ 中的余核，对所有 $i \in I$ 均成立。换言之，可以假设
+$K$、$L$、$M$ 都是有限表示 $A$-模。最后一种情形由 $F$ 右正合的假设得出。
+\end{proof}
+
+\noindent
+若范畴 $\mathcal{B}$ 可加且具有核，则 $\mathcal{B}$ 具有有限极限。
+事实上，有限积是存在的直和，而 $a, b : L \to M$ 的等化子是
+存在的 $a - b : K \to L$ 的核。因此由 Categories, Lemma
+\ref{categories-lemma-finite-limits-exist}，所有有限极限都存在。
+
+\begin{lemma}
+\label{functors-lemma-functor-on-fp-modules-left-exact}
+设 $A$、$\mathcal{B}$、$F$ 如引理 \ref{functors-lemma-functor-on-fp-modules} 中所述。
+假设 $A$ 是凝聚环（Algebra, Definition
+\ref{algebra-definition-coherent}），$\mathcal{B}$ 可加且具有核，
+滤过余极限与取核交换，并且 $F$ 左正合。则 $F'$ 可加、左正合，
+并与任意直和交换。
+\end{lemma}
+
+\begin{proof}
+由于 $A$ 凝聚，范畴 $\text{Mod}^{fp}_A$ 是 Abel 范畴，且其核与余核
+同 $\text{Mod}_A$ 中的一样；参见 Algebra, Lemmas
+\ref{algebra-lemma-coherent-ring} 和 \ref{algebra-lemma-coherent}。
+因此 $\text{Mod}^{fp}_A$ 中所有有限极限都存在，并且 Categories,
+Definition \ref{categories-definition-exact} 适用。由于 $F$ 左正合，
+$F$ 与二元积交换，而这种积由直和表示。故由 Homology, Lemma
+\ref{homology-lemma-additive-functor}，$F$ 可加。再由引理
+\ref{functors-lemma-functor-on-fp-modules-additive}，$F'$ 可加并与直和交换。
+我们建议读者自行证明 $F'$ 左正合，而不要阅读下面的证明。
+
+\medskip\noindent
+为证明 $F'$ 左正合，只需证明 $F'$ 与等化子交换；参见 Categories,
+Lemma \ref{categories-lemma-characterize-left-exact}。若
+$a, b : L \to M$ 为 $A$-模态射，则 $a$ 与 $b$ 的等化子是
+$a - b : L \to M$ 的核。因此，设 $0 \to K \to L \to M$
+为 $A$-模的正合序列。我们必须证明，在
+$$
+0 \to F'(K) \to F'(L) \to F'(M)
+$$
+箭头 $F'(K) \to F'(L)$ 是 $F'(L) \to F'(M)$ 在 $\mathcal{B}$ 中的核
+（若 $\mathcal{B}$ 为 Abel 范畴，我们会说所示序列正合）。
+由 Algebra, Lemma \ref{algebra-lemma-module-colimit-fp}，把
+$M = \colim_{i \in I} M_i$ 写成有限表示 $A$-模的滤过余极限。
+令 $L_i = L \times_M M_i$。由此得到一族正合序列
+$0 \to K \to L_i \to M_i$，它们以 $I$ 为参数。根据假设，$\mathcal{B}$ 中的滤过余极限
+与取核交换，故只需证明 $F'(K) \to F'(L_i)$ 是
+$F'(L_i) \to F(M_i)$ 在 $\mathcal{B}$ 中的核，对所有 $i \in I$ 均成立。换言之，可以假设
+$M$ 有限表示。把 $L = \colim_{i \in I} L_i$ 写成有限表示 $A$-模的
+滤过余极限。令 $K_i = K \times_L L_i$。由此得到一族短正合序列
+$0 \to K_i \to L_i \to M$，它们以 $I$ 为参数。重复上述论证，可归约为证明：
+$F'(K_i) \to F(L_i)$ 是 $F(L_i) \to F(M)$ 在 $\mathcal{B}$ 中的核，
+对所有 $i \in I$ 均成立。换言之，可以假设
+$L$ 和 $M$ 都是有限表示 $A$-模。由于 $A$ 凝聚，$A$-模
+$K = \Ker(L \to M)$ 具有有限表示，因为有限表示 $A$-模的范畴
+是 Abel 范畴（见上述参考文献）。换言之，$K$、$L$、$M$ 三个模
+都是有限表示 $A$-模。最后一种情形由 $F$ 左正合的假设得出。
+\end{proof}
+
+\noindent
+若范畴 $\mathcal{B}$ 可加且具有余核，则 $\mathcal{B}$ 具有有限余极限。
+事实上，有限余积是存在的直和，而 $a, b : K \to L$ 的等化余子是
+存在的 $a - b : K \to L$ 的余核。因此由 Categories, Lemma
+\ref{categories-lemma-colimits-exist}，所有有限余极限都存在。
+
+\begin{lemma}
+\label{functors-lemma-functor-on-modules-fp}
+设 $A$ 为环，$\mathcal{B}$ 为具有余核的可加范畴。下列两个范畴等价：
+\begin{enumerate}
+\item 右正合函子 $F : \text{Mod}^{fp}_A \to \mathcal{B}$ 所成的范畴；
+\item 二元组 $(K, \kappa)$ 所成的范畴，其中 $K \in \Ob(\mathcal{B})$，
+且 $\kappa : A \to \text{End}_\mathcal{B}(K)$ 为环同态。
+\end{enumerate}
+此等价由把 $F$ 映到 $F(A)$ 并赋予后者自然 $A$-作用这一规则给出。
+\end{lemma}
+
+\begin{proof}
+设 $(K, \kappa)$ 如 (2) 中所述。我们将构造函子
+$F : \text{Mod}^{fp}_A \to \mathcal{B}$，使 $F(A) = K$ 带有所给的
+$A$-作用 $\kappa$。具体地，对整数 $n \geq 0$，令
+$$
+F(A^{\oplus n}) = K^{\oplus n}
+$$
+给定 $A$-线性映射 $\varphi : A^{\oplus m} \to A^{\oplus n}$，
+其矩阵为 $(a_{ij}) \in \text{Mat}(n \times m, A)$，定义
+$$
+F(\varphi) :
+F(A^{\oplus m}) = K^{\oplus m}
+\longrightarrow
+K^{\oplus n} = F(A^{\oplus n})
+$$
+为矩阵为 $(\kappa(a_{ij}))$ 的映射。由此定义了可加函子 $F$，
+它从 $\text{Mod}^{fp}_A$ 中以 $0$、$A$、$A^{\oplus 2}$、$\ldots$ 为对象的
+全子范畴取值于 $\mathcal{B}$；验证从略。
+
+\medskip\noindent
+对每个对象 $M$（属于 $\text{Mod}^{fp}_A$），选取一个表示
+$$
+A^{\oplus m_M} \xrightarrow{\varphi_M} A^{\oplus n_M} \to M \to 0
+$$
+这是 $M$ 作为 $A$-模的表示。采用平凡表示
+$0 \to A^{\oplus n} \xrightarrow{1} A^{\oplus n} \to 0$，若 $M = A^{\oplus n}$
+（这并非必需，但可简化叙述）。对每个态射 $f : M \to N$
+（属于 $\text{Mod}^{fp}_A$），可以选取交换图
+\begin{equation}
+\label{functors-equation-map}
+\vcenter{
+\xymatrix{
+A^{\oplus m_M} \ar[r]_{\varphi_M} \ar[d]_{\psi_f} &
+A^{\oplus n_M} \ar[r] \ar[d]_{\chi_f} &
+M \ar[r] \ar[d]_f & 0 \\
+A^{\oplus m_N} \ar[r]^{\varphi_N} &
+A^{\oplus n_N} \ar[r] &
+N \ar[r] & 0
+}
+}
+\end{equation}
+作出这些选择后，可以如下定义：对对象 $M$（属于 $\text{Mod}^{fp}_A$），令
+$$
+F(M) = \Coker(F(\varphi_M) : F(A^{\oplus m_M}) \to F(A^{\oplus n_M}))
+$$
+而对态射 $f : M \to N$（属于 $\text{Mod}^{fp}_A$），令
+$$
+F(f) = \text{映射 }F(M) \to F(N)\text{ 由下列对象诱导： }
+F(\psi_f)\text{ 且 }F(\chi_f)\text{ on cokernels}
+$$
+注意，该规则延拓了已有的函子 $F$；该函子原定义于由自由模
+$A^{\oplus n}$ 组成的全子范畴。还需证明 $F$ 是函子、$F$ 可加并且 $F$ 右正合。
+
+\medskip\noindent
+设 $f : M \to N$ 是 $\text{Mod}^{fp}_A$ 的态射。我们断言，上面定义的
+$F(f)$ 与 (\ref{functors-equation-map}) 中 $\psi_f$ 和 $\chi_f$ 的选择无关。
+事实上，设
+$$
+\xymatrix{
+A^{\oplus m_M} \ar[r]_{\varphi_M} \ar[d]_\psi &
+A^{\oplus n_M} \ar[r] \ar[d]_\chi &
+M \ar[r] \ar[d]_f & 0 \\
+A^{\oplus m_N} \ar[r]^{\varphi_N} &
+A^{\oplus n_N} \ar[r] &
+N \ar[r] & 0
+}
+$$
+也交换。记 $F(f)' : F(M) \to F(N)$ 为由 $F(\psi)$ 和 $F(\chi)$
+诱导的映射。考察这些交换图，由初等交换代数，存在映射
+$\omega : A^{\oplus n_M} \to A^{\oplus m_N}$，使得
+$\chi = \chi_f + \varphi_N \circ \omega$。应用 $F$，得到
+$F(\chi) = F(\chi_f) + F(\varphi_N) \circ F(\omega)$。
+由于 $F(N)$ 是 $F(\varphi_N)$ 的余核，映射
+$F(A^{\oplus n_M}) \to F(M)$ 等化 $F(f)$ 与 $F(f)'$。
+余核是满态射，故 $F(f) = F(f)'$。
+
+\medskip\noindent
+下面证明 $F$ 是函子。首先，$F(\text{id}_M) = \text{id}_{F(M)}$，
+因为可以在上图中把 $\psi_f$ 和 $\chi_f$ 都取为恒等映射，
+当 $f = \text{id}_M$ 时。其次，设有 $f : M \to N$ 和 $g : L \to M$。
+此时 $\psi = \psi_f \circ \psi_g$ 和
+$\chi = \chi_f \circ \chi_g$ 可用于 $f \circ g$ 的
+(\ref{functors-equation-map})。因此它们诱导出正确的映射，恰好说明
+$F(f) \circ F(g) = F(f \circ g)$。
+
+\medskip\noindent
+下面证明 $F$ 可加。设有 $f, g : M \to N$。此时
+$\psi = \psi_f + \psi_g$ 和 $\chi = \chi_f + \chi_g$
+可用于 $f + g$ 的 (\ref{functors-equation-map})。因此它们诱导出正确的映射，
+恰好说明 $F(f) + F(g) = F(f + g)$。
+
+\medskip\noindent
+最后证明 $F$ 右正合。只需证明 $F$ 与等化余子交换；参见 Categories,
+Lemma \ref{categories-lemma-characterize-right-exact}。为此，只需证明
+$F$ 与余核交换。设 $K \to L \to M \to 0$ 为 $A$-模的正合序列，
+且 $K$、$L$、$M$ 都有限表示。由于 $F$ 是可加函子，这当然给出复形
+$$
+F(K) \to F(L) \to F(M) \to 0
+$$
+而我们必须证明第二个箭头是第一个箭头在 $\mathcal{B}$ 中的余核。
+无论如何，都得到一个映射 $\Coker(F(K) \to F(L)) \to F(M)$。
+由初等交换代数，存在交换图
+$$
+\xymatrix{
+A^{\oplus m_M} \ar[r]_{\varphi_M} \ar[d]_\psi &
+A^{\oplus n_M} \ar[r] \ar[d]_\chi &
+M \ar[r] \ar[d]_1 & 0 \\
+K \ar[r] &
+L \ar[r] &
+M \ar[r] & 0
+}
+$$
+对此图应用 $F$，并使用把 $F(M)$ 构造成 $F(\varphi_M)$ 的余核这一事实，
+可知存在映射 $F(M) \to \Coker(F(K) \to F(L))$，它是映射
+$\Coker(F(K) \to F(L)) \to F(M)$ 的右逆。这首先说明
+$F(L) \to F(M)$ 总是满态射。其次，上述论证给出
+$$
+\Coker(F(K) \to F(L)) = F(M) \oplus E
+$$
+并且这一直接和分解同时与
+$F(M) \to \Coker(F(K) \to F(L))$ 和
+$\Coker(F(K) \to F(L)) \to F(M)$ 相容。然而，此时满态射
+$p : F(L) \to E$ 与 $F(K) \to F(L)$ 复合后为零，
+与 $F(A^{n_M}) \to F(L)$ 复合后也为零。又因为
+$K \oplus A^{n_M} \to L$ 满射（省略代数论证），由上述结果可知
+$F(K \oplus A^{n_M}) \to F(L)$ 是满态射，故 $E = 0$。证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-functor-on-modules}
+设 $A$ 为环，$\mathcal{B}$ 为具有任意直和及余核的可加范畴。
+下列两个范畴等价：
+\begin{enumerate}
+\item 右正合且与任意直和交换的函子
+$F : \text{Mod}_A \to \mathcal{B}$ 所成的范畴；
+\item 二元组 $(K, \kappa)$ 所成的范畴，其中 $K \in \Ob(\mathcal{B})$，
+且 $\kappa : A \to \text{End}_\mathcal{B}(K)$ 为环同态。
+\end{enumerate}
+此等价由把 $F$ 映到 $F(A)$ 并赋予后者自然 $A$-作用这一规则给出。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{functors-lemma-functor-on-modules-fp} 和
+\ref{functors-lemma-functor-on-fp-modules-right-exact} 即得。
+\end{proof}
+
+
+
+
+
+
+\section{模范畴之间的函子}
+\label{functors-section-functors}
+
+\noindent
+下列引理是本章各结果的典型范例。
+
+\begin{lemma}
+\label{functors-lemma-functor}
+设 $A$ 和 $B$ 为环，并设 $F : \text{Mod}_A \to \text{Mod}_B$ 为函子。
+下列条件等价：
+\begin{enumerate}
+\item $F$ 同构于函子 $M \mapsto M \otimes_A K$，
+这里所用的是某个 $A \otimes_\mathbf{Z} B$-模 $K$；
+\item $F$ 右正合且与所有直和交换；
+\item $F$ 与所有余极限交换；
+\item $F$ 有右伴随函子 $G$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+若 (1) 成立，则 (4) 成立，因为 $M \mapsto M \otimes_A K$ 的右伴随是
+$N \mapsto \Hom_B(K, N)$；参见 Differential Graded Algebra, Lemma
+\ref{dga-lemma-tensor-hom-adjunction}。若 (4) 成立，则由 Categories,
+Lemma \ref{categories-lemma-adjoint-exact}，(3) 成立。
+(3) $\Rightarrow$ (2) 由定义立即得到。
+
+\medskip\noindent
+假设 (2)。我们证明 (1)。由 Homology, Section
+\ref{homology-section-functors} 中的讨论，函子 $F$ 可加。因此 $F$ 诱导环同态
+$A \to \text{End}_B(F(M))$, $a \mapsto F(a \cdot \text{id}_M)$，
+对每个 $A$-模 $M$ 都如此。
+从而 $F(M)$ 成为 $A \otimes_\mathbf{Z} B$-模，并且关于 $M$ 具有函子性。
+令 $K = F(A)$。定义
+$$
+M \otimes_A K = M \otimes_A F(A) \longrightarrow F(M),
+\quad m \otimes k \longmapsto F(\varphi_m)(k)
+$$
+这里 $\varphi_m : A \to M$ 的映射规则为 $a \to am$。规则
+$(m, k) \mapsto F(\varphi_m)(k)$ 是 $A$-双线性的（并且关于右侧为
+$B$-线性），因而如所需给出上示 $A \otimes_\mathbf{Z} B$-线性映射。
+此构造关于 $M$ 具有函子性，故定义函子变换
+$- \otimes_A K \to F(-)$；在 $A$ 上取值时它是同构。
+对每个 $A$-模 $M$，可以选取正合序列
+$$
+\bigoplus\nolimits_{j \in J} A \to
+\bigoplus\nolimits_{i \in I} A \to
+M \to 0
+$$
+利用上面构造的映射，得到交换图
+$$
+\xymatrix{
+(\bigoplus\nolimits_{j \in J} A) \otimes_A K \ar[r] \ar[d] &
+(\bigoplus\nolimits_{i \in I} A) \otimes_A K \ar[r] \ar[d] &
+M \otimes_A K \ar[r] \ar[d] &
+0 \\
+F(\bigoplus\nolimits_{j \in J} A) \ar[r] &
+F(\bigoplus\nolimits_{i \in I} A) \ar[r] &
+F(M) \ar[r] &  0
+}
+$$
+下行因 $F$ 右正合而正合。上行因与 $K$ 的张量积右正合而正合。
+由于 $F$ 与直和交换，左边两个竖直箭头都是双射。结论随即成立。
+\end{proof}
+
+\begin{example}
+\label{functors-example-functor-modules}
+设 $R$ 为环，$A$ 和 $B$ 为 $R$-代数，并设 $K$ 为
+$A \otimes_R B$-模。此时可以考虑函子
+\begin{equation}
+\label{functors-equation-FM-modules}
+F : \text{Mod}_A \longrightarrow \text{Mod}_B,\quad
+M \longmapsto M \otimes_A K
+\end{equation}
+此函子是 $R$-线性的、右正合的，与任意直和及所有余极限交换，
+并且有右伴随（引理 \ref{functors-lemma-functor}）。
+\end{example}
+
+\begin{lemma}
+\label{functors-lemma-functor-modules}
+设 $R$ 为环，$A$ 和 $B$ 为 $R$-代数。下列两个范畴等价：
+\begin{enumerate}
+\item 右正合且与任意直和交换的 $R$-线性函子
+$F : \text{Mod}_A \to \text{Mod}_B$ 所成的范畴；
+\item 范畴 $\text{Mod}_{A \otimes_R B}$。
+\end{enumerate}
+此等价把 $K$ 映到 (\ref{functors-equation-FM-modules}) 中的函子 $F$。
+\end{lemma}
+
+\begin{proof}
+设 $F$ 为第一个范畴的对象。由引理 \ref{functors-lemma-functor}，可以假设
+$F(M) = M \otimes_A K$ 关于 $M$ 函子性地成立，其中所用的是某个
+$A \otimes_\mathbf{Z} B$-模 $K$。$R$-线性这一 $F$ 的性质立即说明，
+$A \otimes_\mathbf{Z} B$-模结构在 $K$ 上来自唯一的
+$A \otimes_R B$-模结构在 $K$ 上。因此，(\ref{functors-equation-FM-modules}) 中把
+$K$ 映到 $F$ 的函子本质满。
+
+\medskip\noindent
+为证明该函子全忠实，必须证明：给定 $A \otimes_R B$-模 $K$ 和 $K'$，
+对应函子之间的任意变换 $t : F \to F'$ 都来自唯一的
+$\varphi : K \to K'$。由于 $K = F(A)$ 且 $K' = F'(A)$，可把
+$\varphi$ 取为值 $t_A : F(A) \to F'(A)$，即 $t$ 在 $A$ 处的值。
+此映射是 $A \otimes_R B$-线性的；这是由引理 \ref{functors-lemma-functor} 证明中
+$A \otimes B$-模结构在 $F(A)$ 和 $F'(A)$ 上的定义得出的。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-composition}
+设 $R$ 为环，$A$、$B$、$C$ 为 $R$-代数。设
+$F : \text{Mod}_A \to \text{Mod}_B$ 和
+$F' : \text{Mod}_B \to \text{Mod}_C$ 是与任意直和交换的
+$R$-线性右正合函子。若在引理 \ref{functors-lemma-functor-modules} 的等价下，
+对象 $K$（位于 $\text{Mod}_{A \otimes_R B}$）对应于 $F$，而对象
+$K'$（位于 $\text{Mod}_{B \otimes_R C}$）对应于 $F'$，则把
+$K \otimes_B K'$ 视为 $\text{Mod}_{A \otimes_R C}$ 的对象时，
+它对应于 $F' \circ F$。
+\end{remark}
+
+\begin{remark}
+\label{functors-remark-exact-flat}
+在引理 \ref{functors-lemma-functor-modules} 的情形下，假设 $F$ 对应于 $K$。则
+$F$ 正合 $\Leftrightarrow$ $K$ 在 $A$ 上平坦。
+\end{remark}
+
+\begin{remark}
+\label{functors-remark-finite}
+在引理 \ref{functors-lemma-functor-modules} 的情形下，假设 $F$ 对应于 $K$。则
+$F$ 把有限 $A$-模映到有限 $B$-模
+$\Leftrightarrow$ $K$ 作为 $B$-模是有限的。
+\end{remark}
+
+\begin{remark}
+\label{functors-remark-finite-presentation}
+在引理 \ref{functors-lemma-functor-modules} 的情形下，假设 $F$ 对应于 $K$。则
+$F$ 把有限表示 $A$-模映到有限表示 $B$-模
+$\Leftrightarrow$ $K$ 作为 $B$-模是有限表示的。
+\end{remark}
+
+\begin{lemma}
+\label{functors-lemma-functor-equivalence}
+设 $A$ 和 $B$ 为环。若
+$$
+F : \text{Mod}_A \longrightarrow \text{Mod}_B
+$$
+是范畴等价，则存在环同构 $A \to B$ 及可逆 $B$-模 $L$，使得
+$F$ 同构于函子 $M \mapsto (M \otimes_A B) \otimes_B L$。
+\end{lemma}
+
+\begin{proof}
+由于等价与所有余极限交换，引理 \ref{functors-lemma-functor} 适用。令 $K$ 为
+$A \otimes_\mathbf{Z} B$-模，使 $F$ 同构于函子
+$M \mapsto M \otimes_A K$。令 $K'$ 为 $B \otimes_\mathbf{Z} A$-模，
+使 $F$ 的一个拟逆同构于函子 $N \mapsto N \otimes_B K'$。
+由注 \ref{functors-remark-composition} 和引理 \ref{functors-lemma-functor-modules}，有同构
+$$
+\psi : K \otimes_B K' \longrightarrow A
+$$
+它是 $A \otimes_\mathbf{Z} A$-模同构。同样，有同构
+$$
+\psi' : K' \otimes_A K \longrightarrow B
+$$
+它是 $B \otimes_\mathbf{Z} B$-模同构。
+选取元素 $\xi = \sum_{i = 1, \ldots, n} x_i \otimes y_i \in K \otimes_B K'$，
+使 $\psi(\xi) = 1$。考察同构
+$$
+K \xrightarrow{\psi^{-1} \otimes \text{id}_K}
+K \otimes_B K' \otimes_A K \xrightarrow{\text{id}_K \otimes \psi'} K
+$$
+其复合是同构，并由下式给出：
+$$
+k \longmapsto \sum x_i \psi'(y_i \otimes k)
+$$
+由此可知，该自同构分解为
+$$
+K \to B^{\oplus n} \to K
+$$
+这是 $B$-模映射的分解。所以 $K$ 作为 $B$-模是有限投射的。
+
+\medskip\noindent
+我们断言 $K$ 作为 $B$-模可逆。这等价于要求 $K$ 作为 $B$-模的秩
+恒为 $1$；参见 More on Algebra, Lemma
+\ref{more-algebra-lemma-invertible} 和 Algebra, Lemma
+\ref{algebra-lemma-finite-projective}。否则，存在极大理想
+$\mathfrak m \subset B$，使得或者 (a) $K \otimes_B B/\mathfrak m = 0$，
+或者 (b) 存在满射 $K \to (B/\mathfrak m)^{\oplus 2}$，它是
+$B$-模满射。情形 (a) 不可能，因为 $K' \otimes_A K \otimes_B N = N$
+对所有 $B$-模 $N$ 都成立。
+情形 (b) 将给出满射
+$$
+A = K \otimes_B K' \longrightarrow (B/\mathfrak m \otimes_B K')^{\oplus 2}
+$$
+这是（右）$A$-模满射。
+这是不可能的，因为目标是至少需要两个生成元的 $A$-模：
+$B/\mathfrak m \otimes_B K'$ 非零，因为它是非零模
+$B/\mathfrak m$ 在 $F$ 的拟逆下的像。
+
+\medskip\noindent
+由于 $K$ 作为 $B$-模可逆，有 $\Hom_B(K, K) = B$。又因为 $K = F(A)$，
+$A$ 在 $K$ 上的作用定义环同构 $A \to B$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-functor-equivalence-linear}
+设 $R$ 为环，$A$ 和 $B$ 为 $R$-代数。若
+$$
+F : \text{Mod}_A \longrightarrow \text{Mod}_B
+$$
+是 $R$-线性范畴等价，则存在同构 $A \to B$（作为 $R$-代数）及可逆 $B$-模
+$L$，使 $F$ 同构于函子 $M \mapsto (M \otimes_A B) \otimes_B L$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{functors-lemma-functor-equivalence} 得到 $A \to B$ 和 $L$。
+为完成证明，只需说明 $R$-线性这一 $F$ 的性质迫使 $A \to B$ 为
+$R$-代数态射。细节从略。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-monoidal}
+设 $A$ 和 $B$ 为环。用模的张量积赋予 $\text{Mod}_A$ 和
+$\text{Mod}_B$ 通常的幺半结构。设
+$F : \text{Mod}_A \to \text{Mod}_B$ 为幺半范畴之间的函子；参见
+Categories, Definition \ref{categories-definition-functor-monoidal-categories}。
+有如下说明：
+\begin{enumerate}
+\item 由我们的定义，$F(A)$ 是单位对象，故 $F(A) = B$。
+\item 得到乘法映射 $\varphi : A \to B$：它把 $a \in A$ 映到其在
+$F(A) = B$ 上的作用。
+\item 取 $A = B$ 且 $F(M) = M \otimes_A M$。此时 $\varphi(a) = a^2$。
+\item 若 $F$ 可加，则 $\varphi$ 是环态射。
+\item 取 $A = B = \mathbf{Z}$ 且 $F(M) = M/\text{torsion}$。此时
+$\varphi = \text{id}_\mathbf{Z}$，但 $F$ 不是恒等函子。
+\item 若 $F$ 右正合且与直和交换，则由引理 \ref{functors-lemma-functor}，
+$F(M) = M \otimes_{A, \varphi} B$。
+\end{enumerate}
+换言之，环态射 $A \to B$ 与那些同所有余极限交换的幺半范畴函子
+$\text{Mod}_A \to \text{Mod}_B$ 的同构类之间有双射。
+\end{remark}
+
+
+
+
+\section{模范畴上函子的延拓}
+\label{functors-section-functors-extend}
+
+\noindent
+对环 $A$，用 $\text{Mod}^{fp}_A$ 表示有限表示 $A$-模所成的范畴。
+
+\begin{lemma}
+\label{functors-lemma-functor-fp-modules}
+设 $A$ 和 $B$ 为环，并设
+$F : \text{Mod}^{fp}_A \to \text{Mod}^{fp}_B$ 为函子。
+则 $F$ 唯一延拓为与滤过余极限交换的函子
+$F' : \text{Mod}_A \to \text{Mod}_B$。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{functors-lemma-functor-on-fp-modules} 的特殊情形。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-monoidal-extension}
+令 $A$、$B$、$F$ 和 $F'$ 如引理 \ref{functors-lemma-functor-fp-modules} 中所述。
+注意，两个有限表示模的张量积仍是有限表示的；参见 Algebra, Lemma
+\ref{algebra-lemma-tensor-finiteness}。因此可用模的张量积赋予
+$\text{Mod}^{fp}_A$、$\text{Mod}^{fp}_B$、$\text{Mod}_A$ 和
+$\text{Mod}_B$ 通常的幺半结构。此时，若 $F$ 是幺半范畴之间的函子，
+则 $F'$ 也是。这立即来自模的张量积与滤过余极限交换这一事实。
+\end{remark}
+
+\begin{lemma}
+\label{functors-lemma-functor-fp-modules-exact}
+令 $A$、$B$、$F$ 和 $F'$ 如引理 \ref{functors-lemma-functor-fp-modules} 中所述。
+\begin{enumerate}
+\item 若 $F$ 可加，则 $F'$ 可加并与任意直和交换；
+\item 若 $F$ 右正合，则 $F'$ 右正合。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{functors-lemma-functor-on-fp-modules-additive} 和
+\ref{functors-lemma-functor-on-fp-modules-right-exact} 得出。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-monoidal-extension-exact}
+结合注 \ref{functors-remark-monoidal}、注 \ref{functors-remark-monoidal-extension} 和引理
+\ref{functors-lemma-functor-fp-modules-exact}，得到如下结论。给定环 $A$ 和 $B$，
+环态射 $A \to B$ 所成的集合与右正合幺半范畴函子
+$\text{Mod}^{fp}_A \to \text{Mod}^{fp}_B$ 的同构类集合之间有双射。
+\end{remark}
+
+\begin{lemma}
+\label{functors-lemma-functor-fp-modules-left-exact}
+令 $A$、$B$、$F$ 和 $F'$ 如引理 \ref{functors-lemma-functor-fp-modules} 中所述。
+假设 $A$ 为相干环
+（Algebra, Definition \ref{algebra-definition-coherent}）。
+若 $F$ 左正合，则 $F'$ 左正合。
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{functors-lemma-functor-on-fp-modules-left-exact} 的特殊情形。
+\end{proof}
+
+\noindent
+对环 $A$，用 $\text{Mod}^{fg}_A$ 表示有限生成 $A$-模（亦称有限
+$A$-模）所成的范畴。
+
+\begin{lemma}
+\label{functors-lemma-functor-finite-modules}
+设 $A$ 和 $B$ 为诺特环，并设
+$F : \text{Mod}^{fg}_A \to \text{Mod}^{fg}_B$ 为函子。
+则 $F$ 唯一延拓为与滤过余极限交换的函子
+$F' : \text{Mod}_A \to \text{Mod}_B$。若 $F$ 可加，则 $F'$ 可加并与
+任意直和交换。若 $F$ 正合、左正合或右正合，则 $F'$ 也具有相应性质。
+\end{lemma}
+
+\begin{proof}
+参见引理 \ref{functors-lemma-functor-fp-modules-exact} 和
+\ref{functors-lemma-functor-fp-modules-left-exact}。还要用到有限 $A$-模是有限表示
+$A$-模这一事实；参见 Algebra, Lemma
+\ref{algebra-lemma-Noetherian-finite-type-is-finite-presentation}；以及诺特环
+是相干环这一事实；参见 Algebra, Lemma
+\ref{algebra-lemma-Noetherian-coherent}。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{拟凝聚模范畴之间的函子}
+\label{functors-section-functor-quasi-coherent}
+
+\noindent
+本节简要研究拟凝聚模范畴之间的函子。
+
+\begin{example}
+\label{functors-example-functor-quasi-coherent}
+设 $R$ 为环，$X$ 和 $Y$ 为 $R$ 上的概形，且 $X$ 拟紧且拟分离。
+设 $\mathcal{K}$ 为拟凝聚 $\mathcal{O}_{X \times_R Y}$-模。于是可考虑函子
+\begin{equation}
+\label{functors-equation-FM-QCoh}
+F : \QCoh(\mathcal{O}_X) \longrightarrow \QCoh(\mathcal{O}_Y),\quad
+\mathcal{F} \longmapsto
+\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})
+\end{equation}
+态射 $\text{pr}_2$ 拟紧且拟分离
+（Schemes, Lemmas \ref{schemes-lemma-quasi-compact-preserved-base-change}
+和 \ref{schemes-lemma-separated-permanence}）。故沿此态射的推前保持拟凝聚模；
+参见 Schemes, Lemma \ref{schemes-lemma-push-forward-quasi-coherent}。
+此外，该函子是 $R$-线性的，并与任意直和交换；参见 Cohomology of
+Schemes, Lemma \ref{coherent-lemma-colimit-cohomology}。
+\end{example}
+
+\noindent
+下述引理是引理 \ref{functors-lemma-functor-modules} 的自然推广。
+
+\begin{lemma}
+\label{functors-lemma-functor-quasi-coherent-from-affine}
+设 $R$ 为环，$X$ 和 $Y$ 为 $R$ 上的概形，且 $X$ 仿射。下列两个范畴等价：
+\begin{enumerate}
+\item $R$-线性函子
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+中右正合且与任意直和交换者所成的范畴；
+\item 范畴 $\QCoh(\mathcal{O}_{X \times_R Y})$。
+\end{enumerate}
+此等价把 $\mathcal{K}$ 送到 (\ref{functors-equation-FM-QCoh}) 中的函子 $F$。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{K}$ 为 $\QCoh(\mathcal{O}_{X \times_R Y})$ 的对象，且
+$F_\mathcal{K}$ 为函子 (\ref{functors-equation-FM-QCoh})。由例
+\ref{functors-example-functor-quasi-coherent} 中的讨论，已经知道 $F$ 是 $R$-线性的，
+并与任意直和交换。由于 $\text{pr}_2 : X \times_R Y \to Y$ 是仿射的
+（Morphisms, Lemma \ref{morphisms-lemma-base-change-affine}），函子
+$\text{pr}_{2, *}$ 正合；参见 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-relative-affine-vanishing}。故 $F$ 也右正合；换言之，
+$F$ 如 (1) 中所述。
+
+\medskip\noindent
+设 $F$ 如 (1) 中所述。不妨设 $X = \Spec(A)$。考虑拟凝聚
+$\mathcal{O}_Y$-模 $\mathcal{G} = F(\mathcal{O}_X)$。函子 $F$ 诱导
+$R$-线性映射
+$A \to \text{End}_{\mathcal{O}_Y}(\mathcal{G})$,
+$a \mapsto F(a \cdot \text{id})$。因此 $\mathcal{G}$ 是下述层上的模层：
+$$
+A \otimes_R \mathcal{O}_Y = \text{pr}_{2, *}\mathcal{O}_{X \times_R Y}
+$$
+由 Morphisms, Lemma \ref{morphisms-lemma-affine-equivalence-modules}，存在唯一的
+拟凝聚模 $\mathcal{K}$ 在 $X \times_R Y$ 上，使得
+$F(\mathcal{O}_X) = \mathcal{G} =
+\text{pr}_{2, *}\mathcal{K}$，且与 $A$ 和 $\mathcal{O}_Y$ 的作用相容。以
+$F_\mathcal{K}$ 表示由 (\ref{functors-equation-FM-QCoh}) 给出的函子。存在等价
+$\text{Mod}_A \to \QCoh(\mathcal{O}_X)$，它把 $A$ 送到 $\mathcal{O}_X$；参见
+Schemes, Lemma
+\ref{schemes-lemma-equivalence-quasi-coherent}。因此，由引理
+\ref{functors-lemma-functor-on-modules} 得到同构 $F \cong F_\mathcal{K}$，因为按构造
+已有同构 $F(\mathcal{O}_X) \cong F_\mathcal{K}(\mathcal{O}_X)$，且它与
+$A$-作用相容。
+
+\medskip\noindent
+这说明把 $\mathcal{K}$ 送到 $F_\mathcal{K}$ 的函子本质满。其全忠实性的验证从略。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-affine-morphism}
+下文将用到：对仿射态射 $h : T \to S$，有
+$h_*\mathcal{G} \otimes_{\mathcal{O}_S} \mathcal{H} =
+h_*(\mathcal{G} \otimes_{\mathcal{O}_T} h^*\mathcal{H})$，其中
+$\mathcal{G} \in \QCoh(\mathcal{O}_T)$ 且
+$\mathcal{H} \in \QCoh(\mathcal{O}_S)$。将其翻译成代数后立即可得。
+\end{remark}
+
+\begin{lemma}
+\label{functors-lemma-functor-quasi-coherent-from-affine-compose}
+在引理 \ref{functors-lemma-functor-quasi-coherent-from-affine} 中，设 $F$ 对应于
+$\mathcal{K}$，后者属于 $\QCoh(\mathcal{O}_{X \times_R Y})$。则：
+\begin{enumerate}
+\item 若 $f : X' \to X$ 为仿射态射，则 $F \circ f_*$ 对应于
+$(f \times \text{id}_Y)^*\mathcal{K}$；
+\item 若 $g : Y' \to Y$ 为平坦态射，则 $g^* \circ F$ 对应于
+$(\text{id}_X \times g)^*\mathcal{K}$；
+\item 若 $j : V \to Y$ 为开浸入，则 $j^* \circ F$ 对应于
+$\mathcal{K}|_{X \times_R V}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 的证明。考虑交换图
+$$
+\xymatrix{
+X' \times_R Y \ar[rrd]^{\text{pr}'_2} \ar[rd]_{f \times \text{id}_Y}
+\ar[dd]_{\text{pr}'_1} \\
+& X \times_R Y \ar[r]_{\text{pr}_2} \ar[d]_{\text{pr}_1} & Y \\
+X' \ar[r]^f & X
+}
+$$
+设 $\mathcal{F}'$ 为 $X'$ 上的拟凝聚模。则
+\begin{align*}
+\text{pr}_{2, *}(\text{pr}_1^*f_*\mathcal{F}'
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})
+& =
+\text{pr}_{2, *}((f \times \text{id}_Y)_*
+(\text{pr}'_1)^*\mathcal{F}'
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K}) \\
+& =
+\text{pr}_{2, *}(f \times \text{id}_Y)_*
+\left((\text{pr}'_1)^*\mathcal{F}'
+\otimes_{\mathcal{O}_{X' \times_R Y}}
+(f \times \text{id}_Y)^*\mathcal{K})\right)  \\
+& =
+\text{pr}'_{2, *}((\text{pr}'_1)^*\mathcal{F}'
+\otimes_{\mathcal{O}_{X' \times_R Y}} (f \times \text{id}_Y)^*\mathcal{K})
+\end{align*}
+这里，第一个等式是图中左侧方块的仿射基变换；参见 Cohomology of Schemes,
+Lemma \ref{coherent-lemma-affine-base-change}。第二个等式由注
+\ref{functors-remark-affine-morphism} 得到。第三个等式是模的推前的函子性。这证明了 (1)。
+
+\medskip\noindent
+(2) 的证明。考虑交换图
+$$
+\xymatrix{
+X \times_R Y' \ar[rr]_-{\text{pr}'_2} \ar[rd]^{\text{id}_X \times g}
+\ar[rdd]_{\text{pr}'_1} & & Y' \ar[d]^g \\
+& X \times_R Y \ar[r]_-{\text{pr}_2} \ar[d]^{\text{pr}_1} & Y \\
+& X
+}
+$$
+有
+\begin{align*}
+g^*\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})
+& =
+\text{pr}'_{2, *}(
+(\text{id}_X \times g)^*(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K})) \\
+& =
+\text{pr}'_{2, *}((\text{pr}'_1)^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y'}}
+(\text{id}_X \times g)^*\mathcal{K})
+\end{align*}
+第一个等式由图中方块的平坦基变换得到；参见 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-flat-base-change-cohomology}。第二个等式由拉回的函子性以及
+张量积的拉回是各拉回的张量积这一事实得到。
+
+\medskip\noindent
+(3) 是 (2) 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-functor-quasi-coherent-from-affine-diagonal-pre}
+设 $R$ 为环，$X$ 和 $Y$ 为 $R$ 上的概形。假设 $X$ 拟紧且对角态射仿射。设
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+为与任意直和交换的 $R$-线性右正合函子。则可构造：
+\begin{enumerate}
+\item 拟凝聚模 $\mathcal{K}$ 在 $X \times_R Y$ 上；
+\item 自然变换 $t : F \to F_\mathcal{K}$，其中 $F_\mathcal{K}$ 表示函子
+(\ref{functors-equation-FM-QCoh})。
+\end{enumerate}
+它们使得 $t : F \circ f_* \to F_\mathcal{K} \circ f_*$ 是同构，
+其中 $f : X' \to X$ 为源是仿射概形的任意态射。
+\end{lemma}
+
+\begin{proof}
+考虑态射 $f' : X' \to X$，其中 $X'$ 仿射。由于 $X$ 的对角态射仿射，
+$f'$ 是仿射态射（Morphisms, Lemma
+\ref{morphisms-lemma-affine-permanence}）。因此
+$f'_* : \QCoh(\mathcal{O}_{X'}) \to \QCoh(\mathcal{O}_X)$ 是 $R$-线性正合函子
+（Cohomology of Schemes, Lemma
+\ref{coherent-lemma-relative-affine-vanishing}），并与直和交换
+（Cohomology of Schemes, Lemma \ref{coherent-lemma-colimit-cohomology}）。故
+$F \circ f'_*$ 是与任意直和交换的 $R$-线性右正合函子。于是由引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine}，有
+$F \circ f'_* = F_{\mathcal{K}'}$，其中 $\mathcal{K}'$ 在
+$X' \times_R Y$ 上。此外，给定态射 $f'' : X'' \to X'$，其中 $X''$ 仿射，
+由已给出的引用与引理 \ref{functors-lemma-functor-quasi-coherent-from-affine-compose}
+可得典范识别
+$(f'' \times \text{id}_Y)^*\mathcal{K}' = \mathcal{K}''$
+。再给定态射 $f''' : X''' \to X''$ 时，这些识别满足余圈条件；其写法留给读者。
+
+\medskip\noindent
+选取仿射开覆盖 $X = \bigcup_{i = 1, \ldots, n} U_i$。由于 $X$ 的对角态射仿射，
+交 $U_{i_0 \ldots i_p} = U_{i_0} \cap \ldots \cap U_{i_p}$ 是仿射的。如上，
+包含态射 $j_{i_0 \ldots i_p} : U_{i_0 \ldots i_p} \to X$ 是仿射的。以
+$\mathcal{K}_{i_0 \ldots i_p}$ 表示 $U_{i_0 \ldots i_p} \times_R Y$ 上对应于
+$F \circ j_{i_0 \ldots i_p *}$ 的上述拟凝聚模。由上可得识别
+$$
+\mathcal{K}_{i_0 \ldots i_p} =
+\mathcal{K}_{i_0 \ldots \hat i_j \ldots i_p}|_{U_{i_0 \ldots i_p} \times_R Y}
+$$
+它们满足粘合所需的通常相容性。换言之，得到唯一的拟凝聚模
+$\mathcal{K}$ 在 $X \times_R Y$ 上，其在 $U_{i_0 \ldots i_p} \times_R Y$
+上的限制为 $\mathcal{K}_{i_0 \ldots i_p}$，并与所示识别相容。
+
+\medskip\noindent
+接着构造变换 $t$。给定拟凝聚 $\mathcal{O}_X$-模 $\mathcal{F}$，以
+$\mathcal{F}_{i_0 \ldots i_p}$ 表示 $\mathcal{F}$ 在
+$U_{i_0 \ldots i_p}$ 上的限制，并以
+$(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0 \ldots i_p}$ 表示
+$\text{pr}_1^*\mathcal{F} \otimes \mathcal{K}$ 在
+$U_{i_0 \ldots i_p} \times_R Y$ 上的限制。注意
+\begin{align*}
+F(j_{i_0 \ldots i_p *}\mathcal{F}_{i_0 \ldots i_p})
+& =
+\text{pr}_{i_0 \ldots i_p, 2, *}(
+\text{pr}_{i_0 \ldots i_p, 1}^*\mathcal{F}_{i_0 \ldots i_p}
+\otimes \mathcal{K}_{i_0 \ldots i_p}) \\
+& =
+\text{pr}_{i_0 \ldots i_p, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0 \ldots i_p}
+\end{align*}
+其中 $\text{pr}_{i_0 \ldots i_p, 2} : U_{i_0 \ldots i_p} \times_R Y \to Y$
+是投影，另一投影亦类似。此外，这些识别与上一段所示识别相容。回顾
+Cohomology of Schemes, Lemma
+\ref{coherent-lemma-separated-case-relative-cech}：相对 {\v C}ech 复形
+$$
+\bigoplus 
+\text{pr}_{i_0, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1i_2, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1i_2}
+\to \ldots
+$$
+计算 $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})$。因此其
+$0$ 次上同调层是 $F_\mathcal{K}(\mathcal{F})$。于是由考察下列交换图得到所需映射
+$t : F(\mathcal{F}) \to F_\mathcal{K}(\mathcal{F})$
+$$
+\xymatrix{
+&
+F(\mathcal{F}) \ar[r] \ar@{..>}[d] &
+\bigoplus F(j_{i_0*}\mathcal{F}_{i_0}) \ar[r] \ar[d] &
+\bigoplus F(j_{i_0i_1*}\mathcal{F}_{i_0i_1}) \ar[d] \\
+0 \ar[r] &
+F_\mathcal{K}(\mathcal{F}) \ar[r] &
+\bigoplus 
+\text{pr}_{i_0, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0}
+\ar[r] &
+\bigoplus 
+\text{pr}_{i_0i_1, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1}
+}
+$$
+上行由把 $F$ 作用于（正合）复形
+$0 \to \mathcal{F} \to \bigoplus j_{i_0*}\mathcal{F}_{i_0} \to
+\bigoplus j_{i_0i_1*}\mathcal{F}_{i_0i_1}$ 得到（但由于 $F$ 不正合，上行只是
+复形而不一定正合）。实线竖直箭头是上述识别。这确实按要求定义了虚线箭头。
+该箭头关于 $\mathcal{F}$ 函子性地变化；细节从略。
+
+\medskip\noindent
+还需证明最后一个断言。设 $f : X' \to X$ 如引理陈述所述，并设
+$\mathcal{K}'$ 为证明第一段中在 $X' \times_R Y$ 上构造的拟凝聚模。若态射
+$f : X' \to X$ 的像落在某个开集 $U_i$ 中，则结果由引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-compose} 得出，因为此时已知
+$\mathcal{K}_i = \mathcal{K}|_{U_i \times_R Y}$ 拉回为 $\mathcal{K}$。一般地，
+得到仿射开覆盖 $X' = \bigcup U'_i$，其中 $U'_i = f^{-1}(U_i)$，以及同构
+$\mathcal{K}'|_{U'_i} = f_i^*\mathcal{K}_i$，其中
+$f_i : U'_i \to U_i$ 是诱导态射。这些态射满足粘合为同构
+$\mathcal{K}' = f^*\mathcal{K}$ 所需的相容条件，结论得证。部分细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-coh-noetherian-from-affine-flat}
+在引理 \ref{functors-lemma-functor-quasi-coherent-from-affine} 或引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal-pre} 中，若 $F$ 是正合函子，
+则对应对象 $\mathcal{K}$ 属于 $\QCoh(\mathcal{O}_{X \times_R Y})$，并在 $X$ 上平坦。
+\end{lemma}
+
+\begin{proof}
+可假设 $X$ 仿射，于是处于引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine} 的情形。由引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-compose}，可假设 $Y$ 仿射。在仿射
+情形，该断言翻译为注 \ref{functors-remark-exact-flat}。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-functor-quasi-coherent-from-affine-diagonal}
+设 $R$ 为环，$X$ 和 $Y$ 为 $R$ 上的概形。假设 $X$ 拟紧且对角态射仿射。
+下列两个范畴等价：
+\begin{enumerate}
+\item $R$-线性正合函子
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+中与任意直和交换者所成的范畴；
+\item $\QCoh(\mathcal{O}_{X \times_R Y})$ 的全子范畴，其对象为满足下列条件的
+$\mathcal{K}$：
+\begin{enumerate}
+\item $\mathcal{K}$ 在 $X$ 上平坦；
+\item 对 $\mathcal{F} \in \QCoh(\mathcal{O}_X)$，有
+$R^q\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K}) = 0$，只要 $q > 0$。
+\end{enumerate}
+\end{enumerate}
+此等价把 $\mathcal{K}$ 送到 (\ref{functors-equation-FM-QCoh}) 中的函子 $F$。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{K}$ 如 (2) 中所述。(\ref{functors-equation-FM-QCoh}) 中的函子 $F$ 与直和
+交换。由于由 (1)(a) 模 $\mathcal{K}$ 在 $X$ 上平坦，给定短正合列
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$，得到短正合列
+$$
+0 \to
+\text{pr}_1^*\mathcal{F}_1 \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K} \to
+\text{pr}_1^*\mathcal{F}_2 \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K} \to
+\text{pr}_1^*\mathcal{F}_3 \otimes_{\mathcal{O}_{X \times_R Y}} \mathcal{K} \to
+0
+$$
+由于由 (2)(b)，第一项的高阶直接像 $R^1\text{pr}_{2, *}$ 为零，遂得
+$0 \to F(\mathcal{F}_1) \to F(\mathcal{F}_2) \to F(\mathcal{F}_3) \to 0$
+正合，故 $F$ 如 (1) 中所述。
+
+\medskip\noindent
+设 $F$ 如 (1) 中所述，并令 $\mathcal{K}$ 和 $t : F \to F_\mathcal{K}$ 如引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal-pre} 中所述。由引理
+\ref{functors-lemma-coh-noetherian-from-affine-flat}，$\mathcal{K}$ 在 $X$ 上平坦。为完成
+证明，须说明 $t$ 是同构并证明有关高阶直接像的断言。两者都来自相对
+{\v C}ech 复形
+$$
+\bigoplus 
+\text{pr}_{i_0, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1}
+\to
+\bigoplus 
+\text{pr}_{i_0i_1i_2, 2, *}
+(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})_{i_0i_1i_2}
+\to \ldots
+$$
+计算 $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})$ 这一事实。
+关于记号及其原因，参见引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal-pre} 的证明。在引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal-pre} 的证明中还已看到，
+此复形等于 $F$ 作用于复形
+$$
+\bigoplus j_{i_0*}\mathcal{F}_{i_0} \to
+\bigoplus j_{i_0i_1*}\mathcal{F}_{i_0i_1} \to
+\bigoplus j_{i_0i_1i_2*}\mathcal{F}_{i_0i_1i_2} \to \ldots
+$$
+此复形除零次外正合，且零次上同调层等于 $\mathcal{F}$。因此，由于 $F$ 是
+正合函子，可得 $F = F_\mathcal{K}$，并且 (2)(b) 成立。
+
+\medskip\noindent
+从略如下证明：把 $F$ 送到 $\mathcal{K}$ 的构造具有函子性，并且是把
+$\mathcal{K}$ 送到由 (\ref{functors-equation-FM-QCoh}) 确定的函子 $F_\mathcal{K}$ 的
+函子的拟逆。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-characterize-FM-QCoh}
+设 $R$ 为环，$X$ 和 $Y$ 为 $R$ 上的概形。假设 $X$ 拟紧且对角态射仿射。
+引理 \ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal} 可推广如下：与
+$X \times_R Y$ 上拟凝聚模相关联的函子 (\ref{functors-equation-FM-QCoh})，恰为满足
+下列性质的函子
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+：
+\begin{enumerate}
+\item $F$ 是 $R$-线性的，并与任意直和交换；
+\item $F \circ j_*$ 右正合，只要 $j : U \to X$ 是仿射开集的包含；
+\item 序列 $0 \to F(\mathcal{F}) \to F(\mathcal{G}) \to F(\mathcal{H})$
+正合，只要 $0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$ 是正合列，
+且对所有 $x \in X$，茎上的序列
+$0 \to \mathcal{F}_x \to \mathcal{G}_x \to \mathcal{H}_x \to 0$
+是分裂短正合列。
+\end{enumerate}
+确切地说，这些假设足以构造引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal-pre} 中那样的变换
+$t : F \to F_\mathcal{K}$ 并证明它是同构。此外，函子
+(\ref{functors-equation-FM-QCoh}) 的确具有性质 (1)、(2)、(3)。若以后需要此结论，
+我们将在此仔细陈述并证明它。
+\end{remark}
+
+\begin{lemma}
+\label{functors-lemma-compose-FM-QCoh}
+设 $R$ 为环，$X$、$Y$、$Z$ 为 $R$ 上的概形。假设 $X$ 和 $Y$ 拟紧且对角态射仿射。设
+$$
+F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)
+\quad\text{且}\quad
+G : \QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_Z)
+$$
+为与任意直和交换的 $R$-线性正合函子。令 $\mathcal{K}$ 属于
+$\QCoh(\mathcal{O}_{X \times_R Y})$，$\mathcal{L}$ 属于
+$\QCoh(\mathcal{O}_{Y \times_R Z})$，它们是相应的“核”；参见引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal}。则 $G \circ F$ 对应于
+$\text{pr}_{13, *}(\text{pr}_{12}^*\mathcal{K}
+\otimes_{\mathcal{O}_{X \times_R Y \times_R Z}}
+\text{pr}_{23}^*\mathcal{L})$，它属于 $\QCoh(\mathcal{O}_{X \times_R Z})$。
+\end{lemma}
+
+\begin{proof}
+由于 $G \circ F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Z)$ 是 $R$-线性
+正合函子且与任意直和交换，由引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal}，存在 $\mathcal{M}$ 属于
+$\QCoh(\mathcal{O}_{X \times_R Z})$，它对应于 $G \circ F$。另一方面，记
+$\mathcal{E} = \text{pr}_{13, *}(\text{pr}_{12}^*\mathcal{K}
+\otimes \text{pr}_{23}^*\mathcal{L})$。这里及证明以下部分均省略张量积的下标。
+设 $U \subset X$ 和 $W \subset Z$ 为仿射开子概形。为证明引理，将构造同构
+$$
+\Gamma(U \times_R W, \mathcal{E})
+\cong
+\Gamma(U \times_R W, \mathcal{M})
+$$
+并使其与随 $U$ 和 $W$ 变化的限制映射相容。
+
+\medskip\noindent
+首先注意
+$$
+\Gamma(U \times_R W, \mathcal{E}) =
+\Gamma(U \times_R Y \times_R W,
+\text{pr}_{12}^*\mathcal{K} \otimes \text{pr}_{23}^*\mathcal{L})
+$$
+这是由构造得到的。因此只需证明 $\mathcal{M}$ 也有同样的性质。
+
+\medskip\noindent
+写 $U = \Spec(A)$，并以 $j : U \to X$ 表示包含态射。回顾引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine} 的证明中 $\mathcal{M}$ 的构造：
+$$
+\Gamma(U \times_R W, \mathcal{M}) =
+\Gamma(W, G(F(j_*\mathcal{O}_U)))
+$$
+其中右端的 $A$-模作用由 $A$ 在 $\mathcal{O}_U$ 上的作用给出。$F$ 与
+$\mathcal{K}$ 之间的对应告诉我们
+$F(j_*\mathcal{O}_U) = b_*(a^*j_*\mathcal{O}_U \otimes \mathcal{K})$
+其中 $a : X \times_R Y \to X$ 和 $b : X \times_R Y \to Y$ 是投影态射。由于
+$j$ 是仿射态射，由 Cohomology of Schemes, Lemma
+\ref{coherent-lemma-affine-base-change}，有
+$a^*j_*\mathcal{O}_U = (j \times \text{id}_Y)_*\mathcal{O}_{U \times_R Y}$
+。接着，例如由注 \ref{functors-remark-affine-morphism}，有
+$(j \times \text{id}_Y)_*\mathcal{O}_{U \times_R Y} \otimes \mathcal{K} =
+(j \times \text{id}_Y)_*\mathcal{K}|_{U \times_R Y}$。
+汇总所得结果，得到
+$$
+F(j_*\mathcal{O}_U) =
+(U \times_R Y \to Y)_*\mathcal{K}|_{U \times_R Y}
+$$
+它带有显然的 $A$-作用。（此公式隐含在引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine} 的证明中。）应用函子 $G$ 得
+$$
+G(F(j_*\mathcal{O}_U)) =
+t_*(s^*((U \times_R Y \to Y)_*\mathcal{K}|_{U \times_R Y})
+\otimes \mathcal{L})
+$$
+其中 $s : Y \times_R Z \to Y$ 和 $t : Y \times_R Z \to Z$ 为投影态射。再次
+使用仿射基变换（Cohomology of Schemes, Lemma
+\ref{coherent-lemma-affine-base-change}），但这次用于方块
+$$
+\xymatrix{
+U \times_R Y \times_R Z \ar[r] \ar[d] & U \times_R Y \ar[d] \\
+Y \times_R Z \ar[r] & Y
+}
+$$
+得到
+$$
+s^*((U \times_R Y \to Y)_*\mathcal{K}|_{U \times_R Y}) =
+(U \times_R Y \times_R Z \to Y \times_R Z)_*
+\text{pr}_{12}^*\mathcal{K}|_{U \times_R Y \times_R Z}
+$$
+再次使用注 \ref{functors-remark-affine-morphism}，得到
+\begin{align*}
+(U \times_R Y \times_R Z \to Y \times_R Z)_*
+\text{pr}_{12}^*\mathcal{K}|_{U \times_R Y \times_R Z}
+\otimes \mathcal{L} \\
+=
+(U \times_R Y \times_R Z \to Y \times_R Z)_*
+\left(\text{pr}_{12}^*\mathcal{K} \otimes
+\text{pr}_{23}^*\mathcal{L}\right)|_{U \times_R Y \times_R Z}
+\end{align*}
+对此应用函子 $\Gamma(W, t_*(-)) = \Gamma(Y \times_R W, -)$，得到
+\begin{align*}
+\Gamma(U \times_R W, \mathcal{M})
+& =
+\Gamma(W, G(F(j_*\mathcal{O}_U))) \\
+& =
+\Gamma(Y \times_R W, (U \times_R Y \times_R Z \to Y \times_R Z)_*
+(\text{pr}_{12}^*\mathcal{K} \otimes
+\text{pr}_{23}^*\mathcal{L})|_{U \times_R Y \times_R Z}) \\
+& =
+\Gamma(U \times_R Y \times_R W,
+\text{pr}_{12}^*\mathcal{K} \otimes \text{pr}_{23}^*\mathcal{L})
+\end{align*}
+如所需。关于这些同构与限制映射相容的验证从略。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-persistence-exactness}
+令 $R$、$X$、$Y$ 和 $\mathcal{K}$ 如引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal} 的 (2) 中所述。则对任意
+概形 $T$ 在 $R$ 上，有
+$$
+R^q\text{pr}_{13, *}(\text{pr}_{12}^*\mathcal{F}
+\otimes_{\mathcal{O}_{T \times_R X \times_R Y}}
+\text{pr}_{23}^*\mathcal{K}) = 0
+$$
+其中 $\mathcal{F}$ 为 $T \times_R X$ 上的拟凝聚模，且 $q > 0$。
+\end{lemma}
+
+\begin{proof}
+问题在 $T$ 上是局部的，故可假设 $T$ 仿射。此时可考虑图
+$$
+\xymatrix{
+T \times_R X \ar[d] &
+T \times_R X \times_R Y \ar[d] \ar[l] \ar[r] &
+T \times_R Y \ar[d] \\
+X &
+X \times_R Y \ar[l] \ar[r] &
+Y
+}
+$$
+其竖直箭头均为仿射态射。特别地，沿 $T \times_R Y \to Y$ 的推前是忠实正合的
+（Cohomology of Schemes, Lemma
+\ref{coherent-lemma-relative-affine-vanishing} 和 Morphisms, Lemma
+\ref{morphisms-lemma-affine-equivalence-modules}）。利用沿仿射态射的高阶直接像
+消失这一事实（见上述引用）追踪此图，可知只需证明
+$$
+R^q\text{pr}_{2, *}(
+\text{pr}_{23, *}(\text{pr}_{12}^*\mathcal{F}
+\otimes_{\mathcal{O}_{T \times_R X \times_R Y}}
+\text{pr}_{23}^*\mathcal{K})) =
+R^q\text{pr}_{2, *}(
+\text{pr}_{23, *}(\text{pr}_{12}^*\mathcal{F})
+\otimes_{\mathcal{O}_{X \times_R Y}}
+\mathcal{K}))
+$$
+为零；这由对 $\mathcal{K}$ 的假设成立。等号由注
+\ref{functors-remark-affine-morphism} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-functor-quasi-coherent-from-separated}
+在引理 \ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal} 中，令 $F$ 和
+$\mathcal{K}$ 相互对应。若 $X$ 分离且在 $R$ 上平坦，则存在满射
+$\mathcal{O}_X \boxtimes F(\mathcal{O}_X) \to \mathcal{K}$.
+\end{lemma}
+
+\begin{proof}
+设 $\Delta : X \to X \times_R X$ 为对角态射，并置
+$\mathcal{O}_\Delta = \Delta_*\mathcal{O}_X$。由于 $\Delta$ 是闭浸入，有短正合列
+$$
+0 \to \mathcal{I} \to 
+\mathcal{O}_{X \times_R X} \to \mathcal{O}_\Delta \to 0
+$$
+由于 $\mathcal{K}$ 在 $X$ 上平坦，其拉回 $\text{pr}_{23}^*\mathcal{K}$ 到
+$X \times_R X \times_R Y$ 后，在 $X \times_R X$ 上平坦。因此得到短正合列
+$$
+0 \to 
+\text{pr}_{12}^*\mathcal{I}
+\otimes
+\text{pr}_{23}^*\mathcal{K} \to
+\text{pr}_{23}^*\mathcal{K} \to
+\text{pr}_{12}^*\mathcal{O}_\Delta
+\otimes
+\text{pr}_{23}^*\mathcal{K} \to 0
+$$
+在 $X \times_R X \times_R Y$ 上；参见 Modules, Lemma
+\ref{modules-lemma-pullback-tensor-flat-module}。于是由引理
+\ref{functors-lemma-persistence-exactness} 得到满射
+$$
+\text{pr}_{13, *}(\text{pr}_{23}^*\mathcal{K})
+\to
+\text{pr}_{13, *}(
+\text{pr}_{12}^*\mathcal{O}_\Delta
+\otimes
+\text{pr}_{23}^*\mathcal{K})
+$$
+由平坦基变换（Cohomology of Schemes, Lemma
+\ref{coherent-lemma-flat-base-change-cohomology}），此箭头的源等于
+$\text{pr}_2^*\text{pr}_{2, *}\mathcal{K}
+= \mathcal{O}_X \boxtimes F(\mathcal{O}_X)$。另一方面，其目标等于
+$$
+\text{pr}_{13, *}(
+\text{pr}_{12}^*\mathcal{O}_\Delta
+\otimes
+\text{pr}_{23}^*\mathcal{K}) =
+\text{pr}_{13, *} (\Delta \times \text{id}_Y)_* \mathcal{K} =
+\mathcal{K}
+$$
+这就完成了证明。例如，第一个等式由 Cohomology, Lemma
+\ref{cohomology-lemma-projection-formula-closed-immersion} 以及事实
+$\text{pr}_{12}^*\mathcal{O}_\Delta =
+(\Delta \times \text{id}_Y)_*\mathcal{O}_{X \times_R Y}$ 得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Gabriel--Rosenberg 重构}
+\label{functors-section-gabriel}
+
+\noindent
+本节标题所指的是命题 \ref{functors-proposition-gabriel-rosenberg} 这一类结果。除 Gabriel
+的原始论文 \cite{Gabriel} 外，也请参见 \cite{Brandenburg}；其中证明了拟分离
+概形的相应结果，并讨论了相关文献。本节仅证明拟紧拟分离概形的
+Gabriel--Rosenberg 重构。
+
+\begin{lemma}
+\label{functors-lemma-categorically-compact-QCoh}
+设 $X$ 为拟紧拟分离概形，$\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。则
+$\mathcal{F}$ 是 $\QCoh(\mathcal{O}_X)$ 的范畴紧对象，当且仅当
+$\mathcal{F}$ 是有限表示的。
+\end{lemma}
+
+\begin{proof}
+关于范畴中范畴紧对象的概念，参见 Categories, Definition
+\ref{categories-definition-compact-object}。若 $\mathcal{F}$ 是有限表示的，则由
+Modules, Lemma \ref{modules-lemma-finite-presentation-quasi-compact-colimit}，
+它是范畴紧的。反过来，任意拟凝聚模 $\mathcal{F}$ 都可写为滤过余极限
+$\mathcal{F} = \colim \mathcal{F}_i$，其中各项是有限表示（因而拟凝聚）
+$\mathcal{O}_X$-模；参见
+Properties, Lemma \ref{properties-lemma-directed-colimit-finite-presentation}。
+若 $\mathcal{F}$ 范畴紧，则存在某个 $i$ 及态射
+$\mathcal{F} \to \mathcal{F}_i$，它是给定态射
+$\mathcal{F}_i \to \mathcal{F}$ 的右逆。因此 $\mathcal{F}$ 是某有限表示模的
+直和因子，故其自身也有限表示。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-supported-on-support-pre}
+设 $X$ 为仿射概形，$\mathcal{F}$ 为有限表示 $\mathcal{O}_X$-模，且
+$\mathcal{E}$ 为非零拟凝聚 $\mathcal{O}_X$-模。若
+$\text{Supp}(\mathcal{E}) \subset \text{Supp}(\mathcal{F})$,
+则存在非零映射 $\mathcal{F} \to \mathcal{E}$。
+\end{lemma}
+
+\begin{proof}
+把该断言翻译成代数。设 $A$ 为环，$M$ 为有限表示 $A$-模，$N$ 为非零
+$A$-模。假设 $\text{Supp}(N) \subset \text{Supp}(M)$。要证
+$\Hom_A(M, N)$ 非零。可假设 $N = A/I$ 是循环模（用 $N$ 的任意非零循环子模
+代替它）。选取表示
+$$
+A^{\oplus m} \xrightarrow{T} A^{\oplus n} \to M \to 0
+$$
+回顾 $\text{Supp}(M)$ 由 $\text{Fit}_0(M)$ 截出；后者是由 $n \times n$ 阶
+子式生成的理想，这里矩阵为 $T$。参见 More on Algebra, Lemma
+\ref{more-algebra-lemma-fitting-ideal-basics}。假设
+$\text{Supp}(N) \subset \text{Supp}(M)$ 现在意味着 $\text{Fit}_0(M)$ 的元素
+在 $A/I$ 中幂零。考虑正合列
+$$
+0 \to \Hom_A(M, A/I) \to (A/I)^{\oplus n} \xrightarrow{T^t} (A/I)^{\oplus m}
+$$
+须证明 $T^t$ 不可能单射；建议读者利用 $\text{Fit}_0(M)$ 的元素在 $A/I$ 中
+幂零这一事实自行寻找证明。下面给出我们的证明。由于 $\text{Fit}_0(M)$ 有限
+生成，幂零性意味着零化子 $J \subset A/I$ 非零；它是 $\text{Fit}_0(M)$ 在
+$A/I$ 中的零化子。为证明 $T^t$ 不单射，可在一个素理想处局部化。选取适当
+素理想后，可假设 $A$ 是局部环且 $J$ 仍非零。于是由 More on Algebra, Lemma
+\ref{more-algebra-lemma-exact-length-1}，$T^t$ 有非零核。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-supported-on-support}
+设 $X$ 为拟紧拟分离概形，$\mathcal{F}$ 为有限表示 $\mathcal{O}_X$-模。
+$\QCoh(\mathcal{O}_X)$ 的下列两个子范畴相等：
+\begin{enumerate}
+\item 全子范畴 $\mathcal{A} \subset \QCoh(\mathcal{O}_X)$，其对象为支集在集合
+意义下包含于 $\text{Supp}(\mathcal{F})$ 的拟凝聚模；
+\item 最小 Serre 子范畴 $\mathcal{B} \subset \QCoh(\mathcal{O}_X)$，它包含
+$\mathcal{F}$，并对扩张和任意直和封闭。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+注意，该断言有意义，因为有限表示 $\mathcal{O}_X$-模是拟凝聚的。由于
+$\mathcal{A}$ 是对扩张和直和封闭的 Serre 子范畴，且 $\mathcal{F}$ 是
+$\mathcal{A}$ 的对象，故 $\mathcal{B} \subset \mathcal{A}$。只需再证明
+$\mathcal{A}$ 包含于 $\mathcal{B}$。
+
+\medskip\noindent
+设 $\mathcal{E}$ 为 $\mathcal{A}$ 的对象。存在极大子模
+$\mathcal{E}' \subset \mathcal{E}$，它属于 $\mathcal{B}$。确切地说，设
+$\mathcal{E}_i \subset \mathcal{E}$、$i \in I$ 是所有属于 $\mathcal{B}$ 的
+子对象。则 $\bigoplus \mathcal{E}_i$ 属于 $\mathcal{B}$，故
+$$
+\mathcal{E}' = \Im(\bigoplus \mathcal{E}_i \longrightarrow \mathcal{E})
+$$
+显然这正是所求极大子模。
+
+\medskip\noindent
+现在假设有非零映射
+$\mathcal{G} \to \mathcal{E}/\mathcal{E}'$
+，其中 $\mathcal{G}$ 属于 $\mathcal{B}$。则
+$\mathcal{G}' = \mathcal{E} \times_{\mathcal{E}/\mathcal{E}'} \mathcal{G}$
+属于 $\mathcal{B}$，因为它是 $\mathcal{E}'$ 与 $\mathcal{G}$ 的扩张。于是
+$\mathcal{G}' \to \mathcal{E}$ 的像会严格大于 $\mathcal{E}'$，与
+$\mathcal{E}'$ 的极大性矛盾。因此只需证明下一段的断言。
+
+\medskip\noindent
+设 $\mathcal{E}$ 为 $\mathcal{A}$ 的非零对象。断言存在非零映射
+$\mathcal{G} \to \mathcal{E}$，其中 $\mathcal{G}$ 属于 $\mathcal{B}$。对此按
+最小个数 $n$ 归纳；这里 $U_i$ 是 $X$ 的仿射开集，且满足
+$\text{Supp}(\mathcal{E}) \subset U_1 \cup \ldots \cup U_n$.
+置 $U = U_n$，并以 $j : U \to X$ 表示包含态射。记
+$\mathcal{E}' = \Im(\mathcal{E} \to j_*\mathcal{E}|_U)$。其核
+$\mathcal{E}''$（这里所指的满射为 $\mathcal{E} \to \mathcal{E}'$）的支集包含于
+$U_1 \cup \ldots \cup U_{n - 1}$。若 $\mathcal{E}''$ 非零，结论即得。因此可假设
+$\mathcal{E} \subset j_*\mathcal{E}|_U$。特别地，$\mathcal{E}|_U$ 非零。由引理
+\ref{functors-lemma-supported-on-support-pre}，存在非零映射
+$\mathcal{F}|_U \to \mathcal{E}|_U$。它对应于映射
+$$
+\varphi : \mathcal{F} \longrightarrow j_*(\mathcal{E}|_U)
+$$
+其在 $U$ 上的限制非零。置 $\mathcal{G} = \varphi^{-1}(\mathcal{E})$ 即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-quotient-supported-on-closed}
+设 $X$ 为拟紧拟分离概形，$Z \subset X$ 为闭子集，并且
+$U = X \setminus Z$ 拟紧。设 $\mathcal{A} \subset \QCoh(\mathcal{O}_X)$ 为全子
+范畴，其对象是在 $Z$ 上有支集的拟凝聚模。则限制函子
+$\QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_U)$ 诱导等价
+$\QCoh(\mathcal{O}_X)/\mathcal{A} \cong \QCoh(\mathcal{O}_U)$。
+\end{lemma}
+
+\begin{proof}
+由商构造的泛性质（Homology, Lemma
+\ref{homology-lemma-serre-subcategory-is-kernel}），当然得到诱导函子
+$\QCoh(\mathcal{O}_X)/\mathcal{A} \cong \QCoh(\mathcal{O}_U)$。以
+$j : U \to X$ 表示包含态射。由于 $j$ 拟紧且拟分离，得到函子
+$j_* : \QCoh(\mathcal{O}_U) \to \QCoh(\mathcal{O}_X)$。读者可验证它定义了拟逆；
+细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-characterize-affine}
+设 $X$ 为拟紧拟分离概形。若 $\QCoh(\mathcal{O}_X)$ 等价于某个环上的模范畴，
+则 $X$ 仿射。
+\end{lemma}
+
+\begin{proof}
+设 $F : \text{Mod}_R \to \QCoh(\mathcal{O}_X)$ 为等价。则
+$\mathcal{F} = F(R)$ 具有下列性质：
+\begin{enumerate}
+\item 它是有限表示 $\mathcal{O}_X$-模
+（引理 \ref{functors-lemma-categorically-compact-QCoh}）；
+\item $\Hom_X(\mathcal{F}, -)$ 正合；
+\item $\Hom_X(\mathcal{F}, \mathcal{F})$ 是交换环；
+\item $\QCoh(\mathcal{O}_X)$ 的每个对象都是若干份 $\mathcal{F}$ 的直和的商。
+\end{enumerate}
+设 $x \in X$ 为闭点。考虑满射
+$$
+\mathcal{O}_X \to i_*\kappa(x)
+$$
+其目标是 $\kappa(x)$ 沿包含态射 $i : x \to X$ 的推前。有
+$$
+\Hom_X(\mathcal{F}, i_*\kappa(x)) =
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \kappa(x))
+$$
+这首先由 (4) 蕴含 $\mathcal{F}_x$ 非零。由 (2)，每个映射
+$\mathcal{F}_x \to \kappa(x)$ 都提升为映射
+$\mathcal{F}_x \to \mathcal{O}_{X, x}$（事实上它甚至提升为整体映射
+$\mathcal{F} \to \mathcal{O}_X$）。由于 $\mathcal{F}_x$ 是有限
+$\mathcal{O}_{X, x}$-模，这蕴含 $\mathcal{F}_x$ 是非零有限自由
+$\mathcal{O}_{X, x}$-模。又因 $\mathcal{F}$ 有限表示，故 $\mathcal{F}$ 在 $x$ 的某个开邻域
+上是正秩有限自由的（Modules, Lemma
+\ref{modules-lemma-finite-presentation-stalk-free}）。由于 $X$ 的每个闭子集都含有
+闭点（Topology, Lemma \ref{topology-lemma-quasi-compact-closed-point}），这蕴含
+$\mathcal{F}$ 是正秩有限局部自由的。类似地，映射
+$$
+\Hom_X(\mathcal{F}, \mathcal{F}) \to
+\Hom_X(\mathcal{F}, i_*i^*\mathcal{F}) =
+\Hom_{\kappa(x)}(\mathcal{F}_x/\mathfrak m_x \mathcal{F}_x,
+\mathcal{F}_x/\mathfrak m_x \mathcal{F}_x)
+$$
+满射。由性质 (3)，可知秩 $\mathcal{F}_x$ 必为 $1$。因此 $\mathcal{F}$ 是可逆
+$\mathcal{O}_X$-模。于是可知函子
+$$
+\mathcal{H}
+\longmapsto
+\Gamma(X, \mathcal{H}) = \Hom_X(\mathcal{O}_X, \mathcal{H}) =
+\Hom_X(\mathcal{F}, \mathcal{H} \otimes_{\mathcal{O}_X} \mathcal{F})
+$$
+在 $\QCoh(\mathcal{O}_X)$ 上也正合。这蕴含第一 $\Ext$ 群
+$$
+\Ext^1_{\QCoh(\mathcal{O}_X)}(\mathcal{O}_X, \mathcal{H}) = 0
+$$
+在阿贝尔范畴 $\QCoh(\mathcal{O}_X)$ 中计算时，对所有 $\mathcal{H}$（属于
+$\QCoh(\mathcal{O}_X)$）都消失。不过，由于
+$\QCoh(\mathcal{O}_X) \subset \textit{Mod}(\mathcal{O}_X)$ 对扩张封闭
+（Schemes, Section \ref{schemes-section-quasi-coherent}），拟凝聚模之间的
+$\Ext^1$ 在 $\QCoh(\mathcal{O}_X)$ 中的计算与在
+$\textit{Mod}(\mathcal{O}_X)$ 中的计算相同。因此
+$$
+H^1(X, \mathcal{H}) =
+\Ext^1_{\textit{Mod}(\mathcal{O}_X)}(\mathcal{O}_X, \mathcal{H}) = 0
+$$
+对所有 $\mathcal{H}$（属于 $\QCoh(\mathcal{O}_X)$）都成立。例如由 Cohomology
+of Schemes, Lemma \ref{coherent-lemma-quasi-compact-h1-zero-covering}，这蕴含
+$X$ 仿射。
+\end{proof}
+
+\begin{proposition}
+\label{functors-proposition-gabriel-rosenberg}
+\begin{reference}
+\cite[Theorem 1.2]{Brandenburg} 的特殊情形
+\end{reference}
+设 $X$ 和 $Y$ 为拟紧拟分离概形。若
+$F : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$ 为等价，则存在概形同构
+$f : Y \to X$ 以及可逆 $\mathcal{O}_Y$-模 $\mathcal{L}$，使得
+$F(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$。
+\end{proposition}
+
+\begin{proof}
+当然，$F$ 可加、正合，与所有极限、所有余极限、直和等交换。设
+$U \subset X$ 为仿射开子概形。设 $\mathcal{I} \subset \mathcal{O}_X$ 为有限型
+拟凝聚理想层，使得 $Z = V(\mathcal{I})$ 是 $U$ 在 $X$ 中的补集；参见
+Properties, Lemma \ref{properties-lemma-quasi-coherent-finite-type-ideals}。
+则 $\mathcal{O}_X/\mathcal{I}$ 是有限表示 $\mathcal{O}_X$-模。因此由引理
+\ref{functors-lemma-categorically-compact-QCoh}，$\mathcal{G} = F(\mathcal{O}_X/\mathcal{I})$
+是有限表示 $\mathcal{O}_Y$-模。以 $T \subset Y$ 表示 $\mathcal{G}$ 的支集，
+并置 $V = Y \setminus T$。由于 $\mathcal{G}$ 有限表示，概形 $V$ 是 $Y$ 的
+拟紧开集。由引理 \ref{functors-lemma-supported-on-support}，$F$ 在下列范畴之间诱导等价：
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_X)$ 中由支集在 $Z$ 上的模组成的全子范畴；
+\item $\QCoh(\mathcal{O}_Y)$ 中由支集在 $T$ 上的模组成的全子范畴。
+\end{enumerate}
+由引理 \ref{functors-lemma-quotient-supported-on-closed} 得到交换图
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_X) \ar[r]_F \ar[d] &
+\QCoh(\mathcal{O}_Y) \ar[d] \\
+\QCoh(\mathcal{O}_U) \ar[r]^{F_U} &
+\QCoh(\mathcal{O}_V)
+}
+$$
+其中竖直箭头为限制函子，水平箭头为等价。由引理
+\ref{functors-lemma-characterize-affine}，$V$ 仿射。仿射情形已有引理
+\ref{functors-lemma-functor-equivalence}。因此存在同构 $f_U : V \to U$ 及可逆
+$\mathcal{O}_V$-模 $\mathcal{L}_U$，使得 $F_U$ 是函子
+$\mathcal{F} \mapsto f_U^*\mathcal{F} \otimes \mathcal{L}_U$.
+
+\medskip\noindent
+注意上述各图关于 $X$ 的仿射开子概形之间的包含满足显然的相容性，即可完成证明。
+因此态射 $f_U$ 与可逆模 $\mathcal{L}_U$ 可粘合。细节从略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{相干模范畴之间的函子}
+\label{functors-section-functor-coherent}
+
+\noindent
+下述引理保证：给定相干模范畴之间的函子时，可以使用拟凝聚模范畴之间函子的材料。
+
+\begin{lemma}
+\label{functors-lemma-functor-coherent}
+设 $X$ 和 $Y$ 为诺特概形，并设
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+为函子。则 $F$ 唯一延拓为与滤过余极限交换的函子
+$\QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$
+。若 $F$ 可加，则其延拓与任意直和交换。若 $F$ 正合、左正合或右正合，
+则其延拓也具有相应性质。
+\end{lemma}
+
+\begin{proof}
+延拓的存在唯一性是一般事实；参见 Categories, Lemma
+\ref{categories-lemma-extend-functor-by-colim}。为说明该引理适用，注意相干模是
+有限表示的（Modules, Lemma \ref{modules-lemma-coherent-finite-presentation}），
+因而由 Modules, Lemma
+\ref{modules-lemma-finite-presentation-quasi-compact-colimit}，它们是
+$\textit{Mod}(\mathcal{O}_X)$ 的范畴紧对象。最后，例如由 Properties, Lemma
+\ref{properties-lemma-quasi-coherent-colimit-finite-type}，每个拟凝聚模都是相干模的
+滤过余极限。
+
+\medskip\noindent
+假设 $F$ 可加。若 $\mathcal{F} = \bigoplus_{j \in J} \mathcal{H}_j$，其中
+$\mathcal{H}_j$ 拟凝聚，则
+$\mathcal{F} = \colim_{J' \subset J\text{ 有限}}
+\bigoplus_{j \in J'} \mathcal{H}_j$.
+仍把 $F$ 的延拓记作 $F$，得到
+\begin{align*}
+F(\mathcal{F})
+& =
+\colim_{J' \subset J\text{ 有限}}
+F(\bigoplus\nolimits_{j \in J'} \mathcal{H}_j) \\
+& =
+\colim_{J' \subset J\text{ 有限}}
+\bigoplus\nolimits_{j \in J'} F(\mathcal{H}_j) \\
+& =
+\bigoplus\nolimits_{j \in J} F(\mathcal{H}_j)
+\end{align*}
+故 $F$ 与任意直和交换。
+
+\medskip\noindent
+设 $0 \to \mathcal{F} \to \mathcal{F}' \to \mathcal{F}'' \to 0$ 为拟凝聚
+$\mathcal{O}_X$-模的短正合列。把 $\mathcal{F}' = \bigcup \mathcal{F}'_i$ 写成
+其相干子模的并；参见 Properties, Lemma
+\ref{properties-lemma-quasi-coherent-colimit-finite-type}。以
+$\mathcal{F}''_i \subset \mathcal{F}''$ 表示 $\mathcal{F}'_i$ 的像，并置
+$\mathcal{F}_i = \mathcal{F} \cap \mathcal{F}'_i =
+\Ker(\mathcal{F}'_i \to \mathcal{F}''_i)$。显然
+$\mathcal{F} = \bigcup \mathcal{F}_i$ 且
+$\mathcal{F}'' = \bigcup \mathcal{F}''_i$，并且有短正合列
+$$
+0 \to \mathcal{F}_i \to \mathcal{F}_i' \to \mathcal{F}_i'' \to 0
+$$
+由于该延拓与滤过余极限交换，有
+$F(\mathcal{F}) = \colim_{i \in I} F(\mathcal{F}_i)$、
+$F(\mathcal{F}') = \colim_{i \in I} F(\mathcal{F}'_i)$，以及
+$F(\mathcal{F}'') = \colim_{i \in I} F(\mathcal{F}''_i)$。
+由于滤过余极限正合（Modules, Lemma \ref{modules-lemma-limits-colimits}），
+$F$ 的正合性性质由其延拓继承。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-equivalence-coherent}
+设 $X$ 和 $Y$ 为诺特概形，并设
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+为范畴等价。则存在同构 $f : Y \to X$ 及可逆 $\mathcal{O}_Y$-模
+$\mathcal{L}$，使得 $F(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{functors-lemma-functor-coherent}，得到唯一的函子
+$F' : \QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_Y)$ 延拓 $F$。$F$ 的拟逆亦然，
+故由唯一性，$F'$ 是等价。由命题 \ref{functors-proposition-gabriel-rosenberg}，存在同构
+$f : Y \to X$ 及可逆 $\mathcal{O}_Y$-模 $\mathcal{L}$，使得
+$F'(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$。于是 $f$ 和
+$\mathcal{L}$ 对 $F$ 也适用。
+\end{proof}
+
+\begin{remark}
+\label{functors-remark-equivalence-coherent-linear}
+在引理 \ref{functors-lemma-equivalence-coherent} 中，若 $X$ 和 $Y$ 定义在同一基环 $R$
+上，且 $F$ 是 $R$-线性的，则同构 $f$ 是 $R$ 上的概形态射。
+\end{remark}
+
+\begin{lemma}
+\label{functors-lemma-characterize-finite}
+设 $f : V \to X$ 为诺特概形之间的拟有限分离态射。若存在相干
+$\mathcal{O}_V$-模 $\mathcal{K}$，其支集为 $V$，且 $f_*\mathcal{K}$ 相干并有
+$R^qf_*\mathcal{K} = 0$，则 $f$ 有限。
+\end{lemma}
+
+\begin{proof}
+由 Zariski 主定理，可找到开浸入 $j : V \to Y$ 在 $X$ 上，其中
+$\pi : Y \to X$ 有限；参见 More on Morphisms, Lemma
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}。由于 $\pi$
+仿射，函子 $\pi_*$ 在相干 $\mathcal{O}_X$-模范畴上正合且忠实。因此
+$j_*\mathcal{K}$ 相干，且 $R^qj_*\mathcal{K}$ 在 $q > 0$ 时为零。换言之，
+问题归约到下一段讨论的情形。
+
+\medskip\noindent
+假设 $f$ 为开浸入。可将 $X$ 替换为 $V$ 的概形论闭包。为导出矛盾，假设
+$X \setminus V$ 非空。选取泛点 $\xi \in X \setminus V$，它属于
+$X \setminus V$ 的某个不可约分支。利用平坦基变换，在沿
+$\Spec(\mathcal{O}_{X, \xi}) \to X$ 基变换后考察情形，并使用 Local Cohomology,
+Lemma \ref{local-cohomology-lemma-finiteness-pushforwards-and-H1-local}，归约到下一段
+讨论的代数问题。
+
+\medskip\noindent
+设 $(A, \mathfrak m)$ 为诺特局部环，$M$ 为有限 $A$-模，且其支集为
+$\Spec(A)$。则 $H^i_\mathfrak m(M) \not = 0$，其中 $i$ 为某个整数。这由 Dualizing
+Complexes, Lemma \ref{dualizing-lemma-depth} 以及 $M$ 非零从而具有有限深度这一
+事实得出。
+\end{proof}
+
+\noindent
+下一个引理可推广到 $k$ 为诺特环且 $X$ 在 $k$ 上平坦的情形（其他假设不变）。
+
+\begin{lemma}
+\label{functors-lemma-functor-coherent-over-field}
+设 $k$ 为域，$X$、$Y$ 为 $k$ 上的有限型概形，且 $X$ 分离。下列两个范畴等价：
+\begin{enumerate}
+\item $k$-线性正合函子
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+所成的范畴；
+\item 相干 $\mathcal{O}_{X \times Y}$-模 $\mathcal{K}$ 所成的范畴，其中这些模
+在 $X$ 上平坦，且其支集在 $Y$ 上有限。
+\end{enumerate}
+此等价把 $\mathcal{K}$ 送到函子 (\ref{functors-equation-FM-QCoh}) 在
+$\textit{Coh}(\mathcal{O}_X)$ 上的限制。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{K}$ 如 (2) 中所述。由引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal}，
+(\ref{functors-equation-FM-QCoh}) 给出的函子 $F$ 正合且 $k$-线性。此外，例如由
+Cohomology of Schemes, Lemma
+\ref{coherent-lemma-support-proper-over-base-pushforward}，$F$ 把
+$\textit{Coh}(\mathcal{O}_X)$ 送入 $\textit{Coh}(\mathcal{O}_Y)$。
+
+\medskip\noindent
+构造该构造的拟逆。设 $F$ 如 (1) 中所述。由引理
+\ref{functors-lemma-functor-coherent}，可把 $F$ 延拓为拟凝聚模范畴上的 $k$-线性正合函子，
+且它与任意直和交换。由引理
+\ref{functors-lemma-functor-quasi-coherent-from-affine-diagonal}，该延拓对应于唯一的拟凝聚模
+$\mathcal{K}$，它在 $X$ 上平坦，并满足
+$R^q\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes_{\mathcal{O}_{X \times Y}} \mathcal{K}) = 0$，其中 $q > 0$，并且上述
+$\mathcal{O}_X$-模 $\mathcal{F}$ 可为任意拟凝聚模。由于
+$F(\mathcal{O}_X)$ 是相干 $\mathcal{O}_Y$-模，由引理
+\ref{functors-lemma-functor-quasi-coherent-from-separated} 可知 $\mathcal{K}$ 相干。
+
+\medskip\noindent
+对闭点 $x \in X$，以 $\mathcal{O}_x$ 表示在 $x$ 处取值为 $x$ 的剩余域的摩天层。
+有
+$$
+F(\mathcal{O}_x) =
+\text{pr}_{2, *}(\text{pr}_1^*\mathcal{O}_x \otimes \mathcal{K}) =
+(x \times Y \to Y)_*(\mathcal{K}|_{x \times Y})
+$$
+由于 $x \times Y \to Y$ 有限，沿该态射的推前忠实。因此，若 $y \in Y$ 属于
+$\mathcal{K}|_{x \times Y}$ 的支集之像，则 $y$ 属于 $F(\mathcal{O}_x)$ 的支集。
+
+\medskip\noindent
+设 $Z \subset X \times Y$ 为概形论支集 $Z$，即 $\mathcal{K}$ 的概形论支集；参见 Morphisms,
+Definition \ref{morphisms-definition-scheme-theoretic-support}。先证明 $Z \to Y$
+拟有限；为此证明其在闭点上的纤维有限。确切地说，若 $Z \to Y$ 在闭点
+$y \in Y$ 上的纤维维数 $> 0$，则可找到无穷多个两两不同的闭点
+$x_1, x_2, \ldots$，它们位于 $Z_y \to X$ 的像中。由于存在满射
+$\mathcal{O}_X \to \bigoplus_{i = 1, \ldots, n} \mathcal{O}_{x_i}$
+，得到满射
+$$
+F(\mathcal{O}_X) \to \bigoplus\nolimits_{i = 1, \ldots, n} F(\mathcal{O}_{x_i})
+$$
+由上述讨论，点 $y$ 属于每个相干模 $F(\mathcal{O}_{x_i})$ 的支集。由于
+$F(\mathcal{O}_X)$ 是相干模，这会导出矛盾：$F(\mathcal{O}_X)$ 在 $y$ 处的茎
+可由 $< n$ 个元素生成，只要 $n$ 足够大。因此 $Z \to Y$ 拟有限。由于
+$\text{pr}_{2, *}\mathcal{K}$ 相干，且 $R^q\text{pr}_{2, *}\mathcal{K} = 0$
+对 $q > 0$ 成立，由引理 \ref{functors-lemma-characterize-finite}，
+$Z \to Y$ 有限。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-pushforward-invertible-pre}
+设 $f : X \to Y$ 为概形之间的有限型分离态射。设 $\mathcal{F}$ 为 $X$ 上的
+有限型拟凝聚模，其支集在 $Y$ 上有限，并且
+$\mathcal{L} = f_*\mathcal{F}$ 是可逆 $\mathcal{O}_X$-模。则存在截面
+$s : Y \to X$，使得 $\mathcal{F} \cong s_*\mathcal{L}$。
+\end{lemma}
+
+\begin{proof}
+在仿射局部考察，这翻译为下述代数问题。设 $A \to B$ 为环态射，$N$ 为
+$B$-模，并且作为 $A$-模可逆。则零化子 $J$，即 $N$ 在 $B$ 中的零化子，具有如下性质：
+$A \to B/J$ 是同构。细节从略。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-pushforward-invertible}
+设 $f : X \to Y$ 为概形之间的有限型分离态射，且有截面 $s : Y \to X$。设
+$\mathcal{F}$ 为 $X$ 上的有限型拟凝聚模，在集合意义下支集于 $s(Y)$，并且
+$\mathcal{L} = f_*\mathcal{F}$
+为可逆 $\mathcal{O}_X$-模。若 $Y$ 既约，则 $\mathcal{F} \cong s_*\mathcal{L}$。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{functors-lemma-pushforward-invertible-pre}，存在截面 $s' : Y  \to X$，使得
+$\mathcal{F} = s'_*\mathcal{L}$。由于 $s'(Y)$ 与 $s(Y)$ 有相同的底闭子集，
+并且二者都是 $X$ 的既约闭子概形，故必相等。因此 $s = s'$，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{functors-lemma-equivalence-coherent-over-field}
+\begin{reference}
+\cite{Gabriel} 中“拟凝聚模范畴决定概形同构类”这一结果的弱版本。
+\end{reference}
+设 $k$ 为域，$X$、$Y$ 为 $k$ 上的有限型概形，且 $X$ 分离、$Y$ 既约。若存在
+$k$-线性范畴等价
+$F : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+，则存在同构 $f : Y \to X$ 在 $k$ 上，以及可逆 $\mathcal{O}_Y$-模
+$\mathcal{L}$，使得 $F(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$。
+\end{lemma}
+
+\begin{proof}[使用 Gabriel--Rosenberg 重构的证明]
+本引理是引理 \ref{functors-lemma-equivalence-coherent} 与注
+\ref{functors-remark-equivalence-coherent-linear} 中所讨论结果的弱形式。
+\end{proof}
+
+\begin{proof}[不依赖 Gabriel--Rosenberg 重构的证明]
+由引理 \ref{functors-lemma-functor-coherent-over-field}，得到相干
+$\mathcal{O}_{X \times Y}$-模 $\mathcal{K}$，它在 $X$ 上平坦、支集在 $Y$ 上有限，
+并且 $F$ 由函子 (\ref{functors-equation-FM-QCoh}) 在
+$\textit{Coh}(\mathcal{O}_X)$ 上的限制给出。若能证明 $F(\mathcal{O}_X)$ 是可逆
+$\mathcal{O}_Y$-模，则由引理 \ref{functors-lemma-pushforward-invertible-pre}，有
+$\mathcal{K} = s_*\mathcal{L}$，其中 $s : Y \to X \times Y$ 是
+$\text{pr}_2$ 的某个截面，另有某个可逆 $\mathcal{O}_Y$-模 $\mathcal{L}$。这将说明
+$F$ 具有所述形式，其中 $f = \text{pr}_1 \circ s$。部分细节从略。
+
+\medskip\noindent
+只需再证明 $F(\mathcal{O}_X)$ 可逆。这里只勾勒证明并省略一些细节。对闭点
+$x \in X$，以 $\mathcal{O}_x$ 表示 $\textit{Coh}(\mathcal{O}_X)$ 中在 $x$ 处
+取值为 $\kappa(x)$ 的摩天层。首先注意，范畴
+$\textit{Coh}(\mathcal{O}_X)$ 的单对象恰为这些摩天层 $\mathcal{O}_x$。对 $Y$
+也同样成立。因此，对每个闭点 $y \in Y$，存在闭点 $x \in X$，使得
+$\mathcal{O}_y \cong F(\mathcal{O}_x)$。此外，考察自同态可知，有
+$\kappa(x) \cong \kappa(y)$，它们是 $k$ 的有限扩张。于是
+$$
+\Hom_Y(F(\mathcal{O}_X), \mathcal{O}_y) \cong
+\Hom_Y(F(\mathcal{O}_X), F(\mathcal{O}_x)) \cong
+\Hom_X(\mathcal{O}_X, \mathcal{O}_x) \cong \kappa(x) \cong \kappa(y)
+$$
+这蕴含相干 $\mathcal{O}_Y$-模 $F(\mathcal{O}_X)$ 在 $y \in Y$ 处的茎可由
+$1$ 个生成元生成（且不能更少），对每个闭点 $y \in Y$ 都如此。立即可知
+$F(\mathcal{O}_X)$ 局部可由 $1$ 个元素生成（且不能更少）；又因 $Y$ 既约，
+这确实说明它是可逆模。
+\end{proof}
