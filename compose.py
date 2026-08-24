@@ -779,6 +779,15 @@ def make_tagrefs(
 def make_reader(manifest: dict[str, object]) -> str:
     chapters = list(manifest["chapters"])
     chapter_count = len(chapters)
+    generated_material = manifest.get("generated_material", {})
+    index_input = ""
+    if generated_material:
+        if set(generated_material) != {"index"}:
+            raise RuntimeError(
+                "unsupported generated material: "
+                + ", ".join(sorted(generated_material))
+            )
+        index_input = "\\input{index}\n"
     coverage_items = "\n".join(
         rf"\item 第 {chapter['chapter']} 章：{chapter['title']}"
         for chapter in chapters
@@ -787,6 +796,7 @@ def make_reader(manifest: dict[str, object]) -> str:
         rf"\input{{{chapter['stem']}}}" for chapter in chapters
     )
     commit = manifest["authority"]["commit"]
+    year, month, day = (int(part) for part in manifest["snapshot_at"][:10].split("-"))
     return rf"""\input{{preamble}}
 \begin{{document}}
 \frontmatter
@@ -806,7 +816,7 @@ def make_reader(manifest: dict[str, object]) -> str:
 \vspace{{4mm}}
 {{\normalsize 冻结英语 authority：\texttt{{{commit[:12]}}}\par}}
 \vspace{{3mm}}
-{{\normalsize 2026 年 8 月 22 日\par}}
+{{\normalsize {year} 年 {month} 月 {day} 日\par}}
 \vfill
 {{\small 生产者累积版；尚待独立中文审校与全书认证。\par}}
 \end{{titlepage}}
@@ -833,6 +843,7 @@ def make_reader(manifest: dict[str, object]) -> str:
 {chapter_inputs}
 
 \appendix
+{index_input}
 \input{{fdl-body}}
 
 \backmatter
@@ -856,6 +867,7 @@ def main() -> None:
         verified_inputs.append(file_identity(path))
 
     chapter_reports: list[dict[str, object]] = []
+    generated_material_reports: dict[str, dict[str, object]] = {}
     generated_paths: list[Path] = []
     all_labels: set[str] = set()
     all_label_counts: Counter[str] = Counter()
@@ -888,6 +900,59 @@ def main() -> None:
         all_references.update(REF_RE.findall(transformed))
         report["output"] = file_identity(destination)
         chapter_reports.append(report)
+
+    generated_material = manifest.get("generated_material", {})
+    if generated_material:
+        if set(generated_material) != {"index"}:
+            raise RuntimeError(
+                "unsupported generated material: "
+                + ", ".join(sorted(generated_material))
+            )
+        index = generated_material["index"]
+        if index.get("stem") != "index":
+            raise RuntimeError("the generated index must use reserved stem 'index'")
+        reserved_stems = {
+            "index",
+            "fdl",
+            "fdl-body",
+            "preamble",
+            "tagrefs",
+            "reader",
+        }
+        chapter_stems = {str(chapter["stem"]) for chapter in manifest["chapters"]}
+        collisions = sorted(reserved_stems & chapter_stems)
+        if collisions:
+            raise RuntimeError(f"reserved generated stem collision: {collisions}")
+        index_target = verify_bound_file(index["target"])
+        index_intake = verify_bound_file(index["intake"])
+        verified_inputs.extend(
+            [file_identity(index_target), file_identity(index_intake)]
+        )
+        index_text, index_report = transform_standalone(
+            index_target.read_text(encoding="utf-8"),
+            stem="index",
+            chapter=None,
+            expected_title=str(index["title"]),
+        )
+        index_destination = SRC / "index.tex"
+        write_text(index_destination, index_text)
+        generated_paths.append(index_destination)
+        transformed_index_labels = LABEL_RE.findall(index_text)
+        if "index-section-phantom" not in transformed_index_labels:
+            raise RuntimeError(
+                "generated index lacks required index-section-phantom label"
+            )
+        all_labels.update(transformed_index_labels)
+        all_label_counts.update(transformed_index_labels)
+        all_references.update(REF_RE.findall(index_text))
+        index_report["required_self_link_label"] = {
+            "label": "index-section-phantom",
+            "present": True,
+        }
+        index_report["target"] = file_identity(index_target)
+        index_report["intake"] = file_identity(index_intake)
+        index_report["output"] = file_identity(index_destination)
+        generated_material_reports["index"] = index_report
 
     fdl_path = dependency_paths["license_text"]
     fdl_text, fdl_report = transform_standalone(
@@ -969,6 +1034,10 @@ def main() -> None:
         "locale": manifest["locale"],
         "chapter_count": len(manifest["chapters"]),
         "chapters": chapter_reports,
+        "generated_material": generated_material_reports,
+        "appendix_order": ["index", "fdl-body"]
+        if generated_material_reports
+        else ["fdl-body"],
         "license": fdl_report,
         "reference_resolution": {
             "unique_targets": len(all_references),
