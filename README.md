@@ -16,6 +16,6 @@
 
 简体中文版使用一个且只有一个 Zenodo concept DOI；后续章节作为同一 concept 下的新累积版本发布，不创建重复概念。日本语版和韩语版使用各自独立的 locale、仓库和 DOI lineage。GitHub 已于 2026-08-22 恢复；GitHub 发布保持为独立、窄范围的中文镜像，不与 English AI edition 或其他 locale 混合。
 
-当前公开版本为 `2026.08.24-r7`：稳定 Zenodo concept DOI 为 `10.5281/zenodo.22060287`，GitHub 发布标签为 `zh-hans-cn-2026.08.24-r7`。75 章累积 PDF 为 16,307,094 字节，SHA-256 为 `2AE59E8D4EE4B6DD1576FA80B22EA5C3DF41D047938ED79C423FA3500D98CFEF`。版本 DOI 在 Zenodo 发布后写回公开状态清单；既有 r6 记录保持不可变。
+当前公开版本为 `2026.08.24-r7`：Zenodo 版本 DOI 为 `10.5281/zenodo.22074192`，稳定 concept DOI 为 `10.5281/zenodo.22060287`，GitHub 发布标签为 `zh-hans-cn-2026.08.24-r7`。75 章累积 PDF 为 16,307,094 字节，SHA-256 为 `2AE59E8D4EE4B6DD1576FA80B22EA5C3DF41D047938ED79C423FA3500D98CFEF`；既有 r6 记录保持不可变。
 
 源作品及本衍生版依 GNU Free Documentation License 1.2 或其后版本发布，无不变章节、封面文字或封底文字。完整许可证正文收入 PDF 附录。
