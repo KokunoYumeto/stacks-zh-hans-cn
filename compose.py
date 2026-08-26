@@ -117,6 +117,14 @@ READER_EMENDATIONS = {
         ),
         (r"S \subset E\text{ finite}", r"S \subset E\text{ 为有限集}", 1),
     ],
+    # The frozen Chapter 75 producer target contains two literal U+0008
+    # control characters where the authority has ``{\bf not}``.  They came
+    # from interpreting ``\b`` as backspace while producing the Chinese
+    # ``{\bf 不}`` emphasis.  Keep the producer bytes frozen, but repair the
+    # two source-keyed reader occurrences so XeLaTeX receives valid TeX.
+    "spaces-perfect": [
+        ("{\x08f 不}", r"{\bf 不}", 2),
+    ],
     "chow": [
         (r"\mathfrak m\text{-power torsion}", r"\mathfrak m\text{-幂挠子}", 1),
         (r"\mathfrak q\text{ lying over }\mathfrak p", r"\mathfrak q\text{ 位于 }\mathfrak p\text{ 之上}", 1),
@@ -139,14 +147,25 @@ READER_EMENDATIONS = {
             1,
         ),
     ],
-    # The long topology lists clipped at the right margin in the preceding
-    # cumulative render.  Add legal math line-break opportunities only in the
-    # generated reader.
+    # The long topology lists clip at the right margin in the cumulative
+    # render.  Add legal math line-break opportunities only in the generated
+    # reader; the producer target remains byte-for-byte frozen.
     "stacks-sheaves": [
         (
             r"\{Zariski, \etale, smooth, syntomic, fppf\}",
             r"\{Zariski,\linebreak[0] \etale,\linebreak[0] smooth,\linebreak[0] syntomic,\linebreak[0] fppf\}",
             5,
+        ),
+        (
+            "\\{Zariski, \\etale, smooth,\nsyntomic, fppf\\}",
+            "\\{Zariski,\\linebreak[0] \\etale,\\linebreak[0] smooth,\n"
+            "\\linebreak[0] syntomic,\\linebreak[0] fppf\\}",
+            1,
+        ),
+        (
+            r"\{Zar, \etale, smooth, syntomic, fppf\}",
+            r"\{Zar,\allowbreak \etale,\allowbreak smooth,\allowbreak syntomic,\allowbreak fppf\}",
+            17,
         ),
     ],
     "bootstrap": [

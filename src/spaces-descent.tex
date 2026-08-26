@@ -1,0 +1,3330 @@
+% Generated mechanically from the frozen spaces-descent.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{73}
+\chapter{下降与代数空间}
+
+
+\phantomsection
+\label{spaces-descent-section-phantom}
+
+
+\section{引言}
+\label{spaces-descent-section-introduction}
+
+\noindent
+在关于代数空间上拓扑的章中（见《空间上的拓扑》第
+\ref{spaces-topologies-section-introduction} 节），我们引入了代数空间的
+平展、fppf、光滑、syntomic 和 fpqc 覆盖。
+本章讨论代数空间上的哪些结构能够沿这类覆盖下降。
+例如见 \cite{Gr-I}、\cite{Gr-II}、\cite{Gr-III}、
+\cite{Gr-IV}、\cite{Gr-V} 和 \cite{Gr-VI}。
+
+
+
+\section{约定}
+\label{spaces-descent-section-conventions}
+
+\noindent
+始终假设所有概形都包含在某个大 fppf 位点 $\Sch_{fppf}$ 中。
+并且所考虑的每个环 $A$ 都具有如下性质：
+$\Spec(A)$（同构于）这个大位点的一个对象。
+
+\medskip\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+在本章及后续各章中，我们用 $X \times_S X$
+表示 $X$ 与自身的积（在 $S$ 上代数空间的范畴中），
+而不用 $X \times X$。
+
+
+
+
+\section{拟凝聚层的下降资料}
+\label{spaces-descent-section-equivalence}
+
+\noindent
+本节是《下降》第 \ref{descent-section-equivalence} 节
+在代数空间情形下的类似版本。
+先阅读该节是有益的。
+
+\begin{definition}
+\label{spaces-descent-definition-descent-datum-quasi-coherent}
+设 $S$ 为概形。设 $\{f_i : X_i \to X\}_{i \in I}$
+为 $S$ 上具有固定靶 $X$ 的代数空间态射族。
+\begin{enumerate}
+\item 关于给定族的一个{\it 拟凝聚层下降资料
+$(\mathcal{F}_i, \varphi_{ij})$}由下列数据给出：
+一个拟凝聚层 $\mathcal{F}_i$，它位于 $X_i$ 上，
+对每个 $i \in I$；以及拟凝聚
+$\mathcal{O}_{X_i \times_X X_j}$-模的同构
+$\varphi_{ij} : \text{pr}_0^*\mathcal{F}_i \to \text{pr}_1^*\mathcal{F}_j$，
+对每一对 $(i, j) \in I^2$，
+使得对每个三元指标组 $(i, j, k) \in I^3$，图
+$$
+\xymatrix{
+\text{pr}_0^*\mathcal{F}_i \ar[rd]_{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} & &
+\text{pr}_2^*\mathcal{F}_k \\
+& \text{pr}_1^*\mathcal{F}_j \ar[ru]_{\text{pr}_{12}^*\varphi_{jk}} &
+}
+$$
+作为 $\mathcal{O}_{X_i \times_X X_j \times_X X_k}$-模的图交换。
+这称为{\it 余圈条件}。
+\item 一个{\it 下降资料态射 $\psi : (\mathcal{F}_i, \varphi_{ij}) \to
+(\mathcal{F}'_i, \varphi'_{ij})$}由一个态射族
+$\psi = (\psi_i)_{i\in I}$ 给出；这些态射是
+$\mathcal{O}_{X_i}$-模态射
+$\psi_i : \mathcal{F}_i \to \mathcal{F}'_i$，并且所有图
+$$
+\xymatrix{
+\text{pr}_0^*\mathcal{F}_i \ar[r]_{\varphi_{ij}} \ar[d]_{\text{pr}_0^*\psi_i}
+& \text{pr}_1^*\mathcal{F}_j \ar[d]^{\text{pr}_1^*\psi_j} \\
+\text{pr}_0^*\mathcal{F}'_i \ar[r]^{\varphi'_{ij}} &
+\text{pr}_1^*\mathcal{F}'_j \\
+}
+$$
+交换。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{spaces-descent-lemma-map-families}
+设 $S$ 为概形。
+设 $\mathcal{U} = \{U_i \to U\}_{i \in I}$ 和
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+为 $S$ 上具有固定靶的代数空间态射族。
+设 $(g, \alpha : I \to J, (g_i)) : \mathcal{U} \to \mathcal{V}$
+为具有固定靶的映射族之间的一个态射，见
+《位点》定义 \ref{sites-definition-morphism-coverings}。
+设 $(\mathcal{F}_j, \varphi_{jj'})$ 为关于族
+$\{V_j \to V\}_{j \in J}$ 的拟凝聚层下降资料。则
+\begin{enumerate}
+\item 系统
+$$
+\left(g_i^*\mathcal{F}_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')}\right)
+$$
+是关于族 $\{U_i \to U\}_{i \in I}$ 的下降资料。
+\item 这一构造关于下降资料
+$(\mathcal{F}_j, \varphi_{jj'})$ 是函子性的。
+\item 给定具有固定靶的映射族之间的第二个态射
+$(g', \alpha' : I \to J, (g'_i))$，
+若 $g = g'$，则存在下降资料的函子性同构
+$$
+(g_i^*\mathcal{F}_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')})
+\cong
+((g'_i)^*\mathcal{F}_{\alpha'(i)},
+(g'_i \times g'_{i'})^*\varphi_{\alpha'(i)\alpha'(i')}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+略。提示：给出第 (3) 部分下降资料同构的映射
+$g_i^*\mathcal{F}_{\alpha(i)} \to (g'_i)^*\mathcal{F}_{\alpha'(i)}$
+是把映射 $\varphi_{\alpha(i)\alpha'(i)}$ 沿态射
+$(g_i, g'_i) : U_i \to V_{\alpha(i)} \times_V V_{\alpha'(i)}$
+拉回所得的映射。
+\end{proof}
+
+\noindent
+设 $g : U \to V$ 为代数空间的一个态射。
+上述引理说明，只要具有靶 $V$ 与 $U$ 的映射族之间存在一个
+“位于 $g$ 之上”的态射，相对于这两个族的下降资料范畴之间
+便有一个良定义的拉回函子。
+
+\begin{definition}
+\label{spaces-descent-definition-descent-datum-effective-quasi-coherent}
+设 $S$ 为概形。
+设 $\{U_i \to U\}_{i \in I}$ 为 $S$ 上具有固定靶的
+代数空间态射族。
+\begin{enumerate}
+\item 设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_U$-模。
+我们把 $\mathcal{F}$ 上关于覆盖 $\{U \to U\}$ 的
+唯一下降资料称为{\it 平凡下降资料}。
+% P09-ERR-0337
+\item 平凡下降资料到 $\{U_i \to U\}$ 的拉回称为
+{\it 典范下降资料}。记作 $(\mathcal{F}|_{U_i}, can)$。
+\item 关于给定族的拟凝聚层下降资料
+$(\mathcal{F}_i, \varphi_{ij})$ 称为{\it 有效的}，
+如果存在一个拟凝聚层 $\mathcal{F}$ 位于 $U$ 上，使
+$(\mathcal{F}_i, \varphi_{ij})$ 同构于
+$(\mathcal{F}|_{U_i}, can)$。
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{spaces-descent-lemma-zariski-descent-effective}
+设 $S$ 为概形，$U$ 为 $S$ 上的代数空间。
+设 $\{U_i \to U\}$ 为 $U$ 的一个 Zariski 覆盖，见
+《空间上的拓扑》定义
+\ref{spaces-topologies-definition-zariski-covering}。
+关于族 $\mathcal{U} = \{U_i \to U\}$ 的任意拟凝聚层下降资料
+都是有效的。此外，从拟凝聚 $\mathcal{O}_U$-模范畴到
+关于 $\{U_i \to U\}$ 的下降资料范畴的函子是全忠实的。
+\end{lemma}
+
+\begin{proof}
+略。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{拟凝聚层的 Fpqc 下降}
+\label{spaces-descent-section-fpqc-descent-quasi-coherent}
+
+\noindent
+模的平坦下降的主要应用，是相应的关于 fpqc 覆盖的
+拟凝聚层下降命题。
+
+\begin{proposition}
+\label{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+设 $S$ 为概形。
+设 $\{X_i \to X\}$ 为 $S$ 上代数空间的一个 fpqc 覆盖，见
+《空间上的拓扑》定义
+\ref{spaces-topologies-definition-fpqc-covering}。
+关于 $\{X_i \to X\}$ 的任意拟凝聚层下降资料都是有效的。
+此外，从拟凝聚 $\mathcal{O}_X$-模范畴到关于
+$\{X_i \to X\}$ 的下降资料范畴的函子是全忠实的。
+\end{proposition}
+
+\begin{proof}
+这大致是概形的相应结果的一个形式推论，见
+《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}。
+以下是一种证明策略：
+\begin{enumerate}
+\item $\{X_i \to X\}$ 是平凡覆盖 $\{X \to X\}$ 的一个加细，
+这一事实经由引理 \ref{spaces-descent-lemma-map-families} 给出函子
+$\QCoh(\mathcal{O}_X) \to DD(\{X_i \to X\})$，
+它从拟凝聚 $\mathcal{O}_X$-模范畴映到给定族的下降资料范畴。
+\item 为证明该命题，我们将构造一个拟逆函子
+$back : DD(\{X_i \to X\}) \to \QCoh(\mathcal{O}_X)$。
+\item 再次应用引理 \ref{spaces-descent-lemma-map-families} 可见，有函子
+$DD(\{X_i \to X\}) \to DD(\{T_j \to X\})$，
+如果 $\{T_j \to X\}$ 是给定族的一个加细。
+因此，为构造函子 $back$，我们可以假设每个 $X_i$ 都是概形，
+见《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-refine-fpqc-schemes}。
+这把问题约化到所有 $X_i$ 都是概形的情形。
+\item $X$ 上的拟凝聚层按定义就是拟凝聚
+$\mathcal{O}_X$-模，位于 $X_\etale$ 上。现在，对任意
+$U \in \Ob(X_\etale)$，我们得到由概形组成的一个 fppf 覆盖
+$\{U_i \times_X X_i \to U\}$，以及覆盖态射
+$g : \{U_i \times_X X_i \to U\} \to \{X_i \to X\}$，
+它位于 $U \to X$ 之上。
+% P09-ERR-0338
+给定下降资料 $\xi = (\mathcal{F}_i, \varphi_{ij})$，
+我们得到拟凝聚 $\mathcal{O}_U$-模
+$\mathcal{F}_{\xi, U}$；它对应于引理
+\ref{spaces-descent-lemma-map-families} 中的拉回 $g^*\xi$
+到 $U$ 的覆盖，并使用概形的 fppf 覆盖的有效性，见
+《下降》命题
+\ref{descent-proposition-fpqc-descent-quasi-coherent}。
+\item 验证 $\xi \mapsto \mathcal{F}_{\xi, U}$ 关于 $\xi$
+是函子性的。略。
+\item 验证 $\xi \mapsto \mathcal{F}_{\xi, U}$ 与态射
+$U \to U'$ 相容，其中该态射属于位点 $X_\etale$，从而层系统
+$\mathcal{F}_{\xi, U}$ 对应于一个拟凝聚层
+$\mathcal{F}_\xi$，它位于 $X_\etale$ 上，见《空间的性质》引理
+\ref{spaces-properties-lemma-characterize-quasi-coherent-small-etale}。
+细节略。
+\item 验证 $back : \xi \mapsto \mathcal{F}_\xi$
+是第 (1) 项所构造函子的拟逆。略。
+\end{enumerate}
+证毕。
+\end{proof}
+
+
+
+
+
+
+
+
+\section{拟凝聚模与仿射对象}
+\label{spaces-descent-section-alternative-quasi-coherent}
+
+\noindent
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+回忆，$X_{affine, \etale}$ 是 $X_\etale$ 的全子范畴，
+其对象为仿射对象；通过宣告覆盖为标准平展覆盖，把它视为位点。
+见《空间的性质》定义
+\ref{spaces-properties-definition-affine-etale-site}。
+由《空间的性质》引理 \ref{spaces-properties-lemma-alternative}，
+我们有拓扑斯的等价
+$g : \Sh(X_{affine, \etale}) \to \Sh(X_\etale)$，
+其拉回函子由限制给出。
+回忆，$\mathcal{O}_X$ 表示 $X_\etale$ 上的结构层。
+于是得到带环拓扑斯的等价
+\begin{equation}
+\label{spaces-descent-equation-alternative-small-ringed}
+(\Sh(X_{affine, \etale}), \mathcal{O}_X|_{X_{affine, \etale}})
+\longrightarrow
+(\Sh(X_\etale), \mathcal{O}_X).
+\end{equation}
+我们经常用 $\mathcal{O}_X$ 代替
+$\mathcal{O}_X|_{X_{affine, \etale}}$。
+% P09-ERR-0339
+有了这些约定，我们也可以比较拟凝聚模。
+
+\begin{lemma}
+\label{spaces-descent-lemma-quasi-coherent-alternative-small}
+设 $S$ 为概形，$X$ 为 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为 $\mathcal{O}_X$-模预层，
+位于 $X_{affine, \etale}$ 上。下列条件等价：
+\begin{enumerate}
+\item 对每个态射 $U \to U'$，它属于 $X_{affine, \etale}$，映射
+$\mathcal{F}(U') \otimes_{\mathcal{O}_X(U')} \mathcal{O}_X(U)
+\to \mathcal{F}(U)$ 是同构；
+\item $\mathcal{F}$ 是带环位点
+$(X_{affine, \etale}, \mathcal{O}_X)$ 上的拟凝聚模，
+其含义见《位点上的模》定义
+\ref{sites-modules-definition-site-local}；
+\item 经由等价 (\ref{spaces-descent-equation-alternative-small-ringed})，
+$\mathcal{F}$ 对应于 $X$ 上的一个拟凝聚模。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+假设 (1) 成立。为证明 $\mathcal{F}$ 是层，设
+$\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$
+为 $X_{affine, \etale}$ 的一个覆盖。
+$\mathcal{F}$ 对 $\mathcal{U}$ 的层条件，
+由我们关于 $\mathcal{F}$ 的假设，约化为证明
+$$
+0 \to \mathcal{F}(U) \to
+\prod \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{O}_X(U_i) \to
+\prod \mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{O}_X(U_i \times_U U_j)
+$$
+正合。这是成立的，因为
+$\mathcal{O}_X(U) \to \prod \mathcal{O}_X(U_i)$
+是忠实平坦的（由《下降》引理
+\ref{descent-lemma-standard-covering-Cech}，并且
+$X_{affine, \etale}$ 中的覆盖是标准平展覆盖），
+故可应用《下降》引理 \ref{descent-lemma-ff-exact}。
+接着证明 $\mathcal{F}$ 在 $X_{affine, \etale}$ 上拟凝聚。
+具体而言，对 $U$，它属于 $X_{affine, \etale}$，令
+$R = \mathcal{O}_X(U)$，并选择一个展示
+$$
+\bigoplus\nolimits_{k \in K} R
+\longrightarrow
+\bigoplus\nolimits_{l \in L} R
+\longrightarrow
+\mathcal{F}(U)
+\longrightarrow 0
+$$
+由自由 $R$-模给出。由性质 (1) 与张量积的右正合性可见，
+对每个态射 $U' \to U$，它属于 $X_{affine, \etale}$，
+我们得到展示
+$$
+\bigoplus\nolimits_{k \in K} \mathcal{O}_X(U')
+\longrightarrow
+\bigoplus\nolimits_{l \in L} \mathcal{O}_X(U')
+\longrightarrow
+\mathcal{F}(U')
+\longrightarrow 0
+$$
+换言之，$\mathcal{F}$ 到局部化范畴
+$X_{affine, etale}/U$ 的限制具有展示
+% P09-ERR-0340
+$$
+\bigoplus\nolimits_{k \in K} \mathcal{O}_X|_{X_{affine, \etale}/U}
+\longrightarrow
+\bigoplus\nolimits_{l \in L} \mathcal{O}_X|_{X_{affine, \etale}/U}
+\longrightarrow
+\mathcal{F}|_{X_{affine, \etale}/U}
+\longrightarrow 0
+$$
+这正是证明 $\mathcal{F}$ 拟凝聚所需要的。
+谨为这套糟糕的记号致歉；由此完成 (1) 蕴含 (2) 的证明。
+
+\medskip\noindent
+由于拟凝聚模的概念是内蕴的（《位点上的模》引理
+\ref{sites-modules-lemma-special-locally-free}），
+等价 (\ref{spaces-descent-equation-alternative-small-ringed})
+诱导拟凝聚模范畴之间的等价。
+因此 (2) 与 (3) 等价。
+
+\medskip\noindent
+假设 (3) 并证明 (1)。具体而言，设
+$\mathcal{G}$ 为 $X$ 上与 $\mathcal{F}$ 对应的拟凝聚模。
+设 $h : U \to U' \to X$ 为 $X_{affine, \etale}$ 的一个态射。
+把结构态射记作 $f : U \to X$ 和 $f' : U' \to X$，
+% P09-ERR-0341
+于是 $f = f' \circ h$。我们有
+$\mathcal{F}(U') = \Gamma(U', (f')^*\mathcal{G})$ 以及
+$\mathcal{F}(U) = \Gamma(U, f^*\mathcal{G}) = \Gamma(U, h^*(f')^*\mathcal{G})$。
+因此 (1) 由《概形》引理
+\ref{schemes-lemma-widetilde-pullback} 得出。
+\end{proof}
+
+\section{模的有限性性质的下降}
+\label{spaces-descent-section-descent-finiteness}
+
+\noindent
+本节是《下降》第 \ref{descent-section-descent-finiteness} 节
+在代数空间情形下的类似版本。
+目标是说明，可以通过在一个覆盖的各成员上检验，来检验一个拟凝聚模
+是否具有某个有限性条件。
+% P09-ERR-0342
+我们将反复使用如下证明模式。
+假设 $X$ 是代数空间，且 $\{X_i \to X\}$
+是一个 fppf（相应地，fpqc）覆盖。设 $U \to X$
+为满平展态射，其中 $U$ 是概形。则存在一个
+fppf（相应地，fpqc）覆盖 $\{Y_j \to X\}$，使得
+\begin{enumerate}
+\item $\{Y_j \to X\}$ 是 $\{X_i \to X\}$ 的一个加细；
+\item 每个 $Y_j$ 都是概形；
+\item 每个态射 $Y_j \to X$ 都经 $U$ 分解；并且
+% P09-ERR-0343
+\item $\{Y_j \to U\}$ 是 $U$ 的一个
+fppf（相应地，fpqc）覆盖。
+\end{enumerate}
+具体而言，先用一个 fppf（相应地，fpqc）覆盖加细
+$\{X_i \to X\}$，使每个 $X_i$ 都是概形，见
+《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-refine-fppf-schemes}，
+相应地，引理 \ref{spaces-topologies-lemma-refine-fpqc-schemes}。
+然后令 $Y_i = U \times_X X_i$。拟凝聚
+$\mathcal{O}_X$-模 $\mathcal{F}$ 是有限型、有限展示等等，
+当且仅当拟凝聚 $\mathcal{O}_U$-模 $\mathcal{F}|_U$
+是有限型、有限展示等等。
+因此，我们可以利用加细 $\{Y_j \to X\}$ 的存在性，
+把下列引理的证明约化到概形的情形。
+我们将用“{\it 结果由概形情形经平展局部化得出}”来表示这一点。
+
+\begin{lemma}
+\label{spaces-descent-lemma-finite-type-descends}
+设 $X$ 为概形 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+设 $\{f_i : X_i \to X\}_{i \in I}$ 为一个 fpqc 覆盖，
+使每个 $f_i^*\mathcal{F}$ 都是有限型
+$\mathcal{O}_{X_i}$-模。
+则 $\mathcal{F}$ 是有限型 $\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+这由概形情形经平展局部化得出，见
+《下降》引理 \ref{descent-lemma-finite-type-descends}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-finite-presentation-descends}
+设 $X$ 为概形 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+设 $\{f_i : X_i \to X\}_{i \in I}$ 为一个 fpqc 覆盖，
+使每个 $f_i^*\mathcal{F}$ 都是有限展示
+$\mathcal{O}_{X_i}$-模。
+则 $\mathcal{F}$ 是有限展示 $\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+这由概形情形经平展局部化得出，见
+《下降》引理 \ref{descent-lemma-finite-presentation-descends}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-flat-descends}
+设 $X$ 为概形 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+设 $\{f_i : X_i \to X\}_{i \in I}$ 为一个 fpqc 覆盖，
+使每个 $f_i^*\mathcal{F}$ 都是平坦
+$\mathcal{O}_{X_i}$-模。
+则 $\mathcal{F}$ 是平坦 $\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+这由概形情形经平展局部化得出，见
+《下降》引理 \ref{descent-lemma-flat-descends}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-finite-locally-free-descends}
+设 $X$ 为概形 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+设 $\{f_i : X_i \to X\}_{i \in I}$ 为一个 fpqc 覆盖，
+使每个 $f_i^*\mathcal{F}$ 都是有限局部自由
+$\mathcal{O}_{X_i}$-模。
+则 $\mathcal{F}$ 是有限局部自由 $\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+这由概形情形经平展局部化得出，见
+《下降》引理 \ref{descent-lemma-finite-locally-free-descends}。
+\end{proof}
+
+\noindent
+局部投射拟凝聚层的定义见《空间的性质》第
+\ref{spaces-properties-section-locally-projective} 节。
+那里也证明了这一概念在拉回下保持。
+
+\begin{lemma}
+\label{spaces-descent-lemma-locally-projective-descends}
+设 $X$ 为概形 $S$ 上的代数空间。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+设 $\{f_i : X_i \to X\}_{i \in I}$ 为一个 fpqc 覆盖，
+使每个 $f_i^*\mathcal{F}$ 都是局部投射
+$\mathcal{O}_{X_i}$-模。
+则 $\mathcal{F}$ 是局部投射 $\mathcal{O}_X$-模。
+\end{lemma}
+
+\begin{proof}
+这由概形情形经平展局部化得出，见
+《下降》引理 \ref{descent-lemma-locally-projective-descends}。
+\end{proof}
+
+\noindent
+我们还在这里加入两个与上述结果相关、但性质略有不同的结果。
+
+\begin{lemma}
+\label{spaces-descent-lemma-finite-over-finite-module}
+设 $S$ 为概形。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+假设 $f$ 是有限态射。
+则 $\mathcal{F}$ 是有限型 $\mathcal{O}_X$-模，
+当且仅当 $f_*\mathcal{F}$ 是有限型
+$\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+由于 $f$ 有限，它是可表的。选择概形 $V$ 以及满平展态射
+$V \to Y$。于是 $U = V \times_Y X$ 是概形，
+它有一个到 $X$ 的满平展态射以及一个有限态射
+$\psi : U \to V$（即 $f$ 的基变换）。由于
+$\psi_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$，
+该引理的结论立即由概形版本
+《下降》引理
+\ref{descent-lemma-finite-over-finite-module}
+得出。
+% P09-ERR-0344
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-finite-finitely-presented-module}
+设 $S$ 为概形。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+假设 $f$ 有限且有限展示。
+则 $\mathcal{F}$ 是有限展示 $\mathcal{O}_X$-模，
+当且仅当 $f_*\mathcal{F}$ 是有限展示
+$\mathcal{O}_Y$-模。
+\end{lemma}
+
+\begin{proof}
+由于 $f$ 有限，它是可表的。选择概形 $V$ 以及满平展态射
+$V \to Y$。于是 $U = V \times_Y X$ 是概形，
+它有一个到 $X$ 的满平展态射以及一个有限态射
+$\psi : U \to V$（即 $f$ 的基变换）。由于
+$\psi_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$，
+该引理的结论立即由概形版本
+《下降》引理
+\ref{descent-lemma-finite-finitely-presented-module}
+得出。
+% P09-ERR-0345
+\end{proof}
+
+
+
+
+
+\section{Fpqc 覆盖}
+\label{spaces-descent-section-fpqc}
+
+\noindent
+本节是《下降》第
+\ref{descent-section-fpqc-universal-effective-epimorphisms} 节
+的类似版本。目前我们尚不知道，关于概形的 fpqc 覆盖的全部材料
+是否也对代数空间成立。
+
+\begin{lemma}
+\label{spaces-descent-lemma-open-fpqc-covering}
+设 $S$ 为概形。
+设 $\{f_i : T_i \to T\}_{i \in I}$ 为 $S$ 上代数空间的
+一个 fpqc 覆盖。
+假设对每个 $i$ 都有开子空间 $W_i \subset T_i$，
+使得对所有 $i, j \in I$，有
+$\text{pr}_0^{-1}(W_i) = \text{pr}_1^{-1}(W_j)$，
+它们作为 $T_i \times_T T_j$ 的开子空间相等。
+则存在唯一的开子空间 $W \subset T$，使
+$W_i = f_i^{-1}(W)$ 对每个 $i$ 都成立。
+\end{lemma}
+
+\begin{proof}
+由《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-refine-fpqc-schemes}，
+可以假设每个 $T_i$ 都是概形。
+选择概形 $U$ 以及满平展态射 $U \to T$。
+于是 $\{T_i \times_T U \to U\}$ 是 $U$ 的一个 fpqc 覆盖，
+并且 $T_i \times_T U$ 对每个 $i$ 都是概形。
+因此，由《下降》引理
+\ref{descent-lemma-open-fpqc-covering}，
+开集族 $W_i \times_T U$ 来自唯一的开子概形
+$W' \subset U$。
+由于 $U \to X$ 是开映射，我们可以把 $W \subset X$
+定义为 $W'$ 的像这个 Zariski 开集，见
+% P09-ERR-0346
+《空间的性质》第 \ref{spaces-properties-section-points} 节。
+我们略去验证这一构造确实有效，即 $W_i$
+是 $W$ 的逆像，对每个 $i$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}
+设 $S$ 为概形。设 $\{T_i \to T\}$ 为 $S$ 上代数空间的
+一个 fpqc 覆盖，见《空间上的拓扑》定义
+\ref{spaces-topologies-definition-fpqc-covering}。
+则给定代数空间 $B$ 位于 $S$ 上，序列
+$$
+\xymatrix{
+\Mor_S(T, B) \ar[r] &
+\prod\nolimits_i \Mor_S(T_i, B) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod\nolimits_{i, j} \Mor_S(T_i \times_T T_j, B)
+}
+$$
+是等化子图。
+换言之，$S$ 上代数空间范畴中的每个可表函子
+都对 fpqc 覆盖满足层条件。
+\end{lemma}
+
+\begin{proof}
+我们知道，当 $\{T_i \to T\}$ 是概形的 fpqc 覆盖时，
+结论成立，见《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc}。
+这是关键事实；我们鼓励读者略过证明中其余的形式部分。
+选择概形 $U$ 以及满平展态射
+$U \to T$。设 $U_i$ 为概形，并设
+$U_i \to T_i \times_T U$ 为满平展态射。
+则 $\{U_i \to U\}$ 是一个 fpqc 覆盖。
+这由《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-fpqc} 和
+\ref{spaces-topologies-lemma-recognize-fpqc-covering} 得出。
+由上可知，对 $\{U_i \to U\}$，该结论成立。
+
+\medskip\noindent
+这意味着如下内容：假设 $b_i : T_i \to B$ 是一个态射族，
+并且有 $b_i \circ \text{pr}_0 = b_j \circ \text{pr}_1$，
+它们作为态射 $T_i \times_T T_j \to B$ 相等。
+令 $a_i : U_i \to B$ 为 $U_i \to T_i$ 与 $b_i$ 的复合。
+由上可得唯一的态射 $a : U \to B$，使得 $a_i$
+是 $a$ 与 $U_i \to U$ 的复合。
+唯一性保证 $a \circ \text{pr}_0 = a \circ \text{pr}_1$，
+它们作为态射 $U \times_T U \to B$ 相等。
+于是，由于作为层有 $T = U/(U \times_T U)$，
+我们发现 $a$ 来自唯一的态射 $b : T \to B$。
+追逐图表可见，$b$ 正是所求态射。
+\end{proof}
+
+\section{态射的有限性与光滑性性质的下降}
+\label{spaces-descent-section-descent-finiteness-morphisms}
+
+\noindent
+下面这类引理有时很有用。
+
+\begin{lemma}
+\label{spaces-descent-lemma-curiosity}
+设 $S$ 为概形。设 $X \to Y \to Z$ 为代数空间的态射。
+% P09-ERR-0347
+设 $P$ 为 $S$ 上代数空间态射的下列性质之一：
+平坦、局部有限型、局部有限展示。
+假设 $X \to Z$ 具有 $P$，并且
+$X \to Y$ 是 $(\Sch/S)_{fppf}$ 上层的满射。
+则 $Y \to Z$ 具有 $P$。
+\end{lemma}
+
+\begin{proof}
+选择概形 $W$ 以及满平展态射 $W \to Z$。
+选择概形 $V$ 以及满平展态射 $V \to W \times_Z Y$。
+选择概形 $U$ 以及满平展态射 $U \to V \times_Y X$。
+由假设，可以找到一个 fppf 覆盖 $\{V_i \to V\}$
+以及提升 $V_i \to X$，它们提升态射 $V_i \to Y$。
+由于 $U \to X$ 满平展，可见在 fppf 覆盖
+$\{V_i \times_X U \to V\}$ 的各成员上存在到 $U$ 的提升。
+因此 $U \to V$ 诱导 $(\Sch/S)_{fppf}$ 上层的一个满射。
+按照代数空间态射具有性质 $P$ 的定义（见
+《空间的态射》定义 \ref{spaces-morphisms-definition-flat}、
+定义 \ref{spaces-morphisms-definition-locally-finite-type} 以及
+定义 \ref{spaces-morphisms-definition-locally-finite-presentation}），
+可见 $U \to W$ 具有 $P$，而我们必须证明 $V \to W$
+具有 $P$。于是问题约化为概形态射的情形；该情形在
+《下降》引理 \ref{descent-lemma-curiosity} 中处理。
+\end{proof}
+
+\noindent
+上述引理更为标准的一个情形如下。
+（其中“平坦”的版本由《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-permanence} 得出。）
+
+\begin{lemma}
+\label{spaces-descent-lemma-flat-finitely-presented-permanence}
+设 $S$ 为概形。设
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+为 $S$ 上代数空间态射的一个交换图。
+假设 $f$ 满、平坦且局部有限展示，并假设 $p$
+局部有限展示（相应地，局部有限型）。
+则 $q$ 局部有限展示（相应地，局部有限型）。
+\end{lemma}
+
+\begin{proof}
+由于 $\{X \to Y\}$ 是一个 fppf 覆盖，它诱导 fppf 层的满射
+（《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-fppf-covering-surjective}），
+而本引理是引理 \ref{spaces-descent-lemma-curiosity} 的特例。
+另一方面，一个更容易的论证是由概形的类似结果推出它。
+具体而言，该问题在 $B$ 与 $Y$ 上都是平展局部的
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-type-local} 和
+\ref{spaces-morphisms-lemma-finite-presentation-local}）。
+因此可以假设 $B$ 与 $Y$ 是仿射概形。
+由于 $|X| \to |Y|$ 是开映射
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open}），
+可以选择仿射概形 $U$ 以及平展态射 $U \to X$，
+使复合 $U \to Y$ 是满射。
+在这种情况下，结论由《下降》引理
+\ref{descent-lemma-flat-finitely-presented-permanence} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-syntomic-smooth-etale-permanence}
+设 $S$ 为概形。设
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+为 $S$ 上代数空间态射的一个交换图。
+假设
+\begin{enumerate}
+\item $f$ 满且为 syntomic（相应地，光滑；相应地，平展）；
+\item $p$ 为 syntomic（相应地，光滑；相应地，平展）。
+\end{enumerate}
+则 $q$ 为 syntomic（相应地，光滑；相应地，平展）。
+\end{lemma}
+
+\begin{proof}
+我们由概形的类似结果推出它。
+具体而言，该问题在 $B$ 与 $Y$ 上都是平展局部的
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-syntomic-local}、
+\ref{spaces-morphisms-lemma-smooth-local} 以及
+\ref{spaces-morphisms-lemma-etale-local}）。
+因此可以假设 $B$ 与 $Y$ 是仿射概形。
+由于 $|X| \to |Y|$ 是开映射
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open}），
+可以选择仿射概形 $U$ 以及平展态射 $U \to X$，
+使复合 $U \to Y$ 是满射。
+在这种情况下，结论由《下降》引理
+\ref{descent-lemma-syntomic-smooth-etale-permanence} 得出。
+\end{proof}
+
+\noindent
+事实上，可以如下加强这一结果。
+
+\begin{lemma}
+\label{spaces-descent-lemma-smooth-permanence}
+设 $S$ 为概形。设
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+为 $S$ 上代数空间态射的一个交换图。假设
+\begin{enumerate}
+\item $f$ 满、平坦且局部有限展示；
+\item $p$ 光滑（相应地，平展）。
+\end{enumerate}
+则 $q$ 光滑（相应地，平展）。
+\end{lemma}
+
+\begin{proof}
+我们由概形的类似结果推出它。
+具体而言，该问题在 $B$ 与 $Y$ 上都是平展局部的
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-smooth-local} 和
+\ref{spaces-morphisms-lemma-etale-local}）。
+因此可以假设 $B$ 与 $Y$ 是仿射概形。
+由于 $|X| \to |Y|$ 是开映射
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open}），
+可以选择仿射概形 $U$ 以及平展态射 $U \to X$，
+使复合 $U \to Y$ 是满射。
+在这种情况下，结论由《下降》引理
+\ref{descent-lemma-smooth-permanence} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-syntomic-permanence}
+设 $S$ 为概形。设
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+为 $S$ 上代数空间态射的一个交换图。假设
+\begin{enumerate}
+\item $f$ 满、平坦且局部有限展示；
+\item $p$ 为 syntomic。
+\end{enumerate}
+则 $q$ 与 $f$ 都是 syntomic。
+\end{lemma}
+
+\begin{proof}
+我们由概形的类似结果推出它。
+具体而言，该问题在 $B$ 与 $Y$ 上都是平展局部的
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-syntomic-local}）。
+因此可以假设 $B$ 与 $Y$ 是仿射概形。
+由于 $|X| \to |Y|$ 是开映射
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open}），
+可以选择仿射概形 $U$ 以及平展态射 $U \to X$，
+使复合 $U \to Y$ 是满射。
+在这种情况下，结论由《下降》引理
+\ref{descent-lemma-syntomic-permanence} 得出。
+\end{proof}
+
+\section{空间性质的下降}
+\label{spaces-descent-section-descending-properties-spaces}
+
+\noindent
+本节收录一些如下类型的结果。
+
+\begin{lemma}
+\label{spaces-descent-lemma-descend-unibranch}
+设 $S$ 为概形。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+设 $x \in |X|$。
+若 $f$ 在 $x$ 处平坦，且 $X$ 在 $x$ 处几何单支，
+则 $Y$ 在 $f(x)$ 处几何单支。
+\end{lemma}
+
+\begin{proof}
+考虑平展局部环之间的映射
+$\mathcal{O}_{Y, f(\overline{x})} \to \mathcal{O}_{X, \overline{x}}$。
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-at-point-etale-local-rings}，
+该映射平坦。因此，若 $\mathcal{O}_{X, \overline{x}}$
+有唯一的极小素理想，则 $\mathcal{O}_{Y, f(\overline{x})}$
+也有唯一的极小素理想（由降链性质，见
+《代数》引理 \ref{algebra-lemma-flat-going-down}）。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descend-reduced}
+\begin{slogan}
+一个源约化的平坦满代数空间态射具有约化的靶。
+\end{slogan}
+设 $S$ 为概形。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+若 $f$ 平坦且满，并且 $X$ 约化，则 $Y$ 约化。
+\end{lemma}
+
+\begin{proof}
+选择概形 $V$ 以及满平展态射 $V \to Y$。
+选择概形 $U$ 以及满平展态射
+$U \to X \times_Y V$。由于 $f$ 满且平坦，概形态射
+$U \to V$ 满且平坦。这样便把问题约化为概形的情形
+（因为 $X$ 与 $Y$ 的约化性是用 $U$ 与 $V$ 的约化性定义的，
+见《空间的性质》第
+\ref{spaces-properties-section-types-properties} 节）。
+概形的情形是《下降》引理
+\ref{descent-lemma-descend-reduced}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descend-locally-Noetherian}
+设 $f : X \to Y$ 为代数空间的一个态射。
+若 $f$ 局部有限展示、平坦且满，并且 $X$ 局部 Noether，
+则 $Y$ 局部 Noether。
+\end{lemma}
+
+\begin{proof}
+选择概形 $V$ 以及满平展态射 $V \to Y$。
+选择概形 $U$ 以及满平展态射
+$U \to X \times_Y V$。由于 $f$ 满、平坦且局部有限展示，
+概形态射 $U \to V$ 满、平坦且局部有限展示。
+这样便把问题约化为概形的情形（因为 $X$ 与 $Y$
+局部 Noether 是用 $U$ 与 $V$ 局部 Noether 定义的，见
+《空间的性质》第
+\ref{spaces-properties-section-types-properties} 节）。
+在概形情形下，结论由《下降》引理
+\ref{descent-lemma-Noetherian-local-fppf} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descend-regular}
+设 $f : X \to Y$ 为代数空间的一个态射。
+若 $f$ 局部有限展示、平坦且满，并且 $X$ 正则，
+则 $Y$ 正则。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-descent-lemma-descend-locally-Noetherian}，
+我们知道 $Y$ 局部 Noether。
+选择概形 $V$ 以及满平展态射 $V \to Y$。
+只须证明 $V$ 的所有局部环都是正则局部环，见
+《性质》引理 \ref{properties-lemma-characterize-regular}。
+选择概形 $U$ 以及满平展态射
+$U \to X \times_Y V$。由于 $f$ 满且平坦，概形态射
+$U \to V$ 满且平坦。由假设，$U$ 是正则概形，
+尤其其所有局部环都正则（由上述引理）。
+因此，本引理由《代数》引理
+\ref{algebra-lemma-flat-under-regular} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-reduced-local-smooth}
+设 $f : X \to Y$ 为代数空间的一个光滑态射。
+若 $Y$ 约化，则 $X$ 约化。若 $f$ 满且 $X$ 约化，
+则 $Y$ 约化。
+\end{lemma}
+
+\begin{proof}
+选择交换图
+$$
+\xymatrix{
+U \ar[d] \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其中 $U$ 与 $V$ 是概形，竖直箭头满且平展，并且
+$U \to X \times_Y V$ 满平展。
+按照《空间的性质》第
+\ref{spaces-properties-section-types-properties} 节中
+约化代数空间的定义，$X$ 是约化代数空间当且仅当
+$U$ 是约化概形。对 $Y$ 与 $V$ 亦然。
+态射 $U \to V$ 是概形的光滑态射，见
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-smooth-local}。
+由于对概形而言，约化性对光滑拓扑是局部的
+（《下降》引理 \ref{descent-lemma-reduced-local-smooth}），
+可见 $U$ 约化，如果 $V$ 约化。
+另一方面，若 $X \to Y$ 满，则 $U \to V$ 满；
+在这种情况下，若 $U$ 约化，则 $V$ 约化。
+\end{proof}
+
+\section{态射性质的下降}
+\label{spaces-descent-section-descending-properties-morphisms}
+
+\noindent
+本节引入代数空间态射的一个性质何时在某个拓扑中关于靶是局部的
+这一概念。请与《下降》第
+\ref{descent-section-descending-properties-morphisms} 节比较。
+
+\begin{definition}
+\label{spaces-descent-definition-property-morphisms-local}
+设 $S$ 为概形。
+设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质。
+设 $\tau \in \{fpqc, fppf, syntomic, smooth, \etale\}$。
+我们称 $\mathcal{P}$ {\it 关于基是 $\tau$-局部的}，
+或{\it 关于靶是 $\tau$-局部的}，或
+{\it 对 $\tau$-拓扑关于基是局部的}，如果对代数空间的任意
+$\tau$-覆盖
+$\{Y_i \to Y\}_{i \in I}$ 以及代数空间的任意态射
+$f : X \to Y$，都有
+$$
+f \text{ 具有 }\mathcal{P}
+\Leftrightarrow
+\text{每个 }Y_i \times_Y X \to Y_i\text{ 具有 }\mathcal{P}.
+$$
+\end{definition}
+
+\noindent
+为免疑义，由于同构总是覆盖，我们看到（或要求）
+性质 $\mathcal{P}$ 对 $X \to Y$ 成立，当且仅当它对
+任意箭头 $X' \to Y'$ 成立，只要该箭头与 $X \to Y$ 同构。
+若一个性质关于靶是 $\tau$-局部的，则它在沿
+$\tau$-覆盖中出现的态射作基变换时保持。
+下面是形式化陈述。
+
+\begin{lemma}
+\label{spaces-descent-lemma-pullback-property-local-target}
+设 $S$ 为概形。
+设 $\tau \in \{fpqc, fppf, syntomic, smooth, \etale\}$。
+设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，
+并且关于靶是 $\tau$-局部的。设 $f : X \to Y$
+具有性质 $\mathcal{P}$。
+对任意平坦、相应地平坦且局部有限展示、
+相应地 syntomic、相应地平展的态射 $Y' \to Y$，
+基变换 $f' : Y' \times_Y X \to Y'$，即 $f$ 的基变换，具有性质
+$\mathcal{P}$。
+% P09-ERR-0348
+\end{lemma}
+
+\begin{proof}
+这是成立的，因为可以把 $Y' \to Y$ 放入一个构成
+$\tau$-覆盖的态射族中。
+\end{proof}
+
+\noindent
+上面的一个简单而常用的推论是：若
+$f : X \to Y$ 具有性质 $\mathcal{P}$，该性质关于靶
+是 $\tau$-局部的，并且 $f(X) \subset V$，
+其中 $V \subset Y$ 是某个开子空间，则所诱导的态射 $X \to V$
+也具有 $\mathcal{P}$。
+% P09-ERR-0349
+证明：对 $f$ 沿 $V \to Y$ 作基变换即得 $X \to V$。
+
+\begin{lemma}
+\label{spaces-descent-lemma-largest-open-of-the-base}
+设 $S$ 为概形。
+设 $\tau \in \{fppf, syntomic, smooth, \etale\}$。
+设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，
+并且关于靶是 $\tau$-局部的。
+对代数空间的任意态射 $f : X \to Y$ 位于 $S$ 上，
+存在最大的开子空间 $W(f) \subset Y$，使限制
+$X_{W(f)} \to W(f)$ 具有 $\mathcal{P}$。此外：
+\begin{enumerate}
+\item 若 $g : Y' \to Y$ 是平坦且局部有限展示、
+syntomic、光滑或平展的代数空间态射，并且基变换
+$f' : X_{Y'} \to Y'$ 具有 $\mathcal{P}$，则
+$g$ 经 $W(f)$ 分解；
+\item 若 $g : Y' \to Y$ 平坦且局部有限展示、
+syntomic、光滑或平展，则 $W(f') = g^{-1}(W(f))$；并且
+\item 若 $\{g_i : Y_i \to Y\}$ 是一个 $\tau$-覆盖，则
+$g_i^{-1}(W(f)) = W(f_i)$，其中 $f_i$ 是 $f$
+沿 $Y_i \to Y$ 的基变换。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+考虑 $W_{set} \subset |Y|$，它是像
+$g(|Y'|) \subset |Y|$ 的并，其中这些像来自满足下列性质的态射
+$g : Y' \to Y$：
+\begin{enumerate}
+\item $g$ 平坦且局部有限展示、syntomic、光滑或平展；并且
+\item 基变换 $Y' \times_{g, Y} X \to Y'$ 具有性质
+$\mathcal{P}$。
+\end{enumerate}
+由于这样的态射 $g$ 是开映射（见《空间的态射》引理
+\ref{spaces-morphisms-lemma-fppf-open}），
+可见 $W_{set}$ 是 $|Y|$ 的开子集。
+把开子空间记作 $W \subset Y$，其底点集为 $W_{set}$，见
+% P09-ERR-0350
+《空间的性质》引理
+\ref{spaces-properties-lemma-open-subspaces}。
+由于 $\mathcal{P}$ 对 $\tau$ 拓扑是局部的，限制
+$X_W \to W$ 具有性质 $\mathcal{P}$，因为我们有覆盖
+$\{Y' \to W\}$，它是 $W$ 的一个覆盖，使各拉回具有
+$\mathcal{P}$。
+这证明了存在性，也证明 $W(f)$ 具有性质 (1)。
+为看出性质 (2)，注意
+$W(f') \supset g^{-1}(W(f))$，因为 $\mathcal{P}$
+在沿平坦且局部有限展示、syntomic、光滑或平展的态射作
+基变换时保持，见引理
+\ref{spaces-descent-lemma-pullback-property-local-target}。
+另一方面，若 $Y'' \subset Y'$ 是一个开子空间，并且
+$X_{Y''} \to Y''$ 具有性质 $\mathcal{P}$，则由构造
+$Y'' \to Y$ 经 $W$ 分解，即
+$Y'' \subset g^{-1}(W(f))$。这证明了 (2)。
+断言 (3) 由 (2) 得出，因为每个态射 $Y_i \to Y$
+按 $\tau$-覆盖的定义都平坦且局部有限展示、
+syntomic、光滑或平展。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-properties-morphisms}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上
+代数空间态射的一个性质。假设：
+\begin{enumerate}
+\item 若 $X_i \to Y_i$（$i = 1, 2$）具有性质
+$\mathcal{P}$，则 $X_1 \amalg X_2 \to Y_1 \amalg Y_2$
+也如此；
+% P09-ERR-0351
+\item 代数空间态射 $f : X \to Y$ 具有性质
+$\mathcal{P}$，当且仅当对每个仿射概形 $Z$
+与态射 $Z \to Y$，基变换
+$Z \times_Y X \to Z$，即 $f$ 的基变换，具有性质
+$\mathcal{P}$；并且
+\item 对仿射概形的任意满平坦态射
+$Z' \to Z$ 位于 $S$ 上，以及一个态射
+$f : X \to Z$ 从代数空间到 $Z$，都有
+$$
+f' : Z' \times_Z X \to Z'\text{ 具有 }\mathcal{P}
+\Rightarrow
+f\text{ 具有 }\mathcal{P}.
+$$
+\end{enumerate}
+则 $\mathcal{P}$ 关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+若 $\mathcal{P}$ 具有性质 (2)，则它自动在任意基变换下保持。
+因此，定义 \ref{spaces-descent-definition-property-morphisms-local}
+中的正向蕴含成立。
+
+\medskip\noindent
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $S$ 上代数空间的
+一个 fpqc 覆盖。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+假设每个基变换 $f_i : Y_i \times_Y X \to Y_i$
+都具有性质 $\mathcal{P}$。我们的目标是证明 $f$
+具有 $\mathcal{P}$。
+设 $Z$ 为仿射概形，并设 $Z \to Y$ 为一个态射。
+由 (2)，只须证明代数空间态射
+$Z \times_Y X \to Z$ 具有 $\mathcal{P}$。
+由于 $\{Y_i \to Y\}_{i \in I}$ 是 fpqc 覆盖，
+我们知道存在一个标准 fpqc 覆盖
+$\{Z_j \to Z\}_{j = 1, \ldots , n}$，
+并且存在态射 $Z_j \to Y_{i_j}$，它们位于 $Y$ 上，
+其中 $i_j \in I$ 是适当的指标。
+由于 $f_{i_j}$ 具有 $\mathcal{P}$，可见
+$$
+Z_j \times_Y X
+=
+Z_j \times_{Y_{i_j}} (Y_{i_j} \times_Y X)
+\longrightarrow
+Z_j
+$$
+具有 $\mathcal{P}$，因为它是 $f_{i_j}$ 的基变换
+（见证明的第一条注记）。
+令 $Z' = \coprod_{j = 1, \ldots, n} Z_j$，
+于是 $Z' \to Z$ 是 $S$ 上仿射概形的平坦满态射。
+由 (1)，我们得出 $Z' \times_Y X \to Z'$
+具有性质 $\mathcal{P}$。
+由于这是态射 $Z \times_Y X \to Z$ 沿态射
+$Z' \to Z$ 的基变换，我们得出
+$Z \times_Y X \to Z$ 具有性质 $\mathcal{P}$，如所需。
+\end{proof}
+
+
+\section{fpqc 拓扑中态射性质的下降}
+\label{spaces-descent-section-descending-properties-morphisms-fpqc}
+
+
+\noindent
+本节给出代数空间态射的大量性质，它们在 fpqc 拓扑中
+关于基是局部的。关于概形态射的情形，请比较
+《下降》第 \ref{descent-section-descending-properties-morphisms-fpqc} 节。
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-quasi-compact}
+设 $S$ 为概形。性质 $\mathcal{P}(f) =$``$f$ 是拟紧的''
+关于 $S$ 上代数空间的基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 拟紧。我们须证明 $f$ 拟紧。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-compact-local}，只须证明：
+对每个仿射概形 $Y$ 与态射 $Y \to Z$，纤维积
+$Y \times_Z X$ 是拟紧的。图示如下：
+\begin{equation}
+\label{spaces-descent-equation-cube}
+\vcenter{
+\xymatrix{
+Y \times_Z Z' \times_Z X \ar[dd] \ar[rr] \ar[rd] & &
+Z' \times_Z X \ar'[d][dd]^{f'} \ar[rd] \\
+& Y \times_Z X \ar[dd] \ar[rr] & & X \ar[dd]^f \\
+Y \times_Z Z' \ar'[r][rr] \ar[rd] & & Z' \ar[rd] \\
+& Y \ar[rr] & & Z
+}
+}
+\end{equation}
+注意所有方块均为笛卡尔方块，且底部方块由仿射概形组成。
+$f'$ 拟紧这一假设，结合 $Y \times_Z Z'$ 为仿射的事实，说明
+$Y \times_Z Z' \times_Z X$ 拟紧。由于
+$$
+Y \times_Z Z' \times_Z X \longrightarrow Y \times_Z X
+$$
+是 $Z' \to Z$ 的基变换，因而是满的，所以
+$Y \times_Z X$ 拟紧；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-surjection-from-quasi-compact}。
+证明完毕。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-quasi-separated}
+设 $S$ 为概形。性质 $\mathcal{P}(f) =$``$f$ 是拟分离的''
+关于 $S$ 上代数空间的基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+拟分离态射的任意基变换仍拟分离；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-separated}。
+因此，定义 \ref{spaces-descent-definition-property-morphisms-local} 中的正向蕴含成立。
+
+\medskip\noindent
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $S$ 上代数空间的 fpqc 覆盖。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+假设每个基变换 $X_i := Y_i \times_Y X \to Y_i$ 都拟分离。
+这意味着每个态射
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+均拟紧。fpqc 覆盖的基变换仍为 fpqc 覆盖；见
+% P09-ERR-0352
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}，
+故 $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+是代数空间的 fpqc 覆盖。此外，每个 $\Delta_i$ 都是态射
+$\Delta : X \to X \times_Y X$ 的基变换。因此，由引理
+\ref{spaces-descent-lemma-descending-property-quasi-compact}，$\Delta$ 拟紧，
+即 $f$ 拟分离。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-universally-closed}
+设 $S$ 为概形。性质 $\mathcal{P}(f) =$``$f$ 是普遍闭的''
+关于 $S$ 上代数空间的基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 普遍闭。我们须证明 $f$ 普遍闭。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-universally-closed-local}，只须证明：
+对每个仿射概形 $Y$ 与态射 $Y \to Z$，映射
+$|Y \times_Z X| \to |Y|$ 是闭的。
+考虑立方图 (\ref{spaces-descent-equation-cube})。
+$f'$ 普遍闭这一假设意味着
+$|Y \times_Z Z' \times_Z X| \to |Y \times_Z Z'|$ 是闭的。
+由于 $Y \times_Z Z' \to Y$ 是 $Z' \to Z$ 的基变换，
+它拟紧、满且平坦，所以映射
+$|Y \times_Z Z'| \to |Y|$ 是商映射；见《态射》引理
+\ref{morphisms-lemma-fpqc-quotient-topology}。此外，映射
+$$
+|Y \times_Z Z' \times_Z X|
+\longrightarrow
+|Y \times_Z Z'| \times_{|Y|} |Y \times_Z X|
+$$
+是满的；见《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}。
+由初等拓扑可知 $|Y \times_Z X| \to |Y|$ 是闭的。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-universally-open}
+设 $S$ 为概形。性质 $\mathcal{P}(f) =$``$f$ 是普遍开的''
+关于 $S$ 上代数空间的基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+证明与引理 \ref{spaces-descent-lemma-descending-property-universally-closed} 的证明相同。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-universally-submersive}
+性质 $\mathcal{P}(f) =$``$f$ 是普遍商映的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+证明与引理 \ref{spaces-descent-lemma-descending-property-universally-closed} 的证明相同。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-surjective}
+性质 $\mathcal{P}(f) =$``$f$ 是满的'' 关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+略。（提示：使用《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}。）
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-universally-injective}
+性质 $\mathcal{P}(f) =$``$f$ 是普遍单的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+% P09-ERR-0353
+\ref{spaces-morphisms-lemma-universally-closed-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的平坦满态射，并设
+$f : X \to Z$ 为从代数空间到 $Z$ 的态射。
+假设基变换 $f' : X' \to Z'$ 普遍单。
+设 $K$ 为域，并设 $a, b : \Spec(K) \to X$ 为两个态射，
+使得 $f \circ a = f \circ b$。由于 $Z' \to Z$ 是满的，
+存在域扩张 $K'/K$ 与态射 $\Spec(K') \to Z'$，
+使下列实线图交换：
+$$
+\xymatrix{
+\Spec(K') \ar[rrd] \ar@{-->}[rd]_{a', b'} \ar[dd] \\
+ &
+X' \ar[r] \ar[d] &
+Z' \ar[d] \\
+\Spec(K) \ar[r]^{a, b} &
+X \ar[r] &
+Z
+}
+$$
+由于方块是笛卡尔的，得到使图交换的两条虚线箭头
+$a'$、$b'$。因为 $X' \to Z'$ 普遍单，所以 $a' = b'$。
+这迫使 $a = b$，因为 $\{\Spec(K') \to \Spec(K)\}$
+是 fpqc 覆盖；见《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc}。
+因此 $f$ 普遍单，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-universal-homeomorphism}
+性质 $\mathcal{P}(f) =$``$f$ 是普遍同胚''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+这可按与引理 \ref{spaces-descent-lemma-descending-property-universally-closed}
+完全相同的方法证明。也可使用如下事实：拓扑空间之间的映射是同胚，
+当且仅当它是单的、满的且开的。因此，普遍同胚等价于一个满、
+普遍单且普遍开的态射。见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-surjective} 以及定义
+\ref{spaces-morphisms-definition-universally-injective}、
+\ref{spaces-morphisms-definition-surjective}、
+\ref{spaces-morphisms-definition-open}、
+\ref{spaces-morphisms-definition-universal-homeomorphism}。
+故本引理由引理 \ref{spaces-descent-lemma-descending-property-surjective}、
+\ref{spaces-descent-lemma-descending-property-universally-injective} 与
+\ref{spaces-descent-lemma-descending-property-universally-open} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-locally-finite-type}
+性质 $\mathcal{P}(f) =$``$f$ 是局部有限型的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-type-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 局部有限型。我们须证明 $f$
+局部有限型。设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-type-local}，只须证明
+$U \to Z$ 局部有限型。由于 $f'$ 局部有限型，且
+$Z' \times_Z U$ 是 $Z' \times_Z X$ 上平展的概形，
+由同一引理可知 $Z' \times_Z U \to Z'$ 局部有限型。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-locally-finite-type}，
+$U \to Z$ 局部有限型，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-locally-finite-presentation}
+性质 $\mathcal{P}(f) =$``$f$ 是局部有限展示的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 局部有限展示。我们须证明 $f$
+局部有限展示。设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-presentation-local}，只须证明
+$U \to Z$ 局部有限展示。由于 $f'$ 局部有限展示，且
+$Z' \times_Z U$ 是 $Z' \times_Z X$ 上平展的概形，
+由同一引理可知 $Z' \times_Z U \to Z'$ 局部有限展示。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-locally-finite-presentation}，
+$U \to Z$ 局部有限展示，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-finite-type}
+性质 $\mathcal{P}(f) =$``$f$ 是有限型的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{spaces-descent-lemma-descending-property-quasi-compact} 与
+\ref{spaces-descent-lemma-descending-property-locally-finite-type}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-finite-presentation}
+性质 $\mathcal{P}(f) =$``$f$ 是有限展示的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{spaces-descent-lemma-descending-property-quasi-compact}、
+\ref{spaces-descent-lemma-descending-property-quasi-separated} 与
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-flat}
+性质 $\mathcal{P}(f) =$``$f$ 是平坦的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 平坦。我们须证明 $f$ 平坦。
+设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-flat-local}，只须证明 $U \to Z$ 平坦。
+由于 $f'$ 平坦，且 $Z' \times_Z U$ 是 $Z' \times_Z X$
+上平展的概形，由同一引理可知 $Z' \times_Z U \to Z'$ 平坦。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-flat}，$U \to Z$ 平坦，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-open-immersion}
+性质 $\mathcal{P}(f) =$``$f$ 是开浸入''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local} 得出。
+考虑如下笛卡尔图
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+它由 $S$ 上代数空间组成，其中 $Z' \to Z$ 为仿射概形的满平坦态射，
+$X' \to Z'$ 为开浸入。我们须证明 $X \to Z$ 是开浸入。
+注意 $|X'| \subset |Z'|$ 对应于一个开子概形
+$U' \subset Z'$（同构于 $X'$），且具有性质
+$\text{pr}_0^{-1}(U') = \text{pr}_1^{-1}(U')$；
+这是作为 $Z' \times_Z Z'$ 的开子概形的等式。
+因此存在开子概形 $U \subset Z$，使得
+$X' = (Z' \to Z)^{-1}(U)$；见《下降》引理
+\ref{descent-lemma-open-fpqc-covering}。
+由《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc}，
+$X$ 对 fpqc 拓扑满足层条件。现在有 fpqc 覆盖
+$\mathcal{U} = \{U' \to U\}$ 与元素
+$U' \to X' \to X \in \check{H}^0(\mathcal{U}, X)$。
+由层条件，得到一个态射 $U \to X$，使得
+$$
+\xymatrix{
+U' \ar[r] \ar[d]^{\cong} \ar@/_3ex/[dd] & U \ar[d] \ar@/^3ex/[dd] \\
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+交换。另一方面，我们知道，对任意概形 $T$（它位于 $S$ 上）
+与 $T$-值点 $T \to X$，复合 $T \to X \to Z$ 具有如下性质：
+$Z' \times_Z T \to Z'$ 经 $U'$ 分解。显然，这意味着
+$T \to Z$ 经 $U$ 分解。换言之，层的映射 $U \to X$
+是双射，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-isomorphism}
+性质 $\mathcal{P}(f) =$``$f$ 是同构''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+合并引理 \ref{spaces-descent-lemma-descending-property-surjective} 与
+\ref{spaces-descent-lemma-descending-property-open-immersion}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-affine}
+性质 $\mathcal{P}(f) =$``$f$ 是仿射的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-affine-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 仿射。
+令 $X'$ 为表示 $Z' \times_Z X$ 的概形。
+得到典范同构
+$$
+\varphi : X' \times_Z Z' \longrightarrow Z' \times_Z X'
+$$
+因为两个概形都表示代数空间 $Z' \times_Z Z' \times_Z X$。
+这是 $X'/Z'/Z$ 的一个下降资料；见《下降》定义
+\ref{descent-definition-descent-datum}
+（略去验证；比较《下降》引理
+\ref{descent-lemma-descent-data-sheaves}）。
+由于 $X' \to Z'$ 是仿射的，该下降资料有效；见《下降》引理
+\ref{descent-lemma-affine}。因此存在概形 $Y \to Z$，
+它位于 $Z$ 上，并存在与下降资料相容的同构
+$\psi : Z' \times_Z Y \to X'$。当然 $Y \to Z$ 是仿射的
+（由构造，或由《下降》引理
+\ref{descent-lemma-descending-property-affine}）。
+注意 $\mathcal{Y} = \{Z' \times_Z Y \to Y\}$ 是 fpqc 覆盖；
+把 $\psi$ 解释为 $X(Z' \times_Z Y)$ 的元素，可见
+$\psi \in \check{H}^0(\mathcal{Y}, X)$。
+由 $X$ 关于该覆盖的层条件（见《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc}），得到态射 $Y \to X$。
+按构造，它到 $Z'$ 的基变换是同构，因而由引理
+\ref{spaces-descent-lemma-descending-property-isomorphism}，它本身也是同构。
+这证明 $X$ 可由仿射概形表示，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-closed-immersion}
+性质 $\mathcal{P}(f) =$``$f$ 是闭浸入''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local} 得出。
+考虑如下笛卡尔图
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+它由 $S$ 上代数空间组成，其中 $Z' \to Z$ 为仿射概形的
+满平坦态射，$X' \to Z'$ 为闭浸入。我们须证明 $X \to Z$
+是闭浸入。态射 $X' \to Z'$ 是仿射的。因此，由引理
+\ref{spaces-descent-lemma-descending-property-affine}，$X$ 是概形且
+$X \to Z$ 是仿射的。由《下降》引理
+\ref{descent-lemma-descending-property-closed-immersion}，
+$X \to Z$ 是闭浸入，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-separated}
+性质 $\mathcal{P}(f) =$``$f$ 是分离的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+分离态射的任意基变换仍分离；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-separated}。
+因此，定义 \ref{spaces-descent-definition-property-morphisms-local} 中的正向蕴含成立。
+
+\medskip\noindent
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $S$ 上代数空间的 fpqc 覆盖。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+假设每个基变换 $X_i := Y_i \times_Y X \to Y_i$ 都分离。
+这意味着每个态射
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+都是闭浸入。fpqc 覆盖的基变换仍为 fpqc 覆盖；见
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}，
+故 $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+是代数空间的 fpqc 覆盖。此外，每个 $\Delta_i$ 都是态射
+$\Delta : X \to X \times_Y X$ 的基变换。因此，由引理
+\ref{spaces-descent-lemma-descending-property-closed-immersion}，$\Delta$ 是闭浸入，
+即 $f$ 分离。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-proper}
+性质 $\mathcal{P}(f) =$``$f$ 是固有的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+本引理由引理 \ref{spaces-descent-lemma-descending-property-universally-closed}、
+\ref{spaces-descent-lemma-descending-property-separated} 与
+\ref{spaces-descent-lemma-descending-property-finite-type} 合并得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-quasi-affine}
+性质 $\mathcal{P}(f) =$``$f$ 是拟仿射的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-affine-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 拟仿射。
+令 $X'$ 为表示 $Z' \times_Z X$ 的概形。
+得到典范同构
+$$
+\varphi : X' \times_Z Z' \longrightarrow Z' \times_Z X'
+$$
+因为两个概形都表示代数空间 $Z' \times_Z Z' \times_Z X$。
+这是 $X'/Z'/Z$ 的一个下降资料；见《下降》定义
+\ref{descent-definition-descent-datum}
+（略去验证；比较《下降》引理
+\ref{descent-lemma-descent-data-sheaves}）。
+由于 $X' \to Z'$ 是拟仿射的，该下降资料有效；见《下降》引理
+\ref{descent-lemma-quasi-affine}。因此存在概形 $Y \to Z$，
+它位于 $Z$ 上，并存在与下降资料相容的同构
+$\psi : Z' \times_Z Y \to X'$。当然 $Y \to Z$ 是拟仿射的
+（由构造，或由《下降》引理
+\ref{descent-lemma-descending-property-quasi-affine}）。
+注意 $\mathcal{Y} = \{Z' \times_Z Y \to Y\}$ 是 fpqc 覆盖；
+把 $\psi$ 解释为 $X(Z' \times_Z Y)$ 的元素，可见
+$\psi \in \check{H}^0(\mathcal{Y}, X)$。
+由 $X$ 的层条件（见《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc}），得到态射 $Y \to X$。
+按构造，它到 $Z'$ 的基变换是同构，因而由引理
+\ref{spaces-descent-lemma-descending-property-isomorphism}，它本身也是同构。
+这证明 $X$ 可由拟仿射概形表示，结论得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-quasi-compact-immersion}
+性质 $\mathcal{P}(f) =$``$f$ 是拟紧浸入''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local} 与
+\ref{spaces-morphisms-lemma-quasi-compact-local} 得出。
+考虑如下笛卡尔图
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+它由 $S$ 上代数空间组成，其中 $Z' \to Z$ 为仿射概形的
+满平坦态射，$X' \to Z'$ 为拟紧浸入。我们须证明 $X \to Z$
+% P09-ERR-0354
+是闭浸入。态射 $X' \to Z'$ 是拟仿射的。因此，由引理
+\ref{spaces-descent-lemma-descending-property-quasi-affine}，$X$ 是概形且
+$X \to Z$ 是拟仿射的。由《下降》引理
+\ref{descent-lemma-descending-property-quasi-compact-immersion}，
+$X \to Z$ 是拟紧浸入，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-integral}
+性质 $\mathcal{P}(f) =$``$f$ 是整的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+整态射等价于仿射且普遍闭的态射；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-integral-universally-closed}。
+故本引理由引理 \ref{spaces-descent-lemma-descending-property-universally-closed}
+与 \ref{spaces-descent-lemma-descending-property-affine} 合并得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-finite}
+性质 $\mathcal{P}(f) =$``$f$ 是有限的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+% P09-ERR-0355
+有限态射等价于局部有限型的整态射；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-finite-integral}。
+故本引理由引理 \ref{spaces-descent-lemma-descending-property-locally-finite-type}
+与 \ref{spaces-descent-lemma-descending-property-integral} 合并得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-quasi-finite}
+性质 $\mathcal{P}(f) =$``$f$ 是局部拟有限的''
+与性质 $\mathcal{P}(f) =$``$f$ 是拟有限的''
+都关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们已经看到``拟紧''关于基是 fpqc 局部的；见引理
+\ref{spaces-descent-lemma-descending-property-quasi-compact}。因此，只须对
+``局部拟有限''证明本引理。我们用引理
+\ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-finite-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 局部拟有限。我们须证明 $f$
+局部拟有限。设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-quasi-finite-local}，只须证明
+$U \to Z$ 局部拟有限。由于 $f'$ 局部拟有限，且
+$Z' \times_Z U$ 是 $Z' \times_Z X$ 上平展的概形，
+由同一引理可知 $Z' \times_Z U \to Z'$ 局部拟有限。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-quasi-finite}，
+$U \to Z$ 局部拟有限，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-syntomic}
+性质 $\mathcal{P}(f) =$``$f$ 是 syntomic 的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-syntomic-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 是 syntomic 的。我们须证明
+$f$ 是 syntomic 的。设 $U$ 为概形，并设 $U \to X$
+为满平展态射。再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-syntomic-local}，只须证明
+$U \to Z$ 是 syntomic 的。由于 $f'$ 是 syntomic 的，且
+$Z' \times_Z U$ 是 $Z' \times_Z X$ 上平展的概形，
+由同一引理可知 $Z' \times_Z U \to Z'$ 是 syntomic 的。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-syntomic}，
+$U \to Z$ 是 syntomic 的，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-smooth}
+性质 $\mathcal{P}(f) =$``$f$ 是光滑的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-smooth-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 光滑。我们须证明 $f$ 光滑。
+设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-smooth-local}，只须证明 $U \to Z$ 光滑。
+由于 $f'$ 光滑，且 $Z' \times_Z U$ 是 $Z' \times_Z X$
+上平展的概形，由同一引理可知 $Z' \times_Z U \to Z'$ 光滑。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-smooth}，$U \to Z$ 光滑，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-unramified}
+性质 $\mathcal{P}(f) =$``$f$ 是非分歧的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-unramified-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 非分歧。我们须证明 $f$ 非分歧。
+设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-unramified-local}，只须证明
+$U \to Z$ 非分歧。由于 $f'$ 非分歧，且 $Z' \times_Z U$
+是 $Z' \times_Z X$ 上平展的概形，由同一引理可知
+$Z' \times_Z U \to Z'$ 非分歧。由于 $\{Z' \to Z\}$
+是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-unramified}，
+$U \to Z$ 非分歧，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-etale}
+性质 $\mathcal{P}(f) =$``$f$ 是平展的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+我们用引理 \ref{spaces-descent-lemma-descending-properties-morphisms} 证明。
+该引理的假设 (1) 与 (2) 由《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-local} 得出。
+设 $Z' \to Z$ 为 $S$ 上仿射概形的满平坦态射。
+设 $f : X \to Z$ 为代数空间的态射，并假设基变换
+$f' : Z' \times_Z X \to Z'$ 平展。我们须证明 $f$ 平展。
+设 $U$ 为概形，并设 $U \to X$ 为满平展态射。
+再次使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-local}，只须证明 $U \to Z$ 平展。
+由于 $f'$ 平展，且 $Z' \times_Z U$ 是 $Z' \times_Z X$
+上平展的概形，由同一引理可知 $Z' \times_Z U \to Z'$ 平展。
+由于 $\{Z' \to Z\}$ 是 fpqc 覆盖，由《下降》引理
+\ref{descent-lemma-descending-property-etale}，$U \to Z$ 平展，如所需。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-finite-locally-free}
+性质 $\mathcal{P}(f) =$``$f$ 是有限局部自由的''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+有限局部自由等价于有限、平坦且局部有限展示
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-finite-flat}）。
+故结论由引理 \ref{spaces-descent-lemma-descending-property-finite}、
+\ref{spaces-descent-lemma-descending-property-flat} 与
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-monomorphism}
+性质 $\mathcal{P}(f) =$``$f$ 是单态射''
+关于基是 fpqc 局部的。
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to Y$ 为代数空间的态射。
+设 $\{Y_i \to Y\}$ 为 fpqc 覆盖，并假设每个基变换
+$f_i : X_i \to Y_i$（它是 $f$ 的基变换）都是单态射。
+我们须证明 $f$ 是单态射。
+
+\medskip\noindent
+第一种证明。注意 $f$ 是单态射，当且仅当
+$\Delta : X \to X \times_Y X$ 是同构。把这一点应用于
+$f_i$，可见每个态射
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+都是同构。fpqc 覆盖的基变换仍为 fpqc 覆盖；见
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}，
+故 $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+是代数空间的 fpqc 覆盖。此外，每个 $\Delta_i$ 都是态射
+$\Delta : X \to X \times_Y X$ 的基变换。因此，由引理
+\ref{spaces-descent-lemma-descending-property-isomorphism}，$\Delta$ 是同构，
+即 $f$ 是单态射。
+
+\medskip\noindent
+第二种证明。
+设 $V$ 为概形，并设 $V \to Y$ 为满平展态射。
+若能证明 $V \times_Y X \to V$ 是单态射，则可推出
+$X \to Y$ 是单态射。事实上，给定层的任意笛卡尔图
+$$
+\vcenter{
+\xymatrix{
+\mathcal{F} \ar[r]_a \ar[d]_b & \mathcal{G} \ar[d]^c \\
+\mathcal{H} \ar[r]^d & \mathcal{I}
+}
+}
+\quad
+\quad
+\mathcal{F} = \mathcal{H} \times_\mathcal{I} \mathcal{G}
+$$
+若 $c$ 是层的满射且 $a$ 是单射，则 $d$ 也是单射。
+这把问题约化到 $Y$ 为概形的情形。此外，在这种情形下，
+也可假设代数空间 $Y_i$ 都是概形，因为总能加细覆盖以置身于
+这种情形；见《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-refine-fpqc-schemes}。
+
+\medskip\noindent
+假设 $\{Y_i \to Y\}$ 是概形的 fpqc 覆盖。
+设 $a, b : T \to X$ 为两个态射，使得
+$f \circ a = f \circ b$。我们须证明 $a = b$。
+由于 $f_i$ 是单态射，可知 $a_i = b_i$，其中
+$a_i, b_i : Y_i \times_Y T \to X_i$ 为基变换。
+特别地，复合 $Y_i \times_Y T \to T \to X$ 相等。
+由于 $\{Y_i \times_Y T \to T\}$ 是 fpqc 覆盖，
+由《空间的性质》命题
+\ref{spaces-properties-proposition-sheaf-fpqc} 得到 $a = b$。
+\end{proof}
+
+
+\section{fppf 拓扑中态射性质的下降}
+\label{spaces-descent-section-descending-properties-morphisms-fppf}
+
+\noindent
+本节给出代数空间态射的一些性质：我们（尚）未能证明它们在
+fpqc 拓扑中关于基是局部的，但它们在 fppf 拓扑中关于基是局部的。
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-fppf-property-immersion}
+性质 $\mathcal{P}(f) =$``$f$ 是浸入''
+关于基是 fppf 局部的。
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to Y$ 为代数空间的态射。
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $Y$ 的 fppf 覆盖。
+设 $f_i : X_i \to Y_i$ 为 $f$ 的基变换。
+
+\medskip\noindent
+若 $f$ 是浸入，则由《空间》引理
+\ref{spaces-lemma-base-change-immersions}，每个 $f_i$ 都是浸入。
+这证明了定义 \ref{spaces-descent-definition-property-morphisms-local} 中的正向蕴含。
+
+\medskip\noindent
+反之，假设每个 $f_i$ 都是浸入。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-immersions-monomorphisms}，
+这意味着每个 $f_i$ 都分离。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-immersion-quasi-finite}，
+这意味着每个 $f_i$ 都局部拟有限。因此，应用引理
+\ref{spaces-descent-lemma-descending-property-separated} 与
+\ref{spaces-descent-lemma-descending-property-quasi-finite}，可见 $f$
+局部拟有限且分离。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}，
+这意味着 $f$ 可表！
+
+\medskip\noindent
+由《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-local}，只须证明：
+对每个概形 $Z$ 与态射 $Z \to Y$，基变换
+$Z \times_Y X \to Z$ 是浸入。由《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-refine-fppf-schemes}，可找到由概形组成的
+fppf 覆盖 $\{Z_i \to Z\}$，它加细覆盖
+$\{Y_i \to Y\}$ 到 $Z$ 上的拉回。因此可见
+$Z \times_Y X \to Z$（由前一段的结论，这是概形的态射）
+在拉回到 $Z$ 的一个 fppf（由概形组成）覆盖的各成员后成为浸入。
+% P09-ERR-0356
+故由概形情形的结论，$Z \times_Y X \to Z$ 是浸入；见《下降》引理
+\ref{descent-lemma-descending-fppf-property-immersion}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-fppf-property-locally-separated}
+性质 $\mathcal{P}(f) =$``$f$ 是局部分离的''
+关于基是 fppf 局部的。
+\end{lemma}
+
+\begin{proof}
+局部分离态射的任意基变换仍局部分离；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-separated}。
+因此，定义 \ref{spaces-descent-definition-property-morphisms-local} 中的正向蕴含成立。
+
+\medskip\noindent
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $S$ 上代数空间的 fppf 覆盖。
+设 $f : X \to Y$ 为 $S$ 上代数空间的一个态射。
+假设每个基变换 $X_i := Y_i \times_Y X \to Y_i$ 都局部分离。
+这意味着每个态射
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+都是浸入。fppf 覆盖的基变换仍为 fppf 覆盖；见
+% P09-ERR-0357
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fppf}，
+故 $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+是代数空间的 fppf 覆盖。此外，每个 $\Delta_i$ 都是态射
+$\Delta : X \to X \times_Y X$ 的基变换。因此，由引理
+\ref{spaces-descent-lemma-descending-fppf-property-immersion}，$\Delta$ 是浸入，
+即 $f$ 局部分离。
+\end{proof}
+
+
+\section{态射性质下降的应用}
+\label{spaces-descent-section-application-descending-properties-morphisms}
+
+\noindent
+本节是《下降》第
+\ref{descent-section-application-descending-properties-morphisms} 节的对应版本。
+
+\begin{lemma}
+\label{spaces-descent-lemma-descending-property-ample}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+设 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。
+设 $\{g_i : Y_i \to Y\}_{i \in I}$ 为 fpqc 覆盖。
+设 $f_i : X_i \to Y_i$ 为 $f$ 的基变换，并设 $\mathcal{L}_i$
+为 $\mathcal{L}$ 到 $X_i$ 上的拉回。下列条件等价：
+\begin{enumerate}
+\item $\mathcal{L}$ 在 $X/Y$ 上丰沛；以及
+\item $\mathcal{L}_i$ 在 $X_i/Y_i$ 上丰沛，对每个 $i \in I$ 成立。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+蕴含 (1) $\Rightarrow$ (2) 由《空间上的除子》引理
+\ref{spaces-divisors-lemma-ample-base-change} 得出。
+假设 (2)。为检验 $\mathcal{L}$ 在 $X/Y$ 上丰沛，
+可在 $Y$ 上平展局部地工作；见《空间上的除子》引理
+\ref{spaces-divisors-lemma-relatively-ample-local}。
+因此可假设 $Y$ 是概形，继而也可假设每个 $Y_i$ 都是概形；
+见《空间上的拓扑》引理
+\ref{spaces-topologies-lemma-refine-fpqc-schemes}。
+换言之，可假设 $\{Y_i \to Y\}$ 是概形的 fpqc 覆盖。
+
+\medskip\noindent
+由《空间上的除子》引理
+\ref{spaces-divisors-lemma-relatively-ample-properties}，
+可见 $X_i \to Y_i$ 可表（即 $X_i$ 是概形）、拟紧且分离。
+因此，由引理 \ref{spaces-descent-lemma-descending-property-quasi-compact} 与
+\ref{spaces-descent-lemma-descending-property-separated}，$f$ 拟紧且分离。
+这意味着
+$\mathcal{A} = \bigoplus_{d \geq 0} f_*\mathcal{L}^{\otimes d}$
+是一个拟凝聚分次 $\mathcal{O}_Y$-代数
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-pushforward}）。
+此外，由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}，
+$\mathcal{A}$ 的形成与平坦基变换交换。特别地，若令
+$\mathcal{A}_i = \bigoplus_{d \geq 0} f_{i, *}\mathcal{L}_i^{\otimes d}$，
+则有 $\mathcal{A}_i = g_i^*\mathcal{A}$。
+因此，自然映射
+$\psi_d : f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}$
+是 $\mathcal{O}_X$-模的映射；其拉回给出自然映射
+$\psi_{i, d} : f_i^*(\mathcal{A}_i)_d \to \mathcal{L}_i^{\otimes d}$，
+后者是 $\mathcal{O}_{X_i}$-模的映射。
+由于 $\mathcal{L}_i$ 在 $X_i/Y_i$ 上丰沛，对任意点
+$x_i \in X_i$，存在 $d \geq 1$，使得
+$f_i^*(\mathcal{A}_i)_d \to \mathcal{L}_i^{\otimes d}$
+在 $x_i$ 处的茎上为满射。这可直接由相对丰沛模的定义得出，
+也可由《态射》引理
+\ref{morphisms-lemma-characterize-relatively-ample} 得出。
+若 $x \in |X|$，则可选择某个 $i$ 以及点
+$x_i \in X_i$，它映到 $x$。由于
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{X_i, \overline{x}_i}$
+平坦，因而忠实平坦，
+% P09-ERR-0358
+我们得出：对每个 $x \in |X|$，存在 $d \geq 1$，使得
+$f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}$
+在 $x$ 处的茎上为满射。这意味着开子集 $U(\psi) \subset X$
+（见《空间上的除子》引理
+\ref{spaces-divisors-lemma-invertible-map-into-relative-proj}）
+所对应的映射
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$
+是分次 $\mathcal{O}_X$-代数的映射，并且该开子集等于 $X$。
+考虑相应的态射
+$$
+r_{\mathcal{L}, \psi} : X \longrightarrow \underline{\text{Proj}}_Y(\mathcal{A})
+$$
+由上文显然可见，$r_{\mathcal{L}, \psi}$ 到 $Y_i$ 的基变换
+是态射 $r_{\mathcal{L}_i, \psi_i}$；由《态射》引理
+\ref{morphisms-lemma-characterize-relatively-ample}，它是开浸入。
+因此，由引理 \ref{spaces-descent-lemma-descending-property-open-immersion}，
+$r_{\mathcal{L}, \psi}$ 是开浸入。于是 $X$ 是概形，并由
+《态射》引理 \ref{morphisms-lemma-characterize-relatively-ample}
+得出 $\mathcal{L}$ 在 $X/Y$ 上丰沛。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-ample-in-neighbourhood}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间的固有态射。
+设 $\mathcal{L}$ 为可逆 $\mathcal{O}_X$-模。
+存在开子空间 $V \subset Y$，它由下列性质刻画：
+代数空间的态射 $Y' \to Y$ 经 $V$ 分解，当且仅当
+$\mathcal{L}'$（即 $\mathcal{L}$ 到 $X' = Y' \times_Y X$ 上的拉回）
+在 $X'/Y'$ 上丰沛（其含义见《空间上的除子》定义
+\ref{spaces-divisors-definition-relatively-ample}）。
+\end{lemma}
+
+\begin{proof}
+先假设当 $Y$ 是概形时本引理成立。
+设 $U$ 为概形，并设 $U \to Y$ 为满平展态射。
+令 $R = U \times_Y U$，其投影为 $t, s : R \to U$。
+记 $X_U = U \times_Y X$，并记拉回为 $\mathcal{L}_U$。
+则得到引理所述的开子概形 $V' \subset U$；这是对
+$(X_U \to U, \mathcal{L}_U)$ 所得到的开子概形。由函子性刻画可见
+$s^{-1}(V') = t^{-1}(V')$。因此存在开子空间 $V \subset Y$，
+使 $V'$ 是 $V$ 在 $U$ 中的逆像。特别地，$V' \to V$
+满且平展，从而 $\mathcal{L}_V$ 在 $X_V/V$ 上丰沛
+（《空间上的除子》引理
+\ref{spaces-divisors-lemma-relatively-ample-local}）。
+现在，若 $Y' \to Y$ 是一个态射，且 $\mathcal{L}'$
+在 $X'/Y'$ 上丰沛，则 $U \times_Y Y' \to Y'$ 必经 $V'$ 分解，
+由此得出 $Y' \to Y$ 经 $V$ 分解。因此 $V \subset Y$
+正是引理陈述中的开子空间。这样便约化到下一段处理的情形。
+
+\medskip\noindent
+假设 $Y$ 是概形。由于问题在 $Y$ 上是局部的，可假设 $Y$
+是仿射概形。我们将证明：
+\begin{enumerate}
+\item[(A)] 若 $\Spec(k) \to Y$ 是一个态射，使得
+$\mathcal{L}_k$ 在 $X_k/k$ 上丰沛，则存在开邻域
+$V \subset Y$，它是 $\Spec(k) \to Y$ 的像的邻域，并使得
+$\mathcal{L}_V$ 在 $X_V/V$ 上丰沛。
+\end{enumerate}
+显然，(A) 蕴含本引理。
+
+\medskip\noindent
+设 $X \to Y$、$\mathcal{L}$、$\Spec(k) \to Y$ 如 (A) 所述。
+由引理 \ref{spaces-descent-lemma-descending-property-ample}，可假设
+$k = \kappa(y)$ 是某点 $y$ 的剩余域，该点属于 $Y$。
+
+\medskip\noindent
+由于 $Y$ 仿射，可找到一个有向集 $I$，以及代数空间态射的逆系统
+$X_i \to Y_i$，其中 $Y_i$ 在 $\mathbf{Z}$ 上有限展示，
+转移态射 $X_i \to X_{i'}$ 与 $Y_i \to Y_{i'}$ 均仿射，
+$X_i \to Y_i$ 固有且有限展示，并且
+$X \to Y = \lim (X_i \to Y_i)$。见《空间的极限》引理
+\ref{spaces-limits-lemma-proper-limit-of-proper-finite-presentation-noetherian}。
+缩小 $I$ 后，可假设 $Y_i$ 对所有 $i$ 都是（仿射）概形；见
+《空间的极限》引理 \ref{spaces-limits-lemma-limit-is-affine}。
+再次缩小 $I$ 后，可假设存在相容的可逆
+$\mathcal{O}_{X_i}$-模系统 $\mathcal{L}_i$，其拉回为
+$\mathcal{L}$；见《空间的极限》引理
+\ref{spaces-limits-lemma-descend-invertible-modules}。
+令 $y_i \in Y_i$ 为 $y$ 的像。则
+$\kappa(y) = \colim \kappa(y_i)$。所以
+$X_y = \lim X_{i, y_i}$；缩小 $I$ 后，可假设
+$X_{i, y_i}$ 对所有 $i$ 都是概形；见《空间的极限》引理
+\ref{spaces-limits-lemma-limit-is-scheme}。
+因此，对某个 $i$，由《极限》引理
+\ref{limits-lemma-limit-ample}，$\mathcal{L}_{i, y_i}$
+在 $X_{i, y_i}$ 上丰沛。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-ample-in-neighbourhood}，
+存在开邻域 $V_i \subset Y_i$，它包含 $y_i$，并使得
+$\mathcal{L}_i$ 限制到 $f_i^{-1}(V_i)$ 后相对于 $V_i$ 丰沛。
+令 $V \subset Y$ 为 $V_i$ 的逆像，即得证明
+（提示：使用《态射》引理
+\ref{morphisms-lemma-ample-base-change}，以及
+$X \to Y \times_{Y_i} X_i$ 是仿射的事实；还要使用：
+沿仿射态射拉回丰沛可逆层仍丰沛，见《态射》引理
+\ref{morphisms-lemma-pullback-ample-tensor-relatively-ample}）。
+\end{proof}
+
+
+\section{在源上局部的态射性质}
+\label{spaces-descent-section-properties-morphisms-local-source}
+
+\noindent
+本节定义代数空间态射的性质在源上局部的含义。
+请比较《下降》第
+\ref{descent-section-properties-morphisms-local-source} 节。
+
+\begin{definition}
+\label{spaces-descent-definition-property-morphisms-local-source}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质。
+设 $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$。称 $\mathcal{P}$
+{it 在源上 $\tau$-局部}，或称它
+{it 对 $\tau$-拓扑在源上局部}，如果对代数空间的任意态射
+$f : X \to Y$（它位于 $S$ 上），以及代数空间的任意 $\tau$-覆盖
+$\{X_i \to X\}_{i \in I}$，都有
+$$
+f \text{ 具有 }\mathcal{P}
+\Leftrightarrow
+\text{每个 }X_i \to Y\text{ 都具有 }\mathcal{P}.
+$$
+\end{definition}
+
+\noindent
+需要明确的是，由于同构总是覆盖，可见（或要求）性质
+$\mathcal{P}$ 对 $X \to Y$ 成立，当且仅当它对任意箭头
+$X' \to Y'$ 成立，只要该箭头同构于 $X \to Y$。
+若一个性质在源上 $\tau$-局部，则把具有该性质的态射预复合
+$\tau$-覆盖中出现的态射后，该性质仍保持。形式化陈述如下。
+
+\begin{lemma}
+\label{spaces-descent-lemma-precompose-property-local-source}
+设 $S$ 为概形。设
+$\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$。
+设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，且它在源上
+$\tau$-局部。设 $f : X \to Y$ 具有性质 $\mathcal{P}$。
+对于任意态射 $a : X' \to X$，若它分别为平坦、平坦且局部有限展示、
+syntomic、光滑、平展态射，则复合 $f \circ a : X' \to Y$
+具有性质 $\mathcal{P}$。
+\end{lemma}
+
+\begin{proof}
+这是因为可以把 $X' \to X$ 放入一个构成 $\tau$-覆盖的态射族中。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-transfer-from-schemes}
+设 $S$ 为概形。设
+$\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$。
+假设 $\mathcal{P}$ 为 $S$ 上概形态射的一个性质，且它在源与靶上
+% P09-ERR-0361
+平展局部。把代数空间态射的相应性质记作
+$\mathcal{P}_{spaces}$；这是 $S$ 上的性质，见《空间的态射》定义
+\ref{spaces-morphisms-definition-P}。若 $\mathcal{P}$ 对 $\tau$-拓扑
+在源上局部，则 $\mathcal{P}_{spaces}$ 对 $\tau$-拓扑也在源上局部。
+\end{lemma}
+
+\begin{proof}
+设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+设 $\{X_i \to X\}_{i \in I}$ 为代数空间的 $\tau$-覆盖。
+选择概形 $V$ 与满平展态射 $V \to Y$。
+选择概形 $U$ 与满平展态射 $U \to X \times_Y V$。
+对每个 $i$，选择概形 $U_i$ 与满平展态射
+$U_i \to X_i \times_X U$。
+
+\medskip\noindent
+注意 $\{X_i \times_X U \to U\}_{i \in I}$ 是 $\tau$-覆盖。
+每个 $\{U_i \to X_i \times_X U\}$ 都是平展覆盖，因而是
+$\tau$-覆盖。所以 $\{U_i \to U\}_{i \in I}$ 是代数空间的
+$\tau$-覆盖，且位于 $S$ 上。但由于 $U$ 与每个 $U_i$ 都是概形，
+% P09-ERR-0360
+可见 $\{U_i \to U\}_{i \in I}$ 是概形的 $\tau$-覆盖，且位于 $S$ 上。
+
+\medskip\noindent
+现在有
+\begin{align*}
+f \text{ 具有 }\mathcal{P}_{spaces}
+& \Leftrightarrow
+U \to V \text{ 具有 }\mathcal{P} \\
+& \Leftrightarrow
+\text{每个 }U_i \to V \text{ 都具有 }\mathcal{P} \\
+& \Leftrightarrow
+\text{每个 }X_i \to Y\text{ 都具有 }\mathcal{P}_{spaces}.
+\end{align*}
+% P09-ERR-0359
+第一与最后一个等价关系由 $\mathcal{P}_{spaces}$ 的定义得出；
+中间的等价关系源于我们假设 $\mathcal{P}$ 对 $\tau$-拓扑在源上局部。
+\end{proof}
+
+
+\section{在源上对 fpqc 拓扑局部的态射性质}
+\label{spaces-descent-section-fpqc-local-source}
+
+\noindent
+下面给出一些在源上 fpqc 局部的态射性质。
+
+\begin{lemma}
+\label{spaces-descent-lemma-flat-fpqc-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是平坦的''在源上 fpqc 局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-flat} 与
+《下降》引理 \ref{descent-lemma-flat-fpqc-local-source}。
+\end{proof}
+
+
+\section{在源上对 fppf 拓扑局部的态射性质}
+\label{spaces-descent-section-fppf-local-source}
+
+\noindent
+下面给出一些在源上 fppf 局部的态射性质。
+
+\begin{lemma}
+\label{spaces-descent-lemma-locally-finite-presentation-fppf-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是局部有限展示的''
+在源上 fppf 局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义
+\ref{spaces-morphisms-definition-locally-finite-presentation} 与
+《下降》引理
+\ref{descent-lemma-locally-finite-presentation-fppf-local-source}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-locally-finite-type-fppf-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是局部有限型的''
+在源上 fppf 局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义
+\ref{spaces-morphisms-definition-locally-finite-type} 与
+《下降》引理 \ref{descent-lemma-locally-finite-type-fppf-local-source}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-open-fppf-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是开的''在源上 fppf 局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-open} 与
+《下降》引理 \ref{descent-lemma-open-fppf-local-source}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-universally-open-fppf-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是普遍开的''
+在源上 fppf 局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-open} 与
+《下降》引理 \ref{descent-lemma-universally-open-fppf-local-source}。
+\end{proof}
+
+
+\section{在源上对 syntomic 拓扑局部的态射性质}
+\label{spaces-descent-section-syntomic-local-source}
+
+\noindent
+下面给出一些在源上 syntomic 局部的态射性质。
+
+\begin{lemma}
+\label{spaces-descent-lemma-syntomic-syntomic-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是 syntomic 的''
+在源上 syntomic 局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-syntomic} 与
+《下降》引理 \ref{descent-lemma-syntomic-syntomic-local-source}。
+\end{proof}
+
+
+\section{在源上对光滑拓扑局部的态射性质}
+\label{spaces-descent-section-smooth-local-source}
+
+\noindent
+下面给出一些在源上光滑局部的态射性质。
+
+\begin{lemma}
+\label{spaces-descent-lemma-smooth-smooth-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是光滑的''
+在源上光滑局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-smooth} 与
+《下降》引理 \ref{descent-lemma-smooth-smooth-local-source}。
+\end{proof}
+
+
+\section{在源上对平展拓扑局部的态射性质}
+\label{spaces-descent-section-etale-local-source}
+
+\noindent
+下面给出一些在源上平展局部的态射性质。
+
+\begin{lemma}
+\label{spaces-descent-lemma-etale-etale-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是平展的''在源上平展局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-etale} 与
+《下降》引理 \ref{descent-lemma-etale-etale-local-source}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-locally-quasi-finite-etale-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是局部拟有限的''
+在源上平展局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义
+\ref{spaces-morphisms-definition-locally-quasi-finite} 与
+《下降》引理
+\ref{descent-lemma-locally-quasi-finite-etale-local-source}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-unramified-etale-local-source}
+性质 $\mathcal{P}(f)=$``$f$ 是非分歧的''
+在源上平展局部。
+\end{lemma}
+
+\begin{proof}
+结论由引理 \ref{spaces-descent-lemma-transfer-from-schemes} 得出；这里使用
+《空间的态射》定义 \ref{spaces-morphisms-definition-unramified} 与
+《下降》引理 \ref{descent-lemma-unramified-etale-local-source}。
+\end{proof}
+
+
+\section{在源与靶上光滑局部的态射性质}
+\label{spaces-descent-section-properties-local-source-target}
+
+\noindent
+设 $\mathcal{P}$ 为代数空间态射的一个性质。短语
+``$\mathcal{P}$ 在源与靶上光滑局部''有一种直观含义。
+然而，这个概念并不等同于同时要求 $\mathcal{P}$ 在源上光滑局部
+且在靶上光滑局部。我们已在《下降》第
+\ref{descent-section-properties-etale-local-source-target} 节
+非常详细地讨论了类似现象（关于平展拓扑与概形范畴；快速概览见
+《下降》注 \ref{descent-remark-compare-definitions}）。
+不过，光滑拓扑与平展拓扑的情形之间有一个重要差别。
+为看清这个差别，我们建议读者思考《下降》引理
+\ref{descent-lemma-local-source-target-implies} 与引理
+\ref{spaces-descent-lemma-local-source-target-implies} 之间的差别，以及《下降》引理
+\ref{descent-lemma-local-source-target-characterize} 与引理
+\ref{spaces-descent-lemma-local-source-target-characterize} 之间的差别。
+也就是说，在平展情形下，靶的平展``覆盖''的选择无关紧要；
+在光滑情形下则并非如此。
+
+\begin{definition}
+\label{spaces-descent-definition-local-source-target}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质。
+若满足以下条件，则称 $\mathcal{P}$ {it 在源与靶上光滑局部}：
+\begin{enumerate}
+\item （在与光滑映射预复合下保持）若 $f : X \to Y$ 光滑，
+且 $g : Y \to Z$ 具有 $\mathcal{P}$，则 $g \circ f$ 具有
+$\mathcal{P}$；
+\item （在光滑基变换下保持）若 $f : X \to Y$ 具有
+$\mathcal{P}$，且 $Y' \to Y$ 光滑，则基变换
+$f' : Y' \times_Y X \to Y'$ 具有 $\mathcal{P}$；并且
+\item （局部性）给定态射 $f : X \to Y$，下列条件等价：
+\begin{enumerate}
+\item $f$ 具有 $\mathcal{P}$；
+\item 对每个 $x \in |X|$，存在交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+其中竖直箭头光滑，并存在 $u \in |U|$，满足
+$a(u) = x$，且 $h$ 具有 $\mathcal{P}$。
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+以上作为我们的定义。在下面的引理中，我们将说明这等价于：
+$\mathcal{P}$ 在靶上光滑局部、在源上光滑局部，并且在与光滑态射
+后复合下保持。
+
+\begin{lemma}
+\label{spaces-descent-lemma-local-source-target-implies}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，
+并且它在源与靶上光滑局部。则：
+\begin{enumerate}
+\item $\mathcal{P}$ 在源上光滑局部；
+\item $\mathcal{P}$ 在靶上光滑局部；
+\item $\mathcal{P}$ 在与光滑态射后复合下保持：若
+$f : X \to Y$ 具有 $\mathcal{P}$，且 $g : Y \to Z$ 光滑，
+则 $g \circ f$ 具有 $\mathcal{P}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们把细节完整写出。
+
+\medskip\noindent
+(1) 的证明。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+设 $\{X_i \to X\}_{i \in I}$ 为 $X$ 的光滑覆盖。
+若每个复合 $h_i : X_i \to Y$ 都具有 $\mathcal{P}$，则对每个
+% P09-ERR-0362
+$|x| \in X$，可找到 $i \in I$ 与点 $x_i \in |X_i|$，
+后者映到 $x$。于是 $(X_i, x_i) \to (X, x)$
+是带点对之间的光滑态射，$\text{id}_Y : Y \to Y$
+是光滑态射，而且 $h_i$ 如定义
+\ref{spaces-descent-definition-local-source-target} 第 (3) 部分所述。
+因此可见 $f$ 具有 $\mathcal{P}$。反之，若 $f$ 具有
+$\mathcal{P}$，则由定义 \ref{spaces-descent-definition-local-source-target}
+第 (1) 部分，每个 $X_i \to Y$ 都具有 $\mathcal{P}$。
+
+\medskip\noindent
+(2) 的证明。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $Y$ 的光滑覆盖。
+记 $X_i = Y_i \times_Y X$，并记
+$h_i : X_i \to Y_i$ 为 $f$ 的基变换。若每个 $h_i : X_i \to Y_i$
+都具有 $\mathcal{P}$，则对每个 $x \in |X|$，选择
+$i \in I$ 与点 $x_i \in |X_i|$，后者映到 $x$。
+于是 $(X_i, x_i) \to (X, x)$ 是带点对之间的光滑态射，
+$Y_i \to Y$ 光滑，且 $h_i$ 如定义
+\ref{spaces-descent-definition-local-source-target} 第 (3) 部分所述。
+因此可见 $f$ 具有 $\mathcal{P}$。反之，若 $f$ 具有
+$\mathcal{P}$，则由定义 \ref{spaces-descent-definition-local-source-target}
+第 (2) 部分，每个 $X_i \to Y_i$ 都具有 $\mathcal{P}$。
+
+\medskip\noindent
+(3) 的证明。假设 $f : X \to Y$ 具有 $\mathcal{P}$，且
+$g : Y \to Z$ 光滑。对每个 $x \in |X|$，可把
+$(X, x) \to (X, x)$ 看作带点对之间的光滑态射，
+$Y \to Z$ 是光滑态射，而 $h = f$ 如定义
+\ref{spaces-descent-definition-local-source-target} 第 (3) 部分所述。
+因此可见 $g \circ f$ 具有 $\mathcal{P}$。
+\end{proof}
+
+\noindent
+下一个引理是《态射》引理
+\ref{morphisms-lemma-locally-P-characterize} 的对应版本。
+
+\begin{lemma}
+\label{spaces-descent-lemma-local-source-target-characterize}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，
+并且它在源与靶上光滑局部。设 $f : X \to Y$ 为 $S$
+上代数空间的一个态射。下列条件等价：
+\begin{enumerate}
+\item[(a)] $f$ 具有性质 $\mathcal{P}$；
+\item[(b)] 对每个 $x \in |X|$，存在带点对之间的光滑态射
+$a : (U, u) \to (X, x)$、光滑态射 $b : V \to Y$，以及态射
+$h : U \to V$，使得 $f \circ a = b \circ h$，且 $h$ 具有
+$\mathcal{P}$；
+\item[(c)] 存在交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+其中 $a$、$b$ 光滑，$a$ 为满态射，且 $h$ 具有 $\mathcal{P}$；
+\item[(d)] 对任意交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+若 $b$ 光滑且 $U \to X \times_Y V$ 光滑，则态射 $h$
+具有 $\mathcal{P}$；
+\item[(e)] 存在光滑覆盖 $\{Y_i \to Y\}_{i \in I}$，
+使每个基变换 $Y_i \times_Y X \to Y_i$ 都具有 $\mathcal{P}$；
+\item[(f)] 存在光滑覆盖 $\{X_i \to X\}_{i \in I}$，
+使每个复合 $X_i \to Y$ 都具有 $\mathcal{P}$；
+\item[(g)] 存在光滑覆盖 $\{Y_i \to Y\}_{i \in I}$，且对每个
+$i \in I$，存在光滑覆盖
+$\{X_{ij} \to Y_i \times_Y X\}_{j \in J_i}$，使每个态射
+$X_{ij} \to Y_i$ 都具有 $\mathcal{P}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) 与 (b) 的等价性是定义
+\ref{spaces-descent-definition-local-source-target} 的一部分。
+(a) 与 (e) 的等价性是引理
+\ref{spaces-descent-lemma-local-source-target-implies} 第 (2) 部分。
+(a) 与 (f) 的等价性是引理
+\ref{spaces-descent-lemma-local-source-target-implies} 第 (1) 部分。
+由于 (a) 现在分别等价于 (e) 与 (f)，所以
+% P09-ERR-0363
+(a) 等价于 (g)。
+
+\medskip\noindent
+显然，(c) 蕴含 (b)。若 (b) 成立，则对任意
+$x \in |X|$，可选择带点对之间的光滑态射
+$a_x : (U_x, u_x) \to (X, x)$、光滑态射 $b_x : V_x \to Y$，
+以及态射 $h_x : U_x \to V_x$，使得
+$f \circ a_x = b_x \circ h_x$，且 $h_x$ 具有 $\mathcal{P}$。
+于是 $h = \coprod h_x : \coprod U_x \to \coprod V_x$，连同
+$a = \coprod a_x$ 与 $b = \coprod b_x$，构成 (c) 中所述的图。
+（注意，$h$ 具有性质 $\mathcal{P}$，因为
+$\{V_x \to \coprod V_x\}$ 是光滑覆盖，且 $\mathcal{P}$
+在靶上光滑局部。）因此 (b) 与 (c) 等价。
+
+\medskip\noindent
+现在已知 (a)、(b)、(c)、(e)、(f)、(g) 等价。
+假设 (a) 成立。设 $U, V, a, b, h$ 如 (d) 所述。
+$X \times_Y V \to V$ 具有 $\mathcal{P}$，因为
+$\mathcal{P}$ 在光滑基变换下保持；$U \to V$ 具有
+$\mathcal{P}$，因为 $\mathcal{P}$ 在与光滑态射预复合下保持。
+反之，若 (d) 成立，
+令 $U = X$、$V = Y$，可见 $f$ 具有 $\mathcal{P}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-smooth-local-source-target}
+设 $S$ 为概形。
+设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质。假设：
+\begin{enumerate}
+\item $\mathcal{P}$ 在源上光滑局部；
+\item $\mathcal{P}$ 在靶上光滑局部；
+\item $\mathcal{P}$ 在与光滑态射后复合下保持：若
+$f : X \to Y$ 具有 $\mathcal{P}$，且 $Y \to Z$ 为光滑态射，
+则 $X \to Z$ 具有 $\mathcal{P}$。
+\end{enumerate}
+则 $\mathcal{P}$ 在源与靶上光滑局部。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{P}$ 为满足本引理条件 (1)、(2)、(3) 的代数空间态射性质。
+由引理 \ref{spaces-descent-lemma-precompose-property-local-source}，可见
+$\mathcal{P}$ 在与光滑态射预复合下保持。由引理
+\ref{spaces-descent-lemma-pullback-property-local-target}，可见
+$\mathcal{P}$ 在光滑基变换下保持。因此只需证明定义
+\ref{spaces-descent-definition-local-source-target} 的第 (3) 部分成立。
+
+\medskip\noindent
+更明确地，假设 $f : X \to Y$ 是 $S$ 上代数空间的态射，且满足
+定义 \ref{spaces-descent-definition-local-source-target} 第 (3)(b) 部分。换言之，对每个
+% P09-ERR-0364
+$x \in X$，存在光滑态射 $a_x : U_x \to X$、点
+$u_x \in |U_x|$（其像为 $x$）、光滑态射 $b_x : V_x \to Y$，以及态射
+$h_x : U_x \to V_x$，使得 $f \circ a_x = b_x \circ h_x$，且
+$h_x$ 具有 $\mathcal{P}$。只要证明 $f$ 具有 $\mathcal{P}$，
+本引理的证明便告完成。令 $U = \coprod U_x$、$a = \coprod a_x$、
+$V = \coprod V_x$、$b = \coprod b_x$、$h = \coprod h_x$。得到交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+其中
+% P09-ERR-0365
+$a$、$b$ 光滑，而 $a$ 为满态射。注意，$h$ 具有 $\mathcal{P}$，
+因为每个 $h_x$ 都如此，且 $\mathcal{P}$ 在靶上光滑局部。
+由于 $a$ 为满态射且 $\mathcal{P}$ 在源上光滑局部，只需证明
+$b \circ h$ 具有 $\mathcal{P}$。这由我们的假设立即得出：
+$\mathcal{P}$ 在与光滑态射后复合下保持，而 $b$ 光滑。
+\end{proof}
+
+\begin{remark}
+\label{spaces-descent-remark-list-local-source-target}
+利用引理 \ref{spaces-descent-lemma-smooth-local-source-target} 以及本章前面各节的结果，
+很容易列出在源与靶上光滑局部的态射类型。在每种情形中，我们列出
+说明该性质在源上光滑局部的引理，以及说明该性质在靶上光滑局部的
+引理。每种情形下，引理 \ref{spaces-descent-lemma-smooth-local-source-target}
+的第三项假设都易于检验，故予以省略。清单如下：
+\begin{enumerate}
+\item 平坦，见引理 \ref{spaces-descent-lemma-flat-fpqc-local-source} 和
+\ref{spaces-descent-lemma-descending-property-flat}；
+\item 局部有限展示，见引理
+\ref{spaces-descent-lemma-locally-finite-presentation-fppf-local-source} 和
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}；
+% P09-ERR-0366
+\item 局部有限型，见引理 \ref{spaces-descent-lemma-locally-finite-type-fppf-local-source} 和
+\ref{spaces-descent-lemma-descending-property-locally-finite-type}；
+\item 普遍开，见引理 \ref{spaces-descent-lemma-universally-open-fppf-local-source} 和
+\ref{spaces-descent-lemma-descending-property-universally-open}；
+\item syntomic，见引理 \ref{spaces-descent-lemma-syntomic-syntomic-local-source} 和
+\ref{spaces-descent-lemma-descending-property-syntomic}；
+\item 光滑，见引理 \ref{spaces-descent-lemma-smooth-smooth-local-source} 和
+\ref{spaces-descent-lemma-descending-property-smooth}；
+% P09-ERR-0367
+\item 必要时可在此增补更多条目。
+\end{enumerate}
+\end{remark}
+
+\section{在源与靶上平展-光滑局部的态射性质}
+\label{spaces-descent-section-properties-etale-smooth-local-source-target}
+
+\noindent
+本节是在源上平展局部、在靶上光滑局部的态射性质所对应的
+第 \ref{spaces-descent-section-properties-local-source-target} 节。我们特意给这种
+性质取了一个长得有些夸张的名称，以免过多使用它。
+
+\begin{definition}
+\label{spaces-descent-definition-etale-smooth-local-source-target}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质。
+称 $\mathcal{P}$ {it 在源与靶上平展-光滑局部}，如果：
+\begin{enumerate}
+\item （在与平展态射预复合下保持）若 $f : X \to Y$ 平展，且
+$g : Y \to Z$ 具有 $\mathcal{P}$，则 $g \circ f$ 具有 $\mathcal{P}$；
+\item （在光滑基变换下保持）若 $f : X \to Y$ 具有 $\mathcal{P}$，
+且 $Y' \to Y$ 光滑，则基变换 $f' : Y' \times_Y X \to Y'$ 具有
+$\mathcal{P}$；
+\item （局部性）给定态射 $f : X \to Y$，下列条件等价：
+\begin{enumerate}
+\item $f$ 具有 $\mathcal{P}$；
+\item 对每个 $x \in |X|$，存在交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+其中 $b$ 光滑、$U \to X \times_Y V$ 平展，并存在
+$u \in |U|$ 满足 $a(u) = x$，使得 $h$ 具有 $\mathcal{P}$。
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+以上作为我们的定义。在下面的引理中，我们将说明，这等价于
+% P09-ERR-0368
+$\mathcal{P}$ 在靶上平展局部、在源上光滑局部，并且在与平展态射
+后复合下保持。
+
+\begin{lemma}
+\label{spaces-descent-lemma-etale-smooth-local-source-target-implies}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，
+并且它在源与靶上平展-光滑局部。则：
+\begin{enumerate}
+\item $\mathcal{P}$ 在源上平展局部；
+\item $\mathcal{P}$ 在靶上光滑局部；
+\item $\mathcal{P}$ 在与平展态射后复合下保持：若
+$f : X \to Y$ 具有 $\mathcal{P}$，且 $g : Y \to Z$ 平展，
+则 $g \circ f$ 具有 $\mathcal{P}$；
+\item $\mathcal{P}$ 具有下列保持性质：给定 $f : X \to Y$ 以及
+平展态射 $g : Y \to Z$，若 $g \circ f$ 具有 $\mathcal{P}$，
+则 $f$ 具有 $\mathcal{P}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们把细节完整写出。
+
+\medskip\noindent
+(1) 的证明。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+设 $\{X_i \to X\}_{i \in I}$ 为 $X$ 的平展覆盖。若每个复合
+$h_i : X_i \to Y$ 都具有 $\mathcal{P}$，则对每个
+% P09-ERR-0369
+$|x| \in X$，可找到 $i \in I$ 与点 $x_i \in |X_i|$，
+后者映到 $x$。于是 $(X_i, x_i) \to (X, x)$
+是带点对之间的平展态射，$\text{id}_Y : Y \to Y$ 是光滑态射，
+而且 $h_i$ 如定义
+\ref{spaces-descent-definition-etale-smooth-local-source-target} 第 (3) 部分所述。
+因此可见 $f$ 具有 $\mathcal{P}$。反之，若 $f$ 具有
+$\mathcal{P}$，则由定义
+\ref{spaces-descent-definition-etale-smooth-local-source-target} 第 (1) 部分，
+每个 $X_i \to Y$ 都具有 $\mathcal{P}$。
+
+\medskip\noindent
+(2) 的证明。设 $f : X \to Y$ 为 $S$ 上代数空间的态射。
+设 $\{Y_i \to Y\}_{i \in I}$ 为 $Y$ 的光滑覆盖。
+记 $X_i = Y_i \times_Y X$，并记 $h_i : X_i \to Y_i$ 为
+$f$ 的基变换。若每个 $h_i : X_i \to Y_i$ 都具有 $\mathcal{P}$，
+则对每个 $x \in |X|$，选择 $i \in I$ 与点
+$x_i \in |X_i|$，后者映到 $x$。于是
+$X_i \to X \times_Y Y_i$ 是平展态射（因为它是同构），
+$Y_i \to Y$ 光滑，且 $h_i$ 如定义
+% P09-ERR-0370
+\ref{spaces-descent-definition-local-source-target} 第 (3) 部分所述。因此可见
+$f$ 具有 $\mathcal{P}$。反之，若 $f$ 具有 $\mathcal{P}$，
+则由定义 \ref{spaces-descent-definition-local-source-target} 第 (2) 部分，
+每个 $X_i \to Y_i$ 都具有 $\mathcal{P}$。
+
+\medskip\noindent
+(3) 的证明。假设 $f : X \to Y$ 具有 $\mathcal{P}$，且
+$g : Y \to Z$ 平展。态射 $X \to Y \times_Z X$ 是平展的，
+因为它是 $X$ 上两个平展代数空间之间的态射（见《空间的性质》
+引理 \ref{spaces-properties-lemma-etale-permanence}）。此外，
+$Y \to Z$ 平展，
+% P09-ERR-0371
+因而是光滑态射。因此，下图
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+X \ar[r]^{g \circ f} & Z
+}
+$$
+对每个 $x \in |X|$ 都适用于
+% P09-ERR-0372
+定义 \ref{spaces-descent-definition-local-source-target} 第 (3) 部分，
+由此得出 $g \circ f$ 具有 $\mathcal{P}$。
+
+\medskip\noindent
+(4) 的证明。设 $f : X \to Y$ 为态射，$g : Y \to Z$ 平展，
+且 $g \circ f$ 具有 $\mathcal{P}$。由定义
+\ref{spaces-descent-definition-etale-smooth-local-source-target} 第 (2) 部分，
+可见 $\text{pr}_Y : Y \times_Z X \to Y$ 具有 $\mathcal{P}$。
+但态射 $(f, 1) : X \to Y \times_Z X$ 是平展的，因为它是平展投影
+$\text{pr}_X : Y \times_Z X \to X$ 的截面；见《空间的态射》
+引理 \ref{spaces-morphisms-lemma-etale-permanence}。因此，由定义
+\ref{spaces-descent-definition-etale-smooth-local-source-target} 第 (1) 部分，
+$f = \text{pr}_Y \circ (f, 1)$ 具有 $\mathcal{P}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-etale-smooth-local-source-target-characterize}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质，
+并且它在源与靶上平展-光滑局部。设 $f : X \to Y$ 为 $S$
+上代数空间的一个态射。下列条件等价：
+\begin{enumerate}
+\item[(a)] $f$ 具有性质 $\mathcal{P}$；
+\item[(b)] 对每个 $x \in |X|$，存在光滑态射 $b : V \to Y$、
+平展态射 $a : U \to V \times_Y X$，以及点 $u \in |U|$，
+它映到 $x$，使得 $U \to V$ 具有 $\mathcal{P}$；
+\item[(c)] 存在交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+其中 $b$ 光滑、$U \to V \times_Y X$ 平展、$a$ 为满态射，
+且态射 $h$ 具有 $\mathcal{P}$；
+\item[(d)] 对任意交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+若 $b$ 光滑且 $U \to X \times_Y V$ 平展，则态射 $h$
+具有 $\mathcal{P}$；
+\item[(e)] 存在光滑覆盖 $\{Y_i \to Y\}_{i \in I}$，
+使每个基变换 $Y_i \times_Y X \to Y_i$ 都具有 $\mathcal{P}$；
+\item[(f)] 存在平展覆盖 $\{X_i \to X\}_{i \in I}$，
+使每个复合 $X_i \to Y$ 都具有 $\mathcal{P}$；
+\item[(g)] 存在光滑覆盖 $\{Y_i \to Y\}_{i \in I}$，且对每个
+$i \in I$，存在平展覆盖
+$\{X_{ij} \to Y_i \times_Y X\}_{j \in J_i}$，使每个态射
+$X_{ij} \to Y_i$ 都具有 $\mathcal{P}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) 与 (b) 的等价性是定义
+\ref{spaces-descent-definition-etale-smooth-local-source-target} 的一部分。
+(a) 与 (e) 的等价性是引理
+\ref{spaces-descent-lemma-etale-smooth-local-source-target-implies} 第 (2) 部分。
+(a) 与 (f) 的等价性是引理
+\ref{spaces-descent-lemma-etale-smooth-local-source-target-implies} 第 (1) 部分。
+由于 (a) 现在分别等价于 (e) 与 (f)，所以
+% P09-ERR-0373
+(a) 等价于 (g)。
+
+\medskip\noindent
+显然，(c) 蕴含 (b)。若 (b) 成立，则对任意 $x \in |X|$，
+% P09-ERR-0374
+可选择光滑态射 $b_x : V_x \to Y$、平展态射
+$U_x \to V_x \times_Y X$，以及点 $u_x \in |U_x|$，后者映到 $x$，
+使得 $U_x \to V_x$ 具有 $\mathcal{P}$。于是
+% P09-ERR-0375
+$h = \coprod h_x : \coprod U_x \to \coprod V_x$，连同
+$a = \coprod a_x$ 与 $b = \coprod b_x$，构成 (c) 中所述的图。
+（注意，$h$ 具有性质 $\mathcal{P}$，因为
+$\{V_x \to \coprod V_x\}$ 是光滑覆盖，且 $\mathcal{P}$
+在靶上光滑局部。）因此 (b) 与 (c) 等价。
+
+\medskip\noindent
+现在已知 (a)、(b)、(c)、(e)、(f)、(g) 等价。
+假设 (a) 成立。设 $U, V, a, b, h$ 如 (d) 所述。
+$X \times_Y V \to V$ 具有 $\mathcal{P}$，因为 $\mathcal{P}$
+在光滑基变换下保持；由此 $U \to V$ 具有 $\mathcal{P}$，
+因为 $\mathcal{P}$ 在与平展态射预复合下保持。反之，若 (d) 成立，
+令 $U = X$、$V = Y$，可见 $f$ 具有 $\mathcal{P}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-etale-smooth-local-source-target}
+设 $S$ 为概形。设 $\mathcal{P}$ 为 $S$ 上代数空间态射的一个性质。
+假设：
+\begin{enumerate}
+\item $\mathcal{P}$ 在源上平展局部；
+\item $\mathcal{P}$ 在靶上光滑局部；
+\item $\mathcal{P}$ 在与开浸入后复合下保持：若
+$f : X \to Y$ 具有 $\mathcal{P}$，且 $Y \subset Z$ 为开嵌入，
+则 $X \to Z$ 具有 $\mathcal{P}$。
+\end{enumerate}
+则 $\mathcal{P}$ 在源与靶上平展-光滑局部。
+\end{lemma}
+
+\begin{proof}
+设 $\mathcal{P}$ 为满足本引理条件 (1)、(2)、(3) 的代数空间态射性质。
+由引理 \ref{spaces-descent-lemma-precompose-property-local-source}，可见
+$\mathcal{P}$ 在与平展态射预复合下保持。由引理
+\ref{spaces-descent-lemma-pullback-property-local-target}，可见 $\mathcal{P}$
+在光滑基变换下保持。因此只需证明
+% P09-ERR-0376
+定义 \ref{spaces-descent-definition-local-source-target} 第 (3) 部分成立。
+
+\medskip\noindent
+更明确地，假设 $f : X \to Y$ 是 $S$ 上代数空间的态射，且满足
+定义 \ref{spaces-descent-definition-local-source-target} 第 (3)(b) 部分。换言之，对每个
+% P09-ERR-0377
+$x \in X$，存在光滑态射 $b_x : V_x \to Y$、平展态射
+$U_x \to V_x \times_Y X$，以及点 $u_x \in |U_x|$，后者映到 $x$，
+使得 $h_x : U_x \to V_x$ 具有 $\mathcal{P}$。只要证明
+$f$ 具有 $\mathcal{P}$，本引理的证明便告完成。
+
+\medskip\noindent
+设 $a_x : U_x \to X$ 为复合 $U_x \to V_x \times_Y X \to X$。
+令 $U = \coprod U_x$、$a = \coprod a_x$、$V = \coprod V_x$、
+$b = \coprod b_x$、$h = \coprod h_x$。得到交换图
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+其中 $b$ 光滑、$U \to V \times_Y X$ 平展，
+% P09-ERR-0378
+$a$ 为满态射。注意，$h$ 具有 $\mathcal{P}$，因为每个
+$h_x$ 都如此，且 $\mathcal{P}$ 在靶上光滑局部。下一段将证明，
+可以假设 $U, V, X, Y$ 都是概形；我们建议读者跳过这一段。
+
+\medskip\noindent
+设 $X, Y, U, V, a, b, f, h$ 如上一段所述。我们需要证明
+$f$ 具有 $\mathcal{P}$。取满平展态射 $X' \to X$，使
+% P09-ERR-0379
+$X_i$ 为概形。令 $U' = X' \times_X U$。则 $U' \to X'$ 为满态射，
+且 $U' \to X' \times_Y V$ 平展。由于 $\mathcal{P}$ 在源上平展局部，
+可见 $U' \to V$ 具有 $\mathcal{P}$，并且只需证明
+$X' \to Y$ 具有 $\mathcal{P}$。换言之，可以假设 $X$ 为概形。
+接着，选择满平展态射 $Y' \to Y$，使 $Y'$ 为概形。令
+$V' = V \times_Y Y'$、$X' = X \times_Y Y'$，以及
+$U' = U \times_Y Y'$。则 $U' \to X'$ 为满态射，且
+$U' \to X' \times_{Y'} V'$ 平展。由于 $\mathcal{P}$ 在靶上光滑局部，
+可见 $U' \to V'$ 具有 $\mathcal{P}$，并且只需证明
+$X' \to Y'$ 具有 $\mathcal{P}$。因此可以假设 $X$ 与 $Y$
+都是概形。选择满平展态射 $V' \to V$，使 $V'$ 为概形。令
+$U' = U \times_V V'$。则 $U' \to X$ 为满态射，且
+$U' \to X \times_Y V'$ 平展。由于
+% P09-ERR-0380
+$\mathcal{P}$ 在源上光滑局部，可见 $U' \to V'$ 具有
+$\mathcal{P}$。因此可以把 $U, V$ 替换为 $U', V'$，并假设
+$X, Y, V$ 都是概形。最后，把 $U$ 替换为一个满平展于 $U$
+之上的概形，由此可见，可以假设 $U, V, X, Y$ 全都是概形。
+
+\medskip\noindent
+若 $U, V, X, Y$ 是概形，则由《下降》引理
+\ref{descent-lemma-etale-tau-local-source-target}，$f$ 具有 $\mathcal{P}$。
+\end{proof}
+
+\begin{remark}
+\label{spaces-descent-remark-list-etale-smooth-local-source-target}
+利用引理 \ref{spaces-descent-lemma-etale-smooth-local-source-target} 以及本章前面各节的
+结果，很容易列出
+% P09-ERR-0381
+在源与靶上光滑局部的态射类型。在每种情形中，我们列出说明该性质
+在源上平展局部的引理，以及说明该性质在靶上光滑局部的引理。
+每种情形下，引理 \ref{spaces-descent-lemma-etale-smooth-local-source-target}
+的第三项假设都易于检验，故予以省略。清单如下：
+\begin{enumerate}
+\item 平展，见引理 \ref{spaces-descent-lemma-etale-etale-local-source} 和
+\ref{spaces-descent-lemma-descending-property-etale}；
+\item 局部拟有限，见引理
+\ref{spaces-descent-lemma-locally-quasi-finite-etale-local-source} 和
+\ref{spaces-descent-lemma-descending-property-quasi-finite}；
+\item 非分歧，见引理 \ref{spaces-descent-lemma-unramified-etale-local-source} 和
+\ref{spaces-descent-lemma-descending-property-unramified}；
+% P09-ERR-0382
+\item 必要时可在此增补更多条目。
+\end{enumerate}
+当然，注 \ref{spaces-descent-remark-list-local-source-target} 中列出的任何性质，
+更是可以列在这里的例子。
+\end{remark}
+
+\section{空间之上空间的下降资料}
+\label{spaces-descent-section-descent-datum}
+
+\noindent
+本节是代数空间情形下《下降》第
+\ref{descent-section-descent-datum} 节的对应版本。本节的大多数论证
+都是形式的，只依赖于下降资料的定义。
+
+\begin{definition}
+\label{spaces-descent-definition-descent-datum}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的态射。
+\begin{enumerate}
+\item 设 $V \to Y$ 为代数空间的态射。$V/Y/X$ 的一个
+{\it 下降资料}，是一个同构
+$\varphi : V \times_X Y \to Y \times_X V$；它是
+$Y \times_X Y$ 上代数空间的同构，并满足如下
+{\it 余圈条件}：交换图
+$$
+\xymatrix{
+V \times_X Y \times_X Y \ar[rd]^{\varphi_{01}} \ar[rr]_{\varphi_{02}} &
+&
+Y \times_X Y \times_X V\\
+&
+Y \times_X V \times_X Y \ar[ru]^{\varphi_{12}}
+}
+$$
+交换（采用显然的记号）。
+\item 也称对 $(V/Y, \varphi)$ 是相对于 $Y \to X$ 的一个
+{\it 下降资料}。
+\item 下降资料之间的一个
+{\it 态射 $f : (V/Y, \varphi) \to (V'/Y, \varphi')$，相对于
+$Y \to X$}，是态射 $f : V \to V'$；它是
+$Y$ 上代数空间的态射，并使交换图
+$$
+\xymatrix{
+V \times_X Y \ar[r]_{\varphi} \ar[d]_{f \times \text{id}_Y} &
+Y \times_X V \ar[d]^{\text{id}_Y \times f} \\
+V' \times_X Y \ar[r]^{\varphi'} & Y \times_X V'
+}
+$$
+交换。
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{spaces-descent-remark-easier}
+设 $S$ 为概形。设 $Y \to X$ 为 $S$ 上代数空间的态射。
+设 $(V/Y, \varphi)$ 为相对于 $Y \to X$ 的下降资料。可以把同构
+$\varphi$ 看作代数空间的同构
+$$
+(Y \times_X Y) \times_{\text{pr}_0, Y} V
+\longrightarrow
+(Y \times_X Y) \times_{\text{pr}_1, Y} V
+$$
+它位于 $Y \times_X Y$ 之上。因此，宽泛地说，可以把 $\varphi$ 看作映射
+$\varphi : \text{pr}_0^*V \to \text{pr}_1^*V$\footnote{遗憾的是，
+这里的箭头方向选“反”了。按照“函数”与“空间”对偶的一般原理，
+定义 \ref{spaces-descent-definition-descent-datum} 和
+\ref{spaces-descent-definition-descent-datum-for-family-of-morphisms} 中的方向，
+本应与定义 \ref{spaces-descent-definition-descent-datum-quasi-coherent} 中所取的方向
+相反。}。此时余圈条件表示
+$\text{pr}_{02}^*\varphi =
+\text{pr}_{12}^*\varphi \circ \text{pr}_{01}^*\varphi$。
+这样一来，它与拟凝聚层上下降资料的情形非常相似。
+\end{remark}
+
+\noindent
+下面给出具有固定靶的态射族之情形下的定义。
+
+\begin{definition}
+\label{spaces-descent-definition-descent-datum-for-family-of-morphisms}
+设 $S$ 为概形。设 $\{X_i \to X\}_{i \in I}$ 为 $S$
+上具有固定靶 $X$ 的代数空间态射族。
+\begin{enumerate}
+\item 一个{\it 下降资料 $(V_i, \varphi_{ij})$，相对于族
+$\{X_i \to X\}$}，由下列对象给出：
+代数空间 $V_i$ 位于 $X_i$ 上（对每个 $i \in I$）；有同构
+$\varphi_{ij} : V_i \times_X X_j \to X_i \times_X V_j$，它是
+$X_i \times_X X_j$ 上代数空间的同构（对每一对 $(i, j) \in I^2$）；
+并且对每个
+指标三元组 $(i, j, k) \in I^3$，交换图
+$$
+\xymatrix{
+V_i \times_X X_j \times_X X_k
+\ar[rd]^{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} &
+&
+X_i \times_X X_j \times_X V_k\\
+&
+X_i \times_X V_j \times_X X_k
+\ar[ru]^{\text{pr}_{12}^*\varphi_{jk}}
+}
+$$
+作为 $X_i \times_X X_j \times_X X_k$ 上代数空间的图交换
+（采用显然的记号）。
+\item 下降资料之间的一个
+{\it 态射 $\psi : (V_i, \varphi_{ij}) \to
+(V'_i, \varphi'_{ij})$}，由态射族
+$\psi = (\psi_i)_{i \in I}$ 给出，其中
+$\psi_i : V_i \to V'_i$ 是 $X_i$ 上代数空间的态射，并且所有图
+$$
+\xymatrix{
+V_i \times_X X_j \ar[r]_{\varphi_{ij}} \ar[d]_{\psi_i \times \text{id}} &
+X_i \times_X V_j \ar[d]^{\text{id} \times \psi_j} \\
+V'_i \times_X X_j \ar[r]^{\varphi'_{ij}} & X_i \times_X V'_j
+}
+$$
+都交换。
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{spaces-descent-remark-easier-family}
+设 $S$ 为概形。设 $\{X_i \to X\}_{i \in I}$ 为 $S$
+上具有固定靶 $X$ 的代数空间态射族。设
+$(V_i, \varphi_{ij})$ 为相对于 $\{X_i \to X\}$ 的下降资料。
+可以把各同构 $\varphi_{ij}$ 看作代数空间的同构
+$$
+(X_i \times_X X_j) \times_{\text{pr}_0, X_i} V_i
+\longrightarrow
+(X_i \times_X X_j) \times_{\text{pr}_1, X_j} V_j
+$$
+它位于 $X_i \times_X X_j$ 之上。因此，宽泛地说，可以把
+$\varphi_{ij}$ 看作同构
+$\text{pr}_0^*V_i \to \text{pr}_1^*V_j$，它位于
+$X_i \times_X X_j$ 之上。此时余圈条件表示
+$\text{pr}_{02}^*\varphi_{ik} =
+\text{pr}_{12}^*\varphi_{jk} \circ \text{pr}_{01}^*\varphi_{ij}$。
+这样一来，它与拟凝聚层上下降资料的情形非常相似。
+\end{remark}
+
+\noindent
+通常采用只含一个态射的族版本，其理由是下面的引理。
+
+\begin{lemma}
+\label{spaces-descent-lemma-family-is-one}
+设 $S$ 为概形。设 $\{X_i \to X\}_{i \in I}$ 为 $S$
+上具有固定靶 $X$ 的代数空间态射族。令
+$Y = \coprod_{i \in I} X_i$。存在范畴的典范等价
+$$
+\begin{matrix}
+\text{下降资料范畴 } \\
+\text{相对于族 } \{X_i \to X\}_{i \in I}
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{下降资料范畴} \\
+\text{相对于 } Y/X
+\end{matrix}
+$$
+它把 $(V_i, \varphi_{ij})$ 映到 $(V, \varphi)$，其中
+$V = \coprod_{i\in I} V_i$ 且 $\varphi = \coprod \varphi_{ij}$。
+\end{lemma}
+
+\begin{proof}
+注意，$Y \times_X Y = \coprod_{ij} X_i \times_X X_j$，
+更高次纤维积也同样。给出态射 $V \to Y$，恰好等价于给出一个族
+$V_i \to X_i$；而给出下降资料 $\varphi$，恰好等价于给出一个族
+$\varphi_{ij}$。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-descent-lemma-pullback}
+下降资料的拉回。设 $S$ 为概形。
+\begin{enumerate}
+\item 设
+$$
+\xymatrix{
+Y' \ar[r]_f \ar[d]_{a'} & Y \ar[d]^a \\
+X' \ar[r]^h & X
+}
+$$
+为 $S$ 上代数空间的交换图。构造
+$$
+(V \to Y, \varphi) \longmapsto f^*(V \to Y, \varphi)
+= (V' \to Y', \varphi')
+$$
+其中 $V' = Y' \times_Y V$，而 $\varphi'$ 定义为复合
+% P09-ERR-0383
+$$
+\xymatrix{
+V' \times_{X'} Y' \ar@{=}[r] &
+(Y' \times_Y V) \times_{X'} Y' \ar@{=}[r] &
+(Y' \times_{X'} Y') \times_{Y \times_X Y} (V \times_X Y)
+\ar[d]^{\text{id} \times \varphi} \\
+Y' \times_{X'} V' \ar@{=}[r] &
+Y' \times_{X'} (Y' \times_Y V) &
+(Y' \times_X Y') \times_{Y \times_X Y} (Y \times_X V) \ar@{=}[l]
+}
+$$
+它定义了一个函子，从相对于 $Y \to X$ 的下降资料范畴到
+相对于 $Y' \to X'$ 的下降资料范畴。
+\item 给定使图交换的两个态射 $f_i : Y' \to Y$，$i = 0, 1$，
+函子 $f_0^*$ 与 $f_1^*$ 典范同构。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+我们略去 (1) 的证明，但指出：按照注 \ref{spaces-descent-remark-easier}
+中引入的记号，态射 $\varphi'$ 就是态射 $(f \times f)^*\varphi$。
+对于 (2)，我们指出给出函子同构的态射
+$f_0^*V \to f_1^*V$。具体而言，由于 $f_0$ 与 $f_1$
+都可置于该交换图中，可见存在唯一态射
+$r : Y' \to Y \times_X Y$，满足 $f_i = \text{pr}_i \circ r$。
+于是取
+\begin{eqnarray*}
+f_0^*V & = &
+Y' \times_{f_0, Y} V \\
+& = &
+Y' \times_{\text{pr}_0 \circ r, Y} V \\
+& = &
+Y' \times_{r, Y \times_X Y} (Y \times_X Y) \times_{\text{pr}_0, Y} V \\
+& \xrightarrow{\varphi} &
+Y' \times_{r, Y \times_X Y} (Y \times_X Y) \times_{\text{pr}_1, Y} V \\
+& = &
+Y' \times_{\text{pr}_1 \circ r, Y} V \\
+& = &
+Y' \times_{f_1, Y} V \\
+& = & f_1^*V
+\end{eqnarray*}
+我们略去这一构造确实适用的验证。
+\end{proof}
+
+\begin{definition}
+\label{spaces-descent-definition-pullback-functor}
+设 $S, X, X', Y, Y', f, a, a', h$ 如引理 \ref{spaces-descent-lemma-pullback} 中所述。
+该引理构造的函子
+$$
+(V, \varphi) \longmapsto f^*(V, \varphi)
+$$
+称为下降资料上的{\it 拉回函子}。
+\end{definition}
+
+\begin{lemma}
+\label{spaces-descent-lemma-pullback-family}
+设 $S$ 为概形。设
+$\mathcal{U}' = \{X'_i \to X'\}_{i \in I'}$ 与
+% P09-ERR-0384
+$\mathcal{U} = \{X_j \to X\}_{i \in I}$ 为具有固定靶的态射族。
+设 $\alpha : I' \to I$、$g : X' \to X$ 以及
+$g_i : X'_i \to X_{\alpha(i)}$ 给出具有固定靶的映射族之间的态射；
+见《位点》定义 \ref{sites-definition-morphism-coverings}。
+\begin{enumerate}
+\item 设 $(V_i, \varphi_{ij})$ 为相对于族 $\mathcal{U}$ 的下降资料。
+系统
+$$
+\left(
+g_i^*V_{\alpha(i)}, (g_i \times g_j)^*\varphi_{\alpha(i) \alpha(j)}
+\right)
+$$
+（采用注 \ref{spaces-descent-remark-easier-family} 中的记号）是相对于
+$\mathcal{U}'$ 的下降资料。
+\item 此构造定义了一个函子，从相对于 $\mathcal{U}$ 的下降资料范畴
+到相对于 $\mathcal{U}'$ 的下降资料范畴。
+\item 给定第二个 $\beta : I' \to I$、$h : X' \to X$ 以及
+$h'_i : X'_i \to X_{\beta(i)}$，它们给出具有固定靶的映射族之间的
+态射；若 $g = h$，则所得的两个下降资料函子典范同构。
+\item 通过引理 \ref{spaces-descent-lemma-family-is-one}，这些函子与引理
+\ref{spaces-descent-lemma-pullback} 中构造的拉回函子相符。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这由引理 \ref{spaces-descent-lemma-pullback} 通过引理
+\ref{spaces-descent-lemma-family-is-one} 的对应立即得到。
+\end{proof}
+
+\begin{definition}
+\label{spaces-descent-definition-pullback-functor-family}
+设 $\mathcal{U}' = \{X'_i \to X'\}_{i \in I'}$、
+$\mathcal{U} = \{X_i \to X\}_{i \in I}$、$\alpha : I' \to I$、
+$g : X' \to X$ 以及 $g_i : X'_i \to X_{\alpha(i)}$ 如引理
+\ref{spaces-descent-lemma-pullback-family} 中所述。该引理构造的函子
+$$
+(V_i, \varphi_{ij}) \longmapsto
+(g_i^*V_{\alpha(i)}, (g_i \times g_j)^*\varphi_{\alpha(i) \alpha(j)})
+$$
+称为下降资料上的{\it 拉回函子}。
+\end{definition}
+
+\noindent
+若 $\mathcal{U}$ 与 $\mathcal{U}'$ 具有同一个靶 $X$，并且
+$\mathcal{U}'$ 加细 $\mathcal{U}$（见《位点》定义
+\ref{sites-definition-morphism-coverings}），但没有明确给定一对
+$(\alpha, g_i)$，我们仍可谈论拉回函子；这是因为引理
+\ref{spaces-descent-lemma-pullback-family} 已说明，这一对的选择无关紧要
+（相差一个典范同构）。
+
+\begin{definition}
+\label{spaces-descent-definition-effective}
+设 $S$ 为概形。设 $f : Y \to X$ 为 $S$ 上代数空间的态射。
+\begin{enumerate}
+\item 给定代数空间 $U$ 位于 $X$ 上，有 $U$ 相对于
+$\text{id} : X \to X$ 的{\it 平凡下降资料}，即 $U$ 上的恒等态射。
+\item 由引理 \ref{spaces-descent-lemma-pullback}，得到 $Y \times_X U$ 上相对于
+$Y \to X$ 的一个{\it 典范下降资料}，它由平凡下降资料沿 $f$
+拉回而来。我们常把这个下降资料记作
+% P09-ERR-0385
+$(Y \times_X U, can)$。
+\item 下降资料 $(V, \varphi)$ 相对于 $Y/X$，称其为{\it 有效的}，
+如果 $(V, \varphi)$ 同构于典范下降资料
+$(Y \times_X U, can)$，其中某个代数空间 $U$ 位于 $X$ 上。
+\end{enumerate}
+\end{definition}
+
+\noindent
+因此，有效性意味着存在代数空间 $U$ 位于 $X$ 上，以及同构
+$\psi : V \to Y \times_X U$ 位于 $Y$ 上，使 $\varphi$ 等于复合
+% P09-ERR-0386
+$$
+V \times_X Y \xrightarrow{\psi \times \text{id}_Y}
+Y \times_X U \times_S Y =
+Y \times_X Y \times_X U
+\xrightarrow{\text{id}_Y \times \psi^{-1}}
+Y \times_X V
+$$
+这里有一个小问题：当 $Y$ 与 $X$ 都是概形时，这一定义在精神上
+与《下降》定义 \ref{descent-definition-effective} 有冲突。不过，
+从上下文总能清楚看出我们指的是哪个版本。
+
+\begin{definition}
+\label{spaces-descent-definition-effective-family}
+设 $S$ 为概形。设 $\{X_i \to X\}$ 为 $S$ 上具有固定靶 $X$
+的代数空间态射族。
+\begin{enumerate}
+\item 给定代数空间 $U$ 位于 $X$ 上，在代数空间族
+$X_i \times_X U$ 上有一个{\it 典范下降资料}；它由 $U$ 相对于
+% P09-ERR-0387
+$\{\text{id} : S \to S\}$ 的平凡下降资料拉回而来。把这个下降资料记作
+$(X_i \times_X U, can)$。
+\item 下降资料 $(V_i, \varphi_{ij})$ 相对于
+% P09-ERR-0388
+$\{X_i \to S\}$，称其为{\it 有效的}，如果存在代数空间 $U$
+位于 $X$ 上，使 $(V_i, \varphi_{ij})$ 同构于
+$(X_i \times_X U, can)$。
+\end{enumerate}
+\end{definition}
+
+\section{以层表述下降资料}
+\label{spaces-descent-section-descent-data-sheaves}
+
+\noindent
+本节是《下降》第 \ref{descent-section-descent-data-sheaves} 节的
+对应版本。由于代数空间本身已经是层，这里的表述略有不同。
+
+\begin{lemma}
+\label{spaces-descent-lemma-descent-data-sheaves}
+设 $S$ 为概形。设 $\{X_i \to X\}_{i \in I}$ 为 $S$
+上代数空间的一个 fppf 覆盖（《空间上的拓扑》定义
+\ref{spaces-topologies-definition-fppf-covering}）。存在范畴的等价
+$$
+\left\{
+\begin{matrix}
+\text{下降资料 }(V_i, \varphi_{ij})\\
+\text{相对于 }\{X_i \to X\}
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{层 }F\text{ 位于 }(\Sch/S)_{fppf}\text{ 上并配有}\\
+\text{映射 }F \to X\text{，使每个}\\
+X_i \times_X F\text{ 都是代数空间}
+\end{matrix}
+\right\}.
+$$
+此外：
+\begin{enumerate}
+\item 右侧的代数空间 $X_i \times_X F$ 对应于左侧的 $V_i$；
+\item 层 $F$ 是代数空间\footnote{以后将看到，只要 $I$ 不太大，
+这总是成立；见《自举》引理
+\ref{bootstrap-lemma-descend-algebraic-space}。}，当且仅当对应的下降资料
+% P09-ERR-0389
+$(X_i, \varphi_{ij})$ 是有效的。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先构造从右到左的函子。设 $F \to X$ 是
+$(\Sch/S)_{fppf}$ 上层的映射，并且每个
+$V_i = X_i \times_X F$ 都是代数空间。我们有投影
+$V_i \to X_i$。于是 $V_i \times_X X_j$ 与
+$X_i \times_X V_j$ 都表示层 $X_i \times_X F \times_X X_j$，
+因而得到同构
+% P09-ERR-0390
+$$
+\varphi_{ii'} : V_i \times_X X_j \to X_i \times_X V_j
+$$
+容易看出，各映射 $\varphi_{ij}$ 是 $X_i \times_X X_j$
+上的态射，并满足余圈条件。从右到左的函子由此构造
+$F \mapsto (V_i, \varphi_{ij})$ 给出。
+
+\medskip\noindent
+下面构造从左到右的函子。各同构 $\varphi_{ij}$ 给出同构
+$$
+\varphi_{ij} : V_i \times_X X_j \longrightarrow X_i \times_X V_j
+$$
+它们位于
+% P09-ERR-0391
+$X_i \times X_j$ 之上。令 $F$ 等于下图的余等化子：
+% P09-ERR-0392
+$$
+\xymatrix{
+\coprod_{i, i'} V_i \times_X X_j
+\ar@<1ex>[rr]^-{\text{pr}_0}
+\ar@<-1ex>[rr]_-{\text{pr}_1 \circ \varphi_{ij}}
+& &
+\coprod_i V_i \ar[r]
+&
+F
+}
+$$
+余圈条件保证 $F$ 带有映射 $F \to X$，而且
+$X_i \times_X F$ 同构于 $V_i$。从左到右的函子由此构造
+$(V_i, \varphi_{ij}) \mapsto F$ 给出。
+
+\medskip\noindent
+我们略去这些构造互为拟逆函子的验证。最后的陈述 (1) 与 (2)
+由这些构造得到。
+\end{proof}

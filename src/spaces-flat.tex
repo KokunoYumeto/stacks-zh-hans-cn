@@ -1,0 +1,2435 @@
+% Generated mechanically from the frozen spaces-flat.tex target.
+% Do not edit this generated file; edit the bound locale source instead.
+
+% OK, start here.
+%
+
+\setcounter{chapter}{76}
+\chapter{代数空间上的平坦性}
+
+
+\phantomsection
+\label{spaces-flat-section-phantom}
+
+
+
+
+\section{引言}
+\label{spaces-flat-section-introduction}
+
+\noindent
+本章在代数空间的框架下讨论平坦模与平坦态射的一些进阶结果。
+我们强烈建议读者先阅读概形框架下的对应章节，见
+《平坦性进阶》第 \ref{flat-section-introduction} 节。
+一个参考文献是 Raynaud 与 Gruson 的论文 
+\cite{GruRay}。
+
+
+
+
+
+
+\section{不纯性}
+\label{spaces-flat-section-impure}
+
+\noindent
+本节是《平坦性进阶》第 \ref{flat-section-impure} 节的对应版本。
+
+\begin{situation}
+\label{spaces-flat-situation-pre-pure}
+设 $S$ 为概形。设 $f : X \to Y$ 为有限型良态态射\footnote{
+拟分离态射是良态的，见《良态空间》引理
+\ref{decent-spaces-lemma-properties-trivial-implications}。
+对任意态射 $\Spec(k) \to Y$，其中 $k$ 是域，代数空间
+$X_k$ 在 $k$ 上有限表示；这是因为它在 $k$ 上有限型，并且由
+《良态空间》引理
+\ref{decent-spaces-lemma-locally-Noetherian-decent-quasi-separated}
+知它是拟分离的。}，它是 $S$ 上代数空间之间的态射。
+另设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模。
+最后，设 $y \in |Y|$ 为 $Y$ 的一点。
+\end{situation}
+
+\noindent
+在此情形下，考虑概形 $T$、态射 $g : T \to Y$、
+一点 $t \in T$（满足 $g(t)=y$）、特化 $t' \leadsto t$（在 $T$ 中），
+以及一点 $\xi \in |X_T|$，它位于 $t'$ 上方。这里
+$X_T = T \times_Y X$。
+% P09-ERR-0802
+图示为
+\begin{equation}
+\label{spaces-flat-equation-impurity}
+\vcenter{
+\xymatrix{
+\xi \ar@{|->}[d] & \\
+t' \ar@{~>}[r] & t \ar@{|->}[r] \ar[r] & y
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+X_T \ar[d]_{f_T} \ar[r] & X \ar[d]^f \\
+T \ar[r]^g & Y
+}
+}
+\end{equation}
+再用 $\mathcal{F}_T$ 表示 $\mathcal{F}$ 在 $X_T$ 上的拉回。
+
+\begin{definition}
+\label{spaces-flat-definition-impurity}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，称图
+(\ref{spaces-flat-equation-impurity}) 定义了
+{\it $\mathcal{F}$ 在 $y$ 上方的一个不纯性}，如果
+$\xi \in \text{Ass}_{X_T/T}(\mathcal{F}_T)$ 且
+$t \not \in f_T(\overline{\{\xi\}})$。
+我们把这表述为：“令 $(g : T \to Y, t' \leadsto t, \xi)$
+为 $\mathcal{F}$ 在 $y$ 上方的一个不纯性。”
+\end{definition}
+
+\noindent
+换一种说法：$(g : T \to Y, t' \leadsto t, \xi)$ 是
+$\mathcal{F}$ 在 $y$ 上方的一个不纯性，当且仅当不存在特化
+$\xi \leadsto \theta$（在拓扑空间 $|X_T|$ 中）满足
+$f_T(\theta)=t$。
+非良态代数空间中的特化表现不佳。如果态射 $f$ 是良态的，
+则 $X_T$ 都是良态代数空间（对上述每个态射 $g : T \to Y$）；见
+《良态空间》定义 \ref{decent-spaces-definition-relative-conditions}。
+
+\begin{lemma}
+\label{spaces-flat-lemma-impure-limit}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，令
+% P09-ERR-0803
+$(g : T \to S, t' \leadsto t, \xi)$ 为
+$\mathcal{F}$ 在 $y$ 上方的一个不纯性。假设
+$T = \lim_{i \in I} T_i$ 是 $Y$ 上仿射概形的有向极限。
+那么对某个 $i$，三元组
+$(T_i \to Y, t'_i \leadsto t_i, \xi_i)$ 是
+$\mathcal{F}$ 在 $y$ 上方的一个不纯性。
+\end{lemma}
+
+\begin{proof}
+陈述中的记号含义如下。令 $p_i : T \to T_i$ 为投影态射，
+令 $t_i=p_i(t)$ 和 $t'_i=p_i(t')$。
+最后，$\xi_i \in |X_{T_i}|$ 是 $\xi$ 的像。由
+《空间上的除子》引理
+\ref{spaces-divisors-lemma-base-change-relative-assassin}，有
+$\xi_i \in \text{Ass}_{X_{T_i}/T_i}(\mathcal{F}_{T_i})$。
+因此只须证明
+$t_i \not \in f_{T_i}(\overline{\{\xi_i\}})$ 对某个 $i$ 成立。
+
+\medskip\noindent
+令 $Z_i \subset X_{T_i}$ 为
+$\overline{\{\xi_i\}} \subset |X_{T_i}|$ 上的约化诱导概形结构，
+并令 $Z \subset X_T$ 为
+$\overline{\{\xi\}} \subset |X_T|$ 上的约化诱导概形结构。
+于是由《空间的极限》引理
+\ref{spaces-limits-lemma-inverse-limit-irreducibles}，有
+$Z=\lim Z_i$（该引理适用，因为每个 $X_{T_i}$ 都是良态的）。
+选取域 $k$ 及态射 $\Spec(k) \to T$，其像为 $t$。则
+$$
+\emptyset =
+Z \times_T \Spec(k) = (\lim Z_i) \times_{(\lim T_i)} \Spec(k)
+= \lim Z_i \times_{T_i} \Spec(k)
+$$
+因为极限与纤维积交换（即极限彼此交换）。
+每个 $Z_i \times_{T_i} \Spec(k)$ 都拟紧，因为
+$X_{T_i} \to T_i$ 有限型，从而 $Z_i \to T_i$ 有限型。
+故 $Z_i \times_{T_i} \Spec(k)$ 对某个 $i$ 为空；
+这是由《空间的极限》引理 \ref{spaces-limits-lemma-limit-nonempty} 得出的。
+由于复合态射 $\Spec(k) \to T \to T_i$ 的像是 $t_i$，
+这就给出所需结论。
+\end{proof}
+
+
+\noindent
+不纯性沿平坦基变换上升。
+
+\begin{lemma}
+\label{spaces-flat-lemma-flat-ascent-impurity}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，设
+$(Y_1,y_1) \to (Y,y)$ 为 $S$ 上带点代数空间之间的态射。
+假设 $Y_1 \to Y$ 在 $y_1$ 处平坦。如果
+$(T \to Y,t' \leadsto t,\xi)$ 是
+$\mathcal{F}$ 在 $y$ 上方的一个不纯性，那么存在一个不纯性
+$(T_1 \to Y_1,t_1' \leadsto t_1,\xi_1)$：它是模
+$\mathcal{F}_1$ 的一个不纯性；这个模是 $\mathcal{F}$ 在
+$X_1=Y_1\times_YX$ 上的拉回，并且它位于 $y_1$ 上方；
+其中 $T_1$ 在 $Y_1\times_YT$ 上平展。
+\end{lemma}
+
+\begin{proof}
+选取平展态射 $T_1 \to Y_1\times_YT$，其中 $T_1$ 是概形，
+并令 $t_1\in T_1$ 为映到 $y_1$ 和 $t$ 的一点。
+由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，
+可以找到这样的二元组 $(T_1,t_1)$。
+概形态射 $T_1\to T$ 在 $t_1$ 处平坦
+（使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-flat}
+以及代数空间平坦态射的定义）。
+% P09-ERR-0804
+于是存在特化 $t'_1\leadsto t_1$，它位于
+$t'\leadsto t$ 上方；见《态射》引理
+\ref{morphisms-lemma-generalizations-lift-flat}。
+选取一点 $\xi_1\in |X_{T_1}|$，它映到 $t'_1$ 和 $\xi$，
+并且 $\xi_1\in
+\text{Ass}_{X_{T_1}/T_1}(\mathcal{F}_{T_1})$；
+% P09-ERR-0805
+它对应于 $\Spec(\kappa(t'_1)\otimes_{\kappa(t')}\kappa(\xi))$
+的一点。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-base-change-relative-assassin}，
+这样的选取是可能的。
+由于闭包 $Z_1$（即 $\{\xi_1\}$ 在 $|X_{T_1}|$ 中的闭包）
+映入 $\{\xi\}$ 在 $|X_T|$ 中的闭包，可知 $Z_1$
+在 $|T_1|$ 中的像不可能包含 $t_1$。
+因此，$(T_1\to Y_1,t'_1\leadsto t_1,\xi_1)$
+是 $\mathcal{F}_1$ 在
+% P09-ERR-0806
+$Y_1$ 上方的一个不纯性。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-pure-along-X-y}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，设 $\overline{y}$ 为位于
+$y$ 上方的几何点。令
+$\mathcal{O}=\mathcal{O}_{Y,\overline{y}}$
+为 $Y$ 在 $\overline{y}$ 处的平展局部环。记
+$Y^{sh}=\Spec(\mathcal{O})$、$X^{sh}=X\times_YY^{sh}$，
+并以 $\mathcal{F}^{sh}$ 表示 $\mathcal{F}$ 在 $X^{sh}$ 上的拉回。
+下列条件等价：
+\begin{enumerate}
+\item 存在不纯性
+$(Y^{sh}\to Y,y'\leadsto\overline{y},\xi)$，它是
+$\mathcal{F}$ 在 $y$ 上方的不纯性；
+% P09-ERR-0807
+\item $\text{Ass}_{X^{sh}/Y^{sh}}(\mathcal{F}^{sh})$
+中的每一点都特化到闭纤维 $X_{\overline{y}}$ 的一点；
+\item 存在不纯性 $(T\to Y,t'\leadsto t,\xi)$，它是
+$\mathcal{F}$ 在 $y$ 上方的不纯性，并且
+$(T,t)\to(Y,y)$ 是平展邻域；
+\item 存在不纯性 $(T\to Y,t'\leadsto t,\xi)$，它是
+$\mathcal{F}$ 在 $y$ 上方的不纯性，并且 $T\to Y$ 在 $t$ 处拟有限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 与 (2) 等价由定义立即可得。
+
+\medskip\noindent
+回忆 $\mathcal{O}=\mathcal{O}_{Y,\overline{y}}$
+是 $\mathcal{O}(V)$ 的滤过余极限，其中
+$(V,\overline{v})\to(Y,\overline{y})$
+遍历所有平展邻域（《空间的性质》引理
+\ref{spaces-properties-lemma-cofinal-etale}）。
+此外，只须考虑仿射平展邻域 $V$。因此
+$Y^{sh}=\Spec(\mathcal{O})=\lim\Spec(\mathcal{O}(V))=\lim V$。
+于是由引理 \ref{spaces-flat-lemma-impure-limit}，(1) 蕴含 (3)。
+
+\medskip\noindent
+由于平展态射局部拟有限（《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-locally-quasi-finite}），
+可知 (3) 蕴含 (4)。
+
+\medskip\noindent
+最后，假设 (4) 成立。将 $T$ 替换为一个包含 $t$ 的开邻域后，
+可以假设 $T\to Y$ 局部拟有限。由引理
+\ref{spaces-flat-lemma-flat-ascent-impurity}，可找到不纯性
+$(T_1\to Y^{sh},t_1'\leadsto t_1,\xi_1)$，
+其中 $T_1\to T\times_YY^{sh}$ 平展。
+由于平展态射局部拟有限，并使用《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-quasi-finite}
+及《态射》引理
+\ref{morphisms-lemma-composition-quasi-finite}，
+可知 $T_1\to Y^{sh}$ 局部拟有限。
+由于 $\mathcal{O}$ 严格亨泽尔，可以应用《态射详论》引理
+\ref{more-morphisms-lemma-etale-makes-quasi-finite-finite-at-point}；
+将 $T_1$ 替换为一个包含 $t_1$ 的既开又闭邻域后，
+可以假设 $T_1\to Y^{sh}=\Spec(\mathcal{O})$ 有限。
+令 $\theta\in|X^{sh}|$ 为 $\xi_1$ 的像，令
+$y'\in\Spec(\mathcal{O})$ 为 $t_1'$ 的像。
+由《空间上的除子》引理
+\ref{spaces-divisors-lemma-base-change-relative-assassin}，有
+$\theta\in\text{Ass}_{X^{sh}/Y^{sh}}(\mathcal{F}^{sh})$。
+由于 $\pi:X_{T_1}\to X^{sh}$ 有限，它诱导闭映射
+$|X_{T_1}|\to|X^{sh}|$。所以
+$\overline{\{\xi_1\}}$ 的像是 $\overline{\{\theta\}}$。
+由此，$(Y^{sh}\to Y,y'\leadsto\overline{y},\theta)$
+是 $\mathcal{F}$ 在 $y$ 上方的一个不纯性，证明完成。
+\end{proof}
+
+
+\section{相对纯模}
+\label{spaces-flat-section-pure}
+
+\noindent
+本节是《平坦性进阶》第 \ref{flat-section-pure} 节的对应版本。
+
+\begin{definition}
+\label{spaces-flat-definition-pure}
+在情形 \ref{spaces-flat-situation-pre-pure} 中：
+\begin{enumerate}
+\item 称 $\mathcal{F}$ 在 $y$ 上方{\it 纯}，如果引理
+\ref{spaces-flat-lemma-pure-along-X-y} 中的等价条件{\bf 均不}成立。
+\item 称 $\mathcal{F}$ 在 $y$ 上方{\it 普遍纯}，如果不存在
+$\mathcal{F}$ 在 $y$ 上方的任何不纯性。
+\item 称 $X$ 在 $y$ 上方{\it 纯}，如果 $\mathcal{O}_X$
+在 $y$ 上方纯。
+\item 称 $\mathcal{F}$ {\it 普遍 $Y$-纯}，或称它
+{\it 相对于 $Y$ 普遍纯}，如果 $\mathcal{F}$ 在 $y$ 上方普遍纯，
+并且这对每个 $y \in |Y|$ 均成立。
+\item 称 $\mathcal{F}$ {\it $Y$-纯}，或称它
+{\it 相对于 $Y$ 纯}，如果 $\mathcal{F}$ 在 $y$ 上方纯，
+并且这对每个 $y \in |Y|$ 均成立。
+\item 称 $X$ {\it $Y$-纯}，或称它{\it 相对于 $Y$ 纯}，
+如果 $\mathcal{O}_X$ 相对于 $Y$ 纯。
+\end{enumerate}
+\end{definition}
+
+\noindent
+下面给出一些必需的引理。
+
+\begin{lemma}
+\label{spaces-flat-lemma-base-change-universally}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，下列条件等价：
+% P09-ERR-0808
+\begin{enumerate}
+\item $\mathcal{F}$ 在 $y$ 上方普遍纯；
+\item 对带点代数空间的每个态射
+$(Y', y') \to (Y, y)$，拉回 $\mathcal{F}_{Y'}$
+在 $y'$ 上方纯。
+\end{enumerate}
+特别地，$\mathcal{F}$ 相对于 $Y$ 普遍纯，当且仅当
+每个基变换 $\mathcal{F}_{Y'}$（由 $\mathcal{F}$ 得到）
+都相对于 $Y'$ 纯。
+\end{lemma}
+
+\begin{proof}
+这是形式上的。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-quasi-finite-base-change}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，设
+$(Y', y') \to (Y, y)$ 为带点代数空间之间的态射。
+如果 $Y' \to Y$ 在 $y'$ 处拟有限，并且 $\mathcal{F}$
+在 $y$ 上方纯，那么 $\mathcal{F}_{Y'}$ 在 $y'$ 上方纯。
+\end{lemma}
+
+\begin{proof}
+% P09-ERR-0809
+如果 $(T \to Y', t' \leadsto t, \xi)$ 是
+$\mathcal{F}_{Y'}$ 在 $y'$ 上方的一个不纯性，且
+$T \to Y'$ 在 $t$ 处拟有限，那么
+% P09-ERR-0810
+$(T \to Y, t' \to t, \xi)$ 是 $\mathcal{F}$
+在 $y$ 上方的一个不纯性，且 $T \to Y$ 在 $t$ 处拟有限；见
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-composition-quasi-finite}。
+因此，该引理由纯性的定义立即得到。
+\end{proof}
+
+\noindent
+纯性满足平坦下降。
+
+\begin{lemma}
+\label{spaces-flat-lemma-flat-descend-pure}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，设
+$(Y_1, y_1) \to (Y, y)$ 为带点代数空间之间的态射。
+假设 $Y_1 \to Y$ 在 $y_1$ 处平坦。
+\begin{enumerate}
+\item 如果 $\mathcal{F}_{Y_1}$ 在 $y_1$ 上方纯，
+那么 $\mathcal{F}$ 在 $y$ 上方纯。
+\item 如果 $\mathcal{F}_{Y_1}$ 在 $y_1$ 上方普遍纯，
+那么 $\mathcal{F}$ 在 $y$ 上方普遍纯。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+这是因为不纯性沿平坦基变换上升；见引理
+\ref{spaces-flat-lemma-flat-ascent-impurity}。例如，对 (1)，任取不纯性
+% P09-ERR-0811
+$(T \to Y, t' \leadsto t, \xi)$，它是 $\mathcal{F}$
+在 $y$ 上方的不纯性，且 $T \to Y$ 在 $t$ 处拟有限；
+上述引理给出不纯性
+$(T_1 \to Y_1, t_1' \leadsto t_1, \xi_1)$，它是模
+$\mathcal{F}_1$ 的一个不纯性；该模是 $\mathcal{F}$ 在
+$X_1 = Y_1 \times_Y X$ 上的拉回，并且这个不纯性位于
+$y_1$ 上方，其中 $T_1$ 在 $Y_1 \times_Y T$ 上平展。
+所以 $T_1 \to Y_1$ 在 $t_1$ 处拟有限，因为平展态射局部拟有限，
+而局部拟有限态射的复合仍局部拟有限
+（《空间的态射》引理
+\ref{spaces-morphisms-lemma-etale-locally-quasi-finite} 和
+\ref{spaces-morphisms-lemma-composition-quasi-finite}）。
+对 (2) 的论证相同。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-supported-on-closed}
+在情形 \ref{spaces-flat-situation-pre-pure} 中，设 $i : Z \to X$ 为闭浸入，
+并假设 $\mathcal{F} = i_*\mathcal{G}$，其中 $\mathcal{G}$ 是
+$Z$ 上某个有限型拟凝聚层。那么 $\mathcal{G}$ 在 $y$ 上方
+（普遍）纯，当且仅当 $\mathcal{F}$ 在 $y$ 上方（普遍）纯。
+\end{lemma}
+
+\begin{proof}
+这由《空间上的除子》引理
+\ref{spaces-divisors-lemma-relative-weak-assassin-finite} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-proper-pure}
+在情形 \ref{spaces-flat-situation-pre-pure} 中：
+\begin{enumerate}
+\item 如果 $\mathcal{F}$ 的支集在 $Y$ 上固有，那么
+$\mathcal{F}$ 相对于 $Y$ 普遍纯。
+\item 如果 $f$ 固有，那么 $\mathcal{F}$ 相对于 $Y$ 普遍纯。
+\item 如果 $f$ 固有，那么 $X$ 相对于 $Y$ 普遍纯。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+先把 (1) 归约到 (2)。具体地，令 $Z \subset X$ 为
+$\mathcal{F}$ 的概形论支集（《空间的态射》定义
+\ref{spaces-morphisms-definition-scheme-theoretic-support}）。
+令 $i : Z \to X$ 为相应的闭浸入，并写成
+$\mathcal{F} = i_*\mathcal{G}$，其中存在某个有限型拟凝聚
+$\mathcal{O}_Z$-模 $\mathcal{G}$。在情形 (1) 中，$Z \to Y$ 由假设是固有的。
+因此由引理 \ref{spaces-flat-lemma-supported-on-closed}，情形 (1) 归约到情形 (2)。
+
+\medskip\noindent
+假设 $f$ 固有。令 $(g : T \to Y, t' \leadsto t, \xi)$ 为
+$\mathcal{F}$ 在 $y$ 上方的一个不纯性。由于 $f$ 固有，
+它是普遍闭的。因此 $f_T : X_T \to T$ 是闭映射。
+由于 $f_T(\xi) = t'$，这蕴含
+% P09-ERR-0812
+$t \in f(\overline{\{\xi\}})$，矛盾。
+\end{proof}
+
+
+
+
+
+
+
+\section{有限型平坦模}
+\label{spaces-flat-section-finite-type-flat}
+
+\noindent
+请与《平坦性进阶》第
+\ref{flat-section-finite-type-flat-I}、
+\ref{flat-section-finite-type-flat-II} 和
+\ref{flat-section-finite-type-flat-III} 节比较。
+% P09-ERR-0813
+其中多数结果经平展局部化，立即给出代数空间情形的推论。
+
+\begin{lemma}
+\label{spaces-flat-lemma-existence-complete}
+设 $S$ 为概形。设 $X \to Y$ 为 $S$ 上代数空间之间的有限型态射。
+设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模。
+设 $y \in |Y|$ 为一点。存在平展态射
+$(Y', y') \to (Y, y)$，其中 $Y'$ 是仿射概形；还存在平展态射
+$h_i : W_i \to X_{Y'}$，$i = 1, \ldots, n$，使得对每个
+$i$，$\mathcal{F}_i/W_i/Y'$ 在 $y'$ 上存在一个完全逐层剥离，
+其中 $\mathcal{F}_i$ 是 $\mathcal{F}$ 在 $W_i$ 上的拉回，并且
+$|(X_{Y'})_{y'}| \subset \bigcup h_i(W_i)$。
+\end{lemma}
+
+\begin{proof}
+所论问题在 $Y$ 上是平展局部的，因而可以假设 $Y$ 是仿射概形。
+于是 $X$ 拟紧，所以可以选取仿射概形 $X'$ 以及满平展态射
+$X' \to X$。然后把《平坦性进阶》引理
+\ref{flat-lemma-existence-complete} 应用于 $X' \to Y$、
+$(X' \to Y)^*\mathcal{F}$ 和 $y$，即得所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-open-in-fibre-where-flat}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上局部有限型的
+代数空间态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。令 $y \in |Y|$ 且
+$F = f^{-1}(\{y\}) \subset |X|$。则集合
+$$
+\{x \in F \mid \mathcal{F} \text{ flat over }Y\text{ 在 }x\}
+$$
+在 $F$ 中开。
+\end{lemma}
+
+\begin{proof}
+选取概形 $V$、一点 $v \in V$ 以及平展态射 $V \to Y$，
+此态射把 $v$ 映到 $y$。再选取概形 $U$ 以及满平展态射
+$U \to V \times_Y X$。于是 $|U_v| \to F$ 是拓扑空间的开连续映射，
+因为 $|U| \to |X|$ 连续且开。因此结论由概形情形得到；后者即
+《平坦性进阶》引理 \ref{flat-lemma-open-in-fibre-where-flat}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-bourbaki-finite-type-general-base-at-point}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上局部有限型的
+代数空间态射。设 $x \in |X|$，其像为 $y \in |Y|$。
+设 $\mathcal{F}$ 为 $X$ 上有限型拟凝聚层，设 $\mathcal{G}$
+为 $Y$ 上拟凝聚层。如果 $\mathcal{F}$ 在 $x$ 处关于 $Y$ 平坦，
+那么
+$$
+x \in \text{WeakAss}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G})
+\Leftrightarrow
+y \in \text{WeakAss}_Y(\mathcal{G})
+\text{ 且 }
+x \in \text{Ass}_{X/Y}(\mathcal{F}).
+$$
+\end{lemma}
+
+\begin{proof}
+选取交换图
+$$
+\xymatrix{
+U \ar[d] \ar[r]_g & V \ar[d] \\
+X \ar[r]^f & Y
+}
+$$
+其中 $U$ 和 $V$ 是概形，且竖直箭头是满平展态射。
+选取 $u \in U$ 映到 $x$。令 $\mathcal{E} = \mathcal{F}|_U$，
+并令 $\mathcal{H} = \mathcal{G}|_V$。令 $v \in V$ 为 $u$ 的像。于是
+$x \in \text{WeakAss}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G})$
+当且仅当
+% P09-ERR-0814
+$u \in \text{WeakAss}_X(\mathcal{E} \otimes_{\mathcal{O}_X} g^*\mathcal{H})$；
+这是由《空间上的除子》定义
+\ref{spaces-divisors-definition-weakly-associated} 得出的。
+类似地，$y \in \text{WeakAss}_Y(\mathcal{G})$ 当且仅当
+$v \in \text{WeakAss}_V(\mathcal{H})$。
+最后，由《空间上的除子》定义
+\ref{spaces-divisors-definition-relative-weak-assassin}，
+$x \in \text{Ass}_{X/Y}(\mathcal{F})$ 当且仅当
+$u \in \text{Ass}_{U_v}(\mathcal{E}|_{U_v})$。
+注意，$\mathcal{F}$ 在 $x$ 处平坦等价于 $\mathcal{E}$ 在 $u$ 处平坦；见
+《空间的态射》定义 \ref{spaces-morphisms-definition-flat-module}。
+对 $g : U \to V$、$\mathcal{E}$、$\mathcal{H}$、$u$ 和 $v$ 的等价性，
+就是《平坦性进阶》引理
+\ref{flat-lemma-bourbaki-finite-type-general-base-at-point}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-bourbaki-finite-type-general-base}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上局部有限型的
+代数空间态射。设 $\mathcal{F}$ 为 $X$ 上有限型拟凝聚层，
+并且它在 $Y$ 上平坦。设 $\mathcal{G}$ 为 $Y$ 上拟凝聚层。则
+$$
+\text{WeakAss}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G}) =
+\text{Ass}_{X/Y}(\mathcal{F}) \cap
+|f|^{-1}(\text{WeakAss}_Y(\mathcal{G}))
+$$
+\end{lemma}
+
+\begin{proof}
+这是引理 \ref{spaces-flat-lemma-bourbaki-finite-type-general-base-at-point}
+的直接推论。
+\end{proof}
+
+\begin{theorem}
+\label{spaces-flat-theorem-finite-type-flat}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。假设
+\begin{enumerate}
+\item $X \to Y$ 局部有限表示；
+\item $\mathcal{F}$ 是有限型 $\mathcal{O}_X$-模；
+\item $Y$ 的弱伴随点集在 $Y$ 中局部有限。
+\end{enumerate}
+那么 $U = \{x \in |X| : \mathcal{F}\text{ flat at }x\text{ 相对于 }Y\}$
+在 $X$ 中开，且 $\mathcal{F}|_U$ 是有限表示
+$\mathcal{O}_U$-模并在 $Y$ 上平坦。
+\end{theorem}
+
+\begin{proof}
+条件 (3) 的含义如下：如果 $V \to Y$ 是满平展态射且 $V$ 是概形，
+那么 $V$ 的弱伴随点集在概形 $V$ 上局部有限。（回忆，由
+《空间上的除子》定义
+\ref{spaces-divisors-definition-weakly-associated}，$V$ 的弱伴随点集
+恰为 $Y$ 的弱伴随点集的逆像。）说明这一点之后，所论问题在
+$X$ 和 $Y$ 上都是平展局部的，因而可以假设 $X$ 和 $Y$ 是概形。
+于是结论由《平坦性进阶》定理
+\ref{flat-theorem-finite-type-flat} 得到。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-finite-type-flat-along-fibre-free-variant}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为 $X$ 上拟凝聚层。令 $y \in |Y|$，并置
+$F = f^{-1}(\{y\}) \subset |X|$。假设
+\begin{enumerate}
+\item $f$ 有限型；
+\item $\mathcal{F}$ 有限型；
+\item $\mathcal{F}$ 关于 $Y$ 平坦，并且这在所有 $x \in F$ 处均成立。
+\end{enumerate}
+那么存在平展态射 $(Y', y') \to (Y, y)$，其中 $Y'$ 是概形，
+并且存在代数空间的交换图
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+Y & \Spec(\mathcal{O}_{Y', y'}) \ar[l]
+}
+$$
+使得 $X' \to X \times_Y \Spec(\mathcal{O}_{Y', y'})$ 平展，
+$|X'_{y'}| \to F$ 满射，$X'$ 仿射，并且
+$\Gamma(X', g^*\mathcal{F})$ 是自由 $\mathcal{O}_{Y', y'}$-模。
+\end{lemma}
+
+\begin{proof}
+选取平展态射 $(Y', y') \to (Y, y)$，其中 $Y'$ 是仿射概形。
+于是 $X \times_Y Y'$ 拟紧。选取仿射概形 $X'$ 以及满平展态射
+$X' \to X \times_Y Y'$。
+% P09-ERR-0815
+图示为
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+Y & Y' \ar[l]
+}
+$$
+于是 $\mathcal{F}' = g^*\mathcal{F}$ 在 $Y'$ 上、在
+$X'_{y'}$ 的所有点处平坦；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-module-flat}。
+因此可以把概形情形的引理（《平坦性进阶》引理
+\ref{flat-lemma-finite-type-flat-along-fibre-free-variant}）应用于态射
+$X' \to Y'$、拟凝聚层 $g^*\mathcal{F}$ 和点 $y'$。
+这给出平展态射 $(Y'', y'') \to (Y', y')$ 以及交换图
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] & X'' \ar[l]^{g'} \ar[d] \\
+Y & Y' \ar[l] & \Spec(\mathcal{O}_{Y'', y''}) \ar[l]
+}
+$$
+为得到所需结论，取 $(Y'', y'') \to (Y, y)$ 以及
+$g \circ g' : X'' \to X$ 即可。
+\end{proof}
+
+\begin{theorem}
+\label{spaces-flat-theorem-check-flatness-at-associated-points}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上局部有限型的
+代数空间态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。设 $x \in |X|$，其像为 $y \in |Y|$。
+置 $F = f^{-1}(\{y\}) \subset |X|$。考虑下列条件：
+\begin{enumerate}
+\item $\mathcal{F}$ 在 $x$ 处关于 $Y$ 平坦；
+\item 对每个 $x' \in F \cap \text{Ass}_{X/Y}(\mathcal{F})$，
+如果它特化到 $x$，那么
+$\mathcal{F}$ 在 $x'$ 处关于 $Y$ 平坦。
+\end{enumerate}
+总有 (2) $\Rightarrow$ (1)。如果 $X$ 和 $Y$ 良态，
+那么 (1) $\Rightarrow$ (2)。
+\end{theorem}
+
+\begin{proof}
+假设 (2)。选取概形 $V$ 以及满平展态射 $V \to Y$。
+选取概形 $U$ 以及满平展态射 $U \to V \times_Y X$。
+选取 $u \in U$ 映到 $x$。令 $v \in V$ 为 $u$ 的像。
+我们将由 $\mathcal{F}|_U = (U \to X)^*\mathcal{F}$、点 $u$
+和相应的概形情形推出结论。
+% P09-ERR-0816
+$U_v$。这是可行的，因为
+$\text{Ass}_{U/V}(\mathcal{F}|_U) \cap |U_v|$
+等于 $\text{Ass}_{U_v}(\mathcal{F}|_{U_v})$，也等于
+$F \cap \text{Ass}_{X/Y}(\mathcal{F})$ 的逆像。
+由于映射 $|U_v| \to F$ 连续，$|U_v|$ 中的特化映到
+$F$ 中的特化。因此条件 (2) 由 $U \to V$、
+$\mathcal{F}|_U$ 和点 $u$ 继承。于是《平坦性进阶》定理
+\ref{flat-theorem-check-flatness-at-associated-points} 适用，
+从而 (1) 成立。
+
+\medskip\noindent
+如果 $Y$ 良态，那么点 $y$ 可以由拟紧单态射 $\Spec(k) \to Y$
+表示（这由良态空间的定义得到，见《良态空间》定义
+\ref{decent-spaces-definition-very-reasonable}）。于是
+$F = |X_k|$；见《良态空间》引理
+\ref{decent-spaces-lemma-topology-fibre}。
+如果再假设 $X$ 良态（更一般地，如果 $f$ 良态；见
+《良态空间》定义 \ref{decent-spaces-definition-relative-conditions}
+和《良态空间》引理
+\ref{decent-spaces-lemma-property-for-morphism-out-of-property}），
+那么 $X_y$ 也是良态空间。此外，$F$ 中的特化可以提升为
+$U_v \to X_y$ 中的特化；见《良态空间》引理
+\ref{decent-spaces-lemma-decent-specialization}。
+据此，反向蕴含显然成立，因为它在概形情形中成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-check-along-closed-fibre}
+设 $S$ 为局部概形，闭点为 $s$。设 $f : X \to S$ 为从代数空间
+$X$ 到 $S$ 的局部有限型态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。假设
+\begin{enumerate}
+\item $\text{Ass}_{X/S}(\mathcal{F})$ 中每一点都特化到闭纤维
+$X_s$ 的一点\footnote{例如，当 $f$ 有限型且 $\mathcal{F}$
+沿 $X_s$ 纯，或当 $f$ 固有时，该条件成立。}；
+\item $\mathcal{F}$ 关于 $S$ 平坦，并且这在 $X_s$ 的每一点处都成立。
+\end{enumerate}
+那么 $\mathcal{F}$ 在 $S$ 上平坦。
+\end{lemma}
+
+\begin{proof}
+由定理 \ref{spaces-flat-theorem-check-flatness-at-associated-points}，
+只须在 $\mathcal{F}$ 关于 $S$ 的相对伴随点处检验平坦性；
+结论立即得出。
+\end{proof}
+
+
+
+
+\section{平坦有限表示模}
+\label{spaces-flat-section-finitely-presented-flat}
+
+\noindent
+本节是《平坦性进阶》第
+\ref{flat-section-finitely-presented-flat} 节的对应版本。
+
+\begin{proposition}
+\label{spaces-flat-proposition-finite-presentation-flat-at-point}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为 $X$ 上拟凝聚层。设 $x \in |X|$，其像为
+$y \in |Y|$。假设
+\begin{enumerate}
+\item $f$ 局部有限表示；
+\item $\mathcal{F}$ 有限表示；
+\item $\mathcal{F}$ 在 $x$ 处关于 $Y$ 平坦。
+\end{enumerate}
+那么存在带点概形的交换图
+$$
+\xymatrix{
+(X, x) \ar[d] & (X', x') \ar[l]^g \ar[d] \\
+(Y, y) & (Y', y') \ar[l]
+}
+$$
+其水平箭头平展，$X'$、$Y'$ 仿射，并且
+$\Gamma(X', g^*\mathcal{F})$ 是投射
+$\Gamma(Y', \mathcal{O}_{Y'})$-模。
+\end{proposition}
+
+\begin{proof}
+按此表述，该命题立即归约到概形情形；后者即
+《平坦性进阶》命题
+\ref{flat-proposition-finite-presentation-flat-at-point}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-finite-presentation-flat-along-fibre}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为 $X$ 上拟凝聚层。令 $y \in |Y|$，并置
+$F = f^{-1}(\{y\}) \subset |X|$。假设
+\begin{enumerate}
+\item $f$ 有限表示；
+\item $\mathcal{F}$ 有限表示；
+\item $\mathcal{F}$ 关于 $Y$ 平坦，并且这在所有 $x \in F$ 处均成立。
+\end{enumerate}
+那么存在代数空间的交换图
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+Y & Y' \ar[l]_h
+}
+$$
+使得 $h$ 和 $g$ 平展，存在一点 $y' \in |Y'|$ 映到 $y$，
+有 $F \subset g(|X'|)$，代数空间 $X'$、$Y'$ 仿射，并且
+$\Gamma(X', g^*\mathcal{F})$ 是投射
+$\Gamma(Y', \mathcal{O}_{Y'})$-模。
+\end{lemma}
+
+\begin{proof}
+按此表述，该引理立即归约到概形情形；后者即
+《平坦性进阶》引理
+\ref{flat-lemma-finite-presentation-flat-along-fibre}。
+\end{proof}
+
+
+
+
+\section{纯性判据}
+\label{spaces-flat-section-criterion-purity}
+
+\noindent
+本节是《平坦性进阶》第
+\ref{flat-section-criterion-purity} 节的对应版本。
+
+\begin{lemma}
+\label{spaces-flat-lemma-associated-point-specializes}
+设 $S$ 为概形，设 $X$ 为 $S$ 上局部有限型的良态代数空间。
+设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模。
+% P09-ERR-0817
+设 $s \in S$，并且 $\mathcal{F}$ 关于 $S$ 平坦，
+这一点在 $X_s$ 的所有点处都成立。
+设 $x' \in \text{Ass}_{X/S}(\mathcal{F})$。如果 $\{x'\}$
+在 $|X|$ 中的闭包与 $|X_s|$ 相交，那么该闭包与
+$\text{Ass}_{X/S}(\mathcal{F}) \cap |X_s|$ 相交。
+\end{lemma}
+
+\begin{proof}
+注意，$|X_s| \subset |X|$ 是 $|X|$ 中位于 $s \in S$ 上方的点集；见
+《良态空间》引理 \ref{decent-spaces-lemma-topology-fibre}。
+令 $t \in |X_s|$ 为 $x'$ 在 $|X|$ 中的一个特化。
+选取仿射概形 $U$、一点 $u \in U$，以及平展态射
+$\varphi : U \to X$；该态射把 $u$ 映到 $t$。由《良态空间》引理
+\ref{decent-spaces-lemma-decent-specialization}，可以选取特化
+$u' \leadsto u$，其中 $u'$ 映到 $x'$。置
+% P09-ERR-0818
+$g = f \circ \varphi$。注意，$s' = g(u') = f(x')$ 特化到 $s$。
+按 $\text{Ass}_{X/S}(\mathcal{F})$ 的定义，有
+$u' \in \text{Ass}_{U/S}(\varphi^*\mathcal{F})$。
+由该引理的概形版本（《平坦性进阶》引理
+\ref{flat-lemma-associated-point-specializes}），可知存在特化
+$u' \leadsto u$，且
+$u \in \text{Ass}_{U_s}(\varphi^*\mathcal{F}_s) =
+\text{Ass}_{U/S}(\varphi^*\mathcal{F}) \cap U_s$。
+因此 $x = \varphi(u) \in \text{Ass}_{X/S}(\mathcal{F})$
+位于 $s$ 上方，引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-contains-relative-ass-after-base-change}
+设 $Y$ 为概形 $S$ 上的代数空间。设 $g : X' \to X$ 为
+$Y$ 上代数空间之间的态射，其中 $X$ 在 $Y$ 上局部有限型。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。如果
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$，那么对任意态射
+$Z \to Y$，都有
+$\text{Ass}_{X_Z/Z}(\mathcal{F}_Z) \subset g_Z(|X'_Z|)$。
+\end{lemma}
+
+\begin{proof}
+由《空间的性质》引理
+\ref{spaces-properties-lemma-points-cartesian}，映射
+$|X'_Z| \to |X_Z| \times_{|X|} |X'|$ 满射，因为
+$X'_Z$ 等于 $X_Z \times_X X'$。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-base-change-relative-assassin}，映射
+$|X_Z| \to |X|$ 把
+$\text{Ass}_{X_Z/Z}(\mathcal{F}_Z)$ 映入
+$\text{Ass}_{X/Y}(\mathcal{F})$。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-pure-on-top}
+设 $Y$ 为概形 $S$ 上的代数空间。设 $g : X' \to X$ 为
+$Y$ 上代数空间之间的平展态射。假设结构态射
+$X' \to Y$ 和 $X \to Y$ 良态且有限型。
+设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模。
+设 $y \in |Y|$。置
+% P09-ERR-0819
+$F = f^{-1}(\{y\}) \subset |X|$。
+\begin{enumerate}
+\item 如果 $\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$，
+且 $g^*\mathcal{F}$ 在 $y$ 上方（普遍）纯，那么
+$\mathcal{F}$ 在 $y$ 上方（普遍）纯。
+\item 如果 $\mathcal{F}$ 在 $y$ 上方纯，$g(|X'|)$ 包含 $F$，
+且 $Y$ 是以 $y$ 为闭点的仿射局部概形，那么
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$。
+\item 如果 $\mathcal{F}$ 在 $y$ 上方纯，$\mathcal{F}$
+在 $F$ 的所有点处平坦，$g(|X'|)$ 包含
+$\text{Ass}_{X/Y}(\mathcal{F}) \cap F$，且 $Y$ 是以
+$y$ 为闭点的仿射局部概形，那么
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$。
+% P09-ERR-0820
+\item 此处添加更多内容。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+关于 $X \to Y$ 和 $X' \to Y$ 的假设保证我们可以把第
+\ref{spaces-flat-section-impure} 节和第 \ref{spaces-flat-section-pure} 节的材料
+应用于这些态射以及层 $\mathcal{F}$ 和 $g^*\mathcal{F}$。
+由于 $g$ 平展，可知
+$\text{Ass}_{X'/Y}(g^*\mathcal{F})$ 是
+$\text{Ass}_{X/Y}(\mathcal{F})$ 的逆像，并且基变换后仍然如此。
+
+\medskip\noindent
+证明 (1)。假设
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$。
+设 $(T \to Y, t' \leadsto t, \xi)$ 是 $\mathcal{F}$
+在 $y$ 上方的一个不纯性。由引理
+\ref{spaces-flat-lemma-contains-relative-ass-after-base-change}，有
+$\text{Ass}_{X_T/T}(\mathcal{F}_T) \subset g_T(|X'_T|)$，
+所以可以选取一点 $\xi' \in |X'_T|$ 映到 $\xi$。由上可知
+$(T \to Y, t' \leadsto t, \xi')$ 是
+$g^*\mathcal{F}$ 在
+% P09-ERR-0821
+$y'$ 上方的一个不纯性。这就证明了 (1)。
+
+\medskip\noindent
+证明 (2)。这是因为 $g(|X'|)$ 在 $|X|$ 中开，并且由纯性，
+$\text{Ass}_{X/Y}(\mathcal{F})$ 中每一点都特化到 $F$ 的一点。
+
+\medskip\noindent
+证明 (3)。这是因为 $g(|X'|)$ 在 $|X|$ 中开，并且结合纯性与
+引理 \ref{spaces-flat-lemma-associated-point-specializes}，
+$\text{Ass}_{X/Y}(\mathcal{F})$ 中每一点都特化到
+$\text{Ass}_{X/Y}(\mathcal{F}) \cap F$ 的一点。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-finite-type-flat-pure-along-fibre-is-universal}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。设 $y \in |Y|$。
+假设
+\begin{enumerate}
+\item $f$ 良态且有限型；
+\item $\mathcal{F}$ 有限型；
+\item $\mathcal{F}$ 关于 $Y$ 平坦，并且这在所有位于 $y$ 上方的点处成立；
+\item $\mathcal{F}$ 在 $y$ 上方纯。
+\end{enumerate}
+那么 $\mathcal{F}$ 在 $y$ 上方普遍纯。
+\end{lemma}
+
+\begin{proof}
+考虑态射
+% P09-ERR-0822
+$\Spec(\mathcal{O}_{Y, \overline{y}}) \to Y$。
+这是一个从严格亨泽尔局部环之谱出发的平坦态射，并把闭点映到
+$y$。由引理 \ref{spaces-flat-lemma-flat-descend-pure}，可归约到下一段所述情形。
+
+\medskip\noindent
+假设 $Y$ 是严格亨泽尔局部环 $R$ 的谱，其闭点为 $y$。
+由引理 \ref{spaces-flat-lemma-finite-type-flat-along-fibre-free-variant}，
+存在平展态射 $g : X' \to X$，使得
+$g(|X'|) \supset |X_y|$、$X'$ 仿射，并且
+$\Gamma(X', g^*\mathcal{F})$ 是自由 $R$-模。
+于是 $g^*\mathcal{F}$ 相对于 $Y$ 普遍纯；见《平坦性进阶》引理
+\ref{flat-lemma-affine-locally-projective-pure}。
+因此，由引理 \ref{spaces-flat-lemma-pure-on-top} 的 (1)，只须证明
+$g(|X'|)$ 包含 $\text{Ass}_{X/Y}(\mathcal{F})$。
+而这又由引理 \ref{spaces-flat-lemma-pure-on-top} 的 (2) 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-finite-type-flat-pure-is-universal}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的
+良态有限型态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。假设 $\mathcal{F}$ 在 $Y$ 上平坦。
+在这种情形下，$\mathcal{F}$ 相对于 $Y$ 纯，当且仅当
+$\mathcal{F}$ 相对于 $Y$ 普遍纯。
+\end{lemma}
+
+\begin{proof}
+这是引理
+\ref{spaces-flat-lemma-finite-type-flat-pure-along-fibre-is-universal}
+与各定义的直接推论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-universally-separating}
+设 $Y$ 为概形 $S$ 上的代数空间。设 $g : X' \to X$ 为
+$Y$ 上代数空间之间的平坦态射，其中 $X$ 在 $Y$ 上局部有限型。
+设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模，并且它在
+$Y$ 上平坦。如果
+$\text{Ass}_{X/Y}(\mathcal{F}) \subset g(|X'|)$，那么典范映射
+$$
+\mathcal{F} \longrightarrow g_*g^*\mathcal{F}
+$$
+单射，并且在任意基变换后仍为单射。
+\end{lemma}
+
+\begin{proof}
+最后一个断言的含义是：映射
+$\mathcal{F}_Z \to (g_Z)_*g_Z^*\mathcal{F}_Z$
+对任意态射 $Z \to Y$ 都单射。
+由于关于相对伴随点集的假设在基变换下保持（引理
+\ref{spaces-flat-lemma-contains-relative-ass-after-base-change}），
+只须证明所显示的箭头单射。
+
+\medskip\noindent
+令 $\mathcal{K} = \Ker(\mathcal{F} \to g_*g^*\mathcal{F})$。
+目标是证明 $\mathcal{K} = 0$。为此，只须证明
+$\text{WeakAss}_X(\mathcal{K}) = \emptyset$；见《空间上的除子》引理
+\ref{spaces-divisors-lemma-weakly-ass-zero}。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-ses-weakly-ass}，有
+$\text{WeakAss}_X(\mathcal{K}) \subset \text{WeakAss}_X(\mathcal{F})$。
+由于 $\mathcal{F}$ 平坦，引理
+\ref{spaces-flat-lemma-bourbaki-finite-type-general-base} 给出
+$\text{WeakAss}_X(\mathcal{F}) \subset \text{Ass}_{X/Y}(\mathcal{F})$。
+按假设，任一点 $x$（属于 $\text{Ass}_{X/Y}(\mathcal{F})$）
+都是某个 $x' \in |X'|$ 的像。由于 $g$ 平坦，局部环映射
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{X', \overline{x}'}$
+忠实平坦，因而映射
+$$
+\mathcal{F}_{\overline{x}}
+\longrightarrow
+(g^*\mathcal{F})_{\overline{x}'} =
+\mathcal{F}_{\overline{x}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{X', \overline{x}'}
+$$
+单射（见《代数》引理
+\ref{algebra-lemma-faithfully-flat-universally-injective}）。
+由于所显示的箭头经由
+$\mathcal{F}_{\overline{x}} \to (g_*g^*\mathcal{F})_{\overline{x}}$
+分解，可知 $\mathcal{K}_{\overline{x}} = 0$。因此 $x$
+不可能是 $\mathcal{K}$ 的弱伴随点，结论得证。
+\end{proof}
+
+
+
+
+
+
+
+\section{平坦化函子}
+\label{spaces-flat-section-F-zero}
+
+\noindent
+本节是《平坦性进阶》第
+\ref{flat-section-flattening-functors} 节的对应版本。
+我们建议读者初次阅读时跳过本节。
+
+\begin{situation}
+\label{spaces-flat-situation-iso}
+设 $S$ 为概形。设 $f : X \to B$ 为 $S$ 上代数空间之间的态射。
+设 $u : \mathcal{F} \to \mathcal{G}$ 为拟凝聚
+$\mathcal{O}_X$-模之间的同态。对任意概形 $T$（在 $B$ 上），以
+$u_T : \mathcal{F}_T \to \mathcal{G}_T$ 表示 $u$ 到 $T$ 的基变换；
+换言之，$u_T$ 是 $u$ 经投影态射
+$X_T = X \times_B T \to X$ 的拉回。在此情形下，可以考虑函子
+\begin{equation}
+\label{spaces-flat-equation-iso}
+F_{iso} : (\Sch/B)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longrightarrow \left\{
+\begin{matrix}
+\{*\} & \text{如果 }u_T\text{ 是同构}, \\
+\emptyset & \text{否则。}
+\end{matrix}
+\right.
+\end{equation}
+还有变体 $F_{inj}$、$F_{surj}$、$F_{zero}$，其中分别要求
+$u_T$ 为单射、满射或零映射。
+\end{situation}
+
+\noindent
+在情形 \ref{spaces-flat-situation-iso} 中，有时把函子
+$F_{iso}$、$F_{inj}$、$F_{surj}$ 和 $F_{zero}$ 看作从
+$(\Sch/S)^{opp} \to \textit{Sets}$ 的函子，并分别带有态射
+$F_{iso} \to B$、$F_{inj} \to B$、$F_{surj} \to B$ 和
+$F_{zero} \to B$。具体地，如果 $T$ 是 $S$ 上概形，
+那么元素 $h \in F_{iso}(T)$ 是态射 $h : T \to B$，使得
+$u$ 经 $h$ 的基变换是同构。特别地，当我们说 $F_{iso}$
+是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{spaces-flat-lemma-iso-sheaf}
+在情形 \ref{spaces-flat-situation-iso} 中，函子
+$F_{iso}$、$F_{inj}$、$F_{surj}$、$F_{zero}$
+中的每一个都满足 fpqc 拓扑的层性质。
+\end{lemma}
+
+\begin{proof}
+设 $\{T_i \to T\}_{i \in I}$ 为 $B$ 上概形的 fpqc 覆盖。置
+% P09-ERR-0823
+$X_i = X_{T_i} = X \times_S T_i$ 及 $u_i = u_{T_i}$。
+注意，$\{X_i \to X_T\}_{i \in I}$ 是 $X_T$ 的 fpqc 覆盖；见
+《空间上的拓扑》引理 \ref{spaces-topologies-lemma-fpqc}。
+特别地，对每个 $x \in |X_T|$，存在 $i \in I$ 以及
+$x_i \in |X_i|$ 映到 $x$。由于
+% P09-ERR-0824
+$\mathcal{O}_{X_T, \overline{x}} \to \mathcal{O}_{X_i, \overline{x_i}}$
+平坦，因而忠实平坦（见《空间的态射》第
+\ref{spaces-morphisms-section-flat} 节），可知 $(u_i)_{x_i}$
+为单射、满射、双射或零映射，当且仅当 $(u_T)_x$
+相应地为单射、满射、双射或零映射。引理得证。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-iso-go-up}
+在情形 \ref{spaces-flat-situation-iso} 中，设 $X' \to X$ 为代数空间的平坦态射。
+以 $u' : \mathcal{F}' \to \mathcal{G}'$ 表示 $u$ 到 $X'$ 的拉回。
+以 $F'_{iso}$、$F'_{inj}$、$F'_{surj}$、$F'_{zero}$ 表示
+$\Sch/B$ 上由 $u'$ 得到的函子。
+\begin{enumerate}
+\item 如果 $\mathcal{G}$ 有限型，且 $|X'| \to |X|$ 的像包含
+$\mathcal{G}$ 的支集，那么 $F_{surj} = F'_{surj}$ 且
+$F_{zero} = F'_{zero}$。
+\item 如果 $\mathcal{F}$ 有限型，且 $|X'| \to |X|$ 的像包含
+$\mathcal{F}$ 的支集，那么 $F_{inj} = F'_{inj}$ 且
+$F_{zero} = F'_{zero}$。
+\item 如果 $\mathcal{F}$ 和 $\mathcal{G}$ 都有限型，且
+$|X'| \to |X|$ 的像包含 $\mathcal{F}$ 与 $\mathcal{G}$ 的支集，
+那么 $F_{iso} = F'_{iso}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $v : \mathcal{H} \to \mathcal{E}$ 为代数空间 $Y$ 上拟凝聚模
+之间的映射，设 $\varphi : Y' \to Y$ 为代数空间的满平坦态射。
+那么 $v$ 为同构、单射、满射或零映射，当且仅当 $\varphi^*v$
+相应地为同构、单射、满射或零映射。确实，对每个 $y \in |Y|$，
+存在 $y' \in |Y'|$，并且局部环映射
+$\mathcal{O}_{Y, \overline{y}} \to \mathcal{O}_{Y', \overline{y'}}$
+忠实平坦（见《空间的态射》第
+\ref{spaces-morphisms-section-flat} 节）。当然，检验单射性或零性时，
+只须考察 $\mathcal{H}$ 的支集中的点；检验满射性时，只须考察
+$\mathcal{E}$ 的支集中的点。此外，在引理陈述中的有限型假设下，
+取支集与基变换交换；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-support-finite-type}。因此引理成立。
+\end{proof}
+
+\noindent
+回忆，我们已在《空间的态射》定义
+\ref{spaces-morphisms-definition-scheme-theoretic-support}
+中定义了有限型拟凝聚模的概形论支集。
+
+\begin{lemma}
+\label{spaces-flat-lemma-iso-limits}
+在情形 \ref{spaces-flat-situation-iso} 中：
+\begin{enumerate}
+\item 如果 $\mathcal{G}$ 有限型，且 $\mathcal{G}$ 的概形论支集在
+$B$ 上拟紧，那么 $F_{surj}$ 保极限。
+% P09-ERR-0825
+\item 如果 $\mathcal{F}$ 有限型，且 $\mathcal{F}$ 的概形论支集在
+$B$ 上拟紧，那么 $F_{zero}$ 保极限。
+\item 如果 $\mathcal{F}$ 有限型、$\mathcal{G}$ 有限表示，且
+$\mathcal{F}$ 与 $\mathcal{G}$ 的概形论支集在 $B$ 上拟紧，
+那么 $F_{iso}$ 保极限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。令 $i : Z \to X$ 为 $\mathcal{G}$ 的概形论支集，
+并把 $\mathcal{G}$ 看作 $Z$ 上有限型拟凝聚模。可以把 $X$ 替换为
+$Z$，并把 $u$ 替换为映射 $i^*\mathcal{F} \to \mathcal{G}$
+（略去细节）。因此可以假设 $f$ 拟紧且 $\mathcal{G}$ 有限型。
+设 $T = \lim_{i \in I} T_i$ 为仿射 $B$-概形的有向极限，并假设
+$u_T$ 满射。置
+% P09-ERR-0823
+$X_i = X_{T_i} = X \times_S T_i$ 以及
+$u_i = u_{T_i} : \mathcal{F}_i = \mathcal{F}_{T_i}
+\to \mathcal{G}_i = \mathcal{G}_{T_i}$。
+为证明 (1)，须说明 $u_i$ 对某个 $i$ 满射。选取 $0 \in I$，并把
+$I$ 替换为 $\{i \mid i \geq 0\}$。由于 $f$ 拟紧，$X_0$ 拟紧。
+因此可以选取满平展态射 $\varphi_0 : W_0 \to X_0$，其中
+$W_0$ 为仿射概形。置 $W = W_0 \times_{T_0} T$，并置
+$W_i = W_0 \times_{T_0} T_i$（$i \geq 0$）。这些都是仿射概形，
+% P09-ERR-0832
+并带有满平展态射 $\varphi : W \to X_T$ 和
+$\varphi_i : W_i \to X_i$。注意 $W = \lim W_i$。
+于是 $\varphi^*u_T$ 满射，而只须证明 $\varphi_i^*u_i$ 对某个
+$i$ 满射。这样便归约到仿射情形，即《代数》引理
+\ref{algebra-lemma-module-map-property-in-colimit} 的 (2)。
+
+\medskip\noindent
+证明 (2)。假设 $\mathcal{F}$ 有限型，并且其概形论支集
+% P09-ERR-0826
+$Z \subset B$ 在 $B$ 上拟紧。设
+$T = \lim_{i \in I} T_i$ 为仿射 $B$-概形的有向极限，并假设
+$u_T$ 为零映射。置 $X_i = T_i \times_B X$，并以
+$u_i : \mathcal{F}_i \to \mathcal{G}_i$ 表示拉回。选取
+$0 \in I$，并把 $I$ 替换为 $\{i \mid i \geq 0\}$。置
+$Z_0 = Z \times_X X_0$。由《空间的态射》引理
+\ref{spaces-morphisms-lemma-support-finite-type}，
+% P09-ERR-0827
+$\mathcal{F}_i$ 的支集是 $|Z_0|$。由于 $|Z_0|$ 拟紧，
+可以找到仿射概形 $W_0$ 及平展态射 $W_0 \to X_0$，使得
+$|Z_0| \subset \Im(|W_0| \to |X_0|)$。置
+$W = W_0 \times_{T_0} T$，并置
+$W_i = W_0 \times_{T_0} T_i$（$i \geq 0$）。这些是带有平展态射
+$\varphi : W \to X_T$ 和 $\varphi_i : W_i \to X_i$ 的仿射概形。
+注意 $W = \lim W_i$，并且 $\mathcal{F}_T$ 与 $\mathcal{F}_i$
+的支集分别包含在 $|W| \to |X_T|$ 与 $|W_i| \to |X_i|$ 的像中。
+% P09-ERR-0828
+现在 $\varphi^*u_T$ 单射，而只须证明 $\varphi_i^*u_i$ 对某个
+$i$ 单射。这样便归约到仿射情形，即《代数》引理
+\ref{algebra-lemma-module-map-property-in-colimit} 的 (1)。
+
+\medskip\noindent
+证明 (3)。可以完全类似于前两段，使用《代数》引理
+\ref{algebra-lemma-module-map-property-in-colimit} 的 (3) 来证明。
+也可以如下由 (1) 和 (2) 推出。设
+$T = \lim_{i \in I} T_i$ 为仿射 $B$-概形的有向极限，并假设
+$u_T$ 是同构。由 (1)，存在 $0 \in I$，使得 $u_{T_0}$ 满射。
+置 $\mathcal{K} = \Ker(u_{T_0})$，并考虑拟凝聚模的映射
+$v : \mathcal{K} \to \mathcal{F}_{T_0}$。对 $i \geq 0$，
+基变换 $v_{T_i}$ 为零映射，当且仅当 $u_i$ 是同构。此外，
+$v_T$ 为零映射。由于 $\mathcal{G}_{T_0}$ 有限表示、
+$\mathcal{F}_{T_0}$ 有限型且 $u_{T_0}$ 满射，可知
+$\mathcal{K}$ 有限型（《位形上的模》引理
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation}）。
+显然，$\mathcal{K}$ 的支集包含在 $\mathcal{F}_{T_0}$ 的支集中，
+而后者在 $T_0$ 上拟紧。因此可以应用 (2)，得 $v_{T_i}$ 对某个
+$i$ 为零映射。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-relate-zero-iso}
+在情形 \ref{spaces-flat-situation-iso} 中，假设给定正合列
+$$
+\mathcal{F} \xrightarrow{u} \mathcal{G} \xrightarrow{v} \mathcal{H} \to 0
+$$
+那么按显然的记号，有 $F_{v, iso} = F_{u, zero}$。
+\end{lemma}
+
+\begin{proof}
+由于拉回右正合，可见
+$\mathcal{F}_T \to \mathcal{G}_T \to \mathcal{H}_T \to 0$
+对每个概形 $T$（在 $B$ 上）正合。因此
+% P09-ERR-0829
+$u_T$ 满射，当且仅当 $v_T$ 是同构。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-relate-zero-affine}
+在情形 \ref{spaces-flat-situation-iso} 中，假设给定仿射态射 $i : Z \to X$
+以及拟凝聚 $\mathcal{O}_Z$-模 $\mathcal{H}$，使得
+$\mathcal{G} = i_*\mathcal{H}$。设
+$v : i^*\mathcal{F} \to \mathcal{H}$ 为与 $u$ 伴随的映射。那么
+\begin{enumerate}
+\item $F_{v, zero} = F_{u, zero}$；
+\item 如果 $i$ 是闭浸入，那么 $F_{v, surj} = F_{u, surj}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+设 $T$ 为 $B$ 上概形。以 $i_T : Z_T \to X_T$ 表示 $i$ 的基变换，
+以 $\mathcal{H}_T$ 表示 $\mathcal{H}$ 到 $Z_T$ 的拉回。注意
+$(i^*\mathcal{F})_T = i_T^*\mathcal{F}_T$ 且
+$i_{T, *}\mathcal{H}_T = (i_*\mathcal{H})_T$。
+第一条等式来自拉回的交换性，第二条来自《空间的上同调》引理
+\ref{spaces-cohomology-lemma-affine-base-change}。因此 $u_T$ 与 $v_T$
+仍是伴随映射。故 $u_T = 0$ 当且仅当 $v_T = 0$，这证明了 (1)。
+在情形 (2) 中，$u_T$ 满射当且仅当 $v_T$ 满射，因为 $u_T$ 分解为
+$$
+\mathcal{F}_T \to
+i_{T, *}i_T^*\mathcal{F}_T \xrightarrow{i_{T, *}v_T} i_{T, *}\mathcal{H}_T
+$$
+并且 $i_{T, *}$ 是正合函子，把 $Z_T$ 上拟凝聚模范畴完全忠实地
+嵌入拟凝聚 $\mathcal{O}_{X_T}$-模范畴。见《空间的态射》引理
+\ref{spaces-morphisms-lemma-i-star-equivalence}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-relate-zero-affine-push}
+在情形 \ref{spaces-flat-situation-iso} 中，假设给定仿射态射
+$g : X \to X'$。置
+% P09-ERR-0830
+$u' = f_*u : f_*\mathcal{F} \to f_*\mathcal{G}$。那么
+$F_{u, iso} = F_{u', iso}$、$F_{u, inj} = F_{u', inj}$、
+$F_{u, surj} = F_{u', surj}$ 且 $F_{u, zero} = F_{u', zero}$。
+\end{lemma}
+
+\begin{proof}
+由《空间的上同调》引理
+\ref{spaces-cohomology-lemma-affine-base-change}，有
+$g_{T, *}u_T = u'_T$。此外，
+% P09-ERR-0831
+$g_{T, *} : \QCoh(\mathcal{O}_{X_T}) \to \QCoh(\mathcal{O}_X)$
+是忠实正合函子，并且反映同构、单射和满射。
+\end{proof}
+
+\begin{situation}
+\label{spaces-flat-situation-flat}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。对任意概形
+$T$（在 $Y$ 上），以 $\mathcal{F}_T$ 表示 $\mathcal{F}$ 到 $T$ 的基变换；
+换言之，$\mathcal{F}_T$ 是 $\mathcal{F}$ 经投影态射
+$X_T = X \times_Y T \to X$ 的拉回。由于平坦模的基变换仍平坦，
+得到函子
+\begin{equation}
+\label{spaces-flat-equation-flat}
+F_{flat} : (\Sch/Y)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longrightarrow \left\{
+\begin{matrix}
+\{*\} & \text{如果 } \mathcal{F}_T \text{ 平坦于 }T, \\
+\emptyset & \text{否则。}
+\end{matrix}
+\right.
+\end{equation}
+\end{situation}
+
+\noindent
+在情形 \ref{spaces-flat-situation-flat} 中，有时把 $F_{flat}$ 看作函子
+$(\Sch/S)^{opp} \to \textit{Sets}$，并赋有态射
+$F_{flat} \to Y$。具体地，如果 $T$ 是 $S$ 上概形，
+那么元素 $h \in F_{flat}(T)$ 是态射 $h : T \to Y$，使得
+$\mathcal{F}$ 经 $h$ 的基变换在 $T$ 上平坦。特别地，当我们说
+$F_{flat}$ 是代数空间时，是指相应函子
+$(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{spaces-flat-lemma-flat}
+在情形 \ref{spaces-flat-situation-flat} 中：
+\begin{enumerate}
+\item 函子 $F_{flat}$ 满足 fpqc 拓扑的层性质。
+\item 如果 $f$ 拟紧且局部有限表示，并且 $\mathcal{F}$ 有限表示，
+那么函子 $F_{flat}$ 保极限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) 由下述事实得到：如果 $T' \to T$ 是 $Y$ 上代数空间的
+满平坦态射，那么 $\mathcal{F}_{T'}$ 在 $T'$ 上平坦，当且仅当
+$\mathcal{F}_T$ 在 $T$ 上平坦；见《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-module-flat}。
+如果 $f$ 还拟分离（即 $f$ 有限表示），则 (2) 由《空间的极限》引理
+\ref{spaces-limits-lemma-descend-flat} 得出。一般情形下，先归约到基
+仿射的情形，再用有限多个仿射开覆盖 $X$，归约到拟分离情形。
+略去细节。
+\end{proof}
+
+
+\section{使映射为零}
+\label{spaces-flat-section-zero-map}
+
+\noindent
+本节在关于概形的对应章节中没有类似内容。
+
+\begin{situation}
+\label{spaces-flat-situation-somewhat-closed}
+设 $S = \Spec(R)$ 为仿射概形。设 $X$ 为 $S$ 上代数空间。
+设 $u : \mathcal{F} \to \mathcal{G}$ 为拟凝聚
+$\mathcal{O}_X$-模之间的映射。
+% P09-ERR-0833
+假设 $\mathcal{G}$ 在 $S$ 上平坦。
+\end{situation}
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-zero-somewhat-closed}
+在情形 \ref{spaces-flat-situation-somewhat-closed} 中，设 $T \to S$ 为概形的
+拟紧态射，并且基变换 $u_T$ 为零映射。
+% P09-ERR-0834
+那么存在闭子概形
+$Z \subset S$，使得 (a) $T \to S$ 分解经过 $Z$，且
+(b) 基变换 $u_Z$ 为零映射。
+如果 $\mathcal{F}$ 是有限型 $\mathcal{O}_X$-模，且
+$\mathcal{F}$ 的概形论支集拟紧，那么可以取 $Z \to S$ 为有限表示。
+\end{lemma}
+
+\begin{proof}
+设 $U \to X$ 为代数空间的满平展态射，其中
+$U = \coprod U_i$ 是仿射概形的不交并（见《空间的性质》引理
+\ref{spaces-properties-lemma-cover-by-union-affines}）。
+由引理 \ref{spaces-flat-lemma-iso-go-up}，可以把 $X$ 替换为 $U$。换言之，
+可以假设 $X = \coprod X_i$ 是仿射概形 $X_i$ 的不交并。
+假设对 $u_i = u|_{X_i}$ 可以证明本引理。于是得到闭子概形
+$Z_i \subset S$，使得 $T \to S$ 分解经过 $Z_i$，并且
+$u_{i, Z_i}$ 为零映射。如果
+$Z_i = \Spec(R/I_i) \subset \Spec(R) = S$，那么取
+$Z = \Spec(R/\sum I_i)$ 即可。因此可以假设
+$X = \Spec(A)$ 为仿射概形。
+
+\medskip\noindent
+选取有限仿射开覆盖 $T = T_1 \cup \ldots \cup T_m$。
+显然，可以把 $T$ 替换为 $\coprod_{j = 1, \ldots, m} T_j$。
+因此可以假设 $T$ 仿射，记 $T = \Spec(R')$。
+% P09-ERR-0835
+设 $u : M \to N$ 为 $A$-模同态，它对应于
+$u : \mathcal{F} \to \mathcal{G}$。
+于是 $N$ 是平坦 $R$-模，因为 $\mathcal{G}$ 在 $S$ 上平坦。
+引理的假设意味着映射
+$$
+M \otimes_R R' \to N \otimes_R R'
+$$
+为零。设 $z \in M$。由 Lazard 定理（《代数》定理
+\ref{algebra-theorem-lazard}）以及 $\otimes$ 与余极限交换这一事实，
+可以找到自由 $R$-模 $F_z$、元素 $\tilde z \in F_z$ 以及映射
+$F_z \to N$，使得 $u(z)$ 是 $\tilde z$ 的像，并且 $\tilde z$
+在 $F_z \otimes_R R'$ 中的像为零。选取一组基
+$\{e_{z, \alpha}\}$ 作为 $F_z$ 的基，并写成
+$\tilde z = \sum f_{z, \alpha} e_{z, \alpha}$，其中
+$f_{z, \alpha} \in R$。令 $I \subset R$ 为由元素
+$f_{z, \alpha}$ 生成的理想，其中 $z$ 遍历 $M$ 的所有元素。
+由构造，$I$ 在 $R'$ 中的像为零，而各元素 $\tilde z$ 在
+$F_z/IF_z$ 中、从而在 $N/IN$ 中的像为零。因此在这种情形下，
+$Z = \Spec(R/I)$ 是所求解答。
+
+\medskip\noindent
+假设 $\mathcal{F}$ 有限型，并且其概形论支集拟紧。写
+$Z = \Spec(R/I)$。把 $I = \bigcup I_\lambda$ 写成有限生成理想的
+滤过并。置 $Z_\lambda = \Spec(R/I_\lambda)$，于是
+% P09-ERR-0836
+$Z = \colim Z_\lambda$。由于 $u_Z$ 为零映射，由引理
+\ref{spaces-flat-lemma-iso-limits} 可知，$u_{Z_\lambda}$ 对某个 $\lambda$
+为零映射。这就完成了引理的证明。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-zero-module-map}
+设 $A$ 为环，设 $u : M \to N$ 为 $A$-模之间的映射。
+如果 $N$ 作为 $A$-模是投射的，那么存在理想 $I \subset A$，
+使得对任意环同态 $\varphi : A \to B$，下列条件等价：
+\begin{enumerate}
+\item $u \otimes 1 : M \otimes_A B \to N \otimes_A B$ 为零映射；
+\item $\varphi(I) = 0$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+由于 $N$ 投射，可以找到投射 $A$-模 $C$，使得
+% P09-ERR-0837
+$F = N \oplus C$ 是自由 $R$-模。把 $u$ 替换为
+% P09-ERR-0838
+$u \oplus 1 : F = M \oplus C \to N \oplus C$，
+可知可以假设 $N$ 自由。在此情形下，令 $I$ 为 $A$ 的理想：
+它由 $\Im(u)$ 中所有元素相对于 $N$ 的某组（固定）基的系数生成。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-zero-somewhat-closed-points}
+在情形 \ref{spaces-flat-situation-somewhat-closed} 中，设 $T \subset S$ 为子集，
+设 $s \in S$ 位于 $T$ 的闭包中。对 $t \in T$，令 $u_t$ 为 $u$
+在 $X_t$ 上的拉回，并令 $u_s$ 为 $u$ 在 $X_s$ 上的拉回。
+如果 $X$ 在 $S$ 上局部有限表示、$\mathcal{G}$ 有限表示\footnote{
+只要求 $X$ 在 $S$ 上局部有限型且 $\mathcal{G}$ 相对于 $S$
+有限表示便已足够，但在代数空间框架下尚未定义这一概念。
+关于概形的定义见《态射进阶》第
+\ref{more-morphisms-section-finite-type-finite-presentation} 节。}，
+并且都有 $u_t = 0$（对所有 $t \in T$），那么 $u_s = 0$。
+\end{lemma}
+
+\begin{proof}
+% P09-ERR-0839
+检验 $u_s$ 是否为零在纤维 $X_s$ 上是平展局部的。因此可以选取
+一点 $x \in |X_s| \subset |X|$，并在一个平展邻域中检验。选取
+$$
+\xymatrix{
+(X, x) \ar[d] & (X', x') \ar[l]^g \ar[d] \\
+(S, s) & (S', s') \ar[l]
+}
+$$
+如命题 \ref{spaces-flat-proposition-finite-presentation-flat-at-point} 中所示。
+令 $T' \subset S'$ 为 $T$ 的逆像。注意，$s'$ 位于 $T'$ 的闭包中，
+因为 $S' \to S$ 是开映射。因此归约到下一段所述的代数问题。
+
+\medskip\noindent
+有一个 $R$-模映射 $u : M \to N$，其中 $N$ 作为 $R$-模投射，
+并且映射
+$u_t : M \otimes_R \kappa(t) \to N \otimes_R \kappa(t)$
+对每个 $t \in T$ 都为零。问题是证明 $u_s = 0$。令 $I \subset R$
+为引理 \ref{spaces-flat-lemma-F-zero-module-map} 中定义的理想。那么 $I$ 在
+$\kappa(t)$ 中的像对所有 $t \in T$ 都为零。因此 $T \subset V(I)$。
+由于 $s$ 位于 $T$ 的闭包中，可知 $s \in V(I)$，故 $u_s = 0$。
+\end{proof}
+
+\noindent
+若能为引理 \ref{spaces-flat-lemma-F-zero-closed-pure} 或引理
+\ref{spaces-flat-lemma-F-zero-closed-proper} 找到一个“简单”的直接证明，
+并使用引理 \ref{spaces-flat-lemma-F-zero-somewhat-closed} 和
+\ref{spaces-flat-lemma-F-zero-somewhat-closed-points} 中所用的论证，
+将会很有意思。当 $f : X \to B$ 是投射态射且 $B$ 是诺特概形时，
+此引理的一个“经典”证明如下：(a) 选取相对丰沛可逆层
+$\mathcal{O}_X(1)$；(b) 置
+$u_n : f_*\mathcal{F}(n) \to f_*\mathcal{G}(n)$；
+(c) 注意，$f_*\mathcal{G}(n)$ 对所有 $n \gg 0$ 都是有限局部自由层；
+(d) $F_{zero}$ 由 $u_n$ 的零化轨迹表示，其中某个 $n \gg 0$。
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-zero-closed-pure}
+在情形 \ref{spaces-flat-situation-iso} 中，假设：
+\begin{enumerate}
+\item $f$ 有限表示；
+\item $\mathcal{G}$ 有限表示、在 $B$ 上平坦且相对于 $B$ 纯。
+\end{enumerate}
+那么 $F_{zero}$ 是代数空间，并且 $F_{zero} \to B$ 是闭浸入。
+如果 $\mathcal{F}$ 有限型，那么 $F_{zero} \to B$ 有限表示。
+\end{lemma}
+
+\begin{proof}
+由引理 \ref{spaces-flat-lemma-finite-type-flat-pure-is-universal}，模
+$\mathcal{G}$ 相对于 $B$ 普遍纯。为证明 $F_{zero}$ 是代数空间，
+只须说明 $F_{zero} \to B$ 可表；见《空间》引理
+\ref{spaces-lemma-representable-over-space}。设 $B' \to B$ 为态射，
+其中 $B'$ 是概形；设 $u' : \mathcal{F}' \to \mathcal{G}'$ 为 $u$
+在 $X' = X_{B'}$ 上的拉回。那么相应函子 $F'_{zero}$ 等于
+$F_{zero} \times_B B'$。这把问题归约到 $B$ 是概形的情形。
+
+\medskip\noindent
+假设 $B$ 是概形。我们将说明 $F_{zero}$ 可由 $B$ 的闭子概形表示。
+由引理 \ref{spaces-flat-lemma-iso-sheaf} 以及《下降》引理
+\ref{descent-lemma-closed-immersion} 和
+\ref{descent-lemma-descent-data-sheaves}，这个问题对于 $B$ 上的
+平展拓扑是局部的。设 $b \in B$。先把 $B$ 替换为 $b$ 的一个仿射邻域。
+选取图表
+$$
+\xymatrix{
+X \ar[d] & X' \ar[l]^g \ar[d] \\
+B & B' \ar[l]
+}
+$$
+以及 $b' \in B'$，它映到 $b \in B$，如引理
+\ref{spaces-flat-lemma-finite-presentation-flat-along-fibre} 中所示。
+由于我们在平展局部工作，可以把 $B$ 替换为 $B'$，并假设有图表
+$$
+\xymatrix{
+X \ar[rd] & & X' \ar[ll]^g \ar[ld] \\
+& B
+}
+$$
+其中 $B$ 和 $X'$ 都仿射，$\Gamma(X', g^*\mathcal{G})$ 是投射
+$\Gamma(B, \mathcal{O}_B)$-模，并且
+$g(|X'|) \supset |X_b|$。令 $U \subset X$ 为满足
+$|U| = g(|X'|)$ 的开子空间。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-relative-assassin-constructible}，集合
+$$
+E = \{t \in B : \text{Ass}_{X_t}(\mathcal{G}_t) \subset |U_t|\} =
+\{t \in B : \text{Ass}_{X/B}(\mathcal{G}) \cap |X_t| \subset |U_t|\}
+$$
+在 $B$ 中可构。由引理 \ref{spaces-flat-lemma-pure-on-top} 的 (2)，可知 $E$
+包含 $\Spec(\mathcal{O}_{B, b})$。再由《态射》引理
+\ref{morphisms-lemma-constructible-containing-open}，可知 $E$ 包含
+$b$ 的一个开邻域。因此把 $B$ 替换为 $b$ 的一个更小仿射邻域后，
+可以假设 $\text{Ass}_{X/B}(\mathcal{G}) \subset g(|X'|)$。
+
+\medskip\noindent
+由引理 \ref{spaces-flat-lemma-universally-separating} 可知，
+% P09-ERR-0840
+$u : \mathcal{F} \to \mathcal{G}$ 单射，当且仅当
+$g^*u : g^*\mathcal{F} \to g^*\mathcal{G}$ 单射；而且任意基变换后
+仍然如此。因此已归约到如下情形：除了
+% P09-ERR-0841
+定理中的假设外，$X \to B$ 还是仿射概形之间的态射，并且
+$\Gamma(X, \mathcal{G})$ 是投射
+$\Gamma(B, \mathcal{O}_B)$-模。此情形立即由引理
+\ref{spaces-flat-lemma-F-zero-module-map} 得出。
+
+\medskip\noindent
+还须说明：$F_{zero} \to B$ 在 $\mathcal{F}$ 有限型时有限表示。
+这由引理 \ref{spaces-flat-lemma-iso-limits} 与《空间的极限》命题
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}
+合并得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-zero-closed-proper}
+在情形 \ref{spaces-flat-situation-iso} 中，假设：
+\begin{enumerate}
+\item $f$ 局部有限表示；
+\item $\mathcal{G}$ 是有限表示的 $\mathcal{O}_X$-模，并且在
+$B$ 上平坦；
+\item $\mathcal{G}$ 的支集在 $B$ 上是固有的。
+\end{enumerate}
+那么函子 $F_{zero}$ 是代数空间，并且 $F_{zero} \to B$ 是闭浸入。
+如果 $\mathcal{F}$ 有限型，那么 $F_{zero} \to B$ 有限表示。
+\end{lemma}
+
+\begin{proof}
+如果 $f$ 有限表示，那么结论立即由引理
+\ref{spaces-flat-lemma-F-zero-closed-pure} 和 \ref{spaces-flat-lemma-proper-pure} 得出。
+这是唯一有意义的情形；我们建议读者跳过证明的其余部分。其余部分
+处理如下可能性（本引理的假设允许这一可能性）：$f$ 不拟分离或不拟紧。
+
+\medskip\noindent
+设 $i : Z \to X$ 为由 $\mathcal{G}$ 的第零 Fitting 理想截出的
+闭子空间（《空间上的除子》第
+\ref{spaces-divisors-section-fitting-ideals} 节）。由假设，$Z \to B$
+是固有的（见《空间的导出范畴》第
+\ref{spaces-perfect-section-proper-over-base} 节）。另一方面，$i$
+有限表示（《空间上的除子》引理
+\ref{spaces-divisors-lemma-fitting-ideal-of-finitely-presented} 以及
+《空间的态射》引理
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}）。
+存在有限型拟凝聚 $\mathcal{O}_Z$-模 $\mathcal{H}$，使得
+$i_*\mathcal{H} = \mathcal{G}$（《空间上的除子》引理
+\ref{spaces-divisors-lemma-on-subscheme-cut-out-by-Fit-0}）。事实上，
+由《代数》引理 \ref{algebra-lemma-finitely-presented-over-subring}，
+$\mathcal{H}$ 作为 $\mathcal{O}_Z$-模有限表示（略去细节）。
+于是 $F_{zero}$ 与函子 $F_{zero}$ 相同；后一个函子对应于映射
+$i^*\mathcal{F} \to \mathcal{H}$，该映射与 $u$ 伴随。见引理
+\ref{spaces-flat-lemma-relate-zero-affine}。层 $\mathcal{H}$ 相对于 $B$ 平坦，
+因为 $\mathcal{G}$ 具有同一性质（在茎上检验；略去细节）。此外，
+注意，如果 $\mathcal{F}$ 有限型，那么 $i^*\mathcal{F}$ 有限型。
+因此已把本引理归约到证明第一段讨论的情形。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{映射的平坦化}
+\label{spaces-flat-section-flattening-map}
+
+\noindent
+本节是《平坦性进阶》第 \ref{flat-section-flattening-map} 节的对应版本。
+特别地，下述结果是《平坦性进阶》定理
+\ref{flat-theorem-flattening-map} 的一个变体。
+
+\begin{theorem}
+\label{spaces-flat-theorem-flattening-map}
+在情形 \ref{spaces-flat-situation-iso} 中，假设：
+\begin{enumerate}
+\item $f$ 有限表示；
+\item $\mathcal{F}$ 有限表示、在 $B$ 上平坦且相对于 $B$ 纯；
+\item $u$ 满射。
+\end{enumerate}
+那么 $F_{iso}$ 可由闭浸入 $Z \to B$ 表示。此外，
+% P09-ERR-0842
+$Z \to S$ 在 $\mathcal{G}$ 有限表示时有限表示。
+\end{theorem}
+
+\begin{proof}
+令 $\mathcal{K} = \Ker(u)$，并以
+$v : \mathcal{K} \to \mathcal{F}$ 表示包含映射。由引理
+\ref{spaces-flat-lemma-relate-zero-iso}，有 $F_{u, iso} = F_{v, zero}$。
+把引理 \ref{spaces-flat-lemma-F-zero-closed-pure} 应用于 $v$，可知
+$F_{u, iso} = F_{v, zero}$ 可由 $B$ 的闭子空间表示。注意，
+$\mathcal{K}$ 在 $\mathcal{G}$ 有限表示时有限型；见《位形上的模》引理
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation}。
+% P09-ERR-0843
+因此也得到引理的最后一个断言。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-iso-closed}
+在情形 \ref{spaces-flat-situation-iso} 中，假设：
+\begin{enumerate}
+\item $f$ 局部有限表示；
+\item $\mathcal{F}$ 局部有限表示且在 $B$ 上平坦；
+\item $\mathcal{F}$ 的支集在 $B$ 上固有；
+\item $u$ 满射。
+\end{enumerate}
+那么函子 $F_{iso}$ 是代数空间，并且 $F_{iso} \to B$ 是闭浸入。
+如果 $\mathcal{G}$ 有限表示，那么 $F_{iso} \to B$ 有限表示。
+\end{lemma}
+
+\begin{proof}
+令 $\mathcal{K} = \Ker(u)$，并以
+$v : \mathcal{K} \to \mathcal{F}$ 表示包含映射。由引理
+\ref{spaces-flat-lemma-relate-zero-iso}，有 $F_{u, iso} = F_{v, zero}$。
+把引理 \ref{spaces-flat-lemma-F-zero-closed-proper} 应用于 $v$，可知
+$F_{u, iso} = F_{v, zero}$ 可由 $B$ 的闭子空间表示。注意，
+$\mathcal{K}$ 在 $\mathcal{G}$ 有限表示时有限型；见《位形上的模》引理
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation}。
+因此也得到引理的最后一个断言。
+\end{proof}
+
+\noindent
+讨论 Quot 函子时，我们将使用下述（容易的）结果。
+
+\begin{lemma}
+\label{spaces-flat-lemma-F-surj-open}
+在情形 \ref{spaces-flat-situation-iso} 中，假设：
+\begin{enumerate}
+\item $f$ 局部有限表示；
+\item $\mathcal{G}$ 有限型；
+\item $\mathcal{G}$ 的支集在 $B$ 上固有。
+\end{enumerate}
+那么 $F_{surj}$ 是代数空间，并且 $F_{surj} \to B$ 是开浸入。
+\end{lemma}
+
+\begin{proof}
+考虑 $\Coker(u)$。注意，$\Coker(u_T) = \Coker(u)_T$ 对任意
+$T/B$ 成立。有限型拟凝聚模的支集的形成与拉回交换
+（《空间的态射》引理 \ref{spaces-morphisms-lemma-support-covering}）。
+因此 $F_{surj}$ 可由 $B$ 的如下开子空间表示：它对应于开集
+$$
+|B| \setminus |f|(\text{Supp}(\Coker(u)))
+$$
+见《空间的性质》引理 \ref{spaces-properties-lemma-open-subspaces}。
+% P09-ERR-0844
+这是开集，因为 $|f|$ 在 $\text{Supp}(\mathcal{G})$ 上是闭映射，
+而 $\text{Supp}(\Coker(u))$ 是 $\text{Supp}(\mathcal{G})$ 的闭子集。
+\end{proof}
+
+
+
+
+
+
+\section{局部情形下的平坦化}
+\label{spaces-flat-section-flattening-local}
+
+\noindent
+本节是《平坦性进阶》第 \ref{flat-section-flattening-local} 节的对应版本。
+
+\begin{lemma}
+\label{spaces-flat-lemma-freebie}
+设 $S$ 是亨泽尔局部环的谱，其闭点为 $s$。设 $X \to S$ 为
+局部有限型的代数空间态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。设 $E \subset |X_s|$ 为子集。存在闭子概形
+$Z \subset S$，具有下述性质：对任意带点概形的态射
+$(T, t) \to (S, s)$，下列条件等价：
+\begin{enumerate}
+\item $\mathcal{F}_T$ 在 $T$ 上平坦，所指的是在 $|X_t|$ 中
+所有映到 $E \subset |X_s|$ 中一点的点处平坦；
+\item $\Spec(\mathcal{O}_{T, t}) \to S$ 分解经过 $Z$。
+\end{enumerate}
+此外，如果 $X \to S$ 局部有限表示、$\mathcal{F}$ 有限表示，
+并且 $E \subset |X_s|$ 闭且拟紧，那么 $Z \to S$ 有限表示。
+\end{lemma}
+
+\begin{proof}
+选取概形 $U$ 和平展态射 $\varphi : U \to X$。令
+$E' \subset |U_s|$ 为 $E$ 的逆像。如果 $E' \to E$ 满射，那么
+条件 (1) 等价于：$(\varphi^*\mathcal{F})_T$ 在 $T$ 上平坦，
+所指的是在 $|U_t|$ 中所有映到
+% P09-ERR-0845
+$E' \subset |U_t|$ 中一点的点处平坦。选取 $\varphi$ 为满射，
+% P09-ERR-0846
+我们便归约到概形的情形，即《平坦性进阶》引理
+\ref{flat-lemma-freebie}。如果 $E$ 闭且拟紧，那么可以选取 $U$ 仿射，
+使得 $E' \to E$ 满射。此时 $E'$ 闭且拟紧，最后一个断言由
+《平坦性进阶》引理 \ref{flat-lemma-freebie} 的最后一个断言得出。
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{普遍平坦化}
+\label{spaces-flat-section-flattening-final}
+
+\noindent
+本节是《平坦性进阶》第 \ref{flat-section-flattening-final} 节的对应版本。
+我们的主要目标是证明引理 \ref{spaces-flat-lemma-when-universal-flattening}。
+不过，我们没有看到直接从概形的对应结果推出这一结果的方法，
+因此必须在这里重新建立部分材料。但先给出一个定义。
+
+\begin{definition}
+\label{spaces-flat-definition-flattening}
+设 $S$ 为概形。设 $X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。我们称
+{\it $\mathcal{F}$ 的普遍平坦化存在}，如果情形
+\ref{spaces-flat-situation-flat} 中定义的函子 $F_{flat}$ 是代数空间。
+我们称{\it $X$ 的普遍平坦化存在}，如果
+$\mathcal{O}_X$ 的普遍平坦化存在。
+\end{definition}
+
+\noindent
+这有些不令人满意，因为我们不知道代数空间的每个单态射是否可表
+（《空间的态射进阶》第
+\ref{spaces-more-morphisms-section-monomorphisms} 节），所以此处的
+普遍平坦化定义与概形情形所用的定义并不一致。希望这永远不会引起混淆。
+
+\begin{lemma}
+\label{spaces-flat-lemma-pre-flat-dimension-n}
+设 $S$ 为概形。设 $f : X \to Y$ 为局部有限型的代数空间态射。
+设 $\mathcal{F}$ 为有限型拟凝聚 $\mathcal{O}_X$-模，设
+$n \geq 0$。下列条件等价：
+\begin{enumerate}
+\item 对某个交换图
+$$
+\xymatrix{
+U \ar[d]_\varphi \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其竖直箭头满且平展，$U$ 和 $V$ 为概形，并且层
+$\varphi^*\mathcal{F}$ 在 $V$ 上于维数 $\geq n$ 处平坦
+（《平坦性进阶》定义 \ref{flat-definition-flat-dimension-n}）；
+\item 对每个交换图
+$$
+\xymatrix{
+U \ar[d]_\varphi \ar[r] & V \ar[d] \\
+X \ar[r] & Y
+}
+$$
+其竖直箭头平展，$U$ 和 $V$ 为概形，并且层
+$\varphi^*\mathcal{F}$ 在 $V$ 上于维数 $\geq n$ 处平坦；
+\item 对任意 $x \in |X|$，若 $\mathcal{F}$ 在 $x$ 处不在 $Y$ 上
+平坦，则 $x/f(x)$ 的超越次数 $< n$（《空间的态射》定义
+\ref{spaces-morphisms-definition-dimension-fibre}）。
+\end{enumerate}
+如果这些条件成立，那么任意基变换 $Y' \to Y$ 后仍成立。
+\end{lemma}
+
+\begin{proof}
+假设有 (1) 中的图。由《平坦性进阶》引理
+\ref{flat-lemma-pre-flat-dimension-n} 中各条件的等价性，可知
+(1) 与 (3) 等价。而条件 (3) 由 $\varphi^*\mathcal{F}$ 继承；
+这对 (2) 中任意 $U \to V$ 都适用。因此再次使用概形情形的结果，
+可知 (3) 蕴含 (2)。概形情形的结果也蕴含关于基变换的断言。
+\end{proof}
+
+\begin{definition}
+\label{spaces-flat-definition-flat-dimension-n}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上局部有限型的
+代数空间态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。设 $n \geq 0$。如果引理
+\ref{spaces-flat-lemma-pre-flat-dimension-n} 中的等价条件成立，则称
+{\it $\mathcal{F}$ 在 $Y$ 上于维数 $\geq n$ 处平坦}。
+\end{definition}
+
+\begin{situation}
+\label{spaces-flat-situation-flat-dimension-n}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上局部有限型的
+代数空间态射。设 $\mathcal{F}$ 为有限型拟凝聚
+$\mathcal{O}_X$-模。对任意概形 $T$（在 $Y$ 上），以
+$\mathcal{F}_T$ 表示 $\mathcal{F}$ 到 $T$ 的基变换；换言之，
+$\mathcal{F}_T$ 是 $\mathcal{F}$ 经投影态射
+$X_T = X \times_Y T \to X$ 的拉回。注意，
+% P09-ERR-0847
+$f_T : X_T \to T$ 有限型，并且 $\mathcal{F}_T$ 是有限型
+$\mathcal{O}_{X_T}$-模（《空间的态射》引理
+\ref{spaces-morphisms-lemma-base-change-finite-type} 和
+《位形上的模》引理 \ref{sites-modules-lemma-local-pullback}）。
+设 $n \geq 0$。由定义 \ref{spaces-flat-definition-flat-dimension-n} 和引理
+\ref{spaces-flat-lemma-pre-flat-dimension-n}，得到函子
+\begin{equation}
+\label{spaces-flat-equation-flat-dimension-n}
+F_n : (\Sch/Y)^{opp} \longrightarrow \textit{Sets}, \quad
+T \longrightarrow \left\{
+\begin{matrix}
+\{*\} & \text{如果 }\mathcal{F}_T\text{ 对 }T\text{ 而言在 }\dim \geq n, \\
+\emptyset & \text{否则。}
+\end{matrix}
+\right.
+\end{equation}
+\end{situation}
+
+\noindent
+在情形 \ref{spaces-flat-situation-flat-dimension-n} 中，有时把 $F_n$ 看作函子
+$(\Sch/S)^{opp} \to \textit{Sets}$，并赋有态射 $F_n \to Y$。
+具体地，如果 $T$ 是 $S$ 上概形，那么元素 $h \in F_n(T)$ 是态射
+$h : T \to Y$，使得 $\mathcal{F}$ 经 $h$ 的基变换在 $T$ 上于
+$\dim \geq n$ 处平坦。特别地，当我们说 $F_n$ 是代数空间时，
+是指相应函子 $(\Sch/S)^{opp} \to \textit{Sets}$ 是代数空间。
+
+\begin{lemma}
+\label{spaces-flat-lemma-flat-dimension-n}
+在情形 \ref{spaces-flat-situation-flat-dimension-n} 中：
+\begin{enumerate}
+\item 函子 $F_n$ 满足 fpqc 拓扑的层性质。
+\item 如果 $f$ 拟紧且局部有限表示，并且 $\mathcal{F}$ 有限表示，
+那么函子 $F_n$ 保极限。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+证明 (1)。假设 $\{T_i \to T\}$ 是概形 $T$（在 $Y$ 上）的 fpqc 覆盖。
+须说明：如果 $F_n(T_i)$ 对所有 $i$ 都非空，那么 $F_n(T)$ 非空。
+选取引理 \ref{spaces-flat-lemma-pre-flat-dimension-n} 的 (1) 中的图。以 $F'_n$
+表示 $\varphi^*\mathcal{F}$ 和态射 $U \to V$ 所对应的函子。
+由《平坦性进阶》引理 \ref{flat-lemma-flat-dimension-n}，$F'_n$
+具有层性质。因此 $F_n$ 具有层性质，因为对 $T \to Y$，由引理
+\ref{spaces-flat-lemma-pre-flat-dimension-n} 有
+$F_n(T) = F'_n(V \times_Y T)$，并且
+$\{V \times_Y T_i \to V \times_Y T\}$ 是 fpqc 覆盖。
+
+\medskip\noindent
+证明 (2)。假设 $T = \lim_{i \in I} T_i$ 是仿射概形
+$T_i$（在 $Y$ 上）的滤过极限，并假设 $F_n(T)$ 非空。须说明
+$F_n(T_i)$ 对某个 $i$ 非空。选取引理 \ref{spaces-flat-lemma-pre-flat-dimension-n} 的 (1)
+中的图。固定 $i \in I$，并选取仿射开集
+$W_i \subset V \times_Y T_i$，它满射到 $T_i$。对 $i' \geq i$，
+令 $W_{i'}$ 为 $W_i$ 在 $V \times_Y T_{i'}$ 中的逆像；令
+$W \subset V \times_Y T$ 为 $W_i$ 的逆像。于是
+% P09-ERR-0848
+$W = \lim_{i' \geq i} W_i$ 是 $V$ 上仿射概形的滤过极限。
+再次由引理 \ref{spaces-flat-lemma-pre-flat-dimension-n}，只须说明
+$F'_n(W_{i'})$ 对某个 $i' \geq i$ 非空。但 $F'_n(W)$ 非空，因为假设
+$F_n(T) = F'_n(V \times_Y T)$ 非空。因此可以应用《平坦性进阶》引理
+\ref{flat-lemma-flat-dimension-n} 得出结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-localize-flat-dimension-n}
+在情形 \ref{spaces-flat-situation-flat-dimension-n} 中，设
+$h : X' \to X$ 为平展态射。置 $\mathcal{F}' = h^*\mathcal{F}$ 和
+$f' = f \circ h$。令 $F_n'$ 为与
+$(f' : X' \to Y, \mathcal{F}')$ 相联系的
+(\ref{spaces-flat-equation-flat-dimension-n})。那么 $F_n$ 是 $F_n'$ 的子函子；
+如果 $h(X') \supset \text{Ass}_{X/Y}(\mathcal{F})$，那么
+$F_n = F'_n$。
+\end{lemma}
+
+\begin{proof}
+选取引理 \ref{spaces-flat-lemma-pre-flat-dimension-n} 的 (1) 中的
+$U \to X$、$V \to Y$、$U \to V$。选取满平展态射
+$U' \to U \times_X X'$，其中 $U'$ 是概形。于是，对于由
+两个函子 $F_{U, n}$ 与 $F_{U', n}$，本引理成立；这两个函子由
+$U' \to U$ 和 $\mathcal{F}|_U$（在 $V$ 上）确定；见《平坦性进阶》引理
+\ref{flat-lemma-localize-flat-dimension-n}。另一方面，引理
+\ref{spaces-flat-lemma-pre-flat-dimension-n} 告诉我们：给定 $T \to Y$，有
+$F_n(T) = F_{U, n}(V \times_Y T)$ 以及
+$F'_n(T) = F_{U', n}(V \times_Y T)$。这证明了引理。
+\end{proof}
+
+\begin{theorem}
+\label{spaces-flat-theorem-flat-dimension-n-representable}
+在情形 \ref{spaces-flat-situation-flat-dimension-n} 中。进一步假设 $f$ 有限表示，
+$\mathcal{F}$ 是有限表示的 $\mathcal{O}_X$-模，并且
+$\mathcal{F}$ 相对于 $Y$ 纯。那么 $F_n$ 是代数空间，并且
+$F_n \to Y$ 是有限表示的单态射。
+\end{theorem}
+
+\begin{proof}
+由引理 \ref{spaces-flat-lemma-flat-dimension-n}，函子 $F_n$ 是 fppf 拓扑的层。
+因为 $F_n \to Y$ 是位点 $(\Sch/S)_{fppf}$ 上层的单态射，所以
+$\Delta : F_n \to F_n \times F_n$ 是对角态射
+$\Delta_Y : Y \to Y \times_S Y$ 的拉回。因此，$\Delta_Y$ 的可表性
+蕴含 $F_n$ 的同一性质。故只须证明：存在概形 $W$（在 $S$ 上）以及
+满平展态射 $W \to F_n$。
+
+\medskip\noindent
+为构造 $W \to F_n$，选取平展覆盖 $\{Y_i \to Y\}$，其中 $Y_i$
+是概形。令 $X_i = X \times_Y Y_i$，并令 $\mathcal{F}_i$ 为
+$\mathcal{F}$ 到 $X_i$ 的拉回。于是，或者由定义，或者由引理
+\ref{spaces-flat-lemma-quasi-finite-base-change}，$\mathcal{F}_i$ 相对于 $Y_i$ 纯。
+定理的其他假设也都保持。最后，$F_n$ 在 $Y_i$ 上的限制就是函子
+$F_n$；后者对应于 $X_i \to Y_i$ 和 $\mathcal{F}_i$。因此只须证明：
+给定定理陈述中的 $\mathcal{F}$ 和 $f : X \to Y$，其中 $Y$ 是概形，
+函子 $F_n$ 可由概形 $Z_n$ 表示，并且 $Z_n \to Y$ 是有限表示的
+单态射。
+
+\medskip\noindent
+注意，有限表示的单态射是分离且拟有限的（《态射》引理
+\ref{morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}）。
+因此，结合《下降》引理 \ref{descent-lemma-descent-data-sheaves}、
+《态射进阶》引理
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+% P09-ERR-0849
+以及《下降》引理 \ref{descent-lemma-descending-property-monomorphism} 和
+\ref{descent-lemma-descending-property-finite-presentation}，可知这个问题
+对于 $Y$ 上的平展拓扑是局部的。
+
+\medskip\noindent
+特别地，这一情形对于 $Y$ 上的 Zariski 拓扑是局部的，因而可以假设
+$Y$ 仿射。此时 $f$ 的纤维维数有上界，故可知 $F_n$ 在 $n$ 足够大时
+可表。因此可以对 $n$ 作降序归纳。假设已知 $F_{n + 1}$ 可由有限表示
+的单态射 $Z_{n + 1} \to Y$ 表示。考虑基变换
+$X_{n + 1} = Z_{n + 1} \times_Y X$，并令 $\mathcal{F}_{n + 1}$ 为
+$\mathcal{F}$ 到 $X_{n + 1}$ 的拉回。态射 $Z_{n + 1} \to Y$ 是有限
+表示的单态射，因而拟有限；故引理 \ref{spaces-flat-lemma-quasi-finite-base-change}
+蕴含 $\mathcal{F}_{n + 1}$ 相对于 $Z_{n + 1}$ 纯。因为 $F_n$ 是
+$F_{n + 1}$ 的子函子，所以为了对 $F_n$ 证明结果，只须对情形
+$\mathcal{F}_{n + 1}/X_{n + 1}/Z_{n + 1}$ 所对应的函子证明结果。
+这样便把问题归约为对 $F_n$ 证明结果，其中
+% P09-ERR-0850
+$Y_{n + 1} = Y$；换言之，可以假设
+$\mathcal{F}$ 于维数 $\geq n + 1$ 处在 $Y$ 上平坦。
+
+\medskip\noindent
+固定 $n$，并假设 $\mathcal{F}$ 于维数 $\geq n + 1$ 处在仿射概形
+$Y$ 上平坦。为完成证明，须说明 $F_n$ 可由有限表示的单态射
+% P09-ERR-0851
+$Z_n \to S$ 表示。由于这个问题对于 $Y$ 上的平展拓扑是局部的，
+只须说明：对每个 $y \in Y$，都存在平展邻域
+$(Y', y') \to (Y, y)$，使得基变换到 $Y'$ 后结果成立。因此，由引理
+\ref{spaces-flat-lemma-existence-complete}，可以假设存在平展态射
+$h_j : W_j \to X$，$j = 1, \ldots, m$，使得对每个 $j$，
+$\mathcal{F}_j/W_j/Y$ 在 $y$ 上都有完全逐层剥离，其中
+$\mathcal{F}_j$ 是 $\mathcal{F}$ 到 $W_j$ 的拉回，并且
+$|X_y| \subset \bigcup h_j(W_j)$。由于 $h_j$ 平展，由引理
+\ref{spaces-flat-lemma-pre-flat-dimension-n}，
+% P09-ERR-0852
+层 $\mathcal{F}_j$ 仍于维数 $\geq n + 1$ 处在 $Y$ 上平坦。
+置 $W = \bigcup h_j(W_j)$，这是 $X$ 的拟紧开集。由于
+$\mathcal{F}$ 沿 $X_y$ 纯，可知
+% P09-ERR-0853
+$$
+E = \{t \in |Y| : \text{Ass}_{X_t}(\mathcal{F}_t) \subset W \}.
+$$
+包含 $y$ 的所有一般化。由《空间上的除子》引理
+\ref{spaces-divisors-lemma-relative-assassin-constructible}，$E$ 是
+$Y$ 的可构子集。我们已经看到
+$\Spec(\mathcal{O}_{Y, y}) \subset E$。由《态射》引理
+\ref{morphisms-lemma-constructible-containing-open}，可知 $E$ 包含
+$y$ 的一个开邻域。因此缩小 $Y$ 后，可以假设
+% P09-ERR-0854
+$E = Y$。由引理 \ref{spaces-flat-lemma-localize-flat-dimension-n}，只须对函子
+$F_n$ 证明本引理；该函子与 $X = \coprod W_j$ 和
+$\mathcal{F} = \coprod \mathcal{F}_j$ 相联系。若 $F_{j, n}$ 表示 $W_j \to Y$ 和层
+$\mathcal{F}_j$ 所对应的函子，则 $F_n = \prod F_{j, n}$。因此只须证明
+每个 $F_{j, n}$ 都可由某个有限表示的单态射 $Z_{j, n} \to Y$ 表示，
+因为此时
+% P09-ERR-0855
+$$
+Z_n = Z_{1, n} \times_Y \ldots \times_Y Z_{m, n}
+$$
+这样便把定理归约到《平坦性进阶》引理
+\ref{flat-lemma-flat-dimension-n-representable} 所处理的特殊情形。
+\end{proof}
+
+\noindent
+于是终于得到所需结果。
+
+\begin{lemma}
+\label{spaces-flat-lemma-when-universal-flattening}
+设 $S$ 为概形。设 $f : X \to Y$ 为 $S$ 上代数空间之间的态射。
+设 $\mathcal{F}$ 为拟凝聚 $\mathcal{O}_X$-模。
+\begin{enumerate}
+\item 如果 $f$ 有限表示，$\mathcal{F}$ 是有限表示的
+$\mathcal{O}_X$-模，并且 $\mathcal{F}$ 相对于 $Y$ 纯，那么存在
+普遍平坦化 $Y' \to Y$，其对象是 $\mathcal{F}$。此外，$Y' \to Y$ 是有限表示
+的单态射。
+\item 如果 $f$ 有限表示，并且 $X$ 相对于 $Y$ 纯，那么存在普遍平坦化
+$Y' \to Y$，其对象是 $X$。此外，$Y' \to Y$ 是有限表示的单态射。
+\item 如果 $f$ 固有且有限表示，并且 $\mathcal{F}$ 是有限表示的
+$\mathcal{O}_X$-模，那么存在普遍平坦化 $Y' \to Y$，其对象是
+$\mathcal{F}$。此外，$Y' \to Y$ 是有限表示的单态射。
+\item 如果 $f$ 固有且有限表示，那么存在普遍平坦化 $Y' \to Y$，
+其对象是 $X$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+把定理 \ref{spaces-flat-theorem-flat-dimension-n-representable} 应用于
+$F_0 = F_{flat}$，再利用 $f$ 固有时 $\mathcal{F}$ 自动相对于基纯这一
+事实，便立即得到这些陈述；见引理 \ref{spaces-flat-lemma-proper-pure}。
+\end{proof}
+
+
+
+
+
+
+\section{Grothendieck 存在定理}
+\label{spaces-flat-section-existence}
+
+\noindent
+本节是《平坦性进阶》第 \ref{flat-section-existence} 节的对应版本，
+并继续《空间的态射进阶》第
+\ref{spaces-more-morphisms-section-existence-proper} 节的讨论。
+我们将在下述情形中工作。
+
+\begin{situation}
+\label{spaces-flat-situation-existence}
+这里有一个环的逆系统 $(A_n)$，其转移映射满且核局部幂零。置
+$A = \lim A_n$。有一个代数空间 $X$，它在 $A$ 上分离且有限表示。
+置 $X_n = X \times_{\Spec(A)} \Spec(A_n)$，并把它视为 $X$ 的闭子空间。
+进一步假设给定系统 $(\mathcal{F}_n, \varphi_n)$，其中
+$\mathcal{F}_n$ 是有限表示的 $\mathcal{O}_{X_n}$-模，在 $A_n$ 上平坦，
+其支撑在 $A_n$ 上固有，并且
+$$
+\varphi_n :
+\mathcal{F}_n \otimes_{\mathcal{O}_{X_n}} \mathcal{O}_{X_{n - 1}}
+\longrightarrow
+\mathcal{F}_{n - 1}
+$$
+是同构（这里采用《空间的态射》引理
+\ref{spaces-morphisms-lemma-i-star-equivalence} 中等价性所给出的记号）。
+\end{situation}
+
+\noindent
+我们的目标是考察能否找到拟凝聚层 $\mathcal{F}$（在 $X$ 上），使得
+$\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_{X_n}$
+对所有 $n$ 都成立。
+
+\begin{lemma}
+\label{spaces-flat-lemma-compute-what-it-should-be}
+在情形 \ref{spaces-flat-situation-existence} 中，考虑
+$$
+K = R\lim_{D_\QCoh(\mathcal{O}_X)}(\mathcal{F}_n) =
+DQ_X(R\lim_{D(\mathcal{O}_X)}\mathcal{F}_n)
+$$
+那么 $K$ 属于 $D^b_{\QCoh}(\mathcal{O}_X)$；事实上，$K$ 只有次数
+$\geq 0$ 的上同调层可能非零。
+\end{lemma}
+
+\begin{proof}
+这是《空间的导出范畴》例
+\ref{spaces-perfect-example-inverse-limit-quasi-coherent} 的特殊情形。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-compute-against-perfect}
+在情形 \ref{spaces-flat-situation-existence} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be} 所示。对任意完美对象 $E$（属于
+$D(\mathcal{O}_X)$），有：
+\begin{enumerate}
+\item $M = R\Gamma(X, K \otimes^\mathbf{L} E)$ 是 $D(A)$ 的完美对象，
+并且有典范同构
+$R\Gamma(X_n, \mathcal{F}_n \otimes^\mathbf{L} E|_{X_n}) =
+M \otimes_A^\mathbf{L} A_n$，它位于 $D(A_n)$ 中；
+\item $N = R\Hom_X(E, K)$ 是 $D(A)$ 的完美对象，并且有典范同构
+$R\Hom_{X_n}(E|_{X_n}, \mathcal{F}_n) = N \otimes_A^\mathbf{L} A_n$，
+它位于 $D(A_n)$ 中。
+\end{enumerate}
+两个陈述中的 $E|_{X_n}$ 都表示 $E$ 到 $X_n$ 的导出拉回。
+\end{lemma}
+
+\begin{proof}
+证明 (2)。记 $E_n = E|_{X_n}$，并置
+$N_n = R\Hom_{X_n}(E_n, \mathcal{F}_n)$。回顾
+$R\Hom_{X_n}(-, -)$ 等于 $R\Gamma(X_n, R\SheafHom(-, -))$；见
+《位形上的上同调》第 \ref{sites-cohomology-section-global-RHom} 节。
+因此，由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-base-change-RHom-perfect}，可知 $N_n$ 是
+$D(A_n)$ 的完美对象，其构造与基变换交换。故映射
+$N_n \otimes_{A_n}^\mathbf{L} A_{n - 1} \to N_{n - 1}$（由
+$\varphi_n$ 得到）都是同构。
+由《代数进阶》引理 \ref{more-algebra-lemma-Rlim-perfect-gives-perfect}，
+可知 $R\lim N_n$ 完美，并且把它基变换回 $A_n$ 即恢复 $N_n$。
+另一方面，三角范畴的正合函子
+$R\Hom_X(E, -) : D_\QCoh(\mathcal{O}_X) \to D(A)$ 与积交换，因而也与
+导出极限交换，所以
+$$
+R\Hom_X(E, K) =
+R\lim R\Hom_X(E, \mathcal{F}_n) =
+R\lim R\Hom_X(E_n, \mathcal{F}_n) =
+R\lim N_n
+$$
+这证明了 (2)。利用《位形上的上同调》引理
+\ref{sites-cohomology-lemma-dual-perfect-complex} 把 (1) 转化为 (2)，
+便可看出 (1) 成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-relative-pseudo-coherence}
+在情形 \ref{spaces-flat-situation-existence} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be} 所示。那么 $K$ 相对于 $A$ 伪凝聚。
+\end{lemma}
+
+\begin{proof}
+% P09-ERR-0856
+结合引理 \ref{spaces-flat-lemma-compute-against-perfect} 和《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-perfect-enough}，可知
+$R\Gamma(X, K \otimes^\mathbf{L} E)$ 是 $D(A)$ 中的伪凝聚对象；
+这对所有伪凝聚对象 $E$（属于 $D(\mathcal{O}_X)$）都成立。因此，
+本引理由《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-characterize-pseudo-coherent} 得出。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-compute-over-affine}
+在情形 \ref{spaces-flat-situation-existence} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be} 所示。对任意平展态射 $U \to X$，
+其中 $U$ 拟紧且拟分离，有
+$$
+R\Gamma(U, K) \otimes_A^\mathbf{L} A_n =
+R\Gamma(U_n, \mathcal{F}_n)
+$$
+这是 $D(A_n)$ 中的等式，其中 $U_n = U \times_X X_n$。
+\end{lemma}
+
+\begin{proof}
+固定 $n$。由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-computing-sections-as-colim}，存在完美复形系统
+$E_m$（在 $X$ 上），使得
+$R\Gamma(U, K) = \text{hocolim} R\Gamma(X, K \otimes^\mathbf{L} E_m)$。
+事实上，这个公式不只对 $K$ 成立，而且对
+$D_\QCoh(\mathcal{O}_X)$ 的每个对象都成立。把它应用于
+$\mathcal{F}_n$，得到
+\begin{align*}
+R\Gamma(U_n, \mathcal{F}_n)
+& =
+R\Gamma(U, \mathcal{F}_n) \\
+& =
+\text{hocolim}_m R\Gamma(X, \mathcal{F}_n \otimes^\mathbf{L} E_m) \\
+& =
+\text{hocolim}_m R\Gamma(X_n, \mathcal{F}_n \otimes^\mathbf{L} E_m|_{X_n})
+\end{align*}
+利用引理 \ref{spaces-flat-lemma-compute-against-perfect} 以及
+$- \otimes_A^\mathbf{L} A_n$ 与同伦余极限交换这一事实，便得到结果。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-finitely-presented}
+在情形 \ref{spaces-flat-situation-existence} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be} 所示。以 $X_0 \subset |X|$ 表示由
+位于 $\Spec(A_1) = \Spec(A_2) = \ldots$ 这个 $\Spec(A)$ 的闭子集上方
+的点组成的闭子集。存在开子空间 $W \subset X$，它包含 $X_0$，并使得
+\begin{enumerate}
+\item $H^i(K)|_W$ 为零，除非 $i = 0$；
+\item $\mathcal{F} = H^0(K)|_W$ 有限表示；
+\item $\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_{X_n}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+固定 $n \geq 1$。由构造，有典范映射 $K \to \mathcal{F}_n$（在
+$D_\QCoh(\mathcal{O}_X)$ 中），从而有拟凝聚层的典范映射
+$H^0(K) \to \mathcal{F}_n$。这说明了 (3) 的含义。
+
+\medskip\noindent
+设 $x \in X_0$ 为一点。我们将找出开邻域 $W$，它包含 $x$，并使 (1)、(2)、
+(3) 成立。由于 $X_0$ 拟紧，这将证明引理。设 $U \to X$ 为平展态射，
+其中 $U$ 仿射，且 $u \in U$ 映到 $x$。由于 $|U| \to |X|$ 是开映射，
+只须找出 $u$ 的开邻域（在 $U$ 中），使 (1)、(2)、(3) 成立。记
+$U = \Spec(B)$。选取满射 $P \to B$，其中 $P$ 在 $A$ 上光滑。
+由引理 \ref{spaces-flat-lemma-relative-pseudo-coherence} 和相对伪凝聚性的定义，
+存在上有界复形 $F^\bullet$，它由有限自由 $P$-模组成，并且表示
+% P09-ERR-0857
+$Ri_*K$；这里 $i : U \to \Spec(P)$ 是该表示所诱导的闭浸入。
+令 $M_n$ 为 $B$-模；它对应于 $\mathcal{F}_n|_U$。由引理
+\ref{spaces-flat-lemma-compute-over-affine}，
+$$
+H^i(F^\bullet \otimes_A A_n) =
+\left\{
+\begin{matrix}
+0 & \text{如果} & i \not = 0 \\
+M_n & \text{如果} & i = 0
+\end{matrix}
+\right.
+$$
+设 $i$ 为使 $F^i$ 非零的最大指标。如果 $i \leq 0$，那么 (1)、(2)、
+(3) 成立。否则 $i > 0$，而且映射
+$$
+F^{i - 1} \to F^i
+$$
+% P09-ERR-0858
+在点 $u$ 处的秩最大。因此，在 $u$ 的一个开邻域上（该邻域取在 $\Spec(P)$ 中），
+其秩最大。故把 $P$ 替换为一个主局部化后，可以假设所显示的映射满。
+由于 $F^i$ 有限自由，可以选取分裂 $F^{i - 1} = F' \oplus F^i$。
+于是可以把 $F^\bullet$ 替换为复形
+$$
+\ldots \to F^{i - 2} \to F' \to 0 \to \ldots
+$$
+再对 $i$ 作归纳即得结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-proper-support}
+在情形 \ref{spaces-flat-situation-existence} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be} 所示。设 $W \subset X$ 如引理
+\ref{spaces-flat-lemma-finitely-presented} 所示。置 $\mathcal{F} = H^0(K)|_W$。
+那么，必要时缩小开集 $W$ 后，$\mathcal{F}$ 的支撑在 $A$ 上固有。
+\end{lemma}
+
+\begin{proof}
+固定 $n \geq 1$。令 $I_n = \Ker(A \to A_n)$。由《代数进阶》引理
+\ref{more-algebra-lemma-limit-henselian}，对 $(A, I_n)$ 是 Hensel 的。
+令 $Z \subset W$ 为 $\mathcal{F}$ 的概形论支撑。由于 $\mathcal{F}$
+有限表示，这是闭子空间。由引理 \ref{spaces-flat-lemma-finitely-presented} 的 (3)，
+可知 $Z \times_{\Spec(A)} \Spec(A_n)$ 等于 $\mathcal{F}_n$ 的支撑，
+因而在
+% P09-ERR-0859
+$\Spec(A/I)$ 上固有。由《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-split-off-proper-part-henselian}，可以写成
+$Z = Z_1 \amalg Z_2$，其中 $Z_1, Z_2$ 在 $Z$ 中开且闭，$Z_1$ 在 $A$
+上固有，并且 $Z_1 \times_{\Spec(A)} \Spec(A/I_n)$ 等于
+$\mathcal{F}_n$ 的支撑。换言之，$|Z_2|$ 不与 $X_0$ 相交。因此把
+$W$ 替换为 $W \setminus Z_2$ 后，便得到引理。
+\end{proof}
+
+\begin{theorem}[Grothendieck 存在定理]
+\label{spaces-flat-theorem-existence}
+在情形 \ref{spaces-flat-situation-existence} 中，存在有限表示的
+$\mathcal{O}_X$-模 $\mathcal{F}$，它在 $A$ 上平坦，支撑在 $A$ 上固有，
+并且有
+$\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_{X_n}$；
+对所有 $n$，这些等式均与映射 $\varphi_n$ 相容。
+\end{theorem}
+
+\begin{proof}
+应用引理 \ref{spaces-flat-lemma-compute-what-it-should-be}、
+\ref{spaces-flat-lemma-compute-against-perfect}、
+\ref{spaces-flat-lemma-relative-pseudo-coherence}、
+\ref{spaces-flat-lemma-compute-over-affine}、
+\ref{spaces-flat-lemma-finitely-presented} 和
+\ref{spaces-flat-lemma-proper-support}，得到开子空间 $W \subset X$，它包含所有位于
+$\Spec(A_n)$ 上方的点，还得到有限表示的 $\mathcal{O}_W$-模
+$\mathcal{F}$，其支撑在 $A$ 上固有，并且有
+$\mathcal{F}_n = \mathcal{F} \otimes_{\mathcal{O}_W} \mathcal{O}_{X_n}$；
+这个等式对所有 $n \geq 1$ 成立。
+（这是有意义的，因为 $X_n \subset W$。）由引理
+\ref{spaces-flat-lemma-proper-pure}，可知 $\mathcal{F}$ 相对于 $\Spec(A)$ 普遍纯。
+由定理 \ref{spaces-flat-theorem-flat-dimension-n-representable}（解释见引理
+\ref{spaces-flat-lemma-when-universal-flattening}），存在普遍平坦化
+$S' \to \Spec(A)$，其所针对的模为 $\mathcal{F}$；此外，态射
+$S' \to \Spec(A)$ 是有限表示的单态射。
+特别地，$S'$ 是概形（这可由定理的证明得出；也可
+% P09-ERR-0860
+事后由《空间的态射》命题
+\ref{spaces-morphisms-proposition-locally-quasi-finite-separated-over-scheme}
+得出）。由于 $\mathcal{F}$ 到 $\Spec(A_n)$ 的基变换是
+$\mathcal{F}_n$，可知态射 $\Spec(A_n) \to \Spec(A)$（唯一地）分解经过
+$S'$；这对每个 $n$ 成立。由《平坦性进阶》引理
+\ref{flat-lemma-monomorphism-isomorphism}，可知 $S' = \Spec(A)$。
+这意味着 $\mathcal{F}$ 在 $A$ 上平坦。最后，令 $Z$ 为 $\mathcal{F}$ 的
+概形论支撑。由于这一支撑在 $\Spec(A)$ 上固有，态射 $Z \to X$ 是闭的。因此，
+推前 $(W \to X)_*\mathcal{F}$ 支撑在 $W$ 上，并具有全部所需性质。
+\end{proof}
+
+
+
+
+
+
+
+\section{Grothendieck 存在定理，再论}
+\label{spaces-flat-section-existence-derived}
+
+\noindent
+% P09-ERR-0861
+本节沿用第 \ref{spaces-flat-section-existence} 节中处理拟凝聚模的方法，
+证明导出范畴中的 Grothendieck 存在定理之对应形式。本节是《平坦性进阶》
+第 \ref{flat-section-existence-derived} 节对代数空间的对应形式。
+经典情形（对代数空间而言）见《空间的态射进阶》第
+\ref{spaces-more-morphisms-section-existence-proper} 节。我们将在下述情形中工作。
+
+\begin{situation}
+\label{spaces-flat-situation-existence-derived}
+这里有环的逆系统 $(A_n)$，其过渡映射为满射，且各核局部幂零。
+置 $A = \lim A_n$。我们有代数空间 $X$，它在 $A$ 上固有、平坦且有限表示。
+置 $X_n = X \times_{\Spec(A)} \Spec(A_n)$，并把它看作 $X$ 的闭子空间。
+再假设给定系统 $(K_n, \varphi_n)$，其中 $K_n$ 是
+$D(\mathcal{O}_{X_n})$ 的伪凝聚对象，而
+$$
+\varphi_n : K_n \longrightarrow K_{n - 1}
+$$
+是 $D(\mathcal{O}_{X_n})$ 中的映射，它诱导同构
+$K_n \otimes_{\mathcal{O}_{X_n}}^\mathbf{L} \mathcal{O}_{X_{n - 1}}
+\to K_{n - 1}$；该同构位于 $D(\mathcal{O}_{X_{n - 1}})$ 中。
+\end{situation}
+
+\noindent
+更精确地说，应当写成
+$\varphi_n : K_n \to Ri_{n - 1, *}K_{n - 1}$，
+其中 $i_{n - 1} : X_{n - 1} \to X_n$ 是包含态射；在这种记号下，
+条件是伴随映射 $Li_{n - 1}^*K_n \to K_{n - 1}$ 为同构。
+我们的目标是找出伪凝聚对象 $K \in D(\mathcal{O}_X)$，使得
+$K_n = K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_{X_n}$
+对所有 $n$ 成立（沿用同样的记号滥用）。
+
+\begin{lemma}
+\label{spaces-flat-lemma-compute-what-it-should-be-derived}
+在情形 \ref{spaces-flat-situation-existence-derived} 中，考虑
+$$
+K = R\lim_{D_\QCoh(\mathcal{O}_X)}(K_n) =
+DQ_X(R\lim_{D(\mathcal{O}_X)} K_n)
+$$
+那么 $K$ 属于 $D^-_{\QCoh}(\mathcal{O}_X)$。
+\end{lemma}
+
+\begin{proof}
+函子 $DQ_X$ 存在，因为 $X$ 拟紧且拟分离，见《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-better-coherator}。
+由于 $DQ_X$ 是右伴随，它与积交换，因而也与导出极限交换。
+这便给出引理陈述中的等式。
+
+\medskip\noindent
+由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-boundedness-better-coherator}，函子 $DQ_X$
+具有有界的上同调维数。因此，只须证明
+$R\lim K_n \in D^-(\mathcal{O}_X)$。为此，设 $U \to X$ 为平展态射，
+其中 $U$ 仿射。由《位形上的上同调》引理
+\ref{sites-cohomology-lemma-RGamma-commutes-with-Rlim}，有典范正合序列
+$$
+0 \to
+R^1\lim H^{m - 1}(U, K_n) \to H^m(U, R\lim K_n) \to
+\lim H^m(U, K_n) \to 0
+$$
+由于 $U$ 仿射，且 $K_n$ 伪凝聚（从而其上同调层拟凝聚，见
+《空间的导出范畴》引理 \ref{spaces-perfect-lemma-pseudo-coherent}），
+由《概形的导出范畴》引理 \ref{perfect-lemma-affine-compare-bounded}，有
+$H^m(U, K_n) = H^m(K_n)(U)$。因此，只须证明 $K_n$ 的上有界界限
+与 $n$ 无关。
+
+\medskip\noindent
+由于 $K_n$ 伪凝聚，有 $K_n \in D^-(\mathcal{O}_{X_n})$。
+% P09-ERR-0862
+假设 $a_n$ 是使 $H^{a_n}(K_n)$ 非零的最大整数。当然，
+$a_1 \leq a_2 \leq a_3 \leq \ldots$。注意，$H^{a_n}(K_n)$ 是有限表示的
+$\mathcal{O}_{X_n}$-模（《位形上的上同调》引理
+\ref{sites-cohomology-lemma-finite-cohomology}）。我们有
+$H^{a_n}(K_{n - 1}) =
+H^{a_n}(K_n) \otimes_{\mathcal{O}_{X_n}} \mathcal{O}_{X_{n - 1}}$。
+由于 $X_{n - 1} \to X_n$ 是加厚，由 Nakayama 引理（《代数》引理
+\ref{algebra-lemma-NAK}）可知，如果
+$H^{a_n}(K_n) \otimes_{\mathcal{O}_{X_n}} \mathcal{O}_{X_{n - 1}}$
+为零，那么 $H^{a_n}(K_n)$ 也为零（例如可在茎上检验；略去这一小细节）。
+% P09-ERR-0863
+所以 $a_{n - 1} = a_n$ 对所有 $n$ 都成立，结论随即成立。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-compute-against-perfect-derived}
+在情形 \ref{spaces-flat-situation-existence-derived} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be-derived} 所示。对任意完美对象
+$E$（属于 $D(\mathcal{O}_X)$），导出上同调对象
+$$
+M = R\Gamma(X, K \otimes^\mathbf{L} E)
+$$
+是 $D(A)$ 的伪凝聚对象，并且有典范同构
+$$
+R\Gamma(X_n, K_n \otimes^\mathbf{L} E|_{X_n}) = M \otimes_A^\mathbf{L} A_n
+$$
+这是 $D(A_n)$ 中的同构。这里 $E|_{X_n}$ 表示 $E$ 到 $X_n$ 的导出拉回。
+\end{lemma}
+
+\begin{proof}
+记 $E_n = E|_{X_n}$，并记
+$M_n = R\Gamma(X_n, K_n \otimes^\mathbf{L} E|_{X_n})$。
+由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-flat-proper-pseudo-coherent-direct-image-general}，
+可知 $M_n$ 是 $D(A_n)$ 的伪凝聚对象，且其构造与基变换交换。因此，映射
+$M_n \otimes_{A_n}^\mathbf{L} A_{n - 1} \to M_{n - 1}$
+（由 $\varphi_n$ 得到）都是同构。
+由《代数进阶》引理
+\ref{more-algebra-lemma-Rlim-pseudo-coherent-gives-pseudo-coherent}，
+可知 $R\lim M_n$ 伪凝聚，并且把它基变换回 $A_n$ 即恢复 $M_n$。
+另一方面，三角范畴的正合函子
+$R\Gamma(X, -) : D_\QCoh(\mathcal{O}_X) \to D(A)$ 与积交换，
+因而也与导出极限交换，所以
+$$
+R\Gamma(X, E \otimes^\mathbf{L} K) =
+R\lim R\Gamma(X,  E \otimes^\mathbf{L} K_n) =
+R\lim R\Gamma(X_n, E_n \otimes^\mathbf{L} K_n) =
+R\lim M_n
+$$
+这正是所需结论。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-relative-pseudo-coherence-derived}
+在情形 \ref{spaces-flat-situation-existence-derived} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be-derived} 所示。那么 $K$ 在 $X$ 上伪凝聚。
+\end{lemma}
+
+\begin{proof}
+% P09-ERR-0864
+结合引理 \ref{spaces-flat-lemma-compute-against-perfect-derived} 和《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-perfect-enough}，可知
+$R\Gamma(X, K \otimes^\mathbf{L} E)$ 是 $D(A)$ 中的伪凝聚对象；
+这对所有伪凝聚对象 $E$（属于 $D(\mathcal{O}_X)$）均成立。
+因此，由《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-characterize-pseudo-coherent}，
+可知 $K$ 相对于 $A$ 伪凝聚。
+% P09-ERR-0865
+由于 $X$ 在 $A$ 上平坦且有限表示，这等价于在 $X$ 上伪凝聚，见
+《空间的态射进阶》引理
+\ref{spaces-more-morphisms-lemma-relative-pseudo-coherent-is-moot}。
+\end{proof}
+
+\begin{lemma}
+\label{spaces-flat-lemma-compute-over-affine-derived}
+在情形 \ref{spaces-flat-situation-existence-derived} 中，设 $K$ 如引理
+\ref{spaces-flat-lemma-compute-what-it-should-be-derived} 所示。对任意平展态射
+$U \to X$，其中 $U$ 拟紧且拟分离，有
+$$
+R\Gamma(U, K) \otimes_A^\mathbf{L} A_n =
+R\Gamma(U_n, K_n)
+$$
+这是 $D(A_n)$ 中的等式，其中 $U_n = U \times_X X_n$。
+\end{lemma}
+
+\begin{proof}
+固定 $n$。由《空间的导出范畴》引理
+\ref{spaces-perfect-lemma-computing-sections-as-colim}，存在完美复形系统
+$E_m$（在 $X$ 上），使得
+$R\Gamma(U, K) = \text{hocolim} R\Gamma(X, K \otimes^\mathbf{L} E_m)$。
+事实上，这个公式不只对 $K$ 成立，而且对
+$D_\QCoh(\mathcal{O}_X)$ 的每个对象都成立。把它应用于 $K_n$，得到
+\begin{align*}
+R\Gamma(U_n, K_n)
+& =
+R\Gamma(U, K_n) \\
+& =
+\text{hocolim}_m R\Gamma(X, K_n \otimes^\mathbf{L} E_m) \\
+& =
+\text{hocolim}_m R\Gamma(X_n, K_n \otimes^\mathbf{L} E_m|_{X_n})
+\end{align*}
+利用引理 \ref{spaces-flat-lemma-compute-against-perfect-derived} 以及
+$- \otimes_A^\mathbf{L} A_n$ 与同伦余极限交换这一事实，便得到结果。
+\end{proof}
+
+\begin{theorem}[导出 Grothendieck 存在定理]
+\label{spaces-flat-theorem-existence-derived}
+在情形 \ref{spaces-flat-situation-existence-derived} 中，存在
+伪凝聚对象 $K$（属于 $D(\mathcal{O}_X)$），使得
+$K_n = K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_{X_n}$；
+对所有 $n$，这些等式均与映射 $\varphi_n$ 相容。
+\end{theorem}
+
+\begin{proof}
+应用引理 \ref{spaces-flat-lemma-compute-what-it-should-be-derived}、
+\ref{spaces-flat-lemma-compute-against-perfect-derived}、
+\ref{spaces-flat-lemma-relative-pseudo-coherence-derived}，得到
+伪凝聚对象 $K$（属于 $D(\mathcal{O}_X)$）。在引理
+\ref{spaces-flat-lemma-compute-over-affine-derived} 中选取仿射的 $U$，立即可知
+$K$ 的限制为 $K_n$（这里限制到 $X_n$）。
+\end{proof}
+
+\begin{remark}
+\label{spaces-flat-remark-correct-generality}
+本节的结果可以推广。很可能只须假设 $X \to \Spec(A)$ 分离且有限表示，
+并假设 $K_n$ 相对于 $A_n$ 伪凝聚，且支撑在 $X_n$ 的某个在 $A_n$ 上
+固有的闭子集上，结论便仍然正确。所得对象将是 $K$，它相对于 $A$
+伪凝聚，并支撑在某个在 $A$ 上固有的闭子集上。若今后需要这一结果，
+我们将在此给出精确陈述并加以证明。
+\end{remark}
