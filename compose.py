@@ -894,22 +894,76 @@ def main() -> None:
 
     for chapter in manifest["chapters"]:
         authority_path = verify_bound_file(chapter["authority"])
-        target_path = verify_bound_file(chapter["target"])
+        target_binding = chapter.get("replay_target", chapter["target"])
+        target_path = verify_bound_file(target_binding)
         intake_path = verify_bound_file(chapter["intake"])
-        verified_inputs.extend(
-            [
-                file_identity(authority_path),
-                file_identity(target_path),
-                file_identity(intake_path),
-            ]
-        )
+        chapter_inputs = [
+            file_identity(authority_path),
+            file_identity(target_path),
+            file_identity(intake_path),
+        ]
+        replay_receipt_identity: dict[str, object] | None = None
+        if "replay_target" in chapter:
+            replay_receipt_path = verify_bound_file(chapter["replay_receipt"])
+            replay_receipt_identity = file_identity(replay_receipt_path)
+            chapter_inputs.append(replay_receipt_identity)
+        verified_inputs.extend(chapter_inputs)
         source_text = target_path.read_text(encoding="utf-8")
-        transformed, report = transform_standalone(
-            source_text,
-            stem=chapter["stem"],
-            chapter=int(chapter["chapter"]),
-            expected_title=chapter["title"],
-        )
+        target_stage = str(chapter.get("target_stage", "locale_source"))
+        if target_stage == "locale_source":
+            transformed, report = transform_standalone(
+                source_text,
+                stem=chapter["stem"],
+                chapter=int(chapter["chapter"]),
+                expected_title=chapter["title"],
+            )
+        elif target_stage == "generated_standalone_chapter":
+            expected_prefix = (
+                f"% Generated mechanically from the frozen {chapter['stem']}.tex target.\n"
+                "% Do not edit this generated file; edit the bound locale source instead.\n"
+            )
+            if not source_text.startswith(expected_prefix):
+                raise RuntimeError(
+                    f"generated-stage freeze header drift in {chapter['stem']}"
+                )
+            counter_header = f"\\setcounter{{chapter}}{{{int(chapter['chapter']) - 1}}}"
+            chapter_header = f"\\chapter{{{chapter['title']}}}"
+            counter_offset = source_text.find(counter_header, len(expected_prefix), 1024)
+            chapter_offset = source_text.find(chapter_header, len(expected_prefix), 1024)
+            if counter_offset < 0 or chapter_offset <= counter_offset:
+                raise RuntimeError(
+                    f"generated-stage chapter counter/title drift in {chapter['stem']}"
+                )
+            transformed = source_text
+            transformed_labels = LABEL_RE.findall(transformed)
+            transformed_refs = REF_RE.findall(transformed)
+            if any(
+                not label.startswith(str(chapter["stem"]) + "-")
+                for label in transformed_labels
+            ):
+                raise RuntimeError(
+                    f"unprefixed label in generated-stage freeze {chapter['stem']}"
+                )
+            report = dict(chapter["historical_transform_report"])
+            if len(transformed_labels) != int(report["generated_labels"]):
+                raise RuntimeError(
+                    f"generated-stage label-count drift in {chapter['stem']}"
+                )
+            if len(transformed_refs) != int(report["generated_references"]):
+                raise RuntimeError(
+                    f"generated-stage reference-count drift in {chapter['stem']}"
+                )
+            report.update(
+                {
+                    "stem": chapter["stem"],
+                    "chapter": int(chapter["chapter"]),
+                    "title": chapter["title"],
+                }
+            )
+        else:
+            raise RuntimeError(
+                f"unsupported target stage in {chapter['stem']}: {target_stage}"
+            )
         destination = SRC / f"{chapter['stem']}.tex"
         write_text(destination, transformed)
         generated_paths.append(destination)
@@ -918,6 +972,13 @@ def main() -> None:
         all_label_counts.update(transformed_labels)
         all_references.update(REF_RE.findall(transformed))
         report["output"] = file_identity(destination)
+        report["logical_target"] = chapter.get(
+            "historical_logical_target", chapter["target"]
+        )
+        report["target_stage"] = target_stage
+        if "replay_target" in chapter:
+            report["replay_target"] = file_identity(target_path)
+            report["replay_receipt"] = replay_receipt_identity
         chapter_reports.append(report)
 
     generated_material = manifest.get("generated_material", {})
